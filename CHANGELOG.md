@@ -3,6 +3,11 @@
 ## Component Enhancements
 
 * `Table` now lets you add an `aria-describedby` prop.
+* `ConfigurableItemRow` is vertically centered correctly.
+
+## Pattern Enhancements
+
+* `ConfigurableItems` has `stickyFormFooter` enabled
 
 ## Draggable Ghost Row
 

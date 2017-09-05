@@ -122,6 +122,10 @@ describe('ConfigurableItemsPattern', () => {
           expect(dialogProps.title).toEqual('Configure Items');
         });
 
+        it('renders a dialog with stickyFormFooter prop set to true', () => {
+          expect(dialogProps.stickyFormFooter).toBeTruthy();
+        });
+
         it('includes the correct component, element and role data tags', () => {
           rootTagTest(wrapper, 'configurable-items-pattern', 'bar', 'baz');
         });
