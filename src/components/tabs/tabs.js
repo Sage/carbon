@@ -292,14 +292,68 @@ class Tabs extends React.Component {
       event.stopPropagation();
       if (Event.isEnterKey(event)) {
         this.updateVisibleTab(this.tabIds[index]);
-      } else if (Event.isLeftKey(event)) {
-        this.updateVisibleTab(this.tabIds[index - 1]);
-        this.focusTab(this[this.tabRefs[index - 1]]);
-      } else if (Event.isRightKey(event)) {
-        this.updateVisibleTab(this.tabIds[index + 1]);
-        this.focusTab(this[this.tabRefs[index + 1]]);
+      } else if (this.isVertical(this.props.position)) {
+        this.handleUpDownKeys(event, index);
+      } else {
+        this.handleLeftRightKeys(event, index);
       }
     };
+  }
+
+  /**
+   * Handles the keyboard navigation of tabs when responding to up/down arrow keys
+   *
+   * @method handleUpDownKeys
+   * @param {Object} event The onKeyDown event
+   * @param {Number} index Index of the current visible tab
+   */
+  handleUpDownKeys(event, index) {
+    if (Event.isUpKey(event)) {
+      this.focusPreviousTab(event, index);
+    } else if (Event.isDownKey(event)) {
+      this.focusNextTab(event, index);
+    }
+  }
+
+  /**
+   * Handles the keyboard navigation of tabs when responding to left/right arrow keys
+   *
+   * @method handleLeftRightKeys
+   * @param {Object} event The onKeyDown event
+   * @param {Number} index Index of the current visible tab
+   */
+  handleLeftRightKeys(event, index) {
+    if (Event.isLeftKey(event)) {
+      this.focusPreviousTab(event, index);
+    } else if (Event.isRightKey(event)) {
+      this.focusNextTab(event, index);
+    }
+  }
+
+  /**
+   * Focus the previous tab
+   *
+   * @method focusPreviousTab
+   * @param {Object} event The onKeyDown event
+   * @param {Number} index Index of the current visible tab
+   */
+  focusPreviousTab(event, index) {
+    event.preventDefault();
+    this.updateVisibleTab(this.tabIds[index - 1]);
+    this.focusTab(this[this.tabRefs[index - 1]]);
+  }
+
+  /**
+   * Focus the next tab
+   *
+   * @method focusNextTab
+   * @param {Object} event The onKeyDown event
+   * @param {Number} index Index of the current visible tab
+   */
+  focusNextTab(event, index) {
+    event.preventDefault();
+    this.updateVisibleTab(this.tabIds[index + 1]);
+    this.focusTab(this[this.tabRefs[index + 1]]);
   }
 
   /**
@@ -369,10 +423,22 @@ class Tabs extends React.Component {
 
   isTabSelected = tabId => tabId === this.state.selectedTabId;
 
+  /**
+   * The children nodes converted into an Array
+   *
+   * @method children
+   * @return {Array} Ordered array of children
+   */
   get children() {
     return compact(React.Children.toArray(this.props.children));
   }
 
+  /**
+   * Array of the tabIds for the child nodes
+   *
+   * @method tabIds
+   * @return {Array} Ordered array of tabIds for the child nodes
+   */
   get tabIds() {
     return this.children.map(child => child.props.tabId);
   }

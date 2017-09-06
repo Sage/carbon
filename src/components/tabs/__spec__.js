@@ -595,87 +595,184 @@ describe('Tabs', () => {
 
   describe('Keyboard navigation', () => {
     let wrapper, replaceSpy
-    beforeEach(() => {
-      wrapper = mount(
-        <Tabs>
-          <Tab tabId='tab1' title='Test 1' />
-          <Tab tabId='tab2' title='Test 2' />
-          <Tab tabId='tab3' title='Test 3' />
-        </Tabs>
-      );
-      replaceSpy = jest.fn(); //jasmine.createSpy('replaceState');
-      wrapper.instance()._window = {
-        history: {
-          replaceState: replaceSpy
-        },
-        location: {
-          origin: 'foo',
-          pathname: 'bar'
-        }
-      };
-    });
 
-    describe('when pressing the right arrow', () => {
-      it('can handle multiple presses and remains focused on the right most tab', () => {
-        wrapper.setState({ selectedTabId: "tab1" });
-        wrapper.find('.carbon-tabs__headers__header--selected').node.focus();
-        expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
-        wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-          'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
+    describe('when the orientation is horizontal', () => {
+      beforeEach(() => {
+        wrapper = mount(
+          <Tabs>
+            <Tab tabId='tab1' title='Test 1' />
+            <Tab tabId='tab2' title='Test 2' />
+            <Tab tabId='tab3' title='Test 3' />
+          </Tabs>
         );
-        expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
-        expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
-        wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-          'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
-        );
-        expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-        expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab3');
-        wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-          'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
-        );
-        expect(replaceSpy.mock.calls.length).toEqual(2);
-        expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
+        replaceSpy = jest.fn();
+        wrapper.instance()._window = {
+          history: {
+            replaceState: replaceSpy
+          },
+          location: {
+            origin: 'foo',
+            pathname: 'bar'
+          }
+        };
+      });
+
+      describe('when pressing the right arrow', () => {
+        it('can handle multiple presses and remains focused on the right most tab', () => {
+          wrapper.setState({ selectedTabId: "tab1" });
+          wrapper.find('.carbon-tabs__headers__header--selected').node.focus();
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
+          );
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
+          );
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab3');
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
+          );
+          expect(replaceSpy.mock.calls.length).toEqual(2);
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
+        });
+      });
+
+      describe('when pressing the left arrow', () => {
+        it('changes the url focuses on the adjacent left tab', () => {
+          wrapper.setState({ selectedTabId: "tab3" });
+          wrapper.find('.carbon-tabs__headers__header--selected').node.focus();
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
+          );
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
+          );
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab1');
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
+          );
+          expect(replaceSpy.mock.calls.length).toEqual(2);
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
+        });
+      });
+
+      describe('when pressing the enter key', () => {
+        it('changes url to the one currently selected', () => {
+          wrapper.setState({ selectedTabId: "tab2" });
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'Enter', which: 13, stopPropagation: () => {}}
+          );
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
+        });
+      });
+
+      describe('when pressing the up key', () => {
+        it('doesnt do anything', () => {
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'UpArrow', which: 38, stopPropagation: () => {}}
+          );
+          expect(replaceSpy).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('when pressing the down key', () => {
+        it('doesnt do anything', () => {
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'DownArrow', which: 40, stopPropagation: () => {}}
+          );
+          expect(replaceSpy).not.toHaveBeenCalled();
+        });
       });
     });
 
-    describe('when pressing the left arrow', () => {
-      it('changes the url focuses on the adjacent left tab', () => {
-        wrapper.setState({ selectedTabId: "tab3" });
-        wrapper.find('.carbon-tabs__headers__header--selected').node.focus();
-        expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-        wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-          'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
+    describe('when the orientation is vertical', () => {
+      beforeEach(() => {
+        wrapper = mount(
+          <Tabs position='left'>
+            <Tab tabId='tab1' title='Test 1' />
+            <Tab tabId='tab2' title='Test 2' />
+            <Tab tabId='tab3' title='Test 3' />
+          </Tabs>
         );
-        expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
-        expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
-        wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-          'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
-        );
-        expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab1');
-        wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-          'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
-        );
-        expect(replaceSpy.mock.calls.length).toEqual(2);
-        expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
+        replaceSpy = jest.fn();
+        wrapper.instance()._window = {
+          history: {
+            replaceState: replaceSpy
+          },
+          location: {
+            origin: 'foo',
+            pathname: 'bar'
+          }
+        };
       });
-    });
 
-    describe('when pressing the enter key', () => {
-      it('changes url to the one currently selected', () => {
-        wrapper.setState({ selectedTabId: "tab2" });
-        wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-          'keyDown', { key: 'Enter', which: 13, stopPropagation: () => {}}
-        );
-        expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
+      describe('when pressing the down arrow', () => {
+        it('can handle multiple presses and remains focused on the bottom most tab', () => {
+          wrapper.setState({ selectedTabId: "tab1" });
+          wrapper.find('.carbon-tabs__headers__header--selected').node.focus();
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {}}
+          );
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {}}
+          );
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab3');
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {}}
+          );
+          expect(replaceSpy.mock.calls.length).toEqual(2);
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
+        });
       });
-    });
 
-    describe('when pressing an unregistered key', () => {
-      it('doesnt do anything', () => {
-        wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-          'keyDown', { key: 'UpArrow', which: 38, stopPropagation: () => {}}
-        );
-        expect(replaceSpy).not.toHaveBeenCalled();
+      describe('when pressing the up arrow', () => {
+        it('changes the url focuses on the adjacent above tab', () => {
+          wrapper.setState({ selectedTabId: "tab3" });
+          wrapper.find('.carbon-tabs__headers__header--selected').node.focus();
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {}}
+          );
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {}}
+          );
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab1');
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {}}
+          );
+          expect(replaceSpy.mock.calls.length).toEqual(2);
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
+        });
+      });
+
+      describe('when pressing the left key', () => {
+        it('doesnt do anything', () => {
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'LeftArrow', which: 37, stopPropagation: () => {}}
+          );
+          expect(replaceSpy).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('when pressing the right key', () => {
+        it('doesnt do anything', () => {
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'RightArrow', which: 39, stopPropagation: () => {}}
+          );
+          expect(replaceSpy).not.toHaveBeenCalled();
+        });
       });
     });
   });
