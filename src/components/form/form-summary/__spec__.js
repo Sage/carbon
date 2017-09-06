@@ -69,8 +69,8 @@ describe('<FormSummary />', () => {
     });
 
     it('renders with a default and invalid class', () => {
-      expect(wrapper.hasClass('carbon-form-save')).toBeTruthy();
-      expect(wrapper.hasClass('carbon-form-save--invalid')).toBeTruthy();
+      expect(wrapper.hasClass('carbon-form-summary')).toBeTruthy();
+      expect(wrapper.hasClass('carbon-form-summary--invalid')).toBeTruthy();
     });
   });
 
