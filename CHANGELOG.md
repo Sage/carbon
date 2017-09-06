@@ -4,6 +4,7 @@
 
 * `Table` now lets you add an `aria-describedby` prop.
 * `ConfigurableItemRow` is vertically centered correctly.
+* `AnimatedMenuButton` uses the native `<button>` instead of a div for the close button.
 
 ## Pattern Enhancements
 
