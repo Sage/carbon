@@ -72,6 +72,12 @@ New invocation:
 * The Date Picker library has changed from react-date-picker to react-day-picker as the old library is no longer maintained.
 * This will effect the `Date` and `DateRange` components but functionally they have remained the same.
 
+# 1.5.3
+
+## Bug Fixes
+
+* `FormSummary`: negative margin solves problem where FormSummary is effecting its sibling component's position [#1523](https://github.com/Sage/carbon/issues/1523)
+
 # 1.5.2
 
 ## Bug Fixes
