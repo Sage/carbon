@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import { compact } from 'lodash';
@@ -269,19 +270,46 @@ class Tabs extends React.Component {
   }
 
   /**
-   * Handles the changing of tabs
+   * Handles the changing of tabs with the mouse
    *
    * @method handleTabClick
    * @param {Event} ev Click Event
    */
   handleTabClick = (ev) => {
-    if (Event.isEnterKey(ev) || !Event.isEventType(ev, 'keydown')) {
-      const tabid = ev.target.dataset.tabid;
-      this.updateVisibleTab(tabid);
-    }
+    if (Event.isEventType(ev, 'keydown')) { return; }
+    const tabid = ev.target.dataset.tabid;
+    this.updateVisibleTab(tabid);
   }
 
+  /**
+   * Handles the keyboard navigation of tabs
+   *
+   * @method handleKeyDown
+   * @param {Number} index Index of the tab
+   */
+  handleKeyDown = (index) => {
+    return (event) => {
+      event.stopPropagation();
+      if (Event.isEnterKey(event)) {
+        this.updateVisibleTab(this.tabIds[index]);
+      } else if (Event.isLeftKey(event)) {
+        this.updateVisibleTab(this.tabIds[index - 1]);
+        this.focusTab(this[this.tabRefs[index - 1]]);
+      } else if (Event.isRightKey(event)) {
+        this.updateVisibleTab(this.tabIds[index + 1]);
+        this.focusTab(this[this.tabRefs[index + 1]]);
+      }
+    };
+  }
+
+  /**
+   * Updates the currently visible tab
+   *
+   * @method updateVisibleTab
+   * @param {Number} tabid The id of the tab
+   */
   updateVisibleTab(tabid) {
+    if (!tabid) { return; }
     const url = `${this._window.location.origin}${this._window.location.pathname}#${tabid}`;
     this._window.history.replaceState(null, 'change-tab', url);
 
@@ -290,6 +318,17 @@ class Tabs extends React.Component {
     if (this.props.onTabChange) {
       this.props.onTabChange(tabid);
     }
+  }
+
+  /**
+   * Focuses the tab for the reference specified
+   *
+   * @method focusTab
+   * @param {Object}
+   */
+  focusTab(ref) {
+    const domNode = ReactDOM.findDOMNode(ref); // eslint-disable-line react/no-find-dom-node
+    if (domNode) { domNode.focus(); }
   }
 
   /**
@@ -330,6 +369,14 @@ class Tabs extends React.Component {
 
   isTabSelected = tabId => tabId === this.state.selectedTabId;
 
+  get children() {
+    return compact(React.Children.toArray(this.props.children));
+  }
+
+  get tabIds() {
+    return this.children.map(child => child.props.tabId);
+  }
+
   /**
    * Build the headers for the tab component
    *
@@ -337,7 +384,10 @@ class Tabs extends React.Component {
    * @return Unordered list of tab titles
    */
   get tabHeaders() {
-    const tabTitles = compact(React.Children.toArray(this.props.children)).map((child) => {
+    this.tabRefs = [];
+    const tabTitles = this.children.map((child, index) => {
+      const ref = `${child.props.tabId}-tab`;
+      this.tabRefs.push(ref);
       return (
         <li
           aria-selected={ this.isTabSelected(child.props.tabId) }
@@ -346,8 +396,8 @@ class Tabs extends React.Component {
           data-tabid={ child.props.tabId }
           key={ child.props.tabId }
           onClick={ this.handleTabClick }
-          onKeyDown={ this.handleTabClick }
-          ref={ `${child.props.tabId}-tab` }
+          onKeyDown={ this.handleKeyDown(index) }
+          ref={ (node) => { this[ref] = node; } }
           role='tab'
           tabIndex={ this.isTabSelected(child.props.tabId) ? '0' : '-1' }
         >
