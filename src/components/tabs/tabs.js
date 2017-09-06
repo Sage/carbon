@@ -339,8 +339,10 @@ class Tabs extends React.Component {
    */
   focusPreviousTab(event, index) {
     event.preventDefault();
-    this.updateVisibleTab(this.tabIds[index - 1]);
-    this.focusTab(this[this.tabRefs[index - 1]]);
+    const previousTabId = this.tabIds[index - 1] || this.tabIds[this.tabIds.length - 1];
+    const previousRef = this.tabRefs[index - 1] || this.tabRefs[this.tabRefs.length - 1];
+    this.updateVisibleTab(previousTabId);
+    this.focusTab(this[previousRef]);
   }
 
   /**
@@ -352,8 +354,10 @@ class Tabs extends React.Component {
    */
   focusNextTab(event, index) {
     event.preventDefault();
-    this.updateVisibleTab(this.tabIds[index + 1]);
-    this.focusTab(this[this.tabRefs[index + 1]]);
+    const nextTabId = this.tabIds[index + 1] || this.tabIds[0];
+    const nextRef = this.tabRefs[index + 1] || this.tabRefs[0];
+    this.updateVisibleTab(nextTabId);
+    this.focusTab(this[nextRef]);
   }
 
   /**

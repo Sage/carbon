@@ -21,7 +21,7 @@ class Tab extends React.Component {
      * @type {Boolean}
      *
      */
-    'aria-expanded': PropTypes.bool.isRequired,
+    'aria-expanded': PropTypes.bool,
 
     /**
      * The id of the corresponding control that must be activated to show the tab
@@ -30,7 +30,7 @@ class Tab extends React.Component {
      * @type {String}
      *
      */
-    'aria-labelledby': PropTypes.string.isRequired,
+    'aria-labelledby': PropTypes.string,
 
     /**
      * The role of the component
