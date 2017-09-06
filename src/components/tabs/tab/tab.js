@@ -15,6 +15,42 @@ class Tab extends React.Component {
 
   static propTypes = {
     /**
+     * Is the tab expanded or not
+     *
+     * @property aria-expanded
+     * @type {Boolean}
+     *
+     */
+    'aria-expanded': PropTypes.bool.isRequired,
+
+    /**
+     * The id of the corresponding control that must be activated to show the tab
+     *
+     * @property aria-expanded
+     * @type {String}
+     *
+     */
+    'aria-labelledby': PropTypes.string.isRequired,
+
+    /**
+     * The role of the component
+     *
+     * @property role
+     * @type {String}
+     *
+     */
+    role: PropTypes.string,
+
+    /**
+     * The tabIndex of the component
+     *
+     * @property tabIndex
+     * @type {Number}
+     *
+     */
+    tabIndex: PropTypes.number,
+
+    /**
      * Visible title in tabs header
      * Consumed within tabs component
      *
@@ -52,7 +88,8 @@ class Tab extends React.Component {
 
   static defaultProps = {
     className: '',
-    children: null
+    children: null,
+    role: 'tabPanel'
   }
 
   static contextTypes = {
@@ -157,7 +194,13 @@ class Tab extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div
+        aria-expanded={ this.props['aria-expanded'] }
+        aria-labelledby={ this.props['aria-labelledby'] }
+        className={ this.mainClasses }
+        role={ this.props.role }
+        tabIndex={ this.props.tabIndex }
+      >
         { this.props.children }
       </div>
     );

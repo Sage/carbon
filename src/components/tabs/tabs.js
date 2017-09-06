@@ -394,6 +394,7 @@ class Tabs extends React.Component {
           className={ this.tabHeaderClasses(child) }
           data-element='select-tab'
           data-tabid={ child.props.tabId }
+          id={ ref }
           key={ child.props.tabId }
           onClick={ this.handleTabClick }
           onKeyDown={ this.handleKeyDown(index) }
@@ -422,7 +423,7 @@ class Tabs extends React.Component {
   get visibleTab() {
     let visibleTab;
 
-    compact(React.Children.toArray(this.props.children)).forEach((child) => {
+    this.children.forEach((child) => {
       if (this.isTabSelected(child.props.tabId)) {
         visibleTab = child;
       }
@@ -440,17 +441,21 @@ class Tabs extends React.Component {
   get tabs() {
     if (!this.props.renderHiddenTabs) { return this.visibleTab; }
 
-    const tabs = compact(React.Children.toArray(this.props.children)).map((child) => {
+    const tabs = this.children.map((child, index) => {
       let klass = 'hidden';
       const selected = this.isTabSelected(child.props.tabId);
       if (selected) {
         klass = 'carbon-tab--selected';
       }
 
-      return React.cloneElement(
-        child,
-        { className: klass, role: 'tabPanel', tabIndex: selected ? '0' : '-1' }
-      );
+      const props = {
+        'aria-expanded': selected,
+        'aria-labelledby': this.tabRefs[index],
+        className: klass,
+        role: 'tabPanel'
+      };
+      if (selected) { props.tabIndex = 0; }
+      return React.cloneElement(child, props);
     });
 
     return tabs;
