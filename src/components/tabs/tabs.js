@@ -408,7 +408,7 @@ class Tabs extends React.Component {
     });
 
     return (
-      <ul className={ this.tabsHeaderClasses() } role='tablist'>
+      <ul className={ this.tabsHeaderClasses() } role='tablist' aria-orientation={ this.ariaOrientation() }>
         { tabTitles }
       </ul>
     );
@@ -459,6 +459,15 @@ class Tabs extends React.Component {
     });
 
     return tabs;
+  }
+
+  isVertical(position) {
+    return position === 'left';
+  }
+
+  ariaOrientation() {
+    if (this.isVertical(this.props.position)) { return 'vertical'; }
+    return null;
   }
 
   /**

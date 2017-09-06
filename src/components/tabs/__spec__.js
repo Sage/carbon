@@ -336,6 +336,10 @@ describe('Tabs', () => {
           </Tabs>);
 
         expect(instance.mainClasses).toEqual('carbon-tabs carbon-tabs__position-left');
+        const tablist = TestUtils.findRenderedDOMComponentWithClass(
+          instance, 'carbon-tabs__headers'
+        );
+        expect(tablist.getAttribute('aria-orientation')).toEqual('vertical');
       });
     });
   });
