@@ -38,18 +38,6 @@ describe('Store', () => {
       });
     });
 
-    describe('legacy - dispatcher as a third arg', () => {
-      it('uses the custom dispatcher and gives warning', () => {
-        spyOn(Logger, 'deprecate');
-        const dispatcher = new Flux.Dispatcher();
-        spyOn(dispatcher, 'register').and.returnValue('foo');
-        instance = new Store('foo', {}, dispatcher);
-        expect(dispatcher.register).toHaveBeenCalledWith(instance.dispatcherCallback);
-        expect(instance.dispatchToken).toEqual('foo');
-        expect(Logger.deprecate).toHaveBeenCalledWith("foo: The 'connect' function will no longer support the Dispatcher as it's third argument. If you want to use the Dispatcher provided by Carbon then you can just remove this argument, however if you want to provide your own Dispatcher you will need to set it as an option of the third argument of the connect function (eg. connect(Component, Store, { dispatcher: CustomDispatcher }))", { group: 'connect' });
-      });
-    });
-
     it('sets history to an array with init data', () => {
       instance = new Store('foo', { foo: 'bar' });
       expect(instance.history).toEqual([{ foo: 'bar' }]);
