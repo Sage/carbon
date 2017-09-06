@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
-import ReactShallowRenderer from 'react-test-renderer/shallow';
 import i18n from 'i18n-js';
 import I18n from './i18n.js';
 import { shallow } from 'enzyme';
@@ -10,11 +9,6 @@ import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-spec
 describe('I18n', () => {
 
   describe('render', () => {
-    let shallowRenderer;
-
-    beforeEach(() => {
-      shallowRenderer = new ReactShallowRenderer();
-    });
 
     describe('without markdown', () => {
 
@@ -22,73 +16,45 @@ describe('I18n', () => {
         spyOn(i18n, 't').and.returnValue('bar');
       });
 
-      it('when component is rendered with only a key', () => {
-
-        shallowRenderer.render(
-          <I18n scope='foo' />
-        );
-
-        const output = shallowRenderer.getRenderOutput();
-        expect(output.type).toEqual('span');
-        expect(output.props.children).toEqual('bar');
+      describe('when component is rendered with only a key', () => {
+        it('renders the value of that key in a span', () => {
+          let wrapper = shallow(<I18n scope='foo' />);
+          expect(wrapper).toMatchSnapshot();
+        });
       });
 
-      it('when component is rendered with inline set to false', () => {
-
-        shallowRenderer.render(
-          <I18n scope='foo' inline={ false } />
-        );
-
-        const output = shallowRenderer.getRenderOutput();
-        expect(output.type).toEqual('div');
-        expect(output.props.children).toEqual('bar');
+      describe('when component is rendered with inline set to false', () => {
+        it('renders the value of the key in a div', () => {
+          let wrapper = shallow(<I18n scope='foo' inline={ false }/>);
+          expect(wrapper).toMatchSnapshot();
+        });
       });
     });
 
     describe('with markdown', () => {
-
-      it('when component is rendered inline', () => {
-
-        spyOn(i18n, 't').and.returnValue('something __bold__');
-
-        shallowRenderer.render(
-          <I18n scope='foo' markdown={ true }/>
-        );
-
-        const output = shallowRenderer.getRenderOutput();
-        expect(output.type).toEqual('span');
-        expect(output.props.dangerouslySetInnerHTML).toEqual({
-          __html: 'something <strong>bold</strong>'
+      describe('when component is rendered inline', () => {
+        it('renders the parsed markdown in a span', () => {
+          spyOn(i18n, 't').and.returnValue('something __bold__');
+          let wrapper = shallow(<I18n scope='foo' markdown={ true } />);
+          expect(wrapper).toMatchSnapshot();
         });
       });
 
-      it('when component is rendered as a block', () => {
-
-        spyOn(i18n, 't').and.returnValue('something __bold__');
-
-        shallowRenderer.render(
-          <I18n scope='foo' markdown={ true } inline={ false } />
-        );
-
-        const output = shallowRenderer.getRenderOutput();
-        expect(output.type).toEqual('div');
-        expect(output.props.dangerouslySetInnerHTML).toEqual({
-          __html: '<p>something <strong>bold</strong></p>\n'
+      describe('when component is rendered as a block', () => {
+        it('renders the parsed markdown in a div', () => {
+          spyOn(i18n, 't').and.returnValue('something __bold__');
+          let wrapper = shallow(
+            <I18n scope='foo' markdown={ true } inline={ false } />
+          );
+          expect(wrapper).toMatchSnapshot();
         });
       })
 
-      it('when component is rendered with html in the value', () => {
-
-        spyOn(i18n, 't').and.returnValue('some <span>html</span>');
-
-        shallowRenderer.render(
-          <I18n scope='foo' markdown={ true } />
-        );
-
-        const output = shallowRenderer.getRenderOutput();
-        expect(output.type).toEqual('span');
-        expect(output.props.dangerouslySetInnerHTML).toEqual({
-          __html: 'some &lt;span&gt;html&lt;/span&gt;'
+      describe('when component is rendered with html in the value', () => {
+        it('parses the html correctly', () => {
+          spyOn(i18n, 't').and.returnValue('some <span>html</span>');
+          let wrapper = shallow(<I18n scope='foo' markdown={ true } />);
+          expect(wrapper).toMatchSnapshot();
         });
       });
     });
