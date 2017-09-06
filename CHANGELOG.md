@@ -1,3 +1,9 @@
+# 1.6.1
+
+## Yarn support
+
+Dependencies can now be managed using [Yarn](https://yarnpkg.com)
+
 # 1.6.0
 
 ## Component Enhancements
