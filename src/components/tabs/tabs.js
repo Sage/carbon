@@ -289,73 +289,39 @@ class Tabs extends React.Component {
    */
   handleKeyDown = (index) => {
     return (event) => {
-      event.stopPropagation();
-      if (Event.isEnterKey(event)) {
-        this.updateVisibleTab(this.tabIds[index]);
-      } else if (this.isVertical(this.props.position)) {
-        this.handleUpDownKeys(event, index);
-      } else {
-        this.handleLeftRightKeys(event, index);
+      const isVertical = this.isVertical(this.props.position);
+      const isUp = isVertical && Event.isUpKey(event);
+      const isDown = isVertical && Event.isDownKey(event);
+      const isLeft = !isVertical && Event.isLeftKey(event);
+      const isRight = !isVertical && Event.isRightKey(event);
+
+      if (isUp || isLeft) {
+        this.goToTab(event, index - 1);
+      } else if (isDown || isRight) {
+        this.goToTab(event, index + 1);
       }
     };
   }
 
   /**
-   * Handles the keyboard navigation of tabs when responding to up/down arrow keys
+   * Will trigger the tab at the given index.
    *
-   * @method handleUpDownKeys
-   * @param {Object} event The onKeyDown event
-   * @param {Number} index Index of the current visible tab
+   * @method goToTab
+   * @param {Integer}
+   * @return {Void}
    */
-  handleUpDownKeys(event, index) {
-    if (Event.isUpKey(event)) {
-      this.focusPreviousTab(event, index);
-    } else if (Event.isDownKey(event)) {
-      this.focusNextTab(event, index);
-    }
-  }
-
-  /**
-   * Handles the keyboard navigation of tabs when responding to left/right arrow keys
-   *
-   * @method handleLeftRightKeys
-   * @param {Object} event The onKeyDown event
-   * @param {Number} index Index of the current visible tab
-   */
-  handleLeftRightKeys(event, index) {
-    if (Event.isLeftKey(event)) {
-      this.focusPreviousTab(event, index);
-    } else if (Event.isRightKey(event)) {
-      this.focusNextTab(event, index);
-    }
-  }
-
-  /**
-   * Focus the previous tab
-   *
-   * @method focusPreviousTab
-   * @param {Object} event The onKeyDown event
-   * @param {Number} index Index of the current visible tab
-   */
-  focusPreviousTab(event, index) {
+  goToTab(event, index) {
     event.preventDefault();
-    const previousTabId = this.tabIds[index - 1] || this.tabIds[this.tabIds.length - 1];
-    const previousRef = this.tabRefs[index - 1] || this.tabRefs[this.tabRefs.length - 1];
-    this.updateVisibleTab(previousTabId);
-    this.focusTab(this[previousRef]);
-  }
+    let newIndex = index;
 
-  /**
-   * Focus the next tab
-   *
-   * @method focusNextTab
-   * @param {Object} event The onKeyDown event
-   * @param {Number} index Index of the current visible tab
-   */
-  focusNextTab(event, index) {
-    event.preventDefault();
-    const nextTabId = this.tabIds[index + 1] || this.tabIds[0];
-    const nextRef = this.tabRefs[index + 1] || this.tabRefs[0];
+    if (index < 0) {
+      newIndex = this.tabIds.length - 1;
+    } else if (index === this.tabIds.length) {
+      newIndex = 0;
+    }
+
+    const nextTabId = this.tabIds[newIndex];
+    const nextRef = this.tabRefs[newIndex];
     this.updateVisibleTab(nextTabId);
     this.focusTab(this[nextRef]);
   }
@@ -367,7 +333,6 @@ class Tabs extends React.Component {
    * @param {Number} tabid The id of the tab
    */
   updateVisibleTab(tabid) {
-    if (!tabid) { return; }
     const url = `${this._window.location.origin}${this._window.location.pathname}#${tabid}`;
     this._window.history.replaceState(null, 'change-tab', url);
 
@@ -386,7 +351,7 @@ class Tabs extends React.Component {
    */
   focusTab(ref) {
     const domNode = ReactDOM.findDOMNode(ref); // eslint-disable-line react/no-find-dom-node
-    if (domNode) { domNode.focus(); }
+    domNode.focus();
   }
 
   /**
@@ -402,6 +367,12 @@ class Tabs extends React.Component {
     );
   }
 
+  /**
+   * Generates the HTML classes for the tabs header.
+   *
+   * @method tabHeaderClasses
+   * @return {String}
+   */
   tabsHeaderClasses = () => {
     return classNames(
       'carbon-tabs__headers',
@@ -410,6 +381,13 @@ class Tabs extends React.Component {
     );
   }
 
+  /**
+   * Generates the HTML classes for the given tab.
+   *
+   * @method tabHeaderClasses
+   * @param {Node}
+   * @return {String}
+   */
   tabHeaderClasses = (tab) => {
     const tabHasError = this.state.tabValidity.get(tab.props.tabId) === false,
         tabHasWarning = this.state.tabWarning.get(tab.props.tabId) === true && !tabHasError;
@@ -425,6 +403,13 @@ class Tabs extends React.Component {
     );
   }
 
+  /**
+   * Returns true/false for if the given tab id is selected.
+   *
+   * @method isTabSelected
+   * @param {String}
+   * @return {Boolean}
+   */
   isTabSelected = tabId => tabId === this.state.selectedTabId;
 
   /**
@@ -478,7 +463,10 @@ class Tabs extends React.Component {
     });
 
     return (
-      <ul className={ this.tabsHeaderClasses() } role='tablist' aria-orientation={ this.ariaOrientation() }>
+      <ul
+        className={ this.tabsHeaderClasses() }
+        role='tablist'
+      >
         { tabTitles }
       </ul>
     );
@@ -524,20 +512,22 @@ class Tabs extends React.Component {
         className: klass,
         role: 'tabPanel'
       };
-      if (selected) { props.tabIndex = 0; }
+
       return React.cloneElement(child, props);
     });
 
     return tabs;
   }
 
+  /**
+   * Determines if the tab titles are in a vertical format.
+   *
+   * @method isVertical
+   * @param {String} position
+   * @return {Boolean}
+   */
   isVertical(position) {
     return position === 'left';
-  }
-
-  ariaOrientation() {
-    if (this.isVertical(this.props.position)) { return 'vertical'; }
-    return null;
   }
 
   /**

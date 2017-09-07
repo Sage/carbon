@@ -42,15 +42,6 @@ class Tab extends React.Component {
     role: PropTypes.string,
 
     /**
-     * The tabIndex of the component
-     *
-     * @property tabIndex
-     * @type {Number}
-     *
-     */
-    tabIndex: PropTypes.number,
-
-    /**
      * Visible title in tabs header
      * Consumed within tabs component
      *
@@ -199,7 +190,6 @@ class Tab extends React.Component {
         aria-labelledby={ this.props['aria-labelledby'] }
         className={ this.mainClasses }
         role={ this.props.role }
-        tabIndex={ this.props.tabIndex }
       >
         { this.props.children }
       </div>

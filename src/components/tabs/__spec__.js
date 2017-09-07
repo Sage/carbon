@@ -336,10 +336,6 @@ describe('Tabs', () => {
           </Tabs>);
 
         expect(instance.mainClasses).toEqual('carbon-tabs carbon-tabs__position-left');
-        const tablist = TestUtils.findRenderedDOMComponentWithClass(
-          instance, 'carbon-tabs__headers'
-        );
-        expect(tablist.getAttribute('aria-orientation')).toEqual('vertical');
       });
     });
   });
@@ -659,16 +655,6 @@ describe('Tabs', () => {
           );
           expect(replaceSpy.mock.calls.length).toEqual(3);
           expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-        });
-      });
-
-      describe('when pressing the enter key', () => {
-        it('changes url to the one currently selected', () => {
-          wrapper.setState({ selectedTabId: "tab2" });
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-            'keyDown', { key: 'Enter', which: 13, stopPropagation: () => {}}
-          );
-          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
         });
       });
 
