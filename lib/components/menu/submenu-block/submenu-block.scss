@@ -1,0 +1,24 @@
+@import "./../../../style-config/colors";
+
+.carbon-submenu-block {
+  padding:  0 !important;
+
+  .carbon-menu--primary & {
+    background-color: $grey-dark-blue-10;
+  }
+
+  .carbon-menu--secondary & {
+    background-color: $grey-dark-blue-90;
+  }
+
+  .carbon-menu-item.carbon-link__anchor,
+  .carbon-menu-item {
+    .carbon-menu--primary & {
+      background-color: $grey-dark-blue-10;
+    }
+
+    .carbon-menu--secondary & {
+      background-color: $grey-dark-blue-90;
+    }
+  }
+}

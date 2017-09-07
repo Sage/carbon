@@ -1,0 +1,194 @@
+@import "./../../../style-config/colors";
+@import "./../../../style-config/mixins";
+@import "./../../../style-config/z-index";
+
+.carbon-menu-item.carbon-link__anchor,
+.carbon-menu-item {
+  display: inline-block;
+  height: 40px;
+  padding: 0 12px;
+  position: relative;
+  font-size: 13px;
+  font-weight: 700;
+
+  &:focus {
+    z-index: 1;
+  }
+
+  .carbon-menu--primary & {
+    background-color: $white;
+    color: $grey-dark-blue;
+
+    &.carbon-link__anchor:hover {
+      cursor: initial;
+
+      .carbon-link__content {
+        text-decoration: none;
+      }
+    }
+
+    .carbon-menu-item__submenu .carbon-menu-item--has-link:hover {
+      cursor: pointer;
+      color: $blue-bright;
+    }
+
+    &:after {
+      @include transition(all 200ms);
+      content: "";
+      position: absolute;
+      height: 0;
+      background-color: transparent;
+      bottom: 0;
+      left: 0%;
+      right: 0%;
+    }
+
+    &:hover:after {
+      background-color: $blue-bright;
+      height: 3px;
+      left: 0% !important;
+      right: 0% !important;
+    }
+
+    &.carbon-menu-item--selected:after {
+      left: 10px;
+      right: 10px;
+      background-color: $green-bright;
+      height: 3px;
+    }
+  }
+
+  .carbon-menu--secondary & {
+    background-color: $grey-dark-blue;
+    color: $white;
+
+    &.carbon-link__anchor:hover {
+      cursor: initial;
+
+      .carbon-link__content {
+        text-decoration: none;
+      }
+    }
+
+    &.carbon-menu-item--has-link:hover {
+      cursor: pointer;
+      color: $green-bright-dull;
+    }
+  }
+
+  .carbon-menu-item:after {
+    display: none;
+  }
+}
+
+.carbon-menu-item--has-submenu {
+  padding: 0;
+
+  &:before {
+    pointer-events: none;
+    right: 12px;
+    top: 50%;
+    margin-top: -2px;
+    position: absolute;
+    z-index: 2;
+
+    .carbon-menu--primary & {
+      @include arrow("down", 4px, $grey-dark-blue);
+    }
+
+    .carbon-menu--secondary & {
+      @include arrow("down", 4px, $white);
+    }
+  }
+
+  &:hover .carbon-menu-item__submenu {
+    display: block;
+  }
+}
+
+.carbon-menu-item__submenu {
+  border-radius: 0 0 5px 5px;
+  box-shadow: 0 4px 8px rgba($black, 0.2);
+  display: none;
+  min-width: 100%;
+  padding: 0 0 5px;
+  position: absolute;
+  z-index: $z-dropdown-list;
+
+  .carbon-menu--primary & {
+    background-color: $white;
+    padding-top: 5px;
+
+    .carbon-menu-item--selected {
+      color: $green-bright-dull;
+    }
+  }
+
+  .carbon-menu--secondary & {
+    background-color: $grey-dark-blue;
+  }
+
+  &:before {
+    content: "";
+    height: 5px;
+    position: absolute;
+    top: -5px;
+    width: 100%;
+
+    .carbon-menu--primary & {
+      background-color: transparent;
+    }
+
+    .carbon-menu--secondary & {
+      background-color: $grey-dark-blue;
+    }
+  }
+
+  > *:not(.carbon-menu-item) {
+    padding: 0 12px;
+  }
+
+  .carbon-menu-item {
+    display: block;
+    height: 30px;
+    line-height: 30px;
+    white-space: nowrap;
+
+    .carbon-menu--primary & {
+      background-color: $white;
+    }
+
+    .carbon-menu--secondary & {
+      background-color: $grey-dark-blue;
+    }
+  }
+}
+
+.carbon-menu-item__submenu--left {
+  right: 0;
+}
+
+.carbon-menu-item__submenu-title.carbon-link__anchor {
+  padding-right: 26px;
+}
+
+.carbon-menu-item--divide {
+  margin-top: 10px;
+
+  &:before {
+    content: "";
+    height: 1px;
+    left: 12px;
+    right: 12px;
+    top: -5px;
+    position: absolute;
+
+    .carbon-menu--primary & {
+      background-color: $grey-dark-blue;
+    }
+
+    .carbon-menu--secondary & {
+      background-color: $grey-dark-blue-50;
+    }
+  }
+}

@@ -1,0 +1,4 @@
+{
+  "main": "./button-toggle.js",
+  "style": "./button-toggle.scss"
+}

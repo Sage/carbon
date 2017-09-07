@@ -1,0 +1,4 @@
+{
+  "main": "./color-option.js",
+  "style": "color-option.scss"
+}

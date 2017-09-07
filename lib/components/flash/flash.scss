@@ -1,0 +1,153 @@
+@import "./../../style-config/colors";
+@import "./../../style-config/general";
+@import "./../../style-config/z-index";
+
+.carbon-flash {
+  bottom: 0px;
+  overflow: hidden;
+  position: fixed;
+  right: 0;
+  text-align: center;
+  width: 100%;
+  z-index: $z-flash;
+
+  // span added by CSSTransitionGroup
+  > span {
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+  }
+}
+
+.carbon-flash__link {
+  color: $white;
+
+  &:hover {
+    color: $white;
+  }
+}
+
+.carbon-flash__slider {
+  content: 'h';
+  display: inline-block;
+  font-size: 13px;
+  height: 100%;
+  left: 0;
+  line-height: 18px;
+  position: absolute;
+  right: 0;
+
+  @mixin flash-theme($type, $color, $border, $background, $color-hover) {
+    .carbon-flash--#{$type} & {
+      background-color: $color;
+    }
+  }
+
+  @each $set in $colorIconSets {
+    @include flash-theme($set...);
+  }
+}
+
+.carbon-flash__content {
+  background-color: transparent ;
+  margin: 0 auto;
+  max-width: $app-max-width;
+  min-width: $app-width;
+  position: relative;
+}
+
+.carbon-flash__message {
+  color: $white;
+  font-size: 14px;
+  margin: 20px 70px;
+  position: relative;
+  text-align: left;
+}
+
+.carbon-flash__icon {
+  display: flex;
+  left: 0;
+  position: absolute;
+  width: 70px;
+
+  &:before {
+    color: $white;
+    font-size: 16px;
+    margin: auto;
+  }
+}
+
+.carbon-flash__icon {
+  .carbon-icon__svg {
+    height: 16px;
+    margin: auto;
+    width: 16px;
+  }
+
+  .carbon-icon__svg-group {
+    fill: $white;
+  }
+}
+
+.carbon-flash__close {
+  color: #FFF;
+  cursor: pointer;
+  display: flex;
+  outline: none;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 70px;
+  &:before {
+    font-size: 16px;
+    margin: auto;
+  }
+}
+
+/**
+ * Animation for slider
+ */
+
+.carbon-flash__slider-enter {
+  left: 50%;
+  opacity: 0;
+  right: 50%;
+}
+
+.carbon-flash__slider-enter-active {
+  left: 0%;
+  opacity: 1;
+  right: 0%;
+  transition: 500ms ease 100ms;
+}
+
+.carbon-flash__slider-leave {
+  opacity: 1;
+}
+
+.carbon-flash__slider-leave-active  {
+  opacity: 0;
+  transition: 500ms ease 100ms;
+}
+
+/**
+ * Animation for content inside slider
+ */
+
+.carbon-flash__content-enter {
+  opacity: 0;
+}
+
+.carbon-flash__content-enter-active {
+  opacity: 1;
+  transition: 400ms ease 400ms;
+}
+
+.carbon-flash__content-leave {
+  opacity: 1;
+}
+
+.carbon-flash__content-leave-active  {
+  opacity: 0;
+  transition: 400ms ease-out 100ms;
+}

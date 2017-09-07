@@ -1,0 +1,4 @@
+{
+  "main": "./create.js",
+  "style": "./create.scss"
+}

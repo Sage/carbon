@@ -1,0 +1,9 @@
+{
+  "main": "./css.js",
+  "style": "css.scss",
+  "fonts": [
+    "fonts/Lato-Semibold.ttf",
+    "fonts/Lato-Semibold.woff",
+    "fonts/Lato-Semibold.woff2"
+  ]
+}

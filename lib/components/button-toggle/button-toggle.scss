@@ -1,0 +1,72 @@
+@import "./../../style-config/colors";
+@import "./../../style-config/buttons";
+@import "./../../style-config/input-field";
+@import "./../../style-config/mixins";
+
+.carbon-button-toggle {
+  display: inline-block;
+
+  + .carbon-button-toggle {
+    margin-left: 10px;
+  }
+}
+
+.carbon-button-toggle__label {
+  background-color: white;
+  border-radius: $carbon-button__border-radius;
+  border: 1px solid $grey-dark-blue-20;
+  color: $grey-dark-blue;
+  cursor: pointer;
+  display: inline-block;
+  font-weight: 900;
+  padding: 15px 25px;
+  text-align: center;
+
+  &:hover {
+    background-color: $azul;
+    border-color: $azul;
+    color: white;
+  }
+}
+
+.carbon-button-toggle__label--disabled,
+.carbon-button-toggle__label--disabled:hover {
+  background-color: $carbon-button__background-color--disabled !important;
+  color: $carbon-button__color--disabled !important;
+  cursor: initial;
+}
+
+.carbon-button-toggle__input {
+  @include visually-hidden();
+
+  &:focus:not(:checked) + label {
+    @include input-outline($input-active-border-color);
+  }
+}
+
+.carbon-button-toggle__input:checked ~ .carbon-button-toggle__label {
+  background-color: $blue-sky;
+  border-color: $blue-sky-20;
+  color: $white;
+}
+
+.carbon-button-toggle__button-icon {
+  display: inline-block;
+  top: -2px;
+  margin-right: 3px;
+  position: relative;
+}
+
+.carbon-button-toggle__button-icon--large {
+  display: block;
+
+  .carbon-icon:before {
+    font-size: 60px;
+    line-height: 60px;
+  }
+
+  .carbon-icon__svg {
+    height: 64px;
+    width: 64px;
+  }
+}

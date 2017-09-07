@@ -1,0 +1,104 @@
+@import "./../../style-config/general";
+@import "./../../style-config/colors";
+
+$max-columns: 12 !default;
+$sizes: ("extra-small", $grid-margin-extra-small),
+        ("small", $grid-margin-small),
+        ("medium-small", $grid-margin-medium-small),
+        ("medium", $grid-margin-medium),
+        ("medium-large", $grid-margin-medium-large),
+        ("large", $grid-margin-large),
+        ("extra-large", $grid-margin-extra-large);
+
+.carbon-row {
+  clear: both;
+  position: relative;
+
+  @each $name, $size in $sizes {
+    &.carbon-row--gutter-#{$name} {
+      margin-bottom: -($size);
+      margin-left: -($size);
+
+      > .carbon-row__column {
+        margin-bottom: $size;
+        padding-left: $size;
+
+        &.carbon-row__column--column-divide {
+          position: relative;
+
+          &:before {
+            content: "";
+            position: absolute;
+            width: 1px;
+            height: 100%;
+            background-color: $grey-dark-blue-30;
+            left: $size / 2;
+            top: 0;
+          }
+
+          &:first-child:before {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  .carbon-row__column {
+    box-sizing: border-box;
+    float: left;
+    min-height: 1px;
+    width: 100%;
+
+    &.carbon-row__column--align-center,
+    &.carbon-row__column--align-middle {
+      text-align: center;
+    }
+
+    &.carbon-row__column--align-right {
+      text-align: right;
+    }
+  }
+
+  @for $i from 2 through $max-columns {
+    $width: 100% / $i;
+
+    &.carbon-row--columns-#{$i} {
+      > .carbon-row__column {
+        width: $width;
+
+        &:nth-child(#{$i}n+1) {
+          clear: both;
+        }
+      }
+
+      // span columns:
+      @for $y from 2 through $i {
+        @if $y != $i {
+          > .carbon-row__column--span-#{$y} {
+            width: (100% / $i) * $y;
+          }
+        }
+      }
+
+      // offset columns:
+      @for $y from 1 through $i {
+        @if $y != $i {
+          > .carbon-row__column--offset-#{$y} {
+            margin-left: $width * $y;
+          }
+        }
+      }
+    }
+  }
+
+  // Clearfix:
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+  &:after {
+    clear: both;
+  }
+}
