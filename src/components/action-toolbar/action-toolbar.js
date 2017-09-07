@@ -47,6 +47,14 @@ class ActionToolbar extends React.Component {
     actions: PropTypes.object.isRequired,
 
     /**
+     * The actions to display in the toolbar
+     *
+     * @property actionExtras - allows arbitrary jsx to be added to the tool bar
+     * @type {Node}
+     */
+    actionExtras: PropTypes.node,
+
+    /**
      * A custom class name for the component.
      *
      * @property className
@@ -188,6 +196,7 @@ class ActionToolbar extends React.Component {
 
         <div className='carbon-action-toolbar__actions'>
           { this.actions() }
+          { this.props.actionExtras }
         </div>
       </div>
     );
