@@ -41,7 +41,12 @@ import chainFunctions from './../../helpers/chain-functions';
  */
 const InputValidation = ComposedComponent => class Component extends ComposedComponent {
 
-  _window = window;
+   // shim window object if being used to help support isomorphic rendering
+   if (typeof window === 'undefined') {
+      _window = {innerWidth:0};
+   } else {
+      _window = window;
+   }
 
   constructor(...args) {
     super(...args);
