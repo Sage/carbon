@@ -501,13 +501,12 @@ class Tabs extends React.Component {
 
     const tabs = this.children.map((child, index) => {
       let klass = 'hidden';
-      const selected = this.isTabSelected(child.props.tabId);
-      if (selected) {
+
+      if (this.isTabSelected(child.props.tabId)) {
         klass = 'carbon-tab--selected';
       }
 
       const props = {
-        'aria-expanded': selected,
         'aria-labelledby': this.tabRefs[index],
         className: klass,
         role: 'tabPanel'

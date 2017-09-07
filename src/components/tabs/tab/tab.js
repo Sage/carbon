@@ -15,18 +15,9 @@ class Tab extends React.Component {
 
   static propTypes = {
     /**
-     * Is the tab expanded or not
-     *
-     * @property aria-expanded
-     * @type {Boolean}
-     *
-     */
-    'aria-expanded': PropTypes.bool,
-
-    /**
      * The id of the corresponding control that must be activated to show the tab
      *
-     * @property aria-expanded
+     * @property aria-labelledby
      * @type {String}
      *
      */
@@ -186,7 +177,6 @@ class Tab extends React.Component {
   render() {
     return (
       <div
-        aria-expanded={ this.props['aria-expanded'] }
         aria-labelledby={ this.props['aria-labelledby'] }
         className={ this.mainClasses }
         role={ this.props.role }
