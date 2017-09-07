@@ -4,6 +4,9 @@
 
 * `Table` now lets you add an `aria-describedby` prop.
 * `ConfigurableItemRow` is vertically centered correctly.
+* `AnimatedMenuButton` uses the native `<button>` instead of a div for the close button.
+* `Tabs` now includes aria roles for better screen reader support.
+* `Tabs` can now be navigated using left/right arrows for horizontal tabs and up/down arrows for vertical tabs on the keyboard to switch between the tab list.
 
 ## Pattern Enhancements
 
