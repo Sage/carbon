@@ -19,6 +19,9 @@ let definition = new Definition('help', Help, {
     tooltipAlign: 'children',
     tooltipPosition: 'children'
   },
+  propValues: {
+    children: 'This is an example of help.'
+  },
   propTypes: {
     children: "Node",
     className: "String",

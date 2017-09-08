@@ -1,11 +1,12 @@
 @import "./../../style-config/colors";
 @import "./../../style-config/general";
 @import "./../../style-config/mixins";
+@import "./../../style-config/z-index";
 
 .carbon-tooltip {
   position: absolute;
   width: 300px;
-  z-index: 20;
+  z-index: $z-dialog + 1;
 }
 
 .carbon-tooltip__container {
