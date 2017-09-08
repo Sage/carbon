@@ -47,6 +47,30 @@ const DateHelper = {
   },
 
   /**
+   * Convert a value such as '2017-08-23' into a Javascript Date object
+   *
+   * @method stringToDate
+   * @param {String} value current value e.g. 2017-08-23
+   * @return {Oject} The Date object
+   */
+  stringToDate: value => moment(value).toDate(),
+
+  /**
+   * Formats the given date string to the specified format
+   * Moment will not format the standard Javascript Date string format
+   *
+   * @method formatDateString
+   * @param {String} value current value e.g. Wed Aug 23 2017 12:00:00 GMT+0100 (BST)
+   * @param {String} formatTo Desired format e.g. YYYY-MM-DD
+   * @return {String} formatted date
+   */
+  formatDateString: (value, formatTo) => {
+    return (
+      moment(new Date(value).getTime()).format(formatTo)
+    );
+  },
+
+  /**
    * Returns todays date formatted
    *
    * @param {String} format - format of date

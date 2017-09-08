@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import Request from 'superagent';
 import serialize from './../../utils/helpers/serialize';
 import { Table, TableRow, TableCell, TableHeader, TableSubheader } from './../table';
+import Logger from './../../utils/logger';
 
 /**
  * A Table Ajax Widget
@@ -69,7 +70,15 @@ class TableAjax extends Table {
      * @property path
      * @type {String}
      */
-    path: PropTypes.string.isRequired
+    path: PropTypes.string.isRequired,
+
+    /**
+     * Callback function for XHR request errors
+     *
+     * @property onAjaxError
+     * @type {Function}
+     */
+    onAjaxError: PropTypes.func
   }
 
   static defaultProps = {
@@ -77,7 +86,6 @@ class TableAjax extends Table {
   }
 
   state = {
-
     /**
      * Pagination
      * Current Visible Page
@@ -86,6 +94,14 @@ class TableAjax extends Table {
      * @type {String}
      */
     currentPage: this.props.currentPage || '1',
+
+    /**
+     * The current value of the data-state property
+     *
+     * @property dataState
+     * @type {String}
+     */
+    dataState: 'idle',
 
     /**
      * Pagination
@@ -287,6 +303,10 @@ class TableAjax extends Table {
     this.stopTimeout();
     this.timeout = setTimeout(() => {
       // track the request incase we need to abort it
+      this.setState({
+        dataState: 'requested',
+        ariaBusy: true
+      });
       this._request = Request
         .get(this.props.path)
         .set('Accept', 'application/json')
@@ -323,11 +343,27 @@ class TableAjax extends Table {
    * @param {Object} response
    */
   handleResponse = (err, response) => {
+    this.setState({ ariaBusy: false });
     if (!err) {
+      this.setComponentTagsLoaded();
       const data = response.body;
       this.props.onChange(data);
       this.setState({ totalRecords: String(data.records) });
+    } else if (this.props.onAjaxError) {
+      this.setComponentTagsErrored();
+      this.props.onAjaxError(err, response);
+    } else {
+      this.setComponentTagsErrored();
+      Logger.warn(`${err.status} - ${response}`);
     }
+  }
+
+  setComponentTagsLoaded() {
+    this.setState({ dataState: 'loaded' });
+  }
+
+  setComponentTagsErrored() {
+    this.setState({ dataState: 'errored' });
   }
 
   /**
@@ -382,13 +418,17 @@ class TableAjax extends Table {
     };
   }
 
-  componentTags(props) {
-    return {
-      'data-component': 'table-ajax',
-      'data-element': props['data-element'],
-      'data-role': props['data-role']
-    };
+  /**
+   * Returns the data-state string used in componentTags
+   */
+  dataState = () => {
+    return this.state.dataState;
   }
+
+  /**
+   * The name used for the data-component attribute
+   */
+  get dataComponent() { return 'table-ajax'; }
 }
 
 export {

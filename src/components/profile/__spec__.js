@@ -4,9 +4,33 @@ import Profile from './profile';
 import Portrait from './../portrait';
 import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import Browser from './../../utils/helpers/browser';
 
 describe('PortraitContainer', () => {
   let instance;
+
+  beforeAll(() => {
+    spyOn(Browser, 'getDocument').and.returnValue({
+      createElement: (element) => {
+        return {
+          getContext: (context) => {
+            return {
+              font: null,
+              textAlign: null,
+              fillStyle: null,
+              fillRect: jasmine.createSpy('fillRect'),
+              fillText: jasmine.createSpy('fillText')
+            };
+          },
+          width: 10,
+          height: 10,
+          toDataURL: () => {
+            return 'data:image/png';
+          }
+        }
+      }
+    });
+  });
 
   describe('render', () => {
     beforeEach(() => {

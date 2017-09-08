@@ -274,6 +274,15 @@ class Table extends React.Component {
     caption: PropTypes.string,
 
     /**
+     * The HTML id of the element that contains a description
+     * of this table.
+     *
+     * @property aria-describedby
+     * @type string
+     */
+    'aria-describedby': PropTypes.string,
+
+    /**
      * Renders as light or dark
      * Uses common theme definition of 'primary' (dark, default) and 'secondary' (light)
      *
@@ -1044,11 +1053,26 @@ class Table extends React.Component {
     );
   }
 
+  /**
+   * Placeholder function for defining the data state, intended to be overriden in subclasses
+   */
+  dataState = () => { }
+
+  /**
+   * The name used for the data-component attribute
+   */
+  get dataComponent() { return 'table'; }
+
+  /**
+   * Data tags used for the data-component attribute
+   */
   componentTags(props) {
     return {
-      'data-component': 'table',
+      'data-component': this.dataComponent,
       'data-element': props['data-element'],
-      'data-role': props['data-role']
+      'data-role': props['data-role'],
+      'data-state': this.dataState(),
+      'aria-busy': this.state.ariaBusy
     };
   }
 
@@ -1073,12 +1097,23 @@ class Table extends React.Component {
    * @method render
    */
   render() {
+    const tableProps = {
+      className: this.tableClasses
+    };
+
+    if (this.props['aria-describedby']) {
+      tableProps['aria-describedby'] = this.props['aria-describedby'];
+    }
+
     return (
       <div className={ this.mainClasses } { ...this.componentTags(this.props) }>
         { this.actionToolbar }
         <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
           { this.configureLink(this.props.onConfigure) }
-          <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
+          <table
+            ref={ (table) => { this._table = table; } }
+            { ...tableProps }
+          >
             { this.caption }
             { this.thead }
             { this.tbody }

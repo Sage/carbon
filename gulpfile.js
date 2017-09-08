@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var yargs = require('yargs');
 var BuildTask = require('carbon-factory/lib/gulp/build').default;
 var SpecTask = require('carbon-factory/lib/gulp/spec').default;
+var LintTask = require('carbon-factory/lib/gulp/lint').default;
 var generateColors = require('./script/generate-demo-colors').default;
 var generateDocs = require('./script/generate-docs').default;
 var deploy = require('./script/deploy').default;
@@ -48,7 +49,5 @@ gulp.task('run-deploy', deploy);
 gulp.task('default', ['prepare-demo', 'webserver', 'build']);
 gulp.task('deploy', ['prepare-demo', 'build', 'run-deploy']);
 
-gulp.task('test', SpecTask({
-  path: '/src/***/**/!(__spec__|definition).js',
-  eslintThreshold: 0 
-}));
+gulp.task('test', SpecTask());
+gulp.task('lint', LintTask());

@@ -98,10 +98,10 @@ describe('ConfigurableItems', () => {
           />
         );
         form = wrapper.find(Form);
-        resetButton = shallow(form.props().leftAlignedActions).find('.carbon-button--reset')
       });
 
       it('passes a reset button, with an onClick prop, as leftAlignedActions to the form', () => {
+        resetButton = shallow(form.props().leftAlignedActions).find('.carbon-button--reset')
         expect(resetButton.length).toEqual(1);
         resetButton.simulate('click', { preventDefault: () => {} })
         expect(onResetSpy).toHaveBeenCalled();

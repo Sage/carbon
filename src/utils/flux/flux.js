@@ -78,6 +78,7 @@ export function connect(ComposedView, stores) {
      */
     componentDidMount() {
       // ensure that the super view calls its version of componentDidMount
+      /* istanbul ignore else */
       if (super.componentDidMount) { super.componentDidMount(); }
 
       // listen to each store when the view component mounts
@@ -94,6 +95,7 @@ export function connect(ComposedView, stores) {
      */
     componentWillUnmount() {
       // ensure that the super view calls its version of componentWillUnmount
+      /* istanbul ignore else */
       if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
       // unlisten to each store when the view component unmounts

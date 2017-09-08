@@ -225,22 +225,24 @@ class DateRange extends React.Component {
    * @return {Object} the props that are applied to the child Date components
    */
   dateProps(propsKey, defaultValidations) {
+    const dateProps = this.props[`${propsKey}DateProps`] || {};
+
     const props = assign({}, {
       label: this.props[`${propsKey}Label`],
       labelInline: this.props.labelsInline,
       onChange: this._onChange.bind(null, `${propsKey}Date`),
       ref: (c) => { this[`_${propsKey}Date`] = c; },
       value: this[`${propsKey}Date`]
-    }, this.props[`${propsKey}DateProps`]);
+    }, dateProps);
 
     props.className = classNames(
       'carbon-date-range',
       `carbon-date-range__${propsKey}`,
-      (this.props[`${propsKey}DateProps`] || {}).className : null
+      dateProps.className
     );
 
     props.validations = defaultValidations.concat(
-      (this.props[`${propsKey}DateProps`] || {}).validations || []
+      dateProps.validations || []
     );
     return props;
   }

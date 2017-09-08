@@ -4,7 +4,10 @@ import TestUtils from 'react-dom/test-utils';
 import InputValidation from './input-validation';
 import InputLabel from './../input-label';
 import Form from 'components/form';
+import Dialog from 'components/dialog';
 import { shallow, mount } from 'enzyme';
+
+/* global jest */
 
 let validationOne = {
   validate: function() {
@@ -91,7 +94,7 @@ let form = {
 
 class DummyInputWithoutLifecycleMethods extends React.Component {
   render() {
-    return <div>{ this.validationHTML }</div>;
+    return <div ref={ (c) => { this._target = c } }><input { ...this.inputProps } />{ this.validationHTML }</div>;
   }
 }
 
@@ -359,6 +362,47 @@ describe('InputValidation', () => {
             instance.positionMessage();
             expect(instance.validationMessage.style.left).toEqual('25px');
             expect(removeSpy).toHaveBeenCalledWith('common-input__message--flipped');
+          });
+        });
+
+        describe('when in a modal and offscreen', () => {
+          let wrapper;
+
+          beforeEach(() => {
+            jest.useFakeTimers();
+            wrapper = mount(
+              <Dialog open>
+                <Component validations={[validationThree]} />
+              </Dialog>
+            );
+          });
+
+          afterEach(() => {
+            jest.clearAllTimers();
+            jest.useRealTimers();
+          });
+
+          it('sets the class to flipped', () => {
+            Component;
+            const input = wrapper.find('input');
+            input.simulate('blur');
+            jest.runTimersToTime(0);
+            input.simulate('focus');
+            wrapper.instance()._dialog = {
+              offsetWidth: 10
+            };
+            wrapper.find(Component).node.validationMessage = {
+              className: "",
+              offsetWidth: 10,
+              offsetLeft: 10,
+              offsetHeight: 10,
+              style: {},
+              getBoundingClientRect: () => {
+                return {};
+              }
+            };
+            input.simulate('focus');
+            expect(wrapper.find(Component).node.validationMessage.className).toEqual(' common-input__message--flipped');
           });
         });
 
@@ -895,17 +939,13 @@ describe('InputValidation', () => {
 
   describe('_handleBlur', () => {
     beforeEach(() => {
-      jasmine.clock().install();
-    });
-
-    afterEach(() => {
-      jasmine.clock().uninstall();
+      jest.useFakeTimers();
     });
 
     it('calls validate on blur of the input', () => {
       spyOn(instance, 'validate');
       instance._handleBlur();
-      jasmine.clock().tick(0);
+      jest.runTimersToTime(0);
       expect(instance.validate).toHaveBeenCalled();
     });
 
@@ -914,7 +954,7 @@ describe('InputValidation', () => {
         instance.setState({ messageLocked: true });
         spyOn(instance, 'setState');
         instance._handleBlur();
-        jasmine.clock().tick(0);
+        jest.runTimersToTime(0);
         expect(instance.setState).toHaveBeenCalledWith({ messageLocked: false });
       });
     });
@@ -967,8 +1007,9 @@ describe('InputValidation', () => {
 
   describe('onMouseOver', () => {
     it('calls positionMessage', () => {
+      instance.setState({ valid: false });
       spyOn(instance, 'positionMessage');
-      instance.inputProps.onMouseOver();
+      instance.fieldProps.onMouseOver();
       expect(instance.positionMessage).toHaveBeenCalled();
     });
   });
@@ -979,7 +1020,7 @@ describe('InputValidation', () => {
         instance.setState({ valid: false, warning: true });
         spyOn(instance, 'setState');
         instance._handleContentChange();
-        expect(instance.setState).toHaveBeenCalledWith({ errorMessage: null, valid: true, warning: false, info: false });
+        expect(instance.setState).toHaveBeenCalledWith({ errorMessage: null, messageShown: false, valid: true, warning: false, info: false });
       });
     });
 

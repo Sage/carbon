@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { assign } from 'lodash';
+import Logger from '../logger';
 
 /**
  * Global configuration for all service classes.
@@ -27,6 +28,21 @@ class Service {
    * @constructor
    */
   constructor(opts = {}) {
+    this.handleSuccess = this.handleSuccess.bind(this);
+    this.handleError = this.handleError.bind(this);
+    this.setURL = this.setURL.bind(this);
+    this.setTransformResponse = this.setTransformResponse.bind(this);
+    this.setTransformRequest = this.setTransformRequest.bind(this);
+    this.enableGlobalCallbacks = this.enableGlobalCallbacks.bind(this);
+    this.disableGlobalCallbacks = this.disableGlobalCallbacks.bind(this);
+    this.get = this.get.bind(this);
+    this.post = this.post.bind(this);
+    this.put = this.put.bind(this);
+    this.delete = this.delete.bind(this);
+    this.handleResponse = this.handleResponse.bind(this);
+    this.responseTransform = this.responseTransform.bind(this);
+    this.shouldTriggerCallback = this.shouldTriggerCallback.bind(this);
+
     // sets up the axios client with default options
     this.client = axios.create({
       headers: {
@@ -54,7 +70,7 @@ class Service {
    * @param {Object} response - the reponse from the server
    * @return {Object} the response data
    */
-  handleSuccess = (response) => {
+  handleSuccess(response) {
     if (!response.data.message) {
       return response.data;
     }
@@ -83,7 +99,7 @@ class Service {
    * @param {Object} error - the response from the server
    * @return {Object}
    */
-  handleError = (error) => {
+  handleError(error) {
     if (this.shouldTriggerCallback(config.onError)) {
       config.onError(error.response.data);
     }
@@ -98,7 +114,7 @@ class Service {
    * @param {String} url
    * @return {Void}
    */
-  setURL = (url) => {
+  setURL(url) {
     this.client.defaults.baseURL = url;
   }
 
@@ -109,7 +125,7 @@ class Service {
    * @param {Function} func
    * @return {Void}
    */
-  setTransformRequest = (func) => {
+  setTransformRequest(func) {
     this.client.defaults.transformRequest[1] = func;
   }
 
@@ -120,7 +136,7 @@ class Service {
    * @param {Function} func
    * @return {Void}
    */
-  setTransformResponse = (func) => {
+  setTransformResponse(func) {
     this.client.defaults.transformResponse[1] = func;
   }
 
@@ -130,7 +146,7 @@ class Service {
    * @method enableGlobalCallbacks
    * @return {Void}
    */
-  enableGlobalCallbacks = () => {
+  enableGlobalCallbacks() {
     this.globalCallbacks = true;
   }
 
@@ -140,7 +156,7 @@ class Service {
    * @method disableGlobalCallbacks
    * @return {Void}
    */
-  disableGlobalCallbacks = () => {
+  disableGlobalCallbacks() {
     this.globalCallbacks = false;
   }
 
@@ -149,15 +165,31 @@ class Service {
    *
    * @method get
    * @param {Number} id - the ID of the resource.
-   * @param {Function} onSuccess - a callback to trigger on success
-   * @param {Function} onError - a callback to trigger on error
+   * @param {Object} options - an object with options for query params and success/error callbacks
+   * @param {Function} _onError - [Deprecated] a callback to trigger on error
    * @return {Void}
    */
-  get = (id, onSuccess, onError) => {
-    this.client.get(String(id)).then(
-      this.handleResponse.bind(this, onSuccess),
-      this.handleResponse.bind(this, onError)
-    );
+  get(id, options, _onError) {
+    let request;
+
+    if (typeof (options) === 'function') {
+      Logger.deprecate('Passing onSuccess and onError as separate arguments is deprecated. Please use `get(1, { onSuccess: function, onError: function, params: { k: "v" } })`'); // eslint-disable-line max-len
+
+      request = this.client.get(String(id));
+
+      request.then(
+        this.handleResponse.bind(this, options),
+        this.handleResponse.bind(this, _onError)
+      );
+    } else {
+      const { onSuccess, onError, ...params } = options;
+
+      request = this.client.get(String(id), params);
+      request.then(
+        this.handleResponse.bind(this, onSuccess),
+        this.handleResponse.bind(this, onError)
+      );
+    }
   }
 
   /**
@@ -165,15 +197,31 @@ class Service {
    *
    * @method post
    * @param {Object} data - the data to post to the server.
-   * @param {Function} onSuccess - a callback to trigger on success
-   * @param {Function} onError - a callback to trigger on error
+   * @param {Object} options - an object with options for query params and success/error callbacks
+   * @param {Function} _onError - [Deprecated] a callback to trigger on error
    * @return {Void}
    */
-  post = (data, onSuccess, onError) => {
-    this.client.post('', data).then(
-      this.handleResponse.bind(this, onSuccess),
-      this.handleResponse.bind(this, onError)
-    );
+  post(data, options, _onError) {
+    let request;
+
+    if (typeof (options) === 'function') {
+      Logger.deprecate("Passing onSuccess and onError as separate arguments is deprecated. Please use `post('', { data_key: 'data_val' }, { onSuccess: function, onError: function, params: { k: 'v' } })`"); // eslint-disable-line max-len
+      request = this.client.post('', data);
+
+      request.then(
+        this.handleResponse.bind(this, options),
+        this.handleResponse.bind(this, _onError)
+      );
+    } else {
+      const { onSuccess, onError, ...params } = options;
+
+      request = this.client.post('', data, params);
+
+      request.then(
+        this.handleResponse.bind(this, onSuccess),
+        this.handleResponse.bind(this, onError)
+      );
+    }
   }
 
   /**
@@ -182,15 +230,31 @@ class Service {
    * @method put
    * @param {Number} id - the ID of the resource.
    * @param {Object} data - the data to post to the server.
-   * @param {Function} onSuccess - a callback to trigger on success
-   * @param {Function} onError - a callback to trigger on error
+   * @param {Object} options - an object with options for query params and success/error callbacks
+   * @param {Function} _onError - [Deprecated] a callback to trigger on error
    * @return {Void}
    */
-  put = (id, data, onSuccess, onError) => {
-    this.client.put(String(id), data).then(
-      this.handleResponse.bind(this, onSuccess),
-      this.handleResponse.bind(this, onError)
-    );
+  put(id, data, options, _onError) {
+    let request;
+
+    if (typeof (options) === 'function') {
+      Logger.deprecate("Passing onSuccess and onError as separate arguments is deprecated. Please use `put(1, { data_key: 'data_val' }, { onSuccess: function, onError: function, params: { k: 'v' } })`"); // eslint-disable-line max-len
+      request = this.client.put(String(id), data);
+
+      request.then(
+        this.handleResponse.bind(this, options),
+        this.handleResponse.bind(this, _onError)
+      );
+    } else {
+      const { onSuccess, onError, ...params } = options;
+
+      request = this.client.put(String(id), data, params);
+
+      request.then(
+        this.handleResponse.bind(this, onSuccess),
+        this.handleResponse.bind(this, onError)
+      );
+    }
   }
 
   /**
@@ -198,15 +262,31 @@ class Service {
    *
    * @method delete
    * @param {Number} id - the ID of the resource.
-   * @param {Function} onSuccess - a callback to trigger on success
-   * @param {Function} onError - a callback to trigger on error
+   * @param {Object} options - an object with options for query params and success/error callbacks
+   * @param {Function} _onError - [Deprecated] a callback to trigger on error
    * @return {Void}
    */
-  delete = (id, onSuccess, onError) => {
-    this.client.delete(String(id)).then(
-      this.handleResponse.bind(this, onSuccess),
-      this.handleResponse.bind(this, onError)
-    );
+  delete(id, options, _onError) {
+    let request;
+
+    if (typeof (options) === 'function') {
+      Logger.deprecate("Passing onSuccess and onError as separate arguments is deprecated. Please use `delete(1, { onSuccess: function, onError: function, params: { k: 'v' } })`"); // eslint-disable-line max-len
+      request = this.client.delete(String(id));
+
+      request.then(
+        this.handleResponse.bind(this, options),
+        this.handleResponse.bind(this, _onError)
+      );
+    } else {
+      const { onSuccess, onError, ...params } = options;
+
+      request = this.client.delete(String(id), params);
+
+      request.then(
+        this.handleResponse.bind(this, onSuccess),
+        this.handleResponse.bind(this, onError)
+      );
+    }
   }
 
   /**
@@ -217,7 +297,7 @@ class Service {
    * @param {Object} response
    * @return {Void}
    */
-  handleResponse = (callback, response) => {
+  handleResponse(callback, response) {
     if (callback) {
       callback(response);
     }
@@ -230,7 +310,7 @@ class Service {
    * @param {Object}
    * @return {Void}
    */
-  responseTransform = (response) => {
+  responseTransform(response) {
     return JSON.parse(response);
   }
 
@@ -241,7 +321,7 @@ class Service {
    * @param {Function}
    * @return {Boolean}
    */
-  shouldTriggerCallback = (method) => {
+  shouldTriggerCallback(method) {
     return this.globalCallbacks && method;
   }
 }

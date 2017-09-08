@@ -50,6 +50,12 @@ describe('ElementResize', () => {
         expect(addSpy.calls.mostRecent().args[0]).toEqual('resize');
         expect(typeof addSpy.calls.mostRecent().args[1]).toEqual('function');
       });
+
+      it('does not throw error if getDefaultView returns nothing', () => {
+        spyOn(ElementResize, 'getDefaultView').and.returnValue(null);
+        ElementResize.addListener(element, callback);
+        expect(element.children[0].onload).not.toThrowError();
+      });
     });
 
     describe('resizeListener', () => {
@@ -86,7 +92,13 @@ describe('ElementResize', () => {
       expect(element.__resizeListenerCallbacks__).toBe(undefined);
     });
 
-    it('removes the callback if it exists (and the listener if it was last callback)', () => {
+    it('does not throw error if getDefaultView returns nothing', () => {
+      ElementResize.addListener(element, callback);
+      spyOn(ElementResize, 'getDefaultView').and.returnValue(null);
+      expect(() => { ElementResize.removeListener(element, callback) }).not.toThrowError();
+    });
+
+    it('removes a callback if it exists', () => {
       const removeSpy = jasmine.createSpy('remove listener');
       spyOn(ElementResize, 'getDefaultView').and.returnValue({
         removeEventListener: removeSpy
@@ -110,11 +122,17 @@ describe('ElementResize', () => {
     });
   });
 
-  describe('getDefaultView', () => {
+  describe('getDefaultView with full browser support', () => {
     it('returns the defaultView of the given element', () => {
       expect(ElementResize.getDefaultView({
         contentDocument: { defaultView: 'foo' }
       })).toEqual('foo');
+    })
+  });
+
+  describe('getDefaultView with partial browser support', () => {
+    it('returns the defaultView of the given element', () => {
+      expect(ElementResize.getDefaultView({})).toEqual(null);
     })
   });
 });

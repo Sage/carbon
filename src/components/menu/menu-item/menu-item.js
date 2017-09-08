@@ -12,15 +12,6 @@ class MenuItem extends React.Component {
 
   static propTypes = {
     /**
-     * Defines whether alternate row styling should be applied
-     * 0..n blocks of 1..n menu items can be marked as `alternate` which adds a secondary style
-     *
-     * @property alternate
-     * @type {Boolean}
-     */
-    alternate: PropTypes.bool,
-
-    /**
      * Children elements
      *
      * @property children
@@ -146,8 +137,6 @@ class MenuItem extends React.Component {
     return classNames(
       'carbon-menu-item',
       this.props.className, {
-        'carbon-menu-item--alternate': this.props.alternate,
-        'carbon-menu-item--alternate-off': !this.props.alternate,
         'carbon-menu-item--divide': this.props.divide,
         'carbon-menu-item--has-link': this.props.href || this.props.to || this.props.onClick,
         'carbon-menu-item--has-submenu': this.props.submenu,

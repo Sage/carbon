@@ -32,7 +32,7 @@ describe('MenuListItem', () => {
     );
 
     let list = TestUtils.findRenderedDOMComponentWithTag(customInstance, 'li');
-    expect(list.classList).toMatch('custom-class');
+    expect(list.classList).toContain('custom-class');
   });
 
   describe("tags on component", () => {

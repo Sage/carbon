@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { assign } from 'lodash';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
@@ -134,7 +135,8 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
 
   static contextTypes = assign({}, ComposedComponent.contextTypes, {
     form: PropTypes.object,
-    tab: PropTypes.object
+    tab: PropTypes.object,
+    modal: PropTypes.object
   });
 
   static propTypes = assign({}, ComposedComponent.propTypes, {
@@ -214,6 +216,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
    */
   componentWillMount() {
     // call the components super method if it exists
+    /* istanbul ignore else */
     if (super.componentWillMount) { super.componentWillMount(); }
 
     if (this.context.form && (this._validations() || this.props.warnings || this.props.info)) {
@@ -230,6 +233,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
    */
   componentWillUnmount() {
     // call the components super method if it exists
+    /* istanbul ignore else */
     if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
     if (this._validations() || this.props.warnings || this.props.info) {
@@ -254,18 +258,31 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
 
       if (icon && message && message.offsetHeight) {
         let messagePositionLeft = (icon.offsetLeft + (icon.offsetWidth / 2));
-        const topOffset = icon.offsetTop - icon.offsetHeight;
+        const topOffset = icon.offsetTop - icon.offsetHeight,
+            messageOffsetWidth = message.offsetWidth;
 
         // set initial position for message
         message.style.left = `${messagePositionLeft}px`;
         message.style.top = `-${message.offsetHeight - topOffset}px`;
 
         // figure out if the message is positioned offscreen
-        const messageScreenPosition = message.getBoundingClientRect().left + message.offsetWidth;
+        const messageScreenPosition = message.getBoundingClientRect().left + messageOffsetWidth;
+
+        let shouldFlip = false;
 
         // change the position if it is offscreen
-        if (messageScreenPosition > this._window.innerWidth) {
-          messagePositionLeft -= message.offsetWidth;
+        if (this.context.modal && this.context.modal.getDialog()) {
+          // if in a modal check its position relative to that
+          const dialog = this.context.modal.getDialog();
+          const domNode = ReactDOM.findDOMNode(this); // eslint-disable-line react/no-find-dom-node
+          shouldFlip = (message.offsetLeft + domNode.offsetLeft + messageOffsetWidth) > dialog.offsetWidth;
+        } else {
+          // otherwise check relative to the window
+          shouldFlip = messageScreenPosition > this._window.innerWidth;
+        }
+
+        if (shouldFlip) {
+          messagePositionLeft -= messageOffsetWidth;
           message.style.left = `${messagePositionLeft}px`;
           message.className += ' common-input__message--flipped';
           this.flipped = true;
@@ -496,7 +513,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
       }
 
       // reset the error state
-      this.setState({ errorMessage: null, valid: true, warning: false, info: false });
+      this.setState({ errorMessage: null, messageShown: false, valid: true, warning: false, info: false });
     }
   }
 
@@ -535,6 +552,8 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
    */
   showMessage = () => {
     if (this.messageExists()) {
+      this.positionMessage();
+
       this.setState({
         messageShown: true,
         immediatelyHideMessage: false
@@ -623,12 +642,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
         className={ iconClasses }
         style={ iconStyle }
       />,
-      <div
-        key='1'
-        className='common-input__message-wrapper'
-        onMouseOver={ this.showMessage }
-        onMouseOut={ this.hideMessage }
-      >
+      <div key='1' className='common-input__message-wrapper'>
         <div
           ref={ (validationMessage) => { this.validationMessage = validationMessage; } }
           className={ messageClasses }
@@ -682,7 +696,6 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
   get inputProps() {
     const inputProps = super.inputProps || {};
 
-    inputProps.onMouseOver = chainFunctions(this.positionMessage, inputProps.onMouseOver);
     inputProps.onFocus = chainFunctions(this._handleFocus, inputProps.onFocus);
     inputProps.onBlur = chainFunctions(this._handleBlur, inputProps.onBlur);
     inputProps.onKeyDown = chainFunctions(this._handleContentChange, inputProps.onKeyDown);

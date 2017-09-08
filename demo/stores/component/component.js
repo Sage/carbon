@@ -8,8 +8,13 @@ import ComponentActions from './../../actions/component';
 import ComponentConstants from './../../constants/component';
 
 import definitions from './../../definitions';
+import patternDefinitions from './../../pattern-definitions';
 
-const data = ImmutableHelper.parseJSON(definitions);
+import { assign } from 'lodash';
+
+const data = ImmutableHelper.parseJSON(
+  assign({}, definitions, patternDefinitions)
+);
 
 // expose tableData for the table component demo
 global.tableData = ImmutableHelper.parseJSON([]);

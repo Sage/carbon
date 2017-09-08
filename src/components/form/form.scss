@@ -36,17 +36,8 @@
   justify-content: flex-end;
 }
 
+.carbon-form-save,
 .carbon-form-cancel {
-  padding: 8px 0 8px 8px;
-}
-
-.carbon-form-save {
-  padding: 4px 4px 4px 8px;
-  border-radius: 4px;
-}
-
-.carbon-form-save--invalid {
-  background-color: $grey-dark-blue-5;
   margin-left: 15px;
 }
 
@@ -87,8 +78,8 @@
 .carbon-form:not(.carbon-form--sticky-footer),
 .carbon-dialog__dialog--fixed-bottom {
   .carbon-form__buttons {
-    max-width: initial;
-    min-width: initial;
+    max-width: inherit;
+    min-width: inherit;
     padding: 0;
   }
 }

@@ -78,6 +78,17 @@ describe('tooltip', () => {
         expect(positionedTooltip.classList[1]).toEqual('carbon-tooltip--position-top');
       });
     });
+
+    it('adds the role of tooltip', () => {
+      expect(tooltip.getAttribute('role')).toEqual('tooltip');
+    });
+
+    describe('when a prop of id is passed', () => {
+      it('adds the id attribute', () => {
+        wrapper.setProps({ id: 'help-tooltip' });
+        expect(wrapper.is('#help-tooltip')).toBe(true);
+      });
+    });
   });
 
   describe('when the tooltip is toggled off', () => {

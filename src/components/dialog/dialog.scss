@@ -1,7 +1,7 @@
 @import "./../../style-config/colors";
 @import "./../../style-config/z-index";
 
-$dialog-padding: 20px;
+$dialog-padding: 35px;
 $dialog-sizes: (
   ('extra-small', 300px),
   ('small', 380px),
@@ -13,16 +13,15 @@ $dialog-sizes: (
 );
 
 @mixin dialog-size-css($name, $size) {
-  .carbon-dialog__dialog--#{$name} {
+  .carbon-dialog .carbon-dialog__dialog--#{$name} {
     width: $size;
 
-    $form-buttons-width: $size - ($dialog-padding * 2);
     &.carbon-dialog__dialog--fixed-bottom.carbon-dialog__dialog--sticky-form-footer .carbon-form__footer-wrapper {
-      width: $form-buttons-width;
+      width: $size;
 
       // IE10+ fix (caters for scrollbar width)
       @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
-        width: $form-buttons-width - 16;
+        width: $size - 16;
       }
     }
   }
@@ -35,21 +34,31 @@ $dialog-sizes: (
 .carbon-dialog__dialog {
   background-color: $grey-light;
   border-radius: 5px;
-  box-shadow: 0 4px 8px #555;
+  box-shadow: 0 10px 20px rgba($grey-shadow, 0.2);
   position: fixed;
   top: 50%;
   z-index: $z-dialog;
   transition: top 0.25s;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.carbon-dialog__title {
+  padding: 23px 35px 0;
 }
 
 .carbon-dialog__content {
+  box-sizing: border-box;
   height: 100%;
   overflow-y: auto;
+  padding: 0px 35px 22px;
   width: 100%;
 }
 
 .carbon-dialog__inner-content {
-  padding: $dialog-padding;
+  padding-top: 20px;
   position: relative;
 }
 
@@ -59,9 +68,9 @@ $dialog-sizes: (
   }
 
   .carbon-form__footer-wrapper {
+    bottom: 0px;
     position: absolute;
-    bottom: $dialog-padding;
-    width: calc(100% - #{$dialog-padding * 2});
+    width: 100%;
   }
 }
 
@@ -70,12 +79,13 @@ $dialog-sizes: (
   100% { bottom: 0; }
 }
 
-.carbon-dialog__dialog--fixed-bottom {
+.carbon-dialog .carbon-dialog__dialog--fixed-bottom {
   border-radius: 5px 5px 0 0;
   bottom: 0;
   min-height: 0px !important;
 
   &.carbon-dialog__dialog--sticky-form-footer .carbon-form .carbon-form__footer-wrapper {
+    box-sizing: border-box;
     margin-left: -($dialog-padding);
     left: auto;
     padding-left: $dialog-padding;
@@ -85,8 +95,12 @@ $dialog-sizes: (
 
 .carbon-dialog__title {
   .carbon-heading {
-    padding-top: $dialog-padding;
-    margin: 0 $dialog-padding;
+    padding-top: 0;
+
+    .carbon-heading__title {
+      font-size: 20px;
+      line-height: 30px;
+    }
   }
 
   .carbon-heading__header {
@@ -95,15 +109,18 @@ $dialog-sizes: (
 }
 
 .carbon-dialog__close {
-  color: $grey-dark-blue-60;
+  color: $grey-dark-blue-70;
   cursor: pointer;
   position: absolute;
-  right: $dialog-padding;
-  top: 25px;
+  right: 35px;
+  top: 28px;
   z-index: 1;
 
   &:hover {
     color: $blue;
+  }
+  &.carbon-icon {
+    position: absolute;
   }
 }
 
