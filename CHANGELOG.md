@@ -19,7 +19,7 @@ The following packages have been moved from `devDependencies` to `dependencies`:
 The following packages have been upgraded:
 
 * flux: now has a peer dependency of at least 3.1.1
-* i18n-js: upgraded to rc12
+* i18n-js: upgraded to rc12 - (scope is now required)
 * react-router: ^3.0.0
 
 ### Upgrading a project that uses Carbon
