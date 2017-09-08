@@ -1,10 +1,10 @@
 # 2.0.0
 
-## Deprecations
+## Breaking Changes
 
 ### Store Disptacher
 
-Store no longer accepts a `Dispatcher` as it's third argument. It will automatically use the dispatcher supplied by Carbon. If you want to pass a custom one then you can pass it as a param in the config:
+Store no longer accepts a `Dispatcher` as its third argument. It will automatically use the dispatcher supplied by Carbon. If you want to pass a custom one then you can pass it as a param in the config:
 
 ```js
 new Store('name', data, { dispatcher: myDispatcher });
