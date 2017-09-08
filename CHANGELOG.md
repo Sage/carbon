@@ -1,5 +1,9 @@
 # 2.0.0
 
+## Yarn support
+
+Dependencies can now be managed using [Yarn](https://yarnpkg.com)
+
 ## Dependency Update
 
 The following packages are now specified as peer dependencies:
