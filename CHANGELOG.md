@@ -53,7 +53,7 @@ npm install --save carbon-react@2.0.0
 
 ### Removal of Service Deprecation
 
-The `Service` class now accepts an object as it's second argument, deprecating the separate `onSuccess` and `onError` arguments.
+The `Service` class now accepts an object as its second argument, deprecating the separate `onSuccess` and `onError` arguments.
 This allows you to pass in `onSuccess` and `onError` functions in the object, along with `params` if you need query parameters in your requests.
 
 ### Examples
