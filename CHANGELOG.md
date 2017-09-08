@@ -4,6 +4,55 @@
 
 Dependencies can now be managed using [Yarn](https://yarnpkg.com)
 
+## Dependency Update
+
+The following packages are now specified as peer dependencies:
+
+* flux
+* react
+* react-dom
+
+The following packages have been moved from `devDependencies` to `dependencies`:
+
+* `i18n-js`
+* `immutable`
+* `highcharts`
+* `react-router`
+* `react-transition-group`
+
+The following packages have been upgraded:
+
+* flux: now has a peer dependency of at least 3.1.1
+* i18n-js: upgraded to rc12 - (scope is now required)
+* react-router: ^3.0.0
+
+### Upgrading a project that uses Carbon
+
+#### Installing peer dependencies
+
+If you're upgrading an application that uses Carbon to v2.0.0 you'll need to make sure you have `flux`, `react`, and `react-dom` in your project's dependencies. To add `flux`, `react`, and `react-dom` to your project dependencies run the following command:
+
+```
+npm install flux react react-dom --save
+```
+
+#### Upgrading Carbon and using the new Carbon dependencies
+
+Carbon now includes `i18n-js`, `immutable`, `highcharts`, `react-router`, and `react-transition-group` in its dependencies, so you may be able to remove these from your own project's dependencies. To do this:
+
+1. Uninstall and remove `i18n-js`, `immutable`, `highcharts`, `react-router`, and `react-transition-group`
+   from your project's dependencies:
+
+```
+npm uninstall --save i18n-js immutable react-router react-transition-group
+```
+
+2. Install the latest Carbon:
+
+```
+npm install --save carbon-react@2.0.0
+```
+
 # 1.6.0
 
 ## Component Enhancements
