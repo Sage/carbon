@@ -1,6 +1,77 @@
 # 2.0.0
 
-## Breaking Change
+## Breaking Changes
+
+### Store Disptacher
+
+Store no longer accepts a `Dispatcher` as its third argument. It will automatically use the dispatcher supplied by Carbon. If you want to pass a custom one then you can pass it as a param in the config:
+
+```js
+new Store('name', data, { dispatcher: myDispatcher });
+```
+
+### Dependency Updates
+
+The following packages are now specified as peer dependencies:
+
+* flux
+* react
+* react-dom
+
+The following packages have been moved from `devDependencies` to `dependencies`:
+
+* `i18n-js`
+* `immutable`
+* `highcharts`
+* `react-router`
+* `react-transition-group`
+
+The following packages have been upgraded:
+
+* flux: now has a peer dependency of at least 3.1.1
+* i18n-js: upgraded to rc12 - (scope is now required)
+* react-router: ^3.0.0
+
+#### Upgrading a project that uses Carbon
+
+##### Installing peer dependencies
+
+If you're upgrading an application that uses Carbon to v2.0.0 you'll need to make sure you have `flux`, `react`, and `react-dom` in your project's dependencies. To add `flux`, `react`, and `react-dom` to your project dependencies run the following command:
+
+```
+npm install flux react react-dom --save
+```
+
+##### Upgrading Carbon and using the new Carbon dependencies
+
+Carbon now includes `i18n-js`, `immutable`, `highcharts`, `react-router`, and `react-transition-group` in its dependencies, so you may be able to remove these from your own project's dependencies. To do this:
+
+1. Uninstall and remove `i18n-js`, `immutable`, `highcharts`, `react-router`, and `react-transition-group`
+   from your project's dependencies:
+
+```
+npm uninstall --save i18n-js immutable react-router react-transition-group
+```
+
+2. Install the latest Carbon:
+
+```
+npm install --save carbon-react@2.0.0
+```
+
+### Removal of Service Deprecation
+
+The `Service` class now accepts an object as its second argument, deprecating the separate `onSuccess` and `onError` arguments.
+This allows you to pass in `onSuccess` and `onError` functions in the object, along with `params` if you need query parameters in your requests.
+
+#### Examples
+
+Deprecated invocation:
+ - `service.get('1', onSuccessFunc, onErrorFunc)`
+
+New invocation:
+ - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc })`
+ - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc, params: { key1: 'val1', key2: 'val2'} })`
 
 ### Removal of Row Deprecation
 
@@ -37,6 +108,151 @@ import { Row, Column } from 'carbon/lib/components/row';
   </Column>
 </Row>
 ```
+
+# 1.6.0
+
+## Component Enhancements
+
+* `Table` now lets you add an `aria-describedby` prop.
+* `ConfigurableItemRow` is vertically centered correctly.
+* `AnimatedMenuButton` uses the native `<button>` instead of a div for the close button.
+* `Tabs` now includes aria roles for better screen reader support.
+* `Tabs` can now be navigated using left/right arrows for horizontal tabs and up/down arrows for vertical tabs on the keyboard to switch between the tab list.
+
+## Pattern Enhancements
+
+* `ConfigurableItems` has `stickyFormFooter` enabled
+
+## Draggable Ghost Row
+
+The `DraggableContext` component now includes a `CustomDragLayer` to enable a ghost row when dragging.
+
+In order to enable this you need to define the `draggableNode` prop on the `<WithDrag>` component. For example:
+
+```
+class DraggableItems extends React.Component {
+  render() {
+    return (
+      <DraggableContext onDrag={ onItemMoved }>
+        <ol>
+          {
+            items.map((item, index) => {
+              return (
+                <WithDrop key={ index } index={ index }>
+                  <DraggableItem />
+                </WithDrop>
+              );
+            });
+          }
+        </ol>
+      </DraggableContext>
+    );
+  }
+}
+
+...
+
+class DraggableItem extends React.Component {
+  render() {
+    return (
+      <li ref={ (node) => { this._listItem = node; } } >
+        <WithDrag draggableNode={ () => { return this._listItem; } }>
+          <span>{ item.content }</span>
+        </WithDrag>
+      </li>
+    );
+  }
+}
+```
+
+Note that the `draggableNode` is passed as a function because the ref `_listItem` is undefined until the component is mounted.
+
+## Service class accepts query parameters
+
+The `Service` class now accepts an object as it's second argument, deprecating the separate `onSuccess` and `onError` arguments.
+This allows you to pass in `onSuccess` and `onError` functions in the object, along with `params` if you need query parameters in your requests.
+
+### Examples
+
+Deprecated invocation:
+ - `service.get('1', onSuccessFunc, onErrorFunc)`
+
+New invocation:
+ - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc })`
+ - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc, params: { key1: 'val1', key2: 'val2'} })`
+
+## DatePicker
+
+* The Date Picker library has changed from react-date-picker to react-day-picker as the old library is no longer maintained.
+* This will effect the `Date` and `DateRange` components but functionally they have remained the same.
+
+# 1.5.3
+
+## Bug Fixes
+
+* `FormSummary`: negative margin solves problem where FormSummary is effecting its sibling component's position [#1523](https://github.com/Sage/carbon/issues/1523)
+
+# 1.5.2
+
+## Bug Fixes
+
+* Fixes CSS load order issue with `Dialog`, `Form`, and sticky footers.
+
+# 1.5.1
+
+## Bug Fixes
+
+* Update `Service` class to use prototypal inheritance instead of class properties.
+* Fixes floating error message caused by https://github.com/Sage/carbon/pull/1452/commits/1f902687c507f7b9cc8fe8cb641c048f8d82b034
+
+# 1.5.0
+
+## Component Improvements
+
+The following components have had styling updates:-
+
+* DatePicker
+* ButtonToggle
+* Heading / Dialog
+
+## Font Update
+
+The 300 weight (Thin) has been replaced by the 900 weight (Black) in Lato.
+
+# Component Enhancements
+
+* `TableAjax` component now uses the data-state attribute and `aria-busy`.
+
+## npm (for local development of carbon only)
+
+* Carbon now require `npm` version 5 for installing dependencies.
+* To upgrade your version of npm, run `npm install npm@latest`.
+* Then, before running `npm install` in your project folder, run `npm verify cache` to update your cache.
+
+# 1.4.6
+
+* `ConfigurableItems` pattern now accepts an `onReset` prop to be passed in.
+
+# 1.4.5
+
+* `Validations`: fixes an error from being thrown for non-Textbox validations when situated inside a Modal.
+
+# 1.4.4
+
+* `Date`: Fixes missing background color on validation errors.
+
+# 1.4.3
+
+* `Heading`: Removed default top padding.
+
+# 1.4.2
+
+* `Menu`: removed `alternate` prop, can use `SubMenuBlock` instead which achieves the same thing.
+
+# 1.4.1
+
+* `Dropdown`: validation fail now allows the dropdown arrow to be visible
+* `Decimal`: fix an issue where values entered without a leading zero were incorrectly failing numerical validation
 
 # 1.4.0
 
@@ -105,11 +321,23 @@ The following have had minor internal changes to satisfy the introduction of str
 
 * Renamed `definition.js` files to `__definition__.js`.
 
+# 1.3.7
+
+## Bug Fix
+
+* `Decimal`: fix an issue where values entered without a leading zero were incorrectly failing numerical validation
+
 # 1.3.6
 
 ## Bug Fix
 
 * `Dialog`: ensures close icon positioning regardless of CSS load order
+
+# 1.3.5-1
+
+## Bug Fixes
+
+* Fixes CSS load order issue with `Dialog`, `Form`, and sticky footers.
 
 # 1.3.5
 

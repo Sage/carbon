@@ -111,9 +111,8 @@ const summary = (props, key) => {
 
 const summaryClasses = (props) => {
   return classNames(
-    'carbon-form-summary',
-    'carbon-form-save', {
-      'carbon-form-save--invalid': props.errors || props.warnings
+    'carbon-form-summary', {
+      'carbon-form-summary--invalid': props.errors || props.warnings
     }
   );
 };

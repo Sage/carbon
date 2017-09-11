@@ -1007,8 +1007,9 @@ describe('InputValidation', () => {
 
   describe('onMouseOver', () => {
     it('calls positionMessage', () => {
+      instance.setState({ valid: false });
       spyOn(instance, 'positionMessage');
-      instance.inputProps.onMouseOver();
+      instance.fieldProps.onMouseOver();
       expect(instance.positionMessage).toHaveBeenCalled();
     });
   });
@@ -1019,7 +1020,7 @@ describe('InputValidation', () => {
         instance.setState({ valid: false, warning: true });
         spyOn(instance, 'setState');
         instance._handleContentChange();
-        expect(instance.setState).toHaveBeenCalledWith({ errorMessage: null, valid: true, warning: false, info: false });
+        expect(instance.setState).toHaveBeenCalledWith({ errorMessage: null, messageShown: false, valid: true, warning: false, info: false });
       });
     });
 

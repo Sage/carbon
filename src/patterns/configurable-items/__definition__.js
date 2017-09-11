@@ -11,6 +11,7 @@ let definition = new Definition('configurable-items-pattern', ConfigurableItemsP
   hiddenProps: ['itemsData'],
   propValues: {
     itemsData: `configurableItemsData`,
+    onReset: `resetConfigurableItemsData`,
     onSave: `configurableItemsOnSave`,
     title: 'Configure Items'
   },
@@ -18,13 +19,15 @@ let definition = new Definition('configurable-items-pattern', ConfigurableItemsP
     className: 'String',
     itemsData: 'Object',
     onCancel: 'Function',
+    onReset: 'Function',
     onSave: 'Function',
     title: 'String'
   },
   propDescriptions: {
     itemsData: 'Data to define the items that can be configured',
-    className : 'Classes to apply to the component.',
+    className: 'Classes to apply to the component.',
     onCancel: 'Callback triggered when the form is cancelled.',
+    onReset: 'Callback triggered when the reset button is pressed',
     onSave: 'Callback triggered when the form is saved.',
     title: 'Title to display as heading'
   },

@@ -73,15 +73,21 @@ class ConfigurableItemRow extends React.Component {
     );
   }
 
+  iconHTML() {
+    return (
+      <div>
+        <Icon
+          className='configurable-item-row__icon'
+          type='drag_vertical'
+        />
+      </div>
+    );
+  }
+
   icon() {
     return (
-      <WithDrag>
-        <div>
-          <Icon
-            className='configurable-item-row__icon'
-            type='drag_vertical'
-          />
-        </div>
+      <WithDrag draggableNode={ () => { return this._listItem; } } >
+        {this.iconHTML()}
       </WithDrag>
     );
   }
@@ -119,16 +125,25 @@ class ConfigurableItemRow extends React.Component {
     return typeof (dragAndDropActiveIndex) === 'number';
   }
 
-  render() {
+  listItemHTML = () => {
     const { rowIndex, enabled, locked, name, onChange } = this.props;
     return (
-      <WithDrop index={ rowIndex } { ...tagComponent('configurable-item-row', this.props) }>
-        <li className={ this.classes(this.context.dragAndDropActiveIndex, rowIndex) }>
-          <div className='configurable-item-row__content-wrapper'>
-            { this.icon() }
-            { this.checkbox(enabled, locked, name, onChange) }
-          </div>
-        </li>
+      <li
+        className={ this.classes(this.context.dragAndDropActiveIndex, rowIndex) }
+        ref={ (node) => { this._listItem = node; } }
+      >
+        <div className='configurable-item-row__content-wrapper'>
+          { this.icon() }
+          { this.checkbox(enabled, locked, name, onChange) }
+        </div>
+      </li>
+    );
+  }
+
+  render() {
+    return (
+      <WithDrop index={ this.props.rowIndex } { ...tagComponent('configurable-item-row', this.props) }>
+        { this.listItemHTML() }
       </WithDrop>
     );
   }

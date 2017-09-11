@@ -27,6 +27,21 @@ class Service {
    * @constructor
    */
   constructor(opts = {}) {
+    this.handleSuccess = this.handleSuccess.bind(this);
+    this.handleError = this.handleError.bind(this);
+    this.setURL = this.setURL.bind(this);
+    this.setTransformResponse = this.setTransformResponse.bind(this);
+    this.setTransformRequest = this.setTransformRequest.bind(this);
+    this.enableGlobalCallbacks = this.enableGlobalCallbacks.bind(this);
+    this.disableGlobalCallbacks = this.disableGlobalCallbacks.bind(this);
+    this.get = this.get.bind(this);
+    this.post = this.post.bind(this);
+    this.put = this.put.bind(this);
+    this.delete = this.delete.bind(this);
+    this.handleResponse = this.handleResponse.bind(this);
+    this.responseTransform = this.responseTransform.bind(this);
+    this.shouldTriggerCallback = this.shouldTriggerCallback.bind(this);
+
     // sets up the axios client with default options
     this.client = axios.create({
       headers: {
@@ -54,7 +69,7 @@ class Service {
    * @param {Object} response - the reponse from the server
    * @return {Object} the response data
    */
-  handleSuccess = (response) => {
+  handleSuccess(response) {
     if (!response.data.message) {
       return response.data;
     }
@@ -83,7 +98,7 @@ class Service {
    * @param {Object} error - the response from the server
    * @return {Object}
    */
-  handleError = (error) => {
+  handleError(error) {
     if (this.shouldTriggerCallback(config.onError)) {
       config.onError(error.response.data);
     }
@@ -98,7 +113,7 @@ class Service {
    * @param {String} url
    * @return {Void}
    */
-  setURL = (url) => {
+  setURL(url) {
     this.client.defaults.baseURL = url;
   }
 
@@ -109,7 +124,7 @@ class Service {
    * @param {Function} func
    * @return {Void}
    */
-  setTransformRequest = (func) => {
+  setTransformRequest(func) {
     this.client.defaults.transformRequest[1] = func;
   }
 
@@ -120,7 +135,7 @@ class Service {
    * @param {Function} func
    * @return {Void}
    */
-  setTransformResponse = (func) => {
+  setTransformResponse(func) {
     this.client.defaults.transformResponse[1] = func;
   }
 
@@ -130,7 +145,7 @@ class Service {
    * @method enableGlobalCallbacks
    * @return {Void}
    */
-  enableGlobalCallbacks = () => {
+  enableGlobalCallbacks() {
     this.globalCallbacks = true;
   }
 
@@ -140,7 +155,7 @@ class Service {
    * @method disableGlobalCallbacks
    * @return {Void}
    */
-  disableGlobalCallbacks = () => {
+  disableGlobalCallbacks() {
     this.globalCallbacks = false;
   }
 
@@ -149,12 +164,14 @@ class Service {
    *
    * @method get
    * @param {Number} id - the ID of the resource.
-   * @param {Function} onSuccess - a callback to trigger on success
-   * @param {Function} onError - a callback to trigger on error
+   * @param {Object} options - an object with options for query params and success/error callbacks
    * @return {Void}
    */
-  get = (id, onSuccess, onError) => {
-    this.client.get(String(id)).then(
+  get(id, options) {
+    const { onSuccess, onError, ...params } = options;
+    const request = this.client.get(String(id), params);
+
+    request.then(
       this.handleResponse.bind(this, onSuccess),
       this.handleResponse.bind(this, onError)
     );
@@ -165,12 +182,14 @@ class Service {
    *
    * @method post
    * @param {Object} data - the data to post to the server.
-   * @param {Function} onSuccess - a callback to trigger on success
-   * @param {Function} onError - a callback to trigger on error
+   * @param {Object} options - an object with options for query params and success/error callbacks
    * @return {Void}
    */
-  post = (data, onSuccess, onError) => {
-    this.client.post('', data).then(
+  post(data, options) {
+    const { onSuccess, onError, ...params } = options;
+    const request = this.client.post('', data, params);
+
+    request.then(
       this.handleResponse.bind(this, onSuccess),
       this.handleResponse.bind(this, onError)
     );
@@ -182,12 +201,14 @@ class Service {
    * @method put
    * @param {Number} id - the ID of the resource.
    * @param {Object} data - the data to post to the server.
-   * @param {Function} onSuccess - a callback to trigger on success
-   * @param {Function} onError - a callback to trigger on error
+   * @param {Object} options - an object with options for query params and success/error callbacks
    * @return {Void}
    */
-  put = (id, data, onSuccess, onError) => {
-    this.client.put(String(id), data).then(
+  put(id, data, options) {
+    const { onSuccess, onError, ...params } = options;
+    const request = this.client.put(String(id), data, params);
+
+    request.then(
       this.handleResponse.bind(this, onSuccess),
       this.handleResponse.bind(this, onError)
     );
@@ -198,12 +219,14 @@ class Service {
    *
    * @method delete
    * @param {Number} id - the ID of the resource.
-   * @param {Function} onSuccess - a callback to trigger on success
-   * @param {Function} onError - a callback to trigger on error
+   * @param {Object} options - an object with options for query params and success/error callbacks
    * @return {Void}
    */
-  delete = (id, onSuccess, onError) => {
-    this.client.delete(String(id)).then(
+  delete(id, options) {
+    const { onSuccess, onError, ...params } = options;
+    const request = this.client.delete(String(id), params);
+
+    request.then(
       this.handleResponse.bind(this, onSuccess),
       this.handleResponse.bind(this, onError)
     );
@@ -217,7 +240,7 @@ class Service {
    * @param {Object} response
    * @return {Void}
    */
-  handleResponse = (callback, response) => {
+  handleResponse(callback, response) {
     if (callback) {
       callback(response);
     }
@@ -230,7 +253,7 @@ class Service {
    * @param {Object}
    * @return {Void}
    */
-  responseTransform = (response) => {
+  responseTransform(response) {
     return JSON.parse(response);
   }
 
@@ -241,7 +264,7 @@ class Service {
    * @param {Function}
    * @return {Boolean}
    */
-  shouldTriggerCallback = (method) => {
+  shouldTriggerCallback(method) {
     return this.globalCallbacks && method;
   }
 }

@@ -3,7 +3,7 @@
 .configurable-item-row {
   border-bottom: 1px solid $border-color;
   font-weight: bold;
-  padding: 0.5em;
+  padding: 0.5em 0.5em 0.7em;
 }
 
 .configurable-item-row--dragging,
@@ -11,6 +11,12 @@
   cursor: grabbing;
   cursor: -moz-grabbing;
   cursor: -webkit-grabbing;
+}
+
+.configurable-item-row--dragged {
+  .configurable-item-row__content-wrapper {
+    visibility: hidden;
+  }
 }
 
 .configurable-item-row__content-wrapper {
@@ -21,4 +27,24 @@
 
 .configurable-item-row__icon {
   cursor: move;
+}
+
+.custom-drag-layer {
+  .configurable-item-row {
+    background-color: $grey-light;
+    border: none;
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+
+    .configurable-item-row__icon {
+      cursor: grabbing;
+      cursor: -moz-grabbing;
+      cursor: -webkit-grabbing;
+    }
+
+    .configurable-item-row__content-wrapper {
+      visibility: visible;
+    }
+  }
 }

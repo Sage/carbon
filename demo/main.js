@@ -1,9 +1,12 @@
 import React from 'react';
-import config from './config';
-import 'utils/css';
 import { Route } from 'react-router';
 import { startRouter } from 'utils/router';
+import 'moment/locale/fr'; // For testing the date picker
+import 'utils/css';
+import Highcharts from 'highcharts';
+import config from './config';
 import { enableMock } from './xhr-mock';
+import setupI18n from './i18n/config';
 
 // Languages
 import './i18n/en';
@@ -17,16 +20,16 @@ import Home from './views/pages/home';
 
 import SiteMap from './site-map';
 
-import Highcharts from 'highcharts';
 global.Highcharts = Highcharts;
 
 global.imagePath = config.imagePath;
 
+setupI18n();
 enableMock();
 
 const routes = (
   <Route component={ Chrome }>
-    <Route path="/" component={ Home } />
+    <Route path='/' component={ Home } />
 
     <Route component={ SubPageChrome }>
       { SiteMap.generateRoutes() }

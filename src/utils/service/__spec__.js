@@ -26,7 +26,9 @@ describe('Service', () => {
     });
 
     it('sets the transformResponse of the axios client', () => {
-      expect(service.client.defaults.transformResponse[0]).toEqual(service.responseTransform);
+      spyOn(JSON, 'parse');
+      service.client.defaults.transformResponse[0]('test');
+      expect(JSON.parse).toHaveBeenCalledWith('test');
     });
 
     it('sets the interceptors of the axios client', () => {
@@ -162,7 +164,6 @@ describe('Service', () => {
       moxios.wait(() => {
         let request = moxios.requests.mostRecent(),
             data = { data: {} };
-
         request.respondWith({
           status: status,
           response: JSON.stringify(data)
@@ -174,24 +175,88 @@ describe('Service', () => {
     };
 
     describe('errors', () => {
-      it('calls the GET endpoint', (done) => {
-        service.get(5, successSpy, errorSpy);
-        testEndpoint(done, 400, errorSpy);
+      describe('GET with object params', () => {
+        it('calls the GET endpoint with query params', (done) => {
+          service.get(5,
+            {
+              params: { foo: 'bar' },
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          testEndpoint(done, 400, errorSpy);
+        });
+
+        it('calls the GET endpoint without query params', (done) => {
+          service.get(5,
+            {
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          testEndpoint(done, 400, errorSpy);
+        });
       });
 
-      it('calls the POST endpoint', (done) => {
-        service.post({}, successSpy, errorSpy);
-        testEndpoint(done, 400, errorSpy);
+      describe('POST with object params', () => {
+        it('calls the POST endpoint with query params', (done) => {
+          service.post({},
+            {
+              params: { foo: 'bar' },
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          testEndpoint(done, 400, errorSpy);
+        });
+
+        it('calls the POST endpoint without query params', (done) => {
+          service.post({},
+            {
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          testEndpoint(done, 400, errorSpy);
+        });
       });
 
-      it('calls the PUT endpoint', (done) => {
-        service.put(1, {}, successSpy, errorSpy);
-        testEndpoint(done, 400, errorSpy);
+      describe('PUT with object params', () => {
+        it('calls the PUT endpoint with query params', (done) => {
+          service.put(1, {},
+            {
+              params: { foo: 'bar' },
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          testEndpoint(done, 400, errorSpy);
+        });
+
+        it('calls the PUT endpoint without query params', (done) => {
+          service.put(1, {},
+            {
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          testEndpoint(done, 400, errorSpy);
+        });
       });
 
-      it('calls the DEL endpoint', (done) => {
-        service.delete(1, successSpy, errorSpy);
-        testEndpoint(done, 400, errorSpy);
+      describe('DELETE with object params', () => {
+        it('calls the DELETE endpoint with query params', (done) => {
+          service.delete(1,
+            {
+              params: { foo: 'bar' },
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          testEndpoint(done, 400, errorSpy);
+        });
+
+        it('calls the DELETE endpoint without query params', (done) => {
+          service.delete(1,
+            {
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          testEndpoint(done, 400, errorSpy);
+        });
       });
 
       it('without an error callback', (done) => {
@@ -212,24 +277,17 @@ describe('Service', () => {
     });
 
     describe('success', () => {
-      it('calls the GET endpoint', (done) => {
-        service.get(5, successSpy, errorSpy);
-        testEndpoint(done, 200, successSpy);
-      });
-
-      it('calls the POST endpoint', (done) => {
-        service.post({}, successSpy, errorSpy);
-        testEndpoint(done, 200, successSpy);
-      });
-
-      it('calls the PUT endpoint', (done) => {
-        service.put(1, {}, successSpy, errorSpy);
-        testEndpoint(done, 200, successSpy);
-      });
-
-      it('calls the DEL endpoint', (done) => {
-        service.delete(1, successSpy, errorSpy);
-        testEndpoint(done, 200, successSpy);
+      describe('GET with object params', () => {
+        it('calls the GET endpoint', (done) => {
+          service.get(5,
+            {
+              params: { foo: 'bar' },
+              onError: errorSpy,
+              onSuccess: successSpy
+            }
+          );
+          testEndpoint(done, 200, successSpy);
+        });
       });
     });
 

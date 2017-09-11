@@ -146,7 +146,6 @@
   box-sizing: border-box;
   font-weight: 600;
   opacity: 0;
-  left: 9999px; // show offscreen until it is positioned correctly
   margin-top: $arrow-size;
   max-width: 260px;
   min-width: 50px;
@@ -274,10 +273,14 @@
   .common-input__input--#{$type},
   .common-input__input--#{$type}:hover {
     border-color: $color !important; // this is the correct use of !important
-    position: relative;
+  }
+}
+
+.common-input--error,
+.common-input--warning {
+  .carbon-icon {
     z-index: 1;
   }
-
 }
 
 /**

@@ -15,6 +15,24 @@ class Tab extends React.Component {
 
   static propTypes = {
     /**
+     * The id of the corresponding control that must be activated to show the tab
+     *
+     * @property aria-labelledby
+     * @type {String}
+     *
+     */
+    'aria-labelledby': PropTypes.string,
+
+    /**
+     * The role of the component
+     *
+     * @property role
+     * @type {String}
+     *
+     */
+    role: PropTypes.string,
+
+    /**
      * Visible title in tabs header
      * Consumed within tabs component
      *
@@ -52,7 +70,8 @@ class Tab extends React.Component {
 
   static defaultProps = {
     className: '',
-    children: null
+    children: null,
+    role: 'tabPanel'
   }
 
   static contextTypes = {
@@ -157,7 +176,11 @@ class Tab extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div
+        aria-labelledby={ this.props['aria-labelledby'] }
+        className={ this.mainClasses }
+        role={ this.props.role }
+      >
         { this.props.children }
       </div>
     );
