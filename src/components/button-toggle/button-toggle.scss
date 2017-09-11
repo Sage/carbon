@@ -57,14 +57,16 @@
 
 .carbon-button-toggle--small {
   label {
-    padding: 5px;
+    padding: 5px 8px 5px 8px;
+    font-weight: 700;
+    font-size: 12px;
   }
 }
 
 .carbon-button-toggle__label--disabled,
 .carbon-button-toggle__label--disabled:hover {
   background-color: $carbon-button__background-color--disabled !important;
-  border: 1px solid $carbon-button__background-color--disabled;
+  border: 1px solid $carbon-button__background-color--disabled !important;
   color: $carbon-button__color--disabled !important;
   cursor: initial;
 }
