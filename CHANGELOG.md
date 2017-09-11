@@ -51,7 +51,7 @@ npm install --save carbon-react@2.0.0
 
 ## Component Enhancements
 
-* `button-toggle` now lets you add a `size` and a `grouped` prop.
+* `ButtonToggle` now lets you add a `size` and a `grouped` prop.
 
 # 1.6.0
 

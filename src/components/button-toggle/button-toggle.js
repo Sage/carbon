@@ -32,7 +32,7 @@ class ButtonToggle extends React.Component {
      * @property size
      * @type {String}
      */
-     size: PropTypes.string,
+    size: PropTypes.string,
 
     /**
      * remove spacing from inbetween buttons
