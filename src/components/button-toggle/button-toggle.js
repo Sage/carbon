@@ -62,8 +62,7 @@ class ButtonToggle extends React.Component {
   static safeProps = ['name']
 
   static defaultProps = {
-    size: 'large',
-    disabled: false
+    size: 'large'
   }
 
   /**

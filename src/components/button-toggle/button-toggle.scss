@@ -43,15 +43,15 @@
   }
 
   &:first-of-type label {
-    border-radius: 4px 0 0 4px;
+    border-radius: $carbon-button__border-radius 0 0 $carbon-button__border-radius;
   }
 
   &:last-of-type label {
-    border-radius: 0 4px 4px 0;
+    border-radius: 0 $carbon-button__border-radius $carbon-button__border-radius 0;
   }
 
   &--disabled {
-    border: 1px solid #D8D9DC;
+    border: 1px solid $grey-dark-blue-20;
   }
 }
 
