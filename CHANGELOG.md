@@ -1,6 +1,8 @@
 # 2.0.0
 
-## Dependency Update
+## Breaking Changes
+
+### Dependency Updates
 
 The following packages are now specified as peer dependencies:
 
@@ -22,9 +24,9 @@ The following packages have been upgraded:
 * i18n-js: upgraded to rc12 - (scope is now required)
 * react-router: ^3.0.0
 
-### Upgrading a project that uses Carbon
+#### Upgrading a project that uses Carbon
 
-#### Installing peer dependencies
+##### Installing peer dependencies
 
 If you're upgrading an application that uses Carbon to v2.0.0 you'll need to make sure you have `flux`, `react`, and `react-dom` in your project's dependencies. To add `flux`, `react`, and `react-dom` to your project dependencies run the following command:
 
@@ -32,7 +34,7 @@ If you're upgrading an application that uses Carbon to v2.0.0 you'll need to mak
 npm install flux react react-dom --save
 ```
 
-#### Upgrading Carbon and using the new Carbon dependencies
+##### Upgrading Carbon and using the new Carbon dependencies
 
 Carbon now includes `i18n-js`, `immutable`, `highcharts`, `react-router`, and `react-transition-group` in its dependencies, so you may be able to remove these from your own project's dependencies. To do this:
 
@@ -48,6 +50,20 @@ npm uninstall --save i18n-js immutable react-router react-transition-group
 ```
 npm install --save carbon-react@2.0.0
 ```
+
+### Removal of Service Deprecation
+
+The `Service` class now accepts an object as its second argument, deprecating the separate `onSuccess` and `onError` arguments.
+This allows you to pass in `onSuccess` and `onError` functions in the object, along with `params` if you need query parameters in your requests.
+
+### Examples
+
+Deprecated invocation:
+ - `service.get('1', onSuccessFunc, onErrorFunc)`
+
+New invocation:
+ - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc })`
+ - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc, params: { key1: 'val1', key2: 'val2'} })`
 
 # 1.6.0
 
