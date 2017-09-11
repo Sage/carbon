@@ -27,6 +27,22 @@ class ButtonToggle extends React.Component {
     buttonIconSize: PropTypes.string,
 
     /**
+     * Sets the size of the button (eg. large)
+     *
+     * @property size
+     * @type {String}
+     */
+     size: PropTypes.string,
+
+    /**
+     * remove spacing from inbetween buttons
+     *
+     * @property grouped
+     * @type {boolean}
+     */
+    grouped: PropTypes.bool,
+
+    /**
      * Disable all user interaction.
      *
      * @property disabled
@@ -45,6 +61,11 @@ class ButtonToggle extends React.Component {
 
   static safeProps = ['name']
 
+  static defaultProps = {
+    size: 'large',
+    disabled: false
+  }
+
   /**
    * Main Class getter
    *
@@ -52,7 +73,10 @@ class ButtonToggle extends React.Component {
    * @return {void}
    */
   get mainClasses() {
-    return 'carbon-button-toggle';
+    return classNames('carbon-button-toggle',
+      `carbon-button-toggle--${this.props.size}`,
+      { 'carbon-button-toggle--grouped': this.props.grouped }
+    );
   }
 
   /**
