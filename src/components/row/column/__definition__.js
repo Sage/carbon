@@ -8,6 +8,7 @@ let definition = new Definition('column', Column, {
     columnOffset: "String",
     columnSpan: "String",
     columnAlign: "String",
+    columnDivide: "Boolean",
     children: "Node"
   },
   propDescriptions: {
@@ -15,6 +16,7 @@ let definition = new Definition('column', Column, {
     columnOffset: "Offset this column by a certain number of columns.",
     columnSpan: "Span this column by a certain number of columns.",
     columnAlign: "Align the content of this column.",
+    columnDivide: "Show a divide between columns. This is defined by the row component",
     children: "This component supports children."
   }
 });

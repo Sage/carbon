@@ -1,6 +1,5 @@
 import moxios from 'moxios';
 import Service from './service';
-import Logger from '../logger'
 import { assign } from 'lodash';
 
 describe('Service', () => {
@@ -176,15 +175,6 @@ describe('Service', () => {
     };
 
     describe('errors', () => {
-      describe('GET with function params', () => {
-        it('calls the GET endpoint', (done) => {
-          spyOn(Logger, 'deprecate');
-          service.get(5, successSpy, errorSpy);
-          testEndpoint(done, 400, errorSpy);
-          expect(Logger.deprecate).toHaveBeenCalled();
-        });
-      });
-
       describe('GET with object params', () => {
         it('calls the GET endpoint with query params', (done) => {
           service.get(5,
@@ -203,15 +193,6 @@ describe('Service', () => {
               onError: errorSpy
             });
           testEndpoint(done, 400, errorSpy);
-        });
-      });
-
-      describe('POST with function params', () => {
-        it('calls the POST endpoint', (done) => {
-          spyOn(Logger, 'deprecate');
-          service.post({}, successSpy, errorSpy);
-          testEndpoint(done, 400, errorSpy);
-          expect(Logger.deprecate).toHaveBeenCalled();
         });
       });
 
@@ -236,15 +217,6 @@ describe('Service', () => {
         });
       });
 
-      describe('PUT with function params', () => {
-        it('calls the PUT endpoint', (done) => {
-          spyOn(Logger, 'deprecate');
-          service.put(1, {}, successSpy, errorSpy);
-          testEndpoint(done, 400, errorSpy);
-          expect(Logger.deprecate).toHaveBeenCalled();
-        });
-      });
-
       describe('PUT with object params', () => {
         it('calls the PUT endpoint with query params', (done) => {
           service.put(1, {},
@@ -263,15 +235,6 @@ describe('Service', () => {
               onError: errorSpy
             });
           testEndpoint(done, 400, errorSpy);
-        });
-      });
-
-      describe('DELETE with function params', () => {
-        it('calls the DELETE endpoint', (done) => {
-          spyOn(Logger, 'deprecate');
-          service.delete(1, successSpy, errorSpy);
-          testEndpoint(done, 400, errorSpy);
-          expect(Logger.deprecate).toHaveBeenCalled();
         });
       });
 
@@ -314,35 +277,17 @@ describe('Service', () => {
     });
 
     describe('success', () => {
-      describe('GET with function params', () => {
-        it('calls the GET endpoint', (done) => {
-          spyOn(Logger, 'deprecate');
-          service.get(5, successSpy, errorSpy);
-          testEndpoint(done, 200, successSpy);
-          expect(Logger.deprecate).toHaveBeenCalled();
-        });
-      });
-
       describe('GET with object params', () => {
         it('calls the GET endpoint', (done) => {
           service.get(5,
             {
               params: { foo: 'bar' },
-              onSuccess: successSpy,
-              onError: errorSpy
-            });
+              onError: errorSpy,
+              onSuccess: successSpy
+            }
+          );
           testEndpoint(done, 200, successSpy);
         });
-      });
-
-      it('calls the PUT endpoint', (done) => {
-        service.put(1, {}, successSpy, errorSpy);
-        testEndpoint(done, 200, successSpy);
-      });
-
-      it('calls the DEL endpoint', (done) => {
-        service.delete(1, successSpy, errorSpy);
-        testEndpoint(done, 200, successSpy);
       });
     });
 
