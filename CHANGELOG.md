@@ -109,6 +109,10 @@ import { Row, Column } from 'carbon/lib/components/row';
 </Row>
 ```
 
+## Component Enhancements
+
+* `ButtonToggle` now lets you add a `size` and a `grouped` prop.
+
 # 1.6.0
 
 ## Component Enhancements
