@@ -1,0 +1,4 @@
+{
+  "main": "./custom-drag-layer.js",
+  "style": "./custom-drag-layer.scss"
+}

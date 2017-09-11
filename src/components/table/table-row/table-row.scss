@@ -56,3 +56,31 @@
 .carbon-table-row--dragging {
   @include disable-text-selection;
 }
+
+.carbon-table-row--dragged {
+  .carbon-table-cell {
+    visibility: hidden;
+  }
+
+  + .carbon-table-row--dragging .carbon-table-cell {
+    border-top: 1px solid $table-border-color;
+  }
+}
+
+.custom-drag-layer {
+  .carbon-table-row {
+    background-color: $grey-light;
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+    display: block;
+
+    .carbon-table-cell {
+      background-color: $grey-light !important;
+    }
+
+    .configurable-item-row__content-wrapper {
+      visibility: visible;
+    }
+  }
+}

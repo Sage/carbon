@@ -491,6 +491,7 @@ describe('TableRow', () => {
       it('renders a draggable cell', () => {
         let cell = wrapper.find(TableRow).find(DraggableTableCell);
         expect(cell.props().identifier).toEqual("foo");
+        expect(cell.props().draggableNode().getAttribute('class')).toEqual('carbon-table-row');
       });
 
       it('renders a WithDrop component', () => {

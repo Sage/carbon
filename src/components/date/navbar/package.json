@@ -1,0 +1,5 @@
+{
+  "name": "navbar",
+  "main": "./navbar.js",
+  "style": "./navbar.scss"
+}

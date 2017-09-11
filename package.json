@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "1.5.3",
+  "version": "1.6.0",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "engineStrict": true,
   "engines": {
@@ -63,7 +63,7 @@
     "marked": "~0.3.6",
     "moment": "~2.15.1",
     "prop-types": "~15.5.8",
-    "react-date-picker": "~5.3.28",
+    "react-day-picker": "~6.1.0",
     "react-dnd": "~2.4.0",
     "react-dnd-touch-backend": "0.2.7",
     "react-highcharts": "~11.5.0",

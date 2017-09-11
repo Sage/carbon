@@ -1,3 +1,80 @@
+# 1.6.0
+
+## Component Enhancements
+
+* `Table` now lets you add an `aria-describedby` prop.
+* `ConfigurableItemRow` is vertically centered correctly.
+* `AnimatedMenuButton` uses the native `<button>` instead of a div for the close button.
+* `Tabs` now includes aria roles for better screen reader support.
+* `Tabs` can now be navigated using left/right arrows for horizontal tabs and up/down arrows for vertical tabs on the keyboard to switch between the tab list.
+
+## Pattern Enhancements
+
+* `ConfigurableItems` has `stickyFormFooter` enabled
+
+## Draggable Ghost Row
+
+The `DraggableContext` component now includes a `CustomDragLayer` to enable a ghost row when dragging.
+
+In order to enable this you need to define the `draggableNode` prop on the `<WithDrag>` component. For example:
+
+```
+class DraggableItems extends React.Component {
+  render() {
+    return (
+      <DraggableContext onDrag={ onItemMoved }>
+        <ol>
+          {
+            items.map((item, index) => {
+              return (
+                <WithDrop key={ index } index={ index }>
+                  <DraggableItem />
+                </WithDrop>
+              );
+            });
+          }
+        </ol>
+      </DraggableContext>
+    );
+  }
+}
+
+...
+
+class DraggableItem extends React.Component {
+  render() {
+    return (
+      <li ref={ (node) => { this._listItem = node; } } >
+        <WithDrag draggableNode={ () => { return this._listItem; } }>
+          <span>{ item.content }</span>
+        </WithDrag>
+      </li>
+    );
+  }
+}
+```
+
+Note that the `draggableNode` is passed as a function because the ref `_listItem` is undefined until the component is mounted.
+
+## Service class accepts query parameters
+
+The `Service` class now accepts an object as it's second argument, deprecating the separate `onSuccess` and `onError` arguments.
+This allows you to pass in `onSuccess` and `onError` functions in the object, along with `params` if you need query parameters in your requests.
+
+### Examples
+
+Deprecated invocation:
+ - `service.get('1', onSuccessFunc, onErrorFunc)`
+
+New invocation:
+ - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc })`
+ - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc, params: { key1: 'val1', key2: 'val2'} })`
+
+## DatePicker
+
+* The Date Picker library has changed from react-date-picker to react-day-picker as the old library is no longer maintained.
+* This will effect the `Date` and `DateRange` components but functionally they have remained the same.
+
 # 1.5.3
 
 ## Bug Fixes

@@ -979,6 +979,30 @@ describe('Table', () => {
       let toolbar = toolbarWrapper.find(ActionToolbar);
       expect(toolbar).toBeDefined();
     });
+
+    describe('when aria-describedby is in the table props', () => {
+      it('renders an aria-describedby attribute on the table element', () => {
+        const wrapper = shallow(
+          <Table aria-describedby='description' />
+        );
+
+        const table = wrapper.find('table');
+
+        expect(table.is('[aria-describedby="description"]')).toBe(true);
+      });
+    });
+
+    describe('when aria-describedby is not in the table props', () => {
+      it('does not render an aria-describedby attribute on the table element', () => {
+        const wrapper = shallow(
+          <Table />
+        );
+
+        const table = wrapper.find('table');
+
+        expect(table.is('[aria-describedby="description"]')).toBe(false);
+      });
+    });
   });
 
   describe("tags on component", () => {

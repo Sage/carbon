@@ -421,11 +421,16 @@ class TableRow extends React.Component {
    * @return {Object} JSX
    */
   renderDraggableCell = () => {
-    if (!this.context.dragDropManager) {
+    if (!this.context.dragDropManager || this.isHeader) {
       return null;
     }
 
-    return <DraggableTableCell identifier={ this.props.dragAndDropIdentifier } />;
+    return (
+      <DraggableTableCell
+        identifier={ this.props.dragAndDropIdentifier }
+        draggableNode={ () => { return this._row; } }
+      />
+    );
   }
 
   /**
@@ -436,7 +441,7 @@ class TableRow extends React.Component {
    * @return {Object} JSX
    */
   renderDraggableRow = (row) => {
-    if (!this.context.dragDropManager) {
+    if (!this.context.dragDropManager || this.isHeader) {
       return row;
     }
 
@@ -463,7 +468,11 @@ class TableRow extends React.Component {
     }
 
     return this.renderDraggableRow(
-      <tr { ...this.rowProps } { ...tagComponent('table-row', this.props) }>
+      <tr
+        { ...this.rowProps }
+        { ...tagComponent('table-row', this.props) }
+        ref={ (node) => { this._row = node; } }
+      >
         { this.renderDraggableCell() }
 
         { content }
