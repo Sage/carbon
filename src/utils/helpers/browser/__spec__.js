@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { mount } from 'enzyme';
 import Form from './../../../components/form';
-import Browser from './browser.js';
+import Browser from './browser';
 
 describe('Browser', () => {
   let _window;

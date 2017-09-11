@@ -111,6 +111,7 @@ import { Row, Column } from 'carbon/lib/components/row';
 
 ## Component Enhancements
 
+* `Browser` has been updated so that `getWindow()` will work when run in a node environment
 * `ButtonToggle` now lets you add a `size` and a `grouped` prop.
 
 # 1.6.0
