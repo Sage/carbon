@@ -2,6 +2,14 @@
 
 ## Breaking Changes
 
+### Store Disptacher
+
+Store no longer accepts a `Dispatcher` as its third argument. It will automatically use the dispatcher supplied by Carbon. If you want to pass a custom one then you can pass it as a param in the config:
+
+```js
+new Store('name', data, { dispatcher: myDispatcher });
+```
+
 ### Dependency Updates
 
 The following packages are now specified as peer dependencies:
@@ -56,7 +64,7 @@ npm install --save carbon-react@2.0.0
 The `Service` class now accepts an object as its second argument, deprecating the separate `onSuccess` and `onError` arguments.
 This allows you to pass in `onSuccess` and `onError` functions in the object, along with `params` if you need query parameters in your requests.
 
-### Examples
+#### Examples
 
 Deprecated invocation:
  - `service.get('1', onSuccessFunc, onErrorFunc)`
