@@ -19,11 +19,11 @@ $sizes: ("extra-small", $grid-margin-extra-small),
       margin-bottom: -($size);
       margin-left: -($size);
 
-      > .carbon-row__column {
+      > .carbon-column {
         margin-bottom: $size;
         padding-left: $size;
 
-        &.carbon-row__column--column-divide {
+        &.carbon-column--column-divide {
           position: relative;
 
           &:before {
@@ -44,18 +44,18 @@ $sizes: ("extra-small", $grid-margin-extra-small),
     }
   }
 
-  .carbon-row__column {
+  .carbon-column {
     box-sizing: border-box;
     float: left;
     min-height: 1px;
     width: 100%;
 
-    &.carbon-row__column--align-center,
-    &.carbon-row__column--align-middle {
+    &.carbon-column--align-center,
+    &.carbon-column--align-middle {
       text-align: center;
     }
 
-    &.carbon-row__column--align-right {
+    &.carbon-column--align-right {
       text-align: right;
     }
   }
@@ -64,7 +64,7 @@ $sizes: ("extra-small", $grid-margin-extra-small),
     $width: 100% / $i;
 
     &.carbon-row--columns-#{$i} {
-      > .carbon-row__column {
+      > .carbon-column {
         width: $width;
 
         &:nth-child(#{$i}n+1) {
@@ -75,7 +75,7 @@ $sizes: ("extra-small", $grid-margin-extra-small),
       // span columns:
       @for $y from 2 through $i {
         @if $y != $i {
-          > .carbon-row__column--span-#{$y} {
+          > .carbon-column--span-#{$y} {
             width: (100% / $i) * $y;
           }
         }
@@ -84,7 +84,7 @@ $sizes: ("extra-small", $grid-margin-extra-small),
       // offset columns:
       @for $y from 1 through $i {
         @if $y != $i {
-          > .carbon-row__column--offset-#{$y} {
+          > .carbon-column--offset-#{$y} {
             margin-left: $width * $y;
           }
         }
