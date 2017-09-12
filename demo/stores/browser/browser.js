@@ -40,4 +40,4 @@ class BrowserStore extends Store {
   }
 }
 
-export default new BrowserStore('browserStore', data, Dispatcher);
+export default new BrowserStore('browserStore', data);
