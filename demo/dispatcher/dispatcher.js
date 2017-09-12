@@ -1,5 +1,3 @@
-import { Dispatcher } from 'flux';
+import { Dispatcher } from './../../src/utils/flux';
 
-let AppDispatcher = new Dispatcher();
-
-export default AppDispatcher;
+export default Dispatcher;
