@@ -119,4 +119,4 @@ class ComponentStore extends Store {
   }
 }
 
-export default new ComponentStore('componentStore', data, Dispatcher);
+export default new ComponentStore('componentStore', data);
