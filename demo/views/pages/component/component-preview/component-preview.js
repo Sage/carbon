@@ -24,6 +24,10 @@ class ComponentPreview extends React.Component {
     this.renderDemo();
   }
 
+  shouldComponentUpdate(nextProps) {
+    return !nextProps.definition.equals(this.props.definition);
+  }
+
   render() {
     return (
       <PageContentArea
