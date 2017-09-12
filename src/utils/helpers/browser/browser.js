@@ -17,11 +17,7 @@ const Browser = {
    * @return window
    */
   getWindow: () => {
-    if (typeof window !== 'undefined') {
-      return window;
-    } else {
-      return {};
-    }
+    return global.window;
   },
 
   /**
