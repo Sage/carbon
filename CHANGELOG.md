@@ -113,6 +113,13 @@ import { Row, Column } from 'carbon/lib/components/row';
 
 * `ButtonToggle` now lets you add a `size` and a `grouped` prop.
 
+# 1.7.0
+
+## Component Enhancements
+
+* `Message` - `children` prop is now optional. [#1543](https://github.com/Sage/carbon/issues/1543)
+* `Message` - `title` prop type has been changed from string to node. [#1543](https://github.com/Sage/carbon/issues/1543)
+
 # 1.6.0
 
 ## Component Enhancements
