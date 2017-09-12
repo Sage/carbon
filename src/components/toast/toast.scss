@@ -73,7 +73,7 @@ $toast-width: 300px !default;
 
 @mixin toast-theme($type, $color, $border, $background, $color-hover) {
   .carbon-toast--#{$type} {
-    box-shadow: inset 0px 0px 0px 1px $border, 0px 5px 10px 0px rgba(black,.1), 0px 15px 15px 0px rgba(black,.1);
+    box-shadow: 0 15px 20px 0 rgba($grey-shadow, 0.2);
     background-color: $background;
 
     .carbon-toast__type {
