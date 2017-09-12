@@ -17,7 +17,6 @@ class GroupedCharacter extends React.Component {
     super(...args);
 
     this.state = {};
-    this.state.value = this.props.value;
     this.maxLength = this.calculateMaxLength();
     this.insertionIndices = this.insertionIndices();
     this.onKeyDown = this.onKeyDown.bind(this);
@@ -28,6 +27,7 @@ class GroupedCharacter extends React.Component {
     this.getPlainValue = this.getPlainValue.bind(this);    // value without separators
     this.lastPosition = 0;                                // last position of cursor 1-indexed
     this.keyPressed = { which: null };                  // track key pressed outside of React synthetic event
+    this.state.value = this.setVisibleValue(this.props.value);
   }
 
 

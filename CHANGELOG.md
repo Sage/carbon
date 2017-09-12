@@ -113,6 +113,10 @@ import { Row, Column } from 'carbon/lib/components/row';
 
 * `ButtonToggle` now lets you add a `size` and a `grouped` prop.
 
+## Bug Fixes
+
+* Grouped character adds separators to value on first render.
+
 # 1.7.0
 
 ## Component Enhancements
