@@ -4,6 +4,8 @@ import DayPicker from 'react-day-picker';
 import LocaleUtils from 'react-day-picker/moment';
 import I18n from 'i18n-js';
 import Navbar from './navbar';
+import Portal from './../portal';
+import Browser from './../../utils/helpers/browser';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
@@ -160,6 +162,11 @@ class Date extends React.Component {
     visibleValue: this.formatVisibleValue(this.props.value)
   }
 
+  constructor(args) {
+    super(args);
+    this.window = Browser.getWindow();
+  }
+
   /**
    * Manually focus if autoFocus is applied - allows us to prevent the list from opening.
    *
@@ -195,6 +202,15 @@ class Date extends React.Component {
    * @return {void}
    */
   componentDidUpdate(prevProps) {
+    if (this.state.open && !this.listening) {
+      this.listening = true;
+      this.updateDatePickerPosition();
+      this.window.addEventListener('resize', this.updateDatePickerPosition);
+    } else if (!this.state.open && this.listening) {
+      this.listening = false;
+      this.window.removeEventListener('resize', this.updateDatePickerPosition);
+    }
+
     if (this.datePickerValueChanged(prevProps)) {
       this.blockBlur = false;
       this._handleBlur();
@@ -500,14 +516,65 @@ class Date extends React.Component {
   }
 
   /**
+   * Updates the containerStyle state
+   *
+   * @method updateDatePickerPosition
+   * @return {Void}
+   */
+  updateDatePickerPosition = () => {
+    this.setState({ containerStyle: this.containerStyle });
+  }
+
+  /**
+   * Returns the bounding rect for the input
+   *
+   * @method getInputBoundingRect
+   * @return {Object}
+   */
+  getInputBoundingRect() {
+    return this._input.getBoundingClientRect();
+  }
+
+  /**
+   * Returns the style for the DayPicker container
+   *
+   * @method containerStyle
+   * @return {Object}
+   */
+  get containerStyle() {
+    const inputRect = this.getInputBoundingRect();
+    const offsetY = window.pageYOffset;
+    return {
+      left: inputRect.left,
+      top: inputRect.bottom + offsetY
+    };
+  }
+
+  /**
+   * Returns the props for the DayPicker container
+   *
+   * @method containerProps
+   * @return {Object}
+   */
+  get containerProps() {
+    return {
+      style: this.state.containerStyle,
+      onClick: this.handleWidgetClick
+    };
+  }
+
+  /**
    * Returns the DayPicker component
    *
    * @method renderDatePicker
    * @return {Object} JSX
    */
   renderDatePicker() {
-    if (!this.state.open) { return null; }
-    return <DayPicker { ...this.datePickerProps } />;
+    return (
+      <Portal open={ this.state.open }>
+        <DayPicker { ...this.datePickerProps } containerProps={ this.containerProps } />
+      </Portal>
+    );
   }
 
   renderHiddenInput() {
