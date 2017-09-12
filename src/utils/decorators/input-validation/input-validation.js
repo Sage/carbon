@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { assign } from 'lodash';
+import Browser from './../../helpers/browser';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
 
@@ -41,10 +42,10 @@ import chainFunctions from './../../helpers/chain-functions';
  */
 const InputValidation = ComposedComponent => class Component extends ComposedComponent {
 
-  _window = window;
-
   constructor(...args) {
     super(...args);
+
+    this._window = Browser.getWindow();
 
     // use the super components state, or create an empty object
     this.state = this.state || {};
