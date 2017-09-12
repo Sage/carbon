@@ -11,4 +11,4 @@ class DocumentStore extends Store {
   }
 }
 
-export default new DocumentStore('documentStore', data, Dispatcher);
+export default new DocumentStore('documentStore', data);
