@@ -642,12 +642,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
         className={ iconClasses }
         style={ iconStyle }
       />,
-      <div
-        key='1'
-        className='common-input__message-wrapper'
-        onMouseOver={ this.showMessage }
-        onMouseOut={ this.hideMessage }
-      >
+      <div key='1' className='common-input__message-wrapper'>
         <div
           ref={ (validationMessage) => { this.validationMessage = validationMessage; } }
           className={ messageClasses }

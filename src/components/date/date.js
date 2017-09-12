@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// https://github.com/zippyui/react-date-picker
-import { MonthView, NavBar } from 'react-date-picker';
+import DayPicker from 'react-day-picker';
+import LocaleUtils from 'react-day-picker/moment';
 import I18n from 'i18n-js';
+import Navbar from './navbar';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
@@ -220,8 +221,7 @@ class Date extends React.Component {
    */
   emitOnChangeCallback = (val) => {
     const hiddenField = this.hidden;
-    hiddenField.value = val;
-
+    hiddenField.value = DateHelper.formatDateString(val, this.hiddenFormat());
     this._handleOnChange({ target: hiddenField });
   }
 
@@ -236,7 +236,9 @@ class Date extends React.Component {
     this.setState({ open: true });
 
     if (DateHelper.isValidDate(this.props.value)) {
-      this.setState({ datePickerValue: this.props.value });
+      this.setState({
+        datePickerValue: DateHelper.stringToDate(this.props.value)
+      });
     }
   }
 
@@ -281,12 +283,33 @@ class Date extends React.Component {
     // Updates the hidden value after first formatting to default hidden format
     if (validDate) {
       const hiddenValue = DateHelper.formatValue(input, this.hiddenFormat());
-      newState.datePickerValue = hiddenValue;
+      newState.datePickerValue = DateHelper.stringToDate(hiddenValue);
+
+      if (this.datepicker && this.monthOrYearHasChanged(newState.datePickerValue)) {
+        this.datepicker.showMonth(newState.datePickerValue);
+      }
+
       this.emitOnChangeCallback(hiddenValue);
     } else {
       this.emitOnChangeCallback(ev.target.value);
     }
     this.setState(newState);
+  }
+
+  /**
+   * Determines if the new date's month or year has changed from the currently selected.
+   *
+   * @method monthOrYearHasChanged
+   * @param {Date}
+   * @return {Boolean}
+   */
+  monthOrYearHasChanged = (newDate) => {
+    const currentDate = this.datepicker.state.currentMonth;
+
+    return (
+      (currentDate.getMonth() !== newDate.getMonth()) ||
+      (currentDate.getYear() !== newDate.getYear())
+    );
   }
 
   /**
@@ -307,7 +330,8 @@ class Date extends React.Component {
    * @param {String} val User selected value
    * @return {void}
    */
-  handleDateSelect = (val) => {
+  handleDateSelect = (val, modifiers) => {
+    if (modifiers.disabled) { return; }
     this.blockBlur = true;
     this.closeDatePicker();
     this._handleContentChange();
@@ -340,18 +364,6 @@ class Date extends React.Component {
     } else {
       this.openDatePicker();
     }
-  }
-
-
-  /**
-   * Updates datePickerValue as hidden input changes.
-   *
-   * @method handleViewDateChange
-   * @param {String} val hidden input value
-   * @return {void}
-   */
-  handleViewDateChange = (val) => {
-    this.setState({ datePickerValue: val });
   }
 
   /**
@@ -406,7 +418,7 @@ class Date extends React.Component {
       type: 'hidden',
       readOnly: true,
       'data-element': 'hidden-input',
-      value: this.props.value
+      value: DateHelper.formatValue(this.props.value, this.hiddenFormat())
     };
 
     return props;
@@ -447,7 +459,25 @@ class Date extends React.Component {
     return this.inputIconHTML('calendar');
   }
 
- /**
+  /**
+  * Returns the disabled array of days specified by props maxDate and minDate
+  *
+  * @method disabledDays
+  * @return {Array}
+  */
+  disabledDays() {
+    if (!this.props.minDate && !this.props.maxDate) { return null; }
+    const days = [];
+    if (this.props.minDate) {
+      days.push({ before: DateHelper.stringToDate(this.props.minDate) });
+    }
+    if (this.props.maxDate) {
+      days.push({ after: DateHelper.stringToDate(this.props.maxDate) });
+    }
+    return days;
+  }
+
+  /**
   * A getter that returns datepicker specific props
   *
   * @method datePickerProps
@@ -455,44 +485,37 @@ class Date extends React.Component {
   */
   get datePickerProps() {
     return {
-      date: this.state.datePickerValue,
-      dateFormat: this.hiddenFormat(),
-      enableHistoryView: false,
-      highlightToday: true,
-      highlightWeekends: false,
+      disabledDays: this.disabledDays(),
+      enableOutsideDays: true,
+      fixedWeeks: true,
+      initialMonth: this.state.datePickerValue || DateHelper.stringToDate(this.props.value),
+      inline: true,
       locale: I18n.locale,
-      maxDate: this.props.maxDate,
-      minDate: this.props.minDate,
-      onChange: this.handleDateSelect,
+      localeUtils: LocaleUtils,
+      navbarElement: <Navbar />,
+      onDayClick: this.handleDateSelect,
       ref: (input) => { this.datepicker = input; },
-      theme: null,
-      weekDayNames: DateHelper.weekdaysMinified(),
-      weekNumbers: false
+      selectedDays: [this.state.datePickerValue]
     };
   }
 
   /**
-   * A getter that returns navbar specific props
+   * Returns the DayPicker component
    *
-   * @method navBarProps
-   * @return {Object} props for the navbar
+   * @method renderDatePicker
+   * @return {Object} JSX
    */
-  get navBarProps() {
-    return {
-      navDateFormat: 'MMMM YYYY',
-      arrows: { prev: '‹', next: '›' },
-      maxDate: this.props.maxDate,
-      minDate: this.props.minDate,
-      theme: null
-    };
+  renderDatePicker() {
+    if (!this.state.open) { return null; }
+    return <DayPicker { ...this.datePickerProps } />;
   }
 
-
-  renderDatePicker() {
+  renderHiddenInput() {
     return (
-      <MonthView { ...this.datePickerProps }>
-        <NavBar { ...this.navBarProps } />
-      </MonthView>
+      <input
+        { ...this.hiddenInputProps }
+        ref={ (node) => { this.hidden = node; } }
+      />
     );
   }
 
@@ -503,19 +526,13 @@ class Date extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    // TODO: Pull datepicker into own component to wrap third party
-    const datePicker = this.state.open ? this.renderDatePicker() : null;
-
     return (
       <div className={ this.mainClasses } onClick={ this.handleWidgetClick } { ...tagComponent('date', this.props) }>
-
         { this.labelHTML }
         { this.inputHTML }
-        <input { ...this.hiddenInputProps } ref={ (node) => { this.hidden = node; } } />
-        { datePicker }
-
+        { this.renderHiddenInput() }
+        { this.renderDatePicker() }
         { this.fieldHelpHTML }
-
       </div>
     );
   }

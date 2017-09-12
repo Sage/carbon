@@ -117,9 +117,18 @@
       }
     }
 
-    .icon-close {
+    .carbon-animated-menu-button__close-button {
+      background: none;
+      border: none;
+      color: $white;
+      display: block;
       float: right;
-      outline: none;
+      margin: 0;
+      padding: 0;
+
+      .icon-close {
+        outline: none;
+      }
     }
   }
 }
