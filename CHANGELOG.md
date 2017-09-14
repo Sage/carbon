@@ -1,3 +1,22 @@
+# 2.1.0
+
+## UX Improvements
+
+The following updates have been made to Carbon components to align with design updates.
+
+* Colors - New Text colors added
+* Animated Menu Button - Fixed icon alignment and text weights in
+* Flash - Text colors changed to pass accessibility
+* Menu - New Drop Shadow
+* Multi Action Button - Minor fixes to hover
+* Pager - Padding and font size fixes
+* Pod - Shadow color update
+* Portrait - Border fix
+* Settings Row - Separator placement fix
+* Split Button - Correct color on hover
+* Tabs - Hover color now matches buttons
+* Toast - Shadow update
+
 # 2.0.0
 
 ## Breaking Changes
