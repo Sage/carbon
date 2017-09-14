@@ -17,7 +17,7 @@ const Browser = {
    * @return window
    */
   getWindow: () => {
-    return window;
+    return global.window;
   },
 
   /**

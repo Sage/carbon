@@ -26,7 +26,7 @@ describe('GroupedCharacter', () => {
       beforeEach(() => {
         spyOn(console, 'error');
         let badWrapper = mount(
-          <GroupedCharacter separator={ 22 } onChange={ jasmine.createSpy('onChange') } groups={ [2, 2, 2] } />
+          <GroupedCharacter separator={ 22 } groups={ [2, 2, 2] } />
         );
       });
 
@@ -60,6 +60,16 @@ describe('GroupedCharacter', () => {
       it('renders the value with custom separator', () => {
         input.simulate('change', { target: { value: '123456789', selectionEnd: 8 } });
         expect(input.nodes[0].value).toEqual('12/3456/789');
+      });
+    });
+
+    describe('on initial render when a value is passed in', () => {
+      it('renders the value with separators', () => {
+        wrapper = mount(
+          <GroupedCharacter groups={ [2, 2, 2] } value='123456' />
+        );
+        input = wrapper.find('.carbon-grouped-character__input');
+        expect(input.nodes[0].value).toEqual('12-34-56');
       });
     });
   });
