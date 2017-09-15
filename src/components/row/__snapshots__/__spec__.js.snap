@@ -20,6 +20,15 @@ exports[`Row columnDivide when columnDivide is true passes columnDivide to its c
 </div>
 `;
 
+exports[`Row columns when a null column is passed ignores the null child 1`] = `
+<div
+  className="carbon-row carbon-row--gutter-medium carbon-row--columns-2"
+>
+  <Column />
+  <Column />
+</div>
+`;
+
 exports[`Row columns when column number is not passed determines the columns from the number of children 1`] = `
 <div
   className="carbon-row carbon-row--gutter-medium carbon-row--columns-4"
