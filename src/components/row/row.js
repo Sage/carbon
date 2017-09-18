@@ -94,7 +94,7 @@ class Row extends React.Component {
    * @return {Array} array of built columns
    */
   buildColumns = () => {
-    return React.Children.map(this.props.children, (child) => {
+    return React.Children.toArray(this.props.children).map((child) => {
       return React.cloneElement(
         child, {
           columnClasses: this.props.columnClasses,
@@ -112,7 +112,7 @@ class Row extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    const columns = this.props.columns || React.Children.count(this.props.children);
+    const columns = this.props.columns || React.Children.toArray(this.props.children).length;
 
     return classNames(
       'carbon-row',
