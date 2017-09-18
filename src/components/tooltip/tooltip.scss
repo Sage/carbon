@@ -49,10 +49,11 @@
 
 .carbon-tooltip--pointer-align-center.carbon-tooltip--position-bottom .carbon-tooltip__pointer {
   @include calc(left, "50% - #{$app-tooltip-pointer-size}");
-  top: -15px;
+  top: -7.5px;
 
   &:before {
     @include arrow(up, $app-tooltip-pointer-size, $grey-dark-plus);
+    border-top: none;
     position: absolute;
   }
 }
@@ -63,16 +64,18 @@
 
   &:before {
     @include arrow(down, $app-tooltip-pointer-size, $grey-dark-plus);
+    border-bottom: none;
     position: absolute;
   }
 }
 
 .carbon-tooltip--pointer-align-left.carbon-tooltip--position-bottom .carbon-tooltip__pointer {
-  top: -15px;
+  top: -7.5px;
   left: 10px;
 
   &:before {
     @include arrow(up, $app-tooltip-pointer-size, $grey-dark-plus);
+    border-top: none;
     position: absolute;
   }
 }
@@ -84,16 +87,18 @@
 
   &:before {
     @include arrow(down, $app-tooltip-pointer-size, $grey-dark-plus);
+    border-bottom: none;
     position: absolute;
   }
 }
 
 .carbon-tooltip--pointer-align-right.carbon-tooltip--position-bottom .carbon-tooltip__pointer {
-  top: -15px;
+  top: -7.5px;
   right: 25px;
 
   &:before {
     @include arrow(up, $app-tooltip-pointer-size, $grey-dark-plus);
+    border-top: none;
     position: absolute;
   }
 }
@@ -104,6 +109,7 @@
 
   &:before {
     @include arrow(down, $app-tooltip-pointer-size, $grey-dark-plus);
+    border-bottom: none;
     position: absolute;
   }
 }
@@ -114,16 +120,18 @@
 
   &:before {
     @include arrow(right, $app-tooltip-pointer-size, $grey-dark-plus);
+    border-right: none;
     position: absolute;
   }
 }
 
 .carbon-tooltip--pointer-align-center.carbon-tooltip--position-right .carbon-tooltip__pointer {
   @include calc(top, "50% - #{$app-tooltip-pointer-size}");
-  left: -15px;
+  left: -7.5px;
 
   &:before {
     @include arrow(left, $app-tooltip-pointer-size, $grey-dark-plus);
+    border-left: none;
     position: absolute;
   }
 }
@@ -134,16 +142,18 @@
 
   &:before {
     @include arrow(right, $app-tooltip-pointer-size, $grey-dark-plus);
+    border-right: none;
     position: absolute;
   }
 }
 
 .carbon-tooltip--pointer-align-bottom.carbon-tooltip--position-right .carbon-tooltip__pointer {
-  left: -15px;
+  left: -7.5px;
   bottom: 25px;
 
   &:before {
     @include arrow(left, $app-tooltip-pointer-size, $grey-dark-plus);
+    border-left: none;
     position: absolute;
   }
 }
@@ -154,16 +164,18 @@
 
   &:before {
     @include arrow(right, $app-tooltip-pointer-size, $grey-dark-plus);
+    border-right: none;
     position: absolute;
   }
 }
 
 .carbon-tooltip--pointer-align-top.carbon-tooltip--position-right .carbon-tooltip__pointer {
-  left: -15px;
+  left: -7.5px;
   top: 10px;
 
   &:before {
     @include arrow(left, $app-tooltip-pointer-size, $grey-dark-plus);
+    border-left: none;
     position: absolute;
   }
 }
