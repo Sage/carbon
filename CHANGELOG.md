@@ -4,6 +4,14 @@
 
 * Button - Ensure that the button text is always aligned centrally by default. Resolves an issue where the Button text may wrap where translated text occurs.
 
+## New Components
+
+* `Portal` is a component that wraps the [react-portal](https://github.com/tajo/react-portal) library.
+
+## Component Enhancements
+
+* `TooltipDecorator` now uses the new `Portal` component for layout. This effects `Help` and `Icon` components.
+
 # 2.0.0
 
 ## Breaking Changes
@@ -115,14 +123,10 @@ import { Row, Column } from 'carbon/lib/components/row';
 </Row>
 ```
 
-## New Components
-* `Portal` is a component that wraps the [react-portal](https://github.com/tajo/react-portal) library.
-
 ## Component Enhancements
 
 * `Browser` has been updated so that `getWindow()` will work when run in a node environment
 * `ButtonToggle` now lets you add a `size` and a `grouped` prop.
-* `TooltipDecorator` now uses the new `Portal` component for layout. This effects `Help` and `Icon` components.
 
 ## Bug Fixes
 
