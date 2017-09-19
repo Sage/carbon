@@ -1,3 +1,9 @@
+# 2.1.0
+
+## Styling Improvements
+
+* Button - Ensure that the button text is always aligned centrally by default. Resolves an issue where the Button text may wrap where translated text occurs.
+
 # 2.0.0
 
 ## Breaking Changes
