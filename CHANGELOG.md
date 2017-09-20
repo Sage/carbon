@@ -11,6 +11,7 @@
 ## Component Enhancements
 
 * `TooltipDecorator` now uses the new `Portal` component for layout. This effects `Help` and `Icon` components.
+* `Date` now uses the new `Portal` component to render the DatePicker
 
 # 2.0.0
 
