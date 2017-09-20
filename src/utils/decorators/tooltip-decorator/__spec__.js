@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import TooltipDecorator from './tooltip-decorator';
+import { shallow } from 'enzyme';
 
 /* global jest */
 
@@ -49,19 +50,18 @@ class StrippedClass extends React.Component {
   }
 }
 
-
-
 describe('tooltip-decorator', () => {
-  let topTooltip, bottomTooltip, rightTooltip, leftTooltip, noTooltip, strippedTooltip;
+  let topTooltip, bottomTooltip, rightTooltip, leftTooltip, noTooltip, strippedTooltip,
+      DecoratedClassOne, DecoratedClassTwo;
 
   beforeEach(() => {
-    let DecoratedClassOne = TooltipDecorator(BasicClass);
-    let DecoratedClassTwo = TooltipDecorator(StrippedClass);
+    DecoratedClassOne = TooltipDecorator(BasicClass);
+    DecoratedClassTwo = TooltipDecorator(StrippedClass);
 
-    topTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello'/>);
-    bottomTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='bottom'/>);
-    rightTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='right'/>);
-    leftTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='left'/>);
+    topTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' />);
+    bottomTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='bottom' />);
+    rightTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='right' />);
+    leftTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='left' />);
     noTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne/>);
 
     strippedTooltip = TestUtils.renderIntoDocument(<DecoratedClassTwo />);
@@ -177,14 +177,21 @@ describe('tooltip-decorator', () => {
   });
 
   describe('positionTooltip', () => {
+    let getTarget;
+
+    beforeEach(() => {
+      getTarget = {
+        offsetWidth: 30,
+        offsetHeight: 30,
+        getBoundingClientRect: () => ({ top: 100, bottom: 100, left: 100, right: 100 })
+      }
+    });
+
+
     describe('when positioned above the target', () => {
       beforeEach(()  => {
-        spyOn(topTooltip, 'getTarget').and.returnValue(
-          {
-            offsetWidth: 30,
-            offsetHeight: 30
-          }
-        );
+        topTooltip = shallow(<DecoratedClassOne tooltipMessage='Hello' />).instance();
+        spyOn(topTooltip, 'getTarget').and.returnValue(getTarget);
 
         spyOn(topTooltip, 'getTooltip').and.returnValue(
           {
@@ -208,8 +215,8 @@ describe('tooltip-decorator', () => {
         let tooltip = topTooltip.getTooltip();
         let target = topTooltip.getTarget();
         topTooltip.positionTooltip(tooltip, target);
-        expect(tooltip.style.left).toEqual('-35px');
-        expect(tooltip.style.top).toEqual('-57.5px');
+        expect(tooltip.style.left).toEqual('65px');
+        expect(tooltip.style.top).toEqual('42.5px');
       });
 
       describe('when the pointer is aligned to the right', () => {
@@ -217,16 +224,11 @@ describe('tooltip-decorator', () => {
 
         beforeEach(()  => {
           let DecoratedClass = TooltipDecorator(BasicClass);
-          rightTopTooltip = TestUtils.renderIntoDocument(
+          rightTopTooltip = shallow(
             <DecoratedClass tooltipMessage='Hello' tooltipPosition='top' tooltipAlign='right'/>
-          );
+          ).instance();
 
-          spyOn(rightTopTooltip, 'getTarget').and.returnValue(
-            {
-              offsetWidth: 30,
-              offsetHeight: 30
-            }
-          );
+          spyOn(rightTopTooltip, 'getTarget').and.returnValue(getTarget);
 
           spyOn(rightTopTooltip, 'getTooltip').and.returnValue(
             {
@@ -250,8 +252,8 @@ describe('tooltip-decorator', () => {
           let alignedTooltip = rightTopTooltip.getTooltip();
           let target = rightTopTooltip.getTarget();
           rightTopTooltip.positionTooltip(alignedTooltip, target);
-          expect(alignedTooltip.style.left).toEqual('-74px');
-          expect(alignedTooltip.style.top).toEqual('-57.5px');
+          expect(alignedTooltip.style.left).toEqual('26px');
+          expect(alignedTooltip.style.top).toEqual('42.5px');
         });
       });
 
@@ -260,16 +262,11 @@ describe('tooltip-decorator', () => {
 
         beforeEach(()  => {
           let DecoratedClass = TooltipDecorator(BasicClass);
-          leftTopTooltip = TestUtils.renderIntoDocument(
+          leftTopTooltip = shallow(
             <DecoratedClass tooltipMessage='Hello' tooltipPosition='top' tooltipAlign='left'/>
-          );
+          ).instance();
 
-          spyOn(leftTopTooltip, 'getTarget').and.returnValue(
-            {
-              offsetWidth: 30,
-              offsetHeight: 30
-            }
-          );
+          spyOn(leftTopTooltip, 'getTarget').and.returnValue(getTarget);
 
           spyOn(leftTopTooltip, 'getTooltip').and.returnValue(
             {
@@ -293,20 +290,19 @@ describe('tooltip-decorator', () => {
           let alignedTooltip = leftTopTooltip.getTooltip();
           let target = leftTopTooltip.getTarget();
           leftTopTooltip.positionTooltip(alignedTooltip, target);
-          expect(alignedTooltip.style.left).toEqual('-7.5px');
-          expect(alignedTooltip.style.top).toEqual('-57.5px');
+          expect(alignedTooltip.style.left).toEqual('92.5px');
+          expect(alignedTooltip.style.top).toEqual('42.5px');
         });
       });
     });
 
     describe('when positioned below the target', () => {
       beforeEach(()  => {
-        spyOn(bottomTooltip, 'getTarget').and.returnValue(
-            {
-              offsetWidth: 30,
-              offsetHeight: 30
-            }
-        );
+        let DecoratedClass = TooltipDecorator(BasicClass);
+        bottomTooltip = shallow(
+          <DecoratedClass tooltipMessage='Hello' tooltipPosition='bottom'/>
+        ).instance();
+        spyOn(bottomTooltip, 'getTarget').and.returnValue(getTarget);
 
         spyOn(bottomTooltip, 'getTooltip').and.returnValue(
             {
@@ -330,20 +326,18 @@ describe('tooltip-decorator', () => {
         let tooltip = bottomTooltip.getTooltip();
         let target = bottomTooltip.getTarget();
         bottomTooltip.positionTooltip(tooltip, target);
-        expect(tooltip.style.left).toEqual('-35px');
-        expect(tooltip.style.bottom).toEqual('-57.5px');
+        expect(tooltip.style.left).toEqual('65px');
+        expect(tooltip.style.bottom).toEqual('auto');
       });
-
     });
 
     describe('when positioned right of the target', () => {
       beforeEach(()  => {
-        spyOn(rightTooltip, 'getTarget').and.returnValue(
-            {
-              offsetWidth: 30,
-              offsetHeight: 30
-            }
-        );
+        let DecoratedClass = TooltipDecorator(BasicClass);
+        rightTooltip = shallow(
+          <DecoratedClass tooltipMessage='Hello' tooltipPosition='right'/>
+        ).instance();
+        spyOn(rightTooltip, 'getTarget').and.returnValue(getTarget);
 
         spyOn(rightTooltip, 'getTooltip').and.returnValue(
             {
@@ -367,8 +361,8 @@ describe('tooltip-decorator', () => {
         let tooltip = rightTooltip.getTooltip();
         let target = rightTooltip.getTarget();
         rightTooltip.positionTooltip(tooltip, target);
-        expect(tooltip.style.left).toEqual('37.5px');
-        expect(tooltip.style.top).toEqual('-10px');
+        expect(tooltip.style.left).toEqual('107.5px');
+        expect(tooltip.style.top).toEqual('90px');
       });
 
       describe('when the pointer is aligned to the top', () => {
@@ -380,12 +374,7 @@ describe('tooltip-decorator', () => {
             <DecoratedClass tooltipMessage='Hello' tooltipPosition='right' tooltipAlign='top'/>
           );
 
-          spyOn(topRightTooltip, 'getTarget').and.returnValue(
-            {
-              offsetWidth: 30,
-              offsetHeight: 30
-            }
-          );
+          spyOn(topRightTooltip, 'getTarget').and.returnValue(getTarget);
 
           spyOn(topRightTooltip, 'getTooltip').and.returnValue(
             {
@@ -409,8 +398,8 @@ describe('tooltip-decorator', () => {
           let alignedTooltip = topRightTooltip.getTooltip();
           let target = topRightTooltip.getTarget();
           topRightTooltip.positionTooltip(alignedTooltip, target);
-          expect(alignedTooltip.style.left).toEqual('37.5px');
-          expect(alignedTooltip.style.top).toEqual('-11px');
+          expect(alignedTooltip.style.left).toEqual('107.5px');
+          expect(alignedTooltip.style.top).toEqual('89px');
         });
       });
 
@@ -419,16 +408,11 @@ describe('tooltip-decorator', () => {
 
         beforeEach(()  => {
           let DecoratedClass = TooltipDecorator(BasicClass);
-          bottomRightTooltip = TestUtils.renderIntoDocument(
+          bottomRightTooltip = shallow(
             <DecoratedClass tooltipMessage='Hello' tooltipPosition='right' tooltipAlign='bottom'/>
-          );
+          ).instance();
 
-          spyOn(bottomRightTooltip, 'getTarget').and.returnValue(
-            {
-              offsetWidth: 30,
-              offsetHeight: 30
-            }
-          );
+          spyOn(bottomRightTooltip, 'getTarget').and.returnValue(getTarget);
 
           spyOn(bottomRightTooltip, 'getTooltip').and.returnValue(
             {
@@ -452,20 +436,19 @@ describe('tooltip-decorator', () => {
           let alignedTooltip = bottomRightTooltip.getTooltip();
           let target = bottomRightTooltip.getTarget();
           bottomRightTooltip.positionTooltip(alignedTooltip, target);
-          expect(alignedTooltip.style.left).toEqual('37.5px');
-          expect(alignedTooltip.style.top).toEqual('-9px');
+          expect(alignedTooltip.style.left).toEqual('107.5px');
+          expect(alignedTooltip.style.top).toEqual('91px');
         });
       });
-    });
+     });
 
     describe('when positioned left of the target', () => {
       beforeEach(()  => {
-        spyOn(leftTooltip, 'getTarget').and.returnValue(
-            {
-              offsetWidth: 30,
-              offsetHeight: 30
-            }
-        );
+        let DecoratedClass = TooltipDecorator(BasicClass);
+        leftTooltip = shallow(
+          <DecoratedClass tooltipMessage='Hello' tooltipPosition='left' />
+        ).instance();
+        spyOn(leftTooltip, 'getTarget').and.returnValue(getTarget);
 
         spyOn(leftTooltip, 'getTooltip').and.returnValue(
             {
@@ -489,14 +472,14 @@ describe('tooltip-decorator', () => {
         let tooltip = leftTooltip.getTooltip();
         let target = leftTooltip.getTarget();
         leftTooltip.positionTooltip(tooltip, target);
-        expect(tooltip.style.left).toEqual('-107.5px');
-        expect(tooltip.style.top).toEqual('-10px');
+        expect(tooltip.style.left).toEqual('-7.5px');
+        expect(tooltip.style.top).toEqual('90px');
       });
     });
 
     describe('when isVisible is set to false', () => {
       it('does not try to position the tooltip', () => {
-        spyOn(topTooltip, 'getTooltip');
+        spyOn(topTooltip, 'getTooltip')
         topTooltip.onHide();
         topTooltip.positionTooltip();
         expect(topTooltip.getTooltip).not.toHaveBeenCalled();
