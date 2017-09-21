@@ -1,0 +1,17 @@
+.carbon-menu-list__list {
+  list-style: none;
+  padding-left: 0;
+
+  .carbon-menu-list__list {
+    padding-left: 19px;
+
+    .carbon-menu-list-item {
+      font-size: 13px;
+      font-weight: 300;
+
+      .carbon-link__anchor {
+        font-weight: 500;
+      }
+    }
+  }
+}

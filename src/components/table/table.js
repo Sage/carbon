@@ -92,6 +92,14 @@ class Table extends React.Component {
     actions: PropTypes.object,
 
     /**
+     * The extra actions to display in the toolbar
+     *
+     * @property actionExtras - allows arbitrary jsx to be added to the tool bar
+     * @type {Node}
+     */
+    actionExtras: PropTypes.node,
+
+    /**
      * Children elements
      *
      * @property children
@@ -940,10 +948,14 @@ class Table extends React.Component {
    * @return {JSX}
    */
   get actionToolbar() {
-    if (!this.props.selectable || !this.props.actions) { return null; }
+    if (!this.props.selectable || !(this.props.actions || this.props.actionExtras)) { return null; }
 
     return (
-      <ActionToolbar total={ this.state.selectedCount } actions={ this.props.actions } />
+      <ActionToolbar
+        total={ this.state.selectedCount }
+        actions={ this.props.actions }
+        actionExtras={ this.props.actionExtras }
+      />
     );
   }
 

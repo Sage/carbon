@@ -1,0 +1,5 @@
+{
+  "main": "./flash.js",
+  "name": "Flash",
+  "style": "flash.scss"
+}

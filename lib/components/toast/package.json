@@ -1,0 +1,5 @@
+{
+  "main": "./toast.js",
+  "name": "Toast",
+  "style": "./toast.scss"
+}

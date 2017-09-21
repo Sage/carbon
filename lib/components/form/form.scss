@@ -1,0 +1,85 @@
+@import "./../../style-config/colors";
+
+.carbon-form__left-aligned-actions {
+  flex-grow: 1;
+
+  .carbon-button {
+    margin-left: 15px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
+.carbon-form__right-aligned-actions,
+.carbon-form__additional-actions {
+  padding-left: 15px;
+  display: inline-block;
+
+  .carbon-button {
+    margin-left: 15px;
+
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
+.carbon-form__buttons {
+  align-items: center;
+  display: flex;
+  margin-top: 20px;
+}
+
+.carbon-form__buttons--right {
+  justify-content: flex-end;
+}
+
+.carbon-form-save,
+.carbon-form-cancel {
+  margin-left: 15px;
+}
+
+@keyframes form-buttons-animate-in {
+  0%   { bottom: -50px; }
+  100% { bottom: 0; }
+}
+
+.carbon-dialog__dialog--fixed-bottom.carbon-dialog__dialog--sticky-form-footer .carbon-form,
+.carbon-form--sticky-footer {
+  padding-bottom: 80px;
+
+  .carbon-form__buttons {
+    margin-top: 0;
+    border-left-style: solid;
+    border-left-color: white;
+    border-right-style: solid;
+    border-right-color: white;
+    border-width: 0;
+    box-sizing: border-box;
+  }
+
+  .carbon-form__footer-wrapper {
+    animation: form-buttons-animate-in 0.25s ease-out;
+    background-color: white;
+    bottom: 0;
+    box-shadow: 0 -4px 12px 0 rgba(0, 0, 0, 0.05);
+    box-sizing: content-box;
+    left: 0;
+    padding-bottom: 13px;
+    padding-top: 15px;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+  }
+}
+
+.carbon-form:not(.carbon-form--sticky-footer),
+.carbon-dialog__dialog--fixed-bottom {
+  .carbon-form__buttons {
+    max-width: inherit;
+    min-width: inherit;
+    padding: 0;
+  }
+}

@@ -1,0 +1,73 @@
+@import "./../../style-config/colors";
+@import "./../../style-config/general";
+
+.carbon-content + .carbon-content {
+  margin-top: $grid-margin;
+}
+
+.carbon-content__title {
+  font-weight: bold;
+
+  .carbon-content--inline & {
+    display: inline-block;
+    vertical-align: top;
+  }
+}
+
+.carbon-content__body {
+  margin-top: 2px;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+
+  .carbon-content--inline & {
+    display: inline-block;
+    margin-top: 0;
+    margin-left: 30px;
+    text-align: left;
+  }
+}
+
+.carbon-content--secondary .carbon-content__title {
+  color: $grey-dark-blue-60;
+  font-weight: normal;
+}
+
+.carbon-content--align-center {
+  text-align: center;
+
+  &.carbon-content--inline {
+    .carbon-content__title {
+      text-align: right;
+      width: calc(50% - 30px);
+    }
+
+    .carbon-content__body {
+      width: 50%;
+    }
+  }
+
+  .carbon-content__title {
+    text-align: center;
+  }
+}
+
+.carbon-content--align-right {
+  text-align: right;
+
+  .carbon-content__title {
+    text-align: right;
+  }
+}
+
+.carbon-content--body-full-width {
+  text-align: left;
+
+  .carbon-content__body {
+    margin-left: 0;
+    text-align: left;
+  }
+
+  &.carbon-content--inline .carbon-content__body {
+    margin-top: $grid-margin-medium;
+  }
+}

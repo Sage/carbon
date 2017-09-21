@@ -37,6 +37,9 @@ const definition = new Definition('table', Table, {
     selectable: false,
     shrink: false,
     showPageSizeSelection: false
+  },
+  propTypes: {
+    actionExtras: 'node'
   }
 });
 

@@ -1,0 +1,50 @@
+@import "./../../../style-config/colors";
+
+.configurable-item-row {
+  border-bottom: 1px solid $border-color;
+  font-weight: bold;
+  padding: 0.5em 0.5em 0.7em;
+}
+
+.configurable-item-row--dragging,
+.configurable-item-row--dragged {
+  cursor: grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit-grabbing;
+}
+
+.configurable-item-row--dragged {
+  .configurable-item-row__content-wrapper {
+    visibility: hidden;
+  }
+}
+
+.configurable-item-row__content-wrapper {
+  align-items: center;
+  display: flex;
+  justify-content: left;
+}
+
+.configurable-item-row__icon {
+  cursor: move;
+}
+
+.custom-drag-layer {
+  .configurable-item-row {
+    background-color: $grey-light;
+    border: none;
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+
+    .configurable-item-row__icon {
+      cursor: grabbing;
+      cursor: -moz-grabbing;
+      cursor: -webkit-grabbing;
+    }
+
+    .configurable-item-row__content-wrapper {
+      visibility: visible;
+    }
+  }
+}

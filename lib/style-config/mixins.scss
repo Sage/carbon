@@ -1,0 +1,266 @@
+
+@mixin set-background-color($color, $gradient) {
+  @if type-of($color) == color {
+    background-image: none;
+    background-color: $color;
+  } @else {
+    @include linear-gradient($gradient...);
+  }
+}
+
+@mixin user-select($type) {
+  -webkit-touch-callout : $type;
+  -webkit-user-select   : $type;
+  -khtml-user-select    : $type;
+  -moz-user-select      : $type;
+  -ms-user-select       : $type;
+  user-select           : $type;
+}
+
+@function opposite-position($position) {
+  // TODO: refactor into Sass::Script::Functions extension using ruby logic for cleaner solution
+  $a: (top, bottom, left, right);
+  $b: (bottom, top, right, left);
+
+  @for $p from 1 through length($a) {
+    @if $position == nth($a, $p) {
+      @return nth($b, $p);
+    }
+  }
+}
+
+@function old-webkit-gradient-stops($color-stops-list) {
+  $old-webkit-gradient-stops: "";
+  $color-stop-list-length: length($color-stops-list);
+
+  $position-size: percentage(1/($color-stop-list-length - 1));
+
+  @for $s from 1 through $color-stop-list-length {
+    $current-stop: nth($color-stops-list, $s);
+
+    $old-webkit-gradient-stops: "#{$old-webkit-gradient-stops}#{if($s>1, ', ', '')}";
+
+    @if length($current-stop) > 1 {
+      //if it has a position element
+      $old-webkit-gradient-stops: "#{$old-webkit-gradient-stops}color-stop(#{nth($current-stop, 2)}, #{nth($current-stop, 1)})";
+    } @else {
+      $position: if($s == $color-stop-list-length, 100%, $position-size*($s - 1));
+      $old-webkit-gradient-stops: "#{$old-webkit-gradient-stops}color-stop(#{$position}, #{$current-stop})";
+    }
+  }
+
+  @return unquote($old-webkit-gradient-stops);
+}
+
+@mixin linear-gradient($start: top, $color-stops: #ffffff, $fallback: false) {
+  $gradient-params:    $start, $color-stops;
+  $color-stops-length: length($color-stops);
+  $color-stops-first:  nth($color-stops, 1);
+  $color-stops-last:   nth($color-stops, $color-stops-length);
+
+  @if $fallback {
+    background: $fallback;
+  } @else {
+    // Old Browsers / catch-all
+    background: opacify(mix(nth($color-stops-first, 1), nth($color-stops-last, 1)), 1);
+  }
+
+  // Firefox 3.6+
+  background: -moz-linear-gradient($gradient-params);
+
+  // Chrome, Safari 4+
+  background: -webkit-gradient(linear, left $start, left opposite-position($start), old-webkit-gradient-stops($color-stops));
+
+  // Chrome 10+, Safari 5.1+
+  background: -webkit-linear-gradient($gradient-params);
+
+  // Opera 11.10+
+  background: -o-linear-gradient($gradient-params);
+
+  // IE 10+
+  background: -ms-linear-gradient($gradient-params);
+
+  // W3C Standard
+  background: linear-gradient($gradient-params);
+}
+
+@mixin box-shadow($shadows...) {
+  -moz-box-shadow: $shadows;
+  -webkit-box-shadow: $shadows;
+  box-shadow: $shadows;
+}
+
+@mixin border-radius($args...) {
+  -webkit-border-radius: $args;
+  -moz-border-radius: $args;
+  border-radius: $args;
+}
+
+@mixin border-corner-radius($vertical, $horizontal, $radius) {
+  -webkit-border-#{$vertical}-#{$horizontal}-radius: $radius;
+  -moz-border-#{$vertical}-#{$horizontal}-radius: $radius;
+  border-#{$vertical}-#{$horizontal}-radius: $radius;
+}
+
+@mixin transition($transitions...) {
+  -webkit-transition: $transitions;
+  -moz-transition: $transitions;
+  -o-transition: $transitions;
+  transition: $transitions;
+}
+
+@mixin transition-delay($transitions...) {
+  -webkit-transition-delay: $transitions;
+  -moz-transition-delay: $transitions;
+  -o-transition-delay: $transitions;
+  transition-delay: $transitions;
+}
+
+@mixin transform($transforms...) {
+  -webkit-transform: $transforms;
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  transform: $transforms;
+}
+
+@mixin transform-origin($transforms) {
+  -webkit-transform-origin: $transforms;
+  -moz-transform-origin: $transforms;
+  -o-transform-origin: $transforms;
+  -ms-transform-origin: $transforms;
+  transform-origin: $transforms;
+}
+
+@mixin internet-explorer($version) {
+  @if map-get($ie-support, $version) {
+    .lt-ie#{$version + 1} & {
+      @content;
+    }
+  }
+}
+
+@mixin firefox {
+  @-moz-document url-prefix() {
+    @content;
+  }
+}
+
+@mixin inline-block {
+  display: inline-block;
+  @include internet-explorer(7) {
+    display: inline;
+    zoom: 1;
+  }
+}
+
+@mixin rgba($red, $green, $blue, $alpha) {
+  background-color: rgb($red, $green, $blue);
+  background-color: rgba($red, $green, $blue, $alpha);
+};
+
+@mixin keyframes($name) {
+  @-webkit-keyframes #{$name} {
+    @content;
+  }
+  @-moz-keyframes #{$name} {
+    @content;
+  }
+  @-ms-keyframes #{$name} {
+    @content;
+  }
+  @keyframes #{$name} {
+    @content;
+  }
+}
+
+@mixin animation($anim) {
+  -webkit-animation: $anim;
+  -moz-animation: $anim;
+  -ms-animation: $anim;
+  animation: $anim;
+}
+
+@mixin animation-duration($duration) {
+  -webkit-animation-duration: $duration;
+  -moz-animation-duration: $duration;
+  -ms-animation-duration: $duration;
+  animation-duration: $duration;
+}
+
+@mixin animation-delay($delay) {
+  -webkit-animation-delay: $delay;
+  -moz-animation-delay: $delay;
+  -ms-animation-delay: $delay;
+  animation-delay: $delay;
+}
+
+@mixin filter($value) {
+  -webkit-filter: $value;
+  -moz-filter: $value;
+  -ms-filter: $value;
+  filter: $value;
+}
+
+@mixin arrow($direction, $size, $color) {
+  content: ""; // ensures the arrows are visible
+
+  // ensures the arrows are the right size:
+  width: 0;
+  height: 0;
+
+  // Lists for positions/directions
+  $directions: ('down', 'left', 'up', 'right');
+  $positions: ('top', 'right', 'bottom', 'left');
+
+  // Loop through each position
+  @each $position in $positions {
+    // Calculate the index of the position in the list
+    $index: index($positions, $position);
+
+    // If the position matches the direction, render a colored border
+    @if nth($directions, $index) == $direction {
+      border-#{$position}: ($size + 1) solid $color;
+    } @else {
+      border-#{$position}: $size solid transparent;
+    }
+  }
+}
+
+@mixin transform($transforms...) {
+  -webkit-transform: $transforms;
+  -moz-transform: $transforms;
+  -o-transform: $transforms;
+  -ms-transform: $transforms;
+  transform: $transforms;
+}
+
+@mixin calc($attr, $sum) {
+  #{$attr}: -webkit-calc(#{$sum});
+  #{$attr}:    -moz-calc(#{$sum});
+  #{$attr}:         calc(#{$sum});
+}
+
+@mixin visually-hidden() {
+  // From https://snook.ca/archives/html_and_css/hiding-content-for-accessibility
+  clip: rect(1px, 1px, 1px, 1px);
+  height: 1px;
+  overflow: hidden;
+  position: absolute !important;
+  width: 1px;
+}
+
+@mixin disable-text-selection() {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+@mixin input-outline($border-color) {
+  border-color: $border-color;
+  box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
+  @include transition(box-shadow linear 0.1s);
+}
