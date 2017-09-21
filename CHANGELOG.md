@@ -1,3 +1,9 @@
+# 2.1.1
+
+## New Components
+
+* Added ActionToolbarMultiActionButton and ActionToolbarButton. These buttons can be added to an ActionToolBar of a Table.
+
 # 2.1.0
 
 ## Styling Improvements
