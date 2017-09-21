@@ -84,6 +84,18 @@ describe('action toolbar', () => {
     });
   });
 
+  describe('getChildContext', () => {
+    it('returns true when total is greater than 0', () => {
+      instance.setState({ total: 1});
+      expect(instance.getChildContext()).toBeTruthy();
+    });
+
+    it('returns true when total is equal to 0', () => {
+      instance.setState({ total: 0});
+      expect(instance.getChildContext()).toBeTruthy();
+    });
+  });
+
   describe('mainClasses', () => {
     it('returns the correct classes', () => {
       expect(instance.mainClasses()).toEqual('carbon-action-toolbar foo');

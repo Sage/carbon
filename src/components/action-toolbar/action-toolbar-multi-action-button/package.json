@@ -1,0 +1,4 @@
+{
+  "main": "./action-toolbar-multi-action-button.js",
+  "style": "./action-toolbar-multi-action-button.scss"
+}

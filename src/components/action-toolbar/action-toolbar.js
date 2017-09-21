@@ -52,12 +52,24 @@ class ActionToolbar extends React.Component {
      * @property className
      * @type {String}
      */
-    className: PropTypes.string
+    className: PropTypes.string,
+
+    /**
+     * Children component.
+     *
+     * @property children
+     * @type {node}
+     */
+    children: PropTypes.node
   };
 
   static contextTypes = {
     attachActionToolbar: PropTypes.func, // tracks the action toolbar component
     detachActionToolbar: PropTypes.func // tracks the action toolbar component
+  };
+
+  static childContextTypes = {
+    selected: PropTypes.object
   };
 
   constructor(...args) {
@@ -78,10 +90,16 @@ class ActionToolbar extends React.Component {
 
     /**
      * @property selected
-     * @type {Array}
+     * @type {Object}
      */
-    selected: []
+    selected: {}
   };
+
+  getChildContext = () => {
+    return {
+      selected: this.state.selected
+    };
+  }
 
   /**
    * @method componentWillMount
@@ -188,6 +206,7 @@ class ActionToolbar extends React.Component {
 
         <div className='carbon-action-toolbar__actions'>
           { this.actions() }
+          { this.props.children }
         </div>
       </div>
     );

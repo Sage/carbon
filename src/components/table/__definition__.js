@@ -5,6 +5,8 @@ import tableRowDefinition from './table-row/__definition__';
 import tableCellDefinition from './table-cell/__definition__';
 import tableHeaderDefinition from './table-header/__definition__';
 import tableSubheaderDefinition from './table-subheader/__definition__';
+import actionToolbarButtonDefinition from './../action-toolbar/action-toolbar-button/__definition__';
+import actionToolbarMultiActionButtonDefinition from './../action-toolbar/action-toolbar-multi-action-button/__definition__';
 
 // TODO: see if we can remove the need for this - this populates the data by
 // fetching it from the mock service
@@ -26,7 +28,7 @@ const definition = new Definition('table', Table, {
 * The Highlightable configuration allows the user to click an option, and for the option to be marked visually. This could be useful if the user can select an option which then loads in a Sidebar, for example.
 `,
   associatedDefinitions: [
-    tableRowDefinition, tableCellDefinition, tableHeaderDefinition, tableSubheaderDefinition
+    tableRowDefinition, tableCellDefinition, tableHeaderDefinition, tableSubheaderDefinition, actionToolbarButtonDefinition, actionToolbarMultiActionButtonDefinition
   ],
   dataVariable: 'tableData',
   propValues: {
@@ -36,7 +38,19 @@ const definition = new Definition('table', Table, {
     paginate: false,
     selectable: false,
     shrink: false,
-    showPageSizeSelection: false
+    showPageSizeSelection: false,
+    actions: "[ { icon: 'bin' } ]",
+    actionToolbarChildren: `
+      <ActionToolbarMultiActionButton text='test'>
+        <ActionToolbarButton onClick={ function() { debugger } }>foo</ActionToolbarButton>
+        <ActionToolbarButton>bar</ActionToolbarButton>
+        <ActionToolbarButton>qux</ActionToolbarButton>
+      </ActionToolbarMultiActionButton>
+    `
+  },
+  propTypes: {
+    actionExtras: 'node',
+    actionToolbarChildren: 'node'
   }
 });
 

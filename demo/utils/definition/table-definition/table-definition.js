@@ -73,6 +73,7 @@ function buildRows() {
   });
   definition.propDescriptions = assign({}, definition.propDescriptions, {
     actions: 'Specify actions to be used by the ActionToolbar component.',
+    actionToolbarChildren: 'This is used to add ActionToolbarMultiActionButton and ActionToolbarButton to ActionToolbar',
     'aria-describedby': 'The HTML id attribute of the element that contains a description of the table',
     caption: 'Specify a visually hidden title for the table',
     currentPage: 'Controls the current page number of a paginated data set.',

@@ -2,6 +2,8 @@ export default {
   // not including the action-toolbar until it is less tied to grids
   // https://github.com/Sage/carbon/issues/1070
   // 'action-toolbar':       require('components/action-toolbar/__definition__').default,
+  // 'action-toolbar-button':       require('components/action-toolbar/action-toolbar-button/__definition__').default,
+  // 'action-toolbar-multi-action-button':       require('components/action-toolbar/action-toolbar-multi-action-button/__definition__').default,
   'alert':                require('components/alert/__definition__').default,
   'animated-menu-button': require('components/animated-menu-button/__definition__').default,
   'app-wrapper':          require('components/app-wrapper/__definition__').default,
