@@ -52,7 +52,7 @@ class I18n extends React.Component {
      * @type {String}
      * @default undefined
      */
-    scope: PropTypes.string,
+    scope: PropTypes.string.isRequired,
 
     /**
      * Additional options to pass to I18n

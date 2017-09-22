@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { assign } from 'lodash';
+import Browser from './../../helpers/browser';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
 
@@ -41,10 +42,10 @@ import chainFunctions from './../../helpers/chain-functions';
  */
 const InputValidation = ComposedComponent => class Component extends ComposedComponent {
 
-  _window = window;
-
   constructor(...args) {
     super(...args);
+
+    this._window = Browser.getWindow();
 
     // use the super components state, or create an empty object
     this.state = this.state || {};
@@ -642,12 +643,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
         className={ iconClasses }
         style={ iconStyle }
       />,
-      <div
-        key='1'
-        className='common-input__message-wrapper'
-        onMouseOver={ this.showMessage }
-        onMouseOut={ this.hideMessage }
-      >
+      <div key='1' className='common-input__message-wrapper'>
         <div
           ref={ (validationMessage) => { this.validationMessage = validationMessage; } }
           className={ messageClasses }

@@ -55,7 +55,7 @@ class Message extends React.Component {
      * @property children
      * @type {Node}
      */
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
 
     /**
      * Add classes to the component.
@@ -95,9 +95,9 @@ class Message extends React.Component {
      * Add a title to this component
      *
      * @property title
-     * @type {String}
+     * @type {Node}
      */
-    title: PropTypes.string,
+    title: PropTypes.node,
 
     /**
      * Determines if the message background is transparent or filled defined by the as property.

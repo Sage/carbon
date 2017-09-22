@@ -1,7 +1,5 @@
 import { EventEmitter } from 'events';
-import Flux from 'flux';
 import { Dispatcher } from './../../flux';
-import Logger from './../../logger';
 
 /**
  * A constant used for the change event within this module.
@@ -35,12 +33,12 @@ const CHANGE_EVENT = 'change';
  *   // get the initial data for your store
  *   let data = ImmutableHelper.parse({});
  *
- *   // You should initialize your store with a name, its data and your
- *   // application's dispatcher before exporting it.
+ *   // You should initialize your store with a name and its data.
  *   //
- *   // optional - By defining the history property, the store will collect
+ *   // optional - By enabling history in the opts, the store will collect
  *   // any data interaction. You should only set this if you intend to
  *   // use the data collected.
+ *   // optional - You can pass in a custom dispatcher in the opts.
  *   export default new MyStore("myStore", data, { history: true });
  *
  * Please note, you should initialize your store with a name and initial data.
@@ -59,8 +57,6 @@ export default class Store extends EventEmitter {
   constructor(name, data, opts = {}) {
     super(name, data, opts);
 
-    let dispatcher;
-
     const suffix = `Check the initialization of ${this.constructor.name}.`;
 
     // tell the developer if they have not defined the name property.
@@ -75,17 +71,6 @@ export default class Store extends EventEmitter {
       throw new Error(
         `You need to initialize your store with data. ${suffix}`
       );
-    }
-
-    // it is required to initialize the store with the dispatcher so we can register
-    // the store with it and store the dispatchToken
-    if (opts instanceof Flux.Dispatcher) {
-      dispatcher = opts; // this line ensures backwards compatability
-      Logger.deprecate(`${name}: The 'connect' function will no longer support the Dispatcher as it's third argument. If you want to use the Dispatcher provided by Carbon then you can just remove this argument, however if you want to provide your own Dispatcher you will need to set it as an option of the third argument of the connect function (eg. connect(Component, Store, { dispatcher: CustomDispatcher }))`, { // eslint-disable-line max-len
-        group: 'connect'
-      });
-    } else {
-      dispatcher = opts.dispatcher || Dispatcher;
     }
 
     /**
@@ -104,6 +89,8 @@ export default class Store extends EventEmitter {
      */
     this.data = data;
 
+    // we either use a dispatcher passed through the options, or use the default one
+    const dispatcher = opts.dispatcher || Dispatcher;
     /**
      * Store the dispatchToken after registering with the dispatcher, this will
      * allow us to use the waitFor API provided by flux

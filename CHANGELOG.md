@@ -1,9 +1,154 @@
+# 2.1.0
+
+## Styling Improvements
+
+* Button - Ensure that the button text is always aligned centrally by default. Resolves an issue where the Button text may wrap where translated text occurs.
+
+## New Components
+
+* `Portal` is a component that wraps the [react-portal](https://github.com/tajo/react-portal) library.
+
+## Component Enhancements
+
+* `TooltipDecorator` now uses the new `Portal` component for layout. This effects `Help` and `Icon` components.
+* `Date` now uses the new `Portal` component to render the DatePicker
+
+# 2.0.0
+
+## Breaking Changes
+
+### Store Disptacher
+
+Store no longer accepts a `Dispatcher` as its third argument. It will automatically use the dispatcher supplied by Carbon. If you want to pass a custom one then you can pass it as a param in the config:
+
+```js
+new Store('name', data, { dispatcher: myDispatcher });
+```
+
+### Dependency Updates
+
+The following packages are now specified as peer dependencies:
+
+* flux
+* react
+* react-dom
+
+The following packages have been moved from `devDependencies` to `dependencies`:
+
+* `i18n-js`
+* `immutable`
+* `highcharts`
+* `react-router`
+* `react-transition-group`
+
+The following packages have been upgraded:
+
+* flux: now has a peer dependency of at least 3.1.1
+* i18n-js: upgraded to rc12 - (scope is now required)
+* react-router: ^3.0.0
+
+#### Upgrading a project that uses Carbon
+
+##### Installing peer dependencies
+
+If you're upgrading an application that uses Carbon to v2.0.0 you'll need to make sure you have `flux`, `react`, and `react-dom` in your project's dependencies. To add `flux`, `react`, and `react-dom` to your project dependencies run the following command:
+
+```
+npm install flux react react-dom --save
+```
+
+##### Upgrading Carbon and using the new Carbon dependencies
+
+Carbon now includes `i18n-js`, `immutable`, `highcharts`, `react-router`, and `react-transition-group` in its dependencies, so you may be able to remove these from your own project's dependencies. To do this:
+
+1. Uninstall and remove `i18n-js`, `immutable`, `highcharts`, `react-router`, and `react-transition-group`
+   from your project's dependencies:
+
+```
+npm uninstall --save i18n-js immutable react-router react-transition-group
+```
+
+2. Install the latest Carbon:
+
+```
+npm install --save carbon-react@2.0.0
+```
+
+### Removal of Service Deprecation
+
+The `Service` class now accepts an object as its second argument, deprecating the separate `onSuccess` and `onError` arguments.
+This allows you to pass in `onSuccess` and `onError` functions in the object, along with `params` if you need query parameters in your requests.
+
+#### Examples
+
+Deprecated invocation:
+ - `service.get('1', onSuccessFunc, onErrorFunc)`
+
+New invocation:
+ - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc })`
+ - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc, params: { key1: 'val1', key2: 'val2'} })`
+
+### Removal of Row Deprecation
+
+* `Row`: can no longer render any immediate children. A Column component has been introduced to maintain the column span, offset and align behaviour.
+
+```javascript
+// BEFORE
+import Row from 'carbon/lib/components/row';
+
+...
+
+<Row columns='10'>
+  <div columnSpan='3' columnOffset='2' columnAlign='right'>
+    Content 1
+  </div>
+  <Pod columnSpan='5'>
+    Content 1
+  </Pod>
+</Row>
+
+// AFTER
+import { Row, Column } from 'carbon/lib/components/row';
+
+...
+
+<Row columns='10'>
+  <Column columnSpan='3' columnOffset='2' columnAlign='right'>
+    Content 1
+  </Column>
+  <Column columnSpan='5'>
+    <Pod>
+      Content 1
+    </Pod>
+  </Column>
+</Row>
+```
+
+## Component Enhancements
+
+* `Browser` has been updated so that `getWindow()` will work when run in a node environment
+* `ButtonToggle` now lets you add a `size` and a `grouped` prop.
+
+## Bug Fixes
+
+* Grouped character adds separators to value on first render.
+
+# 1.7.0
+
+## Component Enhancements
+
+* `Message` - `children` prop is now optional. [#1543](https://github.com/Sage/carbon/issues/1543)
+* `Message` - `title` prop type has been changed from string to node. [#1543](https://github.com/Sage/carbon/issues/1543)
+
 # 1.6.0
 
 ## Component Enhancements
 
 * `Table` now lets you add an `aria-describedby` prop.
 * `ConfigurableItemRow` is vertically centered correctly.
+* `AnimatedMenuButton` uses the native `<button>` instead of a div for the close button.
+* `Tabs` now includes aria roles for better screen reader support.
+* `Tabs` can now be navigated using left/right arrows for horizontal tabs and up/down arrows for vertical tabs on the keyboard to switch between the tab list.
 
 ## Pattern Enhancements
 

@@ -3,14 +3,17 @@ import TestUtils from 'react-dom/test-utils';
 import moment from 'moment';
 import LocaleUtils from 'react-day-picker/moment';
 import I18n from 'i18n-js';
+import DayPicker from 'react-day-picker';
+import Browser from './../../utils/helpers/browser';
 import DateHelper from './../../utils/helpers/date';
 import Date from './date';
+import Portal from './../portal';
 import Events from './../../utils/helpers/events';
-import { shallow } from 'enzyme';
+import { shallow, mount, ReactWrapper } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Date', () => {
-  let instance;
+  let instance, wrapper;
   let today = moment().format("DD/MM/YYYY");
   let hiddenToday = moment().format("YYYY-MM-DD");
 
@@ -272,6 +275,7 @@ describe('Date', () => {
           let date = moment().add(1, 'months').format('DD-MM-YYYY');
           instance.handleVisibleInputChange({ target: { value: date } });
           expect(instance.datepicker.showMonth).toHaveBeenCalledWith(instance.state.datePickerValue);
+          expect(instance.state.open).toBeTruthy();
         });
       });
 
@@ -311,36 +315,48 @@ describe('Date', () => {
   });
 
   describe('handleDateSelect', () => {
+    let wrapper, cell, portalContent
     beforeEach(() => {
-      instance.setState({ open: true });
+      wrapper = mount(
+        <Date name='date' label='Date' />
+      )
+      wrapper.instance().getInputBoundingRect = jest.fn( () => ({left: 5, bottom: 10}) );
+
+      wrapper.setState({open: true})
+      const portal = wrapper.find(Portal);
+      portalContent = new ReactWrapper(portal.node._portal, wrapper);
+      cell = portalContent.find('.DayPicker-Day').first()
+      instance = wrapper.instance();
     });
 
     it('sets blockBlur to true', () => {
-      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'DayPicker-Day')[1];
-      TestUtils.Simulate.click(cell, { nativeEvent: { stopImmediatePropagation: () => {} } } );
+      cell.simulate('click', { nativeEvent: { stopImmediatePropagation: () => {} } })
       expect(instance.blockBlur).toBeTruthy();
     });
 
     it('closes the date picker', () => {
-      let spy = spyOn(instance, 'closeDatePicker');
-      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'DayPicker-Day')[1];
-      TestUtils.Simulate.click(cell, { nativeEvent: { stopImmediatePropagation: () => {} } } );
+      spyOn(instance, 'closeDatePicker');
+      cell.simulate('click', { nativeEvent: { stopImmediatePropagation: () => {} } })
       expect(instance.closeDatePicker).toHaveBeenCalled();
     });
 
     it('emits a onChange callback', () => {
       spyOn(instance, 'emitOnChangeCallback')
-      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'DayPicker-Day')[1];
-      TestUtils.Simulate.click(cell, { nativeEvent: { stopImmediatePropagation: () => {} } } );
+      cell.simulate('click', { nativeEvent: { stopImmediatePropagation: () => {} } })
       expect(instance.emitOnChangeCallback).toHaveBeenCalled();
     });
 
     it('updates the visible value', () => {
       spyOn(instance, 'updateVisibleValue')
-      let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'DayPicker-Day')[1];
-      TestUtils.Simulate.click(cell, { nativeEvent: { stopImmediatePropagation: () => {} } } );
+      cell.simulate('click', { nativeEvent: { stopImmediatePropagation: () => {} } })
       expect(instance.updateVisibleValue).toHaveBeenCalled();
     });
+
+    it('positions the date picker under the input', () => {
+      const style = portalContent.find('.DayPicker').props().style
+      expect(style.left).toEqual(5);
+      expect(style.top).toEqual(10);
+    })
   });
 
   describe('handleBlur', () => {
@@ -514,14 +530,14 @@ describe('Date', () => {
     });
 
     describe('when maxDate is passed', () => {
-      let maxDate;
-      let date;
+      let maxDate, date, wrapper;
       beforeEach(() => {
         maxDate = moment().add(3, 'days').format('YYYY-MM-DD');
-        instance = TestUtils.renderIntoDocument(
+        wrapper = mount(
           <Date name='date' label='Date' maxDate={ maxDate } />
-        )
-        instance.setState({ open: true });
+        );
+        instance = wrapper.instance();
+        wrapper.setState({ open: true });
         date = instance.datepicker;
       });
 
@@ -530,9 +546,11 @@ describe('Date', () => {
       });
 
       it('does not close the date picker when a disabled day is clicked', () => {
-        let cell = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'DayPicker-Day--disabled')[1];
-        TestUtils.Simulate.click(cell, { nativeEvent: { stopImmediatePropagation: () => {} } } );
-        expect(instance.state.open).toBeTruthy();
+        const portal = wrapper.find(Portal);
+        const portalContent = new ReactWrapper(portal.node._portal, wrapper);
+        const cell = portalContent.find('.DayPicker-Day--disabled').first()
+        cell.simulate('click', { nativeEvent: { stopImmediatePropagation: () => {} } })
+        expect(wrapper.state().open).toBeTruthy();
       });
     });
   });
