@@ -16,15 +16,15 @@ describe('I18n', () => {
         spyOn(i18n, 't').and.returnValue('bar');
       });
 
-      describe('when component is rendered with only a key', () => {
-        it('renders the value of that key in a span', () => {
+      describe('when component is rendered with only a scope', () => {
+        it('renders the value of that scope in a span', () => {
           let wrapper = shallow(<I18n scope='foo' />);
           expect(wrapper).toMatchSnapshot();
         });
       });
 
       describe('when component is rendered with inline set to false', () => {
-        it('renders the value of the key in a div', () => {
+        it('renders the value of the scope in a div', () => {
           let wrapper = shallow(<I18n scope='foo' inline={ false }/>);
           expect(wrapper).toMatchSnapshot();
         });
