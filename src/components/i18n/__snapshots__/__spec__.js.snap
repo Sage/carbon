@@ -34,7 +34,7 @@ exports[`I18n render with markdown when component is rendered with html in the v
 />
 `;
 
-exports[`I18n render without markdown when component is rendered with inline set to false renders the value of the key in a div 1`] = `
+exports[`I18n render without markdown when component is rendered with inline set to false renders the value of the scope in a div 1`] = `
 <div
   data-component="i18n"
 >
@@ -42,7 +42,7 @@ exports[`I18n render without markdown when component is rendered with inline set
 </div>
 `;
 
-exports[`I18n render without markdown when component is rendered with only a key renders the value of that key in a span 1`] = `
+exports[`I18n render without markdown when component is rendered with only a scope renders the value of that scope in a span 1`] = `
 <span
   data-component="i18n"
 >
