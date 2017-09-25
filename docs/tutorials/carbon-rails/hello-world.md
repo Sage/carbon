@@ -46,8 +46,6 @@ The directory structure look like this:
 │   │   ├── actions/
 │   │   ├── components/
 │   │   ├── constants/
-│   │   ├── dispatcher
-│   │   │   ├── dispatcher.js
 │   │   ├── stores/
 │   │   ├── views/
 │   │   ├── main.js - Entry point for Carbon
