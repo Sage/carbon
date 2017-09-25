@@ -1,4 +1,5 @@
 import { forEach, isEmpty } from 'lodash';
+import Logger from './../../../utils/logger';
 import ValidationsHelper from './../../helpers/validations';
 
 /**
@@ -83,6 +84,7 @@ class PresenceValidator {
     if (!this.props) {
       return isValid(value);
     }
+    Logger.deprecate('Passing multi props to the Presence Validator is deprecated. Please use the MutliPropValidator');
 
     forEach(this.props, (name) => {
       val = props[name];
