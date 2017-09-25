@@ -95,9 +95,8 @@ describe('I18n', () => {
   });
 
   describe("tags on component", () => {
-    let wrapper = shallow(<I18n data-element='bar' data-role='baz' />);
-
     it('include correct component, element and role data tags', () => {
+      let wrapper = shallow(<I18n scope='foo' data-element='bar' data-role='baz' />);
       rootTagTest(wrapper, 'i18n', 'bar', 'baz');
     });
   });

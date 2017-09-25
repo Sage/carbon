@@ -23,7 +23,7 @@ const columnWrapper = (children) => {
   }
 
   return inputs.map((input, index) => {
-    // TODO: CarbonV2 Add unique requirement for inlineInputs to use as keys
+    // Input is never going to be re-ordered so we don't require a defined key
     /* eslint-disable react/no-array-index-key */
     return (
       <Column key={ index }>

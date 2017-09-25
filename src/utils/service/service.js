@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { assign } from 'lodash';
-import Logger from '../logger';
 
 /**
  * Global configuration for all service classes.
@@ -166,30 +165,16 @@ class Service {
    * @method get
    * @param {Number} id - the ID of the resource.
    * @param {Object} options - an object with options for query params and success/error callbacks
-   * @param {Function} _onError - [Deprecated] a callback to trigger on error
    * @return {Void}
    */
-  get(id, options, _onError) {
-    let request;
+  get(id, options) {
+    const { onSuccess, onError, ...params } = options;
+    const request = this.client.get(String(id), params);
 
-    if (typeof (options) === 'function') {
-      Logger.deprecate('Passing onSuccess and onError as separate arguments is deprecated. Please use `get(1, { onSuccess: function, onError: function, params: { k: "v" } })`'); // eslint-disable-line max-len
-
-      request = this.client.get(String(id));
-
-      request.then(
-        this.handleResponse.bind(this, options),
-        this.handleResponse.bind(this, _onError)
-      );
-    } else {
-      const { onSuccess, onError, ...params } = options;
-
-      request = this.client.get(String(id), params);
-      request.then(
-        this.handleResponse.bind(this, onSuccess),
-        this.handleResponse.bind(this, onError)
-      );
-    }
+    request.then(
+      this.handleResponse.bind(this, onSuccess),
+      this.handleResponse.bind(this, onError)
+    );
   }
 
   /**
@@ -198,30 +183,16 @@ class Service {
    * @method post
    * @param {Object} data - the data to post to the server.
    * @param {Object} options - an object with options for query params and success/error callbacks
-   * @param {Function} _onError - [Deprecated] a callback to trigger on error
    * @return {Void}
    */
-  post(data, options, _onError) {
-    let request;
+  post(data, options) {
+    const { onSuccess, onError, ...params } = options;
+    const request = this.client.post('', data, params);
 
-    if (typeof (options) === 'function') {
-      Logger.deprecate("Passing onSuccess and onError as separate arguments is deprecated. Please use `post('', { data_key: 'data_val' }, { onSuccess: function, onError: function, params: { k: 'v' } })`"); // eslint-disable-line max-len
-      request = this.client.post('', data);
-
-      request.then(
-        this.handleResponse.bind(this, options),
-        this.handleResponse.bind(this, _onError)
-      );
-    } else {
-      const { onSuccess, onError, ...params } = options;
-
-      request = this.client.post('', data, params);
-
-      request.then(
-        this.handleResponse.bind(this, onSuccess),
-        this.handleResponse.bind(this, onError)
-      );
-    }
+    request.then(
+      this.handleResponse.bind(this, onSuccess),
+      this.handleResponse.bind(this, onError)
+    );
   }
 
   /**
@@ -231,30 +202,16 @@ class Service {
    * @param {Number} id - the ID of the resource.
    * @param {Object} data - the data to post to the server.
    * @param {Object} options - an object with options for query params and success/error callbacks
-   * @param {Function} _onError - [Deprecated] a callback to trigger on error
    * @return {Void}
    */
-  put(id, data, options, _onError) {
-    let request;
+  put(id, data, options) {
+    const { onSuccess, onError, ...params } = options;
+    const request = this.client.put(String(id), data, params);
 
-    if (typeof (options) === 'function') {
-      Logger.deprecate("Passing onSuccess and onError as separate arguments is deprecated. Please use `put(1, { data_key: 'data_val' }, { onSuccess: function, onError: function, params: { k: 'v' } })`"); // eslint-disable-line max-len
-      request = this.client.put(String(id), data);
-
-      request.then(
-        this.handleResponse.bind(this, options),
-        this.handleResponse.bind(this, _onError)
-      );
-    } else {
-      const { onSuccess, onError, ...params } = options;
-
-      request = this.client.put(String(id), data, params);
-
-      request.then(
-        this.handleResponse.bind(this, onSuccess),
-        this.handleResponse.bind(this, onError)
-      );
-    }
+    request.then(
+      this.handleResponse.bind(this, onSuccess),
+      this.handleResponse.bind(this, onError)
+    );
   }
 
   /**
@@ -263,30 +220,16 @@ class Service {
    * @method delete
    * @param {Number} id - the ID of the resource.
    * @param {Object} options - an object with options for query params and success/error callbacks
-   * @param {Function} _onError - [Deprecated] a callback to trigger on error
    * @return {Void}
    */
-  delete(id, options, _onError) {
-    let request;
+  delete(id, options) {
+    const { onSuccess, onError, ...params } = options;
+    const request = this.client.delete(String(id), params);
 
-    if (typeof (options) === 'function') {
-      Logger.deprecate("Passing onSuccess and onError as separate arguments is deprecated. Please use `delete(1, { onSuccess: function, onError: function, params: { k: 'v' } })`"); // eslint-disable-line max-len
-      request = this.client.delete(String(id));
-
-      request.then(
-        this.handleResponse.bind(this, options),
-        this.handleResponse.bind(this, _onError)
-      );
-    } else {
-      const { onSuccess, onError, ...params } = options;
-
-      request = this.client.delete(String(id), params);
-
-      request.then(
-        this.handleResponse.bind(this, onSuccess),
-        this.handleResponse.bind(this, onError)
-      );
-    }
+    request.then(
+      this.handleResponse.bind(this, onSuccess),
+      this.handleResponse.bind(this, onError)
+    );
   }
 
   /**
