@@ -8,39 +8,23 @@ import SellingPoints from './selling-points';
 import Sectioniser from './sectioniser';
 import Wrapper from './../../common/wrapper';
 
-import Textbox from 'components/textbox';
-import MultiProp from 'utils/validations/multi-prop';
-import Presence from 'utils/validations/presence';
-
 class Home extends React.Component {
   /**
    * @method render
    */
   render() {
     return (
-      <div style={ { width: '50%', padding: '100px' } } >
-        <Textbox
-          foo='foo'
-          bar='bar'
-          validations={ [
-            new MultiProp({
-              requireAll: true,
-              props: ['foo', 'bar'],
-              validator: new Presence()
-            })
-          ] }
-        />
-        <Textbox
-          foo='foo'
-          bar='bar'
-          validations={ [
-            new Presence({
-              requireAll: true,
-              props: ['foo', 'bar']
-            })
-          ] }
-        />
-      </div>
+      <Sectioniser
+        minDepth='2'
+        maxDepth='5'
+      >
+        <PageHeaderLarge />
+
+        <ComponentShowcase />
+        <SellingPoints />
+        <SageLovesCarbon />
+        <GetStarted />
+      </Sectioniser>
     );
   }
 }
