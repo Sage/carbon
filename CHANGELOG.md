@@ -1,3 +1,9 @@
+# 2.0.1
+
+## Bug Fixes
+
+Fixes a compilation error that occurred in 2.0.0, which resulted in a missing `assets.scss` file.
+
 # 2.0.0
 
 ## Breaking Changes
