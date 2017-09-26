@@ -13,6 +13,10 @@
 * `TooltipDecorator` now uses the new `Portal` component for layout. This effects `Help` and `Icon` components.
 * `Date` now uses the new `Portal` component to render the DatePicker
 
+## Package Updates
+
+* The `react-addons-perf` package is now included in `devDependencies`.
+
 # 2.0.0
 
 ## Breaking Changes
