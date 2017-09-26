@@ -34,7 +34,7 @@ class MultiPropValidator {
    * @method constructor
    * @param {Object} params
    */
-  constructor(params = {}) {
+  constructor(params) {
     /**
      * An optional custom validation message.
      *
@@ -57,7 +57,7 @@ class MultiPropValidator {
      * @property props
      * @type {Array}
      */
-    this.props = params.props || [];
+    this.props = params.props;
 
     /**
      * States that this validation should display an asterisk with the label.
@@ -82,7 +82,7 @@ class MultiPropValidator {
    * This will validate the given value, and return a valid status.
    *
    * @method validate
-   * @param {String} value - value to check presence
+   * @param {String} value - unused - follows format of other validators
    * @param {Object} props - component properties
    * @return {Boolean} true if value is valid
    */
@@ -110,7 +110,11 @@ class MultiPropValidator {
    * @return {String} the error message to display
    */
   message = () => {
-    return ValidationsHelper.validationMessage(this.customMessage, 'errors.messages.multi_prop');
+    return ValidationsHelper.validationMessage(
+      this.customMessage,
+      'errors.messages.multi_prop',
+      this.props
+    );
   }
 }
 
