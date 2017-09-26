@@ -1,3 +1,9 @@
+# 1.6.1
+
+## Bug Fixes
+
+* `Datepicker`: Stops NavBar submitting the form its contained in
+
 # 1.6.0
 
 ## Component Enhancements
