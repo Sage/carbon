@@ -16,7 +16,6 @@ Check out our [demo and documentation site](https://carbon.sage.com/) for live e
 * [An introduction to Node/npm](docs/guides/an-introduction-to-node-and-npm.md)
 * [Getting started](docs/guides/getting-started.md)
 * [A basic example of Flux](docs/guides/a-basic-example.md)
-* [Running Tests](https://github.com/Sage/carbon-factory/blob/master/docs/running-tests.md)
 
 ### Guides
 
@@ -28,6 +27,13 @@ Check out our [demo and documentation site](https://carbon.sage.com/) for live e
 * [Handlers](docs/guides/handlers.md)
 * [Retrieving Data](docs/guides/retrieving-data.md)
 * [Integrating React & Flux with Other UI](docs/guides/integrating-with-other-ui.md)
+
+#### Testing
+
+* [Running Tests](https://github.com/Sage/carbon-factory/blob/master/docs/running-tests.md)
+* [Help with Jest](https://github.com/Sage/carbon-factory/blob/master/docs/help-with-jest.md)
+* [Debugging Tests](https://github.com/Sage/carbon-factory/blob/master/docs/debugging-tests.md)
+* [Setting up Jest Cli](https://github.com/Sage/carbon-factory/blob/master/docs/setting-up-jest-cli.md)
 
 ### Tutorials
 
