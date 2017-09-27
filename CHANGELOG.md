@@ -2,7 +2,8 @@
 
 ## Bug Fixes
 
-Fixes a compilation error that occurred in 2.0.0, which resulted in a missing `assets.scss` file.
+* Fixes a compilation error that occurred in 2.0.0, which resulted in a missing `assets.scss` file.
+* `Datepicker`: Stops NavBar submitting the form its contained in
 
 # 2.0.0
 
