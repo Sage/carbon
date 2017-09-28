@@ -317,7 +317,8 @@ class ShowEditPod extends React.Component {
    * @method __focusOnPod
    */
   __focusOnPod = () => {
-    ReactDOM.findDOMNode(this.pod).focus(); // eslint-disable-line react/no-find-dom-node
+    const pod = ReactDOM.findDOMNode(this.pod); // eslint-disable-line react/no-find-dom-node
+    if (pod) { pod.focus() }
   }
 
   /**
