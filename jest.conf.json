@@ -1,0 +1,6 @@
+{
+  "preset": "./node_modules/carbon-factory/jest.conf.json",
+  "setupFiles": [
+    "./src/__spec_helper__/index.js"
+  ]
+}

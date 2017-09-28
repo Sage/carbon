@@ -31,7 +31,8 @@
   "devDependencies": {
     "babel-standalone": "~6.17.0",
     "carbon-factory": "v2.0.0-rc4",
-    "enzyme": "~2.8.2",
+    "enzyme": "~3.0.0",
+    "enzyme-adapter-react-15": "^1.0.0",
     "express": "~4.14.0",
     "flux": "^3.1.1",
     "gulp": "~3.9.0",
@@ -56,6 +57,7 @@
     "bowser": "~1.5.0",
     "classnames": "~2.2.3",
     "crypto-js": "~3.1.6",
+    "enzyme-to-json": "^3.0.1",
     "es6-promise": "~3.2.1",
     "escape-string-regexp": "~1.0.5",
     "events": "~1.1.1",
@@ -75,8 +77,5 @@
     "react-router": "^3.0.0",
     "react-transition-group": "~1.1.3",
     "superagent": "~2.2.0"
-  },
-  "jest": {
-    "preset": "./node_modules/carbon-factory/jest.conf.json"
   }
 }
