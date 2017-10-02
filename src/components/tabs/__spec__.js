@@ -616,7 +616,7 @@ describe('Tabs', () => {
       describe('when pressing the right arrow', () => {
         it('focuses on the next right tab and loops back round to the first tab', () => {
           wrapper.setState({ selectedTabId: "tab1" });
-          wrapper.find('.carbon-tabs__headers__header--selected').node.focus();
+          wrapper.find('.carbon-tabs__headers__header--selected').getDOMNode().focus();
           expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
           wrapper.find('.carbon-tabs__headers__header--selected').simulate(
             'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
@@ -639,7 +639,8 @@ describe('Tabs', () => {
       describe('when pressing the left arrow', () => {
         it('focuses on the next left tab and loops back round to the last tab', () => {
           wrapper.setState({ selectedTabId: "tab3" });
-          wrapper.find('.carbon-tabs__headers__header--selected').node.focus();
+          debugger
+          wrapper.find('.carbon-tabs__headers__header--selected').getDOMNode().focus();
           expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
           wrapper.find('.carbon-tabs__headers__header--selected').simulate(
             'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
@@ -701,7 +702,7 @@ describe('Tabs', () => {
       describe('when pressing the down arrow', () => {
         it('focuses on the next below tab and loops back round to the top tab', () => {
           wrapper.setState({ selectedTabId: "tab1" });
-          wrapper.find('.carbon-tabs__headers__header--selected').node.focus();
+          wrapper.find('.carbon-tabs__headers__header--selected').getDOMNode().focus();
           expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
           wrapper.find('.carbon-tabs__headers__header--selected').simulate(
             'keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {}}
@@ -724,7 +725,7 @@ describe('Tabs', () => {
       describe('when pressing the up arrow', () => {
         it('focuses on the next above tab and loops back round to the bottom tab', () => {
           wrapper.setState({ selectedTabId: "tab3" });
-          wrapper.find('.carbon-tabs__headers__header--selected').node.focus();
+          wrapper.find('.carbon-tabs__headers__header--selected').getDOMNode().focus();
           expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
           wrapper.find('.carbon-tabs__headers__header--selected').simulate(
             'keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {}}
