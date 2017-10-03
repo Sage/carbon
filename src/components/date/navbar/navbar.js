@@ -9,12 +9,14 @@ const Navbar = ({
   return (
     <div className={ className }>
       <button
+        type='button'
         className='DayPicker-NavButton DayPicker-NavButton--prev'
         onClick={ () => onPreviousClick() }
       >
         <span className='DayPicker-NavButton__arrow'>‹</span>
       </button>
       <button
+        type='button'
         className='DayPicker-NavButton DayPicker-NavButton--next'
         onClick={ () => onNextClick() }
       >

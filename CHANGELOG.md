@@ -17,6 +17,13 @@
 
 * The `react-addons-perf` package is now included in `devDependencies`.
 
+# 2.0.1
+
+## Bug Fixes
+
+* Fixes a compilation error that occurred in 2.0.0, which resulted in a missing `assets.scss` file.
+* `Datepicker`: Stops NavBar submitting the form its contained in
+
 # 2.0.0
 
 ## Breaking Changes
@@ -137,12 +144,24 @@ import { Row, Column } from 'carbon/lib/components/row';
 
 * Grouped character adds separators to value on first render.
 
+# 1.7.1
+
+## Bug Fixes
+
+* `Datepicker`: Stops NavBar submitting the form its contained in
+
 # 1.7.0
 
 ## Component Enhancements
 
 * `Message` - `children` prop is now optional. [#1543](https://github.com/Sage/carbon/issues/1543)
 * `Message` - `title` prop type has been changed from string to node. [#1543](https://github.com/Sage/carbon/issues/1543)
+
+# 1.6.1
+
+## Bug Fixes
+
+* `Datepicker`: Stops NavBar submitting the form its contained in
 
 # 1.6.0
 
