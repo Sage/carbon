@@ -18,7 +18,7 @@ export default (definition) => {
   definition.stubAction('onChange', 'value');
 
   definition.propTypes = assign({}, definition.propTypes, {
-    fieldHelp: "String",
+    fieldHelp: "Node",
     fieldHelpInline: "Boolean",
     inputWidth: "Number",
     label: "String",
