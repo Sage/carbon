@@ -4,6 +4,19 @@ import OptionsHelper from '../../../../src/utils/helpers/options-helper';
 export default (definition) => {
   definition.type = 'grids';
   definition.propValues = assign({}, definition.propValues, {
+    actions: "[{ icon: 'bin' }, { icon: 'settings' }]",
+    actionToolbarChildren: `(context) => {
+      return [
+        <Button disabled={ context.disabled }>
+          Test Action
+        </Button>,
+        <MultiActionButton text='Actions' disabled={ context.disabled }>
+          <Button>foo</Button>
+          <Button>bar</Button>
+          <Button>qux</Button>
+        </MultiActionButton>
+      ];
+    }`,
     path: '/countries',
     children: '{ buildRows() }'
   });
@@ -46,6 +59,7 @@ function buildRows() {
 
   definition.propTypes = assign({}, definition.propTypes, {
     actions: 'Object',
+    actionToolbarChildren: 'Function',
     'aria-describedby': 'String',
     caption: 'String',
     currentPage: 'String',
