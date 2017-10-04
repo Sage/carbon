@@ -1,9 +1,3 @@
-# 2.1.1
-
-## New Components
-
-* Added ActionToolbarMultiActionButton and ActionToolbarButton. These buttons can be added to an ActionToolBar of a Table.
-
 # 2.1.0
 
 ## Styling Improvements
@@ -22,6 +16,7 @@
 
 * `TooltipDecorator` now uses the new `Portal` component for layout. This effects `Help` and `Icon` components.
 * `Date` now uses the new `Portal` component to render the DatePicker
+* `ActionToolbar` can now receive children to add additional actions. The `Table` component has also been given the `actionToolbarChildren` prop to send the same data down.
 
 ## Package Updates
 

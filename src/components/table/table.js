@@ -95,9 +95,9 @@ class Table extends React.Component {
      * The extra actions to display in the toolbar
      *
      * @property actionToolbarChildren - additional buttons can be added to the tool bar
-     * @type {Node}
+     * @type {Function}
      */
-    actionToolbarChildren: PropTypes.node,
+    actionToolbarChildren: PropTypes.func,
 
     /**
      * Children elements
