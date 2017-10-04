@@ -31,7 +31,7 @@ export default (definition) => {
   });
 
   definition.propDescriptions = assign({}, definition.propDescriptions, {
-    fieldHelp: "Displays additional text below the input to provide help to the user.",
+    fieldHelp: "Displays additional information below the input to provide help to the user.",
     fieldHelpInline: "Displays fieldHelp inline with the checkbox/radio button.",
     inputWidth: "A number representing the percentage/ratio of width with the label. Works best with inline labels.",
     label: "Outputs a label for the input.",
