@@ -42,9 +42,9 @@ class ActionToolbar extends React.Component {
      * The actions to display in the toolbar
      *
      * @property actions - each action is object with the action attributes
-     * @type {Array}
+     * @type {Node}
      */
-    actions: PropTypes.object.isRequired,
+    actions: PropTypes.node.isRequired,
 
     /**
      * A custom class name for the component.

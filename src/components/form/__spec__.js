@@ -46,7 +46,7 @@ describe('Form', () => {
 
     describe('when stickyFooter is disabled', () => {
       it('adds the listeners', () => {
-        wrapper = shallow(<Form stickyFooter />);
+        wrapper = mount(<Form stickyFooter />);
         spyOn(wrapper.instance(), 'removeStickyFooterListeners');
         wrapper.setProps({ stickyFooter: false });
         expect(wrapper.instance().removeStickyFooterListeners).toHaveBeenCalled();
@@ -71,7 +71,7 @@ describe('Form', () => {
     });
 
     it('adds sticky footer listeners is enabled', () => {
-      wrapper = shallow(<Form stickyFooter />);
+      wrapper = mount(<Form stickyFooter />);
       spyOn(wrapper.instance(), 'addStickyFooterListeners');
       wrapper.instance().componentDidMount();
       expect(wrapper.instance().addStickyFooterListeners).toHaveBeenCalled();
@@ -87,7 +87,7 @@ describe('Form', () => {
     });
 
     it('removes sticky footer listeners if enabled', () => {
-      wrapper = shallow(<Form stickyFooter />);
+      wrapper = mount(<Form stickyFooter />);
       spyOn(wrapper.instance(), 'removeStickyFooterListeners');
       wrapper.instance().componentWillUnmount();
       expect(wrapper.instance().removeStickyFooterListeners).toHaveBeenCalled();
