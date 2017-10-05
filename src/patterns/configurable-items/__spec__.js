@@ -75,6 +75,25 @@ describe('ConfigurableItemsPattern', () => {
         expect(ConfigurableItemsActions.updateData).not.toHaveBeenCalled();
       });
     });
+
+    describe('when itemsData is not provided', () => {
+      beforeEach(() => {
+        ConfigurableItemsStore.data = ConfigurableItemsStore.data.set('open', false)
+        wrapper = shallow(
+          <ConfigurableItemsPattern
+            onCancel={ onCancel }
+            onSave={ onSave }
+          />,
+          { lifecycleExperimental: true }
+        );
+        spyOn(ConfigurableItemsActions, 'updateData');
+        let data = wrapper.state().configurableItemsStore.set('open', true);
+        wrapper.setState({ configurableItemsStore: data });
+      });
+      it('does not try to update the itemsData', () => {
+        expect(ConfigurableItemsActions.updateData).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe('render', () => {

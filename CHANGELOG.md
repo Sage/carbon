@@ -1,3 +1,9 @@
+# 2.2.0
+
+## Improvements
+
+* `ConfigurableItemsPattern`'s prop `itemsData` is no longer required
+
 # 2.1.0
 
 ## Styling Improvements
