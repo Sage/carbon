@@ -1,14 +1,12 @@
-# 2.2.0
-
-## Improvements
-
-* `ConfigurableItemsPattern`'s prop `itemsData` is no longer required
-
 # 2.1.0
 
 ## Styling Improvements
 
 * Button - Ensure that the button text is always aligned centrally by default. Resolves an issue where the Button text may wrap where translated text occurs.
+
+## Improvements
+
+* `ConfigurableItemsPattern`'s prop `itemsData` is no longer required
 
 ## New Components
 
