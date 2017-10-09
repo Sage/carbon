@@ -1,0 +1,313 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Confirm confirmButtons when custom labels are defined returns a custom labels 1`] = `
+<Portal
+  open={true}
+>
+  <div
+    className="carbon-dialog carbon-confirm"
+    data-component="confirm"
+  >
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={false}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal"
+    >
+      <div
+        className="carbon-dialog__dialog carbon-dialog__dialog--extra-small carbon-confirm__confirm"
+        data-component="confirm"
+        onBlur={[Function]}
+        role="dialog"
+        style={
+          Object {
+            "minHeight": undefined,
+          }
+        }
+        tabIndex={0}
+      >
+        <div
+          className="carbon-dialog__content"
+        >
+          <div
+            className="carbon-dialog__inner-content"
+            style={Object {}}
+          >
+            <div
+              className="carbon-confirm__buttons clearfix"
+            >
+              <div
+                className="carbon-confirm__button carbon-confirm__no"
+              >
+                <Button
+                  as="secondary"
+                  data-element="cancel"
+                  disabled={false}
+                  onClick={[Function]}
+                  size="medium"
+                  subtext=""
+                  theme="blue"
+                >
+                  Cancel
+                </Button>
+              </div>
+              <div
+                className="carbon-confirm__button carbon-confirm__yes"
+              >
+                <Button
+                  as="primary"
+                  data-element="confirm"
+                  disabled={false}
+                  onClick={[Function]}
+                  size="medium"
+                  subtext=""
+                  theme="blue"
+                >
+                  Delete
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </CSSTransitionGroup>
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={false}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal-background"
+    >
+      <div
+        className="carbon-modal__background"
+      />
+    </CSSTransitionGroup>
+  </div>
+</Portal>
+`;
+
+exports[`Confirm default snapshot renders as expected 1`] = `
+<Portal
+  open={true}
+>
+  <div
+    className="carbon-dialog carbon-confirm"
+    data-component="confirm"
+  >
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={false}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal"
+    >
+      <div
+        aria-labelledby="carbon-dialog-title"
+        className="carbon-dialog__dialog carbon-dialog__dialog--extra-small carbon-confirm__confirm"
+        data-component="confirm"
+        onBlur={[Function]}
+        role="dialog"
+        style={
+          Object {
+            "minHeight": undefined,
+          }
+        }
+        tabIndex={0}
+      >
+        <div
+          className="carbon-dialog__title"
+        >
+          <Heading
+            divider={true}
+            separator={false}
+            subtitleId="carbon-dialog-subtitle"
+            title="Confirm title"
+            titleId="carbon-dialog-title"
+          />
+        </div>
+        <div
+          className="carbon-dialog__content"
+        >
+          <div
+            className="carbon-dialog__inner-content"
+            style={Object {}}
+          >
+            <div
+              className="carbon-confirm__buttons clearfix"
+            >
+              <div
+                className="carbon-confirm__button carbon-confirm__no"
+              >
+                <Button
+                  as="secondary"
+                  data-element="cancel"
+                  disabled={false}
+                  onClick={[Function]}
+                  size="medium"
+                  subtext=""
+                  theme="blue"
+                >
+                  No
+                </Button>
+              </div>
+              <div
+                className="carbon-confirm__button carbon-confirm__yes"
+              >
+                <Button
+                  as="primary"
+                  data-element="confirm"
+                  disabled={false}
+                  onClick={[Function]}
+                  size="medium"
+                  subtext=""
+                  theme="blue"
+                >
+                  Yes
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </CSSTransitionGroup>
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={false}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal-background"
+    >
+      <div
+        className="carbon-modal__background"
+      />
+    </CSSTransitionGroup>
+  </div>
+</Portal>
+`;
+
+exports[`Confirm tags on component include correct component, element and role data tags 1`] = `
+<Portal
+  open={true}
+>
+  <div
+    className="carbon-dialog carbon-confirm"
+    data-component="confirm"
+    data-element="bar"
+    data-role="baz"
+  >
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={false}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal"
+    >
+      <div
+        aria-describedby="carbon-dialog-subtitle"
+        aria-labelledby="carbon-dialog-title"
+        className="carbon-dialog__dialog carbon-dialog__dialog--extra-small carbon-confirm__confirm"
+        data-component="confirm"
+        data-element="bar"
+        data-role="baz"
+        onBlur={[Function]}
+        role="dialog"
+        style={
+          Object {
+            "minHeight": undefined,
+          }
+        }
+        tabIndex={0}
+      >
+        <div
+          className="carbon-dialog__title carbon-dialog__title--has-subheader"
+        >
+          <Heading
+            divider={true}
+            separator={false}
+            subheader="Test"
+            subtitleId="carbon-dialog-subtitle"
+            title="Test"
+            titleId="carbon-dialog-title"
+          />
+        </div>
+        <div
+          className="carbon-dialog__content"
+        >
+          <div
+            className="carbon-dialog__inner-content"
+            style={Object {}}
+          >
+            <div
+              className="carbon-confirm__buttons clearfix"
+            >
+              <div
+                className="carbon-confirm__button carbon-confirm__no"
+              >
+                <Button
+                  as="secondary"
+                  data-element="cancel"
+                  disabled={false}
+                  onClick={[Function]}
+                  size="medium"
+                  subtext=""
+                  theme="blue"
+                >
+                  No
+                </Button>
+              </div>
+              <div
+                className="carbon-confirm__button carbon-confirm__yes"
+              >
+                <Button
+                  as="primary"
+                  data-element="confirm"
+                  disabled={false}
+                  onClick={[Function]}
+                  size="medium"
+                  subtext=""
+                  theme="blue"
+                >
+                  Yes
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <Icon
+          bgSize="small"
+          className="carbon-dialog__close"
+          data-element="close"
+          onBlur={[Function]}
+          onClick={[Function]}
+          tabIndex="0"
+          type="close"
+        />
+      </div>
+    </CSSTransitionGroup>
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={false}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal-background"
+    >
+      <div
+        className="carbon-modal__background"
+      />
+    </CSSTransitionGroup>
+  </div>
+</Portal>
+`;

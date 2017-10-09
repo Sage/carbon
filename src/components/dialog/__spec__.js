@@ -1,10 +1,11 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Bowser from 'bowser';
-import { mount, shallow } from 'enzyme';
+import { mount, shallow, ReactWrapper } from 'enzyme';
 import Browser from '../../utils/helpers/browser';
 import Dialog from './dialog';
 import Button from './../button';
+import Portal from './../portal';
 import { Row, Column } from './../row';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import ElementResize from './../../utils/helpers/element-resize';
@@ -304,25 +305,21 @@ describe('Dialog', () => {
   describe('dialogTitle', () => {
     describe('when a props title is passed', () => {
       it('sets a dialog header', () => {
-        const wrapper = mount(
+        const wrapper = shallow(
           <Dialog
             onCancel={ onCancel }
             open
             title='Dialog title'
             subtitle='Dialog subtitle'
           />
-        ),
-            title = wrapper.find('[data-element="title"]'),
-            subtitle = wrapper.find('[data-element="subtitle"]');
-
-        expect(title.props().children).toEqual('Dialog title');
-        expect(subtitle.props().children).toEqual('Dialog subtitle');
+        )
+        expect(wrapper).toMatchSnapshot();
       });
     });
 
     describe('when a props object title is passed', () => {
       it('wraps it within a div', () => {
-        const wrapper = mount(
+        const wrapper = shallow(
           <Dialog
             onCancel={ onCancel }
             open
@@ -333,12 +330,8 @@ describe('Dialog', () => {
               </Row>
             }
           />
-        ),
-            title = wrapper.find('.carbon-dialog__title'),
-            columns = title.find(Column);
-
-        expect(columns.first().props().children).toEqual('Row1');
-        expect(columns.last().props().children).toEqual('Row2');
+        )
+        expect(wrapper).toMatchSnapshot();
       });
     });
 
@@ -347,6 +340,7 @@ describe('Dialog', () => {
         const wrapper = shallow(
           <Dialog
             onCancel={ onCancel }
+            showCloseIcon={ false }
             open
           />
         );
@@ -357,108 +351,48 @@ describe('Dialog', () => {
 
   describe('render', () => {
     describe('when dialog is open', () => {
+      let wrapper;
+
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
+        wrapper = shallow(
           <Dialog
-            onCancel={ onCancel }
+            open
+            size='small'
             className='foo'
+            data-element='bar'
+            onCancel={ onCancel }
+            onConfirm={ () => {} }
+            data-role='baz'
+            showCloseIcon
+            subtitle='Test'
+            title='Test'
+            height="500"
             open
           >
-
             <Button>Button</Button>
             <Button>Button</Button>
           </Dialog>
         );
       });
 
-      it('renders a parent div with mainClasses attached', () => {
-        const dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-        expect(dialogNode.className).toEqual('carbon-dialog foo');
-      });
-
-      it('renders the dialog', () => {
-        expect(instance._dialog).toBeTruthy();
-        expect(instance._dialog.classList[0]).toEqual('carbon-dialog__dialog');
+      it('has the correct content, tags, elements etc', () => {
+        expect(wrapper).toMatchSnapshot();
       });
 
       it('closes when the exit icon is click', () => {
-        const closeIcon = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-dialog__close');
-        TestUtils.Simulate.click(closeIcon);
+        wrapper.find('.carbon-dialog__close').simulate('click');
         expect(onCancel).toHaveBeenCalled();
-      });
-
-      it('renders the children passed to it', () => {
-        const buttons = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button');
-        expect(buttons.length).toEqual(2);
-      });
-
-      describe('when passing a custom size', () => {
-        it('adds the size class to the dialog', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Dialog
-              onCancel={ onCancel }
-              open
-              size='small'
-            />
-          );
-
-          expect(instance._dialog.classList[1]).toEqual('carbon-dialog__dialog--small');
-        });
       });
     });
 
     describe('when dialog is closed', () => {
       it('renders a parent div with mainClasses attached', () => {
-        instance = TestUtils.renderIntoDocument(
+        const wrapper = shallow(
           <Dialog open={ false } onCancel={ onCancel } />
         );
-        const dialogNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-        expect(dialogNode.classList[0]).toEqual('carbon-dialog');
+
+        expect(wrapper).toMatchSnapshot();
       });
-    });
-  });
-
-  describe('tags', () => {
-    describe('on component', () => {
-      const wrapper = shallow(
-        <Dialog
-          data-element='bar'
-          onCancel={ () => {} }
-          onConfirm={ () => {} }
-          open
-          data-role='baz'
-        />);
-
-      it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper, 'dialog', 'bar', 'baz');
-      });
-    });
-
-    describe('on internal elements', () => {
-      const wrapper = mount(
-        <Dialog
-          onCancel={ () => {} }
-          onConfirm={ () => {} }
-          open
-          showCloseIcon
-          subtitle='Test'
-          title='Test'
-        />
-      );
-
-      elementsTagTest(wrapper, [
-        'close',
-        'subtitle',
-        'title'
-      ]);
-    });
-  });
-
-  describe('height', () => {
-    it('adds the height as css', () => {
-      const wrapper = mount(<Dialog height="500" open />);
-      const div = wrapper.instance()._innerContent;
-      expect(div.style.minHeight).toEqual("calc(500px - 40px)");
     });
   });
 
@@ -466,16 +400,7 @@ describe('Dialog', () => {
     let wrapper;
 
     beforeEach(() => {
-      const mockWindow = {
-        addEventListener() {},
-        removeEventListener() {},
-        getComputedStyle() { return {}; }
-      };
-
-      Browser.getWindow = jest.fn();
-      Browser.getWindow.mockReturnValue(mockWindow);
-
-      wrapper = mount(
+      wrapper = shallow(
         <Dialog
           onCancel={ () => {} }
           onConfirm={ () => {} }
@@ -489,22 +414,14 @@ describe('Dialog', () => {
     });
 
     describe('when title, subtitle, and ariaRole are set', () => {
-      it('renders a role attribute from the ariaRole prop', () => {
-        expect(wrapper.find('[role="dialog"]').exists()).toBe(true);
-      });
-
-      it('renders an aria-labelledby pointing at the title element', () => {
-        expect(wrapper.find('[aria-labelledby="carbon-dialog-title"]').exists()).toBe(true);
-      });
-
-      it('renders an aria-describedby attribute pointing at the subtitle element', () => {
-        expect(wrapper.find('[aria-describedby="carbon-dialog-subtitle"]').exists()).toBe(true);
+      it('renders a role attribute from the ariaRole prop, aria-labelledby pointing at the title element and an aria-describedby attribute pointing at the subtitle element', () => {
+        expect(wrapper).toMatchSnapshot();
       });
     });
 
     describe('when title, subtitle, and ariaRole are not set', () => {
       beforeEach(() => {
-        wrapper = mount(
+        wrapper = shallow(
           <Dialog
             onCancel={ () => {} }
             onConfirm={ () => {} }
@@ -515,58 +432,80 @@ describe('Dialog', () => {
         );
       });
 
-      it('renders a role attribute from the ariaRole prop', () => {
-        expect(wrapper.find('[role="dialog"]').exists()).toBe(false);
-      });
-
-      it('renders an aria-labelledby pointing at the title element', () => {
-        expect(wrapper.find('[aria-labelledby="carbon-dialog-title"]').exists()).toBe(false);
-      });
-
-      it('renders an aria-describedby attribute pointing at the subtitle element', () => {
-        expect(wrapper.find('[aria-describedby="carbon-dialog-subtitle"]').exists()).toBe(false);
+      it('does not render a role attribute from the ariaRole prop, aria-labelledby pointing at the title element or an aria-describedby attribute pointing at the subtitle element', () => {
+        expect(wrapper).toMatchSnapshot();
       });
     });
 
-    describe('when autoFocus is true', () => {
-      it('focuses on the dialog when opened', () => {
-        wrapper.setProps({
-          open: false,
-          autoFocus: true
-        });
-        instance = wrapper.instance();
-        instance.focusDialog = jest.fn();
+    describe('focus', () => {
+      let wrapper;
 
-        wrapper.setProps({
-          open: true
-        });
-        expect(instance.focusDialog).toBeCalled();
+      beforeEach(() => {
+        const mockWindow = {
+          addEventListener() { },
+          removeEventListener() { },
+          getComputedStyle() { return {}; }
+        };
+
+        Browser.getWindow = jest.fn();
+        Browser.getWindow.mockReturnValue(mockWindow);
+
+        wrapper = mount(
+          <Dialog
+            onCancel={() => { }}
+            onConfirm={() => { }}
+            showCloseIcon
+            open
+            subtitle='Test'
+            title='Test'
+            ariaRole='dialog'
+          />
+        );
       });
-    });
 
-    describe('when autoFocus is false', () => {
-      it('does not focus on the dialog when opened', () => {
-        wrapper.setProps({
-          open: false,
-          autoFocus: false
-        });
-        instance = wrapper.instance();
-        instance.focusDialog = jest.fn();
+      describe('when autoFocus is true', () => {
+        it('focuses on the dialog when opened', () => {
+          wrapper.setProps({
+            open: false,
+            autoFocus: true
+          });
+          instance = wrapper.instance();
+          instance.focusDialog = jest.fn();
 
-        wrapper.setProps({
-          open: true
+          wrapper.setProps({
+            open: true
+          });
+          expect(instance.focusDialog).toBeCalled();
         });
-        expect(instance.focusDialog).not.toBeCalled();
       });
-    });
 
-    it('returns focus to the dialog element when focus leaves the close icon', () => {
-      const dialogElement = wrapper.find('[role="dialog"]').first().getDOMNode();
-      spyOn(dialogElement, 'focus');
+      describe('when autoFocus is false', () => {
+        it('does not focus on the dialog when opened', () => {
+          wrapper.setProps({
+            open: false,
+            autoFocus: false
+          });
+          instance = wrapper.instance();
+          instance.focusDialog = jest.fn();
 
-      const closeIcon = wrapper.find('[data-element="close"]');
-      closeIcon.simulate('blur');
-      expect(dialogElement.focus).toHaveBeenCalled();
+          wrapper.setProps({
+            open: true
+          });
+          expect(instance.focusDialog).not.toBeCalled();
+        });
+      });
+
+      it('returns focus to the dialog element when focus leaves the close icon', () => {
+        const portalContent = new ReactWrapper(
+          wrapper.find(Portal).prop('children')
+        );
+        const dialogElement = portalContent.find('[role="dialog"]').getDOMNode();
+        spyOn(dialogElement, 'focus');
+
+        const closeIcon = portalContent.find('[data-element="close"]');
+        closeIcon.simulate('blur');
+        expect(dialogElement.focus).toHaveBeenCalled();
+      });
     });
   });
 });
