@@ -11,7 +11,6 @@ import Heading from './../heading';
 describe('DialogFullScreen', () => {
   let instance,
       wrapper,
-      portal,
       portalContent;
   const onCancel = jasmine.createSpy('cancel');
 
@@ -53,18 +52,20 @@ describe('DialogFullScreen', () => {
     beforeEach(() => {
       wrapper = mount(
         <DialogFullScreen
-          onCancel={ onCancel }
-          className='foo'
           open
+          className='foo'
           title='my title'
+          onCancel={ onCancel }
         >
           <Button>Button</Button>
           <Button>Button</Button>
         </DialogFullScreen>
       );
       instance = wrapper.instance();
-      portal = wrapper.find(Portal);
-      portalContent = new ReactWrapper(portal.node._portal, wrapper);
+      portalContent = new ReactWrapper(
+        wrapper.find(Portal).node._portal,
+        wrapper
+      );
     });
 
     it('renders a parent div with mainClasses attached', () => {
@@ -154,15 +155,19 @@ describe('DialogFullScreen', () => {
       it('include correct component, elements and role data tags', () => {
         wrapper = shallow(
           <DialogFullScreen
-            data-element='bar'
+            open
             onCancel={ () => {} }
             onConfirm={ () => {} }
-            open
             title='Test'
             data-role='baz'
+            data-element='bar'
           />
         );
-        expect(wrapper).toMatchSnapshot();
+        portalContent = new ReactWrapper(
+          wrapper.find(Portal).prop('children')
+        );
+        rootTagTest(portalContent, 'dialog-full-screen', 'bar', 'baz');
+        elementsTagTest(portalContent, ['close', 'content']);
       });
     });
   });

@@ -12,28 +12,18 @@ describe('Alert', () => {
   beforeEach(() => {
     wrapper = shallow(
       <Alert
+        open
         onCancel={ onCancel }
-        open={ true }
-        title="Alert title" />
+        title='Alert title'
+        subtitle='Alert Subtitle'
+        data-element='bar'
+        data-role='baz'
+      />
     );
   });
 
-  describe("tags", () => {
-    describe("on component", () => {
-      let wrapper = shallow(<Alert open data-element='bar' data-role='baz' />);
-
-      it('include correct component, element and role data tags', () => {
-        expect(wrapper).toMatchSnapshot();
-      });
-    });
-
-    describe("on internal elements", () => {
-      let wrapper = shallow(<Alert open title='Test' subtitle='Test' />);
-
-      it('include correct close, subtitle and title tags', () => {
-        expect(wrapper).toMatchSnapshot();
-      });
-    });
+  it('include correct component, element and role data tags', () => {
+    expect(wrapper).toMatchSnapshot();
   });
 
   describe('keyboard focus', () => {

@@ -5,6 +5,7 @@ import { mount, shallow, ReactWrapper } from 'enzyme';
 import Browser from '../../utils/helpers/browser';
 import Dialog from './dialog';
 import Button from './../button';
+import Heading from './../heading';
 import Portal from './../portal';
 import { Row, Column } from './../row';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
@@ -302,9 +303,9 @@ describe('Dialog', () => {
     });
   });
 
-  describe('dialogTitle', () => {
-    describe('when a props title is passed', () => {
-      it('sets a dialog header', () => {
+  describe('dialog headers', () => {
+    describe('when a props title or subtitle is passed', () => {
+      it('sets a dialog headers', () => {
         const wrapper = shallow(
           <Dialog
             onCancel={ onCancel }
@@ -313,7 +314,11 @@ describe('Dialog', () => {
             subtitle='Dialog subtitle'
           />
         )
-        expect(wrapper).toMatchSnapshot();
+        const portalContent = new ReactWrapper(
+          wrapper.find(Portal).prop('children')
+        );
+        expect(portalContent.find(Heading).prop('subheader')).toEqual('Dialog subtitle');
+        expect(portalContent.find(Heading).prop('title')).toEqual('Dialog title');
       });
     });
 
@@ -331,7 +336,7 @@ describe('Dialog', () => {
             }
           />
         )
-        expect(wrapper).toMatchSnapshot();
+        expect(wrapper.find('.carbon-dialog__title')).toMatchSnapshot();
       });
     });
 
@@ -357,17 +362,17 @@ describe('Dialog', () => {
         wrapper = shallow(
           <Dialog
             open
+            title='Test'
+            subtitle='Test'
             size='small'
             className='foo'
-            data-element='bar'
             onCancel={ onCancel }
             onConfirm={ () => {} }
-            data-role='baz'
             showCloseIcon
-            subtitle='Test'
-            title='Test'
-            height="500"
-            open
+            height='500'
+            ariaRole='dialog'
+            data-element='bar'
+            data-role='baz'
           >
             <Button>Button</Button>
             <Button>Button</Button>
@@ -386,12 +391,16 @@ describe('Dialog', () => {
     });
 
     describe('when dialog is closed', () => {
-      it('renders a parent div with mainClasses attached', () => {
+      it('only renders a parent div with mainClasses attached', () => {
         const wrapper = shallow(
           <Dialog open={ false } onCancel={ onCancel } />
         );
+        const portalContent = new ReactWrapper(
+          wrapper.find(Portal).prop('children')
+        );
 
-        expect(wrapper).toMatchSnapshot();
+        expect(portalContent.find('div.carbon-dialog').length).toEqual(1);
+        expect(portalContent.find('div.carbon-dialog__dialog').length).toEqual(0);
       });
     });
   });
@@ -413,14 +422,8 @@ describe('Dialog', () => {
       );
     });
 
-    describe('when title, subtitle, and ariaRole are set', () => {
-      it('renders a role attribute from the ariaRole prop, aria-labelledby pointing at the title element and an aria-describedby attribute pointing at the subtitle element', () => {
-        expect(wrapper).toMatchSnapshot();
-      });
-    });
-
     describe('when title, subtitle, and ariaRole are not set', () => {
-      beforeEach(() => {
+      it('does not render a role attribute from the ariaRole prop, aria-labelledby pointing at the title element or an aria-describedby attribute pointing at the subtitle element', () => {
         wrapper = shallow(
           <Dialog
             onCancel={ () => {} }
@@ -430,10 +433,12 @@ describe('Dialog', () => {
             ariaRole=''
           />
         );
-      });
+        const portalContent = new ReactWrapper(
+          wrapper.find(Portal).prop('children')
+        );
 
-      it('does not render a role attribute from the ariaRole prop, aria-labelledby pointing at the title element or an aria-describedby attribute pointing at the subtitle element', () => {
-        expect(wrapper).toMatchSnapshot();
+        expect(portalContent.find('[aria-describedby="carbon-dialog-subtitle"]').length).toEqual(0);
+        expect(portalContent.find('[aria-labelledby="carbon-dialog-title"]').length).toEqual(0);
       });
     });
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Alert tags on component include correct component, element and role data tags 1`] = `
+exports[`Alert include correct component, element and role data tags 1`] = `
 <Portal
   open={true}
 >
@@ -20,76 +20,12 @@ exports[`Alert tags on component include correct component, element and role dat
       transitionName="modal"
     >
       <div
-        className="carbon-dialog__dialog carbon-dialog__dialog--extra-small carbon-alert__alert"
-        data-component="alert"
-        data-element="bar"
-        data-role="baz"
-        onBlur={[Function]}
-        role="dialog"
-        style={
-          Object {
-            "minHeight": undefined,
-          }
-        }
-        tabIndex={0}
-      >
-        <div
-          className="carbon-dialog__content"
-        >
-          <div
-            className="carbon-dialog__inner-content"
-            style={Object {}}
-          />
-        </div>
-        <Icon
-          bgSize="small"
-          className="carbon-dialog__close"
-          data-element="close"
-          onBlur={[Function]}
-          tabIndex="0"
-          type="close"
-        />
-      </div>
-    </CSSTransitionGroup>
-    <CSSTransitionGroup
-      component="div"
-      transitionAppear={false}
-      transitionEnter={true}
-      transitionEnterTimeout={500}
-      transitionLeave={true}
-      transitionLeaveTimeout={500}
-      transitionName="modal-background"
-    >
-      <div
-        className="carbon-modal__background"
-      />
-    </CSSTransitionGroup>
-  </div>
-</Portal>
-`;
-
-exports[`Alert tags on internal elements include correct close, subtitle and title tags 1`] = `
-<Portal
-  open={true}
->
-  <div
-    className="carbon-dialog"
-    data-component="alert"
-  >
-    <CSSTransitionGroup
-      component="div"
-      transitionAppear={false}
-      transitionEnter={true}
-      transitionEnterTimeout={500}
-      transitionLeave={true}
-      transitionLeaveTimeout={500}
-      transitionName="modal"
-    >
-      <div
         aria-describedby="carbon-dialog-subtitle"
         aria-labelledby="carbon-dialog-title"
         className="carbon-dialog__dialog carbon-dialog__dialog--extra-small carbon-alert__alert"
         data-component="alert"
+        data-element="bar"
+        data-role="baz"
         onBlur={[Function]}
         role="dialog"
         style={
@@ -105,9 +41,9 @@ exports[`Alert tags on internal elements include correct close, subtitle and tit
           <Heading
             divider={true}
             separator={false}
-            subheader="Test"
+            subheader="Alert Subtitle"
             subtitleId="carbon-dialog-subtitle"
-            title="Test"
+            title="Alert title"
             titleId="carbon-dialog-title"
           />
         </div>
@@ -124,6 +60,7 @@ exports[`Alert tags on internal elements include correct close, subtitle and tit
           className="carbon-dialog__close"
           data-element="close"
           onBlur={[Function]}
+          onClick={[Function]}
           tabIndex="0"
           type="close"
         />

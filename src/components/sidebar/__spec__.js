@@ -7,7 +7,7 @@ import Portal from './../portal';
 import Icon from './../icon';
 
 describe('Sidebar', () => {
-  let wrapper, leftWrapper, leftPortalContent, portalContent, spy;
+  let wrapper, portalContent, spy;
 
   beforeEach(() => {
     spy = jasmine.createSpy();
@@ -15,8 +15,11 @@ describe('Sidebar', () => {
     wrapper = shallow(
       <Sidebar
         open
-        onCancel={ spy }
+        title='Test'
         className='custom-class'
+        data-role='baz'
+        data-element='bar'
+        onCancel={ spy }
       >
         <Textbox />
         <Textbox />
@@ -25,18 +28,6 @@ describe('Sidebar', () => {
     );
     portalContent = new ReactWrapper(
       wrapper.find(Portal).prop('children')
-    );
-
-    leftWrapper = shallow(
-      <Sidebar
-        open
-        size='small'
-        position='left'
-        enableBackgroundUI
-      />
-    );
-    leftPortalContent = new ReactWrapper(
-      leftWrapper.find(Portal).prop('children')
     );
   });
 
@@ -104,26 +95,50 @@ describe('Sidebar', () => {
     it('returns a base sidebar', () => {
       expect(wrapper).toMatchSnapshot();
     });
-
-    it('returns a base lefthand sidebar', () => {
-      expect(leftWrapper).toMatchSnapshot();
-    });
   });
 
   describe('render', () => {
     describe('when sidebar is closed', () => {
-      beforeEach(() => {
+      it('sets all the correct classes', () => {
+        wrapper = shallow(<Sidebar onCancel={ spy } />);
+        portalContent = new ReactWrapper(
+          wrapper.find(Portal).prop('children')
+        );
+        expect(portalContent.find('.carbon-sidebar').text()).toEqual('');
+      });
+    });
+
+    describe('when enableBackgroundUI is enabled', () => {
+      it('sets all the correct classes', () => {
         wrapper = shallow(
           <Sidebar
+            open
+            enableBackgroundUI
+            size='small'
+            position='left'
             onCancel={ spy }
-            open={ false }
-          >
-          </Sidebar>
+          />
         );
+        portalContent = new ReactWrapper(
+          wrapper.find(Portal).prop('children')
+        );
+        expect(portalContent.find('.carbon-modal__background').length).toEqual(0);
+        expect(portalContent.find('.carbon-sidebar__sidebar--left').length).toEqual(1);
+        expect(portalContent.find('.carbon-sidebar__sidebar--small').length).toEqual(1);
       });
+    });
 
-      it('sets all the correct classes', () => {
-        expect(leftWrapper).toMatchSnapshot();
+    describe('when there is no onCancel prop', () => {
+      it('should not have a close button', () => {
+        wrapper = shallow(
+          <Sidebar
+            open
+          />
+        );
+        portalContent = new ReactWrapper(
+          wrapper.find(Portal).prop('children')
+        );
+        expect(portalContent.find('.carbon-sidebar__close').length).toEqual(0);
       });
     });
   });
@@ -135,26 +150,6 @@ describe('Sidebar', () => {
         icon.simulate('click');
         expect(spy).toHaveBeenCalled();
       });
-    });
-  });
-
-  describe('tags', () => {
-    beforeEach(() => {
-      wrapper = shallow(
-        <Sidebar
-          open
-          title='Test'
-          onCancel={ () => {} }
-          onConfirm={ () => {} }
-          data-role='baz'
-          data-element='bar'
-        >
-        </Sidebar>
-      );
-    });
-
-    it('include correct component, element and role data tags', () => {
-      expect(wrapper).toMatchSnapshot();
     });
   });
 });

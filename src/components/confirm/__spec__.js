@@ -16,6 +16,9 @@ describe('Confirm', () => {
         onCancel={ onCancel }
         onConfirm={ onConfirm }
         title="Confirm title"
+        subtitle='Confirm Subtitle'
+        data-element='bar'
+        data-role='baz'
       />
     );
     portalContent = new ReactWrapper(
@@ -55,31 +58,14 @@ describe('Confirm', () => {
             cancelLabel='Cancel'
           />
         );
+        portalContent = new ReactWrapper(
+          wrapper.find(Portal).prop('children')
+        );
       });
 
       it('returns a custom labels', () => {
-        expect(wrapper).toMatchSnapshot();
-      });
-    });
-  });
-
-  describe('tags', () => {
-    describe('on component', () => {
-      let wrapper = shallow(
-        <Confirm
-          open
-          data-element='bar'
-          onCancel={ () => {} }
-          onConfirm={ () => {} }
-          data-role='baz'
-          showCloseIcon
-          subtitle='Test'
-          title='Test'
-        />
-      );
-
-      it('include correct component, element and role data tags', () => {
-        expect(wrapper).toMatchSnapshot();
+        expect(portalContent.find('.carbon-button--primary').text()).toEqual('Delete');
+        expect(portalContent.find('.carbon-button--secondary').text()).toEqual('Cancel');
       });
     });
   });
