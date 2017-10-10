@@ -3,16 +3,16 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 
-const fullScrenHeadingClasses = (props) => {
+const fullScreenHeadingClasses = (props) => {
   return classNames('carbon-full-screen-heading', props.className);
 };
 
-const FullScrenHeading = props =>
-  <div { ...props } className={ fullScrenHeadingClasses(props) } { ...tagComponent('full-screen-heading', props) } />
+const FullScreenHeading = props =>
+  <div { ...props } className={ fullScreenHeadingClasses(props) } { ...tagComponent('full-screen-heading', props) } />
 ;
 
-FullScrenHeading.propTypes = {
+FullScreenHeading.propTypes = {
   className: PropTypes.string
 };
 
-export default FullScrenHeading;
+export default FullScreenHeading;

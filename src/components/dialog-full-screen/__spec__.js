@@ -136,8 +136,8 @@ describe('DialogFullScreen', () => {
       });
 
       it('renders the component in a full screen heading', () => {
-        const fullScrenHeading = wrapper.find(FullScreenHeading),
-            heading = fullScrenHeading.children().first();
+        const fullScreenHeading = wrapper.find(FullScreenHeading),
+            heading = fullScreenHeading.children().first();
 
         expect(heading.props().title).toEqual('my custom heading');
       });
