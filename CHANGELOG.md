@@ -21,6 +21,10 @@
 
 * The `react-addons-perf` package is now included in `devDependencies`.
 
+## Minor Improvements
+
+* Fix typo in FullScreenHeading
+
 # 2.0.1
 
 ## Bug Fixes
