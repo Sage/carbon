@@ -4,7 +4,7 @@ import OptionsHelper from '../../../../src/utils/helpers/options-helper';
 export default (definition) => {
   definition.type = 'grids';
   definition.propValues = assign({}, definition.propValues, {
-    actions: "[{ icon: 'bin' }, { icon: 'settings' }]",
+    actions: "{{ icon: 'bin' }, { icon: 'settings' }}",
     actionToolbarChildren: `(context) => {
       return [
         <Button disabled={ context.disabled }>
