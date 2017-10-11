@@ -16,7 +16,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * To render an ActionToolbar:
  *
- *   let actions = [{
+ *   let actions = {{
  *     text: "Add Subscriptions",
  *     icon: "basket",
  *     onClick: onClickHandler(event, selected) => {}
@@ -24,7 +24,7 @@ import tagComponent from '../../utils/helpers/tags';
  *     text: "Delete",
  *     icon: "bin",
  *     onClick: onClickHandler(event, selected) => {}
- *   }];
+ *   }};
  *
  *   <ActionToolbar total={ count } actions={ actions } />
  *
@@ -44,7 +44,7 @@ class ActionToolbar extends React.Component {
      * @property actions - each action is object with the action attributes
      * @type {Array}
      */
-    actions: PropTypes.array,
+    actions: PropTypes.object.isRequired,
 
     /**
      * A custom class name for the component.
