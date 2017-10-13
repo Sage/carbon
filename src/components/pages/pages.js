@@ -24,10 +24,7 @@ const Pages = props =>
 
 Pages.propTypes = {
   className: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-  children: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object
-  ])
+  children: PropTypes.node
 };
 
 export { Pages, Page };

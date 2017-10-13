@@ -1,3 +1,8 @@
+# 2.1.0
+
+* DialogFullScreen and Pages now have a max width applied.
+* Fixes z-index issue of Dialogs appearing on top of DialogFullScreens.
+
 # 2.0.1
 
 ## Bug Fixes
