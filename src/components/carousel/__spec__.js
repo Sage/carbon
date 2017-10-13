@@ -1,5 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { shallow } from 'enzyme';
 import { Carousel, Slide } from './carousel';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
@@ -561,6 +562,19 @@ describe('Carousel', () => {
         'selector-label',
         'visible-slide'
       ]);
+    });
+  });
+
+  describe('transitionName', () => {
+    it('uses a custom name if supplied', () => {
+      const wrapper = shallow(
+        <Carousel transition='foo'>
+          <Slide />
+        </Carousel>
+      );
+
+      const transitionGroup = wrapper.find(CSSTransitionGroup);
+      expect(transitionGroup.props().transitionName).toEqual('carousel-transition-foo');
     });
   });
 });
