@@ -181,3 +181,25 @@ $cubic-bezier: .34,1.10,.69,1.01;
   left: 100%;
   transition: all $slide-animation-length cubic-bezier($cubic-bezier);
 }
+
+// FADE
+
+.carousel-transition-fade-enter {
+  opacity: 0;
+  position: absolute;
+}
+
+.carousel-transition-fade-enter.carousel-transition-fade-enter-active {
+  opacity: 1;
+  transition: all $slide-animation-length cubic-bezier($cubic-bezier);
+}
+
+.carousel-transition-fade-leave {
+  opacity: 1;
+  position: relative;
+}
+
+.carousel-transition-fade-leave.carousel-transition-fade-leave-active {
+  opacity: 0;
+  transition: all $slide-animation-length cubic-bezier($cubic-bezier);
+}

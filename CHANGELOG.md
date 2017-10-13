@@ -1,3 +1,7 @@
+# 2.1.0
+
+* Carousel can now have custom transitions using the `transition` prop.
+
 # 2.0.1
 
 ## Bug Fixes
