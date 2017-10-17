@@ -16,15 +16,18 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * To render an ActionToolbar:
  *
- *   let actions = {{
- *     text: "Add Subscriptions",
- *     icon: "basket",
- *     onClick: onClickHandler(event, selected) => {}
- *   }, {
- *     text: "Delete",
- *     icon: "bin",
- *     onClick: onClickHandler(event, selected) => {}
- *   }};
+ *   let actions = {
+ *     subscription: {
+ *       text: "Add Subscriptions",
+ *       icon: "basket",
+ *       onClick: onClickHandler(event, selected) => {}
+ *     },
+ *     delete: {
+ *       text: "Delete",
+ *       icon: "bin",
+ *       onClick: onClickHandler(event, selected) => {}
+ *     }
+ *   };
  *
  *   <ActionToolbar total={ count } actions={ actions } />
  *
