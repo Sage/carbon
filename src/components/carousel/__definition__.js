@@ -17,7 +17,8 @@ const definition = new Definition('carousel', Carousel, {
     enableSlideSelector: 'Boolean',
     enablePreviousButton: 'Boolean',
     enableNextButton: 'Boolean',
-    onSlideChange: 'Function'
+    onSlideChange: 'Function',
+    transition: 'String'
   },
   propDescriptions: {
     children: 'This component supports children.',
@@ -28,11 +29,13 @@ const definition = new Definition('carousel', Carousel, {
     enablePreviousButton: 'Set this prop to false to hide the previous button',
     enableNextButton: 'Set this prop to false to hide the next button',
     onSlideChange: 'Action to be called on slide change.' +
-    ' It will receive the slide index and the transition direction as params.'
+    ' It will receive the slide index and the transition direction as params.',
+    transition: 'slide or fade - sets the transition between slides.'
   },
   propOptions: {
     initialSlideIndex: [0, 1, 2, 3, 4],
-    slideIndex: [0, 1, 2, 3, 4]
+    slideIndex: [0, 1, 2, 3, 4],
+    transition: ['slide', 'fade']
   },
 });
 

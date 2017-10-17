@@ -1,8 +1,12 @@
-# 2.1.0
+# 2.2.0
 
 ## Styling Improvements
 
 * Button - Ensure that the button text is always aligned centrally by default. Resolves an issue where the Button text may wrap where translated text occurs.
+
+## Improvements
+
+* `ConfigurableItemsPattern`'s prop `itemsData` is no longer required
 
 ## New Components
 
@@ -17,6 +21,16 @@
 ## Package Updates
 
 * The `react-addons-perf` package is now included in `devDependencies`.
+
+## Minor Improvements
+
+* Fix typo in FullScreenHeading
+
+# 2.1.0
+
+* DialogFullScreen and Pages now have a max width applied.
+* Fixes z-index issue of Dialogs appearing on top of DialogFullScreens.
+* Carousel can now have custom transitions using the `transition` prop.
 
 # 2.0.1
 
