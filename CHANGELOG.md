@@ -7,6 +7,7 @@
 ## Improvements
 
 * `ConfigurableItemsPattern`'s prop `itemsData` is no longer required
+* We use `core-js` instead of `es6-promise` for Promises as this is more reliable and fixes an issue in IE11. *Check you aren't accidentally relying on `es6-promise`*.
 
 ## New Components
 

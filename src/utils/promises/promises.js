@@ -1,3 +1,2 @@
-import promise from 'es6-promise';
-
-promise.polyfill();
+import 'core-js/es6/promise';
+import 'core-js/fn/array/find';
