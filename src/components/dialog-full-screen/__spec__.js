@@ -90,8 +90,14 @@ describe('DialogFullScreen', () => {
 
   describe('onOpening', () => {
     beforeEach(() => {
+      jest.useFakeTimers();
       wrapper = mount(<DialogFullScreen open={ false } />);
       wrapper.setProps({ open: true });
+      jest.runAllTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
     });
 
     it('adds a carbon-dialog-full-screen--open class to the body', () => {

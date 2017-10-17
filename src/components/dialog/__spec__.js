@@ -88,15 +88,21 @@ describe('Dialog', () => {
 
       describe('when the dialog is open', () => {
         beforeEach(() => {
+          jest.useFakeTimers();
           wrapper = mount(
             <Dialog open onCancel={ onCancel } />
           );
           instance = wrapper.instance();
         });
 
+        afterEach(() => {
+          jest.useRealTimers();
+        });
+
         it('centers the dialog', () => {
           spyOn(instance, 'centerDialog');
           wrapper.setProps({ title: 'Dialog title' });
+          jest.runAllTimers();
           expect(instance.centerDialog).toHaveBeenCalled();
         });
 
@@ -106,6 +112,7 @@ describe('Dialog', () => {
           spyOn(mockWindow, 'addEventListener');
 
           wrapper.setProps({ title: 'Dialog title' });
+          jest.runAllTimers();
           expect(mockWindow.addEventListener.calls.count()).toEqual(2);
           expect(mockWindow.addEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
           expect(mockWindow.addEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
@@ -470,6 +477,7 @@ describe('Dialog', () => {
 
       describe('when autoFocus is true', () => {
         it('focuses on the dialog when opened', () => {
+          jest.useFakeTimers();
           wrapper.setProps({
             open: false,
             autoFocus: true
@@ -480,7 +488,9 @@ describe('Dialog', () => {
           wrapper.setProps({
             open: true
           });
+          jest.runAllTimers();
           expect(instance.focusDialog).toBeCalled();
+          jest.useRealTimers();
         });
       });
 
