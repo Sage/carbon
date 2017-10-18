@@ -8,6 +8,18 @@
 
 .carbon-action-toolbar {
   padding: 15px 0;
+
+  .carbon-multi-action-button {
+    display: inline-flex;
+  }
+}
+
+.carbon-action-toolbar__actions > * {
+  + .carbon-button,
+  + .carbon-multi-action-button,
+  + .carbon-split-button {
+    margin-left: 10px;
+  }
 }
 
 .carbon-action-toolbar__total {

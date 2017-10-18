@@ -970,14 +970,16 @@ describe('Table', () => {
     });
 
     it('renders an action toolbar if actions are passed', () => {
+      let func = () => {};
       let toolbarWrapper = shallow(
-        <Table className="foo" actions={ {foo: 'bar'} } selectable={ true }>
+        <Table className="foo" actions={ {foo: 'bar'} } selectable={ true } actionToolbarChildren={ func }>
           { row }
         </Table>
       );
 
       let toolbar = toolbarWrapper.find(ActionToolbar);
       expect(toolbar).toBeDefined();
+      expect(toolbar.props().children).toEqual(func);
     });
 
     describe('when aria-describedby is in the table props', () => {
