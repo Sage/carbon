@@ -5,6 +5,11 @@
 .carbon-split-button {
   display: inline-block;
   position: relative;
+
+  .carbon-button.carbon-split-button__toggle:hover {
+    background-color: $blue;
+    border-bottom-color: $blue;
+  }
 }
 
 .carbon-split-button__main-button {
