@@ -90,6 +90,25 @@ describe('action toolbar', () => {
     });
   });
 
+  describe('children', () => {
+    it('calls children prop if present', () => {
+      const childFunction = jest.fn(() => {
+        return <div>foo</div>;
+      });
+      const wrapper = shallow(
+        <ActionToolbar>
+          { childFunction }
+        </ActionToolbar>
+      );
+
+      expect(childFunction).toHaveBeenCalledWith({
+        disabled: true,
+        selected: {},
+        total: 0
+      });
+    });
+  });
+
   describe("tags", () => {
     describe("on component", () => {
       let wrapper = shallow(
