@@ -40,6 +40,10 @@ The following updates have been made to Carbon components to align with design u
 
 * Fix typo in FullScreenHeading
 
+## Demo Site
+
+* Upgrades `react-highlight`, which removes the last `createClass` warning from React.
+
 # 2.1.0
 
 * DialogFullScreen and Pages now have a max width applied.
