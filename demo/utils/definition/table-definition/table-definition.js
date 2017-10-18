@@ -4,13 +4,13 @@ import OptionsHelper from '../../../../src/utils/helpers/options-helper';
 export default (definition) => {
   definition.type = 'grids';
   definition.propValues = assign({}, definition.propValues, {
-    actions: "{{ icon: 'bin' }, { icon: 'settings' }}",
+    actions: "{ delete: { icon: 'bin' }, settings: { icon: 'settings' }}",
     actionToolbarChildren: `(context) => {
       return [
-        <Button disabled={ context.disabled }>
+        <Button disabled={ context.disabled } key='single-action'>
           Test Action
         </Button>,
-        <MultiActionButton text='Actions' disabled={ context.disabled }>
+        <MultiActionButton text='Actions' disabled={ context.disabled } key='multi-actions'>
           <Button>foo</Button>
           <Button>bar</Button>
           <Button>qux</Button>
@@ -21,7 +21,9 @@ export default (definition) => {
     children: '{ buildRows() }'
   });
   definition.hiddenProps = definition.hiddenProps.concat([
+    'actions',
     'aria-describedby',
+    'children',
     'currentPage',
     'filter',
     'totalRecords',
