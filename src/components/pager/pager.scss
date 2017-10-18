@@ -6,7 +6,7 @@
   border-radius: 0 0 3px 3px;
   border: 1px solid $border-color;
   border-top: none;
-  font-size: 0.9em;
+  font-size: 13px;
   padding: 3px 8px;
   text-align: center;
   position: relative;
@@ -40,8 +40,9 @@
   display: inline-block;
 
   .carbon-number__input {
-    width: 35px;
+    margin: 0px 5px;
     text-align: center;
+    width: 35px;
   }
 }
 

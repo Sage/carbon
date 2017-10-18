@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import Form from './form';
 import Textbox from './../textbox';
+import Portal from './../portal';
 import Validation from './../../utils/validations/presence';
 import ImmutableHelper from './../../utils/helpers/immutable';
 import Dialog from './../dialog';
@@ -14,7 +15,7 @@ import Button from './../button';
 import MultiActionButton from './../multi-action-button';
 import ElementResize from './../../utils/helpers/element-resize';
 
-import { mount, shallow } from 'enzyme';
+import { mount, shallow, ReactWrapper } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 /* global jest */
@@ -441,7 +442,7 @@ describe('Form', () => {
     describe('when the form is inside a dialog', () => {
       it('uses the dialogs cancel handler instead', () => {
         let spy = jasmine.createSpy('onCancel');
-        let nestedInstance = TestUtils.renderIntoDocument(
+        let nestedInstance = mount(
           <Dialog
             title="test"
             open={ true }
@@ -455,8 +456,12 @@ describe('Form', () => {
             </Form>
           </Dialog>
         )
-        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(nestedInstance, 'button')[1];
-        TestUtils.Simulate.click(cancel);
+        const portalContent = new ReactWrapper(
+          nestedInstance.find(Portal).node._portal,
+          nestedInstance
+        );
+        let cancel = portalContent.find('button').last();
+        cancel.simulate('click');
         expect(spy).toHaveBeenCalled();
       });
     });
