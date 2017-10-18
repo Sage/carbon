@@ -18,7 +18,7 @@ export default (definition) => {
   definition.stubAction('onChange', 'value');
 
   definition.propTypes = assign({}, definition.propTypes, {
-    fieldHelp: "Node",
+    fieldHelp: "String", // TODO: this should be `Node` - however it breaks the demo site as it bases the render on this type
     fieldHelpInline: "Boolean",
     inputWidth: "Number",
     label: "String",
