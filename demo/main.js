@@ -8,6 +8,8 @@ import config from './config';
 import { enableMock } from './xhr-mock';
 import setupI18n from './i18n/config';
 
+import Package from './../package.json';
+
 // Languages
 import './i18n/en';
 // Additional components we expose to the window
@@ -19,6 +21,10 @@ import SubPageChrome from './views/chrome/sub-page-chrome';
 import Home from './views/pages/home';
 
 import SiteMap from './site-map';
+
+global.Carbon = {
+  version: Package.version
+}
 
 global.Highcharts = Highcharts;
 
