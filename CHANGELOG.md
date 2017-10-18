@@ -1,3 +1,58 @@
+# 2.2.0
+
+## UX Improvements
+
+The following updates have been made to Carbon components to align with design updates.
+
+* Button - Ensure that the button text is always aligned centrally by default. Resolves an issue where the Button text may wrap where translated text occurs.
+* Colors - New Text colors added
+* Animated Menu Button - Fixed icon alignment and text weights in
+* Flash - Text colors changed to pass accessibility
+* Menu - New Drop Shadow
+* Multi Action Button - Minor fixes to hover
+* Pager - Padding and font size fixes
+* Pod - Shadow color update
+* Portrait - Border fix
+* Settings Row - Separator placement fix
+* Split Button - Correct color on hover
+* Tabs - Hover color now matches buttons
+* Toast - Shadow update
+
+## Improvements
+
+* `ConfigurableItemsPattern`'s prop `itemsData` is no longer required
+
+## New Components
+
+* `Portal` is a component that wraps the [react-portal](https://github.com/tajo/react-portal) library.
+
+## Component Enhancements
+
+* `TooltipDecorator` now uses the new `Portal` component for layout. This effects `Help` and `Icon` components.
+* `Date` now uses the new `Portal` component to render the DatePicker
+* `Modal` now uses the new `Portal` component.
+
+## Package Updates
+
+* The `react-addons-perf` package is now included in `devDependencies`.
+
+## Minor Improvements
+
+* Fix typo in FullScreenHeading
+
+# 2.1.0
+
+* DialogFullScreen and Pages now have a max width applied.
+* Fixes z-index issue of Dialogs appearing on top of DialogFullScreens.
+* Carousel can now have custom transitions using the `transition` prop.
+
+# 2.0.1
+
+## Bug Fixes
+
+* Fixes a compilation error that occurred in 2.0.0, which resulted in a missing `assets.scss` file.
+* `Datepicker`: Stops NavBar submitting the form its contained in
+
 # 2.0.0
 
 ## Breaking Changes
@@ -118,12 +173,24 @@ import { Row, Column } from 'carbon/lib/components/row';
 
 * Grouped character adds separators to value on first render.
 
+# 1.7.1
+
+## Bug Fixes
+
+* `Datepicker`: Stops NavBar submitting the form its contained in
+
 # 1.7.0
 
 ## Component Enhancements
 
 * `Message` - `children` prop is now optional. [#1543](https://github.com/Sage/carbon/issues/1543)
 * `Message` - `title` prop type has been changed from string to node. [#1543](https://github.com/Sage/carbon/issues/1543)
+
+# 1.6.1
+
+## Bug Fixes
+
+* `Datepicker`: Stops NavBar submitting the form its contained in
 
 # 1.6.0
 

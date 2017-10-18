@@ -19,16 +19,13 @@ The following sections show the basic code required for an application to functi
 
 The dispatcher should be a singleton and you only need to set it up once. It handles the dispatching of actions to the stores that are subscribed to it.
 
+Carbon supplies a ready setup dispatcher for your application to use, available with:
+
 ```js
-// ./src/dispatcher/index.js
-
-import { Dispatcher } from 'flux';
-
-// initialize the dispatcher (a singleton for your application)
-let AppDispatcher = new Dispatcher();
-
-export default AppDispatcher;
+import { Dispatcher } from 'carbon-react/lib/utils/flux';
 ```
+
+However, if you want to setup and manage your own dispatcher you can do so - please see the [Facebook Dispatcher documentation](https://facebook.github.io/flux/docs/dispatcher.html).
 
 ## Constants
 
@@ -49,7 +46,7 @@ An action should describe an event in the application. It uses the dispatcher to
 ```js
 // ./src/actions/contact/index.js
 
-import Dispatcher from 'dispatcher';
+import { Dispatcher } from 'carbon-react/lib/utils/flux';
 import ContactConstants from 'constants/contact';
 
 let ContactActions = {
@@ -73,7 +70,6 @@ The store handles the data for a particular model. It defines functions which su
 ```js
 // ./src/stores/contact/index.js
 
-import Dispatcher from 'dispatcher';
 import ContactConstants from 'constants/contact';
 import Store from 'carbon-react/lib/utils/flux/store';
 import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
@@ -98,8 +94,13 @@ class ContactStore extends Store {
 // initialize it with:
 //  * the name - this will be used to access the store on the component
 //  * the data - this is the stores initial data
-//  * the dispatcher - this is your applications dispatcher
-export default new ContactStore('contactStore', data, Dispatcher);
+export default new ContactStore('contactStore', data);
+```
+
+Please note, if you are using a custom dispatcher (not the one supplied by Carbon), you need to tell your stores to use it by passing it as an additional option:
+
+```js
+export default new ContactStore('contactStore', data, { dispatcher: CustomDispatcher });
 ```
 
 ## A component

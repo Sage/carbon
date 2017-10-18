@@ -3,6 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { startCase, assign } from 'lodash';
 import Tooltip from './../../../components/tooltip';
+import Portal from './../../../components/portal';
 import chainFunctions from './../../helpers/chain-functions';
 import { styleElement, append } from './../../ether';
 
@@ -236,18 +237,25 @@ const TooltipDecorator = ComposedComponent => class Component extends ComposedCo
         // hardcode height & width since span has no dimensions
         pointerOffset = 11,
         targetWidth = target.offsetWidth,
-        targetHeight = target.offsetHeight;
+        targetHeight = target.offsetHeight,
+        targetRect = target.getBoundingClientRect(),
+        offsetY = window.pageYOffset,
+        targetTop = targetRect.top + offsetY,
+        targetBottom = targetRect.bottom + offsetY,
+        targetLeft = targetRect.left,
+        targetRight = targetRect.right;
 
     return {
-      verticalY: -tooltipHeight - (pointerDimension * 0.5),
-      verticalCenter: (-tooltipWidth * 0.5) + (targetWidth * 0.5),
-      verticalRight: (pointerDimension + pointerOffset) - tooltipWidth,
-      verticalLeft: -pointerDimension * 0.5,
-      rightHorizontal: targetWidth + (0.5 * pointerDimension),
-      leftHorizontal: (-pointerDimension * 0.5) - tooltipWidth,
-      sideTop: -pointerOffset,
-      sideBottom: -tooltipHeight + targetHeight + pointerOffset,
-      sideCenter: (targetHeight * 0.5) - (tooltipHeight * 0.5)
+      verticalY: targetTop - tooltipHeight - (pointerDimension * 0.5),
+      verticalBottomY: targetBottom + (pointerDimension * 0.5),
+      verticalCenter: (targetLeft - (tooltipWidth * 0.5)) + (targetWidth * 0.5),
+      verticalRight: (targetLeft + pointerDimension + pointerOffset) - tooltipWidth,
+      verticalLeft: targetLeft - (pointerDimension * 0.5),
+      rightHorizontal: targetRight + (0.5 * pointerDimension),
+      leftHorizontal: targetLeft - (pointerDimension * 0.5) - tooltipWidth,
+      sideTop: targetTop - pointerOffset,
+      sideBottom: (targetTop - tooltipHeight) + targetHeight + pointerOffset,
+      sideCenter: (targetTop + (targetHeight * 0.5)) - (tooltipHeight * 0.5)
     };
   };
 
@@ -263,7 +271,6 @@ const TooltipDecorator = ComposedComponent => class Component extends ComposedCo
     if (this.state.isVisible) {
       const tooltip = this.getTooltip(),
           target = this.getTarget();
-
       if (!tooltip || !target) {
         // Can't find the tooltip or target so hide
         this.setState({ isVisible: false });
@@ -283,8 +290,8 @@ const TooltipDecorator = ComposedComponent => class Component extends ComposedCo
           break;
 
         case 'bottom':
-          styleElement(tooltip, 'top', 'auto');
-          styleElement(tooltip, 'bottom', append(shifts.verticalY, 'px'));
+          styleElement(tooltip, 'top', append(shifts.verticalBottomY, 'px'));
+          styleElement(tooltip, 'bottom', 'auto');
           styleElement(tooltip, 'left', append(shifts[`vertical${startCase(alignment)}`], 'px'));
           break;
 
@@ -331,15 +338,17 @@ const TooltipDecorator = ComposedComponent => class Component extends ComposedCo
   get tooltipHTML() {
     if (!this.props.tooltipMessage) { return null; }
     return (
-      <Tooltip
-        align={ this.props.tooltipAlign }
-        data-element='tooltip'
-        isVisible={ this.state.isVisible }
-        position={ this.props.tooltipPosition }
-        ref={ (comp) => { this._tooltip = comp; } }
-      >
-        { this.props.tooltipMessage }
-      </Tooltip>
+      <Portal open={ this.state.isVisible }>
+        <Tooltip
+          align={ this.props.tooltipAlign }
+          data-element='tooltip'
+          isVisible={ this.state.isVisible }
+          position={ this.props.tooltipPosition }
+          ref={ (comp) => { this._tooltip = comp; } }
+        >
+          { this.props.tooltipMessage }
+        </Tooltip>
+      </Portal>
     );
   }
 };

@@ -41,7 +41,7 @@ For any feature requests, please use the [issue tracker](https://github.com/sage
 
 ## Testing
 
-* Carbon has a 100% coverage policy. Testing is done using [Jasmine](http://jasmine.github.io/2.5/introduction). We use the [Enzyme](https://github.com/airbnb/enzyme) testing utility for interacting with components in tests.
+* Carbon has a 100% coverage policy. Testing is done using [Jest](https://facebook.github.io/jest/). We use the [Enzyme](https://github.com/airbnb/enzyme) testing utility for interacting with components in tests.
 * Legacy code used React Testutils - we are currently in the process of migrating to 100% Enzyme usage.
 * New tests need to be written using Enzyme - it's ok for a Testutils and Enzyme to be mixed in a legacy code file.
 

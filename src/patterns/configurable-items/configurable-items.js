@@ -24,7 +24,7 @@ class ConfigurableItemsPattern extends React.Component {
      * @property itemsData
      * @type {Object}
      */
-    itemsData: PropTypes.object.isRequired,
+    itemsData: PropTypes.object,
 
     /**
      * Callback triggered when the form is cancelled.
@@ -63,7 +63,7 @@ class ConfigurableItemsPattern extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.open && (this.open !== prevState.configurableItemsStore.get('open'))) {
+    if (this.props.itemsData && this.open && (this.open !== prevState.configurableItemsStore.get('open'))) {
       ConfigurableItemsActions.updateData(this.props.itemsData);
     }
   }

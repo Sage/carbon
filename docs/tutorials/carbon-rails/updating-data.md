@@ -135,7 +135,7 @@ export default {
 ```js
 // ui/src/actions/user/user.js
 
-import Dispatcher from 'dispatcher';
+import { Dispatcher } from 'carbon-react/lib/utils/flux';
 import UserConstants from 'constants/user';
 import Request from 'superagent';
 
@@ -173,7 +173,6 @@ We should also update the store to subscribe to this event:
 ```js
 // ui/src/stores/user/user.js
 
-import Dispatcher from 'dispatcher';
 import Store from 'carbon/lib/utils/flux/store';
 import ImmutableHelper from 'carbon/lib/utils/helpers/immutable';
 
@@ -193,7 +192,7 @@ class UserStore extends Store {
   }
 }
 
-export default new UserStore('userStore', data, Dispatcher);
+export default new UserStore('userStore', data);
 ```
 
 Our newly subscribed action in the store will update the relevant key in `user` with the new value.
@@ -266,7 +265,7 @@ export default {
 ```js
 // ui/src/actions/user/user.js
 
-import Dispatcher from 'dispatcher';
+import { Dispatcher } from 'carbon-react/lib/utils/flux';
 import UserConstants from 'constants/user';
 import Request from 'superagent';
 

@@ -151,9 +151,9 @@ describe('Icon', () => {
 
   describe('when passed a tooltipMessage', () => {
     it('renders a tooltip', () => {
-      let helpInstance = TestUtils.renderIntoDocument(<Icon type='info' tooltipMessage='Helpful content' />);
-      let tooltip = TestUtils.findRenderedComponentWithType(helpInstance, Tooltip);
-      expect(tooltip).toBeDefined();
+      const wrapper = shallow(<Icon type='info' tooltipMessage='Helpful content'/>);
+      const tooltip = wrapper.find(Tooltip);
+      expect(tooltip.length).toEqual(1);
     });
   });
 

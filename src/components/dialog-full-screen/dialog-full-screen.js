@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import Icon from './../icon';
 import Modal from './../modal';
 import Heading from './../heading';
+import AppWrapper from './../app-wrapper';
 import FullScreenHeading from './full-screen-heading';
 import Browser from './../../utils/helpers/browser';
 
@@ -86,17 +87,12 @@ class DialogFullScreen extends Modal {
         className={ this.dialogClasses }
         { ...this.componentTags(this.props) }
       >
-        <Icon
-          className='carbon-dialog-full-screen__close'
-          data-element='close'
-          onClick={ this.props.onCancel }
-          type='close'
-        />
-
         { this.dialogTitle() }
 
         <div className='carbon-dialog-full-screen__content' data-element='content'>
-          { this.props.children }
+          <AppWrapper>
+            { this.props.children }
+          </AppWrapper>
         </div>
       </div>
     );
@@ -123,8 +119,6 @@ class DialogFullScreen extends Modal {
    * @return {Object} title to display
    */
   dialogTitle = () => {
-    if (!this.props.title) { return null; }
-
     let title = this.props.title;
 
     if (typeof title === 'string') {
@@ -139,7 +133,16 @@ class DialogFullScreen extends Modal {
     }
 
     return (
-      <FullScreenHeading>{ title }</FullScreenHeading>
+      <FullScreenHeading>
+        <Icon
+          className='carbon-dialog-full-screen__close'
+          data-element='close'
+          onClick={ this.props.onCancel }
+          type='close'
+        />
+
+        { title }
+      </FullScreenHeading>
     );
   }
 }
