@@ -29,6 +29,7 @@ The following updates have been made to Carbon components to align with design u
 
 ## Component Enhancements
 
+* `InputLabel` now allows fieldHelp to be a node type.
 * `TooltipDecorator` now uses the new `Portal` component for layout. This effects `Help` and `Icon` components.
 * `Date` now uses the new `Portal` component to render the DatePicker.
 * `Modal` now uses the new `Portal` component.
@@ -41,6 +42,10 @@ The following updates have been made to Carbon components to align with design u
 ## Minor Improvements
 
 * Fix typo in FullScreenHeading
+
+## Demo Site
+
+* Upgrades `react-highlight`, which removes the last `createClass` warning from React.
 
 # 2.1.0
 

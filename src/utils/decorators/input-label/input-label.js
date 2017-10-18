@@ -116,9 +116,9 @@ const InputLabel = ComposedComponent => class Component extends ComposedComponen
      * A string representing a help message
      *
      * @property
-     * @type {String}
+     * @type {Node}
      */
-    fieldHelp: PropTypes.string,
+    fieldHelp: PropTypes.node,
 
     /**
      * Boolean to determine whether the help message should be inline
