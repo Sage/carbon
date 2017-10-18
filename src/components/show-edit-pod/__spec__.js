@@ -391,9 +391,8 @@ describe('ShowEditPod', () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      let wrapper = shallow(<ShowEditPod data-element='bar' data-role='baz' />);
-
       it('include correct component, element and role data tags', () => {
+        let wrapper = shallow(<ShowEditPod data-element='bar' data-role='baz' />);
         rootTagTest(wrapper, 'show-edit-pod', 'bar', 'baz');
       });
     });

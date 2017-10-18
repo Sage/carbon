@@ -63,7 +63,6 @@ describe('Textarea', () => {
 
   describe('componentDidMount', () => {
     describe('when textarea can be expanded', () => {
-
       it('adds a event listener to the window', () => {
         spyOn(window, 'addEventListener');
         expandableInstance.componentDidMount();
@@ -102,19 +101,19 @@ describe('Textarea', () => {
     });
 
     describe('when textarea can be expanded', () => {
-      let wrapper = shallow(
-        <Textarea
-          value={ 'foo' }
-          label={ 'Label' }
-          expandable={ true }
-          cols={10}
-          rows={10}
-          characterLimit='100'
-          onChange={ spy }
-        />
-      );
-
       it('removes the event listener from the window', () => {
+        let wrapper = mount(
+          <Textarea
+            value={ 'foo' }
+            label={ 'Label' }
+            expandable={ true }
+            cols={10}
+            rows={10}
+            characterLimit='100'
+            onChange={ spy }
+          />
+        );
+
         wrapper.unmount();
         expect(window.removeEventListener).toHaveBeenCalledWith(
           'resize',jasmine.any(Function)
