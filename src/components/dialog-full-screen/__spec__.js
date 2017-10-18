@@ -1,15 +1,17 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow, mount, ReactWrapper } from 'enzyme';
 import DialogFullScreen from './dialog-full-screen';
 import FullScreenHeading from './full-screen-heading';
 import Button from './../button';
+import Portal from './../portal';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Icon from './../icon';
 import Heading from './../heading';
 
 describe('DialogFullScreen', () => {
   let instance,
-      wrapper;
+      wrapper,
+      portalContent;
   const onCancel = jasmine.createSpy('cancel');
 
   beforeEach(() => {
@@ -50,20 +52,24 @@ describe('DialogFullScreen', () => {
     beforeEach(() => {
       wrapper = mount(
         <DialogFullScreen
-          onCancel={ onCancel }
-          className='foo'
           open
+          className='foo'
           title='my title'
+          onCancel={ onCancel }
         >
           <Button>Button</Button>
           <Button>Button</Button>
         </DialogFullScreen>
       );
       instance = wrapper.instance();
+      portalContent = new ReactWrapper(
+        wrapper.find(Portal).node._portal,
+        wrapper
+      );
     });
 
     it('renders a parent div with mainClasses attached', () => {
-      expect(wrapper.find('div.foo.carbon-dialog-full-screen').length).toEqual(1);
+      expect(portalContent.find('div.foo.carbon-dialog-full-screen').length).toEqual(1);
     });
 
     it('renders the dialog', () => {
@@ -72,20 +78,26 @@ describe('DialogFullScreen', () => {
     });
 
     it('closes when the exit icon is click', () => {
-      const closeIcon = wrapper.find(Icon);
+      const closeIcon = portalContent.find(Icon);
       closeIcon.simulate('click');
       expect(onCancel).toHaveBeenCalled();
     });
 
     it('renders the children passed to it', () => {
-      expect(wrapper.find(Button).length).toEqual(2);
+      expect(portalContent.find(Button).length).toEqual(2);
     });
   });
 
   describe('onOpening', () => {
     beforeEach(() => {
+      jest.useFakeTimers();
       wrapper = mount(<DialogFullScreen open={ false } />);
       wrapper.setProps({ open: true });
+      jest.runAllTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
     });
 
     it('adds a carbon-dialog-full-screen--open class to the body', () => {
@@ -146,35 +158,23 @@ describe('DialogFullScreen', () => {
 
   describe('tags', () => {
     describe('on component', () => {
-      it('include correct component, element and role data tags', () => {
+      it('include correct component, elements and role data tags', () => {
         wrapper = shallow(
           <DialogFullScreen
-            data-element='bar'
+            open
             onCancel={ () => {} }
             onConfirm={ () => {} }
-            open
+            title='Test'
             data-role='baz'
+            data-element='bar'
           />
         );
-
-        rootTagTest(wrapper, 'dialog-full-screen', 'bar', 'baz');
+        portalContent = new ReactWrapper(
+          wrapper.find(Portal).prop('children')
+        );
+        rootTagTest(portalContent, 'dialog-full-screen', 'bar', 'baz');
+        elementsTagTest(portalContent, ['close', 'content']);
       });
-    });
-
-    describe('on internal elements', () => {
-      const dialog = shallow(
-        <DialogFullScreen
-          onCancel={ () => {} }
-          onConfirm={ () => {} }
-          open
-          title='Test'
-        />
-      );
-
-      elementsTagTest(dialog, [
-        'close',
-        'content'
-      ]);
     });
   });
 });

@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Modal backgroundHTML when enableBackgroundUI is false renders children 1`] = `
+<Portal
+  open={true}
+>
+  <div
+    className={null}
+  >
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={false}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal"
+    />
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={false}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal-background"
+    >
+      <div
+        className="carbon-modal__background"
+      />
+    </CSSTransitionGroup>
+  </div>
+</Portal>
+`;
+
+exports[`Modal backgroundHTML when enableBackgroundUI is true renders children 1`] = `
+<Portal
+  open={true}
+>
+  <div
+    className={null}
+  >
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={false}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal"
+    />
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={false}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal-background"
+    />
+  </div>
+</Portal>
+`;

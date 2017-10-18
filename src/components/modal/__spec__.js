@@ -1,11 +1,11 @@
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
+import { shallow } from 'enzyme';
 import Modal from './modal';
 import Events from './../../utils/helpers/events';
 import Browser from './../../utils/helpers/browser';
 
 describe('Modal', () => {
-  let instance, onCancel;
+  let wrapper, onCancel;
 
   describe('componentDidUpdate', () => {
     let mockWindow;
@@ -21,25 +21,31 @@ describe('Modal', () => {
 
     describe('when the modal is open', () => {
       beforeEach(() => {
+        jest.useFakeTimers();
         onCancel = jasmine.createSpy('cancel');
-        instance = TestUtils.renderIntoDocument(
+        wrapper = shallow(
           <Modal open={ true } onCancel={ onCancel } />
         );
+      });
+
+      afterEach(() => {
+        jest.useRealTimers();
       });
 
       it('sets up event listeners to resize and close the modal', () => {
         spyOn(mockWindow, 'addEventListener');
 
-        instance.componentDidUpdate();
+        wrapper.instance().componentDidUpdate();
+        jest.runAllTimers();
         expect(mockWindow.addEventListener.calls.count()).toEqual(1);
-        expect(mockWindow.addEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
+        expect(mockWindow.addEventListener).toHaveBeenCalledWith('keyup', wrapper.instance().closeModal);
       });
 
       describe('when the modal is already listening', () => {
         it('does not set up event listeners', () => {
           spyOn(mockWindow, 'addEventListener');
-          instance.listening = true;
-          instance.componentDidUpdate();
+          wrapper.instance().listening = true;
+          wrapper.instance().componentDidUpdate();
           expect(mockWindow.addEventListener.calls.count()).toEqual(0);
           expect(mockWindow.addEventListener).not.toHaveBeenCalled();
         });
@@ -48,17 +54,17 @@ describe('Modal', () => {
 
     describe('when the modal is closed', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(
+        wrapper = shallow(
           <Modal onCancel={ onCancel } />
         );
       });
 
       it('removes event listeners for resize and closing', () => {
         spyOn(mockWindow, 'removeEventListener');
-        instance.listening = true;
-        instance.componentDidUpdate();
+        wrapper.instance().listening = true;
+        wrapper.instance().componentDidUpdate();
         expect(mockWindow.removeEventListener.calls.count()).toEqual(1);
-        expect(mockWindow.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
+        expect(mockWindow.removeEventListener).toHaveBeenCalledWith('keyup', wrapper.instance().closeModal);
       });
     });
   });
@@ -67,7 +73,7 @@ describe('Modal', () => {
     describe('when disableEscKey is false', () => {
       beforeEach(() => {
         onCancel = jasmine.createSpy('cancel');
-        instance = TestUtils.renderIntoDocument(
+        wrapper = shallow(
           <Modal open={ true } onCancel={ onCancel } />
         );
       });
@@ -75,7 +81,7 @@ describe('Modal', () => {
       describe('when the esc key is released', () => {
         it('calls the cancel modal handler', () => {
           spyOn(Events, 'isEscKey').and.returnValue(true);
-          instance.closeModal({});
+          wrapper.instance().closeModal({});
           expect(onCancel).toHaveBeenCalled();
         });
       });
@@ -83,7 +89,7 @@ describe('Modal', () => {
       describe('when any other key is released', () => {
         it('calls the cancel modal handler', () => {
           spyOn(Events, 'isEscKey').and.returnValue(false);
-          instance.closeModal({});
+          wrapper.instance().closeModal({});
           expect(onCancel).not.toHaveBeenCalled();
         });
       });
@@ -91,28 +97,35 @@ describe('Modal', () => {
 
     describe('when disableEscKey is true', () => {
       onCancel = jasmine.createSpy('cancel');
-      instance = TestUtils.renderIntoDocument(
+      wrapper = shallow(
         <Modal disableEscKey={ true } open={ true } onCancel={ onCancel } />
       );
 
       it('does not call onCancel', () => {
-        instance.closeModal({ which: 12 });
+        wrapper.instance().closeModal({ which: 12 });
         expect(onCancel).not.toHaveBeenCalled();
       });
     });
   });
 
-
   describe('backgroundHTML', () => {
-    describe('when enableBackgroundUI is true', () => {
-      it('returns a background div', () => {
-        expect(TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-modal__background')).toBeTruthy();
+    describe('when enableBackgroundUI is false', () => {
+      it('renders children', () => {
+        let wrapper = shallow(
+          <Modal
+            onCancel={ () => {} }
+            onConfirm={ () => {} }
+            open={ true }
+            enableBackgroundUI={ false }
+          />
+        );
+        expect(wrapper).toMatchSnapshot();
       });
     });
 
-    describe('when enableBackgroundUI is false', () => {
-      it('returns null', () => {
-        instance = TestUtils.renderIntoDocument(
+    describe('when enableBackgroundUI is true', () => {
+      it('renders children', () => {
+        let wrapper = shallow(
           <Modal
             onCancel={ () => {} }
             onConfirm={ () => {} }
@@ -120,8 +133,7 @@ describe('Modal', () => {
             enableBackgroundUI={ true }
           />
         );
-
-        expect(instance.backgroundHTML).toBeFalsy();
+        expect(wrapper).toMatchSnapshot();
       });
     });
   });

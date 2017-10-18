@@ -1,8 +1,22 @@
 # 2.2.0
 
-## Styling Improvements
+## UX Improvements
+
+The following updates have been made to Carbon components to align with design updates.
 
 * Button - Ensure that the button text is always aligned centrally by default. Resolves an issue where the Button text may wrap where translated text occurs.
+* Colors - New Text colors added
+* Animated Menu Button - Fixed icon alignment and text weights in
+* Flash - Text colors changed to pass accessibility
+* Menu - New Drop Shadow
+* Multi Action Button - Minor fixes to hover
+* Pager - Padding and font size fixes
+* Pod - Shadow color update
+* Portrait - Border fix
+* Settings Row - Separator placement fix
+* Split Button - Correct color on hover
+* Tabs - Hover color now matches buttons
+* Toast - Shadow update
 
 ## Improvements
 
@@ -14,9 +28,10 @@
 
 ## Component Enhancements
 
+* `InputLabel` now allows fieldHelp to be a node type.
 * `TooltipDecorator` now uses the new `Portal` component for layout. This effects `Help` and `Icon` components.
 * `Date` now uses the new `Portal` component to render the DatePicker
-* `InputLabel` now allows fieldHelp to be a node type.
+* `Modal` now uses the new `Portal` component.
 
 ## Package Updates
 

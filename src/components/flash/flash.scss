@@ -57,8 +57,9 @@
 }
 
 .carbon-flash__message {
-  color: $white;
+  color: $onyx;
   font-size: 14px;
+  font-weight: 700;
   margin: 20px 70px;
   position: relative;
   text-align: left;
@@ -71,7 +72,7 @@
   width: 70px;
 
   &:before {
-    color: $white;
+    color: $onyx;
     font-size: 16px;
     margin: auto;
   }
@@ -85,12 +86,12 @@
   }
 
   .carbon-icon__svg-group {
-    fill: $white;
+    fill: $onyx;
   }
 }
 
 .carbon-flash__close {
-  color: #FFF;
+  color: $onyx;
   cursor: pointer;
   display: flex;
   outline: none;
@@ -98,6 +99,7 @@
   right: 0;
   top: 0;
   width: 70px;
+
   &:before {
     font-size: 16px;
     margin: auto;
@@ -150,4 +152,15 @@
 .carbon-flash__content-leave-active  {
   opacity: 0;
   transition: 400ms ease-out 100ms;
+}
+
+// overrides as some messages require white color
+.carbon-flash {
+  &--error, &--new, &--info {
+    .carbon-flash__message,
+    .carbon-flash__close,
+    .carbon-flash__icon:before {
+      color: white;
+    }
+  }
 }
