@@ -45,7 +45,7 @@
     "react-addons-test-utils": "~15.6.0",
     "react-dnd-test-backend": "~2.4.0",
     "react-dom": "~15.6.1",
-    "react-highlight": "~0.9.0",
+    "react-highlight": "~0.10.0",
     "react-test-renderer": "~15.6.1",
     "underscore.string": "~3.3.4",
     "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
