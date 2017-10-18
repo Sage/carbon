@@ -92,6 +92,14 @@ class Table extends React.Component {
     actions: PropTypes.object,
 
     /**
+     * The extra actions to display in the toolbar
+     *
+     * @property actionToolbarChildren - additional buttons can be added to the tool bar
+     * @type {Function}
+     */
+    actionToolbarChildren: PropTypes.func,
+
+    /**
      * Children elements
      *
      * @property children
@@ -943,7 +951,12 @@ class Table extends React.Component {
     if (!this.props.selectable || !this.props.actions) { return null; }
 
     return (
-      <ActionToolbar total={ this.state.selectedCount } actions={ this.props.actions } />
+      <ActionToolbar
+        total={ this.state.selectedCount }
+        actions={ this.props.actions }
+      >
+        { this.props.actionToolbarChildren }
+      </ActionToolbar>
     );
   }
 
