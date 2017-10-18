@@ -30,6 +30,7 @@ The following updates have been made to Carbon components to align with design u
 
 * `TooltipDecorator` now uses the new `Portal` component for layout. This effects `Help` and `Icon` components.
 * `Date` now uses the new `Portal` component to render the DatePicker
+* `Modal` now uses the new `Portal` component.
 
 ## Package Updates
 

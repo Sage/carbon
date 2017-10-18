@@ -4,8 +4,9 @@ import TestUtils from 'react-dom/test-utils';
 import InputValidation from './input-validation';
 import InputLabel from './../input-label';
 import Form from 'components/form';
+import Portal from 'components/portal';
 import Dialog from 'components/dialog';
-import { shallow, mount } from 'enzyme';
+import { shallow, mount, ReactWrapper } from 'enzyme';
 
 /* global jest */
 
@@ -366,7 +367,7 @@ describe('InputValidation', () => {
         });
 
         describe('when in a modal and offscreen', () => {
-          let wrapper;
+          let wrapper, portalContent;
 
           beforeEach(() => {
             jest.useFakeTimers();
@@ -374,6 +375,10 @@ describe('InputValidation', () => {
               <Dialog open>
                 <Component validations={[validationThree]} />
               </Dialog>
+            );
+            portalContent = new ReactWrapper(
+              wrapper.find(Portal).node._portal,
+              wrapper
             );
           });
 
@@ -384,14 +389,14 @@ describe('InputValidation', () => {
 
           it('sets the class to flipped', () => {
             Component;
-            const input = wrapper.find('input');
+            const input = portalContent.find('input');
             input.simulate('blur');
             jest.runTimersToTime(0);
             input.simulate('focus');
             wrapper.instance()._dialog = {
               offsetWidth: 10
             };
-            wrapper.find(Component).node.validationMessage = {
+            portalContent.find(Component).node.validationMessage = {
               className: "",
               offsetWidth: 10,
               offsetLeft: 10,
@@ -402,7 +407,7 @@ describe('InputValidation', () => {
               }
             };
             input.simulate('focus');
-            expect(wrapper.find(Component).node.validationMessage.className).toEqual(' common-input__message--flipped');
+            expect(portalContent.find(Component).node.validationMessage.className).toEqual(' common-input__message--flipped');
           });
         });
 
