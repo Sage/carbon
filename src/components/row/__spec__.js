@@ -37,6 +37,20 @@ describe('Row', () => {
         expect(wrapper).toMatchSnapshot();
       });
     });
+
+    describe('when a null column is passed', () => {
+      it('ignores the null child', () => {
+        const columns = [<Column />, <Column />, null];
+
+        wrapper = shallow(
+          <Row>
+            { columns }
+          </Row>
+        );
+
+        expect(wrapper).toMatchSnapshot();
+      });
+    });
   });
 
   describe('gutter', () => {
