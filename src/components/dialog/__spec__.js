@@ -496,6 +496,7 @@ describe('Dialog', () => {
 
       describe('when autoFocus is false', () => {
         it('does not focus on the dialog when opened', () => {
+          jest.useFakeTimers();
           wrapper.setProps({
             open: false,
             autoFocus: false
@@ -506,7 +507,9 @@ describe('Dialog', () => {
           wrapper.setProps({
             open: true
           });
+          jest.runAllTimers();
           expect(instance.focusDialog).not.toBeCalled();
+          jest.useRealTimers();
         });
       });
 

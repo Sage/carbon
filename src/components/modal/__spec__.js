@@ -21,16 +21,22 @@ describe('Modal', () => {
 
     describe('when the modal is open', () => {
       beforeEach(() => {
+        jest.useFakeTimers();
         onCancel = jasmine.createSpy('cancel');
         wrapper = shallow(
           <Modal open={ true } onCancel={ onCancel } />
         );
       });
 
+      afterEach(() => {
+        jest.useRealTimers();
+      });
+
       it('sets up event listeners to resize and close the modal', () => {
         spyOn(mockWindow, 'addEventListener');
 
         wrapper.instance().componentDidUpdate();
+        jest.runAllTimers();
         expect(mockWindow.addEventListener.calls.count()).toEqual(1);
         expect(mockWindow.addEventListener).toHaveBeenCalledWith('keyup', wrapper.instance().closeModal);
       });
