@@ -551,7 +551,12 @@ describe('DropdownFilter', () => {
     describe('if in create mode', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
-          <DropdownFilter name="foo" options={ Immutable.fromJS([]) } value="1" create={ function() {} } />
+          <DropdownFilter
+            name='foo'
+            options={ Immutable.fromJS([]) }
+            value='1'
+            create={ function() {} }
+          />
         );
       });
 
@@ -562,20 +567,93 @@ describe('DropdownFilter', () => {
       });
 
       describe('if open', () => {
+        let createIconType, createText;
+
         beforeEach(() => {
+          instance = TestUtils.renderIntoDocument(
+            <DropdownFilter
+              name='foo'
+              options={ Immutable.fromJS([]) }
+              value='1'
+              create={ function() {} }
+              createText={ createText }
+              createIconType={ createIconType }
+            />
+          );
           instance.setState({ open: true });
         });
 
-        describe('if there is a filter', () => {
-          it('adds create option with correct text', () => {
-            instance.setState({ filter: "foo" });
-            expect(instance.listHTML[1].props.children).toEqual('Create "foo"');
+        describe('if no createText string is provided', () => {
+          beforeAll(() => {
+            createText = null;
+          });
+
+          describe('if there is a createIconType string provided', () => {
+            beforeAll(() => { createIconType = 'attach'; });
+
+            it('adds create option with correct icon type', () => {
+              expect(instance.listHTML[1].props.icon).toEqual('attach');
+            });
+          });
+
+          describe('if there is no createIconType string provided', () => {
+            beforeAll(() => { createIconType = null; });
+
+            it('adds create option with the add icon', () => {
+              expect(instance.listHTML[1].props.icon).toEqual('add');
+            });
+          });
+
+          describe('if there is a filter', () => {
+            it('adds create option with correct text', () => {
+              instance.setState({ filter: 'foo' });
+              expect(instance.listHTML[1].props.children).toEqual('Create "foo"');
+            });
+          });
+
+          describe('if there is no filter', () => {
+            it('adds create option with correct text', () => {
+              expect(instance.listHTML[1].props.children).toEqual('Create New');
+            });
           });
         });
 
-        describe('if there is no filter', () => {
+        describe('if createText string is provided', () => {
+          beforeAll(() => {
+            createText = 'add foobar';
+          });
+
           it('adds create option with correct text', () => {
-            expect(instance.listHTML[1].props.children).toEqual('Create New');
+            expect(instance.listHTML[1].props.children).toEqual('add foobar');
+          });
+
+          describe('if there is a createIconType string provided', () => {
+            beforeAll(() => { createIconType = 'attach'; });
+
+            it('adds create option with correct icon type', () => {
+              expect(instance.listHTML[1].props.icon).toEqual('attach');
+            });
+          });
+
+          describe('if there is no createIconType string provided', () => {
+            beforeAll(() => { createIconType = null; });
+
+            it('adds create option with the add icon', () => {
+              expect(instance.listHTML[1].props.icon).toEqual('add');
+            });
+          });
+
+          describe('if there is a filter', () => {
+            it('adds create option with correct text', () => {
+              instance.setState({ filter: 'foo' });
+              expect(instance.listHTML[1].props.children).toEqual('add foobar');
+            });
+          });
+
+          describe('if there is no filter', () => {
+            it('adds create option with correct text', () => {
+              expect(instance.listHTML[1].props.children).toEqual('add foobar');
+            });
           });
         });
       });
