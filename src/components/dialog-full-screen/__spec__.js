@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount, ReactWrapper } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import DialogFullScreen from './dialog-full-screen';
 import FullScreenHeading from './full-screen-heading';
 import Button from './../button';
@@ -10,8 +10,7 @@ import Heading from './../heading';
 
 describe('DialogFullScreen', () => {
   let instance,
-      wrapper,
-      portalContent;
+      wrapper;
   const onCancel = jasmine.createSpy('cancel');
 
   beforeEach(() => {
@@ -62,14 +61,10 @@ describe('DialogFullScreen', () => {
         </DialogFullScreen>
       );
       instance = wrapper.instance();
-      portalContent = new ReactWrapper(
-        wrapper.find(Portal).node._portal,
-        wrapper
-      );
     });
 
     it('renders a parent div with mainClasses attached', () => {
-      expect(portalContent.find('div.foo.carbon-dialog-full-screen').length).toEqual(1);
+      expect(wrapper.find('div.foo.carbon-dialog-full-screen').length).toEqual(1);
     });
 
     it('renders the dialog', () => {
@@ -78,13 +73,13 @@ describe('DialogFullScreen', () => {
     });
 
     it('closes when the exit icon is click', () => {
-      const closeIcon = portalContent.find(Icon);
+      const closeIcon = wrapper.find(Icon);
       closeIcon.simulate('click');
       expect(onCancel).toHaveBeenCalled();
     });
 
     it('renders the children passed to it', () => {
-      expect(portalContent.find(Button).length).toEqual(2);
+      expect(wrapper.find(Button).length).toEqual(2);
     });
   });
 
@@ -169,11 +164,8 @@ describe('DialogFullScreen', () => {
             data-element='bar'
           />
         );
-        portalContent = new ReactWrapper(
-          wrapper.find(Portal).prop('children')
-        );
-        rootTagTest(portalContent, 'dialog-full-screen', 'bar', 'baz');
-        elementsTagTest(portalContent, ['close', 'content']);
+        rootTagTest(wrapper, 'dialog-full-screen', 'bar', 'baz');
+        elementsTagTest(wrapper, ['close', 'content']);
       });
     });
   });

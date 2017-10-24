@@ -15,7 +15,7 @@ import Button from './../button';
 import MultiActionButton from './../multi-action-button';
 import ElementResize from './../../utils/helpers/element-resize';
 
-import { mount, shallow, ReactWrapper } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 /* global jest */
@@ -456,11 +456,8 @@ describe('Form', () => {
             </Form>
           </Dialog>
         )
-        const portalContent = new ReactWrapper(
-          nestedInstance.find(Portal).node._portal,
-          nestedInstance
-        );
-        let cancel = portalContent.find('button').last();
+
+        let cancel = nestedInstance.find('button').last();
         cancel.simulate('click');
         expect(spy).toHaveBeenCalled();
       });

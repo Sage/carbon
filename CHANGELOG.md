@@ -1,4 +1,12 @@
+# 2.2.1
+
+## Fixes
+
+:warning: v2.2.0 updated modal components (eg. `Dialog`) to use ReactPortal. While this doesn't break applications, it was found to break some tests after an application upgraded. We have decided to disable this feature for now, and will re-add it at a later date when either Portals are better supported by our test tooling or when we release a version 3 of Carbon with potential breaking changes.
+
 # 2.2.0
+
+:warning: We recommend you use v2.2.1 instead of this version.
 
 ## UX Improvements
 
