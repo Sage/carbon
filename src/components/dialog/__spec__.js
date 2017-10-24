@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Bowser from 'bowser';
-import { mount, shallow, ReactWrapper } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import Browser from '../../utils/helpers/browser';
 import Dialog from './dialog';
 import Button from './../button';
@@ -321,11 +321,8 @@ describe('Dialog', () => {
             subtitle='Dialog subtitle'
           />
         )
-        const portalContent = new ReactWrapper(
-          wrapper.find(Portal).prop('children')
-        );
-        expect(portalContent.find(Heading).prop('subheader')).toEqual('Dialog subtitle');
-        expect(portalContent.find(Heading).prop('title')).toEqual('Dialog title');
+        expect(wrapper.find(Heading).prop('subheader')).toEqual('Dialog subtitle');
+        expect(wrapper.find(Heading).prop('title')).toEqual('Dialog title');
       });
     });
 
@@ -402,12 +399,9 @@ describe('Dialog', () => {
         const wrapper = shallow(
           <Dialog open={ false } onCancel={ onCancel } />
         );
-        const portalContent = new ReactWrapper(
-          wrapper.find(Portal).prop('children')
-        );
 
-        expect(portalContent.find('div.carbon-dialog').length).toEqual(1);
-        expect(portalContent.find('div.carbon-dialog__dialog').length).toEqual(0);
+        expect(wrapper.find('div.carbon-dialog').length).toEqual(1);
+        expect(wrapper.find('div.carbon-dialog__dialog').length).toEqual(0);
       });
     });
   });
@@ -440,12 +434,9 @@ describe('Dialog', () => {
             ariaRole=''
           />
         );
-        const portalContent = new ReactWrapper(
-          wrapper.find(Portal).prop('children')
-        );
 
-        expect(portalContent.find('[aria-describedby="carbon-dialog-subtitle"]').length).toEqual(0);
-        expect(portalContent.find('[aria-labelledby="carbon-dialog-title"]').length).toEqual(0);
+        expect(wrapper.find('[aria-describedby="carbon-dialog-subtitle"]').length).toEqual(0);
+        expect(wrapper.find('[aria-labelledby="carbon-dialog-title"]').length).toEqual(0);
       });
     });
 
@@ -514,13 +505,10 @@ describe('Dialog', () => {
       });
 
       it('returns focus to the dialog element when focus leaves the close icon', () => {
-        const portalContent = new ReactWrapper(
-          wrapper.find(Portal).prop('children')
-        );
-        const dialogElement = portalContent.find('[role="dialog"]').getDOMNode();
+        const dialogElement = wrapper.find('[role="dialog"]').getDOMNode();
         spyOn(dialogElement, 'focus');
 
-        const closeIcon = portalContent.find('[data-element="close"]');
+        const closeIcon = wrapper.find('[data-element="close"]');
         closeIcon.simulate('blur');
         expect(dialogElement.focus).toHaveBeenCalled();
       });
