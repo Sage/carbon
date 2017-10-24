@@ -1,3 +1,9 @@
+# 2.2.2
+
+## Fixes
+
+Ensures that `displayName` is set to the original component's name when connecting to a store using Carbon's flux helper. We have noticed Jest snapshot's have started to default to `View` when connected to a store using our flux connector, this change will ensure the display name is maintained.
+
 # 2.2.1
 
 ## Fixes
