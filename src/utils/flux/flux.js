@@ -133,5 +133,8 @@ export function connect(ComposedView, stores) {
     }
   }
 
+  // ensures that the new component has the original component's name
+  View.displayName = ComposedView.displayName || ComposedView.name;
+
   return View;
 }
