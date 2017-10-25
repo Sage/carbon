@@ -18,107 +18,103 @@ exports[`Dialog dialog headers when a props object title is passed wraps it with
 `;
 
 exports[`Dialog render when dialog is open has the correct content, tags, elements etc 1`] = `
-<Portal
-  open={true}
+<div
+  className="carbon-dialog foo"
+  data-component="dialog"
+  data-element="bar"
+  data-role="baz"
 >
-  <div
-    className="carbon-dialog foo"
-    data-component="dialog"
-    data-element="bar"
-    data-role="baz"
+  <CSSTransitionGroup
+    component="div"
+    transitionAppear={false}
+    transitionEnter={true}
+    transitionEnterTimeout={500}
+    transitionLeave={true}
+    transitionLeaveTimeout={500}
+    transitionName="modal"
   >
-    <CSSTransitionGroup
-      component="div"
-      transitionAppear={false}
-      transitionEnter={true}
-      transitionEnterTimeout={500}
-      transitionLeave={true}
-      transitionLeaveTimeout={500}
-      transitionName="modal"
+    <div
+      aria-describedby="carbon-dialog-subtitle"
+      aria-labelledby="carbon-dialog-title"
+      className="carbon-dialog__dialog carbon-dialog__dialog--small carbon-dialog__dialog--has-height"
+      data-component="dialog"
+      data-element="bar"
+      data-role="baz"
+      onBlur={[Function]}
+      role="dialog"
+      style={
+        Object {
+          "minHeight": "500px",
+        }
+      }
+      tabIndex={0}
     >
       <div
-        aria-describedby="carbon-dialog-subtitle"
-        aria-labelledby="carbon-dialog-title"
-        className="carbon-dialog__dialog carbon-dialog__dialog--small carbon-dialog__dialog--has-height"
-        data-component="dialog"
-        data-element="bar"
-        data-role="baz"
-        onBlur={[Function]}
-        role="dialog"
-        style={
-          Object {
-            "minHeight": "500px",
-          }
-        }
-        tabIndex={0}
+        className="carbon-dialog__title carbon-dialog__title--has-subheader"
       >
-        <div
-          className="carbon-dialog__title carbon-dialog__title--has-subheader"
-        >
-          <Heading
-            divider={true}
-            separator={false}
-            subheader="Test"
-            subtitleId="carbon-dialog-subtitle"
-            title="Test"
-            titleId="carbon-dialog-title"
-          />
-        </div>
-        <div
-          className="carbon-dialog__content"
-        >
-          <div
-            className="carbon-dialog__inner-content"
-            style={
-              Object {
-                "minHeight": "calc(500px - 40px)",
-              }
-            }
-          >
-            <Button
-              as="secondary"
-              disabled={false}
-              size="medium"
-              subtext=""
-              theme="blue"
-            >
-              Button
-            </Button>
-            <Button
-              as="secondary"
-              disabled={false}
-              size="medium"
-              subtext=""
-              theme="blue"
-            >
-              Button
-            </Button>
-          </div>
-        </div>
-        <Icon
-          bgSize="small"
-          className="carbon-dialog__close"
-          data-element="close"
-          onBlur={[Function]}
-          onClick={[Function]}
-          tabIndex="0"
-          type="close"
+        <Heading
+          divider={true}
+          separator={false}
+          subheader="Test"
+          subtitleId="carbon-dialog-subtitle"
+          title="Test"
+          titleId="carbon-dialog-title"
         />
       </div>
-    </CSSTransitionGroup>
-    <CSSTransitionGroup
-      component="div"
-      transitionAppear={false}
-      transitionEnter={true}
-      transitionEnterTimeout={500}
-      transitionLeave={true}
-      transitionLeaveTimeout={500}
-      transitionName="modal-background"
-    >
       <div
-        className="carbon-modal__background"
+        className="carbon-dialog__content"
+      >
+        <div
+          className="carbon-dialog__inner-content"
+          style={
+            Object {
+              "minHeight": "calc(500px - 40px)",
+            }
+          }
+        >
+          <Button
+            as="secondary"
+            disabled={false}
+            size="medium"
+            subtext=""
+            theme="blue"
+          >
+            Button
+          </Button>
+          <Button
+            as="secondary"
+            disabled={false}
+            size="medium"
+            subtext=""
+            theme="blue"
+          >
+            Button
+          </Button>
+        </div>
+      </div>
+      <Icon
+        bgSize="small"
+        className="carbon-dialog__close"
+        data-element="close"
+        onBlur={[Function]}
+        onClick={[Function]}
+        tabIndex="0"
+        type="close"
       />
-    </CSSTransitionGroup>
-  </div>
-</Portal>
+    </div>
+  </CSSTransitionGroup>
+  <CSSTransitionGroup
+    component="div"
+    transitionAppear={false}
+    transitionEnter={true}
+    transitionEnterTimeout={500}
+    transitionLeave={true}
+    transitionLeaveTimeout={500}
+    transitionName="modal-background"
+  >
+    <div
+      className="carbon-modal__background"
+    />
+  </CSSTransitionGroup>
+</div>
 `;
