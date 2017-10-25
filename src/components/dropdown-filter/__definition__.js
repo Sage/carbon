@@ -51,6 +51,8 @@ let definition = new Definition('dropdown-filter', DropdownFilter, {
     cacheVisibleValue: "Boolean",
     value: "String",
     create: "Function",
+    createText: "String",
+    createIconType: "String",
     freetext: "Boolean",
     suggest: "Boolean"
   },
@@ -62,6 +64,8 @@ let definition = new Definition('dropdown-filter', DropdownFilter, {
     options: "The options for the dropdown. This needs to be an Immutable Map.",
     value: "The currently selected value of the input.",
     create: "When defined will show a create button, which on click will trigger this callback with currently typed value.",
+    createText: "When defined this prop will customize the text 'Create New' inside the create button.",
+    createIconType: "Leave alone for default 'add' Icon, choose any Icon type available in the Icon component, or set to 'none' to hide the Icon.",
     freetext: "When enabled will allow the user to type freely into the field, without their filter having to match a result.",
     suggest: "When enabled will enforce that the user needs to type something before they will see any results."
   }
