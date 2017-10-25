@@ -55,6 +55,11 @@ The following updates have been made to Carbon components to align with design u
 
 * Upgrades `react-highlight`, which removes the last `createClass` warning from React.
 
+# 2.1.1
+
+* DropdownFilter now uses a stylized Link component for the Create button.
+* DropdownFilter now has `createText` & `createIconType` props for customizable create button text and create button Icons (limited to current Carbon Icon types).
+
 # 2.1.0
 
 * DialogFullScreen and Pages now have a max width applied.
