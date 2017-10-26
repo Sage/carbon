@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount, ReactWrapper } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Browser from '../../utils/helpers/browser';
 import { Sidebar } from './sidebar';
 import Textbox from './../textbox';
@@ -7,7 +7,7 @@ import Portal from './../portal';
 import Icon from './../icon';
 
 describe('Sidebar', () => {
-  let wrapper, portalContent, spy;
+  let wrapper, spy;
 
   beforeEach(() => {
     spy = jasmine.createSpy();
@@ -25,9 +25,6 @@ describe('Sidebar', () => {
         <Textbox />
         <Textbox />
       </Sidebar>
-    );
-    portalContent = new ReactWrapper(
-      wrapper.find(Portal).prop('children')
     );
   });
 
@@ -100,11 +97,8 @@ describe('Sidebar', () => {
   describe('render', () => {
     describe('when sidebar is closed', () => {
       it('sets all the correct classes', () => {
-        wrapper = shallow(<Sidebar onCancel={ spy } />);
-        portalContent = new ReactWrapper(
-          wrapper.find(Portal).prop('children')
-        );
-        expect(portalContent.find('.carbon-sidebar').text()).toEqual('');
+        wrapper = mount(<Sidebar onCancel={ spy } />);
+        expect(wrapper.find('.carbon-sidebar').text()).toEqual('');
       });
     });
 
@@ -119,12 +113,9 @@ describe('Sidebar', () => {
             onCancel={ spy }
           />
         );
-        portalContent = new ReactWrapper(
-          wrapper.find(Portal).prop('children')
-        );
-        expect(portalContent.find('.carbon-modal__background').length).toEqual(0);
-        expect(portalContent.find('.carbon-sidebar__sidebar--left').length).toEqual(1);
-        expect(portalContent.find('.carbon-sidebar__sidebar--small').length).toEqual(1);
+        expect(wrapper.find('.carbon-modal__background').length).toEqual(0);
+        expect(wrapper.find('.carbon-sidebar__sidebar--left').length).toEqual(1);
+        expect(wrapper.find('.carbon-sidebar__sidebar--small').length).toEqual(1);
       });
     });
 
@@ -135,10 +126,7 @@ describe('Sidebar', () => {
             open
           />
         );
-        portalContent = new ReactWrapper(
-          wrapper.find(Portal).prop('children')
-        );
-        expect(portalContent.find('.carbon-sidebar__close').length).toEqual(0);
+        expect(wrapper.find('.carbon-sidebar__close').length).toEqual(0);
       });
     });
   });
@@ -146,7 +134,7 @@ describe('Sidebar', () => {
   describe('Behaviour', () => {
     describe('clicking the close icon sidebar', () => {
       it('closes the sidebar', () => {
-        let icon = portalContent.find('.carbon-sidebar__close-icon');
+        let icon = wrapper.find('.carbon-sidebar__close-icon');
         icon.simulate('click');
         expect(spy).toHaveBeenCalled();
       });

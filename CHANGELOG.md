@@ -1,4 +1,21 @@
+# 2.2.2
+
+* DropdownFilter now uses a stylized Link component for the Create button.
+* DropdownFilter now has `createText` & `createIconType` props for customizable create button text and create button Icons (limited to current Carbon Icon types).
+
+## Fixes
+
+Ensures that `displayName` is set to the original component's name when connecting to a store using Carbon's flux helper. We have noticed Jest snapshot's have started to default to `View` when connected to a store using our flux connector, this change will ensure the display name is maintained.
+
+# 2.2.1
+
+## Fixes
+
+:warning: v2.2.0 updated modal components (eg. `Dialog`) to use ReactPortal. While this doesn't break applications, it was found to break some tests after an application upgraded. We have decided to disable this feature for now, and will re-add it at a later date when either Portals are better supported by our test tooling or when we release a version 3 of Carbon with potential breaking changes.
+
 # 2.2.0
+
+:warning: We recommend you use v2.2.1 instead of this version.
 
 ## UX Improvements
 
@@ -46,6 +63,11 @@ The following updates have been made to Carbon components to align with design u
 ## Demo Site
 
 * Upgrades `react-highlight`, which removes the last `createClass` warning from React.
+
+# 2.1.1
+
+* DropdownFilter now uses a stylized Link component for the Create button.
+* DropdownFilter now has `createText` & `createIconType` props for customizable create button text and create button Icons (limited to current Carbon Icon types).
 
 # 2.1.0
 
