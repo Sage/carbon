@@ -180,6 +180,21 @@ class Date extends React.Component {
   }
 
   /**
+   * A lifecycle method for when the component is removed from the page.
+   *
+   * @method componentWillUnmount
+   * @return {void}
+   */
+  componentWillUnmount() {
+    /* istanbul ignore if */
+    if (super.componentWillUnmount) { super.componentWillUnmount(); }
+
+    if (this.dialogModalNode) {
+      this.dialogModalNode.removeEventListener('scroll', this.updateDatePickerPosition);
+    }
+  }
+
+  /**
    * A lifecycle method to update the visible value with a formatted version,
    * only when the field is not the active element.
    *
@@ -191,6 +206,20 @@ class Date extends React.Component {
     if (this._document.activeElement !== this._input) {
       const date = this.formatVisibleValue(nextProps.value);
       this.setState({ visibleValue: date });
+    }
+  }
+
+  /**
+   * @method componentWillUpdate
+   * @return {Void}
+   */
+  componentWillUpdate(nextProps, nextState, nextContext) {
+    /* istanbul ignore if */
+    if (super.componentWillUpdate) { super.componentWillUpdate(nextProps, nextState, nextContext); }
+
+    if (!this.dialogModalNode && nextContext.modal && nextContext.modal.getDialogContent()) {
+      this.dialogModalNode = nextContext.modal.getDialogContent();
+      this.dialogModalNode.addEventListener('scroll', this.updateDatePickerPosition);
     }
   }
 

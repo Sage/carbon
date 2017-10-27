@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Modal from './modal';
 import Events from './../../utils/helpers/events';
 import Browser from './../../utils/helpers/browser';
@@ -49,6 +49,11 @@ describe('Modal', () => {
           expect(mockWindow.addEventListener.calls.count()).toEqual(0);
           expect(mockWindow.addEventListener).not.toHaveBeenCalled();
         });
+      });
+
+      it('correctly fetches the reference to the dialog', () => {
+        wrapper.instance()._dialog = 'ref';
+        expect(wrapper.instance().getDialog()).toEqual('ref');
       });
     });
 

@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { assign } from 'lodash';
+import ReactPortal from 'react-portal';
 import Browser from './../../helpers/browser';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
+import { styleElement, append } from './../../ether';
 
 /**
  * InputValidation decorator.
@@ -30,7 +32,6 @@ import chainFunctions from './../../helpers/chain-functions';
  *   render() {
  *     return (
  *       <div>
- *         <input />
  *         { this.validationHTML() }
  *       </div>
  *     );
@@ -168,13 +169,112 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
   });
 
   /**
+   * Cache the shifts calculations (used for positioning)
+   *
+   * @property _memoizedShifts
+   */
+  _memoizedShifts = null;
+
+  /**
+   * A lifecycle method for when the component is added to the page.
+   *
+   * @method componentWillMount
+   * @return {void}
+   */
+  componentWillMount() {
+    /* istanbul ignore if */
+    if (super.componentWillMount) { super.componentWillMount(); }
+
+    if (this.context.form && (this._validations() || this.props.warnings || this.props.info)) {
+      // attach the input to the form so the form can track what it needs to validate on submit
+      this.context.form.attachToForm(this);
+    }
+  }
+
+  /**
+   * A lifecycle method for when the component has mounted.
+   *
+   * @method componentDidMount
+   * @return {void}
+   */
+  componentDidMount() {
+    /* istanbul ignore else */
+    if (super.componentDidMount) { super.componentDidMount(); }
+
+    if (typeof this._window !== 'undefined') {
+      this._window.addEventListener('resize', this.refreshPosition);
+    }
+  }
+
+  /**
+   * A lifecycle method for when the component is removed from the page.
+   *
+   * @method componentWillUnmount
+   * @return {void}
+   */
+  componentWillUnmount() {
+    /* istanbul ignore else */
+    if (super.componentWillUnmount) { super.componentWillUnmount(); }
+
+    if (this._validations() || this.props.warnings || this.props.info) {
+      this._handleContentChange();
+      if (this.isAttachedToForm) {
+        this.context.form.detachFromForm(this);
+      }
+    }
+
+    if (typeof this._window !== 'undefined') {
+      this._window.removeEventListener('resize', this.refreshPosition);
+    }
+
+    if (this.dialogModalNode) {
+      this.dialogModalNode.removeEventListener('scroll', this.refreshPosition);
+    }
+  }
+
+  /**
+   * @method componentWillUpdate
+   * @return {Void}
+   */
+  componentWillUpdate(nextProps, nextState, nextContext) {
+    /* istanbul ignore if */
+    if (super.componentWillUpdate) { super.componentWillUpdate(nextProps, nextState, nextContext); }
+
+    if (nextProps.validations !== this.props.validations ||
+      nextProps.warnings !== this.props.warnings ||
+      nextProps.info !== this.props.info) {
+      this._memoizedShifts = null;
+    }
+
+    if (!this.dialogModalNode && nextContext.modal && nextContext.modal.getDialogContent()) {
+      this.dialogModalNode = this.context.modal.getDialogContent();
+      this.dialogModalNode.addEventListener('scroll', this.refreshPosition);
+    }
+  }
+
+  /**
+   * A lifecycle method for when the component has updated
+   *
+   * @method componentDidUpdate
+   * @return {void}
+   */
+  componentDidUpdate(prevProps, prevState) {
+    /* istanbul ignore if */
+    if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
+
+    if (!this._memoizedShifts && (!this.state.valid || this.state.warning || this.state.info)) {
+      this.positionElements();
+    }
+  }
+
+  /**
    * A lifecycle method for when the component has re-rendered.
    *
    * @method componentWillReceiveProps
    * @return {void}
    */
   componentWillReceiveProps(nextProps) {
-    // call the components super method if it exists
+    /* istanbul ignore if */
     if (super.componentWillReceiveProps) { super.componentWillReceiveProps(nextProps); }
 
     // if disabling the field, reset the validation on it
@@ -210,89 +310,82 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
   }
 
   /**
-   * A lifecycle method for when the component is added to the page.
+   * Clears the shift cache and repositions
    *
-   * @method componentWillMount
+   * @method refreshPosition
    * @return {void}
    */
-  componentWillMount() {
-    // call the components super method if it exists
-    /* istanbul ignore else */
-    if (super.componentWillMount) { super.componentWillMount(); }
-
-    if (this.context.form && (this._validations() || this.props.warnings || this.props.info)) {
-      // attach the input to the form so the form can track what it needs to validate on submit
-      this.context.form.attachToForm(this);
-    }
+  refreshPosition = () => {
+    this._memoizedShifts = null;
+    this.positionElements();
   }
 
   /**
-   * A lifecycle method for when the component is removed from the page.
+   * Returns the DOM node of the icon.
    *
-   * @method componentWillUnmount
-   * @return {void}
+   * @method getIcon
+   * @return {DOM node}
    */
-  componentWillUnmount() {
-    // call the components super method if it exists
-    /* istanbul ignore else */
-    if (super.componentWillUnmount) { super.componentWillUnmount(); }
-
-    if (this._validations() || this.props.warnings || this.props.info) {
-      this._handleContentChange();
-      if (this.isAttachedToForm) {
-        this.context.form.detachFromForm(this);
-      }
-    }
+  getIcon = () => {
+    return ReactDOM.findDOMNode(this.validationIcon); // eslint-disable-line react/no-find-dom-node
   }
 
   /**
-   * Positions the message relative to the icon.
+   * Returns the DOM node of the message.
    *
-   * @method positionMessage
-   * @return {Void}
+   * @method getMessage
+   * @return {DOM node}
    */
-  positionMessage = () => {
-    if (!this.state.valid || this.state.warning || this.state.info) {
-      // calculate the position for the message relative to the icon
-      const icon = this.validationIcon._target,
-          message = this.validationMessage;
+  getMessage = () => {
+    return ReactDOM.findDOMNode(this.validationMessage); // eslint-disable-line react/no-find-dom-node
+  }
 
-      if (icon && message && message.offsetHeight) {
-        let messagePositionLeft = (icon.offsetLeft + (icon.offsetWidth / 2));
-        const topOffset = icon.offsetTop - icon.offsetHeight,
-            messageOffsetWidth = message.offsetWidth;
+  /**
+   * Calculates various dimensions needed for render
+   *
+   * @method calculatePosition
+   * @return {Object}
+   */
+  calculatePosition = (icon, message) => {
+    const pointerDimension = icon.offsetHeight,
+        iconRect = icon.getBoundingClientRect(),
+        verticalY = iconRect.top - message.offsetHeight - pointerDimension,
+        rightHorizontal = iconRect.left + (0.5 * pointerDimension),
+        flip = iconRect.right + message.offsetWidth > this._window.innerWidth;
 
-        // set initial position for message
-        message.style.left = `${messagePositionLeft}px`;
-        message.style.top = `-${message.offsetHeight - topOffset}px`;
+    this._memoizedShifts = {
+      messageVerticalY: verticalY,
+      messageRightHorizontal: rightHorizontal,
+      needsFlipping: flip,
+      flipOffset: (flip ? message.offsetWidth : 0)
+    };
 
-        // figure out if the message is positioned offscreen
-        const messageScreenPosition = message.getBoundingClientRect().left + messageOffsetWidth;
+    return this._memoizedShifts;
+  }
 
-        let shouldFlip = false;
+  /**
+   * Repositions the validation message
+   *
+   * @method positionElements
+   * @return {void}
+   */
+  positionElements = () => {
+    if (this._memoizedShifts) { return; }
 
-        // change the position if it is offscreen
-        if (this.context.modal && this.context.modal.getDialog()) {
-          // if in a modal check its position relative to that
-          const dialog = this.context.modal.getDialog();
-          const domNode = ReactDOM.findDOMNode(this); // eslint-disable-line react/no-find-dom-node
-          shouldFlip = (message.offsetLeft + domNode.offsetLeft + messageOffsetWidth) > dialog.offsetWidth;
-        } else {
-          // otherwise check relative to the window
-          shouldFlip = messageScreenPosition > this._window.innerWidth;
-        }
+    const icon = this.getIcon();
+    const message = this.getMessage();
+    if (!icon || !message) { return; }
+    const shifts = this.calculatePosition(icon, message);
 
-        if (shouldFlip) {
-          messagePositionLeft -= messageOffsetWidth;
-          message.style.left = `${messagePositionLeft}px`;
-          message.className += ' common-input__message--flipped';
-          this.flipped = true;
-        } else {
-          message.classList.remove('common-input__message--flipped');
-          this.flipped = false;
-        }
-      }
+    if (shifts.needsFlipping) {
+      message.classList.add('common-input__message--flipped');
+    } else {
+      message.classList.remove('common-input__message--flipped');
     }
+
+    this.flipped = shifts.needsFlipping;
+    styleElement(message, 'top', append(shifts.messageVerticalY, 'px'));
+    styleElement(message, 'left', append(shifts.messageRightHorizontal - shifts.flipOffset, 'px'));
   }
 
   /**
@@ -480,8 +573,6 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
    */
   _handleFocus = () => {
     if (!this.state.valid || this.state.warning || this.state.info) {
-      this.positionMessage();
-
       if (!this.state.messageLocked) {
         this.setState({ messageLocked: true });
       }
@@ -553,8 +644,6 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
    */
   showMessage = () => {
     if (this.messageExists()) {
-      this.positionMessage();
-
       this.setState({
         messageShown: true,
         immediatelyHideMessage: false
@@ -603,6 +692,19 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
     return this.context.form && this.context.form.inputs[this._guid];
   }
 
+  messageHTML(messageClasses) {
+    return (
+      <div className='common-input__message-wrapper'>
+        <div
+          ref={ (validationMessage) => { this.validationMessage = validationMessage; } }
+          className={ messageClasses }
+        >
+          { this.state.errorMessage || this.state.warningMessage || this.state.infoMessage }
+        </div>
+      </div>
+    );
+  }
+
   /**
    * Returns the HTML for the validation, only if it is invalid.
    *
@@ -610,10 +712,9 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
    * @return {HTML} Validation HTML including icon & message
    */
   get validationHTML() {
-    let type = '';
-
     if (this.state.valid && !this.state.warning && !this.state.info) { return null; }
 
+    let type = '';
     if (!this.state.valid) {
       type = 'error';
     } else if (this.state.warning) {
@@ -622,36 +723,35 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
       type = 'info';
     }
 
-    let messageClasses = `common-input__message common-input__message--${type}`;
+    const messageClasses = classNames(
+      `common-input__message common-input__message--${type}`,
+      this.messageStateClasses
+    );
     const iconClasses = `common-input__icon common-input__icon--${type}`;
 
     // position icon relative to width of label
     let iconStyle = {};
-
     if (this.props.labelWidth) {
       iconStyle = { [`${this.props.align}`]: `${100 - this.props.labelWidth}%` };
     }
 
-    if (this.state.messageLocked) { messageClasses += ' common-input__message--locked'; }
-    if (this.flipped) { messageClasses += ' common-input__message--flipped'; }
-
-    return [
-      <Icon
-        key='0'
-        ref={ (validationIcon) => { this.validationIcon = validationIcon; } }
-        type={ type }
-        className={ iconClasses }
-        style={ iconStyle }
-      />,
-      <div key='1' className='common-input__message-wrapper'>
-        <div
-          ref={ (validationMessage) => { this.validationMessage = validationMessage; } }
-          className={ messageClasses }
-        >
-          { this.state.errorMessage || this.state.warningMessage || this.state.infoMessage }
-        </div>
+    /**
+     * NOTE Using ReactPortal directly as using Portal caused refs
+     * not to be defined. Hopefully React v16 solves this.
+     */
+    return (
+      <div className='common-input__validation'>
+        <Icon
+          ref={ (validationIcon) => { this.validationIcon = validationIcon; } }
+          type={ type }
+          className={ iconClasses }
+          style={ iconStyle }
+        />
+        <ReactPortal isOpened>
+          { this.messageHTML(messageClasses) }
+        </ReactPortal>
       </div>
-    ];
+    );
   }
 
   /**
@@ -665,9 +765,7 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
       super.mainClasses, {
         'common-input--error': !this.state.valid,
         'common-input--warning': this.state.warning,
-        'common-input--info': this.state.info,
-        'common-input--message-hidden': this.state.immediatelyHideMessage,
-        'common-input--message-shown': this.state.messageShown
+        'common-input--info': this.state.info
       }
     );
   }
@@ -684,6 +782,23 @@ const InputValidation = ComposedComponent => class Component extends ComposedCom
         'common-input__input--error': !this.state.valid,
         'common-input__input--warning': this.state.warning,
         'common-input__input--info': this.state.info
+      }
+    );
+  }
+
+  /**
+   * Provides the message state classes
+   *
+   * @method messageStateClasses
+   * @return {String} Message class names
+   */
+  get messageStateClasses() {
+    return classNames(
+      {
+        'common-input--message-hidden': this.state.immediatelyHideMessage,
+        'common-input--message-shown': this.state.messageShown,
+        'common-input__message--locked': this.state.messageLocked,
+        'common-input__message--flipped': this.flipped
       }
     );
   }

@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputValidation validationHTML there is an error renders the error correctly  1`] = `
+<div
+  className="common-input__validation"
+>
+  <Icon
+    bgSize="small"
+    className="common-input__icon common-input__icon--error"
+    style={Object {}}
+    type="error"
+  />
+  <Portal
+    isOpened={true}
+    onClose={[Function]}
+    onOpen={[Function]}
+    onUpdate={[Function]}
+  >
+    <div
+      className="common-input__message-wrapper"
+    >
+      <div
+        className="common-input__message common-input__message--error common-input__message--locked common-input__message--flipped"
+      >
+        foo
+      </div>
+    </div>
+  </Portal>
+</div>
+`;
+
+exports[`InputValidation validationHTML there is an warning renders the warning correctly 1`] = `
+<div
+  className="common-input__validation"
+>
+  <Icon
+    bgSize="small"
+    className="common-input__icon common-input__icon--warning"
+    style={Object {}}
+    type="warning"
+  />
+  <Portal
+    isOpened={true}
+    onClose={[Function]}
+    onOpen={[Function]}
+    onUpdate={[Function]}
+  >
+    <div
+      className="common-input__message-wrapper"
+    >
+      <div
+        className="common-input__message common-input__message--warning common-input__message--locked"
+      >
+        foo
+      </div>
+    </div>
+  </Portal>
+</div>
+`;
+
+exports[`InputValidation validationHTML there is info renders the info correctly 1`] = `
+<div
+  className="common-input__validation"
+>
+  <Icon
+    bgSize="small"
+    className="common-input__icon common-input__icon--info"
+    style={Object {}}
+    type="info"
+  />
+  <Portal
+    isOpened={true}
+    onClose={[Function]}
+    onOpen={[Function]}
+    onUpdate={[Function]}
+  >
+    <div
+      className="common-input__message-wrapper"
+    >
+      <div
+        className="common-input__message common-input__message--info common-input__message--locked"
+      >
+        foo
+      </div>
+    </div>
+  </Portal>
+</div>
+`;

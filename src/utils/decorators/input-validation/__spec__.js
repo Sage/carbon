@@ -4,7 +4,6 @@ import TestUtils from 'react-dom/test-utils';
 import InputValidation from './input-validation';
 import InputLabel from './../input-label';
 import Form from 'components/form';
-import Portal from 'components/portal';
 import Dialog from 'components/dialog';
 import { shallow, mount } from 'enzyme';
 
@@ -140,10 +139,11 @@ let SimpleComponent = InputValidation(DummyInputWithoutLifecycleMethods);
 let Component = InputValidation(DummyInput);
 
 describe('InputValidation', () => {
-  let instance;
+  let wrapper, instance;
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(React.createElement(Component));
+    wrapper = shallow(<Component/>);
+    instance = wrapper.instance();
   });
 
   describe('constructor', () => {
@@ -154,6 +154,23 @@ describe('InputValidation', () => {
       expect(instance.state.errorMessage).toBe(null);
       expect(instance.state.warningMessage).toBe(null);
       expect(instance.state.infoMessage).toBe(null);
+    });
+  });
+
+  describe('componentWillUpdate', () => {
+    beforeEach(() => {
+      wrapper = shallow(
+        <Component
+          warnings={ [1] }
+        />
+      );
+      instance = wrapper.instance();
+    });
+
+    it('calls setState', () => {
+      instance._memoizedShifts = {};
+      instance.componentWillUpdate({ warnings: [1,2] }, {}, {});
+      expect(instance._memoizedShifts).toBeNull();
     });
   });
 
@@ -317,11 +334,11 @@ describe('InputValidation', () => {
     });
   });
 
-  describe('positionMessage', () => {
+  describe('positionElements', () => {
     describe('when the component is valid', () => {
       it('does nothing', () => {
         instance.setState({ valid: true });
-        expect(instance.positionMessage.bind(instance)).not.toThrow();
+        expect(instance.positionElements.bind(instance)).not.toThrow();
       });
     });
 
@@ -330,7 +347,7 @@ describe('InputValidation', () => {
         it('does nothing', () => {
           instance.setState({ valid: false });
           spyOn(ReactDOM, 'findDOMNode').and.returnValue(null);
-          expect(instance.positionMessage.bind(instance)).not.toThrow();
+          expect(instance.positionElements.bind(instance)).not.toThrow();
         });
       });
 
@@ -338,36 +355,39 @@ describe('InputValidation', () => {
         describe('when onscreen', () => {
           it('sets the correct left position and removes flipped class', () => {
             let removeSpy = jasmine.createSpy();
-
-            instance.setState({ valid: false, errorMessage: 'foo' });
-            instance.validationMessage = {
+            let message = {
               classList: {
                 remove: removeSpy
               },
-              offsetHeight: 30,
+              offsetHeight: 25,
               style: {
                 left: 10,
                 top: 10
-              },
+              }
+            };
+            let icon = {
+              offsetHeight: 30,
               getBoundingClientRect: function() {
                 return {
-                  left: 10
+                  left: 40,
+                  top: 75
                 };
               }
             };
-            instance.validationIcon._target = {
-              offsetLeft: 20,
-              offsetWidth: 10,
-              offsetTop: 30
-            };
-            instance.positionMessage();
-            expect(instance.validationMessage.style.left).toEqual('25px');
+            spyOn(instance, 'getMessage').and.returnValue(message);
+            spyOn(instance, 'getIcon').and.returnValue(icon);
+            instance.setState({ valid: false, errorMessage: 'foo' });
+            instance.positionElements();
+            instance.positionElements();
+
+            expect(message.style.top).toEqual('20px');
+            expect(message.style.left).toEqual('55px');
             expect(removeSpy).toHaveBeenCalledWith('common-input__message--flipped');
           });
         });
 
         describe('when in a modal and offscreen', () => {
-          let wrapper;
+          let wrapper, portalContent;
 
           beforeEach(() => {
             jest.useFakeTimers();
@@ -384,54 +404,68 @@ describe('InputValidation', () => {
           });
 
           it('sets the class to flipped', () => {
+            let addSpy = jasmine.createSpy();
+            let instance = wrapper.instance();
+            let component = wrapper.find(Component);
+            let message = {
+              classList: {
+                add: addSpy
+              },
+              offsetWidth: 25,
+              style: {
+                top: 10
+              }
+            };
+            let icon = {
+              getBoundingClientRect: function() {
+                return {
+                  right: 2000
+                };
+              }
+            };
+            spyOn(component.node, 'getMessage').and.returnValue(message);
+            spyOn(component.node, 'getIcon').and.returnValue(icon);
             const input = wrapper.find('input');
             input.simulate('blur');
             jest.runTimersToTime(0);
             input.simulate('focus');
-            wrapper.instance()._dialog = {
+            instance._dialog = {
               offsetWidth: 10
             };
-            wrapper.find(Component).node.validationMessage = {
-              className: "",
-              offsetWidth: 10,
-              offsetLeft: 10,
-              offsetHeight: 10,
-              style: {},
-              getBoundingClientRect: () => {
-                return {};
-              }
-            };
             input.simulate('focus');
-            expect(wrapper.find(Component).node.validationMessage.className).toEqual(' common-input__message--flipped');
+            expect(addSpy).toHaveBeenCalledWith('common-input__message--flipped');
+            expect(component.node.validationMessage.className)
+              .toContain(' common-input__message--flipped');
           });
         });
 
         describe('when offscreen', () => {
           it('sets the class to flipped', () => {
-            instance.setState({ valid: false, errorMessage: 'foo' });
-            instance.validationMessage = {
-              offsetWidth: 0,
-              offsetHeight: 30,
-              style: {
-                left: 0,
-                top: 0
+            let addSpy = jasmine.createSpy();
+            let message = {
+              classList: {
+                add: addSpy
               },
+              offsetWidth: 25,
+              style: {
+                top: 10
+              }
+            };
+            let icon = {
               getBoundingClientRect: function() {
                 return {
-                  left: 0
+                  right: 2000
                 };
               }
             };
-            instance.validationIcon._target = {
-              offsetLeft: 20,
-              offsetWidth: 10,
-              offsetTop: 30
-            };
+            spyOn(instance, 'getMessage').and.returnValue(message);
+            spyOn(instance, 'getIcon').and.returnValue(icon);
+            instance.setState({ valid: false, errorMessage: 'foo' });
             instance._window = {
               innerWidth: -1
             };
-            instance.positionMessage();
-            expect(instance.validationMessage.className).toContain('common-input__message--flipped');
+            instance.positionElements();
+            expect(addSpy).toHaveBeenCalledWith('common-input__message--flipped');
           });
         });
       });
@@ -980,9 +1014,9 @@ describe('InputValidation', () => {
 
       it('should position the message', () => {
         instance.setState({ valid: false });
-        spyOn(instance, 'positionMessage');
+        spyOn(instance, 'positionElements');
         instance._handleFocus();
-        expect(instance.positionMessage).toHaveBeenCalled();
+        expect(instance.positionElements).toHaveBeenCalled();
       });
     });
 
@@ -1006,11 +1040,11 @@ describe('InputValidation', () => {
   });
 
   describe('onMouseOver', () => {
-    it('calls positionMessage', () => {
+    it('calls positionElements', () => {
       instance.setState({ valid: false });
-      spyOn(instance, 'positionMessage');
+      spyOn(instance, 'positionElements');
       instance.fieldProps.onMouseOver();
-      expect(instance.positionMessage).toHaveBeenCalled();
+      expect(instance.positionElements).toHaveBeenCalled();
     });
   });
 
@@ -1101,132 +1135,80 @@ describe('InputValidation', () => {
 
     describe('there is an error', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(React.createElement(Component, {
-          validations: [validationThree],
-          value: 'foo'
-        }));
-
+        wrapper = shallow(
+          <Component
+            validations={ [validationThree] }
+            value='foo'
+          />
+        );
+        instance = wrapper.instance()
         instance.validate();
+        instance.flipped = true;
+        instance.setState({ messageLocked: true });
       });
 
-      it('returns an error icon', () => {
-        expect(instance.validationHTML[0].props.type).toEqual('error');
-        expect(instance.validationHTML[0].props.className).toEqual('common-input__icon common-input__icon--error');
-      });
-
-      it('returns a div for the error message', () => {
-        expect(instance.validationHTML[1].props.className).toEqual('common-input__message-wrapper');
-
-        expect(instance.validationHTML[1].props.children.props.className).toEqual('common-input__message common-input__message--error');
-        expect(instance.validationHTML[1].props.children.props.children).toEqual('foo');
+      it('renders the error correctly ', () => {
+        expect(wrapper.find('.common-input__validation')).toMatchSnapshot();
       });
 
       describe('if a label width prop has been applied', () => {
         describe('when the label is right aligned', () => {
           it('sets the appropriate right style', () => {
-            let instanceLabel = TestUtils.renderIntoDocument(
+            wrapper = mount(
               <LabelComponent labelWidth={ 20 } align='right' validations={ [validationThree] } value='foo'/>
             );
-            instanceLabel.validate();
-            let icon = instanceLabel.validationIcon
-            expect(icon.props.style.right).toEqual('80%');
+            instance = wrapper.instance();
+            instance.validate();
+            expect(instance.validationIcon.props.style.right).toEqual('80%');
           });
         });
 
         describe('when the label is left aligned', () => {
           it('sets the appropriate left style', () => {
-            let instanceLabel = TestUtils.renderIntoDocument(
+            wrapper = mount(
               <LabelComponent labelWidth={ 20 } align='left' validations={ [validationThree] } value='foo'/>
             );
-            instanceLabel.validate();
-            let icon = instanceLabel.validationIcon
-            expect(icon.props.style.left).toEqual('80%');
+            instance = wrapper.instance();
+            instance.validate();
+            expect(instance.validationIcon.props.style.left).toEqual('80%');
           });
-        });
-      });
-
-      describe('when the message is locked', () => {
-        it('adds a locked class', () => {
-          instance.setState({ messageLocked: true });
-          expect(instance.validationMessage.classList).toContain('common-input__message--locked');
-        });
-      });
-
-      describe('when the message not flipped', () => {
-        it('does not have flipped class', () => {
-          instance.flipped = false;
-          instance.setState({ messageLocked: true });
-          expect(instance.validationMessage.classList).not.toContain('common-input__message--flipped');
-        });
-      });
-
-      describe('when the message is flipped', () => {
-        it('does have flipped class', () => {
-          instance.flipped = true;
-          instance.setState({ messageLocked: true });
-          expect(instance.validationMessage.classList).toContain('common-input__message--flipped');
         });
       });
     });
 
     describe('there is an warning', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(React.createElement(Component, {
-          warnings: [warningOne],
-          value: 'foo'
-        }));
-
+        wrapper = shallow(
+          <Component
+            warnings={ [warningOne] }
+            value='foo'
+          />
+        );
+        instance = wrapper.instance();
         instance.warning();
+        instance.setState({ messageLocked: true });
       });
 
-      it('returns an warning icon', () => {
-        expect(instance.validationHTML[0].props.type).toEqual('warning');
-        expect(instance.validationHTML[0].props.className).toEqual('common-input__icon common-input__icon--warning');
-      });
-
-      it('returns a div for the warning message', () => {
-        expect(instance.validationHTML[1].props.className).toEqual('common-input__message-wrapper');
-
-        expect(instance.validationHTML[1].props.children.props.className).toEqual('common-input__message common-input__message--warning');
-        expect(instance.validationHTML[1].props.children.props.children).toEqual('foo');
-      });
-
-      describe('when the message is locked', () => {
-        it('adds a locked class', () => {
-          instance.setState({ messageLocked: true });
-          expect(instance.validationMessage.classList).toContain('common-input__message--locked');
-        });
+      it('renders the warning correctly', () => {
+        expect(wrapper.find('.common-input__validation')).toMatchSnapshot();
       });
     });
 
     describe('there is info', () => {
-      let wrapper;
-
       beforeEach(() => {
-        wrapper = mount(React.createElement(Component, {
-          info: [infoOne],
-          value: 'foo'
-        }));
+        wrapper = shallow(
+          <Component
+            info={ [infoOne] }
+            value='foo'
+          />
+        );
         instance = wrapper.instance();
         instance.info();
+        instance.setState({ messageLocked: true });
       });
 
-      it('returns an info icon', () => {
-        expect(instance.validationHTML[0].props.type).toEqual('info');
-        expect(wrapper.find('.common-input__icon.common-input__icon--info').exists()).toBeTruthy();
-      });
-
-      it('returns a div for the info message', () => {
-        expect(wrapper.find('.common-input__message-wrapper').exists()).toBeTruthy();
-        expect(wrapper.find('.common-input__message.common-input__message--info').exists()).toBeTruthy();
-        expect(instance.validationHTML[1].props.children.props.children).toEqual('foo');
-      });
-
-      describe('when the message is locked', () => {
-        it('adds a locked class', () => {
-          instance.setState({ messageLocked: true });
-          expect(instance.validationMessage.classList).toContain('common-input__message--locked');
-        });
+      it('renders the info correctly', () => {
+        expect(wrapper.find('.common-input__validation')).toMatchSnapshot();
       });
     });
   });
@@ -1334,6 +1316,37 @@ describe('InputValidation', () => {
         };
         expect(instance.isAttachedToForm).toBeTruthy();
       });
+    });
+  });
+
+  describe('resize event', () => {
+    describe('when _window is not defined', () => {
+      let addSpy = jasmine.createSpy();
+      let removeSpy = jasmine.createSpy();
+
+      beforeEach(() => {
+        instance._window = undefined;
+      });
+
+      it('does not add the event listener', () => {
+        instance.componentDidMount();
+        expect(addSpy).not.toHaveBeenCalled();
+      });
+
+      it('does not remove the event listener', () => {
+        instance.componentWillUnmount();
+        expect(addSpy).not.toHaveBeenCalled();
+      });
+    });
+  });
+
+  describe('refreshposition', () => {
+    it('clears cache and repositions', () => {
+      spyOn(instance, 'positionElements');
+      instance._memoizedShifts = {};
+      instance.refreshPosition();
+      expect(instance._memoizedShifts).toBeNull();
+      expect(instance.positionElements).toHaveBeenCalled();
     });
   });
 });

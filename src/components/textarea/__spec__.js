@@ -1,7 +1,8 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import { shallow, mount } from 'enzyme';
+import { shallow, mount, ReactWrapper } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import ReactPortal from 'react-portal';
 import Textarea from './textarea';
 
 describe('Textarea', () => {
@@ -90,7 +91,8 @@ describe('Textarea', () => {
         spyOn(window, 'addEventListener');
         spyOn(baseInstance, 'expandTextarea');
         baseInstance.componentDidMount();
-        expect(window.addEventListener).not.toHaveBeenCalled();
+        expect(window.addEventListener)
+          .not.toHaveBeenCalledWith('resize', baseInstance.expandTextarea);
         expect(baseInstance.expandTextarea).not.toHaveBeenCalled();
       });
     });
@@ -123,7 +125,7 @@ describe('Textarea', () => {
     });
 
     describe('when textarea cannot be expanded', () => {
-      let wrapper = shallow(
+      let wrapper = mount(
         <Textarea
           id='Dummy Area'
           value={ 'foo' }
@@ -133,10 +135,13 @@ describe('Textarea', () => {
           onChange={ spy }
         />
       );
+      let instance = wrapper.instance();
 
       it('does not remove event listener from the window', () => {
+        spyOn(instance, 'expandTextarea');
         wrapper.unmount();
-        expect(window.removeEventListener).not.toHaveBeenCalled();
+        expect(window.removeEventListener)
+          .not.toHaveBeenCalledWith('resize', instance.expandTextarea);
       });
     });
   });
@@ -272,9 +277,12 @@ describe('Textarea', () => {
     });
 
     it('is decorated with a validation if a error is present', () => {
-      baseInstance.setState({errorMessage: 'Error', valid: false});
-      let errorDiv = TestUtils.findRenderedDOMComponentWithClass(baseInstance, 'common-input__message--error')
-      expect(errorDiv.textContent).toEqual('Error')
+      baseInstance.setState({ errorMessage: 'Error', valid: false });
+      const portalContent = new ReactWrapper(
+        baseWrapper.find(ReactPortal).prop('children')
+      );
+      expect(portalContent.find('.common-input__message--error').text())
+        .toEqual('Error');
     });
 
     describe('when characterLimit is set', () => {

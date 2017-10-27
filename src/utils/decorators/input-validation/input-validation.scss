@@ -1,0 +1,19 @@
+.common-input__message-wrapper {
+  .common-input__message {
+    opacity: 0;
+    transition: opacity 0.2s 1.3s, visibility 0s 1.5s;
+    visibility: hidden;
+  }
+
+  .common-input--message-hidden {
+    opacity: 0;
+    transition: none;
+    visibility: hidden;
+  }
+
+  .common-input--message-shown {
+    opacity: 1;
+    transition: opacity 0s 0s, visibility 0s 0s;
+    visibility: visible;
+  }
+}
