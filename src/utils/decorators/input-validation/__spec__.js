@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestUtils from 'react-dom/test-utils';
 import InputValidation from './input-validation';
 import InputLabel from './../input-label';
 import Form from 'components/form';
@@ -378,7 +377,6 @@ describe('InputValidation', () => {
             spyOn(instance, 'getIcon').and.returnValue(icon);
             instance.setState({ valid: false, errorMessage: 'foo' });
             instance.positionElements();
-            instance.positionElements();
 
             expect(message.style.top).toEqual('20px');
             expect(message.style.left).toEqual('55px');
@@ -475,7 +473,7 @@ describe('InputValidation', () => {
   describe('componentWillMount', () => {
     describe('when the component does not have a componentWillMount method', () => {
       it('still works', () => {
-        let simpleInstance = TestUtils.renderIntoDocument(React.createElement(SimpleComponent));
+        let simpleInstance = shallow(<SimpleComponent/>).instance();
         expect(simpleInstance.componentWillMount()).toBe(undefined);
       });
     });
@@ -490,9 +488,11 @@ describe('InputValidation', () => {
 
     describe('When validations are present on the input', () => {
       it('attaches the input to the form', () => {
-        instance = TestUtils.renderIntoDocument(React.createElement(Component, {
-          validations: [validationOne]
-        }));
+        instance = shallow(
+          <Component
+            validations={ [validationOne] }
+          />
+        ).instance();
         instance.context.form = form;
         spyOn(instance.context.form, 'attachToForm');
         instance.componentWillMount();
@@ -513,7 +513,7 @@ describe('InputValidation', () => {
   describe('componentWillUnmount', () => {
     describe('when the component does not have a componentWillUnmount method', () => {
       it('still works', () => {
-        let simpleInstance = TestUtils.renderIntoDocument(React.createElement(SimpleComponent));
+        let simpleInstance = shallow(<SimpleComponent/>).instance();
         expect(simpleInstance.componentWillUnmount()).toBe(undefined);
       });
     });
@@ -528,9 +528,11 @@ describe('InputValidation', () => {
 
     describe('When validations are present on the input', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(React.createElement(Component, {
-          validations: [validationOne]
-        }));
+        instance = shallow(
+          <Component
+            validations={ [validationOne] }
+          />
+        ).instance();
       });
 
       describe('when the input is invalid', () => {
@@ -588,10 +590,12 @@ describe('InputValidation', () => {
     describe('when validations are present on the input', () => {
       describe('when the input has a value', () => {
         beforeEach(() => {
-          instance = TestUtils.renderIntoDocument(React.createElement(Component, {
-            validations: [validationOne, validationTwo, validationThree],
-            value: 'foo'
-          }));
+          instance = shallow(
+            <Component
+              validations={ [validationOne, validationTwo, validationThree] }
+              value='foo'
+            />
+          ).instance();
           instance.context.form = form;
           spyOn(validationOne, 'validate').and.callThrough();
           spyOn(validationTwo, 'validate').and.callThrough();
@@ -607,10 +611,12 @@ describe('InputValidation', () => {
 
         describe('when the second validation fails', () => {
           it('stops validating', () => {
-            instance = TestUtils.renderIntoDocument(React.createElement(Component, {
-              validations: [validationOne, validationThree, validationTwo],
-              value: 'foo'
-            }));
+            instance = shallow(
+              <Component
+                validations={ [validationOne, validationThree, validationTwo] }
+                value='foo'
+              />
+            ).instance();
             instance.validate();
             expect(validationOne.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateValidation);
             expect(validationThree.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateValidation);
@@ -815,10 +821,12 @@ describe('InputValidation', () => {
     describe('when warnings are present on the input', () => {
       describe('when the input has a value', () => {
         beforeEach(() => {
-          instance = TestUtils.renderIntoDocument(React.createElement(Component, {
-            warnings: [warningTwo, warningOne],
-            value: 'foo'
-          }));
+          instance = shallow(
+            <Component
+              warnings={ [warningTwo, warningOne] }
+              value='foo'
+            />
+          ).instance();
           instance.context.form = form;
           spyOn(warningOne, 'validate').and.callThrough();
           spyOn(warningTwo, 'validate').and.callThrough();
@@ -832,10 +840,12 @@ describe('InputValidation', () => {
 
         describe('when the first warning fails', () => {
           it('stops warning', () => {
-            instance = TestUtils.renderIntoDocument(React.createElement(Component, {
-              warnings: [warningOne, validationTwo],
-              value: 'foo'
-            }));
+            instance = shallow(
+              <Component
+                warnings={ [warningOne, validationTwo] }
+                value='foo'
+              />
+            ).instance();
             instance.warning();
             expect(warningOne.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateWarning);
             expect(warningTwo.validate).not.toHaveBeenCalled();
@@ -1216,11 +1226,12 @@ describe('InputValidation', () => {
   describe('mainClasses', () => {
     describe('when there is an error', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(React.createElement(Component, {
-          validations: [validationThree],
-          value: 'foo'
-        }));
-
+        instance = shallow(
+          <Component
+            validations={ [validationThree] }
+            value='foo'
+          />
+        ).instance();
         instance.validate();
       });
 
@@ -1243,11 +1254,12 @@ describe('InputValidation', () => {
   describe('inputClasses', () => {
     describe('when there is an error', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(React.createElement(Component, {
-          validations: [validationThree],
-          value: 'foo'
-        }));
-
+        instance = shallow(
+          <Component
+            validations={ [validationThree] }
+            value='foo'
+          />
+        ).instance();
         instance.validate();
       });
 
@@ -1270,7 +1282,7 @@ describe('InputValidation', () => {
   describe('inputProps', () => {
     describe('with no super inputProps', () => {
       it('still works', () => {
-        let simpleInstance = TestUtils.renderIntoDocument(React.createElement(SimpleComponent));
+        let simpleInstance = shallow(<SimpleComponent/>).instance();
         expect(simpleInstance.inputProps).toBeDefined();
       });
     });
