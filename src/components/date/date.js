@@ -186,9 +186,6 @@ class Date extends React.Component {
    * @return {void}
    */
   componentWillUnmount() {
-    /* istanbul ignore if */
-    if (super.componentWillUnmount) { super.componentWillUnmount(); }
-
     if (this.dialogModalNode) {
       this.dialogModalNode.removeEventListener('scroll', this.updateDatePickerPosition);
     }
@@ -214,9 +211,6 @@ class Date extends React.Component {
    * @return {Void}
    */
   componentWillUpdate(nextProps, nextState, nextContext) {
-    /* istanbul ignore if */
-    if (super.componentWillUpdate) { super.componentWillUpdate(nextProps, nextState, nextContext); }
-
     if (!this.dialogModalNode && nextContext.modal && nextContext.modal.getDialogContent()) {
       this.dialogModalNode = nextContext.modal.getDialogContent();
       this.dialogModalNode.addEventListener('scroll', this.updateDatePickerPosition);
