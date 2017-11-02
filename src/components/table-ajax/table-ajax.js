@@ -343,12 +343,10 @@ class TableAjax extends Table {
    * @param {Object} response
    */
   handleResponse = (err, response) => {
-    this.setState({ ariaBusy: false });
     if (!err) {
-      this.setComponentTagsLoaded();
       const data = response.body;
       this.props.onChange(data);
-      this.setState({ totalRecords: String(data.records) });
+      this.setState({ totalRecords: String(data.records), dataState: 'loaded', ariaBusy: false });
     } else if (this.props.onAjaxError) {
       this.setComponentTagsErrored();
       this.props.onAjaxError(err, response);
@@ -357,13 +355,8 @@ class TableAjax extends Table {
       Logger.warn(`${err.status} - ${response}`);
     }
   }
-
-  setComponentTagsLoaded() {
-    this.setState({ dataState: 'loaded' });
-  }
-
   setComponentTagsErrored() {
-    this.setState({ dataState: 'errored' });
+    this.setState({ dataState: 'errored', ariaBusy: false });
   }
 
   /**
