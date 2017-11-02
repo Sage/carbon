@@ -61,7 +61,6 @@
   .carbon-menu--secondary & {
     background-color: $grey-dark-blue;
     color: $white;
-    padding: 0 15px;
 
     &.carbon-link__anchor:hover {
       cursor: initial;
@@ -96,7 +95,7 @@
 
   &:before {
     pointer-events: none;
-    right: 12px;
+    right: 15px;
     top: 50%;
     margin-top: -2px;
     position: absolute;
@@ -188,6 +187,7 @@
 
     .carbon-menu--secondary & {
       background-color: $grey-dark-plus;
+      padding: 0 15px;
       height: 40px;
       line-height: 40px;
       border-bottom: 1px solid $grey-dark-plus;
