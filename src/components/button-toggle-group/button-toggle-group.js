@@ -10,7 +10,7 @@ import InputValidation from './../../utils/decorators/input-validation';
 import tagComponent from '../../utils/helpers/tags';
 
 /**
- * An inoput group widget.
+ * A button toggle group widget.
  *
  * == How to use an ButtonToggleGroup in a component:
  *
@@ -56,28 +56,16 @@ class ButtonToggleGroup extends React.Component {
     value: PropTypes.string
   };
 
+  /**
+ * A lifecycle method for when the component has re-rendered.
+ *
+ * @method componentWillReceiveProps
+ * @return {void}
+ */
   componentWillReceiveProps(nextProps) {
-    if (this.messageExists() && (nextProps.value !== this.props.value)) {
-      let contentChanged = false;
-
-      if (!this.state.valid && this.validate(nextProps.value)) {
-        this.setState({ valid: true });
-        contentChanged = true;
-      }
-
-      if (this.state.warning && !this.warning(nextProps.value)) {
-        this.setState({ warning: false });
-        contentChanged = true;
-      }
-
-      if (this.state.info && !this.info(nextProps.value)) {
-        this.setState({ info: false });
-        contentChanged = true;
-      }
-
-      if (contentChanged) {
-        this._handleContentChange();
-      }
+    // manually trigger change as this wrapper doesn't actually have an input to trigger it itself
+    if (nextProps.value !== this.props.value) {
+      this._handleContentChange();
     }
   }
 

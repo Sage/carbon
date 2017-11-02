@@ -1,8 +1,10 @@
-# 2.2.3
+# 2.3.0
 
 ## New Components
 
 * `ButtonToggleGroup` is a component that allows a group of ButtonToggles to behave as a single form component with label, field help, validation message, warning message, and info message support.
+
+# 2.2.3
 
 * Fix table-ajax to only set data-state to loaded once all of the data has been set. This resolves an issue when automating user scenarios allowing us to reliabliy wait for the loaded state to be set, before moving on.
 

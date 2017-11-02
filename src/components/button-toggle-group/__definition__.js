@@ -5,11 +5,15 @@ const definition = new Definition('button-toggle-group', ButtonToggleGroup, {
   description: 'Adds support for validation, warning and info messages on a group of Button Toggles.',
   type: 'form',
   propValues: {
-    children: `
-<ButtonToggle name={ 'grouped-button-toggle' } id={ 'foo' } value={ 'foo' }>Foo</ButtonToggle>
-<ButtonToggle name={ 'grouped-button-toggle' } id={ 'bar' } value={ 'bar' }>Bar</ButtonToggle>
-<ButtonToggle name={ 'grouped-button-toggle' } id={ 'baz' } value={ 'baz' }>Baz</ButtonToggle>
-    `,
+    children: `<ButtonToggle name={ 'grouped' } id={ 'foo' } value={ 'foo' }>
+    Foo
+  </ButtonToggle>
+  <ButtonToggle name={ 'grouped' } id={ 'bar' } value={ 'bar' }>
+    Bar
+  </ButtonToggle>
+  <ButtonToggle name={ 'grouped' } id={ 'baz' } value={ 'baz' }>
+    Baz
+  </ButtonToggle>`,
     value: ''
   },
   propTypes: {
