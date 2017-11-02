@@ -61,6 +61,7 @@
   .carbon-menu--secondary & {
     background-color: $grey-dark-blue;
     color: $white;
+    padding: 0 15px;
 
     &.carbon-link__anchor:hover {
       cursor: initial;
@@ -70,14 +71,23 @@
       }
     }
 
+    &:hover {
+      background-color: $grey-dark-plus;
+    }
+
     &.carbon-menu-item--has-link:hover {
       cursor: pointer;
-      color: $green-bright-dull;
     }
   }
 
   .carbon-menu-item:after {
     display: none;
+  }
+
+  &.carbon-menu-item--has-submenu {
+    .carbon-menu-item__submenu-title {
+      background-color: transparent;
+    }
   }
 }
 
@@ -98,6 +108,7 @@
 
     .carbon-menu--secondary & {
       @include arrow("down", 4px, $white);
+      right: 15px;
     }
   }
 
@@ -125,7 +136,24 @@
   }
 
   .carbon-menu--secondary & {
-    background-color: $grey-dark-blue;
+    background-color: $grey-dark-plus;
+
+    .carbon-icon {
+      margin-right: 15px;
+
+      &:before {
+        line-height: unset;
+      }
+
+      .carbon-icon__svg-icon {
+        vertical-align: middle;
+
+        .carbon-icon__svg {
+          height: 16px;
+          width: 16px;
+        }
+      }
+    }
   }
 
   &:before {
@@ -140,12 +168,12 @@
     }
 
     .carbon-menu--secondary & {
-      background-color: $grey-dark-blue;
+      background-color: $grey-dark-plus;
     }
   }
 
   > *:not(.carbon-menu-item) {
-    padding: 0 12px;
+    padding: 0 15px;
   }
 
   .carbon-menu-item {
@@ -159,7 +187,14 @@
     }
 
     .carbon-menu--secondary & {
-      background-color: $grey-dark-blue;
+      background-color: $grey-dark-plus;
+      height: 40px;
+      line-height: 40px;
+      border-bottom: 1px solid $grey-dark-plus;
+
+      &.carbon-menu-item--has-link:hover {
+        background-color: $grey-dark-blue-90;
+      }
     }
   }
 }
@@ -188,7 +223,9 @@
     }
 
     .carbon-menu--secondary & {
-      background-color: $grey-dark-blue-50;
+      background-color: $grey-dark-blue;
+      left: 15px;
+      right: 15px;
     }
   }
 }
