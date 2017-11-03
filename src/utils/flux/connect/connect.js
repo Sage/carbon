@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 /**
  * Higher order component
@@ -23,34 +23,40 @@ import React from 'react'
  * @param {Function} mapStateToProps
  * @return {Function}
  */
-const connect = (...args) => (Component) => {
-  const stores = args.slice(0, args.length - 1)
-  const mapToProps = args[args.length - 1]
+const connect = (...args) => (WrappedComponent) => {
+  const stores = args.slice(0, args.length - 1);
+  const mapToProps = args[args.length - 1];
 
-  return class ConnectedComponent extends React.Component {
+  class ConnectedComponent extends React.Component {
     componentDidMount() {
       this.unsubscribers = stores.map((store) => {
-        const updateComponent = () => { this.forceUpdate() }
-        store.addChangeListener(updateComponent)
-        return () => store.removeChangeListener(updateComponent)
-      })
+        const updateComponent = () => { this.forceUpdate(); };
+        store.addChangeListener(updateComponent);
+        return () => store.removeChangeListener(updateComponent);
+      });
     }
 
     componentWillUnmount() {
-      this.unsubscribers.forEach((unsubscribe) => unsubscribe())
+      this.unsubscribers.forEach(unsubscribe => unsubscribe());
     }
 
     render() {
-      const states = stores.map((store) => store.getState())
+      const states = stores.map(store => store.getState());
 
       return (
-        <Component
-          {...mapToProps(...states)}
-          {...this.props}
+        <WrappedComponent
+          { ...mapToProps(...states) }
+          { ...this.props }
         />
-      )
+      );
     }
   }
-}
 
-export default connect
+  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
+
+  ConnectedComponent.displayName = `Connect(${displayName})`;
+
+  return ConnectedComponent;
+};
+
+export default connect;
