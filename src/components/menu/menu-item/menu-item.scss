@@ -121,6 +121,7 @@
 }
 
 .carbon-menu-item__submenu {
+  border-radius: 0 0 4px 4px;
   box-shadow: 0 15px 25px rgba($grey-shadow, 0.15);
   display: none;
   min-width: 100%;
@@ -139,6 +140,8 @@
   }
 
   .carbon-menu--secondary & {
+    background-color: $grey-dark-plus;
+
     .carbon-icon {
       line-height: 16px;
       margin: 0 15px 0 0;
@@ -233,7 +236,7 @@
     }
 
     .carbon-menu--secondary & {
-      background-color: $grey-dark-blue;
+      background-color: $white;
       left: 15px;
       right: 15px;
     }
