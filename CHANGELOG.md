@@ -1,6 +1,11 @@
 # 2.3.0
 
-* Update `secondry` Menu styling as per new designs
+## CSS Changes
+
+* `Menu` has been updated based on slightly new designs. `secondary` menus now support `Icon` components as children.
+* `Portrait` size `extra-small` has reduced from `26px` to `25px`.
+* `Portrait` size `medium-small` has reduced from `50px` to `40px`.
+* `Profile` has increased margin between the image and text.
 
 # 2.2.3
 

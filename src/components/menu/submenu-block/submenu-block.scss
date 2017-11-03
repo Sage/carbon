@@ -20,5 +20,9 @@
     .carbon-menu--secondary & {
       background-color: $grey-dark-blue;
     }
+
+    &:last-child {
+      border-radius: 0;
+    }
   }
 }

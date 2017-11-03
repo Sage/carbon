@@ -6,10 +6,14 @@
 .carbon-menu-item {
   display: inline-block;
   height: 40px;
-  padding: 0 12px;
+  padding: 0 15px;
   position: relative;
   font-size: 13px;
   font-weight: 700;
+
+  .carbon-portrait {
+    top: -1px;
+  }
 
   &:focus {
     z-index: 1;
@@ -107,7 +111,7 @@
 
     .carbon-menu--secondary & {
       @include arrow("down", 4px, $white);
-      right: 15px;
+      right: 14px;
     }
   }
 
@@ -117,17 +121,17 @@
 }
 
 .carbon-menu-item__submenu {
-  border-radius: 0 0 4px 4px;
   box-shadow: 0 15px 25px rgba($grey-shadow, 0.15);
   display: none;
   min-width: 100%;
-  padding: 0 0 5px;
   position: absolute;
   z-index: $z-dropdown-list;
 
   .carbon-menu--primary & {
     background-color: $white;
-    padding-top: 5px;
+    padding-top: 2px;
+    padding-bottom: 5px;
+    border-radius: 0 0 4px 4px;
 
     .carbon-menu-item--selected {
       color: $green-bright-dull;
@@ -135,10 +139,10 @@
   }
 
   .carbon-menu--secondary & {
-    background-color: $grey-dark-plus;
-
     .carbon-icon {
-      margin-right: 15px;
+      line-height: 16px;
+      margin: 0 15px 0 0;
+      top: -1px;
 
       &:before {
         line-height: unset;
@@ -156,14 +160,20 @@
   }
 
   &:before {
+    background-color: transparent;
+    border-radius: 0 0 4px 4px;
     content: "";
     height: 5px;
     position: absolute;
     top: -5px;
     width: 100%;
+  }
+
+  > *:not(.carbon-menu-item) {
+    padding: 8px 15px 10px;
 
     .carbon-menu--primary & {
-      background-color: transparent;
+      background-color: $white;
     }
 
     .carbon-menu--secondary & {
@@ -171,15 +181,15 @@
     }
   }
 
-  > *:not(.carbon-menu-item) {
-    padding: 0 15px;
-  }
-
   .carbon-menu-item {
     display: block;
     height: 30px;
     line-height: 30px;
     white-space: nowrap;
+
+    &:last-child {
+      border-radius: 0 0 4px 4px;
+    }
 
     .carbon-menu--primary & {
       background-color: $white;
