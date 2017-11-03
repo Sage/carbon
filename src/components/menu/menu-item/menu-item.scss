@@ -128,6 +128,25 @@
   position: absolute;
   z-index: $z-dropdown-list;
 
+  .carbon-icon {
+    line-height: 16px;
+    margin: 0 10px 0 0;
+    top: -1px;
+
+    &:before {
+      line-height: unset;
+    }
+
+    .carbon-icon__svg-icon {
+      vertical-align: middle;
+
+      .carbon-icon__svg {
+        height: 16px;
+        width: 16px;
+      }
+    }
+  }
+
   .carbon-menu--primary & {
     background-color: $white;
     padding-top: 2px;
@@ -143,22 +162,7 @@
     background-color: $grey-dark-plus;
 
     .carbon-icon {
-      line-height: 16px;
       margin: 0 15px 0 0;
-      top: -1px;
-
-      &:before {
-        line-height: unset;
-      }
-
-      .carbon-icon__svg-icon {
-        vertical-align: middle;
-
-        .carbon-icon__svg {
-          height: 16px;
-          width: 16px;
-        }
-      }
     }
   }
 
