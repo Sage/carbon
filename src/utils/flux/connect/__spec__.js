@@ -15,9 +15,9 @@ describe('connect', () => {
       testState => ({ one: testState })
     )(Presenter);
 
-    const $ = mount(<ConnectedComponent />);
+    const wrapper = mount(<ConnectedComponent />);
 
-    expect($.find(Presenter).props()).toEqual({ one: 1 });
+    expect(wrapper.find(Presenter).props()).toEqual({ one: 1 });
   });
 
   it('updates the component on change of a store', () => {
@@ -38,16 +38,16 @@ describe('connect', () => {
       testState => ({ one: testState })
     )(Presenter);
 
-    const $ = mount(<ConnectedComponent />);
+    const wrapper = mount(<ConnectedComponent />);
 
-    expect($.find(Presenter).props()).toEqual({ one: 1 });
+    expect(wrapper.find(Presenter).props()).toEqual({ one: 1 });
 
     Dispatcher.dispatch({
       actionType: UPDATE_A,
       value: 2
     });
 
-    expect($.find(Presenter).props()).toEqual({ one: 2 });
+    expect(wrapper.find(Presenter).props()).toEqual({ one: 2 });
   });
 
   it('connects stores to props', () => {
@@ -65,8 +65,8 @@ describe('connect', () => {
       })
     )(Presenter);
 
-    const $ = mount(<ConnectedComponent />);
-    expect($.find(Presenter).props()).toEqual({ one: 1, two: 2 });
+    const wrapper = mount(<ConnectedComponent />);
+    expect(wrapper.find(Presenter).props()).toEqual({ one: 1, two: 2 });
   });
 
   it('removes change listeners on unmount of the component', () => {
@@ -76,13 +76,13 @@ describe('connect', () => {
 
     const ConnectedComponent = connect(testStore, () => {})(Presenter);
 
-    const $ = mount(<ConnectedComponent />);
+    const wrapper = mount(<ConnectedComponent />);
 
     const removeChangeListener = jest.spyOn(testStore, 'removeChangeListener');
 
     expect(removeChangeListener).toHaveBeenCalledTimes(0);
 
-    $.unmount();
+    wrapper.unmount();
 
     expect(removeChangeListener).toHaveBeenCalledTimes(1);
   });
