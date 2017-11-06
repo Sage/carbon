@@ -9,9 +9,9 @@ import React from 'react';
  *
  * Usage like so:
  *
- *    function mapStateToProps(stateA, stateB) {
+ *    function mapStateToProps(stateA, stateB, props) {
  *      return {
- *        propFromA: stateA.get('someProp'),
+ *        propFromA: stateA.get('someProp') + props.someProp,
  *        propFromB: stateB.get('someProp')
  *      }
  *    }
@@ -45,7 +45,7 @@ const connect = (...args) => (WrappedComponent) => {
 
       return (
         <WrappedComponent
-          { ...mapToProps(...states) }
+          { ...mapToProps(...states, this.props) }
           { ...this.props }
         />
       );
@@ -53,7 +53,6 @@ const connect = (...args) => (WrappedComponent) => {
   }
 
   const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
-
   ConnectedComponent.displayName = `Connect(${displayName})`;
 
   return ConnectedComponent;
