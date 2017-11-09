@@ -31,12 +31,12 @@
   box-sizing: border-box;
   clear: both;
   float: left;
-  width: 25%;
+  width: calc(35% - 20px);
 }
 
 .carbon-settings-row__input {
   box-sizing: border-box;
   clear: both;
   float: left;
-  width: 70%;
+  width: 65%;
 }
