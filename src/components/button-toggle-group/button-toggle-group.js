@@ -89,7 +89,7 @@ class ButtonToggleGroup extends React.Component {
     const fieldProps = {
       className: 'common-input__field',
       onFocus: this._handleFocus,
-      onBlur: this._handleBlur
+      onBlur: this._handleGroupBlur
     };
 
     return fieldProps;
@@ -121,6 +121,27 @@ class ButtonToggleGroup extends React.Component {
         { this.props.children }
       </div>
     );
+  }
+
+  /**
+   * On blur of the input we want to validate the field.
+   *
+   * @method _handleBlur
+   * @return {void}
+   */
+  _handleGroupBlur = () => {
+    if (!this.blockBlur) {
+      // use setTimeout to drop in the callstack to ensure value has time to be set
+      setTimeout(() => {
+        this.validate();
+        this.warning();
+        this.info();
+
+        if (this.state.messageLocked) {
+          this.setState({ messageLocked: false });
+        }
+      }, 100);
+    }
   }
 
   /**

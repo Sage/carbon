@@ -66,6 +66,50 @@ describe('ButtonToggleGroup', () => {
     });
   });
 
+  describe('_handleGroupBlur', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    describe('when blur is not blocked', () => {
+      it('calls validate on blur of the input', () => {
+        spyOn(instance, 'validate');
+        instance._handleGroupBlur();
+        jest.runTimersToTime(100);
+        expect(instance.validate).toHaveBeenCalled();
+      });
+    });
+
+    describe('when blur is blocked', () => {
+      it('does nothing', () => {
+        instance.blockBlur = true;
+        spyOn(instance, 'validate');
+        instance._handleGroupBlur();
+        jest.runTimersToTime(100);
+        expect(instance.validate).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('when message is locked', () => {
+      it('unlocks it', () => {
+        instance.setState({ messageLocked: true });
+        spyOn(instance, 'setState');
+        instance._handleGroupBlur();
+        jest.runTimersToTime(100);
+        expect(instance.setState).toHaveBeenCalledWith({ messageLocked: false });
+      });
+    });
+
+    describe('when message is not locked', () => {
+      it('does nothing', () => {
+        instance.setState({ messageLocked: false });
+        spyOn(instance, 'setState');
+        instance._handleGroupBlur();
+        expect(instance.setState).not.toHaveBeenCalled();
+      });
+    });
+  });
+
   describe('render', () => {
     it('renders a parent div', () => {
       const node = wrapper.find('.carbon-button-toggle-group');
