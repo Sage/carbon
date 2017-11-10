@@ -15,7 +15,6 @@
 
 * DropdownFilter now uses a stylized Link component for the Create button.
 * DropdownFilter now has `createText` & `createIconType` props for customizable create button text and create button Icons (limited to current Carbon Icon types).
-* Update `secondry` Menu styling as per new designs
 
 ## Fixes
 
