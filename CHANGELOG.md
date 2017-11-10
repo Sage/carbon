@@ -1,3 +1,9 @@
+# 2.3.0
+
+## UX Improvements
+
+* Dialog - Padding fix
+
 # 2.2.3
 
 * Fix table-ajax to only set data-state to loaded once all of the data has been set. This resolves an issue when automating user scenarios allowing us to reliabliy wait for the loaded state to be set, before moving on.
