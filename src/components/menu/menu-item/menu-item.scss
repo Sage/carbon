@@ -6,10 +6,14 @@
 .carbon-menu-item {
   display: inline-block;
   height: 40px;
-  padding: 0 12px;
+  padding: 0 15px;
   position: relative;
   font-size: 13px;
   font-weight: 700;
+
+  .carbon-portrait {
+    top: -1px;
+  }
 
   &:focus {
     z-index: 1;
@@ -70,14 +74,23 @@
       }
     }
 
+    &:hover {
+      background-color: $grey-dark-plus;
+    }
+
     &.carbon-menu-item--has-link:hover {
       cursor: pointer;
-      color: $green-bright-dull;
     }
   }
 
   .carbon-menu-item:after {
     display: none;
+  }
+
+  &.carbon-menu-item--has-submenu {
+    .carbon-menu-item__submenu-title {
+      background-color: transparent;
+    }
   }
 }
 
@@ -86,7 +99,7 @@
 
   &:before {
     pointer-events: none;
-    right: 12px;
+    right: 15px;
     top: 50%;
     margin-top: -2px;
     position: absolute;
@@ -98,6 +111,7 @@
 
     .carbon-menu--secondary & {
       @include arrow("down", 4px, $white);
+      right: 14px;
     }
   }
 
@@ -111,13 +125,33 @@
   box-shadow: 0 15px 25px rgba($grey-shadow, 0.15);
   display: none;
   min-width: 100%;
-  padding: 0 0 5px;
   position: absolute;
   z-index: $z-dropdown-list;
 
+  .carbon-icon {
+    line-height: 16px;
+    margin: 0 10px 0 0;
+    top: -1px;
+
+    &:before {
+      line-height: unset;
+    }
+
+    .carbon-icon__svg-icon {
+      vertical-align: middle;
+
+      .carbon-icon__svg {
+        height: 16px;
+        width: 16px;
+      }
+    }
+  }
+
   .carbon-menu--primary & {
     background-color: $white;
-    padding-top: 5px;
+    padding-top: 2px;
+    padding-bottom: 5px;
+    border-radius: 0 0 4px 4px;
 
     .carbon-menu-item--selected {
       color: $green-bright-dull;
@@ -125,27 +159,33 @@
   }
 
   .carbon-menu--secondary & {
-    background-color: $grey-dark-blue;
+    background-color: $grey-dark-plus;
+
+    .carbon-icon {
+      margin: 0 15px 0 0;
+    }
   }
 
   &:before {
+    background-color: transparent;
+    border-radius: 0 0 4px 4px;
     content: "";
     height: 5px;
     position: absolute;
     top: -5px;
     width: 100%;
-
-    .carbon-menu--primary & {
-      background-color: transparent;
-    }
-
-    .carbon-menu--secondary & {
-      background-color: $grey-dark-blue;
-    }
   }
 
   > *:not(.carbon-menu-item) {
-    padding: 0 12px;
+    padding: 8px 15px 10px;
+
+    .carbon-menu--primary & {
+      background-color: $white;
+    }
+
+    .carbon-menu--secondary & {
+      background-color: $grey-dark-plus;
+    }
   }
 
   .carbon-menu-item {
@@ -154,12 +194,24 @@
     line-height: 30px;
     white-space: nowrap;
 
+    &:last-child {
+      border-radius: 0 0 4px 4px;
+    }
+
     .carbon-menu--primary & {
       background-color: $white;
     }
 
     .carbon-menu--secondary & {
-      background-color: $grey-dark-blue;
+      background-color: $grey-dark-plus;
+      padding: 0 15px;
+      height: 40px;
+      line-height: 40px;
+      border-bottom: 1px solid $grey-dark-plus;
+
+      &.carbon-menu-item--has-link:hover {
+        background-color: $grey-dark-blue-90;
+      }
     }
   }
 }
@@ -188,7 +240,9 @@
     }
 
     .carbon-menu--secondary & {
-      background-color: $grey-dark-blue-50;
+      background-color: $white;
+      left: 15px;
+      right: 15px;
     }
   }
 }
