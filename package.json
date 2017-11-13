@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "2.2.3",
+  "version": "2.3.0",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "engineStrict": true,
   "engines": {
@@ -8,8 +8,7 @@
   },
   "scripts": {
     "test": "jest",
-    "debug:listen": "node --debug-brk ./node_modules/.bin/jest --runInBand",
-    "debug:start": "node-inspector",
+    "debug": "node --inspect ./node_modules/.bin/jest --watch",
     "release-version": "node check-version.js && npm install && npm publish",
     "prepublishOnly": "rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
   },
@@ -30,7 +29,7 @@
   },
   "devDependencies": {
     "babel-standalone": "~6.17.0",
-    "carbon-factory": "v2.0.0-rc4",
+    "carbon-factory": "v2.2.0",
     "enzyme": "~2.8.2",
     "express": "~4.14.0",
     "flux": "^3.1.1",
@@ -39,7 +38,6 @@
     "jest": "^20.0.4",
     "moxios": "^0.4.0",
     "ncp": "~2.0.0",
-    "node-inspector": "^1.1.1",
     "react": "~15.6.1",
     "react-addons-perf": "^15.4.2",
     "react-addons-test-utils": "~15.6.0",

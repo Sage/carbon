@@ -1,7 +1,17 @@
 # 2.3.0
 
-* Adjust relative size of sections in Settings Row
-* Reduce line height in Heading component
+## CSS Changes
+
+* `SettingsRow` Adjusted relative size of sections.
+* `Heading` Decreased line-height and added bottom margin to support multiline headings.
+* `Menu` has been updated based on slightly new designs. `secondary` menus now support `Icon` components as children.
+* `Portrait` size `extra-small` has reduced from `26px` to `25px`.
+* `Portrait` size `medium-small` has reduced from `50px` to `40px`.
+* `Profile` has increased margin between the image and text.
+
+## New Components
+
+* `ButtonToggleGroup` is a component that allows a group of ButtonToggles to behave as a single form component with label, field help, validation message, warning message, and info message support.
 
 # 2.2.3
 
