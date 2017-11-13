@@ -7,6 +7,7 @@ export default {
   'app-wrapper':          require('components/app-wrapper/__definition__').default,
   'button':               require('components/button/__definition__').default,
   'button-toggle':        require('components/button-toggle/__definition__').default,
+  'button-toggle-group':  require('components/button-toggle-group/__definition__').default,
   'carousel':             require('components/carousel/__definition__').default,
   'checkbox':             require('components/checkbox/__definition__').default,
   'configurable-items':   require('components/configurable-items/__definition__').default,

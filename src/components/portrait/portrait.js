@@ -237,9 +237,9 @@ class Portrait extends React.Component {
    */
   get numericSizes() {
     return {
-      'extra-small': '26',
+      'extra-small': '25',
       small: '30',
-      'medium-small': '50',
+      'medium-small': '40',
       medium: '60',
       'medium-large': '70',
       large: '100',
