@@ -8,23 +8,34 @@
   font-size: 14px;
   justify-content: space-between;
   margin: 0;
-  padding: 40px 0;
+  padding: 0;
   position: relative;
 
   .carbon-heading__title {
     color: $grey-dark-blue;
     font-size: 15px;
     font-weight: bold;
+    line-height: 18px;
+    margin-bottom: 10px;
     text-transform: uppercase;
   }
 
   .carbon-heading__separator {
-    margin: 2px 0 15px;
+    margin: 0 0 17px;
+  }
+
+  .carbon-heading--has-subheader .carbon-heading__header {
+    padding: 0;
+  }
+
+  + .carbon-settings-row {
+    padding-top: 30px;
   }
 }
 
 .carbon-settings-row--has-divider {
   border-bottom: 1px solid $grey-dark-blue-10;
+  padding-bottom: 30px;
 }
 
 .carbon-settings-row__header {
