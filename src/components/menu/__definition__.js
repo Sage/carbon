@@ -55,7 +55,7 @@ definition.addChildByDefinition(menuItemDefinition, {
 });
 
 definition.addChildByDefinition(menuItemDefinition, {
-  children: `<MenuItem href="#"><Icon type='settings'/>Sub Menu Item One</MenuItem>
+  children: `<MenuItem href="#" icon='settings'>Sub Menu Item One</MenuItem>
   <SubmenuBlock>
     <MenuItem href="#">Sub Menu Item Two</MenuItem>
     <MenuItem href="#">Sub Menu Item Three</MenuItem>
