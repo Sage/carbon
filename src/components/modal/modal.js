@@ -112,6 +112,7 @@ class Modal extends React.Component {
      * @type {Boolean}
      */
     this.listening = false;
+    this.state = { state: 'default' };
   }
 
 
@@ -155,10 +156,14 @@ class Modal extends React.Component {
       // it was added as the Portal library we use messes up the callstack
       // when assigning the ref and triggering componentDidUpdate
       setTimeout(() => {
+        clearTimeout(this.openTimeout);
+        this.openTimeout = setTimeout(() => { this.setState({ state: 'open' }); }, 500);
         this.onOpening; // eslint-disable-line no-unused-expressions
       });
       _window.addEventListener('keyup', this.closeModal);
     } else if (!this.props.open && this.listening) {
+      clearTimeout(this.openTimeout);
+      this.openTimeout = setTimeout(() => { this.setState({ state: 'closed' }); }, 500);
       this.listening = false;
       this.onClosing; // eslint-disable-line no-unused-expressions
       _window.removeEventListener('keyup', this.closeModal);
@@ -231,6 +236,7 @@ class Modal extends React.Component {
       <div
         className={ this.mainClasses }
         { ...this.componentTags(this.props) }
+        data-state={ this.state.state }
       >
         <CSSTransitionGroup
           component='div'

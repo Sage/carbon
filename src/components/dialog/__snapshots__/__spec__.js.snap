@@ -23,6 +23,7 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
   data-component="dialog"
   data-element="bar"
   data-role="baz"
+  data-state="default"
 >
   <CSSTransitionGroup
     component="div"

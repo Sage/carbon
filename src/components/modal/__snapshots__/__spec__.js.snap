@@ -3,6 +3,7 @@
 exports[`Modal backgroundHTML when enableBackgroundUI is false renders children 1`] = `
 <div
   className={null}
+  data-state="default"
 >
   <CSSTransitionGroup
     component="div"
@@ -32,6 +33,7 @@ exports[`Modal backgroundHTML when enableBackgroundUI is false renders children 
 exports[`Modal backgroundHTML when enableBackgroundUI is true renders children 1`] = `
 <div
   className={null}
+  data-state="default"
 >
   <CSSTransitionGroup
     component="div"

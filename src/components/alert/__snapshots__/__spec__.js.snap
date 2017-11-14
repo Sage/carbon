@@ -6,6 +6,7 @@ exports[`Alert include correct component, element and role data tags 1`] = `
   data-component="alert"
   data-element="bar"
   data-role="baz"
+  data-state="default"
 >
   <CSSTransitionGroup
     component="div"
