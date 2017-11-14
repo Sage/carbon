@@ -41,7 +41,7 @@ describe('Modal', () => {
         expect(mockWindow.addEventListener).toHaveBeenCalledWith('keyup', wrapper.instance().closeModal);
       });
 
-      it('clears the opentimeout and sets datas tate to open', () => {
+      it('clears the opentimeout and sets data state to open', () => {
         spyOn(mockWindow, 'removeEventListener');
         spyOn(window, 'setTimeout');
         jest.useFakeTimers();
