@@ -6,7 +6,7 @@ exports[`Sidebar sidebarClasses returns a base sidebar 1`] = `
   data-component="sidebar"
   data-element="bar"
   data-role="baz"
-  data-state="default"
+  data-state="open"
 >
   <CSSTransitionGroup
     component="div"
