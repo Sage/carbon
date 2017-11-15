@@ -1,3 +1,9 @@
+# 2.4.0
+
+## Improvements
+
+* Added `connect` higher order component as an intermediate step for connecting components to Flux stores through props.
+
 # 2.3.0
 
 ## CSS Changes
