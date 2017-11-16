@@ -1,3 +1,9 @@
+# 2.4.0
+
+## UX Improvements
+
+* `Dialog` Ensure the heading used within a dialog has 15px padding instead of 20px.
+
 # 2.3.0
 
 ## CSS Changes
