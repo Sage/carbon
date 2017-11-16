@@ -19,7 +19,8 @@
     z-index: 1;
   }
 
-  .carbon-menu--primary & {
+  .carbon-menu--primary &,
+  .carbon-menu--primary &:hover {
     background-color: $white;
     color: $grey-dark-blue;
 
@@ -62,7 +63,8 @@
     }
   }
 
-  .carbon-menu--secondary & {
+  .carbon-menu--secondary &,
+  .carbon-menu--secondary &:hover {
     background-color: $grey-dark-blue;
     color: $white;
 

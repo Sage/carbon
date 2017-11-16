@@ -36,6 +36,14 @@ class MenuItem extends React.Component {
     onClick: PropTypes.func,
 
     /**
+     * Adds an icon to the menu item.
+     *
+     * @property icon
+     * @type {String}
+     */
+    icon: PropTypes.string,
+
+    /**
      * Defines which direction the submenu will hang eg. left/right
      *
      * @property submenuDirection
@@ -155,7 +163,8 @@ class MenuItem extends React.Component {
       href: this.props.href,
       to: this.props.to,
       target: this.props.target,
-      onClick: this.props.onClick
+      onClick: this.props.onClick,
+      icon: this.props.icon
     };
 
     props = assign({}, props, tagComponent('menu-item', this.props));

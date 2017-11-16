@@ -3,10 +3,15 @@
 ## CSS Changes
 
 * `SettingsRow` Adjusted paddings and margins between sections.
-* `Menu` has been updated based on slightly new designs. `secondary` menus now support `Icon` components as children.
+* `Menu` has been updated based on new designs. `secondary` menus now support `Icon` components as children.
 * `Portrait` size `extra-small` has reduced from `26px` to `25px`.
 * `Portrait` size `medium-small` has reduced from `50px` to `40px`.
 * `Profile` has increased margin between the image and text.
+* `Dialog` bottom padding has increased by 8px.
+
+## Improvements
+
+* `Modal` now has a data-state element that begins as default, set to open once transition to open is complete and is set to closed once the transition to closed is complete.
 
 ## New Components
 
