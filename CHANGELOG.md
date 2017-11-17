@@ -1,7 +1,8 @@
 # 2.4.0
 
-## UX Improvements
+## CSS Changes
 
+* `SettingsRow` Adjusted paddings and margins between sections.
 * `Dialog` Ensure the heading used within a dialog has 15px padding instead of 20px.
 
 # 2.3.0
