@@ -1,3 +1,9 @@
+# 2.4.0
+
+## CSS Changes
+
+* `SettingsRow` Adjusted paddings and margins between sections.
+
 # 2.3.0
 
 ## CSS Changes
