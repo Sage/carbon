@@ -4,6 +4,11 @@
 
 * Added `connect` higher order component as an intermediate step for connecting components to Flux stores through props.
 
+## CSS Changes
+
+* `SettingsRow` Adjusted paddings and margins between sections.
+* `Dialog` Ensure the heading used within a dialog has 15px padding instead of 20px.
+
 # 2.3.0
 
 ## CSS Changes
