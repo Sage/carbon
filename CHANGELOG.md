@@ -1,9 +1,14 @@
-# 2.3.0
+# 2.4.0
 
 ## CSS Changes
 
 * `SettingsRow` Adjusted paddings and margins between sections.
-* `Menu` has been updated based on new designs. `secondary` menus now support `Icon` components as children.
+
+# 2.3.0
+
+## CSS Changes
+
+* `Menu` has been updated based on slightly new designs. `MenuItem` now supports the `icon` prop.
 * `Portrait` size `extra-small` has reduced from `26px` to `25px`.
 * `Portrait` size `medium-small` has reduced from `50px` to `40px`.
 * `Profile` has increased margin between the image and text.
