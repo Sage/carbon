@@ -1,8 +1,8 @@
 {
   "extends": "./node_modules/carbon-factory/.eslintrc",
   "globals": {
-    "jest": true,
-    "global": true,
-    "process": true
+    "jest": false,
+    "global": false,
+    "process": false
   }
 }

@@ -1,5 +1,9 @@
 # 2.4.0
 
+## Improvements
+
+* Added `connect` higher order component as an intermediate step for connecting components to Flux stores through props.
+
 ## CSS Changes
 
 * `SettingsRow` Adjusted paddings and margins between sections.

@@ -1,5 +1,6 @@
 import Flux from 'flux';
 import { assign } from 'lodash';
+import Logger from '../logger';
 
 export const Dispatcher = new Flux.Dispatcher();
 
@@ -30,6 +31,10 @@ export const Dispatcher = new Flux.Dispatcher();
  * @return {Class} An enhanced version of the ComposedView to work with flux stores.
  */
 export function connect(ComposedView, stores) {
+  Logger.deprecate('connect has been deprecated in favour of the connect higher order component', {
+    group: 'connect'
+  });
+
   // Build an object mapping any stores passed to the connect function, using
   // the store's class name as the key.
 
