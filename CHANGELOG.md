@@ -19,6 +19,10 @@
 * `Profile` has increased margin between the image and text.
 * `Dialog` bottom padding has increased by 8px.
 
+## Bug Fixes
+
+* Fixes `Rainbow` widget Invoices graph issue where link to Invoices Summary did not work and threw an error (Sage One Start only). 
+
 ## Improvements
 
 * `Modal` now has a data-state element that begins as default, set to open once transition to open is complete and is set to closed once the transition to closed is complete.
