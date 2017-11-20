@@ -2,7 +2,7 @@
 
 ## Bug Fixes
 
-* Fixes Invoices graph issue link.
+* `Rainbow` - fixes a bug in which the component was unresponsive to mouse events.
 
 # 2.4.0
 
