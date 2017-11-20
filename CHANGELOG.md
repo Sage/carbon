@@ -1,3 +1,9 @@
+# 2.4.1
+
+## Bug Fixes
+
+* Fixes Invoices graph issue link.
+
 # 2.4.0
 
 ## Improvements
@@ -18,10 +24,6 @@
 * `Portrait` size `medium-small` has reduced from `50px` to `40px`.
 * `Profile` has increased margin between the image and text.
 * `Dialog` bottom padding has increased by 8px.
-
-## Bug Fixes
-
-* Fixes `Rainbow` widget Invoices graph issue where link to Invoices Summary did not work and threw an error (Sage One Start only). 
 
 ## Improvements
 

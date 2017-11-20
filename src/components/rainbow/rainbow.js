@@ -145,7 +145,6 @@ class Rainbow extends React.Component {
 
 }
 
-
 /* istanbul ignore next */
 /**
  * Generates the config for the Highchart.
