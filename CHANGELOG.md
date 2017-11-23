@@ -2,7 +2,7 @@
 
 ## CSS Changes
 
-* Adds an app wide `line-height` default of `16px`.
+* Adds an app wide `line-height` default of `18px`.
 * Fixes `Message` to remove excess padding right when not dismissable.
 * Updates `Button` so inline siblings have a default `10px` gap.
 
