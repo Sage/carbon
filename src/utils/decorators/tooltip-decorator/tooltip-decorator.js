@@ -88,9 +88,9 @@ const TooltipDecorator = ComposedComponent => class Component extends ComposedCo
      * The message for this tooltip
      *
      * @property
-     * @type {String}
+     * @type {Node}
      */
-    tooltipMessage: PropTypes.string,
+    tooltipMessage: PropTypes.node,
 
     /**
      * The position of this tooltip: top, bottom, left or right
