@@ -7,6 +7,7 @@
 ## Fixes
 
 * Set the `Component.displayName` on all decorators. **NB** You may need to update your snapshots as a result of this to change the component name to something more accurate
+* Handles an empty body (such as that with a 204) more robustly ([#1631](https://github.com/Sage/carbon/issues/1631))
 
 # 2.4.0
 

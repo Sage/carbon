@@ -54,6 +54,13 @@ describe('Service', () => {
       });
     });
 
+    describe('when the body is empty', () => {
+      it('returns a stringified empty object', () => {
+        let data = '';
+        expect(service.handleSuccess({ data })).toEqual({});
+      });
+    });
+
     describe('when there is a message in the response', () => {
       describe('if the status is error', () => {
         let response;

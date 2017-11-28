@@ -71,6 +71,11 @@ class Service {
    * @return {Object} the response data
    */
   handleSuccess(response) {
+    if (response.data === '') {
+      response.data = {};
+      return response.data;
+    }
+
     if (!response.data.message) {
       return response.data;
     }
