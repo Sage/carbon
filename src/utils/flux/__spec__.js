@@ -36,7 +36,7 @@ class View extends React.Component {
   }
 }
 
-View.displayName = 'CustomName';
+View.displayName = 'CustomDisplayName';
 
 let baseStore1 = new BaseStore1('BaseStore1', { text: 'text' });
 let baseStore2 = new BaseStore2('BaseStore2', {});
@@ -158,13 +158,15 @@ describe('Connect', () => {
 
   describe('displayName', () => {
     it('uses the original class name', () => {
+      SimpleView.displayName = null;
+
       const connectedView = connect(SimpleView, baseStore1);
       expect(connectedView.displayName).toEqual('SimpleView');
     });
 
-    it('uses the any custom display name', () => {
+    it('uses the custom display name', () => {
       const connectedView = connect(View, baseStore1);
-      expect(connectedView.displayName).toEqual('CustomName');
+      expect(connectedView.displayName).toEqual('CustomDisplayName');
     });
   });
 

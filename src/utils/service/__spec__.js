@@ -54,13 +54,6 @@ describe('Service', () => {
       });
     });
 
-    describe('when the body is empty', () => {
-      it('returns a stringified empty object', () => {
-        let data = '';
-        expect(service.handleSuccess({ data })).toEqual({});
-      });
-    });
-
     describe('when there is a message in the response', () => {
       describe('if the status is error', () => {
         let response;
@@ -294,6 +287,30 @@ describe('Service', () => {
             }
           );
           testEndpoint(done, 200, successSpy);
+        });
+      });
+
+      describe('DELETE with no_content response', () => {
+        it('calls the DELETE endpoint', (done) => {
+
+          service.delete(1,
+            {
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          moxios.wait(() => {
+            let request = moxios.requests.mostRecent(),
+              data = { data: {} };
+
+            request.respondWith({
+              status: 204,
+              response: ''
+            }).then((response) => {
+              expect(successSpy).toHaveBeenCalled();
+              expect(errorSpy).not.toHaveBeenCalled();
+              done();
+            });
+          });
         });
       });
     });
