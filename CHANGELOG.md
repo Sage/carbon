@@ -4,6 +4,10 @@
 
 * Changed type of prop `tooltipMessage` of `tooltip-decorator` from string to node to allow children.
 
+## Fixes
+
+* Update Jest snapshots for `Alert`, `Dialog`, and `Sidebar`.
+
 # 2.4.0
 
 ## Improvements
