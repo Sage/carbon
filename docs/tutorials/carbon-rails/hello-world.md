@@ -216,7 +216,7 @@ Open up the `main.js` file and import the `User` component. We can add the compo
 
 import React from 'react';
 import { Route } from 'react-router';
-import { startRouter } from 'carbon/lib/utils/router';
+import { startRouter } from 'carbon-react/lib/utils/router';
 
 import User from 'views/user';
 
