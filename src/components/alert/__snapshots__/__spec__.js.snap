@@ -53,7 +53,7 @@ exports[`Alert include correct component, element and role data tags 1`] = `
           style={Object {}}
         />
       </div>
-      <Component
+      <Icon
         bgSize="small"
         className="carbon-dialog__close"
         data-element="close"

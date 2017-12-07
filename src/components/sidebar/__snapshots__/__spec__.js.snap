@@ -26,7 +26,7 @@ exports[`Sidebar sidebarClasses returns a base sidebar 1`] = `
       <span
         className="carbon-sidebar__close"
       >
-        <Component
+        <Icon
           bgSize="small"
           className="carbon-sidebar__close-icon"
           data-element="close"
@@ -34,9 +34,9 @@ exports[`Sidebar sidebarClasses returns a base sidebar 1`] = `
           type="close"
         />
       </span>
-      <Component />
-      <Component />
-      <Component />
+      <Textbox />
+      <Textbox />
+      <Textbox />
     </div>
   </CSSTransitionGroup>
   <CSSTransitionGroup
