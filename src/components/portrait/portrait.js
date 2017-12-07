@@ -111,6 +111,7 @@ class Portrait extends React.Component {
   }
 
   static defaultProps = {
+    alt: '',
     size: 'medium',
     shape: 'standard'
   };
@@ -279,7 +280,7 @@ class Portrait extends React.Component {
         data-element='initials'
         className='carbon-portrait__img carbon-portrait__initials'
         src={ this.generateInitials }
-        alt={ this.props.alt }
+        alt={ this.props.alt || '' }
       />
     );
   }
@@ -296,7 +297,7 @@ class Portrait extends React.Component {
         data-element='user-image'
         className='carbon-portrait__img carbon-portrait__avatar'
         src={ this.imgSrc }
-        alt={ this.props.alt }
+        alt={ this.props.alt || '' }
       />
     );
   }

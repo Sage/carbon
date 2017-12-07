@@ -353,6 +353,32 @@ describe('Portrait', () => {
         });
       });
     });
+
+    describe('when alt is an empty string', () => {
+      it('renders avatar alt attribute with an empty string', () => {
+        wrapper = shallow(<Portrait initials='FF' src='test' alt='' />);
+        expect(wrapper.find('.carbon-portrait__avatar[alt=""]').exists()).toEqual(true);
+      });
+
+      describe('when rendering the initials image', () => {
+        it('renders the alt attribute with an empty string', () => {
+          wrapper = shallow(<Portrait initials='FF' alt='' />);
+          expect(wrapper.find('.carbon-portrait__initials[alt=""]').exists()).toEqual(true);
+        });
+      });
+    });
+
+    describe('when the alt prop is not given', () => {
+      it('renders the avatar image with an empty alt attribute', () => {
+        wrapper = shallow(<Portrait src='test' />);
+        expect(wrapper.find('.carbon-portrait__avatar[alt=""]').exists()).toEqual(true);
+      });
+
+      it('renders the initials image with an empty alt attribute', () => {
+        wrapper = shallow(<Portrait initials='FF' />);
+        expect(wrapper.find('.carbon-portrait__initials[alt=""]').exists()).toEqual(true);
+      });
+    });
   });
 
   describe('tags', () => {

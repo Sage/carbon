@@ -2,6 +2,7 @@
 
 ## Improvements
 
+* `Portrait` can now render an empty string for the alt attribute.
 * Changed type of prop `tooltipMessage` of `tooltip-decorator` from string to node to allow children.
 
 ## Fixes
