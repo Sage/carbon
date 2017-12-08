@@ -133,9 +133,6 @@ describe('Tabs', () => {
     });
   });
 
-
-
-
   describe('Change in tab prop', () => {
     let instance, tabs, unique1Tab, unique2Tab;
     beforeEach(() => {
@@ -143,7 +140,9 @@ describe('Tabs', () => {
         history: {
           replaceState: () => {}
         },
-        location: ""
+        location: "",
+        addEventListener: () => {},
+        removeEventListener: () => {}
       });
 
       let TestParent = React.createFactory(React.createClass({

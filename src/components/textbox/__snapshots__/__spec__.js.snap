@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Textbox render renders correctly  1`] = `
+Array [
+  <div
+    className="carbon-textbox common-input"
+    data-component="textbox"
+    data-element="bar"
+    data-role="baz"
+>
+    <label
+        className="common-input__label"
+        data-element="label"
+        htmlFor="my-unique-textbox"
+        style={null}
+    >
+        Label
+    </label>
+    <div
+        className="common-input__field"
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+    >
+        <input
+            autoComplete="off"
+            className="carbon-textbox__input common-input__input"
+            data-element="input"
+            id="my-unique-textbox"
+            name="my-textbox-name"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onPaste={undefined}
+            value="foo"
+        />
+    </div>
+</div>,
+]
+`;

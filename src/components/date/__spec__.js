@@ -99,6 +99,59 @@ describe('Date', () => {
         });
       });
     });
+
+    describe('componentWillUpdate', () => {
+      beforeAll(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Date name='date' label='Date' value='foo' />
+        );
+      });
+
+      describe('when the if condition is true', () => {
+        let listenSpy = jasmine.createSpy('listenSpy');
+        let contextSpy = jasmine.createSpy('contextSpy')
+          .and.returnValue({ addEventListener: listenSpy });
+
+        beforeEach(() => {
+          const modalContext =  {
+            modal: {
+              getDialogContent: contextSpy
+            }
+          };
+          instance.componentWillUpdate({}, {}, modalContext);
+        });
+
+        it('fetches the modal dialog context', () => {
+          expect(contextSpy).toHaveBeenCalled();
+        });
+
+        it('sets the scroll listener', () => {
+          expect(listenSpy).toHaveBeenCalledWith('scroll', instance.updateDatePickerPosition);
+        });
+      });
+    });
+
+    describe('componentWillUnmount', () => {
+      beforeAll(() => {
+        instance = TestUtils.renderIntoDocument(
+          <Date name='date' label='Date' value='foo' />
+        );
+      });
+
+      describe('when the if condition is true', () => {
+        let listenSpy = jasmine.createSpy('listenSpy');
+
+        beforeEach(() => {
+          instance.componentWillUnmount();
+          instance.dialogModalNode = { removeEventListener: listenSpy };
+          instance.componentWillUnmount();
+        });
+
+        it('removes the scroll listener', () => {
+          expect(listenSpy).toHaveBeenCalledWith('scroll', instance.updateDatePickerPosition);
+        });
+      });
+    });
   });
 
   describe('datePickerValueChanged', () => {

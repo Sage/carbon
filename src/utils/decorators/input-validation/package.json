@@ -1,4 +1,5 @@
 {
   "name": "input-validation",
+  "style": "input-validation.scss",
   "main": "./input-validation.js"
 }

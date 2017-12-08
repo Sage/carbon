@@ -149,7 +149,8 @@ class Modal extends React.Component {
     return {
       modal: {
         onCancel: this.props.onCancel,
-        getDialog: this.getDialog
+        getDialog: this.getDialog,
+        getDialogContent: this.getDialogContent
       }
     };
   }
@@ -162,6 +163,16 @@ class Modal extends React.Component {
    */
   getDialog = () => {
     return this._dialog;
+  }
+
+  /**
+   * Returns the reference to the dialog content if it exists.
+   *
+   * @method getDialogContent
+   * @return {HTMLElement}
+   */
+  getDialogContent = () => {
+    return this._content;
   }
 
   /**

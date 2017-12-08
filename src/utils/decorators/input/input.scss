@@ -7,24 +7,6 @@
 .common-input {
   position: relative;
 
-  .common-input__message {
-    opacity: 0;
-    transition: opacity 0.2s 1.3s, visibility 0s 1.5s;
-    visibility: hidden;
-  }
-
-  &--message-hidden .common-input__message {
-    opacity: 0;
-    transition: none;
-    visibility: hidden;
-  }
-
-  &--message-shown .common-input__message.common-input__message {
-    opacity: 1;
-    transition: opacity 0s 0s, visibility 0s 0s;
-    visibility: visible;
-  }
-
   .carbon-fieldset + &,
   + .carbon-fieldset,
   + .common-input {
@@ -189,7 +171,7 @@
 }
 
 .carbon-icon.common-input__icon {
-  height: 15px;
+  height: 20px;
   position: absolute;
   right: 5px;
   top: 28px;
@@ -279,7 +261,7 @@
 .common-input--error,
 .common-input--warning {
   .carbon-icon {
-    z-index: 1;
+    z-index: $z-validation-message;
   }
 }
 

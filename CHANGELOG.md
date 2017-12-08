@@ -35,10 +35,12 @@
 
 * DropdownFilter now uses a stylized Link component for the Create button.
 * DropdownFilter now has `createText` & `createIconType` props for customizable create button text and create button Icons (limited to current Carbon Icon types).
+* Portal has been added to the `input-validation` messages, meaning they no longer suffer from boundary issues on parent container.
 
 ## Fixes
 
-Ensures that `displayName` is set to the original component's name when connecting to a store using Carbon's flux helper. We have noticed Jest snapshot's have started to default to `View` when connected to a store using our flux connector, this change will ensure the display name is maintained.
+* Ensures that `displayName` is set to the original component's name when connecting to a store using Carbon's flux helper. We have noticed Jest snapshot's have started to default to `View` when connected to a store using our flux connector, this change will ensure the display name is maintained.
+* The `Date` component and input validation message no longer stick in position when scrolling within a Modal.
 
 # 2.2.1
 

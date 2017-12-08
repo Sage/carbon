@@ -1,81 +1,45 @@
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
-import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { shallow, ReactWrapper } from 'enzyme';
+import ReactPortal from 'react-portal';
 import Textbox from './textbox';
 
 describe('Textbox', () => {
-  let instance;
+  let wrapper;
   let spy = jasmine.createSpy('spy')
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(
+    wrapper = shallow(
       <Textbox
-        name='Dummy Box'
-        id='Dummy Box'
+        name='my-textbox-name'
+        id='my-unique-textbox'
         value={ 'foo' }
         label={ 'Label' }
+        data-element='bar'
+        data-role='baz'
         onChange={ spy }
       />
     );
   });
 
   describe('render', () => {
-    it('renders a parent div', () => {
-      let textboxNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-      expect(textboxNode.classList[0]).toEqual('carbon-textbox');
-    });
-
-    it('renders with a visible input', () => {
-      let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
-      expect(input.getAttribute('name')).toBe('Dummy Box');
-    });
-
-    it('is decorated with a label', () => {
-      let label = TestUtils.findRenderedDOMComponentWithTag(instance, 'label')
-      expect(label.getAttribute('for')).toEqual('Dummy Box');
+    it('renders correctly ', () => {
+      expect(wrapper.nodes).toMatchSnapshot();
     });
 
     it('is decorated with a validation if a error is present', () => {
-      instance.setState({errorMessage: 'Error', valid: false});
-      let errorDiv = TestUtils.findRenderedDOMComponentWithClass(instance, 'common-input__message--error')
-      expect(errorDiv.textContent).toEqual('Error')
-    });
-  });
-
-  describe('mainClasses', () => {
-    it('returns carbon-textbox and additional decorated classes', () => {
-      expect(instance.mainClasses).toEqual('carbon-textbox common-input');
-    });
-  });
-
-  describe('inputClasses', () => {
-    it('returns carbon-textbox__input and additional decorated classes', () => {
-      expect(instance.inputClasses).toEqual('carbon-textbox__input common-input__input');
+      wrapper.instance().setState({errorMessage: 'Error', valid: false});
+      const portalContent = new ReactWrapper(
+        wrapper.find(ReactPortal).prop('children')
+      );
+      expect(portalContent.find('.common-input__message--error').text())
+        .toEqual('Error');
     });
   });
 
   describe('Passing a custom onChange', () => {
     it('triggers the custom function', () => {
-      let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
-      TestUtils.Simulate.change(input);
+      wrapper.find('input').simulate('change');
       expect(spy).toHaveBeenCalled();
-    });
-  });
-
-  describe('tags on component', () => {
-    let wrapper = shallow(
-      <Textbox
-        value={ 'foo' }
-        label={ 'Label' }
-        onChange={ spy }
-        data-element='bar'
-        data-role='baz'
-      />
-    );
-
-    it('include correct component, element and role data tags', () => {
-      rootTagTest(wrapper, 'textbox', 'bar', 'baz');
     });
   });
 });
