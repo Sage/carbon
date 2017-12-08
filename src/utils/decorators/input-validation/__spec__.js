@@ -1336,4 +1336,35 @@ describe('InputValidation', () => {
       });
     });
   });
+
+  describe('displayName', () => {
+    class Foo extends React.Component { // eslint-disable-line react/no-multi-comp
+      bar = () => {
+        return 'bar';
+      }
+    }
+
+    const displayName = 'FooClass';
+
+    describe('when ComposedComponent.displayName is defined', () => {
+      beforeEach(() => {
+        Foo.displayName = displayName;
+      });
+      afterEach(() => {
+        Foo.displayName = undefined;
+      });
+
+      it('sets Component.displayName to ComposedComponent.displayName', () => {
+        const DecoratedComponent = InputValidation(Foo);
+        expect(DecoratedComponent.displayName).toBe(displayName);
+      });
+    });
+
+    describe('when ComposedComponent.displayName is undefined', () => {
+      it('sets Component.displayName to ComposedComponent.name', () => {
+        const DecoratedComponent = InputValidation(Foo);
+        expect(DecoratedComponent.displayName).toBe('Foo');
+      });
+    });
+  });
 });
