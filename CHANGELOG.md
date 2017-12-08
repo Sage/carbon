@@ -1,3 +1,9 @@
+# 2.5.0
+
+## Improvements
+
+* Changed type of prop `tooltipMessage` of `tooltip-decorator` from string to node to allow children.
+
 # 2.4.0
 
 ## Improvements
