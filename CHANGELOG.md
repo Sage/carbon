@@ -6,7 +6,7 @@
 
 ## Fixes
 
-* Update Jest snapshots for `Alert`, `Dialog`, and `Sidebar`.
+* Set the `Component.displayName` on all decorators.
 
 # 2.4.0
 
