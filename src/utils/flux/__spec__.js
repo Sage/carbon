@@ -167,4 +167,35 @@ describe('Connect', () => {
       expect(connectedView.displayName).toEqual('CustomName');
     });
   });
+
+  describe('displayName', () => {
+    class Foo extends React.Component { // eslint-disable-line react/no-multi-comp
+      bar = () => {
+        return 'bar';
+      }
+    }
+
+    const displayName = 'FooClass';
+
+    describe('when ComposedView.displayName is defined', () => {
+      beforeEach(() => {
+        Foo.displayName = displayName;
+      });
+      afterEach(() => {
+        Foo.displayName = undefined;
+      });
+
+      it('sets View.displayName to ComposedView.displayName', () => {
+        const ConnectedView = connect(Foo, baseStore1);
+        expect(ConnectedView.displayName).toBe(displayName);
+      });
+    });
+
+    describe('when ComposedView.displayName is undefined', () => {
+      it('sets View.displayName to ComposedView.name', () => {
+        const ConnectedView = connect(Foo, baseStore1);
+        expect(ConnectedView.displayName).toBe('Foo');
+      });
+    });
+  });
 });
