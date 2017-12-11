@@ -23,12 +23,12 @@ describe('CustomDragLayer', () => {
           isDragging={false}
         />
       );
-      spyOn(wrapper.node._container, 'appendChild')
+      spyOn(wrapper.getElement()._container, 'appendChild')
       wrapper.setProps({ isDragging: true })
     });
 
     it('transforms the component position by the currentOffset and creates the ghost layer', () => {
-      expect(wrapper.node._container.appendChild).toHaveBeenCalledWith(clonedNode)
+      expect(wrapper.getElement()._container.appendChild).toHaveBeenCalledWith(clonedNode)
       const container = wrapper.find('.custom-drag-layer__container');
       expect(container.length).toEqual(1);
       const style = container.get(0).style
@@ -51,7 +51,7 @@ describe('CustomDragLayer', () => {
     });
 
     it('does not add the ghost layer', () => {
-      expect(wrapper.node._container).toBeUndefined();
+      expect(wrapper.getElement()._container).toBeUndefined();
       const container = wrapper.find('.custom-drag-layer__container');
       expect(container.length).toEqual(1);
     });
@@ -90,15 +90,15 @@ describe('CustomDragLayer', () => {
           isDragging={false}
         />
       );
-      spyOn(wrapper.node._container, 'appendChild');
+      spyOn(wrapper.getElement()._container, 'appendChild');
       wrapper.setProps({ isDragging: true });
     });
 
     it('removes the clonedChild and sets this.clonedChild to null', () => {
       expect(wrapper.instance().clonedChild).toEqual(clonedNode);
-      spyOn(wrapper.node._container, 'removeChild');
+      spyOn(wrapper.getElement()._container, 'removeChild');
       wrapper.setProps({ draggableNode: null });
-      expect(wrapper.node._container.removeChild).toHaveBeenCalledWith(clonedNode);
+      expect(wrapper.getElement()._container.removeChild).toHaveBeenCalledWith(clonedNode);
       expect(wrapper.instance().clonedChild).toBeNull();
     });
   });
@@ -111,14 +111,14 @@ describe('CustomDragLayer', () => {
           isDragging={false}
         />
       );
-      spyOn(wrapper.node._container, 'appendChild');
-      spyOn(wrapper.node._container, 'removeChild');
+      spyOn(wrapper.getElement()._container, 'appendChild');
+      spyOn(wrapper.getElement()._container, 'removeChild');
       wrapper.setProps({ isDragging: true });
     });
 
     it('does not try to create or remove a clonedChild', () => {
-      expect(wrapper.node._container.appendChild).not.toHaveBeenCalled();
-      expect(wrapper.node._container.removeChild).not.toHaveBeenCalled()
+      expect(wrapper.getElement()._container.appendChild).not.toHaveBeenCalled();
+      expect(wrapper.getElement()._container.removeChild).not.toHaveBeenCalled()
       expect(wrapper.instance().clonedChild).toBeUndefined();
     });
   });
@@ -131,7 +131,7 @@ describe('CustomDragLayer', () => {
           isDragging={false}
         />
       );
-      spyOn(wrapper.node._container, 'appendChild')
+      spyOn(wrapper.getElement()._container, 'appendChild')
       wrapper.setProps({ isDragging: true })
       instance = wrapper.find(UndecoratedCustomDragLayer);
     });

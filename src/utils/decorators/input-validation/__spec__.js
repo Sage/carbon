@@ -391,7 +391,7 @@ describe('InputValidation', () => {
             wrapper.instance()._dialog = {
               offsetWidth: 10
             };
-            wrapper.find(Component).node.validationMessage = {
+            wrapper.find(Component).getElement().validationMessage = {
               className: "",
               offsetWidth: 10,
               offsetLeft: 10,
@@ -402,7 +402,7 @@ describe('InputValidation', () => {
               }
             };
             input.simulate('focus');
-            expect(wrapper.find(Component).node.validationMessage.className).toEqual(' common-input__message--flipped');
+            expect(wrapper.find(Component).getElement().validationMessage.className).toEqual(' common-input__message--flipped');
           });
         });
 
@@ -1217,7 +1217,7 @@ describe('InputValidation', () => {
       });
 
       it('returns a div for the info message', () => {
-        expect(wrapper.find('.common-input__message-wrapper').exists()).toBeTruthy();
+        expect(wrapper.render().find('.common-input__message-wrapper').exists()).toEqual(true);
         expect(wrapper.find('.common-input__message.common-input__message--info').exists()).toBeTruthy();
         expect(instance.validationHTML[1].props.children.props.children).toEqual('foo');
       });

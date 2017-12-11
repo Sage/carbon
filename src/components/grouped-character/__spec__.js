@@ -18,7 +18,7 @@ describe('GroupedCharacter', () => {
       it('sets the input width when passed', () => {
         let commonInput = wrapper.find('.common-input__field');
         // TODO FIGURE OUT WHY % RATHER THAN PX
-        expect(commonInput.nodes[0].style.width).toEqual('60%');
+        expect(commonInput.getElements()[0].style.width).toEqual('60%');
       });
     });
 
@@ -42,7 +42,7 @@ describe('GroupedCharacter', () => {
     describe('the visible value', () => {
       it('is formatted with separators', () => {
         input.simulate('change', { target: { value: '123456', selectionEnd: 8 } } );
-        expect(input.nodes[0].value).toEqual('12-34-56');
+        expect(input.getElements()[0].value).toEqual('12-34-56');
       });
     });
 
@@ -59,7 +59,7 @@ describe('GroupedCharacter', () => {
 
       it('renders the value with custom separator', () => {
         input.simulate('change', { target: { value: '123456789', selectionEnd: 8 } });
-        expect(input.nodes[0].value).toEqual('12/3456/789');
+        expect(input.getElements()[0].value).toEqual('12/3456/789');
       });
     });
 
@@ -69,7 +69,7 @@ describe('GroupedCharacter', () => {
           <GroupedCharacter groups={ [2, 2, 2] } value='123456' />
         );
         input = wrapper.find('.carbon-grouped-character__input');
-        expect(input.nodes[0].value).toEqual('12-34-56');
+        expect(input.getElements()[0].value).toEqual('12-34-56');
       });
     });
   });
@@ -79,8 +79,8 @@ describe('GroupedCharacter', () => {
       it('prevents the default behaviour and returns the current value and cursor position', () => {
         input.simulate('change', { target: { value: '123456', selectionEnd: 8 } } );
         input.simulate('keydown', { which: 111 });
-        expect(input.nodes[0].value).toEqual('12-34-56');
-        expect(input.nodes[0].selectionEnd).toEqual(8);
+        expect(input.getElements()[0].value).toEqual('12-34-56');
+        expect(input.getElements()[0].selectionEnd).toEqual(8);
       });
     });
   });
@@ -89,7 +89,7 @@ describe('GroupedCharacter', () => {
     describe('when value is already max length', () => {
       it('strips the new character from the value', () => {
         input.simulate('change', { target: { value: '1234567', selectionEnd: 9 } } );
-        expect(input.nodes[0].value).toEqual('12-34-56');
+        expect(input.getElements()[0].value).toEqual('12-34-56');
       });
     });
   });
@@ -98,13 +98,13 @@ describe('GroupedCharacter', () => {
     describe('when typing a new character within a group', () => {
       it('leaves the cursor where it was last', () => {
         input.simulate('change', { target: { value: '1', selectionEnd: 1 } } );
-        expect(input.nodes[0].selectionEnd).toEqual(1);
+        expect(input.getElements()[0].selectionEnd).toEqual(1);
       });
 
       describe('when typing a character ending a group', () => {
         it('moves the cursor 1 space to the right', () => {
           input.simulate('change', { target: { value: '12345', selectionEnd: 6} } );
-          expect(input.nodes[0].selectionEnd).toEqual(7);
+          expect(input.getElements()[0].selectionEnd).toEqual(7);
         });
       });
     });
@@ -113,7 +113,7 @@ describe('GroupedCharacter', () => {
       it('leaves the cursor where it was last', () => {
         input.simulate('keydown', { which: 46 } )
         input.simulate('change', { target: { value: '12345', selectionEnd: 5 } } );
-        expect(input.nodes[0].selectionEnd).toEqual(5);
+        expect(input.getElements()[0].selectionEnd).toEqual(5);
       });
     });
 
@@ -122,7 +122,7 @@ describe('GroupedCharacter', () => {
         it('leaves the cursor where it was last', () => {
           input.simulate('keydown', { which: 8 } )
           input.simulate('change', { target: { value: '12345', selectionEnd: 7 } } );
-          expect(input.nodes[0].selectionEnd).toEqual(7);
+          expect(input.getElements()[0].selectionEnd).toEqual(7);
         });
       });
 
@@ -130,7 +130,7 @@ describe('GroupedCharacter', () => {
         it('moves the cursor one position to the left', () => {
           input.simulate('keydown', { which: 8 } )
           input.simulate('change', { target: { value: '1234', selectionEnd: 6 } } );
-          expect(input.nodes[0].selectionEnd).toEqual(5);
+          expect(input.getElements()[0].selectionEnd).toEqual(5);
         });
       });
     });

@@ -324,7 +324,7 @@ describe('Date', () => {
 
       wrapper.setState({open: true})
       const portal = wrapper.find(Portal);
-      portalContent = new ReactWrapper(portal.node._portal, wrapper);
+      portalContent = new ReactWrapper(portal.getElement()._portal, wrapper);
       cell = portalContent.find('.DayPicker-Day').first()
       instance = wrapper.instance();
     });
@@ -547,7 +547,7 @@ describe('Date', () => {
 
       it('does not close the date picker when a disabled day is clicked', () => {
         const portal = wrapper.find(Portal);
-        const portalContent = new ReactWrapper(portal.node._portal, wrapper);
+        const portalContent = new ReactWrapper(portal.getElement()._portal, wrapper);
         const cell = portalContent.find('.DayPicker-Day--disabled').first()
         cell.simulate('click', { nativeEvent: { stopImmediatePropagation: () => {} } })
         expect(wrapper.state().open).toBeTruthy();

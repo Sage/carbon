@@ -154,7 +154,7 @@ describe('ConfigurableItemRow', () => {
       const row = wrapper.find(ConfigurableItemRow);
       expect(withDrag.length).toEqual(1);
       expect(withDrag.find(Icon).props().type).toEqual('drag_vertical');
-      expect(withDrag.props().draggableNode()).toEqual(row.node._listItem)
+      expect(withDrag.props().draggableNode()).toEqual(row.instance()._listItem)
     });
   });
 
