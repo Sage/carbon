@@ -181,7 +181,7 @@ describe('Portrait', () => {
         );
         const context = { fillRect: () => {} };
         instance.applyBackground(context);
-        expect(context.fillStyle).toEqual('#4E545F');
+        expect(context.fillStyle).toEqual('#8A8E95');
       });
     });
   });
