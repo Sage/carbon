@@ -9,6 +9,7 @@ var deploy = require('./script/deploy').default;
 var setConfig = require('./script/set-config').default;
 var express = require('express');
 var gutil = require('gulp-util');
+const jestConfig = require('./jest.conf.json');
 
 var argv = yargs.argv;
 
@@ -44,10 +45,12 @@ gulp.task('build', BuildTask({
   imageDest: './' + dir + '/assets/images'
 }));
 
+var specOpts = { jestConfig };
+
 gulp.task('run-deploy', deploy);
 
 gulp.task('default', ['prepare-demo', 'webserver', 'build']);
 gulp.task('deploy', ['prepare-demo', 'build', 'run-deploy']);
 
-gulp.task('test', SpecTask());
+gulp.task('test', SpecTask(specOpts));
 gulp.task('lint', LintTask());
