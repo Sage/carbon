@@ -47,6 +47,8 @@ describe('Form', () => {
 
     describe('when stickyFooter is disabled', () => {
       it('adds the listeners', () => {
+        // TODO - 1007 - shallow seems to fail when creating Form
+        // 'offsetHeight' of undefined
         wrapper = shallow(<Form stickyFooter />);
         spyOn(wrapper.instance(), 'removeStickyFooterListeners');
         wrapper.setProps({ stickyFooter: false });
@@ -72,6 +74,8 @@ describe('Form', () => {
     });
 
     it('adds sticky footer listeners is enabled', () => {
+      // TODO - 1007 - shallow seems to fail when creating Form
+      // 'offsetHeight' of undefined
       wrapper = shallow(<Form stickyFooter />);
       spyOn(wrapper.instance(), 'addStickyFooterListeners');
       wrapper.instance().componentDidMount();
@@ -88,6 +92,8 @@ describe('Form', () => {
     });
 
     it('removes sticky footer listeners if enabled', () => {
+      // TODO - 1007 - shallow seems to fail when creating Form
+      // 'offsetHeight' of undefined
       wrapper = shallow(<Form stickyFooter />);
       spyOn(wrapper.instance(), 'removeStickyFooterListeners');
       wrapper.instance().componentWillUnmount();

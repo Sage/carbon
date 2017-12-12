@@ -502,14 +502,14 @@ describe('TableRow', () => {
 
       it('renders a dragging class', () => {
         let row = wrapper.find(TableRow);
-        row.getElement().context.dragAndDropActiveIndex = 1
-        expect(row.getElement().mainClasses).toEqual('carbon-table-row carbon-table-row--dragging');
+        row.instance().context.dragAndDropActiveIndex = 1
+        expect(row.instance().mainClasses).toEqual('carbon-table-row carbon-table-row--dragging');
       });
 
       it('renders a dragged class if the index matches', () => {
         let row = wrapper.find(TableRow);
-        row.getElement().context.dragAndDropActiveIndex = 0
-        expect(row.getElement().mainClasses).toEqual('carbon-table-row carbon-table-row--dragged carbon-table-row--dragging');
+        row.instance().context.dragAndDropActiveIndex = 0;
+        expect(row.instance().mainClasses).toEqual('carbon-table-row carbon-table-row--dragged carbon-table-row--dragging');
       });
     });
   });
