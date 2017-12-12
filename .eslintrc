@@ -1,8 +1,15 @@
 {
   "extends": "./node_modules/carbon-factory/.eslintrc",
+  "env": {
+    "browser": true
+  },
   "globals": {
     "jest": false,
     "global": false,
     "process": false
+  },
+  "plugins": ['compat'],
+  "rules": {
+    "compat/compat": "warn"
   }
 }
