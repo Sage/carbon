@@ -83,10 +83,9 @@ describe('GroupedCharacter', () => {
         input.simulate('change', { target: { value: '123456', selectionEnd: 8 } } );
         input.simulate('keydown', { which: 111 });
         input = wrapper.find('.carbon-grouped-character__input');
-        console.log(input.instance());
         expect(input.props().value).toEqual('12-34-56');
+        // TODO - 1007 - selectionEnd is not a prop. Where should it be?
         expect(input.props().selectionEnd).toEqual(8);
-        
       });
     });
   });
@@ -106,12 +105,14 @@ describe('GroupedCharacter', () => {
       it('leaves the cursor where it was last', () => {
         input.simulate('change', { target: { value: '1', selectionEnd: 1 } });
         input = wrapper.find('.carbon-grouped-character__input');
+        // TODO - 1007 - selectionEnd is not a prop. Where should it be?
         expect(input.props().selectionEnd).toEqual(1);
       });
 
       describe('when typing a character ending a group', () => {
         it('moves the cursor 1 space to the right', () => {
           input.simulate('change', { target: { value: '12345', selectionEnd: 6} } );
+          // TODO - 1007 - selectionEnd is not a prop. Where should it be?
           expect(input.props().selectionEnd).toEqual(7);
         });
       });
@@ -121,6 +122,7 @@ describe('GroupedCharacter', () => {
       it('leaves the cursor where it was last', () => {
         input.simulate('keydown', { which: 46 } )
         input.simulate('change', { target: { value: '12345', selectionEnd: 5 } } );
+        // TODO - 1007 - selectionEnd is not a prop. Where should it be?
         expect(input.props().selectionEnd).toEqual(5);
       });
     });
@@ -130,6 +132,7 @@ describe('GroupedCharacter', () => {
         it('leaves the cursor where it was last', () => {
           input.simulate('keydown', { which: 8 } )
           input.simulate('change', { target: { value: '12345', selectionEnd: 7 } } );
+          // TODO - 1007 - selectionEnd is not a prop. Where should it be?
           expect(input.props().selectionEnd).toEqual(7);
         });
       });
@@ -138,6 +141,7 @@ describe('GroupedCharacter', () => {
         it('moves the cursor one position to the left', () => {
           input.simulate('keydown', { which: 8 } )
           input.simulate('change', { target: { value: '1234', selectionEnd: 6 } } );
+          // TODO - 1007 - selectionEnd is not a prop. Where should it be?
           expect(input.props().selectionEnd).toEqual(5);
         });
       });

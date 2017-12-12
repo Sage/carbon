@@ -313,6 +313,8 @@ describe('Dialog', () => {
   describe('dialog headers', () => {
     describe('when a props title or subtitle is passed', () => {
       it('sets a dialog headers', () => {
+        // TODO - 1007 - shallow seems to fail when creating Form
+        // 'offsetHeight' of undefined
         const wrapper = shallow(
           <Dialog
             onCancel={ onCancel }
@@ -328,6 +330,8 @@ describe('Dialog', () => {
 
     describe('when a props object title is passed', () => {
       it('wraps it within a div', () => {
+        // TODO - 1007 - shallow seems to fail when creating Form
+        // 'offsetHeight' of undefined
         const wrapper = shallow(
           <Dialog
             onCancel={ onCancel }
@@ -346,6 +350,8 @@ describe('Dialog', () => {
 
     describe('when a props title is not passed', () => {
       it('defaults to null', () => {
+        // TODO - 1007 - shallow seems to fail when creating Form
+        // 'offsetHeight' of undefined
         const wrapper = shallow(
           <Dialog
             onCancel={ onCancel }
@@ -363,6 +369,8 @@ describe('Dialog', () => {
       let wrapper;
 
       beforeEach(() => {
+        // TODO - 1007 - shallow seems to fail when creating Form
+        // 'offsetHeight' of undefined
         wrapper = shallow(
           <Dialog
             open
@@ -385,10 +393,12 @@ describe('Dialog', () => {
       });
 
       it('has the correct content, tags, elements etc', () => {
+        // TODO - 1007 - Why wrapper is undefined in here
         expect(wrapper).toMatchSnapshot();
       });
 
       it('closes when the exit icon is click', () => {
+        // TODO - 1007 - Why wrapper is undefined in here
         wrapper.find('.carbon-dialog__close').simulate('click');
         expect(onCancel).toHaveBeenCalled();
       });
@@ -410,6 +420,8 @@ describe('Dialog', () => {
     let wrapper;
 
     beforeEach(() => {
+      // TODO - 1007 - shallow seems to fail when creating Form
+      // 'offsetHeight' of undefined
       wrapper = shallow(
         <Dialog
           onCancel={ () => {} }
@@ -425,6 +437,8 @@ describe('Dialog', () => {
 
     describe('when title, subtitle, and ariaRole are not set', () => {
       it('does not render a role attribute from the ariaRole prop, aria-labelledby pointing at the title element or an aria-describedby attribute pointing at the subtitle element', () => {
+        // TODO - 1007 - shallow seems to fail when creating Form
+        // 'offsetHeight' of undefined
         wrapper = shallow(
           <Dialog
             onCancel={ () => {} }
@@ -507,8 +521,9 @@ describe('Dialog', () => {
       it('returns focus to the dialog element when focus leaves the close icon', () => {
         const dialogElement = wrapper.find('[role="dialog"]').getDOMNode();
         spyOn(dialogElement, 'focus');
-
         const closeIcon = wrapper.find('[data-element="close"]');
+        // TODO - 1007 - closeIcon return two nodes
+        
         closeIcon.simulate('blur');
         expect(dialogElement.focus).toHaveBeenCalled();
       });
