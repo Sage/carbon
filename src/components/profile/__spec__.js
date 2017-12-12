@@ -83,6 +83,7 @@ describe('PortraitContainer', () => {
       it('returns the portrait component', () => {
         expect(TestUtils.isElementOfType(instance.avatar, Portrait)).toBeTruthy();
         expect(instance.avatar.props.className).toEqual("carbon-profile__avatar");
+        expect(instance.avatar.props.darkBackground).toEqual(true);
       });
     });
 
