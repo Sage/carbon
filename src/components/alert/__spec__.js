@@ -10,6 +10,7 @@ describe('Alert', () => {
   let onCancel = jasmine.createSpy('cancel');
 
   beforeEach(() => {
+    // TODO - 1007 - issue with 'open' same as Confirm component
     wrapper = shallow(
       <Alert
         open
@@ -23,6 +24,7 @@ describe('Alert', () => {
   });
 
   it('include correct component, element and role data tags', () => {
+    // TODO - 1007 - wrapper returning undefined, scope issue?
     expect(wrapper).toMatchSnapshot();
   });
 

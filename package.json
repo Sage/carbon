@@ -8,7 +8,7 @@
   },
   "scripts": {
     "test": "jest",
-    "debug": "node --inspect ./node_modules/.bin/jest --watch",
+    "debug": "node --inspect ./node_modules/.bin/jest --watch --config=./jest.conf.json",
     "release-version": "node check-version.js && npm install && npm publish",
     "prepublishOnly": "rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
   },
@@ -29,10 +29,9 @@
   },
   "devDependencies": {
     "babel-standalone": "~6.17.0",
-    "carbon-factory": "v2.2.0",
+    "carbon-factory": "v3.0.0-rc1",
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-15": "^1.0.5",
-    "enzyme-to-json": "^3.2.2",
     "express": "~4.14.0",
     "flux": "^3.1.1",
     "gulp": "~3.9.0",

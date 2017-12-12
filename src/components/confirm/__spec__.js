@@ -10,9 +10,9 @@ describe('Confirm', () => {
     onCancel = jasmine.createSpy('cancel');
     onConfirm = jasmine.createSpy('confirm');
 
+    // TODO - 1007 - 'open' is main cause of failure here - why?
     wrapper = shallow(
       <Confirm
-        open
         onCancel={ onCancel }
         onConfirm={ onConfirm }
         title="Confirm title"
@@ -25,6 +25,7 @@ describe('Confirm', () => {
 
   describe('default snapshot', () => {
     it('renders as expected', () => {
+      // TODO - 1007 - 'wrapper' undefined, scope issue?
       expect(wrapper).toMatchSnapshot();
     });
   });
@@ -32,6 +33,7 @@ describe('Confirm', () => {
   describe('confirmButtons', () => {
     describe('yes button', () => {
       it('triggers the onConfirm when the yes button is clicked', () => {
+        // TODO - 1007 - 'wrapper' undefined, scope issue?
         wrapper.find('[data-element="confirm"]').simulate('click');
         expect(onConfirm).toHaveBeenCalled();
       });
@@ -39,6 +41,7 @@ describe('Confirm', () => {
 
     describe('no button', () => {
       it('triggers the onCancel when the no button is clicked', () => {
+        // TODO - 1007 - 'wrapper' undefined, scope issue?
         wrapper.find('[data-element="cancel"]').simulate('click');
         expect(onCancel).toHaveBeenCalled();
       });
@@ -58,6 +61,7 @@ describe('Confirm', () => {
       });
 
       it('returns a custom labels', () => {
+        // TODO - 1007 - 'wrapper' undefined, scope issue?
         expect(wrapper.find('.carbon-button--primary').text()).toEqual('Delete');
         expect(wrapper.find('.carbon-button--secondary').text()).toEqual('Cancel');
       });

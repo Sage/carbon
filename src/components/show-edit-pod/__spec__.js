@@ -349,6 +349,8 @@ describe('ShowEditPod', () => {
   describe("edit form props", () => {
     it("creates a Form with the expected props when editing is set to true", () => {
       let beforeFormValidation = jasmine.createSpy(),
+          // TODO - 1007 - Shallow issue again? When building is trying to call
+          // __focusOnPod which cannot find 'pod'
           wrapper = shallow(
             <ShowEditPod
               beforeFormValidation={ beforeFormValidation }
@@ -399,6 +401,8 @@ describe('ShowEditPod', () => {
     });
 
     describe("on internal elements", () => {
+      // TODO - 1007 - Shallow issue again? When building is trying to call
+      // __focusOnPod which cannot find 'pod'
       let wrapper = shallow(
         <ShowEditPod
           editing={ true }
