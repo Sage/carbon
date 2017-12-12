@@ -60,9 +60,12 @@ class SettingsRow extends React.Component {
      * Heading description
      *
      * @property  description
-     * @type      {Node}
+     * @type      {String|Object}
      */
-    description: PropTypes.node,
+    description: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.object
+    ]),
 
     /**
      * Row divider

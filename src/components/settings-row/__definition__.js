@@ -15,7 +15,7 @@ const definition = new Definition('settings-row', SettingsRow, {
   propTypes: {
     children: 'Node',
     className: 'String',
-    description: 'Node',
+    description: 'String',
     divider: 'Boolean',
     title: 'String'
   },
@@ -27,7 +27,7 @@ const definition = new Definition('settings-row', SettingsRow, {
   propDescriptions: {
     children: 'This component supports children.',
     className: 'The CSS classes to apply to the component',
-    description: 'A short description about the group of settings.',
+    description: 'A string or JSX object that provides a short description about the group of settings.',
     divider: 'Shows a divider below the component.',
     title: 'A title for this group of settings.'
   }
