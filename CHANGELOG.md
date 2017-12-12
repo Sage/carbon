@@ -2,6 +2,7 @@
 
 ## Improvements
 
+* `Portrait` can now render an empty string for the alt attribute.
 * Improve the contrast of the text in the `Profile` component, and the `Portrait` component when `darkBackground={ true }`.
 * Changed type of prop `tooltipMessage` of `tooltip-decorator` from string to node to allow children.
 

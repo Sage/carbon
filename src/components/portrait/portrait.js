@@ -111,6 +111,7 @@ class Portrait extends React.Component {
   }
 
   static defaultProps = {
+    alt: '',
     size: 'medium',
     shape: 'standard'
   };
