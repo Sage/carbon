@@ -11,7 +11,7 @@ describe('Alert', () => {
 
   beforeEach(() => {
     // TODO - 1007 - issue with 'open' same as Confirm component
-    wrapper = shallow(
+    wrapper = mount(
       <Alert
         open
         onCancel={ onCancel }
