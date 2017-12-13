@@ -7,7 +7,7 @@ import Pod from './../pod';
 import Events from './../../utils/helpers/events'
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import ReactDOM from 'react-dom';
 
@@ -349,9 +349,7 @@ describe('ShowEditPod', () => {
   describe("edit form props", () => {
     it("creates a Form with the expected props when editing is set to true", () => {
       let beforeFormValidation = jasmine.createSpy(),
-          // TODO - 1007 - Shallow issue again? When building is trying to call
-          // __focusOnPod which cannot find 'pod'
-          wrapper = shallow(
+          wrapper = mount(
             <ShowEditPod
               beforeFormValidation={ beforeFormValidation }
               buttonAlign='left'
@@ -401,16 +399,14 @@ describe('ShowEditPod', () => {
     });
 
     describe("on internal elements", () => {
-      // TODO - 1007 - Shallow issue again? When building is trying to call
-      // __focusOnPod which cannot find 'pod'
-      let wrapper = shallow(
+      let wrapper = mount(
         <ShowEditPod
           editing={ true }
           onEdit={ ()=>{} }
         />
       );
 
-      elementsTagTest(wrapper, [
+      elementsTagTest(wrapper.findWhere(n => n.type() === 'form'), [
         'edit-form'
       ]);
     });
