@@ -38,7 +38,8 @@ describe('Form', () => {
   describe('componentWillReceiveProps', () => {
     describe('when stickyFooter is enabled', () => {
       it('adds the listeners', () => {
-        wrapper = shallow(<Form />);
+        wrapper = mount(<Form />);
+        
         spyOn(wrapper.instance(), 'addStickyFooterListeners');
         wrapper.setProps({ stickyFooter: true });
         expect(wrapper.instance().addStickyFooterListeners).toHaveBeenCalled();
@@ -49,7 +50,7 @@ describe('Form', () => {
       it('adds the listeners', () => {
         // TODO - 1007 - shallow seems to fail when creating Form
         // 'offsetHeight' of undefined
-        wrapper = shallow(<Form stickyFooter />);
+        wrapper = mount(<Form stickyFooter />);
         spyOn(wrapper.instance(), 'removeStickyFooterListeners');
         wrapper.setProps({ stickyFooter: false });
         expect(wrapper.instance().removeStickyFooterListeners).toHaveBeenCalled();
@@ -76,7 +77,7 @@ describe('Form', () => {
     it('adds sticky footer listeners is enabled', () => {
       // TODO - 1007 - shallow seems to fail when creating Form
       // 'offsetHeight' of undefined
-      wrapper = shallow(<Form stickyFooter />);
+      wrapper = mount(<Form stickyFooter />);
       spyOn(wrapper.instance(), 'addStickyFooterListeners');
       wrapper.instance().componentDidMount();
       expect(wrapper.instance().addStickyFooterListeners).toHaveBeenCalled();
@@ -94,7 +95,7 @@ describe('Form', () => {
     it('removes sticky footer listeners if enabled', () => {
       // TODO - 1007 - shallow seems to fail when creating Form
       // 'offsetHeight' of undefined
-      wrapper = shallow(<Form stickyFooter />);
+      wrapper = mount(<Form stickyFooter />);
       spyOn(wrapper.instance(), 'removeStickyFooterListeners');
       wrapper.instance().componentWillUnmount();
       expect(wrapper.instance().removeStickyFooterListeners).toHaveBeenCalled();
@@ -103,7 +104,7 @@ describe('Form', () => {
 
   describe('addStickyFooterListeners', () => {
     beforeEach(() => {
-      wrapper = shallow(<Form />);
+      wrapper = mount(<Form />);
       instance = wrapper.instance();
       instance._form = {};
       spyOn(instance, 'checkStickyFooter');
@@ -126,7 +127,7 @@ describe('Form', () => {
 
   describe('removeStickyFooterListeners', () => {
     beforeEach(() => {
-      wrapper = shallow(<Form />);
+      wrapper = mount(<Form />);
       instance = wrapper.instance();
       instance._form = {};
       spyOn(ElementResize, 'removeListener');
@@ -143,7 +144,7 @@ describe('Form', () => {
 
   describe('checkStickyFooter', () => {
     beforeEach(() => {
-      wrapper = shallow(<Form />);
+      wrapper = mount(<Form />);
     });
 
     it('sets stickyFooter state to true if form is bigger than window', () => {
