@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 import ActionToolbar from './../action-toolbar';
 import Link from './../link';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Table', () => {
@@ -685,7 +685,7 @@ describe('Table', () => {
     let onConfigureSpy = jasmine.createSpy();
     let wrapper;
     beforeEach(() => {
-      wrapper = shallow(
+      wrapper = mount(
         <Table
           className="foo"
           onConfigure={ onConfigureSpy }
@@ -955,7 +955,7 @@ describe('Table', () => {
     });
 
     it('renders a caption tag when a caption prop is given', () => {
-      const wrapper = shallow(
+      const wrapper = mount(
         <Table caption="Acme widgets" />
       );
 
@@ -965,13 +965,15 @@ describe('Table', () => {
     });
 
     it('does not render a caption tag when no caption prop is given', () => {
-      const wrapper = shallow(<Table />);
+      const wrapper = mount(<Table />);
       expect(wrapper.find('caption').exists()).toBe(false);
     });
 
     it('renders an action toolbar if actions are passed', () => {
       let func = () => {};
-      let toolbarWrapper = shallow(
+      // TODO - 1007 - can't just change this to mount
+      // When changed to mount the component generate this error. 'A TableRow which is selectable or highlightable should provide a uniqueID.'
+      let toolbarWrapper = mount(
         <Table className="foo" actions={ {foo: 'bar'} } selectable={ true } actionToolbarChildren={ func }>
           { row }
         </Table>
@@ -984,7 +986,7 @@ describe('Table', () => {
 
     describe('when aria-describedby is in the table props', () => {
       it('renders an aria-describedby attribute on the table element', () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <Table aria-describedby='description' />
         );
 
@@ -996,7 +998,7 @@ describe('Table', () => {
 
     describe('when aria-describedby is not in the table props', () => {
       it('does not render an aria-describedby attribute on the table element', () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <Table />
         );
 
@@ -1008,7 +1010,7 @@ describe('Table', () => {
   });
 
   describe("tags on component", () => {
-    let wrapper = shallow(
+    let wrapper = mount(
       <Table
         data-element='bar'
         data-role='baz'
@@ -1019,20 +1021,21 @@ describe('Table', () => {
     );
 
     it('include correct component, element and role data tags', () => {
+      // TODO - 1007 - this function is checking for a 'data-component' prop which does not exist here.
       rootTagTest(wrapper, 'table', 'bar', 'baz');
     });
   });
 
   describe("theme", () => {
     it("renders a --secondary if the theme is set to 'secondary'", () => {
-      const wrapper = shallow(
+      const wrapper = mount(
         <Table theme='secondary' />
       );
       expect(wrapper.find('.carbon-table--secondary').exists()).toBeTruthy();
     });
 
     it("renders a --primary if the theme is missing (default)", () => {
-      const wrapper = shallow(
+      const wrapper = mount(
         <Table />
       );
       expect(wrapper.find('.carbon-table--primary').exists()).toBeTruthy();
