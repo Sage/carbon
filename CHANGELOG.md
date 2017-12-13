@@ -1,5 +1,9 @@
 # 2.5.0
 
+## Bug Fixes
+
+* `Rainbow` - fixes a bug in which the component was unresponsive to mouse events.
+
 ## Improvements
 
 * `Portrait` can now render an empty string for the alt attribute.
@@ -8,12 +12,6 @@
 ## Fixes
 
 * Set the `Component.displayName` on all decorators. **NB** You may need to update your snapshots as a result of this to change the component name to something more accurate
-
-# 2.4.1
-
-## Bug Fixes
-
-* `Rainbow` - fixes a bug in which the component was unresponsive to mouse events.
 
 # 2.4.0
 
