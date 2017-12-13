@@ -315,7 +315,8 @@ describe('Dialog', () => {
       it('sets a dialog headers', () => {
         // TODO - 1007 - shallow seems to fail when creating Form
         // 'offsetHeight' of undefined
-        const wrapper = shallow(
+        // FIXED
+        const wrapper = mount(
           <Dialog
             onCancel={ onCancel }
             open
@@ -332,7 +333,7 @@ describe('Dialog', () => {
       it('wraps it within a div', () => {
         // TODO - 1007 - shallow seems to fail when creating Form
         // 'offsetHeight' of undefined
-        const wrapper = shallow(
+        const wrapper = mount(
           <Dialog
             onCancel={ onCancel }
             open
@@ -352,7 +353,8 @@ describe('Dialog', () => {
       it('defaults to null', () => {
         // TODO - 1007 - shallow seems to fail when creating Form
         // 'offsetHeight' of undefined
-        const wrapper = shallow(
+        // FIXED
+        const wrapper = mount(
           <Dialog
             onCancel={ onCancel }
             showCloseIcon={ false }
@@ -371,7 +373,7 @@ describe('Dialog', () => {
       beforeEach(() => {
         // TODO - 1007 - shallow seems to fail when creating Form
         // 'offsetHeight' of undefined
-        wrapper = shallow(
+        wrapper = mount(
           <Dialog
             open
             title='Test'
@@ -399,7 +401,9 @@ describe('Dialog', () => {
 
       it('closes when the exit icon is click', () => {
         // TODO - 1007 - Why wrapper is undefined in here
+        console.log('John ', wrapper.html());
         wrapper.find('.carbon-dialog__close').simulate('click');
+
         expect(onCancel).toHaveBeenCalled();
       });
     });
@@ -523,7 +527,7 @@ describe('Dialog', () => {
         spyOn(dialogElement, 'focus');
         const closeIcon = wrapper.find('[data-element="close"]');
         // TODO - 1007 - closeIcon return two nodes
-        
+
         closeIcon.simulate('blur');
         expect(dialogElement.focus).toHaveBeenCalled();
       });
