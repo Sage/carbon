@@ -247,7 +247,9 @@ describe('TableAjax', () => {
       const pager = wrapper.find(Pager);
       // TODO - 1007 - found out why totalRecords value should be '1'
       // console.log(pager.props());
+
       expect(pager.props().totalRecords).toEqual('1');
+
       const table = wrapper.find('.carbon-table')
       expect(table.length).toEqual(1);
       expect(wrapper.find('[data-state="loaded"]').length).toEqual(1);
@@ -384,9 +386,8 @@ describe('TableAjax', () => {
         );
         jest.runTimersToTime(251);
         expect(onError).toBeCalledWith(error, response);
-        // TODO - 1007 - why would we use find to get the data-list
-        // console.log('find using data-state', wrapper.find('[data-state="errored"]').exists());
-        expect(wrapper.find('[data-state="errored"]').length).toEqual(1);
+
+        expect(wrapper.instance().dataState()).toEqual('errored');
         const table = wrapper.find('.carbon-table');
         expect(table.prop('aria-busy')).toBeFalsy();
       });
@@ -402,9 +403,8 @@ describe('TableAjax', () => {
         jest.runTimersToTime(251);
 
         expect(console.warn).toBeCalled();
-        // TODO - 1007 - why would we use find to get the data-list
-        // console.log('find using data-state', wrapper.find('[data-state="errored"]').exists());
-        expect(wrapper.find('[data-state="errored"]').length).toEqual(1);
+
+        expect(wrapper.instance().dataState()).toEqual('errored');
         const table = wrapper.find('.carbon-table');
         expect(table.prop('aria-busy')).toBeFalsy();
       });
@@ -422,8 +422,8 @@ describe('TableAjax', () => {
 
   describe("tags on component", () => {
     // TODO - 1007 - shallow seems to fail when creating Table
-    // 'offsetHeight' of undefined
-    let wrapper = shallow(
+    // data-component doesnt exist as prop on mount
+    let wrapper = mount(
       <TableAjax
         data-element='bar'
         data-role='baz'

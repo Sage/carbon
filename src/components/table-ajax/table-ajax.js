@@ -344,6 +344,7 @@ class TableAjax extends Table {
    */
   handleResponse = (err, response) => {
     if (!err) {
+
       const data = response.body;
       this.props.onChange(data);
       this.setState({ totalRecords: String(data.records), dataState: 'loaded', ariaBusy: false });
