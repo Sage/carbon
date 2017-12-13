@@ -84,8 +84,7 @@ describe('GroupedCharacter', () => {
         input.simulate('keydown', { which: 111 });
         input = wrapper.find('.carbon-grouped-character__input');
         expect(input.props().value).toEqual('12-34-56');
-        // TODO - 1007 - selectionEnd is not a prop. Where should it be?
-        expect(input.props().selectionEnd).toEqual(8);
+        expect(input.instance().selectionEnd).toEqual(8);
       });
     });
   });
@@ -95,7 +94,7 @@ describe('GroupedCharacter', () => {
       it('strips the new character from the value', () => {
         input.simulate('change', { target: { value: '1234567', selectionEnd: 9 } } );
         input = wrapper.find('.carbon-grouped-character__input');
-        expect(input.props().value).toEqual('12-34-56');
+        expect(input.instance().value).toEqual('12-34-56');
       });
     });
   });
@@ -105,15 +104,13 @@ describe('GroupedCharacter', () => {
       it('leaves the cursor where it was last', () => {
         input.simulate('change', { target: { value: '1', selectionEnd: 1 } });
         input = wrapper.find('.carbon-grouped-character__input');
-        // TODO - 1007 - selectionEnd is not a prop. Where should it be?
-        expect(input.props().selectionEnd).toEqual(1);
+        expect(input.instance().selectionEnd).toEqual(1);
       });
 
       describe('when typing a character ending a group', () => {
         it('moves the cursor 1 space to the right', () => {
-          input.simulate('change', { target: { value: '12345', selectionEnd: 6} } );
-          // TODO - 1007 - selectionEnd is not a prop. Where should it be?
-          expect(input.props().selectionEnd).toEqual(7);
+          input.simulate('change', { target: { value: '12345', selectionEnd: 6 } } );
+          expect(input.instance().selectionEnd).toEqual(7);
         });
       });
     });
@@ -122,8 +119,7 @@ describe('GroupedCharacter', () => {
       it('leaves the cursor where it was last', () => {
         input.simulate('keydown', { which: 46 } )
         input.simulate('change', { target: { value: '12345', selectionEnd: 5 } } );
-        // TODO - 1007 - selectionEnd is not a prop. Where should it be?
-        expect(input.props().selectionEnd).toEqual(5);
+        expect(input.instance().selectionEnd).toEqual(5);
       });
     });
 
@@ -132,8 +128,7 @@ describe('GroupedCharacter', () => {
         it('leaves the cursor where it was last', () => {
           input.simulate('keydown', { which: 8 } )
           input.simulate('change', { target: { value: '12345', selectionEnd: 7 } } );
-          // TODO - 1007 - selectionEnd is not a prop. Where should it be?
-          expect(input.props().selectionEnd).toEqual(7);
+          expect(input.instance().selectionEnd).toEqual(7);
         });
       });
 
@@ -141,8 +136,7 @@ describe('GroupedCharacter', () => {
         it('moves the cursor one position to the left', () => {
           input.simulate('keydown', { which: 8 } )
           input.simulate('change', { target: { value: '1234', selectionEnd: 6 } } );
-          // TODO - 1007 - selectionEnd is not a prop. Where should it be?
-          expect(input.props().selectionEnd).toEqual(5);
+          expect(input.instance().selectionEnd).toEqual(5);
         });
       });
     });
