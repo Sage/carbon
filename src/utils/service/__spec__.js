@@ -318,9 +318,9 @@ describe('Service', () => {
 
     describe('with a transformRequest', () => {
       it('transforms the data', (done) => {
-        service.setTransformRequest((request) => {
-          request.data = JSON.stringify({ bar: 'custom' });
-          return request;
+        service.setTransformRequest((data) => {
+          const d = { bar: 'custom' };
+          return JSON.stringify(d);
         });
         service.post({ foo: 'posted' }, () => {}, () => {});
 

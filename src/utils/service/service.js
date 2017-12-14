@@ -120,7 +120,10 @@ class Service {
    * @return {Void}
    */
   setTransformRequest(func) {
-    this.client.interceptors.request.use(func);
+    this.client.interceptors.request.use((request) => {
+      request.data = func(request.data);
+      return request;
+    });
   }
 
   /**
