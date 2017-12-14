@@ -1019,8 +1019,6 @@ describe('Table', () => {
     );
 
     it('include correct component, element and role data tags', () => {
-      // TODO - 1007 - this function is checking for a 'data-component' prop which does not exist here.
-    // data-component doesnt exist as prop on mount
       rootTagTest(wrapper, 'table', 'bar', 'baz');
     });
   });
