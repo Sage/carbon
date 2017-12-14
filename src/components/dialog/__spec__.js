@@ -313,7 +313,7 @@ describe('Dialog', () => {
   describe('dialog headers', () => {
     describe('when a props title or subtitle is passed', () => {
       it('sets a dialog headers', () => {
-        const wrapper = mount(
+        const wrapper = shallow(
           <Dialog
             onCancel={ onCancel }
             open
@@ -328,7 +328,7 @@ describe('Dialog', () => {
 
     describe('when a props object title is passed', () => {
       it('wraps it within a div', () => {
-        const wrapper = mount(
+        const wrapper = shallow(
           <Dialog
             onCancel={ onCancel }
             open
@@ -346,7 +346,7 @@ describe('Dialog', () => {
 
     describe('when a props title is not passed', () => {
       it('defaults to null', () => {
-        const wrapper = mount(
+        const wrapper = shallow(
           <Dialog
             onCancel={ onCancel }
             showCloseIcon={ false }
@@ -363,7 +363,7 @@ describe('Dialog', () => {
       let wrapper;
 
       beforeEach(() => {
-        wrapper = mount(
+        wrapper = shallow(
           <Dialog
             open
             title='Test'
@@ -385,12 +385,12 @@ describe('Dialog', () => {
       });
 
       it('has the correct content, tags, elements etc', () => {
+        debugger
         expect(wrapper).toMatchSnapshot();
       });
 
       it('closes when the exit icon is click', () => {
-        wrapper.find('.carbon-dialog__close').findWhere(n => n.type() === 'span').simulate('click');
-
+        wrapper.find('.carbon-dialog__close').simulate('click');
         expect(onCancel).toHaveBeenCalled();
       });
     });
@@ -411,7 +411,7 @@ describe('Dialog', () => {
     let wrapper;
 
     beforeEach(() => {
-      wrapper = mount(
+      wrapper = shallow(
         <Dialog
           onCancel={ () => {} }
           onConfirm={ () => {} }
