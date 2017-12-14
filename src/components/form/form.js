@@ -363,6 +363,8 @@ class Form extends React.Component {
   }
 
   checkStickyFooter = () => {
+    if (!this._form) { return; }
+    
     let offsetTop = 0,
         element = this._form;
 
