@@ -96,7 +96,7 @@ describe('Rainbow', () => {
       <Rainbow
         data-element='bar'
         data-role='baz'
-        data={ {} }/>
+        data={ Immutable.fromJS({}) }/>
       );
 
     it('include correct component, element and role data tags', () => {
