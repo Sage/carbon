@@ -10,9 +10,9 @@ describe('Confirm', () => {
     onCancel = jasmine.createSpy('cancel');
     onConfirm = jasmine.createSpy('confirm');
 
-    wrapper = mount(
+    wrapper = shallow(
       <Confirm
-        open
+        open={ false }
         onCancel={ onCancel }
         onConfirm={ onConfirm }
         title="Confirm title"
@@ -30,6 +30,25 @@ describe('Confirm', () => {
   });
 
   describe('confirmButtons', () => {
+    let wrapper;
+
+    beforeEach(() => {
+      onCancel = jasmine.createSpy('cancel');
+      onConfirm = jasmine.createSpy('confirm');
+
+      wrapper = mount(
+        <Confirm
+          open
+          onCancel={ onCancel }
+          onConfirm={ onConfirm }
+          title="Confirm title"
+          subtitle='Confirm Subtitle'
+          data-element='bar'
+          data-role='baz'
+        />
+      );
+    });
+
     describe('yes button', () => {
       it('triggers the onConfirm when the yes button is clicked', () => {
         wrapper.find('[data-element="confirm"]').findWhere(n => n.type() === 'button').simulate('click');

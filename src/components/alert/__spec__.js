@@ -10,9 +10,9 @@ describe('Alert', () => {
   let onCancel = jasmine.createSpy('cancel');
 
   beforeEach(() => {
-    wrapper = mount(
+    wrapper = shallow(
       <Alert
-        open
+        open={ false }
         onCancel={ onCancel }
         title='Alert title'
         subtitle='Alert Subtitle'
