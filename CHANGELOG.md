@@ -1,3 +1,9 @@
+# 2.5.1
+
+## Fixes
+
+Resolves missing `assets` file from v2.5.0.
+
 # 2.5.0
 
 ## Improvements
