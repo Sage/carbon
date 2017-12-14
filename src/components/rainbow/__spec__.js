@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Rainbow from './rainbow';
-import { fromJS } from 'immutable';
+import Immutable from 'immutable';
 import { shallow, mount } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
@@ -28,7 +28,7 @@ describe('Rainbow', () => {
   };
 
   beforeEach(() => {
-    data = fromJS([
+    data = Immutable.fromJS([
       {
         y: 30,
         name: 'First Bit',
@@ -62,7 +62,7 @@ describe('Rainbow', () => {
 
     describe('when data changes', () => {
       it("calls setData", () => {
-        const newData = fromJS({ foo: "bar" });
+        const newData = Immutable.fromJS({ foo: "bar" });
         wrapper.setProps({ title: wrapper.props().title, data: newData });
         expect(chart.series[0].setData).toHaveBeenCalledWith(newData.toJS());
       });
@@ -96,7 +96,7 @@ describe('Rainbow', () => {
       <Rainbow
         data-element='bar'
         data-role='baz'
-        data={ fromJS({}) }/>
+        data={ {} }/>
       );
 
     it('include correct component, element and role data tags', () => {
