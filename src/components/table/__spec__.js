@@ -955,7 +955,7 @@ describe('Table', () => {
     });
 
     it('renders a caption tag when a caption prop is given', () => {
-      const wrapper = mount(
+      const wrapper = shallow(
         <Table caption="Acme widgets" />
       );
 
@@ -965,15 +965,13 @@ describe('Table', () => {
     });
 
     it('does not render a caption tag when no caption prop is given', () => {
-      const wrapper = mount(<Table />);
+      const wrapper = shallow(<Table />);
       expect(wrapper.find('caption').exists()).toBe(false);
     });
 
     it('renders an action toolbar if actions are passed', () => {
       let func = () => {};
-      // TODO - 1007 - can't just change this to mount
-      // When changed to mount the component generate this error. 'A TableRow which is selectable or highlightable should provide a uniqueID.'
-      let toolbarWrapper = mount(
+      let toolbarWrapper = shallow(
         <Table className="foo" actions={ {foo: 'bar'} } selectable={ true } actionToolbarChildren={ func }>
           { row }
         </Table>
@@ -986,7 +984,7 @@ describe('Table', () => {
 
     describe('when aria-describedby is in the table props', () => {
       it('renders an aria-describedby attribute on the table element', () => {
-        const wrapper = mount(
+        const wrapper = shallow(
           <Table aria-describedby='description' />
         );
 
@@ -998,7 +996,7 @@ describe('Table', () => {
 
     describe('when aria-describedby is not in the table props', () => {
       it('does not render an aria-describedby attribute on the table element', () => {
-        const wrapper = mount(
+        const wrapper = shallow(
           <Table />
         );
 
@@ -1010,7 +1008,7 @@ describe('Table', () => {
   });
 
   describe("tags on component", () => {
-    let wrapper = mount(
+    let wrapper = shallow(
       <Table
         data-element='bar'
         data-role='baz'
@@ -1029,14 +1027,14 @@ describe('Table', () => {
 
   describe("theme", () => {
     it("renders a --secondary if the theme is set to 'secondary'", () => {
-      const wrapper = mount(
+      const wrapper = shallow(
         <Table theme='secondary' />
       );
       expect(wrapper.find('.carbon-table--secondary').exists()).toBeTruthy();
     });
 
     it("renders a --primary if the theme is missing (default)", () => {
-      const wrapper = mount(
+      const wrapper = shallow(
         <Table />
       );
       expect(wrapper.find('.carbon-table--primary').exists()).toBeTruthy();
