@@ -1213,14 +1213,12 @@ describe('InputValidation', () => {
 
       it('returns an info icon', () => {
         expect(instance.validationHTML[0].props.type).toEqual('info');
-        // TODO - 1007 - find not returning element though it is printed in the html()
-        expect(wrapper.find('.common-input__icon.common-input__icon--info').exists()).toBeTruthy();
+        expect(instance.validationHTML[0].props.className).toEqual('common-input__icon common-input__icon--info');
       });
 
       it('returns a div for the info message', () => {
-        // TODO - 1007 - find not returning element though it is printed in the html()
-        expect(wrapper.find('.common-input__message-wrapper').exists()).toEqual(true);
-        expect(wrapper.find('.common-input__message.common-input__message--info').exists()).toBeTruthy();
+        expect(instance.validationHTML[1].props.className).toEqual('common-input__message-wrapper');
+        expect(instance.validationHTML[0].props.className).toEqual('common-input__icon common-input__icon--info');
         expect(instance.validationHTML[1].props.children.props.children).toEqual('foo');
       });
 
