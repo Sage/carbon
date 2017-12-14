@@ -33,8 +33,7 @@ describe('CustomDragLayer', () => {
       expect(container.length).toEqual(1);
       const style = container.props().style;
       expect(style.WebkitTransform).toEqual('translate(1px, 2px)');
-      // TODO - 1007 : expect(style.width).toEqual(10); < What is actually being received, without 'px'
-      expect(style.width).toEqual('10px');
+      expect(style.width).toEqual(10);
     })
   });
 
@@ -161,7 +160,7 @@ describe('CustomDragLayer', () => {
       const style = container.props().style;
       expect(style.WebkitTransform).toEqual('translate(1px, 2px)');
       // TODO - 1007 : Receiving undefined, not blank string
-      expect(style.width).toEqual('');
+      expect(style.width).toBeUndefined();
     });
   });
 
