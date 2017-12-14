@@ -1,8 +1,14 @@
-# 2.5.1
+# 2.5.2
 
 ## Bug Fixes
 
 * Adding a transform to an instance of a service class was applying the transform to all other instances. This change ensures the transform is only applied to the specific instance.
+
+# 2.5.1
+
+## Fixes
+
+Resolves missing `assets` file from v2.5.0.
 
 # 2.5.0
 
