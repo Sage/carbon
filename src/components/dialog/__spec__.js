@@ -385,7 +385,6 @@ describe('Dialog', () => {
       });
 
       it('has the correct content, tags, elements etc', () => {
-        debugger
         expect(wrapper).toMatchSnapshot();
       });
 
