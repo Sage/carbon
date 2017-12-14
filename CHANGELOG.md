@@ -1,3 +1,17 @@
+# 2.5.0
+
+## Improvements
+
+* `Portrait` can now render an empty string for the alt attribute.
+* Improve the contrast of the text in the `Profile` component, and the `Portrait` component when `darkBackground={ true }`.
+* Changed type of prop `tooltipMessage` of `tooltip-decorator` from string to node to allow children.
+
+## Fixes
+
+* Set the `Component.displayName` on all decorators. **NB** You may need to update your snapshots as a result of this to change the component name to something more accurate
+* Handles an empty body (such as that with a 204) more robustly ([#1631](https://github.com/Sage/carbon/issues/1631))
+* `Rainbow` - fixes a bug in which the component was unresponsive to mouse events.
+
 # 2.4.0
 
 ## Improvements

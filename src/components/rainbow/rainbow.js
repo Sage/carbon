@@ -232,8 +232,8 @@ function generateConfig(immutableData, title) {
         },
         point: {
           events: {
-            mouseOver: () => { this.graphic.zIndexSetter(1); },
-            mouseOut: () => { this.graphic.zIndexSetter(0); }
+            mouseOver: (ev) => { ev.target.graphic.zIndexSetter(1); },
+            mouseOut: (ev) => { ev.target.graphic.zIndexSetter(0); }
           }
         },
         states: {

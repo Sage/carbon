@@ -390,4 +390,35 @@ describe('Input', () => {
       expect(input.props.onMouseOver).toEqual(instance.inputProps.onMouseOver);
     });
   });
+
+  describe('displayName', () => {
+    class Foo extends React.Component { // eslint-disable-line react/no-multi-comp
+      bar = () => {
+        return 'bar';
+      }
+    }
+
+    const displayName = 'FooClass';
+
+    describe('when ComposedComponent.displayName is defined', () => {
+      beforeEach(() => {
+        Foo.displayName = displayName;
+      });
+      afterEach(() => {
+        Foo.displayName = undefined;
+      });
+
+      it('sets Component.displayName to ComposedComponent.displayName', () => {
+        const DecoratedComponent = Input(Foo);
+        expect(DecoratedComponent.displayName).toBe(displayName);
+      });
+    });
+
+    describe('when ComposedComponent.displayName is undefined', () => {
+      it('sets Component.displayName to ComposedComponent.name', () => {
+        const DecoratedComponent = Input(Foo);
+        expect(DecoratedComponent.displayName).toBe('Foo');
+      });
+    });
+  });
 });
