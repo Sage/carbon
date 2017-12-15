@@ -12,7 +12,7 @@ describe('Alert', () => {
   beforeEach(() => {
     wrapper = shallow(
       <Alert
-        open={ false }
+        open
         onCancel={ onCancel }
         title='Alert title'
         subtitle='Alert Subtitle'
