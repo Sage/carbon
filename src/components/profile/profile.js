@@ -88,7 +88,6 @@ class Profile extends React.Component {
   get avatar() {
     return (
       <Portrait
-        darkBackground
         initials={ this.initials }
         gravatar={ this.props.email }
         className='carbon-profile__avatar'

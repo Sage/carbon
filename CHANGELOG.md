@@ -1,3 +1,9 @@
+# 2.5.3
+
+## Bug Fixes
+
+* Revert the `Profile` component changes: `darkBackground` is false by default, and the name and email render using the inherited `body` text colour.
+
 # 2.5.2
 
 ## Bug Fixes
