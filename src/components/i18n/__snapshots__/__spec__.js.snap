@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`I18n render with markdown when component is rendered as a block renders the parsed markdown in a div 1`] = `
+<div
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": "<p>something <strong>bold</strong></p>
+    ",
+    }
+  }
+  data-component="i18n"
+/>
+`;
+
+exports[`I18n render with markdown when component is rendered inline renders the parsed markdown in a span 1`] = `
+<span
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": "something <strong>bold</strong>",
+    }
+  }
+  data-component="i18n"
+/>
+`;
+
+exports[`I18n render with markdown when component is rendered with html in the value parses the html correctly 1`] = `
+<span
+  dangerouslySetInnerHTML={
+    Object {
+      "__html": "some &lt;span&gt;html&lt;/span&gt;",
+    }
+  }
+  data-component="i18n"
+/>
+`;
+
+exports[`I18n render without markdown when component is rendered with inline set to false renders the value of the scope in a div 1`] = `
+<div
+  data-component="i18n"
+>
+  bar
+</div>
+`;
+
+exports[`I18n render without markdown when component is rendered with only a scope renders the value of that scope in a span 1`] = `
+<span
+  data-component="i18n"
+>
+  bar
+</span>
+`;
