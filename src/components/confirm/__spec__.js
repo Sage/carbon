@@ -12,7 +12,7 @@ describe('Confirm', () => {
 
     wrapper = shallow(
       <Confirm
-        open={ false }
+        open
         onCancel={ onCancel }
         onConfirm={ onConfirm }
         title="Confirm title"
