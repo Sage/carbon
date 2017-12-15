@@ -7,10 +7,11 @@
     "npm": "^5.0.0"
   },
   "scripts": {
+    "set-config": "node -e \"require('./script/set-config').default()\"",
     "test": "jest",
     "debug": "node --inspect ./node_modules/.bin/jest --watch",
     "release-version": "node check-version.js && npm install && npm publish",
-    "prepublishOnly": "rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
+    "prepublishOnly": "npm run set-config && rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
   },
   "repository": {
     "type": "git",
