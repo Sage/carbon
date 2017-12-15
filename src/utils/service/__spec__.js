@@ -333,11 +333,9 @@ describe('Service', () => {
     });
 
     describe('with a transformResponse', () => {
-      it('transforms the data', () => {
-        service.setTransformResponse((data) => {
-          const d = assign({}, data, { bar: 'custom' });
-          return JSON.stringify(d);
-        });
+      it('transforms the data', (done) => {
+        const transformSpy = jest.fn();
+        service.setTransformResponse(transformSpy);
         service.get(1, () => {}, () => {});
 
         moxios.wait(() => {
@@ -347,9 +345,11 @@ describe('Service', () => {
             status: 200,
             response: JSON.stringify({ foo: 'responded' })
           }).then((response) => {
-            expect(response.data).toEqual(
-              JSON.stringify({ foo: 'responded', bar: 'custom' })
-            );
+            // ideally we would test the response data to see it has changed it
+            // as expected - however moxios does not seem to feed the transformed
+            // data through to the mocked response
+            expect(transformSpy).toHaveBeenCalledWith({ foo: 'responded' });
+            done();
           });
         });
       });
