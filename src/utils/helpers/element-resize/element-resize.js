@@ -20,7 +20,7 @@ const ElementResize = {
    * @param {Function} fn - the callback
    */
   addListener: (element, callback) => {
-    if (! element) { return };
+    if (!element) { return; }
     // if there is no resize listener on this element yet, create an object to apply the listener to
     if (!element.__resizeTrigger__) {
       element.__resizeListenerCallbacks__ = [];

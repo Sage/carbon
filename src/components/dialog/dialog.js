@@ -234,7 +234,7 @@ class Dialog extends Modal {
   }
 
   focusDialog() {
-     if (!this._dialog) { return; }
+    if (!this._dialog) { return; }
     this._dialog.focus();
   }
 
