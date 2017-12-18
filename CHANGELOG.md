@@ -1,14 +1,35 @@
+# 2.5.3
+
+## Bug Fixes
+
+* Fix incorrect documentation for the `SettingsRow` component.
+
+# 2.5.2
+
+## Bug Fixes
+
+* Adding a transform to an instance of a service class was applying the transform to all other instances. This change ensures the transform is only applied to the specific instance.
+* Remove space from clearfix psuedoclasses that was creating a space character that was pushing layouts out of line
+
+# 2.5.1
+
+## Fixes
+
+Resolves missing `assets` file from v2.5.0.
+
 # 2.5.0
 
 ## Improvements
 
 * `Portrait` can now render an empty string for the alt attribute.
+* Improve the contrast of the text in the `Profile` component, and the `Portrait` component when `darkBackground={ true }`.
 * Changed type of prop `tooltipMessage` of `tooltip-decorator` from string to node to allow children.
 
 ## Fixes
 
 * Set the `Component.displayName` on all decorators. **NB** You may need to update your snapshots as a result of this to change the component name to something more accurate
-* Fix incorrect documentation for the `SettingsRow` component.
+* Handles an empty body (such as that with a 204) more robustly ([#1631](https://github.com/Sage/carbon/issues/1631))
+* `Rainbow` - fixes a bug in which the component was unresponsive to mouse events.
 
 # 2.4.0
 
