@@ -71,22 +71,16 @@ class Service {
    * @return {Object} the response data
    */
   handleSuccess(response) {
-    if (!response.data.message) {
-      return response.data;
-    }
-
-    if (response.data.status === 'error') {
-      // respond with an error if the server responds with an error status
+    if (response.data && response.data.status === 'error') {
       if (this.shouldTriggerCallback(config.onError)) {
-        config.onError(response.data.message);
+        config.onError(response.data);
       }
 
       return Promise.reject(response);
     }
 
-    // in other cases, default to 'success'
     if (this.shouldTriggerCallback(config.onSuccess)) {
-      config.onSuccess(response.data.message);
+      config.onSuccess(response.data);
     }
 
     return response.data;
@@ -126,7 +120,10 @@ class Service {
    * @return {Void}
    */
   setTransformRequest(func) {
-    this.client.defaults.transformRequest[1] = func;
+    this.client.interceptors.request.use((request) => {
+      request.data = func(request.data);
+      return request;
+    });
   }
 
   /**
@@ -137,7 +134,7 @@ class Service {
    * @return {Void}
    */
   setTransformResponse(func) {
-    this.client.defaults.transformResponse[1] = func;
+    this.client.interceptors.response.use(func);
   }
 
   /**
@@ -255,6 +252,7 @@ class Service {
    * @return {Void}
    */
   responseTransform(response) {
+    if (!response) { return undefined; }
     return JSON.parse(response);
   }
 
