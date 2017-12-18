@@ -323,8 +323,9 @@ describe('Date', () => {
       wrapper.instance().getInputBoundingRect = jest.fn( () => ({left: 5, bottom: 10}) );
 
       wrapper.setState({open: true})
+      wrapper.update();
       const portal = wrapper.find(Portal);
-      portalContent = new ReactWrapper(portal.getElement()._portal, wrapper);
+      portalContent = new ReactWrapper(portal.props().children);
       cell = portalContent.find('.DayPicker-Day').first()
       instance = wrapper.instance();
     });
@@ -538,6 +539,7 @@ describe('Date', () => {
         );
         instance = wrapper.instance();
         wrapper.setState({ open: true });
+        wrapper.update();
         date = instance.datepicker;
       });
 
@@ -547,8 +549,8 @@ describe('Date', () => {
 
       it('does not close the date picker when a disabled day is clicked', () => {
         const portal = wrapper.find(Portal);
-        const portalContent = new ReactWrapper(portal.getElement()._portal, wrapper);
-        const cell = portalContent.find('.DayPicker-Day--disabled').first()
+        const portalContent = new ReactWrapper(portal.props().children);
+        const cell = portalContent.find('.DayPicker-Day--disabled').first();
         cell.simulate('click', { nativeEvent: { stopImmediatePropagation: () => {} } })
         expect(wrapper.state().open).toBeTruthy();
       });
