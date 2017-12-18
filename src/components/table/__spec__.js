@@ -36,7 +36,7 @@ describe('Table', () => {
         totalRecords='100'
         onChange={ spy }
       >
-        foo
+        <TableRow />
       </Table>
     );
 
@@ -652,7 +652,7 @@ describe('Table', () => {
             totalRecords='100'
             onChange={ spy }
           >
-            foo
+            <TableRow />
           </Table>
         );
       });
@@ -690,7 +690,7 @@ describe('Table', () => {
           className="foo"
           onConfigure={ onConfigureSpy }
         >
-          foo
+          <TableRow />
         </Table>
       )
     });

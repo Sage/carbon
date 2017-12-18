@@ -27,10 +27,10 @@ exports[`Row columns when a null column is passed ignores the null child 1`] = `
   className="carbon-row carbon-row--gutter-medium carbon-row--columns-2"
 >
   <Column
-    key=".0"
+    key=".$0"
   />
   <Column
-    key=".1"
+    key=".$1"
   />
 </div>
 `;

@@ -13,7 +13,7 @@ describe('ConfigurableItemRow', () => {
 
   describe('classNames', () => {
     beforeEach(() => {
-      wrapper = shallow(<ConfigurableItemRow className='my-custom-class-name' />);
+      wrapper = shallow(<ConfigurableItemRow className='my-custom-class-name' rowIndex={ 1 } />);
       wrapper.instance().context = { dragAndDropActiveIndex: 1 }
     })
 
@@ -44,7 +44,7 @@ describe('ConfigurableItemRow', () => {
     describe("on component", () => {
       beforeEach(() => {
         wrapper = shallow(
-          <ConfigurableItemRow data-element='bar' data-role='baz' />
+          <ConfigurableItemRow data-element='bar' data-role='baz' rowIndex={ 1 } />
         );
       });
       it('includes the correct component, element and role data tags', () => {
@@ -56,7 +56,7 @@ describe('ConfigurableItemRow', () => {
   describe('onChange', () => {
     beforeEach(() => {
       wrapper = shallow(
-        <ConfigurableItemRow onChange={onChange} />
+        <ConfigurableItemRow onChange={onChange} rowIndex={ 1 } />
       );
     });
     it('passes the onChange prop through to the Checkbox onChange prop', () => {
@@ -68,7 +68,7 @@ describe('ConfigurableItemRow', () => {
     describe('when the row is enabled', () => {
       beforeEach(() => {
         wrapper = shallow(
-          <ConfigurableItemRow enabled={true} />
+          <ConfigurableItemRow enabled={true} rowIndex={ 1 } />
         );
       });
 
@@ -80,7 +80,7 @@ describe('ConfigurableItemRow', () => {
     describe('when the row is not enabled', () => {
       beforeEach(() => {
         wrapper = shallow(
-          <ConfigurableItemRow enabled={false} />
+          <ConfigurableItemRow enabled={false} rowIndex={ 1 } />
         );
       });
 
@@ -94,7 +94,7 @@ describe('ConfigurableItemRow', () => {
     describe('when the row is locked', () => {
       beforeEach(() => {
         wrapper = shallow(
-          <ConfigurableItemRow locked={true} />
+          <ConfigurableItemRow locked={true} rowIndex={ 1 } />
         );
       });
 
@@ -106,7 +106,7 @@ describe('ConfigurableItemRow', () => {
     describe('when the row is not locked', () => {
       beforeEach(() => {
         wrapper = shallow(
-          <ConfigurableItemRow locked={false} />
+          <ConfigurableItemRow locked={false} rowIndex={ 1 } />
         );
       });
 
@@ -119,7 +119,7 @@ describe('ConfigurableItemRow', () => {
   describe('name', () => {
     beforeEach(() => {
       wrapper = shallow(
-        <ConfigurableItemRow name='Foo' />
+        <ConfigurableItemRow name='Foo' rowIndex={ 1 } />
       );
     });
 
@@ -143,7 +143,7 @@ describe('ConfigurableItemRow', () => {
     beforeEach(() => {
       wrapper = mount(
         <DraggableContext onDrag={() => {}}>
-          <ConfigurableItemRow name='Foo' />
+          <ConfigurableItemRow name='Foo' rowIndex={ 1 } />
         </DraggableContext>
       );
     });
@@ -161,7 +161,7 @@ describe('ConfigurableItemRow', () => {
   describe('list item markup', () => {
     beforeEach(() => {
       wrapper = shallow(
-        <ConfigurableItemRow name='Foo' />
+        <ConfigurableItemRow name='Foo' rowIndex={ 1 } />
       );
     });
 
