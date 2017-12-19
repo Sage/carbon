@@ -96,7 +96,7 @@ describe('action toolbar', () => {
         return <div>foo</div>;
       });
       const wrapper = shallow(
-        <ActionToolbar>
+        <ActionToolbar actions={{}}>
           { childFunction }
         </ActionToolbar>
       );

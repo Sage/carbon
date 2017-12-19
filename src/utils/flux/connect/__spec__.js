@@ -40,6 +40,8 @@ describe('connect', () => {
       value: 2
     });
 
+    wrapper.update();
+
     expect(wrapper.find(Presenter).props()).toEqual({ one: 2 });
   });
 

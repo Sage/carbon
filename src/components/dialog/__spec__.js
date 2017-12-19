@@ -425,7 +425,7 @@ describe('Dialog', () => {
 
     describe('when title, subtitle, and ariaRole are not set', () => {
       it('does not render a role attribute from the ariaRole prop, aria-labelledby pointing at the title element or an aria-describedby attribute pointing at the subtitle element', () => {
-        wrapper = shallow(
+        wrapper = mount(
           <Dialog
             onCancel={ () => {} }
             onConfirm={ () => {} }
@@ -507,8 +507,8 @@ describe('Dialog', () => {
       it('returns focus to the dialog element when focus leaves the close icon', () => {
         const dialogElement = wrapper.find('[role="dialog"]').getDOMNode();
         spyOn(dialogElement, 'focus');
+        const closeIcon = wrapper.find('[data-element="close"]').findWhere(n => n.type() === 'span');
 
-        const closeIcon = wrapper.find('[data-element="close"]');
         closeIcon.simulate('blur');
         expect(dialogElement.focus).toHaveBeenCalled();
       });

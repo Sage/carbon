@@ -39,6 +39,7 @@ describe('Form', () => {
     describe('when stickyFooter is enabled', () => {
       it('adds the listeners', () => {
         wrapper = shallow(<Form />);
+        
         spyOn(wrapper.instance(), 'addStickyFooterListeners');
         wrapper.setProps({ stickyFooter: true });
         expect(wrapper.instance().addStickyFooterListeners).toHaveBeenCalled();

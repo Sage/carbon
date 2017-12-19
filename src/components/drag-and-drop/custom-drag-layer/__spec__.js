@@ -23,17 +23,17 @@ describe('CustomDragLayer', () => {
           isDragging={false}
         />
       );
-      spyOn(wrapper.node._container, 'appendChild')
+      spyOn(wrapper.instance()._container, 'appendChild')
       wrapper.setProps({ isDragging: true })
     });
 
     it('transforms the component position by the currentOffset and creates the ghost layer', () => {
-      expect(wrapper.node._container.appendChild).toHaveBeenCalledWith(clonedNode)
+      expect(wrapper.instance()._container.appendChild).toHaveBeenCalledWith(clonedNode)
       const container = wrapper.find('.custom-drag-layer__container');
       expect(container.length).toEqual(1);
-      const style = container.get(0).style
+      const style = container.props().style;
       expect(style.WebkitTransform).toEqual('translate(1px, 2px)');
-      expect(style.width).toEqual('10px');
+      expect(style.width).toEqual(10);
     })
   });
 
@@ -51,7 +51,7 @@ describe('CustomDragLayer', () => {
     });
 
     it('does not add the ghost layer', () => {
-      expect(wrapper.node._container).toBeUndefined();
+      expect(wrapper.getElement()._container).toBeUndefined();
       const container = wrapper.find('.custom-drag-layer__container');
       expect(container.length).toEqual(1);
     });
@@ -75,7 +75,7 @@ describe('CustomDragLayer', () => {
     it('sets the cloned child width', () => {
       const container = wrapper.find('.custom-drag-layer__container');
       expect(container.length).toEqual(1);
-      const style = container.get(0).style
+      const style = container.props().style
       expect(style.WebkitTransform).toEqual('translate(1px, 2px)');
       expect(wrapper.instance().width).toEqual(20)
     });
@@ -90,15 +90,15 @@ describe('CustomDragLayer', () => {
           isDragging={false}
         />
       );
-      spyOn(wrapper.node._container, 'appendChild');
+      spyOn(wrapper.instance()._container, 'appendChild');
       wrapper.setProps({ isDragging: true });
     });
 
     it('removes the clonedChild and sets this.clonedChild to null', () => {
       expect(wrapper.instance().clonedChild).toEqual(clonedNode);
-      spyOn(wrapper.node._container, 'removeChild');
+      spyOn(wrapper.instance()._container, 'removeChild');
       wrapper.setProps({ draggableNode: null });
-      expect(wrapper.node._container.removeChild).toHaveBeenCalledWith(clonedNode);
+      expect(wrapper.instance()._container.removeChild).toHaveBeenCalledWith(clonedNode);
       expect(wrapper.instance().clonedChild).toBeNull();
     });
   });
@@ -111,14 +111,14 @@ describe('CustomDragLayer', () => {
           isDragging={false}
         />
       );
-      spyOn(wrapper.node._container, 'appendChild');
-      spyOn(wrapper.node._container, 'removeChild');
+      spyOn(wrapper.instance()._container, 'appendChild');
+      spyOn(wrapper.instance()._container, 'removeChild');
       wrapper.setProps({ isDragging: true });
     });
 
     it('does not try to create or remove a clonedChild', () => {
-      expect(wrapper.node._container.appendChild).not.toHaveBeenCalled();
-      expect(wrapper.node._container.removeChild).not.toHaveBeenCalled()
+      expect(wrapper.instance()._container.appendChild).not.toHaveBeenCalled();
+      expect(wrapper.instance()._container.removeChild).not.toHaveBeenCalled()
       expect(wrapper.instance().clonedChild).toBeUndefined();
     });
   });
@@ -131,7 +131,7 @@ describe('CustomDragLayer', () => {
           isDragging={false}
         />
       );
-      spyOn(wrapper.node._container, 'appendChild')
+      spyOn(wrapper.instance()._container, 'appendChild')
       wrapper.setProps({ isDragging: true })
       instance = wrapper.find(UndecoratedCustomDragLayer);
     });
@@ -139,7 +139,7 @@ describe('CustomDragLayer', () => {
     it('sets container to display: none', () => {
       const container = instance.find('.custom-drag-layer__container');
       expect(container.length).toEqual(1);
-      const style = container.get(0).style;
+      const style = container.props().style;
       expect(style.display).toEqual('none');
     });
   });
@@ -157,9 +157,9 @@ describe('CustomDragLayer', () => {
     it('does not set the width style', () => {
       const container = wrapper.find('.custom-drag-layer__container');
       expect(container.length).toEqual(1);
-      const style = container.get(0).style;
+      const style = container.props().style;
       expect(style.WebkitTransform).toEqual('translate(1px, 2px)');
-      expect(style.width).toEqual('');
+      expect(style.width).toBeUndefined();
     });
   });
 
@@ -178,7 +178,7 @@ describe('CustomDragLayer', () => {
     it('hides the dragLayer component', () => {
       const container = instance.find('.custom-drag-layer__container');
       expect(container.length).toEqual(1);
-      const style = container.get(0).style;
+      const style = container.props().style;
       expect(style.display).toEqual('none');
     });
   });

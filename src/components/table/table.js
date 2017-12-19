@@ -745,6 +745,7 @@ class Table extends React.Component {
    * @return {Void}
    */
   resizeTable() {
+    if (!this._table) { return; }
     const shrink = this.props.shrink && this._table.offsetHeight < this.tableHeight;
 
     if (shrink || this._table.offsetHeight > this.tableHeight) {

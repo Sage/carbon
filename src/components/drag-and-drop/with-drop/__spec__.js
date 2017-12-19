@@ -28,11 +28,11 @@ describe('WithDrop', () => {
       </DnD>
     );
 
-    let component = wrapper.find(WithDrag).getNode();
+    let component = wrapper.find(WithDrag).instance();
     handlerId = component.getHandlerId();
-    component = wrapper.find(WithDrop).getNode();
+    component = wrapper.find(WithDrop).instance();
     targetId = component.getHandlerId();
-    backend = wrapper.getNode().getManager().backend;
+    backend = wrapper.instance().getManager().backend;
   }
 
   function wrapInTestContext(DecoratedComponent) {

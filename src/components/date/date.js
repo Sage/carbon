@@ -500,11 +500,17 @@ class Date extends React.Component {
   * @return {Object}
   */
   get datePickerProps() {
+    let date = this.state.datePickerValue;
+
+    if (!date) {
+      date = DateHelper.isValidDate(this.props.value) ? this.props.value : '';
+    }
+
     return {
       disabledDays: this.disabledDays(),
       enableOutsideDays: true,
       fixedWeeks: true,
-      initialMonth: this.state.datePickerValue || DateHelper.stringToDate(this.props.value),
+      initialMonth: this.state.datePickerValue || DateHelper.stringToDate(date),
       inline: true,
       locale: I18n.locale,
       localeUtils: LocaleUtils,
