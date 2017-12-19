@@ -32,6 +32,7 @@
     "babel-standalone": "~6.17.0",
     "carbon-factory": "v2.2.0",
     "enzyme": "~2.8.2",
+    "eslint-plugin-compat": "^2.1.0",
     "express": "~4.14.0",
     "flux": "^3.1.1",
     "gulp": "~3.9.0",
@@ -77,5 +78,9 @@
   },
   "jest": {
     "preset": "./node_modules/carbon-factory/jest.conf.json"
-  }
+  },
+  "browserslist": [
+    "Last 10 versions",
+    "not ie <= 8"
+  ]
 }
