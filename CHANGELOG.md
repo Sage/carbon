@@ -1,3 +1,17 @@
+# 2.6.0
+
+## Package Updates
+
+* Enzyme has been updated to v3.2.0
+
+## Improvements
+
+* `Date`'s getter `datePickerProps()` now checks the date value before returning
+* `Dialog`'s `centerDialog` and `focusDialog` methods won't attempt to run if the dialog isn't present
+* `Form`'s `checkStickyFooter` method won't attempt to run if the form isn't present
+* `Table`'s `resizeTable` method won't attempt to run if the table isn't present
+* Fixed tests broken by Enzyme major version bump.
+
 # 2.5.3
 
 ## Bug Fixes
