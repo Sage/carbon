@@ -424,7 +424,6 @@ describe('TableAjax', () => {
   });
 
   describe("tags on component", () => {
-    // TODO - 1007 - shallow seems to fail when creating Table
     // data-component doesnt exist as prop on mount
     let wrapper = shallow(
       <TableAjax

@@ -159,7 +159,6 @@ describe('CustomDragLayer', () => {
       expect(container.length).toEqual(1);
       const style = container.props().style;
       expect(style.WebkitTransform).toEqual('translate(1px, 2px)');
-      // TODO - 1007 : Receiving undefined, not blank string
       expect(style.width).toBeUndefined();
     });
   });
