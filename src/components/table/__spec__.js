@@ -14,7 +14,7 @@ describe('Table', () => {
     spy = jasmine.createSpy('onChange spy');
 
     row = (
-      <TableRow >
+      <TableRow>
         <TableCell />
         <TableCell />
         <TableCell />

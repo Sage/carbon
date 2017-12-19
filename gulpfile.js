@@ -45,12 +45,10 @@ gulp.task('build', BuildTask({
   imageDest: './' + dir + '/assets/images'
 }));
 
-var specOpts = { jestConfig };
-
 gulp.task('run-deploy', deploy);
 
 gulp.task('default', ['prepare-demo', 'webserver', 'build']);
 gulp.task('deploy', ['prepare-demo', 'build', 'run-deploy']);
 
-gulp.task('test', SpecTask(specOpts));
+gulp.task('test', SpecTask({ jestConfig }));
 gulp.task('lint', LintTask());
