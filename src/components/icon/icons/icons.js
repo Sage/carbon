@@ -4,6 +4,7 @@ import Business from './svgs/business';
 import CSV from './svgs/csv';
 import Chevron from './svgs/chevron';
 import Completed from './svgs/completed';
+import CreditCardSlash from './svgs/credit-card-slash';
 import Dribbble from './svgs/dribbble';
 import Edit from './svgs/edit';
 import Email from './svgs/email';
@@ -11,6 +12,7 @@ import ExternalLink from './svgs/external-link';
 import Github from './svgs/github';
 import Grid from './svgs/grid';
 import Individual from './svgs/individual';
+import InTransit from './svgs/in-transit';
 import Key from './svgs/key';
 import Location from './svgs/location';
 import Message from './svgs/message';
@@ -37,9 +39,10 @@ export default {
   basket: Basket,
   bin: Bin,
   business: Business,
-  csv: CSV,
   chevron: Chevron,
   completed: Completed,
+  credit_card_slash: CreditCardSlash,
+  csv: CSV,
   dribbble: Dribbble,
   edit: Edit,
   email: Email,
@@ -47,14 +50,15 @@ export default {
   github: Github,
   grid: Grid,
   individual: Individual,
+  in_transit: InTransit,
   key: Key,
   location: Location,
   message: Message,
   minus: Minus,
   mobile: Mobile,
-  pdf: PDF,
   paperclip: Paperclip,
   payment: Payment,
+  pdf: PDF,
   phone: Phone,
   plus: Plus,
   print: Print,
