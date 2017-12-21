@@ -6,6 +6,7 @@
 
 ## Improvements
 
+* Carbon now comes with over 100 standard icons to choose from! Check out the Icon component page to view the latest additions like `in_transit` and `credit_card_slash`.
 * `Date`'s getter `datePickerProps()` now checks the date value before returning
 * `Dialog`'s `centerDialog` and `focusDialog` methods won't attempt to run if the dialog isn't present
 * `Form`'s `checkStickyFooter` method won't attempt to run if the form isn't present

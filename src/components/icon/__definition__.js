@@ -5,7 +5,7 @@ import Definition from './../../../demo/utils/definition';
 const definition = new Definition('icon', Icon, {
   description: 'An eye catching icon associated with a UI element or content item.',
   designerNotes: `
-* Carbon comes with about 50 standard icons to choose from. See the Icons page in the Style section.
+* Carbon comes with more than 100 standard icons to choose from. See the Icons page in the Style section.
 * A tooltip option is available within this component.
 * Many other components allow you to specify one of the standard Carbon icons to associate with them, for example, the Link component.
   `,
