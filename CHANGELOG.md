@@ -3,6 +3,8 @@
 ## Package Updates
 
 * Enzyme has been updated to v3.2.0
+* Superagent has been updated to v3.8.2 for a security fix
+* moment has been updated to v2.20.1 for a security fix
 
 ## Improvements
 
