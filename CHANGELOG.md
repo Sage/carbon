@@ -1,3 +1,10 @@
+# 2.6.1
+
+## Bug Fixes
+
+* `Message`: Fixes the icon positiing in IE11
+* `Toast`: Fixes the icon positiing in IE11
+
 # 2.6.0
 
 ## Package Updates
@@ -18,10 +25,6 @@
 ## CSS Changes
 
 * `SettingRow` - the left hand segment now has a `max-width` of 300px.
-
-## Bug Fixes
-
-* `Message`: Fixes the icon positiing in IE11
 
 # 2.5.3
 
