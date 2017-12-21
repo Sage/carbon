@@ -19,6 +19,10 @@
 
 * `SettingRow` - the left hand segment now has a `max-width` of 300px.
 
+## Bug Fixes
+
+* `Message`: Fixes the icon positiing in IE11
+
 # 2.5.3
 
 ## Bug Fixes
