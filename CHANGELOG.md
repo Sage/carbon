@@ -12,6 +12,10 @@
 * `Table`'s `resizeTable` method won't attempt to run if the table isn't present
 * Fixed tests broken by Enzyme major version bump.
 
+## CSS Changes
+
+* `SettingRow` - the left hand segment now has a `max-width` of 300px.
+
 # 2.5.3
 
 ## Bug Fixes
