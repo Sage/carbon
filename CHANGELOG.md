@@ -1,3 +1,43 @@
+# 2.6.0
+
+## Package Updates
+
+* Enzyme has been updated to v3.2.0
+* Superagent has been updated to v3.8.2 for a security fix
+* moment has been updated to v2.20.1 for a security fix
+
+## Improvements
+
+* Carbon now comes with over 100 standard icons to choose from! Check out the Icon component page to view the latest additions like `in_transit` and `credit_card_slash`.
+* `Date`'s getter `datePickerProps()` now checks the date value before returning
+* `Dialog`'s `centerDialog` and `focusDialog` methods won't attempt to run if the dialog isn't present
+* `Form`'s `checkStickyFooter` method won't attempt to run if the form isn't present
+* `Table`'s `resizeTable` method won't attempt to run if the table isn't present
+* Fixed tests broken by Enzyme major version bump.
+
+## CSS Changes
+
+* `SettingRow` - the left hand segment now has a `max-width` of 300px.
+
+# 2.5.3
+
+## Bug Fixes
+
+* Revert the `Profile` component changes: `darkBackground` is false by default, and the name and email render using the inherited `body` text colour.
+
+# 2.5.2
+
+## Bug Fixes
+
+* Adding a transform to an instance of a service class was applying the transform to all other instances. This change ensures the transform is only applied to the specific instance.
+* Remove space from clearfix psuedoclasses that was creating a space character that was pushing layouts out of line
+
+# 2.5.1
+
+## Fixes
+
+Resolves missing `assets` file from v2.5.0.
+
 # 2.5.0
 
 ## Improvements

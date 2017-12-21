@@ -41,7 +41,6 @@ describe('Rainbow', () => {
         tooltip: 'more info about this bit'
       }
     ]);
-
     render();
 
     const instance = wrapper.instance();
@@ -97,7 +96,7 @@ describe('Rainbow', () => {
       <Rainbow
         data-element='bar'
         data-role='baz'
-        data={ {} }/>
+        data={ Immutable.fromJS({}) }/>
       );
 
     it('include correct component, element and role data tags', () => {

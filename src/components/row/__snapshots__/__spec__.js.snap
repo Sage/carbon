@@ -6,6 +6,7 @@ exports[`Row columnClasses passes the prop to its children 1`] = `
 >
   <Column
     columnClasses="myChildClasses"
+    key=".0"
   />
 </div>
 `;
@@ -16,6 +17,7 @@ exports[`Row columnDivide when columnDivide is true passes columnDivide to its c
 >
   <Column
     columnDivide={true}
+    key=".0"
   />
 </div>
 `;
@@ -24,8 +26,12 @@ exports[`Row columns when a null column is passed ignores the null child 1`] = `
 <div
   className="carbon-row carbon-row--gutter-medium carbon-row--columns-2"
 >
-  <Column />
-  <Column />
+  <Column
+    key=".$0"
+  />
+  <Column
+    key=".$1"
+  />
 </div>
 `;
 
@@ -33,10 +39,18 @@ exports[`Row columns when column number is not passed determines the columns fro
 <div
   className="carbon-row carbon-row--gutter-medium carbon-row--columns-4"
 >
-  <Column />
-  <Column />
-  <Column />
-  <Column />
+  <Column
+    key=".0"
+  />
+  <Column
+    key=".1"
+  />
+  <Column
+    key=".2"
+  />
+  <Column
+    key=".3"
+  />
 </div>
 `;
 
@@ -44,7 +58,9 @@ exports[`Row columns when column number is passed sets the passed column as the 
 <div
   className="carbon-row carbon-row--gutter-medium carbon-row--columns-50"
 >
-  <Column />
+  <Column
+    key=".0"
+  />
 </div>
 `;
 

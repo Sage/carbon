@@ -19,9 +19,9 @@ describe('WithDrag', () => {
       </DnD>
     );
 
-    component = wrapper.find(WithDrag).getNode();
+    component = wrapper.find(WithDrag).instance();
     handlerId = component.getHandlerId();
-    backend = wrapper.getNode().getManager().backend;
+    backend = wrapper.instance().getManager().backend;
   }
 
   function wrapInTestContext(DecoratedComponent) {

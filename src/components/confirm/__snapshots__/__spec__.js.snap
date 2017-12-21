@@ -54,6 +54,7 @@ exports[`Confirm default snapshot renders as expected 1`] = `
         >
           <div
             className="carbon-confirm__buttons clearfix"
+            key="confirm-buttons"
           >
             <div
               className="carbon-confirm__button carbon-confirm__no"

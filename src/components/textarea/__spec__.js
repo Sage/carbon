@@ -102,7 +102,7 @@ describe('Textarea', () => {
     });
 
     describe('when textarea can be expanded', () => {
-      let wrapper = shallow(
+      let wrapper = mount(
         <Textarea
           value={ 'foo' }
           label={ 'Label' }

@@ -215,14 +215,10 @@ describe('Button', () => {
         'medium'
       ];
 
-      beforeEach(() => {
-        spyOn(window, 'Error');
-      });
-
       sizesForInvalid.forEach((size) => {
         it(`throws an error if it is used on a ${size} button`, () => {
-          shallow(<Button size={ size } subtext='Test'>Test</Button>);
-          expect(window.Error).toHaveBeenCalledWith('subtext prop has no effect unless the button is large');
+          const subtext = () => { Button.propTypes.subtext({ subtext: 'test', size }); }
+          expect(subtext).toThrowError('subtext prop has no effect unless the button is large');
         });
       });
     });
