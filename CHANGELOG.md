@@ -1,3 +1,9 @@
+# 2.6.1
+
+## Bug Fixes
+
+* `Portrait` - fixes incorrect text colour in light mode. Also standardises the colours used for the icon and initials.
+
 # 2.6.0
 
 ## Package Updates
