@@ -18,10 +18,15 @@
 .carbon-portrait__sans-initials {
   position: absolute;
   border: solid 1px $grey-dark-blue-50;
-  background-color: $grey-dark-blue-10;
-  color: $grey-dark-blue-50;
+  background-color: $grey-dark-blue-20;
+  color: $grey-dark-blue-80;
   box-sizing: border-box;
   line-height: 14px;
+}
+
+.carbon-portrait--dark-background .carbon-portrait__sans-initials {
+  background-color: $grey-dark-blue-60;
+  color: $white;
 }
 
 .carbon-portrait--standard .carbon-portrait__img {

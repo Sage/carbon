@@ -224,7 +224,7 @@ class Portrait extends React.Component {
   applyText = (context, size) => {
     const letters = this.props.initials ? this.props.initials.slice(0, 3) : '';
 
-    context.fillStyle = '#FFFFFF';
+    context.fillStyle = this.props.darkBackground ? '#FFFFFF' : '#636872';
     context.fillText(letters.toUpperCase(), size / 2, size / 1.5);
 
     return context;
@@ -260,7 +260,9 @@ class Portrait extends React.Component {
       'carbon-portrait--image',
       `carbon-portrait--${this.props.size}`,
       `carbon-portrait--${this.props.shape}`,
-      this.props.className
+      this.props.className, {
+        'carbon-portrait--dark-background': this.props.darkBackground
+      }
     );
   }
 

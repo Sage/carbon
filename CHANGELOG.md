@@ -2,8 +2,9 @@
 
 ## Bug Fixes
 
-* `Message`: Fixes the icon positiing in IE11
-* `Toast`: Fixes the icon positiing in IE11
+* `Portrait`: fixes incorrect text colour in light mode. Also standardises the colours used for the icon and initials.
+* `Message`: Fixes the icon positiing in IE11.
+* `Toast`: Fixes the icon positiing in IE11.
 
 # 2.6.0
 
