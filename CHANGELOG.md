@@ -10,6 +10,7 @@
 * ReactTestRenderer has been updated to v16.2.0 for React upgrade
 * React-Highcharts has been updated to v15.0.0 for React upgrade
 * React-Transition-Group has been updated to v1.2.1 for React upgrade
+* ReactHighlight has been updated to a forked version which works with React v16
 * React-Addons-Perf has been removed due to deprecation
 * React-Addons-Test-Utils has been removed due to deprecation
 

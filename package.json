@@ -44,7 +44,7 @@
     "react": "^16.2.0",
     "react-dnd-test-backend": "~2.4.0",
     "react-dom": "^16.2.0",
-    "react-highlight": "~0.10.0",
+    "react-highlight": "briancappello/react-highlight#react-v16-compiled",
     "react-test-renderer": "^16.2.0",
     "underscore.string": "~3.3.4",
     "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
