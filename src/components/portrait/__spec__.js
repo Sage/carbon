@@ -151,37 +151,41 @@ describe('Portrait', () => {
             initials='abcde'
             src='foo'
           />
-          );
+        );
         instance.applyText(context, 30);
         expect(context.fillText).toHaveBeenCalledWith('ABC', 15, 20);
       });
     });
 
-    describe('is darkBackground is false', () => {
-      it('uses a light background colour', () => {
+    describe('if darkBackground is false', () => {
+      it('uses a light background colour and dark text colour', () => {
         instance = TestUtils.renderIntoDocument(
           <Portrait
             src='foo'
             darkBackground={ false }
           />
           );
-        const context = { fillRect: () => {} };
+        const context = { fillRect: () => {}, fillText: () => {} };
         instance.applyBackground(context);
         expect(context.fillStyle).toEqual('#D8D9DC');
+        instance.applyText(context);
+        expect(context.fillStyle).toEqual('#636872');
       });
     });
 
     describe('darkBackground', () => {
-      it('uses a dark background color', () => {
+      it('uses a dark background color and light text colour', () => {
         instance = TestUtils.renderIntoDocument(
           <Portrait
             src='foo'
             darkBackground={ true }
           />
         );
-        const context = { fillRect: () => {} };
+        const context = { fillRect: () => {}, fillText: () => {} };
         instance.applyBackground(context);
         expect(context.fillStyle).toEqual('#8A8E95');
+        instance.applyText(context);
+        expect(context.fillStyle).toEqual('#FFFFFF');
       });
     });
   });
