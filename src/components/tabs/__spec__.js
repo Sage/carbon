@@ -1,4 +1,5 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
 import { Tabs, Tab } from './tabs';
@@ -146,7 +147,7 @@ describe('Tabs', () => {
         location: ""
       });
 
-      let TestParent = React.createFactory(React.createClass({
+      let TestParent = React.createFactory(createReactClass({
         getInitialState() {
           return { selectedTabId: "uniqueid2", align: 'left' };
         },
