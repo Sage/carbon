@@ -1,3 +1,18 @@
+# 3.0.0
+
+## Package Updates
+
+* React has been updated to v16.2.0
+* React-DOM has been updated to v16.2.0 for React upgrade
+* Enzyme has been updated to v3.3.0 for React upgrade
+* Jest has been updated to v22.0.4 for React upgrade
+* Raf has been added at v3.4.0 for React upgrade
+* ReactTestRenderer has been updated to v16.2.0 for React upgrade
+* React-Highcharts has been updated to v15.0.0 for React upgrade
+* React-Transition-Group has been updated to v1.2.1 for React upgrade
+* React-Addons-Perf has been removed due to deprecation
+* React-Addons-Test-Utils has been removed due to deprecation
+
 # 2.6.1
 
 ## Bug Fixes
