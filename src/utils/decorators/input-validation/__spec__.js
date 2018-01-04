@@ -189,9 +189,8 @@ describe('InputValidation', () => {
 
       describe('when the next value does not match the current value', () => {
         it('does not call validate if it is the currently active input', () => {
-          let component = <Component />;
-          let wrapper = shallow(component);
-          instance = TestUtils.renderIntoDocument(component);
+          let wrapper = mount( <Component />);
+          instance = wrapper.instance();
           instance.context.form = form;
           spyOn(instance.context.form, 'getActiveInput').and.returnValue(instance);
           spyOn(instance, 'validate');
@@ -875,12 +874,11 @@ describe('InputValidation', () => {
         let wrapper;
 
         beforeEach(() => {
-          let component = React.createElement(Component, {
+          wrapper = mount(React.createElement(Component, {
             info: [infoTwo, infoOne],
             value: 'foo'
-          });
-          wrapper = shallow(component);
-          instance = TestUtils.renderIntoDocument(component);
+          }));
+          instance = wrapper.instance();
           instance.context.form = form;
           spyOn(infoTwo, 'validate').and.callThrough();
           spyOn(infoOne, 'validate').and.callThrough();
