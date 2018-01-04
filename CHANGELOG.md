@@ -14,6 +14,12 @@
 * React-Addons-Perf has been removed due to deprecation
 * React-Addons-Test-Utils has been removed due to deprecation
 
+# 2.6.2
+
+## Bug Fixes
+
+* `Menu`: Fixes cursor type when hovering a top level menu item.
+
 # 2.6.1
 
 ## Bug Fixes
