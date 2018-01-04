@@ -25,7 +25,9 @@
     color: $grey-dark-blue;
 
     &.carbon-link__anchor:hover {
-      cursor: initial;
+      &:not(.carbon-menu-item--has-link) {
+        cursor: initial;
+      }
 
       .carbon-link__content {
         text-decoration: none;
@@ -69,7 +71,9 @@
     color: $white;
 
     &.carbon-link__anchor:hover {
-      cursor: initial;
+      &:not(.carbon-menu-item--has-link) {
+        cursor: initial;
+      }
 
       .carbon-link__content {
         text-decoration: none;
