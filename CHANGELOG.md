@@ -1,3 +1,7 @@
+# 2.5.4
+
+* Upgrade marked package from v0.3.6 to 0.3.9 to address security vulnerabilities
+
 # 2.5.3
 
 ## Bug Fixes
