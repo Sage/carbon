@@ -1,3 +1,9 @@
+# 2.6.3
+
+## Bug Fixes
+
+* `acronymize`: This helper function provided in `/utils/ether` now checks for invalid strings to mitigate errors.
+
 # 2.6.2
 
 ## Bug Fixes

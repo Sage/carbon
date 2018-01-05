@@ -33,6 +33,18 @@ describe('Ether', () => {
     it('creates an acronym', () => {
       expect(acronymize("Foo bar Baz")).toEqual("FbB");
     });
+
+    it('does not throw an error if an empty string', () => {
+      expect(acronymize('')).toEqual('');
+    });
+
+    it('does not throw an error if there are no letters', () => {
+      expect(acronymize('    ')).toEqual('');
+    });
+
+    it('does not throw an error if undefined is passed', () => {
+      expect(acronymize(undefined)).toEqual('');
+    });
   });
 
   describe('validProps', () => {
