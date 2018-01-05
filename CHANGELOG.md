@@ -14,6 +14,16 @@
 * React-Addons-Perf has been removed due to deprecation
 * React-Addons-Test-Utils has been removed due to deprecation
 
+# 2.6.4
+
+* Upgrade marked package from v0.3.6 to 0.3.9 to address security vulnerabilities
+
+# 2.6.3
+
+## Bug Fixes
+
+* `acronymize`: This helper function provided in `/utils/ether` now checks for invalid strings to mitigate errors.
+
 # 2.6.2
 
 ## Bug Fixes
@@ -48,6 +58,10 @@
 ## CSS Changes
 
 * `SettingRow` - the left hand segment now has a `max-width` of 300px.
+
+# 2.5.4
+
+* Upgrade marked package from v0.3.6 to 0.3.9 to address security vulnerabilities
 
 # 2.5.3
 
