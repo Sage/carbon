@@ -14,6 +14,82 @@
 * React-Addons-Perf has been removed due to deprecation
 * React-Addons-Test-Utils has been removed due to deprecation
 
+## Breaking Changes
+
+### Unstable HandleError
+
+React 15 had limited, undocumented support for error boundaries using `unstable_handleError`. This method has been renamed to `componentDidCatch`.
+
+### ReactDOM methods
+
+`ReactDOM.render` and `ReactDOM.unstable_renderSubtreeIntoContainer`now return null if called from inside a lifecycle method. To work around this, you can use portals or refs.
+
+### setState
+
+Calling `setState` with null no longer triggers an update. This allows you to decide in an updater function if you want to re-render.
+
+Calling `setState` directly in render always causes an update. This was not previously the case. Regardless, you should not be calling `setState` from render.
+
+`setState` callbacks (second argument) now fire immediately after `componentDidMount` / `componentDidUpdate` instead of after all components have rendered.
+
+### Enzyme
+
+Part of updating react from 15.6.0 to 16.2.0 included also updating enzyme to 3.3.0. https://github.com/airbnb/enzyme/blob/enzyme%403.3.0/docs/guides/migration-from-2-to-3.md
+
+#### Upgrading a project that uses Carbon
+
+##### Installing peer dependencies
+
+If you're upgrading an application that uses Carbon to 3.0.0 you'll need to make sure you have `raf` in your project's dependencies. To add `raf` to your project dependencies run the following command:
+
+```
+npm install raf --save
+```
+
+You'll also need to add the following line to your jest.conf.json:
+```
+  "setupFiles": [
+    "raf/polyfill"
+  ]
+```
+
+##### Upgrading Carbon and using the new Carbon dependencies
+
+To Install the latest Carbon:
+
+```
+npm install --save carbon-react@3.0.0
+```
+
+### React-Addons
+
+React has discontinued support for all react-addons, the latest version of each addon should continue to work (except react-addons-perf).
+`React.createClass` is now available as `create-react-class`
+`React.PropTypes` is now available as `prop-types`
+`React.DOM` is now available as `react-dom-factories`
+`react-addons-test-utils` is now available as `react-dom/test-utils`
+
+### React and React Dom
+
+Both `react` and `react-dom` will need to be updated to version 16.2.0
+
+```
+npm install react@^16.2.0 react-dom@^16.2.0 --save
+```
+
+### Jest
+
+Ensure `jest` is included in your package.lock
+
+```
+npm install jest --save
+```
+
+
+### Hydrate Deprecation
+
+Hydrating a server-rendered container now has an explicit API. If you’re reviving server-rendered HTML, use `ReactDOM.hydrate` instead of `ReactDOM.render`. Keep using `ReactDOM.render` if you’re just doing client-side rendering.
+
 # 2.6.4
 
 * Upgrade marked package from v0.3.6 to 0.3.9 to address security vulnerabilities
