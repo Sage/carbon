@@ -40,7 +40,7 @@ describe('Row', () => {
 
     describe('when a null column is passed', () => {
       it('ignores the null child', () => {
-        const columns = [<Column />, <Column />, null];
+        const columns = [<Column key='0' />, <Column key='1' />, null];
 
         wrapper = shallow(
           <Row>

@@ -34,13 +34,11 @@ let definition = new Definition('menu', Menu, {
 
 definition.addChildByDefinition(menuItemDefinition, {
   children: "Item One",
-  href: "#"
 });
 
 definition.addChildByDefinition(menuItemDefinition, {
   children: `<MenuItem href="#">Sub Menu Item One</MenuItem>
   <MenuItem href="#">Sub Menu Item Two</MenuItem>`,
-  href: "#",
   submenu: "Item Two",
 });
 

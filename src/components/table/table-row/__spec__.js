@@ -434,12 +434,10 @@ describe('TableRow', () => {
     describe('without drag and drop context', () => {
       beforeEach(() => {
         wrapper = mount(
-          <Table tbody={ false }>
-            <tbody>
-              <TableRow>
-                <TableCell>foo</TableCell>
-              </TableRow>
-            </tbody>
+          <Table>
+            <TableRow>
+              <TableCell>foo</TableCell>
+            </TableRow>
           </Table>
         );
       });
@@ -459,15 +457,13 @@ describe('TableRow', () => {
       it('throws an error if no index is provided', () => {
         expect(() => {
           mount(
-            <Table tbody={ false }>
-              <DraggableContext onDrag={ () => {} }>
-                <tbody>
-                  <TableRow dragAndDropIdentifier="foo">
-                    <TableCell>foo</TableCell>
-                  </TableRow>
-                </tbody>
-              </DraggableContext>
-            </Table>
+            <DraggableContext onDrag={ () => {} }>
+              <Table>
+                <TableRow dragAndDropIdentifier="foo">
+                  <TableCell>foo</TableCell>
+                </TableRow>
+              </Table>
+            </DraggableContext>
           );
         }).toThrow(new Error('You need to provide an index for rows that are draggable'));
       });
@@ -476,15 +472,13 @@ describe('TableRow', () => {
     describe('with drag and drop context', () => {
       beforeEach(() => {
         wrapper = mount(
-          <Table tbody={ false }>
-            <DraggableContext onDrag={ () => {} }>
-              <tbody>
-                <TableRow index={ 0 } dragAndDropIdentifier="foo">
-                  <TableCell>foo</TableCell>
-                </TableRow>
-              </tbody>
-            </DraggableContext>
-          </Table>
+          <DraggableContext onDrag={ () => {} }>
+            <Table>
+              <TableRow index={ 0 } dragAndDropIdentifier="foo">
+                <TableCell>foo</TableCell>
+              </TableRow>
+            </Table>
+          </DraggableContext>
         );
       });
 
@@ -502,14 +496,14 @@ describe('TableRow', () => {
 
       it('renders a dragging class', () => {
         let row = wrapper.find(TableRow);
-        row.node.context.dragAndDropActiveIndex = 1
-        expect(row.node.mainClasses).toEqual('carbon-table-row carbon-table-row--dragging');
+        row.instance().context.dragAndDropActiveIndex = 1
+        expect(row.instance().mainClasses).toEqual('carbon-table-row carbon-table-row--dragging');
       });
 
       it('renders a dragged class if the index matches', () => {
         let row = wrapper.find(TableRow);
-        row.node.context.dragAndDropActiveIndex = 0
-        expect(row.node.mainClasses).toEqual('carbon-table-row carbon-table-row--dragged carbon-table-row--dragging');
+        row.instance().context.dragAndDropActiveIndex = 0;
+        expect(row.instance().mainClasses).toEqual('carbon-table-row carbon-table-row--dragged carbon-table-row--dragging');
       });
     });
   });

@@ -1,6 +1,6 @@
 import React from 'react';
 import Immutable from 'immutable';
-import { TableAjax } from './table-ajax';
+import { TableAjax, TableRow } from './table-ajax';
 import { shallow, mount } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Pager from './../pager';
@@ -19,36 +19,39 @@ describe('TableAjax', () => {
 
     wrapper = mount(
       <TableAjax
+        onAjaxError={ () => {} }
         className="foo"
         path='/test'
         onChange={ spy }
       >
-       foo
+        <TableRow />
       </TableAjax>
     );
     instance = wrapper.instance();
 
     customInstanceWrapper = mount(
       <TableAjax
+        onAjaxError={ () => {} }
         className="foo"
         path='/test'
         onChange={ spy }
         sortOrder='desc'
         sortedColumn='name'
       >
-       foo
+        <TableRow />
       </TableAjax>
     );
     customInstance = customInstanceWrapper.instance();
 
     pageSizeInstanceWrapper = mount(
       <TableAjax
+        onAjaxError={ () => {} }
         className="foo"
         path='/test'
         onChange={ spy }
         pageSize={ '10' }
       >
-       foo
+        <TableRow />
       </TableAjax>
     );
     pageSizeInstance = pageSizeInstanceWrapper.instance();
@@ -244,8 +247,11 @@ describe('TableAjax', () => {
       });
       instance.emitOnChangeCallback('data', options);
       jest.runTimersToTime(251);
+      wrapper.update();
       const pager = wrapper.find(Pager);
+
       expect(pager.props().totalRecords).toEqual('1');
+
       const table = wrapper.find('.carbon-table')
       expect(table.length).toEqual(1);
       expect(wrapper.find('[data-state="loaded"]').length).toEqual(1);
@@ -377,12 +383,14 @@ describe('TableAjax', () => {
         const onError = jest.fn();
         const wrapper = mount(
           <TableAjax
+            path='/'
             onAjaxError={ onError }
           />
         );
         jest.runTimersToTime(251);
         expect(onError).toBeCalledWith(error, response);
-        expect(wrapper.find('[data-state="errored"]').length).toEqual(1);
+
+        expect(wrapper.instance().dataState()).toEqual('errored');
         const table = wrapper.find('.carbon-table');
         expect(table.prop('aria-busy')).toBeFalsy();
       });
@@ -393,12 +401,13 @@ describe('TableAjax', () => {
         console.warn = jest.fn();
 
         const wrapper = mount(
-          <TableAjax />
+          <TableAjax path='/' />
         );
         jest.runTimersToTime(251);
 
         expect(console.warn).toBeCalled();
-        expect(wrapper.find('[data-state="errored"]').length).toEqual(1);
+
+        expect(wrapper.instance().dataState()).toEqual('errored');
         const table = wrapper.find('.carbon-table');
         expect(table.prop('aria-busy')).toBeFalsy();
       });
@@ -415,8 +424,10 @@ describe('TableAjax', () => {
   });
 
   describe("tags on component", () => {
+    // data-component doesnt exist as prop on mount
     let wrapper = shallow(
       <TableAjax
+        onAjaxError={ () => {} }
         data-element='bar'
         data-role='baz'
         path='test'

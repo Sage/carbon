@@ -16,7 +16,6 @@ const definition = new Definition('portrait', Portrait, {
     size: OptionsHelper.sizesFull,
     shape: OptionsHelper.shapesVaried
   },
-  hiddenProps: ['darkBackground'],
   propTypes: {
     alt: 'String',
     className: 'String',
