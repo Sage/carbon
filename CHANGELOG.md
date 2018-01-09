@@ -43,7 +43,7 @@ Part of updating react from 15.6.0 to 16.2.0 included also updating enzyme to 3.
 If you're upgrading an application that uses Carbon to 3.0.0 you'll need to make sure you have `raf` in your project's dependencies. To add `raf` to your project dependencies run the following command:
 
 ```
-npm install raf --save
+npm install raf --save-dev
 ```
 
 You'll also need to add the following line to your jest.conf.json:
@@ -76,15 +76,6 @@ Both `react` and `react-dom` will need to be updated to version 16.2.0
 ```
 npm install react@^16.2.0 react-dom@^16.2.0 --save
 ```
-
-### Jest
-
-Ensure `jest` is included in your package.lock
-
-```
-npm install jest --save
-```
-
 
 ### Hydrate Deprecation
 
