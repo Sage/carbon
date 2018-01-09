@@ -64,7 +64,7 @@ npm install --save carbon-react@3.0.0
 ### React-Addons
 
 React has discontinued support for all react-addons, the latest version of each addon should continue to work (except react-addons-perf).
-`React.createClass` is now available as `create-react-class`
+`React.createClass` is deprecated and `create-react-class` should be used instead
 `React.PropTypes` is now available as `prop-types`
 `React.DOM` is now available as `react-dom-factories`
 `react-addons-test-utils` is now available as `react-dom/test-utils`
