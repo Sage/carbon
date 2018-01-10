@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactPortal from 'react-portal';
+import { Portal as ReactPortal }  from 'react-portal';
 import PropTypes from 'prop-types';
 
 class Portal extends React.Component {
@@ -23,7 +23,7 @@ class Portal extends React.Component {
 
   render() {
     return (
-      <ReactPortal isOpened={ this.props.open }>
+      this.props.open && <ReactPortal>
         <div ref={ (node) => { this._portal = node; } }>
           { this.props.children }
         </div>
