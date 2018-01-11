@@ -577,7 +577,7 @@ class Date extends React.Component {
    */
   renderDatePicker() {
     return (
-      <Portal open={ this.state.open }>
+      this.state.open && <Portal >
         <DayPicker { ...this.datePickerProps } containerProps={ this.containerProps } />
       </Portal>
     );

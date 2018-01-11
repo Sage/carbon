@@ -1,23 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
+import Browser from '../../utils/helpers/browser';
 
-const isDomAvailable = !!(
-  typeof window !== 'undefined' &&
-  window.document &&
-  window.document.createElement
-);
 class Portal extends React.Component {
 
   static propTypes = {
-    /**
-     * Determine if the portal is visible or not
-     *
-     * @property open
-     * @type {Boolean}
-    */
-    open: PropTypes.bool,
-
     /**
      * The content of the portal.
      *
@@ -36,30 +24,39 @@ class Portal extends React.Component {
 
   componentWillUnmount() {
     if (this.defaultNode) {
-      document.body.removeChild(this.defaultNode);
+      Browser.getDocument().body.removeChild(this.defaultNode);
     }
     this.defaultNode = null;
   }
 
+  getDefaultDiv() {
+    if (!this.props.node && !this.defaultNode) {
+      this.defaultNode = Browser.getDocument().createElement('div');
+      this.defaultNode.classList.add('portal');
+      Browser.getDocument().body.appendChild(this.defaultNode);
+    }
+    return this.defaultNode;
+  }
+
   render() {
-    if (!this.props.open && !isDomAvailable) {
+    if (!Browser.isDomAvailable()) {
       return null;
     }
 
-    if (!this.props.node && !this.defaultNode) {
-      this.defaultNode = document.createElement('div');
-      this.defaultNode.classList.add('portal');
-      document.body.appendChild(this.defaultNode);
-    }
-
-    this.node = (this.props.node) ? this.props.node : this.defaultNode;
+    this.node = (this.props.node) ? this.props.node : this.getDefaultDiv();
     return (
-      this.props.open && createPortal(
-        this.props.children,
-        this.node
-      )
+      <ReactPortal node={ this.node }>{this.props.children}</ReactPortal>
     );
   }
+}
+
+function ReactPortal(props) {
+  return (
+    createPortal(
+      props.children,
+      props.node
+    )
+  );
 }
 
 export default Portal;
