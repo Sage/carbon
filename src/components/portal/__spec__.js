@@ -55,7 +55,7 @@ describe('Portal', () => {
   describe('if Dom is not present', () => {
     beforeEach(() => {
       window.document.createElement = null;
-      
+
       wrapper = shallow(
         <Portal>
           <p className='child-element' />
