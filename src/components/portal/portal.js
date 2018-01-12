@@ -29,12 +29,14 @@ class Portal extends React.Component {
     this.defaultNode = null;
   }
 
-  getDefaultDiv() {
-    
-    if (!this.props.node && !this.defaultNode && Browser.isDomAvailable()) {
+  getPortalDiv() {
+    if (this.props.node) return this.props.node;
+
+    if (!this.defaultNode) {
       this.defaultNode = Browser.getDocument().createElement('div');
       this.defaultNode.classList.add('portal');
-      document.body.appendChild(this.defaultNode);
+      Browser.getDocument().body.appendChild(this.defaultNode);
+
     }
     return this.defaultNode;
   }
@@ -44,7 +46,7 @@ class Portal extends React.Component {
       return null;
     }
 
-    this.node = (this.props.node) ? this.props.node : this.getDefaultDiv();
+    this.node = this.getPortalDiv();
     return (
       <ReactPortal node={ this.node }>{this.props.children}</ReactPortal>
     );

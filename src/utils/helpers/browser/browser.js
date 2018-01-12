@@ -12,9 +12,9 @@ import { keys } from 'lodash';
 const Browser = {
   isDomAvailable: () => {
     return (!!(
-      typeof window !== 'undefined' &&
-      window.document &&
-      window.document.createElement
+      typeof Browser.getWindow() !== 'undefined' &&
+      Browser.getWindow().document &&
+      Browser.getWindow().document.createElement
     ));
   },
   /**

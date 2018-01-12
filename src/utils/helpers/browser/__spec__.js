@@ -29,6 +29,12 @@ describe('Browser', () => {
     });
   });
 
+  describe('isDomAvailable', () => {
+    it('returns the window object', () => {
+      expect(Browser.isDomAvailable()).toBe(true);
+    });
+  });
+
   describe('getWindow', () => {
     it('returns the window object', () => {
       expect(Browser.getWindow()).toEqual(window);
