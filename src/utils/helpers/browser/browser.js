@@ -12,18 +12,6 @@ import Form from './../../../components/form';
 */
 const Browser = {
   /**
-   * Determines the availablity of the DOM
-   *
-   * @return Boolean
-   */
-  isDomAvailable: () => {
-    return !!(
-      typeof window !== 'undefined' &&
-      window.document &&
-      window.document.createElement
-    );
-  },
-  /**
    * Get the current window
    *
    * @return window

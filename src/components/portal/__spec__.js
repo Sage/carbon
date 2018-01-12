@@ -50,6 +50,10 @@ describe('Portal', () => {
     it('the node prop has been added to the DOM', () => {
       expect(wrapper.instance().node.classList[0]).toEqual('my-node');
     });
+
+    it('will unmount correctly', () => {
+      expect(wrapper.unmount());
+    });
   });
 
   describe('if Dom is not present', () => {
