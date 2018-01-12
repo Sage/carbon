@@ -180,8 +180,8 @@ describe('Browser', () => {
         jasmine.any(Function) // Anon Function
       );
 
-      expect(React.createElement).toHaveBeenCalledWith(Form, {
-        action: url, method: 'post', target: '_blank', save: false, cancel: false
+      expect(React.createElement).toHaveBeenCalledWith('form', {
+        action: url, method: 'post', target: '_blank'
       }, jasmine.anything());
     });
 
@@ -218,8 +218,8 @@ describe('Browser', () => {
         const target = 'some_window';
 
         Browser.postToNewWindow(url, data, target);
-        expect(React.createElement).toHaveBeenCalledWith(Form, {
-          action: url, method: 'post', target, save: false, cancel: false
+        expect(React.createElement).toHaveBeenCalledWith('form', {
+          action: url, method: 'post', target
         }, jasmine.anything());
       });
     });

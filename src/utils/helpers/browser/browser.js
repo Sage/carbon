@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { keys } from 'lodash';
-import Form from './../../../components/form';
 
 /**
 * Browser Helper
@@ -11,6 +10,13 @@ import Form from './../../../components/form';
 *
 */
 const Browser = {
+  isDomAvailable: () => {
+    return (!!(
+      typeof window !== 'undefined' &&
+      window.document &&
+      window.document.createElement
+    ));
+  },
   /**
    * Get the current window
    *
@@ -143,13 +149,13 @@ const Browser = {
     }
 
     ReactDOM.render((
-      <Form action={ url } method='post' target={ target } save={ false } cancel={ false }>
+      <form action={ url } method='post' target={ target }>
         { keys(data).map((key) => {
           return <input type='hidden' key={ key } name={ key } value={ data[key] } />;
         }) }
-      </Form>
+      </form>
     ), container, function() {
-      Browser.submitForm(this._form);
+      Browser.submitForm(this);
     });
     ReactDOM.unmountComponentAtNode(container);
   },

@@ -1,14 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
+import Browser from '../../utils/helpers/browser';
 
-const isDomAvailable = function () {
-    return (!!(
-      typeof window !== 'undefined' &&
-      window.document &&
-      window.document.createElement
-    ));
-};
 class Portal extends React.Component {
 
   static propTypes = {
@@ -30,14 +24,15 @@ class Portal extends React.Component {
 
   componentWillUnmount() {
     if (this.defaultNode) {
-      document.body.removeChild(this.defaultNode);
+      Browser.getDocument().body.removeChild(this.defaultNode);
     }
     this.defaultNode = null;
   }
 
   getDefaultDiv() {
-    if (!this.props.node && !this.defaultNode && isDomAvailable()) {
-      this.defaultNode = document.createElement('div');
+    
+    if (!this.props.node && !this.defaultNode && Browser.isDomAvailable()) {
+      this.defaultNode = Browser.getDocument().createElement('div');
       this.defaultNode.classList.add('portal');
       document.body.appendChild(this.defaultNode);
     }
@@ -45,7 +40,7 @@ class Portal extends React.Component {
   }
 
   render() {
-    if (!isDomAvailable()) {
+    if (!Browser.isDomAvailable()) {
       return null;
     }
 
