@@ -11,10 +11,12 @@ import { keys } from 'lodash';
 */
 const Browser = {
   isDomAvailable: () => {
+    const _window = Browser.getWindow();
+    const _document = Browser.getDocument();
     return (!!(
-      typeof Browser.getWindow() !== 'undefined' &&
-      Browser.getDocument() &&
-      Browser.getDocument().createElement
+      typeof _window !== 'undefined' &&
+      _document &&
+      _document.createElement
     ));
   },
   /**
