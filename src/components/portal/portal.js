@@ -12,14 +12,7 @@ class Portal extends React.Component {
      * @property children
      * @type {Node}
      */
-    children: PropTypes.node,
-    /**
-     * The DomNode 
-     *
-     * @property node
-     * @type {Any}
-     */
-    node: PropTypes.any
+    children: PropTypes.node
   }
 
   componentWillUnmount() {
@@ -30,8 +23,6 @@ class Portal extends React.Component {
   }
 
   getPortalDiv() {
-    if (this.props.node) return this.props.node;
-
     if (!this.defaultNode) {
       this.defaultNode = Browser.getDocument().createElement('div');
       this.defaultNode.classList.add('portal');

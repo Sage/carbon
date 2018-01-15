@@ -19,6 +19,17 @@ describe('Portal', () => {
       expect(document.body.innerHTML).toEqual('');
     });
 
+    it('remount second portal', () => {
+      wrapper.unmount();
+      const wrapper2 = shallow(
+        <Portal>
+          <p className='child-element' />
+        </Portal>
+      );
+      wrapper2.unmount();
+      expect(document.body.innerHTML).toEqual('');
+    });
+
     it('to match snapshot ', () => {
       expect(wrapper).toMatchSnapshot();
     });
