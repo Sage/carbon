@@ -13,8 +13,8 @@ const Browser = {
   isDomAvailable: () => {
     return (!!(
       typeof Browser.getWindow() !== 'undefined' &&
-      Browser.getWindow().document &&
-      Browser.getWindow().document.createElement
+      Browser.getDocument() &&
+      Browser.getDocument().createElement
     ));
   },
   /**
