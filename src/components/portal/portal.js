@@ -16,9 +16,7 @@ class Portal extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.defaultNode) {
-      Browser.getDocument().body.removeChild(this.defaultNode);
-    }
+    Browser.getDocument().body.removeChild(this.defaultNode);
     this.defaultNode = null;
   }
 
