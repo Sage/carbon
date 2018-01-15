@@ -35,11 +35,26 @@ describe('Browser', () => {
     });
   });
 
+  describe('isDomAvailable when window is undefined', () => {
+    it('returns the window object', () => {
+      spyOn(Browser, 'getWindow').and.returnValue(undefined);
+      expect(Browser.isDomAvailable()).toBe(false);
+    });
+  });
+
+  describe('isDomAvailable when document is undefined', () => {
+    it('returns the window object', () => {
+      spyOn(Browser, 'getDocument').and.returnValue(undefined);
+      expect(Browser.isDomAvailable()).toBe(false);
+    });
+  });
+
   describe('getWindow', () => {
     it('returns the window object', () => {
       expect(Browser.getWindow()).toEqual(window);
     });
   });
+
 
   describe('getDocument', () => {
     it('returns the document object', () => {

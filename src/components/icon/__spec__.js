@@ -178,7 +178,9 @@ describe('Icon', () => {
       wrapper.setState({ isVisible: true });
 
       const tooltip = wrapper.find(Tooltip);
-      expect(tooltip.find({ 'data-element': 'tooltip' }).length).toEqual(2);
+      expect(tooltip.props().align).toEqual('left');
+      expect(tooltip.props().position).toEqual('top');
+      expect(tooltip.props().children).toEqual('Test');
     });
   });
 });

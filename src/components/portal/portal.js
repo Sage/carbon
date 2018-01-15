@@ -23,7 +23,7 @@ class Portal extends React.Component {
   getPortalDiv() {
     if (!this.defaultNode) {
       this.defaultNode = Browser.getDocument().createElement('div');
-      this.defaultNode.classList.add('portal');
+      this.defaultNode.classList.add('carbon-portal');
       Browser.getDocument().body.appendChild(this.defaultNode);
     }
     return this.defaultNode;
