@@ -503,7 +503,7 @@ class Date extends React.Component {
     let date = this.state.datePickerValue;
 
     if (!date) {
-      date = DateHelper.isValidDate(this.props.value) ? this.props.value : '';
+      date = this.props.value;
     }
 
     return {
