@@ -176,7 +176,10 @@ describe('Icon', () => {
           type='tick'
         />);
       wrapper.setState({ isVisible: true });
-      expect(document.getElementsByTagName('body')[0].innerHTML).toEqual(expect.stringContaining('data-component="tooltip" data-element="tooltip"'));
+
+      const tooltip = wrapper.find(Tooltip);
+      expect(tooltip.find({ 'data-element': 'tooltip' }).length).toEqual(2);
     });
   });
 });
+

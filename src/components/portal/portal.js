@@ -36,7 +36,6 @@ class Portal extends React.Component {
       this.defaultNode = Browser.getDocument().createElement('div');
       this.defaultNode.classList.add('portal');
       Browser.getDocument().body.appendChild(this.defaultNode);
-
     }
     return this.defaultNode;
   }
@@ -46,20 +45,10 @@ class Portal extends React.Component {
       return null;
     }
 
-    this.node = this.getPortalDiv();
     return (
-      <ReactPortal node={ this.node }>{this.props.children}</ReactPortal>
+      createPortal(this.props.children, this.getPortalDiv())
     );
   }
-}
-
-function ReactPortal(props) {
-  return (
-    createPortal(
-      props.children,
-      props.node
-    )
-  );
 }
 
 export default Portal;

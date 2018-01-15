@@ -14,45 +14,13 @@ describe('Portal', () => {
       );
     });
 
-    it('div with name portal should be created ', () => {
-      expect(wrapper.instance().node.classList[0]).toEqual('portal');
+    it('will unmount correctly', () => {
+      wrapper.unmount();
+      expect(document.body.innerHTML).toEqual('');
     });
 
     it('to match snapshot ', () => {
       expect(wrapper).toMatchSnapshot();
-    });
-
-    it('will unmount correctly', () => {
-      expect(wrapper.unmount());
-    });
-  });
-
-  describe('when using a custom node', () => {
-    beforeEach(() => {
-      const node = Browser.getDocument().createElement('div');
-      node.classList.add('my-node');
-
-      wrapper = mount(
-        <Portal node={ node }>
-          <p className='child-element' />
-        </Portal>
-      );
-    });
-
-    it('to match snapshot ', () => {
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('the node prop has been added to the DOM', () => {
-      expect(wrapper.instance().node.classList[0]).toEqual('my-node');
-    });
-
-    it('the node prop has been added to the DOM', () => {
-      expect(wrapper.instance().node.classList[0]).toEqual('my-node');
-    });
-
-    it('will unmount correctly', () => {
-      expect(wrapper.unmount());
     });
   });
 
