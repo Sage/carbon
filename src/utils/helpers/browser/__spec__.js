@@ -49,6 +49,13 @@ describe('Browser', () => {
     });
   });
 
+  describe('when document.createElement does not exist', () => {
+    it('returns false', () => {
+      spyOn(Browser, 'getDocument').and.returnValue({ createElement: undefined });
+      expect(Browser.isDomAvailable()).toEqual(false);
+    });
+  });
+
   describe('getWindow', () => {
     it('returns the window object', () => {
       expect(Browser.getWindow()).toEqual(window);
