@@ -76,6 +76,10 @@ Both `react` and `react-dom` will need to be updated to version 16.2.0
 npm install react@^16.2.0 react-dom@^16.2.0 --save
 ```
 
+## React Portal
+
+We have updated the `Portal` component to use React's own version of portal which is available with React 16, removing the `react-portal` dependency.
+
 ### Hydrate Deprecation
 
 Hydrating a server-rendered container now has an explicit API. If you’re reviving server-rendered HTML, use `ReactDOM.hydrate` instead of `ReactDOM.render`. Keep using `ReactDOM.render` if you’re just doing client-side rendering.
