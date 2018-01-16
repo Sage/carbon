@@ -6,6 +6,7 @@ import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
+import Logger from './../../utils/logger';
 
 /**
  * A decimal widget.
@@ -110,7 +111,7 @@ class Decimal extends React.Component {
   // Caps precision at 20 to prevent browser issues
   verifiedPrecision = (precision) => {
     if (precision > 20) {
-      console.warn('Decimal precision must not be greater than 20.'); // eslint-disable-line no-console
+      Logger.warn('Decimal precision must not be greater than 20.');
       return 20;
     }
     return precision;

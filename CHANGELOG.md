@@ -19,6 +19,10 @@
 
 React 15 had limited, undocumented support for error boundaries using `unstable_handleError`. This method has been renamed to `componentDidCatch`.
 
+### Decimal Precision Capped at 20
+
+Previously this would return an error if the given precision was higher than 20 but would not actually enforce the limit. Now, if a value of greater than 20 is set the precision will be set to exactly 20.
+
 ### ReactDOM methods
 
 `ReactDOM.render` and `ReactDOM.unstable_renderSubtreeIntoContainer`now return null if called from inside a lifecycle method. To work around this, you can use portals or refs.
