@@ -25,7 +25,7 @@ describe('Portal', () => {
     });
 
     it('will mount correctly on document', () => {
-      expect(document.body.innerHTML).toEqual('<div class="carbon-portal"><span class="carbon-icon icon-tick" type="tick" data-component="icon"></span></div>');
+      expect(document.body.innerHTML).toMatchSnapshot();
     });
 
     it('can be able to access Icon', () => {
@@ -77,7 +77,7 @@ describe('Portal', () => {
       </Portal>
     );
 
-    expect(document.body.innerHTML).toEqual('<div class="carbon-portal"><p>john</p></div>');
+    expect(document.body.innerHTML).toMatchSnapshot();
   });
 
   it('will NOT mount with no DOM', () => {

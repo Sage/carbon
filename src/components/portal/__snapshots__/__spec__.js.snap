@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\"><p>john</p></div>"`;
+
 exports[`Portal when using default node to match snapshot  1`] = `
 <Portal>
   <Icon
@@ -22,3 +24,5 @@ exports[`Portal when using default node to match snapshot  1`] = `
   </Icon>
 </Portal>
 `;
+
+exports[`Portal when using default node will mount correctly on document 1`] = `"<div class=\\"carbon-portal\\"><span class=\\"carbon-icon icon-tick\\" type=\\"tick\\" data-component=\\"icon\\"></span></div>"`;
