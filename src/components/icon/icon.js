@@ -154,17 +154,18 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    return (
+    return [
       <span
+        key='icon'
         className={ this.mainClasses }
         { ...this.componentProps }
         { ...tagComponent('icon', this.props) }
         ref={ (comp) => { this._target = comp; } }
       >
         { this.iconSvgHTML() }
-        { this.tooltipHTML }
-      </span>
-    );
+      </span>,
+      this.tooltipHTML
+    ];
   }
 
   iconSvgHTML = () => {
