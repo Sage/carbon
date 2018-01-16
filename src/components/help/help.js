@@ -112,6 +112,6 @@ class Help extends React.Component {
       </a>
     );
   }
-};
+}
 
 export default Help;
