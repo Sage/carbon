@@ -16,6 +16,7 @@ import DateValidator from './../../utils/validations/date';
 import chainFunctions from './../../utils/helpers/chain-functions';
 import { validProps } from './../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
+import ReactDOM from 'react-dom';
 
 /**
  * Stores a reference to the current date in the given format,
@@ -202,19 +203,35 @@ class Date extends React.Component {
    * @return {void}
    */
   componentDidUpdate(prevProps) {
+    const scrollingNode = this.getScrollParent(ReactDOM.findDOMNode(this));
     if (this.state.open && !this.listening) {
       this.listening = true;
       this.updateDatePickerPosition();
       this.window.addEventListener('resize', this.updateDatePickerPosition);
+      scrollingNode && scrollingNode.addEventListener('scroll', this.updateDatePickerPosition);
     } else if (!this.state.open && this.listening) {
       this.listening = false;
+      this.updateDatePickerPosition();
       this.window.removeEventListener('resize', this.updateDatePickerPosition);
+      scrollingNode && scrollingNode.removeEventListener('scroll', this.updateDatePickerPosition);
     }
 
     if (this.datePickerValueChanged(prevProps)) {
       this.blockBlur = false;
       this._handleBlur();
     }
+  }
+
+  getScrollParent(element) {
+    const style = window.getComputedStyle(element);
+    const isExcluded = style.position === 'absolute';
+    const overflowRegex = /(auto|scroll)/;
+
+    if (!isExcluded && overflowRegex.test(style.overflow + style.overflowY + style.overflowX)) {
+      return element;
+    }
+
+    return (element !== document.body) ? this.getScrollParent(element.parentElement) : null;
   }
 
   /**

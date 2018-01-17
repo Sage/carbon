@@ -21,7 +21,13 @@ const definition = new Definition('dialog', Dialog, {
   },
   propValues: {
     title: 'Example Title for a Dialog',
-    children: '<Form>This is an example of a dialog.</Form>'
+    children: `<Form><DateInput name="date" label="Date" /><DateInput name="date" label="Date" /><DateInput name="date" label="Date" /><DateInput name="date" label="Date" />
+    <Textbox label="Name" validations={[ new PresenceValidation() ]}/>
+    <Textbox label="Name" validations={[ new PresenceValidation() ]}/>
+    <Textbox label="Name" validations={[ new PresenceValidation() ]}/>
+    <Textbox label="Name" validations={[ new PresenceValidation() ]}/>
+    <Textbox label="Name" validations={[ new PresenceValidation() ]}/>
+    <Textbox label="Name" validations={[ new PresenceValidation() ]}/>This is an example of a dialog.</Form>`
   },
   propTypes: {
     autoFocus: 'Boolean',
