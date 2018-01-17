@@ -1,3 +1,27 @@
+# 2.6.4
+
+* Upgrade marked package from v0.3.6 to 0.3.9 to address security vulnerabilities
+
+# 2.6.3
+
+## Bug Fixes
+
+* `acronymize`: This helper function provided in `/utils/ether` now checks for invalid strings to mitigate errors.
+
+# 2.6.2
+
+## Bug Fixes
+
+* `Menu`: Fixes cursor type when hovering a top level menu item.
+
+# 2.6.1
+
+## Bug Fixes
+
+* `Portrait`: fixes incorrect text colour in light mode. Also standardises the colours used for the icon and initials.
+* `Message`: Fixes the icon positiing in IE11.
+* `Toast`: Fixes the icon positiing in IE11.
+
 # 2.6.0
 
 ## Package Updates
@@ -18,6 +42,10 @@
 ## CSS Changes
 
 * `SettingRow` - the left hand segment now has a `max-width` of 300px.
+
+# 2.5.4
+
+* Upgrade marked package from v0.3.6 to 0.3.9 to address security vulnerabilities
 
 # 2.5.3
 
