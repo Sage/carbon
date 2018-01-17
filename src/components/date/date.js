@@ -168,9 +168,13 @@ class Date extends React.Component {
     this.window = Browser.getWindow();
   }
 
+  getDOMNode() {
+    return ReactDOM.findDOMNode(this);
+  }
+
   getChildContext() {
     return { 
-      parentDOMNode: ReactDOM.findDOMNode(this),
+      parentDOMNode: this.getDOMNode.bind(this),
       onResposition: this.updateDatePickerPosition.bind(this)
     };
   }
@@ -216,7 +220,6 @@ class Date extends React.Component {
       this.window.addEventListener('resize', this.updateDatePickerPosition);
     } else if (!this.state.open && this.listening) {
       this.listening = false;
-      this.updateDatePickerPosition();
       this.window.removeEventListener('resize', this.updateDatePickerPosition);
     }
 
@@ -658,7 +661,7 @@ class Date extends React.Component {
 ))));
 
 Date.childContextTypes = {
-  parentDOMNode: PropTypes.any,
+  parentDOMNode: PropTypes.func,
   onResposition: PropTypes.func
 };
 

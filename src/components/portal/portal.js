@@ -23,7 +23,7 @@ class Portal extends React.Component {
 
   componentDidMount() {
     if (this.context.onResposition && this.context.parentDOMNode) {
-      this.scrollParent = this.getScrollParent(this.context.parentDOMNode);
+      this.scrollParent = this.getScrollParent(this.context.parentDOMNode());
       this.scrollParent && this.scrollParent.addEventListener('scroll', this.context.onResposition);
     }
   }
