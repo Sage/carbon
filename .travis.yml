@@ -34,4 +34,4 @@ deploy:
       secure: nJbICzvxOsnsCQ+vpeLPyBNxTtNwAvLx53eBDaidkYXJD2xE5BYAmmkhk25lPK+o4tmK55mwvzvYh6NjjKO167HXnIRpiMcLhrzN+93jbueGD8Y92g3zvYC++8lRO64Xed122X+jyyhN/e5+immWNH/opklW4FnNQ1VhUh/uGTIDGyifz1Xqo9ozcMeYZfBSUdjPWDQmkDB052wsWG3yixOHsXwRJ4fAM19gtuzmKuqg8CHl5KLOmnf81WSkTp6W3yQpKXIvqJGjp4v/Zyoa0RISe0H+qlRhyY1BgZO4aZNaLrC23erBgss/Iw/EJKn+yFFIZUG8mMVCp9QgduCF0afPuxQ3g2fJCQX5+hRG5XjGMjHB2umbIgGfcA384exkdnlvXdmG5zLOh0LyEuqAI+5dm/6QvY6mMlOIETklS2m4iZ9x8ksw+o39XyYcSSIVpTSCZ1N3jIQ1sO+dV1QKr0Gx8t+nVmC5n5TqfLU+xxelp3dEvZFi5yZE3pcTE96T5ixL+Ad3nx4Hc2APv6OTuU4F/8gxDdbPnQP8Xj84QHOmBEEjoS4bsin74PvLW5atkjZSUr25j/VDWggnfwAxEN3RVb88iYH5ZfqoXEDcqhg0sX3ihUCRhA1pEFozoum4k0d09zG/hRp+h4m9xh9MfcgJIW/725+rOUrOB9z6NyU=
     on:
       tags: true
-      condition: "$TRAVIS_TAG =~ ^(v[0-9]+.[0-9]+.[0-9]+)$"
+      condition: "$TRAVIS_TAG =~ ^((v[0-9]+.[0-9]+.[0-9]+)(-rc[0-9]+)?)$"
