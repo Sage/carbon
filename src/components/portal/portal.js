@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { createPortal } from 'react-dom';
 import Browser from '../../utils/helpers/browser';
-
+import ReactDOM from 'react-dom';
 class Portal extends React.Component {
 
   static propTypes = {
@@ -12,19 +12,26 @@ class Portal extends React.Component {
      * @property children
      * @type {Node}
      */
-    children: PropTypes.node
+    children: PropTypes.node,
+    parent: PropTypes.symbol,
+    onResposition: PropTypes.func
+  }
+
+  getDOMNode() {
+    return ReactDOM.findDOMNode(this.props.parent);
   }
 
   componentWillUnmount() {
     Browser.getDocument().body.removeChild(this.defaultNode);
     this.defaultNode = null;
-    this.scrollParent && this.scrollParent.removeEventListener('scroll', this.context.onResposition);
+    this.scrollParent && this.scrollParent.removeEventListener('scroll', this.props.onResposition);
+    this.scrollParent = null;
   }
 
   componentDidMount() {
-    if (this.context.onResposition && this.context.parentDOMNode) {
-      this.scrollParent = this.getScrollParent(this.context.parentDOMNode());
-      this.scrollParent && this.scrollParent.addEventListener('scroll', this.context.onResposition);
+    if (this.props.onResposition && this.props.parent) {
+      this.scrollParent = this.getScrollParent(this.getDOMNode());
+      this.scrollParent && this.scrollParent.addEventListener('scroll', this.props.onResposition);
     }
   }
 
@@ -56,10 +63,5 @@ class Portal extends React.Component {
     );
   }
 }
-
-Portal.contextTypes = {
-  parentDOMNode: PropTypes.any,
-  onResposition: PropTypes.func
-};
 
 export default Portal;

@@ -16,7 +16,6 @@ import DateValidator from './../../utils/validations/date';
 import chainFunctions from './../../utils/helpers/chain-functions';
 import { validProps } from './../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
-import ReactDOM from 'react-dom';
 
 /**
  * Stores a reference to the current date in the given format,
@@ -167,18 +166,6 @@ class Date extends React.Component {
     super(args);
     this.window = Browser.getWindow();
   }
-
-  getDOMNode() {
-    return ReactDOM.findDOMNode(this);
-  }
-
-  getChildContext() {
-    return { 
-      parentDOMNode: this.getDOMNode.bind(this),
-      onResposition: this.updateDatePickerPosition.bind(this)
-    };
-  }
-
   /**
    * Manually focus if autoFocus is applied - allows us to prevent the list from opening.
    *
@@ -589,7 +576,7 @@ class Date extends React.Component {
    */
   renderDatePicker() {
     return (
-      this.state.open && <Portal >
+      this.state.open && <Portal parent={ this } onResposition={ this.updateDatePickerPosition.bind(this) }>
         <DayPicker { ...this.datePickerProps } containerProps={ this.containerProps } />
       </Portal>
     );
@@ -659,10 +646,5 @@ class Date extends React.Component {
   }
 }
 ))));
-
-Date.childContextTypes = {
-  parentDOMNode: PropTypes.func,
-  onResposition: PropTypes.func
-};
 
 export default Date;
