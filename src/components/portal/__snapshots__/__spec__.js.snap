@@ -14,6 +14,7 @@ exports[`Portal when using default node to match snapshot  1`] = `
     <span
       className="carbon-icon icon-tick"
       data-component="icon"
+      key="icon"
       onBlur={[Function]}
       onFocus={[Function]}
       onMouseEnter={[Function]}
