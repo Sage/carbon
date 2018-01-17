@@ -13,20 +13,23 @@ class Portal extends React.Component {
      * @type {Node}
      */
     children: PropTypes.node,
-    onResposition: PropTypes.func
+    onReposition: PropTypes.func
   }
 
   componentWillUnmount() {
     Browser.getDocument().body.removeChild(this.defaultNode);
     this.defaultNode = null;
-    this.scrollParent && this.scrollParent.removeEventListener('scroll', this.props.onResposition);
+    this.scrollParent && this.scrollParent.removeEventListener('scroll', this.props.onReposition);
+    Browser.getWindow().addEventListener('resize', this.props.onReposition);
     this.scrollParent = null;
   }
 
   componentDidMount() {
-    if (this.props.onResposition) {
+    if (this.props.onReposition) {
+      this.props.onReposition();
       this.scrollParent = this.getScrollParent(ReactDOM.findDOMNode(this));
-      this.scrollParent && this.scrollParent.addEventListener('scroll', this.props.onResposition);
+      this.scrollParent && this.scrollParent.addEventListener('scroll', this.props.onReposition);
+      Browser.getWindow().addEventListener('resize', this.props.onReposition);
     }
   }
 
