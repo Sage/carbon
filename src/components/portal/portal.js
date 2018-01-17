@@ -13,12 +13,7 @@ class Portal extends React.Component {
      * @type {Node}
      */
     children: PropTypes.node,
-    parent: PropTypes.symbol,
     onResposition: PropTypes.func
-  }
-
-  getDOMNode() {
-    return ReactDOM.findDOMNode(this.props.parent);
   }
 
   componentWillUnmount() {
@@ -29,8 +24,8 @@ class Portal extends React.Component {
   }
 
   componentDidMount() {
-    if (this.props.onResposition && this.props.parent) {
-      this.scrollParent = this.getScrollParent(this.getDOMNode());
+    if (this.props.onResposition) {
+      this.scrollParent = this.getScrollParent(ReactDOM.findDOMNode(this));
       this.scrollParent && this.scrollParent.addEventListener('scroll', this.props.onResposition);
     }
   }
@@ -59,7 +54,11 @@ class Portal extends React.Component {
     }
 
     return (
-      createPortal(this.props.children, this.getPortalDiv())
+      <div>
+        {
+          createPortal(this.props.children, this.getPortalDiv())
+        }
+      </div>
     );
   }
 }
