@@ -168,6 +168,13 @@ class Date extends React.Component {
     this.window = Browser.getWindow();
   }
 
+  getChildContext() {
+    return { 
+      parentDOMNode: ReactDOM.findDOMNode(this),
+      onResposition: this.updateDatePickerPosition.bind(this)
+    };
+  }
+
   /**
    * Manually focus if autoFocus is applied - allows us to prevent the list from opening.
    *
@@ -203,35 +210,20 @@ class Date extends React.Component {
    * @return {void}
    */
   componentDidUpdate(prevProps) {
-    const scrollingNode = this.getScrollParent(ReactDOM.findDOMNode(this));
     if (this.state.open && !this.listening) {
       this.listening = true;
       this.updateDatePickerPosition();
       this.window.addEventListener('resize', this.updateDatePickerPosition);
-      scrollingNode && scrollingNode.addEventListener('scroll', this.updateDatePickerPosition);
     } else if (!this.state.open && this.listening) {
       this.listening = false;
       this.updateDatePickerPosition();
       this.window.removeEventListener('resize', this.updateDatePickerPosition);
-      scrollingNode && scrollingNode.removeEventListener('scroll', this.updateDatePickerPosition);
     }
 
     if (this.datePickerValueChanged(prevProps)) {
       this.blockBlur = false;
       this._handleBlur();
     }
-  }
-
-  getScrollParent(element) {
-    const style = window.getComputedStyle(element);
-    const isExcluded = style.position === 'absolute';
-    const overflowRegex = /(auto|scroll)/;
-
-    if (!isExcluded && overflowRegex.test(style.overflow + style.overflowY + style.overflowX)) {
-      return element;
-    }
-
-    return (element !== document.body) ? this.getScrollParent(element.parentElement) : null;
   }
 
   /**
@@ -664,5 +656,10 @@ class Date extends React.Component {
   }
 }
 ))));
+
+Date.childContextTypes = {
+  parentDOMNode: PropTypes.any,
+  onResposition: PropTypes.func
+};
 
 export default Date;

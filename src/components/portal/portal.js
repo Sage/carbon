@@ -18,6 +18,23 @@ class Portal extends React.Component {
   componentWillUnmount() {
     Browser.getDocument().body.removeChild(this.defaultNode);
     this.defaultNode = null;
+    this.scrollParent && this.scrollParent.removeEventListener('scroll', this.context.onResposition);
+  }
+
+  componentDidMount() {
+    if (this.context.onResposition && this.context.parentDOMNode) {
+      this.scrollParent = this.getScrollParent(this.context.parentDOMNode);
+      this.scrollParent && this.scrollParent.addEventListener('scroll', this.context.onResposition);
+    }
+  }
+
+  getScrollParent(element) {
+    const style = window.getComputedStyle(element);
+    if (style.position !== 'absolute' && /(auto|scroll)/.test(style.overflow + style.overflowY + style.overflowX)) {
+      return element;
+    }
+
+    return (element !== document.body) ? this.getScrollParent(element.parentElement) : null;
   }
 
   getPortalDiv() {
@@ -39,5 +56,10 @@ class Portal extends React.Component {
     );
   }
 }
+
+Portal.contextTypes = {
+  parentDOMNode: PropTypes.any,
+  onResposition: PropTypes.func
+};
 
 export default Portal;
