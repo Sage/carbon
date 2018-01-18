@@ -48,7 +48,6 @@ class Portal extends React.Component {
             /(auto|scroll)/.test(style.overflow + style.overflowY + style.overflowX)) {
       return element;
     }
-
     return this.getScrollParent(element.parentElement);
   }
 

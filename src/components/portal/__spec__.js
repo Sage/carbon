@@ -101,23 +101,26 @@ describe('Portal', () => {
 
     describe('when given reposition prop', () => {
       let repositionCb;
+      let parentDiv;
       beforeEach(() => {
-        const style = {
-          overflow: 'auto'
-        };
         repositionCb = jasmine.createSpy('onReposition');
+        parentDiv = Browser.getDocument().createElement('div');
+        parentDiv.style.overflow = 'auto';
+
         spyOn(Browser.getWindow(), 'addEventListener');
+        spyOn(Browser.getWindow(), 'removeEventListener');
+        spyOn(ReactDOM, 'findDOMNode').and.returnValue(parentDiv);
+        spyOn(parentDiv, 'addEventListener');
+        spyOn(parentDiv, 'removeEventListener');
         wrapper = mount(
-          <div id='fakeComponent' style={ style }>
-            <Portal onReposition={ repositionCb }>
-              <Icon
-                tooltipMessage='Test'
-                tooltipAlign='left'
-                tooltipPosition='top'
-                type='tick'
-              />
-            </Portal>
-          </div>
+          <Portal onReposition={ repositionCb }>
+            <Icon
+              tooltipMessage='Test'
+              tooltipAlign='left'
+              tooltipPosition='top'
+              type='tick'
+            />
+          </Portal>
         );
       });
 
@@ -127,7 +130,24 @@ describe('Portal', () => {
 
       it('will add window "resize" listener ', () => {
         expect(Browser.getWindow().addEventListener).toHaveBeenCalledWith('resize', repositionCb);
+      });
+
+      it('will remove "resize" listener on unnmount', () => {
+        wrapper.unmount();
+        expect(Browser.getWindow().removeEventListener).toHaveBeenCalledWith('resize', repositionCb);
+      });
+
+      it('will call window "reposition" callback ', () => {
         expect(repositionCb).toHaveBeenCalled();
+      });
+      
+      it('will add window "scroll" listener ', () => {
+        expect(parentDiv.addEventListener).toHaveBeenCalledWith('scroll', repositionCb);
+      });
+
+      it('will remove "scroll" listener on unnmount', () => {
+        wrapper.unmount();
+        expect(parentDiv.removeEventListener).toHaveBeenCalledWith('scroll', repositionCb);
       });
     });
   });
