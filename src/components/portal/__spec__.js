@@ -1,9 +1,9 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
+import ReactDOM from 'react-dom';
 import Portal from './portal';
 import Icon from './../icon';
 import Browser from '../../utils/helpers/browser';
-import ReactDOM from 'react-dom';
 
 describe('Portal', () => {
   let wrapper;
@@ -140,7 +140,7 @@ describe('Portal', () => {
       it('will call window "reposition" callback ', () => {
         expect(repositionCb).toHaveBeenCalled();
       });
-      
+
       it('will add window "scroll" listener ', () => {
         expect(parentDiv.addEventListener).toHaveBeenCalledWith('scroll', repositionCb);
       });
@@ -153,7 +153,7 @@ describe('Portal', () => {
   });
 
   it('mount a <p/> tag as child', () => {
-    const wrapper = mount(
+    mount(
       <Portal>
         <p>john</p>
       </Portal>
@@ -164,7 +164,7 @@ describe('Portal', () => {
 
   it('will NOT mount with no DOM', () => {
     spyOn(Browser, 'getWindow').and.returnValue(undefined);
-    const wrapper = mount(
+    const noDOMWrapper = mount(
       <Portal>
         <Icon
           tooltipMessage='Test'
@@ -174,6 +174,6 @@ describe('Portal', () => {
         />
       </Portal>
       );
-    expect(wrapper.html()).toBe(null);
+    expect(noDOMWrapper.html()).toBe(null);
   });
 });

@@ -25,8 +25,8 @@ class Portal extends React.Component {
   componentDidMount() {
     if (this.props.onReposition) {
       this.props.onReposition();
-      this.scrollParent = this.getScrollParent(ReactDOM.findDOMNode(this));
-      this.scrollParent && this.scrollParent.addEventListener('scroll', this.props.onReposition);
+      this.scrollParent = this.getScrollParent(ReactDOM.findDOMNode(this));// eslint-disable-line react/no-find-dom-node
+      if (this.scrollParent) { this.scrollParent.addEventListener('scroll', this.props.onReposition); }
       Browser.getWindow().addEventListener('resize', this.props.onReposition);
     }
   }
@@ -34,7 +34,7 @@ class Portal extends React.Component {
   componentWillUnmount() {
     if (this.props.onReposition) {
       Browser.getWindow().removeEventListener('resize', this.props.onReposition);
-      this.scrollParent && this.scrollParent.removeEventListener('scroll', this.props.onReposition);
+      if (this.scrollParent) { this.scrollParent.removeEventListener('scroll', this.props.onReposition); }
     }
     Browser.getDocument().body.removeChild(this.defaultNode);
     this.defaultNode = null;
