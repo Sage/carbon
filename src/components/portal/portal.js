@@ -49,7 +49,7 @@ class Portal extends React.Component {
       return element;
     }
 
-    return (element !== Browser.getDocument().body) ? this.getScrollParent(element.parentElement) : null;
+    return this.getScrollParent(element.parentElement);
   }
 
   getPortalDiv() {

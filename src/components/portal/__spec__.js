@@ -3,6 +3,7 @@ import { mount, shallow } from 'enzyme';
 import Portal from './portal';
 import Icon from './../icon';
 import Browser from '../../utils/helpers/browser';
+import ReactDOM from 'react-dom';
 
 describe('Portal', () => {
   let wrapper;
@@ -102,12 +103,10 @@ describe('Portal', () => {
       let repositionCb;
       beforeEach(() => {
         const style = {
-          position: 'absolute',
           overflow: 'auto'
-        }
+        };
         repositionCb = jasmine.createSpy('onReposition');
         spyOn(Browser.getWindow(), 'addEventListener');
-        
         wrapper = mount(
           <div id='fakeComponent' style={ style }>
             <Portal onReposition={ repositionCb }>
@@ -120,8 +119,6 @@ describe('Portal', () => {
             </Portal>
           </div>
         );
-        
-        
       });
 
       afterEach(() => {
@@ -129,11 +126,8 @@ describe('Portal', () => {
       });
 
       it('will add window "resize" listener ', () => {
-        expect(Browser.getWindow().addEventListener).toHaveBeenCalled();
-      });
-
-      it('will add window "scroll" listener ', () => {
-        expect(Browser.getWindow().addEventListener).toHaveBeenCalled();
+        expect(Browser.getWindow().addEventListener).toHaveBeenCalledWith('resize', repositionCb);
+        expect(repositionCb).toHaveBeenCalled();
       });
     });
   });
