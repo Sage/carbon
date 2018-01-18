@@ -4,25 +4,27 @@ exports[`Portal mount a <p/> tag as child 1`] = `"<div class=\\"carbon-portal\\"
 
 exports[`Portal when using default node to match snapshot  1`] = `
 <Portal>
-  <Icon
-    bgSize="small"
-    tooltipAlign="left"
-    tooltipMessage="Test"
-    tooltipPosition="top"
-    type="tick"
-  >
-    <span
-      className="carbon-icon icon-tick"
-      data-component="icon"
-      key="icon"
-      onBlur={[Function]}
-      onFocus={[Function]}
-      onMouseEnter={[Function]}
-      onMouseLeave={[Function]}
-      onTouchEnd={[Function]}
+  <div>
+    <Icon
+      bgSize="small"
+      tooltipAlign="left"
+      tooltipMessage="Test"
+      tooltipPosition="top"
       type="tick"
-    />
-  </Icon>
+    >
+      <span
+        className="carbon-icon icon-tick"
+        data-component="icon"
+        key="icon"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchEnd={[Function]}
+        type="tick"
+      />
+    </Icon>
+  </div>
 </Portal>
 `;
 

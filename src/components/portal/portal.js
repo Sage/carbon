@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createPortal } from 'react-dom';
+import ReactDOM, { createPortal } from 'react-dom';
 import Browser from '../../utils/helpers/browser';
-import ReactDOM from 'react-dom';
+
 class Portal extends React.Component {
 
   static propTypes = {
@@ -13,15 +13,13 @@ class Portal extends React.Component {
      * @type {Node}
      */
     children: PropTypes.node,
+    /**
+     * Callback function triggered when parent element is scrolled or window resized.
+     *
+     * @property onReposition
+     * @type {Node}
+     */
     onReposition: PropTypes.func
-  }
-
-  componentWillUnmount() {
-    Browser.getDocument().body.removeChild(this.defaultNode);
-    this.defaultNode = null;
-    this.scrollParent && this.scrollParent.removeEventListener('scroll', this.props.onReposition);
-    Browser.getWindow().addEventListener('resize', this.props.onReposition);
-    this.scrollParent = null;
   }
 
   componentDidMount() {
@@ -33,13 +31,25 @@ class Portal extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    if (this.props.onReposition) {
+      Browser.getWindow().removeEventListener('resize', this.props.onReposition);
+      this.scrollParent && this.scrollParent.removeEventListener('scroll', this.props.onReposition);
+    }
+    Browser.getDocument().body.removeChild(this.defaultNode);
+    this.defaultNode = null;
+    this.scrollParent = null;
+  }
+
   getScrollParent(element) {
-    const style = window.getComputedStyle(element);
-    if (style.position !== 'absolute' && /(auto|scroll)/.test(style.overflow + style.overflowY + style.overflowX)) {
+    if (!element) { return null; }
+    const style = Browser.getWindow().getComputedStyle(element);
+    if (style && style.position !== 'absolute' &&
+            /(auto|scroll)/.test(style.overflow + style.overflowY + style.overflowX)) {
       return element;
     }
 
-    return (element !== document.body) ? this.getScrollParent(element.parentElement) : null;
+    return (element !== Browser.getDocument().body) ? this.getScrollParent(element.parentElement) : null;
   }
 
   getPortalDiv() {

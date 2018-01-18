@@ -166,6 +166,7 @@ class Date extends React.Component {
     super(args);
     this.window = Browser.getWindow();
   }
+
   /**
    * Manually focus if autoFocus is applied - allows us to prevent the list from opening.
    *
@@ -567,7 +568,7 @@ class Date extends React.Component {
    */
   renderDatePicker() {
     return (
-      this.state.open && <Portal onReposition={ this.updateDatePickerPosition.bind(this) }>
+      this.state.open && <Portal onReposition={ this.updateDatePickerPosition }>
         <DayPicker { ...this.datePickerProps } containerProps={ this.containerProps } />
       </Portal>
     );
