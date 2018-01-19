@@ -10,8 +10,8 @@
     "set-config": "node -e \"require('./script/set-config').default()\"",
     "test": "jest --config=./jest.conf.json",
     "debug": "node --inspect ./node_modules/.bin/jest --watch --config=./jest.conf.json",
-    "release-version": "node check-version.js && npm install && npm publish",
-    "prepublishOnly": "npm run set-config && rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet"
+    "precompile": "npm run set-config && rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet",
+    "prepublishOnly": "node check-version.js && npm install && npm run precompile"
   },
   "repository": {
     "type": "git",
