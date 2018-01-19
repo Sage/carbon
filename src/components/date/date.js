@@ -237,7 +237,8 @@ class Date extends React.Component {
    */
   emitOnChangeCallback = (val) => {
     const hiddenField = this.hidden;
-    hiddenField.value = DateHelper.formatDateString(val, this.hiddenFormat());
+    const isValid = DateHelper.isValidDate(val, { sanitize: (typeof val === 'string') });
+    hiddenField.value = isValid ? DateHelper.formatDateString(val, this.hiddenFormat()) : val;
     this._handleOnChange({ target: hiddenField });
   }
 

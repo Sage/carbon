@@ -1,3 +1,9 @@
+# 3.0.0
+
+## Bug fixes
+
+* `Date`: Previously this component would not retain an invalid date value, we now keep the value and throw a validation error on the input.
+
 # 2.6.4
 
 * Upgrade marked package from v0.3.6 to 0.3.9 to address security vulnerabilities
