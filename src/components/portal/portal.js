@@ -25,7 +25,9 @@ class Portal extends React.Component {
   componentDidMount() {
     if (this.props.onReposition) {
       this.props.onReposition();
-      this.scrollParent = this.getScrollParent(ReactDOM.findDOMNode(this));// eslint-disable-line react/no-find-dom-node
+      /* eslint-disable */
+      this.scrollParent = this.searchForScrollableParent(ReactDOM.findDOMNode(this));
+      /* eslint-enable */
       if (this.scrollParent) { this.scrollParent.addEventListener('scroll', this.props.onReposition); }
       Browser.getWindow().addEventListener('resize', this.props.onReposition);
     }
@@ -41,16 +43,6 @@ class Portal extends React.Component {
     this.scrollParent = null;
   }
 
-  getScrollParent(element) {
-    if (!element) { return null; }
-    const style = Browser.getWindow().getComputedStyle(element);
-    if (style && style.position !== 'absolute' &&
-            /(auto|scroll)/.test(style.overflow + style.overflowY + style.overflowX)) {
-      return element;
-    }
-    return this.getScrollParent(element.parentElement);
-  }
-
   getPortalDiv() {
     if (!this.defaultNode) {
       this.defaultNode = Browser.getDocument().createElement('div');
@@ -58,6 +50,17 @@ class Portal extends React.Component {
       Browser.getDocument().body.appendChild(this.defaultNode);
     }
     return this.defaultNode;
+  }
+
+  searchForScrollableParent(element) {
+    if (!element) { return null; }
+    const style = Browser.getWindow().getComputedStyle(element);
+    const isElementScrollable = style && style.position !== 'absolute'
+                                      && /(auto|scroll)/.test(style.overflow + style.overflowY + style.overflowX);
+    if (isElementScrollable) {
+      return element;
+    }
+    return this.searchForScrollableParent(element.parentElement);
   }
 
   render() {
