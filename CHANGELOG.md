@@ -1,3 +1,9 @@
+# 3.0.0
+
+## Bug Fixes
+
+* Checkbox no longer overlays the end of the Help field text when the Reverse box is ticked
+
 # 2.6.4
 
 * Upgrade marked package from v0.3.6 to 0.3.9 to address security vulnerabilities
