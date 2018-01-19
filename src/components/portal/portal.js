@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { createPortal } from 'react-dom';
+import ReactDOM, { createPortal } from 'react-dom';
 import Browser from '../../utils/helpers/browser';
 
 class Portal extends React.Component {
@@ -12,12 +12,43 @@ class Portal extends React.Component {
      * @property children
      * @type {Node}
      */
-    children: PropTypes.node
+    children: PropTypes.node,
+    /**
+     * Callback function triggered when parent element is scrolled or window resized.
+     *
+     * @property onReposition
+     * @type {Node}
+     */
+    onReposition: PropTypes.func
+  }
+
+  componentDidMount() {
+    if (this.props.onReposition) {
+      this.props.onReposition();
+      this.scrollParent = this.getScrollParent(ReactDOM.findDOMNode(this));// eslint-disable-line react/no-find-dom-node
+      if (this.scrollParent) { this.scrollParent.addEventListener('scroll', this.props.onReposition); }
+      Browser.getWindow().addEventListener('resize', this.props.onReposition);
+    }
   }
 
   componentWillUnmount() {
+    if (this.props.onReposition) {
+      Browser.getWindow().removeEventListener('resize', this.props.onReposition);
+      if (this.scrollParent) { this.scrollParent.removeEventListener('scroll', this.props.onReposition); }
+    }
     Browser.getDocument().body.removeChild(this.defaultNode);
     this.defaultNode = null;
+    this.scrollParent = null;
+  }
+
+  getScrollParent(element) {
+    if (!element) { return null; }
+    const style = Browser.getWindow().getComputedStyle(element);
+    if (style && style.position !== 'absolute' &&
+            /(auto|scroll)/.test(style.overflow + style.overflowY + style.overflowX)) {
+      return element;
+    }
+    return this.getScrollParent(element.parentElement);
   }
 
   getPortalDiv() {
@@ -35,7 +66,11 @@ class Portal extends React.Component {
     }
 
     return (
-      createPortal(this.props.children, this.getPortalDiv())
+      <div>
+        {
+          createPortal(this.props.children, this.getPortalDiv())
+        }
+      </div>
     );
   }
 }

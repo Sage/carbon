@@ -83,6 +83,11 @@ npm install react@^16.2.0 react-dom@^16.2.0 --save
 ## React Portal
 
 We have updated the `Portal` component to use React's own version of portal which is available with React 16, removing the `react-portal` dependency.
+`Portal` now has an additional prop `onReposition` which is an optional callback function, called when the window resizes or a parent DOM element is scrolled.
+
+## Bug Fixes
+
+* The DatePicker element will now reposition itself when the DateInput is scrolled.
 
 ### Hydrate Deprecation
 
