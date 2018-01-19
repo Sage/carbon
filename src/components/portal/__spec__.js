@@ -72,8 +72,16 @@ describe('Portal', () => {
 
   describe('will manager listeners', () => {
     describe('when NOT given  reposition prop', () => {
+      let parentDiv;
       beforeEach(() => {
-        spyOn(Browser.getDocument(), 'addEventListener');
+        spyOn(Browser.getWindow(), 'addEventListener');
+        spyOn(Browser.getWindow(), 'removeEventListener');
+        spyOn(ReactDOM, 'findDOMNode').and.returnValue(parentDiv);
+
+        parentDiv = Browser.getDocument().createElement('div');
+        spyOn(parentDiv, 'addEventListener');
+        spyOn(parentDiv, 'removeEventListener');
+
         wrapper = mount(
           <Portal>
             <Icon
@@ -91,11 +99,21 @@ describe('Portal', () => {
       });
 
       it('will NOT add window "resize" listener ', () => {
-        expect(Browser.getDocument().addEventListener).not.toHaveBeenCalled();
+        expect(Browser.getWindow().addEventListener).not.toHaveBeenCalledWith('resize');
       });
 
-      it('will NOT add window "scroll" listener ', () => {
-        expect(Browser.getDocument().addEventListener).not.toHaveBeenCalled();
+      it('will NOT remove window "resize" listener on unnmount', () => {
+        wrapper.unmount();
+        expect(Browser.getWindow().removeEventListener).not.toHaveBeenCalledWith('resize');
+      });
+
+      it('will NOT window "scroll" listener ', () => {
+        expect(parentDiv.addEventListener).not.toHaveBeenCalled();
+      });
+
+      it('will NOT remove "scroll" listener on unnmount', () => {
+        wrapper.unmount();
+        expect(parentDiv.removeEventListener).not.toHaveBeenCalled();
       });
     });
 
