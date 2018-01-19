@@ -6,7 +6,7 @@ import { assign } from 'lodash';
 import Browser from './../../helpers/browser';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
-
+import Portal from './../../../components/portal'
 /**
  * InputValidation decorator.
  *
@@ -635,6 +635,15 @@ const InputValidation = (ComposedComponent) => {
 
       if (this.state.messageLocked) { messageClasses += ' common-input__message--locked'; }
       if (this.flipped) { messageClasses += ' common-input__message--flipped'; }
+      
+      const errorMessage = this.state.messageShown && <Portal><div key='1' className='common-input__message-wrapper'>
+        <div
+          ref={ (validationMessage) => { this.validationMessage = validationMessage; } }
+          className={ messageClasses }
+        >
+          { this.state.errorMessage || this.state.warningMessage || this.state.infoMessage }
+        </div>
+      </div></Portal>;
 
       return [
         <Icon
@@ -644,14 +653,7 @@ const InputValidation = (ComposedComponent) => {
           className={ iconClasses }
           style={ iconStyle }
         />,
-        <div key='1' className='common-input__message-wrapper'>
-          <div
-            ref={ (validationMessage) => { this.validationMessage = validationMessage; } }
-            className={ messageClasses }
-          >
-            { this.state.errorMessage || this.state.warningMessage || this.state.infoMessage }
-          </div>
-        </div>
+        errorMessage
       ];
     }
 
