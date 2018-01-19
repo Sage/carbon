@@ -2,7 +2,7 @@
 
 ## Bug Fixes
 
-* Checkbox no longer overlays the end of the Help field text when the Reverse box is ticked
+* Checkbox no longer overlays the end of the Help field text when the reverse prop is set to true
 
 # 2.6.4
 
