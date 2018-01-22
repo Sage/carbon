@@ -80,6 +80,10 @@ Both `react` and `react-dom` will need to be updated to version 16.2.0
 npm install react@^16.2.0 react-dom@^16.2.0 --save
 ```
 
+### Hydrate Deprecation
+
+Hydrating a server-rendered container now has an explicit API. If you’re reviving server-rendered HTML, use `ReactDOM.hydrate` instead of `ReactDOM.render`. Keep using `ReactDOM.render` if you’re just doing client-side rendering.
+
 ## React Portal
 
 We have updated the `Portal` component to use React's own version of portal which is available with React 16, removing the `react-portal` dependency.
@@ -88,10 +92,7 @@ We have updated the `Portal` component to use React's own version of portal whic
 ## Bug Fixes
 
 * The DatePicker element will now reposition itself when the DateInput is scrolled.
-
-### Hydrate Deprecation
-
-Hydrating a server-rendered container now has an explicit API. If you’re reviving server-rendered HTML, use `ReactDOM.hydrate` instead of `ReactDOM.render`. Keep using `ReactDOM.render` if you’re just doing client-side rendering.
+* `Date`: Previously this component would not retain an invalid date value, we now keep the value and throw a validation error on the input.
 
 # 2.6.4
 
