@@ -337,9 +337,8 @@ const TooltipDecorator = (ComposedComponent) => {
      * @return {Object} JSX for tooltip
      */
     get tooltipHTML() {
-      if (!this.props.tooltipMessage) { return null; }
       return (
-        <Portal open={ this.state.isVisible }>
+        (this.props.tooltipMessage && this.state.isVisible) && <Portal key='tooltip'>
           <Tooltip
             align={ this.props.tooltipAlign }
             data-element='tooltip'

@@ -38,7 +38,6 @@ $dialog-sizes: (
   position: fixed;
   top: 50%;
   z-index: $z-dialog;
-  transition: top 0.25s;
 
   &:focus {
     outline: none;

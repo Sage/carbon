@@ -29,11 +29,39 @@ describe('Browser', () => {
     });
   });
 
+  describe('isDomAvailable', () => {
+    it('returns the window object', () => {
+      expect(Browser.isDomAvailable()).toBe(true);
+    });
+  });
+
+  describe('isDomAvailable when window is undefined', () => {
+    it('returns the window object', () => {
+      spyOn(Browser, 'getWindow').and.returnValue(undefined);
+      expect(Browser.isDomAvailable()).toBe(false);
+    });
+  });
+
+  describe('isDomAvailable when document is undefined', () => {
+    it('returns the window object', () => {
+      spyOn(Browser, 'getDocument').and.returnValue(undefined);
+      expect(Browser.isDomAvailable()).toBe(false);
+    });
+  });
+
+  describe('when document.createElement does not exist', () => {
+    it('returns false', () => {
+      spyOn(Browser, 'getDocument').and.returnValue({ createElement: undefined });
+      expect(Browser.isDomAvailable()).toEqual(false);
+    });
+  });
+
   describe('getWindow', () => {
     it('returns the window object', () => {
       expect(Browser.getWindow()).toEqual(window);
     });
   });
+
 
   describe('getDocument', () => {
     it('returns the document object', () => {
@@ -180,8 +208,8 @@ describe('Browser', () => {
         jasmine.any(Function) // Anon Function
       );
 
-      expect(React.createElement).toHaveBeenCalledWith(Form, {
-        action: url, method: 'post', target: '_blank', save: false, cancel: false
+      expect(React.createElement).toHaveBeenCalledWith('form', {
+        action: url, method: 'post', target: '_blank'
       }, jasmine.anything());
     });
 
@@ -218,8 +246,8 @@ describe('Browser', () => {
         const target = 'some_window';
 
         Browser.postToNewWindow(url, data, target);
-        expect(React.createElement).toHaveBeenCalledWith(Form, {
-          action: url, method: 'post', target, save: false, cancel: false
+        expect(React.createElement).toHaveBeenCalledWith('form', {
+          action: url, method: 'post', target
         }, jasmine.anything());
       });
     });

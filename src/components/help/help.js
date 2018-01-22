@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from './../icon';
-import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
 import tagComponent from '../../utils/helpers/tags';
 
 /**
@@ -22,9 +21,8 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * @class Help
  * @constructor
- * @decorators {TooltipDecorator}
  */
-const Help = TooltipDecorator(class Help extends React.Component {
+class Help extends React.Component {
 
   static propTypes = {
 
@@ -114,6 +112,6 @@ const Help = TooltipDecorator(class Help extends React.Component {
       </a>
     );
   }
-});
+}
 
 export default Help;
