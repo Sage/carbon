@@ -1,7 +1,97 @@
 # 3.0.0
 
+## Package Updates
+
+* React has been updated to v16.2.0
+* React-DOM has been updated to v16.2.0 for React upgrade
+* Enzyme has been updated to v3.3.0 for React upgrade
+* Raf has been added at v3.4.0 for React upgrade
+* ReactTestRenderer has been updated to v16.2.0 for React upgrade
+* React-Highcharts has been updated to v15.0.0 for React upgrade
+* React-Transition-Group has been updated to v1.2.1 for React upgrade
+* ReactHighlight has been updated to a forked version which works with React v16
+* React-Addons-Perf has been removed due to deprecation
+* React-Addons-Test-Utils has been removed due to deprecation
+
+## Breaking Changes
+
+### Unstable HandleError
+
+React 15 had limited, undocumented support for error boundaries using `unstable_handleError`. This method has been renamed to `componentDidCatch`.
+
+### Decimal Precision Capped at 20
+
+Previously this would return an error if the given precision was higher than 20 but would not actually enforce the limit. Now, if a value of greater than 20 is set the precision will be set to exactly 20.
+
+### ReactDOM methods
+
+`ReactDOM.render` and `ReactDOM.unstable_renderSubtreeIntoContainer`now return null if called from inside a lifecycle method. To work around this, you can use portals or refs.
+
+### setState
+
+Calling `setState` with null no longer triggers an update. This allows you to decide in an updater function if you want to re-render.
+
+Calling `setState` directly in render always causes an update. This was not previously the case. Regardless, you should not be calling `setState` from render.
+
+`setState` callbacks (second argument) now fire immediately after `componentDidMount` / `componentDidUpdate` instead of after all components have rendered.
+
+### Enzyme
+
+Part of updating react from 15.6.0 to 16.2.0 included also updating enzyme to 3.3.0. https://github.com/airbnb/enzyme/blob/enzyme%403.3.0/docs/guides/migration-from-2-to-3.md
+
+#### Upgrading a project that uses Carbon
+
+##### Installing peer dependencies
+
+If you're upgrading an application that uses Carbon to 3.0.0 you'll need to make sure you have `raf` in your project's dependencies. To add `raf` to your project dependencies run the following command:
+
+```
+npm install raf --save-dev
+```
+
+You'll also need to add the following line to your jest.conf.json:
+```
+  "setupFiles": [
+    "raf/polyfill"
+  ]
+```
+
+##### Upgrading Carbon and using the new Carbon dependencies
+
+To Install the latest Carbon:
+
+```
+npm install --save carbon-react@3.0.0
+```
+
+### React-Addons
+
+React has discontinued support for all react-addons, the latest version of each addon should continue to work (except react-addons-perf).
+`React.createClass` is deprecated and `create-react-class` should be used instead
+`React.PropTypes` is now available as `prop-types`
+`React.DOM` is now available as `react-dom-factories`
+`react-addons-test-utils` is now available as `react-dom/test-utils`
+
+### React and React Dom
+
+Both `react` and `react-dom` will need to be updated to version 16.2.0
+
+```
+npm install react@^16.2.0 react-dom@^16.2.0 --save
+```
+
+### Hydrate Deprecation
+
+Hydrating a server-rendered container now has an explicit API. If you’re reviving server-rendered HTML, use `ReactDOM.hydrate` instead of `ReactDOM.render`. Keep using `ReactDOM.render` if you’re just doing client-side rendering.
+
+## React Portal
+
+We have updated the `Portal` component to use React's own version of portal which is available with React 16, removing the `react-portal` dependency.
+`Portal` now has an additional prop `onReposition` which is an optional callback function, called when the window resizes or a parent DOM element is scrolled.
+
 ## Bug Fixes
 
+* The DatePicker element will now reposition itself when the DateInput is scrolled.
 * Checkbox no longer overlays the end of the Help field text when the reverse prop is set to true
 
 # 2.6.4

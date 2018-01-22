@@ -21,7 +21,17 @@ const definition = new Definition('dialog', Dialog, {
   },
   propValues: {
     title: 'Example Title for a Dialog',
-    children: '<Form>This is an example of a dialog.</Form>'
+    children: `<Form>
+        <Textbox label="First Name" validations={[ new PresenceValidation() ]}/>
+        <Textbox label="Middle Name" validations={[ new PresenceValidation() ]}/>
+        <Textbox label="Surname" validations={[ new PresenceValidation() ]}/>
+        <DateInput name="date" label="Birthday" />
+        <Dropdown name="foo" options={ Immutable.fromJS([]) } value="1" />
+        <Textbox label="Pet Name" validations={[ new PresenceValidation() ]}/>
+        <DateInput name="date" label="Pet's birthday" />
+        <Checkbox name='checkbox' label='Do you like my Dog'/>
+      </Form>
+      This is an example of a dialog with a Form as content`
   },
   propTypes: {
     autoFocus: 'Boolean',
