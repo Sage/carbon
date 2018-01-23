@@ -473,8 +473,9 @@ const InputValidation = (ComposedComponent) => {
      */
     _handleFocus = () => {
       if (!this.state.valid || this.state.warning || this.state.info) {
+        this.positionMessage();
+
         if (!this.state.messageLocked) {
-          this.positionMessage();
           this.setState({ messageLocked: true });
         }
       }
@@ -545,6 +546,8 @@ const InputValidation = (ComposedComponent) => {
      */
     showMessage = () => {
       if (this.messageExists()) {
+        this.positionMessage();
+
         this.setState({
           messageShown: true,
           immediatelyHideMessage: false
@@ -553,7 +556,6 @@ const InputValidation = (ComposedComponent) => {
         if (this.context.form) {
           this.context.form.setActiveInput(this);
         }
-        this.positionMessage();
       }
     }
 

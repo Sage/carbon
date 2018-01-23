@@ -31,7 +31,6 @@ const definition = new Definition('dialog', Dialog, {
         <DateInput name="date" label="Birthday" />
         <Dropdown name="foo" options={ Immutable.fromJS([]) } value="1" />
         <Textbox label="Pet Name" validations={[ new PresenceValidation() ]}/>
-
         <DateInput name="date" label="Pet's birthday" />
         <Checkbox name='checkbox' label='Do you like my Dog'/>
       </Form>
