@@ -6,7 +6,7 @@ import { assign } from 'lodash';
 import Browser from './../../helpers/browser';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
-import Portal from './../../../components/portal'
+import Portal from './../../../components/portal';
 /**
  * InputValidation decorator.
  *
@@ -627,7 +627,7 @@ const InputValidation = (ComposedComponent) => {
 
       if (this.flipped) { messageClasses += ' common-input__message--flipped'; }
 
-      this.errorMessage = (this.state.messageShown || this.state.messageLocked) &&
+      const errorMessage = (this.state.messageShown || this.state.messageLocked) &&
         (<Portal key='1' onReposition={ this.positionMessage }>
           <div className='common-input__message-wrapper'>
             <div
@@ -649,7 +649,7 @@ const InputValidation = (ComposedComponent) => {
           className={ iconClasses }
           style={ iconStyle }
         />,
-        this.errorMessage
+        errorMessage
       ];
     }
 
