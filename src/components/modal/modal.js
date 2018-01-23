@@ -255,13 +255,13 @@ class Modal extends React.Component {
     }
 
     return (
-      <div 
-        className={ this.mainClasses }
-        { ...this.componentTags(this.props) }
-        data-state={ this.state.state }
-      >
       <Portal key='1' >
-        <CSSTransitionGroup
+        <div
+          className={ this.mainClasses }
+          { ...this.componentTags(this.props) }
+          data-state={ this.state.state }
+        >
+          <CSSTransitionGroup
             component='div'
             transitionName={ this.backgroundTransitionName }
             transitionEnterTimeout={ TIMEOUT }
@@ -277,9 +277,8 @@ class Modal extends React.Component {
           >
             { modalHTML }
           </CSSTransitionGroup>
-
-        </Portal>
-      </div>
+        </div>
+      </Portal>
     );
   }
 }
