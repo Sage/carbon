@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Events from './../../utils/helpers/events';
 import Browser from './../../utils/helpers/browser';
+import Portal from './../../components/portal';
 
 const TIMEOUT = 500;
 /**
@@ -254,28 +255,30 @@ class Modal extends React.Component {
     }
 
     return (
-      <div
+      <div 
         className={ this.mainClasses }
         { ...this.componentTags(this.props) }
         data-state={ this.state.state }
       >
+      <Portal key='1' >
         <CSSTransitionGroup
-          component='div'
-          transitionName={ this.transitionName }
-          transitionEnterTimeout={ TIMEOUT }
-          transitionLeaveTimeout={ TIMEOUT }
-        >
-          { modalHTML }
-        </CSSTransitionGroup>
+            component='div'
+            transitionName={ this.backgroundTransitionName }
+            transitionEnterTimeout={ TIMEOUT }
+            transitionLeaveTimeout={ TIMEOUT }
+          >
+            { backgroundHTML }
+          </CSSTransitionGroup>
+          <CSSTransitionGroup
+            component='div'
+            transitionName={ this.transitionName }
+            transitionEnterTimeout={ TIMEOUT }
+            transitionLeaveTimeout={ TIMEOUT }
+          >
+            { modalHTML }
+          </CSSTransitionGroup>
 
-        <CSSTransitionGroup
-          component='div'
-          transitionName={ this.backgroundTransitionName }
-          transitionEnterTimeout={ TIMEOUT }
-          transitionLeaveTimeout={ TIMEOUT }
-        >
-          { backgroundHTML }
-        </CSSTransitionGroup>
+        </Portal>
       </div>
     );
   }
