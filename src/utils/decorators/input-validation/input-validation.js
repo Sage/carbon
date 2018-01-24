@@ -258,7 +258,8 @@ const InputValidation = (ComposedComponent) => {
           // calculate the position for the message relative to the icon
           const icon = this.validationIcon._target,
               message = this.validationMessage;
-          if (icon && message && message.offsetHeight) {
+          
+          if (icon && message) {
             // figure out if the message is positioned offscreen
             const messageScreenPosition = icon.getBoundingClientRect().left + message.getBoundingClientRect().width;
             if (this.state.messageLocked || this.state.messageShown) {
@@ -268,7 +269,8 @@ const InputValidation = (ComposedComponent) => {
             }
 
             // change the position if it is offscreen
-            const shouldFlip = (this._window.innerWidth < messageScreenPosition);
+            const shouldFlip = (Browser.getWindow().innerWidth < messageScreenPosition);
+
             if (shouldFlip) {
               message.className += ' common-input__message--flipped';
               message.style.left = `${(icon.getBoundingClientRect().left - message.getBoundingClientRect().width)
