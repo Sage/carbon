@@ -1,7 +1,6 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { assign } from 'lodash';
 import Browser from './../../helpers/browser';
 import Icon from './../../../components/icon';
@@ -258,7 +257,7 @@ const InputValidation = (ComposedComponent) => {
           // calculate the position for the message relative to the icon
           const icon = this.validationIcon && this.validationIcon._target,
               message = this.validationMessage;
-          
+
           if (icon && message) {
             // figure out if the message is positioned offscreen
             const messageScreenPosition = icon.getBoundingClientRect().left + message.getBoundingClientRect().width;
