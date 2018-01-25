@@ -319,6 +319,15 @@ describe('InputValidation', () => {
   });
 
   describe('positionMessage', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.clearAllTimers();
+      jest.useRealTimers();
+    });
+
     describe('when the component is valid', () => {
       it('does nothing', () => {
         instance.setState({ valid: true });
@@ -337,15 +346,6 @@ describe('InputValidation', () => {
 
       describe('when there is an icon and message', () => {
         describe('when onscreen', () => {
-          beforeEach(() => {
-            jest.useFakeTimers();
-          });
-
-          afterEach(() => {
-            jest.clearAllTimers();
-            jest.useRealTimers();
-          });
-
           it('sets the correct left position and removes flipped class', () => {
             const removeClassSpy = jasmine.createSpy();
 
@@ -396,17 +396,11 @@ describe('InputValidation', () => {
           let wrapper;
 
           beforeEach(() => {
-            jest.useFakeTimers();
             wrapper = mount(
               <Dialog open>
                 <Component validations={[validationThree]} />
               </Dialog>
             );
-          });
-
-          afterEach(() => {
-            jest.clearAllTimers();
-            jest.useRealTimers();
           });
 
           it('sets the class to flipped', () => {
@@ -464,17 +458,11 @@ describe('InputValidation', () => {
         describe('when offscreen', () => {
           let wrapper;
           beforeEach(() => {
-            jest.useFakeTimers();
             wrapper = mount(
               <Dialog open>
                 <Component validations={[validationThree]} />
               </Dialog>
             );
-          });
-
-          afterEach(() => {
-            jest.clearAllTimers();
-            jest.useRealTimers();
           });
 
           it('sets the class to flipped', () => {
