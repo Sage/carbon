@@ -121,18 +121,32 @@ describe('Date', () => {
   describe('emitOnChangeCallback', () => {
     let date;
 
-    beforeEach(() => {
-      spyOn(instance, '_handleOnChange');
-      date = moment().add(10, 'days').format('YYYY-MM-DD');
-      instance.emitOnChangeCallback(date);
+    describe('on valid value', () => {
+      beforeEach(() => {
+        spyOn(instance, '_handleOnChange');
+        date = moment().add(10, 'days').format('YYYY-MM-DD');
+        instance.emitOnChangeCallback(date);
+      });
+
+      it('sets the hiddenField to the new date', () => {
+        expect(instance.hidden.value).toEqual(date);
+      });
+
+      it('triggers the onChange handler in the input decorator', () => {
+        expect(instance._handleOnChange).toHaveBeenCalledWith({ target: instance.hidden });
+      });
     });
 
-    it('sets the hiddenField to the new date', () => {
-      expect(instance.hidden.value).toEqual(date);
-    });
+    describe('on invalid date input', () => {
+      beforeEach(() => {
+        spyOn(instance, '_handleOnChange');
+        instance.emitOnChangeCallback('abc');
+      });
 
-    it('triggers the onChange handler in the input decorator', () => {
-      expect(instance._handleOnChange).toHaveBeenCalledWith({ target: instance.hidden });
+      it('triggers _handleOnChange with the invalid value', () => {
+        const value = instance._handleOnChange.calls.mostRecent().args[0].target.value;
+        expect(value).toEqual('abc');
+      });
     });
   });
 
