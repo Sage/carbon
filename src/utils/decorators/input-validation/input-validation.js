@@ -256,9 +256,10 @@ const InputValidation = (ComposedComponent) => {
       if (!this.state.valid || this.state.warning || this.state.info) {
         setTimeout(() => {
           // calculate the position for the message relative to the icon
-          const icon = this.validationIcon._target,
+          const icon = this.validationIcon && this.validationIcon._target,
               message = this.validationMessage;
-          if (icon && message && message.offsetHeight) {
+          
+          if (icon && message) {
             // figure out if the message is positioned offscreen
             const messageScreenPosition = icon.getBoundingClientRect().left + message.getBoundingClientRect().width;
             if (this.state.messageLocked || this.state.messageShown) {
@@ -268,7 +269,8 @@ const InputValidation = (ComposedComponent) => {
             }
 
             // change the position if it is offscreen
-            const shouldFlip = (this._window.innerWidth < messageScreenPosition);
+            const shouldFlip = (Browser.getWindow().innerWidth < messageScreenPosition);
+
             if (shouldFlip) {
               message.className += ' common-input__message--flipped';
               message.style.left = `${(icon.getBoundingClientRect().left - message.getBoundingClientRect().width)
@@ -604,7 +606,6 @@ const InputValidation = (ComposedComponent) => {
      */
     get validationHTML() {
       let type = '';
-
       if (this.state.valid && !this.state.warning && !this.state.info) { return null; }
 
       if (!this.state.valid) {
@@ -640,7 +641,6 @@ const InputValidation = (ComposedComponent) => {
             </div>
           </div>
         </Portal>);
-
       return [
         <Icon
           key='0'
