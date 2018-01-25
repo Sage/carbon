@@ -91,8 +91,9 @@ We have updated the `Portal` component to use React's own version of portal whic
 
 ## Bug Fixes
 
-* The DatePicker element will now reposition itself when the DateInput is scrolled.
+* Checkbox no longer overlays the end of the Help field text when the reverse prop is set to true
 * `Date`: Previously this component would not retain an invalid date value, we now keep the value and throw a validation error on the input.
+* The DatePicker element will now reposition itself when the DateInput is scrolled.
 
 # 2.6.4
 
