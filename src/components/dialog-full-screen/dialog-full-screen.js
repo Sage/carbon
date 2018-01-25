@@ -141,8 +141,6 @@ class DialogFullScreen extends Modal {
           onClick={ this.props.onCancel }
           type='close'
         />
-
-        
       </FullScreenHeading>
     );
   }
