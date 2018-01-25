@@ -285,7 +285,7 @@ const InputValidation = (ComposedComponent) => {
               this.flipped = false;
             }
           }
-        }, 0);
+        });
       }
     }
 
