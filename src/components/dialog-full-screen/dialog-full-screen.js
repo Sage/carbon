@@ -134,6 +134,7 @@ class DialogFullScreen extends Modal {
 
     return (
       <FullScreenHeading>
+        { title }
         <Icon
           className='carbon-dialog-full-screen__close'
           data-element='close'
@@ -141,7 +142,7 @@ class DialogFullScreen extends Modal {
           type='close'
         />
 
-        { title }
+        
       </FullScreenHeading>
     );
   }
