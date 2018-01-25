@@ -12,6 +12,7 @@ describe('ButtonToggleGroup', () => {
   let wrapper, instance;
 
   beforeEach(() => {
+    jest.useFakeTimers();
     wrapper = shallow(
       <ButtonToggleGroup
         label={ 'Label' }
@@ -21,6 +22,11 @@ describe('ButtonToggleGroup', () => {
       </ButtonToggleGroup>
     );
     instance = wrapper.instance();
+  });
+
+  afterEach(() => {
+    jest.clearAllTimers();
+    jest.useRealTimers();
   });
 
   describe('componentWillReceiveProps', () => {
@@ -69,9 +75,6 @@ describe('ButtonToggleGroup', () => {
   });
 
   describe('_handleGroupBlur', () => {
-    beforeEach(() => {
-      jest.useFakeTimers();
-    });
 
     describe('when blur is not blocked', () => {
       it('calls validate on blur of the input', () => {
@@ -113,15 +116,6 @@ describe('ButtonToggleGroup', () => {
   });
 
   describe('render', () => {
-    beforeEach(() => {
-      jest.useFakeTimers();
-    });
-
-    afterEach(() => {
-      jest.clearAllTimers();
-      jest.useRealTimers();
-    });
-
     it('renders a parent div', () => {
       const node = wrapper.find('.carbon-button-toggle-group');
       expect(node.length).toEqual(1);
@@ -153,10 +147,8 @@ describe('ButtonToggleGroup', () => {
       });
     });
 
-    
     describe('when has input-validation error ', () => {
       beforeEach(() => {
-        jest.useFakeTimers();
         wrapper = mount(
           <ButtonToggleGroup
             label={ 'Label' }
@@ -165,11 +157,6 @@ describe('ButtonToggleGroup', () => {
             <ButtonToggle>Foo</ButtonToggle>
           </ButtonToggleGroup>
         );
-      });
-  
-      afterEach(() => {
-        jest.clearAllTimers();
-        jest.useRealTimers();
       });
 
       it('is decorated with a validation if a error is present', () => {
