@@ -256,7 +256,7 @@ const InputValidation = (ComposedComponent) => {
       if (!this.state.valid || this.state.warning || this.state.info) {
         setTimeout(() => {
           // calculate the position for the message relative to the icon
-          const icon = this.validationIcon._target,
+          const icon = this.validationIcon && this.validationIcon._target,
               message = this.validationMessage;
           
           if (icon && message) {
@@ -606,7 +606,6 @@ const InputValidation = (ComposedComponent) => {
      */
     get validationHTML() {
       let type = '';
-
       if (this.state.valid && !this.state.warning && !this.state.info) { return null; }
 
       if (!this.state.valid) {
@@ -642,7 +641,6 @@ const InputValidation = (ComposedComponent) => {
             </div>
           </div>
         </Portal>);
-
       return [
         <Icon
           key='0'

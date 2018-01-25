@@ -2,6 +2,8 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import Portal from './../portal';
+import Icon from './../icon';
 
 import ButtonToggleGroup from './button-toggle-group';
 import ButtonToggle from './../button-toggle';
@@ -111,6 +113,15 @@ describe('ButtonToggleGroup', () => {
   });
 
   describe('render', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.clearAllTimers();
+      jest.useRealTimers();
+    });
+
     it('renders a parent div', () => {
       const node = wrapper.find('.carbon-button-toggle-group');
       expect(node.length).toEqual(1);
@@ -119,13 +130,14 @@ describe('ButtonToggleGroup', () => {
     describe('when the child components have an id prop', () => {
       it("is decorated with a label that references the first child's id", () => {
         const label = wrapper.find('.common-input__label');
+
         expect(label.prop('htmlFor')).toEqual('test');
       });
     });
 
     describe('when the child components do not have an id prop', () => {
       beforeEach(() => {
-        wrapper = shallow(
+        wrapper = mount(
           <ButtonToggleGroup
             label={ 'Label' }
             value={ 'foo' }
@@ -141,10 +153,34 @@ describe('ButtonToggleGroup', () => {
       });
     });
 
-    it('is decorated with a validation if a error is present', () => {
-      wrapper.setState({ errorMessage: 'Error', valid: false });
-      const errorDiv = wrapper.find('.common-input__message--error');
-      expect(errorDiv.prop('children')).toEqual('Error');
+    
+    describe('when has input-validation error ', () => {
+      beforeEach(() => {
+        jest.useFakeTimers();
+        wrapper = mount(
+          <ButtonToggleGroup
+            label={ 'Label' }
+            value={ 'foo' }
+          >
+            <ButtonToggle>Foo</ButtonToggle>
+          </ButtonToggleGroup>
+        );
+      });
+  
+      afterEach(() => {
+        jest.clearAllTimers();
+        jest.useRealTimers();
+      });
+
+      it('is decorated with a validation if a error is present', () => {
+        wrapper.setState({ errorMessage: 'Error', valid: false });
+        wrapper.instance().showMessage();
+
+        jest.runOnlyPendingTimers();
+
+        const errorMessage = wrapper.instance().validationHTML[1].props.children.props.children.props.children;
+        expect(errorMessage).toEqual('Error');
+      });
     });
 
     it('renders a parent div when mounted', () => {
