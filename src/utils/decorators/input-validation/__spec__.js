@@ -1191,8 +1191,7 @@ describe('InputValidation', () => {
       });
 
       it('returns a div for the error message', () => {
-        const portalChildren = instance.validationHTML[1].props.children.props;
-
+        const portalChildren = instance.validationHTML[1].props.children.props.children.props;
         expect(portalChildren.className).toEqual('common-input__message-wrapper');
 
         expect(portalChildren.children.props.className).toEqual('common-input__message common-input__message--error');
@@ -1278,7 +1277,7 @@ describe('InputValidation', () => {
       });
 
       it('returns a div for the warning message', () => {
-        const portalElement = instance.validationHTML[1].props.children.props;
+        const portalElement = instance.validationHTML[1].props.children.props.children.props;
         expect(portalElement.className).toEqual('common-input__message-wrapper');
 
         expect(portalElement.children.props.className).toEqual('common-input__message common-input__message--warning');
@@ -1305,7 +1304,7 @@ describe('InputValidation', () => {
       });
 
       it('returns a div for the info message', () => {
-        const portalElement = instance.validationHTML[1].props.children.props;
+        const portalElement = instance.validationHTML[1].props.children.props.children.props;
         expect(portalElement.className).toEqual('common-input__message-wrapper');
         expect(portalElement.children.props.children).toEqual('foo');
         expect(instance.validationHTML[0].props.className).toEqual('common-input__icon common-input__icon--info');

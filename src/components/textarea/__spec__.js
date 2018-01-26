@@ -295,7 +295,7 @@ describe('Textarea', () => {
       errorWrapper.setState({ errorMessage: 'Error', valid: false });
       errorWrapper.instance().showMessage();
       
-      const errorMessage = errorWrapper.instance().validationHTML[1].props.children.props.children.props.children;
+      const errorMessage = errorWrapper.instance().validationHTML[1].props.children.props.children.props.children.props.children;
 
       expect(errorMessage).toEqual('Error');
     });
