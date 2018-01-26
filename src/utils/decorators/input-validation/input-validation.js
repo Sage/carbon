@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { assign } from 'lodash';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Browser from './../../helpers/browser';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
@@ -265,6 +266,12 @@ const InputValidation = (ComposedComponent) => {
               message.className += ' common-input__message--shown';
             } else {
               message.classList.remove('common-input__message--shown');
+            }
+
+            if (!this.state.messageLocked && !this.state.messageShown) {
+              message.className += ' common-input__message--hidden';
+            } else {
+              message.classList.remove('common-input__message--hidden');
             }
 
             // change the position if it is offscreen
@@ -628,18 +635,22 @@ const InputValidation = (ComposedComponent) => {
       if (this.flipped) { messageClasses += ' common-input__message--flipped'; }
 
       const errorMessage = (this.state.messageShown || this.state.messageLocked) &&
-        (<Portal key='1' onReposition={ this.positionMessage }>
-          <div className='common-input__message-wrapper'>
-            <div
-              ref={ (validationMessage) => {
-                this.validationMessage = validationMessage;
-              } }
-              className={ messageClasses }
-            >
-              { this.state.errorMessage || this.state.warningMessage || this.state.infoMessage }
+        (
+          <Portal key='1' onReposition={ this.positionMessage }>
+            <div className='common-input__message-wrapper'>
+              <div
+                ref={ (validationMessage) => {
+                  this.validationMessage = validationMessage;
+                } }
+                className={ messageClasses }
+              >
+                { this.state.errorMessage || this.state.warningMessage || this.state.infoMessage }
+              </div>
             </div>
-          </div>
-        </Portal>);
+          </Portal>
+        );
+
+      this.positionMessage();
       return [
         <Icon
           key='0'
@@ -648,7 +659,11 @@ const InputValidation = (ComposedComponent) => {
           className={ iconClasses }
           style={ iconStyle }
         />,
-        errorMessage
+        <CSSTransitionGroup
+          transitionName='example'
+          transitionEnterTimeout={ 10 }
+          transitionLeaveTimeout={ 2000 }
+          >{ errorMessage }</CSSTransitionGroup>
       ];
     }
 

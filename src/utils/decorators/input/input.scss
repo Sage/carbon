@@ -168,12 +168,14 @@
 }
 
 .common-input__message--hidden {
-  display: none;
+  opacity: 0;
+  transition: opacity 0.2s 0.8s, visibility 0s 1.8s;
+  visibility: hidden;
 }
 
 .common-input__message--shown.common-input__message {
   opacity: 1;
-  transition: none;
+  transition: opacity 0.2s 0.3s, visibility 0s 0.5s;
   visibility: visible;
 }
 
