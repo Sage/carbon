@@ -86,6 +86,15 @@ describe('connect', () => {
     expect(mapStateToProps).toHaveBeenCalledWith(testStore.getState(), wrapper.props());
   });
 
+  it('props from mapStateToProps take precedence', () => {
+    const Presenter = () => null;
+    const mapStateToProps = props => ({ text: `modified ${props.text}` });
+    const ConnectedComponent = connect(mapStateToProps)(Presenter);
+    const wrapper = mount(<ConnectedComponent text={ 'sample text' } />).find(Presenter);
+
+    expect(wrapper.prop('text')).toBe('modified sample text');
+  });
+
   it('sets the default component name for class based components', () => {
     const testStore = new Store('A', 1);
     class MockComponent extends React.Component {

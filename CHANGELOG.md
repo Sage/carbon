@@ -1,3 +1,9 @@
+# 3.1.0
+
+## Bug Fixes
+
+* mapToProps takes precedence over props passed to HOC
+
 # 3.0.0
 
 ## Package Updates
