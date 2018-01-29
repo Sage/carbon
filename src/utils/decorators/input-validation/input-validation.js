@@ -269,9 +269,14 @@ const InputValidation = (ComposedComponent) => {
             }
 
             if (!this.state.messageLocked && !this.state.messageShown) {
-              message.className += ' common-input__message--hidden';
+              if (this.state.immediatelyHideMessage) {
+                message.className += ' common-input__message--hide';
+              } else {
+                message.className += ' common-input__message--fade';
+              }
             } else {
-              message.classList.remove('common-input__message--hidden');
+              message.classList.remove('common-input__message--fade');
+              message.classList.remove('common-input__message--hide');
             }
 
             // change the position if it is offscreen
@@ -592,6 +597,7 @@ const InputValidation = (ComposedComponent) => {
         messageShown: false,
         immediatelyHideMessage: true
       });
+      this.positionMessage();
     }
 
     /**
@@ -649,7 +655,6 @@ const InputValidation = (ComposedComponent) => {
             </div>
           </Portal>
         );
-
       this.positionMessage();
       return [
         <Icon
@@ -663,7 +668,7 @@ const InputValidation = (ComposedComponent) => {
           transitionName='example'
           transitionEnterTimeout={ 10 }
           transitionLeaveTimeout={ 2000 }
-          >{ errorMessage }</CSSTransitionGroup>
+        >{ errorMessage }</CSSTransitionGroup>
       ];
     }
 
