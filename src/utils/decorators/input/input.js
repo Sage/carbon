@@ -156,7 +156,7 @@ const Input = (ComposedComponent) => {
      */
     _handleOnChange = (ev) => {
       if (this.props.onChange) {
-        this._handleDeferred(ev)
+        this._handleDeferred(ev);
 
         // we also send the props so more information can be extracted by the action
         this.props.onChange(ev, this.props);
@@ -172,9 +172,9 @@ const Input = (ComposedComponent) => {
      */
     _handleDeferred = (ev) => {
       if (this.props.onChangeDeferred) {
-        clearTimeout(this.deferredTimeout)
+        clearTimeout(this.deferredTimeout);
         this.deferredTimeout = setTimeout(() => {
-          this.props.onChangeDeferred(ev)
+          this.props.onChangeDeferred(ev);
         }, (this.props.deferTimeout || 200));
       }
     }
