@@ -165,7 +165,8 @@ describe('ButtonToggleGroup', () => {
 
         jest.runOnlyPendingTimers();
 
-        const errorMessage = wrapper.instance().validationHTML[1].props.children.props.children.props.children;
+        const errorMessage = wrapper.instance().validationHTML[1]
+                                .props.children.props.children.props.children.props.children;
         expect(errorMessage).toEqual('Error');
       });
     });

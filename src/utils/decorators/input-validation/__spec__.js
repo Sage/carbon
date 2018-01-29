@@ -1,16 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
+import { shallow, mount } from 'enzyme';
 import InputValidation from './input-validation';
 import InputLabel from './../input-label';
-import Dialog from 'components/dialog';
-import { shallow, mount } from 'enzyme';
+import Dialog from './../../../components/dialog';
 import Browser from './../../helpers/browser';
-import Portal from './../../../components/portal';
 
 /* global jest */
 
-let validationOne = {
+const validationOne = {
   validate: function() {
     return true;
   },
@@ -20,7 +19,7 @@ let validationOne = {
   }
 };
 
-let validationTwo = {
+const validationTwo = {
   validate: function() {
     return true;
   },
@@ -30,7 +29,7 @@ let validationTwo = {
   }
 };
 
-let validationThree = {
+const validationThree = {
   validate: function() {
     return false;
   },
@@ -40,7 +39,7 @@ let validationThree = {
   }
 };
 
-let warningOne = {
+const warningOne = {
   validate: function(value, props, updateWarning) {
     return false;
   },
@@ -50,7 +49,7 @@ let warningOne = {
   }
 };
 
-let warningTwo = {
+const warningTwo = {
   validate: function(value, props, updateWarning) {
     return true;
   },
@@ -60,7 +59,7 @@ let warningTwo = {
   }
 };
 
-let infoOne = {
+const infoOne = {
   validate: function(value, props, updateInfo) {
     return false;
   },
@@ -70,7 +69,7 @@ let infoOne = {
   }
 };
 
-let infoTwo = {
+const infoTwo = {
   validate: function(value, props, updateInfo) {
     return true;
   },
@@ -80,7 +79,7 @@ let infoTwo = {
   }
 };
 
-let form = {
+const form = {
   attachToForm: function() {},
   decrementErrorCount: function() {},
   decrementWarningCount: function() {},
@@ -91,7 +90,7 @@ let form = {
   inputs: { "123": {} },
   model: 'model_2',
   setActiveInput: function() {}
-}
+};
 
 class DummyInputWithoutLifecycleMethods extends React.Component {
   render() {
@@ -134,10 +133,10 @@ class LabelClass extends React.Component {
 }
 
 // Required to test icon positioning
-let LabelComponent = InputLabel(InputValidation(LabelClass));
+const LabelComponent = InputLabel(InputValidation(LabelClass));
 
-let SimpleComponent = InputValidation(DummyInputWithoutLifecycleMethods);
-let Component = InputValidation(DummyInput);
+const SimpleComponent = InputValidation(DummyInputWithoutLifecycleMethods);
+const Component = InputValidation(DummyInput);
 
 describe('InputValidation', () => {
   let instance;
@@ -160,7 +159,7 @@ describe('InputValidation', () => {
   describe('componentWillReceiveProps', () => {
     describe('when invalid', () => {
       beforeEach(() => {
-        instance.setState({ valid: false, warning: true, info: true});
+        instance.setState({ valid: false, warning: true, info: true });
         spyOn(instance, 'setState').and.callThrough();
         spyOn(instance, '_handleContentChange');
       });
@@ -189,7 +188,7 @@ describe('InputValidation', () => {
 
       describe('when the next value does not match the current value', () => {
         it('does not call validate if it is the currently active input', () => {
-          let wrapper = mount( <Component />);
+          const wrapper = mount(<Component />);
           instance = wrapper.instance();
           instance.context.form = form;
           spyOn(instance.context.form, 'getActiveInput').and.returnValue(instance);
@@ -239,7 +238,7 @@ describe('InputValidation', () => {
 
         describe('when it is valid but has a warning state', () => {
           beforeEach(() => {
-            instance.setState({ valid: true, warning: true});
+            instance.setState({ valid: true, warning: true });
           });
 
           it('calls warning with the next value', () => {
@@ -272,7 +271,7 @@ describe('InputValidation', () => {
 
         describe('when it is valid but has an info state', () => {
           beforeEach(() => {
-            instance.setState({ valid: true, info: true});
+            instance.setState({ valid: true, info: true });
           });
 
           it('calls info with the next value', () => {
@@ -398,7 +397,7 @@ describe('InputValidation', () => {
           beforeEach(() => {
             wrapper = mount(
               <Dialog open>
-                <Component validations={[validationThree]} />
+                <Component validations={ [validationThree] } />
               </Dialog>
             );
           });
@@ -460,7 +459,7 @@ describe('InputValidation', () => {
           beforeEach(() => {
             wrapper = mount(
               <Dialog open>
-                <Component validations={[validationThree]} />
+                <Component validations={ [validationThree] } />
               </Dialog>
             );
           });
@@ -516,7 +515,7 @@ describe('InputValidation', () => {
   describe('componentWillMount', () => {
     describe('when the component does not have a componentWillMount method', () => {
       it('still works', () => {
-        let simpleInstance = TestUtils.renderIntoDocument(React.createElement(SimpleComponent));
+        const simpleInstance = TestUtils.renderIntoDocument(React.createElement(SimpleComponent));
         expect(simpleInstance.componentWillMount()).toBe(undefined);
       });
     });
@@ -576,19 +575,19 @@ describe('InputValidation', () => {
 
       describe('when the input is invalid', () => {
         it('calls handleContentChange', () => {
-            instance.state.valid = false;
-            spyOn(instance, '_handleContentChange');
-            instance.componentWillUnmount();
-            expect(instance._handleContentChange).toHaveBeenCalled();
+          instance.state.valid = false;
+          spyOn(instance, '_handleContentChange');
+          instance.componentWillUnmount();
+          expect(instance._handleContentChange).toHaveBeenCalled();
         });
       });
 
       describe('when the input has a warning', () => {
         it('calls handleContentChange', () => {
-            instance.state.warning = true;
-            spyOn(instance, '_handleContentChange');
-            instance.componentWillUnmount();
-            expect(instance._handleContentChange).toHaveBeenCalled();
+          instance.state.warning = true;
+          spyOn(instance, '_handleContentChange');
+          instance.componentWillUnmount();
+          expect(instance._handleContentChange).toHaveBeenCalled();
         });
       });
 
@@ -612,7 +611,6 @@ describe('InputValidation', () => {
           expect(instance.context.form.detachFromForm).toHaveBeenCalledWith(instance);
         });
       });
-
     });
 
     describe('When no validations are present on the input', () => {
@@ -679,7 +677,7 @@ describe('InputValidation', () => {
 
           describe('when the input is within a tab', () => {
             it('notifies the tab that it is invalid', () => {
-              let spy = jasmine.createSpy();
+              const spy = jasmine.createSpy();
               instance.context.tab = { setValidity: spy };
               instance.validate();
 
@@ -720,15 +718,15 @@ describe('InputValidation', () => {
     });
   });
 
-  describe("message hide functions", () => {
-    describe("showMessage", () => {
+  describe('message hide functions', () => {
+    describe('showMessage', () => {
       beforeEach(() => {
         instance.context.form = form;
         spyOn(instance.context.form, 'setActiveInput');
-      })
+      });
 
-      describe("triggers state change and function call", () => {
-        it("if not valid", () => {
+      describe('triggers state change and function call', () => {
+        it('if not valid', () => {
           instance.setState({
             valid: false,
             warning: false
@@ -742,7 +740,7 @@ describe('InputValidation', () => {
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
 
-        it("if warning", () => {
+        it('if warning', () => {
           instance.setState({
             valid: true,
             warning: true
@@ -756,7 +754,7 @@ describe('InputValidation', () => {
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
 
-        it("if info", () => {
+        it('if info', () => {
           instance.setState({
             valid: true,
             info: true
@@ -789,7 +787,7 @@ describe('InputValidation', () => {
       });
 
       describe("doesn't trigger state change and function call", () => {
-        it("if valid and not a warning", () => {
+        it('if valid and not a warning', () => {
           instance.setState({
             valid: true,
             warning: false
@@ -802,9 +800,9 @@ describe('InputValidation', () => {
       });
     });
 
-    describe("hideMessage", () => {
-      describe("triggers state change and function call", () => {
-        it("if not valid", () => {
+    describe('hideMessage', () => {
+      describe('triggers state change and function call', () => {
+        it('if not valid', () => {
           instance.setState({
             valid: false,
             warning: false
@@ -815,7 +813,7 @@ describe('InputValidation', () => {
             messageShown: false
           });
         });
-        it("if warning", () => {
+        it('if warning', () => {
           instance.setState({
             valid: true,
             warning: true
@@ -828,7 +826,7 @@ describe('InputValidation', () => {
         });
       });
       describe("doesn't trigger state change and function call", () => {
-        it("if valid and not a warning", () => {
+        it('if valid and not a warning', () => {
           instance.setState({
             valid: true,
             warning: false
@@ -840,10 +838,37 @@ describe('InputValidation', () => {
       });
     });
 
-    describe("immediatelyHideMessage", () => {
-      it("sets state to hide message instantly", () => {
+    describe('immediatelyHideMessage', () => {
+      beforeEach(() => {
+        jest.useFakeTimers();
+      });
+
+      afterEach(() => {
+        jest.clearAllTimers();
+        jest.useRealTimers();
+      });
+
+      it('sets state to hide message instantly', () => {
         spyOn(instance, 'setState');
         instance.immediatelyHideMessage();
+
+        expect(instance.setState).toHaveBeenCalledWith({
+          messageShown: false,
+          immediatelyHideMessage: true
+        });
+      });
+
+      it('sets state to hide message instantly', () => {
+        spyOn(instance, 'setState').and.callThrough();
+        instance.setState({
+          valid: false,
+          warning: false,
+          messageShown: true
+        });
+
+        instance.immediatelyHideMessage();
+        jest.runOnlyPendingTimers();
+
         expect(instance.setState).toHaveBeenCalledWith({
           messageShown: false,
           immediatelyHideMessage: true
@@ -1191,8 +1216,7 @@ describe('InputValidation', () => {
       });
 
       it('returns a div for the error message', () => {
-        const portalChildren = instance.validationHTML[1].props.children.props;
-
+        const portalChildren = instance.validationHTML[1].props.children.props.children.props;
         expect(portalChildren.className).toEqual('common-input__message-wrapper');
 
         expect(portalChildren.children.props.className).toEqual('common-input__message common-input__message--error');
@@ -1278,7 +1302,7 @@ describe('InputValidation', () => {
       });
 
       it('returns a div for the warning message', () => {
-        const portalElement = instance.validationHTML[1].props.children.props;
+        const portalElement = instance.validationHTML[1].props.children.props.children.props;
         expect(portalElement.className).toEqual('common-input__message-wrapper');
 
         expect(portalElement.children.props.className).toEqual('common-input__message common-input__message--warning');
@@ -1305,7 +1329,7 @@ describe('InputValidation', () => {
       });
 
       it('returns a div for the info message', () => {
-        const portalElement = instance.validationHTML[1].props.children.props;
+        const portalElement = instance.validationHTML[1].props.children.props.children.props;
         expect(portalElement.className).toEqual('common-input__message-wrapper');
         expect(portalElement.children.props.children).toEqual('foo');
         expect(instance.validationHTML[0].props.className).toEqual('common-input__icon common-input__icon--info');

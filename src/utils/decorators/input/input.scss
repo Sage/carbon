@@ -167,13 +167,20 @@
   }
 }
 
-.common-input__message--hidden {
-  display: none;
+.common-input__message--fade {
+  opacity: 0;
+  transition: opacity 0.2s 0.8s, visibility 0s 1.8s;
+  visibility: hidden;
+}
+
+.common-input__message--hide {
+  opacity: 0;
+  transition: none;
+  visibility: hidden;
 }
 
 .common-input__message--shown.common-input__message {
   opacity: 1;
-  transition: none;
   visibility: visible;
 }
 
