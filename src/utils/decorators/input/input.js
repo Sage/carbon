@@ -70,7 +70,24 @@ const Input = (ComposedComponent) => {
       form: PropTypes.object
     });
 
-    static propTypes = assign({}, ComposedComponent.propTypes, {});
+    static propTypes = assign({}, ComposedComponent.propTypes, {
+      /**
+       * Integer to determine timeout for defered callback. Default: 200
+       *
+       * @property
+       * @type {Number}
+       */
+      deferTimeout: PropTypes.number,
+
+      /**
+       * Defered callback called after onChange event
+       *
+       * @property
+       * @type {Boolean}
+       */
+      onChangeDeferred: PropTypes.func
+    });
+
     // common safeprops
     static safeProps = union([], ComposedComponent.safeProps, ['value']);
 
@@ -139,8 +156,26 @@ const Input = (ComposedComponent) => {
      */
     _handleOnChange = (ev) => {
       if (this.props.onChange) {
+        this._handleDeferred(ev)
+
         // we also send the props so more information can be extracted by the action
         this.props.onChange(ev, this.props);
+      }
+    }
+
+    /**
+     * Delay calls to the onChangeDeferred event defined by the dev
+     *
+     * @method _handleDeferred
+     * @param {Event} ev the onChange event
+     * @returns {void}
+     */
+    _handleDeferred = (ev) => {
+      if (this.props.onChangeDeferred) {
+        clearTimeout(this.deferredTimeout)
+        this.deferredTimeout = setTimeout(() => {
+          this.props.onChangeDeferred(ev)
+        }, (this.props.deferTimeout || 200));
       }
     }
 
