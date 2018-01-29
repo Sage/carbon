@@ -1,3 +1,9 @@
+# 3.1.0
+
+## Package Updates
+
+* Input has 2 new props. `onChangeDeferred` allows a defered callback after an onChange event. `deferTimeout` allows you to customise the default: `200`.
+
 # 3.0.0
 
 ## Package Updates
