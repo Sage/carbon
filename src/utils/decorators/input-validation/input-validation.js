@@ -254,50 +254,44 @@ const InputValidation = (ComposedComponent) => {
      */
     positionMessage = () => {
       if (!this.state.valid || this.state.warning || this.state.info) {
-        setTimeout(() => {
-          // calculate the position for the message relative to the icon
-          const icon = this.validationIcon && this.validationIcon._target,
-              message = this.validationMessage;
+        // calculate the position for the message relative to the icon
+        const icon = this.validationIcon && this.validationIcon._target,
+            message = this.validationMessage;
 
-          if (icon && message) {
-            // figure out if the message is positioned offscreen
-            const messageScreenPosition = icon.getBoundingClientRect().left + message.getBoundingClientRect().width;
-            if (this.state.messageLocked || this.state.messageShown) {
-              message.className += ' common-input__message--shown';
-            } else {
-              message.classList.remove('common-input__message--shown');
-            }
-
-            if (!this.state.messageLocked && !this.state.messageShown) {
-              if (this.state.immediatelyHideMessage) {
-                message.className += ' common-input__message--hide';
-              } else {
-                message.className += ' common-input__message--fade';
-              }
-            } else {
-              message.classList.remove('common-input__message--fade');
-              message.classList.remove('common-input__message--hide');
-            }
-
-            // change the position if it is offscreen
-            const shouldFlip = (Browser.getWindow().innerWidth < messageScreenPosition);
-
-            if (shouldFlip) {
-              message.className += ' common-input__message--flipped';
-              message.style.left = `${(icon.getBoundingClientRect().left - message.getBoundingClientRect().width)
-                                      + (icon.getBoundingClientRect().width / 2)}px`;
-              message.style.top = `${(icon.getBoundingClientRect().top - message.getBoundingClientRect().height)
-                                      - (icon.getBoundingClientRect().height)}px`;
-              this.flipped = true;
-            } else {
-              message.style.left = `${icon.getBoundingClientRect().left + (icon.getBoundingClientRect().width / 2)}px`;
-              message.style.top = `${(icon.getBoundingClientRect().top - message.getBoundingClientRect().height)
-                                      - (icon.getBoundingClientRect().height)}px`;
-              message.classList.remove('common-input__message--flipped');
-              this.flipped = false;
-            }
+        if (icon && message) {
+          // figure out if the message is positioned offscreen
+          const messageScreenPosition = icon.getBoundingClientRect().left + message.getBoundingClientRect().width;
+          if (this.state.messageLocked || this.state.messageShown) {
+            message.className += ' common-input__message--shown';
+          } else {
+            message.classList.remove('common-input__message--shown');
           }
-        });
+
+          if (!this.state.messageLocked && !this.state.messageShown) {
+            message.className += ' common-input__message--fade';
+          } else {
+            message.classList.remove('common-input__message--fade');
+            message.classList.remove('common-input__message--hide');
+          }
+
+          // change the position if it is offscreen
+          const shouldFlip = (Browser.getWindow().innerWidth < messageScreenPosition);
+
+          if (shouldFlip) {
+            message.className += ' common-input__message--flipped';
+            message.style.left = `${(icon.getBoundingClientRect().left - message.getBoundingClientRect().width)
+                                    + (icon.getBoundingClientRect().width / 2)}px`;
+            message.style.top = `${(icon.getBoundingClientRect().top - message.getBoundingClientRect().height)
+                                    - (icon.getBoundingClientRect().height)}px`;
+            this.flipped = true;
+          } else {
+            message.style.left = `${icon.getBoundingClientRect().left + (icon.getBoundingClientRect().width / 2)}px`;
+            message.style.top = `${(icon.getBoundingClientRect().top - message.getBoundingClientRect().height)
+                                    - (icon.getBoundingClientRect().height)}px`;
+            message.classList.remove('common-input__message--flipped');
+            this.flipped = false;
+          }
+        }
       }
     }
 
@@ -594,10 +588,10 @@ const InputValidation = (ComposedComponent) => {
      */
     immediatelyHideMessage = () => {
       this.setState({
-        messageShown: false,
-        immediatelyHideMessage: true
+        messageShown: false
       });
-      this.positionMessage();
+
+      if (this.validationMessage) { this.validationMessage.className += ' common-input__message--hide'; }
     }
 
     /**
