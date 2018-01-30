@@ -60,6 +60,8 @@ class Dropdown extends React.Component {
     // recalled with the use of super
     this.selectValue = this.selectValue.bind(this);
     this.results = this.results.bind(this);
+    this.onDownArrow = this.onDownArrow.bind(this);
+    this.onUpArrow = this.onUpArrow.bind(this);
   }
 
   static propTypes = {
@@ -292,7 +294,7 @@ class Dropdown extends React.Component {
    * Handles touch events.
    *
    * @method handleTouchEvent
-   **/
+   */
   handleTouchEvent = () => {
     // blocking blurring like this stops a bug on mobile when touch doesn't trigger until after blur, we want to
     // update the input before blurring
@@ -407,7 +409,7 @@ class Dropdown extends React.Component {
    * @param {HTML} element current li element
    * @return {HTML} nextVal next li element to be selected
    */
-  onUpArrow = (list, element) => {
+  onUpArrow(list, element) {
     let nextVal = list.lastChild.getAttribute('value');
 
     if (element === list.firstChild) {
@@ -428,7 +430,7 @@ class Dropdown extends React.Component {
    * @param {HTML} element current li element
    * @return {HTML} nextVal next li element to be selected
    */
-  onDownArrow = (list, element) => {
+  onDownArrow(list, element) {
     let nextVal = list.firstChild.getAttribute('value');
 
     if (element === list.lastChild) {
@@ -567,7 +569,8 @@ class Dropdown extends React.Component {
     return {
       key: 'list',
       ref: 'list',
-      className: 'carbon-dropdown__list'
+      className: 'carbon-dropdown__list',
+      role: 'listbox'
     };
   }
 
@@ -628,22 +631,29 @@ class Dropdown extends React.Component {
       }
 
       // add selected class
-      if (String(this.props.value) === optionId) {
+      const selected = String(this.props.value) === optionId;
+      if (selected) {
         klass += ` ${className}--selected`;
       }
 
+      /* eslint-disable jsx-a11y/mouse-events-have-key-events */
+      /* eslint-disable jsx-a11y/click-events-have-key-events */
       return (
         <li
+          aria-selected={ selected }
           data-element='option'
           key={ option.name + option.id }
           value={ option.id }
           onClick={ this.handleSelect }
           onMouseOver={ this.handleMouseOverListItem }
+          role='option'
           className={ klass }
         >
           { this.props.renderItem ? this.props.renderItem(option) : option.name }
         </li>
       );
+      /* eslint-enable jsx-a11y/click-events-have-key-events */
+      /* eslint-enable jsx-a11y/mouse-events-have-key-events */
     });
 
     return results;
@@ -693,9 +703,11 @@ class Dropdown extends React.Component {
 
   componentTags(props) {
     return {
+      'aria-expanded': this.state.open,
       'data-component': 'dropdown',
       'data-element': props['data-element'],
-      'data-role': props['data-role']
+      'data-role': props['data-role'],
+      role: 'combobox'
     };
   }
 

@@ -5,6 +5,7 @@ import Immutable from 'immutable';
 import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import ImmutableHelper from './../../utils/helpers/immutable';
+import BrowserHelper from './../../utils/helpers/browser';
 
 
 describe('DropdownFilter', () => {
@@ -914,6 +915,143 @@ describe('DropdownFilter', () => {
           'label',
           'option'
         ]);
+      });
+    });
+  });
+
+  describe('the create link', () => {
+    let createLink, wrapper, createLinkProps;
+
+    beforeEach(() => {
+      wrapper = shallow(
+        <DropdownFilter
+          create={function() {}}
+          fieldHelp='test'
+          label='test'
+          options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+          path='test'
+        />
+      );
+      wrapper.setState({ open: true })
+      createLink = wrapper.find('.carbon-dropdown__action');
+      expect(createLink.length).toEqual(1);
+      createLinkProps = createLink.props();
+    });
+
+    it('calls handleCreate onClick', () => {
+      expect(createLinkProps.onClick).toEqual(wrapper.instance().handleCreate);
+    });
+
+    it('calls handleCreate onKeyPress', () => {
+      expect(createLinkProps.onKeyPress).toEqual(wrapper.instance().handleCreate);
+    });
+
+    it('calls handleCreateBlur onBlur', () => {
+      expect(createLinkProps.onBlur).toEqual(wrapper.instance().handleCreateBlur);
+      createLinkProps.onBlur();
+      expect(wrapper.state.open).toBeFalsy();
+      expect(wrapper.instance().blockBlur).toBeFalsy();
+    });
+
+    it('has a tabIndex of 0', () => {
+      expect(createLinkProps.tabIndex).toEqual('0');
+    });
+  });
+
+  describe('onUpArrow', () => {
+    let createLink, wrapper, createLinkProps;
+
+    describe('when the create prop is set', () => {
+      beforeEach(() => {
+        wrapper = shallow(
+          <DropdownFilter
+            create={function() {}}
+            fieldHelp='test'
+            label='test'
+            options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+            path='test'
+          />
+        );
+        wrapper.setState({ open: true })
+      });
+
+      it('sets blockBlur to true', () => {
+        const list = BrowserHelper.getDocument().createElement('ul');
+        const li = BrowserHelper.getDocument().createElement('li')
+        list.appendChild(li)
+        let nextValue = wrapper.instance().onUpArrow(list, null);
+        expect(wrapper.instance().blockBlur).toBeTruthy();
+      });
+    });
+
+    describe('when the create prop is not set', () => {
+      beforeEach(() => {
+        wrapper = shallow(
+          <DropdownFilter
+            fieldHelp='test'
+            label='test'
+            options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+            path='test'
+          />
+        );
+        wrapper.setState({ open: true })
+      });
+
+      it('it does not set blockBlur to true', () => {
+        const list = BrowserHelper.getDocument().createElement('ul');
+        const li = BrowserHelper.getDocument().createElement('li')
+        list.appendChild(li)
+        let nextValue = wrapper.instance().onUpArrow(list, null);
+        expect(wrapper.instance().blockBlur).toBeFalsy();
+      });
+    });
+  });
+
+  describe('onDownArrow', () => {
+    let createLink, wrapper, createLinkProps;
+
+    describe('when the create prop is set', () => {
+      beforeEach(() => {
+        wrapper = shallow(
+          <DropdownFilter
+            create={function() {}}
+            fieldHelp='test'
+            label='test'
+            options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+            path='test'
+          />
+        );
+        wrapper.setState({ open: true })
+      });
+
+      it('sets blockBlur to true', () => {
+        const list = BrowserHelper.getDocument().createElement('ul');
+        const li = BrowserHelper.getDocument().createElement('li')
+        list.appendChild(li)
+        let nextValue = wrapper.instance().onDownArrow(list, null);
+        expect(wrapper.instance().blockBlur).toBeTruthy();
+      });
+    });
+
+    describe('when the create prop is not set', () => {
+      beforeEach(() => {
+        wrapper = shallow(
+          <DropdownFilter
+            fieldHelp='test'
+            label='test'
+            options={ ImmutableHelper.parseJSON([ { id: 1, name: 'bun' } ]) }
+            path='test'
+          />
+        );
+        wrapper.setState({ open: true })
+      });
+
+      it('it does not set blockBlur to true', () => {
+        const list = BrowserHelper.getDocument().createElement('ul');
+        const li = BrowserHelper.getDocument().createElement('li')
+        list.appendChild(li)
+        let nextValue = wrapper.instance().onDownArrow(list, null);
+        expect(wrapper.instance().blockBlur).toBeFalsy();
       });
     });
   });
