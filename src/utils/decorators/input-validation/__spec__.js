@@ -394,72 +394,10 @@ describe('InputValidation', () => {
               offsetTop: 30
             };
             instance.positionMessage();
-            expect(removeClassSpy).toHaveBeenCalledWith('common-input__message--flipped');
+            const messageClasses = instance.validationHTML[1].props.children.props.children.props.className;
+            expect(messageClasses).not.toMatch('common-input__message--flipped');
             expect(instance.validationMessage.style.left).toEqual('710px');
             expect(instance.validationMessage.style.top).toEqual('50px');
-          });
-        });
-
-        describe('when in a modal and offscreen', () => {
-          let wrapper;
-
-          beforeEach(() => {
-            wrapper = mount(
-              <Dialog open>
-                <Component validations={ [validationThree] } />
-              </Dialog>
-            );
-          });
-
-          it('sets the class to flipped', () => {
-            const addClassSpy = jasmine.createSpy();
-            const removeClassSpy = jasmine.createSpy();
-            const input = wrapper.find('input');
-            input.simulate('blur');
-            jest.runTimersToTime(0);
-            input.simulate('focus');
-            wrapper.instance()._dialog = {
-              offsetWidth: 10
-            };
-            wrapper.find(Component).instance().validationMessage = {
-              offsetWidth: 10,
-              offsetLeft: 10,
-              offsetHeight: 10,
-              style: {},
-              classList: {
-                add: addClassSpy,
-                remove: removeClassSpy
-              },
-              getBoundingClientRect: () => {
-                return {
-                  top: 0,
-                  left: 0,
-                  width: 300,
-                  height: 30
-                };
-              }
-            };
-
-            wrapper.find(Component).instance().validationIcon._target = {
-              offsetWidth: 10,
-              offsetLeft: 10,
-              offsetHeight: 10,
-              style: {},
-              getBoundingClientRect: () => {
-                return {
-                  top: 100,
-                  left: 900,
-                  width: 20,
-                  height: 20
-                };
-              }
-            };
-
-            input.simulate('focus');
-
-            expect(wrapper.find(Component).instance().validationMessage.classList.add).toHaveBeenCalledWith('common-input__message--flipped');
-            expect(wrapper.find(Component).instance().validationMessage.style.left).toEqual('610px');
-            expect(wrapper.find(Component).instance().validationMessage.style.top).toEqual('50px');
           });
         });
 
@@ -476,6 +414,7 @@ describe('InputValidation', () => {
           it('sets the class to flipped', () => {
             const addClassSpy = jasmine.createSpy();
             const removeClassSpy = jasmine.createSpy();
+            wrapper.find(Component).instance().flipped = true;
             wrapper.find(Component).instance().setState({ valid: false, errorMessage: 'foo' });
             wrapper.find(Component).instance().validationMessage = {
               offsetWidth: 0,
@@ -514,8 +453,9 @@ describe('InputValidation', () => {
               innerWidth: -1
             };
             wrapper.find(Component).instance().positionMessage();
+            wrapper.update();
 
-            expect(wrapper.find(Component).instance().validationMessage.classList.add).toHaveBeenCalledWith('common-input__message--flipped');
+            expect(wrapper.find('.common-input__message').props().className).toMatch('common-input__message--flipped');
           });
         });
       });
@@ -746,7 +686,7 @@ describe('InputValidation', () => {
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: true,
             immediatelyHideMessage: false
-          });
+          }, instance.positionMessage);
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
 
@@ -760,7 +700,7 @@ describe('InputValidation', () => {
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: true,
             immediatelyHideMessage: false
-          });
+          }, instance.positionMessage);
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
 
@@ -774,7 +714,7 @@ describe('InputValidation', () => {
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: true,
             immediatelyHideMessage: false
-          });
+          }, instance.positionMessage);
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
 
@@ -790,7 +730,7 @@ describe('InputValidation', () => {
             expect(instance.setState).toHaveBeenCalledWith({
               messageShown: true,
               immediatelyHideMessage: false
-            });
+            }, instance.positionMessage);
             expect(form.setActiveInput).not.toHaveBeenCalledWith(instance);
           });
         });
