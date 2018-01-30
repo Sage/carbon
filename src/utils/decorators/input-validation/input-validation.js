@@ -609,7 +609,7 @@ const InputValidation = (ComposedComponent) => {
       const iconClasses = `common-input__icon common-input__icon--${type}`;
       const messageClasses = classNames(`common-input__message common-input__message--${type}`, {
         'common-input__message--shown': (this.state.messageLocked || this.state.messageShown),
-        'common-input__message--fade': (!this.state.messageLocked &&  !this.state.messageShown),
+        'common-input__message--fade': (!this.state.messageLocked && !this.state.messageShown)
       });
 
       // position icon relative to width of label
