@@ -853,8 +853,7 @@ describe('InputValidation', () => {
         instance.immediatelyHideMessage();
 
         expect(instance.setState).toHaveBeenCalledWith({
-          messageShown: false,
-          immediatelyHideMessage: true
+          messageShown: false
         });
       });
 
@@ -870,8 +869,7 @@ describe('InputValidation', () => {
         jest.runOnlyPendingTimers();
 
         expect(instance.setState).toHaveBeenCalledWith({
-          messageShown: false,
-          immediatelyHideMessage: true
+          messageShown: false
         });
       });
     });
