@@ -265,13 +265,13 @@ const InputValidation = (ComposedComponent) => {
           const shouldFlip = (Browser.getWindow().innerWidth < messageScreenPosition);
 
           if (shouldFlip) {
-            message.classList.add('common-input__message--flipped');
+            this.flipped = true;
             message.style.left = `${(icon.getBoundingClientRect().left - message.getBoundingClientRect().width)
                                     + (icon.getBoundingClientRect().width / 2)}px`;
             message.style.top = `${(icon.getBoundingClientRect().top - message.getBoundingClientRect().height)
                                     - (icon.getBoundingClientRect().height)}px`;
           } else {
-            message.classList.remove('common-input__message--flipped');
+            this.flipped = false;
             message.style.left = `${icon.getBoundingClientRect().left + (icon.getBoundingClientRect().width / 2)}px`;
             message.style.top = `${(icon.getBoundingClientRect().top - message.getBoundingClientRect().height)
                                     - (icon.getBoundingClientRect().height)}px`;
@@ -538,12 +538,10 @@ const InputValidation = (ComposedComponent) => {
      */
     showMessage = () => {
       if (this.messageExists()) {
-        this.positionMessage();
-
         this.setState({
           messageShown: true,
           immediatelyHideMessage: false
-        });
+        }, this.positionMessage);
 
         if (this.context.form) {
           this.context.form.setActiveInput(this);
@@ -609,7 +607,8 @@ const InputValidation = (ComposedComponent) => {
       const iconClasses = `common-input__icon common-input__icon--${type}`;
       const messageClasses = classNames(`common-input__message common-input__message--${type}`, {
         'common-input__message--shown': (this.state.messageLocked || this.state.messageShown),
-        'common-input__message--fade': (!this.state.messageLocked && !this.state.messageShown)
+        'common-input__message--fade': (!this.state.messageLocked && !this.state.messageShown),
+        'common-input__message--flipped': this.flipped
       });
 
       // position icon relative to width of label
