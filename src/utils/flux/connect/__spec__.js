@@ -1,8 +1,10 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import Store from '../store';
 import connect from './connect';
 import { Dispatcher } from '../flux';
+import { watch } from 'fs';
+import { shallowToJson } from 'enzyme-to-json';
 
 describe('connect', () => {
   it('connects a single store to props', () => {
@@ -90,7 +92,9 @@ describe('connect', () => {
     const Presenter = () => null;
     const mapStateToProps = props => ({ text: `modified ${props.text}` });
     const ConnectedComponent = connect(mapStateToProps)(Presenter);
-    const wrapper = mount(<ConnectedComponent text={ 'sample text' } />).find(Presenter);
+    const wrapper = shallow(
+      <ConnectedComponent text={ 'sample text' } />
+    );
 
     expect(wrapper.prop('text')).toBe('modified sample text');
   });
