@@ -6,6 +6,7 @@ import Browser from './../../helpers/browser';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
 import Portal from './../../../components/portal';
+
 const window = Browser.getWindow();
 /**
  * InputValidation decorator.
@@ -40,6 +41,7 @@ const window = Browser.getWindow();
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
  */
+
 const InputValidation = (ComposedComponent) => {
   class Component extends ComposedComponent {
 
