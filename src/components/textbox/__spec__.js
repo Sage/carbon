@@ -21,15 +21,6 @@ describe('Textbox', () => {
   });
 
   describe('render', () => {
-    beforeEach(() => {
-      jest.useFakeTimers();
-    });
-
-    afterEach(() => {
-      jest.clearAllTimers();
-      jest.useRealTimers();
-    });
-
     it('renders a parent div', () => {
       let textboxNode = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(textboxNode.classList[0]).toEqual('carbon-textbox');
@@ -41,16 +32,14 @@ describe('Textbox', () => {
     });
 
     it('is decorated with a label', () => {
-      let label = TestUtils.findRenderedDOMComponentWithTag(instance, 'label');
+      let label = TestUtils.findRenderedDOMComponentWithTag(instance, 'label')
       expect(label.getAttribute('for')).toEqual('Dummy Box');
     });
 
     it('is decorated with a validation if a error is present', () => {
-      instance.setState({ errorMessage: 'Error', valid: false });
-      instance.showMessage();
-      jest.runOnlyPendingTimers();
-      const errorDiv = TestUtils.findRenderedDOMComponentWithClass(instance, 'common-input__message--error');
-      expect(errorDiv.textContent).toEqual('Error');
+      instance.setState({errorMessage: 'Error', valid: false});
+      let errorDiv = TestUtils.findRenderedDOMComponentWithClass(instance, 'common-input__message--error')
+      expect(errorDiv.textContent).toEqual('Error')
     });
   });
 

@@ -327,6 +327,14 @@ describe('InputValidation', () => {
       jest.useRealTimers();
     });
 
+    describe('when icon does not exist yet', () => {
+      it('returns undefined', () => {
+        instance.setState({ valid: false });
+        instance.validationIcon = undefined;
+        expect(instance.positionMessage()).toEqual(undefined);
+      });
+    });
+
     describe('when the component is valid', () => {
       it('does nothing', () => {
         instance.setState({ valid: true });
@@ -347,6 +355,7 @@ describe('InputValidation', () => {
         describe('when onscreen', () => {
           it('sets the correct left position and removes flipped class', () => {
             const removeClassSpy = jasmine.createSpy();
+            const addClassSpy = jasmine.createSpy();
 
             instance.setState({ valid: false, errorMessage: 'foo' });
 
@@ -355,6 +364,7 @@ describe('InputValidation', () => {
             });
             instance.validationMessage = {
               classList: {
+                add: addClassSpy,
                 remove: removeClassSpy
               },
               offsetHeight: 30,
@@ -384,73 +394,10 @@ describe('InputValidation', () => {
               offsetTop: 30
             };
             instance.positionMessage();
-            jest.runOnlyPendingTimers();
-            expect(removeClassSpy).toHaveBeenCalledWith('common-input__message--flipped');
+            const messageClasses = instance.validationHTML[1].props.children.props.children.props.className;
+            expect(messageClasses).not.toMatch('common-input__message--flipped');
             expect(instance.validationMessage.style.left).toEqual('710px');
             expect(instance.validationMessage.style.top).toEqual('50px');
-          });
-        });
-
-        describe('when in a modal and offscreen', () => {
-          let wrapper;
-
-          beforeEach(() => {
-            wrapper = mount(
-              <Dialog open>
-                <Component validations={ [validationThree] } />
-              </Dialog>
-            );
-          });
-
-          it('sets the class to flipped', () => {
-            const removeClassSpy = jasmine.createSpy();
-            const input = wrapper.find('input');
-            input.simulate('blur');
-            jest.runTimersToTime(0);
-            input.simulate('focus');
-            wrapper.instance()._dialog = {
-              offsetWidth: 10
-            };
-            wrapper.find(Component).instance().validationMessage = {
-              offsetWidth: 10,
-              offsetLeft: 10,
-              offsetHeight: 10,
-              style: {},
-              classList: {
-                remove: removeClassSpy
-              },
-              getBoundingClientRect: () => {
-                return {
-                  top: 0,
-                  left: 0,
-                  width: 300,
-                  height: 30
-                };
-              }
-            };
-
-            wrapper.find(Component).instance().validationIcon._target = {
-              offsetWidth: 10,
-              offsetLeft: 10,
-              offsetHeight: 10,
-              style: {},
-              getBoundingClientRect: () => {
-                return {
-                  top: 100,
-                  left: 900,
-                  width: 20,
-                  height: 20
-                };
-              }
-            };
-
-            input.simulate('focus');
-            jest.runOnlyPendingTimers();
-
-            expect(wrapper.find(Component).instance().flipped).toBe(true);
-            expect(wrapper.find(Component).instance().validationMessage.className).toEqual(expect.stringContaining('common-input__message--flipped'));
-            expect(wrapper.find(Component).instance().validationMessage.style.left).toEqual('610px');
-            expect(wrapper.find(Component).instance().validationMessage.style.top).toEqual('50px');
           });
         });
 
@@ -465,7 +412,9 @@ describe('InputValidation', () => {
           });
 
           it('sets the class to flipped', () => {
+            const addClassSpy = jasmine.createSpy();
             const removeClassSpy = jasmine.createSpy();
+            wrapper.find(Component).instance().flipped = true;
             wrapper.find(Component).instance().setState({ valid: false, errorMessage: 'foo' });
             wrapper.find(Component).instance().validationMessage = {
               offsetWidth: 0,
@@ -475,6 +424,7 @@ describe('InputValidation', () => {
                 top: 0
               },
               classList: {
+                add: addClassSpy,
                 remove: removeClassSpy
               },
               getBoundingClientRect: () => {
@@ -503,9 +453,9 @@ describe('InputValidation', () => {
               innerWidth: -1
             };
             wrapper.find(Component).instance().positionMessage();
-            jest.runOnlyPendingTimers();
+            wrapper.update();
 
-            expect(wrapper.find(Component).instance().validationMessage.className).toEqual(expect.stringContaining('common-input__message--flipped'));
+            expect(wrapper.find('.common-input__message').props().className).toMatch('common-input__message--flipped');
           });
         });
       });
@@ -736,7 +686,7 @@ describe('InputValidation', () => {
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: true,
             immediatelyHideMessage: false
-          });
+          }, instance.positionMessage);
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
 
@@ -750,7 +700,7 @@ describe('InputValidation', () => {
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: true,
             immediatelyHideMessage: false
-          });
+          }, instance.positionMessage);
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
 
@@ -764,7 +714,7 @@ describe('InputValidation', () => {
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: true,
             immediatelyHideMessage: false
-          });
+          }, instance.positionMessage);
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
 
@@ -780,7 +730,7 @@ describe('InputValidation', () => {
             expect(instance.setState).toHaveBeenCalledWith({
               messageShown: true,
               immediatelyHideMessage: false
-            });
+            }, instance.positionMessage);
             expect(form.setActiveInput).not.toHaveBeenCalledWith(instance);
           });
         });
@@ -839,15 +789,6 @@ describe('InputValidation', () => {
     });
 
     describe('immediatelyHideMessage', () => {
-      beforeEach(() => {
-        jest.useFakeTimers();
-      });
-
-      afterEach(() => {
-        jest.clearAllTimers();
-        jest.useRealTimers();
-      });
-
       it('sets state to hide message instantly', () => {
         spyOn(instance, 'setState');
         instance.immediatelyHideMessage();
@@ -867,7 +808,6 @@ describe('InputValidation', () => {
         });
 
         instance.immediatelyHideMessage();
-        jest.runOnlyPendingTimers();
 
         expect(instance.setState).toHaveBeenCalledWith({
           messageShown: false,
@@ -1216,10 +1156,10 @@ describe('InputValidation', () => {
       });
 
       it('returns a div for the error message', () => {
-        const portalChildren = instance.validationHTML[1].props.children.props.children.props;
+        const portalChildren = instance.validationHTML[1].props.children.props;
         expect(portalChildren.className).toEqual('common-input__message-wrapper');
 
-        expect(portalChildren.children.props.className).toEqual('common-input__message common-input__message--error');
+        expect(portalChildren.children.props.className).toEqual('common-input__message common-input__message--error common-input__message--shown');
         expect(portalChildren.children.props.children).toEqual('foo');
       });
 
@@ -1248,39 +1188,10 @@ describe('InputValidation', () => {
       });
 
       describe('when the message is locked', () => {
-        beforeEach(() => {
-          jest.useFakeTimers();
-        });
-
-        afterEach(() => {
-          jest.clearAllTimers();
-          jest.useRealTimers();
-        });
-
         it('adds a shown class', () => {
           instance.setState({ messageLocked: true });
-         
           instance.showMessage();
-          jest.runOnlyPendingTimers();
-          
           expect(instance.validationMessage.classList).toContain('common-input__message--shown');
-        });
-
-      });
-
-      describe('when the message not flipped', () => {
-        it('does not have flipped class', () => {
-          instance.flipped = false;
-          instance.setState({ messageLocked: true });
-          expect(instance.validationMessage.classList).not.toContain('common-input__message--flipped');
-        });
-      });
-
-      describe('when the message is flipped', () => {
-        it('does have flipped class', () => {
-          instance.flipped = true;
-          instance.setState({ messageLocked: true });
-          expect(instance.validationMessage.classList).toContain('common-input__message--flipped');
         });
       });
     });
@@ -1302,10 +1213,10 @@ describe('InputValidation', () => {
       });
 
       it('returns a div for the warning message', () => {
-        const portalElement = instance.validationHTML[1].props.children.props.children.props;
+        const portalElement = instance.validationHTML[1].props.children.props;
         expect(portalElement.className).toEqual('common-input__message-wrapper');
 
-        expect(portalElement.children.props.className).toEqual('common-input__message common-input__message--warning');
+        expect(portalElement.children.props.className).toEqual('common-input__message common-input__message--warning common-input__message--shown');
         expect(portalElement.children.props.children).toEqual('foo');
       });
     });
@@ -1329,26 +1240,16 @@ describe('InputValidation', () => {
       });
 
       it('returns a div for the info message', () => {
-        const portalElement = instance.validationHTML[1].props.children.props.children.props;
+        const portalElement = instance.validationHTML[1].props.children.props;
         expect(portalElement.className).toEqual('common-input__message-wrapper');
         expect(portalElement.children.props.children).toEqual('foo');
         expect(instance.validationHTML[0].props.className).toEqual('common-input__icon common-input__icon--info');
       });
 
       describe('when the message is locked', () => {
-        beforeEach(() => {
-          jest.useFakeTimers();
-        });
-
-        afterEach(() => {
-          jest.clearAllTimers();
-          jest.useRealTimers();
-        });
-
         it('adds a show class', () => {
           instance.setState({ messageLocked: true });
           instance.showMessage();
-          jest.runOnlyPendingTimers();
           expect(instance.validationMessage.classList).toContain('common-input__message--shown');
         });
       });

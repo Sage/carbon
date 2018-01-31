@@ -255,15 +255,6 @@ describe('Textarea', () => {
   });
 
   describe('render', () => {
-    beforeEach(() => {
-      jest.useFakeTimers();
-    });
-
-    afterEach(() => {
-      jest.clearAllTimers();
-      jest.useRealTimers();
-    });
-
     it('renders a parent div', () => {
       let textareaNode = TestUtils.scryRenderedDOMComponentsWithTag(baseInstance, 'div')[0];
       expect(textareaNode.classList[0]).toEqual('carbon-textarea');
@@ -281,23 +272,9 @@ describe('Textarea', () => {
     });
 
     it('is decorated with a validation if a error is present', () => {
-      
-      const errorWrapper = mount(
-        <Textarea
-          id='Dummy Area'
-          value={ 'foo' }
-          label={ 'Label' }
-          cols={10}
-          rows={10}
-          onChange={ spy }
-        />
-      );
-      errorWrapper.setState({ errorMessage: 'Error', valid: false });
-      errorWrapper.instance().showMessage();
-      
-      const errorMessage = errorWrapper.instance().validationHTML[1].props.children.props.children.props.children.props.children;
-
-      expect(errorMessage).toEqual('Error');
+      baseInstance.setState({errorMessage: 'Error', valid: false});
+      let errorDiv = TestUtils.findRenderedDOMComponentWithClass(baseInstance, 'common-input__message--error')
+      expect(errorDiv.textContent).toEqual('Error')
     });
 
     describe('when characterLimit is set', () => {

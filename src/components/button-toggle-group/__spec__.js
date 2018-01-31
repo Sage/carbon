@@ -2,8 +2,6 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import Portal from './../portal';
-import Icon from './../icon';
 
 import ButtonToggleGroup from './button-toggle-group';
 import ButtonToggle from './../button-toggle';
@@ -12,7 +10,6 @@ describe('ButtonToggleGroup', () => {
   let wrapper, instance;
 
   beforeEach(() => {
-    jest.useFakeTimers();
     wrapper = shallow(
       <ButtonToggleGroup
         label={ 'Label' }
@@ -22,11 +19,6 @@ describe('ButtonToggleGroup', () => {
       </ButtonToggleGroup>
     );
     instance = wrapper.instance();
-  });
-
-  afterEach(() => {
-    jest.clearAllTimers();
-    jest.useRealTimers();
   });
 
   describe('componentWillReceiveProps', () => {
@@ -75,6 +67,9 @@ describe('ButtonToggleGroup', () => {
   });
 
   describe('_handleGroupBlur', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
 
     describe('when blur is not blocked', () => {
       it('calls validate on blur of the input', () => {
@@ -124,14 +119,13 @@ describe('ButtonToggleGroup', () => {
     describe('when the child components have an id prop', () => {
       it("is decorated with a label that references the first child's id", () => {
         const label = wrapper.find('.common-input__label');
-
         expect(label.prop('htmlFor')).toEqual('test');
       });
     });
 
     describe('when the child components do not have an id prop', () => {
       beforeEach(() => {
-        wrapper = mount(
+        wrapper = shallow(
           <ButtonToggleGroup
             label={ 'Label' }
             value={ 'foo' }
@@ -147,28 +141,10 @@ describe('ButtonToggleGroup', () => {
       });
     });
 
-    describe('when has input-validation error ', () => {
-      beforeEach(() => {
-        wrapper = mount(
-          <ButtonToggleGroup
-            label={ 'Label' }
-            value={ 'foo' }
-          >
-            <ButtonToggle>Foo</ButtonToggle>
-          </ButtonToggleGroup>
-        );
-      });
-
-      it('is decorated with a validation if a error is present', () => {
-        wrapper.setState({ errorMessage: 'Error', valid: false });
-        wrapper.instance().showMessage();
-
-        jest.runOnlyPendingTimers();
-
-        const errorMessage = wrapper.instance().validationHTML[1]
-                                .props.children.props.children.props.children.props.children;
-        expect(errorMessage).toEqual('Error');
-      });
+    it('is decorated with a validation if a error is present', () => {
+      wrapper.setState({ errorMessage: 'Error', valid: false });
+      const errorDiv = wrapper.find('.common-input__message--error');
+      expect(errorDiv.prop('children')).toEqual('Error');
     });
 
     it('renders a parent div when mounted', () => {
