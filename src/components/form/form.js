@@ -538,7 +538,7 @@ class Form extends React.Component {
     if (this.props.afterFormValidation) {
       this.props.afterFormValidation(ev, valid);
     }
-    
+
     if (valid && this.props.onSubmit) {
       this.props.onSubmit(ev, this.enableForm);
     }

@@ -336,18 +336,77 @@ describe('Form', () => {
       });
     });
 
+    describe('when autoDisabled prop is passed,', () => {
+      it('state.submitted should be false', () => {
+        let spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form autoDisabled onSubmit={ spy }>
+            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+          </Form>
+        );
+        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+        expect(instance.state.submitted).toBe(false);
+      });
+
+      it('state.submitted should be true after form has been submitted', () => {
+        const spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form autoDisable onSubmit={ spy }>
+            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+          </Form>
+        );
+        const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+        expect(instance.state.submitted).toBe(true);
+      });
+
+      it('form has been submitted and enableFormFunc called, state.submitted to be false ', () => {
+        const spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form autoDisable onSubmit={ spy }>
+            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+          </Form>
+        );
+        const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+
+        const enableFormFunc = spy.calls.first().args[1];
+        expect(enableFormFunc).toBe(instance.enableForm);
+
+        enableFormFunc();
+        expect(instance.state.submitted).toBe(false);
+      });
+    });
+
+    describe('when autoDisabled prop is NOT passed,', () => {
+      it('after submit', () => {
+        const spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form >
+            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+          </Form>
+        );
+        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+        expect(instance.state.submitted).toBe(false);
+      });
+    });
+
     describe('when a onSubmit prop is passed', () => {
       describe('and the form is valid', () => {
         it('calls the onSubmit prop', () => {
-          let spy = jasmine.createSpy('spy');
+          const spy = jasmine.createSpy('spy');
+
           instance = TestUtils.renderIntoDocument(
             <Form onSubmit={ spy }>
               <Textbox validations={ [new Validation()] } name='test' value='Valid' />
             </Form>
           );
-          let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+
+          const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
           TestUtils.Simulate.submit(form);
-          expect(spy).toHaveBeenCalled();
+          expect(spy).toHaveBeenCalledWith(jasmine.any(Object), instance.enableForm);
         });
       });
 
