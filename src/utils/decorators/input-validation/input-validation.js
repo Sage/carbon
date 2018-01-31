@@ -6,6 +6,7 @@ import Browser from './../../helpers/browser';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
 import Portal from './../../../components/portal';
+const window = Browser.getWindow();
 /**
  * InputValidation decorator.
  *
@@ -258,23 +259,21 @@ const InputValidation = (ComposedComponent) => {
             message = this.validationMessage;
 
         if (icon && message) {
+          const scrollYOffset = (window) ? window.scrollY : 0;
+          message.style.top = `${((icon.getBoundingClientRect().top - message.getBoundingClientRect().height) + scrollYOffset)
+            - (icon.getBoundingClientRect().height)}px`;
+            
           // figure out if the message is positioned offscreen
           const messageScreenPosition = icon.getBoundingClientRect().left + message.getBoundingClientRect().width;
-
           // change the position if it is offscreen
           const shouldFlip = (Browser.getWindow().innerWidth < messageScreenPosition);
-
           if (shouldFlip) {
             this.flipped = true;
             message.style.left = `${(icon.getBoundingClientRect().left - message.getBoundingClientRect().width)
                                     + (icon.getBoundingClientRect().width / 2)}px`;
-            message.style.top = `${(icon.getBoundingClientRect().top - message.getBoundingClientRect().height)
-                                    - (icon.getBoundingClientRect().height)}px`;
           } else {
             this.flipped = false;
             message.style.left = `${icon.getBoundingClientRect().left + (icon.getBoundingClientRect().width / 2)}px`;
-            message.style.top = `${(icon.getBoundingClientRect().top - message.getBoundingClientRect().height)
-                                    - (icon.getBoundingClientRect().height)}px`;
           }
         }
       }
