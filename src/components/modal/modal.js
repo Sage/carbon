@@ -165,13 +165,8 @@ class Modal extends React.Component {
 
     if (this.props.open && !this.listening) {
       this.listening = true;
-      // TODO: try to remove this with React 16 upgrade with native Portals
-      // it was added as the Portal library we use messes up the callstack
-      // when assigning the ref and triggering componentDidUpdate
-      setTimeout(() => {
-        this.updateDataState();
-        this.onOpening; // eslint-disable-line no-unused-expressions
-      });
+      this.updateDataState();
+      this.onOpening; // eslint-disable-line no-unused-expressions
       _window.addEventListener('keyup', this.closeModal);
     } else if (!this.props.open && this.listening) {
       this.listening = false;
