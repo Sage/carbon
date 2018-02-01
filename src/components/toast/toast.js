@@ -125,7 +125,6 @@ class Toast extends React.Component {
     if (this.props.open) {
       return (
         <div className={ this.componentClasses } { ...tagComponent('toast', this.props) }>
-
             <div className='carbon-toast__type'>
               <Icon className='carbon-toast__type-icon' type={ this.props.as } />
             </div>
@@ -133,7 +132,6 @@ class Toast extends React.Component {
               { this.props.children }
             </div>
             { this.dismissIcon }
-
         </div>
       );
     }
