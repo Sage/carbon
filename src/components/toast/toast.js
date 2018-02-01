@@ -125,13 +125,13 @@ class Toast extends React.Component {
     if (this.props.open) {
       return (
         <div className={ this.componentClasses } { ...tagComponent('toast', this.props) }>
-            <div className='carbon-toast__type'>
-              <Icon className='carbon-toast__type-icon' type={ this.props.as } />
-            </div>
-            <div className='carbon-toast__content'>
-              { this.props.children }
-            </div>
-            { this.dismissIcon }
+          <div className='carbon-toast__type'>
+            <Icon className='carbon-toast__type-icon' type={ this.props.as } />
+          </div>
+          <div className='carbon-toast__content'>
+            { this.props.children }
+          </div>
+          { this.dismissIcon }
         </div>
       );
     }
