@@ -523,10 +523,6 @@ class Form extends React.Component {
    * @return {void}
    */
   handleOnSubmit = (ev) => {
-    if (this.props.autoDisable) {
-      this.setState({ submitted: true });
-    }
-
     if (this.props.beforeFormValidation) {
       this.props.beforeFormValidation(ev);
     }
@@ -541,6 +537,9 @@ class Form extends React.Component {
 
     if (valid && this.props.onSubmit) {
       this.props.onSubmit(ev, this.enableForm);
+      if (this.props.autoDisable) {
+        this.setState({ submitted: true });
+      }
     }
   }
 
