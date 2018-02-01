@@ -37,10 +37,7 @@ $dialog-sizes: (
   box-shadow: 0 10px 20px rgba($grey-shadow, 0.2);
   position: fixed;
   top: 50%;
-  min-width: 664px;
-  max-width: 800px;
-  width: calc(50%);
-  height: calc(80%);
+  height: calc(95%);
   
   &:focus {
     outline: none;
