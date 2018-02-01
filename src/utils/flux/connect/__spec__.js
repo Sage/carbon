@@ -3,8 +3,6 @@ import { mount, shallow } from 'enzyme';
 import Store from '../store';
 import connect from './connect';
 import { Dispatcher } from '../flux';
-import { watch } from 'fs';
-import { shallowToJson } from 'enzyme-to-json';
 
 describe('connect', () => {
   it('connects a single store to props', () => {
