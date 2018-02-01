@@ -452,9 +452,8 @@ describe('InputValidation', () => {
             wrapper.find(Component).instance()._window = {
               innerWidth: -1
             };
-            wrapper.find(Component).instance().positionMessage();
+            wrapper.find(Component).instance().windowChanged();
             wrapper.update();
-
             expect(wrapper.find('.common-input__message').props().className).toMatch('common-input__message--flipped');
           });
         });
