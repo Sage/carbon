@@ -29,7 +29,7 @@ let definition = new Definition('toast', Toast, {
   },
   propValues: {
     children: "Talkie's the name, toasting's the game. Anyone like any toast?",
-    open: true
+    open: false
   },
   propTypes: {
     as: "String",
