@@ -248,6 +248,12 @@ const InputValidation = (ComposedComponent) => {
       }
     }
 
+    windowChanged = () => {
+      this.positionMessage();
+      // render to to add any eventual css rules
+      this.forceUpdate();
+    }
+
     /**
      * Positions the message relative to the icon.
      *
@@ -620,7 +626,7 @@ const InputValidation = (ComposedComponent) => {
       }
 
       const errorMessage = (!this.state.immediatelyHideMessage || this.state.messageLocked) &&
-        <Portal key='1' onReposition={ this.positionMessage }>
+        <Portal key='1' onReposition={ this.windowChanged }>
           <div className='common-input__message-wrapper'>
             <div
               ref={ (validationMessage) => {
