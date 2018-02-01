@@ -124,15 +124,17 @@ class Toast extends React.Component {
   get toastContent() {
     if (this.props.open) {
       return (
-        <div className={ this.componentClasses } { ...tagComponent('toast', this.props) }>
-          <div className='carbon-toast__type'>
-            <Icon className='carbon-toast__type-icon' type={ this.props.as } />
+        <Portal key='1'>
+          <div className={ this.componentClasses } { ...tagComponent('toast', this.props) }>
+            <div className='carbon-toast__type'>
+              <Icon className='carbon-toast__type-icon' type={ this.props.as } />
+            </div>
+            <div className='carbon-toast__content'>
+              { this.props.children }
+            </div>
+            { this.dismissIcon }
           </div>
-          <div className='carbon-toast__content'>
-            { this.props.children }
-          </div>
-          { this.dismissIcon }
-        </div>
+        </Portal>
       );
     }
     return null;
@@ -145,17 +147,15 @@ class Toast extends React.Component {
    */
   render() {
     return (
-      <Portal key='1'>
-        <CSSTransitionGroup
-          transitionAppear
-          transitionName='toast'
-          transitionAppearTimeout={ 1600 }
-          transitionEnterTimeout={ 1500 }
-          transitionLeaveTimeout={ 500 }
-        >
-          { this.toastContent }
-        </CSSTransitionGroup>
-      </Portal>
+      <CSSTransitionGroup
+        transitionAppear
+        transitionName='toast'
+        transitionAppearTimeout={ 1600 }
+        transitionEnterTimeout={ 1500 }
+        transitionLeaveTimeout={ 500 }
+      >
+        { this.toastContent }
+      </CSSTransitionGroup>
     );
   }
 
