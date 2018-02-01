@@ -4,6 +4,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import PropTypes from 'prop-types';
 import Icon from './../icon';
 import tagComponent from '../../utils/helpers/tags';
+import Portal from './../../components/portal';
 
 /**
 * A Toast widget.
@@ -144,15 +145,17 @@ class Toast extends React.Component {
    */
   render() {
     return (
-      <CSSTransitionGroup
-        transitionAppear
-        transitionName='toast'
-        transitionAppearTimeout={ 1600 }
-        transitionEnterTimeout={ 1500 }
-        transitionLeaveTimeout={ 500 }
-      >
-        { this.toastContent }
-      </CSSTransitionGroup>
+      <Portal key='1'>
+        <CSSTransitionGroup
+          transitionAppear
+          transitionName='toast'
+          transitionAppearTimeout={ 1600 }
+          transitionEnterTimeout={ 1500 }
+          transitionLeaveTimeout={ 500 }
+        >
+          { this.toastContent }
+        </CSSTransitionGroup>
+      </Portal>
     );
   }
 
