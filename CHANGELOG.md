@@ -1,3 +1,5 @@
+# 3.1.0
+
 ## InputValidation Improvement
 
 The InputValidation error tooltips now use the Portal Component
