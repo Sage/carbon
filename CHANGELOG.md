@@ -1,5 +1,9 @@
 # 3.1.0
 
+## Dropdown Improvement
+
+The DropDown Component now uses the Portal Component
+
 ## Modal Improvement
 
 The Modal now uses the Portal Component
