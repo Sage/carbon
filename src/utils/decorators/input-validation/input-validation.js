@@ -135,6 +135,13 @@ const InputValidation = (ComposedComponent) => {
        * @type {Boolean}
        */
       this.state.messageShown = false;
+      /**
+       * toggles whether the message css is flipped
+       *
+       * @property flipped
+       * @type {Boolean}
+       */
+      this.state.flipped = false;
     }
 
     static contextTypes = assign({}, ComposedComponent.contextTypes, {
@@ -248,12 +255,6 @@ const InputValidation = (ComposedComponent) => {
       }
     }
 
-    windowChanged = () => {
-      this.positionMessage();
-      // render to to add any eventual css rules
-      this.forceUpdate();
-    }
-
     /**
      * Positions the message relative to the icon.
      *
@@ -276,11 +277,11 @@ const InputValidation = (ComposedComponent) => {
           // change the position if it is offscreen
           const shouldFlip = (Browser.getWindow().innerWidth < messageScreenPosition);
           if (shouldFlip) {
-            this.flipped = true;
+            this.setState({ flipped: true });
             message.style.left = `${(icon.getBoundingClientRect().left - message.getBoundingClientRect().width)
                                     + (icon.getBoundingClientRect().width / 2)}px`;
           } else {
-            this.flipped = false;
+            this.setState({ flipped: false });
             message.style.left = `${icon.getBoundingClientRect().left + (icon.getBoundingClientRect().width / 2)}px`;
           }
         }
@@ -615,7 +616,7 @@ const InputValidation = (ComposedComponent) => {
       const messageClasses = classNames(`common-input__message common-input__message--${type}`, {
         'common-input__message--shown': (this.state.messageLocked || this.state.messageShown),
         'common-input__message--fade': (!this.state.messageLocked && !this.state.messageShown),
-        'common-input__message--flipped': this.flipped
+        'common-input__message--flipped': this.state.flipped
       });
 
       // position icon relative to width of label
@@ -626,7 +627,7 @@ const InputValidation = (ComposedComponent) => {
       }
 
       const errorMessage = (!this.state.immediatelyHideMessage || this.state.messageLocked) &&
-        <Portal key='1' onReposition={ this.windowChanged }>
+        <Portal key='1' onReposition={ this.positionMessage }>
           <div className='common-input__message-wrapper'>
             <div
               ref={ (validationMessage) => {
