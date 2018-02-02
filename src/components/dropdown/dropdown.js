@@ -7,6 +7,7 @@ import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 import Events from './../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
+import Portal from './../portal';
 
 /**
  * A dropdown widget.
@@ -649,6 +650,10 @@ class Dropdown extends React.Component {
     return results;
   }
 
+  positionOptions() {
+    console.log(!!this.listBlock);
+  }
+
   /**
    * Extends the input content to include the input icon.
    *
@@ -663,11 +668,14 @@ class Dropdown extends React.Component {
     }
 
     content.push(
-      <div { ...this.listBlockProps } ref={ (node) => { this.listBlock = node; } }>
-        { this.listHTML }
-      </div>
+      <Portal onReposition={ this.positionOptions }>
+        <div { ...this.listBlockProps } ref={ (node) => { this.listBlock = node; } }>
+          { this.listHTML }
+        </div>
+      </Portal>
     );
 
+    this.positionOptions();
     return content;
   }
 
