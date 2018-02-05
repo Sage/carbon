@@ -776,7 +776,12 @@ function generateCSRFToken(doc) {
   const csrfAttr = csrfParam ? csrfParam.getAttribute('content') : '';
   const csrfValue = csrfToken ? csrfToken.getAttribute('content') : '';
 
-  return <input type='hidden' name={ csrfAttr } value={ csrfValue } readOnly='true' />;
+  return (
+    <input
+      type='hidden' name={ csrfAttr }
+      value={ csrfValue } readOnly='true'
+    />
+  );
 }
 
 export default Form;

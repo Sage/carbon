@@ -25,10 +25,7 @@ import tagComponent from '../../utils/helpers/tags';
  * @constructor
  * @decorators {Input,InputLabel,InputValidation}
  */
-const Textarea = Input(InputLabel(InputValidation(
-class Textarea extends React.Component {
-
-
+const Textarea = Input(InputLabel(InputValidation(class Textarea extends React.Component {
   // Minimum height of the textarea
   minHeight = 0;
 
@@ -296,7 +293,6 @@ class Textarea extends React.Component {
       </div>
     );
   }
-}
-)));
+})));
 
 export default Textarea;

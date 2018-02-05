@@ -179,11 +179,9 @@ class Message extends React.Component {
    * @method componentClasses
    */
   get typeClasses() {
-    return classNames(
-      'carbon-message__type', {
-        'carbon-message__type--rounded': this.props.roundedCorners
-      }
-    );
+    return classNames('carbon-message__type', {
+      'carbon-message__type--rounded': this.props.roundedCorners
+    });
   }
 
   /**

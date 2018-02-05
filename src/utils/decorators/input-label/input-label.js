@@ -48,7 +48,6 @@ import Help from './../../../components/help';
  */
 const InputLabel = (ComposedComponent) => {
   class Component extends ComposedComponent {
-
     static contextTypes = assign({}, ComposedComponent.contextTypes, {
       form: PropTypes.object
     })
@@ -137,13 +136,11 @@ const InputLabel = (ComposedComponent) => {
      * @return {String} Main class names
      */
     get mainClasses() {
-      return classNames(
-        super.mainClasses, {
-          'common-input--label-inline': this.props.labelInline,
-          'common-input--has-label-help': this.props.labelHelp,
-          'common-input--has-field-help': this.props.fieldHelp
-        }
-      );
+      return classNames(super.mainClasses, {
+        'common-input--label-inline': this.props.labelInline,
+        'common-input--has-label-help': this.props.labelHelp,
+        'common-input--has-field-help': this.props.fieldHelp
+      });
     }
 
     /**
@@ -153,13 +150,11 @@ const InputLabel = (ComposedComponent) => {
      * @return {String} classes
      */
     get labelClasses() {
-      return classNames(
-        'common-input__label', {
-          'common-input__label--inline': this.props.labelInline,
-          'common-input__label--help': this.props.labelHelp,
-          'common-input__label--align-right': this.props.labelAlign === 'right'
-        }
-      );
+      return classNames('common-input__label', {
+        'common-input__label--inline': this.props.labelInline,
+        'common-input__label--help': this.props.labelHelp,
+        'common-input__label--align-right': this.props.labelAlign === 'right'
+      });
     }
 
     get fieldHelpClasses() {
@@ -250,7 +245,10 @@ const InputLabel = (ComposedComponent) => {
       }
 
       return (
-        <span className={ this.fieldHelpClasses } style={ style } data-element='help'>
+        <span
+          className={ this.fieldHelpClasses } style={ style }
+          data-element='help'
+        >
           { this.props.fieldHelp }
         </span>
       );

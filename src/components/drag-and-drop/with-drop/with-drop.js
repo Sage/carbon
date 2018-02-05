@@ -49,7 +49,6 @@ const ItemTarget = {
 WithDrop = DropTarget( // eslint-disable-line no-class-assign
   ItemTypes.getItemType, ItemTarget, connect => ({
     connectDropTarget: connect.dropTarget()
-  })
-)(WithDrop);
+  }))(WithDrop);
 
 export default WithDrop;

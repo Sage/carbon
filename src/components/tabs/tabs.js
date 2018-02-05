@@ -377,7 +377,7 @@ class Tabs extends React.Component {
     return classNames(
       'carbon-tabs__headers',
       `carbon-tabs__headers--align-${this.props.align}`,
-       'carbon-tabs__headers'
+      'carbon-tabs__headers'
     );
   }
 

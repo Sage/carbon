@@ -30,7 +30,6 @@ import { validProps } from '../../../utils/ether';
  * @constructor
  */
 class TableHeader extends React.Component {
-
   static propTypes = {
 
     /**
@@ -285,7 +284,10 @@ class TableHeader extends React.Component {
     }
 
     return (
-      <th { ...this.tableHeaderProps } { ...this.componentTags(this.props) } { ...this.ariaAttributes() }>
+      <th
+        { ...this.tableHeaderProps } { ...this.componentTags(this.props) }
+        { ...this.ariaAttributes() }
+      >
         { contents }
       </th>
     );

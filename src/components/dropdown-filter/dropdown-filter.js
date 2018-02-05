@@ -302,7 +302,7 @@ class DropdownFilter extends Dropdown {
 
     if (!items.length) {
       items = (
-        <li className={ 'carbon-dropdown__list-item carbon-dropdown__list-item--no-results' }>
+        <li className='carbon-dropdown__list-item carbon-dropdown__list-item--no-results'>
           {
             I18n.t('dropdownlist.no_results', {
               defaultValue: 'No results match "%{term}"',

@@ -50,7 +50,6 @@ import tagComponent from '../../utils/helpers/tags';
  * @constructor
  */
 class Flash extends React.Component {
-
   static propTypes = {
 
     /**
@@ -289,7 +288,7 @@ class Flash extends React.Component {
 
       return <ul>{ items }</ul>;
     }
-      // if just a string, pass it through the find more parser
+    // if just a string, pass it through the find more parser
     return this.findMore(description);
   }
 

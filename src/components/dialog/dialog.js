@@ -31,7 +31,6 @@ const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog--open';
  * @constructor
  */
 class Dialog extends Modal {
-
   static propTypes = assign({}, Modal.propTypes, {
     /**
      * Allows developers to specify a specific height for the dialog.
@@ -263,11 +262,9 @@ class Dialog extends Modal {
     if (!this.props.title) { return null; }
 
     let title = this.props.title;
-    const classes = classNames(
-          'carbon-dialog__title', {
-            'carbon-dialog__title--has-subheader': this.props.subtitle
-          }
-        );
+    const classes = classNames('carbon-dialog__title', {
+      'carbon-dialog__title--has-subheader': this.props.subtitle
+    });
 
     if (typeof title === 'string') {
       title = (
@@ -395,7 +392,10 @@ class Dialog extends Modal {
         { this.dialogTitle }
 
         <div className='carbon-dialog__content' ref={ (c) => { this._content = c; } }>
-          <div className='carbon-dialog__inner-content' ref={ (c) => { this._innerContent = c; } } style={ style }>
+          <div
+            className='carbon-dialog__inner-content' ref={ (c) => { this._innerContent = c; } }
+            style={ style }
+          >
             { this.props.children }
             { this.additionalContent() }
           </div>

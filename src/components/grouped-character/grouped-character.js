@@ -11,8 +11,7 @@ import { validProps, insertAt } from './../../utils/ether';
 
 import tagComponent from '../../utils/helpers/tags';
 
-const GroupedCharacter = Input(InputLabel(InputValidation(
-class GroupedCharacter extends React.Component {
+const GroupedCharacter = Input(InputLabel(InputValidation(class GroupedCharacter extends React.Component {
   constructor(...args) {
     super(...args);
 
@@ -24,9 +23,9 @@ class GroupedCharacter extends React.Component {
     this.getCursorPosition = this.getCursorPosition.bind(this);
     this.getNewPosition = this.getNewPosition.bind(this);
     this.sliceUpToSeparator = this.sliceUpToSeparator.bind(this);
-    this.getPlainValue = this.getPlainValue.bind(this);    // value without separators
-    this.lastPosition = 0;                                // last position of cursor 1-indexed
-    this.keyPressed = { which: null };                  // track key pressed outside of React synthetic event
+    this.getPlainValue = this.getPlainValue.bind(this); // value without separators
+    this.lastPosition = 0; // last position of cursor 1-indexed
+    this.keyPressed = { which: null }; // track key pressed outside of React synthetic event
     this.state.value = this.setVisibleValue(this.props.value);
   }
 
@@ -40,13 +39,11 @@ class GroupedCharacter extends React.Component {
      */
     className: PropTypes.string,
 
-    groups: PropTypes.array.isRequired,            // an array of  group sizes
-    inputWidth: PropTypes.string,                      // pixel value that sets inputWidth
+    groups: PropTypes.array.isRequired, // an array of  group sizes
+    inputWidth: PropTypes.string, // pixel value that sets inputWidth
     separator: ((props, propName, componentName) => { // a separator character to insert between number groups
       if ((props[propName]).length > 1 || typeof props[propName] !== 'string') {
-        return new Error(
-          `Invalid prop ${propName} supplied to ${componentName}. Must be string of length 1.`
-        );
+        return new Error(`Invalid prop ${propName} supplied to ${componentName}. Must be string of length 1.`);
       }
       return null;
     }),

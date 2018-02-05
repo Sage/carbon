@@ -12,7 +12,6 @@ import classNames from 'classnames';
  * @constructor
  */
 class Tab extends React.Component {
-
   static propTypes = {
     /**
      * The id of the corresponding control that must be activated to show the tab

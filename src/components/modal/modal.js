@@ -37,7 +37,6 @@ const TIMEOUT = 500;
  * @constructor
  */
 class Modal extends React.Component {
-
   static propTypes = {
 
     /**

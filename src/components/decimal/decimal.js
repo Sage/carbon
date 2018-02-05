@@ -25,9 +25,7 @@ import Logger from './../../utils/logger';
  * @constructor
  * @decorators {Input,InputLabel,InputValidation}
  */
-const Decimal = Input(InputLabel(InputValidation(
-class Decimal extends React.Component {
-
+const Decimal = Input(InputLabel(InputValidation(class Decimal extends React.Component {
   /**
    * Stores the document - allows us to override it different contexts, such as
    * when running tests.
@@ -354,8 +352,7 @@ class Decimal extends React.Component {
       </div>
     );
   }
-}
-)));
+})));
 
 // Private Methods
 

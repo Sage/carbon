@@ -278,7 +278,10 @@ class MultiStepWizard extends React.Component {
       return (
         // Step is never going to be re-ordered or changed so index is safe to use
         /* eslint-disable react/no-array-index-key */
-        <Step stepNumber={ index + 1 } key={ `multi-step-wizard-step-${index}` } { ...step.props }>
+        <Step
+          stepNumber={ index + 1 } key={ `multi-step-wizard-step-${index}` }
+          { ...step.props }
+        >
           { step }
         </Step>
         /* eslint-enable react/no-array-index-key */

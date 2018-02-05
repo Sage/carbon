@@ -25,7 +25,6 @@ import SplitButton from './../split-button';
  * @constructor
  */
 class MultiActionButton extends SplitButton {
-
   static propTypes = {
     /**
      * Customizes the appearance, can be set to 'primary', 'secondary' or 'transparent'.
@@ -88,7 +87,7 @@ class MultiActionButton extends SplitButton {
    */
   get additionalButtonsClasses() {
     return `${super.additionalButtonsClasses
-      } carbon-multi-action-button__additional-buttons` +
+    } carbon-multi-action-button__additional-buttons` +
       ` carbon-multi-action-button__additional-buttons--${this.props.as}`;
   }
 
@@ -101,7 +100,7 @@ class MultiActionButton extends SplitButton {
    */
   get toggleButtonClasses() {
     return `${super.toggleButtonClasses
-      } carbon-multi-action-button__toggle` +
+    } carbon-multi-action-button__toggle` +
       ` carbon-multi-action-button__toggle--${this.props.as}`;
   }
 

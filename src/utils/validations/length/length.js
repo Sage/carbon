@@ -40,7 +40,6 @@ import ValidationsHelper from './../../helpers/validations';
  * @constructor LengthValidator
  */
 class LengthValidator {
-
   /**
    * @method constructor
    * @param {Object} params

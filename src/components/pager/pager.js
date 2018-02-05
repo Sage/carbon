@@ -26,7 +26,6 @@ import tagComponent from '../../utils/helpers/tags';
  * @class Pager
  */
 class Pager extends React.Component {
-
   static propTypes = {
 
     /**

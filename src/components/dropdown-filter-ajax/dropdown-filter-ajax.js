@@ -29,7 +29,6 @@ import DropdownFilter from './../dropdown-filter';
  * @constructor
  */
 class DropdownFilterAjax extends DropdownFilter {
-
   constructor(...args) {
     super(...args);
 

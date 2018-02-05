@@ -224,7 +224,10 @@ class ShowEditPod extends React.Component {
    */
   get deleteButton() {
     return (
-      <Link as='error' className='carbon-show-edit-pod__delete' onClick={ this.props.onDelete }>
+      <Link
+        as='error' className='carbon-show-edit-pod__delete'
+        onClick={ this.props.onDelete }
+      >
         { this.props.deleteText || I18n.t('actions.delete', { defaultValue: 'Delete' }) }
       </Link>
     );

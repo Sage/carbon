@@ -46,9 +46,7 @@ class Create extends React.Component {
     const className = this.props.className;
     const { ...props } = this.props;
 
-    props.className = classNames(
-      'carbon-create', className
-    );
+    props.className = classNames('carbon-create', className);
 
     props.iconAlign = 'right';
     props.icon = 'add';

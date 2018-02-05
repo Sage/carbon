@@ -29,8 +29,7 @@ import { validProps } from '../../utils/ether';
  * @constructor
  * @decorators {List,Input,InputIcon,InputLabel,InputValidation}
  */
-const Dropdown = Input(InputIcon(InputLabel(InputValidation(
-class Dropdown extends React.Component {
+const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown extends React.Component {
   /**
    * @constructor
    */
@@ -87,7 +86,7 @@ class Dropdown extends React.Component {
      */
     disabled: PropTypes.bool,
 
-   /**
+    /**
     * A custom onBlur handler.
     *
     * @property onBlur
@@ -292,7 +291,7 @@ class Dropdown extends React.Component {
    * Handles touch events.
    *
    * @method handleTouchEvent
-   **/
+   * */
   handleTouchEvent = () => {
     // blocking blurring like this stops a bug on mobile when touch doesn't trigger until after blur, we want to
     // update the input before blurring
@@ -726,7 +725,6 @@ class Dropdown extends React.Component {
       </div>
     );
   }
-}
-))));
+}))));
 
 export default Dropdown;

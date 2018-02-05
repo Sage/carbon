@@ -343,20 +343,21 @@ class _Link extends React.Component {
    */
   render() {
     return (
-      React.createElement(this.linkType.component, this.componentProps, (
-        <span>
-          { this.iconLeft }
+      React.createElement(
+        this.linkType.component, this.componentProps, (
+          <span>
+            { this.iconLeft }
 
-          <span className='carbon-link__content'>
-            { this.props.children }
+            <span className='carbon-link__content'>
+              { this.props.children }
+            </span>
+
+            { this.iconRight }
           </span>
-
-          { this.iconRight }
-        </span>
-      ))
+        )
+      )
     );
   }
-
 }
 
 export default _Link;

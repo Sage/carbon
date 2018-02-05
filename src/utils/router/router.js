@@ -47,10 +47,12 @@ export const history = browserHistory;
 export function startRouter(routes, target = document.getElementById('app')) {
   // render the router into the DOM
   if (target) {
-    ReactDOM.render((
-      <Router onUpdate={ onRouteUpdate } history={ history }>
-        { routes }
-      </Router>
-    ), target);
+    ReactDOM.render(
+      (
+        <Router onUpdate={ onRouteUpdate } history={ history }>
+          { routes }
+        </Router>
+      ), target
+    );
   }
 }

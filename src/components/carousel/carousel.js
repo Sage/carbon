@@ -297,9 +297,7 @@ class Carousel extends React.Component {
    * @method nextButtonClasses
    */
   slideSelectorClasses() {
-    return classNames(
-      'carbon-carousel__selector'
-    );
+    return classNames('carbon-carousel__selector');
   }
 
   /**
