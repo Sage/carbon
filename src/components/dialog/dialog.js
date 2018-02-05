@@ -157,8 +157,10 @@ class Dialog extends Modal {
     this.window.addEventListener('resize', this.centerDialog);
 
     if (this.props.autoFocus) {
-      this.focusDialog();
+      return this.focusDialog();
     }
+
+    return null;
   }
 
   /**
@@ -173,7 +175,7 @@ class Dialog extends Modal {
     this.appliedFixedBottom = false;
     this.document.documentElement.classList.remove(DIALOG_OPEN_HTML_CLASS);
     this.window.removeEventListener('resize', this.centerDialog);
-    ElementResize.removeListener(this._innerContent, this.applyFixedBottom);
+    return ElementResize.removeListener(this._innerContent, this.applyFixedBottom);
   }
 
   /**
@@ -261,7 +263,7 @@ class Dialog extends Modal {
   get dialogTitle() {
     if (!this.props.title) { return null; }
 
-    let title = this.props.title;
+    let { title } = this.props;
     const classes = classNames('carbon-dialog__title', {
       'carbon-dialog__title--has-subheader': this.props.subtitle
     });
@@ -350,7 +352,7 @@ class Dialog extends Modal {
    * @return {Object} JSX for dialog
    */
   get modalHTML() {
-    let height = this.props.height;
+    let { height } = this.props;
 
     if (height && !height.match(/px$/)) {
       height = `${height}px`;

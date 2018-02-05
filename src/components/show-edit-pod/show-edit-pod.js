@@ -14,6 +14,22 @@ import tagComponent from '../../utils/helpers/tags';
 class ShowEditPod extends React.Component {
   static propTypes = {
     /**
+     * A theme for the pod.
+     *
+     * @property as
+     * @type {String}
+     */
+    as: PropTypes.string,
+
+    /**
+     * Enables the border of the pod.
+     *
+     * @property border
+     * @type {Boolean}
+     */
+    border: PropTypes.bool,
+
+    /**
      * Children elements
      *
      * @property children
@@ -102,7 +118,7 @@ class ShowEditPod extends React.Component {
      *
      * @property editing
      */
-    editing: false
+    editing: false // eslint-disable-line react/no-unused-state
   }
 
   /**
@@ -140,7 +156,7 @@ class ShowEditPod extends React.Component {
     }
 
     if (this.stateControlled) {
-      this.setState({ editing: true });
+      this.setState({ editing: true }); // eslint-disable-line react/no-unused-state
     }
 
     this.__focusOnPod();
@@ -159,7 +175,7 @@ class ShowEditPod extends React.Component {
       this.props.afterFormValidation(ev);
 
       if (this.stateControlled) {
-        this.setState({ editing: false });
+        this.setState({ editing: false }); // eslint-disable-line react/no-unused-state
       }
     }
   }
@@ -175,7 +191,7 @@ class ShowEditPod extends React.Component {
     }
 
     if (this.stateControlled) {
-      this.setState({ editing: false });
+      this.setState({ editing: false }); // eslint-disable-line react/no-unused-state
     }
   }
 

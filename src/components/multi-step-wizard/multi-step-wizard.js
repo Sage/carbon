@@ -208,9 +208,9 @@ class MultiStepWizard extends React.Component {
    * @return {Object}
    */
   validateStepProps = (stepProps) => {
-    const step = stepProps.currentStep,
-        completed = stepProps.completed,
-        totalSteps = stepProps.steps.length;
+    const step = stepProps.currentStep;
+    const { completed } = stepProps.completed;
+    const totalSteps = stepProps.steps.length;
 
     if (completed === true) {
       return { currentStep: totalSteps, completed: true };

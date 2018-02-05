@@ -226,7 +226,6 @@ class Form extends React.Component {
   }
 
   static defaultProps = {
-    activeInput: null,
     buttonAlign: 'right',
     cancel: true,
     save: true,
@@ -570,7 +569,6 @@ class Form extends React.Component {
    */
   htmlProps = () => {
     const { ...props } = validProps(this);
-    delete props.activeInput;
     delete props.onSubmit;
     props.className = this.mainClasses;
     return props;

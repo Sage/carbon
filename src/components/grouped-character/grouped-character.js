@@ -12,24 +12,6 @@ import { validProps, insertAt } from './../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 
 const GroupedCharacter = Input(InputLabel(InputValidation(class GroupedCharacter extends React.Component {
-  constructor(...args) {
-    super(...args);
-
-    this.state = {};
-    this.maxLength = this.calculateMaxLength();
-    this.insertionIndices = this.insertionIndices();
-    this.onKeyDown = this.onKeyDown.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.getCursorPosition = this.getCursorPosition.bind(this);
-    this.getNewPosition = this.getNewPosition.bind(this);
-    this.sliceUpToSeparator = this.sliceUpToSeparator.bind(this);
-    this.getPlainValue = this.getPlainValue.bind(this); // value without separators
-    this.lastPosition = 0; // last position of cursor 1-indexed
-    this.keyPressed = { which: null }; // track key pressed outside of React synthetic event
-    this.state.value = this.setVisibleValue(this.props.value);
-  }
-
-
   static propTypes = {
     /**
      * A custom class name for the component.
@@ -61,6 +43,23 @@ const GroupedCharacter = Input(InputLabel(InputValidation(class GroupedCharacter
     separator: '-',
     value: ''
   };
+
+  constructor(...args) {
+    super(...args);
+
+    this.state = {};
+    this.maxLength = this.calculateMaxLength();
+    this.insertionIndices = this.insertionIndices();
+    this.onKeyDown = this.onKeyDown.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.getCursorPosition = this.getCursorPosition.bind(this);
+    this.getNewPosition = this.getNewPosition.bind(this);
+    this.sliceUpToSeparator = this.sliceUpToSeparator.bind(this);
+    this.getPlainValue = this.getPlainValue.bind(this); // value without separators
+    this.lastPosition = 0; // last position of cursor 1-indexed
+    this.keyPressed = { which: null }; // track key pressed outside of React synthetic event
+    this.state.value = this.setVisibleValue(this.props.value);
+  }
 
   componentDidUpdate() {
     const newPosition = this.getCursorPosition();

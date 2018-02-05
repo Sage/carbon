@@ -26,9 +26,6 @@ import tagComponent from '../../utils/helpers/tags';
  * @decorators {Input,InputLabel,InputValidation}
  */
 const Textarea = Input(InputLabel(InputValidation(class Textarea extends React.Component {
-  // Minimum height of the textarea
-  minHeight = 0;
-
   static propTypes = {
     /**
      * Character limit of the textarea
@@ -117,19 +114,6 @@ const Textarea = Input(InputLabel(InputValidation(class Textarea extends React.C
   }
 
   /**
-   * A lifecycle method that is called before the component is
-   * unmounted from the DOM
-   *
-   * @method componentWillUnmount
-   * @return {void}
-   */
-  componentWillUnmount() {
-    if (this.props.expandable) {
-      window.removeEventListener('resize', this.expandTextarea);
-    }
-  }
-
-  /**
    * A lifecycle method to update the component after it is re-rendered
    * Resizes the textarea based on update if it can expand
    *
@@ -143,21 +127,15 @@ const Textarea = Input(InputLabel(InputValidation(class Textarea extends React.C
   }
 
   /**
-   * Expands the textarea based on the current input
-   * so that width is fixed but height changes to show
-   * all content.
+   * A lifecycle method that is called before the component is
+   * unmounted from the DOM
    *
-   * @method expandTextarea
+   * @method componentWillUnmount
    * @return {void}
    */
-  expandTextarea = () => {
-    const textarea = this._input;
-
-    if (textarea.scrollHeight > this.minHeight) {
-      // Reset height to zero - IE specific
-      textarea.style.height = '0px';
-      // Set the height so all content is shown
-      textarea.style.height = `${Math.max(textarea.scrollHeight, this.minHeight)}px`;
+  componentWillUnmount() {
+    if (this.props.expandable) {
+      window.removeEventListener('resize', this.expandTextarea);
     }
   }
 
@@ -273,6 +251,27 @@ const Textarea = Input(InputLabel(InputValidation(class Textarea extends React.C
     );
   }
 
+  // Minimum height of the textarea
+  minHeight = 0;
+
+  /**
+   * Expands the textarea based on the current input
+   * so that width is fixed but height changes to show
+   * all content.
+   *
+   * @method expandTextarea
+   * @return {void}
+   */
+  expandTextarea = () => {
+    const textarea = this._input;
+
+    if (textarea.scrollHeight > this.minHeight) {
+      // Reset height to zero - IE specific
+      textarea.style.height = '0px';
+      // Set the height so all content is shown
+      textarea.style.height = `${Math.max(textarea.scrollHeight, this.minHeight)}px`;
+    }
+  }
 
   /**
    * Renders the component.

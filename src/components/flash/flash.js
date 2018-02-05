@@ -369,7 +369,7 @@ class Flash extends React.Component {
    * @return {String}
    */
   get description() {
-    const message = this.props.message;
+    const { message } = this.props;
 
     if (isObject(message) && message.description) {
       // if defined, return description

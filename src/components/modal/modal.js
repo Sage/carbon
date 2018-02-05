@@ -85,7 +85,6 @@ class Modal extends React.Component {
   }
 
   static defaultProps = {
-    open: false,
     onCancel: null,
     enableBackgroundUI: false,
     disableEscKey: false

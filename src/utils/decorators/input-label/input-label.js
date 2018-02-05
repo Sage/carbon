@@ -278,10 +278,9 @@ const InputLabel = (ComposedComponent) => {
      * @return {Object} Field props
      */
     get fieldProps() {
-      const fieldProps = super.fieldProps || {},
-          labelWidth = this.props.labelWidth;
-
-      let inputWidth = this.props.inputWidth;
+      const fieldProps = super.fieldProps || {};
+      const { labelWidth } = this.props;
+      let { inputWidth } = this.props;
 
       if (labelWidth && !inputWidth) {
         inputWidth = 100 - labelWidth;

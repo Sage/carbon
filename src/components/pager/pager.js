@@ -156,7 +156,7 @@ class Pager extends React.Component {
       case 'input':
         newPage = Math.abs(Number(ev.target.value));
 
-        if (isNaN(newPage)) { newPage = '1'; }
+        if (Number.isNaN(newPage)) { newPage = '1'; }
 
         if (!newPage) {
           this.setState({ currentPage: this.props.currentPage });

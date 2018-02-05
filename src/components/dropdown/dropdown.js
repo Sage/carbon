@@ -30,37 +30,6 @@ import { validProps } from '../../utils/ether';
  * @decorators {List,Input,InputIcon,InputLabel,InputValidation}
  */
 const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown extends React.Component {
-  /**
-   * @constructor
-   */
-  constructor(...args) {
-    super(...args);
-
-    /**
-     * Determines if the blur event should be prevented.
-     *
-     * @property blockBlur
-     * @type {Boolean}
-     * @default false
-     */
-    this.blockBlur = false;
-
-    /**
-     * Variable to cache current value.
-     * Setting it here rather than state prevents complete rerender when value changes.
-     *
-     * @property visibleValue
-     * @type {String}
-     * @default ''
-     */
-    this.visibleValue = '';
-
-    // bind scope to functions - allowing them to be overridden and
-    // recalled with the use of super
-    this.selectValue = this.selectValue.bind(this);
-    this.results = this.results.bind(this);
-  }
-
   static propTypes = {
     /**
      * Automatically focus the input.
@@ -144,6 +113,37 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
 
   static defaultProps = {
     cacheVisibleValue: false
+  }
+
+  /**
+   * @constructor
+   */
+  constructor(...args) {
+    super(...args);
+
+    /**
+     * Determines if the blur event should be prevented.
+     *
+     * @property blockBlur
+     * @type {Boolean}
+     * @default false
+     */
+    this.blockBlur = false;
+
+    /**
+     * Variable to cache current value.
+     * Setting it here rather than state prevents complete rerender when value changes.
+     *
+     * @property visibleValue
+     * @type {String}
+     * @default ''
+     */
+    this.visibleValue = '';
+
+    // bind scope to functions - allowing them to be overridden and
+    // recalled with the use of super
+    this.selectValue = this.selectValue.bind(this);
+    this.results = this.results.bind(this);
   }
 
   state = {
@@ -373,8 +373,8 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
       return;
     }
 
-    const list = this.list,
-        element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
+    const { list } = this;
+    const element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
     let nextVal;
 
     switch (ev.which) {

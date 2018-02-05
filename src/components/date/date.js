@@ -43,15 +43,6 @@ const today = DateHelper.todayFormatted('YYYY-MM-DD');
  * @decorators {Input,InputIcon,InputLabel,InputValidation}
  */
 const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React.Component {
-  /**
-   * Stores the document - allows us to override it different contexts, such as
-   * when running tests.
-   *
-   * @property _document
-   * @type {document}
-   */
-  _document = document;
-
   // Required for validProps function
   static propTypes = {
     /**
@@ -69,6 +60,14 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
      * @type {boolean}
      */
     disabled: PropTypes.bool,
+
+    /**
+     * Used to provide additional validations on composed components.
+     *
+     * @property internalValidations
+     * @type {Array}
+     */
+    internalValidations: PropTypes.array,
 
     /**
      * Minimum possible date
@@ -130,6 +129,15 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     */
     internalValidations: [new DateValidator()]
   }
+
+  /**
+   * Stores the document - allows us to override it different contexts, such as
+   * when running tests.
+   *
+   * @property _document
+   * @type {document}
+   */
+  _document = document;
 
   state = {
     /**

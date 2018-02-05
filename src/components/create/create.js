@@ -43,8 +43,7 @@ class Create extends React.Component {
    * @return {Object}
    */
   linkProps() {
-    const className = this.props.className;
-    const { ...props } = this.props;
+    const { className, ...props } = this.props;
 
     props.className = classNames('carbon-create', className);
 

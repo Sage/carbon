@@ -409,20 +409,6 @@ class Table extends React.Component {
   }
 
   /**
-   * Handles what happens on sort.
-   *
-   * @method onSort
-   * @param {String} sortedColumn
-   * @param {String} sortOrder
-   */
-  onSort = (sortedColumn, sortOrder) => {
-    const options = this.emitOptions();
-    options.sortedColumn = sortedColumn;
-    options.sortOrder = sortOrder;
-    this.emitOnChangeCallback('table', options);
-  }
-
-  /**
    * Handles when the pager emits a onChange event
    * Passes data to emitOnChangeCallback in the correct
    * format
@@ -440,6 +426,20 @@ class Table extends React.Component {
     options.currentPage = currentPage;
     options.pageSize = pageSize;
     this.emitOnChangeCallback('pager', options);
+  }
+
+  /**
+   * Handles what happens on sort.
+   *
+   * @method onSort
+   * @param {String} sortedColumn
+   * @param {String} sortOrder
+   */
+  onSort = (sortedColumn, sortOrder) => {
+    const options = this.emitOptions();
+    options.sortedColumn = sortedColumn;
+    options.sortOrder = sortOrder;
+    this.emitOnChangeCallback('table', options);
   }
 
   /**
@@ -470,6 +470,248 @@ class Table extends React.Component {
    */
   get pageSize() {
     return this.props.pageSize;
+  }
+
+  /**
+   * Props to pass to pager component
+   *
+   * @method pagerProps
+   * @return {Object} props
+   */
+  get pagerProps() {
+    return {
+      currentPage: this.props.currentPage,
+      onPagination: this.onPagination,
+      pageSize: this.defaultPageSize,
+      pageSizeSelectionOptions: this.props.pageSizeSelectionOptions,
+      showPageSizeSelection: this.props.showPageSizeSelection,
+      totalRecords: this.props.totalRecords
+    };
+  }
+
+  /**
+   * Page size for page load
+   *
+   * @method defaultPageSize
+   * @return {Void}
+   */
+  get defaultPageSize() {
+    if (this.props.pageSize) {
+      return this.props.pageSize;
+    } else if (this.props.pageSizeSelectionOptions) {
+      return this.props.pageSizeSelectionOptions.first().get('id');
+    }
+    return '10';
+  }
+
+  /**
+   * Returns the pager if paginate is true
+   *
+   * @method pager
+   * @return {JSX} pager
+   */
+  get pager() {
+    if (this.props.paginate) {
+      return (<Pager { ...this.pagerProps } />);
+    }
+    return null;
+  }
+
+  /**
+   * Classes that apply to the parent table div
+   *
+   * @method mainClasses
+   * @return {String}
+   */
+  get mainClasses() {
+    return classNames(
+      'carbon-table',
+      this.props.className,
+      `carbon-table--${this.props.theme}`
+    );
+  }
+
+  /**
+   * Classes that apply to the table wrapper
+   *
+   * @method wrapperClasses
+   * @return {String}
+   */
+  get wrapperClasses() {
+    return classNames(
+      'carbon-table__wrapper',
+      this.props.className,
+      {
+        'carbon-table--pager': this.props.paginate,
+        'carbon-table--configurable': this.props.onConfigure
+      }
+    );
+  }
+
+  /**
+   * Classes to apply to the table
+   *
+   * @method tableClasses
+   * @return {String}
+   */
+  get tableClasses() {
+    return 'carbon-table__table';
+  }
+
+  /**
+   * Returns thead content wrapped in <thead>
+   *
+   * @method thead
+   * @return {JSX}
+   */
+  get thead() {
+    if (this.props.thead) {
+      return (
+        <thead className='carbon-table__header'>
+          { this.props.thead }
+        </thead>
+      );
+    }
+    return null;
+  }
+
+  /**
+   * Returns the component for the action toolbar.
+   *
+   * @method actionToolbar
+   * @return {JSX}
+   */
+  get actionToolbar() {
+    if (!this.props.selectable || !this.props.actions) { return null; }
+
+    return (
+      <ActionToolbar
+        total={ this.state.selectedCount }
+        actions={ this.props.actions }
+      >
+        { this.props.actionToolbarChildren }
+      </ActionToolbar>
+    );
+  }
+
+  /**
+   * Returns a row to be used for loading.
+   *
+   * @method loadingRow
+   * @return {Object} JSX
+   */
+  get loadingRow() {
+    return (
+      <TableRow
+        key='__loading__' selectable={ false }
+        highlightable={ false } hideMultiSelect
+      >
+        <TableCell colSpan='42' align='center'>
+          <CSSTransitionGroup
+            transitionName='table-loading'
+            transitionEnterTimeout={ 300 }
+            transitionLeaveTimeout={ 300 }
+            transitionAppearTimeout={ 300 }
+            transitionAppear
+          >
+            <Spinner size='small' />
+          </CSSTransitionGroup>
+        </TableCell>
+      </TableRow>
+    );
+  }
+
+  /**
+   * Returns a row to be used for no data.
+   *
+   * @method emptyRow
+   * @return {Object} JSX
+   */
+  get emptyRow() {
+    return (
+      <TableRow
+        key='__loading__' selectable={ false }
+        highlightable={ false }
+      >
+        <TableCell colSpan='42' align='center'>
+          { I18n.t('table.no_data', { defaultValue: 'No results to display' }) }
+        </TableCell>
+      </TableRow>
+    );
+  }
+
+  /**
+   * Works out what content to display in the table.
+   *
+   * @method tableContent
+   * @return {Object} JSX
+   */
+  get tableContent() {
+    let { children } = this.props,
+        hasChildren = children;
+
+    // if using immutable js we can count the children
+    if (children && children.count) {
+      const numOfChildren = children.count(),
+          onlyChildIsHeader = numOfChildren === 1 && children.first().props.as === 'header';
+
+      if (onlyChildIsHeader) {
+        if (this._hasRetreivedData) {
+          // if already retreived data then show empty row
+          children = children.push(this.emptyRow);
+        } else {
+          // if not yet retreived data then show loading row
+          children = children.push(this.loadingRow);
+        }
+      } else {
+        // check if there actually are any children
+        hasChildren = numOfChildren > 0;
+      }
+    }
+
+    if (hasChildren) {
+      return children;
+    } else if (this._hasRetreivedData) {
+      return this.emptyRow;
+    }
+    return this.loadingRow;
+  }
+
+  /**
+   * Returns the content, wrapped in a tbody.
+   *
+   * @method tbody
+   * @return {Object} JSX
+   */
+  get tbody() {
+    if (this.props.tbody === false) {
+      return this.tableContent;
+    }
+    return (
+      <tbody>
+        { this.tableContent }
+      </tbody>
+    );
+  }
+
+  /**
+   * The name used for the data-component attribute
+   */
+  get dataComponent() { return 'table'; }
+
+  /**
+   * Returns the caption prop wrapped in a <caption> tag,
+   * or null if no caption prop was given.
+   *
+   * @method caption
+   * @return {Object} JSX
+   */
+  get caption() {
+    if (this.props.caption) {
+      return <caption className='carbon-table__caption'>{ this.props.caption }</caption>;
+    }
+
+    return null;
   }
 
   /**
@@ -838,128 +1080,6 @@ class Table extends React.Component {
     };
   }
 
-  /**
-   * Props to pass to pager component
-   *
-   * @method pagerProps
-   * @return {Object} props
-   */
-  get pagerProps() {
-    return {
-      currentPage: this.props.currentPage,
-      onPagination: this.onPagination,
-      pageSize: this.defaultPageSize,
-      pageSizeSelectionOptions: this.props.pageSizeSelectionOptions,
-      showPageSizeSelection: this.props.showPageSizeSelection,
-      totalRecords: this.props.totalRecords
-    };
-  }
-
-  /**
-   * Page size for page load
-   *
-   * @method defaultPageSize
-   * @return {Void}
-   */
-  get defaultPageSize() {
-    if (this.props.pageSize) {
-      return this.props.pageSize;
-    } else if (this.props.pageSizeSelectionOptions) {
-      return this.props.pageSizeSelectionOptions.first().get('id');
-    }
-    return '10';
-  }
-
-  /**
-   * Returns the pager if paginate is true
-   *
-   * @method pager
-   * @return {JSX} pager
-   */
-  get pager() {
-    if (this.props.paginate) {
-      return (<Pager { ...this.pagerProps } />);
-    }
-    return null;
-  }
-
-  /**
-   * Classes that apply to the parent table div
-   *
-   * @method mainClasses
-   * @return {String}
-   */
-  get mainClasses() {
-    return classNames(
-      'carbon-table',
-      this.props.className,
-      `carbon-table--${this.props.theme}`
-    );
-  }
-
-  /**
-   * Classes that apply to the table wrapper
-   *
-   * @method wrapperClasses
-   * @return {String}
-   */
-  get wrapperClasses() {
-    return classNames(
-      'carbon-table__wrapper',
-      this.props.className,
-      {
-        'carbon-table--pager': this.props.paginate,
-        'carbon-table--configurable': this.props.onConfigure
-      }
-    );
-  }
-
-  /**
-   * Classes to apply to the table
-   *
-   * @method tableClasses
-   * @return {String}
-   */
-  get tableClasses() {
-    return 'carbon-table__table';
-  }
-
-  /**
-   * Returns thead content wrapped in <thead>
-   *
-   * @method thead
-   * @return {JSX}
-   */
-  get thead() {
-    if (this.props.thead) {
-      return (
-        <thead className='carbon-table__header'>
-          { this.props.thead }
-        </thead>
-      );
-    }
-    return null;
-  }
-
-  /**
-   * Returns the component for the action toolbar.
-   *
-   * @method actionToolbar
-   * @return {JSX}
-   */
-  get actionToolbar() {
-    if (!this.props.selectable || !this.props.actions) { return null; }
-
-    return (
-      <ActionToolbar
-        total={ this.state.selectedCount }
-        actions={ this.props.actions }
-      >
-        { this.props.actionToolbarChildren }
-      </ActionToolbar>
-    );
-  }
-
   configureLink = (onConfigure) => {
     if (!onConfigure) { return null; }
 
@@ -973,114 +1093,9 @@ class Table extends React.Component {
   }
 
   /**
-   * Returns a row to be used for loading.
-   *
-   * @method loadingRow
-   * @return {Object} JSX
-   */
-  get loadingRow() {
-    return (
-      <TableRow
-        key='__loading__' selectable={ false }
-        highlightable={ false } hideMultiSelect
-      >
-        <TableCell colSpan='42' align='center'>
-          <CSSTransitionGroup
-            transitionName='table-loading'
-            transitionEnterTimeout={ 300 }
-            transitionLeaveTimeout={ 300 }
-            transitionAppearTimeout={ 300 }
-            transitionAppear
-          >
-            <Spinner size='small' />
-          </CSSTransitionGroup>
-        </TableCell>
-      </TableRow>
-    );
-  }
-
-  /**
-   * Returns a row to be used for no data.
-   *
-   * @method emptyRow
-   * @return {Object} JSX
-   */
-  get emptyRow() {
-    return (
-      <TableRow
-        key='__loading__' selectable={ false }
-        highlightable={ false }
-      >
-        <TableCell colSpan='42' align='center'>
-          { I18n.t('table.no_data', { defaultValue: 'No results to display' }) }
-        </TableCell>
-      </TableRow>
-    );
-  }
-
-  /**
-   * Works out what content to display in the table.
-   *
-   * @method tableContent
-   * @return {Object} JSX
-   */
-  get tableContent() {
-    let children = this.props.children,
-        hasChildren = children;
-
-    // if using immutable js we can count the children
-    if (children && children.count) {
-      const numOfChildren = children.count(),
-          onlyChildIsHeader = numOfChildren === 1 && children.first().props.as === 'header';
-
-      if (onlyChildIsHeader) {
-        if (this._hasRetreivedData) {
-          // if already retreived data then show empty row
-          children = children.push(this.emptyRow);
-        } else {
-          // if not yet retreived data then show loading row
-          children = children.push(this.loadingRow);
-        }
-      } else {
-        // check if there actually are any children
-        hasChildren = numOfChildren > 0;
-      }
-    }
-
-    if (hasChildren) {
-      return children;
-    } else if (this._hasRetreivedData) {
-      return this.emptyRow;
-    }
-    return this.loadingRow;
-  }
-
-  /**
-   * Returns the content, wrapped in a tbody.
-   *
-   * @method tbody
-   * @return {Object} JSX
-   */
-  get tbody() {
-    if (this.props.tbody === false) {
-      return this.tableContent;
-    }
-    return (
-      <tbody>
-        { this.tableContent }
-      </tbody>
-    );
-  }
-
-  /**
    * Placeholder function for defining the data state, intended to be overriden in subclasses
    */
   dataState = () => { }
-
-  /**
-   * The name used for the data-component attribute
-   */
-  get dataComponent() { return 'table'; }
 
   /**
    * Data tags used for the data-component attribute
@@ -1093,21 +1108,6 @@ class Table extends React.Component {
       'data-state': this.dataState(),
       'aria-busy': this.state.ariaBusy
     };
-  }
-
-  /**
-   * Returns the caption prop wrapped in a <caption> tag,
-   * or null if no caption prop was given.
-   *
-   * @method caption
-   * @return {Object} JSX
-   */
-  get caption() {
-    if (this.props.caption) {
-      return <caption className='carbon-table__caption'>{ this.props.caption }</caption>;
-    }
-
-    return null;
   }
 
   /**

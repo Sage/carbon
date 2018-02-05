@@ -276,7 +276,7 @@ class DropdownFilter extends Dropdown {
   prepareList = (options) => {
     let filteredOptions;
     if ((this.writeable || !this.openingList) && typeof this.state.filter === 'string') {
-      const filter = this.state.filter;
+      const { filter } = this.state;
       const regex = new RegExp(escapeStringRegexp(filter), 'i');
 
       // if user has entered a search filter
@@ -421,8 +421,7 @@ class DropdownFilter extends Dropdown {
    */
   get inputProps() {
     const props = super.inputProps;
-
-    let value = props.value;
+    let { value } = props;
 
     if (typeof this.state.filter === 'string') {
       // if filter has a value, use that instead
