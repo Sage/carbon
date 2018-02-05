@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Browser from './../../utils/helpers/browser';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
@@ -9,6 +10,7 @@ import Events from './../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
 import Portal from './../portal';
 
+const window = Browser.getWindow();
 /**
  * A dropdown widget.
  *
@@ -651,7 +653,12 @@ class Dropdown extends React.Component {
   }
 
   positionOptions() {
-    console.log(!!this.listBlock);
+    if (this.dropDown) {
+      const input = this.dropDown.getElementsByClassName('carbon-dropdown__input common-input__input')[0];
+      this.listBlock.style.top = `${input.getBoundingClientRect().y + (input.getBoundingClientRect().height) + window.scrollY}px`;
+      this.listBlock.style.width = `${input.getBoundingClientRect().width}px`;
+      this.listBlock.style.left = `${input.getBoundingClientRect().x}px`;
+    }
   }
 
   /**
@@ -668,9 +675,9 @@ class Dropdown extends React.Component {
     }
 
     content.push(
-      <Portal onReposition={ this.positionOptions }>
+      <Portal onReposition={ () => { this.positionOptions(); } }>
         <div { ...this.listBlockProps } ref={ (node) => { this.listBlock = node; } }>
-          { this.listHTML }
+            { this.listHTML }
         </div>
       </Portal>
     );
@@ -724,6 +731,9 @@ class Dropdown extends React.Component {
         className={ this.mainClasses }
         { ...this.componentTags(this.props) }
         data-state={ this.requestingState() }
+        ref={ (dropDown) => {
+          this.dropDown = dropDown;
+        } }
       >
         { this.labelHTML }
         { this.inputHTML }
