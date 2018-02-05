@@ -91,6 +91,7 @@ const ItemSource = {
 WithDrag = DragSource( // eslint-disable-line no-class-assign
   ItemTypes.getItemType, ItemSource, connect => ({
     connectDragSource: connect.dragSource()
-  }))(WithDrag);
+  })
+)(WithDrag);
 
 export default WithDrag;

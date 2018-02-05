@@ -390,11 +390,17 @@ class Flash extends React.Component {
     const contents = [];
 
     // add icon
-    contents.push(<Icon className='carbon-flash__icon' type={ this.iconType } key='icon' />);
+    contents.push(<Icon
+      className='carbon-flash__icon' type={ this.iconType }
+      key='icon'
+    />);
 
     // add message content
     contents.push(
-      <div className='carbon-flash__message' key='message' data-element='message'>
+      <div
+        className='carbon-flash__message' key='message'
+        data-element='message'
+      >
         { this.formatDescription(this.description) }
       </div>
     );

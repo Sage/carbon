@@ -404,7 +404,10 @@ class Carousel extends React.Component {
 
     for (let i = 0; i < this.numOfSlides(); i++) {
       buttons.push(
-        <span className='carbon-carousel__selector-inputs' key={ i } data-element='selector-inputs'>
+        <span
+          className='carbon-carousel__selector-inputs' key={ i }
+          data-element='selector-inputs'
+        >
           <input
             disabled={ this.state.disabled }
             className='carbon-carousel__selector-input'
