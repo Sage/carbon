@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { assign } from 'lodash';
-
-// Carbon
 import { Row, Column } from './../row';
+
+/* eslint-disable react/prop-types */
 
 const Label = (props) => {
   if (!props.label) { return null; }
@@ -90,5 +90,7 @@ InlineInputs.defaultProps = {
   children: null,
   className: ''
 };
+
+/* eslint-enable react/prop-types */
 
 export default InlineInputs;

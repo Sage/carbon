@@ -110,20 +110,18 @@ const summary = (props, key) => {
 };
 
 const summaryClasses = (props) => {
-  return classNames(
-    'carbon-form-summary', {
-      'carbon-form-summary--invalid': props.errors || props.warnings
-    }
-  );
+  return classNames('carbon-form-summary', {
+    'carbon-form-summary--invalid': props.errors || props.warnings
+  });
 };
 
-const FormSummary = props =>
+const FormSummary = props => (
   <div className={ summaryClasses(props) } { ...tagComponent('form-summary', props) }>
     { summary(props, 'error') }
     { summary(props, 'warning') }
     { props.children }
   </div>
-;
+);
 
 FormSummary.propTypes = {
   children: PropTypes.node,

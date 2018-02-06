@@ -31,7 +31,6 @@ const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog--open';
  * @constructor
  */
 class Dialog extends Modal {
-
   static propTypes = assign({}, Modal.propTypes, {
     /**
      * Allows developers to specify a specific height for the dialog.
@@ -158,8 +157,10 @@ class Dialog extends Modal {
     this.window.addEventListener('resize', this.centerDialog);
 
     if (this.props.autoFocus) {
-      this.focusDialog();
+      return this.focusDialog();
     }
+
+    return null;
   }
 
   /**
@@ -174,7 +175,7 @@ class Dialog extends Modal {
     this.appliedFixedBottom = false;
     this.document.documentElement.classList.remove(DIALOG_OPEN_HTML_CLASS);
     this.window.removeEventListener('resize', this.centerDialog);
-    ElementResize.removeListener(this._innerContent, this.applyFixedBottom);
+    return ElementResize.removeListener(this._innerContent, this.applyFixedBottom);
   }
 
   /**
@@ -262,12 +263,10 @@ class Dialog extends Modal {
   get dialogTitle() {
     if (!this.props.title) { return null; }
 
-    let title = this.props.title;
-    const classes = classNames(
-          'carbon-dialog__title', {
-            'carbon-dialog__title--has-subheader': this.props.subtitle
-          }
-        );
+    let { title } = this.props;
+    const classes = classNames('carbon-dialog__title', {
+      'carbon-dialog__title--has-subheader': this.props.subtitle
+    });
 
     if (typeof title === 'string') {
       title = (
@@ -353,7 +352,7 @@ class Dialog extends Modal {
    * @return {Object} JSX for dialog
    */
   get modalHTML() {
-    let height = this.props.height;
+    let { height } = this.props;
 
     if (height && !height.match(/px$/)) {
       height = `${height}px`;
@@ -395,7 +394,10 @@ class Dialog extends Modal {
         { this.dialogTitle }
 
         <div className='carbon-dialog__content' ref={ (c) => { this._content = c; } }>
-          <div className='carbon-dialog__inner-content' ref={ (c) => { this._innerContent = c; } } style={ style }>
+          <div
+            className='carbon-dialog__inner-content' ref={ (c) => { this._innerContent = c; } }
+            style={ style }
+          >
             { this.props.children }
             { this.additionalContent() }
           </div>

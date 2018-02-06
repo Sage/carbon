@@ -48,7 +48,6 @@ import I18nHelper from './../../helpers/i18n';
  * @constructor NumeralValidator
  */
 class NumeralValidator {
-
   /**
    * @method constructor
    * @param {Object} params

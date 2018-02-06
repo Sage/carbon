@@ -4,7 +4,6 @@ import ReactDOM, { createPortal } from 'react-dom';
 import Browser from '../../utils/helpers/browser';
 
 class Portal extends React.Component {
-
   static propTypes = {
     /**
      * The content of the portal.

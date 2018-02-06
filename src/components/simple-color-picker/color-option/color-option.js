@@ -10,9 +10,7 @@ import tagComponent from '../../../utils/helpers/tags';
 /**
  * A single square with a color, implemented as a radio button.
  */
-const ColorOption = Input(
-class ColorOption extends React.Component {
-
+const ColorOption = Input(class ColorOption extends React.Component {
   static propTypes = {
     /**
      * the value of the color that is represented by this ColorOption.

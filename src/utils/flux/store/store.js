@@ -53,7 +53,6 @@ const CHANGE_EVENT = 'change';
  * @extends EventEmitter
  */
 export default class Store extends EventEmitter {
-
   constructor(name, data, opts = {}) {
     super(name, data, opts);
 
@@ -61,16 +60,12 @@ export default class Store extends EventEmitter {
 
     // tell the developer if they have not defined the name property.
     if (!name) {
-      throw new Error(
-        `You need to initialize your store with a name. ${suffix}`
-      );
+      throw new Error(`You need to initialize your store with a name. ${suffix}`);
     }
 
     // tell the developer if they have not defined the data property.
     if (!data) {
-      throw new Error(
-        `You need to initialize your store with data. ${suffix}`
-      );
+      throw new Error(`You need to initialize your store with data. ${suffix}`);
     }
 
     /**
@@ -215,5 +210,4 @@ export default class Store extends EventEmitter {
     // we use the store name so the view component knows which store updated
     this.emit(CHANGE_EVENT, this.name);
   }
-
 }

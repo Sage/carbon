@@ -66,7 +66,6 @@ let definition = new Definition('form', Form, {
     summary: "Set to false to hide the summary"
   },
   propValues: {
-    activeInput: '',
     cancelText: '',
     children: `<Textbox
     label="Name"

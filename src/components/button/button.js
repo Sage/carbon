@@ -29,7 +29,6 @@ import tagComponent from '../../utils/helpers/tags';
  * @constructor
  */
 class Button extends React.Component {
-
   static propTypes = {
     /**
      * Customizes the appearance, can be set to 'primary' or 'secondary'.
@@ -112,7 +111,7 @@ class Button extends React.Component {
    * @return {Object} JSX
    */
   buildChildren() {
-    let children = this.props.children;
+    let { children } = this.props;
 
     if (this.props.subtext.length > 0 && this.props.size === 'large') {
       children = (

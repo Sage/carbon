@@ -64,7 +64,10 @@ class Detail extends React.Component {
     if (!this.props.icon) { return null; }
 
     return (
-      <Icon className='carbon-detail__icon' type={ this.props.icon } data-element='icon' />
+      <Icon
+        className='carbon-detail__icon' type={ this.props.icon }
+        data-element='icon'
+      />
     );
   }
 
