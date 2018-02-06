@@ -9,7 +9,6 @@ import tagComponent from '../../../utils/helpers/tags';
  * Renders a menu item for the menu component.
  */
 class MenuItem extends React.Component {
-
   static propTypes = {
     /**
      * Children elements
@@ -124,7 +123,10 @@ class MenuItem extends React.Component {
 
     return (
       <div>
-        <MenuItem className='carbon-menu-item__submenu-title' href={ this.props.href } to={ this.props.to }>
+        <MenuItem
+          className='carbon-menu-item__submenu-title' href={ this.props.href }
+          to={ this.props.to }
+        >
           { this.props.submenu }
         </MenuItem>
 

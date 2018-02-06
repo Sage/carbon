@@ -25,7 +25,6 @@ import { validProps } from '../../utils/ether';
  * @constructor
  */
 class SplitButton extends React.Component {
-
   static propTypes = {
     /**
      * Customizes the appearance, can be set to 'primary' or 'secondary'.
@@ -256,7 +255,10 @@ class SplitButton extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses } onMouseLeave={ this.hideButtons } { ...this.componentTags() }>
+      <div
+        className={ this.mainClasses } onMouseLeave={ this.hideButtons }
+        { ...this.componentTags() }
+      >
         { this.renderMainButton }
         { this.renderAdditionalButtons }
       </div>

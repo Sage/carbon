@@ -25,6 +25,9 @@ const definition = new Definition('dialog', Dialog, {
         <Textbox label="First Name" validations={[ new PresenceValidation() ]}/>
         <Textbox label="Middle Name" validations={[ new PresenceValidation() ]}/>
         <Textbox label="Surname" validations={[ new PresenceValidation() ]}/>
+        <Textbox label="Birth Place" validations={[ new PresenceValidation() ]}/>
+        <Textbox label="Favourite Colour" validations={[ new PresenceValidation() ]}/>
+        <Textbox label="Address" validations={[ new PresenceValidation() ]}/>
         <DateInput name="date" label="Birthday" />
         <Dropdown name="foo" options={ Immutable.fromJS([]) } value="1" />
         <Textbox label="Pet Name" validations={[ new PresenceValidation() ]}/>

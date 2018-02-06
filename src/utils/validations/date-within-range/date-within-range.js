@@ -3,7 +3,6 @@ import DateHelper from './../../helpers/date';
 
 // Validates that a date is within a given range
 class DateWithinRangeValidator {
-
   /**
     * @method constructor
     * @param {Number} limit - the number of units

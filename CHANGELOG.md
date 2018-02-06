@@ -4,6 +4,18 @@
 
 * Input has 2 new props. `onChangeDeferred` allows a deferred callback after an onChange event. `deferTimeout` allows you to customise the default: `200`.
 
+## Modal Improvement
+
+The Modal now uses the Portal Component
+
+## InputValidation Improvement
+
+The InputValidation error tooltips now use the Portal Component
+
+## Changes
+
+* Resolved new ESLint errors from carbon-factory upgrade.
+
 # 3.0.0
 
 ## Package Updates

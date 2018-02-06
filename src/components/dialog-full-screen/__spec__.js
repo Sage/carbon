@@ -28,7 +28,7 @@ describe('DialogFullScreen', () => {
     );
     instance = wrapper.instance();
   });
-
+  
   describe('default props', () => {
     it('sets enableBackgroundUI to true', () => {
       expect(instance.props.enableBackgroundUI).toBeTruthy();
@@ -154,7 +154,7 @@ describe('DialogFullScreen', () => {
   describe('tags', () => {
     describe('on component', () => {
       it('include correct component, elements and role data tags', () => {
-        wrapper = shallow(
+        wrapper = mount(
           <DialogFullScreen
             open
             onCancel={ () => {} }
@@ -164,8 +164,7 @@ describe('DialogFullScreen', () => {
             data-element='bar'
           />
         );
-        rootTagTest(wrapper, 'dialog-full-screen', 'bar', 'baz');
-        elementsTagTest(wrapper, ['close', 'content']);
+        expect(wrapper).toMatchSnapshot();
       });
     });
   });

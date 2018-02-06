@@ -2,7 +2,6 @@ var gulp = require('gulp');
 var yargs = require('yargs');
 var BuildTask = require('carbon-factory/lib/gulp/build').default;
 var SpecTask = require('carbon-factory/lib/gulp/spec').default;
-var LintTask = require('carbon-factory/lib/gulp/lint').default;
 var generateColors = require('./script/generate-demo-colors').default;
 var generateDocs = require('./script/generate-docs').default;
 var deploy = require('./script/deploy').default;
@@ -38,6 +37,7 @@ gulp.task('webserver', function() {
 });
 
 gulp.task('build', BuildTask({
+  gzip: false,
   src: './demo/main.js',
   jsDest: './' + dir + '/assets/javascripts',
   cssDest: './' + dir + '/assets/stylesheets',
@@ -50,5 +50,7 @@ gulp.task('run-deploy', deploy);
 gulp.task('default', ['prepare-demo', 'webserver', 'build']);
 gulp.task('deploy', ['prepare-demo', 'build', 'run-deploy']);
 
-gulp.task('test', SpecTask({ jestConfig }));
-gulp.task('lint', LintTask());
+gulp.task('test', SpecTask({
+  jestConfig,
+  warningThreshold: 17
+}));

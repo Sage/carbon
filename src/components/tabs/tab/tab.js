@@ -12,7 +12,6 @@ import classNames from 'classnames';
  * @constructor
  */
 class Tab extends React.Component {
-
   static propTypes = {
     /**
      * The id of the corresponding control that must be activated to show the tab
@@ -98,25 +97,6 @@ class Tab extends React.Component {
     tab: PropTypes.object
   }
 
-  state = {
-
-    /**
-     * Tracks if the tab is a valid state
-     *
-     * @property isValid
-     * @type {Boolean}
-     */
-    isValid: true,
-
-    /**
-     * Tracks if the tab is a warning state
-     *
-     * @property isWarning
-     * @type {Boolean}
-     */
-    isWarning: false
-  }
-
   /**
    * Returns tab object to context children.
    *
@@ -132,6 +112,18 @@ class Tab extends React.Component {
   }
 
   /**
+   * Classes to be applied to the single tab component
+   *
+   * @method mainClasses Main Class getter
+   */
+  get mainClasses() {
+    return classNames(
+      'carbon-tab',
+      this.props.className
+    );
+  }
+
+  /**
    * Sets valid state to passed param
    * It notifies the parent context of the change
    * and sets the current valid state to the new value
@@ -141,7 +133,6 @@ class Tab extends React.Component {
    */
   setValidity = (valid) => {
     this.context.tabs.changeValidity(this.props.tabId, valid);
-    this.setState({ isValid: valid });
   }
 
   /**
@@ -154,19 +145,6 @@ class Tab extends React.Component {
    */
   setWarning = (warning) => {
     this.context.tabs.changeWarning(this.props.tabId, warning);
-    this.setState({ isWarning: warning });
-  }
-
-  /**
-   * Classes to be applied to the single tab component
-   *
-   * @method mainClasses Main Class getter
-   */
-  get mainClasses() {
-    return classNames(
-      'carbon-tab',
-      this.props.className
-    );
   }
 
   /**

@@ -27,7 +27,6 @@ import tagComponent from '../../../utils/helpers/tags';
  * @constructor
  */
 class SidebarHeader extends React.Component {
-
   static propTypes = {
 
     /**

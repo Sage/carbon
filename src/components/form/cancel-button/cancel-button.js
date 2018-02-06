@@ -16,12 +16,12 @@ const cancelText = (props) => {
   return props.cancelText || I18n.t('actions.cancel', { defaultValue: 'Cancel' });
 };
 
-const CancelButton = props =>
+const CancelButton = props => (
   <div className='carbon-form-cancel' { ...tagComponent('cancel', props) }>
     <Button { ...cancelButtonProps(props) } data-element='cancel'>
       { cancelText(props) }
     </Button>
   </div>
-;
+);
 
 export default CancelButton;

@@ -53,7 +53,6 @@ import Help from './../../../components/help';
  */
 const Input = (ComposedComponent) => {
   class Component extends ComposedComponent {
-
     constructor(...args) {
       super(...args);
 
@@ -323,7 +322,7 @@ const Input = (ComposedComponent) => {
       );
     }
 
-      /**
+    /**
      * Supplies the HTML for inputHelp component
      *
      * @method inputHelpHTML

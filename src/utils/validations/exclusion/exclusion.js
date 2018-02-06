@@ -21,7 +21,6 @@ import ValidationsHelper from './../../helpers/validations';
  * @constructor ExclusionValidator
  */
 class ExclusionValidator {
-
   /**
    * @method constructor
    * @param {Object} params

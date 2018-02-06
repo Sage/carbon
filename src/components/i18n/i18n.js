@@ -24,7 +24,6 @@ import tagComponent from '../../utils/helpers/tags';
  * @constructor
  */
 class I18n extends React.Component {
-
   static propTypes = {
 
     /**
@@ -85,7 +84,9 @@ class I18n extends React.Component {
    * @method render
    */
   render() {
-    const { markdown, inline, scope, options, ...props } = this.props;
+    const {
+      markdown, inline, scope, options, ...props
+    } = this.props;
     let translation = i18n.t(scope, options);
 
     if (markdown) {
