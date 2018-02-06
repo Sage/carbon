@@ -201,14 +201,14 @@ describe('Input', () => {
     it('only calls the onChangeDeferred handler after the deferTimeout', () => {
       instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
         onChangeDeferred: onChangeDeferred,
-        deferTimeout: 300,
+        deferTimeout: 1000,
         name: 'foo'
       }));
       instance._handleDeferred('foo')
       expect(onChangeDeferred).not.toHaveBeenCalled();
-      jest.runTimersToTime(100);
+      jest.runTimersToTime(900);
       expect(onChangeDeferred).not.toHaveBeenCalled();
-      jest.runTimersToTime(300);
+      jest.runTimersToTime(1000);
       expect(onChangeDeferred).toHaveBeenCalledWith('foo');
     });
 
@@ -221,13 +221,13 @@ describe('Input', () => {
       expect(onChangeDeferred).not.toHaveBeenCalled();
       jest.runTimersToTime(100);
       expect(onChangeDeferred).not.toHaveBeenCalled();
-      jest.runTimersToTime(200);
+      jest.runTimersToTime(750);
       expect(onChangeDeferred).toHaveBeenCalledWith('foo');
     });
 
     it('should not call onChangeDeferred handler if the no onChangeDeferred handler', () => {
       instance._handleDeferred('foo')
-      jest.runTimersToTime(200);
+      jest.runTimersToTime(750);
       expect(onChangeDeferred).not.toHaveBeenCalled()
     });
   });

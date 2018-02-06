@@ -174,7 +174,7 @@ const Input = (ComposedComponent) => {
         clearTimeout(this.deferredTimeout);
         this.deferredTimeout = setTimeout(() => {
           this.props.onChangeDeferred(ev);
-        }, (this.props.deferTimeout || 200));
+        }, (this.props.deferTimeout || 750));
       }
     }
 
