@@ -356,7 +356,6 @@ class _Link extends React.Component {
       ))
     );
   }
-
 }
 
 export default _Link;

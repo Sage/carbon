@@ -44,7 +44,6 @@ const window = Browser.getWindow();
 
 const InputValidation = (ComposedComponent) => {
   class Component extends ComposedComponent {
-
     constructor(...args) {
       super(...args);
 
@@ -507,7 +506,9 @@ const InputValidation = (ComposedComponent) => {
         }
 
         // reset the error state
-        this.setState({ errorMessage: null, messageShown: false, valid: true, warning: false, info: false });
+        this.setState({
+          errorMessage: null, messageShown: false, valid: true, warning: false, info: false
+        });
       }
     }
 
@@ -659,13 +660,11 @@ const InputValidation = (ComposedComponent) => {
      * @return {String} Main class names
      */
     get mainClasses() {
-      return classNames(
-        super.mainClasses, {
-          'common-input--error': !this.state.valid,
-          'common-input--warning': this.state.warning,
-          'common-input--info': this.state.info
-        }
-      );
+      return classNames(super.mainClasses, {
+        'common-input--error': !this.state.valid,
+        'common-input--warning': this.state.warning,
+        'common-input--info': this.state.info
+      });
     }
 
     /**
@@ -675,13 +674,11 @@ const InputValidation = (ComposedComponent) => {
      * @return {String} Input class names
      */
     get inputClasses() {
-      return classNames(
-        super.inputClasses, {
-          'common-input__input--error': !this.state.valid,
-          'common-input__input--warning': this.state.warning,
-          'common-input__input--info': this.state.info
-        }
-      );
+      return classNames(super.inputClasses, {
+        'common-input__input--error': !this.state.valid,
+        'common-input__input--warning': this.state.warning,
+        'common-input__input--info': this.state.info
+      });
     }
 
     /**

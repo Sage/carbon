@@ -22,9 +22,7 @@ import tagComponent from '../../utils/helpers/tags';
  * @constructor
  * @decorators {Input,InputLabel,InputValidation}
  */
-const Textbox = Input(InputLabel(InputValidation(
-class Textbox extends React.Component {
-
+const Textbox = Input(InputLabel(InputValidation(class Textbox extends React.Component {
   /**
    * Main Class getter
    *
@@ -77,7 +75,6 @@ class Textbox extends React.Component {
       </div>
     );
   }
-}
-)));
+})));
 
 export default Textbox;

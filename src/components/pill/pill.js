@@ -27,7 +27,6 @@ import tagComponent from '../../utils/helpers/tags';
 * @constructor
 */
 class Pill extends React.Component {
-
   static propTypes = {
 
     /**

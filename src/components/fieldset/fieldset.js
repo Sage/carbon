@@ -10,7 +10,6 @@ import tagComponent from '../../utils/helpers/tags';
  * This component will stack inputs together.
  */
 class Fieldset extends React.Component {
-
   static propTypes = {
     /**
      * Children elements
@@ -54,13 +53,15 @@ class Fieldset extends React.Component {
     const classes = classNames('carbon-fieldset', className);
 
     return (
-      <fieldset className={ classes } { ...props } { ...tagComponent('fieldset', this.props) }>
+      <fieldset
+        className={ classes } { ...props }
+        { ...tagComponent('fieldset', this.props) }
+      >
         { this.legend }
         { this.props.children }
       </fieldset>
     );
   }
-
 }
 
 export default Fieldset;

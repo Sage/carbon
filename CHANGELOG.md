@@ -4,6 +4,10 @@
 
 The InputValidation error tooltips now use the Portal Component
 
+## Changes
+
+* Resolved new ESLint errors from carbon-factory upgrade.
+
 # 3.0.0
 
 ## Package Updates

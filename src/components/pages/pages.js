@@ -9,7 +9,7 @@ const pagesClasses = (props) => {
   return classNames('carbon-pages', props.className);
 };
 
-const Pages = props =>
+const Pages = props => (
   <Carousel
     className={ pagesClasses(props) }
     enableSlideSelector={ false }
@@ -20,7 +20,7 @@ const Pages = props =>
   >
     { props.children }
   </Carousel>
-;
+);
 
 Pages.propTypes = {
   className: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
