@@ -1,5 +1,9 @@
 # 3.1.0
 
+## Modal Improvement
+
+The Modal now uses the Portal Component
+
 ## InputValidation Improvement
 
 The InputValidation error tooltips now use the Portal Component
