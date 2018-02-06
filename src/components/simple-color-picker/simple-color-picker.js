@@ -19,7 +19,6 @@ import tagComponent from '../../utils/helpers/tags';
  *
  */
 class SimpleColorPicker extends React.Component {
-
   static propTypes = {
     /**
      * an array with all available colors that will be shown it the color picker.

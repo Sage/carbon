@@ -8,7 +8,7 @@ import '../promises';
 const config = {
   csrfToken: null, // defines the CSRF token if required by your web application
   onSuccess: null, // defines a callback to trigger on every successful response
-  onError: null    // defines a callback to trigger on every erroneous response
+  onError: null // defines a callback to trigger on every erroneous response
 };
 
 class Service {

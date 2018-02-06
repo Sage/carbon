@@ -9,7 +9,7 @@ const pageClasses = (props) => {
   return classNames('carbon-page', props.className);
 };
 
-const Page = props =>
+const Page = props => (
   <article className={ pageClasses(props) } { ...tagComponent('page', props) }>
     <FullScreenHeading>
       { props.title }
@@ -21,7 +21,7 @@ const Page = props =>
       </AppWrapper>
     </div>
   </article>
-;
+);
 
 Page.propTypes = {
   className: PropTypes.string, // eslint-disable-line react/no-unused-prop-types

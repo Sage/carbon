@@ -24,9 +24,7 @@ import { validProps } from '../../utils/ether';
  * @constructor
  * @decorators {Input,InputLabel,InputValidation}
  */
-const Checkbox = Input(InputLabel(InputValidation(
-class Checkbox extends React.Component {
-
+const Checkbox = Input(InputLabel(InputValidation(class Checkbox extends React.Component {
   static propTypes = {
     /**
      * Set the value of the checkbox
@@ -143,9 +141,20 @@ class Checkbox extends React.Component {
    */
   get checkboxSprite() {
     return (
-      <svg width='15' height='15' viewBox='0 0 15 15'>
-        <rect className='checkbox-outline' fill='#AFAFAF' x='0' y='0' width='15' height='15' />
-        <rect className='checkbox-fill' fill='#FFFFFF' x='1' y='1' width='13' height='13' />
+      <svg
+        width='15' height='15'
+        viewBox='0 0 15 15'
+      >
+        <rect
+          className='checkbox-outline' fill='#AFAFAF'
+          x='0' y='0'
+          width='15' height='15'
+        />
+        <rect
+          className='checkbox-fill' fill='#FFFFFF'
+          x='1' y='1'
+          width='13' height='13'
+        />
         <path
           d={ 'M5.06079081,11.805307 L2.2548404,9.4508351 C1.95287351,9.19745479 1.91372172,' +
         '8.74748731 2.16708208,8.44554418 L3.08395978,7.35285189 C3.3376225,7.05054844 3.78738919,' +
@@ -155,7 +164,8 @@ class Checkbox extends React.Component {
         '11.5485068 8.24949267,11.6023543 8.20769039,11.6521724 L7.2908127,12.7448647 C7.12011041,' +
         '12.9482997 6.86060017,13.032541 6.61713008,12.9887006 C6.48855215,12.9709764 6.36324771,' +
         '12.9179844 6.25647356,12.8283903 L5.16378128,11.9115126 C5.12512704,11.8790778 5.09077658,' +
-        '11.8434362 5.06079081,11.805307 L5.06079081,11.805307 Z' } className='checkbox-check' fill='#FFFFFF'
+        '11.8434362 5.06079081,11.805307 L5.06079081,11.805307 Z' } className='checkbox-check'
+          fill='#FFFFFF'
         />
       </svg>
     );
@@ -178,12 +188,10 @@ class Checkbox extends React.Component {
    * @return {String}
    */
   get fieldHelpClasses() {
-    return classNames(
-      'carbon-checkbox__help-text', {
-        'carbon-checkbox__help-text--reverse': this.props.reverse,
-        'carbon-checkbox__help-text--inline': this.props.fieldHelpInline
-      }
-    );
+    return classNames('carbon-checkbox__help-text', {
+      'carbon-checkbox__help-text--reverse': this.props.reverse,
+      'carbon-checkbox__help-text--inline': this.props.fieldHelpInline
+    });
   }
 
   /**
@@ -219,8 +227,7 @@ class Checkbox extends React.Component {
       </div>
     );
   }
-}
-)));
+})));
 
 
 export default Checkbox;

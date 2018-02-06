@@ -38,7 +38,6 @@ const TIMEOUT = 500;
  * @constructor
  */
 class Modal extends React.Component {
-
   static propTypes = {
 
     /**
@@ -87,7 +86,6 @@ class Modal extends React.Component {
   }
 
   static defaultProps = {
-    open: false,
     onCancel: null,
     enableBackgroundUI: false,
     disableEscKey: false

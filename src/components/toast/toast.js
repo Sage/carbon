@@ -29,7 +29,6 @@ import tagComponent from '../../utils/helpers/tags';
 * @constructor
 */
 class Toast extends React.Component {
-
   static propTypes = {
 
     /**
@@ -155,7 +154,6 @@ class Toast extends React.Component {
       </CSSTransitionGroup>
     );
   }
-
 }
 
 export default Toast;

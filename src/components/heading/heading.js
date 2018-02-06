@@ -176,7 +176,10 @@ class Heading extends React.Component {
     if (!this.props.subheader) { return null; }
 
     return (
-      <div className='carbon-heading__subheader' data-element='subtitle' id={ this.props.subtitleId }>
+      <div
+        className='carbon-heading__subheader' data-element='subtitle'
+        id={ this.props.subtitleId }
+      >
         { this.props.subheader }
       </div>
     );
@@ -189,13 +192,11 @@ class Heading extends React.Component {
    * @return {String}
    */
   get classes() {
-    return classNames(
-      'carbon-heading', this.props.className, {
-        'carbon-heading--has-subheader': this.props.subheader,
-        'carbon-heading--has-back': this.props.backLink,
-        'carbon-heading--has-divider': this.props.divider
-      }
-    );
+    return classNames('carbon-heading', this.props.className, {
+      'carbon-heading--has-subheader': this.props.subheader,
+      'carbon-heading--has-back': this.props.backLink,
+      'carbon-heading--has-divider': this.props.divider
+    });
   }
 
   /**
@@ -222,7 +223,10 @@ class Heading extends React.Component {
 
           <div className='carbon-heading__headers'>
             <div className='carbon-heading__main-header'>
-              <h1 className='carbon-heading__title' data-element='title' id={ this.props.titleId }>
+              <h1
+                className='carbon-heading__title' data-element='title'
+                id={ this.props.titleId }
+              >
                 { this.props.title }
               </h1>
 

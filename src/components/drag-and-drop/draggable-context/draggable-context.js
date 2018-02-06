@@ -37,7 +37,6 @@ import CustomDragLayer from './../custom-drag-layer';
  * @constructor
  */
 class DraggableContext extends React.Component {
-
   static propTypes = {
     /**
      * The element(s) where you want to apply drag

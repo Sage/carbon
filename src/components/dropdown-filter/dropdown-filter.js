@@ -276,7 +276,7 @@ class DropdownFilter extends Dropdown {
   prepareList = (options) => {
     let filteredOptions;
     if ((this.writeable || !this.openingList) && typeof this.state.filter === 'string') {
-      const filter = this.state.filter;
+      const { filter } = this.state;
       const regex = new RegExp(escapeStringRegexp(filter), 'i');
 
       // if user has entered a search filter
@@ -302,7 +302,7 @@ class DropdownFilter extends Dropdown {
 
     if (!items.length) {
       items = (
-        <li className={ 'carbon-dropdown__list-item carbon-dropdown__list-item--no-results' }>
+        <li className='carbon-dropdown__list-item carbon-dropdown__list-item--no-results'>
           {
             I18n.t('dropdownlist.no_results', {
               defaultValue: 'No results match "%{term}"',
@@ -421,8 +421,7 @@ class DropdownFilter extends Dropdown {
    */
   get inputProps() {
     const props = super.inputProps;
-
-    let value = props.value;
+    let { value } = props;
 
     if (typeof this.state.filter === 'string') {
       // if filter has a value, use that instead
