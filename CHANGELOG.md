@@ -12,6 +12,10 @@ The Modal now uses the Portal Component
 
 The InputValidation error tooltips now use the Portal Component
 
+## Bug Fixes
+
+* `mapToProps` takes precedence over props passed to HOC in `connect` function.
+
 ## Changes
 
 * Resolved new ESLint errors from carbon-factory upgrade.
