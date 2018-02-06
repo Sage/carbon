@@ -134,13 +134,14 @@ class DialogFullScreen extends Modal {
 
     return (
       <FullScreenHeading>
-        { title }
         <Icon
           className='carbon-dialog-full-screen__close'
           data-element='close'
           onClick={ this.props.onCancel }
           type='close'
         />
+
+        { title }
       </FullScreenHeading>
     );
   }
