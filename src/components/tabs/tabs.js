@@ -195,9 +195,10 @@ class Tabs extends React.Component {
    * @method componentWillMount
    */
   componentWillMount() {
-    let { selectedTabId } = this.props;
-
-    if (typeof selectedTabId === 'undefined') {
+    let selectedTabId;
+    if (this.props.selectedTabId) {
+      selectedTabId = this.props.selectedTabId;
+    } else {
       const hash = this._window.location.hash.substring(1);
 
       if (Array.isArray(this.props.children)) {
@@ -235,125 +236,6 @@ class Tabs extends React.Component {
         nextProps.selectedTabId !== this.state.selectedTabId) {
       this.updateVisibleTab(nextProps.selectedTabId);
     }
-  }
-
-  /**
-   * Classes to be applied to the whole tabs component
-   *
-   * @method mainClasses Main Class getter
-   */
-  get mainClasses() {
-    return classNames(
-      'carbon-tabs',
-      `carbon-tabs__position-${this.props.position}`,
-      this.props.className
-    );
-  }
-
-  /**
-   * The children nodes converted into an Array
-   *
-   * @method children
-   * @return {Array} Ordered array of children
-   */
-  get children() {
-    return compact(React.Children.toArray(this.props.children));
-  }
-
-  /**
-   * Array of the tabIds for the child nodes
-   *
-   * @method tabIds
-   * @return {Array} Ordered array of tabIds for the child nodes
-   */
-  get tabIds() {
-    return this.children.map(child => child.props.tabId);
-  }
-
-  /**
-   * Build the headers for the tab component
-   *
-   * @method tabHeaders
-   * @return Unordered list of tab titles
-   */
-  get tabHeaders() {
-    this.tabRefs = [];
-    const tabTitles = this.children.map((child, index) => {
-      const ref = `${child.props.tabId}-tab`;
-      this.tabRefs.push(ref);
-      return (
-        <li
-          aria-selected={ this.isTabSelected(child.props.tabId) }
-          className={ this.tabHeaderClasses(child) }
-          data-element='select-tab'
-          data-tabid={ child.props.tabId }
-          id={ ref }
-          key={ child.props.tabId }
-          onClick={ this.handleTabClick }
-          onKeyDown={ this.handleKeyDown(index) }
-          ref={ (node) => { this[ref] = node; } }
-          role='tab'
-          tabIndex={ this.isTabSelected(child.props.tabId) ? '0' : '-1' }
-        >
-          { child.props.title }
-        </li>
-      );
-    });
-
-    return (
-      <ul
-        className={ this.tabsHeaderClasses() }
-        role='tablist'
-      >
-        { tabTitles }
-      </ul>
-    );
-  }
-
-  /**
-   * Builds the single currently selected tab
-   *
-   * @method visibleTab
-   * @return {JSX} visible tab
-   */
-  get visibleTab() {
-    let visibleTab;
-
-    this.children.forEach((child) => {
-      if (this.isTabSelected(child.props.tabId)) {
-        visibleTab = child;
-      }
-    });
-
-    return React.cloneElement(visibleTab, { className: 'carbon-tab--selected' });
-  }
-
-  /**
-   * Builds all tabs where non selected tabs have class of hidden
-   *
-   * @method tabs
-   * @return {JSX} all tabs
-   */
-  get tabs() {
-    if (!this.props.renderHiddenTabs) { return this.visibleTab; }
-
-    const tabs = this.children.map((child, index) => {
-      let klass = 'hidden';
-
-      if (this.isTabSelected(child.props.tabId)) {
-        klass = 'carbon-tab--selected';
-      }
-
-      const props = {
-        'aria-labelledby': this.tabRefs[index],
-        className: klass,
-        role: 'tabPanel'
-      };
-
-      return React.cloneElement(child, props);
-    });
-
-    return tabs;
   }
 
   /**
@@ -473,6 +355,19 @@ class Tabs extends React.Component {
   }
 
   /**
+   * Classes to be applied to the whole tabs component
+   *
+   * @method mainClasses Main Class getter
+   */
+  get mainClasses() {
+    return classNames(
+      'carbon-tabs',
+      `carbon-tabs__position-${this.props.position}`,
+      this.props.className
+    );
+  }
+
+  /**
    * Generates the HTML classes for the tabs header.
    *
    * @method tabHeaderClasses
@@ -516,6 +411,112 @@ class Tabs extends React.Component {
    * @return {Boolean}
    */
   isTabSelected = tabId => tabId === this.state.selectedTabId;
+
+  /**
+   * The children nodes converted into an Array
+   *
+   * @method children
+   * @return {Array} Ordered array of children
+   */
+  get children() {
+    return compact(React.Children.toArray(this.props.children));
+  }
+
+  /**
+   * Array of the tabIds for the child nodes
+   *
+   * @method tabIds
+   * @return {Array} Ordered array of tabIds for the child nodes
+   */
+  get tabIds() {
+    return this.children.map(child => child.props.tabId);
+  }
+
+  /**
+   * Build the headers for the tab component
+   *
+   * @method tabHeaders
+   * @return Unordered list of tab titles
+   */
+  get tabHeaders() {
+    this.tabRefs = [];
+    const tabTitles = this.children.map((child, index) => {
+      const ref = `${child.props.tabId}-tab`;
+      this.tabRefs.push(ref);
+      return (
+        <li
+          aria-selected={ this.isTabSelected(child.props.tabId) }
+          className={ this.tabHeaderClasses(child) }
+          data-element='select-tab'
+          data-tabid={ child.props.tabId }
+          id={ ref }
+          key={ child.props.tabId }
+          onClick={ this.handleTabClick }
+          onKeyDown={ this.handleKeyDown(index) }
+          ref={ (node) => { this[ref] = node; } }
+          role='tab'
+          tabIndex={ this.isTabSelected(child.props.tabId) ? '0' : '-1' }
+        >
+          { child.props.title }
+        </li>
+      );
+    });
+
+    return (
+      <ul
+        className={ this.tabsHeaderClasses() }
+        role='tablist'
+      >
+        { tabTitles }
+      </ul>
+    );
+  }
+
+  /**
+   * Builds the single currently selected tab
+   *
+   * @method visibleTab
+   * @return {JSX} visible tab
+   */
+  get visibleTab() {
+    let visibleTab;
+
+    this.children.forEach((child) => {
+      if (this.isTabSelected(child.props.tabId)) {
+        visibleTab = child;
+      }
+    });
+
+    return React.cloneElement(visibleTab, { className: 'carbon-tab--selected' });
+  }
+
+  /**
+   * Builds all tabs where non selected tabs have class of hidden
+   *
+   * @method tabs
+   * @return {JSX} all tabs
+   */
+  get tabs() {
+    if (!this.props.renderHiddenTabs) { return this.visibleTab; }
+
+    const tabs = this.children.map((child, index) => {
+      let klass = 'hidden';
+
+      if (this.isTabSelected(child.props.tabId)) {
+        klass = 'carbon-tab--selected';
+      }
+
+      const props = {
+        'aria-labelledby': this.tabRefs[index],
+        className: klass,
+        role: 'tabPanel'
+      };
+
+      return React.cloneElement(child, props);
+    });
+
+    return tabs;
+  }
 
   /**
    * Determines if the tab titles are in a vertical format.

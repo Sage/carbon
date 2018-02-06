@@ -150,25 +150,23 @@ const Browser = {
       doc.body.appendChild(container);
     }
 
-    ReactDOM.render(
-      (
-        <form
-          action={ url } method='post'
-          target={ target }
-        >
-          { keys(data).map((key) => {
-            return (
-              <input
-                type='hidden' key={ key }
-                name={ key } value={ data[key] }
-              />
-            );
-          }) }
-        </form>
-      ), container, function() {
-        Browser.submitForm(this);
-      }
-    );
+    ReactDOM.render((
+      <form
+        action={ url } method='post'
+        target={ target }
+      >
+        { keys(data).map((key) => {
+          return (
+            <input
+              type='hidden' key={ key }
+              name={ key } value={ data[key] }
+            />
+          );
+        }) }
+      </form>
+    ), container, function() {
+      Browser.submitForm(this);
+    });
     ReactDOM.unmountComponentAtNode(container);
   },
 

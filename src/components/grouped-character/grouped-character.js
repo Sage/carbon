@@ -11,7 +11,8 @@ import { validProps, insertAt } from './../../utils/ether';
 
 import tagComponent from '../../utils/helpers/tags';
 
-const GroupedCharacter = Input(InputLabel(InputValidation(class GroupedCharacter extends React.Component {
+const GroupedCharacter = Input(InputLabel(InputValidation(
+  class GroupedCharacter extends React.Component {
   static propTypes = {
     /**
      * A custom class name for the component.
@@ -25,7 +26,9 @@ const GroupedCharacter = Input(InputLabel(InputValidation(class GroupedCharacter
     inputWidth: PropTypes.string, // pixel value that sets inputWidth
     separator: ((props, propName, componentName) => { // a separator character to insert between number groups
       if ((props[propName]).length > 1 || typeof props[propName] !== 'string') {
-        return new Error(`Invalid prop ${propName} supplied to ${componentName}. Must be string of length 1.`);
+        return new Error(
+          `Invalid prop ${propName} supplied to ${componentName}. Must be string of length 1.`
+        );
       }
       return null;
     }),
@@ -239,6 +242,7 @@ const GroupedCharacter = Input(InputLabel(InputValidation(class GroupedCharacter
       </div>
     );
   }
-})));
+  }
+)));
 
 export default GroupedCharacter;
