@@ -146,20 +146,9 @@ class Modal extends React.Component {
   getChildContext() {
     return {
       modal: {
-        onCancel: this.props.onCancel,
-        getDialog: this.getDialog
+        onCancel: this.props.onCancel
       }
     };
-  }
-
-  /**
-   * Returns the reference to the dialog if it exists.
-   *
-   * @method getDialog
-   * @return {HTMLElement}
-   */
-  getDialog = () => {
-    return this._dialog;
   }
 
   /**

@@ -1,12 +1,13 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { assign } from 'lodash';
 import Browser from './../../helpers/browser';
 import Icon from './../../../components/icon';
 import chainFunctions from './../../helpers/chain-functions';
+import Portal from './../../../components/portal';
 
+const window = Browser.getWindow();
 /**
  * InputValidation decorator.
  *
@@ -40,6 +41,7 @@ import chainFunctions from './../../helpers/chain-functions';
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
  */
+
 const InputValidation = (ComposedComponent) => {
   class Component extends ComposedComponent {
     constructor(...args) {
@@ -132,6 +134,13 @@ const InputValidation = (ComposedComponent) => {
        * @type {Boolean}
        */
       this.state.messageShown = false;
+      /**
+       * toggles whether the message css is flipped
+       *
+       * @property flipped
+       * @type {Boolean}
+       */
+      this.state.flipped = false;
     }
 
     static contextTypes = assign({}, ComposedComponent.contextTypes, {
@@ -254,42 +263,25 @@ const InputValidation = (ComposedComponent) => {
     positionMessage = () => {
       if (!this.state.valid || this.state.warning || this.state.info) {
         // calculate the position for the message relative to the icon
-        const icon = this.validationIcon._target,
+        const icon = this.validationIcon && this.validationIcon._target,
             message = this.validationMessage;
 
-        if (icon && message && message.offsetHeight) {
-          let messagePositionLeft = (icon.offsetLeft + (icon.offsetWidth / 2));
-          const topOffset = icon.offsetTop - icon.offsetHeight,
-              messageOffsetWidth = message.offsetWidth;
-
-          // set initial position for message
-          message.style.left = `${messagePositionLeft}px`;
-          message.style.top = `-${message.offsetHeight - topOffset}px`;
+        if (icon && message) {
+          message.style.top = `${((icon.getBoundingClientRect().top - message.getBoundingClientRect().height)
+                                  + window.scrollY)
+                                  - (icon.getBoundingClientRect().height)}px`;
 
           // figure out if the message is positioned offscreen
-          const messageScreenPosition = message.getBoundingClientRect().left + messageOffsetWidth;
-
-          let shouldFlip = false;
-
+          const messageScreenPosition = icon.getBoundingClientRect().left + message.getBoundingClientRect().width;
           // change the position if it is offscreen
-          if (this.context.modal && this.context.modal.getDialog()) {
-            // if in a modal check its position relative to that
-            const dialog = this.context.modal.getDialog();
-            const domNode = ReactDOM.findDOMNode(this); // eslint-disable-line react/no-find-dom-node
-            shouldFlip = (message.offsetLeft + domNode.offsetLeft + messageOffsetWidth) > dialog.offsetWidth;
-          } else {
-            // otherwise check relative to the window
-            shouldFlip = messageScreenPosition > this._window.innerWidth;
-          }
-
+          const shouldFlip = (Browser.getWindow().innerWidth < messageScreenPosition);
           if (shouldFlip) {
-            messagePositionLeft -= messageOffsetWidth;
-            message.style.left = `${messagePositionLeft}px`;
-            message.className += ' common-input__message--flipped';
-            this.flipped = true;
+            this.setState({ flipped: true });
+            message.style.left = `${(icon.getBoundingClientRect().left - message.getBoundingClientRect().width)
+                                    + (icon.getBoundingClientRect().width / 2)}px`;
           } else {
-            message.classList.remove('common-input__message--flipped');
-            this.flipped = false;
+            this.setState({ flipped: false });
+            message.style.left = `${icon.getBoundingClientRect().left + (icon.getBoundingClientRect().width / 2)}px`;
           }
         }
       }
@@ -483,6 +475,9 @@ const InputValidation = (ComposedComponent) => {
         this.positionMessage();
 
         if (!this.state.messageLocked) {
+          if (this.context.form) {
+            this.context.form.setActiveInput(this);
+          }
           this.setState({ messageLocked: true });
         }
       }
@@ -555,12 +550,10 @@ const InputValidation = (ComposedComponent) => {
      */
     showMessage = () => {
       if (this.messageExists()) {
-        this.positionMessage();
-
         this.setState({
           messageShown: true,
           immediatelyHideMessage: false
-        });
+        }, this.positionMessage);
 
         if (this.context.form) {
           this.context.form.setActiveInput(this);
@@ -613,7 +606,6 @@ const InputValidation = (ComposedComponent) => {
      */
     get validationHTML() {
       let type = '';
-
       if (this.state.valid && !this.state.warning && !this.state.info) { return null; }
 
       if (!this.state.valid) {
@@ -624,8 +616,12 @@ const InputValidation = (ComposedComponent) => {
         type = 'info';
       }
 
-      let messageClasses = `common-input__message common-input__message--${type}`;
       const iconClasses = `common-input__icon common-input__icon--${type}`;
+      const messageClasses = classNames(`common-input__message common-input__message--${type}`, {
+        'common-input__message--shown': (this.state.messageLocked || this.state.messageShown),
+        'common-input__message--fade': (!this.state.messageLocked && !this.state.messageShown),
+        'common-input__message--flipped': this.state.flipped
+      });
 
       // position icon relative to width of label
       let iconStyle = {};
@@ -634,8 +630,20 @@ const InputValidation = (ComposedComponent) => {
         iconStyle = { [`${this.props.align}`]: `${100 - this.props.labelWidth}%` };
       }
 
-      if (this.state.messageLocked) { messageClasses += ' common-input__message--locked'; }
-      if (this.flipped) { messageClasses += ' common-input__message--flipped'; }
+      const errorMessage = (!this.state.immediatelyHideMessage || this.state.messageLocked) && (
+        <Portal key='1' onReposition={ this.positionMessage }>
+          <div className='common-input__message-wrapper'>
+            <div
+              ref={ (validationMessage) => {
+                this.validationMessage = validationMessage;
+              } }
+              className={ messageClasses }
+            >
+              { this.state.errorMessage || this.state.warningMessage || this.state.infoMessage }
+            </div>
+          </div>
+        </Portal>
+      );
 
       return [
         <Icon
@@ -645,14 +653,7 @@ const InputValidation = (ComposedComponent) => {
           className={ iconClasses }
           style={ iconStyle }
         />,
-        <div key='1' className='common-input__message-wrapper'>
-          <div
-            ref={ (validationMessage) => { this.validationMessage = validationMessage; } }
-            className={ messageClasses }
-          >
-            { this.state.errorMessage || this.state.warningMessage || this.state.infoMessage }
-          </div>
-        </div>
+        errorMessage
       ];
     }
 
@@ -666,9 +667,7 @@ const InputValidation = (ComposedComponent) => {
       return classNames(super.mainClasses, {
         'common-input--error': !this.state.valid,
         'common-input--warning': this.state.warning,
-        'common-input--info': this.state.info,
-        'common-input--message-hidden': this.state.immediatelyHideMessage,
-        'common-input--message-shown': this.state.messageShown
+        'common-input--info': this.state.info
       });
     }
 
