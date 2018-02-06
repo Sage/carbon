@@ -71,7 +71,7 @@ const Input = (ComposedComponent) => {
 
     static propTypes = assign({}, ComposedComponent.propTypes, {
       /**
-       * Integer to determine timeout for defered callback. Default: 200
+       * Integer to determine timeout for defered callback. Default: 750
        *
        * @property
        * @type {Number}

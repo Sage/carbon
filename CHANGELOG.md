@@ -2,7 +2,7 @@
 
 ## Improvements
 
-* Input has 2 new props. `onChangeDeferred` allows a deferred callback after an onChange event. `deferTimeout` allows you to customise the default: `200`.
+* Input has 2 new props. `onChangeDeferred` allows a deferred callback after an onChange event. `deferTimeout` allows you to customise the default: `750`.
 
 ## Modal Improvement
 
