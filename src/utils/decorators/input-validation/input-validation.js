@@ -627,7 +627,7 @@ const InputValidation = (ComposedComponent) => {
         iconStyle = { [`${this.props.align}`]: `${100 - this.props.labelWidth}%` };
       }
 
-      const errorMessage = (!this.state.immediatelyHideMessage || this.state.messageLocked) &&
+      const errorMessage = (!this.state.immediatelyHideMessage || this.state.messageLocked) && (
         <Portal key='1' onReposition={ this.positionMessage }>
           <div className='common-input__message-wrapper'>
             <div
@@ -639,7 +639,8 @@ const InputValidation = (ComposedComponent) => {
               { this.state.errorMessage || this.state.warningMessage || this.state.infoMessage }
             </div>
           </div>
-        </Portal>;
+        </Portal>
+      );
 
       return [
         <Icon

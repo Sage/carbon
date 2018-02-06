@@ -393,6 +393,7 @@ describe('InputValidation', () => {
               offsetWidth: 10,
               offsetTop: 30
             };
+            spyOn(instance, 'setState');
             instance.positionMessage();
             const messageClasses = instance.validationHTML[1].props.children.props.children.props.className;
             expect(messageClasses).not.toMatch('common-input__message--flipped');
@@ -414,9 +415,12 @@ describe('InputValidation', () => {
           it('sets the class to flipped', () => {
             const addClassSpy = jasmine.createSpy();
             const removeClassSpy = jasmine.createSpy();
-            wrapper.find(Component).instance().flipped = true;
-            wrapper.find(Component).instance().setState({ valid: false, errorMessage: 'foo' });
-            wrapper.find(Component).instance().validationMessage = {
+            const instance = wrapper.find(Component).instance();
+            instance.setState({
+              valid: false,
+              errorMessage: 'foo'
+            });
+            instance.validationMessage = {
               offsetWidth: 0,
               offsetHeight: 30,
               style: {
@@ -436,7 +440,7 @@ describe('InputValidation', () => {
                 };
               }
             };
-            wrapper.find(Component).instance().validationIcon._target = {
+            instance.validationIcon._target = {
               offsetLeft: 20,
               offsetWidth: 10,
               offsetTop: 30,
@@ -449,10 +453,10 @@ describe('InputValidation', () => {
                 };
               }
             };
-            wrapper.find(Component).instance()._window = {
+            instance._window = {
               innerWidth: -1
             };
-            wrapper.find(Component).instance().windowChanged();
+            instance.positionMessage();
             wrapper.update();
             expect(wrapper.find('.common-input__message').props().className).toMatch('common-input__message--flipped');
           });
@@ -1030,7 +1034,7 @@ describe('InputValidation', () => {
         instance.setState({ valid: false, messageLocked: true });
         spyOn(instance, 'setState');
         instance._handleFocus();
-        expect(instance.setState).not.toHaveBeenCalled();
+        expect(instance.setState).not.toHaveBeenCalledWith({ messageLocked: true });
       });
     });
 
