@@ -26,12 +26,7 @@ import tagComponent from '../../utils/helpers/tags';
  * @decorators {Input,InputLabel,InputValidation}
  */
 const Textarea = Input(InputLabel(InputValidation(
-class Textarea extends React.Component {
-
-
-  // Minimum height of the textarea
-  minHeight = 0;
-
+  class Textarea extends React.Component {
   static propTypes = {
     /**
      * Character limit of the textarea
@@ -99,6 +94,9 @@ class Textarea extends React.Component {
     enforceCharacterLimit: true,
     warnOverLimit: false
   }
+
+  // Minimum height of the textarea
+  minHeight = 0;
 
   /**
    * A lifecycle method that is called after initial render.
@@ -296,7 +294,7 @@ class Textarea extends React.Component {
       </div>
     );
   }
-}
+  }
 )));
 
 export default Textarea;

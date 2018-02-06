@@ -7,7 +7,6 @@ import DateHelper from './../../helpers/date';
  * @constructor DateValidator
  */
 class DateValidator {
-
   /**
    * @method constructor
    * @param {Object} params

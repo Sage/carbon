@@ -22,7 +22,6 @@ import ValidationsHelper from './../../helpers/validations';
  * @constructor EmailValidator
  */
 class EmailValidator {
-
   /**
    * @method constructor
    * @param {Object} params
@@ -57,7 +56,6 @@ class EmailValidator {
   message = () => {
     return ValidationsHelper.validationMessage(this.customMessage, 'errors.messages.invalid_email');
   }
-
 }
 
 export default EmailValidator;

@@ -16,7 +16,6 @@ import ValidationsHelper from './../../helpers/validations';
  * @constructor RegexValidator
  */
 class RegexValidator {
-
   /**
    * @method constructor
    * @param {Object} params
