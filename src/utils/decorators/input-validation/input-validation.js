@@ -475,6 +475,9 @@ const InputValidation = (ComposedComponent) => {
         this.positionMessage();
 
         if (!this.state.messageLocked) {
+          if (this.context.form) {
+            this.context.form.setActiveInput(this);
+          }
           this.setState({ messageLocked: true });
         }
       }

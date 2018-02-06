@@ -1021,6 +1021,14 @@ describe('InputValidation', () => {
         expect(instance.setState).toHaveBeenCalledWith({ messageLocked: true });
       });
 
+      it('should set active input on the form', () => {
+        instance.context.form = form;
+        spyOn(instance.context.form, 'setActiveInput');
+        instance.setState({ valid: false });
+        instance._handleFocus();
+        expect(instance.context.form.setActiveInput).toHaveBeenCalled();
+      });
+
       it('should position the message', () => {
         instance.setState({ valid: false });
         spyOn(instance, 'positionMessage');
