@@ -238,7 +238,7 @@ class Form extends React.Component {
   static defaultProps = {
     buttonAlign: 'right',
     cancel: true,
-    savePrompt: false,
+    savePrompt: true,
     save: true,
     saving: false,
     validateOnMount: false,
