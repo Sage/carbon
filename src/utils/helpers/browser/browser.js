@@ -151,9 +151,17 @@ const Browser = {
     }
 
     ReactDOM.render((
-      <form action={ url } method='post' target={ target }>
+      <form
+        action={ url } method='post'
+        target={ target }
+      >
         { keys(data).map((key) => {
-          return <input type='hidden' key={ key } name={ key } value={ data[key] } />;
+          return (
+            <input
+              type='hidden' key={ key }
+              name={ key } value={ data[key] }
+            />
+          );
         }) }
       </form>
     ), container, function() {

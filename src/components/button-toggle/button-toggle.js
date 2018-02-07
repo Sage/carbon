@@ -7,8 +7,7 @@ import { validProps } from './../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 
 
-const ButtonToggle = Input(
-class ButtonToggle extends React.Component {
+const ButtonToggle = Input(class ButtonToggle extends React.Component {
   static propTypes = {
     /**
      * Which buttonIcon the button should render.
@@ -72,7 +71,8 @@ class ButtonToggle extends React.Component {
    * @return {void}
    */
   get mainClasses() {
-    return classNames('carbon-button-toggle',
+    return classNames(
+      'carbon-button-toggle',
       `carbon-button-toggle--${this.props.size}`,
       { 'carbon-button-toggle--grouped': this.props.grouped }
     );
@@ -138,7 +138,10 @@ class ButtonToggle extends React.Component {
     });
 
     return (
-      <label htmlFor={ this.inputProps.id } className={ classes } data-element='label'>
+      <label
+        htmlFor={ this.inputProps.id } className={ classes }
+        data-element='label'
+      >
         { this.buttonIcon }
         { this.props.children }
       </label>
@@ -156,7 +159,6 @@ class ButtonToggle extends React.Component {
       </div>
     );
   }
-}
-);
+});
 
 export default ButtonToggle;

@@ -44,7 +44,6 @@ const window = Browser.getWindow();
 
 const InputValidation = (ComposedComponent) => {
   class Component extends ComposedComponent {
-
     constructor(...args) {
       super(...args);
 
@@ -135,6 +134,13 @@ const InputValidation = (ComposedComponent) => {
        * @type {Boolean}
        */
       this.state.messageShown = false;
+      /**
+       * toggles whether the message css is flipped
+       *
+       * @property flipped
+       * @type {Boolean}
+       */
+      this.state.flipped = false;
     }
 
     static contextTypes = assign({}, ComposedComponent.contextTypes, {
@@ -248,12 +254,6 @@ const InputValidation = (ComposedComponent) => {
       }
     }
 
-    windowChanged = () => {
-      this.positionMessage();
-      // render to to add any eventual css rules
-      this.forceUpdate();
-    }
-
     /**
      * Positions the message relative to the icon.
      *
@@ -276,11 +276,11 @@ const InputValidation = (ComposedComponent) => {
           // change the position if it is offscreen
           const shouldFlip = (Browser.getWindow().innerWidth < messageScreenPosition);
           if (shouldFlip) {
-            this.flipped = true;
+            this.setState({ flipped: true });
             message.style.left = `${(icon.getBoundingClientRect().left - message.getBoundingClientRect().width)
                                     + (icon.getBoundingClientRect().width / 2)}px`;
           } else {
-            this.flipped = false;
+            this.setState({ flipped: false });
             message.style.left = `${icon.getBoundingClientRect().left + (icon.getBoundingClientRect().width / 2)}px`;
           }
         }
@@ -475,6 +475,9 @@ const InputValidation = (ComposedComponent) => {
         this.positionMessage();
 
         if (!this.state.messageLocked) {
+          if (this.context.form) {
+            this.context.form.setActiveInput(this);
+          }
           this.setState({ messageLocked: true });
         }
       }
@@ -506,7 +509,9 @@ const InputValidation = (ComposedComponent) => {
         }
 
         // reset the error state
-        this.setState({ errorMessage: null, messageShown: false, valid: true, warning: false, info: false });
+        this.setState({
+          errorMessage: null, messageShown: false, valid: true, warning: false, info: false
+        });
       }
     }
 
@@ -615,7 +620,7 @@ const InputValidation = (ComposedComponent) => {
       const messageClasses = classNames(`common-input__message common-input__message--${type}`, {
         'common-input__message--shown': (this.state.messageLocked || this.state.messageShown),
         'common-input__message--fade': (!this.state.messageLocked && !this.state.messageShown),
-        'common-input__message--flipped': this.flipped
+        'common-input__message--flipped': this.state.flipped
       });
 
       // position icon relative to width of label
@@ -625,8 +630,8 @@ const InputValidation = (ComposedComponent) => {
         iconStyle = { [`${this.props.align}`]: `${100 - this.props.labelWidth}%` };
       }
 
-      const errorMessage = (!this.state.immediatelyHideMessage || this.state.messageLocked) &&
-        <Portal key='1' onReposition={ this.windowChanged }>
+      const errorMessage = (!this.state.immediatelyHideMessage || this.state.messageLocked) && (
+        <Portal key='1' onReposition={ this.positionMessage }>
           <div className='common-input__message-wrapper'>
             <div
               ref={ (validationMessage) => {
@@ -637,7 +642,8 @@ const InputValidation = (ComposedComponent) => {
               { this.state.errorMessage || this.state.warningMessage || this.state.infoMessage }
             </div>
           </div>
-        </Portal>;
+        </Portal>
+      );
 
       return [
         <Icon
@@ -658,13 +664,11 @@ const InputValidation = (ComposedComponent) => {
      * @return {String} Main class names
      */
     get mainClasses() {
-      return classNames(
-        super.mainClasses, {
-          'common-input--error': !this.state.valid,
-          'common-input--warning': this.state.warning,
-          'common-input--info': this.state.info
-        }
-      );
+      return classNames(super.mainClasses, {
+        'common-input--error': !this.state.valid,
+        'common-input--warning': this.state.warning,
+        'common-input--info': this.state.info
+      });
     }
 
     /**
@@ -674,13 +678,11 @@ const InputValidation = (ComposedComponent) => {
      * @return {String} Input class names
      */
     get inputClasses() {
-      return classNames(
-        super.inputClasses, {
-          'common-input__input--error': !this.state.valid,
-          'common-input__input--warning': this.state.warning,
-          'common-input__input--info': this.state.info
-        }
-      );
+      return classNames(super.inputClasses, {
+        'common-input__input--error': !this.state.valid,
+        'common-input__input--warning': this.state.warning,
+        'common-input__input--info': this.state.info
+      });
     }
 
     /**

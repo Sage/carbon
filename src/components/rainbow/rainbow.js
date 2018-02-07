@@ -43,7 +43,6 @@ import tagComponent from '../../utils/helpers/tags';
  * @constructor
  */
 class Rainbow extends React.Component {
-
   static propTypes = {
     /**
      * A title for the component.
@@ -142,7 +141,6 @@ class Rainbow extends React.Component {
       </div>
     );
   }
-
 }
 
 /* istanbul ignore next */

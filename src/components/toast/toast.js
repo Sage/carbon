@@ -30,7 +30,6 @@ import Portal from './../../components/portal';
 * @constructor
 */
 class Toast extends React.Component {
-
   static propTypes = {
 
     /**
@@ -158,7 +157,6 @@ class Toast extends React.Component {
       </Portal>
     );
   }
-
 }
 
 export default Toast;

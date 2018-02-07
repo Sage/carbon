@@ -226,7 +226,6 @@ class Form extends React.Component {
   }
 
   static defaultProps = {
-    activeInput: null,
     buttonAlign: 'right',
     cancel: true,
     save: true,
@@ -570,7 +569,6 @@ class Form extends React.Component {
    */
   htmlProps = () => {
     const { ...props } = validProps(this);
-    delete props.activeInput;
     delete props.onSubmit;
     props.className = this.mainClasses;
     return props;
@@ -776,7 +774,12 @@ function generateCSRFToken(doc) {
   const csrfAttr = csrfParam ? csrfParam.getAttribute('content') : '';
   const csrfValue = csrfToken ? csrfToken.getAttribute('content') : '';
 
-  return <input type='hidden' name={ csrfAttr } value={ csrfValue } readOnly='true' />;
+  return (
+    <input
+      type='hidden' name={ csrfAttr }
+      value={ csrfValue } readOnly='true'
+    />
+  );
 }
 
 export default Form;
