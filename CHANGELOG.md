@@ -1,6 +1,6 @@
 # 3.0.2
 
-### AutoDisabling form
+## AutoDisabling form
 
 Form autoDisables after submit when the prop `autoDisable` is set to true. The props `afterFormValidation` and `onSubmit` are passed a `enableForm` callback function which can be used to reactivate the form.
 

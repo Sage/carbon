@@ -46,7 +46,7 @@ let definition = new Definition('form', Form, {
     summary: "Boolean",
   },
   propDescriptions: {
-    autoDisable: "Set to true will disable the save button on submit",
+    autoDisable: "Set to true to disable the save button once the form has been submitted",
     cancel: "Set to false to hide the cancel button.",
     children: "This component supports children.",
     afterFormValidation: "A callback triggered after the validation has been ran on the form.",

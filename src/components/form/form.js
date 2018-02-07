@@ -109,6 +109,7 @@ class Form extends React.Component {
      * @default false
      */
     validateOnMount: PropTypes.bool,
+
     /**
      * If true, will disable the savebutton when clicked
      *
@@ -117,6 +118,7 @@ class Form extends React.Component {
      * @default false
      */
     autoDisable: PropTypes.bool,
+
     /**
      * Text for the cancel button
      *
@@ -274,6 +276,7 @@ class Form extends React.Component {
      * @type {Number}
      */
     warningCount: 0,
+    
     /**
      * Tracks if the saveButton should be disabled
      *
