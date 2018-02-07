@@ -5,6 +5,34 @@
 
 Form autoDisables after submit when the prop `autoDisable` is set to true. The props `afterFormValidation` and `onSubmit` are passed a `enableForm` callback function which can be used to reactivate the form.
 
+### Example Code
+  ``` 
+  <Form
+    autoDisable
+    onSubmit={ this.saveContact }
+    cancel={ false }>
+    {children} 
+  </Form>
+  ```
+  
+  ``` 
+  saveContact = (ev, valid, enableForm) => {
+	 $.ajax({
+      type: 'POST',
+      url,
+      data: this.record
+    }).done((response) => {
+      CommonActions.dispatchSave({
+        succeeded: true,
+        data: response.data
+      }, ContactCreateConstants.SAVE);
+    }).fail((response) => {
+      enableForm();
+    });
+    ev.preventDefault();
+  };
+  ```
+
 
 ## InputValidation Improvement
 
