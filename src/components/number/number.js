@@ -25,9 +25,7 @@ import tagComponent from '../../utils/helpers/tags';
  * @constructor
  * @decorators {Input,InputLabel,InputValidation}
  */
-const Number = Input(InputLabel(InputValidation(
-class Number extends React.Component {
-
+const Number = Input(InputLabel(InputValidation(class Number extends React.Component {
   static propTypes = {
     /**
      * A custom class name for the component.
@@ -146,8 +144,7 @@ class Number extends React.Component {
       </div>
     );
   }
-}
-)));
+})));
 
 /**
  * Checks that the given value is valid number.

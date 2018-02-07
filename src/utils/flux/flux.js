@@ -62,7 +62,6 @@ export function connect(ComposedView, stores) {
    * @constructor
    */
   class View extends ComposedView {
-
     constructor(...args) {
       super(...args);
 

@@ -17,13 +17,13 @@ const saveText = (props) => {
   return props.saveText || I18n.t('actions.save', { defaultValue: 'Save' });
 };
 
-const SaveButton = props =>
+const SaveButton = props => (
   <div className='carbon-form-save' { ...tagComponent('save', props) }>
     <Button { ...saveButtonProps(props) } data-element='save'>
       { saveText(props) }
     </Button>
   </div>
-;
+);
 
 SaveButton.propTypes = {
   errors: PropTypes.oneOfType([

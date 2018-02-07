@@ -68,7 +68,6 @@ let definition = new Definition('form', Form, {
     savePrompt: "Warning popup shown when trying to navigate away from an edited form if true"
   },
   propValues: {
-    activeInput: '',
     cancelText: '',
     children: `<Textbox
     label="Name"

@@ -24,7 +24,6 @@ import tagComponent from '../../../utils/helpers/tags';
  * @constructor
  */
 class TableRow extends React.Component {
-
   static propTypes = {
     /**
      * Children elements
