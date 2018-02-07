@@ -654,7 +654,9 @@ class Dropdown extends React.Component {
   }
 
   calculatePosition() {
-    this.listBlock.style.top = `${this._input.getBoundingClientRect().y + (this._input.getBoundingClientRect().height) + window.scrollY}px`;
+    this.listBlock.style.top = `${this._input.getBoundingClientRect().y
+                                    + (this._input.getBoundingClientRect().height)
+                                    + window.scrollY}px`;
     this.listBlock.style.width = `${this._input.getBoundingClientRect().width}px`;
     this.listBlock.style.left = `${this._input.getBoundingClientRect().x}px`;
   }
