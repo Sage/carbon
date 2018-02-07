@@ -39,7 +39,7 @@ describe('Form', () => {
     describe('when stickyFooter is enabled', () => {
       it('adds the listeners', () => {
         wrapper = shallow(<Form />);
-        
+
         spyOn(wrapper.instance(), 'addStickyFooterListeners');
         wrapper.setProps({ stickyFooter: true });
         expect(wrapper.instance().addStickyFooterListeners).toHaveBeenCalled();
@@ -198,7 +198,9 @@ describe('Form', () => {
             incrementWarningCount: instance.incrementWarningCount,
             decrementWarningCount: instance.decrementWarningCount,
             inputs: instance.inputs,
+            resetIsDirty: instance.resetIsDirty,
             setActiveInput: instance.setActiveInput,
+            setIsDirty: instance.setIsDirty,
             validate: instance.validate
           }
         }

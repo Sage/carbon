@@ -43,6 +43,16 @@ class Form extends React.Component {
   static propTypes = {
 
     /**
+     * Warning popup shown when trying to navigate away from an edited
+     * form if true
+     *
+     * @property savePrompt
+     * @type {Boolean}
+     * @default true
+     */
+    savePrompt: PropTypes.bool,
+
+    /**
      * Cancel button is shown if true
      *
      * @property cancel
@@ -229,6 +239,7 @@ class Form extends React.Component {
     activeInput: null,
     buttonAlign: 'right',
     cancel: true,
+    savePrompt: false,
     save: true,
     saving: false,
     validateOnMount: false,
@@ -266,7 +277,15 @@ class Form extends React.Component {
      * @property warningCount
      * @type {Number}
      */
-    warningCount: 0
+    warningCount: 0,
+
+    /**
+     * Tracks if the form is clean or dirty, used by savePrompt
+     *
+     * @property isDirty
+     * @type {Boolean}
+     */
+    isDirty: false
   }
 
   /**
@@ -285,6 +304,8 @@ class Form extends React.Component {
         decrementErrorCount: this.decrementErrorCount,
         incrementWarningCount: this.incrementWarningCount,
         decrementWarningCount: this.decrementWarningCount,
+        setIsDirty: this.setIsDirty,
+        resetIsDirty: this.resetIsDirty,
         inputs: this.inputs,
         setActiveInput: this.setActiveInput,
         validate: this.validate
@@ -306,6 +327,10 @@ class Form extends React.Component {
     if (this.props.validateOnMount) {
       this.validate();
     }
+
+    if (this.props.savePrompt) {
+      this.addSavePromptListener();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -315,6 +340,12 @@ class Form extends React.Component {
 
     if (!nextProps.stickyFooter && this.props.stickyFooter) {
       this.removeStickyFooterListeners();
+    }
+
+    if (nextProps.savePrompt) {
+      this.addSavePromptListener();
+    } else {
+      this.removeSavePromptListener();
     }
   }
 
@@ -349,6 +380,28 @@ class Form extends React.Component {
     this.activeInput = input;
   }
 
+  /**
+   * Sets the form to Dirty
+   *
+   * @method setIsDirty
+   * @return {void}
+   */
+  setIsDirty = () => {
+    this.isDirty = true;
+    this.setState({ isDirty: this.isDirty });
+  }
+
+  /**
+   * Sets the form to Clean
+   *
+   * @method resetIsDirty
+   * @return {void}
+   */
+  resetIsDirty = () => {
+    this.isDirty = false;
+    this.setState({ isDirty: this.isDirty });
+  }
+
   addStickyFooterListeners = () => {
     this.checkStickyFooter();
     ElementResize.addListener(this._form, this.checkStickyFooter);
@@ -380,6 +433,25 @@ class Form extends React.Component {
     } else if (this.state.stickyFooter && formHeight < this._window.innerHeight) {
       this.setState({ stickyFooter: false });
     }
+  }
+
+  addSavePromptListener = () => {
+    this._window.addEventListener('beforeunload', this.checkIsFormDirty);
+  }
+
+  removeSavePromptListener = () => {
+    this._window.removeEventListener('beforeunload', this.checkIsFormDirty);
+  }
+
+  checkIsFormDirty = () => {
+    let confirmationMessage = '';
+    if (this.isDirty) {
+      // Confirmation message is usually overridden by browsers with a similar message
+      confirmationMessage = 'Do you want to reload this site?'
+                              + 'Changes that you made may not be saved.';
+      this._window.event.returnValue = confirmationMessage; // Gecko + IE
+    }
+    return confirmationMessage; // Gecko + Webkit, Safari, Chrome etc.
   }
 
   /**
@@ -515,7 +587,11 @@ class Form extends React.Component {
 
     const valid = this.validate();
 
-    if (!valid) { ev.preventDefault(); }
+    if (valid) {
+      this.resetIsDirty();
+    } else {
+      ev.preventDefault();
+    }
 
     if (this.props.afterFormValidation) {
       this.props.afterFormValidation(ev, valid);

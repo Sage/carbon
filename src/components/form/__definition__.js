@@ -43,6 +43,7 @@ let definition = new Definition('form', Form, {
     onSubmit: "Function",
     iterative: "Boolean",
     summary: "Boolean",
+    savePrompt: "Boolean"
   },
   propDescriptions: {
     cancel: "Set to false to hide the cancel button.",
@@ -63,14 +64,17 @@ let definition = new Definition('form', Form, {
     additionalActions: "Supply additional buttons alongside the form's buttons.",
     onSubmit: "A callback triggered when the form is submitted with passing validation.",
     iterative: "A flag for when the user should be able to repeatedly save & re-use a form.",
-    summary: "Set to false to hide the summary"
+    summary: "Set to false to hide the summary",
+    savePrompt: "Warning popup shown when trying to navigate away from an edited form if true"
   },
   propValues: {
     activeInput: '',
     cancelText: '',
     children: `<Textbox
     label="Name"
-    validations={[ new PresenceValidation() ]}
+    labelInline="true"
+  /><Textbox
+    label="Location"
   />`,
     saveText: ''
   }
