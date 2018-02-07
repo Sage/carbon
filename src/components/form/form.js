@@ -525,13 +525,20 @@ class Form extends React.Component {
    * @return {void}
    */
   handleOnSubmit = (ev) => {
+    if (this.props.autoDisable) {
+      this.setState({ submitted: true });
+    }
+
     if (this.props.beforeFormValidation) {
       this.props.beforeFormValidation(ev);
     }
 
     const valid = this.validate();
 
-    if (!valid) { ev.preventDefault(); }
+    if (!valid) { 
+      ev.preventDefault(); 
+      this.setState({ submitted: false });
+    }
 
     if (this.props.afterFormValidation) {
       this.props.afterFormValidation(ev, valid, this.enableForm);
@@ -539,9 +546,6 @@ class Form extends React.Component {
 
     if (valid && this.props.onSubmit) {
       this.props.onSubmit(ev, this.enableForm);
-      if (this.props.autoDisable) {
-        this.setState({ submitted: true });
-      }
     }
   }
 
