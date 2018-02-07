@@ -15,6 +15,7 @@ $toast-width: 300px !default;
   right: $toast-anim-end;
   top: $toast-top-position;
   width: $toast-width;
+  z-index: $z-toast;
 }
 
 .carbon-toast__close,
