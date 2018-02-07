@@ -2,7 +2,7 @@
 
 ## Dropdown Improvement
 
-The DropDown Component now uses the Portal Component
+The Dropdown Component now uses the Portal Component
 
 ## Modal Improvement
 

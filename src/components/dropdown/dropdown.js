@@ -325,6 +325,7 @@ class Dropdown extends React.Component {
    * @return {Void}
    */
   handleFocus = () => {
+    this.calculatePosition();
     if (this.blockFocus) {
       this.blockFocus = false;
     } else {
@@ -652,13 +653,10 @@ class Dropdown extends React.Component {
     return results;
   }
 
-  positionOptions() {
-    if (this.dropDown) {
-      const input = this.dropDown.getElementsByClassName('carbon-dropdown__input common-input__input')[0];
-      this.listBlock.style.top = `${input.getBoundingClientRect().y + (input.getBoundingClientRect().height) + window.scrollY}px`;
-      this.listBlock.style.width = `${input.getBoundingClientRect().width}px`;
-      this.listBlock.style.left = `${input.getBoundingClientRect().x}px`;
-    }
+  calculatePosition() {
+    this.listBlock.style.top = `${this._input.getBoundingClientRect().y + (this._input.getBoundingClientRect().height) + window.scrollY}px`;
+    this.listBlock.style.width = `${this._input.getBoundingClientRect().width}px`;
+    this.listBlock.style.left = `${this._input.getBoundingClientRect().x}px`;
   }
 
   /**
@@ -675,14 +673,13 @@ class Dropdown extends React.Component {
     }
 
     content.push(
-      <Portal onReposition={ () => { this.positionOptions(); } }>
+      <Portal onReposition={ () => { this.calculatePosition(); } }>
         <div { ...this.listBlockProps } ref={ (node) => { this.listBlock = node; } }>
-            { this.listHTML }
+          { this.listHTML }
         </div>
       </Portal>
     );
 
-    this.positionOptions();
     return content;
   }
 
@@ -731,9 +728,6 @@ class Dropdown extends React.Component {
         className={ this.mainClasses }
         { ...this.componentTags(this.props) }
         data-state={ this.requestingState() }
-        ref={ (dropDown) => {
-          this.dropDown = dropDown;
-        } }
       >
         { this.labelHTML }
         { this.inputHTML }
