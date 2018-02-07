@@ -276,7 +276,7 @@ class Form extends React.Component {
      * @type {Number}
      */
     warningCount: 0,
-    
+
     /**
      * Tracks if the saveButton should be disabled
      *
@@ -546,6 +546,12 @@ class Form extends React.Component {
     }
   }
 
+  /**
+   * enables a form which has been disabled after being submitted.
+   *
+   * @method enableForm
+   * @return {void}
+   */
   enableForm = () => {
     this.setState({ submitted: false });
   }
