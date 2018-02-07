@@ -17,19 +17,9 @@ Form autoDisables after submit when the prop `autoDisable` is set to true. The p
   
   ``` 
   saveContact = (ev, valid, enableForm) => {
-	 $.ajax({
-      type: 'POST',
-      url,
-      data: this.record
-    }).done((response) => {
-      CommonActions.dispatchSave({
-        succeeded: true,
-        data: response.data
-      }, ContactCreateConstants.SAVE);
-    }).fail((response) => {
-      enableForm();
-    });
-    ev.preventDefault();
+    ...
+    Actions.submitForm(...);
+    enableForm();
   };
   ```
 
