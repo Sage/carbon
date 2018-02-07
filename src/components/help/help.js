@@ -23,7 +23,6 @@ import tagComponent from '../../utils/helpers/tags';
  * @constructor
  */
 class Help extends React.Component {
-
   static propTypes = {
 
     /**

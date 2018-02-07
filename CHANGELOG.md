@@ -1,8 +1,18 @@
 # 3.1.0
 
+
 ## AutoDisabling form
 
 Form autoDisables after submit when the prop `autoDisable` is set to true. The props `afterFormValidation` and `onSubmit` are passed a `enableForm` callback function which can be used to reactivate the form.
+
+
+## InputValidation Improvement
+
+The InputValidation error tooltips now use the Portal Component
+
+## Changes
+
+* Resolved new ESLint errors from carbon-factory upgrade.
 
 # 3.0.0
 

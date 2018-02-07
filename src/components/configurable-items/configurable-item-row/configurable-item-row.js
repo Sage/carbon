@@ -126,7 +126,9 @@ class ConfigurableItemRow extends React.Component {
   }
 
   listItemHTML = () => {
-    const { rowIndex, enabled, locked, name, onChange } = this.props;
+    const {
+      rowIndex, enabled, locked, name, onChange
+    } = this.props;
     return (
       <li
         className={ this.classes(this.context.dragAndDropActiveIndex, rowIndex) }

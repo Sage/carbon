@@ -29,7 +29,6 @@ import DropdownFilter from './../dropdown-filter';
  * @constructor
  */
 class DropdownFilterAjax extends DropdownFilter {
-
   constructor(...args) {
     super(...args);
 
@@ -192,7 +191,7 @@ class DropdownFilterAjax extends DropdownFilter {
   handleScroll = () => {
     if (this.listeningToScroll) {
       if (this.state.page < this.state.pages) {
-        const list = this.list;
+        const { list } = this;
         const scrollTriggerPosition = list.scrollHeight - list.offsetHeight - 25;
 
         if (list.scrollTop > scrollTriggerPosition) {

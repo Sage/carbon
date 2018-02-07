@@ -42,18 +42,7 @@ const today = DateHelper.todayFormatted('YYYY-MM-DD');
  * @constructor
  * @decorators {Input,InputIcon,InputLabel,InputValidation}
  */
-const Date = Input(InputIcon(InputLabel(InputValidation(
-class Date extends React.Component {
-
-  /**
-   * Stores the document - allows us to override it different contexts, such as
-   * when running tests.
-   *
-   * @property _document
-   * @type {document}
-   */
-  _document = document;
-
+const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React.Component {
   // Required for validProps function
   static propTypes = {
     /**
@@ -71,6 +60,14 @@ class Date extends React.Component {
      * @type {boolean}
      */
     disabled: PropTypes.bool,
+
+    /**
+     * Used to provide additional validations on composed components.
+     *
+     * @property internalValidations
+     * @type {Array}
+     */
+    internalValidations: PropTypes.array,
 
     /**
      * Minimum possible date
@@ -132,6 +129,15 @@ class Date extends React.Component {
     */
     internalValidations: [new DateValidator()]
   }
+
+  /**
+   * Stores the document - allows us to override it different contexts, such as
+   * when running tests.
+   *
+   * @property _document
+   * @type {document}
+   */
+  _document = document;
 
   state = {
     /**
@@ -569,9 +575,11 @@ class Date extends React.Component {
    */
   renderDatePicker() {
     return (
-      this.state.open && <Portal onReposition={ this.updateDatePickerPosition }>
-        <DayPicker { ...this.datePickerProps } containerProps={ this.containerProps } />
-      </Portal>
+      this.state.open && (
+        <Portal onReposition={ this.updateDatePickerPosition }>
+          <DayPicker { ...this.datePickerProps } containerProps={ this.containerProps } />
+        </Portal>
+      )
     );
   }
 
@@ -592,7 +600,10 @@ class Date extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses } onClick={ this.handleWidgetClick } { ...tagComponent('date', this.props) }>
+      <div
+        className={ this.mainClasses } onClick={ this.handleWidgetClick }
+        { ...tagComponent('date', this.props) }
+      >
         { this.labelHTML }
         { this.inputHTML }
         { this.renderHiddenInput() }
@@ -637,7 +648,6 @@ class Date extends React.Component {
       { formats: this.hiddenFormat(), sanitize: false }
     );
   }
-}
-))));
+}))));
 
 export default Date;

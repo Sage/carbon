@@ -31,8 +31,6 @@ import Icon from './../icon';
  * For additional properties specific to this component, see propTypes.
  */
 class Portrait extends React.Component {
-
-
   static propTypes = {
 
     /**
