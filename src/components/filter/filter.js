@@ -55,7 +55,10 @@ class Filter extends Form {
    */
   render() {
     return (
-      <form className={ this.classes } onSubmit={ this.handleSubmit } { ...tagComponent('filter', this.props) }>
+      <form
+        className={ this.classes } onSubmit={ this.handleSubmit }
+        { ...tagComponent('filter', this.props) }
+      >
         { this.props.children }
       </form>
     );

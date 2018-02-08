@@ -241,17 +241,21 @@ class DateRange extends React.Component {
       dateProps.className
     );
 
-    props.validations = defaultValidations.concat(
-      dateProps.validations || []
-    );
+    props.validations = defaultValidations.concat(dateProps.validations || []);
     return props;
   }
 
   render () {
     return (
       <div { ...tagComponent('date-range', this.props) }>
-        <Date { ...this.startDateProps() } onFocus={ this.focusStart } data-element='start-date' />
-        <Date { ...this.endDateProps() } onFocus={ this.focusEnd } data-element='end-date' />
+        <Date
+          { ...this.startDateProps() } onFocus={ this.focusStart }
+          data-element='start-date'
+        />
+        <Date
+          { ...this.endDateProps() } onFocus={ this.focusEnd }
+          data-element='end-date'
+        />
       </div>
     );
   }

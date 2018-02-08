@@ -16,7 +16,6 @@
  * @constructor
  */
 class BaseRegistry {
-
   /**
    * If no handler can be found, the registry will return this handler.
    *

@@ -36,7 +36,6 @@ import CSS from './../../utils/css';
  * @constructor
  */
 class Confirm extends Dialog {
-
   static propTypes = assign({}, Dialog.propTypes, {
 
     /**
@@ -107,13 +106,19 @@ class Confirm extends Dialog {
     return (
       <div key='confirm-buttons' className={ classes }>
         <div className='carbon-confirm__button carbon-confirm__no'>
-          <Button as='secondary' onClick={ this.props.onCancel } data-element='cancel'>
+          <Button
+            as='secondary' onClick={ this.props.onCancel }
+            data-element='cancel'
+          >
             { this.props.cancelLabel || I18n.t('confirm.no', { defaultValue: 'No' }) }
           </Button>
         </div>
 
         <div className='carbon-confirm__button carbon-confirm__yes'>
-          <Button as='primary' onClick={ this.props.onConfirm } data-element='confirm'>
+          <Button
+            as='primary' onClick={ this.props.onConfirm }
+            data-element='confirm'
+          >
             { this.props.confirmLabel || I18n.t('confirm.yes', { defaultValue: 'Yes' }) }
           </Button>
         </div>

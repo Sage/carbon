@@ -277,7 +277,7 @@ class Tabs extends React.Component {
    */
   handleTabClick = (ev) => {
     if (Event.isEventType(ev, 'keydown')) { return; }
-    const tabid = ev.target.dataset.tabid;
+    const { tabid } = ev.target.dataset;
     this.updateVisibleTab(tabid);
   }
 
@@ -377,7 +377,7 @@ class Tabs extends React.Component {
     return classNames(
       'carbon-tabs__headers',
       `carbon-tabs__headers--align-${this.props.align}`,
-       'carbon-tabs__headers'
+      'carbon-tabs__headers'
     );
   }
 

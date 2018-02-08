@@ -18,7 +18,6 @@ import ValidationsHelper from './../../../helpers/validations';
  * @constructor NumeralTypeValidator
  */
 class NumeralTypeValidator {
-
   constructor(params = {}) {
     const numeralType = params.integer ? 'Integer' : 'Decimal';
     const validationToCall = `validate${numeralType}`;

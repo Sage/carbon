@@ -42,7 +42,6 @@ import Icon from './../../../components/icon';
  */
 const InputIcon = (ComposedComponent) => {
   class Component extends ComposedComponent {
-
     static propTypes = assign({}, ComposedComponent.propTypes, {});
 
     /**
