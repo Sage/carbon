@@ -446,12 +446,12 @@ class Form extends React.Component {
     this._window.removeEventListener('beforeunload', this.checkIsFormDirty);
   }
 
-  checkIsFormDirty = () => {
+  checkIsFormDirty = (ev) => {
     let confirmationMessage = '';
     if (this.state.isDirty) {
       // Confirmation message is usually overridden by browsers with a similar message
       confirmationMessage = I18n.t('form.save_prompt', { defaultValue: 'Do you want to reload this site? Changes that you made may not be saved.' });
-      this._window.event.returnValue = confirmationMessage; // Gecko + IE
+      ev.returnValue = confirmationMessage; // Gecko + IE
     }
     return confirmationMessage; // Gecko + Webkit, Safari, Chrome etc.
   }

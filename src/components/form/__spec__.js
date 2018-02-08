@@ -306,7 +306,7 @@ describe('Form', () => {
     });
   });
 
-  describe("setActiveInput()", () => {
+  describe("setActiveInput", () => {
     it("sets the active input to be the input parameter", () => {
       instance.setActiveInput(1);
       expect(instance.activeInput).toEqual(1);
@@ -320,20 +320,36 @@ describe('Form', () => {
     });
   });
 
-  describe("setIsDirty()", () => {
-    it("sets the form to be classed as dirty", () => {
+  describe("setIsDirty", () => {
+    it("sets the form to be classed as dirty if clean", () => {
       expect(instance.state.isDirty).toEqual(false);
+      instance.setIsDirty();
+      expect(instance.state.isDirty).toEqual(true);
       instance.setIsDirty();
       expect(instance.state.isDirty).toEqual(true);
     });
   });
 
-  describe("resetIsDirty()", () => {
-    it("resets the form to be classed as clean", () => {
+  describe("resetIsDirty", () => {
+    it("resets the form to be classed as clean if dirty", () => {
       instance.setIsDirty();
       expect(instance.state.isDirty).toEqual(true);
       instance.resetIsDirty();
       expect(instance.state.isDirty).toEqual(false);
+      instance.resetIsDirty();
+      expect(instance.state.isDirty).toEqual(false);
+    });
+  });
+
+  describe("checkIsFormDirty", () => {
+    it("if form is dirty, return a message and trigger a popup", () => {
+      instance.setIsDirty();
+      expect(instance.checkIsFormDirty(Event)).toEqual(I18n.t('form.save_prompt', { defaultValue: 'Do you want to reload this site? Changes that you made may not be saved.' }));
+    });
+
+    it("if form is clean, return an empty string", () => {
+      instance.resetIsDirty();
+      expect(instance.checkIsFormDirty(Event)).toEqual("");
     });
   });
 

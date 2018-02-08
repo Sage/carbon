@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Input from './input';
+import Form from './../../../components/form';
 import Icon from './../../../components/icon';
 import Help from './../../../components/help';
 import { shallow } from 'enzyme';
@@ -190,6 +191,13 @@ describe('Input', () => {
       instance._handleOnChange('foo')
       expect(onChange).not.toHaveBeenCalled()
       expect(instance._handleDeferred).not.toHaveBeenCalled();
+    });
+
+    it('should set its parent form to dirty if it has a parent form', () => {
+      let form_instance = TestUtils.renderIntoDocument(React.createElement(Form));
+      instance.context = {form: form_instance}
+      instance._handleOnChange('foo')
+      expect(instance.isInForm).toEqual(true);
     });
   });
 
