@@ -202,15 +202,6 @@ class Date extends React.Component {
    * @return {void}
    */
   componentDidUpdate(prevProps) {
-    if (this.state.open && !this.listening) {
-      this.listening = true;
-      this.updateDatePickerPosition();
-      this.window.addEventListener('resize', this.updateDatePickerPosition);
-    } else if (!this.state.open && this.listening) {
-      this.listening = false;
-      this.window.removeEventListener('resize', this.updateDatePickerPosition);
-    }
-
     if (this.datePickerValueChanged(prevProps)) {
       this.blockBlur = false;
       this._handleBlur();
@@ -237,7 +228,8 @@ class Date extends React.Component {
    */
   emitOnChangeCallback = (val) => {
     const hiddenField = this.hidden;
-    hiddenField.value = DateHelper.formatDateString(val, this.hiddenFormat());
+    const isValid = DateHelper.isValidDate(val, { sanitize: (typeof val === 'string') });
+    hiddenField.value = isValid ? DateHelper.formatDateString(val, this.hiddenFormat()) : val;
     this._handleOnChange({ target: hiddenField });
   }
 
@@ -503,7 +495,7 @@ class Date extends React.Component {
     let date = this.state.datePickerValue;
 
     if (!date) {
-      date = DateHelper.isValidDate(this.props.value) ? this.props.value : '';
+      date = this.props.value;
     }
 
     return {
@@ -577,7 +569,7 @@ class Date extends React.Component {
    */
   renderDatePicker() {
     return (
-      <Portal open={ this.state.open }>
+      this.state.open && <Portal onReposition={ this.updateDatePickerPosition }>
         <DayPicker { ...this.datePickerProps } containerProps={ this.containerProps } />
       </Portal>
     );

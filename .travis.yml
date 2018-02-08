@@ -5,10 +5,10 @@ cache:
     - node_modules
 
 node_js:
-  - 8.9.2
+  - 8.9.4
 
 install:
-  - npm install -g npm@5.5.1
+  - npm install -g npm@5.6.0
   - npm install -g gulp
   - npm install
 
@@ -29,7 +29,8 @@ deploy:
     secret_access_key:
       secure: qdS1pq1ZXvw6lXLrGtSaZTpx7OLREvV/7UCwPFbfQkuQBLbxLe32qlzOkkEQWd7sHwadSgvVTKvX4HKaAIx+QZ2XXFbXGx4HIOCws6ynAVVa2kV5SSHKMwiy+R6Ypttu3GD6uKEhPMUULCYuCLzIIvAOKoCaDIzzKlxzK+g/tCe94J+fKU0DS6U23FFxW51UADgTxn7opg3mkhsteaRyAtDkurAeobEzfQpTFKPNXJ3YcFjpGUf9Z5zxcXXNohKZQP4wODgYU+OZuif/cAeETChWxVThk0PMIIk9/lmwyX1UKIpWpyVTDEKXzwnO2COVWOxtVCpTB0uwfZTZ8MhVXRvFj8Dk/iw+2NN/W55fQ44xx0h6mvhMle98jKTWi6AR/F0LJMpCkZeNTVCdiDz7Ow1g23HlBIRx/seYxph2vLSLkh63kU8ygaOFWhCNdCGOOPLHi8m8X8vlLRvN9ETWY/sMWkvY/S9bXIGw8lv5Bk4lIxAmjoU05XJceq5rOlSax46d1fsicJ5gF6tcxvMau2bFGMCgeZJEpRYChqTEt284woFc8+maa4SwMVrim6J8R53Xfx8mtgCnRlgZmXymzyxu8wCVnAza24iQ4kWmx+fDw70iU5Q3nxSwjN4Q922QZiAFLGpAK0nRDFhE7NPftubYOgsisNCFOnTTTBGJghI=
   - provider: npm
-    email: 'sageoneplatform@sage.com'
+    email:
+      secure: Ua66JoWgtTIzOlKBw+NzI9Ey6AE+D/+RExWdV5ZHldL0YUWn8RORWbFue7IkM//jKNRf2h8D8T2s+C7m4T4p12u1POC/waVqpkCrBvUvDevUpjf+fsMvt/OvsB0Sb2kcoI6Qo4YnxK/TZMkOyRvOxGkdKzWT/V92VpmcVmDllwpgeoE3xedGTogp51+fDUQ4oE9E7KtYJfGs9yN0+v6ZiNj2M1JG3/p0wV+wev2gGlvb862QZzbks1ulmYqsnx9rt4aBWGm9SPKqOTtaWUNQlVLOllBlsGUmN45OWAZHxJsxDo8Hp/f8/iK89YTXCpTq+tLDGkkrmPAMWSHKlCUaDDGNc9mmHlw6sM5kvWxcVpxZDgZyHS6I6K3/n1Dj7pVn+AGxQhjBPrw9eH9BzdVHmhQ/mNLG4hayS4tF7iO12s7QnjrcMf6pmNq49Y4M2gTSTN8s5RMzyO1HkTwN9uBca1yMm7Ay2RbnVBuOytLSI/W8KofGFW7N4gNVBWsW78YoVnczDt4qqWZcwX6J7xnScVNQav04qozC1u4NlGHlmtAzHQ1nEkGJIEW9leA0N1WIgdLPFqW5XjyxvlCuirvrj9rcrQ9WO+Dpo1I7ZtUyenprSmEG/f2+Z/C6J1CyDIeWONkLmW8rDyqDi3OgV85NfO18fG9RdrW5K2iqY6U6VN4=
     api_key:
       secure: nJbICzvxOsnsCQ+vpeLPyBNxTtNwAvLx53eBDaidkYXJD2xE5BYAmmkhk25lPK+o4tmK55mwvzvYh6NjjKO167HXnIRpiMcLhrzN+93jbueGD8Y92g3zvYC++8lRO64Xed122X+jyyhN/e5+immWNH/opklW4FnNQ1VhUh/uGTIDGyifz1Xqo9ozcMeYZfBSUdjPWDQmkDB052wsWG3yixOHsXwRJ4fAM19gtuzmKuqg8CHl5KLOmnf81WSkTp6W3yQpKXIvqJGjp4v/Zyoa0RISe0H+qlRhyY1BgZO4aZNaLrC23erBgss/Iw/EJKn+yFFIZUG8mMVCp9QgduCF0afPuxQ3g2fJCQX5+hRG5XjGMjHB2umbIgGfcA384exkdnlvXdmG5zLOh0LyEuqAI+5dm/6QvY6mMlOIETklS2m4iZ9x8ksw+o39XyYcSSIVpTSCZ1N3jIQ1sO+dV1QKr0Gx8t+nVmC5n5TqfLU+xxelp3dEvZFi5yZE3pcTE96T5ixL+Ad3nx4Hc2APv6OTuU4F/8gxDdbPnQP8Xj84QHOmBEEjoS4bsin74PvLW5atkjZSUr25j/VDWggnfwAxEN3RVb88iYH5ZfqoXEDcqhg0sX3ihUCRhA1pEFozoum4k0d09zG/hRp+h4m9xh9MfcgJIW/725+rOUrOB9z6NyU=
     on:
