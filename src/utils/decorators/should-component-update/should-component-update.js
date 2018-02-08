@@ -28,7 +28,6 @@ import ShouldComponentUpdateHelper from './../../helpers/should-component-update
  */
 const ShouldComponentUpdate = (ComposedComponent) => {
   class Component extends ComposedComponent {
-
     /**
      * Lifecycle hook to calculate if the component should re-render
      *

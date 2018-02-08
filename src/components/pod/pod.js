@@ -27,7 +27,6 @@ import tagComponent from '../../utils/helpers/tags';
  * @constructor
  */
 class Pod extends React.Component {
-
   static propTypes = {
 
     /**
@@ -306,7 +305,8 @@ class Pod extends React.Component {
   }
 
   get mainClasses() {
-    return classNames('carbon-pod', this.props.className,
+    return classNames(
+      'carbon-pod', this.props.className,
       `carbon-pod--${this.props.alignTitle}`, {
         'carbon-pod--editable': this.props.onEdit,
         'carbon-pod--is-hovered': this.state.hoverEdit,
@@ -427,7 +427,10 @@ class Pod extends React.Component {
 
     return (
       <div className='carbon-pod__edit-button-container' { ...this.hoverOverEditEvents } >
-        <Link icon='edit' className={ this.editActionClasses } { ...this.linkProps() }>
+        <Link
+          icon='edit' className={ this.editActionClasses }
+          { ...this.linkProps() }
+        >
           {I18n.t('actions.edit', { defaultValue: 'Edit' })}
         </Link>
       </div>
@@ -534,7 +537,10 @@ class Pod extends React.Component {
     }
 
     return (
-      <div className={ this.mainClasses } { ...props } { ...tagComponent('pod', this.props) }>
+      <div
+        className={ this.mainClasses } { ...props }
+        { ...tagComponent('pod', this.props) }
+      >
         <div className={ this.blockClasses } { ...hoverOverEditEvents }>
           <div className={ this.contentClasses } >
             { this.podHeader }

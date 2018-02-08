@@ -31,7 +31,8 @@ const ElementResize = {
       }
 
       // creates an object which will support the resize event listener
-      const obj = element.__resizeTrigger__ = Browser.getDocument().createElement('object');
+      const obj = Browser.getDocument().createElement('object');
+      element.__resizeTrigger__ = obj;
       obj.setAttribute('style', `
         display: block;
         opacity: 0;

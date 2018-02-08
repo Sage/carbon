@@ -50,7 +50,6 @@ import tagComponent from '../../utils/helpers/tags';
  * @constructor
  */
 class Flash extends React.Component {
-
   static propTypes = {
 
     /**
@@ -289,7 +288,7 @@ class Flash extends React.Component {
 
       return <ul>{ items }</ul>;
     }
-      // if just a string, pass it through the find more parser
+    // if just a string, pass it through the find more parser
     return this.findMore(description);
   }
 
@@ -370,7 +369,7 @@ class Flash extends React.Component {
    * @return {String}
    */
   get description() {
-    const message = this.props.message;
+    const { message } = this.props;
 
     if (isObject(message) && message.description) {
       // if defined, return description
@@ -391,11 +390,17 @@ class Flash extends React.Component {
     const contents = [];
 
     // add icon
-    contents.push(<Icon className='carbon-flash__icon' type={ this.iconType } key='icon' />);
+    contents.push(<Icon
+      className='carbon-flash__icon' type={ this.iconType }
+      key='icon'
+    />);
 
     // add message content
     contents.push(
-      <div className='carbon-flash__message' key='message' data-element='message'>
+      <div
+        className='carbon-flash__message' key='message'
+        data-element='message'
+      >
         { this.formatDescription(this.description) }
       </div>
     );

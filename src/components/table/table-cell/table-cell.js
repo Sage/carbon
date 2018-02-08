@@ -21,7 +21,6 @@ import tagComponent from '../../../utils/helpers/tags';
  * @constructor
  */
 class TableCell extends React.Component {
-
   static propTypes = {
     /**
      * Defines the cell type to be an action - used for the delete cell.
@@ -98,7 +97,6 @@ class TableCell extends React.Component {
       </td>
     );
   }
-
 }
 
 export default TableCell;

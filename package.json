@@ -10,6 +10,7 @@
     "set-config": "node -e \"require('./script/set-config').default()\"",
     "test": "jest --config=./jest.conf.json",
     "debug": "node --inspect ./node_modules/.bin/jest --watch --config=./jest.conf.json",
+    "lint": "./node_modules/.bin/eslint",
     "precompile": "npm run set-config && rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet",
     "prepublishOnly": "node check-version.js && npm install && npm run precompile"
   },
@@ -30,7 +31,7 @@
   },
   "devDependencies": {
     "babel-standalone": "~6.17.0",
-    "carbon-factory": "v3.0.0-rc3",
+    "carbon-factory": "3.3.3",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "express": "~4.14.0",

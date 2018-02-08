@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toast when toast is closed renders null 1`] = `
+<Toast
+  as="info"
+  className="custom"
+  onDismiss={[Function]}
+  open={false}
+>
+  <Portal>
+    <div>
+      <CSSTransitionGroup
+        transitionAppear={true}
+        transitionAppearTimeout={1600}
+        transitionEnter={true}
+        transitionEnterTimeout={1500}
+        transitionLeave={true}
+        transitionLeaveTimeout={500}
+        transitionName="toast"
+      >
+        <TransitionGroup
+          childFactory={[Function]}
+          component="span"
+          transitionAppear={true}
+          transitionAppearTimeout={1600}
+          transitionEnter={true}
+          transitionEnterTimeout={1500}
+          transitionLeave={true}
+          transitionLeaveTimeout={500}
+          transitionName="toast"
+        >
+          <span />
+        </TransitionGroup>
+      </CSSTransitionGroup>
+    </div>
+  </Portal>
+</Toast>
+`;

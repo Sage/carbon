@@ -142,7 +142,7 @@ class Message extends React.Component {
    * @method dismissIcon
    */
   get dismissIcon() {
-    const onDismiss = this.props.onDismiss;
+    const { onDismiss } = this.props;
     if (onDismiss) {
       return (
         <Icon
@@ -162,7 +162,7 @@ class Message extends React.Component {
   * @method titleHTML
   */
   get titleHTML() {
-    const title = this.props.title;
+    const { title } = this.props;
     if (title) {
       return (
         <div className='carbon-message__title' data-element='title'>
@@ -179,11 +179,9 @@ class Message extends React.Component {
    * @method componentClasses
    */
   get typeClasses() {
-    return classNames(
-      'carbon-message__type', {
-        'carbon-message__type--rounded': this.props.roundedCorners
-      }
-    );
+    return classNames('carbon-message__type', {
+      'carbon-message__type--rounded': this.props.roundedCorners
+    });
   }
 
   /**
@@ -192,7 +190,7 @@ class Message extends React.Component {
   * @method messageContent
   */
   get messageContent() {
-    const open = this.props.open;
+    const { open } = this.props;
     if (open) {
       return (
         <div className={ this.componentClasses } { ...tagComponent('message', this.props) }>

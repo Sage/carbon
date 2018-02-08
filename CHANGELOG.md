@@ -1,16 +1,23 @@
 # 3.1.0
 
-## Dropdown Improvement
+## Improvements
 
-The DropDown Component now uses the Portal Component
+* Input has 2 new props. `onChangeDeferred` allows a deferred callback after an onChange event. `deferTimeout` allows you to customise the default: `750`.
 
-## Modal Improvement
+## Portals
 
-The Modal now uses the Portal Component
+* Modal components now uses the Portal component
+* Input validation tooltips now use the Portal component
+* `Toast` component now uses the Portal component
+* `Dropdown` component now uses the Portal component
 
-## InputValidation Improvement
+## Bug Fixes
 
-The InputValidation error tooltips now use the Portal Component
+* `mapToProps` takes precedence over props passed to HOC in `connect` function.
+
+## Changes
+
+* Resolved new ESLint errors from carbon-factory upgrade.
 
 # 3.0.0
 

@@ -32,39 +32,7 @@ const window = Browser.getWindow();
  * @constructor
  * @decorators {List,Input,InputIcon,InputLabel,InputValidation}
  */
-const Dropdown = Input(InputIcon(InputLabel(InputValidation(
-class Dropdown extends React.Component {
-  /**
-   * @constructor
-   */
-  constructor(...args) {
-    super(...args);
-
-    /**
-     * Determines if the blur event should be prevented.
-     *
-     * @property blockBlur
-     * @type {Boolean}
-     * @default false
-     */
-    this.blockBlur = false;
-
-    /**
-     * Variable to cache current value.
-     * Setting it here rather than state prevents complete rerender when value changes.
-     *
-     * @property visibleValue
-     * @type {String}
-     * @default ''
-     */
-    this.visibleValue = '';
-
-    // bind scope to functions - allowing them to be overridden and
-    // recalled with the use of super
-    this.selectValue = this.selectValue.bind(this);
-    this.results = this.results.bind(this);
-  }
-
+const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown extends React.Component {
   static propTypes = {
     /**
      * Automatically focus the input.
@@ -90,7 +58,7 @@ class Dropdown extends React.Component {
      */
     disabled: PropTypes.bool,
 
-   /**
+    /**
     * A custom onBlur handler.
     *
     * @property onBlur
@@ -148,6 +116,37 @@ class Dropdown extends React.Component {
 
   static defaultProps = {
     cacheVisibleValue: false
+  }
+
+  /**
+   * @constructor
+   */
+  constructor(...args) {
+    super(...args);
+
+    /**
+     * Determines if the blur event should be prevented.
+     *
+     * @property blockBlur
+     * @type {Boolean}
+     * @default false
+     */
+    this.blockBlur = false;
+
+    /**
+     * Variable to cache current value.
+     * Setting it here rather than state prevents complete rerender when value changes.
+     *
+     * @property visibleValue
+     * @type {String}
+     * @default ''
+     */
+    this.visibleValue = '';
+
+    // bind scope to functions - allowing them to be overridden and
+    // recalled with the use of super
+    this.selectValue = this.selectValue.bind(this);
+    this.results = this.results.bind(this);
   }
 
   state = {
@@ -295,7 +294,7 @@ class Dropdown extends React.Component {
    * Handles touch events.
    *
    * @method handleTouchEvent
-   **/
+   * */
   handleTouchEvent = () => {
     // blocking blurring like this stops a bug on mobile when touch doesn't trigger until after blur, we want to
     // update the input before blurring
@@ -377,8 +376,8 @@ class Dropdown extends React.Component {
       return;
     }
 
-    const list = this.list,
-        element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
+    const { list } = this;
+    const element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
     let nextVal;
 
     switch (ev.which) {
@@ -744,7 +743,6 @@ class Dropdown extends React.Component {
       </div>
     );
   }
-}
-))));
+}))));
 
 export default Dropdown;

@@ -102,14 +102,14 @@ class DialogFullScreen extends Modal {
    * Overrides the original function to disable the document's scroll.
    */
   get onOpening() {
-    this.document.documentElement.classList.add(DIALOG_OPEN_HTML_CLASS);
+    return this.document.documentElement.classList.add(DIALOG_OPEN_HTML_CLASS);
   }
 
   /**
    * Overrides the original function to enable the document's scroll.
    */
   get onClosing() {
-    this.document.documentElement.classList.remove(DIALOG_OPEN_HTML_CLASS);
+    return this.document.documentElement.classList.remove(DIALOG_OPEN_HTML_CLASS);
   }
 
   /**
@@ -119,7 +119,7 @@ class DialogFullScreen extends Modal {
    * @return {Object} title to display
    */
   dialogTitle = () => {
-    let title = this.props.title;
+    let { title } = this.props;
 
     if (typeof title === 'string') {
       title = (
@@ -134,13 +134,14 @@ class DialogFullScreen extends Modal {
 
     return (
       <FullScreenHeading>
-        { title }
         <Icon
           className='carbon-dialog-full-screen__close'
           data-element='close'
           onClick={ this.props.onCancel }
           type='close'
         />
+
+        { title }
       </FullScreenHeading>
     );
   }
