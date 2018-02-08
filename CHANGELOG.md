@@ -8,9 +8,8 @@ Form autoDisables after submit when the prop `autoDisable` is set to true. The p
 ### Example Code
   ``` 
   <Form
-    autoDisable
     onSubmit={ this.saveContact }
-    cancel={ false }>
+    autoDisable
     {children} 
   </Form>
   ```
