@@ -47,11 +47,29 @@ describe('Form', () => {
     });
 
     describe('when stickyFooter is disabled', () => {
-      it('adds the listeners', () => {
+      it('removes the listeners', () => {
         wrapper = shallow(<Form stickyFooter />);
         spyOn(wrapper.instance(), 'removeStickyFooterListeners');
         wrapper.setProps({ stickyFooter: false });
         expect(wrapper.instance().removeStickyFooterListeners).toHaveBeenCalled();
+      });
+    });
+
+    describe('when savePrompt is enabled', () => {
+      it('adds the listeners', () => {
+        wrapper = shallow(<Form savePrompt={ false } />);
+        spyOn(wrapper.instance(), 'addSavePromptListener');
+        wrapper.setProps({ savePrompt: true });
+        expect(wrapper.instance().addSavePromptListener).toHaveBeenCalled();
+      });
+    });
+
+    describe('when savePrompt is disabled', () => {
+      it('removes the listeners', () => {
+        wrapper = shallow(<Form savePrompt={ true } />);
+        spyOn(wrapper.instance(), 'removeSavePromptListener');
+        wrapper.setProps({ savePrompt: false });
+        expect(wrapper.instance().removeSavePromptListener).toHaveBeenCalled();
       });
     });
   });
@@ -299,6 +317,23 @@ describe('Form', () => {
       instance.setActiveInput({ immediatelyHideMessage: immediatelyHideMessageSpy });
       instance.setActiveInput({  });
       expect(immediatelyHideMessageSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe("setIsDirty()", () => {
+    it("sets the form to be classed as dirty", () => {
+      expect(instance.state.isDirty).toEqual(false);
+      instance.setIsDirty();
+      expect(instance.state.isDirty).toEqual(true);
+    });
+  });
+
+  describe("resetIsDirty()", () => {
+    it("resets the form to be classed as clean", () => {
+      instance.setIsDirty();
+      expect(instance.state.isDirty).toEqual(true);
+      instance.resetIsDirty();
+      expect(instance.state.isDirty).toEqual(false);
     });
   });
 

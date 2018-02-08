@@ -351,6 +351,7 @@ class Form extends React.Component {
   componentWillUnmount() {
     if (this.props.stickyFooter) {
       this.removeStickyFooterListeners();
+      this.removeSavePromptListener();
     }
   }
 
@@ -386,8 +387,9 @@ class Form extends React.Component {
    * @return {void}
    */
   setIsDirty = () => {
-    this.isDirty = true;
-    this.setState({ isDirty: this.isDirty });
+    if (!this.state.isDirty) {
+      this.setState({ isDirty: true });
+    };
   }
 
   /**
@@ -397,8 +399,9 @@ class Form extends React.Component {
    * @return {void}
    */
   resetIsDirty = () => {
-    this.isDirty = false;
-    this.setState({ isDirty: this.isDirty });
+    if (this.state.isDirty) {
+      this.setState({ isDirty: false });
+    };
   }
 
   addStickyFooterListeners = () => {
