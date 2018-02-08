@@ -659,11 +659,10 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
    */
   calculatePosition = () => {
     const inputBoundingRect = this._input.getBoundingClientRect();
-    this.listBlock.style.top = `${inputBoundingRect.y
-                                    + (inputBoundingRect.height)
-                                    + window.scrollY}px`;
-    this.listBlock.style.width = `${inputBoundingRect.width}px`;
-    this.listBlock.style.left = `${inputBoundingRect.x}px`;
+    const top = `${inputBoundingRect.y + (inputBoundingRect.height) + window.scrollY}px`;
+    const width = `${inputBoundingRect.width}px`;
+    const left = `${inputBoundingRect.x}px`;
+    this.listBlock.setAttribute('style', `left: ${left}; top: ${top}; width: ${width};`);
   }
 
   /**
