@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Browser from './../../utils/helpers/browser';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 import Events from './../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
+import Portal from './../portal';
 
+const window = Browser.getWindow();
 /**
  * A dropdown widget.
  *
@@ -324,6 +327,7 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
     if (this.blockFocus) {
       this.blockFocus = false;
     } else {
+      this.calculatePosition();
       this.setState({ open: true });
     }
   }
@@ -647,6 +651,19 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
 
     return results;
   }
+  /**
+   * positions the portal listBlock in relation to the input.
+   *
+   * @method calculatePosition
+   * @return {void}
+   */
+  calculatePosition = () => {
+    const inputBoundingRect = this._input.getBoundingClientRect();
+    const top = `${inputBoundingRect.y + (inputBoundingRect.height) + window.scrollY}px`;
+    const width = `${inputBoundingRect.width}px`;
+    const left = `${inputBoundingRect.x}px`;
+    this.listBlock.setAttribute('style', `left: ${left}; top: ${top}; width: ${width};`);
+  }
 
   /**
    * Extends the input content to include the input icon.
@@ -662,9 +679,11 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
     }
 
     content.push(
-      <div { ...this.listBlockProps } ref={ (node) => { this.listBlock = node; } }>
-        { this.listHTML }
-      </div>
+      <Portal onReposition={ this.calculatePosition }>
+        <div { ...this.listBlockProps } ref={ (node) => { this.listBlock = node; } }>
+          { this.listHTML }
+        </div>
+      </Portal>
     );
 
     return content;

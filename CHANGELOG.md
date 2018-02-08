@@ -6,9 +6,10 @@
 
 ## Portals
 
-* The Modal now uses the Portal Component
-* The Toast component now uses the Portal Component
-* Input Validation tooltips now use the Portal Component
+* Modal components now uses the Portal component
+* Input validation tooltips now use the Portal component
+* `Toast` component now uses the Portal component
+* `Dropdown` component now uses the Portal component
 
 ## Bug Fixes
 

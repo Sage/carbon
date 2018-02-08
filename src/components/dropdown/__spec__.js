@@ -1,11 +1,12 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import Dropdown from './dropdown';
+import { shallow, mount } from 'enzyme';
 import Immutable from 'immutable';
+import Dropdown from './dropdown';
 import Events from './../../utils/helpers/events';
-import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import ImmutableHelper from './../../utils/helpers/immutable';
+import Portal from './../portal';
 
 /* global jest */
 describe('Dropdown', () => {
@@ -13,7 +14,7 @@ describe('Dropdown', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Dropdown name="foo" options={ Immutable.fromJS([]) } value="1" />
+      <Dropdown name='foo' options={ Immutable.fromJS([]) } value='1' />
     );
   });
 
@@ -32,7 +33,7 @@ describe('Dropdown', () => {
   describe('componentWillReceiveProps', () => {
     describe('when cacheVisibleValue is false', () => {
       it('resets visibleValue', () => {
-        instance.visibleValue = "foobar";
+        instance.visibleValue = "exitfoobar";
         instance.componentWillReceiveProps({
           value: "2"
         });
@@ -921,9 +922,15 @@ describe('Dropdown', () => {
       });
     });
 
-    it('returns the list', () => {
-      let classes = 'carbon-dropdown__list-block carbon-dropdown__list-hidden';
-      expect(instance.additionalInputContent[1].props.className).toEqual(classes);
+    it('creates the list in a Portal', () => {
+      const wrapper = mount(
+        <Dropdown
+          name='foo'
+          options={ Immutable.fromJS([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]) } value='1'
+        />);
+
+      const portalDropdownList = wrapper.find(Portal).find('.carbon-dropdown__list');
+      expect(portalDropdownList).toMatchSnapshot();
     });
   });
 
