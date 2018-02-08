@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import I18n from 'i18n-js';
 import Serialize from 'form-serialize';
 import { kebabCase } from 'lodash';
 
@@ -449,8 +450,7 @@ class Form extends React.Component {
     let confirmationMessage = '';
     if (this.state.isDirty) {
       // Confirmation message is usually overridden by browsers with a similar message
-      confirmationMessage = 'Do you want to reload this site?'
-                              + 'Changes that you made may not be saved.';
+      confirmationMessage = I18n.t('form.save_prompt', { defaultValue: 'Do you want to reload this site? Changes that you made may not be saved.' });
       this._window.event.returnValue = confirmationMessage; // Gecko + IE
     }
     return confirmationMessage; // Gecko + Webkit, Safari, Chrome etc.
