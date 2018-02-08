@@ -929,7 +929,7 @@ describe('Dropdown', () => {
           options={ Immutable.fromJS([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]) } value='1'
         />);
 
-      const portalDropdownList = wrapper.find('.carbon-dropdown__list');
+      const portalDropdownList = wrapper.find(Portal).find('.carbon-dropdown__list');
       expect(portalDropdownList).toMatchSnapshot();
     });
   });

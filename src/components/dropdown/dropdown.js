@@ -325,10 +325,10 @@ class Dropdown extends React.Component {
    * @return {Void}
    */
   handleFocus = () => {
-    this.calculatePosition();
     if (this.blockFocus) {
       this.blockFocus = false;
     } else {
+      this.calculatePosition();
       this.setState({ open: true });
     }
   }
