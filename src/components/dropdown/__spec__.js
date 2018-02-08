@@ -928,12 +928,9 @@ describe('Dropdown', () => {
           name='foo'
           options={ Immutable.fromJS([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]) } value='1'
         />);
-      const portal = wrapper.find(Portal);
-      expect(portal.props().children.key).toEqual('listBlock');
 
-      const portalDropdownList = wrapper.find(Portal).props().children.props.children.props;
-      expect(portalDropdownList.className).toEqual('carbon-dropdown__list');
-      expect(portalDropdownList.children.length).toBe(2);
+      const portalDropdownList = wrapper.find(Portal).find('.carbon-dropdown__list');
+      expect(portalDropdownList).toMatchSnapshot();
     });
   });
 

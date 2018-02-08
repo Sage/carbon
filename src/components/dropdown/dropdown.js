@@ -327,6 +327,7 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
     if (this.blockFocus) {
       this.blockFocus = false;
     } else {
+      this.calculatePosition();
       this.setState({ open: true });
     }
   }
@@ -650,14 +651,18 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
 
     return results;
   }
-
-  positionOptions() {
-    if (this.dropDown) {
-      const input = this.dropDown.getElementsByClassName('carbon-dropdown__input common-input__input')[0];
-      this.listBlock.style.top = `${input.getBoundingClientRect().y + (input.getBoundingClientRect().height) + window.scrollY}px`;
-      this.listBlock.style.width = `${input.getBoundingClientRect().width}px`;
-      this.listBlock.style.left = `${input.getBoundingClientRect().x}px`;
-    }
+  /**
+   * positions the portal listBlock in relation to the input.
+   *
+   * @method calculatePosition
+   * @return {void}
+   */
+  calculatePosition = () => {
+    const inputBoundingRect = this._input.getBoundingClientRect();
+    const top = `${inputBoundingRect.y + (inputBoundingRect.height) + window.scrollY}px`;
+    const width = `${inputBoundingRect.width}px`;
+    const left = `${inputBoundingRect.x}px`;
+    this.listBlock.setAttribute('style', `left: ${left}; top: ${top}; width: ${width};`);
   }
 
   /**
@@ -674,14 +679,13 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
     }
 
     content.push(
-      <Portal onReposition={ () => { this.positionOptions(); } }>
+      <Portal onReposition={ this.calculatePosition }>
         <div { ...this.listBlockProps } ref={ (node) => { this.listBlock = node; } }>
-            { this.listHTML }
+          { this.listHTML }
         </div>
       </Portal>
     );
 
-    this.positionOptions();
     return content;
   }
 
@@ -730,9 +734,6 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
         className={ this.mainClasses }
         { ...this.componentTags(this.props) }
         data-state={ this.requestingState() }
-        ref={ (dropDown) => {
-          this.dropDown = dropDown;
-        } }
       >
         { this.labelHTML }
         { this.inputHTML }
