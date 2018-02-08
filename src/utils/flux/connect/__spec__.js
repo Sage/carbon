@@ -1,5 +1,5 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import Store from '../store';
 import connect from './connect';
 import { Dispatcher } from '../flux';
@@ -84,6 +84,17 @@ describe('connect', () => {
     const wrapper = mount(<ConnectedComponent mockProp />);
 
     expect(mapStateToProps).toHaveBeenCalledWith(testStore.getState(), wrapper.props());
+  });
+
+  it('props from mapStateToProps take precedence', () => {
+    const Presenter = () => null;
+    const mapStateToProps = props => ({ text: `modified ${props.text}` });
+    const ConnectedComponent = connect(mapStateToProps)(Presenter);
+    const wrapper = shallow(
+      <ConnectedComponent text={ 'sample text' } />
+    );
+
+    expect(wrapper.prop('text')).toBe('modified sample text');
   });
 
   it('sets the default component name for class based components', () => {

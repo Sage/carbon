@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Events from './../../utils/helpers/events';
 import Browser from './../../utils/helpers/browser';
+import Portal from './../../components/portal';
 
 const TIMEOUT = 500;
 /**
@@ -162,13 +163,8 @@ class Modal extends React.Component {
 
     if (this.props.open && !this.listening) {
       this.listening = true;
-      // TODO: try to remove this with React 16 upgrade with native Portals
-      // it was added as the Portal library we use messes up the callstack
-      // when assigning the ref and triggering componentDidUpdate
-      setTimeout(() => {
-        this.updateDataState();
-        this.onOpening; // eslint-disable-line no-unused-expressions
-      });
+      this.updateDataState();
+      this.onOpening; // eslint-disable-line no-unused-expressions
       _window.addEventListener('keyup', this.closeModal);
     } else if (!this.props.open && this.listening) {
       this.listening = false;
@@ -241,29 +237,30 @@ class Modal extends React.Component {
     }
 
     return (
-      <div
-        className={ this.mainClasses }
-        { ...this.componentTags(this.props) }
-        data-state={ this.state.state }
-      >
-        <CSSTransitionGroup
-          component='div'
-          transitionName={ this.transitionName }
-          transitionEnterTimeout={ TIMEOUT }
-          transitionLeaveTimeout={ TIMEOUT }
+      <Portal key='1' >
+        <div
+          className={ this.mainClasses }
+          { ...this.componentTags(this.props) }
+          data-state={ this.state.state }
         >
-          { modalHTML }
-        </CSSTransitionGroup>
-
-        <CSSTransitionGroup
-          component='div'
-          transitionName={ this.backgroundTransitionName }
-          transitionEnterTimeout={ TIMEOUT }
-          transitionLeaveTimeout={ TIMEOUT }
-        >
-          { backgroundHTML }
-        </CSSTransitionGroup>
-      </div>
+          <CSSTransitionGroup
+            component='div'
+            transitionName={ this.backgroundTransitionName }
+            transitionEnterTimeout={ TIMEOUT }
+            transitionLeaveTimeout={ TIMEOUT }
+          >
+            { backgroundHTML }
+          </CSSTransitionGroup>
+          <CSSTransitionGroup
+            component='div'
+            transitionName={ this.transitionName }
+            transitionEnterTimeout={ TIMEOUT }
+            transitionLeaveTimeout={ TIMEOUT }
+          >
+            { modalHTML }
+          </CSSTransitionGroup>
+        </div>
+      </Portal>
     );
   }
 }

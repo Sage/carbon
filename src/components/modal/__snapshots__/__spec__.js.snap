@@ -1,57 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Modal backgroundHTML when enableBackgroundUI is false renders children 1`] = `
-<div
-  className={null}
-  data-state="open"
+<Portal
+  key="1"
 >
-  <CSSTransitionGroup
-    component="div"
-    transitionAppear={false}
-    transitionEnter={true}
-    transitionEnterTimeout={500}
-    transitionLeave={true}
-    transitionLeaveTimeout={500}
-    transitionName="modal"
-  />
-  <CSSTransitionGroup
-    component="div"
-    transitionAppear={false}
-    transitionEnter={true}
-    transitionEnterTimeout={500}
-    transitionLeave={true}
-    transitionLeaveTimeout={500}
-    transitionName="modal-background"
+  <div
+    className={null}
+    data-state="open"
   >
-    <div
-      className="carbon-modal__background"
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={false}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal-background"
+    >
+      <div
+        className="carbon-modal__background"
+      />
+    </CSSTransitionGroup>
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={false}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal"
     />
-  </CSSTransitionGroup>
-</div>
+  </div>
+</Portal>
 `;
 
 exports[`Modal backgroundHTML when enableBackgroundUI is true renders children 1`] = `
-<div
-  className={null}
-  data-state="open"
+<Portal
+  key="1"
 >
-  <CSSTransitionGroup
-    component="div"
-    transitionAppear={false}
-    transitionEnter={true}
-    transitionEnterTimeout={500}
-    transitionLeave={true}
-    transitionLeaveTimeout={500}
-    transitionName="modal"
-  />
-  <CSSTransitionGroup
-    component="div"
-    transitionAppear={false}
-    transitionEnter={true}
-    transitionEnterTimeout={500}
-    transitionLeave={true}
-    transitionLeaveTimeout={500}
-    transitionName="modal-background"
-  />
-</div>
+  <div
+    className={null}
+    data-state="open"
+  >
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={false}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal-background"
+    />
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={false}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal"
+    />
+  </div>
+</Portal>
 `;
