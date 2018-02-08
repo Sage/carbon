@@ -447,7 +447,7 @@ class Form extends React.Component {
 
   checkIsFormDirty = () => {
     let confirmationMessage = '';
-    if (this.isDirty) {
+    if (this.state.isDirty) {
       // Confirmation message is usually overridden by browsers with a similar message
       confirmationMessage = 'Do you want to reload this site?'
                               + 'Changes that you made may not be saved.';
