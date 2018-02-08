@@ -652,7 +652,12 @@ class Dropdown extends React.Component {
 
     return results;
   }
-
+  /**
+   * positions the portal listBlock in relation to the input.
+   *
+   * @method calculatePosition
+   * @return {void}
+   */
   calculatePosition() {
     this.listBlock.style.top = `${this._input.getBoundingClientRect().y
                                     + (this._input.getBoundingClientRect().height)
