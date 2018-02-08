@@ -657,12 +657,13 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
    * @method calculatePosition
    * @return {void}
    */
-  calculatePosition() {
-    this.listBlock.style.top = `${this._input.getBoundingClientRect().y
-                                    + (this._input.getBoundingClientRect().height)
+  calculatePosition = () => {
+    const inputBoundingRect = this._input.getBoundingClientRect();
+    this.listBlock.style.top = `${inputBoundingRect.y
+                                    + (inputBoundingRect.height)
                                     + window.scrollY}px`;
-    this.listBlock.style.width = `${this._input.getBoundingClientRect().width}px`;
-    this.listBlock.style.left = `${this._input.getBoundingClientRect().x}px`;
+    this.listBlock.style.width = `${inputBoundingRect.width}px`;
+    this.listBlock.style.left = `${inputBoundingRect.x}px`;
   }
 
   /**
@@ -679,7 +680,7 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
     }
 
     content.push(
-      <Portal onReposition={ () => { this.calculatePosition(); } }>
+      <Portal onReposition={ this.calculatePosition }>
         <div { ...this.listBlockProps } ref={ (node) => { this.listBlock = node; } }>
           { this.listHTML }
         </div>
