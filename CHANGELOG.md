@@ -4,13 +4,11 @@
 
 * Input has 2 new props. `onChangeDeferred` allows a deferred callback after an onChange event. `deferTimeout` allows you to customise the default: `750`.
 
-## Modal Improvement
+## Portals
 
-The Modal now uses the Portal Component
-
-## InputValidation Improvement
-
-The InputValidation error tooltips now use the Portal Component
+* The Modal now uses the Portal Component
+* The Toast component now uses the Portal Component
+* Input Validation tooltips now use the Portal Component
 
 ## Bug Fixes
 
