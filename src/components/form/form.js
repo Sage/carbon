@@ -351,8 +351,8 @@ class Form extends React.Component {
   componentWillUnmount() {
     if (this.props.stickyFooter) {
       this.removeStickyFooterListeners();
-      this.removeSavePromptListener();
     }
+    this.removeSavePromptListener();
   }
 
   /**
