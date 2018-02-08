@@ -536,6 +536,7 @@ class Form extends React.Component {
     const valid = this.validate();
 
     if (!valid) {
+      this.setState({ submitted: false });
       ev.preventDefault();
     }
 
@@ -545,8 +546,6 @@ class Form extends React.Component {
 
     if (valid && this.props.onSubmit) {
       this.props.onSubmit(ev, valid, this.enableForm);
-    } else {
-      this.setState({ submitted: false });
     }
   }
 
