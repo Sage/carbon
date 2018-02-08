@@ -371,7 +371,7 @@ describe('Form', () => {
         const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
 
-        const enableFormFunc = spy.calls.first().args[1];
+        const enableFormFunc = spy.calls.first().args[2];
         expect(enableFormFunc).toBe(instance.enableForm);
 
         enableFormFunc();
@@ -406,7 +406,7 @@ describe('Form', () => {
 
           const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
           TestUtils.Simulate.submit(form);
-          expect(spy).toHaveBeenCalledWith(jasmine.any(Object), instance.enableForm);
+          expect(spy).toHaveBeenCalledWith(jasmine.any(Object), true, instance.enableForm);
         });
       });
 
