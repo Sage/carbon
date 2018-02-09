@@ -1,3 +1,9 @@
+# 3.2.0
+
+## Improvements
+
+* Form has 1 new prop. `savePrompt` allows a confirmation popup to appear when the user attempts to navigate away from a form they have edited but not saved. True by default.
+
 # 3.1.0
 
 ## Improvements
