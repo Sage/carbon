@@ -111,6 +111,15 @@ class Form extends React.Component {
     validateOnMount: PropTypes.bool,
 
     /**
+     * If true, will disable the savebutton when clicked
+     *
+     * @property autoDisable
+     * @type {Boolean}
+     * @default false
+     */
+    autoDisable: PropTypes.bool,
+
+    /**
      * Text for the cancel button
      *
      * @property cancelText
@@ -265,7 +274,15 @@ class Form extends React.Component {
      * @property warningCount
      * @type {Number}
      */
-    warningCount: 0
+    warningCount: 0,
+
+    /**
+     * Tracks if the saveButton should be disabled
+     *
+     * @property saveDisabled
+     * @type {Boolean}
+     */
+    submitted: false
   }
 
   /**
@@ -508,21 +525,38 @@ class Form extends React.Component {
    * @return {void}
    */
   handleOnSubmit = (ev) => {
+    if (this.props.autoDisable) {
+      this.setState({ submitted: true });
+    }
+
     if (this.props.beforeFormValidation) {
       this.props.beforeFormValidation(ev);
     }
 
     const valid = this.validate();
 
-    if (!valid) { ev.preventDefault(); }
+    if (!valid) {
+      this.setState({ submitted: false });
+      ev.preventDefault();
+    }
 
     if (this.props.afterFormValidation) {
-      this.props.afterFormValidation(ev, valid);
+      this.props.afterFormValidation(ev, valid, this.enableForm);
     }
 
     if (valid && this.props.onSubmit) {
-      this.props.onSubmit(ev);
+      this.props.onSubmit(ev, valid, this.enableForm);
     }
+  }
+
+  /**
+   * enables a form which has been disabled after being submitted.
+   *
+   * @method enableForm
+   * @return {void}
+   */
+  enableForm = () => {
+    this.setState({ submitted: false });
   }
 
   /**
@@ -644,7 +678,7 @@ class Form extends React.Component {
       <SaveButton
         saveButtonProps={ this.props.saveButtonProps }
         saveText={ this.props.saveText }
-        saving={ this.props.saving }
+        saving={ this.props.saving || this.state.submitted }
       />
     );
   }
