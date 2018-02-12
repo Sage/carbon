@@ -6,6 +6,28 @@
 
 # 3.1.0
 
+## AutoDisabling form
+
+Form autoDisables after submit when the prop `autoDisable` is set to true. The props `afterFormValidation` and `onSubmit` are passed a `enableForm` callback function which can be used to reactivate the form.
+
+### Example Code
+  ``` 
+  <Form
+    onSubmit={ this.saveContact }
+    autoDisable
+  >
+    {children} 
+  </Form>
+  ```
+  
+  ``` 
+  saveContact = (ev, valid, enableForm) => {
+    ...
+    Actions.submitForm(...);
+    enableForm();
+  };
+  ```
+
 ## Improvements
 
 * Input has 2 new props. `onChangeDeferred` allows a deferred callback after an onChange event. `deferTimeout` allows you to customise the default: `750`.
