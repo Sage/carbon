@@ -53,6 +53,7 @@ When submitting a pull request, please ensure your branch meets the following cr
 * The code is fully tested and has full coverage.
 * The code follows our coding guidelines (TBC).
 * The code does not introduce unnecessary dependencies (no jQuery!).
+* Ensure descriptive change log file is added to change/next.
 
 To be merged, we prefer the pull request to be reviewed by at least two people with merge rights.
 

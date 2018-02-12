@@ -58,6 +58,16 @@ To run the example, do the following steps:
 
 See the guide on [installing unreleased changes](https://github.com/Sage/carbon/blob/master/docs/guides/installing-unreleased-changes.md)
 
+## Adding Release Notes
+
+* Add a new file to changelog/next e.g. /changelog/next/my-file.yml
+* Update the appropriate heading in the style shown below and delete other titles
+```
+Component Changes: "Modal: The Modal now uses the Portal Component"
+```
+* For more formatting options see https://github.com/DDAZZA/renogen
+* This file will be used to generate the change log on release of the 'next' version
+
 ## Submitting a Release
 
 * N.B. Releases are created by Sage Carbon Team. We use [semantic versioning](http://semver.org/)
@@ -65,7 +75,7 @@ See the guide on [installing unreleased changes](https://github.com/Sage/carbon/
 * If releasing a minor version, create a branch from `master`.
 * If releasing a patch version, create a branch from the tag you want to patch. This should be the latest tag apart from exceptional circumstances.
 * Bump the version in `package.json`.
-* Ensure the `CHANGELOG.md` is up to date.
+* Generate Release Notes using the provided script `./script/generate_release_notes.sh 1.2.3`
 * Commit and push changes.
 * If releasing a minor version, open a PR to `master`.
 * If releasing a patch version, open a PR to `release`.
