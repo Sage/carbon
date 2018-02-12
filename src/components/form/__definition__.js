@@ -71,7 +71,6 @@ let definition = new Definition('form', Form, {
     cancelText: '',
     children: `<Textbox
     label="Name"
-    labelInline="true"
     validations={[ new PresenceValidation() ]}
     />`,
     saveText: ''
