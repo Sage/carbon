@@ -44,7 +44,7 @@ let definition = new Definition('form', Form, {
     onSubmit: "Function",
     iterative: "Boolean",
     summary: "Boolean",
-    savePrompt: "Boolean"
+    unsavedWarning: "Boolean"
   },
   propDescriptions: {
     autoDisable: "Set to true to disable the save button once the form has been submitted",
@@ -67,7 +67,7 @@ let definition = new Definition('form', Form, {
     onSubmit: "A callback triggered when the form is submitted with passing validation.",
     iterative: "A flag for when the user should be able to repeatedly save & re-use a form.",
     summary: "Set to false to hide the summary",
-    savePrompt: "Warning popup shown when trying to navigate away from an edited form if true"
+    unsavedWarning: "Warning popup shown when trying to navigate away from an edited form if true"
   },
   propValues: {
     cancelText: '',

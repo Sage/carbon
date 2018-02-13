@@ -47,11 +47,11 @@ class Form extends React.Component {
      * Warning popup shown when trying to navigate away from an edited
      * form if true
      *
-     * @property savePrompt
+     * @property unsavedWarning
      * @type {Boolean}
      * @default true
      */
-    savePrompt: PropTypes.bool,
+    unsavedWarning: PropTypes.bool,
 
     /**
      * Cancel button is shown if true
@@ -248,7 +248,7 @@ class Form extends React.Component {
   static defaultProps = {
     buttonAlign: 'right',
     cancel: true,
-    savePrompt: true,
+    unsavedWarning: true,
     save: true,
     saving: false,
     validateOnMount: false,
@@ -289,7 +289,7 @@ class Form extends React.Component {
     warningCount: 0,
 
     /**
-     * Tracks if the form is clean or dirty, used by savePrompt
+     * Tracks if the form is clean or dirty, used by unsavedWarning
      *
      * @property isDirty
      * @type {Boolean}
@@ -346,8 +346,8 @@ class Form extends React.Component {
       this.validate();
     }
 
-    if (this.props.savePrompt) {
-      this.addSavePromptListener();
+    if (this.props.unsavedWarning) {
+      this.addUnsavedWarningListener();
     }
   }
 
@@ -360,10 +360,10 @@ class Form extends React.Component {
       this.removeStickyFooterListeners();
     }
 
-    if (nextProps.savePrompt) {
-      this.addSavePromptListener();
+    if (nextProps.unsavedWarning) {
+      this.addUnsavedWarningListener();
     } else {
-      this.removeSavePromptListener();
+      this.removeUnsavedWarningListener();
     }
   }
 
@@ -372,7 +372,7 @@ class Form extends React.Component {
       this.removeStickyFooterListeners();
     }
     this.checkIsFormDirty(this._window.event);
-    this.removeSavePromptListener();
+    this.removeUnsavedWarningListener();
   }
 
   /**
@@ -457,11 +457,11 @@ class Form extends React.Component {
     }
   }
 
-  addSavePromptListener = () => {
+  addUnsavedWarningListener = () => {
     this._window.addEventListener('beforeunload', this.checkIsFormDirty);
   }
 
-  removeSavePromptListener = () => {
+  removeUnsavedWarningListener = () => {
     this._window.removeEventListener('beforeunload', this.checkIsFormDirty);
   }
 
