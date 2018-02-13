@@ -371,6 +371,7 @@ class Form extends React.Component {
     if (this.props.stickyFooter) {
       this.removeStickyFooterListeners();
     }
+    this.checkIsFormDirty(this._window.event);
     this.removeSavePromptListener();
   }
 
