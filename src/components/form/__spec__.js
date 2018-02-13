@@ -55,21 +55,21 @@ describe('Form', () => {
       });
     });
 
-    describe('when savePrompt is enabled', () => {
+    describe('when unsavedWarning is enabled', () => {
       it('adds the listeners', () => {
-        wrapper = shallow(<Form savePrompt={ false } />);
-        spyOn(wrapper.instance(), 'addSavePromptListener');
-        wrapper.setProps({ savePrompt: true });
-        expect(wrapper.instance().addSavePromptListener).toHaveBeenCalled();
+        wrapper = shallow(<Form unsavedWarning={ false } />);
+        spyOn(wrapper.instance(), 'addUnsavedWarningListener');
+        wrapper.setProps({ unsavedWarning: true });
+        expect(wrapper.instance().addUnsavedWarningListener).toHaveBeenCalled();
       });
     });
 
-    describe('when savePrompt is disabled', () => {
+    describe('when unsavedWarning is disabled', () => {
       it('removes the listeners', () => {
-        wrapper = shallow(<Form savePrompt={ true } />);
-        spyOn(wrapper.instance(), 'removeSavePromptListener');
-        wrapper.setProps({ savePrompt: false });
-        expect(wrapper.instance().removeSavePromptListener).toHaveBeenCalled();
+        wrapper = shallow(<Form unsavedWarning={ true } />);
+        spyOn(wrapper.instance(), 'removeUnsavedWarningListener');
+        wrapper.setProps({ unsavedWarning: false });
+        expect(wrapper.instance().removeUnsavedWarningListener).toHaveBeenCalled();
       });
     });
   });

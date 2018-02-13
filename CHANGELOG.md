@@ -2,7 +2,7 @@
 
 ## Improvements
 
-* Form has 1 new prop. `savePrompt` allows a confirmation popup to appear when the user attempts to navigate away from a form they have edited but not saved. True by default.
+* Form has 1 new prop. `unsavedWarning` allows a confirmation popup to appear when the user attempts to navigate away from a form they have edited but not saved. True by default.
 
 # 3.1.0
 
@@ -11,16 +11,16 @@
 Form autoDisables after submit when the prop `autoDisable` is set to true. The props `afterFormValidation` and `onSubmit` are passed a `enableForm` callback function which can be used to reactivate the form.
 
 ### Example Code
-  ``` 
+  ```
   <Form
     onSubmit={ this.saveContact }
     autoDisable
   >
-    {children} 
+    {children}
   </Form>
   ```
-  
-  ``` 
+
+  ```
   saveContact = (ev, valid, enableForm) => {
     ...
     Actions.submitForm(...);
