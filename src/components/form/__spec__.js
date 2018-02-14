@@ -344,7 +344,7 @@ describe('Form', () => {
   describe("checkIsFormDirty", () => {
     it("if form is dirty, return a message and trigger a popup", () => {
       instance.setIsDirty();
-      expect(instance.checkIsFormDirty(Event)).toEqual(I18n.t('form.save_prompt', { defaultValue: 'Do you want to reload this site? Changes that you made may not be saved.' }));
+      expect(instance.checkIsFormDirty(Event)).toEqual(I18n.t('form.save_prompt', { defaultValue: 'Do you want to leave this page? Changes that you made may not be saved.' }));
     });
 
     it("if form is clean, return an empty string", () => {
