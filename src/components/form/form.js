@@ -470,7 +470,7 @@ class Form extends React.Component {
     if (this.state.isDirty) {
       // Confirmation message is usually overridden by browsers with a similar message
       confirmationMessage = I18n.t('form.save_prompt',
-        { defaultValue: 'Do you want to reload this site? Changes that you made may not be saved.' });
+        { defaultValue: 'Do you want to leave this page? Changes that you made may not be saved.' });
       ev.returnValue = confirmationMessage; // Gecko + IE
     }
     return confirmationMessage; // Gecko + Webkit, Safari, Chrome etc.
