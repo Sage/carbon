@@ -360,9 +360,11 @@ class Form extends React.Component {
       this.removeStickyFooterListeners();
     }
 
-    if (nextProps.unsavedWarning) {
+    if (nextProps.unsavedWarning && !this.props.unsavedWarning) {
       this.addUnsavedWarningListener();
-    } else {
+    }
+
+    if (!nextProps.unsavedWarning && this.props.unsavedWarning) {
       this.removeUnsavedWarningListener();
     }
   }
@@ -371,8 +373,10 @@ class Form extends React.Component {
     if (this.props.stickyFooter) {
       this.removeStickyFooterListeners();
     }
-    this.checkIsFormDirty(this._window.event);
-    this.removeUnsavedWarningListener();
+
+    if (this.props.unsavedWarning) {
+      this.removeUnsavedWarningListener();
+    }
   }
 
   /**

@@ -112,6 +112,20 @@ describe('Form', () => {
       wrapper.instance().componentWillUnmount();
       expect(wrapper.instance().removeStickyFooterListeners).toHaveBeenCalled();
     });
+
+    it('does not remove unsaved warning listeners if not enabled', () => {
+      wrapper = shallow(<Form unsavedWarning= { false } />);
+      spyOn(wrapper.instance(), 'removeUnsavedWarningListener');
+      wrapper.instance().componentWillUnmount();
+      expect(wrapper.instance().removeUnsavedWarningListener).not.toHaveBeenCalled();
+    });
+
+    it('removes unsaved warning listeners if enabled', () => {
+      wrapper = shallow(<Form unsavedWarning />);
+      spyOn(wrapper.instance(), 'removeUnsavedWarningListener');
+      wrapper.instance().componentWillUnmount();
+      expect(wrapper.instance().removeUnsavedWarningListener).toHaveBeenCalled();
+    });
   });
 
   describe('addStickyFooterListeners', () => {
