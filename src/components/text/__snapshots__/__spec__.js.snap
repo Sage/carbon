@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Text when invisible will mount correctly on document 1`] = `
+<Text
+  className=""
+  isVisible={false}
+  preloading={false}
+/>
+`;
+
+exports[`Text when preloading will mount correctly on document 1`] = `
+<Text
+  className=""
+  isVisible={true}
+  preloading={true}
+>
+  <div
+    className="carbon-text carbon-text--preloading"
+  >
+    This is some text
+  </div>
+</Text>
+`;
+
+exports[`Text when using default node will mount correctly on document 1`] = `
+<Text
+  className=""
+  isVisible={true}
+  preloading={false}
+>
+  <div
+    className="carbon-text"
+  >
+    This is some text
+  </div>
+</Text>
+`;

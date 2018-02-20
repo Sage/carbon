@@ -1,0 +1,11 @@
+.carbon-text {
+  font-size: 1.2rem;
+  color: #FFFFFF;
+
+  &--preloading {
+    opacity: 0.1;
+    height: 13px;
+    width: 100%;
+    background: #CCCCCC
+  }
+}
