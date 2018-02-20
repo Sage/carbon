@@ -5,16 +5,16 @@
 Form autoDisables after submit when the prop `autoDisable` is set to true. The props `afterFormValidation` and `onSubmit` are passed a `enableForm` callback function which can be used to reactivate the form.
 
 ### Example Code
-  ``` 
+  ```
   <Form
     onSubmit={ this.saveContact }
     autoDisable
   >
-    {children} 
+    {children}
   </Form>
   ```
-  
-  ``` 
+
+  ```
   saveContact = (ev, valid, enableForm) => {
     ...
     Actions.submitForm(...);
@@ -36,6 +36,7 @@ Form autoDisables after submit when the prop `autoDisable` is set to true. The p
 ## Bug Fixes
 
 * `mapToProps` takes precedence over props passed to HOC in `connect` function.
+* `inputs` border-color change `:hover` is now applied to input rather than input container
 
 ## Changes
 
