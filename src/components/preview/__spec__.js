@@ -1,35 +1,34 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import ReactDOM from 'react-dom';
-import Text from './text';
+import Preview from './preview';
+import Detail from './../detail';
 
-describe('Text', () => {
+describe('Preview', () => {
   let wrapper;
   let children="This is some text";
   describe('when using default node', () => {  
     beforeEach(() => {
       wrapper = mount(
-        <Text>
-          {children}
-        </Text>
+        <Detail icon="analysis">
+          <Preview>
+            {children}
+          </Preview>
+        </Detail>
       );
     });
 
     it('will mount correctly on document', () => {
       expect(wrapper).toMatchSnapshot();
     });
-
-    it('should NOT be preloading', () => {
-      expect(wrapper.find('.carbon-text--preloading').length).toBe(0);
-    });
   });
 
   describe('when invisible', () => {
     beforeEach(() => {
       wrapper = mount(
-        <Text isVisible={ false }>
+        <Preview isVisible={ false }>
           {children}
-        </Text>
+        </Preview>
       );
     });
 
@@ -42,13 +41,13 @@ describe('Text', () => {
     });
   });
 
-  describe('when preloading', () => {
+  describe('when has not children', () => {
     let wrapper;
     beforeEach(() => {
       wrapper = mount(
-        <Text preloading>
-          {children}
-        </Text>
+        <Detail icon="analysis">
+          <Preview></Preview>
+        </Detail>
       );
     });
 
@@ -56,8 +55,8 @@ describe('Text', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('should be preloading', () => {
-      expect(wrapper.find('.carbon-text--preloading').length).toBe(1);
+    it('should be have placeholder', () => {
+      expect(wrapper.find('.carbon-preview--placeholder').length).toBe(1);
     });
   });
 });

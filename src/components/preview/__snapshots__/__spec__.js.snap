@@ -1,0 +1,86 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Preview when has not children will mount correctly on document 1`] = `
+<Detail
+  icon="analysis"
+>
+  <div
+    className="carbon-detail carbon-detail--has-icon"
+    data-component="detail"
+  >
+    <Icon
+      bgSize="small"
+      className="carbon-detail__icon"
+      data-element="icon"
+      type="analysis"
+    >
+      <span
+        className="carbon-icon carbon-detail__icon icon-analysis"
+        data-component="icon"
+        data-element="icon"
+        key="icon"
+        type="analysis"
+      />
+    </Icon>
+    <div
+      className="carbon-detail__content"
+    >
+      <Preview
+        className=""
+        isVisible={true}
+      >
+        <div
+          className="carbon-preview carbon-preview--placeholder"
+        />
+      </Preview>
+    </div>
+  </div>
+</Detail>
+`;
+
+exports[`Preview when invisible will mount correctly on document 1`] = `
+<Preview
+  className=""
+  isVisible={false}
+/>
+`;
+
+exports[`Preview when using default node will mount correctly on document 1`] = `
+<Detail
+  icon="analysis"
+>
+  <div
+    className="carbon-detail carbon-detail--has-icon"
+    data-component="detail"
+  >
+    <Icon
+      bgSize="small"
+      className="carbon-detail__icon"
+      data-element="icon"
+      type="analysis"
+    >
+      <span
+        className="carbon-icon carbon-detail__icon icon-analysis"
+        data-component="icon"
+        data-element="icon"
+        key="icon"
+        type="analysis"
+      />
+    </Icon>
+    <div
+      className="carbon-detail__content"
+    >
+      <Preview
+        className=""
+        isVisible={true}
+      >
+        <div
+          className="carbon-preview"
+        >
+          This is some text
+        </div>
+      </Preview>
+    </div>
+  </div>
+</Detail>
+`;

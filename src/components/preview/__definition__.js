@@ -1,6 +1,6 @@
-import Text from './';
+import Preview from './';
 
-let definition = new Definition('text', Text, {
+let definition = new Definition('preview', Preview, {
   description: `allows extra functionality over a basic div.`,
   designerNotes: `
 * Use placeholder text to give the user context or examples of what to write.
@@ -11,22 +11,19 @@ let definition = new Definition('text', Text, {
   ],
   propValues: {
     children: "I'm a some text that can display some information.",
-    isVisible: true,
-    preloading: true
+    isVisible: true
   },
   propTypes: {
     children: 'Node',
     className: 'String',
     id: 'String',
-    isVisible: 'Boolean',
-    preloading: 'Boolean'
+    isVisible: 'Boolean'
   },
   propDescriptions: {
     children: 'Child content to render in the text.',
     className: 'Classes to be applied to the component.',
-    id: 'The id attribute to apply to the text',
-    isVisible: 'Whether to show or hide the text and children. Use this with a handler to hide and show the text and children',
-    preloading: 'Whether to show or hide the carbon-text--preloading css. '
+    id: 'The id attribute to apply to the Preview',
+    isVisible: 'Whether to show or hide the Preview and children. Use this with a handler to hide and show the Preview and children'
   }
 });
 

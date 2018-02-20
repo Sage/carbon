@@ -3,28 +3,26 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 /**
-* A Text widget.
+* A Preview widget.
 *
-* == How to use a Text in a component:
+* == How to use a Preview in a component:
 *
 * In your file:
 *
-*   import Text from 'carbon/lib/components/text'
+*   import Preview from 'carbon/lib/components/preview'
 *
-* To render the Text:
+* To render the Preview:
 *
-*   <Text preloading={ true }>
+*   <Preview>
 *     My text content
-*   </Text>
+*   </Preview>
 *
 *
-* You can pass a prop of 'preloading' to the component which shifts the alignment of the pointer.
-* This defaults to 'false'.
 *
 * @class Text
 * @constructor
 */
-class Text extends React.Component {
+class Preview extends React.Component {
   static propTypes = {
     /**
      * Custom className
@@ -56,21 +54,12 @@ class Text extends React.Component {
      * @property id
      * @type {String}
      */
-    isVisible: PropTypes.bool,
-
-    /**
-     * The preloading  to use for the text
-     *
-     * @property preloading
-     * @type {Boolean}
-     */
-    preloading: PropTypes.bool
+    isVisible: PropTypes.bool
   };
 
   static defaultProps = {
     className: '',
-    isVisible: true,
-    preloading: false
+    isVisible: true
   };
 
   /**
@@ -81,8 +70,8 @@ class Text extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'carbon-text',
-      { 'carbon-text--preloading': this.props.preloading },
+      'carbon-preview',
+      { 'carbon-preview--placeholder': !this.props.children },
       this.props.className
     );
   }
@@ -98,4 +87,4 @@ class Text extends React.Component {
   }
 }
 
-export default Text;
+export default Preview;
