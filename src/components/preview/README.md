@@ -21,6 +21,7 @@
 | Name              | Required       | Type           | Default       | Description           |
 | ----------------- |  ------------- |  ------------- | ------------- | --------------------- |
 | `isVisible`     | `false`        | `Boolean`       |  'false'      | toggle tooltip hide/show  |
+| `children`     | `false`        | `Node`       |  'null'      |   toggle whether a placeholder for content is shown |
 
 
 
