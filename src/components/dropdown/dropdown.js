@@ -327,7 +327,6 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
     if (this.blockFocus) {
       this.blockFocus = false;
     } else {
-      this.calculatePosition();
       this.setState({ open: true });
     }
   }
@@ -678,13 +677,15 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
       content.push(this.inputIconHTML('dropdown'));
     }
 
-    content.push(
-      <Portal onReposition={ this.calculatePosition }>
-        <div { ...this.listBlockProps } ref={ (node) => { this.listBlock = node; } }>
-          { this.listHTML }
-        </div>
-      </Portal>
-    );
+    if (this.state.open) {
+      content.push(
+        <Portal onReposition={ this.calculatePosition }>
+          <div { ...this.listBlockProps } ref={ (node) => { this.listBlock = node; } }>
+            { this.listHTML }
+          </div>
+        </Portal>
+      );
+    }
 
     return content;
   }
