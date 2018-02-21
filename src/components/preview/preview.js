@@ -2,91 +2,55 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-/**
-* A Preview widget.
-*
-* == How to use a Preview in a component:
-*
-* In your file:
-*
-*   import Preview from 'carbon/lib/components/preview'
-*
-* To render the Preview:
-*
-*   <Preview>
-*     My text content
-*   </Preview>
-*
-*
-*
-* @class Text
-* @constructor
-*/
-class Preview extends React.Component {
-  static propTypes = {
-    /**
-     * Custom className
-     *
-     * @property className
-     * @type {String}
-     */
-    className: PropTypes.string,
+function Preview (props) {
+  const isLoading = (() => {
+    if (typeof props.loading !== 'undefined') {
+      return props.loading;
+    }
+    return !props.children;
+  })();
 
-    /**
-     * Children elements
-     *
-     * @property children
-     * @type {Node}
-     */
-    children: PropTypes.node,
-
-    /**
-     * The bool attribute to use for the text
-     *
-     * @property id
-     * @type {Boolean}
-     */
-    loading: PropTypes.bool
-  };
-
-  static defaultProps = {
-    className: ''
-  };
-
-  /**
-   * Main classes
-   *
-   * @method mainClasses
-   * @return {String} classNames for text
-   */
-  get mainClasses() {
+  const mainClasses = (() => {
     return classNames(
       'carbon-preview',
-      { 'carbon-preview--placeholder': this.isLoading },
-      this.props.className
+      { 'carbon-preview--placeholder': isLoading },
+      props.className
     );
-  }
+  })();
 
-  get isLoading () {
-    if (typeof this.props.loading !== 'undefined') {
-      return this.props.loading;
-    }
-
-    return !this.props.children;
-  }
-
-  /**
-   * Renders the component.
-   *
-   * @method render
-   */
-  render() {
-    return (
-      <div className={ this.mainClasses }>
-        { this.props.children }
-      </div>
-    );
-  }
+  return (
+    <div className={ mainClasses }>
+      { props.children }
+    </div>
+  );
 }
+
+Preview.propTypes = {
+  /**
+  * Children elements
+  *
+  * @property children
+  * @type {Node}
+  */
+  children: PropTypes.node,
+  /**
+  * Custom className
+  *
+  * @property className
+  * @type {String}
+  */
+  className: PropTypes.string,
+  /**
+  * Custom loading
+  *
+  * @property loading
+  * @type {Boolean}
+  */
+  loading: PropTypes.bool
+};
+
+Preview.defaultProps = {
+  className: ''
+};
 
 export default Preview;
