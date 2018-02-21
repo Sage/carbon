@@ -2,7 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-function Preview (props) {
+const componentTags = (props) => {
+  return {
+    'data-component': 'preview',
+    'data-element': props['data-element'],
+    'data-role': props['data-role']
+  };
+};
+
+const Preview = (props) => {
   const isLoading = (() => {
     if (typeof props.loading !== 'undefined') {
       return props.loading;
@@ -19,7 +27,7 @@ function Preview (props) {
   })();
 
   return (
-    <div className={ mainClasses }>
+    <div className={ mainClasses } { ...componentTags(props) }>
       { props.children }
     </div>
   );
@@ -51,14 +59,6 @@ Preview.propTypes = {
 
 Preview.defaultProps = {
   className: ''
-};
-
-Preview.componentTags = function(props) {
-  return {
-    'data-component': 'preview',
-    'data-element': props['data-element'],
-    'data-role': props['data-role']
-  };
 };
 
 export default Preview;

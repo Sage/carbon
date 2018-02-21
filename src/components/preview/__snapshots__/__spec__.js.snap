@@ -31,6 +31,7 @@ exports[`Preview when has loading prop will mount correctly on document 1`] = `
       >
         <div
           className="carbon-preview carbon-preview--placeholder"
+          data-component="preview"
         />
       </Preview>
     </div>
@@ -68,6 +69,7 @@ exports[`Preview when has not children will mount correctly on document 1`] = `
       >
         <div
           className="carbon-preview carbon-preview--placeholder"
+          data-component="preview"
         />
       </Preview>
     </div>
@@ -105,6 +107,7 @@ exports[`Preview when using default node will mount correctly on document 1`] = 
       >
         <div
           className="carbon-preview"
+          data-component="preview"
         >
           This is some text
         </div>
