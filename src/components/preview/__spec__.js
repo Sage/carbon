@@ -23,24 +23,6 @@ describe('Preview', () => {
     });
   });
 
-  describe('when invisible', () => {
-    beforeEach(() => {
-      wrapper = mount(
-        <Preview isVisible={ false }>
-          {children}
-        </Preview>
-      );
-    });
-
-    it('will mount correctly on document', () => {
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('will not render children', () => {
-      expect(wrapper.html()).toBe(null);
-    });
-  });
-
   describe('when has not children', () => {
     let wrapper;
     beforeEach(() => {

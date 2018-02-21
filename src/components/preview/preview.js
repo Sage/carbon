@@ -41,25 +41,16 @@ class Preview extends React.Component {
     children: PropTypes.node,
 
     /**
-     * The id attribute to use for the text
+     * The bool attribute to use for the text
      *
      * @property id
-     * @type {String}
+     * @type {Boolean}
      */
-    id: PropTypes.string,
-
-    /**
-     * The isVisible attribute to use for the text
-     *
-     * @property id
-     * @type {String}
-     */
-    isVisible: PropTypes.bool
+    loading: PropTypes.bool
   };
 
   static defaultProps = {
-    className: '',
-    isVisible: true
+    className: ''
   };
 
   /**
@@ -71,9 +62,17 @@ class Preview extends React.Component {
   get mainClasses() {
     return classNames(
       'carbon-preview',
-      { 'carbon-preview--placeholder': !this.props.children },
+      { 'carbon-preview--placeholder': this.isLoading },
       this.props.className
     );
+  }
+
+  get isLoading () {
+    if (typeof this.props.loading !== 'undefined') {
+      return this.props.loading;
+    }
+
+    return !this.props.children;
   }
 
   /**
@@ -82,8 +81,11 @@ class Preview extends React.Component {
    * @method render
    */
   render() {
-    if (!this.props.isVisible) { return null; }
-    return (<div id={ this.props.id } className={ this.mainClasses }>{ this.props.children }</div>);
+    return (
+      <div className={ this.mainClasses }>
+        { this.props.children }
+      </div>
+    );
   }
 }
 
