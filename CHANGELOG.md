@@ -2,7 +2,7 @@
 
 ## Improvements
 
-* Form has 1 new prop. `unsavedWarning` allows a confirmation popup to appear when the user attempts to navigate away from a form they have edited but not saved. True by default.
+* Form has 1 new prop. `unsavedWarning` allows a confirmation popup to appear when the user attempts to navigate away from a form they have edited but not saved. True by default. Does not trigger on React Router page transitions. Does not consistantly trigger with browser back/forwards actions. To be reviewed when react-router is upgraded to v4 to use Prompts.
 
 # 3.1.0
 
