@@ -31,7 +31,7 @@ const Preview = (props) => {
       { props.children }
     </div>
   );
-}
+};
 
 Preview.propTypes = {
   /**
