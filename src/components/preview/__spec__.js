@@ -41,4 +41,23 @@ describe('Preview', () => {
       expect(wrapper.find('.carbon-preview--placeholder').length).toBe(1);
     });
   });
+
+  describe('when has loading prop', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = mount(
+        <Detail icon="analysis">
+          <Preview loading></Preview>
+        </Detail>
+      );
+    });
+
+    it('will mount correctly on document', () => {
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('should be have placeholder', () => {
+      expect(wrapper.find('.carbon-preview--placeholder').length).toBe(1);
+    });
+  });
 });
