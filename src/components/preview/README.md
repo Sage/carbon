@@ -11,17 +11,14 @@
 ```
   <Detail>
    <Preview>
-     { this.props.children }
+     { children }
    </Preview>
   </Detail>
 ```
 
-* The 'isVisible' boolean prop determines whether or not to render the text and children. 
-
-| Name              | Required       | Type           | Default       | Description           |
-| ----------------- |  ------------- |  ------------- | ------------- | --------------------- |
-| `isVisible`     | `false`        | `Boolean`       |  'false'      | toggle tooltip hide/show  |
-| `children`     | `false`        | `Node`       |  'null'      |   toggle whether a placeholder for content is shown |
+| Name              | Required        | Type            | Default       | Description                                       |
+| ----------------- |  -------------  |  -------------- | ------------- | ------------------------------------------------- |
+| `children`        | `false`         | `Node`          | 'null'        | toggle whether a placeholder for content is shown |
 
 
 

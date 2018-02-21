@@ -1,5 +1,29 @@
 # 3.1.0
 
+## Preview Component
+
+Preview adds a css shimer animation as a placeholder if no children are given or the loading prop is true.
+
+### Example Code
+
+```
+  //no children
+  <Detail>
+   <Preview>
+     { null }
+   </Preview>
+  </Detail>
+```
+
+```
+  //loading prop
+  <Detail>
+   <Preview loading>
+     { children }
+   </Preview>
+  </Detail>
+```
+
 ## AutoDisabling form
 
 Form autoDisables after submit when the prop `autoDisable` is set to true. The props `afterFormValidation` and `onSubmit` are passed a `enableForm` callback function which can be used to reactivate the form.

@@ -53,4 +53,12 @@ Preview.defaultProps = {
   className: ''
 };
 
+Preview.componentTags = function(props) {
+  return {
+    'data-component': 'preview',
+    'data-element': props['data-element'],
+    'data-role': props['data-role']
+  };
+};
+
 export default Preview;
