@@ -16,9 +16,10 @@
   </Detail>
 ```
 
-| Name              | Required        | Type            | Default       | Description                                       |
-| ----------------- |  -------------  |  -------------- | ------------- | ------------------------------------------------- |
-| `children`        | `false`         | `Node`          | 'null'        | toggle whether a placeholder for content is shown |
+| Name              | Required        | Type            | Default       | Description                                                               |
+| ----------------- |  -------------  |  -------------- | ------------- | ------------------------------------------------------------------------  |
+| `children`        | `false`         | `Node`          | 'null'        | component adds a css shimmer if neither children nor loading prop are set |
+| `loading`         | `false`         | `Boolean`       | 'undefined'   | component adds a css shimmer                                              |
 
 
 
