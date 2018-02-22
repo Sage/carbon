@@ -1,15 +1,15 @@
 .carbon-preview {
   &--placeholder {
-    opacity: 0.1;
-    height: 13px;
+    opacity: 0.6;
+    height: 24px;
     width: 100%;
     background: #CCCCCC;
-    animation: shimmer 5s ease infinite;
+    animation: shimmer 2s ease infinite;
   }
 }
 
 @keyframes shimmer { 
-  0% { opacity:0.5 }
-  50% { background-position:0.1 }
-  100% { background-position:0.5 }
+  0% { opacity:0.1 }
+  70% { opacity:0.6 }
+  100% { opacity:0.1 }
 }

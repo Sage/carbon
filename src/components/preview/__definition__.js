@@ -1,17 +1,19 @@
 import Preview from './';
+import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('preview', Preview, {
-  description: `creates a placeholder div when no children are given, or if the loading prop is set to true`,
+  description: `Applies a preview loading state animation`,
   designerNotes: `
-* Use placeholder text to give the user context or examples of what to write.
+  * 
   `,
   type: 'miscellaneous',
   propValues: {
-    children: "I'm a some text that can display some information.",
+    children: "",
+    loading: undefined,
   },
   propTypes: {
     children: 'Node',
-    className: 'String',
+    loading: 'Boolean',
   },
   propDescriptions: {
     children: 'Child content to render in the component.',
