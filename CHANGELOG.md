@@ -37,6 +37,7 @@ Form autoDisables after submit when the prop `autoDisable` is set to true. The p
 ## Bug Fixes
 
 * `mapToProps` takes precedence over props passed to HOC in `connect` function.
+* `inputs` border-color change `:hover` is now applied to input rather than input container
 
 ## Changes
 
