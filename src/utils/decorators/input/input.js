@@ -147,6 +147,16 @@ const Input = (ComposedComponent) => {
     }
 
     /**
+     * Determines if the input is part of a form.
+     *
+     * @method isInForm
+     * @return {Boolean}
+     */
+    get isInForm() {
+      return this.context.form && (typeof this.context.form !== 'undefined');
+    }
+
+    /**
      * Calls the onChange event defined by the dev with more useful information.
      *
      * @method _handleChange
@@ -154,6 +164,11 @@ const Input = (ComposedComponent) => {
      * @returns {void}
      */
     _handleOnChange = (ev) => {
+      // If input is in a form, set the form to dirty
+      if (this.isInForm) {
+        this.context.form.setIsDirty();
+      }
+
       if (this.props.onChange) {
         this._handleDeferred(ev);
 

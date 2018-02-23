@@ -39,7 +39,7 @@ describe('Form', () => {
     describe('when stickyFooter is enabled', () => {
       it('adds the listeners', () => {
         wrapper = shallow(<Form />);
-        
+
         spyOn(wrapper.instance(), 'addStickyFooterListeners');
         wrapper.setProps({ stickyFooter: true });
         expect(wrapper.instance().addStickyFooterListeners).toHaveBeenCalled();
@@ -47,11 +47,29 @@ describe('Form', () => {
     });
 
     describe('when stickyFooter is disabled', () => {
-      it('adds the listeners', () => {
+      it('removes the listeners', () => {
         wrapper = shallow(<Form stickyFooter />);
         spyOn(wrapper.instance(), 'removeStickyFooterListeners');
         wrapper.setProps({ stickyFooter: false });
         expect(wrapper.instance().removeStickyFooterListeners).toHaveBeenCalled();
+      });
+    });
+
+    describe('when unsavedWarning is enabled', () => {
+      it('adds the listeners', () => {
+        wrapper = shallow(<Form unsavedWarning={ false } />);
+        spyOn(wrapper.instance(), 'addUnsavedWarningListener');
+        wrapper.setProps({ unsavedWarning: true });
+        expect(wrapper.instance().addUnsavedWarningListener).toHaveBeenCalled();
+      });
+    });
+
+    describe('when unsavedWarning is disabled', () => {
+      it('removes the listeners', () => {
+        wrapper = shallow(<Form unsavedWarning={ true } />);
+        spyOn(wrapper.instance(), 'removeUnsavedWarningListener');
+        wrapper.setProps({ unsavedWarning: false });
+        expect(wrapper.instance().removeUnsavedWarningListener).toHaveBeenCalled();
       });
     });
   });
@@ -93,6 +111,20 @@ describe('Form', () => {
       spyOn(wrapper.instance(), 'removeStickyFooterListeners');
       wrapper.instance().componentWillUnmount();
       expect(wrapper.instance().removeStickyFooterListeners).toHaveBeenCalled();
+    });
+
+    it('does not remove unsaved warning listeners if not enabled', () => {
+      wrapper = shallow(<Form unsavedWarning= { false } />);
+      spyOn(wrapper.instance(), 'removeUnsavedWarningListener');
+      wrapper.instance().componentWillUnmount();
+      expect(wrapper.instance().removeUnsavedWarningListener).not.toHaveBeenCalled();
+    });
+
+    it('removes unsaved warning listeners if enabled', () => {
+      wrapper = shallow(<Form unsavedWarning />);
+      spyOn(wrapper.instance(), 'removeUnsavedWarningListener');
+      wrapper.instance().componentWillUnmount();
+      expect(wrapper.instance().removeUnsavedWarningListener).toHaveBeenCalled();
     });
   });
 
@@ -198,7 +230,9 @@ describe('Form', () => {
             incrementWarningCount: instance.incrementWarningCount,
             decrementWarningCount: instance.decrementWarningCount,
             inputs: instance.inputs,
+            resetIsDirty: instance.resetIsDirty,
             setActiveInput: instance.setActiveInput,
+            setIsDirty: instance.setIsDirty,
             validate: instance.validate
           }
         }
@@ -286,7 +320,7 @@ describe('Form', () => {
     });
   });
 
-  describe("setActiveInput()", () => {
+  describe("setActiveInput", () => {
     it("sets the active input to be the input parameter", () => {
       instance.setActiveInput(1);
       expect(instance.activeInput).toEqual(1);
@@ -297,6 +331,39 @@ describe('Form', () => {
       instance.setActiveInput({ immediatelyHideMessage: immediatelyHideMessageSpy });
       instance.setActiveInput({  });
       expect(immediatelyHideMessageSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe("setIsDirty", () => {
+    it("sets the form to be classed as dirty if clean", () => {
+      expect(instance.state.isDirty).toEqual(false);
+      instance.setIsDirty();
+      expect(instance.state.isDirty).toEqual(true);
+      instance.setIsDirty();
+      expect(instance.state.isDirty).toEqual(true);
+    });
+  });
+
+  describe("resetIsDirty", () => {
+    it("resets the form to be classed as clean if dirty", () => {
+      instance.setIsDirty();
+      expect(instance.state.isDirty).toEqual(true);
+      instance.resetIsDirty();
+      expect(instance.state.isDirty).toEqual(false);
+      instance.resetIsDirty();
+      expect(instance.state.isDirty).toEqual(false);
+    });
+  });
+
+  describe("checkIsFormDirty", () => {
+    it("if form is dirty, return a message and trigger a popup", () => {
+      instance.setIsDirty();
+      expect(instance.checkIsFormDirty(Event)).toEqual(I18n.t('form.save_prompt', { defaultValue: 'Do you want to leave this page? Changes that you made may not be saved.' }));
+    });
+
+    it("if form is clean, return an empty string", () => {
+      instance.resetIsDirty();
+      expect(instance.checkIsFormDirty(Event)).toEqual("");
     });
   });
 
