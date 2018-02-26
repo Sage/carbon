@@ -43,6 +43,10 @@ Form autoDisables after submit when the prop `autoDisable` is set to true. The p
 
 * Resolved new ESLint errors from carbon-factory upgrade.
 
+## Demo Site
+
+* Add a `key` to the top-level `MenuListItem` components in the sidebar, which removes the 'Each child in an array or iterator should have a unique "key" prop' warning.
+
 # 3.0.0
 
 ## Package Updates
