@@ -29,7 +29,6 @@ import tagComponent from '../../utils/helpers/tags';
 * @constructor
 */
 class Tooltip extends React.Component {
-
   static propTypes = {
     /**
      * Sets alignment of pointer on tooltip

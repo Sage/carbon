@@ -1,3 +1,53 @@
+# 3.1.0
+
+## AutoDisabling form
+
+Form autoDisables after submit when the prop `autoDisable` is set to true. The props `afterFormValidation` and `onSubmit` are passed a `enableForm` callback function which can be used to reactivate the form.
+
+### Example Code
+  ```
+  <Form
+    onSubmit={ this.saveContact }
+    autoDisable
+  >
+    {children}
+  </Form>
+  ```
+
+  ```
+  saveContact = (ev, valid, enableForm) => {
+    ...
+    Actions.submitForm(...);
+    enableForm();
+  };
+  ```
+
+## Improvements
+
+* Input has 2 new props. `onChangeDeferred` allows a deferred callback after an onChange event. `deferTimeout` allows you to customise the default: `750`.
+* Form has 1 new prop. `unsavedWarning` allows a confirmation popup to appear when the user attempts to navigate away from a form they have edited but not saved. True by default. Does not trigger on React Router page transitions. Does not consistantly trigger with browser back/forwards actions. To be reviewed when react-router is upgraded to v4 to use Prompts.
+
+## Portals
+
+* Modal components now uses the Portal component
+* Input validation tooltips now use the Portal component
+* `Toast` component now uses the Portal component
+* `Dropdown` component now uses the Portal component
+
+## Bug Fixes
+
+* `mapToProps` takes precedence over props passed to HOC in `connect` function.
+* `inputs` border-color change `:hover` is now applied to input rather than input container
+* `Store`: sets the `maxListeners` to handle more complex store arrangements 
+
+## Changes
+
+* Resolved new ESLint errors from carbon-factory upgrade.
+
+## Demo Site
+
+* Add a `key` to the top-level `MenuListItem` components in the sidebar, which removes the 'Each child in an array or iterator should have a unique "key" prop' warning.
+
 # 3.0.0
 
 ## Package Updates

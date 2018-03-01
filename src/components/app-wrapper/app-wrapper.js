@@ -49,7 +49,10 @@ class AppWrapper extends React.Component {
    */
   render() {
     return (
-      <div { ...validProps(this) } className={ this.classes() } { ...tagComponent('app-wrapper', this.props) }>
+      <div
+        { ...validProps(this) } className={ this.classes() }
+        { ...tagComponent('app-wrapper', this.props) }
+      >
         { this.props.children }
       </div>
     );

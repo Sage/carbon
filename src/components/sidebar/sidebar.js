@@ -32,7 +32,6 @@ import Modal from './../modal';
  * @constructor
  */
 class Sidebar extends Modal {
-
   static propTypes = {
 
     /**
@@ -123,7 +122,7 @@ class Sidebar extends Modal {
   get closeButton() {
     if (this.props.onCancel) {
       return (
-        <span className={ 'carbon-sidebar__close' } >
+        <span className='carbon-sidebar__close' >
           <Icon
             className='carbon-sidebar__close-icon'
             data-element='close'

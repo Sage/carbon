@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Input from './input';
+import Form from './../../../components/form';
 import Icon from './../../../components/icon';
 import Help from './../../../components/help';
 import { shallow } from 'enzyme';
@@ -44,7 +45,7 @@ let ExtendedClassTwo = Input(TestClassTwo);
 let klass = new ExtendedClassOne;
 
 describe('Input', () => {
-  let instance, instanceTwo, onChange, inputHelp;
+  let instance, instanceTwo, onChange, onChangeDeferred, inputHelp;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
@@ -58,6 +59,7 @@ describe('Input', () => {
     }));
 
     onChange = jasmine.createSpy('onChange');
+    onChangeDeferred = jasmine.createSpy('onChangeDeferred');
   });
 
   describe('safeProps', () => {
@@ -178,13 +180,63 @@ describe('Input', () => {
         onChange: onChange,
         name: 'foo'
       }));
+      spyOn(instance, '_handleDeferred');
       instance._handleOnChange('foo')
       expect(onChange).toHaveBeenCalledWith('foo', instance.props);
+      expect(instance._handleDeferred).toHaveBeenCalledWith('foo');
     });
 
     it('should not call the onChange handler if the component has no onChange handler', () => {
+      spyOn(instance, '_handleDeferred');
       instance._handleOnChange('foo')
       expect(onChange).not.toHaveBeenCalled()
+      expect(instance._handleDeferred).not.toHaveBeenCalled();
+    });
+
+    it('should set its parent form to dirty if it has a parent form', () => {
+      let form_instance = TestUtils.renderIntoDocument(React.createElement(Form));
+      instance.context = {form: form_instance}
+      instance._handleOnChange('foo')
+      expect(instance.isInForm).toEqual(true);
+    });
+  });
+
+  describe('_handleDeferred', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    it('only calls the onChangeDeferred handler after the deferTimeout', () => {
+      instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+        onChangeDeferred: onChangeDeferred,
+        deferTimeout: 1000,
+        name: 'foo'
+      }));
+      instance._handleDeferred('foo')
+      expect(onChangeDeferred).not.toHaveBeenCalled();
+      jest.runTimersToTime(900);
+      expect(onChangeDeferred).not.toHaveBeenCalled();
+      jest.runTimersToTime(1000);
+      expect(onChangeDeferred).toHaveBeenCalledWith('foo');
+    });
+
+    it('calls the onChangeDeferred after a default deferTimeout', () => {
+      instance = TestUtils.renderIntoDocument(React.createElement(ExtendedClassOne, {
+        onChangeDeferred: onChangeDeferred,
+        name: 'foo'
+      }));
+      instance._handleDeferred('foo')
+      expect(onChangeDeferred).not.toHaveBeenCalled();
+      jest.runTimersToTime(100);
+      expect(onChangeDeferred).not.toHaveBeenCalled();
+      jest.runTimersToTime(750);
+      expect(onChangeDeferred).toHaveBeenCalledWith('foo');
+    });
+
+    it('should not call onChangeDeferred handler if the no onChangeDeferred handler', () => {
+      instance._handleDeferred('foo')
+      jest.runTimersToTime(750);
+      expect(onChangeDeferred).not.toHaveBeenCalled()
     });
   });
 

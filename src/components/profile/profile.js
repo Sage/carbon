@@ -115,7 +115,7 @@ class Profile extends React.Component {
     );
   }
 
-   /**
+  /**
    * @method render
    */
   render() {

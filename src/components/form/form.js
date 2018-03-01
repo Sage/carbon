@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
+import I18n from 'i18n-js';
 import Serialize from 'form-serialize';
 import { kebabCase } from 'lodash';
 
@@ -41,6 +42,16 @@ import ElementResize from './../../utils/helpers/element-resize';
  */
 class Form extends React.Component {
   static propTypes = {
+
+    /**
+     * Warning popup shown when trying to navigate away from an edited
+     * form if true
+     *
+     * @property unsavedWarning
+     * @type {Boolean}
+     * @default true
+     */
+    unsavedWarning: PropTypes.bool,
 
     /**
      * Cancel button is shown if true
@@ -109,6 +120,15 @@ class Form extends React.Component {
      * @default false
      */
     validateOnMount: PropTypes.bool,
+
+    /**
+     * If true, will disable the savebutton when clicked
+     *
+     * @property autoDisable
+     * @type {Boolean}
+     * @default false
+     */
+    autoDisable: PropTypes.bool,
 
     /**
      * Text for the cancel button
@@ -226,9 +246,9 @@ class Form extends React.Component {
   }
 
   static defaultProps = {
-    activeInput: null,
     buttonAlign: 'right',
     cancel: true,
+    unsavedWarning: true,
     save: true,
     saving: false,
     validateOnMount: false,
@@ -266,7 +286,24 @@ class Form extends React.Component {
      * @property warningCount
      * @type {Number}
      */
-    warningCount: 0
+    warningCount: 0,
+
+    /**
+     * Tracks if the form is clean or dirty, used by unsavedWarning
+     *
+     * @property isDirty
+     * @type {Boolean}
+     */
+    isDirty: false,
+
+    /**
+     * Tracks if the saveButton should be disabled
+     *
+     * @property saveDisabled
+     * @type {Boolean}
+     */
+    submitted: false
+
   }
 
   /**
@@ -285,6 +322,8 @@ class Form extends React.Component {
         decrementErrorCount: this.decrementErrorCount,
         incrementWarningCount: this.incrementWarningCount,
         decrementWarningCount: this.decrementWarningCount,
+        setIsDirty: this.setIsDirty,
+        resetIsDirty: this.resetIsDirty,
         inputs: this.inputs,
         setActiveInput: this.setActiveInput,
         validate: this.validate
@@ -306,6 +345,10 @@ class Form extends React.Component {
     if (this.props.validateOnMount) {
       this.validate();
     }
+
+    if (this.props.unsavedWarning) {
+      this.addUnsavedWarningListener();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -316,11 +359,23 @@ class Form extends React.Component {
     if (!nextProps.stickyFooter && this.props.stickyFooter) {
       this.removeStickyFooterListeners();
     }
+
+    if (nextProps.unsavedWarning && !this.props.unsavedWarning) {
+      this.addUnsavedWarningListener();
+    }
+
+    if (!nextProps.unsavedWarning && this.props.unsavedWarning) {
+      this.removeUnsavedWarningListener();
+    }
   }
 
   componentWillUnmount() {
     if (this.props.stickyFooter) {
       this.removeStickyFooterListeners();
+    }
+
+    if (this.props.unsavedWarning) {
+      this.removeUnsavedWarningListener();
     }
   }
 
@@ -347,6 +402,30 @@ class Form extends React.Component {
       this.activeInput.immediatelyHideMessage();
     }
     this.activeInput = input;
+  }
+
+  /**
+   * Sets the form to Dirty
+   *
+   * @method setIsDirty
+   * @return {void}
+   */
+  setIsDirty = () => {
+    if (!this.state.isDirty) {
+      this.setState({ isDirty: true });
+    }
+  }
+
+  /**
+   * Sets the form to Clean
+   *
+   * @method resetIsDirty
+   * @return {void}
+   */
+  resetIsDirty = () => {
+    if (this.state.isDirty) {
+      this.setState({ isDirty: false });
+    }
   }
 
   addStickyFooterListeners = () => {
@@ -380,6 +459,25 @@ class Form extends React.Component {
     } else if (this.state.stickyFooter && formHeight < this._window.innerHeight) {
       this.setState({ stickyFooter: false });
     }
+  }
+
+  addUnsavedWarningListener = () => {
+    this._window.addEventListener('beforeunload', this.checkIsFormDirty);
+  }
+
+  removeUnsavedWarningListener = () => {
+    this._window.removeEventListener('beforeunload', this.checkIsFormDirty);
+  }
+
+  checkIsFormDirty = (ev) => {
+    let confirmationMessage = '';
+    if (this.state.isDirty) {
+      // Confirmation message is usually overridden by browsers with a similar message
+      confirmationMessage = I18n.t('form.save_prompt',
+        { defaultValue: 'Do you want to leave this page? Changes that you made may not be saved.' });
+      ev.returnValue = confirmationMessage; // Gecko + IE
+    }
+    return confirmationMessage; // Gecko + Webkit, Safari, Chrome etc.
   }
 
   /**
@@ -509,21 +607,40 @@ class Form extends React.Component {
    * @return {void}
    */
   handleOnSubmit = (ev) => {
+    if (this.props.autoDisable) {
+      this.setState({ submitted: true });
+    }
+
     if (this.props.beforeFormValidation) {
       this.props.beforeFormValidation(ev);
     }
 
     const valid = this.validate();
 
-    if (!valid) { ev.preventDefault(); }
+    if (valid) {
+      this.resetIsDirty();
+    } else {
+      this.setState({ submitted: false });
+      ev.preventDefault();
+    }
 
     if (this.props.afterFormValidation) {
-      this.props.afterFormValidation(ev, valid);
+      this.props.afterFormValidation(ev, valid, this.enableForm);
     }
 
     if (valid && this.props.onSubmit) {
-      this.props.onSubmit(ev);
+      this.props.onSubmit(ev, valid, this.enableForm);
     }
+  }
+
+  /**
+   * enables a form which has been disabled after being submitted.
+   *
+   * @method enableForm
+   * @return {void}
+   */
+  enableForm = () => {
+    this.setState({ submitted: false });
   }
 
   /**
@@ -570,7 +687,6 @@ class Form extends React.Component {
    */
   htmlProps = () => {
     const { ...props } = validProps(this);
-    delete props.activeInput;
     delete props.onSubmit;
     props.className = this.mainClasses;
     return props;
@@ -646,7 +762,7 @@ class Form extends React.Component {
       <SaveButton
         saveButtonProps={ this.props.saveButtonProps }
         saveText={ this.props.saveText }
-        saving={ this.props.saving }
+        saving={ this.props.saving || this.state.submitted }
       />
     );
   }
@@ -776,7 +892,12 @@ function generateCSRFToken(doc) {
   const csrfAttr = csrfParam ? csrfParam.getAttribute('content') : '';
   const csrfValue = csrfToken ? csrfToken.getAttribute('content') : '';
 
-  return <input type='hidden' name={ csrfAttr } value={ csrfValue } readOnly='true' />;
+  return (
+    <input
+      type='hidden' name={ csrfAttr }
+      value={ csrfValue } readOnly='true'
+    />
+  );
 }
 
 export default Form;

@@ -25,28 +25,7 @@ import Logger from './../../utils/logger';
  * @constructor
  * @decorators {Input,InputLabel,InputValidation}
  */
-const Decimal = Input(InputLabel(InputValidation(
-class Decimal extends React.Component {
-
-  /**
-   * Stores the document - allows us to override it different contexts, such as
-   * when running tests.
-   *
-   * @property _document
-   * @type {document}
-   */
-  _document = document;
-
-  /**
-   * Used within the onClick and onBlur method to
-   * check if the current visible input value is
-   * highlighted
-   *
-   * @property highlighted
-   * @type {Boolean}
-   */
-  highlighted = false;
-
+const Decimal = Input(InputLabel(InputValidation(class Decimal extends React.Component {
   static propTypes = {
 
     // NB align is used in the Input decorator. Removing the prop from here
@@ -107,6 +86,25 @@ class Decimal extends React.Component {
     align: 'right',
     precision: 2
   };
+
+  /**
+   * Stores the document - allows us to override it different contexts, such as
+   * when running tests.
+   *
+   * @property _document
+   * @type {document}
+   */
+  _document = document;
+
+  /**
+   * Used within the onClick and onBlur method to
+   * check if the current visible input value is
+   * highlighted
+   *
+   * @property highlighted
+   * @type {Boolean}
+   */
+  highlighted = false;
 
   // Caps precision at 20 to prevent browser issues
   verifiedPrecision = (precision) => {
@@ -354,8 +352,7 @@ class Decimal extends React.Component {
       </div>
     );
   }
-}
-)));
+})));
 
 // Private Methods
 

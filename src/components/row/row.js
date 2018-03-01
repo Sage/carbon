@@ -27,7 +27,6 @@ import Column from './column';
  * @constructor
  */
 class Row extends React.Component {
-
   static propTypes = {
 
     /**

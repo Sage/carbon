@@ -21,7 +21,6 @@ import ValidationsHelper from './../../helpers/validations';
  * @constructor InclusionValidator
  */
 class InclusionValidator {
-
   /**
    * @method constructor
    * @param {Object} params

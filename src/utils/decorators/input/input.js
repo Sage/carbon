@@ -53,7 +53,6 @@ import Help from './../../../components/help';
  */
 const Input = (ComposedComponent) => {
   class Component extends ComposedComponent {
-
     constructor(...args) {
       super(...args);
 
@@ -70,7 +69,24 @@ const Input = (ComposedComponent) => {
       form: PropTypes.object
     });
 
-    static propTypes = assign({}, ComposedComponent.propTypes, {});
+    static propTypes = assign({}, ComposedComponent.propTypes, {
+      /**
+       * Integer to determine timeout for defered callback. Default: 750
+       *
+       * @property
+       * @type {Number}
+       */
+      deferTimeout: PropTypes.number,
+
+      /**
+       * Defered callback called after onChange event
+       *
+       * @property
+       * @type {Boolean}
+       */
+      onChangeDeferred: PropTypes.func
+    });
+
     // common safeprops
     static safeProps = union([], ComposedComponent.safeProps, ['value']);
 
@@ -131,6 +147,16 @@ const Input = (ComposedComponent) => {
     }
 
     /**
+     * Determines if the input is part of a form.
+     *
+     * @method isInForm
+     * @return {Boolean}
+     */
+    get isInForm() {
+      return this.context.form && (typeof this.context.form !== 'undefined');
+    }
+
+    /**
      * Calls the onChange event defined by the dev with more useful information.
      *
      * @method _handleChange
@@ -138,9 +164,32 @@ const Input = (ComposedComponent) => {
      * @returns {void}
      */
     _handleOnChange = (ev) => {
+      // If input is in a form, set the form to dirty
+      if (this.isInForm) {
+        this.context.form.setIsDirty();
+      }
+
       if (this.props.onChange) {
+        this._handleDeferred(ev);
+
         // we also send the props so more information can be extracted by the action
         this.props.onChange(ev, this.props);
+      }
+    }
+
+    /**
+     * Delay calls to the onChangeDeferred event defined by the dev
+     *
+     * @method _handleDeferred
+     * @param {Event} ev the onChange event
+     * @returns {void}
+     */
+    _handleDeferred = (ev) => {
+      if (this.props.onChangeDeferred) {
+        clearTimeout(this.deferredTimeout);
+        this.deferredTimeout = setTimeout(() => {
+          this.props.onChangeDeferred(ev);
+        }, (this.props.deferTimeout || 750));
       }
     }
 
@@ -288,7 +337,7 @@ const Input = (ComposedComponent) => {
       );
     }
 
-      /**
+    /**
      * Supplies the HTML for inputHelp component
      *
      * @method inputHelpHTML

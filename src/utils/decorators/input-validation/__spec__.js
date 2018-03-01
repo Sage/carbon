@@ -1,16 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
+import { shallow, mount } from 'enzyme';
 import InputValidation from './input-validation';
 import InputLabel from './../input-label';
-import Form from 'components/form';
-import Portal from 'components/portal';
-import Dialog from 'components/dialog';
-import { shallow, mount } from 'enzyme';
+import Dialog from './../../../components/dialog';
+import Browser from './../../helpers/browser';
 
 /* global jest */
 
-let validationOne = {
+const validationOne = {
   validate: function() {
     return true;
   },
@@ -20,7 +19,7 @@ let validationOne = {
   }
 };
 
-let validationTwo = {
+const validationTwo = {
   validate: function() {
     return true;
   },
@@ -30,7 +29,7 @@ let validationTwo = {
   }
 };
 
-let validationThree = {
+const validationThree = {
   validate: function() {
     return false;
   },
@@ -40,7 +39,7 @@ let validationThree = {
   }
 };
 
-let warningOne = {
+const warningOne = {
   validate: function(value, props, updateWarning) {
     return false;
   },
@@ -50,7 +49,7 @@ let warningOne = {
   }
 };
 
-let warningTwo = {
+const warningTwo = {
   validate: function(value, props, updateWarning) {
     return true;
   },
@@ -60,7 +59,7 @@ let warningTwo = {
   }
 };
 
-let infoOne = {
+const infoOne = {
   validate: function(value, props, updateInfo) {
     return false;
   },
@@ -70,7 +69,7 @@ let infoOne = {
   }
 };
 
-let infoTwo = {
+const infoTwo = {
   validate: function(value, props, updateInfo) {
     return true;
   },
@@ -80,7 +79,7 @@ let infoTwo = {
   }
 };
 
-let form = {
+const form = {
   attachToForm: function() {},
   decrementErrorCount: function() {},
   decrementWarningCount: function() {},
@@ -91,7 +90,7 @@ let form = {
   inputs: { "123": {} },
   model: 'model_2',
   setActiveInput: function() {}
-}
+};
 
 class DummyInputWithoutLifecycleMethods extends React.Component {
   render() {
@@ -134,10 +133,10 @@ class LabelClass extends React.Component {
 }
 
 // Required to test icon positioning
-let LabelComponent = InputLabel(InputValidation(LabelClass));
+const LabelComponent = InputLabel(InputValidation(LabelClass));
 
-let SimpleComponent = InputValidation(DummyInputWithoutLifecycleMethods);
-let Component = InputValidation(DummyInput);
+const SimpleComponent = InputValidation(DummyInputWithoutLifecycleMethods);
+const Component = InputValidation(DummyInput);
 
 describe('InputValidation', () => {
   let instance;
@@ -160,7 +159,7 @@ describe('InputValidation', () => {
   describe('componentWillReceiveProps', () => {
     describe('when invalid', () => {
       beforeEach(() => {
-        instance.setState({ valid: false, warning: true, info: true});
+        instance.setState({ valid: false, warning: true, info: true });
         spyOn(instance, 'setState').and.callThrough();
         spyOn(instance, '_handleContentChange');
       });
@@ -189,7 +188,7 @@ describe('InputValidation', () => {
 
       describe('when the next value does not match the current value', () => {
         it('does not call validate if it is the currently active input', () => {
-          let wrapper = mount( <Component />);
+          const wrapper = mount(<Component />);
           instance = wrapper.instance();
           instance.context.form = form;
           spyOn(instance.context.form, 'getActiveInput').and.returnValue(instance);
@@ -239,7 +238,7 @@ describe('InputValidation', () => {
 
         describe('when it is valid but has a warning state', () => {
           beforeEach(() => {
-            instance.setState({ valid: true, warning: true});
+            instance.setState({ valid: true, warning: true });
           });
 
           it('calls warning with the next value', () => {
@@ -272,7 +271,7 @@ describe('InputValidation', () => {
 
         describe('when it is valid but has an info state', () => {
           beforeEach(() => {
-            instance.setState({ valid: true, info: true});
+            instance.setState({ valid: true, info: true });
           });
 
           it('calls info with the next value', () => {
@@ -319,6 +318,23 @@ describe('InputValidation', () => {
   });
 
   describe('positionMessage', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.clearAllTimers();
+      jest.useRealTimers();
+    });
+
+    describe('when icon does not exist yet', () => {
+      it('returns undefined', () => {
+        instance.setState({ valid: false });
+        instance.validationIcon = undefined;
+        expect(instance.positionMessage()).toEqual(undefined);
+      });
+    });
+
     describe('when the component is valid', () => {
       it('does nothing', () => {
         instance.setState({ valid: true });
@@ -338,78 +354,72 @@ describe('InputValidation', () => {
       describe('when there is an icon and message', () => {
         describe('when onscreen', () => {
           it('sets the correct left position and removes flipped class', () => {
-            let removeSpy = jasmine.createSpy();
+            const removeClassSpy = jasmine.createSpy();
+            const addClassSpy = jasmine.createSpy();
 
             instance.setState({ valid: false, errorMessage: 'foo' });
+
+            spyOn(Browser, 'getWindow').and.returnValue({
+              innerWidth: 1800
+            });
             instance.validationMessage = {
               classList: {
-                remove: removeSpy
+                add: addClassSpy,
+                remove: removeClassSpy
               },
               offsetHeight: 30,
               style: {
                 left: 10,
                 top: 10
               },
-              getBoundingClientRect: function() {
+              getBoundingClientRect: () => {
                 return {
-                  left: 10
+                  width: 100,
+                  height: 30
                 };
               }
             };
+
             instance.validationIcon._target = {
+              getBoundingClientRect: () => {
+                return {
+                  left: 700,
+                  top: 100,
+                  width: 20,
+                  height: 20
+                };
+              },
               offsetLeft: 20,
               offsetWidth: 10,
               offsetTop: 30
             };
+            spyOn(instance, 'setState');
             instance.positionMessage();
-            expect(instance.validationMessage.style.left).toEqual('25px');
-            expect(removeSpy).toHaveBeenCalledWith('common-input__message--flipped');
-          });
-        });
-
-        describe('when in a modal and offscreen', () => {
-          let wrapper;
-
-          beforeEach(() => {
-            jest.useFakeTimers();
-            wrapper = mount(
-              <Dialog open>
-                <Component validations={[validationThree]} />
-              </Dialog>
-            );
-          });
-
-          afterEach(() => {
-            jest.clearAllTimers();
-            jest.useRealTimers();
-          });
-
-          it('sets the class to flipped', () => {
-            const input = wrapper.find('input');
-            input.simulate('blur');
-            jest.runTimersToTime(0);
-            input.simulate('focus');
-            wrapper.instance()._dialog = {
-              offsetWidth: 10
-            };
-            wrapper.find(Component).instance().validationMessage = {
-              className: "",
-              offsetWidth: 10,
-              offsetLeft: 10,
-              offsetHeight: 10,
-              style: {},
-              getBoundingClientRect: () => {
-                return {};
-              }
-            };
-            input.simulate('focus');
-            expect(wrapper.find(Component).instance().validationMessage.className).toEqual(' common-input__message--flipped');
+            const messageClasses = instance.validationHTML[1].props.children.props.children.props.className;
+            expect(messageClasses).not.toMatch('common-input__message--flipped');
+            expect(instance.validationMessage.style.left).toEqual('710px');
+            expect(instance.validationMessage.style.top).toEqual('50px');
           });
         });
 
         describe('when offscreen', () => {
+          let wrapper;
+          beforeEach(() => {
+            wrapper = mount(
+              <Dialog open>
+                <Component validations={ [validationThree] } />
+              </Dialog>
+            );
+          });
+
           it('sets the class to flipped', () => {
-            instance.setState({ valid: false, errorMessage: 'foo' });
+            const addClassSpy = jasmine.createSpy();
+            const removeClassSpy = jasmine.createSpy();
+            const instance = wrapper.find(Component).instance();
+            instance.setState({
+              valid: false,
+              errorMessage: 'foo'
+            });
             instance.validationMessage = {
               offsetWidth: 0,
               offsetHeight: 30,
@@ -417,22 +427,38 @@ describe('InputValidation', () => {
                 left: 0,
                 top: 0
               },
-              getBoundingClientRect: function() {
+              classList: {
+                add: addClassSpy,
+                remove: removeClassSpy
+              },
+              getBoundingClientRect: () => {
                 return {
-                  left: 0
+                  top: 0,
+                  left: 0,
+                  width: 300,
+                  height: 30
                 };
               }
             };
             instance.validationIcon._target = {
               offsetLeft: 20,
               offsetWidth: 10,
-              offsetTop: 30
+              offsetTop: 30,
+              getBoundingClientRect: () => {
+                return {
+                  top: 100,
+                  left: 900,
+                  width: 20,
+                  height: 20
+                };
+              }
             };
             instance._window = {
               innerWidth: -1
             };
             instance.positionMessage();
-            expect(instance.validationMessage.className).toContain('common-input__message--flipped');
+            wrapper.update();
+            expect(wrapper.find('.common-input__message').props().className).toMatch('common-input__message--flipped');
           });
         });
       });
@@ -442,7 +468,7 @@ describe('InputValidation', () => {
   describe('componentWillMount', () => {
     describe('when the component does not have a componentWillMount method', () => {
       it('still works', () => {
-        let simpleInstance = TestUtils.renderIntoDocument(React.createElement(SimpleComponent));
+        const simpleInstance = TestUtils.renderIntoDocument(React.createElement(SimpleComponent));
         expect(simpleInstance.componentWillMount()).toBe(undefined);
       });
     });
@@ -502,19 +528,19 @@ describe('InputValidation', () => {
 
       describe('when the input is invalid', () => {
         it('calls handleContentChange', () => {
-            instance.state.valid = false;
-            spyOn(instance, '_handleContentChange');
-            instance.componentWillUnmount();
-            expect(instance._handleContentChange).toHaveBeenCalled();
+          instance.state.valid = false;
+          spyOn(instance, '_handleContentChange');
+          instance.componentWillUnmount();
+          expect(instance._handleContentChange).toHaveBeenCalled();
         });
       });
 
       describe('when the input has a warning', () => {
         it('calls handleContentChange', () => {
-            instance.state.warning = true;
-            spyOn(instance, '_handleContentChange');
-            instance.componentWillUnmount();
-            expect(instance._handleContentChange).toHaveBeenCalled();
+          instance.state.warning = true;
+          spyOn(instance, '_handleContentChange');
+          instance.componentWillUnmount();
+          expect(instance._handleContentChange).toHaveBeenCalled();
         });
       });
 
@@ -538,7 +564,6 @@ describe('InputValidation', () => {
           expect(instance.context.form.detachFromForm).toHaveBeenCalledWith(instance);
         });
       });
-
     });
 
     describe('When no validations are present on the input', () => {
@@ -605,7 +630,7 @@ describe('InputValidation', () => {
 
           describe('when the input is within a tab', () => {
             it('notifies the tab that it is invalid', () => {
-              let spy = jasmine.createSpy();
+              const spy = jasmine.createSpy();
               instance.context.tab = { setValidity: spy };
               instance.validate();
 
@@ -646,15 +671,15 @@ describe('InputValidation', () => {
     });
   });
 
-  describe("message hide functions", () => {
-    describe("showMessage", () => {
+  describe('message hide functions', () => {
+    describe('showMessage', () => {
       beforeEach(() => {
         instance.context.form = form;
         spyOn(instance.context.form, 'setActiveInput');
-      })
+      });
 
-      describe("triggers state change and function call", () => {
-        it("if not valid", () => {
+      describe('triggers state change and function call', () => {
+        it('if not valid', () => {
           instance.setState({
             valid: false,
             warning: false
@@ -664,11 +689,11 @@ describe('InputValidation', () => {
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: true,
             immediatelyHideMessage: false
-          });
+          }, instance.positionMessage);
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
 
-        it("if warning", () => {
+        it('if warning', () => {
           instance.setState({
             valid: true,
             warning: true
@@ -678,11 +703,11 @@ describe('InputValidation', () => {
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: true,
             immediatelyHideMessage: false
-          });
+          }, instance.positionMessage);
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
 
-        it("if info", () => {
+        it('if info', () => {
           instance.setState({
             valid: true,
             info: true
@@ -692,7 +717,7 @@ describe('InputValidation', () => {
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: true,
             immediatelyHideMessage: false
-          });
+          }, instance.positionMessage);
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
 
@@ -708,14 +733,14 @@ describe('InputValidation', () => {
             expect(instance.setState).toHaveBeenCalledWith({
               messageShown: true,
               immediatelyHideMessage: false
-            });
+            }, instance.positionMessage);
             expect(form.setActiveInput).not.toHaveBeenCalledWith(instance);
           });
         });
       });
 
       describe("doesn't trigger state change and function call", () => {
-        it("if valid and not a warning", () => {
+        it('if valid and not a warning', () => {
           instance.setState({
             valid: true,
             warning: false
@@ -728,9 +753,9 @@ describe('InputValidation', () => {
       });
     });
 
-    describe("hideMessage", () => {
-      describe("triggers state change and function call", () => {
-        it("if not valid", () => {
+    describe('hideMessage', () => {
+      describe('triggers state change and function call', () => {
+        it('if not valid', () => {
           instance.setState({
             valid: false,
             warning: false
@@ -741,7 +766,7 @@ describe('InputValidation', () => {
             messageShown: false
           });
         });
-        it("if warning", () => {
+        it('if warning', () => {
           instance.setState({
             valid: true,
             warning: true
@@ -754,7 +779,7 @@ describe('InputValidation', () => {
         });
       });
       describe("doesn't trigger state change and function call", () => {
-        it("if valid and not a warning", () => {
+        it('if valid and not a warning', () => {
           instance.setState({
             valid: true,
             warning: false
@@ -766,10 +791,27 @@ describe('InputValidation', () => {
       });
     });
 
-    describe("immediatelyHideMessage", () => {
-      it("sets state to hide message instantly", () => {
+    describe('immediatelyHideMessage', () => {
+      it('sets state to hide message instantly', () => {
         spyOn(instance, 'setState');
         instance.immediatelyHideMessage();
+
+        expect(instance.setState).toHaveBeenCalledWith({
+          messageShown: false,
+          immediatelyHideMessage: true
+        });
+      });
+
+      it('sets state to hide message instantly', () => {
+        spyOn(instance, 'setState').and.callThrough();
+        instance.setState({
+          valid: false,
+          warning: false,
+          messageShown: true
+        });
+
+        instance.immediatelyHideMessage();
+
         expect(instance.setState).toHaveBeenCalledWith({
           messageShown: false,
           immediatelyHideMessage: true
@@ -979,6 +1021,14 @@ describe('InputValidation', () => {
         expect(instance.setState).toHaveBeenCalledWith({ messageLocked: true });
       });
 
+      it('should set active input on the form', () => {
+        instance.context.form = form;
+        spyOn(instance.context.form, 'setActiveInput');
+        instance.setState({ valid: false });
+        instance._handleFocus();
+        expect(instance.context.form.setActiveInput).toHaveBeenCalled();
+      });
+
       it('should position the message', () => {
         instance.setState({ valid: false });
         spyOn(instance, 'positionMessage');
@@ -992,7 +1042,7 @@ describe('InputValidation', () => {
         instance.setState({ valid: false, messageLocked: true });
         spyOn(instance, 'setState');
         instance._handleFocus();
-        expect(instance.setState).not.toHaveBeenCalled();
+        expect(instance.setState).not.toHaveBeenCalledWith({ messageLocked: true });
       });
     });
 
@@ -1108,6 +1158,7 @@ describe('InputValidation', () => {
         }));
 
         instance.validate();
+        instance.setState({ messageLocked: true });
       });
 
       it('returns an error icon', () => {
@@ -1116,10 +1167,11 @@ describe('InputValidation', () => {
       });
 
       it('returns a div for the error message', () => {
-        expect(instance.validationHTML[1].props.className).toEqual('common-input__message-wrapper');
+        const portalChildren = instance.validationHTML[1].props.children.props;
+        expect(portalChildren.className).toEqual('common-input__message-wrapper');
 
-        expect(instance.validationHTML[1].props.children.props.className).toEqual('common-input__message common-input__message--error');
-        expect(instance.validationHTML[1].props.children.props.children).toEqual('foo');
+        expect(portalChildren.children.props.className).toEqual('common-input__message common-input__message--error common-input__message--shown');
+        expect(portalChildren.children.props.children).toEqual('foo');
       });
 
       describe('if a label width prop has been applied', () => {
@@ -1129,7 +1181,7 @@ describe('InputValidation', () => {
               <LabelComponent labelWidth={ 20 } align='right' validations={ [validationThree] } value='foo'/>
             );
             instanceLabel.validate();
-            let icon = instanceLabel.validationIcon
+            let icon = instanceLabel.validationIcon;
             expect(icon.props.style.right).toEqual('80%');
           });
         });
@@ -1147,25 +1199,10 @@ describe('InputValidation', () => {
       });
 
       describe('when the message is locked', () => {
-        it('adds a locked class', () => {
+        it('adds a shown class', () => {
           instance.setState({ messageLocked: true });
-          expect(instance.validationMessage.classList).toContain('common-input__message--locked');
-        });
-      });
-
-      describe('when the message not flipped', () => {
-        it('does not have flipped class', () => {
-          instance.flipped = false;
-          instance.setState({ messageLocked: true });
-          expect(instance.validationMessage.classList).not.toContain('common-input__message--flipped');
-        });
-      });
-
-      describe('when the message is flipped', () => {
-        it('does have flipped class', () => {
-          instance.flipped = true;
-          instance.setState({ messageLocked: true });
-          expect(instance.validationMessage.classList).toContain('common-input__message--flipped');
+          instance.showMessage();
+          expect(instance.validationMessage.classList).toContain('common-input__message--shown');
         });
       });
     });
@@ -1178,6 +1215,7 @@ describe('InputValidation', () => {
         }));
 
         instance.warning();
+        instance.setState({ messageLocked: true });
       });
 
       it('returns an warning icon', () => {
@@ -1186,17 +1224,11 @@ describe('InputValidation', () => {
       });
 
       it('returns a div for the warning message', () => {
-        expect(instance.validationHTML[1].props.className).toEqual('common-input__message-wrapper');
+        const portalElement = instance.validationHTML[1].props.children.props;
+        expect(portalElement.className).toEqual('common-input__message-wrapper');
 
-        expect(instance.validationHTML[1].props.children.props.className).toEqual('common-input__message common-input__message--warning');
-        expect(instance.validationHTML[1].props.children.props.children).toEqual('foo');
-      });
-
-      describe('when the message is locked', () => {
-        it('adds a locked class', () => {
-          instance.setState({ messageLocked: true });
-          expect(instance.validationMessage.classList).toContain('common-input__message--locked');
-        });
+        expect(portalElement.children.props.className).toEqual('common-input__message common-input__message--warning common-input__message--shown');
+        expect(portalElement.children.props.children).toEqual('foo');
       });
     });
 
@@ -1210,6 +1242,7 @@ describe('InputValidation', () => {
         }));
         instance = wrapper.instance();
         instance.info();
+        instance.setState({ messageShown: true });
       });
 
       it('returns an info icon', () => {
@@ -1218,15 +1251,17 @@ describe('InputValidation', () => {
       });
 
       it('returns a div for the info message', () => {
-        expect(instance.validationHTML[1].props.className).toEqual('common-input__message-wrapper');
+        const portalElement = instance.validationHTML[1].props.children.props;
+        expect(portalElement.className).toEqual('common-input__message-wrapper');
+        expect(portalElement.children.props.children).toEqual('foo');
         expect(instance.validationHTML[0].props.className).toEqual('common-input__icon common-input__icon--info');
-        expect(instance.validationHTML[1].props.children.props.children).toEqual('foo');
       });
 
       describe('when the message is locked', () => {
-        it('adds a locked class', () => {
+        it('adds a show class', () => {
           instance.setState({ messageLocked: true });
-          expect(instance.validationMessage.classList).toContain('common-input__message--locked');
+          instance.showMessage();
+          expect(instance.validationMessage.classList).toContain('common-input__message--shown');
         });
       });
     });

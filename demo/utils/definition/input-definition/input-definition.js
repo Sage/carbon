@@ -9,7 +9,7 @@ export default (definition) => {
 
   definition.propOptions.labelAlign = OptionsHelper.alignBinary;
 
-  definition.hiddenProps = definition.hiddenProps.concat(['warnings', 'validations', 'info', 'value']);
+  definition.hiddenProps = definition.hiddenProps.concat(['deferTimeout', 'warnings', 'validations', 'info', 'value']);
 
   definition.propRequires.labelInline = 'label';
   definition.propRequires.labelWidth = 'labelInline';
@@ -18,27 +18,33 @@ export default (definition) => {
   definition.stubAction('onChange', 'value');
 
   definition.propTypes = assign({}, definition.propTypes, {
+    deferTimeout: "Number",
     fieldHelp: "String", // TODO: this should be `Node` - however it breaks the demo site as it bases the render on this type
     fieldHelpInline: "Boolean",
+    info: "Array",
     inputWidth: "Number",
     label: "String",
     labelAlign: "String",
     labelHelp: "String",
     labelInline: "Boolean",
     labelWidth: "Number",
+    onChangeDeferred: "Function",
     validations: "Array",
     warnings: "Array"
   });
 
   definition.propDescriptions = assign({}, definition.propDescriptions, {
+    deferTimeout: "Timeout length before onChangeDeferred is triggered.",
     fieldHelp: "Displays additional information below the input to provide help to the user.",
     fieldHelpInline: "Displays fieldHelp inline with the checkbox/radio button.",
+    info: "An array of info messages to apply to the input.",
     inputWidth: "A number representing the percentage/ratio of width with the label. Works best with inline labels.",
     label: "Outputs a label for the input.",
     labelAlign: "Align the label either 'left' or 'right'. Only works with inline labels.",
     labelHelp: "Output an info icon next to the label to display additional help to the user.",
     labelInline: "Displays the label inline with the input.",
     labelWidth: "A number representing the percentage/ratio of width with the input. Works best with inline labels.",
+    onChangeDeferred: "A callback which will trigger after the user has stopped typing for the duration of deferTimeout.",
     validations: "An array of validations to apply to the input.",
     warnings: "An array of warnings to apply to the input."
   });

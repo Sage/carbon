@@ -116,7 +116,7 @@ class MenuList extends React.Component {
     open: this.props.initiallyOpen || false
   }
 
-  /** Actions **/
+  /** Actions * */
   onSearch(ev) {
     this.setState({ filter: ev.target.value, open: true });
   }
@@ -125,18 +125,18 @@ class MenuList extends React.Component {
     this.setState({ open: !this.state.open });
   }
 
-  /** Helpers **/
+  /** Helpers * */
 
   showMenuItems() {
     return (!this.props.title || !this.props.collapsible) || this.state.open;
   }
 
-  /** Markup **/
+  /** Markup * */
   filterHTML() {
     if (!this.props.filter) { return null; }
 
     return (
-      <MenuListItem key={ 'filter' }>
+      <MenuListItem key='filter'>
         <Textbox
           onChange={ this.onSearch }
           value={ this.state.filter || '' }
