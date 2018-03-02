@@ -1,11 +1,17 @@
 @import 'colors';
+@import 'general';
 
 .carbon-preview {
-  opacity: 0.6;
-  min-height: 24px;
-  width: 100%;
-  background: $grey-dark-blue-25;
   animation: shimmer 2s ease infinite;
+  background: $grey-dark-blue-25;
+  display: block;
+  height: ($app-line-height - 1);
+  opacity: 0.6;
+  width: 100%;
+
+  + .carbon-preview {
+    margin-top: 3px;
+  }
 }
 
 @keyframes shimmer { 

@@ -1,17 +1,89 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Preview when given a width and height renders with the given width and height 1`] = `
+Array [
+  <span
+    className="carbon-preview"
+    data-component="preview"
+    key="1"
+    style={
+        Object {
+            "height": "20px",
+            "width": "10px",
+          }
+    }
+/>,
+]
+`;
+
 exports[`Preview when given children but a truthy loading prop will render the placeholder 1`] = `
-<div
-  className="carbon-preview"
-  data-component="preview"
-/>
+Array [
+  <span
+    className="carbon-preview"
+    data-component="preview"
+    key="1"
+    style={
+        Object {
+            "height": undefined,
+            "width": undefined,
+          }
+    }
+/>,
+]
 `;
 
 exports[`Preview when given children will render the children 1`] = `"This is some text"`;
 
 exports[`Preview when given no children will render the placeholder 1`] = `
-<div
-  className="carbon-preview"
-  data-component="preview"
-/>
+Array [
+  <span
+    className="carbon-preview"
+    data-component="preview"
+    key="1"
+    style={
+        Object {
+            "height": undefined,
+            "width": undefined,
+          }
+    }
+/>,
+]
+`;
+
+exports[`Preview when multi line renders multi previews, the last being 80% width 1`] = `
+Array [
+  <span
+    className="carbon-preview"
+    data-component="preview"
+    key="1"
+    style={
+        Object {
+            "height": undefined,
+            "width": undefined,
+          }
+    }
+/>,
+  <span
+    className="carbon-preview"
+    data-component="preview"
+    key="2"
+    style={
+        Object {
+            "height": undefined,
+            "width": undefined,
+          }
+    }
+/>,
+  <span
+    className="carbon-preview"
+    data-component="preview"
+    key="3"
+    style={
+        Object {
+            "height": undefined,
+            "width": "80%",
+          }
+    }
+/>,
+]
 `;

@@ -31,4 +31,18 @@ describe('Preview', () => {
       expect(wrapper).toMatchSnapshot();
     });
   });
+
+  describe('when multi line', () => {
+    it('renders multi previews, the last being 80% width', () => {
+      const wrapper = renderShallow(null, { lines: 3 });
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+
+  describe('when given a width and height', () => {
+    it('renders with the given width and height', () => {
+      const wrapper = renderShallow(null, { width: '10px', height: '20px' });
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
 });
