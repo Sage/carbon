@@ -1,118 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Preview when has loading prop will mount correctly on document 1`] = `
-<Detail
-  icon="analysis"
->
-  <div
-    className="carbon-detail carbon-detail--has-icon"
-    data-component="detail"
-  >
-    <Icon
-      bgSize="small"
-      className="carbon-detail__icon"
-      data-element="icon"
-      type="analysis"
-    >
-      <span
-        className="carbon-icon carbon-detail__icon icon-analysis"
-        data-component="icon"
-        data-element="icon"
-        key="icon"
-        type="analysis"
-      />
-    </Icon>
-    <div
-      className="carbon-detail__content"
-    >
-      <Preview
-        className=""
-        loading={true}
-      >
-        <div
-          className="carbon-preview carbon-preview--placeholder"
-          data-component="preview"
-        />
-      </Preview>
-    </div>
-  </div>
-</Detail>
+exports[`Preview when given children but a truthy loading prop will render the placeholder 1`] = `
+<div
+  className="carbon-preview"
+  data-component="preview"
+/>
 `;
 
-exports[`Preview when has not children will mount correctly on document 1`] = `
-<Detail
-  icon="analysis"
->
-  <div
-    className="carbon-detail carbon-detail--has-icon"
-    data-component="detail"
-  >
-    <Icon
-      bgSize="small"
-      className="carbon-detail__icon"
-      data-element="icon"
-      type="analysis"
-    >
-      <span
-        className="carbon-icon carbon-detail__icon icon-analysis"
-        data-component="icon"
-        data-element="icon"
-        key="icon"
-        type="analysis"
-      />
-    </Icon>
-    <div
-      className="carbon-detail__content"
-    >
-      <Preview
-        className=""
-      >
-        <div
-          className="carbon-preview carbon-preview--placeholder"
-          data-component="preview"
-        />
-      </Preview>
-    </div>
-  </div>
-</Detail>
-`;
+exports[`Preview when given children will render the children 1`] = `"This is some text"`;
 
-exports[`Preview when using default node will mount correctly on document 1`] = `
-<Detail
-  icon="analysis"
->
-  <div
-    className="carbon-detail carbon-detail--has-icon"
-    data-component="detail"
-  >
-    <Icon
-      bgSize="small"
-      className="carbon-detail__icon"
-      data-element="icon"
-      type="analysis"
-    >
-      <span
-        className="carbon-icon carbon-detail__icon icon-analysis"
-        data-component="icon"
-        data-element="icon"
-        key="icon"
-        type="analysis"
-      />
-    </Icon>
-    <div
-      className="carbon-detail__content"
-    >
-      <Preview
-        className=""
-      >
-        <div
-          className="carbon-preview"
-          data-component="preview"
-        >
-          This is some text
-        </div>
-      </Preview>
-    </div>
-  </div>
-</Detail>
+exports[`Preview when given no children will render the placeholder 1`] = `
+<div
+  className="carbon-preview"
+  data-component="preview"
+/>
 `;

@@ -1,36 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
-const componentTags = (props) => {
-  return {
-    'data-component': 'preview',
-    'data-element': props['data-element'],
-    'data-role': props['data-role']
-  };
-};
+import tagComponent from '../../utils/helpers/tags';
 
 const Preview = (props) => {
-  const isLoading = (() => {
-    if (typeof props.loading !== 'undefined') {
-      return props.loading;
-    }
-    return !props.children;
-  })();
-
-  const mainClasses = (() => {
-    return classNames(
-      'carbon-preview',
-      { 'carbon-preview--placeholder': isLoading },
-      props.className
+  if (isLoading(props.loading, props.children)) {
+    return (
+      <div
+        className={ classNames('carbon-preview', props.className) }
+        { ...tagComponent('preview', props) }
+      />
     );
-  })();
+  }
 
-  return (
-    <div className={ mainClasses } { ...componentTags(props) }>
-      { props.children }
-    </div>
-  );
+  return props.children;
 };
 
 Preview.propTypes = {
@@ -57,8 +40,12 @@ Preview.propTypes = {
   loading: PropTypes.bool
 };
 
-Preview.defaultProps = {
-  className: ''
-};
+function isLoading(loading, children) {
+  if (typeof loading !== 'undefined') {
+    return loading;
+  }
+
+  return !children;
+}
 
 export default Preview;

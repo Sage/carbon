@@ -2,26 +2,24 @@
 
 ## Preview Component
 
-Preview adds a css shimer animation as a placeholder if no children are given or the loading prop is true.
+Preview adds a CSS shimer animation as a placeholder if no children are given or the loading prop is true.
 
 ### Example Code
 
-```
-  //no children
-  <Detail>
-   <Preview>
-     { null }
-   </Preview>
-  </Detail>
-```
+With no children:
 
 ```
-  //loading prop
-  <Detail>
-   <Preview loading>
-     { children }
-   </Preview>
-  </Detail>
+<Preview>
+  { null }
+</Preview>
+```
+
+Using the `loading` prop:
+
+```
+<Preview loading>
+  { children }
+</Preview>
 ```
 
 ## AutoDisabling form

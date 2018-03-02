@@ -1,63 +1,34 @@
 import React from 'react';
-import { mount } from 'enzyme';
-import ReactDOM from 'react-dom';
+import { shallow } from 'enzyme';
 import Preview from './preview';
-import Detail from './../detail';
+
+const renderShallow = (children, props) => {
+  return shallow(
+    <Preview { ...props }>
+      { children }
+    </Preview>
+  );
+};
 
 describe('Preview', () => {
-  let wrapper;
-  let children="This is some text";
-  describe('when using default node', () => {  
-    beforeEach(() => {
-      wrapper = mount(
-        <Detail icon="analysis">
-          <Preview>
-            {children}
-          </Preview>
-        </Detail>
-      );
-    });
-
-    it('will mount correctly on document', () => {
+  describe('when given children', () => {  
+    it('will render the children', () => {
+      const wrapper = renderShallow('This is some text');
       expect(wrapper).toMatchSnapshot();
     });
   });
 
-  describe('when has not children', () => {
-    let wrapper;
-    beforeEach(() => {
-      wrapper = mount(
-        <Detail icon="analysis">
-          <Preview></Preview>
-        </Detail>
-      );
-    });
-
-    it('will mount correctly on document', () => {
+  describe('when given no children', () => {
+    it('will render the placeholder', () => {
+      const wrapper = renderShallow();
       expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should be have placeholder', () => {
-      expect(wrapper.find('.carbon-preview--placeholder').length).toBe(1);
     });
   });
 
-  describe('when has loading prop', () => {
-    let wrapper;
-    beforeEach(() => {
-      wrapper = mount(
-        <Detail icon="analysis">
-          <Preview loading></Preview>
-        </Detail>
-      );
-    });
-
-    it('will mount correctly on document', () => {
+  describe('when given children but a truthy loading prop', () => {
+    it('will render the placeholder', () => {
+      const wrapper = renderShallow('This is some text', { loading: true });
       expect(wrapper).toMatchSnapshot();
-    });
-
-    it('should be have placeholder', () => {
-      expect(wrapper.find('.carbon-preview--placeholder').length).toBe(1);
     });
   });
 });

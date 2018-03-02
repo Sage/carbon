@@ -1,13 +1,11 @@
 @import 'colors';
 
 .carbon-preview {
-  &--placeholder {
-    opacity: 0.6;
-    min-height: 24px;
-    width: 100%;
-    background: $grey-dark-blue-25;
-    animation: shimmer 2s ease infinite;
-  }
+  opacity: 0.6;
+  min-height: 24px;
+  width: 100%;
+  background: $grey-dark-blue-25;
+  animation: shimmer 2s ease infinite;
 }
 
 @keyframes shimmer { 
