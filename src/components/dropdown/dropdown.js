@@ -143,6 +143,8 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
      */
     this.visibleValue = '';
 
+    this.visibleValue = '';
+
     // bind scope to functions - allowing them to be overridden and
     // recalled with the use of super
     this.selectValue = this.selectValue.bind(this);
@@ -680,7 +682,10 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
     if (this.state.open) {
       content.push(
         <Portal onReposition={ this.calculatePosition }>
-          <div { ...this.listBlockProps } ref={ (node) => { this.listBlock = node; } }>
+          <div
+            { ...this.listBlockProps }
+            ref={ (node) => { this.listBlock = node; } }
+          >
             { this.listHTML }
           </div>
         </Portal>

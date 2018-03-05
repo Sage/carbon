@@ -3,9 +3,13 @@ import { mount } from 'enzyme';
 import ReactDOM from 'react-dom';
 import Portal from './portal';
 import Icon from './../icon';
+import guid from '../../utils/helpers/guid';
 import Browser from '../../utils/helpers/browser';
+jest.mock('../../utils/helpers/guid')
 
 describe('Portal', () => {
+  guid.mockImplementation(() => 'guid-12345');
+
   let wrapper;
   describe('when using default node', () => {
     beforeEach(() => {
