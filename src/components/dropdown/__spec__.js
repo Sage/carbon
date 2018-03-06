@@ -927,6 +927,20 @@ describe('Dropdown', () => {
     });
   });
 
+  describe('options list', () => {
+    it('creates the list in a Portal', () => {
+      const wrapper = mount(
+        <Dropdown
+          name='foo'
+          options={Immutable.fromJS([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }])} value='1'
+        />);
+
+      wrapper.find('.carbon-dropdown__input').simulate('focus');
+      const portalDropdownList = wrapper.find(Portal).find('.carbon-dropdown__list');
+      expect(portalDropdownList).toMatchSnapshot();
+    });
+  });
+
   describe('render', () => {
     let dropdown;
 
