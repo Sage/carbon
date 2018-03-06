@@ -167,7 +167,9 @@ class ActionToolbar extends React.Component {
    * @return {Object} JSX
    */
   buildAction(action, index) {
-    const { onClick, className, text, ...props } = action;
+    const {
+      onClick, className, text, ...props
+    } = action;
 
     return (
       <Link

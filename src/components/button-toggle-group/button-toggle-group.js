@@ -28,8 +28,7 @@ import tagComponent from '../../utils/helpers/tags';
  * @constructor
  * @decorators {InputLabel,InputValidation}
  */
-const ButtonToggleGroup = InputLabel(InputValidation(
-class ButtonToggleGroup extends React.Component {
+const ButtonToggleGroup = InputLabel(InputValidation(class ButtonToggleGroup extends React.Component {
   static propTypes = {
     /**
      * Children elements
@@ -164,7 +163,6 @@ class ButtonToggleGroup extends React.Component {
       </div>
     );
   }
-}
-));
+}));
 
 export default ButtonToggleGroup;

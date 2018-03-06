@@ -14,15 +14,6 @@ describe('Tab', () => {
       </Tab>);
   });
 
-  describe('initialize', () => {
-    it('it sets isValid to true', () => {
-      expect(instance.state.isValid).toBeTruthy();
-    });
-    it('it sets isWarning to false', () => {
-      expect(instance.state.isWarning).toBeFalsy();
-    });
-  });
-
   describe('setValidity', () => {
     it('calls the parent tab context with the new state', () => {
       let spy = jasmine.createSpy('spy');
@@ -30,14 +21,6 @@ describe('Tab', () => {
       instance.setValidity(false)
 
       expect(spy).toHaveBeenCalledWith(instance.props.id, false);
-    });
-
-    it('sets its own valid state', () => {
-      instance.context = { tabs: { changeValidity: function(a,b){} } };
-      spyOn(instance, 'setState');
-      instance.setValidity(false)
-
-      expect(instance.setState).toHaveBeenCalledWith({isValid: false});
     });
   });
 
@@ -48,14 +31,6 @@ describe('Tab', () => {
       instance.setWarning(true)
 
       expect(spy).toHaveBeenCalledWith(instance.props.id, true);
-    });
-
-    it('sets its own warning state', () => {
-      instance.context = { tabs: { changeWarning: function(a,b){} } };
-      spyOn(instance, 'setState');
-      instance.setWarning(true)
-
-      expect(instance.setState).toHaveBeenCalledWith({isWarning: true});
     });
   });
 

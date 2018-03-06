@@ -45,8 +45,8 @@ const connect = (...args) => (WrappedComponent) => {
 
       return (
         <WrappedComponent
-          { ...mapToProps(...states, this.props) }
           { ...this.props }
+          { ...mapToProps(...states, this.props) }
         />
       );
     }

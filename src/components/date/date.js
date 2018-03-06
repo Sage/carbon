@@ -42,18 +42,7 @@ const today = DateHelper.todayFormatted('YYYY-MM-DD');
  * @constructor
  * @decorators {Input,InputIcon,InputLabel,InputValidation}
  */
-const Date = Input(InputIcon(InputLabel(InputValidation(
-class Date extends React.Component {
-
-  /**
-   * Stores the document - allows us to override it different contexts, such as
-   * when running tests.
-   *
-   * @property _document
-   * @type {document}
-   */
-  _document = document;
-
+const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React.Component {
   // Required for validProps function
   static propTypes = {
     /**
@@ -71,6 +60,14 @@ class Date extends React.Component {
      * @type {boolean}
      */
     disabled: PropTypes.bool,
+
+    /**
+     * Used to provide additional validations on composed components.
+     *
+     * @property internalValidations
+     * @type {Array}
+     */
+    internalValidations: PropTypes.array,
 
     /**
      * Minimum possible date
@@ -132,6 +129,15 @@ class Date extends React.Component {
     */
     internalValidations: [new DateValidator()]
   }
+
+  /**
+   * Stores the document - allows us to override it different contexts, such as
+   * when running tests.
+   *
+   * @property _document
+   * @type {document}
+   */
+  _document = document;
 
   state = {
     /**
@@ -202,15 +208,6 @@ class Date extends React.Component {
    * @return {void}
    */
   componentDidUpdate(prevProps) {
-    if (this.state.open && !this.listening) {
-      this.listening = true;
-      this.updateDatePickerPosition();
-      this.window.addEventListener('resize', this.updateDatePickerPosition);
-    } else if (!this.state.open && this.listening) {
-      this.listening = false;
-      this.window.removeEventListener('resize', this.updateDatePickerPosition);
-    }
-
     if (this.datePickerValueChanged(prevProps)) {
       this.blockBlur = false;
       this._handleBlur();
@@ -237,7 +234,8 @@ class Date extends React.Component {
    */
   emitOnChangeCallback = (val) => {
     const hiddenField = this.hidden;
-    hiddenField.value = DateHelper.formatDateString(val, this.hiddenFormat());
+    const isValid = DateHelper.isValidDate(val, { sanitize: (typeof val === 'string') });
+    hiddenField.value = isValid ? DateHelper.formatDateString(val, this.hiddenFormat()) : val;
     this._handleOnChange({ target: hiddenField });
   }
 
@@ -503,7 +501,7 @@ class Date extends React.Component {
     let date = this.state.datePickerValue;
 
     if (!date) {
-      date = DateHelper.isValidDate(this.props.value) ? this.props.value : '';
+      date = this.props.value;
     }
 
     return {
@@ -577,9 +575,11 @@ class Date extends React.Component {
    */
   renderDatePicker() {
     return (
-      <Portal open={ this.state.open }>
-        <DayPicker { ...this.datePickerProps } containerProps={ this.containerProps } />
-      </Portal>
+      this.state.open && (
+        <Portal onReposition={ this.updateDatePickerPosition }>
+          <DayPicker { ...this.datePickerProps } containerProps={ this.containerProps } />
+        </Portal>
+      )
     );
   }
 
@@ -600,7 +600,10 @@ class Date extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses } onClick={ this.handleWidgetClick } { ...tagComponent('date', this.props) }>
+      <div
+        className={ this.mainClasses } onClick={ this.handleWidgetClick }
+        { ...tagComponent('date', this.props) }
+      >
         { this.labelHTML }
         { this.inputHTML }
         { this.renderHiddenInput() }
@@ -645,7 +648,6 @@ class Date extends React.Component {
       { formats: this.hiddenFormat(), sanitize: false }
     );
   }
-}
-))));
+}))));
 
 export default Date;

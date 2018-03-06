@@ -37,9 +37,7 @@ $dialog-sizes: (
   box-shadow: 0 10px 20px rgba($grey-shadow, 0.2);
   position: fixed;
   top: 50%;
-  z-index: $z-dialog;
-  transition: top 0.25s;
-
+  
   &:focus {
     outline: none;
   }

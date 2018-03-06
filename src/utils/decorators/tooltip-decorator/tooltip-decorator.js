@@ -82,7 +82,6 @@ import { styleElement, append } from './../../ether';
  */
 const TooltipDecorator = (ComposedComponent) => {
   class Component extends ComposedComponent {
-
     static propTypes = assign({}, ComposedComponent.propTypes, {
 
       /**
@@ -337,19 +336,20 @@ const TooltipDecorator = (ComposedComponent) => {
      * @return {Object} JSX for tooltip
      */
     get tooltipHTML() {
-      if (!this.props.tooltipMessage) { return null; }
       return (
-        <Portal open={ this.state.isVisible }>
-          <Tooltip
-            align={ this.props.tooltipAlign }
-            data-element='tooltip'
-            isVisible={ this.state.isVisible }
-            position={ this.props.tooltipPosition }
-            ref={ (comp) => { this._tooltip = comp; } }
-          >
-            { this.props.tooltipMessage }
-          </Tooltip>
-        </Portal>
+        (this.props.tooltipMessage && this.state.isVisible) && (
+          <Portal key='tooltip'>
+            <Tooltip
+              align={ this.props.tooltipAlign }
+              data-element='tooltip'
+              isVisible={ this.state.isVisible }
+              position={ this.props.tooltipPosition }
+              ref={ (comp) => { this._tooltip = comp; } }
+            >
+              { this.props.tooltipMessage }
+            </Tooltip>
+          </Portal>
+        )
       );
     }
   }

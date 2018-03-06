@@ -24,6 +24,7 @@ let definition = new Definition('form', Form, {
     buttonAlign: OptionsHelper.alignBinary
   },
   propTypes: {
+    autoDisable: "Boolean",
     cancel: "Boolean",
     children: "Node",
     className: "String",
@@ -43,8 +44,10 @@ let definition = new Definition('form', Form, {
     onSubmit: "Function",
     iterative: "Boolean",
     summary: "Boolean",
+    unsavedWarning: "Boolean"
   },
   propDescriptions: {
+    autoDisable: "Set to true to disable the save button once the form has been submitted",
     cancel: "Set to false to hide the cancel button.",
     children: "This component supports children.",
     afterFormValidation: "A callback triggered after the validation has been ran on the form.",
@@ -63,15 +66,15 @@ let definition = new Definition('form', Form, {
     additionalActions: "Supply additional buttons alongside the form's buttons.",
     onSubmit: "A callback triggered when the form is submitted with passing validation.",
     iterative: "A flag for when the user should be able to repeatedly save & re-use a form.",
-    summary: "Set to false to hide the summary"
+    summary: "Set to false to hide the summary",
+    unsavedWarning: "Warning popup shown when trying to navigate away from an edited form if true"
   },
   propValues: {
-    activeInput: '',
     cancelText: '',
     children: `<Textbox
     label="Name"
     validations={[ new PresenceValidation() ]}
-  />`,
+    />`,
     saveText: ''
   }
 });

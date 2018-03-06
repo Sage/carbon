@@ -17,7 +17,6 @@ import Icon from './../../icon';
  * @constructor
  */
 class Step extends React.Component {
-
   static propTypes = {
     /**
      * Step number
@@ -306,7 +305,7 @@ class Step extends React.Component {
    */
   get indicatorHTML() {
     if (this.stepProcessed) {
-      return <Icon type={ 'white-tick' } className='multi-step-wizard-step__white-tick' />;
+      return <Icon type='white-tick' className='multi-step-wizard-step__white-tick' />;
     }
     return <div>{ this.props.stepNumber }</div>;
   }
@@ -351,10 +350,12 @@ class Step extends React.Component {
       'multi-step-wizard-step',
       `multi-step-wizard-step-${this.props.stepNumber}`,
       `multi-step-wizard-step--${this.indicatorStatus}`,
-      { 'multi-step-wizard-step--disabled': this.stepDisabled,
+      {
+        'multi-step-wizard-step--disabled': this.stepDisabled,
         'multi-step-wizard-step--pending--disabled': this.stepDisabled && this.indicatorStatus === 'pending',
         'multi-step-wizard-step--processed--disabled': this.stepDisabled && this.indicatorStatus === 'processed',
-        'multi-step-wizard-step-final': this.isLastStep },
+        'multi-step-wizard-step-final': this.isLastStep
+      },
       this.props.className
     );
   }

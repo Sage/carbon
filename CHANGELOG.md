@@ -1,8 +1,150 @@
-# 2.6.5
+# 3.1.1
 
 ## Bug Fixes
 
 * Fix incorrect documentation for the `SettingsRow` component.
+
+# 3.1.0
+
+## AutoDisabling form
+
+Form autoDisables after submit when the prop `autoDisable` is set to true. The props `afterFormValidation` and `onSubmit` are passed a `enableForm` callback function which can be used to reactivate the form.
+
+### Example Code
+  ```
+  <Form
+    onSubmit={ this.saveContact }
+    autoDisable
+  >
+    {children}
+  </Form>
+  ```
+
+  ```
+  saveContact = (ev, valid, enableForm) => {
+    ...
+    Actions.submitForm(...);
+    enableForm();
+  };
+  ```
+
+## Improvements
+
+* Input has 2 new props. `onChangeDeferred` allows a deferred callback after an onChange event. `deferTimeout` allows you to customise the default: `750`.
+* Form has 1 new prop. `unsavedWarning` allows a confirmation popup to appear when the user attempts to navigate away from a form they have edited but not saved. True by default. Does not trigger on React Router page transitions. Does not consistantly trigger with browser back/forwards actions. To be reviewed when react-router is upgraded to v4 to use Prompts.
+
+## Portals
+
+* Modal components now uses the Portal component
+* Input validation tooltips now use the Portal component
+* `Toast` component now uses the Portal component
+* `Dropdown` component now uses the Portal component
+
+## Bug Fixes
+
+* `mapToProps` takes precedence over props passed to HOC in `connect` function.
+* `inputs` border-color change `:hover` is now applied to input rather than input container
+
+## Changes
+
+* Resolved new ESLint errors from carbon-factory upgrade.
+
+# 3.0.0
+
+## Package Updates
+
+* React has been updated to v16.2.0
+* React-DOM has been updated to v16.2.0 for React upgrade
+* Enzyme has been updated to v3.3.0 for React upgrade
+* Raf has been added at v3.4.0 for React upgrade
+* ReactTestRenderer has been updated to v16.2.0 for React upgrade
+* React-Highcharts has been updated to v15.0.0 for React upgrade
+* React-Transition-Group has been updated to v1.2.1 for React upgrade
+* ReactHighlight has been updated to a forked version which works with React v16
+* React-Addons-Perf has been removed due to deprecation
+* React-Addons-Test-Utils has been removed due to deprecation
+
+## Breaking Changes
+
+### Unstable HandleError
+
+React 15 had limited, undocumented support for error boundaries using `unstable_handleError`. This method has been renamed to `componentDidCatch`.
+
+### Decimal Precision Capped at 20
+
+Previously this would return an error if the given precision was higher than 20 but would not actually enforce the limit. Now, if a value of greater than 20 is set the precision will be set to exactly 20.
+
+### ReactDOM methods
+
+`ReactDOM.render` and `ReactDOM.unstable_renderSubtreeIntoContainer`now return null if called from inside a lifecycle method. To work around this, you can use portals or refs.
+
+### setState
+
+Calling `setState` with null no longer triggers an update. This allows you to decide in an updater function if you want to re-render.
+
+Calling `setState` directly in render always causes an update. This was not previously the case. Regardless, you should not be calling `setState` from render.
+
+`setState` callbacks (second argument) now fire immediately after `componentDidMount` / `componentDidUpdate` instead of after all components have rendered.
+
+### Enzyme
+
+Part of updating react from 15.6.0 to 16.2.0 included also updating enzyme to 3.3.0. https://github.com/airbnb/enzyme/blob/enzyme%403.3.0/docs/guides/migration-from-2-to-3.md
+
+#### Upgrading a project that uses Carbon
+
+##### Installing peer dependencies
+
+If you're upgrading an application that uses Carbon to 3.0.0 you'll need to make sure you have `raf` in your project's dependencies. To add `raf` to your project dependencies run the following command:
+
+```
+npm install raf --save-dev
+```
+
+You'll also need to add the following line to your jest.conf.json:
+```
+  "setupFiles": [
+    "raf/polyfill"
+  ]
+```
+
+##### Upgrading Carbon and using the new Carbon dependencies
+
+To Install the latest Carbon:
+
+```
+npm install --save carbon-react@3.0.0
+```
+
+### React-Addons
+
+React has discontinued support for all react-addons, the latest version of each addon should continue to work (except react-addons-perf).
+`React.createClass` is deprecated and `create-react-class` should be used instead
+`React.PropTypes` is now available as `prop-types`
+`React.DOM` is now available as `react-dom-factories`
+`react-addons-test-utils` is now available as `react-dom/test-utils`
+
+### React and React Dom
+
+Both `react` and `react-dom` will need to be updated to version 16.2.0
+
+```
+npm install react@^16.2.0 react-dom@^16.2.0 --save
+```
+
+### Hydrate Deprecation
+
+Hydrating a server-rendered container now has an explicit API. If you’re reviving server-rendered HTML, use `ReactDOM.hydrate` instead of `ReactDOM.render`. Keep using `ReactDOM.render` if you’re just doing client-side rendering.
+
+## React Portal
+
+We have updated the `Portal` component to use React's own version of portal which is available with React 16, removing the `react-portal` dependency.
+`Portal` now has an additional prop `onReposition` which is an optional callback function, called when the window resizes or a parent DOM element is scrolled.
+
+## Bug Fixes
+
+* Checkbox no longer overlays the end of the Help field text when the reverse prop is set to true
+* `Date`: Previously this component would not retain an invalid date value, we now keep the value and throw a validation error on the input.
+* The DatePicker element will now reposition itself when the DateInput is scrolled.
 
 # 2.6.4
 
