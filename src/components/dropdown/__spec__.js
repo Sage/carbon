@@ -819,7 +819,7 @@ describe('Dropdown', () => {
       it('should return the main classes', () => {
         instance.setState({ open: true });
         expect(instance.mainClasses).toEqual('carbon-dropdown carbon-dropdown--open common-input--with-icon common-input');
--      });
+      });
     });
   });
 
