@@ -557,7 +557,7 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
       onTouchEnd: this.handleTouchEvent,
       onTouchCancel: this.handleTouchEvent,
       onTouchMove: this.handleTouchEvent,
-      className: classNames('carbon-dropdown__list-block', { 'carbon-dropdown__list-hidden': !this.state.open })
+      className: classNames('carbon-dropdown__list-block')
     };
   }
 
@@ -582,10 +582,7 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
    * @return {String}
    */
   get mainClasses() {
-    return classNames(
-      'carbon-dropdown',
-      { 'carbon-dropdown--open': this.state.open }
-    );
+    return 'carbon-dropdown';
   }
 
   /**
