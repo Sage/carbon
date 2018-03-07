@@ -143,8 +143,6 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
      */
     this.visibleValue = '';
 
-    this.visibleValue = '';
-
     // bind scope to functions - allowing them to be overridden and
     // recalled with the use of super
     this.selectValue = this.selectValue.bind(this);

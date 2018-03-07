@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dropdown options list creates the list in a Portal 1`] = `
+<ul
+  className="carbon-dropdown__list"
+  key="list"
+>
+  <li
+    className="carbon-dropdown__list-item carbon-dropdown__list-item--highlighted carbon-dropdown__list-item--selected"
+    data-element="option"
+    key="foo1"
+    onClick={[Function]}
+    onMouseOver={[Function]}
+    value={1}
+  >
+    foo
+  </li>
+  <li
+    className="carbon-dropdown__list-item"
+    data-element="option"
+    key="bar2"
+    onClick={[Function]}
+    onMouseOver={[Function]}
+    value={2}
+  >
+    bar
+  </li>
+</ul>
+`;
