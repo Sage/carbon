@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM, { createPortal } from 'react-dom';
+import guid from '../../utils/helpers/guid';
 import Browser from '../../utils/helpers/browser';
 
 class Portal extends React.Component {
@@ -19,6 +20,11 @@ class Portal extends React.Component {
      * @type {Node}
      */
     onReposition: PropTypes.func
+  }
+
+  constructor(...args) {
+    super(...args);
+    this.guid = guid();
   }
 
   componentDidMount() {
@@ -46,6 +52,7 @@ class Portal extends React.Component {
     if (!this.defaultNode) {
       this.defaultNode = Browser.getDocument().createElement('div');
       this.defaultNode.classList.add('carbon-portal');
+      this.defaultNode.setAttribute('data-portal-exit', this.guid);
       Browser.getDocument().body.appendChild(this.defaultNode);
     }
     return this.defaultNode;
@@ -66,13 +73,10 @@ class Portal extends React.Component {
     if (!Browser.isDomAvailable()) {
       return null;
     }
-
     return (
-      <div>
-        {
-          createPortal(this.props.children, this.getPortalDiv())
-        }
-      </div>
+      <span data-portal-entrance={ this.guid }>
+        { createPortal(this.props.children, this.getPortalDiv()) }
+      </span>
     );
   }
 }

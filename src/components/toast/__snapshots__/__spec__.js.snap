@@ -8,7 +8,9 @@ exports[`Toast when toast is closed renders null 1`] = `
   open={false}
 >
   <Portal>
-    <div>
+    <span
+      data-portal-entrance="guid-12345"
+    >
       <CSSTransitionGroup
         transitionAppear={true}
         transitionAppearTimeout={1600}
@@ -32,7 +34,7 @@ exports[`Toast when toast is closed renders null 1`] = `
           <span />
         </TransitionGroup>
       </CSSTransitionGroup>
-    </div>
+    </span>
   </Portal>
 </Toast>
 `;
