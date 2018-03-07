@@ -1,3 +1,7 @@
+# 3.1.2
+
+Fixes auto-deployment of tags using Travis CI.
+
 # 3.1.1
 
 ## Improvements
