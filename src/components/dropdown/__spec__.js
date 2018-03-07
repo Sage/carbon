@@ -809,8 +809,17 @@ describe('Dropdown', () => {
   });
 
   describe('mainClasses', () => {
-    it('should return the main class', () => {
-      expect(instance.mainClasses).toEqual('carbon-dropdown common-input--with-icon common-input');
+    describe('if closed', () => {
+      it('should return the main class', () => {
+        expect(instance.mainClasses).toEqual('carbon-dropdown common-input--with-icon common-input');
+      });
+    });
+
+    describe('if open', () => {
+      it('should return the main classes', () => {
+        instance.setState({ open: true });
+        expect(instance.mainClasses).toEqual('carbon-dropdown carbon-dropdown--open common-input--with-icon common-input');
+-      });
     });
   });
 

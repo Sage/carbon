@@ -580,7 +580,10 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
    * @return {String}
    */
   get mainClasses() {
-    return 'carbon-dropdown';
+    return classNames(
+      'carbon-dropdown',
+      { 'carbon-dropdown--open': this.state.open }
+    );
   }
 
   /**
