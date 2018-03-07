@@ -2,7 +2,7 @@
 
 ## Improvements
 
-A unique id has been added to the Portal component entrance and exit nodes.
+A unique ID has been added to the Portal component entrance and exit nodes. This will help find corresponding nodes in the DOM.
 
 # 3.1.0
 
