@@ -1,3 +1,9 @@
+# 3.2.0
+
+## Improvements
+
+* `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
+
 # 3.1.2
 
 Fixes auto-deployment of tags using Travis CI.
