@@ -1,8 +1,8 @@
 # 3.1.3
 
-### Fixes
+### Demo Site
 
-Tutorials are now numbered incorrectly in the Carbon Demo sidebar.
+Tutorials are now numbered correctly in the Carbon Demo sidebar.
 
 # 3.1.2
 
