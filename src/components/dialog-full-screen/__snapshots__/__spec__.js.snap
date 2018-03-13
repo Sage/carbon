@@ -13,7 +13,9 @@ exports[`DialogFullScreen tags on component include correct component, elements 
   <Portal
     key="1"
   >
-    <div>
+    <span
+      data-portal-entrance="guid-12345"
+    >
       <div
         className="carbon-dialog-full-screen"
         data-component="dialog-full-screen"
@@ -158,7 +160,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
           </TransitionGroup>
         </CSSTransitionGroup>
       </div>
-    </div>
+    </span>
   </Portal>
 </DialogFullScreen>
 `;

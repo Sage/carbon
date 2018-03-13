@@ -1,3 +1,13 @@
+# 3.1.2
+
+Fixes auto-deployment of tags using Travis CI.
+
+# 3.1.1
+
+## Improvements
+
+A unique ID has been added to the Portal component entrance and exit nodes. This will help find corresponding nodes in the DOM.
+
 # 3.1.0
 
 ## Preview Component
@@ -27,16 +37,16 @@ Using the `loading` prop:
 Form autoDisables after submit when the prop `autoDisable` is set to true. The props `afterFormValidation` and `onSubmit` are passed a `enableForm` callback function which can be used to reactivate the form.
 
 ### Example Code
-  ``` 
+  ```
   <Form
     onSubmit={ this.saveContact }
     autoDisable
   >
-    {children} 
+    {children}
   </Form>
   ```
-  
-  ``` 
+
+  ```
   saveContact = (ev, valid, enableForm) => {
     ...
     Actions.submitForm(...);
@@ -47,6 +57,7 @@ Form autoDisables after submit when the prop `autoDisable` is set to true. The p
 ## Improvements
 
 * Input has 2 new props. `onChangeDeferred` allows a deferred callback after an onChange event. `deferTimeout` allows you to customise the default: `750`.
+* Form has 1 new prop. `unsavedWarning` allows a confirmation popup to appear when the user attempts to navigate away from a form they have edited but not saved. True by default. Does not trigger on React Router page transitions. Does not consistantly trigger with browser back/forwards actions. To be reviewed when react-router is upgraded to v4 to use Prompts.
 
 ## Portals
 
@@ -58,10 +69,16 @@ Form autoDisables after submit when the prop `autoDisable` is set to true. The p
 ## Bug Fixes
 
 * `mapToProps` takes precedence over props passed to HOC in `connect` function.
+* `inputs` border-color change `:hover` is now applied to input rather than input container
+* `Store`: sets the `maxListeners` to handle more complex store arrangements
 
 ## Changes
 
 * Resolved new ESLint errors from carbon-factory upgrade.
+
+## Demo Site
+
+* Add a `key` to the top-level `MenuListItem` components in the sidebar, which removes the 'Each child in an array or iterator should have a unique "key" prop' warning.
 
 # 3.0.0
 

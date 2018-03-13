@@ -56,6 +56,8 @@ export default class Store extends EventEmitter {
   constructor(name, data, opts = {}) {
     super(name, data, opts);
 
+    this.setMaxListeners(50);
+
     const suffix = `Check the initialization of ${this.constructor.name}.`;
 
     // tell the developer if they have not defined the name property.

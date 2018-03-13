@@ -12,10 +12,6 @@
   + .common-input {
     margin-top: 10px;
   }
-
-  &:hover .common-input__field .common-input__input {
-    border-color: $input-active-border-color;
-  }
 }
 
 .common-input--readonly {
@@ -89,6 +85,7 @@
   }
 
   &:active,
+  &:hover,
   &:focus {
     @include input-outline($input-active-border-color);
   }
