@@ -47,6 +47,7 @@ export default {
   'pill':                 require('components/pill/__definition__').default,
   'pod':                  require('components/pod/__definition__').default,
   'portrait':             require('components/portrait/__definition__').default,
+  'preview':              require('components/preview/__definition__').default,
   'profile':              require('components/profile/__definition__').default,
   'radio-button':         require('components/radio-button/__definition__').default,
   'rainbow':              require('components/rainbow/__definition__').default,
