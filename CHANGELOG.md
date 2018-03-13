@@ -1,3 +1,9 @@
+# 3.1.3
+
+### Fixes
+
+Tutorials are now numbered incorrectly in the Carbon Demo sidebar.
+
 # 3.1.2
 
 Fixes auto-deployment of tags using Travis CI.
