@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { isObject, isArray, forEach } from 'lodash';
 import shouldComponentUpdate from './../../utils/helpers/should-component-update';
+import Portal from './../portal';
 import Icon from './../icon';
 import Alert from './../alert';
 import Link from './../link';
@@ -456,34 +457,29 @@ class Flash extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let flashHTML, sliderHTML;
-
-    if (this.props.open) {
-      flashHTML = this.flashHTML;
-      sliderHTML = this.sliderHTML;
-    }
-
     return (
-      <div { ...tagComponent('flash', this.props) }>
-        <div className={ this.classes }>
-          <CSSTransitionGroup
-            transitionName='carbon-flash__slider'
-            transitionEnterTimeout={ 600 }
-            transitionLeaveTimeout={ 600 }
-          >
-            { sliderHTML }
+      <Portal>
+        <div { ...tagComponent('flash', this.props) }>
+          <div className={ this.classes }>
             <CSSTransitionGroup
-              transitionName='carbon-flash__content'
-              transitionEnterTimeout={ 800 }
-              transitionLeaveTimeout={ 500 }
+              transitionName='carbon-flash__slider'
+              transitionEnterTimeout={ 600 }
+              transitionLeaveTimeout={ 600 }
             >
-              { flashHTML }
+              { this.props.open && this.sliderHTML }
+              <CSSTransitionGroup
+                transitionName='carbon-flash__content'
+                transitionEnterTimeout={ 800 }
+                transitionLeaveTimeout={ 500 }
+              >
+                { this.props.open && this.flashHTML }
+              </CSSTransitionGroup>
             </CSSTransitionGroup>
-          </CSSTransitionGroup>
-        </div>
+          </div>
 
-        { this.dialogs }
-      </div>
+          { this.dialogs }
+        </div>
+      </Portal>
     );
   }
 }
