@@ -1,14 +1,4 @@
-# 3.1.2
-
-Fixes auto-deployment of tags using Travis CI.
-
-# 3.1.1
-
-## Improvements
-
-A unique ID has been added to the Portal component entrance and exit nodes. This will help find corresponding nodes in the DOM.
-
-# 3.1.0
+# 3.2.0
 
 ## Preview Component
 
@@ -31,6 +21,18 @@ Using the `loading` prop:
   { children }
 </Preview>
 ```
+
+# 3.1.2
+
+Fixes auto-deployment of tags using Travis CI.
+
+# 3.1.1
+
+## Improvements
+
+A unique ID has been added to the Portal component entrance and exit nodes. This will help find corresponding nodes in the DOM.
+
+# 3.1.0
 
 ## AutoDisabling form
 
