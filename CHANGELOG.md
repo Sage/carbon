@@ -1,8 +1,30 @@
-# 3.1.3
+# 3.2.0
 
 ### Demo Site
 
 Tutorials are now numbered correctly in the Carbon Demo sidebar.
+
+## Preview Component
+
+Preview adds a CSS shimer animation as a placeholder if no children are given or the loading prop is true.
+
+### Example Code
+
+With no children:
+
+```
+<Preview>
+  { null }
+</Preview>
+```
+
+Using the `loading` prop:
+
+```
+<Preview loading>
+  { children }
+</Preview>
+```
 
 # 3.1.2
 
