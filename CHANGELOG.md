@@ -1,6 +1,6 @@
 # 3.2.0
 
-### Demo Site
+## Demo Site
 
 Tutorials are now numbered correctly in the Carbon Demo sidebar.
 
