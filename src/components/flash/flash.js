@@ -125,7 +125,8 @@ class Flash extends React.Component {
      * @property dialogs
      * @type {Object}
      */
-    dialogs: {}
+    dialogs: {},
+    open: false
   }
 
   /**
@@ -134,9 +135,16 @@ class Flash extends React.Component {
    * @method componentWillReceiveProps
    * @return(Void)
    */
-  componentWillReceiveProps(prevProps) {
-    if (prevProps.open !== this.props.open) {
-      this.setState({ dialogs: {} });
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.open === this.props.open) { return; }
+
+    if (nextProps.open) {
+      this.setState({ dialogs: {}, open: nextProps.open });
+    } else {
+      clearTimeout(this.fadeLeaveTimeout);
+      this.fadeLeaveTimeout = setTimeout(() => {
+        this.setState({ dialogs: {}, open: nextProps.open });
+      }, 2000);
     }
   }
 
@@ -457,29 +465,38 @@ class Flash extends React.Component {
    * @return {Object} JSX
    */
   render() {
+    const sliderHTML = this.props.open && this.sliderHTML;
+    const flashHTML = this.props.open && this.flashHTML;
     return (
-      <Portal>
-        <div { ...tagComponent('flash', this.props) }>
-          <div className={ this.classes }>
-            <CSSTransitionGroup
-              transitionName='carbon-flash__slider'
-              transitionEnterTimeout={ 600 }
-              transitionLeaveTimeout={ 600 }
-            >
-              { this.props.open && this.sliderHTML }
+      this.state.open && (
+        <Portal>
+          <div { ...tagComponent('flash', this.props) }>
+            <div className={ this.classes }>
               <CSSTransitionGroup
-                transitionName='carbon-flash__content'
-                transitionEnterTimeout={ 800 }
-                transitionLeaveTimeout={ 500 }
+                transitionAppear
+                transitionAppearTimeout={ 500 }
+                transitionName='carbon-flash__slider'
+                transitionEnterTimeout={ 600 }
+                transitionLeave
+                transitionLeaveTimeout={ 2600 }
               >
-                { this.props.open && this.flashHTML }
+                { sliderHTML }
+                <CSSTransitionGroup
+                  transitionAppear
+                  transitionAppearTimeout={ 500 }
+                  transitionName='carbon-flash__content'
+                  transitionEnterTimeout={ 800 }
+                  transitionLeave
+                  transitionLeaveTimeout={ 2500 }
+                >
+                  { flashHTML }
+                </CSSTransitionGroup>
               </CSSTransitionGroup>
-            </CSSTransitionGroup>
+            </div>
+            { this.dialogs }
           </div>
-
-          { this.dialogs }
-        </div>
-      </Portal>
+        </Portal>
+      )
     );
   }
 }
