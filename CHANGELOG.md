@@ -1,8 +1,11 @@
+# 3.2.0
+
+Flash component now uses Portal
+
 # 3.1.2
 
 Fixes auto-deployment of tags using Travis CI.
 
-Flash component now uses Portal
 
 # 3.1.1
 

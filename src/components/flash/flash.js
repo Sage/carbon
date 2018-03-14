@@ -137,13 +137,12 @@ class Flash extends React.Component {
    */
   componentWillReceiveProps(nextProps) {
     if (nextProps.open === this.props.open) { return; }
-
     if (nextProps.open) {
       this.setState({ dialogs: {}, open: nextProps.open });
     } else {
       clearTimeout(this.fadeLeaveTimeout);
       this.fadeLeaveTimeout = setTimeout(() => {
-        this.setState({ dialogs: {}, open: nextProps.open });
+        this.setState({ open: nextProps.open });
       }, 2000);
     }
   }
@@ -473,6 +472,7 @@ class Flash extends React.Component {
           <div { ...tagComponent('flash', this.props) }>
             <div className={ this.classes }>
               <CSSTransitionGroup
+                component='div'
                 transitionAppear
                 transitionAppearTimeout={ 500 }
                 transitionName='carbon-flash__slider'
@@ -482,6 +482,7 @@ class Flash extends React.Component {
               >
                 { sliderHTML }
                 <CSSTransitionGroup
+                  component='div'
                   transitionAppear
                   transitionAppearTimeout={ 500 }
                   transitionName='carbon-flash__content'
