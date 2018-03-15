@@ -55,7 +55,7 @@ export default new SiteMapHelper({
     items: {
       'rails-part-1:-hello-world': `${tutorialsPath}/carbon-rails/hello-world.md`,
       'rails-part-2:-introducing-data': `${tutorialsPath}/carbon-rails/introducing-data.md`,
-      'rails-part-2:-updating-data': `${tutorialsPath}/carbon-rails/updating-data.md`
+      'rails-part-3:-updating-data': `${tutorialsPath}/carbon-rails/updating-data.md`
     }
   }
 });
