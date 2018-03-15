@@ -136,14 +136,13 @@ class Flash extends React.Component {
    * @return(Void)
    */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.open === this.props.open) { return; }
+    clearTimeout(this.removePortalTimeout);
     if (nextProps.open) {
       this.setState({ dialogs: {}, open: nextProps.open });
     } else {
-      clearTimeout(this.fadeLeaveTimeout);
-      this.fadeLeaveTimeout = setTimeout(() => {
-        this.setState({ open: nextProps.open });
-      }, 2000);
+      this.removePortalTimeout = setTimeout(() => {
+        this.setState({ open: false });
+      }, 1000);
     }
   }
 
@@ -472,23 +471,20 @@ class Flash extends React.Component {
           <div { ...tagComponent('flash', this.props) }>
             <div className={ this.classes }>
               <CSSTransitionGroup
-                component='div'
                 transitionAppear
                 transitionAppearTimeout={ 500 }
                 transitionName='carbon-flash__slider'
                 transitionEnterTimeout={ 600 }
                 transitionLeave
-                transitionLeaveTimeout={ 2600 }
+                transitionLeaveTimeout={ 600 }
               >
                 { sliderHTML }
                 <CSSTransitionGroup
                   component='div'
-                  transitionAppear
-                  transitionAppearTimeout={ 500 }
                   transitionName='carbon-flash__content'
-                  transitionEnterTimeout={ 800 }
+                  transitionEnterTimeout={ 200 }
                   transitionLeave
-                  transitionLeaveTimeout={ 2500 }
+                  transitionLeaveTimeout={ 600 }
                 >
                   { flashHTML }
                 </CSSTransitionGroup>
