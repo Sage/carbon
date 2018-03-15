@@ -1,8 +1,9 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Flash from './flash';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import Portal from './../portal';
 
 describe('Flash', () => {
   let defaultInstance, successInstance, errorInstance, warningInstance, timeoutInstance,
@@ -44,19 +45,21 @@ describe('Flash', () => {
   describe('componentWillReceiveProps', () => {
     beforeEach(() => {
       spyOn(defaultInstance, 'setState');
+      jest.useFakeTimers();
     });
 
     describe('if open prop has changed', () => {
       it('calls setState', () => {
         defaultInstance.componentWillReceiveProps({ open: false });
-        expect(defaultInstance.setState).toHaveBeenCalledWith({ dialogs: {} });
+        jest.runTimersToTime(2000);
+        expect(defaultInstance.setState).toHaveBeenCalledWith({ "open": false} );
       });
     });
 
     describe('if open prop has not changed', () => {
       it('does not call setState', () => {
         defaultInstance.componentWillReceiveProps({ open: true });
-        expect(defaultInstance.setState).not.toHaveBeenCalled();
+        expect(defaultInstance.setState).toHaveBeenCalledWith({"dialogs": {}, "open": true} );
       });
     });
   });
@@ -273,45 +276,107 @@ describe('Flash', () => {
   });
 
   describe('flashHTML', () => {
-    let successFlash, alertFlash, timeoutFlash;
-
+    let flashInfo;
     beforeEach(() => {
-      successFlash = TestUtils.findRenderedDOMComponentWithClass(successInstance, 'carbon-flash');
-      alertFlash = TestUtils.findRenderedDOMComponentWithClass(defaultInstance, 'carbon-flash');
-      timeoutFlash = TestUtils.findRenderedDOMComponentWithClass(timeoutInstance, 'carbon-flash');
+      jest.useFakeTimers();
+      flashInfo = mount(
+        <Flash
+          message='This is some flash info'
+          onDismiss={ () => {
+            flashInfo.setProps({ open: false });
+          } }
+          open={ false }
+          timeout={ null }
+        />
+      );
+
     });
 
-    it('adds an icon', () => {
-      expect(successFlash.getElementsByClassName('carbon-flash__icon').length).toEqual(1);
+    it('should have not have Portal when close', () => {
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).length).toBe(0);
+      expect(flashInfo.html()).toEqual(null);
+    });
+
+    it('should have have Portal when open', () => {
+      flashInfo.setProps({ open: true });
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).length).toBe(1);
+      expect(flashInfo.html()).not.toEqual(null);
+    });
+
+    it('should be success by default', () => {
+      flashInfo.setProps({ open: true });
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).find('.carbon-flash--success').length).toEqual(1);
+      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-tick').length).toEqual(1);
+    });
+
+    it('should be maintenance', () => {
+      flashInfo.setProps({ open: true, as:'maintenance' });
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).find('.carbon-flash--maintenance').length).toEqual(1);
+      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-settings').length).toEqual(1);
+    });
+
+    it('should be help', () => {
+      flashInfo.setProps({ open: true, as:'help' });
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).find('.carbon-flash--help').length).toEqual(1);
+      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-question').length).toEqual(1);
+    });
+
+    it('should be error', () => {
+      flashInfo.setProps({ open: true, as:'error' });
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).find('.carbon-flash--error').length).toEqual(1);
+      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-error').length).toEqual(1);
+    });
+
+    it('should be new', () => {
+      flashInfo.setProps({ open: true, as:'new' });
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).find('.carbon-flash--new').length).toEqual(1);
+      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-gift').length).toEqual(1);
+    });
+
+    it('should be warning', () => {
+      flashInfo.setProps({ open: true, as:'warning' });
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).find('.carbon-flash--warning').length).toEqual(1);
+      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-warning').length).toEqual(1);
     });
 
     it('adds the message', () => {
-      let messageHTML =  alertFlash.getElementsByClassName('carbon-flash__message');
-      expect(messageHTML.length).toEqual(1);
+      flashInfo.setProps({ open: true, as:'warning' });
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).find('.carbon-flash--warning').length).toEqual(1);
     });
 
     describe('when no timeout is passed', () => {
       it('adds a close icon', () => {
-        let iconHTML = alertFlash.getElementsByClassName('carbon-flash__icon');
-        expect(iconHTML.length).toEqual(1);
+        flashInfo.setProps({ open: true, as:'warning' });
+        expect(flashInfo.find(Portal).find('.carbon-flash__close.icon-close').length).toEqual(1);
       });
 
       it('adds a click handler that closes the flash', () => {
-        let closeIcon = alertFlash.getElementsByClassName('carbon-flash__close')[0];
-        TestUtils.Simulate.click(closeIcon);
-        expect(dismissHandler).toHaveBeenCalled();
+        flashInfo.setProps({ open: true });
+        flashInfo.find(Portal).find('.carbon-flash__close.icon-close').simulate('click');
+        jest.runTimersToTime(2000);
+        expect(flashInfo.html()).toEqual(null);
       });
     });
 
     describe('when a timeout is passed', () => {
       it('does not add a close icon', () => {
-        let iconHTML = timeoutFlash.getElementsByClassName('carbon-flash__icon');
-        expect(iconHTML.length).toEqual(0);
+        flashInfo.setProps({ open: true, as:'warning', timeout:1000 });
+        expect(flashInfo.find(Portal).find('.carbon-flash__close.icon-close').length).toEqual(0);
       });
     });
 
     it('returns a div with the flash class names', () => {
-      let contentHTML = alertFlash.getElementsByClassName('carbon-flash__content');
+      flashInfo.setProps({ open: true });
+      let contentHTML = flashInfo.find('.carbon-flash__content');
       expect(contentHTML.length).toEqual(1);
     });
   });
