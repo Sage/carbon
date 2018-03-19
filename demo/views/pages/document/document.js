@@ -60,6 +60,7 @@ class Document extends React.Component {
 
           <CSSTransitionGroup
             className={ this.loadingClasses() }
+            component='div'
             transitionName="demo-document__loading"
             transitionAppear={ true }
             transitionAppearTimeout={ 300 }
