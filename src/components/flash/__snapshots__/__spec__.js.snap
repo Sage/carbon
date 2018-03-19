@@ -11,6 +11,7 @@ exports[` 1`] = `
       className="carbon-flash carbon-flash--success"
     >
       <CSSTransitionGroup
+        component="div"
         transitionAppear={true}
         transitionAppearTimeout={500}
         transitionEnter={true}
