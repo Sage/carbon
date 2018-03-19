@@ -477,6 +477,7 @@ class Flash extends React.Component {
           <div { ...tagComponent('flash', this.props) }>
             <div className={ this.classes }>
               <CSSTransitionGroup
+                component='div'
                 transitionAppear
                 transitionAppearTimeout={ 500 }
                 transitionName='carbon-flash__slider'

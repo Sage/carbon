@@ -352,6 +352,7 @@ class ShowEditPod extends React.Component {
         { ...tagComponent('show-edit-pod', this.props) }
       >
         <CSSTransitionGroup
+          component='div'
           transitionName={ this.props.transitionName }
           transitionEnterTimeout={ 300 }
           transitionLeaveTimeout={ 50 }

@@ -30,6 +30,14 @@ Using the `loading` prop:
 </Preview>
 ```
 
+## Bug Fixes
+
+* `AnimatedMenuButton`, `Carousel`, `Flash`, `ShowEditPod`, `Table`, and `Toast` all pass the `component='div'` prop to their respective `CSSTransitionGroup` components. This fixes incorrectly nested HTML e.g. `<div>` tags nested within `<span>` tags.
+
+## Demo Site
+
+Tutorials are now numbered correctly in the Carbon Demo sidebar.
+
 # 3.1.2
 
 Fixes auto-deployment of tags using Travis CI.
