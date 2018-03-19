@@ -136,7 +136,13 @@ class Flash extends React.Component {
    * @return(Void)
    */
   componentWillReceiveProps(nextProps) {
-    clearTimeout(this.removePortalTimeout);
+    if (nextProps.open === this.props.open) { return; }
+
+    if (this.removePortalTimeout) {
+      clearTimeout(this.removePortalTimeout);
+      this.removePortalTimeout = null;
+    }
+
     if (nextProps.open) {
       this.setState({ dialogs: {}, open: nextProps.open });
     } else {

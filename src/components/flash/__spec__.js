@@ -59,9 +59,10 @@ describe('Flash', () => {
     });
 
     describe('if open prop has not changed', () => {
-      it('does not call setState', () => {
+      it('will not call setState', () => {
         defaultInstance.componentWillReceiveProps({ open: true });
-        expect(defaultInstance.setState).toHaveBeenCalledWith({"dialogs": {}, "open": true} );
+        jest.runTimersToTime(0);
+        expect(defaultInstance.setState).not.toHaveBeenCalled();
       });
     });
   });
@@ -307,6 +308,19 @@ describe('Flash', () => {
       expect(flashInfo.html()).not.toEqual(null);
     });
 
+    it('should have clearTimeout when opened and closed', () => {
+      flashInfo.setProps({ open: true });
+      flashInfo.setProps({ open: false });
+      expect(flashInfo.instance().removePortalTimeout).not.toBe(null);
+    });
+
+    it('should clearTimeout when closed and reopened', () => {
+      flashInfo.setProps({ open: true });
+      flashInfo.setProps({ open: false });
+      flashInfo.setProps({ open: true });
+      expect(flashInfo.instance().removePortalTimeout).toBe(null);
+    });
+
     it('should be success by default', () => {
       flashInfo.setProps({ open: true });
       jest.runTimersToTime(0);
@@ -433,12 +447,12 @@ describe('Flash', () => {
     guid.mockImplementation(() => 'guid-12345');
     
     jest.useFakeTimers();
-    let flashInfo = mount(
+    let flashInfo = shallow(
       <Flash
         data-element='bar'
         message='bun::more::dy'
         onDismiss={ () => {} }
-        open={ true }
+        open={ false }
         data-role='baz'
         timeout={ null }
       />
