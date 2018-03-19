@@ -4,6 +4,8 @@ import Flash from './flash';
 import { shallow, mount } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Portal from './../portal';
+import guid from '../../utils/helpers/guid';
+jest.mock('../../utils/helpers/guid');
 
 describe('Flash', () => {
   let defaultInstance, successInstance, errorInstance, warningInstance, timeoutInstance,
@@ -390,11 +392,24 @@ describe('Flash', () => {
   });
 
   describe('render', () => {
-    let flashInstance, outerSlider;
+    let flashInfo;
+    let flashInstance;
 
     beforeEach(() => {
-      flashInstance = TestUtils.findRenderedDOMComponentWithClass(defaultInstance, 'carbon-flash');
-      outerSlider = flashInstance.firstChild.children[0];
+      jest.useFakeTimers();
+      flashInfo = mount(
+        <Flash
+          message='This is some flash info'
+          onDismiss={ () => {
+            flashInfo.setProps({ open: false });
+          } }
+          open={ false }
+          timeout={ null }
+        />
+      );
+      flashInfo.setProps({ open: true });
+      jest.runTimersToTime(0);
+      flashInstance = flashInfo.find(Portal).find('.carbon-flash').instance();
     });
 
     describe('when the flash is open', () => {
@@ -403,6 +418,7 @@ describe('Flash', () => {
       });
 
       it('renders an outer slider element', () => {
+        let outerSlider = flashInstance.firstChild.children[0];
         expect(outerSlider.className).toMatch('carbon-flash__slider');
       });
 
@@ -413,40 +429,22 @@ describe('Flash', () => {
     });
   });
 
-  describe("tags", () => {
-    describe("on component", () => {
-      let wrapper = shallow(
-        <Flash
-          data-element='bar'
-          message='bun::more::dy'
-          onDismiss={ () => {} }
-          open={ true }
-          data-role='baz'
-          timeout={ null }
-        />
-      );
-
-      it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper, 'flash', 'bar', 'baz');
-      });
-    });
-
-    describe("on internal elements", () => {
-      let wrapper = shallow(
-        <Flash
-          message='bun::more::dy'
-          onDismiss={ () => {} }
-          open={ true }
-          timeout={ null }
-        />
-      );
-
-      elementsTagTest(wrapper, [
-        'close',
-        'info-dialog',
-        'message',
-        'more-info'
-      ]);
-    });
+  describe("snapshot", () => {
+    guid.mockImplementation(() => 'guid-12345');
+    
+    jest.useFakeTimers();
+    let flashInfo = mount(
+      <Flash
+        data-element='bar'
+        message='bun::more::dy'
+        onDismiss={ () => {} }
+        open={ true }
+        data-role='baz'
+        timeout={ null }
+      />
+    );
+    flashInfo.setProps({ open: true });
+    jest.runTimersToTime(0);
+    expect(flashInfo).toMatchSnapshot();
   });
 });
