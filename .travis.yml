@@ -17,21 +17,21 @@ script:
 
 before_deploy: if [ "$TRAVIS_BRANCH" == "release" ]; then gulp deploy --build -—production; fi
 
-deploy:
-  - provider: s3
-    bucket: carbon.sage.com
-    skip_cleanup: true
-    local_dir: deploy
-    on:
-      branch: release
-    access_key_id:
-      secure: iZx7SkuMjUMXLVQNO5LSjF6EfQeqGbgdGtPg0hfzVIEcS5s/79j5aq8aQJ7EjCXM+yPRDZMaXB+StXOZjNhEbKLYt2mZDyMki3gAII2QM2MAeI5YtltgJHlXClsMjFiomTbRPo/F9CnIerRBdAFUmQXh2BVSdz86ptsLWs9SrcSjgN/RM6bWSaFYbyckyRVQZVipHYN1vmbEw8ZNZGSQTEPyi3Pw4nXMJ+9ro/72Pt5Ioo3a/praWJL9I5hEc6uBAfFZTtsg70txARaSOycoHxQT8S/xfIzfPQXSmj3n4MTMMCOi3CyJFJfTOdHnQ2ylSllae3zLgIJv1dPQoRuPrB0A1loG2BA+1PXA7KZrwBzYty20XMM2o2tB4mlkKh8p1gOjdsAyRT415kDkEvGpw/b+jFPQ+mAg67ELCJz/HTvBvrKF8nAGsoiG0A1Bi89wxi2riMjAZ2VzbTHrTq/Lp/MlJYt4Z44CXVSKXlKBVKwlDVS7+OIp5QAC0AggtJGFb4kvS/6zUnoykM/lsRBX99lsMURlpGq/EKC5B4iU26NWvF4L+sO9UUesN7LMr8C6oSc7wVrhLHiQbJx55UZTjT4+H/Y4VOFOiEhVKKJTk0/jt/QOOxZbuyhMitLOMBTQQ9tEICv7fIFSUIfePD3bG6FR3vXvod0ct/H7/DhNM0A=
-    secret_access_key:
-      secure: qdS1pq1ZXvw6lXLrGtSaZTpx7OLREvV/7UCwPFbfQkuQBLbxLe32qlzOkkEQWd7sHwadSgvVTKvX4HKaAIx+QZ2XXFbXGx4HIOCws6ynAVVa2kV5SSHKMwiy+R6Ypttu3GD6uKEhPMUULCYuCLzIIvAOKoCaDIzzKlxzK+g/tCe94J+fKU0DS6U23FFxW51UADgTxn7opg3mkhsteaRyAtDkurAeobEzfQpTFKPNXJ3YcFjpGUf9Z5zxcXXNohKZQP4wODgYU+OZuif/cAeETChWxVThk0PMIIk9/lmwyX1UKIpWpyVTDEKXzwnO2COVWOxtVCpTB0uwfZTZ8MhVXRvFj8Dk/iw+2NN/W55fQ44xx0h6mvhMle98jKTWi6AR/F0LJMpCkZeNTVCdiDz7Ow1g23HlBIRx/seYxph2vLSLkh63kU8ygaOFWhCNdCGOOPLHi8m8X8vlLRvN9ETWY/sMWkvY/S9bXIGw8lv5Bk4lIxAmjoU05XJceq5rOlSax46d1fsicJ5gF6tcxvMau2bFGMCgeZJEpRYChqTEt284woFc8+maa4SwMVrim6J8R53Xfx8mtgCnRlgZmXymzyxu8wCVnAza24iQ4kWmx+fDw70iU5Q3nxSwjN4Q922QZiAFLGpAK0nRDFhE7NPftubYOgsisNCFOnTTTBGJghI=
-  - provider: npm
-    email: sageoneplatform@sage.com
-    api_key:
-      secure: Vr4sohrHqb3fzt3/JPucQ6gHIdPm4hDMEZNAMn87OKHEP9OoAcF7F+y2dIgBEgWu65z3f8jBipR27N0kZ6Ov2mCmHoi0bMkM2J+hX1ApwPlAoVOd3bWGUTeL7HDAkYsZ7o2ZKB4jXdqOak15AZuA+9KLiNTVt/E04gKZYto7Z97I2y0k0WLoTi/z7krCBBiq+XowvMNcPr8yNJ/gPcgUsfE/l1V0hs6LYvATBTKAU30fqTUvfXQrVwb5rA42umrYY4QPNPKHp6yru3pzUK5121yve3bG2ADgefDlOao6SBp5iDJzpPRRJKlB0P5S1685VEmrHhdEbbg9+0B2ve+L7Cv9oDb0KR0FuuPRIDdKXxil3ZMO6/ueWHGei1Q5VyDU43KidryY3RnMrYbUaryxxnvELUITUV6AvPFNJqIPJgRRRukf9WyOirNl1N5GvYNXtQepJdjZsxLrTOYNnKCG3CBSGwvj+Kx09mhNC1P27KMW8I8wvqPtTEm819YApYTPpl+9OJwsPPzu1MV/oIwWE5Ga171oPBMqRrLRdzywzLhrstCTCvOs+eYDKYAGUziX4pU6xxe9ye5mSG6H6UAPG8PxknivZM3FRjzjorzDXvDmUbrnNu4bpmkE2q85Ji+82jpY23kDuweEkhDUCPfqlFcF5ikMoq9sT+c8nOiCesI=
-    on:
-      tags: true
-      condition: "$TRAVIS_TAG =~ ^((v[0-9]+.[0-9]+.[0-9]+)(-rc[0-9]+)?)$"
+# deploy:
+#   - provider: s3
+#     bucket: carbon.sage.com
+#     skip_cleanup: true
+#     local_dir: deploy
+#     on:
+#       branch: release
+#     access_key_id:
+#       secure: iZx7SkuMjUMXLVQNO5LSjF6EfQeqGbgdGtPg0hfzVIEcS5s/79j5aq8aQJ7EjCXM+yPRDZMaXB+StXOZjNhEbKLYt2mZDyMki3gAII2QM2MAeI5YtltgJHlXClsMjFiomTbRPo/F9CnIerRBdAFUmQXh2BVSdz86ptsLWs9SrcSjgN/RM6bWSaFYbyckyRVQZVipHYN1vmbEw8ZNZGSQTEPyi3Pw4nXMJ+9ro/72Pt5Ioo3a/praWJL9I5hEc6uBAfFZTtsg70txARaSOycoHxQT8S/xfIzfPQXSmj3n4MTMMCOi3CyJFJfTOdHnQ2ylSllae3zLgIJv1dPQoRuPrB0A1loG2BA+1PXA7KZrwBzYty20XMM2o2tB4mlkKh8p1gOjdsAyRT415kDkEvGpw/b+jFPQ+mAg67ELCJz/HTvBvrKF8nAGsoiG0A1Bi89wxi2riMjAZ2VzbTHrTq/Lp/MlJYt4Z44CXVSKXlKBVKwlDVS7+OIp5QAC0AggtJGFb4kvS/6zUnoykM/lsRBX99lsMURlpGq/EKC5B4iU26NWvF4L+sO9UUesN7LMr8C6oSc7wVrhLHiQbJx55UZTjT4+H/Y4VOFOiEhVKKJTk0/jt/QOOxZbuyhMitLOMBTQQ9tEICv7fIFSUIfePD3bG6FR3vXvod0ct/H7/DhNM0A=
+#     secret_access_key:
+#       secure: qdS1pq1ZXvw6lXLrGtSaZTpx7OLREvV/7UCwPFbfQkuQBLbxLe32qlzOkkEQWd7sHwadSgvVTKvX4HKaAIx+QZ2XXFbXGx4HIOCws6ynAVVa2kV5SSHKMwiy+R6Ypttu3GD6uKEhPMUULCYuCLzIIvAOKoCaDIzzKlxzK+g/tCe94J+fKU0DS6U23FFxW51UADgTxn7opg3mkhsteaRyAtDkurAeobEzfQpTFKPNXJ3YcFjpGUf9Z5zxcXXNohKZQP4wODgYU+OZuif/cAeETChWxVThk0PMIIk9/lmwyX1UKIpWpyVTDEKXzwnO2COVWOxtVCpTB0uwfZTZ8MhVXRvFj8Dk/iw+2NN/W55fQ44xx0h6mvhMle98jKTWi6AR/F0LJMpCkZeNTVCdiDz7Ow1g23HlBIRx/seYxph2vLSLkh63kU8ygaOFWhCNdCGOOPLHi8m8X8vlLRvN9ETWY/sMWkvY/S9bXIGw8lv5Bk4lIxAmjoU05XJceq5rOlSax46d1fsicJ5gF6tcxvMau2bFGMCgeZJEpRYChqTEt284woFc8+maa4SwMVrim6J8R53Xfx8mtgCnRlgZmXymzyxu8wCVnAza24iQ4kWmx+fDw70iU5Q3nxSwjN4Q922QZiAFLGpAK0nRDFhE7NPftubYOgsisNCFOnTTTBGJghI=
+#   - provider: npm
+#     email: sageoneplatform@sage.com
+#     api_key:
+#       secure: Vr4sohrHqb3fzt3/JPucQ6gHIdPm4hDMEZNAMn87OKHEP9OoAcF7F+y2dIgBEgWu65z3f8jBipR27N0kZ6Ov2mCmHoi0bMkM2J+hX1ApwPlAoVOd3bWGUTeL7HDAkYsZ7o2ZKB4jXdqOak15AZuA+9KLiNTVt/E04gKZYto7Z97I2y0k0WLoTi/z7krCBBiq+XowvMNcPr8yNJ/gPcgUsfE/l1V0hs6LYvATBTKAU30fqTUvfXQrVwb5rA42umrYY4QPNPKHp6yru3pzUK5121yve3bG2ADgefDlOao6SBp5iDJzpPRRJKlB0P5S1685VEmrHhdEbbg9+0B2ve+L7Cv9oDb0KR0FuuPRIDdKXxil3ZMO6/ueWHGei1Q5VyDU43KidryY3RnMrYbUaryxxnvELUITUV6AvPFNJqIPJgRRRukf9WyOirNl1N5GvYNXtQepJdjZsxLrTOYNnKCG3CBSGwvj+Kx09mhNC1P27KMW8I8wvqPtTEm819YApYTPpl+9OJwsPPzu1MV/oIwWE5Ga171oPBMqRrLRdzywzLhrstCTCvOs+eYDKYAGUziX4pU6xxe9ye5mSG6H6UAPG8PxknivZM3FRjzjorzDXvDmUbrnNu4bpmkE2q85Ji+82jpY23kDuweEkhDUCPfqlFcF5ikMoq9sT+c8nOiCesI=
+#     on:
+#       tags: true
+#       condition: "$TRAVIS_TAG =~ ^((v[0-9]+.[0-9]+.[0-9]+)(-rc[0-9]+)?)$"

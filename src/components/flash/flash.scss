@@ -9,7 +9,6 @@
   right: 0;
   text-align: center;
   width: 100%;
-  z-index: $z-flash;
 
   // tag added by CSSTransitionGroup
   > div {
@@ -109,13 +108,14 @@
 /**
  * Animation for slider
  */
-
+.carbon-flash__slider-appear,
 .carbon-flash__slider-enter {
   left: 50%;
   opacity: 0;
   right: 50%;
 }
 
+.carbon-flash__slider-appear-active,
 .carbon-flash__slider-enter-active {
   left: 0%;
   opacity: 1;
@@ -135,11 +135,12 @@
 /**
  * Animation for content inside slider
  */
-
+.carbon-flash__content-appear,
 .carbon-flash__content-enter {
   opacity: 0;
 }
 
+.carbon-flash__content-appear-active,
 .carbon-flash__content-enter-active {
   opacity: 1;
   transition: 400ms ease 400ms;
