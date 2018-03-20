@@ -126,8 +126,9 @@ class Flash extends React.Component {
      * @type {Object}
      */
     dialogs: {},
+    
     /**
-     * opens and closes the Flash Component
+     * Keeps track of the open state of the Flash Component
      *
      * @property open
      * @type {Boolean}
