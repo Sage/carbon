@@ -126,7 +126,7 @@ class Flash extends React.Component {
      * @type {Object}
      */
     dialogs: {},
-    
+
     /**
      * Keeps track of the open state of the Flash Component
      *
