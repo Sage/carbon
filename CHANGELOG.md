@@ -1,5 +1,13 @@
 # 3.2.0
 
+## Flash Component
+
+Flash component now uses Portal
+
+## Demo Site
+
+Tutorials are now numbered correctly in the Carbon Demo sidebar.
+
 ## Preview Component
 
 Preview adds a CSS shimer animation as a placeholder if no children are given or the loading prop is true.
@@ -33,6 +41,7 @@ Tutorials are now numbered correctly in the Carbon Demo sidebar.
 # 3.1.2
 
 Fixes auto-deployment of tags using Travis CI.
+
 
 # 3.1.1
 
