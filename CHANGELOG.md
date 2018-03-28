@@ -6,7 +6,8 @@ Flash component now uses Portal
 
 ## Demo Site
 
-Tutorials are now numbered correctly in the Carbon Demo sidebar.
+* Tutorials are now numbered correctly in the Carbon Demo sidebar.
+* Demo Site should now correctly deploy in production mode
 
 ## Preview Component
 
@@ -33,11 +34,6 @@ Using the `loading` prop:
 ## Bug Fixes
 
 * `AnimatedMenuButton`, `Carousel`, `Flash`, `ShowEditPod`, `Table`, and `Toast` all pass the `component='div'` prop to their respective `CSSTransitionGroup` components. This fixes incorrectly nested HTML e.g. `<div>` tags nested within `<span>` tags.
-* Demo Site should now correctly deploy in production mode
-
-## Demo Site
-
-Tutorials are now numbered correctly in the Carbon Demo sidebar.
 
 # 3.1.2
 
