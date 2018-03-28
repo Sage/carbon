@@ -1,5 +1,9 @@
 # 3.2.0
 
+## Flux Connect Guides
+
+New guides have been included for flux connect.
+
 ## Flash Component
 
 Flash component now uses Portal
