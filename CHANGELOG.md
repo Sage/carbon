@@ -33,6 +33,7 @@ Using the `loading` prop:
 ## Bug Fixes
 
 * `AnimatedMenuButton`, `Carousel`, `Flash`, `ShowEditPod`, `Table`, and `Toast` all pass the `component='div'` prop to their respective `CSSTransitionGroup` components. This fixes incorrectly nested HTML e.g. `<div>` tags nested within `<span>` tags.
+* Demo Site should now correctly deploy in production mode
 
 ## Demo Site
 
