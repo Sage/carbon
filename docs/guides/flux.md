@@ -148,7 +148,7 @@ const mapStateToProps = (userState, giftsState, props) => {
   return {
     invitationid: props.invitationid,
     firstname: props.firstname || userState.get('firstname'),
-    surname: props.surname ||userState.get('surname'),
+    surname: props.surname || userState.get('surname'),
     gift: giftsState.get('gift')
   }
 }
