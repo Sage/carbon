@@ -126,18 +126,14 @@ class AccountInvitation extends React.Component {
   render() {
     return (
       <div>
-        <Textbox name="invitationid"
+        <Textbox name="invitationidTextBox"
           value={ props.invitationid }
         />
-        <Textbox name="firstName"
+        <Textbox name="firstNameTextBox"
           value={ props.firstname }
           onChange={ UserActions.userFirstNameValueUpdated } />
         />
-        <Textbox name="surname"
-          value={ props.surname }
-          onChange={ UserActions.useSurnameValueUpdated } />
-        />
-        <Textbox name="gift"
+        <Textbox name="giftTextBox"
           value={ props.gift }
         />
       </div>
@@ -148,7 +144,6 @@ const mapStateToProps = (userState, giftsState, props) => {
   return {
     invitationid: props.invitationid,
     firstname: props.firstname || userState.get('firstname'),
-    surname: props.surname || userState.get('surname'),
     gift: giftsState.get('gift')
   }
 }
@@ -161,7 +156,7 @@ At the core of it, this is just a React component. Our component renders a Carbo
 
 However, on the last line it calls a connect function (provided by Carbon) to connect our component with our store. This function sets up event listeners for when the store is updated - when it detects a change in the store it will call `setState` on itself with the new data. It also makes the stores data available through the components state using the name we defined for the store (in this case, it is available as `this.state.userStore`).
 
-Through this connection, we can setup several Textboxes, the first Textbox has a static value which is taken from a prop. The second Textbox takes its value from the prop 'firstname'. The 'surname' takes its value from the Userstore. We can also set the `onChange` event to trigger the action we defined earlier - completing the Flux loop!
+Through this connection, we can setup several Textboxes, the `invitationidTextBox` Textbox has a static value which is taken from a prop. The `firstNameTextBox` Textbox takes its value from the prop `firstname` depending on whether the prop has been set, and if not the state from the `UserStore` will be used. The `giftTextBox` will take it's value from the `GiftsStore`. We can also set the `onChange` event to trigger the action we defined earlier - completing the Flux loop!
 
 So this User component could be set up as follows.
 
@@ -173,7 +168,7 @@ class Main extends React.Component {
 
     render() {
       return (
-          <User invitationid={ '912ec803b2ce49e4a541068d495ab570' firstname={ 'John' }/>
+        <User invitationid={ '912ec803b2ce49e4a541068d495ab570' firstname={ 'John' }/>
       )
     }
 }
