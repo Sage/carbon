@@ -110,6 +110,7 @@ So we now have an action called `userValueUpdated`, which when called dispatches
 ### Connecting a React Component to our Flux Store
 
 The store is now updating its data - but we have no React components connected to the store! Lets set one up:
+Here is an example of how to set up a connected Componen. It shows several that a component can connect to Stores or simply override with props.
 
 ```js
 // ./src/views/user/index.js
@@ -146,8 +147,8 @@ class AccountInvitation extends React.Component {
 const mapStateToProps = (userState, giftsState, props) => {
   return {
     invitationid: props.invitationid,
-    firstname: userState.get('firstname'),
-    surname: userState.get('surname'),
+    firstname: props.firstname || userState.get('firstname'),
+    surname: props.surname ||userState.get('surname'),
     gift: giftsState.get('gift')
   }
 }
@@ -160,7 +161,7 @@ At the core of it, this is just a React component. Our component renders a Carbo
 
 However, on the last line it calls a connect function (provided by Carbon) to connect our component with our store. This function sets up event listeners for when the store is updated - when it detects a change in the store it will call `setState` on itself with the new data. It also makes the stores data available through the components state using the name we defined for the store (in this case, it is available as `this.state.userStore`).
 
-Through this connection, we can setup several Textboxs, the first Textbox  have a static value which taken from a prop. The next three Textboxes take there values from the store. We can also set the `onChange` event to trigger the action we defined earlier - completing the Flux loop!
+Through this connection, we can setup several Textboxs, the first Textbox  have a static value which taken from a prop. The second Textboxes takes its value from the prop as 'firstname' prop has been set. The 'surname' takes it value from the Userstore. We can also set the `onChange` event to trigger the action we defined earlier - completing the Flux loop!
 
 So this User component could be set up as follows.
 
@@ -172,7 +173,7 @@ class Main extends React.Component {
 
     render() {
       return (
-          <User invitationid={ '912ec803b2ce49e4a541068d495ab570' }/>
+          <User invitationid={ '912ec803b2ce49e4a541068d495ab570' firstname={ 'John' }/>
       )
     }
 }
