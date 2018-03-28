@@ -129,9 +129,14 @@ class UserView extends React.Component {
     );
   }
 }
+const mapStateToProps = (userState, props) => {
+  return {
+    value: userState.get('foobar')
+  }
+}
 
 // connect the view component to our store
-export default connect(UserView, UserStore);
+export default connect(UserStore, mapStateToProps)(UserView);
 ```
 
 At the core of it, this is just a React component. Our component renders a Carbon Textbox and gives it a name.
