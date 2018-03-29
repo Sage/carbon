@@ -34,6 +34,7 @@ Using the `loading` prop:
 ## Bug Fixes
 
 * `AnimatedMenuButton`, `Carousel`, `Flash`, `ShowEditPod`, `Table`, and `Toast` all pass the `component='div'` prop to their respective `CSSTransitionGroup` components. This fixes incorrectly nested HTML e.g. `<div>` tags nested within `<span>` tags.
+* Allow localisation override by removing manual interpolation on `FormSummary`.
 
 # 3.1.2
 
