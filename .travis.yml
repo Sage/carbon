@@ -15,7 +15,7 @@ install:
 script:
   - gulp test --build --runInBand
 
-before_deploy: if [ "$TRAVIS_BRANCH" == "release" ]; then gulp deploy --build -—production; fi
+before_deploy: if [ "$TRAVIS_BRANCH" == "release" ]; then gulp deploy --build --production; fi
 
 deploy:
   - provider: s3
