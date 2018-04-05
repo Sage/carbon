@@ -1,5 +1,10 @@
 @import 'colors';
 
+.carbon-textarea .common-input__label {
+  vertical-align: top;
+  margin-top: 9px;
+}
+
 .carbon-textarea__input {
   height: auto;
   resize: none;
