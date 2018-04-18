@@ -470,7 +470,7 @@ class Form extends React.Component {
   }
 
   checkIsFormDirty = (ev) => {
-    let confirmationMessage = '';
+    let confirmationMessage = null;
     if (this.state.isDirty) {
       // Confirmation message is usually overridden by browsers with a similar message
       confirmationMessage = I18n.t('form.save_prompt',
