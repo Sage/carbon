@@ -1,3 +1,7 @@
+# 3.1.3
+
+Stops incorrect Dirty Form warning from showing in Safari/IE on a clean form
+
 # 3.1.2
 
 Fixes auto-deployment of tags using Travis CI.
