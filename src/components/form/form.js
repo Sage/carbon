@@ -470,14 +470,13 @@ class Form extends React.Component {
   }
 
   checkIsFormDirty = (ev) => {
-    let confirmationMessage = '';
     if (this.state.isDirty) {
       // Confirmation message is usually overridden by browsers with a similar message
-      confirmationMessage = I18n.t('form.save_prompt',
+      const confirmationMessage = I18n.t('form.save_prompt',
         { defaultValue: 'Do you want to leave this page? Changes that you made may not be saved.' });
       ev.returnValue = confirmationMessage; // Gecko + IE
+      return confirmationMessage; // Gecko + Webkit, Safari, Chrome etc.
     }
-    return confirmationMessage; // Gecko + Webkit, Safari, Chrome etc.
   }
 
   /**
