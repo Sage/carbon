@@ -1,3 +1,7 @@
+# 3.2.1
+
+Merged in v3.1.3 and v3.1.4
+
 # 3.2.0
 
 ## Flash Component
@@ -36,10 +40,17 @@ Using the `loading` prop:
 * `AnimatedMenuButton`, `Carousel`, `Flash`, `ShowEditPod`, `Table`, and `Toast` all pass the `component='div'` prop to their respective `CSSTransitionGroup` components. This fixes incorrectly nested HTML e.g. `<div>` tags nested within `<span>` tags.
 * Allow localisation override by removing manual interpolation on `FormSummary`.
 
+# 3.1.4
+
+Fixes incorrect dropdown placement in IE.
+
+# 3.1.3
+
+Stops incorrect Dirty Form warning from showing in Safari/IE on a clean form
+
 # 3.1.2
 
 Fixes auto-deployment of tags using Travis CI.
-
 
 # 3.1.1
 
