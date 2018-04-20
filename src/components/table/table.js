@@ -986,6 +986,7 @@ class Table extends React.Component {
       >
         <TableCell colSpan='42' align='center'>
           <CSSTransitionGroup
+            component='div'
             transitionName='table-loading'
             transitionEnterTimeout={ 300 }
             transitionLeaveTimeout={ 300 }
