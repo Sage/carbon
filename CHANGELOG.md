@@ -1,3 +1,7 @@
+# 3.1.4
+
+Fixes incorrect dropdown placement in IE.
+
 # 3.1.3
 
 Stops incorrect Dirty Form warning from showing in Safari/IE on a clean form
