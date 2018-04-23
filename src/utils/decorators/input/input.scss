@@ -20,7 +20,8 @@
     border: none;
 
     &:active,
-    &:focus {
+    &:focus,
+    &:hover {
       box-shadow: none;
     }
   }

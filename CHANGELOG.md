@@ -1,3 +1,9 @@
+# 3.2.2
+
+## Bugs
+
+* Prevent hover styles being applied when hovering over a readonly `input` element.
+
 # 3.2.1
 
 Merged in v3.1.3 and v3.1.4
