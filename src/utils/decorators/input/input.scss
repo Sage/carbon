@@ -97,7 +97,8 @@
     border-color: $grey !important; // this is the correct use of !important
 
     &:active,
-    &:focus {
+    &:focus,
+    &:hover {
       box-shadow: none;
     }
   }
