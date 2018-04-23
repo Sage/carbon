@@ -1,3 +1,9 @@
+# next
+
+## Bug fixes
+
+* Position textarea label at the top of the component
+
 # 3.2.1
 
 Merged in v3.1.3 and v3.1.4
