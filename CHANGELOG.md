@@ -1,8 +1,58 @@
-# 3.2.0
+# 3.3.0
 
 ## Improvements
 
 * `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
+
+# 3.2.1
+
+Merged in v3.1.3 and v3.1.4
+
+# 3.2.0
+
+## Flash Component
+
+Flash component now uses Portal
+
+## Demo Site
+
+* Tutorials are now numbered correctly in the Carbon Demo sidebar.
+* Demo Site should now correctly deploy in production mode
+
+## Preview Component
+
+Preview adds a CSS shimer animation as a placeholder if no children are given or the loading prop is true.
+
+### Example Code
+
+With no children:
+
+```
+<Preview>
+  { null }
+</Preview>
+```
+
+Using the `loading` prop:
+
+```
+<Preview loading>
+  { children }
+</Preview>
+```
+
+## Bug Fixes
+
+* `AnimatedMenuButton`, `Carousel`, `Flash`, `ShowEditPod`, `Table`, and `Toast` all pass the `component='div'` prop to their respective `CSSTransitionGroup` components. This fixes incorrectly nested HTML e.g. `<div>` tags nested within `<span>` tags.
+* Allow localisation override by removing manual interpolation on `FormSummary`.
+
+# 3.1.4
+
+Fixes incorrect dropdown placement in IE.
+
+# 3.1.3
+
+Stops incorrect Dirty Form warning from showing in Safari/IE on a clean form
 
 # 3.1.2
 

@@ -276,6 +276,7 @@ class AnimatedMenuButton extends React.Component {
         <Icon type='add' data-element='open' />
 
         <CSSTransitionGroup
+          component='div'
           transitionEnterTimeout={ 500 }
           transitionLeaveTimeout={ 500 }
           transitionName='carbon-animated-menu-button'

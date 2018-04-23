@@ -363,7 +363,7 @@ describe('Form', () => {
 
     it("if form is clean, return an empty string", () => {
       instance.resetIsDirty();
-      expect(instance.checkIsFormDirty(Event)).toEqual("");
+      expect(instance.checkIsFormDirty(Event)).toBeUndefined();
     });
   });
 
