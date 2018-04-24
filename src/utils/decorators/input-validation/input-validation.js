@@ -268,7 +268,7 @@ const InputValidation = (ComposedComponent) => {
 
         if (icon && message) {
           message.style.top = `${((icon.getBoundingClientRect().top - message.getBoundingClientRect().height)
-                                  + window.scrollY)
+                                  + window.pageYOffset)
                                   - (icon.getBoundingClientRect().height)}px`;
 
           // figure out if the message is positioned offscreen

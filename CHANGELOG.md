@@ -1,3 +1,7 @@
+# 3.2.3
+
+Merged in v3.1.6
+
 # 3.2.2
 
 Merged in v3.1.5
@@ -43,6 +47,10 @@ Using the `loading` prop:
 
 * `AnimatedMenuButton`, `Carousel`, `Flash`, `ShowEditPod`, `Table`, and `Toast` all pass the `component='div'` prop to their respective `CSSTransitionGroup` components. This fixes incorrectly nested HTML e.g. `<div>` tags nested within `<span>` tags.
 * Allow localisation override by removing manual interpolation on `FormSummary`.
+
+# 3.1.6
+
+Fixes the positioning of the error message which was also not working in IE11 (pageYOffset needed instead of scrollY)
 
 # 3.1.5
 
