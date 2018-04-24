@@ -1,3 +1,7 @@
+# 3.2.2
+
+Merged in v3.1.5
+
 # 3.2.1
 
 Merged in v3.1.3 and v3.1.4
@@ -39,6 +43,10 @@ Using the `loading` prop:
 
 * `AnimatedMenuButton`, `Carousel`, `Flash`, `ShowEditPod`, `Table`, and `Toast` all pass the `component='div'` prop to their respective `CSSTransitionGroup` components. This fixes incorrectly nested HTML e.g. `<div>` tags nested within `<span>` tags.
 * Allow localisation override by removing manual interpolation on `FormSummary`.
+
+# 3.1.5
+
+Fixes incorrect dropdown placement in IE11. v3.1.4 only fixed Edge #1733
 
 # 3.1.4
 
