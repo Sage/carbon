@@ -1,6 +1,10 @@
+# 3.1.5
+
+Fixes incorrect dropdown placement in IE11 #1733
+
 # 3.1.4
 
-Fixes incorrect dropdown placement in IE. #1733
+Fixes incorrect dropdown placement in Edge #1733
 
 # 3.1.3
 
