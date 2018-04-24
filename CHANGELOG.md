@@ -1,6 +1,6 @@
 # 3.1.4
 
-Fixes incorrect dropdown placement in IE.
+Fixes incorrect dropdown placement in IE. #1733
 
 # 3.1.3
 
