@@ -1,3 +1,7 @@
+# 3.1.6
+
+Fixes the positioning of the error message which was also not working in IE11 (pageYOffset needed instead of scrollY)
+
 # 3.1.5
 
 Fixes incorrect dropdown placement in IE11. v3.1.4 only fixed Edge #1733
