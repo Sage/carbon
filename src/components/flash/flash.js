@@ -136,6 +136,14 @@ class Flash extends React.Component {
     open: false
   }
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      dialogs: {},
+      open: this.props.open
+    };
+  }
+
   /**
    * Resets the dialog open states if flash is opened/closed.
    *
