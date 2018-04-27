@@ -1,3 +1,10 @@
+# 3.2.4
+
+## Bug fixes
+
+* Position textarea label at the top of the component
+* Prevent hover styles being applied when hovering over a readonly or a disabled `input` element.
+
 # 3.2.3
 
 Merged in v3.1.6
