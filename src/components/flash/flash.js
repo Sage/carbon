@@ -118,28 +118,22 @@ class Flash extends React.Component {
     timeout: 0
   }
 
-  state = {
-    /**
-     * Keeps track on the open state of each dialog
-     *
-     * @property dialogs
-     * @type {Object}
-     */
-    dialogs: {},
-
-    /**
-     * Keeps track of the open state of the Flash Component
-     *
-     * @property open
-     * @type {Boolean}
-     */
-    open: false
-  }
-
   constructor(props) {
     super(props);
     this.state = {
+      /**
+       * Keeps track of the open state of each dialog
+       *
+       * @property dialogs
+       * @type {Object}
+       */
       dialogs: {},
+      /**
+       * Keeps track of the open state of the Flash Component
+       *
+       * @property open
+       * @type {Boolean}
+       */
       open: this.props.open
     };
   }
