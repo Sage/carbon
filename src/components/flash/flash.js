@@ -134,7 +134,7 @@ class Flash extends React.Component {
        * @property open
        * @type {Boolean}
        */
-      open: this.props.open
+      open: this.props.open || false
     };
   }
 
