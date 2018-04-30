@@ -1,3 +1,9 @@
+# 3.2.5
+
+## Bug Fixes
+
+* Fixed [#1741](https://github.com/Sage/carbon/issues/1741): `Flash` component will now open on initial render when its `open` prop is set to `true`.
+
 # 3.2.4
 
 ## Bug fixes
