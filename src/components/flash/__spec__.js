@@ -44,6 +44,36 @@ describe('Flash', () => {
     );
   });
 
+  describe('constructor', () => {
+    const commonProps = {
+      message: 'Should set state',
+      onDismiss: dismissHandler
+    };
+    describe('when this.props.open is true', () => {
+      it('sets this.state.open to true', () => {
+        const wrapper = shallow(
+          <Flash
+            open
+            { ...commonProps }
+          />
+        );
+        expect(wrapper.state().open).toBe(true);
+      });
+    });
+
+    describe('when this.props.open is false', () => {
+      it('sets this.state.open to false', () => {
+        const wrapper = shallow(
+          <Flash
+            open={ false }
+            { ...commonProps }
+          />
+        );
+        expect(wrapper.state().open).toBe(false);
+      });
+    })
+  });
+
   describe('componentWillReceiveProps', () => {
     beforeEach(() => {
       spyOn(defaultInstance, 'setState');

@@ -4,6 +4,27 @@
 
 * `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
 
+# 3.2.5
+
+## Bug Fixes
+
+* Fixed [#1741](https://github.com/Sage/carbon/issues/1741): `Flash` component will now open on initial render when its `open` prop is set to `true`.
+
+# 3.2.4
+
+## Bug fixes
+
+* Position textarea label at the top of the component
+* Prevent hover styles being applied when hovering over a readonly or a disabled `input` element.
+
+# 3.2.3
+
+Merged in v3.1.6
+
+# 3.2.2
+
+Merged in v3.1.5
+
 # 3.2.1
 
 Merged in v3.1.3 and v3.1.4
@@ -45,6 +66,14 @@ Using the `loading` prop:
 
 * `AnimatedMenuButton`, `Carousel`, `Flash`, `ShowEditPod`, `Table`, and `Toast` all pass the `component='div'` prop to their respective `CSSTransitionGroup` components. This fixes incorrectly nested HTML e.g. `<div>` tags nested within `<span>` tags.
 * Allow localisation override by removing manual interpolation on `FormSummary`.
+
+# 3.1.6
+
+Fixes the positioning of the error message which was also not working in IE11 (pageYOffset needed instead of scrollY)
+
+# 3.1.5
+
+Fixes incorrect dropdown placement in IE11. v3.1.4 only fixed Edge #1733
 
 # 3.1.4
 
