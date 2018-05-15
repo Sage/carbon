@@ -4,7 +4,6 @@ import { startRouter } from 'utils/router';
 import 'moment/locale/fr'; // For testing the date picker
 import 'utils/css';
 import Highcharts from 'highcharts';
-import config from './config';
 import { enableMock } from './xhr-mock';
 import setupI18n from './i18n/config';
 
@@ -28,10 +27,7 @@ global.Carbon = {
 
 global.Highcharts = Highcharts;
 
-global.imagePath = config.imagePath;
-
 setupI18n();
-enableMock();
 
 const routes = (
   <Route component={ Chrome }>
@@ -44,3 +40,10 @@ const routes = (
 );
 
 startRouter(routes);
+
+
+if (module.hot) {
+  module.hot.accept();
+} else {
+  enableMock();
+}
