@@ -428,10 +428,16 @@ describe('Flash', () => {
   });
 
   describe('sliderHTML', () => {
+    let wrapper = shallow(
+      <Flash
+        open={ true }
+        onDismiss={ dismissHandler }
+        message="Danger Will Robinson!"
+      />
+    );
+
     it('returns a div with the slider class names', () => {
-      it('returns a div with the slider class names', () => {
-        expect(defaultInstance.props.className).toMatch('carbon-flash__slider');
-      });
+      expect(wrapper).toMatchSnapshot();
     });
   });
 
