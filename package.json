@@ -31,7 +31,7 @@
   },
   "devDependencies": {
     "babel-standalone": "~6.17.0",
-    "carbon-factory": "3.3.3",
+    "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#build-npm-6-audit",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "express": "~4.14.0",
