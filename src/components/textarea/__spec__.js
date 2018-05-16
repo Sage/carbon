@@ -332,6 +332,7 @@ describe('Textarea', () => {
         cols={10}
         rows={10}
         onChange={ spy }
+        characterLimit={ 100 }
         data-element='bar'
         data-role='baz'
       />
