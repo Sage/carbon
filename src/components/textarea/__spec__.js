@@ -345,9 +345,7 @@ describe('Textarea', () => {
     });
 
     describe("on internal elements", () => {
-      it("adds element tags to it's children", () => {
-        elementsTagTest(wrapper, ['character-limit']);
-      });
+      elementsTagTest(wrapper, ['character-limit']);
     });
   });
 });
