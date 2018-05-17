@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import ShowEditPod from './show-edit-pod';
 import Form from './../form';
+import Link from './../link';
 import Textbox from './../textbox';
 import Pod from './../pod';
 import Events from './../../utils/helpers/events'
@@ -347,23 +348,28 @@ describe('ShowEditPod', () => {
   });
 
   describe("edit form props", () => {
-    it("creates a Form with the expected props when editing is set to true", () => {
-      let beforeFormValidation = jasmine.createSpy(),
-          wrapper = mount(
-            <ShowEditPod
-              beforeFormValidation={ beforeFormValidation }
-              buttonAlign='left'
-              cancel={ false }
-              cancelText='Cancel Me'
-              editing={ true }
-              saveText='Save Me'
-              saving={ false }
-              validateOnMount={ true }
-            />
-          );
+    let wrapper;
+    let beforeFormValidation;
 
-      let editForm = wrapper.find(Form),
-          instance = wrapper.instance()
+    beforeEach(() => {
+      beforeFormValidation = jasmine.createSpy();
+      wrapper = mount(
+        <ShowEditPod
+          beforeFormValidation={ beforeFormValidation }
+          buttonAlign='left'
+          cancel={ false }
+          cancelText='Cancel Me'
+          editing={ true }
+          saveText='Save Me'
+          saving={ false }
+          validateOnMount={ true }
+        />
+      );
+    })
+
+    it("creates a Form with the expected props when editing is set to true", () => {
+      let editForm = wrapper.find(Form);
+      let instance = wrapper.instance();
 
       let props = editForm.props();
 
@@ -377,14 +383,16 @@ describe('ShowEditPod', () => {
       expect(props.saveText).toEqual('Save Me');
       expect(props.saving).toEqual(false);
       expect(props.validateOnMount).toEqual(true);
+    });
 
-      describe("where onDelete is provided", () => {
-        it("should get through to the delete button Link", () => {
-          let onDelete = jasmine.createSpy();
-          wrapper.setProps({ onDelete: onDelete });
-          let deleteButton = shallow(wrapper.find(Form).props().additionalActions).find(Link);
-          expect(deleteButton.props('onClick')).toEqual(onDelete);
+    describe("where onDelete is provided", () => {
+      it("should get through to the delete button Link", () => {
+        const onDelete = jasmine.createSpy();
+        wrapper.setProps({
+          deleteText: 'Delete',
+          onDelete: onDelete
         });
+        expect(wrapper).toMatchSnapshot();
       });
     });
   });
