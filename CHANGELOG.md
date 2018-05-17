@@ -1,3 +1,8 @@
+# 4.0.0
+
+* Require npm@6.
+* Update packages to resolve issues highlighted by `npm audit`.
+
 # 3.2.5
 
 ## Bug Fixes
