@@ -6,7 +6,7 @@ Carbon was previously designed around a Browserify based build, we have now migr
 
 We have updated several components to import assets through their JavaScript file. Due to this change we now require Webpack to precompile the components.
 
-If you use carbon-factory, you can upgrade to [v4.1.0](https://github.com/Sage/carbon-factory/releases/tag/v4.0.1) which provides preconfigured Webpack support for working with the Carbon library. If you prefer to manage your own Webpack build, we currently rely on the [Parcelify Loader](https://www.npmjs.com/package/parcelify-loader). We will be looking to drop this requirement in the future.
+If you use carbon-factory, you can upgrade to [v4.1.0](https://github.com/Sage/carbon-factory/releases/tag/v4.1.0) which provides preconfigured Webpack support for working with the Carbon library. If you prefer to manage your own Webpack build, we currently rely on the [Parcelify Loader](https://www.npmjs.com/package/parcelify-loader). We will be looking to drop this requirement in the future.
 
 # 3.2.5
 
