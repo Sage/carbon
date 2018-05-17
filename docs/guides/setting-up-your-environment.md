@@ -19,7 +19,7 @@ Download and install Node from [https://nodejs.org/](https://nodejs.org/), or in
 
 #### Check npm version
 
-Make sure you are on Version 4.x by running `npm -v`. To upgrade your version of npm run `npm install npm -g`
+Make sure you are on Version 5.x by running `npm -v`. To upgrade your version of npm run `npm install npm -g`
 
 #### Check permissions
 
@@ -43,14 +43,4 @@ You need to install Babel CLI globally.
 
 ```bash
 npm install -g babel-cli
-```
-
-### Installing Carbon CLI
-
-You need to install Carbon globally.
-
-* You should be able to install [Carbon CLI](https://github.com/sage/carbon-factory) using npm:
-
-```bash
-npm install -g sage/carbon-factory
 ```

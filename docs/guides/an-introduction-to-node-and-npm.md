@@ -14,7 +14,7 @@ npm is a package manager for Node - it allows you to install Node packages from 
 
 For developing with React, it is common practice to structure your components using [CommonJS](https://nodejs.org/docs/latest/api/modules.html) within the Node ecosystem. This means that components are isolated from one another, and we can use npm to manage our dependencies.
 
-To compile the code into something the browser understands we run the code through [Browserify](http://browserify.org/). These build/compile operations are provided as [Gulp](http://gulpjs.com/) tasks to make them easy to run.
+To compile the code into something the browser understands we run the code through [Webpack](https://webpack.js.org/).
 
 ## How do we use them?
 
