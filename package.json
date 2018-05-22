@@ -34,7 +34,7 @@
     "carbon-factory": "git+ssh://git@github.com/Sage/carbon-factory.git#build-npm-6-audit",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "express": "^4.16.3",
+    "express": "~4.16.3",
     "flux": "^3.1.1",
     "gulp": "~3.9.0",
     "highlight.js": "~9.6.0",
