@@ -13,9 +13,9 @@ install:
   - npm install
 
 script:
-  - gulp test --build --runInBand
+  - npm run lint ./src && npm test
 
-before_deploy: if [ "$TRAVIS_BRANCH" == "release" ]; then gulp deploy --build --production; fi
+before_deploy: if [ "$TRAVIS_BRANCH" == "release" ]; then npm run build; fi
 
 deploy:
   - provider: s3

@@ -7,7 +7,7 @@ export default {
   updateDocument: (doc) => {
     disableMock();
 
-    Request.get('/assets' + doc).end((err, res) => {
+    Request.get(doc).end((err, res) => {
       Dispatcher.dispatch({
         actionType: DocumentConstants.UPDATE_DOCUMENT,
         content: res.text,
