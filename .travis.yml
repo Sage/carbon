@@ -22,6 +22,7 @@ deploy:
     bucket: carbon.sage.com
     skip_cleanup: true
     local_dir: deploy
+    detect_encoding: true
     on:
       branch: release
     access_key_id:
