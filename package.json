@@ -7,11 +7,15 @@
     "npm": "^5.0.0"
   },
   "scripts": {
-    "set-config": "node -e \"require('./script/set-config').default()\"",
+    "gen-colors": "node -e \"require('./script/generate-demo-colors').default();\"",
+    "gen-docs": "node -e \"require('./script/generate-docs').default();\"",
+    "prep-deploy": "node -e \"require('./script/deploy').default();\"",
+    "start": "npm run gen-colors && npm run gen-docs && node_modules/.bin/webpack-dev-server",
+    "build": "npm run gen-colors && npm run gen-docs && NODE_ENV=production node_modules/.bin/webpack && npm run prep-deploy",
     "test": "jest --config=./jest.conf.json",
     "debug": "node --inspect ./node_modules/.bin/jest --watch --config=./jest.conf.json",
     "lint": "./node_modules/.bin/eslint",
-    "precompile": "npm run set-config && rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet",
+    "precompile": "rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet",
     "prepublishOnly": "node check-version.js && npm install && npm run precompile"
   },
   "repository": {
@@ -31,10 +35,9 @@
   },
   "devDependencies": {
     "babel-standalone": "~6.17.0",
-    "carbon-factory": "3.3.3",
+    "carbon-factory": "4.1.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "express": "~4.14.0",
     "flux": "^3.1.1",
     "gulp": "~3.9.0",
     "highlight.js": "~9.6.0",
