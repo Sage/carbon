@@ -1,8 +1,4 @@
 {
   "main": "./table.js",
-  "name": "Table",
-  "style": [
-    "./table.scss",
-    "./table--secondary-theme.scss"
-  ]
+  "name": "Table"
 }

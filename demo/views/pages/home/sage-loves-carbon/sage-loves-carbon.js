@@ -1,3 +1,5 @@
+import devices from './devices.png';
+
 import React from 'react';
 import I18n from 'i18n-js';
 
@@ -25,7 +27,7 @@ export default props => (
           { I18n.t('homepage.sage_loves_carbon.learn_more') }
         </Link>
       </div>
-      <img className='sage-loves-carbon__image' src={ `${global.imagePath}/devices.png` } />
+      <img className='sage-loves-carbon__image' src={ devices } />
     </Wrapper>
   </div>
 );
