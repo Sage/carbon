@@ -6,6 +6,7 @@ demo/config.js
 demo/utils/generated/*.js
 demo/utils/generated/**/*
 deploy/assets/**/*
+deploy/docs
 .DS_Store
 .browser-preferences/
 .idea

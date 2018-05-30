@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700,900');
+
 @mixin text-theme($type, $color, $border, $background, $color-hover) {
   .text--#{$type} {
     color: $color;
@@ -6,6 +8,17 @@
 
 @each $set in $colorIconSets {
   @include text-theme($set...);
+}
+
+@font-face {
+  font-family: 'Lato';
+  src: local('Lato-Semibold'),
+       local('Lato Semibold'),
+       url(fonts/Lato-Semibold.woff2) format('woff2'),
+       url(fonts/Lato-Semibold.woff) format('woff'),
+       url(fonts/Lato-Semibold.ttf) format('truetype');
+  font-weight: 600;
+  font-style: normal;
 }
 
 .text--tag {

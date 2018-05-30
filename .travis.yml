@@ -13,15 +13,16 @@ install:
   - npm install
 
 script:
-  - gulp test --build --runInBand
+  - npm run lint ./src && npm test
 
-before_deploy: if [ "$TRAVIS_BRANCH" == "release" ]; then gulp deploy --build --production; fi
+before_deploy: if [ "$TRAVIS_BRANCH" == "release" ]; then npm run build; fi
 
 deploy:
   - provider: s3
     bucket: carbon.sage.com
     skip_cleanup: true
     local_dir: deploy
+    detect_encoding: true
     on:
       branch: release
     access_key_id:
