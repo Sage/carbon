@@ -32,7 +32,7 @@ describe('Checkbox', () => {
       let sprite = TestUtils.findRenderedDOMComponentWithTag(instance, 'svg');
       let check = TestUtils.findRenderedDOMComponentWithTag(instance, 'path');
       expect(sprite.getAttribute('viewBox')).toEqual('0 0 15 15');
-      expect(check.className).toEqual('checkbox-check');
+      expect(check.classList).toContain('checkbox-check');
     });
 
     it('renders a hidden input with a value of 0', () => {

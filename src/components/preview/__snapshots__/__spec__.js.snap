@@ -7,12 +7,12 @@ Array [
     data-component="preview"
     key="1"
     style={
-        Object {
-            "height": "20px",
-            "width": "10px",
-          }
+      Object {
+        "height": "20px",
+        "width": "10px",
+      }
     }
-/>,
+  />,
 ]
 `;
 
@@ -23,12 +23,12 @@ Array [
     data-component="preview"
     key="1"
     style={
-        Object {
-            "height": undefined,
-            "width": undefined,
-          }
+      Object {
+        "height": undefined,
+        "width": undefined,
+      }
     }
-/>,
+  />,
 ]
 `;
 
@@ -41,12 +41,12 @@ Array [
     data-component="preview"
     key="1"
     style={
-        Object {
-            "height": undefined,
-            "width": undefined,
-          }
+      Object {
+        "height": undefined,
+        "width": undefined,
+      }
     }
-/>,
+  />,
 ]
 `;
 
@@ -57,33 +57,33 @@ Array [
     data-component="preview"
     key="1"
     style={
-        Object {
-            "height": undefined,
-            "width": undefined,
-          }
+      Object {
+        "height": undefined,
+        "width": undefined,
+      }
     }
-/>,
+  />,
   <span
     className="carbon-preview"
     data-component="preview"
     key="2"
     style={
-        Object {
-            "height": undefined,
-            "width": undefined,
-          }
+      Object {
+        "height": undefined,
+        "width": undefined,
+      }
     }
-/>,
+  />,
   <span
     className="carbon-preview"
     data-component="preview"
     key="3"
     style={
-        Object {
-            "height": undefined,
-            "width": "80%",
-          }
+      Object {
+        "height": undefined,
+        "width": "80%",
+      }
     }
-/>,
+  />,
 ]
 `;
