@@ -52,7 +52,7 @@ class Confirm extends Dialog {
      * @property onConfirm
      * @type {String}
      */
-    confirmLabel: PropTypes.string,
+    confirmLabel: PropTypes.node,
 
     /**
      * Customise the cancel button label
