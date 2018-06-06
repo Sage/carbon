@@ -1,8 +1,15 @@
-# 4.1.0
+# 4.2.0
 
 ## Improvements
 
 * `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
+
+# 4.1.0
+
+## npm audit
+
+* Require npm@6.
+* Update packages to resolve issues highlighted by `npm audit`.
 
 # 4.0.0
 
