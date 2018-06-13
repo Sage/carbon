@@ -18,6 +18,7 @@ import './expose';
 import Chrome from './views/chrome';
 import SubPageChrome from './views/chrome/sub-page-chrome';
 import Home from './views/pages/home';
+import Playground from './views/pages/playground';
 
 import SiteMap from './site-map';
 
@@ -30,11 +31,15 @@ global.Highcharts = Highcharts;
 setupI18n();
 
 const routes = (
-  <Route component={ Chrome }>
-    <Route path='/' component={ Home } />
+  <Route>
+    <Route path='/playground' component={ Playground } />
 
-    <Route component={ SubPageChrome }>
-      { SiteMap.generateRoutes() }
+    <Route component={ Chrome }>
+      <Route path='/' component={ Home } />
+
+      <Route component={ SubPageChrome }>
+        { SiteMap.generateRoutes() }
+      </Route>
     </Route>
   </Route>
 );

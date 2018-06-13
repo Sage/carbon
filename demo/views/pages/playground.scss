@@ -1,0 +1,109 @@
+@import 'colors.scss';
+
+.playground {
+  height: 100%;
+  position: fixed;
+  width: 100%;
+}
+
+.playground-orientation-vertical {
+  .playground-preview,
+  .playground-input {
+    position: absolute;
+    height: 50%;
+    width: 100%;
+  }
+
+  .playground-input {
+    top: 50%;
+    height: calc(50% - 20px);
+  }
+}
+.playground-orientation-horizontal {
+  .playground-preview,
+  .playground-input {
+    position: absolute;
+    display: inline-block;
+    height: 100%;
+    width: 50%;
+  }
+
+  .playground-input {
+    left: 50%;
+    width: calc(50% - 20px);
+  }
+}
+
+.playground-input {
+  -webkit-appearance: none;
+  background-color: $grey-dark-plus;
+  border: none;
+  color: $white;
+  display: block;
+  font-family: monospace;
+  font-size: 18px;
+  margin: 0;
+  outline: none;
+  padding: 10px;
+  resize: none;
+  white-space: pre;
+}
+
+.playground-error {
+  background-color: $error;
+  bottom: 0;
+  color: white;
+  padding: 10px;
+  position: absolute;
+  white-space: pre;
+  width: 100%;
+}
+
+.playground-orientation {
+  -webkit-appearance: none;
+  cursor: pointer;
+  background-color: #DDD;
+  border: 1px solid #111;
+  height: 25px;
+  width: 25px;
+  top: 0;
+  right: 0;
+  position: absolute;
+
+  &:before {
+    content: '';
+    position: absolute;
+    border: 1px solid #111;
+    width: 10px;
+    height: 19px;
+    left: 1px;
+    top: 1px;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    border: 1px solid #111;
+    width: 10px;
+    height: 19px;
+    right: 1px;
+    top: 1px;
+  }
+
+  &:checked {
+    &:before {
+      width: 19px;
+      height: 10px;
+      left: 1px;
+      top: 1px;
+    }
+
+    &:after {
+      width: 19px;
+      height: 10px;
+      left: 1px;
+      bottom: 1px;
+      top: auto;
+    }
+  }
+}
