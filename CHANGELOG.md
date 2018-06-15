@@ -1,3 +1,9 @@
+# 4.1.1
+
+## Bug Fixes
+
+* No longer render a `type` attribute for the `Icon` component, as this produced invalid HTML (the `Icon` component still accepts a `type` prop).
+
 # 4.1.0
 
 ## npm audit
