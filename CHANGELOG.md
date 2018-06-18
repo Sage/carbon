@@ -1,4 +1,8 @@
-# 4.1.1
+# 4.2.0
+
+## Improvements
+
+* `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
 
 ## Bug Fixes
 
