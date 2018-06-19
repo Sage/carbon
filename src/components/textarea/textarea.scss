@@ -1,4 +1,6 @@
 @import 'colors.scss';
+@import 'input-field.scss';
+
 
 .carbon-textarea .common-input__label {
   margin-top: 9px;
@@ -6,7 +8,7 @@
 }
 
 .carbon-textarea__input {
-  height: auto;
+  min-height: $input-common-height;
   resize: none;
 }
 
