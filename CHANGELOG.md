@@ -4,6 +4,10 @@
 
 * `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
 
+## Bug Fixes
+
+* Fixed (https://jira-sage.valiantyscloud.net/browse/GOLF-53): When selecting all in selectable grids with a secondary theme, the odd lined items were displaying a white background showing as being broken.
+
 # 4.1.0
 
 ## npm audit
