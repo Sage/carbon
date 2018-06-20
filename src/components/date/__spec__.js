@@ -9,7 +9,7 @@ import DateHelper from './../../utils/helpers/date';
 import Date from './date';
 import Portal from './../portal';
 import Events from './../../utils/helpers/events';
-import { shallow, mount, ReactWrapper } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Date', () => {
@@ -121,18 +121,32 @@ describe('Date', () => {
   describe('emitOnChangeCallback', () => {
     let date;
 
-    beforeEach(() => {
-      spyOn(instance, '_handleOnChange');
-      date = moment().add(10, 'days').format('YYYY-MM-DD');
-      instance.emitOnChangeCallback(date);
+    describe('on valid value', () => {
+      beforeEach(() => {
+        spyOn(instance, '_handleOnChange');
+        date = moment().add(10, 'days').format('YYYY-MM-DD');
+        instance.emitOnChangeCallback(date);
+      });
+
+      it('sets the hiddenField to the new date', () => {
+        expect(instance.hidden.value).toEqual(date);
+      });
+
+      it('triggers the onChange handler in the input decorator', () => {
+        expect(instance._handleOnChange).toHaveBeenCalledWith({ target: instance.hidden });
+      });
     });
 
-    it('sets the hiddenField to the new date', () => {
-      expect(instance.hidden.value).toEqual(date);
-    });
+    describe('on invalid date input', () => {
+      beforeEach(() => {
+        spyOn(instance, '_handleOnChange');
+        instance.emitOnChangeCallback('abc');
+      });
 
-    it('triggers the onChange handler in the input decorator', () => {
-      expect(instance._handleOnChange).toHaveBeenCalledWith({ target: instance.hidden });
+      it('triggers _handleOnChange with the invalid value', () => {
+        const value = instance._handleOnChange.calls.mostRecent().args[0].target.value;
+        expect(value).toEqual('abc');
+      });
     });
   });
 
@@ -315,7 +329,7 @@ describe('Date', () => {
   });
 
   describe('handleDateSelect', () => {
-    let wrapper, cell, portalContent
+    let wrapper, cell, portalContent;
     beforeEach(() => {
       wrapper = mount(
         <Date name='date' label='Date' />
@@ -324,9 +338,8 @@ describe('Date', () => {
 
       wrapper.setState({open: true})
       wrapper.update();
-      const portal = wrapper.find(Portal);
-      portalContent = new ReactWrapper(portal.props().children);
-      cell = portalContent.find('.DayPicker-Day').first()
+      portalContent = wrapper.find(Date);
+      cell = portalContent.find('.DayPicker-Day').first();
       instance = wrapper.instance();
     });
 
@@ -354,10 +367,10 @@ describe('Date', () => {
     });
 
     it('positions the date picker under the input', () => {
-      const style = portalContent.find('.DayPicker').props().style
+      const style = portalContent.find('.DayPicker').props().style;
       expect(style.left).toEqual(5);
       expect(style.top).toEqual(10);
-    })
+    });
   });
 
   describe('handleBlur', () => {
@@ -549,9 +562,9 @@ describe('Date', () => {
 
       it('does not close the date picker when a disabled day is clicked', () => {
         const portal = wrapper.find(Portal);
-        const portalContent = new ReactWrapper(portal.props().children);
+        const portalContent = wrapper.find(Date);
         const cell = portalContent.find('.DayPicker-Day--disabled').first();
-        cell.simulate('click', { nativeEvent: { stopImmediatePropagation: () => {} } })
+        cell.simulate('click', { nativeEvent: { stopImmediatePropagation: () => {} } });
         expect(wrapper.state().open).toBeTruthy();
       });
     });

@@ -1,7 +1,4 @@
 {
   "main": "./footer.js",
-  "style": "./footer.scss",
-  "images": [
-    "./sage_logo.svg"
-  ]
+  "style": "./footer.scss"
 }

@@ -15,6 +15,9 @@ import DraggableTableCell from './draggable-table-cell';
 import Pager from './../pager';
 import Spinner from './../spinner';
 
+import './table.scss';
+import './table--secondary-theme.scss';
+
 /**
  * A Table widget.
  *
@@ -81,7 +84,6 @@ import Spinner from './../spinner';
  * @constructor
  */
 class Table extends React.Component {
-
   static propTypes = {
     /**
      * The actions to display in the toolbar
@@ -981,9 +983,13 @@ class Table extends React.Component {
    */
   get loadingRow() {
     return (
-      <TableRow key='__loading__' selectable={ false } highlightable={ false } hideMultiSelect>
+      <TableRow
+        key='__loading__' selectable={ false }
+        highlightable={ false } hideMultiSelect
+      >
         <TableCell colSpan='42' align='center'>
           <CSSTransitionGroup
+            component='div'
             transitionName='table-loading'
             transitionEnterTimeout={ 300 }
             transitionLeaveTimeout={ 300 }
@@ -1005,7 +1011,10 @@ class Table extends React.Component {
    */
   get emptyRow() {
     return (
-      <TableRow key='__loading__' selectable={ false } highlightable={ false }>
+      <TableRow
+        key='__loading__' selectable={ false }
+        highlightable={ false }
+      >
         <TableCell colSpan='42' align='center'>
           { I18n.t('table.no_data', { defaultValue: 'No results to display' }) }
         </TableCell>
@@ -1020,7 +1029,7 @@ class Table extends React.Component {
    * @return {Object} JSX
    */
   get tableContent() {
-    let children = this.props.children,
+    let { children } = this.props,
         hasChildren = children;
 
     // if using immutable js we can count the children

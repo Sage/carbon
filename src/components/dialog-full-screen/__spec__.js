@@ -3,12 +3,16 @@ import { shallow, mount } from 'enzyme';
 import DialogFullScreen from './dialog-full-screen';
 import FullScreenHeading from './full-screen-heading';
 import Button from './../button';
+import guid from '../../utils/helpers/guid';
 import Portal from './../portal';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Icon from './../icon';
 import Heading from './../heading';
+jest.mock('../../utils/helpers/guid')
 
 describe('DialogFullScreen', () => {
+  guid.mockImplementation(() => 'guid-12345');
+
   let instance,
       wrapper;
   const onCancel = jasmine.createSpy('cancel');
@@ -154,7 +158,7 @@ describe('DialogFullScreen', () => {
   describe('tags', () => {
     describe('on component', () => {
       it('include correct component, elements and role data tags', () => {
-        wrapper = shallow(
+        wrapper = mount(
           <DialogFullScreen
             open
             onCancel={ () => {} }
@@ -164,8 +168,7 @@ describe('DialogFullScreen', () => {
             data-element='bar'
           />
         );
-        rootTagTest(wrapper, 'dialog-full-screen', 'bar', 'baz');
-        elementsTagTest(wrapper, ['close', 'content']);
+        expect(wrapper).toMatchSnapshot();
       });
     });
   });

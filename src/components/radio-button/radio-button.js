@@ -29,8 +29,7 @@ import tagComponent from '../../utils/helpers/tags';
  * @constructor
  * @decorators {Input, InputLabel, InputValidation}
  */
-const RadioButton = Input(InputLabel(InputValidation(
-class RadioButton extends React.Component {
+const RadioButton = Input(InputLabel(InputValidation(class RadioButton extends React.Component {
   static propTypes = {
     /**
      * A custom class name for the component.
@@ -84,11 +83,9 @@ class RadioButton extends React.Component {
    * @return {String}
    */
   get fieldHelpClasses() {
-    return classNames(
-      'carbon-radio-button__help-text', {
-        'carbon-radio-button__help-text--inline': this.props.fieldHelpInline
-      }
-    );
+    return classNames('carbon-radio-button__help-text', {
+      'carbon-radio-button__help-text--inline': this.props.fieldHelpInline
+    });
   }
 
   /**
@@ -165,7 +162,6 @@ class RadioButton extends React.Component {
       </div>
     );
   }
-}
-)));
+})));
 
 export default RadioButton;

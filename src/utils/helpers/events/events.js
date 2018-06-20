@@ -18,7 +18,7 @@ const Events = {
   * @param {Event} ev A JavaScript event
   * @param {Type} type A JavaScript event type
   * @returns {Boolean} true if event type matches passed type
-  **/
+  * */
   isEventType: (ev, type) => {
     return ev.type === type;
   },
@@ -29,7 +29,7 @@ const Events = {
   * @method isNavigationKeyup
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if key up event and a navigation key
-  **/
+  * */
   isNavigationKeyup: (ev) => {
     if (!Events.isEventType(ev, 'keyup')) {
       return false;
@@ -44,7 +44,7 @@ const Events = {
   * @method isEnterKeyup
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if keyup event and enter key
-  **/
+  * */
   isEnterKeyup: (ev) => {
     if (!Events.isEventType(ev, 'keyup')) {
       return false;
@@ -59,7 +59,7 @@ const Events = {
   * @method isValidKeypress
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if keyup and valid
-  **/
+  * */
   isValidKeypress: (ev) => {
     if (!Events.isEventType(ev, 'keyup')) {
       return false;
@@ -84,7 +84,7 @@ const Events = {
   * @method isNumberKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if valid number key
-  **/
+  * */
   isNumberKey: (ev) => {
     return (ev.which >= 48 && ev.which <= 57) || (ev.which >= 96 && ev.which <= 105);
   },
@@ -96,7 +96,7 @@ const Events = {
   * @method isNumberKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if key is part of numpad
-  **/
+  * */
   isNumpadKey: (ev) => {
     return ev.which >= 96 && ev.which <= 111;
   },
@@ -108,7 +108,7 @@ const Events = {
   * @method isAlphabetKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if alphabet key is pressed
-  **/
+  * */
   isAlphabetKey: (ev) => {
     return ev.which >= 65 && ev.which <= 90;
   },
@@ -119,7 +119,7 @@ const Events = {
   * @method isSymbolKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if any symbol key is pressed
-  **/
+  * */
   isSymbolKey: (ev) => {
     return (ev.which >= 58 && ev.which <= 64) || // : to @
            (ev.which >= 106 && ev.which <= 107) || // numpad * and +
@@ -133,7 +133,7 @@ const Events = {
   * @method isNavigationKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if one of four arrow keys
-  **/
+  * */
   isNavigationKey: (ev) => {
     return ev.which >= 37 && ev.which <= 40;
   },
@@ -144,7 +144,7 @@ const Events = {
   * @method isLeftKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if left arrow key
-  **/
+  * */
   isLeftKey: (ev) => {
     return ev.which === 37;
   },
@@ -155,7 +155,7 @@ const Events = {
   * @method isUpKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if up arrow key
-  **/
+  * */
   isUpKey: (ev) => {
     return ev.which === 38;
   },
@@ -166,7 +166,7 @@ const Events = {
   * @method isRightKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if right arrow key
-  **/
+  * */
   isRightKey: (ev) => {
     return ev.which === 39;
   },
@@ -177,7 +177,7 @@ const Events = {
   * @method isDownKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if down arrow key
-  **/
+  * */
   isDownKey: (ev) => {
     return ev.which === 40;
   },
@@ -188,7 +188,7 @@ const Events = {
   * @method isMetaKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if any meta key is pressed
-  **/
+  * */
   isMetaKey: (ev) => {
     return ev.metaKey;
   },
@@ -199,7 +199,7 @@ const Events = {
   * @method isEscKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if esc key
-  **/
+  * */
   isEscKey: (ev) => {
     return ev.which === 27;
   },
@@ -210,7 +210,7 @@ const Events = {
   * @method isEnterKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if enter key
-  **/
+  * */
   isEnterKey: (ev) => {
     return ev.which === 13;
   },
@@ -221,7 +221,7 @@ const Events = {
   * @method isTabKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if tab key
-  **/
+  * */
   isTabKey: (ev) => {
     return ev.which === 9;
   },
@@ -232,7 +232,7 @@ const Events = {
   * @method isBackspaceKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if backspace key
-  **/
+  * */
   isBackspaceKey: (ev) => {
     return ev.which === 8;
   },
@@ -243,7 +243,7 @@ const Events = {
   * @method isDeleteKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if delete key
-  **/
+  * */
   isDeleteKey: (ev) => {
     return ev.which === 46;
   },
@@ -254,7 +254,7 @@ const Events = {
   * @method isDeletingKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if is delete key or backspace key
-  **/
+  * */
   isDeletingKey: (ev) => {
     return Events.isDeleteKey(ev) || Events.isBackspaceKey(ev);
   },
@@ -265,7 +265,7 @@ const Events = {
   * @method isShiftKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if shift key
-  **/
+  * */
   isShiftKey: (ev) => {
     return ev.shiftKey || ev.which === 16;
   },
@@ -276,7 +276,7 @@ const Events = {
   * @method isSpaceKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if space key
-  **/
+  * */
   isSpaceKey: (ev) => {
     return ev.which === 32;
   },
@@ -287,7 +287,7 @@ const Events = {
   * @method isPeriodKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if period key
-  **/
+  * */
   isPeriodKey: (ev) => {
     return ev.which === 190;
   },
@@ -298,7 +298,7 @@ const Events = {
   * @method isCommaKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if comma key
-  **/
+  * */
   isCommaKey: (ev) => {
     return ev.which === 188;
   },
@@ -309,7 +309,7 @@ const Events = {
   * @method isMinusKey
   * @param {Event} ev A JavaScript event
   * @returns {Boolean} true if minus key
-  **/
+  * */
   isMinusKey: (ev) => {
     return ev.which === 189;
   }

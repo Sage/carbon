@@ -48,22 +48,22 @@ const defaultTranslations = (errorCount, warningCount) => {
   return {
     errors: {
       defaultValue: {
-        one: `There is ${errorCount} error`,
-        other: `There are ${errorCount} errors`
+        one: 'There is %{count} error',
+        other: 'There are %{count} errors'
       },
       count: parseInt(errorCount, 10)
     },
     warnings: {
       defaultValue: {
-        one: `There is ${warningCount} warning`,
-        other: `There are ${warningCount} warnings`
+        one: 'There is %{count} warning',
+        other: 'There are %{count} warnings'
       },
       count: parseInt(warningCount, 10)
     },
     errors_and_warnings: {
       defaultValue: {
-        one: `and ${warningCount} warning`,
-        other: `and ${warningCount} warnings`
+        one: 'and %{count} warning',
+        other: 'and %{count} warnings'
       },
       count: parseInt(warningCount, 10)
     }
@@ -110,20 +110,18 @@ const summary = (props, key) => {
 };
 
 const summaryClasses = (props) => {
-  return classNames(
-    'carbon-form-summary', {
-      'carbon-form-summary--invalid': props.errors || props.warnings
-    }
-  );
+  return classNames('carbon-form-summary', {
+    'carbon-form-summary--invalid': props.errors || props.warnings
+  });
 };
 
-const FormSummary = props =>
+const FormSummary = props => (
   <div className={ summaryClasses(props) } { ...tagComponent('form-summary', props) }>
     { summary(props, 'error') }
     { summary(props, 'warning') }
     { props.children }
   </div>
-;
+);
 
 FormSummary.propTypes = {
   children: PropTypes.node,

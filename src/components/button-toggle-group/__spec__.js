@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
@@ -145,6 +145,19 @@ describe('ButtonToggleGroup', () => {
       wrapper.setState({ errorMessage: 'Error', valid: false });
       const errorDiv = wrapper.find('.common-input__message--error');
       expect(errorDiv.prop('children')).toEqual('Error');
+    });
+
+    it('renders a parent div when mounted', () => {
+      wrapper = mount(
+          <ButtonToggleGroup
+            label={ 'Label' }
+            value={ 'foo' }
+          >
+            <ButtonToggle>Foo</ButtonToggle>
+          </ButtonToggleGroup>
+        );
+      const node = wrapper.find('.carbon-button-toggle-group');
+      expect(node.length).toEqual(1);
     });
   });
 

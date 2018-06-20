@@ -1,3 +1,262 @@
+# 4.2.0
+
+## Improvements
+
+* `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
+
+# 4.1.0
+
+## npm audit
+
+* Require npm@6.
+* Update packages to resolve issues highlighted by `npm audit`.
+
+# 4.0.0
+
+## Webpack Support
+
+Carbon was previously designed around a Browserify based build, we have now migrated to explicitly support Webpack. We have made this decision based on the overwhelming preference in the JavaScript community to work with Webpack, while over the past couple of years support for Browserify has dropped and the library has not been able to keep up with the pace of Webpack. Switching to Webpack also provides us with all the latest development tools such as faster recompilation, hot reloading, and code splitting.
+
+We have updated several components to import assets through their JavaScript file. Due to this change we now require Webpack to precompile the components.
+
+If you use carbon-factory, you can upgrade to [v4.1.0](https://github.com/Sage/carbon-factory/releases/tag/v4.1.0) which provides preconfigured Webpack support for working with the Carbon library. If you prefer to manage your own Webpack build, we currently rely on the [Parcelify Loader](https://www.npmjs.com/package/parcelify-loader). We will be looking to drop this requirement in the future.
+
+# 3.2.5
+
+## Bug Fixes
+
+* Fixed [#1741](https://github.com/Sage/carbon/issues/1741): `Flash` component will now open on initial render when its `open` prop is set to `true`.
+
+# 3.2.4
+
+## Bug fixes
+
+* Position textarea label at the top of the component
+* Prevent hover styles being applied when hovering over a readonly or a disabled `input` element.
+
+# 3.2.3
+
+Merged in v3.1.6
+
+# 3.2.2
+
+Merged in v3.1.5
+
+# 3.2.1
+
+Merged in v3.1.3 and v3.1.4
+
+# 3.2.0
+
+## Flash Component
+
+Flash component now uses Portal
+
+## Demo Site
+
+* Tutorials are now numbered correctly in the Carbon Demo sidebar.
+* Demo Site should now correctly deploy in production mode
+
+## Preview Component
+
+Preview adds a CSS shimer animation as a placeholder if no children are given or the loading prop is true.
+
+### Example Code
+
+With no children:
+
+```
+<Preview>
+  { null }
+</Preview>
+```
+
+Using the `loading` prop:
+
+```
+<Preview loading>
+  { children }
+</Preview>
+```
+
+## Bug Fixes
+
+* `AnimatedMenuButton`, `Carousel`, `Flash`, `ShowEditPod`, `Table`, and `Toast` all pass the `component='div'` prop to their respective `CSSTransitionGroup` components. This fixes incorrectly nested HTML e.g. `<div>` tags nested within `<span>` tags.
+* Allow localisation override by removing manual interpolation on `FormSummary`.
+
+# 3.1.6
+
+Fixes the positioning of the error message which was also not working in IE11 (pageYOffset needed instead of scrollY)
+
+# 3.1.5
+
+Fixes incorrect dropdown placement in IE11. v3.1.4 only fixed Edge #1733
+
+# 3.1.4
+
+Fixes incorrect dropdown placement in IE.
+
+# 3.1.3
+
+Stops incorrect Dirty Form warning from showing in Safari/IE on a clean form
+
+# 3.1.2
+
+Fixes auto-deployment of tags using Travis CI.
+
+# 3.1.1
+
+## Improvements
+
+A unique ID has been added to the Portal component entrance and exit nodes. This will help find corresponding nodes in the DOM.
+
+# 3.1.0
+
+## AutoDisabling form
+
+Form autoDisables after submit when the prop `autoDisable` is set to true. The props `afterFormValidation` and `onSubmit` are passed a `enableForm` callback function which can be used to reactivate the form.
+
+### Example Code
+  ```
+  <Form
+    onSubmit={ this.saveContact }
+    autoDisable
+  >
+    {children}
+  </Form>
+  ```
+
+  ```
+  saveContact = (ev, valid, enableForm) => {
+    ...
+    Actions.submitForm(...);
+    enableForm();
+  };
+  ```
+
+## Improvements
+
+* Input has 2 new props. `onChangeDeferred` allows a deferred callback after an onChange event. `deferTimeout` allows you to customise the default: `750`.
+* Form has 1 new prop. `unsavedWarning` allows a confirmation popup to appear when the user attempts to navigate away from a form they have edited but not saved. True by default. Does not trigger on React Router page transitions. Does not consistantly trigger with browser back/forwards actions. To be reviewed when react-router is upgraded to v4 to use Prompts.
+
+## Portals
+
+* Modal components now uses the Portal component
+* Input validation tooltips now use the Portal component
+* `Toast` component now uses the Portal component
+* `Dropdown` component now uses the Portal component
+
+## Bug Fixes
+
+* `mapToProps` takes precedence over props passed to HOC in `connect` function.
+* `inputs` border-color change `:hover` is now applied to input rather than input container
+* `Store`: sets the `maxListeners` to handle more complex store arrangements
+
+## Changes
+
+* Resolved new ESLint errors from carbon-factory upgrade.
+
+## Demo Site
+
+* Add a `key` to the top-level `MenuListItem` components in the sidebar, which removes the 'Each child in an array or iterator should have a unique "key" prop' warning.
+
+# 3.0.0
+
+## Package Updates
+
+* React has been updated to v16.2.0
+* React-DOM has been updated to v16.2.0 for React upgrade
+* Enzyme has been updated to v3.3.0 for React upgrade
+* Raf has been added at v3.4.0 for React upgrade
+* ReactTestRenderer has been updated to v16.2.0 for React upgrade
+* React-Highcharts has been updated to v15.0.0 for React upgrade
+* React-Transition-Group has been updated to v1.2.1 for React upgrade
+* ReactHighlight has been updated to a forked version which works with React v16
+* React-Addons-Perf has been removed due to deprecation
+* React-Addons-Test-Utils has been removed due to deprecation
+
+## Breaking Changes
+
+### Unstable HandleError
+
+React 15 had limited, undocumented support for error boundaries using `unstable_handleError`. This method has been renamed to `componentDidCatch`.
+
+### Decimal Precision Capped at 20
+
+Previously this would return an error if the given precision was higher than 20 but would not actually enforce the limit. Now, if a value of greater than 20 is set the precision will be set to exactly 20.
+
+### ReactDOM methods
+
+`ReactDOM.render` and `ReactDOM.unstable_renderSubtreeIntoContainer`now return null if called from inside a lifecycle method. To work around this, you can use portals or refs.
+
+### setState
+
+Calling `setState` with null no longer triggers an update. This allows you to decide in an updater function if you want to re-render.
+
+Calling `setState` directly in render always causes an update. This was not previously the case. Regardless, you should not be calling `setState` from render.
+
+`setState` callbacks (second argument) now fire immediately after `componentDidMount` / `componentDidUpdate` instead of after all components have rendered.
+
+### Enzyme
+
+Part of updating react from 15.6.0 to 16.2.0 included also updating enzyme to 3.3.0. https://github.com/airbnb/enzyme/blob/enzyme%403.3.0/docs/guides/migration-from-2-to-3.md
+
+#### Upgrading a project that uses Carbon
+
+##### Installing peer dependencies
+
+If you're upgrading an application that uses Carbon to 3.0.0 you'll need to make sure you have `raf` in your project's dependencies. To add `raf` to your project dependencies run the following command:
+
+```
+npm install raf --save-dev
+```
+
+You'll also need to add the following line to your jest.conf.json:
+```
+  "setupFiles": [
+    "raf/polyfill"
+  ]
+```
+
+##### Upgrading Carbon and using the new Carbon dependencies
+
+To Install the latest Carbon:
+
+```
+npm install --save carbon-react@3.0.0
+```
+
+### React-Addons
+
+React has discontinued support for all react-addons, the latest version of each addon should continue to work (except react-addons-perf).
+`React.createClass` is deprecated and `create-react-class` should be used instead
+`React.PropTypes` is now available as `prop-types`
+`React.DOM` is now available as `react-dom-factories`
+`react-addons-test-utils` is now available as `react-dom/test-utils`
+
+### React and React Dom
+
+Both `react` and `react-dom` will need to be updated to version 16.2.0
+
+```
+npm install react@^16.2.0 react-dom@^16.2.0 --save
+```
+
+### Hydrate Deprecation
+
+Hydrating a server-rendered container now has an explicit API. If you’re reviving server-rendered HTML, use `ReactDOM.hydrate` instead of `ReactDOM.render`. Keep using `ReactDOM.render` if you’re just doing client-side rendering.
+
+## React Portal
+
+We have updated the `Portal` component to use React's own version of portal which is available with React 16, removing the `react-portal` dependency.
+`Portal` now has an additional prop `onReposition` which is an optional callback function, called when the window resizes or a parent DOM element is scrolled.
+
+## Bug Fixes
+
+* Checkbox no longer overlays the end of the Help field text when the reverse prop is set to true
+* `Date`: Previously this component would not retain an invalid date value, we now keep the value and throw a validation error on the input.
+* The DatePicker element will now reposition itself when the DateInput is scrolled.
+
 # 2.6.4
 
 * Upgrade marked package from v0.3.6 to 0.3.9 to address security vulnerabilities

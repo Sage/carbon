@@ -297,9 +297,7 @@ class Carousel extends React.Component {
    * @method nextButtonClasses
    */
   slideSelectorClasses() {
-    return classNames(
-      'carbon-carousel__selector'
-    );
+    return classNames('carbon-carousel__selector');
   }
 
   /**
@@ -406,7 +404,10 @@ class Carousel extends React.Component {
 
     for (let i = 0; i < this.numOfSlides(); i++) {
       buttons.push(
-        <span className='carbon-carousel__selector-inputs' key={ i } data-element='selector-inputs'>
+        <span
+          className='carbon-carousel__selector-inputs' key={ i }
+          data-element='selector-inputs'
+        >
           <input
             disabled={ this.state.disabled }
             className='carbon-carousel__selector-input'
@@ -493,6 +494,7 @@ class Carousel extends React.Component {
           { this.previousButton() }
 
           <CSSTransitionGroup
+            component='div'
             transitionName={ this.transitionName() }
             transitionEnterTimeout={ TRANSITION_TIME }
             transitionLeaveTimeout={ TRANSITION_TIME }
