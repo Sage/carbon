@@ -6,7 +6,8 @@
 
 ## Bug Fixes
 
-* Fixed (https://jira-sage.valiantyscloud.net/browse/GOLF-53): When selecting all in selectable grids with a secondary theme, the odd lined items were displaying a white background showing as being broken.
+* When selecting all in selectable tables with a secondary theme, the odd lined items were displaying a white background showing as being broken.
+* Added a blue background to match the intended styles
 
 # 4.1.0
 
