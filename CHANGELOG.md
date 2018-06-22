@@ -3,6 +3,7 @@
 ## Improvements
 
 * `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
+* `Input` now warning icon will not overlap over text inside input field.
 
 # 4.1.0
 
