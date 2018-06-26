@@ -173,9 +173,16 @@ describe('Browser', () => {
     const key2 = 'bar';
     const value2 = 'bar';
     const data = { [key1]: value1, [key2]: value2 };
+    let origSubmitForm;
 
     beforeEach(() => {
+      origSubmitForm = Browser.submitForm;
+      Browser.submitForm = jest.fn();
       spyOn(Browser, 'getDocument').and.returnValue(document);
+    });
+
+    afterEach(() => {
+      Browser.submitForm = origSubmitForm;
     });
 
     describe('when container not found', () => {
@@ -227,9 +234,11 @@ describe('Browser', () => {
     });
 
     it('submits the rendered form', () => {
-      spyOn(Browser, 'submitForm');
+      const spy = jest.spyOn(Browser, 'submitForm');
       Browser.postToNewWindow(url, data);
-      expect(Browser.submitForm).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalled();
+
+      spy.mockRestore();
     });
 
     it('unmounts the rendered form', () => {
@@ -255,10 +264,11 @@ describe('Browser', () => {
 
   describe('submitForm', () => {
     it('calls submit on the passed form', () => {
-      const submitSpy = jasmine.createSpy('form-submit');
-      const form = { submit: submitSpy };
-      Browser.submitForm(form);
-      expect(submitSpy).toHaveBeenCalled();
+      const mockForm = {
+        submit: jest.fn()
+      };
+      Browser.submitForm(mockForm);
+      expect(mockForm.submit).toHaveBeenCalled();
     });
   });
 });
