@@ -21,7 +21,8 @@ class WithDrop extends React.Component {
     identifier: PropTypes.string, // identifies an association between WithDrag and WithDrop
     index: PropTypes.number.isRequired, // identifies the index for this item
     hover: PropTypes.func, // an optional callback to trigger when the item is hovered
-    onDrag: PropTypes.func // an optional callback to trigger when dragging occurs
+    onDrag: PropTypes.func, // an optional callback to trigger when dragging occurs
+    canDrop: PropTypes.func // an optional callback to determine if this item can be dropped on
     /* eslint-enable react/no-unused-prop-types */
   }
 
@@ -39,7 +40,13 @@ class WithDrop extends React.Component {
 }
 
 const ItemTarget = {
+  canDrop(props, monitor) {
+    return (props.canDrop) ? props.canDrop(props, monitor) : true;
+  },
+
   hover(props, monitor, component) {
+    if (!monitor.canDrop()) return false;
+
     Text.clearSelection();
     const hover = props.hover || component.context.dragAndDropHover;
     hover(props, monitor, component);
