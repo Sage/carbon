@@ -3,6 +3,7 @@
 ## Improvements
 
 * `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
+* `CustomDragLayer` component can now take className prop. 
 
 ## Upgrades
 
