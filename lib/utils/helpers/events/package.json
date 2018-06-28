@@ -1,0 +1,4 @@
+{
+  "name": "events",
+  "main": "./events.js"
+}

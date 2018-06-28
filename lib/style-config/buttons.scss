@@ -1,0 +1,34 @@
+@import './colors';
+
+/* carbon-button */
+$carbon-button__border-radius: 4px !default;
+$carbon-button__font-weight: bold !default;
+$carbon-button__padding: 0 18px !default;
+
+/* carbon-button--primary */
+$carbon-button__background-color--primary: $blue !default;
+
+$carbon-button__border--primary: 1px solid transparent !default;
+$carbon-button__text-color--primary: $white !default;
+
+/* carbon-button--primary--hover */
+$carbon-button__background-color--primary--hover: $azul !default;
+
+// /* carbon-button--secondary */
+$carbon-button__border--secondary: 1px solid $blue !default;
+
+/* carbon-button--disabled */
+$carbon-button__background-color--disabled: #DBDCDE !default;
+$carbon-button__border-color--disabled: transparent !default;
+$carbon-button__color--disabled: #A4A6AA !default;
+
+/*
+values are [ background/border color, hover, active, text ]
+*/
+$buttonColorSets: (
+ ("blue", $blue, $azul, $blue-bright, $white),
+ ("magenta", $magenta, $magenta-dull, $magenta-light, $white),
+ ("red", $red, $red-dark, $red-light, $white),
+ ("white", $white, $grey-dark-blue-30, $grey-dark-blue-10, $grey-dark-plus),
+ ("grey", $grey-dark-blue-90, $grey-dark-blue, $grey-dark-blue-80, $white)
+);

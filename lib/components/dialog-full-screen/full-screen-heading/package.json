@@ -1,0 +1,4 @@
+{
+  "main": "./full-screen-heading.js",
+  "style": "./full-screen-heading.scss"
+}

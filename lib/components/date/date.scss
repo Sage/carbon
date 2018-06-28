@@ -1,0 +1,175 @@
+@import "./../../style-config/colors";
+@import "./../../style-config/z-index";
+@import "./../../style-config/mixins";
+
+$date__picker__header-color: $grey-dark-blue-70;
+$date__picker__header-height: 40px;
+$date__picker__header-border-color: $grey-dark-blue-80;
+$date__picker__background-color: $white;
+
+.carbon-date {
+  .icon-calendar:before {
+    position: relative;
+    right: -1px;
+    top: -1px;
+  }
+}
+
+.DayPicker {
+  background-color: $date__picker__background-color;
+  border-radius: 3px;
+  box-shadow: 0 20px 30px rgba($grey-shadow, 0.2);
+  color: $date__picker__header-color;
+  display: block;
+  font-size: 14px;
+  font-weight: 700;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  * {
+    box-sizing: border-box;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  abbr[title] {
+    border: none;
+    cursor: initial;
+  }
+}
+
+.DayPicker-wrapper {
+  padding: 0;
+}
+
+.DayPicker-Month {
+  margin: 0 0 2px;
+}
+
+.DayPicker-Body, .DayPicker-Week {
+  width: 100%;
+}
+
+.DayPicker-Day, .DayPicker-Weekday {
+  padding: 10px 12px;
+  border-color: $date__picker__background-color;
+  border-style: solid;
+  border-width: 0 3px 3px 3px;
+
+  abbr {
+    text-decoration: none;
+  }
+}
+
+.DayPicker-Day {
+  width: percentage(1/7);
+}
+
+.DayPicker-Weekday {
+  width: percentage(1/7);
+}
+
+.DayPicker-Caption {
+  background-color: $date__picker__header-color;
+  color: $white;
+  height: $date__picker__header-height;
+  line-height: $date__picker__header-height;
+
+  >div {
+    margin: 0 auto;
+    width: 80%;
+  }
+}
+
+.DayPicker-Weekday {
+  background-color: $date__picker__background-color;
+  color: $grey-dark;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  text-transform: capitalize;
+}
+
+.DayPicker-Day {
+  background-color: $grey-dark-blue-10;
+  color: $blue;
+  cursor: pointer;
+
+  &:hover {
+    background-color: $azul;
+    color: $white;
+  }
+
+  +* {
+    border-left: 1px;
+  }
+}
+
+.DayPicker-Day, .DayPicker-Weekday {
+  padding: 10px 12px;
+  border-color: $date__picker__background-color;
+  border-style: solid;
+  border-width: 0 3px 3px 3px;
+}
+
+.DayPicker-Day {
+  width: percentage(1/7);
+}
+
+.DayPicker-Weekday {
+  width: percentage(1/7);
+}
+
+.DayPicker-Day--selected, .DayPicker-Day--selected.DayPicker-Day--outside {
+  background-color: $blue !important;
+  color: $white;
+  font-weight: 700;
+}
+
+.DayPicker-Day--today, .DayPicker-Day--today.DayPicker-Day--outside {
+  background-color: $grey-dark-blue-70;
+  color: $white;
+  font-weight: 700;
+}
+
+.DayPicker-Day--outside {
+  background-color: $date__picker__background-color;
+  color: $grey-dark-blue-50;
+
+  &:hover {
+    background-color: $azul;
+    color: $white;
+  }
+}
+
+.DayPicker-Day--disabled, .DayPicker-Day--disabled:hover {
+  background-color: $white;
+  color: $grey-dark-blue-30;
+  cursor: default;
+}
+
+.carbon-date .common-input__field {
+  box-sizing: content-box;
+  /* i have to stop this being over-ridden by a prop that sets a style on the element */
+  /* this does have the benefit of removing inline and filter related styles */
+  width: 120px !important;
+}
+
+.carbon-date.common-input--with-icon .common-input__icon--error {
+  right: 5px;
+  top: 5px;
+}
+
+.carbon-date.common-input--with-icon .common-input__icon--warning {
+  right: 3px;
+  top: 6px;
+}

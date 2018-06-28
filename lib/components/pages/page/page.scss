@@ -1,0 +1,14 @@
+@import "./../../dialog-full-screen/dialog-full-screen-variables";
+
+.carbon-page {
+  width: 100%;
+  height: 100%;
+}
+
+.carbon-page__content {
+  box-sizing: content-box;
+  padding: $padding-top-bottom 0;
+  width: 100%;
+  height: calc(100% - #{($title-height + ($padding-top-bottom * 2))});
+  overflow-y: auto;
+}

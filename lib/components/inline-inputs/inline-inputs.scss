@@ -1,0 +1,29 @@
+@import "./../../style-config/input-field";
+@import "./../../style-config/general";
+
+.carbon-inline-inputs {
+  display: flex;
+  align-items: center;
+  .carbon-inline-inputs__label  {
+    margin-right: $grid-margin;
+    font-weight: bold;
+  }
+}
+
+.carbon-inline-inputs__inputs {
+  .carbon-column input {
+    border-radius: 0px;
+  }
+
+  .carbon-column:first-of-type input {
+    border-radius: $input-border-radius;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+  }
+
+  .carbon-column:last-of-type input {
+    border-radius: $input-border-radius;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+  }
+}

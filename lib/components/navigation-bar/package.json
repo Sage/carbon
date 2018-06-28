@@ -1,0 +1,4 @@
+{
+  "main": "./navigation-bar.js",
+  "style": "./navigation-bar.scss"
+}

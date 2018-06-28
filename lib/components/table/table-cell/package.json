@@ -1,0 +1,4 @@
+{
+  "main": "./table-cell.js",
+  "style": "./table-cell.scss"
+}

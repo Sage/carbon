@@ -19,12 +19,15 @@ const iconHTML = (
  * @constructor
  */
 const DraggableTableCell = (props) => {
+  const canDrag = props.canDrag !== false;
+
   const icon = (
     <WithDrag
       identifier={ props.identifier }
       draggableNode={ props.draggableNode }
+      canDrag={ () => { return canDrag; } }
     >
-      { iconHTML }
+      { canDrag ? iconHTML : <span /> }
     </WithDrag>
   );
 

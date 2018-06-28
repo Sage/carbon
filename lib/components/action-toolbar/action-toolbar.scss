@@ -1,0 +1,37 @@
+@import "./../../style-config/colors";
+
+.carbon-action-toolbar,
+.carbon-action-toolbar__total,
+.carbon-action-toolbar__actions {
+  display: inline-block;
+}
+
+.carbon-action-toolbar {
+  padding: 15px 0;
+
+  .carbon-multi-action-button {
+    display: inline-flex;
+  }
+}
+
+.carbon-action-toolbar__actions > * {
+  + .carbon-button,
+  + .carbon-multi-action-button,
+  + .carbon-split-button {
+    margin-left: 10px;
+  }
+}
+
+.carbon-action-toolbar__total {
+  margin-right: 10px;
+  min-width: auto;
+  text-align: left;
+}
+
+.carbon-action-toolbar__action {
+  margin: 0 10px;
+
+  &.carbon-link__anchor--disabled {
+    color: $grey-dark-blue-30;
+  }
+}

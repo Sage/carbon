@@ -3,6 +3,7 @@
 ## Improvements
 
 * `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
+* `Draggable Context` extending functionality to determine if a an item can be dropped on.
 
 ## Upgrades
 
