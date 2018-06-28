@@ -58,6 +58,17 @@ const Browser = {
   },
 
   /**
+   * Redirects to URL after the given number of seconds have elapsed
+   *
+   * @method redirectAfter
+   * @param url => URL string format
+   * @param seconds => the number of seconds to wait before redirecting
+   */
+  redirectAfter: (url, seconds) => {
+    return setTimeout(() => Browser.redirectTo(url), seconds);
+  },
+
+  /**
    * Reload the current page
    *
    * @method reload
