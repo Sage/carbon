@@ -1,0 +1,5 @@
+{
+  "main": "./fieldset.js",
+  "style": "fieldset.scss",
+  "name": "Fieldset"
+}

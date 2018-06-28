@@ -1,0 +1,114 @@
+@import "./../../style-config/colors";
+@import "./../../style-config/z-index";
+
+$toast-anim-start: -100px !default;
+$toast-anim-end: 30px !default;
+$toast-border: 1px solid !default;
+$toast-border-radius: 4px !default;
+$toast-top-position: 0 !default;
+$toast-width: 300px !default;
+
+.carbon-toast {
+  border-radius: $toast-border-radius;
+  margin-top: $toast-anim-end;
+  position: fixed;
+  right: $toast-anim-end;
+  top: $toast-top-position;
+  width: $toast-width;
+  z-index: $z-toast;
+}
+
+.carbon-toast__close,
+.carbon-toast__type {
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+}
+
+.carbon-toast__close {
+  right: 0;
+  width: 45px;
+
+  &:before {
+    font-size: 16px;
+  }
+}
+
+.carbon-toast__type {
+  border-radius: $toast-border-radius 0 0 $toast-border-radius;
+  left: -1px;
+  width: 31px;
+
+  .carbon-toast__type-icon {
+    &:before {
+      color: #FFF;
+      display: block;
+      font-size: 16px;
+    }
+  }
+
+  .carbon-icon__svg {
+    height: 24px;
+    margin-top: -12px;
+    width: 30px;
+
+    .carbon-icon__svg-group {
+      fill: $white;
+    }
+  }
+}
+
+.carbon-toast__close {
+  cursor: pointer;
+}
+
+.carbon-toast__content {
+  padding: 15px 50px;
+  white-space: pre-wrap;
+}
+
+@mixin toast-theme($type, $color, $border, $background, $color-hover) {
+  .carbon-toast--#{$type} {
+    box-shadow: 0 15px 20px 0 rgba($grey-shadow, 0.2);
+    background-color: $background;
+
+    .carbon-toast__type {
+      background-color: $color;
+    }
+
+    strong {
+      color: $color;
+    }
+
+    .carbon-toast__close {
+      color: $color;
+    }
+  }
+}
+
+@each $set in $colorIconSets {
+  @include toast-theme($set...);
+}
+
+// toast animation:
+.toast-appear,
+.toast-enter {
+  opacity: 0;
+  margin-top: $toast-anim-start;
+}
+
+.toast-appear.toast-appear-active,
+.toast-enter.toast-enter-active {
+  opacity: 1;
+  margin-top: $toast-anim-end;
+  transition: all 300ms 1000ms cubic-bezier(0.250, 0.250, 0.000, 1.500);
+}
+
+.toast-leave.toast-leave-active {
+  opacity: 0;
+  right: -360px;
+  transition: all 300ms cubic-bezier(0.960, -0.335, 0.750, 0.750);
+}

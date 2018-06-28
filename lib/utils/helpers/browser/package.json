@@ -1,0 +1,4 @@
+{
+  "name": "browser",
+  "main": "./browser.js"
+}

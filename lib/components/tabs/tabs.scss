@@ -1,0 +1,109 @@
+@import "./../../style-config/colors";
+@import "./../../style-config/general";
+
+$carbon-tabs__header__background-color: #F5F6F7 !default;
+$carbon-tabs__header__border-color: $grey-dark-blue-20 !default;
+$carbon-tabs__header--selected_border-color: $blue-bright !default;
+$carbon-tabs__header__color: $grey-dark !default;
+
+.carbon-tabs__position-top {
+  margin-top: 15px;
+}
+
+.carbon-tabs__headers {
+  box-shadow: inset 0px -2px 0px 0px $carbon-tabs__header__border-color;
+  cursor: pointer;
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.carbon-tabs__headers--align-right {
+  text-align: right;
+}
+
+.carbon-tabs__headers__header {
+  background-color: $carbon-tabs__header__background-color;
+  border-bottom: 2px solid $carbon-tabs__header__border-color;
+  color: $carbon-tabs__header__color;
+  display: inline-block;
+  font-weight: bold;
+  height: 100%;
+  margin-left: 2px;
+  padding: 11px 15px 10px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:focus:not(.carbon-tabs__headers__header--selected),
+  &:hover {
+    background: $azul;
+    border-bottom-color: $azul;
+    color: $white;
+    outline: none;
+  }
+}
+
+.carbon-tabs__headers__header--selected {
+  background-color: $white;
+  border-bottom-color: $carbon-tabs__header--selected_border-color;
+
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 6px rgba($blue, 0.6);
+  }
+
+  &:hover {
+    background: $white;
+    color: $grey-dark;
+  }
+}
+
+.carbon-tabs__headers__header--error {
+  border-bottom-color: $red;
+}
+
+.carbon-tabs__headers__header--warning {
+  border-bottom-color: $orange-mid;
+}
+
+.carbon-tabs__position-left {
+  display: flex;
+  width: 100%;
+
+  .carbon-tab--selected {
+    width: 80%;
+  }
+
+  .carbon-tabs__headers {
+    box-shadow: inset -2px 0px 0px 0px $carbon-tabs__header__border-color;
+    display: inline-block;
+    width: 20%;
+  }
+
+  .carbon-tabs__headers{
+    margin: 0 10px 0;
+
+    .carbon-tabs__headers__header {
+      border-bottom: 0px;
+      border-right: 2px solid $carbon-tabs__header__border-color;
+      display: block;
+      height: auto;
+      margin-left: 0px;
+      margin-top: 2px;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:hover {
+        border-right-color: $carbon-tabs__header--selected_border-color;
+      }
+    }
+
+    .carbon-tabs__headers__header--selected {
+      border-right-color: $carbon-tabs__header--selected_border-color;
+    }
+  }
+}

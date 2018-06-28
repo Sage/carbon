@@ -1,0 +1,4 @@
+{
+  "main": "./draggable-table-cell.js",
+  "style": "./draggable-table-cell.scss"
+}

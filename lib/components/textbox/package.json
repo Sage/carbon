@@ -1,0 +1,5 @@
+{
+  "name": "textbox",
+  "main": "./textbox.js",
+  "style": "textbox.scss"
+}

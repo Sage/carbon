@@ -1,0 +1,86 @@
+@import "./../../../style-config/colors";
+@import "./../../../style-config/input-field";
+@import "./../../../style-config/mixins";
+
+.common-input--with-icon {
+  .common-input__icon {
+    right: 37px;
+  }
+}
+
+.common-input__input:hover ~ label .carbon-input-icon {
+  background-color: $blue;
+  border-color: $blue;
+  color: $white;
+
+  &:hover {
+    background-color: $blue-bright;
+    border-color: $blue-bright;
+  }
+}
+
+.common-input__input:focus ~ label .carbon-input-icon,
+.common-input__input:focus ~ label .carbon-input-icon:hover {
+  background-color: $blue-dark;
+  border-color: $blue-dark;
+  color: $white;
+}
+
+.common-input__input:hover ~ label .carbon-input-icon--error,
+.common-input__input:hover ~ label .carbon-input-icon--error:hover {
+  border-color: $error;
+  background-color: $error;
+  .carbon-icon:before {
+    color: $white;
+  }
+}
+.common-input__input:focus ~ label .carbon-input-icon--error {
+  border-color: $red-dark;
+  background-color: $red-dark;
+  .carbon-icon:before {
+    color: $white;
+  }
+}
+
+.common-input__input:hover ~ label .carbon-input-icon--warning,
+.common-input__input:hover ~ label .carbon-input-icon--warning:hover {
+  border-color: $warning;
+  background-color: $warning;
+  .carbon-icon:before  {
+    fill: $white;
+  }
+}
+.common-input__input:focus ~ label .carbon-input-icon--warning {
+  border-color: $warning-hover;
+  background-color: $warning-hover;
+  .carbon-icon:before  {
+    fill: $white;
+  }
+}
+
+.carbon-input-icon {
+  $button-border-radius: $input-border-radius - 1;
+  background-color: $grey-light;
+  border-left: 1px solid $grey;
+  bottom: 1px;
+  box-sizing: border-box;
+  color: $grey-dark;
+  cursor: pointer;
+  height: $input-common-height - 2;
+  margin-top: 1px;
+  padding: 6px 0;
+  position: absolute;
+  right: 1px;
+  text-align: center;
+  width: $input-common-height;
+
+  &:hover {
+    background-color: $blue-bright;
+    border-color: $blue-bright;
+    color: $white;
+  }
+
+  &.carbon-input-icon--error {
+    color: $error;
+  }
+}

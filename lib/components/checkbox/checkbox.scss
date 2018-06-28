@@ -1,0 +1,104 @@
+@import "./../../style-config/colors";
+@import "./../../style-config/mixins";
+@import "./../../style-config/input-field";
+
+.carbon-checkbox {
+  padding-top: 8px;
+
+  .common-input__field,
+  .common-input__label {
+    display: inline-block;
+    vertical-align: top;
+  }
+
+  .common-input__label {
+    margin: 0;
+    padding-top: 1px;
+    padding-bottom: 5px;
+  }
+
+  &.common-input--has-field-help {
+    .common-input__label {
+      padding-bottom: 0px;
+    }
+
+    .carbon-checkbox__help-text {
+      padding-bottom: 5px;
+    }
+  }
+}
+
+.carbon-checkbox__input.common-input__input {
+  cursor: pointer;
+  height: 15px;
+  opacity: 0;
+  position: absolute !important;
+  vertical-align: middle;
+  width: 15px;
+
+  ~ svg {
+    .checkbox-outline {
+      rx: 2;
+    }
+
+    .checkbox-fill {
+      ry: 1;
+    }
+  }
+
+  &:focus + svg {
+    box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
+    @include transition(border linear 0.1s, box-shadow linear 0.1s);
+
+    .checkbox-outline {
+      fill: $input-active-border-color;
+    }
+  }
+
+  &:hover + svg .checkbox-outline {
+    fill: $input-active-border-color;
+  }
+
+  &:checked + svg .checkbox-check {
+    fill: $grey-dark;
+  }
+
+  &[disabled] + svg {
+    .checkbox-outline {
+      fill: $grey;
+    }
+
+    .checkbox-fill {
+      fill: $grey-light;
+    }
+
+    .checkbox-check {
+      fill: $grey-light;
+    }
+  }
+
+  &[disabled]:checked + svg .checkbox-check {
+    fill: $grey-dark-blue-50;
+  }
+}
+
+// extra specificity is required here
+.common-input__help-text {
+  &.carbon-checkbox__help-text {
+    display: block;
+    margin-top: 0;
+    margin-left: 21px;
+  }
+
+  &.carbon-checkbox__help-text--reverse {
+    margin-left: 6px;
+  }
+
+  &.carbon-checkbox__help-text--inline {
+    display: inline;
+    margin-right: 5px;
+    position: relative;
+    margin-left: 0;
+    top: -2px;
+  }
+}

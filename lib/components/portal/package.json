@@ -1,0 +1,4 @@
+{
+  "main": "./portal.js",
+  "style": "portal.scss"
+}

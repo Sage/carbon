@@ -1,0 +1,37 @@
+@import "./../../../style-config/colors";
+@import "./../dialog-full-screen-variables";
+
+.carbon-full-screen-heading {
+  border-bottom: 1px solid #CED0D3;
+
+  .carbon-app-wrapper {
+    position: relative;
+  }
+
+  .carbon-heading {
+    height: $title-height;
+
+    .carbon-heading__header {
+      align-items: center;
+      box-sizing: content-box;
+      display: flex;
+      height: $title-height;
+      margin-bottom: 0;
+      padding-bottom: 0;
+      width: 100%;
+
+      .icon-chevron_left:before {
+        font-size: 24px;
+      }
+
+      .carbon-heading__back {
+        margin-top: -8px;
+        margin-left: -5px;
+      }
+
+      .carbon-dialog-full-screen & {
+        background-color: $grey-light;
+      }
+    }
+  }
+}

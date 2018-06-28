@@ -1,0 +1,137 @@
+@import "./../../style-config/colors";
+
+.carbon-portrait {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+}
+
+.carbon-portrait__initials {
+  position: absolute;
+}
+
+.carbon-portrait__avatar {
+  display: inline-block;
+  position: absolute;
+}
+
+.carbon-portrait__sans-initials {
+  position: absolute;
+  border: solid 1px $grey-dark-blue-50;
+  background-color: $grey-dark-blue-20;
+  color: $grey-dark-blue-80;
+  box-sizing: border-box;
+  line-height: 14px;
+}
+
+.carbon-portrait--dark-background .carbon-portrait__sans-initials {
+  background-color: $grey-dark-blue-60;
+  color: $white;
+}
+
+.carbon-portrait--standard .carbon-portrait__img {
+  border-radius: 5px;
+}
+
+.carbon-portrait--circle .carbon-portrait__img {
+  border-radius: 50%;
+}
+
+.carbon-portrait--leaf .carbon-portrait__img {
+  border-radius: 10% 40% 10%;
+}
+
+.carbon-portrait--extra-small,
+.carbon-portrait--extra-small .carbon-portrait__img {
+  width: 25px;
+  height: 25px;
+
+  .carbon-portrait__sans-initials {
+    padding: 4px;
+  }
+}
+
+.carbon-portrait--small,
+.carbon-portrait--small .carbon-portrait__img {
+  width: 30px;
+  height: 30px;
+
+  .carbon-portrait__sans-initials {
+    padding: 6px;
+  }
+}
+
+.carbon-portrait--medium-small,
+.carbon-portrait--medium-small .carbon-portrait__img {
+  width: 40px;
+  height: 40px;
+
+  .carbon-portrait__sans-initials {
+    padding: 12px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+}
+
+.carbon-portrait--medium,
+.carbon-portrait--medium .carbon-portrait__img {
+  width: 60px;
+  height: 60px;
+
+  .carbon-portrait__sans-initials {
+    padding: 14px;
+
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+
+.carbon-portrait--medium-large,
+.carbon-portrait--medium-large .carbon-portrait__img {
+  width: 70px;
+  height: 70px;
+
+  .carbon-portrait__sans-initials {
+    padding: 18px;
+
+    svg {
+      width: 32px;
+      height: 32px;
+    }
+  }
+}
+
+.carbon-portrait--large,
+.carbon-portrait--large .carbon-portrait__img {
+  width: 100px;
+  height: 100px;
+
+  .carbon-portrait__sans-initials {
+    padding: 25px;
+
+    svg {
+      width: 48px;
+      height: 48px;
+    }
+  }
+}
+
+.carbon-portrait--extra-large,
+.carbon-portrait--extra-large .carbon-portrait__img {
+  width: 120px;
+  height: 120px;
+
+  .carbon-portrait__sans-initials {
+    padding: 27px;
+
+    svg {
+      width: 64px;
+      height: 64px;
+    }
+  }
+}

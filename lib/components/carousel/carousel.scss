@@ -1,0 +1,205 @@
+@import "./../../style-config/colors";
+@import "./../../style-config/mixins";
+
+.carbon-carousel__content {
+  overflow: hidden;
+  position: relative;
+}
+
+.carbon-carousel__gradient {
+  @include linear-gradient(left,  (rgba(255,255,255,1) 0%, rgba(255,255,255,0) 5%, rgba(255,255,255,0) 95%, rgba(255,255,255,1) 100%));
+
+  height: 100%;
+  position: absolute;
+  width: 100%;
+  z-index: 15;
+}
+
+.carbon-carousel__navigation {
+  margin-top: -22.5px;
+  position: absolute;
+  top: 50%;
+  z-index: 20;
+}
+
+.carbon-carousel__previous-button {
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.carbon-carousel__previous-arrow {
+  @include transform(rotate(90deg))
+
+  cursor: pointer;
+  display: inline-block;
+
+  &::before {
+    font-size: 25px;
+  }
+}
+
+.carbon-slide {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 100%;
+  z-index: 10;
+}
+
+.carbon-slide--padded {
+  padding: 0 60px;
+}
+
+.carbon-carousel__next {
+  right: 0;
+}
+
+.carbon-carousel__next-button {
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+}
+
+.carbon-carousel__next-arrow {
+  @include transform(rotate(-90deg))
+  display: inline-block;
+  cursor: pointer;
+
+  &::before {
+    font-size: 25px;
+  }
+}
+
+.carbon-carousel__buttons {
+  border: none;
+  width: 45px;
+  height: 45px;
+  background-color: $grey-dark-blue-20;
+
+  &:hover {
+    color: $blue;
+    background-color: $grey-dark-blue-40;
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.carbon-carousel__selector {
+  height: 20px;
+  margin-top: 5px;
+  text-align: center;
+}
+
+.carbon-carousel__selector-inputs {
+  display: inline-block;
+  line-height: 20px;
+  vertical-align: middle;
+  width: 22px;
+}
+
+.carbon-carousel__selector-input {
+  display: none;
+}
+
+.carbon-carousel__selector-label {
+  border-radius: 100%;
+  border: 1px solid $grey-dark-blue-70;
+  display: inline-block;
+  height: 8px;
+  margin: 0px 5px;
+  width: 8px;
+
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.carbon-carousel__selector {
+  .carbon-carousel__selector-input:checked {
+    + .carbon-carousel__selector-label {
+      background: $blue;
+      border-color: transparent;
+      height: 10px;
+      position: relative;
+      top: 1px;
+      width: 10px;
+    }
+  }
+}
+
+$slide-animation-length: 500ms;
+$cubic-bezier: .34,1.10,.69,1.01;
+
+// NEXT
+
+.slide-next-enter {
+  opacity: 0;
+  left: 100%;
+  position: absolute;
+}
+
+.slide-next-enter.slide-next-enter-active {
+  opacity: 1;
+  left: 0;
+  transition: all $slide-animation-length cubic-bezier($cubic-bezier);
+}
+
+.slide-next-leave {
+  opacity: 1;
+  left: 0;
+  position: relative;
+}
+
+.slide-next-leave.slide-next-leave-active {
+  opacity: 0;
+  left: -100%;
+  transition: all $slide-animation-length cubic-bezier($cubic-bezier);
+}
+
+// PREVIOUS
+
+.slide-previous-enter {
+  opacity: 0;
+  left: -100%;
+  position: absolute;
+}
+
+.slide-previous-enter.slide-previous-enter-active {
+  opacity: 1;
+  left: 0;
+  transition: all $slide-animation-length cubic-bezier($cubic-bezier);
+}
+
+.slide-previous-leave {
+  opacity: 1;
+  left: 0;
+  position: relative;
+}
+
+.slide-previous-leave.slide-previous-leave-active {
+  opacity: 0;
+  left: 100%;
+  transition: all $slide-animation-length cubic-bezier($cubic-bezier);
+}
+
+// FADE
+
+.carousel-transition-fade-enter {
+  opacity: 0;
+  position: absolute;
+}
+
+.carousel-transition-fade-enter.carousel-transition-fade-enter-active {
+  opacity: 1;
+  transition: all $slide-animation-length cubic-bezier($cubic-bezier);
+}
+
+.carousel-transition-fade-leave {
+  opacity: 1;
+  position: relative;
+}
+
+.carousel-transition-fade-leave.carousel-transition-fade-leave-active {
+  opacity: 0;
+  transition: all $slide-animation-length cubic-bezier($cubic-bezier);
+}
