@@ -13,6 +13,7 @@
 ## Build
 
 * Travis CI now sets --maxWorkers=2 for npm test to reduce chance of timeouts
+* Remove `gulp` as Carbon now uses webpack.
 
 ## Bug Fixes
 
