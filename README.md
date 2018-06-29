@@ -45,6 +45,8 @@ To run the example, do the following steps:
   3. `npm install`
   4. `npm start`
   5. Navigate to [http://localhost:8095/](http://localhost:8095/) in your favourite browser
+  
+> Note: MockAPI for tables and dropdowns is disabled locally as it conflicts with HotReloading. To enable see `src/main.js` file
 
 ## Testing Changes Locally in your App
 
