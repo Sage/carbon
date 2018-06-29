@@ -43,8 +43,8 @@ To run the example, do the following steps:
   1. Clone the carbon repository (`git clone git@github.com:Sage/carbon.git`)
   2. `cd carbon`
   3. `npm install`
-  4. `gulp`
-  5. Navigate to [http://localhost:8080/](http://localhost:8080/) in your favourite browser
+  4. `npm start`
+  5. Navigate to [http://localhost:8095/](http://localhost:8095/) in your favourite browser
 
 ## Testing Changes Locally in your App
 
