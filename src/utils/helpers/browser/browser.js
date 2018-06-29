@@ -65,7 +65,7 @@ const Browser = {
    * @param seconds => the number of seconds to wait before redirecting
    */
   redirectAfter: (url, seconds) => {
-    return setTimeout(() => Browser.redirectTo(url), seconds);
+    return setTimeout(() => Browser.redirectTo(url), seconds * 1000);
   },
 
   /**
