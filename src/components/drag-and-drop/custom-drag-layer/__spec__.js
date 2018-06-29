@@ -230,4 +230,22 @@ describe('CustomDragLayer', () => {
       })
     })
   });
+  describe('customDragLayer with custom className', () => {
+    beforeEach(() => {
+      wrapper = mount(
+        <UndecoratedCustomDragLayer
+          draggableNode={draggableNode}
+          isDragging={false}
+          className='Foo'
+        />
+      );
+      wrapper.setProps({ isDragging: true })
+      instance = wrapper.find(UndecoratedCustomDragLayer);
+    });
+
+    it('sets the default className + one from the props', () => {
+      expect(instance.hasClass('Foo')).toBeTruthy;
+      expect(instance.hasClass('custom-drag-layer')).toBeTruthy;
+    });
+  });
 });
