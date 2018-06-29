@@ -104,7 +104,6 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                               data-element="close"
                               key="icon"
                               onClick={[Function]}
-                              type="close"
                             />
                           </Icon>
                           <Heading
