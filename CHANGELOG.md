@@ -14,6 +14,11 @@
 
 * Travis CI now sets --maxWorkers=2 for npm test to reduce chance of timeouts
 
+## Bug Fixes
+
+* When selecting all in selectable tables with a secondary theme, the odd lined items were displaying a white background showing as being broken.
+* Added a blue background to match the intended styles
+
 # 4.1.0
 
 ## npm audit
