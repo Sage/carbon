@@ -3,11 +3,15 @@
 ## Improvements
 
 * `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
-* `CustomDragLayer` component can now take className prop. 
+* `CustomDragLayer` component can now take className prop.
 
 ## Upgrades
 
 * Upgraded carbon-factory to v4.2.2 to support Window environments.
+
+## Build
+
+* Travis CI now sets --maxWorkers=2 for npm test to reduce chance of timeouts
 
 # 4.1.0
 
