@@ -141,7 +141,15 @@ class TableRow extends React.Component {
      * @property dragAndDropIdentifier
      * @type {String}
      */
-    dragAndDropIdentifier: PropTypes.string
+    dragAndDropIdentifier: PropTypes.string,
+
+    /**
+     * Used to determine if line is empty or not
+     *
+     * @property hideDrag
+     * @type {Boolean}
+     */
+    hideDrag: PropTypes.bool
   }
 
   static safeProps = ['onClick']

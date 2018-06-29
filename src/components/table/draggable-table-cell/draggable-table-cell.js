@@ -40,7 +40,8 @@ const DraggableTableCell = (props) => {
 
 DraggableTableCell.propTypes = {
   identifier: PropTypes.string, // used to associate WithDrags and WithDrops
-  draggableNode: PropTypes.func // A function that returns the dom node used as the ghost layer when dragging
+  draggableNode: PropTypes.func, // A function that returns the dom node used as the ghost layer when dragging
+  canDrag: PropTypes.func // used to specify whether the dragging is currently allowed
 };
 
 export default DraggableTableCell;
