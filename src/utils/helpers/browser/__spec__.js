@@ -16,15 +16,40 @@ describe('Browser', () => {
     };
   });
 
-  describe('redirectTo', () => {
-    describe('when url is passed', () => {
-      const urlsample = 'http://bla';
+  describe('redirects', () => {
+    const urlSample = 'http://bla';
 
-      it('redirects to url', () => {
-        spyOn(Browser, 'getWindow').and.returnValue(_window);
+    beforeEach(() => {
+      spyOn(Browser, 'getWindow').and.returnValue(_window);
+    });
 
-        Browser.redirectTo(urlsample);
-        expect(_window.location).toEqual(urlsample);
+    describe('redirectTo', () => {
+      describe('when url is passed', () => {
+        it('redirects to url', () => {
+          Browser.redirectTo(urlSample);
+          expect(_window.location).toEqual(urlSample);
+        });
+      });
+    });
+
+    describe('redirectAfter', () => {
+      const seconds = 5;
+
+      beforeEach(() => {
+        jest.useFakeTimers();
+      });
+
+      it('redirects to the url after the given number of seconds', () => {
+        Browser.redirectAfter(urlSample, seconds);
+
+        expect(_window.location).toBeNull();
+        jest.advanceTimersByTime(seconds * 1000);
+        expect(_window.location).toEqual(urlSample);
+      });
+
+      it('returns the timeout ID', () => {
+        const timeoutId = Browser.redirectAfter(urlSample, seconds);
+        expect(timeoutId).toBeGreaterThan(0);
       });
     });
   });
