@@ -13,7 +13,7 @@ install:
   - npm install
 
 script:
-  - npm run lint ./src && npm test
+  - npm run lint ./src && npm test -- --maxWorkers=2
 
 before_deploy: if [ "$TRAVIS_BRANCH" == "release" ]; then npm run build; fi
 

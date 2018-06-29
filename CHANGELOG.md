@@ -3,14 +3,19 @@
 ## Improvements
 
 * `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
-* `CustomDragLayer` component can now take className prop. 
+* `CustomDragLayer` component can now take className prop.
 
 ## Upgrades
 
 * Upgraded carbon-factory to v4.2.2 to support Window environments.
 
+## Build
+
+* Travis CI now sets --maxWorkers=2 for npm test to reduce chance of timeouts
+
 ## Bug Fixes
 
+* Add a blue background to fix a 'white text on a white background' issue when selecting rows in the `Table` component with the secondary theme applied.
 * No longer render a `type` attribute for the `Icon` component, as this produced invalid HTML (the `Icon` component still accepts a `type` prop).
 
 # 4.1.0
