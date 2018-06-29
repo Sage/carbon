@@ -49,7 +49,7 @@ const ItemTarget = {
 
     Text.clearSelection();
     const hover = props.hover || component.context.dragAndDropHover;
-    hover(props, monitor, component);
+    return hover(props, monitor, component);
   }
 };
 
