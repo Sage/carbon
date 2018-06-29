@@ -5,6 +5,10 @@
     background-color: $white;
   }
 
+  .carbon-table-row--selected .carbon-table-cell {
+    background-color: $blue-sky;
+  }
+
   .carbon-table-header {
     background-color: $grey-dark-blue-20;
     color: $grey-dark-blue;
