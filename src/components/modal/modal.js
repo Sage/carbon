@@ -246,6 +246,8 @@ class Modal extends React.Component {
           <CSSTransitionGroup
             component='div'
             transitionName={ this.backgroundTransitionName }
+            transitionAppear
+            transitionAppearTimeout={ TIMEOUT }
             transitionEnterTimeout={ TIMEOUT }
             transitionLeaveTimeout={ TIMEOUT }
           >
@@ -254,6 +256,8 @@ class Modal extends React.Component {
           <CSSTransitionGroup
             component='div'
             transitionName={ this.transitionName }
+            transitionAppear
+            transitionAppearTimeout={ TIMEOUT }
             transitionEnterTimeout={ TIMEOUT }
             transitionLeaveTimeout={ TIMEOUT }
           >

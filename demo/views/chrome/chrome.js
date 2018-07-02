@@ -7,7 +7,7 @@ import BrowserStore from '../../stores/browser';
 import DemoStore from '../../stores/demo';
 
 // Demo
-import Footer from './footer'
+import Footer from './footer';
 import Header from './header';
 import Menu from './menu';
 
