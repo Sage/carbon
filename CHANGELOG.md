@@ -1,3 +1,9 @@
+# 4.2.1
+
+## Improvements
+
+* `Modal` now has a `transitionAppear` and `transitionAppearTimeout` defined on its `CSSTransitionGroup` components so there will be animation on initial mount
+
 # 4.2.0
 
 ## Improvements
