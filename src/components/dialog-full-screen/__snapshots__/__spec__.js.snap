@@ -25,7 +25,8 @@ exports[`DialogFullScreen tags on component include correct component, elements 
       >
         <CSSTransitionGroup
           component="div"
-          transitionAppear={false}
+          transitionAppear={true}
+          transitionAppearTimeout={500}
           transitionEnter={true}
           transitionEnterTimeout={500}
           transitionLeave={true}
@@ -35,7 +36,8 @@ exports[`DialogFullScreen tags on component include correct component, elements 
           <TransitionGroup
             childFactory={[Function]}
             component="div"
-            transitionAppear={false}
+            transitionAppear={true}
+            transitionAppearTimeout={500}
             transitionEnter={true}
             transitionEnterTimeout={500}
             transitionLeave={true}
@@ -47,7 +49,8 @@ exports[`DialogFullScreen tags on component include correct component, elements 
         </CSSTransitionGroup>
         <CSSTransitionGroup
           component="div"
-          transitionAppear={false}
+          transitionAppear={true}
+          transitionAppearTimeout={500}
           transitionEnter={true}
           transitionEnterTimeout={500}
           transitionLeave={true}
@@ -57,7 +60,8 @@ exports[`DialogFullScreen tags on component include correct component, elements 
           <TransitionGroup
             childFactory={[Function]}
             component="div"
-            transitionAppear={false}
+            transitionAppear={true}
+            transitionAppearTimeout={500}
             transitionEnter={true}
             transitionEnterTimeout={500}
             transitionLeave={true}
