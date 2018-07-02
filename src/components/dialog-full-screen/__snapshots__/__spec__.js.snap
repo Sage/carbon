@@ -70,7 +70,8 @@ exports[`DialogFullScreen tags on component include correct component, elements 
           >
             <div>
               <CSSTransitionGroupChild
-                appear={false}
+                appear={true}
+                appearTimeout={500}
                 enter={true}
                 enterTimeout={500}
                 key=".0"
