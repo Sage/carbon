@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import DraggableTableCell from './draggable-table-cell';
 import TableCell from './../table-cell';
 import WithDrag from './../../drag-and-drop/with-drag';
@@ -34,9 +34,6 @@ describe('DraggableTableCell', () => {
       <DraggableTableCell identifier="foo" canDrag={ false }/>
     );
     let icon = wrapper.find(Icon);
-    //expect(icon.props().type).toEqual(true);
-    //expect(icon.props().className).toEqual('<span />');
-    //expect(wrapper.isEmptyRender()).toEqual(false);
     expect(icon.exists()).toEqual(false);
   });
 });
