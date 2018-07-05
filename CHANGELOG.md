@@ -1,3 +1,8 @@
+## Bug Fixes
+
+* Fixed [#1778](https://github.com/Sage/carbon/issues/1778): `Date-Input` component will now open display the `info` prop when used.
+
+
 # 4.1.0
 
 ## npm audit

@@ -58,6 +58,22 @@
   }
 }
 
+.common-input__input:hover ~ label .carbon-input-icon--info,
+.common-input__input:hover ~ label .carbon-input-icon--info:hover {
+  border-color: $info;
+  background-color: $info;
+  .carbon-icon:before  {
+    color: $white;
+  }
+}
+.common-input__input:focus ~ label .carbon-input-icon--info {
+  border-color: $info-hover;
+  background-color: $info-hover;
+  .carbon-icon:before  {
+    color: $white;
+  }
+}
+
 .carbon-input-icon {
   $button-border-radius: $input-border-radius - 1;
   background-color: $grey-light;
