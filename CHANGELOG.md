@@ -4,7 +4,7 @@
 
 * `Browser` now has a `redirectAfter` method that redirects to the given URL after the given number of seconds.
 * `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
-* `TextArea` now has the same height as the rest of the input fields.
+* `TextArea` TextArea now sets its `min-height` to match the height of other input fields.
 * `CustomDragLayer` component can now take className prop.
 
 ## Upgrades
