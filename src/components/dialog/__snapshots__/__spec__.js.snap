@@ -30,7 +30,8 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
   >
     <CSSTransitionGroup
       component="div"
-      transitionAppear={false}
+      transitionAppear={true}
+      transitionAppearTimeout={500}
       transitionEnter={true}
       transitionEnterTimeout={500}
       transitionLeave={true}
@@ -43,7 +44,8 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
     </CSSTransitionGroup>
     <CSSTransitionGroup
       component="div"
-      transitionAppear={false}
+      transitionAppear={true}
+      transitionAppearTimeout={500}
       transitionEnter={true}
       transitionEnterTimeout={500}
       transitionLeave={true}
