@@ -332,6 +332,7 @@ describe('Textarea', () => {
         cols={10}
         rows={10}
         onChange={ spy }
+        characterLimit={ 100 }
         data-element='bar'
         data-role='baz'
       />
@@ -344,9 +345,7 @@ describe('Textarea', () => {
     });
 
     describe("on internal elements", () => {
-      it("adds element tags to it's children", () => {
-        elementsTagTest(wrapper, ['character-limit']);
-      });
+      elementsTagTest(wrapper, ['character-limit']);
     });
   });
 });

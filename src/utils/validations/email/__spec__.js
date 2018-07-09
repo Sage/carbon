@@ -41,42 +41,34 @@ describe('Email Validator', () => {
     });
   });
 
-  describe('Invalid Email', () => {
-    it('returns false', () => {
-      describe('no @ symbol', () => {
-        it('returns false', () => {
-          expect(new Validator().validate('test')).toBeFalsy();
-        });
+  describe('Invalid Email returns false', () => {
+    describe('no @ symbol', () => {
+      it('returns false', () => {
+        expect(new Validator().validate('test')).toBeFalsy();
       });
+    });
 
-      describe('when email has no domain', () => {
-        it('returns false', () => {
-          expect(new Validator().validate('test@')).toBeFalsy();
-        });
+    describe('when email has no domain', () => {
+      it('returns false', () => {
+        expect(new Validator().validate('test@')).toBeFalsy();
       });
+    });
 
-      describe('when email has no local', () => {
-        it('returns false', () => {
-          expect(new Validator().validate('@test.com')).toBeFalsy();
-        });
+    describe('when email has no local', () => {
+      it('returns false', () => {
+        expect(new Validator().validate('@test.com')).toBeFalsy();
       });
+    });
 
-      describe('when emails domain contains more than two dots', () => {
-        it('returns false', () => {
-          expect(new Validator().validate('test@test.co.co.uk')).toBeFalsy();
-        });
+    describe('when email contains invalid symbols', () => {
+      it('returns false', () => {
+        expect(new Validator().validate('test!@test.com')).toBeFalsy();
       });
+    });
 
-      describe('when email contains invalid symbols', () => {
-        it('returns false', () => {
-          expect(new Validator().validate('test!@test.com')).toBeFalsy();
-        });
-      });
-
-      describe('when email contains a space', () => {
-        it('returns false', () => {
-          expect(new Validator().validate('test @test.com')).toBeFalsy();
-        });
+    describe('when email contains a space', () => {
+      it('returns false', () => {
+        expect(new Validator().validate('test @test.com')).toBeFalsy();
       });
     });
   });
