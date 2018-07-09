@@ -28,14 +28,6 @@
     }
   }
 
-  .carbon-textarea {
-    display: flex;
-
-    .common-input__label {
-      margin-top: 9px;
-    }
-  }
-
   .demo-code {
     display: flex;
     flex-shrink: 1;
@@ -61,20 +53,6 @@
     div {
       background-color: $green;
       height: 10px;
-    }
-  }
-}
-
-// HACKS
-.demo-component-preview--date-range {
-  .carbon-date {
-    &.common-input--label-inline {
-      .common-input__label {
-        width: auto;
-      }
-    }
-    &.carbon-date-range__start {
-      margin-right: 15px;
     }
   }
 }
