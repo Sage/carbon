@@ -2,6 +2,7 @@
 
 ## Improvements
 
+* `Browser` now has a `redirectAfter` method that redirects to the given URL after the given number of seconds.
 * `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
 * `CustomDragLayer` component can now take className prop.
 
@@ -12,11 +13,12 @@
 ## Build
 
 * Travis CI now sets --maxWorkers=2 for npm test to reduce chance of timeouts
+* Remove `gulp` as Carbon now uses webpack.
 
 ## Bug Fixes
 
-* When selecting all in selectable tables with a secondary theme, the odd lined items were displaying a white background showing as being broken.
-* Added a blue background to match the intended styles
+* Add a blue background to fix a 'white text on a white background' issue when selecting rows in the `Table` component with the secondary theme applied.
+* No longer render a `type` attribute for the `Icon` component, as this produced invalid HTML (the `Icon` component still accepts a `type` prop).
 
 # 4.1.0
 
