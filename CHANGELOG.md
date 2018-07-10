@@ -40,7 +40,6 @@ If you use carbon-factory, you can upgrade to [v4.1.0](https://github.com/Sage/c
 ## Bug Fixes
 
 * Fixed [#1741](https://github.com/Sage/carbon/issues/1741): `Flash` component will now open on initial render when its `open` prop is set to `true`.
-* Ensure there is a blue background for selected table items
 
 # 3.2.4
 
