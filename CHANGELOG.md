@@ -21,6 +21,12 @@
 * No longer render a `type` attribute for the `Icon` component, as this produced invalid HTML (the `Icon` component still accepts a `type` prop).
 * Fixed [#1778](https://github.com/Sage/carbon/issues/1778): `Date-Input` component will now open display the `info` prop when used.
 
+# 4.1.1
+
+## Improvements
+
+* `Modal` now has a `transitionAppear` and `transitionAppearTimeout` defined on its `CSSTransitionGroup` components so there will be animation on initial mount
+
 # 4.1.0
 
 ## npm audit
