@@ -28,15 +28,15 @@
 
 .common-input__input:hover ~ label .carbon-input-icon--error,
 .common-input__input:hover ~ label .carbon-input-icon--error:hover {
-  border-color: $error;
   background-color: $error;
+  border-color: $error;
   .carbon-icon:before {
     color: $white;
   }
 }
 .common-input__input:focus ~ label .carbon-input-icon--error {
-  border-color: $red-dark;
   background-color: $red-dark;
+  border-color: $red-dark;
   .carbon-icon:before {
     color: $white;
   }
@@ -44,15 +44,15 @@
 
 .common-input__input:hover ~ label .carbon-input-icon--warning,
 .common-input__input:hover ~ label .carbon-input-icon--warning:hover {
-  border-color: $warning;
   background-color: $warning;
+  border-color: $warning;
   .carbon-icon:before  {
     fill: $white;
   }
 }
 .common-input__input:focus ~ label .carbon-input-icon--warning {
-  border-color: $warning-hover;
   background-color: $warning-hover;
+  border-color: $warning-hover;
   .carbon-icon:before  {
     fill: $white;
   }
@@ -60,15 +60,15 @@
 
 .common-input__input:hover ~ label .carbon-input-icon--info,
 .common-input__input:hover ~ label .carbon-input-icon--info:hover {
-  border-color: $info;
   background-color: $info;
+  border-color: $info;
   .carbon-icon:before  {
     color: $white;
   }
 }
 .common-input__input:focus ~ label .carbon-input-icon--info {
-  border-color: $info-hover;
   background-color: $info-hover;
+  border-color: $info-hover;
   .carbon-icon:before  {
     color: $white;
   }
