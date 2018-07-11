@@ -18,7 +18,7 @@ import './expose';
 import Chrome from './views/chrome';
 import SubPageChrome from './views/chrome/sub-page-chrome';
 import Home from './views/pages/home';
-import Playground from './views/pages/playground';
+import Sandbox from './views/pages/sandbox';
 
 import SiteMap from './site-map';
 
@@ -32,7 +32,7 @@ setupI18n();
 
 const routes = (
   <Route>
-    <Route path='/playground' component={ Playground } />
+    <Route path='/sandbox' component={ Sandbox } />
 
     <Route component={ Chrome }>
       <Route path='/' component={ Home } />

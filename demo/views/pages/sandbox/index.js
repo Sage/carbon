@@ -1,6 +1,6 @@
 import React from 'react';
 import { transform } from 'babel-standalone';
-import './playground.scss';
+import './sandbox.scss';
 
 class Preview extends React.Component {
   state = {
@@ -27,10 +27,10 @@ class Preview extends React.Component {
 
   render() {
     return (
-      <div className='playground-preview'>
+      <div className='sandbox-preview'>
         { this.compile() }
         { this.state.error && (
-          <div className='playground-error'>
+          <div className='sandbox-error'>
             <strong>Render failed:</strong> there is a syntax error!<br />
             { this.state.error }
           </div>
@@ -40,7 +40,7 @@ class Preview extends React.Component {
   }
 }
 
-class Playground extends React.Component {
+class Sandbox extends React.Component {
   state = {
     code: ''
   }
@@ -68,17 +68,17 @@ class Playground extends React.Component {
 
   render() {
     return(
-      <div className={ `playground playground-orientation-${ this.state.orientation ? 'horizontal' : 'vertical' }` }>
+      <div className={ `sandbox sandbox-orientation-${ this.state.orientation ? 'horizontal' : 'vertical' }` }>
         <Preview code={ this.state.code } />
         <textarea
           autoFocus
-          className='playground-input'
+          className='sandbox-input'
           onChange={ this.updateCode }
           onKeyDown={ this.catchTab }
           value={ this.state.code }
         />
         <input
-          className='playground-orientation'
+          className='sandbox-orientation'
           type='checkbox'
           onChange={ () => { this.setState({ orientation: !this.state.orientation }) } }
         />
@@ -87,4 +87,4 @@ class Playground extends React.Component {
   }
 };
 
-export default Playground;
+export default Sandbox;

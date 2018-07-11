@@ -1,40 +1,40 @@
 @import 'colors.scss';
 
-.playground {
+.sandbox {
   height: 100%;
   position: fixed;
   width: 100%;
 }
 
-.playground-orientation-vertical {
-  .playground-preview,
-  .playground-input {
+.sandbox-orientation-vertical {
+  .sandbox-preview,
+  .sandbox-input {
     position: absolute;
     height: 50%;
     width: 100%;
   }
 
-  .playground-input {
+  .sandbox-input {
     top: 50%;
     height: calc(50% - 20px);
   }
 }
-.playground-orientation-horizontal {
-  .playground-preview,
-  .playground-input {
+.sandbox-orientation-horizontal {
+  .sandbox-preview,
+  .sandbox-input {
     position: absolute;
     display: inline-block;
     height: 100%;
     width: 50%;
   }
 
-  .playground-input {
+  .sandbox-input {
     left: 50%;
     width: calc(50% - 20px);
   }
 }
 
-.playground-input {
+.sandbox-input {
   -webkit-appearance: none;
   background-color: $grey-dark-plus;
   border: none;
@@ -49,7 +49,7 @@
   white-space: pre;
 }
 
-.playground-error {
+.sandbox-error {
   background-color: $error;
   bottom: 0;
   color: white;
@@ -59,7 +59,7 @@
   width: 100%;
 }
 
-.playground-orientation {
+.sandbox-orientation {
   -webkit-appearance: none;
   cursor: pointer;
   background-color: #DDD;
