@@ -71,6 +71,10 @@ Merged in v3.1.3 and v3.1.4
 
 # 3.2.0
 
+## Flux Connect Guides
+
+New guides have been included for flux connect.
+
 ## Flash Component
 
 Flash component now uses Portal

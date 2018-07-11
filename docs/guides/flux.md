@@ -110,35 +110,69 @@ So we now have an action called `userValueUpdated`, which when called dispatches
 ### Connecting a React Component to our Flux Store
 
 The store is now updating its data - but we have no React components connected to the store! Lets set one up:
+Here is an example of how to set up a connected Component. It shows several ways that a component can connect to Stores or simply be overridden with props.
 
 ```js
 // ./src/views/user/index.js
 
 import React from 'react';
 import { connect } from 'utils/flux';
-import Textbox from 'carbon-react/lib/components/textbox';
+import AccountInvitation from 'test/lib/components/accountinvitation';
 import UserStore from 'stores/user';
+import GiftsStore from 'stores/gifts';
 import UserActions from 'actions/user';
 
-class UserView extends React.Component {
+class AccountInvitation extends React.Component {
   render() {
     return (
-      <Textbox name="foobar"
-        value={ this.state.userStore.get('foobar') }
-        onChange={ UserActions.userValueUpdated } />
+      <div>
+        <Textbox name="invitationidTextBox"
+          value={ props.invitationid }
+        />
+        <Textbox name="firstNameTextBox"
+          value={ props.firstname }
+          onChange={ UserActions.userFirstNameValueUpdated } />
+        />
+        <Textbox name="giftTextBox"
+          value={ props.gift }
+        />
+      </div>
     );
+  }
+}
+const mapStateToProps = (userState, giftsState, props) => {
+  return {
+    invitationid: props.invitationid,
+    firstname: props.firstname || userState.get('firstname'),
+    gift: giftsState.get('gift')
   }
 }
 
 // connect the view component to our store
-export default connect(UserView, UserStore);
+export default connect(UserStore, GiftsStore, mapStateToProps)(UserView);
 ```
 
 At the core of it, this is just a React component. Our component renders a Carbon Textbox and gives it a name.
 
 However, on the last line it calls a connect function (provided by Carbon) to connect our component with our store. This function sets up event listeners for when the store is updated - when it detects a change in the store it will call `setState` on itself with the new data. It also makes the stores data available through the components state using the name we defined for the store (in this case, it is available as `this.state.userStore`).
 
-Through this connection, we can set the Textbox's value to use the value from the store. We can also set the `onChange` event to trigger the action we defined earlier - completing the Flux loop!
+Through this connection, we can setup several Textboxes, the `invitationidTextBox` Textbox has a static value which is taken from a prop. The `firstNameTextBox` Textbox takes its value from the prop `firstname` depending on whether the prop has been set, and if not the state from the `UserStore` will be used. The `giftTextBox` will take it's value from the `GiftsStore`. We can also set the `onChange` event to trigger the action we defined earlier - completing the Flux loop!
+
+So this User component could be set up as follows.
+
+```js
+//./src/view/main.js
+import User from './src/views/user/';
+
+class Main extends React.Component {
+
+    render() {
+      return (
+        <User invitationid={ '912ec803b2ce49e4a541068d495ab570' firstname={ 'John' }/>
+      )
+    }
+}
+```
 
 ## Differences from Flux
 
