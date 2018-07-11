@@ -1,1 +1,0 @@
-Component Changes: "Input: Input has 2 new props. `onChangeDeferred` allows a deferred callback after an onChange event. `deferTimeout` allows you to customise the default: `750`."

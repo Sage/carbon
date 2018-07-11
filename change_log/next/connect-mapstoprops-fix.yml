@@ -1,1 +1,0 @@
-Bug Fixes: "`mapToProps` takes precedence over props passed to HOC in `connect` function."
