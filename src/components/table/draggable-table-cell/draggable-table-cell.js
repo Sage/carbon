@@ -25,7 +25,7 @@ const DraggableTableCell = (props) => {
     <WithDrag
       identifier={ props.identifier }
       draggableNode={ props.draggableNode }
-      canDrag={ canDrag }
+      canDrag={ () => { return canDrag; } }
     >
       { canDrag ? iconHTML : <span /> }
     </WithDrag>

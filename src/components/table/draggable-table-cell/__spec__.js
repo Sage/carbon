@@ -22,6 +22,7 @@ describe('DraggableTableCell', () => {
   it('renders a WithDrag component', () => {
     let wd = wrapper.find(WithDrag);
     expect(wd.props().identifier).toEqual('foo');
+    expect(wd.props().canDrag()).toEqual(true);
   });
 
   it('renders an icon', () => {
