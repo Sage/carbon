@@ -60,7 +60,7 @@ class SettingsRow extends React.Component {
      * Heading description
      *
      * @property  description
-     * @type      {String|Object}
+     * @type      {Node}
      */
     description: PropTypes.node,
 

@@ -15,13 +15,13 @@ const definition = new Definition('settings-row', SettingsRow, {
   propTypes: {
     children: 'Node',
     className: 'String',
-    description: 'String',
+    description: 'Node',
     divider: 'Boolean',
     title: 'String'
   },
   propValues: {
     children: 'Content for settings.',
-    description: 'This provides more information about what this group of settings are for.',
+    description: '<span>This provides more information about what this group of settings are for.</span>',
     title: 'A Group of Settings'
   },
   propDescriptions: {

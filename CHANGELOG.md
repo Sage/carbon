@@ -134,7 +134,6 @@ Fixes auto-deployment of tags using Travis CI.
 ## Improvements
 
 A unique ID has been added to the Portal component entrance and exit nodes. This will help find corresponding nodes in the DOM.
->>>>>>> master
 
 # 3.1.0
 
