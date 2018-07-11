@@ -27,7 +27,7 @@ import Store from 'carbon-react/lib/utils/flux/store';
 import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
 
 // define your initial data using immutable.js
-let data = ImmutableHelper.parseJSON({});
+const data = ImmutableHelper.parseJSON({});
 
 // your store!
 class UserStore extends Store {}
@@ -83,7 +83,7 @@ import Store from 'carbon-react/lib/utils/flux/store';
 import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
 import UserConstants from 'constants/user';
 
-let data = ImmutableHelper.parseJSON({});
+const data = ImmutableHelper.parseJSON({});
 
 class User extends Store {
   // define a function on the store class using the constant
@@ -101,7 +101,7 @@ So you now have an action called `userValueUpdated`, which when called dispatche
 
 ### Connecting a React Component to the Flux Store
 
-The store is now updating it's data - but you have no React components connected to the store! Lets set one up:
+The store is now updating its data - but you have no React components connected to the store! Lets set one up:
 
 ```js
 import React from 'react';

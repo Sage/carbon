@@ -26,7 +26,7 @@ Alternatively you can manually import the style assets for each component you us
 
 ## Application Setup
 
-Install Carbon into your project: `npm install carbon-react --save`.
+Install Carbon into your project: `npm install carbon-react`.
 
 Carbon also has a number of peer dependencies, such as React and React DOM. After installing Carbon you should be able to see warnings for any peer dependencies you need to install. Alternatively see the [package.json](https://github.com/Sage/carbon/blob/master/package.json) for the latest required peer dependencies.
 
