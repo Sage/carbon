@@ -13,7 +13,8 @@ exports[`Confirm default snapshot renders as expected 1`] = `
   >
     <CSSTransitionGroup
       component="div"
-      transitionAppear={false}
+      transitionAppear={true}
+      transitionAppearTimeout={500}
       transitionEnter={true}
       transitionEnterTimeout={500}
       transitionLeave={true}
@@ -26,7 +27,8 @@ exports[`Confirm default snapshot renders as expected 1`] = `
     </CSSTransitionGroup>
     <CSSTransitionGroup
       component="div"
-      transitionAppear={false}
+      transitionAppear={true}
+      transitionAppearTimeout={500}
       transitionEnter={true}
       transitionEnterTimeout={500}
       transitionLeave={true}
