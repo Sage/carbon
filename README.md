@@ -54,13 +54,11 @@ See the guide on [installing unreleased changes](https://github.com/Sage/carbon/
 
 ## Adding Release Notes
 
-* Add a new file to changelog/next e.g. /changelog/next/my-file.yml
-* Update the appropriate heading in the style shown below and delete other titles
+* Use [renogen](https://github.com/DDAZZA/renogen), or add a yml file manually to `./changelog/next` e.g. `./changelog/next/my-update.yml`.
+* Update or add an appropriate heading in the style shown below for each change:
 ```
-Component Changes: "Modal: The Modal now uses the Portal Component"
+Bug Fixes: "Modal: The Modal is now centered in the browser."
 ```
-* For more formatting options see https://github.com/DDAZZA/renogen
-* This file will be used to generate the change log on release of the 'next' version
 
 ## Submitting a Release
 
