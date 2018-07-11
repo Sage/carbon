@@ -842,18 +842,8 @@ describe('Dropdown', () => {
       expect(instance.listBlockProps.onTouchMove).toEqual(instance.handleTouchEvent);
     });
 
-    describe('when the list is closed', () => {
-      it('has a hidden class', () => {
-        instance.setState({ open: false });
-        expect(instance.listBlockProps.className).toEqual('carbon-dropdown__list-block carbon-dropdown__list-hidden');
-      });
-    });
-
-    describe('when the list is open', () => {
-      it('it does not have the hidden class', () => {
-        instance.setState({ open: true });
-        expect(instance.listBlockProps.className).toEqual('carbon-dropdown__list-block');
-      });
+    it('it has a class for the block', () => {
+      expect(instance.listBlockProps.className).toEqual('carbon-dropdown__list-block');
     });
   });
 
@@ -925,12 +915,14 @@ describe('Dropdown', () => {
         expect(instance.additionalInputContent.length).toEqual(0);
       });
     });
+  });
 
+  describe('options list', () => {
     it('creates the list in a Portal', () => {
       const wrapper = mount(
         <Dropdown
           name='foo'
-          options={ Immutable.fromJS([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }]) } value='1'
+          options={Immutable.fromJS([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }])} value='1'
         />);
 
       wrapper.find('.carbon-dropdown__input').simulate('focus');

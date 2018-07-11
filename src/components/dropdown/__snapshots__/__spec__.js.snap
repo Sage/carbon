@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Dropdown additionalInputContent creates the list in a Portal 1`] = `
+exports[`Dropdown options list creates the list in a Portal 1`] = `
 <ul
   className="carbon-dropdown__list"
   key="list"

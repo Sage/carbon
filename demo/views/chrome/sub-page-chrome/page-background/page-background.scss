@@ -1,10 +1,9 @@
-@import 'assets';
-@import 'colors';
+@import 'colors.scss';
 @import './../../../../style-config/demo-variables';
 
 .page-background {
   @media (min-width: $response-point-medium) {
-    background: url("#{$image-path}/grid-bk--grey.svg") $grey-dark-blue-10;
+    background: url(grid-bk--grey.svg) $grey-dark-blue-10;
     color: #f00;
     position: absolute;
     bottom: 0;

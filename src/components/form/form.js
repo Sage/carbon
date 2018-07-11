@@ -469,16 +469,18 @@ class Form extends React.Component {
     this._window.removeEventListener('beforeunload', this.checkIsFormDirty);
   }
 
+  // This must return undefined for IE and Safari if we don't want a warning
+  /* eslint-disable consistent-return */
   checkIsFormDirty = (ev) => {
-    let confirmationMessage = '';
     if (this.state.isDirty) {
       // Confirmation message is usually overridden by browsers with a similar message
-      confirmationMessage = I18n.t('form.save_prompt',
+      const confirmationMessage = I18n.t('form.save_prompt',
         { defaultValue: 'Do you want to leave this page? Changes that you made may not be saved.' });
       ev.returnValue = confirmationMessage; // Gecko + IE
+      return confirmationMessage; // Gecko + Webkit, Safari, Chrome etc.
     }
-    return confirmationMessage; // Gecko + Webkit, Safari, Chrome etc.
   }
+  /* eslint-enable consistent-return */
 
   /**
    * stores the document - allows us to override it different contexts, such as

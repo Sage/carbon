@@ -22,10 +22,19 @@ describe('DraggableTableCell', () => {
   it('renders a WithDrag component', () => {
     let wd = wrapper.find(WithDrag);
     expect(wd.props().identifier).toEqual('foo');
+    expect(wd.props().canDrag()).toEqual(true);
   });
 
   it('renders an icon', () => {
     let icon = wrapper.find(Icon);
     expect(icon.props().type).toEqual('drag_vertical');
+  });
+
+  it('does not render on last row', () => {
+    wrapper = shallow(
+      <DraggableTableCell identifier="foo" canDrag={ false }/>
+    );
+    let icon = wrapper.find(Icon);
+    expect(icon.exists()).toEqual(false);
   });
 });

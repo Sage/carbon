@@ -102,7 +102,8 @@ describe('WithDrop', () => {
     beforeEach(() => {
       createWrapper({
         index: 1,
-        hover: hoverPropSpy
+        hover: hoverPropSpy,
+        canDrop: hoverPropSpy
       });
     });
 

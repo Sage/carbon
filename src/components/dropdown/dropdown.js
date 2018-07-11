@@ -555,7 +555,7 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
       onTouchEnd: this.handleTouchEvent,
       onTouchCancel: this.handleTouchEvent,
       onTouchMove: this.handleTouchEvent,
-      className: classNames('carbon-dropdown__list-block', { 'carbon-dropdown__list-hidden': !this.state.open })
+      className: classNames('carbon-dropdown__list-block')
     };
   }
 
@@ -658,9 +658,9 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
    */
   calculatePosition = () => {
     const inputBoundingRect = this._input.getBoundingClientRect();
-    const top = `${inputBoundingRect.y + (inputBoundingRect.height) + window.scrollY}px`;
+    const top = `${inputBoundingRect.top + (inputBoundingRect.height) + window.pageYOffset}px`;
     const width = `${inputBoundingRect.width}px`;
-    const left = `${inputBoundingRect.x}px`;
+    const left = `${inputBoundingRect.left}px`;
     this.listBlock.setAttribute('style', `left: ${left}; top: ${top}; width: ${width};`);
   }
 
@@ -680,7 +680,10 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
     if (this.state.open) {
       content.push(
         <Portal onReposition={ this.calculatePosition }>
-          <div { ...this.listBlockProps } ref={ (node) => { this.listBlock = node; } }>
+          <div
+            { ...this.listBlockProps }
+            ref={ (node) => { this.listBlock = node; } }
+          >
             { this.listHTML }
           </div>
         </Portal>

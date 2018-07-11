@@ -1,8 +1,140 @@
-# 3.1.1
+# CHANGELOG IS NOW ARCHIVED - PLEASE SEE README.md FOR MORE INFORMATION ON ADDING RELEASE NOTES
+
+# 4.2.0
+
+## Improvements
+
+* `Browser` now has a `redirectAfter` method that redirects to the given URL after the given number of seconds.
+* `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
+* `CustomDragLayer` component can now take className prop.
+* `Draggable Context` extending functionality to determine if a an item can be dropped on.
+
+## Upgrades
+
+* Upgraded carbon-factory to v4.2.2 to support Window environments.
+
+## Build
+
+* Travis CI now sets --maxWorkers=2 for npm test to reduce chance of timeouts
+* Remove `gulp` as Carbon now uses webpack.
 
 ## Bug Fixes
 
-* Fix incorrect documentation for the `SettingsRow` component.
+* Add a blue background to fix a 'white text on a white background' issue when selecting rows in the `Table` component with the secondary theme applied.
+* No longer render a `type` attribute for the `Icon` component, as this produced invalid HTML (the `Icon` component still accepts a `type` prop).
+
+# 4.1.1
+
+## Improvements
+
+* `Modal` now has a `transitionAppear` and `transitionAppearTimeout` defined on its `CSSTransitionGroup` components so there will be animation on initial mount
+
+# 4.1.0
+
+## npm audit
+
+* Require npm@6.
+* Update packages to resolve issues highlighted by `npm audit`.
+
+# 4.0.0
+
+## Webpack Support
+
+Carbon was previously designed around a Browserify based build, we have now migrated to explicitly support Webpack. We have made this decision based on the overwhelming preference in the JavaScript community to work with Webpack, while over the past couple of years support for Browserify has dropped and the library has not been able to keep up with the pace of Webpack. Switching to Webpack also provides us with all the latest development tools such as faster recompilation, hot reloading, and code splitting.
+
+We have updated several components to import assets through their JavaScript file. Due to this change we now require Webpack to precompile the components.
+
+If you use carbon-factory, you can upgrade to [v4.1.0](https://github.com/Sage/carbon-factory/releases/tag/v4.1.0) which provides preconfigured Webpack support for working with the Carbon library. If you prefer to manage your own Webpack build, we currently rely on the [Parcelify Loader](https://www.npmjs.com/package/parcelify-loader). We will be looking to drop this requirement in the future.
+
+# 3.2.5
+
+## Bug Fixes
+
+* Fixed [#1741](https://github.com/Sage/carbon/issues/1741): `Flash` component will now open on initial render when its `open` prop is set to `true`.
+
+# 3.2.4
+
+## Bug fixes
+
+* Position textarea label at the top of the component
+* Prevent hover styles being applied when hovering over a readonly or a disabled `input` element.
+
+# 3.2.3
+
+Merged in v3.1.6
+
+# 3.2.2
+
+Merged in v3.1.5
+
+# 3.2.1
+
+Merged in v3.1.3 and v3.1.4
+
+# 3.2.0
+
+## Flash Component
+
+Flash component now uses Portal
+
+## Demo Site
+
+* Tutorials are now numbered correctly in the Carbon Demo sidebar.
+* Demo Site should now correctly deploy in production mode
+
+## Preview Component
+
+Preview adds a CSS shimer animation as a placeholder if no children are given or the loading prop is true.
+
+### Example Code
+
+With no children:
+
+```
+<Preview>
+  { null }
+</Preview>
+```
+
+Using the `loading` prop:
+
+```
+<Preview loading>
+  { children }
+</Preview>
+```
+
+## Bug Fixes
+
+* `AnimatedMenuButton`, `Carousel`, `Flash`, `ShowEditPod`, `Table`, and `Toast` all pass the `component='div'` prop to their respective `CSSTransitionGroup` components. This fixes incorrectly nested HTML e.g. `<div>` tags nested within `<span>` tags.
+* Allow localisation override by removing manual interpolation on `FormSummary`.
+
+# 3.1.6
+
+Fixes the positioning of the error message which was also not working in IE11 (pageYOffset needed instead of scrollY)
+
+# 3.1.5
+
+Fixes incorrect dropdown placement in IE11. v3.1.4 only fixed Edge #1733
+
+# 3.1.4
+
+Fixes incorrect dropdown placement in IE.
+
+# 3.1.3
+
+Stops incorrect Dirty Form warning from showing in Safari/IE on a clean form
+
+# 3.1.2
+
+Fixes auto-deployment of tags using Travis CI.
+
+# 3.1.1
+
+## Improvements
+
+A unique ID has been added to the Portal component entrance and exit nodes. This will help find corresponding nodes in the DOM.
+>>>>>>> master
 
 # 3.1.0
 
@@ -44,10 +176,15 @@ Form autoDisables after submit when the prop `autoDisable` is set to true. The p
 
 * `mapToProps` takes precedence over props passed to HOC in `connect` function.
 * `inputs` border-color change `:hover` is now applied to input rather than input container
+* `Store`: sets the `maxListeners` to handle more complex store arrangements
 
 ## Changes
 
 * Resolved new ESLint errors from carbon-factory upgrade.
+
+## Demo Site
+
+* Add a `key` to the top-level `MenuListItem` components in the sidebar, which removes the 'Each child in an array or iterator should have a unique "key" prop' warning.
 
 # 3.0.0
 

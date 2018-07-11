@@ -1,9 +1,8 @@
-@import 'assets';
-@import 'colors';
+@import 'colors.scss';
 
 .get-started {
   background-color: $dark-blue-plus;
-  background-image: url('#{$image-path}/grid-bk.svg');
+  background-image: url(grid-bk.svg);
   bottom: 0;
   color: $white;
   padding: 120px 0 110px;

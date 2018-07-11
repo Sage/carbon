@@ -1,0 +1,9 @@
+changelog_path: './change_log/'
+default_headings:
+  - Breaking Changes
+  - New Features
+  - New Components
+  - Styling Changes
+  - Dependency Updates
+  - Bug Fixes
+  - Other
