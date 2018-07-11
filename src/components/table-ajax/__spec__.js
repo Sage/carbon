@@ -352,6 +352,41 @@ describe('TableAjax', () => {
     });
   });
 
+  describe('handleRequest', () => {
+    let wrapper,
+        response;
+
+    beforeEach(() => {
+      response = {
+        body: {
+          records: 1
+        }
+      };
+
+      wrapper = mount(
+        <TableAjax
+          path='/test'
+          onChange={ spy }
+        />
+      );
+    });
+
+    describe('when props contains a formatRequest function', () => {
+      it('calls formatRequest', () => {
+        const mockFormatData = (query) => { return { foo: 'bar' } };
+
+        wrapper.setProps({
+          formatRequest: mockFormatData
+        });
+
+        let options = { currentPage: 10, pageSize: 20 };
+        expect(
+          wrapper.instance().queryParams('', options)
+        ).toEqual('foo=bar')
+      });
+    });
+  });
+
   describe('handleResponse', () => {
     let wrapper,
         response;
@@ -371,14 +406,14 @@ describe('TableAjax', () => {
       );
     });
 
-    describe('when props contains a formatData function', () => {
-      it('calls formatData', () => {
+    describe('when props contains a formatResponse function', () => {
+      it('calls formatResponse', () => {
         const mockFormatData = jasmine.createSpy('mockFormatData').and.returnValue({
           records: 1
         });
 
         wrapper.setProps({
-          formatData: mockFormatData
+          formatResponse: mockFormatData
         });
 
         wrapper.instance().handleResponse(false, response);
@@ -386,8 +421,8 @@ describe('TableAjax', () => {
       });
     });
 
-    describe('when props does not contain a formatData function', () => {
-      it('does not call formatData', () => {
+    describe('when props does not contain a formatResponse function', () => {
+      it('does not call formatResponse', () => {
         const mockFormatData = jasmine.createSpy('mockFormatData');
 
         wrapper.instance().handleResponse(false, response);
