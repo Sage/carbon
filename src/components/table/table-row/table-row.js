@@ -141,7 +141,15 @@ class TableRow extends React.Component {
      * @property dragAndDropIdentifier
      * @type {String}
      */
-    dragAndDropIdentifier: PropTypes.string
+    dragAndDropIdentifier: PropTypes.string,
+
+    /**
+     * Used to determine if line is empty or not
+     *
+     * @property hideDrag
+     * @type {Boolean}
+     */
+    hideDrag: PropTypes.bool
   }
 
   static safeProps = ['onClick']
@@ -428,6 +436,7 @@ class TableRow extends React.Component {
       <DraggableTableCell
         identifier={ this.props.dragAndDropIdentifier }
         draggableNode={ () => { return this._row; } }
+        canDrag={ !this.props.hideDrag }
       />
     );
   }
@@ -448,6 +457,7 @@ class TableRow extends React.Component {
       <WithDrop
         identifier={ this.props.dragAndDropIdentifier }
         index={ this.props.index }
+        canDrop={ () => { return !this.props.hideDrag; } }
       >
         { row }
       </WithDrop>
