@@ -73,7 +73,7 @@ describe('DialogFullScreen', () => {
 
     it('renders the dialog', () => {
       expect(instance._dialog).toBeTruthy();
-      expect(instance._dialog.className).toEqual('carbon-dialog-full-screen__dialog');
+      expect(instance._dialog.className).toEqual('carbon-dialog-full-screen__dialog modal-appear');
     });
 
     it('closes when the exit icon is click', () => {
