@@ -1,3 +1,9 @@
+# 4.3.0
+
+## Documentation
+
+* Updated the documentation for simpler and more accurate guides on getting started.
+
 # 4.2.0
 
 ## Improvements

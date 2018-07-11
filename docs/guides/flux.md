@@ -6,7 +6,7 @@ It is important to understand that Flux is not a part of React, it is an archite
 
 ## The Components
 
-Components provided by Carbon are not tied to Flux, they are just regular React components.
+Components provided by Carbon are not tied to Flux, they are just regular React components. You can use any state container supported by React, such as Redux.
 
 ## The Dispatcher
 
@@ -16,54 +16,48 @@ Although Flux is not a framework, Facebook do provide a dispatcher we can use. C
 import { Dispatcher } from 'carbon-react/lib/utils/flux';
 ```
 
-The dispatcher is a singleton, meaning that there is only one instance of it used across our entire application.
+The dispatcher is a singleton, meaning that there is only one instance of it used across an entire application.
 
 ## Creating a Store
 
-Carbon provides a base class for creating a store. This should be used to extend our own store in our application:
+Carbon provides a base class for creating a store. This should be used to extend your own store in your application:
 
 ```js
-// ./src/stores/user/index.js
-
 import Store from 'carbon-react/lib/utils/flux/store';
 import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
 
-// our store!
-class User extends Store {}
-
-// define our initial data using immutable.js
+// define your initial data using immutable.js
 let data = ImmutableHelper.parseJSON({});
 
-// initialize our store here, so there is only ever one instance of it
-export defaults new MyStore('userStore', data);
+// your store!
+class UserStore extends Store {}
+
+// initialize your store here, so there is only ever one instance of it
+export defaults new UserStore('userStore', data);
 ```
 
-The store should also be a singleton, so we should make sure we initialize it within the same file that we define it.
+The store should also be a singleton, so you should make sure you initialize it within the same file that you define it.
 
 The store has a few requirements for it to function correctly:
 
-* We should initialize our store with a name, this is the key we use will to access our store in our React component.
-* We should initialize our store with data, this is the initial payload of data that our store will use. This could either be from an AJAX request, from a variable on the DOM or even hardcoded JSON.
+* You should initialize your store with a name, this is the key that will be used to access the store in your React component.
+* You should initialize your store with data, this is the initial payload of data that your store will use. This could either be from an AJAX request, from a variable on the DOM or even hardcoded JSON.
 
 ### Subscribing to Events
 
-So our store is setup, we now need it to subscribe to events that are published by our applications Dispatcher.
+So your store is setup, you now need it to subscribe to events that are published by the application's Dispatcher.
 
 Let's create a quick Flux constant and action that will dispatch an event:
 
 ```js
-// ./src/constants/user/index.js
-
 export default {
   USER_VALUE_UPDATED: 'userValueUpdated'
 }
 ```
 
-The constant defines a unique name within our application that will be used to emit a particular event. We can then use the constant in our action to dispatch the event:
+The constant defines a unique name within your application that will be used to emit a particular event. You can then use the constant in your action to dispatch the event:
 
 ```js
-// ./src/actions/user/index.js
-
 import { Dispatcher } from 'carbon-react/lib/utils/flux';
 import UserConstants from 'constants/user';
 
@@ -78,18 +72,18 @@ let UserActions = {
 };
 ```
 
-The action we have defined expects to receive two params: `ev` and `props`. All inputs in Carbon emit at least these two params on their `onChange` events.
+The action defined expects to receive two arguments: `ev` (the event) and `props`. All inputs in Carbon emit at least these two arguments as part of their `onChange` events.
 
-From `props`, we can get the input name to know which input has changed, so when we dispatch this action we can tell the store the input's name and the input's new value.
+From `props`, you can get the input name to know which input has changed, so when we dispatch this action we can tell the store the input's name and the input's new value.
 
-So now we can update the store to subscribe to this event by using the same constant:
+So now you can update the store to subscribe to this event by using the same constant:
 
 ```js
-// ./src/stores/user/index.js
-
 import Store from 'carbon-react/lib/utils/flux/store';
 import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
 import UserConstants from 'constants/user';
+
+let data = ImmutableHelper.parseJSON({});
 
 class User extends Store {
   // define a function on the store class using the constant
@@ -98,47 +92,43 @@ class User extends Store {
   }
 }
 
-let data = ImmutableHelper.parseJSON({});
-
 export defaults new MyStore('userStore', data);
 ```
 
-Our new function updates the stores data using the input name and value sent by the action.
+Your new function updates the store's data using the input name and value sent by the action.
 
-So we now have an action called `userValueUpdated`, which when called dispatches an event called `USER_VALUE_UPDATED`. Our store is subscribed to this event and will update its data whenever it is dispatched.
+So you now have an action called `userValueUpdated`, which when called dispatches an event called `USER_VALUE_UPDATED`. The store is subscribed to this event and will update it's data whenever it is dispatched.
 
-### Connecting a React Component to our Flux Store
+### Connecting a React Component to the Flux Store
 
-The store is now updating its data - but we have no React components connected to the store! Lets set one up:
+The store is now updating it's data - but you have no React components connected to the store! Lets set one up:
 
 ```js
-// ./src/views/user/index.js
-
 import React from 'react';
-import { connect } from 'utils/flux';
+import connect from 'utils/flux/connect';
 import Textbox from 'carbon-react/lib/components/textbox';
 import UserStore from 'stores/user';
 import UserActions from 'actions/user';
 
-class UserView extends React.Component {
-  render() {
-    return (
-      <Textbox name="foobar"
-        value={ this.state.userStore.get('foobar') }
-        onChange={ UserActions.userValueUpdated } />
-    );
-  }
-}
+const UserView = props => (
+  <Textbox
+    name="foobar"
+    value={ props.foobar }
+    onChange={ UserActions.userValueUpdated }
+  />
+);
 
-// connect the view component to our store
-export default connect(UserView, UserStore);
+// connect the view component to the store
+export default connect(UserStore, (userState) => ({
+  foobar: userState.get('foobar')
+}))(UserView);
 ```
 
-At the core of it, this is just a React component. Our component renders a Carbon Textbox and gives it a name.
+At the core of it, this is just a React component. The component renders a Carbon Textbox and gives it a name.
 
-However, on the last line it calls a connect function (provided by Carbon) to connect our component with our store. This function sets up event listeners for when the store is updated - when it detects a change in the store it will call `setState` on itself with the new data. It also makes the stores data available through the components state using the name we defined for the store (in this case, it is available as `this.state.userStore`).
+However, on the last few lines it calls a connect function (provided by Carbon) to connect the component with the store. This function sets up event listeners for when the store is updated - when it detects a change in the store it will update the component with the new data through props.
 
-Through this connection, we can set the Textbox's value to use the value from the store. We can also set the `onChange` event to trigger the action we defined earlier - completing the Flux loop!
+Through this connection, you can set the Textbox's value to use the value from the store. You can also set the `onChange` event to trigger the action defined earlier - completing the Flux loop!
 
 ## Differences from Flux
 

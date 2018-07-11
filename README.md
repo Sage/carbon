@@ -2,44 +2,33 @@
 
 <img src="https://raw.githubusercontent.com/Sage/carbon/master/logo/carbon-logo.png" width="50">
 
-Carbon is a library of reusable [React](https://facebook.github.io/react/) components and an interface for easily building user interfaces based on [Flux](https://facebook.github.io/flux/).
-
-[Carbon Factory](https://github.com/sage/carbon-factory) is supplementary to Carbon; providing tools to easily get your environment and project up and running to start building with React.
-
-Check out our [demo and documentation site](https://carbon.sage.com/) for live examples and code snippets.
+Carbon is a library of reusable [React](https://facebook.github.io/react/) components. See the [demo and documentation site](https://carbon.sage.com/) for live examples.
 
 ## Documentation
 
 ### Getting Started
 
 * [Setting up your environment](docs/guides/setting-up-your-environment.md)
-* [An introduction to Node/npm](docs/guides/an-introduction-to-node-and-npm.md)
 * [Getting started](docs/guides/getting-started.md)
-* [A basic example of Flux](docs/guides/a-basic-example.md)
 
 ### Guides
 
 * [Assets](docs/guides/assets.md)
-* [Flux](docs/guides/flux.md)
+* [Flux](docs/guides/flux.md) - please note that Carbon does not require Flux and supports any React compatible state container.
 * [Immutable](docs/guides/immutable.md)
 * [Validations](docs/guides/validations.md)
 * [Decorators](docs/guides/decorators.md)
-* [Handlers](docs/guides/handlers.md)
 * [Services](docs/guides/services.md)
-* [Integrating React & Flux with Other UI](docs/guides/integrating-with-other-ui.md)
+* [Integrating Carbon with other UI](docs/guides/integrating-with-other-ui.md)
+* [Testing changes to Carbon in your project](docs/guides/installing-unreleased-changes.md)
+* [Releasing Carbon](docs/guides/releasing.md)
 
 #### Testing
 
-* [Running Tests](https://github.com/Sage/carbon-factory/blob/master/docs/running-tests.md)
-* [Help with Jest](https://github.com/Sage/carbon-factory/blob/master/docs/help-with-jest.md)
-* [Debugging Tests](https://github.com/Sage/carbon-factory/blob/master/docs/debugging-tests.md)
-* [Setting up Jest Cli](https://github.com/Sage/carbon-factory/blob/master/docs/setting-up-jest-cli.md)
+As Carbon is just React components, we support any test suite you prefer to use. However we also provide out-of-the-box test tooling through [Carbon Factory](https://github.com/sage/carbon-factory).
 
-## Running the Example
+## Running the Demo Site Locally
 
-Carbon has an example page, which demonstrates most of the components with a Flux implementation. This can be used to quickly see a demonstration of the components and/or as an area to test while developing with the components.
-
-To run the example, do the following steps:
   1. Clone the carbon repository (`git clone git@github.com:Sage/carbon.git`)
   2. `cd carbon`
   3. `npm install`
@@ -47,24 +36,6 @@ To run the example, do the following steps:
   5. Navigate to [http://localhost:8095/](http://localhost:8095/) in your favourite browser
   
 > Note: MockAPI for tables and dropdowns is disabled locally as it conflicts with HotReloading. To enable see `src/main.js` file
-
-## Testing Changes Locally in your App
-
-See the guide on [installing unreleased changes](https://github.com/Sage/carbon/blob/master/docs/guides/installing-unreleased-changes.md)
-
-## Submitting a Release
-
-* N.B. Releases are created by Sage Carbon Team. We use [semantic versioning](http://semver.org/)
-
-* If releasing a minor version, create a branch from `master`.
-* If releasing a patch version, create a branch from the tag you want to patch. This should be the latest tag apart from exceptional circumstances.
-* Bump the version in `package.json`.
-* Ensure the `CHANGELOG.md` is up to date.
-* Commit and push changes.
-* If releasing a minor version, open a PR to `master`.
-* If releasing a patch version, open a PR to `release`.
-* Once merged, publish a release in GitHub using the new version number as the tag. Make sure to target the correct branch (`master` or `release`). This will auto-deploy to npm.
-* If you have released from a branch other than `master`, open a PR to merge that branch back into `master`.
 
 ## Technologies
 
