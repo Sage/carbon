@@ -393,7 +393,7 @@ class TableAjax extends Table {
     if (options.sortedColumn) { query.sidx = options.sortedColumn; }
 
     if (this.props.formatRequest) {
-      return serialize(this.props.formatRequest(query))
+      return serialize(this.props.formatRequest(query));
     }
     return serialize(query);
   }
