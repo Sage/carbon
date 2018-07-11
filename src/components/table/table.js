@@ -15,6 +15,9 @@ import DraggableTableCell from './draggable-table-cell';
 import Pager from './../pager';
 import Spinner from './../spinner';
 
+import './table.scss';
+import './table--secondary-theme.scss';
+
 /**
  * A Table widget.
  *
@@ -986,6 +989,7 @@ class Table extends React.Component {
       >
         <TableCell colSpan='42' align='center'>
           <CSSTransitionGroup
+            component='div'
             transitionName='table-loading'
             transitionEnterTimeout={ 300 }
             transitionLeaveTimeout={ 300 }

@@ -1,8 +1,11 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Flash from './flash';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import Portal from './../portal';
+import guid from '../../utils/helpers/guid';
+jest.mock('../../utils/helpers/guid');
 
 describe('Flash', () => {
   let defaultInstance, successInstance, errorInstance, warningInstance, timeoutInstance,
@@ -41,21 +44,54 @@ describe('Flash', () => {
     );
   });
 
+  describe('constructor', () => {
+    const commonProps = {
+      message: 'Should set state',
+      onDismiss: dismissHandler
+    };
+    describe('when this.props.open is true', () => {
+      it('sets this.state.open to true', () => {
+        const wrapper = shallow(
+          <Flash
+            open
+            { ...commonProps }
+          />
+        );
+        expect(wrapper.state().open).toBe(true);
+      });
+    });
+
+    describe('when this.props.open is false', () => {
+      it('sets this.state.open to false', () => {
+        const wrapper = shallow(
+          <Flash
+            open={ false }
+            { ...commonProps }
+          />
+        );
+        expect(wrapper.state().open).toBe(false);
+      });
+    })
+  });
+
   describe('componentWillReceiveProps', () => {
     beforeEach(() => {
       spyOn(defaultInstance, 'setState');
+      jest.useFakeTimers();
     });
 
     describe('if open prop has changed', () => {
       it('calls setState', () => {
         defaultInstance.componentWillReceiveProps({ open: false });
-        expect(defaultInstance.setState).toHaveBeenCalledWith({ dialogs: {} });
+        jest.runTimersToTime(2000);
+        expect(defaultInstance.setState).toHaveBeenCalledWith({ "open": false} );
       });
     });
 
     describe('if open prop has not changed', () => {
-      it('does not call setState', () => {
+      it('will not call setState', () => {
         defaultInstance.componentWillReceiveProps({ open: true });
+        jest.runTimersToTime(0);
         expect(defaultInstance.setState).not.toHaveBeenCalled();
       });
     });
@@ -273,63 +309,157 @@ describe('Flash', () => {
   });
 
   describe('flashHTML', () => {
-    let successFlash, alertFlash, timeoutFlash;
-
+    let flashInfo;
     beforeEach(() => {
-      successFlash = TestUtils.findRenderedDOMComponentWithClass(successInstance, 'carbon-flash');
-      alertFlash = TestUtils.findRenderedDOMComponentWithClass(defaultInstance, 'carbon-flash');
-      timeoutFlash = TestUtils.findRenderedDOMComponentWithClass(timeoutInstance, 'carbon-flash');
+      jest.useFakeTimers();
+      flashInfo = mount(
+        <Flash
+          message='This is some flash info'
+          onDismiss={ () => {
+            flashInfo.setProps({ open: false });
+          } }
+          open={ false }
+          timeout={ null }
+        />
+      );
+
     });
 
-    it('adds an icon', () => {
-      expect(successFlash.getElementsByClassName('carbon-flash__icon').length).toEqual(1);
+    it('should have not have Portal when close', () => {
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).length).toBe(0);
+      expect(flashInfo.html()).toEqual(null);
+    });
+
+    it('should have have Portal when open', () => {
+      flashInfo.setProps({ open: true });
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).length).toBe(1);
+      expect(flashInfo.html()).not.toEqual(null);
+    });
+
+    it('should have clearTimeout when opened and closed', () => {
+      flashInfo.setProps({ open: true });
+      flashInfo.setProps({ open: false });
+      expect(flashInfo.instance().removePortalTimeout).not.toBe(null);
+    });
+
+    it('should clearTimeout when closed and reopened', () => {
+      flashInfo.setProps({ open: true });
+      flashInfo.setProps({ open: false });
+      flashInfo.setProps({ open: true });
+      expect(flashInfo.instance().removePortalTimeout).toBe(null);
+    });
+
+    it('should be success by default', () => {
+      flashInfo.setProps({ open: true });
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).find('.carbon-flash--success').length).toEqual(1);
+      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-tick').length).toEqual(1);
+    });
+
+    it('should be maintenance', () => {
+      flashInfo.setProps({ open: true, as:'maintenance' });
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).find('.carbon-flash--maintenance').length).toEqual(1);
+      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-settings').length).toEqual(1);
+    });
+
+    it('should be help', () => {
+      flashInfo.setProps({ open: true, as:'help' });
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).find('.carbon-flash--help').length).toEqual(1);
+      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-question').length).toEqual(1);
+    });
+
+    it('should be error', () => {
+      flashInfo.setProps({ open: true, as:'error' });
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).find('.carbon-flash--error').length).toEqual(1);
+      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-error').length).toEqual(1);
+    });
+
+    it('should be new', () => {
+      flashInfo.setProps({ open: true, as:'new' });
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).find('.carbon-flash--new').length).toEqual(1);
+      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-gift').length).toEqual(1);
+    });
+
+    it('should be warning', () => {
+      flashInfo.setProps({ open: true, as:'warning' });
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).find('.carbon-flash--warning').length).toEqual(1);
+      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-warning').length).toEqual(1);
     });
 
     it('adds the message', () => {
-      let messageHTML =  alertFlash.getElementsByClassName('carbon-flash__message');
-      expect(messageHTML.length).toEqual(1);
+      flashInfo.setProps({ open: true, as:'warning' });
+      jest.runTimersToTime(0);
+      expect(flashInfo.find(Portal).find('.carbon-flash--warning').length).toEqual(1);
     });
 
     describe('when no timeout is passed', () => {
       it('adds a close icon', () => {
-        let iconHTML = alertFlash.getElementsByClassName('carbon-flash__icon');
-        expect(iconHTML.length).toEqual(1);
+        flashInfo.setProps({ open: true, as:'warning' });
+        expect(flashInfo.find(Portal).find('.carbon-flash__close.icon-close').length).toEqual(1);
       });
 
       it('adds a click handler that closes the flash', () => {
-        let closeIcon = alertFlash.getElementsByClassName('carbon-flash__close')[0];
-        TestUtils.Simulate.click(closeIcon);
-        expect(dismissHandler).toHaveBeenCalled();
+        flashInfo.setProps({ open: true });
+        flashInfo.find(Portal).find('.carbon-flash__close.icon-close').simulate('click');
+        jest.runTimersToTime(2000);
+        expect(flashInfo.html()).toEqual(null);
       });
     });
 
     describe('when a timeout is passed', () => {
       it('does not add a close icon', () => {
-        let iconHTML = timeoutFlash.getElementsByClassName('carbon-flash__icon');
-        expect(iconHTML.length).toEqual(0);
+        flashInfo.setProps({ open: true, as:'warning', timeout:1000 });
+        expect(flashInfo.find(Portal).find('.carbon-flash__close.icon-close').length).toEqual(0);
       });
     });
 
     it('returns a div with the flash class names', () => {
-      let contentHTML = alertFlash.getElementsByClassName('carbon-flash__content');
+      flashInfo.setProps({ open: true });
+      let contentHTML = flashInfo.find('.carbon-flash__content');
       expect(contentHTML.length).toEqual(1);
     });
   });
 
   describe('sliderHTML', () => {
+    let wrapper = shallow(
+      <Flash
+        open={ true }
+        onDismiss={ dismissHandler }
+        message="Danger Will Robinson!"
+      />
+    );
+
     it('returns a div with the slider class names', () => {
-      it('returns a div with the slider class names', () => {
-        expect(defaultInstance.props.className).toMatch('carbon-flash__slider');
-      });
+      expect(wrapper).toMatchSnapshot();
     });
   });
 
   describe('render', () => {
-    let flashInstance, outerSlider;
+    let flashInfo;
+    let flashInstance;
 
     beforeEach(() => {
-      flashInstance = TestUtils.findRenderedDOMComponentWithClass(defaultInstance, 'carbon-flash');
-      outerSlider = flashInstance.firstChild.children[0];
+      jest.useFakeTimers();
+      flashInfo = mount(
+        <Flash
+          message='This is some flash info'
+          onDismiss={ () => {
+            flashInfo.setProps({ open: false });
+          } }
+          open={ false }
+          timeout={ null }
+        />
+      );
+      flashInfo.setProps({ open: true });
+      jest.runTimersToTime(0);
+      flashInstance = flashInfo.find(Portal).find('.carbon-flash').instance();
     });
 
     describe('when the flash is open', () => {
@@ -338,6 +468,7 @@ describe('Flash', () => {
       });
 
       it('renders an outer slider element', () => {
+        let outerSlider = flashInstance.firstChild.children[0];
         expect(outerSlider.className).toMatch('carbon-flash__slider');
       });
 
@@ -348,40 +479,22 @@ describe('Flash', () => {
     });
   });
 
-  describe("tags", () => {
-    describe("on component", () => {
-      let wrapper = shallow(
-        <Flash
-          data-element='bar'
-          message='bun::more::dy'
-          onDismiss={ () => {} }
-          open={ true }
-          data-role='baz'
-          timeout={ null }
-        />
-      );
-
-      it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper, 'flash', 'bar', 'baz');
-      });
-    });
-
-    describe("on internal elements", () => {
-      let wrapper = shallow(
-        <Flash
-          message='bun::more::dy'
-          onDismiss={ () => {} }
-          open={ true }
-          timeout={ null }
-        />
-      );
-
-      elementsTagTest(wrapper, [
-        'close',
-        'info-dialog',
-        'message',
-        'more-info'
-      ]);
-    });
+  describe("snapshot", () => {
+    guid.mockImplementation(() => 'guid-12345');
+    
+    jest.useFakeTimers();
+    let flashInfo = shallow(
+      <Flash
+        data-element='bar'
+        message='bun::more::dy'
+        onDismiss={ () => {} }
+        open={ false }
+        data-role='baz'
+        timeout={ null }
+      />
+    );
+    flashInfo.setProps({ open: true });
+    jest.runTimersToTime(0);
+    expect(flashInfo).toMatchSnapshot();
   });
 });

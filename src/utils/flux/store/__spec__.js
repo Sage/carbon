@@ -2,6 +2,7 @@ import Store from './store';
 import Flux from 'flux';
 import Logger from './../../logger';
 import { Dispatcher } from './../../flux';
+import { EventEmitter } from 'events';
 
 describe('Store', () => {
   let instance;
@@ -52,6 +53,14 @@ describe('Store', () => {
       it('sets trackHistory to true', () => {
         instance = new Store('foo', {}, { history: true });
         expect(instance.trackHistory).toBeTruthy();
+      });
+    });
+
+    describe('max event listeners', () => {
+      it('set to 50', () => {
+        spyOn(EventEmitter.prototype, 'setMaxListeners');
+        instance = new Store('foo', 'some data');
+        expect(EventEmitter.prototype.setMaxListeners).toHaveBeenCalledWith(50);
       });
     });
   });

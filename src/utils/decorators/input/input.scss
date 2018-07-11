@@ -12,10 +12,6 @@
   + .common-input {
     margin-top: 10px;
   }
-
-  &:hover .common-input__field .common-input__input {
-    border-color: $input-active-border-color;
-  }
 }
 
 .common-input--readonly {
@@ -24,7 +20,8 @@
     border: none;
 
     &:active,
-    &:focus {
+    &:focus,
+    &:hover {
       box-shadow: none;
     }
   }
@@ -89,6 +86,7 @@
   }
 
   &:active,
+  &:hover,
   &:focus {
     @include input-outline($input-active-border-color);
   }
@@ -99,7 +97,8 @@
     border-color: $grey !important; // this is the correct use of !important
 
     &:active,
-    &:focus {
+    &:focus,
+    &:hover {
       box-shadow: none;
     }
   }

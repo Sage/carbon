@@ -14,10 +14,6 @@ $dropdown-input-icon-width: 20px !default;
   }
 }
 
-.carbon-dropdown__list-hidden {
-  @include visually-hidden
-}
-
 .carbon-dropdown__list {
   background-color: $white;
   border: 1px solid $border-color;

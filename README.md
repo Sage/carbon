@@ -4,7 +4,7 @@
 
 Carbon is a library of reusable [React](https://facebook.github.io/react/) components and an interface for easily building user interfaces based on [Flux](https://facebook.github.io/flux/).
 
-[Carbon Factory](https://github.com/sage/carbon-factory) is supplementary to Carbon; providing tools to easily get your environment and project up and running to start building with React. As well as providing a command line interface to build projects, it manages tasks for compiling your assets and running test suites.
+[Carbon Factory](https://github.com/sage/carbon-factory) is supplementary to Carbon; providing tools to easily get your environment and project up and running to start building with React.
 
 Check out our [demo and documentation site](https://carbon.sage.com/) for live examples and code snippets.
 
@@ -25,7 +25,7 @@ Check out our [demo and documentation site](https://carbon.sage.com/) for live e
 * [Validations](docs/guides/validations.md)
 * [Decorators](docs/guides/decorators.md)
 * [Handlers](docs/guides/handlers.md)
-* [Retrieving Data](docs/guides/retrieving-data.md)
+* [Services](docs/guides/services.md)
 * [Integrating React & Flux with Other UI](docs/guides/integrating-with-other-ui.md)
 
 #### Testing
@@ -35,14 +35,6 @@ Check out our [demo and documentation site](https://carbon.sage.com/) for live e
 * [Debugging Tests](https://github.com/Sage/carbon-factory/blob/master/docs/debugging-tests.md)
 * [Setting up Jest Cli](https://github.com/Sage/carbon-factory/blob/master/docs/setting-up-jest-cli.md)
 
-### Tutorials
-
-* Rails:
-  * [Hello world](docs/tutorials/carbon-rails/hello-world.md)
-  * [Introducing data](docs/tutorials/carbon-rails/introducing-data.md)
-  * [Updating data](docs/tutorials/carbon-rails/updating-data.md)
-* [Creating a component](docs/tutorials/creating-a-component.md)
-
 ## Running the Example
 
 Carbon has an example page, which demonstrates most of the components with a Flux implementation. This can be used to quickly see a demonstration of the components and/or as an area to test while developing with the components.
@@ -51,8 +43,10 @@ To run the example, do the following steps:
   1. Clone the carbon repository (`git clone git@github.com:Sage/carbon.git`)
   2. `cd carbon`
   3. `npm install`
-  4. `gulp`
+  4. `npm start`
   5. Navigate to [http://localhost:8095/](http://localhost:8095/) in your favourite browser
+  
+> Note: MockAPI for tables and dropdowns is disabled locally as it conflicts with HotReloading. To enable see `src/main.js` file
 
 ## Testing Changes Locally in your App
 
@@ -90,12 +84,11 @@ The following is a list of technologies Carbon utilises:
 * [Flux](https://facebook.github.io/flux/) - If your application requires a heavy use of data and interaction, Carbon provides utilities for easily integrating Flux based data stores.
 * [Immutable.js](https://facebook.github.io/immutable-js/) - For better performance and data handling, the components rely on using immutable data.
 * [Node](https://nodejs.org/) ([CommonJS](https://nodejs.org/docs/latest/api/modules.html)) - The components (or modules) are written using the CommonJS pattern. This allows for modularity and creating isolated/independent components.
-* [Browserify](http://browserify.org/) - In order to consume the modular components in the browser, the code is compiled through Browserify. This also allows managing other dependencies such as stylesheets and images.
-* [Gulp](http://gulpjs.com/) - To easily run tasks in development, the Gulp task runner is recommended.
+* [Webpack](https://webpack.js.org/) - In order to consume the modular components in the browser, the code is compiled through Webpack. This also allows managing other dependencies such as stylesheets and images.
 * [Babel](https://babeljs.io/) ([ES6](https://github.com/lukehoban/es6features)) - To benefit from ES6 (and ES7) features, the code is compiled through Babel (this also compiles the JSX).
 
 ## Licence
 
 Carbon is licensed under the [Apache-2.0 licence](https://github.com/Sage/carbon/blob/master/LICENSE).
 
-Copyright (c) 2017 Sage Group Plc. All rights reserved.
+Copyright (c) 2018 Sage Group Plc. All rights reserved.

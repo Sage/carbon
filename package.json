@@ -1,17 +1,21 @@
 {
   "name": "carbon-react",
-  "version": "3.0.0",
+  "version": "4.1.1",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "engineStrict": true,
   "engines": {
-    "npm": "^5.0.0"
+    "npm": "^6.0.0"
   },
   "scripts": {
-    "set-config": "node -e \"require('./script/set-config').default()\"",
+    "gen-colors": "node -e \"require('./script/generate-demo-colors').default();\"",
+    "gen-docs": "node -e \"require('./script/generate-docs').default();\"",
+    "prep-deploy": "node -e \"require('./script/deploy').default();\"",
+    "start": "npm run gen-colors && npm run gen-docs && node_modules/.bin/webpack-dev-server",
+    "build": "npm run gen-colors && npm run gen-docs && NODE_ENV=production node_modules/.bin/webpack && npm run prep-deploy",
     "test": "jest --config=./jest.conf.json",
     "debug": "node --inspect ./node_modules/.bin/jest --watch --config=./jest.conf.json",
     "lint": "./node_modules/.bin/eslint",
-    "precompile": "npm run set-config && rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet",
+    "precompile": "rm -rf ./lib && node -e \"require('ncp').ncp('./src', './lib', { filter: new RegExp('^((?!__spec__.js|.md).)*$') }, function() { })\" && NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet",
     "prepublishOnly": "node check-version.js && npm install && npm run precompile"
   },
   "repository": {
@@ -31,14 +35,11 @@
   },
   "devDependencies": {
     "babel-standalone": "~6.17.0",
-    "carbon-factory": "3.3.3",
+    "carbon-factory": "4.2.2",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
-    "express": "~4.14.0",
     "flux": "^3.1.1",
-    "gulp": "~3.9.0",
     "highlight.js": "~9.6.0",
-    "jest": "~20.0.4",
     "moxios": "^0.4.0",
     "ncp": "~2.0.0",
     "raf": "^3.4.0",
@@ -64,7 +65,7 @@
     "highcharts": "~5.0.2",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc12.tar.gz",
     "immutable": "~3.8.1",
-    "lodash": "~4.15.0",
+    "lodash": "^4.17.10",
     "marked": "~0.3.9",
     "moment": "~2.20.1",
     "prop-types": "^15.5.8",

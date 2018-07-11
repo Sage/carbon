@@ -1,7 +1,4 @@
 {
   "main": "./sage-loves-carbon",
-  "style": "./sage-loves-carbon.scss",
-  "images": [
-    "./devices.png"
-  ]
+  "style": "./sage-loves-carbon.scss"
 }

@@ -19,12 +19,15 @@ const iconHTML = (
  * @constructor
  */
 const DraggableTableCell = (props) => {
+  const canDrag = props.canDrag !== false;
+
   const icon = (
     <WithDrag
       identifier={ props.identifier }
       draggableNode={ props.draggableNode }
+      canDrag={ () => { return canDrag; } }
     >
-      { iconHTML }
+      { canDrag ? iconHTML : <span /> }
     </WithDrag>
   );
 
@@ -37,7 +40,8 @@ const DraggableTableCell = (props) => {
 
 DraggableTableCell.propTypes = {
   identifier: PropTypes.string, // used to associate WithDrags and WithDrops
-  draggableNode: PropTypes.func // A function that returns the dom node used as the ghost layer when dragging
+  draggableNode: PropTypes.func, // A function that returns the dom node used as the ghost layer when dragging
+  canDrag: PropTypes.bool // used to specify whether the dragging is currently allowed
 };
 
 export default DraggableTableCell;

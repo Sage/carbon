@@ -494,6 +494,7 @@ class Carousel extends React.Component {
           { this.previousButton() }
 
           <CSSTransitionGroup
+            component='div'
             transitionName={ this.transitionName() }
             transitionEnterTimeout={ TRANSITION_TIME }
             transitionLeaveTimeout={ TRANSITION_TIME }

@@ -3,12 +3,16 @@ import { shallow, mount } from 'enzyme';
 import DialogFullScreen from './dialog-full-screen';
 import FullScreenHeading from './full-screen-heading';
 import Button from './../button';
+import guid from '../../utils/helpers/guid';
 import Portal from './../portal';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Icon from './../icon';
 import Heading from './../heading';
+jest.mock('../../utils/helpers/guid')
 
 describe('DialogFullScreen', () => {
+  guid.mockImplementation(() => 'guid-12345');
+
   let instance,
       wrapper;
   const onCancel = jasmine.createSpy('cancel');
@@ -28,7 +32,7 @@ describe('DialogFullScreen', () => {
     );
     instance = wrapper.instance();
   });
-  
+
   describe('default props', () => {
     it('sets enableBackgroundUI to true', () => {
       expect(instance.props.enableBackgroundUI).toBeTruthy();
@@ -69,7 +73,7 @@ describe('DialogFullScreen', () => {
 
     it('renders the dialog', () => {
       expect(instance._dialog).toBeTruthy();
-      expect(instance._dialog.className).toEqual('carbon-dialog-full-screen__dialog');
+      expect(instance._dialog.className).toEqual('carbon-dialog-full-screen__dialog modal-appear');
     });
 
     it('closes when the exit icon is click', () => {

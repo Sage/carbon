@@ -52,8 +52,13 @@ const createSubmenu = (url, value) => {
   }
 
   return (
-    <MenuListItem>
-      <MenuList title={ title } initiallyOpen={ initiallyOpen } filter={ value.filter } filterPlaceholder="Filter Components">
+    <MenuListItem key={ title }>
+      <MenuList
+        title={ title }
+        initiallyOpen={ initiallyOpen }
+        filter={ value.filter }
+        filterPlaceholder='Filter Components'
+      >
         { submenuItems }
       </MenuList>
     </MenuListItem>

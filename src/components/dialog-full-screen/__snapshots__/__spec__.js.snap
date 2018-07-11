@@ -13,7 +13,9 @@ exports[`DialogFullScreen tags on component include correct component, elements 
   <Portal
     key="1"
   >
-    <div>
+    <span
+      data-portal-entrance="guid-12345"
+    >
       <div
         className="carbon-dialog-full-screen"
         data-component="dialog-full-screen"
@@ -23,7 +25,8 @@ exports[`DialogFullScreen tags on component include correct component, elements 
       >
         <CSSTransitionGroup
           component="div"
-          transitionAppear={false}
+          transitionAppear={true}
+          transitionAppearTimeout={500}
           transitionEnter={true}
           transitionEnterTimeout={500}
           transitionLeave={true}
@@ -33,7 +36,8 @@ exports[`DialogFullScreen tags on component include correct component, elements 
           <TransitionGroup
             childFactory={[Function]}
             component="div"
-            transitionAppear={false}
+            transitionAppear={true}
+            transitionAppearTimeout={500}
             transitionEnter={true}
             transitionEnterTimeout={500}
             transitionLeave={true}
@@ -45,7 +49,8 @@ exports[`DialogFullScreen tags on component include correct component, elements 
         </CSSTransitionGroup>
         <CSSTransitionGroup
           component="div"
-          transitionAppear={false}
+          transitionAppear={true}
+          transitionAppearTimeout={500}
           transitionEnter={true}
           transitionEnterTimeout={500}
           transitionLeave={true}
@@ -55,7 +60,8 @@ exports[`DialogFullScreen tags on component include correct component, elements 
           <TransitionGroup
             childFactory={[Function]}
             component="div"
-            transitionAppear={false}
+            transitionAppear={true}
+            transitionAppearTimeout={500}
             transitionEnter={true}
             transitionEnterTimeout={500}
             transitionLeave={true}
@@ -64,7 +70,8 @@ exports[`DialogFullScreen tags on component include correct component, elements 
           >
             <div>
               <CSSTransitionGroupChild
-                appear={false}
+                appear={true}
+                appearTimeout={500}
                 enter={true}
                 enterTimeout={500}
                 key=".0"
@@ -102,7 +109,6 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                               data-element="close"
                               key="icon"
                               onClick={[Function]}
-                              type="close"
                             />
                           </Icon>
                           <Heading
@@ -158,7 +164,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
           </TransitionGroup>
         </CSSTransitionGroup>
       </div>
-    </div>
+    </span>
   </Portal>
 </DialogFullScreen>
 `;

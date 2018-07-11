@@ -10,7 +10,8 @@ exports[`Modal backgroundHTML when enableBackgroundUI is false renders children 
   >
     <CSSTransitionGroup
       component="div"
-      transitionAppear={false}
+      transitionAppear={true}
+      transitionAppearTimeout={500}
       transitionEnter={true}
       transitionEnterTimeout={500}
       transitionLeave={true}
@@ -23,7 +24,8 @@ exports[`Modal backgroundHTML when enableBackgroundUI is false renders children 
     </CSSTransitionGroup>
     <CSSTransitionGroup
       component="div"
-      transitionAppear={false}
+      transitionAppear={true}
+      transitionAppearTimeout={500}
       transitionEnter={true}
       transitionEnterTimeout={500}
       transitionLeave={true}
@@ -44,7 +46,8 @@ exports[`Modal backgroundHTML when enableBackgroundUI is true renders children 1
   >
     <CSSTransitionGroup
       component="div"
-      transitionAppear={false}
+      transitionAppear={true}
+      transitionAppearTimeout={500}
       transitionEnter={true}
       transitionEnterTimeout={500}
       transitionLeave={true}
@@ -53,7 +56,8 @@ exports[`Modal backgroundHTML when enableBackgroundUI is true renders children 1
     />
     <CSSTransitionGroup
       component="div"
-      transitionAppear={false}
+      transitionAppear={true}
+      transitionAppearTimeout={500}
       transitionEnter={true}
       transitionEnterTimeout={500}
       transitionLeave={true}

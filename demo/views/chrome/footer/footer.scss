@@ -1,5 +1,4 @@
-@import 'assets';
-@import 'colors';
+@import 'colors.scss';
 @import './../../../style-config/demo-variables';
 
 .demo-footer {
@@ -32,7 +31,7 @@
   }
 
   &__sage-icon {
-    background-image: url('#{$image-path}/sage_logo.svg');
+    background-image: url(sage_logo.svg);
     margin: 20px auto 20px;
     @media(min-width: $response-point-medium) {
       margin: 0 0 0 auto;

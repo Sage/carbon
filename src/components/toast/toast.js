@@ -146,6 +146,7 @@ class Toast extends React.Component {
     return (
       <Portal>
         <CSSTransitionGroup
+          component='div'
           transitionAppear
           transitionName='toast'
           transitionAppearTimeout={ 1600 }

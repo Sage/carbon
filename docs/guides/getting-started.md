@@ -28,10 +28,10 @@ cd sampleapp
 npm install
 ```
 
-* Run Gulp to recompile assets when file changes are made. When finished it will display a message of `assets are compiled!` - it will then continue to run and listen for any file changes, triggering a recompile when a file updates.
+* Run webpack to recompile assets when file changes are made - it will then continue to run and listen for any file changes, triggering a recompile when a file updates.
 
 ```bash
-gulp
+npm start
 ```
 
 * Open a new terminal window, and return to the same directory:
