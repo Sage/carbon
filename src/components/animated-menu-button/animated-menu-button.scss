@@ -9,8 +9,8 @@
   color: $white;
   display: inline-block;
   position: relative;
-  width: 45px;
-  height: 45px;
+  width: 46px;
+  height: 46px;
   touch-action: manipulation;
 
 /***** Button Label Styles ****/
@@ -24,15 +24,9 @@
 
   .icon-add {
     display: inline-block;
-    left: 50%;
-    margin-left: -7px;
+    left: 15px;
     position: relative;
-    top: 14px;
-
-    &::before {
-      font-size: 14px;
-      font-weight: bold;
-    }
+    top: 13px;
   }
 
   .carbon-link__anchor {
@@ -123,9 +117,18 @@
       }
     }
 
-    .icon-close {
+    .carbon-animated-menu-button__close-button {
+      background: none;
+      border: none;
+      color: $white;
+      display: block;
       float: right;
-      outline: none;
+      margin: 0;
+      padding: 0;
+
+      .icon-close {
+        outline: none;
+      }
     }
   }
 }

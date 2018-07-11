@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import { compact } from 'lodash';
@@ -6,6 +7,7 @@ import classNames from 'classnames';
 import Tab from './tab';
 import Event from './../../utils/helpers/events';
 import tagComponent from '../../utils/helpers/tags';
+import Browser from '../../utils/helpers/browser';
 
 /**
  * A Tabs widget.
@@ -207,7 +209,7 @@ class Tabs extends React.Component {
           for (const index in children) {
             const child = children[index];
 
-            if (child.props.tabId == hash) {
+            if (child.props.tabId === hash) {
               useHash = true;
               break;
             }
@@ -242,7 +244,7 @@ class Tabs extends React.Component {
    * @property _window
    * @type {Object}
    */
-  _window = window
+  _window = Browser.getWindow();
 
   /**
    * Sets the validity state of the given tab (id) to the
@@ -268,18 +270,68 @@ class Tabs extends React.Component {
   }
 
   /**
-   * Handles the changing of tabs
+   * Handles the changing of tabs with the mouse
    *
    * @method handleTabClick
    * @param {Event} ev Click Event
    */
   handleTabClick = (ev) => {
-    if (Event.isEnterKey(ev) || !Event.isEventType(ev, 'keydown')) {
-      const tabid = ev.target.dataset.tabid;
-      this.updateVisibleTab(tabid);
-    }
+    if (Event.isEventType(ev, 'keydown')) { return; }
+    const { tabid } = ev.target.dataset;
+    this.updateVisibleTab(tabid);
   }
 
+  /**
+   * Handles the keyboard navigation of tabs
+   *
+   * @method handleKeyDown
+   * @param {Number} index Index of the tab
+   */
+  handleKeyDown = (index) => {
+    return (event) => {
+      const isVertical = this.isVertical(this.props.position);
+      const isUp = isVertical && Event.isUpKey(event);
+      const isDown = isVertical && Event.isDownKey(event);
+      const isLeft = !isVertical && Event.isLeftKey(event);
+      const isRight = !isVertical && Event.isRightKey(event);
+
+      if (isUp || isLeft) {
+        this.goToTab(event, index - 1);
+      } else if (isDown || isRight) {
+        this.goToTab(event, index + 1);
+      }
+    };
+  }
+
+  /**
+   * Will trigger the tab at the given index.
+   *
+   * @method goToTab
+   * @param {Integer}
+   * @return {Void}
+   */
+  goToTab(event, index) {
+    event.preventDefault();
+    let newIndex = index;
+
+    if (index < 0) {
+      newIndex = this.tabIds.length - 1;
+    } else if (index === this.tabIds.length) {
+      newIndex = 0;
+    }
+
+    const nextTabId = this.tabIds[newIndex];
+    const nextRef = this.tabRefs[newIndex];
+    this.updateVisibleTab(nextTabId);
+    this.focusTab(this[nextRef]);
+  }
+
+  /**
+   * Updates the currently visible tab
+   *
+   * @method updateVisibleTab
+   * @param {Number} tabid The id of the tab
+   */
   updateVisibleTab(tabid) {
     const url = `${this._window.location.origin}${this._window.location.pathname}#${tabid}`;
     this._window.history.replaceState(null, 'change-tab', url);
@@ -289,6 +341,17 @@ class Tabs extends React.Component {
     if (this.props.onTabChange) {
       this.props.onTabChange(tabid);
     }
+  }
+
+  /**
+   * Focuses the tab for the reference specified
+   *
+   * @method focusTab
+   * @param {Object}
+   */
+  focusTab(ref) {
+    const domNode = ReactDOM.findDOMNode(ref); // eslint-disable-line react/no-find-dom-node
+    domNode.focus();
   }
 
   /**
@@ -304,14 +367,27 @@ class Tabs extends React.Component {
     );
   }
 
+  /**
+   * Generates the HTML classes for the tabs header.
+   *
+   * @method tabHeaderClasses
+   * @return {String}
+   */
   tabsHeaderClasses = () => {
     return classNames(
       'carbon-tabs__headers',
       `carbon-tabs__headers--align-${this.props.align}`,
-       'carbon-tabs__headers'
+      'carbon-tabs__headers'
     );
   }
 
+  /**
+   * Generates the HTML classes for the given tab.
+   *
+   * @method tabHeaderClasses
+   * @param {Node}
+   * @return {String}
+   */
   tabHeaderClasses = (tab) => {
     const tabHasError = this.state.tabValidity.get(tab.props.tabId) === false,
         tabHasWarning = this.state.tabWarning.get(tab.props.tabId) === true && !tabHasError;
@@ -322,9 +398,38 @@ class Tabs extends React.Component {
       {
         'carbon-tabs__headers__header--error': tabHasError,
         'carbon-tabs__headers__header--warning': tabHasWarning,
-        'carbon-tabs__headers__header--selected': tab.props.tabId === this.state.selectedTabId
+        'carbon-tabs__headers__header--selected': this.isTabSelected(tab.props.tabId)
       }
     );
+  }
+
+  /**
+   * Returns true/false for if the given tab id is selected.
+   *
+   * @method isTabSelected
+   * @param {String}
+   * @return {Boolean}
+   */
+  isTabSelected = tabId => tabId === this.state.selectedTabId;
+
+  /**
+   * The children nodes converted into an Array
+   *
+   * @method children
+   * @return {Array} Ordered array of children
+   */
+  get children() {
+    return compact(React.Children.toArray(this.props.children));
+  }
+
+  /**
+   * Array of the tabIds for the child nodes
+   *
+   * @method tabIds
+   * @return {Array} Ordered array of tabIds for the child nodes
+   */
+  get tabIds() {
+    return this.children.map(child => child.props.tabId);
   }
 
   /**
@@ -334,17 +439,23 @@ class Tabs extends React.Component {
    * @return Unordered list of tab titles
    */
   get tabHeaders() {
-    const tabTitles = compact(React.Children.toArray(this.props.children)).map((child) => {
+    this.tabRefs = [];
+    const tabTitles = this.children.map((child, index) => {
+      const ref = `${child.props.tabId}-tab`;
+      this.tabRefs.push(ref);
       return (
         <li
+          aria-selected={ this.isTabSelected(child.props.tabId) }
           className={ this.tabHeaderClasses(child) }
           data-element='select-tab'
           data-tabid={ child.props.tabId }
+          id={ ref }
           key={ child.props.tabId }
           onClick={ this.handleTabClick }
-          onKeyDown={ this.handleTabClick }
-          ref={ `${child.props.tabId}-tab` }
-          tabIndex='0'
+          onKeyDown={ this.handleKeyDown(index) }
+          ref={ (node) => { this[ref] = node; } }
+          role='tab'
+          tabIndex={ this.isTabSelected(child.props.tabId) ? '0' : '-1' }
         >
           { child.props.title }
         </li>
@@ -352,7 +463,10 @@ class Tabs extends React.Component {
     });
 
     return (
-      <ul className={ this.tabsHeaderClasses() } >
+      <ul
+        className={ this.tabsHeaderClasses() }
+        role='tablist'
+      >
         { tabTitles }
       </ul>
     );
@@ -367,8 +481,8 @@ class Tabs extends React.Component {
   get visibleTab() {
     let visibleTab;
 
-    compact(React.Children.toArray(this.props.children)).forEach((child) => {
-      if (child.props.tabId == this.state.selectedTabId) {
+    this.children.forEach((child) => {
+      if (this.isTabSelected(child.props.tabId)) {
         visibleTab = child;
       }
     });
@@ -385,17 +499,34 @@ class Tabs extends React.Component {
   get tabs() {
     if (!this.props.renderHiddenTabs) { return this.visibleTab; }
 
-    const tabs = compact(React.Children.toArray(this.props.children)).map((child) => {
+    const tabs = this.children.map((child, index) => {
       let klass = 'hidden';
 
-      if (child.props.tabId === this.state.selectedTabId) {
+      if (this.isTabSelected(child.props.tabId)) {
         klass = 'carbon-tab--selected';
       }
 
-      return React.cloneElement(child, { className: klass });
+      const props = {
+        'aria-labelledby': this.tabRefs[index],
+        className: klass,
+        role: 'tabPanel'
+      };
+
+      return React.cloneElement(child, props);
     });
 
     return tabs;
+  }
+
+  /**
+   * Determines if the tab titles are in a vertical format.
+   *
+   * @method isVertical
+   * @param {String} position
+   * @return {Boolean}
+   */
+  isVertical(position) {
+    return position === 'left';
   }
 
   /**

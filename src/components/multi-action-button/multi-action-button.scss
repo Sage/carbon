@@ -21,7 +21,7 @@
     border: $carbon-button__border--secondary;
     border-radius: $carbon-button__border-radius;
     box-sizing: border-box;
-    padding: 7px 8px 7px 15px;
+    padding: 7px 10px 7px 18px;
     position: relative;
     z-index: $z-split-button + 1;
 
@@ -49,7 +49,7 @@
 
   .carbon-multi-action-button__additional-buttons {
     border-radius: $carbon-button__border-radius;
-    padding-top: 10px;
+    padding-top: 5px;
     top: 29px;
     z-index: $z-split-button + 2;
 
@@ -105,7 +105,7 @@
 
   .carbon-icon {
     &.icon-dropdown {
-      top: -1px;
+      top: 0px;
     }
   }
 }

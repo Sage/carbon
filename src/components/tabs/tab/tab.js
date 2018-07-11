@@ -12,8 +12,25 @@ import classNames from 'classnames';
  * @constructor
  */
 class Tab extends React.Component {
-
   static propTypes = {
+    /**
+     * The id of the corresponding control that must be activated to show the tab
+     *
+     * @property aria-labelledby
+     * @type {String}
+     *
+     */
+    'aria-labelledby': PropTypes.string,
+
+    /**
+     * The role of the component
+     *
+     * @property role
+     * @type {String}
+     *
+     */
+    role: PropTypes.string,
+
     /**
      * Visible title in tabs header
      * Consumed within tabs component
@@ -52,7 +69,8 @@ class Tab extends React.Component {
 
   static defaultProps = {
     className: '',
-    children: null
+    children: null,
+    role: 'tabPanel'
   }
 
   static contextTypes = {
@@ -79,25 +97,6 @@ class Tab extends React.Component {
     tab: PropTypes.object
   }
 
-  state = {
-
-    /**
-     * Tracks if the tab is a valid state
-     *
-     * @property isValid
-     * @type {Boolean}
-     */
-    isValid: true,
-
-    /**
-     * Tracks if the tab is a warning state
-     *
-     * @property isWarning
-     * @type {Boolean}
-     */
-    isWarning: false
-  }
-
   /**
    * Returns tab object to context children.
    *
@@ -113,32 +112,6 @@ class Tab extends React.Component {
   }
 
   /**
-   * Sets valid state to passed param
-   * It notifies the parent context of the change
-   * and sets the current valid state to the new value
-   *
-   * @method setValidity
-   * @param {Boolean} valid updates validity of this tab
-   */
-  setValidity = (valid) => {
-    this.context.tabs.changeValidity(this.props.tabId, valid);
-    this.setState({ isValid: valid });
-  }
-
-  /**
-   * Sets warning state to passed param
-   * It notifies the parent context of the change
-   * and sets the current warning state to the new value
-   *
-   * @method setWarning
-   * @param {Boolean} warning updates warning of this tab
-   */
-  setWarning = (warning) => {
-    this.context.tabs.changeWarning(this.props.tabId, warning);
-    this.setState({ isWarning: warning });
-  }
-
-  /**
    * Classes to be applied to the single tab component
    *
    * @method mainClasses Main Class getter
@@ -151,13 +124,41 @@ class Tab extends React.Component {
   }
 
   /**
+   * Sets valid state to passed param
+   * It notifies the parent context of the change
+   * and sets the current valid state to the new value
+   *
+   * @method setValidity
+   * @param {Boolean} valid updates validity of this tab
+   */
+  setValidity = (valid) => {
+    this.context.tabs.changeValidity(this.props.tabId, valid);
+  }
+
+  /**
+   * Sets warning state to passed param
+   * It notifies the parent context of the change
+   * and sets the current warning state to the new value
+   *
+   * @method setWarning
+   * @param {Boolean} warning updates warning of this tab
+   */
+  setWarning = (warning) => {
+    this.context.tabs.changeWarning(this.props.tabId, warning);
+  }
+
+  /**
    * Renders the component.
    *
    * @method render
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div
+        aria-labelledby={ this.props['aria-labelledby'] }
+        className={ this.mainClasses }
+        role={ this.props.role }
+      >
         { this.props.children }
       </div>
     );

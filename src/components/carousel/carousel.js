@@ -88,14 +88,23 @@ class Carousel extends React.Component {
      * @property onSlideChange
      * @type {Function}
      */
-    onSlideChange: PropTypes.func
+    onSlideChange: PropTypes.func,
+
+    /**
+     * Controls which transition to use.
+     *
+     * @property transition
+     * @type {String}
+     */
+    transition: PropTypes.string
   }
 
   static defaultProps = {
     initialSlideIndex: 0,
     enableSlideSelector: true,
     enablePreviousButton: true,
-    enableNextButton: true
+    enableNextButton: true,
+    transition: 'slide'
   }
 
   constructor(...args) {
@@ -123,6 +132,7 @@ class Carousel extends React.Component {
     this.previousButtonClasses = this.previousButtonClasses.bind(this);
     this.nextButtonClasses = this.nextButtonClasses.bind(this);
     this.slideSelectorClasses = this.slideSelectorClasses.bind(this);
+    this.transitionName = this.transitionName.bind(this);
   }
 
   state = {
@@ -287,9 +297,7 @@ class Carousel extends React.Component {
    * @method nextButtonClasses
    */
   slideSelectorClasses() {
-    return classNames(
-      'carbon-carousel__selector'
-    );
+    return classNames('carbon-carousel__selector');
   }
 
   /**
@@ -365,13 +373,15 @@ class Carousel extends React.Component {
    * @method visibleSlide
    */
   visibleSlide() {
-    const index = this.state.selectedSlideIndex,
-        visibleSlide = compact(React.Children.toArray(this.props.children))[index],
+    let index = this.state.selectedSlideIndex;
+    const visibleSlide = compact(React.Children.toArray(this.props.children))[index],
         slideClassNames = classNames(
           'carbon-slide carbon-slide--active',
           visibleSlide.props.className,
           { 'carbon-slide--padded': this.props.enablePreviousButton || this.props.enableNextButton }
         );
+
+    index = visibleSlide.props.id || index;
 
     const additionalProps = {
       className: slideClassNames,
@@ -394,7 +404,10 @@ class Carousel extends React.Component {
 
     for (let i = 0; i < this.numOfSlides(); i++) {
       buttons.push(
-        <span className='carbon-carousel__selector-inputs' key={ i } data-element='selector-inputs'>
+        <span
+          className='carbon-carousel__selector-inputs' key={ i }
+          data-element='selector-inputs'
+        >
           <input
             disabled={ this.state.disabled }
             className='carbon-carousel__selector-input'
@@ -456,6 +469,19 @@ class Carousel extends React.Component {
   }
 
   /**
+   * Returns the current transition name
+   *
+   * @method transitionName
+   */
+  transitionName() {
+    if (this.props.transition === 'slide') {
+      return `slide-${this.transitionDirection}`;
+    }
+
+    return `carousel-transition-${this.props.transition}`;
+  }
+
+  /**
    * Renders the Slide Component
    *
    * @method render
@@ -468,7 +494,8 @@ class Carousel extends React.Component {
           { this.previousButton() }
 
           <CSSTransitionGroup
-            transitionName={ `slide-${this.transitionDirection}` }
+            component='div'
+            transitionName={ this.transitionName() }
             transitionEnterTimeout={ TRANSITION_TIME }
             transitionLeaveTimeout={ TRANSITION_TIME }
           >

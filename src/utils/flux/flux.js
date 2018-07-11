@@ -1,4 +1,8 @@
+import Flux from 'flux';
 import { assign } from 'lodash';
+import Logger from '../logger';
+
+export const Dispatcher = new Flux.Dispatcher();
 
 /**
  * Connects a view component to one or more flux based stores.
@@ -26,7 +30,11 @@ import { assign } from 'lodash';
  * @param {Object|Array} stores The store(s) you want to connect to the ComposedView.
  * @return {Class} An enhanced version of the ComposedView to work with flux stores.
  */
-export function connect(ComposedView, stores) { // eslint-disable-line import/prefer-default-export
+export function connect(ComposedView, stores) {
+  Logger.deprecate('connect has been deprecated in favour of the connect higher order component', {
+    group: 'connect'
+  });
+
   // Build an object mapping any stores passed to the connect function, using
   // the store's class name as the key.
 
@@ -54,7 +62,6 @@ export function connect(ComposedView, stores) { // eslint-disable-line import/pr
    * @constructor
    */
   class View extends ComposedView {
-
     constructor(...args) {
       super(...args);
 
@@ -75,6 +82,7 @@ export function connect(ComposedView, stores) { // eslint-disable-line import/pr
      */
     componentDidMount() {
       // ensure that the super view calls its version of componentDidMount
+      /* istanbul ignore else */
       if (super.componentDidMount) { super.componentDidMount(); }
 
       // listen to each store when the view component mounts
@@ -91,6 +99,7 @@ export function connect(ComposedView, stores) { // eslint-disable-line import/pr
      */
     componentWillUnmount() {
       // ensure that the super view calls its version of componentWillUnmount
+      /* istanbul ignore else */
       if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
       // unlisten to each store when the view component unmounts
@@ -127,6 +136,9 @@ export function connect(ComposedView, stores) { // eslint-disable-line import/pr
       return states;
     }
   }
+
+  // ensures that the new component has the original component's name
+  View.displayName = ComposedView.displayName || ComposedView.name;
 
   return View;
 }

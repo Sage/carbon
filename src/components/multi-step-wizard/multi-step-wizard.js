@@ -208,9 +208,9 @@ class MultiStepWizard extends React.Component {
    * @return {Object}
    */
   validateStepProps = (stepProps) => {
-    const step = stepProps.currentStep,
-        completed = stepProps.completed,
-        totalSteps = stepProps.steps.length;
+    const step = stepProps.currentStep;
+    const { completed } = stepProps;
+    const totalSteps = stepProps.steps.length;
 
     if (completed === true) {
       return { currentStep: totalSteps, completed: true };
@@ -277,11 +277,11 @@ class MultiStepWizard extends React.Component {
     return this.props.steps.map((step, index) => {
       return (
         // Step is never going to be re-ordered or changed so index is safe to use
-        // TODO: CarbonV2 Add requirement to pass unique id to each step for key value
-        // OR we could change the api so they have to supply the steps as children rather
-        // than via an array
         /* eslint-disable react/no-array-index-key */
-        <Step stepNumber={ index + 1 } key={ `multi-step-wizard-step-${index}` } { ...step.props }>
+        <Step
+          stepNumber={ index + 1 } key={ `multi-step-wizard-step-${index}` }
+          { ...step.props }
+        >
           { step }
         </Step>
         /* eslint-enable react/no-array-index-key */

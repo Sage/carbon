@@ -24,7 +24,6 @@ import tagComponent from '../../../utils/helpers/tags';
  * @constructor
  */
 class TableRow extends React.Component {
-
   static propTypes = {
     /**
      * Children elements
@@ -142,17 +141,19 @@ class TableRow extends React.Component {
      * @property dragAndDropIdentifier
      * @type {String}
      */
-    dragAndDropIdentifier: PropTypes.string
+    dragAndDropIdentifier: PropTypes.string,
+
+    /**
+     * Used to determine if line is empty or not
+     *
+     * @property hideDrag
+     * @type {Boolean}
+     */
+    hideDrag: PropTypes.bool
   }
 
   static safeProps = ['onClick']
 
-  /**
-   * Sort handler passed from table context
-   *
-   * @property onSort
-   * @type {Function}
-   */
   static contextTypes = {
     attachToTable: PropTypes.func, // attach the row to the table
     detachFromTable: PropTypes.func, // detach the row from the table
@@ -427,11 +428,17 @@ class TableRow extends React.Component {
    * @return {Object} JSX
    */
   renderDraggableCell = () => {
-    if (!this.context.dragDropManager) {
+    if (!this.context.dragDropManager || this.isHeader) {
       return null;
     }
 
-    return <DraggableTableCell identifier={ this.props.dragAndDropIdentifier } />;
+    return (
+      <DraggableTableCell
+        identifier={ this.props.dragAndDropIdentifier }
+        draggableNode={ () => { return this._row; } }
+        canDrag={ !this.props.hideDrag }
+      />
+    );
   }
 
   /**
@@ -442,7 +449,7 @@ class TableRow extends React.Component {
    * @return {Object} JSX
    */
   renderDraggableRow = (row) => {
-    if (!this.context.dragDropManager) {
+    if (!this.context.dragDropManager || this.isHeader) {
       return row;
     }
 
@@ -450,6 +457,7 @@ class TableRow extends React.Component {
       <WithDrop
         identifier={ this.props.dragAndDropIdentifier }
         index={ this.props.index }
+        canDrop={ () => { return !this.props.hideDrag; } }
       >
         { row }
       </WithDrop>
@@ -469,7 +477,11 @@ class TableRow extends React.Component {
     }
 
     return this.renderDraggableRow(
-      <tr { ...this.rowProps } { ...tagComponent('table-row', this.props) }>
+      <tr
+        { ...this.rowProps }
+        { ...tagComponent('table-row', this.props) }
+        ref={ (node) => { this._row = node; } }
+      >
         { this.renderDraggableCell() }
 
         { content }

@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Row columnClasses passes the prop to its children 1`] = `
+<div
+  className="carbon-row carbon-row--gutter-medium carbon-row--columns-1"
+>
+  <Column
+    columnClasses="myChildClasses"
+    key=".0"
+  />
+</div>
+`;
+
+exports[`Row columnDivide when columnDivide is true passes columnDivide to its children 1`] = `
+<div
+  className="carbon-row carbon-row--gutter-medium carbon-row--columns-1"
+>
+  <Column
+    columnDivide={true}
+    key=".0"
+  />
+</div>
+`;
+
+exports[`Row columns when a null column is passed ignores the null child 1`] = `
+<div
+  className="carbon-row carbon-row--gutter-medium carbon-row--columns-2"
+>
+  <Column
+    key=".$0"
+  />
+  <Column
+    key=".$1"
+  />
+</div>
+`;
+
+exports[`Row columns when column number is not passed determines the columns from the number of children 1`] = `
+<div
+  className="carbon-row carbon-row--gutter-medium carbon-row--columns-4"
+>
+  <Column
+    key=".0"
+  />
+  <Column
+    key=".1"
+  />
+  <Column
+    key=".2"
+  />
+  <Column
+    key=".3"
+  />
+</div>
+`;
+
+exports[`Row columns when column number is passed sets the passed column as the number of columns 1`] = `
+<div
+  className="carbon-row carbon-row--gutter-medium carbon-row--columns-50"
+>
+  <Column
+    key=".0"
+  />
+</div>
+`;
+
+exports[`Row gutter applies a gutter class 1`] = `
+<div
+  className="carbon-row carbon-row--gutter-small carbon-row--columns-0"
+/>
+`;
+
+exports[`Row render renders a parent div with calculated CSS classes 1`] = `
+<div
+  className="carbon-row carbon-row--gutter-medium carbon-row--columns-0"
+/>
+`;

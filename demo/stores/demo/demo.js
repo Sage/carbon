@@ -17,4 +17,4 @@ class DemoStore extends Store {
   }
 }
 
-export default new DemoStore('appStore', data, Dispatcher);
+export default new DemoStore('appStore', data);

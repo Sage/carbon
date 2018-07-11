@@ -46,256 +46,257 @@ import Help from './../../../components/help';
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
  */
-const InputLabel = ComposedComponent => class Component extends ComposedComponent {
+const InputLabel = (ComposedComponent) => {
+  class Component extends ComposedComponent {
+    static contextTypes = assign({}, ComposedComponent.contextTypes, {
+      form: PropTypes.object
+    })
 
-  static contextTypes = assign({}, ComposedComponent.contextTypes, {
-    form: PropTypes.object
-  })
+    static propTypes = assign({}, ComposedComponent.propTypes, {
 
-  static propTypes = assign({}, ComposedComponent.propTypes, {
+      /**
+       * Either a string or false to turn the label off
+       *
+       * @property
+       * @type {String|Boolean}
+       */
+      label: PropTypes.node,
+
+      /**
+       * Pass true to format the input/label inline
+       *
+       * @property
+       * @default top
+       * @type {Boolean}
+       */
+      labelInline: PropTypes.bool,
+
+      /**
+       * Pass a percentage to define the width of the label when it
+       *  is displayed inline.
+       *
+       * @property
+       * @type {Number}
+       */
+      labelWidth: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ]),
+
+
+      /**
+       * Aligns label content to the right if set
+       *
+       * @property
+       * @type {String}
+       */
+      labelAlign: PropTypes.string,
+
+      /**
+       * Text applied to tooptip of help icon
+       *
+       * @property
+       * @type {String}
+       */
+      labelHelp: PropTypes.string,
+
+      /**
+       * Pass a percentage to define the width of the label when it
+       *  is displayed inline
+       *
+       * @property
+       * @type {Number}
+       */
+      inputWidth: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+      ]),
+
+      /**
+       * A string representing a help message
+       *
+       * @property
+       * @type {Node}
+       */
+      fieldHelp: PropTypes.node,
+
+      /**
+       * Boolean to determine whether the help message should be inline
+       *
+       * @property
+       * @type {Boolean}
+       */
+      fieldHelpInline: PropTypes.bool
+    });
 
     /**
-     * Either a string or false to turn the label off
+     * Extends the main classes with any validation classes.
      *
-     * @property
-     * @type {String|Boolean}
+     * @method mainClasses
+     * @return {String} Main class names
      */
-    label: PropTypes.node,
-
-    /**
-     * Pass true to format the input/label inline
-     *
-     * @property
-     * @default top
-     * @type {Boolean}
-     */
-    labelInline: PropTypes.bool,
-
-    /**
-     * Pass a percentage to define the width of the label when it
-     *  is displayed inline.
-     *
-     * @property
-     * @type {Number}
-     */
-    labelWidth: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-
-
-    /**
-     * Aligns label content to the right if set
-     *
-     * @property
-     * @type {String}
-     */
-    labelAlign: PropTypes.string,
-
-    /**
-     * Text applied to tooptip of help icon
-     *
-     * @property
-     * @type {String}
-     */
-    labelHelp: PropTypes.string,
-
-    /**
-     * Pass a percentage to define the width of the label when it
-     *  is displayed inline
-     *
-     * @property
-     * @type {Number}
-     */
-    inputWidth: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ]),
-
-    /**
-     * A string representing a help message
-     *
-     * @property
-     * @type {String}
-     */
-    fieldHelp: PropTypes.string,
-
-    /**
-     * Boolean to determine whether the help message should be inline
-     *
-     * @property
-     * @type {Boolean}
-     */
-    fieldHelpInline: PropTypes.bool
-  });
-
-  /**
-   * Extends the main classes with any validation classes.
-   *
-   * @method mainClasses
-   * @return {String} Main class names
-   */
-  get mainClasses() {
-    return classNames(
-      super.mainClasses, {
+    get mainClasses() {
+      return classNames(super.mainClasses, {
         'common-input--label-inline': this.props.labelInline,
         'common-input--has-label-help': this.props.labelHelp,
         'common-input--has-field-help': this.props.fieldHelp
-      }
-    );
-  }
+      });
+    }
 
-  /**
-   * Classes to apply to the label
-   *
-   * @method labelClasses
-   * @return {String} classes
-   */
-  get labelClasses() {
-    return classNames(
-      'common-input__label', {
+    /**
+     * Classes to apply to the label
+     *
+     * @method labelClasses
+     * @return {String} classes
+     */
+    get labelClasses() {
+      return classNames('common-input__label', {
         'common-input__label--inline': this.props.labelInline,
         'common-input__label--help': this.props.labelHelp,
         'common-input__label--align-right': this.props.labelAlign === 'right'
+      });
+    }
+
+    get fieldHelpClasses() {
+      return classNames(
+        super.fieldHelpClasses,
+        'common-input__help-text', {
+          'common-input__help-text--inline': this.props.labelInline
+        }
+      );
+    }
+
+    /**
+     * ID used for the label.
+     *
+     * @method labelID
+     * @return {String}
+     */
+    get labelID() {
+      return this._guid;
+    }
+
+    /**
+     * Supplies the HTML for the label.
+     *
+     * @method labelHTML
+     * @return {HTML} HTML for label.
+     */
+    get labelHTML() {
+      if (this.props.label === false) { return null; }
+
+      // either use label supplied by dev, or automatically make one common on input name
+      let labelText = this.props.label || startCase(this.props.name);
+
+      if (!labelText) { return null; }
+
+      // set asterisk if validation is used which uses an asterisk
+      if (find(this.props.validations, (v) => { return v.asterisk; })) {
+        labelText += '*';
       }
-    );
-  }
 
-  get fieldHelpClasses() {
-    return classNames(
-      super.fieldHelpClasses,
-      'common-input__help-text', {
-        'common-input__help-text--inline': this.props.labelInline
+      // add label width if defined
+      const labelStyle = this.props.labelWidth ? { width: `${this.props.labelWidth}%` } : null;
+      return (
+        <label
+          style={ labelStyle }
+          className={ this.labelClasses }
+          htmlFor={ this.inputProps.id }
+          data-element='label'
+        >
+          { labelText }
+          { this.labelHelpHTML }
+        </label>
+      );
+    }
+
+    /**
+     * Supplies the HTML for help component
+     *
+     * @method labelHelpHTML
+     * @return {Object} JSX for help
+     */
+    get labelHelpHTML() {
+      if (!this.props.labelHelp) { return null; }
+
+      return (
+        <Help
+          tooltipPosition={ this.props.labelHelpPosition }
+          tooltipAlign={ this.props.labelHelpAlign }
+          href={ this.props.labelHelpHref }
+        >
+          { this.props.labelHelp }
+        </Help>
+      );
+    }
+
+    /**
+     * Supplies the HTML label help
+     *
+     * @method fieldHelpHTML
+     * @return {Object} JSX for label help
+     */
+    get fieldHelpHTML() {
+      if (!this.props.fieldHelp) { return null; }
+      const style = {};
+
+      if (this.props.labelInline) {
+        style.marginLeft = `${this.props.labelWidth}%`;
       }
-    );
-  }
 
-  /**
-   * ID used for the label.
-   *
-   * @method labelID
-   * @return {String}
-   */
-  get labelID() {
-    return this._guid;
-  }
-
-  /**
-   * Supplies the HTML for the label.
-   *
-   * @method labelHTML
-   * @return {HTML} HTML for label.
-   */
-  get labelHTML() {
-    if (this.props.label === false) { return null; }
-
-    // either use label supplied by dev, or automatically make one common on input name
-    let labelText = this.props.label || startCase(this.props.name);
-
-    if (!labelText) { return null; }
-
-    // set asterisk if validation is used which uses an asterisk
-    if (find(this.props.validations, (v) => { return v.asterisk; })) {
-      labelText += '*';
+      return (
+        <span
+          className={ this.fieldHelpClasses } style={ style }
+          data-element='help'
+        >
+          { this.props.fieldHelp }
+        </span>
+      );
     }
 
-    // add label width if defined
-    const labelStyle = this.props.labelWidth ? { width: `${this.props.labelWidth}%` } : null;
-    return (
-      <label
-        style={ labelStyle }
-        className={ this.labelClasses }
-        htmlFor={ this.inputProps.id }
-        data-element='label'
-      >
-        { labelText }
-        { this.labelHelpHTML }
-      </label>
-    );
-  }
+    /**
+     * Extends the input props to include the ID.
+     *
+     * @method inputProps
+     * @return {Object} Input props
+     */
+    get inputProps() {
+      const inputProps = super.inputProps || {};
 
-  /**
-   * Supplies the HTML for help component
-   *
-   * @method labelHelpHTML
-   * @return {Object} JSX for help
-   */
-  get labelHelpHTML() {
-    if (!this.props.labelHelp) { return null; }
+      // set id so label will focus on input when clicked
+      if (!inputProps.id) {
+        inputProps.id = this.labelID;
+      }
 
-    return (
-      <Help
-        tooltipPosition={ this.props.labelHelpPosition }
-        tooltipAlign={ this.props.labelHelpAlign }
-        href={ this.props.labelHelpHref }
-      >
-        { this.props.labelHelp }
-      </Help>
-    );
-  }
-
-  /**
-   * Supplies the HTML label help
-   *
-   * @method fieldHelpHTML
-   * @return {Object} JSX for label help
-   */
-  get fieldHelpHTML() {
-    if (!this.props.fieldHelp) { return null; }
-    const style = {};
-
-    if (this.props.labelInline) {
-      style.marginLeft = `${this.props.labelWidth}%`;
+      return inputProps;
     }
 
-    return (
-      <span className={ this.fieldHelpClasses } style={ style } data-element='help'>
-        { this.props.fieldHelp }
-      </span>
-    );
+    /**
+     * Extends the field props to include width.
+     *
+     * @method fieldProps
+     * @return {Object} Field props
+     */
+    get fieldProps() {
+      const fieldProps = super.fieldProps || {};
+      const { labelWidth } = this.props;
+      let { inputWidth } = this.props;
+
+      if (labelWidth && !inputWidth) {
+        inputWidth = 100 - labelWidth;
+      }
+
+      if (inputWidth) {
+        fieldProps.style = fieldProps.style || {};
+        fieldProps.style.width = `${inputWidth}%`;
+      }
+
+      return fieldProps;
+    }
   }
 
-  /**
-   * Extends the input props to include the ID.
-   *
-   * @method inputProps
-   * @return {Object} Input props
-   */
-  get inputProps() {
-    const inputProps = super.inputProps || {};
-
-    // set id so label will focus on input when clicked
-    if (!inputProps.id) {
-      inputProps.id = this.labelID;
-    }
-
-    return inputProps;
-  }
-
-  /**
-   * Extends the field props to include width.
-   *
-   * @method fieldProps
-   * @return {Object} Field props
-   */
-  get fieldProps() {
-    const fieldProps = super.fieldProps || {},
-        labelWidth = this.props.labelWidth;
-
-    let inputWidth = this.props.inputWidth;
-
-    if (labelWidth && !inputWidth) {
-      inputWidth = 100 - labelWidth;
-    }
-
-    if (inputWidth) {
-      fieldProps.style = fieldProps.style || {};
-      fieldProps.style.width = `${inputWidth}%`;
-    }
-
-    return fieldProps;
-  }
-
+  Component.displayName = ComposedComponent.displayName || ComposedComponent.name;
+  return Component;
 };
 
 export default InputLabel;

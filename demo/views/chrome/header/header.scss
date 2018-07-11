@@ -1,4 +1,4 @@
-@import "colors";
+@import 'colors.scss';
 @import "./../../../style-config/demo-variables";
 
 .demo-header {
@@ -29,6 +29,7 @@
 
   &__menu-label {
     float: right;
+    margin-left: 10px;
     width: 35px;
   }
 }

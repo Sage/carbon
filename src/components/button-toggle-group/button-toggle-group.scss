@@ -1,0 +1,21 @@
+@import "./../../style-config/colors";
+
+.carbon-button-toggle-group {
+  &.common-input--error {
+    .carbon-button-toggle__label {
+      border-color: $error;
+    }
+  }
+
+  &.common-input--warning {
+    .carbon-button-toggle__label {
+      border-color: $warning;
+    }
+  }
+
+  &.common-input--info {
+    .carbon-button-toggle__label {
+      border-color: $info;
+    }
+  }
+}

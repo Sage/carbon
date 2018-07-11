@@ -3,6 +3,7 @@ import { DragDropContext } from 'react-dnd';
 import PropTypes from 'prop-types';
 import TouchBackend from 'react-dnd-touch-backend';
 import ItemTargetHelper from './../../../utils/helpers/dnd/item-target';
+import CustomDragLayer from './../custom-drag-layer';
 
 /**
  * A draggable context component
@@ -36,7 +37,6 @@ import ItemTargetHelper from './../../../utils/helpers/dnd/item-target';
  * @constructor
  */
 class DraggableContext extends React.Component {
-
   static propTypes = {
     /**
      * The element(s) where you want to apply drag
@@ -48,12 +48,19 @@ class DraggableContext extends React.Component {
     children: PropTypes.node.isRequired,
 
     /**
+     * Optional CustomDragLayer to use for the ghost row when dragging & dropping
+     *
+     * @property customDragLayer
+     * @type {Object}
+     */
+    customDragLayer: PropTypes.node,
+
+    /**
      * Callback function for when an item has been dragged
      * e.g. to update data in a store
      */
     onDrag: PropTypes.func.isRequired
   }
-
 
   /**
    * Defines a context object for child components of the draggable context component.
@@ -68,6 +75,10 @@ class DraggableContext extends React.Component {
     dragAndDropEndDrag: PropTypes.func, // Callback for when dragging ends
     dragAndDropHover: PropTypes.func, // Callback for when a hover is triggered
     dragAndDropOnDrag: PropTypes.func // Callback for when order is changed
+  }
+
+  static defaultProps = {
+    customDragLayer: <CustomDragLayer />
   }
 
   state = {
@@ -127,7 +138,8 @@ class DraggableContext extends React.Component {
    */
   handleBeginDrag = (props) => {
     return {
-      index: props.index
+      index: props.index,
+      ...props
     };
   }
 
@@ -146,7 +158,12 @@ class DraggableContext extends React.Component {
    * Renders the component
    */
   render() {
-    return this.props.children;
+    return (
+      <div className='carbon-draggable-context'>
+        { this.props.children }
+        { this.props.customDragLayer }
+      </div>
+    );
   }
 }
 

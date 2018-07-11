@@ -18,7 +18,6 @@ import ValidationsHelper from './../../../helpers/validations';
  * @constructor NumeralTypeValidator
  */
 class NumeralTypeValidator {
-
   constructor(params = {}) {
     const numeralType = params.integer ? 'Integer' : 'Decimal';
     const validationToCall = `validate${numeralType}`;
@@ -96,7 +95,7 @@ function validateDecimal() {
      * @return {Boolean} true if value is valid
      */
     validate(value) {
-      return (!value || /^-?\d+(\.\d+)?$/.test(value));
+      return (!value || /^-?(\d+(\.\d+)?|\.\d+|\d+\.)$/.test(value));
     },
 
     /**

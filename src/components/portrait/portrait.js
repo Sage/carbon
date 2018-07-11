@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import MD5 from 'crypto-js/md5';
 import tagComponent from '../../utils/helpers/tags';
+import Browser from '../../utils/helpers/browser';
 
 import Icon from './../icon';
 
@@ -30,8 +31,6 @@ import Icon from './../icon';
  * For additional properties specific to this component, see propTypes.
  */
 class Portrait extends React.Component {
-
-
   static propTypes = {
 
     /**
@@ -110,6 +109,7 @@ class Portrait extends React.Component {
   }
 
   static defaultProps = {
+    alt: '',
     size: 'medium',
     shape: 'standard'
   };
@@ -171,7 +171,7 @@ class Portrait extends React.Component {
     }
 
     const size = this.numericSizes[this.props.size];
-    let canvas = document.createElement('canvas');
+    let canvas = Browser.getDocument().createElement('canvas');
     let context = canvas.getContext('2d');
 
     // Set canvas with & height
@@ -205,7 +205,7 @@ class Portrait extends React.Component {
    * @return {Object}
    */
   applyBackground = (context, size) => {
-    const color = this.props.darkBackground ? '#4E545F' : '#D8D9DC';
+    const color = this.props.darkBackground ? '#8A8E95' : '#D8D9DC';
 
     context.fillStyle = color;
     context.fillRect(0, 0, size, size);
@@ -222,7 +222,7 @@ class Portrait extends React.Component {
   applyText = (context, size) => {
     const letters = this.props.initials ? this.props.initials.slice(0, 3) : '';
 
-    context.fillStyle = '#636872';
+    context.fillStyle = this.props.darkBackground ? '#FFFFFF' : '#636872';
     context.fillText(letters.toUpperCase(), size / 2, size / 1.5);
 
     return context;
@@ -236,9 +236,9 @@ class Portrait extends React.Component {
    */
   get numericSizes() {
     return {
-      'extra-small': '26',
+      'extra-small': '25',
       small: '30',
-      'medium-small': '50',
+      'medium-small': '40',
       medium: '60',
       'medium-large': '70',
       large: '100',
@@ -258,7 +258,9 @@ class Portrait extends React.Component {
       'carbon-portrait--image',
       `carbon-portrait--${this.props.size}`,
       `carbon-portrait--${this.props.shape}`,
-      this.props.className
+      this.props.className, {
+        'carbon-portrait--dark-background': this.props.darkBackground
+      }
     );
   }
 

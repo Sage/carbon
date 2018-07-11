@@ -9,10 +9,9 @@
   right: 0;
   text-align: center;
   width: 100%;
-  z-index: $z-flash;
 
-  // span added by CSSTransitionGroup
-  > span {
+  // tag added by CSSTransitionGroup
+  > div {
     display: inline-block;
     height: 100%;
     width: 100%;
@@ -57,8 +56,9 @@
 }
 
 .carbon-flash__message {
-  color: $white;
+  color: $onyx;
   font-size: 14px;
+  font-weight: 700;
   margin: 20px 70px;
   position: relative;
   text-align: left;
@@ -71,7 +71,7 @@
   width: 70px;
 
   &:before {
-    color: $white;
+    color: $onyx;
     font-size: 16px;
     margin: auto;
   }
@@ -85,12 +85,12 @@
   }
 
   .carbon-icon__svg-group {
-    fill: $white;
+    fill: $onyx;
   }
 }
 
 .carbon-flash__close {
-  color: #FFF;
+  color: $onyx;
   cursor: pointer;
   display: flex;
   outline: none;
@@ -98,6 +98,7 @@
   right: 0;
   top: 0;
   width: 70px;
+
   &:before {
     font-size: 16px;
     margin: auto;
@@ -107,13 +108,14 @@
 /**
  * Animation for slider
  */
-
+.carbon-flash__slider-appear,
 .carbon-flash__slider-enter {
   left: 50%;
   opacity: 0;
   right: 50%;
 }
 
+.carbon-flash__slider-appear-active,
 .carbon-flash__slider-enter-active {
   left: 0%;
   opacity: 1;
@@ -133,11 +135,12 @@
 /**
  * Animation for content inside slider
  */
-
+.carbon-flash__content-appear,
 .carbon-flash__content-enter {
   opacity: 0;
 }
 
+.carbon-flash__content-appear-active,
 .carbon-flash__content-enter-active {
   opacity: 1;
   transition: 400ms ease 400ms;
@@ -150,4 +153,15 @@
 .carbon-flash__content-leave-active  {
   opacity: 0;
   transition: 400ms ease-out 100ms;
+}
+
+// overrides as some messages require white color
+.carbon-flash {
+  &--error, &--new, &--info {
+    .carbon-flash__message,
+    .carbon-flash__close,
+    .carbon-flash__icon:before {
+      color: white;
+    }
+  }
 }

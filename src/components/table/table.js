@@ -15,6 +15,9 @@ import DraggableTableCell from './draggable-table-cell';
 import Pager from './../pager';
 import Spinner from './../spinner';
 
+import './table.scss';
+import './table--secondary-theme.scss';
+
 /**
  * A Table widget.
  *
@@ -81,7 +84,6 @@ import Spinner from './../spinner';
  * @constructor
  */
 class Table extends React.Component {
-
   static propTypes = {
     /**
      * The actions to display in the toolbar
@@ -90,6 +92,14 @@ class Table extends React.Component {
      * @type {Object}
      */
     actions: PropTypes.object,
+
+    /**
+     * The extra actions to display in the toolbar
+     *
+     * @property actionToolbarChildren - additional buttons can be added to the tool bar
+     * @type {Function}
+     */
+    actionToolbarChildren: PropTypes.func,
 
     /**
      * Children elements
@@ -272,6 +282,15 @@ class Table extends React.Component {
      * @type string
      */
     caption: PropTypes.string,
+
+    /**
+     * The HTML id of the element that contains a description
+     * of this table.
+     *
+     * @property aria-describedby
+     * @type string
+     */
+    'aria-describedby': PropTypes.string,
 
     /**
      * Renders as light or dark
@@ -728,6 +747,7 @@ class Table extends React.Component {
    * @return {Void}
    */
   resizeTable() {
+    if (!this._table) { return; }
     const shrink = this.props.shrink && this._table.offsetHeight < this.tableHeight;
 
     if (shrink || this._table.offsetHeight > this.tableHeight) {
@@ -934,7 +954,12 @@ class Table extends React.Component {
     if (!this.props.selectable || !this.props.actions) { return null; }
 
     return (
-      <ActionToolbar total={ this.state.selectedCount } actions={ this.props.actions } />
+      <ActionToolbar
+        total={ this.state.selectedCount }
+        actions={ this.props.actions }
+      >
+        { this.props.actionToolbarChildren }
+      </ActionToolbar>
     );
   }
 
@@ -958,9 +983,13 @@ class Table extends React.Component {
    */
   get loadingRow() {
     return (
-      <TableRow key='__loading__' selectable={ false } highlightable={ false } hideMultiSelect>
+      <TableRow
+        key='__loading__' selectable={ false }
+        highlightable={ false } hideMultiSelect
+      >
         <TableCell colSpan='42' align='center'>
           <CSSTransitionGroup
+            component='div'
             transitionName='table-loading'
             transitionEnterTimeout={ 300 }
             transitionLeaveTimeout={ 300 }
@@ -982,7 +1011,10 @@ class Table extends React.Component {
    */
   get emptyRow() {
     return (
-      <TableRow key='__loading__' selectable={ false } highlightable={ false }>
+      <TableRow
+        key='__loading__' selectable={ false }
+        highlightable={ false }
+      >
         <TableCell colSpan='42' align='center'>
           { I18n.t('table.no_data', { defaultValue: 'No results to display' }) }
         </TableCell>
@@ -997,7 +1029,7 @@ class Table extends React.Component {
    * @return {Object} JSX
    */
   get tableContent() {
-    let children = this.props.children,
+    let { children } = this.props,
         hasChildren = children;
 
     // if using immutable js we can count the children
@@ -1044,11 +1076,26 @@ class Table extends React.Component {
     );
   }
 
+  /**
+   * Placeholder function for defining the data state, intended to be overriden in subclasses
+   */
+  dataState = () => { }
+
+  /**
+   * The name used for the data-component attribute
+   */
+  get dataComponent() { return 'table'; }
+
+  /**
+   * Data tags used for the data-component attribute
+   */
   componentTags(props) {
     return {
-      'data-component': 'table',
+      'data-component': this.dataComponent,
       'data-element': props['data-element'],
-      'data-role': props['data-role']
+      'data-role': props['data-role'],
+      'data-state': this.dataState(),
+      'aria-busy': this.state.ariaBusy
     };
   }
 
@@ -1073,12 +1120,23 @@ class Table extends React.Component {
    * @method render
    */
   render() {
+    const tableProps = {
+      className: this.tableClasses
+    };
+
+    if (this.props['aria-describedby']) {
+      tableProps['aria-describedby'] = this.props['aria-describedby'];
+    }
+
     return (
       <div className={ this.mainClasses } { ...this.componentTags(this.props) }>
         { this.actionToolbar }
         <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
           { this.configureLink(this.props.onConfigure) }
-          <table className={ this.tableClasses } ref={ (table) => { this._table = table; } } >
+          <table
+            ref={ (table) => { this._table = table; } }
+            { ...tableProps }
+          >
             { this.caption }
             { this.thead }
             { this.tbody }

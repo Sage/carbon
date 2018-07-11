@@ -1,15 +1,14 @@
 @import "./../../../style-config/colors";
 
 .carbon-submenu-block {
-  padding: 5px 0 !important;
-  margin: 10px 0 5px;
+  padding:  0 !important;
 
   .carbon-menu--primary & {
     background-color: $grey-dark-blue-10;
   }
 
   .carbon-menu--secondary & {
-    background-color: $grey-dark-blue-90;
+    background-color: $grey-dark-blue;
   }
 
   .carbon-menu-item.carbon-link__anchor,
@@ -19,7 +18,11 @@
     }
 
     .carbon-menu--secondary & {
-      background-color: $grey-dark-blue-90;
+      background-color: $grey-dark-blue;
+    }
+
+    &:last-child {
+      border-radius: 0;
     }
   }
 }

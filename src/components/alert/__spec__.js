@@ -1,46 +1,29 @@
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import Alert from './alert';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
+/* global jest */
+
 describe('Alert', () => {
-  let instance;
+  let wrapper;
   let onCancel = jasmine.createSpy('cancel');
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(
+    wrapper = shallow(
       <Alert
+        open
         onCancel={ onCancel }
-        open={ true }
-        title="Alert title" />
+        title='Alert title'
+        subtitle='Alert Subtitle'
+        data-element='bar'
+        data-role='baz'
+      />
     );
   });
 
-  describe('dialogClasses', () => {
-    it('returns the dialog class along with the alert class', () => {
-      expect(instance.dialogClasses).toEqual('carbon-dialog__dialog carbon-dialog__dialog--extra-small carbon-alert__alert');
-    });
-  });
-
-  describe("tags", () => {
-    describe("on component", () => {
-      let wrapper = shallow(<Alert open={ true } data-element='bar' data-role='baz' />);
-
-      it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper, 'alert', 'bar', 'baz');
-      });
-    });
-
-    describe("on internal elements", () => {
-      let wrapper = mount(<Alert open={ true } title='Test' subtitle='Test' showCloseIcon={ true } />);
-
-      elementsTagTest(wrapper, [
-        'close',
-        'subtitle',
-        'title'
-      ]);
-    });
+  it('include correct component, element and role data tags', () => {
+    expect(wrapper).toMatchSnapshot();
   });
 
   describe('keyboard focus', () => {
@@ -49,18 +32,14 @@ describe('Alert', () => {
 
     beforeEach(() => {
       wrapper = mount(
-        <Alert open={ true } title='Test' subtitle='Test' showCloseIcon={ false } />
+        <Alert open title='Test' subtitle='Test' showCloseIcon={ false } />
       );
 
       mockEvent = {
         preventDefault() {}
       };
 
-      jasmine.clock().install();
-    });
-
-    afterEach(() => {
-      jasmine.clock().uninstall();
+      jest.useFakeTimers();
     });
 
     it('remains on the dialog if open and no close icon is shown', () => {
@@ -69,7 +48,7 @@ describe('Alert', () => {
       spyOn(instance, 'focusDialog');
 
       instance.onDialogBlur(mockEvent);
-      jasmine.clock().tick(10);
+      jest.runTimersToTime(10);
       expect(mockEvent.preventDefault).toHaveBeenCalled();
       expect(instance.focusDialog).toHaveBeenCalled();
     });

@@ -26,19 +26,23 @@ import ShouldComponentUpdateHelper from './../../helpers/should-component-update
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
  */
-const ShouldComponentUpdate = ComposedComponent => class Component extends ComposedComponent {
-
-  /**
-   * Lifecycle hook to calculate if the component should re-render
-   *
-   * @method shouldComponentUpdate
-   * @param nextProps - The next props for component
-   * @param nextState - The next state for component
-   * @return {Boolean}
-   */
-  shouldComponentUpdate(nextProps, nextState) {
-    return ShouldComponentUpdateHelper(this, nextProps, nextState);
+const ShouldComponentUpdate = (ComposedComponent) => {
+  class Component extends ComposedComponent {
+    /**
+     * Lifecycle hook to calculate if the component should re-render
+     *
+     * @method shouldComponentUpdate
+     * @param nextProps - The next props for component
+     * @param nextState - The next state for component
+     * @return {Boolean}
+     */
+    shouldComponentUpdate(nextProps, nextState) {
+      return ShouldComponentUpdateHelper(this, nextProps, nextState);
+    }
   }
+
+  Component.displayName = ComposedComponent.displayName || ComposedComponent.name;
+  return Component;
 };
 
 export default ShouldComponentUpdate;

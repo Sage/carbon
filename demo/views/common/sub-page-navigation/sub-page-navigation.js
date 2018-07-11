@@ -29,7 +29,7 @@ export default props => (
  */
 const _link = (href, name, prefix) => {
   if (href) {
-    let direction = prefix === 'next' ? 'forwards' : 'backwards'
+    const direction = prefix === 'next' ? 'forwards' : 'backwards';
 
     return (
       <span className={ _classnames(prefix) } key={ prefix }>
@@ -42,14 +42,14 @@ const _link = (href, name, prefix) => {
       </span>
     );
   }
-}
+};
 
 const _classnames = (classSuffix) => {
   return classNames(
     'demo-sub-page-navigation__link',
     `demo-sub-page-navigation__${classSuffix}`
   );
-}
+};
 
 const _buildLinks = (definition, availableRoutes, currentLocation) => {
   let urls;
@@ -60,8 +60,10 @@ const _buildLinks = (definition, availableRoutes, currentLocation) => {
     urls = buildPrevNextFromReactRouter(availableRoutes, currentLocation);
   }
 
+  if (!urls) { return null; }
+
   return ([
     _link(urls.prev.url, urls.prev.title, 'previous'),
-    _link(urls.next.url, urls.next.title, 'next'),
+    _link(urls.next.url, urls.next.title, 'next')
   ]);
-}
+};

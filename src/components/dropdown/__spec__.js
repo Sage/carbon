@@ -1,18 +1,20 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import Dropdown from './dropdown';
+import { shallow, mount } from 'enzyme';
 import Immutable from 'immutable';
+import Dropdown from './dropdown';
 import Events from './../../utils/helpers/events';
-import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import ImmutableHelper from './../../utils/helpers/immutable';
+import Portal from './../portal';
 
+/* global jest */
 describe('Dropdown', () => {
   let instance;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Dropdown name="foo" options={ Immutable.fromJS([]) } value="1" />
+      <Dropdown name='foo' options={ Immutable.fromJS([]) } value='1' />
     );
   });
 
@@ -31,7 +33,7 @@ describe('Dropdown', () => {
   describe('componentWillReceiveProps', () => {
     describe('when cacheVisibleValue is false', () => {
       it('resets visibleValue', () => {
-        instance.visibleValue = "foobar";
+        instance.visibleValue = "exitfoobar";
         instance.componentWillReceiveProps({
           value: "2"
         });
@@ -188,6 +190,7 @@ describe('Dropdown', () => {
 
   describe('handleMouseEnterList', () => {
     it('sets blockBlur to true', () => {
+      instance.setState({open:true});
       instance.blockBlur = false;
       TestUtils.Simulate.mouseEnter(instance.listBlock);
       expect(instance.blockBlur).toBeTruthy;
@@ -196,6 +199,7 @@ describe('Dropdown', () => {
 
   describe('handleMouseLeaveList', () => {
     it('sets blockBlur to true', () => {
+      instance.setState({open:true});
       instance.blockBlur = true;
       TestUtils.Simulate.mouseLeave(instance.listBlock);
       expect(instance.blockBlur).toBeFalsy;
@@ -205,29 +209,27 @@ describe('Dropdown', () => {
   describe('handleMouseDownOnList', () => {
     beforeEach(() => {
       spyOn(instance._input, 'focus');
-      jasmine.clock().install();
-    });
-
-    afterEach(() => {
-      jasmine.clock().uninstall();
+      jest.useFakeTimers();
     });
 
     describe('if target is the list', () => {
       it('calls focus on the input after a timeout', () => {
+        instance.setState({open:true});
         TestUtils.Simulate.mouseDown(instance.listBlock, {
           target: instance.list
         });
-        jasmine.clock().tick();
+        jest.runTimersToTime(0);
         expect(instance._input.focus).toHaveBeenCalled();
       });
     });
 
     describe('if target is not the list', () => {
       it('does not call focus on the input', () => {
+        instance.setState({open:true});
         TestUtils.Simulate.mouseDown(instance.listBlock, {
           target: 'foo'
         });
-        jasmine.clock().tick();
+        jest.runTimersToTime(10);
         expect(instance._input.focus).not.toHaveBeenCalled();
       });
     });
@@ -840,18 +842,8 @@ describe('Dropdown', () => {
       expect(instance.listBlockProps.onTouchMove).toEqual(instance.handleTouchEvent);
     });
 
-    describe('when the list is closed', () => {
-      it('has a hidden class', () => {
-        instance.setState({ open: false });
-        expect(instance.listBlockProps.className).toEqual('carbon-dropdown__list-block carbon-dropdown__list-hidden');
-      });
-    });
-
-    describe('when the list is open', () => {
-      it('it does not have the hidden class', () => {
-        instance.setState({ open: true });
-        expect(instance.listBlockProps.className).toEqual('carbon-dropdown__list-block');
-      });
+    it('it has a class for the block', () => {
+      expect(instance.listBlockProps.className).toEqual('carbon-dropdown__list-block');
     });
   });
 
@@ -920,13 +912,22 @@ describe('Dropdown', () => {
     describe('when showArrow is false', () => {
       it('does not return the icon', () => {
         spyOn(instance, 'showArrow').and.returnValue(false);
-        expect(instance.additionalInputContent.length).toEqual(1);
+        expect(instance.additionalInputContent.length).toEqual(0);
       });
     });
+  });
 
-    it('returns the list', () => {
-      let classes = 'carbon-dropdown__list-block carbon-dropdown__list-hidden';
-      expect(instance.additionalInputContent[1].props.className).toEqual(classes);
+  describe('options list', () => {
+    it('creates the list in a Portal', () => {
+      const wrapper = mount(
+        <Dropdown
+          name='foo'
+          options={Immutable.fromJS([{ id: 1, name: 'foo' }, { id: 2, name: 'bar' }])} value='1'
+        />);
+
+      wrapper.find('.carbon-dropdown__input').simulate('focus');
+      const portalDropdownList = wrapper.find(Portal).find('.carbon-dropdown__list');
+      expect(portalDropdownList).toMatchSnapshot();
     });
   });
 

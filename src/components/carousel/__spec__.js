@@ -1,11 +1,15 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { shallow } from 'enzyme';
 import { Carousel, Slide } from './carousel';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
+/* global jest */
+
 describe('Carousel', () => {
   let instance;
+
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <Carousel className='foobar'>
@@ -144,15 +148,12 @@ describe('Carousel', () => {
     });
 
     it('sets the disabled state to false', () => {
-      jasmine.clock().install();
-
+      jest.useFakeTimers();
       instance.setState({ disabled: true });
       instance.enableButtonsAfterTimeout();
-      jasmine.clock().tick(750);
+      jest.runTimersToTime(750);
 
       expect(instance.state.disabled).toBeFalsy();
-
-      jasmine.clock().uninstall();
     });
   });
 
@@ -561,6 +562,19 @@ describe('Carousel', () => {
         'selector-label',
         'visible-slide'
       ]);
+    });
+  });
+
+  describe('transitionName', () => {
+    it('uses a custom name if supplied', () => {
+      const wrapper = shallow(
+        <Carousel transition='foo'>
+          <Slide />
+        </Carousel>
+      );
+
+      const transitionGroup = wrapper.find(CSSTransitionGroup);
+      expect(transitionGroup.props().transitionName).toEqual('carousel-transition-foo');
     });
   });
 });

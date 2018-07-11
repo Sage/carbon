@@ -1,7 +1,8 @@
 import React from 'react';
+import createReactClass from 'create-react-class';
 import TestUtils from 'react-dom/test-utils';
-import { shallow } from 'enzyme';
-import Tooltip from 'components/tooltip'
+import { mount, shallow } from 'enzyme';
+import Tooltip from 'components/tooltip';
 import Icon from './icon';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
@@ -15,7 +16,6 @@ describe('Icon', () => {
     'csv',
     'chevron',
     'completed',
-    'draft',
     'dribbble',
     'edit',
     'email',
@@ -152,33 +152,36 @@ describe('Icon', () => {
 
   describe('when passed a tooltipMessage', () => {
     it('renders a tooltip', () => {
-      let helpInstance = TestUtils.renderIntoDocument(<Icon type='info' tooltipMessage='Helpful content' />);
-      let tooltip = TestUtils.findRenderedComponentWithType(helpInstance, Tooltip);
-      expect(tooltip).toBeDefined();
+      const wrapper = mount(<Icon type='info' tooltipMessage='Helpful content'/>);
+      wrapper.setState({ isVisible: true });
+      const tooltip = wrapper.find(Tooltip);
+      expect(tooltip.length).toEqual(1);
     });
   });
 
   describe("tags", () => {
     describe("on component", () => {
-      let wrapper = shallow(<Icon data-element='bar' data-role='baz' type='tick'/>);
-
+      let wrapper = mount(<Icon data-element='bar' data-role='baz' type='tick'/>);
       it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper, 'icon', 'bar', 'baz');
+        rootTagTest(wrapper.find('.carbon-icon'), 'icon', 'bar', 'baz');
       });
     });
 
     describe("on internal elements", () => {
-      let wrapper = shallow(
+      let wrapper = mount(
         <Icon
           tooltipMessage='Test'
           tooltipAlign='left'
           tooltipPosition='top'
           type='tick'
         />);
+      wrapper.setState({ isVisible: true });
 
-      elementsTagTest(wrapper, [
-        'tooltip'
-      ]);
+      const tooltip = wrapper.find(Tooltip);
+      expect(tooltip.props().align).toEqual('left');
+      expect(tooltip.props().position).toEqual('top');
+      expect(tooltip.props().children).toEqual('Test');
     });
   });
 });
+

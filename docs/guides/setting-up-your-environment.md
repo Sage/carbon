@@ -5,7 +5,6 @@
 To use [React](http://facebook.github.io/react/) and [Carbon](https://github.com/sage/carbon) with your local environment, you will need the following installed:
 
 * [Node.js](https://nodejs.org/)
-* [Gulp.js](http://gulpjs.com/)
 * [Babel CLI](https://babeljs.io/)
 * [Carbon CLI](https://github.com/sage/carbon-factory) (optional)
 
@@ -19,21 +18,11 @@ Download and install Node from [https://nodejs.org/](https://nodejs.org/), or in
 
 #### Check npm version
 
-Make sure you are on Version 4.x by running `npm -v`. To upgrade your version of npm run `npm install npm -g`
+Make sure you are on Version 6.x by running `npm -v`. To upgrade your version of npm run `npm install npm -g`
 
 #### Check permissions
 
 If you are getting permission issues when you install modules using npm, you may need to change the permission of your npm directory. Follow the instructions on [npm's website](https://docs.npmjs.com/getting-started/fixing-npm-permissions). You should not need to use `sudo` to install modules.
-
-### Installing Gulp.js
-
-You need to install Gulp globally.
-
-* You should be able to install [Gulp.js](http://gulpjs.com/) using npm:
-
-```bash
-npm install -g gulp
-```
 
 ### Installing Babel CLI
 
@@ -43,14 +32,4 @@ You need to install Babel CLI globally.
 
 ```bash
 npm install -g babel-cli
-```
-
-### Installing Carbon CLI
-
-You need to install Carbon globally.
-
-* You should be able to install [Carbon CLI](https://github.com/sage/carbon-factory) using npm:
-
-```bash
-npm install -g sage/carbon-factory
 ```

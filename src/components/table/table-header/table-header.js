@@ -30,7 +30,6 @@ import { validProps } from '../../../utils/ether';
  * @constructor
  */
 class TableHeader extends React.Component {
-
   static propTypes = {
 
     /**
@@ -128,7 +127,7 @@ class TableHeader extends React.Component {
     delete props.children;
 
     props.className = this.tableHeaderClasses();
-    props.onClick = this.props.sortable ? this.emitSortEvent : '';
+    if (this.props.sortable) props.onClick = this.emitSortEvent;
 
     return props;
   }
@@ -136,24 +135,6 @@ class TableHeader extends React.Component {
   get isCurrentSortedColumn() {
     return this.props.sortable && this.props.name === this.context.sortedColumn;
   }
-
-  /**
-   * Returns classes to be used on the TH element.
-   *
-   * @method tableHeaderClasses
-   * @return {String}
-   */
-  tableHeaderClasses() {
-    return classNames(
-      'carbon-table-header',
-      this.props.className,
-      {
-        [`carbon-table-header--align-${this.props.align}`]: this.props.align,
-        'carbon-table-header--sortable': this.props.sortable
-      }
-    );
-  }
-
 
   /**
    * Returns classes to apply to the sort icon
@@ -226,6 +207,23 @@ class TableHeader extends React.Component {
     return `Sortable column, ${currentSortDescription}activate to sort column ${nextSortOrder}`;
   }
 
+  /**
+   * Returns classes to be used on the TH element.
+   *
+   * @method tableHeaderClasses
+   * @return {String}
+   */
+  tableHeaderClasses() {
+    return classNames(
+      'carbon-table-header',
+      this.props.className,
+      {
+        [`carbon-table-header--align-${this.props.align}`]: this.props.align,
+        'carbon-table-header--sortable': this.props.sortable
+      }
+    );
+  }
+
   ariaAttributes() {
     const aria = {};
     if (this.context.sortOrder && this.isCurrentSortedColumn) {
@@ -285,7 +283,10 @@ class TableHeader extends React.Component {
     }
 
     return (
-      <th { ...this.tableHeaderProps } { ...this.componentTags(this.props) } { ...this.ariaAttributes() }>
+      <th
+        { ...this.tableHeaderProps } { ...this.componentTags(this.props) }
+        { ...this.ariaAttributes() }
+      >
         { contents }
       </th>
     );

@@ -10,20 +10,13 @@ Components provided by Carbon are not tied to Flux, they are just regular React 
 
 ## The Dispatcher
 
-Although Flux is not a framework, Facebook do provide a dispatcher we can use. We can import this from the Flux node module.
+Although Flux is not a framework, Facebook do provide a dispatcher we can use. Carbon supplies one of these dispatchers already setup and ready to use:
 
 ```js
-// ./src/dispatcher/index.js
-
-import { Dispatcher } from 'flux';
-
-// initialize the dispatcher here, so there is only ever one instance of it
-let AppDispatcher = new Dispatcher();
-
-export default AppDispatcher;
+import { Dispatcher } from 'carbon-react/lib/utils/flux';
 ```
 
-We only need to define this in our application once. It is a singleton, meaning that there is only one instance of it used across our entire application.
+The dispatcher is a singleton, meaning that there is only one instance of it used across our entire application.
 
 ## Creating a Store
 
@@ -34,7 +27,6 @@ Carbon provides a base class for creating a store. This should be used to extend
 
 import Store from 'carbon-react/lib/utils/flux/store';
 import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
-import Dispatcher from 'dispatcher';
 
 // our store!
 class User extends Store {}
@@ -43,7 +35,7 @@ class User extends Store {}
 let data = ImmutableHelper.parseJSON({});
 
 // initialize our store here, so there is only ever one instance of it
-export defaults new MyStore('userStore', data, Dispatcher);
+export defaults new MyStore('userStore', data);
 ```
 
 The store should also be a singleton, so we should make sure we initialize it within the same file that we define it.
@@ -52,7 +44,6 @@ The store has a few requirements for it to function correctly:
 
 * We should initialize our store with a name, this is the key we use will to access our store in our React component.
 * We should initialize our store with data, this is the initial payload of data that our store will use. This could either be from an AJAX request, from a variable on the DOM or even hardcoded JSON.
-* We should initialize our store with our applications Dispatcher.
 
 ### Subscribing to Events
 
@@ -73,7 +64,7 @@ The constant defines a unique name within our application that will be used to e
 ```js
 // ./src/actions/user/index.js
 
-import Dispatcher from 'dispatcher';
+import { Dispatcher } from 'carbon-react/lib/utils/flux';
 import UserConstants from 'constants/user';
 
 let UserActions = {
@@ -98,7 +89,6 @@ So now we can update the store to subscribe to this event by using the same cons
 
 import Store from 'carbon-react/lib/utils/flux/store';
 import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
-import Dispatcher from 'dispatcher';
 import UserConstants from 'constants/user';
 
 class User extends Store {
@@ -110,7 +100,7 @@ class User extends Store {
 
 let data = ImmutableHelper.parseJSON({});
 
-export defaults new MyStore('userStore', data, Dispatcher);
+export defaults new MyStore('userStore', data);
 ```
 
 Our new function updates the stores data using the input name and value sent by the action.

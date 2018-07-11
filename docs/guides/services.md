@@ -6,10 +6,10 @@ The base service class takes care of setting up the default options for an XHR c
 
 Extending from the base service provides you with:
 
-* `this.get` - `{Function}` - `id, onSuccess, onError`
-* `this.post` - `{Function}` - `data, onSuccess, onError`
-* `this.put` - `{Function}` - `id, data, onSuccess, onError`
-* `this.delete` - `{Function}` - `id, onSuccess, onError`
+* `this.get` - `{Function}` - `id, { onSuccess: onSuccessFunc, onError: onErrorFunc }`
+* `this.post` - `{Function}` - `data, { onSuccess: onSuccessFunc, onError: onErrorFunc }`
+* `this.put` - `{Function}` - `id, data, { onSuccess: onSuccessFunc, onError: onErrorFunc }`
+* `this.delete` - `{Function}` - `id, { onSuccess: onSuccessFunc, onError: onErrorFunc }`
 * `this.client` - `{Object}` - Provides access to the axios client.
 
 In your `constructor`, you can use the following methods to configure your service:
@@ -85,11 +85,12 @@ let service = new SalesInvoiceService();
 
 ```js
 let service = new SalesInvoiceService();
-
-service.put(data.id, data, (response) => {
+let successFunc = () => {
   // perform action on success
   // (will most likely dispatch an action at this point)
-});
+}
+
+service.put(data.id, data, { onSuccess: successFunc });
 ```
 
 ## Creating a Service

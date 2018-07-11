@@ -1,7 +1,4 @@
 {
   "main": "./get-started",
-  "style": "get-started.scss",
-  "images": [
-    "./grid-bk.svg"
-  ]
+  "style": "get-started.scss"
 }

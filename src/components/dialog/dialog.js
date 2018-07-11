@@ -1,5 +1,4 @@
 import React from 'react';
-import Bowser from 'bowser';
 import classNames from 'classnames';
 import { assign } from 'lodash';
 import PropTypes from 'prop-types';
@@ -7,6 +6,9 @@ import Browser from './../../utils/helpers/browser';
 import Icon from './../icon';
 import Modal from './../modal';
 import Heading from './../heading';
+import ElementResize from './../../utils/helpers/element-resize';
+
+const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog--open';
 
 /**
  * A Dialog widget.
@@ -29,8 +31,15 @@ import Heading from './../heading';
  * @constructor
  */
 class Dialog extends Modal {
-
   static propTypes = assign({}, Modal.propTypes, {
+    /**
+     * Allows developers to specify a specific height for the dialog.
+     *
+     * @property height
+     * @type {String}
+     */
+    height: PropTypes.string,
+
     /**
      * Title displayed at top of dialog
      *
@@ -76,7 +85,9 @@ class Dialog extends Modal {
      * @type {Boolean}
      * @default false
      */
-    autoFocus: PropTypes.bool
+    autoFocus: PropTypes.bool,
+
+    stickyFormFooter: PropTypes.bool
   })
 
   static defaultProps = {
@@ -91,6 +102,8 @@ class Dialog extends Modal {
     this.componentTags = this.componentTags.bind(this);
     this.onDialogBlur = this.onDialogBlur.bind(this);
     this.onCloseIconBlur = this.onCloseIconBlur.bind(this);
+    this.document = Browser.getDocument();
+    this.window = Browser.getWindow();
   }
 
   /**
@@ -138,11 +151,16 @@ class Dialog extends Modal {
    * @return {Void}
    */
   get onOpening() {
-    this.centerDialog();
+    this.document.documentElement.classList.add(DIALOG_OPEN_HTML_CLASS);
+    this.centerDialog(true);
+    ElementResize.addListener(this._innerContent, this.applyFixedBottom);
+    this.window.addEventListener('resize', this.centerDialog);
+
     if (this.props.autoFocus) {
-      this.focusDialog();
+      return this.focusDialog();
     }
-    this.window().addEventListener('resize', this.centerDialog);
+
+    return null;
   }
 
   /**
@@ -154,53 +172,86 @@ class Dialog extends Modal {
    * @return {Void}
    */
   get onClosing() {
-    this.window().removeEventListener('resize', this.centerDialog);
-  }
-
-  /**
-   * Returns the current window
-   *
-   * @method window
-   * @return {Object}
-   */
-  window = () => {
-    return Browser.getWindow();
+    this.appliedFixedBottom = false;
+    this.document.documentElement.classList.remove(DIALOG_OPEN_HTML_CLASS);
+    this.window.removeEventListener('resize', this.centerDialog);
+    return ElementResize.removeListener(this._innerContent, this.applyFixedBottom);
   }
 
   /**
    * Centers dialog relative to window
    *
    * @method centerDialog
+   * @param {Boolean} notRender - declares that the method was called not as part of the component lifecycle
    * @return {void}
    */
-  centerDialog = () => {
+  centerDialog = (animating) => {
+    if (!this._dialog) { return; }
     const height = this._dialog.offsetHeight / 2,
-        width = this._dialog.offsetWidth / 2;
+        width = this._dialog.offsetWidth / 2,
+        win = this.window;
 
-    const win = this.window();
-
-    let midPointY = (win.innerHeight / 2) + win.pageYOffset,
-        midPointX = (win.innerWidth / 2) + win.pageXOffset;
+    let midPointY = win.innerHeight / 2,
+        midPointX = win.innerWidth / 2;
 
     midPointY -= height;
     midPointX -= width;
 
     if (midPointY < 20) {
       midPointY = 20;
-    } else if (Bowser.ios) {
-      midPointY -= win.pageYOffset;
     }
 
     if (midPointX < 20) {
       midPointX = 20;
     }
 
+    if (this._content) {
+      // apply height to content based on height of title
+      const titleHeight = this._title ? this._title.offsetHeight : '0';
+      this._content.style.height = `calc(100% - ${titleHeight}px)`;
+    }
+
     this._dialog.style.top = `${midPointY}px`;
     this._dialog.style.left = `${midPointX}px`;
+
+    if (animating === true) {
+      // cause timeout to accommodate dialog animating in
+      setTimeout(() => {
+        this.applyFixedBottom();
+      }, 500);
+    } else {
+      this.applyFixedBottom();
+    }
+  }
+
+  applyFixedBottom = () => {
+    if (!this.appliedFixedBottom && this.shouldHaveFixedBottom()) {
+      this.appliedFixedBottom = true;
+      this.forceUpdate();
+    } else if (this.appliedFixedBottom && !this.shouldHaveFixedBottom()) {
+      this.appliedFixedBottom = false;
+      this.forceUpdate();
+    }
   }
 
   focusDialog() {
+    if (!this._dialog) { return; }
     this._dialog.focus();
+  }
+
+  /**
+   * Determines if the dialog should have a fixed bottom.
+   *
+   * @method shouldHaveFixedBottom
+   * @return {Boolean}
+   */
+  shouldHaveFixedBottom = () => {
+    if (!this._innerContent) { return false; }
+
+    const contentHeight = this._innerContent.offsetHeight + this._innerContent.offsetTop,
+        windowHeight = this.window.innerHeight - this._dialog.offsetTop - 1;
+
+    return contentHeight > windowHeight;
   }
 
   /**
@@ -212,7 +263,10 @@ class Dialog extends Modal {
   get dialogTitle() {
     if (!this.props.title) { return null; }
 
-    let title = this.props.title;
+    let { title } = this.props;
+    const classes = classNames('carbon-dialog__title', {
+      'carbon-dialog__title--has-subheader': this.props.subtitle
+    });
 
     if (typeof title === 'string') {
       title = (
@@ -226,7 +280,7 @@ class Dialog extends Modal {
     }
 
     return (
-      <div className='carbon-dialog__title'>{ title }</div>
+      <div className={ classes } ref={ (c) => { this._title = c; } }>{ title }</div>
     );
   }
 
@@ -255,7 +309,10 @@ class Dialog extends Modal {
     return classNames(
       'carbon-dialog__dialog',
       {
-        [`carbon-dialog__dialog--${this.props.size}`]: typeof this.props.size !== 'undefined'
+        [`carbon-dialog__dialog--${this.props.size}`]: typeof this.props.size !== 'undefined',
+        'carbon-dialog__dialog--fixed-bottom': this.appliedFixedBottom,
+        'carbon-dialog__dialog--has-height': this.props.height,
+        'carbon-dialog__dialog--sticky-form-footer': this.props.stickyFormFooter
       }
     );
   }
@@ -284,6 +341,10 @@ class Dialog extends Modal {
     };
   }
 
+  additionalContent() {
+    return null;
+  }
+
   /**
    * Returns the computed HTML for the dialog.
    *
@@ -291,10 +352,21 @@ class Dialog extends Modal {
    * @return {Object} JSX for dialog
    */
   get modalHTML() {
+    let { height } = this.props;
+
+    if (height && !height.match(/px$/)) {
+      height = `${height}px`;
+    }
+
     const dialogProps = {
       className: this.dialogClasses,
-      tabIndex: 0
+      tabIndex: 0,
+      style: {
+        minHeight: height
+      }
     };
+
+    const style = {};
 
     if (this.props.ariaRole) {
       dialogProps.role = this.props.ariaRole;
@@ -308,6 +380,10 @@ class Dialog extends Modal {
       dialogProps['aria-describedby'] = 'carbon-dialog-subtitle';
     }
 
+    if (this.props.height) {
+      style.minHeight = `calc(${height} - 40px)`;
+    }
+
     return (
       <div
         ref={ (d) => { this._dialog = d; } }
@@ -317,8 +393,14 @@ class Dialog extends Modal {
       >
         { this.dialogTitle }
 
-        <div className='carbon-dialog__content'>
-          { this.props.children }
+        <div className='carbon-dialog__content' ref={ (c) => { this._content = c; } }>
+          <div
+            className='carbon-dialog__inner-content' ref={ (c) => { this._innerContent = c; } }
+            style={ style }
+          >
+            { this.props.children }
+            { this.additionalContent() }
+          </div>
         </div>
         { this.closeIcon }
       </div>

@@ -71,19 +71,17 @@ describe('Number', () => {
       });
     });
 
-    describe('when the value porp is undefined', () => {
-      it('sets input value to be null', () => {
+    describe('when the value prop is undefined', () => {
+      it('returns the empty string for input.value', () => {
         instance = TestUtils.renderIntoDocument(<Number
           label={ 'Label' }
           onChange={ spy }
         />);
         input = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
 
-        let setSelectionSpy = jasmine.createSpy();
+        const setSelectionSpy = jasmine.createSpy();
         TestUtils.Simulate.change(input, { target: {value: 'A', setSelectionRange: setSelectionSpy}});
-        it('sets the input value to be null', () => {
-          expect(input.value).toBeNull();
-        });
+        expect(input.value).toBe('');
       });
     });
   });

@@ -1,4 +1,3 @@
-@import "./../../style-config/assets";
 @import "./../../style-config/colors";
 
 .carbon-icon {
@@ -57,9 +56,8 @@ $iconSizes: (
 
 @font-face {
   font-family: 'CarbonIcons';
-  src: url('#{$font-path}/carbon-icons-webfont.woff') format('woff'),
-       url('#{$font-path}/carbon-icons-webfont.ttf') format('truetype'),
-       url('#{$font-path}/carbon-icons-webfont.svg#CarbonIcons') format('svg');
+  src: url(fonts/carbon-icons-webfont.woff) format('woff'),
+       url(fonts/carbon-icons-webfont.ttf) format('truetype');
   font-weight: normal;
   font-style: normal;
 }
@@ -108,7 +106,8 @@ $iconSizes: (
 @include icon(search,         "\e92f");
 @include icon(cross,          "\e91d");
 @include icon(close,          "\e91e"); //Dialog
-@include icon(delete,         "\e90c", none); //TFFM
+@include icon(delete,         "\e90c"); //TFFM
+@include icon(message,        "\e922");
 @include icon(messages,       "\e922");
 @include icon(email,          "\e922");
 @include icon(edit,           "\e93a");
@@ -184,7 +183,7 @@ $iconSizes: (
 @include icon(share,          "\e946");
 @include icon(gift,           "\e941");
 @include icon(mobile,         "\e932");
-@include icon(grid,           "\e952");
+// @include icon(grid,           "\e952"); CHEcK
 @include icon(fit_height,     "\e909");
 @include icon(fit_width,      "\e908");
 @include icon(blocked,        "\e933");
@@ -198,6 +197,18 @@ $iconSizes: (
 @include icon(key,            "\e92b");
 @include icon(credit_card,    "\e91c");
 @include icon(marker,         "\e93f");
+
+
+@include icon(delivery,       "\e959");
+@include icon(filter_new,     "\e954");
+@include icon(view,           "\e957");
+@include icon(disputed,       "\e958");
+@include icon(connect,        "\e955");
+@include icon(chat_notes,     "\e956");
+@include icon(talk,           "\e95a");
+@include icon(split,          "\e952");
+@include icon(disconnect,     "\e953");
+
 
 @include icon(accounts,       1);
 @include icon(accounts_extra, 1);

@@ -1,4 +1,5 @@
 import { EventEmitter } from 'events';
+import { Dispatcher } from './../../flux';
 
 /**
  * A constant used for the change event within this module.
@@ -32,49 +33,41 @@ const CHANGE_EVENT = 'change';
  *   // get the initial data for your store
  *   let data = ImmutableHelper.parse({});
  *
- *   // You should initialize your store with a name, its data and your
- *   // application's dispatcher before exporting it.
+ *   // You should initialize your store with a name and its data.
  *   //
- *   // optional - By defining the history property, the store will collect
+ *   // optional - By enabling history in the opts, the store will collect
  *   // any data interaction. You should only set this if you intend to
  *   // use the data collected.
- *   export default new MyStore("myStore", data, Dispatcher, { history: true });
+ *   // optional - You can pass in a custom dispatcher in the opts.
+ *   export default new MyStore("myStore", data, { history: true });
  *
- * Please note, you should initialize your store with a name, initial data, and
- * your application's dispatcher. You can also pass a fourth param of additional
- * options which allows you to enable history for your store.
+ * Please note, you should initialize your store with a name and initial data.
+ * You can also pass a third param of additional options which allows you to
+ * enable history or supply a custom dispatcher for your store.
  *
  * @class Store
  * @param {String} name
  * @param {Object} data
- * @param {Object} Dispatcher
  * @param {Object} opts
  * @constructor
  * @extends EventEmitter
  */
 export default class Store extends EventEmitter {
+  constructor(name, data, opts = {}) {
+    super(name, data, opts);
 
-  constructor(name, data, Dispatcher, opts = {}) {
-    super(name, data, Dispatcher, opts);
+    this.setMaxListeners(50);
+
+    const suffix = `Check the initialization of ${this.constructor.name}.`;
 
     // tell the developer if they have not defined the name property.
     if (!name) {
-      throw new Error(
-        `You need to initialize your store with a name. Check the initialization of ${this.constructor.name}.`
-      );
+      throw new Error(`You need to initialize your store with a name. ${suffix}`);
     }
 
     // tell the developer if they have not defined the data property.
     if (!data) {
-      throw new Error(
-        `You need to initialize your store with data. Check the initialization of ${this.constructor.name}.`
-      );
-    }
-
-    // it is required to initialize the store with the dispatcher so we can register
-    // the store with it and store the dispatchToken
-    if (!Dispatcher) {
-      throw new Error(`You need to initialize your store with your application's dispatcher. Check the initialization of ${this.constructor.name}.`);
+      throw new Error(`You need to initialize your store with data. ${suffix}`);
     }
 
     /**
@@ -93,6 +86,8 @@ export default class Store extends EventEmitter {
      */
     this.data = data;
 
+    // we either use a dispatcher passed through the options, or use the default one
+    const dispatcher = opts.dispatcher || Dispatcher;
     /**
      * Store the dispatchToken after registering with the dispatcher, this will
      * allow us to use the waitFor API provided by flux
@@ -101,7 +96,7 @@ export default class Store extends EventEmitter {
      * @property dispatchToken
      * @type {String}
      */
-    this.dispatchToken = Dispatcher.register(this.dispatcherCallback);
+    this.dispatchToken = dispatcher.register(this.dispatcherCallback);
 
     /**
      * Array to store the history, set with the initial data.
@@ -117,7 +112,7 @@ export default class Store extends EventEmitter {
      * @property trackHistory
      * @type {Boolean}
      */
-    this.trackHistory = opts.history ? true : false;
+    this.trackHistory = !!opts.history;
   }
 
   /**
@@ -217,5 +212,4 @@ export default class Store extends EventEmitter {
     // we use the store name so the view component knows which store updated
     this.emit(CHANGE_EVENT, this.name);
   }
-
 }

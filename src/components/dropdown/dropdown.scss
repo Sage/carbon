@@ -7,18 +7,11 @@
 $dropdown-input-icon-width: 20px !default;
 
 .carbon-dropdown__list-block {
-  left: 0;
-  position: absolute;
-  right: 0;
-  z-index: $z-dropdown-list;
+  position: relative;
 
   .common-input--label-inline & {
     left: $grid-margin;
   }
-}
-
-.carbon-dropdown__list-hidden {
-  @include visually-hidden
 }
 
 .carbon-dropdown__list {

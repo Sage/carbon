@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { keys } from 'lodash';
-import Form from './../../../components/form';
 
 /**
 * Browser Helper
@@ -11,13 +10,22 @@ import Form from './../../../components/form';
 *
 */
 const Browser = {
+  isDomAvailable: () => {
+    const _window = Browser.getWindow();
+    const _document = Browser.getDocument();
+    return (!!(
+      typeof _window !== 'undefined' &&
+      _document &&
+      _document.createElement
+    ));
+  },
   /**
    * Get the current window
    *
    * @return window
    */
   getWindow: () => {
-    return window;
+    return global.window;
   },
 
   /**
@@ -47,6 +55,17 @@ const Browser = {
    */
   redirectTo: (url) => {
     Browser.getWindow().location = url;
+  },
+
+  /**
+   * Redirects to URL after the given number of seconds have elapsed
+   *
+   * @method redirectAfter
+   * @param url => URL string format
+   * @param seconds => the number of seconds to wait before redirecting
+   */
+  redirectAfter: (url, seconds) => {
+    return setTimeout(() => Browser.redirectTo(url), seconds * 1000);
   },
 
   /**
@@ -143,13 +162,21 @@ const Browser = {
     }
 
     ReactDOM.render((
-      <Form action={ url } method='post' target={ target } save={ false } cancel={ false }>
+      <form
+        action={ url } method='post'
+        target={ target }
+      >
         { keys(data).map((key) => {
-          return <input type='hidden' key={ key } name={ key } value={ data[key] } />;
+          return (
+            <input
+              type='hidden' key={ key }
+              name={ key } value={ data[key] }
+            />
+          );
         }) }
-      </Form>
+      </form>
     ), container, function() {
-      Browser.submitForm(this._form);
+      Browser.submitForm(this);
     });
     ReactDOM.unmountComponentAtNode(container);
   },

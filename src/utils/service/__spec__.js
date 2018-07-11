@@ -1,6 +1,6 @@
+import { assign } from 'lodash';
 import moxios from 'moxios';
 import Service from './service';
-import { assign } from 'lodash';
 
 describe('Service', () => {
   let service, onSuccessSpy, onErrorSpy;
@@ -15,18 +15,20 @@ describe('Service', () => {
       onError: onErrorSpy
     });
     // init an instance of the service
-    service = new Service;
+    service = new Service();
   });
 
   describe('constructor', () => {
     it('sets the headers of the axios client', () => {
-      let headers = service.client.defaults.headers;
-      expect(headers['Accept']).toEqual('application/json');
+      const headers = service.client.defaults.headers;
+      expect(headers.Accept).toEqual('application/json');
       expect(headers['Content-Type']).toEqual('application/json');
     });
 
     it('sets the transformResponse of the axios client', () => {
-      expect(service.client.defaults.transformResponse[0]).toEqual(service.responseTransform);
+      spyOn(JSON, 'parse');
+      service.client.defaults.transformResponse[0]('test');
+      expect(JSON.parse).toHaveBeenCalledWith('test');
     });
 
     it('sets the interceptors of the axios client', () => {
@@ -47,7 +49,7 @@ describe('Service', () => {
   describe('handleSuccess', () => {
     describe('when there is no message in the response', () => {
       it('returns the data', () => {
-        let data = { foo: true };
+        const data = { foo: true };
         expect(service.handleSuccess({ data })).toEqual(data);
       });
     });
@@ -55,16 +57,17 @@ describe('Service', () => {
     describe('when there is a message in the response', () => {
       describe('if the status is error', () => {
         let response;
+        const data = { message: 'message', status: 'error' };
 
         beforeEach(() => {
           spyOn(Promise, 'reject');
-          response = { data: { message: 'message', status: 'error' } };
+          response = { data };
         });
 
         describe('if global callbacks are enabled', () => {
           it('calls onError', () => {
             service.handleSuccess(response);
-            expect(onErrorSpy).toHaveBeenCalledWith('message');
+            expect(onErrorSpy).toHaveBeenCalledWith(data);
             expect(Promise.reject).toHaveBeenCalledWith(response);
           });
         });
@@ -81,10 +84,12 @@ describe('Service', () => {
       });
 
       describe('if the status is not error', () => {
+        const data = { message: 'message', status: 'ok' };
+
         describe('if global callbacks are enabled', () => {
           it('calls onSuccess', () => {
-            service.handleSuccess({ data: { message: 'message' } });
-            expect(onSuccessSpy).toHaveBeenCalledWith('message');
+            service.handleSuccess({ data });
+            expect(onSuccessSpy).toHaveBeenCalledWith(data);
           });
         });
 
@@ -158,13 +163,12 @@ describe('Service', () => {
       moxios.uninstall(service.client);
     });
 
-    let testEndpoint = (done, status, spy) => {
+    const testEndpoint = (done, status, spy) => {
       moxios.wait(() => {
-        let request = moxios.requests.mostRecent(),
+        const request = moxios.requests.mostRecent(),
             data = { data: {} };
-
         request.respondWith({
-          status: status,
+          status,
           response: JSON.stringify(data)
         }).then((response) => {
           expect(spy).toHaveBeenCalled();
@@ -174,30 +178,94 @@ describe('Service', () => {
     };
 
     describe('errors', () => {
-      it('calls the GET endpoint', (done) => {
-        service.get(5, successSpy, errorSpy);
-        testEndpoint(done, 400, errorSpy);
+      describe('GET with object params', () => {
+        it('calls the GET endpoint with query params', (done) => {
+          service.get(5,
+            {
+              params: { foo: 'bar' },
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          testEndpoint(done, 400, errorSpy);
+        });
+
+        it('calls the GET endpoint without query params', (done) => {
+          service.get(5,
+            {
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          testEndpoint(done, 400, errorSpy);
+        });
       });
 
-      it('calls the POST endpoint', (done) => {
-        service.post({}, successSpy, errorSpy);
-        testEndpoint(done, 400, errorSpy);
+      describe('POST with object params', () => {
+        it('calls the POST endpoint with query params', (done) => {
+          service.post({},
+            {
+              params: { foo: 'bar' },
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          testEndpoint(done, 400, errorSpy);
+        });
+
+        it('calls the POST endpoint without query params', (done) => {
+          service.post({},
+            {
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          testEndpoint(done, 400, errorSpy);
+        });
       });
 
-      it('calls the PUT endpoint', (done) => {
-        service.put(1, {}, successSpy, errorSpy);
-        testEndpoint(done, 400, errorSpy);
+      describe('PUT with object params', () => {
+        it('calls the PUT endpoint with query params', (done) => {
+          service.put(1, {},
+            {
+              params: { foo: 'bar' },
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          testEndpoint(done, 400, errorSpy);
+        });
+
+        it('calls the PUT endpoint without query params', (done) => {
+          service.put(1, {},
+            {
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          testEndpoint(done, 400, errorSpy);
+        });
       });
 
-      it('calls the DEL endpoint', (done) => {
-        service.delete(1, successSpy, errorSpy);
-        testEndpoint(done, 400, errorSpy);
+      describe('DELETE with object params', () => {
+        it('calls the DELETE endpoint with query params', (done) => {
+          service.delete(1,
+            {
+              params: { foo: 'bar' },
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          testEndpoint(done, 400, errorSpy);
+        });
+
+        it('calls the DELETE endpoint without query params', (done) => {
+          service.delete(1,
+            {
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          testEndpoint(done, 400, errorSpy);
+        });
       });
 
       it('without an error callback', (done) => {
         service.delete(1, successSpy);
         moxios.wait(() => {
-          let request = moxios.requests.mostRecent(),
+          const request = moxios.requests.mostRecent(),
               data = { data: {} };
 
           request.respondWith({
@@ -212,37 +280,52 @@ describe('Service', () => {
     });
 
     describe('success', () => {
-      it('calls the GET endpoint', (done) => {
-        service.get(5, successSpy, errorSpy);
-        testEndpoint(done, 200, successSpy);
+      describe('GET with object params', () => {
+        it('calls the GET endpoint', (done) => {
+          service.get(5,
+            {
+              params: { foo: 'bar' },
+              onError: errorSpy,
+              onSuccess: successSpy
+            }
+          );
+          testEndpoint(done, 200, successSpy);
+        });
       });
 
-      it('calls the POST endpoint', (done) => {
-        service.post({}, successSpy, errorSpy);
-        testEndpoint(done, 200, successSpy);
-      });
+      describe('DELETE with no_content response', () => {
+        it('calls the DELETE endpoint', (done) => {
+          service.delete(1,
+            {
+              onSuccess: successSpy,
+              onError: errorSpy
+            });
+          moxios.wait(() => {
+            const request = moxios.requests.mostRecent();
 
-      it('calls the PUT endpoint', (done) => {
-        service.put(1, {}, successSpy, errorSpy);
-        testEndpoint(done, 200, successSpy);
-      });
-
-      it('calls the DEL endpoint', (done) => {
-        service.delete(1, successSpy, errorSpy);
-        testEndpoint(done, 200, successSpy);
+            request.respondWith({
+              status: 204,
+              response: ''
+            }).then((response) => {
+              expect(successSpy).toHaveBeenCalled();
+              expect(errorSpy).not.toHaveBeenCalled();
+              done();
+            });
+          });
+        });
       });
     });
 
     describe('with a transformRequest', () => {
       it('transforms the data', (done) => {
         service.setTransformRequest((data) => {
-          let d = { bar: 'custom' };
+          const d = { bar: 'custom' };
           return JSON.stringify(d);
         });
-        service.post({ foo: "posted" }, () => {}, () => {});
+        service.post({ foo: 'posted' }, () => {}, () => {});
 
         moxios.wait(() => {
-          let request = moxios.requests.mostRecent();
+          const request = moxios.requests.mostRecent();
           expect(request.config.data).toEqual(JSON.stringify({ bar: 'custom' }));
           done();
         });
@@ -250,23 +333,23 @@ describe('Service', () => {
     });
 
     describe('with a transformResponse', () => {
-      it('transforms the data', () => {
-        service.setTransformResponse((data) => {
-          let d = assign({}, data, { bar: 'custom' });
-          return JSON.stringify(d);
-        });
+      it('transforms the data', (done) => {
+        const transformSpy = jest.fn();
+        service.setTransformResponse(transformSpy);
         service.get(1, () => {}, () => {});
 
         moxios.wait(() => {
-          let request = moxios.requests.mostRecent();
+          const request = moxios.requests.mostRecent();
 
           request.respondWith({
             status: 200,
             response: JSON.stringify({ foo: 'responded' })
           }).then((response) => {
-            expect(response.data).toEqual(
-              JSON.stringify({ foo: 'responded', bar: 'custom' })
-            );
+            // ideally we would test the response data to see it has changed it
+            // as expected - however moxios does not seem to feed the transformed
+            // data through to the mocked response
+            expect(transformSpy).toHaveBeenCalledWith({ foo: 'responded' });
+            done();
           });
         });
       });

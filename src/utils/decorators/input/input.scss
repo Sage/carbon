@@ -7,32 +7,10 @@
 .common-input {
   position: relative;
 
-  .common-input__message {
-    opacity: 0;
-    transition: opacity 0.2s 1.3s, visibility 0s 1.5s;
-    visibility: hidden;
-  }
-
-  &--message-hidden .common-input__message {
-    opacity: 0;
-    transition: none;
-    visibility: hidden;
-  }
-
-  &--message-shown .common-input__message.common-input__message {
-    opacity: 1;
-    transition: opacity 0s 0s, visibility 0s 0s;
-    visibility: visible;
-  }
-
   .carbon-fieldset + &,
   + .carbon-fieldset,
   + .common-input {
     margin-top: 10px;
-  }
-
-  &:hover .common-input__field .common-input__input {
-    border-color: $input-active-border-color;
   }
 }
 
@@ -42,7 +20,8 @@
     border: none;
 
     &:active,
-    &:focus {
+    &:focus,
+    &:hover {
       box-shadow: none;
     }
   }
@@ -107,10 +86,9 @@
   }
 
   &:active,
+  &:hover,
   &:focus {
-    border-color: $input-active-border-color;
-    box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
-    @include transition(box-shadow linear 0.1s);
+    @include input-outline($input-active-border-color);
   }
 
   .common-input--disabled &,
@@ -119,7 +97,8 @@
     border-color: $grey !important; // this is the correct use of !important
 
     &:active,
-    &:focus {
+    &:focus,
+    &:hover {
       box-shadow: none;
     }
   }
@@ -148,15 +127,14 @@
   box-sizing: border-box;
   font-weight: 600;
   opacity: 0;
-  left: 9999px; // show offscreen until it is positioned correctly
   margin-top: $arrow-size;
   max-width: 260px;
   min-width: 50px;
   padding: 10px;
   position: absolute;
   text-align: center;
+  width: 100%;
   width: fit-content;
-  width: -moz-fit-content;
   z-index: $z-validation-message;
 
   &:before {
@@ -170,13 +148,14 @@
   }
 }
 
-.common-input__message--hidden {
-  display: none;
+.common-input__message--fade {
+  opacity: 0;
+  transition: opacity 0.2s 0.8s, visibility 0s 1.8s;
+  visibility: hidden;
 }
 
-.common-input__message--locked.common-input__message {
+.common-input__message--shown.common-input__message {
   opacity: 1;
-  transition: none;
   visibility: visible;
 }
 
@@ -276,10 +255,14 @@
   .common-input__input--#{$type},
   .common-input__input--#{$type}:hover {
     border-color: $color !important; // this is the correct use of !important
-    position: relative;
+  }
+}
+
+.common-input--error,
+.common-input--warning {
+  .carbon-icon {
     z-index: 1;
   }
-
 }
 
 /**

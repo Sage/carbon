@@ -5,6 +5,7 @@ import I18n from 'i18n-js';
 import classNames from 'classnames';
 import escapeStringRegexp from 'escape-string-regexp';
 import Dropdown from './../dropdown';
+import Link from './../link';
 
 /**
  * A dropdown filter widget.
@@ -108,6 +109,22 @@ class DropdownFilter extends Dropdown {
      * @type {Function}
      */
     create: PropTypes.func,
+
+    /**
+     * Customizes text for the create functionality of the dropdown.
+     *
+     * @property createText
+     * @type {String}
+     */
+    createText: PropTypes.string,
+
+    /**
+     * Customizes the Carbon Icon type for the create functionality of the dropdown.
+     *
+     * @property createIconType
+     * @type {String}
+     */
+    createIconType: PropTypes.string,
 
     /**
      * Should the dropdown act and look like a suggestable input instead.
@@ -259,7 +276,7 @@ class DropdownFilter extends Dropdown {
   prepareList = (options) => {
     let filteredOptions;
     if ((this.writeable || !this.openingList) && typeof this.state.filter === 'string') {
-      const filter = this.state.filter;
+      const { filter } = this.state;
       const regex = new RegExp(escapeStringRegexp(filter), 'i');
 
       // if user has entered a search filter
@@ -285,7 +302,7 @@ class DropdownFilter extends Dropdown {
 
     if (!items.length) {
       items = (
-        <li className={ 'carbon-dropdown__list-item carbon-dropdown__list-item--no-results' }>
+        <li className='carbon-dropdown__list-item carbon-dropdown__list-item--no-results'>
           {
             I18n.t('dropdownlist.no_results', {
               defaultValue: 'No results match "%{term}"',
@@ -328,23 +345,27 @@ class DropdownFilter extends Dropdown {
         html = [original];
 
     if (this.state.open && this.props.create) {
-      let text = 'Create ';
+      let createText = I18n.t('dropdown_filter.create_text', { defaultValue: 'Create' });
 
-      if (this.state.filter) {
-        text += `"${this.state.filter}"`;
+      if (this.props.createText) {
+        createText = this.props.createText;
+      } else if (this.state.filter) {
+        createText += ` "${this.state.filter}"`;
       } else {
-        text += 'New';
+        createText += I18n.t('dropdown_filter.new_text', { defaultValue: ' New' });
       }
 
       html.push(
-        <a
+        <Link
+          icon={ this.props.createIconType || 'add' }
+          iconAlign='left'
           className='carbon-dropdown__action'
           data-element='create'
           key='dropdown-action'
           onClick={ this.handleCreate }
         >
-          { text }
-        </a>
+          { createText }
+        </Link>
       );
     }
 
@@ -400,8 +421,7 @@ class DropdownFilter extends Dropdown {
    */
   get inputProps() {
     const props = super.inputProps;
-
-    let value = props.value;
+    let { value } = props;
 
     if (typeof this.state.filter === 'string') {
       // if filter has a value, use that instead

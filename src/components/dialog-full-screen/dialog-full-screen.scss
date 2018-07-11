@@ -9,11 +9,11 @@
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: $z-dialog;
+  z-index: $z-full-screen-dialog;
 }
 
 .carbon-dialog-full-screen__content {
-  padding: $padding-top-bottom $padding-left-right;
+  padding: $padding-top-bottom 0;
   overflow-y: auto;
   height: calc(100% - #{$padding-top-bottom * 2});
 
@@ -23,12 +23,12 @@
 }
 
 .carbon-dialog-full-screen__close {
-  color: $grey-mid;
+  color: $grey-dark-blue-70;
   cursor: pointer;
   display: block;
   margin-top: -8px;
   position: absolute;
-  right: $padding-left-right;
+  right: 40px;
   top: $title-height / 2;
   z-index: $z-dialog;
 

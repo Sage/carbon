@@ -38,8 +38,8 @@ $carbon-tabs__header__color: $grey-dark !default;
 
   &:focus:not(.carbon-tabs__headers__header--selected),
   &:hover {
-    background: $carbon-tabs__header--selected_border-color;
-    border-bottom-color: $carbon-tabs__header--selected_border-color;
+    background: $azul;
+    border-bottom-color: $azul;
     color: $white;
     outline: none;
   }

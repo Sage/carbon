@@ -1,16 +1,4 @@
 @import './colors';
-@import './assets';
-@import url('https://fonts.googleapis.com/css?family=Lato:300,400,700');
-
-@font-face {
-  font-family: 'Lato';
-  src: local('Lato-Semibold'),
-       local('Lato Semibold'),
-       url('#{$font-path}/Lato-Semibold.woff2') format('woff2'),
-       url('#{$font-path}/Lato-Semibold.woff') format('woff');
-  font-weight: 600;
-  font-style: normal;
-}
 
 $app-font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif !default;
 $app-light-font-family: 'HelveticaNeue-Light', 'Helvetica Neue', Arial, sans-serif !default;

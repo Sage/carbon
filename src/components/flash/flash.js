@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { isObject, isArray, forEach } from 'lodash';
 import shouldComponentUpdate from './../../utils/helpers/should-component-update';
+import Portal from './../portal';
 import Icon from './../icon';
 import Alert from './../alert';
 import Link from './../link';
@@ -50,7 +51,6 @@ import tagComponent from '../../utils/helpers/tags';
  * @constructor
  */
 class Flash extends React.Component {
-
   static propTypes = {
 
     /**
@@ -118,14 +118,24 @@ class Flash extends React.Component {
     timeout: 0
   }
 
-  state = {
-    /**
-     * Keeps track on the open state of each dialog
-     *
-     * @property dialogs
-     * @type {Object}
-     */
-    dialogs: {}
+  constructor(props) {
+    super(props);
+    this.state = {
+      /**
+       * Keeps track of the open state of each dialog
+       *
+       * @property dialogs
+       * @type {Object}
+       */
+      dialogs: {},
+      /**
+       * Keeps track of the open state of the Flash Component
+       *
+       * @property open
+       * @type {Boolean}
+       */
+      open: this.props.open || false
+    };
   }
 
   /**
@@ -134,9 +144,20 @@ class Flash extends React.Component {
    * @method componentWillReceiveProps
    * @return(Void)
    */
-  componentWillReceiveProps(prevProps) {
-    if (prevProps.open !== this.props.open) {
-      this.setState({ dialogs: {} });
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.open === this.props.open) { return; }
+
+    if (this.removePortalTimeout) {
+      clearTimeout(this.removePortalTimeout);
+      this.removePortalTimeout = null;
+    }
+
+    if (nextProps.open) {
+      this.setState({ dialogs: {}, open: nextProps.open });
+    } else {
+      this.removePortalTimeout = setTimeout(() => {
+        this.setState({ open: false });
+      }, 1000);
     }
   }
 
@@ -289,7 +310,7 @@ class Flash extends React.Component {
 
       return <ul>{ items }</ul>;
     }
-      // if just a string, pass it through the find more parser
+    // if just a string, pass it through the find more parser
     return this.findMore(description);
   }
 
@@ -370,7 +391,7 @@ class Flash extends React.Component {
    * @return {String}
    */
   get description() {
-    const message = this.props.message;
+    const { message } = this.props;
 
     if (isObject(message) && message.description) {
       // if defined, return description
@@ -391,11 +412,17 @@ class Flash extends React.Component {
     const contents = [];
 
     // add icon
-    contents.push(<Icon className='carbon-flash__icon' type={ this.iconType } key='icon' />);
+    contents.push(<Icon
+      className='carbon-flash__icon' type={ this.iconType }
+      key='icon'
+    />);
 
     // add message content
     contents.push(
-      <div className='carbon-flash__message' key='message' data-element='message'>
+      <div
+        className='carbon-flash__message' key='message'
+        data-element='message'
+      >
         { this.formatDescription(this.description) }
       </div>
     );
@@ -451,34 +478,38 @@ class Flash extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let flashHTML, sliderHTML;
-
-    if (this.props.open) {
-      flashHTML = this.flashHTML;
-      sliderHTML = this.sliderHTML;
-    }
-
+    const sliderHTML = this.props.open && this.sliderHTML;
+    const flashHTML = this.props.open && this.flashHTML;
     return (
-      <div { ...tagComponent('flash', this.props) }>
-        <div className={ this.classes }>
-          <CSSTransitionGroup
-            transitionName='carbon-flash__slider'
-            transitionEnterTimeout={ 600 }
-            transitionLeaveTimeout={ 600 }
-          >
-            { sliderHTML }
-            <CSSTransitionGroup
-              transitionName='carbon-flash__content'
-              transitionEnterTimeout={ 800 }
-              transitionLeaveTimeout={ 500 }
-            >
-              { flashHTML }
-            </CSSTransitionGroup>
-          </CSSTransitionGroup>
-        </div>
-
-        { this.dialogs }
-      </div>
+      this.state.open && (
+        <Portal>
+          <div { ...tagComponent('flash', this.props) }>
+            <div className={ this.classes }>
+              <CSSTransitionGroup
+                component='div'
+                transitionAppear
+                transitionAppearTimeout={ 500 }
+                transitionName='carbon-flash__slider'
+                transitionEnterTimeout={ 600 }
+                transitionLeave
+                transitionLeaveTimeout={ 600 }
+              >
+                { sliderHTML }
+                <CSSTransitionGroup
+                  component='div'
+                  transitionName='carbon-flash__content'
+                  transitionEnterTimeout={ 200 }
+                  transitionLeave
+                  transitionLeaveTimeout={ 600 }
+                >
+                  { flashHTML }
+                </CSSTransitionGroup>
+              </CSSTransitionGroup>
+            </div>
+            { this.dialogs }
+          </div>
+        </Portal>
+      )
     );
   }
 }

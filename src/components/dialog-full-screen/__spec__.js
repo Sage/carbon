@@ -3,11 +3,16 @@ import { shallow, mount } from 'enzyme';
 import DialogFullScreen from './dialog-full-screen';
 import FullScreenHeading from './full-screen-heading';
 import Button from './../button';
+import guid from '../../utils/helpers/guid';
+import Portal from './../portal';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Icon from './../icon';
 import Heading from './../heading';
+jest.mock('../../utils/helpers/guid')
 
 describe('DialogFullScreen', () => {
+  guid.mockImplementation(() => 'guid-12345');
+
   let instance,
       wrapper;
   const onCancel = jasmine.createSpy('cancel');
@@ -50,10 +55,10 @@ describe('DialogFullScreen', () => {
     beforeEach(() => {
       wrapper = mount(
         <DialogFullScreen
-          onCancel={ onCancel }
-          className='foo'
           open
+          className='foo'
           title='my title'
+          onCancel={ onCancel }
         >
           <Button>Button</Button>
           <Button>Button</Button>
@@ -68,7 +73,7 @@ describe('DialogFullScreen', () => {
 
     it('renders the dialog', () => {
       expect(instance._dialog).toBeTruthy();
-      expect(instance._dialog.className).toEqual('carbon-dialog-full-screen__dialog');
+      expect(instance._dialog.className).toEqual('carbon-dialog-full-screen__dialog modal-appear');
     });
 
     it('closes when the exit icon is click', () => {
@@ -84,13 +89,19 @@ describe('DialogFullScreen', () => {
 
   describe('onOpening', () => {
     beforeEach(() => {
+      jest.useFakeTimers();
       wrapper = mount(<DialogFullScreen open={ false } />);
       wrapper.setProps({ open: true });
+      jest.runAllTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
     });
 
     it('adds a carbon-dialog-full-screen--open class to the body', () => {
       const html = wrapper.instance().document.documentElement;
-      expect(html.className).toEqual('carbon-dialog-full-screen--open');
+      expect(html.className).toMatch('carbon-dialog-full-screen--open');
     });
   });
 
@@ -102,9 +113,9 @@ describe('DialogFullScreen', () => {
 
     it('removes a carbon-dialog-full-screen--open class to the body', () => {
       const html = wrapper.instance().document.documentElement;
-      expect(html.className).toEqual('carbon-dialog-full-screen--open');
+      expect(html.className).toMatch('carbon-dialog-full-screen--open');
       wrapper.setProps({ open: false });
-      expect(html.className).toEqual('');
+      expect(html.className).not.toMatch('carbon-dialog-full-screen--open');
     });
   });
 
@@ -136,8 +147,8 @@ describe('DialogFullScreen', () => {
       });
 
       it('renders the component in a full screen heading', () => {
-        const fullScrenHeading = wrapper.find(FullScreenHeading),
-            heading = fullScrenHeading.children().first();
+        const fullScreenHeading = wrapper.find(FullScreenHeading),
+            heading = fullScreenHeading.find(Heading);
 
         expect(heading.props().title).toEqual('my custom heading');
       });
@@ -146,35 +157,19 @@ describe('DialogFullScreen', () => {
 
   describe('tags', () => {
     describe('on component', () => {
-      it('include correct component, element and role data tags', () => {
-        wrapper = shallow(
+      it('include correct component, elements and role data tags', () => {
+        wrapper = mount(
           <DialogFullScreen
-            data-element='bar'
+            open
             onCancel={ () => {} }
             onConfirm={ () => {} }
-            open
+            title='Test'
             data-role='baz'
+            data-element='bar'
           />
         );
-
-        rootTagTest(wrapper, 'dialog-full-screen', 'bar', 'baz');
+        expect(wrapper).toMatchSnapshot();
       });
-    });
-
-    describe('on internal elements', () => {
-      const dialog = shallow(
-        <DialogFullScreen
-          onCancel={ () => {} }
-          onConfirm={ () => {} }
-          open
-          title='Test'
-        />
-      );
-
-      elementsTagTest(dialog, [
-        'close',
-        'content'
-      ]);
     });
   });
 });

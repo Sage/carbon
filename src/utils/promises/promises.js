@@ -1,3 +1,1 @@
-import promise from 'es6-promise';
-
-promise.polyfill();
+import 'core-js/es6/promise';

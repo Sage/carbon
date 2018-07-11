@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
 import Form from './form';
 import Textbox from './../textbox';
+import Portal from './../portal';
 import Validation from './../../utils/validations/presence';
 import ImmutableHelper from './../../utils/helpers/immutable';
 import Dialog from './../dialog';
@@ -12,9 +13,12 @@ import SaveButton from './save-button';
 import FormSummary from './form-summary';
 import Button from './../button';
 import MultiActionButton from './../multi-action-button';
+import ElementResize from './../../utils/helpers/element-resize';
 
 import { mount, shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+
+/* global jest */
 
 describe('Form', () => {
   let instance, wrapper;
@@ -28,6 +32,45 @@ describe('Form', () => {
   describe('initialize', () => {
     it('sets the errorCount to 0', () => {
       expect(instance.state.errorCount).toEqual(0);
+    });
+  });
+
+  describe('componentWillReceiveProps', () => {
+    describe('when stickyFooter is enabled', () => {
+      it('adds the listeners', () => {
+        wrapper = shallow(<Form />);
+
+        spyOn(wrapper.instance(), 'addStickyFooterListeners');
+        wrapper.setProps({ stickyFooter: true });
+        expect(wrapper.instance().addStickyFooterListeners).toHaveBeenCalled();
+      });
+    });
+
+    describe('when stickyFooter is disabled', () => {
+      it('removes the listeners', () => {
+        wrapper = shallow(<Form stickyFooter />);
+        spyOn(wrapper.instance(), 'removeStickyFooterListeners');
+        wrapper.setProps({ stickyFooter: false });
+        expect(wrapper.instance().removeStickyFooterListeners).toHaveBeenCalled();
+      });
+    });
+
+    describe('when unsavedWarning is enabled', () => {
+      it('adds the listeners', () => {
+        wrapper = shallow(<Form unsavedWarning={ false } />);
+        spyOn(wrapper.instance(), 'addUnsavedWarningListener');
+        wrapper.setProps({ unsavedWarning: true });
+        expect(wrapper.instance().addUnsavedWarningListener).toHaveBeenCalled();
+      });
+    });
+
+    describe('when unsavedWarning is disabled', () => {
+      it('removes the listeners', () => {
+        wrapper = shallow(<Form unsavedWarning={ true } />);
+        spyOn(wrapper.instance(), 'removeUnsavedWarningListener');
+        wrapper.setProps({ unsavedWarning: false });
+        expect(wrapper.instance().removeUnsavedWarningListener).toHaveBeenCalled();
+      });
     });
   });
 
@@ -46,6 +89,132 @@ describe('Form', () => {
         expect(instance.validate).toHaveBeenCalled();
       });
     });
+
+    it('adds sticky footer listeners is enabled', () => {
+      wrapper = shallow(<Form stickyFooter />);
+      spyOn(wrapper.instance(), 'addStickyFooterListeners');
+      wrapper.instance().componentDidMount();
+      expect(wrapper.instance().addStickyFooterListeners).toHaveBeenCalled();
+    });
+  });
+
+  describe('componentWillUnmount', () => {
+    it('does not remove sticky footer listeners if not enabled', () => {
+      wrapper = shallow(<Form />);
+      spyOn(wrapper.instance(), 'removeStickyFooterListeners');
+      wrapper.instance().componentWillUnmount();
+      expect(wrapper.instance().removeStickyFooterListeners).not.toHaveBeenCalled();
+    });
+
+    it('removes sticky footer listeners if enabled', () => {
+      wrapper = shallow(<Form stickyFooter />);
+      spyOn(wrapper.instance(), 'removeStickyFooterListeners');
+      wrapper.instance().componentWillUnmount();
+      expect(wrapper.instance().removeStickyFooterListeners).toHaveBeenCalled();
+    });
+
+    it('does not remove unsaved warning listeners if not enabled', () => {
+      wrapper = shallow(<Form unsavedWarning= { false } />);
+      spyOn(wrapper.instance(), 'removeUnsavedWarningListener');
+      wrapper.instance().componentWillUnmount();
+      expect(wrapper.instance().removeUnsavedWarningListener).not.toHaveBeenCalled();
+    });
+
+    it('removes unsaved warning listeners if enabled', () => {
+      wrapper = shallow(<Form unsavedWarning />);
+      spyOn(wrapper.instance(), 'removeUnsavedWarningListener');
+      wrapper.instance().componentWillUnmount();
+      expect(wrapper.instance().removeUnsavedWarningListener).toHaveBeenCalled();
+    });
+  });
+
+  describe('addStickyFooterListeners', () => {
+    beforeEach(() => {
+      wrapper = shallow(<Form />);
+      instance = wrapper.instance();
+      instance._form = {};
+      spyOn(instance, 'checkStickyFooter');
+      spyOn(ElementResize, 'addListener');
+      spyOn(instance._window, 'addEventListener');
+    });
+
+    it('calls checkStickyFooter', () => {
+      instance.addStickyFooterListeners();
+      expect(instance.checkStickyFooter).toHaveBeenCalled();
+    });
+
+    it('sets up listeners', () => {
+      instance.addStickyFooterListeners();
+      expect(ElementResize.addListener).toHaveBeenCalledWith(instance._form, instance.checkStickyFooter);
+      expect(instance._window.addEventListener).toHaveBeenCalledWith('resize', instance.checkStickyFooter);
+      expect(instance._window.addEventListener).toHaveBeenCalledWith('scroll', instance.checkStickyFooter);
+    });
+  });
+
+  describe('removeStickyFooterListeners', () => {
+    beforeEach(() => {
+      wrapper = shallow(<Form />);
+      instance = wrapper.instance();
+      instance._form = {};
+      spyOn(ElementResize, 'removeListener');
+      spyOn(instance._window, 'removeEventListener');
+    });
+
+    it('removes listeners', () => {
+      instance.removeStickyFooterListeners();
+      expect(ElementResize.removeListener).toHaveBeenCalledWith(instance._form, instance.checkStickyFooter);
+      expect(instance._window.removeEventListener).toHaveBeenCalledWith('resize', instance.checkStickyFooter);
+      expect(instance._window.removeEventListener).toHaveBeenCalledWith('scroll', instance.checkStickyFooter);
+    });
+  });
+
+  describe('checkStickyFooter', () => {
+    beforeEach(() => {
+      wrapper = shallow(<Form />);
+    });
+
+    it('sets stickyFooter state to true if form is bigger than window', () => {
+      wrapper.setState({ stickyFooter: false });
+      wrapper.instance()._form = {
+        offsetTop: 10,
+        offsetHeight: 10
+      };
+      wrapper.instance()._window = {
+        pageYOffset: 10,
+        innerHeight: 1
+      };
+
+      wrapper.instance().checkStickyFooter();
+      expect(wrapper.state().stickyFooter).toBeTruthy();
+    });
+
+    it('sets stickyFooter state to false if form is smaller than window', () => {
+      wrapper.setState({ stickyFooter: true });
+      wrapper.instance()._form = {
+        offsetTop: 10,
+        offsetHeight: 10
+      };
+      wrapper.instance()._window = {
+        pageYOffset: 10,
+        innerHeight: 100
+      };
+      wrapper.instance().checkStickyFooter();
+      expect(wrapper.state().stickyFooter).toBeFalsy();
+    });
+
+    it('does not change stickyFooter state if it does not need to change', () => {
+      wrapper.setState({ stickyFooter: false });
+      wrapper.instance()._form = {
+        offsetTop: 10,
+        offsetHeight: 10
+      };
+      wrapper.instance()._window = {
+        pageYOffset: 10,
+        innerHeight: 100
+      };
+      wrapper.instance().checkStickyFooter();
+      expect(wrapper.state().stickyFooter).toBeFalsy();
+    });
   });
 
   describe('getChildContext', () => {
@@ -61,7 +230,9 @@ describe('Form', () => {
             incrementWarningCount: instance.incrementWarningCount,
             decrementWarningCount: instance.decrementWarningCount,
             inputs: instance.inputs,
+            resetIsDirty: instance.resetIsDirty,
             setActiveInput: instance.setActiveInput,
+            setIsDirty: instance.setIsDirty,
             validate: instance.validate
           }
         }
@@ -149,7 +320,7 @@ describe('Form', () => {
     });
   });
 
-  describe("setActiveInput()", () => {
+  describe("setActiveInput", () => {
     it("sets the active input to be the input parameter", () => {
       instance.setActiveInput(1);
       expect(instance.activeInput).toEqual(1);
@@ -160,6 +331,39 @@ describe('Form', () => {
       instance.setActiveInput({ immediatelyHideMessage: immediatelyHideMessageSpy });
       instance.setActiveInput({  });
       expect(immediatelyHideMessageSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe("setIsDirty", () => {
+    it("sets the form to be classed as dirty if clean", () => {
+      expect(instance.state.isDirty).toEqual(false);
+      instance.setIsDirty();
+      expect(instance.state.isDirty).toEqual(true);
+      instance.setIsDirty();
+      expect(instance.state.isDirty).toEqual(true);
+    });
+  });
+
+  describe("resetIsDirty", () => {
+    it("resets the form to be classed as clean if dirty", () => {
+      instance.setIsDirty();
+      expect(instance.state.isDirty).toEqual(true);
+      instance.resetIsDirty();
+      expect(instance.state.isDirty).toEqual(false);
+      instance.resetIsDirty();
+      expect(instance.state.isDirty).toEqual(false);
+    });
+  });
+
+  describe("checkIsFormDirty", () => {
+    it("if form is dirty, return a message and trigger a popup", () => {
+      instance.setIsDirty();
+      expect(instance.checkIsFormDirty(Event)).toEqual(I18n.t('form.save_prompt', { defaultValue: 'Do you want to leave this page? Changes that you made may not be saved.' }));
+    });
+
+    it("if form is clean, return an empty string", () => {
+      instance.resetIsDirty();
+      expect(instance.checkIsFormDirty(Event)).toBeUndefined();
     });
   });
 
@@ -199,18 +403,77 @@ describe('Form', () => {
       });
     });
 
+    describe('when autoDisabled prop is passed,', () => {
+      it('state.submitted should be false', () => {
+        let spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form autoDisabled onSubmit={ spy }>
+            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+          </Form>
+        );
+        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+        expect(instance.state.submitted).toBe(false);
+      });
+
+      it('state.submitted should be true after form has been submitted', () => {
+        const spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form autoDisable onSubmit={ spy }>
+            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+          </Form>
+        );
+        const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+        expect(instance.state.submitted).toBe(true);
+      });
+
+      it('form has been submitted and enableFormFunc called, state.submitted to be false ', () => {
+        const spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form autoDisable onSubmit={ spy }>
+            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+          </Form>
+        );
+        const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+
+        const enableFormFunc = spy.calls.first().args[2];
+        expect(enableFormFunc).toBe(instance.enableForm);
+
+        enableFormFunc();
+        expect(instance.state.submitted).toBe(false);
+      });
+    });
+
+    describe('when autoDisabled prop is NOT passed,', () => {
+      it('after submit', () => {
+        const spy = jasmine.createSpy('spy');
+        instance = TestUtils.renderIntoDocument(
+          <Form >
+            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+          </Form>
+        );
+        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+        expect(instance.state.submitted).toBe(false);
+      });
+    });
+
     describe('when a onSubmit prop is passed', () => {
       describe('and the form is valid', () => {
         it('calls the onSubmit prop', () => {
-          let spy = jasmine.createSpy('spy');
+          const spy = jasmine.createSpy('spy');
+
           instance = TestUtils.renderIntoDocument(
             <Form onSubmit={ spy }>
               <Textbox validations={ [new Validation()] } name='test' value='Valid' />
             </Form>
           );
-          let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+
+          const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
           TestUtils.Simulate.submit(form);
-          expect(spy).toHaveBeenCalled();
+          expect(spy).toHaveBeenCalledWith(jasmine.any(Object), true, instance.enableForm);
         });
       });
 
@@ -306,7 +569,7 @@ describe('Form', () => {
     describe('when the form is inside a dialog', () => {
       it('uses the dialogs cancel handler instead', () => {
         let spy = jasmine.createSpy('onCancel');
-        let nestedInstance = TestUtils.renderIntoDocument(
+        let nestedInstance = mount(
           <Dialog
             title="test"
             open={ true }
@@ -320,8 +583,9 @@ describe('Form', () => {
             </Form>
           </Dialog>
         )
-        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(nestedInstance, 'button')[1];
-        TestUtils.Simulate.click(cancel);
+
+        let cancel = nestedInstance.find('button').last();
+        cancel.simulate('click');
         expect(spy).toHaveBeenCalled();
       });
     });
@@ -344,6 +608,14 @@ describe('Form', () => {
   describe('mainClasses', () => {
     it('returns the carbon-form class', () => {
       expect(instance.mainClasses).toEqual('carbon-form');
+    });
+  });
+
+  describe('stickyFooterPadding', () => {
+    it('adds padding if defined', () => {
+      wrapper = shallow(<Form stickyFooterPadding="500" />);
+      const footer = wrapper.find('.carbon-form__buttons');
+      expect(footer.props().style.borderWidth).toEqual('500px');
     });
   });
 
@@ -375,12 +647,18 @@ describe('Form', () => {
       let csrf;
 
       beforeEach(() => {
-        let fakeMeta1 = { getAttribute() {} },
+        const fakeMeta1 = { getAttribute() {} },
             fakeMeta2 = { getAttribute() {} };
 
-        spyOn(fakeMeta1, 'getAttribute').and.returnValue('csrf-param')
-        spyOn(fakeMeta2, 'getAttribute').and.returnValue('csrf-token')
-        spyOn(instance._document, 'getElementsByTagName').and.returnValue( [ fakeMeta1, fakeMeta2 ] );
+        fakeMeta1.getAttribute = jest.fn();
+        fakeMeta2.getAttribute = jest.fn();
+        fakeMeta1.getAttribute.mockReturnValue('csrf-param');
+        fakeMeta2.getAttribute.mockReturnValue('csrf-token');
+
+        instance._document.querySelector = jest.fn();
+        instance._document.querySelector
+          .mockReturnValueOnce(fakeMeta1)
+          .mockReturnValue(fakeMeta2);
 
         instance = TestUtils.renderIntoDocument(<Form />);
 
@@ -532,18 +810,31 @@ describe('Form', () => {
       describe('if none defined', () => {
         it('returns null', () => {
           let instance = TestUtils.renderIntoDocument(<Form />);
-          expect(instance.additionalActions).toBe(null);
+          expect(instance.additionalActions('additionalActions')).toBe(null);
         });
       });
 
       describe('if defined', () => {
         it('returns the action', () => {
           let instance = TestUtils.renderIntoDocument(<Form additionalActions={ <span /> } />);
-          expect(instance.additionalActions.props.className).toEqual("carbon-form__additional-actions");
+          expect(instance.additionalActions('additionalActions').props.className).toEqual("carbon-form__additional-actions");
+        });
+      });
+
+      describe('leftAlignedActions', () => {
+        it('returns the action', () => {
+          let instance = TestUtils.renderIntoDocument(<Form leftAlignedActions={ <span /> } />);
+          expect(instance.additionalActions('leftAlignedActions').props.className).toEqual("carbon-form__left-aligned-actions");
+        });
+      });
+
+      describe('rightAlignedActions', () => {
+        it('returns the action', () => {
+          let instance = TestUtils.renderIntoDocument(<Form rightAlignedActions={ <span /> } />);
+          expect(instance.additionalActions('rightAlignedActions').props.className).toEqual("carbon-form__right-aligned-actions");
         });
       });
     });
-
   });
 
   describe("tags", () => {

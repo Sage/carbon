@@ -5,8 +5,8 @@ import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import { validProps } from '../../utils/ether';
-import PropTypesHelper from '../../utils/helpers/prop-types';
 import tagComponent from '../../utils/helpers/tags';
+import Logger from './../../utils/logger';
 
 /**
  * A decimal widget.
@@ -25,28 +25,7 @@ import tagComponent from '../../utils/helpers/tags';
  * @constructor
  * @decorators {Input,InputLabel,InputValidation}
  */
-const Decimal = Input(InputLabel(InputValidation(
-class Decimal extends React.Component {
-
-  /**
-   * Stores the document - allows us to override it different contexts, such as
-   * when running tests.
-   *
-   * @property _document
-   * @type {document}
-   */
-  _document = document;
-
-  /**
-   * Used within the onClick and onBlur method to
-   * check if the current visible input value is
-   * highlighted
-   *
-   * @property highlighted
-   * @type {Boolean}
-   */
-  highlighted = false;
-
+const Decimal = Input(InputLabel(InputValidation(class Decimal extends React.Component {
   static propTypes = {
 
     // NB align is used in the Input decorator. Removing the prop from here
@@ -79,16 +58,13 @@ class Decimal extends React.Component {
     onKeyDown: PropTypes.func,
 
     /**
-     * Sets the pricision of the field
+     * Sets the precision of the field
      *
      * @property precision
      * @type {Integer}
      * @default 2
      */
-    precision: (props, propName, componentName) => {
-      return PropTypesHelper.inValidRange(props, propName, componentName, 0, 20);
-    },
-
+    precision: PropTypes.number,
     /**
      * The value of the Number input element
      *
@@ -111,6 +87,34 @@ class Decimal extends React.Component {
     precision: 2
   };
 
+  /**
+   * Stores the document - allows us to override it different contexts, such as
+   * when running tests.
+   *
+   * @property _document
+   * @type {document}
+   */
+  _document = document;
+
+  /**
+   * Used within the onClick and onBlur method to
+   * check if the current visible input value is
+   * highlighted
+   *
+   * @property highlighted
+   * @type {Boolean}
+   */
+  highlighted = false;
+
+  // Caps precision at 20 to prevent browser issues
+  verifiedPrecision = (precision) => {
+    if (precision > 20) {
+      Logger.warn('Decimal precision must not be greater than 20.');
+      return 20;
+    }
+    return precision;
+  }
+
   state = {
     /**
      * The formatted value for display
@@ -118,7 +122,7 @@ class Decimal extends React.Component {
      * @property visibleValue
      * @type {String}
      */
-    visibleValue: I18nHelper.formatDecimal(this.value, this.props.precision)
+    visibleValue: I18nHelper.formatDecimal(this.value, this.verifiedPrecision(this.props.precision))
   };
 
   /**
@@ -133,7 +137,7 @@ class Decimal extends React.Component {
     if (this._document.activeElement !== this._input) {
       let value = newProps.value || 0.00;
       if (canConvertToBigNumber(value)) {
-        value = I18nHelper.formatDecimal(value, newProps.precision);
+        value = I18nHelper.formatDecimal(value, this.verifiedPrecision(newProps.precision));
       }
       this.setState({ visibleValue: value });
     }
@@ -183,7 +187,7 @@ class Decimal extends React.Component {
    * @return {void}
    */
   handleVisibleInputChange = (ev) => {
-    if (this.isValidDecimal(ev.target.value, this.props.precision)) {
+    if (this.isValidDecimal(ev.target.value, this.verifiedPrecision(this.props.precision))) {
       this.setState({ visibleValue: ev.target.value });
       this.emitOnChangeCallback(I18nHelper.unformatDecimal(ev.target.value));
     } else {
@@ -204,7 +208,7 @@ class Decimal extends React.Component {
     let currentValue;
 
     if (canConvertToBigNumber(this.value)) {
-      currentValue = I18nHelper.formatDecimal(this.value, this.props.precision);
+      currentValue = I18nHelper.formatDecimal(this.value, this.verifiedPrecision(this.props.precision));
     } else {
       currentValue = this.value;
     }
@@ -348,8 +352,7 @@ class Decimal extends React.Component {
       </div>
     );
   }
-}
-)));
+})));
 
 // Private Methods
 
@@ -379,7 +382,7 @@ function getDefaultValue(scope) {
 function canConvertToBigNumber(value) {
   // single `-` sign will raise an exception during formatDecimal()
   // as it cannot be convert to BigNumber()
-  return /^-?\d+(\.\d+)?$/.test(value);
+  return /^-?(\d+(\.\d+)?|\.\d+|\d+\.)$/.test(value);
 }
 
 export default Decimal;

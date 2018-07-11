@@ -51,293 +51,347 @@ import Help from './../../../components/help';
  * @param {Class} ComposedComponent class to decorate
  * @return {Object} Decorated Component
  */
-const Input = ComposedComponent => class Component extends ComposedComponent {
+const Input = (ComposedComponent) => {
+  class Component extends ComposedComponent {
+    constructor(...args) {
+      super(...args);
 
-  constructor(...args) {
-    super(...args);
+      /**
+       * A unique identifier for the input.
+       *
+       * @prop _guid
+       * @return {String}
+       */
+      this._guid = guid();
+    }
+
+    static contextTypes = assign({}, ComposedComponent.contextTypes, {
+      form: PropTypes.object
+    });
+
+    static propTypes = assign({}, ComposedComponent.propTypes, {
+      /**
+       * Integer to determine timeout for defered callback. Default: 750
+       *
+       * @property
+       * @type {Number}
+       */
+      deferTimeout: PropTypes.number,
+
+      /**
+       * Defered callback called after onChange event
+       *
+       * @property
+       * @type {Boolean}
+       */
+      onChangeDeferred: PropTypes.func
+    });
+
+    // common safeprops
+    static safeProps = union([], ComposedComponent.safeProps, ['value']);
+
 
     /**
-     * A unique identifier for the input.
+     * A lifecycle method for when the component has rendered.
      *
-     * @prop _guid
-     * @return {String}
+     * @method componentWillReceiveProps
+     * @return {void}
      */
-    this._guid = guid();
-  }
+    componentDidMount() {
+      // call the components super method if it exists
+      /* istanbul ignore else */
+      if (super.componentDidMount) { super.componentDidMount(); }
 
-  static contextTypes = assign({}, ComposedComponent.contextTypes, {
-    form: PropTypes.object
-  });
-
-  static propTypes = assign({}, ComposedComponent.propTypes, {});
-  // common safeprops
-  static safeProps = union([], ComposedComponent.safeProps, ['value']);
-
-
-  /**
-   * A lifecycle method for when the component has rendered.
-   *
-   * @method componentWillReceiveProps
-   * @return {void}
-   */
-  componentDidMount() {
-    // call the components super method if it exists
-    if (super.componentDidMount) { super.componentDidMount(); }
-
-    if (this.props.prefix) {
-      this.setTextIndentation();
-    }
-  }
-
-  /**
-   * A lifecycle method for when the component has re-rendered.
-   *
-   * @method componentDidUpdate
-   * @return {void}
-   */
-  componentDidUpdate(prevProps, prevState) {
-    // call the components super method if it exists
-    if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
-
-    if (this.props.prefix !== prevProps.prefix || this.props.icon !== prevProps.icon) {
-      this.setTextIndentation();
-    }
-  }
-
-  /**
-   * A lifecycle method to determine if the component should re-render for better performance.
-   *
-   * @method shouldComponentUpdate
-   * @param {Object} nextProps the updated props
-   * @param {Object} nextState the updated state
-   * @return {Boolean} true if the component should update
-   */
-  shouldComponentUpdate(nextProps, nextState) {
-    // call super method if one is defined
-    let changeDetected = false;
-
-    if (super.shouldComponentUpdate) {
-      changeDetected = super.shouldComponentUpdate(nextProps, nextState);
-    }
-
-    // determine if anything has changed that should result in a re-render
-    if (changeDetected || shouldComponentUpdate(this, nextProps, nextState)) {
-      return true;
-    }
-
-    return false;
-  }
-
-  /**
-   * Calls the onChange event defined by the dev with more useful information.
-   *
-   * @method _handleChange
-   * @param {Event} ev the change event
-   * @returns {void}
-   */
-  _handleOnChange = (ev) => {
-    if (this.props.onChange) {
-      // we also send the props so more information can be extracted by the action
-      this.props.onChange(ev, this.props);
-    }
-  }
-
-  /**
-   * Sets indentation of input value based on prefix width.
-   *
-   * @method setTextIndentation
-   * @return {void}
-   */
-  setTextIndentation = () => {
-    if (this._input) {
-      if (this._prefix) {
-        this._input.style.paddingLeft = `${this._prefix.offsetWidth + 11}px`;
-      } else {
-        this._input.style.paddingLeft = '';
+      if (this.props.prefix) {
+        this.setTextIndentation();
       }
     }
-  }
-
-  /**
-   * Extends main classes to add ones for the input.
-   *
-   * @method mainClasses
-   * @return {String} Main class names
-   */
-  get mainClasses() {
-    const classes = super.mainClasses;
-
-    return classNames(classes, this.props.className, css.input, {
-      [`${css.input}--readonly`]: this.props.readOnly,
-      [`${css.input}--align-${this.props.align}`]: this.props.align,
-      [`${css.input}--with-prefix`]: this.props.prefix,
-      [`${css.input}--with-input-help`]: this.props.inputHelp,
-      [`${css.input}--disabled`]: this.props.disabled
-    });
-  }
-
-  /**
-   * Extends input classes to add ones for the input.
-   *
-   * @method inputClasses
-   * @return {String} Input class names
-   */
-  get inputClasses() {
-    const classes = super.inputClasses || '';
-    return `${classes} common-input__input`;
-  }
-
-  /**
-   * Extends input props add additional properties for the input.
-   *
-   * @method inputProps
-   * @return {Object} Input props
-   */
-  get inputProps() {
-    const inputProps = super.inputProps || {};
-
-    // store ref to input
-    inputProps.ref = (c) => { this._input = c; };
-
-    // disable autoComplete (causes performance issues in IE)
-    inputProps.autoComplete = this.props.autoComplete || 'off';
-
-    // only thread the onChange event through the handler if the event is defined by the dev
-    if (this.props.onChange === inputProps.onChange) {
-      inputProps.onChange = this._handleOnChange;
-    }
-
-    // Pass onPaste action to input element
-    inputProps.onPaste = this.props.onPaste;
-
-    // Adds data tag for automation
-    inputProps['data-element'] = 'input';
-
-    // Remove data-role as this should be applied on the top level element
-    delete inputProps['data-role'];
-
-    return inputProps;
-  }
-
-  /**
-   * Extends field props add additional properties for the containing field.
-   *
-   * @method fieldProps
-   * @return {Object} Field props
-   */
-  get fieldProps() {
-    const fieldProps = super.fieldProps || {};
-
-    fieldProps.className = 'common-input__field';
-
-    return fieldProps;
-  }
-
-  /**
-   * Defaults to `input`, but a developer can override it in their own class
-   * to something different.
-   *
-   * @method inputType
-   * @return {String} HTML input type
-   */
-  get inputType() {
-    return super.inputType || 'input';
-  }
-
-  /**
-   * Extension point to add additional content to the input
-   *
-   * @method additionalInputContent
-   * @return {Object | HTML | String | Number} additional content from composed class
-   */
-  get additionalInputContent() {
-    return super.additionalInputContent || null;
-  }
-
-  /**
-   * Adds a prefix if it is defined
-   *
-   * @method prefixHTML
-   * @return {Object}
-   */
-  get prefixHTML() {
-    if (!this.props.prefix) { return null; }
-
-    return (
-      <div ref={ (c) => { this._prefix = c; } } className='common-input__prefix'>
-        { this.props.prefix }
-      </div>
-    );
-  }
-
-  /**
-   * Adds an icon if it is defined
-   *
-   * @method iconHTML
-   * @return {Object}
-   */
-  get iconHTML() {
-    if (!this.props.icon) { return null; }
-
-    return (
-      <div className='common-input__input-icon'>
-        <Icon type={ this.props.icon } />
-      </div>
-    );
-  }
 
     /**
-   * Supplies the HTML for inputHelp component
-   *
-   * @method inputHelpHTML
-   * @return {Object} JSX for help
-   */
-  get inputHelpHTML() {
-    if (!this.props.inputHelp) { return null; }
-    return (
-      <Help
-        className='common-input__input-help'
-        tooltipPosition={ this.props.inputHelpPosition }
-        tooltipAlign={ this.props.inputHelpAlign }
-        href={ this.props.inputHelpHref }
-      >
-        { this.props.inputHelp }
-      </Help>
-    );
-  }
+     * A lifecycle method for when the component has re-rendered.
+     *
+     * @method componentDidUpdate
+     * @return {void}
+     */
+    componentDidUpdate(prevProps, prevState) {
+      // call the components super method if it exists
+      if (super.componentDidUpdate) { super.componentDidUpdate(prevProps, prevState); }
 
-  /**
-   * Returns HTML for the input.
-   *
-   * @method inputHTML
-   * @return {HTML} HTML for input
-   */
-  get inputHTML() {
-    let input;
-    if (this.props.fakeInput) {
-      // renders a fake input - useful for screens with lots of inputs
-      const classes = classNames(this.inputProps.className, 'common-input__input--fake');
-      input = (
-        <div className={ classes } onMouseOver={ this.inputProps.onMouseOver }>
-          { this.inputProps.value || this.inputProps.placeholder }
-        </div>
-      );
-    } else {
-      // builds the input with a variable input type - see `inputType`
-      input = React.createElement(this.inputType, { ...this.inputProps });
+      if (this.props.prefix !== prevProps.prefix || this.props.icon !== prevProps.icon) {
+        this.setTextIndentation();
+      }
     }
 
-    return (
-      <div { ...this.fieldProps }>
-        { this.iconHTML }
-        { this.prefixHTML }
-        { input }
-        { this.additionalInputContent }
-        { this.inputHelpHTML }
-      </div>
-    );
+    /**
+     * A lifecycle method to determine if the component should re-render for better performance.
+     *
+     * @method shouldComponentUpdate
+     * @param {Object} nextProps the updated props
+     * @param {Object} nextState the updated state
+     * @return {Boolean} true if the component should update
+     */
+    shouldComponentUpdate(nextProps, nextState) {
+      // call super method if one is defined
+      let changeDetected = false;
+
+      if (super.shouldComponentUpdate) {
+        changeDetected = super.shouldComponentUpdate(nextProps, nextState);
+      }
+
+      // determine if anything has changed that should result in a re-render
+      if (changeDetected || shouldComponentUpdate(this, nextProps, nextState)) {
+        return true;
+      }
+
+      return false;
+    }
+
+    /**
+     * Determines if the input is part of a form.
+     *
+     * @method isInForm
+     * @return {Boolean}
+     */
+    get isInForm() {
+      return this.context.form && (typeof this.context.form !== 'undefined');
+    }
+
+    /**
+     * Calls the onChange event defined by the dev with more useful information.
+     *
+     * @method _handleChange
+     * @param {Event} ev the change event
+     * @returns {void}
+     */
+    _handleOnChange = (ev) => {
+      // If input is in a form, set the form to dirty
+      if (this.isInForm) {
+        this.context.form.setIsDirty();
+      }
+
+      if (this.props.onChange) {
+        this._handleDeferred(ev);
+
+        // we also send the props so more information can be extracted by the action
+        this.props.onChange(ev, this.props);
+      }
+    }
+
+    /**
+     * Delay calls to the onChangeDeferred event defined by the dev
+     *
+     * @method _handleDeferred
+     * @param {Event} ev the onChange event
+     * @returns {void}
+     */
+    _handleDeferred = (ev) => {
+      if (this.props.onChangeDeferred) {
+        clearTimeout(this.deferredTimeout);
+        this.deferredTimeout = setTimeout(() => {
+          this.props.onChangeDeferred(ev);
+        }, (this.props.deferTimeout || 750));
+      }
+    }
+
+    /**
+     * Sets indentation of input value based on prefix width.
+     *
+     * @method setTextIndentation
+     * @return {void}
+     */
+    setTextIndentation = () => {
+      if (this._input) {
+        if (this._prefix) {
+          this._input.style.paddingLeft = `${this._prefix.offsetWidth + 11}px`;
+        } else {
+          this._input.style.paddingLeft = '';
+        }
+      }
+    }
+
+    /**
+     * Extends main classes to add ones for the input.
+     *
+     * @method mainClasses
+     * @return {String} Main class names
+     */
+    get mainClasses() {
+      const classes = super.mainClasses;
+
+      return classNames(classes, this.props.className, css.input, {
+        [`${css.input}--readonly`]: this.props.readOnly,
+        [`${css.input}--align-${this.props.align}`]: this.props.align,
+        [`${css.input}--with-prefix`]: this.props.prefix,
+        [`${css.input}--with-input-help`]: this.props.inputHelp,
+        [`${css.input}--disabled`]: this.props.disabled
+      });
+    }
+
+    /**
+     * Extends input classes to add ones for the input.
+     *
+     * @method inputClasses
+     * @return {String} Input class names
+     */
+    get inputClasses() {
+      const classes = super.inputClasses || '';
+      return `${classes} common-input__input`;
+    }
+
+    /**
+     * Extends input props add additional properties for the input.
+     *
+     * @method inputProps
+     * @return {Object} Input props
+     */
+    get inputProps() {
+      const inputProps = super.inputProps || {};
+
+      // store ref to input
+      inputProps.ref = (c) => { this._input = c; };
+
+      // disable autoComplete (causes performance issues in IE)
+      inputProps.autoComplete = this.props.autoComplete || 'off';
+
+      // only thread the onChange event through the handler if the event is defined by the dev
+      if (this.props.onChange === inputProps.onChange) {
+        inputProps.onChange = this._handleOnChange;
+      }
+
+      // Pass onPaste action to input element
+      inputProps.onPaste = this.props.onPaste;
+
+      // Adds data tag for automation
+      inputProps['data-element'] = 'input';
+
+      // Remove data-role as this should be applied on the top level element
+      delete inputProps['data-role'];
+
+      return inputProps;
+    }
+
+    /**
+     * Extends field props add additional properties for the containing field.
+     *
+     * @method fieldProps
+     * @return {Object} Field props
+     */
+    get fieldProps() {
+      const fieldProps = super.fieldProps || {};
+
+      fieldProps.className = 'common-input__field';
+
+      return fieldProps;
+    }
+
+    /**
+     * Defaults to `input`, but a developer can override it in their own class
+     * to something different.
+     *
+     * @method inputType
+     * @return {String} HTML input type
+     */
+    get inputType() {
+      return super.inputType || 'input';
+    }
+
+    /**
+     * Extension point to add additional content to the input
+     *
+     * @method additionalInputContent
+     * @return {Object | HTML | String | Number} additional content from composed class
+     */
+    get additionalInputContent() {
+      return super.additionalInputContent || null;
+    }
+
+    /**
+     * Adds a prefix if it is defined
+     *
+     * @method prefixHTML
+     * @return {Object}
+     */
+    get prefixHTML() {
+      if (!this.props.prefix) { return null; }
+
+      return (
+        <div ref={ (c) => { this._prefix = c; } } className='common-input__prefix'>
+          { this.props.prefix }
+        </div>
+      );
+    }
+
+    /**
+     * Adds an icon if it is defined
+     *
+     * @method iconHTML
+     * @return {Object}
+     */
+    get iconHTML() {
+      if (!this.props.icon) { return null; }
+
+      return (
+        <div className='common-input__input-icon'>
+          <Icon type={ this.props.icon } />
+        </div>
+      );
+    }
+
+    /**
+     * Supplies the HTML for inputHelp component
+     *
+     * @method inputHelpHTML
+     * @return {Object} JSX for help
+     */
+    get inputHelpHTML() {
+      if (!this.props.inputHelp) { return null; }
+      return (
+        <Help
+          className='common-input__input-help'
+          tooltipPosition={ this.props.inputHelpPosition }
+          tooltipAlign={ this.props.inputHelpAlign }
+          href={ this.props.inputHelpHref }
+        >
+          { this.props.inputHelp }
+        </Help>
+      );
+    }
+
+    /**
+     * Returns HTML for the input.
+     *
+     * @method inputHTML
+     * @return {HTML} HTML for input
+     */
+    get inputHTML() {
+      let input;
+      if (this.props.fakeInput) {
+        // renders a fake input - useful for screens with lots of inputs
+        const classes = classNames(this.inputProps.className, 'common-input__input--fake');
+        input = (
+          <div className={ classes } onMouseOver={ this.inputProps.onMouseOver }>
+            { this.inputProps.value || this.inputProps.placeholder }
+          </div>
+        );
+      } else {
+        // builds the input with a variable input type - see `inputType`
+        input = React.createElement(this.inputType, { ...this.inputProps });
+      }
+
+      return (
+        <div { ...this.fieldProps }>
+          { this.iconHTML }
+          { this.prefixHTML }
+          { input }
+          { this.additionalInputContent }
+          { this.inputHelpHTML }
+        </div>
+      );
+    }
   }
 
+  Component.displayName = ComposedComponent.displayName || ComposedComponent.name;
+  return Component;
 };
 
 export default Input;

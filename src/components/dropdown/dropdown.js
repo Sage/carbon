@@ -1,13 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Browser from './../../utils/helpers/browser';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
 import InputIcon from './../../utils/decorators/input-icon';
 import Events from './../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
+import Portal from './../portal';
 
+const window = Browser.getWindow();
 /**
  * A dropdown widget.
  *
@@ -29,39 +32,7 @@ import { validProps } from '../../utils/ether';
  * @constructor
  * @decorators {List,Input,InputIcon,InputLabel,InputValidation}
  */
-const Dropdown = Input(InputIcon(InputLabel(InputValidation(
-class Dropdown extends React.Component {
-  /**
-   * @constructor
-   */
-  constructor(...args) {
-    super(...args);
-
-    /**
-     * Determines if the blur event should be prevented.
-     *
-     * @property blockBlur
-     * @type {Boolean}
-     * @default false
-     */
-    this.blockBlur = false;
-
-    /**
-     * Variable to cache current value.
-     * Setting it here rather than state prevents complete rerender when value changes.
-     *
-     * @property visibleValue
-     * @type {String}
-     * @default ''
-     */
-    this.visibleValue = '';
-
-    // bind scope to functions - allowing them to be overridden and
-    // recalled with the use of super
-    this.selectValue = this.selectValue.bind(this);
-    this.results = this.results.bind(this);
-  }
-
+const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown extends React.Component {
   static propTypes = {
     /**
      * Automatically focus the input.
@@ -87,7 +58,7 @@ class Dropdown extends React.Component {
      */
     disabled: PropTypes.bool,
 
-   /**
+    /**
     * A custom onBlur handler.
     *
     * @property onBlur
@@ -145,6 +116,37 @@ class Dropdown extends React.Component {
 
   static defaultProps = {
     cacheVisibleValue: false
+  }
+
+  /**
+   * @constructor
+   */
+  constructor(...args) {
+    super(...args);
+
+    /**
+     * Determines if the blur event should be prevented.
+     *
+     * @property blockBlur
+     * @type {Boolean}
+     * @default false
+     */
+    this.blockBlur = false;
+
+    /**
+     * Variable to cache current value.
+     * Setting it here rather than state prevents complete rerender when value changes.
+     *
+     * @property visibleValue
+     * @type {String}
+     * @default ''
+     */
+    this.visibleValue = '';
+
+    // bind scope to functions - allowing them to be overridden and
+    // recalled with the use of super
+    this.selectValue = this.selectValue.bind(this);
+    this.results = this.results.bind(this);
   }
 
   state = {
@@ -292,7 +294,7 @@ class Dropdown extends React.Component {
    * Handles touch events.
    *
    * @method handleTouchEvent
-   **/
+   * */
   handleTouchEvent = () => {
     // blocking blurring like this stops a bug on mobile when touch doesn't trigger until after blur, we want to
     // update the input before blurring
@@ -344,7 +346,7 @@ class Dropdown extends React.Component {
 
       // Match selected id to corresponding list option
       const option = this.props.options.find((item) => {
-        return item.get('id') == this.props.value;
+        return String(item.get('id')) === String(this.props.value);
       });
       // If match is found, set visibleValue to option's name;
       if (option) { this.visibleValue = option.get('name'); }
@@ -374,8 +376,8 @@ class Dropdown extends React.Component {
       return;
     }
 
-    const list = this.list,
-        element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
+    const { list } = this;
+    const element = list.getElementsByClassName('carbon-dropdown__list-item--highlighted')[0];
     let nextVal;
 
     switch (ev.which) {
@@ -553,7 +555,7 @@ class Dropdown extends React.Component {
       onTouchEnd: this.handleTouchEvent,
       onTouchCancel: this.handleTouchEvent,
       onTouchMove: this.handleTouchEvent,
-      className: classNames('carbon-dropdown__list-block', { 'carbon-dropdown__list-hidden': !this.state.open })
+      className: classNames('carbon-dropdown__list-block')
     };
   }
 
@@ -620,14 +622,15 @@ class Dropdown extends React.Component {
 
     const results = options.map((option) => {
       let klass = className;
+      const optionId = String(option.id);
 
       // add highlighted class
-      if (highlighted == option.id) {
+      if (String(highlighted) === optionId) {
         klass += ` ${className}--highlighted`;
       }
 
       // add selected class
-      if (this.props.value == option.id) {
+      if (String(this.props.value) === optionId) {
         klass += ` ${className}--selected`;
       }
 
@@ -647,6 +650,19 @@ class Dropdown extends React.Component {
 
     return results;
   }
+  /**
+   * positions the portal listBlock in relation to the input.
+   *
+   * @method calculatePosition
+   * @return {void}
+   */
+  calculatePosition = () => {
+    const inputBoundingRect = this._input.getBoundingClientRect();
+    const top = `${inputBoundingRect.top + (inputBoundingRect.height) + window.pageYOffset}px`;
+    const width = `${inputBoundingRect.width}px`;
+    const left = `${inputBoundingRect.left}px`;
+    this.listBlock.setAttribute('style', `left: ${left}; top: ${top}; width: ${width};`);
+  }
 
   /**
    * Extends the input content to include the input icon.
@@ -661,11 +677,18 @@ class Dropdown extends React.Component {
       content.push(this.inputIconHTML('dropdown'));
     }
 
-    content.push(
-      <div { ...this.listBlockProps } ref={ (node) => { this.listBlock = node; } }>
-        { this.listHTML }
-      </div>
-    );
+    if (this.state.open) {
+      content.push(
+        <Portal onReposition={ this.calculatePosition }>
+          <div
+            { ...this.listBlockProps }
+            ref={ (node) => { this.listBlock = node; } }
+          >
+            { this.listHTML }
+          </div>
+        </Portal>
+      );
+    }
 
     return content;
   }
@@ -725,7 +748,6 @@ class Dropdown extends React.Component {
       </div>
     );
   }
-}
-))));
+}))));
 
 export default Dropdown;

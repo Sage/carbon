@@ -102,7 +102,7 @@ describe('Textarea', () => {
     });
 
     describe('when textarea can be expanded', () => {
-      let wrapper = shallow(
+      let wrapper = mount(
         <Textarea
           value={ 'foo' }
           label={ 'Label' }
@@ -295,7 +295,9 @@ describe('Textarea', () => {
             />
           );
           let input = TestUtils.findRenderedDOMComponentWithTag(instance, 'textarea')
-          expect(input.maxLength).toEqual(-1);
+          // https://github.com/tmpvar/jsdom/issues/522
+          // JSDom defaults to 0 instead of -1
+          expect(input.maxLength).toEqual(0);
         });
       });
     });
@@ -330,6 +332,7 @@ describe('Textarea', () => {
         cols={10}
         rows={10}
         onChange={ spy }
+        characterLimit={ 100 }
         data-element='bar'
         data-role='baz'
       />
@@ -342,9 +345,7 @@ describe('Textarea', () => {
     });
 
     describe("on internal elements", () => {
-      it("adds element tags to it's children", () => {
-        elementsTagTest(wrapper, ['character-limit']);
-      });
+      elementsTagTest(wrapper, ['character-limit']);
     });
   });
 });

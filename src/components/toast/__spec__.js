@@ -1,22 +1,22 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
+import guid from '../../utils/helpers/guid';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Toast from './toast';
+jest.mock('../../utils/helpers/guid')
 
 describe('Toast', () => {
+  guid.mockImplementation(() => 'guid-12345');
+
   let instance, onDismissSpy;
 
   describe('when toast is closed', () => {
     it('renders null', () => {
-      instance = TestUtils.renderIntoDocument(
-        <Toast open={ false } as='info' className='custom' onDismiss={ () => {} }>
-          foobar
-        </Toast>
-      );
-
-      let content = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-      expect(content.length).toEqual(0);
+      const wrapper = mount(<Toast open={ false } as='info' className='custom' onDismiss={ () => {} }>
+                              foobar
+                            </Toast>);
+      expect(wrapper).toMatchSnapshot();
     });
   });
 

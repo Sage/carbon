@@ -214,17 +214,17 @@ class AnimatedMenuButton extends React.Component {
    */
   closeIcon() {
     return (
-      <div
+      <button
+        className='carbon-animated-menu-button__close-button'
         data-element='close'
         key='close'
         onClick={ this.closeHandler }
         ref={ (comp) => { this._closeIcon = comp; } }
       >
         <Icon type='close' />
-      </div>
+      </button>
     );
   }
-
 
   /**
    * Opens handler on event.
@@ -243,7 +243,8 @@ class AnimatedMenuButton extends React.Component {
    * @method closeHandler
    * @return {void}
    */
-  closeHandler () {
+  closeHandler(event) {
+    event.preventDefault();
     this.setState({ open: false });
     this.blockBlur = false;
   }
@@ -275,6 +276,7 @@ class AnimatedMenuButton extends React.Component {
         <Icon type='add' data-element='open' />
 
         <CSSTransitionGroup
+          component='div'
           transitionEnterTimeout={ 500 }
           transitionLeaveTimeout={ 500 }
           transitionName='carbon-animated-menu-button'

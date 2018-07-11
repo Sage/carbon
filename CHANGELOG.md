@@ -1,12 +1,905 @@
-# 1.3.0
+# CHANGELOG IS NOW ARCHIVED - PLEASE SEE README.md FOR MORE INFORMATION ON ADDING RELEASE NOTES
+
+# 4.2.0
+
+## Improvements
+
+* `Browser` now has a `redirectAfter` method that redirects to the given URL after the given number of seconds.
+* `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
+* `CustomDragLayer` component can now take className prop.
+* `Draggable Context` extending functionality to determine if a an item can be dropped on.
+
+## Upgrades
+
+* Upgraded carbon-factory to v4.2.2 to support Window environments.
+
+## Build
+
+* Travis CI now sets --maxWorkers=2 for npm test to reduce chance of timeouts
+* Remove `gulp` as Carbon now uses webpack.
+
+## Bug Fixes
+
+* Add a blue background to fix a 'white text on a white background' issue when selecting rows in the `Table` component with the secondary theme applied.
+* No longer render a `type` attribute for the `Icon` component, as this produced invalid HTML (the `Icon` component still accepts a `type` prop).
+
+# 4.1.1
+
+## Improvements
+
+* `Modal` now has a `transitionAppear` and `transitionAppearTimeout` defined on its `CSSTransitionGroup` components so there will be animation on initial mount
+
+# 4.1.0
+
+## npm audit
+
+* Require npm@6.
+* Update packages to resolve issues highlighted by `npm audit`.
+
+# 4.0.0
+
+## Webpack Support
+
+Carbon was previously designed around a Browserify based build, we have now migrated to explicitly support Webpack. We have made this decision based on the overwhelming preference in the JavaScript community to work with Webpack, while over the past couple of years support for Browserify has dropped and the library has not been able to keep up with the pace of Webpack. Switching to Webpack also provides us with all the latest development tools such as faster recompilation, hot reloading, and code splitting.
+
+We have updated several components to import assets through their JavaScript file. Due to this change we now require Webpack to precompile the components.
+
+If you use carbon-factory, you can upgrade to [v4.1.0](https://github.com/Sage/carbon-factory/releases/tag/v4.1.0) which provides preconfigured Webpack support for working with the Carbon library. If you prefer to manage your own Webpack build, we currently rely on the [Parcelify Loader](https://www.npmjs.com/package/parcelify-loader). We will be looking to drop this requirement in the future.
+
+# 3.2.5
+
+## Bug Fixes
+
+* Fixed [#1741](https://github.com/Sage/carbon/issues/1741): `Flash` component will now open on initial render when its `open` prop is set to `true`.
+
+# 3.2.4
+
+## Bug fixes
+
+* Position textarea label at the top of the component
+* Prevent hover styles being applied when hovering over a readonly or a disabled `input` element.
+
+# 3.2.3
+
+Merged in v3.1.6
+
+# 3.2.2
+
+Merged in v3.1.5
+
+# 3.2.1
+
+Merged in v3.1.3 and v3.1.4
+
+# 3.2.0
+
+## Flash Component
+
+Flash component now uses Portal
+
+## Demo Site
+
+* Tutorials are now numbered correctly in the Carbon Demo sidebar.
+* Demo Site should now correctly deploy in production mode
+
+## Preview Component
+
+Preview adds a CSS shimer animation as a placeholder if no children are given or the loading prop is true.
+
+### Example Code
+
+With no children:
+
+```
+<Preview>
+  { null }
+</Preview>
+```
+
+Using the `loading` prop:
+
+```
+<Preview loading>
+  { children }
+</Preview>
+```
+
+## Bug Fixes
+
+* `AnimatedMenuButton`, `Carousel`, `Flash`, `ShowEditPod`, `Table`, and `Toast` all pass the `component='div'` prop to their respective `CSSTransitionGroup` components. This fixes incorrectly nested HTML e.g. `<div>` tags nested within `<span>` tags.
+* Allow localisation override by removing manual interpolation on `FormSummary`.
+
+# 3.1.6
+
+Fixes the positioning of the error message which was also not working in IE11 (pageYOffset needed instead of scrollY)
+
+# 3.1.5
+
+Fixes incorrect dropdown placement in IE11. v3.1.4 only fixed Edge #1733
+
+# 3.1.4
+
+Fixes incorrect dropdown placement in IE.
+
+# 3.1.3
+
+Stops incorrect Dirty Form warning from showing in Safari/IE on a clean form
+
+# 3.1.2
+
+Fixes auto-deployment of tags using Travis CI.
+
+# 3.1.1
+
+## Improvements
+
+A unique ID has been added to the Portal component entrance and exit nodes. This will help find corresponding nodes in the DOM.
+
+# 3.1.0
+
+## AutoDisabling form
+
+Form autoDisables after submit when the prop `autoDisable` is set to true. The props `afterFormValidation` and `onSubmit` are passed a `enableForm` callback function which can be used to reactivate the form.
+
+### Example Code
+  ```
+  <Form
+    onSubmit={ this.saveContact }
+    autoDisable
+  >
+    {children}
+  </Form>
+  ```
+
+  ```
+  saveContact = (ev, valid, enableForm) => {
+    ...
+    Actions.submitForm(...);
+    enableForm();
+  };
+  ```
+
+## Improvements
+
+* Input has 2 new props. `onChangeDeferred` allows a deferred callback after an onChange event. `deferTimeout` allows you to customise the default: `750`.
+* Form has 1 new prop. `unsavedWarning` allows a confirmation popup to appear when the user attempts to navigate away from a form they have edited but not saved. True by default. Does not trigger on React Router page transitions. Does not consistantly trigger with browser back/forwards actions. To be reviewed when react-router is upgraded to v4 to use Prompts.
+
+## Portals
+
+* Modal components now uses the Portal component
+* Input validation tooltips now use the Portal component
+* `Toast` component now uses the Portal component
+* `Dropdown` component now uses the Portal component
+
+## Bug Fixes
+
+* `mapToProps` takes precedence over props passed to HOC in `connect` function.
+* `inputs` border-color change `:hover` is now applied to input rather than input container
+* `Store`: sets the `maxListeners` to handle more complex store arrangements
+
+## Changes
+
+* Resolved new ESLint errors from carbon-factory upgrade.
+
+## Demo Site
+
+* Add a `key` to the top-level `MenuListItem` components in the sidebar, which removes the 'Each child in an array or iterator should have a unique "key" prop' warning.
+
+# 3.0.0
+
+## Package Updates
+
+* React has been updated to v16.2.0
+* React-DOM has been updated to v16.2.0 for React upgrade
+* Enzyme has been updated to v3.3.0 for React upgrade
+* Raf has been added at v3.4.0 for React upgrade
+* ReactTestRenderer has been updated to v16.2.0 for React upgrade
+* React-Highcharts has been updated to v15.0.0 for React upgrade
+* React-Transition-Group has been updated to v1.2.1 for React upgrade
+* ReactHighlight has been updated to a forked version which works with React v16
+* React-Addons-Perf has been removed due to deprecation
+* React-Addons-Test-Utils has been removed due to deprecation
+
+## Breaking Changes
+
+### Unstable HandleError
+
+React 15 had limited, undocumented support for error boundaries using `unstable_handleError`. This method has been renamed to `componentDidCatch`.
+
+### Decimal Precision Capped at 20
+
+Previously this would return an error if the given precision was higher than 20 but would not actually enforce the limit. Now, if a value of greater than 20 is set the precision will be set to exactly 20.
+
+### ReactDOM methods
+
+`ReactDOM.render` and `ReactDOM.unstable_renderSubtreeIntoContainer`now return null if called from inside a lifecycle method. To work around this, you can use portals or refs.
+
+### setState
+
+Calling `setState` with null no longer triggers an update. This allows you to decide in an updater function if you want to re-render.
+
+Calling `setState` directly in render always causes an update. This was not previously the case. Regardless, you should not be calling `setState` from render.
+
+`setState` callbacks (second argument) now fire immediately after `componentDidMount` / `componentDidUpdate` instead of after all components have rendered.
+
+### Enzyme
+
+Part of updating react from 15.6.0 to 16.2.0 included also updating enzyme to 3.3.0. https://github.com/airbnb/enzyme/blob/enzyme%403.3.0/docs/guides/migration-from-2-to-3.md
+
+#### Upgrading a project that uses Carbon
+
+##### Installing peer dependencies
+
+If you're upgrading an application that uses Carbon to 3.0.0 you'll need to make sure you have `raf` in your project's dependencies. To add `raf` to your project dependencies run the following command:
+
+```
+npm install raf --save-dev
+```
+
+You'll also need to add the following line to your jest.conf.json:
+```
+  "setupFiles": [
+    "raf/polyfill"
+  ]
+```
+
+##### Upgrading Carbon and using the new Carbon dependencies
+
+To Install the latest Carbon:
+
+```
+npm install --save carbon-react@3.0.0
+```
+
+### React-Addons
+
+React has discontinued support for all react-addons, the latest version of each addon should continue to work (except react-addons-perf).
+`React.createClass` is deprecated and `create-react-class` should be used instead
+`React.PropTypes` is now available as `prop-types`
+`React.DOM` is now available as `react-dom-factories`
+`react-addons-test-utils` is now available as `react-dom/test-utils`
+
+### React and React Dom
+
+Both `react` and `react-dom` will need to be updated to version 16.2.0
+
+```
+npm install react@^16.2.0 react-dom@^16.2.0 --save
+```
+
+### Hydrate Deprecation
+
+Hydrating a server-rendered container now has an explicit API. If you’re reviving server-rendered HTML, use `ReactDOM.hydrate` instead of `ReactDOM.render`. Keep using `ReactDOM.render` if you’re just doing client-side rendering.
+
+## React Portal
+
+We have updated the `Portal` component to use React's own version of portal which is available with React 16, removing the `react-portal` dependency.
+`Portal` now has an additional prop `onReposition` which is an optional callback function, called when the window resizes or a parent DOM element is scrolled.
+
+## Bug Fixes
+
+* Checkbox no longer overlays the end of the Help field text when the reverse prop is set to true
+* `Date`: Previously this component would not retain an invalid date value, we now keep the value and throw a validation error on the input.
+* The DatePicker element will now reposition itself when the DateInput is scrolled.
+
+# 2.6.4
+
+* Upgrade marked package from v0.3.6 to 0.3.9 to address security vulnerabilities
+
+# 2.6.3
+
+## Bug Fixes
+
+* `acronymize`: This helper function provided in `/utils/ether` now checks for invalid strings to mitigate errors.
+
+# 2.6.2
+
+## Bug Fixes
+
+* `Menu`: Fixes cursor type when hovering a top level menu item.
+
+# 2.6.1
+
+## Bug Fixes
+
+* `Portrait`: fixes incorrect text colour in light mode. Also standardises the colours used for the icon and initials.
+* `Message`: Fixes the icon positiing in IE11.
+* `Toast`: Fixes the icon positiing in IE11.
+
+# 2.6.0
+
+## Package Updates
+
+* Enzyme has been updated to v3.2.0
+* Superagent has been updated to v3.8.2 for a security fix
+* moment has been updated to v2.20.1 for a security fix
+
+## Improvements
+
+* Carbon now comes with over 100 standard icons to choose from! Check out the Icon component page to view the latest additions like `in_transit` and `credit_card_slash`.
+* `Date`'s getter `datePickerProps()` now checks the date value before returning
+* `Dialog`'s `centerDialog` and `focusDialog` methods won't attempt to run if the dialog isn't present
+* `Form`'s `checkStickyFooter` method won't attempt to run if the form isn't present
+* `Table`'s `resizeTable` method won't attempt to run if the table isn't present
+* Fixed tests broken by Enzyme major version bump.
+
+## CSS Changes
+
+* `SettingRow` - the left hand segment now has a `max-width` of 300px.
+
+# 2.5.4
+
+* Upgrade marked package from v0.3.6 to 0.3.9 to address security vulnerabilities
+
+# 2.5.3
+
+## Bug Fixes
+
+* Revert the `Profile` component changes: `darkBackground` is false by default, and the name and email render using the inherited `body` text colour.
+
+# 2.5.2
+
+## Bug Fixes
+
+* Adding a transform to an instance of a service class was applying the transform to all other instances. This change ensures the transform is only applied to the specific instance.
+* Remove space from clearfix psuedoclasses that was creating a space character that was pushing layouts out of line
+
+# 2.5.1
+
+## Fixes
+
+Resolves missing `assets` file from v2.5.0.
+
+# 2.5.0
+
+## Improvements
+
+* `Portrait` can now render an empty string for the alt attribute.
+* Improve the contrast of the text in the `Profile` component, and the `Portrait` component when `darkBackground={ true }`.
+* Changed type of prop `tooltipMessage` of `tooltip-decorator` from string to node to allow children.
+
+## Fixes
+
+* Set the `Component.displayName` on all decorators. **NB** You may need to update your snapshots as a result of this to change the component name to something more accurate
+* Handles an empty body (such as that with a 204) more robustly ([#1631](https://github.com/Sage/carbon/issues/1631))
+* `Rainbow` - fixes a bug in which the component was unresponsive to mouse events.
+
+# 2.4.0
+
+## Improvements
+
+* Added `connect` higher order component as an intermediate step for connecting components to Flux stores through props.
+
+## CSS Changes
+
+* `SettingsRow` Adjusted paddings and margins between sections.
+* `Dialog` Ensure the heading used within a dialog has 15px padding instead of 20px.
+
+# 2.3.0
+
+## CSS Changes
+
+* `Menu` has been updated based on slightly new designs. `MenuItem` now supports the `icon` prop.
+* `Portrait` size `extra-small` has reduced from `26px` to `25px`.
+* `Portrait` size `medium-small` has reduced from `50px` to `40px`.
+* `Profile` has increased margin between the image and text.
+* `Dialog` bottom padding has increased by 8px.
+
+## Improvements
+
+* `Modal` now has a data-state element that begins as default, set to open once transition to open is complete and is set to closed once the transition to closed is complete.
+
+## New Components
+
+* `ButtonToggleGroup` is a component that allows a group of ButtonToggles to behave as a single form component with label, field help, validation message, warning message, and info message support.
+
+# 2.2.3
+
+* Fix table-ajax to only set data-state to loaded once all of the data has been set. This resolves an issue when automating user scenarios allowing us to reliabliy wait for the loaded state to be set, before moving on.
+
+# 2.2.2
+
+* DropdownFilter now uses a stylized Link component for the Create button.
+* DropdownFilter now has `createText` & `createIconType` props for customizable create button text and create button Icons (limited to current Carbon Icon types).
+
+## Fixes
+
+Ensures that `displayName` is set to the original component's name when connecting to a store using Carbon's flux helper. We have noticed Jest snapshot's have started to default to `View` when connected to a store using our flux connector, this change will ensure the display name is maintained.
+
+# 2.2.1
+
+## Fixes
+
+:warning: v2.2.0 updated modal components (eg. `Dialog`) to use ReactPortal. While this doesn't break applications, it was found to break some tests after an application upgraded. We have decided to disable this feature for now, and will re-add it at a later date when either Portals are better supported by our test tooling or when we release a version 3 of Carbon with potential breaking changes.
+
+# 2.2.0
+
+:warning: We recommend you use v2.2.1 instead of this version.
+
+## UX Improvements
+
+The following updates have been made to Carbon components to align with design updates.
+
+* Button - Ensure that the button text is always aligned centrally by default. Resolves an issue where the Button text may wrap where translated text occurs.
+* Colors - New Text colors added
+* Animated Menu Button - Fixed icon alignment and text weights in
+* Flash - Text colors changed to pass accessibility
+* Menu - New Drop Shadow
+* Multi Action Button - Minor fixes to hover
+* Pager - Padding and font size fixes
+* Pod - Shadow color update
+* Portrait - Border fix
+* Settings Row - Separator placement fix
+* Split Button - Correct color on hover
+* Tabs - Hover color now matches buttons
+* Toast - Shadow update
+
+## Improvements
+
+* `ConfigurableItemsPattern`'s prop `itemsData` is no longer required
+* We use `core-js` instead of `es6-promise` for Promises as this is more reliable and fixes an issue in IE11. *Check you aren't accidentally relying on `es6-promise`*.
+
+## New Components
+
+* `Portal` is a component that wraps the [react-portal](https://github.com/tajo/react-portal) library.
+
+## Component Enhancements
+
+* `InputLabel` now allows fieldHelp to be a node type.
+* `TooltipDecorator` now uses the new `Portal` component for layout. This effects `Help` and `Icon` components.
+* `Date` now uses the new `Portal` component to render the DatePicker.
+* `Modal` now uses the new `Portal` component.
+* `ActionToolbar` can now receive children to add additional actions. The `Table` component has also been given the `actionToolbarChildren` prop to send the same data down.`
+
+## Package Updates
+
+* The `react-addons-perf` package is now included in `devDependencies`.
+
+## Minor Improvements
+
+* Fix typo in FullScreenHeading
+
+## Demo Site
+
+* Upgrades `react-highlight`, which removes the last `createClass` warning from React.
+
+# 2.1.1
+
+* DropdownFilter now uses a stylized Link component for the Create button.
+* DropdownFilter now has `createText` & `createIconType` props for customizable create button text and create button Icons (limited to current Carbon Icon types).
+
+# 2.1.0
+
+* DialogFullScreen and Pages now have a max width applied.
+* Fixes z-index issue of Dialogs appearing on top of DialogFullScreens.
+* Carousel can now have custom transitions using the `transition` prop.
+
+# 2.0.1
+
+## Bug Fixes
+
+* Fixes a compilation error that occurred in 2.0.0, which resulted in a missing `assets.scss` file.
+* `Datepicker`: Stops NavBar submitting the form its contained in
+
+# 2.0.0
+
+## Breaking Changes
+
+### Store Disptacher
+
+Store no longer accepts a `Dispatcher` as its third argument. It will automatically use the dispatcher supplied by Carbon. If you want to pass a custom one then you can pass it as a param in the config:
+
+```js
+new Store('name', data, { dispatcher: myDispatcher });
+```
+
+### Dependency Updates
+
+The following packages are now specified as peer dependencies:
+
+* flux
+* react
+* react-dom
+
+The following packages have been moved from `devDependencies` to `dependencies`:
+
+* `i18n-js`
+* `immutable`
+* `highcharts`
+* `react-router`
+* `react-transition-group`
+
+The following packages have been upgraded:
+
+* flux: now has a peer dependency of at least 3.1.1
+* i18n-js: upgraded to rc12 - (scope is now required)
+* react-router: ^3.0.0
+
+#### Upgrading a project that uses Carbon
+
+##### Installing peer dependencies
+
+If you're upgrading an application that uses Carbon to v2.0.0 you'll need to make sure you have `flux`, `react`, and `react-dom` in your project's dependencies. To add `flux`, `react`, and `react-dom` to your project dependencies run the following command:
+
+```
+npm install flux react react-dom --save
+```
+
+##### Upgrading Carbon and using the new Carbon dependencies
+
+Carbon now includes `i18n-js`, `immutable`, `highcharts`, `react-router`, and `react-transition-group` in its dependencies, so you may be able to remove these from your own project's dependencies. To do this:
+
+1. Uninstall and remove `i18n-js`, `immutable`, `highcharts`, `react-router`, and `react-transition-group`
+   from your project's dependencies:
+
+```
+npm uninstall --save i18n-js immutable react-router react-transition-group
+```
+
+2. Install the latest Carbon:
+
+```
+npm install --save carbon-react@2.0.0
+```
+
+### Removal of Service Deprecation
+
+The `Service` class now accepts an object as its second argument, deprecating the separate `onSuccess` and `onError` arguments.
+This allows you to pass in `onSuccess` and `onError` functions in the object, along with `params` if you need query parameters in your requests.
+
+#### Examples
+
+Deprecated invocation:
+ - `service.get('1', onSuccessFunc, onErrorFunc)`
+
+New invocation:
+ - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc })`
+ - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc, params: { key1: 'val1', key2: 'val2'} })`
+
+### Removal of Row Deprecation
+
+* `Row`: can no longer render any immediate children. A Column component has been introduced to maintain the column span, offset and align behaviour.
+
+```javascript
+// BEFORE
+import Row from 'carbon/lib/components/row';
+
+...
+
+<Row columns='10'>
+  <div columnSpan='3' columnOffset='2' columnAlign='right'>
+    Content 1
+  </div>
+  <Pod columnSpan='5'>
+    Content 1
+  </Pod>
+</Row>
+
+// AFTER
+import { Row, Column } from 'carbon/lib/components/row';
+
+...
+
+<Row columns='10'>
+  <Column columnSpan='3' columnOffset='2' columnAlign='right'>
+    Content 1
+  </Column>
+  <Column columnSpan='5'>
+    <Pod>
+      Content 1
+    </Pod>
+  </Column>
+</Row>
+```
+
+## Component Enhancements
+
+* `Browser` has been updated so that `getWindow()` will work when run in a node environment
+* `ButtonToggle` now lets you add a `size` and a `grouped` prop.
+
+## Bug Fixes
+
+* Grouped character adds separators to value on first render.
+
+# 1.7.1
+
+## Bug Fixes
+
+* `Datepicker`: Stops NavBar submitting the form its contained in
+
+# 1.7.0
+
+## Component Enhancements
+
+* `Message` - `children` prop is now optional. [#1543](https://github.com/Sage/carbon/issues/1543)
+* `Message` - `title` prop type has been changed from string to node. [#1543](https://github.com/Sage/carbon/issues/1543)
+
+# 1.6.1
+
+## Bug Fixes
+
+* `Datepicker`: Stops NavBar submitting the form its contained in
+
+# 1.6.0
+
+## Component Enhancements
+
+* `Table` now lets you add an `aria-describedby` prop.
+* `ConfigurableItemRow` is vertically centered correctly.
+* `AnimatedMenuButton` uses the native `<button>` instead of a div for the close button.
+* `Tabs` now includes aria roles for better screen reader support.
+* `Tabs` can now be navigated using left/right arrows for horizontal tabs and up/down arrows for vertical tabs on the keyboard to switch between the tab list.
+
+## Pattern Enhancements
+
+* `ConfigurableItems` has `stickyFormFooter` enabled
+
+## Draggable Ghost Row
+
+The `DraggableContext` component now includes a `CustomDragLayer` to enable a ghost row when dragging.
+
+In order to enable this you need to define the `draggableNode` prop on the `<WithDrag>` component. For example:
+
+```
+class DraggableItems extends React.Component {
+  render() {
+    return (
+      <DraggableContext onDrag={ onItemMoved }>
+        <ol>
+          {
+            items.map((item, index) => {
+              return (
+                <WithDrop key={ index } index={ index }>
+                  <DraggableItem />
+                </WithDrop>
+              );
+            });
+          }
+        </ol>
+      </DraggableContext>
+    );
+  }
+}
+
+...
+
+class DraggableItem extends React.Component {
+  render() {
+    return (
+      <li ref={ (node) => { this._listItem = node; } } >
+        <WithDrag draggableNode={ () => { return this._listItem; } }>
+          <span>{ item.content }</span>
+        </WithDrag>
+      </li>
+    );
+  }
+}
+```
+
+Note that the `draggableNode` is passed as a function because the ref `_listItem` is undefined until the component is mounted.
+
+## Service class accepts query parameters
+
+The `Service` class now accepts an object as it's second argument, deprecating the separate `onSuccess` and `onError` arguments.
+This allows you to pass in `onSuccess` and `onError` functions in the object, along with `params` if you need query parameters in your requests.
+
+### Examples
+
+Deprecated invocation:
+ - `service.get('1', onSuccessFunc, onErrorFunc)`
+
+New invocation:
+ - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc })`
+ - `service.get('1', { onSuccess: onSuccessFunc, onError: onErrorFunc, params: { key1: 'val1', key2: 'val2'} })`
+
+## DatePicker
+
+* The Date Picker library has changed from react-date-picker to react-day-picker as the old library is no longer maintained.
+* This will effect the `Date` and `DateRange` components but functionally they have remained the same.
+
+# 1.5.3
+
+## Bug Fixes
+
+* `FormSummary`: negative margin solves problem where FormSummary is effecting its sibling component's position [#1523](https://github.com/Sage/carbon/issues/1523)
+
+# 1.5.2
+
+## Bug Fixes
+
+* Fixes CSS load order issue with `Dialog`, `Form`, and sticky footers.
+
+# 1.5.1
+
+## Bug Fixes
+
+* Update `Service` class to use prototypal inheritance instead of class properties.
+* Fixes floating error message caused by https://github.com/Sage/carbon/pull/1452/commits/1f902687c507f7b9cc8fe8cb641c048f8d82b034
+
+# 1.5.0
+
+## Component Improvements
+
+The following components have had styling updates:-
+
+* DatePicker
+* ButtonToggle
+* Heading / Dialog
+
+## Font Update
+
+The 300 weight (Thin) has been replaced by the 900 weight (Black) in Lato.
+
+# Component Enhancements
+
+* `TableAjax` component now uses the data-state attribute and `aria-busy`.
+
+## npm (for local development of carbon only)
+
+* Carbon now require `npm` version 5 for installing dependencies.
+* To upgrade your version of npm, run `npm install npm@latest`.
+* Then, before running `npm install` in your project folder, run `npm verify cache` to update your cache.
+
+# 1.4.6
+
+* `ConfigurableItems` pattern now accepts an `onReset` prop to be passed in.
+
+# 1.4.5
+
+* `Validations`: fixes an error from being thrown for non-Textbox validations when situated inside a Modal.
+
+# 1.4.4
+
+* `Date`: Fixes missing background color on validation errors.
+
+# 1.4.3
+
+* `Heading`: Removed default top padding.
+
+# 1.4.2
+
+* `Menu`: removed `alternate` prop, can use `SubMenuBlock` instead which achieves the same thing.
+
+# 1.4.1
+
+* `Dropdown`: validation fail now allows the dropdown arrow to be visible
+* `Decimal`: fix an issue where values entered without a leading zero were incorrectly failing numerical validation
+
+# 1.4.0
+
+## Dispatcher
+
+We now provide the Flux Dispatcher as a singleton within the Carbon library.
+
+```
+import { Dispatcher } from 'carbon-react/lib/utils/flux';
+```
+
+Please note that you should only use one Dispatcher in your application, if you want to start using the one provided in Carbon you need to remove the pre-existing one from your application.
+
+## Logger
+
+Logger can now supply a option of `group` - this will group any logged messages together that share the same group name and that are triggered within 500ms of one another.
 
 ## Dependency Update
 
 * React has been upgraded to 15.6.1 - https://facebook.github.io/react/blog/2017/06/13/react-v15.6.0.html
 
+## New Components
+
+* `ConfigurableItems` Drag & Drop and check/uncheck a list of items
+* `ConfigurableItemRow` Used with ConfigurableItems to build the list of configurable items
+
+## New Patterns
+
+* `ConfigurableItemsPattern` Combines ConfigurableItems and ConfigurableItemRow components
+
 ## Component Enhancements
 
-* `TableAjax`: now accepts a `formatData` prop, which is a function that lets you format the data received via the Ajax response into the format required by the table.
+* `TableAjax` now accepts an `onAjaxError` function as a prop, to handle Ajax requests that return a HTTP error
+
+## Linting Updates
+
+The following have had minor internal changes to satisfy the introduction of stricter linting rules:
+
+### Components
+
+* Dropdown
+* FormSummary
+* Page
+* Pages
+* RadioButton
+* Tabs
+
+### Helpers
+
+* Store
+
+## Component Improvements
+
+* `Form` now has additional props of `leftAlignedActions` and `rightAlignedActions` which allows developers to add additional nodes in line with the default form actions.
+* `Button`: Makes large button text the same as the medium button
+* `Button`: Allows secondary text under main text [#1385](https://github.com/Sage/carbon/issues/1385)
+* `ButtonToggle`: The buttons can now be toggled using the keyboard
+* `Poller` helper has been refactored to no longer use promises
+* `Tooltip` now renders an ARIA role of tooltip, and accepts an optional `id` prop
+
+## Minor Improvments
+
+* The `Poller` helper has been refactored to no longer use promises
+
+## Demo Site
+
+* Renamed `definition.js` files to `__definition__.js`.
+
+# 1.3.7
+
+## Bug Fix
+
+* `Decimal`: fix an issue where values entered without a leading zero were incorrectly failing numerical validation
+
+# 1.3.6
+
+## Bug Fix
+
+* `Dialog`: ensures close icon positioning regardless of CSS load order
+
+# 1.3.5-1
+
+## Bug Fixes
+
+* Fixes CSS load order issue with `Dialog`, `Form`, and sticky footers.
+
+# 1.3.5
+
+## Bug Fixes
+
+* Flips errors messages in dialogs if they appear wider than the dialog.
+* `ButtonToggle`: The buttons can now be toggled using the keyboard
+
+# 1.3.4
+
+## Bug Fixes
+
+* Resolved bug in IE11 where sticky footer was rendering too large in dialogs.
+
+# 1.3.3
+
+## Bug Fixes
+
+* Added additional guards for browsers that do not support `element.contentDocument`.
+
+# 1.3.2
+
+## Bug Fixes
+
+* Our files are now published in production mode, removing some developer dependencies previously included.
+
+# 1.3.1
+
+## Bug Fixes
+
+* A bug was found in the new Dialog behaviour in Safari 9.x which rendered the sticky footer incorrectly. This solves it rendering incorrectly on page load for Safari 9.x. There remains a wider issue around Safari logged [here](https://github.com/Sage/carbon/issues/1432).
+
+# 1.3.0
+
+## Component Ehancements
+
+* Dialog
+  * Screen is no longer scrollable when a dialog is open.
+  * Dialog will attach to the bottom of the browser if it gets too tall, and it's content will become scrollable.
+  * If a dialog has a form, the form buttons will become sticky to the bottom of the dialog while the dialog is attached to the bottom of the browser (this is only enabled if the prop `stickyFormFooter` is applied to the dialog).
+  * Dialog can now use a prop called `height`, allowing developers to specify a set height for the dialog (the dialog will still attach to the bottom of the browser if it is taller than the browser's height).
+* Form
+  * Now has a prop of `stickyFooter` which when `true` will enable a sticky footer when it is off the screen.
+  * Now has a prop of `stickyFooterPadding` which will add additional padding to the form buttons when they are sticky (useful for aligning the form buttons between sticky and non-sticky states).
+
+# 1.2.2
+
+## Bug Fixes
+
+* Selected table rows no longer have highlights applied on hover.
+* Revert I18nhelper to use global locale for delimiter and separator
 
 # 1.2.1
 

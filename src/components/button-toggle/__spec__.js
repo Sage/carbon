@@ -5,24 +5,43 @@ import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-spec
 import ButtonToggle from './button-toggle';
 
 describe('ButtonToggle', () => {
-  let instance, wrapper;
+  let instance;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(<ButtonToggle><span>Plus</span></ButtonToggle>);
-    wrapper = shallow(
-      <ButtonToggle data-role='contacts' data-element='button-toggle'><span>Minus</span></ButtonToggle>
-    );
   });
 
   describe('mainClasses', () => {
     it('returns the classes for the component', () => {
-      expect(instance.mainClasses).toEqual('carbon-button-toggle common-input');
+      expect(instance.mainClasses).toEqual('carbon-button-toggle carbon-button-toggle--large common-input');
+    });
+
+    describe('when it is grouped', () => {
+      it('returns the grouped class', () => {
+        instance = TestUtils.renderIntoDocument(
+          <ButtonToggle size={ 'small' }><span>Plus</span></ButtonToggle>
+        );
+        expect(instance.mainClasses).toEqual(
+          'carbon-button-toggle carbon-button-toggle--small common-input'
+        );
+      });
+    });
+
+    describe('when the size is set to small', () => {
+      it('returns the small class', () => {
+        instance = TestUtils.renderIntoDocument(
+          <ButtonToggle grouped={ true }><span>Plus</span></ButtonToggle>
+        );
+        expect(instance.mainClasses).toEqual(
+          'carbon-button-toggle carbon-button-toggle--large carbon-button-toggle--grouped common-input'
+        );
+      });
     });
   });
 
   describe('input classes', () => {
     it('returns the classes for the input', () => {
-      expect(instance.inputClasses).toEqual('carbon-button-toggle__input hidden common-input__input');
+      expect(instance.inputClasses).toEqual('carbon-button-toggle__input common-input__input');
     });
   });
 

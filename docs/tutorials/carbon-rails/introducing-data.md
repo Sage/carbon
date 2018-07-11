@@ -45,7 +45,6 @@ The first thing we need is a store, so lets create a `User` store:
 ```js
 // ui/src/stores/user/user.js
 
-import Dispatcher from 'dispatcher';
 import Store from 'carbon-react/lib/utils/flux/store';
 import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
 
@@ -59,7 +58,7 @@ let data = ImmutableHelper.parseJSON({
 class UserStore extends Store {
 }
 
-export default new UserStore('userStore', data, Dispatcher);
+export default new UserStore('userStore', data);
 ```
 
 Currently, we are manually setting default data. This is useful so we know what the structure of this store looks like - but really we want to pull this data from the server instead.
@@ -85,7 +84,7 @@ export default {
 ```js
 // ui/src/actions/user/user.js
 
-import Dispatcher from 'dispatcher';
+import { Dispatcher } from 'carbon-react/lib/utils/flux';
 import UserConstants from 'constants/user';
 import Request from 'superagent';
 
@@ -115,7 +114,6 @@ Let's now go back to our store, and subscribe it to the dispatched event:
 ```js
 // ui/src/stores/user/user.js
 
-import Dispatcher from 'dispatcher';
 import Store from 'carbon-react/lib/utils/flux/store';
 import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
 
@@ -134,7 +132,7 @@ class UserStore extends Store {
   }
 }
 
-export default new UserStore('userStore', data, Dispatcher);
+export default new UserStore('userStore', data);
 ```
 
 So now our store will set the user key in the store with the returned data from the server.
@@ -216,7 +214,6 @@ Let's update the store to read this data:
 ```js
 // ui/src/stores/user/user.js
 
-import Dispatcher from 'dispatcher';
 import Store from 'carbon-react/lib/utils/flux/store';
 import ImmutableHelper from 'carbon-react/lib/utils/helpers/immutable';
 
@@ -232,7 +229,7 @@ class UserStore extends Store {
   }
 }
 
-export default new UserStore('userStore', data, Dispatcher);
+export default new UserStore('userStore', data);
 ```
 
 We are now setting up our default data using the JSON available globally.

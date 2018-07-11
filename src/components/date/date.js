@@ -1,8 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-// https://github.com/zippyui/react-date-picker
-import { MonthView, NavBar } from 'react-date-picker';
 import I18n from 'i18n-js';
+import PropTypes from 'prop-types';
+import DayPicker from 'react-day-picker';
+import LocaleUtils from 'react-day-picker/moment';
+import 'react-day-picker/lib/style.css';
+import './date.scss';
+import Navbar from './navbar';
+import Portal from './../portal';
+import Browser from './../../utils/helpers/browser';
 import Input from './../../utils/decorators/input';
 import InputLabel from './../../utils/decorators/input-label';
 import InputValidation from './../../utils/decorators/input-validation';
@@ -39,18 +44,7 @@ const today = DateHelper.todayFormatted('YYYY-MM-DD');
  * @constructor
  * @decorators {Input,InputIcon,InputLabel,InputValidation}
  */
-const Date = Input(InputIcon(InputLabel(InputValidation(
-class Date extends React.Component {
-
-  /**
-   * Stores the document - allows us to override it different contexts, such as
-   * when running tests.
-   *
-   * @property _document
-   * @type {document}
-   */
-  _document = document;
-
+const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React.Component {
   // Required for validProps function
   static propTypes = {
     /**
@@ -68,6 +62,14 @@ class Date extends React.Component {
      * @type {boolean}
      */
     disabled: PropTypes.bool,
+
+    /**
+     * Used to provide additional validations on composed components.
+     *
+     * @property internalValidations
+     * @type {Array}
+     */
+    internalValidations: PropTypes.array,
 
     /**
      * Minimum possible date
@@ -130,6 +132,15 @@ class Date extends React.Component {
     internalValidations: [new DateValidator()]
   }
 
+  /**
+   * Stores the document - allows us to override it different contexts, such as
+   * when running tests.
+   *
+   * @property _document
+   * @type {document}
+   */
+  _document = document;
+
   state = {
     /**
      * Sets open state of the datepicker
@@ -157,6 +168,11 @@ class Date extends React.Component {
      * @default value
      */
     visibleValue: this.formatVisibleValue(this.props.value)
+  }
+
+  constructor(args) {
+    super(args);
+    this.window = Browser.getWindow();
   }
 
   /**
@@ -220,8 +236,8 @@ class Date extends React.Component {
    */
   emitOnChangeCallback = (val) => {
     const hiddenField = this.hidden;
-    hiddenField.value = val;
-
+    const isValid = DateHelper.isValidDate(val, { sanitize: (typeof val === 'string') });
+    hiddenField.value = isValid ? DateHelper.formatDateString(val, this.hiddenFormat()) : val;
     this._handleOnChange({ target: hiddenField });
   }
 
@@ -236,7 +252,9 @@ class Date extends React.Component {
     this.setState({ open: true });
 
     if (DateHelper.isValidDate(this.props.value)) {
-      this.setState({ datePickerValue: this.props.value });
+      this.setState({
+        datePickerValue: DateHelper.stringToDate(this.props.value)
+      });
     }
   }
 
@@ -281,12 +299,33 @@ class Date extends React.Component {
     // Updates the hidden value after first formatting to default hidden format
     if (validDate) {
       const hiddenValue = DateHelper.formatValue(input, this.hiddenFormat());
-      newState.datePickerValue = hiddenValue;
+      newState.datePickerValue = DateHelper.stringToDate(hiddenValue);
+
+      if (this.datepicker && this.monthOrYearHasChanged(newState.datePickerValue)) {
+        this.datepicker.showMonth(newState.datePickerValue);
+      }
+
       this.emitOnChangeCallback(hiddenValue);
     } else {
       this.emitOnChangeCallback(ev.target.value);
     }
     this.setState(newState);
+  }
+
+  /**
+   * Determines if the new date's month or year has changed from the currently selected.
+   *
+   * @method monthOrYearHasChanged
+   * @param {Date}
+   * @return {Boolean}
+   */
+  monthOrYearHasChanged = (newDate) => {
+    const currentDate = this.datepicker.state.currentMonth;
+
+    return (
+      (currentDate.getMonth() !== newDate.getMonth()) ||
+      (currentDate.getYear() !== newDate.getYear())
+    );
   }
 
   /**
@@ -307,7 +346,8 @@ class Date extends React.Component {
    * @param {String} val User selected value
    * @return {void}
    */
-  handleDateSelect = (val) => {
+  handleDateSelect = (val, modifiers) => {
+    if (modifiers.disabled) { return; }
     this.blockBlur = true;
     this.closeDatePicker();
     this._handleContentChange();
@@ -340,18 +380,6 @@ class Date extends React.Component {
     } else {
       this.openDatePicker();
     }
-  }
-
-
-  /**
-   * Updates datePickerValue as hidden input changes.
-   *
-   * @method handleViewDateChange
-   * @param {String} val hidden input value
-   * @return {void}
-   */
-  handleViewDateChange = (val) => {
-    this.setState({ datePickerValue: val });
   }
 
   /**
@@ -406,7 +434,7 @@ class Date extends React.Component {
       type: 'hidden',
       readOnly: true,
       'data-element': 'hidden-input',
-      value: this.props.value
+      value: DateHelper.formatValue(this.props.value, this.hiddenFormat())
     };
 
     return props;
@@ -447,52 +475,122 @@ class Date extends React.Component {
     return this.inputIconHTML('calendar');
   }
 
- /**
+  /**
+  * Returns the disabled array of days specified by props maxDate and minDate
+  *
+  * @method disabledDays
+  * @return {Array}
+  */
+  disabledDays() {
+    if (!this.props.minDate && !this.props.maxDate) { return null; }
+    const days = [];
+    if (this.props.minDate) {
+      days.push({ before: DateHelper.stringToDate(this.props.minDate) });
+    }
+    if (this.props.maxDate) {
+      days.push({ after: DateHelper.stringToDate(this.props.maxDate) });
+    }
+    return days;
+  }
+
+  /**
   * A getter that returns datepicker specific props
   *
   * @method datePickerProps
   * @return {Object}
   */
   get datePickerProps() {
+    let date = this.state.datePickerValue;
+
+    if (!date) {
+      date = this.props.value;
+    }
+
     return {
-      date: this.state.datePickerValue,
-      dateFormat: this.hiddenFormat(),
-      enableHistoryView: false,
-      highlightToday: true,
-      highlightWeekends: false,
+      disabledDays: this.disabledDays(),
+      enableOutsideDays: true,
+      fixedWeeks: true,
+      initialMonth: this.state.datePickerValue || DateHelper.stringToDate(date),
+      inline: true,
       locale: I18n.locale,
-      maxDate: this.props.maxDate,
-      minDate: this.props.minDate,
-      onChange: this.handleDateSelect,
+      localeUtils: LocaleUtils,
+      navbarElement: <Navbar />,
+      onDayClick: this.handleDateSelect,
       ref: (input) => { this.datepicker = input; },
-      theme: null,
-      weekDayNames: DateHelper.weekdaysMinified(),
-      weekNumbers: false
+      selectedDays: [this.state.datePickerValue]
     };
   }
 
   /**
-   * A getter that returns navbar specific props
+   * Updates the containerStyle state
    *
-   * @method navBarProps
-   * @return {Object} props for the navbar
+   * @method updateDatePickerPosition
+   * @return {Void}
    */
-  get navBarProps() {
+  updateDatePickerPosition = () => {
+    this.setState({ containerStyle: this.containerStyle });
+  }
+
+  /**
+   * Returns the bounding rect for the input
+   *
+   * @method getInputBoundingRect
+   * @return {Object}
+   */
+  getInputBoundingRect() {
+    return this._input.getBoundingClientRect();
+  }
+
+  /**
+   * Returns the style for the DayPicker container
+   *
+   * @method containerStyle
+   * @return {Object}
+   */
+  get containerStyle() {
+    const inputRect = this.getInputBoundingRect();
+    const offsetY = window.pageYOffset;
     return {
-      navDateFormat: 'MMMM YYYY',
-      arrows: { prev: '‹', next: '›' },
-      maxDate: this.props.maxDate,
-      minDate: this.props.minDate,
-      theme: null
+      left: inputRect.left,
+      top: inputRect.bottom + offsetY
     };
   }
 
+  /**
+   * Returns the props for the DayPicker container
+   *
+   * @method containerProps
+   * @return {Object}
+   */
+  get containerProps() {
+    return {
+      style: this.state.containerStyle,
+      onClick: this.handleWidgetClick
+    };
+  }
 
+  /**
+   * Returns the DayPicker component
+   *
+   * @method renderDatePicker
+   * @return {Object} JSX
+   */
   renderDatePicker() {
     return (
-      <MonthView { ...this.datePickerProps }>
-        <NavBar { ...this.navBarProps } />
-      </MonthView>
+      this.state.open && (
+        <Portal onReposition={ this.updateDatePickerPosition }>
+          <DayPicker { ...this.datePickerProps } containerProps={ this.containerProps } />
+        </Portal>
+      )
+    );
+  }
+
+  renderHiddenInput() {
+    return (
+      <input
+        { ...this.hiddenInputProps }
+        ref={ (node) => { this.hidden = node; } }
+      />
     );
   }
 
@@ -503,19 +601,16 @@ class Date extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    // TODO: Pull datepicker into own component to wrap third party
-    const datePicker = this.state.open ? this.renderDatePicker() : null;
-
     return (
-      <div className={ this.mainClasses } onClick={ this.handleWidgetClick } { ...tagComponent('date', this.props) }>
-
+      <div
+        className={ this.mainClasses } onClick={ this.handleWidgetClick }
+        { ...tagComponent('date', this.props) }
+      >
         { this.labelHTML }
         { this.inputHTML }
-        <input { ...this.hiddenInputProps } ref={ (node) => { this.hidden = node; } } />
-        { datePicker }
-
+        { this.renderHiddenInput() }
+        { this.renderDatePicker() }
         { this.fieldHelpHTML }
-
       </div>
     );
   }
@@ -555,7 +650,6 @@ class Date extends React.Component {
       { formats: this.hiddenFormat(), sanitize: false }
     );
   }
-}
-))));
+}))));
 
 export default Date;

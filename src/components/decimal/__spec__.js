@@ -1,5 +1,5 @@
 import React from 'react';
-import I18n from "i18n-js";
+import I18n from 'i18n-js';
 import { shallow } from 'enzyme';
 import TestUtils from 'react-dom/test-utils';
 import Decimal from './decimal';
@@ -9,37 +9,41 @@ import PropTypesHelper from '../../utils/helpers/prop-types';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Decimal', () => {
-  var instance;
+  let instance;
 
-  describe('Custom prop types', () => {
-    describe('precision', () => {
+  describe('precision cap', () => {
+    let wrapper;
 
+    describe('when precision prop is greater than 20', () => {
       beforeEach(() => {
-        spyOn(I18nHelper, 'formatDecimal').and.returnValue('20.00');
-        spyOn(console, 'error');
+        console.warn = jest.fn();
+        wrapper = shallow(<Decimal value='9999' name='total' precision={ 23 } />);
       });
 
-      describe('when in a valid range', () => {
-        it('outputs a prop console error', () => {
-          spyOn(PropTypesHelper, 'inValidRange').and.returnValue(new Error('foo'));
-          instance = shallow(<Decimal />);
-          expect(console.error.calls.argsFor(0)[0]).toMatch('foo');
-        });
+      it('limits precision to 20', () => {
+        expect(wrapper.state().visibleValue).toEqual('9,999.00000000000000000000');
       });
 
-      describe('when not in a valid range', () => {
-        it('outputs a prop console error', () => {
-          spyOn(PropTypesHelper, 'inValidRange').and.returnValue(new Error('foo'));
-          instance = shallow(<Decimal />);
-          expect(console.error.calls.count()).toEqual(0);
-        });
+      it('logs a warning message', () => {
+        expect(console.warn).toHaveBeenCalledWith('Decimal precision must not be greater than 20.');
+      });
+    });
+
+    describe('when precision is less than 20', () => {
+      beforeEach(() => {
+        console.warn = jest.fn();
+        wrapper = shallow(<Decimal value='9999' name='total' precision={ 10 } />);
+      });
+
+      it('does not log a warning', () => {
+        expect(console.warn).not.toHaveBeenCalled();
       });
     });
   });
 
   describe('with no options', () => {
     beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(<Decimal name="total" />);
+      instance = TestUtils.renderIntoDocument(<Decimal name='total' />);
     });
 
     describe('initialize', () => {
@@ -50,11 +54,11 @@ describe('Decimal', () => {
 
     describe('handleBlur using default value', () => {
       it('calls set state with the formatted value', () => {
-        const wrapper = shallow(<Decimal value="9999" name="total" />);
+        const wrapper = shallow(<Decimal value='9999' name='total' />);
         const instance = wrapper.instance();
         spyOn(instance, 'setState');
         instance.handleBlur();
-        expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "9,999.00" });
+        expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '9,999.00' });
       });
     });
   });
@@ -62,7 +66,7 @@ describe('Decimal', () => {
   describe('with options', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Decimal name="total" value="1000000.00000" className="foobar" />
+        <Decimal name='total' value='1000000.00000' className='foobar' />
       );
     });
 
@@ -72,25 +76,25 @@ describe('Decimal', () => {
     });
 
     it('sets the visibleValue state to a formatted version of the value', () => {
-      expect(instance.state.visibleValue).toEqual("1,000,000.00");
+      expect(instance.state.visibleValue).toEqual('1,000,000.00');
     });
 
     describe('when precision is passed', () => {
       it('sets the visibleValue state to the formatted version using i18n opts', () => {
         instance = TestUtils.renderIntoDocument(
-          <Decimal name="total" value="12345.67891" precision={ 5 } />
+          <Decimal name='total' value='12345.67891' precision={ 5 } />
         );
-        expect(instance.state.visibleValue).toEqual("12,345.67891");
+        expect(instance.state.visibleValue).toEqual('12,345.67891');
       });
 
       it('updates the visibleValue state when the precision is changed', () => {
         let wrapper = shallow(
-          <Decimal name="total" value="12345.67891" precision={ 5 } />
+          <Decimal name='total' value='12345.67891' precision={ 5 } />
         );
-        expect(wrapper.state().visibleValue).toEqual("12,345.67891");
+        expect(wrapper.state().visibleValue).toEqual('12,345.67891');
 
         wrapper.setProps({ precision: 2 });
-        expect(wrapper.state().visibleValue).toEqual("12,345.68");
+        expect(wrapper.state().visibleValue).toEqual('12,345.68');
       });
     });
 
@@ -98,12 +102,12 @@ describe('Decimal', () => {
     describe('with alternative I18n options', () => {
       beforeEach(() => {
         I18n.translations = { en: { number: { format: {
-          delimiter: ".",
-          separator: ","
+          delimiter: '.',
+          separator: ','
         } } } };
 
         instance = TestUtils.renderIntoDocument(
-          <Decimal name="total" value="1000000.00000" />
+          <Decimal name='total' value='1000000.00000' />
         );
       });
 
@@ -112,7 +116,7 @@ describe('Decimal', () => {
       });
 
       it('sets the visibleValue state to a formatted version using i18n opts', () => {
-        expect(instance.state.visibleValue).toEqual("1.000.000,00");
+        expect(instance.state.visibleValue).toEqual('1.000.000,00');
       });
     });
   });
@@ -120,7 +124,7 @@ describe('Decimal', () => {
   describe('component methods', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Decimal name="total" value="1000.00" />
+        <Decimal name='total' value='1000.00' />
       );
     });
 
@@ -180,12 +184,12 @@ describe('Decimal', () => {
       describe('with en I18n options', () => {
         beforeEach(() => {
           I18n.translations = { en: { number: { format: {
-            delimiter: ",",
-            separator: "."
+            delimiter: ',',
+            separator: '.'
           } } } };
 
           instance = TestUtils.renderIntoDocument(
-            <Decimal name="total" value="" />
+            <Decimal name='total' value=''/>
           );
         });
 
@@ -222,12 +226,12 @@ describe('Decimal', () => {
       describe('with alternative (fr) I18n options', () => {
         beforeEach(() => {
           I18n.translations = { en: { number: { format: {
-            delimiter: " ",
-            separator: ","
+            delimiter: ' ',
+            separator: ','
           } } } };
 
           instance = TestUtils.renderIntoDocument(
-            <Decimal name="total" value="" />
+            <Decimal name='total' value='' />
           );
         });
 
@@ -246,12 +250,12 @@ describe('Decimal', () => {
       describe('with alternative (de, es) I18n options', () => {
         beforeEach(() => {
           I18n.translations = { en: { number: { format: {
-            delimiter: ".",
-            separator: ","
+            delimiter: '.',
+            separator: ','
           } } } };
 
           instance = TestUtils.renderIntoDocument(
-            <Decimal name="total" value="" />
+            <Decimal name='total' value='' />
           );
         });
 
@@ -276,29 +280,29 @@ describe('Decimal', () => {
       });
 
       it('checks if the value is a valid decimal if precision is greater than 0', () => {
-        TestUtils.Simulate.change(instance._input, { target: { value: "1,0,0,0.00" } });
-        expect(instance.isValidDecimal).toHaveBeenCalledWith("1,0,0,0.00", 2);
+        TestUtils.Simulate.change(instance._input, { target: { value: '1,0,0,0.00' } });
+        expect(instance.isValidDecimal).toHaveBeenCalledWith('1,0,0,0.00', 2);
       });
 
       it('checks if the value is a valid integer if precision is 0', () => {
-        instance = TestUtils.renderIntoDocument(<Decimal name="total" value="1000" precision={ 0 } />);
+        instance = TestUtils.renderIntoDocument(<Decimal name='total' value='1000' precision={ 0 } />);
         spyOn(instance, 'isValidDecimal').and.callThrough();
-        TestUtils.Simulate.change(instance._input, { target: { value: "2,0,0,0" } });
-        expect(instance.isValidDecimal).toHaveBeenCalledWith("2,0,0,0", 0);
+        TestUtils.Simulate.change(instance._input, { target: { value: '2,0,0,0' } });
+        expect(instance.isValidDecimal).toHaveBeenCalledWith('2,0,0,0', 0);
       });
 
       describe('when it is as a valid decimal', () => {
         beforeEach(() => {
-          TestUtils.Simulate.change(instance._input, { target: { value: "1,0,0,0.00" } });
+          TestUtils.Simulate.change(instance._input, { target: { value: '1,0,0,0.00' } });
         });
 
 
         it('calls setState with the exact visibleValue from the visible input', () => {
-          expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "1,0,0,0.00" });
+          expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '1,0,0,0.00' });
         });
 
         it('calls emitOnChangeCallback with a formatted hidden value', () => {
-          expect(instance.emitOnChangeCallback).toHaveBeenCalledWith("1000.00");
+          expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('1000.00');
         });
       })
 
@@ -313,7 +317,7 @@ describe('Decimal', () => {
 
           TestUtils.Simulate.change(instance._input, {
             target: {
-              value: "..1.0.0,0.00",
+              value: '..1.0.0,0.00',
               setSelectionRange: setSelectionSpy
             }
           });
@@ -341,7 +345,7 @@ describe('Decimal', () => {
 
       it('calls setState with the formatted visible value', () => {
         TestUtils.Simulate.blur(instance._input);
-        expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "1,000.00" });
+        expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '1,000.00' });
       });
 
       it('sets the highlighted property to false', () => {
@@ -352,7 +356,7 @@ describe('Decimal', () => {
       describe('if value is undefined', () => {
         it('calls emitOnChangeCallback with a value of 0', () => {
           instance = TestUtils.renderIntoDocument(
-            <Decimal name="total" value="" />
+            <Decimal name='total' value='' />
           );
           spyOn(instance, 'emitOnChangeCallback');
           TestUtils.Simulate.blur(instance._input);
@@ -363,32 +367,53 @@ describe('Decimal', () => {
       describe('if value is single negative sign `-`', () => {
         it('calls setState with `-`', () => {
           instance = TestUtils.renderIntoDocument(
-            <Decimal name="total" value="-" />
+            <Decimal name='total' value='-' />
           );
           spyOn(instance, 'setState');
           TestUtils.Simulate.blur(instance._input);
-          expect(instance.setState).toHaveBeenCalledWith({ visibleValue: "-" });
+          expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '-' });
         });
       });
 
-      describe('when onBlur is passed', () => {
+      describe('when the value does not have a leading zero', () => {
+        it('calls setState with the value formatted with a leading zero', () => {
+          const wrapper = shallow(
+            <Decimal name='total' value='.9' />
+          );
+
+          wrapper.find('input').at(0).simulate('blur');
+          expect(wrapper.state().visibleValue).toBe('0.90');
+        });
+      });
+
+      describe('when the value has a decimal point but no trailing zero', () => {
+        it('calls setState with the value formatted with a trailing zero', () => {
+          const wrapper = shallow(
+            <Decimal name='total' value='9.' />
+          );
+
+          wrapper.find('input').at(0).simulate('blur');
+          expect(wrapper.state().visibleValue).toBe('9.00');
+        });
+      });
+
+      // describe('when onBlur is passed', () => {
         it('calls onBlur', () => {
           let onBlur = jasmine.createSpy();
 
           instance = TestUtils.renderIntoDocument(
-            <Decimal name="total" value="1000.00" onBlur={ onBlur } />
+            <Decimal name='total' value='1000.00' onBlur={ onBlur } />
           );
           TestUtils.Simulate.blur(instance._input);
           expect(onBlur).toHaveBeenCalled();
         });
       });
-    });
 
-    describe("handleOnClick", () => {
+    describe('handleOnClick', () => {
       let visible, selectionSpy;
 
       beforeEach(() => {
-        selectionSpy = jasmine.createSpy();
+        selectionSpy = jest.fn();
         instance._input = {
           selectionStart: 0,
           value: { length: 5 },
@@ -398,29 +423,29 @@ describe('Decimal', () => {
         visible = instance._input;
       });
 
-      describe("when the caret is at the edge of the value", () => {
+      describe('when the caret is at the edge of the value', () => {
         beforeEach(() => {
           instance.handleOnClick();
         });
 
-        it("should call setSelectionRange method", () => {
+        it('should call setSelectionRange method', () => {
           expect(selectionSpy).toHaveBeenCalledWith(0, visible.value.length);
         });
       });
 
-      describe("when the caret is within the value", () => {
+      describe('when the caret is within the value', () => {
         beforeEach(() => {
           visible.value = '100';
           spyOn(visible, 'selectionStart');
           instance.handleOnClick();
         });
 
-        it("should not call setSelectionRange method", () => {
+        it('should not call setSelectionRange method', () => {
           expect(visible.setSelectionRange).not.toHaveBeenCalled();
         });
       });
 
-      describe("when highlighted is true", () => {
+      describe('when highlighted is true', () => {
         beforeEach(() => {
           instance.highlighted = true;
           visible.selectionStart = 0
@@ -428,7 +453,7 @@ describe('Decimal', () => {
           instance.handleOnClick();
         });
 
-        it("resets highlighted to false and does not call setSelectionRange", () => {
+        it('resets highlighted to false and does not call setSelectionRange', () => {
           expect(instance.highlighted).toBeFalsy();
           expect(visible.setSelectionRange).not.toHaveBeenCalled();
         });
@@ -450,18 +475,18 @@ describe('Decimal', () => {
       });
 
       it('sets value to the visible value', () => {
-        expect(instance._input.value).toEqual("1,000.00");
+        expect(instance._input.value).toEqual('1,000.00');
       });
     });
 
     describe('hiddenInputProps', () => {
       it('sets type and readOnly', () => {
         const hiddenInput = instance._hiddenInput;
-        expect(hiddenInput.type).toEqual("hidden");
+        expect(hiddenInput.type).toEqual('hidden');
         expect(hiddenInput.readOnly).toBeTruthy();
-        expect(hiddenInput.value).toEqual("1000.00");
-        expect(hiddenInput.defaultValue).toEqual("1000.00");
-        expect(hiddenInput.name).toEqual("total");
+        expect(hiddenInput.value).toEqual('1000.00');
+        expect(hiddenInput.defaultValue).toEqual('1000.00');
+        expect(hiddenInput.name).toEqual('total');
       });
     });
 
@@ -478,7 +503,7 @@ describe('Decimal', () => {
         it('calls this onKeyDown function with the event and its props', () => {
           let spy = jasmine.createSpy('spy');
           instance = TestUtils.renderIntoDocument(<Decimal
-            name="Dummy Decimal"
+            name='Dummy Decimal'
             onKeyDown={ spy }
           />);
 
@@ -506,24 +531,24 @@ describe('Decimal', () => {
       });
     });
   });
+});
 
-  describe("tags", () => {
-    describe("on component", () => {
-      let wrapper = shallow(<Decimal data-element='bar' data-role='baz' />);
+describe('tags', () => {
+  describe('on component', () => {
+    let wrapper = shallow(<Decimal data-element='bar' data-role='baz' />);
 
-      it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper, 'decimal', 'bar', 'baz');
-      });
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(wrapper, 'decimal', 'bar', 'baz');
     });
+  });
 
-    describe("on internal elements", () => {
-      let wrapper = shallow(<Decimal fieldHelp='test' label='test' />);
+  describe('on internal elements', () => {
+    let wrapper = shallow(<Decimal fieldHelp='test' label='test' />);
 
-      elementsTagTest(wrapper, [
-        'help',
-        'input',
-        'label'
-      ]);
-    });
+    elementsTagTest(wrapper, [
+      'help',
+      'input',
+      'label'
+    ]);
   });
 });

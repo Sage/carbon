@@ -1,12 +1,11 @@
 import Store from './store';
-import { Dispatcher } from 'flux';
+import Flux from 'flux';
+import Logger from './../../logger';
+import { Dispatcher } from './../../flux';
+import { EventEmitter } from 'events';
 
 describe('Store', () => {
-  let instance, dispatcher;
-
-  beforeEach(() => {
-    dispatcher = new Dispatcher();
-  });
+  let instance;
 
   describe('constructor', () => {
     describe('init without a name', () => {
@@ -21,42 +20,54 @@ describe('Store', () => {
       });
     });
 
-    describe('init without dispatcher', () => {
-      it('throws an error', () => {
-        expect(function() { new Store('foo', {}) }).toThrowError("You need to initialize your store with your application's dispatcher. Check the initialization of Store.");
+    describe('with no dispatcher given', () => {
+      it('registers the carbon dispatcher and stores the token', () => {
+        spyOn(Dispatcher, 'register').and.returnValue('foo');
+        instance = new Store('foo', {});
+        expect(Dispatcher.register).toHaveBeenCalledWith(instance.dispatcherCallback);
+        expect(instance.dispatchToken).toEqual('foo');
       });
     });
 
-    describe('init with a dispatcher', () => {
-      it('registers the dispatcher and store the token', () => {
+    describe('with a custom dispatcher', () => {
+      it('uses the custom dispatcher', () => {
+        const dispatcher = new Flux.Dispatcher();
         spyOn(dispatcher, 'register').and.returnValue('foo');
-        instance = new Store('foo', {}, dispatcher);
+        instance = new Store('foo', {}, { dispatcher });
         expect(dispatcher.register).toHaveBeenCalledWith(instance.dispatcherCallback);
         expect(instance.dispatchToken).toEqual('foo');
       });
     });
 
     it('sets history to an array with init data', () => {
-      instance = new Store('foo', { foo: 'bar' }, dispatcher);
+      instance = new Store('foo', { foo: 'bar' });
       expect(instance.history).toEqual([{ foo: 'bar' }]);
     });
 
     it('sets trackHistory to false', () => {
-      instance = new Store('foo', {}, dispatcher);
+      instance = new Store('foo', {});
       expect(instance.trackHistory).toBeFalsy();
     });
 
     describe('init with history enabled', () => {
       it('sets trackHistory to true', () => {
-        instance = new Store('foo', {}, dispatcher, { history: true });
+        instance = new Store('foo', {}, { history: true });
         expect(instance.trackHistory).toBeTruthy();
+      });
+    });
+
+    describe('max event listeners', () => {
+      it('set to 50', () => {
+        spyOn(EventEmitter.prototype, 'setMaxListeners');
+        instance = new Store('foo', 'some data');
+        expect(EventEmitter.prototype.setMaxListeners).toHaveBeenCalledWith(50);
       });
     });
   });
 
   describe("with an actual store", () => {
     beforeEach(() => {
-      instance = new Store('foo', 'some data', dispatcher);
+      instance = new Store('foo', 'some data');
     });
 
     describe('addChangeListener', () => {

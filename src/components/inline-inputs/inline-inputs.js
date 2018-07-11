@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { assign } from 'lodash';
-
-// Carbon
 import { Row, Column } from './../row';
+
+/* eslint-disable react/prop-types */
 
 const Label = (props) => {
   if (!props.label) { return null; }
@@ -23,7 +23,7 @@ const columnWrapper = (children) => {
   }
 
   return inputs.map((input, index) => {
-    // TODO: CarbonV2 Add unique requirement for inlineInputs to use as keys
+    // Input is never going to be re-ordered so we don't require a defined key
     /* eslint-disable react/no-array-index-key */
     return (
       <Column key={ index }>
@@ -90,5 +90,7 @@ InlineInputs.defaultProps = {
   children: null,
   className: ''
 };
+
+/* eslint-enable react/prop-types */
 
 export default InlineInputs;

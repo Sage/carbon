@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Events from './../../utils/helpers/events';
 import Browser from './../../utils/helpers/browser';
+import Portal from './../../components/portal';
 
+const TIMEOUT = 500;
 /**
  * A Modal Component
  *
@@ -36,7 +38,6 @@ import Browser from './../../utils/helpers/browser';
  * @constructor
  */
 class Modal extends React.Component {
-
   static propTypes = {
 
     /**
@@ -85,7 +86,6 @@ class Modal extends React.Component {
   }
 
   static defaultProps = {
-    open: false,
     onCancel: null,
     enableBackgroundUI: false,
     disableEscKey: false
@@ -102,8 +102,8 @@ class Modal extends React.Component {
     modal: PropTypes.object
   }
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     /**
      * Tracks if event listeners are on for modal
@@ -112,6 +112,29 @@ class Modal extends React.Component {
      * @type {Boolean}
      */
     this.listening = false;
+
+    this.state = {
+      /**
+       * Sets the initial data-state of the modal
+       * @property state
+       * @type {String}
+       */
+      state: this.props.open ? 'open' : 'closed'
+    };
+  }
+
+  /**
+   * Updates the value used for the css data-state. This uses a timeout to match the length of any transition to ensure
+   * UI automation is able to target elements once they are visually ready.
+   * @method updateDataState
+   * @return {void}
+   *
+   */
+  updateDataState = () => {
+    clearTimeout(this.openTimeout);
+    this.openTimeout = setTimeout(() => {
+      this.setState({ state: this.props.open ? 'open' : 'closed' });
+    }, TIMEOUT);
   }
 
 
@@ -140,10 +163,12 @@ class Modal extends React.Component {
 
     if (this.props.open && !this.listening) {
       this.listening = true;
+      this.updateDataState();
       this.onOpening; // eslint-disable-line no-unused-expressions
       _window.addEventListener('keyup', this.closeModal);
-    } else if (!this.props.open) {
+    } else if (!this.props.open && this.listening) {
       this.listening = false;
+      this.updateDataState();
       this.onClosing; // eslint-disable-line no-unused-expressions
       _window.removeEventListener('keyup', this.closeModal);
     }
@@ -212,29 +237,34 @@ class Modal extends React.Component {
     }
 
     return (
-      <div
-        ref={ (c) => { this._input = c; } }
-        className={ this.mainClasses }
-        { ...this.componentTags(this.props) }
-      >
-        <CSSTransitionGroup
-          component='div'
-          transitionName={ this.transitionName }
-          transitionEnterTimeout={ 500 }
-          transitionLeaveTimeout={ 500 }
+      <Portal key='1' >
+        <div
+          className={ this.mainClasses }
+          { ...this.componentTags(this.props) }
+          data-state={ this.state.state }
         >
-          { modalHTML }
-        </CSSTransitionGroup>
-
-        <CSSTransitionGroup
-          component='div'
-          transitionName={ this.backgroundTransitionName }
-          transitionEnterTimeout={ 500 }
-          transitionLeaveTimeout={ 500 }
-        >
-          { backgroundHTML }
-        </CSSTransitionGroup>
-      </div>
+          <CSSTransitionGroup
+            component='div'
+            transitionName={ this.backgroundTransitionName }
+            transitionAppear
+            transitionAppearTimeout={ TIMEOUT }
+            transitionEnterTimeout={ TIMEOUT }
+            transitionLeaveTimeout={ TIMEOUT }
+          >
+            { backgroundHTML }
+          </CSSTransitionGroup>
+          <CSSTransitionGroup
+            component='div'
+            transitionName={ this.transitionName }
+            transitionAppear
+            transitionAppearTimeout={ TIMEOUT }
+            transitionEnterTimeout={ TIMEOUT }
+            transitionLeaveTimeout={ TIMEOUT }
+          >
+            { modalHTML }
+          </CSSTransitionGroup>
+        </div>
+      </Portal>
     );
   }
 }

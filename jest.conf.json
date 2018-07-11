@@ -1,0 +1,8 @@
+{
+  "preset": "./node_modules/carbon-factory/jest.conf.json",
+  "notify": false,
+  "setupFiles": [
+    "raf/polyfill",
+    "./src/__spec_helper__/index.js"
+  ]
+}

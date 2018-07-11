@@ -20,11 +20,9 @@ const I18nHelper = {
   format: (locale) => {
     return {
       delimiter: I18n.t('number.format.delimiter', {
-        locale,
         defaultValue: ','
       }),
       separator: I18n.t('number.format.separator', {
-        locale,
         defaultValue: '.'
       }),
       unit: I18n.t('number.currency.format.unit', {
@@ -143,7 +141,7 @@ const I18nHelper = {
   formatCurrency: (valueToFormat = 0, options = {}) => {
     const locale = options.locale || I18n.locale || 'en';
     const format = I18nHelper.format(locale);
-    let precision = options.precision;
+    let { precision } = options;
     const unit = options.unit || format.unit;
     const structure = options.format || format.format;
 

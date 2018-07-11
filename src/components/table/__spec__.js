@@ -4,7 +4,7 @@ import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 import ActionToolbar from './../action-toolbar';
 import Link from './../link';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 describe('Table', () => {
@@ -36,7 +36,7 @@ describe('Table', () => {
         totalRecords='100'
         onChange={ spy }
       >
-        foo
+        <TableRow />
       </Table>
     );
 
@@ -508,11 +508,7 @@ describe('Table', () => {
 
   describe('resetTableHeight', () => {
     beforeEach(() => {
-      jasmine.clock().install()
-    });
-
-    afterEach(() => {
-      jasmine.clock().uninstall();
+      jest.useFakeTimers();
     });
 
     it('Resets the table wrapper height to the tableOffset', () => {
@@ -522,7 +518,7 @@ describe('Table', () => {
       instance.tableHeight = 100;
 
       instance.resetTableHeight();
-      jasmine.clock().tick();
+      jest.runTimersToTime(0);
 
       expect(instance._wrapper.style.minHeight).toEqual('50px');
       expect(instance.tableHeight).toEqual('50');
@@ -656,7 +652,7 @@ describe('Table', () => {
             totalRecords='100'
             onChange={ spy }
           >
-            foo
+            <TableRow />
           </Table>
         );
       });
@@ -689,12 +685,12 @@ describe('Table', () => {
     let onConfigureSpy = jasmine.createSpy();
     let wrapper;
     beforeEach(() => {
-      wrapper = shallow(
+      wrapper = mount(
         <Table
           className="foo"
           onConfigure={ onConfigureSpy }
         >
-          foo
+          <TableRow />
         </Table>
       )
     });
@@ -974,14 +970,40 @@ describe('Table', () => {
     });
 
     it('renders an action toolbar if actions are passed', () => {
+      let func = () => {};
       let toolbarWrapper = shallow(
-        <Table className="foo" actions={ {foo: 'bar'} } selectable={ true }>
+        <Table className="foo" actions={ {foo: 'bar'} } selectable={ true } actionToolbarChildren={ func }>
           { row }
         </Table>
       );
 
       let toolbar = toolbarWrapper.find(ActionToolbar);
       expect(toolbar).toBeDefined();
+      expect(toolbar.props().children).toEqual(func);
+    });
+
+    describe('when aria-describedby is in the table props', () => {
+      it('renders an aria-describedby attribute on the table element', () => {
+        const wrapper = shallow(
+          <Table aria-describedby='description' />
+        );
+
+        const table = wrapper.find('table');
+
+        expect(table.is('[aria-describedby="description"]')).toBe(true);
+      });
+    });
+
+    describe('when aria-describedby is not in the table props', () => {
+      it('does not render an aria-describedby attribute on the table element', () => {
+        const wrapper = shallow(
+          <Table />
+        );
+
+        const table = wrapper.find('table');
+
+        expect(table.is('[aria-describedby="description"]')).toBe(false);
+      });
     });
   });
 

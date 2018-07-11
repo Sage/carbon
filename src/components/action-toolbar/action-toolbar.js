@@ -16,15 +16,18 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * To render an ActionToolbar:
  *
- *   let actions = [{
- *     text: "Add Subscriptions",
- *     icon: "basket",
- *     onClick: onClickHandler(event, selected) => {}
- *   }, {
- *     text: "Delete",
- *     icon: "bin",
- *     onClick: onClickHandler(event, selected) => {}
- *   }];
+ *   let actions = {
+ *     subscription: {
+ *       text: "Add Subscriptions",
+ *       icon: "basket",
+ *       onClick: onClickHandler(event, selected) => {}
+ *     },
+ *     delete: {
+ *       text: "Delete",
+ *       icon: "bin",
+ *       onClick: onClickHandler(event, selected) => {}
+ *     }
+ *   };
  *
  *   <ActionToolbar total={ count } actions={ actions } />
  *
@@ -52,7 +55,15 @@ class ActionToolbar extends React.Component {
      * @property className
      * @type {String}
      */
-    className: PropTypes.string
+    className: PropTypes.string,
+
+    /**
+     * A function to return child components for the action toolbar.
+     *
+     * @property children
+     * @type {Function}
+     */
+    children: PropTypes.func
   };
 
   static contextTypes = {
@@ -78,9 +89,9 @@ class ActionToolbar extends React.Component {
 
     /**
      * @property selected
-     * @type {Array}
+     * @type {Object}
      */
-    selected: []
+    selected: {}
   };
 
   /**
@@ -156,7 +167,9 @@ class ActionToolbar extends React.Component {
    * @return {Object} JSX
    */
   buildAction(action, index) {
-    const { onClick, className, text, ...props } = action;
+    const {
+      onClick, className, text, ...props
+    } = action;
 
     return (
       <Link
@@ -170,6 +183,14 @@ class ActionToolbar extends React.Component {
         { text }
       </Link>
     );
+  }
+
+  propsForChildren = () => {
+    return {
+      disabled: !this.isActive(),
+      selected: this.state.selected,
+      total: this.state.total
+    };
   }
 
   /**
@@ -188,6 +209,7 @@ class ActionToolbar extends React.Component {
 
         <div className='carbon-action-toolbar__actions'>
           { this.actions() }
+          { this.props.children && this.props.children(this.propsForChildren()) }
         </div>
       </div>
     );

@@ -9,17 +9,7 @@ import tagComponent from '../../../utils/helpers/tags';
  * Renders a menu item for the menu component.
  */
 class MenuItem extends React.Component {
-
   static propTypes = {
-    /**
-     * Defines whether alternate row styling should be applied
-     * 0..n blocks of 1..n menu items can be marked as `alternate` which adds a secondary style
-     *
-     * @property alternate
-     * @type {Boolean}
-     */
-    alternate: PropTypes.bool,
-
     /**
      * Children elements
      *
@@ -43,6 +33,14 @@ class MenuItem extends React.Component {
      * @type {Function}
      */
     onClick: PropTypes.func,
+
+    /**
+     * Adds an icon to the menu item.
+     *
+     * @property icon
+     * @type {String}
+     */
+    icon: PropTypes.string,
 
     /**
      * Defines which direction the submenu will hang eg. left/right
@@ -124,15 +122,23 @@ class MenuItem extends React.Component {
     );
 
     return (
-      <div>
-        <MenuItem className='carbon-menu-item__submenu-title' href={ this.props.href } to={ this.props.to }>
+      <React.Fragment>
+        <MenuItem
+          className='carbon-menu-item__submenu-title' href={ this.props.href }
+          to={ this.props.to }
+        >
           { this.props.submenu }
         </MenuItem>
 
-        <div className={ submenuClasses }>
-          { this.props.children }
-        </div>
-      </div>
+        <ul className={ submenuClasses }>
+          {
+            React.Children.map(
+              this.props.children,
+              child => <li className='carbon-menu-item__submenu-item'>{ child }</li>
+            )
+          }
+        </ul>
+      </React.Fragment>
     );
   }
 
@@ -146,8 +152,6 @@ class MenuItem extends React.Component {
     return classNames(
       'carbon-menu-item',
       this.props.className, {
-        'carbon-menu-item--alternate': this.props.alternate,
-        'carbon-menu-item--alternate-off': !this.props.alternate,
         'carbon-menu-item--divide': this.props.divide,
         'carbon-menu-item--has-link': this.props.href || this.props.to || this.props.onClick,
         'carbon-menu-item--has-submenu': this.props.submenu,
@@ -166,7 +170,8 @@ class MenuItem extends React.Component {
       href: this.props.href,
       to: this.props.to,
       target: this.props.target,
-      onClick: this.props.onClick
+      onClick: this.props.onClick,
+      icon: this.props.icon
     };
 
     props = assign({}, props, tagComponent('menu-item', this.props));

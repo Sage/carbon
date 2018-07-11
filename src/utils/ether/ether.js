@@ -16,7 +16,10 @@ import { omit, difference, includes } from 'lodash';
  * @return {String}
  */
 function acronymize(str) {
-  return str.match(/\b\w/g).join('');
+  if (!str) return '';
+  const matches = str.match(/\b\w/g);
+  if (!matches) return '';
+  return matches.join('');
 }
 
 /**

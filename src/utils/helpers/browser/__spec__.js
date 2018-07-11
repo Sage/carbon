@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { mount } from 'enzyme';
 import Form from './../../../components/form';
-import Browser from './browser.js';
+import Browser from './browser';
 
 describe('Browser', () => {
   let _window;
@@ -16,16 +16,68 @@ describe('Browser', () => {
     };
   });
 
-  describe('redirectTo', () => {
-    describe('when url is passed', () => {
-      const urlsample = 'http://bla';
+  describe('redirects', () => {
+    const urlSample = 'http://bla';
 
-      it('redirects to url', () => {
-        spyOn(Browser, 'getWindow').and.returnValue(_window);
+    beforeEach(() => {
+      spyOn(Browser, 'getWindow').and.returnValue(_window);
+    });
 
-        Browser.redirectTo(urlsample);
-        expect(_window.location).toEqual(urlsample);
+    describe('redirectTo', () => {
+      describe('when url is passed', () => {
+        it('redirects to url', () => {
+          Browser.redirectTo(urlSample);
+          expect(_window.location).toEqual(urlSample);
+        });
       });
+    });
+
+    describe('redirectAfter', () => {
+      const seconds = 5;
+
+      beforeEach(() => {
+        jest.useFakeTimers();
+      });
+
+      it('redirects to the url after the given number of seconds', () => {
+        Browser.redirectAfter(urlSample, seconds);
+
+        expect(_window.location).toBeNull();
+        jest.advanceTimersByTime(seconds * 1000);
+        expect(_window.location).toEqual(urlSample);
+      });
+
+      it('returns the timeout ID', () => {
+        const timeoutId = Browser.redirectAfter(urlSample, seconds);
+        expect(timeoutId).toBeGreaterThan(0);
+      });
+    });
+  });
+
+  describe('isDomAvailable', () => {
+    it('returns the window object', () => {
+      expect(Browser.isDomAvailable()).toBe(true);
+    });
+  });
+
+  describe('isDomAvailable when window is undefined', () => {
+    it('returns the window object', () => {
+      spyOn(Browser, 'getWindow').and.returnValue(undefined);
+      expect(Browser.isDomAvailable()).toBe(false);
+    });
+  });
+
+  describe('isDomAvailable when document is undefined', () => {
+    it('returns the window object', () => {
+      spyOn(Browser, 'getDocument').and.returnValue(undefined);
+      expect(Browser.isDomAvailable()).toBe(false);
+    });
+  });
+
+  describe('when document.createElement does not exist', () => {
+    it('returns false', () => {
+      spyOn(Browser, 'getDocument').and.returnValue({ createElement: undefined });
+      expect(Browser.isDomAvailable()).toEqual(false);
     });
   });
 
@@ -34,6 +86,7 @@ describe('Browser', () => {
       expect(Browser.getWindow()).toEqual(window);
     });
   });
+
 
   describe('getDocument', () => {
     it('returns the document object', () => {
@@ -61,7 +114,8 @@ describe('Browser', () => {
 
   describe('edit-focus', () => {
     it('focuses on the input field of the passed in ref', () => {
-      const node = jasmine.createSpyObj(['focus', 'select']);
+      const node = { focus: jest.fn(), select: jest.fn() }
+
       spyOn(ReactDOM, 'findDOMNode').and.returnValue(node);
       Browser.editFocus('fakeRef');
       expect(node.focus).toHaveBeenCalled();
@@ -71,8 +125,9 @@ describe('Browser', () => {
 
   describe('setInputFocus', () => {
     it('focuses on the input field of the passed in ref but doesnot select text', () => {
-      const node = jasmine.createSpyObj(['focus']);
-      const fakeComponent = { _input: {} };
+      const node = { focus: jest.fn() }
+
+      let fakeComponent = { _input: {} };
       spyOn(ReactDOM, 'findDOMNode').and.returnValue(node);
       Browser.setInputFocus(fakeComponent);
       expect(node.focus).toHaveBeenCalled();
@@ -143,9 +198,16 @@ describe('Browser', () => {
     const key2 = 'bar';
     const value2 = 'bar';
     const data = { [key1]: value1, [key2]: value2 };
+    let origSubmitForm;
 
     beforeEach(() => {
+      origSubmitForm = Browser.submitForm;
+      Browser.submitForm = jest.fn();
       spyOn(Browser, 'getDocument').and.returnValue(document);
+    });
+
+    afterEach(() => {
+      Browser.submitForm = origSubmitForm;
     });
 
     describe('when container not found', () => {
@@ -178,8 +240,8 @@ describe('Browser', () => {
         jasmine.any(Function) // Anon Function
       );
 
-      expect(React.createElement).toHaveBeenCalledWith(Form, {
-        action: url, method: 'post', target: '_blank', save: false, cancel: false
+      expect(React.createElement).toHaveBeenCalledWith('form', {
+        action: url, method: 'post', target: '_blank'
       }, jasmine.anything());
     });
 
@@ -197,9 +259,11 @@ describe('Browser', () => {
     });
 
     it('submits the rendered form', () => {
-      spyOn(Browser, 'submitForm');
+      const spy = jest.spyOn(Browser, 'submitForm');
       Browser.postToNewWindow(url, data);
-      expect(Browser.submitForm).toHaveBeenCalled();
+      expect(spy).toHaveBeenCalled();
+
+      spy.mockRestore();
     });
 
     it('unmounts the rendered form', () => {
@@ -216,8 +280,8 @@ describe('Browser', () => {
         const target = 'some_window';
 
         Browser.postToNewWindow(url, data, target);
-        expect(React.createElement).toHaveBeenCalledWith(Form, {
-          action: url, method: 'post', target, save: false, cancel: false
+        expect(React.createElement).toHaveBeenCalledWith('form', {
+          action: url, method: 'post', target
         }, jasmine.anything());
       });
     });
@@ -225,10 +289,11 @@ describe('Browser', () => {
 
   describe('submitForm', () => {
     it('calls submit on the passed form', () => {
-      const submitSpy = jasmine.createSpy('form-submit');
-      const form = { submit: submitSpy };
-      Browser.submitForm(form);
-      expect(submitSpy).toHaveBeenCalled();
+      const mockForm = {
+        submit: jest.fn()
+      };
+      Browser.submitForm(mockForm);
+      expect(mockForm.submit).toHaveBeenCalled();
     });
   });
 });

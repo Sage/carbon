@@ -4,11 +4,33 @@ import MD5 from 'crypto-js/md5';
 import { shallow } from 'enzyme';
 import Portrait from './portrait';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import Browser from '../../utils/helpers/browser';
 
 describe('Portrait', () => {
-  let instance, gravatarInstance, initialsInstance;
+  let instance, gravatarInstance, wrapper;
 
   beforeEach(() => {
+    spyOn(Browser, 'getDocument').and.returnValue({
+      createElement: (element) => {
+        return {
+          getContext: (context) => {
+            return {
+              font: null,
+              textAlign: null,
+              fillStyle: null,
+              fillRect: jasmine.createSpy('fillRect'),
+              fillText: jasmine.createSpy('fillText')
+            };
+          },
+          width: 10,
+          height: 10,
+          toDataURL: () => {
+            return 'data:image/png';
+          }
+        }
+      }
+    });
+
     instance = TestUtils.renderIntoDocument(
       <Portrait
         src='foo'
@@ -23,7 +45,7 @@ describe('Portrait', () => {
       />
     );
 
-    initialsInstance = TestUtils.renderIntoDocument(
+    wrapper = shallow(
       <Portrait
         gravatar='foo'
         initials='foo'
@@ -36,7 +58,7 @@ describe('Portrait', () => {
     let props;
 
     beforeEach(() => {
-      initialsInstance.memoizeInitials = 'foobar';
+      wrapper.instance().memoizeInitials = 'foobar';
       props = {
         initials: 'foo',
         size: 'small'
@@ -45,24 +67,25 @@ describe('Portrait', () => {
 
     describe('if initials are different', () => {
       it('nulls the cache', () => {
+        const instance = wrapper.instance();
         props.initials = 'bar';
-        initialsInstance.componentWillReceiveProps(props);
-        expect(initialsInstance.memoizeInitials).toEqual(null);
+        instance.componentWillReceiveProps(props);
+        expect(instance.memoizeInitials).toEqual(null);
       });
     });
 
     describe('if size is different', () => {
       it('nulls the cache', () => {
         props.size = 'medium';
-        initialsInstance.componentWillReceiveProps(props);
-        expect(initialsInstance.memoizeInitials).toEqual(null);
+        wrapper.instance().componentWillReceiveProps(props);
+        expect(wrapper.instance().memoizeInitials).toEqual(null);
       });
     });
 
     describe('if nothing changes', () => {
       it('keeps the cache', () => {
-        initialsInstance.componentWillReceiveProps(props);
-        expect(initialsInstance.memoizeInitials).toEqual('foobar');
+        wrapper.instance().componentWillReceiveProps(props);
+        expect(wrapper.instance().memoizeInitials).toEqual('foobar');
       });
     });
   });
@@ -128,37 +151,41 @@ describe('Portrait', () => {
             initials='abcde'
             src='foo'
           />
-          );
+        );
         instance.applyText(context, 30);
         expect(context.fillText).toHaveBeenCalledWith('ABC', 15, 20);
       });
     });
 
-    describe('is darkBackground is false', () => {
-      it('uses a light background colour', () => {
+    describe('if darkBackground is false', () => {
+      it('uses a light background colour and dark text colour', () => {
         instance = TestUtils.renderIntoDocument(
           <Portrait
             src='foo'
             darkBackground={ false }
           />
           );
-        const context = { fillRect: () => {} };
+        const context = { fillRect: () => {}, fillText: () => {} };
         instance.applyBackground(context);
         expect(context.fillStyle).toEqual('#D8D9DC');
+        instance.applyText(context);
+        expect(context.fillStyle).toEqual('#636872');
       });
     });
 
     describe('darkBackground', () => {
-      it('uses a dark background color', () => {
+      it('uses a dark background color and light text colour', () => {
         instance = TestUtils.renderIntoDocument(
           <Portrait
             src='foo'
             darkBackground={ true }
           />
         );
-        const context = { fillRect: () => {} };
+        const context = { fillRect: () => {}, fillText: () => {} };
         instance.applyBackground(context);
-        expect(context.fillStyle).toEqual('#4E545F');
+        expect(context.fillStyle).toEqual('#8A8E95');
+        instance.applyText(context);
+        expect(context.fillStyle).toEqual('#FFFFFF');
       });
     });
   });
@@ -330,6 +357,32 @@ describe('Portrait', () => {
         });
       });
     });
+
+    describe('when alt is an empty string', () => {
+      it('renders avatar alt attribute with an empty string', () => {
+        wrapper = shallow(<Portrait initials='FF' src='test' alt='' />);
+        expect(wrapper.find('.carbon-portrait__avatar[alt=""]').exists()).toEqual(true);
+      });
+
+      describe('when rendering the initials image', () => {
+        it('renders the alt attribute with an empty string', () => {
+          wrapper = shallow(<Portrait initials='FF' alt='' />);
+          expect(wrapper.find('.carbon-portrait__initials[alt=""]').exists()).toEqual(true);
+        });
+      });
+    });
+
+    describe('when the alt prop is not given', () => {
+      it('renders the avatar image with an empty alt attribute', () => {
+        wrapper = shallow(<Portrait src='test' />);
+        expect(wrapper.find('.carbon-portrait__avatar[alt=""]').exists()).toEqual(true);
+      });
+
+      it('renders the initials image with an empty alt attribute', () => {
+        wrapper = shallow(<Portrait initials='FF' />);
+        expect(wrapper.find('.carbon-portrait__initials[alt=""]').exists()).toEqual(true);
+      });
+    });
   });
 
   describe('tags', () => {
@@ -350,11 +403,11 @@ describe('Portrait', () => {
     });
 
     describe('on internal elements when there are initials', () => {
-      const wrapper = shallow(<Portrait gravatar='test' initials='TS' />);
-
-      elementsTagTest(wrapper, [
-        'initials'
-      ]);
+      it(`include 'data-element="initials"'`, () => {
+        // Moved out of function due to needing beforeEach to spy
+        const wrapper = shallow(<Portrait gravatar='test' initials='TS' />);
+        expect(wrapper.find({ 'data-element': 'initials' }).length).toEqual(1);
+      });
     });
   });
 });

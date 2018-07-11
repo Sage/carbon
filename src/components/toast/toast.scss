@@ -20,8 +20,10 @@ $toast-width: 300px !default;
 
 .carbon-toast__close,
 .carbon-toast__type {
+  align-items: center;
   display: flex;
   height: 100%;
+  justify-content: center;
   position: absolute;
   top: 0;
 }
@@ -32,7 +34,6 @@ $toast-width: 300px !default;
 
   &:before {
     font-size: 16px;
-    margin: auto;
   }
 }
 
@@ -42,8 +43,6 @@ $toast-width: 300px !default;
   width: 31px;
 
   .carbon-toast__type-icon {
-    margin: auto;
-
     &:before {
       color: #FFF;
       display: block;
@@ -73,7 +72,7 @@ $toast-width: 300px !default;
 
 @mixin toast-theme($type, $color, $border, $background, $color-hover) {
   .carbon-toast--#{$type} {
-    box-shadow: inset 0px 0px 0px 1px $border, 0px 5px 10px 0px rgba(black,.1), 0px 15px 15px 0px rgba(black,.1);
+    box-shadow: 0 15px 20px 0 rgba($grey-shadow, 0.2);
     background-color: $background;
 
     .carbon-toast__type {

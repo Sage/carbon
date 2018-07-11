@@ -3,11 +3,19 @@ import PropTypes from 'prop-types';
 import { mount } from 'enzyme';
 import { DragDropContext } from 'react-dnd';
 import TestBackend from 'react-dnd-test-backend';
+import Browser from '../../../utils/helpers/browser';
 import WithDrag from './../with-drag';
 import WithDrop from './with-drop';
 
 describe('WithDrop', () => {
-  let wrapper, backend, handlerId, targetId, hoverContextSpy, hoverPropSpy;
+  let wrapper,
+      backend,
+      handlerId,
+      targetId,
+      hoverContextSpy,
+      hoverPropSpy,
+      mockSelection,
+      mockWindow;
 
   function createWrapper(props = {}) {
     let DnD = wrapInTestContext(WithDrop);
@@ -20,11 +28,11 @@ describe('WithDrop', () => {
       </DnD>
     );
 
-    let component = wrapper.find(WithDrag).getNode();
+    let component = wrapper.find(WithDrag).instance();
     handlerId = component.getHandlerId();
-    component = wrapper.find(WithDrop).getNode();
+    component = wrapper.find(WithDrop).instance();
     targetId = component.getHandlerId();
-    backend = wrapper.getNode().getManager().backend;
+    backend = wrapper.instance().getManager().backend;
   }
 
   function wrapInTestContext(DecoratedComponent) {
@@ -38,7 +46,7 @@ describe('WithDrop', () => {
 
         getChildContext() {
           return {
-            dragAndDropBeginDrag: () => { return { index: 1 } },
+            dragAndDropBeginDrag: () => { return { index: 1 }; },
             dragAndDropEndDrag: () => {},
             dragAndDropHover: hoverContextSpy,
           };
@@ -51,9 +59,26 @@ describe('WithDrop', () => {
     );
   }
 
+
   beforeEach(() => {
     hoverContextSpy = jasmine.createSpy().and.callThrough();
     hoverPropSpy = jasmine.createSpy().and.callThrough();
+
+    mockSelection = {
+      removeAllRanges() {}
+    };
+
+    mockWindow = {
+      getSelection() {
+        return mockSelection;
+      },
+      addEventListener() {},
+      removeEventListener() {}
+    };
+
+    spyOn(mockSelection, 'removeAllRanges');
+
+    spyOn(Browser, 'getWindow').and.returnValue(mockWindow);
   });
 
   describe('without custom props', () => {
@@ -77,7 +102,8 @@ describe('WithDrop', () => {
     beforeEach(() => {
       createWrapper({
         index: 1,
-        hover: hoverPropSpy
+        hover: hoverPropSpy,
+        canDrop: hoverPropSpy
       });
     });
 

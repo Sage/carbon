@@ -1,7 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Checkbox from './checkbox';
-import Help from './../help';
 import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
@@ -33,7 +32,7 @@ describe('Checkbox', () => {
       let sprite = TestUtils.findRenderedDOMComponentWithTag(instance, 'svg');
       let check = TestUtils.findRenderedDOMComponentWithTag(instance, 'path');
       expect(sprite.getAttribute('viewBox')).toEqual('0 0 15 15');
-      expect(check.className.baseVal).toEqual('checkbox-check');
+      expect(check.classList).toContain('checkbox-check');
     });
 
     it('renders a hidden input with a value of 0', () => {
