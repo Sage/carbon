@@ -20,15 +20,21 @@ const definition = new Definition('table-ajax', TableAjax, {
     onChange: ComponentActions.updateTableAjax
   },
   propTypes: {
+    formatResponse: 'Function',
+    formatRequest: 'Function',
     onAjaxError: 'Function',
     path: 'String'
   },
   propDescriptions: {
+    formatResponse: 'Callback function for formatting the data received via Ajax requests into the format required by the table',
+    formatRequest: 'Callback function for formatting the query data to be sent via Ajax to the defined path',
     onAjaxError: 'Callback function to handle XHR request errors',
     path: 'The path to make XHR requests to.'
   },
   requiredProps: ['path'],
   hiddenProps: [
+    'formatResponse',
+    'formatRequest',
     'onAjaxError',
     'path'
   ]
