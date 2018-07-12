@@ -15,7 +15,9 @@
   border-collapse: separate;
   border-radius: $tables__border-radius;
   border-spacing: 0;
+  display: block;
   min-width: 100%;
+  overflow-x: auto;
   table-layout: fixed;
   width: auto;
   word-break: break-all;
