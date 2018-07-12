@@ -481,49 +481,6 @@ The following updates have been made to Carbon components to align with design u
 * Fixes a compilation error that occurred in 2.0.0, which resulted in a missing `assets.scss` file.
 * `Datepicker`: Stops NavBar submitting the form its contained in
 
-## Deprecations Added
-
-* You should no longer pass multiple prop names to the presence component. Instead you should pass a MutliPropValidation
-
-```javascript
-// BEFORE
-import Presence from 'carbon/lib/utils/validatons/presence';
-
-<Textbox
-  prop1={ prop1 }
-  prop2={ prop2 }
-  validations={ [ new Presence({ props: ['prop1', 'prop2'] }) ] }
-/>
-```
-
-```javascript
-// AFTER
-import MultiProp from 'carbon/lib/utils/validatons/multi-prop';
-import Presence from 'carbon/lib/utils/validatons/presence';
-
-<Textbox
-  prop1={ prop1 }
-  prop2={ prop2 }
-  validations={ [new MultiProp({ props: ['prop1', 'prop2'], validator: new Presence() })] }
-/>
-```
-
-This change has been made to separate the concerns of mutliple properties to a separate validation whilst the presence validator just checks
-the single value that you pass it.
-
-The MutliPropValidator can be combined with all other Validations e.g.
-
-```javascript
-import MultiProp from 'carbon/lib/utils/validatons/multi-prop';
-import Length from 'carbon/lib/utils/validatons/length';
-
-<Textbox
-  prop1={ prop1 }
-  prop2={ prop2 }
-  validations={ [new MultiProp({ props: ['prop1', 'prop2'], validator: new Length({ min: 5, max: 10 }) })] }
-/>
-```
-
 # 2.0.0
 
 ## Breaking Changes

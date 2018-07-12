@@ -29,7 +29,6 @@ import ValidationsHelper from './../../helpers/validations';
  * @constructor MultiPropValidator
  */
 class MultiPropValidator {
-
   /**
    * @method constructor
    * @param {Object} params
