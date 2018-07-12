@@ -42,3 +42,11 @@ const MyComponent = () => (
 
 export default MyComponent;
 ```
+
+### Base CSS
+
+Carbon provides some baseline CSS which is applied to `body` and other elements. It is recommended you import this at the root of your project:
+
+```
+import 'carbon-react/lib/utils/css';
+```
