@@ -48,6 +48,24 @@ class TableAjax extends Table {
     filter: PropTypes.object,
 
     /**
+     * A callback function used to format the Ajax
+     * request into the format required endpoint
+     *
+     * @property formatRequest
+     * @type {Function}
+     */
+    formatRequest: PropTypes.func,
+
+    /**
+     * A callback function used to format the Ajax
+     * response into the format required by the table
+     *
+     * @property formatResponse
+     * @type {Function}
+     */
+    formatResponse: PropTypes.func,
+
+    /**
      * Setting to true turns on pagination for the table
      *
      * @property paginate
@@ -344,7 +362,7 @@ class TableAjax extends Table {
    */
   handleResponse = (err, response) => {
     if (!err) {
-      const data = response.body;
+      const data = this.props.formatResponse ? this.props.formatResponse(response.body) : response.body;
       this.props.onChange(data);
       this.setState({ totalRecords: String(data.records), dataState: 'loaded', ariaBusy: false });
     } else if (this.props.onAjaxError) {
@@ -373,6 +391,10 @@ class TableAjax extends Table {
     query.rows = options.pageSize;
     if (options.sortOrder) { query.sord = options.sortOrder; }
     if (options.sortedColumn) { query.sidx = options.sortedColumn; }
+
+    if (this.props.formatRequest) {
+      return serialize(this.props.formatRequest(query));
+    }
     return serialize(query);
   }
 

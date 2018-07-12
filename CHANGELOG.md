@@ -1,3 +1,5 @@
+# CHANGELOG IS NOW ARCHIVED - PLEASE SEE README.md FOR MORE INFORMATION ON ADDING RELEASE NOTES
+
 # 4.2.0
 
 ## Improvements
@@ -5,6 +7,7 @@
 * `Browser` now has a `redirectAfter` method that redirects to the given URL after the given number of seconds.
 * `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
 * `CustomDragLayer` component can now take className prop.
+* `Draggable Context` extending functionality to determine if a an item can be dropped on.
 
 ## Upgrades
 
