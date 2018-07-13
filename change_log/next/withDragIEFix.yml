@@ -1,0 +1,1 @@
+Bug Fixes: "the WithDrag allowTextSelection method was refactored to resolve the issue of inputs being unselectable for Internet Explorer when the Drag elements are present on the page"

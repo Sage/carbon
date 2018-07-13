@@ -53,7 +53,7 @@ class WithDrag extends React.Component {
   // In Safari it changes the mouse cursor when dragging because it thinks text is being selected
   // We test if the target is an html element (not text) or if we already know the user is dragging
   allowTextSelection = (event) => {
-    if ((event.target instanceof HTMLElement) || this.dragging) {
+    if ((event.target.className && event.target.className.includes('draggable-table-cell__icon')) || this.dragging) {
       event.preventDefault();
       return false;
     }

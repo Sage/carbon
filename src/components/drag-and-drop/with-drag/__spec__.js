@@ -156,10 +156,12 @@ describe('WithDrag', () => {
       });
     });
 
-    describe('when the event target is a dom element', () => {
+    describe('when the event target is a draggable icon', () => {
       it('prevents selectstart', () => {
+        const element = BrowserHelper.getDocument().createElement('div');
+        element.className = 'draggable-table-cell__icon';
         const event = {
-          target: BrowserHelper.getDocument().createElement('div'),
+          target: element,
           preventDefault: jest.fn()
         }
         spyOn(event, 'preventDefault');
@@ -176,6 +178,18 @@ describe('WithDrag', () => {
         spyOn(event, 'preventDefault');
         component.decoratedComponentInstance.dragging = true;
         expect(component.decoratedComponentInstance.allowTextSelection(event)).toBeFalsy();
+      });
+    });
+
+    describe('when the event target is a dom element and the component is not dragging', () => {
+      it('does not prevent selectstart', () => {
+        const event = {
+          target: BrowserHelper.getDocument().createElement('textarea'),
+          preventDefault: jest.fn()
+        }
+        spyOn(event, 'preventDefault');
+        component.decoratedComponentInstance.dragging = false;
+        expect(component.decoratedComponentInstance.allowTextSelection(event)).toBeTruthy();
       });
     });
 
