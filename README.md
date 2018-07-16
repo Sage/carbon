@@ -2,7 +2,9 @@
 
 <img src="https://raw.githubusercontent.com/Sage/carbon/master/logo/carbon-logo.png" width="50">
 
-Carbon is a library of reusable [React](https://facebook.github.io/react/) components. See the [demo and documentation site](https://carbon.sage.com/) for live examples.
+Carbon is a library of reusable [React](https://facebook.github.io/react/) components.
+
+See the [demo and documentation site](https://carbon.sage.com/) for live examples, or see [create-carbon-app](https://github.com/sage/create-carbon-app) to get started.
 
 ## Documentation
 

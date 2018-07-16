@@ -4,9 +4,9 @@
 
 ### Using Carbon Factory
 
-The quickest way to get started with Carbon is to use [Carbon Factory](https://github.com/sage/carbon-factory).
+The quickest way to get started with Carbon is to use [create-carbon-app](https://github.com/sage/create-carbon-app), this enables you to setup a new project quickly.
 
-Carbon Factory provides pre-configured Webpack config and Jest config to get going with a new application in minutes.
+Behind the scenes this uses [Carbon Factory](https://github.com/sage/carbon-factory), which provides pre-configured Webpack config and Jest config to get going with a new application in minutes.
 
 ### Without Using Carbon Factory
 
