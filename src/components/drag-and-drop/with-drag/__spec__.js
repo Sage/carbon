@@ -156,10 +156,9 @@ describe('WithDrag', () => {
       });
     });
 
-    describe('when the event target is a draggable icon', () => {
+    describe('when the event target is a span', () => {
       it('prevents selectstart', () => {
-        const element = BrowserHelper.getDocument().createElement('div');
-        element.className = 'draggable-table-cell__icon';
+        const element = BrowserHelper.getDocument().createElement('span');
         const event = {
           target: element,
           preventDefault: jest.fn()
