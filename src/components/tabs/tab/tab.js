@@ -106,7 +106,8 @@ class Tab extends React.Component {
     return {
       tab: {
         addValidationState: this.addValidationState,
-        removeValidationState: this.removeValidationState
+        removeValidationState: this.removeValidationState,
+        validationAttached: this.validationAttached
       }
     };
   }
@@ -144,6 +145,9 @@ class Tab extends React.Component {
     } else {
       this.context.tabs.changeValidity(this.props.tabId, valid);
     }
+  }
+  validationAttached = (_) => {
+    return true;
   }
 
   /**

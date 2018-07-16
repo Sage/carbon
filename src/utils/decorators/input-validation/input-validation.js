@@ -61,7 +61,7 @@ const InputValidation = (ComposedComponent) => {
        */
       this.state.valid = true;
 
-      this.state.activeValidations = [];
+      this.state.validationType = null;
 
       /**
        * The inputs error message.
@@ -262,7 +262,6 @@ const InputValidation = (ComposedComponent) => {
      * @return {Void}
      */
     updateValidation = (valid, value, validation) => {
-      debugger
       // if validation fails
       if (!valid) {
         // if input currently thinks it is valid
@@ -279,12 +278,38 @@ const InputValidation = (ComposedComponent) => {
       }
     }
 
+    /**
+     * On content change of the input when we want to reset the validation.
+     *
+     * @method _handleContentChange
+     * @return {void}
+     */
+    _handleContentChange = () => {
+      // if the field is in an invalid state
+      if (!this.state.valid) {
+        this.removeValidationState();
+        // reset the error state
+        this.setState({ errorMessage: null, messageShown: false, valid: true });
+      }
+    }
+
     addValidationState = (valid, validation) => {
+      this.handleValidationStateChange(valid, validation, (context, valid, validation) => {
+        context.addValidationState(valid, validation)
+      })
+    }
+
+    removeValidationState = (valid, validation) => {
+      this.handleValidationStateChange(valid, validation, (context, valid, validation) => {
+        context.removeValidationState(valid, validation)
+      })
+    }
+
+    handleValidationStateChange = (valid, validation, action) => {
       for (var key in this.context) {
         const validationContext = this.context[key];
-        // Add specific validation attached logic. e.g. isAttachedToForm
-        if (validationContext && validationContext.addValidationState) {
-          validationContext.addValidationState(valid, validation)
+        if (validationContext && validationContext.validationAttached(this._guid)) {
+          action(validationContext, valid, validation)
         }
       }
     }
@@ -324,47 +349,6 @@ const InputValidation = (ComposedComponent) => {
           }
           this.setState({ messageLocked: true });
         }
-      }
-    }
-
-    /**
-     * On content change of the input when we want to reset the validation.
-     *
-     * @method _handleContentChange
-     * @return {void}
-     */
-    _handleContentChange = () => {
-      // if the field is in an invalid state
-      if (!this.state.valid) {
-        // if there is a form, decrement the error count
-        if (this.isAttachedToForm) {
-          if (!this.state.valid) {
-            this.context.form.decrementErrorCount();
-          }
-        }
-
-        // if there is tab, remove invalid state
-        if (this.context.tab) {
-          this.resetTab();
-        }
-
-        // reset the error state
-        this.setState({
-          errorMessage: null, messageShown: false, valid: true
-        });
-      }
-    }
-
-
-    /**
-     * Resets tab error state
-     *
-     * @method resetTab
-     * @return {Void}
-     */
-    resetTab = () => {
-      if (!this.state.valid) {
-        this.context.tab.setValidity(true);
       }
     }
 
@@ -444,10 +428,7 @@ const InputValidation = (ComposedComponent) => {
       let type = '';
       if (this.state.valid) { return null; }
 
-      debugger
-      if (!this.state.valid) {
-        type = 'error';
-      }
+      type = this.state.validationType.type
 
       const iconClasses = `common-input__icon common-input__icon--${type}`;
       const messageClasses = classNames(`common-input__message common-input__message--${type}`, {
@@ -497,8 +478,9 @@ const InputValidation = (ComposedComponent) => {
      * @return {String} Main class names
      */
     get mainClasses() {
+      let validationType = this.state.validationType ? this.state.validationType : 'error'
       return classNames(super.mainClasses, {
-        'common-input--error': !this.state.valid
+        [`common-input--${ validationType }`]: !this.state.valid
       });
     }
 
@@ -509,8 +491,9 @@ const InputValidation = (ComposedComponent) => {
      * @return {String} Input class names
      */
     get inputClasses() {
+      let validationType = this.state.validationType ? this.state.validationType : 'error'
       return classNames(super.inputClasses, {
-        'common-input__input--error': !this.state.valid
+        [`common-input__input--${ validationType }`]: !this.state.valid
       });
     }
 

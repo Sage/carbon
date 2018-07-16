@@ -318,12 +318,9 @@ class Form extends React.Component {
         attachToForm: this.attachToForm,
         detachFromForm: this.detachFromForm,
         getActiveInput: this.getActiveInput,
-        incrementErrorCount: this.incrementErrorCount,
-        decrementErrorCount: this.decrementErrorCount,
         addValidationState: this.addValidationState,
         removeValidationState: this.removeValidationState,
-        incrementWarningCount: this.incrementWarningCount,
-        decrementWarningCount: this.decrementWarningCount,
+        validationAttached: this.validationAttached,
         setIsDirty: this.setIsDirty,
         resetIsDirty: this.resetIsDirty,
         inputs: this.inputs,
@@ -537,13 +534,33 @@ class Form extends React.Component {
    */
   warningCount = 0;
 
+  validationAttached = (guid) => {
+    return !!this.inputs[guid];
+  }
+
+  addValidationState = (valid, validation) => {
+    if (validation.type.type == 'error') {
+      this.incrementErrorCount();
+    } else if (validation.type.type == 'warning') {
+      this.incrementWarningCount();
+    }
+  }
+
+  removeValidationState = (valid, validation) => {
+    if (validation.type.type == 'error') {
+      this.decrementErrorCount();
+    } else if (validation.type.type == 'warning') {
+      this.decrementWarningCount();
+    }
+  }
+
   /**
    * Increase current error count in state by 1.
    *
    * @method incrementErrorCount
    * @return {void}
    */
-  addValidationState = () => {
+  incrementErrorCount = () => {
     this.errorCount += 1;
     this.setState({ errorCount: this.errorCount });
   }
@@ -554,7 +571,7 @@ class Form extends React.Component {
    * @method decrementErrorCount
    * @return {void}
    */
-  removeValidationState = () => {
+  decrementErrorCount = () => {
     this.errorCount -= 1;
     this.setState({ errorCount: this.errorCount });
   }

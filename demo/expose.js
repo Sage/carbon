@@ -10,3 +10,4 @@ global['Request'] = require('superagent');
 global['serialize'] = require('utils/helpers/serialize').default;
 global['Row'] = require('components/row').default;
 global['PresenceValidation'] = require('utils/validations/presence').default;
+global['LengthValidation'] = require('utils/validations/length').default;
