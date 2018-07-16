@@ -132,19 +132,16 @@ class Tab extends React.Component {
    * @method setValidity
    * @param {Boolean} valid updates validity of this tab
    */
-  addValidationState = (valid, validation) => {
-    if (validation.type == 'warning') {
+  addValidationState = (valid, validationProperties) => {
+    if (validationProperties.key == 'warning') {
       this.context.tabs.changeWarning(this.props.tabId, valid);
-    } else {
+    } else if (validationProperties.key == 'error') {
       this.context.tabs.changeValidity(this.props.tabId, valid);
     }
   }
-  removeValidationState = (valid, validation) => {
-    if (validation.type == 'warning') {
-      this.context.tabs.changeWarning(this.props.tabId, valid);
-    } else {
-      this.context.tabs.changeValidity(this.props.tabId, valid);
-    }
+  removeValidationState = (valid, validationProperties) => {
+    this.context.tabs.changeWarning(this.props.tabId, valid);
+    this.context.tabs.changeValidity(this.props.tabId, valid);
   }
   validationAttached = (_) => {
     return true;

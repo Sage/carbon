@@ -1,20 +1,20 @@
 export default {
   error: {
-    type: 'error',
+    key: 'error',
     icon: 'error',
     color: 'red',
-    prevent_saving: true
+    blocking: true
   },
   warning: {
-    type: 'warning',
+    key: 'warning',
     icon: 'warning',
     color: 'orange',
-    prevent_saving: false
+    blocking: false
   },
   info: {
-    type: 'info',
+    key: 'info',
     icon: 'info',
     color: 'blue',
-    prevent_saving: false
+    blocking: false
   }
 }

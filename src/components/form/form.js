@@ -538,19 +538,21 @@ class Form extends React.Component {
     return !!this.inputs[guid];
   }
 
-  addValidationState = (valid, validation) => {
-    if (validation.type.type == 'error') {
+  addValidationState = (valid, validationProperties) => {
+    if (validationProperties.key == 'error') {
       this.incrementErrorCount();
-    } else if (validation.type.type == 'warning') {
+    } else if (validationProperties.key == 'warning') {
       this.incrementWarningCount();
     }
   }
 
-  removeValidationState = (valid, validation) => {
-    if (validation.type.type == 'error') {
-      this.decrementErrorCount();
-    } else if (validation.type.type == 'warning') {
-      this.decrementWarningCount();
+  removeValidationState = (valid, validationProperties) => {
+    if (!valid) {
+      if (validationProperties.key == 'error') {
+        this.decrementErrorCount();
+      } else if (validationProperties.key == 'warning') {
+        this.decrementWarningCount();
+      }
     }
   }
 
@@ -677,7 +679,7 @@ class Form extends React.Component {
     for (const key in this.inputs) {
       const input = this.inputs[key];
 
-      if (!input.props.disabled && !input.validate()) {
+      if (!input.props.disabled && !input.validateBlockingValidations()) {
         valid = false;
         errors += 1;
       }

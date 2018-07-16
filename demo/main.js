@@ -19,6 +19,7 @@ import Chrome from './views/chrome';
 import SubPageChrome from './views/chrome/sub-page-chrome';
 import Home from './views/pages/home';
 import Sandbox from './views/pages/sandbox';
+import Foo from './views/pages/foo';
 
 import SiteMap from './site-map';
 
@@ -33,6 +34,7 @@ setupI18n();
 const routes = (
   <Route>
     <Route path='/sandbox' component={ Sandbox } />
+    <Route path='/foo' component={ Foo } />
 
     <Route component={ Chrome }>
       <Route path='/' component={ Home } />

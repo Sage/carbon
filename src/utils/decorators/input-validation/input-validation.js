@@ -61,16 +61,16 @@ const InputValidation = (ComposedComponent) => {
        */
       this.state.valid = true;
 
-      this.state.validationType = null;
+      this.state.validationProperties = null;
 
       /**
-       * The inputs error message.
+       * The inputs validation message.
        *
-       * @property errorMessage
+       * @property validationMessage
        * @type {String}
        * @default null
        */
-      this.state.errorMessage = null;
+      this.state.validationMessage = null;
 
       /**
        * Determines if the message should always be visible.
@@ -184,7 +184,7 @@ const InputValidation = (ComposedComponent) => {
 
       if (this._validations()) {
         this._handleContentChange();
-        if (this.isAttachedToForm) {
+        if (this.context.form && this.context.form.validationAttached(this._guid)) {
           this.context.form.detachFromForm(this);
         }
       }
@@ -223,23 +223,37 @@ const InputValidation = (ComposedComponent) => {
       }
     }
 
+    validateBlockingValidations = () => {
+      // if there are no validation, return truthy
+      if (!this._validations() || this.props._placeholder) {
+        return true;
+      }
+
+      const validations = this._validations().reduce((accum, validation, foo, bar) => {
+        if (validation.properties.blocking) { accum.push(validation); }
+        return accum;
+      }, []);
+
+      return this.validate(this.props.value, validations);
+    }
+
     /**
      * Checks for validations and returns boolean defining if field valid.
      *
      * @method validate
      * @return {Boolean} if the field/fields is/are valid
      */
-    validate = (value = this.props.value) => {
+    validate = (value = this.props.value, validations = this._validations()) => {
       let valid = false;
 
       // if there are no validation, return truthy
-      if (!this._validations() || this.props._placeholder) {
+      if (!validations || this.props._placeholder) {
         return true;
       }
 
       // iterate through each validation applied to the input
-      for (let i = 0; i < this._validations().length; i++) {
-        const validation = this._validations()[i];
+      for (let i = 0; i < validations.length; i++) {
+        const validation = validations[i];
 
         // run this validation
         valid = validation.validate(value, this.props, this.updateValidation);
@@ -267,11 +281,11 @@ const InputValidation = (ComposedComponent) => {
         // if input currently thinks it is valid
         if (this.state.valid) {
           // Add validation state to containers e.g. form, tab
-          this.addValidationState(valid, validation)
+          this.addValidationState(valid, validation.properties)
           // tell the input it is invalid
           this.setState({
-            errorMessage: validation.message(value, this.props),
-            validationType: validation.type,
+            validationMessage: validation.message(value, this.props),
+            validationProperties: validation.properties,
             valid: false,
           });
         }
@@ -285,31 +299,39 @@ const InputValidation = (ComposedComponent) => {
      * @return {void}
      */
     _handleContentChange = () => {
+      // Always remove validation state when content changes.
+      // Individual context can decide what to do in a particular valid/invalid state
+      this.removeValidationState(this.state.valid, this.state.validationProperties);
+
       // if the field is in an invalid state
       if (!this.state.valid) {
-        this.removeValidationState();
-        // reset the error state
-        this.setState({ errorMessage: null, messageShown: false, valid: true });
+        // reset the validation state
+        this.setState({
+          validationMessage: null,
+          messageShown: false,
+          validationProperties: null,
+          valid: true
+        });
       }
     }
 
     addValidationState = (valid, validation) => {
-      this.handleValidationStateChange(valid, validation, (context, valid, validation) => {
+      this.handleValidationStateChange((context) => {
         context.addValidationState(valid, validation)
       })
     }
 
-    removeValidationState = (valid, validation) => {
-      this.handleValidationStateChange(valid, validation, (context, valid, validation) => {
-        context.removeValidationState(valid, validation)
+    removeValidationState = (valid, validationProperties) => {
+      this.handleValidationStateChange((context) => {
+        context.removeValidationState(valid, validationProperties)
       })
     }
 
-    handleValidationStateChange = (valid, validation, action) => {
+    handleValidationStateChange = (action) => {
       for (var key in this.context) {
         const validationContext = this.context[key];
         if (validationContext && validationContext.validationAttached(this._guid)) {
-          action(validationContext, valid, validation)
+          action(validationContext)
         }
       }
     }
@@ -409,16 +431,6 @@ const InputValidation = (ComposedComponent) => {
     }
 
     /**
-     * Determines if the input is attached to a form.
-     *
-     * @method isAttachedToForm
-     * @return {Boolean}
-     */
-    get isAttachedToForm() {
-      return this.context.form && this.context.form.inputs[this._guid];
-    }
-
-    /**
      * Returns the HTML for the validation, only if it is invalid.
      *
      * @method validationHTML
@@ -428,7 +440,7 @@ const InputValidation = (ComposedComponent) => {
       let type = '';
       if (this.state.valid) { return null; }
 
-      type = this.state.validationType.type
+      type = this.state.validationProperties.key
 
       const iconClasses = `common-input__icon common-input__icon--${type}`;
       const messageClasses = classNames(`common-input__message common-input__message--${type}`, {
@@ -444,7 +456,7 @@ const InputValidation = (ComposedComponent) => {
         iconStyle = { [`${this.props.align}`]: `${100 - this.props.labelWidth}%` };
       }
 
-      const errorMessage = (!this.state.immediatelyHideMessage || this.state.messageLocked) && (
+      const validationMessage = (!this.state.immediatelyHideMessage || this.state.messageLocked) && (
         <Portal key='1' onReposition={ this.positionMessage }>
           <div className='common-input__message-wrapper'>
             <div
@@ -453,7 +465,7 @@ const InputValidation = (ComposedComponent) => {
               } }
               className={ messageClasses }
             >
-              { this.state.errorMessage }
+              { this.state.validationMessage }
             </div>
           </div>
         </Portal>
@@ -467,7 +479,7 @@ const InputValidation = (ComposedComponent) => {
           className={ iconClasses }
           style={ iconStyle }
         />,
-        errorMessage
+        validationMessage
       ];
     }
 
@@ -478,9 +490,9 @@ const InputValidation = (ComposedComponent) => {
      * @return {String} Main class names
      */
     get mainClasses() {
-      let validationType = this.state.validationType ? this.state.validationType : 'error'
+      let validationProperties = this.state.validationProperties ? this.state.validationProperties.key : 'error'
       return classNames(super.mainClasses, {
-        [`common-input--${ validationType }`]: !this.state.valid
+        [`common-input--${ validationProperties }`]: !this.state.valid
       });
     }
 
@@ -491,9 +503,9 @@ const InputValidation = (ComposedComponent) => {
      * @return {String} Input class names
      */
     get inputClasses() {
-      let validationType = this.state.validationType ? this.state.validationType : 'error'
+      let validationProperties = this.state.validationProperties ? this.state.validationProperties.key : 'error'
       return classNames(super.inputClasses, {
-        [`common-input__input--${ validationType }`]: !this.state.valid
+        [`common-input__input--${ validationProperties }`]: !this.state.valid
       });
     }
 

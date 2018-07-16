@@ -370,7 +370,7 @@ class Tabs extends React.Component {
   /**
    * Generates the HTML classes for the tabs header.
    *
-   * @method tabHeaderClasses
+   * @method tabsHeaderClasses
    * @return {String}
    */
   tabsHeaderClasses = () => {
@@ -390,7 +390,8 @@ class Tabs extends React.Component {
    */
   tabHeaderClasses = (tab) => {
     const tabHasError = this.state.tabValidity.get(tab.props.tabId) === false,
-        tabHasWarning = this.state.tabWarning.get(tab.props.tabId) === true && !tabHasError;
+        tabHasWarning = this.state.tabWarning.get(tab.props.tabId) === false
+    console.log(tabHasError, tabHasWarning);
 
     return classNames(
       'carbon-tabs__headers__header',

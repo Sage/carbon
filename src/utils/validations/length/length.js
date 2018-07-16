@@ -1,4 +1,5 @@
 import ValidationsHelper from './../../helpers/validations';
+import ValidationsTypes from './../../helpers/validation-types';
 
 /**
  * A Length Validator object.
@@ -61,6 +62,7 @@ class LengthValidator {
      * @type {String}
      */
     this.customMessage = params.customMessage;
+    this.properties = ValidationsTypes[params.type || 'error']
 
     /**
      * Min length value.
