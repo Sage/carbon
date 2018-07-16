@@ -98,7 +98,6 @@ describe('poller', () => {
       it('logs a too many requests warning', () => {
         console.warn = jest.fn(); // eslint-disable-line no-console
 
-
         Poller({ url }, functions, { interval: 1000, retries: 2 });
         jest.runTimersToTime(1000);
 
@@ -132,6 +131,22 @@ describe('poller', () => {
         }
         expect(console.warn.mock.calls[0][0]).toBe( // eslint-disable-line no-console
           'The poller has made too many requests - terminating poll');
+      });
+    });
+
+    describe('when polling terminates and theres an onMaxRetries function', () => {
+      it('calls the onMaxRetries function', () => {
+        const onMaxRetriesSpy = jest.fn();
+        functions.onMaxRetries = onMaxRetriesSpy;
+
+        Poller({ url }, functions, { interval: 1000, retries: 2 });
+        jest.runTimersToTime(1000);
+
+        for (let i = 0; i < 2; i++) {
+          jest.runTimersToTime(1000);
+        }
+
+        expect(onMaxRetriesSpy).toHaveBeenCalled();
       });
     });
 

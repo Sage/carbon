@@ -19,6 +19,7 @@ import './../../promises';
  * -- handleError: a callback function that takes an error and handles it
  * -- terminate: Use this to test a desired condition in the response and return a boolean.
  *               If the condition is true, the polling will end.
+ * -- onMaxRetries: Use this to do something when the max retries are met
  * options:
  * -- interval - the interval after which the request is re-submitted
  * -- retries - number of times to re-submit the request before giving up
@@ -55,7 +56,7 @@ export default (queryOptions, functions, options) => {
   (function poll() {
     const now = Date.now();
     if (pollCount > opts.retries || now > opts.endTime) {
-      console.warn('The poller has made too many requests - terminating poll'); // eslint-disable-line no-console
+      funcs.onMaxRetries();
       return;
     }
     Request
@@ -126,7 +127,10 @@ function getFunctions(functions) {
     handleError: functions.handleError || null,
     conditionMet: functions.conditionMet || (() => { return false; }),
     conditionNotMetCallback: functions.conditionNotMetCallback || (() => { return false; }),
-    terminate: functions.terminate || (() => { return false; })
+    terminate: functions.terminate || (() => { return false; }),
+    onMaxRetries: functions.onMaxRetries || (() => {
+      console.warn('The poller has made too many requests - terminating poll'); // eslint-disable-line no-console
+    })
   };
 }
 
