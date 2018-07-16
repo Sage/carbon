@@ -1,5 +1,6 @@
 import { forEach, isEmpty } from 'lodash';
 import ValidationsHelper from './../../helpers/validations';
+import ValidationsTypes from './../../helpers/validation-types';
 
 /**
  * This will validate an input for presence.
@@ -39,6 +40,8 @@ class PresenceValidator {
      * @type {String}
      */
     this.customMessage = params.customMessage;
+
+    this.type = ValidationsTypes[params.type || 'error']
 
     /**
      * States that this validation should display an asterisk with the label.

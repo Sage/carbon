@@ -1,5 +1,5 @@
 export default {
-  validation: {
+  error: {
     icon: 'error',
     color: 'red',
     prevent_saving: true

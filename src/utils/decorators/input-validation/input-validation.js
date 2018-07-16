@@ -61,6 +61,8 @@ const InputValidation = (ComposedComponent) => {
        */
       this.state.valid = true;
 
+      this.state.activeValidations = [];
+
       /**
        * The inputs error message.
        *
@@ -268,7 +270,11 @@ const InputValidation = (ComposedComponent) => {
           // Add validation state to containers e.g. form, tab
           this.addValidationState(valid, validation)
           // tell the input it is invalid
-          this.setState({ errorMessage: validation.message(value, this.props), valid: false });
+          this.setState({
+            errorMessage: validation.message(value, this.props),
+            validationType: validation.type,
+            valid: false,
+          });
         }
       }
     }
@@ -438,6 +444,7 @@ const InputValidation = (ComposedComponent) => {
       let type = '';
       if (this.state.valid) { return null; }
 
+      debugger
       if (!this.state.valid) {
         type = 'error';
       }
