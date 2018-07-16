@@ -320,6 +320,8 @@ class Form extends React.Component {
         getActiveInput: this.getActiveInput,
         incrementErrorCount: this.incrementErrorCount,
         decrementErrorCount: this.decrementErrorCount,
+        addValidationState: this.addValidationState,
+        removeValidationState: this.removeValidationState,
         incrementWarningCount: this.incrementWarningCount,
         decrementWarningCount: this.decrementWarningCount,
         setIsDirty: this.setIsDirty,
@@ -541,7 +543,7 @@ class Form extends React.Component {
    * @method incrementErrorCount
    * @return {void}
    */
-  incrementErrorCount = () => {
+  addValidationState = () => {
     this.errorCount += 1;
     this.setState({ errorCount: this.errorCount });
   }
@@ -552,7 +554,7 @@ class Form extends React.Component {
    * @method decrementErrorCount
    * @return {void}
    */
-  decrementErrorCount = () => {
+  removeValidationState = () => {
     this.errorCount -= 1;
     this.setState({ errorCount: this.errorCount });
   }

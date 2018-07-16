@@ -62,28 +62,6 @@ const InputValidation = (ComposedComponent) => {
       this.state.valid = true;
 
       /**
-       * The inputs warning state.
-       * true: has warning
-       * false: has no warning
-       *
-       * @property warning
-       * @type {Boolean}
-       * @default false
-       */
-      this.state.warning = false;
-
-      /**
-       * The inputs info state.
-       * true: has info
-       * false: has no info
-       *
-       * @property info
-       * @type {Boolean}
-       * @default false
-       */
-      this.state.info = false;
-
-      /**
        * The inputs error message.
        *
        * @property errorMessage
@@ -91,24 +69,6 @@ const InputValidation = (ComposedComponent) => {
        * @default null
        */
       this.state.errorMessage = null;
-
-      /**
-       * The inputs warning message.
-       *
-       * @property warningMessage
-       * @type {String}
-       * @default null
-       */
-      this.state.warningMessage = null;
-
-      /**
-       * The inputs info message.
-       *
-       * @property infoMessage
-       * @type {String}
-       * @default null
-       */
-      this.state.infoMessage = null;
 
       /**
        * Determines if the message should always be visible.
@@ -157,23 +117,7 @@ const InputValidation = (ComposedComponent) => {
        * @property
        * @type {Array}
        */
-      validations: PropTypes.array,
-
-      /**
-       * Array of warnings to apply to this input
-       *
-       * @property
-       * @type {Array}
-       */
-      warnings: PropTypes.array,
-
-      /**
-       * Array of info to apply to this input
-       *
-       * @property
-       * @type {Array}
-       */
-      info: PropTypes.array
+      validations: PropTypes.array
     });
 
     /**
@@ -201,16 +145,6 @@ const InputValidation = (ComposedComponent) => {
             contentChanged = true;
           }
 
-          if (this.state.warning && !this.warning(nextProps.value)) {
-            this.setState({ warning: false });
-            contentChanged = true;
-          }
-
-          if (this.state.info && !this.info(nextProps.value)) {
-            this.setState({ info: false });
-            contentChanged = true;
-          }
-
           if (contentChanged) {
             this._handleContentChange();
           }
@@ -229,7 +163,7 @@ const InputValidation = (ComposedComponent) => {
       /* istanbul ignore else */
       if (super.componentWillMount) { super.componentWillMount(); }
 
-      if (this.context.form && (this._validations() || this.props.warnings || this.props.info)) {
+      if (this.context.form && this._validations()) {
         // attach the input to the form so the form can track what it needs to validate on submit
         this.context.form.attachToForm(this);
       }
@@ -246,7 +180,7 @@ const InputValidation = (ComposedComponent) => {
       /* istanbul ignore else */
       if (super.componentWillUnmount) { super.componentWillUnmount(); }
 
-      if (this._validations() || this.props.warnings || this.props.info) {
+      if (this._validations()) {
         this._handleContentChange();
         if (this.isAttachedToForm) {
           this.context.form.detachFromForm(this);
@@ -261,7 +195,7 @@ const InputValidation = (ComposedComponent) => {
      * @return {Void}
      */
     positionMessage = () => {
-      if (!this.state.valid || this.state.warning || this.state.info) {
+      if (!this.state.valid) {
         // calculate the position for the message relative to the icon
         const icon = this.validationIcon && this.validationIcon._target,
             message = this.validationMessage;
@@ -283,101 +217,6 @@ const InputValidation = (ComposedComponent) => {
             this.setState({ flipped: false });
             message.style.left = `${icon.getBoundingClientRect().left + (icon.getBoundingClientRect().width / 2)}px`;
           }
-        }
-      }
-    }
-
-    /**
-     * Checks for validations and returns boolean defining if field valid.
-     *
-     * @method info
-     * @return {Boolean}
-     */
-    info = (value = this.props.value) => {
-      let valid = true;
-      // if there is no info or there is an error on the input, return true
-      if (!this.props.info || !this.state.valid) {
-        return true;
-      }
-
-      // iterate through each validation applied to the input
-      for (let i = 0; i < this.props.info.length; i++) {
-        const info = this.props.info[i];
-
-        // run this validation
-        valid = info.validate(value, this.props, this.updateInfo);
-        this.updateInfo(valid, value, info);
-        if (!valid) { break; }
-      }
-
-      // return the result of the validation
-      return valid;
-    }
-
-    /**
-     * Provides a callback method for info to support Ajax
-     *
-     * @method updateInfo
-     * @return {void}
-     */
-    updateInfo = (valid, value, info) => {
-      if (!valid && !this.state.info) {
-        this.setState({ infoMessage: info.message(value, this.props), info: true });
-      }
-    }
-
-    /**
-     * Checks for validations and returns boolean defining if field valid.
-     *
-     * @method warning
-     * @return {Boolean} if the field/fields is/are valid, this function returns true
-     */
-    warning = (value = this.props.value) => {
-      let valid = true;
-      // if there are no warnings or there is an error on the input, return truthy
-      if (!this.props.warnings || !this.state.valid) {
-        return true;
-      }
-
-      // iterate through each validation applied to the input
-      for (let i = 0; i < this.props.warnings.length; i++) {
-        const warning = this.props.warnings[i];
-
-        // run this validation
-        valid = warning.validate(value, this.props, this.updateWarning);
-        this.updateWarning(valid, value, warning);
-        if (!valid) { break; }
-      }
-
-      // return the result of the validation
-      return valid;
-    }
-
-    /**
-     * Provides a callback method for warning to support Ajax
-     *
-     * @method updateWarning
-     * @return {void}
-     */
-    updateWarning = (valid, value, warning) => {
-      // if validation fails
-      if (!valid) {
-        // if input currently thinks it is valid
-        if (!this.state.warning) {
-          // if input has a form
-          if (this.isAttachedToForm) {
-            // increment the error count on the form
-            this.context.form.incrementWarningCount();
-          }
-
-          // if input has a tab
-          if (this.context.tab) {
-            // Set the validity of the tab to true
-            this.context.tab.setWarning(true);
-          }
-
-          // tell the input it is invalid
-          this.setState({ warningMessage: warning.message(value, this.props), warning: true });
         }
       }
     }
@@ -421,24 +260,25 @@ const InputValidation = (ComposedComponent) => {
      * @return {Void}
      */
     updateValidation = (valid, value, validation) => {
+      debugger
       // if validation fails
       if (!valid) {
         // if input currently thinks it is valid
         if (this.state.valid) {
-          // if input has a form
-          if (this.isAttachedToForm) {
-            // increment the error count on the form
-            this.context.form.incrementErrorCount();
-          }
-
-          // if input has a tab
-          if (this.context.tab) {
-            // Set the validity of the tab to false
-            this.context.tab.setValidity(false);
-          }
-
+          // Add validation state to containers e.g. form, tab
+          this.addValidationState(valid, validation)
           // tell the input it is invalid
           this.setState({ errorMessage: validation.message(value, this.props), valid: false });
+        }
+      }
+    }
+
+    addValidationState = (valid, validation) => {
+      for (var key in this.context) {
+        const validationContext = this.context[key];
+        // Add specific validation attached logic. e.g. isAttachedToForm
+        if (validationContext && validationContext.addValidationState) {
+          validationContext.addValidationState(valid, validation)
         }
       }
     }
@@ -454,8 +294,6 @@ const InputValidation = (ComposedComponent) => {
         // use setTimeout to drop in the callstack to ensure value has time to be set
         setTimeout(() => {
           this.validate();
-          this.warning();
-          this.info();
 
           if (this.state.messageLocked) {
             this.setState({ messageLocked: false });
@@ -471,7 +309,7 @@ const InputValidation = (ComposedComponent) => {
      * @return {void}
      */
     _handleFocus = () => {
-      if (!this.state.valid || this.state.warning || this.state.info) {
+      if (!this.state.valid) {
         this.positionMessage();
 
         if (!this.state.messageLocked) {
@@ -491,15 +329,11 @@ const InputValidation = (ComposedComponent) => {
      */
     _handleContentChange = () => {
       // if the field is in an invalid state
-      if (!this.state.valid || this.state.warning || this.state.info) {
+      if (!this.state.valid) {
         // if there is a form, decrement the error count
         if (this.isAttachedToForm) {
           if (!this.state.valid) {
             this.context.form.decrementErrorCount();
-          }
-
-          if (this.state.warning) {
-            this.context.form.decrementWarningCount();
           }
         }
 
@@ -510,7 +344,7 @@ const InputValidation = (ComposedComponent) => {
 
         // reset the error state
         this.setState({
-          errorMessage: null, messageShown: false, valid: true, warning: false, info: false
+          errorMessage: null, messageShown: false, valid: true
         });
       }
     }
@@ -526,10 +360,6 @@ const InputValidation = (ComposedComponent) => {
       if (!this.state.valid) {
         this.context.tab.setValidity(true);
       }
-
-      if (this.state.warning) {
-        this.context.tab.setWarning(false);
-      }
     }
 
     /**
@@ -539,7 +369,7 @@ const InputValidation = (ComposedComponent) => {
      * @return {Boolean} whether or not a message exists
      */
     messageExists = () => {
-      return !this.state.valid || this.state.warning || this.state.info;
+      return !this.state.valid;
     }
 
     /**
@@ -606,14 +436,10 @@ const InputValidation = (ComposedComponent) => {
      */
     get validationHTML() {
       let type = '';
-      if (this.state.valid && !this.state.warning && !this.state.info) { return null; }
+      if (this.state.valid) { return null; }
 
       if (!this.state.valid) {
         type = 'error';
-      } else if (this.state.warning) {
-        type = 'warning';
-      } else {
-        type = 'info';
       }
 
       const iconClasses = `common-input__icon common-input__icon--${type}`;
@@ -639,7 +465,7 @@ const InputValidation = (ComposedComponent) => {
               } }
               className={ messageClasses }
             >
-              { this.state.errorMessage || this.state.warningMessage || this.state.infoMessage }
+              { this.state.errorMessage }
             </div>
           </div>
         </Portal>
@@ -665,9 +491,7 @@ const InputValidation = (ComposedComponent) => {
      */
     get mainClasses() {
       return classNames(super.mainClasses, {
-        'common-input--error': !this.state.valid,
-        'common-input--warning': this.state.warning,
-        'common-input--info': this.state.info
+        'common-input--error': !this.state.valid
       });
     }
 
@@ -679,9 +503,7 @@ const InputValidation = (ComposedComponent) => {
      */
     get inputClasses() {
       return classNames(super.inputClasses, {
-        'common-input__input--error': !this.state.valid,
-        'common-input__input--warning': this.state.warning,
-        'common-input__input--info': this.state.info
+        'common-input__input--error': !this.state.valid
       });
     }
 

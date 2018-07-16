@@ -50,14 +50,17 @@ const ComponentActions = {
       .query(query)
       .end((err, res) => {
         const data = res.body;
+        const rows = data ? data.rows : []
+        const records = data ? data.records : 0
+        const currentPage = data ? data.current_page : 1
 
         window.Dispatcher.dispatch({
           actionType: window.ComponentConstants.UPDATE_TABLE,
-          items: data.rows,
-          records: String(data.records),
+          items: rows,
+          records: String(records),
           sortOrder: opts.sortOrder,
           sortedColumn: opts.sortedColumn,
-          page: String(data.current_page),
+          page: String(currentPage),
           pageSize
         });
       });

@@ -105,8 +105,8 @@ class Tab extends React.Component {
   getChildContext() {
     return {
       tab: {
-        setValidity: this.setValidity,
-        setWarning: this.setWarning
+        addValidationState: this.addValidationState,
+        removeValidationState: this.removeValidationState
       }
     };
   }
@@ -131,20 +131,19 @@ class Tab extends React.Component {
    * @method setValidity
    * @param {Boolean} valid updates validity of this tab
    */
-  setValidity = (valid) => {
-    this.context.tabs.changeValidity(this.props.tabId, valid);
+  addValidationState = (valid, validation) => {
+    if (validation.type == 'warning') {
+      this.context.tabs.changeWarning(this.props.tabId, valid);
+    } else {
+      this.context.tabs.changeValidity(this.props.tabId, valid);
+    }
   }
-
-  /**
-   * Sets warning state to passed param
-   * It notifies the parent context of the change
-   * and sets the current warning state to the new value
-   *
-   * @method setWarning
-   * @param {Boolean} warning updates warning of this tab
-   */
-  setWarning = (warning) => {
-    this.context.tabs.changeWarning(this.props.tabId, warning);
+  removeValidationState = (valid, validation) => {
+    if (validation.type == 'warning') {
+      this.context.tabs.changeWarning(this.props.tabId, valid);
+    } else {
+      this.context.tabs.changeValidity(this.props.tabId, valid);
+    }
   }
 
   /**
