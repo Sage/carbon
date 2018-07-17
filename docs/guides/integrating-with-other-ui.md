@@ -1,4 +1,4 @@
-# Integrating React & Flux with Other UI
+# Integrating React with Other UI
 
 As we integrate React components into pre-existing user interfaces, we may need to interact between the two. This guide offers solutions to a few different problems.
 

@@ -1,3 +1,5 @@
+# CHANGELOG IS NOW ARCHIVED - PLEASE SEE README.md FOR MORE INFORMATION ON ADDING RELEASE NOTES
+
 # 4.2.0
 
 ## Improvements
@@ -6,6 +8,7 @@
 * `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
 * `Input` now warning icon will not overlap over text inside input field.
 * `CustomDragLayer` component can now take className prop.
+* `Draggable Context` extending functionality to determine if a an item can be dropped on.
 
 ## Upgrades
 

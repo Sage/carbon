@@ -352,6 +352,85 @@ describe('TableAjax', () => {
     });
   });
 
+  describe('handleRequest', () => {
+    let wrapper,
+        response;
+
+    beforeEach(() => {
+      response = {
+        body: {
+          records: 1
+        }
+      };
+
+      wrapper = mount(
+        <TableAjax
+          path='/test'
+          onChange={ spy }
+        />
+      );
+    });
+
+    describe('when props contains a formatRequest function', () => {
+      it('calls formatRequest', () => {
+        const mockFormatData = (query) => { return { foo: 'bar' } };
+
+        wrapper.setProps({
+          formatRequest: mockFormatData
+        });
+
+        let options = { currentPage: 10, pageSize: 20 };
+        expect(
+          wrapper.instance().queryParams('', options)
+        ).toEqual('foo=bar')
+      });
+    });
+  });
+
+  describe('handleResponse', () => {
+    let wrapper,
+        response;
+
+    beforeEach(() => {
+      response = {
+        body: {
+          records: 1
+        }
+      };
+
+      wrapper = mount(
+        <TableAjax
+          path='/test'
+          onChange={ spy }
+        />
+      );
+    });
+
+    describe('when props contains a formatResponse function', () => {
+      it('calls formatResponse', () => {
+        const mockFormatData = jasmine.createSpy('mockFormatData').and.returnValue({
+          records: 1
+        });
+
+        wrapper.setProps({
+          formatResponse: mockFormatData
+        });
+
+        wrapper.instance().handleResponse(false, response);
+        expect(mockFormatData).toHaveBeenCalledWith(response.body);
+      });
+    });
+
+    describe('when props does not contain a formatResponse function', () => {
+      it('does not call formatResponse', () => {
+        const mockFormatData = jasmine.createSpy('mockFormatData');
+
+        wrapper.instance().handleResponse(false, response);
+        expect(mockFormatData).not.toHaveBeenCalled();
+      });
+    });
+  });
+
   describe('onAjaxError', () => {
     const error = {
       message: 'Unsuccessful HTTP response'
