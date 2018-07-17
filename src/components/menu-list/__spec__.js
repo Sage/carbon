@@ -55,9 +55,8 @@ describe('MenuList', () => {
 
     it("triggers menu toggle on click", () => {
       let instance = wrapper.instance();
-      spyOn(instance, 'setState');
       title.simulate('click');
-      expect(instance.setState).toHaveBeenCalledWith({ open: true });
+      expect(instance.state.open).toEqual(true);
     });
   });
 

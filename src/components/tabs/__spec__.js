@@ -235,7 +235,6 @@ describe('Tabs', () => {
     });
 
     it('sets the validity state for the given tab', () => {
-      expect(instance.setState).toHaveBeenCalledWith({ tabValidity: instance.state.tabValidity.set('foo', false) });
       expect(instance.state.tabValidity.toJS()).toEqual({ 'foo': false });
     });
   });
@@ -248,7 +247,6 @@ describe('Tabs', () => {
     });
 
     it('sets the warning state for the given tab', () => {
-      expect(instance.setState).toHaveBeenCalledWith({ tabWarning: instance.state.tabWarning.set('foo', true) });
       expect(instance.state.tabWarning.toJS()).toEqual({ 'foo': true });
     });
   });
