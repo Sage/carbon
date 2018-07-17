@@ -140,9 +140,9 @@ describe('poller', () => {
         functions.onMaxRetries = onMaxRetriesSpy;
 
         Poller({ url }, functions, { interval: 1000, retries: 2 });
-        jest.runTimersToTime(1000);
 
         for (let i = 0; i < 2; i++) {
+          expect(onMaxRetriesSpy).not.toHaveBeenCalled();
           jest.runTimersToTime(1000);
         }
 
