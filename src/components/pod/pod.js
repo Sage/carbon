@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
-import Icon from './../icon';
-import Link from './../link';
-import Event from './../../utils/helpers/events';
+import Icon from '../icon';
+import Link from '../link';
+import Event from '../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 
@@ -301,7 +301,7 @@ class Pod extends React.Component {
    * @method toggleCollapse
    */
   toggleCollapse = () => {
-    this.setState({ collapsed: !this.state.collapsed });
+    this.setState(prevState => ({ collapsed: !prevState.collapsed }));
   }
 
   get mainClasses() {
@@ -426,7 +426,7 @@ class Pod extends React.Component {
     if (!this.props.onEdit) { return null; }
 
     return (
-      <div className='carbon-pod__edit-button-container' { ...this.hoverOverEditEvents } >
+      <div className='carbon-pod__edit-button-container' { ...this.hoverOverEditEvents }>
         <Link
           icon='edit' className={ this.editActionClasses }
           { ...this.linkProps() }
@@ -542,7 +542,7 @@ class Pod extends React.Component {
         { ...tagComponent('pod', this.props) }
       >
         <div className={ this.blockClasses } { ...hoverOverEditEvents }>
-          <div className={ this.contentClasses } >
+          <div className={ this.contentClasses }>
             { this.podHeader }
             { content }
           </div>

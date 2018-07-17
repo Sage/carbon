@@ -4,16 +4,16 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import classNames from 'classnames';
 import Immutable from 'immutable';
 import I18n from 'i18n-js';
-import ActionToolbar from './../action-toolbar';
-import Icon from './../icon';
-import Link from './../link';
+import ActionToolbar from '../action-toolbar';
+import Icon from '../icon';
+import Link from '../link';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
 import TableSubheader from './table-subheader';
 import DraggableTableCell from './draggable-table-cell';
-import Pager from './../pager';
-import Spinner from './../spinner';
+import Pager from '../pager';
+import Spinner from '../spinner';
 
 import './table.scss';
 import './table--secondary-theme.scss';
@@ -867,7 +867,7 @@ class Table extends React.Component {
   get defaultPageSize() {
     if (this.props.pageSize) {
       return this.props.pageSize;
-    } else if (this.props.pageSizeSelectionOptions) {
+    } if (this.props.pageSizeSelectionOptions) {
       return this.props.pageSizeSelectionOptions.first().get('id');
     }
     return '10';
@@ -1053,7 +1053,7 @@ class Table extends React.Component {
 
     if (hasChildren) {
       return children;
-    } else if (this._hasRetreivedData) {
+    } if (this._hasRetreivedData) {
       return this.emptyRow;
     }
     return this.loadingRow;
@@ -1131,7 +1131,7 @@ class Table extends React.Component {
     return (
       <div className={ this.mainClasses } { ...this.componentTags(this.props) }>
         { this.actionToolbar }
-        <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } } >
+        <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } }>
           { this.configureLink(this.props.onConfigure) }
           <table
             ref={ (table) => { this._table = table; } }

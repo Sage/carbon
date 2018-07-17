@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
 
-import Button from './../../button';
-import Icon from './../../icon';
+import Button from '../../button';
+import Icon from '../../icon';
 
 /**
  * A Step widget.

@@ -29,11 +29,11 @@ const ValidationsHelper = {
 
     if (is && !max && !min) {
       return 'Exact';
-    } else if (!is && max && !min) {
+    } if (!is && max && !min) {
       return 'Less';
-    } else if (!is && min && !max) {
+    } if (!is && min && !max) {
       return 'Greater';
-    } else if (!is && min && max) {
+    } if (!is && min && max) {
       return 'Range';
     }
     return null;

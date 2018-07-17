@@ -5,7 +5,7 @@ import Immutable from 'immutable';
 import { compact } from 'lodash';
 import classNames from 'classnames';
 import Tab from './tab';
-import Event from './../../utils/helpers/events';
+import Event from '../../utils/helpers/events';
 import tagComponent from '../../utils/helpers/tags';
 import Browser from '../../utils/helpers/browser';
 
@@ -232,8 +232,8 @@ class Tabs extends React.Component {
   * @param {object} nextProps
   */
   componentWillReceiveProps(nextProps) {
-    if (this.props.selectedTabId !== nextProps.selectedTabId &&
-        nextProps.selectedTabId !== this.state.selectedTabId) {
+    if (this.props.selectedTabId !== nextProps.selectedTabId
+        && nextProps.selectedTabId !== this.state.selectedTabId) {
       this.updateVisibleTab(nextProps.selectedTabId);
     }
   }
@@ -255,7 +255,7 @@ class Tabs extends React.Component {
    * @param {Boolean} state of tab child
    */
   changeValidity = (id, valid) => {
-    this.setState({ tabValidity: this.state.tabValidity.set(id, valid) });
+    this.setState(prevState => ({ tabValidity: prevState.tabValidity.set(id, valid) }));
   }
 
   /**
@@ -266,7 +266,7 @@ class Tabs extends React.Component {
    * @param {Boolean} state of tab child
    */
   changeWarning = (id, warning) => {
-    this.setState({ tabWarning: this.state.tabWarning.set(id, warning) });
+    this.setState(prevState => ({ tabWarning: prevState.tabWarning.set(id, warning) }));
   }
 
   /**

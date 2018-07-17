@@ -1,5 +1,5 @@
 import { forEach, isEmpty } from 'lodash';
-import ValidationsHelper from './../../helpers/validations';
+import ValidationsHelper from '../../helpers/validations';
 
 /**
  * This will validate an input for presence.
