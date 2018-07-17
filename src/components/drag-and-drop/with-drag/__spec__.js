@@ -156,7 +156,19 @@ describe('WithDrag', () => {
       });
     });
 
-    describe('when the event target is a span', () => {
+    describe('when the event target is an input element', () => {
+      it('does not prevent selectstart', () => {
+        const element = BrowserHelper.getDocument().createElement('input');
+        const event = {
+          target: element,
+          preventDefault: jest.fn()
+        }
+        spyOn(event, 'preventDefault');
+        expect(component.decoratedComponentInstance.allowTextSelection(event)).toBeTruthy();
+      });
+    });
+
+    describe('when the event target is NOT an input element', () => {
       it('prevents selectstart', () => {
         const element = BrowserHelper.getDocument().createElement('span');
         const event = {
@@ -177,18 +189,6 @@ describe('WithDrag', () => {
         spyOn(event, 'preventDefault');
         component.decoratedComponentInstance.dragging = true;
         expect(component.decoratedComponentInstance.allowTextSelection(event)).toBeFalsy();
-      });
-    });
-
-    describe('when the event target is a dom element and the component is not dragging', () => {
-      it('does not prevent selectstart', () => {
-        const event = {
-          target: BrowserHelper.getDocument().createElement('textarea'),
-          preventDefault: jest.fn()
-        }
-        spyOn(event, 'preventDefault');
-        component.decoratedComponentInstance.dragging = false;
-        expect(component.decoratedComponentInstance.allowTextSelection(event)).toBeTruthy();
       });
     });
 
