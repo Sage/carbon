@@ -6,7 +6,6 @@
 
 * `Browser` now has a `redirectAfter` method that redirects to the given URL after the given number of seconds.
 * `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
-* `Input` now warning icon will not overlap over text inside input field.
 * `CustomDragLayer` component can now take className prop.
 * `Draggable Context` extending functionality to determine if a an item can be dropped on.
 

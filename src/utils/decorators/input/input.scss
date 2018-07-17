@@ -255,8 +255,6 @@
   .common-input__input--#{$type},
   .common-input__input--#{$type}:hover {
     border-color: $color !important; // this is the correct use of !important
-    padding-right: 60px;
-    text-overflow: ellipsis;
   }
 }
 
