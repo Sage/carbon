@@ -58,3 +58,12 @@ $dropdown-input-icon-width: 20px !default;
     width: $dropdown-input-icon-width;
   }
 }
+
+.carbon-dropdown {
+  .common-input__input--error,
+  .common-input__input--info,
+  .common-input__input--warning {
+    padding-right: 60px;
+    text-overflow: ellipsis;
+  }
+}
