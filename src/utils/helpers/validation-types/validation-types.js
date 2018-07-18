@@ -2,19 +2,19 @@ export default {
   error: {
     key: 'error',
     icon: 'error',
-    color: 'red',
-    blocking: true
+    blocking: true,
+    classModifier: ''
   },
   warning: {
     key: 'warning',
     icon: 'warning',
-    color: 'orange',
-    blocking: false
+    blocking: false,
+    classModifier: ''
   },
   info: {
     key: 'info',
     icon: 'info',
-    color: 'blue',
-    blocking: false
+    blocking: false,
+    classModifier: ''
   }
 }

@@ -442,11 +442,17 @@ const InputValidation = (ComposedComponent) => {
 
       type = this.state.validationProperties.key
 
-      const iconClasses = `common-input__icon common-input__icon--${type}`;
-      const messageClasses = classNames(`common-input__message common-input__message--${type}`, {
-        'common-input__message--shown': (this.state.messageLocked || this.state.messageShown),
-        'common-input__message--fade': (!this.state.messageLocked && !this.state.messageShown),
-        'common-input__message--flipped': this.state.flipped
+      const baseIconClass = `common-input__icon`;
+      const iconClasses = classNames(`${baseIconClass} ${baseIconClass}--${type}`, {
+        [`${baseIconClass}--${this.state.validationProperties.classModifier}`]: this.state.validationProperties.className
+      });
+
+      const baseMessageClass = 'common-input__message';
+      const messageClasses = classNames(`${baseMessageClass} ${baseMessageClass}--${type}`, {
+        [`${baseMessageClass}--shown`]: (this.state.messageLocked || this.state.messageShown),
+        [`${baseMessageClass}--fade`]: (!this.state.messageLocked && !this.state.messageShown),
+        [`${baseMessageClass}--flipped`]: this.state.flipped,
+        [`${baseMessageClass}--${this.state.validationProperties.classModifier}`]: this.state.validationProperties.className
       });
 
       // position icon relative to width of label
@@ -475,7 +481,7 @@ const InputValidation = (ComposedComponent) => {
         <Icon
           key='0'
           ref={ (validationIcon) => { this.validationIcon = validationIcon; } }
-          type={ type }
+          type={ this.state.validationProperties.icon }
           className={ iconClasses }
           style={ iconStyle }
         />,

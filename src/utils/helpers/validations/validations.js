@@ -1,6 +1,13 @@
 import I18n from 'i18n-js';
+import ValidationsTypes from './../../helpers/validation-types';
+import { merge } from 'lodash';
 
 const ValidationsHelper = {
+
+  validationProperties: (type = 'error', params = {}) => {
+    // Override params is still in progress
+    return merge(ValidationsTypes[type], params);
+  },
 
   /**
    * Return the correct validationMessage

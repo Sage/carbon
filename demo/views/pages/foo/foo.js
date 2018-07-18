@@ -14,7 +14,8 @@ class Foo extends React.Component {
     value1: '',
     value2: '',
     value3: '',
-    value4: ''
+    value4: '',
+    value5: ''
   }
 
   valueChange = (ev) => {
@@ -30,7 +31,10 @@ class Foo extends React.Component {
               name='value1'
               value={ this.state.value1 }
               onChange={ this.valueChange }
-              validations={ [ new PresenceValidation({type: 'info'}), new LengthValidation({ min: 5 }) ] }
+              validations={ [
+                new PresenceValidation({type: 'info', properties: { icon: 'settings', className: 'we-want-blue' }}),
+                new LengthValidation({ min: 5, properties: { icon: 'settings' } } )
+              ] }
             />
             <Textbox
               name='value2'
@@ -48,12 +52,19 @@ class Foo extends React.Component {
                   name='value3'
                   value={ this.state.value3 }
                   onChange={ this.valueChange }
-                  validations={ [ new PresenceValidation(), new LengthValidation({ type: 'warning', min: 5 }) ] }
+                  validations={ [ new PresenceValidation() ] }
                 />
                 <Textbox
                   name='value4'
                   value={ this.state.value4 }
                   onChange={ this.valueChange }
+                  validations={ [ new PresenceValidation({ type: 'warning' }) ] }
+                />
+                <Textbox
+                  name='value5'
+                  value={ this.state.value5 }
+                  onChange={ this.valueChange }
+                  validations={ [ new PresenceValidation({ type: 'info', properties: { icon: 'warning' } }) ] }
                 />
               </Form>
             </Tab>
