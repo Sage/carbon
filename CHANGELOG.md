@@ -1,3 +1,5 @@
+# CHANGELOG IS NOW ARCHIVED - PLEASE SEE README.md FOR MORE INFORMATION ON ADDING RELEASE NOTES
+
 # 4.2.0
 
 ## Improvements
@@ -6,6 +8,7 @@
 * `Menu` now outputs semantic HTML. Links are rendered in HTML lists, with submenus rendered with nested lists.
 * `TextArea` TextArea now sets its `min-height` to match the height of other input fields.
 * `CustomDragLayer` component can now take className prop.
+* `Draggable Context` extending functionality to determine if a an item can be dropped on.
 
 ## Upgrades
 
@@ -20,6 +23,12 @@
 
 * Add a blue background to fix a 'white text on a white background' issue when selecting rows in the `Table` component with the secondary theme applied.
 * No longer render a `type` attribute for the `Icon` component, as this produced invalid HTML (the `Icon` component still accepts a `type` prop).
+
+# 4.1.1
+
+## Improvements
+
+* `Modal` now has a `transitionAppear` and `transitionAppearTimeout` defined on its `CSSTransitionGroup` components so there will be animation on initial mount
 
 # 4.1.0
 

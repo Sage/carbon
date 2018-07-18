@@ -472,7 +472,7 @@ describe('TableRow', () => {
     describe('with drag and drop context', () => {
       beforeEach(() => {
         wrapper = mount(
-          <DraggableContext onDrag={ () => {} }>
+          <DraggableContext onDrag={ () => {} } canDrop={ () => { return true } }>
             <Table>
               <TableRow index={ 0 } dragAndDropIdentifier="foo">
                 <TableCell>foo</TableCell>
@@ -486,12 +486,14 @@ describe('TableRow', () => {
         let cell = wrapper.find(TableRow).find(DraggableTableCell);
         expect(cell.props().identifier).toEqual("foo");
         expect(cell.props().draggableNode().getAttribute('class')).toEqual('carbon-table-row');
+        expect(cell.props().canDrag).toEqual(true);
       });
 
       it('renders a WithDrop component', () => {
         let wd = wrapper.find(WithDrop);
         expect(wd.props().index).toEqual(0);
         expect(wd.props().identifier).toEqual("foo");
+        expect(wd.props().canDrop()).toEqual(true);
       });
 
       it('renders a dragging class', () => {
