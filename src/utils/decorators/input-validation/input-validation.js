@@ -61,6 +61,14 @@ const InputValidation = (ComposedComponent) => {
        */
       this.state.valid = true;
 
+      /**
+       * The properties of the current validation
+       * Populated when the input is in a invalid state
+       *
+       * @property validationProperties
+       * @type {Object}
+       * @default null
+       */
       this.state.validationProperties = null;
 
       /**
@@ -223,17 +231,26 @@ const InputValidation = (ComposedComponent) => {
       }
     }
 
+    /**
+     * Checks for blocking validations and returns boolean defining if field valid.
+     * Blocking validations would for example stop the saving of a form
+     *
+     * @method validate
+     * @return {Boolean} if the field/fields is/are valid
+     */
     validateBlockingValidations = () => {
       // if there are no validation, return truthy
       if (!this._validations() || this.props._placeholder) {
         return true;
       }
 
-      const validations = this._validations().reduce((accum, validation, foo, bar) => {
+      const validations = this._validations().reduce((accum, validation) => {
         if (validation.properties.blocking) { accum.push(validation); }
         return accum;
       }, []);
 
+      // If there are not blocking validations, return truthy
+      if (validations.length < 1) { return true; }
       return this.validate(this.props.value, validations);
     }
 
