@@ -68,7 +68,7 @@ class LengthValidator {
      *
      * key: identifier
      * blocking: does the validation block save/closing etc...
-     * color: Colour of the icon and message
+     * classModifier: class to applied to icon and input
      * icon: Icon displayed with the validation
      *
      * @property properties

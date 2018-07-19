@@ -534,25 +534,46 @@ class Form extends React.Component {
    */
   warningCount = 0;
 
+  /**
+   * Determine by guid if an input is attached to this form
+   *
+   * @property validationAttached
+   * @type {Boolean}
+   */
   validationAttached = (guid) => {
     return !!this.inputs[guid];
   }
 
+  /**
+   * Context function called when a validation state has changed
+   *
+   * @property validationAttached
+   */
   addValidationState = (valid, validationProperties) => {
-    if (validationProperties.key == 'error') {
-      this.incrementErrorCount();
-    } else if (validationProperties.key == 'warning') {
-      this.incrementWarningCount();
-    }
+    validationUpdate(validationProperties.key, this.incrementErrorCount, this.incrementWarningCount)
   }
 
+  /**
+   * Context function called when a validation state has changed
+   *
+   * @property removeValidationState
+   */
   removeValidationState = (valid, validationProperties) => {
-    if (!valid) {
-      if (validationProperties.key == 'error') {
-        this.decrementErrorCount();
-      } else if (validationProperties.key == 'warning') {
-        this.decrementWarningCount();
-      }
+    if (valid) { return; }
+
+    validationUpdate(validationProperties.key, this.decrementErrorCount, this.decrementWarningCount)
+  }
+
+  /**
+   * Helper function to dry up the adding and removing of validation states
+   *
+   * @property validationUpdate
+   */
+  validationUpdate = (key, onError, onWarning) => {
+    if (key == 'error') {
+      onError();
+    } else if (key == 'warning') {
+      onWarning();
     }
   }
 

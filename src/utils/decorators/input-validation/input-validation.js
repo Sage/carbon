@@ -513,7 +513,7 @@ const InputValidation = (ComposedComponent) => {
      * @return {String} Main class names
      */
     get mainClasses() {
-      let validationProperties = this.state.validationProperties ? this.state.validationProperties.key : 'error'
+      const validationProperties = this.state.validationProperties ? this.state.validationProperties.key : 'error'
       return classNames(super.mainClasses, {
         [`common-input--${ validationProperties }`]: !this.state.valid
       });
@@ -526,7 +526,7 @@ const InputValidation = (ComposedComponent) => {
      * @return {String} Input class names
      */
     get inputClasses() {
-      let validationProperties = this.state.validationProperties ? this.state.validationProperties.key : 'error'
+      const validationProperties = this.state.validationProperties ? this.state.validationProperties.key : 'error'
       return classNames(super.inputClasses, {
         [`common-input__input--${ validationProperties }`]: !this.state.valid
       });

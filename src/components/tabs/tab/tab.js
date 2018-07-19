@@ -125,12 +125,9 @@ class Tab extends React.Component {
   }
 
   /**
-   * Sets valid state to passed param
-   * It notifies the parent context of the change
-   * and sets the current valid state to the new value
+   * Context function called when a validation state has changed
    *
-   * @method setValidity
-   * @param {Boolean} valid updates validity of this tab
+   * @property addValidationState
    */
   addValidationState = (valid, validationProperties) => {
     if (validationProperties.key == 'warning') {
@@ -139,10 +136,23 @@ class Tab extends React.Component {
       this.context.tabs.changeValidity(this.props.tabId, valid);
     }
   }
+  p
+  /**
+   * Context function called when a validation state has changed
+   *
+   * @property removeValidationState
+   */
   removeValidationState = (valid, validationProperties) => {
     this.context.tabs.changeWarning(this.props.tabId, valid);
     this.context.tabs.changeValidity(this.props.tabId, valid);
   }
+
+  /**
+   * If a input is a child of form then it will be considered 'attached'
+   *
+   * @property validationAttached
+   * @type {Boolean}
+   */
   validationAttached = (_) => {
     return true;
   }
