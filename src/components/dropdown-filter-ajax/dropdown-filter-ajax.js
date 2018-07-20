@@ -127,6 +127,15 @@ class DropdownFilterAjax extends DropdownFilter {
     create: PropTypes.func,
 
     /**
+     * A callback function used to format the Ajax
+     * response into the format required by the table
+     *
+     * @property formatResponse
+     * @type {Function}
+     */
+    formatResponse: PropTypes.func,
+
+    /**
      * Should the dropdown act and look like a suggestable input instead.
      *
      * @property suggest
@@ -221,12 +230,13 @@ class DropdownFilterAjax extends DropdownFilter {
       .query(this.props.additionalRequestParams)
       .end(this.ajaxUpdateList);
   }
-
   /**
    * Applies some data from AJAX to the list
    */
   ajaxUpdateList = (err, response) => {
-    this.updateList(response.body.data[0]);
+    this.updateList(
+      this.props.formatResponse ? this.props.formatResponse(response.body.data[0]) : response.body.data[0]
+    );
     this.setState({ requesting: false });
   }
 
