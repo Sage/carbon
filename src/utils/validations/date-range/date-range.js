@@ -39,6 +39,16 @@ class DateRangeValidator {
     this.messageText = params.messageText;
 
     /**
+     * Validation Properties involved in how the validation looks and interacts
+     *
+     * @property properties
+     * @type {Object}
+     */
+    this.properties = ValidationsHelper.validationProperties(
+      params.type, params.properties
+    )
+
+    /**
      * The current endDate, used to compare to the new startDate
      *
      * @property endDate

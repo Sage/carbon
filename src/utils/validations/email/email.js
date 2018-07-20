@@ -34,6 +34,16 @@ class EmailValidator {
      * @type {String}
      */
     this.customMessage = params.customMessage;
+
+    /**
+     * Validation Properties involved in how the validation looks and interacts
+     *
+     * @property properties
+     * @type {Object}
+     */
+    this.properties = ValidationsHelper.validationProperties(
+      params.type, params.properties
+    )
   }
 
   /**

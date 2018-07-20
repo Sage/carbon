@@ -391,6 +391,8 @@ class Tabs extends React.Component {
   tabHeaderClasses = (tab) => {
     const tabHasError = this.state.tabValidity.get(tab.props.tabId) === false,
         tabHasWarning = this.state.tabWarning.get(tab.props.tabId) === false
+
+    debugger
     console.log(tabHasError, tabHasWarning);
 
     return classNames(
@@ -444,6 +446,7 @@ class Tabs extends React.Component {
     const tabTitles = this.children.map((child, index) => {
       const ref = `${child.props.tabId}-tab`;
       this.tabRefs.push(ref);
+      console.log(this.tabHeaderClasses(child));
       return (
         <li
           aria-selected={ this.isTabSelected(child.props.tabId) }
@@ -536,6 +539,7 @@ class Tabs extends React.Component {
    * @method render
    */
   render() {
+    console.log('render tabs');
     return (
       <div className={ this.mainClasses } { ...tagComponent('tabs', this.props) }>
         { this.tabHeaders }

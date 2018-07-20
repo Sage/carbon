@@ -64,7 +64,25 @@ class Tab extends React.Component {
      * @property children
      * @type {Node}
      */
-    children: PropTypes.node
+    children: PropTypes.node,
+  }
+
+  state = {
+    /**
+     * Tracks the number of errors in the form
+     *
+     * @property errorCount
+     * @type {Number}
+     */
+    errorCount: 0,
+
+    /**
+     * Tracks the number of warnings in the form
+     *
+     * @property warningCount
+     * @type {Number}
+     */
+    warningCount: 0,
   }
 
   static defaultProps = {
@@ -136,15 +154,17 @@ class Tab extends React.Component {
       this.context.tabs.changeValidity(this.props.tabId, valid);
     }
   }
-  p
+
   /**
    * Context function called when a validation state has changed
    *
    * @property removeValidationState
    */
   removeValidationState = (valid, validationProperties) => {
-    this.context.tabs.changeWarning(this.props.tabId, valid);
-    this.context.tabs.changeValidity(this.props.tabId, valid);
+    console.log(validationProperties);
+    // TODO: Tabs should track number of errors/warnings to style header correctly
+    this.context.tabs.changeWarning(this.props.tabId, true);
+    this.context.tabs.changeValidity(this.props.tabId, true);
   }
 
   /**

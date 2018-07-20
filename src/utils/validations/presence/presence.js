@@ -43,11 +43,6 @@ class PresenceValidator {
     /**
      * Validation Properties involved in how the validation looks and interacts
      *
-     * key: identifier
-     * blocking: does the validation block save/closing etc...
-     * classModifier: class to applied to icon and input
-     * icon: Icon displayed with the validation
-     *
      * @property properties
      * @type {Object}
      */

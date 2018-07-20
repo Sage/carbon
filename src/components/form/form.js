@@ -550,7 +550,7 @@ class Form extends React.Component {
    * @property validationAttached
    */
   addValidationState = (valid, validationProperties) => {
-    validationUpdate(validationProperties.key, this.incrementErrorCount, this.incrementWarningCount)
+    this.validationUpdate(validationProperties.key, this.incrementErrorCount, this.incrementWarningCount)
   }
 
   /**
@@ -561,7 +561,7 @@ class Form extends React.Component {
   removeValidationState = (valid, validationProperties) => {
     if (valid) { return; }
 
-    validationUpdate(validationProperties.key, this.decrementErrorCount, this.decrementWarningCount)
+    this.validationUpdate(validationProperties.key, this.decrementErrorCount, this.decrementWarningCount)
   }
 
   /**
