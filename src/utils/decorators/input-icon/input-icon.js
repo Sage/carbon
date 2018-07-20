@@ -58,7 +58,7 @@ const InputIcon = (ComposedComponent) => {
 
       let icon = <Icon type={ iconType } className='carbon-input-icon' />;
 
-      if (['error', 'warning'].indexOf(iconType) > -1) {
+      if (['error', 'warning', 'info'].indexOf(iconType) > -1) {
         icon = (
           <span className={ `carbon-input-icon carbon-input-icon--${iconType}` }>
             { this.validationHTML }

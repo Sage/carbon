@@ -16,8 +16,7 @@ export default new SiteMapHelper({
   '/getting-started': {
     items: {
       'setting-up-your-environment': `${guidesPath}/setting-up-your-environment.md`,
-      'hello-world': `${guidesPath}/getting-started.md`,
-      'a-basic-example-of-flux': `${guidesPath}/a-basic-example.md`
+      'hello-world': `${guidesPath}/getting-started.md`
     }
   },
   '/components/:name': {
@@ -41,21 +40,15 @@ export default new SiteMapHelper({
   },
   '/guides': {
     items: {
+      assets: `${guidesPath}/assets.md`,
       flux: `${guidesPath}/flux.md`,
       immutable: `${guidesPath}/immutable.md`,
       validations: `${guidesPath}/validations.md`,
-      assets: `${guidesPath}/assets.md`,
       decorators: `${guidesPath}/decorators.md`,
-      handlers: `${guidesPath}/handlers.md`,
       services: `${guidesPath}/services.md`,
-      'integrating-other-code': `${guidesPath}/integrating-with-other-ui.md`
+      'integrating-other-code': `${guidesPath}/integrating-with-other-ui.md`,
+      'testing-carbon-locally': `${guidesPath}/installing-unreleased-changes.md`,
+      'releasing-carbon': `${guidesPath}/releasing.md`
     }
-  },
-  // '/tutorials': {
-  //   items: {
-  //     'rails-part-1:-hello-world': `${tutorialsPath}/carbon-rails/hello-world.md`,
-  //     'rails-part-2:-introducing-data': `${tutorialsPath}/carbon-rails/introducing-data.md`,
-  //     'rails-part-3:-updating-data': `${tutorialsPath}/carbon-rails/updating-data.md`
-  //   }
-  // }
+  }
 });
