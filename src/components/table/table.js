@@ -867,7 +867,8 @@ class Table extends React.Component {
   get defaultPageSize() {
     if (this.props.pageSize) {
       return this.props.pageSize;
-    } if (this.props.pageSizeSelectionOptions) {
+    }
+    if (this.props.pageSizeSelectionOptions) {
       return this.props.pageSizeSelectionOptions.first().get('id');
     }
     return '10';
@@ -1051,11 +1052,8 @@ class Table extends React.Component {
       }
     }
 
-    if (hasChildren) {
-      return children;
-    } if (this._hasRetreivedData) {
-      return this.emptyRow;
-    }
+    if (hasChildren) return children;
+    if (this._hasRetreivedData) return this.emptyRow;
     return this.loadingRow;
   }
 

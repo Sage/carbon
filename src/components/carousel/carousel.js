@@ -162,9 +162,9 @@ class Carousel extends React.Component {
     const newIndex = this.verifyNewIndex(nextProps.slideIndex);
     const currentIndex = this.state.selectedSlideIndex;
 
-    if (newIndex === currentIndex) {
-      return;
-    } if (newIndex > currentIndex) {
+    if (newIndex === currentIndex) return;
+
+    if (newIndex > currentIndex) {
       this.transitionDirection = NEXT;
     } else {
       this.transitionDirection = PREVIOUS;
@@ -220,7 +220,9 @@ class Carousel extends React.Component {
     if (newIndex < 0) {
       // If the new index is negative, select the last slide
       return this.numOfSlides() - 1;
-    } if (newIndex > this.numOfSlides() - 1) {
+    }
+
+    if (newIndex > this.numOfSlides() - 1) {
       // If the new index is bigger than the number of slides, select the first slide
       return 0;
     }

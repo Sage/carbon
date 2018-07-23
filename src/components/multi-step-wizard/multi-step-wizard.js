@@ -214,7 +214,8 @@ class MultiStepWizard extends React.Component {
 
     if (completed === true) {
       return { currentStep: totalSteps, completed: true };
-    } if (parseInt(step, 10) !== step || step < 1 || step > totalSteps) {
+    }
+    if (parseInt(step, 10) !== step || step < 1 || step > totalSteps) {
       return { currentStep: 1, completed: false };
     }
 

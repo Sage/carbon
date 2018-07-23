@@ -87,7 +87,8 @@ const I18nHelper = {
     if (absolute > 949 && absolute < 999950) {
       const translation = I18n.t('number.format.abbreviations.thousand', { defaultValue: 'k' });
       return `${I18nHelper.roundForAbbreviation(num, 100, options)}${translation}`;
-    } if (absolute > 999949) {
+    }
+    if (absolute > 999949) {
       const translation = I18n.t('number.format.abbreviations.million', { defaultValue: 'm' });
       return `${I18nHelper.roundForAbbreviation(num, 100000, options)}${translation}`;
     }

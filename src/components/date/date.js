@@ -469,9 +469,11 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
   get additionalInputContent() {
     if (!this.state.valid) {
       return this.inputIconHTML('error');
-    } if (this.state.warning) {
+    }
+    if (this.state.warning) {
       return this.inputIconHTML('warning');
-    } if (this.state.info) {
+    }
+    if (this.state.info) {
       return this.inputIconHTML('info');
     }
     return this.inputIconHTML('calendar');
