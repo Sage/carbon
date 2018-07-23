@@ -469,9 +469,7 @@ describe('DropdownFilterAjax', () => {
           page: 1
         },
         response = {
-          body: {
-            data: expectedResponse
-          }
+          body: expectedResponse
         };
         const mockFormatData = jasmine.createSpy('mockFormatData').and.returnValue(expectedResponse);
 

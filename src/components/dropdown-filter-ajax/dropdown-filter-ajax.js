@@ -130,6 +130,13 @@ class DropdownFilterAjax extends DropdownFilter {
      * A callback function used to format the Ajax
      * response into the format required by the table
      *
+     * Expected return object format
+     * {
+        records - number of items returned
+        items - array of items in a format { id: ..., name: ... }
+        page - current page number
+       }
+     *
      * @property formatResponse
      * @type {Function}
      */
@@ -226,11 +233,11 @@ class DropdownFilterAjax extends DropdownFilter {
    * @method getData
    * @param {String} query The search term
    */
-  getData = (query = '') => {
+  getData = (query = '', page = 1) => {
     this.setState({ requesting: true });
     Request
       .get(this.props.path)
-      .query(this.getParams(query))
+      .query(this.getParams(query, page))
       .query(this.props.additionalRequestParams)
       .end(this.ajaxUpdateList);
   }
@@ -240,9 +247,9 @@ class DropdownFilterAjax extends DropdownFilter {
    *
    * @method getParams
    */
-  getParams = (query) => {
+  getParams = (query, page) => {
     const params = {};
-    params.page = this.state.page;
+    params.page = page;
     params.rows = this.props.rowsPerRequest;
     params.value = query;
     if (this.props.formatRequest) {
@@ -256,7 +263,7 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   ajaxUpdateList = (err, response) => {
     this.updateList(
-      this.props.formatResponse ? this.props.formatResponse(response.body.data) : response.body.data[0]
+      this.props.formatResponse ? this.props.formatResponse(response.body) : response.body.data[0]
     );
     this.setState({ requesting: false });
   }
