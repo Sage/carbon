@@ -447,6 +447,27 @@ describe('DropdownFilterAjax', () => {
       wrapper.find('.carbon-dropdown__input').simulate('focus');
     });
 
+    describe('when props contains a formatRequest function', () => {
+      it('calls formatRequest', () => {
+        const mapping = {
+          page: 'fooPage',
+          rows: 'fooRows',
+          value: 'fooValue'
+        }
+        wrapper.setProps({
+          formatRequest: mapping
+        });
+
+        expect(
+          wrapper.instance().getParams('')
+        ).toEqual({
+          fooPage: 1,
+          fooRows: 25,
+          fooValue: ""
+        })
+      });
+    });
+
     describe('when props contains a formatResponse function', () => {
       it('calls formatResponse', () => {
         let expectedResponse = {
@@ -456,7 +477,7 @@ describe('DropdownFilterAjax', () => {
         },
         response = {
           body: {
-            data: [expectedResponse]
+            data: expectedResponse
           }
         };
         const mockFormatData = jasmine.createSpy('mockFormatData').and.returnValue(expectedResponse);

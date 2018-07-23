@@ -1,1 +1,1 @@
-New Features: "Dropdown Filter Ajax now responds to props formatResponse to align its functionality with any API endpoints"
+New Features: "Dropdown Filter Ajax now responds to props formatResponse and formatRequest to align its functionality with any API endpoints"

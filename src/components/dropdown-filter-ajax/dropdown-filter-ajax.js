@@ -136,6 +136,15 @@ class DropdownFilterAjax extends DropdownFilter {
     formatResponse: PropTypes.func,
 
     /**
+     * A callback function used to format the Ajax
+     * request into the format required endpoint
+     *
+     * @property formatRequest
+     * @type {Function}
+     */
+    formatRequest: PropTypes.func,
+
+    /**
      * Should the dropdown act and look like a suggestable input instead.
      *
      * @property suggest
@@ -216,26 +225,52 @@ class DropdownFilterAjax extends DropdownFilter {
    *
    * @method getData
    * @param {String} query The search term
-   * @param {Object} page The page number to get
    */
-  getData = (query = '', page = 1) => {
+  getData = (query = '') => {
     this.setState({ requesting: true });
     Request
       .get(this.props.path)
-      .query({
-        page,
-        rows: this.props.rowsPerRequest,
-        value: query
-      })
+      .query(this.getParams(query))
       .query(this.props.additionalRequestParams)
       .end(this.ajaxUpdateList);
   }
+
+  /**
+   * Retrieve params for the list.
+   *
+   * @method getParams
+   */
+  getParams = (query) => {
+    const params = {};
+    params.page = this.state.page;
+    params.rows = this.props.rowsPerRequest;
+    params.value = query;
+    if (this.props.formatRequest) {
+      return this.formatRequest(params, this.props.formatRequest);
+    }
+    return params;
+  }
+
+  /**
+   * Formats custom parameters.
+   *
+   * @method formatRequest
+   * @param {Object} params The custom request parameters
+   */
+  formatRequest = (params, formatRequest) => {
+    const obj = {};
+    obj[formatRequest.page] = params.page;
+    obj[formatRequest.rows] = params.rows;
+    obj[formatRequest.value] = params.value;
+    return obj;
+  }
+
   /**
    * Applies some data from AJAX to the list
    */
   ajaxUpdateList = (err, response) => {
     this.updateList(
-      this.props.formatResponse ? this.props.formatResponse(response.body.data[0]) : response.body.data[0]
+      this.props.formatResponse ? this.props.formatResponse(response.body.data) : response.body.data[0]
     );
     this.setState({ requesting: false });
   }
