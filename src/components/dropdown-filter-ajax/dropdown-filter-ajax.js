@@ -246,23 +246,9 @@ class DropdownFilterAjax extends DropdownFilter {
     params.rows = this.props.rowsPerRequest;
     params.value = query;
     if (this.props.formatRequest) {
-      return this.formatRequest(params, this.props.formatRequest);
+      return this.props.formatRequest(params);
     }
     return params;
-  }
-
-  /**
-   * Formats custom parameters.
-   *
-   * @method formatRequest
-   * @param {Object} params The custom request parameters
-   */
-  formatRequest = (params, formatRequest) => {
-    const obj = {};
-    obj[formatRequest.page] = params.page;
-    obj[formatRequest.rows] = params.rows;
-    obj[formatRequest.value] = params.value;
-    return obj;
   }
 
   /**

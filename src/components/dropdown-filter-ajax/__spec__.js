@@ -449,22 +449,15 @@ describe('DropdownFilterAjax', () => {
 
     describe('when props contains a formatRequest function', () => {
       it('calls formatRequest', () => {
-        const mapping = {
-          page: 'fooPage',
-          rows: 'fooRows',
-          value: 'fooValue'
-        }
+        const mockFormatData = () => { return { foo: 'bar' } };
+
         wrapper.setProps({
-          formatRequest: mapping
+          formatRequest: mockFormatData
         });
 
         expect(
           wrapper.instance().getParams('')
-        ).toEqual({
-          fooPage: 1,
-          fooRows: 25,
-          fooValue: ""
-        })
+        ).toEqual({"foo": "bar"})
       });
     });
 
