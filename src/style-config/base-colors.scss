@@ -1,21 +1,3 @@
-// Grey
-$grey-shadow:                #021224 !default;
-$grey-dark-plus:             #1B1D21 !default;
-$dark-blue-plus:             #262A33 !default;
-$grey-dark-blue:             #3C424F !default;
-$grey-dark-blue-90:          #4F5460 !default;
-$grey-dark-blue-80:          #636872 !default;
-$grey-dark-blue-70:          #767A83 !default;
-$grey-dark-blue-60:          #8A8E95 !default;
-$grey-dark-blue-50:          #9DA0A7 !default;
-$grey-dark-blue-40:          #B1B3B9 !default;
-$grey-dark-blue-30:          #C4C6CA !default;
-$grey-dark-blue-25:          #CED0D3 !default;
-$grey-dark-blue-20:          #D8D9DC !default;
-$grey-dark-blue-15:          #E2E3E5 !default;
-$grey-dark-blue-10:          #EBECED !default;
-$grey-dark-blue-5:           #F5F6F7 !default;
-
 // Red
 $red:                        #D63F40 !default;
 $red-light:                  #E42C2D !default;
@@ -60,3 +42,56 @@ $purple-20:                  #E0D6EB !default;
 $magenta:                    #ED1C5F !default;
 $magenta-dull:               #CA2A60 !default;
 $magenta-light:              #F32E6D !default;
+
+// New Colors
+// GREEN
+$green-brilliant: #00DC00;
+
+// Segment - Small
+$segment-small: #00A376;
+
+// Segment - Medium
+$segment-medium: #0077C8;
+
+// Segment - Large
+$segment-large: #582C83;
+
+// GOLD
+$gold: #FFB500;
+
+// RED
+$red: #C7384F;
+
+// SLATE
+$slate: #003349;
+
+// AZUL
+$azul: #004B87;
+
+// PLUM
+$plum: #8246AF;
+
+// FUCHSIA
+$fuchsia: #CE0058;
+
+
+
+// Grey
+$grey-shadow:                #021224 !default;
+$grey-dark-plus:             #1B1D21 !default;
+$dark-blue-plus:             #262A33 !default;
+
+
+$grey-dark-blue:             $slate !default;
+$grey-dark-blue-90:          mix($slate, white, 90) !default;
+$grey-dark-blue-80:          mix($slate, white, 80) !default;
+$grey-dark-blue-70:          mix($slate, white, 70) !default;
+$grey-dark-blue-60:          mix($slate, white, 60) !default;
+$grey-dark-blue-50:          mix($slate, white, 50) !default;
+$grey-dark-blue-40:          mix($slate, white, 40) !default;
+$grey-dark-blue-30:          mix($slate, white, 30) !default;
+$grey-dark-blue-25:          mix($slate, white, 25) !default;
+$grey-dark-blue-20:          mix($slate, white, 20) !default;
+$grey-dark-blue-15:          mix($slate, white, 15) !default;
+$grey-dark-blue-10:          mix($slate, white, 10) !default;
+$grey-dark-blue-5:           mix($slate, white, 5) !default;
