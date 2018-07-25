@@ -1,5 +1,5 @@
-import ValidationsHelper from './../../helpers/validations';
-import DateHelper from './../../helpers/date';
+import ValidationsHelper from '../../helpers/validations';
+import DateHelper from '../../helpers/date';
 
 // Validates that a date is within a given range
 class DateWithinRangeValidator {

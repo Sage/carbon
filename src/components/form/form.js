@@ -8,13 +8,13 @@ import { kebabCase } from 'lodash';
 import CancelButton from './cancel-button';
 import FormSummary from './form-summary';
 import SaveButton from './save-button';
-import AppWrapper from './../app-wrapper';
+import AppWrapper from '../app-wrapper';
 
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
-import Browser from './../../utils/helpers/browser';
+import Browser from '../../utils/helpers/browser';
 
-import ElementResize from './../../utils/helpers/element-resize';
+import ElementResize from '../../utils/helpers/element-resize';
 
 /**
  * A Form widget.
@@ -747,7 +747,7 @@ class Form extends React.Component {
     if (!this.props[type]) { return null; }
 
     return (
-      <div className={ `carbon-form__${kebabCase(type)}` } >
+      <div className={ `carbon-form__${kebabCase(type)}` }>
         { this.props[type] }
       </div>
     );

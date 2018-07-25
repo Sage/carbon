@@ -5,7 +5,7 @@ import { assign } from 'lodash';
 import PropTypes from 'prop-types';
 import Dialog from '../dialog';
 import Button from '../button';
-import CSS from './../../utils/css';
+import CSS from '../../utils/css';
 
 /**
  * A Confirm widget.

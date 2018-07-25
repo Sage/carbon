@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 import I18n from 'i18n-js';
 import NumeralTypeValidator from './numeral-type';
-import ValidationsHelper from './../../helpers/validations';
-import I18nHelper from './../../helpers/i18n';
+import ValidationsHelper from '../../helpers/validations';
+import I18nHelper from '../../helpers/i18n';
 
 /**
  * A Numeral Validator object.
