@@ -32,9 +32,8 @@ $dialog-sizes: (
 }
 
 .carbon-dialog__dialog {
-  background-color: blue;
-  border-radius: 20px;
-  box-shadow: 0 10px 20px rgba($grey-shadow, 0.2);
+  background-color: $slate-tint-95;
+  box-shadow: $shadow-depth-3;
   position: fixed;
   top: 50%;
 
