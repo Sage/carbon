@@ -7,7 +7,7 @@ $modal-initial-position: 50px;
 $modal-animation-length: 300ms;
 
 .carbon-modal__background {
-  background-color: #3C424F;
+  background-color: $slate-shade-60;
   bottom: 0;
   left: 0;
   opacity: $modal-background-opacity;
