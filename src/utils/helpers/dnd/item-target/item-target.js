@@ -17,8 +17,8 @@ const ItemTargetHelper = {
     }
 
     // Determine rectangle on screen
-    const hoverBoundingRect =
-      ReactDOM.findDOMNode(component).getBoundingClientRect(); // eslint-disable-line react/no-find-dom-node
+    const el = ReactDOM.findDOMNode(component); // eslint-disable-line react/no-find-dom-node
+    const hoverBoundingRect = el.getBoundingClientRect();
 
     // Get vertical middle
     const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;

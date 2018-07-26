@@ -2,10 +2,10 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import css from './../../utils/css';
+import css from '../../utils/css';
 
-import InputLabel from './../../utils/decorators/input-label';
-import InputValidation from './../../utils/decorators/input-validation';
+import InputLabel from '../../utils/decorators/input-label';
+import InputValidation from '../../utils/decorators/input-validation';
 
 import tagComponent from '../../utils/helpers/tags';
 

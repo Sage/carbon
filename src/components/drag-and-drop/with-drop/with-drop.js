@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
-import ItemTypes from './../../../utils/helpers/dnd/item-types';
-import Text from './../../../utils/helpers/text';
+import ItemTypes from '../../../utils/helpers/dnd/item-types';
+import Text from '../../../utils/helpers/text';
 
 class WithDrop extends React.Component {
   static propTypes = {

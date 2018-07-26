@@ -1,11 +1,11 @@
 import React from 'react';
 import classNames from 'classnames';
-import Icon from './../icon';
-import Modal from './../modal';
-import Heading from './../heading';
-import AppWrapper from './../app-wrapper';
+import Icon from '../icon';
+import Modal from '../modal';
+import Heading from '../heading';
+import AppWrapper from '../app-wrapper';
 import FullScreenHeading from './full-screen-heading';
-import Browser from './../../utils/helpers/browser';
+import Browser from '../../utils/helpers/browser';
 
 const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog-full-screen--open';
 

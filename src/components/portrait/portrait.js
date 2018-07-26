@@ -5,7 +5,7 @@ import MD5 from 'crypto-js/md5';
 import tagComponent from '../../utils/helpers/tags';
 import Browser from '../../utils/helpers/browser';
 
-import Icon from './../icon';
+import Icon from '../icon';
 
 /**
  * A Portrait Widget.
@@ -120,8 +120,8 @@ class Portrait extends React.Component {
    * @return {Void}
    */
   componentWillReceiveProps(nextProps) {
-    if (this.props.initials !== nextProps.initials ||
-        this.props.size !== nextProps.size) {
+    if (this.props.initials !== nextProps.initials
+        || this.props.size !== nextProps.size) {
       this.memoizeInitials = null;
     }
   }

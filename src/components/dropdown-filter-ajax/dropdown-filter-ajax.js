@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Request from 'superagent';
 import { omit, assign, cloneDeep } from 'lodash';
-import DropdownFilter from './../dropdown-filter';
+import DropdownFilter from '../dropdown-filter';
 
 /**
  * A dropdown filter widget using ajax.
@@ -158,9 +158,11 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   handleBlur = () => {
     if (!this.blockBlur) {
-      const filter = this.props.create ? this.state.filter : null;
       // close list and reset filter
-      this.setState({ open: false, filter });
+      this.setState(prevState => ({
+        open: false,
+        filter: this.props.create ? prevState.filter : null
+      }));
 
       if (this.props.onBlur) {
         this.props.onBlur();

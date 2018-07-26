@@ -1,5 +1,5 @@
-import ValidationsHelper from './../../helpers/validations';
-import DateHelper from './../../helpers/date';
+import ValidationsHelper from '../../helpers/validations';
+import DateHelper from '../../helpers/date';
 /**
  * A DateRangeValidator object.
  *

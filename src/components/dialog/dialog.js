@@ -2,11 +2,11 @@ import React from 'react';
 import classNames from 'classnames';
 import { assign } from 'lodash';
 import PropTypes from 'prop-types';
-import Browser from './../../utils/helpers/browser';
-import Icon from './../icon';
-import Modal from './../modal';
-import Heading from './../heading';
-import ElementResize from './../../utils/helpers/element-resize';
+import Browser from '../../utils/helpers/browser';
+import Icon from '../icon';
+import Modal from '../modal';
+import Heading from '../heading';
+import ElementResize from '../../utils/helpers/element-resize';
 
 const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog--open';
 
