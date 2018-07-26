@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ConfigurableItems, ConfigurableItemRow } from './../../../components/configurable-items';
-import tagComponent from './../../../utils/helpers/tags';
+import { ConfigurableItems, ConfigurableItemRow } from '../../../components/configurable-items';
+import tagComponent from '../../../utils/helpers/tags';
 
 class ConfigurableItemsContent extends React.Component {
   static propTypes = {

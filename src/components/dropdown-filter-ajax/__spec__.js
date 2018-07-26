@@ -64,9 +64,9 @@ describe('DropdownFilterAjax', () => {
 
       describe('when not in create mode', () => {
         it('calls setState with null filter value', () => {
-          spyOn(instance, 'setState');
           instance.handleBlur();
-          expect(instance.setState).toHaveBeenCalledWith({ open: false, filter: null });
+          expect(instance.state.open).toEqual(false);
+          expect(instance.state.filter).toEqual(null);
         });
       });
 
@@ -79,9 +79,9 @@ describe('DropdownFilterAjax', () => {
             id: '90',
             name: 'foo'
           }]});
-          spyOn(instance, 'setState');
           instance.handleBlur();
-          expect(instance.setState).toHaveBeenCalledWith({ open: false, filter: 'foo' });
+          expect(instance.state.open).toEqual(false);
+          expect(instance.state.filter).toEqual('foo');
         });
       });
 

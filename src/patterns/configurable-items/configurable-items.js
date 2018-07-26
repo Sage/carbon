@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { connect } from './../../utils/flux';
-import tagComponent from './../../utils/helpers/tags';
-import Dialog from './../../components/dialog';
+import { connect } from '../../utils/flux';
+import tagComponent from '../../utils/helpers/tags';
+import Dialog from '../../components/dialog';
 import ConfigurableItemsStore from './store';
 import ConfigurableItemsActions from './actions';
 import ConfigurableItemsContent from './configurable-items-content';

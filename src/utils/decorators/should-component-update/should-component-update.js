@@ -1,4 +1,4 @@
-import ShouldComponentUpdateHelper from './../../helpers/should-component-update';
+import ShouldComponentUpdateHelper from '../../helpers/should-component-update';
 
 /**
  * ShouldComponentUpdate Decorator.

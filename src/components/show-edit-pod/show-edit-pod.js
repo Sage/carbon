@@ -4,10 +4,10 @@ import classNames from 'classnames';
 import I18n from 'i18n-js';
 import ReactDOM from 'react-dom';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import Pod from './../pod';
-import Form from './../form';
-import Link from './../link';
-import Events from './../../utils/helpers/events';
+import Pod from '../pod';
+import Form from '../form';
+import Link from '../link';
+import Events from '../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 

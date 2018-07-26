@@ -71,4 +71,3 @@ class MountInApp extends React.Component {
 }
 
 export default MountInApp;
-
