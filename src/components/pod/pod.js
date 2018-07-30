@@ -525,10 +525,6 @@ class Pod extends React.Component {
 
     delete props.className;
 
-    if (this.titleIsString()) {
-      props.title = this.props.title;
-    }
-
     if (!this.state.collapsed) { content = this.podContent; }
 
     if (this.shouldContentHaveEditProps) {

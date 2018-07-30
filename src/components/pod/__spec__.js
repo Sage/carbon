@@ -373,6 +373,12 @@ describe('Pod', () => {
       expect(div.attributes['data-foo'].value).toEqual("bar");
     });
 
+    it('does not apply title prop to containing elements', () => {
+      const wrapper = shallow(<Pod title="some-title" />);
+      const re = /title=\"some-title\"/;
+      expect(wrapper.html().match(re)).toBeNull();
+    });
+
     describe('pod content', () => {
       describe('when pod is closed', () => {
         it('does not render the pods content', () => {
