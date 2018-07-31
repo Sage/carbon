@@ -447,6 +447,41 @@ describe('DropdownFilterAjax', () => {
       wrapper.find('.carbon-dropdown__input').simulate('focus');
     });
 
+    describe('when props contains a formatRequest function', () => {
+      it('calls formatRequest', () => {
+        const mockFormatData = () => { return { foo: 'bar' } };
+
+        wrapper.setProps({
+          formatRequest: mockFormatData
+        });
+
+        expect(
+          wrapper.instance().getParams('')
+        ).toEqual({"foo": "bar"})
+      });
+    });
+
+    describe('when props contains a formatResponse function', () => {
+      it('calls formatResponse', () => {
+        let expectedResponse = {
+          records: 1,
+          items: [1],
+          page: 1
+        },
+        response = {
+          body: expectedResponse
+        };
+        const mockFormatData = jasmine.createSpy('mockFormatData').and.returnValue(expectedResponse);
+
+        wrapper.setProps({
+          formatResponse: mockFormatData
+        });
+
+        wrapper.instance().ajaxUpdateList(false, response);
+        expect(mockFormatData).toHaveBeenCalledWith(expectedResponse);
+      });
+    });
+
     it("is set to 'idle' on load", () => {
       expect(wrapper.find('[data-state="idle"]').length).toEqual(1);
     });
