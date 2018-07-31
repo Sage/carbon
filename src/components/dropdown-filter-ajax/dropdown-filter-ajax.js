@@ -127,6 +127,31 @@ class DropdownFilterAjax extends DropdownFilter {
     create: PropTypes.func,
 
     /**
+     * A callback function used to format the Ajax
+     * response into the format required by the table
+     *
+     * Expected return object format
+     * {
+        records - number of items returned
+        items - array of items in a format { id: ..., name: ... }
+        page - current page number
+       }
+     *
+     * @property formatResponse
+     * @type {Function}
+     */
+    formatResponse: PropTypes.func,
+
+    /**
+     * A callback function used to format the Ajax
+     * request into the format required endpoint
+     *
+     * @property formatRequest
+     * @type {Function}
+     */
+    formatRequest: PropTypes.func,
+
+    /**
      * Should the dropdown act and look like a suggestable input instead.
      *
      * @property suggest
@@ -209,26 +234,39 @@ class DropdownFilterAjax extends DropdownFilter {
    *
    * @method getData
    * @param {String} query The search term
-   * @param {Object} page The page number to get
    */
   getData = (query = '', page = 1) => {
     this.setState({ requesting: true });
     Request
       .get(this.props.path)
-      .query({
-        page,
-        rows: this.props.rowsPerRequest,
-        value: query
-      })
+      .query(this.getParams(query, page))
       .query(this.props.additionalRequestParams)
       .end(this.ajaxUpdateList);
+  }
+
+  /**
+   * Retrieve params for the list.
+   *
+   * @method getParams
+   */
+  getParams = (query, page) => {
+    const params = {};
+    params.page = page;
+    params.rows = this.props.rowsPerRequest;
+    params.value = query;
+    if (this.props.formatRequest) {
+      return this.props.formatRequest(params);
+    }
+    return params;
   }
 
   /**
    * Applies some data from AJAX to the list
    */
   ajaxUpdateList = (err, response) => {
-    this.updateList(response.body.data[0]);
+    this.updateList(
+      this.props.formatResponse ? this.props.formatResponse(response.body) : response.body.data[0]
+    );
     this.setState({ requesting: false });
   }
 
