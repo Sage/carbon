@@ -285,15 +285,6 @@ class Pod extends React.Component {
     );
   }
 
-  /**
-   * Checks that the title is a string rather than something else as it can be JSX
-   *
-   * @method titleIsString
-   * @return {Boolean}
-   */
-  titleIsString = () => {
-    return typeof this.props.title === 'string';
-  }
 
   /**
    * Toggles the opening and closing of the pod

@@ -355,17 +355,6 @@ describe('Pod', () => {
     });
   });
 
-  describe("titleIsString", () => {
-    it("returns false if title is not a string", () => {
-      instance = TestUtils.renderIntoDocument(<Pod title={ undefined } />);
-      expect(instance.titleIsString()).toEqual(false);
-    });
-    it("returns true if title is object", () => {
-      instance = TestUtils.renderIntoDocument(<Pod title='testing' />);
-      expect(instance.titleIsString()).toEqual(true);
-    });
-  });
-
   describe('render', () => {
     it('applies all props to the pod', () => {
       instance = TestUtils.renderIntoDocument(<Pod data-foo="bar" />);
@@ -375,8 +364,7 @@ describe('Pod', () => {
 
     it('does not apply title prop to containing elements', () => {
       const wrapper = shallow(<Pod title="some-title" />);
-      const re = /title=\"some-title\"/;
-      expect(wrapper.html().match(re)).toBeNull();
+      expect(wrapper.is('[title]')).toBe(false);
     });
 
     describe('pod content', () => {
