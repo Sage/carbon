@@ -241,6 +241,7 @@ class DropdownFilterAjax extends DropdownFilter {
       .get(this.props.path)
       .query(this.getParams(query, page))
       .query(this.props.additionalRequestParams)
+      .set('Accept', 'application/json')
       .end(this.ajaxUpdateList);
   }
 
