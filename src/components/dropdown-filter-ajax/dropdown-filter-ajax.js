@@ -90,6 +90,14 @@ class DropdownFilterAjax extends DropdownFilter {
     visibleValue: PropTypes.string,
 
     /**
+     * custom http header for the request
+     *
+     * @property acceptHeader
+     * @type {String}
+     */
+    acceptHeader: PropTypes.string,
+
+    /**
      * The path to your data (e.g. "/core_accounting/ledger_accounts/suggestions")
      *
      * @property path
@@ -162,6 +170,7 @@ class DropdownFilterAjax extends DropdownFilter {
 
   static defaultProps = {
     rowsPerRequest: 25,
+    acceptHeader: 'application/json',
     visibleValue: ''
   }
 
@@ -241,6 +250,7 @@ class DropdownFilterAjax extends DropdownFilter {
       .get(this.props.path)
       .query(this.getParams(query, page))
       .query(this.props.additionalRequestParams)
+      .set('Accept', this.props.acceptHeader)
       .end(this.ajaxUpdateList);
   }
 
