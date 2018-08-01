@@ -104,10 +104,9 @@ describe('Pod', () => {
         });
 
         it('Adds a onClick handler to the header', () => {
-          spyOn(instance, 'setState');
           let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__header');
           TestUtils.Simulate.click(header);
-          expect(instance.setState).toHaveBeenCalledWith({ collapsed: false });
+          expect(instance.state.collapsed).toEqual(false);
         });
       });
 

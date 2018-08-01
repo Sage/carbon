@@ -1,8 +1,8 @@
 import React from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import tagComponent from './../../utils/helpers/tags';
-import { Carousel } from './../carousel';
+import tagComponent from '../../utils/helpers/tags';
+import { Carousel } from '../carousel';
 import Page from './page';
 
 const pagesClasses = (props) => {

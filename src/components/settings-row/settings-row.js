@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Heading from './../heading';
+import Heading from '../heading';
 import tagComponent from '../../utils/helpers/tags';
 
 /**

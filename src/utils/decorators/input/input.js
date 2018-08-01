@@ -2,11 +2,11 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { assign, union } from 'lodash';
-import css from './../../css';
-import shouldComponentUpdate from './../../helpers/should-component-update';
-import guid from './../../helpers/guid';
-import Icon from './../../../components/icon';
-import Help from './../../../components/help';
+import css from '../../css';
+import shouldComponentUpdate from '../../helpers/should-component-update';
+import guid from '../../helpers/guid';
+import Icon from '../../../components/icon';
+import Help from '../../../components/help';
 
 /**
  * Input decorator.

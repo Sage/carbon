@@ -1,4 +1,4 @@
-import ValidationsHelper from './../../helpers/validations';
+import ValidationsHelper from '../../helpers/validations';
 
 /**
  * A Length Validator object.
@@ -116,8 +116,8 @@ function getType(params) {
   const type = ValidationsHelper.comparisonType(params);
 
   if (!type) {
-    throw new Error("You must either set an 'is' value, a single 'min' " +
-                    "and 'max' value, or both a 'min' and 'max' value.");
+    throw new Error("You must either set an 'is' value, a single 'min' "
+                    + "and 'max' value, or both a 'min' and 'max' value.");
   }
 
   return type;

@@ -2,7 +2,7 @@ import I18n from 'i18n-js';
 import React from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
-import Button from './../../button';
+import Button from '../../button';
 
 const saveButtonProps = (props) => {
   return ({

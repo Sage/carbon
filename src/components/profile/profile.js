@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Portrait from './../portrait';
-import { acronymize } from './../../utils/ether';
+import Portrait from '../portrait';
+import { acronymize } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 
 /**

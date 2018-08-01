@@ -3,8 +3,8 @@ import escapeStringRegexp from 'escape-string-regexp';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Link from './../link';
-import Textbox from './../textbox';
+import Link from '../link';
+import Textbox from '../textbox';
 
 import MenuListItem from './menu-list-item';
 import tagComponent from '../../utils/helpers/tags';
@@ -122,7 +122,7 @@ class MenuList extends React.Component {
   }
 
   toggleChildren() {
-    this.setState({ open: !this.state.open });
+    this.setState(prevState => ({ open: !prevState.open }));
   }
 
   /** Helpers * */

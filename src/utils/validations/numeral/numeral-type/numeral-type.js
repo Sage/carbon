@@ -1,4 +1,4 @@
-import ValidationsHelper from './../../../helpers/validations';
+import ValidationsHelper from '../../../helpers/validations';
 
 /**
  * A NumeralType Validator object.

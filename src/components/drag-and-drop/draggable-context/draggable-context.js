@@ -2,8 +2,8 @@ import React from 'react';
 import { DragDropContext } from 'react-dnd';
 import PropTypes from 'prop-types';
 import TouchBackend from 'react-dnd-touch-backend';
-import ItemTargetHelper from './../../../utils/helpers/dnd/item-target';
-import CustomDragLayer from './../custom-drag-layer';
+import ItemTargetHelper from '../../../utils/helpers/dnd/item-target';
+import CustomDragLayer from '../custom-drag-layer';
 
 /**
  * A draggable context component

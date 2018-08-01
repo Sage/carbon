@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Icon from './../icon';
-import Button from './../button';
+import Icon from '../icon';
+import Button from '../button';
 import { validProps } from '../../utils/ether';
 
 /**

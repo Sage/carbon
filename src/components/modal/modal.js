@@ -2,9 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import Events from './../../utils/helpers/events';
-import Browser from './../../utils/helpers/browser';
-import Portal from './../../components/portal';
+import Events from '../../utils/helpers/events';
+import Browser from '../../utils/helpers/browser';
+import Portal from '../portal';
 
 const TIMEOUT = 500;
 /**
@@ -206,15 +206,19 @@ class Modal extends React.Component {
 
   // Called after the modal opens
   get onOpening() { return null; }
+
   // Called after the modal closes
   get onClosing() { return null; }
+
   // Classes for parent div
   get mainClasses() { return null; }
+
   // Modal HTML shown when open
   get modalHTML() { return null; }
 
   // Modal transistion name
   get transitionName() { return 'modal'; }
+
   // modal background transisiton name
   get backgroundTransitionName() { return 'modal-background'; }
 
@@ -237,7 +241,7 @@ class Modal extends React.Component {
     }
 
     return (
-      <Portal key='1' >
+      <Portal key='1'>
         <div
           className={ this.mainClasses }
           { ...this.componentTags(this.props) }

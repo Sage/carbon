@@ -8,11 +8,18 @@ let definition = new Definition('dropdown-filter-ajax', DropdownFilterAjax, {
 * This control is the same as [Dropdown Filter](/components/dropdown-filter), but uses Ajax.
 * Ajax loads data from a specified source as needed, rather than data in the page markup.
  `,
-  hiddenProps: ['path', 'additionalRequestParams'],
+  hiddenProps: [
+    'path',
+    'additionalRequestParams',
+    'formatResponse',
+    'formatRequest'
+  ],
   toggleFunctions: ['create'],
   propTypes: {
     options: "Object",
     cacheVisibleValue: "Boolean",
+    formatResponse: 'Function',
+    formatRequest: 'Function',
     value: "String",
     create: "Function",
     freetext: "Boolean",
@@ -27,6 +34,8 @@ let definition = new Definition('dropdown-filter-ajax', DropdownFilterAjax, {
   },
   propDescriptions: {
     cacheVisibleValue: "The dropdown will continually find the name during re-render, set this to true to only re-find the name if the value has actually changed.",
+    formatResponse: 'Callback function for formatting the data received via Ajax requests into the format required by the table',
+    formatRequest: 'Callback function for formatting the query data to be sent via Ajax to the defined path',
     options: "The options for the dropdown. This needs to be an Immutable Map.",
     value: "The currently selected value of the input.",
     create: "When defined will show a create button, which on click will trigger this callback with currently typed value.",
