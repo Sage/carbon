@@ -27,6 +27,7 @@ export default [
     { name: 'minus', type: 'minus' },
     { name: 'edit', type: 'edit' },
     { name: 'edited', type: 'edited' },
+    { name: 'ellipsis', type: 'ellipsis' },
     { name: 'favourite', type: 'favourite' },
     { name: 'favourite_lined', type: 'favourite_lined' },
     { name: 'credit_card', type: 'credit_card' },
