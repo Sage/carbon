@@ -285,15 +285,6 @@ class Pod extends React.Component {
     );
   }
 
-  /**
-   * Checks that the title is a string rather than something else as it can be JSX
-   *
-   * @method titleIsString
-   * @return {Boolean}
-   */
-  titleIsString = () => {
-    return typeof this.props.title === 'string';
-  }
 
   /**
    * Toggles the opening and closing of the pod
@@ -524,10 +515,6 @@ class Pod extends React.Component {
     const { ...props } = validProps(this);
 
     delete props.className;
-
-    if (this.titleIsString()) {
-      props.title = this.props.title;
-    }
 
     if (!this.state.collapsed) { content = this.podContent; }
 
