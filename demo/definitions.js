@@ -58,6 +58,7 @@ export default {
   'simple-color-picker':  require('components/simple-color-picker/__definition__').default,
   'spinner':              require('components/spinner/__definition__').default,
   'split-button':         require('components/split-button/__definition__').default,
+  'switch':               require('components/switch/__definition__').default,
   'table':                require('components/table/__definition__').default,
   'table-ajax':           require('components/table-ajax/__definition__').default,
   'tabs':                 require('components/tabs/__definition__').default,
