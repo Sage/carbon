@@ -246,12 +246,13 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   getData = (query = '', page = 1) => {
     this.setState({ requesting: true });
-    Request
+    const request = Request
       .get(this.props.path)
       .query(this.getParams(query, page))
       .query(this.props.additionalRequestParams)
       .set('Accept', this.props.acceptHeader)
       .end(this.ajaxUpdateList);
+    this.setState({ request });
   }
 
   /**
