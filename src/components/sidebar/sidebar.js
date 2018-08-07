@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 import SidebarHeader from './sidebar-header';
-import Icon from './../icon';
-import Modal from './../modal';
+import Icon from '../icon';
+import Modal from '../modal';
 
 /**
  * A Sidebar widget.
@@ -122,7 +122,7 @@ class Sidebar extends Modal {
   get closeButton() {
     if (this.props.onCancel) {
       return (
-        <span className='carbon-sidebar__close' >
+        <span className='carbon-sidebar__close'>
           <Icon
             className='carbon-sidebar__close-icon'
             data-element='close'

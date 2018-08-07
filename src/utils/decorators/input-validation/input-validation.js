@@ -2,10 +2,10 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { assign } from 'lodash';
-import Browser from './../../helpers/browser';
-import Icon from './../../../components/icon';
-import chainFunctions from './../../helpers/chain-functions';
-import Portal from './../../../components/portal';
+import Browser from '../../helpers/browser';
+import Icon from '../../../components/icon';
+import chainFunctions from '../../helpers/chain-functions';
+import Portal from '../../../components/portal';
 
 const window = Browser.getWindow();
 /**

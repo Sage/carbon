@@ -6,17 +6,17 @@ import LocaleUtils from 'react-day-picker/moment';
 import 'react-day-picker/lib/style.css';
 import './date.scss';
 import Navbar from './navbar';
-import Portal from './../portal';
-import Browser from './../../utils/helpers/browser';
-import Input from './../../utils/decorators/input';
-import InputLabel from './../../utils/decorators/input-label';
-import InputValidation from './../../utils/decorators/input-validation';
-import InputIcon from './../../utils/decorators/input-icon';
-import Events from './../../utils/helpers/events';
-import DateHelper from './../../utils/helpers/date';
-import DateValidator from './../../utils/validations/date';
-import chainFunctions from './../../utils/helpers/chain-functions';
-import { validProps } from './../../utils/ether';
+import Portal from '../portal';
+import Browser from '../../utils/helpers/browser';
+import Input from '../../utils/decorators/input';
+import InputLabel from '../../utils/decorators/input-label';
+import InputValidation from '../../utils/decorators/input-validation';
+import InputIcon from '../../utils/decorators/input-icon';
+import Events from '../../utils/helpers/events';
+import DateHelper from '../../utils/helpers/date';
+import DateValidator from '../../utils/validations/date';
+import chainFunctions from '../../utils/helpers/chain-functions';
+import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 
 /**
@@ -323,8 +323,8 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     const currentDate = this.datepicker.state.currentMonth;
 
     return (
-      (currentDate.getMonth() !== newDate.getMonth()) ||
-      (currentDate.getYear() !== newDate.getYear())
+      (currentDate.getMonth() !== newDate.getMonth())
+      || (currentDate.getYear() !== newDate.getYear())
     );
   }
 
@@ -469,9 +469,11 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
   get additionalInputContent() {
     if (!this.state.valid) {
       return this.inputIconHTML('error');
-    } else if (this.state.warning) {
+    }
+    if (this.state.warning) {
       return this.inputIconHTML('warning');
-    } else if (this.state.info) {
+    }
+    if (this.state.info) {
       return this.inputIconHTML('info');
     }
     return this.inputIconHTML('calendar');

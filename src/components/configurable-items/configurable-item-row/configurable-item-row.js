@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import tagComponent from './../../../utils/helpers/tags';
-import { WithDrag, WithDrop } from './../../drag-and-drop';
-import Checkbox from './../../checkbox';
-import Icon from './../../icon';
+import tagComponent from '../../../utils/helpers/tags';
+import { WithDrag, WithDrop } from '../../drag-and-drop';
+import Checkbox from '../../checkbox';
+import Icon from '../../icon';
 
 class ConfigurableItemRow extends React.Component {
   static propTypes = {
@@ -86,7 +86,7 @@ class ConfigurableItemRow extends React.Component {
 
   icon() {
     return (
-      <WithDrag draggableNode={ () => { return this._listItem; } } >
+      <WithDrag draggableNode={ () => { return this._listItem; } }>
         {this.iconHTML()}
       </WithDrag>
     );

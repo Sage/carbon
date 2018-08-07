@@ -1,8 +1,10 @@
 import PropTypes from 'prop-types';
 import Request from 'superagent';
-import serialize from './../../utils/helpers/serialize';
-import { Table, TableRow, TableCell, TableHeader, TableSubheader } from './../table';
-import Logger from './../../utils/logger';
+import serialize from '../../utils/helpers/serialize';
+import {
+  Table, TableRow, TableCell, TableHeader, TableSubheader
+} from '../table';
+import Logger from '../../utils/logger';
 
 /**
  * A Table Ajax Widget
@@ -373,6 +375,7 @@ class TableAjax extends Table {
       Logger.warn(`${err.status} - ${response}`);
     }
   }
+
   setComponentTagsErrored() {
     this.setState({ dataState: 'errored', ariaBusy: false });
   }

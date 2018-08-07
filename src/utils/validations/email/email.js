@@ -1,5 +1,5 @@
-import RegexValidator from './../regex';
-import ValidationsHelper from './../../helpers/validations';
+import RegexValidator from '../regex';
+import ValidationsHelper from '../../helpers/validations';
 
 /**
  * A Email Validator

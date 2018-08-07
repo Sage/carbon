@@ -4,11 +4,11 @@ import I18n from 'i18n-js';
 import classNames from 'classnames';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { isObject, isArray, forEach } from 'lodash';
-import shouldComponentUpdate from './../../utils/helpers/should-component-update';
-import Portal from './../portal';
-import Icon from './../icon';
-import Alert from './../alert';
-import Link from './../link';
+import shouldComponentUpdate from '../../utils/helpers/should-component-update';
+import Portal from '../portal';
+import Icon from '../icon';
+import Alert from '../alert';
+import Link from '../link';
 import tagComponent from '../../utils/helpers/tags';
 
 /**
