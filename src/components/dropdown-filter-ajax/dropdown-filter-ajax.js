@@ -67,6 +67,14 @@ class DropdownFilterAjax extends DropdownFilter {
      * @default true
      */
     this.listeningToScroll = true;
+
+    /**
+     * Tracks the ajax request.
+     *
+     * @property pendingRequest
+     * @default null
+     */
+    this.pendingRequest = null;
   }
 
   static propTypes = omit(assign({}, DropdownFilter.propTypes, {
@@ -198,6 +206,10 @@ class DropdownFilterAjax extends DropdownFilter {
         filter: this.props.create ? prevState.filter : null
       }));
 
+      if (this.pendingRequest !== null) {
+        this.pendingRequest.abort();
+      }
+
       if (this.props.onBlur) {
         this.props.onBlur();
       }
@@ -246,13 +258,15 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   getData = (query = '', page = 1) => {
     this.setState({ requesting: true });
-    const request = Request
+    if (this.pendingRequest !== null) {
+      this.pendingRequest.abort();
+    }
+    this.pendingRequest = Request
       .get(this.props.path)
       .query(this.getParams(query, page))
       .query(this.props.additionalRequestParams)
       .set('Accept', this.props.acceptHeader)
       .end(this.ajaxUpdateList);
-    this.setState({ request });
   }
 
   /**

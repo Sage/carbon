@@ -443,6 +443,7 @@ describe('DropdownFilterAjax', () => {
           }]
         }
       });
+      Request.abort = jest.fn().mockReturnThis();
       wrapper = mount(<DropdownFilterAjax name="foo" value="1" path="/foobar" visibleValue="bar" />);
       wrapper.find('.carbon-dropdown__input').simulate('focus');
     });
