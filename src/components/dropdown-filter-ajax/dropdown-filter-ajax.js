@@ -173,7 +173,15 @@ class DropdownFilterAjax extends DropdownFilter {
      * @property suggest
      * @type {Boolean}
      */
-    suggest: PropTypes.bool
+    suggest: PropTypes.bool,
+
+    /**
+     * Integer to determine timeout for defered callback for data request. Default: 500
+     *
+     * @property
+     * @type {Number}
+     */
+    dataRequestTimeout: PropTypes.number
   }), 'options');
 
   static defaultProps = {
@@ -190,7 +198,12 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   handleVisibleChange(ev) {
     super.handleVisibleChange(ev);
-    this.getData(ev.target.value, 1);
+    clearTimeout(this.getDataTimeout);
+    const query = ev.target.value;
+    this.getDataTimeout = setTimeout(
+      () => this.getData(query, 1),
+      (this.props.dataRequestTimeout || 500)
+    );
   }
 
   /*
