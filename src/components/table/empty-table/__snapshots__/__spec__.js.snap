@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<EmptyTable /> with content provided renders with that content 1`] = `
+<TableRow
+  className="carbon-table-empty-table"
+  highlightable={false}
+  key="__loading__"
+  selectable={false}
+>
+  <TableCell
+    align="center"
+    colSpan="42"
+  >
+    foo
+  </TableCell>
+</TableRow>
+`;
+
+exports[`<EmptyTable /> with no content provided renders with default text 1`] = `
+<TableRow
+  className="carbon-table-empty-table"
+  highlightable={false}
+  key="__loading__"
+  selectable={false}
+>
+  <TableCell
+    align="center"
+    colSpan="42"
+  >
+    No results to display
+  </TableCell>
+</TableRow>
+`;

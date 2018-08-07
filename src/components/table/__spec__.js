@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
+import EmptyTable from './empty-table';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 import ActionToolbar from './../action-toolbar';
 import Link from './../link';
@@ -903,10 +904,10 @@ describe('Table', () => {
       it('returns the emptyRow if no children and has received data', () => {
         let data = Immutable.fromJS([]),
             children = data.map((child, index) => { return <tr key={ index }></tr>; });
-        instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
+        instance = TestUtils.renderIntoDocument(<Table contentForEmptyTable='foo'>{ children }</Table>);
         instance._hasRetreivedData = true;
 
-        expect(instance.tableContent).toEqual(instance.emptyRow);
+        expect(instance.tableContent).toEqual(<EmptyTable content='foo' />);
       });
 
       it('returns the children with the loading row if only row is a header and has not yet received data', () => {
@@ -922,11 +923,11 @@ describe('Table', () => {
       it('returns the children with the empty row if only row is a header and has received data', () => {
         let data = Immutable.fromJS([]),
             children = data.push(<TableRow as='header' key='header' />);
-        instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
+        instance = TestUtils.renderIntoDocument(<Table contentForEmptyTable='foo'>{ children }</Table>);
         instance._hasRetreivedData = true;
 
         expect(instance.tableContent.get(0)).toEqual(instance.props.children.get(0));
-        expect(instance.tableContent.get(1)).toEqual(instance.emptyRow);
+        expect(instance.tableContent.get(1)).toEqual(<EmptyTable content='foo' />);
       });
     });
 
@@ -940,9 +941,9 @@ describe('Table', () => {
 
     describe('if children count is 0 and has retrieved data', () => {
       it('will return the empty row', () => {
-        instance = TestUtils.renderIntoDocument(<Table></Table>);
+        instance = TestUtils.renderIntoDocument(<Table contentForEmptyTable='foo'></Table>);
         instance._hasRetreivedData = true;
-        expect(instance.tableContent).toEqual(instance.emptyRow);
+        expect(instance.tableContent).toEqual(<EmptyTable content='foo' />);
       });
     });
   });
