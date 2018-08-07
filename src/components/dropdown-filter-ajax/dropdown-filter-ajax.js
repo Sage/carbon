@@ -198,7 +198,9 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   handleVisibleChange(ev) {
     super.handleVisibleChange(ev);
-    clearTimeout(this.getDataTimeout);
+    if (this.getDataTimeout) {
+      clearTimeout(this.getDataTimeout);
+    }
     const query = ev.target.value;
     this.getDataTimeout = setTimeout(
       () => this.getData(query, 1),

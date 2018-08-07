@@ -32,10 +32,29 @@ describe('DropdownFilterAjax', () => {
   });
 
   describe('handleVisibleChange', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
     it('calls getData', () => {
       spyOn(instance, 'getData');
       instance.handleVisibleChange({ target: { value: 'foo' }});
+      jest.runAllTimers();
       expect(instance.getData).toHaveBeenCalledWith('foo', 1);
+    });
+
+    it('resets the timer', () => {
+      spyOn(instance, 'getData');
+      expect(instance.getDataTimeout).toBeUndefined();
+      instance.handleVisibleChange({ target: { value: 'foo' }});
+      expect(instance.getDataTimeout).not.toBeUndefined();
+      instance.handleVisibleChange({ target: { value: 'foofoo' }});
+      jest.runAllTimers();
+      expect(instance.getData).toHaveBeenCalledWith('foofoo', 1);
     });
   });
 
