@@ -119,6 +119,17 @@ describe('DropdownFilterAjax', () => {
         });
       });
 
+      describe('when there was a request made before the blur', () => {
+        beforeEach(() => {
+          instance.pendingRequest = { abort: jest.fn() };
+          spyOn(instance.pendingRequest, 'abort');
+        });
+        it('cancels the previous request', () => {
+          instance.handleBlur();
+          expect(instance.pendingRequest.abort).toHaveBeenCalled();
+        });
+      });
+
       describe('when there is an onBlur prop', () => {
         it('triggers the onBlur function', () => {
           let onBlur = jasmine.createSpy('onBlur');
