@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import classNames from 'classnames';
 import Immutable from 'immutable';
-import I18n from 'i18n-js';
 import ActionToolbar from '../action-toolbar';
 import Icon from '../icon';
 import Link from '../link';
+import EmptyTable from './empty-table';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
@@ -116,6 +116,11 @@ class Table extends React.Component {
      * @type {String}
      */
     className: PropTypes.string,
+
+    /**
+     * Used to send in user defined content for an empty table
+     */
+    contentForEmptyTable: PropTypes.node,
 
     /**
      * Data used to filter the data
@@ -1005,25 +1010,6 @@ class Table extends React.Component {
   }
 
   /**
-   * Returns a row to be used for no data.
-   *
-   * @method emptyRow
-   * @return {Object} JSX
-   */
-  get emptyRow() {
-    return (
-      <TableRow
-        key='__loading__' selectable={ false }
-        highlightable={ false }
-      >
-        <TableCell colSpan='42' align='center'>
-          { I18n.t('table.no_data', { defaultValue: 'No results to display' }) }
-        </TableCell>
-      </TableRow>
-    );
-  }
-
-  /**
    * Works out what content to display in the table.
    *
    * @method tableContent
@@ -1041,7 +1027,7 @@ class Table extends React.Component {
       if (onlyChildIsHeader) {
         if (this._hasRetreivedData) {
           // if already retreived data then show empty row
-          children = children.push(this.emptyRow);
+          children = children.push(<EmptyTable content={ this.props.contentForEmptyTable } />);
         } else {
           // if not yet retreived data then show loading row
           children = children.push(this.loadingRow);
@@ -1053,7 +1039,7 @@ class Table extends React.Component {
     }
 
     if (hasChildren) return children;
-    if (this._hasRetreivedData) return this.emptyRow;
+    if (this._hasRetreivedData) return (<EmptyTable content={ this.props.contentForEmptyTable } />);
     return this.loadingRow;
   }
 
