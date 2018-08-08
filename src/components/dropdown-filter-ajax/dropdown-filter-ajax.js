@@ -187,7 +187,8 @@ class DropdownFilterAjax extends DropdownFilter {
   static defaultProps = {
     rowsPerRequest: 25,
     acceptHeader: 'application/json',
-    visibleValue: ''
+    visibleValue: '',
+    dataRequestTimeout: 500
   }
 
   /*
@@ -204,7 +205,7 @@ class DropdownFilterAjax extends DropdownFilter {
     const query = ev.target.value;
     this.getDataTimeout = setTimeout(
       () => this.getData(query, 1),
-      (this.props.dataRequestTimeout || 500)
+      this.props.dataRequestTimeout
     );
   }
 
@@ -220,6 +221,10 @@ class DropdownFilterAjax extends DropdownFilter {
         open: false,
         filter: this.props.create ? prevState.filter : null
       }));
+
+      if (this.getDataTimeout) {
+        clearTimeout(this.getDataTimeout);
+      }
 
       if (this.pendingRequest !== null) {
         this.pendingRequest.abort();

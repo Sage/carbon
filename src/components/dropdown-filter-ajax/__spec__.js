@@ -40,6 +40,10 @@ describe('DropdownFilterAjax', () => {
       jest.useRealTimers();
     });
 
+    it('dataRequestTimeout has default value', () => {
+      expect(instance.props.dataRequestTimeout).toEqual(500);
+    });
+
     it('calls getData', () => {
       spyOn(instance, 'getData');
       instance.handleVisibleChange({ target: { value: 'foo' }});
@@ -127,6 +131,17 @@ describe('DropdownFilterAjax', () => {
         it('cancels the previous request', () => {
           instance.handleBlur();
           expect(instance.pendingRequest.abort).toHaveBeenCalled();
+        });
+      });
+
+      describe('when there was a getDataTimeout before the blur', () => {
+        beforeEach(() => {
+          instance.getDataTimeout = 'foo';
+          spyOn(window, 'clearTimeout');
+        });
+        it('clears the timeout', () => {
+          instance.handleBlur();
+          expect(window.clearTimeout).toHaveBeenCalledWith('foo');
         });
       });
 
