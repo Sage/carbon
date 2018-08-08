@@ -1,1 +1,1 @@
-Improvement: "Improved DropdownFilterAjax component Request handling"
+Improvement: "Improved DropdownFilterAjax component Request handling, timeout added so request creation will be delayed (will wailt until typing is completed)"
