@@ -199,11 +199,11 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   handleVisibleChange(ev) {
     super.handleVisibleChange(ev);
-    if (this.dataFetchTimeoutId) {
-      clearTimeout(this.dataFetchTimeoutId);
+    if (this.dataFetchTimeout) {
+      clearTimeout(this.dataFetchTimeout);
     }
     const query = ev.target.value;
-    this.dataFetchTimeoutId = setTimeout(
+    this.dataFetchTimeout = setTimeout(
       () => this.getData(query, 1),
       this.props.dataRequestTimeout
     );
@@ -222,8 +222,8 @@ class DropdownFilterAjax extends DropdownFilter {
         filter: this.props.create ? prevState.filter : null
       }));
 
-      if (this.dataFetchTimeoutId) {
-        clearTimeout(this.dataFetchTimeoutId);
+      if (this.dataFetchTimeout) {
+        clearTimeout(this.dataFetchTimeout);
       }
 
       if (this.pendingRequest !== null) {
