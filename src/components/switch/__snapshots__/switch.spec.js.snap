@@ -9,7 +9,7 @@ exports[`Switch renders a Switch component with loading dots, loading className 
   reverse={false}
 >
   <div
-    className="switch switch__loading"
+    className="carbon-switch__switch carbon-switch__switch__loading"
   >
     <span
       className="carbon-switch__slider"
@@ -21,13 +21,13 @@ exports[`Switch renders a Switch component with loading dots, loading className 
         className="carbon-loading-dots"
       >
         <div
-          className="bounce bounce1"
+          className="carbon-loading-dots"
         />
         <div
-          className="bounce bounce2"
+          className="carbon-loading-dots__bounce carbon-loading-dots__bounce2"
         />
         <div
-          className="bounce bounce3"
+          className="carbon-loading-dots__bounce carbon-loading-dots__bounce3"
         />
       </div>
     </div>
@@ -38,13 +38,13 @@ exports[`Switch renders a Switch component with loading dots, loading className 
         className="carbon-loading-dots"
       >
         <div
-          className="bounce bounce1"
+          className="carbon-loading-dots"
         />
         <div
-          className="bounce bounce2"
+          className="carbon-loading-dots__bounce carbon-loading-dots__bounce2"
         />
         <div
-          className="bounce bounce3"
+          className="carbon-loading-dots__bounce carbon-loading-dots__bounce3"
         />
       </div>
     </div>
@@ -59,7 +59,7 @@ exports[`Switch renders a Switch component with reverse className 1`] = `
   reverse={true}
 >
   <div
-    className="switch"
+    className="carbon-switch__switch"
   >
     <span
       className="carbon-switch__slider"

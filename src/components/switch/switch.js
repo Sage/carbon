@@ -28,7 +28,7 @@ const Switch = props => (
     disabled={ props.loading }
     { ...propsForCheckbox(props) }
   >
-    <div className={ `switch${props.loading ? ' switch__loading' : ''}` }>
+    <div className={ `carbon-switch__switch${props.loading ? ' carbon-switch__switch__loading' : ''}` }>
       <span className='carbon-switch__slider' />
       <div className='carbon-switch__on'>
         { renderIcon('tick', props.loading)}
@@ -61,9 +61,9 @@ function renderIcon(icon, loading) {
   if (loading) {
     return (
       <div className='carbon-loading-dots'>
-        <div className='bounce bounce1' />
-        <div className='bounce bounce2' />
-        <div className='bounce bounce3' />
+        <div className='carbon-loading-dots' />
+        <div className='carbon-loading-dots__bounce carbon-loading-dots__bounce2' />
+        <div className='carbon-loading-dots__bounce carbon-loading-dots__bounce3' />
       </div>
     );
   }
