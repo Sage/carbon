@@ -61,7 +61,7 @@ function renderIcon(icon, loading) {
   if (loading) {
     return (
       <div className='carbon-loading-dots'>
-        <div className='carbon-loading-dots' />
+        <div className='carbon-loading-dots__bounce carbon-loading-dots__bounce1' />
         <div className='carbon-loading-dots__bounce carbon-loading-dots__bounce2' />
         <div className='carbon-loading-dots__bounce carbon-loading-dots__bounce3' />
       </div>

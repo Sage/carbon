@@ -128,7 +128,7 @@ $width: 55px;
 
     .carbon-switch__on {
       color: #ffffff;
-      left: 10px;
+      left: 8px;
       opacity: 0;
       position: absolute;
       top: 3px;
@@ -136,7 +136,6 @@ $width: 55px;
       visibility: hidden;
 
       .carbon-loading-dots {
-        left: -2px;
         position: relative;
       }
     }
@@ -179,6 +178,13 @@ $width: 55px;
         transition: $transition-on-off;
         visibility: hidden;
       }
+    }
+  }
+  .carbon-checkbox__input:focus {
+    + .carbon-switch__switch {
+        @include input-outline($input-active-border-color);
+
+        box-shadow: 0 0 6px 2px rgba($blue, 0.6);
     }
   }
 }
