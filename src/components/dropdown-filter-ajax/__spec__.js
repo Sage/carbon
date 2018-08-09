@@ -53,9 +53,9 @@ describe('DropdownFilterAjax', () => {
 
     it('resets the timer', () => {
       spyOn(instance, 'getData');
-      expect(instance.getDataTimeout).toBeUndefined();
+      expect(instance.dataFetchTimeoutId).toBeUndefined();
       instance.handleVisibleChange({ target: { value: 'foo' }});
-      expect(instance.getDataTimeout).not.toBeUndefined();
+      expect(instance.dataFetchTimeoutId).not.toBeUndefined();
       instance.handleVisibleChange({ target: { value: 'foofoo' }});
       jest.runAllTimers();
       expect(instance.getData).toHaveBeenCalledWith('foofoo', 1);
@@ -134,9 +134,9 @@ describe('DropdownFilterAjax', () => {
         });
       });
 
-      describe('when there was a getDataTimeout before the blur', () => {
+      describe('when there was a dataFetchTimeoutId before the blur', () => {
         beforeEach(() => {
-          instance.getDataTimeout = 'foo';
+          instance.dataFetchTimeoutId = 'foo';
           spyOn(window, 'clearTimeout');
         });
         it('clears the timeout', () => {
