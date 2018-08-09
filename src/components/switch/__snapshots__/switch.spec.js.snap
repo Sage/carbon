@@ -21,7 +21,7 @@ exports[`Switch renders a Switch component with loading dots, loading className 
         className="carbon-loading-dots"
       >
         <div
-          className="carbon-loading-dots"
+          className="bounce bounce1"
         />
         <div
           className="bounce bounce2"
@@ -38,7 +38,7 @@ exports[`Switch renders a Switch component with loading dots, loading className 
         className="carbon-loading-dots"
       >
         <div
-          className="carbon-loading-dots"
+          className="bounce bounce1"
         />
         <div
           className="bounce bounce2"
