@@ -181,6 +181,13 @@ $width: 55px;
       }
     }
   }
+  .carbon-checkbox__input:focus {
+    + .carbon-switch__switch {
+        @include input-outline($input-active-border-color);
+
+        box-shadow: 0 0 6px 2px rgba($blue, 0.6);
+    }
+  }
 }
 
 .carbon-switch__reverse {
