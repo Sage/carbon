@@ -92,12 +92,12 @@ $colorIconSets: (
   ("maintenance", $warning, $warning-border, $warning-text-background, $warning-hover),
 );
 
-$border-color:               $grey-dark-blue-25 !default;
-$table-border-color:         $grey-dark-blue-20 !default;
+$border-color:               $slate-tint-80 !default;
+$table-border-color:         $slate-tint-80 !default;
 $background-alt:             $grey-dark-blue-5 !default;
 $pod-footer:                 $grey-dark-blue-5 !default;
 
-$row-alt-color:              $grey-dark-blue-5 !default;
+$row-alt-color:              $slate-tint-95 !default;
 $row-hover-color:            $blue-sky-10 !default;
 $row-highlight-color:        $blue-sky-20 !default;
 $row-hover-input-border:     lighten($blue, 30%) !default;

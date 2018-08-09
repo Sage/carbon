@@ -75,7 +75,7 @@ $plum: #8246AF;
 $fuchsia: #CE0058;
 
 // Slate Tints
-$slate-tint-95:          mix(white, $slate, 95)  !default;
+$slate-tint-95:          mix(white, $slate, 95) !default;
 $slate-tint-90:          mix(white, $slate, 90) !default;
 $slate-tint-85:          mix(white, $slate, 85) !default;
 $slate-tint-80:          mix(white, $slate, 80) !default;
@@ -103,11 +103,12 @@ $slate-shade-20:          mix(black, $slate, 20) !default;
 $slate-shade-10:          mix(black, $slate, 10) !default;
 
 // Shadows
-$shadow-depth-1: 0 10px 10px 0 rgba($slate-shade-60,0.25), 0 10px 10px 0 rgba($slate-shade-60,0.1);
+$card: 0 3px 3px 0 rgba($slate-shade-60,0.2), 0 2px 4px 0 rgba($slate-shade-60,0.15);
+
+$shadow-depth-1: 0 5px 5px 0 rgba($slate-shade-60,0.2), 0 10px 10px 0 rgba($slate-shade-60,0.1);
 $shadow-depth-2: 0 10px 20px 0 rgba($slate-shade-60,0.2), 0 20px 40px 0 rgba($slate-shade-60,0.1);
 $shadow-depth-3: 0 10px 30px 0 rgba($slate-shade-60,0.1), 0 30px 60px 0 rgba($slate-shade-60,0.1);
 $shadow-depth-4: 0 10px 40px 0 rgba($slate-shade-60,0.04), 0 50px 80px 0 rgba($slate-shade-60,0.1);
-
 
 $grey-dark-blue:             $slate         !default;
 $grey-dark-blue-90:          $slate-tint-10 !default;
