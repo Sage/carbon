@@ -35,6 +35,14 @@ const Checkbox = Input(InputLabel(InputValidation(class Checkbox extends React.C
     checked: PropTypes.bool,
 
     /**
+     * When provided will replace the checkbox sprite.
+     *
+     * @property children
+     * @type {Node}
+     */
+    children: PropTypes.node,
+
+    /**
      * Displays fieldHelp inline with the checkbox
      *
      * @property fieldHelpInline
@@ -112,6 +120,7 @@ const Checkbox = Input(InputLabel(InputValidation(class Checkbox extends React.C
     props.onChange = this.handleOnChange;
     props.type = 'checkbox';
     props.value = '1';
+    delete props.children;
     return props;
   }
 
@@ -178,7 +187,7 @@ const Checkbox = Input(InputLabel(InputValidation(class Checkbox extends React.C
    * @return {Object} JSX additional content inline with input
    */
   get additionalInputContent() {
-    return this.checkboxSprite;
+    return this.props.children || this.checkboxSprite;
   }
 
   /**
