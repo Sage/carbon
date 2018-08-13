@@ -1,6 +1,7 @@
 import I18n from 'i18n-js';
 import moment from 'moment';
 import { merge } from 'lodash';
+import InputIcon from '../../decorators/input-icon/input-icon';
 
 /**
  * DateHelper used to encapsulate the date parsing library into a single helper
@@ -102,6 +103,34 @@ const DateHelper = {
 
     const difference = Math.abs(today.diff(momentValue, units));
     return difference < limit;
+  },
+
+  /**
+   * @param {String} value - the date to test
+   * @param {String} startDate - Lower bound for date range (inclusive)
+   * @param {String} endDate - upper bound for date range (inclusive)
+   */
+  withinDateRange: (value, startDate, endDate) => {
+    let [parsedValue, parsedStartDate, parsedEndDate] = [value, startDate, endDate]
+      .map(date => DateHelper._parseDate(date));
+
+    if (!parsedValue.isValid()) {
+      return true;
+    } else if (parsedStartDate.isValid() && parsedEndDate.isValid()) {
+      parsedStartDate = parsedStartDate.unix();
+      parsedEndDate = parsedEndDate.unix();
+    } else if (parsedStartDate.isValid()) {
+      parsedStartDate = parsedStartDate.unix();
+      parsedEndDate = Infinity;
+    } else if (parsedEndDate.isValid()) {
+      parsedStartDate = -Infinity;
+      parsedEndDate = parsedEndDate.unix();
+    } else {
+      return true;
+    }
+    parsedValue = parsedValue.unix();
+    
+    return parsedStartDate <= parsedValue && parsedEndDate >= parsedValue; 
   },
 
   /**

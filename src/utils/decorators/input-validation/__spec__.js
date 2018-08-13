@@ -669,6 +669,61 @@ describe('InputValidation', () => {
         expect(valid).toBeTruthy();
       });
     });
+
+    describe('when composed component has an internalValidations property that is a function', () => {
+      let validate, message, internalValidations, DecoratedComp;
+      beforeEach(() => {
+        validate = jest.fn().mockImplementation(() => true);
+        message = jest.fn().mockImplementation(() => "foo");
+        internalValidations = jest.fn().mockImplementation(props => {
+          return [
+            { validate, message }
+          ];
+        });
+        class Comp extends DummyInput {
+          static defaultProps = {
+            internalValidations: internalValidations
+          };
+        }
+        DecoratedComp = InputValidation(Comp);
+      });
+
+      it('should return true', () => {
+        const wrapper = shallow(<DecoratedComp />);
+        expect(wrapper.instance().validate()).toBe(true);
+      });
+
+      it('validate and message should be called', () => {
+        const wrapper = shallow(<DecoratedComp />);
+        validate = jest.fn().mockImplementation(() => false);
+        wrapper.instance().validate();
+        expect(validate).toHaveBeenCalled();
+        expect(message).toHaveBeenCalled();
+      });
+
+      it('should call internalValidations if it is a function', () => {
+        const expected_props = {
+          prop1: "FOO",
+          prop2: "BAR"
+        };
+        const wrapper = shallow(<DecoratedComp {...expected_props}/>);
+        wrapper.instance().validate();
+
+        expect(internalValidations)
+          .toHaveBeenCalledWith(expect.objectContaining(expected_props));
+      });
+
+      it('responds when internalValidations is not a function', () => {
+        internalValidations = [
+          {validate, message}
+        ];
+        const wrapper = shallow(<DecoratedComp />);
+        expect(wrapper.instance().validate()).toBe(true);
+        expect(validate).toHaveBeenCalled();
+        expect(message).not.toHaveBeenCalled();
+      });
+
+    });
   });
 
   describe('message hide functions', () => {

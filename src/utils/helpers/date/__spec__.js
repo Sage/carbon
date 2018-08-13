@@ -129,4 +129,78 @@ describe('DateHelper', () => {
       expect(DateHelper.withinRange(testDate, 1, 'years')).toBeFalsy();
     });
   });
+
+  describe('withinDateRange', () => {
+    it('returns true if given date is within the given range', () => {
+      const candidate = "08/08/2010";
+      const startDate = "08/08/2008";
+      const endDate = "08/08/2012";
+      expect(DateHelper.withinDateRange(candidate, startDate, endDate))
+        .toBe(true);
+    });
+
+    it('returns false if given date is out of the given range', () => {
+      const candidate = "02/09/1980";
+      const startDate = "08/08/1990";
+      const endDate = "04/09/2000";
+      expect(DateHelper.withinDateRange(candidate, startDate, endDate))
+        .toBe(false);
+    });
+
+    describe('invalid dates', () => {
+      it('returns true for invalid value', () => {
+        const candidate = "invalid date";
+        const startDate = "08/08/1990";
+        const endDate = "04/09/2000";
+        expect(DateHelper.withinDateRange(candidate, startDate, endDate))
+          .toBe(true);
+      });
+
+      describe('startDate', () => {
+        it('returns true for invalid startDate', () => {
+          const candidate = "02/20/2008"; 
+          const startDate = "01/25/2008";
+          const endDate = "02/11/2009";
+          expect(DateHelper.withinDateRange(candidate, startDate, endDate))
+            .toBe(true);
+        });
+      })
+
+      describe('endDate', () => {
+        it('returns true for invalid endDate', () => {
+          const candidate = "28/11/2012"; 
+          const startDate = "02/11/2009";
+          const endDate = "some invalid data";
+          expect(DateHelper.withinDateRange(candidate, startDate, endDate))
+            .toBe(true);
+        });
+      });
+    });
+
+    describe('when endDate is undefined', () => {
+      it('should return true', () => {
+        const candidate = "17/10/1988";
+        const startDate = "03/09/1963";
+        console.log("****************");
+        expect(DateHelper.withinDateRange(candidate, startDate, undefined))
+          .toBe(true);
+      });
+
+      it('shold return false', () => {
+        const candidate = "03/05/2018";
+        const startDate = "04/05/2018";
+        expect(DateHelper.withinDateRange(candidate, startDate, undefined))
+          .toBe(false);
+      });
+    });
+
+    describe('when startDate is undefined', () => {
+      it('should return true', () => {
+        const candidate = "10/02/2002";
+        const endDate = "04/06/2008";
+        expect(DateHelper.withinDateRange(candidate, undefined, endDate))
+          .toBe(true);
+      });
+    })
+  });
 });

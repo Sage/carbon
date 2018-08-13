@@ -728,8 +728,24 @@ const InputValidation = (ComposedComponent) => {
      * @return {Array} validations
      */
     _validations = () => {
-      const validations = (this.props.validations || []).concat(this.props.internalValidations || []);
+      const validations = (this.props.validations || []).concat(this._internalValidations() || []);
       return validations.length ? validations : null;
+    }
+
+    /**
+     * Wrapper method for this.props.internalValidations.  this.props.internalValidations
+     * can be data or a function property in the "Composed Component" that accepts an object
+     * as an argument.  
+     * 
+     * @method _internalValidations
+     * @return {Array}
+     */
+    _internalValidations = () => {
+      if(typeof this.props.internalValidations === "function") {
+        return this.props.internalValidations(this.props);
+      }
+
+      return this.props.internalValidations;
     }
   }
 

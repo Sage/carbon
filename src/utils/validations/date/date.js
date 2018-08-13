@@ -13,6 +13,8 @@ class DateValidator {
    */
   constructor(params = {}) {
     this.customMessage = params.customMessage;
+    this.minDate = params.minDate;
+    this.maxDate = params.maxDate;
   }
 
   /**
@@ -23,7 +25,11 @@ class DateValidator {
    * @return {Boolean} true if value is valid
    */
   validate = (value) => {
-    return !value || DateHelper.isValidDate(value);
+    if (!value) {
+      return true;
+    } else if (DateHelper.isValidDate(value)) {
+      return DateHelper.withinDateRange(value, this.minDate, this.maxDate)
+    } 
   }
 
   /**
