@@ -21,7 +21,6 @@ let definition = new Definition('alert', Alert, {
     size: OptionsHelper.sizesFull
   },
   propValues: {
-    ariaRole: 'alertdialog',
     title: 'Attention!',
     children: 'This is an example of a alert.'
   },

@@ -74,14 +74,11 @@ exports[` 1`] = `
       </CSSTransitionGroup>
     </div>
     <Alert
-      ariaRole="dialog"
-      autoFocus={true}
       data-element="info-dialog"
+      data-role="alertdialog"
       key="bun"
       onCancel={[Function]}
       open={false}
-      role="alertdialog"
-      showCloseIcon={true}
       size="extra-small"
       title="bun"
     >
