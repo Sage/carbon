@@ -279,7 +279,7 @@ describe('Textarea', () => {
 
     describe('when characterLimit is set', () => {
       describe('and enforceCharacterLimit is true', () => {
-        it('sets a maxLength on the input', () => {
+        it('sets a maxLength on the input', () => {fade
           let input = TestUtils.findRenderedDOMComponentWithTag(expandableInstance, 'textarea')
           expect(input.maxLength).toEqual(100);
         });

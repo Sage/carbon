@@ -143,6 +143,10 @@ const InputValidation = (ComposedComponent) => {
       this.state.flipped = false;
     }
 
+    static defaultProp = {
+      fadeOutTime: 0
+    }
+
     static contextTypes = assign({}, ComposedComponent.contextTypes, {
       form: PropTypes.object,
       tab: PropTypes.object,
@@ -173,7 +177,16 @@ const InputValidation = (ComposedComponent) => {
        * @property
        * @type {Array}
        */
-      info: PropTypes.array
+      info: PropTypes.array,
+
+      /**
+       * Number which sets fade timing
+       *
+       * @property
+       * @default 0
+       * @type {Number}
+       */
+      fadeOutTime: PropTypes.number
     });
 
     /**
@@ -456,6 +469,7 @@ const InputValidation = (ComposedComponent) => {
           this.validate();
           this.warning();
           this.info();
+          this.hideMessage();
 
           if (this.state.messageLocked) {
             this.setState({ messageLocked: false });
@@ -569,9 +583,18 @@ const InputValidation = (ComposedComponent) => {
      */
     hideMessage = () => {
       if (this.messageExists()) {
-        this.setState({
-          messageShown: false
-        });
+        if (this.props.fadeOutTime) {
+          clearTimeout(this.messageHideTimeout);
+          this.messageHideTimeout = setTimeout(() => {
+            this.setState({
+              messageShown: false
+            });
+          }, this.props.fadeOutTime);
+        } else {
+          this.setState({
+            messageShown: false
+          });
+        }
       }
     }
 
@@ -619,7 +642,6 @@ const InputValidation = (ComposedComponent) => {
       const iconClasses = `common-input__icon common-input__icon--${type}`;
       const messageClasses = classNames(`common-input__message common-input__message--${type}`, {
         'common-input__message--shown': (this.state.messageLocked || this.state.messageShown),
-        'common-input__message--fade': (!this.state.messageLocked && !this.state.messageShown),
         'common-input__message--flipped': this.state.flipped
       });
 
@@ -630,7 +652,7 @@ const InputValidation = (ComposedComponent) => {
         iconStyle = { [`${this.props.align}`]: `${100 - this.props.labelWidth}%` };
       }
 
-      const errorMessage = (!this.state.immediatelyHideMessage || this.state.messageLocked) && (
+      const errorMessage = (this.state.messageLocked || this.state.messageShown) && (
         <Portal key='1' onReposition={ this.positionMessage }>
           <div className='common-input__message-wrapper'>
             <div
