@@ -153,24 +153,41 @@ class Modal extends React.Component {
   }
 
   /**
+   * A lifecycle method to update the component after it is mounted
+   *
+   * @method componentWillMount
+   * @return {void}
+   */
+  componentWillMount() {
+    Browser.getWindow().addEventListener('keyup', this.closeModal);
+  }
+
+  /**
+   * A lifecycle method to update the component after it is unmounted
+   *
+   * @method componentWillUnmount
+   * @return {void}
+   */
+  componentWillUnmount() {
+    Browser.getWindow().removeEventListener('keyup', this.closeModal);
+  }
+
+
+  /**
    * A lifecycle method to update the component after it is re-rendered
    *
    * @method componentDidUpdate
    * @return {void}
    */
   componentDidUpdate() {
-    const _window = Browser.getWindow();
-
     if (this.props.open && !this.listening) {
       this.listening = true;
       this.updateDataState();
       this.onOpening; // eslint-disable-line no-unused-expressions
-      _window.addEventListener('keyup', this.closeModal);
     } else if (!this.props.open && this.listening) {
       this.listening = false;
       this.updateDataState();
       this.onClosing; // eslint-disable-line no-unused-expressions
-      _window.removeEventListener('keyup', this.closeModal);
     }
   }
 
@@ -182,7 +199,7 @@ class Modal extends React.Component {
    * @return {void}
    */
   closeModal = (ev) => {
-    if (this.props.onCancel && !this.props.disableEscKey && Events.isEscKey(ev)) {
+    if (this.props.open && this.props.onCancel && !this.props.disableEscKey && Events.isEscKey(ev)) {
       this.props.onCancel();
     }
   }
