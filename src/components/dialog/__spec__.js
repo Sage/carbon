@@ -120,6 +120,35 @@ describe('Dialog', () => {
           });
         });
       });
+
+      describe('when Dialog is closed and listening', () => {
+        beforeEach(() => {
+          jest.useFakeTimers();
+          mockWindow = {
+            addEventListener() {},
+            removeEventListener() {},
+            getComputedStyle() { return {} }
+          };
+          wrapper = mount(
+            <Dialog onCancel={ onCancel } />
+          );
+          instance = wrapper.instance();
+        });
+
+        afterEach(() => {
+          jest.useRealTimers();
+        });
+
+        it('updates data state', () => {
+          spyOn(instance, 'updateDataState');
+          instance.listening = true;
+          instance._innerContent = {};
+          wrapper.setProps({ title: 'Dialog title' });
+          jest.runAllTimers();
+          expect(instance.updateDataState).toHaveBeenCalled();
+        });
+
+      });
     });
   });
 
