@@ -50,14 +50,6 @@ describe('Sidebar', () => {
         instance = wrapper.instance();
       });
 
-      it('sets up event listeners to resize and close the Sidebar', () => {
-        spyOn(mockWindow, 'addEventListener');
-        wrapper.setProps({ title: 'Sidebar title' });
-
-        expect(mockWindow.addEventListener.calls.count()).toEqual(1);
-        expect(mockWindow.addEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
-      });
-
       describe('when the Sidebar is already listening', () => {
         it('does not set up event listeners', () => {
           spyOn(mockWindow, 'addEventListener');
@@ -67,23 +59,6 @@ describe('Sidebar', () => {
           expect(mockWindow.addEventListener.calls.count()).toEqual(0);
           expect(mockWindow.addEventListener).not.toHaveBeenCalled();
         });
-      });
-    });
-
-    describe('when the Sidebar is closed', () => {
-      beforeEach(() => {
-        wrapper = mount(
-          <Sidebar onCancel={ spy } />
-        );
-        instance = wrapper.instance();
-        instance.listening = true;
-      });
-
-      it('removes event listeners for resize and closing', () => {
-        spyOn(mockWindow, 'removeEventListener');
-        wrapper.setProps({ title: 'Remove event handlers' });
-        expect(mockWindow.removeEventListener.calls.count()).toEqual(1);
-        expect(mockWindow.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
       });
     });
   });

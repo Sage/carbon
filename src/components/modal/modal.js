@@ -155,15 +155,15 @@ class Modal extends React.Component {
   /**
    * A lifecycle method to update the component after it is mounted
    *
-   * @method componentWillMount
+   * @method componentDidMount
    * @return {void}
    */
-  componentWillMount() {
+  componentDidMount() {
     Browser.getWindow().addEventListener('keyup', this.closeModal);
   }
 
   /**
-   * A lifecycle method to update the component after it is unmounted
+   * A lifecycle method to update the component when it is unmounted
    *
    * @method componentWillUnmount
    * @return {void}
