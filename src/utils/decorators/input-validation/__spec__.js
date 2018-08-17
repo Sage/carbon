@@ -357,7 +357,7 @@ describe('InputValidation', () => {
             const removeClassSpy = jasmine.createSpy();
             const addClassSpy = jasmine.createSpy();
 
-            instance.setState({ valid: false, errorMessage: 'foo' });
+            instance.setState({ valid: false, errorMessage: 'foo', messageShown: true });
 
             spyOn(Browser, 'getWindow').and.returnValue({
               innerWidth: 1800
@@ -418,7 +418,8 @@ describe('InputValidation', () => {
             const instance = wrapper.find(Component).instance();
             instance.setState({
               valid: false,
-              errorMessage: 'foo'
+              errorMessage: 'foo',
+              messageShown: true
             });
             instance.validationMessage = {
               offsetWidth: 0,
@@ -787,6 +788,29 @@ describe('InputValidation', () => {
           spyOn(instance, 'setState');
           instance.hideMessage();
           expect(instance.setState).not.toHaveBeenCalled();
+        });
+      });
+
+      describe("triggers setState", () => {
+        it('when the fadeOutTime prop is passed in', () => {
+          let wrapper = mount( < Component /> );
+          instance = wrapper.instance();
+          wrapper.setProps({
+            fadeOutTime: 123
+          })
+          instance.setState({
+            valid: true,
+            warning: true
+          });
+
+          spyOn(instance, 'setState');
+          jest.useFakeTimers();
+          instance.hideMessage();
+          jest.runAllTimers();
+
+          expect(instance.setState).toHaveBeenCalledWith({
+            messageShown: false
+          });
         });
       });
     });

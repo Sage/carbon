@@ -272,14 +272,14 @@ describe('Textarea', () => {
     });
 
     it('is decorated with a validation if a error is present', () => {
-      baseInstance.setState({errorMessage: 'Error', valid: false});
+      baseInstance.setState({errorMessage: 'Error', valid: false, messageShown: true});
       let errorDiv = TestUtils.findRenderedDOMComponentWithClass(baseInstance, 'common-input__message--error')
       expect(errorDiv.textContent).toEqual('Error')
     });
 
     describe('when characterLimit is set', () => {
       describe('and enforceCharacterLimit is true', () => {
-        it('sets a maxLength on the input', () => {fade
+        it('sets a maxLength on the input', () => {
           let input = TestUtils.findRenderedDOMComponentWithTag(expandableInstance, 'textarea')
           expect(input.maxLength).toEqual(100);
         });
