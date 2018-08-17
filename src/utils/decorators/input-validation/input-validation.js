@@ -180,7 +180,7 @@ const InputValidation = (ComposedComponent) => {
       info: PropTypes.array,
 
       /**
-       * Number which sets fade timing
+       * Number which sets timing of when the message will disappear
        *
        * @property
        * @default 0
