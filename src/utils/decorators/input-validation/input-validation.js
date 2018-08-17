@@ -120,14 +120,6 @@ const InputValidation = (ComposedComponent) => {
       this.state.messageLocked = false;
 
       /**
-       * toggles whether the message for validation is immediately hidden to force it to disappear instantly
-       *
-       * @property immediatelyHideMessage
-       * @type {Boolean}
-       */
-      this.state.immediatelyHideMessage = false;
-
-      /**
        * toggles whether the message for validation is shown
        *
        * @property messageShown
@@ -181,6 +173,7 @@ const InputValidation = (ComposedComponent) => {
 
       /**
        * Number which sets timing of when the message will disappear
+       * Expected time is set in miliseconds
        *
        * @property
        * @default 0
@@ -565,8 +558,7 @@ const InputValidation = (ComposedComponent) => {
     showMessage = () => {
       if (this.messageExists()) {
         this.setState({
-          messageShown: true,
-          immediatelyHideMessage: false
+          messageShown: true
         }, this.positionMessage);
 
         if (this.context.form) {
@@ -596,19 +588,6 @@ const InputValidation = (ComposedComponent) => {
           });
         }
       }
-    }
-
-    /**
-     * sets the state for immediately hiding the message
-     *
-     * @method immediatelyHideMessage
-     * @return {void}
-     */
-    immediatelyHideMessage = () => {
-      this.setState({
-        messageShown: false,
-        immediatelyHideMessage: true
-      });
     }
 
     /**

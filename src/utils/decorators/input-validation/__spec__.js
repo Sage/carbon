@@ -689,7 +689,6 @@ describe('InputValidation', () => {
           instance.showMessage();
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: true,
-            immediatelyHideMessage: false
           }, instance.positionMessage);
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
@@ -703,7 +702,6 @@ describe('InputValidation', () => {
           instance.showMessage();
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: true,
-            immediatelyHideMessage: false
           }, instance.positionMessage);
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
@@ -717,7 +715,6 @@ describe('InputValidation', () => {
           instance.showMessage();
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: true,
-            immediatelyHideMessage: false
           }, instance.positionMessage);
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
@@ -733,7 +730,6 @@ describe('InputValidation', () => {
             instance.showMessage();
             expect(instance.setState).toHaveBeenCalledWith({
               messageShown: true,
-              immediatelyHideMessage: false
             }, instance.positionMessage);
             expect(form.setActiveInput).not.toHaveBeenCalledWith(instance);
           });
@@ -811,34 +807,6 @@ describe('InputValidation', () => {
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: false
           });
-        });
-      });
-    });
-
-    describe('immediatelyHideMessage', () => {
-      it('sets state to hide message instantly', () => {
-        spyOn(instance, 'setState');
-        instance.immediatelyHideMessage();
-
-        expect(instance.setState).toHaveBeenCalledWith({
-          messageShown: false,
-          immediatelyHideMessage: true
-        });
-      });
-
-      it('sets state to hide message instantly', () => {
-        spyOn(instance, 'setState').and.callThrough();
-        instance.setState({
-          valid: false,
-          warning: false,
-          messageShown: true
-        });
-
-        instance.immediatelyHideMessage();
-
-        expect(instance.setState).toHaveBeenCalledWith({
-          messageShown: false,
-          immediatelyHideMessage: true
         });
       });
     });
