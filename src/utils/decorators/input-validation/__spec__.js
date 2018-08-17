@@ -792,11 +792,11 @@ describe('InputValidation', () => {
       });
 
       describe("triggers setState", () => {
-        it('when the fadeOutTime prop is passed in', () => {
+        it('when the timeToDisappear prop is passed in', () => {
           let wrapper = mount( < Component /> );
           instance = wrapper.instance();
           wrapper.setProps({
-            fadeOutTime: 123
+            timeToDisappear: 123
           })
           instance.setState({
             valid: true,

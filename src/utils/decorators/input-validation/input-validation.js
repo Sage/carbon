@@ -144,7 +144,7 @@ const InputValidation = (ComposedComponent) => {
     }
 
     static defaultProp = {
-      fadeOutTime: 0
+      timeToDisappear: 0
     }
 
     static contextTypes = assign({}, ComposedComponent.contextTypes, {
@@ -186,7 +186,7 @@ const InputValidation = (ComposedComponent) => {
        * @default 0
        * @type {Number}
        */
-      fadeOutTime: PropTypes.number
+      timeToDisappear: PropTypes.number
     });
 
     /**
@@ -583,13 +583,13 @@ const InputValidation = (ComposedComponent) => {
      */
     hideMessage = () => {
       if (this.messageExists()) {
-        if (this.props.fadeOutTime) {
+        if (this.props.timeToDisappear) {
           clearTimeout(this.messageHideTimeout);
           this.messageHideTimeout = setTimeout(() => {
             this.setState({
               messageShown: false
             });
-          }, this.props.fadeOutTime);
+          }, this.props.timeToDisappear);
         } else {
           this.setState({
             messageShown: false
