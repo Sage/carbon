@@ -787,19 +787,14 @@ describe('InputValidation', () => {
         });
       });
 
-      describe("triggers setState", () => {
-        it('when the timeToDisappear prop is passed in', () => {
-          let wrapper = mount( < Component /> );
+      describe("when hideMessage is called", () => {
+        it("it triggers a timeout when prop value is larger than 0", () => {
+          let wrapper = mount(<Component />);
           instance = wrapper.instance();
-          wrapper.setProps({
-            timeToDisappear: 123
-          })
-          instance.setState({
-            valid: true,
-            warning: true
-          });
+          wrapper.setProps({ timeToDisappear: 123 });
+          instance.setState({ valid: true, warning: true });
 
-          spyOn(instance, 'setState');
+          spyOn(instance, "setState");
           jest.useFakeTimers();
           instance.hideMessage();
           jest.runAllTimers();
@@ -807,6 +802,24 @@ describe('InputValidation', () => {
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: false
           });
+          expect(setTimeout).toHaveBeenCalledTimes(1);
+        });
+
+        it("it does not triggers a timeout when prop value is 0", () => {
+          let wrapper = mount(<Component />);
+          instance = wrapper.instance();
+          wrapper.setProps({ timeToDisappear: 0 });
+          instance.setState({ valid: true, warning: true });
+
+          spyOn(instance, "setState");
+          jest.useFakeTimers();
+          instance.hideMessage();
+          jest.runAllTimers();
+
+          expect(instance.setState).toHaveBeenCalledWith({
+            messageShown: false
+          });
+          expect(setTimeout).toHaveBeenCalledTimes(0);
         });
       });
     });
