@@ -180,14 +180,17 @@ class Modal extends React.Component {
    * @return {void}
    */
   componentDidUpdate() {
+    const _window = Browser.getWindow();
     if (this.props.open && !this.listening) {
       this.listening = true;
       this.updateDataState();
       this.onOpening; // eslint-disable-line no-unused-expressions
+      _window.addEventListener('keyup', this.closeModal);
     } else if (!this.props.open && this.listening) {
       this.listening = false;
       this.updateDataState();
       this.onClosing; // eslint-disable-line no-unused-expressions
+      _window.removeEventListener('keyup', this.closeModal);
     }
   }
 
