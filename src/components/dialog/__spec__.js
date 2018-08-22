@@ -132,6 +132,28 @@ describe('Dialog', () => {
         });
       });
 
+      describe('when the dialog is closed', () => {
+        beforeEach(() => {
+          wrapper = mount(
+            <Dialog open={ true } onCancel={ onCancel } stickyFormFooter />
+          );
+          instance = wrapper.instance();
+          instance.listening = true;
+        });
+
+        it('removes event listeners for resize and closing', () => {
+          const instance = wrapper.instance();
+          spyOn(ElementResize, 'removeListener');
+          spyOn(mockWindow, 'removeEventListener');
+          wrapper.setProps({ open: false });
+
+          expect(mockWindow.removeEventListener.calls.count()).toEqual(2);
+          expect(mockWindow.removeEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
+          expect(mockWindow.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
+          expect(ElementResize.removeListener).toHaveBeenCalledWith(instance._innerContent, instance.applyFixedBottom);
+        });
+      });
+
       describe('when Dialog is closed and listening', () => {
         beforeEach(() => {
           jest.useFakeTimers();
