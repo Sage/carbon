@@ -82,6 +82,14 @@ describe('Modal', () => {
         jest.useRealTimers();
       });
 
+      it('sets up event listeners to resize and close the modal', () => {
+        spyOn(mockWindow, 'addEventListener');
+         wrapper.instance().componentDidUpdate();
+        jest.runAllTimers();
+        expect(mockWindow.addEventListener.calls.count()).toEqual(1);
+        expect(mockWindow.addEventListener).toHaveBeenCalledWith('keyup', wrapper.instance().closeModal);
+      });
+
       it('clears the opentimeout and sets data state to open', () => {
         spyOn(mockWindow, 'removeEventListener');
         spyOn(window, 'setTimeout');
@@ -108,6 +116,14 @@ describe('Modal', () => {
         wrapper = shallow(
           <Modal onCancel={ onCancel } />
         );
+      });
+
+      it('removes event listeners for resize and closing', () => {
+        spyOn(mockWindow, 'removeEventListener');
+        wrapper.instance().listening = true;
+        wrapper.instance().componentDidUpdate();
+        expect(mockWindow.removeEventListener.calls.count()).toEqual(1);
+        expect(mockWindow.removeEventListener).toHaveBeenCalledWith('keyup', wrapper.instance().closeModal);
       });
 
       it('clears the opentimeout and sets data state to closed', () => {

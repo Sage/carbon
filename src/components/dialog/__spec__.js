@@ -106,6 +106,17 @@ describe('Dialog', () => {
           expect(instance.centerDialog).toHaveBeenCalled();
         });
 
+        it('sets up event listeners to resize and close the dialog', () => {
+          const instance = wrapper.instance();
+          spyOn(ElementResize, 'addListener');
+          spyOn(mockWindow, 'addEventListener');
+           wrapper.setProps({ title: 'Dialog title' });
+          jest.runAllTimers();
+          expect(mockWindow.addEventListener.calls.count()).toEqual(2);
+          expect(mockWindow.addEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
+          expect(mockWindow.addEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
+          expect(ElementResize.addListener).toHaveBeenCalledWith(instance._innerContent, instance.applyFixedBottom);
+        });
 
         describe('when the dialog is already listening', () => {
           it('does not set up event listeners', () => {
