@@ -110,7 +110,6 @@ describe('Dialog', () => {
           const instance = wrapper.instance();
           spyOn(ElementResize, 'addListener');
           spyOn(mockWindow, 'addEventListener');
-
           wrapper.setProps({ title: 'Dialog title' });
           jest.runAllTimers();
           expect(mockWindow.addEventListener.calls.count()).toEqual(2);
@@ -153,6 +152,35 @@ describe('Dialog', () => {
           expect(mockWindow.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
           expect(ElementResize.removeListener).toHaveBeenCalledWith(instance._innerContent, instance.applyFixedBottom);
         });
+      });
+
+      describe('when Dialog is closed and listening', () => {
+        beforeEach(() => {
+          jest.useFakeTimers();
+          mockWindow = {
+            addEventListener() {},
+            removeEventListener() {},
+            getComputedStyle() { return {} }
+          };
+          wrapper = mount(
+            <Dialog onCancel={ onCancel } />
+          );
+          instance = wrapper.instance();
+        });
+
+        afterEach(() => {
+          jest.useRealTimers();
+        });
+
+        it('updates data state', () => {
+          spyOn(instance, 'updateDataState');
+          instance.listening = true;
+          instance._innerContent = {};
+          wrapper.setProps({ title: 'Dialog title' });
+          jest.runAllTimers();
+          expect(instance.updateDataState).toHaveBeenCalled();
+        });
+
       });
     });
   });
