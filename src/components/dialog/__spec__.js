@@ -110,7 +110,7 @@ describe('Dialog', () => {
           const instance = wrapper.instance();
           spyOn(ElementResize, 'addListener');
           spyOn(mockWindow, 'addEventListener');
-           wrapper.setProps({ title: 'Dialog title' });
+          wrapper.setProps({ title: 'Dialog title' });
           jest.runAllTimers();
           expect(mockWindow.addEventListener.calls.count()).toEqual(2);
           expect(mockWindow.addEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
