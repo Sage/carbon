@@ -160,6 +160,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         { ...this.componentProps }
         { ...tagComponent('icon', this.props) }
         ref={ (comp) => { this._target = comp; } }
+        data-element={ this.type }
       >
         { this.iconSvgHTML() }
       </span>,
