@@ -6,7 +6,7 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-@mixin h1() { font-size: 24px;  font-weight: 900; line-height: 32px; }
+@mixin h1() { font-size: 24px; font-weight: 900; line-height: 32px; }
 @mixin h2() { font-size: 22px; font-weight: 700; margin-bottom: 26px; }
 @mixin h3() { font-size: 20px; font-weight: 700; margin-bottom: 24px; }
 @mixin h4() { font-size: 18px; font-weight: 700; margin-bottom: 22px; }
