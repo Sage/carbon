@@ -34,6 +34,7 @@ export default [
     { name: 'save', type: 'save' },
     { name: 'uploaded', type: 'uploaded' },
     { name: 'question', type: 'question' },
+    { name: 'question_hollow', type: 'question_hollow' },
     { name: 'info', type: 'info' },
     { name: 'download', type: 'download' },
     { name: 'upload', type: 'upload' },
