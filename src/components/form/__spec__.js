@@ -320,20 +320,6 @@ describe('Form', () => {
     });
   });
 
-  describe("setActiveInput", () => {
-    it("sets the active input to be the input parameter", () => {
-      instance.setActiveInput(1);
-      expect(instance.activeInput).toEqual(1);
-    });
-
-    it("immediately hides it's message if the input is different from the last", () => {
-      let immediatelyHideMessageSpy = jasmine.createSpy();
-      instance.setActiveInput({ immediatelyHideMessage: immediatelyHideMessageSpy });
-      instance.setActiveInput({  });
-      expect(immediatelyHideMessageSpy).toHaveBeenCalled();
-    });
-  });
-
   describe("setIsDirty", () => {
     it("sets the form to be classed as dirty if clean", () => {
       expect(instance.state.isDirty).toEqual(false);

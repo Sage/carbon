@@ -1,0 +1,1 @@
+New Features: "Added a new script to make installing/testing local changes in Carbon easier - `npm run watch`, this should be used along with `npm link`."
