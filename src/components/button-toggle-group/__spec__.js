@@ -142,7 +142,7 @@ describe('ButtonToggleGroup', () => {
     });
 
     it('is decorated with a validation if a error is present', () => {
-      wrapper.setState({ errorMessage: 'Error', valid: false });
+      wrapper.setState({ errorMessage: 'Error', valid: false, messageShown: true });
       const errorDiv = wrapper.find('.common-input__message--error');
       expect(errorDiv.prop('children')).toEqual('Error');
     });
