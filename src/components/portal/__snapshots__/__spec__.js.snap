@@ -17,6 +17,7 @@ exports[`Portal when using default node to match snapshot  1`] = `
       <span
         className="carbon-icon icon-tick"
         data-component="icon"
+        data-element="tick"
         key="icon"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -29,4 +30,4 @@ exports[`Portal when using default node to match snapshot  1`] = `
 </Portal>
 `;
 
-exports[`Portal when using default node will mount correctly on document 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><span class=\\"carbon-icon icon-tick\\" data-component=\\"icon\\"></span></div>"`;
+exports[`Portal when using default node will mount correctly on document 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><span class=\\"carbon-icon icon-tick\\" data-component=\\"icon\\" data-element=\\"tick\\"></span></div>"`;
