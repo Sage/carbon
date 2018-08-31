@@ -9,15 +9,15 @@
 * Commit and push changes.
 
 * If releasing a minor version:
-*   Open a PR to `master`.
-*   Merge PR into `master`
-*   Raise PR to merge `master` into `release`
-*   Merge PR into `release`
-*   Cut new version from `release`
+    * Open a PR to `master`.
+    * Merge PR into `master`
+    * Raise PR to merge `master` into `release`
+    * Merge PR into `release`
+    * Cut new version from `release`
 
 * If releasing a patch version, open a PR to `release`.
-*   Open a PR to `release`.
-*   Merge PR into `release`
+    * Open a PR to `release`.
+    * Merge PR into `release`
 
 * Once merged, publish a release in GitHub using the new version number as the tag. Make sure to target the correct branch (`release`). This will auto-deploy to npm. (relase should be published from `release`)
 * If you have released from a branch other than `master`, open a PR to merge that branch back into `master`.
