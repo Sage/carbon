@@ -5,11 +5,61 @@ import Events from './../../utils/helpers/events';
 import Browser from './../../utils/helpers/browser';
 
 describe('Modal', () => {
-  let wrapper, onCancel;
+  let wrapper, onCancel, mockWindow;
+
+  describe('componentDidMount', () => {
+    beforeEach(() => {
+      mockWindow = {
+        addEventListener() {},
+        removeEventListener() {}
+      };
+      jest.useFakeTimers();
+      wrapper = shallow(
+        <Modal open onCancel={ onCancel } />
+      );
+      spyOn(Browser, 'getWindow').and.returnValue(mockWindow);
+      spyOn(mockWindow, 'addEventListener');
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it('binds the key event listener to the window', () => {
+      wrapper.instance().componentDidMount();
+          expect(mockWindow.addEventListener.calls.count()).toEqual(1);
+          expect(mockWindow.addEventListener).toHaveBeenCalled();
+    });
+
+  });
+  
+  describe('componentWillUnmount', () => {
+    beforeEach(() => {
+      mockWindow = {
+        addEventListener() {},
+        removeEventListener() {}
+      };
+      jest.useFakeTimers();
+      wrapper = shallow(
+        <Modal open onCancel={ onCancel } />
+      );
+      spyOn(Browser, 'getWindow').and.returnValue(mockWindow);
+      spyOn(mockWindow, 'removeEventListener');
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it('binds the key event listener to the window', () => {
+      wrapper.instance().componentWillUnmount();
+          expect(mockWindow.removeEventListener.calls.count()).toEqual(1);
+          expect(mockWindow.removeEventListener).toHaveBeenCalled();
+    });
+
+  });
 
   describe('componentDidUpdate', () => {
-    let mockWindow;
-
     beforeEach(() => {
       mockWindow = {
         addEventListener() {},
@@ -34,8 +84,7 @@ describe('Modal', () => {
 
       it('sets up event listeners to resize and close the modal', () => {
         spyOn(mockWindow, 'addEventListener');
-
-        wrapper.instance().componentDidUpdate();
+         wrapper.instance().componentDidUpdate();
         jest.runAllTimers();
         expect(mockWindow.addEventListener.calls.count()).toEqual(1);
         expect(mockWindow.addEventListener).toHaveBeenCalledWith('keyup', wrapper.instance().closeModal);

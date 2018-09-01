@@ -398,9 +398,6 @@ class Form extends React.Component {
    * @return {void}
    */
   setActiveInput = (input) => {
-    if (input !== this.activeInput && this.activeInputExistsAndHasValidation()) {
-      this.activeInput.immediatelyHideMessage();
-    }
     this.activeInput = input;
   }
 
@@ -499,15 +496,6 @@ class Form extends React.Component {
    * @type {window}
    */
   _window = Browser.getWindow();
-
-  /**
-   * @method activeInputHasValidation
-   * @param {}
-   * @return {Boolean} active input exists and is decorated with validation
-   */
-  activeInputExistsAndHasValidation = () => {
-    return this.activeInput && this.activeInput.immediatelyHideMessage;
-  }
 
   /**
    * Stores references to the inputs in the form
