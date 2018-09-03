@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import TouchBackend from 'react-dnd-touch-backend';
 import ItemTargetHelper from '../../../utils/helpers/dnd/item-target';
 import CustomDragLayer from '../custom-drag-layer';
+import Browser from '../../../utils/helpers/browser';
 
 /**
  * A draggable context component
@@ -37,6 +38,7 @@ import CustomDragLayer from '../custom-drag-layer';
  * @constructor
  */
 class DraggableContext extends React.Component {
+
   static propTypes = {
     /**
      * The element(s) where you want to apply drag
@@ -82,7 +84,8 @@ class DraggableContext extends React.Component {
   }
 
   state = {
-    activeIndex: null // {Number} tracks the currently dragged index
+    activeIndex: null, // {Number} tracks the currently dragged index
+    intervalId: null 
   }
 
   /**
@@ -108,6 +111,32 @@ class DraggableContext extends React.Component {
    * @return {Void}
    */
   handleHover = ItemTargetHelper.onHoverUpDown
+
+  /**
+   * Triggers the custom close event handler on Esc
+   *
+   * @method closeModal
+   * @param {Object} ev event
+   * @return {void}
+   */
+  autoScroll = (ev) => {
+    const { screenY } = ev;
+    const { innerHeight } = Browser.getWindow();
+    if (screenY < innerHeight / 7.0) {
+      const intervalId = setInterval(() => {Browser.getWindow().scrollBy(0,-3)}, 400);
+      this.setState({ intervalId });
+      return;
+    }
+    if (screenY > 6 * innerHeight / 7.0) {
+      const intervalId = setInterval(() => {Browser.getWindow().scrollBy(0,3)}, 400);
+      this.setState({ intervalId });
+      return;
+    }
+    if(this.state.intervalId) {
+      clearInterval(this.state.intervalId);
+      this.setState({ intervalId: null });
+    }
+  }
 
   /**
    * A callback for when a drag is triggered.
@@ -159,7 +188,7 @@ class DraggableContext extends React.Component {
    */
   render() {
     return (
-      <div className='carbon-draggable-context'>
+      <div className='carbon-draggable-context' onClick={ this.autoScroll }>
         { this.props.children }
         { this.props.customDragLayer }
       </div>
