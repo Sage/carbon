@@ -5,6 +5,7 @@ import Icon from 'components/icon';
 import DemoActions from '../../../actions/demo';
 
 import I18n from 'i18n-js';
+import './header.scss';
 
 class Header extends React.Component {
   render() {

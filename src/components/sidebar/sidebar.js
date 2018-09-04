@@ -5,6 +5,7 @@ import classNames from 'classnames';
 import SidebarHeader from './sidebar-header';
 import Icon from '../icon';
 import Modal from '../modal';
+import './sidebar.scss';
 
 /**
  * A Sidebar widget.

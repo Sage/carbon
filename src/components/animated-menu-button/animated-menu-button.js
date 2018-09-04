@@ -6,6 +6,7 @@ import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
 import Devices from '../../utils/helpers/devices';
 import { validProps } from '../../utils/ether';
+import './animated-menu-button.scss';
 
 /**
  * An AnimatedMenuButton widget.

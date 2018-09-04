@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { DragLayer } from 'react-dnd';
+import './custom-drag-layer.scss';
 
 const collect = (monitor) => {
   const item = monitor.getItem();

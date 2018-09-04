@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Step from './step';
+import './multi-step-wizard.scss';
 
 /**
  * A MultiStepWizard widget.

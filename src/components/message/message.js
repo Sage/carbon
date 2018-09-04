@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
+import './message.scss';
 
 /**
  * A Message widget.

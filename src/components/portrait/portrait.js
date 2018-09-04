@@ -6,6 +6,7 @@ import tagComponent from '../../utils/helpers/tags';
 import Browser from '../../utils/helpers/browser';
 
 import Icon from '../icon';
+import './portrait.scss';
 
 /**
  * A Portrait Widget.

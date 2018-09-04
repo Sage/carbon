@@ -9,6 +9,7 @@ import NumberComponent from '../number';
 import Dropdown from '../dropdown';
 import Events from '../../utils/helpers/events';
 import tagComponent from '../../utils/helpers/tags';
+import './pager.scss';
 
 /**
  * A Pager widget.

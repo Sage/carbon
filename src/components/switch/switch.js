@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Checkbox from '../checkbox';
 import Icon from '../icon';
+import './switch.scss';
 
 const switchClasses = (props) => {
   const loadingClass = props.loading ? ' carbon-switch__loading' : '',

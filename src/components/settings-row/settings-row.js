@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Heading from '../heading';
 import tagComponent from '../../utils/helpers/tags';
+import './settings-row.scss';
 
 /**
  * UI for a settings page row

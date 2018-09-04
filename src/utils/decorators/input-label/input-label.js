@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { find, startCase, assign } from 'lodash';
 import classNames from 'classnames';
 import Help from '../../../components/help';
+import './input-label.scss';
 
 /**
  * InputLabel decorator.

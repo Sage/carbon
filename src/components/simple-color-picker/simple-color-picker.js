@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ColorOption from './color-option';
 import tagComponent from '../../utils/helpers/tags';
+import './simple-color-picker.scss';
 
 /**
  * A component that displays squares with color samples that

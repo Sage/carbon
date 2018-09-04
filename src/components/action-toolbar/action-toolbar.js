@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import I18n from 'i18n-js';
 import Link from '../link';
 import tagComponent from '../../utils/helpers/tags';
+import './action-toolbar.scss';
 
 /**
  * A ActionToolbar widget.

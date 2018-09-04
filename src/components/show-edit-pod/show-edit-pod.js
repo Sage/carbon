@@ -10,6 +10,7 @@ import Link from '../link';
 import Events from '../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
+import './show-edit-pod.scss';
 
 class ShowEditPod extends React.Component {
   static propTypes = {

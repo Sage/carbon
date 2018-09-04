@@ -4,6 +4,7 @@ import InputLabel from '../../utils/decorators/input-label';
 import InputValidation from '../../utils/decorators/input-validation';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
+import './textbox.scss';
 
 /**
  * A textbox widget.

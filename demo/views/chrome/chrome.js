@@ -10,6 +10,7 @@ import DemoStore from '../../stores/demo';
 import Footer from './footer';
 import Header from './header';
 import Menu from './menu';
+import './chrome.scss';
 
 const RESIZE_WIDTH = 1040;
 

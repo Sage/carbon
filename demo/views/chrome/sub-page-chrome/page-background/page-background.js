@@ -1,4 +1,5 @@
 import React from 'react';
+import './page-background.scss';
 
 /**
  * PageBackground presentational element handles angled background with image

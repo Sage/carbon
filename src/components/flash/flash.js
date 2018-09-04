@@ -10,6 +10,7 @@ import Icon from '../icon';
 import Alert from '../alert';
 import Link from '../link';
 import tagComponent from '../../utils/helpers/tags';
+import './flash.scss';
 
 /**
  * A Flash widget.

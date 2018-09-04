@@ -6,6 +6,7 @@ import classNames from 'classnames';
 import escapeStringRegexp from 'escape-string-regexp';
 import Dropdown from '../dropdown';
 import Link from '../link';
+import './dropdown-filter.scss';
 
 /**
  * A dropdown filter widget.

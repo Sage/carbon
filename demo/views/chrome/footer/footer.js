@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
+import './footer.scss';
 
 // Carbon
 import Icon from 'components/icon';

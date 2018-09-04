@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Link from 'components/link';
+import './simple-heading.scss';
 
 /**
  * Simple heading at h2 level with optional github link

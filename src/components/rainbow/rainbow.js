@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { merge } from 'lodash';
 import tagComponent from '../../utils/helpers/tags';
+import './rainbow.scss';
 
 /**
  * A rainbow chart using the Highcharts API.

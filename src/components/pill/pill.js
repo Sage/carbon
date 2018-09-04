@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
+import './pill.scss';
 
 /**
 * A Pill widget.

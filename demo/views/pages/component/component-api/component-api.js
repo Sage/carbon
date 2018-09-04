@@ -2,6 +2,7 @@ import React from 'react';
 import Icon from 'components/icon';
 import { Table, TableRow, TableCell, TableHeader } from 'components/table';
 import PageContentArea from './../../../common/page-content-area';
+import './component-api.scss';
 
 class ComponentAPI extends React.Component {
   render() {

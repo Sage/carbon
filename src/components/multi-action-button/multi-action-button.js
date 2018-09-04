@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Icon from '../icon';
 import Button from '../button';
 import SplitButton from '../split-button';
+import './multi-action-button.scss';
 
 /**
  * A MultiActionButton widget.

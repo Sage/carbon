@@ -5,6 +5,7 @@ import TooltipDecorator from '../../utils/decorators/tooltip-decorator';
 import Icons from './icons';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
+import './icon.scss';
 
 /**
  * An Icon widget.
