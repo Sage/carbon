@@ -38,7 +38,6 @@ import Browser from '../../../utils/helpers/browser';
  * @constructor
  */
 class DraggableContext extends React.Component {
-
   static propTypes = {
     /**
      * The element(s) where you want to apply drag
@@ -85,7 +84,7 @@ class DraggableContext extends React.Component {
 
   state = {
     activeIndex: null, // {Number} tracks the currently dragged index
-    intervalId: null 
+    intervalId: null
   }
 
   /**
@@ -120,21 +119,62 @@ class DraggableContext extends React.Component {
    * @return {void}
    */
   autoScroll = (ev) => {
+    if (!this.state.activeIndex) return;
+    const { clientY } = ev;
     const { screenY } = ev;
     const { innerHeight } = Browser.getWindow();
+    const { scrollY } = Browser.getWindow();
+    const threshold = Math.max(140, window.innerHeight / 4);
+    let currentDY = 0,
+        frame,
+        speed;
+
     if (screenY < innerHeight / 7.0) {
-      const intervalId = setInterval(() => {Browser.getWindow().scrollBy(0,-3)}, 400);
-      this.setState({ intervalId });
-      return;
+      queueScroll(getScrollDY(ev.clientY));
     }
     if (screenY > 6 * innerHeight / 7.0) {
-      const intervalId = setInterval(() => {Browser.getWindow().scrollBy(0,3)}, 400);
-      this.setState({ intervalId });
-      return;
+      queueScroll(getScrollDY(ev.clientY));
     }
-    if(this.state.intervalId) {
-      clearInterval(this.state.intervalId);
-      this.setState({ intervalId: null });
+    if (this.state.intervalId) {
+      cancelScroll();
+    }
+
+    function queueScroll(dy) {
+      currentDY = dy;
+
+      if (!frame) {
+        frame = window.requestAnimationFrame(tick);
+      }
+    }
+
+    function cancelScroll() {
+      window.cancelAnimationFrame(frame);
+      frame = null;
+      currentDY = 0;
+    }
+
+    function getScrollDY() {
+      if (clientY < threshold) {
+        // -1 to 0 as we move from 0 to threshold
+        speed = -1 + clientY / threshold;
+      } else if (clientY > window.innerHeight - threshold) {
+        // 0 to 1 as we move from (innerHeight - threshold) to innerHeight
+        speed = 1 - (window.innerHeight - clientY) / threshold;
+      } else {
+        speed = 0;
+      }
+
+      return Math.round(speed * 10);
+    }
+
+    function tick() {
+      if (!currentDY) {
+        frame = null;
+        return;
+      }
+
+      window.scrollTo(0, scrollY + currentDY);
+      frame = window.requestAnimationFrame(tick);
     }
   }
 
@@ -188,7 +228,7 @@ class DraggableContext extends React.Component {
    */
   render() {
     return (
-      <div className='carbon-draggable-context' onClick={ this.autoScroll }>
+      <div className='carbon-draggable-context' onMouseMove={ this.autoScroll }>
         { this.props.children }
         { this.props.customDragLayer }
       </div>
