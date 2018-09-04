@@ -1,0 +1,1 @@
+Bug Fixes: "1832 - Fix issue where webpack wasn't recompiling Sass files when they'd changed."
