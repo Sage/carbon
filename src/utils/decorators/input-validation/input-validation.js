@@ -480,7 +480,6 @@ const InputValidation = (ComposedComponent) => {
      */
     _handleFocus = () => {
       if (!this.state.valid || this.state.warning || this.state.info) {
-        
         this.positionMessage();
 
         if (!this.state.messageLocked) {
@@ -577,7 +576,6 @@ const InputValidation = (ComposedComponent) => {
      */
     hideMessage = () => {
       if (this.messageExists()) {
-
         if (this.props.timeToDisappear) {
           clearTimeout(this.messageHideTimeout);
           this.messageHideTimeout = setTimeout(() => {
@@ -636,12 +634,11 @@ const InputValidation = (ComposedComponent) => {
 
       const errorMessage = (this.state.messageLocked || this.state.messageShown) && (
         <Portal key='1' onReposition={ this.positionMessage }>
-          <div 
-            className='common-input__message-wrapper' 
-            style={{pointerEvents: 'none'}}
-            >
+          <div
+            className='common-input__message-wrapper'
+            style={ { pointerEvents: 'none' } }
+          >
             <div
-              
               ref={ (validationMessage) => {
                 this.validationMessage = validationMessage;
               } }
@@ -712,7 +709,7 @@ const InputValidation = (ComposedComponent) => {
 
     get fieldProps() {
       const fieldProps = super.fieldProps || {};
- 
+
       fieldProps.onMouseOut = chainFunctions(this.hideMessage, fieldProps.onMouseOut);
       fieldProps.onMouseOver = chainFunctions(this.showMessage, fieldProps.onMouseOver);
 
