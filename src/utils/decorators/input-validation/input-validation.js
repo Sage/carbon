@@ -126,6 +126,7 @@ const InputValidation = (ComposedComponent) => {
        * @type {Boolean}
        */
       this.state.messageShown = false;
+
       /**
        * toggles whether the message css is flipped
        *
@@ -464,6 +465,8 @@ const InputValidation = (ComposedComponent) => {
           this.info();
           this.hideMessage();
 
+          this.setState({inputFocussed: false})
+
           if (this.state.messageLocked) {
             this.setState({ messageLocked: false });
           }
@@ -479,6 +482,7 @@ const InputValidation = (ComposedComponent) => {
      */
     _handleFocus = () => {
       if (!this.state.valid || this.state.warning || this.state.info) {
+        // this.setState({ inputFocussed: true })
         this.positionMessage();
 
         if (!this.state.messageLocked) {
@@ -575,6 +579,7 @@ const InputValidation = (ComposedComponent) => {
      */
     hideMessage = () => {
       if (this.messageExists()) {
+
         if (this.props.timeToDisappear) {
           clearTimeout(this.messageHideTimeout);
           this.messageHideTimeout = setTimeout(() => {
@@ -633,8 +638,12 @@ const InputValidation = (ComposedComponent) => {
 
       const errorMessage = (this.state.messageLocked || this.state.messageShown) && (
         <Portal key='1' onReposition={ this.positionMessage }>
-          <div className='common-input__message-wrapper'>
+          <div 
+            className='common-input__message-wrapper' 
+            style={{pointerEvents: 'none'}}
+            >
             <div
+              
               ref={ (validationMessage) => {
                 this.validationMessage = validationMessage;
               } }
@@ -705,12 +714,13 @@ const InputValidation = (ComposedComponent) => {
 
     get fieldProps() {
       const fieldProps = super.fieldProps || {};
-
+ 
       fieldProps.onMouseOut = chainFunctions(this.hideMessage, fieldProps.onMouseOut);
       fieldProps.onMouseOver = chainFunctions(this.showMessage, fieldProps.onMouseOver);
 
       return fieldProps;
     }
+
 
     /**
      * Determines if the currently active input is this input.

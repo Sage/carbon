@@ -138,7 +138,7 @@ const LabelComponent = InputLabel(InputValidation(LabelClass));
 const SimpleComponent = InputValidation(DummyInputWithoutLifecycleMethods);
 const Component = InputValidation(DummyInput);
 
-describe('InputValidation', () => {
+describe.only('InputValidation', () => {
   let instance;
 
   beforeEach(() => {
