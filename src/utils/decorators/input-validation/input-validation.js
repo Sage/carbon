@@ -480,7 +480,7 @@ const InputValidation = (ComposedComponent) => {
      */
     _handleFocus = () => {
       if (!this.state.valid || this.state.warning || this.state.info) {
-        // this.setState({ inputFocussed: true })
+        
         this.positionMessage();
 
         if (!this.state.messageLocked) {
