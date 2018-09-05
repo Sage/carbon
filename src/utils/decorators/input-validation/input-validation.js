@@ -716,7 +716,6 @@ const InputValidation = (ComposedComponent) => {
       return fieldProps;
     }
 
-
     /**
      * Determines if the currently active input is this input.
      *
