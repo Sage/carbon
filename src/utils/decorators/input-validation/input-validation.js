@@ -465,8 +465,6 @@ const InputValidation = (ComposedComponent) => {
           this.info();
           this.hideMessage();
 
-          this.setState({inputFocussed: false})
-
           if (this.state.messageLocked) {
             this.setState({ messageLocked: false });
           }
