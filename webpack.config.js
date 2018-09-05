@@ -5,6 +5,5 @@ module.exports = require('carbon-factory/webpack.config')({
   port: 8095,
   serverBase: './deploy',
   parcelifyPaths: [path.resolve(process.cwd(), './demo')],
-  singlePageApp: true,
-  devtool: 'eval-source-map'
+  singlePageApp: true
 });

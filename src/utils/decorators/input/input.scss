@@ -117,6 +117,7 @@
   top: 0;
   position: absolute;
   width: 260px;
+  pointer-events: none;
 }
 
 .common-input__message {

@@ -634,10 +634,7 @@ const InputValidation = (ComposedComponent) => {
 
       const errorMessage = (this.state.messageLocked || this.state.messageShown) && (
         <Portal key='1' onReposition={ this.positionMessage }>
-          <div
-            className='common-input__message-wrapper'
-            style={ { pointerEvents: 'none' } }
-          >
+          <div className='common-input__message-wrapper'>
             <div
               ref={ (validationMessage) => {
                 this.validationMessage = validationMessage;
@@ -715,7 +712,6 @@ const InputValidation = (ComposedComponent) => {
 
       return fieldProps;
     }
-
 
     /**
      * Determines if the currently active input is this input.
