@@ -16,7 +16,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file:
  *
- *   import { MenuList, MenuListItem } from 'carbon/lib/components/menu-list';
+ *   import { MenuList, MenuListItem } from 'carbon-react/lib/components/menu-list';
  *
  * To render the Link:
  *

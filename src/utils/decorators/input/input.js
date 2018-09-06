@@ -17,7 +17,7 @@ import Help from '../../../components/help';
  *
  * In your file:
  *
- *   import Input from 'carbon/lib/utils/decorators/input;
+ *   import Input from 'carbon-react/lib/utils/decorators/input;
  *
  * To use the decorator, wrap your component with it:
  *

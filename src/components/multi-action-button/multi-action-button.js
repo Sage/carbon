@@ -12,7 +12,7 @@ import SplitButton from '../split-button';
  *
  * In your file
  *
- *   import MultiActionButton from 'components/multi-action-button';
+ *   import MultiActionButton from 'carbon-react/lib/components/multi-action-button';
  *
  * To render a MultiActionButton (developer can add any buttons to dropdown):
  *

@@ -11,7 +11,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file:
  *
- *   import Message from 'carbon/lib/components/message';
+ *   import Message from 'carbon-react/lib/components/message';
  *
  * To render the Message:
  *

@@ -16,7 +16,7 @@ import { styleElement, append } from '../../ether';
  *
  * In your file:
  *
- *   import TooltipDecorator from 'carbon/lib/utils/decorators/tooltip-decorator';
+ *   import TooltipDecorator from 'carbon-react/lib/utils/decorators/tooltip-decorator';
  *
  * To use the decorator, wrap your component with it:
  *

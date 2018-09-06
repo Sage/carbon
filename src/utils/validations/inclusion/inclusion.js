@@ -7,7 +7,7 @@ import ValidationsHelper from '../../helpers/validations';
  *
  * Import the validator into your component:
  *
- *  `import InclusionValidator from 'utils/validations/inclusion'`
+ *  `import InclusionValidator from 'carbon-react/lib/utils/validations/inclusion'`
  *
  * Validate the value is included in the list, pass an array in the param allowedValues:
  *

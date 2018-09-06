@@ -16,7 +16,7 @@ import Browser from '../../utils/helpers/browser';
  *
  * In your file
  *
- *   import { Tabs, Tab } from 'components/tabs';
+ *   import { Tabs, Tab } from 'carbon-react/lib/components/tabs';
  *
  * To render a Tabs Widget:
  *
