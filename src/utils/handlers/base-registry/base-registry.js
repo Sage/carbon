@@ -6,7 +6,7 @@
  * In your file, create your own registry class which exports from the base
  * registry class. Initialise your registry and export it.
  *
- *   import BaseRegistry from 'carbon/lib/utils/handlers/base-registry';
+ *   import BaseRegistry from 'carbon-react/lib/utils/handlers/base-registry';
  *
  *   class MyRegistry extends BaseRegistry {};
  *

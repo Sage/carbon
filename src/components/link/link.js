@@ -15,7 +15,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file:
  *
- *   import Link from 'carbon/lib/components/link';
+ *   import Link from 'carbon-react/lib/components/link';
  *
  * To render the Link:
  *

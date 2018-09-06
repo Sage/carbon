@@ -10,7 +10,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file
  *
- *   import Spinner from 'carbon/lib/components/spinner';
+ *   import Spinner from 'carbon-react/lib/components/spinner';
  *
  * To render the Spinner:
  *

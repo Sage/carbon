@@ -16,7 +16,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file
  *
- *   import ButtonToggleGroup from 'carbon/lib/components/button-toggle-group';
+ *   import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
  *
  * To render an ButtonToggleGroup:
  *

@@ -16,7 +16,7 @@ const TIMEOUT = 500;
  *
  * In your file
  *
- *   import Modal from 'carbon/lib/components/modal'
+ *   import Modal from 'carbon-react/lib/components/modal'
  *
  * Extends from the modal
  *
