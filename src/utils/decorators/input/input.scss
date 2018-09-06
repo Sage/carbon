@@ -114,10 +114,12 @@
 }
 
 .common-input__message-wrapper {
-  pointer-events: none;
   position: absolute;
   top: 0;
-  width: 260px; 
+  width: 260px;
+  &:before {
+    pointer-events: none;
+  }
 }
 
 .common-input__message {
