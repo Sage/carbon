@@ -301,7 +301,7 @@ describe('DropdownFilterAjax', () => {
             path="/foobar"
             create={ function() {} }
             withCredentials
-            additionalRequestParams={ {foo: 'bar'} }
+            additionalRequestParams={ { foo: 'bar' } }
           />
         );
       });
