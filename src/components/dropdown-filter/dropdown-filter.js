@@ -203,6 +203,11 @@ class DropdownFilter extends Dropdown {
       // if create is enabled then empty the selected value so the filter persists
       this.emitOnChangeCallback('', ev.target.value);
     }
+
+    if (ev.target.value.length <= 0) {
+      // When the input is cleared, remove the selection.
+      this.emitOnChangeCallback('', ev.target.value);
+    }
   }
 
   /*
