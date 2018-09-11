@@ -190,6 +190,32 @@ describe('DropdownFilter', () => {
         expect(instance.emitOnChangeCallback).toHaveBeenCalledWith("", 'foo');
       });
     });
+
+    describe('when the value is cleared by the user', () => {
+      it('triggers emitOnChangeCallback', () => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownFilter name="foo" options={ Immutable.fromJS([]) } value="1" />
+        );
+        spyOn(instance, 'emitOnChangeCallback');
+        TestUtils.Simulate.change(instance._input, {
+          target: { value: '' }
+        });
+        expect(instance.emitOnChangeCallback).toHaveBeenCalledWith('', '');
+      });
+    });
+
+    describe('when the value is partially cleared by the user', () => {
+      it('does not trigger emitOnChangeCallback', () => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownFilter name="foo" options={ Immutable.fromJS([]) } value="Foo bar" />
+        );
+        spyOn(instance, 'emitOnChangeCallback');
+        TestUtils.Simulate.change(instance._input, {
+          target: { value: 'Foo b' }
+        });
+        expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
+      });
+    });
   });
 
   describe('handleBlur', () => {

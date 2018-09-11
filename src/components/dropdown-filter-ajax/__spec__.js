@@ -291,6 +291,30 @@ describe('DropdownFilterAjax', () => {
         });
       });
     });
+
+    describe('when the param withCredentials is passed', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownFilterAjax
+            name="foo"
+            value="1"
+            path="/foobar"
+            create={ function() {} }
+            withCredentials
+            additionalRequestParams={ { foo: 'bar' } }
+          />
+        );
+      });
+
+      it('calls with credentials', () => {
+        Request.query = jest.fn().mockReturnThis();
+        Request.withCredentials = jest.fn();
+        instance.ajaxUpdateList = jest.fn();
+
+        instance.getData("foo", 1);
+        expect(Request.withCredentials).toHaveBeenCalled();
+      });
+    });
   });
 
   describe('resetScroll', () => {

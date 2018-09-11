@@ -199,7 +199,7 @@ class DropdownFilter extends Dropdown {
 
     this.openingList = false;
 
-    if (this.props.create) {
+    if (this.props.create || !ev.target.value.length) {
       // if create is enabled then empty the selected value so the filter persists
       this.emitOnChangeCallback('', ev.target.value);
     }
