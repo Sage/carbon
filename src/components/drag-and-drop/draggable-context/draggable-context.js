@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import TouchBackend from 'react-dnd-touch-backend';
 import ItemTargetHelper from '../../../utils/helpers/dnd/item-target';
 import CustomDragLayer from '../custom-drag-layer';
-import Browser from '../../../utils/helpers/browser';
 
 /**
  * A draggable context component
@@ -60,7 +59,15 @@ class DraggableContext extends React.Component {
      * Callback function for when an item has been dragged
      * e.g. to update data in a store
      */
-    onDrag: PropTypes.func.isRequired
+    onDrag: PropTypes.func.isRequired,
+
+    /**
+     * Prop to enable/disable auto scroll on drag
+     *
+     * @property autoScroll
+     * @type {Bool}
+     */
+    autoScroll: PropTypes.bool
   }
 
   /**
@@ -79,12 +86,25 @@ class DraggableContext extends React.Component {
   }
 
   static defaultProps = {
-    customDragLayer: <CustomDragLayer />
+    customDragLayer: <CustomDragLayer />,
+    autoScroll: false
   }
 
   state = {
-    activeIndex: null, // {Number} tracks the currently dragged index
-    intervalId: null
+    activeIndex: null // {Number} tracks the currently dragged index
+  }
+
+  constructor(props) {
+    super(props);
+
+    // Default speed of auto scrolling
+    this.speed = 0;
+
+    // Frame callback ref
+    this.frame = null;
+
+    // Frame callback ref
+    this.dragging = false;
   }
 
   /**
@@ -112,70 +132,56 @@ class DraggableContext extends React.Component {
   handleHover = ItemTargetHelper.onHoverUpDown
 
   /**
-   * Triggers the custom close event handler on Esc
+   * A callback for when auto scroll is triggered
    *
-   * @method closeModal
+   * @method autoScroll
    * @param {Object} ev event
    * @return {void}
    */
-  autoScroll = (ev) => {
-    if (!this.state.activeIndex) return;
-    const { clientY } = ev;
-    const { screenY } = ev;
-    const { innerHeight } = Browser.getWindow();
-    const { scrollY } = Browser.getWindow();
+  checkAutoScrollTrigger = (event) => {
+    if (!this.state.dragging) {
+      return;
+    }
+
+    // constant for the position of the mouse pointer
+    // on the y axis
+    const { clientY } = event;
+
+    // constant for the threshold where the auto scroll begins
     const threshold = Math.max(140, window.innerHeight / 4);
-    let currentDY = 0,
-        frame,
-        speed;
 
-    if (screenY < innerHeight / 7.0) {
-      queueScroll(getScrollDY(ev.clientY));
-    }
-    if (screenY > 6 * innerHeight / 7.0) {
-      queueScroll(getScrollDY(ev.clientY));
-    }
-    if (this.state.intervalId) {
-      cancelScroll();
+    let speed = 0;
+    if (clientY < threshold) {
+      // -1 to 0 as we move from 0 to threshold
+      speed = -1 + clientY / threshold;
+    } else if (clientY > window.innerHeight - threshold) {
+      // 0 to 1 as we move from (innerHeight - threshold) to innerHeight
+      speed = 1 - (window.innerHeight - clientY) / threshold;
+    } else {
+      speed = 0;
     }
 
-    function queueScroll(dy) {
-      currentDY = dy;
+    if (this.speed === 0 && speed !== 0) {
+      this.speed = speed;
+      this.startScrolling();
+    }
+    this.speed = speed;
+  }
 
-      if (!frame) {
-        frame = window.requestAnimationFrame(tick);
-      }
+  startScrolling = () => {
+    if (!this.frame) {
+      this.frame = window.requestAnimationFrame(this.tick);
+    }
+  }
+
+  tick = () => {
+    if (!this.speed) {
+      this.frame = null;
+      return;
     }
 
-    function cancelScroll() {
-      window.cancelAnimationFrame(frame);
-      frame = null;
-      currentDY = 0;
-    }
-
-    function getScrollDY() {
-      if (clientY < threshold) {
-        // -1 to 0 as we move from 0 to threshold
-        speed = -1 + clientY / threshold;
-      } else if (clientY > window.innerHeight - threshold) {
-        // 0 to 1 as we move from (innerHeight - threshold) to innerHeight
-        speed = 1 - (window.innerHeight - clientY) / threshold;
-      } else {
-        speed = 0;
-      }
-
-      return Math.round(speed * 10);
-    }
-
-    function tick() {
-      if (!currentDY) {
-        frame = null;
-        return;
-      }
-
-      window.scrollTo(0, scrollY + currentDY);
-      frame = window.requestAnimationFrame(tick);
-    }
+    window.scrollTo(0, window.scrollY + (this.speed * 10));
+    this.frame = window.requestAnimationFrame(this.tick);
   }
 
   /**
@@ -201,11 +207,17 @@ class DraggableContext extends React.Component {
   /**
    * A callback for when dragging begins.
    *
+   * Sets state of dragging to true which
+   * will trigger the start of auto scroll
+   * if it is enabled.
+   *
    * @method handleBeginDrag
    * @param {Object} props
    * @return {Void}
    */
   handleBeginDrag = (props) => {
+    this.setState({ dragging: true });
+
     return {
       index: props.index,
       ...props
@@ -220,7 +232,8 @@ class DraggableContext extends React.Component {
    */
   handleEndDrag = () => {
     // dragging has ended so remove the active index
-    this.setState({ activeIndex: null });
+    this.setState({ activeIndex: null, dragging: false });
+    this.speed = 0;
   }
 
   /**
@@ -228,7 +241,7 @@ class DraggableContext extends React.Component {
    */
   render() {
     return (
-      <div className='carbon-draggable-context' onMouseMove={ this.autoScroll }>
+      <div className='carbon-draggable-context' onMouseMove={ this.props.autoScroll ? this.checkAutoScrollTrigger : undefined }>
         { this.props.children }
         { this.props.customDragLayer }
       </div>
