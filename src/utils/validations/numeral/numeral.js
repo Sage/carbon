@@ -11,7 +11,7 @@ import I18nHelper from '../../helpers/i18n';
  *
  * Import the validator into your component:
  *
- *  `import NumeralValidator from 'utils/validations/value'`
+ *  `import NumeralValidator from 'carbon-react/lib/utils/validations/value'`
  *
  * Assign the validator to the validations prop, passing the required params:
  *

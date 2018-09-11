@@ -12,7 +12,7 @@ import CustomDragLayer from '../custom-drag-layer';
  *
  * In your file
  *
- *   import { DraggableContext, WithDrop, WithDrag } from 'carbon/lib/components/drag-and-drop'
+ *   import { DraggableContext, WithDrop, WithDrag } from 'carbon-react/lib/components/drag-and-drop'
  *
  * A draggable context is used to define an area in the page where drag and drop can be used on
  * one or more elements (you also need to use WithDrop and WithDrag):

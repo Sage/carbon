@@ -34,7 +34,7 @@ const today = DateHelper.todayFormatted('YYYY-MM-DD');
  *
  * In your file
  *
- *   import Date from 'carbon/lib/components/Date';
+ *   import Date from 'carbon-react/lib/components/Date';
  *
  * To render the Date:
  *

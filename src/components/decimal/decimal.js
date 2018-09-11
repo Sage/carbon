@@ -15,7 +15,7 @@ import Logger from '../../utils/logger';
  *
  * In your file
  *
- *   import Decimal from 'carbon/lib/components/decimal';
+ *   import Decimal from 'carbon-react/lib/components/decimal';
  *
  * To render the Decimal:
  *

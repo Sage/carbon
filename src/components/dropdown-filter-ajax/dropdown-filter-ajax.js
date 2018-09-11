@@ -10,7 +10,7 @@ import DropdownFilter from '../dropdown-filter';
  *
  * In your file
  *
- *   import DropdownFilterAjax from 'carbon/lib/components/dropdown-filter-ajax';
+ *   import DropdownFilterAjax from 'carbon-react/lib/components/dropdown-filter-ajax';
  *
  * To render a DropdownFilterAjax:
  *
