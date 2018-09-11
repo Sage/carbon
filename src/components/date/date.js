@@ -129,7 +129,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     * @type {Function}
     * @default DateValidator
     */
-    internalValidations: props => {
+    internalValidations: (props) => {
       return [new DateValidator({
         minDate: props.minDate,
         maxDate: props.maxDate

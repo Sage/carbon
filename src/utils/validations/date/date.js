@@ -17,7 +17,7 @@ class DateValidator {
       if (DateHelper.isISOFormat(params.minDate)) {
         this.minDate = params.minDate;
       } else {
-        throw new Error("minDate format must be YYYY-MM-DD");
+        throw new Error('minDate format must be YYYY-MM-DD');
       }
     }
 
@@ -25,7 +25,7 @@ class DateValidator {
       if (DateHelper.isISOFormat(params.maxDate)) {
         this.maxDate = params.maxDate;
       } else {
-        throw new Error("maxDate format must be YYYY-MM-DD");
+        throw new Error('maxDate format must be YYYY-MM-DD');
       }
     }
   }
@@ -40,9 +40,8 @@ class DateValidator {
   validate = (value) => {
     if (!value) {
       return true;
-    } else if (DateHelper.isValidDate(value)) {
-      return DateHelper.withinDateRange(value, this.minDate, this.maxDate)
-    } 
+    }
+    return DateHelper.isValidDate(value) && DateHelper.withinDateRange(value, this.minDate, this.maxDate);
   }
 
   /**

@@ -1,7 +1,6 @@
 import I18n from 'i18n-js';
 import moment from 'moment';
 import { merge } from 'lodash';
-import InputIcon from '../../decorators/input-icon/input-icon';
 
 /**
  * DateHelper used to encapsulate the date parsing library into a single helper
@@ -130,9 +129,8 @@ const DateHelper = {
    * @param {String} date
    * @return {Boolean}
    */
-  isISOFormat: date => {
-    var isoDateRegExp = 
-      /^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])$/
+  isISOFormat: (date) => {
+    const isoDateRegExp = /^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])$/;
     return isoDateRegExp.test(date);
   },
 

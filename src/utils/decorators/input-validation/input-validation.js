@@ -736,13 +736,12 @@ const InputValidation = (ComposedComponent) => {
     /**
      * Wrapper method for this.props.internalValidations.  this.props.internalValidations
      * can be data or a function property in the "Composed Component" that accepts an object
-     * as an argument.  
-     * 
+     * as an argument.
      * @method _internalValidations
      * @return {Array}
      */
     _internalValidations = () => {
-      if(typeof this.props.internalValidations === "function") {
+      if (typeof this.props.internalValidations === 'function') {
         return this.props.internalValidations(this.props);
       }
 
