@@ -67,9 +67,9 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
      * Used to provide additional validations on composed components.
      *
      * @property internalValidations
-     * @type {Array}
+     * @type {Function}
      */
-    internalValidations: PropTypes.array,
+    internalValidations: PropTypes.func,
 
     /**
      * Minimum possible date
@@ -126,7 +126,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     * Sets validations that should always be found on the component
     *
     * @property internalValidations
-    * @type {Array}
+    * @type {Function}
     * @default DateValidator
     */
     internalValidations: props => {

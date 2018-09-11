@@ -38,64 +38,57 @@ describe('Blank Validator', () => {
     });
 
     describe('When a minDate property was given to the constructor', () => {
-      const validator = new Validator({minDate: '08/08/08'});
+      const validator = new Validator({minDate: '2008-08-08'});
       it('returns true', () => {
-        expect(validator.validate("08/01/2012")).toBe(true);
+        expect(validator.validate("2012-01-08")).toBe(true);
       });
 
       it('returns false', () => {
-        expect(validator.validate("08/08/2007")).toBe(false);
+        expect(validator.validate("2007-08-08")).toBe(false);
       });
 
       it('returns true if minDate was an invalid date', () => {
-        expect(validator.validate('08/25/2010')).toBe(true);
+        expect(validator.validate('2010-08-25')).toBe(true);
+      });
+
+      it('should raise error if minDate is not a valid date', () => {
+        const expected_msg = "minDate format must be YYYY-MM-DD";
+        const _validator = () => new Validator({
+          minDate: "invalidDate"
+        });
+        const _validator2 = () => new Validator({
+          minDate: "01-14-1998"
+        });
+        expect(_validator).toThrow(expected_msg);
+        expect(_validator2).toThrow(expected_msg);
       });
     });
 
     describe('when a maxDate property was given to the constructor', () => {
-      const validator = new Validator({maxDate: '21/10/2015'});
+      const validator = new Validator({maxDate: '2015-10-21'});
       it('return true', () => {
-        expect(validator.validate("01/11/2014")).toBe(true);
+        expect(validator.validate("2014-01-11")).toBe(true);
       });
 
       it('returns false', () => {
-        expect(validator.validate("22/10/2015")).toBe(false);
+        expect(validator.validate("2015-10-22")).toBe(false);
       });
 
       it('returns true if maxDate was an invalid date', () => {
-        const validator = new Validator({maxDate: "01/13/2012"});
-        expect(validator.validate("01/04/98")).toBe(true);
-      });
-    });
-
-    describe('when a maxDate and minDate was given to the constructor', () => {
-      it('should return true for valid dates', () => {
-        const validator = new Validator({minDate: "01/10/2000", maxDate: "02/08/2001"});
-        expect(validator.validate("01/10/2001"));
-      })
-
-      it('should return true if both minDate and maxDate were invalid', () => {
-        const validator = new Validator({
-          minDate: "0/25/200",
-          maxDate: "invalid date"
-        });
-        expect(validator.validate("05/07/1980")).toBe(true);
+        const validator = new Validator({maxDate: "2012-01-13"});
+        expect(validator.validate("1998-01-04")).toBe(true);
       });
 
-      it('should return false', () => {
-        const validator = new Validator({
-          minDate: "01/02/2008",
-          maxDate: "invalid date"
+      it('should raise error if maxDate is not a valid date', () => {
+        const _validator = () => new Validator({
+          maxDate: "invalidDate"
         });
-        expect(validator.validate("05/07/1980")).toBe(false);
-      });
-
-      it('should return true', () => {
-        const validator = new Validator({
-          minDate: "01/02/1970",
-          maxDate: "invalid date"
+        const _validator2 = () => new Validator({
+          maxDate: "01-02-18"
         });
-        expect(validator.validate("03/05/1987")).toBe(true);
+        const expected_msg = "maxDate format must be YYYY-MM-DD";
+        expect(_validator).toThrow(expected_msg);
+        expect(_validator2).toThrow(expected_msg);
       });
     });
   });

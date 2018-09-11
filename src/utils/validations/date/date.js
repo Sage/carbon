@@ -13,8 +13,21 @@ class DateValidator {
    */
   constructor(params = {}) {
     this.customMessage = params.customMessage;
-    this.minDate = params.minDate;
-    this.maxDate = params.maxDate;
+    if (params.minDate) {
+      if (DateHelper.isISOFormat(params.minDate)) {
+        this.minDate = params.minDate;
+      } else {
+        throw new Error("minDate format must be YYYY-MM-DD");
+      }
+    }
+
+    if (params.maxDate) {
+      if (DateHelper.isISOFormat(params.maxDate)) {
+        this.maxDate = params.maxDate;
+      } else {
+        throw new Error("maxDate format must be YYYY-MM-DD");
+      }
+    }
   }
 
   /**

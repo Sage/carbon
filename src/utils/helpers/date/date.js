@@ -106,31 +106,34 @@ const DateHelper = {
   },
 
   /**
-   * @param {String} value - the date to test
-   * @param {String} startDate - Lower bound for date range (inclusive)
-   * @param {String} endDate - upper bound for date range (inclusive)
+   * @param {String} value - the date to test, YYYY-MM-DD format
+   * @param {String} startDate - Lower bound for date range (inclusive) YYYY-MM-DD format
+   * @param {String} endDate - upper bound for date range (inclusive) YYYY-MM-DD format
+   * @return {Boolean}
    */
   withinDateRange: (value, startDate, endDate) => {
-    let [parsedValue, parsedStartDate, parsedEndDate] = [value, startDate, endDate]
-      .map(date => DateHelper._parseDate(date));
-
-    if (!parsedValue.isValid()) {
-      return true;
-    } else if (parsedStartDate.isValid() && parsedEndDate.isValid()) {
-      parsedStartDate = parsedStartDate.unix();
-      parsedEndDate = parsedEndDate.unix();
-    } else if (parsedStartDate.isValid()) {
-      parsedStartDate = parsedStartDate.unix();
-      parsedEndDate = Infinity;
-    } else if (parsedEndDate.isValid()) {
-      parsedStartDate = -Infinity;
-      parsedEndDate = parsedEndDate.unix();
-    } else {
-      return true;
+    let isAfterStartDate = true;
+    let isBeforeEndDate = true;
+    if (startDate) {
+      isAfterStartDate = moment(value).isAfter(startDate);
     }
-    parsedValue = parsedValue.unix();
-    
-    return parsedStartDate <= parsedValue && parsedEndDate >= parsedValue; 
+
+    if (endDate) {
+      isBeforeEndDate = moment(value).isBefore(endDate);
+    }
+
+    return isAfterStartDate && isBeforeEndDate;
+  },
+
+  /**
+   * Checks if the given string is an ISO date.
+   * @param {String} date
+   * @return {Boolean}
+   */
+  isISOFormat: date => {
+    var isoDateRegExp = 
+      /^([0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])$/
+    return isoDateRegExp.test(date);
   },
 
   /**
