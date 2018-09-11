@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import TouchBackend from 'react-dnd-touch-backend';
 import ItemTargetHelper from '../../../utils/helpers/dnd/item-target';
 import CustomDragLayer from '../custom-drag-layer';
+import Browser from '../../../utils/helpers/browser';
+// import ScrollabeParent from '../../../utils/helpers/scrollable-parent';
+import ReactDOM from "react-dom";
 
 /**
  * A draggable context component
@@ -105,6 +108,9 @@ class DraggableContext extends React.Component {
 
     // Frame callback ref
     this.dragging = false;
+
+    // Frame callback ref
+    this.element = null;
   }
 
   /**
@@ -146,7 +152,6 @@ class DraggableContext extends React.Component {
     // constant for the position of the mouse pointer
     // on the y axis
     const { clientY } = event;
-
     // constant for the threshold where the auto scroll begins
     const threshold = Math.max(140, window.innerHeight / 4);
 
@@ -168,6 +173,17 @@ class DraggableContext extends React.Component {
     this.speed = speed;
   }
 
+  searchForScrollableParent(element) {
+    if (!element) { return null; }
+    const style = Browser.getWindow().getComputedStyle(element);
+    const isElementScrollable = style && style.position !== 'absolute'
+    && /(auto|scroll)/.test(style.overflow + style.overflowY + style.overflowX);
+    if (isElementScrollable) {
+      return element;
+    }
+    return this.searchForScrollableParent(element.parentElement);
+  }
+
   startScrolling = () => {
     if (!this.frame) {
       this.frame = window.requestAnimationFrame(this.tick);
@@ -179,6 +195,11 @@ class DraggableContext extends React.Component {
       this.frame = null;
       return;
     }
+
+    const node = ReactDOM.findDOMNode(this);
+    this.element = this.searchForScrollableParent(node);
+
+    if (this.element) this.element.scrollTop += this.speed * 10;
 
     window.scrollTo(0, window.scrollY + (this.speed * 10));
     this.frame = window.requestAnimationFrame(this.tick);
@@ -241,7 +262,9 @@ class DraggableContext extends React.Component {
    */
   render() {
     return (
-      <div className='carbon-draggable-context' onMouseMove={ this.props.autoScroll ? this.checkAutoScrollTrigger : undefined }>
+      <div className='carbon-draggable-context'
+        onMouseMove={ this.props.autoScroll ? this.checkAutoScrollTrigger : undefined }
+      >
         { this.props.children }
         { this.props.customDragLayer }
       </div>
