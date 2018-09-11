@@ -185,9 +185,9 @@ describe('DropdownFilter', () => {
         );
         spyOn(instance, 'emitOnChangeCallback');
         TestUtils.Simulate.change(instance._input, {
-          target: { value: '' }
+          target: { value: 'foo' }
         });
-        expect(instance.emitOnChangeCallback).toHaveBeenCalledWith("", '');
+        expect(instance.emitOnChangeCallback).toHaveBeenCalledWith("", 'foo');
       });
     });
 
