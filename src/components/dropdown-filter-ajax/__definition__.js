@@ -27,7 +27,8 @@ let definition = new Definition('dropdown-filter-ajax', DropdownFilterAjax, {
     path: "String",
     rowsPerRequest: "String",
     visibleValue: "String",
-    additionalRequestParams: "Object"
+    additionalRequestParams: "Object",
+    withCredentials: "Boolean"
   },
   propValues: {
     path: '/countries'

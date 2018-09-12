@@ -11,7 +11,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file
  *
- *   import Help from 'carbon/lib/components/help';
+ *   import Help from 'carbon-react/lib/components/help';
  *
  * To render a help component:
  *
