@@ -10,7 +10,7 @@ const definition = new Definition('draggable-context', DraggableContext, {
 
   hiddenProps: ['children', 'customDragLayer', 'onDrag'],
 
-  props: ['customDragLayer', 'onDrag', 'autoSroll'],
+  props: ['customDragLayer', 'onDrag', 'autoScroll'],
 
   propTypes: {
     customDragLayer: 'Object',

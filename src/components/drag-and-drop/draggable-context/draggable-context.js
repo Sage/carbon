@@ -7,7 +7,6 @@ import ItemTargetHelper from '../../../utils/helpers/dnd/item-target';
 import CustomDragLayer from '../custom-drag-layer';
 import Browser from '../../../utils/helpers/browser';
 import ScrollabeParent from '../../../utils/helpers/scrollable-parent';
-import ReactDOM from "react-dom";
 
 /**
  * A draggable context component
@@ -183,7 +182,7 @@ class DraggableContext extends React.Component {
       return;
     }
 
-    const node = ReactDOM.findDOMNode(this);
+    const node = ReactDOM.findDOMNode(this); // eslint-disable-line  react/no-find-dom-node
 
     this.element = ScrollabeParent.searchForScrollableParent(node);
 
@@ -246,7 +245,6 @@ class DraggableContext extends React.Component {
   handleMouseMove = (ev) => {
     if (this.props.autoScroll && this.state.activeIndex !== null) this.checkAutoScrollTrigger(ev);
   }
-    
 
   /**
    * Renders the component
