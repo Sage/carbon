@@ -10,11 +10,12 @@ const definition = new Definition('draggable-context', DraggableContext, {
 
   hiddenProps: ['children', 'customDragLayer', 'onDrag'],
 
-  props: ['customDragLayer', 'onDrag'],
+  props: ['customDragLayer', 'onDrag', 'autoSroll'],
 
   propTypes: {
     customDragLayer: 'Object',
-    onDrag: 'Function'
+    onDrag: 'Function',
+    autoScroll: 'Boolean'
   },
 
   requiredProps: ['onDrag'],
@@ -23,6 +24,7 @@ const definition = new Definition('draggable-context', DraggableContext, {
 
   propValues: {
     onDrag: 'updateDndData',
+    autoScroll: 'true',
     children: `<div>
     <Table tbody={false}>
       <thead>
@@ -54,7 +56,8 @@ const definition = new Definition('draggable-context', DraggableContext, {
 
   propDescriptions: {
     customDragLayer: 'Optionally provide the CustomDragLayer for the drag & drop ghost layer',
-    onDrag: 'Callback function for when a draggable item is moved'
+    onDrag: 'Callback function for when a draggable item is moved',
+    autoScroll: 'Optionally provide the auto scroll functionality when dragging'
   },
 
   relatedComponentsNotes: `

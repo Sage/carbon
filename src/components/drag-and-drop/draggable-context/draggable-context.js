@@ -2,10 +2,11 @@ import React from 'react';
 import { DragDropContext } from 'react-dnd';
 import PropTypes from 'prop-types';
 import TouchBackend from 'react-dnd-touch-backend';
+import ReactDOM from 'react-dom';
 import ItemTargetHelper from '../../../utils/helpers/dnd/item-target';
 import CustomDragLayer from '../custom-drag-layer';
 import Browser from '../../../utils/helpers/browser';
-// import ScrollabeParent from '../../../utils/helpers/scrollable-parent';
+import ScrollabeParent from '../../../utils/helpers/scrollable-parent';
 import ReactDOM from "react-dom";
 
 /**
@@ -107,9 +108,6 @@ class DraggableContext extends React.Component {
     this.frame = null;
 
     // Frame callback ref
-    this.dragging = false;
-
-    // Frame callback ref
     this.element = null;
   }
 
@@ -145,7 +143,7 @@ class DraggableContext extends React.Component {
    * @return {void}
    */
   checkAutoScrollTrigger = (event) => {
-    if (!this.state.dragging) {
+    if (this.state.activeIndex === null) {
       return;
     }
 
@@ -153,15 +151,15 @@ class DraggableContext extends React.Component {
     // on the y axis
     const { clientY } = event;
     // constant for the threshold where the auto scroll begins
-    const threshold = Math.max(140, window.innerHeight / 4);
+    const threshold = Math.max(140, Browser.getWindow().innerHeight / 4);
 
     let speed = 0;
     if (clientY < threshold) {
       // -1 to 0 as we move from 0 to threshold
       speed = -1 + clientY / threshold;
-    } else if (clientY > window.innerHeight - threshold) {
+    } else if (clientY > Browser.getWindow().innerHeight - threshold) {
       // 0 to 1 as we move from (innerHeight - threshold) to innerHeight
-      speed = 1 - (window.innerHeight - clientY) / threshold;
+      speed = 1 - (Browser.getWindow().innerHeight - clientY) / threshold;
     } else {
       speed = 0;
     }
@@ -173,20 +171,9 @@ class DraggableContext extends React.Component {
     this.speed = speed;
   }
 
-  searchForScrollableParent(element) {
-    if (!element) { return null; }
-    const style = Browser.getWindow().getComputedStyle(element);
-    const isElementScrollable = style && style.position !== 'absolute'
-    && /(auto|scroll)/.test(style.overflow + style.overflowY + style.overflowX);
-    if (isElementScrollable) {
-      return element;
-    }
-    return this.searchForScrollableParent(element.parentElement);
-  }
-
   startScrolling = () => {
     if (!this.frame) {
-      this.frame = window.requestAnimationFrame(this.tick);
+      this.frame = Browser.getWindow().requestAnimationFrame(this.tick);
     }
   }
 
@@ -197,12 +184,13 @@ class DraggableContext extends React.Component {
     }
 
     const node = ReactDOM.findDOMNode(this);
-    this.element = this.searchForScrollableParent(node);
+
+    this.element = ScrollabeParent.searchForScrollableParent(node);
 
     if (this.element) this.element.scrollTop += this.speed * 10;
 
-    window.scrollTo(0, window.scrollY + (this.speed * 10));
-    this.frame = window.requestAnimationFrame(this.tick);
+    Browser.getWindow().scrollTo(0, Browser.getWindow().scrollY + (this.speed * 10));
+    this.frame = Browser.getWindow().requestAnimationFrame(this.tick);
   }
 
   /**
@@ -237,8 +225,6 @@ class DraggableContext extends React.Component {
    * @return {Void}
    */
   handleBeginDrag = (props) => {
-    this.setState({ dragging: true });
-
     return {
       index: props.index,
       ...props
@@ -253,17 +239,23 @@ class DraggableContext extends React.Component {
    */
   handleEndDrag = () => {
     // dragging has ended so remove the active index
-    this.setState({ activeIndex: null, dragging: false });
+    this.setState({ activeIndex: null });
     this.speed = 0;
   }
+
+  handleMouseMove = (ev) => {
+    if (this.props.autoScroll && this.state.activeIndex !== null) this.checkAutoScrollTrigger(ev);
+  }
+    
 
   /**
    * Renders the component
    */
   render() {
     return (
-      <div className='carbon-draggable-context'
-        onMouseMove={ this.props.autoScroll ? this.checkAutoScrollTrigger : undefined }
+      <div
+        className='carbon-draggable-context'
+        onMouseMove={ this.handleMouseMove }
       >
         { this.props.children }
         { this.props.customDragLayer }

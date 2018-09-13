@@ -2,6 +2,7 @@ import React from 'react';
 import DraggableContext from './draggable-context';
 import { mount } from 'enzyme';
 import ItemTargetHelper from './../../../utils/helpers/dnd/item-target';
+import Browser from './../../../utils/helpers/browser';
 import CustomDragLayer from './../custom-drag-layer';
 
 describe('DraggableContext', () => {
@@ -84,6 +85,7 @@ describe('DraggableContext', () => {
         expect(wrapper.find(CustomDragLayer).length).toEqual(1);
       });
     });
+
   });
 
   describe('passing in a custom drag layer', () => {
@@ -108,5 +110,28 @@ describe('DraggableContext', () => {
         expect(renderedCustomDragLayer.props().className).toEqual('my-custom-drag-layer');
       });
     });
+  });
+
+  describe('passing in autoScroll', () => {
+    beforeEach(() => {
+      onDragSpy = jasmine.createSpy('onDragSpy');
+      wrapper = mount(
+        <DraggableContext onDrag={ onDragSpy } autoScroll>
+          <div className='draggable-child'>
+            <p>One</p>
+            <p>Two</p>
+          </div>
+        </DraggableContext>
+      );
+      instance = wrapper.instance().child;
+      instance.setState({ activeIndex: 1 });
+    });
+
+
+    it('enables auto scrolling', () => {
+      instance.handleMouseMove({clientY: 540});
+      expect(instance.state.activeIndex).toEqual(1);
+      expect(wrapper.props().autoScroll).toBe(true);
+      });
   });
 });
