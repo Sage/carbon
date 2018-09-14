@@ -11,7 +11,7 @@ import './tooltip.scss';
 *
 * In your file:
 *
-*   import Tooltip from 'carbon/lib/components/tooltip'
+*   import Tooltip from 'carbon-react/lib/components/tooltip'
 *
 * To render the Tooltip:
 *

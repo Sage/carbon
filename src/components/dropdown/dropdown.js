@@ -19,7 +19,7 @@ const window = Browser.getWindow();
  *
  * In your file
  *
- *   import Dropdown from 'carbon/lib/components/dropdown';
+ *   import Dropdown from 'carbon-react/lib/components/dropdown';
  *
  * To render a Dropdown:
  *

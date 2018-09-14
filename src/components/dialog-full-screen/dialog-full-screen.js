@@ -17,7 +17,7 @@ const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog-full-screen--open';
  *
  * In your file
  *
- *   import DialogFullScreen from 'carbon/lib/components/dialog-full-screen';
+ *   import DialogFullScreen from 'carbon-react/lib/components/dialog-full-screen';
  *
  * To render a DialogFullScreen:
  *

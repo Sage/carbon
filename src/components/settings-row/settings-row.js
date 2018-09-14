@@ -19,7 +19,7 @@ import './settings-row.scss';
  *
  * In your file:
  *
- *    import SettingsRow from 'carbon/lib/components/settings-row';
+ *    import SettingsRow from 'carbon-react/lib/components/settings-row';
  *
  * To render the SettingsRow:
  *

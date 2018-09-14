@@ -15,7 +15,7 @@ import './checkbox.scss';
  *
  * In your file:
  *
- *   import Checkbox from 'carbon/lib/components/checkbox';
+ *   import Checkbox from 'carbon-react/lib/components/checkbox';
  *
  * To render the Checkbox:
  *

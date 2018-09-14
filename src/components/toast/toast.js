@@ -14,7 +14,7 @@ import './toast.scss';
 *
 * In your file:
 *
-*   import Toast from 'carbon/lib/components/toast'
+*   import Toast from 'carbon-react/lib/components/toast'
 *
 * To render the Toast:
 *

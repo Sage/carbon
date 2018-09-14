@@ -13,7 +13,7 @@ import './textbox.scss';
  *
  * In your file
  *
- *   import Textbox from 'carbon/lib/components/textbox';
+ *   import Textbox from 'carbon-react/lib/components/textbox';
  *
  * To render a Textbox:
  *

@@ -13,7 +13,7 @@ import './split-button.scss';
  *
  * In your file
  *
- *   import SplitButton from 'components/split-button';
+ *   import SplitButton from 'react-carbon/lib/components/split-button';
  *
  * To render a SplitButton (developer can add any buttons to dropdown):
  *

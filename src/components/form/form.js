@@ -24,7 +24,7 @@ import './form.scss';
  *
  * In your file
  *
- *   import Form from 'carbon/lib/components/form';
+ *   import Form from 'carbon-react/lib/components/form';
  *
  * To render a Form:
  *

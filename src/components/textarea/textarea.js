@@ -16,7 +16,7 @@ import './textarea.scss';
  *
  * In your file:
  *
- *   import Textarea from 'carbon/lib/components/textarea';
+ *   import Textarea from 'carbon-react/lib/components/textarea';
  *
  * To render a Textarea:
  *

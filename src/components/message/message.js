@@ -12,7 +12,7 @@ import './message.scss';
  *
  * In your file:
  *
- *   import Message from 'carbon/lib/components/message';
+ *   import Message from 'carbon-react/lib/components/message';
  *
  * To render the Message:
  *

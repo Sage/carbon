@@ -14,7 +14,7 @@ import './button.scss';
  *
  * In your file:
  *
- *   import Button from 'carbon/lib/components/button';
+ *   import Button from 'carbon-react/lib/components/button';
  *
  * To render the Button:
  *

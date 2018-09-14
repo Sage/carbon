@@ -15,7 +15,7 @@ import './portrait.scss';
  *
  * In your file
  *
- *   import Portrait from 'carbon/lib/components/portrait';
+ *   import Portrait from 'carbon-react/lib/components/portrait';
  *
  * To render the Portrait
  *

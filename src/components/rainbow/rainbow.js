@@ -12,7 +12,7 @@ import './rainbow.scss';
  *
  * In your file:
  *
- *   import Rainbow from 'carbon/lib/components/rainbow';
+ *   import Rainbow from 'carbon-react/lib/components/rainbow';
  *
  * Note that the Rainbow component expects that you already have the Highcharts
  * library loaded. This may be true in case of some projects, which already have

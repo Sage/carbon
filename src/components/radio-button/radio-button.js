@@ -15,7 +15,7 @@ import './radio-button.scss';
  *
  * In your file:
  *
- *   import RadioButton from 'carbon/lib/components/radio-button';
+ *   import RadioButton from 'carbon-react/lib/components/radio-button';
  *
  * To render the radiobutton:
  *

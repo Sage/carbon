@@ -15,7 +15,7 @@ import './dropdown-filter.scss';
  *
  * In your file
  *
- *   import DropdownFilter from 'carbon/lib/components/dropdown-filter';
+ *   import DropdownFilter from 'carbon-react/lib/components/dropdown-filter';
  *
  * To render a DropdownFilter:
  *

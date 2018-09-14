@@ -14,7 +14,7 @@ import './sidebar.scss';
  *
  * In your file
  *
- *   import { Sidebar } from 'carbon/lib/components/sidebar';
+ *   import { Sidebar } from 'carbon-react/lib/components/sidebar';
  *
  * To render the Sidebar:
  *

@@ -17,7 +17,7 @@ const window = Browser.getWindow();
  *
  * In your file:
  *
- *   import InputValidation from 'carbon/lib/utils/decorators/input-validation';
+ *   import InputValidation from 'carbon-react/lib/utils/decorators/input-validation';
  *
  * To use the decorator, wrap your component with it:
  *

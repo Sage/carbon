@@ -18,7 +18,7 @@ import './pager.scss';
  *
  * In your file
  *
- *   import Pager from 'carbon/lib/components/pager';
+ *   import Pager from 'carbon-react/lib/components/pager';
  *
  * To render a Pager:
  *

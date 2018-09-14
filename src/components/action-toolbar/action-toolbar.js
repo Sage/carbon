@@ -13,7 +13,7 @@ import './action-toolbar.scss';
  *
  * In your file
  *
- *   import ActionToolbar from 'carbon/lib/components/action-toolbar';
+ *   import ActionToolbar from 'carbon-react/lib/components/action-toolbar';
  *
  * To render an ActionToolbar:
  *

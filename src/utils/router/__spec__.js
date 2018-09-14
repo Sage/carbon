@@ -43,8 +43,10 @@ describe('startRouter', () => {
 
       router.props.onUpdate();
 
+      // Change last argument to '/' in response to this fix:
+      // https://github.com/facebook/jest/pull/6792
+      expect(gaSpy).toHaveBeenCalledWith('set', 'page', '/');
       expect(gaSpy).toHaveBeenCalledWith('send', 'pageview');
-      expect(gaSpy).toHaveBeenCalledWith('set', 'page', 'blank');
     });
   });
 

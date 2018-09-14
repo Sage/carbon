@@ -18,7 +18,7 @@ const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog--open';
  *
  * In your file
  *
- *   import Dialog from 'carbon/lib/components/dialog';
+ *   import Dialog from 'carbon-react/lib/components/dialog';
  *
  * To render a Dialog:
  *

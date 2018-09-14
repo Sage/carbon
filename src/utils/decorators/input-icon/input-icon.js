@@ -15,7 +15,7 @@ import './input-icon.scss';
  *
  * In your file:
  *
- *   import InputIcon from 'carbon/lib/utils/decorators/input-icon';
+ *   import InputIcon from 'carbon-react/lib/utils/decorators/input-icon';
  *
  * To use the decorator, wrap your component with it:
  *
