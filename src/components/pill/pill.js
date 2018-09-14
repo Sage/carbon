@@ -12,7 +12,7 @@ import tagComponent from '../../utils/helpers/tags';
 *
 * In your file:
 *
-*   import Pill from 'carbon/lib/components/pill'
+*   import Pill from 'carbon-react/lib/components/pill'
 *
 * To render the Pill:
 *

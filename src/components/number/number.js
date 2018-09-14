@@ -15,7 +15,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file
  *
- *   import Number from 'carbon/lib/components/number';
+ *   import Number from 'carbon-react/lib/components/number';
  *
  * To render a Number:
  *

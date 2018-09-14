@@ -7,7 +7,7 @@ import ValidationsHelper from '../../helpers/validations';
  *
  * Import the validator into your component:
  *
- *  `import LengthValidator from 'utils/validations/length'`
+ *  `import LengthValidator from 'carbon-react/lib/utils/validations/length'`
  *
  * Assign the validator to the validations prop, passing the required params:
  *
