@@ -76,16 +76,6 @@ describe('DraggableContext', () => {
       });
     });
 
-    describe('handleMouseMove', () => {
-      beforeEach(() => {
-        instance.checkAutoScrollTrigger = jest.fn();
-      });
-      it('does nothing with activeIndex not present', () => {
-        instance.handleMouseMove();
-        expect(instance.checkAutoScrollTrigger).not.toHaveBeenCalled()
-      });
-    });
-
     describe('startScrolling', () => {
       let frameMock;
       beforeEach(() => {
@@ -101,9 +91,9 @@ describe('DraggableContext', () => {
       });
     });
 
-    describe('checkAutoScrollTrigger', () => {
+    describe('checkAutoScroll', () => {
       it('is immune to triggering when dragging index is null', () => {
-        expect(instance.checkAutoScrollTrigger()).toBeUndefined();
+        expect(instance.checkAutoScroll()).toBeUndefined();
       });
     });
 
@@ -174,21 +164,21 @@ describe('DraggableContext', () => {
     });
 
     it('does not cause scrolling when dragging in the center of the table', () =>{
-      instance.handleMouseMove({clientY: 300});
+      instance.checkAutoScroll({clientY: 300});
       expect(instance.state.activeIndex).toEqual(1);
       expect(wrapper.props().autoScroll).toBe(true);
       expect(scrollingMock).not.toHaveBeenCalled();
     });
 
     it('scrolls the window down when dragging the element toward the bottom of the window', () => {
-      instance.handleMouseMove({clientY: 540});
+      instance.checkAutoScroll({clientY: 540});
       expect(instance.state.activeIndex).toEqual(1);
       expect(wrapper.props().autoScroll).toBe(true);
       expect(scrollingMock).toHaveBeenCalled();
     });
 
     it('scrolls the window up when dragging the element toward the top of the window', () => {
-      instance.handleMouseMove({clientY: 60});
+      instance.checkAutoScroll({clientY: 60});
       expect(instance.state.activeIndex).toEqual(1);
       expect(wrapper.props().autoScroll).toBe(true);
       expect(scrollingMock).toHaveBeenCalled();
@@ -228,7 +218,7 @@ describe('DraggableContext', () => {
     });
 
     it('scrolls and moves the element that should be scrolled', () => {
-      instance.handleMouseMove({clientY: 540});
+      instance.checkAutoScroll({clientY: 540});
       expect(instance.state.activeIndex).toEqual(1);
       expect(wrapper.props().autoScroll).toBe(true);
       expect(scrollingMock).toHaveBeenCalled();

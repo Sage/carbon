@@ -141,7 +141,7 @@ class DraggableContext extends React.Component {
    * @param {Object} ev event
    * @return {void}
    */
-  checkAutoScrollTrigger = (event) => {
+  checkAutoScroll = (event) => {
     if (this.state.activeIndex === null) {
       return;
     }
@@ -242,10 +242,6 @@ class DraggableContext extends React.Component {
     this.speed = 0;
   }
 
-  handleMouseMove = (ev) => {
-    if (this.state.activeIndex !== null) this.checkAutoScrollTrigger(ev);
-  }
-
   /**
    * Renders the component
    */
@@ -253,7 +249,7 @@ class DraggableContext extends React.Component {
     return (
       <div
         className='carbon-draggable-context'
-        onMouseMove={ this.props.autoScroll ? this.handleMouseMove : undefined }
+        onMouseMove={ (this.props.autoScroll && this.state.activeIndex !== null) ? this.checkAutoScroll : undefined }
       >
         { this.props.children }
         { this.props.customDragLayer }
