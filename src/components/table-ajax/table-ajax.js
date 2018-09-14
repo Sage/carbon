@@ -13,8 +13,8 @@ import Logger from '../../utils/logger';
  *
  * In your file
  *
- *   import Table from 'carbon/lib/components/table-ajax';
- *   import { TableRow, TableCell, TableHeader } from 'carbon/lib/components/table';
+ *   import Table from 'carbon-react/lib/components/table-ajax';
+ *   import { TableRow, TableCell, TableHeader } from 'carbon-react/lib/components/table';
  *
  * To render a Table please see the Table Component
  *

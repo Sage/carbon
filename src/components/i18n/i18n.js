@@ -12,7 +12,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file:
  *
- *   import I18n from 'carbon/lib/components/i18n';
+ *   import I18n from 'carbon-react/lib/components/i18n';
  *
  * To render the message:
  *

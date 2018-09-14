@@ -25,7 +25,7 @@ import './table--secondary-theme.scss';
  *
  * In your file:
  *
- *   import { Table, TableRow, TableCell, TableHeader } from 'carbon/lib/components/table';
+ *   import { Table, TableRow, TableCell, TableHeader } from 'carbon-react/lib/components/table';
  *
  * To render a Table:
  *
