@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import ItemTargetHelper from '../../../utils/helpers/dnd/item-target';
 import CustomDragLayer from '../custom-drag-layer';
 import Browser from '../../../utils/helpers/browser';
-import ScrollabeParent from '../../../utils/helpers/scrollable-parent';
+import ScrollableParent from '../../../utils/helpers/scrollable-parent';
 
 /**
  * A draggable context component
@@ -106,7 +106,7 @@ class DraggableContext extends React.Component {
     // Frame callback ref
     this.frame = null;
 
-    // Frame callback ref
+    // Document element to scroll if any
     this.element = null;
   }
 
@@ -149,25 +149,22 @@ class DraggableContext extends React.Component {
     // constant for the position of the mouse pointer
     // on the y axis
     const { clientY } = event;
+    const { innerHeight } = Browser.getWindow();
     // constant for the threshold where the auto scroll begins
-    const threshold = Math.max(140, Browser.getWindow().innerHeight / 4);
+    const threshold = Math.max(140, innerHeight / 4);
 
     let speed = 0;
     if (clientY < threshold) {
       // -1 to 0 as we move from 0 to threshold
       speed = -1 + clientY / threshold;
-    } else if (clientY > Browser.getWindow().innerHeight - threshold) {
+    } else if (clientY > innerHeight - threshold) {
       // 0 to 1 as we move from (innerHeight - threshold) to innerHeight
-      speed = 1 - (Browser.getWindow().innerHeight - clientY) / threshold;
-    } else {
-      speed = 0;
+      speed = 1 - (innerHeight - clientY) / threshold;
     }
 
-    if (this.speed === 0 && speed !== 0) {
-      this.speed = speed;
-      this.startScrolling();
-    }
+    const shouldScroll = this.speed === 0 && speed !== 0;
     this.speed = speed;
+    if (shouldScroll) this.startScrolling();
   }
 
   startScrolling = () => {
@@ -182,14 +179,17 @@ class DraggableContext extends React.Component {
       return;
     }
 
-    const node = ReactDOM.findDOMNode(this); // eslint-disable-line  react/no-find-dom-node
+    const window = Browser.getWindow();
 
-    this.element = ScrollabeParent.searchForScrollableParent(node);
+    if (!this.element) {
+      const node = ReactDOM.findDOMNode(this); // eslint-disable-line  react/no-find-dom-node
+      this.element = ScrollableParent.searchForScrollableParent(node);
+    } else {
+      this.element.scrollTop += this.speed * 10;
+    }
 
-    if (this.element) this.element.scrollTop += this.speed * 10;
-
-    Browser.getWindow().scrollTo(0, Browser.getWindow().scrollY + (this.speed * 10));
-    this.frame = Browser.getWindow().requestAnimationFrame(this.tick);
+    window.scrollTo(0, window.scrollY + (this.speed * 10));
+    this.frame = window.requestAnimationFrame(this.tick);
   }
 
   /**
@@ -243,7 +243,7 @@ class DraggableContext extends React.Component {
   }
 
   handleMouseMove = (ev) => {
-    if (this.props.autoScroll && this.state.activeIndex !== null) this.checkAutoScrollTrigger(ev);
+    if (this.state.activeIndex !== null) this.checkAutoScrollTrigger(ev);
   }
 
   /**
@@ -253,7 +253,7 @@ class DraggableContext extends React.Component {
     return (
       <div
         className='carbon-draggable-context'
-        onMouseMove={ this.handleMouseMove }
+        onMouseMove={ this.props.autoScroll ? this.handleMouseMove : undefined }
       >
         { this.props.children }
         { this.props.customDragLayer }

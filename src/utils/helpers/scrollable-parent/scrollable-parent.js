@@ -8,7 +8,7 @@ import Browser from '../browser';
  * @param {Object} element
  * @return {Object}
  */
-const ScrollabePartent = {
+const ScrollablePartent = {
   searchForScrollableParent(element) {
     if (!element) {
       return null;
@@ -22,4 +22,4 @@ const ScrollabePartent = {
     return this.searchForScrollableParent(element.parentElement);
   }
 };
-export default ScrollabePartent;
+export default ScrollablePartent;

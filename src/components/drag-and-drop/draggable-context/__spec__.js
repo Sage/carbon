@@ -117,7 +117,6 @@ describe('DraggableContext', () => {
         expect(wrapper.find(CustomDragLayer).length).toEqual(1);
       });
     });
-
   });
 
   describe('passing in a custom drag layer', () => {
@@ -196,9 +195,8 @@ describe('DraggableContext', () => {
     });
   });
 
-
   describe('passing in autoScroll in a Dialog', () => {
-    let scrollingMock;
+    let scrollingMock, frameMock;
     beforeEach(() => {
       onDragSpy = jasmine.createSpy('onDragSpy');
       wrapper = mount(
@@ -213,21 +211,21 @@ describe('DraggableContext', () => {
       instance.setState({ activeIndex: 1 });
       const windowMock = jest.fn();
       scrollingMock = jest.fn();
-      const domMock = jest.fn((elem) => {elem.speed = 0; return { scrollTop: 0 }; } );
-      ReactDOM.findDOMNode = domMock;
-
+      frameMock = jest.fn();
+      frameMock.mockImplementationOnce((method) => { method(); })
+        .mockImplementationOnce(() => { return; })
       const windowParams = { 
         getComputedStyle: () => ({position: 'relative', overflow: 'scroll'}),
         innerHeight: 600,
-        requestAnimationFrame: (method) => { method(); },
+        requestAnimationFrame: frameMock,
         scrollTo: scrollingMock,
         scrollX: 0
       }
+      instance.element = {scrollTop: 0};
       
       windowMock.mockReturnValue(windowParams);
       Browser.getWindow= windowMock;
     });
-
 
     it('scrolls and moves the element that should be scrolled', () => {
       instance.handleMouseMove({clientY: 540});

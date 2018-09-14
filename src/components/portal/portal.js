@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ReactDOM, { createPortal } from 'react-dom';
 import guid from '../../utils/helpers/guid';
 import Browser from '../../utils/helpers/browser';
-import ScrollabeParent from '../../utils/helpers/scrollable-parent';
+import ScrollableParent from '../../utils/helpers/scrollable-parent';
 
 class Portal extends React.Component {
   static propTypes = {
@@ -32,7 +32,7 @@ class Portal extends React.Component {
     if (this.props.onReposition) {
       this.props.onReposition();
       /* eslint-disable */
-      this.scrollParent = ScrollabeParent.searchForScrollableParent(ReactDOM.findDOMNode(this));
+      this.scrollParent = ScrollableParent.searchForScrollableParent(ReactDOM.findDOMNode(this));
       /* eslint-enable */
       if (this.scrollParent) { this.scrollParent.addEventListener('scroll', this.props.onReposition); }
       Browser.getWindow().addEventListener('resize', this.props.onReposition);
