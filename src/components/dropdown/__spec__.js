@@ -902,17 +902,41 @@ describe('Dropdown', () => {
   });
 
   describe('additionalInputContent', () => {
-    describe('when showArrow is true', () => {
+    let renderItem;
+    beforeAll(() => {
+      renderItem = (option) => {
+        return `the ${option.name}`;
+      };
+    });
+
+    describe('when showArrow is true (default value)', () => {
       it('returns the icon', () => {
-        spyOn(instance, 'showArrow').and.returnValue(true);
-        expect(instance.additionalInputContent[0].key).toEqual('label-icon');
+        const wrapper = shallow(
+          <Dropdown
+            name='foo'
+            options={ Immutable.fromJS([{id: 1, name: 'foo'}, { id: 2, name: 'bar' }]) }
+            renderItem={ renderItem }
+            value='1'
+          />
+        );
+
+        expect(wrapper.find('Icon').find('[type="dropdown"]').length).toEqual(1);
       });
     });
 
     describe('when showArrow is false', () => {
       it('does not return the icon', () => {
-        spyOn(instance, 'showArrow').and.returnValue(false);
-        expect(instance.additionalInputContent.length).toEqual(0);
+        spyOn(Dropdown.prototype, 'showArrow').and.returnValue(false)
+        const test = shallow(
+          <Dropdown
+            name='foo'
+            options={ Immutable.fromJS([{id: 1, name: 'foo'}, { id: 2, name: 'bar' }]) }
+            renderItem={ renderItem }
+            value='1'
+          />
+        );
+
+        expect(test.find('Icon').find('[type="dropdown"]').length).toEqual(0);
       });
     });
   });
