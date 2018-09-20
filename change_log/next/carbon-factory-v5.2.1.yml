@@ -1,0 +1,1 @@
+Dependency Updates: "Upgrade carbon-factory to v5.2.1, which enables source maps by default in the webpack config."
