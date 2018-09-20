@@ -1,5 +1,4 @@
 {
   "name": "preview",
-  "style": "preview.scss",
   "main": "./preview.js"
 }

@@ -1,4 +1,3 @@
 {
-  "main": "./button-toggle-group.js",
-  "style": "./button-toggle-group.scss"
+  "main": "./button-toggle-group.js"
 }

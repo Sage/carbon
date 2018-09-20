@@ -1,4 +1,3 @@
 {
-  "main": "./component-preview.js",
-  "style": "./component-preview.scss"
+  "main": "./component-preview.js"
 }

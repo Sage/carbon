@@ -1,4 +1,3 @@
 {
-  "main": "./menu-list.js",
-  "style": "./menu-list.scss"
+  "main": "./menu-list.js"
 }

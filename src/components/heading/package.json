@@ -1,4 +1,3 @@
 {
-  "main": "./heading.js",
-  "style": "./heading.scss"
+  "main": "./heading.js"
 }
