@@ -10,7 +10,7 @@ import DropdownFilter from '../dropdown-filter';
  *
  * In your file
  *
- *   import DropdownFilterAjax from 'carbon/lib/components/dropdown-filter-ajax';
+ *   import DropdownFilterAjax from 'carbon-react/lib/components/dropdown-filter-ajax';
  *
  * To render a DropdownFilterAjax:
  *
@@ -165,7 +165,15 @@ class DropdownFilterAjax extends DropdownFilter {
      * @property suggest
      * @type {Boolean}
      */
-    suggest: PropTypes.bool
+    suggest: PropTypes.bool,
+
+    /**
+     * Enable the ability to send cookies from the origin.
+     *
+     * @property withCredentials
+     * @type: {Boolean}
+     */
+    withCredentials: PropTypes.bool
   }), 'options');
 
   static defaultProps = {
@@ -246,12 +254,14 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   getData = (query = '', page = 1) => {
     this.setState({ requesting: true });
-    Request
+    const request = Request
       .get(this.props.path)
       .query(this.getParams(query, page))
       .query(this.props.additionalRequestParams)
-      .set('Accept', this.props.acceptHeader)
-      .end(this.ajaxUpdateList);
+      .set('Accept', this.props.acceptHeader);
+
+    if (this.props.withCredentials) request.withCredentials();
+    request.end(this.ajaxUpdateList);
   }
 
   /**

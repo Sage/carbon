@@ -23,7 +23,7 @@ const CHANGE_EVENT = 'change';
  *
  * You can import this class with the following:
  *
- *   import Store from 'carbon/lib/utils/flux/store';
+ *   import Store from 'carbon-react/lib/utils/flux/store';
  *
  * You can then use the imported store to extend your defined store class:
  *

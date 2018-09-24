@@ -9,7 +9,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * == How to use a SimpleColorPicker in a component:
  *
- *   import SimpleColorPicker from 'carbon/lib/components/simple-color-picker';
+ *   import SimpleColorPicker from 'carbon-react/lib/components/simple-color-picker';
  *
  *   <SimpleColorPicker
  *     availableColors={ ['transparent', '#ff0102', '#34ff01'] }

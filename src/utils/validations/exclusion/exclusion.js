@@ -7,7 +7,7 @@ import ValidationsHelper from '../../helpers/validations';
  *
  * Import the validator into your component:
  *
- *  `import ExclusionValidator from 'utils/validations/exclusion'`
+ *  `import ExclusionValidator from 'carbon-react/lib/utils/validations/exclusion'`
  *
  * Validate the value is not included in the list, pass an array in the param disallowedValues:
  *
