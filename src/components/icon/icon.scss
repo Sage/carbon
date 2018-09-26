@@ -56,8 +56,7 @@ $iconSizes: (
 
 @font-face {
   font-family: 'CarbonIcons';
-  src: url(fonts/carbon-icons-webfont.woff) format('woff'),
-       url(fonts/carbon-icons-webfont.ttf) format('truetype');
+  src: url(fonts/carbon-icons-webfont.woff) format('woff');
   font-weight: normal;
   font-style: normal;
 }
@@ -120,6 +119,7 @@ $iconSizes: (
 @include icon(hide,           w); // Messages
 @include icon(warning,        "\e924");
 @include icon(question,       "\e943");
+@include icon(question_hollow,"\e95e");
 @include icon(tick,           "\e950");
 @include icon(none,           "\ ");
 @include icon(add,            "\e940");
@@ -183,7 +183,7 @@ $iconSizes: (
 @include icon(share,          "\e946");
 @include icon(gift,           "\e941");
 @include icon(mobile,         "\e932");
-// @include icon(grid,           "\e952"); CHEcK
+@include icon(grid,           "\e952");
 @include icon(fit_height,     "\e909");
 @include icon(fit_width,      "\e908");
 @include icon(blocked,        "\e933");
@@ -197,8 +197,6 @@ $iconSizes: (
 @include icon(key,            "\e92b");
 @include icon(credit_card,    "\e91c");
 @include icon(marker,         "\e93f");
-
-
 @include icon(delivery,       "\e959");
 @include icon(filter_new,     "\e954");
 @include icon(view,           "\e957");
@@ -208,6 +206,9 @@ $iconSizes: (
 @include icon(talk,           "\e95a");
 @include icon(split,          "\e952");
 @include icon(disconnect,     "\e953");
+@include icon(bullet_list,    "\e95b");
+@include icon(lightbulb_on,   "\e95d");
+@include icon(lightbulb_off,  "\e95c");
 
 
 @include icon(accounts,       1);
