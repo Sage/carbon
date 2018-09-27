@@ -1,6 +1,13 @@
 import { EventEmitter } from 'events';
 import { Dispatcher } from '..';
 
+// register an action on the flux dispatcher so redux is updated
+Dispatcher.register((action) => {
+  global.reduxStore.dispatch({
+    type: 'flux-action'
+  });
+});
+
 /**
  * A constant used for the change event within this module.
  *
@@ -52,6 +59,9 @@ const CHANGE_EVENT = 'change';
  * @constructor
  * @extends EventEmitter
  */
+
+import reducerRegistry from 'utils/flux/reducer-registry';
+
 export default class Store extends EventEmitter {
   constructor(name, data, opts = {}) {
     super(name, data, opts);
@@ -86,6 +96,10 @@ export default class Store extends EventEmitter {
      */
     this.data = data;
 
+    this.reducer = (state, action) => {
+      return this.data;
+    }
+    reducerRegistry.register(name, this.reducer)
     // we either use a dispatcher passed through the options, or use the default one
     const dispatcher = opts.dispatcher || Dispatcher;
     /**

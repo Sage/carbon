@@ -22,6 +22,21 @@ import Sandbox from './views/pages/sandbox';
 
 import SiteMap from './site-map';
 
+import { createStore, combineReducers } from 'redux'
+
+import reducerRegistry from 'utils/flux/reducer-registry';
+
+const r1 = (state = true) => {
+  return state;
+};
+const r2 = (state = true) => {
+  return state;
+};
+
+global.reduxStore = reducerRegistry.store;
+reducerRegistry.register('r1', r1);
+reducerRegistry.register('r2', r2);
+
 global.Carbon = {
   version: Package.version
 }
