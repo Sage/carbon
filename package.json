@@ -16,8 +16,10 @@
     "debug": "node --inspect ./node_modules/.bin/jest --watch --config=./jest.conf.json",
     "lint": "./node_modules/.bin/eslint",
     "precompile": "npm run clean-lib && npm run copy-files && npm run babel",
+    "docker-compile": "npm run copy-files && npm run babel",
     "prepublishOnly": "node check-version.js && npm install && npm run precompile",
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
+    "docker-watch": "npm run copy-files -- --watch & npm run babel -- --watch",
     "babel": "NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet",
     "clean-lib": "rm -rf ./lib",
     "copy-files": "cpx 'src/**/*.!(js|md)' lib"
