@@ -13,7 +13,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file:
  *
- *   import Button from 'carbon/lib/components/button';
+ *   import Button from 'carbon-react/lib/components/button';
  *
  * To render the Button:
  *

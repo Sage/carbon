@@ -23,7 +23,7 @@ import ElementResize from '../../utils/helpers/element-resize';
  *
  * In your file
  *
- *   import Form from 'carbon/lib/components/form';
+ *   import Form from 'carbon-react/lib/components/form';
  *
  * To render a Form:
  *

@@ -13,7 +13,7 @@ import Help from '../../../components/help';
  *
  * In your file:
  *
- *   import InputLabel from 'carbon/lib/utils/decorators/input-label';
+ *   import InputLabel from 'carbon-react/lib/utils/decorators/input-label';
  *
  * To use the decorator, wrap your component with it:
  *

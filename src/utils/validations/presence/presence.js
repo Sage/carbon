@@ -8,7 +8,7 @@ import ValidationsHelper from '../../helpers/validations';
  *
  * In your file
  *
- *   import PresenceValidator from 'carbon/lib/utils/validatons/presence';
+ *   import PresenceValidator from 'carbon-react/lib/utils/validatons/presence';
  *
  * To apply a PresenceValidator:
  *

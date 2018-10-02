@@ -13,7 +13,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file
  *
- *   import Icon from 'carbon/lib/components/icon';
+ *   import Icon from 'carbon-react/lib/components/icon';
  *
  * To render an Icon:
  *

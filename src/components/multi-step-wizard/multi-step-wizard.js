@@ -10,7 +10,7 @@ import Step from './step';
  *
  * In your file:
  *
- *   import MultiStepWizard from 'components/multi-step-wizard';
+ *   import MultiStepWizard from 'carbon-react/lib/components/multi-step-wizard';
  *
  * To render the Wizard:
  *
