@@ -902,41 +902,20 @@ describe('Dropdown', () => {
   });
 
   describe('additionalInputContent', () => {
-    let renderItem;
-    beforeAll(() => {
-      renderItem = (option) => {
-        return `the ${option.name}`;
-      };
-    });
+    const renderShallow = () => shallow(<Dropdown options={ Immutable.fromJS([]) } />);
 
     describe('when showArrow is true (default value)', () => {
       it('returns the icon', () => {
-        const wrapper = shallow(
-          <Dropdown
-            name='foo'
-            options={ Immutable.fromJS([{id: 1, name: 'foo'}, { id: 2, name: 'bar' }]) }
-            renderItem={ renderItem }
-            value='1'
-          />
-        );
-
-        expect(wrapper.find('Icon').find('[type="dropdown"]').length).toEqual(1);
+        const wrapper = renderShallow();
+        expect(wrapper.find('Icon').find({ type: 'dropdown' }).exists()).toBeTruthy();
       });
     });
 
     describe('when showArrow is false', () => {
       it('does not return the icon', () => {
         spyOn(Dropdown.prototype, 'showArrow').and.returnValue(false)
-        const test = shallow(
-          <Dropdown
-            name='foo'
-            options={ Immutable.fromJS([{id: 1, name: 'foo'}, { id: 2, name: 'bar' }]) }
-            renderItem={ renderItem }
-            value='1'
-          />
-        );
-
-        expect(test.find('Icon').find('[type="dropdown"]').length).toEqual(0);
+        const wrapper = renderShallow();
+        expect(wrapper.find('Icon').find({ type: 'dropdown' }).exists()).toBeFalsy();
       });
     });
   });
