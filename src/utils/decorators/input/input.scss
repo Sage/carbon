@@ -114,8 +114,8 @@
 }
 
 .common-input__message-wrapper {
-  top: 0;
   position: absolute;
+  top: 0;
   width: 260px;
 }
 
@@ -142,6 +142,7 @@
     border-right: 16px solid transparent;
     content: '';
     display: block;
+    pointer-events: none;
     position: absolute;
     left: 0;
     bottom: -14px;

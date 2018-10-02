@@ -14,7 +14,7 @@ import { validProps } from '../../utils/ether';
  *
  * In your file
  *
- *   import AnimatedMenuButton from 'carbon/lib/components/animated-menu-button';
+ *   import AnimatedMenuButton from 'carbon-react/lib/components/animated-menu-button';
  *
  * To render a AnimatedMenuButton, pass children to be rendered in the expanded menu:
  *

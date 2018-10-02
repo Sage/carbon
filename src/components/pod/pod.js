@@ -17,7 +17,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file:
  *
- *   import Pod from 'carbon/lib/components/pod';
+ *   import Pod from 'carbon-react/lib/components/pod';
  *
  * In the render the Pod:
  *

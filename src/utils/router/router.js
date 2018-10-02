@@ -25,7 +25,7 @@ export const history = browserHistory;
  *
  * You can import this function with the following:
  *
- *   import { startRouter } from 'carbon/lib/utils/router';
+ *   import { startRouter } from 'carbon-react/lib/utils/router';
  *
  * You can then use the function like this:
  *
