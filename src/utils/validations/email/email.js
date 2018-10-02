@@ -1,5 +1,5 @@
-import RegexValidator from './../regex';
-import ValidationsHelper from './../../helpers/validations';
+import RegexValidator from '../regex';
+import ValidationsHelper from '../../helpers/validations';
 
 /**
  * A Email Validator
@@ -8,7 +8,7 @@ import ValidationsHelper from './../../helpers/validations';
  *
  * Import the validator into your component
  *
- * import EmailValidator from 'utils/validations/email'
+ * import EmailValidator from 'carbon-react/lib/utils/validations/email'
  *
  * Assign this validator to the validations prop
  *

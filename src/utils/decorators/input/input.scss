@@ -152,12 +152,6 @@
   }
 }
 
-.common-input__message--fade {
-  opacity: 0;
-  transition: opacity 0.2s 0.8s, visibility 0s 1.8s;
-  visibility: hidden;
-}
-
 .common-input__message--shown.common-input__message {
   opacity: 1;
   visibility: visible;
@@ -196,6 +190,7 @@
 .common-input--error .common-input__label,
 .common-input__icon {
   color: $error;
+  pointer-events: none;
 }
 
 .common-input__prefix {

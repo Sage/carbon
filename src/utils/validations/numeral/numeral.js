@@ -1,8 +1,8 @@
 import BigNumber from 'bignumber.js';
 import I18n from 'i18n-js';
 import NumeralTypeValidator from './numeral-type';
-import ValidationsHelper from './../../helpers/validations';
-import I18nHelper from './../../helpers/i18n';
+import ValidationsHelper from '../../helpers/validations';
+import I18nHelper from '../../helpers/i18n';
 
 /**
  * A Numeral Validator object.
@@ -11,7 +11,7 @@ import I18nHelper from './../../helpers/i18n';
  *
  * Import the validator into your component:
  *
- *  `import NumeralValidator from 'utils/validations/value'`
+ *  `import NumeralValidator from 'carbon-react/lib/utils/validations/value'`
  *
  * Assign the validator to the validations prop, passing the required params:
  *

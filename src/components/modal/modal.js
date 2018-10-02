@@ -2,9 +2,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import Events from './../../utils/helpers/events';
-import Browser from './../../utils/helpers/browser';
-import Portal from './../../components/portal';
+import Events from '../../utils/helpers/events';
+import Browser from '../../utils/helpers/browser';
+import Portal from '../portal';
 
 const TIMEOUT = 500;
 /**
@@ -16,7 +16,7 @@ const TIMEOUT = 500;
  *
  * In your file
  *
- *   import Modal from 'carbon/lib/components/modal'
+ *   import Modal from 'carbon-react/lib/components/modal'
  *
  * Extends from the modal
  *
@@ -153,6 +153,27 @@ class Modal extends React.Component {
   }
 
   /**
+   * A lifecycle method to update the component after it is mounted
+   *
+   * @method componentDidMount
+   * @return {void}
+   */
+  componentDidMount() {
+    Browser.getWindow().addEventListener('keyup', this.closeModal);
+  }
+
+  /**
+   * A lifecycle method to update the component when it is unmounted
+   *
+   * @method componentWillUnmount
+   * @return {void}
+   */
+  componentWillUnmount() {
+    Browser.getWindow().removeEventListener('keyup', this.closeModal);
+  }
+
+
+  /**
    * A lifecycle method to update the component after it is re-rendered
    *
    * @method componentDidUpdate
@@ -160,7 +181,6 @@ class Modal extends React.Component {
    */
   componentDidUpdate() {
     const _window = Browser.getWindow();
-
     if (this.props.open && !this.listening) {
       this.listening = true;
       this.updateDataState();
@@ -182,7 +202,7 @@ class Modal extends React.Component {
    * @return {void}
    */
   closeModal = (ev) => {
-    if (this.props.onCancel && !this.props.disableEscKey && Events.isEscKey(ev)) {
+    if (this.props.open && this.props.onCancel && !this.props.disableEscKey && Events.isEscKey(ev)) {
       this.props.onCancel();
     }
   }
@@ -206,15 +226,19 @@ class Modal extends React.Component {
 
   // Called after the modal opens
   get onOpening() { return null; }
+
   // Called after the modal closes
   get onClosing() { return null; }
+
   // Classes for parent div
   get mainClasses() { return null; }
+
   // Modal HTML shown when open
   get modalHTML() { return null; }
 
   // Modal transistion name
   get transitionName() { return 'modal'; }
+
   // modal background transisiton name
   get backgroundTransitionName() { return 'modal-background'; }
 
@@ -237,7 +261,7 @@ class Modal extends React.Component {
     }
 
     return (
-      <Portal key='1' >
+      <Portal key='1'>
         <div
           className={ this.mainClasses }
           { ...this.componentTags(this.props) }
@@ -246,6 +270,8 @@ class Modal extends React.Component {
           <CSSTransitionGroup
             component='div'
             transitionName={ this.backgroundTransitionName }
+            transitionAppear
+            transitionAppearTimeout={ TIMEOUT }
             transitionEnterTimeout={ TIMEOUT }
             transitionLeaveTimeout={ TIMEOUT }
           >
@@ -254,6 +280,8 @@ class Modal extends React.Component {
           <CSSTransitionGroup
             component='div'
             transitionName={ this.transitionName }
+            transitionAppear
+            transitionAppearTimeout={ TIMEOUT }
             transitionEnterTimeout={ TIMEOUT }
             transitionLeaveTimeout={ TIMEOUT }
           >

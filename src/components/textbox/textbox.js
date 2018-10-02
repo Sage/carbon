@@ -1,7 +1,7 @@
 import React from 'react';
-import Input from './../../utils/decorators/input';
-import InputLabel from './../../utils/decorators/input-label';
-import InputValidation from './../../utils/decorators/input-validation';
+import Input from '../../utils/decorators/input';
+import InputLabel from '../../utils/decorators/input-label';
+import InputValidation from '../../utils/decorators/input-validation';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 
@@ -12,7 +12,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file
  *
- *   import Textbox from 'carbon/lib/components/textbox';
+ *   import Textbox from 'carbon-react/lib/components/textbox';
  *
  * To render a Textbox:
  *

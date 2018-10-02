@@ -14,8 +14,8 @@ var mockResponse = {
   body: {
     walla: true
   },
-  get: jest.genMockFunction(),
-  toError: jest.genMockFunction()
+  get: jest.fn(),
+  toError: jest.fn()
 };
 
 const mockEvents = [];
@@ -67,7 +67,7 @@ Request.on = (eventName, callback) => {
   mockEvents[eventName] = callback;
   return Request;
 };
-Request.end = jest.genMockFunction().mockImplementation((callback) => {
+Request.end = jest.fn().mockImplementation((callback) => {
   if (mockDelay) {
     this.delayTimer = setTimeout(callback, 0, mockError, mockResponse);
 

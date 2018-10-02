@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Icon from './../icon';
-import Button from './../button';
-import SplitButton from './../split-button';
+import Icon from '../icon';
+import Button from '../button';
+import SplitButton from '../split-button';
 
 /**
  * A MultiActionButton widget.
@@ -12,7 +12,7 @@ import SplitButton from './../split-button';
  *
  * In your file
  *
- *   import MultiActionButton from 'components/multi-action-button';
+ *   import MultiActionButton from 'carbon-react/lib/components/multi-action-button';
  *
  * To render a MultiActionButton (developer can add any buttons to dropdown):
  *
@@ -87,8 +87,8 @@ class MultiActionButton extends SplitButton {
    */
   get additionalButtonsClasses() {
     return `${super.additionalButtonsClasses
-    } carbon-multi-action-button__additional-buttons` +
-      ` carbon-multi-action-button__additional-buttons--${this.props.as}`;
+    } carbon-multi-action-button__additional-buttons`
+      + ` carbon-multi-action-button__additional-buttons--${this.props.as}`;
   }
 
   /**
@@ -100,8 +100,8 @@ class MultiActionButton extends SplitButton {
    */
   get toggleButtonClasses() {
     return `${super.toggleButtonClasses
-    } carbon-multi-action-button__toggle` +
-      ` carbon-multi-action-button__toggle--${this.props.as}`;
+    } carbon-multi-action-button__toggle`
+      + ` carbon-multi-action-button__toggle--${this.props.as}`;
   }
 
   /**

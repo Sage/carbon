@@ -12,7 +12,7 @@ import Column from './column';
  *
  * In your file
  *
- *   import { Row, Column } from 'carbon/lib/components/row';
+ *   import { Row, Column } from 'carbon-react/lib/components/row';
  *
  * To render the Row:
  *

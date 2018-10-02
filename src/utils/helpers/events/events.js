@@ -64,13 +64,13 @@ const Events = {
     if (!Events.isEventType(ev, 'keyup')) {
       return false;
     }
-    if (Events.isNumberKey(ev) ||
-        Events.isAlphabetKey(ev) ||
-        Events.isNumpadKey(ev) ||
-        Events.isSymbolKey(ev) ||
-        Events.isSpaceKey(ev) ||
-        Events.isDeletingKey(ev) ||
-        Events.isBackspaceKey(ev)) {
+    if (Events.isNumberKey(ev)
+        || Events.isAlphabetKey(ev)
+        || Events.isNumpadKey(ev)
+        || Events.isSymbolKey(ev)
+        || Events.isSpaceKey(ev)
+        || Events.isDeletingKey(ev)
+        || Events.isBackspaceKey(ev)) {
       return true;
     }
 
@@ -121,10 +121,10 @@ const Events = {
   * @returns {Boolean} true if any symbol key is pressed
   * */
   isSymbolKey: (ev) => {
-    return (ev.which >= 58 && ev.which <= 64) || // : to @
-           (ev.which >= 106 && ev.which <= 107) || // numpad * and +
-           (ev.which >= 186 && ev.which <= 192) || // , .
-           (ev.which >= 219 && ev.which <= 222); // \ ]
+    return (ev.which >= 58 && ev.which <= 64) // : to @
+           || (ev.which >= 106 && ev.which <= 107) // numpad * and +
+           || (ev.which >= 186 && ev.which <= 192) // , .
+           || (ev.which >= 219 && ev.which <= 222); // \ ]
   },
 
   /**

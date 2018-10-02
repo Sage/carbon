@@ -357,7 +357,7 @@ describe('InputValidation', () => {
             const removeClassSpy = jasmine.createSpy();
             const addClassSpy = jasmine.createSpy();
 
-            instance.setState({ valid: false, errorMessage: 'foo' });
+            instance.setState({ valid: false, errorMessage: 'foo', messageShown: true });
 
             spyOn(Browser, 'getWindow').and.returnValue({
               innerWidth: 1800
@@ -418,7 +418,8 @@ describe('InputValidation', () => {
             const instance = wrapper.find(Component).instance();
             instance.setState({
               valid: false,
-              errorMessage: 'foo'
+              errorMessage: 'foo',
+              messageShown: true
             });
             instance.validationMessage = {
               offsetWidth: 0,
@@ -688,7 +689,6 @@ describe('InputValidation', () => {
           instance.showMessage();
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: true,
-            immediatelyHideMessage: false
           }, instance.positionMessage);
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
@@ -702,7 +702,6 @@ describe('InputValidation', () => {
           instance.showMessage();
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: true,
-            immediatelyHideMessage: false
           }, instance.positionMessage);
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
@@ -716,7 +715,6 @@ describe('InputValidation', () => {
           instance.showMessage();
           expect(instance.setState).toHaveBeenCalledWith({
             messageShown: true,
-            immediatelyHideMessage: false
           }, instance.positionMessage);
           expect(instance.context.form.setActiveInput).toHaveBeenCalledWith(instance);
         });
@@ -732,7 +730,6 @@ describe('InputValidation', () => {
             instance.showMessage();
             expect(instance.setState).toHaveBeenCalledWith({
               messageShown: true,
-              immediatelyHideMessage: false
             }, instance.positionMessage);
             expect(form.setActiveInput).not.toHaveBeenCalledWith(instance);
           });
@@ -789,32 +786,40 @@ describe('InputValidation', () => {
           expect(instance.setState).not.toHaveBeenCalled();
         });
       });
-    });
 
-    describe('immediatelyHideMessage', () => {
-      it('sets state to hide message instantly', () => {
-        spyOn(instance, 'setState');
-        instance.immediatelyHideMessage();
+      describe("when hideMessage is called", () => {
+        it("it triggers a timeout when prop value is larger than 0", () => {
+          let wrapper = mount(<Component />);
+          instance = wrapper.instance();
+          wrapper.setProps({ timeToDisappear: 123 });
+          instance.setState({ valid: true, warning: true });
 
-        expect(instance.setState).toHaveBeenCalledWith({
-          messageShown: false,
-          immediatelyHideMessage: true
-        });
-      });
+          spyOn(instance, "setState");
+          jest.useFakeTimers();
+          instance.hideMessage();
+          jest.runAllTimers();
 
-      it('sets state to hide message instantly', () => {
-        spyOn(instance, 'setState').and.callThrough();
-        instance.setState({
-          valid: false,
-          warning: false,
-          messageShown: true
+          expect(instance.setState).toHaveBeenCalledWith({
+            messageShown: false
+          });
+          expect(setTimeout).toHaveBeenCalledTimes(1);
         });
 
-        instance.immediatelyHideMessage();
+        it("it does not triggers a timeout when prop value is 0", () => {
+          let wrapper = mount(<Component />);
+          instance = wrapper.instance();
+          wrapper.setProps({ timeToDisappear: 0 });
+          instance.setState({ valid: true, warning: true });
 
-        expect(instance.setState).toHaveBeenCalledWith({
-          messageShown: false,
-          immediatelyHideMessage: true
+          spyOn(instance, "setState");
+          jest.useFakeTimers();
+          instance.hideMessage();
+          jest.runAllTimers();
+
+          expect(instance.setState).toHaveBeenCalledWith({
+            messageShown: false
+          });
+          expect(setTimeout).toHaveBeenCalledTimes(0);
         });
       });
     });

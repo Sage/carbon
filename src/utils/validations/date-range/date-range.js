@@ -1,5 +1,5 @@
-import ValidationsHelper from './../../helpers/validations';
-import DateHelper from './../../helpers/date';
+import ValidationsHelper from '../../helpers/validations';
+import DateHelper from '../../helpers/date';
 /**
  * A DateRangeValidator object.
  *
@@ -9,7 +9,7 @@ import DateHelper from './../../helpers/date';
  *
  * Import the validator into your component:
  *
- *  `import DateRangeValidator from 'utils/validations/date-range'`
+ *  `import DateRangeValidator from 'carbon-react/lib/utils/validations/date-range'`
  *
  * Assign the validator to the two Date fields being compared.
  * Pass the alternative date value to the validator.

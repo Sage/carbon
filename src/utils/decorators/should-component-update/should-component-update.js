@@ -1,4 +1,4 @@
-import ShouldComponentUpdateHelper from './../../helpers/should-component-update';
+import ShouldComponentUpdateHelper from '../../helpers/should-component-update';
 
 /**
  * ShouldComponentUpdate Decorator.
@@ -9,7 +9,7 @@ import ShouldComponentUpdateHelper from './../../helpers/should-component-update
  *
  * In your file:
  *
- *   import ShouldComponentUpdate from 'carbon/lib/utils/decorators/should-component-update;
+ *   import ShouldComponentUpdate from 'carbon-react/lib/utils/decorators/should-component-update;
  *
  * To use the decorator, wrap your component with it:
  *

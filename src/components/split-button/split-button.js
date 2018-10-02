@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Icon from './../icon';
-import Button from './../button';
+import Icon from '../icon';
+import Button from '../button';
 import { validProps } from '../../utils/ether';
 
 /**
@@ -12,7 +12,7 @@ import { validProps } from '../../utils/ether';
  *
  * In your file
  *
- *   import SplitButton from 'components/split-button';
+ *   import SplitButton from 'react-carbon/lib/components/split-button';
  *
  * To render a SplitButton (developer can add any buttons to dropdown):
  *

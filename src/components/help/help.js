@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Icon from './../icon';
+import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
 
 /**
@@ -11,7 +11,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file
  *
- *   import Help from 'carbon/lib/components/help';
+ *   import Help from 'carbon-react/lib/components/help';
  *
  * To render a help component:
  *

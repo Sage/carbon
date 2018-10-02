@@ -14,9 +14,9 @@ const Browser = {
     const _window = Browser.getWindow();
     const _document = Browser.getDocument();
     return (!!(
-      typeof _window !== 'undefined' &&
-      _document &&
-      _document.createElement
+      typeof _window !== 'undefined'
+      && _document
+      && _document.createElement
     ));
   },
   /**

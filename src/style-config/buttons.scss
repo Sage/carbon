@@ -28,6 +28,7 @@ values are [ background/border color, hover, active, text ]
 $buttonColorSets: (
  ("blue", $blue, mix(black, $blue, 20), $blue-bright, $white),
  ("magenta", $magenta, mix(black, $magenta, 20), $magenta-light, $white),
+ ("magenta-dull", $magenta-dull, mix(black, $magenta-dull, 20), mix(white, $magenta-dull, 20), $white),
  ("red", $red, mix(black, $red, 20), $red-light, $white),
  ("white", $white, mix(black, $white, 20), $grey-dark-blue-10, $grey-dark-plus),
  ("grey", $slate-tint-20, $slate, $grey-dark-blue-80, $white)

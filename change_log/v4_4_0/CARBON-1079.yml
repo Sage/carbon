@@ -1,0 +1,1 @@
+  Bug Fixes: "the Pod component was refactored to resolve the issue of its title property being incorrectly applied as an attribute to the containing div element in the Pod component"

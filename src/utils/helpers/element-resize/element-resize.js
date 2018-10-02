@@ -1,5 +1,5 @@
 import Bowser from 'bowser';
-import Browser from './../browser';
+import Browser from '../browser';
 
 /**
  * Creates a child 'object' or document which mimics the size of the given element and is

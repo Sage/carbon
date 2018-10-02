@@ -101,7 +101,6 @@ describe('MultiStepWizard', () => {
     describe('when current step is less than the total of steps', () => {
       it('moves the step forward', () => {
         instance.next();
-        expect(instance.setState).toHaveBeenCalledWith({ currentStep: 2 });
         expect(instance.state.currentStep).toEqual(2);
       });
     });
@@ -125,7 +124,7 @@ describe('MultiStepWizard', () => {
       it('moves the step backward', () => {
         instance.state.currentStep = 2;
         instance.back();
-        expect(instance.setState).toHaveBeenCalledWith({ completed: false, currentStep: 1 });
+        expect(instance.state.completed).toEqual(false);
         expect(instance.state.currentStep).toEqual(1);
       });
     });

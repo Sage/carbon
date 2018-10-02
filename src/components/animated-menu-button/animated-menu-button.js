@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import Icon from './../icon';
+import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
-import Devices from './../../utils/helpers/devices';
-import { validProps } from './../../utils/ether';
+import Devices from '../../utils/helpers/devices';
+import { validProps } from '../../utils/ether';
 
 /**
  * An AnimatedMenuButton widget.
@@ -14,7 +14,7 @@ import { validProps } from './../../utils/ether';
  *
  * In your file
  *
- *   import AnimatedMenuButton from 'carbon/lib/components/animated-menu-button';
+ *   import AnimatedMenuButton from 'carbon-react/lib/components/animated-menu-button';
  *
  * To render a AnimatedMenuButton, pass children to be rendered in the expanded menu:
  *
@@ -220,6 +220,7 @@ class AnimatedMenuButton extends React.Component {
         key='close'
         onClick={ this.closeHandler }
         ref={ (comp) => { this._closeIcon = comp; } }
+        type='button'
       >
         <Icon type='close' />
       </button>

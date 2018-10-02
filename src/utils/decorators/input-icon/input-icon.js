@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { assign } from 'lodash';
 
-import Icon from './../../../components/icon';
+import Icon from '../../../components/icon';
 
 /**
  * InputIcon decorator.
@@ -14,7 +14,7 @@ import Icon from './../../../components/icon';
  *
  * In your file:
  *
- *   import InputIcon from 'carbon/lib/utils/decorators/input-icon';
+ *   import InputIcon from 'carbon-react/lib/utils/decorators/input-icon';
  *
  * To use the decorator, wrap your component with it:
  *
@@ -58,7 +58,7 @@ const InputIcon = (ComposedComponent) => {
 
       let icon = <Icon type={ iconType } className='carbon-input-icon' />;
 
-      if (['error', 'warning'].indexOf(iconType) > -1) {
+      if (['error', 'warning', 'info'].indexOf(iconType) > -1) {
         icon = (
           <span className={ `carbon-input-icon carbon-input-icon--${iconType}` }>
             { this.validationHTML }

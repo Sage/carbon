@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Icon from './../icon';
+import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
 
 /**
@@ -11,7 +11,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file:
  *
- *   import Message from 'carbon/lib/components/message';
+ *   import Message from 'carbon-react/lib/components/message';
  *
  * To render the Message:
  *
