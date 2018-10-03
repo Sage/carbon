@@ -5,11 +5,11 @@
 .carbon-menu-item.carbon-link__anchor,
 .carbon-menu-item {
   display: inline-block;
-  height: 40px;
-  padding: 0 15px;
-  position: relative;
   font-size: 13px;
   font-weight: 700;
+  height: 40px;
+  padding: 0px 24px;
+  position: relative;
 
   .carbon-portrait {
     top: -1px;
@@ -35,8 +35,9 @@
     }
 
     .carbon-menu-item__submenu .carbon-menu-item--has-link:hover {
+      background: $blue;
       cursor: pointer;
-      color: $blue-bright;
+      color: white;
     }
 
     &:after {
@@ -127,7 +128,6 @@
 }
 
 .carbon-menu-item__submenu {
-  border-radius: 0 0 4px 4px;
   box-shadow: 0 15px 25px rgba($grey-shadow, 0.15);
   display: none;
   list-style: none;
@@ -158,9 +158,6 @@
 
   .carbon-menu--primary & {
     background-color: $white;
-    padding-top: 2px;
-    padding-bottom: 5px;
-    border-radius: 0 0 4px 4px;
 
     .carbon-menu-item--selected {
       color: $green-bright-dull;
@@ -199,13 +196,9 @@
 
   .carbon-menu-item {
     display: block;
-    height: 30px;
-    line-height: 30px;
+    height: 40px;
+    line-height: 40px;
     white-space: nowrap;
-
-    &:last-child {
-      border-radius: 0 0 4px 4px;
-    }
 
     .carbon-menu--primary & {
       background-color: $white;
