@@ -156,10 +156,23 @@ describe('WithDrag', () => {
       });
     });
 
-    describe('when the event target is a dom element', () => {
-      it('prevents selectstart', () => {
+    describe('when the event target is an input element', () => {
+      it('does not prevent selectstart', () => {
+        const element = BrowserHelper.getDocument().createElement('input');
         const event = {
-          target: BrowserHelper.getDocument().createElement('div'),
+          target: element,
+          preventDefault: jest.fn()
+        }
+        spyOn(event, 'preventDefault');
+        expect(component.decoratedComponentInstance.allowTextSelection(event)).toBeTruthy();
+      });
+    });
+
+    describe('when the event target is NOT an input element', () => {
+      it('prevents selectstart', () => {
+        const element = BrowserHelper.getDocument().createElement('span');
+        const event = {
+          target: element,
           preventDefault: jest.fn()
         }
         spyOn(event, 'preventDefault');

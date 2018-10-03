@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
-import Icon from './../icon';
-import Link from './../link';
-import Event from './../../utils/helpers/events';
+import Icon from '../icon';
+import Link from '../link';
+import Event from '../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 
@@ -17,7 +17,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file:
  *
- *   import Pod from 'carbon/lib/components/pod';
+ *   import Pod from 'carbon-react/lib/components/pod';
  *
  * In the render the Pod:
  *
@@ -285,15 +285,6 @@ class Pod extends React.Component {
     );
   }
 
-  /**
-   * Checks that the title is a string rather than something else as it can be JSX
-   *
-   * @method titleIsString
-   * @return {Boolean}
-   */
-  titleIsString = () => {
-    return typeof this.props.title === 'string';
-  }
 
   /**
    * Toggles the opening and closing of the pod
@@ -301,7 +292,7 @@ class Pod extends React.Component {
    * @method toggleCollapse
    */
   toggleCollapse = () => {
-    this.setState({ collapsed: !this.state.collapsed });
+    this.setState(prevState => ({ collapsed: !prevState.collapsed }));
   }
 
   get mainClasses() {
@@ -426,7 +417,7 @@ class Pod extends React.Component {
     if (!this.props.onEdit) { return null; }
 
     return (
-      <div className='carbon-pod__edit-button-container' { ...this.hoverOverEditEvents } >
+      <div className='carbon-pod__edit-button-container' { ...this.hoverOverEditEvents }>
         <Link
           icon='edit' className={ this.editActionClasses }
           { ...this.linkProps() }
@@ -525,10 +516,6 @@ class Pod extends React.Component {
 
     delete props.className;
 
-    if (this.titleIsString()) {
-      props.title = this.props.title;
-    }
-
     if (!this.state.collapsed) { content = this.podContent; }
 
     if (this.shouldContentHaveEditProps) {
@@ -542,7 +529,7 @@ class Pod extends React.Component {
         { ...tagComponent('pod', this.props) }
       >
         <div className={ this.blockClasses } { ...hoverOverEditEvents }>
-          <div className={ this.contentClasses } >
+          <div className={ this.contentClasses }>
             { this.podHeader }
             { content }
           </div>

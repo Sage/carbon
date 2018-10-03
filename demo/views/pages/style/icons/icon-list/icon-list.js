@@ -27,12 +27,14 @@ export default [
     { name: 'minus', type: 'minus' },
     { name: 'edit', type: 'edit' },
     { name: 'edited', type: 'edited' },
+    { name: 'ellipsis', type: 'ellipsis' },
     { name: 'favourite', type: 'favourite' },
     { name: 'favourite_lined', type: 'favourite_lined' },
     { name: 'credit_card', type: 'credit_card' },
     { name: 'save', type: 'save' },
     { name: 'uploaded', type: 'uploaded' },
     { name: 'question', type: 'question' },
+    { name: 'question_hollow', type: 'question_hollow' },
     { name: 'info', type: 'info' },
     { name: 'download', type: 'download' },
     { name: 'upload', type: 'upload' },
@@ -54,7 +56,10 @@ export default [
     { name: 'filter_new', type: 'filter_new' },
     { name: 'delivery', type: 'delivery' },
     { name: 'chat_notes', type: 'chat_notes' },
-    { name: 'view', type: 'view' }
+    { name: 'view', type: 'view' },
+    { name: 'bullet_list', type: 'bullet_list' },
+    { name: 'lightbulb_off', type: 'lightbulb_off' },
+    { name: 'lightbulb_on', type: 'lightbulb_on' }
   ] },
   { name: 'Batch Actions', children: [
     { name: 'cart', type: 'cart' },

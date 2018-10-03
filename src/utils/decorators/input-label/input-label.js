@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { find, startCase, assign } from 'lodash';
 import classNames from 'classnames';
-import Help from './../../../components/help';
+import Help from '../../../components/help';
 
 /**
  * InputLabel decorator.
@@ -13,7 +13,7 @@ import Help from './../../../components/help';
  *
  * In your file:
  *
- *   import InputLabel from 'carbon/lib/utils/decorators/input-label';
+ *   import InputLabel from 'carbon-react/lib/utils/decorators/input-label';
  *
  * To use the decorator, wrap your component with it:
  *

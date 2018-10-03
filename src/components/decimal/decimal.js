@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import I18nHelper from './../../utils/helpers/i18n';
-import Input from './../../utils/decorators/input';
-import InputLabel from './../../utils/decorators/input-label';
-import InputValidation from './../../utils/decorators/input-validation';
+import I18nHelper from '../../utils/helpers/i18n';
+import Input from '../../utils/decorators/input';
+import InputLabel from '../../utils/decorators/input-label';
+import InputValidation from '../../utils/decorators/input-validation';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
-import Logger from './../../utils/logger';
+import Logger from '../../utils/logger';
 
 /**
  * A decimal widget.
@@ -15,7 +15,7 @@ import Logger from './../../utils/logger';
  *
  * In your file
  *
- *   import Decimal from 'carbon/lib/components/decimal';
+ *   import Decimal from 'carbon-react/lib/components/decimal';
  *
  * To render the Decimal:
  *

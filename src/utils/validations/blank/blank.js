@@ -1,4 +1,4 @@
-import ValidationsHelper from './../../helpers/validations';
+import ValidationsHelper from '../../helpers/validations';
 
 /**
  * This will validate a value for being blank.

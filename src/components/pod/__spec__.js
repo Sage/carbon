@@ -104,10 +104,9 @@ describe('Pod', () => {
         });
 
         it('Adds a onClick handler to the header', () => {
-          spyOn(instance, 'setState');
           let header = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-pod__header');
           TestUtils.Simulate.click(header);
-          expect(instance.setState).toHaveBeenCalledWith({ collapsed: false });
+          expect(instance.state.collapsed).toEqual(false);
         });
       });
 
@@ -356,22 +355,16 @@ describe('Pod', () => {
     });
   });
 
-  describe("titleIsString", () => {
-    it("returns false if title is not a string", () => {
-      instance = TestUtils.renderIntoDocument(<Pod title={ undefined } />);
-      expect(instance.titleIsString()).toEqual(false);
-    });
-    it("returns true if title is object", () => {
-      instance = TestUtils.renderIntoDocument(<Pod title='testing' />);
-      expect(instance.titleIsString()).toEqual(true);
-    });
-  });
-
   describe('render', () => {
     it('applies all props to the pod', () => {
       instance = TestUtils.renderIntoDocument(<Pod data-foo="bar" />);
       let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(div.attributes['data-foo'].value).toEqual("bar");
+    });
+
+    it('does not apply title prop to containing elements', () => {
+      const wrapper = shallow(<Pod title="some-title" />);
+      expect(wrapper.is('[title]')).toBe(false);
     });
 
     describe('pod content', () => {

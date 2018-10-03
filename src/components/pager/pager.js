@@ -3,11 +3,11 @@ import I18n from 'i18n-js';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 
-import css from './../../utils/css';
-import Icon from './../icon';
-import NumberComponent from './../number';
-import Dropdown from './../dropdown';
-import Events from './../../utils/helpers/events';
+import css from '../../utils/css';
+import Icon from '../icon';
+import NumberComponent from '../number';
+import Dropdown from '../dropdown';
+import Events from '../../utils/helpers/events';
 import tagComponent from '../../utils/helpers/tags';
 
 /**
@@ -17,7 +17,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file
  *
- *   import Pager from 'carbon/lib/components/pager';
+ *   import Pager from 'carbon-react/lib/components/pager';
  *
  * To render a Pager:
  *
@@ -335,11 +335,11 @@ class Pager extends React.Component {
     return (
       <div className='carbon-pager' { ...tagComponent('pager', this.props) }>
 
-        <div className='carbon-pager__size' >
+        <div className='carbon-pager__size'>
           { this.sizeSelectionDropdown }
         </div>
 
-        <div className='carbon-pager__navigation' >
+        <div className='carbon-pager__navigation'>
           { this.previousArrow }
           <span className={ css.unselectable }>{ pageX() }</span>
           { this.currentPageInput }

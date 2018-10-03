@@ -3,8 +3,8 @@ import escapeStringRegexp from 'escape-string-regexp';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Link from './../link';
-import Textbox from './../textbox';
+import Link from '../link';
+import Textbox from '../textbox';
 
 import MenuListItem from './menu-list-item';
 import tagComponent from '../../utils/helpers/tags';
@@ -16,7 +16,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file:
  *
- *   import { MenuList, MenuListItem } from 'carbon/lib/components/menu-list';
+ *   import { MenuList, MenuListItem } from 'carbon-react/lib/components/menu-list';
  *
  * To render the Link:
  *
@@ -122,7 +122,7 @@ class MenuList extends React.Component {
   }
 
   toggleChildren() {
-    this.setState({ open: !this.state.open });
+    this.setState(prevState => ({ open: !prevState.open }));
   }
 
   /** Helpers * */

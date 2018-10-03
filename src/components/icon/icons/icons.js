@@ -8,6 +8,7 @@ import CreditCardSlash from './svgs/credit-card-slash';
 import Dribbble from './svgs/dribbble';
 import Edit from './svgs/edit';
 import Email from './svgs/email';
+import Ellipsis from './svgs/ellipsis';
 import ExternalLink from './svgs/external-link';
 import Github from './svgs/github';
 import Grid from './svgs/grid';
@@ -45,6 +46,7 @@ export default {
   csv: CSV,
   dribbble: Dribbble,
   edit: Edit,
+  ellipsis: Ellipsis,
   email: Email,
   'external-link': ExternalLink,
   github: Github,

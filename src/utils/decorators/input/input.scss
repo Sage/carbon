@@ -114,8 +114,8 @@
 }
 
 .common-input__message-wrapper {
-  top: 0;
   position: absolute;
+  top: 0;
   width: 260px;
 }
 
@@ -142,16 +142,11 @@
     border-right: 16px solid transparent;
     content: '';
     display: block;
+    pointer-events: none;
     position: absolute;
     left: 0;
     bottom: -14px;
   }
-}
-
-.common-input__message--fade {
-  opacity: 0;
-  transition: opacity 0.2s 0.8s, visibility 0s 1.8s;
-  visibility: hidden;
 }
 
 .common-input__message--shown.common-input__message {
@@ -192,6 +187,7 @@
 .common-input--error .common-input__label,
 .common-input__icon {
   color: $error;
+  pointer-events: none;
 }
 
 .common-input__prefix {

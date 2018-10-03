@@ -161,9 +161,9 @@ describe('Icon', () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      let wrapper = mount(<Icon data-element='bar' data-role='baz' type='tick'/>);
+      let wrapper = mount(<Icon data-role='baz' type='tick'/>);
       it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper.find('.carbon-icon'), 'icon', 'bar', 'baz');
+        rootTagTest(wrapper.find('.carbon-icon'), 'icon', 'tick', 'baz');
       });
     });
 

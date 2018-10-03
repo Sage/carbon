@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { assign } from 'lodash';
-import Link from './../link';
+import Link from '../link';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 
@@ -13,7 +13,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file:
  *
- *   import Button from 'carbon/lib/components/button';
+ *   import Button from 'carbon-react/lib/components/button';
  *
  * To render the Button:
  *

@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import TableCell from './../table-cell';
-import TableHeader from './../table-header';
-import Checkbox from './../../checkbox';
-import guid from './../../../utils/helpers/guid';
-import WithDrop from './../../drag-and-drop/with-drop';
-import DraggableTableCell from './../draggable-table-cell';
+import TableCell from '../table-cell';
+import TableHeader from '../table-header';
+import Checkbox from '../../checkbox';
+import guid from '../../../utils/helpers/guid';
+import WithDrop from '../../drag-and-drop/with-drop';
+import DraggableTableCell from '../draggable-table-cell';
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
 
@@ -404,8 +404,8 @@ class TableRow extends React.Component {
    * @return {Boolean}
    */
   get requiresUniqueID() {
-    const highlightable = this.props.highlightable !== false &&
-                          (this.props.highlightable || this.context.highlightable),
+    const highlightable = this.props.highlightable !== false
+                          && (this.props.highlightable || this.context.highlightable),
         selectable = this.props.selectable !== false && (this.props.selectable || this.context.selectable);
 
     return highlightable || selectable;

@@ -1,7 +1,7 @@
-import { Dispatcher } from './../../../utils/flux';
-import Store from './../../../utils/flux/store';
-import ImmutableHelper from './../../../utils/helpers/immutable';
-import ConfigurableItemsConstants from './../constants';
+import { Dispatcher } from '../../../utils/flux';
+import Store from '../../../utils/flux/store';
+import ImmutableHelper from '../../../utils/helpers/immutable';
+import ConfigurableItemsConstants from '../constants';
 
 const data = ImmutableHelper.parseJSON({
   open: false,

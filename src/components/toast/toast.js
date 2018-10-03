@@ -2,9 +2,9 @@ import React from 'react';
 import classNames from 'classnames';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import PropTypes from 'prop-types';
-import Icon from './../icon';
+import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
-import Portal from './../../components/portal';
+import Portal from '../portal';
 
 /**
 * A Toast widget.
@@ -13,7 +13,7 @@ import Portal from './../../components/portal';
 *
 * In your file:
 *
-*   import Toast from 'carbon/lib/components/toast'
+*   import Toast from 'carbon-react/lib/components/toast'
 *
 * To render the Toast:
 *

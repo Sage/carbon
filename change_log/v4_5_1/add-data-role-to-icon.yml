@@ -1,0 +1,1 @@
+Other: As the type attribute has been removed from the Icon component, we are now adding a default data-element to allow a consistent field to target this component with.

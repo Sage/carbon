@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Browser from './../../utils/helpers/browser';
-import Input from './../../utils/decorators/input';
-import InputLabel from './../../utils/decorators/input-label';
-import InputValidation from './../../utils/decorators/input-validation';
-import InputIcon from './../../utils/decorators/input-icon';
-import Events from './../../utils/helpers/events';
+import Browser from '../../utils/helpers/browser';
+import Input from '../../utils/decorators/input';
+import InputLabel from '../../utils/decorators/input-label';
+import InputValidation from '../../utils/decorators/input-validation';
+import InputIcon from '../../utils/decorators/input-icon';
+import Events from '../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
-import Portal from './../portal';
+import Portal from '../portal';
 
 const window = Browser.getWindow();
 /**
@@ -18,7 +18,7 @@ const window = Browser.getWindow();
  *
  * In your file
  *
- *   import Dropdown from 'carbon/lib/components/dropdown';
+ *   import Dropdown from 'carbon-react/lib/components/dropdown';
  *
  * To render a Dropdown:
  *
@@ -650,6 +650,7 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
 
     return results;
   }
+
   /**
    * positions the portal listBlock in relation to the input.
    *
@@ -671,26 +672,23 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
    * @return {Object} JSX
    */
   get additionalInputContent() {
-    const content = [];
-
-    if (this.showArrow()) {
-      content.push(this.inputIconHTML('dropdown'));
-    }
-
-    if (this.state.open) {
-      content.push(
-        <Portal onReposition={ this.calculatePosition }>
-          <div
-            { ...this.listBlockProps }
-            ref={ (node) => { this.listBlock = node; } }
-          >
-            { this.listHTML }
-          </div>
-        </Portal>
-      );
-    }
-
-    return content;
+    return (
+      <React.Fragment>
+        { this.showArrow() && this.inputIconHTML('dropdown') }
+        {
+          this.state.open && (
+            <Portal onReposition={ this.calculatePosition }>
+              <div
+                { ...this.listBlockProps }
+                ref={ (node) => { this.listBlock = node; } }
+              >
+                { this.listHTML }
+              </div>
+            </Portal>
+          )
+        }
+      </React.Fragment>
+    );
   }
 
   /**
