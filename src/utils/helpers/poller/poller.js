@@ -1,5 +1,6 @@
 import Request from 'superagent';
-import './../../promises';
+import '../../promises';
+import Logger from '../../logger';
 
 /**
  * A helper to make poll an endpoint with a GET request
@@ -70,7 +71,7 @@ export default (queryOptions, functions, options) => {
           if (funcs.handleError) {
             result = funcs.handleError(err);
           } else {
-            result = console.error(err.message); // eslint-disable-line no-console
+            result = Logger.error(err.message); // eslint-disable-line no-console
           }
         } else if (funcs.terminate(response)) {
           result = response;
@@ -129,7 +130,7 @@ function getFunctions(functions) {
     conditionNotMetCallback: functions.conditionNotMetCallback || (() => { return false; }),
     terminate: functions.terminate || (() => { return false; }),
     onMaxRetries: functions.onMaxRetries || (() => {
-      console.warn('The poller has made too many requests - terminating poll'); // eslint-disable-line no-console
+      Logger.warn('The poller has made too many requests - terminating poll'); // eslint-disable-line no-console
     })
   };
 }
@@ -142,13 +143,13 @@ function getFunctions(functions) {
  */
 function setupValid(queryOptions, functions) {
   if (queryOptions === null || typeof queryOptions.url === 'undefined') {
-    console.error('You must provide a url to the poller'); // eslint-disable-line no-console
+    Logger.error('You must provide a url to the poller'); // eslint-disable-line no-console
     return false;
   }
 
   if (typeof functions.conditionMet !== 'undefined' && typeof functions.callback === 'undefined') {
     const msg = 'You must provide a callback function if you are testing a condition with conditionMet';
-    console.error(msg); // eslint-disable-line no-console
+    Logger.error(msg); // eslint-disable-line no-console
     return false;
   }
   return true;
