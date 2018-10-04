@@ -1,1 +1,1 @@
-Bug Fixes: "1832 - Fix issue where webpack wasn't recompiling Sass files when they'd changed."
+Improvements: "1832 - Remove Parcelify Loader, and use webpack to load component CSS / Sass."
