@@ -73,7 +73,7 @@ exports[` 1`] = `
         </CSSTransitionGroup>
       </CSSTransitionGroup>
     </div>
-    <Alert
+    <withProps(Dialog)
       data-element="info-dialog"
       data-role="alertdialog"
       key="bun"
@@ -83,7 +83,7 @@ exports[` 1`] = `
       title="bun"
     >
       dy
-    </Alert>
+    </withProps(Dialog)>
   </div>
 </Portal>
 `;
