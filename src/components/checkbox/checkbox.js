@@ -6,6 +6,7 @@ import InputLabel from '../../utils/decorators/input-label';
 import InputValidation from '../../utils/decorators/input-validation';
 import tagComponent from '../../utils/helpers/tags';
 import { validProps } from '../../utils/ether';
+import './checkbox.scss';
 
 /**
  * A Checkbox widget.

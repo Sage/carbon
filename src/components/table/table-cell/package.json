@@ -1,4 +1,3 @@
 {
-  "main": "./table-cell.js",
-  "style": "./table-cell.scss"
+  "main": "./table-cell.js"
 }

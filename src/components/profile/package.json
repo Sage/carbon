@@ -1,4 +1,3 @@
 {
-  "main": "./profile.js",
-  "style": "./profile.scss"
+  "main": "./profile.js"
 }

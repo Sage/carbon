@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 
 import Icon from '../../icon';
+import './form-summary.scss';
 /**
  * Adds an 's' to pluralise (keys will always be error or warning)
  *

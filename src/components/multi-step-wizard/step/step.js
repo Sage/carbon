@@ -5,6 +5,7 @@ import I18n from 'i18n-js';
 
 import Button from '../../button';
 import Icon from '../../icon';
+import './step.scss';
 
 /**
  * A Step widget.

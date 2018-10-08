@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import AppWrapper from '../../app-wrapper';
 import tagComponent from '../../../utils/helpers/tags';
+import './full-screen-heading.scss';
 
 const fullScreenHeadingClasses = (props) => {
   return classNames('carbon-full-screen-heading', props.className);

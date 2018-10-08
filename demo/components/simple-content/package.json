@@ -1,4 +1,3 @@
 {
-  "main": "./simple-content.js",
-  "style": "simple-content.scss"
+  "main": "./simple-content.js"
 }

@@ -1,5 +1,4 @@
 {
   "name": "step",
-  "style": "step.scss",
   "main": "./step.js"
 }

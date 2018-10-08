@@ -1,4 +1,3 @@
 {
-  "main": "./page-background.js",
-  "style": "./page-background.scss"
+  "main": "./page-background.js"
 }

@@ -1,4 +1,3 @@
 {
-  "main": "./show-edit-pod.js",
-  "style": "show-edit-pod.scss"
+  "main": "./show-edit-pod.js"
 }

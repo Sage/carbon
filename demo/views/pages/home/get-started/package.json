@@ -1,4 +1,3 @@
 {
-  "main": "./get-started",
-  "style": "get-started.scss"
+  "main": "./get-started"
 }

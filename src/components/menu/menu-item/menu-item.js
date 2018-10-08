@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import { assign } from 'lodash';
 import Link from '../../link';
 import tagComponent from '../../../utils/helpers/tags';
+import './menu-item.scss';
 
 /**
  * Renders a menu item for the menu component.

@@ -1,4 +1,3 @@
 {
-  "main": "./color-panel.js",
-  "style": "./color-panel.scss"
+  "main": "./color-panel.js"
 }

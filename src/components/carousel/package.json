@@ -1,4 +1,3 @@
 {
-  "main": "./carousel.js",
-  "style": "carousel.scss"
+  "main": "./carousel.js"
 }
