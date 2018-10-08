@@ -1,1 +1,1 @@
-Improvements: "1832 - Remove Parcelify Loader, and use webpack to load component CSS / Sass."
+Improvements: "[1832](https://github.com/Sage/carbon/pull/1832) - Remove Parcelify Loader, and use webpack to load component CSS / Sass."
