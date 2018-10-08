@@ -34,6 +34,7 @@ export default [
     { name: 'save', type: 'save' },
     { name: 'uploaded', type: 'uploaded' },
     { name: 'question', type: 'question' },
+    { name: 'question_hollow', type: 'question_hollow' },
     { name: 'info', type: 'info' },
     { name: 'download', type: 'download' },
     { name: 'upload', type: 'upload' },
@@ -55,7 +56,10 @@ export default [
     { name: 'filter_new', type: 'filter_new' },
     { name: 'delivery', type: 'delivery' },
     { name: 'chat_notes', type: 'chat_notes' },
-    { name: 'view', type: 'view' }
+    { name: 'view', type: 'view' },
+    { name: 'bullet_list', type: 'bullet_list' },
+    { name: 'lightbulb_off', type: 'lightbulb_off' },
+    { name: 'lightbulb_on', type: 'lightbulb_on' }
   ] },
   { name: 'Batch Actions', children: [
     { name: 'cart', type: 'cart' },

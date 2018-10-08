@@ -673,26 +673,23 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
    * @return {Object} JSX
    */
   get additionalInputContent() {
-    const content = [];
-
-    if (this.showArrow()) {
-      content.push(this.inputIconHTML('dropdown'));
-    }
-
-    if (this.state.open) {
-      content.push(
-        <Portal onReposition={ this.calculatePosition }>
-          <div
-            { ...this.listBlockProps }
-            ref={ (node) => { this.listBlock = node; } }
-          >
-            { this.listHTML }
-          </div>
-        </Portal>
-      );
-    }
-
-    return content;
+    return (
+      <React.Fragment>
+        { this.showArrow() && this.inputIconHTML('dropdown') }
+        {
+          this.state.open && (
+            <Portal onReposition={ this.calculatePosition }>
+              <div
+                { ...this.listBlockProps }
+                ref={ (node) => { this.listBlock = node; } }
+              >
+                { this.listHTML }
+              </div>
+            </Portal>
+          )
+        }
+      </React.Fragment>
+    );
   }
 
   /**
