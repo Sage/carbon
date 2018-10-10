@@ -32,10 +32,33 @@ describe('DropdownFilterAjax', () => {
   });
 
   describe('handleVisibleChange', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it('dataRequestTimeout has default value', () => {
+      expect(instance.props.dataRequestTimeout).toEqual(500);
+    });
+
     it('calls getData', () => {
       spyOn(instance, 'getData');
       instance.handleVisibleChange({ target: { value: 'foo' }});
+      jest.runAllTimers();
       expect(instance.getData).toHaveBeenCalledWith('foo', 1);
+    });
+
+    it('resets the timer', () => {
+      spyOn(instance, 'getData');
+      expect(instance.dataFetchTimeout).toBeUndefined();
+      instance.handleVisibleChange({ target: { value: 'foo' }});
+      expect(instance.dataFetchTimeout).not.toBeUndefined();
+      instance.handleVisibleChange({ target: { value: 'foofoo' }});
+      jest.runAllTimers();
+      expect(instance.getData).toHaveBeenCalledWith('foofoo', 1);
     });
   });
 
@@ -97,6 +120,28 @@ describe('DropdownFilterAjax', () => {
           spyOn(instance, 'highlighted').and.returnValue(null);
           instance.handleBlur();
           expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('when there was a request made before the blur', () => {
+        beforeEach(() => {
+          instance.pendingRequest = { abort: jest.fn() };
+          spyOn(instance.pendingRequest, 'abort');
+        });
+        it('cancels the previous request', () => {
+          instance.handleBlur();
+          expect(instance.pendingRequest.abort).toHaveBeenCalled();
+        });
+      });
+
+      describe('when there was a dataFetchTimeout before the blur', () => {
+        beforeEach(() => {
+          instance.dataFetchTimeout = 'foo';
+          spyOn(window, 'clearTimeout');
+        });
+        it('clears the timeout', () => {
+          instance.handleBlur();
+          expect(window.clearTimeout).toHaveBeenCalledWith('foo');
         });
       });
 
@@ -467,6 +512,7 @@ describe('DropdownFilterAjax', () => {
           }]
         }
       });
+      Request.abort = jest.fn().mockReturnThis();
       wrapper = mount(<DropdownFilterAjax name="foo" value="1" path="/foobar" visibleValue="bar" />);
       wrapper.find('.carbon-dropdown__input').simulate('focus');
     });
