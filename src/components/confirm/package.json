@@ -1,5 +1,4 @@
 {
   "name": "confirm",
-  "style": "confirm.scss",
   "main": "./confirm.js"
 }

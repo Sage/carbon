@@ -4,6 +4,7 @@ import React from 'react';
 // Carbon
 import Pod from 'components/pod';
 import Portrait from 'components/portrait';
+import './info-tile.scss';
 
 class InfoTile extends React.Component {
   render() {

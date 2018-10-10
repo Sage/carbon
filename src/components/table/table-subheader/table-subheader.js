@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import TableHeader from '../table-header';
+import './table-subheader.scss';
 
 /**
  * A TableSubheader widget.

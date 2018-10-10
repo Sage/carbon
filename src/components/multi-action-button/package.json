@@ -1,4 +1,3 @@
 {
-  "main": "./multi-action-button.js",
-  "style": "multi-action-button.scss"
+  "main": "./multi-action-button.js"
 }

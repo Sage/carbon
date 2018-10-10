@@ -8,6 +8,7 @@ import Tab from './tab';
 import Event from '../../utils/helpers/events';
 import tagComponent from '../../utils/helpers/tags';
 import Browser from '../../utils/helpers/browser';
+import './tabs.scss';
 
 /**
  * A Tabs widget.

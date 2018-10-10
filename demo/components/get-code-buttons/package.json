@@ -1,4 +1,3 @@
 {
-  "main": "./get-code-buttons.js",
-  "style": "get-code-buttons.scss"
+  "main": "./get-code-buttons.js"
 }

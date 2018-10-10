@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import MenuItem from './menu-item';
 import SubmenuBlock from './submenu-block';
 import tagComponent from '../../utils/helpers/tags';
+import './menu.scss';
 
 /**
  * Renders a menu component, with menu items.

@@ -1,5 +1,4 @@
 {
   "name": "switch",
-  "style": "switch.scss",
   "main": "./switch.js"
 }

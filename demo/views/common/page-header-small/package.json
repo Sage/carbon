@@ -1,4 +1,3 @@
 {
-  "main": "./page-header-small.js",
-  "style": "./page-header-small.scss"
+  "main": "./page-header-small.js"
 }

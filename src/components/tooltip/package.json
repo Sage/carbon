@@ -1,4 +1,3 @@
 {
-  "main": "./tooltip.js",
-  "style": "tooltip.scss"
+  "main": "./tooltip.js"
 }

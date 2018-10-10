@@ -7,6 +7,7 @@ import { DraggableContext } from '../drag-and-drop';
 import Button from '../button';
 import ConfigurableItemRow from './configurable-item-row';
 import Form from '../form';
+import './configurable-items.scss';
 
 class ConfigurableItems extends React.Component {
   static propTypes = {

@@ -6,6 +6,7 @@ import { trim, startsWith } from 'lodash';
 import Icon from '../../icon';
 import Input from '../../../utils/decorators/input';
 import tagComponent from '../../../utils/helpers/tags';
+import './color-option.scss';
 
 /**
  * A single square with a color, implemented as a radio button.

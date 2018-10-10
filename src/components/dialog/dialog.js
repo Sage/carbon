@@ -7,6 +7,7 @@ import Icon from '../icon';
 import Modal from '../modal';
 import Heading from '../heading';
 import ElementResize from '../../utils/helpers/element-resize';
+import './dialog.scss';
 
 const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog--open';
 

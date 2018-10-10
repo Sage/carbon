@@ -1,4 +1,3 @@
 {
-  "main": "./footer.js",
-  "style": "./footer.scss"
+  "main": "./footer.js"
 }

@@ -1,4 +1,5 @@
 import React from 'react';
+import './sectioniser.scss';
 
 /**
  * Wraps each child into a div with a clip path applied, which gradually gets shallower depending on page position
