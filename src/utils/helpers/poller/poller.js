@@ -1,5 +1,4 @@
 import Request from 'superagent';
-import '../../promises';
 
 /**
  * A helper to make poll an endpoint with a GET request
