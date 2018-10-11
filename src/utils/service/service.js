@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { assign } from 'lodash';
-import '../promises';
 
 /**
  * Global configuration for all service classes.
