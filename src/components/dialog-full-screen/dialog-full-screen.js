@@ -6,6 +6,7 @@ import Heading from '../heading';
 import AppWrapper from '../app-wrapper';
 import FullScreenHeading from './full-screen-heading';
 import Browser from '../../utils/helpers/browser';
+import './dialog-full-screen.scss';
 
 const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog-full-screen--open';
 

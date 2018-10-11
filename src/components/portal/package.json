@@ -1,4 +1,3 @@
 {
-  "main": "./portal.js",
-  "style": "portal.scss"
+  "main": "./portal.js"
 }

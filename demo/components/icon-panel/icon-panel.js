@@ -1,6 +1,7 @@
 import React from 'react';
 
 import Icon from 'components/icon';
+import './icon-panel.scss';
 
 /**
  * Puts out a div with icon related presentation

@@ -7,6 +7,7 @@ import Link from '../link';
 import Event from '../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
+import './pod.scss';
 
 /**
  * A Pod widget.

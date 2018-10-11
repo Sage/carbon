@@ -1,4 +1,3 @@
 {
-  "main": "./sidebar.js",
-  "style": "sidebar.scss"
+  "main": "./sidebar.js"
 }

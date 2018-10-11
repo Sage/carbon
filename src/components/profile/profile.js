@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Portrait from '../portrait';
 import { acronymize } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
+import './profile.scss';
 
 /**
  * Renders a user profile, with avatar.

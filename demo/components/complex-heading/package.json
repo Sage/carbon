@@ -1,4 +1,3 @@
 {
-  "main": "./complex-heading",
-  "style": "complex-heading.scss"
+  "main": "./complex-heading"
 }

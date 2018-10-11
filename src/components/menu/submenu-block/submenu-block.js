@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import tagComponent from '../../../utils/helpers/tags';
+import './submenu-block.scss';
 
 /**
  * Renders a menu block for inside of a submenu.

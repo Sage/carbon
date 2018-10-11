@@ -1,0 +1,1 @@
+Improvements: "1133 - Remove core-js dependency and promise polyfill. If you were using the promise polyfill from Carbon previously we recommend using the polyfill from babel or from core-js manually. carbon-factory v6.1.0 provides a preconfigured `.babelrc` file for this."

@@ -5,6 +5,7 @@ import Help from '../help';
 import Link from '../link';
 import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
+import './heading.scss';
 
 /**
  * UI for a heading header.

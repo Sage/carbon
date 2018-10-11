@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import tagComponent from '../../../utils/helpers/tags';
+import './menu-list-item.scss';
 
 class MenuListItem extends React.Component {
   static propTypes = {

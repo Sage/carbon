@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Form from '../form';
 import tagComponent from '../../utils/helpers/tags';
+import './filter.scss';
 
 /**
  * @class Filter

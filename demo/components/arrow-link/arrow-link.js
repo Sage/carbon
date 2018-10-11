@@ -4,6 +4,7 @@ import { humanize } from 'underscore.string';
 
 import Icon from 'components/icon';
 import Link from 'components/link';
+import './arrow-link.scss';
 
 /**
  * Creates a Link wrapped HTML component that renders a label with prefix and an arrow icon

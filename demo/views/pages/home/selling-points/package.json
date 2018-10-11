@@ -1,4 +1,3 @@
 {
-  "main": "./selling-points",
-  "style": "selling-points.scss"
+  "main": "./selling-points"
 }
