@@ -8,22 +8,6 @@ The quickest way to get started with Carbon is to use [create-carbon-app](https:
 
 Behind the scenes this uses [Carbon Factory](https://github.com/sage/carbon-factory), which provides pre-configured Webpack config and Jest config to get going with a new application in minutes.
 
-### Without Using Carbon Factory
-
-Carbon can also be used with your own build configurations.
-
-#### Webpack
-
-We recommend you install the [Parcelify Loader](https://www.npmjs.com/package/parcelify-loader). Our components integrate with the loader to easily serve CSS assets for each component you use.
-
-#### Browserify
-
-We recommend you install the [Parcelify plugin](https://www.npmjs.com/package/parcelify). Our components integrate with the loader to easily serve CSS assets for each component you use.
-
-#### Other
-
-Alternatively you can manually import the style assets for each component you use. We are working to improve how this is managed in a future version to make it easier for everyone to get started with Carbon.
-
 ## Application Setup
 
 Install Carbon into your project: `npm install carbon-react`.

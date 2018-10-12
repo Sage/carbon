@@ -1,4 +1,3 @@
 {
-  "main": "./inline-inputs.js",
-  "style": "./inline-inputs.scss"
+  "main": "./inline-inputs.js"
 }

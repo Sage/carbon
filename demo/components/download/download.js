@@ -3,6 +3,7 @@ import React from 'react';
 // Carbon
 import Icon from 'components/icon';
 import Link from 'components/link';
+import './download.scss';
 
 /**
  * Page section loads a download with label, link and a download icon

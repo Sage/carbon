@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import tagComponent from '../../utils/helpers/tags';
 import { Carousel } from '../carousel';
 import Page from './page';
+import './pages.scss';
 
 const pagesClasses = (props) => {
   return classNames('carbon-pages', props.className);

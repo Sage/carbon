@@ -1,5 +1,4 @@
 {
   "name": "message",
-  "style": "message.scss",
   "main": "./message.js"
 }

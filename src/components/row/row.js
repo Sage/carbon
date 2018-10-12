@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Column from './column';
+import './row.scss';
 
 /**
  * A row widget.

@@ -1,4 +1,3 @@
 {
-  "main": "./information-styles.js",
-  "style": "./information-styles.scss"
+  "main": "./information-styles.js"
 }

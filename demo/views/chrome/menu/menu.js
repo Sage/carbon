@@ -12,6 +12,7 @@ import { Sidebar, SidebarHeader } from 'components/sidebar';
 import SiteMap from './../../../site-map';
 import GetCodeButtons from './../../../components/get-code-buttons';
 import { MenuList } from 'components/menu-list';
+import './menu.scss';
 
 class Menu extends React.Component {
   render() {

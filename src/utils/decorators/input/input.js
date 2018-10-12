@@ -7,6 +7,7 @@ import shouldComponentUpdate from '../../helpers/should-component-update';
 import guid from '../../helpers/guid';
 import Icon from '../../../components/icon';
 import Help from '../../../components/help';
+import './input.scss';
 
 /**
  * Input decorator.

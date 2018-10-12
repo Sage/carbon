@@ -1,4 +1,3 @@
 {
-  "main": "./configurable-items.js",
-  "style": "./configurable-items.scss"
+  "main": "./configurable-items.js"
 }

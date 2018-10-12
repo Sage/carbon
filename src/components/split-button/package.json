@@ -1,5 +1,4 @@
 {
   "name": "split-button",
-  "style": "split-button.scss",
   "main": "./split-button.js"
 }

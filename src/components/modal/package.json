@@ -1,4 +1,3 @@
 {
-  "main": "./modal.js",
-  "style": "modal.scss"
+  "main": "./modal.js"
 }

@@ -1,4 +1,3 @@
 {
-  "main": "./icon-panel.js",
-  "style": "./icon-panel.scss"
+  "main": "./icon-panel.js"
 }

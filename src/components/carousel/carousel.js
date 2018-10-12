@@ -8,6 +8,7 @@ import tagComponent from '../../utils/helpers/tags';
 
 import Icon from '../icon';
 import Slide from './slide';
+import './carousel.scss';
 
 const NEXT = 'next';
 const PREVIOUS = 'previous';

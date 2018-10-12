@@ -8,6 +8,7 @@ import InputLabel from '../../utils/decorators/input-label';
 import InputValidation from '../../utils/decorators/input-validation';
 
 import tagComponent from '../../utils/helpers/tags';
+import './button-toggle-group.scss';
 
 /**
  * A button toggle group widget.

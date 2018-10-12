@@ -1,5 +1,4 @@
 {
   "name": "rainbow",
-  "style": "rainbow.scss",
   "main": "./rainbow.js"
 }

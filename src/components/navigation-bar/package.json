@@ -1,4 +1,3 @@
 {
-  "main": "./navigation-bar.js",
-  "style": "./navigation-bar.scss"
+  "main": "./navigation-bar.js"
 }

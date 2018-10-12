@@ -51,7 +51,7 @@
     width: 146px;
   }
 
-  .carbon-link__anchor {
+  &__link {
     color: currentColor;
     &:hover {
       color: $green-apple;

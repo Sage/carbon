@@ -1,5 +1,4 @@
 {
   "name": "link",
-  "style": "link.scss",
   "main": "./link.js"
 }

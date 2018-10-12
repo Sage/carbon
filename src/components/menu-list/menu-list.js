@@ -8,6 +8,7 @@ import Textbox from '../textbox';
 
 import MenuListItem from './menu-list-item';
 import tagComponent from '../../utils/helpers/tags';
+import './menu-list.scss';
 
 /**
 

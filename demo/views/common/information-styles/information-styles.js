@@ -1,4 +1,5 @@
 import React from 'react';
+import './information-styles.scss';
 
 /**
  * Wraps children in styling wrapper

@@ -126,6 +126,7 @@ const InputValidation = (ComposedComponent) => {
        * @type {Boolean}
        */
       this.state.messageShown = false;
+
       /**
        * toggles whether the message css is flipped
        *

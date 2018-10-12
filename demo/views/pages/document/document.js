@@ -9,6 +9,7 @@ import Spinner from 'components/spinner';
 import Row from 'components/row';
 import Highlight from 'react-highlight';
 import classNames from 'classnames';
+import './document.scss';
 
 class Document extends React.Component {
   state = { guide: '' }

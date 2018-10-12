@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import AppWrapper from '../app-wrapper';
 import tagComponent from '../../utils/helpers/tags';
+import './navigation-bar.scss';
 
 /**
  * Renders a full width application bar.
