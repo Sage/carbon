@@ -640,4 +640,15 @@ describe('Date', () => {
       ]);
     });
   });
+
+  describe("internalValidations", () => {
+    it("should be a member of defaultProps static member", () => {
+      expect(Date.defaultProps.internalValidations).toBeTruthy();
+    });
+
+    it("should return an arrary with a DateValidator", () => {
+      const [received] = Date.defaultProps.internalValidations({minDate: "", maxDate: ""});
+      expect(received).toBeTruthy();
+    });
+  });
 });
