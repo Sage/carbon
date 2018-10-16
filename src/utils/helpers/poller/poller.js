@@ -1,5 +1,4 @@
 import Request from 'superagent';
-import '../../promises';
 import Logger from '../../logger';
 
 /**
