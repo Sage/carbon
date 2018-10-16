@@ -1,5 +1,6 @@
 import Request from 'superagent';
 import Poller from './poller';
+import Logger from '../../logger';
 
 /* global jest */
 jest.mock('superagent');
@@ -14,8 +15,8 @@ describe('poller', () => {
       callback
     };
     url = 'foo/bar';
-    spyOn(console, 'error');
-    spyOn(console, 'warn');
+    spyOn(Logger, 'error');
+    spyOn(Logger, 'warn');
 
     Request.__setMockResponse({
       status() {
@@ -38,14 +39,14 @@ describe('poller', () => {
   describe('when no url has been provided', () => {
     it('logs a no url error', () => {
       Poller({}, functions, {});
-      expect(console.error).toHaveBeenCalledWith( // eslint-disable-line no-console
+      expect(Logger.error).toHaveBeenCalledWith(
         'You must provide a url to the poller');
     });
 
     describe('when no queryOptions object is passed', () => {
       it('logs a no url error', () => {
         Poller(null, functions, {});
-        expect(console.error).toHaveBeenCalledWith( // eslint-disable-line no-console
+        expect(Logger.error).toHaveBeenCalledWith(
           'You must provide a url to the poller');
       });
     });
@@ -54,7 +55,7 @@ describe('poller', () => {
   describe('when no callback function is provided and a conditionMet function has been provided', () => {
     it('throws a no callback error', () => {
       Poller({ url }, { conditionMet: () => {} }, {});
-      expect(console.error).toHaveBeenCalledWith( // eslint-disable-line no-console
+      expect(Logger.error).toHaveBeenCalledWith(
         'You must provide a callback function if you are testing a condition with conditionMet');
     });
   });
@@ -95,8 +96,7 @@ describe('poller', () => {
   describe('poll', () => {
     describe('when the pollCount exceeds the specified number of retries', () => {
       it('logs a too many requests warning', () => {
-        console.warn = jest.fn(); // eslint-disable-line no-console
-
+        Logger.warn = jest.fn();
 
         Poller({ url }, functions, { interval: 1000, retries: 2 });
         jest.runTimersToTime(1000);
@@ -105,7 +105,7 @@ describe('poller', () => {
           jest.runTimersToTime(1000);
         }
 
-        expect(console.warn.mock.calls[0][0]).toBe( // eslint-disable-line no-console
+        expect(Logger.warn.mock.calls[0][0]).toBe(
           'The poller has made too many requests - terminating poll');
       });
     });
@@ -119,7 +119,7 @@ describe('poller', () => {
           .mockReturnValueOnce(now);
 
         const testInterval = 1000;
-        console.warn = jest.fn(); // eslint-disable-line no-console
+        Logger.warn = jest.fn();
 
         let mockDateValue = now;
 
@@ -129,8 +129,24 @@ describe('poller', () => {
           Date.now.mockReturnValueOnce(mockDateValue);
           jest.runTimersToTime(testInterval);
         }
-        expect(console.warn.mock.calls[0][0]).toBe( // eslint-disable-line no-console
+        expect(Logger.warn.mock.calls[0][0]).toBe(
           'The poller has made too many requests - terminating poll');
+      });
+    });
+
+    describe('when polling terminates and theres an onMaxRetries function', () => {
+      it('calls the onMaxRetries function', () => {
+        const onMaxRetriesSpy = jest.fn();
+        functions.onMaxRetries = onMaxRetriesSpy;
+
+        Poller({ url }, functions, { interval: 1000, retries: 2 });
+
+        for (let i = 0; i < 2; i++) {
+          expect(onMaxRetriesSpy).not.toHaveBeenCalled();
+          jest.runTimersToTime(1000);
+        }
+
+        expect(onMaxRetriesSpy).toHaveBeenCalled();
       });
     });
 
@@ -192,7 +208,7 @@ describe('poller', () => {
         it('logs the error', (done) => {
           Poller({ url }, functions, { interval: 1000 });
           done();
-          expect(console.error).toHaveBeenCalledWith( // eslint-disable-line no-console
+          expect(Logger.error).toHaveBeenCalledWith(
             'Unsuccessful HTTP response');
         });
       });

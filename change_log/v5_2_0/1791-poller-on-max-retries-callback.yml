@@ -1,0 +1,1 @@
+New Features: "Poller now accepts a function onMaxRetries which will be called when the Poller runs out of tries"
