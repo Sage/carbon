@@ -1,5 +1,4 @@
 {
   "main": "./animated-menu-button",
-  "name": "AnimatedMenuButton",
-  "style": "animated-menu-button.scss"
+  "name": "AnimatedMenuButton"
 }

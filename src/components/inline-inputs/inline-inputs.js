@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { assign } from 'lodash';
 import { Row, Column } from '../row';
+import './inline-inputs.scss';
 
 /* eslint-disable react/prop-types */
 

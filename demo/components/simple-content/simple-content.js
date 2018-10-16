@@ -6,6 +6,7 @@ import { merge } from 'lodash';
 // Carbon
 import Icon from 'components/icon';
 import Link from 'components/link';
+import './simple-content.scss';
 
 class SimpleContent extends React.Component {
 

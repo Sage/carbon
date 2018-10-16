@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import Icon from '../icon';
 import Button from '../button';
 import { validProps } from '../../utils/ether';
+import './split-button.scss';
 
 /**
  * A SplitButton widget.

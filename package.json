@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "4.7.0",
+  "version": "5.1.0",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "engineStrict": true,
   "engines": {
@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "babel-standalone": "~6.17.0",
-    "carbon-factory": "5.2.1",
+    "carbon-factory": "6.0.0",
     "cpx": "^1.5.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
@@ -60,7 +60,6 @@
     "bignumber.js": "~4.0.2",
     "bowser": "~1.5.0",
     "classnames": "~2.2.3",
-    "core-js": "^2.5.1",
     "create-react-class": "^15.6.0",
     "crypto-js": "~3.1.6",
     "escape-string-regexp": "~1.0.5",

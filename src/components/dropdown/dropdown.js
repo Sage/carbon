@@ -9,6 +9,7 @@ import InputIcon from '../../utils/decorators/input-icon';
 import Events from '../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
 import Portal from '../portal';
+import './dropdown.scss';
 
 const window = Browser.getWindow();
 /**

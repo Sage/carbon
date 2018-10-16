@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import tagComponent from '../../utils/helpers/tags';
+import './preview.scss';
 
 const Preview = (props) => {
   if (isLoading(props.loading, props.children)) {

@@ -1,4 +1,5 @@
 import React from 'react';
+import './complex-heading.scss';
 
 /**
  * Loads a heading with extra bits

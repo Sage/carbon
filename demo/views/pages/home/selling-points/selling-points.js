@@ -6,6 +6,7 @@ import ContentGrid from './../../../../components/content-grid';
 import ContentGridItem from './../../../../components/content-grid/content-grid-item';
 import SellingPointPanel from './../../../../components/selling-point-panel';
 import Wrapper from './../../../common/wrapper';
+import './selling-points.scss';
 
 /**
  * A set of icons representing selling points of Carbon

@@ -4,6 +4,7 @@ import I18n from 'i18n-js';
 // Demo
 import GetCodeButtons from './../../../../components/get-code-buttons';
 import Wrapper from './../../../common/wrapper';
+import './get-started.scss';
 
 class GetStarted extends React.Component {
   render () {

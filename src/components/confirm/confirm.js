@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import Dialog from '../dialog';
 import Button from '../button';
 import CSS from '../../utils/css';
+import './confirm.scss';
 
 /**
  * A Confirm widget.

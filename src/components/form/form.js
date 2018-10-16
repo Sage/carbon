@@ -15,6 +15,7 @@ import tagComponent from '../../utils/helpers/tags';
 import Browser from '../../utils/helpers/browser';
 
 import ElementResize from '../../utils/helpers/element-resize';
+import './form.scss';
 
 /**
  * A Form widget.

@@ -67,6 +67,14 @@ class DropdownFilterAjax extends DropdownFilter {
      * @default true
      */
     this.listeningToScroll = true;
+
+    /**
+     * Tracks the ajax request.
+     *
+     * @property pendingRequest
+     * @default null
+     */
+    this.pendingRequest = null;
   }
 
   static propTypes = omit(assign({}, DropdownFilter.propTypes, {
@@ -168,6 +176,14 @@ class DropdownFilterAjax extends DropdownFilter {
     suggest: PropTypes.bool,
 
     /**
+     * Integer to determine timeout for defered callback for data request. Default: 500
+     *
+     * @property
+     * @type {Number}
+     */
+    dataRequestTimeout: PropTypes.number,
+
+    /**
      * Enable the ability to send cookies from the origin.
      *
      * @property withCredentials
@@ -179,7 +195,8 @@ class DropdownFilterAjax extends DropdownFilter {
   static defaultProps = {
     rowsPerRequest: 25,
     acceptHeader: 'application/json',
-    visibleValue: ''
+    visibleValue: '',
+    dataRequestTimeout: 500
   }
 
   /*
@@ -190,7 +207,14 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   handleVisibleChange(ev) {
     super.handleVisibleChange(ev);
-    this.getData(ev.target.value, 1);
+    if (this.dataFetchTimeout) {
+      clearTimeout(this.dataFetchTimeout);
+    }
+    const query = ev.target.value;
+    this.dataFetchTimeout = setTimeout(
+      () => this.getData(query, 1),
+      this.props.dataRequestTimeout
+    );
   }
 
   /*
@@ -205,6 +229,14 @@ class DropdownFilterAjax extends DropdownFilter {
         open: false,
         filter: this.props.create ? prevState.filter : null
       }));
+
+      if (this.dataFetchTimeout) {
+        clearTimeout(this.dataFetchTimeout);
+      }
+
+      if (this.pendingRequest !== null) {
+        this.pendingRequest.abort();
+      }
 
       if (this.props.onBlur) {
         this.props.onBlur();
@@ -254,14 +286,16 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   getData = (query = '', page = 1) => {
     this.setState({ requesting: true });
-    const request = Request
+    if (this.pendingRequest) this.pendingRequest.abort();
+
+    this.pendingRequest = Request
       .get(this.props.path)
       .query(this.getParams(query, page))
       .query(this.props.additionalRequestParams)
       .set('Accept', this.props.acceptHeader);
 
-    if (this.props.withCredentials) request.withCredentials();
-    request.end(this.ajaxUpdateList);
+    if (this.props.withCredentials) this.pendingRequest.withCredentials();
+    this.pendingRequest.end(this.ajaxUpdateList);
   }
 
   /**
