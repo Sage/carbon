@@ -7,6 +7,7 @@ import Link from 'components/link';
 import GetCodeButtons from './../../../components/get-code-buttons';
 import InfoTile from './../../../components/info-tile';
 import Wrapper from './../wrapper';
+import './page-header-large.scss';
 
 class PageHeaderLarge extends React.Component {
   render() {

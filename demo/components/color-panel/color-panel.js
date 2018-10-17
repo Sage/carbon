@@ -1,4 +1,5 @@
 import React from 'react';
+import './color-panel.scss';
 
 /**
  * Puts out a div with color related presentation

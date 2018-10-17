@@ -5,6 +5,7 @@ import tagComponent from '../../../utils/helpers/tags';
 import { WithDrag, WithDrop } from '../../drag-and-drop';
 import Checkbox from '../../checkbox';
 import Icon from '../../icon';
+import './configurable-item-row.scss';
 
 class ConfigurableItemRow extends React.Component {
   static propTypes = {

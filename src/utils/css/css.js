@@ -1,3 +1,5 @@
+import './css.scss';
+
 export default {
   clearfix: 'clearfix',
   input: 'common-input',

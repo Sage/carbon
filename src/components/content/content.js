@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import tagComponent from '../../utils/helpers/tags';
+import './content.scss';
 
 /**
  * Renders content with a title and body text.

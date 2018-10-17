@@ -1,4 +1,3 @@
 {
-  "main": "./download",
-  "style": "download.scss"
+  "main": "./download"
 }

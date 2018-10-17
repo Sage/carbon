@@ -1,4 +1,3 @@
 {
-  "main": "./submenu-block.js",
-  "style": "./submenu-block.scss"
+  "main": "./submenu-block.js"
 }

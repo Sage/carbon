@@ -5,6 +5,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Events from '../../utils/helpers/events';
 import Browser from '../../utils/helpers/browser';
 import Portal from '../portal';
+import './modal.scss';
 
 const TIMEOUT = 500;
 /**

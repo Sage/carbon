@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
 import Portal from '../portal';
+import './toast.scss';
 
 /**
 * A Toast widget.

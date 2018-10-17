@@ -1,4 +1,3 @@
 {
-  "main": "./code.js",
-  "style": "./code.scss"
+  "main": "./code.js"
 }

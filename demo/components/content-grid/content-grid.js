@@ -1,4 +1,5 @@
 import React from 'react';
+import './content-grid.scss';
 
 /**
  * Handles responsive layout in a grid three wide maximum

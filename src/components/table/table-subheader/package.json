@@ -1,4 +1,3 @@
 {
-  "main": "./table-subheader.js",
-  "style": "./table-subheader.scss"
+  "main": "./table-subheader.js"
 }

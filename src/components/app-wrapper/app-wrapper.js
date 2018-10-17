@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import tagComponent from '../../utils/helpers/tags';
 import { validProps } from '../../utils/ether';
+import './app-wrapper.scss';
 
 /**
  * Manages the width and containment of your application.

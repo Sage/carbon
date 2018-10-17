@@ -1,4 +1,3 @@
 {
-  "main": "./header.js",
-  "style": "./header.scss"
+  "main": "./header.js"
 }

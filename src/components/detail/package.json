@@ -1,4 +1,3 @@
 {
-  "main": "./detail.js",
-  "style": "./detail.scss"
+  "main": "./detail.js"
 }

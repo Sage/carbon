@@ -3,6 +3,7 @@ import I18n from 'i18n-js';
 
 import ComplexHeading from './../../../../components/complex-heading';
 import Wrapper from './../../../common/wrapper';
+import './component-showcase.scss';
 
 /**
  * Shows off some of the components

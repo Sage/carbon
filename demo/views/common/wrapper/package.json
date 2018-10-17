@@ -1,4 +1,3 @@
 {
-  "main": "./wrapper.js",
-  "style": "./wrapper.scss"
+  "main": "./wrapper.js"
 }

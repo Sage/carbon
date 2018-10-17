@@ -1,5 +1,5 @@
 import Request from 'superagent';
-import '../../promises';
+import Logger from '../../logger';
 
 /**
  * A helper to make poll an endpoint with a GET request
@@ -19,6 +19,7 @@ import '../../promises';
  * -- handleError: a callback function that takes an error and handles it
  * -- terminate: Use this to test a desired condition in the response and return a boolean.
  *               If the condition is true, the polling will end.
+ * -- onMaxRetries: Use this to do something when the max retries are met
  * options:
  * -- interval - the interval after which the request is re-submitted
  * -- retries - number of times to re-submit the request before giving up
@@ -55,7 +56,7 @@ export default (queryOptions, functions, options) => {
   (function poll() {
     const now = Date.now();
     if (pollCount > opts.retries || now > opts.endTime) {
-      console.warn('The poller has made too many requests - terminating poll'); // eslint-disable-line no-console
+      funcs.onMaxRetries();
       return;
     }
     Request
@@ -69,7 +70,7 @@ export default (queryOptions, functions, options) => {
           if (funcs.handleError) {
             result = funcs.handleError(err);
           } else {
-            result = console.error(err.message); // eslint-disable-line no-console
+            result = Logger.error(err.message); // eslint-disable-line no-console
           }
         } else if (funcs.terminate(response)) {
           result = response;
@@ -126,7 +127,10 @@ function getFunctions(functions) {
     handleError: functions.handleError || null,
     conditionMet: functions.conditionMet || (() => { return false; }),
     conditionNotMetCallback: functions.conditionNotMetCallback || (() => { return false; }),
-    terminate: functions.terminate || (() => { return false; })
+    terminate: functions.terminate || (() => { return false; }),
+    onMaxRetries: functions.onMaxRetries || (() => {
+      Logger.warn('The poller has made too many requests - terminating poll'); // eslint-disable-line no-console
+    })
   };
 }
 
@@ -138,13 +142,13 @@ function getFunctions(functions) {
  */
 function setupValid(queryOptions, functions) {
   if (queryOptions === null || typeof queryOptions.url === 'undefined') {
-    console.error('You must provide a url to the poller'); // eslint-disable-line no-console
+    Logger.error('You must provide a url to the poller'); // eslint-disable-line no-console
     return false;
   }
 
   if (typeof functions.conditionMet !== 'undefined' && typeof functions.callback === 'undefined') {
     const msg = 'You must provide a callback function if you are testing a condition with conditionMet';
-    console.error(msg); // eslint-disable-line no-console
+    Logger.error(msg); // eslint-disable-line no-console
     return false;
   }
   return true;
