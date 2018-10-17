@@ -1,0 +1,3 @@
+Bug Fixes: "Date Component: Fixes issue where the Date Component would be valid for dates outside of given date range when date was manually entered in input field."
+New Features: "DateValidator improvement: Add ability to pass a minDate and maxDate to constructor. Date component improvement: Change internal validations to be a function that takes a props object and passes it to a DateValidator constructor"
+
