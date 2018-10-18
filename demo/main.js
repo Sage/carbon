@@ -22,7 +22,7 @@ import Sandbox from './views/pages/sandbox';
 
 import SiteMap from './site-map';
 
-import reducerRegistry from 'utils/flux/reducer-registry';
+import reducerRegistry from './../src/utils/flux/reducer-registry';
 
 global.r = reducerRegistry.createStore({
   r1: (state = true) => {

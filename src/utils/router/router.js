@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from "react-redux";
 import { Router, browserHistory } from 'react-router';
-import reducerRegistry from 'utils/flux/reducer-registry';
+import reducerRegistry from './../flux/reducer-registry';
 
 const onRouteUpdate = () => {
   global.window.scrollTo(0, 0);

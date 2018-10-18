@@ -36,7 +36,7 @@ const connect = (...args) => (WrappedComponent) => {
     return mapToProps(...states);
   }
 
-  reduxConnect(mapStateToProps)(WrappedComponent);
+  return reduxConnect(mapStateToProps)(WrappedComponent);
 };
 
 export default connect;

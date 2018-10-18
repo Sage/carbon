@@ -1,6 +1,6 @@
 import { EventEmitter } from 'events';
 import { Dispatcher } from '..';
-import reducerRegistry from 'utils/flux/reducer-registry';
+import reducerRegistry from './../reducer-registry';
 
 /**
  * A constant used for the change event within this module.
