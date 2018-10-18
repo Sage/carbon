@@ -23,8 +23,8 @@
 }
 
 .carbon-carousel__previous-button {
-  border-top-right-radius: 3px;
-  border-bottom-right-radius: 3px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
 }
 
 .carbon-carousel__previous-arrow {
@@ -54,8 +54,8 @@
 }
 
 .carbon-carousel__next-button {
-  border-top-left-radius: 3px;
-  border-bottom-left-radius: 3px;
+  border-top-left-radius: 0px;
+  border-bottom-left-radius: 0px;
 }
 
 .carbon-carousel__next-arrow {
@@ -102,7 +102,6 @@
 }
 
 .carbon-carousel__selector-label {
-  border-radius: 100%;
   border: 1px solid $grey-dark-blue-70;
   display: inline-block;
   height: 8px;

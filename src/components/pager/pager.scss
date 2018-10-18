@@ -2,9 +2,8 @@
 @import "./../../style-config/mixins";
 
 .carbon-pager {
-  background-color: $grey-light;
-  border-radius: 0 0 3px 3px;
-  border: 1px solid $border-color;
+  background-color: $slate-tint-95;
+  border: 1px solid $slate-tint-80;
   border-top: none;
   font-size: 13px;
   padding: 3px 8px;

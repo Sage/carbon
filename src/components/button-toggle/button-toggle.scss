@@ -14,7 +14,7 @@
 .carbon-button-toggle__label {
   background-color: white;
   border-radius: $carbon-button__border-radius;
-  border: 1px solid $grey-dark-blue-20;
+  border: 1px solid $slate-tint-80;
   color: $grey-dark-blue;
   cursor: pointer;
   display: inline-block;
@@ -23,8 +23,8 @@
   text-align: center;
 
   &:hover {
-    background-color: $azul;
-    border-color: $azul;
+    background-color: mix(black, $blue, 20);
+    border-color: mix(black, $blue, 20);
     color: white;
   }
 }

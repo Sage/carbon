@@ -7,8 +7,8 @@
   position: relative;
 
   .carbon-button.carbon-split-button__toggle:hover {
-    background-color: $blue;
-    border-bottom-color: $blue;
+    background-color: mix(black, $blue, 20);
+    border-bottom-color: mix(black, $blue, 20);
   }
 }
 
@@ -31,7 +31,7 @@
   width: $input-common-height;
 
   &.carbon-button--primary {
-    border-left: 1px solid $blue-light;
+    border-left: 1px solid mix(black, $blue, 20);
 
     &.carbon-button--disabled {
       border-left-color: transparent;
@@ -39,7 +39,7 @@
   }
 
   .carbon-split-button--open &:not(.carbon-button--disabled) {
-    background-color: $blue;
+    background-color: mix(black, $blue, 20);
     border-bottom-right-radius: 0;
     color: $white;
   }
@@ -51,8 +51,8 @@
 }
 
 .carbon-split-button__additional-buttons {
-  background-color: $blue;
-  border-radius: 4px;
+  background-color: mix(black, $blue, 20);
+  border-radius: 0px;
   border-top-right-radius: 0;
   min-width: 100%;
   padding: 5px 0;
@@ -74,7 +74,7 @@
     text-align: left;
 
     &:hover {
-      background-color: $azul;
+      background-color: mix(black, $blue, 40);
     }
   }
 }

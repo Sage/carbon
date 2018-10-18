@@ -2,7 +2,7 @@
 @import "./../../style-config/z-index";
 @import "./../../style-config/mixins";
 
-$date__picker__header-color: $grey-dark-blue-70;
+$date__picker__header-color: $white;
 $date__picker__header-height: 40px;
 $date__picker__header-border-color: $grey-dark-blue-80;
 $date__picker__background-color: $white;
@@ -17,13 +17,13 @@ $date__picker__background-color: $white;
 
 .DayPicker {
   background-color: $date__picker__background-color;
-  border-radius: 3px;
-  box-shadow: 0 20px 30px rgba($grey-shadow, 0.2);
-  color: $date__picker__header-color;
+  box-shadow: $shadow-depth-1;
+  color: $black-85;
   display: block;
   font-size: 14px;
   font-weight: 700;
   overflow: hidden;
+  padding: 10px;
   position: absolute;
   text-align: center;
 
@@ -80,7 +80,7 @@ $date__picker__background-color: $white;
 
 .DayPicker-Caption {
   background-color: $date__picker__header-color;
-  color: $white;
+  color: $black-85;
   height: $date__picker__header-height;
   line-height: $date__picker__header-height;
 
@@ -92,7 +92,7 @@ $date__picker__background-color: $white;
 
 .DayPicker-Weekday {
   background-color: $date__picker__background-color;
-  color: $grey-dark;
+  color: $black-60;
   font-size: 14px;
   font-weight: 700;
   text-align: center;
@@ -100,12 +100,12 @@ $date__picker__background-color: $white;
 }
 
 .DayPicker-Day {
-  background-color: $grey-dark-blue-10;
+  background-color: $white;
   color: $blue;
   cursor: pointer;
 
   &:hover {
-    background-color: $azul;
+    background-color: mix(black, $blue, 20);
     color: $white;
   }
 

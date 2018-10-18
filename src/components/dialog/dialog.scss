@@ -32,12 +32,11 @@ $dialog-sizes: (
 }
 
 .carbon-dialog__dialog {
-  background-color: $grey-light;
-  border-radius: 5px;
-  box-shadow: 0 10px 20px rgba($grey-shadow, 0.2);
+  background-color: $slate-tint-95;
+  box-shadow: $shadow-depth-3;
   position: fixed;
   top: 50%;
-  
+
   &:focus {
     outline: none;
   }
@@ -78,7 +77,6 @@ $dialog-sizes: (
 }
 
 .carbon-dialog .carbon-dialog__dialog--fixed-bottom {
-  border-radius: 5px 5px 0 0;
   bottom: 0;
   min-height: 0px !important;
 
