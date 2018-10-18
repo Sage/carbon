@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect as reduxConnect } from 'react-redux'
 
 /**
  * Higher order component
@@ -27,35 +28,15 @@ const connect = (...args) => (WrappedComponent) => {
   const stores = args.slice(0, args.length - 1);
   const mapToProps = args[args.length - 1];
 
-  class ConnectedComponent extends React.Component {
-    componentDidMount() {
-      this.unsubscribers = stores.map((store) => {
-        const updateComponent = () => { this.forceUpdate(); };
-        store.addChangeListener(updateComponent);
-        return () => store.removeChangeListener(updateComponent);
-      });
-    }
-
-    componentWillUnmount() {
-      this.unsubscribers.forEach(unsubscribe => unsubscribe());
-    }
-
-    render() {
-      const states = stores.map(store => store.getState());
-
-      return (
-        <WrappedComponent
-          { ...this.props }
-          { ...mapToProps(...states, this.props) }
-        />
-      );
-    }
+  const mapStateToProps = state => {
+    const states = [];
+    stores.forEach((store) => {
+      states.push(state[store.name]);
+    });
+    return mapToProps(...states);
   }
 
-  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
-  ConnectedComponent.displayName = `Connect(${displayName})`;
-
-  return ConnectedComponent;
+  reduxConnect(mapStateToProps)(WrappedComponent);
 };
 
 export default connect;
