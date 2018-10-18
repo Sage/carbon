@@ -1,12 +1,20 @@
 import { createStore, combineReducers } from 'redux'
 
-const ReducerRegistry = function() {
-  this.store = createStore(() => {});
-  this.reducers = {};
+const reducers = {};
 
+const ReducerRegistry = function() {
   this.register = (name, reducer) => {
-    this.reducers[name] = reducer;
-    this.store.replaceReducer(combineReducers(this.reducers));
+    reducers[name] = reducer;
+
+    if (this.store) {
+      this.store.replaceReducer(combineReducers(reducers));
+    }
+  }
+
+  this.createStore = (initialReducers, ...args) => {
+    Object.assign(reducers, initialReducers);
+    this.store = createStore(combineReducers(reducers), ...args);
+    return this.store;
   }
 }
 

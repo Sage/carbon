@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from "react-redux";
 import { Router, browserHistory } from 'react-router';
+import reducerRegistry from 'utils/flux/reducer-registry';
 
 const onRouteUpdate = () => {
   global.window.scrollTo(0, 0);
@@ -48,9 +50,11 @@ export function startRouter(routes, target = document.getElementById('app')) {
   // render the router into the DOM
   if (target) {
     ReactDOM.render((
-      <Router onUpdate={ onRouteUpdate } history={ history }>
-        { routes }
-      </Router>
+      <Provider store={ reducerRegistry.store }>
+        <Router onUpdate={ onRouteUpdate } history={ history }>
+          { routes }
+        </Router>
+      </Provider>
     ), target);
   }
 }
