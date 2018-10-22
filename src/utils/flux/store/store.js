@@ -90,10 +90,14 @@ export default class Store extends EventEmitter {
         this[action.type](action);
         this._disableDispatch = false;
       }
-      return this.data;
+      return this._data;
     }
 
     reducerRegistry.register(name, this.reducer)
+
+    this[`${this.name}-LEGACY_FLUX_STORE_SET`] = action => {
+      this._data = action.data;
+    }
   }
 
   /**
@@ -103,7 +107,7 @@ export default class Store extends EventEmitter {
    * @return {Object} the current data
    */
   getState = () => {
-    return this.data;
+    return this._data;
   }
 
   get data() {
@@ -115,14 +119,10 @@ export default class Store extends EventEmitter {
 
     if (!this._disableDispatch) {
       reducerRegistry.store.dispatch({
-        type: 'LEGACY_FLUX_STORE_SET',
+        type: `${this.name}-LEGACY_FLUX_STORE_SET`,
         data
       });
     }
-  }
-
-  ['LEGACY_FLUX_STORE_SET'](action) {
-    this.data = action.data;
   }
 
   /**
@@ -133,7 +133,7 @@ export default class Store extends EventEmitter {
    */
   reset = () => {
     reducerRegistry.store.dispatch({
-      action: 'LEGACY_FLUX_STORE_SET',
+      type: `${this.name}-LEGACY_FLUX_STORE_SET`,
       data: this.originalData
     });
   }
