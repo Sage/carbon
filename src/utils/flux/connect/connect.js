@@ -36,7 +36,11 @@ const connect = (...args) => (WrappedComponent) => {
     return mapToProps(...states);
   }
 
-  return reduxConnect(mapStateToProps)(WrappedComponent);
+  const connectedComponent = reduxConnect(mapStateToProps)(WrappedComponent);
+  connectedComponent.displayName = WrappedComponent.displayName || WrappedComponent.name;
+  connectedComponent.displayName = `Connect(${connectedComponent.displayName})`;
+  connectedComponent._legacyConnect = true;
+  return connectedComponent;
 };
 
 export default connect;
