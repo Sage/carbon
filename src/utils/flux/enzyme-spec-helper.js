@@ -23,7 +23,7 @@ export const wrapEnzyme = function(Enzyme) {
       const wrapper = originalShallow(comp, { context: { store: reducerRegistry.store } });
 
       if (comp.type._legacyConnect) {
-        return originalMount(wrapper.dive());
+        return originalMount(wrapper.get(0));
       } else {
         return originalMount(wrapper);
       }
