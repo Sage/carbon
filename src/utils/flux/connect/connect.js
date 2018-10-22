@@ -39,7 +39,7 @@ const connect = (...args) => (WrappedComponent) => {
   const connectedComponent = reduxConnect(mapStateToProps)(WrappedComponent);
   connectedComponent.displayName = WrappedComponent.displayName || WrappedComponent.name;
   connectedComponent.displayName = `Connect(${connectedComponent.displayName})`;
-  connectedComponent._legacyConnect = true;
+  connectedComponent._requiresReduxStore = true;
   return connectedComponent;
 };
 

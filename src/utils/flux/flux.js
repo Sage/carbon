@@ -51,6 +51,7 @@ export function connect(ComposedView, stores) {
 
   const connectedView = reduxConnect(mapStateToProps)(View);
   connectedView.displayName = ComposedView.displayName || ComposedView.name;
+  connectedView._requiresReduxStore = true;
   connectedView._legacyConnect = true;
   return connectedView;
 }
