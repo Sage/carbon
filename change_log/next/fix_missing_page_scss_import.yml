@@ -1,0 +1,1 @@
+Bug Fixes: "Fixed missing SCSS import after removing it from package.json for `Page` component`"
