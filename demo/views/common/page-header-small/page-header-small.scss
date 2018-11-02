@@ -7,8 +7,9 @@
   font-weight: 300;
   margin-bottom: 30px;
   padding: 150px 0 25px 0;
+
   @media (min-width: $menu-popout-point) {
-    padding-top: 60px;
+    padding-top: 40px;
   }
 
   &__title {

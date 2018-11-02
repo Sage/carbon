@@ -14,7 +14,7 @@ const generateRoutesFor = (obj) => {
 
     if (value.component) {
       arr.push(
-        <Route key={ key } path={ key } component={ value.component } />
+        <Route key={ key } path={ key } component={ value.component } foo={ "bar" } />
       );
     } else if (value.items) {
       arr.push(
