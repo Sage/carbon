@@ -43,7 +43,7 @@ function readFile(readPath, parseData, writePath, writeData) {
 function hexToR(hex) { return parseInt((cutHex(hex)).substring(0,2), 16) }
 function hexToG(hex) { return parseInt((cutHex(hex)).substring(2,4), 16) }
 function hexToB(hex) { return parseInt((cutHex(hex)).substring(4,6), 16) }
-function cutHex(hex) { return (hex.charAt(0)=="#") ? hex.substring(1,7) : h }
+function cutHex(hex) { return (hex.charAt(0)=="#") ? hex.substring(1,7) : hex }
 function hexToRGBArray(hex) {return [hexToR(hex), hexToG(hex), hexToB(hex)]}
 
 // http://stackoverflow.com/a/3943023/4668477
