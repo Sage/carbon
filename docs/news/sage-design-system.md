@@ -5,8 +5,8 @@ You'll soon notice Carbon evolving as we build in the new Sage Design System.
 You don't need to do anything - future Carbon updates will be backwards compatible, and offer exciting advantages in how Carbon works, and looks.
 
 <div class="dls-screenshots">
-  <img class="screenshot depth-2 image-product" src="/images/screen-product.png" />
-  <img class="screenshot depth-1" src="/images/screen-marketing.png" />
+  <img class="screenshot depth-2 image-product" src="https://sageone-uk-wordpress.s3.amazonaws.com/carbon/images/screen-product.png" />
+  <img class="screenshot depth-1" src="https://sageone-uk-wordpress.s3.amazonaws.com/carbon/images/screen-marketing.png" />
 </div>
 
 ## What is The Sage Design System?
