@@ -16,7 +16,7 @@ const tutorialsPath = '/docs/tutorials';
 export default new SiteMapHelper({
   '/news': {
     items: {
-      'new-design-system': `${newsPath}/new-design-system.md`
+      'sage-design-system': `${newsPath}/sage-design-system.md`
     }
   },
   '/getting-started': {

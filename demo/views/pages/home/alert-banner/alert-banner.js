@@ -11,11 +11,11 @@ import './alert-banner.scss';
  */
 export default props => (
   <div className='alert-banner'>
-    <span className='alert-banner__text'>A new design language system is coming.</span>
+    <span className='alert-banner__text'>Coming Soon - The Sage Design System</span>
     <Button
       size="small"
       theme="white"
-      href="/news/new-design-system"
+      href="/news/sage-design-system"
     >
       Learn more
     </Button>
