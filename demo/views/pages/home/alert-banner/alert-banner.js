@@ -15,7 +15,7 @@ export default props => (
     <Button
       size="small"
       theme="white"
-      href="/news/sage-design-system"
+      to="/news/sage-design-system"
     >
       Learn more
     </Button>
