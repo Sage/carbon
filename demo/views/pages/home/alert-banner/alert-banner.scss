@@ -5,15 +5,10 @@
   font-weight: 700;
   height: 48px;
   line-height: 48px;
-  margin-bottom: 40px;
-  position: relative;
   text-align: center;
   width: 100%;
-  z-index: 10;
-
 
   .alert-banner__text {
-
     + .carbon-link__anchor {
       margin-left: 10px;
     }
