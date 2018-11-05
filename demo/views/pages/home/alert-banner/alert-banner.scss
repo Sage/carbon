@@ -1,0 +1,16 @@
+.alert-banner {
+  background-image: linear-gradient(-90deg, #00A376 11%, #0077C8 46%, #0077C8 55%, #582C83 89%);
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  height: 48px;
+  line-height: 48px;
+  text-align: center;
+  width: 100%;
+
+  .alert-banner__text {
+    + .carbon-link__anchor {
+      margin-left: 10px;
+    }
+  }
+}

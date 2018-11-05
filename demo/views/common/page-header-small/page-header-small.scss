@@ -7,14 +7,15 @@
   font-weight: 300;
   margin-bottom: 30px;
   padding: 150px 0 25px 0;
+
   @media (min-width: $menu-popout-point) {
-    padding-top: 60px;
+    padding-top: 40px;
   }
 
   &__title {
     align-items: center;
     display: flex;
-    font-size: 40px;
+    font-size: 30px;
     line-height: 1.22em;
     margin: 0 0 10px;
 
