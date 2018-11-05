@@ -5,6 +5,7 @@ import Icons from './views/pages/style/icons';
 import Component from './views/pages/component';
 import SiteMapHelper from './utils/site-map-helper';
 
+const newsPath = '/docs/news';
 const guidesPath = '/docs/guides';
 const tutorialsPath = '/docs/tutorials';
 
@@ -13,6 +14,11 @@ const tutorialsPath = '/docs/tutorials';
 //  * items (a hash of sub-routes)
 //  * filter (will enable a filter over the route's sub-routes)
 export default new SiteMapHelper({
+  '/news': {
+    items: {
+      'sage-design-system': `${newsPath}/sage-design-system.md`
+    }
+  },
   '/getting-started': {
     items: {
       'setting-up-your-environment': `${guidesPath}/setting-up-your-environment.md`,

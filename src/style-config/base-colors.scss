@@ -60,3 +60,16 @@ $purple-20:                  #E0D6EB !default;
 $magenta:                    #ED1C5F !default;
 $magenta-dull:               #CA2A60 !default;
 $magenta-light:              #F32E6D !default;
+
+
+// SLATE
+$slate: #003349;
+
+$slate-shade-60:          mix(black, $slate, 60) !default;
+
+// Shadows
+$card: 0 3px 3px 0 rgba($slate-shade-60,0.2), 0 2px 4px 0 rgba($slate-shade-60,0.15);
+$shadow-depth-1: 0 5px 5px 0 rgba($slate-shade-60,0.2), 0 10px 10px 0 rgba($slate-shade-60,0.1);
+$shadow-depth-2: 0 10px 20px 0 rgba($slate-shade-60,0.2), 0 20px 40px 0 rgba($slate-shade-60,0.1);
+$shadow-depth-3: 0 10px 30px 0 rgba($slate-shade-60,0.1), 0 30px 60px 0 rgba($slate-shade-60,0.1);
+$shadow-depth-4: 0 10px 40px 0 rgba($slate-shade-60,0.04), 0 50px 80px 0 rgba($slate-shade-60,0.1);
