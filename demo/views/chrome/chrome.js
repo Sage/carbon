@@ -20,7 +20,7 @@ class Chrome extends React.Component {
     var page_class_name = page_url[page_url.length -1]
 
     return (
-      <div className={ 'page-${page_class_name} chrome' }>
+      <div className={ `page-${page_class_name} chrome` }>
         <Menu
           isTablet={ this._isSmallScreen() }
           menuOpen={ this.state.appStore.get('menuOpen') }
