@@ -18,11 +18,3 @@ $app-max-width: 1600px !default;
 $app-width: 958px !default;
 $app-tooltip-pointer-size: 7px !default;
 $app-navigation-height: 40px !default;
-
-
-// Allow extra padding for homepage with responsive navigation
-.demo-header + .sectioniser {
-  @media screen and (max-width: 1020px) {
-    padding-top: 75px;
-  }
-}

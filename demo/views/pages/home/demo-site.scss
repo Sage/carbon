@@ -1,0 +1,6 @@
+// Allow extra padding for homepage with responsive navigation
+.demo-header + .sectioniser {
+  @media screen and (max-width: 1020px) {
+    padding-top: 75px;
+  }
+}

@@ -8,6 +8,7 @@ import SageLovesCarbon from './sage-loves-carbon';
 import SellingPoints from './selling-points';
 import Sectioniser from './sectioniser';
 import Wrapper from './../../common/wrapper';
+import './demo-site.scss';
 
 class Home extends React.Component {
   /**
