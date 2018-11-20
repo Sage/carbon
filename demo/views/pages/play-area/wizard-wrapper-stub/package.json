@@ -1,0 +1,4 @@
+{
+  "main": "./wizard-wrapper-stub.js",
+  "style": "./wizard-wrapper-stub.scss"
+}

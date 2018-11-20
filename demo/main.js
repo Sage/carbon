@@ -20,6 +20,7 @@ import SubPageChrome from './views/chrome/sub-page-chrome';
 import Home from './views/pages/home';
 import Sandbox from './views/pages/sandbox';
 import News from './views/pages/news';
+import PlayArea from './views/pages/play-area';
 import SiteMap from './site-map';
 
 global.Carbon = {
@@ -36,6 +37,8 @@ const routes = (
 
     <Route component={ Chrome }>
       <Route path='/' component={ Home } />
+
+      <Route path='/play-area' component={ PlayArea } />
 
       <Route component={ SubPageChrome }>
         { SiteMap.generateRoutes() }

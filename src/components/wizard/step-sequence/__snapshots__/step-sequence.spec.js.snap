@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StepSequence /> basic render 1`] = `
+<ol
+  className="carbon-step-sequence"
+>
+  <StepSequenceItem
+    key="foo0"
+    label="foo"
+    state="complete"
+    stepNumber={1}
+  />
+  <StepSequenceItem
+    key="bar1"
+    label="bar"
+    state="current"
+    stepNumber={2}
+  />
+  <StepSequenceItem
+    key="baz2"
+    label="baz"
+    state="incomplete"
+    stepNumber={3}
+  />
+</ol>
+`;

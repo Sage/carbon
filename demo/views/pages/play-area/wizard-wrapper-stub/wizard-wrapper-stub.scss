@@ -1,0 +1,11 @@
+.demo-wizard-wrapper-stub {
+  > * {
+    margin-bottom: 30px;
+  }
+
+  &__buttons {
+    > * {
+      margin-right: 50px;
+    }
+  }
+}

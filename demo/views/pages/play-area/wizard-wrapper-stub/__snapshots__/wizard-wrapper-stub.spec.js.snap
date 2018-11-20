@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<WizardWrapperStub /> basic render 1`] = `
+<div
+  className="demo-wizard-wrapper-stub"
+>
+  <Wizard />
+</div>
+`;

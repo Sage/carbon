@@ -1,0 +1,4 @@
+{
+  "main": "./step-sequence.js",
+  "style": "./step-sequence.scss"
+}

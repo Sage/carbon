@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Wizard /> basic render 1`] = `
+<div
+  className="carbon-wizard"
+>
+  <div
+    className="carbon-wizard__steps"
+  >
+    <StepSequence
+      current="1"
+      steps={
+        Array [
+          Object {
+            "label": "foo",
+            "state": "complete",
+          },
+          Object {
+            "label": "bar",
+            "state": "current",
+          },
+          Object {
+            "label": "baz",
+            "state": "incomplete",
+          },
+        ]
+      }
+    />
+  </div>
+  <div
+    className="carbon-wizard__content"
+  >
+    <div>
+      Step 2
+    </div>
+  </div>
+</div>
+`;

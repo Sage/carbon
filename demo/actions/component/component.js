@@ -51,15 +51,18 @@ const ComponentActions = {
       .end((err, res) => {
         const data = res.body;
 
-        window.Dispatcher.dispatch({
-          actionType: window.ComponentConstants.UPDATE_TABLE,
-          items: data.rows,
-          records: String(data.records),
-          sortOrder: opts.sortOrder,
-          sortedColumn: opts.sortedColumn,
-          page: String(data.current_page),
-          pageSize
-        });
+        if (data) {
+          window.Dispatcher.dispatch({
+            actionType: window.ComponentConstants.UPDATE_TABLE,
+            items: data.rows,
+            records: String(data.records),
+            sortOrder: opts.sortOrder,
+            sortedColumn: opts.sortedColumn,
+            page: String(data.current_page),
+            pageSize
+          });
+        }
+
       });
   },
 
