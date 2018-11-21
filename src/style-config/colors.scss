@@ -5,11 +5,17 @@ $white:                      #FFF !default;
 $black:                      #000 !default;
 
 // Text Colors
-$onyx:                       rgba(0,0,0,0.85) !default;
-$noir:                       rgba(0,0,0,0.74) !default;
-$lead:                       rgba(0,0,0,0.60) !default;
-$nickel:                     rgba(0,0,0,0.55) !default;
-$gainsboro:                  rgba(0,0,0,0.20) !default;
+$black-85:                   rgba(0,0,0,0.85) !default;
+$black-74:                   rgba(0,0,0,0.74) !default;
+$black-60:                   rgba(0,0,0,0.60) !default;
+$black-55:                   rgba(0,0,0,0.55) !default;
+$black-20:                   rgba(0,0,0,0.20) !default;
+
+$onyx:                       $black-85 !default;
+$noir:                       $black-74 !default;
+$lead:                       $black-60 !default;
+$nickel:                     $black-55 !default;
+$gainsboro:                  $black-20 !default;
 
 // Color Extentions
 // Grey
@@ -86,12 +92,12 @@ $colorIconSets: (
   ("maintenance", $warning, $warning-border, $warning-text-background, $warning-hover),
 );
 
-$border-color:               $grey-dark-blue-25 !default;
-$table-border-color:         $grey-dark-blue-20 !default;
+$border-color:               $slate-tint-80 !default;
+$table-border-color:         $slate-tint-80 !default;
 $background-alt:             $grey-dark-blue-5 !default;
 $pod-footer:                 $grey-dark-blue-5 !default;
 
-$row-alt-color:              $grey-dark-blue-5 !default;
+$row-alt-color:              $slate-tint-95 !default;
 $row-hover-color:            $blue-sky-10 !default;
 $row-highlight-color:        $blue-sky-20 !default;
 $row-hover-input-border:     lighten($blue, 30%) !default;

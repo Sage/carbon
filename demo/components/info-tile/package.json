@@ -1,4 +1,3 @@
 {
-  "main": "./info-tile.js",
-  "style": "info-tile.scss"
+  "main": "./info-tile.js"
 }

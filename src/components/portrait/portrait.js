@@ -5,7 +5,8 @@ import MD5 from 'crypto-js/md5';
 import tagComponent from '../../utils/helpers/tags';
 import Browser from '../../utils/helpers/browser';
 
-import Icon from './../icon';
+import Icon from '../icon';
+import './portrait.scss';
 
 /**
  * A Portrait Widget.
@@ -14,7 +15,7 @@ import Icon from './../icon';
  *
  * In your file
  *
- *   import Portrait from 'carbon/lib/components/portrait';
+ *   import Portrait from 'carbon-react/lib/components/portrait';
  *
  * To render the Portrait
  *
@@ -120,8 +121,8 @@ class Portrait extends React.Component {
    * @return {Void}
    */
   componentWillReceiveProps(nextProps) {
-    if (this.props.initials !== nextProps.initials ||
-        this.props.size !== nextProps.size) {
+    if (this.props.initials !== nextProps.initials
+        || this.props.size !== nextProps.size) {
       this.memoizeInitials = null;
     }
   }

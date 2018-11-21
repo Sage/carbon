@@ -1,5 +1,6 @@
 import React from 'react';
 import Highlight from 'react-highlight';
+import './code.scss';
 
 class Code extends React.Component {
   render() {

@@ -32,10 +32,33 @@ describe('DropdownFilterAjax', () => {
   });
 
   describe('handleVisibleChange', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it('dataRequestTimeout has default value', () => {
+      expect(instance.props.dataRequestTimeout).toEqual(500);
+    });
+
     it('calls getData', () => {
       spyOn(instance, 'getData');
       instance.handleVisibleChange({ target: { value: 'foo' }});
+      jest.runAllTimers();
       expect(instance.getData).toHaveBeenCalledWith('foo', 1);
+    });
+
+    it('resets the timer', () => {
+      spyOn(instance, 'getData');
+      expect(instance.dataFetchTimeout).toBeUndefined();
+      instance.handleVisibleChange({ target: { value: 'foo' }});
+      expect(instance.dataFetchTimeout).not.toBeUndefined();
+      instance.handleVisibleChange({ target: { value: 'foofoo' }});
+      jest.runAllTimers();
+      expect(instance.getData).toHaveBeenCalledWith('foofoo', 1);
     });
   });
 
@@ -64,9 +87,9 @@ describe('DropdownFilterAjax', () => {
 
       describe('when not in create mode', () => {
         it('calls setState with null filter value', () => {
-          spyOn(instance, 'setState');
           instance.handleBlur();
-          expect(instance.setState).toHaveBeenCalledWith({ open: false, filter: null });
+          expect(instance.state.open).toEqual(false);
+          expect(instance.state.filter).toEqual(null);
         });
       });
 
@@ -79,9 +102,9 @@ describe('DropdownFilterAjax', () => {
             id: '90',
             name: 'foo'
           }]});
-          spyOn(instance, 'setState');
           instance.handleBlur();
-          expect(instance.setState).toHaveBeenCalledWith({ open: false, filter: 'foo' });
+          expect(instance.state.open).toEqual(false);
+          expect(instance.state.filter).toEqual('foo');
         });
       });
 
@@ -97,6 +120,28 @@ describe('DropdownFilterAjax', () => {
           spyOn(instance, 'highlighted').and.returnValue(null);
           instance.handleBlur();
           expect(instance.emitOnChangeCallback).not.toHaveBeenCalled();
+        });
+      });
+
+      describe('when there was a request made before the blur', () => {
+        beforeEach(() => {
+          instance.pendingRequest = { abort: jest.fn() };
+          spyOn(instance.pendingRequest, 'abort');
+        });
+        it('cancels the previous request', () => {
+          instance.handleBlur();
+          expect(instance.pendingRequest.abort).toHaveBeenCalled();
+        });
+      });
+
+      describe('when there was a dataFetchTimeout before the blur', () => {
+        beforeEach(() => {
+          instance.dataFetchTimeout = 'foo';
+          spyOn(window, 'clearTimeout');
+        });
+        it('clears the timeout', () => {
+          instance.handleBlur();
+          expect(window.clearTimeout).toHaveBeenCalledWith('foo');
         });
       });
 
@@ -291,6 +336,30 @@ describe('DropdownFilterAjax', () => {
         });
       });
     });
+
+    describe('when the param withCredentials is passed', () => {
+      beforeEach(() => {
+        instance = TestUtils.renderIntoDocument(
+          <DropdownFilterAjax
+            name="foo"
+            value="1"
+            path="/foobar"
+            create={ function() {} }
+            withCredentials
+            additionalRequestParams={ {foo: 'bar'} }
+          />
+        );
+      });
+
+      it('calls with credentials', () => {
+        Request.query = jest.fn().mockReturnThis();
+        Request.withCredentials = jest.fn();
+        instance.ajaxUpdateList = jest.fn();
+
+        instance.getData("foo", 1);
+        expect(Request.withCredentials).toHaveBeenCalled();
+      });
+    });
   });
 
   describe('resetScroll', () => {
@@ -443,8 +512,44 @@ describe('DropdownFilterAjax', () => {
           }]
         }
       });
+      Request.abort = jest.fn().mockReturnThis();
       wrapper = mount(<DropdownFilterAjax name="foo" value="1" path="/foobar" visibleValue="bar" />);
       wrapper.find('.carbon-dropdown__input').simulate('focus');
+    });
+
+    describe('when props contains a formatRequest function', () => {
+      it('calls formatRequest', () => {
+        const mockFormatData = () => { return { foo: 'bar' } };
+
+        wrapper.setProps({
+          formatRequest: mockFormatData
+        });
+
+        expect(
+          wrapper.instance().getParams('')
+        ).toEqual({"foo": "bar"})
+      });
+    });
+
+    describe('when props contains a formatResponse function', () => {
+      it('calls formatResponse', () => {
+        let expectedResponse = {
+          records: 1,
+          items: [1],
+          page: 1
+        },
+        response = {
+          body: expectedResponse
+        };
+        const mockFormatData = jasmine.createSpy('mockFormatData').and.returnValue(expectedResponse);
+
+        wrapper.setProps({
+          formatResponse: mockFormatData
+        });
+
+        wrapper.instance().ajaxUpdateList(false, response);
+        expect(mockFormatData).toHaveBeenCalledWith(expectedResponse);
+      });
     });
 
     it("is set to 'idle' on load", () => {

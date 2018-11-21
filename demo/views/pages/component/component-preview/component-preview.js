@@ -7,6 +7,7 @@ import PageContentArea from './../../../common/page-content-area';
 import SimpleHeading from './../../../../components/simple-heading';
 import Code from './../../../../components/code';
 import Fields from './fields';
+import './component-preview.scss';
 
 /**
  * Simple, site wrapped content area that loads a heading

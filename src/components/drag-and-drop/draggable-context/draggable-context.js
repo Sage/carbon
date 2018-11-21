@@ -2,8 +2,11 @@ import React from 'react';
 import { DragDropContext } from 'react-dnd';
 import PropTypes from 'prop-types';
 import TouchBackend from 'react-dnd-touch-backend';
-import ItemTargetHelper from './../../../utils/helpers/dnd/item-target';
-import CustomDragLayer from './../custom-drag-layer';
+import ReactDOM from 'react-dom';
+import ItemTargetHelper from '../../../utils/helpers/dnd/item-target';
+import CustomDragLayer from '../custom-drag-layer';
+import Browser from '../../../utils/helpers/browser';
+import ScrollableParent from '../../../utils/helpers/scrollable-parent';
 
 /**
  * A draggable context component
@@ -12,7 +15,7 @@ import CustomDragLayer from './../custom-drag-layer';
  *
  * In your file
  *
- *   import { DraggableContext, WithDrop, WithDrag } from 'carbon/lib/components/drag-and-drop'
+ *   import { DraggableContext, WithDrop, WithDrag } from 'carbon-react/lib/components/drag-and-drop'
  *
  * A draggable context is used to define an area in the page where drag and drop can be used on
  * one or more elements (you also need to use WithDrop and WithDrag):
@@ -59,7 +62,15 @@ class DraggableContext extends React.Component {
      * Callback function for when an item has been dragged
      * e.g. to update data in a store
      */
-    onDrag: PropTypes.func.isRequired
+    onDrag: PropTypes.func.isRequired,
+
+    /**
+     * Prop to enable/disable auto scroll on drag
+     *
+     * @property autoScroll
+     * @type {Bool}
+     */
+    autoScroll: PropTypes.bool
   }
 
   /**
@@ -78,11 +89,25 @@ class DraggableContext extends React.Component {
   }
 
   static defaultProps = {
-    customDragLayer: <CustomDragLayer />
+    customDragLayer: <CustomDragLayer />,
+    autoScroll: false
   }
 
   state = {
     activeIndex: null // {Number} tracks the currently dragged index
+  }
+
+  constructor(props) {
+    super(props);
+
+    // Default speed of auto scrolling
+    this.speed = 0;
+
+    // Frame callback ref
+    this.frame = null;
+
+    // Document element to scroll if any
+    this.element = null;
   }
 
   /**
@@ -110,6 +135,64 @@ class DraggableContext extends React.Component {
   handleHover = ItemTargetHelper.onHoverUpDown
 
   /**
+   * A callback for when auto scroll is triggered
+   *
+   * @method autoScroll
+   * @param {Object} ev event
+   * @return {void}
+   */
+  checkAutoScroll = (event) => {
+    if (this.state.activeIndex === null) {
+      return;
+    }
+
+    // constant for the position of the mouse pointer
+    // on the y axis
+    const { clientY } = event;
+    const { innerHeight } = Browser.getWindow();
+    // constant for the threshold where the auto scroll begins
+    const threshold = Math.max(140, innerHeight / 4);
+
+    let speed = 0;
+    if (clientY < threshold) {
+      // -1 to 0 as we move from 0 to threshold
+      speed = -1 + clientY / threshold;
+    } else if (clientY > innerHeight - threshold) {
+      // 0 to 1 as we move from (innerHeight - threshold) to innerHeight
+      speed = 1 - (innerHeight - clientY) / threshold;
+    }
+
+    const shouldScroll = this.speed === 0 && speed !== 0;
+    this.speed = speed;
+    if (shouldScroll) this.startScrolling();
+  }
+
+  startScrolling = () => {
+    if (!this.frame) {
+      this.frame = Browser.getWindow().requestAnimationFrame(this.tick);
+    }
+  }
+
+  tick = () => {
+    if (!this.speed) {
+      this.frame = null;
+      return;
+    }
+
+    const window = Browser.getWindow();
+
+    if (!this.element) {
+      const node = ReactDOM.findDOMNode(this); // eslint-disable-line  react/no-find-dom-node
+      this.element = ScrollableParent.searchForScrollableParent(node);
+    } else {
+      this.element.scrollTop += this.speed * 10;
+    }
+
+    window.scrollTo(0, window.scrollY + (this.speed * 10));
+    this.frame = window.requestAnimationFrame(this.tick);
+  }
+
+  /**
    * A callback for when a drag is triggered.
    *
    * Stores the hoverIndex in state as activeIndex,
@@ -132,6 +215,10 @@ class DraggableContext extends React.Component {
   /**
    * A callback for when dragging begins.
    *
+   * Sets state of dragging to true which
+   * will trigger the start of auto scroll
+   * if it is enabled.
+   *
    * @method handleBeginDrag
    * @param {Object} props
    * @return {Void}
@@ -152,6 +239,7 @@ class DraggableContext extends React.Component {
   handleEndDrag = () => {
     // dragging has ended so remove the active index
     this.setState({ activeIndex: null });
+    this.speed = 0;
   }
 
   /**
@@ -159,7 +247,10 @@ class DraggableContext extends React.Component {
    */
   render() {
     return (
-      <div className='carbon-draggable-context'>
+      <div
+        className='carbon-draggable-context'
+        onMouseMove={ (this.props.autoScroll && this.state.activeIndex !== null) ? this.checkAutoScroll : undefined }
+      >
         { this.props.children }
         { this.props.customDragLayer }
       </div>

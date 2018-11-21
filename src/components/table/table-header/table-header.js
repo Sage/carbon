@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Icon from './../../icon';
+import Icon from '../../icon';
 import { validProps } from '../../../utils/ether';
+import './table-header.scss';
 
 /**
  * A TableHeader widget.

@@ -1,5 +1,4 @@
 {
   "name": "row",
-  "style": "row.scss",
   "main": "./row.js"
 }

@@ -1,4 +1,3 @@
 {
-  "main": "./sub-page-navigation.js",
-  "style": "./sub-page-navigation.scss"
+  "main": "./sub-page-navigation.js"
 }

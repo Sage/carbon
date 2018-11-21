@@ -1,111 +1,36 @@
 # Getting Started
 
-This guide goes step by step to getting a project running.
+## Project Setup
 
-__Warning:__ The CLI is currently only supported on OSX, though we plan to add support for Windows and Linux soon. For the steps that ask to use the CLI we will provide alternatives.
+### Using Carbon Factory
 
-* Go to a directory where you keep your projects:
+The quickest way to get started with Carbon is to use [create-carbon-app](https://github.com/sage/create-carbon-app), this enables you to setup a new project quickly.
 
-```bash
-cd ~/development
-```
+Behind the scenes this uses [Carbon Factory](https://github.com/sage/carbon-factory), which provides pre-configured Webpack config and Jest config to get going with a new application in minutes.
 
-* Use the CLI to scaffold a Carbon/React/Flux project (or [download a zip](https://github.com/Sage/carbon-factory/raw/master/docs/carbon-app.zip)):
+## Application Setup
 
-```bash
-carbon app sampleapp
-```
+Install Carbon into your project: `npm install carbon-react`.
 
-* Go into your new project:
+Carbon also has a number of peer dependencies, such as React and React DOM. After installing Carbon you should be able to see warnings for any peer dependencies you need to install. Alternatively see the [package.json](https://github.com/Sage/carbon/blob/master/package.json) for the latest required peer dependencies.
 
-```bash
-cd sampleapp
-```
-
-* Install the project's modules:
-
-```bash
-npm install
-```
-
-* Run Gulp to recompile assets when file changes are made. When finished it will display a message of `assets are compiled!` - it will then continue to run and listen for any file changes, triggering a recompile when a file updates.
-
-```bash
-gulp
-```
-
-* Open a new terminal window, and return to the same directory:
-
-```bash
-cd ~/development/sampleapp
-```
-
-* Use the CLI to create a new component (or create the new file manually in `src/components/foobar/foobar.js`):
-
-```bash
-carbon component foobar
-```
-
-This will generate two files in `src/components/foobar`:
+You should now be able to import and use any of the React components available in Carbon in your project, for example:
 
 ```js
-// src/components/foobar/foobar.js
-
 import React from 'react';
+import Button from 'carbon-react/lib/components/button';
 
-class Foobar extends React.Component {
-
-  /**
-   * Renders the component.
-   *
-   * @method render
-   */
-  render() {
-    return (
-      <div></div>
-    );
-  }
-
-}
-
-export default Foobar;
-```
-
-```js
-// src/components/foobar/package.json
-
-{
-  "main": "./foobar.js",
-  "name": "Foobar"
-}
-```
-
-* Edit the `src/components/foobar/foobar.js` file for your new component to add some content to the `render` function:
-
-```js
-render() {
-  return (
-    <div>Foobar!</div>
-  );
-}
-```
-
-* Edit the `src/main.js` file in your project to import your new component and attach it to your route:
-
-```js
-import Foobar from 'components/foobar';
-
-var routes = (
-  <Route path="/" component={ Foobar } />
+const MyComponent = () => (
+  <Button>Click Me!</Button>
 );
+
+export default MyComponent;
 ```
 
-* In the console, start a web server from the root of your project:
+### Base CSS
 
-```bash
-python -m SimpleHTTPServer
+Carbon provides some baseline CSS which is applied to `body` and other elements. It is recommended you import this at the root of your project:
+
 ```
-
-* Open http://localhost:8000 in your web browser to view your application.
-
-* Your application is now setup, why not try setting up an application using Flux following our basic example?
+import 'carbon-react/lib/utils/css';
+```

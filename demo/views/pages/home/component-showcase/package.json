@@ -1,4 +1,3 @@
 {
-  "main": "./component-showcase",
-  "style": "component-showcase.scss"
+  "main": "./component-showcase"
 }

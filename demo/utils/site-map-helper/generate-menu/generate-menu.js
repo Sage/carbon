@@ -4,6 +4,7 @@ import Link from 'components/link';
 import { MenuListItem, MenuList } from 'components/menu-list';
 import { humanize, titleize } from 'underscore.string';
 import { startsWith } from 'lodash';
+import './generate-menu.scss';
 
 export default () => {
   return generateMenu();

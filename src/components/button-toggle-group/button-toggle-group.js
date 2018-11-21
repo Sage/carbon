@@ -2,12 +2,13 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 
-import css from './../../utils/css';
+import css from '../../utils/css';
 
-import InputLabel from './../../utils/decorators/input-label';
-import InputValidation from './../../utils/decorators/input-validation';
+import InputLabel from '../../utils/decorators/input-label';
+import InputValidation from '../../utils/decorators/input-validation';
 
 import tagComponent from '../../utils/helpers/tags';
+import './button-toggle-group.scss';
 
 /**
  * A button toggle group widget.
@@ -16,7 +17,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file
  *
- *   import ButtonToggleGroup from 'carbon/lib/components/button-toggle-group';
+ *   import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
  *
  * To render an ButtonToggleGroup:
  *

@@ -1,4 +1,6 @@
 import React from 'react';
+import './selling-point-panel.scss';
+
 const images = {
   flexible: require('./flexible.svg'),
   hammer: require('./hammer.svg'),

@@ -1,11 +1,12 @@
 import React from 'react';
 import classNames from 'classnames';
-import Icon from './../icon';
-import Modal from './../modal';
-import Heading from './../heading';
-import AppWrapper from './../app-wrapper';
+import Icon from '../icon';
+import Modal from '../modal';
+import Heading from '../heading';
+import AppWrapper from '../app-wrapper';
 import FullScreenHeading from './full-screen-heading';
-import Browser from './../../utils/helpers/browser';
+import Browser from '../../utils/helpers/browser';
+import './dialog-full-screen.scss';
 
 const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog-full-screen--open';
 
@@ -16,7 +17,7 @@ const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog-full-screen--open';
  *
  * In your file
  *
- *   import DialogFullScreen from 'carbon/lib/components/dialog-full-screen';
+ *   import DialogFullScreen from 'carbon-react/lib/components/dialog-full-screen';
  *
  * To render a DialogFullScreen:
  *

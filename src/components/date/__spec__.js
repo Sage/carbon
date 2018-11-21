@@ -325,6 +325,13 @@ describe('Date', () => {
         invalidDate.setState({ warning: true });
         expect(invalidDate.inputIconHTML).toHaveBeenCalledWith('warning');
       });
+
+      it("calls inputIconHTML with info in order to correctly generate the info icon", () => {
+        let invalidDate = TestUtils.renderIntoDocument(<Date value='' />);
+        spyOn(invalidDate, 'inputIconHTML');
+        invalidDate.setState({ info: true });
+        expect(invalidDate.inputIconHTML).toHaveBeenCalledWith('info');
+      });
     });
   });
 

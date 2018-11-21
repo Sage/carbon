@@ -7,6 +7,7 @@ import Link from 'components/link';
 
 import ComplexHeading from './../../../../components/complex-heading';
 import Wrapper from './../../../common/wrapper';
+import './sage-loves-carbon.scss';
 
 /**
  * Shows off some of the components

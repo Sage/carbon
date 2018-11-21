@@ -5,7 +5,8 @@ import { assign } from 'lodash';
 import PropTypes from 'prop-types';
 import Dialog from '../dialog';
 import Button from '../button';
-import CSS from './../../utils/css';
+import CSS from '../../utils/css';
+import './confirm.scss';
 
 /**
  * A Confirm widget.
@@ -14,7 +15,7 @@ import CSS from './../../utils/css';
  *
  * In your file
  *
- *   import Confirm from 'carbon/lib/components/confirm';
+ *   import Confirm from 'carbon-react/lib/components/confirm';
  *
  * To render a Confirm:
  *

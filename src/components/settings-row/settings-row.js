@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Heading from './../heading';
+import Heading from '../heading';
 import tagComponent from '../../utils/helpers/tags';
+import './settings-row.scss';
 
 /**
  * UI for a settings page row
@@ -18,7 +19,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file:
  *
- *    import SettingsRow from 'carbon/lib/components/settings-row';
+ *    import SettingsRow from 'carbon-react/lib/components/settings-row';
  *
  * To render the SettingsRow:
  *

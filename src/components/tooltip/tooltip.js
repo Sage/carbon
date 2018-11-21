@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import tagComponent from '../../utils/helpers/tags';
+import './tooltip.scss';
 
 /**
 * A Tooltip widget.
@@ -10,7 +11,7 @@ import tagComponent from '../../utils/helpers/tags';
 *
 * In your file:
 *
-*   import Tooltip from 'carbon/lib/components/tooltip'
+*   import Tooltip from 'carbon-react/lib/components/tooltip'
 *
 * To render the Tooltip:
 *

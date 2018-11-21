@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Icon from './../icon';
-import Input from './../../utils/decorators/input';
-import { validProps } from './../../utils/ether';
+import Icon from '../icon';
+import Input from '../../utils/decorators/input';
+import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
-
+import './button-toggle.scss';
 
 const ButtonToggle = Input(class ButtonToggle extends React.Component {
   static propTypes = {

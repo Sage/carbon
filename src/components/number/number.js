@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import Input from './../../utils/decorators/input';
-import InputLabel from './../../utils/decorators/input-label';
-import InputValidation from './../../utils/decorators/input-validation';
+import Input from '../../utils/decorators/input';
+import InputLabel from '../../utils/decorators/input-label';
+import InputValidation from '../../utils/decorators/input-validation';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 
@@ -15,7 +15,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file
  *
- *   import Number from 'carbon/lib/components/number';
+ *   import Number from 'carbon-react/lib/components/number';
  *
  * To render a Number:
  *

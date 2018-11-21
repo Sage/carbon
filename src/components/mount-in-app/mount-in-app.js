@@ -10,7 +10,7 @@ import ReactDOM from 'react-dom';
  *
  * Import the component:
  *
- *   import MountInApp from 'carbon/lib/components/mount-in-app';
+ *   import MountInApp from 'carbon-react/lib/components/mount-in-app';
  *
  * Imagine that your pre-existing user interface has
  * a <div id="put_carbon_component_here" /> inside
@@ -71,4 +71,3 @@ class MountInApp extends React.Component {
 }
 
 export default MountInApp;
-

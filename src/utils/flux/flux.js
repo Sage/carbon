@@ -15,7 +15,7 @@ export const Dispatcher = new Flux.Dispatcher();
  *
  * You can import this function with the following:
  *
- *   import { connect } from 'carbon/lib/utils/flux';
+ *   import { connect } from 'carbon-react/lib/utils/flux';
  *
  * You can then use the function like this:
  *

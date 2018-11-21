@@ -36,20 +36,7 @@
   vertical-align: middle;
   width: 15px;
 
-  ~ svg {
-    .checkbox-outline {
-      rx: 2;
-    }
-
-    .checkbox-fill {
-      ry: 1;
-    }
-  }
-
   &:focus + svg {
-    box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
-    @include transition(border linear 0.1s, box-shadow linear 0.1s);
-
     .checkbox-outline {
       fill: $input-active-border-color;
     }

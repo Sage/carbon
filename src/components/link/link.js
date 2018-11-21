@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { assign } from 'lodash';
 import { Link } from 'react-router';
-import Icon from './../icon';
+import Icon from '../icon';
 import { validProps } from '../../utils/ether';
-import Event from './../../utils/helpers/events';
+import Event from '../../utils/helpers/events';
 import tagComponent from '../../utils/helpers/tags';
+import './link.scss';
 
 /**
  * A link widget.
@@ -15,7 +16,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file:
  *
- *   import Link from 'carbon/lib/components/link';
+ *   import Link from 'carbon-react/lib/components/link';
  *
  * To render the Link:
  *

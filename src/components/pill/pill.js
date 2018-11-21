@@ -4,6 +4,7 @@ import classNames from 'classnames';
 
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
+import './pill.scss';
 
 /**
 * A Pill widget.
@@ -12,7 +13,7 @@ import tagComponent from '../../utils/helpers/tags';
 *
 * In your file:
 *
-*   import Pill from 'carbon/lib/components/pill'
+*   import Pill from 'carbon-react/lib/components/pill'
 *
 * To render the Pill:
 *

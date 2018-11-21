@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import buildPrevNextFromDefinition from './build-prev-next-from-definition';
 import buildPrevNextFromReactRouter from './build-prev-next-from-react-router';
 import ArrowLink from './../../../components/arrow-link';
+import './sub-page-navigation.scss';
 
 /**
  * Creates a Link wrapped HTML component that renders a label with prefix and an arrow icon

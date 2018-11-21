@@ -1,3 +1,3 @@
 exports.default = function generateDocs() {
-  require('ncp').ncp('./docs', './deploy/docs', function() { });
+  require('cpx').copy('./docs/**/*', './deploy/docs');
 }

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import Request from 'superagent';
 import { omit, assign, cloneDeep } from 'lodash';
-import DropdownFilter from './../dropdown-filter';
+import DropdownFilter from '../dropdown-filter';
 
 /**
  * A dropdown filter widget using ajax.
@@ -10,7 +10,7 @@ import DropdownFilter from './../dropdown-filter';
  *
  * In your file
  *
- *   import DropdownFilterAjax from 'carbon/lib/components/dropdown-filter-ajax';
+ *   import DropdownFilterAjax from 'carbon-react/lib/components/dropdown-filter-ajax';
  *
  * To render a DropdownFilterAjax:
  *
@@ -67,6 +67,14 @@ class DropdownFilterAjax extends DropdownFilter {
      * @default true
      */
     this.listeningToScroll = true;
+
+    /**
+     * Tracks the ajax request.
+     *
+     * @property pendingRequest
+     * @default null
+     */
+    this.pendingRequest = null;
   }
 
   static propTypes = omit(assign({}, DropdownFilter.propTypes, {
@@ -88,6 +96,14 @@ class DropdownFilterAjax extends DropdownFilter {
      * @type {String}
      */
     visibleValue: PropTypes.string,
+
+    /**
+     * custom http header for the request
+     *
+     * @property acceptHeader
+     * @type {String}
+     */
+    acceptHeader: PropTypes.string,
 
     /**
      * The path to your data (e.g. "/core_accounting/ledger_accounts/suggestions")
@@ -127,17 +143,60 @@ class DropdownFilterAjax extends DropdownFilter {
     create: PropTypes.func,
 
     /**
+     * A callback function used to format the Ajax
+     * response into the format required by the table
+     *
+     * Expected return object format
+     * {
+        records - number of items returned
+        items - array of items in a format { id: ..., name: ... }
+        page - current page number
+       }
+     *
+     * @property formatResponse
+     * @type {Function}
+     */
+    formatResponse: PropTypes.func,
+
+    /**
+     * A callback function used to format the Ajax
+     * request into the format required endpoint
+     *
+     * @property formatRequest
+     * @type {Function}
+     */
+    formatRequest: PropTypes.func,
+
+    /**
      * Should the dropdown act and look like a suggestable input instead.
      *
      * @property suggest
      * @type {Boolean}
      */
-    suggest: PropTypes.bool
+    suggest: PropTypes.bool,
+
+    /**
+     * Integer to determine timeout for defered callback for data request. Default: 500
+     *
+     * @property
+     * @type {Number}
+     */
+    dataRequestTimeout: PropTypes.number,
+
+    /**
+     * Enable the ability to send cookies from the origin.
+     *
+     * @property withCredentials
+     * @type: {Boolean}
+     */
+    withCredentials: PropTypes.bool
   }), 'options');
 
   static defaultProps = {
     rowsPerRequest: 25,
-    visibleValue: ''
+    acceptHeader: 'application/json',
+    visibleValue: '',
+    dataRequestTimeout: 500
   }
 
   /*
@@ -148,7 +207,14 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   handleVisibleChange(ev) {
     super.handleVisibleChange(ev);
-    this.getData(ev.target.value, 1);
+    if (this.dataFetchTimeout) {
+      clearTimeout(this.dataFetchTimeout);
+    }
+    const query = ev.target.value;
+    this.dataFetchTimeout = setTimeout(
+      () => this.getData(query, 1),
+      this.props.dataRequestTimeout
+    );
   }
 
   /*
@@ -158,9 +224,19 @@ class DropdownFilterAjax extends DropdownFilter {
    */
   handleBlur = () => {
     if (!this.blockBlur) {
-      const filter = this.props.create ? this.state.filter : null;
       // close list and reset filter
-      this.setState({ open: false, filter });
+      this.setState(prevState => ({
+        open: false,
+        filter: this.props.create ? prevState.filter : null
+      }));
+
+      if (this.dataFetchTimeout) {
+        clearTimeout(this.dataFetchTimeout);
+      }
+
+      if (this.pendingRequest !== null) {
+        this.pendingRequest.abort();
+      }
 
       if (this.props.onBlur) {
         this.props.onBlur();
@@ -207,26 +283,44 @@ class DropdownFilterAjax extends DropdownFilter {
    *
    * @method getData
    * @param {String} query The search term
-   * @param {Object} page The page number to get
    */
   getData = (query = '', page = 1) => {
     this.setState({ requesting: true });
-    Request
+    if (this.pendingRequest) this.pendingRequest.abort();
+
+    this.pendingRequest = Request
       .get(this.props.path)
-      .query({
-        page,
-        rows: this.props.rowsPerRequest,
-        value: query
-      })
+      .query(this.getParams(query, page))
       .query(this.props.additionalRequestParams)
-      .end(this.ajaxUpdateList);
+      .set('Accept', this.props.acceptHeader);
+
+    if (this.props.withCredentials) this.pendingRequest.withCredentials();
+    this.pendingRequest.end(this.ajaxUpdateList);
+  }
+
+  /**
+   * Retrieve params for the list.
+   *
+   * @method getParams
+   */
+  getParams = (query, page) => {
+    const params = {};
+    params.page = page;
+    params.rows = this.props.rowsPerRequest;
+    params.value = query;
+    if (this.props.formatRequest) {
+      return this.props.formatRequest(params);
+    }
+    return params;
   }
 
   /**
    * Applies some data from AJAX to the list
    */
   ajaxUpdateList = (err, response) => {
-    this.updateList(response.body.data[0]);
+    this.updateList(
+      this.props.formatResponse ? this.props.formatResponse(response.body) : response.body.data[0]
+    );
     this.setState({ requesting: false });
   }
 

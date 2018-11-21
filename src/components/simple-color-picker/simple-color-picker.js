@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ColorOption from './color-option';
 import tagComponent from '../../utils/helpers/tags';
+import './simple-color-picker.scss';
 
 /**
  * A component that displays squares with color samples that
@@ -9,7 +10,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * == How to use a SimpleColorPicker in a component:
  *
- *   import SimpleColorPicker from 'carbon/lib/components/simple-color-picker';
+ *   import SimpleColorPicker from 'carbon-react/lib/components/simple-color-picker';
  *
  *   <SimpleColorPicker
  *     availableColors={ ['transparent', '#ff0102', '#34ff01'] }

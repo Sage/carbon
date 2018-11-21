@@ -902,17 +902,20 @@ describe('Dropdown', () => {
   });
 
   describe('additionalInputContent', () => {
-    describe('when showArrow is true', () => {
+    const renderShallow = () => shallow(<Dropdown options={ Immutable.fromJS([]) } />);
+
+    describe('when showArrow is true (default value)', () => {
       it('returns the icon', () => {
-        spyOn(instance, 'showArrow').and.returnValue(true);
-        expect(instance.additionalInputContent[0].key).toEqual('label-icon');
+        const wrapper = renderShallow();
+        expect(wrapper.find('Icon').find({ type: 'dropdown' }).exists()).toBeTruthy();
       });
     });
 
     describe('when showArrow is false', () => {
       it('does not return the icon', () => {
-        spyOn(instance, 'showArrow').and.returnValue(false);
-        expect(instance.additionalInputContent.length).toEqual(0);
+        spyOn(Dropdown.prototype, 'showArrow').and.returnValue(false)
+        const wrapper = renderShallow();
+        expect(wrapper.find('Icon').find({ type: 'dropdown' }).exists()).toBeFalsy();
       });
     });
   });

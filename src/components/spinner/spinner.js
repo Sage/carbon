@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import tagComponent from '../../utils/helpers/tags';
+import './spinner.scss';
 
 /**
  * A Spinner widget.
@@ -10,7 +11,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file
  *
- *   import Spinner from 'carbon/lib/components/spinner';
+ *   import Spinner from 'carbon-react/lib/components/spinner';
  *
  * To render the Spinner:
  *

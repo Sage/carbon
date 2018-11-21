@@ -4,6 +4,7 @@ import classNames from 'classnames';
 import MenuItem from './menu-item';
 import SubmenuBlock from './submenu-block';
 import tagComponent from '../../utils/helpers/tags';
+import './menu.scss';
 
 /**
  * Renders a menu component, with menu items.
@@ -59,7 +60,14 @@ class Menu extends React.Component {
   render() {
     return (
       <nav className={ this.classes } { ...tagComponent('menu', this.props) }>
-        { this.props.children }
+        <ul className='carbon-menu__items'>
+          {
+            React.Children.map(
+              this.props.children,
+              child => <li className='carbon-menu__item'>{ child }</li>
+            )
+          }
+        </ul>
       </nav>
     );
   }

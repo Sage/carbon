@@ -4,12 +4,13 @@ import I18n from 'i18n-js';
 import classNames from 'classnames';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { isObject, isArray, forEach } from 'lodash';
-import shouldComponentUpdate from './../../utils/helpers/should-component-update';
-import Portal from './../portal';
-import Icon from './../icon';
-import Alert from './../alert';
-import Link from './../link';
+import shouldComponentUpdate from '../../utils/helpers/should-component-update';
+import Portal from '../portal';
+import Icon from '../icon';
+import Alert from '../alert';
+import Link from '../link';
 import tagComponent from '../../utils/helpers/tags';
+import './flash.scss';
 
 /**
  * A Flash widget.
@@ -21,7 +22,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file
  *
- *   import Flash from 'carbon/lib/components/flash';
+ *   import Flash from 'carbon-react/lib/components/flash';
  *
  * To render a Flash, setup open and cancel handlers in your view to trigger
  * the message on and off:

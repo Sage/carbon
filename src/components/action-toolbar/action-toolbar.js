@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
-import Link from './../link';
+import Link from '../link';
 import tagComponent from '../../utils/helpers/tags';
+import './action-toolbar.scss';
 
 /**
  * A ActionToolbar widget.
@@ -12,7 +13,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file
  *
- *   import ActionToolbar from 'carbon/lib/components/action-toolbar';
+ *   import ActionToolbar from 'carbon-react/lib/components/action-toolbar';
  *
  * To render an ActionToolbar:
  *
@@ -199,7 +200,7 @@ class ActionToolbar extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses() } { ...tagComponent('action-toolbar', this.props) } >
+      <div className={ this.mainClasses() } { ...tagComponent('action-toolbar', this.props) }>
         <div className='carbon-action-toolbar__total'>
           <strong data-element='total'>
             { this.state.total }

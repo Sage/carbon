@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import tagComponent from '../../utils/helpers/tags';
-import Link from './../link';
+import Link from '../link';
+import './create.scss';
 
 class Create extends React.Component {
   static propTypes = {

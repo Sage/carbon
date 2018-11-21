@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import TooltipDecorator from './../../utils/decorators/tooltip-decorator';
+import TooltipDecorator from '../../utils/decorators/tooltip-decorator';
 import Icons from './icons';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
+import './icon.scss';
 
 /**
  * An Icon widget.
@@ -13,7 +14,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file
  *
- *   import Icon from 'carbon/lib/components/icon';
+ *   import Icon from 'carbon-react/lib/components/icon';
  *
  * To render an Icon:
  *
@@ -101,7 +102,6 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
     delete props.bgSize;
     delete props.bgShape;
     delete props.bgTheme;
-    props.type = this.type;
 
     return props;
   }
@@ -161,6 +161,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         { ...this.componentProps }
         { ...tagComponent('icon', this.props) }
         ref={ (comp) => { this._target = comp; } }
+        data-element={ this.type }
       >
         { this.iconSvgHTML() }
       </span>,

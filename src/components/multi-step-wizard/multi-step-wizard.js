@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Step from './step';
+import './multi-step-wizard.scss';
 
 /**
  * A MultiStepWizard widget.
@@ -10,7 +11,7 @@ import Step from './step';
  *
  * In your file:
  *
- *   import MultiStepWizard from 'components/multi-step-wizard';
+ *   import MultiStepWizard from 'carbon-react/lib/components/multi-step-wizard';
  *
  * To render the Wizard:
  *
@@ -214,7 +215,8 @@ class MultiStepWizard extends React.Component {
 
     if (completed === true) {
       return { currentStep: totalSteps, completed: true };
-    } else if (parseInt(step, 10) !== step || step < 1 || step > totalSteps) {
+    }
+    if (parseInt(step, 10) !== step || step < 1 || step > totalSteps) {
       return { currentStep: 1, completed: false };
     }
 
@@ -239,7 +241,7 @@ class MultiStepWizard extends React.Component {
    */
   next = () => {
     if (this.state.currentStep < this.totalSteps) {
-      this.setState({ currentStep: this.state.currentStep + 1 });
+      this.setState(prevState => ({ currentStep: prevState.currentStep + 1 }));
     }
   }
 
@@ -251,7 +253,7 @@ class MultiStepWizard extends React.Component {
    */
   back = () => {
     if (this.state.currentStep > 1) {
-      this.setState({ completed: false, currentStep: this.state.currentStep - 1 });
+      this.setState(prevState => ({ completed: false, currentStep: prevState.currentStep - 1 }));
     }
   }
 

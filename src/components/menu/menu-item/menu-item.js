@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { assign } from 'lodash';
-import Link from './../../link';
+import Link from '../../link';
 import tagComponent from '../../../utils/helpers/tags';
+import './menu-item.scss';
 
 /**
  * Renders a menu item for the menu component.
@@ -122,7 +123,7 @@ class MenuItem extends React.Component {
     );
 
     return (
-      <div>
+      <React.Fragment>
         <MenuItem
           className='carbon-menu-item__submenu-title' href={ this.props.href }
           to={ this.props.to }
@@ -130,10 +131,15 @@ class MenuItem extends React.Component {
           { this.props.submenu }
         </MenuItem>
 
-        <div className={ submenuClasses }>
-          { this.props.children }
-        </div>
-      </div>
+        <ul className={ submenuClasses }>
+          {
+            React.Children.map(
+              this.props.children,
+              child => <li className='carbon-menu-item__submenu-item'>{ child }</li>
+            )
+          }
+        </ul>
+      </React.Fragment>
     );
   }
 

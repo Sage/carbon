@@ -27,6 +27,7 @@ const OptionsHelper = {
     'blue',
     'grey',
     'magenta',
+    'magenta-dull',
     'red',
     'white'
   ],

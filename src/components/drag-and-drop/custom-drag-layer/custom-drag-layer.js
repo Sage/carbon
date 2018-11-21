@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import { DragLayer } from 'react-dnd';
+import './custom-drag-layer.scss';
 
 const collect = (monitor) => {
   const item = monitor.getItem();
@@ -62,6 +64,10 @@ class CustomDragLayer extends React.Component {
     };
   }
 
+  getClassName = (props) => {
+    return classNames('custom-drag-layer', props.className);
+  }
+
   setClonedChildWidth(props) {
     this.width = props.draggableNode.getBoundingClientRect().width;
   }
@@ -82,7 +88,7 @@ class CustomDragLayer extends React.Component {
 
   render() {
     return (
-      <div className='custom-drag-layer'>
+      <div className={ this.getClassName(this.props) }>
         <div
           className='custom-drag-layer__container'
           ref={ (node) => { this._container = node; } }

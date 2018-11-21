@@ -5,15 +5,15 @@ cache:
     - node_modules
 
 node_js:
-  - 8.9.4
+  - 8.11.3
 
 install:
-  - npm install -g npm@5.6.0
+  - npm install -g npm@6.1.0
   - npm install -g gulp
   - npm install
 
 script:
-  - npm run lint ./src && npm test
+  - npm run lint ./src && npm test -- --maxWorkers=2
 
 before_deploy: if [ "$TRAVIS_BRANCH" == "release" ]; then npm run build; fi
 
@@ -32,7 +32,7 @@ deploy:
   - provider: npm
     email: sageoneplatform@sage.com
     api_key:
-      secure: Vr4sohrHqb3fzt3/JPucQ6gHIdPm4hDMEZNAMn87OKHEP9OoAcF7F+y2dIgBEgWu65z3f8jBipR27N0kZ6Ov2mCmHoi0bMkM2J+hX1ApwPlAoVOd3bWGUTeL7HDAkYsZ7o2ZKB4jXdqOak15AZuA+9KLiNTVt/E04gKZYto7Z97I2y0k0WLoTi/z7krCBBiq+XowvMNcPr8yNJ/gPcgUsfE/l1V0hs6LYvATBTKAU30fqTUvfXQrVwb5rA42umrYY4QPNPKHp6yru3pzUK5121yve3bG2ADgefDlOao6SBp5iDJzpPRRJKlB0P5S1685VEmrHhdEbbg9+0B2ve+L7Cv9oDb0KR0FuuPRIDdKXxil3ZMO6/ueWHGei1Q5VyDU43KidryY3RnMrYbUaryxxnvELUITUV6AvPFNJqIPJgRRRukf9WyOirNl1N5GvYNXtQepJdjZsxLrTOYNnKCG3CBSGwvj+Kx09mhNC1P27KMW8I8wvqPtTEm819YApYTPpl+9OJwsPPzu1MV/oIwWE5Ga171oPBMqRrLRdzywzLhrstCTCvOs+eYDKYAGUziX4pU6xxe9ye5mSG6H6UAPG8PxknivZM3FRjzjorzDXvDmUbrnNu4bpmkE2q85Ji+82jpY23kDuweEkhDUCPfqlFcF5ikMoq9sT+c8nOiCesI=
+      secure: M9MjNzeuvNsUl5CTcftbCeUJ3Yf8x8ownH+QZDCsYLy+mp9quDCSUsS1Q3/2kQ33WNfe6B3XBAGwSbnVUc3TPRM/zo0YCTPllMGl3qTRW7AnWEM/9Sqe69f8nAmui4tClf8UaUHk/irWNRmNpqQtFmlFW5jz6CtGXNAinLdHnl2DgvUWhKtbkAlAYn3pZOyrTRxEBdWBErS5yiGkfooY2Iqzw0UQSS6ZIpS5hL+GgWXYrgUHRC27mItVBYS1qBZY9MBVWfj5KP+y4M3+0E+sbZYBYw627ikEkFandc0jumfUgEUPk95iGKy8xrRc/JzPOVEQUKDJYXrtLsz12+DV8RngwXgQwKDOqtHbV52x8xr84Ouo5hEdTecuP3x0dBQkRW5GRE0J3L3A81SqcyBJ8dujUwCCjJL/p7vYtLYS9ouvIszU2keqCNB4F1x9r3tmY6vAmRAjwH6SkoI0kk618klh/jrf78cpSCAe43HS/YltFvs6xOd6rFvtIc6SDJHSjvuZUebV/v6YTx3iDVTPEH9ljlZmwl4r1KnfyW++avgw5fpGMUxJ/n4/BrC2y4M4XJSqZJxv3gt8KUcw8nSJilE4V5NGzOGEfwo9Ki2DPVidFqUvakuhgO5mb6BnyBCbULgE09X8UygbA5tVWkq659bVmpd2WkUziR4KC8Naook=
     on:
       tags: true
       condition: "$TRAVIS_TAG =~ ^((v[0-9]+.[0-9]+.[0-9]+)(-rc[0-9]+)?)$"

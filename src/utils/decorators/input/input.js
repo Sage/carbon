@@ -2,11 +2,12 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { assign, union } from 'lodash';
-import css from './../../css';
-import shouldComponentUpdate from './../../helpers/should-component-update';
-import guid from './../../helpers/guid';
-import Icon from './../../../components/icon';
-import Help from './../../../components/help';
+import css from '../../css';
+import shouldComponentUpdate from '../../helpers/should-component-update';
+import guid from '../../helpers/guid';
+import Icon from '../../../components/icon';
+import Help from '../../../components/help';
+import './input.scss';
 
 /**
  * Input decorator.
@@ -17,7 +18,7 @@ import Help from './../../../components/help';
  *
  * In your file:
  *
- *   import Input from 'carbon/lib/utils/decorators/input;
+ *   import Input from 'carbon-react/lib/utils/decorators/input;
  *
  * To use the decorator, wrap your component with it:
  *

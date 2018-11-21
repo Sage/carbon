@@ -8,13 +8,14 @@ import { kebabCase } from 'lodash';
 import CancelButton from './cancel-button';
 import FormSummary from './form-summary';
 import SaveButton from './save-button';
-import AppWrapper from './../app-wrapper';
+import AppWrapper from '../app-wrapper';
 
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
-import Browser from './../../utils/helpers/browser';
+import Browser from '../../utils/helpers/browser';
 
-import ElementResize from './../../utils/helpers/element-resize';
+import ElementResize from '../../utils/helpers/element-resize';
+import './form.scss';
 
 /**
  * A Form widget.
@@ -23,7 +24,7 @@ import ElementResize from './../../utils/helpers/element-resize';
  *
  * In your file
  *
- *   import Form from 'carbon/lib/components/form';
+ *   import Form from 'carbon-react/lib/components/form';
  *
  * To render a Form:
  *
@@ -398,9 +399,6 @@ class Form extends React.Component {
    * @return {void}
    */
   setActiveInput = (input) => {
-    if (input !== this.activeInput && this.activeInputExistsAndHasValidation()) {
-      this.activeInput.immediatelyHideMessage();
-    }
     this.activeInput = input;
   }
 
@@ -499,15 +497,6 @@ class Form extends React.Component {
    * @type {window}
    */
   _window = Browser.getWindow();
-
-  /**
-   * @method activeInputHasValidation
-   * @param {}
-   * @return {Boolean} active input exists and is decorated with validation
-   */
-  activeInputExistsAndHasValidation = () => {
-    return this.activeInput && this.activeInput.immediatelyHideMessage;
-  }
 
   /**
    * Stores references to the inputs in the form
@@ -747,7 +736,7 @@ class Form extends React.Component {
     if (!this.props[type]) { return null; }
 
     return (
-      <div className={ `carbon-form__${kebabCase(type)}` } >
+      <div className={ `carbon-form__${kebabCase(type)}` }>
         { this.props[type] }
       </div>
     );

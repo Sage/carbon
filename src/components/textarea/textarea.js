@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
-import Input from './../../utils/decorators/input';
-import InputLabel from './../../utils/decorators/input-label';
-import InputValidation from './../../utils/decorators/input-validation';
+import Input from '../../utils/decorators/input';
+import InputLabel from '../../utils/decorators/input-label';
+import InputValidation from '../../utils/decorators/input-validation';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
+import './textarea.scss';
 
 /**
  * A textarea widget.
@@ -15,7 +16,7 @@ import tagComponent from '../../utils/helpers/tags';
  *
  * In your file:
  *
- *   import Textarea from 'carbon/lib/components/textarea';
+ *   import Textarea from 'carbon-react/lib/components/textarea';
  *
  * To render a Textarea:
  *

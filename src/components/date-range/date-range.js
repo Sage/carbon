@@ -3,10 +3,11 @@ import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import { assign } from 'lodash';
 import classNames from 'classnames';
-import Date from './../date';
-import DateRangeValidator from './../../utils/validations/date-range';
-import DateHelper from './../../utils/helpers/date';
+import Date from '../date';
+import DateRangeValidator from '../../utils/validations/date-range';
+import DateHelper from '../../utils/helpers/date';
 import tagComponent from '../../utils/helpers/tags';
+import './date-range.scss';
 
 class DateRange extends React.Component {
   static propTypes = {
@@ -152,8 +153,8 @@ class DateRange extends React.Component {
    * @return {String}
    */
   get startMessage() {
-    return this.props.startMessage ||
-      I18n.t('errors.messages.date_range', { defaultValue: 'Start date must not be later than the end date' });
+    return this.props.startMessage
+      || I18n.t('errors.messages.date_range', { defaultValue: 'Start date must not be later than the end date' });
   }
 
   /**
@@ -163,8 +164,8 @@ class DateRange extends React.Component {
    * @return {String}
    */
   get endMessage() {
-    return this.props.endMessage ||
-     I18n.t('errors.messages.date_range', { defaultValue: 'End date cannot be earlier than the start date' });
+    return this.props.endMessage
+     || I18n.t('errors.messages.date_range', { defaultValue: 'End date cannot be earlier than the start date' });
   }
 
 
