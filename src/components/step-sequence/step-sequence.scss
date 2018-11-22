@@ -1,0 +1,39 @@
+@import './style-config.scss';
+
+.carbon-step-sequence {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  .carbon-step-sequence-item {
+    display: flex;
+    flex-grow: 1;
+
+    &::before {
+      background-color: $incomplete-color;
+      content: '';
+      flex-grow: 1;
+    }
+
+    &:first-child {
+      flex-grow: 0;
+
+      &::before {
+        content: none;
+      }
+    }
+  }
+
+  .carbon-step-sequence-item--current {
+    &::before {
+      background-color: $current-link-colour;
+    }
+  }
+
+  .carbon-step-sequence-item--complete {
+    &::before {
+      background-color: $complete-color;
+    }
+  }
+}

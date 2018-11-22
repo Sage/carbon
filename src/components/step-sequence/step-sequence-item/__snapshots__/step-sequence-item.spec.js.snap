@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StepSequenceItem /> basic render 1`] = `
+<li
+  className="carbon-step-sequence-item carbon-step-sequence-item--foo"
+>
+  <span
+    className="carbon-step-sequence-item__label"
+  >
+    <span
+      className="carbon-step-sequence-item__indicator"
+    >
+      2
+    </span>
+    bar
+  </span>
+</li>
+`;
+
+exports[`<StepSequenceItem /> completed render 1`] = `
+<li
+  className="carbon-step-sequence-item carbon-step-sequence-item--complete"
+>
+  <span
+    className="carbon-step-sequence-item__label"
+  >
+    <span
+      className="carbon-step-sequence-item__indicator"
+    >
+      <Icon
+        bgSize="small"
+        type="tick"
+      />
+    </span>
+    bar
+  </span>
+</li>
+`;

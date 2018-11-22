@@ -1,0 +1,37 @@
+@import '../style-config.scss';
+
+.carbon-step-sequence-item {
+  align-items: center;
+  color: $incomplete-color;
+  display: flex;
+  font-weight: bold;
+
+  &__indicator {
+    height: 16px;
+    text-align: center;
+    min-width: 16px;
+    margin-right: 8px;
+  }
+
+  &__label {
+    display: flex;
+  }
+
+  & > * {
+    margin-right: 8px;
+
+    &:last-of-type {
+      margin-right: 0;
+    }
+  }
+}
+
+
+.carbon-step-sequence-item--current {
+  color: $current-color;
+}
+
+
+.carbon-step-sequence-item--complete {
+  color: $complete-color;
+}
