@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StepSequence /> basic render 1`] = `
+<ol
+  className="carbon-step-sequence carbon-step-sequence--horizontal"
+>
+  <div>
+    Children
+  </div>
+</ol>
+`;
