@@ -8,7 +8,7 @@ let definition = new Definition('step-sequence-item', StepSequenceItem, {
   relatedComponentsNotes: ``,
   propDescriptions: {
     indicator: '',
-    label: '',
+    children: '',
     state: ''
   },
   propOptions: {
@@ -16,12 +16,12 @@ let definition = new Definition('step-sequence-item', StepSequenceItem, {
   },
   propTypes: {
     indicator: 'String',
-    label: 'String',
+    children: 'node',
     state: 'String'
   },
   propValues: {
     indicator: '1',
-    label: 'Step Label',
+    children: 'Step Label',
     state: 'current'
   }
 });
