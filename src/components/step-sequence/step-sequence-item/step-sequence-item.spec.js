@@ -20,7 +20,12 @@ describe('<StepSequenceItem />', () => {
   });
 
   test('completed render', () => {
-    stepSequenceItem.setProps({ state: 'complete' });
+    stepSequenceItem.setProps({ status: 'complete' });
+    expect(stepSequenceItem).toMatchSnapshot();
+  });
+
+  test('current render', () => {
+    stepSequenceItem.setProps({ status: 'current' });
     expect(stepSequenceItem).toMatchSnapshot();
   });
 });
