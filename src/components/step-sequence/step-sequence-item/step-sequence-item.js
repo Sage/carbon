@@ -5,24 +5,28 @@ import Icon from '../../icon';
 import './step-sequence-item.scss';
 
 const baseClass = 'carbon-step-sequence-item';
-const classes = state => `${baseClass} ${baseClass}--${state}`;
+const classes = status => `${baseClass} ${baseClass}--${status}`;
 
-const stepMarker = (state, indicator) => {
-  return state === 'complete' ? <Icon type='tick' /> : indicator;
+const stepMarker = (status, indicator) => {
+  return status === 'complete' ? <Icon type='tick' /> : indicator;
 };
 
-const StepSequenceItem = ({ children, state, indicator }) => (
-  <li className={ classes(state) }>
-    <span className='carbon-step-sequence-item__label'>
-      <span className='carbon-step-sequence-item__indicator'>{ stepMarker(state, indicator) }</span>
+const ariaRole = (status) => {
+  return status === 'current' ? { 'aria-current': 'step' } : {};
+};
+
+const StepSequenceItem = ({ children, status, indicator }) => (
+  <li className={ classes(status) } { ...ariaRole(status) }>
+    <div className='carbon-step-sequence-item__label'>
+      <span className='carbon-step-sequence-item__indicator'>{ stepMarker(status, indicator) }</span>
       { children }
-    </span>
+    </div>
   </li>
 );
 
 StepSequenceItem.propTypes = {
   children: PropTypes.node,
-  state: PropTypes.oneOf([
+  status: PropTypes.oneOf([
     'complete',
     'current',
     'incomplete'
@@ -31,7 +35,7 @@ StepSequenceItem.propTypes = {
 };
 
 StepSequenceItem.defaultProps = {
-  state: 'incomplete'
+  status: 'incomplete'
 };
 
 export default StepSequenceItem;

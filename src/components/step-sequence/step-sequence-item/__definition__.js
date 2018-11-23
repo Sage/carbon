@@ -9,20 +9,20 @@ let definition = new Definition('step-sequence-item', StepSequenceItem, {
   propDescriptions: {
     indicator: '',
     children: '',
-    state: ''
+    status: ''
   },
   propOptions: {
-    state: OptionsHelper.steps,
+    status: OptionsHelper.steps,
   },
   propTypes: {
     indicator: 'String',
     children: 'node',
-    state: 'String'
+    status: 'String'
   },
   propValues: {
     indicator: '1',
     children: 'Step Label',
-    state: 'current'
+    status: 'current'
   }
 });
 

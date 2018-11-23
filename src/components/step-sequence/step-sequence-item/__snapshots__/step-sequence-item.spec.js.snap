@@ -4,7 +4,7 @@ exports[`<StepSequenceItem /> basic render 1`] = `
 <li
   className="carbon-step-sequence-item carbon-step-sequence-item--incomplete"
 >
-  <span
+  <div
     className="carbon-step-sequence-item__label"
   >
     <span
@@ -13,7 +13,7 @@ exports[`<StepSequenceItem /> basic render 1`] = `
       2
     </span>
     bar
-  </span>
+  </div>
 </li>
 `;
 
@@ -21,7 +21,7 @@ exports[`<StepSequenceItem /> completed render 1`] = `
 <li
   className="carbon-step-sequence-item carbon-step-sequence-item--complete"
 >
-  <span
+  <div
     className="carbon-step-sequence-item__label"
   >
     <span
@@ -33,6 +33,24 @@ exports[`<StepSequenceItem /> completed render 1`] = `
       />
     </span>
     bar
-  </span>
+  </div>
+</li>
+`;
+
+exports[`<StepSequenceItem /> current render 1`] = `
+<li
+  aria-current="step"
+  className="carbon-step-sequence-item carbon-step-sequence-item--current"
+>
+  <div
+    className="carbon-step-sequence-item__label"
+  >
+    <span
+      className="carbon-step-sequence-item__indicator"
+    >
+      2
+    </span>
+    bar
+  </div>
 </li>
 `;
