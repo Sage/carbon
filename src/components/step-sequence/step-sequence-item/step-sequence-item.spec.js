@@ -8,8 +8,6 @@ describe('<StepSequenceItem />', () => {
   beforeAll(() => {
     stepSequenceItem = shallow(
       <StepSequenceItem
-        state='foo'
-        label='bar'
         indicator='2'
       >
         bar

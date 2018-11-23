@@ -2,7 +2,7 @@
 
 exports[`<StepSequenceItem /> basic render 1`] = `
 <li
-  className="carbon-step-sequence-item carbon-step-sequence-item--foo"
+  className="carbon-step-sequence-item carbon-step-sequence-item--incomplete"
 >
   <span
     className="carbon-step-sequence-item__label"
