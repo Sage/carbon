@@ -7,7 +7,7 @@ import './step-sequence-orientation.scss';
 const baseClass = 'carbon-step-sequence';
 const classes = orientation => `${baseClass} ${baseClass}--${orientation}`;
 
-const StepSequence = ({ children, orientation = 'horizontal' }) => (
+const StepSequence = ({ children, orientation }) => (
   <ol className={ classes(orientation) }>
     { children }
   </ol>
@@ -15,7 +15,14 @@ const StepSequence = ({ children, orientation = 'horizontal' }) => (
 
 StepSequence.propTypes = {
   children: PropTypes.node,
-  orientation: PropTypes.string
+  orientation: PropTypes.oneOf([
+    'horizontal',
+    'vertical'
+  ])
+};
+
+StepSequence.defaultProps = {
+  orientation: 'horizontal'
 };
 
 export default StepSequence;

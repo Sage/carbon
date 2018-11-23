@@ -11,7 +11,9 @@ describe('<StepSequenceItem />', () => {
         state='foo'
         label='bar'
         indicator='2'
-      />
+      >
+        bar
+      </StepSequenceItem>
     );
   });
 
