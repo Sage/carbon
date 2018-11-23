@@ -24,27 +24,27 @@ let definition = new Definition('step-sequence', StepSequence, {
 export default definition;
 
 definition.addChildByDefinition(StepSequenceItemDefinition, {
-  label: 'Name',
+  children: 'Name',
   indicator: '1',
   state: 'complete'
 });
 definition.addChildByDefinition(StepSequenceItemDefinition, {
-  label: 'Delivery Address',
+  children: 'Delivery Address',
   indicator: '2',
   state: 'complete'
 });
 definition.addChildByDefinition(StepSequenceItemDefinition, {
-  label: 'Delivery Details',
+  children: 'Delivery Details',
   indicator: '3',
   state: 'current'
 });
 definition.addChildByDefinition(StepSequenceItemDefinition, {
-  label: 'Payment',
+  children: 'Payment',
   indicator: '4',
   state: 'incomplete'
 });
 definition.addChildByDefinition(StepSequenceItemDefinition, {
-  label: 'Confirm',
+  children: 'Confirm',
   indicator: '5',
   state: 'incomplete'
 });
