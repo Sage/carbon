@@ -26,4 +26,10 @@ StepSequenceItem.propTypes = {
   indicator: PropTypes.string
 };
 
+StepSequenceItem.defaultProps = {
+  label: '',
+  state: 'incomplete',
+  indicator: ''
+};
+
 export default StepSequenceItem;
