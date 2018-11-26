@@ -17,12 +17,16 @@ let definition = new Definition('step-sequence-item', StepSequenceItem, {
   propTypes: {
     indicator: 'String',
     children: 'node',
-    status: 'String'
+    status: 'String',
+    stepNumber: 'Number',
+    totalSteps: 'Number'
   },
   propValues: {
     indicator: '1',
     children: 'Step Label',
-    status: 'current'
+    status: 'current',
+    stepNumber: 1,
+    totalSteps: 5
   }
 });
 
