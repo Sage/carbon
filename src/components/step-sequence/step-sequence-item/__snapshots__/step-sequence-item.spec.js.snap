@@ -2,7 +2,7 @@
 
 exports[`<StepSequenceItem /> completed render 1`] = `
 <li
-  aria-label="1 of 5 steps"
+  aria-label="Step 1 of 5"
   className="carbon-step-sequence-item carbon-step-sequence-item--complete"
 >
   <div
@@ -24,7 +24,7 @@ exports[`<StepSequenceItem /> completed render 1`] = `
 exports[`<StepSequenceItem /> current render 1`] = `
 <li
   aria-current="step"
-  aria-label="1 of 5 steps"
+  aria-label="Step 1 of 5"
   className="carbon-step-sequence-item carbon-step-sequence-item--current"
 >
   <div
@@ -42,7 +42,7 @@ exports[`<StepSequenceItem /> current render 1`] = `
 
 exports[`<StepSequenceItem /> incomplete render 1`] = `
 <li
-  aria-label="1 of 5 steps"
+  aria-label="Step 1 of 5"
   className="carbon-step-sequence-item carbon-step-sequence-item--incomplete"
 >
   <div
@@ -58,7 +58,7 @@ exports[`<StepSequenceItem /> incomplete render 1`] = `
 </li>
 `;
 
-exports[`<StepSequenceItem /> without aria label fields 1`] = `
+exports[`<StepSequenceItem /> without ariaLabel field 1`] = `
 <li
   className="carbon-step-sequence-item carbon-step-sequence-item--incomplete"
 >

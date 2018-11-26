@@ -15,18 +15,16 @@ let definition = new Definition('step-sequence-item', StepSequenceItem, {
     status: OptionsHelper.steps,
   },
   propTypes: {
+    ariaLabel: 'String',
     indicator: 'String',
     children: 'node',
-    status: 'String',
-    stepNumber: 'Number',
-    totalSteps: 'Number'
+    status: 'String'
   },
   propValues: {
-    indicator: '1',
+    ariaLabel: 'Step 1 of 5',
     children: 'Step Label',
-    status: 'current',
-    stepNumber: 1,
-    totalSteps: 5
+    indicator: '1',
+    status: 'current'
   }
 });
 
