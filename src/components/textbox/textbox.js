@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Input from '../../utils/decorators/input';
 import InputLabel from '../../utils/decorators/input-label';
 import InputValidation from '../../utils/decorators/input-validation';
@@ -24,6 +25,21 @@ import './textbox.scss';
  * @decorators {Input,InputLabel,InputValidation}
  */
 const Textbox = Input(InputLabel(InputValidation(class Textbox extends React.Component {
+  static propTypes= {
+    /**
+     * Whether to protect against XSS injection in the field
+     *
+     * @property xssProtectionEnabled
+     * @type {Boolean}
+     * @default true
+     */
+    xssProtectionEnabled: PropTypes.bool
+  }
+
+  static defaultProps = {
+    xssProtectionEnabled: true
+  }
+
   /**
    * Main Class getter
    *

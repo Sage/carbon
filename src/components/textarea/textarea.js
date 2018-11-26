@@ -87,13 +87,23 @@ const Textarea = Input(InputLabel(InputValidation(
      * @type {Boolean}
      * @default false
      */
-    warnOverLimit: PropTypes.bool
+    warnOverLimit: PropTypes.bool,
+
+    /**
+     * Whether to protect against XSS injection in the field
+     *
+     * @property xssProtectionEnabled
+     * @type {Boolean}
+     * @default true
+     */
+    xssProtectionEnabled: PropTypes.bool
   }
 
   static defaultProps = {
     expandable: false,
     enforceCharacterLimit: true,
-    warnOverLimit: false
+    warnOverLimit: false,
+    xssProtectionEnabled: true
   }
 
   // Minimum height of the textarea

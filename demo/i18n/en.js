@@ -97,6 +97,7 @@ I18n.translations['en'] = {
   errors: {
     messages: {
       blank: 'This field is required.',
+      invalid_characters: 'The field contains invalid characters',
       invalid_email: "Please enter a valid email address.",
       too_long: "is too long (maximum is %{count} characters)",
       wrong_format: 'Invalid format'

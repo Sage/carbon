@@ -6,6 +6,7 @@ import Browser from '../../helpers/browser';
 import Icon from '../../../components/icon';
 import chainFunctions from '../../helpers/chain-functions';
 import Portal from '../../../components/portal';
+import XssValidator from '../../validations/xss';
 
 const window = Browser.getWindow();
 /**
@@ -398,14 +399,14 @@ const InputValidation = (ComposedComponent) => {
     validate = (value = this.props.value) => {
       let valid = false;
 
+      const validations = this._validations();
       // if there are no validation, return truthy
-      if (!this._validations() || this.props._placeholder) {
+      if (!validations || this.props._placeholder) {
         return true;
       }
-
       // iterate through each validation applied to the input
-      for (let i = 0; i < this._validations().length; i++) {
-        const validation = this._validations()[i];
+      for (let i = 0; i < validations.length; i++) {
+        const validation = validations[i];
 
         // run this validation
         valid = validation.validate(value, this.props, this.updateValidation);
@@ -730,7 +731,10 @@ const InputValidation = (ComposedComponent) => {
      * @return {Array} validations
      */
     _validations = () => {
-      const validations = (this.props.validations || []).concat(this.props.internalValidations || []);
+      const securityValidations = this.props.xssProtectionEnabled ? [new XssValidator()] : [];
+      const propValidations = this.props.validations;
+      const defaultValidations = propValidations ? securityValidations.concat(propValidations) : securityValidations;
+      const validations = defaultValidations.concat(this.props.internalValidations || []);
       return validations.length ? validations : null;
     }
   }

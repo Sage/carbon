@@ -52,9 +52,15 @@ exports[`Sidebar sidebarClasses returns a base sidebar 1`] = `
             type="close"
           />
         </span>
-        <Textbox />
-        <Textbox />
-        <Textbox />
+        <Textbox
+          xssProtectionEnabled={true}
+        />
+        <Textbox
+          xssProtectionEnabled={true}
+        />
+        <Textbox
+          xssProtectionEnabled={true}
+        />
       </div>
     </CSSTransitionGroup>
   </div>

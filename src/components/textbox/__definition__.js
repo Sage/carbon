@@ -14,6 +14,12 @@ let definition = new Definition('textbox', Textbox, {
 * More than a single line of text? [Try Textarea](/components/textarea).
 `,
   type: 'form',
+  propDescriptions: {
+    xssProtectionEnabled: "Whether to protect against XSS injection in the field"
+  },
+  propTypes: {
+    xssProtectionEnabled: "Boolean"
+  },
   propValues: {
     value: ''
   }

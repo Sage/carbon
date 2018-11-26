@@ -6,6 +6,7 @@ import InputValidation from './input-validation';
 import InputLabel from './../input-label';
 import Dialog from './../../../components/dialog';
 import Browser from './../../helpers/browser';
+import XssValidator from '../../validations/xss';
 
 /* global jest */
 
@@ -662,6 +663,29 @@ describe('InputValidation', () => {
           });
         });
       });
+
+      describe('When the xssProtectionEnabled is on', () => {
+        beforeEach(()=>{
+          instance = TestUtils.renderIntoDocument(React.createElement(Component, {
+            xssProtectionEnabled: true,
+            validations: [validationOne, validationTwo, validationThree],
+            value: 'foo'
+          }));
+          instance.context.form = form;
+          spyOn(validationOne, 'validate').and.callThrough();
+          spyOn(validationTwo, 'validate').and.callThrough();
+          spyOn(validationThree, 'validate').and.callThrough();
+          spyOn(XssValidator, 'validate').and.callThrough();
+        });
+
+        it('calls validate for each validation and creates the xss mock', () => {
+          instance.validate();
+          expect(validationOne.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateValidation);
+          expect(validationTwo.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateValidation);
+          expect(validationThree.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateValidation);
+          expect(XssValidator.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateValidation);
+        });
+      })
     });
 
     describe('when no validations have been set on the input', () => {
