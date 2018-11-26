@@ -8,6 +8,7 @@ describe('<StepSequenceItem />', () => {
   beforeAll(() => {
     stepSequenceItem = shallow(
       <StepSequenceItem
+        ariaLabel='Step 1 of 5'
         indicator='2'
         stepNumber={ 1 }
         totalSteps={ 5 }
@@ -26,8 +27,8 @@ describe('<StepSequenceItem />', () => {
   test('current render', statusTest('current'));
   test('incomplete render', statusTest('incomplete'));
 
-  test('without aria label fields', () => {
-    stepSequenceItem.setProps({ stepNumber: undefined, totalSteps: undefined });
+  test('without ariaLabel field', () => {
+    stepSequenceItem.setProps({ ariaLabel: undefined });
     expect(stepSequenceItem).toMatchSnapshot();
   });
 });
