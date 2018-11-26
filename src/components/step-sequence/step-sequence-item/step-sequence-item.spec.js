@@ -9,23 +9,25 @@ describe('<StepSequenceItem />', () => {
     stepSequenceItem = shallow(
       <StepSequenceItem
         indicator='2'
+        stepNumber={ 1 }
+        totalSteps={ 5 }
       >
         bar
       </StepSequenceItem>
     );
   });
 
-  test('basic render', () => {
+  const statusTest = status => () => {
+    stepSequenceItem.setProps({ status });
     expect(stepSequenceItem).toMatchSnapshot();
-  });
+  };
 
-  test('completed render', () => {
-    stepSequenceItem.setProps({ status: 'complete' });
-    expect(stepSequenceItem).toMatchSnapshot();
-  });
+  test('completed render', statusTest('complete'));
+  test('current render', statusTest('current'));
+  test('incomplete render', statusTest('incomplete'));
 
-  test('current render', () => {
-    stepSequenceItem.setProps({ status: 'current' });
+  test('without aria label fields', () => {
+    stepSequenceItem.setProps({ stepNumber: undefined, totalSteps: undefined });
     expect(stepSequenceItem).toMatchSnapshot();
   });
 });

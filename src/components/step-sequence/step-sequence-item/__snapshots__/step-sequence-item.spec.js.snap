@@ -1,24 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<StepSequenceItem /> basic render 1`] = `
-<li
-  className="carbon-step-sequence-item carbon-step-sequence-item--incomplete"
->
-  <div
-    className="carbon-step-sequence-item__label"
-  >
-    <span
-      className="carbon-step-sequence-item__indicator"
-    >
-      2
-    </span>
-    bar
-  </div>
-</li>
-`;
-
 exports[`<StepSequenceItem /> completed render 1`] = `
 <li
+  aria-label="1 of 5 steps"
   className="carbon-step-sequence-item carbon-step-sequence-item--complete"
 >
   <div
@@ -40,7 +24,43 @@ exports[`<StepSequenceItem /> completed render 1`] = `
 exports[`<StepSequenceItem /> current render 1`] = `
 <li
   aria-current="step"
+  aria-label="1 of 5 steps"
   className="carbon-step-sequence-item carbon-step-sequence-item--current"
+>
+  <div
+    className="carbon-step-sequence-item__label"
+  >
+    <span
+      className="carbon-step-sequence-item__indicator"
+    >
+      2
+    </span>
+    bar
+  </div>
+</li>
+`;
+
+exports[`<StepSequenceItem /> incomplete render 1`] = `
+<li
+  aria-label="1 of 5 steps"
+  className="carbon-step-sequence-item carbon-step-sequence-item--incomplete"
+>
+  <div
+    className="carbon-step-sequence-item__label"
+  >
+    <span
+      className="carbon-step-sequence-item__indicator"
+    >
+      2
+    </span>
+    bar
+  </div>
+</li>
+`;
+
+exports[`<StepSequenceItem /> without aria label fields 1`] = `
+<li
+  className="carbon-step-sequence-item carbon-step-sequence-item--incomplete"
 >
   <div
     className="carbon-step-sequence-item__label"

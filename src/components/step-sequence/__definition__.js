@@ -26,25 +26,35 @@ export default definition;
 definition.addChildByDefinition(StepSequenceItemDefinition, {
   children: 'Name',
   indicator: '1',
-  status: 'complete'
+  status: 'complete',
+  stepNumber: 1,
+  totalSteps: 5
 });
 definition.addChildByDefinition(StepSequenceItemDefinition, {
   children: 'Delivery Address',
   indicator: '2',
-  status: 'complete'
+  status: 'complete',
+  stepNumber: 2,
+  totalSteps: 5
 });
 definition.addChildByDefinition(StepSequenceItemDefinition, {
   children: 'Delivery Details',
   indicator: '3',
-  status: 'current'
+  status: 'current',
+  stepNumber: 3,
+  totalSteps: 5
 });
 definition.addChildByDefinition(StepSequenceItemDefinition, {
   children: 'Payment',
   indicator: '4',
-  status: 'incomplete'
+  status: 'incomplete',
+  stepNumber: 4,
+  totalSteps: 5
 });
 definition.addChildByDefinition(StepSequenceItemDefinition, {
   children: 'Confirm',
   indicator: '5',
-  status: 'incomplete'
+  status: 'incomplete',
+  stepNumber: 5,
+  totalSteps: 5
 });
