@@ -8,6 +8,14 @@ import Dialog from './../../../components/dialog';
 import Browser from './../../helpers/browser';
 import XssValidator from '../../validations/xss';
 
+const mockXssValidation = jest.fn(()=>(true));
+jest.mock('../../validations/xss', () => {
+  return jest.fn().mockImplementation(() => {
+    return { validate: mockXssValidation, message: () => {return 'foo';} };
+  });
+});
+
+
 /* global jest */
 
 const validationOne = {
@@ -669,21 +677,20 @@ describe('InputValidation', () => {
           instance = TestUtils.renderIntoDocument(React.createElement(Component, {
             xssProtectionEnabled: true,
             validations: [validationOne, validationTwo, validationThree],
-            value: 'foo'
+            value: 'boo'
           }));
           instance.context.form = form;
           spyOn(validationOne, 'validate').and.callThrough();
           spyOn(validationTwo, 'validate').and.callThrough();
           spyOn(validationThree, 'validate').and.callThrough();
-          spyOn(XssValidator, 'validate').and.callThrough();
         });
 
         it('calls validate for each validation and creates the xss mock', () => {
-          instance.validate();
+          instance.validate('boo');
+          expect(mockXssValidation).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateValidation);
           expect(validationOne.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateValidation);
           expect(validationTwo.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateValidation);
           expect(validationThree.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateValidation);
-          expect(XssValidator.validate).toHaveBeenCalledWith(instance.props.value, instance.props, instance.updateValidation);
         });
       })
     });

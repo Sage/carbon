@@ -732,8 +732,7 @@ const InputValidation = (ComposedComponent) => {
      */
     _validations = () => {
       const securityValidations = this.props.xssProtectionEnabled ? [new XssValidator()] : [];
-      const propValidations = this.props.validations;
-      const defaultValidations = propValidations ? securityValidations.concat(propValidations) : securityValidations;
+      const defaultValidations = securityValidations.concat(this.props.validations || []);
       const validations = defaultValidations.concat(this.props.internalValidations || []);
       return validations.length ? validations : null;
     }

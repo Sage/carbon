@@ -27,7 +27,7 @@ class XssValidator {
      * @method format
      * @return {Regex}
      */
-    this.defaultFormat = /&[a-zA-Z0-9]+;|<(.*)|>(.*)|%3C(.*)|\{|\}|&lt(.*)|&#(.*)|x3c|u003c|\\"|eval\s*\(|\wedirect\s3/i;
+    this.standard = /&[a-zA-Z0-9]+;|<(.*)|>(.*)|%3C(.*)|\{|\}|&lt(.*)|&#(.*)|x3c|u003c|\\"|eval\s*\(|\wedirect\s3/i;
 
     /**
      * An optional custom validation message.
@@ -43,7 +43,7 @@ class XssValidator {
      * @method format
      * @return {Regex}
      */
-    this.format = params.format || this.defaultFormat;
+    this.format = params.format || this.standard;
   }
 
   /**
