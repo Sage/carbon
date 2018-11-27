@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import FullScreenHeading from '../../dialog-full-screen/full-screen-heading';
 import AppWrapper from '../../app-wrapper';
+import './page.scss';
 
 const pageClasses = (props) => {
   return classNames('carbon-page', props.className);

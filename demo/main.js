@@ -19,7 +19,7 @@ import Chrome from './views/chrome';
 import SubPageChrome from './views/chrome/sub-page-chrome';
 import Home from './views/pages/home';
 import Sandbox from './views/pages/sandbox';
-
+import News from './views/pages/news';
 import SiteMap from './site-map';
 
 global.Carbon = {
