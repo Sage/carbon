@@ -17,4 +17,8 @@
     color: $blue;
     text-decoration: underline;
   }
+  
+  &:visited {
+    color: $grey-dark-blue-50;
+  }
 }
