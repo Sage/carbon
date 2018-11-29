@@ -382,7 +382,7 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
     let nextVal;
 
     switch (ev.which) {
-      case 13: // return
+      case 9: case 13: // tab key or return key
         if (element) {
           ev.preventDefault();
           this.selectValue(element.getAttribute('value'), element.textContent);

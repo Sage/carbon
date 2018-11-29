@@ -500,6 +500,39 @@ describe('Dropdown', () => {
         });
       });
 
+      describe('if tab key', () => {
+        let spy, opts;
+
+        beforeEach(() => {
+          spyOn(instance, 'selectValue');
+          spy = jasmine.createSpy();
+          opts = { which: 9, preventDefault: spy };
+        });
+
+        describe('if something is highlighted', () => {
+          beforeEach(() => {
+            instance.setState({ highlighted: 1 });
+            TestUtils.Simulate.keyDown(instance._input, opts);
+          });
+
+          it('prevents default', () => {
+            expect(spy).toHaveBeenCalled();
+          });
+
+          it('calls setValue', () => {
+            expect(instance.selectValue).toHaveBeenCalledWith('1', 'foo');
+          });
+        });
+
+        describe('if something is not highlighted', () => {
+          it('does not prevent default', () => {
+            instance.setState({ highlighted: 'abc' }); // value which does not exist
+            TestUtils.Simulate.keyDown(instance._input, opts);
+            expect(spy).not.toHaveBeenCalled();
+          });
+        });
+      });
+
       describe('up arrow', () => {
         let spy, opts;
 
