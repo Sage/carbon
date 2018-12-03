@@ -12,6 +12,8 @@ describe('<StepSequenceItem />', () => {
         indicator='2'
         stepNumber={ 1 }
         totalSteps={ 5 }
+        hiddenCompleteLabel='Complete text for non visual users'
+        hiddenCurrentLabel='Current text for non visual users'
       >
         bar
       </StepSequenceItem>

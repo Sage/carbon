@@ -16,12 +16,16 @@ let definition = new Definition('step-sequence-item', StepSequenceItem, {
   },
   propTypes: {
     ariaLabel: 'String',
+    ariaCompleteLabel: 'String',
+    ariaCurrentLabel: 'String',
     indicator: 'String',
     children: 'node',
     status: 'String'
   },
   propValues: {
     ariaLabel: 'Step 1 of 5',
+    ariaCompleteLabel: 'Complete',
+    ariaCurrentLabel: 'Current',
     children: 'Step Label',
     indicator: '1',
     status: 'current'
