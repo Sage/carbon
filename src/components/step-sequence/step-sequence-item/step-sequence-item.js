@@ -11,10 +11,6 @@ const stepMarker = (status, indicator) => {
   return status === 'complete' ? <Icon type='tick' /> : indicator;
 };
 
-const ariaLabelProp = (ariaLabel) => {
-  return ariaLabel ? { 'aria-label': ariaLabel } : {};
-};
-
 const ariaRoleProp = (status) => {
   return status === 'current' ? { 'aria-current': 'step' } : {};
 };
@@ -36,17 +32,17 @@ const currentLabel = (label, status) => {
 };
 
 const StepSequenceItem = ({
-  ariaLabel,
   children,
   indicator,
   status,
   hiddenCompleteLabel,
-  hiddenCurrentLabel
+  hiddenCurrentLabel,
+  ...props
 }) => (
   <li
     className={ classes(status) }
-    { ...ariaLabelProp(ariaLabel) }
     { ...ariaRoleProp(status) }
+    { ...props }
   >
     { completeLabel(hiddenCompleteLabel, status) }
     { currentLabel(hiddenCurrentLabel, status) }

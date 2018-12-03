@@ -67,20 +67,3 @@ exports[`<StepSequenceItem /> incomplete render 1`] = `
   </div>
 </li>
 `;
-
-exports[`<StepSequenceItem /> without ariaLabel field 1`] = `
-<li
-  className="carbon-step-sequence-item carbon-step-sequence-item--incomplete"
->
-  <div
-    className="carbon-step-sequence-item__label"
-  >
-    <span
-      className="carbon-step-sequence-item__indicator"
-    >
-      2
-    </span>
-    bar
-  </div>
-</li>
-`;
