@@ -8,10 +8,8 @@ describe('<StepSequenceItem />', () => {
   beforeAll(() => {
     stepSequenceItem = shallow(
       <StepSequenceItem
-        ariaLabel='Step 1 of 5'
+        aria-label='Step 1 of 5'
         indicator='2'
-        stepNumber={ 1 }
-        totalSteps={ 5 }
         hiddenCompleteLabel='Complete text for non visual users'
         hiddenCurrentLabel='Current text for non visual users'
       >
@@ -28,9 +26,4 @@ describe('<StepSequenceItem />', () => {
   test('completed render', statusTest('complete'));
   test('current render', statusTest('current'));
   test('incomplete render', statusTest('incomplete'));
-
-  test('without ariaLabel field', () => {
-    stepSequenceItem.setProps({ ariaLabel: undefined });
-    expect(stepSequenceItem).toMatchSnapshot();
-  });
 });
