@@ -11,7 +11,11 @@ const stepMarker = (status, indicator) => {
   return status === 'complete' ? <Icon type='tick' /> : indicator;
 };
 
-const ariaRole = (status) => {
+const ariaLabelProp = (ariaLabel) => {
+  return ariaLabel ? { 'aria-label': ariaLabel } : {};
+};
+
+const ariaRoleProp = (status) => {
   return status === 'current' ? { 'aria-current': 'step' } : {};
 };
 
@@ -23,8 +27,8 @@ const StepSequenceItem = ({
 }) => (
   <li
     className={ classes(status) }
-    { ...ariaRole(status) }
-    aria-label={ ariaLabel }
+    { ...ariaLabelProp(ariaLabel) }
+    { ...ariaRoleProp(status) }
   >
     <div className='carbon-step-sequence-item__label'>
       <span className='carbon-step-sequence-item__indicator'>{ stepMarker(status, indicator) }</span>
@@ -34,7 +38,7 @@ const StepSequenceItem = ({
 );
 
 StepSequenceItem.propTypes = {
-  ariaLabel: PropTypes.string.isRequired,
+  ariaLabel: PropTypes.string,
   children: PropTypes.node.isRequired,
   indicator: PropTypes.string.isRequired,
   status: PropTypes.oneOf([
