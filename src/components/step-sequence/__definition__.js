@@ -1,6 +1,6 @@
 import Definition from './../../../demo/utils/definition';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import StepSequence from './';
+import { StepSequence } from './';
 import StepSequenceItemDefinition from './step-sequence-item/__definition__';
 
 let definition = new Definition('step-sequence', StepSequence, {
