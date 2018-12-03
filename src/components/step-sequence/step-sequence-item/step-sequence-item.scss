@@ -17,6 +17,10 @@
     display: flex;
   }
 
+  &__visually-hidden {
+    display: none;
+  }
+
   & > * {
     margin-right: 8px;
 

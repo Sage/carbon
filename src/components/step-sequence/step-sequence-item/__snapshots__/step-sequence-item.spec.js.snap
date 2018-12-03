@@ -5,6 +5,11 @@ exports[`<StepSequenceItem /> completed render 1`] = `
   aria-label="Step 1 of 5"
   className="carbon-step-sequence-item carbon-step-sequence-item--complete"
 >
+  <span
+    className="carbon-step-sequence-item__visually-hidden"
+  >
+    Complete text for non visual users
+  </span>
   <div
     className="carbon-step-sequence-item__label"
   >
@@ -27,6 +32,11 @@ exports[`<StepSequenceItem /> current render 1`] = `
   aria-label="Step 1 of 5"
   className="carbon-step-sequence-item carbon-step-sequence-item--current"
 >
+  <span
+    className="carbon-step-sequence-item__visually-hidden"
+  >
+    Current text for non visual users
+  </span>
   <div
     className="carbon-step-sequence-item__label"
   >
