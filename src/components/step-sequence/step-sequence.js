@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
+import StepSequenceItem from './step-sequence-item';
+
 import './step-sequence.scss';
 import './step-sequence-orientation.scss';
 
@@ -25,4 +27,4 @@ StepSequence.defaultProps = {
   orientation: 'horizontal'
 };
 
-export default StepSequence;
+export { StepSequence, StepSequenceItem };
