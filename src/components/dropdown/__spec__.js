@@ -515,10 +515,6 @@ describe('Dropdown', () => {
             TestUtils.Simulate.keyDown(instance._input, opts);
           });
 
-          it('prevents default', () => {
-            expect(spy).toHaveBeenCalled();
-          });
-
           it('calls setValue', () => {
             expect(instance.selectValue).toHaveBeenCalledWith('1', 'foo');
           });
