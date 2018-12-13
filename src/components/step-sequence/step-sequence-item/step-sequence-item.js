@@ -54,7 +54,6 @@ const StepSequenceItem = ({
 );
 
 StepSequenceItem.propTypes = {
-  ariaLabel: PropTypes.string,
   children: PropTypes.node.isRequired,
   indicator: PropTypes.string.isRequired,
   status: PropTypes.oneOf([
