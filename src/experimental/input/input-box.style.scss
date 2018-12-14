@@ -1,0 +1,35 @@
+@import "./../../style-config/input-field";
+@import "./../../style-config/colors";
+
+.carbon-input-box {
+  background-color: $white;
+  border-radius: $input-border-radius;
+  border: $input-common-border;
+  box-sizing: border-box;
+  display: flex;
+  height: $input-common-height;
+  line-height: $input-common-line-height;
+  margin: 0px;
+  outline: none;
+  padding: $input-common-padding;
+  vertical-align: baseline;
+  width: 100%;
+
+  &::-ms-clear {
+    display: none; // Hide x icon in IE
+  }
+
+  &:not(.carbon-input-box--has-focus):hover {
+    border-color: $slate-tint-60;
+  }
+
+  .common-input--disabled & {
+    background-color: $slate-tint-85 !important;
+    border-color: $slate-tint-85 !important;
+    color: $black-20 !important;
+  }
+}
+
+.carbon-input-box--has-focus {
+  border-color: $blue;
+}

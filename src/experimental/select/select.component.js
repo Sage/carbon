@@ -5,15 +5,14 @@ import InputLabel from '../../utils/decorators/input-label';
 import InputValidation from '../../utils/decorators/input-validation';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
-import './textbox.scss';
 
-const Textbox = InputDecorator(InputLabel(InputValidation(class Textbox extends React.Component {
+const Select = InputDecorator(InputLabel(InputValidation(class Select extends React.Component {
   get mainClasses() {
-    return 'carbon-textbox';
+    return 'carbon-select';
   }
 
   get inputClasses() {
-    return 'carbon-textbox__input';
+    return 'carbon-select__input';
   }
 
   get inputProps() {
@@ -27,7 +26,7 @@ const Textbox = InputDecorator(InputLabel(InputValidation(class Textbox extends 
       <div
         className={ this.mainClasses }
         ref={ (comp) => { this._target = comp; } }
-        { ...tagComponent('textbox', this.props) }
+        { ...tagComponent('select', this.props) }
       >
         { this.labelHTML }
         <InputBox { ...this.fieldProps }>
@@ -40,4 +39,4 @@ const Textbox = InputDecorator(InputLabel(InputValidation(class Textbox extends 
   }
 })));
 
-export default Textbox;
+export default Select;
