@@ -1,2 +1,4 @@
-export Input from './input.component';
-export InputBox from './input-box.component';
+import Input from './input.component';
+import { InputBox, InputBoxContext } from './input-box.component';
+
+export { Input, InputBox, InputBoxContext };

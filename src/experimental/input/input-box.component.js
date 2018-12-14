@@ -14,9 +14,15 @@ class InputBox extends React.Component {
     hasFocus: false
   }
 
-  contextForInput = {
-    onFocus: () => this.setState({ hasFocus: true }),
-    onBlur: () => this.setState({ hasFocus: false })
+  onFocus = () => this.setState({ hasFocus: true })
+  onBlur = () => this.setState({ hasFocus: false })
+
+  contextForInput() {
+    return {
+      hasFocus: this.state.hasFocus,
+      onFocus: this.onFocus,
+      onBlur: this.onBlur
+    }
   }
 
   classNames() {
@@ -31,7 +37,7 @@ class InputBox extends React.Component {
     return (
       <div { ...props }>
         <div className={ this.classNames() }>
-          <InputBoxContext.Provider value={ this.contextForInput }>
+          <InputBoxContext.Provider value={ this.contextForInput() }>
             { children }
           </InputBoxContext.Provider>
         </div>
@@ -41,4 +47,3 @@ class InputBox extends React.Component {
 };
 
 export { InputBoxContext, InputBox };
-export default InputBox;

@@ -22,6 +22,8 @@ import Sandbox from './views/pages/sandbox';
 import News from './views/pages/news';
 import SiteMap from './site-map';
 
+import Experimental from './experimental';
+
 global.Carbon = {
   version: Package.version
 }
@@ -33,6 +35,8 @@ setupI18n();
 const routes = (
   <Route>
     <Route path='/sandbox' component={ Sandbox } />
+
+    <Route path='/experimental' component={ Experimental } />
 
     <Route component={ Chrome }>
       <Route path='/' component={ Home } />

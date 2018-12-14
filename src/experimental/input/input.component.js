@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import InputBox from './input-box.component.js';
-import { InputBoxContext } from './input-box.component.js';
+import { InputBoxContext } from './';
 import './input.style.scss';
 
 // This is a component in progress to incrementally remove the reliance
@@ -24,19 +23,25 @@ const handleBlur = (context, props) => ev => {
   if (context.onBlur) context.onBlur(ev);
 };
 
-const Input = ({ className, ...props }) => (
-  <InputBoxContext.Consumer>
-    {
-      context => (
-        <input
-          className={ classNamesForInput(className) }
-          { ...props }
-          onFocus={ handleFocus(context, props) }
-          onBlur={ handleBlur(context, props) }
-        />
-      )
-    }
-  </InputBoxContext.Consumer>
-);
+class Input extends React.Component {
+  render() {
+    const { className, ...props } = this.props;
 
-export { Input, InputBox };
+    return (
+      <InputBoxContext.Consumer>
+        {
+          context => (
+            <input
+              className={ classNamesForInput(className) }
+              { ...props }
+              onFocus={ handleFocus(context, props) }
+              onBlur={ handleBlur(context, props) }
+            />
+          )
+        }
+      </InputBoxContext.Consumer>
+    );
+  }
+};
+
+export default Input;
