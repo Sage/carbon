@@ -886,7 +886,7 @@ function generateCSRFToken(doc) {
   return (
     <input
       type='hidden' name={ csrfAttr }
-      value={ csrfValue } readOnly='true'
+      value={ csrfValue } readOnly
     />
   );
 }
