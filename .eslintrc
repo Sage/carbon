@@ -3,6 +3,7 @@
   "globals": {
     "jest": false,
     "global": false,
-    "process": false
+    "process": false,
+    "test": false
   }
 }

@@ -154,6 +154,11 @@ const OptionsHelper = {
     'white-tick'
   ],
 
+  orientation: [
+    'horizontal',
+    'vertical'
+  ],
+
   pageSizes: [10, 25, 50],
 
   positions: [
@@ -202,6 +207,12 @@ const OptionsHelper = {
   sizesBinary: [
     'small',
     'large'
+  ],
+
+  steps: [
+    'complete',
+    'current',
+    'incomplete'
   ],
 
   themesBinary: [
