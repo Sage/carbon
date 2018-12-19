@@ -1,13 +1,13 @@
 @import "./../../style-config/colors";
 @import "./../../style-config/z-index";
 
-$modal-background-opacity: 0.7;
+$modal-background-opacity: 0.6;
 $modal-background-animation-length: 300ms;
 $modal-initial-position: 50px;
 $modal-animation-length: 300ms;
 
 .carbon-modal__background {
-  background-color: #3C424F;
+  background-color: $slate-shade-60;
   bottom: 0;
   left: 0;
   opacity: $modal-background-opacity;

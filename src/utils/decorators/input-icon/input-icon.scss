@@ -14,8 +14,8 @@
   color: $white;
 
   &:hover {
-    background-color: $blue-bright;
-    border-color: $blue-bright;
+    background-color: mix(black, $blue, 20);
+    border-color: mix(black, $blue, 20);
   }
 }
 

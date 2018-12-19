@@ -1,21 +1,3 @@
-// Grey
-$grey-shadow:                #021224 !default;
-$grey-dark-plus:             #1B1D21 !default;
-$dark-blue-plus:             #262A33 !default;
-$grey-dark-blue:             #3C424F !default;
-$grey-dark-blue-90:          #4F5460 !default;
-$grey-dark-blue-80:          #636872 !default;
-$grey-dark-blue-70:          #767A83 !default;
-$grey-dark-blue-60:          #8A8E95 !default;
-$grey-dark-blue-50:          #9DA0A7 !default;
-$grey-dark-blue-40:          #B1B3B9 !default;
-$grey-dark-blue-30:          #C4C6CA !default;
-$grey-dark-blue-25:          #CED0D3 !default;
-$grey-dark-blue-20:          #D8D9DC !default;
-$grey-dark-blue-15:          #E2E3E5 !default;
-$grey-dark-blue-10:          #EBECED !default;
-$grey-dark-blue-5:           #F5F6F7 !default;
-
 // Red
 $red:                        #D63F40 !default;
 $red-light:                  #E42C2D !default;
@@ -61,15 +43,88 @@ $magenta:                    #ED1C5F !default;
 $magenta-dull:               #CA2A60 !default;
 $magenta-light:              #F32E6D !default;
 
+// New Colors
+// GREEN
+$green-brilliant: #00DC00;
+
+// Segment - Small
+$segment-small: #00A376;
+
+// Segment - Medium
+$segment-medium: #0077C8;
+
+// Segment - Large
+$segment-large: #582C83;
+
+// GOLD
+$gold: #FFB500;
+
+// RED
+$red: #C7384F;
 
 // SLATE
 $slate: #003349;
 
+// AZUL
+$azul: #004B87;
+
+// PLUM
+$plum: #8246AF;
+
+// FUCHSIA
+$fuchsia: #CE0058;
+
+// Slate Tints
+$slate-tint-95:          mix(white, $slate, 95) !default;
+$slate-tint-90:          mix(white, $slate, 90) !default;
+$slate-tint-85:          mix(white, $slate, 85) !default;
+$slate-tint-80:          mix(white, $slate, 80) !default;
+$slate-tint-75:          mix(white, $slate, 75) !default;
+$slate-tint-70:          mix(white, $slate, 70) !default;
+$slate-tint-60:          mix(white, $slate, 60) !default;
+$slate-tint-50:          mix(white, $slate, 50) !default;
+$slate-tint-40:          mix(white, $slate, 40) !default;
+$slate-tint-30:          mix(white, $slate, 30) !default;
+$slate-tint-25:          mix(white, $slate, 25) !default;
+$slate-tint-20:          mix(white, $slate, 20) !default;
+$slate-tint-15:          mix(white, $slate, 15) !default;
+$slate-tint-10:          mix(white, $slate, 10) !default;
+$slate-tint-5:           mix(white, $slate, 5)  !default;
+
+// Slate Shades
+$slate-shade-90:          mix(black, $slate, 90) !default;
+$slate-shade-80:          mix(black, $slate, 80) !default;
+$slate-shade-70:          mix(black, $slate, 70) !default;
 $slate-shade-60:          mix(black, $slate, 60) !default;
+$slate-shade-50:          mix(black, $slate, 60) !default;
+$slate-shade-40:          mix(black, $slate, 40) !default;
+$slate-shade-30:          mix(black, $slate, 30) !default;
+$slate-shade-20:          mix(black, $slate, 20) !default;
+$slate-shade-10:          mix(black, $slate, 10) !default;
 
 // Shadows
 $card: 0 3px 3px 0 rgba($slate-shade-60,0.2), 0 2px 4px 0 rgba($slate-shade-60,0.15);
+
 $shadow-depth-1: 0 5px 5px 0 rgba($slate-shade-60,0.2), 0 10px 10px 0 rgba($slate-shade-60,0.1);
 $shadow-depth-2: 0 10px 20px 0 rgba($slate-shade-60,0.2), 0 20px 40px 0 rgba($slate-shade-60,0.1);
 $shadow-depth-3: 0 10px 30px 0 rgba($slate-shade-60,0.1), 0 30px 60px 0 rgba($slate-shade-60,0.1);
 $shadow-depth-4: 0 10px 40px 0 rgba($slate-shade-60,0.04), 0 50px 80px 0 rgba($slate-shade-60,0.1);
+
+$grey-dark-blue:             $slate         !default;
+$grey-dark-blue-90:          $slate-tint-10 !default;
+$grey-dark-blue-80:          $slate-tint-20 !default;
+$grey-dark-blue-70:          $slate-tint-30 !default;
+$grey-dark-blue-60:          $slate-tint-40 !default;
+$grey-dark-blue-50:          $slate-tint-50 !default;
+$grey-dark-blue-40:          $slate-tint-60 !default;
+$grey-dark-blue-30:          $slate-tint-70 !default;
+$grey-dark-blue-25:          $slate-tint-75 !default;
+$grey-dark-blue-20:          $slate-tint-80 !default;
+$grey-dark-blue-15:          $slate-tint-85 !default;
+$grey-dark-blue-10:          $slate-tint-90 !default;
+$grey-dark-blue-5:           $slate-tint-95 !default;
+
+// Grey
+$grey-shadow:                #021224 !default;
+$grey-dark-plus:             #1B1D21 !default;
+$dark-blue-plus:             #262A33 !default;

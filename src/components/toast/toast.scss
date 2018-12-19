@@ -4,12 +4,10 @@
 $toast-anim-start: -100px !default;
 $toast-anim-end: 30px !default;
 $toast-border: 1px solid !default;
-$toast-border-radius: 4px !default;
 $toast-top-position: 0 !default;
 $toast-width: 300px !default;
 
 .carbon-toast {
-  border-radius: $toast-border-radius;
   margin-top: $toast-anim-end;
   position: fixed;
   right: $toast-anim-end;
@@ -38,7 +36,6 @@ $toast-width: 300px !default;
 }
 
 .carbon-toast__type {
-  border-radius: $toast-border-radius 0 0 $toast-border-radius;
   left: -1px;
   width: 31px;
 
