@@ -1,7 +1,7 @@
-@import "./../../style-config/input-field";
-@import "./../../style-config/colors";
+@import "./../../../style-config/input-field";
+@import "./../../../style-config/colors";
 
-.carbon-input-box {
+.carbon-input-presentation {
   background-color: $white;
   border-radius: $input-border-radius;
   border: $input-common-border;
@@ -19,7 +19,7 @@
     display: none; // Hide x icon in IE
   }
 
-  &:not(.carbon-input-box--has-focus):hover {
+  &:not(.carbon-input-presentation--has-focus):hover {
     border-color: $slate-tint-60;
   }
 
@@ -30,6 +30,6 @@
   }
 }
 
-.carbon-input-box--has-focus {
+.carbon-input-presentation--has-focus {
   border-color: $blue;
 }

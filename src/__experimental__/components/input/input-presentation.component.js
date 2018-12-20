@@ -1,15 +1,18 @@
 import React from 'react';
 import classNames from 'classnames';
-import './input-box.style.scss';
+import './input-presentation.style.scss';
 
-const InputBoxContext = React.createContext();
+const InputPresentationContext = React.createContext();
 
 // This is a component in progress to incrementally remove the reliance
 // on the input decorators. For now we still rely on fieldProps being
 // fed into this component from the decorated parent component and a div
-// wrapping the carbon-input-box that handles the fieldProps.
+// wrapping the carbon-input-presentation that handles the fieldProps if you want
+// to use the full supported feature set of a Carbon component. Over time we
+// will add additional supported on the decorated features without the need
+// for the decorators themselves.
 
-class InputBox extends React.Component {
+class InputPresentation extends React.Component {
   state = {
     hasFocus: false
   }
@@ -26,8 +29,8 @@ class InputBox extends React.Component {
   }
 
   classNames() {
-    return classNames('carbon-input-box', {
-      'carbon-input-box--has-focus': this.state.hasFocus
+    return classNames('carbon-input-presentation', {
+      'carbon-input-presentation--has-focus': this.state.hasFocus
     })
   }
 
@@ -37,13 +40,13 @@ class InputBox extends React.Component {
     return (
       <div { ...props }>
         <div className={ this.classNames() }>
-          <InputBoxContext.Provider value={ this.contextForInput() }>
+          <InputPresentationContext.Provider value={ this.contextForInput() }>
             { children }
-          </InputBoxContext.Provider>
+          </InputPresentationContext.Provider>
         </div>
       </div>
     );
   }
 };
 
-export { InputBoxContext, InputBox };
+export { InputPresentationContext, InputPresentation };
