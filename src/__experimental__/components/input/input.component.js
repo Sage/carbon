@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InputPresentationContext } from './';
+import { InputPresentationContext } from './input-presentation';
 import './input.style.scss';
 
 // This is a component in progress to incrementally remove the reliance
@@ -16,12 +16,12 @@ const classNamesForInput = className => (
   className ? className.replace('common-input__input', 'carbon-input') : 'carbon-input'
 );
 
-const handleFocus = (context, onFocus) => ev => {
+const handleFocus = (context, onFocus) => (ev) => {
   if (onFocus) onFocus(ev);
   if (context && context.onFocus) context.onFocus(ev);
 };
 
-const handleBlur = (context, onBlur) => ev => {
+const handleBlur = (context, onBlur) => (ev) => {
   if (onBlur) onBlur(ev);
   if (context && context.onBlur) context.onBlur(ev);
 };
@@ -45,5 +45,11 @@ const Input = ({
     }
   </InputPresentationContext.Consumer>
 );
+
+Input.propTypes = {
+  className: PropTypes.string,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func
+};
 
 export default Input;

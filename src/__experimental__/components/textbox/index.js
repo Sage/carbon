@@ -1,5 +1,6 @@
 import React from 'react';
-import { Input, InputPresentation } from './../input';
+import PropTypes from 'prop-types';
+import { Input, InputPresentation } from '../input';
 
 // This component is a working example of what a Textbox might look like
 // using only the new input componentry. It is never meant to be used as
@@ -7,10 +8,14 @@ import { Input, InputPresentation } from './../input';
 // of testing the implementation as it evolves.
 
 /* istanbul ignore next */
-const Textbox = ({ value, ...props }) => (
+const Textbox = ({ value }) => (
   <InputPresentation>
     <Input value={ value } />
   </InputPresentation>
 );
+
+Textbox.propTypes = {
+  value: PropTypes.string
+};
 
 export default Textbox;

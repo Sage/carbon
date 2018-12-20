@@ -1,8 +1,8 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { Input, InputPresentationContext } from './';
+import { Input, InputPresentationContext } from '.';
 
-const mockContext = context => {
+const mockContext = (context) => {
   const InputPresentationContextMock = ({ children }) => children(context);
   InputPresentationContext.Consumer = InputPresentationContextMock;
 };
@@ -11,7 +11,7 @@ describe('Input', () => {
   const renderMount = (props, context) => {
     mockContext(context);
     return mount(<Input { ...props } />);
-  }
+  };
 
   it('renders with InputPresentationContext and an input', () => {
     expect(renderMount()).toMatchSnapshot();

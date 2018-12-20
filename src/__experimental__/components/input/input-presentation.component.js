@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './input-presentation.style.scss';
 
@@ -13,11 +14,16 @@ const InputPresentationContext = React.createContext();
 // for the decorators themselves.
 
 class InputPresentation extends React.Component {
+  static propTypes = {
+    children: PropTypes.node
+  }
+
   state = {
     hasFocus: false
   }
 
   onFocus = () => this.setState({ hasFocus: true })
+
   onBlur = () => this.setState({ hasFocus: false })
 
   contextForInput() {
@@ -25,13 +31,13 @@ class InputPresentation extends React.Component {
       hasFocus: this.state.hasFocus,
       onFocus: this.onFocus,
       onBlur: this.onBlur
-    }
+    };
   }
 
   classNames() {
     return classNames('carbon-input-presentation', {
       'carbon-input-presentation--has-focus': this.state.hasFocus
-    })
+    });
   }
 
   render() {
@@ -47,6 +53,6 @@ class InputPresentation extends React.Component {
       </div>
     );
   }
-};
+}
 
 export { InputPresentationContext, InputPresentation };
