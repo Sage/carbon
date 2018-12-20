@@ -19,4 +19,8 @@
   &:-ms-input-placeholder {
     color: $grey-dark-blue-40;
   }
+
+  &::-ms-clear {
+    display: none; // Hide x icon in IE
+  }
 }

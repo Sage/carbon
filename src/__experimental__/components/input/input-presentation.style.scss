@@ -15,10 +15,6 @@
   vertical-align: baseline;
   width: 100%;
 
-  &::-ms-clear {
-    display: none; // Hide x icon in IE
-  }
-
   &:not(.carbon-input-presentation--has-focus):hover {
     border-color: $slate-tint-60;
   }
