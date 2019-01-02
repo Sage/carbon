@@ -8,13 +8,15 @@ import { Input, InputPresentation } from '../input';
 // of testing the implementation as it evolves.
 
 /* istanbul ignore next */
-const Textbox = ({ value }) => (
+const Textbox = ({ value, children }) => (
   <InputPresentation>
     <Input value={ value } />
+    { children }
   </InputPresentation>
 );
 
 Textbox.propTypes = {
+  children: PropTypes.node,
   value: PropTypes.string
 };
 
