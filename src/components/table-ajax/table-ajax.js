@@ -64,7 +64,7 @@ class TableAjax extends Table {
      *
      * Expected return object format
      * {
-        'Accepts': 'application/json',
+        'Accept': 'application/json',
         'jwt': 'secret',
         ...
        }
@@ -423,7 +423,7 @@ class TableAjax extends Table {
    * @method getHeaders
    */
   getHeaders = () => {
-    return this.props.getCustomHeaders ? this.props.getCustomHeaders() : { 'Accept': 'application/json' };
+    return this.props.getCustomHeaders ? this.props.getCustomHeaders() : { Accept: 'application/json' };
   }
 
   /**

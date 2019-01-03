@@ -173,7 +173,7 @@ class DropdownFilterAjax extends DropdownFilter {
      *
      * Expected return object format
      * {
-        'Accepts': 'application/json',
+        'Accept': 'application/json',
         'jwt': 'secret',
         ...
        }
@@ -336,7 +336,7 @@ class DropdownFilterAjax extends DropdownFilter {
    * @method getHeaders
    */
   getHeaders = () => {
-    return this.props.getCustomHeaders ? this.props.getCustomHeaders() : { 'Accept': this.props.acceptHeader };
+    return this.props.getCustomHeaders ? this.props.getCustomHeaders() : { Accept: this.props.acceptHeader };
   }
 
   /**
