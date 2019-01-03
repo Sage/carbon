@@ -1,0 +1,32 @@
+$step-sequence-item-link-width: 1px;
+$step-sequence-item-padding: 16px;
+
+.carbon-step-sequence--horizontal {
+  height: 24px;
+  justify-content: space-between;
+
+  .carbon-step-sequence-item {
+    align-items: center;
+
+    &::before {
+      height: $step-sequence-item-link-width;
+      margin: 0 $step-sequence-item-padding;
+    }
+  }
+}
+
+
+.carbon-step-sequence--vertical {
+  align-items: flex-start;
+  flex-direction: column;
+
+  .carbon-step-sequence-item {
+    align-items: flex-start;
+    flex-direction: column;
+
+    &::before {
+      margin: $step-sequence-item-padding 0 $step-sequence-item-padding 8px;
+      width: $step-sequence-item-link-width;
+    }
+  }
+}
