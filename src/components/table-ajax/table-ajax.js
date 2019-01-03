@@ -59,6 +59,22 @@ class TableAjax extends Table {
     formatRequest: PropTypes.func,
 
     /**
+     * A callback function used to set the Ajax
+     * headers using custom ones provided by the consumer
+     *
+     * Expected return object format
+     * {
+        'Accepts': 'application/json',
+        'jwt': 'secret',
+        ...
+       }
+     *
+     * @property getCustomHeaders
+     * @type {Function}
+     */
+    getCustomHeaders: PropTypes.func,
+
+    /**
      * A callback function used to format the Ajax
      * response into the format required by the table
      *
@@ -329,7 +345,7 @@ class TableAjax extends Table {
       });
       this._request = Request
         .get(this.props.path)
-        .set('Accept', 'application/json')
+        .set(this.getHeaders())
         .query(this.queryParams(element, options))
         .end((err, response) => {
           this._hasRetreivedData = true;
@@ -399,6 +415,15 @@ class TableAjax extends Table {
       return serialize(this.props.formatRequest(query));
     }
     return serialize(query);
+  }
+
+  /**
+   * Retrieve headers to use for the request
+   *
+   * @method getHeaders
+   */
+  getHeaders = () => {
+    return this.props.getCustomHeaders ? this.props.getCustomHeaders() : { 'Accept': 'application/json' };
   }
 
   /**
