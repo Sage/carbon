@@ -531,6 +531,27 @@ describe('DropdownFilterAjax', () => {
       });
     });
 
+    describe('when setting headers', () => {
+      it('sets headers using getCustomHeaders prop', () => {
+        const headers = { 'Accepts': 'application/json', 'jwt': 'very secret stuff' };
+        const mockGetCustomHeaders = () => { return headers };
+
+        wrapper.setProps({
+          getCustomHeaders: mockGetCustomHeaders
+        });
+
+        expect(
+          wrapper.instance().getHeaders()
+        ).toEqual(headers)
+      });
+
+      it('sets default accept header without getCustomHeaders prop', () => {
+        expect(
+          wrapper.instance().getHeaders()
+        ).toEqual({"Accept": "application/json"})
+      });
+    });
+
     describe('when props contains a formatResponse function', () => {
       it('calls formatResponse', () => {
         let expectedResponse = {
