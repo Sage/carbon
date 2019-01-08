@@ -34,24 +34,24 @@
   "homepage": "https://github.com/Sage/carbon#readme",
   "peerDependencies": {
     "flux": "^3.1.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0"
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   },
   "devDependencies": {
     "babel-standalone": "~6.17.0",
     "carbon-factory": "6.0.0",
     "cpx": "^1.5.0",
-    "enzyme": "^3.3.0",
-    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme": "^3.5.0",
+    "enzyme-adapter-react-16": "^1.7.1",
     "flux": "^3.1.1",
     "highlight.js": "~9.6.0",
     "moxios": "^0.4.0",
     "raf": "^3.4.0",
-    "react": "^16.2.0",
+    "react": "^16.7.0",
     "react-dnd-test-backend": "~2.4.0",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.7.0",
     "react-highlight": "briancappello/react-highlight#react-v16-compiled",
-    "react-test-renderer": "^16.2.0",
+    "react-test-renderer": "^16.7.0",
     "underscore.string": "~3.3.4",
     "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
   },
