@@ -24,7 +24,6 @@ describe('Portal', () => {
         </Portal>
       );
     });
-
     afterEach(() => {
       wrapper.unmount();
     });
@@ -53,7 +52,23 @@ describe('Portal', () => {
       wrapper2.unmount();
     });
 
+    it('to match snapshot ', () => {
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+
+  describe('Two Portal Umounting', () => {
     it('will unmount two portals', () => {
+      wrapper = mount(
+        <Portal>
+          <Icon
+            tooltipMessage='Test'
+            tooltipAlign='left'
+            tooltipPosition='top'
+            type='tick'
+          />
+        </Portal>
+      );
       wrapper.unmount();
       const wrapper2 = mount(
         <Portal>
@@ -67,10 +82,6 @@ describe('Portal', () => {
       );
       wrapper2.unmount();
       expect(document.body.innerHTML).toEqual('');
-    });
-
-    it('to match snapshot ', () => {
-      expect(wrapper).toMatchSnapshot();
     });
   });
 
@@ -109,6 +120,16 @@ describe('Portal', () => {
       it('will NOT remove window "resize" listener on unnmount', () => {
         wrapper.unmount();
         expect(Browser.getWindow().removeEventListener).not.toHaveBeenCalledWith('resize');
+        wrapper = mount(
+          <Portal>
+            <Icon
+              tooltipMessage='Test'
+              tooltipAlign='left'
+              tooltipPosition='top'
+              type='tick'
+            />
+          </Portal>
+        );
       });
 
       it('will NOT window "scroll" listener ', () => {
@@ -118,6 +139,16 @@ describe('Portal', () => {
       it('will NOT remove "scroll" listener on unnmount', () => {
         wrapper.unmount();
         expect(parentDiv.removeEventListener).not.toHaveBeenCalled();
+        wrapper = mount(
+          <Portal>
+            <Icon
+              tooltipMessage='Test'
+              tooltipAlign='left'
+              tooltipPosition='top'
+              type='tick'
+            />
+          </Portal>
+        );
       });
     });
 
@@ -157,6 +188,16 @@ describe('Portal', () => {
       it('will remove "resize" listener on unnmount', () => {
         wrapper.unmount();
         expect(Browser.getWindow().removeEventListener).toHaveBeenCalledWith('resize', repositionCb);
+        wrapper = mount(
+          <Portal>
+            <Icon
+              tooltipMessage='Test'
+              tooltipAlign='left'
+              tooltipPosition='top'
+              type='tick'
+            />
+          </Portal>
+        );
       });
 
       it('will call window "reposition" callback ', () => {
@@ -170,6 +211,16 @@ describe('Portal', () => {
       it('will remove "scroll" listener on unnmount', () => {
         wrapper.unmount();
         expect(parentDiv.removeEventListener).toHaveBeenCalledWith('scroll', repositionCb);
+        wrapper = mount(
+          <Portal>
+            <Icon
+              tooltipMessage='Test'
+              tooltipAlign='left'
+              tooltipPosition='top'
+              type='tick'
+            />
+          </Portal>
+        );
       });
     });
   });
