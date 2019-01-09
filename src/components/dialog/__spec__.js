@@ -163,7 +163,7 @@ describe('Dialog', () => {
             getComputedStyle() { return {} }
           };
           wrapper = mount(
-            <Dialog onCancel={ onCancel } />
+            <Dialog onCancel={ onCancel } open />
           );
           instance = wrapper.instance();
         });
