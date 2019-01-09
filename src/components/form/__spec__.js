@@ -670,13 +670,13 @@ describe('Form', () => {
     });
 
     describe('buttons', () => {
-      let buttons;
-      let buttonContainers;
+      // let buttons;
+      // let buttonContainers;
 
       beforeEach(() => {
         wrapper = mount(<Form />)
-        buttons = wrapper.find(Button)
-        buttonContainers = TestUtils.scryRenderedDOMComponentsWithTag(wrapper, 'div');
+        // buttons = wrapper.find(Button)
+        // buttonContainers = TestUtils.scryRenderedDOMComponentsWithTag(wrapper, 'div');
       });
 
       describe('the save button', () => {
