@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Pill from './pill';
 
@@ -90,22 +90,36 @@ describe('Pill', () => {
     });
   });
 
-  describe('Optional "close" icon', () => {
+  describe('onDelete adds "close" icon to component', () => {
     let wrapper;
 
     beforeEach(() => {
-      wrapper = mount(
+      wrapper = shallow(
         <Pill
           children='My Text'
           onDelete={ spy }
         />
       );
-      console.log(wrapper.debug());
     });
 
     it('includes "close" icon when onDelete prop passed', () => {
       let icon = wrapper.find('[data-element="close"]');
-      expect(icon.length).toEqual(1);    
+      expect(icon.length).toEqual(1); 
+    });
+
+    it('triggers the click when the icon is clicked', () => {
+      wrapper.find('[data-element="close"]').simulate('click');
+      expect(spy).toHaveBeenCalled(); 
+    });
+
+    it('does not include "close" icon when onDelete prop not passed', () => {
+      wrapper = shallow(
+        <Pill
+          children='My Text'
+        />
+      );
+      let icon = wrapper.find('[data-element="close"]');
+      expect(icon.length).toEqual(0); 
     });
   });
 });
