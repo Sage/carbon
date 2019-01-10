@@ -34,8 +34,8 @@
   "homepage": "https://github.com/Sage/carbon#readme",
   "peerDependencies": {
     "flux": "^3.1.1",
-    "react": "16.7.0",
-    "react-dom": "16.7.0"
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0"
   },
   "devDependencies": {
     "babel-standalone": "~6.17.0",
