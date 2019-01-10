@@ -72,6 +72,7 @@ class Pill extends React.Component {
      * @type {Function}
      */
     onClick: PropTypes.func,
+
     /**
      * Callback for when the icon in pill is clicked to delete it
      * If defined a 'close' icon is rendered in the component
@@ -105,12 +106,13 @@ class Pill extends React.Component {
     if (this.props.onDelete) {
       return (
         <Icon
-          className='carbon-pill__delete'
+          className='carbon-pill__delete-icon'
           data-element='close'
           onClick={ this.props.onDelete }
           type='close'
           tabIndex='0'
           onBlur={ this.onCloseIconBlur }
+          bgSize='small'
         />
       );
     }
@@ -129,7 +131,8 @@ class Pill extends React.Component {
         className={ this.mainClasses() }
         { ...tagComponent('pill', this.props) }
       >
-        {this.props.children}
+        { this.props.children }
+        { this.closeIcon }
       </span>
     );
   }

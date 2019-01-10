@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Pill from './pill';
 
@@ -87,6 +87,25 @@ describe('Pill', () => {
 
     it('includes correct component, element and role data tags', () => {
       rootTagTest(wrapper, 'pill', 'bar', 'baz');
+    });
+  });
+
+  describe('Optional "close" icon', () => {
+    let wrapper;
+
+    beforeEach(() => {
+      wrapper = mount(
+        <Pill
+          children='My Text'
+          onDelete={ spy }
+        />
+      );
+      console.log(wrapper.debug());
+    });
+
+    it('includes "close" icon when onDelete prop passed', () => {
+      let icon = wrapper.find('[data-element="close"]');
+      expect(icon.length).toEqual(1);    
     });
   });
 });
