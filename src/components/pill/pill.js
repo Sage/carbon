@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
+import Icon from '../icon/icon';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import './pill.scss';
@@ -71,14 +71,23 @@ class Pill extends React.Component {
      * @property onClick
      * @type {Function}
      */
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    /**
+     * Callback for when the icon in pill is clicked to delete it
+     * If defined a 'close' icon is rendered in the component
+     *
+     * @property onDelete
+     * @type {Function}
+     */
+    onDelete: PropTypes.func
   }
 
   static defaultProps = {
     as: 'default',
     className: '',
     fill: false,
-    onClick: null
+    onClick: null,
+    onDelete: null
   }
 
   static safeProps = ['onClick']
@@ -90,6 +99,22 @@ class Pill extends React.Component {
       `carbon-pill--${this.props.as}${(this.props.fill ? '--fill' : '--empty')}`,
       { 'carbon-pill--link': this.props.onClick }
     );
+  }
+
+  get closeIcon() {
+    if (this.props.onDelete) {
+      return (
+        <Icon
+          className='carbon-pill__delete'
+          data-element='close'
+          onClick={ this.props.onDelete }
+          type='close'
+          tabIndex='0'
+          onBlur={ this.onCloseIconBlur }
+        />
+      );
+    }
+    return null;
   }
 
   /**
