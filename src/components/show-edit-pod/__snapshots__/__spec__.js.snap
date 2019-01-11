@@ -111,7 +111,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                           >
                             <input
                               name=""
-                              readOnly="true"
+                              readOnly={true}
                               type="hidden"
                               value=""
                             />
