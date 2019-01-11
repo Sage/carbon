@@ -110,7 +110,6 @@ class Pill extends React.Component {
           data-element='close'
           onClick={ this.props.onDelete }
           type='close'
-          tabIndex='0'
           onBlur={ this.onCloseIconBlur }
           bgSize='small'
         />

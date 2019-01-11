@@ -26,15 +26,8 @@
       box-shadow: 0 0 0 2px $blue-dark;
       background-color: $blue-dark;
       border-radius: 0 9px 9px 0;
-      color: white;
+      color: #ffffff;
   }
-
-  .carbon-pill__delete-icon:focus {
-    box-shadow: 0 0 0 2px $blue-dark;
-    background-color: $blue-dark;
-    border-radius: 0 9px 9px 0;
-    color: white;
-}
 }
 
 @mixin pill-theme($type, $color, $border, $background, $color-hover) {

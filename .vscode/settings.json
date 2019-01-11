@@ -2,6 +2,7 @@
   "files.exclude": {
     "**/.git": true,
     "**/coverage": true,
+    "**/lib": true,
     "**/node_modules": true
   }
 }
