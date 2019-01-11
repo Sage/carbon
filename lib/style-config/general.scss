@@ -1,0 +1,20 @@
+@import './colors';
+
+$app-font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif !default;
+$app-light-font-family: 'HelveticaNeue-Light', 'Helvetica Neue', Arial, sans-serif !default;
+$app-medium-font-family: 'HelveticaNeue-Medium', 'Helvetica Neue', Arial, sans-serif !default;
+$app-font-size: 14px !default;
+$app-line-height: 16px !default;
+$app-text-color: $onyx !default;
+$grid-margin: 15px !default;
+$grid-margin-extra-small: 2px !default;
+$grid-margin-small: 5px !default;
+$grid-margin-medium-small: 10px !default;
+$grid-margin-medium: $grid-margin !default;
+$grid-margin-medium-large: 30px !default;
+$grid-margin-large: 60px !default;
+$grid-margin-extra-large: 90px !default;
+$app-max-width: 1600px !default;
+$app-width: 958px !default;
+$app-tooltip-pointer-size: 7px !default;
+$app-navigation-height: 40px !default;

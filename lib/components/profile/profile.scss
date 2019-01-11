@@ -1,0 +1,27 @@
+@import "./../../style-config/colors";
+@import "./../../style-config/general";
+
+.carbon-profile {
+  white-space: nowrap;
+}
+
+.carbon-profile__details,
+.carbon-profile__avatar {
+  display: inline-block;
+}
+
+.carbon-profile__details {
+  margin-left: 14px;
+  vertical-align: middle;
+  line-height: $app-line-height;
+}
+
+.carbon-profile__name {
+  font-weight: bold;
+}
+
+.carbon-profile--large .carbon-profile__name {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 21px;
+}

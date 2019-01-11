@@ -1,0 +1,133 @@
+@import "./../../style-config/colors";
+@import "./../../style-config/z-index";
+
+$dialog-padding: 35px;
+$dialog-sizes: (
+  ('extra-small', 300px),
+  ('small', 380px),
+  ('medium-small', 540px),
+  ('medium', 750px),
+  ('medium-large', 850px),
+  ('large', 960px),
+  ('extra-large', 1080px)
+);
+
+@mixin dialog-size-css($name, $size) {
+  .carbon-dialog .carbon-dialog__dialog--#{$name} {
+    width: $size;
+
+    &.carbon-dialog__dialog--fixed-bottom.carbon-dialog__dialog--sticky-form-footer .carbon-form__footer-wrapper {
+      width: $size;
+
+      // IE10+ fix (caters for scrollbar width)
+      @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+        width: $size - 16;
+      }
+    }
+  }
+}
+
+@each $size in $dialog-sizes {
+  @include dialog-size-css($size...);
+}
+
+.carbon-dialog__dialog {
+  background-color: $slate-tint-95;
+  box-shadow: $shadow-depth-3;
+  position: fixed;
+  top: 50%;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.carbon-dialog__title {
+  padding: 23px 35px 0;
+}
+
+.carbon-dialog__content {
+  box-sizing: border-box;
+  height: 100%;
+  overflow-y: auto;
+  padding: 0px 35px 30px;
+  width: 100%;
+}
+
+.carbon-dialog__inner-content {
+  padding-top: 20px;
+  position: relative;
+}
+
+.carbon-dialog__dialog--has-height {
+  .carbon-form {
+    padding-bottom: 80px;
+  }
+
+  .carbon-form__footer-wrapper {
+    bottom: 0px;
+    position: absolute;
+    width: 100%;
+  }
+}
+
+@keyframes form-buttons-animate-in {
+  0%   { bottom: -50px; }
+  100% { bottom: 0; }
+}
+
+.carbon-dialog .carbon-dialog__dialog--fixed-bottom {
+  bottom: 0;
+  min-height: 0px !important;
+
+  &.carbon-dialog__dialog--sticky-form-footer .carbon-form .carbon-form__footer-wrapper {
+    box-sizing: border-box;
+    margin-left: -($dialog-padding);
+    left: auto;
+    padding-left: $dialog-padding;
+    padding-right: $dialog-padding;
+  }
+}
+
+.carbon-dialog__title {
+  .carbon-heading {
+    padding-top: 0;
+
+    .carbon-heading__title {
+      font-size: 20px;
+      line-height: 30px;
+    }
+  }
+
+  .carbon-heading__header {
+    margin-bottom: 0;
+    padding-bottom: 15px;
+  }
+}
+
+.carbon-dialog__close {
+  color: $grey-dark-blue-70;
+  cursor: pointer;
+  position: absolute;
+  right: 35px;
+  top: 28px;
+  z-index: 1;
+
+  &:hover {
+    color: $blue;
+  }
+  &.carbon-icon {
+    position: absolute;
+  }
+}
+
+.carbon-dialog--open {
+  overflow: hidden;
+}
+
+// IE10+ Fix (always shows scrollbar)
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+  .carbon-dialog__dialog--fixed-bottom .carbon-dialog__content {
+    overflow-y: scroll;
+  }
+}

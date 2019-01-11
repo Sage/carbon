@@ -1,0 +1,102 @@
+@import "./../../../style-config/colors";
+@import "./../../../style-config/tables";
+
+.carbon-table-cell,
+.carbon-table-header {
+  &:not(.carbon-table-cell--select):first-child {
+    padding-left: 15px;
+  }
+}
+
+.carbon-table-cell {
+  background-color: $row-alt-color;
+  border-bottom: 1px solid $table-border-color;
+  border-left: none;
+  border-right: none;
+  border-top: none;
+  font-size: 13px;
+  overflow: visible;
+  padding: 8px;
+  vertical-align: middle;
+  white-space: nowrap;
+
+  .carbon-table-row:first-child & {
+    &:first-child {
+      border-radius: $tables__border-radius 0 0 0;
+    }
+
+    &:last-child {
+      border-radius: 0 $tables__border-radius 0 0;
+    }
+  }
+
+  .carbon-table-row:last-child & {
+    border-bottom-color: transparent;
+
+    &:first-child {
+      border-radius: 0 0 0 $tables__border-radius;
+    }
+
+    &:last-child {
+      border-radius: 0 0 $tables__border-radius 0;
+    }
+  }
+
+  .carbon-table-row:nth-child(odd) & {
+    background-color: $white;
+  }
+
+  .carbon-table-row--selected:nth-child(odd) & {
+    background-color: $blue-sky;
+  }
+
+  .carbon-table-row.carbon-table-row--dragged &,
+  .carbon-table-row:hover:not(.carbon-table-row--dragging):not(.carbon-table-row--selected) & {
+    background-color: $row-hover-color;
+  }
+
+  > .common-input {
+    margin-bottom: -4px;
+    margin-left: -6px;
+    margin-right: -6px;
+    margin-top: -4px;
+  }
+}
+
+.carbon-table-cell--select {
+  text-align: center;
+  width: 18px;
+
+  .carbon-checkbox {
+    height: 15px;
+    padding-top: 0;
+  }
+}
+
+.carbon-table-cell--action {
+  width: 18px;
+
+  .icon-delete:before {
+    cursor: pointer;
+    color: $grey-mid;
+    font-size: 16px;
+    line-height: 15px;
+    margin-left: 1px;
+  }
+
+  .icon-delete:hover:before {
+    color: $error;
+  }
+}
+
+.carbon-table-cell--align-left {
+  text-align: left;
+}
+
+.carbon-table-cell--align-right {
+  text-align: right;
+}
+
+.carbon-table-cell--align-center {
+  text-align: center;
+}

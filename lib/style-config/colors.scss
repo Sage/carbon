@@ -1,0 +1,103 @@
+@import "./base-colors";
+
+// Brand Colours - These are named by their colour.
+$white:                      #FFF !default;
+$black:                      #000 !default;
+
+// Text Colors
+$black-85:                   rgba(0,0,0,0.85) !default;
+$black-74:                   rgba(0,0,0,0.74) !default;
+$black-60:                   rgba(0,0,0,0.60) !default;
+$black-55:                   rgba(0,0,0,0.55) !default;
+$black-20:                   rgba(0,0,0,0.20) !default;
+
+$onyx:                       $black-85 !default;
+$noir:                       $black-74 !default;
+$lead:                       $black-60 !default;
+$nickel:                     $black-55 !default;
+$gainsboro:                  $black-20 !default;
+
+// Color Extentions
+// Grey
+$grey-light:                 $grey-dark-blue-10 !default;
+
+$grey:                       $grey-dark-blue-25 !default;
+$grey-dark:                  $grey-dark-blue !default;
+$grey-mid:                   $grey-dark-blue-40 !default;
+$grey-background:            $grey-light !default;
+$grey-header:                $grey-dark-blue-5 !default;
+
+// Green
+$green:                      $green-apple !default;
+
+// Orange
+$orange-mid:                 $orange-bright !default;
+$orange:                     $orange-bright !default;
+$orange-accessible:          #c33e00;
+
+// Blue
+$blue-navy:                  $blue-sky !default;
+$blue-dark:                  $azul !default;
+
+////////////////////////////////
+
+// States
+$warning:                    $orange-bright !default;
+$warning-text-background:    $orange-bright-05 !default;
+$warning-border:             $orange-bright-20 !default;
+$warning-hover:              darken($orange-bright, 20%) !default;
+$warning-accessible:         $orange-accessible;
+
+$error:                      $red    !default;
+$error-text-background:      $red-05 !default;
+$error-border:               $red-20 !default;
+$error-hover:                $red-dark !default;
+
+$info:                       $blue-sky !default;
+$info-text-background:       $blue-sky-05 !default;
+$info-border:                $blue-sky-20 !default;
+$info-hover:                 darken($blue-sky, 20%) !default;
+
+$default:                    $grey-dark-blue-80 !default;
+$default-text-background:    $grey-dark-blue-80 !default;
+$default-border:             $grey-dark-blue-80 !default;
+$default-hover:              darken($grey-dark-blue-80, 20%) !default;
+
+$new:                        $purple !default;
+$new-text-background:        $purple-05 !default;
+$new-border:                 $purple-20 !default;
+$new-hover:                  darken($purple, 20%) !default;
+
+$success:                    $green-apple !default;
+$success-text-background:    $green-apple-05 !default;
+$success-border:             $green-apple-20 !default;
+$success-hover:              darken($green-apple, 20%) !default;
+
+$help:                       $yellow !default;
+$help-text-background:       $yellow-05 !default;
+$help-border:                $yellow-20 !default;
+$help-hover:                 darken($yellow, 20%) !default;
+
+/**
+ * Color and Icon sets used for components with themes.
+ */
+$colorIconSets: (
+  ("warning", $warning, $warning-border, $warning-text-background, $warning-hover),
+  ("default", $default, $default-border, $default-text-background, $default-hover),
+  ("error", $error, $error-border, $error-text-background, $error-hover),
+  ("info", $info, $info-border, $info-text-background, $info-hover),
+  ("new", $new, $new-border, $new-text-background, $new-hover),
+  ("success", $success, $success-border, $success-text-background, $success-hover),
+  ("help", $help, $help-border, $help-text-background, $help-hover),
+  ("maintenance", $warning, $warning-border, $warning-text-background, $warning-hover),
+);
+
+$border-color:               $slate-tint-80 !default;
+$table-border-color:         $slate-tint-80 !default;
+$background-alt:             $grey-dark-blue-5 !default;
+$pod-footer:                 $grey-dark-blue-5 !default;
+
+$row-alt-color:              $slate-tint-95 !default;
+$row-hover-color:            $blue-sky-10 !default;
+$row-highlight-color:        $blue-sky-20 !default;
+$row-hover-input-border:     lighten($blue, 30%) !default;

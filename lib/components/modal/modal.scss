@@ -1,0 +1,59 @@
+@import "./../../style-config/colors";
+@import "./../../style-config/z-index";
+
+$modal-background-opacity: 0.6;
+$modal-background-animation-length: 300ms;
+$modal-initial-position: 50px;
+$modal-animation-length: 300ms;
+
+.carbon-modal__background {
+  background-color: $slate-shade-60;
+  bottom: 0;
+  left: 0;
+  opacity: $modal-background-opacity;
+  position: fixed;
+  right: 0;
+  top: 0;
+}
+
+.modal-background-enter, .modal-background-appear {
+  opacity: 0;
+}
+
+.modal-background-enter.modal-background-enter-active, .modal-background-appear.modal-background-appear-active {
+  opacity: $modal-background-opacity;
+  transition: opacity $modal-background-animation-length ease-out;
+}
+
+.modal-background-leave {
+  opacity: $modal-background-opacity;
+}
+
+.modal-background-leave.modal-background-leave-active {
+  opacity: 0;
+  transition: opacity $modal-background-animation-length 100ms ease-out;
+}
+
+// modal animation:
+
+.modal-enter, .modal-appear {
+  opacity: 0;
+  margin-top: $modal-initial-position;
+}
+
+.modal-enter.modal-enter-active, .modal-appear.modal-appear-active {
+  opacity: 1;
+  margin-top: 0;
+  transition: all $modal-animation-length 100ms ease-out;
+}
+
+.modal-leave {
+  opacity: 1;
+  margin-top: 0;
+}
+
+.modal-leave.modal-leave-active {
+  opacity: 0;
+  margin-top: $modal-initial-position;
+  transition: all $modal-animation-length ease-out;
+}

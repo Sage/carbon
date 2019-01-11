@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Confirm default snapshot renders as expected 1`] = `
+<Portal
+  key="1"
+>
+  <div
+    className="carbon-dialog carbon-confirm"
+    data-component="confirm"
+    data-element="bar"
+    data-role="baz"
+    data-state="open"
+  >
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={true}
+      transitionAppearTimeout={500}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal-background"
+    >
+      <div
+        className="carbon-modal__background"
+      />
+    </CSSTransitionGroup>
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={true}
+      transitionAppearTimeout={500}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal"
+    >
+      <div
+        aria-describedby="carbon-dialog-subtitle"
+        aria-labelledby="carbon-dialog-title"
+        className="carbon-dialog__dialog carbon-dialog__dialog--extra-small carbon-confirm__confirm"
+        data-component="confirm"
+        data-element="bar"
+        data-role="baz"
+        onBlur={[Function]}
+        role="dialog"
+        style={
+          Object {
+            "minHeight": undefined,
+          }
+        }
+        tabIndex={0}
+      >
+        <div
+          className="carbon-dialog__title carbon-dialog__title--has-subheader"
+        >
+          <Heading
+            divider={true}
+            separator={false}
+            subheader="Confirm Subtitle"
+            subtitleId="carbon-dialog-subtitle"
+            title="Confirm title"
+            titleId="carbon-dialog-title"
+          />
+        </div>
+        <div
+          className="carbon-dialog__content"
+        >
+          <div
+            className="carbon-dialog__inner-content"
+            style={Object {}}
+          >
+            <div
+              className="carbon-confirm__buttons clearfix"
+              key="confirm-buttons"
+            >
+              <div
+                className="carbon-confirm__button carbon-confirm__no"
+              >
+                <Button
+                  as="secondary"
+                  data-element="cancel"
+                  disabled={false}
+                  onClick={[Function]}
+                  size="medium"
+                  subtext=""
+                  theme="blue"
+                >
+                  No
+                </Button>
+              </div>
+              <div
+                className="carbon-confirm__button carbon-confirm__yes"
+              >
+                <Button
+                  as="primary"
+                  data-element="confirm"
+                  disabled={false}
+                  onClick={[Function]}
+                  size="medium"
+                  subtext=""
+                  theme="blue"
+                >
+                  Yes
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </CSSTransitionGroup>
+  </div>
+</Portal>
+`;

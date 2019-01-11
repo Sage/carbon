@@ -1,0 +1,16 @@
+@import "./../../style-config/general";
+
+.carbon-menu {
+  color: red;
+  line-height: $app-navigation-height;
+}
+
+.carbon-menu__items {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.carbon-menu__item {
+  display: inline-block;
+}

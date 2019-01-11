@@ -1,0 +1,46 @@
+@import "./../../style-config/colors";
+@import "./../../style-config/z-index";
+@import "./dialog-full-screen-variables";
+
+.carbon-dialog-full-screen__dialog {
+  background-color: $grey-light;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: $z-full-screen-dialog;
+}
+
+.carbon-dialog-full-screen__content {
+  padding: $padding-top-bottom 0;
+  overflow-y: auto;
+  height: calc(100% - #{$padding-top-bottom * 2});
+
+  .carbon-full-screen-heading + & {
+    height: calc(100% - #{$title-total-height});
+  }
+}
+
+.carbon-dialog-full-screen__close {
+  color: $grey-dark-blue-70;
+  cursor: pointer;
+  display: block;
+  margin-top: -8px;
+  position: absolute;
+  right: 40px;
+  top: $title-height / 2;
+  z-index: $z-dialog;
+
+  &:before {
+    font-size: 24px;
+  }
+
+  &:hover {
+    color: $blue;
+  }
+}
+
+.carbon-dialog-full-screen--open {
+  overflow: hidden;
+}

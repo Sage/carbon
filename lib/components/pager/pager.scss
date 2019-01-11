@@ -1,0 +1,70 @@
+@import "./../../style-config/colors";
+@import "./../../style-config/mixins";
+
+.carbon-pager {
+  background-color: $slate-tint-95;
+  border: 1px solid $slate-tint-80;
+  border-top: none;
+  font-size: 13px;
+  padding: 3px 8px;
+  text-align: center;
+  position: relative;
+}
+
+.carbon-pager__size {
+  position: absolute;
+  left: 0;
+  padding-left: 8px;
+
+  .carbon-dropdown {
+    width: 55px;
+    padding: 0 2px;
+    display: inline-block;
+  }
+}
+
+.carbon-pager__navigation {
+  display: inline-block;
+}
+
+.carbon-pager__summary {
+  display: inline-block;
+  padding-top: 8px;
+  position: absolute;
+  right: 8px;
+}
+
+.carbon-pager__current-page {
+  text-align: center;
+  display: inline-block;
+
+  .carbon-number__input {
+    margin: 0px 5px;
+    text-align: center;
+    width: 35px;
+  }
+}
+
+.carbon-pager__previous {
+  @include transform(rotate(90deg) scale(1.4))
+  display: inline-block;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+.carbon-pager__previous--disabled {
+  opacity: 0.3;
+  cursor: default;
+}
+
+.carbon-pager__next {
+  @include transform(rotate(-90deg) scale(1.4))
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 8px;
+}
+
+.carbon-pager__next--disabled {
+  opacity: 0.3;
+  cursor: default;
+}

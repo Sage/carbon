@@ -1,0 +1,35 @@
+@import url('https://fonts.googleapis.com/css?family=Lato:400,700,900');
+
+@mixin text-theme($type, $color, $border, $background, $color-hover) {
+  .text--#{$type} {
+    color: $color;
+  }
+}
+
+@each $set in $colorIconSets {
+  @include text-theme($set...);
+}
+
+.text--tag {
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  -webkit-font-smoothing: antialiased;
+}
+
+.text--bold {
+  font-weight: bold;
+}
+
+.text--italic {
+  font-style: italic;
+}
+
+.text--secondary {
+  color: $black-60;
+}
+
+.text--inactive {
+  color: $black-20;
+}

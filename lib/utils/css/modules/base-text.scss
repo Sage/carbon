@@ -1,0 +1,21 @@
+body {
+  -webkit-font-smoothing: antialiased;
+  color: $app-text-color;
+  font-family: $app-font-family;
+  font-size: $app-font-size;
+  text-rendering: optimizeLegibility;
+}
+
+@mixin h1() { font-size: 24px; font-weight: 900; line-height: 32px; }
+@mixin h2() { font-size: 22px; font-weight: 700; margin-bottom: 26px; }
+@mixin h3() { font-size: 20px; font-weight: 700; margin-bottom: 24px; }
+@mixin h4() { font-size: 18px; font-weight: 700; margin-bottom: 22px; }
+@mixin h5() { font-size: 16px; font-weight: 700; margin-bottom: 20px; }
+@mixin h6() { font-size: 14px; font-weight: 700; margin-bottom: 18px; }
+
+h1, .h1 { @include h1(); }
+h2, .h2 { @include h2(); }
+h3, .h3 { @include h3(); }
+h4, .h4 { @include h4(); }
+h5, .h5 { @include h5(); }
+h6, .h6 { @include h6(); }

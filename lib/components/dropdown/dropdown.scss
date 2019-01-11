@@ -1,0 +1,69 @@
+@import "./../../style-config/colors";
+@import "./../../style-config/z-index";
+@import "./../../style-config/general";
+@import "./../../style-config/input-field";
+@import "./../../style-config/mixins";
+
+$dropdown-input-icon-width: 20px !default;
+
+.carbon-dropdown__list-block {
+  position: relative;
+
+  .common-input--label-inline & {
+    left: $grid-margin;
+  }
+}
+
+.carbon-dropdown__list {
+  background-color: $white;
+  border: 1px solid $border-color;
+  box-sizing: border-box;
+  box-shadow: $shadow-depth-1;
+  color: $black-85;
+  cursor: pointer;
+  max-height: 180px;
+  list-style: none;
+  margin: 0;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0;
+
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    background-color: #EEE;
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #777777;
+    border-radius:4px;
+  }
+}
+
+.carbon-dropdown__list-item {
+  padding: 5px 6px;
+}
+
+.carbon-dropdown__list-item--highlighted {
+  background-color: #E6E9E7;
+}
+
+.carbon-dropdown {
+  .common-input__icon {
+    right: 26px;
+  }
+
+  .icon-dropdown {
+    line-height: 15px;
+    width: $dropdown-input-icon-width;
+  }
+}
+
+.carbon-dropdown {
+  .common-input__input--error,
+  .common-input__input--info,
+  .common-input__input--warning {
+    padding-right: 60px;
+    text-overflow: ellipsis;
+  }
+}

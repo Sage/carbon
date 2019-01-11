@@ -1,0 +1,12 @@
+@import './general';
+@import './colors';
+
+$input-common-font-size:        14px !default;
+$input-common-font:             $app-font-family !default;
+$input-common-border:           1px solid $slate-tint-80 !default;
+$input-common-color:            $black-85 !default;
+$input-border-radius:           0px !default;
+$input-active-border-color:     $blue-bright !default;
+$input-common-line-height:      16px !default;
+$input-common-height:           31px !default;
+$input-common-padding:          5px 6px !default;

@@ -1,0 +1,80 @@
+@import "./../../style-config/colors";
+@import "./../../style-config/input-field";
+@import "./../../style-config/z-index";
+
+.carbon-split-button {
+  display: inline-block;
+  position: relative;
+
+  .carbon-button.carbon-split-button__toggle:hover {
+    background-color: mix(black, $blue, 20);
+    border-bottom-color: mix(black, $blue, 20);
+  }
+}
+
+.carbon-split-button__main-button {
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  height: $input-common-height;
+  margin-right: 0px; // Safari fix
+  margin-left: 0px; // Safari fix
+}
+
+.carbon-split-button__toggle {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-left: none;
+  height: $input-common-height;
+  padding-left: 0;
+  padding-right: 0;
+  vertical-align: top;
+  width: $input-common-height;
+
+  &.carbon-button--primary {
+    border-left: 1px solid mix(black, $blue, 20);
+
+    &.carbon-button--disabled {
+      border-left-color: transparent;
+    }
+  }
+
+  .carbon-split-button--open &:not(.carbon-button--disabled) {
+    background-color: mix(black, $blue, 20);
+    border-bottom-right-radius: 0;
+    color: $white;
+  }
+}
+
+.carbon-split-button__toggle:not(.carbon-button--disabled):active {
+  background-color: $blue-bright;
+  border-color: $blue-bright;
+}
+
+.carbon-split-button__additional-buttons {
+  background-color: mix(black, $blue, 20);
+  border-radius: 0px;
+  border-top-right-radius: 0;
+  min-width: 100%;
+  padding: 5px 0;
+  position: absolute;
+  z-index: $z-split-button;
+
+  &.carbon-split-button__additional-buttons--hidden {
+    display: none;
+  }
+
+  .carbon-button:not(.carbon-button--disabled) {
+    border: none;
+    border-radius: 0;
+    color: $white;
+    display: block;
+    min-width: 100%;
+    padding-bottom: 5px;
+    padding-top: 5px;
+    text-align: left;
+
+    &:hover {
+      background-color: mix(black, $blue, 40);
+    }
+  }
+}

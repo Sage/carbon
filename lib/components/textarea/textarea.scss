@@ -1,0 +1,31 @@
+@import './../../style-config/colors.scss';
+@import './../../style-config/input-field.scss';
+
+
+.carbon-textarea .common-input__label {
+  margin-top: 9px;
+  vertical-align: top;
+}
+
+.carbon-textarea__input {
+  height: auto;
+  min-height: $input-common-height;
+  resize: none;
+}
+
+.carbon-textarea__character-limit {
+  text-align: right;
+
+  &.over-limit {
+    color: $red;
+  }
+}
+
+.carbon-textarea__limit-used,
+.carbon-textarea__limit-max {
+  font-weight: bold;
+}
+
+.carbon-textarea__input--disable-scroll {
+  overflow: hidden;
+}
