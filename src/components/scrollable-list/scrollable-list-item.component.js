@@ -5,19 +5,20 @@ import { ScrollableListContext } from './scrollable-list.component';
 const Item = ({ className, id, children }) => {
   return (
     <ScrollableListContext.Consumer>
-     { 
-      context => (
-        <li 
-          onMouseOver={(e) => context.onMouseOver(id)}
-          className={className}
-          onClick={(e) => context.onClick(id)}>
+      {
+        context => (
+          <li 
+            onMouseOver={ () => context.onMouseOver(id) }
+            className={ className }
+            onClick={ () => context.onClick(id) }
+          >
             {children}
-        </li>
-      )
+          </li>
+        )
       }
     </ScrollableListContext.Consumer>
-  )
-}
+  );
+};
 
 const ScrollableListItem = styled(Item)`
   width: 100%;

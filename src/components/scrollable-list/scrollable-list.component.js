@@ -8,11 +8,11 @@ const ScrollableListContext = React.createContext();
 
 class ScrollableList extends Component {
   static propTypes = propTypes
-  
+
   state = {
     selectedItem: 0
   }
-  
+
   scrollBox = React.createRef();
 
   componentDidMount() {
@@ -26,25 +26,25 @@ class ScrollableList extends Component {
   handleScroll = ({ target: { scrollTop, scrollHeight } }) => {
     if (!this.props.onLazyLoad) return null;
 
-    if((scrollHeight - scrollTop) < 200) this.props.onLazyLoad();
+    if ((scrollHeight - scrollTop) < 200) this.props.onLazyLoad();
   }
 
   handleKeyDown = (e) => {
     e.preventDefault();
 
     const { selectedItem } = this.state,
-      end = this.props.children.length - 1,
-      atEnd = selectedItem === end,
-      atStart = selectedItem === 0;
+        end = this.props.children.length - 1,
+        atEnd = selectedItem === end,
+        atStart = selectedItem === 0;
 
     let newPos;
 
-    switch(e.key) {
+    switch (e.key) {
       case 'ArrowDown': newPos = atEnd ? 0 : selectedItem + 1; break;
       case 'ArrowUp': newPos = atStart ? end : selectedItem - 1; break;
       case 'Enter': this.props.onSelect(selectedItem); break;
       default: return null;
-    };
+    }
 
     this.setState({ selectedItem: newPos });
   }
@@ -54,30 +54,29 @@ class ScrollableList extends Component {
     const { selectedItem } = this.state;
 
     return (
-      <ScrollableListContainer 
+      <ScrollableListContainer
         ref={ this.scrollBox }
-        onScroll={ this.handleScroll } 
+        onScroll={ this.handleScroll }
         { ...this.props }
         { ...tagComponent('scrollable-list', this.props) }
       >
         <ScrollableListContext.Provider value={
           {
-            onMouseOver: selectedItem => this.setState({ selectedItem }),
-            onClick: selectedItem => onSelect(selectedItem)
+            onMouseOver: item => this.setState({ selectedItem: item }),
+            onClick: item => onSelect(item)
           }
-        }>
+        }
+        >
           {
-            children && 
-            children.map((child, i) => 
-              <ScrollableListItem id={i} isSelected={selectedItem === i}>
+            children
+            && children.map((child, i) => (
+              <ScrollableListItem id={ i } isSelected={ selectedItem === i }>
                 {child}
-              </ScrollableListItem>)
-          }
+              </ScrollableListItem>))}
         </ScrollableListContext.Provider>
       </ScrollableListContainer>
-    )
+    );
   }
-  
 }
 
 export { ScrollableList, ScrollableListContext };

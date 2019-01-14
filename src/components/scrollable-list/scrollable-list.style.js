@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 const ScrollableListContainer = styled.ul`
   width: 100%;
   max-height: 180px;
-  ${(props) => props.maxHeight && css`max-height: ${props.maxHeight};`};
+  ${props => props.maxHeight && css`max-height: ${props.maxHeight};`};
   overflow-x: hidden;
   overflow-y: scroll;
   background-color: white;
