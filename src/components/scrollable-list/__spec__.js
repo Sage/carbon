@@ -10,6 +10,13 @@ const keyPress = (key) => {
   document.dispatchEvent(ev);
 };
 
+const buildPressEvents = (keys) => keys.reduce((acc, key) => {
+  acc[`press${key}`] = () => keyPress(key);
+  return acc;
+}, {});
+
+const go = buildPressEvents(['ArrowUp', 'ArrowDown', 'Enter']);
+
 
 const pressUpArrow = () => keyPress('ArrowUp');
 const pressDownArrow = () => keyPress('ArrowDown');
@@ -33,6 +40,12 @@ describe('ScrollableList', () => {
         {renderItems(childCount)}
       </ScrollableList>
     );
+  });
+
+  describe('main functionality', () => {
+    it('renders a list of items', () => {
+      expect(scrollableList.find('ul').children().length).toBe(childCount);
+    });
   });
 
   describe('keyboard navigation', () => {
@@ -78,10 +91,6 @@ describe('ScrollableList', () => {
     it('has a default max-height', () => {
       expect(scrollableList).toHaveStyleRule('max-height', '180px');
     });
-
-    it('renders at the height of its children up to its max-height', () => {
-      
-    });
     
     it('has a default max-height which is overridable by a prop', () => {
       scrollableList.setProps({ maxHeight: '200px' });
@@ -96,9 +105,9 @@ describe('ScrollableList', () => {
     });
   });
 
-  describe('styling', () => {
+  describe('dls', () => {
     it('follows the design language system', () => {
-
+      // TODO
     });
   });
 })
