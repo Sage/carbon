@@ -26,6 +26,7 @@
   line-height: 10px;
   margin-left: 2px;
   margin-right: 2px;
+  position: relative; top: -1px;
 }
 
 .carbon-pill__delete-icon:hover {
@@ -33,6 +34,13 @@
     background-color: $blue-dark;
     border-radius: 0 9px 9px 0;
     color: #ffffff;
+}
+
+.carbon-pill__delete-icon:focus {
+  box-shadow: 0 0 0 2px $blue-dark;
+  background-color: $blue-dark;
+  border-radius: 0 9px 9px 0;
+  color: #ffffff;
 }
 
 @mixin pill-theme($type, $color, $border, $background, $color-hover) {

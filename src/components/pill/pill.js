@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import Button from '../button';
 import Icon from '../icon/icon';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
@@ -110,8 +111,10 @@ class Pill extends React.Component {
           data-element='close'
           onClick={ this.props.onDelete }
           type='cross'
-          onBlur={ this.onCloseIconBlur }
           bgSize='small'
+          role='button'
+          tabIndex='0'
+          onKeyPress={ this.props.onDelete }
         />
       );
     }
