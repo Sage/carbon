@@ -66,7 +66,7 @@ const DateHelper = {
    */
   formatDateString: (value, formatTo) => {
     return (
-      moment(new Date(value).getTime()).format(formatTo)
+      moment.utc(new Date(value).getTime()).format(formatTo)
     );
   },
 
