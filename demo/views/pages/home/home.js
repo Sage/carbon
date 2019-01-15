@@ -10,7 +10,7 @@ class Home extends React.Component {
    */
   render() {
     return (
-      <div style={{ height: '100vh'}}>
+      <div style={{ height: '400px', width: '500px'}}>
 
         <ScrollableList 
           onLazyLoad={() => console.log('lazy load now')}
