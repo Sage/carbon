@@ -3,31 +3,36 @@
 .carbon-pill {
   border-radius: 10px;
   display: inline-block;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 1px;
   padding: 2px 7px;
   text-align: center;
+}
 
-  .carbon-pill__delete-icon {
-    margin-left: 2px;
-    margin-right: -5px;
-  }
-  .carbon-pill__delete-icon:before {
-    font: {
-      size: 5px;
-    }
-    line-height: 10px;
-    margin-left: 2px;
-    margin-right: 2px;
-  }
+.carbon-pill_with-icon {
+  font-size: 14px;
+  line-height: 14px;
+}
 
-  .carbon-pill__delete-icon:hover {
-      box-shadow: 0 0 0 2px $blue-dark;
-      background-color: $blue-dark;
-      border-radius: 0 9px 9px 0;
-      color: #ffffff;
+.carbon-pill__delete-icon {
+  margin-left: 5px;
+  margin-right: -5px;
+}
+.carbon-pill__delete-icon:before {
+  font: {
+    size: 10px;
   }
+  line-height: 10px;
+  margin-left: 2px;
+  margin-right: 2px;
+}
+
+.carbon-pill__delete-icon:hover {
+    box-shadow: 0 0 0 2px $blue-dark;
+    background-color: $blue-dark;
+    border-radius: 0 9px 9px 0;
+    color: #ffffff;
 }
 
 @mixin pill-theme($type, $color, $border, $background, $color-hover) {

@@ -109,7 +109,7 @@ class Pill extends React.Component {
           className='carbon-pill__delete-icon'
           data-element='close'
           onClick={ this.props.onDelete }
-          type='close'
+          type='cross'
           onBlur={ this.onCloseIconBlur }
           bgSize='small'
         />
