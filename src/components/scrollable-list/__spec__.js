@@ -10,14 +10,6 @@ const keyPress = (key) => {
   document.dispatchEvent(ev);
 };
 
-const buildPressEvents = (keys) => keys.reduce((acc, key) => {
-  acc[`press${key}`] = () => keyPress(key);
-  return acc;
-}, {});
-
-const go = buildPressEvents(['ArrowUp', 'ArrowDown', 'Enter']);
-
-
 const pressUpArrow = () => keyPress('ArrowUp');
 const pressDownArrow = () => keyPress('ArrowDown');
 const pressEnter = () => keyPress('Enter');
@@ -104,10 +96,4 @@ describe('ScrollableList', () => {
       expect(onLazyLoad).toBeCalled();
     });
   });
-
-  describe('dls', () => {
-    it('follows the design language system', () => {
-      // TODO
-    });
-  });
-})
+});
