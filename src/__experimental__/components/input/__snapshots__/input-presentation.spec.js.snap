@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputPresentation renders presentational divs and context provider for its children 1`] = `
+<div>
+  <div
+    className="carbon-input-presentation"
+  >
+    <[object Object]
+      value={
+        Object {
+          "hasFocus": false,
+          "onBlur": [Function],
+          "onFocus": [Function],
+        }
+      }
+    >
+      sample children
+    </[object Object]>
+  </div>
+</div>
+`;
