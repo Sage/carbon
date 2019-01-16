@@ -19,6 +19,7 @@ const classNamesForInput = className => (
 const handleFocus = (context, onFocus) => (ev) => {
   if (onFocus) onFocus(ev);
   if (context && context.onFocus) context.onFocus(ev);
+  debugger
 };
 
 const handleBlur = (context, onBlur) => (ev) => {
