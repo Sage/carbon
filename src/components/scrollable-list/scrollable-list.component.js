@@ -26,7 +26,6 @@ class ScrollableList extends Component {
   }
 
   updateScroll = (item) => {
-    console.log('item: ', item)
     const { current: list } = this.scrollBox,
         { offsetHeight: listHeight, children } = list,
         { offsetHeight: itemHeight, offsetTop: itemTop } = children[item];
