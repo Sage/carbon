@@ -26,6 +26,7 @@ class ScrollableList extends Component {
   }
 
   updateScroll = (item) => {
+    console.log('item: ', item)
     const { current: list } = this.scrollBox,
         { offsetHeight: listHeight, children } = list,
         { offsetHeight: itemHeight, offsetTop: itemTop } = children[item];
@@ -51,7 +52,7 @@ class ScrollableList extends Component {
         atEnd = selectedItem === end,
         atStart = selectedItem === 0;
 
-    let newPos;
+    let newPos = selectedItem;
 
     switch (e.key) {
       case 'ArrowDown': newPos = atEnd ? 0 : selectedItem + 1; break;
