@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import tagComponent from '../../utils/helpers/tags';
 import ScrollableListItem from './scrollable-list-item.component';
+import ScrollableListContext from './scrollable-list.context';
 import ScrollableListContainer from './scrollable-list.style';
 import propTypes from './scrollable-list.proptypes';
 
-const ScrollableListContext = React.createContext();
 
 class ScrollableList extends Component {
   static propTypes = propTypes
@@ -16,15 +16,29 @@ class ScrollableList extends Component {
   scrollBox = React.createRef();
 
   componentDidMount() {
-    this.props.keyNavigation && document.addEventListener('keydown', this.handleKeyDown);
+    if (this.props.keyNavigation) {
+      document.addEventListener('keydown', this.handleKeyDown);
+    }
   }
 
   componentWillUnmount() {
     document.removeEventListener('keydown');
   }
 
+  updateScroll = (item) => {
+    const { current: list } = this.scrollBox,
+        { offsetHeight: listHeight, children } = list,
+        { offsetHeight: itemHeight, offsetTop: itemTop } = children[item];
+
+    if (itemTop > listHeight) {
+      list.scrollTop = (itemHeight * (item + 1) + 5) - listHeight;
+    } else {
+      list.scrollTop = 0;
+    }
+  }
+
   handleScroll = ({ target: { scrollTop, scrollHeight } }) => {
-    if (!this.props.onLazyLoad) return null;
+    if (!this.props.onLazyLoad) return;
 
     if ((scrollHeight - scrollTop) < 200) this.props.onLazyLoad();
   }
@@ -43,8 +57,10 @@ class ScrollableList extends Component {
       case 'ArrowDown': newPos = atEnd ? 0 : selectedItem + 1; break;
       case 'ArrowUp': newPos = atStart ? end : selectedItem - 1; break;
       case 'Enter': this.props.onSelect(selectedItem); break;
-      default: return null;
+      default: return;
     }
+
+    this.updateScroll(newPos);
 
     this.setState({ selectedItem: newPos });
   }
