@@ -8,9 +8,9 @@ import { Input, InputPresentation } from '../input';
 // of testing the implementation as it evolves.
 
 /* istanbul ignore next */
-const Textbox = ({ value, children }) => (
+const Textbox = ({ value, children, ...props }) => (
   <InputPresentation>
-    <Input value={ value } />
+    <Input value={ value } { ...props } />
     { children }
   </InputPresentation>
 );
