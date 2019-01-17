@@ -1,7 +1,6 @@
 import React from 'react';
 import classNames from 'classnames';
 import { assign } from 'lodash';
-
 import Icon from '../../../components/icon';
 import './input-icon.scss';
 

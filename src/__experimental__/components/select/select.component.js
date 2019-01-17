@@ -1,55 +1,13 @@
-/* eslint-disable react/no-multi-comp */
 import React from 'react';
 import ReactDOM from 'react-dom';
-import InputDecorator from '../../../utils/decorators/input';
-import InputLabel from '../../../utils/decorators/input-label';
-import InputValidation from '../../../utils/decorators/input-validation';
-import InputIcon from '../../../utils/decorators/input-icon';
-import tagComponent from '../../../utils/helpers/tags';
-import { validProps } from '../../../utils/ether';
-import Textbox from '../textbox';
+import PropTypes from 'prop-types';
+import SelectBridge from './select.bridge';
 import Pill from '../../../components/pill';
 import Portal from '../../../components/portal';
 
 // We use this class as a temporary bridge between the new approach and the decorators,
 // we need it as a class to support refs. We can eventually replace this with the new
 // Textbox component that is under development.
-// eslint-disable-next-line react/prefer-stateless-function
-class TextboxAsAClass extends React.Component {
-  render() {
-    return <Textbox { ...this.props } />;
-  }
-}
-
-const SelectBridge = InputDecorator(InputLabel(InputValidation(InputIcon(class Select extends React.Component {
-  get inputProps() {
-    return validProps(this);
-  }
-
-  render() {
-    const { ...inputProps } = this.inputProps;
-    inputProps.value = this.props.visibleValue;
-
-    return (
-      <div
-        className={ this.mainClasses }
-        ref={ (comp) => { this._target = comp; } }
-        { ...tagComponent('select', this.props) }
-      >
-        { this.labelHTML }
-        <div { ...this.fieldProps }>
-          <TextboxAsAClass { ...inputProps }>
-            { this.props.children }
-          </TextboxAsAClass>
-          { this.inputIconHTML('dropdown') }
-        </div>
-        { this.validationHTML }
-        { this.fieldHelpHTML }
-      </div>
-    );
-  }
-}))));
-
 const renderMultiValues = values => (
   <div style={ { order: '-1' } }>
     { values.map(value => <Pill>{ value.label }</Pill>) }
@@ -57,12 +15,19 @@ const renderMultiValues = values => (
 );
 
 class Select extends React.Component {
+  static propTypes = {
+    value: PropTypes.object,
+    label: PropTypes.string,
+    children: PropTypes.node
+  }
+
   state = {
     filter: null,
     open: false
   }
 
   _list = React.createRef();
+
   _input = React.createRef();
 
   updateFilter = ev => this.setState({ filter: ev.target.value })
@@ -72,6 +37,7 @@ class Select extends React.Component {
   handleFocus = () => this.setState({ open: true })
 
   positionList = () => {
+    // eslint-disable-next-line react/no-find-dom-node
     const inputComponent = ReactDOM.findDOMNode(this._input);
     const inputElement = inputComponent.getElementsByTagName('input')[0];
     const inputBoundingRect = inputElement.getBoundingClientRect();
@@ -79,7 +45,6 @@ class Select extends React.Component {
     const width = `${inputBoundingRect.width}px`;
     const left = `${inputBoundingRect.left}px`;
     this._list.setAttribute('style', `left: ${left}; top: ${top}; width: ${width}; position: absolute;`);
-    debugger
   }
 
   render() {
@@ -90,7 +55,7 @@ class Select extends React.Component {
       <React.Fragment>
         <SelectBridge
           { ...this.props }
-          ref={ c => this._input = c }
+          ref={ (c) => { this._input = c; } }
           value={ isMultiValue ? this.props.value : this.props.value.value }
           visibleValue={ this.state.filter || visibleValue }
           onChange={ this.updateFilter }
@@ -102,7 +67,7 @@ class Select extends React.Component {
         {
           this.state.open && (
             <Portal onReposition={ this.positionList }>
-              <div ref={ c => this._list = c }>
+              <div ref={ (c) => { this._list = c; } }>
                 { this.props.children }
               </div>
             </Portal>

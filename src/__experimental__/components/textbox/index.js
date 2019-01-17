@@ -2,22 +2,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Input, InputPresentation } from '../input';
 
-// This component is a working example of what a Textbox might look like
-// using only the new input componentry. It is never meant to be used as
-// a replacement for the existing Textbox component, but just as a means
-// of testing the implementation as it evolves.
+// We use this class as a temporary bridge between the new approach and the decorators,
+// we need it as a class to support refs. We can eventually replace this with the new
+// Textbox component that is under development.
+// eslint-disable-next-line react/prefer-stateless-function
+class Textbox extends React.Component {
+  static propTypes = {
+    value: PropTypes.string,
+    children: PropTypes.node
+  }
 
-/* istanbul ignore next */
-const Textbox = ({ value, children, ...props }) => (
-  <InputPresentation>
-    <Input value={ value } { ...props } />
-    { children }
-  </InputPresentation>
-);
-
-Textbox.propTypes = {
-  children: PropTypes.node,
-  value: PropTypes.string
-};
-
+  render() {
+    const { children, value, ...props } = this.props;
+    return (
+      <InputPresentation>
+        <Input value={ value } { ...props } />
+        { children }
+      </InputPresentation>
+    );
+  }
+}
 export default Textbox;

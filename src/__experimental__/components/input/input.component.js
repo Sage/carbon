@@ -16,7 +16,7 @@ class Input extends React.Component {
   // Switch the old class for the new one until we refactor out
   // the input decorators
   classNamesForInput(className) {
-    return className ? className.replace('common-input__input', 'carbon-input') : 'carbon-input'
+    return className ? className.replace('common-input__input', 'carbon-input') : 'carbon-input';
   }
 
   handleFocus(context, onFocus) {
@@ -47,7 +47,7 @@ class Input extends React.Component {
         {
           context => (
             <input
-              ref={ c => this._input = c }
+              ref={ (c) => { this._input = c; } }
               className={ this.classNamesForInput(className) }
               onFocus={ this.handleFocus(context, onFocus) }
               onBlur={ this.handleBlur(context, onBlur) }
