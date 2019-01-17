@@ -1,3 +1,5 @@
-import { ScrollableList } from './scrollable-list.component';
+import ScrollableList from './scrollable-list.component';
+import ScrollableItemWrapper from './scrollable-item-wrapper.component';
+import ScrollableListItem from './scrollable-list-item.component';
 
-export default ScrollableList;
+export { ScrollableList, ScrollableItemWrapper, ScrollableListItem };

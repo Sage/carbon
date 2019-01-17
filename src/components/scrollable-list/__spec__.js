@@ -76,6 +76,10 @@ describe('ScrollableList', () => {
     it('calls an onSelect callback on pressing the enter key', () => {
       pressEnter();
       expect(onSelect).toBeCalled();
+    });
+
+    it('navigates only over "selectable" children', () => {
+      
     })
   })
 
