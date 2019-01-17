@@ -10,42 +10,55 @@ import './input.style.scss';
 // will add additional supported on the decorated features without the need
 // for the decorators themselves.
 
-// Switch the old class for the new one until we refactor out
-// the input decorators
-const classNamesForInput = className => (
-  className ? className.replace('common-input__input', 'carbon-input') : 'carbon-input'
-);
+class Input extends React.Component {
+  _input = React.createRef();
 
-const handleFocus = (context, onFocus) => (ev) => {
-  if (onFocus) onFocus(ev);
-  if (context && context.onFocus) context.onFocus(ev);
-  debugger
-};
+  // Switch the old class for the new one until we refactor out
+  // the input decorators
+  classNamesForInput(className) {
+    return className ? className.replace('common-input__input', 'carbon-input') : 'carbon-input'
+  }
 
-const handleBlur = (context, onBlur) => (ev) => {
-  if (onBlur) onBlur(ev);
-  if (context && context.onBlur) context.onBlur(ev);
-};
+  handleFocus(context, onFocus) {
+    return (ev) => {
+      if (onFocus) onFocus(ev);
+      if (context && context.onFocus) context.onFocus(ev);
+      this._input.setSelectionRange(0, this._input.value.length);
+    };
+  }
 
-const Input = ({
-  className,
-  onBlur,
-  onFocus,
-  ...props
-}) => (
-  <InputPresentationContext.Consumer>
-    {
-      context => (
-        <input
-          className={ classNamesForInput(className) }
-          onFocus={ handleFocus(context, onFocus) }
-          onBlur={ handleBlur(context, onBlur) }
-          { ...props }
-        />
-      )
-    }
-  </InputPresentationContext.Consumer>
-);
+  handleBlur(context, onBlur) {
+    return (ev) => {
+      if (onBlur) onBlur(ev);
+      if (context && context.onBlur) context.onBlur(ev);
+    };
+  }
+
+  render() {
+    const {
+      className,
+      onBlur,
+      onFocus,
+      ...props
+    } = this.props;
+
+    return (
+      <InputPresentationContext.Consumer>
+        {
+          context => (
+            <input
+              ref={ c => this._input = c }
+              className={ this.classNamesForInput(className) }
+              onFocus={ this.handleFocus(context, onFocus) }
+              onBlur={ this.handleBlur(context, onBlur) }
+              { ...props }
+            />
+          )
+        }
+      </InputPresentationContext.Consumer>
+    );
+  }
+}
 
 Input.propTypes = {
   className: PropTypes.string,

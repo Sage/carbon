@@ -1,5 +1,6 @@
 /* eslint-disable react/no-multi-comp */
 import React from 'react';
+import ReactDOM from 'react-dom';
 import InputDecorator from '../../../utils/decorators/input';
 import InputLabel from '../../../utils/decorators/input-label';
 import InputValidation from '../../../utils/decorators/input-validation';
@@ -8,6 +9,7 @@ import tagComponent from '../../../utils/helpers/tags';
 import { validProps } from '../../../utils/ether';
 import Textbox from '../textbox';
 import Pill from '../../../components/pill';
+import Portal from '../../../components/portal';
 
 // We use this class as a temporary bridge between the new approach and the decorators,
 // we need it as a class to support refs. We can eventually replace this with the new
@@ -49,10 +51,10 @@ const SelectBridge = InputDecorator(InputLabel(InputValidation(InputIcon(class S
 }))));
 
 const renderMultiValues = values => (
-  <div style={{ order: '-1' }}>
+  <div style={ { order: '-1' } }>
     { values.map(value => <Pill>{ value.label }</Pill>) }
   </div>
-)
+);
 
 class Select extends React.Component {
   state = {
@@ -60,11 +62,25 @@ class Select extends React.Component {
     open: false
   }
 
+  _list = React.createRef();
+  _input = React.createRef();
+
   updateFilter = ev => this.setState({ filter: ev.target.value })
 
-  handleBlur = ev => this.setState({ filter: null, open: false })
+  handleBlur = () => this.setState({ filter: null, open: false })
 
-  handleFocus = ev => this.setState({ open: true })
+  handleFocus = () => this.setState({ open: true })
+
+  positionList = () => {
+    const inputComponent = ReactDOM.findDOMNode(this._input);
+    const inputElement = inputComponent.getElementsByTagName('input')[0];
+    const inputBoundingRect = inputElement.getBoundingClientRect();
+    const top = `${inputBoundingRect.top + (inputBoundingRect.height) + window.pageYOffset}px`;
+    const width = `${inputBoundingRect.width}px`;
+    const left = `${inputBoundingRect.left}px`;
+    this._list.setAttribute('style', `left: ${left}; top: ${top}; width: ${width}; position: absolute;`);
+    debugger
+  }
 
   render() {
     const isMultiValue = Array.isArray(this.props.value);
@@ -74,6 +90,7 @@ class Select extends React.Component {
       <React.Fragment>
         <SelectBridge
           { ...this.props }
+          ref={ c => this._input = c }
           value={ isMultiValue ? this.props.value : this.props.value.value }
           visibleValue={ this.state.filter || visibleValue }
           onChange={ this.updateFilter }
@@ -82,10 +99,18 @@ class Select extends React.Component {
         >
           { isMultiValue && renderMultiValues(this.props.value) }
         </SelectBridge>
-        { this.state.open && this.props.children }
+        {
+          this.state.open && (
+            <Portal onReposition={ this.positionList }>
+              <div ref={ c => this._list = c }>
+                { this.props.children }
+              </div>
+            </Portal>
+          )
+        }
       </React.Fragment>
     );
   }
-};
+}
 
 export default Select;
