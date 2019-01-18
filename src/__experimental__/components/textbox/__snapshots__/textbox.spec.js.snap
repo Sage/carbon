@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Textbox renders with InputPresentationContext and an input 1`] = `
+<Textbox
+  onChange={[Function]}
+  value="Purple"
+>
+  <InputPresentation>
+    <div>
+      <div
+        className="carbon-input-presentation"
+      >
+        <Input
+          onChange={[Function]}
+          value="Purple"
+        >
+          <input
+            className="carbon-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            value="Purple"
+          />
+        </Input>
+      </div>
+    </div>
+  </InputPresentation>
+</Textbox>
+`;

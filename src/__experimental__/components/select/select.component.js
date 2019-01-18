@@ -6,8 +6,7 @@ import Pill from '../../../components/pill';
 import Portal from '../../../components/portal';
 
 // We use this class as a temporary bridge between the new approach and the decorators,
-// we need it as a class to support refs. We can eventually replace this with the new
-// Textbox component that is under development.
+// we need it as a class to support refs.
 const renderMultiValues = values => (
   <div style={ { order: '-1' } }>
     { values.map(value => <Pill>{ value.label }</Pill>) }

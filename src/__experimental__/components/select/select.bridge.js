@@ -1,4 +1,3 @@
-/* eslint-disable react/no-multi-comp */
 import React from 'react';
 import PropTypes from 'prop-types';
 import InputDecorator from '../../../utils/decorators/input';
@@ -11,7 +10,7 @@ import Textbox from '../textbox';
 
 const SelectBridge = InputDecorator(InputLabel(InputValidation(InputIcon(class Select extends React.Component {
   static propTypes = {
-    visibleValue: PropTypes.string,
+    visibleValue: PropTypes.object,
     children: PropTypes.node
   }
 
@@ -26,7 +25,7 @@ const SelectBridge = InputDecorator(InputLabel(InputValidation(InputIcon(class S
     return (
       <div
         className={ this.mainClasses }
-        ref={ (comp) => { this._target = comp; } }
+        ref={ (c) => { this._target = c; } }
         { ...tagComponent('select', this.props) }
       >
         { this.labelHTML }
