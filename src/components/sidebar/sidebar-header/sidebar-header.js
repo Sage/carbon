@@ -13,7 +13,7 @@ import './sidebar-header.scss';
  *
  * In your file
  *
- *   import { Sidebar, SidebarHeader } from 'carbon/lib/components/sidebar';
+ *   import { Sidebar, SidebarHeader } from 'carbon-react/lib/components/sidebar';
  *
  * To render the Sidebar Header:
  *

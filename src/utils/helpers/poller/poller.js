@@ -27,7 +27,7 @@ import Logger from '../../logger';
  *
  * ===Example Usage===
  *
- * import Poller from 'carbon/lib/utils/helpers/poller';
+ * import Poller from 'carbon-react/lib/utils/helpers/poller';
  *
  * let queryOptions = {  url: '/foo/bar/1' }
  * let options = { interval: 5000 };

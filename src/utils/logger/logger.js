@@ -52,7 +52,7 @@ const log = (message, type, opts = {}) => {
  * To Use:
  *
  * ```
- * import Logger from 'carbon/lib/utils/logger';
+ * import Logger from 'carbon-react/lib/utils/logger';
  *
  * Logger.warn('My Message');
  *

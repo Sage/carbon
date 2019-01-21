@@ -5,7 +5,7 @@
 * In your file
 
 ```javascript
-import Icon from 'carbon/lib/components/icon';
+import Icon from 'carbon-react/lib/components/icon';
 ```
 
 *  To render an Icon:

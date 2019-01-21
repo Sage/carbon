@@ -8,7 +8,7 @@ dorsal coloured, expanding 'slider'.
 In your file:
 
 ```js
-  import Flash from 'carbon/lib/components/flash';
+  import Flash from 'carbon-react/lib/components/flash';
 ```
 
 To render a Flash, setup open and cancel handlers in your view to trigger
