@@ -10,7 +10,7 @@ import Textbox from '../textbox';
 
 const SelectBridge = InputDecorator(InputLabel(InputValidation(InputIcon(class Select extends React.Component {
   static propTypes = {
-    visibleValue: PropTypes.object,
+    visibleValue: PropTypes.string,
     children: PropTypes.node
   }
 

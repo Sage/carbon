@@ -1,21 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import PropTypes from 'prop-types';
+import PropTypes, { object } from 'prop-types';
 import SelectBridge from './select.bridge';
 import Pill from '../../../components/pill';
 import Portal from '../../../components/portal';
 
 // We use this class as a temporary bridge between the new approach and the decorators,
 // we need it as a class to support refs.
-const renderMultiValues = values => (
-  <div style={ { order: '-1' } }>
-    { values.map(value => <Pill>{ value.label }</Pill>) }
-  </div>
-);
+// const renderMultiValues = values => (
+//   <div style={ { order: '-1' } }>
+//     { values.map(value => <Pill>{ value.label }</Pill>) }
+//   </div>
+// );
 
 class Select extends React.Component {
   static propTypes = {
-    value: PropTypes.object,
+    value: PropTypes.oneOfType([PropTypes.object, PropTypes.arrayOf(object)]),
     label: PropTypes.string,
     children: PropTypes.node
   }
@@ -28,6 +28,14 @@ class Select extends React.Component {
   _list = React.createRef();
 
   _input = React.createRef();
+
+  renderMultiValues = (values) => {
+    return (
+      <div style={ { order: '-1' } }>
+        { values.map(value => <Pill key={ value.value }>{ value.label }</Pill>) }
+      </div>
+    );
+  }
 
   updateFilter = ev => this.setState({ filter: ev.target.value })
 
@@ -49,7 +57,6 @@ class Select extends React.Component {
   render() {
     const isMultiValue = Array.isArray(this.props.value);
     const visibleValue = isMultiValue ? '' : this.props.value.label;
-
     return (
       <React.Fragment>
         <SelectBridge
@@ -61,7 +68,7 @@ class Select extends React.Component {
           onBlur={ this.handleBlur }
           onFocus={ this.handleFocus }
         >
-          { isMultiValue && renderMultiValues(this.props.value) }
+          { isMultiValue && this.renderMultiValues(this.props.value) }
         </SelectBridge>
         {
           this.state.open && (
@@ -76,5 +83,4 @@ class Select extends React.Component {
     );
   }
 }
-
 export default Select;
