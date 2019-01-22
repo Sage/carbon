@@ -4,7 +4,7 @@
 
 * In your file:
 ```javascript
-   import ToolTip from 'carbon/lib/components/tooltip'
+   import ToolTip from 'carbon-react/lib/components/tooltip'
 ```
 
 * To render the ToolTip:

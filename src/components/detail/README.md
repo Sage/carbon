@@ -5,7 +5,7 @@
 * In your file:
 
 ```javascript
-import Detail from 'carbon/lib/components/detail';
+import Detail from 'carbon-react/lib/components/detail';
 ```
 
 * To render the Detail:
