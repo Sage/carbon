@@ -1,6 +1,4 @@
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
-import ReactDOM from 'react-dom';
 import { shallow, mount } from 'enzyme';
 import Select from '.';
 
@@ -20,7 +18,7 @@ describe('Select', () => {
     />
   );
   describe('single value', () => {
-    it('component has props with expected values', () => {
+    it('renders component that has props with expected values', () => {
       expect(wrapper.props().onChange).toEqual(fn);
       expect(wrapper.props().label).toEqual('foo');
       expect(wrapper.props().value).toEqual(value);
@@ -52,8 +50,8 @@ describe('Select', () => {
       );
     });
 
-    it('component has props with expected values', () => {
-      expect(wrapper2.props().onChange).toEqual(fn);
+    it('renders component that has props with expected values', () => {
+      expect(wrapper2.props().onChange).toEqual(fn2);
       expect(wrapper2.props().label).toEqual('foo');
       expect(wrapper2.props().value).toEqual(values);
     });
@@ -75,6 +73,7 @@ describe('Select', () => {
       expect(input.exists()).toBeTruthy();
       expect(pres.length).toEqual(1);
       expect(input.length).toEqual(1);
+      expect(pres.find('Input').exists).toBeTruthy();
     });
 
     // probs test in separate describe block
@@ -109,32 +108,112 @@ describe('Select', () => {
 
     it('updates filter state', () => {
       const mockedEvent = { target: { value: 'foo' } };
-      console.log(wrapper2.find('input'));
-      wrapper2.find('input').simulate('change', mockedEvent);
-      spyOn(wrapper2.instance(), 'updateFilter');
-      // wrapper2.simulate(wrapper2.instance().updateFilter(ev2.target.value));
-      expect(wrapper2.instance().updatesFilter).toBeCalled();
+      const input = wrapper2.find('input');
+      wrapper2.instance().updateFilter(mockedEvent);
+      expect(input.value).toEqual('foo');
     });
   });
 
-  describe('handleFocus', () => {
+  describe('focus functions', () => {
     describe('if focus is not blocked', () => {
-      const instance = TestUtils.renderIntoDocument(
+      const wrap = mount(
         <Select
           onChange={ fn }
           value={ { value: '1', label: 'foo' } }
           label='foo'
           validations={ [{}] }
-        />
+        >
+          <div className='option-children'>test1</div>
+          <div className='option-children'>test2</div>
+          <div className='option-children'>test3</div>
+        </Select>
       );
-      it('calls setState', () => {
-        // console.log(instance._input);
-        spyOn(instance, 'setState');
-        // console.log(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'Input'));
-        // eslint-disable-next-line react/no-find-dom-node
-        TestUtils.Simulate.focus(ReactDOM.findDOMNode(instance._input));
-        expect(instance.setState).toBeCalled();
+      // const portalRoot = document.querySelector('.carbon-portal');
+
+      it('does not render a Portal with the children as options when input is not focused', () => {
+        expect(wrap.find('Portal').exists()).toEqual(false);
+        expect(
+          wrap.containsMatchingElement(
+            <div className='option-children'>test1</div>,
+            <div className='option-children'>test2</div>,
+            <div className='option-children'>test3</div>
+          )
+        ).toBeFalsy();
       });
+
+      it('renders a Portal with the children as options when input is focused', () => {
+        wrap.find('input').simulate('focus');
+        expect(wrap.find('Portal').exists()).toEqual(true);
+        expect(
+          wrap.containsMatchingElement(
+            <div className='option-children'>test1</div>,
+            <div className='option-children'>test2</div>,
+            <div className='option-children'>test3</div>
+          )
+        ).toBeTruthy();
+      });
+
+      it('does not renders a Portal with the children as options onBlur', () => {
+        wrap.find('input').simulate('blur');
+        expect(wrap.find('Portal').exists()).toEqual(false);
+        expect(
+          wrap.containsMatchingElement(
+            <div className='option-children'>test1</div>,
+            <div className='option-children'>test2</div>,
+            <div className='option-children'>test3</div>
+          )
+        ).toBeFalsy();
+      });
+    });
+  });
+
+  describe('Mock `getBoundingClientRect`', () => {
+    // beforeEach(() => {
+    //   Element.prototype.getBoundingClientRect = jest.fn(() => {
+    //     return {
+    //       width: 120,
+    //       height: 120,
+    //       top: 0,
+    //       left: 0,
+    //       bottom: 0,
+    //       right: 0
+    //     };
+    //   });
+    // });
+
+    const wrap = mount(
+      <React.Fragment>
+        <Select
+          onChange={ fn }
+          value={ { value: '1', label: 'foo' } }
+          label='foo'
+          validations={ [{}] }
+        >
+          <div className='option-children'>test1</div>
+        </Select>
+      </React.Fragment>
+    );
+    document.body.appendChild(wrap.find());
+
+    // const dim = 120;
+    // const pos = 0;
+    // const parent = shallow(
+    //   <div height={ 120 } width={ 240 }>
+    //     { wrap }
+    //   </div>
+    // );
+
+    it('should mock `getBoundingClientRect`', () => {
+      const element = wrap.instance()._inputElement;
+      // const rect = element.getBoundingClientRect();
+      // element.setAttribute('style', `left: ${0}; top: ${0}; width: ${120}; position: relative;`);
+      spyOn(wrap.instance(), 'positionList');
+      wrap.find('input').simulate('focus');
+      // const list = wrap.instance()._list;
+      // console.log('parent  ==> ', parent.getBoundingClientRect());
+      console.log('element ==> ', element.getBoundingClientRect());
+      expect(wrap.instance().positionList).toHaveBeenCalled();
+      expect(wrap.instance()._list.getBoundingClientRect().width).toEqual(0); // don't leave this like this!
     });
   });
 });

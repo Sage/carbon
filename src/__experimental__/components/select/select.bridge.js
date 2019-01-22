@@ -11,11 +11,16 @@ import Textbox from '../textbox';
 const SelectBridge = InputDecorator(InputLabel(InputValidation(InputIcon(class Select extends React.Component {
   static propTypes = {
     visibleValue: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
+    onEmitRef: PropTypes.func
   }
 
   get inputProps() {
     return validProps(this);
+  }
+
+  componentDidMount() {
+    this.props.onEmitRef(this._target);
   }
 
   render() {

@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes, { object } from 'prop-types';
 import SelectBridge from './select.bridge';
 import Pill from '../../../components/pill';
@@ -7,12 +6,6 @@ import Portal from '../../../components/portal';
 
 // We use this class as a temporary bridge between the new approach and the decorators,
 // we need it as a class to support refs.
-// const renderMultiValues = values => (
-//   <div style={ { order: '-1' } }>
-//     { values.map(value => <Pill>{ value.label }</Pill>) }
-//   </div>
-// );
-
 class Select extends React.Component {
   static propTypes = {
     value: PropTypes.oneOfType([PropTypes.object, PropTypes.arrayOf(object)]),
@@ -44,10 +37,7 @@ class Select extends React.Component {
   handleFocus = () => this.setState({ open: true })
 
   positionList = () => {
-    // eslint-disable-next-line react/no-find-dom-node
-    const inputComponent = ReactDOM.findDOMNode(this._input);
-    const inputElement = inputComponent.getElementsByTagName('input')[0];
-    const inputBoundingRect = inputElement.getBoundingClientRect();
+    const inputBoundingRect = this._inputElement.getBoundingClientRect();
     const top = `${inputBoundingRect.top + (inputBoundingRect.height) + window.pageYOffset}px`;
     const width = `${inputBoundingRect.width}px`;
     const left = `${inputBoundingRect.left}px`;
@@ -67,6 +57,7 @@ class Select extends React.Component {
           onChange={ this.updateFilter }
           onBlur={ this.handleBlur }
           onFocus={ this.handleFocus }
+          onEmitRef={ (ref) => { this._inputElement = ref; } }
         >
           { isMultiValue && this.renderMultiValues(this.props.value) }
         </SelectBridge>
