@@ -1,8 +1,5 @@
-import React from 'react';
 import styled, { css } from 'styled-components';
-import ScrollableListContext from './scrollable-list.context';
-import ScrollableItemWrapper from './scrollable-item-wrapper.component';
-import propTypes from './scrollable-list-item.proptypes';
+import propTypes from 'prop-types';
 
 const StyledListItem = styled.li`
   width: 100%;
@@ -11,15 +8,13 @@ const StyledListItem = styled.li`
   height: 15px;
 `;
 
+StyledListItem.propTypes = {
+  id: propTypes.number,
+  isSelected: propTypes.bool
+};
+
 StyledListItem.defaultProps = {
   isSelectable: true
-}
-
-// const Item = (props) => {
-//   // console.log('ScrollableItemWrapper(StyledListItem, props)', ScrollableItemWrapper(StyledListItem, props));
-//   return ScrollableItemWrapper(StyledListItem, props);
-// };
-
-// Item.propTypes = propTypes;
+};
 
 export default StyledListItem;

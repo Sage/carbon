@@ -1,17 +1,30 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import tagComponent from '../../utils/helpers/tags';
-import ScrollableListItem from './scrollable-list-item.component';
+import Events from '../../utils/helpers/events';
 import ScrollableItemWrapper from './scrollable-item-wrapper.component';
 import ScrollableListContext from './scrollable-list.context';
 import ScrollableListContainer from './scrollable-list.style';
-import propTypes from './scrollable-list.proptypes';
-
 
 class ScrollableList extends Component {
-  static propTypes = propTypes
+  static propTypes = {
+    children: PropTypes.node,
+    onSelect: PropTypes.func,
+    onLazyLoad: PropTypes.func,
+    keyNavigation: PropTypes.bool,
+    maxHeight: PropTypes.string
+  };
 
   state = {
-    selectedItem: 0
+    selectedItem: null
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.keyNavigation && !this.props.keyNavigation) {
+      document.removeEventListener('keydown', this.handleKeyDown);
+    } else if (!prevProps.keyNavigation && this.props.keyNavigation) {
+      document.addEventListener('keydown', this.handleKeyDown);
+    }
   }
 
   scrollBox = React.createRef();
@@ -20,30 +33,44 @@ class ScrollableList extends Component {
     if (this.props.keyNavigation) {
       document.addEventListener('keydown', this.handleKeyDown);
     }
+    const initialSelectedItem = this.nextSelectable('down', -1);
+
+    this.setState({ selectedItem: initialSelectedItem });
   }
 
   componentWillUnmount() {
+    this.handleUnmount();
+  }
+
+  handleUnmount = () => {
     document.removeEventListener('keydown', this.handleKeyDown);
   }
 
   updateScroll = (item) => {
     const { current: list } = this.scrollBox,
         { offsetHeight: listHeight, children } = list,
-        { offsetHeight: itemHeight, offsetTop: itemTop } = children[item];
-
-        console.log(children)
-    
-    const scrollPos = [...children].slice(0, item).reduce((acc, i) => acc + i.offsetHeight,0)
-    // const newScroll = scrollPos + children[item].;
-    console.log('scrollTo')
-    console.log(scrollPos - listHeight)
+        { offsetTop: itemTop } = children[item];
 
     if (itemTop > listHeight) {
-      list.scrollTop = scrollPos - listHeight + itemHeight;
+      // set the bottom of the scroll box to the bottom of the selected item
+      list.scrollTop = this.setScrollTop(item);
     } else {
       list.scrollTop = 0;
     }
   }
+
+  setScrollTop = (item) => {
+    const { current: list } = this.scrollBox,
+        { offsetHeight: listHeight, children } = list,
+        { offsetHeight: itemHeight } = children[item];
+
+    // total height of list up to selected item
+    const scrollPos = [...children].slice(0, item).reduce(this.buildHeight, 0);
+
+    return scrollPos - listHeight + itemHeight;
+  }
+
+  buildHeight = (acc, { offsetHeight }) => acc + offsetHeight
 
   handleScroll = ({ target: { scrollTop, scrollHeight } }) => {
     if (!this.props.onLazyLoad) return;
@@ -56,78 +83,72 @@ class ScrollableList extends Component {
 
     const { selectedItem } = this.state;
     let newPos = selectedItem;
-  
 
-    switch (e.key) {
-      case 'ArrowDown': newPos = this.nextSelectable('down', newPos); break;
-      case 'ArrowUp': newPos = this.nextSelectable('up', newPos); break;
-      case 'Enter': this.props.onSelect(selectedItem); break;
-      default: return;
-    }
+    if (Events.isUpKey(e)) {
+      newPos = this.nextSelectable('up', newPos);
+    } else if (Events.isDownKey(e)) {
+      newPos = this.nextSelectable('down', newPos);
+    } else if (Events.isEnterKey(e)) {
+      this.props.onSelect(selectedItem);
+    } else { return; }
 
     this.updateScroll(newPos);
-
     this.setState({ selectedItem: newPos });
   }
 
   nextSelectable = (direction, position) => {
+    if (!this.props.children) return null;
+
     const { length: limit } = this.props.children;
-    console.log('NEXTSELECTABLE')
-    console.log('limit', limit)
+
+    if (!limit) return null;
+
     const change = direction === 'down' ? 1 : -1,
         testIndex = position + change;
-
-    console.log(direction, 'from position: ', position);
-    console.log('testIndex is: ', testIndex);
-    
 
     if (testIndex === -1) return this.nextSelectable(direction, limit);
 
     if (testIndex === limit) return this.nextSelectable(direction, -1);
-    const testNode = this.props.children[testIndex];
 
-    console.log('testNode is', testNode);
+    const testNode = this.props.children[testIndex];
 
     return this.isSelectable(testNode) ? testIndex : this.nextSelectable(direction, testIndex);
   }
 
   isSelectable = (node) => {
-    // console.log('ISSELECTABLE')
-    // console.log(node)
-    // const conditions = {
-    //   typeof: typeof node,
-    //   node,
-    //   isSelectableProp: node.props.isSelectable,
-    //   type: node.props.type
-    // }
-    // Object.keys(conditions).forEach((key) => console.log(key, conditions[key]));
     return node.props.isSelectable;
   }
 
   renderChildren = (children) => {
-    console.log('list render children:', children)
-    
-    return children.map((Child, i) => {
-      // console.log('Child to map', Child);
-      // console.log(<Child.type { ...Child.props } />)
-      // console.log('CHILD PROPS: ',Child.props);
-      // console.log('index to send to child: ', i);
-      if (Child.props.isSelectable) {
-        // console.log('child is selectable')
-        // console.log('wrapper returns: ', ScrollableItemWrapper(Child.type, Child.props))
-        return ScrollableItemWrapper(Child.type, {...Child.props, id: i });
-      }
-      
-      
-      return <Child.type id={ i } { ...Child.props } />;
+    if (!children) return null;
 
-    })
+    let toRender;
+    if (!Array.isArray(children)) {
+      toRender = [children];
+    } else {
+      toRender = children;
+    }
+
+    return toRender.map((Child, i) => {
+      if (Child.props.isSelectable) {
+        return ScrollableItemWrapper(Child.type, { ...Child.props, id: i, key: i });
+      }
+      return (
+        <Child.type
+          id={ i }
+          key={ i }
+          { ...Child.props }
+        />
+      );
+    });
   }
+
+  handleMouseOver = selectedItem => this.setState({ selectedItem })
+
+  handleIsSelected = item => item === this.state.selectedItem
 
   render() {
     const { children, onSelect } = this.props;
-    const { selectedItem } = this.state;
-    console.log(this.state.selectedItem);
 
     return (
       <ScrollableListContainer
@@ -138,9 +159,9 @@ class ScrollableList extends Component {
       >
         <ScrollableListContext.Provider value={
           {
-            onMouseOver: item => this.setState({ selectedItem: item }),
+            onMouseOver: this.handleMouseOver,
             onClick: item => onSelect(item),
-            isSelected: item => item === selectedItem
+            isSelected: this.handleIsSelected
           }
         }
         >

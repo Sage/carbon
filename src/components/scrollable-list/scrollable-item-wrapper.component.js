@@ -1,18 +1,17 @@
 import React from 'react';
 import ScrollableListContext from './scrollable-list.context';
 
-const ScrollableItemWrapper = (CaptiveComponent, props) => {
-  // console.log('captive component: ', CaptiveComponent)
-  // const { props } = CaptiveComponent;
+const ScrollableItemWrapper = (CaptiveComponent, compProps) => {
+  const { id } = compProps;
   return (
     <ScrollableListContext.Consumer>
       {
         context => (
           <CaptiveComponent
-            onMouseOver={ () => context.onMouseOver(props.id) }
-            onClick={ () => context.onClick(props.id) }
-            isSelected={ context.isSelected(props.id) }          
-            { ...props }
+            onMouseOver={ () => context.onMouseOver(id) }
+            onClick={ () => context.onClick(id) }
+            isSelected={ context.isSelected(id) }
+            { ...compProps }
           />
         )
       }

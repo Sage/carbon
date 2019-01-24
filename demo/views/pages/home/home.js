@@ -6,6 +6,15 @@ import { ScrollableList, ScrollableItemWrapper, ScrollableListItem }  from '../.
 import './demo-site.scss';
 
 const Divider = ({ background }) => <div style={ { height: '100%', width: '100%', background } }>divider</div>;
+const MiniApp = () => {
+  return (
+    <div style={ { display: 'flex' } }>
+      <h2>Mini App</h2>
+      <button>Increment - </button>
+      <button>Decrement + </button>
+    </div>
+  )
+}
 
 const CustomItem = styled.div`
   background: ${({isSelected}) => isSelected && `rgba(40, 250, 20, 0.8)`};
@@ -24,21 +33,24 @@ class Home extends React.Component {
           onSelect={(id) => console.log(id, 'SELECTED')}
           keyNavigation
         >
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(40, 40, 250, 0.5)'}}>This header should not be selectable:</div>
-          <ScrollableListItem >0</ScrollableListItem>
+          <div style={{ color: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(40, 40, 250, 0.5)'}}>This header should not be selectable:</div>
+          {/* <ScrollableListItem >sub 0</ScrollableListItem>
           <div>--- nor should this div be ---</div>
-          <ScrollableListItem >3</ScrollableListItem>
-          <ScrollableListItem >4</ScrollableListItem>
-          <div isSelectable>This item is not a ScrollableItemList is selectable because it has a prop</div>
-          <ScrollableListItem >5</ScrollableListItem>
-          <ScrollableListItem >6</ScrollableListItem>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(40, 40, 250, 0.3)'}}>This sub-header should not be selectable:</div>
-          <ScrollableListItem >7</ScrollableListItem>
-          <CustomItem isSelectable>This component's style is determined by the isSelected prop</CustomItem>
-          <ScrollableListItem >8</ScrollableListItem>
-    
+          <ScrollableListItem >sub 3</ScrollableListItem>
+          <ScrollableListItem >sub 4</ScrollableListItem>
+          <div>--- nor should this div be ---</div>
+          <ScrollableListItem >sub 3</ScrollableListItem>
+          <ScrollableListItem >sub 4</ScrollableListItem>
+          <div>--- nor should this div be ---</div>
+          <CustomItem isSelectable>Style changes on select</CustomItem>
+          <ScrollableListItem >sub 3</ScrollableListItem>
+          <ScrollableListItem >sub 4</ScrollableListItem>
+          <div>--- nor should this div be ---</div>
+          <ScrollableListItem >sub 3</ScrollableListItem>
+          <MiniApp />
+          <ScrollableListItem >sub 4</ScrollableListItem>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'rgba(240, 40, 250, 0.5)'}}>This footer should not be selectable:</div> */}
         </ScrollableList>
-
       </div>
      
     );
