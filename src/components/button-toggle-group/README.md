@@ -5,7 +5,7 @@
 * In your file:
 
 ```javascript
-import ButtonToggleGroup from 'carbon/lib/components/button-toggle-group';
+import ButtonToggleGroup from 'carbon-react/lib/components/button-toggle-group';
 ```
 
 * To render the Button Toggle Group:

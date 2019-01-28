@@ -5,7 +5,7 @@
 * In your file:
 
 ```javascript
-import Pill from 'carbon/lib/components/pill';
+import Pill from 'carbon-react/lib/components/pill';
 ```
 
 * To render the Pill:
