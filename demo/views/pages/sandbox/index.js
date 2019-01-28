@@ -1,17 +1,18 @@
 /* eslint-disable new-parens */
 import React from 'react';
-import Select from '__experimental__/components/select';
+import { Select, Option } from '__experimental__/components/select';
 
 class Sandbox extends React.Component {
-  state = {
-    val: [
-
-    ]
-  }
-
   // state = {
-  //   val: { value: '1', label: 'Purple' }
+  //   val: [{
+  //     label: 'var',
+  //     value: '1'
+  //   }]
   // }
+
+  state = {
+    val: { value: '1', label: 'Purple' }
+  }
 
   render() {
     return (
@@ -23,8 +24,9 @@ class Sandbox extends React.Component {
         // eslint-disable-next-line no-undef
         validations={ [new PresenceValidation] }
       >
-        <div>option 1</div>
-        <div>option 2</div>
+        <Option text='Green Tower' />
+        <Option text='Green Turtle' />
+        <Option text='Big Green' />
       </Select>
     );
   }
