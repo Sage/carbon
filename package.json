@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "babel-standalone": "~6.17.0",
-    "carbon-factory": "git://github.com/sage/carbon-factory.git#FE-1174-upgrade-to-babel-7",
+    "carbon-factory": "7.0.0",
     "core-js": "^2.6.2",
     "cpx": "^1.5.0",
     "enzyme": "^3.3.0",
