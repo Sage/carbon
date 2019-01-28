@@ -29,6 +29,8 @@ class Sandbox extends React.Component {
         <Option text='Big Green' />
       </Select>
     );
+
+    <Select async={ () => {} } />
   }
 }
 

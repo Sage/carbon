@@ -6,6 +6,24 @@ import Portal from '../../../components/portal';
 import tagComponent from '../../../utils/helpers/tags';
 import { FilterableProvider } from './../filterable';
 
+/**
+ * Basic example:
+ *
+ *   <Select>
+ *     <Option text='Approve' />
+ *     <Option text='Configure' />
+ *     <Option text='Deny' />
+ *   </Select>
+ *
+ * Custom JSX:
+ *
+ *   <Select>
+ *     <Option text='Approve'><Icon type='tick' /></Option>
+ *     <Option text='Configure'><Icon type='settings' /></Option>
+ *     <Option text='Deny'><Icon type='cross' /></Option>
+ *   </Select>
+ */
+
 const optionShape = PropTypes.shape({
   value: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired
@@ -30,11 +48,15 @@ class Select extends React.Component {
 
   _input = React.createRef();
 
-  handleFilter = ev => this.setState({ filter: ev.target.value });
-
   handleBlur = () => this.setState({ filter: undefined, open: false });
 
   handleFocus = () => this.setState({ open: true });
+
+  handleFilter = (ev) => {
+    const filterValue = ev.target.value;
+    this.setState({ filter: filterValue });
+    if (this.props.onFilter) this.props.onFilter(filterValue);
+  }
 
   positionList = () => {
     const inputBoundingRect = this._input.current.parentElement.getBoundingClientRect();
