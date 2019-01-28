@@ -5,7 +5,6 @@
     "target": "es5",
     "lib": ["es6", "dom"],
     "outDir": "lib/components",
-    "declaration": true,
     "sourceMap": true,
     "emitDeclarationOnly": true,
     "jsx": "react",
