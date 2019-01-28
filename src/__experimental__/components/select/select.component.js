@@ -36,7 +36,10 @@ class Select extends React.Component {
       PropTypes.arrayOf(optionShape)
     ]),
     label: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
+    onFilter: PropTypes.func,
+    filterType: PropTypes.string,
+    customFilter: PropTypes.func
   }
 
   state = {
