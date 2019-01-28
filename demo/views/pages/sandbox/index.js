@@ -5,9 +5,7 @@ import Select from '__experimental__/components/select';
 class Sandbox extends React.Component {
   state = {
     val: [
-      { value: '1', label: 'Purple' },
-      { value: '2', label: 'Orange' },
-      { value: '3', label: 'Green' }
+
     ]
   }
 
@@ -18,6 +16,7 @@ class Sandbox extends React.Component {
   render() {
     return (
       <Select
+        labelInline
         onChange={ ev => this.setState({ val: ev.target.value }) }
         value={ this.state.val }
         label='Foo'

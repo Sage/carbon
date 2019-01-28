@@ -10,55 +10,43 @@ import './input.style.scss';
 // will add additional supported on the decorated features without the need
 // for the decorators themselves.
 
-class Input extends React.Component {
-  _input = React.createRef();
+// Switch the old class for the new one until we refactor out
+// the input decorators
+const classNamesForInput = className => (
+  className ? className.replace('common-input__input', 'carbon-input') : 'carbon-input'
+);
 
-  // Switch the old class for the new one until we refactor out
-  // the input decorators
-  classNamesForInput(className) {
-    return className ? className.replace('common-input__input', 'carbon-input') : 'carbon-input';
-  }
+const handleFocus = (context, onFocus, input) => (ev) => {
+  if (onFocus) onFocus(ev);
+  if (context && context.onFocus) context.onFocus(ev);
+  input.current.setSelectionRange(0, input.current.value.length);
+};
 
-  handleFocus(context, onFocus) {
-    return (ev) => {
-      if (onFocus) onFocus(ev);
-      if (context && context.onFocus) context.onFocus(ev);
-      this._input.setSelectionRange(0, this._input.value.length);
-    };
-  }
+const handleBlur = (context, onBlur) => (ev) => {
+  if (onBlur) onBlur(ev);
+  if (context && context.onBlur) context.onBlur(ev);
+};
 
-  handleBlur(context, onBlur) {
-    return (ev) => {
-      if (onBlur) onBlur(ev);
-      if (context && context.onBlur) context.onBlur(ev);
-    };
-  }
-
-  render() {
-    const {
-      className,
-      onBlur,
-      onFocus,
-      ...props
-    } = this.props;
-
-    return (
-      <InputPresentationContext.Consumer>
-        {
-          context => (
-            <input
-              ref={ (c) => { this._input = c; } }
-              className={ this.classNamesForInput(className) }
-              onFocus={ this.handleFocus(context, onFocus) }
-              onBlur={ this.handleBlur(context, onBlur) }
-              { ...props }
-            />
-          )
-        }
-      </InputPresentationContext.Consumer>
-    );
-  }
-}
+const Input = React.forwardRef(({
+  className,
+  onBlur,
+  onFocus,
+  ...props
+}, ref) => (
+  <InputPresentationContext.Consumer>
+    {
+      context => (
+        <input
+          ref={ ref }
+          className={ classNamesForInput(className) }
+          onFocus={ handleFocus(context, onFocus, ref) }
+          onBlur={ handleBlur(context, onBlur) }
+          { ...props }
+        />
+      )
+    }
+  </InputPresentationContext.Consumer>
+));
 
 Input.propTypes = {
   className: PropTypes.string,

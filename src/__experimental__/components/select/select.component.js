@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes, { object } from 'prop-types';
-import SelectBridge from './select.bridge';
+import DecoratorBridge from './../decorator-bridge';
 import Pill from '../../../components/pill';
 import Portal from '../../../components/portal';
+import tagComponent from '../../../utils/helpers/tags';
 
 // We use this class as a temporary bridge between the new approach and the decorators,
 // we need it as a class to support refs.
@@ -30,47 +31,48 @@ class Select extends React.Component {
     );
   }
 
-  updateFilter = ev => this.setState({ filter: ev.target.value })
+  handleChange = ev => this.setState({ filter: ev.target.value })
 
   handleBlur = () => this.setState({ filter: null, open: false })
 
   handleFocus = () => this.setState({ open: true })
 
   positionList = () => {
-    const inputBoundingRect = this._inputElement.getBoundingClientRect();
+    const inputBoundingRect = this._input.current.parentElement.getBoundingClientRect();
     const top = `${inputBoundingRect.top + (inputBoundingRect.height) + window.pageYOffset}px`;
     const width = `${inputBoundingRect.width}px`;
     const left = `${inputBoundingRect.left}px`;
-    this._list.setAttribute('style', `left: ${left}; top: ${top}; width: ${width}; position: absolute;`);
+    this._list.current.setAttribute('style', `left: ${left}; top: ${top}; width: ${width}; position: absolute;`);
   }
 
   render() {
     const isMultiValue = Array.isArray(this.props.value);
     const visibleValue = isMultiValue ? '' : this.props.value.label;
+
     return (
-      <React.Fragment>
-        <SelectBridge
+      <div { ...tagComponent('select', this.props) }>
+        <DecoratorBridge
           { ...this.props }
-          ref={ (c) => { this._input = c; } }
           value={ isMultiValue ? this.props.value : this.props.value.value }
-          visibleValue={ this.state.filter || visibleValue }
-          onChange={ this.updateFilter }
+          formattedValue={ this.state.filter || visibleValue }
+          onChange={ this.handleChange }
           onBlur={ this.handleBlur }
           onFocus={ this.handleFocus }
-          onEmitRef={ (ref) => { this._inputElement = ref; } }
+          ref={ this._input }
+          inputIcon='dropdown'
         >
           { isMultiValue && this.renderMultiValues(this.props.value) }
-        </SelectBridge>
+        </DecoratorBridge>
         {
           this.state.open && (
             <Portal onReposition={ this.positionList }>
-              <div ref={ (c) => { this._list = c; } }>
+              <div ref={ this._list }>
                 { this.props.children }
               </div>
             </Portal>
           )
         }
-      </React.Fragment>
+      </div>
     );
   }
 }
