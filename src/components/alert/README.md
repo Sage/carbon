@@ -5,7 +5,7 @@
 * In your file
 
 ```javascript
-import Alert from 'carbon/lib/components/alert';
+import Alert from 'carbon-react/lib/components/alert';
 ```
 
 *  To render a Alert:

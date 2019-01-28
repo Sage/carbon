@@ -26,7 +26,7 @@ describe('Portal', () => {
     });
 
     afterEach(() => {
-      wrapper.unmount();
+      if (wrapper.length) wrapper.unmount();
     });
 
     it('will mount correctly on document', () => {
@@ -99,7 +99,7 @@ describe('Portal', () => {
       });
 
       afterEach(() => {
-        wrapper.unmount();
+        if (wrapper.length) wrapper.unmount();
       });
 
       it('will NOT add window "resize" listener ', () => {
@@ -147,7 +147,7 @@ describe('Portal', () => {
       });
 
       afterEach(() => {
-        wrapper.unmount();
+        if (wrapper.length) wrapper.unmount();
       });
 
       it('will add window "resize" listener ', () => {

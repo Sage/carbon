@@ -5,7 +5,7 @@
 * In your file
 
 ```javascript
-import MultiStepWizard from 'carbon/lib/components/multi-step-wizard';
+import MultiStepWizard from 'carbon-react/lib/components/multi-step-wizard';
 ```
 
 *  To render a Multi Step Wizard:

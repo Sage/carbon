@@ -7,7 +7,7 @@ A component that displays squares with color samples that you can choose from.
  * In your file:
 
 ```javascript
-import SimpleColorPicker from 'carbon/lib/components/simple-color-picker';
+import SimpleColorPicker from 'carbon-react/lib/components/simple-color-picker';
 ```
 
 To render the SimpleColorPicker:

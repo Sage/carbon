@@ -52,9 +52,9 @@ class InlineInputsDemo extends React.Component {
    * @method code
    */
   get code() {
-    let html = "import Dropdown from 'carbon/lib/components/dropdown';\n";
-    html += "import Textbox from 'carbon/lib/components/textbox';\n";
-    html += "import InlineInput from 'carbon/lib/components/inline-input';\n\n";
+    let html = "import Dropdown from 'carbon-react/lib/components/dropdown';\n";
+    html += "import Textbox from 'carbon-react/lib/components/textbox';\n";
+    html += "import InlineInput from 'carbon-react/lib/components/inline-input';\n\n";
 
     html += "let opts = Immutable.fromJS([\n";
     html += "  { id: 1, name: 'Option One' },\n";

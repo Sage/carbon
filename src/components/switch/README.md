@@ -5,7 +5,7 @@
  * In your file:
 
 ```javascript
-import Switch from 'carbon/lib/components/switch';
+import Switch from 'carbon-react/lib/components/switch';
 ```
 
 To render the Switch:
