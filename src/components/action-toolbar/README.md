@@ -5,7 +5,7 @@
 * In your file
 
 ```javascript
-import ActionToolbar from 'carbon/lib/components/action-toolbar';
+import ActionToolbar from 'carbon-react/lib/components/action-toolbar';
 ```
 
 *  To render a Alert:

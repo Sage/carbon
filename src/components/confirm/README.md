@@ -5,7 +5,7 @@
 * In your file
 
 ```javascript
-import Confirm from 'carbon/lib/components/confirm';
+import Confirm from 'carbon-react/lib/components/confirm';
 ```
 
 * To render a Confirm:

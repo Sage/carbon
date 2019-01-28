@@ -5,7 +5,7 @@
 * In your file
 
 ```javascript
-import Portrait from 'carbon/lib/components/portrait';
+import Portrait from 'carbon-react/lib/components/portrait';
 ```
 
 *  To render a Portrait:
