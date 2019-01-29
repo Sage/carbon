@@ -43,8 +43,9 @@ class Button extends React.Component<ButtonProps, {}> {
     disabled: false,
     subtext: ""
   };
-  constructor(...args: any) {
-    super(args);
+  constructor(...args: any[]) {
+    // @ts-ignore
+    super(...args);
     this.element = this.element.bind(this);
   }
   /**
