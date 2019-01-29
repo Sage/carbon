@@ -5,6 +5,7 @@ import 'jest';
 const makeArray = n => [...Array(n).keys()];
 
 const listItemReducer = ({ nonSelectables = [], customSelectables = [] }) => {
+  // generate jsx for selectable list items, based on indexes in config
   return (acc, item) => {
     if (nonSelectables.includes(item)) {
       return [...acc, <div />];

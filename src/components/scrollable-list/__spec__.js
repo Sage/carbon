@@ -184,7 +184,7 @@ describe('ScrollableList', () => {
     })
 
     it('accepts non-selectable elements', () => {
-      expect(childrenFrom(listFrom(scrollableList)).length).toBe(5);
+      expect(childrenFrom(listFrom(scrollableList)).length).toBe(listMakeup.num);
     })
 
     it('does not select non-selectable items', () => {

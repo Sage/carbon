@@ -5,6 +5,7 @@ import Events from '../../utils/helpers/events';
 import ScrollableItemWrapper from './scrollable-item-wrapper.component';
 import ScrollableListContext from './scrollable-list.context';
 import ScrollableListContainer from './scrollable-list.style';
+import Browser from './../../utils/helpers/browser';
 
 class ScrollableList extends Component {
   static propTypes = {
@@ -39,11 +40,7 @@ class ScrollableList extends Component {
   }
 
   componentWillUnmount() {
-    this.handleUnmount();
-  }
-
-  handleUnmount = () => {
-    document.removeEventListener('keydown', this.handleKeyDown);
+    //document.removeEventListener('keydown', this.handleKeyDown);
   }
 
   updateScroll = (item) => {
@@ -120,26 +117,10 @@ class ScrollableList extends Component {
   }
 
   renderChildren = (children) => {
-    if (!children) return null;
-
-    let toRender;
-    if (!Array.isArray(children)) {
-      toRender = [children];
-    } else {
-      toRender = children;
-    }
-
-    return toRender.map((Child, i) => {
-      if (Child.props.isSelectable) {
-        return ScrollableItemWrapper(Child.type, { ...Child.props, id: i, key: i });
-      }
-      return (
-        <Child.type
-          id={ i }
-          key={ i }
-          { ...Child.props }
-        />
-      );
+    return React.Children.map(children, (child, index) => {
+      if (!child.props.isSelectable) return child;
+      const isSelected = index === this.state.selectedItem;
+      return ScrollableItemWrapper(child, index, isSelected)
     });
   }
 
