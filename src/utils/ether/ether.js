@@ -1,4 +1,5 @@
 import { omit, difference, includes } from 'lodash';
+import { render } from 'enzyme';
 
 /**
  * Ether
@@ -59,8 +60,19 @@ function styleElement(element, attribute, value) {
  */
 function validProps(instance, safeProps) {
   const klass = instance.constructor;
-  const unsafeProps = difference(Object.keys(klass.propTypes), safeProps || klass.safeProps || []);
+  let unsafeProps = {};
+  if (klass.propTypes) {
+    unsafeProps = difference(Object.keys(klass.propTypes), safeProps || klass.safeProps || []);
+  }
   return omit(instance.props, unsafeProps);
+}
+
+function validHTMLProps(allProps, invalidProps) {
+  const props = {};
+  Object.keys(allProps)
+    .filter(key => invalidProps.indexOf(key) === -1)
+    .forEach(key => Object.assign(props, { [key]: allProps[key] }));
+  return props;
 }
 
 /**
@@ -91,5 +103,6 @@ export {
   append,
   insertAt,
   styleElement,
-  validProps
+  validProps,
+  validHTMLProps
 };

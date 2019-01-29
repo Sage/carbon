@@ -1,12 +1,24 @@
 import * as React from "react";
 import classNames from "classnames";
-import assign from "lodash/assign";
 import { Link } from "react-router";
 import Icon from "../icon/icon";
-import { validProps } from "../../utils/ether/ether";
+import { validHTMLProps } from "../../utils/ether/ether";
 import Event from "../../utils/helpers/events/events";
 import tagComponent from "../../utils/helpers/tags/tags";
 import "./link.scss";
+
+const propsNotForHTMLElement = [
+  'className',
+  'disabled',
+  'icon',
+  'iconAlign',
+  'tabbable',
+  'to',
+  'tooltipMessage',
+  'tooltipPosition',
+  'tooltipAlign'
+];
+
 interface _LinkProps {
   className?: string,
   disabled?: boolean,
@@ -44,7 +56,7 @@ class _Link extends React.Component<_LinkProps, {}> {
     iconAlign: "left",
     tabbable: true
   };
-  static safeProps = ["onClick"];
+
   constructor(...args: any[]) {
     // @ts-ignore
     super(...args);
@@ -203,12 +215,9 @@ class _Link extends React.Component<_LinkProps, {}> {
    * @return {Object} props
    */
   get componentProps() {
-    let { ...props } = validProps(this, Link.defaultProps);
+    let props = validHTMLProps(this.props, propsNotForHTMLElement);
+    props = { ...props, ...tagComponent("link", this.props) }
     props.tabIndex = this.tabIndex;
-    props = assign({}, props, tagComponent("link", this.props));
-    delete props.href;
-    delete props.tabbable;
-    delete props.to;
     props.className = this.componentClasses;
     props[this.linkType.prop] = this.url;
     props.onKeyDown = this.onKeyDown;
