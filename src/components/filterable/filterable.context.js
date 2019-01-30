@@ -1,5 +1,5 @@
 import React from 'react';
 
-const FilterableContext = React.createContext('FilterableContext');
+const FilterableContext = React.createContext();
 
 export default FilterableContext;

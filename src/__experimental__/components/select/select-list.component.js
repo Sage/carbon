@@ -39,7 +39,8 @@ SelectList.propTypes = {
   filter: PropTypes.string,
   filterType: PropTypes.string,
   customFilter: PropTypes.func,
-  target: PropTypes.object
+  target: PropTypes.object,
+  onChange: PropTypes.func
 };
 
 export default SelectList;

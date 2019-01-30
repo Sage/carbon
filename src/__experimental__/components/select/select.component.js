@@ -4,6 +4,8 @@ import SelectList from './select-list.component';
 import InputDecoratorBridge from './../input-decorator-bridge';
 import Pill from '../../../components/pill';
 import tagComponent from '../../../utils/helpers/tags';
+import Events from '../../../utils/helpers/events';
+import './select.style.scss';
 
 /**
  * Basic example:
@@ -38,7 +40,8 @@ class Select extends React.Component {
     children: PropTypes.node,
     onFilter: PropTypes.func,
     filterType: PropTypes.string,
-    customFilter: PropTypes.func
+    customFilter: PropTypes.func,
+    onChange: PropTypes.func
   }
 
   state = {
@@ -52,10 +55,21 @@ class Select extends React.Component {
 
   handleFocus = () => this.setState({ open: true });
 
+  handleChange = value => this.props.onChange({ target: { value } })
+
   handleFilter = (ev) => {
     const filterValue = ev.target.value;
     this.setState({ filter: filterValue });
     if (this.props.onFilter) this.props.onFilter(filterValue);
+  }
+
+  handleKeyDown = (ev) => {
+    if (!Events.isBackspaceKey(ev)) return;
+    if (!this.isMultiValue(this.props.value)) return;
+    if (this.state.filter) return;
+    const { value } = this.props;
+    value.pop();
+    this.handleChange(value);
   }
 
   formattedValue(filterValue, value) {
@@ -71,13 +85,13 @@ class Select extends React.Component {
     );
   }
 
-  isMultiValue() { return Array.isArray(this.props.value); }
+  isMultiValue(value) { return Array.isArray(value); }
 
   render() {
     const isMultiValue = this.isMultiValue(this.props.value);
 
     return (
-      <div { ...tagComponent('select', this.props) }>
+      <div className='carbon-select' { ...tagComponent('select', this.props) }>
         <InputDecoratorBridge
           { ...this.props }
           value={ isMultiValue ? this.props.value : this.props.value.value }
@@ -85,6 +99,7 @@ class Select extends React.Component {
           onChange={ this.handleFilter }
           onBlur={ this.handleBlur }
           onFocus={ this.handleFocus }
+          onKeyDown={ this.handleKeyDown }
           ref={ this._input }
           inputIcon='dropdown'
         >
@@ -97,6 +112,7 @@ class Select extends React.Component {
           filterType={ this.props.filterType }
           customFilter={ this.props.customFilter }
           target={ this._input.current && this._input.current.parentElement }
+          onChange={ this.handleChange }
         >
           { this.props.children }
         </SelectList>

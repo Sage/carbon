@@ -3,16 +3,19 @@ import React from 'react';
 import { Select, Option } from '__experimental__/components/select';
 
 class Sandbox extends React.Component {
-  // state = {
-  //   val: [{
-  //     label: 'var',
-  //     value: '1'
-  //   }]
-  // }
-
   state = {
-    val: { value: '1', label: 'Purple' }
+    val: [{
+      label: 'Green Tower',
+      value: '1'
+    }, {
+      label: 'Green Turtle',
+      value: '2'
+    }]
   }
+
+  // state = {
+  //   val: { value: '1', label: 'Purple' }
+  // }
 
   render() {
     return (
