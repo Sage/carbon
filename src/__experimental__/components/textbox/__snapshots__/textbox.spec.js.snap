@@ -1,5 +1,33 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Textbox renders with InputPresentationContext and Input 1`] = `
+<ForwardRef
+  onChange={[Function]}
+  value="Purple"
+>
+  <InputPresentation>
+    <div>
+      <div
+        className="carbon-input-presentation"
+      >
+        <ForwardRef
+          onChange={[Function]}
+          value="Purple"
+        >
+          <input
+            className="carbon-input"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            value="Purple"
+          />
+        </ForwardRef>
+      </div>
+    </div>
+  </InputPresentation>
+</ForwardRef>
+`;
+
 exports[`Textbox renders with InputPresentationContext and an input 1`] = `
 <Textbox
   onChange={[Function]}

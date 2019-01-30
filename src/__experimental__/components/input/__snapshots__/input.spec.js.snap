@@ -1,13 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Input renders with InputPresentationContext and an input 1`] = `
-<Input>
-  <InputPresentationContextMock>
+<ForwardRef>
+  <Input
+    forwardRef={null}
+  >
     <input
       className="carbon-input"
       onBlur={[Function]}
       onFocus={[Function]}
     />
-  </InputPresentationContextMock>
-</Input>
+  </Input>
+</ForwardRef>
 `;

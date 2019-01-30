@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes, { object } from 'prop-types';
 import SelectList from './select-list.component';
-import InputDecoratorBridge from './../input-decorator-bridge';
+import InputDecoratorBridge from '../input-decorator-bridge';
 import Pill from '../../../components/pill';
 import tagComponent from '../../../utils/helpers/tags';
 import Events from '../../../utils/helpers/events';

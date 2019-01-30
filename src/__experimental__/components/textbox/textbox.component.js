@@ -20,6 +20,8 @@ const Textbox = React.forwardRef(({
   </InputPresentation>
 ));
 
+Textbox.displayName = 'Textbox';
+
 Textbox.propTypes = {
   value: PropTypes.string,
   children: PropTypes.node

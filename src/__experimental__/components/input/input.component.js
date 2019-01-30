@@ -39,31 +39,40 @@ const handleBlur = (context, onBlur) => (ev) => {
   if (context && context.onBlur) context.onBlur(ev);
 };
 
-const Input = React.forwardRef(({
-  className,
-  onBlur,
-  onFocus,
-  ...props
-}, ref) => (
-  <InputPresentationContext.Consumer>
-    {
-      context => (
-        <input
-          ref={ ref }
-          className={ classNamesForInput(className) }
-          onFocus={ handleFocus(context, onFocus, ref) }
-          onBlur={ handleBlur(context, onBlur) }
-          { ...props }
-        />
-      )
-    }
-  </InputPresentationContext.Consumer>
+class Input extends React.Component {
+  static propTypes = {
+    className: PropTypes.string,
+    onBlur: PropTypes.func,
+    onFocus: PropTypes.func,
+    forwardRef: PropTypes.object
+  }
+
+  static contextType = InputPresentationContext
+
+  // use the forwarded ref or create a new one
+  input = this.props.forwardRef || React.createRef()
+
+  render() {
+    const { 
+      className,
+      onBlur,
+      onFocus,
+      forwardRef,
+      ...props
+    } = this.props;
+
+    return (
+      <input
+        ref={ this.input }
+        className={ classNamesForInput(className) }
+        onFocus={ handleFocus(this.context, onFocus, this.input) }
+        onBlur={ handleBlur(this.context, onBlur) }
+        { ...props }
+      />
+    )
+  }
+}
+
+export default React.forwardRef((props, ref) => (
+  <Input { ...props } forwardRef={ ref } />
 ));
-
-Input.propTypes = {
-  className: PropTypes.string,
-  onBlur: PropTypes.func,
-  onFocus: PropTypes.func
-};
-
-export default Input;
