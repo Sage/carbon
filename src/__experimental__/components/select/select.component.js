@@ -73,8 +73,16 @@ class Select extends React.Component {
   }
 
   formattedValue(filterValue, value) {
-    const visibleValue = this.isMultiValue(value) ? '' : value.label;
+    let visibleValue = '';
+    if (!this.isMultiValue(value) && value) visibleValue = value.label;
     return (typeof filterValue === 'string') ? filterValue : visibleValue;
+  }
+
+  value(value) {
+    const isMultiValue = this.isMultiValue(value);
+    if (isMultiValue) return this.props.value;
+    if (value) return value.value;
+    return value;
   }
 
   renderMultiValues(values) {
@@ -88,13 +96,11 @@ class Select extends React.Component {
   isMultiValue(value) { return Array.isArray(value); }
 
   render() {
-    const isMultiValue = this.isMultiValue(this.props.value);
-
     return (
       <div className='carbon-select' { ...tagComponent('select', this.props) }>
         <InputDecoratorBridge
           { ...this.props }
-          value={ isMultiValue ? this.props.value : this.props.value.value }
+          value={ this.value(this.props.value) }
           formattedValue={ this.formattedValue(this.state.filter, this.props.value) }
           onChange={ this.handleFilter }
           onBlur={ this.handleBlur }
@@ -103,7 +109,7 @@ class Select extends React.Component {
           ref={ this._input }
           inputIcon='dropdown'
         >
-          { isMultiValue && this.renderMultiValues(this.props.value) }
+          { this.isMultiValue(this.props.value) && this.renderMultiValues(this.props.value) }
         </InputDecoratorBridge>
 
         <SelectList
