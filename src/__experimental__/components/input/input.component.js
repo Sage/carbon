@@ -10,8 +10,7 @@ import './input.style.scss';
 // will add additional supported on the decorated features without the need
 // for the decorators themselves.
 
-// Switch the old class for the new one until we refactor out
-// the input decorators
+// Switch the old class for the new one until we refactor out the input decorators
 const classNamesForInput = className => (
   className ? className.replace('common-input__input', 'carbon-input') : 'carbon-input'
 );

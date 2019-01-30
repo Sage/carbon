@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes, { object } from 'prop-types';
-import DecoratorBridge from './../decorator-bridge';
+import SelectList from './select-list.component';
+import InputDecoratorBridge from './../input-decorator-bridge';
 import Pill from '../../../components/pill';
-import Portal from '../../../components/portal';
 import tagComponent from '../../../utils/helpers/tags';
-import { FilterableProvider } from './../filterable';
 
 /**
  * Basic example:
@@ -47,8 +46,6 @@ class Select extends React.Component {
     open: false
   }
 
-  _list = React.createRef();
-
   _input = React.createRef();
 
   handleBlur = () => this.setState({ filter: undefined, open: false });
@@ -61,28 +58,9 @@ class Select extends React.Component {
     if (this.props.onFilter) this.props.onFilter(filterValue);
   }
 
-  positionList = () => {
-    const inputBoundingRect = this._input.current.parentElement.getBoundingClientRect();
-    const top = `${inputBoundingRect.top + (inputBoundingRect.height) + window.pageYOffset}px`;
-    const width = `${inputBoundingRect.width}px`;
-    const left = `${inputBoundingRect.left}px`;
-    this._list.current.setAttribute('style', `left: ${left}; top: ${top}; width: ${width}; position: absolute;`);
-  }
-
-  renderList() {
-    return this.state.open && (
-      <Portal onReposition={ this.positionList }>
-        <div ref={ this._list }>
-          <FilterableProvider
-            filter={ this.state.filter }
-            filterType={ this.props.filterType }
-            customFilter={ this.props.customFilter }
-          >
-            { this.props.children }
-          </FilterableProvider>
-        </div>
-      </Portal>
-    )
+  formattedValue(filterValue, value) {
+    const visibleValue = this.isMultiValue(value) ? '' : value.label;
+    return (typeof filterValue === 'string') ? filterValue : visibleValue;
   }
 
   renderMultiValues(values) {
@@ -93,20 +71,17 @@ class Select extends React.Component {
     );
   }
 
-  formattedValue(filterValue, visibleValue) {
-    return (typeof filterValue === 'string') ? filterValue : visibleValue;
-  }
+  isMultiValue() { return Array.isArray(this.props.value); }
 
   render() {
-    const isMultiValue = Array.isArray(this.props.value);
-    const visibleValue = isMultiValue ? '' : this.props.value.label;
+    const isMultiValue = this.isMultiValue(this.props.value);
 
     return (
       <div { ...tagComponent('select', this.props) }>
-        <DecoratorBridge
+        <InputDecoratorBridge
           { ...this.props }
           value={ isMultiValue ? this.props.value : this.props.value.value }
-          formattedValue={ this.formattedValue(this.state.filter, visibleValue) }
+          formattedValue={ this.formattedValue(this.state.filter, this.props.value) }
           onChange={ this.handleFilter }
           onBlur={ this.handleBlur }
           onFocus={ this.handleFocus }
@@ -114,9 +89,17 @@ class Select extends React.Component {
           inputIcon='dropdown'
         >
           { isMultiValue && this.renderMultiValues(this.props.value) }
-        </DecoratorBridge>
+        </InputDecoratorBridge>
 
-        { this.renderList() }
+        <SelectList
+          open={ this.state.open }
+          filter={ this.state.filter }
+          filterType={ this.props.filterType }
+          customFilter={ this.props.customFilter }
+          target={ this._input.current && this._input.current.parentElement }
+        >
+          { this.props.children }
+        </SelectList>
       </div>
     );
   }

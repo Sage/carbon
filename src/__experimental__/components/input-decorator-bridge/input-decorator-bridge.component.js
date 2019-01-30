@@ -1,23 +1,24 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import InputDecorator from '../../../utils/decorators/input';
-import InputLabel from '../../../utils/decorators/input-label';
-import InputValidation from '../../../utils/decorators/input-validation';
-import InputIcon from '../../../utils/decorators/input-icon';
-import { validProps } from '../../../utils/ether';
+import InputDecorator from '../../../utils/decorators/input/input';
+import InputLabel from '../../../utils/decorators/input-label/input-label';
+import InputValidation from '../../../utils/decorators/input-validation/input-validation';
+import InputIcon from '../../../utils/decorators/input-icon/input-icon';
+import { validProps } from '../../../utils/ether/ether';
 import Textbox from '../textbox';
 
 // This component creates a bridge between the new Textbox component and the old decorator classes.
 // As we remove the decorators, this bridge will become less useful and can be removed.
-const DecoratorBridge = InputDecorator(InputLabel(InputValidation(InputIcon(
-  class DecoratorBridge extends React.Component {
+const InputDecoratorBridge = InputDecorator(InputLabel(InputValidation(InputIcon(
+  class InputDecoratorBridge extends React.Component {
     static propTypes = {
-      formattedValue: PropTypes.string,
-      children: PropTypes.node,
-      forwardedRef: PropTypes.object,
-      inputIcon: PropTypes.string
+      children: PropTypes.node, // optional: will add additional child elements to the input (eg. icons)
+      inputIcon: PropTypes.string, // optional: hooks into the InputIcon decorator to add a button to the input
+      formattedValue: PropTypes.string, // optional: will display this in the input instead value
+      forwardedRef: PropTypes.object
     }
 
+    // this method is required as part of the InputDecorator API
     get inputProps() {
       return validProps(this);
     }
@@ -45,5 +46,5 @@ const DecoratorBridge = InputDecorator(InputLabel(InputValidation(InputIcon(
 ))));
 
 export default React.forwardRef((props, ref) => (
-  <DecoratorBridge { ...props } forwardedRef={ ref } />
+  <InputDecoratorBridge { ...props } forwardedRef={ ref } />
 ));

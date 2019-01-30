@@ -1,7 +1,4 @@
 import Option from './option.component';
-import { WithFilterable } from './../filterable';
+import { WithFilterableItem } from '../../../components/filterable';
 
-const FilterableOption = WithFilterable(Option);
-Option.displayName = 'FilterableOption';
-
-export default FilterableOption;
+export default WithFilterableItem(Option);
