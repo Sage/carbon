@@ -1,23 +1,27 @@
 import tint from '../utils/tint';
 import shade from '../utils/shade';
 
-export default (colors) => {
-  return Object.keys(colors).reduce((acc, col) => {
-    const {
-      base, tints, shades
-    } = colors[col];
+const cachedFunc = cb => (cache = {}) => (weight) => {
+  if (cache[weight]) { return cache[weight]; }
+  const color = cb(weight);
+  cache[weight] = color;
+  return color;
+};
 
-    const tintBy = tint(base);
-    const shadeBy = shade(base);
+const palette = (config) => {
+  const baseNames = Object.keys(config);
 
-    const tintedColors = tints.reduce((tintAcc, weight) => (
-      { ...tintAcc, [`${col}Tint${weight}`]: tintBy(weight) }
-    ), {});
+  return baseNames.reduce((acc, baseName) => {
+    const tintBy = tint(config[baseName]),
+        shadeBy = shade(config[baseName]);
 
-    const shadedColors = shades.reduce((tintAcc, weight) => (
-      { ...tintAcc, [`${col}Shade${weight}`]: shadeBy(weight) }
-    ), {});
+    acc[`${baseName}Tint`] = cachedFunc(tintBy)();
+    acc[`${baseName}Shade`] = cachedFunc(shadeBy)();
+    acc[baseName] = config[baseName].base;
 
-    return { ...acc, ...tintedColors, ...shadedColors, [`${col}Base`]: base };
+    return acc;
   }, {});
 };
+
+
+export default palette;
