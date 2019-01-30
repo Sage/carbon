@@ -10,15 +10,28 @@ import './input.style.scss';
 // will add additional supported on the decorated features without the need
 // for the decorators themselves.
 
-// Switch the old class for the new one until we refactor out
-// the input decorators
+// Switch the old class for the new one until we refactor out the input decorators
 const classNamesForInput = className => (
   className ? className.replace('common-input__input', 'carbon-input') : 'carbon-input'
 );
 
-const handleFocus = (context, onFocus) => (ev) => {
+const selectTextOnFocus = (input) => {
+  // setTimeout is required so the dom has a chance to place the cursor in the input
+  setTimeout(() => {
+    const { length } = input.current.value;
+    const cursorStart = input.current.selectionStart;
+    const cursorEnd = input.current.selectionEnd;
+    // only select text if cursor is at the very end or the very start of the value
+    if ((cursorStart === 0 && cursorEnd === 0) || (cursorStart === length && cursorEnd === length)) {
+      input.current.setSelectionRange(0, length);
+    }
+  });
+};
+
+const handleFocus = (context, onFocus, input) => (ev) => {
   if (onFocus) onFocus(ev);
   if (context && context.onFocus) context.onFocus(ev);
+  selectTextOnFocus(input);
 };
 
 const handleBlur = (context, onBlur) => (ev) => {
@@ -26,30 +39,40 @@ const handleBlur = (context, onBlur) => (ev) => {
   if (context && context.onBlur) context.onBlur(ev);
 };
 
-const Input = ({
-  className,
-  onBlur,
-  onFocus,
-  ...props
-}) => (
-  <InputPresentationContext.Consumer>
-    {
-      context => (
-        <input
-          className={ classNamesForInput(className) }
-          onFocus={ handleFocus(context, onFocus) }
-          onBlur={ handleBlur(context, onBlur) }
-          { ...props }
-        />
-      )
-    }
-  </InputPresentationContext.Consumer>
-);
+class Input extends React.Component {
+  static propTypes = {
+    className: PropTypes.string,
+    onBlur: PropTypes.func,
+    onFocus: PropTypes.func,
+    forwardRef: PropTypes.object
+  }
 
-Input.propTypes = {
-  className: PropTypes.string,
-  onBlur: PropTypes.func,
-  onFocus: PropTypes.func
-};
+  static contextType = InputPresentationContext
 
-export default Input;
+  // use the forwarded ref or create a new one
+  input = this.props.forwardRef || React.createRef()
+
+  render() {
+    const {
+      className,
+      onBlur,
+      onFocus,
+      forwardRef,
+      ...props
+    } = this.props;
+
+    return (
+      <input
+        ref={ this.input }
+        className={ classNamesForInput(className) }
+        onFocus={ handleFocus(this.context, onFocus, this.input) }
+        onBlur={ handleBlur(this.context, onBlur) }
+        { ...props }
+      />
+    );
+  }
+}
+
+export default React.forwardRef((props, ref) => (
+  <Input { ...props } forwardRef={ ref } />
+));
