@@ -108,7 +108,11 @@ class PresenceValidator {
 }
 
 function isValid(value) {
-  return !isEmpty(value) && !value.match(/^\s*$/);
+  if (Array.isArray(value)) {
+    return value.length > 0;
+  } else {
+    return !isEmpty(value) && !value.match(/^\s*$/);
+  }
 }
 
 export default PresenceValidator;
