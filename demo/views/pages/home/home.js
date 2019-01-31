@@ -8,9 +8,6 @@ import SageLovesCarbon from './sage-loves-carbon';
 import SellingPoints from './selling-points';
 import Sectioniser from './sectioniser';
 import Wrapper from './../../common/wrapper';
-
-import { ScrollableList, ScrollableListItem } from '../../../../src/components/scrollable-list';
-
 import './demo-site.scss';
 
 class Home extends React.Component {
@@ -19,29 +16,17 @@ class Home extends React.Component {
    */
   render() {
     return (
-      <div
+      <Sectioniser
+        minDepth='0'
+        maxDepth='0'
       >
-        <ScrollableList
-          keyNavigation
-        >
-          <ScrollableListItem>1</ScrollableListItem>
-          <ScrollableListItem>1</ScrollableListItem>
-          <ScrollableListItem>1</ScrollableListItem>
-          <ScrollableListItem>1</ScrollableListItem>
-          <ScrollableListItem>1</ScrollableListItem>
-          <ScrollableListItem>1</ScrollableListItem>
-          <ScrollableListItem>1</ScrollableListItem>
-          <ScrollableListItem>1</ScrollableListItem>
-        
-          <ScrollableListItem>1</ScrollableListItem>
-          <ScrollableListItem>1</ScrollableListItem>
-          <ScrollableListItem>1</ScrollableListItem>
-          <ScrollableListItem>1</ScrollableListItem>
-        
-        
-        </ScrollableList>
-
-      </div>
+        <AlertBanner />
+        <PageHeaderLarge />
+        <ComponentShowcase />
+        <SellingPoints />
+        <SageLovesCarbon />
+        <GetStarted />
+      </Sectioniser>
     );
   }
 }

@@ -155,8 +155,7 @@ describe('ScrollableList', () => {
 
       it('removes the keypress event listener when unmounted', () => {
         scrollableList.unmount();
-        keyboard.pressDownArrow();
-        expect().not.toThrowError();
+        expect(keyboard.pressDownArrow()).not.toThrowError();
       })
     })
   })
@@ -165,9 +164,7 @@ describe('ScrollableList', () => {
     const listMakeup = {
       nonSelectables: [0,2,4],
       num: 5
-    },
-      assertMouseOverAll = assertHoverTraversal(listMakeup),
-      assertKeyboardOverAll = assertKeyboardTraversal(listMakeup);
+    };
 
     beforeEach(() => {
       scrollableList = mount(
