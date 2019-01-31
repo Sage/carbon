@@ -1,6 +1,5 @@
 import React from 'react';
 import ScrollableListItem from './scrollable-list-item.component';
-import 'jest';
 
 const makeArray = n => [...Array(n).keys()];
 

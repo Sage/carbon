@@ -16,7 +16,6 @@ import {
 import 'jest-styled-components';
 
 const onSelect = jest.fn();
-const onLazyLoad = jest.fn();
 
 describe('ScrollableList', () => {
   let scrollableList, 
@@ -27,7 +26,8 @@ describe('ScrollableList', () => {
     hoverListItem,
     assertMouseOverAll,
     assertKeyboardOverAll,
-    traverseList;
+    traverseList,
+    onLazyLoad = jest.fn();
 
   describe('Basic functionality', () => {
     beforeEach(() => {
@@ -128,7 +128,7 @@ describe('ScrollableList', () => {
   
       it('calls an onSelect callback on pressing the enter key', () => {
         keyboard.pressEnter();
-        expect(onSelect).toBeCalled();
+        expect(onSelect).toHaveBeenCalledWith(initialItem);
       });
 
       it('does nothing when other keys are pressed', () => {
@@ -154,10 +154,9 @@ describe('ScrollableList', () => {
       });
 
       it('removes the keypress event listener when unmounted', () => {
-        const spy = jest.spyOn(scrollableList.instance(), 'handleUnmount');
         scrollableList.unmount();
-        
-        expect(spy).toBeCalled();
+        keyboard.pressDownArrow();
+        expect().not.toThrowError();
       })
     })
   })
@@ -196,12 +195,12 @@ describe('ScrollableList', () => {
       expect(selectedItemOf(scrollableList)).toEqual(initialItem + 1);
     })
 
-    it('skips non-selectable items on keyboard up navigation', () => {
+    it('skips non-selectable items on keyboard down navigation', () => {
       keyboard.pressDownArrow();
       expect(selectedItemOf(scrollableList)).toEqual(initialItem + 3);
     });
 
-    it('skips non-selectable items on keyboard down navigation', () => {
+    it('skips non-selectable items on keyboard up navigation', () => {
       keyboard.pressUpArrow();
       expect(selectedItemOf(scrollableList)).toEqual(3);
     })

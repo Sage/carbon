@@ -5,7 +5,7 @@ import Events from '../../utils/helpers/events';
 import ScrollableItemWrapper from './scrollable-item-wrapper.component';
 import ScrollableListContext from './scrollable-list.context';
 import ScrollableListContainer from './scrollable-list.style';
-import Browser from './../../utils/helpers/browser';
+
 
 class ScrollableList extends Component {
   static propTypes = {
@@ -40,7 +40,7 @@ class ScrollableList extends Component {
   }
 
   componentWillUnmount() {
-    //document.removeEventListener('keydown', this.handleKeyDown);
+    document.removeEventListener('keydown', this.handleKeyDown);
   }
 
   updateScroll = (item) => {
@@ -96,7 +96,7 @@ class ScrollableList extends Component {
   nextSelectable = (direction, position) => {
     if (!this.props.children) return null;
 
-    const { length: limit } = this.props.children;
+    const limit = this.props.children.length;
 
     if (!limit) return null;
 
@@ -120,7 +120,7 @@ class ScrollableList extends Component {
     return React.Children.map(children, (child, index) => {
       if (!child.props.isSelectable) return child;
       const isSelected = index === this.state.selectedItem;
-      return ScrollableItemWrapper(child, index, isSelected)
+      return ScrollableItemWrapper(child, index, isSelected);
     });
   }
 
