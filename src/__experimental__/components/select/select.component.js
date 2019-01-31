@@ -49,7 +49,9 @@ class Select extends React.Component {
     open: false
   }
 
-  _input = React.createRef();
+  _input = {} // this will store a reference to the input html element
+
+  assignInput = (input) => { this._input = input; }
 
   handleBlur = () => this.setState({ filter: undefined, open: false });
 
@@ -106,7 +108,7 @@ class Select extends React.Component {
           onBlur={ this.handleBlur }
           onFocus={ this.handleFocus }
           onKeyDown={ this.handleKeyDown }
-          ref={ this._input }
+          inputRef={ this.assignInput }
           inputIcon='dropdown'
         >
           { this.isMultiValue(this.props.value) && this.renderMultiValues(this.props.value) }
