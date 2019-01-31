@@ -15,7 +15,7 @@ const InputDecoratorBridge = InputDecorator(InputLabel(InputValidation(InputIcon
       children: PropTypes.node, // optional: will add additional child elements to the input (eg. icons)
       inputIcon: PropTypes.string, // optional: hooks into the InputIcon decorator to add a button to the input
       formattedValue: PropTypes.string, // optional: will display this in the input instead value
-      forwardedRef: PropTypes.object
+      inputRef: PropTypes.func // optional: a callback to retrieve the input reference
     }
 
     // this method is required as part of the InputDecorator API
@@ -25,7 +25,7 @@ const InputDecoratorBridge = InputDecorator(InputLabel(InputValidation(InputIcon
 
     render() {
       const { ...inputProps } = this.inputProps;
-      inputProps.ref = this.props.forwardedRef;
+      inputProps.inputRef = this.props.inputRef;
       if (typeof this.props.formattedValue === 'string') inputProps.value = this.props.formattedValue;
 
       return (
@@ -45,6 +45,4 @@ const InputDecoratorBridge = InputDecorator(InputLabel(InputValidation(InputIcon
   }
 ))));
 
-export default React.forwardRef((props, ref) => (
-  <InputDecoratorBridge { ...props } forwardedRef={ ref } />
-));
+export default InputDecoratorBridge;

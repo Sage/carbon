@@ -15,6 +15,7 @@ exports[`InputDecoratorBridge renders the Textbox component with:
       autoComplete="off"
       data-element="input"
       id="mocked-guid"
+      inputRef={[Function]}
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
@@ -52,6 +53,7 @@ exports[`InputDecoratorBridge renders with an inputIcon if one is supplied 1`] =
       autoComplete="off"
       data-element="input"
       id="mocked-guid"
+      inputRef={[Function]}
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
