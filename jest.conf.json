@@ -4,18 +4,5 @@
   "setupFiles": [
     "raf/polyfill",
     "./src/__spec_helper__/index.js"
-  ],
-  "moduleFileExtensions": [
-    "ts",
-    "tsx",
-    "js", 
-    "jsx"
-  ],
-  "transform": {
-    "^.+\\.(js|jsx|ts|tsx)$": "./preprocessor.js"
-  },
-  "testMatch": [
-    "**/__spec__.(ts|tsx|js)",
-    "**/*.spec.(ts|tsx|js)"  
   ]
 }

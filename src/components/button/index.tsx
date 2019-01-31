@@ -2,9 +2,17 @@ import * as  React from "react";
 import classNames from "classnames";
 import assign from "lodash/assign";
 import Link from "../link";
-import { validProps } from "../../utils/ether/ether";
+import { validHTMLProps } from "../../utils/ether/ether";
 import tagComponent from "../../utils/helpers/tags/tags";
 import "./button.scss";
+
+const propsNotForHTMLElement = [
+  'as',
+  'disabled',
+  'size',
+  'subtext'
+];
+
 interface ButtonProps {
   as?: "primary" | "secondary",
   disabled?: boolean,
@@ -35,7 +43,6 @@ interface ButtonProps {
  * @constructor
  */
 class Button extends React.Component<ButtonProps, {}> {
-  static safeProps = ["disabled"];
   static defaultProps = {
     as: "secondary",
     size: "medium",
@@ -84,7 +91,7 @@ class Button extends React.Component<ButtonProps, {}> {
    * @return {Object} JSX
    */
   element(): object {
-    let { ...props } = validProps(this, Button.safeProps);
+    let { ...props } = validHTMLProps(this.props, propsNotForHTMLElement);
     // if props.href then render an anchor instead
     const el = props.href || props.to ? Link : "button";
     props.className = classNames(

@@ -1,53 +1,9 @@
 {
-  "compilerOptions": {
-    "baseUrl": ".",
-    "module": "esnext",
-    "target": "es5",
-    "lib": ["es6", "dom"],
-    "outDir": "lib/components",
-    "sourceMap": true,
-    "emitDeclarationOnly": true,
-    "jsx": "react",
-    "moduleResolution": "node",
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": false,
-    "importHelpers": true,
-    "strictNullChecks": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true
-  },
+  "extends": "./node_modules/carbon-factory/tsconfig.json",
   "include": [
     "src"
   ],
-  "rules": {
-    "object-literal-sort-keys": false,
-    "no-duplicate-variable": true,
-    "max-line-length": {
-        "options": [120]
-    },
-    "ordered-imports": false,
-    "new-parens": true,
-    "no-arg": true,
-    "no-bitwise": true,
-    "no-conditional-assignment": true,
-    "no-consecutive-blank-lines": false,
-    "no-console": {
-        "options": [
-            "debug",
-            "info",
-            "log",
-            "time",
-            "timeEnd",
-            "trace"
-        ]
-    }
-  },
-  "jsRules": {
-    "max-line-length": {
-        "options": [120]
-    },
-    "object-literal-sort-keys": false,
+  "compilerOptions": {
+    "outDir": "lib/components"
   }
 }

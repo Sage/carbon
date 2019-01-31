@@ -60,13 +60,19 @@ function styleElement(element, attribute, value) {
  */
 function validProps(instance, safeProps) {
   const klass = instance.constructor;
-  let unsafeProps = {};
-  if (klass.propTypes) {
-    unsafeProps = difference(Object.keys(klass.propTypes), safeProps || klass.safeProps || []);
-  }
+  const unsafeProps = difference(Object.keys(klass.propTypes), safeProps || klass.safeProps || []);
   return omit(instance.props, unsafeProps);
 }
 
+/**
+ * Returns the props not filtered out by
+ * the invalidProps of the given instance
+ *
+ * @method validHTMLProps
+ * @param {Object} allProps
+ * @param {Array?} invalidProps
+ * @return {Object} props
+ */
 function validHTMLProps(allProps, invalidProps) {
   const props = {};
   Object.keys(allProps)
