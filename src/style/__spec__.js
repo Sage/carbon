@@ -1,8 +1,6 @@
 import config from './color-config';
 import { addOpacity, generatePalette } from './'
 
-console.log(addOpacity);
-
 const assertCorrectColorMix = (config, paletteObject) => {
   Object.keys(config).forEach(col => {
     const match = /([A-Za-z]+)([\d]?[\d]?)/.exec(col);
@@ -12,7 +10,6 @@ const assertCorrectColorMix = (config, paletteObject) => {
     expect(paletteObject[func](weight)).toEqual('#' + config[col]);
   })
 }
-
 
 describe('style', () => {
   let colorConfig = {

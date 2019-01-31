@@ -9,7 +9,6 @@ const cachedFunc = cb => (cache = {}) => (weight) => {
 };
 
 const palette = (config) => {
-  console.log(config)
   const baseNames = Object.keys(config);
 
   const funcs = baseNames.reduce((acc, baseName) => {
@@ -23,7 +22,7 @@ const palette = (config) => {
     return acc;
   }, {});
 
-  return { ...funcs, ...config }
+  return { ...funcs, ...config };
 };
 
 
