@@ -202,3 +202,7 @@ $cubic-bezier: .34,1.10,.69,1.01;
   opacity: 0;
   transition: all $slide-animation-length cubic-bezier($cubic-bezier);
 }
+
+.css-transition-group {
+  height: 100%;
+}
