@@ -203,6 +203,6 @@ $cubic-bezier: .34,1.10,.69,1.01;
   transition: all $slide-animation-length cubic-bezier($cubic-bezier);
 }
 
-.carousel-transition-group-full-height{
+.carbon-carousel__transition{
   height: 100%;
 }
