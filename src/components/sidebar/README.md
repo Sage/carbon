@@ -5,7 +5,7 @@
 * In your file
 
 ```javascript
-  import { Sidebar } from 'carbon/lib/components/sidebar';
+  import { Sidebar } from 'carbon-react/lib/components/sidebar';
 ```
 
 * To render the Sidebar:
@@ -35,7 +35,7 @@ To render content within the SidebarHeader pass a children prop
 * In your file
 
 ```javascript
-  import { Sidebar, SidebarHeader } from 'carbon/lib/components/sidebar';
+  import { Sidebar, SidebarHeader } from 'carbon-react/lib/components/sidebar';
 ```
 
 * To render the Sidebar Header:

@@ -1,5 +1,4 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
 import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
 import { Tabs, Tab } from './tabs';
@@ -146,11 +145,11 @@ describe('Tabs', () => {
         },
         location: ""
       });
+      class DummyComponent extends React.Component {
+        state = {
+          selectedTabId: "uniqueid2", align: 'left'
+        }
 
-      let TestParent = React.createFactory(createReactClass({
-        getInitialState() {
-          return { selectedTabId: "uniqueid2", align: 'left' };
-        },
         render() {
           return (
             <Tabs { ...this.state }>
@@ -165,7 +164,9 @@ describe('Tabs', () => {
             </Tabs>
           );
         }
-      }));
+      };
+
+      let TestParent = React.createFactory(DummyComponent);
       instance = TestUtils.renderIntoDocument(TestParent());
       tabs = TestUtils.scryRenderedComponentsWithType(instance, Tab);
       unique1Tab = tabs[0];
