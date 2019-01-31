@@ -5,7 +5,7 @@
 * In your file
 
 ```javascript
-import DateRange from 'carbon/lib/components/date-range';
+import DateRange from 'carbon-react/lib/components/date-range';
 ```
 
 * To render the DateRange:

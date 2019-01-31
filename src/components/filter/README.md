@@ -5,7 +5,7 @@
 * Import the component:
 
 ```javascript
-import Filter from 'carbon/lib/components/filter';
+import Filter from 'carbon-react/lib/components/filter';
 ```
 
 * To render a Filter:

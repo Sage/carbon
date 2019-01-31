@@ -5,7 +5,7 @@
 * In your file:
 
 ```javascript
-import Button from 'carbon/lib/components/button-toggle';
+import Button from 'carbon-react/lib/components/button-toggle';
 ```
 
 * To render the Button Toggle:

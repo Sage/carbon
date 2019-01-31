@@ -7,7 +7,7 @@ Can be used to integrate React components into pre-existing user interfaces.
 * In your file
 
 ```javascript
-import MountInApp from 'carbon/lib/components/mount-in-app';
+import MountInApp from 'carbon-react/lib/components/mount-in-app';
 ```
 
 *  To render a MountInApp:
