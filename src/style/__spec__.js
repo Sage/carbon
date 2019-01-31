@@ -9,7 +9,7 @@ const assertCorrectColorMix = (config, paletteObject) => {
 
     const func = match[1], weight = Number(match[2]);
 
-    expect(paletteObject[func](weight)).toEqual(config[col]);
+    expect(paletteObject[func](weight)).toEqual('#' + config[col]);
   })
 }
 
@@ -50,9 +50,21 @@ describe('style', () => {
   }
 
   describe('palette', () => {
+    let palette;
+
+    beforeEach(() => {
+      palette = generatePalette(config)
+    })
+
     it('produces the correct color mix', () => {
-      assertCorrectColorMix(colorConfig, generatePalette(config));
+      assertCorrectColorMix(colorConfig, palette);
     });
+
+    it('returns base colors', () => {
+      const baseNames = Object.keys(config);
+      const paletteNames = Object.keys(palette);
+      baseNames.forEach(name => expect(paletteNames.includes(name)).toBeTruthy());
+    })
   })
 
   describe('addOpacity', () => {
