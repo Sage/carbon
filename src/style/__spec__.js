@@ -1,9 +1,7 @@
-import buildPalette from './palette';
-import palette from './palette';
-import mix from './utils/mix';
 import config from './color-config';
+import { addOpacity, generatePalette } from './'
 
-
+console.log(addOpacity);
 
 const assertCorrectColorMix = (config, paletteObject) => {
   Object.keys(config).forEach(col => {
@@ -11,21 +9,16 @@ const assertCorrectColorMix = (config, paletteObject) => {
 
     const func = match[1], weight = Number(match[2]);
 
-    if (!paletteObject[func]) return 
-
     expect(paletteObject[func](weight)).toEqual(config[col]);
   })
 }
 
 
-describe('functional palette', () => {
+describe('style', () => {
   let colorConfig = {
-    brilliantGreenBase: '00DC00',
     brilliantGreenShade20: '00B000',
     brilliantGreenTint50: '7FED7F',
-    goldBase: 'FFB500',
     goldTint50: 'FFDA7F',
-    errorRedBase: 'C7384F',
     errorRedShade20: '9F2C3F',
     genericGreenTint50: '7FCC7F',
     genericGreenTint30: '4CB74C',
@@ -45,7 +38,6 @@ describe('functional palette', () => {
     amethystTint50: 'AB95C1',
     amethystTint30: '8A6BA8',
     amethystTint10: '68418F',
-    amethystBase: '582C83',
     amethystShade10: '4F2775',
     amethystShade30: '3D1E5B',
     slateTint95: 'F2F4F5',
@@ -57,7 +49,29 @@ describe('functional palette', () => {
     slateShade60: '00141D'
   }
 
-  it('produces the correct color mix', () => {
-    assertCorrectColorMix(colorConfig, palette(config))
+  describe('palette', () => {
+    it('produces the correct color mix', () => {
+      assertCorrectColorMix(colorConfig, generatePalette(config));
+    });
+  })
+
+  describe('addOpacity', () => {
+    it('adds the correct opacity to an input color', () => {
+      const blackAt50Opacity = addOpacity('#000000', 0.5);
+      expect(blackAt50Opacity).toEqual('rgba(0,0,0,0.5)');
+    })
+
+    it('consistently adds the correct opacity to an input color', () => {
+      [...Array(100).keys()].map(i => i / 100).forEach(degree => {
+        expect(addOpacity('#000000', degree)).toEqual(`rgba(0,0,0,${degree})`);
+      })
+    })
+
+    it('consistently adds the correct opacity to non-black input colors', () => {
+      [...Array(100).keys()].map(i => i / 100).forEach(degree => {
+        // #006e3a === rgb(0,110,58)
+        expect(addOpacity('#006e3a', degree)).toEqual(`rgba(0,110,58,${degree})`);
+      })
+    })
   })
 })
