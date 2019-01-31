@@ -17,7 +17,6 @@ const palette = (config) => {
 
     acc[`${baseName}Tint`] = cachedFunc(tintBy)();
     acc[`${baseName}Shade`] = cachedFunc(shadeBy)();
-    acc[baseName] = config[baseName].base;
 
     return acc;
   }, {});

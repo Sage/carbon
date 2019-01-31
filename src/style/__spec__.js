@@ -1,4 +1,5 @@
 import config from './color-config';
+import mix from './utils/mix';
 import { addOpacity, generatePalette } from './'
 
 const assertCorrectColorMix = (config, paletteObject) => {
@@ -61,6 +62,30 @@ describe('style', () => {
       const baseNames = Object.keys(config);
       const paletteNames = Object.keys(palette);
       baseNames.forEach(name => expect(paletteNames.includes(name)).toBeTruthy());
+    });
+
+    it('caches function calls', () => {
+      palette.productBlueShade(20);
+      palette.productBlueShade(20);
+    });
+  });
+
+  describe('mix', () => {
+    it('defaults to a weight of 50', () => {
+      expect(mix(config.genericGreen, 'FFFFFF')).toEqual('#' + colorConfig.genericGreenTint50);
+    });
+
+    it('accepts colors without a hash symbol', () => {
+      expect(mix(config.genericGreen, 'FFFFFF')).toEqual('#' + colorConfig.genericGreenTint50);
+    });
+
+    it('accepts colors with a hash symbol', () => {
+      expect(mix('#' + config.genericGreen, '#FFFFFF')).toEqual('#' + colorConfig.genericGreenTint50);
+    });
+
+    it('accepts colors with combinations of with and without hash symbols', () => {
+      expect(mix('#' + config.genericGreen, 'FFFFFF')).toEqual('#' + colorConfig.genericGreenTint50);
+      expect(mix(config.genericGreen, '#FFFFFF')).toEqual('#' + colorConfig.genericGreenTint50);
     })
   })
 
