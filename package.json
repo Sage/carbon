@@ -13,7 +13,6 @@
     "start": "npm run gen-colors && npm run gen-docs && node_modules/.bin/webpack-dev-server",
     "build": "npm run gen-colors && npm run gen-docs && NODE_ENV=production node_modules/.bin/webpack && npm run prep-deploy",
     "test": "jest --config=./jest.conf.json",
-    "clear-tests": "jest --clearCache",
     "debug": "node --inspect ./node_modules/.bin/jest --watch --config=./jest.conf.json",
     "lint": "./node_modules/.bin/eslint",
     "precompile": "npm run clean-lib && npm run copy-files && npm run typescript -- -d && npm run babel",
@@ -63,7 +62,6 @@
     "react-highlight": "briancappello/react-highlight#react-v16-compiled",
     "react-test-renderer": "16.7.0",
     "underscore.string": "~3.3.4",
-    "webpack-dev-server": "^3.1.14",
     "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
   },
   "dependencies": {
