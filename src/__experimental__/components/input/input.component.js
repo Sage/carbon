@@ -44,20 +44,23 @@ class Input extends React.Component {
     className: PropTypes.string,
     onBlur: PropTypes.func,
     onFocus: PropTypes.func,
-    forwardRef: PropTypes.object
+    inputRef: PropTypes.func // a callback to retrieve the input reference
   }
 
   static contextType = InputPresentationContext
 
-  // use the forwarded ref or create a new one
-  input = this.props.forwardRef || React.createRef()
+  input = React.createRef()
+
+  componentDidMount() {
+    if (this.props.inputRef) this.props.inputRef(this.input);
+  }
 
   render() {
     const {
       className,
       onBlur,
       onFocus,
-      forwardRef,
+      inputRef,
       ...props
     } = this.props;
 
@@ -73,6 +76,4 @@ class Input extends React.Component {
   }
 }
 
-export default React.forwardRef((props, ref) => (
-  <Input { ...props } forwardRef={ ref } />
-));
+export default Input;

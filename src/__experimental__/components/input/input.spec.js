@@ -4,7 +4,7 @@ import { Input, InputPresentationContext } from '.';
 
 describe('Input', () => {
   const renderMount = (props, context) => {
-    let component = <Input { ...props } />;
+    let component = <Input onChange={ () => {} } { ...props } />;
 
     if (context) {
       component = (
@@ -17,8 +17,14 @@ describe('Input', () => {
     return mount(component);
   };
 
-  it('renders with InputPresentationContext and an input', () => {
+  it('renders with an input', () => {
     expect(renderMount()).toMatchSnapshot();
+  });
+
+  it('sends the input ref to the inputRef callback', () => {
+    const inputRef = jest.fn();
+    const wrapper = renderMount({ inputRef });
+    expect(inputRef).toHaveBeenCalledWith(wrapper.instance().input);
   });
 
   it('replaces old class name for new one', () => {
