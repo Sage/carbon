@@ -3,6 +3,7 @@ import TestUtils from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Pill from './pill';
+import { exists } from 'fs';
 
 describe('Pill', () => {
   let instance;
@@ -104,7 +105,8 @@ describe('Pill', () => {
 
     it('includes "close" icon when onDelete prop passed', () => {
       let icon = wrapper.find('[data-element="close"]');
-      expect(icon.length).toEqual(1); 
+      expect(icon.exists()).toBeTruthy();
+      expect(icon.length).toEqual(1);
     });
 
     it('triggers the click when the icon is clicked', () => {
@@ -119,7 +121,8 @@ describe('Pill', () => {
         />
       );
       let icon = wrapper.find('[data-element="close"]');
-      expect(icon.length).toEqual(0); 
+      expect(icon.exists()).toBeFalsy();
+      expect(icon.length).toEqual(0);
     });
   });
 });
