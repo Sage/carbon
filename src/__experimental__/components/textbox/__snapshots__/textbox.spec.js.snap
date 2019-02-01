@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Textbox renders with InputPresentation and Input and all props passed to Input 1`] = `
+<InputPresentation>
+  <Input
+    value="foobar"
+  />
+</InputPresentation>
+`;
