@@ -6,11 +6,8 @@ const makeArray = n => [...Array(n).keys()];
 const listItemReducer = ({ nonSelectables = [], customSelectables = [] }) => {
   // generate jsx for selectable list items, based on indexes in config
   return (acc, item) => {
-    if (nonSelectables.includes(item)) {
-      return [...acc, <div />];
-    } else if (customSelectables.includes(item)) {
-      return [...acc, <div isSelectable></div>]
-    }
+    if (nonSelectables.includes(item)) return [...acc, <div />];
+    if (customSelectables.includes(item)) return [...acc, <div isSelectable />];
 
     return [...acc, <ScrollableListItem />];
   };
@@ -21,7 +18,7 @@ const renderListItems = (opts) => {
 };
 
 
-const keyPress = (code) => { 
+const keyPress = (code) => {
   const ev = new KeyboardEvent('keydown', { which: code });
   document.dispatchEvent(ev);
 };
