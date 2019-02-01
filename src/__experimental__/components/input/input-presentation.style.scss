@@ -1,0 +1,31 @@
+@import "./../../../style-config/input-field";
+@import "./../../../style-config/colors";
+
+.carbon-input-presentation {
+  background-color: $white;
+  border-radius: $input-border-radius;
+  border: $input-common-border;
+  box-sizing: border-box;
+  display: flex;
+  height: $input-common-height;
+  line-height: $input-common-line-height;
+  margin: 0px;
+  outline: none;
+  padding: $input-common-padding;
+  vertical-align: baseline;
+  width: 100%;
+
+  &:not(.carbon-input-presentation--has-focus):hover {
+    border-color: $slate-tint-60;
+  }
+
+  .common-input--disabled & {
+    background-color: $slate-tint-85 !important;
+    border-color: $slate-tint-85 !important;
+    color: $black-20 !important;
+  }
+}
+
+.carbon-input-presentation--has-focus {
+  border-color: $blue;
+}
