@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Filterable from './filterable.component';
-import FilterableContext from './filterable.context';
 
 describe('Filterable', () => {
   const shallowRender = props => (

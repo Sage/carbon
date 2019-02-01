@@ -2,8 +2,6 @@ import React from 'react';
 import { mount } from 'enzyme';
 import Filterable from './filterable.component';
 import FilterableItem from './filterable-item.component';
-import FilterableContext from './filterable.context';
-import { Iterable } from 'immutable';
 
 describe('FilterableItem', () => {
   const shallowRender = (props, itemProps) => (

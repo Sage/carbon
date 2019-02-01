@@ -18,7 +18,9 @@ import FilterableContext from './filterable.context';
  *   );
  */
 
-const Filterable = ({ filter, filterType, customFilter, children }) => (
+const Filterable = ({
+  filter, filterType, customFilter, children
+}) => (
   <FilterableContext.Provider value={ { filter, filterType, customFilter } }>
     { children }
   </FilterableContext.Provider>
