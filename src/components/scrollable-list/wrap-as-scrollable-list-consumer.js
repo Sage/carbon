@@ -1,7 +1,7 @@
 import React from 'react';
 import ScrollableListContext from './scrollable-list.context';
 
-const ScrollableItemWrapper = (CaptiveComponent, index, isSelected) => (
+const wrapAsScrollableListConsumer = (CaptiveComponent, index, isSelected) => (
   <ScrollableListContext.Consumer>
     {
       context => (
@@ -16,4 +16,4 @@ const ScrollableItemWrapper = (CaptiveComponent, index, isSelected) => (
   </ScrollableListContext.Consumer>
 );
 
-export default ScrollableItemWrapper;
+export default wrapAsScrollableListConsumer;

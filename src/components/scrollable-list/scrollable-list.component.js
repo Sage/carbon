@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../utils/helpers/tags';
 import Events from '../../utils/helpers/events';
-import ScrollableItemWrapper from './scrollable-item-wrapper.component';
+import wrapAsScrollableListConsumer from './wrap-as-scrollable-list-consumer';
 import ScrollableListContext from './scrollable-list.context';
 import ScrollableListContainer from './scrollable-list.style';
 
@@ -58,16 +58,17 @@ class ScrollableList extends Component {
 
   setScrollTop = (item) => {
     const { current: list } = this.scrollBox,
-        { offsetHeight: listHeight, children } = list,
-        { offsetHeight: itemHeight } = children[item];
+        listHeight = list.offsetHeight,
+        { children } = list,
+        itemHeight = children[item].offsetHeight;
 
     // total height of list up to selected item
-    const scrollPos = [...children].slice(0, item).reduce(this.buildHeight, 0);
+    const scrollPos = [...children].slice(0, item).reduce(this.buildHeightReducer, 0);
 
     return scrollPos - listHeight + itemHeight;
   }
 
-  buildHeight = (acc, { offsetHeight }) => acc + offsetHeight
+  buildHeightReducer = (acc, { offsetHeight }) => acc + offsetHeight
 
   handleScroll = ({ target: { scrollTop, scrollHeight } }) => {
     if (!this.props.onLazyLoad) return;
@@ -76,16 +77,17 @@ class ScrollableList extends Component {
   }
 
   handleKeyDown = (e) => {
-    e.preventDefault();
-
     const { selectedItem } = this.state;
     let newPos = selectedItem;
-
+    
     if (Events.isUpKey(e)) {
+      e.preventDefault();
       newPos = this.nextSelectable('up', newPos);
     } else if (Events.isDownKey(e)) {
+      e.preventDefault();
       newPos = this.nextSelectable('down', newPos);
     } else if (Events.isEnterKey(e)) {
+      e.preventDefault();
       this.props.onSelect(selectedItem);
     } else { return; }
 
@@ -120,7 +122,7 @@ class ScrollableList extends Component {
     return React.Children.map(children, (child, index) => {
       if (!child.props.isSelectable) return child;
       const isSelected = index === this.state.selectedItem;
-      return ScrollableItemWrapper(child, index, isSelected);
+      return wrapAsScrollableListConsumer(child, index, isSelected);
     });
   }
 
