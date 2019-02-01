@@ -1,5 +1,5 @@
 import ScrollableList from './scrollable-list.component';
-import ScrollableItemWrapper from './scrollable-item-wrapper.component';
 import ScrollableListItem from './scrollable-list-item.component';
+import asScrollableListItem from './as-scrollable-list-item.wrapper';
 
-export { ScrollableList, ScrollableItemWrapper, ScrollableListItem };
+export { ScrollableList, ScrollableListItem, asScrollableListItem };
