@@ -51,3 +51,11 @@ exports[`FilterableItem when the given filter is foo renders children instead of
   </div>
 </FilterableItem>
 `;
+
+exports[`FilterableItem when the given filter is undefined renders the child 1`] = `
+<FilterableItem
+  text="foo"
+>
+  foo
+</FilterableItem>
+`;

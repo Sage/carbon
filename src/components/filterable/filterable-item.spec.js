@@ -12,6 +12,13 @@ describe('FilterableItem', () => {
     ).find(FilterableItem)
   );
 
+  describe('when the given filter is undefined', () => {
+    it('renders the child', () => {
+      const wrapper = shallowRender({ filter: undefined }, { text: 'foo' });
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+
   describe('when the given filter is foo', () => {
     const filter = 'foo';
 
