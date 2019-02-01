@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Portal from '../../../components/portal';
 import { Filterable } from '../../../components/filterable';
+import { ScrollableList, ScrollableListItem } from '../../../components/scrollable-list';
 
 class SelectList extends React.Component {
   _list = React.createRef();
@@ -25,7 +26,13 @@ class SelectList extends React.Component {
             filterType={ this.props.filterType }
             customFilter={ this.props.customFilter }
           >
-            { this.props.children }
+            <ScrollableList onSelect={ this.props.onSelect } keyNavigation>
+              {
+                React.Children.map(this.props.children, child => (
+                  <ScrollableListItem id={ { value: child.props.value, text: child.props.text } }>{ child }</ScrollableListItem>
+                ))
+              }
+            </ScrollableList>
           </Filterable>
         </div>
       </Portal>
@@ -40,7 +47,7 @@ SelectList.propTypes = {
   filterType: PropTypes.string,
   customFilter: PropTypes.func,
   target: PropTypes.object,
-  onChange: PropTypes.func
+  onSelect: PropTypes.func
 };
 
 export default SelectList;

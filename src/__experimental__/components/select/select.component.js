@@ -27,7 +27,7 @@ import './select.style.scss';
 
 const optionShape = PropTypes.shape({
   value: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired
 });
 
 class Select extends React.Component {
@@ -49,15 +49,33 @@ class Select extends React.Component {
     open: false
   }
 
+  blockBlur = false
+
   _input = {} // this will store a reference to the input html element
 
   assignInput = (input) => { this._input = input; }
 
-  handleBlur = () => this.setState({ filter: undefined, open: false });
+  handleBlur = () => {
+    if (this.blockBlur) return;
+    this.setState({ filter: undefined, open: false });
+  }
 
   handleFocus = () => this.setState({ open: true });
 
-  handleChange = value => this.props.onChange({ target: { value } })
+  handleChange = (newValue) => {
+    let updatedValue = newValue;
+    if (this.isMultiValue(this.props.value)) {
+      const { value } = this.props;
+      value.push(newValue);
+      updatedValue = value;
+    }
+    this.triggerChange(updatedValue);
+  }
+
+  triggerChange = (value) => {
+    this.setState({ open: false, filter: undefined });
+    this.props.onChange({ target: { value } });
+  }
 
   handleFilter = (ev) => {
     const filterValue = ev.target.value;
@@ -71,7 +89,13 @@ class Select extends React.Component {
     if (this.state.filter) return;
     const { value } = this.props;
     value.pop();
-    this.handleChange(value);
+    this.triggerChange(value);
+  }
+
+  removeItem = (index) => {
+    const { value } = this.props;
+    value.splice(index, 1);
+    this.triggerChange(value);
   }
 
   formattedValue(filterValue, value) {
@@ -90,7 +114,16 @@ class Select extends React.Component {
   renderMultiValues(values) {
     return (
       <div style={ { order: '-1' } }>
-        { values.map(value => <Pill key={ value.value }>{ value.label }</Pill>) }
+        { 
+          values.map((value, index) => (
+            <Pill
+              key={ value.value }
+              onDelete={ () => this.removeItem(index) }
+            >
+              { value.text }
+            </Pill>
+          ))
+        }
       </div>
     );
   }
@@ -120,7 +153,9 @@ class Select extends React.Component {
           filterType={ this.props.filterType }
           customFilter={ this.props.customFilter }
           target={ this._input.current && this._input.current.parentElement }
-          onChange={ this.handleChange }
+          onSelect={ this.handleChange }
+          onMouseEnter={ () => { console.log('in'); this.blockBlur = true; } }
+          onMouseLeave={ () => { console.log('out'); this.blockBlur = false; } }
         >
           { this.props.children }
         </SelectList>

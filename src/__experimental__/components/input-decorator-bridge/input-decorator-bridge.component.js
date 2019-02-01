@@ -26,6 +26,7 @@ const InputDecoratorBridge = InputDecorator(InputLabel(InputValidation(InputIcon
     render() {
       const { ...inputProps } = this.inputProps;
       inputProps.inputRef = this.props.inputRef;
+      delete inputProps.ref; // ref comes from the decorators, we should try to avoid needing it so deleting it
       if (typeof this.props.formattedValue === 'string') inputProps.value = this.props.formattedValue;
 
       return (

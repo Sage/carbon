@@ -88,7 +88,7 @@ class ScrollableList extends Component {
       newPos = this.nextSelectable('down', newPos);
     } else if (Events.isEnterKey(e)) {
       e.preventDefault();
-      this.props.onSelect(selectedItem);
+      this.selectItem(selectedItem);
     } else { return; }
 
     this.updateScroll(newPos);
@@ -128,8 +128,13 @@ class ScrollableList extends Component {
 
   handleMouseOver = selectedItem => this.setState({ selectedItem })
 
+  selectItem = (itemIndex) => {
+    if (!this.props.onSelect) return;
+    this.props.onSelect(this.props.children[itemIndex].props.id);
+  }
+
   render() {
-    const { children, onSelect } = this.props;
+    const { children } = this.props;
 
     return (
       <ScrollableListContainer
@@ -141,7 +146,7 @@ class ScrollableList extends Component {
         <ScrollableListContext.Provider value={
           {
             onMouseOver: this.handleMouseOver,
-            onClick: item => onSelect(item)
+            onClick: this.selectItem
           }
         }
         >

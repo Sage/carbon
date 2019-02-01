@@ -18,10 +18,13 @@ const WithFilterableItem = (Component) => {
       <Component { ...props } />
     </FilterableItem>
   );
+
   WrappedComponent.propTypes = {
     text: PropTypes.string.isRequired
   };
+
   WrappedComponent.displayName = `WithFilterableItem(${Component.displayName})`;
+
   return WrappedComponent;
 };
 

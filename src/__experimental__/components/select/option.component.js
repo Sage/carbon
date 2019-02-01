@@ -8,8 +8,9 @@ const Option = ({ text, children, ...props }) => (
 );
 
 Option.propTypes = {
-  text: PropTypes.string,
-  children: PropTypes.node
+  text: PropTypes.string.isRequired,
+  children: PropTypes.node,
+  value: PropTypes.string.isRequired
 }
 
 export default Option;
