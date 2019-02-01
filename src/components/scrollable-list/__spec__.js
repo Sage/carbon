@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
 import { mount } from 'enzyme';
 import ScrollableList from './scrollable-list.component';
 import { 
@@ -26,7 +27,6 @@ describe('ScrollableList', () => {
     hoverListItem,
     assertMouseOverAll,
     assertKeyboardOverAll,
-    traverseList,
     onLazyLoad = jest.fn();
 
   describe('Basic functionality', () => {
@@ -42,7 +42,6 @@ describe('ScrollableList', () => {
       );
 
       hoverListItem = hoverList(scrollableList);
-      traverseList = traverseListObject(childCount);
       assertMouseOverAll = assertHoverTraversal(listMakeup);
       assertKeyboardOverAll = assertKeyboardTraversal(listMakeup);
     });
@@ -68,6 +67,13 @@ describe('ScrollableList', () => {
         expect(childrenFrom(listFrom(scrollableList)).length).toBe(childCount);
       });
 
+      it('allows items to be selected', () => {
+        const spy = spyOn(scrollableList.instance(), 'handleIsSelected');
+        scrollableList.update();
+        keyboard.pressDownArrow();
+        expect(spy).toHaveBeenCalled();
+      })
+
       it('accepts a single child', () => {
         scrollableList = mount(
           <ScrollableList>
@@ -77,7 +83,7 @@ describe('ScrollableList', () => {
         expect(childrenFrom(listFrom(scrollableList)).length).toBe(1)
       });
 
-      it('renders nothing if no chilren are passed', () => {
+      it('renders nothing if no children are passed', () => {
         scrollableList = mount(<ScrollableList />);
         expect(childrenFrom(listFrom(scrollableList)).length).toBe(0);
       })
@@ -106,9 +112,21 @@ describe('ScrollableList', () => {
       });
 
       it('scrolls as the selected item goes beyond the max-height of the list', () => {
-        const spy = jest.spyOn(scrollableList.instance(), 'setScrollTop');
-        traverseList();
-        expect(spy).toBeCalled();
+        const numOfItems = 20;
+        const listHeight = 100;
+        const itemHeight = 10;
+        const list = {
+          offsetHeight: listHeight,
+          children: [...Array(numOfItems).keys()].map(() => {
+            return { offsetHeight: itemHeight, offsetTop: 0 };
+          }),
+          scrollTop: 0
+        };
+        list.children[lastItem].offsetTop = listHeight + 1;
+        scrollableList.instance().scrollBox.current = list;
+
+        keyboard.pressUpArrow();
+        expect(list.scrollTop).toEqual(numOfItems * itemHeight - listHeight);
       })
   
       it('jumps to the bottom of list when up key pressed at first item', () => {
@@ -155,7 +173,7 @@ describe('ScrollableList', () => {
 
       it('removes the keypress event listener when unmounted', () => {
         scrollableList.unmount();
-        expect(keyboard.pressDownArrow()).not.toThrowError();
+        expect(keyboard.pressDownArrow()).toThrowError();
       })
     })
   })
@@ -249,21 +267,19 @@ describe('ScrollableList', () => {
 
   describe('lazy loading', () => {
     it('accepts a callback which is called when scroll nears the end of item list', () => {
-      scrollableList.simulate('scroll');
+      scrollableList.simulate('scroll', { target: { scrollHeight: 300, scrollTop: 101 } });
       expect(onLazyLoad).toBeCalled();
     });
 
-    it('does not attempt to call a lazy load callback if one is not provided', () => {
-      scrollableList = mount(
-        <ScrollableList 
-          keyNavigation
-          onSelect={onSelect}
-        >
-          { renderListItems({ num: 20 }) }
-        </ScrollableList>
-      )
-      scrollableList.simulate('scroll');
+    it('does not trigger onLazyLoad when the scrollTop is not beyond the scrollHeight', () => {
+      onLazyLoad.mockReset();
+      scrollableList.simulate('scroll', { target: { scrollHeight: 300, scrollTop: 99 } });
       expect(onLazyLoad).not.toBeCalled();
+    });
+
+    it('does not attempt to call a lazy load callback if one is not provided', () => {
+      scrollableList.setProps({ onLazyLoad: undefined });
+      expect(() => scrollableList.simulate('scroll')).not.toThrowError();
     });
   });
 });
