@@ -313,6 +313,7 @@ const Events = {
   isMinusKey: (ev) => {
     return ev.which === 189;
   }
+
 };
 
 export default Events;
