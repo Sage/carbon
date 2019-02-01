@@ -37,6 +37,14 @@ describe('Presence Validator', () => {
 
         expect(new Validator().validate(value, props)).toBeFalsy();
       });
+
+      it('returns false when an empty array is passed', () => {
+        expect(new Validator().validate([])).toBeFalsy();
+      });
+
+      it('returns true when an non-empty array is passed', () => {
+        expect(new Validator().validate([1])).toBeTruthy();
+      });
     });
 
     describe('when props specified', () => {
