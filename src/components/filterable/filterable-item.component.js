@@ -27,8 +27,10 @@ const FilterableItem = ({ text, children }) => (
 );
 
 FilterableItem.propTypes = {
-  text: PropTypes.string.isRequired,
-  children: PropTypes.node
+  // optional: if children is not provided, the component will use props.text as the child,
+  // but passing children may be useful if you want to mix JSX with your output
+  children: PropTypes.node,
+  text: PropTypes.string.isRequired // the text used to apply the filter against
 };
 
 export default FilterableItem;

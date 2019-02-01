@@ -4,7 +4,7 @@ import Filterable from './filterable.component';
 import FilterableItem from './filterable-item.component';
 
 describe('FilterableItem', () => {
-  const shallowRender = (props, itemProps) => (
+  const mountRender = (props, itemProps) => (
     mount(
       <Filterable { ...props }>
         <FilterableItem { ...itemProps } />
@@ -14,7 +14,7 @@ describe('FilterableItem', () => {
 
   describe('when the given filter is undefined', () => {
     it('renders the child', () => {
-      const wrapper = shallowRender({ filter: undefined }, { text: 'foo' });
+      const wrapper = mountRender({ filter: undefined }, { text: 'foo' });
       expect(wrapper).toMatchSnapshot();
     });
   });
@@ -23,17 +23,17 @@ describe('FilterableItem', () => {
     const filter = 'foo';
 
     it('does not render the child if filter does not match the text', () => {
-      const wrapper = shallowRender({ filter }, { text: 'bar' });
+      const wrapper = mountRender({ filter }, { text: 'bar' });
       expect(wrapper).toMatchSnapshot();
     });
 
     it('does render the child if filter does matches the text', () => {
-      const wrapper = shallowRender({ filter }, { text: 'foo' });
+      const wrapper = mountRender({ filter }, { text: 'foo' });
       expect(wrapper).toMatchSnapshot();
     });
 
     it('renders children instead of text if provided', () => {
-      const wrapper = shallowRender({ filter }, { text: 'foo', children: <div>custom children</div> });
+      const wrapper = mountRender({ filter }, { text: 'foo', children: <div>custom children</div> });
       expect(wrapper).toMatchSnapshot();
     });
 
@@ -41,12 +41,12 @@ describe('FilterableItem', () => {
       const filterType = 'startsWith';
 
       it('renders the child if the text starts with foo', () => {
-        const wrapper = shallowRender({ filter, filterType }, { text: 'foobar' });
+        const wrapper = mountRender({ filter, filterType }, { text: 'foobar' });
         expect(wrapper).toMatchSnapshot();
       });
 
       it('does not render the child if the text does not start with foo', () => {
-        const wrapper = shallowRender({ filter, filterType }, { text: 'barfoo' });
+        const wrapper = mountRender({ filter, filterType }, { text: 'barfoo' });
         expect(wrapper).toMatchSnapshot();
       });
     });
@@ -55,12 +55,12 @@ describe('FilterableItem', () => {
       const customFilter = (v, f) => v === f;
 
       it('renders the child when the text is exactly foo', () => {
-        const wrapper = shallowRender({ filter, customFilter }, { text: 'foo' });
+        const wrapper = mountRender({ filter, customFilter }, { text: 'foo' });
         expect(wrapper).toMatchSnapshot();
       });
 
       it('does not render the child when the text is not exactly foo', () => {
-        const wrapper = shallowRender({ filter, customFilter }, { text: 'food' });
+        const wrapper = mountRender({ filter, customFilter }, { text: 'food' });
         expect(wrapper).toMatchSnapshot();
       });
     });
