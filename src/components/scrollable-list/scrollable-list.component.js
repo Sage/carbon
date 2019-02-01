@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../utils/helpers/tags';
 import Events from '../../utils/helpers/events';
-import wrapAsScrollableListConsumer from './wrap-as-scrollable-list-consumer';
+import wrapAsScrollableListConsumer from './as-scrollable-list-item.wrapper';
 import ScrollableListContext from './scrollable-list.context';
 import ScrollableListContainer from './scrollable-list.style';
 
@@ -79,7 +79,7 @@ class ScrollableList extends Component {
   handleKeyDown = (e) => {
     const { selectedItem } = this.state;
     let newPos = selectedItem;
-    
+
     if (Events.isUpKey(e)) {
       e.preventDefault();
       newPos = this.nextSelectable('up', newPos);
@@ -128,8 +128,6 @@ class ScrollableList extends Component {
 
   handleMouseOver = selectedItem => this.setState({ selectedItem })
 
-  handleIsSelected = item => item === this.state.selectedItem
-
   render() {
     const { children, onSelect } = this.props;
 
@@ -143,8 +141,7 @@ class ScrollableList extends Component {
         <ScrollableListContext.Provider value={
           {
             onMouseOver: this.handleMouseOver,
-            onClick: item => onSelect(item),
-            isSelected: this.handleIsSelected
+            onClick: item => onSelect(item)
           }
         }
         >

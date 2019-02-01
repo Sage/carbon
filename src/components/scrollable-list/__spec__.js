@@ -9,7 +9,6 @@ import {
   listFrom,
   renderListItems,
   keyboard,
-  traverseListObject,
   assertKeyboardTraversal,
   assertHoverTraversal,
   click
@@ -66,13 +65,6 @@ describe('ScrollableList', () => {
       it('renders a list of items', () => {
         expect(childrenFrom(listFrom(scrollableList)).length).toBe(childCount);
       });
-
-      it('allows items to be selected', () => {
-        const spy = spyOn(scrollableList.instance(), 'handleIsSelected');
-        scrollableList.update();
-        keyboard.pressDownArrow();
-        expect(spy).toHaveBeenCalled();
-      })
 
       it('accepts a single child', () => {
         scrollableList = mount(

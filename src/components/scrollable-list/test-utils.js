@@ -16,7 +16,7 @@ const listItemReducer = ({ nonSelectables = [], customSelectables = [] }) => {
   };
 };
 
-const renderListItems = (opts = {}) => {
+const renderListItems = (opts) => {
   return makeArray(opts.num).reduce(listItemReducer(opts), []);
 };
 
@@ -51,7 +51,6 @@ const hoverList = wrapper => (item) => {
 const simulateEvent = eventName => wrapper => wrapper.simulate(eventName);
 const click = simulateEvent('click');
 
-const traverseListObject = length => () => keyboard.pressDownArrow(length);
 const selectedItemOf = wrapper => wrapper.state().selectedItem;
 const isUnique = (val, index, self) => self.indexOf(val) === index;
 const isSelectableGiven = nonSelectables => i => !nonSelectables.includes(i);
@@ -84,7 +83,6 @@ export {
   keyboard,
   assertKeyboardTraversal,
   assertHoverTraversal,
-  traverseListObject,
   listFrom,
   click
 };
