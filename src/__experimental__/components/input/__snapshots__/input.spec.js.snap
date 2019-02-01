@@ -1,13 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Input renders with InputPresentationContext and an input 1`] = `
-<Input>
-  <InputPresentationContextMock>
-    <input
-      className="carbon-input"
-      onBlur={[Function]}
-      onFocus={[Function]}
-    />
-  </InputPresentationContextMock>
+exports[`Input renders with an input 1`] = `
+<Input
+  onChange={[Function]}
+>
+  <input
+    className="carbon-input"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onFocus={[Function]}
+  />
 </Input>
 `;
