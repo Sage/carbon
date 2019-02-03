@@ -1,5 +1,4 @@
 import { omit, difference, includes } from 'lodash';
-import { render } from 'enzyme';
 
 /**
  * Ether
