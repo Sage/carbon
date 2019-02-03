@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Portal from '../../../components/portal';
-import { Filterable } from '../../../components/filterable';
+import filterChildren from '../../../utils/filter/filter.util';
 import { ScrollableList, ScrollableListItem } from '../../../components/scrollable-list';
 
 class SelectList extends React.Component {
@@ -17,23 +17,22 @@ class SelectList extends React.Component {
 
   render() {
     if (!this.props.open) return null;
+    const { filter } = this.props;
 
     return (
       <Portal onReposition={ this.positionList }>
-        <div ref={ this._list }>
-          <Filterable
-            filter={ this.props.filter }
-            filterType={ this.props.filterType }
-            customFilter={ this.props.customFilter }
-          >
-            <ScrollableList onSelect={ this.props.onSelect } keyNavigation>
-              {
-                React.Children.map(this.props.children, child => (
-                  <ScrollableListItem id={ { value: child.props.value, text: child.props.text } }>{ child }</ScrollableListItem>
-                ))
-              }
-            </ScrollableList>
-          </Filterable>
+        <div
+          onMouseLeave={ this.props.onMouseLeave }
+          onMouseEnter={ this.props.onMouseEnter }
+          ref={ this._list }
+        >
+          <ScrollableList onSelect={ this.props.onSelect } keyNavigation>
+            {
+              filterChildren({ filter })(this.props.children, child => (
+                <ScrollableListItem id={ { value: child.props.value, text: child.props.text } }>{ child }</ScrollableListItem>
+              ))
+            }
+          </ScrollableList>
         </div>
       </Portal>
     );
@@ -51,3 +50,8 @@ SelectList.propTypes = {
 };
 
 export default SelectList;
+
+
+ScrollableList
+  Option
+    ScrollableListItem

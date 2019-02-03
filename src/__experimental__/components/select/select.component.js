@@ -26,8 +26,8 @@ import './select.style.scss';
  */
 
 const optionShape = PropTypes.shape({
-  value: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired
 });
 
 class Select extends React.Component {
@@ -84,6 +84,7 @@ class Select extends React.Component {
   }
 
   handleKeyDown = (ev) => {
+    if (!this.state.open) this.setState({ open: true });
     if (!Events.isBackspaceKey(ev)) return;
     if (!this.isMultiValue(this.props.value)) return;
     if (this.state.filter) return;
@@ -107,24 +108,22 @@ class Select extends React.Component {
   value(value) {
     const isMultiValue = this.isMultiValue(value);
     if (isMultiValue) return this.props.value;
-    if (value) return value.value;
+    if (value) return value.text;
     return value;
   }
 
   renderMultiValues(values) {
     return (
-      <div style={ { order: '-1' } }>
-        { 
-          values.map((value, index) => (
-            <Pill
-              key={ value.value }
-              onDelete={ () => this.removeItem(index) }
-            >
-              { value.text }
-            </Pill>
-          ))
-        }
-      </div>
+      values.map((value, index) => (
+        <Pill
+          style={ { order: '-1' } }
+          key={ value.value }
+          onDelete={ (ev) => { ev.stopPropagation(); this.removeItem(index) } }
+          fill
+        >
+          { value.text }
+        </Pill>
+      ))
     );
   }
 
@@ -154,8 +153,8 @@ class Select extends React.Component {
           customFilter={ this.props.customFilter }
           target={ this._input.current && this._input.current.parentElement }
           onSelect={ this.handleChange }
-          onMouseEnter={ () => { console.log('in'); this.blockBlur = true; } }
-          onMouseLeave={ () => { console.log('out'); this.blockBlur = false; } }
+          onMouseEnter={ () => { this.blockBlur = true } }
+          onMouseLeave={ () => { this.blockBlur = false } }
         >
           { this.props.children }
         </SelectList>

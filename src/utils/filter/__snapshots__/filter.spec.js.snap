@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`filter filters the given children based on the value 1`] = `
+<div>
+  <div
+    key=".0"
+    text="foo"
+  />
+  <div
+    key=".1"
+    text="foo bar"
+  />
+  <div
+    key=".3"
+  />
+</div>
+`;
