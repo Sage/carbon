@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import { assign } from 'lodash';
 import PropTypes from 'prop-types';
 import Dialog from '../dialog';
-import Button from '../button';
+import Button from '../button/button';
 import CSS from '../../utils/css';
 import './confirm.scss';
 

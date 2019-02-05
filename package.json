@@ -15,14 +15,14 @@
     "test": "jest --config=./jest.conf.json",
     "clear-tests": "jest --clearCache",
     "debug": "node --inspect ./node_modules/.bin/jest --watch --config=./jest.conf.json",
-    "lint": "./node_modules/.bin/eslint ./node_modules/carbon-factory/node_modules/.bin/tslint",
+    "lint": "./node_modules/.bin/tslint",
     "precompile": "npm run clean-lib && npm run copy-files && npm run typescript -- -d --emitDeclarationOnly && npm run babel",
     "typescript": "tsc",
     "prepublishOnly": "node check-version.js && npm install && npm run precompile",
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
     "babel": "NODE_ENV=production babel --stage 0 ./src --config-file ./babel.config.js --out-dir ./lib --ignore '**/*/__spec__.js','**/*.spec.js','**/__definition__.js' --extensions '.tsx,.js' --quiet",
     "clean-lib": "rm -rf ./lib",
-    "copy-files": "cpx 'src/**/!(*.js|*.tsx|*.md|*.snap)' lib"
+    "copy-files": "cpx 'src/**/!(*.js|*.ts|*.tsx|*.md|*.snap)' lib"
   },
   "repository": {
     "type": "git",
@@ -48,7 +48,7 @@
     "@types/react-dom": "^16.0.11",
     "@types/react-redux": "^7.0.0",
     "babel-standalone": "~6.17.0",
-    "carbon-factory": "git@github.com:Sage/carbon-factory.git#upgrade-webpack-dev-server-and-add-typescript-dependencies",
+    "carbon-factory": "git@github.com:Sage/carbon-factory.git#working-tslint-branch",
     "core-js": "^2.6.3",
     "cpx": "^1.5.0",
     "enzyme": "^3.3.0",

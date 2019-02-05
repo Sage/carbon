@@ -5,7 +5,7 @@ import I18n from 'i18n-js';
 import DemoActions from './../../../actions/demo';
 
 // Carbon
-import Link from 'components/link';
+import Link from 'components/link/link';
 import { Sidebar, SidebarHeader } from 'components/sidebar';
 
 // Demo Site

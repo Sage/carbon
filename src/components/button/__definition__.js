@@ -1,4 +1,4 @@
-import Button from './';
+import Button from './button';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 

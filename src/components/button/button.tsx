@@ -1,7 +1,7 @@
 import * as  React from "react";
 import classNames from "classnames";
 import assign from "lodash/assign";
-import Link from "../link";
+import Link from "../link/link";
 import { validHTMLProps } from "../../utils/ether/ether";
 import tagComponent from "../../utils/helpers/tags/tags";
 import "./button.scss";
@@ -13,12 +13,12 @@ const propsNotForHTMLElement = [
   'subtext'
 ];
 
-interface ButtonProps {
+type ButtonProps = {
   as?: "primary" | "secondary",
   disabled?: boolean,
   theme?: string,
   size?: string,
-  subtext?: any
+  subtext?: any,
 };
 /**
  * A button widget.
@@ -48,7 +48,7 @@ class Button extends React.Component<ButtonProps, {}> {
     size: "medium",
     theme: "blue",
     disabled: false,
-    subtext: ""
+    subtext: "",
   };
   constructor(...args: any[]) {
     // @ts-ignore

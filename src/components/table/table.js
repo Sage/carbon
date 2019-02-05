@@ -6,7 +6,7 @@ import Immutable from 'immutable';
 import I18n from 'i18n-js';
 import ActionToolbar from '../action-toolbar';
 import Icon from '../icon';
-import Link from '../link';
+import Link from '../link/link';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';

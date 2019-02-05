@@ -8,7 +8,7 @@ import shouldComponentUpdate from '../../utils/helpers/should-component-update';
 import Portal from '../portal';
 import Icon from '../icon';
 import Alert from '../alert';
-import Link from '../link';
+import Link from '../link/link';
 import tagComponent from '../../utils/helpers/tags';
 import './flash.scss';
 

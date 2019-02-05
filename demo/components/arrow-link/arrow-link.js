@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { humanize } from 'underscore.string';
 
 import Icon from 'components/icon';
-import Link from 'components/link';
+import Link from 'components/link/link';
 import './arrow-link.scss';
 
 /**

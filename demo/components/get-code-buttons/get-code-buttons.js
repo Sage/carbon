@@ -1,7 +1,7 @@
 import React from 'react';
 import I18n from 'i18n-js';
 
-import Button from 'components/button';
+import Button from 'components/button/button';
 import './get-code-buttons.scss';
 
 const GetCodeButtons = {

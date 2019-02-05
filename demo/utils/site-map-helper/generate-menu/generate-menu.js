@@ -1,6 +1,6 @@
 import React from 'react';
 import SiteMap from './../../../site-map';
-import Link from 'components/link';
+import Link from 'components/link/link';
 import { MenuListItem, MenuList } from 'components/menu-list';
 import { humanize, titleize } from 'underscore.string';
 import { startsWith } from 'lodash';
