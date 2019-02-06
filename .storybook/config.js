@@ -7,11 +7,6 @@ import { withNotes } from '@storybook/addon-notes';
 
 import { ThemeProvider } from 'styled-components';
 
-const theme = {
-  main: 'palevioletred',
-  secondary: 'lightblue'
-}
-
 const StyledSelect = styled.select`
   height: 50px;
   width: 150px;
