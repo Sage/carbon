@@ -9,6 +9,8 @@ import Button from './button';
 
 const ThemedButton = styled.button`
   background: ${({ theme }) => theme.main };
+  height: 50px;
+  width: 150px;
 `;
 
 storiesOf('Button', module)
