@@ -18,6 +18,7 @@
     "precompile": "npm run clean-lib && npm run copy-files && npm run babel",
     "prepublishOnly": "node check-version.js && npm install && npm run precompile",
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
+    "storybook": "start-storybook -p 9001 -c .storybook",
     "babel": "NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet",
     "clean-lib": "rm -rf ./lib",
     "copy-files": "cpx 'src/**/*.!(js|md)' lib"
@@ -38,6 +39,9 @@
     "react-dom": "^16.7.0"
   },
   "devDependencies": {
+    "@storybook/addon-a11y": "4.0",
+    "@storybook/addon-actions": "^4.1.11",
+    "@storybook/addon-info": "^4.1.11",
     "babel-standalone": "~6.17.0",
     "carbon-factory": "7.0.0",
     "core-js": "^2.6.2",
@@ -58,6 +62,10 @@
     "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
   },
   "dependencies": {
+    "@storybook/addon-knobs": "^4.1.11",
+    "@storybook/addon-links": "^4.1.11",
+    "@storybook/addon-notes": "^4.1.11",
+    "@storybook/react": "^4.1.11",
     "axios": "^0.14.0",
     "bignumber.js": "~4.0.2",
     "bowser": "~1.5.0",
