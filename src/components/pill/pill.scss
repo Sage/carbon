@@ -26,20 +26,21 @@
   border-radius: 0 9px 9px 0;
   bottom: 0;
   cursor: pointer;
-  margin-left: 5px;
+  margin-left: 3px;
   margin-right: -5px;
   padding: 0;
   position: absolute;
   top: 0;
+  height: 19px;
+  width: 16px;
   -webkit-appearance: none;
 
-  .carbon-icon:before {
-    font-size: 10px;
-    line-height: 10px;
-    margin-left: 2px;
-    margin-right: 2px;
-    position: relative;
-    top: -1px;
+  .carbon-icon {
+    vertical-align: -webkit-baseline-middle;
+
+    &:before {
+      font-size: 9px;
+    }
   }
 
   &:hover,
@@ -65,6 +66,7 @@
 
   .carbon-pill--#{$type}--fill {
     background-color: $color;
+    border: 1px solid $color;
     color: $white;
 
     .carbon-pill__delete-icon {
