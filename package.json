@@ -42,6 +42,7 @@
     "@storybook/addon-a11y": "4.0",
     "@storybook/addon-actions": "^4.1.11",
     "@storybook/addon-info": "^4.1.11",
+    "@storybook/addon-viewport": "^4.1.11",
     "babel-standalone": "~6.17.0",
     "carbon-factory": "7.0.0",
     "core-js": "^2.6.2",
