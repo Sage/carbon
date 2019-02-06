@@ -1,14 +1,20 @@
 import React from 'react';
+import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { text, boolean } from '@storybook/addon-knobs';
 import notes from './notes.md';
 import Button from './button';
 
+const ThemedButton = styled.button`
+  background: ${({ theme }) => theme.main };
+`;
+
 storiesOf('Button', module)
   .addParameters({
     info: { inline: true, header: false }
   })
+  .add('themed', () => <ThemedButton>Themed Button</ThemedButton>)
   .add('with text', () => (
     <Button disabled={boolean('disabled', false)} onClick={action('click')}>{text('Label', 'Hello Storybook')}</Button>
   ))
