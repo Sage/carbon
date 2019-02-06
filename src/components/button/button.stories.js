@@ -7,7 +7,10 @@ import Button from './button';
 
 storiesOf('Button', module)
   .addParameters({
-    info: { inline: true, header: false }
+    info: {
+      inline: true,
+      header: false
+    }
   })
   .add('with text', () => (
     <Button disabled={ boolean('disabled', false) } onClick={ action('click') }>
@@ -20,4 +23,6 @@ storiesOf('Button', module)
   .add('accessibility', () => (
     <Button style={ { background: 'black', color: 'black' } }>Bad</Button>
   ))
-  .add('with notes', () => <Button>Button with notes</Button>, { notes });
+  .add('with notes', () => <Button>Button with notes</Button>, {
+    notes: { markdown: notes }
+  });
