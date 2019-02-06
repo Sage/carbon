@@ -7,8 +7,8 @@ import { linkTo } from '@storybook/addon-links';
 import notes from './notes.md';
 import Button from './button';
 
-const SmallBusiness = styled.button`background: red`;
-const MediumBusiness = styled.button`background: green`;
+const SmallBusiness = styled.button`background: ${({ theme }) => theme.main};`;
+const MediumBusiness = styled.button`background: ${({ theme }) => theme.secondary};`;
 const smallBusiness = <SmallBusiness>small business</SmallBusiness>;
 const mediumBusiness = <MediumBusiness>medium business</MediumBusiness>;
 const options = {
