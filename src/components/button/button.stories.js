@@ -2,16 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { text, boolean } from '@storybook/addon-knobs';
+import { text, boolean, select } from '@storybook/addon-knobs';
 import { linkTo } from '@storybook/addon-links';
 import notes from './notes.md';
 import Button from './button';
+
 
 const ThemedButton = styled.button`
   background: ${({ theme }) => theme.main };
   height: 50px;
   width: 150px;
 `;
+
 
 storiesOf('Button', module)
   .addParameters({
@@ -20,7 +22,17 @@ storiesOf('Button', module)
       header: false
     }
   })
-  .add('themed', () => <ThemedButton>Themed Button</ThemedButton>)
+  .add('themed', () => {
+    const selectedTheme = select('theme', options, options.mediumBusiness);
+
+    switch (selectedTheme) {
+      case options.smallBusiness:
+        return smallBusiness;
+      case options.mediumBusiness:
+      default:
+        return mediumBusiness;
+    }
+  })
   .add('with text', () => (
     <Button
       disabled={ boolean('disabled', false) }
