@@ -10,7 +10,7 @@ It makes an assumption about the format of the data provided. See an example bel
 * In your file:
 
 ```javascript
-import ConfigurableItemsPattern from 'carbon/lib/components/configurable-items-pattern';
+import ConfigurableItemsPattern from 'carbon-react/lib/components/configurable-items-pattern';
 ```
 
 * The data format:

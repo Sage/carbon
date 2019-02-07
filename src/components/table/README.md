@@ -4,9 +4,9 @@ The following is an example of how to use the Table component:
 
 ```js
 import React from 'react';
-import { Table, TableRow, TableCell, TableHeader } from 'carbon/lib/components/table';
-import Textbox from 'carbon/lib/components/textbox';
-import Button from 'carbon/lib/components/button';
+import { Table, TableRow, TableCell, TableHeader } from 'carbon-react/lib/components/table';
+import Textbox from 'carbon-react/lib/components/textbox';
+import Button from 'carbon-react/lib/components/button';
 
 class MyView extends React.Component {
   render() {
@@ -65,8 +65,8 @@ The example above should highlight the flexibility available with grids. You can
 
 ```js
 import React from 'react';
-import { Table, TableRow, TableCell, TableHeader } from 'carbon/lib/components/table';
-import Textbox from 'carbon/lib/components/textbox';
+import { Table, TableRow, TableCell, TableHeader } from 'carbon-react/lib/components/table';
+import Textbox from 'carbon-react/lib/components/textbox';
 
 class MyView extends React.Component {
   render() {

@@ -5,7 +5,7 @@
 * In your file:
 
 ```javascript
-import Create from 'carbon/lib/components/create';
+import Create from 'carbon-react/lib/components/create';
 ```
 
 * To render the component:

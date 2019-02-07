@@ -7,7 +7,7 @@
 * In your file:
 
 ```javascript
-import Content from 'carbon/lib/components/content';
+import Content from 'carbon-react/lib/components/content';
 ```
 
 To render the Content:

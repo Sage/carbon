@@ -5,7 +5,7 @@
 * In your file
 
 ```javascript
-import { Tabs, Tab } from 'carbon/lib/components/tabs';
+import { Tabs, Tab } from 'carbon-react/lib/components/tabs';
 ```
 
 *  To render Tabs:
