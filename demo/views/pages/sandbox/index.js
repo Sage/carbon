@@ -16,45 +16,42 @@ const people = [
 
 class Sandbox extends React.Component {
   state = {
-    people: [{
-      value: '1',
-      text: 'Brian'
-    }, {
-      value: '6',
-      text: 'Samantha'
-    }],
+    people: [],
 
-    country: {
-      value: '2',
-      text: 'Ireland'
-    }
+    country: undefined
   }
 
   render() {
     return(
-      <div style={ { width: '800px', margin: '0 auto' } }>
-        <Select
-          label='Choose People'
-          value={ this.state.people }
-          onChange={ ev => this.setState({ people: ev.target.value }) }
-          labelAlign='right'
-          labelInline
-        >
-          { people.filter(person => !this.state.people.find(item => item.value === person.value)).map(person => <Option { ...person } />) }
-        </Select>
+      <div style={ { width: '800px', margin: '50px auto' } }>
+        <Form>
+          <Select
+            label='Choose Country'
+            value={ this.state.country }
+            onChange={ ev => this.setState({ country: ev.target.value }) }
+            labelAlign='right'
+            labelInline
+            placeholder='Please choose'
+            validations={ [new PresenceValidation() ] }
+          >
+            <Option text='England' value='1' />
+            <Option text='Ireland' value='2' />
+            <Option text='Scotland' value='3' />
+            <Option text='Wales' value='4' />
+          </Select>
 
-        <Select
-          label='Choose Country'
-          value={ this.state.country }
-          onChange={ ev => this.setState({ country: ev.target.value }) }
-          labelAlign='right'
-          labelInline
-        >
-          <Option text='England' value='1' />
-          <Option text='Ireland' value='2' />
-          <Option text='Scotland' value='3' />
-          <Option text='Wales' value='4' />
-        </Select>
+          <Select
+            label='Choose People'
+            value={ this.state.people }
+            onChange={ ev => this.setState({ people: ev.target.value }) }
+            labelAlign='right'
+            labelInline
+            placeholder='Please choose'
+            validations={ [new PresenceValidation() ] }
+          >
+            { people.filter(person => !this.state.people.find(item => item.value === person.value)).map(person => <Option key={ person.value } { ...person } />) }
+          </Select>
+        </Form>
       </div>
     )
   }

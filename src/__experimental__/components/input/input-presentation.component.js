@@ -22,15 +22,20 @@ class InputPresentation extends React.Component {
     hasFocus: false
   }
 
+  container = React.createRef()
+
   onFocus = () => this.setState({ hasFocus: true })
 
   onBlur = () => this.setState({ hasFocus: false })
+
+  assignInput = (input) => { this.input = input; }
 
   contextForInput() {
     return {
       hasFocus: this.state.hasFocus,
       onFocus: this.onFocus,
-      onBlur: this.onBlur
+      onBlur: this.onBlur,
+      inputRef: this.assignInput
     };
   }
 
@@ -40,12 +45,19 @@ class InputPresentation extends React.Component {
     });
   }
 
+  handleClick = (ev) => {
+    if (this.input && ev.target === this.container.current) {
+      this.input.current.focus();
+    }
+  }
+
   render() {
     const { children, ...props } = this.props;
+    props.onClick = this.handleClick;
 
     return (
       <div { ...props }>
-        <div className={ this.classNames() }>
+        <div className={ this.classNames() } ref={ this.container }>
           <InputPresentationContext.Provider value={ this.contextForInput() }>
             { children }
           </InputPresentationContext.Provider>

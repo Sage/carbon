@@ -12,6 +12,17 @@ const ScrollableListContainer = styled.ul`
   overflow-y: scroll;
   padding: 0;
   width: 100%;
+
+  &::-webkit-scrollbar {
+    -webkit-appearance: none;
+    background-color: #EEE;
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #777777;
+    border-radius:4px;
+  }
 `;
 
 ScrollableListContainer.defaultProps = {

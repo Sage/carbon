@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes, { object } from 'prop-types';
+import classNames from 'classnames';
 import SelectList from './select-list.component';
 import InputDecoratorBridge from '../input-decorator-bridge';
 import Pill from '../../../components/pill';
 import tagComponent from '../../../utils/helpers/tags';
 import Events from '../../../utils/helpers/events';
 import './select.style.scss';
+import { timingSafeEqual } from 'crypto';
 
 /**
  * Basic example:
@@ -26,22 +28,23 @@ import './select.style.scss';
  */
 
 const optionShape = PropTypes.shape({
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired
+  value: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
 });
 
 class Select extends React.Component {
   static propTypes = {
+    children: PropTypes.node,
+    className: PropTypes.string,
+    customFilter: PropTypes.func,
+    filterType: PropTypes.string,
+    label: PropTypes.string,
+    onChange: PropTypes.func,
+    onFilter: PropTypes.func,
     value: PropTypes.oneOfType([
       optionShape,
       PropTypes.arrayOf(optionShape)
-    ]),
-    label: PropTypes.string,
-    children: PropTypes.node,
-    onFilter: PropTypes.func,
-    filterType: PropTypes.string,
-    customFilter: PropTypes.func,
-    onChange: PropTypes.func
+    ])
   }
 
   state = {
@@ -49,9 +52,11 @@ class Select extends React.Component {
     open: false
   }
 
-  blockBlur = false
+  blockBlur = false // stops the blur callback from triggering (closing the list) when we don't want it to
 
   _input = {} // this will store a reference to the input html element
+
+  bridge = React.createRef()
 
   assignInput = (input) => { this._input = input; }
 
@@ -60,7 +65,9 @@ class Select extends React.Component {
     this.setState({ filter: undefined, open: false });
   }
 
-  handleFocus = () => this.setState({ open: true });
+  handleFocus = () => {
+    this.setState({ open: true });
+  }
 
   handleChange = (newValue) => {
     let updatedValue = newValue;
@@ -72,11 +79,6 @@ class Select extends React.Component {
     this.triggerChange(updatedValue);
   }
 
-  triggerChange = (value) => {
-    this.setState({ open: false, filter: undefined });
-    this.props.onChange({ target: { value } });
-  }
-
   handleFilter = (ev) => {
     const filterValue = ev.target.value;
     this.setState({ filter: filterValue });
@@ -84,7 +86,17 @@ class Select extends React.Component {
   }
 
   handleKeyDown = (ev) => {
-    if (!this.state.open) this.setState({ open: true });
+    if (Events.isTabKey(ev)) {
+      this.blockBlur = false;
+      this.bridge.current.blockBlur = false;
+      return;
+    }
+    if (!this.state.open) {
+      ev.preventDefault();
+      this.setState({ open: true });
+      return;
+    }
+    if (Events.isEscKey(ev)) this.setState({ open: false });
     if (!Events.isBackspaceKey(ev)) return;
     if (!this.isMultiValue(this.props.value)) return;
     if (this.state.filter) return;
@@ -93,7 +105,27 @@ class Select extends React.Component {
     this.triggerChange(value);
   }
 
-  removeItem = (index) => {
+  handleMouseEnter = () => {
+    this.blockBlur = true;
+    this.bridge.current.blockBlur = true;
+  }
+
+  handleMouseLeave = () => {
+    this.blockBlur = false;
+    this.bridge.current.blockBlur = false;
+  }
+
+  triggerChange(value) {
+    const newState = { filter: undefined };
+    if (!this.isMultiValue(value)) {
+      newState.open = false;
+    }
+    this.setState(newState);
+    if (this.props.onChange) this.props.onChange({ target: { value } });
+    this.bridge.current.setState({ valid: true });
+  }
+
+  removeItem(index) {
     const { value } = this.props;
     value.splice(index, 1);
     this.triggerChange(value);
@@ -115,50 +147,72 @@ class Select extends React.Component {
   renderMultiValues(values) {
     return (
       values.map((value, index) => (
-        <Pill
-          style={ { order: '-1' } }
-          key={ value.value }
-          onDelete={ (ev) => { ev.stopPropagation(); this.removeItem(index) } }
-          fill
-        >
-          { value.text }
-        </Pill>
+        <div key={ value.value } className='carbon-select__pill'>
+          <Pill onDelete={ () => this.removeItem(index) }>
+            { value.text }
+          </Pill>
+        </div>
       ))
     );
   }
 
   isMultiValue(value) { return Array.isArray(value); }
 
+  className(className) { return classNames('carbon-select', className); }
+
+  placeholder(placeholder, value) {
+    if (this.isMultiValue(value)) {
+      return value.length ? null : placeholder;
+    }
+    return placeholder;
+  }
+
   render() {
+    const {
+      children,
+      className,
+      customFilter,
+      filterType,
+      value,
+      placeholder,
+      ...props
+    } = this.props;
+
     return (
-      <div className='carbon-select' { ...tagComponent('select', this.props) }>
+      <>
         <InputDecoratorBridge
-          { ...this.props }
-          value={ this.value(this.props.value) }
-          formattedValue={ this.formattedValue(this.state.filter, this.props.value) }
+          { ...this.props } // this needs to send all of the original props
+          ref={ this.bridge }
+          className={ this.className(className) }
+          value={ this.value(value) }
+          formattedValue={ this.formattedValue(this.state.filter, value) }
           onChange={ this.handleFilter }
           onBlur={ this.handleBlur }
           onFocus={ this.handleFocus }
+          onClick={ this.handleFocus }
           onKeyDown={ this.handleKeyDown }
           inputRef={ this.assignInput }
-          inputIcon='dropdown'
+          inputIcon={ this.isMultiValue(value) ? undefined : 'dropdown' }
+          placeholder={ this.placeholder(placeholder, value) }
         >
-          { this.isMultiValue(this.props.value) && this.renderMultiValues(this.props.value) }
-        </InputDecoratorBridge>
+          { this.isMultiValue(value) && this.renderMultiValues(value) }
 
-        <SelectList
-          open={ this.state.open }
-          filter={ this.state.filter }
-          filterType={ this.props.filterType }
-          customFilter={ this.props.customFilter }
-          target={ this._input.current && this._input.current.parentElement }
-          onSelect={ this.handleChange }
-          onMouseEnter={ () => { this.blockBlur = true } }
-          onMouseLeave={ () => { this.blockBlur = false } }
-        >
-          { this.props.children }
-        </SelectList>
-      </div>
+          <SelectList
+            open={ this.state.open }
+            filter={ this.state.filter }
+            filterType={ filterType }
+            customFilter={ customFilter }
+            target={ this._input.current && this._input.current.parentElement }
+            onSelect={ this.handleChange }
+            onMouseEnter={ this.handleMouseEnter }
+            onMouseLeave={ this.handleMouseLeave }
+            onMouseDown={ () => setTimeout(() => this._input.current.focus()) }
+            defaultHighlight={ !!this.state.filter }
+          >
+            { children }
+          </SelectList>
+        </InputDecoratorBridge>
+      </>
     );
   }
 }

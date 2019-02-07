@@ -10,7 +10,7 @@ const ScrollableListItem = styled.li`
 `;
 
 ScrollableListItem.propTypes = {
-  id: propTypes.string.isRequired,
+  id: propTypes.any,
   isSelected: propTypes.bool
 };
 

@@ -12,18 +12,13 @@ import { Input, InputPresentation } from '../input';
 // );
 
 class Textbox extends React.Component {
-  input = React.createRef()
-
-  focusOnInput = () => {
-    const { input } = this.input.current;
-    input.current.focus();
-  }
-
   render() {
     const { children, ...props } = this.props;
+
     return (
       <InputPresentation onClick={ this.focusOnInput }>
-        <Input ref={ this.input } { ...props } />
+        { props.leftChildren }
+        <Input { ...props } />
         { children }
       </InputPresentation>
     );
