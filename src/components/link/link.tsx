@@ -19,7 +19,7 @@ const propsNotForHTMLElement = [
   'tooltipAlign'
 ];
 
-interface _LinkProps {
+type _LinkProps = {
   className?: string,
   disabled?: boolean,
   href?: string,
