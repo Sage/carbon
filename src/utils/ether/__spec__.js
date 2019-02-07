@@ -1,4 +1,4 @@
-import { append, styleElement, acronymize, validProps, validHTMLProps, insertAt } from './ether.js';
+import { append, styleElement, acronymize, validProps, insertAt } from './ether.js';
 import React from 'react';
 import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
@@ -71,24 +71,6 @@ describe('Ether', () => {
     it('creates valid props with explicit safeProps', () => {
       const instance = new Foo();
       expect(validProps(instance, ['bar'])).toEqual({ bar: 'bar', quux: 'quux' });
-    });
-  });
-
-  describe('validHTMLProps', () => {
-
-    class Foo {
-      constructor() {
-        this.props = { foo: 'foo', bar: 'bar', quux: 'quux'};
-      }
-    }
-
-    it('filter out the valid props based on the filter array', () => {
-      const propsNotForHTMLElement = [
-        'foo',
-        'bar'
-      ]; 
-      const instance = new Foo();
-      expect(validHTMLProps(instance.props, propsNotForHTMLElement)).toEqual({ quux: 'quux' });
     });
   });
 

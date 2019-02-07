@@ -64,23 +64,6 @@ function validProps(instance, safeProps) {
 }
 
 /**
- * Returns the props not filtered out by
- * the invalidProps of the given instance
- *
- * @method validHTMLProps
- * @param {Object} allProps
- * @param {Array?} invalidProps
- * @return {Object} props
- */
-function validHTMLProps(allProps, invalidProps) {
-  const props = {};
-  Object.keys(allProps)
-    .filter(key => invalidProps.indexOf(key) === -1)
-    .forEach(key => Object.assign(props, { [key]: allProps[key] }));
-  return props;
-}
-
-/**
  * Returns string with inserted character at specified indices
  *
  * @method insertAt
@@ -108,6 +91,5 @@ export {
   append,
   insertAt,
   styleElement,
-  validProps,
-  validHTMLProps
+  validProps
 };

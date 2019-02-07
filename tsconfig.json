@@ -2,8 +2,5 @@
   "extends": "./node_modules/carbon-factory/tsconfig.json",
   "include": [
     "src"
-  ],
-  "compilerOptions": {
-    "outDir": "lib/components"
-  }
+  ]
 }
