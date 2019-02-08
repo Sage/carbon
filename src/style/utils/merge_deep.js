@@ -19,7 +19,8 @@ export function mergeDeep(target, ...sources) {
   if (isObject(target) && isObject(source)) {
     for (const key in source) {
       if (isObject(source[key])) {
-        if (!target[key]) Object.assign(target, { [key]: {} });
+        // if (!target[key]) {Object.assign(target, { [key]: {} });
+        // console.log('NEWQUAY');}
         mergeDeep(target[key], source[key]);
       } else {
         Object.assign(target, { [key]: source[key] });

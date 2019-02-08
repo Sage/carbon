@@ -15,16 +15,17 @@ const isObject = (obj) => {
 const lookUp = (obj, trail) => {
   let val;
 
-  for (let i = 0; i < trail.length; i++) {
+  for (let i = 0; i < trail.length -1; i++) {
     val = obj[trail[i]];
+    // console.log(val)
   }
 
   return val;
 };
 
-const stepThroughObjectLevels = (obj, comparison, trail = []) => {
+const stepThroughObjectLevels = (obj, comparison) => {
   if (!isObject(obj)) {
-    expect(lookUp(obj, trail)).toEqual(lookUp(comparison, trail));
+    expect(obj).toEqual(comparison);
     return;
   }
 
@@ -33,7 +34,9 @@ const stepThroughObjectLevels = (obj, comparison, trail = []) => {
 
   objKeys.forEach((key) => {
     expect(comparisonKeys.includes(key)).toBeTruthy();
-    stepThroughObjectLevels(obj[key], comparison[key], [...trail, key]);
+
+
+    stepThroughObjectLevels(obj[key], comparison[key]);
   });
 };
 
@@ -85,6 +88,82 @@ describe('Theming', () => {
       };
 
       stepThroughObjectLevels(smallBusinessConfig, smallBusinessTheme);
+    });
+  });
+
+  describe('mediumBusinessTheme', () => {
+    it('contains the base theme', () => {
+      stepThroughObjectLevels(baseThemeConfig, mediumBusinessTheme);
+    });
+
+    it('contains the mediumBusinessTheme config', () => {
+      const medBusinessConfig = {
+        colors: {
+          base: palette.productBlue,
+          primary: palette.productBlueShade(3),
+          secondary: palette.productBlueShade(23),
+          tertiary: palette.productBlueShade(43)
+        }
+      };
+
+      stepThroughObjectLevels(medBusinessConfig, mediumBusinessTheme);
+    });
+  });
+
+  describe('largeBusinessTheme', () => {
+    it('contains the base theme', () => {
+      stepThroughObjectLevels(baseThemeConfig, largeBusinessTheme);
+    });
+
+    it('contains the largeBusinessTheme config', () => {
+      const largeBusinessConfig = {
+        colors: {
+          base: palette.amethyst,
+          primary: palette.amethystTint(10),
+          secondary: palette.amethystShade(10),
+          tertiary: palette.amethystShade(30)
+        }
+      };
+
+      stepThroughObjectLevels(largeBusinessConfig, largeBusinessTheme);
+    });
+  });
+
+  describe('genericTheme', () => {
+    it('contains the base theme', () => {
+      stepThroughObjectLevels(baseThemeConfig, genericTheme);
+    });
+
+    it('contains the genericTheme config', () => {
+      const genericThemeConfig = {
+        colors: {
+          base: palette.genericGreen,
+          primary: palette.genericGreenTint(15),
+          secondary: palette.genericGreenShade(35),
+          tertiary: palette.genericGreenShade(55)
+        }
+      };
+
+      stepThroughObjectLevels(genericThemeConfig, genericTheme);
+    });
+  });
+
+  describe('classicTheme', () => {
+    it('contains the base theme', () => {
+      stepThroughObjectLevels(baseThemeConfig, classicTheme);
+    });
+
+    it('contains the classicTheme config', () => {
+      const classicThemeConfig = {
+        colors: {
+          base: palette.productGreen,
+          primary: palette.productGreenShade(21),
+          secondary: palette.productGreenShade(41),
+          tertiary: palette.productGreenShade(61)
+        }
+      };
+
+      stepThroughObjectLevels(classicThemeConfig, classicTheme);
     });
   });
 });
