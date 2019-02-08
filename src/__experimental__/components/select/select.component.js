@@ -1,13 +1,11 @@
 import React from 'react';
-import PropTypes, { object } from 'prop-types';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import SelectList from './select-list.component';
 import InputDecoratorBridge from '../input-decorator-bridge';
 import Pill from '../../../components/pill';
-import tagComponent from '../../../utils/helpers/tags';
 import Events from '../../../utils/helpers/events';
 import './select.style.scss';
-import { timingSafeEqual } from 'crypto';
 
 /**
  * Basic example:
@@ -41,6 +39,7 @@ class Select extends React.Component {
     label: PropTypes.string,
     onChange: PropTypes.func,
     onFilter: PropTypes.func,
+    placeholder: PropTypes.string,
     value: PropTypes.oneOfType([
       optionShape,
       PropTypes.arrayOf(optionShape)
@@ -52,25 +51,40 @@ class Select extends React.Component {
     open: false
   }
 
-  blockBlur = false // stops the blur callback from triggering (closing the list) when we don't want it to
+  blurBlocked = false // stops the blur callback from triggering (closing the list) when we don't want it to
 
-  _input = {} // this will store a reference to the input html element
+  input = {} // this will store a reference to the input html element
 
-  bridge = React.createRef()
+  bridge = React.createRef() // this is a reference to the input decorator bridge component
 
-  assignInput = (input) => { this._input = input; }
+  assignInput = (input) => { this.input = input; }
+
+  blockBlur() {
+    this.blurBlocked = true;
+    this.bridge.current.blockBlur = true;
+  }
+
+  unblockBlur() {
+    this.blurBlocked = false;
+    this.bridge.current.blockBlur = false;
+  }
 
   handleBlur = () => {
-    if (this.blockBlur) return;
+    if (this.blurBlocked) return;
     this.setState({ filter: undefined, open: false });
   }
 
-  handleFocus = () => {
-    this.setState({ open: true });
-  }
+  // opens the dropdown and ensures the input has focus
+  // (this fixes a bug in which rapidly clicking the label or dropdown icon would break the list open state)
+  handleFocus = () => this.setState({ open: true }, () => this.input.current.focus())
+
+  handleMouseEnter = () => this.blockBlur()
+
+  handleMouseLeave = () => this.unblockBlur()
 
   handleChange = (newValue) => {
     let updatedValue = newValue;
+    // if the component is multi value then we need to push the new value into the array of values
     if (this.isMultiValue(this.props.value)) {
       const { value } = this.props;
       value.push(newValue);
@@ -80,49 +94,44 @@ class Select extends React.Component {
   }
 
   handleFilter = (ev) => {
-    const filterValue = ev.target.value;
-    this.setState({ filter: filterValue });
-    if (this.props.onFilter) this.props.onFilter(filterValue);
+    const { value: filter } = ev.target;
+    this.setState({ filter });
+    if (this.props.onFilter) this.props.onFilter(filter);
   }
 
   handleKeyDown = (ev) => {
+    // order of event checking is important here!
+
+    // if tab key then allow normal behaviour
     if (Events.isTabKey(ev)) {
-      this.blockBlur = false;
-      this.bridge.current.blockBlur = false;
+      this.unblockBlur();
       return;
     }
+    // if the dropdown is not open then block regular activity and open it
     if (!this.state.open) {
       ev.preventDefault();
       this.setState({ open: true });
       return;
     }
-    if (Events.isEscKey(ev)) this.setState({ open: false });
-    if (!Events.isBackspaceKey(ev)) return;
-    if (!this.isMultiValue(this.props.value)) return;
-    if (this.state.filter) return;
-    const { value } = this.props;
-    value.pop();
-    this.triggerChange(value);
-  }
-
-  handleMouseEnter = () => {
-    this.blockBlur = true;
-    this.bridge.current.blockBlur = true;
-  }
-
-  handleMouseLeave = () => {
-    this.blockBlur = false;
-    this.bridge.current.blockBlur = false;
+    // if esc key then close the dropdown
+    if (Events.isEscKey(ev)) {
+      this.setState({ open: false });
+      return;
+    }
+    // if backspace key and multi value and no filter, remove the last item in the array
+    if (Events.isBackspaceKey(ev)) {
+      if (!this.isMultiValue(this.props.value) || this.state.filter || !this.props.value.length) return;
+      this.removeItem(this.props.value.length - 1);
+    }
   }
 
   triggerChange(value) {
     const newState = { filter: undefined };
-    if (!this.isMultiValue(value)) {
-      newState.open = false;
-    }
+    if (!this.isMultiValue(value)) newState.open = false; // only closes the dropdown if not multi-value
     this.setState(newState);
+    this.bridge.current.setState({ valid: true }); // temporary - resets validation on the old bridge component
+
     if (this.props.onChange) this.props.onChange({ target: { value } });
-    this.bridge.current.setState({ valid: true });
   }
 
   removeItem(index) {
@@ -131,17 +140,20 @@ class Select extends React.Component {
     this.triggerChange(value);
   }
 
+  // returns the human readable value for the user
   formattedValue(filterValue, value) {
     let visibleValue = '';
-    if (!this.isMultiValue(value) && value) visibleValue = value.label;
+    // if not multi-value then fetch the text key on the value
+    if (!this.isMultiValue(value) && value) visibleValue = value.text;
+    // if there is a filter then return that over the selected visible value
     return (typeof filterValue === 'string') ? filterValue : visibleValue;
   }
 
+  // returns the correct value to feed into the textbox component
   value(value) {
-    const isMultiValue = this.isMultiValue(value);
-    if (isMultiValue) return this.props.value;
-    if (value) return value.text;
-    return value;
+    if (this.isMultiValue(value)) return value; // if multi value the returns the full array
+    if (value) return value.value; // if single value then returns the id/value
+    return undefined; // otherwise return undefined
   }
 
   renderMultiValues(values) {
@@ -162,6 +174,7 @@ class Select extends React.Component {
 
   placeholder(placeholder, value) {
     if (this.isMultiValue(value)) {
+      // if multi-value then only show placeholder if nothing is currently selected
       return value.length ? null : placeholder;
     }
     return placeholder;
@@ -173,41 +186,40 @@ class Select extends React.Component {
       className,
       customFilter,
       filterType,
-      value,
       placeholder,
-      ...props
+      value
     } = this.props;
 
     return (
       <>
         <InputDecoratorBridge
           { ...this.props } // this needs to send all of the original props
-          ref={ this.bridge }
           className={ this.className(className) }
-          value={ this.value(value) }
           formattedValue={ this.formattedValue(this.state.filter, value) }
-          onChange={ this.handleFilter }
-          onBlur={ this.handleBlur }
-          onFocus={ this.handleFocus }
-          onClick={ this.handleFocus }
-          onKeyDown={ this.handleKeyDown }
-          inputRef={ this.assignInput }
           inputIcon={ this.isMultiValue(value) ? undefined : 'dropdown' }
+          inputRef={ this.assignInput }
+          onBlur={ this.handleBlur }
+          onChange={ this.handleFilter }
+          onClick={ this.handleFocus }
+          onFocus={ this.handleFocus }
+          onKeyDown={ this.handleKeyDown }
           placeholder={ this.placeholder(placeholder, value) }
+          ref={ this.bridge }
+          value={ this.value(value) }
         >
           { this.isMultiValue(value) && this.renderMultiValues(value) }
 
           <SelectList
-            open={ this.state.open }
-            filter={ this.state.filter }
-            filterType={ filterType }
+            alwaysHighlight={ !!this.state.filter } // only always ensure something is highlighted if user has applied a filter
             customFilter={ customFilter }
-            target={ this._input.current && this._input.current.parentElement }
-            onSelect={ this.handleChange }
+            filterValue={ this.state.filter }
+            filterType={ filterType }
+            onMouseDown={ () => setTimeout(() => this.input.current.focus()) } // uses timeout to resolve issues with focus occuring too quickly
             onMouseEnter={ this.handleMouseEnter }
             onMouseLeave={ this.handleMouseLeave }
-            onMouseDown={ () => setTimeout(() => this._input.current.focus()) }
-            defaultHighlight={ !!this.state.filter }
+            onSelect={ this.handleChange }
+            open={ this.state.open }
+            target={ this.input.current && this.input.current.parentElement }
           >
             { children }
           </SelectList>

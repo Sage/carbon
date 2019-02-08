@@ -9,7 +9,9 @@ const defaultFilter = (processedText, processedValue, filterType) => {
   return processedText[filterType](processedValue);
 };
 
-const filterChildren = ({ value, filterType = 'match', filter = defaultFilter, noResults }) => (children, callback) => {
+const filterChildren = ({
+  value, filterType = 'includes', filter = defaultFilter, noResults
+}) => (children, callback) => {
   const filteredChildren = React.Children.map(children, (child) => {
     if (!child.props.text || !value) return renderChild(child, callback);
     const processedText = child.props.text.toLowerCase();

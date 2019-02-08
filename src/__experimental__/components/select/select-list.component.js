@@ -6,70 +6,98 @@ import filterChildren from '../../../utils/filter/filter.util';
 import { ScrollableList, ScrollableListItem } from '../../../components/scrollable-list';
 
 class SelectList extends React.Component {
+  static propTypes = {
+    alwaysHighlight: PropTypes.bool,
+    children: PropTypes.node,
+    customFilter: PropTypes.func,
+    filterValue: PropTypes.string,
+    filterType: PropTypes.string,
+    onMouseDown: PropTypes.func,
+    onMouseEnter: PropTypes.func,
+    onMouseLeave: PropTypes.func,
+    onSelect: PropTypes.func,
+    open: PropTypes.bool,
+    target: PropTypes.object
+  }
+
+  list = React.createRef();
+
   componentDidUpdate() {
     if (this.props.open) this.positionList();
   }
-
-  _list = React.createRef();
 
   positionList = () => {
     const inputBoundingRect = this.props.target.getBoundingClientRect();
     const top = `${inputBoundingRect.top + inputBoundingRect.height + window.pageYOffset - 1}px`;
     const width = `${inputBoundingRect.width}px`;
     const left = `${inputBoundingRect.left}px`;
-    this._list.current.setAttribute('style', `left: ${left}; top: ${top}; width: ${width}; position: absolute;`);
+    this.list.current.setAttribute('style', `left: ${left}; top: ${top}; width: ${width}; position: absolute;`);
   }
 
+  // returns the data structure for the value of an item when selected
   itemId({ value, text, options }) {
     return { value, text, ...options };
+  }
+
+  noResultsText(value) {
+    if (value) {
+      return I18n.t('select.no_results_for_term', {
+        defaultValue: 'No results for "%{term}"',
+        term: value
+      });
+    }
+
+    return I18n.t('select.no_results', {
+      defaultValue: 'No results'
+    });
+  }
+
+  filter(value, filter, filterType) {
+    return filterChildren({
+      value,
+      filter,
+      filterType,
+      noResults: () => (
+        <ScrollableListItem isSelectable={ false }>
+          { this.noResultsText(value) }
+        </ScrollableListItem>
+      )
+    });
   }
 
   render() {
     if (!this.props.open) return null;
 
     const {
+      alwaysHighlight,
       children,
       customFilter,
-      filter,
+      filterValue,
       filterType,
+      onMouseDown,
       onMouseEnter,
       onMouseLeave,
       onSelect
     } = this.props;
 
-    let i18n;
-
-    if (filter) {
-      i18n = I18n.t('select.no_results_for_term', {
-        defaultValue: 'No results for "%{term}"',
-        term: filter
-      });
-    } else {
-      i18n = I18n.t('select.no_results', {
-        defaultValue: 'No results'
-      });
-    }
-
-    const filtered = filterChildren({
-      value: filter,
-      filter: customFilter,
-      filterType,
-      noResults: () => (
-        <ScrollableListItem isSelectable={ false }>{ i18n }</ScrollableListItem>
-      )
-    });
+    const filter = this.filter(filterValue, customFilter, filterType);
 
     return (
       <Portal onReposition={ this.positionList }>
         <div
+          role='presentation'
           onMouseLeave={ onMouseLeave }
           onMouseEnter={ onMouseEnter }
-          onMouseDown={ this.props.onMouseDown }
-          ref={ this._list }
+          onMouseDown={ onMouseDown }
+          ref={ this.list }
         >
-          <ScrollableList onSelect={ onSelect } keyNavigation defaultHighlight={ this.props.defaultHighlight }>
+          <ScrollableList
+            onSelect={ onSelect }
+            alwaysHighlight={ alwaysHighlight }
+            keyNavigation
+          >
             {
-              filtered(children, child => (
+              filter(children, child => (
                 <ScrollableListItem id={ this.itemId(child.props) }>
                   { child }
                 </ScrollableListItem>
@@ -81,17 +109,5 @@ class SelectList extends React.Component {
     );
   }
 }
-
-SelectList.propTypes = {
-  children: PropTypes.node,
-  customFilter: PropTypes.func,
-  filter: PropTypes.string,
-  filterType: PropTypes.string,
-  onMouseEnter: PropTypes.func,
-  onMouseLeave: PropTypes.func,
-  onSelect: PropTypes.func,
-  open: PropTypes.bool,
-  target: PropTypes.object
-};
 
 export default SelectList;

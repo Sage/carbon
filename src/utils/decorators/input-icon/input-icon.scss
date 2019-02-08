@@ -82,7 +82,7 @@
   box-sizing: border-box;
   color: $grey-dark;
   cursor: pointer;
-  height: calc(100% - 2px);
+  height: $input-common-height - 2;
   margin-top: 1px;
   padding: 6px 0;
   position: absolute;

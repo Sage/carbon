@@ -15,12 +15,15 @@ const InputPresentationContext = React.createContext();
 
 class InputPresentation extends React.Component {
   static propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
+    className: PropTypes.string
   }
 
   state = {
     hasFocus: false
   }
+
+  input = {}
 
   container = React.createRef()
 
@@ -40,28 +43,31 @@ class InputPresentation extends React.Component {
   }
 
   classNames() {
-    return classNames('carbon-input-presentation', {
+    return classNames('carbon-input-presentation', this.props.className, {
       'carbon-input-presentation--has-focus': this.state.hasFocus
     });
   }
 
   handleClick = (ev) => {
-    if (this.input && ev.target === this.container.current) {
+    if (this.input.current && ev.target === this.container.current) {
       this.input.current.focus();
     }
   }
 
   render() {
     const { children, ...props } = this.props;
-    props.onClick = this.handleClick;
 
     return (
-      <div { ...props }>
-        <div className={ this.classNames() } ref={ this.container }>
-          <InputPresentationContext.Provider value={ this.contextForInput() }>
-            { children }
-          </InputPresentationContext.Provider>
-        </div>
+      <div
+        { ...props }
+        role='presentation'
+        className={ this.classNames() }
+        ref={ this.container }
+        onClick={ this.handleClick }
+      >
+        <InputPresentationContext.Provider value={ this.contextForInput() }>
+          { children }
+        </InputPresentationContext.Provider>
       </div>
     );
   }
