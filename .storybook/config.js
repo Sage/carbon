@@ -4,6 +4,7 @@ import { configure, addDecorator } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { checkA11y } from '@storybook/addon-a11y';
 import { withNotes } from '@storybook/addon-notes';
+import { withInfo } from '@storybook/addon-info';
 
 import { ThemeProvider } from 'styled-components';
 
@@ -47,7 +48,6 @@ class AppLayout extends React.Component {
 
   render() {
     const { themes, activeTheme } = this.state;
-    console.log(this.state)
 
     return (
       <StyledContainer>
@@ -76,6 +76,7 @@ function loadStories() {
 addDecorator(withKnobs);
 addDecorator(checkA11y);
 addDecorator(withNotes);
+addDecorator(withInfo);
 
 // give all stories access to themes
 addDecorator(story => <AppLayout>{story()}</AppLayout>);
