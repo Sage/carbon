@@ -63,12 +63,12 @@ class Select extends React.Component {
 
   blockBlur() {
     this.blurBlocked = true;
-    this.bridge.current.blockBlur = true;
+    this.bridge.current.blockBlur = true; // this is to support the legacy behaviour in the bridge
   }
 
   unblockBlur() {
     this.blurBlocked = false;
-    this.bridge.current.blockBlur = false;
+    this.bridge.current.blockBlur = false; // this is to support the legacy behaviour in the bridge
   }
 
   handleBlur = () => {

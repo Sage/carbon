@@ -113,9 +113,8 @@ class ScrollableList extends Component {
 
   selectItem = (itemIndex) => {
     const selectedItem = this.props.children[itemIndex];
-    if (!selectedItem) return;
-    const { id } = selectedItem.props;
-    if (this.props.onSelect) this.props.onSelect(id);
+    if (!this.props.onSelect || !selectedItem) return;
+    this.props.onSelect(selectedItem.props.id);
   }
 
   handleMouseOver = selectedItem => this.setState({ selectedItem })

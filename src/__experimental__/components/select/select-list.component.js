@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import Portal from '../../../components/portal';
-import filterChildren from '../../../utils/filter/filter.util';
+import filterChildren from '../../../utils/filter-children';
 import { ScrollableList, ScrollableListItem } from '../../../components/scrollable-list';
 
 class SelectList extends React.Component {
@@ -28,7 +28,7 @@ class SelectList extends React.Component {
 
   positionList = () => {
     const inputBoundingRect = this.props.target.getBoundingClientRect();
-    const top = `${inputBoundingRect.top + inputBoundingRect.height + window.pageYOffset - 1}px`;
+    const top = `${inputBoundingRect.top + inputBoundingRect.height + window.pageYOffset}px`;
     const width = `${inputBoundingRect.width}px`;
     const left = `${inputBoundingRect.left}px`;
     this.list.current.setAttribute('style', `left: ${left}; top: ${top}; width: ${width}; position: absolute;`);

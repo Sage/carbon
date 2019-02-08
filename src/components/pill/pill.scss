@@ -27,6 +27,8 @@
   border: none;
   bottom: 0;
   cursor: pointer;
+  margin: 0;
+  padding: 0;
   position: absolute;
   right: 0;
   top: 0;
@@ -34,8 +36,8 @@
 
   .carbon-icon {
     vertical-align: -webkit-baseline-middle;
-    margin-top: -4px;
-    margin-left: -3px;
+    margin-top: -2px;
+    margin-left: -1px;
 
     &:before {
       font-size: 9px;
