@@ -10,7 +10,7 @@
     "gen-colors": "node -e \"require('./script/generate-demo-colors').default();\"",
     "gen-docs": "node -e \"require('./script/generate-docs').default();\"",
     "prep-deploy": "node -e \"require('./script/deploy').default();\"",
-    "start": "npm run gen-colors && npm run gen-docs && node_modules/.bin/webpack-dev-server",
+    "start": "npm run gen-colors && npm run gen-docs && npm run webpack-dev-server",
     "build": "npm run gen-colors && npm run gen-docs && NODE_ENV=production node_modules/.bin/webpack && npm run prep-deploy",
     "test": "jest --config=./jest.conf.json",
     "debug": "node --inspect ./node_modules/.bin/jest --watch --config=./jest.conf.json",
@@ -21,7 +21,8 @@
     "storybook": "start-storybook -p 9001 -c .storybook",
     "babel": "NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet",
     "clean-lib": "rm -rf ./lib",
-    "copy-files": "cpx 'src/**/*.!(js|md)' lib"
+    "copy-files": "cpx 'src/**/*.!(js|md)' lib",
+    "webpack-dev-server": "node_modules/.bin/webpack-dev-server"
   },
   "repository": {
     "type": "git",
