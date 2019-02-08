@@ -2,6 +2,7 @@ import { mergeDeep } from './merge_deep';
 
 describe('mergeDeep', () => {
   let base;
+
   beforeEach(() => {
     base = {
       a: 1, b: { nestedB: 1 }

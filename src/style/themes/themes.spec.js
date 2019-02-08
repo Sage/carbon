@@ -11,40 +11,29 @@ import atOpacity from '../utils/at_opacity';
 const isObject = (obj) => {
   return typeof obj === 'object' && obj !== null;
 };
-// { a: 1, b: { c: { d: 0} } } [b, c, d]
-const lookUp = (obj, trail) => {
-  let val;
 
-  for (let i = 0; i < trail.length -1; i++) {
-    val = obj[trail[i]];
-    // console.log(val)
-  }
-
-  return val;
-};
-
-const stepThroughObjectLevels = (obj, comparison) => {
+const assertIsSubset = (obj, comparison) => {
   if (!isObject(obj)) {
+    // no further nesting, assert that values are equal
     expect(obj).toEqual(comparison);
     return;
   }
 
-  const objKeys = Object.keys(obj).sort();
-  const comparisonKeys = Object.keys(comparison).sort();
+  const objKeys = Object.keys(obj);
+  const comparisonKeys = Object.keys(comparison);
 
   objKeys.forEach((key) => {
+    // assert that keys are present
     expect(comparisonKeys.includes(key)).toBeTruthy();
 
-
-    stepThroughObjectLevels(obj[key], comparison[key]);
+    // repeat for nested objects
+    assertIsSubset(obj[key], comparison[key]);
   });
 };
 
 describe('Theming', () => {
-  const themeNames = ['smallBusiness', 'mediumBusiness', 'largeBusiness', 'generic', 'classicCarbon'];
-
   const blackWithOpacity = atOpacity('#000000');
-  let palette, baseTheme, baseThemeConfig;
+  let palette, baseThemeConfig;
 
   beforeEach(() => {
     palette = { ...generatePalette(colorConfig), atOpacity };
@@ -74,7 +63,7 @@ describe('Theming', () => {
 
   describe('smallBusinessTheme', () => {
     it('contains the base theme', () => {
-      stepThroughObjectLevels(baseThemeConfig, smallBusinessTheme);
+      assertIsSubset(baseThemeConfig, smallBusinessTheme);
     });
 
     it('contains the smallBusinessTheme config', () => {
@@ -87,13 +76,13 @@ describe('Theming', () => {
         }
       };
 
-      stepThroughObjectLevels(smallBusinessConfig, smallBusinessTheme);
+      assertIsSubset(smallBusinessConfig, smallBusinessTheme);
     });
   });
 
   describe('mediumBusinessTheme', () => {
     it('contains the base theme', () => {
-      stepThroughObjectLevels(baseThemeConfig, mediumBusinessTheme);
+      assertIsSubset(baseThemeConfig, mediumBusinessTheme);
     });
 
     it('contains the mediumBusinessTheme config', () => {
@@ -106,13 +95,13 @@ describe('Theming', () => {
         }
       };
 
-      stepThroughObjectLevels(medBusinessConfig, mediumBusinessTheme);
+      assertIsSubset(medBusinessConfig, mediumBusinessTheme);
     });
   });
 
   describe('largeBusinessTheme', () => {
     it('contains the base theme', () => {
-      stepThroughObjectLevels(baseThemeConfig, largeBusinessTheme);
+      assertIsSubset(baseThemeConfig, largeBusinessTheme);
     });
 
     it('contains the largeBusinessTheme config', () => {
@@ -125,13 +114,13 @@ describe('Theming', () => {
         }
       };
 
-      stepThroughObjectLevels(largeBusinessConfig, largeBusinessTheme);
+      assertIsSubset(largeBusinessConfig, largeBusinessTheme);
     });
   });
 
   describe('genericTheme', () => {
     it('contains the base theme', () => {
-      stepThroughObjectLevels(baseThemeConfig, genericTheme);
+      assertIsSubset(baseThemeConfig, genericTheme);
     });
 
     it('contains the genericTheme config', () => {
@@ -144,13 +133,13 @@ describe('Theming', () => {
         }
       };
 
-      stepThroughObjectLevels(genericThemeConfig, genericTheme);
+      assertIsSubset(genericThemeConfig, genericTheme);
     });
   });
 
   describe('classicTheme', () => {
     it('contains the base theme', () => {
-      stepThroughObjectLevels(baseThemeConfig, classicTheme);
+      assertIsSubset(baseThemeConfig, classicTheme);
     });
 
     it('contains the classicTheme config', () => {
@@ -163,7 +152,7 @@ describe('Theming', () => {
         }
       };
 
-      stepThroughObjectLevels(classicThemeConfig, classicTheme);
+      assertIsSubset(classicThemeConfig, classicTheme);
     });
   });
 });
