@@ -8,6 +8,35 @@ import colorConfig from '../color-config';
 import generatePalette from '../palette';
 import atOpacity from '../utils/at_opacity';
 
+const isObject = (obj) => {
+  return typeof obj === 'object' && obj !== null;
+};
+// { a: 1, b: { c: { d: 0} } } [b, c, d]
+const lookUp = (obj, trail) => {
+  let val;
+
+  for (let i = 0; i < trail.length; i++) {
+    val = obj[trail[i]];
+  }
+
+  return val;
+};
+
+const stepThroughObjectLevels = (obj, comparison, trail = []) => {
+  if (!isObject(obj)) {
+    expect(lookUp(obj, trail)).toEqual(lookUp(comparison, trail));
+    return;
+  }
+
+  const objKeys = Object.keys(obj).sort();
+  const comparisonKeys = Object.keys(comparison).sort();
+
+  objKeys.forEach((key) => {
+    expect(comparisonKeys.includes(key)).toBeTruthy();
+    stepThroughObjectLevels(obj[key], comparison[key], [...trail, key]);
+  });
+};
+
 describe('Theming', () => {
   const themeNames = ['smallBusiness', 'mediumBusiness', 'largeBusiness', 'generic', 'classicCarbon'];
 
@@ -42,11 +71,20 @@ describe('Theming', () => {
 
   describe('smallBusinessTheme', () => {
     it('contains the base theme', () => {
-      
+      stepThroughObjectLevels(baseThemeConfig, smallBusinessTheme);
     });
 
     it('contains the smallBusinessTheme config', () => {
+      const smallBusinessConfig = {
+        colors: {
+          base: palette.productGreen,
+          primary: palette.productGreenShade(21),
+          secondary: palette.productGreenShade(41),
+          tertiary: palette.productGreenShade(61)
+        }
+      };
 
+      stepThroughObjectLevels(smallBusinessConfig, smallBusinessTheme);
     });
   });
 });
