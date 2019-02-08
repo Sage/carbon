@@ -22,7 +22,7 @@
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
     "babel": "NODE_ENV=production babel --stage 0 ./src --config-file ./babel.config.js --out-dir ./lib --ignore '**/*/__spec__.js','**/*.spec.js','**/__definition__.js' --quiet",
     "clean-lib": "rm -rf ./lib",
-    "copy-files": "cpx 'src/**/!(*.js|*.ts|*.md|*.snap)' lib"
+    "copy-files": "cpx 'src/**/!(*.js|*.md|*.snap)' lib"
   },
   "repository": {
     "type": "git",
@@ -40,13 +40,12 @@
     "react-dom": "^16.7.0"
   },
   "devDependencies": {
-    "@types/enzyme": "^3.1.15",
-    "@types/enzyme-adapter-react-16": "^1.0.3",
-    "@types/jest": "^23.3.13",
-    "@types/node": "^10.12.18",
-    "@types/react": "^16.7.20",
-    "@types/react-dom": "^16.0.11",
-    "@types/react-redux": "^7.0.0",
+    "@types/enzyme": "3.1.15",
+    "@types/enzyme-adapter-react-16": "1.0.3",
+    "@types/jest": "23.3.13",
+    "@types/node": "10.12.18",
+    "@types/react": "16.7.20",
+    "@types/react-dom": "16.0.11",
     "babel-standalone": "~6.17.0",
     "carbon-factory": "git@github.com:Sage/carbon-factory.git#upgrade-webpack-dev-server-and-add-typescript-dependencies",
     "core-js": "^2.6.3",
