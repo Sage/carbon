@@ -35,11 +35,13 @@ class Select extends React.Component {
     children: PropTypes.node,
     className: PropTypes.string,
     customFilter: PropTypes.func,
+    disabled: PropTypes.bool,
     filterType: PropTypes.string,
     label: PropTypes.string,
     onChange: PropTypes.func,
     onFilter: PropTypes.func,
     placeholder: PropTypes.string,
+    readOnly: PropTypes.bool,
     value: PropTypes.oneOfType([
       optionShape,
       PropTypes.arrayOf(optionShape)
@@ -157,10 +159,12 @@ class Select extends React.Component {
   }
 
   renderMultiValues(values) {
+    const canDelete = !this.props.disabled && !this.props.readOnly;
+
     return (
       values.map((value, index) => (
         <div key={ value.value } className='carbon-select__pill'>
-          <Pill onDelete={ () => this.removeItem(index) }>
+          <Pill onDelete={ canDelete ? () => this.removeItem(index) : undefined }>
             { value.text }
           </Pill>
         </div>
@@ -190,6 +194,18 @@ class Select extends React.Component {
       value
     } = this.props;
 
+    let events = {};
+
+    if (!this.props.disabled && !this.props.readOnly) {
+      events = {
+        onBlur: this.handleBlur,
+        onChange: this.handleFilter,
+        onClick: this.handleFocus,
+        onFocus: this.handleFocus,
+        onKeyDown: this.handleKeyDown
+      }
+    }
+
     return (
       <>
         <InputDecoratorBridge
@@ -198,14 +214,10 @@ class Select extends React.Component {
           formattedValue={ this.formattedValue(this.state.filter, value) }
           inputIcon={ this.isMultiValue(value) ? undefined : 'dropdown' }
           inputRef={ this.assignInput }
-          onBlur={ this.handleBlur }
-          onChange={ this.handleFilter }
-          onClick={ this.handleFocus }
-          onFocus={ this.handleFocus }
-          onKeyDown={ this.handleKeyDown }
           placeholder={ this.placeholder(placeholder, value) }
           ref={ this.bridge }
           value={ this.value(value) }
+          { ...events }
         >
           { this.isMultiValue(value) && this.renderMultiValues(value) }
 
