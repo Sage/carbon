@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`WithFilterableItem returns a new component with the FilterableItem as a parent and props fed down 1`] = `
+<FilterableItem>
+  <DummyComponent
+    sampleProp={true}
+  />
+</FilterableItem>
+`;
