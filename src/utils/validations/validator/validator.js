@@ -1,15 +1,18 @@
-const Validator = args => new Promise((resolve, reject) => {
-  const validate = () => new Promise(() => {
-    if (Array.isArray(args)) {
-      for (const arg of args) {
-        if (arg) {
-          resolve();
-        } else {
-          reject();
-        }
-      }
+const validator = validationFunctions => async (value) => {
+  let res = false;
+  for (let func of validationFunctions) {
+    try {
+      res = await func(value).catch((error) => {
+        console.log(error.message);
+        throw error;
+      });
+
+    } catch(err) {
+      console.log('err in second catch', err)
+      return false;
     }
-  });
-  return validate;
-});
-export default Validator;
+  }
+  console.log('res : ', res);
+  return res;
+};
+export default validator;
