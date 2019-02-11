@@ -72,6 +72,11 @@ describe('style', () => {
       expect(mix('#' + config.genericGreen, '#FFFFFF')).toEqual('#' + colorConfig.genericGreenTint50);
     });
 
+    it('accepts three-digit hashes', () => {
+      expect(mix(config.genericGreen,'FFF')).toEqual('#' + colorConfig.genericGreenTint50);
+      expect(mix('FFF', config.genericGreen)).toEqual('#' + colorConfig.genericGreenTint50);
+    });
+
     it('accepts colors with combinations of with and without hash symbols', () => {
       expect(mix('#' + config.genericGreen, 'FFFFFF')).toEqual('#' + colorConfig.genericGreenTint50);
       expect(mix(config.genericGreen, '#FFFFFF')).toEqual('#' + colorConfig.genericGreenTint50);
