@@ -2,31 +2,34 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
+import { action } from '@storybook/addon-actions';
 import Button from '../button/button';
 import Alert from './alert';
 import notes from './notes.md';
+import sizes from '../../constants/sizes';
 
 const store = new Store({
   open: false
 });
-const sizes = [
-  'extra-small',
-  'small',
-  'medium-small',
-  'medium',
-  'medium-large',
-  'large',
-  'extra-large'
-];
+const cancelAction = action('cancel');
+const openAction = action('open');
 
-const handleCancel = () => { store.set({ open: false }); };
+const handleCancel = () => {
+  store.set({ open: false });
+  cancelAction();
+};
+
+const handleOpen = () => {
+  store.set({ open: true });
+  openAction();
+};
 
 storiesOf('Alert', module)
   .addParameters({
     info: {
       inline: true,
       header: false,
-      propTablesExclude: [Button, State],
+      propTablesExclude: [React.Fragment, Button, State],
       propTables: [Alert],
       source: false
     }
@@ -44,8 +47,8 @@ storiesOf('Alert', module)
     const stickyFormFooter = boolean('stickyFormFooter', false);
 
     return (
-      <div>
-        <Button onClick={ () => { store.set({ open: true }); } }>Open Preview</Button>
+      <>
+        <Button onClick={ handleOpen }>Open Preview</Button>
 
         <State store={ store }>
           { state => <>
@@ -65,7 +68,7 @@ storiesOf('Alert', module)
             </Alert>
           </>}
         </State>
-      </div>
+      </>
     );
   }, {
     notes: { markdown: notes }
