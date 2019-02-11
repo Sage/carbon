@@ -2,8 +2,8 @@ const decToHex = decimal => decimal.toString(16);
 const hexToDec = hex => parseInt(hex, 16);
 const isShortHex = hex => hex.length === 3;
 
-/*
-A Javascript implentation of the Sass mix mixin.
+/**
+ * A Javascript implementation of the Sass `mix` mixin.
  */
 export default (inputColorA, inputColorB, weight = 50) => {
   let colorA = inputColorA.replace(/#/, ''),
