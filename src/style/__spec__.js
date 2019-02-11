@@ -57,12 +57,6 @@ describe('style', () => {
     it('produces the correct color mix', () => {
       assertCorrectColorMix(colorConfig, palette);
     });
-
-    it('caches function calls', () => {
-      palette.productBlueShade(20);
-      palette.productBlueShade(20);
-      expect(mix).toBeCalledTimes(1);
-    });
   });
 
   describe('mix', () => {
