@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
+import OptionsHelper from '../../utils/helpers/options-helper';
 import Button from '../button/button';
 import Alert from './alert';
 import notes from './notes.md';
