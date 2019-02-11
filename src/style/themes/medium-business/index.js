@@ -1,4 +1,4 @@
-import configureTheme from './classic-theme.config';
+import configureTheme from './medium-business-theme.config';
 import { mergeWithBase } from '../base';
 
 export default mergeWithBase(configureTheme);

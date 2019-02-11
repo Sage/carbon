@@ -1,1 +1,8 @@
-New Features: "Added basic implementation of themes"
+New Features: |
+  Added basic implementation of Small, Medium and Large themes 
+  using the palette utility function.
+
+  Each theme adds to a base which includes style rule which are
+  general to all. 
+
+  

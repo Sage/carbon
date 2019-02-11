@@ -8,7 +8,23 @@ const cachedFunc = cb => (cache = {}) => (weight) => {
   return color;
 };
 
-const palette = (config) => {
+/*
+Takes a config object of base colors and, for each base, generates functions
+to lighten and darken it.
+
+Given a config:
+
+const palette = generatePalette({ brilliantGreen: '00DC00' });
+
+The developer will be able to call:
+
+palette.brilliantGreenTint(n);
+palette.brilliantGreenShade(n);
+
+where `n` is the degree of white (in case of `tint`) or
+black (in case of `shade`) they wish to mix into the base color.
+ */
+const generatePalette = (config) => {
   const baseNames = Object.keys(config);
 
   const funcs = baseNames.reduce((acc, baseName) => {
@@ -21,8 +37,8 @@ const palette = (config) => {
     return acc;
   }, {});
 
-  return { ...funcs, ...config };
+  return { ...funcs };
 };
 
 
-export default palette;
+export default generatePalette;

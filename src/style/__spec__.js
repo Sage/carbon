@@ -58,15 +58,10 @@ describe('style', () => {
       assertCorrectColorMix(colorConfig, palette);
     });
 
-    it('returns base colors', () => {
-      const baseNames = Object.keys(config);
-      const paletteNames = Object.keys(palette);
-      baseNames.forEach(name => expect(paletteNames.includes(name)).toBeTruthy());
-    });
-
     it('caches function calls', () => {
       palette.productBlueShade(20);
       palette.productBlueShade(20);
+      expect(mix).toBeCalledTimes(1);
     });
   });
 
