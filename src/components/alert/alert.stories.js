@@ -6,7 +6,6 @@ import { action } from '@storybook/addon-actions';
 import Button from '../button/button';
 import Alert from './alert';
 import notes from './notes.md';
-import sizes from '../../constants/sizes';
 
 const store = new Store({
   open: false
@@ -41,7 +40,7 @@ storiesOf('Alert', module)
     const ariaRole = text('ariaRole', 'dialog');
     const height = text('height', '');
     const showCloseIcon = boolean('showCloseIcon', true);
-    const size = select('size', sizes, sizes[0]);
+    const size = select('size', OptionsHelper.sizesFull, OptionsHelper.sizesFull[0]);
     const stickyFormFooter = boolean('stickyFormFooter', false);
 
     return (
