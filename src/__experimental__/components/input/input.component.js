@@ -43,7 +43,7 @@ class Input extends React.Component {
 
   componentDidMount() {
     if (this.props.inputRef) this.props.inputRef(this.input);
-    if (this.context.inputRef) this.context.inputRef(this.input);
+    if (this.context && this.context.inputRef) this.context.inputRef(this.input);
   }
 
   handleClick = (ev) => {

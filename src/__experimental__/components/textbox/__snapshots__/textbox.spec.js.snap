@@ -1,9 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Textbox renders with InputPresentation and Input and all props passed to Input 1`] = `
+exports[`Textbox renders with InputPresentation and Input and all props apart from children and leftChildren passed to Input 1`] = `
 <InputPresentation>
+  southpaw children
   <Input
     value="foobar"
   />
+  normal children
 </InputPresentation>
 `;
