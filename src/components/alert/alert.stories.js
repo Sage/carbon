@@ -13,12 +13,10 @@ const store = new Store({
 });
 const cancelAction = action('cancel');
 const openAction = action('open');
-
 const handleCancel = () => {
   store.set({ open: false });
   cancelAction();
 };
-
 const handleOpen = () => {
   store.set({ open: true });
   openAction();
