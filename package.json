@@ -22,7 +22,9 @@
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
     "babel": "NODE_ENV=production babel --stage 0 ./src --config-file ./babel.config.js --out-dir ./lib --ignore '**/*/__spec__.js','**/*.spec.js','**/__definition__.js' --quiet",
     "clean-lib": "rm -rf ./lib",
-    "copy-files": "cpx 'src/**/!(*.js|*.md|*.snap)' lib"
+    "copy-files": "cpx 'src/**/!(*.js|*.md|*.snap)' lib",
+    "webpack-dev-server": "node_modules/.bin/webpack-dev-server"
+
   },
   "repository": {
     "type": "git",
