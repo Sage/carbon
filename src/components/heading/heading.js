@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Help from '../help';
-import Link from '../link/link';
+import Link from '../link';
 import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
 import './heading.scss';

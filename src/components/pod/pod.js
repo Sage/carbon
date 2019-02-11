@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
 import Icon from '../icon';
-import Link from '../link/link';
+import Link from '../link';
 import Event from '../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';

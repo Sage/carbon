@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Pod from '../pod';
 import Form from '../form';
-import Link from '../link/link';
+import Link from '../link';
 import Events from '../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';

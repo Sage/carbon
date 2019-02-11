@@ -1,7 +1,7 @@
 import React from 'react';
 import I18n from 'i18n-js';
 
-import Link from 'components/link/link';
+import Link from 'components/link';
 
 // Demo Site
 import GetCodeButtons from './../../../components/get-code-buttons';

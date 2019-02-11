@@ -5,7 +5,7 @@ import I18n from 'i18n-js';
 import classNames from 'classnames';
 import escapeStringRegexp from 'escape-string-regexp';
 import Dropdown from '../dropdown';
-import Link from '../link/link';
+import Link from '../link';
 import './dropdown-filter.scss';
 
 /**

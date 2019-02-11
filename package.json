@@ -24,7 +24,6 @@
     "clean-lib": "rm -rf ./lib",
     "copy-files": "cpx 'src/**/!(*.js|*.md|*.snap)' lib",
     "webpack-dev-server": "node_modules/.bin/webpack-dev-server"
-
   },
   "repository": {
     "type": "git",

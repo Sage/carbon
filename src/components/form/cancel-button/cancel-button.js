@@ -1,7 +1,7 @@
 import I18n from 'i18n-js';
 import React from 'react';
 import tagComponent from '../../../utils/helpers/tags';
-import Button from '../../button/button';
+import Button from '../../button';
 
 const cancelButtonProps = (props) => {
   return ({

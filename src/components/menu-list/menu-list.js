@@ -3,7 +3,7 @@ import escapeStringRegexp from 'escape-string-regexp';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Link from '../link/link';
+import Link from '../link';
 import Textbox from '../textbox';
 
 import MenuListItem from './menu-list-item';
