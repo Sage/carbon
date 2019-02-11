@@ -5,7 +5,7 @@ import TestUtils from 'react-dom/test-utils';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 import Icon from './../icon';
-import Link from './index';
+import Link from './link';
 import Event from 'utils/helpers/events';
 
 describe('Link', () => {
