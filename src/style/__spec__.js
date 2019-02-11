@@ -4,7 +4,7 @@ import { addOpacity, generatePalette } from './'
 
 const assertCorrectColorMix = (config, paletteObject) => {
   Object.keys(config).forEach(col => {
-    const match = /([A-Za-z]+)([\d]?[\d]?)/.exec(col);
+    const match = /([a-z]+)([\d]{0,2})/i.exec(col);
 
     const func = match[1], weight = Number(match[2]);
 
