@@ -48,10 +48,10 @@ class InputPresentation extends React.Component {
     });
   }
 
-  handleClick = (ev) => {
-    if (this.input.current && ev.target === this.container.current) {
-      this.input.current.focus();
-    }
+  // use mouse down rather than click to accomodate click and drag events too
+  handleMouseDown = () => {
+    // use a zero timeout to ensure focus is applied even on click and drag events
+    setTimeout(() => this.input.current.focus());
   }
 
   render() {
@@ -63,7 +63,7 @@ class InputPresentation extends React.Component {
         role='presentation'
         className={ this.classNames() }
         ref={ this.container }
-        onClick={ this.handleClick }
+        onMouseDown={ this.handleMouseDown }
       >
         <InputPresentationContext.Provider value={ this.contextForInput() }>
           { children }

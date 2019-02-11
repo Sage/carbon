@@ -78,7 +78,7 @@ class Select extends React.Component {
 
   // opens the dropdown and ensures the input has focus
   // (this fixes a bug in which rapidly clicking the label or dropdown icon would break the list open state)
-  handleFocus = () => this.setState({ open: true }, () => this.input.current.focus())
+  handleFocus = () => this.setState({ open: true })
 
   handleMouseEnter = () => this.blockBlur()
 
@@ -200,7 +200,6 @@ class Select extends React.Component {
       events = {
         onBlur: this.handleBlur,
         onChange: this.handleFilter,
-        onClick: this.handleFocus,
         onFocus: this.handleFocus,
         onKeyDown: this.handleKeyDown
       }
@@ -226,7 +225,6 @@ class Select extends React.Component {
             customFilter={ customFilter }
             filterValue={ this.state.filter }
             filterType={ filterType }
-            onMouseDown={ () => setTimeout(() => this.input.current.focus()) } // uses timeout to resolve issues with focus occuring too quickly
             onMouseEnter={ this.handleMouseEnter }
             onMouseLeave={ this.handleMouseLeave }
             onSelect={ this.handleChange }

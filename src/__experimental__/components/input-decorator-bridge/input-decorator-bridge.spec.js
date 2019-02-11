@@ -17,8 +17,13 @@ describe('InputDecoratorBridge', () => {
 
   it(`renders the Textbox component with:
          * generated props from the decorators assigned to correct elements
-         * markup for label, validation and field help`, () => {
-    const wrapper = shallowRender({ fieldHelp: 'please help!' });
+         * markup for label, validation and field help
+         * children and left children`, () => {
+    const wrapper = shallowRender({
+      fieldHelp: 'please help!',
+      children: 'normal children',
+      leftChildren: 'southpaw children'
+    });
     wrapper.setState({ valid: false });
     expect(wrapper).toMatchSnapshot();
   });

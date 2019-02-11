@@ -28,23 +28,13 @@ const selectTextOnFocus = (input) => {
   });
 };
 
-const handleFocus = (context, onFocus, input) => (ev) => {
-  if (onFocus) onFocus(ev);
-  if (context && context.onFocus) context.onFocus(ev);
-  selectTextOnFocus(input);
-};
-
-const handleBlur = (context, onBlur) => (ev) => {
-  if (onBlur) onBlur(ev);
-  if (context && context.onBlur) context.onBlur(ev);
-};
-
 class Input extends React.Component {
   static propTypes = {
     className: PropTypes.string,
+    inputRef: PropTypes.func, // a callback to retrieve the input reference
     onBlur: PropTypes.func,
-    onFocus: PropTypes.func,
-    inputRef: PropTypes.func // a callback to retrieve the input reference
+    onClick: PropTypes.func,
+    onFocus: PropTypes.func
   }
 
   static contextType = InputPresentationContext
@@ -56,22 +46,37 @@ class Input extends React.Component {
     if (this.context.inputRef) this.context.inputRef(this.input);
   }
 
+  handleClick = (ev) => {
+    if (this.props.onClick) this.props.onClick(ev);
+    this.input.current.focus();
+  }
+
+  handleFocus = (ev) => {
+    if (this.props.onFocus) this.props.onFocus(ev);
+    if (this.context && this.context.onFocus) this.context.onFocus(ev);
+    selectTextOnFocus(this.input);
+  };
+
+  handleBlur = (ev) => {
+    if (this.props.onBlur) this.props.onBlur(ev);
+    if (this.context && this.context.onBlur) this.context.onBlur(ev);
+  };
+
   render() {
     const {
       className,
-      onBlur,
-      onFocus,
       inputRef,
       ...props
     } = this.props;
 
     return (
       <input
+        { ...props }
         ref={ this.input }
         className={ classNamesForInput(className) }
-        onFocus={ handleFocus(this.context, onFocus, this.input) }
-        onBlur={ handleBlur(this.context, onBlur) }
-        { ...props }
+        onFocus={ this.handleFocus }
+        onBlur={ this.handleBlur }
+        onClick={ this.handleClick }
       />
     );
   }
