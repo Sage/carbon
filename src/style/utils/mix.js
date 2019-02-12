@@ -1,16 +1,17 @@
 const decToHex = decimal => decimal.toString(16);
 const hexToDec = hex => parseInt(hex, 16);
 const isShortHex = hex => hex.length === 3;
+const processHexes = (...hexes) => {
+  return hexes
+    .map(hex => hex.replace(/#/, ''))
+    .map((hex) => { return isShortHex(hex) ? hex.repeat(2) : hex; });
+};
 
 /**
  * A Javascript implementation of the Sass `mix` mixin.
  */
 export default (inputColorA, inputColorB, weight = 50) => {
-  let colorA = inputColorA.replace(/#/, ''),
-      colorB = inputColorB.replace(/#/, '');
-
-  colorA = isShortHex(colorA) ? colorA.repeat(2) : colorA;
-  colorB = isShortHex(colorB) ? colorB.repeat(2) : colorB;
+  const [colorA, colorB] = processHexes(inputColorA, inputColorB);
 
   const colorAPairs = colorA.match(/.{1,2}/g), colorBPairs = colorB.match(/.{1,2}/g);
   const hex = colorAPairs.reduce((acc, pair, i) => {
