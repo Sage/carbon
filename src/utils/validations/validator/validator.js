@@ -15,6 +15,12 @@ const validator = validationFunctions => (value, props) => (
         }
         return func(value, props);
       });
+    } else if (isLegacy(validationFunctions)) {
+      if (validationFunctions.validate(value, props)) {
+        results = [Promise.resolve()];
+      } else {
+        results = [Promise.reject(validationFunctions.message())];
+      }
     } else {
       results = [validationFunctions(value, props)];
     }
