@@ -1,4 +1,4 @@
-import configureTheme from './large-business-theme.config';
+import configureTheme from './large-theme.config';
 import { mergeWithBase } from '../base';
 
 export default mergeWithBase(configureTheme);
