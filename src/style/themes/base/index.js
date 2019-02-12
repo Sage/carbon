@@ -4,11 +4,17 @@ import atOpacity from '../../utils/at-opacity';
 import { mergeDeep } from '../../utils/merge-deep';
 import generatePalette from '../../palette';
 
+const addHex = base => `#${base}`;
+
 const palette = {
   ...generatePalette(baseColors),
   atOpacity,
-  baseColors
+  ...Object.keys(baseColors).reduce((acc, col) => {
+    acc[col] = addHex(baseColors[col]);
+    return acc;
+  }, {})
 };
+
 
 const baseTheme = configureBase(palette);
 

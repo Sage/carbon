@@ -1,16 +1,25 @@
 import generatePalette from '../palette';
 import atOpacity from '../utils/at-opacity';
-import colorConfig from '../color-config';
+import baseColors from '../color-config';
 
-export const palette = generatePalette(colorConfig);
+const addHex = base => `#${base}`;
+
+export const palette = {
+  ...generatePalette(baseColors),
+  atOpacity,
+  ...Object.keys(baseColors).reduce((acc, col) => {
+    acc[col] = addHex(baseColors[col]);
+    return acc;
+  }, {})
+};
 const blackWithOpacity = atOpacity('#000000');
 
 export const baseThemeConfig = {
   colors: {
+    brand: palette.brilliantGreen,
     white: '#FFFFFF',
     error: palette.errorRed,
     warning: palette.gold,
-    sageLogo: palette.brilliantGreen,
     success: palette.brilliantGreenShade(20),
     info: palette.productBlueShade(3),
     text: {
@@ -27,6 +36,7 @@ const isObject = (obj) => {
 };
 
 export const assertIsSubset = (obj, comparison) => {
+
   if (!isObject(obj)) {
     // no further nesting, assert that values are equal
     expect(obj).toEqual(comparison);

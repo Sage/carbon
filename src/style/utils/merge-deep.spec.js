@@ -21,6 +21,10 @@ describe('mergeDeep', () => {
     c: ['inArray']
   };
 
+  const objectWithDiffArrayAtSameKey = {
+    c: ['alsoInArray']
+  };
+
   it('merges objects with nested keys', () => {
     expect(mergeDeep(base, toMerge)).toEqual({ a: 1, b: { nestedA: 1, nestedB: 1 } });
   });
