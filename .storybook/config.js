@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { configure, addDecorator } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
-import { checkA11y } from '@storybook/addon-a11y';
 import { withNotes } from '@storybook/addon-notes';
 import { withInfo } from '@storybook/addon-info';
 
@@ -74,7 +73,6 @@ function loadStories() {
 }
 
 addDecorator(withKnobs);
-addDecorator(checkA11y);
 addDecorator(withNotes);
 addDecorator(withInfo);
 

@@ -40,7 +40,6 @@
     "react-dom": "^16.7.0"
   },
   "devDependencies": {
-    "@storybook/addon-a11y": "4.0",
     "@storybook/addon-actions": "^4.1.11",
     "@storybook/addon-info": "^4.1.11",
     "@storybook/addon-viewport": "^4.1.11",
