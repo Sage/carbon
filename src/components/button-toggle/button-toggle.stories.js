@@ -17,7 +17,7 @@ storiesOf('Button Toggle', module)
   })
   .add('default', () => {
     const children = text('children', 'Option');
-    const buttonIcon = select('buttonIcon', OptionsHelper.icons);
+    const buttonIcon = select('buttonIcon', [null, ...OptionsHelper.icons]);
     const buttonIconSize = select('buttonIconSize', OptionsHelper.sizesBinary, OptionsHelper.sizesBinary[0]);
     const size = select('size', OptionsHelper.sizesBinary, OptionsHelper.sizesBinary[1]);
     const disabled = boolean('disabled', false);
