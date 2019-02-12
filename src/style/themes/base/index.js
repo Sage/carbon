@@ -3,16 +3,12 @@ import baseColors from '../../color-config';
 import atOpacity from '../../utils/at-opacity';
 import { mergeDeep } from '../../utils/merge-deep';
 import generatePalette from '../../palette';
-
-const addHex = base => `#${base}`;
+import addHexSymbols from '../../utils/add-hex-symbols';
 
 const palette = {
   ...generatePalette(baseColors),
   atOpacity,
-  ...Object.keys(baseColors).reduce((acc, col) => {
-    acc[col] = addHex(baseColors[col]);
-    return acc;
-  }, {})
+  ...addHexSymbols(baseColors)
 };
 
 

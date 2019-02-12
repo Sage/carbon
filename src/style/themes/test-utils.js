@@ -1,16 +1,12 @@
 import generatePalette from '../palette';
 import atOpacity from '../utils/at-opacity';
 import baseColors from '../color-config';
-
-const addHex = base => `#${base}`;
+import addHexSymbols from '../utils/add-hex-symbols';
 
 export const palette = {
   ...generatePalette(baseColors),
   atOpacity,
-  ...Object.keys(baseColors).reduce((acc, col) => {
-    acc[col] = addHex(baseColors[col]);
-    return acc;
-  }, {})
+  ...addHexSymbols(baseColors)
 };
 const blackWithOpacity = atOpacity('#000000');
 
