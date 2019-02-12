@@ -36,7 +36,6 @@ const isObject = (obj) => {
 };
 
 export const assertIsSubset = (obj, comparison) => {
-
   if (!isObject(obj)) {
     // no further nesting, assert that values are equal
     expect(obj).toEqual(comparison);
