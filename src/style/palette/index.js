@@ -38,7 +38,7 @@ const generatePalette = (config) => {
     return acc;
   }, {});
 
-  return { ...funcs };
+  return funcs;
 };
 
 
