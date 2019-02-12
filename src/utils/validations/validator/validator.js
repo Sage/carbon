@@ -1,18 +1,17 @@
 const validator = validationFunctions => async (value) => {
-  let res = false;
-  for (let func of validationFunctions) {
-    try {
-      res = await func(value).catch((error) => {
-        console.log(error.message);
-        throw error;
-      });
-
-    } catch(err) {
-      console.log('err in second catch', err)
-      return false;
-    }
+  let results = [];
+  if (Array.isArray(validationFunctions)) {
+    results = validationFunctions.map(func => (func(value)));
+  } else {
+    results = [validationFunctions(value)];
+    // Promise.resolve() ?????
   }
-  console.log('res : ', res);
-  return res;
+  const validate = await Promise.all(results)
+    .catch((error) => {
+      console.log('Error : ', error.message);
+      throw error;
+    });
+  console.log('Validate status : ', validate);
+  return validate;
 };
 export default validator;
