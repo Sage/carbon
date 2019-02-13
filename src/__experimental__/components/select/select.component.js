@@ -217,9 +217,9 @@ class Select extends React.Component {
           placeholder={ this.placeholder(placeholder, value) }
           ref={ this.bridge }
           value={ this.value(value) }
+          leftChildren={ this.isMultiValue(value) && this.renderMultiValues(value) }
           { ...events }
         >
-          { this.isMultiValue(value) && this.renderMultiValues(value) }
 
           <SelectList
             alwaysHighlight={ !!this.state.filter } // only always ensure something is highlighted if user has applied a filter
