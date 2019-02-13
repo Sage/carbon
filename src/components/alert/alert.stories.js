@@ -49,7 +49,7 @@ storiesOf('Alert', module)
         <Button onClick={ handleOpen }>Open Preview</Button>
 
         <State store={ store }>
-          { state => <>
+          { state => (
             <Alert
               onCancel={ handleCancel } title={ title }
               open={ boolean('open', state.open) }
@@ -64,7 +64,7 @@ storiesOf('Alert', module)
             >
               {children}
             </Alert>
-          </>}
+          )}
         </State>
       </>
     );
