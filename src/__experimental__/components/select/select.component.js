@@ -88,7 +88,7 @@ class Select extends React.Component {
     let updatedValue = newValue;
     // if the component is multi value then we need to push the new value into the array of values
     if (this.isMultiValue(this.props.value)) {
-      const { value } = this.props;
+      const value = this.props.value.slice();
       value.push(newValue);
       updatedValue = value;
     }
@@ -141,9 +141,9 @@ class Select extends React.Component {
   }
 
   removeItem(index) {
-    const { value } = this.props;
-    value.splice(index, 1);
-    this.triggerChange(value);
+    const newValue = this.props.value.slice(); // copies the array first to not mutate original value
+    newValue.splice(index, 1);
+    this.triggerChange(newValue);
   }
 
   // returns the human readable value for the user
