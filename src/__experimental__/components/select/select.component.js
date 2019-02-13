@@ -129,7 +129,11 @@ class Select extends React.Component {
 
   triggerChange(value) {
     const newState = { filter: undefined };
-    if (!this.isMultiValue(value)) newState.open = false; // only closes the dropdown if not multi-value
+    if (!this.isMultiValue(value)) {
+      // only closes the dropdown if not multi-value
+      newState.open = false;
+      this.unblockBlur();
+    }
     this.setState(newState);
     this.bridge.current._handleContentChange(); // temporary - resets validation on the old bridge component
 
@@ -220,20 +224,21 @@ class Select extends React.Component {
           leftChildren={ this.isMultiValue(value) && this.renderMultiValues(value) }
           { ...events }
         >
-
-          <SelectList
-            alwaysHighlight={ !!this.state.filter } // only always ensure something is highlighted if user has applied a filter
-            customFilter={ customFilter }
-            filterValue={ this.state.filter }
-            filterType={ filterType }
-            onMouseEnter={ this.handleMouseEnter }
-            onMouseLeave={ this.handleMouseLeave }
-            onSelect={ this.handleChange }
-            open={ this.state.open }
-            target={ this.input.current && this.input.current.parentElement }
-          >
-            { children }
-          </SelectList>
+          { this.state.open && (
+            <SelectList
+              alwaysHighlight={ !!this.state.filter } // only always ensure something is highlighted if user has applied a filter
+              customFilter={ customFilter }
+              filterValue={ this.state.filter }
+              filterType={ filterType }
+              onMouseEnter={ this.handleMouseEnter }
+              onMouseLeave={ this.handleMouseLeave }
+              onSelect={ this.handleChange }
+              open={ this.state.open }
+              target={ this.input.current && this.input.current.parentElement }
+            >
+              { children }
+            </SelectList>
+          ) }
         </InputDecoratorBridge>
       </>
     );

@@ -16,14 +16,13 @@ class SelectList extends React.Component {
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
     onSelect: PropTypes.func,
-    open: PropTypes.bool,
     target: PropTypes.object
   }
 
   list = React.createRef();
 
   componentDidUpdate() {
-    if (this.props.open) this.positionList();
+    this.positionList();
   }
 
   positionList = () => {
@@ -66,8 +65,6 @@ class SelectList extends React.Component {
   }
 
   render() {
-    if (!this.props.open) return null;
-
     const {
       alwaysHighlight,
       children,
