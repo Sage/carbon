@@ -5,23 +5,23 @@ const renderChild = (child, callback) => {
   return child;
 };
 
-const defaultFilter = (processedText, processedValue, filterType) => {
-  return processedText[filterType](processedValue);
+const defaultFilter = (text, value) => {
+  return text.includes(value);
 };
 
 const filterChildren = ({
-  value, filterType = 'includes', filter = defaultFilter, noResults
+  value, filter = defaultFilter, onNoResults
 }) => (children, callback) => {
   const filteredChildren = React.Children.map(children, (child) => {
     if (!child.props.text || !value) return renderChild(child, callback);
     const processedText = child.props.text.toLowerCase();
     const processedValue = value.toLowerCase();
-    if (filter(processedText, processedValue, filterType)) return renderChild(child, callback);
+    if (filter(processedText, processedValue)) return renderChild(child, callback);
     return null;
   });
 
   if (React.Children.count(filteredChildren)) return filteredChildren;
-  if (noResults) return noResults();
+  if (onNoResults) return onNoResults();
   return null;
 };
 
