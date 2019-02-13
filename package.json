@@ -47,7 +47,7 @@
     "@types/react": "16.7.20",
     "@types/react-dom": "16.0.11",
     "babel-standalone": "~6.17.0",
-    "carbon-factory": "git@github.com:Sage/carbon-factory.git#upgrade-webpack-dev-server-and-add-typescript-dependencies",
+    "carbon-factory": "7.1.0",
     "core-js": "^2.6.3",
     "cpx": "^1.5.0",
     "enzyme": "^3.3.0",
