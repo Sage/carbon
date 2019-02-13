@@ -78,7 +78,7 @@ class Select extends React.Component {
 
   // opens the dropdown and ensures the input has focus
   // (this fixes a bug in which rapidly clicking the label or dropdown icon would break the list open state)
-  handleFocus = () => this.setState({ open: true })
+  handleFocus = () => !this.state.open && this.setState({ open: true })
 
   handleMouseEnter = () => this.blockBlur()
 
@@ -131,7 +131,7 @@ class Select extends React.Component {
     const newState = { filter: undefined };
     if (!this.isMultiValue(value)) newState.open = false; // only closes the dropdown if not multi-value
     this.setState(newState);
-    this.bridge.current.setState({ valid: true }); // temporary - resets validation on the old bridge component
+    this.bridge.current._handleContentChange(); // temporary - resets validation on the old bridge component
 
     if (this.props.onChange) this.props.onChange({ target: { value } });
   }
@@ -201,7 +201,8 @@ class Select extends React.Component {
         onBlur: this.handleBlur,
         onChange: this.handleFilter,
         onFocus: this.handleFocus,
-        onKeyDown: this.handleKeyDown
+        onKeyDown: this.handleKeyDown,
+        onClick: this.handleFocus
       }
     }
 
