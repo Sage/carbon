@@ -26,6 +26,7 @@ class SelectList extends React.Component {
   }
 
   positionList = () => {
+    if (!this.props.target) return;
     const inputBoundingRect = this.props.target.getBoundingClientRect();
     const top = `${inputBoundingRect.top + inputBoundingRect.height + window.pageYOffset}px`;
     const width = `${inputBoundingRect.width}px`;
