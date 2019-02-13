@@ -207,7 +207,7 @@ class Select extends React.Component {
         onFocus: this.handleFocus,
         onKeyDown: this.handleKeyDown,
         onClick: this.handleFocus
-      }
+      };
     }
 
     return (
@@ -226,7 +226,7 @@ class Select extends React.Component {
         >
           { this.state.open && (
             <SelectList
-              alwaysHighlight={ !!this.state.filter } // only always ensure something is highlighted if user has applied a filter
+              alwaysHighlight={ !!this.state.filter } // only always ensure something is highlighted if filter
               customFilter={ customFilter }
               filterValue={ this.state.filter }
               filterType={ filterType }

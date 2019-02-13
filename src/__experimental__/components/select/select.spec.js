@@ -42,14 +42,14 @@ describe('Select', () => {
   const fetchPills = wrapper => wrapper.find('Pill');
 
   // open the list for the select component and returns the wrapper
-  const openList = wrapper => {
+  const openList = (wrapper) => {
     wrapper.find('input').simulate('focus');
     return wrapper;
-  }
+  };
 
-  /******************
-   * Begin tests... *
-   ******************/
+  /**
+   * Begin tests
+   */
 
   it('renders only the InputDecoratorBridge when closed', () => {
     expect(renderWrapper({ type: shallow })).toMatchSnapshot();
@@ -91,7 +91,7 @@ describe('Select', () => {
     it('triggers onChange with the item added when choosing an item', () => {
       const props = { value: multiValue, onChange: jest.fn() };
       const list = fetchList(openList(renderWrapper({ props })));
-      const newValue = { value: 'new!' }
+      const newValue = { value: 'new!' };
       list.props().onSelect(newValue);
       expect(props.onChange).toHaveBeenCalledWith({
         target: { value: [...multiValue, newValue] }
@@ -165,7 +165,7 @@ describe('Select', () => {
     it('triggers onChange with the new item when choosing an item', () => {
       const props = { value: singleValue, onChange: jest.fn() };
       const list = fetchList(openList(renderWrapper({ props })));
-      const newValue = { value: 'new!' }
+      const newValue = { value: 'new!' };
       list.props().onSelect(newValue);
       expect(props.onChange).toHaveBeenCalledWith({
         target: { value: newValue }
@@ -246,15 +246,15 @@ describe('Select', () => {
     it('updates the filter value when the textbox value is updated', () => {
       const wrapper = openList(renderWrapper());
       expect(fetchList(wrapper).props().filterValue).toEqual(undefined);
-      fetchTextbox(wrapper).find('input').simulate('change', { target: { value: 'x' }});
+      fetchTextbox(wrapper).find('input').simulate('change', { target: { value: 'x' } });
       expect(fetchList(wrapper).props().filterValue).toEqual('x');
     });
 
     it('triggers custom onFilter event if one if passed', () => {
       const props = { onFilter: jest.fn() };
       const wrapper = renderWrapper({ props });
-      fetchTextbox(wrapper).find('input').simulate('change', { target: { value: 'x' }});
+      fetchTextbox(wrapper).find('input').simulate('change', { target: { value: 'x' } });
       expect(props.onFilter).toHaveBeenCalledWith('x');
-    })
+    });
   });
 });
