@@ -37,9 +37,9 @@ describe('Select', () => {
   }];
 
   // utility functions to fetch various elements from the wrapper
-  const fetchList = wrapper => wrapper.find('SelectList');
-  const fetchTextbox = wrapper => wrapper.find('InputDecoratorBridge');
-  const fetchPills = wrapper => wrapper.find('Pill');
+  const listOf = wrapper => wrapper.find('SelectList');
+  const textboxOf = wrapper => wrapper.find('InputDecoratorBridge');
+  const pillsOf = wrapper => wrapper.find('Pill');
 
   // open the list for the select component and returns the wrapper
   const openList = (wrapper) => {
@@ -58,10 +58,10 @@ describe('Select', () => {
   it('renders the SelectList with any given children when in an open state', () => {
     const wrapper = renderWrapper();
 
-    let list = fetchList(wrapper);
+    let list = listOf(wrapper);
     expect(list.exists()).toBe(false);
 
-    list = fetchList(openList(wrapper));
+    list = listOf(openList(wrapper));
     expect(list.exists()).toBe(true);
     expect(list.props()).toMatchSnapshot();
   });
@@ -80,7 +80,7 @@ describe('Select', () => {
         * inputIcon is disabled
         * placeholder is disabled`, () => {
       const props = { value: multiValue, placeholder: 'placeholder' };
-      const textbox = fetchTextbox(renderWrapper({ props }));
+      const textbox = textboxOf(renderWrapper({ props }));
       expect(textbox.props().formattedValue).toEqual('');
       expect(textbox.props().value).toEqual(multiValue);
       expect(textbox.props().leftChildren).toMatchSnapshot();
@@ -90,7 +90,7 @@ describe('Select', () => {
 
     it('triggers onChange with the item added when choosing an item', () => {
       const props = { value: multiValue, onChange: jest.fn() };
-      const list = fetchList(openList(renderWrapper({ props })));
+      const list = listOf(openList(renderWrapper({ props })));
       const newValue = { value: 'new!' };
       list.props().onSelect(newValue);
       expect(props.onChange).toHaveBeenCalledWith({
@@ -100,7 +100,7 @@ describe('Select', () => {
 
     it('triggers onChange with the item removed when clicking delete on the pill', () => {
       const props = { value: multiValue, onChange: jest.fn() };
-      const pill = fetchPills(renderWrapper({ props })).at(1);
+      const pill = pillsOf(renderWrapper({ props })).at(1);
       pill.props().onDelete();
       expect(props.onChange).toHaveBeenCalledWith({
         // we deleted the item at index 1
@@ -113,7 +113,7 @@ describe('Select', () => {
         spyOn(Events, 'isBackspaceKey').and.returnValue(true);
         const props = { value: multiValue, onChange: jest.fn() };
         const wrapper = renderWrapper({ props });
-        const textbox = fetchTextbox(openList(wrapper));
+        const textbox = textboxOf(openList(wrapper));
         if (additionalSetup) additionalSetup(wrapper);
         textbox.find('input').simulate('keydown');
         return { props, wrapper };
@@ -140,7 +140,7 @@ describe('Select', () => {
     it('does not render onDelete action when disabled or readonly', () => {
       [{ disabled: true }, { readOnly: true }].forEach((state) => {
         const props = { value: multiValue, ...state };
-        const pill = fetchPills(renderWrapper({ props })).first();
+        const pill = pillsOf(renderWrapper({ props })).first();
         expect(pill.props().onDelete).toEqual(null);
       });
     });
@@ -154,7 +154,7 @@ describe('Select', () => {
         * inputIcon is dropdown
         * placeholder is the value given as a prop`, () => {
       const props = { value: singleValue, placeholder: 'placeholder' };
-      const textbox = fetchTextbox(renderWrapper({ props }));
+      const textbox = textboxOf(renderWrapper({ props }));
       expect(textbox.props().formattedValue).toEqual(singleValue.text);
       expect(textbox.props().value).toEqual(singleValue.value);
       expect(textbox.props().leftChildren).toBeFalsy();
@@ -164,7 +164,7 @@ describe('Select', () => {
 
     it('triggers onChange with the new item when choosing an item', () => {
       const props = { value: singleValue, onChange: jest.fn() };
-      const list = fetchList(openList(renderWrapper({ props })));
+      const list = listOf(openList(renderWrapper({ props })));
       const newValue = { value: 'new!' };
       list.props().onSelect(newValue);
       expect(props.onChange).toHaveBeenCalledWith({
@@ -174,7 +174,7 @@ describe('Select', () => {
 
     it('does not throw an error on change if no callback is provided', () => {
       const props = { value: singleValue };
-      const list = fetchList(openList(renderWrapper({ props })));
+      const list = listOf(openList(renderWrapper({ props })));
       expect(() => list.props().onSelect({ value: 'new!' })).not.toThrowError();
     });
   });
@@ -182,7 +182,7 @@ describe('Select', () => {
   describe('blur / focus events', () => {
     it('blocks blur on mouse enter of the list and unblocks on leaving the list', () => {
       const wrapper = openList(renderWrapper());
-      const list = fetchList(wrapper);
+      const list = listOf(wrapper);
       expect(wrapper.instance().blurBlocked).toEqual(false);
       list.find('div').first().simulate('mouseEnter');
       expect(wrapper.instance().blurBlocked).toEqual(true);
@@ -197,7 +197,7 @@ describe('Select', () => {
         wrapper.setState({ open: true, filter: 'x' });
         expect(wrapper.state().open).toEqual(true);
         expect(wrapper.state().filter).toEqual('x');
-        fetchTextbox(wrapper).find('input').simulate('blur');
+        textboxOf(wrapper).find('input').simulate('blur');
         return wrapper;
       };
 
@@ -220,40 +220,40 @@ describe('Select', () => {
       spyOn(Events, 'isTabKey').and.returnValue(true);
       const wrapper = renderWrapper();
       wrapper.instance().blurBlocked = true;
-      fetchTextbox(wrapper).find('input').simulate('keydown');
+      textboxOf(wrapper).find('input').simulate('keydown');
       expect(wrapper.instance().blurBlocked).toEqual(false);
     });
 
     it('opens the list on any key if it is closed (but not if it is already open)', () => {
       const wrapper = renderWrapper();
-      expect(fetchList(wrapper).exists()).toEqual(false);
-      fetchTextbox(wrapper).find('input').simulate('keydown');
-      expect(fetchList(wrapper).exists()).toEqual(true);
-      fetchTextbox(wrapper).find('input').simulate('keydown');
-      expect(fetchList(wrapper).exists()).toEqual(true);
+      expect(listOf(wrapper).exists()).toEqual(false);
+      textboxOf(wrapper).find('input').simulate('keydown');
+      expect(listOf(wrapper).exists()).toEqual(true);
+      textboxOf(wrapper).find('input').simulate('keydown');
+      expect(listOf(wrapper).exists()).toEqual(true);
     });
 
     it('closes the list on esc', () => {
       spyOn(Events, 'isEscKey').and.returnValue(true);
       const wrapper = openList(renderWrapper());
-      expect(fetchList(wrapper).exists()).toEqual(true);
-      fetchTextbox(wrapper).find('input').simulate('keydown');
-      expect(fetchList(wrapper).exists()).toEqual(false);
+      expect(listOf(wrapper).exists()).toEqual(true);
+      textboxOf(wrapper).find('input').simulate('keydown');
+      expect(listOf(wrapper).exists()).toEqual(false);
     });
   });
 
   describe('filter', () => {
     it('updates the filter value when the textbox value is updated', () => {
       const wrapper = openList(renderWrapper());
-      expect(fetchList(wrapper).props().filterValue).toEqual(undefined);
-      fetchTextbox(wrapper).find('input').simulate('change', { target: { value: 'x' } });
-      expect(fetchList(wrapper).props().filterValue).toEqual('x');
+      expect(listOf(wrapper).props().filterValue).toEqual(undefined);
+      textboxOf(wrapper).find('input').simulate('change', { target: { value: 'x' } });
+      expect(listOf(wrapper).props().filterValue).toEqual('x');
     });
 
     it('triggers custom onFilter event if one if passed', () => {
       const props = { onFilter: jest.fn() };
       const wrapper = renderWrapper({ props });
-      fetchTextbox(wrapper).find('input').simulate('change', { target: { value: 'x' } });
+      textboxOf(wrapper).find('input').simulate('change', { target: { value: 'x' } });
       expect(props.onFilter).toHaveBeenCalledWith('x');
     });
   });
