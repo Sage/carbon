@@ -1,17 +1,56 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select, text } from '@storybook/addon-knobs';
+import styled from 'styled-components';
+import { assign } from 'lodash';
 import notes from './notes.md';
-import AnimatedMenuButton from './animated-menu-button';
+import AnimatedMenuButtonBase from './animated-menu-button';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { Row } from '../row/row';
 import Link from '../link/link';
 
+const Container = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
+
+const AnimatedMenuButton = ({
+  direction,
+  label,
+  size,
+  children
+}) => {
+  if (direction === OptionsHelper.alignBinary[0]) {
+    return (
+      <Container>
+        <AnimatedMenuButtonBase
+          direction={ direction }
+          label={ label }
+          size={ size }
+        >
+          {children}
+        </AnimatedMenuButtonBase>
+      </Container>
+    );
+  }
+  return (
+    <AnimatedMenuButtonBase
+      direction={ direction }
+      label={ label }
+      size={ size }
+    >
+      {children}
+    </AnimatedMenuButtonBase>
+  );
+};
+
+AnimatedMenuButton.propTypes = assign({}, AnimatedMenuButtonBase.propTypes);
+
 storiesOf('Animated Menu Button', module)
   .addParameters({
     info: {
-      propTablesExclude: [Row, Link],
-      propTables: [AnimatedMenuButton]
+      propTablesExclude: [Row, Link, AnimatedMenuButton],
+      propTables: [AnimatedMenuButtonBase]
     }
   })
   .add('default', () => {
