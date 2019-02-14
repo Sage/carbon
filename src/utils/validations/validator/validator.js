@@ -8,7 +8,7 @@ const handleLegacyValidation = (func, value, props) => {
 };
 
 const validator = validationFunctions => (value, props) => (
-  new Promise(async (resolve, reject) => {
+  new Promise((resolve, reject) => {
     const validations = Array.isArray(validationFunctions) ? validationFunctions : [validationFunctions];
     const results = validations.map((func) => {
       if (isLegacy(func)) {
@@ -17,12 +17,9 @@ const validator = validationFunctions => (value, props) => (
       return func(value, props);
     });
 
-    try {
-      await Promise.all(results);
-      return resolve();
-    } catch (err) {
-      return reject(err);
-    }
+    Promise.all(results)
+      .then(() => resolve())
+      .catch(err => reject(err));
   })
 );
 export default validator;
