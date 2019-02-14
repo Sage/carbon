@@ -41,4 +41,10 @@ describe('mergeDeep', () => {
   it('merges the objects but does not create a new key when not passed an object', () => {
     expect(mergeDeep(base, undefined)).toEqual(base);
   });
+
+  it('is not mutative', () => {
+    mergeDeep(base, toMerge);
+    const secondObject = mergeDeep(base, objectWithArray);
+    expect(secondObject).toEqual({ a: 1, b: { nestedB: 1 }, c: ['inArray'] });
+  });
 });
