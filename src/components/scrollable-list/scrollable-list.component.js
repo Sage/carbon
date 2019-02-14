@@ -64,7 +64,9 @@ class ScrollableList extends Component {
 
     if ((itemTop + itemHeight) > listHeight) {
       // set the bottom of the scroll box to the bottom of the selected item
-      list.scrollTop = this.setScrollTop({ item, children, listHeight, itemHeight });
+      list.scrollTop = this.setScrollTop({
+        item, children, listHeight, itemHeight
+      });
     } else {
       list.scrollTop = 0;
     }

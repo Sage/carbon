@@ -55,7 +55,7 @@ class SelectList extends React.Component {
     return filterChildren({
       value,
       filter,
-      noResults: () => (
+      onNoResults: () => (
         <ScrollableListItem isSelectable={ false }>
           { this.noResultsText(value) }
         </ScrollableListItem>
