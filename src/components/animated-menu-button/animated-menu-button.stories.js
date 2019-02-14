@@ -10,9 +10,6 @@ import Link from '../link/link';
 storiesOf('Animated Menu Button', module)
   .addParameters({
     info: {
-      inline: true,
-      header: false,
-      source: false,
       propTablesExclude: [Row, Link],
       propTables: [AnimatedMenuButton]
     }

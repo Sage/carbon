@@ -8,6 +8,9 @@ import AppLayout from 'storybookHelpers/components/app-layout/app-layout';
 
 
 const req = require.context('../src/components', true, /\.stories\.js$/);
+const infoOptions = {
+  header: false
+};
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
@@ -15,7 +18,7 @@ function loadStories() {
 
 addDecorator(withKnobs);
 addDecorator(withNotes);
-addDecorator(withInfo);
+addDecorator(withInfo(infoOptions));
 addDecorator(checkA11y);
 
 // give all stories access to themes

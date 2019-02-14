@@ -9,15 +9,6 @@ import Button from './button';
 const clickAction = action('click');
 
 storiesOf('Button', module)
-  .addParameters({
-    info: {
-      inline: true,
-      header: false,
-      propTablesExclude: [],
-      propTables: [Button],
-      source: false
-    }
-  })
   .add('default', () => {
     const asOption = select('as', OptionsHelper.themesBinary, OptionsHelper.themesBinary[0]);
     const children = text('children', 'Example Button');

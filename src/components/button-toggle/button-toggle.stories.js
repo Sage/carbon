@@ -6,15 +6,6 @@ import notes from './notes.md';
 import ButtonToggle from './button-toggle';
 
 storiesOf('Button Toggle', module)
-  .addParameters({
-    info: {
-      inline: true,
-      header: false,
-      propTablesExclude: [],
-      propTables: [ButtonToggle],
-      source: false
-    }
-  })
   .add('default', () => {
     const children = text('children', 'Option');
     const buttonIcon = select('buttonIcon', [null, ...OptionsHelper.icons]);

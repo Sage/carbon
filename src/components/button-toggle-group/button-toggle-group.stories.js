@@ -8,11 +8,8 @@ import ButtonToggleGroup from './button-toggle-group';
 storiesOf('Button Toggle Group', module)
   .addParameters({
     info: {
-      inline: true,
-      header: false,
       propTablesExclude: [ButtonToggle],
-      propTables: [ButtonToggleGroup],
-      source: false
+      propTables: [ButtonToggleGroup]
     }
   }).add('default', () => {
     const timeToDisappear = text('timeToDisappear', '');

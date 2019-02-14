@@ -13,6 +13,7 @@ const StyledContainer = styled.div`
   flex-direction: column;
 `;
 const SelectionContainer = styled.div`
+  padding-top: 20px;
   display: flex;
   justify-content: flex-end;
 `;
