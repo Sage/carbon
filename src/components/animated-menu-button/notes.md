@@ -5,6 +5,6 @@
 - Try not to create any duplication between the Menu component, and this component.
 
 # Related Components
-- Choosing between variants of the same page, or filtering content? Try Tabs. <!-- TODO link -->
-- Positioning your primary navigation? Try Navigation Bar. <!-- TODO link -->
-- Navigating the hierarchy of the app? Try Menu. <!-- TODO link -->
+- Choosing between variants of the same page, or filtering content? [Try Tabs](/components/tabs "Try Tabs").
+- Positioning your primary navigation? [Try Navigation Bar](/components/navigation-bar "Try Navigation Bar").
+- Navigating the hierarchy of the app? [Try Menu](/components/menu "Try Menu").

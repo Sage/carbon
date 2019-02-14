@@ -7,6 +7,6 @@
 - You can disable a Button, but try to avoid this. If you need to, make it clear what the user needs to do in order to activate the Button. A good case for disabling an action is to prevent a form being submitted twice (e.g. on a payment page).
 
 # Related Components
-- Range of buttons where one is more important? Try Split Button. <!-- TODO link -->
-- Range of buttons all of the same importance? Try Multi Action Button. <!-- TODO link -->
-- Choosing one option from a highly visible range? Try Button Toggle. <!-- TODO link -->
+- Range of buttons where one is more important? [Try Split Button](/components/split-button "Try Split Button").
+- Range of buttons all of the same importance? [Try Action Button](/components/action-button "Try Action Button").
+- Choosing one option from a highly visible range? [Try Button Toggle](/components/button-toggle "Try Button Toggle").

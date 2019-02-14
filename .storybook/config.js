@@ -9,7 +9,8 @@ import AppLayout from 'storybookHelpers/components/app-layout/app-layout';
 
 const req = require.context('../src/components', true, /\.stories\.js$/);
 const infoOptions = {
-  header: false
+  header: false,
+  inline: true
 };
 
 function loadStories() {

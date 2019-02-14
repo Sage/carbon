@@ -1,9 +1,12 @@
 # Designer Notes
-- Useful to perform an action in context without navigating the user to a separate page.
-- Several pre-set widths are available - the height of the dialog will flex to fit the content. It’s best to avoid dialogs that are taller than the user’s viewport height. Typical user viewport heights can be as little as 650 pixels.
-- Choose whether a dark tint is applied behind the dialog which helps to focus the user on the dialog.
-- A configuration shows a close icon at the top right of the Dialog. Sometimes users are more likely to click this than a traditional ‘Cancel’ button.
+- Useful if a message is so important you’d like to prevent any other activity until the user resolves it.
+- If the message isn’t so important, or you want to avoid disrupting the user’s activity, consider showing a static Message component in the underlying screen.
+- Include a Message component within the Alert component, use plain text, or apply a standard Carbon Error or Warning icon.
+- This component has the same options and properties as the Dialog component.
 
 # Related Components
-- Complex task that needs more space? Try Dialog Full Screen. <!-- TODO link -->
-- Need to refer back to the underlying page? Try Sidebar. <!-- TODO link -->
+- Simple positive or negative confirmation? [Try Flash](/components/flash "Try Flash").
+- Longer message which stays on-screen? [Try Message](/components/message "Try Message").
+- Longer, time sensitive message that must be dismissed? [Try Toast](/components/toast "Try Toast").
+- Confirm or cancel an action I’ve initiated? [Try Confirm](/components/confirm "Try Confirm").
+- Simple task in context? [Try Dialog](/components/dialog "Try Dialog").
