@@ -1,27 +1,21 @@
 import validator from '.';
 import PresenceValidator from '../presence';
 
-const shortErr = 'value is too short!';
-const presErr = 'this value is required!';
-const notZeroErr = 'this is zero!';
-const asyncErr = 'not foo!';
-const legacyErr = '[missing "en.errors.messages.blank" translation]';
+const shortErr = new Error('value is too short!');
+const presErr = new Error('this value is required!');
+const notZeroErr = new Error('this is zero!');
+const asyncErr = new Error('not foo!');
+const legacyErr = new Error('[missing "en.errors.messages.blank" translation]');
 
 const runValidation = async (validations, value) => {
   const validate = validator(validations);
   let valid;
-  let index = 0;
   await validate(value)
     .then(() => {
       valid = true;
-      index += 1;
     })
     .catch((err) => {
-      if (err.message) {
-        valid = err.message;
-      } else {
-        valid = Array.isArray(validations) ? validations[index].message() : validations.message();
-      }
+      valid = err;
     });
 
   return valid;
@@ -31,7 +25,7 @@ const isLong = value => new Promise((resolve, reject) => {
   if (value.length > 5) {
     resolve(value);
   } else {
-    reject(new Error(shortErr));
+    reject(shortErr);
   }
 });
 
@@ -39,7 +33,7 @@ const presence = value => new Promise((resolve, reject) => {
   if (value) {
     resolve(true);
   } else {
-    reject(new Error(presErr));
+    reject(presErr);
   }
 });
 
@@ -47,7 +41,7 @@ const isNotZero = value => new Promise((resolve, reject) => {
   if (value !== 0) {
     resolve(true);
   } else {
-    reject(new Error(notZeroErr));
+    reject(notZeroErr);
   }
 });
 
@@ -56,7 +50,7 @@ const asyncValidation = value => new Promise((resolve, reject) => {
     if (value === 'foo') {
       resolve();
     } else {
-      reject(new Error(asyncErr));
+      reject(asyncErr);
     }
   }, 500);
 });
@@ -116,12 +110,12 @@ describe('validator', () => {
 
     it('handles legacy validations in an array and returns an error message when the promise rejects', async () => {
       const validate = await runValidation([presVal, isNotZero], '');
-      expect(validate).toEqual(legacyErr);
+      expect(validate).toEqual(legacyErr.message);
     });
 
     it('handles a single legacy validation and returns the error message when the promise rejects', async () => {
       const validate = await runValidation(presVal, '');
-      expect(validate).toEqual(legacyErr);
+      expect(validate).toEqual(legacyErr.message);
     });
   });
 });
