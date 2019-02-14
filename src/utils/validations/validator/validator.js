@@ -7,19 +7,15 @@ const handleLegacyValidation = (func, value, props) => {
   return Promise.reject(func.message());
 };
 
-const validator = validationFunctions => (value, props) => (
-  new Promise((resolve, reject) => {
-    const validations = Array.isArray(validationFunctions) ? validationFunctions : [validationFunctions];
-    const results = validations.map((func) => {
-      if (isLegacy(func)) {
-        return handleLegacyValidation(func, value, props);
-      }
-      return func(value, props);
-    });
+const validator = validationFunctions => (value, props) => {
+  const validations = Array.isArray(validationFunctions) ? validationFunctions : [validationFunctions];
+  const results = validations.map((func) => {
+    if (isLegacy(func)) {
+      return handleLegacyValidation(func, value, props);
+    }
+    return func(value, props);
+  });
 
-    Promise.all(results)
-      .then(() => resolve())
-      .catch(err => reject(err));
-  })
-);
+  return Promise.all(results);
+};
 export default validator;
