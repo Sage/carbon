@@ -11,7 +11,7 @@ const defaultFilter = (text, value) => {
 
 const filterChildren = ({
   value, filter = defaultFilter, onNoResults
-}) => (children, callback) => {
+} = {}) => (children, callback) => {
   const filteredChildren = React.Children.map(children, (child) => {
     if (!child.props.text || !value) return renderChild(child, callback);
     const processedText = child.props.text.toLowerCase();
