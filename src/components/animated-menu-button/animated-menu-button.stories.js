@@ -2,9 +2,8 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select, text } from '@storybook/addon-knobs';
 import styled from 'styled-components';
-import { assign } from 'lodash';
 import notes from './notes.md';
-import AnimatedMenuButtonBase from './animated-menu-button';
+import AnimatedMenuButton from './animated-menu-button';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { Row } from '../row/row';
 import Link from '../link/link';
@@ -14,7 +13,7 @@ const Container = styled.div`
   justify-content: flex-end;
 `;
 
-const AnimatedMenuButton = ({
+const Wrapper = ({
   direction,
   label,
   size,
@@ -23,34 +22,36 @@ const AnimatedMenuButton = ({
   if (direction === OptionsHelper.alignBinary[0]) {
     return (
       <Container>
-        <AnimatedMenuButtonBase
+        <AnimatedMenuButton
           direction={ direction }
           label={ label }
           size={ size }
         >
           {children}
-        </AnimatedMenuButtonBase>
+        </AnimatedMenuButton>
       </Container>
     );
   }
+
   return (
-    <AnimatedMenuButtonBase
+    <AnimatedMenuButton
       direction={ direction }
       label={ label }
       size={ size }
     >
       {children}
-    </AnimatedMenuButtonBase>
+    </AnimatedMenuButton>
   );
 };
 
-AnimatedMenuButton.propTypes = assign({}, AnimatedMenuButtonBase.propTypes);
+Wrapper.propTypes = { ...AnimatedMenuButton.propTypes };
+Wrapper.displayName = 'AnimatedMenuButton';
 
 storiesOf('Animated Menu Button', module)
   .addParameters({
     info: {
-      propTablesExclude: [Row, Link, AnimatedMenuButton],
-      propTables: [AnimatedMenuButtonBase]
+      propTablesExclude: [Row, Link, Wrapper],
+      propTables: [AnimatedMenuButton]
     }
   })
   .add('default', () => {
@@ -59,7 +60,7 @@ storiesOf('Animated Menu Button', module)
     const size = select('size', OptionsHelper.sizesFull, OptionsHelper.sizesFull[3]);
 
     return (
-      <AnimatedMenuButton
+      <Wrapper
         direction={ direction }
         label={ label }
         size={ size }
@@ -67,21 +68,21 @@ storiesOf('Animated Menu Button', module)
         <Row>
           <div>
             <h2>1st Category</h2>
-            <p><Link>First Option</Link></p>
-            <p><Link>Another Option</Link></p>
+            <p>{/* eslint-disable */}<Link>{/* eslint-enable */}First Option</Link></p>
+            <p>{/* eslint-disable */}<Link>{/* eslint-enable */}Another Option</Link></p>
           </div>
           <div>
             <h2>2nd Category</h2>
-            <p><Link>First Option</Link></p>
-            <p><Link>Another Option</Link></p>
+            <p>{/* eslint-disable */}<Link>{/* eslint-enable */}First Option</Link></p>
+            <p>{/* eslint-disable */}<Link>{/* eslint-enable */}Another Option</Link></p>
           </div>
           <div>
             <h2>3rd Category</h2>
-            <p><Link>First Option</Link></p>
-            <p><Link>Another Option</Link></p>
+            <p>{/* eslint-disable */}<Link>{/* eslint-enable */}First Option</Link></p>
+            <p>{/* eslint-disable */}<Link>{/* eslint-enable */}Another Option</Link></p>
           </div>
         </Row>
-      </AnimatedMenuButton>
+      </Wrapper>
     );
   }, {
     notes: { markdown: notes }

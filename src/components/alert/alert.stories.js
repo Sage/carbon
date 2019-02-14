@@ -1,12 +1,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { assign } from 'lodash';
 import { boolean, text, select } from '@storybook/addon-knobs';
 import { StateDecorator, Store, State } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Button from '../button/button';
-import AlertBase from './alert';
+import Alert from './alert';
 import notes from './notes.md';
 
 const store = new Store({
@@ -22,7 +21,7 @@ const handleOpen = () => {
   action('open')();
 };
 
-const Alert = ({
+const Wrapper = ({
   onCancel,
   title,
   enableBackgroundUI,
@@ -45,7 +44,7 @@ const Alert = ({
   return (
   <>
     <Button onClick={ handleOpen }>Open Preview</Button>
-    <AlertBase
+    <Alert
       onCancel={ onCancel }
       title={ title }
       enableBackgroundUI={ enableBackgroundUI }
@@ -59,18 +58,19 @@ const Alert = ({
       open={ store.get('open') }
     >
       {children}
-    </AlertBase>
+    </Alert>
   </>
   );
 };
 
-Alert.propTypes = assign({}, AlertBase.propTypes);
+Wrapper.propTypes = { ...Alert.propTypes };
+Wrapper.displayName = 'Alert';
 
 storiesOf('Alert', module)
   .addDecorator(StateDecorator(store))
   .addParameters({
     info: {
-      propTablesExclude: [State],
+      propTablesExclude: [State, Wrapper],
       propTables: [Alert]
     }
   })
@@ -87,8 +87,9 @@ storiesOf('Alert', module)
     const stickyFormFooter = boolean('stickyFormFooter', false);
 
     return (
-      <Alert
-        onCancel={ handleCancel } title={ title }
+      <Wrapper
+        onCancel={ handleCancel }
+        title={ title }
         enableBackgroundUI={ enableBackgroundUI }
         disableEscKey={ disableEscKey }
         ariaRole={ ariaRole }
@@ -100,7 +101,7 @@ storiesOf('Alert', module)
         open={ store.get('open') }
       >
         {children}
-      </Alert>
+      </Wrapper>
     );
   }, {
     notes: { markdown: notes }

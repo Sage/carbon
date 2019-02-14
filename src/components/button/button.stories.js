@@ -6,8 +6,6 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import Button from './button';
 
-const clickAction = action('click');
-
 storiesOf('Button', module)
   .add('default', () => {
     const asOption = select('as', OptionsHelper.themesBinary, OptionsHelper.themesBinary[0]);
@@ -24,7 +22,7 @@ storiesOf('Button', module)
         theme={ theme }
         size={ size }
         subtext={ subtext }
-        onClick={ clickAction }
+        onClick={ action('click') }
       >
         {children}
       </Button>
