@@ -11,7 +11,6 @@ class SelectList extends React.Component {
     children: PropTypes.node,
     customFilter: PropTypes.func,
     filterValue: PropTypes.string,
-    filterType: PropTypes.string,
     onMouseDown: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
@@ -52,11 +51,10 @@ class SelectList extends React.Component {
     });
   }
 
-  filter(value, filter, filterType) {
+  filter(value, filter) {
     return filterChildren({
       value,
       filter,
-      filterType,
       noResults: () => (
         <ScrollableListItem isSelectable={ false }>
           { this.noResultsText(value) }
@@ -71,14 +69,13 @@ class SelectList extends React.Component {
       children,
       customFilter,
       filterValue,
-      filterType,
       onMouseDown,
       onMouseEnter,
       onMouseLeave,
       onSelect
     } = this.props;
 
-    const filter = this.filter(filterValue, customFilter, filterType);
+    const filter = this.filter(filterValue, customFilter);
 
     return (
       <Portal onReposition={ this.positionList }>

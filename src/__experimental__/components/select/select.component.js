@@ -36,7 +36,6 @@ class Select extends React.Component {
     className: PropTypes.string,
     customFilter: PropTypes.func,
     disabled: PropTypes.bool,
-    filterType: PropTypes.string,
     label: PropTypes.string,
     onChange: PropTypes.func,
     onFilter: PropTypes.func,
@@ -193,7 +192,6 @@ class Select extends React.Component {
       children,
       className,
       customFilter,
-      filterType,
       placeholder,
       value
     } = this.props;
@@ -229,7 +227,6 @@ class Select extends React.Component {
               alwaysHighlight={ !!this.state.filter } // only always ensure something is highlighted if filter
               customFilter={ customFilter }
               filterValue={ this.state.filter }
-              filterType={ filterType }
               onMouseEnter={ this.handleMouseEnter }
               onMouseLeave={ this.handleMouseLeave }
               onSelect={ this.handleChange }
