@@ -80,36 +80,6 @@ class Sandbox extends React.Component {
           >
             { people.filter(person => !this.state.people.find(item => item.value === person.value)).map(person => <Option key={ person.value } { ...person } />) }
           </Select>
-
-
-          <Select
-            label='Choose Country'
-            value={ this.state.country }
-            onChange={ ev => this.setState({ country: ev.target.value }) }
-            labelAlign='right'
-            labelInline
-            placeholder='Please choose'
-            validations={ [new PresenceValidation() ] }
-            readOnly
-          >
-            <Option text='England' value='1' />
-            <Option text='Ireland' value='2' />
-            <Option text='Scotland' value='3' />
-            <Option text='Wales' value='4' />
-          </Select>
-
-          <Select
-            label='Choose People'
-            value={ this.state.people }
-            onChange={ ev => this.setState({ people: ev.target.value }) }
-            labelAlign='right'
-            labelInline
-            placeholder='Please choose'
-            validations={ [new PresenceValidation() ] }
-            readOnly
-          >
-            { people.filter(person => !this.state.people.find(item => item.value === person.value)).map(person => <Option key={ person.value } { ...person } />) }
-          </Select>
         </Form>
       </div>
     )

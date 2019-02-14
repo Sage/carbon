@@ -36,7 +36,6 @@ class Select extends React.Component {
     className: PropTypes.string,
     customFilter: PropTypes.func,
     disabled: PropTypes.bool,
-    filterType: PropTypes.string,
     label: PropTypes.string,
     onChange: PropTypes.func,
     onFilter: PropTypes.func,
@@ -78,7 +77,7 @@ class Select extends React.Component {
 
   // opens the dropdown and ensures the input has focus
   // (this fixes a bug in which rapidly clicking the label or dropdown icon would break the list open state)
-  handleFocus = () => this.setState({ open: true })
+  handleFocus = () => !this.state.open && this.setState({ open: true })
 
   handleMouseEnter = () => this.blockBlur()
 
@@ -88,7 +87,7 @@ class Select extends React.Component {
     let updatedValue = newValue;
     // if the component is multi value then we need to push the new value into the array of values
     if (this.isMultiValue(this.props.value)) {
-      const { value } = this.props;
+      const value = this.props.value.slice();
       value.push(newValue);
       updatedValue = value;
     }
@@ -129,17 +128,21 @@ class Select extends React.Component {
 
   triggerChange(value) {
     const newState = { filter: undefined };
-    if (!this.isMultiValue(value)) newState.open = false; // only closes the dropdown if not multi-value
+    if (!this.isMultiValue(value)) {
+      // only closes the dropdown if not multi-value
+      newState.open = false;
+      this.unblockBlur();
+    }
     this.setState(newState);
-    this.bridge.current.setState({ valid: true }); // temporary - resets validation on the old bridge component
+    this.bridge.current._handleContentChange(); // temporary - resets validation on the old bridge component
 
     if (this.props.onChange) this.props.onChange({ target: { value } });
   }
 
   removeItem(index) {
-    const { value } = this.props;
-    value.splice(index, 1);
-    this.triggerChange(value);
+    const newValue = this.props.value.slice(); // copies the array first to not mutate original value
+    newValue.splice(index, 1);
+    this.triggerChange(newValue);
   }
 
   // returns the human readable value for the user
@@ -189,7 +192,6 @@ class Select extends React.Component {
       children,
       className,
       customFilter,
-      filterType,
       placeholder,
       value
     } = this.props;
@@ -201,8 +203,9 @@ class Select extends React.Component {
         onBlur: this.handleBlur,
         onChange: this.handleFilter,
         onFocus: this.handleFocus,
-        onKeyDown: this.handleKeyDown
-      }
+        onKeyDown: this.handleKeyDown,
+        onClick: this.handleFocus
+      };
     }
 
     return (
@@ -216,23 +219,23 @@ class Select extends React.Component {
           placeholder={ this.placeholder(placeholder, value) }
           ref={ this.bridge }
           value={ this.value(value) }
+          leftChildren={ this.isMultiValue(value) && this.renderMultiValues(value) }
           { ...events }
         >
-          { this.isMultiValue(value) && this.renderMultiValues(value) }
-
-          <SelectList
-            alwaysHighlight={ !!this.state.filter } // only always ensure something is highlighted if user has applied a filter
-            customFilter={ customFilter }
-            filterValue={ this.state.filter }
-            filterType={ filterType }
-            onMouseEnter={ this.handleMouseEnter }
-            onMouseLeave={ this.handleMouseLeave }
-            onSelect={ this.handleChange }
-            open={ this.state.open }
-            target={ this.input.current && this.input.current.parentElement }
-          >
-            { children }
-          </SelectList>
+          { this.state.open && (
+            <SelectList
+              alwaysHighlight={ !!this.state.filter } // only always ensure something is highlighted if filter
+              customFilter={ customFilter }
+              filterValue={ this.state.filter }
+              onMouseEnter={ this.handleMouseEnter }
+              onMouseLeave={ this.handleMouseLeave }
+              onSelect={ this.handleChange }
+              open={ this.state.open }
+              target={ this.input.current && this.input.current.parentElement }
+            >
+              { children }
+            </SelectList>
+          ) }
         </InputDecoratorBridge>
       </>
     );

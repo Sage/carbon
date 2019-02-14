@@ -11,22 +11,21 @@ class SelectList extends React.Component {
     children: PropTypes.node,
     customFilter: PropTypes.func,
     filterValue: PropTypes.string,
-    filterType: PropTypes.string,
     onMouseDown: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
     onSelect: PropTypes.func,
-    open: PropTypes.bool,
     target: PropTypes.object
   }
 
   list = React.createRef();
 
   componentDidUpdate() {
-    if (this.props.open) this.positionList();
+    this.positionList();
   }
 
   positionList = () => {
+    if (!this.props.target) return;
     const inputBoundingRect = this.props.target.getBoundingClientRect();
     const top = `${inputBoundingRect.top + inputBoundingRect.height + window.pageYOffset}px`;
     const width = `${inputBoundingRect.width}px`;
@@ -52,11 +51,10 @@ class SelectList extends React.Component {
     });
   }
 
-  filter(value, filter, filterType) {
+  filter(value, filter) {
     return filterChildren({
       value,
       filter,
-      filterType,
       noResults: () => (
         <ScrollableListItem isSelectable={ false }>
           { this.noResultsText(value) }
@@ -66,21 +64,18 @@ class SelectList extends React.Component {
   }
 
   render() {
-    if (!this.props.open) return null;
-
     const {
       alwaysHighlight,
       children,
       customFilter,
       filterValue,
-      filterType,
       onMouseDown,
       onMouseEnter,
       onMouseLeave,
       onSelect
     } = this.props;
 
-    const filter = this.filter(filterValue, customFilter, filterType);
+    const filter = this.filter(filterValue, customFilter);
 
     return (
       <Portal onReposition={ this.positionList }>
