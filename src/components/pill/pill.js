@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
+import Icon from '../icon/icon';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import './pill.scss';
@@ -23,80 +23,53 @@ import './pill.scss';
 *
 *   as: Customizes the appearence of the pill changing the colour.
 *       (see the 'iconColorSets' for possible values).
-*
-* @class Pill
-* @constructor
 */
 class Pill extends React.Component {
   static propTypes = {
-
-    /**
-     * Customizes the appearance through colour
-     * (see the 'iconColorSets' for possible values)
-     *
-     * @property as
-     * @type {String}
-     * @default 'info'
-     */
-    as: PropTypes.string,
-
-    /**
-     * The text to display on the Pill
-     *
-     * @property children
-     * @type {String}
-     */
+    as: PropTypes.string, // this is used to apply supported themes (eg. warning, error, etc)
     children: PropTypes.string.isRequired,
-
-    /**
-     * Custom className
-     *
-     * @property className
-     * @type {String}
-     */
     className: PropTypes.string,
-
-    /**
-     * Fills the pill with colour when true
-     *
-     * @property type
-     * @type {Boolean}
-     * @default false
-     */
     fill: PropTypes.bool,
-
-    /**
-     * Callback for when the pill is clicked
-     *
-     * @property onClick
-     * @type {Function}
-     */
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    onDelete: PropTypes.func
   }
 
   static defaultProps = {
     as: 'default',
     className: '',
     fill: false,
-    onClick: null
+    onClick: null,
+    onDelete: null
   }
 
   static safeProps = ['onClick']
 
-  mainClasses = () => {
+  mainClasses() {
     return classNames(
       'carbon-pill',
       this.props.className,
       `carbon-pill--${this.props.as}${(this.props.fill ? '--fill' : '--empty')}`,
-      { 'carbon-pill--link': this.props.onClick }
+      {
+        'carbon-pill--link': this.props.onClick,
+        'carbon-pill--is-deletable': this.props.onDelete
+      }
     );
   }
 
-  /**
-   * Renders the component.
-   *
-   * @method render
-   */
+  renderCloseIcon() {
+    if (!this.props.onDelete) return null;
+    return (
+      <button
+        className='carbon-pill__delete-icon'
+        type='button'
+        onClick={ this.props.onDelete }
+        data-element='close'
+      >
+        <Icon type='cross' bgSize='small' />
+      </button>
+    );
+  }
+
   render() {
     return (
       <span
@@ -104,7 +77,8 @@ class Pill extends React.Component {
         className={ this.mainClasses() }
         { ...tagComponent('pill', this.props) }
       >
-        {this.props.children}
+        { this.props.children }
+        { this.renderCloseIcon() }
       </span>
     );
   }
