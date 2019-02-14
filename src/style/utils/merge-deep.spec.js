@@ -41,4 +41,10 @@ describe('mergeDeep', () => {
   it('merges the objects but does not create a new key when not passed an object', () => {
     expect(mergeDeep(base, undefined)).toEqual(base);
   });
+
+  it('is not mutative', () => {
+    const baseCopy = JSON.parse(JSON.stringify(base));
+    mergeDeep(base, toMerge);
+    expect(base).toEqual(baseCopy);
+  });
 });

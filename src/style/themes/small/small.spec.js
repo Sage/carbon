@@ -7,7 +7,7 @@ describe('classicTheme', () => {
     assertIsSubset(baseThemeConfig, smallTheme);
   });
 
-  it('contains the classicTheme config', () => {
+  it('contains the smallTheme config', () => {
     const smallBusinessConfig = {
       colors: {
         base: palette.productGreen,
