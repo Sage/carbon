@@ -43,7 +43,8 @@ describe('mergeDeep', () => {
   });
 
   it('is not mutative', () => {
+    const baseCopy = JSON.parse(JSON.stringify(base));
     mergeDeep(base, toMerge);
-    expect(base).toEqual(base);
+    expect(base).toEqual(baseCopy);
   });
 });
