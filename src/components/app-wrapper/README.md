@@ -5,7 +5,7 @@
 * In your file
 
 ```javascript
-import AppWrapper from 'carbon/lib/components/app-wrapper';
+import AppWrapper from 'carbon-react/lib/components/app-wrapper';
 ```
 
 *  To render a AppWrapper:

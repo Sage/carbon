@@ -168,6 +168,22 @@ class DropdownFilterAjax extends DropdownFilter {
     formatRequest: PropTypes.func,
 
     /**
+     * A callback function used to set the Ajax
+     * headers using custom ones provided by the consumer
+     *
+     * Expected return object format
+     * {
+        'Accept': 'application/json',
+        'jwt': 'secret',
+        ...
+       }
+     *
+     * @property getCustomHeaders
+     * @type {Function}
+     */
+    getCustomHeaders: PropTypes.func,
+
+    /**
      * Should the dropdown act and look like a suggestable input instead.
      *
      * @property suggest
@@ -292,7 +308,7 @@ class DropdownFilterAjax extends DropdownFilter {
       .get(this.props.path)
       .query(this.getParams(query, page))
       .query(this.props.additionalRequestParams)
-      .set('Accept', this.props.acceptHeader);
+      .set(this.getHeaders());
 
     if (this.props.withCredentials) this.pendingRequest.withCredentials();
     this.pendingRequest.end(this.ajaxUpdateList);
@@ -312,6 +328,15 @@ class DropdownFilterAjax extends DropdownFilter {
       return this.props.formatRequest(params);
     }
     return params;
+  }
+
+  /**
+   * Retrieve headers to use for the request
+   *
+   * @method getHeaders
+   */
+  getHeaders = () => {
+    return this.props.getCustomHeaders ? this.props.getCustomHeaders() : { Accept: this.props.acceptHeader };
   }
 
   /**

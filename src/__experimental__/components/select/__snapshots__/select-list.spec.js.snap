@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectList renders a ScrollableList inside of a Portal 1`] = `
+<Portal
+  onReposition={[Function]}
+>
+  <div
+    role="presentation"
+  >
+    <ScrollableList
+      keyNavigation={true}
+    >
+      <styled.li
+        id={
+          Object {
+            "additional": true,
+            "text": "Orange",
+            "value": "1",
+          }
+        }
+        isSelectable={true}
+        key=".0"
+      >
+        <div
+          options={
+            Object {
+              "additional": true,
+            }
+          }
+          text="Orange"
+          value="1"
+        />
+      </styled.li>
+      <styled.li
+        id={
+          Object {
+            "additional": true,
+            "text": "Blue",
+            "value": "2",
+          }
+        }
+        isSelectable={true}
+        key=".1"
+      >
+        <div
+          options={
+            Object {
+              "additional": true,
+            }
+          }
+          text="Blue"
+          value="2"
+        />
+      </styled.li>
+      <styled.li
+        id={
+          Object {
+            "additional": true,
+            "text": "Red",
+            "value": "3",
+          }
+        }
+        isSelectable={true}
+        key=".2"
+      >
+        <div
+          options={
+            Object {
+              "additional": true,
+            }
+          }
+          text="Red"
+          value="3"
+        />
+      </styled.li>
+    </ScrollableList>
+  </div>
+</Portal>
+`;
+
+exports[`SelectList renders a no results item if filter removed all children 1`] = `
+<styled.li
+  isSelectable={false}
+>
+  No results for "x"
+</styled.li>
+`;
+
+exports[`SelectList renders a no results item if no childen are provided 1`] = `
+<styled.li
+  isSelectable={false}
+>
+  No results
+</styled.li>
+`;

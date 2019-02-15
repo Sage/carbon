@@ -11,18 +11,17 @@ exports[`Toast when toast is closed renders null 1`] = `
     <span
       data-portal-entrance="guid-12345"
     >
-      <CSSTransitionGroup
-        component="div"
-        transitionAppear={true}
-        transitionAppearTimeout={1600}
-        transitionEnter={true}
-        transitionEnterTimeout={1500}
-        transitionLeave={true}
-        transitionLeaveTimeout={500}
-        transitionName="toast"
+      <Portal
+        containerInfo={
+          <div
+            class="carbon-portal"
+            data-portal-exit="guid-12345"
+          >
+            <div />
+          </div>
+        }
       >
-        <TransitionGroup
-          childFactory={[Function]}
+        <CSSTransitionGroup
           component="div"
           transitionAppear={true}
           transitionAppearTimeout={1600}
@@ -32,9 +31,21 @@ exports[`Toast when toast is closed renders null 1`] = `
           transitionLeaveTimeout={500}
           transitionName="toast"
         >
-          <div />
-        </TransitionGroup>
-      </CSSTransitionGroup>
+          <TransitionGroup
+            childFactory={[Function]}
+            component="div"
+            transitionAppear={true}
+            transitionAppearTimeout={1600}
+            transitionEnter={true}
+            transitionEnterTimeout={1500}
+            transitionLeave={true}
+            transitionLeaveTimeout={500}
+            transitionName="toast"
+          >
+            <div />
+          </TransitionGroup>
+        </CSSTransitionGroup>
+      </Portal>
     </span>
   </Portal>
 </Toast>

@@ -1,0 +1,27 @@
+@import "./../../../style-config/input-field";
+@import "./../../../style-config/colors";
+
+.carbon-input {
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: none;
+  color: $input-common-color;
+  flex-grow: 1;
+  font-family: $input-common-font;
+  font-size: $input-common-font-size;
+  outline: none;
+  width: 30px; // this acts as the min-width for the flex box layout
+
+  &::-webkit-input-placeholder,
+  &::-moz-placeholder {
+    color: $grey-dark-blue-40;
+  }
+
+  &:-ms-input-placeholder {
+    color: $grey-dark-blue-40;
+  }
+
+  &::-ms-clear {
+    display: none; // Hide x icon in IE
+  }
+}

@@ -29,9 +29,10 @@
 .common-input__label--inline {
   box-sizing: border-box;
   display: inline-block;
-  margin: 0;
+  margin: 10px 0 0;
   padding: 0 0 0 $grid-margin;
   width: 30%;
+  vertical-align: top;
 
   ~ .common-input__field {
     box-sizing: border-box;

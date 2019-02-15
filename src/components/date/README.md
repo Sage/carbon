@@ -5,7 +5,7 @@
 * In your file
 
 ```javascript
-import Date from 'carbon/lib/components/date';
+import Date from 'carbon-react/lib/components/date';
 ```
 
 * To render the Date:

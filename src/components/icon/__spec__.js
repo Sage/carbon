@@ -1,5 +1,4 @@
 import React from 'react';
-import createReactClass from 'create-react-class';
 import TestUtils from 'react-dom/test-utils';
 import { mount, shallow } from 'enzyme';
 import Tooltip from 'components/tooltip';

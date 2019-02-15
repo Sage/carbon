@@ -5,7 +5,7 @@
 * In your file
 
 ```javascript
-import { Carousel, Slide } from 'carbon/lib/components/carousel';
+import { Carousel, Slide } from 'carbon-react/lib/components/carousel';
 ```
 
 *  To render a Carousel:

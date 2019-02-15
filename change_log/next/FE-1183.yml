@@ -1,0 +1,1 @@
+New Features: "Added a palette utility function which, given a configuration of base colors, will return functions to add tint or shade."

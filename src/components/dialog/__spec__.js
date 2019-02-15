@@ -535,8 +535,7 @@ describe('Dialog', () => {
       it('returns focus to the dialog element when focus leaves the close icon', () => {
         const dialogElement = wrapper.find('[role="dialog"]').getDOMNode();
         spyOn(dialogElement, 'focus');
-        const closeIcon = wrapper.find('[data-element="close"]').findWhere(n => n.type() === 'span');
-
+        const closeIcon = wrapper.find('[data-element="close"]').hostNodes().findWhere(n => n.type() === 'span');
         closeIcon.simulate('blur');
         expect(dialogElement.focus).toHaveBeenCalled();
       });
