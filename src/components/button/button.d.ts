@@ -4,7 +4,7 @@ export interface ButtonProps {
   disabled?: boolean;
   theme?: 'blue' | 'grey' | 'magenta' | 'magenta-dull' | 'red' | 'white';
   size?: 'small' | 'medium' | 'large';
-  subtext?: any;
+  subtext?: string;
 }
 declare const Button: React.Component<ButtonProps, {}>;
 export default Button;
