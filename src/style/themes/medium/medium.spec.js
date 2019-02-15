@@ -7,7 +7,7 @@ describe('classicTheme', () => {
     assertIsSubset(baseThemeConfig, mediumTheme);
   });
 
-  it('contains the classicTheme config', () => {
+  it('contains the mediumTheme config', () => {
     const medBusinessConfig = {
       colors: {
         base: palette.productBlue,

@@ -13,18 +13,22 @@ export function isObject(item) {
  * @param ...sources
  */
 export function mergeDeep(target, ...sources) {
-  if (!sources.length) return target;
-  const source = sources.shift();
+  const merge = (_target, ..._sources) => {
+    if (!_sources.length) return _target;
+    const source = _sources.shift();
 
-  if (isObject(target) && isObject(source)) {
-    for (const key in source) {
-      if (isObject(source[key])) {
-        mergeDeep(target[key], source[key]);
-      } else {
-        Object.assign(target, { [key]: source[key] });
+    if (isObject(_target) && isObject(source)) {
+      for (const key in source) {
+        if (isObject(source[key])) {
+          merge(_target[key], source[key]);
+        } else {
+          Object.assign(_target, { [key]: source[key] });
+        }
       }
     }
-  }
-
-  return mergeDeep(target, ...sources);
+    return merge(_target, ..._sources);
+  };
+  // ensure function is not mutative
+  const newTarget = JSON.parse(JSON.stringify(target));
+  return merge(newTarget, ...sources);
 }

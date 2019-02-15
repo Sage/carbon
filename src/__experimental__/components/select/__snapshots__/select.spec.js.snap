@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Select does not apply any events if disabled or readonly 1`] = `
+<Fragment>
+  <InputDecoratorBridge
+    className="carbon-select"
+    formattedValue=""
+    inputIcon="dropdown"
+    inputRef={[Function]}
+    leftChildren={false}
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`Select does not apply any events if disabled or readonly 2`] = `
+<Fragment>
+  <InputDecoratorBridge
+    className="carbon-select"
+    formattedValue=""
+    inputIcon="dropdown"
+    inputRef={[Function]}
+    leftChildren={false}
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`Select renders only the InputDecoratorBridge when closed 1`] = `
+<Fragment>
+  <InputDecoratorBridge
+    className="carbon-select"
+    formattedValue=""
+    inputIcon="dropdown"
+    inputRef={[Function]}
+    leftChildren={false}
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+  />
+</Fragment>
+`;
+
+exports[`Select renders the SelectList with any given children when in an open state 1`] = `
+Object {
+  "alwaysHighlight": false,
+  "children": Array [
+    <div>
+      1
+    </div>,
+    <div>
+      2
+    </div>,
+    <div>
+      3
+    </div>,
+  ],
+  "customFilter": undefined,
+  "filterValue": undefined,
+  "onMouseEnter": [Function],
+  "onMouseLeave": [Function],
+  "onSelect": [Function],
+  "open": true,
+  "target": <div
+    class="carbon-input-presentation carbon-input-presentation--has-focus"
+    role="presentation"
+  >
+    <input
+      autocomplete="off"
+      class="carbon-input"
+      data-element="input"
+      id="guid-12345"
+      value=""
+    />
+    <span
+      data-portal-entrance="guid-12345"
+    />
+  </div>,
+}
+`;
+
+exports[`Select when multi-value renders the the textbox with the following:
+        * formattedValue is empty
+        * value contains the array of values
+        * leftChildren contains the pills
+        * inputIcon is disabled
+        * placeholder is disabled 1`] = `
+Array [
+  <div
+    className="carbon-select__pill"
+  >
+    <Pill
+      as="default"
+      className=""
+      fill={false}
+      onClick={null}
+      onDelete={[Function]}
+    >
+      Orange
+    </Pill>
+  </div>,
+  <div
+    className="carbon-select__pill"
+  >
+    <Pill
+      as="default"
+      className=""
+      fill={false}
+      onClick={null}
+      onDelete={[Function]}
+    >
+      Blue
+    </Pill>
+  </div>,
+  <div
+    className="carbon-select__pill"
+  >
+    <Pill
+      as="default"
+      className=""
+      fill={false}
+      onClick={null}
+      onDelete={[Function]}
+    >
+      Red
+    </Pill>
+  </div>,
+]
+`;
