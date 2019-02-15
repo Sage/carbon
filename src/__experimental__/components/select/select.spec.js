@@ -250,7 +250,7 @@ describe('Select', () => {
       expect(listOf(wrapper).props().filterValue).toEqual('x');
     });
 
-    it('triggers custom onFilter event if one if passed', () => {
+    it('triggers custom onFilter event if one is passed', () => {
       const props = { onFilter: jest.fn() };
       const wrapper = renderWrapper({ props });
       textboxOf(wrapper).find('input').simulate('change', { target: { value: 'x' } });
