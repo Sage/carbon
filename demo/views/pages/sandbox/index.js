@@ -1,89 +1,90 @@
 import React from 'react';
-import { Select, Option } from '__experimental__/components/select'; 
+import { transform } from 'babel-standalone';
+import './sandbox.scss';
 
-const people = [
-  { value: '1', text: 'Brian' },
-  { value: '2', text: 'Emma' },
-  { value: '3', text: 'Fred' },
-  { value: '4', text: 'Martha' },
-  { value: '5', text: 'Peter' },
-  { value: '6', text: 'Samantha' },
-  { value: '7', text: 'Steven' },
-  { value: '8', text: 'Victoria' },
-  { value: '9', text: 'William' },
-  { value: '10', text: 'Yann' }
-]
-
-class Sandbox extends React.Component {
+class Preview extends React.Component {
   state = {
-    people: [],
+    error: false
+  }
 
-    country: undefined
+  compile = () => {
+    let code = this.props.code;
+
+    if (code.length === 0) {
+      code = '<div />';
+    }
+
+    try {
+      const compiledCode = eval(transform(code, { presets: ['es2015', 'react'] }).code);
+      this._lastWorkingExample = code;
+      if (this.state.error) setTimeout(() => { this.setState({ error: false }); });
+      return compiledCode;
+    } catch (err) {
+      setTimeout(() => { this.setState({ error: err.message }); });
+      return eval(transform(this._lastWorkingExample, { presets: ['es2015', 'react'] }).code);
+    }
   }
 
   render() {
-    return(
-      <div style={ { width: '800px', margin: '50px auto' } }>
-        <Form>
-          <Select
-            label='Choose Country'
-            value={ this.state.country }
-            onChange={ ev => this.setState({ country: ev.target.value }) }
-            labelAlign='right'
-            labelInline
-            placeholder='Please choose'
-            validations={ [new PresenceValidation() ] }
-          >
-            <Option text='England' value='1' />
-            <Option text='Ireland' value='2' />
-            <Option text='Scotland' value='3' />
-            <Option text='Wales' value='4' />
-          </Select>
-
-          <Select
-            label='Choose People'
-            value={ this.state.people }
-            onChange={ ev => this.setState({ people: ev.target.value }) }
-            labelAlign='right'
-            labelInline
-            placeholder='Please choose'
-            validations={ [new PresenceValidation() ] }
-          >
-            { people.filter(person => !this.state.people.find(item => item.value === person.value)).map(person => <Option key={ person.value } { ...person } />) }
-          </Select>
-
-          <Select
-            label='Choose Country'
-            value={ this.state.country }
-            onChange={ ev => this.setState({ country: ev.target.value }) }
-            labelAlign='right'
-            labelInline
-            placeholder='Please choose'
-            validations={ [new PresenceValidation() ] }
-            disabled
-          >
-            <Option text='England' value='1' />
-            <Option text='Ireland' value='2' />
-            <Option text='Scotland' value='3' />
-            <Option text='Wales' value='4' />
-          </Select>
-
-          <Select
-            label='Choose People'
-            value={ this.state.people }
-            onChange={ ev => this.setState({ people: ev.target.value }) }
-            labelAlign='right'
-            labelInline
-            placeholder='Please choose'
-            validations={ [new PresenceValidation() ] }
-            disabled
-          >
-            { people.filter(person => !this.state.people.find(item => item.value === person.value)).map(person => <Option key={ person.value } { ...person } />) }
-          </Select>
-        </Form>
+    return (
+      <div className='sandbox-preview'>
+        { this.compile() }
+        { this.state.error && (
+          <div className='sandbox-error'>
+            <strong>Render failed:</strong> there is a syntax error!<br />
+            { this.state.error }
+          </div>
+        ) }
       </div>
-    )
+    );
   }
-};
+}
+
+class Sandbox extends React.Component {
+  state = {
+    code: ''
+  }
+
+  updateCode = (ev) => {
+    this.setState({ code: ev.target.value });
+  }
+
+  catchTab = (ev) => {
+    if (ev.keyCode === 9) {
+      ev.preventDefault();
+      const input = ev.target;
+      const startPos = input.selectionStart;
+      const endPos = input.selectionEnd;
+      const newValue = `${input.value.substring(0, startPos)
+         }  ${
+         input.value.substring(endPos, input.value.length)}`;
+
+      this.setState({ code: newValue }, () => {
+        const newPos = startPos + 2;
+        input.setSelectionRange(newPos, newPos);
+      });
+    }
+  }
+
+  render() {
+    return (
+      <div className={ `sandbox sandbox-orientation-${this.state.orientation ? 'horizontal' : 'vertical'}` }>
+        <Preview code={ this.state.code } />
+        <textarea
+          autoFocus
+          className='sandbox-input'
+          onChange={ this.updateCode }
+          onKeyDown={ this.catchTab }
+          value={ this.state.code }
+        />
+        <input
+          className='sandbox-orientation'
+          type='checkbox'
+          onChange={ () => { this.setState({ orientation: !this.state.orientation }); } }
+        />
+      </div>
+    );
+  }
+}
 
 export default Sandbox;
