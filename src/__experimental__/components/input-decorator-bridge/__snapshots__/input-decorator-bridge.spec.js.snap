@@ -2,9 +2,10 @@
 
 exports[`InputDecoratorBridge renders the Textbox component with:
          * generated props from the decorators assigned to correct elements
-         * markup for label, validation and field help 1`] = `
+         * markup for label, validation and field help
+         * children and left children 1`] = `
 <div
-  className="common-input--with-icon common-input--error common-input--has-field-help common-input"
+  className=" common-input--error common-input--has-field-help common-input"
 >
   <div
     className="common-input__field"
@@ -16,12 +17,15 @@ exports[`InputDecoratorBridge renders the Textbox component with:
       data-element="input"
       id="mocked-guid"
       inputRef={[Function]}
+      leftChildren="southpaw children"
       onBlur={[Function]}
       onChange={[Function]}
       onFocus={[Function]}
       onKeyDown={[Function]}
       value="1"
-    />
+    >
+      normal children
+    </Textbox>
   </div>
   <Icon
     bgSize="small"

@@ -2,12 +2,12 @@ import { assertIsSubset, baseThemeConfig, palette } from '../test-utils';
 import largeTheme from '.';
 
 
-describe('classicTheme', () => {
+describe('largeTheme', () => {
   fit('contains the base theme', () => {
     assertIsSubset(baseThemeConfig, largeTheme);
   });
 
-  it('contains the classicTheme config', () => {
+  it('contains the largeTheme config', () => {
     const largeBusinessConfig = {
       colors: {
         base: palette.amethyst,

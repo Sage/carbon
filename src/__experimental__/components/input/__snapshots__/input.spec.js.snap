@@ -8,6 +8,7 @@ exports[`Input renders with an input 1`] = `
     className="carbon-input"
     onBlur={[Function]}
     onChange={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
   />
 </Input>

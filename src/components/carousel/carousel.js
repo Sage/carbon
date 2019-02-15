@@ -506,6 +506,7 @@ class Carousel extends React.Component {
 
           <CSSTransitionGroup
             component='div'
+            className='carbon-carousel__transition'
             transitionName={ this.transitionName() }
             transitionEnterTimeout={ TRANSITION_TIME }
             transitionLeaveTimeout={ TRANSITION_TIME }
