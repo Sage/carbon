@@ -18,7 +18,7 @@
     "precompile": "npm run clean-lib && npm run copy-files && npm run babel",
     "prepublishOnly": "node check-version.js && npm install && npm run precompile",
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
-    "storybook": "./node_modules/@storybook/react/bin/index.js -p 9001 -c .storybook",
+    "storybook": "./node_modules/.bin/start-storybook -p 9001 -c .storybook",
     "babel": "cross-env NODE_ENV=production babel --stage 0 ./src --out-dir ./lib --ignore '**/*/__spec__.js' --quiet",
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpx \"src/**/*.!(js|md)\" lib",
