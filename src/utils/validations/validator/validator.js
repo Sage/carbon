@@ -6,10 +6,10 @@ const handleLegacyValidation = (func, value, props) => {
 };
 
 const validator = validationFunctions => (value, props) => {
-  const validations = Array.isArray(validationFunctions) ? validationFunctions : [validationFunctions];
   const handleValidation = func => (
     isLegacy(func) ? handleLegacyValidation(func, value, props) : func(value, props)
   );
+  const validations = Array.isArray(validationFunctions) ? validationFunctions : [validationFunctions];
   const results = validations.map(handleValidation);
   return Promise.all(results);
 };
