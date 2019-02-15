@@ -2,5 +2,10 @@
   "files.exclude": {
     "**/.git": true,
     "**/coverage": true
-  }
+  },
+  "eslint.options": {
+    "configFile": "/Users/mmaciorowski/Documents/Projekty/JS/carbon/.eslintrc"
+  },
+  "editor.tabSize": 2,
+  "editor.detectIndentation": false,
 }

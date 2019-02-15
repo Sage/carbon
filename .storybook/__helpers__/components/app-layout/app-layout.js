@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
-import Pod from '../../../components/pod/pod';
 
 const StyledSelect = styled.select`
   padding: 5px 15px;
@@ -11,9 +10,10 @@ const StyledSelect = styled.select`
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 0 25px;
 `;
 const SelectionContainer = styled.div`
-  padding-top: 20px;
+  margin: 15px 0;
   display: flex;
   justify-content: flex-end;
 `;
@@ -56,20 +56,18 @@ class AppLayout extends React.Component {
 
     return (
       <StyledContainer>
-
-        <Pod as='secondary'>
+        <div>
           <SelectionContainer>
             <StyledSelect value={ activeTheme } onChange={ this.handleSelectChange }>
               <option value='theme1'>Theme 1</option>
               <option value='theme2'>Theme 2</option>
             </StyledSelect>
           </SelectionContainer>
-        </Pod>
+        </div>
 
-        <Pod>
+        <div>
           <ThemeProvider theme={ themes[activeTheme] }>{children}</ThemeProvider>
-        </Pod>
-
+        </div>
       </StyledContainer>
     );
   }

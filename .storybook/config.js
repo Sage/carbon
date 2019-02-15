@@ -3,7 +3,7 @@ import { configure, addDecorator } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { withNotes } from '@storybook/addon-notes';
 import { withInfo } from '@storybook/addon-info';
-import AppLayout from 'storybookHelpers/components/app-layout/app-layout';
+import AppLayout from 'helpers/components/app-layout/app-layout';
 
 
 const req = require.context('../src/components', true, /\.stories\.js$/);

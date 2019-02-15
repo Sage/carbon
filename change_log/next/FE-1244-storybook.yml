@@ -1,3 +1,6 @@
-New Features: "Adds a storybook"
-New Features: "Adds addons (`Actions`, `Knobs`, `Notes`, `Info`, `ViewPort`)"
-New Features: "Stories for `Alert`, `Animated Menu Button`, `App Wrapper`, `Button`, `Button Toggle` and `Button Toggle Group`."
+New Features: |
+Adds a storybook
+
+Adds addons (`Actions`, `Knobs`, `Notes`, `Info`, `ViewPort`)
+
+Stories for `Alert`, `Animated Menu Button`, `App Wrapper`, `Button`, `Button Toggle` and `Button Toggle Group`.
