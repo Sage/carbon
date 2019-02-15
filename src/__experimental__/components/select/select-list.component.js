@@ -69,6 +69,7 @@ class SelectList extends React.Component {
       children,
       customFilter,
       filterValue,
+      onLazyLoad,
       onMouseDown,
       onMouseEnter,
       onMouseLeave,
@@ -87,13 +88,17 @@ class SelectList extends React.Component {
           ref={ this.list }
         >
           <ScrollableList
+            onLazyLoad={ onLazyLoad }
             onSelect={ onSelect }
             alwaysHighlight={ alwaysHighlight }
             keyNavigation
           >
             {
               filter(children, child => (
-                <ScrollableListItem id={ this.itemId(child.props) }>
+                <ScrollableListItem
+                  id={ this.itemId(child.props) }
+                  isSelectable={ child.props.isSelectable }
+                >
                   { child }
                 </ScrollableListItem>
               ))
