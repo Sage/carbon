@@ -15,41 +15,59 @@ const InputPresentationContext = React.createContext();
 
 class InputPresentation extends React.Component {
   static propTypes = {
-    children: PropTypes.node
+    children: PropTypes.node,
+    className: PropTypes.string
   }
 
   state = {
     hasFocus: false
   }
 
+  input = {}
+
+  container = React.createRef()
+
   onFocus = () => this.setState({ hasFocus: true })
 
   onBlur = () => this.setState({ hasFocus: false })
+
+  assignInput = (input) => { this.input = input; }
 
   contextForInput() {
     return {
       hasFocus: this.state.hasFocus,
       onFocus: this.onFocus,
-      onBlur: this.onBlur
+      onBlur: this.onBlur,
+      inputRef: this.assignInput
     };
   }
 
   classNames() {
-    return classNames('carbon-input-presentation', {
+    return classNames('carbon-input-presentation', this.props.className, {
       'carbon-input-presentation--has-focus': this.state.hasFocus
     });
+  }
+
+  // use mouse down rather than click to accomodate click and drag events too
+  handleMouseDown = () => {
+    // use a zero timeout to ensure focus is applied even on click and drag events
+    setTimeout(() => this.input.current.focus());
   }
 
   render() {
     const { children, ...props } = this.props;
 
     return (
-      <div { ...props }>
-        <div className={ this.classNames() }>
-          <InputPresentationContext.Provider value={ this.contextForInput() }>
-            { children }
-          </InputPresentationContext.Provider>
-        </div>
+      <div
+        { ...props }
+        role='presentation'
+        className={ this.classNames() }
+        ref={ this.container }
+        onMouseDown={ this.handleMouseDown }
+      >
+        <InputPresentationContext.Provider value={ this.contextForInput() }>
+          { children }
+        </InputPresentationContext.Provider>
       </div>
     );
   }

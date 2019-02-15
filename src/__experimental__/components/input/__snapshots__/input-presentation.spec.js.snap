@@ -1,21 +1,22 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`InputPresentation renders presentational divs and context provider for its children 1`] = `
-<div>
-  <div
-    className="carbon-input-presentation"
-  >
-    <ContextProvider
-      value={
-        Object {
-          "hasFocus": false,
-          "onBlur": [Function],
-          "onFocus": [Function],
-        }
+exports[`InputPresentation renders presentational div and context provider for its children 1`] = `
+<div
+  className="carbon-input-presentation"
+  onMouseDown={[Function]}
+  role="presentation"
+>
+  <ContextProvider
+    value={
+      Object {
+        "hasFocus": false,
+        "inputRef": [Function],
+        "onBlur": [Function],
+        "onFocus": [Function],
       }
-    >
-      sample children
-    </ContextProvider>
-  </div>
+    }
+  >
+    sample children
+  </ContextProvider>
 </div>
 `;

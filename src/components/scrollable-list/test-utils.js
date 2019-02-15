@@ -5,11 +5,11 @@ const makeArray = n => [...Array(n).keys()];
 
 const listItemReducer = ({ nonSelectables = [], customSelectables = [] }) => {
   // generate jsx for selectable list items, based on indexes in config
-  return (acc, item) => {
+  return (acc, item, index) => {
     if (nonSelectables.includes(item)) return [...acc, <div />];
     if (customSelectables.includes(item)) return [...acc, <div isSelectable />];
 
-    return [...acc, <ScrollableListItem />];
+    return [...acc, <ScrollableListItem id={ index } />];
   };
 };
 
@@ -28,7 +28,8 @@ const keyMap = {
   DownArrow: '40',
   RightArrow: '39',
   LeftArrow: '37',
-  Enter: '13'
+  Enter: '13',
+  Tab: '9'
 };
 
 const repeat = action => (n = 1) => makeArray(n).forEach(() => action());

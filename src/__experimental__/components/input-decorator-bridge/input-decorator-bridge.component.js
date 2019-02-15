@@ -12,7 +12,8 @@ import Textbox from '../textbox';
 const InputDecoratorBridge = InputDecorator(InputLabel(InputValidation(InputIcon(
   class InputDecoratorBridge extends React.Component {
     static propTypes = {
-      children: PropTypes.node, // optional: will add additional child elements to the input (eg. icons)
+      children: PropTypes.node, // optional: will add additional child elements after the input (eg. icons)
+      leftChildren: PropTypes.node, // optional: will add additional child elements before the input
       inputIcon: PropTypes.string, // optional: hooks into the InputIcon decorator to add a button to the input
       formattedValue: PropTypes.string, // optional: will display this in the input instead value
       inputRef: PropTypes.func // optional: a callback to retrieve the input reference
@@ -23,16 +24,23 @@ const InputDecoratorBridge = InputDecorator(InputLabel(InputValidation(InputIcon
       return validProps(this);
     }
 
+    classes() {
+      let classes = this.mainClasses;
+      if (!this.props.inputIcon) classes = classes.replace('common-input--with-icon', '');
+      return classes;
+    }
+
     render() {
-      const { ...inputProps } = this.inputProps;
+      const { className, ...inputProps } = this.inputProps;
       inputProps.inputRef = this.props.inputRef;
+      delete inputProps.ref; // ref is added by decorator, but we would like to move away from needing it
       if (typeof this.props.formattedValue === 'string') inputProps.value = this.props.formattedValue;
 
       return (
-        <div className={ this.mainClasses }>
+        <div className={ this.classes() }>
           { this.labelHTML }
           <div { ...this.fieldProps }>
-            <Textbox { ...inputProps }>
+            <Textbox { ...inputProps } leftChildren={ this.props.leftChildren }>
               { this.props.children }
             </Textbox>
             { this.props.inputIcon && this.inputIconHTML(this.props.inputIcon) }
