@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { IconTypes } from '../../common';
+import { IconTypes } from '../../utils/helpers/options-helper/option-helper';
 export interface LinkProps {
   className?: string;
   disabled?: boolean;

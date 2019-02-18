@@ -1,11 +1,11 @@
 import * as React from 'react';
-import { ThemeTypes } from '../../common';
+import { ColorTypes } from '../../utils/helpers/options-helper/option-helper';
 
 export interface FlashProps {
   className?: string;
   /** Sets the theme of the notification */
 
-  as?: ThemeTypes;
+  as?: ColorTypes;
   /** A callback for when the notification is dismissed. You can use this prop to close the notification */
   onDismiss?: (...args: any[]) => any;
 

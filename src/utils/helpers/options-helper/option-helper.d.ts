@@ -1,4 +1,4 @@
-export type ThemeTypes =
+export type ColorTypes =
 | 'default'
 | 'error'
 | 'help'
