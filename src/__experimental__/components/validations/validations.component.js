@@ -10,46 +10,49 @@ import ValidationsContext from './validations.context';
 
 
 // manages the provider and consumer parts
-class Validations extends React.Component {
-  static propTypes = {
-    children: PropTypes.node,
-    formValidation: PropTypes.func,
-    fieldValidation: PropTypes.func
-  };
+// class Validations extends React.Component {
+//   static propTypes = {
+//     children: PropTypes.node,
+//     formValidation: PropTypes.func,
+//     fieldValidation: PropTypes.func
+//   };
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      errorCount: 0
-    };
-  }
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       errorCount: 0
+//     };
+//   }
 
+const renderChildren = (children) => {
+  return children;
+};
 
-  renderChildren = (children) => {
-    return children;
-  };
+const validations = (props) => {
+  // render() {
+  const { errorCount } = this.state.errorCount;
+  const { children, formValidation, fieldValidation } = props;
 
-  render() {
-    const { errorCount } = this.state.errorCount;
-    const { children, formValidation, fieldValidation } = this.props;
-
-    return (
-      <div>
-        <ValidationsContext.Provider value={
-          {
-            validateForm: formValidation,
-            validateField: fieldValidation,
-            errorCount
-          }
+  return (
+    <div>
+      <ValidationsContext.Provider value={
+        {
+          validateForm: formValidation,
+          validateField: fieldValidation,
+          errorCount
         }
-        >
-          { this.renderChildren(children) }
-          {/* <div> ED </div> */}
-        </ValidationsContext.Provider>
-      </div>
-    );
-  }
-}
+      }
+      >
+        { renderChildren(children) }
+      </ValidationsContext.Provider>
+    </div>
+  );
+};
+validations.propTypes = {
+  children: PropTypes.node,
+  formValidation: PropTypes.func,
+  fieldValidation: PropTypes.func
+};
 // const Validations = (props) => {
 //   const [[errorCount]] = useState(0);
 //   errorCount.push('x');
@@ -72,4 +75,4 @@ class Validations extends React.Component {
 //   );
 // };
 
-export default Validations;
+export default validations;
