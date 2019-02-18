@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, boolean } from '@storybook/addon-knobs';
+import { text, number, boolean } from '@storybook/addon-knobs';
 import notes from './notes.md';
 import ButtonToggle from '../button-toggle/button-toggle';
 import ButtonToggleGroup from './button-toggle-group';
@@ -12,7 +12,7 @@ storiesOf('Button Toggle Group', module)
       propTables: [ButtonToggleGroup]
     }
   }).add('default', () => {
-    const timeToDisappear = text('timeToDisappear', '');
+    const timeToDisappear = number('timeToDisappear', 0);
     const label = text('label', 'Example ButtonToggleGroup');
     const labelHelp = text('labelHelp', 'This text provides more information for the label.');
     const inputWidth = text('inputWidth', '');
