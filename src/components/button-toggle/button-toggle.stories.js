@@ -1,6 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, select, boolean } from '@storybook/addon-knobs';
+import {
+  text, select, number, boolean
+} from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import ButtonToggle from './button-toggle';
@@ -13,7 +15,7 @@ storiesOf('Button Toggle', module)
     const size = select('size', OptionsHelper.sizesBinary, OptionsHelper.sizesBinary[1]);
     const disabled = boolean('disabled', false);
     const grouped = boolean('grouped', false);
-    const deferTimeout = text('deferTimeout', '');
+    const deferTimeout = number('deferTimeout', 0);
 
     return (
       <ButtonToggle

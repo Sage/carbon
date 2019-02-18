@@ -13,7 +13,7 @@ storiesOf('Button', module)
     const disabled = boolean('disabled', false);
     const theme = select('theme', OptionsHelper.buttonColors, OptionsHelper.buttonColors[0]);
     const size = select('size', OptionsHelper.sizesRestricted, OptionsHelper.sizesRestricted[1]);
-    const subtext = text('subtext', '');
+    const subtext = size === OptionsHelper.sizesRestricted[2] ? text('subtext', '') : undefined;
 
     return (
       <Button
