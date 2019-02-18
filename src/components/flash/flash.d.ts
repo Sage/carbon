@@ -1,10 +1,11 @@
 import * as React from 'react';
+import { ThemeTypes } from '../../common';
 
 export interface FlashProps {
   className?: string;
   /** Sets the theme of the notification */
 
-  as?: flashTypes;
+  as?: ThemeTypes;
   /** A callback for when the notification is dismissed. You can use this prop to close the notification */
   onDismiss?: (...args: any[]) => any;
 
@@ -29,16 +30,6 @@ export interface FlashProps {
    */
   timeout?: number;
 }
-
-export type flashTypes =
-  | 'default'
-  | 'error'
-  | 'help'
-  | 'info'
-  | 'maintenance'
-  | 'new'
-  | 'success'
-  | 'warning';
 
 declare const Flash: React.Component<FlashProps, {}>;
 export default Flash;
