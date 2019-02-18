@@ -3,76 +3,50 @@ import PropTypes from 'prop-types';
 import ValidationsContext from './validations.context';
 // import validator from '../../../utils/validations/validator';
 
-// inputs to validate, validations to run on them
-// do as array of each?
-// or as an object with array of validations to run on a input
-// wrap a component with the context?,
+class Validations extends React.Component {
+  static propTypes = {
+    children: PropTypes.node,
+    formValidation: PropTypes.func,
+    fieldValidation: PropTypes.func
+  };
 
+  constructor(props) {
+    super(props);
+    this.state = {
+      errorCount: 0
+    };
+  }
 
-// manages the provider and consumer parts
-// class Validations extends React.Component {
-//   static propTypes = {
-//     children: PropTypes.node,
-//     formValidation: PropTypes.func,
-//     fieldValidation: PropTypes.func
-//   };
+  renderChildren = (children) => {
+    return children;
+  };
 
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       errorCount: 0
-//     };
-//   }
+  updateErrorCount = (adjustment) => {
+    const { errorCount } = this.state;
+    const newValue = adjustment === -1 && errorCount === 0 ? errorCount : errorCount + adjustment;
+    this.setState({ errorCount: newValue });
+  }
 
-const renderChildren = (children) => {
-  return children;
-};
+  render() {
+    const { errorCount } = this.state.errorCount;
+    const { children, formValidation, fieldValidation } = this.props;
 
-const validations = (props) => {
-  // render() {
-  const { errorCount } = this.state.errorCount;
-  const { children, formValidation, fieldValidation } = props;
-
-  return (
-    <div>
-      <ValidationsContext.Provider value={
-        {
-          validateForm: formValidation,
-          validateField: fieldValidation,
-          errorCount
+    return (
+      <div>
+        <ValidationsContext.Provider value={
+          {
+            validateForm: formValidation,
+            validateField: fieldValidation,
+            errorCount,
+            updateErrorCount: this.updateErrorCount
+          }
         }
-      }
-      >
-        { renderChildren(children) }
-      </ValidationsContext.Provider>
-    </div>
-  );
-};
-validations.propTypes = {
-  children: PropTypes.node,
-  formValidation: PropTypes.func,
-  fieldValidation: PropTypes.func
-};
-// const Validations = (props) => {
-//   const [[errorCount]] = useState(0);
-//   errorCount.push('x');
-//   console.log(errorCount.length);
-//   const { children, formValidation, fieldValidation } = props;
-//   return (
-//     <div>
-//       <ValidationsContext.Provider value={
-//         {
-//           validateForm: formValidation,
-//           validateField: fieldValidation,
-//           errorCount
-//         }
-//       }
-//       >
-//         {/* { renderChildren(children) } */}
-//         <div> ED </div>
-//       </ValidationsContext.Provider>
-//     </div>
-//   );
-// };
+        >
+          { this.renderChildren(children) }
+        </ValidationsContext.Provider>
+      </div>
+    );
+  }
+}
 
-export default validations;
+export default Validations;
