@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputDecoratorBridge renders the Textbox component with:
+         * generated props from the decorators assigned to correct elements
+         * markup for label, validation and field help
+         * children and left children 1`] = `
+<div
+  className=" common-input--error common-input--has-field-help common-input"
+>
+  <div
+    className="common-input__field"
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}
+  >
+    <Textbox
+      autoComplete="off"
+      data-element="input"
+      id="mocked-guid"
+      inputRef={[Function]}
+      leftChildren="southpaw children"
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      value="1"
+    >
+      normal children
+    </Textbox>
+  </div>
+  <Icon
+    bgSize="small"
+    className="common-input__icon common-input__icon--error"
+    key="0"
+    style={Object {}}
+    type="error"
+  />
+  <span
+    className="common-input__help-text"
+    data-element="help"
+    style={Object {}}
+  >
+    please help!
+  </span>
+</div>
+`;
+
+exports[`InputDecoratorBridge renders with an inputIcon if one is supplied 1`] = `
+<div
+  className="common-input--with-icon common-input"
+>
+  <div
+    className="common-input__field"
+    onMouseOut={[Function]}
+    onMouseOver={[Function]}
+  >
+    <Textbox
+      autoComplete="off"
+      data-element="input"
+      id="mocked-guid"
+      inputRef={[Function]}
+      onBlur={[Function]}
+      onChange={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      value="1"
+    />
+    <label
+      htmlFor="mocked-guid"
+      key="label-icon"
+    >
+      <Icon
+        bgSize="small"
+        className="carbon-input-icon"
+        type="dropdown"
+      />
+    </label>
+  </div>
+</div>
+`;

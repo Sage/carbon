@@ -3,23 +3,81 @@
 .carbon-pill {
   border-radius: 10px;
   display: inline-block;
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
-  line-height: 12px;
-  letter-spacing: 1px;
+  letter-spacing: 0.7px;
   padding: 2px 7px;
+  position: relative;
   text-align: center;
+
+  .common-input & {
+    font-size: 13px;
+    line-height: 13px;
+  }
+}
+
+.carbon-pill--is-deletable {
+  padding-right: 19px;
+}
+
+.carbon-pill__delete-icon {
+  -webkit-appearance: none;
+  background-color: transparent;
+  border-radius: 0 9px 9px 0;
+  border: none;
+  bottom: 0;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 17px;
+
+  .carbon-icon {
+    vertical-align: -webkit-baseline-middle;
+    margin-top: -2px;
+    margin-left: -1px;
+
+    &:before {
+      font-size: 9px;
+    }
+  }
+
+  &:hover,
+  &:focus {
+    background-color: $blue-dark;
+    color: #ffffff;
+  }
 }
 
 @mixin pill-theme($type, $color, $border, $background, $color-hover) {
   .carbon-pill--#{$type}--empty {
     border: 1px solid $color;
     color: $color;
+    .carbon-pill__delete-icon {
+      color: $color;
+
+      &:hover,
+      &:focus {
+        color: $white;
+      }
+    }
   }
 
   .carbon-pill--#{$type}--fill {
     background-color: $color;
+    border: 1px solid $color;
     color: $white;
+
+    .carbon-pill__delete-icon {
+      color: $white;
+
+      &:hover,
+      &:focus {
+        color: $white;
+      }
+    }
   }
 }
 

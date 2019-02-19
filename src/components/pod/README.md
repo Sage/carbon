@@ -5,7 +5,7 @@
 * In your file
 
 ```javascript
-import Pod from 'carbon/lib/components/pod';
+import Pod from 'carbon-react/lib/components/pod';
 ```
 
 *  To render a Pod:

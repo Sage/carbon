@@ -15,13 +15,13 @@ class Preview extends React.Component {
     }
 
     try {
-      const compiledCode = eval(transform(code, { presets: ['es2015', 'react'] }).code)
+      const compiledCode = eval(transform(code, { presets: ['es2015', 'react'] }).code);
       this._lastWorkingExample = code;
-      if (this.state.error) setTimeout(() => { this.setState({ error: false }) });
+      if (this.state.error) setTimeout(() => { this.setState({ error: false }); });
       return compiledCode;
-    } catch(err) {
-      setTimeout(() => { this.setState({ error: err.message }) });
-      return eval(transform(this._lastWorkingExample, { presets: ['es2015', 'react'] }).code)
+    } catch (err) {
+      setTimeout(() => { this.setState({ error: err.message }); });
+      return eval(transform(this._lastWorkingExample, { presets: ['es2015', 'react'] }).code);
     }
   }
 
@@ -55,9 +55,9 @@ class Sandbox extends React.Component {
       const input = ev.target;
       const startPos = input.selectionStart;
       const endPos = input.selectionEnd;
-      const newValue = input.value.substring(0, startPos)
-        + '  '
-        + input.value.substring(endPos, input.value.length);
+      const newValue = `${input.value.substring(0, startPos)
+         }  ${
+         input.value.substring(endPos, input.value.length)}`;
 
       this.setState({ code: newValue }, () => {
         const newPos = startPos + 2;
@@ -67,8 +67,8 @@ class Sandbox extends React.Component {
   }
 
   render() {
-    return(
-      <div className={ `sandbox sandbox-orientation-${ this.state.orientation ? 'horizontal' : 'vertical' }` }>
+    return (
+      <div className={ `sandbox sandbox-orientation-${this.state.orientation ? 'horizontal' : 'vertical'}` }>
         <Preview code={ this.state.code } />
         <textarea
           autoFocus
@@ -80,11 +80,11 @@ class Sandbox extends React.Component {
         <input
           className='sandbox-orientation'
           type='checkbox'
-          onChange={ () => { this.setState({ orientation: !this.state.orientation }) } }
+          onChange={ () => { this.setState({ orientation: !this.state.orientation }); } }
         />
       </div>
-    )
+    );
   }
-};
+}
 
 export default Sandbox;

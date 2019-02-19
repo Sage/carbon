@@ -51,14 +51,14 @@ describe('Confirm', () => {
 
     describe('yes button', () => {
       it('triggers the onConfirm when the yes button is clicked', () => {
-        wrapper.find('[data-element="confirm"]').findWhere(n => n.type() === 'button').simulate('click');
+        wrapper.find('[data-element="confirm"]').hostNodes().findWhere(n => n.type() === 'button').simulate('click');
         expect(onConfirm).toHaveBeenCalled();
       });
     });
 
     describe('no button', () => {
       it('triggers the onCancel when the no button is clicked', () => {
-        wrapper.find('[data-element="cancel"]').findWhere(n => n.type() === 'button').simulate('click');
+        wrapper.find('[data-element="cancel"]').hostNodes().findWhere(n => n.type() === 'button').simulate('click');
         expect(onCancel).toHaveBeenCalled();
       });
     });

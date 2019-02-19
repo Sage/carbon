@@ -5,7 +5,7 @@
  * In your file:
 
 ```javascript
-import Checkbox from 'carbon/lib/components/checkbox';
+import Checkbox from 'carbon-react/lib/components/checkbox';
 ```
 
 To render the Checkbox:
