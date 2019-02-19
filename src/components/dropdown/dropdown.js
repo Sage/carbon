@@ -5,7 +5,7 @@ import Browser from '../../utils/helpers/browser';
 import Input from '../../utils/decorators/input';
 import InputLabel from '../../utils/decorators/input-label';
 import InputValidation from '../../utils/decorators/input-validation';
-import InputIcon from '../../utils/decorators/input-icon';
+import InputIconToggle from '../input-icon-toggle';
 import Events from '../../utils/helpers/events';
 import { validProps } from '../../utils/ether';
 import Portal from '../portal';
@@ -33,7 +33,7 @@ const window = Browser.getWindow();
  * @constructor
  * @decorators {List,Input,InputIcon,InputLabel,InputValidation}
  */
-const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown extends React.Component {
+const Dropdown = Input(InputLabel(InputValidation(class Dropdown extends React.Component {
   static propTypes = {
     /**
      * Automatically focus the input.
@@ -680,7 +680,7 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
   get additionalInputContent() {
     return (
       <React.Fragment>
-        { this.showArrow() && this.inputIconHTML('dropdown') }
+        { this.showArrow() && <InputIconToggle iconType='dropdown' inputId={ this._guid } /> }
         {
           this.state.open && (
             <Portal onReposition={ this.calculatePosition }>
@@ -704,7 +704,7 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
    * @return {Boolean}
    */
   showArrow() {
-    return true;
+    return !this.props.disabled && !this.props.readOnly;
   }
 
   /**
@@ -752,6 +752,6 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
       </div>
     );
   }
-}))));
+})));
 
 export default Dropdown;
