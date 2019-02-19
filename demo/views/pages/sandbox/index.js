@@ -8,11 +8,14 @@ class Sandbox extends React.Component {
 
   render() {
     return (
-      <SelectAsync
-        endpoint='/countries'
-        value={ this.state.val }
-        onChange={ ev => this.setState({ val: ev.target.value }) }
-      />
+      <div style={ { width: '300px', margin: '50px auto' } }>
+        <SelectAsync
+          label='Choose Item'
+          endpoint='/countries'
+          value={ this.state.val }
+          onChange={ ev => this.setState({ val: ev.target.value }) }
+        />
+      </div>
     );
   }
 }

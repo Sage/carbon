@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Select from '../select/select.component';
 import Option from '../select/option.component';
-import Spinner from '../../../components/spinner';
 
 class SelectAsync extends React.Component {
   static propTypes = {
@@ -14,14 +13,17 @@ class SelectAsync extends React.Component {
     items: [],
     page: 0,
     total: 0,
-    fetching: false,
-    search: undefined
+    fetching: false
   }
+
+  select = React.createRef()
 
   deferredFetch = undefined
 
-  onOpen = () => {
-    this.fetchData({ page: 1, search: null });
+  onOpen = () => this.fetchData({ page: 1 });
+
+  filterValue() {
+    return this.select.current.state.filter;
   }
 
   deferredFetchData = (search) => {
@@ -31,8 +33,9 @@ class SelectAsync extends React.Component {
     }, 200);
   }
 
-  fetchData = async ({ page, search = this.state.search }) => {
+  fetchData = async ({ page, search = this.filterValue() }) => {
     this.setState({ fetching: true });
+
     const { data } = await axios.get(this.props.endpoint, {
       params: {
         page,
@@ -40,14 +43,12 @@ class SelectAsync extends React.Component {
         search
       }
     });
-    const items = (data.$page > 1) ? this.state.items.concat(data.$items) : data.$items;
 
     this.setState({
-      items,
+      items: this.buildOptions(data.$page, data.$items),
       page: data.$page,
       total: data.$total,
-      fetching: false,
-      search
+      fetching: false
     });
   }
 
@@ -57,42 +58,33 @@ class SelectAsync extends React.Component {
     this.fetchData({ page: this.state.page + 1 });
   }
 
-  renderOptions() {
-    if (this.state.items.length) {
-      const items = this.state.items.map(item => (
-        <Option
-          key={ `a${item.id}` }
-          value={ item.id }
-          text={ item.displayed_as }
-        />
-      ));
-      if (this.state.fetching) items.push(this.renderLoadingItem());
-      return items;
-    }
-
-    if (this.state.fetching) return this.renderLoadingItem();
-
-    return null;
+  buildOptions(page, items) {
+    return (page > 1) ? this.state.items.concat(items) : items;
   }
 
-  renderLoadingItem() {
-    return (
-      <div
-        key='spinner'
-        isSelectable={ false }
-        style={ { textAlign: 'center' } }
-      >
-        <Spinner size='small' />
-      </div>
-    );
+  renderOptions() {
+    if (!this.state.items.length) {
+      if (!this.deferredFetch) return <div isSelectable={ false }>Fetching...</div>;
+      return null;
+    }
+
+    return this.state.items.map(item => (
+      <Option
+        key={ `a${item.id}` }
+        value={ item.id }
+        text={ item.displayed_as }
+      />
+    ));
   }
 
   render() {
     return (
       <Select
+        ref={ this.select }
         onOpen={ this.onOpen }
         onFilter={ this.deferredFetchData }
         onLazyLoad={ this.fetchNextPage }
+        loading={ this.state.fetching }
         { ...this.props }
       >
         { this.renderOptions() }
