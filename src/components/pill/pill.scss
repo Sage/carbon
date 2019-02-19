@@ -5,14 +5,14 @@
   display: inline-block;
   font-size: 12px;
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 0.7px;
   padding: 2px 7px;
   position: relative;
   text-align: center;
 
   .common-input & {
-    font-size: 14px;
-    line-height: 14px;
+    font-size: 13px;
+    line-height: 13px;
   }
 }
 
@@ -21,22 +21,23 @@
 }
 
 .carbon-pill__delete-icon {
+  -webkit-appearance: none;
   background-color: transparent;
-  border: none;
   border-radius: 0 9px 9px 0;
+  border: none;
   bottom: 0;
   cursor: pointer;
-  margin-left: 3px;
-  margin-right: -5px;
+  margin: 0;
   padding: 0;
   position: absolute;
+  right: 0;
   top: 0;
-  height: 19px;
-  width: 16px;
-  -webkit-appearance: none;
+  width: 17px;
 
   .carbon-icon {
     vertical-align: -webkit-baseline-middle;
+    margin-top: -2px;
+    margin-left: -1px;
 
     &:before {
       font-size: 9px;

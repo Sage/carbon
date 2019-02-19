@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Option renders with the given children 1`] = `
+<div
+  value="1"
+>
+  foo
+</div>
+`;
+
+exports[`Option renders with the text if no children are provided 1`] = `
+<div
+  value="1"
+>
+  bar
+</div>
+`;
