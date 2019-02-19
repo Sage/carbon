@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ValidationsContext from './validations.context';
+import validation from './validation.component';
 // import validator from '../../../utils/validations/validator';
 
 class Validations extends React.Component {
@@ -18,7 +19,10 @@ class Validations extends React.Component {
   }
 
   renderChildren = (children) => {
-    return children;
+    // return (
+    //   // render the
+    // )
+    return validation(children);
   };
 
   updateErrorCount = (adjustment) => {
@@ -35,7 +39,7 @@ class Validations extends React.Component {
       <div>
         <ValidationsContext.Provider value={
           {
-            validateForm: formValidation,
+            validateForm: formValidation, // implement these as Promises in children
             validateField: fieldValidation,
             errorCount,
             updateErrorCount: this.updateErrorCount
