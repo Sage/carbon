@@ -85,4 +85,21 @@ describe('Input', () => {
       expect(inputElement.setSelectionRange).not.toHaveBeenCalled();
     });
   });
+
+  describe('onClick', () => {
+    it('triggers focus on the input', () => {
+      const wrapper = renderMount();
+      const focus = jest.fn();
+      wrapper.instance().input.current = { focus };
+      wrapper.find('input').simulate('click');
+      expect(focus).toHaveBeenCalled();
+    });
+
+    it('triggers onClick prop if one is passed', () => {
+      const onClick = jest.fn();
+      const wrapper = renderMount({ onClick });
+      wrapper.find('input').simulate('click');
+      expect(onClick).toHaveBeenCalled();
+    });
+  });
 });

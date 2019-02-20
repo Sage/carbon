@@ -15,8 +15,6 @@ import {
 } from './test-utils';
 import 'jest-styled-components';
 
-const onSelect = jest.fn();
-
 describe('ScrollableList', () => {
   let scrollableList, 
     initialItem = 0, 
@@ -26,19 +24,61 @@ describe('ScrollableList', () => {
     hoverListItem,
     assertMouseOverAll,
     assertKeyboardOverAll,
-    onLazyLoad = jest.fn();
+    onLazyLoad = jest.fn(),
+    onSelect;
+
+  const mountComponent = (props, children) => {
+    let childrenToRender = children;
+    if (scrollableList && scrollableList.hostNodes().length) scrollableList.unmount();
+    if (children === undefined) childrenToRender = renderListItems({ num: 3 });
+
+    scrollableList = mount(
+      <ScrollableList { ...props }>
+        { childrenToRender }
+      </ScrollableList>
+    );
+  };
+
+  afterEach(() => {
+    if (scrollableList.hostNodes().length) scrollableList.unmount();
+  });
+
+  describe('componentWillReceiveProps', () => {
+    const renderScrollableList = ({ change, alwaysHighlight = false }) => {
+      mountComponent({ alwaysHighlight, keyNavigation: true });
+      let highlighted = alwaysHighlight ? 0 : -1;
+      keyboard.pressDownArrow();
+      keyboard.pressDownArrow();
+      expect(selectedItemOf(scrollableList)).toEqual(highlighted + 2);
+      scrollableList.setProps({ children: renderListItems({ num: (3 + change) }) });
+      return scrollableList;
+    };
+
+    it('does not reset the highlighted element when the number of children does not change', () => {
+      scrollableList = renderScrollableList({ change: 0 });
+      expect(selectedItemOf(scrollableList)).toEqual(1);
+    });
+
+    it('resets the highlighted element when the number of children changes', () => {
+      scrollableList = renderScrollableList({ change: 1 });
+      expect(selectedItemOf(scrollableList)).toEqual(-1);
+    });
+
+    it('selects the first element when the number of children changes and alwaysHighlight is enabled', () => {
+      scrollableList = renderScrollableList({ change: 1, alwaysHighlight: true });
+      expect(selectedItemOf(scrollableList)).toEqual(0);
+    });
+  });
 
   describe('Basic functionality', () => {
     beforeEach(() => {
-      scrollableList = mount(
-        <ScrollableList 
-          keyNavigation
-          onSelect={onSelect}
-          onLazyLoad={onLazyLoad}
-        >
-          {renderListItems(listMakeup)}
-        </ScrollableList>
-      );
+      onSelect = jest.fn();
+      mountComponent({
+        alwaysHighlight: true,
+        keyNavigation: true,
+        onSelect,
+        onLazyLoad
+      }, renderListItems(listMakeup));
 
       hoverListItem = hoverList(scrollableList);
       assertMouseOverAll = assertHoverTraversal(listMakeup);
@@ -67,27 +107,34 @@ describe('ScrollableList', () => {
       });
 
       it('accepts a single child', () => {
-        scrollableList = mount(
-          <ScrollableList>
-            <div></div>
-          </ScrollableList>
-        )
+        mountComponent({}, <div></div>);
         expect(childrenFrom(listFrom(scrollableList)).length).toBe(1)
       });
 
       it('renders nothing if no children are passed', () => {
-        scrollableList = mount(<ScrollableList />);
+        mountComponent({}, null);
         expect(childrenFrom(listFrom(scrollableList)).length).toBe(0);
-      })
+      });
+
+      it('highlights the first item on mount if alwaysHighlight is enabled', () => {
+        mountComponent({ alwaysHighlight: true });
+        expect(selectedItemOf(scrollableList)).toEqual(0);
+      });
+
+      it('does not highlight the  first item on mount if alwaysHighlight is disabled', () => {
+        mountComponent({ alwaysHighlight: false });
+        expect(selectedItemOf(scrollableList)).toEqual(-1);
+      });
+
+      it('does not throw error when highlighting item and there are no children', () => {
+        expect(() => mount(<ScrollableList alwaysHighlight />)).not.toThrowError();
+        expect(() => mount(<ScrollableList alwaysHighlight>{ [] }</ScrollableList>)).not.toThrowError();
+      });
     });
   
     describe('keyboard navigation', () => {
       it('is activated by a keyNavigation prop', () => {
-        scrollableList = mount(
-          <ScrollableList>
-            {renderListItems({ num: childCount })}
-          </ScrollableList>
-        )
+        mountComponent({ alwaysHighlight: true }, renderListItems({ num: childCount }));
         keyboard.pressDownArrow();
         expect(selectedItemOf(scrollableList)).toEqual(initialItem);
       });
@@ -101,6 +148,16 @@ describe('ScrollableList', () => {
         scrollableList.setState({ selectedItem: initialItem + 1 });
         keyboard.pressUpArrow();
         expect(selectedItemOf(scrollableList)).toEqual(initialItem);
+      });
+
+      it('does not throw error trying to update scroll if list is not present', () => {
+        scrollableList.instance().scrollBox.current = undefined;
+        expect(() => keyboard.pressUpArrow()).not.toThrowError();
+      });
+
+      it('does not throw error trying to update scroll if list has no children', () => {
+        scrollableList.instance().scrollBox.current = { children: [] };
+        expect(() => keyboard.pressUpArrow()).not.toThrowError();
       });
 
       it('scrolls as the selected item goes beyond the max-height of the list', () => {
@@ -119,7 +176,7 @@ describe('ScrollableList', () => {
 
         keyboard.pressUpArrow();
         expect(list.scrollTop).toEqual(numOfItems * itemHeight - listHeight);
-      })
+      });
   
       it('jumps to the bottom of list when up key pressed at first item', () => {
         keyboard.pressUpArrow();
@@ -150,14 +207,10 @@ describe('ScrollableList', () => {
         scrollableList.setProps({ keyNavigation: false });
         keyboard.pressDownArrow();
         expect(selectedItemOf(scrollableList)).toEqual(initialItem);
-      })
+      });
 
       it('can be activated after the component is mounted', () => {
-        scrollableList = mount(
-          <ScrollableList>
-            { renderListItems({ num: childCount }) }
-          </ScrollableList>
-        )
+        mountComponent({ alwaysHighlight: true }, renderListItems({ num: childCount }));
         scrollableList.setProps({ keyNavigation: true });
         keyboard.pressDownArrow();
         expect(selectedItemOf(scrollableList)).toEqual(initialItem + 1);
@@ -166,7 +219,21 @@ describe('ScrollableList', () => {
       it('removes the keypress event listener when unmounted', () => {
         scrollableList.unmount();
         expect(keyboard.pressDownArrow()).toThrowError();
-      })
+      });
+
+      it('triggers select on tab if something is highlighted', () => {
+        expect(onSelect).not.toHaveBeenCalled();
+        keyboard.pressTab();
+        expect(onSelect).toHaveBeenCalledWith(0);
+      });
+
+      it('does not trigger select if nothing is highlighted', () => {
+        onSelect = jest.fn();
+        mountComponent({ keyNavigation: true, onSelect });
+        expect(onSelect).not.toHaveBeenCalled();
+        keyboard.pressTab();
+        expect(onSelect).not.toHaveBeenCalled();
+      });
     })
   })
 
@@ -177,15 +244,12 @@ describe('ScrollableList', () => {
     };
 
     beforeEach(() => {
-      scrollableList = mount(
-        <ScrollableList
-          keyNavigation
-          onSelect={onSelect}
-          onLazyLoad={onLazyLoad}  
-        >
-          { renderListItems(listMakeup) }
-        </ScrollableList>
-      )
+      mountComponent({
+        alwaysHighlight: true,
+        keyNavigation: true,
+        onSelect,
+        onLazyLoad
+      }, renderListItems(listMakeup));
       hoverListItem = hoverList(scrollableList);
     })
 
@@ -222,15 +286,12 @@ describe('ScrollableList', () => {
       assertKeyboardOverAll = assertKeyboardTraversal(listMakeup);
       
     beforeEach(() => {
-      scrollableList = mount(
-        <ScrollableList 
-          keyNavigation
-          onSelect={onSelect}
-          onLazyLoad={onLazyLoad}
-        >
-          { renderListItems(listMakeup) }
-        </ScrollableList>
-      )
+      mountComponent({
+        alwaysHighlight: true,
+        keyNavigation: true,
+        onSelect,
+        onLazyLoad
+      }, renderListItems(listMakeup));
     });
 
     it('allows custom elements to become selectable when passed isSelectable prop', () => {

@@ -5,7 +5,7 @@ import { InputPresentation } from '.';
 describe('InputPresentation', () => {
   const shallowRender = () => shallow(<InputPresentation>sample children</InputPresentation>);
 
-  it('renders presentational divs and context provider for its children', () => {
+  it('renders presentational div and context provider for its children', () => {
     expect(shallowRender()).toMatchSnapshot();
   });
 
@@ -47,6 +47,24 @@ describe('InputPresentation', () => {
       context.onBlur();
       context = getContext(wrapper);
       expect(context.hasFocus).toEqual(false);
+    });
+
+    it('assigns a given input to the component', () => {
+      expect(wrapper.instance().input).toEqual({});
+      context.inputRef({ current: 'my input!' });
+      expect(wrapper.instance().input).toEqual({ current: 'my input!' });
+    });
+
+    describe('on mouse down of the wrapping div', () => {
+      it('focuses on the input after a 0 timeout', () => {
+        jest.useFakeTimers();
+        const focus = jest.fn();
+        context.inputRef({ current: { focus } });
+        wrapper.simulate('mousedown');
+        expect(focus).not.toHaveBeenCalled();
+        jest.runAllTimers();
+        expect(focus).toHaveBeenCalled();
+      });
     });
   });
 });
