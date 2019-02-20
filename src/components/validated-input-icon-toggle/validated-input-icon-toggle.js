@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import InputIconToggle from '../input-icon-toggle';
+import './validated-input-icon-toggle.scss';
 
 /**
  * An ValidatedInputIconToggle Component.

@@ -8,6 +8,7 @@
   }
 }
 
+.carbon-input:hover ~ label .input-icon-toggle,
 .common-input__input:hover ~ label .input-icon-toggle {
   background-color: $blue;
   border-color: $blue;
@@ -19,6 +20,8 @@
   }
 }
 
+.carbon-input:focus ~ label .input-icon-toggle,
+.carbon-input:focus ~ label .input-icon-toggle:hover,
 .common-input__input:focus ~ label .input-icon-toggle,
 .common-input__input:focus ~ label .input-icon-toggle:hover {
   background-color: $blue-dark;
@@ -26,59 +29,11 @@
   color: $white;
 }
 
-.common-input__input:hover ~ label .input-icon-toggle--error,
-.common-input__input:hover ~ label .input-icon-toggle--error:hover {
-  background-color: $error;
-  border-color: $error;
-  .carbon-icon:before {
-    color: $white;
-  }
-}
-.common-input__input:focus ~ label .input-icon-toggle--error {
-  background-color: $red-dark;
-  border-color: $red-dark;
-  .carbon-icon:before {
-    color: $white;
-  }
-}
-
-.common-input__input:hover ~ label .input-icon-toggle--warning,
-.common-input__input:hover ~ label .input-icon-toggle--warning:hover {
-  background-color: $warning;
-  border-color: $warning;
-  .carbon-icon:before  {
-    fill: $white;
-  }
-}
-.common-input__input:focus ~ label .input-icon-toggle--warning {
-  background-color: $warning-hover;
-  border-color: $warning-hover;
-  .carbon-icon:before  {
-    fill: $white;
-  }
-}
-
-.common-input__input:hover ~ label .input-icon-toggle--info,
-.common-input__input:hover ~ label .input-icon-toggle--info:hover {
-  background-color: $info;
-  border-color: $info;
-  .carbon-icon:before  {
-    color: $white;
-  }
-}
-.common-input__input:focus ~ label .input-icon-toggle--info {
-  background-color: $info-hover;
-  border-color: $info-hover;
-  .carbon-icon:before  {
-    color: $white;
-  }
-}
-
 .input-icon-toggle {
   $button-border-radius: $input-border-radius - 1;
   background-color: $grey-light;
   border-left: 1px solid $grey;
-  bottom: 1px;
+  bottom: 0;
   box-sizing: border-box;
   color: $grey-dark;
   cursor: pointer;
@@ -86,7 +41,7 @@
   margin-top: 1px;
   padding: 6px 0;
   position: absolute;
-  right: 1px;
+  right: 0;
   text-align: center;
   width: $input-common-height;
 
@@ -99,4 +54,9 @@
   &.input-icon-toggle--error {
     color: $error;
   }
+}
+
+.common-input__field .input-icon-toggle {
+  bottom: 1px;
+  right: 1px;
 }
