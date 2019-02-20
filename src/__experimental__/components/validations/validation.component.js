@@ -1,33 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ValidationsContext from './validations.context';
-import withValidations from './with-validations.component';
-import validator from '../../../utils/validations/validator';
+import Icon from '../../../components/icon';
+import Input from '../../../components/input';
+import inputWithValidation from './with-validation.hoc';
+// import guid from '../../../utils/helpers/guid';
 
-// how do I pass in the form and then its children
-
-// render the form then any child inputs
-const validation = (Component, index, props) => {
+const validation = (props) => {
   return (
     <div>
-      <ValidationsContext.Consumer>
-        {
-          context => (
-            // outer is form
-            // validation
-
-            withValidations(React.cloneElement(Component, {
-              ...Component.props,
-              validateForm: () => context.validateForm,
-              validateField: () => context.validateField,
-              updateErrorCount: adj => context.updateErrorCount(adj) // needs to based on promise result
-            }))
-
-          )
-        }
-      </ValidationsContext.Consumer>
+      { props.hasError && <Icon type='error' /> }
+      <Input onBlur={ this.props.validate } />
     </div>
   );
 };
+validation.propTypes = {
+  hasError: PropTypes.bool
+};
 
-export default validation;
+export default inputWithValidation(validation);

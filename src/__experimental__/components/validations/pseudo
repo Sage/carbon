@@ -1,0 +1,164 @@
+<Validations> = context.provider
+  <Validation validations=[...] /> = context.consumer
+</Validations>
+
+Validations = {
+  validateForm:,
+  errorCount:
+}
+
+Valitation: {
+  validate:,
+  hasError:
+}
+
+
+///// Begin Form
+
+class Form extends React.Component {
+  handleSubmit = () => {
+    this.props.validate().then(() => {
+      this.props.onSubmit();
+    });
+  }
+
+  render() {
+    return (
+      <form>
+        { this.props.children }
+
+        { this.props.errorCount && "You have #{this.props.errorCount} errors" }
+        <Button onClick={ this.handleSubmit }>
+          Submit
+        </Button>
+      </form>
+    );
+  }
+}
+
+export default withValidations(Form);
+
+////// End Form
+
+const withValidations = (WrappedComponent) => {
+  return class WithValidations extends React.Component {
+    state = {
+      errorCount: 0
+    }
+    inputs = {}
+
+    addInput = (name, validate) => {
+      this.inputs[name] = validate
+    }
+    removeInput = (name) => {
+      delete this.inputs[name]
+    }
+
+    validate = () => {
+      // need to figure out how this is going to work exactly ???
+      return new Promise((resolve, reject) => {
+        let isValid = true;
+        Object.keys(this.inputs).forEach((name) => {
+          const validate = this.inputs[name];
+          validate(['validations']).catch(() => {
+            isValid = false;
+          })
+        });
+        if (isValid) resolve();
+      });
+    }
+
+    getContext = () => {
+      return {
+        addInput: this.addInput,
+        removeInput: this.removeInput
+      }
+    }
+
+    render() {
+      return (
+        <ValidationsContext.Provider value={ this.getContext() }>
+          <WrappedComponent
+            validate={ this.validate }
+            errorCount={ this.state.errorCount }
+            { ...this.props }
+          />
+        </ValidationsContext.Provider>
+      );
+    }
+  }
+}
+
+
+
+///////
+
+<Form>
+  <Textbox />
+</Form>
+
+
+
+
+
+
+class Textbox extends React.Component {
+  render() {
+    return (
+      { this.props.hasError && <Icon type='error' /> }
+      <Input onBlur={ this.props.validate } />
+    )
+  }
+}
+
+export default withValidation(Textbox);
+
+const withValidation = (WrappedComponent) => {
+  return class WithValidation extends React.Component {
+    static contextType = ValidationsContext
+
+    componentDidMount() {
+      // need to generate a guid for props.name if not set - should
+      // this be another HOC or come from an Input-HOC or something?
+      this.context.addInput(this.props.name, this.props.validate);
+    }
+
+    validate = (types = ['validations', 'warnings', 'info']) => {
+      types.forEach((type) => {
+        this.runValidation(type);
+      })
+    }
+
+    runValidation = (type) => {
+      const validate = Validator(this.props[type]);
+      validate(this.props.value).then(() => {
+      }).catch((e) => {
+        switch type:
+          case 'validations':
+            this.setState({ hasError: e })
+            this.context.incrementError();
+          case 'warnings':
+            this.setState({ hasWarning: e })
+            this.context.incrementWarning();
+          case 'info':
+            this.setState({ hasInfo: e })
+            this.context.incrementInfo();
+      });
+    }
+
+    render() {
+      return (
+        <WrappedComponent
+          validate={ this.validate }
+          hasError={ this.state.hasError }
+          { ...this.props }
+        />
+      );
+    }
+  }
+}
+
+<Textbox validation=[presnece, length] warnings=[] info=[] />
+
+
+
