@@ -840,14 +840,14 @@ describe('Dropdown', () => {
   describe('mainClasses', () => {
     describe('if closed', () => {
       it('should return the main class', () => {
-        expect(instance.mainClasses).toEqual('carbon-dropdown common-input--with-icon common-input');
+        expect(instance.mainClasses).toEqual('carbon-dropdown common-input');
       });
     });
 
     describe('if open', () => {
       it('should return the main classes', () => {
         instance.setState({ open: true });
-        expect(instance.mainClasses).toEqual('carbon-dropdown carbon-dropdown--open common-input--with-icon common-input');
+        expect(instance.mainClasses).toEqual('carbon-dropdown carbon-dropdown--open common-input');
       });
     });
   });
@@ -933,10 +933,11 @@ describe('Dropdown', () => {
   describe('additionalInputContent', () => {
     const renderShallow = () => shallow(<Dropdown options={ Immutable.fromJS([]) } />);
 
-    describe('when showArrow is true (default value)', () => {
-      it('returns the icon', () => {
+    describe('when showArrow is true', () => {
+      it('returns the InputIconToggle elemen with "dropdown" as iconType prop', () => {
         const wrapper = renderShallow();
-        expect(wrapper.find('Icon').find({ type: 'dropdown' }).exists()).toBeTruthy();
+        expect(wrapper.find('InputIconToggle').exists()).toBeTruthy();
+        expect(wrapper.find('InputIconToggle').props().iconType).toBe('dropdown');
       });
     });
 

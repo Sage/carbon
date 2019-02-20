@@ -312,25 +312,25 @@ describe('Date', () => {
         });
       });
 
-      it("calls inputIconHTML with error in order to correctly generate the error icon", () => {
+      it("calls renderValidatedInputIconToggle with error in order to correctly generate the error icon", () => {
         let invalidDate = TestUtils.renderIntoDocument(<Date value='' />);
-        spyOn(invalidDate, 'inputIconHTML');
+        spyOn(invalidDate, 'renderValidatedInputIconToggle');
         invalidDate.setState({ valid: false });
-        expect(invalidDate.inputIconHTML).toHaveBeenCalledWith('error');
+        expect(invalidDate.renderValidatedInputIconToggle).toHaveBeenCalledWith('error', true);
       });
 
-      it("calls inputIconHTML with warning in order to correctly generate the warning icon", () => {
+      it("calls renderValidatedInputIconToggle with warning in order to correctly generate the warning icon", () => {
         let invalidDate = TestUtils.renderIntoDocument(<Date value='' />);
-        spyOn(invalidDate, 'inputIconHTML');
+        spyOn(invalidDate, 'renderValidatedInputIconToggle');
         invalidDate.setState({ warning: true });
-        expect(invalidDate.inputIconHTML).toHaveBeenCalledWith('warning');
+        expect(invalidDate.renderValidatedInputIconToggle).toHaveBeenCalledWith('warning', true);
       });
 
-      it("calls inputIconHTML with info in order to correctly generate the info icon", () => {
+      it("calls renderValidatedInputIconToggle with info in order to correctly generate the info icon", () => {
         let invalidDate = TestUtils.renderIntoDocument(<Date value='' />);
-        spyOn(invalidDate, 'inputIconHTML');
+        spyOn(invalidDate, 'renderValidatedInputIconToggle');
         invalidDate.setState({ info: true });
-        expect(invalidDate.inputIconHTML).toHaveBeenCalledWith('info');
+        expect(invalidDate.renderValidatedInputIconToggle).toHaveBeenCalledWith('info', true);
       });
     });
   });
