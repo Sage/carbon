@@ -18,10 +18,10 @@ import './validated-input-icon-toggle.scss';
  *   <ValidatedInputIconToggle iconType='foo' inputId='bar' />
  */
 const ValidatedInputIconToggle = (props) => {
-  const { validationHTML, ...inputIconToggleProps } = props;
-  const validationContent = validationHTML ? renderValidationContent(inputIconToggleProps.iconType, validationHTML) : null;
+  const { validationHTML, iconType, inputId } = props;
+  const validationContent = validationHTML ? renderValidationContent(iconType, validationHTML) : null;
 
-  return <InputIconToggle content={ validationContent } { ...inputIconToggleProps } />;
+  return <InputIconToggle content={ validationContent } { ...{ iconType, inputId } } />;
 };
 
 function renderValidationContent(iconType, validationHTML) {
