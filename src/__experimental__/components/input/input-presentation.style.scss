@@ -14,6 +14,7 @@
   padding: $input-common-padding;
   vertical-align: baseline;
   width: 100%;
+  position: relative;
 
   &:not(.carbon-input-presentation--has-focus):hover {
     border-color: $slate-tint-60;
