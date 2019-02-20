@@ -7,6 +7,7 @@ import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import './button.scss';
 
+
 /**
  * A button widget.
  *
