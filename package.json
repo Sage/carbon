@@ -11,7 +11,7 @@
     "gen-docs": "node -e \"require('./script/generate-docs').default();\"",
     "prep-deploy": "node -e \"require('./script/deploy').default();\"",
     "start": "npm run gen-colors && npm run gen-docs && npm run webpack-dev-server",
-    "build": "npm run gen-colors && npm run gen-docs && cross-env NODE_ENV=production && npm run webpack && npm run prep-deploy",
+    "build": "npm run gen-colors && npm run gen-docs && cross-env NODE_ENV=production npm run webpack && npm run prep-deploy",
     "test": "jest --config=./jest.conf.json",
     "debug": "node --inspect ./node_modules/jest/bin/jest --watch --config=./jest.conf.json",
     "lint": "./node_modules/.bin/eslint",
