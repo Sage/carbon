@@ -104,7 +104,7 @@ class Tabs extends React.Component {
 
     /**
      * Add tab ID to URL on tab change.
-     * 
+     *
      * @property changeUrl
      * @type {Boolean}
      * @default false
@@ -344,7 +344,7 @@ class Tabs extends React.Component {
    * @param {Number} tabid The id of the tab
    */
   updateVisibleTab(tabid) {
-    if(this.props.changeUrl) {
+    if (this.props.changeUrl) {
       const url = `${this._window.location.origin}${this._window.location.pathname}#${tabid}`;
       this._window.history.replaceState(null, 'change-tab', url);
     }
