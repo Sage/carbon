@@ -619,6 +619,40 @@ describe('Date', () => {
         expect(instance.datepicker).toBeFalsy();
       });
     });
+
+    describe('when the component has no disabled or readOnly properties', () => {
+      describe('and when state.valid is true', () => {
+          it('renders ValidatedInputIconToggle component with validationHTML property empty', () => {
+          const wrapper = mount(<Date name='date' label='Date' />);
+          wrapper.setState({ valid: true });
+          expect(wrapper.find('ValidatedInputIconToggle').exists()).toBeTruthy();
+          expect(wrapper.find('ValidatedInputIconToggle').props().validationHTML).toBeNull();
+        });
+      });
+
+      describe('and when state.valid is false', () => {
+        it('renders ValidatedInputIconToggle component with validationHTML property not empty', () => {
+          const wrapper = mount(<Date name='date' label='Date' />);
+          wrapper.setState({ valid: false });
+          expect(wrapper.find('ValidatedInputIconToggle').exists()).toBeTruthy();
+          expect(wrapper.find('ValidatedInputIconToggle').props().validationHTML).not.toBeNull();
+        });
+      });
+    });
+
+    describe('when the component is disabled', () => {
+      it('does not render ValidatedInputIconToggle component', () => {
+        const wrapper = mount(<Date name='date' label='Date' disabled />);
+        expect(wrapper.find('ValidatedInputIconToggle').exists()).toBeFalsy();
+      });
+    });
+
+    describe('when the component is readOnly', () => {
+      it('does not render ValidatedInputIconToggle component', () => {
+        const wrapper = mount(<Date name='date' label='Date' readOnly />);
+        expect(wrapper.find('ValidatedInputIconToggle').exists()).toBeFalsy();
+      });
+    });
   });
 
   describe("tags", () => {
