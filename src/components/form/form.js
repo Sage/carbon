@@ -13,6 +13,7 @@ import AppWrapper from '../app-wrapper';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import Browser from '../../utils/helpers/browser';
+import withValidations from '../../utils/validations/component/validations/form-with-validations.hoc';
 
 import ElementResize from '../../utils/helpers/element-resize';
 import './form.scss';
@@ -891,4 +892,4 @@ function generateCSRFToken(doc) {
   );
 }
 
-export default Form;
+export default withValidations(Form);

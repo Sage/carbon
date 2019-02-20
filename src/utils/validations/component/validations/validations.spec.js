@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import { Validations, validation } from '.';
+// import { Validations, validation } from '.';
 import Form from '../../../components/form';
 
 describe('Validations', () => {

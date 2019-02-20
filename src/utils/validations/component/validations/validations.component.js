@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Button from '../../../components/button';
-import Form from '../../../components/form';
+import Button from '../../../../components/button';
+import Form from '../../../../components/form';
 import withValidations from './form-with-validations.hoc';
 
 const validations = (props) => {

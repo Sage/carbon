@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import ValidationsContext from './validations.context';
 
 const withValidations = (WrappedComponent) => {
@@ -48,7 +47,7 @@ const withValidations = (WrappedComponent) => {
         let isValid = true;
         Object.keys(this.inputs).forEach(async (name) => { // maybe don't need async
           const validate = this.inputs[name];
-          return validate(['validations']).catch(() => {
+          return validate(['validations']).catch(() => { //
             isValid = false;
           });
         });

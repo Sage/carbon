@@ -1,6 +1,8 @@
 import React from 'react';
 import { transform } from 'babel-standalone';
 import './sandbox.scss';
+// import Form from '../../../../src/components/form';
+import Textbox from '../../../../src/__experimental__/components/textbox';
 
 class Preview extends React.Component {
   state = {
@@ -41,34 +43,11 @@ class Preview extends React.Component {
 }
 
 class Sandbox extends React.Component {
-  state = {
-    code: ''
-  }
-
-  updateCode = (ev) => {
-    this.setState({ code: ev.target.value });
-  }
-
-  catchTab = (ev) => {
-    if (ev.keyCode === 9) {
-      ev.preventDefault();
-      const input = ev.target;
-      const startPos = input.selectionStart;
-      const endPos = input.selectionEnd;
-      const newValue = `${input.value.substring(0, startPos)
-      }  ${
-        input.value.substring(endPos, input.value.length)}`;
-
-      this.setState({ code: newValue }, () => {
-        const newPos = startPos + 2;
-        input.setSelectionRange(newPos, newPos);
-      });
-    }
-  }
-
   render() {
     return (
-      <div className={ `sandbox sandbox-orientation-${this.state.orientation ? 'horizontal' : 'vertical'}` } />
+      <Textbox
+        info={ [new PresenceValidation()] }
+      />
     );
   }
 }
