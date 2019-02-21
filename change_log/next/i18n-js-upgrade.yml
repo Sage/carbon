@@ -1,6 +1,17 @@
 Dependency Updates: |
-  Upgrades i18n-js dependency to the latest version from NPM, rather than using the v3 release candidate from tar.gz. There is a change in this release that means any externally defined translations are not shared on the same I18n instance, if you need to do this we recommend merging your translations together
+  Upgrades i18n-js dependency to the latest version from npm, rather than using the v3 release candidate from tar.gz. There is a change in this release that means any externally defined translations are not shared on the same I18n instance, if you need to do this we suggest you enable the imports-loader in webpack
 
-  import { merge } from 'lodash';
-  import I18n from 'i18n-js';
-  I18n.translations = merge(global.I18n.translations, I18n.translations);
+
+  // ./webpack.config.js
+
+  module.exports = {
+    ...
+    module: {
+      rules: [
+        {
+           test: require.resolve('i18n-js'),
+           use: 'imports-loader?this=>window'
+        }
+      ]
+     
+  };
