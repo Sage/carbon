@@ -19,6 +19,7 @@
     "precompile": "npm run clean-lib && npm run copy-files && npm run babel",
     "prepublishOnly": "node check-version.js && npm install && npm run precompile",
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
+    "storybook": "./node_modules/.bin/start-storybook -p 9001 -c .storybook",
     "babel": "cross-env NODE_ENV=production babel --stage 0 ./src --config-file ./babel.config.js --out-dir ./lib --ignore '**/*/__spec__.js','**/*.spec.js','**/__definition__.js' --quiet",
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpx \"src/**/!(*.js|*.md|*.snap)\" lib",
@@ -41,6 +42,13 @@
     "react-dom": "^16.7.0"
   },
   "devDependencies": {
+    "@sambego/storybook-state": "^1.3.2",
+    "@storybook/addon-actions": "^4.1.11",
+    "@storybook/addon-info": "^4.1.11",
+    "@storybook/addon-knobs": "^4.1.11",
+    "@storybook/addon-notes": "^4.1.11",
+    "@storybook/addon-viewport": "^4.1.11",
+    "@storybook/react": "^4.1.11",
     "@types/enzyme": "3.1.15",
     "@types/enzyme-adapter-react-16": "1.0.3",
     "@types/jest": "23.3.13",
