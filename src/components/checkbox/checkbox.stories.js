@@ -16,8 +16,12 @@ storiesOf('Checkbox', module)
     const timeToDisappear = number('timeToDisappear', 0);
     const label = text('label', '');
     const labelInline = boolean('labelInline', false);
-    const labelWidth = number('labelWidth', 0);
-    const labelAlign = select('labelAlign', OptionsHelper.alignBinary, OptionsHelper.alignBinary[0]);
+    const labelWidth = labelInline ? number('labelWidth', 0) : undefined;
+    const labelAlign = labelInline ? select(
+      'labelAlign',
+      OptionsHelper.alignBinary,
+      OptionsHelper.alignBinary[0]
+    ) : undefined;
     const labelHelp = text('labelHelp', 'This text provides more information for the label.');
     const inputWidth = number('fieldHelpInline', 0);
     const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
