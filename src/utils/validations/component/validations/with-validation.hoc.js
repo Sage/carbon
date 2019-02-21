@@ -120,7 +120,7 @@ const inputWithValidation = (WrappedComponent) => {
       if (this.props.onBlur) this.props.onBlur(ev);
     }
 
-    handleValueChange = (ev) => {
+    onValueChangeHandler = (ev) => {
       this.setState({ value: ev.target.value });
     }
 
@@ -128,7 +128,7 @@ const inputWithValidation = (WrappedComponent) => {
       return (
         <WrappedComponent
           onBlur={ this.handleBlur }
-          onChange={ this.handleValueChange }
+          onChange={ this.onValueChangeHandler }
           { ...this.props }
         >
           { this.renderValidationMarkup() }
