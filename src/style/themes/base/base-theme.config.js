@@ -28,7 +28,7 @@ export default (palette) => {
     input: {
       backgroundColor: 'transparent',
       border: 'none',
-      color: palette.blackAtOpactiy(85),
+      color: blackWithOpacity(85),
       textHighlight: palette.slateShade(80),
       dimensions: {
         small: {
