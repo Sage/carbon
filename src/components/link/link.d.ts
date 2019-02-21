@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { IconTypes } from '../../utils/helpers/options-helper/option-helper';
+import { IconTypes } from '../../utils/helpers/options-helper/options-helper';
+
 export interface LinkProps {
   className?: string;
   disabled?: boolean;
@@ -15,5 +16,5 @@ export interface LinkProps {
   tooltipAlign?: 'bottom' | 'center' | 'left' | 'right' | 'top';
 }
 
-declare const Link: React.Component<LinkProps, {}>;
+declare const Link: React.ComponentType<LinkProps>;
 export default Link;

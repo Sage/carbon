@@ -6,5 +6,5 @@ export interface ButtonProps {
   size?: 'small' | 'medium' | 'large';
   subtext?: string;
 }
-declare const Button: React.Component<ButtonProps, {}>;
+declare const Button: React.ComponentType<ButtonProps>;
 export default Button;
