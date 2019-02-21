@@ -43,9 +43,19 @@ class Preview extends React.Component {
 }
 
 class Sandbox extends React.Component {
+  isLong = value => new Promise((resolve, reject) => {
+    if (value.length >= 3) {
+      resolve(value);
+    } else {
+      reject(new Error('length error'));
+    }
+  });
+
   render() {
     return (
       <Textbox
+        validations={ [new PresenceValidation(), this.isLong] }
+        warning={ [new PresenceValidation()] }
         info={ [new PresenceValidation()] }
       />
     );

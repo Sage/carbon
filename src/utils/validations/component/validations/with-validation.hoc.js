@@ -28,7 +28,8 @@ const inputWithValidation = (WrappedComponent) => {
     state = {
       hasError: false,
       hasWarning: false,
-      hasInfo: false
+      hasInfo: false,
+      value: ''
     };
 
     componentDidMount = () => {
@@ -57,8 +58,9 @@ const inputWithValidation = (WrappedComponent) => {
     runValidation = (type) => {
       return new Promise((resolve) => {
         if (this.props[type].length === 0) resolve(true);
+        // console.log(this.state.value);
         const validate = validator(this.props[type]);
-        validate(this.props.value)
+        validate(this.state.value) // why is value a prop???
           .then(() => {
             switch (type) {
               case 'validations':
@@ -104,7 +106,7 @@ const inputWithValidation = (WrappedComponent) => {
       });
     }
 
-    renderValidationMarkup() {
+    renderValidationMarkup = () => {
       let type;
       if (this.state.hasInfo) type = 'info';
       if (this.state.hasWarning) type = 'warning';
@@ -118,10 +120,15 @@ const inputWithValidation = (WrappedComponent) => {
       if (this.props.onBlur) this.props.onBlur(ev);
     }
 
+    handleValueChange = (ev) => {
+      this.setState({ value: ev.target.value });
+    }
+
     render() {
       return (
         <WrappedComponent
           onBlur={ this.handleBlur }
+          onChange={ this.handleValueChange }
           { ...this.props }
         >
           { this.renderValidationMarkup() }
