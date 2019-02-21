@@ -312,25 +312,25 @@ describe('Date', () => {
         });
       });
 
-      it("calls renderValidatedInputIconToggle with error in order to correctly generate the error icon", () => {
+      it("calls inputIconHTML with error in order to correctly generate the error icon", () => {
         let invalidDate = TestUtils.renderIntoDocument(<Date value='' />);
-        spyOn(invalidDate, 'renderValidatedInputIconToggle');
+        spyOn(invalidDate, 'inputIconHTML');
         invalidDate.setState({ valid: false });
-        expect(invalidDate.renderValidatedInputIconToggle).toHaveBeenCalledWith('error', true);
+        expect(invalidDate.inputIconHTML).toHaveBeenCalledWith('error');
       });
 
-      it("calls renderValidatedInputIconToggle with warning in order to correctly generate the warning icon", () => {
+      it("calls inputIconHTML with warning in order to correctly generate the warning icon", () => {
         let invalidDate = TestUtils.renderIntoDocument(<Date value='' />);
-        spyOn(invalidDate, 'renderValidatedInputIconToggle');
+        spyOn(invalidDate, 'inputIconHTML');
         invalidDate.setState({ warning: true });
-        expect(invalidDate.renderValidatedInputIconToggle).toHaveBeenCalledWith('warning', true);
+        expect(invalidDate.inputIconHTML).toHaveBeenCalledWith('warning');
       });
 
-      it("calls renderValidatedInputIconToggle with info in order to correctly generate the info icon", () => {
+      it("calls inputIconHTML with info in order to correctly generate the info icon", () => {
         let invalidDate = TestUtils.renderIntoDocument(<Date value='' />);
-        spyOn(invalidDate, 'renderValidatedInputIconToggle');
+        spyOn(invalidDate, 'inputIconHTML');
         invalidDate.setState({ info: true });
-        expect(invalidDate.renderValidatedInputIconToggle).toHaveBeenCalledWith('info', true);
+        expect(invalidDate.inputIconHTML).toHaveBeenCalledWith('info');
       });
     });
   });
@@ -617,40 +617,6 @@ describe('Date', () => {
     describe('when state.open is false', () => {
       it('does not renders a date picker', () => {
         expect(instance.datepicker).toBeFalsy();
-      });
-    });
-
-    describe('when the component has no disabled or readOnly properties', () => {
-      describe('and when state.valid is true', () => {
-          it('renders ValidatedInputIconToggle component with validationHTML property empty', () => {
-          const wrapper = mount(<Date name='date' label='Date' />);
-          wrapper.setState({ valid: true });
-          expect(wrapper.find('ValidatedInputIconToggle').exists()).toBeTruthy();
-          expect(wrapper.find('ValidatedInputIconToggle').props().validationHTML).toBeNull();
-        });
-      });
-
-      describe('and when state.valid is false', () => {
-        it('renders ValidatedInputIconToggle component with validationHTML property not empty', () => {
-          const wrapper = mount(<Date name='date' label='Date' />);
-          wrapper.setState({ valid: false });
-          expect(wrapper.find('ValidatedInputIconToggle').exists()).toBeTruthy();
-          expect(wrapper.find('ValidatedInputIconToggle').props().validationHTML).not.toBeNull();
-        });
-      });
-    });
-
-    describe('when the component is disabled', () => {
-      it('does not render ValidatedInputIconToggle component', () => {
-        const wrapper = mount(<Date name='date' label='Date' disabled />);
-        expect(wrapper.find('ValidatedInputIconToggle').exists()).toBeFalsy();
-      });
-    });
-
-    describe('when the component is readOnly', () => {
-      it('does not render ValidatedInputIconToggle component', () => {
-        const wrapper = mount(<Date name='date' label='Date' readOnly />);
-        expect(wrapper.find('ValidatedInputIconToggle').exists()).toBeFalsy();
       });
     });
   });

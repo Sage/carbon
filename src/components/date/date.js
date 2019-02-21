@@ -11,7 +11,7 @@ import Browser from '../../utils/helpers/browser';
 import Input from '../../utils/decorators/input';
 import InputLabel from '../../utils/decorators/input-label';
 import InputValidation from '../../utils/decorators/input-validation';
-import ValidatedInputIconToggle from '../validated-input-icon-toggle';
+import InputIcon from '../../utils/decorators/input-icon';
 import Events from '../../utils/helpers/events';
 import DateHelper from '../../utils/helpers/date';
 import DateValidator from '../../utils/validations/date';
@@ -44,7 +44,7 @@ const today = DateHelper.todayFormatted('YYYY-MM-DD');
  * @constructor
  * @decorators {Input,InputIcon,InputLabel,InputValidation}
  */
-const Date = Input(InputLabel(InputValidation(class Date extends React.Component {
+const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React.Component {
   // Required for validProps function
   static propTypes = {
     /**
@@ -447,7 +447,7 @@ const Date = Input(InputLabel(InputValidation(class Date extends React.Component
    * @return {String} Main className
    */
   get mainClasses() {
-    return 'carbon-date common-input--with-icon';
+    return 'carbon-date';
   }
 
   /**
@@ -467,37 +467,16 @@ const Date = Input(InputLabel(InputValidation(class Date extends React.Component
    * @return {Object} JSX additional content inline with input
    */
   get additionalInputContent() {
-    const isInputActive = !this.props.disabled && !this.props.readOnly;
-    let isValidationTriggered = true;
-    let iconType = 'calendar';
-
     if (!this.state.valid) {
-      iconType = 'error';
-    } else if (this.state.warning) {
-      iconType = 'warning';
-    } else if (this.state.info) {
-      iconType = 'info';
-    } else {
-      isValidationTriggered = false;
+      return this.inputIconHTML('error');
     }
-
-    return isInputActive ? this.renderValidatedInputIconToggle(iconType, isValidationTriggered) : null;
-  }
-
-  /**
-  * Returns the input toggle icon with validation
-  *
-  * @method renderValidatedInputIconToggle
-  * @return {Object} JSX
-  */
-  renderValidatedInputIconToggle(iconType, isValidationTriggered) {
-    return (
-      <ValidatedInputIconToggle
-        validationHTML={ isValidationTriggered ? this.validationHTML : null }
-        iconType={ iconType }
-        inputId={ this._guid }
-      />
-    );
+    if (this.state.warning) {
+      return this.inputIconHTML('warning');
+    }
+    if (this.state.info) {
+      return this.inputIconHTML('info');
+    }
+    return this.inputIconHTML('calendar');
   }
 
   /**
@@ -675,6 +654,6 @@ const Date = Input(InputLabel(InputValidation(class Date extends React.Component
       { formats: this.hiddenFormat(), sanitize: false }
     );
   }
-})));
+}))));
 
 export default Date;
