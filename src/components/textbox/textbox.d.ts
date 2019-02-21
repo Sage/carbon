@@ -8,5 +8,5 @@ export interface TextboxProps extends InputProps {
 /**
  * A textbox widget.
  */
-declare const Textbox: React.Component<TextboxProps, {}>;
+declare const Textbox: React.ComponentType<TextboxProps>;
 export default Textbox;

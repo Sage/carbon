@@ -13,7 +13,8 @@ export interface LinkProps {
   tooltipMessage?: string;
   tooltipPosition?: 'bottom' | 'left' | 'right' | 'top';
   tooltipAlign?: 'bottom' | 'center' | 'left' | 'right' | 'top';
+  children?: React.ReactNode;
 }
 
-declare const Link: React.Component<LinkProps, {}>;
+declare const Link: React.ComponentType<LinkProps>;
 export default Link;

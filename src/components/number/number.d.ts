@@ -20,5 +20,5 @@ export interface NumberProps extends InputProps {
  * Where it’s clear a field only accepts numerals, you could disable entry of other characters. But, remember than for
  * some regions, phone numbers and postcodes might contain dashes, and remember to cater for a minus sign if necessary.
  */
-declare const Number: React.Component<NumberProps, {}>;
+declare const Number: React.ComponentType<NumberProps>;
 export default Number;
