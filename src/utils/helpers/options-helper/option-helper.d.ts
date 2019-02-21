@@ -117,3 +117,5 @@ export type IconTypes =
 | 'view'
 | 'warning'
 | 'white-tick';
+
+export type AlignBinaryType = 'left' | 'right';

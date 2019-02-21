@@ -22,8 +22,8 @@ export interface FlashProps {
   message?: string | string[] | { description: string } | object;
 
   /** A boolean to control the open/closed state of the notification */
-
   open?: boolean;
+
   /**
    * Sets the time in Milliseconds the flash remains on the screen. After the timeout it will call the onDimiss
    * callback. This will remove the close icon when set.
@@ -31,5 +31,10 @@ export interface FlashProps {
   timeout?: number;
 }
 
+/**
+ * A Flash widget.
+ *
+ * The flash is rendered in two sections: a ventral message 'flash', and a dorsal coloured, expanding 'slider'.
+ */
 declare const Flash: React.Component<FlashProps, {}>;
 export default Flash;
