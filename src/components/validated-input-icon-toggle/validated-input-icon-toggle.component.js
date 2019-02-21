@@ -13,9 +13,15 @@ import './validated-input-icon-toggle.scss';
  *
  *   import ValidatedInputIconToggle from 'carbon-react/lib/components/input-icon';
  *
- * To render an ValidatedInputIconToggle:
+ * To render the ValidatedInputIconToggle:
  *
- *   <ValidatedInputIconToggle iconType='foo' inputId='bar' />
+ *   <ValidatedInputIconToggle
+ *      validationHTML={ contentToBeRendered }
+ *      iconType='foo'
+ *      inputId='bar'
+ *    />
+ *
+ * Component has to be placed next to an input element, inputId prop must be the same as the id of that input.
  */
 const ValidatedInputIconToggle = (props) => {
   const { validationHTML, iconType, inputId } = props;
@@ -34,24 +40,15 @@ function renderValidationContent(iconType, validationHTML) {
 
 ValidatedInputIconToggle.propTypes = {
   /**
-   * Validation content to render
-   *
-   * @property validationHTML
-   * @type {Node}
+   * Validation content to be rendered
    */
   validationHTML: PropTypes.node,
   /**
    * Type of an icon to render
-   *
-   * @property iconType
-   * @type {String}
    */
   iconType: PropTypes.string.isRequired,
   /**
    * Id of an input that icon toggle should reside in
-   *
-   * @property inputId
-   * @type {String}
    */
   inputId: PropTypes.string.isRequired
 };

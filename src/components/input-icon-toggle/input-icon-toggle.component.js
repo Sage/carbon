@@ -15,8 +15,14 @@ import './input-icon-toggle.scss';
  *
  * To render an InputIconToggle:
  *
- *   <InputIconToggle content='' iconType='foo' inputId='bar' />
- */
+ *   <InputIconToggle
+ *      content=''
+ *      iconType='foo'
+ *      inputId='bar'
+ *    />
+ *
+ * Component has to be placed next to an input element, inputId prop must be the same as the id of that input.
+*/
 const InputIconToggle = (props) => {
   const { iconType, content, inputId } = props;
 
@@ -29,24 +35,15 @@ const InputIconToggle = (props) => {
 
 InputIconToggle.propTypes = {
   /**
-   * Optional content to render instead of an icon
-   *
-   * @property content
-   * @type {Node}
+   * Optional content to be rendered instead of an icon, when empty a simple icon will be rendered
    */
   content: PropTypes.node,
   /**
    * Type of an icon to render
-   *
-   * @property iconType
-   * @type {String}
    */
   iconType: PropTypes.string.isRequired,
   /**
    * Id of an input that icon toggle should reside in
-   *
-   * @property inputId
-   * @type {String}
    */
   inputId: PropTypes.string.isRequired
 };
