@@ -10,11 +10,10 @@ import Checkbox from './checkbox.js';
 storiesOf('Checkbox', module)
   .add('default', () => {
     const checked = boolean('checked', false);
-    const children = text('children', '');
     const fieldHelpInline = boolean('fieldHelpInline', false);
     const reverse = boolean('reverse', false);
     const timeToDisappear = number('timeToDisappear', 0);
-    const label = text('label', '');
+    const label = text('label', 'Example Checkbox');
     const labelInline = boolean('labelInline', false);
     const labelWidth = labelInline ? number('labelWidth', 0) : undefined;
     const labelAlign = labelInline ? select(
@@ -39,9 +38,7 @@ storiesOf('Checkbox', module)
         labelHelp={ labelHelp }
         inputWidth={ inputWidth }
         fieldHelp={ fieldHelp }
-      >
-        {children}
-      </Checkbox>
+      />
     );
   }, {
     notes: { markdown: notes }
