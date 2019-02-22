@@ -13,7 +13,7 @@ const inputWithValidation = (WrappedComponent) => {
       name: PropTypes.number,
       value: PropTypes.string,
       validate: PropTypes.func,
-      validations: PropTypes.array,
+      validations: PropTypes.array, // need to be either array or single validation
       warnings: PropTypes.array,
       info: PropTypes.array,
       onBlur: PropTypes.func
@@ -50,9 +50,7 @@ const inputWithValidation = (WrappedComponent) => {
       if (types.includes('validations')) result = await this.runValidation('validations');
       if (result && types.includes('warnings')) result = await this.runValidation('warnings');
       if (result && types.includes('info')) result = await this.runValidation('info');
-      console.log(this.state);
       return result;
-      // types.forEach(type => this.runValidation(type));
     }
 
     runValidation = (type) => {
