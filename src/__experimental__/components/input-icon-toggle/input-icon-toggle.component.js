@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from '../icon/icon';
-import './input-icon-toggle.scss';
+import Icon from 'components/icon/icon';
+import Label from './input-icon-toggle.style';
 
 /**
  * An InputIconToggle Component.
@@ -27,9 +27,13 @@ const InputIconToggle = (props) => {
   const { iconType, content, inputId } = props;
 
   return (
-    <label htmlFor={ inputId } key='label-icon'>
-      { content || <Icon type={ iconType } className='input-icon-toggle' /> }
-    </label>
+    <Label
+      htmlFor={ inputId }
+      key='label-icon'
+      { ...props }
+    >
+      { content || <Icon type={ iconType } /> }
+    </Label>
   );
 };
 
@@ -45,7 +49,11 @@ InputIconToggle.propTypes = {
   /**
    * Id of an input that icon toggle should reside in
    */
-  inputId: PropTypes.string.isRequired
+  inputId: PropTypes.string.isRequired,
+  /**
+   * Hover state of the parent component
+   */
+  isHovered: PropTypes.bool.isRequired
 };
 
 export default InputIconToggle;
