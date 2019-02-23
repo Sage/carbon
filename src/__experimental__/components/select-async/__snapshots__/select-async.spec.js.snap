@@ -15,6 +15,20 @@ Array [
 ]
 `;
 
+exports[`SelectAsync custom response allows developers to customise the response format 1`] = `
+<Option
+  key="9"
+  text="custom!"
+  value="9"
+>
+  <div
+    value="9"
+  >
+    custom!
+  </div>
+</Option>
+`;
+
 exports[`SelectAsync no results it renders with null 1`] = `null`;
 
 exports[`SelectAsync on open fetches data for the first page of results 1`] = `

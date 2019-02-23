@@ -29,7 +29,7 @@ const validRequest = ({ search, page, extra }) => ({
 });
 const mockResponse = (response) => {
   axios.get = jest.fn((_, opts) => {
-    if (response) return validResponse(response);
+    if (response) return response;
     switch (opts.params.page) {
       case 2:
         return validResponse(pageTwo, 2);
@@ -72,7 +72,7 @@ describe('SelectAsync', () => {
 
   describe('no results', () => {
     it('it renders with null', async () => {
-      mockResponse([]);
+      mockResponse(validResponse([]));
       const wrapper = await openResults(render());
       expect(findResults(wrapper)).toMatchSnapshot();
     });
@@ -87,12 +87,71 @@ describe('SelectAsync', () => {
     });
   });
 
+  describe('custom request', () => {
+    it('allows developers to customise the request options', async () => {
+      mockResponse();
+      const props = { onRequest: () => ({ customRequest: true }) };
+      await openResults(render(props));
+      expect(axios.get).toHaveBeenCalledWith(
+        endpoint, { customRequest: true }
+      );
+    });
+  });
+
+  describe('custom response', () => {
+    it('throws an error if the response is not supported', async () => {
+      mockResponse({ data: {} });
+      try {
+        await render().instance().fetchData({ page: 1 });
+      } catch ({ message }) {
+        expect(message).toEqual(`The server response does not contain an $items attribute.
+
+The SelectAsync component expects the data to be in the format of:
+
+  $items: [Array] - required, the items to render
+  $page: [Integer] - optional, for paginated responses
+  $total: [Integer] - optional, for paginated responses
+
+If your API response does not match this, you can modify it using the 'onResponse' prop:
+
+<SelectAsync onResponse={ response => ({ $items: response.myItems }) } />`);
+      }
+    });
+
+    it('allows developers to customise the response format', async () => {
+      mockResponse();
+      const props = { onResponse: () => ({ $items: [{ displayed_as: 'custom!', id: '9' }] }) };
+      const wrapper = await openResults(render(props));
+      expect(findResults(wrapper)).toMatchSnapshot();
+    });
+  });
+
   describe('pagination', () => {
     it('adds the next page results to the list', async () => {
       mockResponse();
       const wrapper = await openResults(render());
       await getNextPage(wrapper);
       expect(findResults(wrapper)).toMatchSnapshot();
+    });
+
+    it('does not refetch if a fetch is already in progress', async () => {
+      mockResponse();
+      const wrapper = await openResults(render());
+      expect(axios.get.mock.calls.length).toEqual(1);
+      getNextPage(wrapper);
+      expect(axios.get.mock.calls.length).toEqual(2);
+      await getNextPage(wrapper);
+      expect(axios.get.mock.calls.length).toEqual(2);
+    });
+
+    it('does not refetch if total number of pages has been reached', async () => {
+      mockResponse();
+      const wrapper = await openResults(render());
+      expect(axios.get.mock.calls.length).toEqual(1);
+      await getNextPage(wrapper);
+      expect(axios.get.mock.calls.length).toEqual(2);
+      await getNextPage(wrapper);
+      expect(axios.get.mock.calls.length).toEqual(2);
     });
   });
 
