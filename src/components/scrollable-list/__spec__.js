@@ -60,12 +60,12 @@ describe('ScrollableList', () => {
     });
 
     it('resets the highlighted element when the number of children changes', () => {
-      scrollableList = renderScrollableList({ change: 1 });
+      scrollableList = renderScrollableList({ change: -2 });
       expect(selectedItemOf(scrollableList)).toEqual(-1);
     });
 
     it('selects the first element when the number of children changes and alwaysHighlight is enabled', () => {
-      scrollableList = renderScrollableList({ change: 1, alwaysHighlight: true });
+      scrollableList = renderScrollableList({ change: -2, alwaysHighlight: true });
       expect(selectedItemOf(scrollableList)).toEqual(0);
     });
   });
@@ -320,13 +320,13 @@ describe('ScrollableList', () => {
 
   describe('lazy loading', () => {
     it('accepts a callback which is called when scroll nears the end of item list', () => {
-      scrollableList.simulate('scroll', { target: { scrollHeight: 300, scrollTop: 101 } });
+      scrollableList.simulate('scroll', { target: { scrollHeight: 400, scrollTop: 101 } });
       expect(onLazyLoad).toBeCalled();
     });
 
     it('does not trigger onLazyLoad when the scrollTop is not beyond the scrollHeight', () => {
       onLazyLoad.mockReset();
-      scrollableList.simulate('scroll', { target: { scrollHeight: 300, scrollTop: 99 } });
+      scrollableList.simulate('scroll', { target: { scrollHeight: 400, scrollTop: 99 } });
       expect(onLazyLoad).not.toBeCalled();
     });
 

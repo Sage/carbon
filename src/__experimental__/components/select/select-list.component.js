@@ -11,6 +11,7 @@ class SelectList extends React.Component {
     children: PropTypes.node,
     customFilter: PropTypes.func,
     filterValue: PropTypes.string,
+    onLazyLoad: PropTypes.func,
     onMouseDown: PropTypes.func,
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
