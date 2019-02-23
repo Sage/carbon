@@ -34,7 +34,7 @@ If your API response does not match this, you can modify it using the 'onRespons
  *
  * This can be customised using the onRequest prop, for example to enable withCredentials:
  *
- *   <SelectAsync onRequest={ opts => opts.withCredentials = true } />
+ *   <SelectAsync onRequest={ (opts) => { opts.withCredentials = true; return opts; } } />
  *
  * The opts object is used with axios, please see this URL for more options:
  * https://github.com/axios/axios#request-config
@@ -74,7 +74,7 @@ If your API response does not match this, you can modify it using the 'onRespons
 class SelectAsync extends React.Component {
   static propTypes = {
     children: PropTypes.func,
-    endpoint: PropTypes.string,
+    endpoint: PropTypes.string.isRequired,
     onRequest: PropTypes.func,
     onResponse: PropTypes.func
   }
@@ -136,12 +136,10 @@ class SelectAsync extends React.Component {
 
   fetchData = async ({ page, search = this.filterValue() }) => {
     this.setState({ fetching: true });
-
     const { data } = await axios.get(
       this.props.endpoint,
       this.fetchOptions(page, search)
     );
-
     this.handleResponse(data);
   }
 
@@ -163,7 +161,7 @@ class SelectAsync extends React.Component {
     return this.state.items.map(item => (
       <Option
         key={ item.id }
-        value={ item.id }
+        value={ String(item.id) }
         text={ item.displayed_as }
       />
     ));
@@ -172,11 +170,11 @@ class SelectAsync extends React.Component {
   render() {
     return (
       <Select
+        { ...this.props }
         ref={ this.select }
         onOpen={ this.onOpen }
         onFilter={ this.deferredFetchData }
         onLazyLoad={ this.fetchNextPage }
-        { ...this.props }
       >
         { this.renderOptions() }
       </Select>

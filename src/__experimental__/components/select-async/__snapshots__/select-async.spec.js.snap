@@ -1,0 +1,103 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SelectAsync custom children render uses a custom method to render the children 1`] = `
+Array [
+  <Option>
+    <div>
+      custom!
+    </div>
+  </Option>,
+  <Option>
+    <div>
+      custom!
+    </div>
+  </Option>,
+]
+`;
+
+exports[`SelectAsync no results it renders with null 1`] = `null`;
+
+exports[`SelectAsync on open fetches data for the first page of results 1`] = `
+Array [
+  <Option
+    key="1"
+    text="Item 1"
+    value="1"
+  >
+    <div
+      value="1"
+    >
+      Item 1
+    </div>
+  </Option>,
+  <Option
+    key="2"
+    text="Item 2"
+    value="2"
+  >
+    <div
+      value="2"
+    >
+      Item 2
+    </div>
+  </Option>,
+]
+`;
+
+exports[`SelectAsync pagination adds the next page results to the list 1`] = `
+Array [
+  <Option
+    key="1"
+    text="Item 1"
+    value="1"
+  >
+    <div
+      value="1"
+    >
+      Item 1
+    </div>
+  </Option>,
+  <Option
+    key="2"
+    text="Item 2"
+    value="2"
+  >
+    <div
+      value="2"
+    >
+      Item 2
+    </div>
+  </Option>,
+  <Option
+    key="3"
+    text="Item 3"
+    value="3"
+  >
+    <div
+      value="3"
+    >
+      Item 3
+    </div>
+  </Option>,
+  <Option
+    key="4"
+    text="Item 4"
+    value="4"
+  >
+    <div
+      value="4"
+    >
+      Item 4
+    </div>
+  </Option>,
+]
+`;
+
+exports[`SelectAsync renders a Select component 1`] = `
+<Select
+  endpoint="/endpoint"
+  onFilter={[Function]}
+  onLazyLoad={[Function]}
+  onOpen={[Function]}
+/>
+`;
