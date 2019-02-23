@@ -14,7 +14,14 @@ class Sandbox extends React.Component {
           endpoint='/countries'
           value={ this.state.val }
           onChange={ ev => this.setState({ val: ev.target.value }) }
-        />
+          onResponse={ response => ({ $items: response.$itemz }) }
+        >
+          {
+            (items) => {
+              return items.map(item => <Option>{ item.foo }</Option>);
+            }
+          }
+        </SelectAsync>
       </div>
     );
   }

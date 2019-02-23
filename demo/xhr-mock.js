@@ -19,7 +19,7 @@ export function enableMock() {
         skip = (page - 1) * rows,
         regex = new RegExp(escapeStringRegexp(text), 'i');
     filteredCountries = filteredCountries.filter((item) => {
-      return item.get('displayed_as').search(regex) > -1;
+      return item.get('foo').search(regex) > -1;
     });
 
     if (query.sord && query.sidx) {
@@ -40,11 +40,10 @@ export function enableMock() {
     });
 
     const data = {
-      $items: filteredCountries.toJS(),
+      $itemz: filteredCountries.toJS(),
       $total: numberOfResults,
       $page: page
     };
-    console.log('foo', data.$items);
 
     return res
       .status(201)

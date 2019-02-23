@@ -209,7 +209,10 @@ class Select extends React.Component {
       customFilter,
       placeholder,
       value,
-      onLazyLoad
+      onLazyLoad,
+      onFilter,
+      onOpen,
+      ...props
     } = this.props;
 
     let events = {};
@@ -227,7 +230,7 @@ class Select extends React.Component {
     return (
       <>
         <InputDecoratorBridge
-          { ...this.props } // this needs to send all of the original props
+          { ...props } // this needs to send all of the original props
           className={ this.className(className) }
           formattedValue={ this.formattedValue(this.state.filter, value) }
           inputIcon={ this.isMultiValue(value) ? undefined : 'dropdown' }

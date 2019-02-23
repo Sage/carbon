@@ -152,7 +152,7 @@ class ScrollableList extends Component {
   }
 
   render() {
-    const { children, ...props } = this.props;
+    const { children, onLazyLoad, ...props } = this.props;
 
     return (
       <ScrollableListContainer

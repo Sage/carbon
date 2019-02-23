@@ -4,16 +4,86 @@ import axios from 'axios';
 import Select from '../select/select.component';
 import Option from '../select/option.component';
 
+const responseErrorMessage = `The server response does not contain an $items attribute.
+
+The SelectAsync component expects the data to be in the format of:
+
+  $items: [Array] - required, the items to render
+  $page: [Integer] - optional, for paginated responses
+  $total: [Integer] - optional, for paginated responses
+
+If your API response does not match this, you can modify it using the 'onResponse' prop:
+
+<SelectAsync onResponse={ response => ({ $items: response.myItems }) } />`;
+
+/**
+ * SelectAsync renders a regular Select, but wraps it in additional functionality
+ * to allow it to fetch it's options from an API endpoint.
+ *
+ * # The Request
+ *
+ * By default the component will execute a request with the following options:
+ *
+ *   {
+ *     params: {
+ *       page: 1
+ *       items_per_page: 20,
+ *       search: 'any filter text'
+ *     }
+ *   }
+ *
+ * This can be customised using the onRequest prop, for example to enable withCredentials:
+ *
+ *   <SelectAsync onRequest={ opts => opts.withCredentials = true } />
+ *
+ * The opts object is used with axios, please see this URL for more options:
+ * https://github.com/axios/axios#request-config
+ *
+ * # The Response
+ *
+ * By default the response is expected in the following format:
+ *
+ *   {
+ *     $items: [Array] - required, the items to render
+ *     $page: [Integer] - optional, for paginated responses
+ *     $total: [Integer] - optional, for paginated responses
+ *   }
+ *
+ * If your response does not match this format you can modify it using the onResponse prop:
+ *
+ *   <SelectAsync onResponse={ response => ({ $items: response.myItems }) } />`
+ *
+ * # Rendering Options
+ *
+ * By default options will be rendered under the assumption they have the following format:
+ *
+ *   {
+ *     id [Integer] - the unique identifier
+ *     displayed_as [String] - the human readable value
+ *   }
+ *
+ * If your items do not match this format, or you want to have custom control over how they
+ * are rendered, you can provide a function as a child:
+ *
+ *   <SelectAsync>
+ *     {
+ *       items => items.map(item => <Option>{ item.text }</Option>)
+ *     }
+ *   </SelectAsync>
+ */
 class SelectAsync extends React.Component {
   static propTypes = {
-    endpoint: PropTypes.string
+    children: PropTypes.func,
+    endpoint: PropTypes.string,
+    onRequest: PropTypes.func,
+    onResponse: PropTypes.func
   }
 
   state = {
+    fetching: false,
     items: [],
     page: 0,
-    total: 0,
-    fetching: false
+    total: 0
   }
 
   select = React.createRef()
@@ -26,6 +96,37 @@ class SelectAsync extends React.Component {
     return this.select.current.state.filter;
   }
 
+  fetchOptions(page, search) {
+    let opts = {
+      params: {
+        page,
+        items_per_page: 20,
+        search
+      }
+    };
+
+    if (this.props.onRequest) opts = this.props.onRequest(opts);
+
+    return opts;
+  }
+
+  handleResponse(responseData) {
+    let data = responseData;
+
+    if (this.props.onResponse) data = this.props.onResponse(data);
+
+    if (!Object.prototype.hasOwnProperty.call(data, '$items')) {
+      throw Error(responseErrorMessage);
+    }
+
+    this.setState({
+      items: this.buildOptions(data.$page, data.$items),
+      page: data.$page || 1,
+      total: data.$total || data.$items.length,
+      fetching: false
+    });
+  }
+
   deferredFetchData = (search) => {
     clearTimeout(this.deferredFetch);
     this.deferredFetch = setTimeout(() => {
@@ -36,20 +137,12 @@ class SelectAsync extends React.Component {
   fetchData = async ({ page, search = this.filterValue() }) => {
     this.setState({ fetching: true });
 
-    const { data } = await axios.get(this.props.endpoint, {
-      params: {
-        page,
-        items_per_page: 20,
-        search
-      }
-    });
+    const { data } = await axios.get(
+      this.props.endpoint,
+      this.fetchOptions(page, search)
+    );
 
-    this.setState({
-      items: this.buildOptions(data.$page, data.$items),
-      page: data.$page,
-      total: data.$total,
-      fetching: false
-    });
+    this.handleResponse(data);
   }
 
   fetchNextPage = () => {
@@ -63,14 +156,13 @@ class SelectAsync extends React.Component {
   }
 
   renderOptions() {
-    if (!this.state.items.length) {
-      if (!this.deferredFetch) return <div isSelectable={ false }>Fetching...</div>;
-      return null;
-    }
+    if (this.props.children) return this.props.children(this.state.items);
+
+    if (!this.state.items.length) return null;
 
     return this.state.items.map(item => (
       <Option
-        key={ `a${item.id}` }
+        key={ item.id }
         value={ item.id }
         text={ item.displayed_as }
       />
@@ -84,7 +176,6 @@ class SelectAsync extends React.Component {
         onOpen={ this.onOpen }
         onFilter={ this.deferredFetchData }
         onLazyLoad={ this.fetchNextPage }
-        loading={ this.state.fetching }
         { ...this.props }
       >
         { this.renderOptions() }
