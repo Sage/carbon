@@ -14,7 +14,7 @@ The SelectAsync component expects the data to be in the format of:
 
 If your API response does not match this, you can modify it using the 'formatResponse' prop:
 
-<SelectAsync formatResponse={ response => ({ $items: response.myItems }) } />`;
+<SelectAsync formatResponse={ response => ({ ...response, data: { $items: response.myItems } }) } />`;
 
 /**
  * SelectAsync renders a regular Select, but wraps it in additional functionality
@@ -51,7 +51,7 @@ If your API response does not match this, you can modify it using the 'formatRes
  *
  * If your response does not match this format you can modify it using the formatResponse prop:
  *
- *   <SelectAsync formatResponse={ (response) => ({ $items: response.myItems }) } />`
+ *   <SelectAsync formatResponse={ response => ({ ...response, data: { $items: response.myItems } }) } />`
  *
  * # Rendering Options
  *
@@ -110,10 +110,12 @@ class SelectAsync extends React.Component {
     return opts;
   }
 
-  handleResponse(responseData) {
-    let data = responseData;
+  handleResponse(originalResponse) {
+    let response = originalResponse;
 
-    if (this.props.formatResponse) data = this.props.formatResponse(data);
+    if (this.props.formatResponse) response = this.props.formatResponse(response);
+
+    const { data } = response;
 
     if (!Object.prototype.hasOwnProperty.call(data, '$items')) {
       throw Error(responseErrorMessage);
@@ -136,11 +138,11 @@ class SelectAsync extends React.Component {
 
   fetchData = async ({ page, search = this.filterValue() }) => {
     this.setState({ fetching: true });
-    const { data } = await axios.get(
+    const response = await axios.get(
       this.props.endpoint,
       this.fetchOptions(page, search)
     );
-    this.handleResponse(data);
+    this.handleResponse(response);
   }
 
   fetchNextPage = () => {

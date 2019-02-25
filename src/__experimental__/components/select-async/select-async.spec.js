@@ -114,13 +114,13 @@ The SelectAsync component expects the data to be in the format of:
 
 If your API response does not match this, you can modify it using the 'formatResponse' prop:
 
-<SelectAsync formatResponse={ response => ({ $items: response.myItems }) } />`);
+<SelectAsync formatResponse={ response => ({ ...response, data: { $items: response.myItems } }) } />`);
       }
     });
 
     it('allows developers to customise the response format', async () => {
       mockResponse();
-      const props = { formatResponse: () => ({ $items: [{ displayed_as: 'custom!', id: '9' }] }) };
+      const props = { formatResponse: response => ({ ...response, data: { $items: [{ displayed_as: 'custom!', id: '9' }] } }) };
       const wrapper = await openResults(render(props));
       expect(findResults(wrapper)).toMatchSnapshot();
     });
