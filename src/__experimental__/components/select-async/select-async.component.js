@@ -34,7 +34,7 @@ If your API response does not match this, you can modify it using the 'formatRes
  *
  * This can be customised using the formatRequest prop, for example to enable withCredentials:
  *
- *   <SelectAsync formatRequest={ (opts) => { opts.withCredentials = true; return opts; } } />
+ *   <SelectAsync formatRequest={ opts => ({ ...opts, withCredentials: true }) } />
  *
  * The opts object is used with axios, please see this URL for more options:
  * https://github.com/axios/axios#request-config
