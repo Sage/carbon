@@ -109,7 +109,7 @@ class SelectAsync extends React.Component {
   }
 
   handleResponse(originalResponse) {
-    const { formatResponse } = this;
+    const { formatResponse } = this.props;
     const response = formatResponse ? formatResponse(originalResponse) : originalResponse;
 
     const { data } = response;

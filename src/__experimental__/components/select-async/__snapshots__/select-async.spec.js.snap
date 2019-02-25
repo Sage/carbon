@@ -110,6 +110,7 @@ Array [
 exports[`SelectAsync renders a Select component 1`] = `
 <Select
   endpoint="/endpoint"
+  itemsPerPage={20}
   onFilter={[Function]}
   onLazyLoad={[Function]}
   onOpen={[Function]}
