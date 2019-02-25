@@ -114,7 +114,9 @@ The SelectAsync component expects the data to be in the format of:
 
 If your API response does not match this, you can modify it using the 'formatResponse' prop:
 
-<SelectAsync formatResponse={ response => ({ ...response, data: { $items: response.myItems } }) } />`);
+<SelectAsync formatResponse={ response => ({ ...response, data: { $items: response.myItems } }) } />
+
+This follows the axios response schema: https://github.com/axios/axios#response-schema`);
       }
     });
 
