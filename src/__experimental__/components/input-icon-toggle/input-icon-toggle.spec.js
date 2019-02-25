@@ -5,7 +5,8 @@ import InputIconToggle from './input-icon-toggle.component';
 
 const props = {
   iconType: 'foo',
-  inputId: '123'
+  inputId: '123',
+  isHovered: false
 };
 
 describe('InputIconToggle', () => {
