@@ -3,20 +3,7 @@ import PropTypes from 'prop-types';
 import axios from 'axios';
 import Select from '../select/select.component';
 import Option from '../select/option.component';
-
-const responseErrorMessage = `The server response does not contain an $items attribute.
-
-The SelectAsync component expects the data to be in the format of:
-
-  $items: [Array] - required, the items to render
-  $page: [Integer] - optional, for paginated responses
-  $total: [Integer] - optional, for paginated responses
-
-If your API response does not match this, you can modify it using the 'formatResponse' prop:
-
-<SelectAsync formatResponse={ response => ({ ...response, data: { $items: response.myItems } }) } />
-
-This follows the axios response schema: https://github.com/axios/axios#response-schema`;
+import responseErrorMessage from './response-error.message';
 
 /**
  * SelectAsync renders a regular Select, but wraps it in additional functionality
@@ -80,7 +67,12 @@ class SelectAsync extends React.Component {
     children: PropTypes.func,
     endpoint: PropTypes.string.isRequired,
     formatRequest: PropTypes.func,
-    formatResponse: PropTypes.func
+    formatResponse: PropTypes.func,
+    itemsPerPage: PropTypes.number
+  }
+
+  static defaultProps = {
+    itemsPerPage: 20
   }
 
   state = {
@@ -101,23 +93,24 @@ class SelectAsync extends React.Component {
   }
 
   fetchOptions(page, search) {
+    const { itemsPerPage, formatRequest } = this.props;
+
     let opts = {
       params: {
         page,
-        items_per_page: 20,
+        items_per_page: itemsPerPage,
         search
       }
     };
 
-    if (this.props.formatRequest) opts = this.props.formatRequest(opts);
+    if (formatRequest) opts = formatRequest(opts);
 
     return opts;
   }
 
   handleResponse(originalResponse) {
-    let response = originalResponse;
-
-    if (this.props.formatResponse) response = this.props.formatResponse(response);
+    const { formatResponse } = this;
+    const response = formatResponse ? formatResponse(originalResponse) : originalResponse;
 
     const { data } = response;
 

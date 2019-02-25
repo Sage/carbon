@@ -2,6 +2,7 @@ import React from 'react';
 import { mount, shallow } from 'enzyme';
 import axios from 'axios';
 import { SelectAsync, Option } from '.';
+import responseErrorMessage from './response-error.message';
 
 const endpoint = '/endpoint';
 const pageOne = [
@@ -104,19 +105,7 @@ describe('SelectAsync', () => {
       try {
         await render().instance().fetchData({ page: 1 });
       } catch ({ message }) {
-        expect(message).toEqual(`The server response does not contain an $items attribute.
-
-The SelectAsync component expects the data to be in the format of:
-
-  $items: [Array] - required, the items to render
-  $page: [Integer] - optional, for paginated responses
-  $total: [Integer] - optional, for paginated responses
-
-If your API response does not match this, you can modify it using the 'formatResponse' prop:
-
-<SelectAsync formatResponse={ response => ({ ...response, data: { $items: response.myItems } }) } />
-
-This follows the axios response schema: https://github.com/axios/axios#response-schema`);
+        expect(message).toEqual(responseErrorMessage);
       }
     });
 
@@ -142,7 +131,7 @@ This follows the axios response schema: https://github.com/axios/axios#response-
       mockResponse();
       const wrapper = await openResults(render());
       expect(axios.get.mock.calls.length).toEqual(1);
-      getNextPage(wrapper);
+      getNextPage(wrapper); // do not await this response so we still have a fetch in progress
       expect(axios.get.mock.calls.length).toEqual(2);
       await getNextPage(wrapper);
       expect(axios.get.mock.calls.length).toEqual(2);
