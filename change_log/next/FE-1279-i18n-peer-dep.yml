@@ -1,1 +1,6 @@
-Dependency Updates: "We have changed i18n-js into a peer dependency. This means developers will need to install and manage which version of i18n-js they want to use in their own applications. We have done this as some applications using Carbon require an older version of i18n-js, while some would like to use newer versions."
+Dependency Updates: |
+  We have changed i18n-js into a peer dependency. This means developers will need to install and manage which version of i18n-js they want to use in their own applications. We have done this as some applications using Carbon require an older version of i18n-js, while some would like to use newer versions.
+
+  To use the version previously supplied by Carbon, add the following to your `package.json`
+
+  "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc12.tar.gz"
