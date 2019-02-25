@@ -12,9 +12,9 @@ The SelectAsync component expects the data to be in the format of:
   $page: [Integer] - optional, for paginated responses
   $total: [Integer] - optional, for paginated responses
 
-If your API response does not match this, you can modify it using the 'onResponse' prop:
+If your API response does not match this, you can modify it using the 'formatResponse' prop:
 
-<SelectAsync onResponse={ response => ({ $items: response.myItems }) } />`;
+<SelectAsync formatResponse={ response => ({ $items: response.myItems }) } />`;
 
 /**
  * SelectAsync renders a regular Select, but wraps it in additional functionality
@@ -32,9 +32,9 @@ If your API response does not match this, you can modify it using the 'onRespons
  *     }
  *   }
  *
- * This can be customised using the onRequest prop, for example to enable withCredentials:
+ * This can be customised using the formatRequest prop, for example to enable withCredentials:
  *
- *   <SelectAsync onRequest={ (opts) => { opts.withCredentials = true; return opts; } } />
+ *   <SelectAsync formatRequest={ (opts) => { opts.withCredentials = true; return opts; } } />
  *
  * The opts object is used with axios, please see this URL for more options:
  * https://github.com/axios/axios#request-config
@@ -49,9 +49,9 @@ If your API response does not match this, you can modify it using the 'onRespons
  *     $total: [Integer] - optional, for paginated responses
  *   }
  *
- * If your response does not match this format you can modify it using the onResponse prop:
+ * If your response does not match this format you can modify it using the formatResponse prop:
  *
- *   <SelectAsync onResponse={ response => ({ $items: response.myItems }) } />`
+ *   <SelectAsync formatResponse={ (response) => ({ $items: response.myItems }) } />`
  *
  * # Rendering Options
  *
@@ -75,8 +75,8 @@ class SelectAsync extends React.Component {
   static propTypes = {
     children: PropTypes.func,
     endpoint: PropTypes.string.isRequired,
-    onRequest: PropTypes.func,
-    onResponse: PropTypes.func
+    formatRequest: PropTypes.func,
+    formatResponse: PropTypes.func
   }
 
   state = {
@@ -105,7 +105,7 @@ class SelectAsync extends React.Component {
       }
     };
 
-    if (this.props.onRequest) opts = this.props.onRequest(opts);
+    if (this.props.formatRequest) opts = this.props.formatRequest(opts);
 
     return opts;
   }
@@ -113,7 +113,7 @@ class SelectAsync extends React.Component {
   handleResponse(responseData) {
     let data = responseData;
 
-    if (this.props.onResponse) data = this.props.onResponse(data);
+    if (this.props.formatResponse) data = this.props.formatResponse(data);
 
     if (!Object.prototype.hasOwnProperty.call(data, '$items')) {
       throw Error(responseErrorMessage);

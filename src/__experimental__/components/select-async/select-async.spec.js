@@ -90,7 +90,7 @@ describe('SelectAsync', () => {
   describe('custom request', () => {
     it('allows developers to customise the request options', async () => {
       mockResponse();
-      const props = { onRequest: () => ({ customRequest: true }) };
+      const props = { formatRequest: () => ({ customRequest: true }) };
       await openResults(render(props));
       expect(axios.get).toHaveBeenCalledWith(
         endpoint, { customRequest: true }
@@ -112,15 +112,15 @@ The SelectAsync component expects the data to be in the format of:
   $page: [Integer] - optional, for paginated responses
   $total: [Integer] - optional, for paginated responses
 
-If your API response does not match this, you can modify it using the 'onResponse' prop:
+If your API response does not match this, you can modify it using the 'formatResponse' prop:
 
-<SelectAsync onResponse={ response => ({ $items: response.myItems }) } />`);
+<SelectAsync formatResponse={ response => ({ $items: response.myItems }) } />`);
       }
     });
 
     it('allows developers to customise the response format', async () => {
       mockResponse();
-      const props = { onResponse: () => ({ $items: [{ displayed_as: 'custom!', id: '9' }] }) };
+      const props = { formatResponse: () => ({ $items: [{ displayed_as: 'custom!', id: '9' }] }) };
       const wrapper = await openResults(render(props));
       expect(findResults(wrapper)).toMatchSnapshot();
     });
