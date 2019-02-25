@@ -120,7 +120,9 @@ If your API response does not match this, you can modify it using the 'formatRes
 
     it('allows developers to customise the response format', async () => {
       mockResponse();
-      const props = { formatResponse: response => ({ ...response, data: { $items: [{ displayed_as: 'custom!', id: '9' }] } }) };
+      const props = {
+        formatResponse: response => ({ ...response, data: { $items: [{ displayed_as: 'custom!', id: '9' }] } })
+      };
       const wrapper = await openResults(render(props));
       expect(findResults(wrapper)).toMatchSnapshot();
     });
