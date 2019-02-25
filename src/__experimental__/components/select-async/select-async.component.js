@@ -146,9 +146,13 @@ class SelectAsync extends React.Component {
   }
 
   fetchNextPage = () => {
-    if (this.state.fetching) return;
-    if (this.state.items.length === this.state.total) return;
-    this.fetchData({ page: this.state.page + 1 });
+    const {
+      fetching, items, total, page
+    } = this.state;
+
+    if (fetching) return;
+    if (items.length === total) return;
+    this.fetchData({ page: page + 1 });
   }
 
   buildOptions(page, items) {
@@ -156,11 +160,12 @@ class SelectAsync extends React.Component {
   }
 
   renderOptions() {
-    if (this.props.children) return this.props.children(this.state.items);
+    const { items } = this.state;
 
-    if (!this.state.items.length) return null;
+    if (this.props.children) return this.props.children(items);
+    if (!items.length) return null;
 
-    return this.state.items.map(item => (
+    return items.map(item => (
       <Option
         key={ item.id }
         value={ String(item.id) }
