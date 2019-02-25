@@ -928,6 +928,18 @@ describe('Table', () => {
         expect(instance.tableContent.get(0)).toEqual(instance.props.children.get(0));
         expect(instance.tableContent.get(1)).toEqual(instance.emptyRow);
       });
+
+      describe('when a customEmptyRow has been provided', () => {
+        test('the custom empty row is rendered instead of the default', () => {
+          let data = Immutable.fromJS([]),
+              children = data.map((child, index) => { return <tr key={ index }></tr>; });
+          const customEmptyRow = <TableRow className='phil'>Custom Empty Row</TableRow>;
+          instance = TestUtils.renderIntoDocument(<Table customEmptyRow={ customEmptyRow } >{ children }</Table>);
+          instance._hasRetreivedData = true;
+
+          expect(instance.tableContent).toEqual(customEmptyRow);
+        });
+      });
     });
 
     describe('if children count is 0 and has not yet retrieved data', () => {
