@@ -265,44 +265,19 @@ describe('Tabs', () => {
       expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toBeTruthy();
     });
 
-    describe('when a changeUrl prop is passed', () => {
-      it('doesn\'t set the location', () => {
-        let replaceSpy = jasmine.createSpy('replaceState');
-        instance._window = {
-          history: {
-            replaceState: replaceSpy
-          },
-          location: {
-            origin: 'foo',
-            pathname: 'bar'
-          }
-        };
-        instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
-        expect(replaceSpy).not.toHaveBeenCalled();
-      });
-  
-      it('sets the location', () => {
-        let clickSpy = jasmine.createSpy('replaceState');
-        let instance = TestUtils.renderIntoDocument(
-          <Tabs onTabChange={ clickSpy } changeUrl >
-            <Tab title='Tab Title 1' tabId='uniqueid1'>
-              <Textbox name='foo'/>
-              <Textbox name='bar'/>
-            </Tab>
-          </Tabs>
-        );
-        instance._window = {
-          history: {
-            replaceState: clickSpy
-          },
-          location: {
-            origin: 'foo',
-            pathname: 'bar'
-          }
-        };
-        instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
-        expect(clickSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#foo');
-      });
+    it('sets the location', () => {
+      let replaceSpy = jasmine.createSpy('replaceState');
+      instance._window = {
+        history: {
+          replaceState: replaceSpy
+        },
+        location: {
+          origin: 'foo',
+          pathname: 'bar'
+        }
+      };
+      instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
+      expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#foo');
     });
 
     describe('when a onTabChange prop is passed', () => {
@@ -639,100 +614,47 @@ describe('Tabs', () => {
       });
 
       describe('when pressing the right arrow', () => {
-        describe('when a changeUrl prop is true', () => {
-          it('focuses on the next right tab and loops back round to the first tab', () => {
-            wrapper.setState({ selectedTabId: "tab1" });
-            wrapper.setProps({ changeUrl: true });
-            wrapper.find('.carbon-tabs__headers__header--selected').instance().focus();
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
-            );
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
-            expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
-            );
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-            expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab3');
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
-            );
-            expect(replaceSpy.mock.calls.length).toEqual(3);
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
-          });
-        });
-
-        describe('when a changeUrl prop is false', () => {
-          it('focuses on the next right tab and loops back round to the first tab', () => {
-            wrapper.setState({ selectedTabId: "tab1" });
-            wrapper.setProps({ changeUrl: false });
-            wrapper.find('.carbon-tabs__headers__header--selected').instance().focus();
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
-            );
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
-            expect(replaceSpy).not.toHaveBeenCalled();
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
-            );
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-            expect(replaceSpy).not.toHaveBeenCalled();
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
-            );
-            expect(replaceSpy.mock.calls.length).toEqual(0);
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
-          });
+        it('focuses on the next right tab and loops back round to the first tab', () => {
+          wrapper.setState({ selectedTabId: "tab1" });
+          wrapper.find('.carbon-tabs__headers__header--selected').instance().focus();
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
+          );
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
+          );
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab3');
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
+          );
+          expect(replaceSpy.mock.calls.length).toEqual(3);
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
         });
       });
 
       describe('when pressing the left arrow', () => {
-        describe('when a changeUrl prop is true', () => {
-          it('focuses on the next left tab and loops back round to the last tab', () => {
-            wrapper.setState({ selectedTabId: "tab3" });
-            wrapper.setProps({ changeUrl: true });
-            wrapper.find('.carbon-tabs__headers__header--selected').instance().focus();
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
-            );
-            expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
-            );
-            expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab1');
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
-            );
-            expect(replaceSpy.mock.calls.length).toEqual(3);
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-          });
-        });
-
-        describe('when a changeUrl prop is false', () => {
-          it('focuses on the next left tab and loops back round to the last tab', () => {
-            wrapper.setState({ selectedTabId: "tab3" });
-            wrapper.setProps({ changeUrl: false });
-            wrapper.find('.carbon-tabs__headers__header--selected').instance().focus();
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
-            );
-            expect(replaceSpy).not.toHaveBeenCalled();
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
-            );
-            expect(replaceSpy).not.toHaveBeenCalled();
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
-            );
-            expect(replaceSpy.mock.calls.length).toEqual(0);
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-          });
+        it('focuses on the next left tab and loops back round to the last tab', () => {
+          wrapper.setState({ selectedTabId: "tab3" });
+          wrapper.find('.carbon-tabs__headers__header--selected').instance().focus();
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
+          );
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
+          );
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab1');
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
+          );
+          expect(replaceSpy.mock.calls.length).toEqual(3);
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
         });
       });
 
@@ -777,100 +699,47 @@ describe('Tabs', () => {
       });
 
       describe('when pressing the down arrow', () => {
-        describe('when a changeUrl prop is true', () => {
-          it('focuses on the next below tab and loops back round to the top tab', () => {
-            wrapper.setState({ selectedTabId: "tab1" });
-            wrapper.setProps({ changeUrl: true });
-            wrapper.find('.carbon-tabs__headers__header--selected').instance().focus();
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {}}
-            );
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
-            expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {}}
-            );
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-            expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab3');
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {}}
-            );
-            expect(replaceSpy.mock.calls.length).toEqual(3);
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
-          });
-        });
-
-        describe('when a changeUrl prop is false', () => {
-          it('focuses on the next below tab and loops back round to the top tab', () => {
-            wrapper.setState({ selectedTabId: "tab1" });
-            wrapper.setProps({ changeUrl: false });
-            wrapper.find('.carbon-tabs__headers__header--selected').instance().focus();
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {}}
-            );
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
-            expect(replaceSpy).not.toHaveBeenCalled();
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {}}
-            );
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-            expect(replaceSpy).not.toHaveBeenCalled();
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {}}
-            );
-            expect(replaceSpy.mock.calls.length).toEqual(0);
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
-          });
+        it('focuses on the next below tab and loops back round to the top tab', () => {
+          wrapper.setState({ selectedTabId: "tab1" });
+          wrapper.find('.carbon-tabs__headers__header--selected').instance().focus();
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {}}
+          );
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {}}
+          );
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab3');
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {}}
+          );
+          expect(replaceSpy.mock.calls.length).toEqual(3);
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
         });
       });
 
       describe('when pressing the up arrow', () => {
-        describe('when a changeUrl prop is true', () => {
-          it('focuses on the next above tab and loops back round to the bottom tab', () => {
-            wrapper.setState({ selectedTabId: "tab3" });
-            wrapper.setProps({ changeUrl: true });
-            wrapper.find('.carbon-tabs__headers__header--selected').instance().focus();
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {}}
-            );
-            expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {}}
-            );
-            expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab1');
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {}}
-            );
-            expect(replaceSpy.mock.calls.length).toEqual(3);
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-          });
-        });
-
-        describe('when a changeUrl prop is false', () => {
-          it('focuses on the next above tab and loops back round to the bottom tab', () => {
-            wrapper.setState({ selectedTabId: "tab3" });
-            wrapper.setProps({ changeUrl: false });
-            wrapper.find('.carbon-tabs__headers__header--selected').instance().focus();
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {}}
-            );
-            expect(replaceSpy).not.toHaveBeenCalled();
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {}}
-            );
-            expect(replaceSpy).not.toHaveBeenCalled();
-            wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-              'keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {}}
-            );
-            expect(replaceSpy.mock.calls.length).toEqual(0);
-            expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-          });
+        it('focuses on the next above tab and loops back round to the bottom tab', () => {
+          wrapper.setState({ selectedTabId: "tab3" });
+          wrapper.find('.carbon-tabs__headers__header--selected').instance().focus();
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {}}
+          );
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {}}
+          );
+          expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab1');
+          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+            'keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {}}
+          );
+          expect(replaceSpy.mock.calls.length).toEqual(3);
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
         });
       });
 
