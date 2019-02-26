@@ -1,8 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, select, boolean } from '@storybook/addon-knobs';
+import { text, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import notes from './notes.md';
 import { State, Store } from '@sambego/storybook-state';
 import Dialog from './dialog-full-screen';
@@ -23,7 +22,7 @@ const handleOpen = () => {
 
 storiesOf('Dialog Full Screen', module)
   .add('default', () => {
-    const open = boolean('open', false);
+    const open = boolean('open', store.open);
     const title = text('title', 'Example Dialog');
     const subtitle = text('subtitle', 'Example Subtitle');
     const children = text('children', 'Text Content');
