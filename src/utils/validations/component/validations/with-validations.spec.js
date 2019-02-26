@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { mount, shallow } from 'enzyme';
-import withUniqueName from './with-unique-name.hoc';
+// import withUniqueName from './with-unique-name.hoc';
 import withValidation from './with-validation.hoc';
-import Form from '../../../../components/form';
 
 const presErr = new Error('this value is required!');
 const notZeroErr = new Error('this is zero!');
@@ -44,63 +43,24 @@ const validations = [isNotZero, presence, asyncValidation];
 const types = ['validations', 'warnings', 'info'];
 
 describe('Validations component', () => {
-  describe('withUniqueName HOC', () => {
-    let wrapper;
-    it('adds a name prop to a component passed as a paramater', () => {
-      wrapper = shallow(React.createElement('div', [], []));
-      expect(wrapper.props().name).toEqual(undefined);
-      const InputComponent = withUniqueName(React.createElement('div', [], []));
-      wrapper = shallow(<InputComponent />);
-      expect(wrapper.props().name).not.toEqual(undefined);
-    });
-
-    it('allows the name prop to be overriden', () => {
-      const InputComponent = withUniqueName(new Form());
-      wrapper = shallow(<InputComponent name='foo' />);
-      expect(wrapper.props().name).toEqual('foo');
-      wrapper = shallow(<InputComponent />);
-      const { name } = wrapper.props();
-      expect(wrapper.props().name).toEqual(name);
-    });
-
-    it('the generated name prop is persisted even after re-render', () => {
-      const InputComponent = withUniqueName(Component);
-      wrapper = shallow(<InputComponent />);
-      const { name } = wrapper.props();
-      for (let i = 0; i < 5; i++) {
-        wrapper.update();
-        expect(wrapper.props().name).toEqual(name);
-      }
-    });
-  });
-
   describe('withValidation HOC', () => {
     let wrapper;
 
-    const InputComponent = withValidation(Component); // new Form()
+    const InputComponent = withValidation(Component);
 
     beforeEach(() => {
       wrapper = shallow(<InputComponent />);
     });
 
-    it('has default prop values when nothing is passed in', () => {
-
+    it('matchessnapshpt test', () => {
+      const Inputs = [0, 1, 2].map(() => withValidation(Component));
+      const wrapper2 = shallow(
+        <div>
+          { Inputs }
+        </div>
+      );
+      expect(wrapper2).toMatchSnapshot();
     });
-
-    it('renders an element with the expected values from state', () => {
-      // const InputComponent = withValidation(Component); // new Form()
-      // wrapper = shallow(<InputComponent />);
-      expect(wrapper.state().value).toEqual('');
-      // expect(wrapper.props().children)
-    });
-
-    // it('no action is taken when the component mounts with no context provided', () => { // maybe not needed
-
-    // });
-
-    // it('no action is taken when the component unmounts with no context provided', () => { // maybe not needed
-
-    // });
 
     describe('renderValidationMarkup', () => {
       it('returns an Icon with info type when the state has info and no warning or validations', () => {
@@ -155,14 +115,14 @@ describe('Validations component', () => {
       it('resolves true when the validations array is all valid', async () => {
         wrapper.setProps({ validations });
         wrapper.setState({ value: 'foo' });
-        const validate = await wrapper.instance().runValidation(types[0]); // write a helper
+        const validate = await wrapper.instance().runValidation(types[0]);
         expect(validate).toEqual(true);
       });
 
       it('resolves true when the warning array is all valid', async () => {
         wrapper.setProps({ warning: validations });
         wrapper.setState({ value: 'foo' });
-        const validate = await wrapper.instance().runValidation(types[1]); // write a helper
+        const validate = await wrapper.instance().runValidation(types[1]);
         expect(wrapper.props().validations).toEqual([]);
         expect(validate).toEqual(true);
       });
@@ -170,7 +130,7 @@ describe('Validations component', () => {
       it('resolves true when the info array is all valid', async () => {
         wrapper.setProps({ info: validations });
         wrapper.setState({ value: 'foo' });
-        const validate = await wrapper.instance().runValidation(types[2]); // write a helper
+        const validate = await wrapper.instance().runValidation(types[2]);
         expect(wrapper.props().validations).toEqual([]);
         expect(wrapper.props().warnings).toEqual([]);
         expect(validate).toEqual(true);
@@ -179,24 +139,89 @@ describe('Validations component', () => {
       it('resolves false when the validations array is not all valid', async () => {
         wrapper.setProps({ validations });
         wrapper.setState({ value: 'bar' });
-        const validate = await wrapper.instance().runValidation(types[0]); // write a helper
+        const validate = await wrapper.instance().runValidation(types[0]);
         expect(validate).toEqual(false);
       });
 
       it('resolves false when the warning array is not all valid', async () => {
         wrapper.setProps({ warnings: validations });
         wrapper.setState({ value: 'bar' });
-        const validate = await wrapper.instance().runValidation(types[1]); // write a helper
+        const validate = await wrapper.instance().runValidation(types[1]);
         expect(wrapper.props().validations).toEqual([]);
         expect(validate).toEqual(false);
+        expect(wrapper.props().info).toEqual([]);
       });
 
       it('resolves false when the info array is not all valid', async () => {
         wrapper.setProps({ info: validations });
         wrapper.setState({ value: 'bar' });
-        const validate = await wrapper.instance().runValidation(types[2]); // write a helper
+        const validate = await wrapper.instance().runValidation(types[2]);
         expect(wrapper.props().validations).toEqual([]);
         expect(wrapper.props().warnings).toEqual([]);
+        expect(validate).toEqual(false);
+      });
+
+      it('sets the error state to false when validation passes after previously failing', async () => {
+        wrapper.setProps({ validations });
+        wrapper.setState({
+          value: 'foo',
+          hasError: failErr
+        });
+        const spy = spyOn(wrapper.instance(), 'setState');
+        expect(wrapper.instance().state.hasError).not.toEqual(false);
+        await wrapper.instance().runValidation(types[0]);
+        expect(spy).toHaveBeenCalledWith({
+          hasError: false
+        });
+      });
+
+      it('sets the warning state to false when validation passes after previously failing', async () => {
+        wrapper.setProps({ validations });
+        wrapper.setState({
+          value: 'foo',
+          hasWarning: failErr
+        });
+        const spy = spyOn(wrapper.instance(), 'setState');
+        expect(wrapper.instance().state.hasWarning).not.toEqual(false);
+        await wrapper.instance().runValidation(types[1]);
+        expect(spy).toHaveBeenCalledWith({
+          hasWarning: false
+        });
+      });
+
+      it('sets the error state to false when validation passes after previously failing', async () => {
+        wrapper.setProps({ validations });
+        wrapper.setState({
+          value: 'foo',
+          hasInfo: failErr
+        });
+        const spy = spyOn(wrapper.instance(), 'setState');
+        expect(wrapper.instance().state.hasInfo).not.toEqual(false);
+        await wrapper.instance().runValidation(types[2]);
+        expect(spy).toHaveBeenCalledWith({
+          hasInfo: false
+        });
+      });
+
+      it('takes no action when an incorrect type with passing validations is passed to the function', async () => {
+        wrapper.setProps({ fooType: validations });
+        wrapper.setState({
+          value: 'foo'
+        });
+        const spy = spyOn(wrapper.instance(), 'setState');
+        const validate = await wrapper.instance().runValidation('fooType');
+        expect(spy).not.toHaveBeenCalled();
+        expect(validate).toEqual(true);
+      });
+
+      it('takes no action when an incorrect type with failing validations is passed to the function', async () => {
+        wrapper.setProps({ fooType: failValidation });
+        wrapper.setState({
+          value: 'foo'
+        });
+        const spy = spyOn(wrapper.instance(), 'setState');
+        const validate = await wrapper.instance().runValidation('fooType');
+        expect(spy).not.toHaveBeenCalled();
         expect(validate).toEqual(false);
       });
     });
@@ -218,7 +243,7 @@ describe('Validations component', () => {
       // pass an array of all the validations and assert that it fails on the index
       it('does not validate the warnings or info arrays if there is an error', async () => {
         wrapper.setProps({
-          validations: [failValidation],
+          validations: failValidation,
           warnings: validations,
           info: validations
         });
@@ -256,41 +281,25 @@ describe('Validations component', () => {
       });
     });
 
-    it('combines the two HOCs', () => {
+    it('handles the expected action if the on blur prop is passed down', () => {
+      const spy = jasmine.createSpy('blurred');
+      wrapper.instance().handleBlur();
+      expect(spy).not.toHaveBeenCalled();
+      wrapper.setProps({ onBlur: spy });
+      wrapper.instance().handleBlur();
+      expect(spy).toHaveBeenCalled();
+    });
 
+    it('handles the change event when the input value is updated', () => {
+      const event = {
+        preventDefault() {},
+        target: { value: 'bar' }
+      };
+      const spy = spyOn(wrapper.instance(), 'setState');
+      wrapper.simulate('change', event);
+      expect(spy).toHaveBeenCalledWith({
+        value: event.target.value
+      });
     });
   });
-  // let wrapper;
-  // beforeEach(() => {
-  //   wrapper = mount(
-  //     <Validations
-  //       validateForm={ console.log }
-  //       validateField={ console.log }
-  //     >
-  //       <Form>
-  //         <input />
-  //       </Form>
-  //     </Validations>
-  //   );
-  // });
-
-  // it('error count is incremented when the update function is called with a positive integer', () => {
-  //   expect(wrapper.instance().state.errorCount).toEqual(0);
-  //   wrapper.instance().updateErrorCount(1);
-  //   console.log(wrapper.debug());
-  //   expect(wrapper.instance().state.errorCount).toEqual(0);
-  // });
-
-  // it('error count is decremented when the update function is called with a negative integer', () => {
-  //   wrapper.instance().updateErrorCount(1);
-  //   expect(wrapper.instance().state.errorCount).toEqual(1);
-  //   wrapper.instance().updateErrorCount(-1);
-  //   expect(wrapper.instance().state.errorCount).toEqual(0);
-  // });
-
-  // it('error count is not decremented below zero', () => {
-  //   expect(wrapper.instance().state.errorCount).toEqual(0);
-  //   wrapper.instance().updateErrorCount(-1);
-  //   expect(wrapper.instance().state.errorCount).toEqual(0);
-  // });
 });

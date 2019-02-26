@@ -10,12 +10,21 @@ const inputWithValidation = (WrappedComponent) => {
 
     static propTypes = {
       children: PropTypes.node,
-      name: PropTypes.number,
+      name: PropTypes.string,
       value: PropTypes.string,
       validate: PropTypes.func,
-      validations: PropTypes.array, // need to be either array or single validation
-      warnings: PropTypes.array,
-      info: PropTypes.array,
+      validations: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.arrayOf(PropTypes.func)
+      ]),
+      warnings: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.arrayOf(PropTypes.func)
+      ]),
+      info: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.arrayOf(PropTypes.func)
+      ]),
       onBlur: PropTypes.func
     };
 
@@ -35,13 +44,14 @@ const inputWithValidation = (WrappedComponent) => {
     componentDidMount = () => {
       // register component with validations provider
       if (this.context && this.props.validations.length) {
-        this.context.current.addInput(this.props.name, this.validate);
+        // console.log(this.props.name);
+        this.context.addInput(this.props.name, this.validate);
       }
     }
 
     componentWillUnmount = () => {
       if (this.context && this.props.validations.length) {
-        this.context.current.removeInput(this.props.name);
+        this.context.removeInput(this.props.name);
       }
     }
 
@@ -56,7 +66,6 @@ const inputWithValidation = (WrappedComponent) => {
     runValidation = (type) => {
       return new Promise((resolve) => {
         if (this.props[type].length === 0) resolve(true);
-        // console.log(this.state.value);
         const validate = validator(this.props[type]);
         validate(this.state.value) // why is value a prop???
           .then(() => {
@@ -64,19 +73,19 @@ const inputWithValidation = (WrappedComponent) => {
               case 'validations':
                 if (this.state.hasError !== false) {
                   this.setState({ hasError: false });
-                  // this.context.adjustCount('error', -1);
+                  if (this.context && this.context.adjustCount) this.context.adjustCount('error', -1);
                 }
                 break;
               case 'warnings':
                 if (this.state.hasWarning !== false) {
                   this.setState({ hasWarning: false });
-                  // this.context.adjustCount('warning', -1);
+                  if (this.context && this.context.adjustCount) this.context.adjustCount('warning', -1);
                 }
                 break;
               case 'info':
                 if (this.state.hasInfo !== false) {
                   this.setState({ hasInfo: false });
-                  // this.context.adjustCount('info', -1);
+                  if (this.context && this.context.adjustCount) this.context.adjustCount('info', -1);
                 }
                 break;
               default:
@@ -87,15 +96,15 @@ const inputWithValidation = (WrappedComponent) => {
             switch (type) {
               case 'validations':
                 this.setState({ hasError: e });
-                // this.context.adjustCount('error', 1);
+                if (this.context && this.context.adjustCount) this.context.adjustCount('error', 1);
                 break;
               case 'warnings':
                 this.setState({ hasWarning: e });
-                // this.context.adjustCount('warning', 1);
+                if (this.context && this.context.adjustCount) this.context.adjustCount('warning', 1);
                 break;
               case 'info':
                 this.setState({ hasInfo: e });
-                // this.context.adjustCount('info', 1);
+                if (this.context && this.context.adjustCount) this.context.adjustCount('info', 1);
                 break;
               default:
             }

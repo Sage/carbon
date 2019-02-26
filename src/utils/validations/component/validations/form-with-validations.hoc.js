@@ -16,6 +16,7 @@ const withValidations = (WrappedComponent) => {
     }
 
     removeInput = (name) => {
+      // console.log(name);
       delete this.inputs[name];
     }
 
@@ -46,9 +47,9 @@ const withValidations = (WrappedComponent) => {
       return new Promise((resolve) => {
         let isValid = true;
         Object.keys(this.inputs).forEach(async (name) => { // maybe don't need async
-          console.log(this.inputs[name]);
+          // console.log(this.inputs[name]);
           const validate = this.inputs[name];
-          return validate(['validations']).catch(() => { // 'warning' etc?
+          return validate(['validations']).catch(() => { // array of arrays?
             isValid = false;
           });
         });

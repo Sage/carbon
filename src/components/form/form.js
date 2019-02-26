@@ -244,7 +244,14 @@ class Form extends React.Component {
      * @property showSummary
      * @type {Boolean}
      */
-    showSummary: PropTypes.bool
+    showSummary: PropTypes.bool,
+    // document these
+    validate: PropTypes.func,
+    addInput: PropTypes.func,
+    removeInput: PropTypes.func,
+    errorCount: PropTypes.number,
+    warningCount: PropTypes.number,
+    infoCount: PropTypes.number
   }
 
   static defaultProps = {
@@ -892,4 +899,5 @@ function generateCSRFToken(doc) {
   );
 }
 
+// export { Form };
 export default withValidations(Form);

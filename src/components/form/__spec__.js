@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
-import Form from './form';
+import { Form } from './form';
 import Textbox from './../textbox';
 import Portal from './../portal';
 import Validation from './../../utils/validations/presence';

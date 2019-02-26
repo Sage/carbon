@@ -12,7 +12,7 @@ exports[`InputDecoratorBridge renders the Textbox component with:
     onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
-    <Textbox
+    <Component
       autoComplete="off"
       data-element="input"
       id="mocked-guid"
@@ -25,7 +25,7 @@ exports[`InputDecoratorBridge renders the Textbox component with:
       value="1"
     >
       normal children
-    </Textbox>
+    </Component>
   </div>
   <Icon
     bgSize="small"
@@ -53,7 +53,7 @@ exports[`InputDecoratorBridge renders with an inputIcon if one is supplied 1`] =
     onMouseOut={[Function]}
     onMouseOver={[Function]}
   >
-    <Textbox
+    <Component
       autoComplete="off"
       data-element="input"
       id="mocked-guid"

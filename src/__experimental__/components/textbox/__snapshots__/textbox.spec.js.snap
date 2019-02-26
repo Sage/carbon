@@ -1,11 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Textbox renders with InputPresentation and Input and all props passed to Input 1`] = `
-<InputPresentation>
-  southpaw children
-  <Input
-    value="foobar"
-  />
+<WithValidation(Textbox)
+  info={Array []}
+  leftChildren="southpaw children"
+  name="07e33c2f-115f-81b3-b8d3-d1f90a9b3f50"
+  validations={Array []}
+  value="foobar"
+  warnings={Array []}
+>
   normal children
-</InputPresentation>
+</WithValidation(Textbox)>
 `;

@@ -24,6 +24,4 @@ Textbox.propTypes = {
   name: PropTypes.string
 };
 
-const TextboxWithoutValidation = withUniqueName(Textbox);
-export { TextboxWithoutValidation as Textbox };
 export default withUniqueName(withValidation(Textbox));

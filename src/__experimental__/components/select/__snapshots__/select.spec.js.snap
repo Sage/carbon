@@ -80,7 +80,11 @@ Object {
       class="carbon-input"
       data-element="input"
       id="guid-12345"
+      info=""
+      name="guid-12345"
+      validations=""
       value=""
+      warnings=""
     />
     <span
       data-portal-entrance="guid-12345"

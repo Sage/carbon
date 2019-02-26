@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { InputPresentationContext } from './input-presentation.component';
+import { validProps } from '../../../utils/ether';
 import './input.style.scss';
 
 // This is a component in progress to incrementally remove the reliance
@@ -34,7 +35,19 @@ class Input extends React.Component {
     inputRef: PropTypes.func, // a callback to retrieve the input reference
     onBlur: PropTypes.func,
     onClick: PropTypes.func,
-    onFocus: PropTypes.func
+    onFocus: PropTypes.func,
+    validations: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.arrayOf(PropTypes.func)
+    ]),
+    warnings: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.arrayOf(PropTypes.func)
+    ]),
+    info: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.arrayOf(PropTypes.func)
+    ])
   }
 
   static contextType = InputPresentationContext
@@ -67,7 +80,7 @@ class Input extends React.Component {
       className,
       inputRef,
       ...props
-    } = this.props;
+    } = validProps(this);
 
     return (
       <input
