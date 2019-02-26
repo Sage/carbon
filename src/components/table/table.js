@@ -118,12 +118,12 @@ class Table extends React.Component {
     className: PropTypes.string,
 
     /**
-     * Custom empt row
+     * Custom empty row
      *
      * @property customEmptyRow
      * @type {Object}
      */
-    customEmptyRow: PropTypes.object,
+    customEmptyRow: PropTypes.node,
 
     /**
      * Data used to filter the data

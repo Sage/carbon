@@ -885,7 +885,7 @@ describe('Table', () => {
     describe('if there are children that are immutable', () => {
       it('returns the children if there are children', () => {
         let data = Immutable.fromJS([{ foo: 1 }, { foo: 2 }]),
-            children = data.map((child, index) => { return <tr key={ index }></tr>; });
+            children = data.map((_, index) => <tr key={ index }></tr>);
         instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
 
         expect(instance.tableContent).toEqual(children);
@@ -893,7 +893,7 @@ describe('Table', () => {
 
       it('returns the loadingRow if no children and not yet received data', () => {
         let data = Immutable.fromJS([]),
-            children = data.map((child, index) => { return <tr key={ index }></tr>; });
+            children = data.map((_, index) => <tr key={ index }></tr>);
         instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
         instance._hasRetreivedData = false;
 
@@ -902,7 +902,7 @@ describe('Table', () => {
 
       it('returns the emptyRow if no children and has received data', () => {
         let data = Immutable.fromJS([]),
-            children = data.map((child, index) => { return <tr key={ index }></tr>; });
+            children = data.map((_, index) => <tr key={ index }></tr>);
         instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
         instance._hasRetreivedData = true;
 
@@ -932,7 +932,7 @@ describe('Table', () => {
       describe('when a customEmptyRow has been provided', () => {
         test('the custom empty row is rendered instead of the default', () => {
           let data = Immutable.fromJS([]),
-              children = data.map((child, index) => { return <tr key={ index }></tr>; });
+              children = data.map((_, index) => <tr key={ index }></tr>);
           const customEmptyRow = <TableRow className='phil'>Custom Empty Row</TableRow>;
           instance = TestUtils.renderIntoDocument(<Table customEmptyRow={ customEmptyRow } >{ children }</Table>);
           instance._hasRetreivedData = true;

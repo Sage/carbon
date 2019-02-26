@@ -25,6 +25,7 @@ export default (definition) => {
     'aria-describedby',
     'children',
     'currentPage',
+    'customEmptyRow',
     'filter',
     'totalRecords',
     'pageSizeSelectionOptions'
@@ -67,6 +68,7 @@ function buildRows() {
     currentPage: 'String',
     children: 'Node',
     className: 'String',
+    customEmptyRow: 'Node',
     filter: 'Object',
     highlightable: 'Boolean',
     onChange: 'Function',
@@ -93,6 +95,7 @@ function buildRows() {
     'aria-describedby': 'The HTML id attribute of the element that contains a description of the table',
     caption: 'Specify a visually hidden title for the table',
     currentPage: 'Controls the current page number of a paginated data set.',
+    customEmptyRow: 'Provides the ability to override the default empty row component.',
     children: 'This component supports children.',
     className: 'Classes to apply to the component.',
     filter: "An object of filtered data. Each key in the object should match with the key of one of the table's columns.",
