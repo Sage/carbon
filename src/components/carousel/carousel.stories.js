@@ -17,6 +17,7 @@ storiesOf('Carousel', module)
     const enablePreviousButton = boolean('enablePreviousButton', true);
     const enableNextButton = boolean('enableNextButton', true);
     const transition = select('transition', ['slide', 'fade'], 'slide');
+
     return (
       <Carousel
         initialSlideIndex={ initialSlideIndex }

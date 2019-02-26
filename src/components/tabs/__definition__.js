@@ -34,8 +34,7 @@ let definition = new Definition('tabs', Tabs, {
     onTabChange: "Function",
     position: "String",
     renderHiddenTabs: "Boolean",
-    selectedTabId: "String",
-    changeUrl: "Boolean"
+    selectedTabId: "String"
   },
   propDescriptions: {
     align: "Sets the alignment of the tab titles. Possible values include: " + OptionsHelper.alignBinary,
@@ -43,8 +42,7 @@ let definition = new Definition('tabs', Tabs, {
     onTabChange: "A callback for when a tab is changed. You can use this to manually control tab changing or to fire other events when a tab is changed.",
     position: "The position of the tab title. Possible values include: top, left",
     renderHiddenTabs: "This will ensure hidden tabs are still rendered to the DOM and are hidden with CSS. This allows cross-tab forms to work correctly. You can disable this so React will not render the hidden tabs.",
-    selectedTabId: "Allows manual control over the currently selected tab.",
-    changeUrl: "Add tab ID to URL on tab change."
+    selectedTabId: "Allows manual control over the currently selected tab."
   }
 });
 
