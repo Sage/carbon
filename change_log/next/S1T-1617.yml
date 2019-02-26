@@ -1,0 +1,1 @@
+New Features: 'Extend Table component to allow a customEmptyRow prop to be provided allowing use of custom empty row but retaining the loading logic.'
