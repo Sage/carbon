@@ -27,7 +27,11 @@ export default (palette) => {
     },
     input: {
       backgroundColor: 'transparent',
-      border: 'none',
+      disabled: palette.slateTint(85),
+      lineHeight: '16px',
+      height: '32px',
+      readOnly: 'transparent',
+      border: palette.slateTint(80),
       color: blackWithOpacity(85),
       textHighlight: palette.slateShade(80),
       dimensions: {

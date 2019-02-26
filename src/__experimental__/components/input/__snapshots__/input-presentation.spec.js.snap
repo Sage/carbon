@@ -1,10 +1,65 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`InputPresentation renders presentational div and context provider for its children 1`] = `
-<div
+<styled.div
   className="carbon-input-presentation"
+  hasFocus={false}
   onMouseDown={[Function]}
   role="presentation"
+  size="medium"
+  theme={
+    Object {
+      "colors": Object {
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "info": "#0073C2",
+        "primary": "#26A826",
+        "secondary": "#006300",
+        "success": "#00B000",
+        "tertiary": "#004400",
+        "text": Object {
+          "body": "rgba(0,0,0,0.9)",
+          "disabled": "rgba(0,0,0,0.55)",
+          "placeholder": "rgba(0,0,0,0.3)",
+        },
+        "warning": "#FFB500",
+        "white": "#FFFFFF",
+      },
+      "input": Object {
+        "backgroundColor": "transparent",
+        "border": "#CCD6DA",
+        "color": "rgba(0,0,0,85)",
+        "dimensions": Object {
+          "large": Object {
+            "fontSize": "16px",
+            "height": "48px",
+            "paddingLeft": "13px",
+            "paddingRight": "13px",
+            "width": "256px",
+          },
+          "medium": Object {
+            "fontSize": "14px",
+            "height": "40px",
+            "paddingLeft": "11px",
+            "paddingRight": "11px",
+            "width": "128px",
+          },
+          "small": Object {
+            "fontSize": "14px",
+            "height": "32px",
+            "paddingLeft": "8px",
+            "paddingRight": "8px",
+            "width": "80px",
+          },
+        },
+        "disabled": "#D8E0E3",
+        "height": "32px",
+        "lineHeight": "16px",
+        "readOnly": "transparent",
+        "textHighlight": "#000A0E",
+      },
+    }
+  }
 >
   <ContextProvider
     value={
@@ -18,5 +73,5 @@ exports[`InputPresentation renders presentational div and context provider for i
   >
     sample children
   </ContextProvider>
-</div>
+</styled.div>
 `;

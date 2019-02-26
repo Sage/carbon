@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { InputPresentationContext } from './input-presentation.component';
-import './input.style.scss';
+import StyledInput from './input.style';
+// import './input.style.scss';
 
 // This is a component in progress to incrementally remove the reliance
 // on the input decorators. For now we still rely on inputProps being
@@ -70,7 +71,7 @@ class Input extends React.Component {
     } = this.props;
 
     return (
-      <input
+      <StyledInput
         { ...props }
         ref={ this.input }
         className={ classNamesForInput(className) }

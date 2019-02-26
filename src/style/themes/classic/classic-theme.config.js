@@ -6,10 +6,6 @@ export default (palette) => {
         primary: palette.productGreenShade(21),
         secondary: palette.productGreenShade(41),
         tertiary: palette.productGreenShade(61),
-      },
-      input: {
-        border: 'none',
-        height: '31px'
       }
     }
   );

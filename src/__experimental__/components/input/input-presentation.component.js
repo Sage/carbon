@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import './input-presentation.style.scss';
+import InputPresentationStyle from './input-presentation.style';
+// import './input-presentation.style.scss';
 
 const InputPresentationContext = React.createContext();
 
@@ -58,8 +59,9 @@ class InputPresentation extends React.Component {
     const { children, ...props } = this.props;
 
     return (
-      <div
+      <InputPresentationStyle
         { ...props }
+        hasFocus={ this.state.hasFocus }
         role='presentation'
         className={ this.classNames() }
         ref={ this.container }
@@ -68,7 +70,7 @@ class InputPresentation extends React.Component {
         <InputPresentationContext.Provider value={ this.contextForInput() }>
           { children }
         </InputPresentationContext.Provider>
-      </div>
+      </InputPresentationStyle>
     );
   }
 }

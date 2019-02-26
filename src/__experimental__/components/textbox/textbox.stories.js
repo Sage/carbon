@@ -10,6 +10,9 @@ storiesOf('Textbox', module)
         size={ select('size', ['small', 'medium', 'large'], 'medium') }
         disabled={ boolean('disabled', false) }
         readOnly={ boolean('readOnly', false) }
+        placeholder={ text('placeholder', 'placeholder text') }
+        warning={ boolean('warning', false) }
+        error={ boolean('error', false) }
       />
     );
   })
