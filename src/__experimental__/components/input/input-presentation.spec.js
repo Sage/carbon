@@ -1,22 +1,37 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import { InputPresentation } from '.';
+import { InputPresentation, Input } from '.';
 import baseTheme from '../../../style/themes/base';
 import 'jest-styled-components';
 
-// 
-const assertStyleMatch = (styleSpec, component) => {
-  
-  Object.entries(styleSpec).forEach(([attr, value]) => {
-    expect(component).toHaveStyleRule(attr, value);
-  })
+const deletekeys = (obj, keys) => keys.forEach(k => delete obj[k]);
+const stripKeys = (obj, keys) => {
+  return Object.keys(obj).reduce((acc, key) => {
+    const strippedObj = deletekeys(obj[key], keys);
+    return { ...acc, [key]: { ...strippedObj } };
+  }, {});
 };
 
+const isUpperCase = char => char.toUpperCase() === char;
+const toCSSCase = (str) => {
+  return str.split('').reduce((acc, char) => {
+    const toAdd = isUpperCase(char) ? `-${char.toLowerCase()}` : char;
+    return acc + toAdd;
+  }, '');
+};
 
+const assertStyleMatch = (styleSpec, component) => {
+  Object.entries(styleSpec).forEach(([attr, value]) => {
+    expect(component).toHaveStyleRule(toCSSCase(attr), value);
+  });
+};
+
+const mountRender = (props) => {
+  return mount(<InputPresentation { ...props }><Input /></InputPresentation>);
+};
 
 describe('InputPresentation', () => {
   const shallowRender = props => shallow(<InputPresentation { ...props }>sample children</InputPresentation>);
-  const mountRender = props => mount(<InputPresentation { ...props }>sample children</InputPresentation> )
 
   it('renders presentational div and context provider for its children', () => {
     expect(shallowRender()).toMatchSnapshot();
@@ -33,42 +48,53 @@ describe('InputPresentation', () => {
     const {
       input: inputStyleRules,
       colors: {
-        error, warning, info, text
+        error, warning, text
       }
     } = baseTheme;
+
+    describe('sizes', () => {
+      const { small, medium, large } = stripKeys(inputStyleRules.dimensions, ['width', 'fontSize']);
+    
+      it('has the right style for small-sized inputs', () => {
+        assertStyleMatch(small, mountRender({ size: 'small' }));
+      });
+      it('has the right style for medium-sized inputs', () => {
+        assertStyleMatch(medium, mountRender({ size: 'medium' }));
+      });
+      it('has the right style for large-sized inputs', () => {
+        assertStyleMatch(large, mountRender({ size: 'large' }));
+      });
+    });
 
     describe('states', () => {
       describe('disabled', () => {
         it('has the correct style rules', () => {
-
           assertStyleMatch(
             {
               color: text.disabled,
-              background: inputStyleRules.disabled
+              background: inputStyleRules.disabled,
+              cursor: 'not-allowed'
             },
             mountRender({ disabled: true })
           );
-        });
-
-        it('changes the cursor on hover', () => {
-
         });
       });
 
       describe('active', () => {
         it('has the correct style rules', () => {
           const wrapper = mountRender({ hasFocus: true });
-          wrapper.instance().onFocus();
-          assertStyleMatch(
-            {
-              color: text.body,
-              background: inputStyleRules.backgroundColor,
-              border: warning
 
-            },
+          const styleRules = {
+            color: text.body,
+            background: inputStyleRules.backgroundColor,
+            outline: `3px solid ${warning}`,
+            border: `1px solid ${inputStyleRules.border}`
+          };
+
+          assertStyleMatch(
+            styleRules,
             wrapper
           );
-
         });
       });
 
@@ -76,13 +102,11 @@ describe('InputPresentation', () => {
         it('has the correct style rules', () => {
           assertStyleMatch(
             {
-              color: 'red',
-              background: inputStyleRules.backgroundColor,
-              
+              background: inputStyleRules.readOnly,
+              border: 'none'
             },
             mountRender({ readOnly: true })
           );
-
         });
       });
 
@@ -90,9 +114,9 @@ describe('InputPresentation', () => {
         it('has the correct style rules', () => {
           assertStyleMatch(
             {
-              color: 'red',
+              color: text.body,
               background: inputStyleRules.backgroundColor,
-              
+              border: `2px solid ${error}`
             },
             mountRender({ error: true })
           );
@@ -103,25 +127,11 @@ describe('InputPresentation', () => {
         it('has the correct style rules', () => {
           assertStyleMatch(
             {
-              color: 'red',
+              color: text.body,
               background: inputStyleRules.backgroundColor,
-              
+              border: `2px solid ${warning}`
             },
             mountRender({ warning: true })
-          );
-
-        });
-      });
-
-      describe('info', () => {
-        it('has the correct style rules', () => {
-          assertStyleMatch(
-            {
-              color: 'red',
-              background: inputStyleRules.backgroundColor,
-              
-            },
-            mountRender({ info: true })
           );
         });
       });

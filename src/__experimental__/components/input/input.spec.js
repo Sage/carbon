@@ -27,11 +27,6 @@ describe('Input', () => {
     expect(inputRef).toHaveBeenCalledWith(wrapper.instance().input);
   });
 
-  it('replaces old class name for new one', () => {
-    const wrapper = renderMount({ className: 'foo common-input__input' });
-    expect(wrapper.find('input').props().className).toEqual('foo carbon-input');
-  });
-
   it('does not fail onBlur or Focus if none are defined', () => {
     const input = renderMount().find('input');
     expect(() => input.simulate('focus')).not.toThrow();

@@ -31,25 +31,19 @@ exports[`InputPresentation renders presentational div and context provider for i
         "color": "rgba(0,0,0,85)",
         "dimensions": Object {
           "large": Object {
-            "fontSize": "16px",
             "height": "48px",
             "paddingLeft": "13px",
             "paddingRight": "13px",
-            "width": "256px",
           },
           "medium": Object {
-            "fontSize": "14px",
             "height": "40px",
             "paddingLeft": "11px",
             "paddingRight": "11px",
-            "width": "128px",
           },
           "small": Object {
-            "fontSize": "14px",
             "height": "32px",
             "paddingLeft": "8px",
             "paddingRight": "8px",
-            "width": "80px",
           },
         },
         "disabled": "#D8E0E3",

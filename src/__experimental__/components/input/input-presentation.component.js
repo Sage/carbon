@@ -60,12 +60,12 @@ class InputPresentation extends React.Component {
 
     return (
       <InputPresentationStyle
-        { ...props }
         hasFocus={ this.state.hasFocus }
         role='presentation'
         className={ this.classNames() }
         ref={ this.container }
         onMouseDown={ this.handleMouseDown }
+        { ...props }
       >
         <InputPresentationContext.Provider value={ this.contextForInput() }>
           { children }

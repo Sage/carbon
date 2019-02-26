@@ -24,6 +24,7 @@ const InputPresentationStyle = styled.div`
     return theme.input.backgroundColor;
   }};
   cursor: text;
+  ${({ disabled }) => disabled && css`cursor: not-allowed;`}
   display: flex;
   flex-wrap: wrap;
   line-height: ${({ theme }) => theme.input.lineHeight};
@@ -34,6 +35,10 @@ const InputPresentationStyle = styled.div`
   }}
 
   padding: 2px 6px;
+  ${({ theme: { input: { dimensions } }, size }) => {
+    return css`padding-left: ${dimensions[size].paddingLeft}; 
+      padding-right: ${dimensions[size].paddingRight}`;
+  }}
   width: 100%;
   vertical-align: baseline;
 `;

@@ -4,12 +4,235 @@ exports[`Input renders with an input 1`] = `
 <Input
   onChange={[Function]}
 >
-  <input
+  <styled.input
     className="carbon-input"
     onBlur={[Function]}
     onChange={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
-  />
+    size="medium"
+    theme={
+      Object {
+        "colors": Object {
+          "brand": "#00DC00",
+          "error": "#C7384F",
+          "info": "#0073C2",
+          "primary": "#26A826",
+          "secondary": "#006300",
+          "success": "#00B000",
+          "tertiary": "#004400",
+          "text": Object {
+            "body": "rgba(0,0,0,0.9)",
+            "disabled": "rgba(0,0,0,0.55)",
+            "placeholder": "rgba(0,0,0,0.3)",
+          },
+          "warning": "#FFB500",
+          "white": "#FFFFFF",
+        },
+        "input": Object {
+          "backgroundColor": "transparent",
+          "border": "#CCD6DA",
+          "color": "rgba(0,0,0,85)",
+          "dimensions": Object {
+            "large": Object {
+              "fontSize": "16px",
+              "height": "48px",
+              "paddingLeft": "13px",
+              "paddingRight": "13px",
+              "width": "256px",
+            },
+            "medium": Object {
+              "fontSize": "14px",
+              "height": "40px",
+              "paddingLeft": "11px",
+              "paddingRight": "11px",
+              "width": "128px",
+            },
+            "small": Object {
+              "fontSize": "14px",
+              "height": "32px",
+              "paddingLeft": "8px",
+              "paddingRight": "8px",
+              "width": "80px",
+            },
+          },
+          "disabled": "#D8E0E3",
+          "height": "32px",
+          "lineHeight": "16px",
+          "readOnly": "transparent",
+          "textHighlight": "#000A0E",
+        },
+      }
+    }
+  >
+    <StyledComponent
+      className="carbon-input"
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bwzfXH",
+            "isStatic": false,
+            "lastClassName": "kcjYMo",
+            "rules": Array [
+              "
+  background-color: transparent;
+  border: none;
+  ",
+              [Function],
+              "
+  outline: none;
+  flex-grow: 1;
+  width: 30px;
+  color: ",
+              [Function],
+              ";
+  font-size: ",
+              [Function],
+              ";
+",
+            ],
+          },
+          "defaultProps": Object {
+            "size": "medium",
+            "theme": Object {
+              "colors": Object {
+                "brand": "#00DC00",
+                "error": "#C7384F",
+                "info": "#0073C2",
+                "primary": "#26A826",
+                "secondary": "#006300",
+                "success": "#00B000",
+                "tertiary": "#004400",
+                "text": Object {
+                  "body": "rgba(0,0,0,0.9)",
+                  "disabled": "rgba(0,0,0,0.55)",
+                  "placeholder": "rgba(0,0,0,0.3)",
+                },
+                "warning": "#FFB500",
+                "white": "#FFFFFF",
+              },
+              "input": Object {
+                "backgroundColor": "transparent",
+                "border": "#CCD6DA",
+                "color": "rgba(0,0,0,85)",
+                "dimensions": Object {
+                  "large": Object {
+                    "fontSize": "16px",
+                    "height": "48px",
+                    "paddingLeft": "13px",
+                    "paddingRight": "13px",
+                    "width": "256px",
+                  },
+                  "medium": Object {
+                    "fontSize": "14px",
+                    "height": "40px",
+                    "paddingLeft": "11px",
+                    "paddingRight": "11px",
+                    "width": "128px",
+                  },
+                  "small": Object {
+                    "fontSize": "14px",
+                    "height": "32px",
+                    "paddingLeft": "8px",
+                    "paddingRight": "8px",
+                    "width": "80px",
+                  },
+                },
+                "disabled": "#D8E0E3",
+                "height": "32px",
+                "lineHeight": "16px",
+                "readOnly": "transparent",
+                "textHighlight": "#000A0E",
+              },
+            },
+          },
+          "displayName": "styled.input",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "sc-bwzfXH",
+          "target": "input",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={
+        Object {
+          "current": <input
+            class="carbon-input sc-bwzfXH kcjYMo"
+          />,
+        }
+      }
+      onBlur={[Function]}
+      onChange={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      size="medium"
+      theme={
+        Object {
+          "colors": Object {
+            "brand": "#00DC00",
+            "error": "#C7384F",
+            "info": "#0073C2",
+            "primary": "#26A826",
+            "secondary": "#006300",
+            "success": "#00B000",
+            "tertiary": "#004400",
+            "text": Object {
+              "body": "rgba(0,0,0,0.9)",
+              "disabled": "rgba(0,0,0,0.55)",
+              "placeholder": "rgba(0,0,0,0.3)",
+            },
+            "warning": "#FFB500",
+            "white": "#FFFFFF",
+          },
+          "input": Object {
+            "backgroundColor": "transparent",
+            "border": "#CCD6DA",
+            "color": "rgba(0,0,0,85)",
+            "dimensions": Object {
+              "large": Object {
+                "fontSize": "16px",
+                "height": "48px",
+                "paddingLeft": "13px",
+                "paddingRight": "13px",
+                "width": "256px",
+              },
+              "medium": Object {
+                "fontSize": "14px",
+                "height": "40px",
+                "paddingLeft": "11px",
+                "paddingRight": "11px",
+                "width": "128px",
+              },
+              "small": Object {
+                "fontSize": "14px",
+                "height": "32px",
+                "paddingLeft": "8px",
+                "paddingRight": "8px",
+                "width": "80px",
+              },
+            },
+            "disabled": "#D8E0E3",
+            "height": "32px",
+            "lineHeight": "16px",
+            "readOnly": "transparent",
+            "textHighlight": "#000A0E",
+          },
+        }
+      }
+    >
+      <input
+        className="carbon-input sc-bwzfXH kcjYMo"
+        onBlur={[Function]}
+        onChange={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        size="medium"
+      />
+    </StyledComponent>
+  </styled.input>
 </Input>
 `;

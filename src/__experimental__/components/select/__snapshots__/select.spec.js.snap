@@ -72,12 +72,17 @@ Object {
   "onSelect": [Function],
   "open": true,
   "target": <div
-    class="carbon-input-presentation carbon-input-presentation--has-focus"
+    autocomplete="off"
+    class="carbon-input-presentation carbon-input-presentation--has-focus sc-htpNat rrLDV"
+    data-element="input"
+    id="guid-12345"
     role="presentation"
+    type="text"
+    value=""
   >
     <input
       autocomplete="off"
-      class="carbon-input"
+      class="carbon-input sc-bxivhb gKwSIj"
       data-element="input"
       id="guid-12345"
       value=""

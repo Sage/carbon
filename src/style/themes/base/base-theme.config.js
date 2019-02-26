@@ -26,6 +26,7 @@ export default (palette) => {
       }
     },
     input: {
+ 
       backgroundColor: 'transparent',
       disabled: palette.slateTint(85),
       lineHeight: '16px',

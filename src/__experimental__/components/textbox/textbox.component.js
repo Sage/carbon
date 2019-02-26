@@ -7,7 +7,7 @@ import { Input, InputPresentation } from '../input';
 // subject to change as we continue to remove the decorator classes.
 
 const Textbox = ({ children, leftChildren, ...props }) => (
-  <InputPresentation { ...props }>
+  <InputPresentation type='text' { ...props }>
     { leftChildren }
     <Input { ...props } />
     { children }
