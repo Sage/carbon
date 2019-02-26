@@ -31,6 +31,9 @@ storiesOf('Dialog', module)
     const showCloseIcon = boolean('showCloseIcon', false);
     const autoFocus = boolean('autoFocus', false);
     const stickyFormFooter = boolean('stickyFormFooter', false);
+    const enableBackgroundUI = boolean('enableBackgroundUI', false);
+    const disableEscKey = boolean('disableEscKey', false);
+    const ariaRole = text('ariaRole', 'dialog');
 
     return (
       <Dialog 
@@ -43,6 +46,9 @@ storiesOf('Dialog', module)
         showCloseIcon={showCloseIcon}
         autoFocus={autoFocus}
         stickyFormFooter={stickyFormFooter}
+        enableBackgroundUI={enableBackgroundUI}
+        disableEscKey={disableEscKey}
+        ariaRole={ariaRole}
         onClick={ action('click') }
       />
     );
@@ -57,6 +63,9 @@ storiesOf('Dialog', module)
     const showCloseIcon = boolean('showCloseIcon', false);
     const autoFocus = boolean('autoFocus', false);
     const stickyFormFooter = boolean('stickyFormFooter', false);
+    const enableBackgroundUI = boolean('enableBackgroundUI', false);
+    const disableEscKey = boolean('disableEscKey', false);
+    const ariaRole = text('ariaRole', 'dialog');
 
     return (
       <State store={ store }>
@@ -71,6 +80,9 @@ storiesOf('Dialog', module)
           showCloseIcon={showCloseIcon}
           autoFocus={autoFocus}
           stickyFormFooter={stickyFormFooter}
+          enableBackgroundUI={enableBackgroundUI}
+          disableEscKey={disableEscKey}
+          ariaRole={ariaRole}  
           onClick={ action('click') }
         />
       </State>
