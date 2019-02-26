@@ -128,7 +128,7 @@ describe('Table', () => {
     });
 
     it('unselects all rows', () => {
-      let row = { setState: function(value) {} };
+      row = { setState: function(value) {} };
       spyOn(row, 'setState');
       instance.rows = { '0': row }
       instance.refresh();
@@ -152,7 +152,7 @@ describe('Table', () => {
   });
 
   describe('selectRow', () => {
-    let row;
+    row;
 
     beforeEach(() => {
       row = TestUtils.findRenderedComponentWithType(instance, TableRow);
@@ -161,7 +161,7 @@ describe('Table', () => {
 
     describe('if there is a selectAllComponent', () => {
       it('resets the select all component', () => {
-        let spy = jasmine.createSpy();
+        spy = jasmine.createSpy();
         instance.selectAllComponent = {
           setState: spy
         };
@@ -173,7 +173,7 @@ describe('Table', () => {
 
     describe('if there is a actionToolbarComponent', () => {
       it('calls setState on the action toolbar', () => {
-        let spy = jasmine.createSpy();
+        spy = jasmine.createSpy();
         instance.actionToolbarComponent = {
           setState: spy
         };
@@ -183,7 +183,7 @@ describe('Table', () => {
     });
 
     describe('if multi select', () => {
-      let spy;
+      spy;
 
       beforeEach(() => {
         spy = jasmine.createSpy();
@@ -240,7 +240,7 @@ describe('Table', () => {
       });
 
       it('unselects all other rows', () => {
-        let spy = jasmine.createSpy();
+        spy = jasmine.createSpy();
         instance.rows = {
           foo: true
         };
@@ -256,7 +256,7 @@ describe('Table', () => {
       });
 
       it('does not unselect if no other rows', () => {
-        let spy = jasmine.createSpy();
+        spy = jasmine.createSpy();
         instance.rows = {};
         instance.highlightedRow = {
           id: 'bar',
@@ -270,7 +270,7 @@ describe('Table', () => {
       });
 
       it('toggles the state if it is the same id', () => {
-        let spy = jasmine.createSpy();
+        spy = jasmine.createSpy();
         instance.highlightedRow = {
           id: 'bar'
         };
@@ -298,7 +298,7 @@ describe('Table', () => {
 
     describe('if there is an onHighlight callback', () => {
       it('calls the callback', () => {
-        let spy = jasmine.createSpy();
+        spy = jasmine.createSpy();
         instance = TestUtils.renderIntoDocument(<Table highlightable={ true } onHighlight={ spy }><TableRow uniqueID="foo" /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         instance.highlightRow('foo', row, true);
@@ -308,7 +308,7 @@ describe('Table', () => {
   });
 
   describe('selectAll', () => {
-    let row;
+    row;
 
     beforeEach(() => {
       row = TestUtils.findRenderedComponentWithType(instance, TableRow);
@@ -326,7 +326,7 @@ describe('Table', () => {
     });
 
     it('calls setState on the row', () => {
-      let spy = jasmine.createSpy();
+      spy = jasmine.createSpy();
       row = { setState: spy, state: { selected: true } };
       instance.selectAll(row);
       expect(row.setState).toHaveBeenCalledWith({ selected: false });
@@ -352,7 +352,7 @@ describe('Table', () => {
 
     describe('if there is an onSelect callback', () => {
       it('calls the callback', () => {
-        let spy = jasmine.createSpy();
+        spy = jasmine.createSpy();
         instance = TestUtils.renderIntoDocument(
           <Table onSelect={ spy } />
         );
@@ -365,7 +365,7 @@ describe('Table', () => {
 
     describe('if there is an actionToolbarComponent', () => {
       it('calls setState', () => {
-        let spy = jasmine.createSpy();
+        spy = jasmine.createSpy();
         instance = TestUtils.renderIntoDocument(
           <Table />
         );
@@ -401,8 +401,8 @@ describe('Table', () => {
   describe('checkSelection', () => {
     describe('if isSelected does not equal current state', () => {
       it('calls setState', () => {
-        let spy = jasmine.createSpy();
-        let row = { setState: spy, state: { selected: true } };
+        spy = jasmine.createSpy();
+        row = { setState: spy, state: { selected: true } };
         instance.checkSelection('foo', row);
         expect(spy).toHaveBeenCalledWith({ selected: false });
       });
@@ -410,8 +410,8 @@ describe('Table', () => {
 
     describe('if isSelected equals current state', () => {
       it('does not call setState', () => {
-        let spy = jasmine.createSpy();
-        let row = { setState: spy, state: { selected: false, highlighted: false } };
+        spy = jasmine.createSpy();
+        row = { setState: spy, state: { selected: false, highlighted: false } };
         instance.checkSelection('foo', row);
         expect(spy).not.toHaveBeenCalled();
       });
@@ -590,14 +590,14 @@ describe('Table', () => {
   describe('shouldResetTableHeight', () => {
     describe('when new page size is smaller than previous', () => {
       it('returns true', () => {
-        let prevProps = { pageSize: '1' }
+        const prevProps = { pageSize: '1' }
         expect(instancePager.shouldResetTableHeight(prevProps, {}));
       });
     });
 
     describe('when new page size is larger or equal to the previous', () => {
       it('returns false', () => {
-        let prevProps = { pageSize: '100' }
+        const prevProps = { pageSize: '100' }
         expect(instancePager.shouldResetTableHeight(prevProps, {}));
       });
     });
@@ -611,7 +611,7 @@ describe('Table', () => {
 
   describe('emitOnChangeCallback', () => {
     it('resets select all component', () => {
-      let spy = jasmine.createSpy();
+      spy = jasmine.createSpy();
       instancePager.selectAllComponent = {
         setState: spy
       };
@@ -628,7 +628,7 @@ describe('Table', () => {
 
   describe('onPagination', () => {
     it('formats the pagination changes for emitting', () => {
-      let options = instance.emitOptions();
+      const options = instance.emitOptions();
       options.currentPage = '2';
       options.pageSize = '25';
 
@@ -671,7 +671,7 @@ describe('Table', () => {
 
   describe('onSort', () => {
     it('formats the sort options for emitting', () => {
-      let options = instance.emitOptions();
+      const options = instance.emitOptions();
       options.sortedColumn = 'name';
       options.sortOrder = 'desc';
 
@@ -682,7 +682,7 @@ describe('Table', () => {
   });
 
   describe('onConfigure', () => {
-    let onConfigureSpy = jasmine.createSpy();
+    const onConfigureSpy = jasmine.createSpy();
     let wrapper;
     beforeEach(() => {
       wrapper = mount(
@@ -721,7 +721,7 @@ describe('Table', () => {
 
     describe('when current page is greater than page size', () => {
       it('sets current page to 1', () => {
-        let props = {
+        const props = {
           currentPage: '11',
           filter: null,
           pageSize: '10',
@@ -752,7 +752,7 @@ describe('Table', () => {
     });
 
     it('gathers all relevent props to emit using passed in props', () => {
-      let props = {
+      const props = {
         currentPage: '9',
         filter: Immutable.fromJS({ foo: 'bar' }),
         pageSize: '100',
@@ -772,7 +772,7 @@ describe('Table', () => {
 
   describe('pagerProps', () => {
     it('gathers all props that apply to the pager', () => {
-      let props = instancePager.pagerProps;
+      const props = instancePager.pagerProps;
       expect(props.currentPage).toEqual('1')
       expect(props.pageSize).toEqual('10')
       expect(props.totalRecords).toEqual('100')
@@ -792,7 +792,7 @@ describe('Table', () => {
 
     describe('when pageSizeSelectionOptions are set', () => {
       it('sets it to the first item in the pageSizeSelectionOptions', () => {
-        let options = Immutable.fromJS([
+        const options = Immutable.fromJS([
           { id: '1', name: 1 },
           { id: '2', name: 2 },
           { id: '3', name: 3 }
@@ -820,14 +820,14 @@ describe('Table', () => {
           <Table path='/test'>
           </Table>
         );
-        let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
+        const parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
         expect(parent).toBeUndefined();
       });
     });
 
     describe('when thead is provided', () => {
       it('returns the the correct markup', () => {
-        let header = (
+        const header = (
           <TableRow key="header">
             <TableHeader>
               foo
@@ -838,7 +838,7 @@ describe('Table', () => {
           <Table path='/test' thead={header}>
           </Table>
         );
-        let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
+        const parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
         expect(parent).toBeDefined();
         expect(instance.thead).toEqual(
           <thead className="carbon-table__header">
@@ -884,7 +884,7 @@ describe('Table', () => {
 
     describe('if there are children that are immutable', () => {
       it('returns the children if there are children', () => {
-        let data = Immutable.fromJS([{ foo: 1 }, { foo: 2 }]),
+        const data = Immutable.fromJS([{ foo: 1 }, { foo: 2 }]),
             children = data.map((_, index) => <tr key={ index }></tr>);
         instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
 
@@ -961,7 +961,7 @@ describe('Table', () => {
 
   describe('render', () => {
     it('renders a table with correct classes', () => {
-      let parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+      const parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(parent).toBeDefined();
       expect(parent.className).toEqual('carbon-table foo carbon-table--primary');
     });
@@ -982,14 +982,14 @@ describe('Table', () => {
     });
 
     it('renders an action toolbar if actions are passed', () => {
-      let func = () => {};
-      let toolbarWrapper = shallow(
+      const func = () => {};
+      const toolbarWrapper = shallow(
         <Table className="foo" actions={ {foo: 'bar'} } selectable={ true } actionToolbarChildren={ func }>
           { row }
         </Table>
       );
 
-      let toolbar = toolbarWrapper.find(ActionToolbar);
+      const toolbar = toolbarWrapper.find(ActionToolbar);
       expect(toolbar).toBeDefined();
       expect(toolbar.props().children).toEqual(func);
     });
@@ -1020,17 +1020,16 @@ describe('Table', () => {
   });
 
   describe("tags on component", () => {
-    let wrapper = shallow(
-      <Table
-        data-element='bar'
-        data-role='baz'
-        path='test'
-      >
-        <TableRow />
-      </Table>
-    );
-
     it('include correct component, element and role data tags', () => {
+      const wrapper = shallow(
+        <Table
+          data-element='bar'
+          data-role='baz'
+          path='test'
+        >
+          <TableRow />
+        </Table>
+      );
       rootTagTest(wrapper, 'table', 'bar', 'baz');
     });
   });

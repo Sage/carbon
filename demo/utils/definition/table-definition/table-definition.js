@@ -119,6 +119,6 @@ function buildRows() {
     totalRecords: 'Tracks the total number of records of a paginated data set.'
   });
   definition.propOptions = {
-    theme: OptionsHelper.themesBinary,
+    theme: OptionsHelper.themesBinary
   };
 };
