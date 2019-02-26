@@ -892,7 +892,7 @@ describe('Table', () => {
       });
 
       it('returns the loadingRow if no children and not yet received data', () => {
-        let data = Immutable.fromJS([]),
+        const data = Immutable.fromJS([]),
             children = data.map((_, index) => <tr key={ index }></tr>);
         instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
         instance._hasRetreivedData = false;
@@ -901,7 +901,7 @@ describe('Table', () => {
       });
 
       it('returns the emptyRow if no children and has received data', () => {
-        let data = Immutable.fromJS([]),
+        const data = Immutable.fromJS([]),
             children = data.map((_, index) => <tr key={ index }></tr>);
         instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
         instance._hasRetreivedData = true;
@@ -910,7 +910,7 @@ describe('Table', () => {
       });
 
       it('returns the children with the loading row if only row is a header and has not yet received data', () => {
-        let data = Immutable.fromJS([]),
+        const data = Immutable.fromJS([]),
             children = data.push(<TableRow as='header' key='header' />);
         instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
         instance._hasRetreivedData = false;
@@ -920,7 +920,7 @@ describe('Table', () => {
       });
 
       it('returns the children with the empty row if only row is a header and has received data', () => {
-        let data = Immutable.fromJS([]),
+        const data = Immutable.fromJS([]),
             children = data.push(<TableRow as='header' key='header' />);
         instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
         instance._hasRetreivedData = true;
@@ -931,7 +931,7 @@ describe('Table', () => {
 
       describe('when a customEmptyRow has been provided', () => {
         test('the custom empty row is rendered instead of the default', () => {
-          let data = Immutable.fromJS([]),
+          const data = Immutable.fromJS([]),
               children = data.map((_, index) => <tr key={ index }></tr>);
           const customEmptyRow = <TableRow className='phil'>Custom Empty Row</TableRow>;
           instance = TestUtils.renderIntoDocument(<Table customEmptyRow={ customEmptyRow } >{ children }</Table>);
