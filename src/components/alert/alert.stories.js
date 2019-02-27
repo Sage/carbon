@@ -26,13 +26,12 @@ storiesOf('Alert', module)
     const title = text('title', 'Attention');
     const subtitle = text('subtitle', '');
     const children = text('children', 'This is an example of a alert.');
-    const enableBackgroundUI = boolean('enableBackgroundUI', false);
-    const disableEscKey = boolean('disableEscKey', false);
+    const enableBackgroundUI = boolean('enableBackgroundUI', Alert.defaultProps.enableBackgroundUI);
+    const disableEscKey = boolean('disableEscKey', Alert.defaultProps.disableEscKey);
     const ariaRole = text('ariaRole', 'dialog');
     const height = text('height', '');
     const showCloseIcon = boolean('showCloseIcon', true);
-    const size = select('size', OptionsHelper.sizesFull, OptionsHelper.sizesFull[0]);
-    const stickyFormFooter = boolean('stickyFormFooter', false);
+    const size = select('size', OptionsHelper.sizesFull, Alert.defaultProps.size);
     const open = boolean('open', false);
 
     return (
@@ -45,7 +44,6 @@ storiesOf('Alert', module)
         height={ height }
         showCloseIcon={ showCloseIcon }
         size={ size }
-        stickyFormFooter={ stickyFormFooter }
         subtitle={ subtitle }
         open={ open }
       >
@@ -54,6 +52,11 @@ storiesOf('Alert', module)
     );
   }, {
     notes: { markdown: notes }
+  })
+  .addParameters({
+    info: {
+      propTablesExclude: [Button]
+    }
   })
   .add('with button', () => {
     const title = text('title', 'Attention');
@@ -65,7 +68,6 @@ storiesOf('Alert', module)
     const height = text('height', '');
     const showCloseIcon = boolean('showCloseIcon', true);
     const size = select('size', OptionsHelper.sizesFull, OptionsHelper.sizesFull[0]);
-    const stickyFormFooter = boolean('stickyFormFooter', false);
 
     return (
       <State store={ store }>
@@ -80,7 +82,6 @@ storiesOf('Alert', module)
           height={ height }
           showCloseIcon={ showCloseIcon }
           size={ size }
-          stickyFormFooter={ stickyFormFooter }
           subtitle={ subtitle }
           open={ store.get('open') }
         >

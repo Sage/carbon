@@ -55,9 +55,9 @@ storiesOf('Animated Menu Button', module)
     }
   })
   .add('default', () => {
-    const direction = select('direction', OptionsHelper.alignBinary, OptionsHelper.alignBinary[1]);
+    const direction = select('direction', OptionsHelper.alignBinary, AnimatedMenuButton.defaultProps.direction);
     const label = text('label', '');
-    const size = select('size', OptionsHelper.sizesFull, OptionsHelper.sizesFull[3]);
+    const size = select('size', OptionsHelper.sizesFull, AnimatedMenuButton.defaultProps.size);
 
     return (
       <Wrapper

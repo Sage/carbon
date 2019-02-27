@@ -12,7 +12,7 @@ storiesOf('Button Toggle', module)
     const children = text('children', 'Option');
     const buttonIcon = select('buttonIcon', [null, ...OptionsHelper.icons]);
     const buttonIconSize = select('buttonIconSize', OptionsHelper.sizesBinary, OptionsHelper.sizesBinary[0]);
-    const size = select('size', OptionsHelper.sizesBinary, OptionsHelper.sizesBinary[1]);
+    const size = select('size', OptionsHelper.sizesBinary, ButtonToggle.defaultProps.size);
     const disabled = boolean('disabled', false);
     const grouped = boolean('grouped', false);
     const deferTimeout = number('deferTimeout', 0);

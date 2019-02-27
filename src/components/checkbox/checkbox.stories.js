@@ -11,7 +11,7 @@ storiesOf('Checkbox', module)
   .add('default', () => {
     const checked = boolean('checked', false);
     const fieldHelpInline = boolean('fieldHelpInline', false);
-    const reverse = boolean('reverse', false);
+    const reverse = boolean('reverse', Checkbox.defaultProps.reverse);
     const timeToDisappear = number('timeToDisappear', 0);
     const label = text('label', 'Example Checkbox');
     const labelInline = boolean('labelInline', false);

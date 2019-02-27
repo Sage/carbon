@@ -11,12 +11,12 @@ storiesOf('Carousel', module)
     }
   })
   .add('default', () => {
-    const initialSlideIndex = select('initialSlideIndex', [0, 1, 2, 3, 4], 0);
+    const initialSlideIndex = select('initialSlideIndex', [0, 1, 2, 3, 4], Carousel.defaultProps.initialSlideIndex);
     const slideIndex = select('slideIndex', [0, 1, 2, 3, 4], 0);
-    const enableSlideSelector = boolean('enableSlideSelector', true);
-    const enablePreviousButton = boolean('enablePreviousButton', true);
-    const enableNextButton = boolean('enableNextButton', true);
-    const transition = select('transition', ['slide', 'fade'], 'slide');
+    const enableSlideSelector = boolean('enableSlideSelector', Carousel.defaultProps.enableSlideSelector);
+    const enablePreviousButton = boolean('enablePreviousButton', Carousel.defaultProps.enablePreviousButton);
+    const enableNextButton = boolean('enableNextButton', Carousel.defaultProps.enableNextButton);
+    const transition = select('transition', ['slide', 'fade'], Carousel.defaultProps.transition);
 
     return (
       <Carousel

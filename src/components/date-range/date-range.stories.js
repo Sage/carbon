@@ -16,7 +16,7 @@ storiesOf('DateRange', module)
 
     return (
       <DateRange
-        onChange={ action('change') }
+        onChange={ action('changed') }
         endLabel={ endLabel }
         value={ value }
         startLabel={ startLabel }

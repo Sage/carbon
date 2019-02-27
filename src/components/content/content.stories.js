@@ -9,11 +9,11 @@ storiesOf('Content', module)
   .add('default', () => {
     const children = text('children', 'An example of some content.');
     const title = text('title', 'Content Component');
-    const knobAs = select('as', OptionsHelper.themesBinary, OptionsHelper.themesBinary[0]);
-    const inline = boolean('inline', false);
-    const align = select('align', OptionsHelper.alignFull);
+    const knobAs = select('as', OptionsHelper.themesBinary, Content.defaultProps.as);
+    const inline = boolean('inline', Content.defaultProps.inline);
+    const align = select('align', OptionsHelper.alignFull, Content.defaultProps.align);
     const titleeWidth = inline ? text('titleWidth', '') : undefined;
-    const bodyFullWidth = boolean('bodyFullWidth', false);
+    const bodyFullWidth = boolean('bodyFullWidth', Content.defaultProps.bodyFullWidth);
 
     return (
       <Content

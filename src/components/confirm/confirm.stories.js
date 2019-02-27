@@ -15,12 +15,12 @@ storiesOf('Confirm', module)
     const open = boolean('open', true);
     const enableBackgroundUI = boolean('enableBackgroundUI', false);
     const disableEscKey = boolean('disableEscKey', false);
-    const ariaRole = text('ariaRole', 'dialog');
+    const ariaRole = text('ariaRole', Confirm.defaultProps.ariaRole);
     const height = text('height', '');
     const subtitle = text('subtitle', '');
-    const size = select('size', OptionsHelper.sizesFull);
-    const showCloseIcon = boolean('showCloseIcon', false);
-    const autoFocus = boolean('autoFocus', true);
+    const size = select('size', OptionsHelper.sizesFull, Confirm.defaultProps.size);
+    const showCloseIcon = boolean('showCloseIcon', Confirm.defaultProps.showCloseIcon);
+    const autoFocus = boolean('autoFocus', Confirm.defaultProps.autoFocus);
     const stickyFormFooter = boolean('stickyFormFooter', false);
     const confirmLabel = text('confirmLabel', '');
     const cancelLabel = text('cancelLabel', '');
