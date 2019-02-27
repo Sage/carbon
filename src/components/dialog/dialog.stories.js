@@ -84,7 +84,7 @@ storiesOf('Dialog', module)
             stickyFormFooter={ stickyFormFooter }
             enableBackgroundUI={ enableBackgroundUI }
             disableEscKey={ disableEscKey }
-            ariaRole={ ariaRole }  
+            ariaRole={ ariaRole }
             onClick={ action('click') }
           />
         </State>

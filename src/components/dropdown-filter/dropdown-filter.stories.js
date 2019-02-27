@@ -38,7 +38,7 @@ storiesOf('DropdownFilter', module)
     const inputWidth = text('inputWidth', '');
     const fieldHelp = text('fieldHelp', 'This is field help text');
     const fieldHelpInline = boolean('fieldHelpInline', false);
-    // TODO: Storybook needs a boolean, but the value is actually a function 
+    // TODO: Storybook needs a boolean, but the value is actually a function
     // const create = boolean('create', false);
     const createText = text('createText', '');
     const createIconType = text('createIconType', '');
@@ -54,7 +54,7 @@ storiesOf('DropdownFilter', module)
 
     return (
       <State store={ store }>
-        <DropdownFilter 
+        <DropdownFilter
           autoFocus={ autoFocus }
           cacheVisibleValue={ cacheVisibleValue }
           disabled={ disabled }
