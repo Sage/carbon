@@ -44,10 +44,11 @@ storiesOf('DropdownFilterAjax', module)
     const createIconType = text('createIconType', '');
     const suggest = boolean('suggest', false);
     const freetext = boolean('freetext', false);
+    const path = text('path', '/');
     const acceptHeader = text('acceptHeader', 'application/json');
     const rowsPerRequest = text('rowsPerRequest', '25');
     const getCustomHeaders = text('getCustomHeaders', '');
-    const dataRequestTimeout = text('dataRequestTimeout', '500');
+    const dataRequestTimeout = number('dataRequestTimeout', 500);
     const withCredentials = boolean('withCredentials', false);
     const options = ImmutableHelper.parseJSON([
       {
@@ -79,9 +80,10 @@ storiesOf('DropdownFilterAjax', module)
           suggest={ suggest }
           freetext={ freetext }
           // create={ create }
+          path={ path }
           acceptHeader={ acceptHeader }
           rowsPerRequest={ rowsPerRequest }
-          getCustomHeaders={ getCustomHeaders }
+          getCustomHeaders={ () => true }
           dataRequestTimeout={ dataRequestTimeout }
           withCredentials={ withCredentials }
           options={ options }
