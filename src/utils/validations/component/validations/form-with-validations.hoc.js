@@ -11,25 +11,29 @@ const withValidations = (WrappedComponent) => {
 
     inputs = {};
 
+    validationTypes = ['validations', 'warnings', 'info'];
+
     addInput = (name, validate) => {
       this.inputs[name] = validate;
     }
 
     removeInput = (name) => {
-      // console.log(name);
       delete this.inputs[name];
     }
 
     adjustCount = (type, adjustment) => {
       switch (type) {
         case 'error':
-          this.setState((prev) => { return prev.errorCount + adjustment; });
+          this.setState((prev) => { return { errorCount: prev.errorCount + adjustment }; });
+          // console.log('warning 1 => ', this.state.warningCount);
           break;
         case 'warning':
-          this.setState((prev) => { return prev.warningCount + adjustment; });
+          this.setState((prev) => { return { warningCount: prev.warningCount + adjustment }; });
+          console.log('state => ', this.state);
+          console.log('warning 2 => ', this.state.warningCount);
           break;
         case 'info':
-          this.setState((prev) => { return prev.infoCount + adjustment; });
+          this.setState((prev) => { return { infoCount: prev.infoCount + adjustment }; });
           break;
         default:
       }
@@ -44,16 +48,16 @@ const withValidations = (WrappedComponent) => {
     }
 
     validate = () => {
-      return new Promise((resolve) => {
+      return new Promise((resolve, reject) => {
         let isValid = true;
-        Object.keys(this.inputs).forEach(async (name) => { // maybe don't need async
-          // console.log(this.inputs[name]);
+        Object.keys(this.inputs).forEach((name) => { // maybe don't need async
           const validate = this.inputs[name];
-          return validate(['validations']).catch(() => { // array of arrays?
-            isValid = false;
+          return validate().catch((e) => {
+            isValid = e;
           });
         });
         if (isValid) resolve();
+        reject(isValid);
       });
     }
 

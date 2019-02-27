@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Validations component withValidation HOC matchessnapshpt test 1`] = `
+exports[`Validations component matchessnapshpt test 1`] = `
 <div>
   <Component />
   <Component />

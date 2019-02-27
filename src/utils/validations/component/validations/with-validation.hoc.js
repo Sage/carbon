@@ -34,23 +34,28 @@ const inputWithValidation = (WrappedComponent) => {
       info: []
     }
 
+    // static contextTypes = {
+    //   addInput: PropTypes.func,
+    //   removeInput: PropTypes.func,
+    //   adjustCount: PropTypes.func
+    // }
+
     state = {
       hasError: false,
       hasWarning: false,
-      hasInfo: false,
-      value: ''
+      hasInfo: false
+      // value: ''
     };
 
     componentDidMount = () => {
-      // register component with validations provider
-      if (this.context && this.props.validations.length) {
-        // console.log(this.props.name);
+      if (this.context && this.context.addInput && this.props.validations.length) {
         this.context.addInput(this.props.name, this.validate);
       }
     }
 
     componentWillUnmount = () => {
-      if (this.context && this.props.validations.length) {
+      console.log('unmount', this.context);
+      if (this.context && this.context.removeInput && this.props.validations.length) {
         this.context.removeInput(this.props.name);
       }
     }
@@ -65,9 +70,11 @@ const inputWithValidation = (WrappedComponent) => {
 
     runValidation = (type) => {
       return new Promise((resolve) => {
-        if (this.props[type].length === 0) resolve(true);
+        if (this.props[type].length === 0) {
+          resolve(true);
+        }
         const validate = validator(this.props[type]);
-        validate(this.state.value) // why is value a prop???
+        validate(this.props.value) // why is value a prop???
           .then(() => {
             switch (type) {
               case 'validations':
@@ -128,7 +135,7 @@ const inputWithValidation = (WrappedComponent) => {
     }
 
     onValueChangeHandler = (ev) => {
-      this.setState({ value: ev.target.value });
+      // this.setState({ value: ev.target.value });
     }
 
     render() {
