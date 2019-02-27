@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { boolean, text } from '@storybook/addon-knobs';
+import { boolean, text, select } from '@storybook/addon-knobs';
+import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import Form from './form';
 import Textbox from '../textbox';
@@ -10,7 +11,7 @@ storiesOf('Form', module)
     const unsavedWarning = boolean('unsavedWarning', false);
     const save = boolean('save', true);
     const cancel = boolean('cancel', true);
-    const buttonAlign = text('buttonAlign', '');
+    const buttonAlign = select('buttonAlign', OptionsHelper.alignBinary);
     const saving = boolean('saving', false);
     const cancelText = text('cancelText', '');
     const stickyFooter = boolean('stickyFooter', false);
