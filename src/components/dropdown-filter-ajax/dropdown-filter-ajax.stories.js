@@ -1,16 +1,20 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, select, boolean, number } from '@storybook/addon-knobs';
+import {
+  text,
+  select,
+  boolean,
+  number
+} from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import OptionsHelper from '../../utils/helpers/options-helper';
 import ImmutableHelper from '../../utils/helpers/immutable';
+import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import DropdownFilterAjax from './dropdown-filter-ajax';
-import { Map } from 'immutable';
 
 const store = new Store({
-  value: '',
+  value: ''
 });
 
 const onChange = (evt) => {
@@ -34,13 +38,12 @@ storiesOf('DropdownFilterAjax', module)
     const inputWidth = text('inputWidth', '');
     const fieldHelp = text('fieldHelp', 'This is field help text');
     const fieldHelpInline = boolean('fieldHelpInline', false);
-    // TODO: Storybook needs a boolean, but the value is actually a function 
+    // TODO: Storybook needs a boolean, but the value is actually a function
     // const create = boolean('create', false);
     const createText = text('createText', '');
     const createIconType = text('createIconType', '');
     const suggest = boolean('suggest', false);
     const freetext = boolean('freetext', false);
-    const freetextName = text('freetextName', '');
     const acceptHeader = text('acceptHeader', 'application/json');
     const rowsPerRequest = text('rowsPerRequest', '25');
     const getCustomHeaders = text('getCustomHeaders', '');
@@ -48,42 +51,42 @@ storiesOf('DropdownFilterAjax', module)
     const withCredentials = boolean('withCredentials', false);
     const options = ImmutableHelper.parseJSON([
       {
-        id: 1, name: "Orange"
+        id: 1, name: 'Orange'
       }, {
-        id: 2, name: "Blue"
+        id: 2, name: 'Blue'
       }
     ]);
 
     return (
       <State store={ store }>
-        <DropdownFilterAjax 
-          autoFocus={autoFocus}
-          cacheVisibleValue={cacheVisibleValue}
-          disabled={disabled}
-          name={name}
-          readOnly={readOnly}
-          timeToDisappear={timeToDisappear}
-          label={label}
-          labelInline={labelInline}
-          labelWidth={labelWidth}
-          labelAlign={labelAlign}
-          labelHelp={labelHelp}
-          inputWidth={inputWidth}
-          fieldHelp={fieldHelp}
-          fieldHelpInline={fieldHelpInline}
-          createText={createText}
-          createIconType={createIconType}
-          suggest={suggest}
-          freetext={freetext}
-          // create={create}
-          acceptHeader={acceptHeader}
-          rowsPerRequest={rowsPerRequest}
-          getCustomHeaders={getCustomHeaders}
-          dataRequestTimeout={dataRequestTimeout}
-          withCredentials={withCredentials}
-          options={options}
-          onChange={onChange}
-          value={store.get('value')}
+        <DropdownFilterAjax
+          autoFocus={ autoFocus }
+          cacheVisibleValue={ cacheVisibleValue }
+          disabled={ disabled }
+          name={ name }
+          readOnly={ readOnly }
+          timeToDisappear={ timeToDisappear }
+          label={ label }
+          labelInline={ labelInline }
+          labelWidth={ labelWidth }
+          labelAlign={ labelAlign }
+          labelHelp={ labelHelp }
+          inputWidth={ inputWidth }
+          fieldHelp={ fieldHelp }
+          fieldHelpInline={ fieldHelpInline }
+          createText={ createText }
+          createIconType={ createIconType }
+          suggest={ suggest }
+          freetext={ freetext }
+          // create={ create }
+          acceptHeader={ acceptHeader }
+          rowsPerRequest={ rowsPerRequest }
+          getCustomHeaders={ getCustomHeaders }
+          dataRequestTimeout={ dataRequestTimeout }
+          withCredentials={ withCredentials }
+          options={ options }
+          onChange={ onChange }
+          value={ store.get('value') }
         />
       </State>
     );

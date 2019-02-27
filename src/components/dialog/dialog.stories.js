@@ -2,9 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { State, Store } from '@sambego/storybook-state';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
-import { State, Store } from '@sambego/storybook-state';
 import Dialog from './dialog';
 import Button from '../button/button';
 
@@ -36,7 +36,7 @@ storiesOf('Dialog', module)
     const ariaRole = text('ariaRole', Dialog.defaultProps.ariaRole);
 
     return (
-      <Dialog 
+      <Dialog
         open={ open }
         onCancel={ handleCancel }
         height={ height }
@@ -72,7 +72,7 @@ storiesOf('Dialog', module)
       <div>
         <Button onClick={ handleOpen }>Open Preview</Button>
         <State store={ store }>
-          <Dialog 
+          <Dialog
             open={ open }
             onCancel={ handleCancel }
             height={ height }

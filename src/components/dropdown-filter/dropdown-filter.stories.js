@@ -1,16 +1,20 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, select, boolean, number } from '@storybook/addon-knobs';
+import {
+  text,
+  select,
+  boolean,
+  number
+} from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import OptionsHelper from '../../utils/helpers/options-helper';
 import ImmutableHelper from '../../utils/helpers/immutable';
+import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import DropdownFilter from './dropdown-filter';
-import { Map } from 'immutable';
 
 const store = new Store({
-  value: '',
+  value: ''
 });
 
 const onChange = (evt) => {
@@ -40,40 +44,39 @@ storiesOf('DropdownFilter', module)
     const createIconType = text('createIconType', '');
     const suggest = boolean('suggest', false);
     const freetext = boolean('freetext', false);
-    const freetextName = text('freetextName', '');
     const options = ImmutableHelper.parseJSON([
       {
-        id: 1, name: "Orange"
+        id: 1, name: 'Orange'
       }, {
-        id: 2, name: "Blue"
+        id: 2, name: 'Blue'
       }
     ]);
 
     return (
       <State store={ store }>
         <DropdownFilter 
-          autoFocus={autoFocus}
-          cacheVisibleValue={cacheVisibleValue}
-          disabled={disabled}
-          name={name}
-          readOnly={readOnly}
-          timeToDisappear={timeToDisappear}
-          label={label}
-          labelInline={labelInline}
-          labelWidth={labelWidth}
-          labelAlign={labelAlign}
-          labelHelp={labelHelp}
-          inputWidth={inputWidth}
-          fieldHelp={fieldHelp}
-          fieldHelpInline={fieldHelpInline}
-          createText={createText}
-          createIconType={createIconType}
-          suggest={suggest}
-          freetext={freetext}
+          autoFocus={ autoFocus }
+          cacheVisibleValue={ cacheVisibleValue }
+          disabled={ disabled }
+          name={ name }
+          readOnly={ readOnly }
+          timeToDisappear={ timeToDisappear }
+          label={ label }
+          labelInline={ labelInline }
+          labelWidth={ labelWidth }
+          labelAlign={ labelAlign }
+          labelHelp={ labelHelp }
+          inputWidth={ inputWidth }
+          fieldHelp={ fieldHelp }
+          fieldHelpInline={ fieldHelpInline }
+          createText={ createText }
+          createIconType={ createIconType }
+          suggest={ suggest }
+          freetext={ freetext }
           // create={create}
-          options={options}
-          onChange={onChange}
-          value={store.get('value')}
+          options={ options }
+          onChange={ onChange }
+          value={ store.get('value') }
         />
       </State>
     );

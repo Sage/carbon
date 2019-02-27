@@ -30,16 +30,20 @@ const store = new Store({
 
 const onDrag = (originalIndex, newIndex) => {
   action('drag')();
-  let array = store.get('dndData');
+  const array = store.get('dndData');
   const sortedItem = array.slice(originalIndex);
   array.splice(originalIndex, 1);
   array.splice(newIndex, 0, sortedItem[0]);
-  store.set({'dndData': array});
-}
+  store.set({ dndData: array });
+};
 
-const BuildRows = (props) => (
+const BuildRows = props => (
   props.dndData.map((row, index) => (
-    <TableRow key={ row.id } uniqueID={ row.id } index={ index }>
+    <TableRow
+      key={ row.id }
+      uniqueID={ row.id }
+      index={ index }
+    >
       <TableCell>{ row.name }</TableCell>
     </TableRow>
   ))
@@ -50,14 +54,14 @@ storiesOf('DraggableContext', module)
     const autoScroll = boolean('autoScroll', true);
 
     return (
-      <DraggableContext 
-        autoScroll={autoScroll}
-        onDrag={onDrag}
+      <DraggableContext
+        autoScroll={ autoScroll }
+        onDrag={ onDrag }
       >
         <div>
-          <Table tbody={false}>
+          <Table tbody={ false }>
             <thead>
-              <TableRow as="header">
+              <TableRow as='header'>
                 <TableHeader />
                 <TableHeader>Country</TableHeader>
               </TableRow>

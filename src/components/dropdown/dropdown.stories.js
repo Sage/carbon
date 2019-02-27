@@ -1,13 +1,17 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, select, boolean, number } from '@storybook/addon-knobs';
+import {
+  text,
+  select,
+  boolean,
+  number
+} from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import OptionsHelper from '../../utils/helpers/options-helper';
 import ImmutableHelper from '../../utils/helpers/immutable';
+import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import Dropdown from './dropdown';
-import { Map } from 'immutable';
 
 const store = new Store({
   value: ''
@@ -36,32 +40,32 @@ storiesOf('Dropdown', module)
     const fieldHelpInline = boolean('fieldHelpInline', false);
     const options = ImmutableHelper.parseJSON([
       {
-        id: 1, name: "Orange"
+        id: 1, name: 'Orange'
       }, {
-        id: 2, name: "Blue"
+        id: 2, name: 'Blue'
       }
     ]);
 
     return (
       <State store={ store }>
-        <Dropdown 
-          autoFocus={autoFocus}
-          cacheVisibleValue={cacheVisibleValue}
-          disabled={disabled}
-          name={name}
-          readOnly={readOnly}
-          timeToDisappear={timeToDisappear}
-          label={label}
-          labelInline={labelInline}
-          labelWidth={labelWidth}
-          labelAlign={labelAlign}
-          labelHelp={labelHelp}
-          inputWidth={inputWidth}
-          fieldHelp={fieldHelp}
-          fieldHelpInline={fieldHelpInline}
-          options={options}
-          onChange={onChange}
-          value={store.get('value')}
+        <Dropdown
+          autoFocus={ autoFocus }
+          cacheVisibleValue={ cacheVisibleValue }
+          disabled={ disabled }
+          name={ name }
+          readOnly={ readOnly }
+          timeToDisappear={ timeToDisappear }
+          label={ label }
+          labelInline={ labelInline }
+          labelWidth={ labelWidth }
+          labelAlign={ labelAlign }
+          labelHelp={ labelHelp }
+          inputWidth={ inputWidth }
+          fieldHelp={ fieldHelp }
+          fieldHelpInline={ fieldHelpInline }
+          options={ options }
+          onChange={ onChange }
+          value={ store.get('value') }
         />
       </State>
     );

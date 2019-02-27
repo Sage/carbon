@@ -10,20 +10,20 @@ storiesOf('Fieldset', module)
     const legend = text('legend', '');
 
     return (
-      <Fieldset 
-        legend={legend}
+      <Fieldset
+        legend={ legend }
       >
         <Textbox
-          value=""
-          label="First Name"
-          labelInline={ true }
-          labelAlign="right"
+          value=''
+          label='First Name'
+          labelInline
+          labelAlign='right'
         />
         <Textbox
-          value=""
-          label="Last Name"
-          labelInline={ true }
-          labelAlign="right"
+          value=''
+          label='Last Name'
+          labelInline
+          labelAlign='right'
         />
       </Fieldset>
     );

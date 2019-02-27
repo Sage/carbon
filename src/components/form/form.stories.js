@@ -1,7 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { boolean, select, text } from '@storybook/addon-knobs';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import { boolean, text } from '@storybook/addon-knobs';
 import notes from './notes.md';
 import Form from './form';
 import Textbox from '../textbox';
@@ -24,27 +23,27 @@ storiesOf('Form', module)
     const showSummary = boolean('showSummary', false);
 
     return (
-      <Form 
-        unsavedWarning={unsavedWarning}
-        cancel={cancel}
-        buttonAlign={buttonAlign}
-        saving={saving}
-        stickyFooter={stickyFooter}
-        stickyFooterPadding={stickyFooterPadding}
-        autoDisable={autoDisable}
-        cancelText={cancelText}
-        saveText={saveText}
-        save={save}
-        additionalActions={additionalActions}
-        leftAlignedActions={leftAlignedActions}
-        rightAlignedActions={rightAlignedActions}
-        showSummary={showSummary}
+      <Form
+        unsavedWarning={ unsavedWarning }
+        cancel={ cancel }
+        buttonAlign={ buttonAlign }
+        saving={ saving }
+        stickyFooter={ stickyFooter }
+        stickyFooterPadding={ stickyFooterPadding }
+        autoDisable={ autoDisable }
+        cancelText={ cancelText }
+        saveText={ saveText }
+        save={ save }
+        additionalActions={ additionalActions }
+        leftAlignedActions={ leftAlignedActions }
+        rightAlignedActions={ rightAlignedActions }
+        showSummary={ showSummary }
       >
         <Textbox
-          value=""
-          label="Full Name"
-          labelInline={ true }
-          labelAlign="right"
+          value=''
+          label='Full Name'
+          labelInline
+          labelAlign='right'
         />
       </Form>
     );

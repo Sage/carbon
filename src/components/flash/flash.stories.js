@@ -1,6 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, number, select, boolean } from '@storybook/addon-knobs';
+import {
+  text,
+  number,
+  select
+} from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -15,12 +19,12 @@ const store = new Store({
 const dismissHandler = () => {
   store.set({ open: false });
   action('cancel')();
-}
+};
 
 const openHandler = () => {
   store.set({ open: true });
   action('open')();
-}
+};
 
 storiesOf('Flash', module)
   .add('default', () => {
@@ -32,13 +36,13 @@ storiesOf('Flash', module)
       <div>
         <Button onClick={ openHandler }>Open Flash</Button>
         <State store={ store }>
-            <Flash
-              open={ store.get('open') }
-              as={as}
-              message={message}
-              timeout={timeout}
-              onDismiss={dismissHandler}
-            />
+          <Flash
+            open={ store.get('open') }
+            as={ as }
+            message={ message }
+            timeout={ timeout }
+            onDismiss={ dismissHandler }
+          />
         </State>
       </div>
     );

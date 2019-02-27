@@ -10,16 +10,16 @@ storiesOf('Filter', module)
     const align = select('labelAlign', OptionsHelper.alignBinary);
 
     return (
-      <Filter 
-        align={align}
+      <Filter
+        align={ align }
       >
         <Textbox
-          value=""
-          label="First Name"
+          value=''
+          label='First Name'
         />
         <Textbox
-          value=""
-          label="Last Name"
+          value=''
+          label='Last Name'
         />
       </Filter>
     );
