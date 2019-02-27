@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { InputPresentationContext } from './input-presentation.component';
+import { FormFieldContext } from '../form-field';
 import StyledInput from './input.style';
 // import './input.style.scss';
 
@@ -38,7 +38,7 @@ class Input extends React.Component {
     onFocus: PropTypes.func
   }
 
-  static contextType = InputPresentationContext
+  static contextType = FormFieldContext
 
   input = React.createRef()
 

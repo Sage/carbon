@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import InputPresentationStyle from './input-presentation.style';
 // import './input-presentation.style.scss';
 
@@ -14,65 +13,22 @@ const InputPresentationContext = React.createContext();
 // will add additional supported on the decorated features without the need
 // for the decorators themselves.
 
-class InputPresentation extends React.Component {
-  static propTypes = {
-    children: PropTypes.node,
-    className: PropTypes.string
-  }
+const InputPresentation = (props) => {
+  const { children } = props;
 
-  state = {
-    hasFocus: false
-  }
+  return (
+    <InputPresentationStyle
+      { ...props }
+      role='presentation'
+    >
+      { children }
+    </InputPresentationStyle>
+  );
+};
 
-  input = {}
-
-  container = React.createRef()
-
-  onFocus = () => this.setState({ hasFocus: true })
-
-  onBlur = () => this.setState({ hasFocus: false })
-
-  assignInput = (input) => { this.input = input; }
-
-  contextForInput() {
-    return {
-      hasFocus: this.state.hasFocus,
-      onFocus: this.onFocus,
-      onBlur: this.onBlur,
-      inputRef: this.assignInput
-    };
-  }
-
-  classNames() {
-    return classNames('carbon-input-presentation', this.props.className, {
-      'carbon-input-presentation--has-focus': this.state.hasFocus
-    });
-  }
-
-  // use mouse down rather than click to accomodate click and drag events too
-  handleMouseDown = () => {
-    // use a zero timeout to ensure focus is applied even on click and drag events
-    setTimeout(() => this.input.current.focus());
-  }
-
-  render() {
-    const { children, ...props } = this.props;
-
-    return (
-      <InputPresentationStyle
-        { ...props }
-        hasFocus={ this.state.hasFocus }
-        role='presentation'
-        className={ this.classNames() }
-        ref={ this.container }
-        onMouseDown={ this.handleMouseDown }
-      >
-        <InputPresentationContext.Provider value={ this.contextForInput() }>
-          { children }
-        </InputPresentationContext.Provider>
-      </InputPresentationStyle>
-    );
-  }
-}
+InputPresentation.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string
+};
 
 export { InputPresentationContext, InputPresentation };
