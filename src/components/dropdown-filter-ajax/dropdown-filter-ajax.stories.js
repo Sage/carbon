@@ -47,7 +47,6 @@ storiesOf('DropdownFilterAjax', module)
     const path = text('path', '/');
     const acceptHeader = text('acceptHeader', 'application/json');
     const rowsPerRequest = text('rowsPerRequest', '25');
-    const getCustomHeaders = text('getCustomHeaders', '');
     const dataRequestTimeout = number('dataRequestTimeout', 500);
     const withCredentials = boolean('withCredentials', false);
     const options = ImmutableHelper.parseJSON([
