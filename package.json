@@ -38,6 +38,7 @@
   "homepage": "https://github.com/Sage/carbon#readme",
   "peerDependencies": {
     "flux": "^3.1.1",
+    "i18n-js": "^3.0.0",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   },
@@ -64,6 +65,7 @@
     "enzyme-adapter-react-16": "1.7.1",
     "flux": "^3.1.1",
     "highlight.js": "~9.6.0",
+    "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc12.tar.gz",
     "jest-styled-components": "^6.3.1",
     "moxios": "^0.4.0",
     "raf": "^3.4.0",
@@ -86,7 +88,6 @@
     "events": "~1.1.1",
     "form-serialize": "~0.7.0",
     "highcharts": "~5.0.2",
-    "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc12.tar.gz",
     "immutable": "~3.8.1",
     "lodash": "^4.17.11",
     "marked": "~0.3.9",
