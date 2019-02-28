@@ -6,6 +6,11 @@ import Fieldset from './fieldset';
 import Textbox from '../textbox';
 
 storiesOf('Fieldset', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [Fieldset, Textbox]
+    }
+  })
   .add('default', () => {
     const legend = text('legend', '');
 

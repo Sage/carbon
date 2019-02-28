@@ -7,6 +7,11 @@ import Form from './form';
 import Textbox from '../textbox';
 
 storiesOf('Form', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [Textbox]
+    }
+  })
   .add('default', () => {
     const unsavedWarning = boolean('unsavedWarning', false);
     const save = boolean('save', true);

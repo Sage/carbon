@@ -23,6 +23,11 @@ const onChange = (evt) => {
 };
 
 storiesOf('Dropdown', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [State]
+    }
+  })
   .add('default', () => {
     const autoFocus = boolean('autoFocus', false);
     const cacheVisibleValue = boolean('cacheVisibleValue', true);

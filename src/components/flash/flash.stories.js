@@ -27,6 +27,11 @@ const openHandler = () => {
 };
 
 storiesOf('Flash', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [Button, State]
+    }
+  })
   .add('default', () => {
     const as = select('as', OptionsHelper.colors);
     const message = text('message', 'This is a flash message');

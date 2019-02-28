@@ -50,6 +50,18 @@ const BuildRows = props => (
 );
 
 storiesOf('DraggableContext', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [
+        BuildRows,
+        Table,
+        TableHeader,
+        TableRow,
+        TableCell,
+        State
+      ]
+    }
+  })
   .add('default', () => {
     const autoScroll = boolean('autoScroll', true);
 

@@ -21,33 +21,12 @@ const handleOpen = () => {
 };
 
 storiesOf('Dialog Full Screen', module)
-  .add('default', () => {
-    const open = boolean('open', store.open);
-    const title = text('title', 'Example Dialog');
-    const subtitle = text('subtitle', 'Example Subtitle');
-    const children = text('children', 'Text Content');
-    const enableBackgroundUI = boolean('enableBackgroundUI', false);
-    const disableEscKey = boolean('disableEscKey', false);
-    const ariaRole = text('ariaRole', 'dialog');
-
-    return (
-      <DialogFullScreen
-        open={ open }
-        onCancel={ handleCancel }
-        title={ title }
-        subtitle={ subtitle }
-        enableBackgroundUI={ enableBackgroundUI }
-        disableEscKey={ disableEscKey }
-        ariaRole={ ariaRole }
-        onClick={ action('click') }
-      >
-        { children }
-      </DialogFullScreen>
-    );
-  }, {
-    notes: { markdown: notes }
+  .addParameters({
+    info: {
+      propTablesExclude: [Button, State]
+    }
   })
-  .add('withButton', () => {
+  .add('default', () => {
     const title = text('title', 'Example Dialog');
     const subtitle = text('subtitle', 'Example Subtitle');
     const children = text('children', 'Text Content');

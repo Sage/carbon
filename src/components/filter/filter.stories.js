@@ -6,6 +6,11 @@ import Filter from './filter';
 import Textbox from '../textbox';
 
 storiesOf('Filter', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [Textbox]
+    }
+  })
   .add('default', () => {
     const align = select('labelAlign', OptionsHelper.alignBinary);
 
