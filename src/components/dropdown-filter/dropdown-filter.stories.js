@@ -109,7 +109,7 @@ storiesOf('DropdownFilter', module)
           createIconType={ createIconType }
           suggest={ suggest }
           freetext={ freetext }
-          create={create}
+          create={ create }
           options={ options }
           onChange={ onChange }
           value={ store.get('value') }

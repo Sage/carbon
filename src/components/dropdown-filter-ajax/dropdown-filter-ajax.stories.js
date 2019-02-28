@@ -17,9 +17,7 @@ const store = new Store({
   value: ''
 });
 
-const create = () => {
-    
-}
+const create = (evt, component) => component.state.filter;
 
 // Shared Props
 const onChange = (evt) => {
