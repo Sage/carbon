@@ -4,9 +4,9 @@ exports[`InputPresentation renders presentational div and context provider for i
 <styled.div
   className="carbon-input-presentation"
   hasFocus={false}
+  large={true}
   onMouseDown={[Function]}
   role="presentation"
-  size="medium"
   theme={
     Object {
       "colors": Object {
@@ -25,32 +25,72 @@ exports[`InputPresentation renders presentational div and context provider for i
         "warning": "#FFB500",
         "white": "#FFFFFF",
       },
-      "input": Object {
-        "backgroundColor": "transparent",
-        "border": "#CCD6DA",
-        "color": "rgba(0,0,0,85)",
-        "dimensions": Object {
-          "large": Object {
-            "height": "48px",
-            "paddingLeft": "13px",
-            "paddingRight": "13px",
+      "components": Object {
+        "input": Object {
+          "base": Object {
+            "background": "transparent",
+            "border": "none",
+            "color": "rgba(0,0,0,0.85)",
+            "flexGrow": 1,
+            "fontSize": "14px",
+            "outline": "none",
+            "width": "30px",
           },
-          "medium": Object {
-            "height": "40px",
-            "paddingLeft": "11px",
-            "paddingRight": "11px",
-          },
-          "small": Object {
-            "height": "32px",
-            "paddingLeft": "8px",
-            "paddingRight": "8px",
+          "states": Object {
+            "disabled": Object {
+              "cursor": "not-allowed",
+            },
           },
         },
-        "disabled": "#D8E0E3",
-        "height": "32px",
-        "lineHeight": "16px",
-        "readOnly": "transparent",
-        "textHighlight": "#000A0E",
+        "inputPresentation": Object {
+          "base": Object {
+            "background": "transparent",
+            "border": "1px solid #CCD6DA",
+            "color": "rgba(0,0,0,0.9)",
+            "cursor": "text",
+            "display": "flex",
+            "lineHeight": "16px",
+            "margin": "0px",
+            "minHeight": "32px",
+          },
+          "sizes": Object {
+            "large": Object {
+              "height": "48px",
+              "paddingLeft": "13px",
+              "paddingRight": "13px",
+            },
+            "medium": Object {
+              "height": "40px",
+              "paddingLeft": "11px",
+              "paddingRight": "11px",
+            },
+            "small": Object {
+              "height": "32px",
+              "paddingLeft": "8px",
+              "paddingRight": "8px",
+            },
+          },
+          "states": Object {
+            "disabled": Object {
+              "background": "#D8E0E3",
+              "color": "rgba(0,0,0,0.55)",
+              "cursor": "not-allowed",
+            },
+            "error": Object {
+              "border": "2px solid #C7384F",
+            },
+            "hasFocus": Object {
+              "outline": "3px solid #FFB500",
+            },
+            "readOnly": Object {
+              "background": "transparent",
+              "border": "none",
+            },
+            "warning": Object {
+              "border": "2px solid #FFB500",
+            },
+          },
+        },
       },
     }
   }

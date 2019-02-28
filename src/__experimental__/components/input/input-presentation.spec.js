@@ -46,14 +46,14 @@ describe('InputPresentation', () => {
 
   describe('style', () => {
     const {
-      input: inputStyleRules,
+      components: { inputPresentation: inputStyleRules },
       colors: {
         error, warning, text
       }
     } = baseTheme;
 
     describe('sizes', () => {
-      const { small, medium, large } = stripKeys(inputStyleRules.dimensions, ['width', 'fontSize']);
+      const { small, medium, large } = stripKeys(inputStyleRules.sizes, ['width', 'fontSize']);
     
       it('has the right style for small-sized inputs', () => {
         assertStyleMatch(small, mountRender({ size: 'small' }));
@@ -72,7 +72,7 @@ describe('InputPresentation', () => {
           assertStyleMatch(
             {
               color: text.disabled,
-              background: inputStyleRules.disabled,
+              background: inputStyleRules.states.disabled.background,
               cursor: 'not-allowed'
             },
             mountRender({ disabled: true })
@@ -86,9 +86,9 @@ describe('InputPresentation', () => {
 
           const styleRules = {
             color: text.body,
-            background: inputStyleRules.backgroundColor,
+            background: inputStyleRules.base.background,
             outline: `3px solid ${warning}`,
-            border: `1px solid ${inputStyleRules.border}`
+            border: `${inputStyleRules.base.border}`
           };
 
           assertStyleMatch(
@@ -102,7 +102,7 @@ describe('InputPresentation', () => {
         it('has the correct style rules', () => {
           assertStyleMatch(
             {
-              background: inputStyleRules.readOnly,
+              background: inputStyleRules.states.readOnly.background,
               border: 'none'
             },
             mountRender({ readOnly: true })
@@ -115,7 +115,7 @@ describe('InputPresentation', () => {
           assertStyleMatch(
             {
               color: text.body,
-              background: inputStyleRules.backgroundColor,
+              background: inputStyleRules.base.background,
               border: `2px solid ${error}`
             },
             mountRender({ error: true })
@@ -128,7 +128,7 @@ describe('InputPresentation', () => {
           assertStyleMatch(
             {
               color: text.body,
-              background: inputStyleRules.backgroundColor,
+              background: inputStyleRules.base.background,
               border: `2px solid ${warning}`
             },
             mountRender({ warning: true })
