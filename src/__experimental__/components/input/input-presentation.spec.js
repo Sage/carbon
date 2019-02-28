@@ -54,7 +54,7 @@ describe('InputPresentation', () => {
 
     describe('sizes', () => {
       const { small, medium, large } = stripKeys(inputStyleRules.sizes, ['width', 'fontSize']);
-    
+
       it('has the right style for small-sized inputs', () => {
         assertStyleMatch(small, mountRender({ size: 'small' }));
       });
