@@ -14,11 +14,15 @@ const withValidations = (WrappedComponent) => {
     validationTypes = ['validations', 'warnings', 'info'];
 
     addInput = (name, validate) => {
+      console.log('addinput', name);
       this.inputs[name] = validate;
+      console.log('inputs object after add ', this.inputs);
     }
 
     removeInput = (name) => {
+      console.log('remove input', name);
       delete this.inputs[name];
+      console.log('inputs object after remove ', this.inputs);
     }
 
     adjustCount = (type, adjustment) => {
@@ -49,15 +53,21 @@ const withValidations = (WrappedComponent) => {
 
     validate = () => {
       return new Promise((resolve, reject) => {
-        let isValid = true;
-        Object.keys(this.inputs).forEach((name) => { // maybe don't need async
-          const validate = this.inputs[name];
-          return validate().catch((e) => {
-            isValid = e;
+        let isValid = false;
+        Object.keys(this.inputs).forEach(async (name) => { // maybe don't need async
+          const validate = this.inputs[name]; // mock
+          return validate().then(() => {
+            isValid = true;
+            console.log('input is valid : ', name);
+          }).catch(() => {
+            isValid = false;
+            console.log('fails!!!');
           });
         });
-        if (isValid) resolve();
-        reject(isValid);
+        if (isValid) {
+          console.log('form validation result :', isValid);
+          resolve();
+        }
       });
     }
 

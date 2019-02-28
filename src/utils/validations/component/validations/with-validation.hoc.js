@@ -49,13 +49,14 @@ const inputWithValidation = (WrappedComponent) => {
 
     componentDidMount = () => {
       if (this.context && this.context.addInput && this.props.validations.length) {
+        console.log('mount', this.context);
         this.context.addInput(this.props.name, this.validate);
       }
     }
 
     componentWillUnmount = () => {
-      console.log('unmount', this.context);
       if (this.context && this.context.removeInput && this.props.validations.length) {
+        console.log('unmount', this.context);
         this.context.removeInput(this.props.name);
       }
     }
@@ -74,7 +75,8 @@ const inputWithValidation = (WrappedComponent) => {
           resolve(true);
         }
         const validate = validator(this.props[type]);
-        validate(this.props.value) // why is value a prop???
+        console.log('value validated :', this.props.value);
+        validate(this.props.value)
           .then(() => {
             switch (type) {
               case 'validations':
@@ -82,6 +84,7 @@ const inputWithValidation = (WrappedComponent) => {
                   this.setState({ hasError: false });
                   if (this.context && this.context.adjustCount) this.context.adjustCount('error', -1);
                 }
+                console.log('validations passed :', this.props.value);
                 break;
               case 'warnings':
                 if (this.state.hasWarning !== false) {
@@ -100,10 +103,12 @@ const inputWithValidation = (WrappedComponent) => {
             resolve(true);
           })
           .catch((e) => {
+            console.log('validavbhhvtions failed :', type);
             switch (type) {
               case 'validations':
                 this.setState({ hasError: e });
                 if (this.context && this.context.adjustCount) this.context.adjustCount('error', 1);
+                console.log('validations failed :', this.props.value);
                 break;
               case 'warnings':
                 this.setState({ hasWarning: e });

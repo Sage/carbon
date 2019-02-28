@@ -55,7 +55,12 @@ class Sandbox extends React.Component {
     return (
       <Form>
         <Textbox
-          validations={ [new PresenceValidation(), this.isLong] }
+          validations={ [this.isLong] }
+          warning={ [new PresenceValidation()] }
+          info={ [new PresenceValidation()] }
+        />
+        <Textbox
+          validations={ [this.isLong] }
           warning={ [new PresenceValidation()] }
           info={ [new PresenceValidation()] }
         />
