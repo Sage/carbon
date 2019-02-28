@@ -12,7 +12,7 @@ storiesOf('Content', module)
     const knobAs = select('as', OptionsHelper.themesBinary, Content.defaultProps.as);
     const inline = boolean('inline', Content.defaultProps.inline);
     const align = select('align', OptionsHelper.alignFull, Content.defaultProps.align);
-    const titleeWidth = inline ? text('titleWidth', '') : undefined;
+    const titleWidth = inline ? text('titleWidth', '') : undefined;
     const bodyFullWidth = boolean('bodyFullWidth', Content.defaultProps.bodyFullWidth);
 
     return (
@@ -21,7 +21,7 @@ storiesOf('Content', module)
         as={ knobAs }
         inline={ inline }
         align={ align }
-        titleeWidth={ titleeWidth }
+        titleWidth={ titleWidth }
         bodyFullWidth={ bodyFullWidth }
       >
         {children}
