@@ -5,6 +5,6 @@
 - Various types are available. ‘Error’ and ‘Success’ are by far the most useful - others are present for completeness by may not be used in practice very often, because a Flash isn’t suitable for longer messages.
 
 # Related Components
-- Longer message which stays on-screen? [Try Message](/components/message "Try Message").
-- Longer, time sensitive message that must be dismissed? [Try Toast](/components/toast "Try Toast").
-- Error or warning message that interrupts activity? [Try Alert](/components/alert "Try Alert").
+- Longer message which stays on-screen? [Try Message](/components/message "Message").
+- Longer, time sensitive message that must be dismissed? [Try Toast](/components/toast "Toast").
+- Error or warning message that interrupts activity? [Try Alert](/components/alert "Alert").

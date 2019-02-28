@@ -10,7 +10,7 @@
 - More guidance is available for each of the individual inputs you might place inside this component.
 
 # Related Components
-- Filling in a broad series of inputs? [Try Form](/components/form "Try Form").
-- Viewing content that’s grouped together visually? [Try Pod](/components/pod "Try Pod").
-- Using Fieldset and Pod components together? [Try Show/Edit Pod](/components/show-edit-pod "Try Show/Edit Pod").
-- Creating a new entity that is usually presented in a pod? [Try Create](/components/create, "Try Create").
+- Filling in a broad series of inputs? [Try Form](/components/form "Form").
+- Viewing content that’s grouped together visually? [Try Pod](/components/pod "Pod").
+- Using Fieldset and Pod components together? [Try Show/Edit Pod](/components/show-edit-pod "Show/Edit Pod").
+- Creating a new entity that is usually presented in a pod? [Try Create](/components/create, "Create").

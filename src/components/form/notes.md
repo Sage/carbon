@@ -10,4 +10,4 @@
 - More guidance is available for each of the individual inputs you might place inside this component.
 
 # Related Components
-- Editing a number of closely related inputs? [Try Fieldset](/components/fieldset "Try Fieldset").
+- Editing a number of closely related inputs? [Try Fieldset](/components/fieldset "Fieldset").

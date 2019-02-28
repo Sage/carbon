@@ -5,5 +5,5 @@
 - A configuration shows a close icon at the top right of the Dialog. Sometimes users are more likely to click this than a traditional ‘Cancel’ button.
 
 # Related Components
-- Complex task that needs more space? [Try Dialog Full Screen](/components/dialog-full-screen "Try Dialog Full Screen").
-- Need to refer back to the underlying page? [Try Sidebar](/components/sidebar "Try Sidebar").
+- Complex task that needs more space? [Try Dialog Full Screen](/components/dialog-full-screen "Dialog Full Screen").
+- Need to refer back to the underlying page? [Try Sidebar](/components/sidebar "Sidebar").

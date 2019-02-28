@@ -4,5 +4,5 @@
 - A good example could be importing a large volume of data, and checking for errors, in the context of an underlying Table of data.
 
 # Related Components
-- Simple task in context? [Try Dialog](/components/dialog "Try Dialog").
-- Need to refer back to the underlying page? [Try Sidebar](/components/sidebar "Try Sidebar").
+- Simple task in context? [Try Dialog](/components/dialog "Dialog").
+- Need to refer back to the underlying page? [Try Sidebar](/components/sidebar "Sidebar").
