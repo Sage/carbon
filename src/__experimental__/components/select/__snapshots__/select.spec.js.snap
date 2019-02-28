@@ -73,7 +73,7 @@ Object {
   "open": true,
   "target": <div
     autocomplete="off"
-    class="carbon-input-presentation carbon-input-presentation--has-focus sc-htpNat rrLDV"
+    class="carbon-input-presentation carbon-input-presentation--has-focus sc-htpNat kKHkvA"
     data-element="input"
     id="guid-12345"
     role="presentation"
@@ -82,7 +82,7 @@ Object {
   >
     <input
       autocomplete="off"
-      class="carbon-input sc-bxivhb gKwSIj"
+      class="sc-bxivhb jITibh"
       data-element="input"
       id="guid-12345"
       value=""

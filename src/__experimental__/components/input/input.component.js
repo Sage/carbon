@@ -11,11 +11,6 @@ import StyledInput from './input.style';
 // will add additional supported on the decorated features without the need
 // for the decorators themselves.
 
-// Switch the old class for the new one until we refactor out the input decorators
-const classNamesForInput = className => (
-  className ? className.replace('common-input__input', 'carbon-input') : 'carbon-input'
-);
-
 const selectTextOnFocus = (input) => {
   // setTimeout is required so the dom has a chance to place the cursor in the input
   setTimeout(() => {
@@ -74,7 +69,7 @@ class Input extends React.Component {
       <StyledInput
         { ...props }
         ref={ this.input }
-        className={ classNamesForInput(className) }
+        className={ className }
         onFocus={ this.handleFocus }
         onBlur={ this.handleBlur }
         onClick={ this.handleClick }
