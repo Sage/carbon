@@ -9,6 +9,43 @@ const objToCssString = (obj) => {
   }, '');
 };
 
+/**
+ *
+ * A utility for use with styled components
+ * to query a global theme object by component name
+ * and find the style rules associated with that component, given
+ * the state of that component expressed by its current props.
+ *
+ * Given:
+ * /themes/index.js
+ * export default {
+ *  components: {
+ *    myComponent: {
+ *      sizes: {
+ *        small: { height: '20px'}
+ *       },
+ *      states: {
+ *        active: { backgroundColor: 'blue' }
+ *      }
+ *      // ...style rules
+ *    }
+ *  }
+ * }
+ *
+ * /my-component.style.js
+ *
+ * import styled from 'styled-components';
+ * import queryTheme from '../path/to/utils/query-theme';
+ *
+ * const MyComponentStyle = styled.div`
+ *  ${queryComponent('myComponent')}
+ * `;
+ *
+ * export default MyComponentStyle;
+ *
+ * @param componentName
+ * @returns function
+ */
 export default componentName => (props) => {
   const { theme, ...rest } = props;
   const profile = theme.components[componentName];

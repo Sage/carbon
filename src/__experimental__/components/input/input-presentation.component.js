@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import InputPresentationStyle from './input-presentation.style';
-// import './input-presentation.style.scss';
 
 const InputPresentationContext = React.createContext();
 

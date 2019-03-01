@@ -2,29 +2,10 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { InputPresentation, Input } from '.';
 import baseTheme from '../../../style/themes/base';
+import {
+  stripKeys, assertStyleMatch
+} from '../../../__spec_helper__/test-utils';
 import 'jest-styled-components';
-
-const deletekeys = (obj, keys) => keys.forEach(k => delete obj[k]);
-const stripKeys = (obj, keys) => {
-  return Object.keys(obj).reduce((acc, key) => {
-    const strippedObj = deletekeys(obj[key], keys);
-    return { ...acc, [key]: { ...strippedObj } };
-  }, {});
-};
-
-const isUpperCase = char => char.toUpperCase() === char;
-const toCSSCase = (str) => {
-  return str.split('').reduce((acc, char) => {
-    const toAdd = isUpperCase(char) ? `-${char.toLowerCase()}` : char;
-    return acc + toAdd;
-  }, '');
-};
-
-const assertStyleMatch = (styleSpec, component) => {
-  Object.entries(styleSpec).forEach(([attr, value]) => {
-    expect(component).toHaveStyleRule(toCSSCase(attr), value);
-  });
-};
 
 const mountRender = (props) => {
   return mount(<InputPresentation { ...props }><Input /></InputPresentation>);
