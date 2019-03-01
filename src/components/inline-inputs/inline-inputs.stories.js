@@ -17,8 +17,8 @@ storiesOf('InlineInputs', module)
       <InlineInputs
         label={ label }
       >
-        <Textbox value="" />
-        <Textbox value="" />
+        <Textbox value='' />
+        <Textbox value='' />
       </InlineInputs>
     );
   });
