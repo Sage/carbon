@@ -34,11 +34,11 @@ const inputWithValidation = (WrappedComponent) => {
       info: []
     }
 
-    // static contextTypes = {
-    //   addInput: PropTypes.func,
-    //   removeInput: PropTypes.func,
-    //   adjustCount: PropTypes.func
-    // }
+    static contextTypes = {
+      addInput: PropTypes.func,
+      removeInput: PropTypes.func,
+      adjustCount: PropTypes.func
+    }
 
     state = {
       hasError: false,
@@ -61,6 +61,7 @@ const inputWithValidation = (WrappedComponent) => {
       }
     }
 
+    // console logs here!!!
     validate = async (types = ['validations', 'warnings', 'info']) => {
       let result = true;
       if (types.includes('validations')) result = await this.runValidation('validations');
@@ -103,7 +104,6 @@ const inputWithValidation = (WrappedComponent) => {
             resolve(true);
           })
           .catch((e) => {
-            console.log('validavbhhvtions failed :', type);
             switch (type) {
               case 'validations':
                 this.setState({ hasError: e });

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import { mount, shallow } from 'enzyme';
 import formWithValidation from './form-with-validations.hoc';
-import Form from '../../../../components/form';
-import Textbox from '../../../../__experimental__/components/textbox';
-import Input from '../../../../__experimental__/components/input';
-import withValidation from './with-validation.hoc';
-import withUniqueName from './with-unique-name.hoc';
+// import Form from '../../../../components/form';
+// import Input from '../../../../__experimental__/components/input';
+// import withValidation from './with-validation.hoc';
+// import withUniqueName from './with-unique-name.hoc';
 
 const presErr = new Error('this value is required!');
 
@@ -27,72 +26,173 @@ const isNotZero = value => new Promise((resolve, reject) => {
   }
 });
 
+// const mockValidation = (value, validations) => Promise(() => {
+//   const validArr = Array.isArray(validations) ? validations : [validations];
+//   const res = [];
+//   validArr.map(valid => res.push(valid(value)));
+
+//   return Promise.all(res);
+// });
+
+const mockCountCall = (type, value, context) => {
+  return context.adjustCount(type, value);
+};
+
+const mockInputValidator = (types, value, validation) => new Promise((resolve, reject) => {
+  let noExit = true;
+  let msg;
+  try {
+    types.forEach((type) => {
+      validation(value)
+        .then(() => {
+          resolve(true);
+        })
+        .catch((e) => {
+          console.log('catch', type);
+          // mockCountCall(type, 1, context);
+          noExit = false;
+          msg = e.message;
+          reject(msg);
+        });
+
+      if (!noExit) throw msg;
+    });
+  } catch (e) {
+    if (e.message !== 'error') throw e;
+  }
+  return noExit;
+});
+
+const mockRegisterChild = (context, name, validateFunction) => context.addInput(name, validateFunction);
+
+const mockUnregisterChild = (context, name) => context.removeInput(name);
+
+const MockComponent = props => <div { ...props } />;
+
 describe('formWithValidation', () => {
-  let wrapper;
-  // const MockedComponent = <Form><Textbox /></Form>;
-  // const ValidatedFormComponent = formWithValidation(Component);
+  let wrapper, context;
 
-  // beforeEach(() => {
-  //   wrapper = mount(
-  //     <Form>
-  //       <Textbox name='foo1' validations={ presence } />
-  //       <Textbox name='foo2' validations={ presence } />
-  //       <Textbox name='foo3' validations={ presence } />
-  //     </Form>
-  //   );
-  // });
+  const Child = MockComponent;
+  const ValididationComp = formWithValidation(Component);
+  beforeEach(() => {
+    wrapper = shallow(
+      <ValididationComp>
+        <Child
+          name='foo1'
+          validations={ presence }
+          value='foo'
+        />
+        <Child
+          name='foo2'
+          validations={ presence }
+          value='foo'
+        />
+      </ValididationComp>
+    );
+    context = wrapper.instance().getContext();
+  });
 
-  it('keeps an object record of the children inputs and their validations', () => {
-    expect(Object.keys(wrapper.instance().inputs).length).toEqual(3);
-    wrapper.props().children
+  it('passes context to allow inputs to register themselves', () => {
+    wrapper.instance().props.children.forEach((child) => {
+      return mockRegisterChild(context, child.props.name, child.props.validations);
+    });
+    expect(Object.keys(wrapper.instance().inputs).length).toEqual(2);
+    wrapper.instance().props.children
       .forEach(child => expect(wrapper.instance().inputs[child.props.name]).not.toEqual(undefined));
   });
 
-  fit('removes the input when a child unmounts', () => {
-    const wrapper2 = mount(
-      <div>
-        <Form>
-          <Textbox name='foo1' validations={ presence } />
-        </Form>
-      </div>
-    );
-    const form = wrapper2.find(Form);
-    const child = mount(form.props().children, { context: form.instance().getContext() });
-    const childName = child.props().name;
-    expect(child.length).toEqual(1);
-    expect(Object.keys(form.instance().inputs).length).toEqual(1);
-    expect(form.instance().inputs[childName]).not.toEqual(undefined);
-    // console.log('inputs : ', wrapper2.instance().inputs);
-    // console.log(wrapper2.instance().inputs[child.props().name]);
-    child.unmount();
-    // expect(wrapper2.instance().inputs[childName]).toEqual(undefined);
-    // expect(child.length).toEqual(0);
-    // console.log('inputs : ', wrapper2.instance().inputs);
-
-    // expect(Object.keys(wrapper2.instance().inputs).length).toEqual(0);
-    // wrapper2.unmount();
+  it('passes context to allow inputs to unregister themselves', () => {
+    wrapper.instance().props.children.forEach((child) => {
+      return mockRegisterChild(context, child.props.name, child.props.validations);
+    });
+    wrapper.instance().props.children.forEach((child) => {
+      return mockUnregisterChild(context, child.props.name);
+    });
+    expect(Object.keys(wrapper.instance().inputs).length).toEqual(0);
+    wrapper.instance().props.children
+      .forEach(child => expect(wrapper.instance().inputs[child.props.name]).toEqual(undefined));
   });
 
-  const mockValidation = () => 'foo';
+  fit('only increments the count when an error is not detected', async () => {
+    wrapper = shallow(
+      <ValididationComp>
+        <Child
+          name='foo2'
+          validations={ presence }
+          value=''
+        />
+      </ValididationComp>
+    );
+    const child = wrapper.instance().props.children;
+    console.log(child);
+    // wrapper.instance().props.children.forEach((child) => {
+    mockRegisterChild(context, child.props.name, child.props.validations);
+    // });
+    // wrapper.instance().props.children.forEach((child) => {
+    //   return mockCountCall(['error', 'warning', 'info'], child.props.value, child.props.validations, context);
+    // });
+    // expect(wrapper.instance().state.errorCount).toEqual(0);
+    // const failChild = (
+    //   <Child
+    //     name='foo3'
+    //     validations={ presence }
+    //     value=''
+    //   />
+    // );
+    // wrapper.setProps({
+    //   children: [
+    //     ...wrapper.instance().props.children,
+    //     failChild
+    //   ]
+    // });
+    // mockRegisterChild(context, failChild.props.name, failChild.props.validations);
+    // console.log(wrapper.instance().state);
+    // wrapper.instance().props.children.forEach((child) => {
+    //   return mockCountCall('error', child.props.value, child.props.validations, context);
+    // });
+    const res = await mockInputValidator(['error'], child.props.value, child.props.validations);
+
+    await expect(
+      mockInputValidator(['error'], child.props.value, child.props.validations, context)
+    ).rejects.toEqual(presErr.message);
+    const count = wrapper.instance().state.errorCount;
+    // wrapper.update();
+    console.log('state : ', wrapper.instance());
+    expect(count).toEqual(1);
+  });
 
   it('does not validate children that have been been registered', () => {
-    const ValididationComp = formWithValidation(Component);
-    const w2 = shallow(
+    wrapper = shallow(
       <ValididationComp />
     );
-    const Child = withUniqueName(withValidation(Input));
     const mockChildren = [
-      shallow(<Child validations={ mockValidation } value='0' />, w2.instance().getContext()),
-      shallow(<Child validations={ isNotZero } value='0' />, w2.instance().getContext())
+      shallow(
+        <Child
+          name='foo1'
+          validations={ presence }
+          value='0'
+        />,
+        { context: wrapper.instance().getContext() }
+      ),
+      shallow(
+        <Child
+          name='foo2'
+          validations={ isNotZero }
+          value='0'
+        />,
+        { context: wrapper.instance().getContext() }
+      )
     ];
     // const childrenToAdd = [];
     // mockChildren.forEach((c) => {
     //   childrenToAdd.push(c);
-    //   w2.setProps({ children: childrenToAdd });
+    //   wrapper.setProps({ children: childrenToAdd });
     // });
     // mockChildren[0].instance().componentWillUnmount();
-    console.log(w2.instance().inputs);
-    // w2.setProps({ children: mockChildren });
+    console.log(wrapper.instance().inputs);
+    // wrapper.setProps({ children: mockChildren });
+    console.log(mockChildren[0].instance());
+    mockChildren[0].unmount();
     console.log(mockChildren[0].instance());
   });
 
@@ -102,23 +202,23 @@ describe('formWithValidation', () => {
 
   it('runs the validations and increments the error count when an input fails', async () => {
     const wrapper2 = mount(
-      <Form>
-        <Textbox
+      <ValididationComp>
+        <Child
           validations={ presence }
           warnings={ presence }
           value=''
         />
-        <Textbox
+        <Child
           validations={ presence }
           value='1'
         />
-        <Textbox
+        <Child
           validations={ presence }
           value='1'
         />
-      </Form>
+      </ValididationComp>
     );
-    wrapper2.find('Textbox').forEach(el => console.log(el.debug()));
+    wrapper2.find('Child').forEach(el => console.log(el.debug()));
 
     await wrapper2.instance().validate().then(async () => {
       expect(wrapper2.instance().state.errorCount).toEqual(1);
@@ -127,28 +227,29 @@ describe('formWithValidation', () => {
       console.log(x);
       expect(x).toEqual(1);
     });
+    expect.assertions(1);
     console.log('state ====> ', wrapper.instance().state);
   });
 
   it('runs the validations and increments the warning count when an input fails', async () => {
     const wrapper2 = mount(
-      <Form>
-        <Textbox
+      <ValididationComp>
+        <Child
           warnings={ presence }
           value=''
         />
-        <Textbox
+        <Child
           warnings={ presence }
           value='1'
         />
-        <Textbox
+        <Child
           warnings={ presence }
           value='1'
         />
-      </Form>
+      </ValididationComp>
     );
 
-    wrapper2.find('Textbox').forEach(el => console.log(el.props()));
+    wrapper2.find('Child').forEach(el => console.log(el.props()));
 
     await wrapper2.instance().validate().then(async () => {
       // console.log(wrapper.instance().state);
@@ -163,11 +264,11 @@ describe('formWithValidation', () => {
 
   it('runs the validations and increments the info count when an input fails', async () => {
     const wrapper2 = mount(
-      <Form>
-        <Textbox info={ presence } value='' />
-        <Textbox info={ presence } value='1' />
-        <Textbox info={ presence } value='1' />
-      </Form>
+      <ValididationComp>
+        <Child info={ presence } value='' />
+        <Child info={ presence } value='1' />
+        <Child info={ presence } value='1' />
+      </ValididationComp>
     );
 
     await wrapper2.instance().validate().then(async () => {
@@ -180,19 +281,19 @@ describe('formWithValidation', () => {
   it('adjustCount', () => {
     wrapper.instance().adjustCount('info', 1);
     expect(wrapper.state().infoCount).toEqual(1);
-    wrapper.find('Textbox').forEach(el => console.log(el.debug()));
+    wrapper.find('Child').forEach(el => console.log(el.debug()));
   });
 
   describe('validate', () => {
     it('rejects if a child input has a failed validation', () => {
       const wrapper2 = shallow(
-        <Form>
-          <Textbox
+        <ValididationComp>
+          <Child
             validations={ [isNotZero] }
             value={ 0 }
             name='foo'
           />
-        </Form>
+        </ValididationComp>
       );
 
       // wrapper2.instance().validate().then(async () => {

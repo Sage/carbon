@@ -14,27 +14,22 @@ const withValidations = (WrappedComponent) => {
     validationTypes = ['validations', 'warnings', 'info'];
 
     addInput = (name, validate) => {
-      console.log('addinput', name);
       this.inputs[name] = validate;
-      console.log('inputs object after add ', this.inputs);
     }
 
     removeInput = (name) => {
-      console.log('remove input', name);
       delete this.inputs[name];
-      console.log('inputs object after remove ', this.inputs);
     }
 
     adjustCount = (type, adjustment) => {
       switch (type) {
         case 'error':
+          console.log('ERRRORORORRO');
           this.setState((prev) => { return { errorCount: prev.errorCount + adjustment }; });
-          // console.log('warning 1 => ', this.state.warningCount);
+          console.log('error count : ', this.state.errorCount);
           break;
         case 'warning':
           this.setState((prev) => { return { warningCount: prev.warningCount + adjustment }; });
-          console.log('state => ', this.state);
-          console.log('warning 2 => ', this.state.warningCount);
           break;
         case 'info':
           this.setState((prev) => { return { infoCount: prev.infoCount + adjustment }; });
