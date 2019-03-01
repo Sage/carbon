@@ -5,6 +5,7 @@ export interface ButtonProps {
   theme?: 'blue' | 'grey' | 'magenta' | 'magenta-dull' | 'red' | 'white';
   size?: 'small' | 'medium' | 'large';
   subtext?: string;
+  children?: React.ReactNode;
 }
-declare const Button: React.Component<ButtonProps, {}>;
+declare const Button: React.ComponentType<ButtonProps>;
 export default Button;
