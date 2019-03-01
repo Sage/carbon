@@ -3,7 +3,7 @@ import Colors from 'style/themes/base';
 
 const { colors } = Colors;
 
-const Label = styled.label`
+const LabelStyle = styled.label`
   color: ${colors.text.body};
   cursor: pointer;
   font-weight: bold;
@@ -15,4 +15,4 @@ const Label = styled.label`
   `}
 `;
 
-export default Label;
+export default LabelStyle;

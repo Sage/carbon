@@ -1,44 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Help from '../../../components/help';
-import Label from './input-label.style';
+import LabelStyle from './input-label.style';
 import { FormFieldContext } from '../form-field';
 
 /**
- * InputLabel component.
- *
- * This decorator provides HTML for input labels.
+ * InputLabel component. That component is a part of the FormField Component.
  *
  * == How to use InputLabel component:
  *
  * In your file:
  *
- *   import InputLabel from 'carbon-react/lib/components/input-label';
+ *  import InputLabel from 'carbon-react/lib/components/input-label';
  *
- * @method InputLabel
+ * To render a InputLabel:
+ *
+ *   <InputLabel
+ *      label='foo'
+ *      labelHelp='bar'
+ *    />
+ *
+ * Component has to be placed next to an input presentation element.
  */
 const InputLabel = (props) => {
   const {
     label,
     labelHelp,
-    labelInline,
-    labelWidth,
-    labelAlignRight
+    ...styleProps
   } = props;
 
   return (
     <FormFieldContext.Consumer>
       { context => (
-        <Label
+        <LabelStyle
           htmlFor={ context.inputId }
           data-element='label'
-          labelInline={ labelInline }
-          labelWidth={ labelWidth }
-          labelAlignRight={ labelAlignRight }
+          { ...styleProps }
         >
           { label }
           { renderLabelHelp(labelHelp) }
-        </Label>
+        </LabelStyle>
       )}
     </FormFieldContext.Consumer>
   );
