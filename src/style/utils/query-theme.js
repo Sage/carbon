@@ -1,11 +1,9 @@
 
-const isUpper = char => char.toUpperCase() === char;
-const camelToDash = (acc, char) => `${acc}${isUpper(char) ? `-${char.toLowerCase()}` : char}`;
-const toCSSCase = str => str.split('').reduce(camelToDash, '');
+const toKebabCase = str => str.str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 
 const objToCssString = (obj) => {
   return Object.entries(obj).reduce((acc, [attr, value]) => {
-    return `${acc} ${toCSSCase(attr)}: ${value};`;
+    return `${acc} ${toKebabCase(attr)}: ${value};`;
   }, '');
 };
 
