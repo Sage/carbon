@@ -1,5 +1,5 @@
 
-const toKebabCase = str => str.str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+const toKebabCase = str => str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 
 const objToCssString = (obj) => {
   return Object.entries(obj).reduce((acc, [attr, value]) => {
