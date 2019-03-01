@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import FieldHelpWrapper from './field-help.style';
+import FieldHelpStyle from './field-help.style';
 
 /**
- * FieldHelp component.
+ * FieldHelp component. That component is a part of the FormField Component.
  *
  * == How to use FieldHelp component:
  *
@@ -15,22 +15,22 @@ import FieldHelpWrapper from './field-help.style';
  * To render a FieldHelp:
  *
  *   <FieldHelp
- *      content=''
+ *      content='text to be rendered'
  *      iconType='foo'
  *      inputId='bar'
  *    />
  *
- * Component has to be placed next to an input element.
+ * Component has to be placed next to an input presentation element.
  */
 const FieldHelp = (props) => {
-  const { content, isInline } = props;
+  const { content, ...styleProps } = props;
 
   if (!content) { return null; }
 
   return (
-    <FieldHelpWrapper data-element='help' isInline={ isInline }>
+    <FieldHelpStyle data-element='help' { ...styleProps }>
       { content }
-    </FieldHelpWrapper>
+    </FieldHelpStyle>
   );
 };
 
@@ -42,7 +42,11 @@ FieldHelp.propTypes = {
   /**
    * Position of the label
    */
-  isInline: PropTypes.bool
+  labelInline: PropTypes.bool,
+  /**
+   * Width of the input field
+   */
+  inputWidth: PropTypes.number
 };
 
 export default FieldHelp;

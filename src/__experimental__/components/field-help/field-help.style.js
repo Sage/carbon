@@ -1,18 +1,18 @@
 import styled from 'styled-components';
-import Colors from 'style/themes/base';
 
-const { colors } = Colors;
-
-const FieldHelpWrapper = styled.span`
-  color: ${colors.text.body};
+const FieldHelpStyle = styled.span`
+  color: #335c6d;
   display: block;
   line-height: 20px;
   margin-left: 6px;
   margin-top: 5px;
+  padding-left: 6px;
   white-space: pre-wrap;
-  ${props => props.isInline && `
-    margin-left: 30%;
+  ${({ labelInline, inputWidth }) => labelInline && `
+    align-self: center;
+    margin-left: ${inputWidth ? `${inputWidth}%` : '30%'};
+    padding-left: 0;
   `}
 `;
 
-export default FieldHelpWrapper;
+export default FieldHelpStyle;
