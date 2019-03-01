@@ -26,6 +26,7 @@ const withValidations = (WrappedComponent) => {
         case 'error':
           console.log('ERRRORORORRO');
           this.setState((prev) => { return { errorCount: prev.errorCount + adjustment }; });
+          // this.setState({ errorCount: this.state.errorCount + adjustment });
           console.log('error count : ', this.state.errorCount);
           break;
         case 'warning':

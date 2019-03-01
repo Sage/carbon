@@ -38,29 +38,25 @@ const mockCountCall = (type, value, context) => {
   return context.adjustCount(type, value);
 };
 
-const mockInputValidator = (types, value, validation) => new Promise((resolve, reject) => {
-  let noExit = true;
+const mockInputValidator = (types, value, validation) => new Promise((_, reject) => {
+  // let noExit = true;
   let msg;
-  try {
-    types.forEach((type) => {
-      validation(value)
-        .then(() => {
-          resolve(true);
-        })
-        .catch((e) => {
-          console.log('catch', type);
-          // mockCountCall(type, 1, context);
-          noExit = false;
-          msg = e.message;
-          reject(msg);
-        });
+  // try {
+  types.forEach((type) => {
+    validation(value)
+      .catch((e) => {
+        console.log('catch', type);
+        // mockCountCall(type, 1, context);
+        // noExit = false;
+        msg = e.message;
+      });
 
-      if (!noExit) throw msg;
-    });
-  } catch (e) {
-    if (e.message !== 'error') throw e;
-  }
-  return noExit;
+    if (msg) reject(msg);
+  });
+  // } catch (e) {
+  //   if (e.message !== 'error') throw e;
+  // }
+  // return noExit;
 });
 
 const mockRegisterChild = (context, name, validateFunction) => context.addInput(name, validateFunction);
@@ -113,18 +109,17 @@ describe('formWithValidation', () => {
       .forEach(child => expect(wrapper.instance().inputs[child.props.name]).toEqual(undefined));
   });
 
-  fit('only increments the count when an error is not detected', async () => {
+  fit('increments the count when an error is detected', async () => {
     wrapper = shallow(
       <ValididationComp>
         <Child
-          name='foo2'
+          name='foo1'
           validations={ presence }
           value=''
         />
       </ValididationComp>
     );
     const child = wrapper.instance().props.children;
-    console.log(child);
     // wrapper.instance().props.children.forEach((child) => {
     mockRegisterChild(context, child.props.name, child.props.validations);
     // });
@@ -152,13 +147,20 @@ describe('formWithValidation', () => {
     // });
     const res = await mockInputValidator(['error'], child.props.value, child.props.validations);
 
-    await expect(
-      mockInputValidator(['error'], child.props.value, child.props.validations, context)
-    ).rejects.toEqual(presErr.message);
+    // await expect(
+    //   mockInputValidator(['error'], child.props.value, child.props.validations, context)
+    // ).rejects.toEqual(presErr.message);
     const count = wrapper.instance().state.errorCount;
     // wrapper.update();
     console.log('state : ', wrapper.instance());
-    expect(count).toEqual(1);
+
+    res.then(() => {
+      expect(count).toEqual(0);
+    })
+      .catch(() => {
+        mockCountCall('error', 1, context);
+        expect(count).toEqual(1);
+      });
   });
 
   it('does not validate children that have been been registered', () => {
