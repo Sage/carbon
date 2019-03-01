@@ -1,8 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
-import { action } from '@storybook/addon-actions';
-import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import Heading from './heading';
 
@@ -21,7 +19,6 @@ storiesOf('Heading', module)
 
     return (
       <Heading
-        children={ children }
         title={ title }
         titleId={ titleId }
         subheader={ subheader }
