@@ -76,7 +76,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                       <div
                         key=".$edit"
                       >
-                        <_temp
+                        <Form
                           additionalActions={
                             <_Link
                               as="error"
@@ -93,153 +93,121 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                           buttonAlign="left"
                           cancel={false}
                           cancelText="Cancel Me"
+                          customSaveButton={null}
                           data-element="edit-form"
                           onCancel={[Function]}
+                          save={true}
                           saveText="Save Me"
                           saving={false}
+                          showSummary={true}
+                          unsavedWarning={true}
                           validateOnMount={true}
                         >
-                          <Form
-                            additionalActions={
-                              <_Link
-                                as="error"
-                                className="carbon-show-edit-pod__delete"
-                                iconAlign="left"
-                                onClick={[Function]}
-                                tabbable={true}
-                              >
-                                Delete
-                              </_Link>
-                            }
-                            afterFormValidation={[Function]}
-                            beforeFormValidation={[Function]}
-                            buttonAlign="left"
-                            cancel={false}
-                            cancelText="Cancel Me"
-                            customSaveButton={null}
+                          <form
+                            className="carbon-form"
+                            data-component="form"
                             data-element="edit-form"
-                            errorCount={0}
-                            infoCount={0}
-                            onCancel={[Function]}
-                            save={true}
-                            saveText="Save Me"
-                            saving={false}
-                            showSummary={true}
-                            unsavedWarning={true}
-                            validate={[Function]}
-                            validateOnMount={true}
-                            warningCount={0}
+                            onSubmit={[Function]}
                           >
-                            <form
-                              className="carbon-form"
-                              data-component="form"
-                              data-element="edit-form"
-                              errorCount={0}
-                              infoCount={0}
-                              onSubmit={[Function]}
-                              validate={[Function]}
-                              warningCount={0}
+                            <input
+                              name=""
+                              readOnly={true}
+                              type="hidden"
+                              value=""
+                            />
+                            <div
+                              className="carbon-form__footer-wrapper"
                             >
-                              <input
-                                name=""
-                                readOnly={true}
-                                type="hidden"
-                                value=""
-                              />
-                              <div
-                                className="carbon-form__footer-wrapper"
+                              <AppWrapper
+                                className="carbon-form__buttons carbon-form__buttons--left"
+                                style={
+                                  Object {
+                                    "borderWidth": undefined,
+                                  }
+                                }
                               >
-                                <AppWrapper
-                                  className="carbon-form__buttons carbon-form__buttons--left"
+                                <div
+                                  className="carbon-app-wrapper carbon-form__buttons carbon-form__buttons--left"
+                                  data-component="app-wrapper"
                                   style={
                                     Object {
                                       "borderWidth": undefined,
                                     }
                                   }
                                 >
-                                  <div
-                                    className="carbon-app-wrapper carbon-form__buttons carbon-form__buttons--left"
-                                    data-component="app-wrapper"
-                                    style={
-                                      Object {
-                                        "borderWidth": undefined,
-                                      }
-                                    }
+                                  <FormSummary
+                                    className="carbon-form__summary"
+                                    errors={0}
+                                    warnings={0}
                                   >
-                                    <FormSummary
-                                      className="carbon-form__summary"
-                                      errors={0}
-                                      warnings={0}
+                                    <div
+                                      className="carbon-form-summary"
+                                      data-component="form-summary"
                                     >
-                                      <div
-                                        className="carbon-form-summary"
-                                        data-component="form-summary"
+                                      <SaveButton
+                                        saveText="Save Me"
+                                        saving={false}
                                       >
-                                        <SaveButton
-                                          saveText="Save Me"
-                                          saving={false}
+                                        <div
+                                          className="carbon-form-save"
+                                          data-component="save"
                                         >
-                                          <div
-                                            className="carbon-form-save"
-                                            data-component="save"
+                                          <Button
+                                            as="primary"
+                                            className="carbon-form-save__button"
+                                            data-element="save"
+                                            disabled={false}
+                                            size="medium"
+                                            subtext=""
+                                            theme="blue"
                                           >
-                                            <Button
-                                              as="primary"
-                                              className="carbon-form-save__button"
+                                            <button
+                                              className="carbon-button carbon-button--primary carbon-button--blue carbon-button--medium carbon-form-save__button"
+                                              data-component="button"
                                               data-element="save"
                                               disabled={false}
-                                              size="medium"
-                                              subtext=""
-                                              theme="blue"
                                             >
-                                              <button
-                                                className="carbon-button carbon-button--primary carbon-button--blue carbon-button--medium carbon-form-save__button"
-                                                data-component="button"
-                                                data-element="save"
-                                                disabled={false}
-                                              >
-                                                Save Me
-                                              </button>
-                                            </Button>
-                                          </div>
-                                        </SaveButton>
-                                      </div>
-                                    </FormSummary>
-                                    <div
-                                      className="carbon-form__additional-actions"
-                                    >
-                                      <_Link
-                                        as="error"
-                                        className="carbon-show-edit-pod__delete"
-                                        iconAlign="left"
-                                        onClick={[Function]}
-                                        tabbable={true}
-                                      >
-                                        <a
-                                          as="error"
-                                          className="carbon-link__anchor carbon-show-edit-pod__delete"
-                                          data-component="link"
-                                          href={null}
-                                          onClick={[Function]}
-                                          onKeyDown={[Function]}
-                                          tabIndex="0"
-                                        >
-                                          <span>
-                                            <span
-                                              className="carbon-link__content"
-                                            >
-                                              Delete
-                                            </span>
-                                          </span>
-                                        </a>
-                                      </_Link>
+                                              Save Me
+                                            </button>
+                                          </Button>
+                                        </div>
+                                      </SaveButton>
                                     </div>
+                                  </FormSummary>
+                                  <div
+                                    className="carbon-form__additional-actions"
+                                  >
+                                    <_Link
+                                      as="error"
+                                      className="carbon-show-edit-pod__delete"
+                                      iconAlign="left"
+                                      onClick={[Function]}
+                                      tabbable={true}
+                                    >
+                                      <a
+                                        as="error"
+                                        className="carbon-link__anchor carbon-show-edit-pod__delete"
+                                        data-component="link"
+                                        href={null}
+                                        onClick={[Function]}
+                                        onKeyDown={[Function]}
+                                        tabIndex="0"
+                                      >
+                                        <span>
+                                          <span
+                                            className="carbon-link__content"
+                                          >
+                                            Delete
+                                          </span>
+                                        </span>
+                                      </a>
+                                    </_Link>
                                   </div>
-                                </AppWrapper>
-                              </div>
-                            </form>
-                          </Form>
-                        </_temp>
+                                </div>
+                              </AppWrapper>
+                            </div>
+                          </form>
+                        </Form>
                       </div>
                     </CSSTransitionGroupChild>
                   </div>

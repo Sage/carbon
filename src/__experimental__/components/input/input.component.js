@@ -35,19 +35,19 @@ class Input extends React.Component {
     inputRef: PropTypes.func, // a callback to retrieve the input reference
     onBlur: PropTypes.func,
     onClick: PropTypes.func,
-    onFocus: PropTypes.func,
-    validations: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.arrayOf(PropTypes.func)
-    ]),
-    warnings: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.arrayOf(PropTypes.func)
-    ]),
-    info: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.arrayOf(PropTypes.func)
-    ])
+    onFocus: PropTypes.func
+    // validations: PropTypes.oneOfType([
+    //   PropTypes.func,
+    //   PropTypes.arrayOf(PropTypes.func)
+    // ]),
+    // warnings: PropTypes.oneOfType([
+    //   PropTypes.func,
+    //   PropTypes.arrayOf(PropTypes.func)
+    // ]),
+    // info: PropTypes.oneOfType([
+    //   PropTypes.func,
+    //   PropTypes.arrayOf(PropTypes.func)
+    // ])
   }
 
   static contextType = InputPresentationContext
@@ -80,7 +80,7 @@ class Input extends React.Component {
       className,
       inputRef,
       ...props
-    } = validProps(this);
+    } = this.props;
 
     return (
       <input

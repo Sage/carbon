@@ -13,7 +13,6 @@ import AppWrapper from '../app-wrapper';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import Browser from '../../utils/helpers/browser';
-import withValidations from '../../utils/validations/component/validations/form-with-validations.hoc';
 
 import ElementResize from '../../utils/helpers/element-resize';
 import './form.scss';
@@ -244,14 +243,14 @@ class Form extends React.Component {
      * @property showSummary
      * @type {Boolean}
      */
-    showSummary: PropTypes.bool,
-    // document these
-    validate: PropTypes.func,
-    addInput: PropTypes.func,
-    removeInput: PropTypes.func,
-    errorCount: PropTypes.number,
-    warningCount: PropTypes.number,
-    infoCount: PropTypes.number
+    showSummary: PropTypes.bool
+    // // document these
+    // validate: PropTypes.func,
+    // addInput: PropTypes.func,
+    // removeInput: PropTypes.func,
+    // errorCount: PropTypes.number,
+    // warningCount: PropTypes.number,
+    // infoCount: PropTypes.number
   }
 
   static defaultProps = {
@@ -899,5 +898,4 @@ function generateCSRFToken(doc) {
   );
 }
 
-// export { Form };
-export default withValidations(Form);
+export default Form;

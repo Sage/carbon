@@ -1,9 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Validations component matchessnapshpt test 1`] = `
-<div>
-  <Component />
-  <Component />
-  <Component />
-</div>
+exports[`Validations component matches the snapshot when the component renders with default props 1`] = `
+<MockComponent
+  info={Array []}
+  onBlur={[Function]}
+  validations={Array []}
+  warnings={Array []}
+/>
+`;
+
+exports[`Validations component renderValidationMarkup returns an Icon with error type when the state has validations 1`] = `
+<MockComponent
+  info={Array []}
+  onBlur={[Function]}
+  validations={Array []}
+  warnings={Array []}
+>
+  <Icon
+    bgSize="small"
+    key="0"
+    type="error"
+  />
+</MockComponent>
+`;
+
+exports[`Validations component renderValidationMarkup returns an Icon with info type when the state has info and no warning or validations 1`] = `
+<MockComponent
+  info={Array []}
+  onBlur={[Function]}
+  validations={Array []}
+  warnings={Array []}
+>
+  <Icon
+    bgSize="small"
+    key="0"
+    type="info"
+  />
+</MockComponent>
+`;
+
+exports[`Validations component renderValidationMarkup returns an Icon with warning type when the state has warning and no validations 1`] = `
+<MockComponent
+  info={Array []}
+  onBlur={[Function]}
+  validations={Array []}
+  warnings={Array []}
+>
+  <Icon
+    bgSize="small"
+    key="0"
+    type="warning"
+  />
+</MockComponent>
+`;
+
+exports[`Validations component renderValidationMarkup returns the children object if no type has been set 1`] = `
+<MockComponent
+  info={Array []}
+  onBlur={[Function]}
+  validations={Array []}
+  warnings={Array []}
+>
+  <div />
+</MockComponent>
 `;

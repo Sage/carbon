@@ -77,21 +77,21 @@ const inputWithValidation = (WrappedComponent) => {
           .then(() => {
             switch (type) {
               case 'validations':
-                if (this.state.hasError !== false) {
+                if (this.state.hasError !== false && this.context.adjustCount) {
                   this.setState({ hasError: false });
-                  if (this.context && this.context.adjustCount) this.context.adjustCount('error', -1);
+                  this.context.adjustCount('error', -1);
                 }
                 break;
               case 'warnings':
-                if (this.state.hasWarning !== false) {
+                if (this.state.hasWarning !== false && this.context.adjustCount) {
                   this.setState({ hasWarning: false });
-                  if (this.context && this.context.adjustCount) this.context.adjustCount('warning', -1);
+                  this.context.adjustCount('warning', -1);
                 }
                 break;
               case 'info':
-                if (this.state.hasInfo !== false) {
+                if (this.state.hasInfo !== false && this.context.adjustCount) {
                   this.setState({ hasInfo: false });
-                  if (this.context && this.context.adjustCount) this.context.adjustCount('info', -1);
+                  this.context.adjustCount('info', -1);
                 }
                 break;
               default:
@@ -102,15 +102,15 @@ const inputWithValidation = (WrappedComponent) => {
             switch (type) {
               case 'validations':
                 this.setState({ hasError: e });
-                if (this.context && this.context.adjustCount) this.context.adjustCount('error', 1);
+                if (this.context.adjustCount) this.context.adjustCount('error', 1);
                 break;
               case 'warnings':
                 this.setState({ hasWarning: e });
-                if (this.context && this.context.adjustCount) this.context.adjustCount('warning', 1);
+                if (this.context.adjustCount) this.context.adjustCount('warning', 1);
                 break;
               case 'info':
                 this.setState({ hasInfo: e });
-                if (this.context && this.context.adjustCount) this.context.adjustCount('info', 1);
+                if (this.context.adjustCount) this.context.adjustCount('info', 1);
                 break;
               default:
             }
@@ -124,7 +124,10 @@ const inputWithValidation = (WrappedComponent) => {
       if (this.state.hasInfo) type = 'info';
       if (this.state.hasWarning) type = 'warning';
       if (this.state.hasError) type = 'error';
-      if (type) return [this.props.children, <Icon type={ type } />];
+      if (type) {
+        const key = this.props.children ? (this.props.children.length - 1).toString() : '0';
+        return [this.props.children, <Icon key={ key } type={ type } />];
+      }
       return this.props.children;
     }
 

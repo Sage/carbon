@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Input, InputPresentation } from '../input';
-import withUniqueName from '../../../utils/validations/component/validations/with-unique-name.hoc';
-import withValidation from '../../../utils/validations/component/validations/with-validation.hoc';
 
 // This component is a working example of what a Textbox might look like
 // using only the new input componentry. It is still under development with
@@ -24,4 +22,4 @@ Textbox.propTypes = {
   name: PropTypes.string
 };
 
-export default withUniqueName(withValidation(Textbox));
+export default Textbox;
