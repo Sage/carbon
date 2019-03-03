@@ -49,19 +49,16 @@ const inputWithValidation = (WrappedComponent) => {
 
     componentDidMount = () => {
       if (this.context && this.context.addInput && this.props.validations.length) {
-        console.log('mount', this.context);
         this.context.addInput(this.props.name, this.validate);
       }
     }
 
     componentWillUnmount = () => {
       if (this.context && this.context.removeInput && this.props.validations.length) {
-        console.log('unmount', this.context);
         this.context.removeInput(this.props.name);
       }
     }
 
-    // console logs here!!!
     validate = async (types = ['validations', 'warnings', 'info']) => {
       let result = true;
       if (types.includes('validations')) result = await this.runValidation('validations');
@@ -76,7 +73,6 @@ const inputWithValidation = (WrappedComponent) => {
           resolve(true);
         }
         const validate = validator(this.props[type]);
-        console.log('value validated :', this.props.value);
         validate(this.props.value)
           .then(() => {
             switch (type) {
@@ -85,7 +81,6 @@ const inputWithValidation = (WrappedComponent) => {
                   this.setState({ hasError: false });
                   if (this.context && this.context.adjustCount) this.context.adjustCount('error', -1);
                 }
-                console.log('validations passed :', this.props.value);
                 break;
               case 'warnings':
                 if (this.state.hasWarning !== false) {
@@ -108,7 +103,6 @@ const inputWithValidation = (WrappedComponent) => {
               case 'validations':
                 this.setState({ hasError: e });
                 if (this.context && this.context.adjustCount) this.context.adjustCount('error', 1);
-                console.log('validations failed :', this.props.value);
                 break;
               case 'warnings':
                 this.setState({ hasWarning: e });
@@ -139,15 +133,15 @@ const inputWithValidation = (WrappedComponent) => {
       if (this.props.onBlur) this.props.onBlur(ev);
     }
 
-    onValueChangeHandler = (ev) => {
-      // this.setState({ value: ev.target.value });
-    }
+    // onValueChangeHandler = (ev) => {
+    //   // this.setState({ value: ev.target.value });
+    //   // this.props.onChange(ev);
+    // }
 
     render() {
       return (
         <WrappedComponent
           onBlur={ this.handleBlur }
-          onChange={ this.onValueChangeHandler }
           { ...this.props }
         >
           { this.renderValidationMarkup() }

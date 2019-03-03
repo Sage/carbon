@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`formWithValidation matches snapshot 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "addInput": [Function],
+      "adjustCount": [Function],
+      "removeInput": [Function],
+    }
+  }
+>
+  <MockComponent
+    errorCount={0}
+    infoCount={0}
+    validate={[Function]}
+    warningCount={0}
+  >
+    <MockComponent
+      info={[Function]}
+      name="foo"
+      validations={[Function]}
+      value="foo"
+      warnings={[Function]}
+    />
+    <MockComponent
+      info={[Function]}
+      name="bar"
+      validations={[Function]}
+      value=""
+      warnings={[Function]}
+    />
+  </MockComponent>
+</ContextProvider>
+`;

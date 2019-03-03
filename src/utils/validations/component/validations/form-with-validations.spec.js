@@ -1,66 +1,26 @@
-import React, { Component } from 'react';
-import { mount, shallow } from 'enzyme';
+import React from 'react';
+import { shallow } from 'enzyme';
+import { Object } from 'es6-shim';
 import formWithValidation from './form-with-validations.hoc';
-// import Form from '../../../../components/form';
-// import Input from '../../../../__experimental__/components/input';
-// import withValidation from './with-validation.hoc';
-// import withUniqueName from './with-unique-name.hoc';
 
-const presErr = new Error('this value is required!');
+const error = Error('this value is required!');
 
 const presence = value => new Promise((resolve, reject) => {
-  if (value) {
-    resolve(true);
-  } else {
-    reject(presErr);
-  }
+  if (value) return resolve(true);
+  return reject(error);
 });
 
-const notZeroErr = new Error('this is zero!');
-
-const isNotZero = value => new Promise((resolve, reject) => {
-  if (value === 0 || value === '0') {
-    reject(notZeroErr);
-  } else {
-    resolve(true);
-  }
+const passValidation = () => new Promise((resolve) => {
+  resolve(true);
 });
 
-// const mockValidation = (value, validations) => Promise(() => {
-//   const validArr = Array.isArray(validations) ? validations : [validations];
-//   const res = [];
-//   validArr.map(valid => res.push(valid(value)));
-
-//   return Promise.all(res);
-// });
-
-const mockCountCall = (type, value, context) => {
+const mockCountCall = (context, type, value) => {
   return context.adjustCount(type, value);
 };
 
-const mockInputValidator = (types, value, validation) => new Promise((_, reject) => {
-  // let noExit = true;
-  let msg;
-  // try {
-  types.forEach((type) => {
-    validation(value)
-      .catch((e) => {
-        console.log('catch', type);
-        // mockCountCall(type, 1, context);
-        // noExit = false;
-        msg = e.message;
-      });
-
-    if (msg) reject(msg);
-  });
-  // } catch (e) {
-  //   if (e.message !== 'error') throw e;
-  // }
-  // return noExit;
-});
-
-const mockRegisterChild = (context, name, validateFunction) => context.addInput(name, validateFunction);
-
+const mockRegisterChild = (context, name, validateFunction) => {
+  context.addInput(name, validateFunction);
+};
 const mockUnregisterChild = (context, name) => context.removeInput(name);
 
 const MockComponent = props => <div { ...props } />;
@@ -69,23 +29,31 @@ describe('formWithValidation', () => {
   let wrapper, context;
 
   const Child = MockComponent;
-  const ValididationComp = formWithValidation(Component);
+  const ValididationComp = formWithValidation(MockComponent);
   beforeEach(() => {
     wrapper = shallow(
       <ValididationComp>
         <Child
-          name='foo1'
+          name='foo'
           validations={ presence }
+          warnings={ presence }
+          info={ presence }
           value='foo'
         />
         <Child
-          name='foo2'
+          name='bar'
           validations={ presence }
-          value='foo'
+          warnings={ presence }
+          info={ presence }
+          value=''
         />
       </ValididationComp>
     );
     context = wrapper.instance().getContext();
+  });
+
+  it('matches snapshot', () => {
+    expect(wrapper).toMatchSnapshot();
   });
 
   it('passes context to allow inputs to register themselves', () => {
@@ -109,205 +77,105 @@ describe('formWithValidation', () => {
       .forEach(child => expect(wrapper.instance().inputs[child.props.name]).toEqual(undefined));
   });
 
-  fit('increments the count when an error is detected', async () => {
+  it('adjusts the relevant count when failed error validation is detected', async () => {
+    const { children } = wrapper.instance().props;
+    const { inputs } = wrapper.instance();
+    await children.forEach((child) => {
+      mockRegisterChild(context, child.props.name, child.props.validations);
+      return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'error', 1));
+    });
+    expect(wrapper.instance().state.errorCount).toEqual(1);
+    expect(wrapper.instance().state.warningCount).toEqual(0);
+    expect(wrapper.instance().state.infoCount).toEqual(0);
+  });
+
+  it('adjusts the relevant count when failed warning validation is detected', async () => {
+    const { children } = wrapper.instance().props;
+    const { inputs } = wrapper.instance();
+    await children.forEach((child) => {
+      mockRegisterChild(context, child.props.name, child.props.warnings);
+      return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'warning', 1));
+    });
+    expect(wrapper.instance().state.errorCount).toEqual(0);
+    expect(wrapper.instance().state.warningCount).toEqual(1);
+    expect(wrapper.instance().state.infoCount).toEqual(0);
+  });
+
+  it('adjusts the relevant count when failed info validation is detected', async () => {
+    const { children } = wrapper.instance().props;
+    const { inputs } = wrapper.instance();
+    await children.forEach((child) => {
+      mockRegisterChild(context, child.props.name, child.props.info);
+      return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'info', 1));
+    });
+    expect(wrapper.instance().state.errorCount).toEqual(0);
+    expect(wrapper.instance().state.warningCount).toEqual(0);
+    expect(wrapper.instance().state.infoCount).toEqual(1);
+  });
+
+  it('does not adjust the any count when failed wrong type passed', async () => {
+    const { children } = wrapper.instance().props;
+    const { inputs } = wrapper.instance();
+    await children.forEach((child) => {
+      mockRegisterChild(context, child.props.name, child.props.info);
+      return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'foo', 1));
+    });
+    expect(wrapper.instance().state.errorCount).toEqual(0);
+    expect(wrapper.instance().state.warningCount).toEqual(0);
+    expect(wrapper.instance().state.infoCount).toEqual(0);
+  });
+
+  it('rejects when a child component fails its own validations', async () => {
     wrapper = shallow(
       <ValididationComp>
         <Child
-          name='foo1'
+          name='foo'
+          validations={ passValidation }
+        />
+        <Child
+          name='bar'
           validations={ presence }
-          value=''
+        />
+        <Child
+          name='wiz'
+          validations={ passValidation }
         />
       </ValididationComp>
     );
-    const child = wrapper.instance().props.children;
-    // wrapper.instance().props.children.forEach((child) => {
-    mockRegisterChild(context, child.props.name, child.props.validations);
-    // });
-    // wrapper.instance().props.children.forEach((child) => {
-    //   return mockCountCall(['error', 'warning', 'info'], child.props.value, child.props.validations, context);
-    // });
-    // expect(wrapper.instance().state.errorCount).toEqual(0);
-    // const failChild = (
-    //   <Child
-    //     name='foo3'
-    //     validations={ presence }
-    //     value=''
-    //   />
-    // );
-    // wrapper.setProps({
-    //   children: [
-    //     ...wrapper.instance().props.children,
-    //     failChild
-    //   ]
-    // });
-    // mockRegisterChild(context, failChild.props.name, failChild.props.validations);
-    // console.log(wrapper.instance().state);
-    // wrapper.instance().props.children.forEach((child) => {
-    //   return mockCountCall('error', child.props.value, child.props.validations, context);
-    // });
-    const res = await mockInputValidator(['error'], child.props.value, child.props.validations);
 
-    // await expect(
-    //   mockInputValidator(['error'], child.props.value, child.props.validations, context)
-    // ).rejects.toEqual(presErr.message);
-    const count = wrapper.instance().state.errorCount;
-    // wrapper.update();
-    console.log('state : ', wrapper.instance());
+    context = wrapper.instance().getContext();
+    const { children } = wrapper.instance().props;
 
-    res.then(() => {
-      expect(count).toEqual(0);
-    })
-      .catch(() => {
-        mockCountCall('error', 1, context);
-        expect(count).toEqual(1);
-      });
+    children.forEach((child) => {
+      mockRegisterChild(context, child.props.name, child.props.validations);
+    });
+    expect(wrapper.instance().validate()).rejects.toEqual(error);
   });
 
-  it('does not validate children that have been been registered', () => {
+  it('resolves when a child components passes its own validations', async () => {
     wrapper = shallow(
-      <ValididationComp />
-    );
-    const mockChildren = [
-      shallow(
-        <Child
-          name='foo1'
-          validations={ presence }
-          value='0'
-        />,
-        { context: wrapper.instance().getContext() }
-      ),
-      shallow(
-        <Child
-          name='foo2'
-          validations={ isNotZero }
-          value='0'
-        />,
-        { context: wrapper.instance().getContext() }
-      )
-    ];
-    // const childrenToAdd = [];
-    // mockChildren.forEach((c) => {
-    //   childrenToAdd.push(c);
-    //   wrapper.setProps({ children: childrenToAdd });
-    // });
-    // mockChildren[0].instance().componentWillUnmount();
-    console.log(wrapper.instance().inputs);
-    // wrapper.setProps({ children: mockChildren });
-    console.log(mockChildren[0].instance());
-    mockChildren[0].unmount();
-    console.log(mockChildren[0].instance());
-  });
-
-  it('passes the validations down to the children as props', () => {
-    wrapper.props().children.forEach(child => expect(child.props.validations).toEqual(presence));
-  });
-
-  it('runs the validations and increments the error count when an input fails', async () => {
-    const wrapper2 = mount(
       <ValididationComp>
         <Child
-          validations={ presence }
-          warnings={ presence }
-          value=''
+          name='foo'
+          validations={ passValidation }
         />
         <Child
-          validations={ presence }
-          value='1'
-        />
-        <Child
-          validations={ presence }
-          value='1'
-        />
-      </ValididationComp>
-    );
-    wrapper2.find('Child').forEach(el => console.log(el.debug()));
-
-    await wrapper2.instance().validate().then(async () => {
-      expect(wrapper2.instance().state.errorCount).toEqual(1);
-    }).catch(async () => {
-      const x = wrapper2.instance().state.errorCount;
-      console.log(x);
-      expect(x).toEqual(1);
-    });
-    expect.assertions(1);
-    console.log('state ====> ', wrapper.instance().state);
-  });
-
-  it('runs the validations and increments the warning count when an input fails', async () => {
-    const wrapper2 = mount(
-      <ValididationComp>
-        <Child
-          warnings={ presence }
-          value=''
-        />
-        <Child
-          warnings={ presence }
-          value='1'
-        />
-        <Child
-          warnings={ presence }
-          value='1'
+          name='bar'
+          validations={ passValidation }
         />
       </ValididationComp>
     );
 
-    wrapper2.find('Child').forEach(el => console.log(el.props()));
+    context = wrapper.instance().getContext();
+    const { children } = wrapper.instance().props;
 
-    await wrapper2.instance().validate().then(async () => {
-      // console.log(wrapper.instance().state);
-      expect(wrapper2.instance().state.warningCount).toEqual(1);
-    }).catch(async () => {
-      const x = wrapper2.instance().state.warningCount;
-      console.log(x);
-      expect(x).toEqual(1);
-      // await console.log(wrapper.instance().state);
+    children.forEach((child) => {
+      return mockRegisterChild(context, child.props.name, child.props.validations);
     });
+    await expect(wrapper.instance().validate()).resolves.toEqual(true);
   });
 
-  it('runs the validations and increments the info count when an input fails', async () => {
-    const wrapper2 = mount(
-      <ValididationComp>
-        <Child info={ presence } value='' />
-        <Child info={ presence } value='1' />
-        <Child info={ presence } value='1' />
-      </ValididationComp>
-    );
-
-    await wrapper2.instance().validate().then(async () => {
-      expect(wrapper2.instance().state.infoCount).toEqual(1);
-    }).catch(async () => {
-      expect(wrapper2.instance().state.infoCount).toEqual(1);
-    });
+  afterEach(() => {
+    wrapper.unmount();
   });
-
-  it('adjustCount', () => {
-    wrapper.instance().adjustCount('info', 1);
-    expect(wrapper.state().infoCount).toEqual(1);
-    wrapper.find('Child').forEach(el => console.log(el.debug()));
-  });
-
-  describe('validate', () => {
-    it('rejects if a child input has a failed validation', () => {
-      const wrapper2 = shallow(
-        <ValididationComp>
-          <Child
-            validations={ [isNotZero] }
-            value={ 0 }
-            name='foo'
-          />
-        </ValididationComp>
-      );
-
-      // wrapper2.instance().validate().then(async () => {
-      //   expect(wrapper2.instance().state.errorCount).toEqual(1);
-      // }).catch(async () => {
-      //   expect(wrapper2.instance().state.errorCount).toEqual(1);
-      // });
-      wrapper2.instance().validate();
-      console.log('state ====> ', wrapper.instance().state);
-    });
-  });
-  // afterEach(() => {
-  //   wrapper.unmount();
-  // });
 });

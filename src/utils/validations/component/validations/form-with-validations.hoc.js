@@ -24,10 +24,7 @@ const withValidations = (WrappedComponent) => {
     adjustCount = (type, adjustment) => {
       switch (type) {
         case 'error':
-          console.log('ERRRORORORRO');
           this.setState((prev) => { return { errorCount: prev.errorCount + adjustment }; });
-          // this.setState({ errorCount: this.state.errorCount + adjustment });
-          console.log('error count : ', this.state.errorCount);
           break;
         case 'warning':
           this.setState((prev) => { return { warningCount: prev.warningCount + adjustment }; });
@@ -48,22 +45,13 @@ const withValidations = (WrappedComponent) => {
     }
 
     validate = () => {
+      let results;
       return new Promise((resolve, reject) => {
-        let isValid = false;
-        Object.keys(this.inputs).forEach(async (name) => { // maybe don't need async
-          const validate = this.inputs[name]; // mock
-          return validate().then(() => {
-            isValid = true;
-            console.log('input is valid : ', name);
-          }).catch(() => {
-            isValid = false;
-            console.log('fails!!!');
-          });
+        results = Object.keys(this.inputs).map((name) => {
+          const validate = this.inputs[name];
+          return validate().catch(e => reject(e));
         });
-        if (isValid) {
-          console.log('form validation result :', isValid);
-          resolve();
-        }
+        return Promise.all(results).then(() => resolve(true));
       });
     }
 

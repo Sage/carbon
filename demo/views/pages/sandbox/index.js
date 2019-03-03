@@ -43,6 +43,12 @@ class Preview extends React.Component {
 }
 
 class Sandbox extends React.Component {
+  state = { value: '' }
+
+  onChange = (ev) => {
+    this.setState({ value: ev.target.value });
+  }
+
   isLong = value => new Promise((resolve, reject) => {
     if (value.length >= 3) {
       resolve(value);
@@ -55,12 +61,14 @@ class Sandbox extends React.Component {
     return (
       <Form>
         <Textbox
-          validations={ [this.isLong] }
+          validations={ [this.isLong, new PresenceValidation()] }
           warning={ [new PresenceValidation()] }
           info={ [new PresenceValidation()] }
+          value={ this.state.value }
+          onChange={ this.onChange }
         />
         <Textbox
-          validations={ [this.isLong] }
+          validations={ [this.isLong, new PresenceValidation()] }
           warning={ [new PresenceValidation()] }
           info={ [new PresenceValidation()] }
         />

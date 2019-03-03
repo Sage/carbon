@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { shallow } from 'enzyme';
-// import withUniqueName from './with-unique-name.hoc';
 import withValidation from './with-validation.hoc';
 
 const presErr = new Error('this value is required!');
