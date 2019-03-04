@@ -63,7 +63,7 @@ exports[`Validations component renderValidationMarkup returns an Icon with warni
 </MockComponent>
 `;
 
-exports[`Validations component renderValidationMarkup returns the Icon when the compnent has an array of children 1`] = `
+exports[`Validations component renderValidationMarkup returns the Icon when the component has an array of children 1`] = `
 <MockComponent
   info={Array []}
   onBlur={[Function]}
