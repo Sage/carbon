@@ -24,11 +24,12 @@ class ScrollableList extends Component {
   scrollBox = React.createRef()
 
   componentWillReceiveProps(nextProps) {
-    // if number of items changes then re-evaluate what should be highlighted
-    if (React.Children.count(nextProps.children) !== React.Children.count(this.props.children)) {
+    // if selected item is beyond the number of children then reset it (eg. through filtering)
+    if ((this.state.selectedItem + 1) > React.Children.count(nextProps.children)) {
       let selectedItem = -1;
       if (nextProps.alwaysHighlight) selectedItem = this.nextSelectable('down', selectedItem);
       this.setState({ selectedItem });
+      this.scrollBox.current.scrollTop = 0;
     }
   }
 
@@ -123,7 +124,7 @@ class ScrollableList extends Component {
 
   handleScroll = ({ target: { scrollTop, scrollHeight } }) => {
     if (!this.props.onLazyLoad) return;
-    if ((scrollHeight - scrollTop) < 200) this.props.onLazyLoad();
+    if ((scrollHeight - scrollTop) < 300) this.props.onLazyLoad();
   }
 
   handleKeyDown = (e) => {
@@ -151,7 +152,7 @@ class ScrollableList extends Component {
   }
 
   render() {
-    const { children, ...props } = this.props;
+    const { children, onLazyLoad, ...props } = this.props;
 
     return (
       <ScrollableListContainer

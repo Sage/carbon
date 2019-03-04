@@ -37,7 +37,11 @@ class Select extends React.Component {
     customFilter: PropTypes.func,
     disabled: PropTypes.bool,
     label: PropTypes.string,
+    onBlur: PropTypes.func,
     onChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    onOpen: PropTypes.func,
+    onLazyLoad: PropTypes.func,
     onFilter: PropTypes.func,
     placeholder: PropTypes.string,
     readOnly: PropTypes.bool,
@@ -70,23 +74,31 @@ class Select extends React.Component {
     this.bridge.current.blockBlur = false; // this is to support the legacy behaviour in the bridge
   }
 
-  handleBlur = () => {
+  handleBlur = (ev) => {
     if (this.blurBlocked) return;
     this.setState({ filter: undefined, open: false });
+    if (this.props.onBlur) this.props.onBlur(ev);
   }
 
   // opens the dropdown and ensures the input has focus
   // (this fixes a bug in which rapidly clicking the label or dropdown icon would break the list open state)
-  handleFocus = () => !this.state.open && this.setState({ open: true })
+  handleFocus = (ev) => {
+    this.openList();
+    if (this.props.onFocus) this.props.onFocus(ev);
+  }
 
   handleMouseEnter = () => this.blockBlur()
 
   handleMouseLeave = () => this.unblockBlur()
 
+  handleClick = () => this.openList()
+
   handleChange = (newValue) => {
     let updatedValue = newValue;
     // if the component is multi value then we need to push the new value into the array of values
     if (this.isMultiValue(this.props.value)) {
+      // do not allow the same value twice
+      if (this.props.value.find(item => item.value === newValue.value)) return;
       const value = this.props.value.slice();
       value.push(newValue);
       updatedValue = value;
@@ -111,7 +123,7 @@ class Select extends React.Component {
     // if the dropdown is not open then block regular activity and open it
     if (!this.state.open) {
       ev.preventDefault();
-      this.setState({ open: true });
+      this.openList();
       return;
     }
     // if esc key then close the dropdown
@@ -126,11 +138,18 @@ class Select extends React.Component {
     }
   }
 
+  openList() {
+    if (this.state.open) return;
+    this.setState({ open: true });
+    if (this.props.onOpen) this.props.onOpen();
+  }
+
   triggerChange(value) {
-    const newState = { filter: undefined };
+    const newState = {};
     if (!this.isMultiValue(value)) {
       // only closes the dropdown if not multi-value
       newState.open = false;
+      newState.filter = undefined;
       this.unblockBlur();
     }
     this.setState(newState);
@@ -193,7 +212,11 @@ class Select extends React.Component {
       className,
       customFilter,
       placeholder,
-      value
+      value,
+      onLazyLoad,
+      onFilter,
+      onOpen,
+      ...props
     } = this.props;
 
     let events = {};
@@ -204,14 +227,14 @@ class Select extends React.Component {
         onChange: this.handleFilter,
         onFocus: this.handleFocus,
         onKeyDown: this.handleKeyDown,
-        onClick: this.handleFocus
+        onClick: this.handleClick
       };
     }
 
     return (
       <>
         <InputDecoratorBridge
-          { ...this.props } // this needs to send all of the original props
+          { ...props } // this needs to send all of the original props
           className={ this.className(className) }
           formattedValue={ this.formattedValue(this.state.filter, value) }
           inputIcon={ this.isMultiValue(value) ? undefined : 'dropdown' }
@@ -227,6 +250,7 @@ class Select extends React.Component {
               alwaysHighlight={ !!this.state.filter } // only always ensure something is highlighted if filter
               customFilter={ customFilter }
               filterValue={ this.state.filter }
+              onLazyLoad={ onLazyLoad }
               onMouseEnter={ this.handleMouseEnter }
               onMouseLeave={ this.handleMouseLeave }
               onSelect={ this.handleChange }
