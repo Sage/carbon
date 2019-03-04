@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { InputPresentationContext } from './input-presentation.component';
-import { validProps } from '../../../utils/ether';
 import './input.style.scss';
 
 // This is a component in progress to incrementally remove the reliance
