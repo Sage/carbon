@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import 'jest-styled-components';
 
+import Icon from 'components/icon';
 import InputIconToggle from './input-icon-toggle.component';
 
 const props = {
@@ -18,8 +19,8 @@ describe('InputIconToggle', () => {
       wrapper = shallow(<InputIconToggle { ...props } />);
     });
 
-    it('renders as expected', () => {
-      expect(wrapper).toMatchSnapshot();
+    it('should render an Icon component with an icon type that was specified in the props', () => {
+      expect(wrapper.contains(<Icon type={ props.iconType } />)).toBeTruthy();
     });
   });
 

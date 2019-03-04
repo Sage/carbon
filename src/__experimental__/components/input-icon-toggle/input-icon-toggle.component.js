@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Icon from 'components/icon/icon';
-import Label from './input-icon-toggle.style';
+import InputIconToggleStyle from './input-icon-toggle.style';
 
 /**
  * An InputIconToggle Component.
@@ -24,16 +24,21 @@ import Label from './input-icon-toggle.style';
  * Component has to be placed next to an input element, inputId prop must be the same as the id of that input.
 */
 const InputIconToggle = (props) => {
-  const { iconType, content, inputId } = props;
+  const {
+    iconType,
+    content,
+    inputId,
+    ...styleProps
+  } = props;
 
   return (
-    <Label
+    <InputIconToggleStyle
       htmlFor={ inputId }
       key='label-icon'
-      { ...props }
+      { ...styleProps }
     >
       { content || <Icon type={ iconType } /> }
-    </Label>
+    </InputIconToggleStyle>
   );
 };
 

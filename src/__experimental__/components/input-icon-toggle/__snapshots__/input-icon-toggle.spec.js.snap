@@ -188,18 +188,3 @@ exports[`InputIconToggle when initiated with the isHovered prop set to true rend
   </styled.label>
 </InputIconToggle>
 `;
-
-exports[`InputIconToggle when initiated without the content prop renders as expected 1`] = `
-<styled.label
-  htmlFor="123"
-  iconType="foo"
-  inputId="123"
-  isHovered={false}
-  key="label-icon"
->
-  <Icon
-    bgSize="small"
-    type="foo"
-  />
-</styled.label>
-`;
