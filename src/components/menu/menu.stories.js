@@ -16,17 +16,17 @@ storiesOf('Menu', module)
         <MenuItem>
           Item One
         </MenuItem>
-        <MenuItem submenu="Item Two">
-          {/* <SubmenuBlock> */}
-            <MenuItem href="#">Sub Menu Item One</MenuItem>
-            <MenuItem href="#">Sub Menu Item Two</MenuItem>
-          {/* </SubmenuBlock> */}
-        </MenuItem>
-        <MenuItem submenu="Item Two">
-          <MenuItem href="#">Sub Menu Item One</MenuItem>
+        <MenuItem submenu='Item Two'>
           <SubmenuBlock>
-            <MenuItem href="#">Sub Menu Item Two</MenuItem>
-            <MenuItem href="#">Sub Menu Item Three</MenuItem>
+            <MenuItem href='#'>Sub Menu Item One</MenuItem>
+            <MenuItem href='#'>Sub Menu Item Two</MenuItem>
+          </SubmenuBlock>
+        </MenuItem>
+        <MenuItem submenu='Item Two'>
+          <MenuItem href='#'>Sub Menu Item One</MenuItem>
+          <SubmenuBlock>
+            <MenuItem href='#'>Sub Menu Item Two</MenuItem>
+            <MenuItem href='#'>Sub Menu Item Three</MenuItem>
           </SubmenuBlock>
         </MenuItem>
       </Menu>
