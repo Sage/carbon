@@ -14,12 +14,24 @@ const props = {
 describe('InputIconToggle', () => {
   let wrapper;
 
+  describe('when initiated with the disabled prop set to true', () => {
+    const propsDisabled = { ...props, disabled: true };
+
+    beforeEach(() => {
+      wrapper = shallow(<InputIconToggle { ...propsDisabled } />);
+    });
+
+    it('does not render anything', () => {
+      expect(wrapper.isEmptyRender()).toBeTruthy();
+    });
+  });
+
   describe('when initiated without the content prop', () => {
     beforeEach(() => {
       wrapper = shallow(<InputIconToggle { ...props } />);
     });
 
-    it('should render an Icon component with an icon type that was specified in the props', () => {
+    it('renders an Icon component with an icon type that was specified in the props', () => {
       expect(wrapper.contains(<Icon type={ props.iconType } />)).toBeTruthy();
     });
   });
@@ -52,18 +64,6 @@ describe('InputIconToggle', () => {
 
     beforeEach(() => {
       wrapper = mount(<InputIconToggle { ...propsHovered } />);
-    });
-
-    it('renders as expected', () => {
-      expect(wrapper).toMatchSnapshot();
-    });
-  });
-
-  describe('when initiated with the disabled prop set to true', () => {
-    const propsDisabled = { ...props, disabled: true };
-
-    beforeEach(() => {
-      wrapper = mount(<InputIconToggle { ...propsDisabled } />);
     });
 
     it('renders as expected', () => {

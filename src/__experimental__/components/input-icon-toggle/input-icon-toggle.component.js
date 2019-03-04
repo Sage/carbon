@@ -28,8 +28,11 @@ const InputIconToggle = (props) => {
     iconType,
     content,
     inputId,
+    disabled,
     ...styleProps
   } = props;
+
+  if (disabled) return null;
 
   return (
     <InputIconToggleStyle
@@ -47,6 +50,10 @@ InputIconToggle.propTypes = {
    * Optional content to be rendered instead of an icon, when empty a simple icon will be rendered
    */
   content: PropTypes.node,
+  /**
+   * Type of an icon to render
+   */
+  disabled: PropTypes.bool,
   /**
    * Type of an icon to render
    */
