@@ -58,4 +58,16 @@ describe('InputIconToggle', () => {
       expect(wrapper).toMatchSnapshot();
     });
   });
+
+  describe('when initiated with the disabled prop set to true', () => {
+    const propsDisabled = { ...props, disabled: true };
+
+    beforeEach(() => {
+      wrapper = mount(<InputIconToggle { ...propsDisabled } />);
+    });
+
+    it('renders as expected', () => {
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
 });
