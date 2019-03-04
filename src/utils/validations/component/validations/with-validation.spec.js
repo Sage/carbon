@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { withValidation } from '.';
+import Icon from '../../../../components/icon';
 
 const presErr = new Error('this value is required!');
 const notZeroErr = new Error('this is zero!');
@@ -38,16 +39,6 @@ const failValidation = val => new Promise((resolve, reject) => {
   reject(failErr);
 });
 
-const checkState = (ids, state, res) => {
-  Object.keys(state).forEach((key) => {
-    if (ids.includes(key)) {
-      ids.forEach(id => expect(state[id]).toEqual(res));
-    } else {
-      expect(state[key]).toEqual(!res);
-    }
-  });
-};
-
 const context = { addInput: () => 'foo', removeInput: () => 'foo', adjustCount: () => 'foo' };
 
 const MockComponent = props => <div { ...props } />;
@@ -60,13 +51,12 @@ const shallowRenderWithContext = props => shallow(<InputComponent { ...props } /
 
 const validations = [isNotZero, presence, asyncValidation];
 const types = ['validations', 'warnings', 'info'];
-const stateId = ['hasError', 'hasWarning', 'hasInfo'];
 
 describe('Validations component', () => {
   let wrapper, wrapper2;
 
   beforeEach(() => {
-    wrapper = shallow(<InputComponent />);
+    wrapper = shallow(<InputComponent />, { context });
   });
 
   it('matches the snapshot when the component renders with default props', () => {
@@ -80,51 +70,50 @@ describe('Validations component', () => {
   });
 
   describe('renderValidationMarkup', () => {
+    const checkState = (typesArr, state, result) => {
+      Object.keys(state).forEach((key) => {
+        if (typesArr.includes(key)) {
+          typesArr.forEach(id => expect(state[id]).toEqual(result));
+        } else {
+          expect(state[key]).toEqual(!result);
+        }
+      });
+    };
+
+    const stateTypes = ['hasError', 'hasWarning', 'hasInfo'];
+
     it('returns an Icon with info type when the state has info and no warning or validations', () => {
       wrapper.setState({ hasInfo: true });
-      checkState([stateId[2]], wrapper.state(), true);
-      const markUp = wrapper.instance().renderValidationMarkup();
-      const size = markUp.length;
-      expect(markUp[size - 1].type.displayName).toEqual('Icon');
-      expect(markUp[size - 1].props.type).toEqual('info');
-      expect(wrapper).toMatchSnapshot();
+      checkState([stateTypes[2]], wrapper.state(), true);
+      wrapper.instance().renderValidationMarkup();
+      expect(wrapper.contains(<Icon type='info' />)).toEqual(true);
     });
 
     it('returns an Icon with warning type when the state has warning and no validations', () => {
       wrapper.setState({ hasInfo: true, hasWarning: true });
-      checkState([stateId[2], stateId[1]], wrapper.state(), true);
-      const markUp = wrapper.instance().renderValidationMarkup();
-      const size = markUp.length;
-      expect(markUp[size - 1].type.displayName).toEqual('Icon');
-      expect(markUp[size - 1].props.type).toEqual('warning');
-      expect(wrapper).toMatchSnapshot();
+      checkState([stateTypes[2], stateTypes[1]], wrapper.state(), true);
+      wrapper.instance().renderValidationMarkup();
+      expect(wrapper.contains(<Icon type='warning' />)).toEqual(true);
     });
 
     it('returns an Icon with error type when the state has validations', () => {
       wrapper.setState({ hasInfo: true, hasWarning: true, hasError: true });
-      checkState(stateId, wrapper.state(), true);
-      const markUp = wrapper.instance().renderValidationMarkup();
-      const size = markUp.length;
-      expect(markUp[size - 1].type.displayName).toEqual('Icon');
-      expect(markUp[size - 1].props.type).toEqual('error');
-      expect(wrapper).toMatchSnapshot();
+      checkState(stateTypes, wrapper.state(), true);
+      expect(wrapper.contains(<Icon type='error' />)).toEqual(true);
     });
 
     it('returns the children if no type has been set', () => {
       wrapper.setProps({ children: <div /> });
-      const markUp = wrapper.instance().renderValidationMarkup();
-      expect(Array.isArray(markUp)).toEqual(false);
-      expect(markUp.type).toEqual('div');
+      const markup = wrapper.instance().renderValidationMarkup();
+      expect(markup.type).toEqual('div');
+      expect(wrapper.contains(<Icon />)).toEqual(false);
       expect(wrapper).toMatchSnapshot();
     });
 
     it('returns the Icon when the component has an array of children', () => {
       wrapper.setState({ hasInfo: true, hasWarning: true, hasError: true });
       wrapper.setProps({ children: [<div />, 'foo', <div />] });
-      const markUp = wrapper.instance().renderValidationMarkup();
-      const size = markUp.length;
-      expect(markUp[size - 1].type.displayName).toEqual('Icon');
-      expect(markUp[size - 1].props.type).toEqual('error');
+      expect(wrapper.contains(<Icon type='error' />)).toEqual(true);
       expect(wrapper).toMatchSnapshot();
     });
   });
@@ -251,6 +240,11 @@ describe('Validations component', () => {
       expect(spy).not.toHaveBeenCalled();
       expect(validate).toEqual(false);
     });
+
+    it('resolves false when there is no adjust count passed in the context', () => {
+      wrapper = shallow(<InputComponent validations={ presence } value='foo' />);
+      expect(wrapper.instance().runValidation('validations')).resolves.toEqual(false);
+    });
   });
 
   describe('validate', () => {
@@ -317,14 +311,14 @@ describe('Validations component', () => {
   });
 
   describe('Component registers using the context', () => {
-    it('registers on mount, when it has context and validations', () => {
+    it('registers itself on mount, when it has context and validations', () => {
       wrapper2 = shallowRenderWithContext({ validations: presence });
       const spy = spyOn(wrapper2.instance().context, 'addInput');
       wrapper2.instance().componentDidMount();
       expect(spy).toHaveBeenCalled();
     });
 
-    it('does not register on mount, when it has no validations', () => {
+    it('does not register itself on mount, when it has no validations', () => {
       wrapper2 = shallowRenderWithContext();
       const spy = spyOn(wrapper2.instance().context, 'addInput');
       wrapper2.instance().componentDidMount();

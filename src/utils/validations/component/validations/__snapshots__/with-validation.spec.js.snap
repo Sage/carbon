@@ -18,51 +18,6 @@ exports[`Validations component matches the snapshot when the hoc is passed an an
 />
 `;
 
-exports[`Validations component renderValidationMarkup returns an Icon with error type when the state has validations 1`] = `
-<MockComponent
-  info={Array []}
-  onBlur={[Function]}
-  validations={Array []}
-  warnings={Array []}
->
-  <Icon
-    bgSize="small"
-    key="error-icon"
-    type="error"
-  />
-</MockComponent>
-`;
-
-exports[`Validations component renderValidationMarkup returns an Icon with info type when the state has info and no warning or validations 1`] = `
-<MockComponent
-  info={Array []}
-  onBlur={[Function]}
-  validations={Array []}
-  warnings={Array []}
->
-  <Icon
-    bgSize="small"
-    key="info-icon"
-    type="info"
-  />
-</MockComponent>
-`;
-
-exports[`Validations component renderValidationMarkup returns an Icon with warning type when the state has warning and no validations 1`] = `
-<MockComponent
-  info={Array []}
-  onBlur={[Function]}
-  validations={Array []}
-  warnings={Array []}
->
-  <Icon
-    bgSize="small"
-    key="warning-icon"
-    type="warning"
-  />
-</MockComponent>
-`;
-
 exports[`Validations component renderValidationMarkup returns the Icon when the component has an array of children 1`] = `
 <MockComponent
   info={Array []}
