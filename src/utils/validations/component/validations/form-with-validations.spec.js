@@ -1,6 +1,5 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { Object } from 'es6-shim';
 import formWithValidation from './form-with-validations.hoc';
 
 const error = Error('this value is required!');
@@ -21,6 +20,7 @@ const mockCountCall = (context, type, value) => {
 const mockRegisterChild = (context, name, validateFunction) => {
   context.addInput(name, validateFunction);
 };
+
 const mockUnregisterChild = (context, name) => context.removeInput(name);
 
 const MockComponent = props => <div { ...props } />;

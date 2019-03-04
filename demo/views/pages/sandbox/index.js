@@ -1,8 +1,6 @@
 import React from 'react';
 import { transform } from 'babel-standalone';
 import './sandbox.scss';
-// import Form from '../../../../src/components/form';
-import Textbox from '../../../../src/__experimental__/components/textbox';
 
 class Preview extends React.Component {
   state = {
@@ -43,36 +41,48 @@ class Preview extends React.Component {
 }
 
 class Sandbox extends React.Component {
-  state = { value: '' }
-
-  onChange = (ev) => {
-    this.setState({ value: ev.target.value });
+  state = {
+    code: ''
   }
 
-  isLong = value => new Promise((resolve, reject) => {
-    if (value.length >= 3) {
-      resolve(value);
-    } else {
-      reject(new Error('length error'));
+  updateCode = (ev) => {
+    this.setState({ code: ev.target.value });
+  }
+
+  catchTab = (ev) => {
+    if (ev.keyCode === 9) {
+      ev.preventDefault();
+      const input = ev.target;
+      const startPos = input.selectionStart;
+      const endPos = input.selectionEnd;
+      const newValue = `${input.value.substring(0, startPos)
+      }  ${
+        input.value.substring(endPos, input.value.length)}`;
+
+      this.setState({ code: newValue }, () => {
+        const newPos = startPos + 2;
+        input.setSelectionRange(newPos, newPos);
+      });
     }
-  });
+  }
 
   render() {
     return (
-      <Form>
-        <Textbox
-          validations={ [this.isLong, new PresenceValidation()] }
-          warning={ [new PresenceValidation()] }
-          info={ [new PresenceValidation()] }
-          value={ this.state.value }
-          onChange={ this.onChange }
+      <div className={ `sandbox sandbox-orientation-${this.state.orientation ? 'horizontal' : 'vertical'}` }>
+        <Preview code={ this.state.code } />
+        <textarea
+          autoFocus
+          className='sandbox-input'
+          onChange={ this.updateCode }
+          onKeyDown={ this.catchTab }
+          value={ this.state.code }
         />
-        <Textbox
-          validations={ [this.isLong, new PresenceValidation()] }
-          warning={ [new PresenceValidation()] }
-          info={ [new PresenceValidation()] }
+        <input
+          className='sandbox-orientation'
+          type='checkbox'
+          onChange={ () => { this.setState({ orientation: !this.state.orientation }); } }
         />
-      </Form>
+      </div>
     );
   }
 }
