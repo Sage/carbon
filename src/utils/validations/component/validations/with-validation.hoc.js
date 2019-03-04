@@ -71,30 +71,30 @@ const withValidation = (WrappedComponent) => {
 
       switch (type) {
         case 'validations':
-          if (!errorStatus && this.state.hasError) {
-            this.setState({ hasError: false });
-            adjustCount('error', -1);
-          } else if (errorStatus) {
+          if (errorStatus) {
             this.setState({ hasError: errorStatus });
             adjustCount('error', 1);
+          } else if (this.state.hasError) {
+            this.setState({ hasError: false });
+            adjustCount('error', -1);
           }
           break;
         case 'warnings':
-          if (!errorStatus && this.state.hasWarning) {
-            this.setState({ hasWarning: false });
-            adjustCount('warning', -1);
-          } else if (errorStatus) {
+          if (errorStatus) {
             this.setState({ hasWarning: errorStatus });
             adjustCount('warning', 1);
+          } else if (this.state.hasWarning) {
+            this.setState({ hasWarning: false });
+            adjustCount('warning', -1);
           }
           break;
         case 'info':
-          if (!errorStatus && this.state.hasInfo) {
-            this.setState({ hasInfo: false });
-            adjustCount('info', -1);
-          } else if (errorStatus) {
+          if (errorStatus) {
             this.setState({ hasInfo: errorStatus });
             adjustCount('info', 1);
+          } else if (this.state.hasInfo) {
+            this.setState({ hasInfo: false });
+            adjustCount('info', -1);
           }
           break;
           // no default
@@ -104,9 +104,7 @@ const withValidation = (WrappedComponent) => {
 
     runValidation = (type) => {
       return new Promise((resolve) => {
-        if (this.props[type].length === 0) {
-          resolve(true);
-        }
+        if (this.props[type].length === 0) resolve(true);
 
         if (!this.context.adjustCount) resolve(false);
 
@@ -115,8 +113,8 @@ const withValidation = (WrappedComponent) => {
           .then(() => {
             resolve(this.validationsResult(type));
           })
-          .catch((e) => {
-            resolve(this.validationsResult(type, e));
+          .catch((error) => {
+            resolve(this.validationsResult(type, error));
           });
       });
     }
@@ -126,16 +124,8 @@ const withValidation = (WrappedComponent) => {
       if (this.state.hasInfo) type = 'info';
       if (this.state.hasWarning) type = 'warning';
       if (this.state.hasError) type = 'error';
-      // const { children } = this.props;
       const validationIcon = type ? <Icon key={ `${type}-icon` } type={ type } /> : undefined;
       return validationIcon;
-      // if (type) {
-      //   if (Array.isArray(children)) {
-      //     return [...children, validationIcon];
-      //   }
-      //   return [children, validationIcon];
-      // }
-      // return children;
     }
 
     handleBlur = (ev) => {

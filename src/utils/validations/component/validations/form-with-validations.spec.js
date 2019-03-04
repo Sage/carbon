@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { formWithValidation } from '.';
+import { withValidations } from '.';
 
 const error = Error('this value is required!');
 
@@ -29,7 +29,7 @@ describe('formWithValidation', () => {
   let wrapper, context;
 
   const Child = MockComponent;
-  const ValididationComp = formWithValidation(MockComponent);
+  const ValididationComp = withValidations(MockComponent);
   beforeEach(() => {
     wrapper = shallow(
       <ValididationComp>

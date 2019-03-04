@@ -105,7 +105,7 @@ describe('Validations component', () => {
     it('returns the children if no type has been set', () => {
       wrapper.setProps({ children: <div /> });
       const markup = wrapper.instance().renderValidationMarkup();
-      expect(markup.type).toEqual('div');
+      expect(markup).toEqual(undefined);
       expect(wrapper.contains(<Icon />)).toEqual(false);
       expect(wrapper).toMatchSnapshot();
     });

@@ -18,9 +18,6 @@ describe('withUniqueName HOC', () => {
     const InputComponent = withUniqueName(MockComponent);
     wrapper = shallow(<InputComponent name='foo' />);
     expect(wrapper.props().name).toEqual('foo');
-    wrapper = shallow(<InputComponent />);
-    const { name } = wrapper.props();
-    expect(wrapper.props().name).toEqual(name);
   });
 
   it('the generated name prop is persisted even after re-render', () => {
