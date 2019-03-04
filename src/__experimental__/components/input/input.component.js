@@ -35,18 +35,6 @@ class Input extends React.Component {
     onBlur: PropTypes.func,
     onClick: PropTypes.func,
     onFocus: PropTypes.func
-    // validations: PropTypes.oneOfType([
-    //   PropTypes.func,
-    //   PropTypes.arrayOf(PropTypes.func)
-    // ]),
-    // warnings: PropTypes.oneOfType([
-    //   PropTypes.func,
-    //   PropTypes.arrayOf(PropTypes.func)
-    // ]),
-    // info: PropTypes.oneOfType([
-    //   PropTypes.func,
-    //   PropTypes.arrayOf(PropTypes.func)
-    // ])
   }
 
   static contextType = InputPresentationContext

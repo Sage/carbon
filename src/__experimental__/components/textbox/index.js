@@ -1,1 +1,3 @@
-export { default } from './textbox.component';
+import Textbox from './textbox.component';
+
+export default Textbox;
