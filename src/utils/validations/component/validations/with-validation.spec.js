@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import withValidation from './with-validation.hoc';
+import { withValidation } from '.';
 
 const presErr = new Error('this value is required!');
 const notZeroErr = new Error('this is zero!');

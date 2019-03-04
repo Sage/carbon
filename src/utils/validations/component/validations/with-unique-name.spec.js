@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import withUniqueName from './with-unique-name.hoc';
+import { withUniqueName } from '.';
 
 const MockComponent = props => <div { ...props } />;
 

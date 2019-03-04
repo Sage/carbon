@@ -1,4 +1,4 @@
-import formWithValidation from './form-with-validation.hoc';
+import formWithValidation from './form-with-validations.hoc';
 import withUniqueName from './with-unique-name.hoc';
 import withValidation from './with-validation.hoc';
 

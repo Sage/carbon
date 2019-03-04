@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import formWithValidation from './form-with-validations.hoc';
+import { formWithValidation } from '.';
 
 const error = Error('this value is required!');
 
