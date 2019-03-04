@@ -118,6 +118,14 @@ class Table extends React.Component {
     className: PropTypes.string,
 
     /**
+     * Custom empty row
+     *
+     * @property customEmptyRow
+     * @type {Object}
+     */
+    customEmptyRow: PropTypes.node,
+
+    /**
      * Data used to filter the data
      *
      * @property filter
@@ -1011,6 +1019,10 @@ class Table extends React.Component {
    * @return {Object} JSX
    */
   get emptyRow() {
+    if (this.props.customEmptyRow) {
+      return this.props.customEmptyRow;
+    }
+
     return (
       <TableRow
         key='__loading__' selectable={ false }
