@@ -5,10 +5,6 @@ import Form from '../form';
 import tagComponent from '../../utils/helpers/tags';
 import './filter.scss';
 
-/**
- * @class Filter
- * @constructor
- */
 class Filter extends Form {
   static propTypes = {
     /**

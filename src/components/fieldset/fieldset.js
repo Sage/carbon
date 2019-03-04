@@ -5,11 +5,6 @@ import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import './fieldset.scss';
 
-/**
- * Fieldset component.
- *
- * This component will stack inputs together.
- */
 class Fieldset extends React.Component {
   static propTypes = {
     /**
