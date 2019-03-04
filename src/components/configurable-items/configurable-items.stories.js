@@ -5,28 +5,29 @@ import { action } from '@storybook/addon-actions';
 import notes from './notes.md';
 import { ConfigurableItems, ConfigurableItemRow } from './configurable-items.js';
 
+const defaultConfigurableItemsData = [
+  {
+    enabled: true,
+    locked: true,
+    name: 'test 1',
+    key: '1'
+  },
+  {
+    enabled: true,
+    locked: false,
+    name: 'test 2',
+    key: '2'
+  },
+  {
+    enabled: false,
+    locked: false,
+    name: 'test 3',
+    key: '3'
+  }
+];
 const store = new Store(
   {
-    configurableItemsData: [
-      {
-        enabled: true,
-        locked: false,
-        name: 'test 1',
-        key: '1'
-      },
-      {
-        enabled: true,
-        locked: false,
-        name: 'test 2',
-        key: '2'
-      },
-      {
-        enabled: true,
-        locked: false,
-        name: 'test 3',
-        key: '3'
-      }
-    ]
+    configurableItemsData: [...defaultConfigurableItemsData]
   }
 );
 const handleDrag = (draggedIndex, hoveredIndex) => {
@@ -53,6 +54,10 @@ const handleSave = (event) => {
 
   action('saved')();
 };
+const handleReset = () => {
+  store.set({ configurableItemsData: [...defaultConfigurableItemsData] });
+  action('reset')();
+};
 const rows = data => data.map((column, rowIndex) => {
   return (
     <ConfigurableItemRow
@@ -77,7 +82,7 @@ storiesOf('ConfigurableItems', module)
       <ConfigurableItems
         onDrag={ handleDrag }
         onCancel={ action('canceled') }
-        onReset={ action('reset') }
+        onReset={ handleReset }
         onSave={ handleSave }
       >
         <State store={ store }>
