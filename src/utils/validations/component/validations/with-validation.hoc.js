@@ -124,7 +124,12 @@ const inputWithValidation = (WrappedComponent) => {
       if (this.state.hasInfo) type = 'info';
       if (this.state.hasWarning) type = 'warning';
       if (this.state.hasError) type = 'error';
-      if (type) return [...this.props.children, <Icon key={ `${type}-icon` } type={ type } />];
+      if (type) {
+        if (Array.isArray(this.props.children)) {
+          return [...this.props.children, <Icon key={ `${type}-icon` } type={ type } />];
+        }
+        return [this.props.children, <Icon key={ `${type}-icon` } type={ type } />];
+      }
       return this.props.children;
     }
 

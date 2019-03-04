@@ -27,7 +27,7 @@ exports[`Validations component renderValidationMarkup returns an Icon with error
 >
   <Icon
     bgSize="small"
-    key="undefinedicon"
+    key="error-icon"
     type="error"
   />
 </MockComponent>
@@ -42,7 +42,7 @@ exports[`Validations component renderValidationMarkup returns an Icon with info 
 >
   <Icon
     bgSize="small"
-    key="undefinedicon"
+    key="info-icon"
     type="info"
   />
 </MockComponent>
@@ -57,13 +57,31 @@ exports[`Validations component renderValidationMarkup returns an Icon with warni
 >
   <Icon
     bgSize="small"
-    key="undefinedicon"
+    key="warning-icon"
     type="warning"
   />
 </MockComponent>
 `;
 
-exports[`Validations component renderValidationMarkup returns the children object if no type has been set 1`] = `
+exports[`Validations component renderValidationMarkup returns the Icon when the compnent has an array of children 1`] = `
+<MockComponent
+  info={Array []}
+  onBlur={[Function]}
+  validations={Array []}
+  warnings={Array []}
+>
+  <div />
+  foo
+  <div />
+  <Icon
+    bgSize="small"
+    key="error-icon"
+    type="error"
+  />
+</MockComponent>
+`;
+
+exports[`Validations component renderValidationMarkup returns the children if no type has been set 1`] = `
 <MockComponent
   info={Array []}
   onBlur={[Function]}

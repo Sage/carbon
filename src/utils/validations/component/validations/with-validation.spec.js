@@ -110,11 +110,21 @@ describe('Validations component', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('returns the children object if no type has been set', () => {
+    it('returns the children if no type has been set', () => {
       wrapper.setProps({ children: <div /> });
       const markUp = wrapper.instance().renderValidationMarkup();
       expect(Array.isArray(markUp)).toEqual(false);
       expect(markUp.type).toEqual('div');
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('returns the Icon when the component has an array of children', () => {
+      wrapper.setState({ hasInfo: true, hasWarning: true, hasError: true });
+      wrapper.setProps({ children: [<div />, 'foo', <div />] });
+      const markUp = wrapper.instance().renderValidationMarkup();
+      const size = markUp.length;
+      expect(markUp[size - 1].type.displayName).toEqual('Icon');
+      expect(markUp[size - 1].props.type).toEqual('error');
       expect(wrapper).toMatchSnapshot();
     });
   });
