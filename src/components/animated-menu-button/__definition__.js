@@ -36,23 +36,23 @@ let definition = new Definition('animated-menu-button', AnimatedMenuButton, {
   },
   propValues: {
     children: `<Row>
-    <div>
+    <Column>
       <h2>1st Category</h2>
       <p><Link>First Option</Link></p>
       <p><Link>Another Option</Link></p>
-    </div>
+    </Column>
 
-    <div>
+    <Column>
       <h2>2nd Category</h2>
       <p><Link>First Option</Link></p>
       <p><Link>Another Option</Link></p>
-    </div>
+    </Column>
 
-    <div>
+    <Column>
       <h2>3rd Category</h2>
       <p><Link>First Option</Link></p>
       <p><Link>Another Option</Link></p>
-    </div>
+    </Column>
   </Row>`,
     direction: 'right'
   }
