@@ -52,7 +52,7 @@ describe('formWithValidation', () => {
     context = wrapper.instance().getContext();
   });
 
-  it('matches snapshot', () => {
+  it('passes down props so that the component matches snapshot', () => {
     expect(wrapper).toMatchSnapshot();
   });
 

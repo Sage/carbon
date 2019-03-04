@@ -124,10 +124,7 @@ const inputWithValidation = (WrappedComponent) => {
       if (this.state.hasInfo) type = 'info';
       if (this.state.hasWarning) type = 'warning';
       if (this.state.hasError) type = 'error';
-      if (type) {
-        const key = this.props.children ? (this.props.children.length - 1).toString() : '0';
-        return [this.props.children, <Icon key={ key } type={ type } />];
-      }
+      if (type) return [...this.props.children, <Icon key={ `${type}-icon` } type={ type } />];
       return this.props.children;
     }
 
@@ -135,11 +132,6 @@ const inputWithValidation = (WrappedComponent) => {
       this.validate();
       if (this.props.onBlur) this.props.onBlur(ev);
     }
-
-    // onValueChangeHandler = (ev) => {
-    //   // this.setState({ value: ev.target.value });
-    //   // this.props.onChange(ev);
-    // }
 
     render() {
       return (

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`formWithValidation matches snapshot 1`] = `
+exports[`formWithValidation passes down props so that the component matches snapshot 1`] = `
 <ContextProvider
   value={
     Object {

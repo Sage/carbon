@@ -54,6 +54,8 @@ const MockComponent = props => <div { ...props } />;
 
 const InputComponent = withValidation(MockComponent);
 
+const WithNoName = withValidation(() => <div />);
+
 const shallowRenderWithContext = props => shallow(<InputComponent { ...props } />, { context });
 
 const validations = [isNotZero, presence, asyncValidation];
@@ -69,6 +71,11 @@ describe('Validations component', () => {
 
   it('matches the snapshot when the component renders with default props', () => {
     wrapper2 = shallowRenderWithContext();
+    expect(wrapper2).toMatchSnapshot();
+  });
+
+  it('matches the snapshot when the hoc is passed an anonymous function with no name or display name', () => {
+    wrapper2 = shallow(<WithNoName />);
     expect(wrapper2).toMatchSnapshot();
   });
 

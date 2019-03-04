@@ -9,6 +9,15 @@ exports[`Validations component matches the snapshot when the component renders w
 />
 `;
 
+exports[`Validations component matches the snapshot when the hoc is passed an anonymous function with no name or display name 1`] = `
+<Component
+  info={Array []}
+  onBlur={[Function]}
+  validations={Array []}
+  warnings={Array []}
+/>
+`;
+
 exports[`Validations component renderValidationMarkup returns an Icon with error type when the state has validations 1`] = `
 <MockComponent
   info={Array []}
@@ -18,7 +27,7 @@ exports[`Validations component renderValidationMarkup returns an Icon with error
 >
   <Icon
     bgSize="small"
-    key="0"
+    key="undefinedicon"
     type="error"
   />
 </MockComponent>
@@ -33,7 +42,7 @@ exports[`Validations component renderValidationMarkup returns an Icon with info 
 >
   <Icon
     bgSize="small"
-    key="0"
+    key="undefinedicon"
     type="info"
   />
 </MockComponent>
@@ -48,7 +57,7 @@ exports[`Validations component renderValidationMarkup returns an Icon with warni
 >
   <Icon
     bgSize="small"
-    key="0"
+    key="undefinedicon"
     type="warning"
   />
 </MockComponent>
