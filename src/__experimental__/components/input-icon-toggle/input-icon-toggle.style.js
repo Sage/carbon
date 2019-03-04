@@ -22,7 +22,7 @@ function getColor({ theme, isHovered, disabled }) {
   }
 
   if (isHovered) {
-    return colors.text.white;
+    return colors.white;
   }
 
   return colors.text.body;
