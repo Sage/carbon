@@ -316,6 +316,7 @@ exports[`InputIconToggle when initiated with the isHovered prop set to false ren
 
 exports[`InputIconToggle when initiated with the isHovered prop set to true renders as expected 1`] = `
 .c0 {
+  color: #FFFFFF;
   background-color: #004400;
   border-left: 1px solid #668592;
   cursor: pointer;
