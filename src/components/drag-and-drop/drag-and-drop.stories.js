@@ -98,7 +98,8 @@ storiesOf('DraggableContext', module)
         import { DraggableContext, WithDrop, WithDrag } from 'carbon-react/lib/components/ag-and-drop'
         ~~~
 
-        A draggable context is used to define an area in the page where drag and drop can be used one or more elements (you also need to use WithDrop and WithDrag):
+        A draggable context is used to define an area in the page where drag and drop can be used.
+        You also need to use WithDrop and WithDrag:
         
         ~~~JS
         <DraggableContext onDrag={ onItemMoved }>

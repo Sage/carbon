@@ -75,7 +75,7 @@ storiesOf('Flash', module)
   
         By default, the flash renders with a clickable close icon that hooks up with the onDismiss unction.
   
-        To instead have the flash disappear after a given time period, pass a prop of timeout in illiseconds.
+        To instead have the flash disappear after a given time period, pass a prop of timeout in milliseconds.
   
         ~~~js
         <Flash open={ openStatus } onDismiss={ myOnDismiss } message='Alert!' timeout={ 2000 }/>
@@ -87,8 +87,12 @@ storiesOf('Flash', module)
         - An array: ["Message One", "Message Two"]
         - An object with description: { description: "My description" }
         - An object of key/value pairs: { first_name: "is required", last_name: "is required" }
-        - An object with description with nested key/value pairs: { description: { first_name: "is required", last_name: "is required" } }
-  
+        - An object with description and nested key/value pairs: 
+
+        ~~~js
+        { description: { first_name: "is required", last_name: "is required" } }
+        ~~~
+
         If a message is too long, it can be proxied to a dialog by adding "more" in your description.
   
         ~~~js
