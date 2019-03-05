@@ -71,13 +71,51 @@ Object {
   "onMouseLeave": [Function],
   "onSelect": [Function],
   "open": true,
-  "target": <div
-    class="carbon-input-presentation carbon-input-presentation--has-focus"
+  "target": .c0 {
+  color: rgba(0,0,0,0.9);
+  background: transparent;
+  line-height: 16px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  cursor: text;
+  margin: 0px;
+  min-height: 32px;
+  border: 1px solid #CCD6DA;
+  outline: 3px solid #FFB500;
+  height: 48px;
+  font-size: 16px;
+  padding-left: 13px;
+  padding-right: 13px;
+  width: 256px;
+}
+
+.c1 {
+  border: none;
+  background: transparent;
+  outline: none;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  width: 30px;
+  color: rgba(0,0,0,0.85);
+  font-size: 14px;
+}
+
+<div
+    autocomplete="off"
+    class="carbon-input-presentation carbon-input-presentation--has-focus c0"
+    data-element="input"
+    id="guid-12345"
     role="presentation"
+    type="text"
+    value=""
   >
     <input
       autocomplete="off"
-      class="carbon-input"
+      class="c1"
       data-element="input"
       id="guid-12345"
       value=""

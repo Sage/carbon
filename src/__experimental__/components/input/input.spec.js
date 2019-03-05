@@ -1,6 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import { Input, InputPresentationContext } from '.';
+import 'jest-styled-components';
 
 describe('Input', () => {
   const renderMount = (props, context) => {
@@ -25,11 +26,6 @@ describe('Input', () => {
     const inputRef = jest.fn();
     const wrapper = renderMount({ inputRef });
     expect(inputRef).toHaveBeenCalledWith(wrapper.instance().input);
-  });
-
-  it('replaces old class name for new one', () => {
-    const wrapper = renderMount({ className: 'foo common-input__input' });
-    expect(wrapper.find('input').props().className).toEqual('foo carbon-input');
   });
 
   it('does not fail onBlur or Focus if none are defined', () => {

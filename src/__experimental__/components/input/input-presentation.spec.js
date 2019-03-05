@@ -1,9 +1,18 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { InputPresentation } from '.';
+import { shallow, mount } from 'enzyme';
+import { InputPresentation, Input } from '.';
+import baseTheme from '../../../style/themes/base';
+import {
+  stripKeys, assertStyleMatch
+} from '../../../__spec_helper__/test-utils';
+import 'jest-styled-components';
+
+const mountRender = (props) => {
+  return mount(<InputPresentation { ...props }><Input /></InputPresentation>);
+};
 
 describe('InputPresentation', () => {
-  const shallowRender = () => shallow(<InputPresentation>sample children</InputPresentation>);
+  const shallowRender = props => shallow(<InputPresentation { ...props }>sample children</InputPresentation>);
 
   it('renders presentational div and context provider for its children', () => {
     expect(shallowRender()).toMatchSnapshot();
@@ -14,6 +23,100 @@ describe('InputPresentation', () => {
     expect(wrapper
       .find('.carbon-input-presentation')
       .hasClass('carbon-input-presentation--has-focus')).toBeTruthy();
+  });
+
+  describe('style', () => {
+    const {
+      components: { inputPresentation: inputStyleRules },
+      colors: {
+        error, warning, text
+      }
+    } = baseTheme;
+
+    describe('sizes', () => {
+      const { small, medium, large } = stripKeys(inputStyleRules.sizes, ['width', 'fontSize']);
+
+      it('has the right style for small-sized inputs', () => {
+        assertStyleMatch(small, mountRender({ size: 'small' }));
+      });
+      it('has the right style for medium-sized inputs', () => {
+        assertStyleMatch(medium, mountRender({ size: 'medium' }));
+      });
+      it('has the right style for large-sized inputs', () => {
+        assertStyleMatch(large, mountRender({ size: 'large' }));
+      });
+    });
+
+    describe('states', () => {
+      describe('disabled', () => {
+        it('has the correct style rules', () => {
+          assertStyleMatch(
+            {
+              color: text.disabled,
+              background: inputStyleRules.states.disabled.background,
+              cursor: 'not-allowed'
+            },
+            mountRender({ disabled: true })
+          );
+        });
+      });
+
+      describe('active', () => {
+        it('has the correct style rules', () => {
+          const wrapper = mountRender({ hasFocus: true });
+
+          const styleRules = {
+            color: text.body,
+            background: inputStyleRules.base.background,
+            outline: `3px solid ${warning}`,
+            border: `${inputStyleRules.base.border}`
+          };
+
+          assertStyleMatch(
+            styleRules,
+            wrapper
+          );
+        });
+      });
+
+      describe('readOnly', () => {
+        it('has the correct style rules', () => {
+          assertStyleMatch(
+            {
+              background: inputStyleRules.states.readOnly.background,
+              border: 'none'
+            },
+            mountRender({ readOnly: true })
+          );
+        });
+      });
+
+      describe('error', () => {
+        it('has the correct style rules', () => {
+          assertStyleMatch(
+            {
+              color: text.body,
+              background: inputStyleRules.base.background,
+              border: `2px solid ${error}`
+            },
+            mountRender({ error: true })
+          );
+        });
+      });
+
+      describe('warning', () => {
+        it('has the correct style rules', () => {
+          assertStyleMatch(
+            {
+              color: text.body,
+              background: inputStyleRules.base.background,
+              border: `2px solid ${warning}`
+            },
+            mountRender({ warning: true })
+          );
+        });
+      });
+    });
   });
 
   describe('InputPresentationContext', () => {

@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { InputPresentationContext } from './input-presentation.component';
-import './input.style.scss';
+import StyledInput from './input.style';
+// import './input.style.scss';
 
 // This is a component in progress to incrementally remove the reliance
 // on the input decorators. For now we still rely on inputProps being
@@ -9,11 +10,6 @@ import './input.style.scss';
 // to use the full supported feature set of a Carbon component. Over time we
 // will add additional supported on the decorated features without the need
 // for the decorators themselves.
-
-// Switch the old class for the new one until we refactor out the input decorators
-const classNamesForInput = className => (
-  className ? className.replace('common-input__input', 'carbon-input') : 'carbon-input'
-);
 
 const selectTextOnFocus = (input) => {
   // setTimeout is required so the dom has a chance to place the cursor in the input
@@ -70,10 +66,10 @@ class Input extends React.Component {
     } = this.props;
 
     return (
-      <input
+      <StyledInput
         { ...props }
         ref={ this.input }
-        className={ classNamesForInput(className) }
+        className={ className }
         onFocus={ this.handleFocus }
         onBlur={ this.handleBlur }
         onClick={ this.handleClick }

@@ -1,3 +1,6 @@
+import inputConfig from './components/input';
+import inputPresentationConfig from './components/input-presentation';
+
 export default (palette) => {
   const { atOpacity } = palette,
       blackWithOpacity = atOpacity('#000000');
@@ -24,6 +27,10 @@ export default (palette) => {
         disabled: blackWithOpacity(0.55),
         placeholder: blackWithOpacity(0.3)
       }
+    },
+    components: {
+      input: inputConfig(blackWithOpacity),
+      inputPresentation: inputPresentationConfig({ palette, blackWithOpacity })
     }
   };
 };
