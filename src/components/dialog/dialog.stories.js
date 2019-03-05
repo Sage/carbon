@@ -28,11 +28,10 @@ storiesOf('Dialog', module)
     }
   })
   .add('default', () => {
-    const open = boolean('open', store.get('open'));
     const height = text('height', '400');
     const title = text('title', 'Example Dialog');
     const subtitle = text('subtitle', 'Example Subtitle');
-    const size = select('size', OptionsHelper.sizesRestricted, OptionsHelper.sizesRestricted[1]);
+    const size = select('size', OptionsHelper.sizesRestricted, Dialog.defaultProps.size);
     const showCloseIcon = boolean('showCloseIcon', Dialog.defaultProps.showCloseIcon);
     const autoFocus = boolean('autoFocus', Dialog.defaultProps.autoFocus);
     const stickyFormFooter = boolean('stickyFormFooter', false);
