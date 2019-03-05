@@ -24,7 +24,9 @@
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpx \"src/**/!(*.js|*.md|*.snap)\" lib",
     "webpack": "node_modules/.bin/webpack",
-    "webpack-dev-server": "node_modules/.bin/webpack-dev-server"
+    "webpack-dev-server": "node_modules/.bin/webpack-dev-server",	
+	"test": "cypress open",
+    "test:ci": "cypress run"
   },
   "repository": {
     "type": "git",
@@ -76,7 +78,13 @@
     "react-test-renderer": "16.8.2",
     "rimraf": "^2.6.3",
     "underscore.string": "~3.3.4",
-    "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements"
+    "xhr-mock": "git://github.com/resin-io-modules/xhr-mock.git#improvements",
+	"cypress": "^3.1.5",
+    "cypress-cucumber-preprocessor": "^1.6.0",
+    "eslint": "^5.3.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-cypress": "^2.0.1",
+    "eslint-plugin-import": "^2.14.0"
   },
   "dependencies": {
     "axios": "^0.14.0",
