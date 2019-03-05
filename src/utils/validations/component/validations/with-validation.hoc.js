@@ -46,6 +46,8 @@ const withValidation = (WrappedComponent) => {
       hasInfo: false
     };
 
+    currentFailedValidations = { error: [], warning: [], info: [] };
+
     componentDidMount = () => {
       if (this.context && this.context.addInput && this.props.validations.length) {
         this.context.addInput(this.props.name, this.validate);
@@ -58,6 +60,36 @@ const withValidation = (WrappedComponent) => {
       }
     }
 
+    addFailedValidation = (type, message) => {
+      const { adjustCount } = this.context;
+      this.currentFailedValidations[type].push(message);
+      adjustCount(type, 1);
+    }
+
+    removeFailedValidations = (type) => {
+      const array = this.currentFailedValidations[type];
+      const { adjustCount } = this.context;
+      for (let i = array.length - 1; i >= 0; i--) adjustCount(type, -1);
+      this.currentFailedValidations[type] = [];
+    }
+
+    isKnownFailedValidation = (type, error) => {
+      let exists = false;
+      switch (type) {
+        case 'validations':
+          exists = this.currentFailedValidations.error.includes(error.message);
+          break;
+        case 'warnings':
+          exists = this.currentFailedValidations.warning.includes(error.message);
+          break;
+        case 'info':
+          exists = this.currentFailedValidations.info.includes(error.message);
+          break;
+          // no default
+      }
+      return exists;
+    }
+
     validate = async (types = ['validations', 'warnings', 'info']) => {
       let result = true;
       if (types.includes('validations')) result = await this.runValidation('validations');
@@ -67,34 +99,32 @@ const withValidation = (WrappedComponent) => {
     }
 
     validationsResult = (type, errorStatus) => {
-      const { adjustCount } = this.context;
-
       switch (type) {
         case 'validations':
           if (errorStatus) {
+            this.addFailedValidation('error', errorStatus.message);
             this.setState({ hasError: errorStatus });
-            adjustCount('error', 1);
           } else if (this.state.hasError) {
+            this.removeFailedValidations('error');
             this.setState({ hasError: false });
-            adjustCount('error', -1);
           }
           break;
         case 'warnings':
           if (errorStatus) {
+            this.addFailedValidation('warning', errorStatus.message);
             this.setState({ hasWarning: errorStatus });
-            adjustCount('warning', 1);
           } else if (this.state.hasWarning) {
+            this.removeFailedValidations('warning');
             this.setState({ hasWarning: false });
-            adjustCount('warning', -1);
           }
           break;
         case 'info':
           if (errorStatus) {
+            this.addFailedValidation('info', errorStatus.message);
             this.setState({ hasInfo: errorStatus });
-            adjustCount('info', 1);
           } else if (this.state.hasInfo) {
+            this.removeFailedValidations('info');
             this.setState({ hasInfo: false });
-            adjustCount('info', -1);
           }
           break;
           // no default
@@ -104,17 +134,20 @@ const withValidation = (WrappedComponent) => {
 
     runValidation = (type) => {
       return new Promise((resolve) => {
-        if (this.props[type].length === 0) resolve(true);
-
-        if (!this.context.adjustCount) resolve(false);
-
+        if (!this.context.adjustCount) {
+          return resolve(false);
+        }
+        if (this.props[type].length === 0) {
+          return resolve(true);
+        }
         const validate = validator(this.props[type]);
-        validate(this.props.value)
+        return validate(this.props.value)
           .then(() => {
-            resolve(this.validationsResult(type));
+            return resolve(this.validationsResult(type));
           })
           .catch((error) => {
-            resolve(this.validationsResult(type, error));
+            if (this.isKnownFailedValidation(type, error)) return resolve(false);
+            return resolve(this.validationsResult(type, error));
           });
       });
     }
