@@ -66,6 +66,21 @@ describe('Select', () => {
     expect(list.props()).toMatchSnapshot();
   });
 
+  it('triggers an onOpen callback if provided, but not if already open', () => {
+    const onOpen = jest.fn();
+    const wrapper = renderWrapper({ props: { onOpen } });
+    openList(wrapper);
+    openList(wrapper);
+    expect(onOpen).toHaveBeenCalled();
+    expect(onOpen.mock.calls.length).toEqual(1);
+  });
+
+  it('opens the list on click', () => {
+    const wrapper = renderWrapper();
+    wrapper.find('input').simulate('click');
+    expect(wrapper.state().open).toEqual(true);
+  });
+
   it('does not apply any events if disabled or readonly', () => {
     [{ disabled: true }, { readOnly: true }].forEach((state) => {
       expect(renderWrapper({ state, type: shallow })).toMatchSnapshot();
@@ -96,6 +111,13 @@ describe('Select', () => {
       expect(props.onChange).toHaveBeenCalledWith({
         target: { value: [...multiValue, newValue] }
       });
+    });
+
+    it('does not allow the same item to be selected twice', () => {
+      const props = { value: multiValue, onChange: jest.fn() };
+      const list = listOf(openList(renderWrapper({ props })));
+      list.props().onSelect(multiValue[0]);
+      expect(props.onChange).not.toHaveBeenCalled();
     });
 
     it('triggers onChange with the item removed when clicking delete on the pill', () => {
@@ -180,6 +202,12 @@ describe('Select', () => {
   });
 
   describe('blur / focus events', () => {
+    it('triggers custom on focus prop if provided', () => {
+      const onFocus = jest.fn();
+      openList(renderWrapper({ props: { onFocus } }));
+      expect(onFocus).toHaveBeenCalled();
+    });
+
     it('blocks blur on mouse enter of the list and unblocks on leaving the list', () => {
       const wrapper = openList(renderWrapper());
       const list = listOf(wrapper);
@@ -191,8 +219,8 @@ describe('Select', () => {
     });
 
     describe('onBlur', () => {
-      const setupTest = (blocked) => {
-        const wrapper = openList(renderWrapper());
+      const setupTest = (blocked, props) => {
+        const wrapper = openList(renderWrapper({ props }));
         wrapper.instance().blurBlocked = blocked;
         wrapper.setState({ open: true, filter: 'x' });
         expect(wrapper.state().open).toEqual(true);
@@ -205,6 +233,12 @@ describe('Select', () => {
         const wrapper = setupTest(false);
         expect(wrapper.state().open).toEqual(false);
         expect(wrapper.state().filter).toEqual(undefined);
+      });
+
+      it('calls custom blur prop is passed', () => {
+        const onBlur = jest.fn();
+        setupTest(false, { onBlur });
+        expect(onBlur).toHaveBeenCalled();
       });
 
       it('does not reset the state if blur is blocked', () => {
