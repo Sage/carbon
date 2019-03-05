@@ -17,44 +17,27 @@ class Flash extends React.Component {
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * A custom close event handler
-     *
-     * @property onDismiss
-     * @type {Function}
      */
     onDismiss: PropTypes.func.isRequired,
 
     /**
      * Sets the open state of the flash.
-     *
-     * @property open
-     * @type {Boolean}
-     * @default false
      */
     open: PropTypes.bool.isRequired,
 
     /**
      * Type of notification.
      * (see the 'iconColorSets' for possible values)
-     *
-     * @property as
-     * @type {String}
-     * @default 'success'
      */
     as: PropTypes.string,
 
     /**
      * Contents of message.
-     *
-     * @property message
-     * @type {String|Object|Array}
      */
     message: PropTypes.oneOfType([
       PropTypes.string,
@@ -64,9 +47,6 @@ class Flash extends React.Component {
 
     /**
      * Time for flash to remain on screen
-     *
-     * @property timeout
-     * @type {Number} in milliseconds
      */
     timeout: PropTypes.oneOfType([
       PropTypes.string,

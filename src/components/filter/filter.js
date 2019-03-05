@@ -9,10 +9,6 @@ class Filter extends Form {
   static propTypes = {
     /**
      * Aligns the children in the filter.
-     *
-     * @property align
-     * @type {String}
-     * @default left
      */
     align: PropTypes.string
   }
