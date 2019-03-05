@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { State, Store } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
+import { cloneDeep } from 'lodash';
 import notes from './notes.md';
 import { ConfigurableItems, ConfigurableItemRow } from './configurable-items.js';
 
@@ -27,11 +28,11 @@ const defaultConfigurableItemsData = [
 ];
 const store = new Store(
   {
-    configurableItemsData: [...defaultConfigurableItemsData]
+    configurableItemsData: cloneDeep(defaultConfigurableItemsData)
   }
 );
 const handleDrag = (draggedIndex, hoveredIndex) => {
-  const { configurableItemsData } = store.state;
+  const configurableItemsData = store.get('configurableItemsData');
   const draggedItem = configurableItemsData[draggedIndex];
 
   configurableItemsData[draggedIndex] = configurableItemsData[hoveredIndex];
@@ -41,11 +42,11 @@ const handleDrag = (draggedIndex, hoveredIndex) => {
   action('dragged')();
 };
 const handleChange = rowIndex => () => {
-  const { configurableItemsData } = store.state;
+  const configurableItemsData = store.get('configurableItemsData');
 
   configurableItemsData[rowIndex].enabled = !configurableItemsData[rowIndex].enabled;
 
-  store.set('configurableItemsData', configurableItemsData);
+  store.set({ configurableItemsData });
   action('changed')();
 };
 const handleSave = (event) => {
@@ -55,7 +56,7 @@ const handleSave = (event) => {
   action('saved')();
 };
 const handleReset = () => {
-  store.set({ configurableItemsData: [...defaultConfigurableItemsData] });
+  store.set({ configurableItemsData: cloneDeep(defaultConfigurableItemsData) });
   action('reset')();
 };
 const rows = data => data.map((column, rowIndex) => {
