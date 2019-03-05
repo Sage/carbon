@@ -28,13 +28,15 @@ const store = new Store({
   }]
 });
 
-const onDrag = (originalIndex, newIndex) => {
+const handleDrag = (originalIndex, newIndex) => {
+  const dndData = store.get('dndData');
+  const sortedItem = dndData.slice(originalIndex);
+
+  dndData.splice(originalIndex, 1);
+  dndData.splice(newIndex, 0, sortedItem[0]);
+
+  store.set({ dndData });
   action('drag')();
-  const array = store.get('dndData');
-  const sortedItem = array.slice(originalIndex);
-  array.splice(originalIndex, 1);
-  array.splice(newIndex, 0, sortedItem[0]);
-  store.set({ dndData: array });
 };
 
 const BuildRows = props => (
@@ -68,7 +70,7 @@ storiesOf('DraggableContext', module)
     return (
       <DraggableContext
         autoScroll={ autoScroll }
-        onDrag={ onDrag }
+        onDrag={ handleDrag }
       >
         <div>
           <Table tbody={ false }>
