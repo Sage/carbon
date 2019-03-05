@@ -11,7 +11,6 @@ import notes from './notes.md';
 const store = new Store({
   open: false
 });
-
 const handleCancel = () => {
   store.set({ open: false });
   action('cancel')();

@@ -22,6 +22,11 @@ const handleOpen = () => {
 };
 
 storiesOf('Confirm', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [State]
+    }
+  })
   .add('default', () => {
     button('open', handleOpen);
     const children = text('children', 'This is an example of a confirm.');
@@ -54,7 +59,7 @@ storiesOf('Confirm', module)
           stickyFormFooter={ stickyFormFooter }
           confirmLabel={ confirmLabel }
           cancelLabel={ cancelLabel }
-          onConfirm={ () => action('confirm')() }
+          onConfirm={ action('confirm') }
           onCancel={ handleCancel }
         >
           { children }

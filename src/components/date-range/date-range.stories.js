@@ -1,29 +1,39 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { array, text, boolean } from '@storybook/addon-knobs';
+import { text, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { State, Store } from '@sambego/storybook-state';
 import notes from './notes.md';
 import DateRange from './date-range.js';
+
+const store = new Store({
+  value: ['2016-10-01', '2016-10-30']
+});
+const handleChange = (newDate) => {
+  store.set({ value: newDate });
+  action('changed')(newDate);
+};
 
 storiesOf('DateRange', module)
   .add('default', () => {
     const endLabel = text('endLabel', '');
-    const value = array('value', ['2016-10-01', '2016-10-30']);
     const startLabel = text('startLabel', '');
-    const startMessage = text('startMessage', '');
-    const endMessage = text('endMessage', '');
+    const startMessage = text('startMessage', 'Start date must not be later than the end date');
+    const endMessage = text('endMessage', 'End date cannot be earlier than the start date');
     const labelsInline = boolean('labelsInline', false);
 
     return (
-      <DateRange
-        onChange={ action('changed') }
-        endLabel={ endLabel }
-        value={ value }
-        startLabel={ startLabel }
-        startMessage={ startMessage }
-        endMessage={ endMessage }
-        labelsInline={ labelsInline }
-      />
+      <State store={ store }>
+        <DateRange
+          onChange={ handleChange }
+          endLabel={ endLabel }
+          value={ store.get('value') }
+          startLabel={ startLabel }
+          startMessage={ startMessage }
+          endMessage={ endMessage }
+          labelsInline={ labelsInline }
+        />
+      </State>
     );
   }, {
     notes: { markdown: notes }
