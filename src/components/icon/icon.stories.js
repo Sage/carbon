@@ -39,5 +39,31 @@ storiesOf('Icon', module)
       />
     );
   }, {
+    info: {
+      text: `
+        An Icon widget.
+
+        ## How to use an Icon in a component:
+
+        In your file
+
+        ~~~js
+        import Icon from 'carbon-react/lib/components/icon';
+        ~~~
+
+        To render an Icon:
+
+        ~~~js
+        <Icon type='foo' />
+        ~~~
+
+        'type' is a required prop
+
+        This widget follows this pattern:
+
+        https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components
+      `
+    }
+  }, {
     notes: { markdown: notes }
   });

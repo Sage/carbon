@@ -5,29 +5,6 @@ import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
 import './message.scss';
 
-/**
- * A Message widget.
- *
- * == How to use a Message in a component:
- *
- * In your file:
- *
- *   import Message from 'carbon-react/lib/components/message';
- *
- * To render the Message:
- *
- *   <Message title="This is a title" open={ true }>
- *     My message content
- *   </Message>
- *
- * Additionally you can pass optional props to the Message component
- *
- *   as: Customizes the appearence of the message changing the colour
- *       (see the 'iconColorSets' for possible values).
- *
- * @class Message
- * @constructor
- */
 class Message extends React.Component {
   static propTypes = {
 
