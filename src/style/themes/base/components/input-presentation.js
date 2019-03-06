@@ -1,5 +1,6 @@
 export default ({ palette, blackWithOpacity }) => ({
   base: {
+    alignItems: 'center',
     color: blackWithOpacity(0.9),
     background: 'transparent',
     lineHeight: '16px',
