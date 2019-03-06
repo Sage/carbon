@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Icon from 'components/icon/icon';
+import { FormFieldContext } from '../form-field';
 import InputIconToggleStyle from './input-icon-toggle.style';
 
 /**
@@ -27,7 +28,6 @@ const InputIconToggle = (props) => {
   const {
     iconType,
     content,
-    inputId,
     disabled,
     ...styleProps
   } = props;
@@ -35,13 +35,18 @@ const InputIconToggle = (props) => {
   if (disabled) return null;
 
   return (
-    <InputIconToggleStyle
-      htmlFor={ inputId }
-      key='label-icon'
-      { ...styleProps }
-    >
-      { content || <Icon type={ iconType } /> }
-    </InputIconToggleStyle>
+    <FormFieldContext.Consumer>
+      { ({ inputId, isHovered }) => (
+        <InputIconToggleStyle
+          htmlFor={ inputId }
+          key='label-icon'
+          isHovered={ isHovered }
+          { ...styleProps }
+        >
+          { content || <Icon type={ iconType } /> }
+        </InputIconToggleStyle>
+      )}
+    </FormFieldContext.Consumer>
   );
 };
 
@@ -51,17 +56,13 @@ InputIconToggle.propTypes = {
    */
   content: PropTypes.node,
   /**
-   * Type of an icon to render
+   * Disabled state of the input
    */
   disabled: PropTypes.bool,
   /**
    * Type of an icon to render
    */
   iconType: PropTypes.string.isRequired,
-  /**
-   * Id of an input that icon toggle should reside in
-   */
-  inputId: PropTypes.string.isRequired,
   /**
    * Hover state of the parent component
    */
