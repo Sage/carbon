@@ -44,7 +44,7 @@ const suggest = boolean('suggest', false);
 const freetext = boolean('freetext', false);
 const path = text('path', '/');
 const acceptHeader = text('acceptHeader', DropdownFilterAjax.defaultProps.acceptHeader);
-const rowsPerRequest = text('rowsPerRequest', DropdownFilterAjax.defaultProps.rowsPerRequest);
+const rowsPerRequest = number('rowsPerRequest', DropdownFilterAjax.defaultProps.rowsPerRequest);
 const dataRequestTimeout = number(
   'dataRequestTimeout',
   DropdownFilterAjax.defaultProps.dataRequestTimeout
