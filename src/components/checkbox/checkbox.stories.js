@@ -8,60 +8,35 @@ import notes from './notes.md';
 import Checkbox from './checkbox.js';
 
 storiesOf('Checkbox', module)
-  .add('controlled', () => {
-    const checked = boolean('checked', false);
-    const fieldHelpInline = boolean('fieldHelpInline', false);
+  .add('default', () => {
     const reverse = boolean('reverse', Checkbox.defaultProps.reverse);
-    const timeToDisappear = number('timeToDisappear', 0);
+    const fieldHelpInline = boolean('fieldHelpInline', false);
     const label = text('label', 'Example Checkbox');
+    const labelHelp = text('labelHelp', 'This text provides more information for the label.');
+    const inputWidth = number('inputWidth', 0, {
+      range: true,
+      min: 0,
+      max: 50,
+      step: 1
+    });
+    const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
     const labelInline = boolean('labelInline', false);
-    const labelWidth = labelInline ? number('labelWidth', 0) : undefined;
+    const labelWidth = labelInline ? number('labelWidth', 0, {
+      range: true,
+      min: 0,
+      max: 50,
+      step: 1
+    }) : undefined;
     const labelAlign = labelInline ? select(
       'labelAlign',
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ) : undefined;
-    const labelHelp = text('labelHelp', 'This text provides more information for the label.');
-    const inputWidth = number('fieldHelpInline', 0);
-    const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
-    return (
-      <Checkbox
-        checked={ checked }
-        fieldHelpInline={ fieldHelpInline }
-        reverse={ reverse }
-        timeToDisappear={ timeToDisappear }
-        label={ label }
-        labelInline={ labelInline }
-        labelWidth={ labelWidth }
-        labelAlign={ labelAlign }
-        labelHelp={ labelHelp }
-        inputWidth={ inputWidth }
-        fieldHelp={ fieldHelp }
-      />
-    );
-  }, {
-    notes: { markdown: notes }
-  }).add('uncontrolled', () => {
-    const fieldHelpInline = boolean('fieldHelpInline', false);
-    const reverse = boolean('reverse', Checkbox.defaultProps.reverse);
-    const timeToDisappear = number('timeToDisappear', 0);
-    const label = text('label', 'Example Checkbox');
-    const labelInline = boolean('labelInline', false);
-    const labelWidth = labelInline ? number('labelWidth', 0) : undefined;
-    const labelAlign = labelInline ? select(
-      'labelAlign',
-      OptionsHelper.alignBinary,
-      OptionsHelper.alignBinary[0]
-    ) : undefined;
-    const labelHelp = text('labelHelp', 'This text provides more information for the label.');
-    const inputWidth = number('fieldHelpInline', 0);
-    const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
 
     return (
       <Checkbox
         fieldHelpInline={ fieldHelpInline }
         reverse={ reverse }
-        timeToDisappear={ timeToDisappear }
         label={ label }
         labelInline={ labelInline }
         labelWidth={ labelWidth }

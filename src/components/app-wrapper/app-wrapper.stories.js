@@ -6,8 +6,8 @@ import AppWrapper from './app-wrapper';
 
 storiesOf('App Wrapper', module)
   .add('default', () => {
-    const children = text('children', 'This component will wrap itschildren within '
-    + 'the width constraints of your application.');
+    const children = text('children', 'This component will wrap its children within'
+    + ' the width constraints of your application.');
 
     return (
       <AppWrapper>

@@ -67,7 +67,7 @@ const InputLabel = (ComposedComponent) => {
        * Pass true to format the input/label inline
        *
        * @property
-       * @default top
+       * @default false
        * @type {Boolean}
        */
       labelInline: PropTypes.bool,

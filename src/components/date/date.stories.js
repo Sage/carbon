@@ -14,7 +14,6 @@ storiesOf('DateInput', module)
     const minDate = text('minDate', '');
     const maxDate = text('maxDate', '');
     const readOnly = boolean('readOnly', false);
-    const timeToDisappear = number('timeToDisappear', 0);
     const label = text('label', 'Example DateInput');
     const labelWidth = number('labelWidth', 0);
     const labelHelp = text('labelHelp', 'This text provides more information for the label.');
@@ -22,7 +21,12 @@ storiesOf('DateInput', module)
     const fieldHelpInline = boolean('fieldHelpInline', false);
     const value = text('value', DateInput.defaultProps.value);
     const labelInline = boolean('labelInline', false);
-    const inputWidth = labelInline ? number('inputWidth', 0) : undefined;
+    const inputWidth = labelInline ? number('inputWidth', 0, {
+      range: true,
+      min: 0,
+      max: 50,
+      step: 1
+    }) : undefined;
     const labelAlign = labelInline ? select(
       'labelAlign',
       OptionsHelper.alignBinary,
@@ -36,7 +40,6 @@ storiesOf('DateInput', module)
         minDate={ minDate }
         maxDate={ maxDate }
         readOnly={ readOnly }
-        timeToDisappear={ timeToDisappear }
         label={ label }
         labelInline={ labelInline }
         labelWidth={ labelWidth }
