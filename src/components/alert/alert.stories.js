@@ -1,10 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { boolean, text, select } from '@storybook/addon-knobs';
+import {
+  boolean, text, select, button
+} from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import Button from '../button/button';
+import Modal from '../modal';
 import Alert from './alert';
 import notes from './notes.md';
 
@@ -21,59 +23,29 @@ const handleOpen = () => {
 };
 
 storiesOf('Alert', module)
-  .add('default', () => {
-    const title = text('title', 'Attention');
-    const subtitle = text('subtitle', '');
-    const children = text('children', 'This is an example of a alert.');
-    const enableBackgroundUI = boolean('enableBackgroundUI', Alert.defaultProps.enableBackgroundUI);
-    const disableEscKey = boolean('disableEscKey', Alert.defaultProps.disableEscKey);
-    const ariaRole = text('ariaRole', 'dialog');
-    const height = text('height', '');
-    const showCloseIcon = boolean('showCloseIcon', true);
-    const size = select('size', OptionsHelper.sizesFull, Alert.defaultProps.size);
-    const open = boolean('open', false);
-
-    return (
-      <Alert
-        onCancel={ handleCancel }
-        title={ title }
-        enableBackgroundUI={ enableBackgroundUI }
-        disableEscKey={ disableEscKey }
-        ariaRole={ ariaRole }
-        height={ height }
-        showCloseIcon={ showCloseIcon }
-        size={ size }
-        subtitle={ subtitle }
-        open={ open }
-      >
-        {children}
-      </Alert>
-    );
-  }, {
-    notes: { markdown: notes }
-  })
   .addParameters({
     info: {
-      propTablesExclude: [Button]
+      propTablesExclude: [State]
     }
   })
-  .add('with button', () => {
+  .add('default', () => {
+    button('open', handleOpen);
     const title = text('title', 'Attention');
     const subtitle = text('subtitle', '');
-    const children = text('children', 'This is an example of a alert.');
-    const enableBackgroundUI = boolean('enableBackgroundUI', false);
-    const disableEscKey = boolean('disableEscKey', false);
-    const ariaRole = text('ariaRole', 'dialog');
+    const children = text('children', 'This is an example of an alert.');
+    const autoFocus = boolean('autoFocus', Alert.defaultProps.autoFocus);
+    const enableBackgroundUI = boolean('enableBackgroundUI', Modal.defaultProps.enableBackgroundUI);
+    const disableEscKey = boolean('disableEscKey', Modal.defaultProps.disableEscKey);
+    const ariaRole = text('ariaRole', Alert.defaultProps.role);
     const height = text('height', '');
-    const showCloseIcon = boolean('showCloseIcon', true);
-    const size = select('size', OptionsHelper.sizesFull, OptionsHelper.sizesFull[0]);
+    const showCloseIcon = boolean('showCloseIcon', Alert.defaultProps.showCloseIcon);
+    const size = select('size', OptionsHelper.sizesFull, Alert.defaultProps.size);
 
     return (
       <State store={ store }>
-        <Button key='button' onClick={ handleOpen }>Open Preview</Button>
         <Alert
-          key='alert'
           onCancel={ handleCancel }
+          autoFocus={ autoFocus }
           title={ title }
           enableBackgroundUI={ enableBackgroundUI }
           disableEscKey={ disableEscKey }
