@@ -6,7 +6,9 @@ import { Input, InputPresentation } from '../input';
 // using only the new input componentry. It is still under development with
 // subject to change as we continue to remove the decorator classes.
 
-const Textbox = ({ children, leftChildren, ...props }) => (
+const Textbox = ({
+  children, leftChildren, ...props
+}) => (
   <InputPresentation>
     { leftChildren }
     <Input { ...props } />
