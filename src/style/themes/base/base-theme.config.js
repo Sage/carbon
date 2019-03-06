@@ -1,5 +1,6 @@
 import inputConfig from './components/input';
 import inputPresentationConfig from './components/input-presentation';
+import inputIconToggleConfig from './components/input-icon-toggle';
 
 export default (palette) => {
   const { atOpacity } = palette,
@@ -30,7 +31,8 @@ export default (palette) => {
     },
     components: {
       input: inputConfig(blackWithOpacity),
-      inputPresentation: inputPresentationConfig({ palette, blackWithOpacity })
+      inputPresentation: inputPresentationConfig({ palette, blackWithOpacity }),
+      inputIconToggle: inputIconToggleConfig({ palette, blackWithOpacity })
     }
   };
 };
