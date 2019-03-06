@@ -24,7 +24,14 @@ const Pages = props => (
 );
 
 Pages.propTypes = {
+  /**
+   * A custom class name for the component.
+   */
   className: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+
+  /**
+   * This component supports children.
+   */
   children: PropTypes.node
 };
 
