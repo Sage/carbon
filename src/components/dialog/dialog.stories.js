@@ -12,13 +12,18 @@ const store = new Store({
   open: false
 });
 
-const handleCancel = () => {
+const handleCancel = (evt) => {
   store.set({ open: false });
-  action('cancel')();
+  action('cancel')(evt);
 };
-const handleOpen = () => {
+
+const handleOpen = (evt) => {
   store.set({ open: true });
-  action('open')();
+  action('open')(evt);
+};
+
+const handleClick = (evt) => {
+  action('click')(evt);
 };
 
 storiesOf('Dialog', module)
@@ -44,7 +49,7 @@ storiesOf('Dialog', module)
         <Button onClick={ handleOpen }>Open Preview</Button>
         <State store={ store }>
           <Dialog
-            open={ open }
+            open={ store.get('open') }
             onCancel={ handleCancel }
             height={ height }
             title={ title }
@@ -56,7 +61,7 @@ storiesOf('Dialog', module)
             enableBackgroundUI={ enableBackgroundUI }
             disableEscKey={ disableEscKey }
             ariaRole={ ariaRole }
-            onClick={ action('click') }
+            onClick={ handleClick }
           />
         </State>
       </div>

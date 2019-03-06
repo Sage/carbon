@@ -15,9 +15,14 @@ const handleCancel = () => {
   store.set({ open: false });
   action('cancel')();
 };
+
 const handleOpen = () => {
   store.set({ open: true });
   action('open')();
+};
+
+const handleClick = (evt) => {
+  action('click')(evt);
 };
 
 storiesOf('Dialog Full Screen', module)
@@ -46,7 +51,7 @@ storiesOf('Dialog Full Screen', module)
             enableBackgroundUI={ enableBackgroundUI }
             disableEscKey={ disableEscKey }
             ariaRole={ ariaRole }
-            onClick={ action('click') }
+            onClick={ handleClick }
           >
             { children }
           </DialogFullScreen>
