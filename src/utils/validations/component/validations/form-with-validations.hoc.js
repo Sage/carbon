@@ -1,5 +1,6 @@
 import React from 'react';
-import ValidationsContext from './validations.context';
+
+const ValidationsContext = React.createContext();
 
 const withValidations = (WrappedComponent) => {
   return class extends React.Component {
@@ -11,7 +12,7 @@ const withValidations = (WrappedComponent) => {
 
     inputs = {};
 
-    validationTypes = ['validations', 'warnings', 'info'];
+    validationTypes = ['error', 'warning', 'info'];
 
     addInput = (name, validate) => {
       this.inputs[name] = validate;
@@ -21,18 +22,15 @@ const withValidations = (WrappedComponent) => {
       delete this.inputs[name];
     }
 
-    adjustCount = (type, adjustment) => {
-      switch (type) {
-        case 'error':
-          this.setState((prev) => { return { errorCount: prev.errorCount + adjustment }; });
-          break;
-        case 'warning':
-          this.setState((prev) => { return { warningCount: prev.warningCount + adjustment }; });
-          break;
-        case 'info':
-          this.setState((prev) => { return { infoCount: prev.infoCount + adjustment }; });
-          break;
-        default:
+    adjustCount = (type, validationResult) => {
+      if (this.validationTypes.includes(type)) {
+        const stateProp = `${type}Count`;
+        let adjustment = -1;
+
+        if (validationResult) adjustment = 1;
+        else if (this.state[stateProp] === 0) adjustment = 0;
+
+        this.setState((prev) => { return { [stateProp]: prev[stateProp] + adjustment }; });
       }
     }
 
@@ -63,6 +61,7 @@ const withValidations = (WrappedComponent) => {
             errorCount={ this.state.errorCount }
             warningCount={ this.state.warningCount }
             infoCount={ this.state.infoCount }
+            validationTypes={ this.validationTypes }
             { ...this.props }
           />
         </ValidationsContext.Provider>
@@ -71,4 +70,4 @@ const withValidations = (WrappedComponent) => {
   };
 };
 
-export default withValidations;
+export { ValidationsContext, withValidations };

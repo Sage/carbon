@@ -1,43 +1,43 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import validationsContext from './validations.context';
+import { ValidationsContext } from './form-with-validations.hoc';
 import Icon from '../../../../components/icon';
 import validator from '../../validator';
 
 const withValidation = (WrappedComponent) => {
   class WithValidation extends React.Component {
-    static contextType = validationsContext;
+    static contextType = ValidationsContext;
 
     static propTypes = {
-      children: PropTypes.node,
-      name: PropTypes.string,
-      value: PropTypes.string,
-      validate: PropTypes.func,
-      validations: PropTypes.oneOfType([
+      children: PropTypes.node, // Children elements
+      name: PropTypes.string, // Name to uniquely identify the component
+      value: PropTypes.string, // The current value of the component
+      error: PropTypes.oneOfType([ // The error validations that should be run against the value
         PropTypes.func,
         PropTypes.arrayOf(PropTypes.func)
       ]),
-      warnings: PropTypes.oneOfType([
+      validationTypes: PropTypes.arrayOf(PropTypes.string), // the types of validations to be run on the component
+      warning: PropTypes.oneOfType([ // The warnings validations that should be run against the value
         PropTypes.func,
         PropTypes.arrayOf(PropTypes.func)
       ]),
-      info: PropTypes.oneOfType([
+      info: PropTypes.oneOfType([ // The info validations that should be run against the value
         PropTypes.func,
         PropTypes.arrayOf(PropTypes.func)
       ]),
-      onBlur: PropTypes.func
+      onBlur: PropTypes.func // Custom function to be called when the component blurs
     };
 
     static defaultProps = {
-      validations: [],
-      warnings: [],
+      error: [],
+      warning: [],
       info: []
     }
 
     static contextTypes = {
-      addInput: PropTypes.func,
-      removeInput: PropTypes.func,
-      adjustCount: PropTypes.func
+      addInput: PropTypes.func, // Function to allow child components to register with parent
+      removeInput: PropTypes.func, // Function to allow child components to unregister with parent
+      adjustCount: PropTypes.func // Function to allow child components to increment the count when a validation fails
     }
 
     state = {
@@ -46,108 +46,55 @@ const withValidation = (WrappedComponent) => {
       hasInfo: false
     };
 
-    currentFailedValidations = { error: [], warning: [], info: [] };
-
     componentDidMount = () => {
-      if (this.context && this.context.addInput && this.props.validations.length) {
+      if (this.context && this.context.addInput && this.props.error.length) {
         this.context.addInput(this.props.name, this.validate);
       }
     }
 
     componentWillUnmount = () => {
-      if (this.context && this.context.removeInput && this.props.validations.length) {
+      if (this.context && this.context.removeInput && this.props.error.length) {
         this.context.removeInput(this.props.name);
       }
     }
 
-    addFailedValidation = (type, message) => {
-      const { adjustCount } = this.context;
-      this.currentFailedValidations[type].push(message);
-      adjustCount(type, 1);
-    }
-
-    removeFailedValidations = (type) => {
-      const array = this.currentFailedValidations[type];
-      const { adjustCount } = this.context;
-      for (let i = array.length - 1; i >= 0; i--) adjustCount(type, -1);
-      this.currentFailedValidations[type] = [];
-    }
-
-    isKnownFailedValidation = (type, error) => {
-      let exists = false;
-      switch (type) {
-        case 'validations':
-          exists = this.currentFailedValidations.error.includes(error.message);
-          break;
-        case 'warnings':
-          exists = this.currentFailedValidations.warning.includes(error.message);
-          break;
-        case 'info':
-          exists = this.currentFailedValidations.info.includes(error.message);
-          break;
-          // no default
-      }
-      return exists;
-    }
-
-    validate = async (types = ['validations', 'warnings', 'info']) => {
+    validate = async (types = this.props.validationTypes) => {
       let result = true;
-      if (types.includes('validations')) result = await this.runValidation('validations');
-      if (result && types.includes('warnings')) result = await this.runValidation('warnings');
+      if (types.includes('error')) result = await this.runValidation('error');
+      if (result && types.includes('warning')) result = await this.runValidation('warning');
       if (result && types.includes('info')) result = await this.runValidation('info');
       return result;
     }
 
-    validationsResult = (type, errorStatus) => {
-      switch (type) {
-        case 'validations':
-          if (errorStatus) {
-            this.addFailedValidation('error', errorStatus.message);
-            this.setState({ hasError: errorStatus });
-          } else if (this.state.hasError) {
-            this.removeFailedValidations('error');
-            this.setState({ hasError: false });
-          }
-          break;
-        case 'warnings':
-          if (errorStatus) {
-            this.addFailedValidation('warning', errorStatus.message);
-            this.setState({ hasWarning: errorStatus });
-          } else if (this.state.hasWarning) {
-            this.removeFailedValidations('warning');
-            this.setState({ hasWarning: false });
-          }
-          break;
-        case 'info':
-          if (errorStatus) {
-            this.addFailedValidation('info', errorStatus.message);
-            this.setState({ hasInfo: errorStatus });
-          } else if (this.state.hasInfo) {
-            this.removeFailedValidations('info');
-            this.setState({ hasInfo: false });
-          }
-          break;
-          // no default
+    updateValidationStatus = (type, errorStatus) => {
+      if (this.props.validationTypes.includes(type)) {
+        const { adjustCount } = this.context;
+        const stateProp = `has${type.charAt(0).toUpperCase() + type.slice(1)}`;
+        let newState = { [stateProp]: false };
+
+        if (errorStatus) {
+          adjustCount(type, errorStatus);
+          newState = { [stateProp]: errorStatus };
+        } else if (this.state[stateProp]) {
+          adjustCount(type);
+        }
+        this.setState(newState);
       }
       return !errorStatus;
     }
 
     runValidation = (type) => {
       return new Promise((resolve) => {
-        if (!this.context.adjustCount) {
-          return resolve(false);
-        }
-        if (this.props[type].length === 0) {
-          return resolve(true);
-        }
+        if (!this.context.adjustCount) return resolve(false);
+        if (this.props[type].length === 0) return resolve(true);
+
         const validate = validator(this.props[type]);
         return validate(this.props.value)
           .then(() => {
-            return resolve(this.validationsResult(type));
+            return resolve(this.updateValidationStatus(type));
           })
           .catch((error) => {
-            if (this.isKnownFailedValidation(type, error)) return resolve(false);
-            return resolve(this.validationsResult(type, error));
+            return resolve(this.updateValidationStatus(type, error));
           });
       });
     }
