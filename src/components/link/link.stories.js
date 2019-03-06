@@ -11,7 +11,7 @@ storiesOf('Link', module)
     const children = text('children', 'Link');
     const disabled = boolean('disabled', false);
     const href = text('href', '');
-    const icon = select('icon', OptionsHelper.icons, '');
+    const icon = select('icon', ['', ...OptionsHelper.icons], '');
     const iconAlign = select(
       'iconAlign',
       OptionsHelper.alignBinary,
@@ -19,9 +19,17 @@ storiesOf('Link', module)
     );
     const tabbable = boolean('tabbable', Link.defaultProps.tabbable);
     const to = text('to', '');
-    const tooltipMessage = text('tooltipMessage', '');
-    const tooltipPosition = select('tooltipPosition', OptionsHelper.positions);
-    const tooltipAlign = select('tooltipAlign', OptionsHelper.alignAroundEdges);
+    const tooltipMessage = icon ? text('tooltipMessage', '') : undefined;
+    const tooltipPosition = tooltipMessage ? select(
+      'tooltipPosition',
+      OptionsHelper.positions,
+      OptionsHelper.positions[0]
+    ) : undefined;
+    const tooltipAlign = tooltipMessage ? select(
+      'tooltipAlign',
+      OptionsHelper.alignAroundEdges,
+      OptionsHelper.alignAroundEdges[0]
+    ) : undefined;
 
     return (
       <Link
