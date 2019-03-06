@@ -15,6 +15,11 @@ const handleChange = (newDate) => {
 };
 
 storiesOf('DateRange', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [State]
+    }
+  })
   .add('default', () => {
     const endLabel = text('endLabel', '');
     const startLabel = text('startLabel', '');
