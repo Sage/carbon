@@ -52,7 +52,7 @@ describe('formWithValidation', () => {
     context = wrapper.instance().getContext();
   });
 
-  it('matches the snapshot when the HOC is passed a component with children', () => {
+  it('matches the snapshot, rendering with default props when the HOC is passed a component with children', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -77,7 +77,7 @@ describe('formWithValidation', () => {
       .forEach(child => expect(wrapper.instance().inputs[child.props.name]).toEqual(undefined));
   });
 
-  it('adjusts the relevant count when failed error validation is detected', async () => {
+  it('adjusts the error count when failed error validation is detected', async () => {
     const { children } = wrapper.instance().props;
     const { inputs } = wrapper.instance();
     await children.forEach((child) => {
@@ -89,7 +89,7 @@ describe('formWithValidation', () => {
     expect(wrapper.instance().state.infoCount).toEqual(0);
   });
 
-  it('adjusts the relevant count when failed warning validation is detected', async () => {
+  it('adjusts the warning count when failed warning validation is detected', async () => {
     const { children } = wrapper.instance().props;
     const { inputs } = wrapper.instance();
     await children.forEach((child) => {
@@ -101,7 +101,7 @@ describe('formWithValidation', () => {
     expect(wrapper.instance().state.infoCount).toEqual(0);
   });
 
-  it('adjusts the relevant count when failed info validation is detected', async () => {
+  it('adjusts the info count when failed info validation is detected', async () => {
     const { children } = wrapper.instance().props;
     const { inputs } = wrapper.instance();
     await children.forEach((child) => {
@@ -113,7 +113,7 @@ describe('formWithValidation', () => {
     expect(wrapper.instance().state.infoCount).toEqual(1);
   });
 
-  it('does not adjust the any count when failed wrong type passed', async () => {
+  it('does not adjust any of the counts when an invalid validation type is passed to the component', async () => {
     const { children } = wrapper.instance().props;
     const { inputs } = wrapper.instance();
     await children.forEach((child) => {
@@ -125,7 +125,7 @@ describe('formWithValidation', () => {
     expect(wrapper.instance().state.infoCount).toEqual(0);
   });
 
-  it('does not decrement the relevant count unless the state value is greater than or equal to zero', async () => {
+  it('does not decrement a count unless the relevant state value is greater than or equal to zero', async () => {
     const { children } = wrapper.instance().props;
     const { inputs } = wrapper.instance();
     await children.forEach((child) => {
@@ -158,7 +158,7 @@ describe('formWithValidation', () => {
     expect(wrapper.instance().state.infoCount).toEqual(0);
   });
 
-  it('rejects when a child component fails its own errors validations', async () => {
+  it('rejects with error when a child component fails its own errors validations', async () => {
     wrapper = shallow(
       <ValididationComp>
         <Child
@@ -182,10 +182,10 @@ describe('formWithValidation', () => {
     children.forEach((child) => {
       mockRegisterChild(context, child.props.name, child.props.errors);
     });
-    expect(wrapper.instance().validate()).rejects.toEqual(error);
+    expect(wrapper.instance().validateRegisteredInputs()).rejects.toEqual(error);
   });
 
-  it('resolves when a child components passes its own errors validations', async () => {
+  it('resolves true when a child components passes its own errors validations', async () => {
     wrapper = shallow(
       <ValididationComp>
         <Child
@@ -205,7 +205,7 @@ describe('formWithValidation', () => {
     children.forEach((child) => {
       return mockRegisterChild(context, child.props.name, child.props.errors);
     });
-    await expect(wrapper.instance().validate()).resolves.toEqual(true);
+    await expect(wrapper.instance().validateRegisteredInputs()).resolves.toEqual(true);
   });
 
   afterEach(() => {

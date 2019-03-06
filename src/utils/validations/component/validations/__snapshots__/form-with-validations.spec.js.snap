@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`formWithValidation matches the snapshot when the HOC is passed a component with children 1`] = `
+exports[`formWithValidation matches the snapshot, rendering with default props when the HOC is passed a component with children 1`] = `
 <ContextProvider
   value={
     Object {
@@ -13,7 +13,6 @@ exports[`formWithValidation matches the snapshot when the HOC is passed a compon
   <MockComponent
     errorCount={0}
     infoCount={0}
-    validate={[Function]}
     validationTypes={
       Array [
         "error",

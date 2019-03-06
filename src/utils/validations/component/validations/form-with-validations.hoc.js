@@ -42,7 +42,7 @@ const withValidations = (WrappedComponent) => {
       };
     }
 
-    validate = () => {
+    validateRegisteredInputs = () => {
       let results;
       return new Promise((resolve, reject) => {
         results = Object.keys(this.inputs).map((name) => {
