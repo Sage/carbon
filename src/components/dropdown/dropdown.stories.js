@@ -17,9 +17,9 @@ const store = new Store({
   value: ''
 });
 
-const onChange = (evt) => {
+const handleChange = (evt) => {
   store.set({ value: evt.target.value });
-  action('change')();
+  action('change')(evt);
 };
 
 storiesOf('Dropdown', module)
@@ -37,8 +37,8 @@ storiesOf('Dropdown', module)
     const timeToDisappear = number('timeToDisappear', 0);
     const label = text('label', 'Dropdown Label');
     const labelInline = boolean('labelInline', true);
-    const labelWidth = labelInline ? text('labelWidth', '') : null;
-    const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : null;
+    const labelWidth = labelInline ? text('labelWidth', '') : undefined;
+    const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
     const labelHelp = text('labelHelp', 'This is help text');
     const inputWidth = text('inputWidth', '');
     const fieldHelp = text('fieldHelp', 'This is field help text');
@@ -69,7 +69,7 @@ storiesOf('Dropdown', module)
           fieldHelp={ fieldHelp }
           fieldHelpInline={ fieldHelpInline }
           options={ options }
-          onChange={ onChange }
+          onChange={ handleChange }
           value={ store.get('value') }
         />
       </State>

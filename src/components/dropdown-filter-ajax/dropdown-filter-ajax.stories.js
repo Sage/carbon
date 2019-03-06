@@ -22,7 +22,7 @@ const create = (evt, component) => component.state.filter;
 // Shared Props
 const onChange = (evt) => {
   store.set({ value: evt.target.value });
-  action('change')();
+  action('change')(evt);
 };
 const autoFocus = boolean('autoFocus', false);
 const cacheVisibleValue = boolean('cacheVisibleValue', true);
@@ -43,9 +43,12 @@ const createIconType = text('createIconType', '');
 const suggest = boolean('suggest', false);
 const freetext = boolean('freetext', false);
 const path = text('path', '/');
-const acceptHeader = text('acceptHeader', 'application/json');
-const rowsPerRequest = text('rowsPerRequest', '25');
-const dataRequestTimeout = number('dataRequestTimeout', 500);
+const acceptHeader = text('acceptHeader', DropdownFilterAjax.defaultProps.acceptHeader);
+const rowsPerRequest = text('rowsPerRequest', DropdownFilterAjax.defaultProps.rowsPerRequest);
+const dataRequestTimeout = number(
+  'dataRequestTimeout',
+  DropdownFilterAjax.defaultProps.dataRequestTimeout
+);
 const withCredentials = boolean('withCredentials', false);
 const options = ImmutableHelper.parseJSON([
   {

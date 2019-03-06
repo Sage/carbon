@@ -22,7 +22,7 @@ const create = (evt, component) => component.state.filter;
 // Shared Props
 const onChange = (evt) => {
   store.set({ value: evt.target.value });
-  action('change')();
+  action('change')(evt);
 };
 const autoFocus = boolean('autoFocus', false);
 const cacheVisibleValue = boolean('cacheVisibleValue', true);
@@ -50,7 +50,7 @@ const options = ImmutableHelper.parseJSON([
   }
 ]);
 
-storiesOf('DropdownFilter', module)
+storiesOf('Dropdown Filter', module)
   .addParameters({
     info: {
       propTablesExclude: [State]
@@ -87,7 +87,7 @@ storiesOf('DropdownFilter', module)
   }, {
     notes: { markdown: notes }
   })
-  .add('withCreate', () => {
+  .add('with Create', () => {
     return (
       <State store={ store }>
         <DropdownFilter
