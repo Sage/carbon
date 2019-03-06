@@ -1,18 +1,25 @@
 import styled from 'styled-components';
-import Colors from 'style/themes/base';
-
-const { colors } = Colors;
+import BaseTheme from 'style/themes/base';
 
 const LabelStyle = styled.label`
-  color: ${colors.text.body};
+  color: ${({ theme }) => theme.colors.text.body};
   cursor: pointer;
   font-weight: bold;
   padding: 6px;
-  ${({ labelInline, labelWidth, labelAlignRight }) => labelInline && `
+  width: 100%;
+  margin-bottom: 8px;
+  ${({ labelInline, labelWidth, labelAlign }) => labelInline && `
     box-sizing: border-box;
-    width: ${labelWidth ? `${labelWidth}%` : '30%'};
-    text-align: ${labelAlignRight ? 'right' : 'left'};
+    width: ${labelWidth}%;
+    text-align: ${labelAlign};
   `}
 `;
+
+LabelStyle.defaultProps = {
+  theme: BaseTheme,
+  labelInline: false,
+  labelWidth: 30,
+  labelAlign: 'left'
+};
 
 export default LabelStyle;

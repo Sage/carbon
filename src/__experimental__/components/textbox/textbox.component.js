@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Input, InputPresentation } from '../input';
-import { FormField } from '../form-field';
+import TextboxStyle from './textbox.style';
 import InputLabel from '../input-label';
 import FieldHelp from '../field-help';
 import InputIconToggle from '../input-icon-toggle';
@@ -12,6 +12,7 @@ import InputIconToggle from '../input-icon-toggle';
 
 const Textbox = ({
   children,
+  label,
   leftChildren,
   labelInline,
   inputIcon,
@@ -19,22 +20,23 @@ const Textbox = ({
   ...props
 }) => {
   return (
-    <FormField>
-      <InputLabel labelInline={ labelInline } labelAlignRight={ labelAlignRight } />
-      <InputPresentation { ...props }>
+    <TextboxStyle>
+      <InputLabel label={ label } labelInline={ labelInline } labelAlignRight={ labelAlignRight } />
+      <InputPresentation type="text" { ...props }>
         { leftChildren }
         <Input { ...props } />
         <InputIconToggle iconType={ inputIcon } />
         { children }
       </InputPresentation>
       <FieldHelp labelInline={ labelInline } />
-    </FormField>
+    </TextboxStyle>
   );
 };
 
 Textbox.propTypes = {
   children: PropTypes.node,
   leftChildren: PropTypes.node,
+  label: PropTypes.string,
   labelInline: PropTypes.bool,
   labelAlignRight: PropTypes.string,
   inputIcon: PropTypes.string

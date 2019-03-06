@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Help from '../../../components/help';
 import LabelStyle from './input-label.style';
-import { FormFieldContext } from '../form-field';
 
 /**
  * InputLabel component. That component is a part of the FormField Component.
@@ -26,33 +25,25 @@ const InputLabel = (props) => {
   const {
     label,
     labelHelp,
+    inputId,
     ...styleProps
   } = props;
 
   return (
-    <FormFieldContext.Consumer>
-      { context => (
-        <LabelStyle
-          htmlFor={ context.inputId }
-          data-element='label'
-          { ...styleProps }
-        >
-          { label }
-          { renderLabelHelp(labelHelp) }
-        </LabelStyle>
-      )}
-    </FormFieldContext.Consumer>
+    <LabelStyle
+      htmlFor={ inputId } data-element='label'
+      { ...styleProps }
+    >
+      {label}
+      {renderLabelHelp(labelHelp)}
+    </LabelStyle>
   );
 };
 
 function renderLabelHelp(labelHelp) {
   if (!labelHelp) return null;
 
-  return (
-    <Help>
-      { labelHelp }
-    </Help>
-  );
+  return <Help>{labelHelp}</Help>;
 }
 
 InputLabel.propTypes = {
@@ -75,7 +66,11 @@ InputLabel.propTypes = {
   /**
    * Text position of the inline label
    */
-  labelAlignRight: PropTypes.bool
+  labelAlignRight: PropTypes.bool,
+  /**
+   * Id of an input that is described by the label
+   */
+  inputId: PropTypes.string
 };
 
 export default InputLabel;

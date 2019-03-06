@@ -1,14 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Textbox renders with InputPresentation and Input and all props passed to Input 1`] = `
-<InputPresentation
-  type="text"
-  value="foobar"
->
-  southpaw children
-  <Input
+<styled.div>
+  <InputLabel />
+  <InputPresentation
+    type="text"
     value="foobar"
-  />
-  normal children
-</InputPresentation>
+  >
+    southpaw children
+    <Input
+      value="foobar"
+    />
+    <InputIconToggle />
+    normal children
+  </InputPresentation>
+  <FieldHelp />
+</styled.div>
 `;
