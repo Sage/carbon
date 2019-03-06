@@ -1,14 +1,17 @@
 import React from 'react';
+import TestRenderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
 import 'jest-styled-components';
 
 import Icon from 'components/icon';
 import InputIconToggle from './input-icon-toggle.component';
+import InputIconToggleStyle from './input-icon-toggle.style';
 
 const props = {
   iconType: 'foo',
   inputId: '123',
-  isHovered: false
+  isHovered: false,
+  theme: { colors: { white: '#FFF', text: { body: 'BADA55' } } }
 };
 
 describe('InputIconToggle', () => {
@@ -41,29 +44,7 @@ describe('InputIconToggle', () => {
     const propsWithContent = { content: mockContent, ...props };
 
     beforeEach(() => {
-      wrapper = shallow(<InputIconToggle { ...propsWithContent } />);
-    });
-
-    it('renders as expected', () => {
-      expect(wrapper).toMatchSnapshot();
-    });
-  });
-
-  describe('when initiated with the isHovered prop set to false', () => {
-    beforeEach(() => {
-      wrapper = mount(<InputIconToggle { ...props } />);
-    });
-
-    it('renders as expected', () => {
-      expect(wrapper).toMatchSnapshot();
-    });
-  });
-
-  describe('when initiated with the isHovered prop set to true', () => {
-    const propsHovered = { ...props, isHovered: true };
-
-    beforeEach(() => {
-      wrapper = mount(<InputIconToggle { ...propsHovered } />);
+      wrapper = TestRenderer.create(<InputIconToggle { ...propsWithContent } />);
     });
 
     it('renders as expected', () => {

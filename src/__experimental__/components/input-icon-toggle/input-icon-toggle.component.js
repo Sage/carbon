@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Icon from 'components/icon/icon';
-import { FormFieldContext } from '../form-field';
 import InputIconToggleStyle from './input-icon-toggle.style';
 
 /**
@@ -23,7 +22,7 @@ import InputIconToggleStyle from './input-icon-toggle.style';
  *    />
  *
  * Component has to be placed next to an input element, inputId prop must be the same as the id of that input.
-*/
+ */
 const InputIconToggle = (props) => {
   const {
     iconType,
@@ -35,18 +34,9 @@ const InputIconToggle = (props) => {
   if (disabled) return null;
 
   return (
-    <FormFieldContext.Consumer>
-      { ({ inputId, isHovered }) => (
-        <InputIconToggleStyle
-          htmlFor={ inputId }
-          key='label-icon'
-          isHovered={ isHovered }
-          { ...styleProps }
-        >
-          { content || <Icon type={ iconType } /> }
-        </InputIconToggleStyle>
-      )}
-    </FormFieldContext.Consumer>
+    <InputIconToggleStyle key='label-icon' { ...styleProps }>
+      {content || <Icon type={ iconType } />}
+    </InputIconToggleStyle>
   );
 };
 
@@ -62,11 +52,7 @@ InputIconToggle.propTypes = {
   /**
    * Type of an icon to render
    */
-  iconType: PropTypes.string.isRequired,
-  /**
-   * Hover state of the parent component
-   */
-  isHovered: PropTypes.bool.isRequired
+  iconType: PropTypes.string
 };
 
 export default InputIconToggle;
