@@ -65,7 +65,7 @@ class AppLayout extends React.Component {
           </SelectionContainer>
         </div>
 
-        <div id="story-content">
+        <div>
           <ThemeProvider theme={ themes[activeTheme] }>{children}</ThemeProvider>
         </div>
       </StyledContainer>
