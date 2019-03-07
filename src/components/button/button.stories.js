@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { withA11y } from '@storybook/addon-a11y';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import Button from './button';

@@ -1,24 +1,21 @@
 import React from 'react';
-import { configure, addDecorator } from '@storybook/react';
+import { configure, addDecorator, addParameters } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
-import { withNotes } from '@storybook/addon-notes';
-import { withInfo } from '@storybook/addon-info';
 import AppLayout from 'helpers/components/app-layout/app-layout';
 
 
 const req = require.context('../src/components', true, /\.stories\.js$/);
-const infoOptions = {
-  header: false,
-  inline: true
-};
 
 function loadStories() {
   req.keys().forEach(filename => req(filename));
 }
 
+addParameters({
+  a11y: {
+    element: '#foo'
+  }
+  });
 addDecorator(withKnobs);
-addDecorator(withNotes);
-addDecorator(withInfo(infoOptions));
 
 // give all stories access to themes
 addDecorator(story => <AppLayout>{story()}</AppLayout>);
