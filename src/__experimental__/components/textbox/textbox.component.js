@@ -17,18 +17,23 @@ const Textbox = ({
   labelInline,
   inputIcon,
   labelAlignRight,
+  fieldHelp,
   ...props
 }) => {
   return (
     <TextboxStyle>
-      <InputLabel label={ label } labelInline={ labelInline } labelAlignRight={ labelAlignRight } />
-      <InputPresentation type="text" { ...props }>
+      <InputLabel
+        label={ label }
+        labelInline={ labelInline }
+        labelAlignRight={ labelAlignRight }
+      />
+      <InputPresentation type='text' { ...props }>
         { leftChildren }
         <Input { ...props } />
         <InputIconToggle iconType={ inputIcon } />
         { children }
       </InputPresentation>
-      <FieldHelp labelInline={ labelInline } />
+      <FieldHelp content={ fieldHelp } labelInline={ labelInline } />
     </TextboxStyle>
   );
 };
@@ -39,7 +44,8 @@ Textbox.propTypes = {
   label: PropTypes.string,
   labelInline: PropTypes.bool,
   labelAlignRight: PropTypes.string,
-  inputIcon: PropTypes.string
+  inputIcon: PropTypes.string,
+  fieldHelp: PropTypes.string
 };
 
 export default Textbox;

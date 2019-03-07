@@ -72,6 +72,10 @@ Object {
   "onSelect": [Function],
   "open": true,
   "target": .c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   color: rgba(0,0,0,0.9);
   background: transparent;
   line-height: 16px;
@@ -104,11 +108,30 @@ Object {
   font-size: 14px;
 }
 
+.c2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: rgba(0,0,0,0.9);
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -13px;
+  width: 48px;
+}
+
 <div
     autocomplete="off"
     class="carbon-input-presentation carbon-input-presentation--has-focus c0"
     data-element="input"
-    id="guid-12345"
     role="presentation"
     type="text"
     value=""
@@ -117,9 +140,17 @@ Object {
       autocomplete="off"
       class="c1"
       data-element="input"
-      id="guid-12345"
       value=""
     />
+    <label
+      class="c2"
+    >
+      <span
+        class="carbon-icon icon-dropdown"
+        data-component="icon"
+        data-element="dropdown"
+      />
+    </label>
     <span
       data-portal-entrance="guid-12345"
     />
