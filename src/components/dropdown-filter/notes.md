@@ -1,4 +1,4 @@
-#Designer Notes
+# Designer Notes
 - The user can select an item using the mouse or keyboard, and also enter a search term to filter the list items presented - this is particularly helpful for very long lists (e.g. a list of customers or suppliers).
 Useful to show more than about 5 options.
 - The Create configuration allows the user to add a term they enter to the list.

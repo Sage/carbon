@@ -46,7 +46,6 @@ storiesOf('Form', module)
         showSummary={ showSummary }
       >
         <Textbox
-          value=''
           label='Full Name'
           labelInline
           labelAlign='right'
@@ -80,7 +79,6 @@ storiesOf('Form', module)
         By passing afterFormValidation or beforeFormValidation you can add custom
         validation logic and prevent the form submission using ev.preventDefault()
       `
-    }
-  }, {
+    },
     notes: { markdown: notes }
   });

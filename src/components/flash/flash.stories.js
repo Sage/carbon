@@ -99,7 +99,6 @@ storiesOf('Flash', module)
         let message = "This is too long ::more:: This sentence is proxied to a dialog."
         ~~~
       `
-    }
-  }, {
+    },
     notes: { markdown: notes }
   });

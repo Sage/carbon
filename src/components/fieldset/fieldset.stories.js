@@ -35,7 +35,6 @@ storiesOf('Fieldset', module)
   }, {
     info: {
       propTables: [Fieldset]
-    }
-  }, {
+    },
     notes: { markdown: notes }
   });

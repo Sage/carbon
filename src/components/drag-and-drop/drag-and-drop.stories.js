@@ -121,7 +121,6 @@ storiesOf('DraggableContext', module)
         </DraggableContext>
         ~~~
       `
-    }
-  }, {
+    },
     notes: { markdown: notes }
   });
