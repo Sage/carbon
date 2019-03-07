@@ -15,7 +15,7 @@ const store = new Store({
   sortedColumn: ''
 });
 
-const handleChange = (e, tableOptions, f) => {
+const handleChange = (e, tableOptions) => {
   store.set({ sortOrder: tableOptions.sortOrder, sortedColumn: tableOptions.sortedColumn });
   action('change')(e, tableOptions);
 };
