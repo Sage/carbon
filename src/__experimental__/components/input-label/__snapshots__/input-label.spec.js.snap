@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputLabelStyle when initiated renders as expected 1`] = `
+.c0 {
+  color: rgba(0,0,0,0.9);
+  cursor: pointer;
+  font-weight: bold;
+  padding: 6px;
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+<label
+  className="c0"
+/>
+`;

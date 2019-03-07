@@ -17,7 +17,6 @@ const LabelStyle = styled.label`
 
 LabelStyle.defaultProps = {
   theme: BaseTheme,
-  labelInline: false,
   labelWidth: 30,
   labelAlign: 'left'
 };

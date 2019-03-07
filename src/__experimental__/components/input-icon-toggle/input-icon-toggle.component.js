@@ -28,10 +28,11 @@ const InputIconToggle = (props) => {
     iconType,
     content,
     disabled,
+    readonly,
     ...styleProps
   } = props;
 
-  if (disabled) return null;
+  if (disabled || readonly) return null;
 
   return (
     <InputIconToggleStyle key='label-icon' { ...styleProps }>
@@ -49,6 +50,10 @@ InputIconToggle.propTypes = {
    * Disabled state of the input
    */
   disabled: PropTypes.bool,
+  /**
+   * Readonly state of the input
+   */
+  readonly: PropTypes.bool,
   /**
    * Type of an icon to render
    */

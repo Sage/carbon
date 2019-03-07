@@ -42,8 +42,39 @@ exports[`InputPresentation renders presentational div and context provider for i
             },
           },
         },
+        "inputIconToggle": Object {
+          "base": Object {
+            "alignItems": "center",
+            "color": "rgba(0,0,0,0.9)",
+            "cursor": "pointer",
+            "display": "flex",
+            "height": "100%",
+            "justifyContent": "center",
+            "marginRight": "-13px",
+          },
+          "sizes": Object {
+            "large": Object {
+              "width": "48px",
+            },
+            "medium": Object {
+              "width": "40px",
+            },
+            "small": Object {
+              "width": "32px",
+            },
+          },
+          "states": Object {
+            "error": Object {
+              "color": "#C7384F",
+            },
+            "warning": Object {
+              "color": "#FFB500",
+            },
+          },
+        },
         "inputPresentation": Object {
           "base": Object {
+            "alignItems": "center",
             "background": "transparent",
             "border": "1px solid #CCD6DA",
             "color": "rgba(0,0,0,0.9)",

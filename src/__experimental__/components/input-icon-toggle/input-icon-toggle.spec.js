@@ -1,17 +1,15 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import 'jest-styled-components';
 
 import Icon from 'components/icon';
 import InputIconToggle from './input-icon-toggle.component';
-import InputIconToggleStyle from './input-icon-toggle.style';
 
 const props = {
   iconType: 'foo',
   inputId: '123',
-  isHovered: false,
-  theme: { colors: { white: '#FFF', text: { body: 'BADA55' } } }
+  isHovered: false
 };
 
 describe('InputIconToggle', () => {
@@ -22,6 +20,18 @@ describe('InputIconToggle', () => {
 
     beforeEach(() => {
       wrapper = shallow(<InputIconToggle { ...propsDisabled } />);
+    });
+
+    it('does not render anything', () => {
+      expect(wrapper.isEmptyRender()).toBeTruthy();
+    });
+  });
+
+  describe('when initiated with the readonly prop set to true', () => {
+    const propsReadonly = { ...props, readonly: true };
+
+    beforeEach(() => {
+      wrapper = shallow(<InputIconToggle { ...propsReadonly } />);
     });
 
     it('does not render anything', () => {

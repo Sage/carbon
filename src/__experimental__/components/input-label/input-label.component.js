@@ -29,6 +29,8 @@ const InputLabel = (props) => {
     ...styleProps
   } = props;
 
+  if (!label) return null;
+
   return (
     <LabelStyle
       htmlFor={ inputId } data-element='label'

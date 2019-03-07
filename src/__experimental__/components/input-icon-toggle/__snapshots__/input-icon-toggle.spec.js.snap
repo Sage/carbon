@@ -1,25 +1,31 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`InputIconToggle when initiated with the content prop renders as expected 1`] = `
-<styled.label
-  inputId="123"
-  isHovered={false}
-  key="label-icon"
-  large={true}
-  theme={
-    Object {
-      "colors": Object {
-        "text": Object {
-          "body": "BADA55",
-        },
-        "white": "#FFF",
-      },
-    }
-  }
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: rgba(0,0,0,0.9);
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -13px;
+  width: 48px;
+}
+
+<label
+  className="c0"
 >
-  <Icon
-    bgSize="small"
-    type="foo"
-  />
-</styled.label>
+  <span>
+    mock content
+  </span>
+</label>
 `;

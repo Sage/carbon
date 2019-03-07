@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FieldHelp when initiated with the content prop renders as expected 1`] = `
+.c0 {
+  color: rgba(0,0,0,0.9);
+  display: block;
+  line-height: 20px;
+  margin-left: 6px;
+  margin-top: 5px;
+  padding-left: 6px;
+  white-space: pre-wrap;
+}
+
+<span
+  className="c0"
+  data-element="help"
+>
+  help text
+</span>
+`;
