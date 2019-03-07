@@ -16,7 +16,8 @@ const store = new Store({
 });
 
 const handleChange = (e, tableOptions) => {
-  store.set({ sortOrder: tableOptions.sortOrder, sortedColumn: tableOptions.sortedColumn });
+  const { sortOrder, sortedColumn } = tableOptions;
+  store.set({ sortOrder, sortedColumn });
   action('change')(e, tableOptions);
 };
 
@@ -51,12 +52,11 @@ const buildRows = () => {
 storiesOf('Table', module).add('default', () => {
   const paginate = boolean('paginate', false);
   const pageSize = text('pageSize', '5');
-  const showPageSizeSelection = 'showPageSizeSelection';
+  const showPageSizeSelection = boolean('showPageSizeSelection', false);
   const selectable = boolean('selectable', false);
   const highlightable = boolean('hightTable', false);
   const shrink = boolean('shrink', false);
-  const caption = 'caption';
-  const theme = 'theme';
+  const caption = text('Caption', 'Country and Country Codes');
   const totalRecords = text('totalRecords', '191');
 
   return (
@@ -79,18 +79,18 @@ storiesOf('Table', module).add('default', () => {
             ];
           } }
           path='/countries'
-          caption='Country and Country Codes'
+          caption={ caption }
           currentPage='1'
           shrink={ shrink }
           highlightable={ highlightable }
-          pageSize='5'
+          pageSize={ pageSize }
           sortOrder={ state.sortOrder }
           sortedColumn={ state.sortedColumn }
           selectable={ selectable }
           paginate={ paginate }
           actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
           totalRecords={ totalRecords }
-          showPageSizeSelection={ false }
+          showPageSizeSelection={ showPageSizeSelection }
           onChange={ handleChange }
         >
           {buildRows()}
