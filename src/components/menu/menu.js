@@ -10,25 +10,16 @@ class Menu extends React.Component {
   static propTypes = {
     /**
      * Defines the style of the component eg. primary/secondary
-     *
-     * @property as
-     * @type {String}
      */
     as: PropTypes.string,
 
     /**
      * Children elements
-     *
-     * @property children
-     * @type {Node}
      */
     children: PropTypes.node,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string
   }

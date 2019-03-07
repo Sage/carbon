@@ -14,57 +14,36 @@ class MenuList extends React.Component {
   static propTypes = {
     /**
      * Children elements
-     *
-     * @property children
-     * @type {Node}
      */
     children: PropTypes.node.isRequired,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Allow the menu to be collapsed
-     *
-     * @property collapsible
-     * @type {Boolean}
      */
     collapsible: PropTypes.bool,
 
     /**
      * Allow the menu to be filtered
-     *
-     * @property filter
-     * @type {Boolean}
      */
     filter: PropTypes.bool,
 
     /**
      * Placeholder text for the filter
-     *
-     * @property filterPlaceholder
-     * @type {String}
      */
     filterPlaceholder: PropTypes.string,
 
     /**
      * Set the menu open on mount
-     *
-     * @property initiallyOpen
-     * @type {Boolean}
      */
     initiallyOpen: PropTypes.bool,
 
     /**
      * The menu title
-     *
-     * @property title
-     * @type {String}
      */
     title: PropTypes.string
   };

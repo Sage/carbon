@@ -11,25 +11,16 @@ class Heading extends React.Component {
   static propTypes = {
     /**
      * Children elements
-     *
-     * @property children
-     * @type {Node}
      */
     children: PropTypes.node,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Defines the title for the heading.
-     *
-     * @property title
-     * @type {String|Object}
      */
     title: PropTypes.oneOfType([
       PropTypes.string,
@@ -38,17 +29,11 @@ class Heading extends React.Component {
 
     /**
      * Defines the title id for the heading.
-     *
-     * @property titleId
-     * @type {String}
      */
     titleId: PropTypes.string,
 
     /**
      * Defines the subheader for the heading.
-     *
-     * @property subheader
-     * @type {String|Object}
      */
     subheader: PropTypes.oneOfType([
       PropTypes.string,
@@ -57,33 +42,21 @@ class Heading extends React.Component {
 
     /**
      * Defines the subtitle id for the heading.
-     *
-     * @property subtitleId
-     * @type {String}
      */
     subtitleId: PropTypes.string,
 
     /**
      * Defines the help text for the heading.
-     *
-     * @property help
-     * @type {String}
      */
     help: PropTypes.string,
 
     /**
      * Defines the help link for the heading.
-     *
-     * @property helpLink
-     * @type {String}
      */
     helpLink: PropTypes.string,
 
     /**
      * Defines the a href for the back link.
-     *
-     * @property backLink
-     * @type {String}
      */
     backLink: PropTypes.oneOfType([
       PropTypes.string,
@@ -92,19 +65,11 @@ class Heading extends React.Component {
 
     /**
      * Adds a divider below the heading and the content.
-     *
-     * @property divider
-     * @type {Boolean}
-     * @default true
      */
     divider: PropTypes.bool,
 
     /**
      * Adds a separator between the title and the subheader.
-     *
-     * @property separator
-     * @type {Boolean}
-     * @default false
      */
     separator: PropTypes.bool
   }

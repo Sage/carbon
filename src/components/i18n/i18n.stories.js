@@ -26,5 +26,26 @@ storiesOf('I18nComponent', module)
       />
     );
   }, {
+    info: {
+      text: `
+        A widget for internationalisation of text.
+        
+        ## How to use an I18n component:
+        
+        In your file:
+        
+        ~~~js
+        import I18n from 'carbon-react/lib/components/i18n';
+        ~~~
+
+        To render the message:
+        
+        ~~~js
+        <I18n scope='foo' />
+        ~~~
+        
+        For additional properties specific to this component, see propTypes.
+      `
+    },
     notes: { markdown: notes }
   });

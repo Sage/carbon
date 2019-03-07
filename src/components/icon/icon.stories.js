@@ -63,7 +63,6 @@ storiesOf('Icon', module)
 
         https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components
       `
-    }
-  }, {
+    },
     notes: { markdown: notes }
   });

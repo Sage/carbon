@@ -11,42 +11,26 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   static propTypes = {
     /**
      * Add classes to this component
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Icon type
-     *
-     * @property  type
-     * @type      {String}
      */
     type: PropTypes.string.isRequired,
 
     /**
      * Background size
-     *
-     * @property  bgSize
-     * @type      {String}
-     * @default   'small'
      */
     bgSize: PropTypes.oneOf(['small', 'medium', 'large']),
 
     /**
      * Background shape
-     *
-     * @property  bgShape
-     * @type      {String}
      */
     bgShape: PropTypes.oneOf(['square', 'rounded-rect', 'circle']),
 
     /**
      * Background color theme
-     *
-     * @property  bgTheme
-     * @type      {String}
      */
     bgTheme: PropTypes.string
   };
