@@ -5,7 +5,6 @@ import { action } from '@storybook/addon-actions';
 import Pill from './pill';
 import notes from './notes.md';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import '../../style/storybook-info-details.scss';
 
 storiesOf('Pill', module)
   .add('default', () => {
@@ -25,24 +24,25 @@ storiesOf('Pill', module)
     );
   }, {
     info: {
-      text:
+      text: (
         <div className='storybook-info'>
           <p>A Pill widget.</p>
           <h1>Implementation</h1>
           <p>In your file</p>
           <code className='storybook-code'>
-            import Pill from 'carbon-react/lib/components/pill'
+            {'import Pill from "carbon-react/lib/components/pill"'}
           </code>
           <p>To render a Pager:</p>
           <code className='storybook-code'>
-            {`<Pill as='warning'>My warning text</Pill>`}
+            {'<Pill as="warning">My warning text</Pill>'}
           </code>
           <p>Additionally you can pass optional props to the Pill component</p>
           <p>
             &ndash; as: Customizes the appearence of the pill changing the colour
-            (see the 'iconColorSets' for possible values).
+            (see the iconColorSets for possible values).
           </p>
         </div>
+      )
     },
     notes: { markdown: notes }
   });

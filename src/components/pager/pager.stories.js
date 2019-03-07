@@ -1,11 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import Pager from './pager';
 import notes from './notes.md';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
-import '../../style/storybook-info-details.scss';
 
 const store = new Store({
   currentPage: '1'
@@ -17,21 +17,24 @@ const handlePagination = (ev) => {
 
 const TableComponent = ({ propDefinitions }) => {
   const props = propDefinitions.map(
-    ({ property, propType, required, description, defaultValue }) => {
-
-      const adjustedDefaultValue = (
-        property === 'pageSizeSelectionOptions'
-      ) ? '10, 25, 50' : defaultValue;
+    ({
+      property,
+      propType,
+      required,
+      description,
+      defaultValue
+    }) => {
+      const adjustedDefaultValue = (property === 'pageSizeSelectionOptions') ? '10, 25, 50' : defaultValue;
 
       return (
-        <tr key={property}>
-          <td>{property}</td>
-          <td>{propType.name}</td>
-          <td>{required ? 'yes' : '-'}</td>
-          <td style={{color: 'rgb(34, 34, 170)'}}>
-            {adjustedDefaultValue ? adjustedDefaultValue : '-'}
+        <tr key={ property }>
+          <td>{ property }</td>
+          <td>{ propType.name }</td>
+          <td>{ required ? 'yes' : '-' }</td>
+          <td style={ { color: 'rgb(34, 34, 170)' } }>
+            { adjustedDefaultValue || '-' }
           </td>
-          <td>{description}</td>
+          <td>{ description }</td>
         </tr>
       );
     }
@@ -40,7 +43,7 @@ const TableComponent = ({ propDefinitions }) => {
   return (
     <table>
       <thead>
-        <tr style={{textAlign: 'left'}}>
+        <tr style={ { textAlign: 'left' } }>
           <th>property</th>
           <th>propType</th>
           <th>required</th>
@@ -51,6 +54,10 @@ const TableComponent = ({ propDefinitions }) => {
       <tbody>{props}</tbody>
     </table>
   );
+};
+
+TableComponent.propTypes = {
+  propDefinitions: PropTypes.object
 };
 
 storiesOf('Pager', module)
@@ -78,19 +85,20 @@ storiesOf('Pager', module)
   }, {
     info: {
       TableComponent,
-      text:
+      text: (
         <div className='storybook-info'>
           <p>A Pager widget.</p>
           <h1>Implementation</h1>
           <p>In your file</p>
           <code className='storybook-code'>
-            import Pager from 'carbon-react/lib/components/pager';
+            {'import Pager from "carbon-react/lib/components/pager";'}
           </code>
           <p>To render a Pager:</p>
           <code className='storybook-code'>
-            {`<Pager currentPage='1' totalRecords='100' onPagination={ function(){} } />`}
+            {'<Pager currentPage="1" totalRecords="100" onPagination={ function(){} } />'}
           </code>
         </div>
+      )
     },
     notes: { markdown: notes }
   });

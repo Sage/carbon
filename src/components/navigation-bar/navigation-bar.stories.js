@@ -4,7 +4,6 @@ import { text, select } from '@storybook/addon-knobs';
 import NavigationBar from './navigation-bar';
 import notes from './notes.md';
 import './navigation-bar.stories.scss';
-import '../../style/storybook-info-details.scss';
 
 storiesOf('Navigation Bar', module)
   .add('default', () => {
@@ -16,17 +15,13 @@ storiesOf('Navigation Bar', module)
     );
 
     return (
-        <NavigationBar
-          as={ as }
-        >
-          { children }
-        </NavigationBar>
+      <NavigationBar
+        as={ as }
+      >
+        { children }
+      </NavigationBar>
     );
   }, {
-    info: {
-      text:
-        <p>Renders a full width application bar.</p>
-
-    },
+    info: { text: <p>Renders a full width application bar.</p> },
     notes: { markdown: notes }
   });

@@ -7,7 +7,6 @@ import { Pages, Page } from './pages';
 import DialogFullScreen from '../dialog-full-screen/dialog-full-screen';
 import Heading from '../heading/heading';
 import Button from '../button/button';
-import '../../style/storybook-info-details.scss';
 
 const store = new Store({
   open: false,
@@ -82,7 +81,5 @@ storiesOf('Pages', module)
       </div>
     );
   }, {
-    info: {
-      text: <p>Allows to slide to different pages in a full screen dialog.</p>
-    }
+    info: { text: <p>Allows to slide to different pages in a full screen dialog.</p> }
   });
