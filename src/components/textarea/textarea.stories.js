@@ -52,7 +52,7 @@ storiesOf('Textarea', module).add(
           labelInline={ labelInline }
           labelAlign={ labelAlign }
           enforceCharacterLimit={ enforceCharacterLimit }
-          characterLimit={ characterLimit }
+          characterLimit={ String(characterLimit) }
           labelWidth={ labelWidth }
           cols={ cols }
           fieldHelpInline={ fieldHelpInline }
