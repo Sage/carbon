@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions';
 import Pod from './pod';
 import notes from './notes.md';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
 storiesOf('Pod', module)
   .add('default', () => {
@@ -45,18 +46,20 @@ storiesOf('Pod', module)
   }, {
     info: {
       text: (
-        <div className='storybook-info'>
+        <div>
           <p>A Pod widget.</p>
+
           <p>This widget is a provides a wrapper in which to render other widgets.</p>
-          <h1>Implementation</h1>
+
+          <StoryHeader>Implementation</StoryHeader>
+
           <p>In your file</p>
-          <code className='storybook-code'>
-            {'import Pod from "carbon-react/lib/components/pod";'}
-          </code>
+
+          <StoryCode padded>{'import Pod from "carbon-react/lib/components/pod";'}</StoryCode>
+
           <p>To render the Pod:</p>
-          <code className='storybook-code'>
-            {'<Pod />'}
-          </code>
+
+          <StoryCode padded>{'<Pod />'}</StoryCode>
         </div>
       )
     },

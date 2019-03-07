@@ -6,6 +6,7 @@ import { State, Store } from '@sambego/storybook-state';
 import Pager from './pager';
 import notes from './notes.md';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
+import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
 const store = new Store({
   currentPage: '1'
@@ -86,17 +87,20 @@ storiesOf('Pager', module)
     info: {
       TableComponent,
       text: (
-        <div className='storybook-info'>
+        <div>
           <p>A Pager widget.</p>
-          <h1>Implementation</h1>
+
+          <StoryHeader>Implementation</StoryHeader>
+
           <p>In your file</p>
-          <code className='storybook-code'>
-            {'import Pager from "carbon-react/lib/components/pager";'}
-          </code>
+
+          <StoryCode padded>{'import Pager from "carbon-react/lib/components/pager";'}</StoryCode>
+
           <p>To render a Pager:</p>
-          <code className='storybook-code'>
+
+          <StoryCode padded>
             {'<Pager currentPage="1" totalRecords="100" onPagination={ function(){} } />'}
-          </code>
+          </StoryCode>
         </div>
       )
     },

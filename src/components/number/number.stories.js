@@ -10,6 +10,7 @@ import Number from './number';
 import notes from './notes.md';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import './number.stories.scss';
+import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
 storiesOf('Number Input', module)
   .add('default', () => {
@@ -43,18 +44,20 @@ storiesOf('Number Input', module)
   }, {
     info: {
       text: (
-        <div className='storybook-info'>
+        <div>
           <p>A number widget.</p>
+
           <p>It only allows entering of a whole number with an optional minus sign.</p>
-          <h1>Implementation</h1>
+
+          <StoryHeader>Implementation</StoryHeader>
+
           <p>In your file</p>
-          <code className='storybook-code'>
-            {'import Number from "carbon-react/lib/components/number";'}
-          </code>
+
+          <StoryCode padded>{'import Number from "carbon-react/lib/components/number";'}</StoryCode>
+
           <p>To render a Number:</p>
-          <code className='storybook-code'>
-            {'<Number name="myNumber" />'}
-          </code>
+
+          <StoryCode padded>{'<Number name="myNumber" />'}</StoryCode>
         </div>
       )
     },

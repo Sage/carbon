@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text } from '@storybook/addon-knobs';
 import MountInApp from './mount-in-app';
 import notes from './notes.md';
+import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../.storybook/style/storybook-info.styles';
 
 storiesOf('Mount In App', module)
   .add('default', () => {
@@ -22,26 +23,31 @@ storiesOf('Mount In App', module)
   }, {
     info: {
       text: (
-        <div className='storybook-info'>
+        <div>
           <p>Mount In App component.</p>
+
           <p>Can be used to integrate React components into pre-existing user interfaces.</p>
-          <h1>Implementation</h1>
+
+          <StoryHeader>Implementation</StoryHeader>
+
           <p>Import the component:</p>
-          <code className='storybook-code'>
-            {'import MountInApp from "carbon-react/lib/components/mount-in-app";'}
-          </code>
+
+          <StoryCode padded>{'import MountInApp from "carbon-react/lib/components/mount-in-app";'}</StoryCode>
+
           <p>
             Imagine that your pre-existing user interface has
-            a <code>{'<div id="put_carbon_component_here" />'}</code> inside which you want
+            a <StoryCode>{'<div id="put_carbon_component_here" />'}</StoryCode> inside which you want
             to put your new React component.
           </p>
+
           <p>To do that create a new React component that renders:</p>
-          <pre className='storybook-code'>
-            <code>{'<MountInApp targetId="put_carbon_component_here">'}</code>
-            <code>{'  <div>Hello</div>'}</code>
-            <code>{'  <div>I\'m a react component rendered in an existing UI</div>'}</code>
-            <code>{'</MountInApp>'}</code>
-          </pre>
+
+          <StoryCodeBlock>
+            {'<MountInApp targetId="put_carbon_component_here">'}
+            {'  <div>Hello</div>'}
+            {'  <div>I\'m a react component rendered in an existing UI</div>'}
+            {'</MountInApp>'}
+          </StoryCodeBlock>
         </div>
       )
     },

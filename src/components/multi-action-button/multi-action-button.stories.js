@@ -7,6 +7,7 @@ import notes from './notes.md';
 import Button from '../button/button';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import './multi-action-button.stories.scss';
+import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../.storybook/style/storybook-info.styles';
 
 storiesOf('Multi Action Button', module)
   .addParameters({
@@ -35,20 +36,25 @@ storiesOf('Multi Action Button', module)
   }, {
     info: {
       text: (
-        <div className='storybook-info'>
+        <div>
           <p>A MultiActionButton widget.</p>
-          <h1>Implementation</h1>
+
+          <StoryHeader>Implementation</StoryHeader>
+
           <p>In your file:</p>
-          <code className='storybook-code'>
+
+          <StoryCode padded>
             {'import MultiActionButton from "carbon-react/lib/components/multi-action-button";'}
-          </code>
+          </StoryCode>
+
           <p>To render a MultiActionButton (developer can add any buttons to dropdown):</p>
-          <pre className='storybook-code'>
-            <code>{'<MultiActionButton text="Main Text">'}</code>
-            <code>{'  <Button onClick="buttonClickHandler1">Button name 1</Button>'}</code>
-            <code>{'  <Button onClick="buttonClickHandler2">Button name 2</Button>'}</code>
-            <code>{'</MultiActionButton>'}</code>
-          </pre>
+
+          <StoryCodeBlock>
+            {'<MultiActionButton text="Main Text">'}
+            {'  <Button onClick="buttonClickHandler1">Button name 1</Button>'}
+            {'  <Button onClick="buttonClickHandler2">Button name 2</Button>'}
+            {'</MultiActionButton>'}
+          </StoryCodeBlock>
         </div>
       )
     },
