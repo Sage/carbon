@@ -67,6 +67,7 @@ Object {
   ],
   "customFilter": undefined,
   "filterValue": undefined,
+  "onLazyLoad": undefined,
   "onMouseEnter": [Function],
   "onMouseLeave": [Function],
   "onSelect": [Function],
