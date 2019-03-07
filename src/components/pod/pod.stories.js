@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions';
 import Pod from './pod';
 import notes from './notes.md';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import '../../style/storybook-info-details.scss';
 
 storiesOf('Pod', module)
   .add('default', () => {
@@ -44,24 +45,20 @@ storiesOf('Pod', module)
     );
   }, {
     info: {
-      text: `
-        # A Pod widget.
-
-        This widget is a provides a wrapper in which to render other widgets.
-
-        ## How to use a Pod in a component:
-
-        In your file
-
-        ~~~JS
-        import Pod from 'carbon-react/lib/components/pod';
-        ~~~
-        To render the Pod:
-
-        ~~~JS
-        <Pod />
-        ~~~
-      `
+      text:
+        <div className='storybook-info'>
+          <p>A Pod widget.</p>
+          <p>This widget is a provides a wrapper in which to render other widgets.</p>
+          <h1>Implementation</h1>
+          <p>In your file</p>
+          <code className='storybook-code'>
+            import Pod from 'carbon-react/lib/components/pod';
+          </code>
+          <p>To render the Pod:</p>
+          <code className='storybook-code'>
+            {`<Pod />`}
+          </code>
+        </div>
     },
     notes: { markdown: notes }
   });

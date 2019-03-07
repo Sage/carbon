@@ -9,6 +9,8 @@ import {
 import Number from './number';
 import notes from './notes.md';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import './number.stories.scss';
+import '../../style/storybook-info-details.scss';
 
 storiesOf('Number Input', module)
   .add('default', () => {
@@ -41,25 +43,20 @@ storiesOf('Number Input', module)
     );
   }, {
     info: {
-      text: `
-        # A number widget.
-
-        It only allows entering of a whole number with an optional minus sign.
-
-        ## How to use a Number in a component:
-
-        In your file
-
-        ~~~JS
-        import Number from 'carbon-react/lib/components/number';
-        ~~~
-
-        To render a Number:
-
-        ~~~JS
-        <Number name="myNumber" />
-        ~~~
-      `
+      text:
+        <div className='storybook-info'>
+          <p>A number widget.</p>
+          <p>It only allows entering of a whole number with an optional minus sign.</p>
+          <h1>Implementation</h1>
+          <p>In your file</p>
+          <code className='storybook-code'>
+            import Number from 'carbon-react/lib/components/number';
+          </code>
+          <p>To render a Number:</p>
+          <code className='storybook-code'>
+            {`<Number name="myNumber" />`}
+          </code>
+        </div>
     },
     notes: { markdown: notes }
   });

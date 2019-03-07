@@ -7,6 +7,7 @@ import { Pages, Page } from './pages';
 import DialogFullScreen from '../dialog-full-screen/dialog-full-screen';
 import Heading from '../heading/heading';
 import Button from '../button/button';
+import '../../style/storybook-info-details.scss';
 
 const store = new Store({
   open: false,
@@ -14,7 +15,7 @@ const store = new Store({
 });
 
 const handleSlide = (ev) => {
-  action('slide')();
+  action('slide')(ev);
   store.set({ slideIndex: (ev.target.name || 0) });
 };
 
@@ -47,7 +48,7 @@ const PageState = props => new CustomState(props);
 storiesOf('Pages', module)
   .addParameters({
     info: {
-      propTablesExclude: [Button, DialogFullScreen, State]
+      propTablesExclude: [Button, DialogFullScreen, DialogState, PageState, State]
     }
   })
   .add('default', () => {
@@ -82,8 +83,6 @@ storiesOf('Pages', module)
     );
   }, {
     info: {
-      text: `
-        Allows to slide to different pages in a full screen dialog.
-      `
+      text: <p>Allows to slide to different pages in a full screen dialog.</p>
     }
   });

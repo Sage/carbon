@@ -1,23 +1,14 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { select } from '@storybook/addon-knobs';
-import { action } from '@storybook/addon-actions';
+import { text, select } from '@storybook/addon-knobs';
 import NavigationBar from './navigation-bar';
-import Link from '../link/link';
 import notes from './notes.md';
-
-const handleClick = (ev) => {
-  ev.target.preventDefault();
-  action('click');
-};
+import './navigation-bar.stories.scss';
+import '../../style/storybook-info-details.scss';
 
 storiesOf('Navigation Bar', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [Link]
-    }
-  })
   .add('default', () => {
+    const children = text('children', '');
     const as = select(
       'as',
       ['primary', 'secondary', 'transparent'],
@@ -25,19 +16,17 @@ storiesOf('Navigation Bar', module)
     );
 
     return (
-      <NavigationBar
-        as={ as }
-      >
-        <Link href='/components/navigation-bar' onClick={ handleClick }>Link 1</Link>
-        <Link href='/components/navigation-bar' onClick={ handleClick }>Link 2</Link>
-        <Link href='/components/navigation-bar' onClick={ handleClick }>Link 3</Link>
-      </NavigationBar>
+        <NavigationBar
+          as={ as }
+        >
+          { children }
+        </NavigationBar>
     );
   }, {
     info: {
-      text: `
-        Renders a full width application bar.
-      `
+      text:
+        <p>Renders a full width application bar.</p>
+
     },
     notes: { markdown: notes }
   });
