@@ -55,11 +55,15 @@ storiesOf('Pod', module)
 
           <p>In your file</p>
 
-          <StoryCode padded>{'import Pod from "carbon-react/lib/components/pod";'}</StoryCode>
+          <StoryCode padded>
+            {'import Pod from "carbon-react/lib/components/pod";'}
+          </StoryCode>
 
           <p>To render the Pod:</p>
 
-          <StoryCode padded>{'<Pod />'}</StoryCode>
+          <StoryCode padded>
+            {'<Pod />'}
+          </StoryCode>
         </div>
       )
     },

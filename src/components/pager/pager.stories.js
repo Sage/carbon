@@ -94,7 +94,9 @@ storiesOf('Pager', module)
 
           <p>In your file</p>
 
-          <StoryCode padded>{'import Pager from "carbon-react/lib/components/pager";'}</StoryCode>
+          <StoryCode padded>
+            {'import Pager from "carbon-react/lib/components/pager";'}
+          </StoryCode>
 
           <p>To render a Pager:</p>
 

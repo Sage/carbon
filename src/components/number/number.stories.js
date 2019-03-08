@@ -53,11 +53,15 @@ storiesOf('Number Input', module)
 
           <p>In your file</p>
 
-          <StoryCode padded>{'import Number from "carbon-react/lib/components/number";'}</StoryCode>
+          <StoryCode padded>
+            {'import Number from "carbon-react/lib/components/number";'}
+          </StoryCode>
 
           <p>To render a Number:</p>
 
-          <StoryCode padded>{'<Number name="myNumber" />'}</StoryCode>
+          <StoryCode padded>
+            {'<Number name="myNumber" />'}
+          </StoryCode>
         </div>
       )
     },

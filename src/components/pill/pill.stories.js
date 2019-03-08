@@ -33,11 +33,15 @@ storiesOf('Pill', module)
 
           <p>In your file</p>
 
-          <StoryCode padded>{'import Pill from "carbon-react/lib/components/pill"'}</StoryCode>
+          <StoryCode padded>
+            {'import Pill from "carbon-react/lib/components/pill"'}
+          </StoryCode>
 
           <p>To render a Pager:</p>
 
-          <StoryCode padded>{'<Pill as="warning">My warning text</Pill>'}</StoryCode>
+          <StoryCode padded>
+            {'<Pill as="warning">My warning text</Pill>'}
+          </StoryCode>
 
           <p>Additionally you can pass optional props to the Pill component</p>
 

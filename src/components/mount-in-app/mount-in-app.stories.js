@@ -32,7 +32,9 @@ storiesOf('Mount In App', module)
 
           <p>Import the component:</p>
 
-          <StoryCode padded>{'import MountInApp from "carbon-react/lib/components/mount-in-app";'}</StoryCode>
+          <StoryCode padded>
+            {'import MountInApp from "carbon-react/lib/components/mount-in-app";'}
+          </StoryCode>
 
           <p>
             Imagine that your pre-existing user interface has
