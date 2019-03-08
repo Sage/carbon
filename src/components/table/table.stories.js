@@ -50,14 +50,14 @@ const buildRows = () => {
 };
 
 storiesOf('Table', module).add('default', () => {
-  const paginate = boolean('paginate', false);
   const pageSize = text('pageSize', '5');
-  const showPageSizeSelection = boolean('showPageSizeSelection', false);
   const selectable = boolean('selectable', false);
   const highlightable = boolean('hightTable', false);
   const shrink = boolean('shrink', false);
   const caption = text('Caption', 'Country and Country Codes');
   const totalRecords = text('totalRecords', '191');
+  const paginate = boolean('paginate', false);
+  const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
 
   return (
     <State store={ store }>
