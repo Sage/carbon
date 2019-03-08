@@ -6,7 +6,6 @@ import MultiActionButton from './multi-action-button';
 import notes from './notes.md';
 import Button from '../button/button';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import './multi-action-button.stories.scss';
 import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../.storybook/style/storybook-info.styles';
 
 storiesOf('Multi Action Button', module)
