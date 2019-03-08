@@ -12,16 +12,24 @@ import {
 
 const store = new Store({
   sortOrder: '',
-  sortedColumn: ''
+  sortedColumn: '',
+  currentPage: '1'
 });
 
 const handleChange = (e, tableOptions) => {
   const { sortOrder, sortedColumn } = tableOptions;
+
   store.set({ sortOrder, sortedColumn });
   action('change')(e, tableOptions);
 };
 
-const buildRows = () => {
+const buildRows = (pageSizeFromKnobs) => {
+  const pageSize = pageSizeFromKnobs;
+  const currentPage = store.get('currentPage');
+
+  const endIndex = pageSize * currentPage;
+  const startIndex = endIndex - pageSize;
+  const rowsCountries = countriesList.slice(startIndex, endIndex);
   // create rows array with header row:
   const rows = [
     <TableRow key='header' as='header'>
@@ -37,7 +45,7 @@ const buildRows = () => {
   ];
 
   // iterate over data to add additional rows:
-  countriesList.forEach((row) => {
+  rowsCountries.map((row) => {
     rows.push(
       <TableRow key={ row.get('id') } uniqueID={ row.get('id') }>
         <TableCell>{row.get('name')}</TableCell>
@@ -55,7 +63,7 @@ storiesOf('Table', module).add('default', () => {
   const highlightable = boolean('hightTable', false);
   const shrink = boolean('shrink', false);
   const caption = text('Caption', 'Country and Country Codes');
-  const totalRecords = text('totalRecords', '191');
+  const totalRecords = text('totalRecords', '50');
   const paginate = boolean('paginate', false);
   const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
 
@@ -79,13 +87,13 @@ storiesOf('Table', module).add('default', () => {
             ];
           } }
           path='/countries'
+          sortOrder={ state.sortOrder }
+          sortedColumn={ state.sortedColumn }
           caption={ caption }
           currentPage='1'
           shrink={ shrink }
           highlightable={ highlightable }
           pageSize={ pageSize }
-          sortOrder={ state.sortOrder }
-          sortedColumn={ state.sortedColumn }
           selectable={ selectable }
           paginate={ paginate }
           actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
@@ -93,7 +101,7 @@ storiesOf('Table', module).add('default', () => {
           showPageSizeSelection={ showPageSizeSelection }
           onChange={ handleChange }
         >
-          {buildRows()}
+          {buildRows(pageSize)}
         </Table>
       )}
     </State>
