@@ -11,7 +11,7 @@ storiesOf('Pod', module)
   .add('default', () => {
     const border = boolean('border', Pod.defaultProps.border);
     const children = text('children', 'This is some example content for a Pod');
-    const padding = select('padding', OptionsHelper.sizesFull, Pod.defaultProps.padding);
+    const padding = select('padding', OptionsHelper.sizesPod, Pod.defaultProps.padding);
     const as = select('as', OptionsHelper.themesFull, Pod.defaultProps.as);
     const title = text('title', '');
     const subtitle = text('subtitle', '');
