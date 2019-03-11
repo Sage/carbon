@@ -54,31 +54,31 @@ storiesOf('Form', module)
     );
   }, {
     info: {
-      text: `
-        A Form widget.
-          
-        ## How to use a Form in a component:
-          
-        In your file
-  
-        ~~~js
-        import Form from 'carbon-react/lib/components/form';
-        ~~~
-  
-        To render a Form:
-        
-        ~~~js
-        <Form>
-          <Textbox />
-          <Textbox />
-          <Date />
-        </Form>
-        ~~~
-  
-        Form provides the ability to hook into the form handle submission method.
-        By passing afterFormValidation or beforeFormValidation you can add custom
-        validation logic and prevent the form submission using ev.preventDefault()
-      `
+      text: (
+        <div>
+          <p>A Form widget.</p>
+            
+          <h2>How to use a Form in a component:</h2>
+            
+          <p>In your file</p>
+    
+          <code>{'import Form from "carbon-react/lib/components/form";'}</code>
+    
+          <p>To render a Form:</p>
+
+          <code>
+            {'<Form>'}
+              {'<Textbox />'}
+              {'<Textbox />'}
+              {'<Date />'}
+            {'</Form>'}
+          </code>
+    
+          <p>Form provides the ability to hook into the form handle submission method.
+          By passing afterFormValidation or beforeFormValidation you can add custom
+          validation logic and prevent the form submission using <code>{'ev.preventDefault()'}</code></p>
+        </div>
+      )
     },
     notes: { markdown: notes }
   });

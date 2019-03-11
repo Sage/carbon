@@ -91,36 +91,39 @@ storiesOf('DraggableContext', module)
     );
   }, {
     info: {
-      text: `
-        A draggable context component
-        ## How to use a draggable context in a component:
-        In your file
-      
-        ~~~JS
-        import { DraggableContext, WithDrop, WithDrag } from 'carbon-react/lib/components/ag-and-drop'
-        ~~~
-
-        A draggable context is used to define an area in the page where drag and drop can be used.
-        You also need to use WithDrop and WithDrag:
+      text: (
+        <div>
+          <p>A draggable context component</p>
+          
+          <h2>How to use a draggable context in a component:</h2>
         
-        ~~~JS
-        <DraggableContext onDrag={ onItemMoved }>
-          <ol>
-            {
-              items.map((item, index) => {
-                return (
-                  <WithDrop index={ index }>
-                    <li>
-                      <WithDrag><span>{ item.content }</span></WithDrag>
-                    </li>
-                  </WithDrop>
-                );
-              })
-            }
-          </ol>
-        </DraggableContext>
-        ~~~
-      `
+          <p>In your file</p>
+      
+          <code>{'import { DraggableContext, WithDrop, WithDrag } from "carbon-react/lib/components/ag-and-drop"'}</code>
+
+          <p>A draggable context is used to define an area in the page where drag and drop can be used.</p>
+        
+          <p>You also need to use WithDrop and WithDrag:</p>
+
+          <code>
+            {'<DraggableContext onDrag={ onItemMoved }>'}
+              {'<ol>'}
+                {'{'}
+                  {'items.map((item, index) => {'}
+                    {'return ('}
+                      {'<WithDrop index={ index }>'}
+                        {'<li>'}
+                          {'<WithDrag><span>{ item.content }</span></WithDrag>'}
+                        {'</li>'}
+                      {'</WithDrop>'}
+                    {');'}
+                  {'})'}
+                {'}'}
+              {'</ol>'}
+            {'</DraggableContext>'}
+          </code>
+        </div>
+      )
     },
     notes: { markdown: notes }
   });

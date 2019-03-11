@@ -53,52 +53,46 @@ storiesOf('Flash', module)
     );
   }, {
     info: {
-      text: `
-        A Flash widget.
-  
-        The flash is rendered in two sections: a ventral message 'flash', and a dorsal coloured, expanding 'slider'.
-  
-        ## How to use an Flash in a component:
-  
-        In your file
-  
-        ~~~js
-        import Flash from 'carbon-react/lib/components/flash';
-        ~~~
-  
-        To render a Flash, setup open and cancel handlers in your view to trigger
-        the message on and off:
-  
-        ~~~js
-        <Flash open={ openStatus } onDismiss={ myOnDismiss } message='Alert!' />
-        ~~~
-  
-        By default, the flash renders with a clickable close icon that hooks up with the onDismiss unction.
-  
-        To instead have the flash disappear after a given time period, pass a prop of timeout in milliseconds.
-  
-        ~~~js
-        <Flash open={ openStatus } onDismiss={ myOnDismiss } message='Alert!' timeout={ 2000 }/>
-        ~~~
-  
-        The flash message can be formatted in the following ways:
-  
-        - A string: "Alert"
-        - An array: ["Message One", "Message Two"]
-        - An object with description: { description: "My description" }
-        - An object of key/value pairs: { first_name: "is required", last_name: "is required" }
-        - An object with description and nested key/value pairs: 
+      text: (
+        <div>
+          <p>A Flash widget.</p>
 
-        ~~~js
-        { description: { first_name: "is required", last_name: "is required" } }
-        ~~~
+          <h2>How to use an Flash in a component:</h2>
+          
+          <p>The flash is rendered in two sections: a ventral message 'flash', and a dorsal coloured, expanding 'slider'.</p>
+    
+          <p>In your file</p>
+    
+          <code>{'import Flash from "carbon-react/lib/components/flash";'}</code>
+    
+          <p>To render a Flash, setup open and cancel handlers in your view to trigger
+          the message on and off:</p>
+    
+          <code>{'<Flash open={ openStatus } onDismiss={ myOnDismiss } message="Alert!" />'}</code>
+    
+          <p>By default, the flash renders with a clickable close icon that hooks up with the onDismiss unction.</p>
+    
+          <p>To instead have the flash disappear after a given time period, pass a prop of timeout in milliseconds.</p>
+    
+          <code>{'<Flash open={ openStatus } onDismiss={ myOnDismiss } message="Alert!" timeout={ 2000 }/>'}</code>
+    
+          <p>The flash message can be formatted in the following ways:</p>
 
-        If a message is too long, it can be proxied to a dialog by adding "more" in your description.
+          <ul>
+            <li>A string: "Alert"</li>
+            <li>An array: ["Message One", "Message Two"]</li>
+            <li>An object with description: <code>{'{ description: "My description" }'}</code></li>
+            <li>An object of key/value pairs: <code>{'{ first_name: "is required", last_name: "is required" }'}</code></li>
+            <li>An object with description and nested key/value pairs: </li>
+          </ul>
   
-        ~~~js
-        let message = "This is too long ::more:: This sentence is proxied to a dialog."
-        ~~~
-      `
+          <code>{'{ description: { first_name: "is required", last_name: "is required" } }'}</code>
+  
+          <p>If a message is too long, it can be proxied to a dialog by adding "more" in your description.</p>
+    
+          <code>{'let message = "This is too long ::more:: This sentence is proxied to a dialog."'}</code>
+        </div>
+      )
     },
     notes: { markdown: notes }
   });
