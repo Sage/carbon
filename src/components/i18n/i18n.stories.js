@@ -27,25 +27,23 @@ storiesOf('I18nComponent', module)
     );
   }, {
     info: {
-      text: `
-        A widget for internationalisation of text.
-        
-        ## How to use an I18n component:
-        
-        In your file:
-        
-        ~~~js
-        import I18n from 'carbon-react/lib/components/i18n';
-        ~~~
-
-        To render the message:
-        
-        ~~~js
-        <I18n scope='foo' />
-        ~~~
-        
-        For additional properties specific to this component, see propTypes.
-      `
+      text: (
+        <div>
+          <p>A widget for internationalisation of text.</p>
+          
+          <h2>How to use an I18n component:</h2>
+          
+          <p>In your file:</p>
+          
+          <code>{'import I18n from "carbon-react/lib/components/i18n";'}</code>
+  
+          <p>To render the message:</p>
+          
+          <code>{'<I18n scope="foo" />'}</code>
+          
+          <p>For additional properties specific to this component, see propTypes.</p>
+        </div>
+      )
     },
     notes: { markdown: notes }
   });

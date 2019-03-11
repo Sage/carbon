@@ -40,29 +40,25 @@ storiesOf('Icon', module)
     );
   }, {
     info: {
-      text: `
-        An Icon widget.
-
-        ## How to use an Icon in a component:
-
-        In your file
-
-        ~~~js
-        import Icon from 'carbon-react/lib/components/icon';
-        ~~~
-
-        To render an Icon:
-
-        ~~~js
-        <Icon type='foo' />
-        ~~~
-
-        'type' is a required prop
-
-        This widget follows this pattern:
-
-        https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components
-      `
+      text: (
+        <div>
+          <p>An Icon widget.</p>
+  
+          <h2>How to use an Icon in a component:</h2>
+  
+          <p>In your file</p>
+  
+          <code>{'import Icon from "carbon-react/lib/components/icon";'}</code>
+  
+          <p>To render an Icon:</p>
+  
+          <code>{'<Icon type="foo" />'}</code>
+  
+          <p>'type' is a required prop</p>
+  
+          <p>This widget follows the <a href="https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components">Stateless Functional Component</a> pattern.</p>
+        </div>
+      )
     },
     notes: { markdown: notes }
   });

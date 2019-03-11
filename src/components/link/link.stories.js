@@ -49,25 +49,23 @@ storiesOf('Link', module)
     );
   }, {
     info: {
-      text: `
-        A link widget.
-        
-        ## How to use a Link in a component:
-        
-        In your file:
-        
-        ~~~js
-        import Link from 'carbon-react/lib/components/link';
-        ~~~
-        
-        To render the Link:
-        
-        ~~~js
-        <Link href='foo'>Main Page</Link>
-        ~~~
-        
-        For additional properties specific to this component, see propTypes.
-      `
+      text: (
+        <div>
+          <p>A link widget.</p>
+          
+          <h2>How to use a Link in a component:</h2>
+          
+          <p>In your file:</p>
+          
+          <code>{'import Link from "carbon-react/lib/components/link";'}</code>
+          
+          <p>To render the Link:</p>
+          
+          <code>{'<Link href="foo">Main Page</Link>'}</code>
+          
+          <p>For additional properties specific to this component, see propTypes.</p>
+        </div>
+      )
     },
     notes: { markdown: notes }
   });
