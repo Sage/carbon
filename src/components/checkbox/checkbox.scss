@@ -36,14 +36,15 @@
   vertical-align: middle;
   width: 15px;
 
-  &:focus + svg {
+  + svg {
     .checkbox-outline {
-      fill: $input-active-border-color;
+      fill: #668592;
     }
   }
 
-  &:hover + svg .checkbox-outline {
-    fill: $input-active-border-color;
+  &:hover + svg {
+    outline: 3px solid #ffb500;
+    outline-offset: 0;
   }
 
   &:checked + svg .checkbox-check {

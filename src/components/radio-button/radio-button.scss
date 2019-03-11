@@ -51,19 +51,22 @@
     }
   }
 
-  &:focus + .carbon-radio-button__sprite {
-    box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
-    border-radius: 100%;
-    @include transition(border linear 0.1s, box-shadow linear 0.1s);
-
+  + .carbon-radio-button__sprite {
     .radio-button-outline {
-      fill: $input-active-border-color;
+      fill: #668592;
     }
   }
 
-  &:hover + .carbon-radio-button__sprite .radio-button-outline {
+  &:focus + .carbon-radio-button__sprite {
+    border-radius: 100%;
+    @include transition(border linear 0.1s, box-shadow linear 0.1s);
+  }
+
+  &:hover + .carbon-radio-button__sprite {
     // the hover colour for the ring
-    fill: $input-active-border-color;
+    border: 3px solid #ffb500;
+    margin: -3px;
+    border-radius: 100%;
   }
 
   &:checked + .carbon-radio-button__sprite .radio-button-check {
