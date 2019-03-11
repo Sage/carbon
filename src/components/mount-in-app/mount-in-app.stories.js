@@ -1,14 +1,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text } from '@storybook/addon-knobs';
 import MountInApp from './mount-in-app';
 import notes from './notes.md';
 import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../.storybook/style/storybook-info.styles';
 
 storiesOf('Mount In App', module)
   .add('default', () => {
-    const children = text('children', 'Content to be mounted!');
-
     return (
       <div>
         <div id='carbon-demo'>Some content to be replaced.</div>
@@ -16,7 +13,7 @@ storiesOf('Mount In App', module)
         <MountInApp
           targetId='carbon-demo'
         >
-          <div>{ children }</div>
+          <div>Content to be mounted!</div>
         </MountInApp>
       </div>
     );
