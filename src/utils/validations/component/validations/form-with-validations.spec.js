@@ -25,6 +25,8 @@ const mockUnregisterChild = (context, name) => context.removeInput(name);
 
 const MockComponent = props => <div { ...props } />;
 
+const WithNoName = withValidations(() => <form />);
+
 describe('formWithValidation', () => {
   let wrapper, context;
 
@@ -53,6 +55,11 @@ describe('formWithValidation', () => {
   });
 
   it('matches the snapshot, rendering with default props when the HOC is passed a component with children', () => {
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('matches the snapshot when the HOC is passed an anonymous component with no name or display name', () => {
+    wrapper = shallow(<WithNoName />);
     expect(wrapper).toMatchSnapshot();
   });
 

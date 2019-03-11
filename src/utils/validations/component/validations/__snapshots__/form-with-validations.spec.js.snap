@@ -1,5 +1,30 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`formWithValidation matches the snapshot when the HOC is passed an anonymous component with no name or display name 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "addInput": [Function],
+      "adjustCount": [Function],
+      "removeInput": [Function],
+    }
+  }
+>
+  <Component
+    errorCount={0}
+    infoCount={0}
+    validationTypes={
+      Array [
+        "error",
+        "warning",
+        "info",
+      ]
+    }
+    warningCount={0}
+  />
+</ContextProvider>
+`;
+
 exports[`formWithValidation matches the snapshot, rendering with default props when the HOC is passed a component with children 1`] = `
 <ContextProvider
   value={

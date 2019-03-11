@@ -3,7 +3,7 @@ import React from 'react';
 const ValidationsContext = React.createContext();
 
 const withValidations = (WrappedComponent) => {
-  return class extends React.Component {
+  class WithValidations extends React.Component {
     state = {
       errorCount: 0,
       warningCount: 0,
@@ -30,11 +30,11 @@ const withValidations = (WrappedComponent) => {
         if (validationResult) adjustment = 1;
         else if (this.state[stateProp] === 0) adjustment = 0;
 
-        this.setState((prev) => { return { [stateProp]: prev[stateProp] + adjustment }; });
+        this.setState(prev => ({ [stateProp]: prev[stateProp] + adjustment }));
       }
     }
 
-    getContext = () => {
+    getContext() {
       return {
         addInput: this.addInput,
         removeInput: this.removeInput,
@@ -42,15 +42,22 @@ const withValidations = (WrappedComponent) => {
       };
     }
 
-    validateRegisteredInputs = () => {
-      let results;
+    validateRegisteredInputs() {
       return new Promise((resolve, reject) => {
-        results = Object.keys(this.inputs).map((name) => {
+        const results = Object.keys(this.inputs).map((name) => {
           const validate = this.inputs[name];
           return validate().catch(e => reject(e));
         });
         return Promise.all(results).then(() => resolve(true));
       });
+      // return new Promise((resolve) => {
+      //   const x = Object.values(this.inputs).map((validate) => {
+      //     return validate()
+      //       .then(() => Array.prototype.concat.bind(resolve(true)));
+      //     // .catch(() => Array.prototype.concat.bind(resolve(false)));
+      //   });
+      //   console.log(x);
+      // });
     }
 
     render() {
@@ -67,7 +74,12 @@ const withValidations = (WrappedComponent) => {
         </ValidationsContext.Provider>
       );
     }
-  };
+  }
+
+  const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
+  WithValidations.displayName = `WithValidations(${displayName})`;
+
+  return WithValidations;
 };
 
 export { ValidationsContext, withValidations };

@@ -46,19 +46,19 @@ const withValidation = (WrappedComponent) => {
       hasInfo: false
     };
 
-    componentDidMount = () => {
+    componentDidMount() {
       if (this.context && this.context.addInput && this.props.error.length) {
         this.context.addInput(this.props.name, this.validate);
       }
     }
 
-    componentWillUnmount = () => {
+    componentWillUnmount() {
       if (this.context && this.context.removeInput && this.props.error.length) {
         this.context.removeInput(this.props.name);
       }
     }
 
-    validate = async (types = this.props.validationTypes) => {
+    async validate(types = this.props.validationTypes) {
       let result = true;
       if (types.includes('error')) result = await this.runValidation('error');
       if (result && types.includes('warning')) result = await this.runValidation('warning');
@@ -66,7 +66,7 @@ const withValidation = (WrappedComponent) => {
       return result;
     }
 
-    updateValidationStatus = (type, errorStatus) => {
+    updateValidationStatus(type, errorStatus) {
       if (this.props.validationTypes.includes(type)) {
         const { adjustCount } = this.context;
         const stateProp = `has${type.charAt(0).toUpperCase() + type.slice(1)}`;
@@ -83,7 +83,7 @@ const withValidation = (WrappedComponent) => {
       return !errorStatus;
     }
 
-    runValidation = (type) => {
+    runValidation(type) {
       return new Promise((resolve) => {
         if (!this.context.adjustCount) return resolve(false);
         if (this.props[type].length === 0) return resolve(true);
@@ -99,7 +99,7 @@ const withValidation = (WrappedComponent) => {
       });
     }
 
-    renderValidationMarkup = () => {
+    renderValidationMarkup() {
       let type;
       if (this.state.hasInfo) type = 'info';
       if (this.state.hasWarning) type = 'warning';
