@@ -5,7 +5,6 @@ import {
   text, boolean, number, select
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import { bool } from 'prop-types';
 import Switch from './switch';
 import notes from './notes.md';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
@@ -26,14 +25,14 @@ storiesOf('Switch', module).add(
     const fieldHelpInline = boolean('fieldHelpInline', false);
     const label = text('label', 'Example Switch');
     const labelHelp = text('labelHelp', 'This text provides more information for the label.');
-    const labelAlign = select('labelAlign', OptionsHelper.alignBinary);
-    const labelInline = boolean('labelInline', false);
-    const labelWidth = number('labelWidth', 0, {
+    const labelInline = label ? boolean('labelInline', false) : null;
+    const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : null;
+    const labelWidth = labelInline ? number('labelWidth', 0, {
       range: true,
       min: 0,
       max: 150,
       step: 1
-    });
+    }) : null;
     const reverse = boolean('reverse', true);
     const loading = boolean('loading', false);
 

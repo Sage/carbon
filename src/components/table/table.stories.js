@@ -11,15 +11,15 @@ import {
 } from './table';
 
 const store = new Store({
-  sortOrder: '',
+  sortOrder: 'asc',
   sortedColumn: '',
   currentPage: '1'
 });
 
 const handleChange = (e, tableOptions) => {
-  const { sortOrder, sortedColumn } = tableOptions;
+  const { sortOrder, sortedColumn, currentPage } = tableOptions;
 
-  store.set({ sortOrder, sortedColumn });
+  store.set({ sortOrder, sortedColumn, currentPage });
   action('change')(e, tableOptions);
 };
 
@@ -30,7 +30,7 @@ const buildRows = (pageSizeFromKnobs) => {
   const endIndex = pageSize * currentPage;
   const startIndex = endIndex - pageSize;
   const rowsCountries = countriesList.slice(startIndex, endIndex);
-  // create rows array with header row:
+
   const rows = [
     <TableRow key='header' as='header'>
       <TableHeader
@@ -44,7 +44,6 @@ const buildRows = (pageSizeFromKnobs) => {
     </TableRow>
   ];
 
-  // iterate over data to add additional rows:
   rowsCountries.map((row) => {
     rows.push(
       <TableRow key={ row.get('id') } uniqueID={ row.get('id') }>
@@ -90,7 +89,7 @@ storiesOf('Table', module).add('default', () => {
           sortOrder={ state.sortOrder }
           sortedColumn={ state.sortedColumn }
           caption={ caption }
-          currentPage='1'
+          currentPage={ state.currentPage }
           shrink={ shrink }
           highlightable={ highlightable }
           pageSize={ pageSize }
