@@ -85,25 +85,23 @@
     display: none;
   }
 
-  &:hover {
-    border-color: $slate-tint-60;
-  }
-
   &:active,
   &:focus {
-    border-color: $blue;
+    outline: 3px solid #ffb500;
+    outline-offset: 0;
   }
 
   .common-input--disabled &,
   &[disabled] {
-    background-color: $slate-tint-85 !important; // this is the correct use of !important
-    border-color: $slate-tint-85 !important; // this is the correct use of !important
-    color: $black-20 !important; // this is the correct use of !important
+    background-color: #f2f5f6 !important; // this is the correct use of !important
+    border-color: #ccd6db !important; // this is the correct use of !important
+    color: rgba(0,0,0,.55) !important; // this is the correct use of !important
 
     &:active,
     &:focus,
     &:hover {
       box-shadow: none;
+      outline: none;
     }
   }
 
@@ -172,8 +170,8 @@
 .carbon-icon.common-input__icon {
   height: 15px;
   position: absolute;
-  right: 5px;
-  top: 28px;
+  right: 8px;
+  top: 32px;
   z-index: 2;
 
   &:before {
@@ -183,8 +181,8 @@
 
 .common-input--label-inline {
   .icon-error {
-    right: 5px;
-    top: 6px;
+    right: 8px;
+    top: 10px;
   }
 }
 
