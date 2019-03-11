@@ -3,21 +3,34 @@ import PropTypes from 'prop-types';
 import Icon from '../../../components/icon';
 import StyledButton from './button.style';
 
+const propsNotForElement = [
+  'as',
+  'children'
+];
+
 const checkPosition = position => position === 'before' || position === 'after';
 
 const renderButtonIcon = (props) => {
   const { children } = props;
-  if (!checkPosition(props.iconPosition) || !props.iconType) return children;
+  if (props.disabled || !checkPosition(props.iconPosition) || !props.iconType) return children;
 
   if (props.iconPosition === 'before') return [children, <Icon key='btn-icon' type={ props.iconType } />];
 
-  return [<Icon key='btn-icon' type={ props.iconType } />, children];
+  return [<Icon key='btn-icon' type={ props.iconType } />, children]; // pass in style props to icon
+};
+
+const filterProps = (props) => {
+  return Object.entries(props).reduce((acc, [key, value]) => {
+    if (!propsNotForElement.includes(key)) acc[key] = value;
+    return acc;
+  }, {});
 };
 
 const Button = (props) => {
   return (
     <StyledButton
-      { ...props }
+      renderAs={ props.as }
+      { ...filterProps(props) }
       role='button'
     >
       { renderButtonIcon(props) }
@@ -26,7 +39,7 @@ const Button = (props) => {
 };
 
 Button.propTypes = {
-  renderAs: PropTypes.string, // Customises the appearance can be set to 'primary', 'secondary', 'tertiary'
+  as: PropTypes.string, // Customises the appearance can be set to 'primary', 'secondary', 'tertiary' or 'destructive'
   children: PropTypes.node.isRequired, // Required, what the button displays
   disabled: PropTypes.bool, // Apply disabled state to the button
   size: PropTypes.string, // Assigns a size to the button
@@ -35,7 +48,7 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-  renderAs: 'secondary',
+  as: 'secondary',
   size: 'medium',
   disabled: false
 };

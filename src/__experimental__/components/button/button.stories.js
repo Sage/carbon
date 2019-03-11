@@ -15,12 +15,10 @@ storiesOf('Draft-Button', module)
 
     return (
       <Button
-        renderAs='primary'
-        darkBackground
+        as='destructive'
+        size='medium'
         disabled
-        size='large'
-        iconPosition='after'
-        iconType='info'
+
       >
         Save
       </Button>
