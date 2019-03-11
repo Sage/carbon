@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { filterOutInputEvents } from '../../../utils/ether/ether';
 import InputPresentationStyle from './input-presentation.style';
 
 const InputPresentationContext = React.createContext();
@@ -56,6 +57,7 @@ class InputPresentation extends React.Component {
 
   render() {
     const { children, ...props } = this.props;
+    const filteredProps = filterOutInputEvents(props);
 
     return (
       <InputPresentationStyle
@@ -64,7 +66,7 @@ class InputPresentation extends React.Component {
         className={ this.classNames() }
         ref={ this.container }
         onMouseDown={ this.handleMouseDown }
-        { ...props }
+        { ...filteredProps }
       >
         <InputPresentationContext.Provider value={ this.contextForInput() }>
           { children }
