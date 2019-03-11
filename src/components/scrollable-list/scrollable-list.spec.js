@@ -1,8 +1,7 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
 import { mount } from 'enzyme';
 import ScrollableList from './scrollable-list.component';
-import { 
+import {
   hoverList,
   selectedItemOf,
   childrenFrom,
@@ -16,16 +15,17 @@ import {
 import 'jest-styled-components';
 
 describe('ScrollableList', () => {
-  let scrollableList, 
-    initialItem = 0, 
-    childCount = 20, 
-    lastItem = childCount - 1,
-    listMakeup = { num: childCount },
-    hoverListItem,
-    assertMouseOverAll,
-    assertKeyboardOverAll,
-    onLazyLoad = jest.fn(),
-    onSelect;
+  const initialItem = 0,
+      childCount = 20,
+      lastItem = childCount - 1,
+      onLazyLoad = jest.fn();
+
+  let scrollableList,
+      listMakeup = { num: childCount },
+      hoverListItem,
+      assertMouseOverAll,
+      assertKeyboardOverAll,
+      onSelect;
 
   const mountComponent = (props, children) => {
     let childrenToRender = children;
@@ -46,7 +46,7 @@ describe('ScrollableList', () => {
   describe('componentWillReceiveProps', () => {
     const renderScrollableList = ({ change, alwaysHighlight = false }) => {
       mountComponent({ alwaysHighlight, keyNavigation: true });
-      let highlighted = alwaysHighlight ? 0 : -1;
+      const highlighted = alwaysHighlight ? 0 : -1;
       keyboard.pressDownArrow();
       keyboard.pressDownArrow();
       expect(selectedItemOf(scrollableList)).toEqual(highlighted + 2);
@@ -60,12 +60,12 @@ describe('ScrollableList', () => {
     });
 
     it('resets the highlighted element when the number of children changes', () => {
-      scrollableList = renderScrollableList({ change: 1 });
+      scrollableList = renderScrollableList({ change: -2 });
       expect(selectedItemOf(scrollableList)).toEqual(-1);
     });
 
     it('selects the first element when the number of children changes and alwaysHighlight is enabled', () => {
-      scrollableList = renderScrollableList({ change: 1, alwaysHighlight: true });
+      scrollableList = renderScrollableList({ change: -2, alwaysHighlight: true });
       expect(selectedItemOf(scrollableList)).toEqual(0);
     });
   });
@@ -88,27 +88,27 @@ describe('ScrollableList', () => {
     describe('mouse events', () => {
       it('selects items with mouse over', () => {
         hoverListItem(2);
-        expect(selectedItemOf(scrollableList)).toEqual(2)
-      })
+        expect(selectedItemOf(scrollableList)).toEqual(2);
+      });
 
       it('mouse over works reliably over all items in list', () => {
         assertMouseOverAll(scrollableList);
-      })
+      });
 
       it('onSelect is called on clicking an item', () => {
         click(childrenFrom(listFrom(scrollableList)).at(0));
         expect(onSelect).toBeCalled();
-      })
-    })
-  
+      });
+    });
+
     describe('main functionality', () => {
       it('renders a list of items', () => {
         expect(childrenFrom(listFrom(scrollableList)).length).toBe(childCount);
       });
 
       it('accepts a single child', () => {
-        mountComponent({}, <div></div>);
-        expect(childrenFrom(listFrom(scrollableList)).length).toBe(1)
+        mountComponent({}, <div />);
+        expect(childrenFrom(listFrom(scrollableList)).length).toBe(1);
       });
 
       it('renders nothing if no children are passed', () => {
@@ -131,19 +131,19 @@ describe('ScrollableList', () => {
         expect(() => mount(<ScrollableList alwaysHighlight>{ [] }</ScrollableList>)).not.toThrowError();
       });
     });
-  
+
     describe('keyboard navigation', () => {
       it('is activated by a keyNavigation prop', () => {
         mountComponent({ alwaysHighlight: true }, renderListItems({ num: childCount }));
         keyboard.pressDownArrow();
         expect(selectedItemOf(scrollableList)).toEqual(initialItem);
       });
-  
+
       it('supports down navigation', () => {
         keyboard.pressDownArrow();
         expect(selectedItemOf(scrollableList)).toEqual(initialItem + 1);
       });
-  
+
       it('supports up navigation', () => {
         scrollableList.setState({ selectedItem: initialItem + 1 });
         keyboard.pressUpArrow();
@@ -177,12 +177,12 @@ describe('ScrollableList', () => {
         keyboard.pressUpArrow();
         expect(list.scrollTop).toEqual(numOfItems * itemHeight - listHeight);
       });
-  
+
       it('jumps to the bottom of list when up key pressed at first item', () => {
         keyboard.pressUpArrow();
         expect(selectedItemOf(scrollableList)).toEqual(lastItem);
       });
-  
+
       it('jumps back to the top of list when down key pressed at last item', () => {
         scrollableList.setState({ selectedItem: lastItem });
         keyboard.pressDownArrow();
@@ -191,8 +191,8 @@ describe('ScrollableList', () => {
 
       it('keyboard events reliably traverse the list', () => {
         assertKeyboardOverAll(scrollableList);
-      })
-  
+      });
+
       it('calls an onSelect callback on pressing the enter key', () => {
         keyboard.pressEnter();
         expect(onSelect).toHaveBeenCalledWith(initialItem);
@@ -201,7 +201,7 @@ describe('ScrollableList', () => {
       it('does nothing when other keys are pressed', () => {
         keyboard.pressRightArrow();
         expect(selectedItemOf(scrollableList)).toEqual(initialItem);
-      })
+      });
 
       it('can be deactivated after the component is mounted', () => {
         scrollableList.setProps({ keyNavigation: false });
@@ -234,16 +234,15 @@ describe('ScrollableList', () => {
         keyboard.pressTab();
         expect(onSelect).not.toHaveBeenCalled();
       });
-    })
-  })
+    });
+  });
 
   describe('mixed child nodes', () => {
-    const listMakeup = {
-      nonSelectables: [0,2,4],
-      num: 5
-    };
-
     beforeEach(() => {
+      listMakeup = {
+        nonSelectables: [0, 2, 4],
+        num: 5
+      };
       mountComponent({
         alwaysHighlight: true,
         keyNavigation: true,
@@ -251,11 +250,11 @@ describe('ScrollableList', () => {
         onLazyLoad
       }, renderListItems(listMakeup));
       hoverListItem = hoverList(scrollableList);
-    })
+    });
 
     it('accepts non-selectable elements', () => {
       expect(childrenFrom(listFrom(scrollableList)).length).toBe(listMakeup.num);
-    })
+    });
 
     it('does not select non-selectable items', () => {
       expect(selectedItemOf(scrollableList)).toEqual(initialItem + 1);
@@ -264,7 +263,7 @@ describe('ScrollableList', () => {
     it('mouseover does not select non-selectable items', () => {
       hoverListItem(2);
       expect(selectedItemOf(scrollableList)).toEqual(initialItem + 1);
-    })
+    });
 
     it('skips non-selectable items on keyboard down navigation', () => {
       keyboard.pressDownArrow();
@@ -274,18 +273,17 @@ describe('ScrollableList', () => {
     it('skips non-selectable items on keyboard up navigation', () => {
       keyboard.pressUpArrow();
       expect(selectedItemOf(scrollableList)).toEqual(3);
-    })
-  })
+    });
+  });
 
   describe('custom elements which are selectable', () => {
-    const listMakeup = {
-      customSelectables: [0,2,4],
-      num: 5
-    },
-      assertMouseOverAll = assertHoverTraversal(listMakeup),
-      assertKeyboardOverAll = assertKeyboardTraversal(listMakeup);
-      
     beforeEach(() => {
+      listMakeup = {
+        customSelectables: [0, 2, 4],
+        num: 5
+      };
+      assertMouseOverAll = assertHoverTraversal(listMakeup);
+      assertKeyboardOverAll = assertKeyboardTraversal(listMakeup);
       mountComponent({
         alwaysHighlight: true,
         keyNavigation: true,
@@ -300,33 +298,33 @@ describe('ScrollableList', () => {
 
     it('does not affect keyboard navigation', () => {
       assertKeyboardOverAll(scrollableList);
-    })
+    });
 
     it('does not affect mouseover functionality', () => {
       assertMouseOverAll(scrollableList);
-    })
-  })
+    });
+  });
 
   describe('style', () => {
     it('has a default max-height', () => {
       expect(scrollableList).toHaveStyleRule('max-height', '180px');
     });
-    
+
     it('has a default max-height which is overridable by a prop', () => {
       scrollableList.setProps({ maxHeight: '200px' });
       expect(scrollableList).toHaveStyleRule('max-height', '200px');
     });
-  })
+  });
 
   describe('lazy loading', () => {
     it('accepts a callback which is called when scroll nears the end of item list', () => {
-      scrollableList.simulate('scroll', { target: { scrollHeight: 300, scrollTop: 101 } });
+      scrollableList.simulate('scroll', { target: { scrollHeight: 400, scrollTop: 101 } });
       expect(onLazyLoad).toBeCalled();
     });
 
     it('does not trigger onLazyLoad when the scrollTop is not beyond the scrollHeight', () => {
       onLazyLoad.mockReset();
-      scrollableList.simulate('scroll', { target: { scrollHeight: 300, scrollTop: 99 } });
+      scrollableList.simulate('scroll', { target: { scrollHeight: 400, scrollTop: 99 } });
       expect(onLazyLoad).not.toBeCalled();
     });
 
