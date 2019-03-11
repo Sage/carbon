@@ -1,44 +1,43 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React from 'react';
+import PropTypes from 'prop-types';
+import Icon from '../../../components/icon';
+import StyledButton from './button.style';
 
-const TestButton = styled.a`
-  /* This renders the buttons above... Edit me! */
-  display: inline-block;
-  border-radius: 3px;
-  padding: 0.5rem 0;
-  margin: 0.5rem 1rem;
-  width: 11rem;
-  background: transparent;
-  color: white;
-  border: 2px solid white;
+const checkPosition = position => position === 'before' || position === 'after';
 
-  /* The GitHub button is a primary button
-   * edit this to target it specifically! */
-`;
+const renderButtonIcon = (props) => {
+  const { children } = props;
+  if (!checkPosition(props.iconPosition) || !props.iconType) return children;
 
-const Button = () => {
-  const [count, setCount] = useState(0);
+  if (props.iconPosition === 'before') return [children, <Icon key='btn-icon' type={ props.iconType } />];
 
+  return [<Icon key='btn-icon' type={ props.iconType } />, children];
+};
+
+const Button = (props) => {
   return (
-    <div>
-      <TestButton
-        href='https://github.com/styled-components/styled-components'
-        target='_blank'
-        rel='noopener'
-        primary
-        onClick={ () => setCount(count + 1) }
-      >
-      count
-      </TestButton>
-
-      <TestButton
-        as='' href='/docs'
-        onClick={ () => setCount(count + 3) }
-      >
-      Documentation
-      </TestButton>
-    </div>
+    <StyledButton
+      { ...props }
+      role='button'
+    >
+      { renderButtonIcon(props) }
+    </StyledButton>
   );
+};
+
+Button.propTypes = {
+  renderAs: PropTypes.string, // Customises the appearance can be set to 'primary', 'secondary', 'tertiary'
+  children: PropTypes.node.isRequired, // Required, what the button displays
+  disabled: PropTypes.bool, // Apply disabled state to the button
+  size: PropTypes.string, // Assigns a size to the button
+  iconPosition: PropTypes.string, // Defines an Icon position within the button 'before' / 'after'
+  iconType: PropTypes.string // Defines an Icon type within the button
+};
+
+Button.defaultProps = {
+  renderAs: 'secondary',
+  size: 'medium',
+  disabled: false
 };
 
 export default Button;

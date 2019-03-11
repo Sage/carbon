@@ -18,6 +18,8 @@ export default (palette) => {
       warning: palette.gold,
       success: palette.brilliantGreenShade(20),
       info: palette.productBlueShade(3),
+      disabled: blackWithOpacity(0.1),
+      destructiveHover: palette.errorRedShade(20),
 
       text: {
         body: blackWithOpacity(0.9),

@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled, { ThemeProvider } from 'styled-components';
+import small from '../../../../src/style/themes/small';
+import medium from '../../../../src/style/themes/medium';
+import large from '../../../../src/style/themes/large';
+import classic from '../../../../src/style/themes/classic';
 
 const StyledSelect = styled.select`
   padding: 5px 15px;
@@ -34,17 +38,12 @@ class AppLayout extends React.Component {
   }
 
   state = {
-    activeTheme: 'theme1',
+    activeTheme: 'classic',
     themes: {
-      theme1: {
-        main: 'palevioletred',
-        secondary: 'lightblue'
-      },
-      theme2: {
-        main: 'green',
-        secondary: 'lightblue'
-      }
-
+      small,
+      medium,
+      large,
+      classic
     }
   }
 
@@ -59,8 +58,10 @@ class AppLayout extends React.Component {
         <div>
           <SelectionContainer>
             <StyledSelect value={ activeTheme } onChange={ this.handleSelectChange }>
-              <option value='theme1'>Theme 1</option>
-              <option value='theme2'>Theme 2</option>
+            <option value='classic'>Classic</option>
+              <option value='small'>Small</option>
+              <option value='medium'>Medium</option>
+              <option value='large'>Large</option>
             </StyledSelect>
           </SelectionContainer>
         </div>

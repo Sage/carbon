@@ -1,5 +1,7 @@
 import React from 'react';
+import { Option, SelectAsync } from '__experimental__/components/select-async';
 import { transform } from 'babel-standalone';
+import Button from '__experimental__/components/button';
 import './sandbox.scss';
 
 class Preview extends React.Component {
@@ -42,6 +44,7 @@ class Preview extends React.Component {
 
 class Sandbox extends React.Component {
   state = {
+    val: [],
     code: ''
   }
 
@@ -56,8 +59,8 @@ class Sandbox extends React.Component {
       const startPos = input.selectionStart;
       const endPos = input.selectionEnd;
       const newValue = `${input.value.substring(0, startPos)
-         }  ${
-         input.value.substring(endPos, input.value.length)}`;
+      }  ${
+        input.value.substring(endPos, input.value.length)}`;
 
       this.setState({ code: newValue }, () => {
         const newPos = startPos + 2;
@@ -69,19 +72,8 @@ class Sandbox extends React.Component {
   render() {
     return (
       <div className={ `sandbox sandbox-orientation-${this.state.orientation ? 'horizontal' : 'vertical'}` }>
-        <Preview code={ this.state.code } />
-        <textarea
-          autoFocus
-          className='sandbox-input'
-          onChange={ this.updateCode }
-          onKeyDown={ this.catchTab }
-          value={ this.state.code }
-        />
-        <input
-          className='sandbox-orientation'
-          type='checkbox'
-          onChange={ () => { this.setState({ orientation: !this.state.orientation }); } }
-        />
+
+        <Button />
       </div>
     );
   }
