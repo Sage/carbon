@@ -6,10 +6,6 @@ Given('I open Button component page', () => {
   cy.visit(Cypress.env('button_component_url'));
 });
 
-When('I set children to {string}', (text) => {
-  childrenTextArea().clear().type(text);
-});
-
 Then('Button label on preview is {string}', (label) => {
   buttonPreview().should('have.text', label)
 });

@@ -1,4 +1,8 @@
-import { asSelect, themeSelect, sizeSelect, subtextInput, heightInput } from "../../locators/commonLocators";
+import { asSelect, themeSelect, sizeSelect, subtextInput, heightInput, childrenTextArea } from "../../locators/commonLocators";
+
+When('I set children to {string}', (text) => {
+  childrenTextArea().clear().type(text);
+});
 
 When('I set as property to {string}', (asProperty) => {
   asSelect().select(asProperty);
@@ -9,12 +13,12 @@ When('I type {string} to as property', (asProperty) => {
 })
 
 When('I set component size to {string}', (size) => {
-sizeSelect().select(size)
+  sizeSelect().select(size)
 })
 
 When('I set component subtext to {string}', (subtext) => {
   subtextInput().type(subtext)
-  })
+})
 
 When('I set component theme property to {string}', (theme) => {
   themeSelect().select(theme)
