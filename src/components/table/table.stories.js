@@ -44,14 +44,28 @@ const buildRows = (pageSizeFromKnobs) => {
     </TableRow>
   ];
 
-  rowsCountries.map((row) => {
-    rows.push(
-      <TableRow key={ row.get('id') } uniqueID={ row.get('id') }>
-        <TableCell>{row.get('name')}</TableCell>
-        <TableCell>{row.get('value')}</TableCell>
-      </TableRow>
-    );
-  });
+  if (store.get('sortOrder') === 'asc') {
+    rowsCountries.toJS().map((row) => {
+      rows.push(
+        <TableRow key={ row.id } uniqueID={ row.id }>
+          <TableCell>{row.name}</TableCell>
+          <TableCell>{row.value}</TableCell>
+        </TableRow>
+      );
+    });
+  } else {
+    rowsCountries
+      .toJS()
+      .reverse()
+      .map((row) => {
+        rows.push(
+          <TableRow key={ row.id } uniqueID={ row.id }>
+            <TableCell>{row.name}</TableCell>
+            <TableCell>{row.value}</TableCell>
+          </TableRow>
+        );
+      });
+  }
 
   return rows;
 };
