@@ -13,15 +13,13 @@ exports[`formWithValidation matches the snapshot when the HOC is passed an anony
   <Component
     errorCount={0}
     infoCount={0}
-    validationTypes={
-      Array [
-        "error",
-        "warning",
-        "info",
-      ]
-    }
+    isValidating={true}
+    validate={[Function]}
     warningCount={0}
-  />
+  >
+    errors: 
+    0
+  </Component>
 </ContextProvider>
 `;
 
@@ -38,15 +36,12 @@ exports[`formWithValidation matches the snapshot, rendering with default props w
   <MockComponent
     errorCount={0}
     infoCount={0}
-    validationTypes={
-      Array [
-        "error",
-        "warning",
-        "info",
-      ]
-    }
+    isValidating={true}
+    validate={[Function]}
     warningCount={0}
   >
+    errors: 
+    0
     <MockComponent
       errors={[Function]}
       info={[Function]}

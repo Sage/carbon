@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ValidationsContext = React.createContext();
 
@@ -10,9 +11,11 @@ const withValidations = (WrappedComponent) => {
       infoCount: 0
     }
 
-    inputs = {};
+    static propTypes = {
+      children: PropTypes.node
+    }
 
-    validationTypes = ['error', 'warning', 'info'];
+    inputs = {};
 
     addInput = (name, validate) => {
       this.inputs[name] = validate;
@@ -23,15 +26,13 @@ const withValidations = (WrappedComponent) => {
     }
 
     adjustCount = (type, hasFailed) => {
-      if (this.validationTypes.includes(type)) {
-        const stateProp = `${type}Count`;
-        let adjustment = -1;
+      const stateProp = `${type}Count`;
+      let adjustment = -1;
 
-        if (hasFailed) adjustment = 1;
-        else if (this.state[stateProp] === 0) adjustment = 0;
+      if (hasFailed) adjustment = 1;
+      else if (this.state[stateProp] === 0) adjustment = 0;
 
-        this.setState(prev => ({ [stateProp]: prev[stateProp] + adjustment }));
-      }
+      this.setState(prev => ({ [stateProp]: prev[stateProp] + adjustment }));
     }
 
     getContext() {
@@ -42,35 +43,29 @@ const withValidations = (WrappedComponent) => {
       };
     }
 
-    validateRegisteredInputs() {
-      return new Promise((resolve, reject) => {
-        const results = Object.keys(this.inputs).map((name) => {
-          const validate = this.inputs[name];
-          return validate().catch(e => reject(e));
-        });
-        return Promise.all(results).then(() => resolve(true));
+    validateRegisteredInputs = async () => {
+      let promises = [];
+      Object.keys(this.inputs).forEach((name) => {
+        const validate = this.inputs[name];
+        promises = promises.concat(validate(['error']));
       });
-      // return new Promise((resolve) => {
-      //   const promiseArr = Object.values(this.inputs).map((validate) => {
-      //     return validate()
-      //       .then(() => Array.prototype.concat.bind(resolve(true)));
-      //     // .catch(() => Array.prototype.concat.bind(resolve(false)));
-      //   });
-      //   console.log(promiseArr);
-      // });
+      return Promise.all(promises).then(isValid => Promise.resolve(!isValid.includes(false)));
     }
 
     render() {
       return (
         <ValidationsContext.Provider value={ this.getContext() }>
           <WrappedComponent
-            validate={ this.validate }
+            validate={ this.validateRegisteredInputs }
             errorCount={ this.state.errorCount }
             warningCount={ this.state.warningCount }
             infoCount={ this.state.infoCount }
-            validationTypes={ this.validationTypes }
+            isValidating
             { ...this.props }
-          />
+          >
+            errors: { this.state.errorCount }
+            { this.props.children }
+          </WrappedComponent>
         </ValidationsContext.Provider>
       );
     }

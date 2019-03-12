@@ -4,7 +4,9 @@ exports[`Validations component matches the snapshot when the HOC is passed an an
 <Component
   error={Array []}
   info={Array []}
+  name="foo"
   onBlur={[Function]}
+  onChange={[Function]}
   warning={Array []}
 />
 `;
@@ -13,30 +15,20 @@ exports[`Validations component matches the snapshot with the input component wra
 <MockComponent
   error={Array []}
   info={Array []}
+  name="foo "
   onBlur={[Function]}
-  validationTypes={
-    Array [
-      "error",
-      "warning",
-      "info",
-    ]
-  }
+  onChange={[Function]}
   warning={Array []}
 />
 `;
 
-exports[`Validations component renderValidationMarkup returns the Icon when the component has an array of children 1`] = `
+exports[`Validations component when renderValidationMarkup is called returns the Icon when the component has an array of children 1`] = `
 <MockComponent
   error={Array []}
   info={Array []}
+  name="foo"
   onBlur={[Function]}
-  validationTypes={
-    Array [
-      "error",
-      "warning",
-      "info",
-    ]
-  }
+  onChange={[Function]}
   warning={Array []}
 >
   <div />
@@ -50,18 +42,13 @@ exports[`Validations component renderValidationMarkup returns the Icon when the 
 </MockComponent>
 `;
 
-exports[`Validations component renderValidationMarkup returns the children if no type has been set 1`] = `
+exports[`Validations component when renderValidationMarkup is called returns the children if no type has been set 1`] = `
 <MockComponent
   error={Array []}
   info={Array []}
+  name="foo"
   onBlur={[Function]}
-  validationTypes={
-    Array [
-      "error",
-      "warning",
-      "info",
-    ]
-  }
+  onChange={[Function]}
   warning={Array []}
 >
   <div />
