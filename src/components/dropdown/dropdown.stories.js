@@ -75,5 +75,26 @@ storiesOf('Dropdown', module)
       </State>
     );
   }, {
+    info: {
+      text: (
+        <div>
+          <p>A dropdown widget.</p>
+
+          <h2>How to use a dropdown in a component:</h2>
+
+          <p>In your file</p>
+
+          <code>{'import Dropdown from "carbon-react/lib/components/dropdown";'}</code>
+
+          <p>To render a Dropdown:</p>
+
+          <code>{'<Dropdown name="foo" options={ foo } onChange={ myChangeHandler } />'}</code>
+
+          <p>The developer should pass data to the store as JSON. e.g.</p>
+
+          <code>{'foo: [{ id: 1, name: "Foo" }, { id: 2, name: "Bar" }]'}</code>
+        </div>
+      )
+    },
     notes: { markdown: notes }
   });

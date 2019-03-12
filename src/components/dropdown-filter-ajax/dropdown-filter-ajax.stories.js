@@ -24,7 +24,7 @@ const create = (evt, component) => component.state.filter;
 
 // Shared Props
 const onChange = (evt) => {
-  store.set({ 
+  store.set({
     visibleValue: evt.target.visibleValue,
     value: evt.target.visibleValue
   });
@@ -141,5 +141,28 @@ storiesOf('DropdownFilterAjax', module)
       </State>
     );
   }, {
+    info: {
+      text: (
+        <div>
+          <p>A dropdown filter widget using ajax.</p>
+
+          <h2>How to use a dropdown in a component:</h2>
+
+          <p>In your file</p>
+
+          <code>{'import DropdownFilterAjax from "carbon-react/lib/components/dropdown-filter-ajax";'}</code>
+
+          <p>To render a DropdownFilterAjax:</p>
+
+          <code>{'<DropdownFilter name="foo" path="/foo" onChange={ myChangeHandler } />'}</code>
+
+          <p>You can also use the component in 'suggest' mode, which only shows the dropdown once a filter term has been entered.</p>
+
+          <p>You can also define a function using the 'create' prop, this will allow you to trigger events to create new items.</p>
+
+          <p>You can also define the number of rows returned by the ajax request using the property rowsPerRequest.</p>
+        </div>
+      )
+    },
     notes: { markdown: notes }
   });
