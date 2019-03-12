@@ -15,14 +15,18 @@ const InputPresentationStyle = styled.div`
   min-height: 32px;
   width: 100%;
 
+  &:hover {
+    border-color: ${({ theme }) => theme.input.hover.borderColor};
+  }
+
   ${({ disabled, theme }) => disabled && css`
     background: ${theme.input.disabled.backgroundColor};
-    border-color: ${theme.input.disabled.borderColor};
+    border-color: ${theme.input.disabled.borderColor} !important;
     cursor: not-allowed;
   `}
   ${({ readOnly }) => readOnly && css`
-    background: transparent;  
-    border-color: transparent;
+    background: transparent !important;
+    border-color: transparent !important;
   `}
   ${({ info, theme }) => info && css`
     border-color: ${theme.colors.info};
@@ -40,7 +44,7 @@ const InputPresentationStyle = styled.div`
                 inset -1px -1px 0 ${theme.colors.error};
   `}
   ${({ hasFocus, theme }) => hasFocus && css`
-    outline: 3px solid ${theme.colors.warning};
+    && { ${theme.input.active.border}; }
   `}
 
   ${({ size, theme }) => css`
