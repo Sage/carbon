@@ -16,7 +16,7 @@ const Textbox = ({
   leftChildren,
   labelInline,
   inputIcon,
-  labelAlignRight,
+  labelAlign,
   fieldHelp,
   ...props
 }) => {
@@ -25,7 +25,7 @@ const Textbox = ({
       <InputLabel
         label={ label }
         labelInline={ labelInline }
-        labelAlignRight={ labelAlignRight }
+        labelAlign={ labelAlign }
       />
       <InputPresentation type='text' { ...props }>
         { leftChildren }
@@ -43,7 +43,7 @@ Textbox.propTypes = {
   leftChildren: PropTypes.node,
   label: PropTypes.string,
   labelInline: PropTypes.bool,
-  labelAlignRight: PropTypes.string,
+  labelAlign: PropTypes.string,
   inputIcon: PropTypes.string,
   fieldHelp: PropTypes.string
 };

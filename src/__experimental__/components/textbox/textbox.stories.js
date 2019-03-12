@@ -6,13 +6,29 @@ import Textbox from '.';
 storiesOf('Experimental/Textbox', module)
   .add('basic', () => {
     return (
-      <Textbox
-        size={ select('size', ['small', 'medium', 'large'], 'medium') }
-        disabled={ boolean('disabled', false) }
-        readOnly={ boolean('readOnly', false) }
-        placeholder={ text('placeholder', 'placeholder text') }
-        warning={ boolean('warning', false) }
-        error={ boolean('error', false) }
-      />
+      <div>
+        <Textbox
+          size={ select('size', ['small', 'medium', 'large'], 'medium') }
+          disabled={ boolean('disabled', false) }
+          readOnly={ boolean('readOnly', false) }
+          placeholder={ text('placeholder', 'placeholder text') }
+          warning={ boolean('warning', false) }
+          error={ boolean('error', false) }
+          label={ text('label') }
+          labelInline={ boolean('labelInline', false) }
+          labelAlign={ select('labelAlign', ['left', 'right']) }
+        />
+        <Textbox
+          size={ select('size', ['small', 'medium', 'large'], 'medium') }
+          disabled={ boolean('disabled', false) }
+          readOnly={ boolean('readOnly', false) }
+          placeholder={ text('placeholder', 'placeholder text') }
+          warning={ boolean('warning', false) }
+          error={ boolean('error', false) }
+          label={ text('label') }
+          labelInline={ boolean('labelInline', false) }
+          labelAlign={ select('labelAlign', ['left', 'right']) }
+        />
+      </div>
     );
   });

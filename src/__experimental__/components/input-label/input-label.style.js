@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import BaseTheme from 'style/themes/base';
+import BaseTheme from '../../../style/themes/base';
 
 const LabelStyle = styled.label`
   color: ${({ theme }) => theme.colors.text.body};

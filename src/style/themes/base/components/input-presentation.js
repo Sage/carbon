@@ -35,22 +35,19 @@ export default ({ palette, blackWithOpacity }) => ({
       height: '32px',
       fontSize: '14px',
       paddingLeft: '8px',
-      paddingRight: '8px',
-      width: '80px'
+      paddingRight: '8px'
     },
     medium: {
       height: '40px',
       fontSize: '14px',
       paddingLeft: '11px',
-      paddingRight: '11px',
-      width: '128px'
+      paddingRight: '11px'
     },
     large: {
       height: '48px',
       fontSize: '16px',
       paddingLeft: '13px',
-      paddingRight: '13px',
-      width: '256px'
+      paddingRight: '13px'
     }
   }
 });

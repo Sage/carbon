@@ -29,6 +29,14 @@ export default (palette) => {
         placeholder: blackWithOpacity(0.3)
       }
     },
+
+    input: {
+      borderColor: palette.slateTint(80),
+      disabled: {
+        backgroundColor: palette.slateTint(85)
+      }
+    },
+
     components: {
       input: inputConfig(blackWithOpacity),
       inputPresentation: inputPresentationConfig({ palette, blackWithOpacity }),

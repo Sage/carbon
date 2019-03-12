@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from 'components/icon/icon';
+import Icon from '../../../components/icon';
 import InputIconToggleStyle from './input-icon-toggle.style';
 
 /**
