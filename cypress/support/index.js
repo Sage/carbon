@@ -29,3 +29,12 @@ Cypress.on('uncaught:exception', (err, runnable) => {
     // failing the test
     return false
 })
+
+Cypress.Commands.overwrite(
+    "type",
+    (originalFn, subject, string, options) => originalFn(
+        subject,
+        string,
+        Object.assign({}, options, { delay: 100 })
+    )
+)

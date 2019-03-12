@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "6.2.0",
+  "version": "6.3.0",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "engineStrict": true,
   "engines": {
@@ -12,7 +12,7 @@
     "prep-deploy": "node -e \"require('./script/deploy').default();\"",
     "start": "npm run gen-colors && npm run gen-docs && npm run webpack-dev-server",
     "build": "npm run gen-colors && npm run gen-docs && cross-env NODE_ENV=production npm run webpack && npm run prep-deploy",
-	"test": "jest --config=./jest.conf.json",
+    "test": "jest --config=./jest.conf.json",
     "test-cypress": "cypress open",
     "debug": "node --inspect ./node_modules/jest/bin/jest --watch --config=./jest.conf.json",
     "lint": "./node_modules/.bin/eslint",

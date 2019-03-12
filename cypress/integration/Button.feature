@@ -7,27 +7,25 @@ Feature: Button component
     When I set children to "<label>"
     Then Button label on preview is "<label>"
     Examples:
-      | label                         |
-      | First Label Test              |
-      | Second label test             |
-      | 1!@#$%^&*()_+-=~[];'./?\,}:-> |
-      | 汉字                            |
-      # 2 bugs below was reported https://jira.sage.com/browse/FE-1273
-      | { |
-      | < |
+      | label                    |
+      | First Label Test         |
+      | Second label test        |
+      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | 汉字                       |
+      | <>                       |
 
   @positive
   Scenario Outline: Change button subtext
     Given I open Button component page
-    When I set Button subtext to "<subtext>"
-      And I set Button size to "large"
+    When I set Component size to "large"
+      And I set Component subtext to "<subtext>"
     Then Button subtext on preview is "<subtext>"
     Examples:
-      | subtext                       |
-      | example subtext               |
-      | 1!@#$%^&*()_+-=~[];'./?\,}:-> |
-      | < {                           |
-      | 汉字                            |
+      | subtext                  |
+      | example subtext          |
+      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | 汉字                       |
+      | <>                       |
 
   @positive
   Scenario Outline: Change Button 'as' property
@@ -38,18 +36,6 @@ Feature: Button component
       | as        |
       | primary   |
       | secondary |
-
-  @negative
-  Scenario Outline: Change Button 'as' property to non-existent
-    Given I open Button component page
-    When I type "<as>" to as property
-    Then I see "No results match" "<as>" for results
-    Examples:
-      | as                            |
-      | 1!@#$%^&*()_+-=~[];'./?\,}:-> |
-      | non-existent                  |
-      | < {                           |
-      | 汉字                            |
 
   @positive
   Scenario: Disable Button
@@ -65,6 +51,17 @@ Feature: Button component
     Then Button is enabled
 
   @positive
+  Scenario Outline: Set Button size to small, medium and large
+    Given I open Button component page
+    When I set Component size to "<size>"
+    Then Button size property on preview is "<size>"
+    Examples:
+      | size   |
+      | small  |
+      | medium |
+      | large  |
+
+  @positive
   Scenario Outline: Set theme to Button
     Given I open Button component page
     When I set Button theme property to "<theme>"
@@ -78,37 +75,40 @@ Feature: Button component
       | red          |
       | white        |
 
-  @negative
-  Scenario Outline: Set theme to Button to non-existent
-    Given I open Button component page
-    When I type "<theme>" to Button theme property
-    Then I see "No results match" "<theme>" for results
-    Examples:
-      | theme                         |
-      | 1!@#$%^&*()_+-=~[];'./?\,}:-> |
-      | non-existent                  |
-      | < {                           |
-      | 汉字                            |
 
-  @positive
-  Scenario Outline: Set Button size to small, medium and large
-    Given I open Button component page
-    When I set Button size to "<size>"
-    Then Button size property on preview is "<size>"
-    Examples:
-      | size   |
-      | small  |
-      | medium |
-      | large  |
+# these scenarios do not apply storybook
+# @negative @ignore
+# Scenario Outline: Set Button size to non-existent
+#   Given I open Button component page
+#   When I type "<size>" to Button size
+#   Then I see "No results match" "<size>" for results
+#   Examples:
+#     | size                          |
+#     | 1!@#$%^&*()_+-=~[];'./?\,}:-> |
+#     | non-existent                  |
+#     | < {                           |
+#     | 汉字                            |
 
-  @negative
-  Scenario Outline: Set Button size to non-existent
-    Given I open Button component page
-    When I type "<size>" to Button size
-    Then I see "No results match" "<size>" for results
-    Examples:
-      | size                          |
-      | 1!@#$%^&*()_+-=~[];'./?\,}:-> |
-      | non-existent                  |
-      | < {                           |
-      | 汉字                            |
+# @negative @ignore
+# Scenario Outline: Change Button 'as' property to non-existent
+#   Given I open Button component page
+#   When I type "<as>" to as property
+#   Then I see "No results match" "<as>" for results
+#   Examples:
+#     | as                            |
+#     | 1!@#$%^&*()_+-=~[];'./?\,}:-> |
+#     | non-existent                  |
+#     | < {                           |
+#     | 汉字                            |
+
+# @negative @ignore
+# Scenario Outline: Set theme to Button to non-existent
+#   Given I open Button component page
+#   When I type "<theme>" to Button theme property
+#   Then I see "No results match" "<theme>" for results
+#   Examples:
+#     | theme                         |
+#     | 1!@#$%^&*()_+-=~[];'./?\,}:-> |
+#     | non-existent                  |
+#     | < {                           |
+#     | 汉字                            |
