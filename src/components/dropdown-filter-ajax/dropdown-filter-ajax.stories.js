@@ -12,20 +12,26 @@ import ImmutableHelper from '../../utils/helpers/immutable';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import DropdownFilterAjax from './dropdown-filter-ajax';
+import { enableMock } from '../../../demo/xhr-mock';
 
 const store = new Store({
-  value: ''
+  value: '',
+  visibleValue: ''
 });
 
+enableMock();
 const create = (evt, component) => component.state.filter;
 
 // Shared Props
 const onChange = (evt) => {
-  store.set({ value: evt.target.value });
+  store.set({ 
+    visibleValue: evt.target.visibleValue,
+    value: evt.target.visibleValue
+  });
   action('change')(evt);
 };
 const autoFocus = boolean('autoFocus', false);
-const cacheVisibleValue = boolean('cacheVisibleValue', true);
+const cacheVisibleValue = boolean('cacheVisibleValue', false);
 const disabled = boolean('disabled', false);
 const name = text('name', 'Name');
 const readOnly = boolean('readOnly', false);
@@ -42,7 +48,7 @@ const createText = text('createText', '');
 const createIconType = text('createIconType', '');
 const suggest = boolean('suggest', false);
 const freetext = boolean('freetext', false);
-const path = text('path', '/');
+const path = text('path', '/countries');
 const acceptHeader = text('acceptHeader', DropdownFilterAjax.defaultProps.acceptHeader);
 const rowsPerRequest = number('rowsPerRequest', DropdownFilterAjax.defaultProps.rowsPerRequest);
 const dataRequestTimeout = number(
@@ -89,12 +95,11 @@ storiesOf('DropdownFilterAjax', module)
           path={ path }
           acceptHeader={ acceptHeader }
           rowsPerRequest={ rowsPerRequest }
-          getCustomHeaders={ () => true }
+          getCustomHeaders={ () => ({}) }
           dataRequestTimeout={ dataRequestTimeout }
           withCredentials={ withCredentials }
           options={ options }
           onChange={ onChange }
-          value={ store.get('value') }
         />
       </State>
     );
@@ -127,12 +132,11 @@ storiesOf('DropdownFilterAjax', module)
           path={ path }
           acceptHeader={ acceptHeader }
           rowsPerRequest={ rowsPerRequest }
-          getCustomHeaders={ () => true }
+          getCustomHeaders={ () => ({}) }
           dataRequestTimeout={ dataRequestTimeout }
           withCredentials={ withCredentials }
           options={ options }
           onChange={ onChange }
-          value={ store.get('value') }
         />
       </State>
     );
