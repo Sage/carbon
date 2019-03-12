@@ -12,11 +12,20 @@ const checkPosition = position => position === 'before' || position === 'after';
 
 const renderButtonIcon = (props) => {
   const { children } = props;
-  if (props.disabled || !checkPosition(props.iconPosition) || !props.iconType) return children;
+  if (props.disabled || !checkPosition(props.iconPosition) || !props.iconType) {
+    return (
+      <span
+        key='children'
+        data-element='main-text'
+      >
+        children
+      </span>
+    );
+  }
 
   if (props.iconPosition === 'before') return [children, <Icon key='btn-icon' type={ props.iconType } />];
 
-  return [<Icon key='btn-icon' type={ props.iconType } />, children]; // pass in style props to icon
+  return [<Icon key='btn-icon' type={ props.iconType } />, children]; // make styled component? data-element?
 };
 
 const filterProps = (props) => {
