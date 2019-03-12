@@ -38,14 +38,14 @@ const buildRows = () => {
     </TableRow>
   ];
 
-  store.get('countryList').map((row) => {
+  store.get('countryList').map(row => (
     rows.push(
       <TableRow key={ row.id } uniqueID={ row.id }>
         <TableCell>{row.name}</TableCell>
         <TableCell>{row.value}</TableCell>
       </TableRow>
-    );
-  });
+    )
+  ));
 
   return rows;
 };
