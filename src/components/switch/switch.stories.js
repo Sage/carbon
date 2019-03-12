@@ -32,11 +32,11 @@ storiesOf('Switch', module).add(
     const fieldHelpInline = boolean('fieldHelpInline', false);
     const label = text('label', 'Example Switch');
     const labelHelp = text('labelHelp', 'This text provides more information for the label.');
-    const labelInline = label ? boolean('labelInline', false) : null;
-    const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : null;
-    const labelWidth = labelInline ? number('labelWidth', 0, numberConfig) : null;
+    const labelInline = label ? boolean('labelInline', false) : undefined;
+    const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
+    const labelWidth = labelInline ? number('labelWidth', 0, numberConfig) : undefined;
     const inputWidth = number('inputWidth', 0, numberConfig);
-    const reverse = boolean('reverse', true);
+    const reverse = boolean('reverse', Switch.defaultProps.reverse);
     const loading = boolean('loading', false);
     const children = text('children');
 

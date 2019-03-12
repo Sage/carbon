@@ -9,10 +9,10 @@ import notes from './notes.md';
 storiesOf('Split Button', module).add(
   'default',
   () => {
-    const as = select('as', OptionsHelper.themesBinary, OptionsHelper.themesBinary[0]);
+    const as = select('as', OptionsHelper.themesBinary, SplitButton.defaultProps.as);
     const dataElement = text('data-element');
     const dataRole = text('data-role');
-    const disabled = boolean('disabled', false);
+    const disabled = boolean('disabled', SplitButton.defaultProps.disabled);
     const textContent = text('text', 'Example Split Button');
 
     return (

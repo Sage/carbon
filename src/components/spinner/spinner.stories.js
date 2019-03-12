@@ -6,8 +6,8 @@ import Spinner from './spinner';
 import notes from './notes.md';
 
 storiesOf('Spinner', module).add('default', () => {
-  const as = select('as', OptionsHelper.colors, OptionsHelper.colors[3]);
-  const size = select('size', OptionsHelper.sizesFull, OptionsHelper.sizesFull[3]);
+  const as = select('as', OptionsHelper.colors, Spinner.defaultProps.as);
+  const size = select('size', OptionsHelper.sizesFull, Spinner.defaultProps.size);
 
   return (
     <Spinner as={ as } size={ size } />

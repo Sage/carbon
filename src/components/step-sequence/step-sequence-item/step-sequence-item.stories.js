@@ -6,7 +6,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper/options-helper'
 
 storiesOf('Step Sequence Item', module).add('default', () => {
   const indicator = text('indicator', '1');
-  const status = select('status', OptionsHelper.steps, OptionsHelper.steps[0]);
+  const status = select('status', OptionsHelper.steps, StepSequenceItem.defaultProps.status);
   const hiddenCompleteLabel = text('hiddenCompleteLabel');
   const hiddenCurrentLabel = text('hiddenCurrentLabel');
   const ariaLabel = text('ariaLabel', 'Step 1 of 5');

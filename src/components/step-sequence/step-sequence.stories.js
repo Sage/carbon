@@ -5,7 +5,7 @@ import { StepSequence, StepSequenceItem } from './step-sequence';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 storiesOf('Step Sequence', module).add('default', () => {
-  const orientation = select('orientation', OptionsHelper.orientation, OptionsHelper.orientation[0]);
+  const orientation = select('orientation', OptionsHelper.orientation, StepSequence.defaultProps.orientation);
 
   return (
     <StepSequence orientation={ orientation }>

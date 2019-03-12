@@ -9,8 +9,8 @@ storiesOf('Tabs', module).add(
   'default',
   () => {
     const selectOption = ['top', 'left'];
-    const align = select('align', OptionsHelper.alignBinary, OptionsHelper.alignBinary[0]);
-    const position = select('position', selectOption, selectOption[0]);
+    const align = select('align', OptionsHelper.alignBinary, Tabs.defaultProps.align);
+    const position = select('position', selectOption, Tabs.defaultProps.position);
 
     return (
       <Tabs align={ align } position={ position }>

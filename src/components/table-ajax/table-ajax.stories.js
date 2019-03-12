@@ -56,7 +56,7 @@ storiesOf('Table Ajax', module).add(
     enableMock();
 
     const pageSize = text('pageSize', '5');
-    const paginate = boolean('paginate', false);
+    const paginate = boolean('paginate', TableAjax.defaultProps.paginate);
     const getCustomHeaders = text('getCustomHeaders');
 
     return (

@@ -85,7 +85,7 @@ storiesOf('Table', module).add(
     const totalRecords = text('totalRecords', '50');
     const paginate = boolean('paginate', false);
     const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
-    const theme = select('theme', OptionsHelper.themesBinary, OptionsHelper.themesBinary[0]);
+    const theme = select('theme', OptionsHelper.themesBinary, Table.defaultProps.theme);
 
     return (
       <State store={ store }>
