@@ -20,7 +20,7 @@ const rangeOptions = {
   range: true,
   min: 0,
   max: 300,
-  setp: 1
+  step: 1
 };
 
 storiesOf('Textarea', module).add(
