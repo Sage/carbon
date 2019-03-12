@@ -12,8 +12,8 @@ storiesOf('Experimental/Textbox', module)
           disabled={ boolean('disabled', false) }
           readOnly={ boolean('readOnly', false) }
           placeholder={ text('placeholder', 'placeholder text') }
-          warning={ boolean('warning', false) }
-          error={ boolean('error', false) }
+          warning={ text('warning') }
+          error={ text('error') }
           label={ text('label') }
           labelInline={ boolean('labelInline', false) }
           labelAlign={ select('labelAlign', ['left', 'right']) }
@@ -23,8 +23,8 @@ storiesOf('Experimental/Textbox', module)
           disabled={ boolean('disabled', false) }
           readOnly={ boolean('readOnly', false) }
           placeholder={ text('placeholder', 'placeholder text') }
-          warning={ boolean('warning', false) }
-          error={ boolean('error', false) }
+          warning={ text('warning') }
+          error={ text('error') }
           label={ text('label') }
           labelInline={ boolean('labelInline', false) }
           labelAlign={ select('labelAlign', ['left', 'right']) }

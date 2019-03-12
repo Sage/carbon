@@ -3,7 +3,6 @@ import { mount, shallow } from 'enzyme';
 import Select from './select.component';
 import guid from '../../../utils/helpers/guid';
 import Events from '../../../utils/helpers/events';
-import 'jest-styled-components';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');

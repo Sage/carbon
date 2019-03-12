@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 
 const StyledInput = styled.input`
@@ -22,6 +23,10 @@ const StyledInput = styled.input`
 
 StyledInput.defaultProps = {
   theme: baseTheme
+};
+
+StyledInput.propTypes = {
+  disabled: PropTypes.bool
 };
 
 export default StyledInput;

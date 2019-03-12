@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Input, InputPresentation } from '../input';
 import InputIconToggle from '../input-icon-toggle';
-import FormField from '../form-field/form-field.component';
+import FormField from '../form-field';
 
 // This component is a working example of what a Textbox might look like
 // using only the new input componentry. It is still under development with
@@ -20,7 +20,7 @@ const Textbox = ({
         { leftChildren }
         <Input { ...props } />
         { children }
-        <InputIconToggle iconType={ inputIcon } />
+        { inputIcon && <InputIconToggle { ...props } type={ inputIcon } /> }
       </InputPresentation>
     </FormField>
   );

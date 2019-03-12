@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 
 const InputPresentationStyle = styled.div`
@@ -9,8 +10,10 @@ const InputPresentationStyle = styled.div`
   cursor: text;
   display: flex;
   flex: 1;
+  flex-wrap: wrap;
   margin: 0px;
   min-height: 32px;
+  width: 100%;
 
   ${({ disabled, theme }) => disabled && css`
     background: ${theme.input.disabled.backgroundColor};
@@ -18,27 +21,30 @@ const InputPresentationStyle = styled.div`
     cursor: not-allowed;
   `}
   ${({ readOnly }) => readOnly && css`
-    background: transparent;
+    background: transparent;  
     border-color: transparent;
-  `}
-  ${({ error, theme }) => error && css`
-    border-color: ${theme.colors.error};
-    box-shadow: inset 1px 1px 0 ${theme.colors.error}, inset -1px -1px 0 ${theme.colors.error};
-  `}
-  ${({ warning, theme }) => warning && css`
-    border-color: ${theme.colors.warning};
-    box-shadow: inset 1px 1px 0 ${theme.colors.warning}, inset -1px -1px 0 ${theme.colors.warning};
   `}
   ${({ info, theme }) => info && css`
     border-color: ${theme.colors.info};
-    box-shadow: inset 1px 1px 0 ${theme.colors.info}, inset -1px -1px 0 ${theme.colors.info};
+    box-shadow: inset 1px 1px 0 ${theme.colors.info},
+                inset -1px -1px 0 ${theme.colors.info};
+  `}
+  ${({ warning, theme }) => warning && css`
+    border-color: ${theme.colors.warning};
+    box-shadow: inset 1px 1px 0 ${theme.colors.warning},
+                inset -1px -1px 0 ${theme.colors.warning};
+  `}
+  ${({ error, theme }) => error && css`
+    border-color: ${theme.colors.error};
+    box-shadow: inset 1px 1px 0 ${theme.colors.error},
+                inset -1px -1px 0 ${theme.colors.error};
   `}
   ${({ hasFocus, theme }) => hasFocus && css`
     outline: 3px solid ${theme.colors.warning};
   `}
 
   ${({ size, theme }) => css`
-    height: ${theme.input[size].height};
+    min-height: ${theme.input[size].height};
     padding-left: ${theme.input[size].padding};
     padding-left: ${theme.input[size].padding};
   `}
@@ -46,6 +52,16 @@ const InputPresentationStyle = styled.div`
 
 InputPresentationStyle.defaultProps = {
   theme: baseTheme
+};
+
+InputPresentationStyle.propTypes = {
+  disabled: PropTypes.bool,
+  error: PropTypes.string,
+  hasFocus: PropTypes.bool,
+  info: PropTypes.string,
+  readOnly: PropTypes.bool,
+  size: PropTypes.string,
+  warning: PropTypes.string
 };
 
 export default InputPresentationStyle;
