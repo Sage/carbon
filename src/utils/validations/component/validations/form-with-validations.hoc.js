@@ -22,12 +22,12 @@ const withValidations = (WrappedComponent) => {
       delete this.inputs[name];
     }
 
-    adjustCount = (type, validationResult) => {
+    adjustCount = (type, hasFailed) => {
       if (this.validationTypes.includes(type)) {
         const stateProp = `${type}Count`;
         let adjustment = -1;
 
-        if (validationResult) adjustment = 1;
+        if (hasFailed) adjustment = 1;
         else if (this.state[stateProp] === 0) adjustment = 0;
 
         this.setState(prev => ({ [stateProp]: prev[stateProp] + adjustment }));
@@ -51,12 +51,12 @@ const withValidations = (WrappedComponent) => {
         return Promise.all(results).then(() => resolve(true));
       });
       // return new Promise((resolve) => {
-      //   const x = Object.values(this.inputs).map((validate) => {
+      //   const promiseArr = Object.values(this.inputs).map((validate) => {
       //     return validate()
       //       .then(() => Array.prototype.concat.bind(resolve(true)));
       //     // .catch(() => Array.prototype.concat.bind(resolve(false)));
       //   });
-      //   console.log(x);
+      //   console.log(promiseArr);
       // });
     }
 

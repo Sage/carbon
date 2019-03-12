@@ -12,11 +12,11 @@ const withValidation = (WrappedComponent) => {
       children: PropTypes.node, // Children elements
       name: PropTypes.string, // Name to uniquely identify the component
       value: PropTypes.string, // The current value of the component
+      validationTypes: PropTypes.arrayOf(PropTypes.string), // the types of validations to be run on the component
       error: PropTypes.oneOfType([ // The error validations that should be run against the value
         PropTypes.func,
         PropTypes.arrayOf(PropTypes.func)
       ]),
-      validationTypes: PropTypes.arrayOf(PropTypes.string), // the types of validations to be run on the component
       warning: PropTypes.oneOfType([ // The warnings validations that should be run against the value
         PropTypes.func,
         PropTypes.arrayOf(PropTypes.func)
@@ -73,7 +73,7 @@ const withValidation = (WrappedComponent) => {
         let newState = { [stateProp]: false };
 
         if (errorStatus) {
-          adjustCount(type, errorStatus);
+          adjustCount(type, true);
           newState = { [stateProp]: errorStatus };
         } else if (this.state[stateProp]) {
           adjustCount(type);
