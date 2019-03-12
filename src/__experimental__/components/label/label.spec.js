@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 
-import Help from '../../../components/help';
+import Help from '../../../components/help/help';
 import InputLabel from './input-label.component';
 import InputLabelStyle from './input-label.style';
 

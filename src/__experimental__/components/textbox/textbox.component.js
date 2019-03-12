@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Input, InputPresentation } from '../input';
-import TextboxStyle from './textbox.style';
-import InputLabel from '../input-label';
-import FieldHelp from '../field-help';
 import InputIconToggle from '../input-icon-toggle';
+import FormField from '../form-field/form-field.component';
 
 // This component is a working example of what a Textbox might look like
 // using only the new input componentry. It is still under development with
@@ -12,40 +10,26 @@ import InputIconToggle from '../input-icon-toggle';
 
 const Textbox = ({
   children,
-  label,
-  leftChildren,
-  labelInline,
   inputIcon,
-  labelAlign,
-  fieldHelp,
+  leftChildren,
   ...props
 }) => {
   return (
-    <TextboxStyle>
-      <InputLabel
-        label={ label }
-        labelInline={ labelInline }
-        labelAlign={ labelAlign }
-      />
+    <FormField { ...props }>
       <InputPresentation type='text' { ...props }>
         { leftChildren }
         <Input { ...props } />
-        <InputIconToggle iconType={ inputIcon } />
         { children }
+        <InputIconToggle iconType={ inputIcon } />
       </InputPresentation>
-      <FieldHelp content={ fieldHelp } labelInline={ labelInline } />
-    </TextboxStyle>
+    </FormField>
   );
 };
 
 Textbox.propTypes = {
   children: PropTypes.node,
-  leftChildren: PropTypes.node,
-  label: PropTypes.string,
-  labelInline: PropTypes.bool,
-  labelAlign: PropTypes.string,
   inputIcon: PropTypes.string,
-  fieldHelp: PropTypes.string
+  leftChildren: PropTypes.node
 };
 
 export default Textbox;

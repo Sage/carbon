@@ -28,6 +28,7 @@ storiesOf('Experimental/Textbox', module)
           label={ text('label') }
           labelInline={ boolean('labelInline', false) }
           labelAlign={ select('labelAlign', ['left', 'right']) }
+          fieldHelp={ text('fieldHelp') }
         />
       </div>
     );

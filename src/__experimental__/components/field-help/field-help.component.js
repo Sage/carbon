@@ -4,49 +4,32 @@ import PropTypes from 'prop-types';
 import FieldHelpStyle from './field-help.style';
 
 /**
- * FieldHelp component. That component is a part of the FormField Component.
+ * FieldHelp component. This component is a part of the FormField Component.
  *
  * == How to use FieldHelp component:
  *
  * In your file:
  *
- *   import FieldHelp from 'carbon-react/lib/components/label-help';
+ *   import FieldHelp from 'carbon-react/lib/components/field-help';
  *
  * To render a FieldHelp:
  *
- *   <FieldHelp
- *      content='text to be rendered'
- *      iconType='foo'
- *      inputId='bar'
- *    />
+ *   <FieldHelp>This provides more information for the field.</FieldHelp>
  *
- * Component has to be placed next to an input presentation element.
+ * Component should be placed next to an input presentation element.
  */
-const FieldHelp = (props) => {
-  const { content, ...styleProps } = props;
-
-  if (!content) { return null; }
+const FieldHelp = ({ children, ...props }) => {
+  if (!children) { return null; }
 
   return (
-    <FieldHelpStyle data-element='help' { ...styleProps }>
-      { content }
+    <FieldHelpStyle data-element='help' { ...props }>
+      { children }
     </FieldHelpStyle>
   );
 };
 
 FieldHelp.propTypes = {
-  /**
-   * Text to be rendered
-   */
-  content: PropTypes.string,
-  /**
-   * Position of the label
-   */
-  labelInline: PropTypes.bool,
-  /**
-   * Width of the input field
-   */
-  inputWidth: PropTypes.number
+  children: PropTypes.node
 };
 
 export default FieldHelp;
