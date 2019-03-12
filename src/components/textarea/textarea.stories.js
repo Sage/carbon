@@ -26,6 +26,8 @@ const rangeOptions = {
 storiesOf('Textarea', module).add(
   'default',
   () => {
+    const { alignBinary } = OptionsHelper;
+
     const warnOverLimit = boolean('warnOverLimit', false);
     const labelInline = boolean('labelInline', false);
     const fieldHelpInline = boolean('fieldHelpInline', false);
@@ -39,7 +41,7 @@ storiesOf('Textarea', module).add(
     const label = text('label', 'Example Textarea');
     const labelHelp = text('labelHelp', 'This text provides more information for the label.');
     const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
-    const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary, OptionsHelper.alignBinary[0]) : undefined;
+    const labelAlign = labelInline ? select('labelAlign', alignBinary, alignBinary[0]) : undefined;
 
     return (
       <State store={ store }>

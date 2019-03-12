@@ -49,26 +49,26 @@ const buildRows = (pageSizeFromKnobs) => {
   ];
 
   if (store.get('sortOrder') === 'asc') {
-    rowsCountries.toJS().map((row) => {
+    rowsCountries.toJS().map(row => (
       rows.push(
         <TableRow key={ row.id } uniqueID={ row.id }>
           <TableCell>{row.name}</TableCell>
           <TableCell>{row.value}</TableCell>
         </TableRow>
-      );
-    });
+      )
+    ));
   } else {
     rowsCountries
       .toJS()
       .reverse()
-      .map((row) => {
+      .map(row => (
         rows.push(
           <TableRow key={ row.id } uniqueID={ row.id }>
             <TableCell>{row.name}</TableCell>
             <TableCell>{row.value}</TableCell>
           </TableRow>
-        );
-      });
+        )
+      ));
   }
 
   return rows;
