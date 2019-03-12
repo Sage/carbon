@@ -9,16 +9,18 @@ storiesOf('Step Sequence Item', module).add('default', () => {
   const status = select('status', OptionsHelper.steps, OptionsHelper.steps[0]);
   const hiddenCompleteLabel = text('hiddenCompleteLabel');
   const hiddenCurrentLabel = text('hiddenCurrentLabel');
+  const ariaLabel = text('ariaLabel', 'Step 1 of 5');
+  const children = text('children', 'Step Label');
 
   return (
     <StepSequenceItem
-      arialabel='Step 1 of 5'
+      aria-label={ ariaLabel }
       indicator={ indicator }
       status={ status }
       hiddenCompleteLabel={ hiddenCompleteLabel }
       hiddenCurrentLabel={ hiddenCurrentLabel }
     >
-      Step Label
+      {children}
     </StepSequenceItem>
   );
 });

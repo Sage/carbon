@@ -7,4 +7,4 @@
 
 # Related Components
 
-- Just a single line of text? [Try Textbox](/components/textbox "Try Textbox");
+- Just a single line of text? [Try Textbox](/components/textbox "Try Textbox")

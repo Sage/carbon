@@ -27,17 +27,17 @@ storiesOf('Textbox', module).add(
     };
 
     const fieldHelpInline = boolean('fieldHelpInline', false);
-    const labelInline = boolean('labelInline', false);
-    const inputWidth = number('inputWidth', 0, rangeOptions);
-    const labelWidth = number('labelWidth (require labelInline={true})', 0, rangeOptions);
     const label = text('label', 'Example Textarea');
+    const labelInline = label ? boolean('labelInline', false) : undefined;
+    const inputWidth = number('inputWidth', 0, rangeOptions);
+    const labelWidth = labelInline ? number('labelWidth', 0, rangeOptions) : undefined;
     const labelHelp = text('labelHelp', 'This text provides more information for the label.');
     const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
-    const labelAlign = select(
-      'labelAlign (require labelInline={true})',
+    const labelAlign = labelInline ? select(
+      'labelAlign',
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
-    );
+    ) : undefined;
 
     return (
       <State store={ store }>

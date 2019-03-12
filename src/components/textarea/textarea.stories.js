@@ -30,20 +30,16 @@ storiesOf('Textarea', module).add(
     const labelInline = boolean('labelInline', false);
     const fieldHelpInline = boolean('fieldHelpInline', false);
     const expandable = boolean('expandable', false);
-    const enforceCharacterLimit = boolean('enforceCharacterLimit require characterLimit', true);
     const characterLimit = number('characterLimit', 0, rangeOptions);
+    const enforceCharacterLimit = characterLimit ? boolean('enforceCharacterLimit', true) : undefined;
     const inputWidth = number('inputWidth', 0, rangeOptions);
-    const labelWidth = number('labelWidth (require labelInline={true})', 0, rangeOptions);
+    const labelWidth = labelInline ? number('labelWidth', 0, rangeOptions) : undefined;
     const cols = number('cols', 0, rangeOptions);
     const rows = number('rows', 0, rangeOptions);
     const label = text('label', 'Example Textarea');
     const labelHelp = text('labelHelp', 'This text provides more information for the label.');
     const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
-    const labelAlign = select(
-      'labelAlign (require labelInline={true})',
-      OptionsHelper.alignBinary,
-      OptionsHelper.alignBinary[0]
-    );
+    const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary, OptionsHelper.alignBinary[0]) : undefined;
 
     return (
       <State store={ store }>

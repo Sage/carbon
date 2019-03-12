@@ -10,7 +10,7 @@ storiesOf('Step Sequence', module).add('default', () => {
   return (
     <StepSequence orientation={ orientation }>
       <StepSequenceItem
-        ariaLabel='Step 1 of 5'
+        aria-label='Step 1 of 5'
         ariaCompleteLabel='Complete'
         ariaCurrentLabel='Current'
         indicator='1'
@@ -19,7 +19,7 @@ storiesOf('Step Sequence', module).add('default', () => {
         Name
       </StepSequenceItem>
       <StepSequenceItem
-        ariaLabel='Step 2 of 5'
+        aria-label='Step 2 of 5'
         ariaCompleteLabel='Complete'
         ariaCurrentLabel='Current'
         indicator='2'
@@ -28,7 +28,7 @@ storiesOf('Step Sequence', module).add('default', () => {
         Delivery Address
       </StepSequenceItem>
       <StepSequenceItem
-        ariaLabel='Step 3 of 5'
+        aria-label='Step 3 of 5'
         ariaCompleteLabel='Complete'
         ariaCurrentLabel='Current'
         indicator='3'
@@ -37,7 +37,7 @@ storiesOf('Step Sequence', module).add('default', () => {
         Delivery Details
       </StepSequenceItem>
       <StepSequenceItem
-        ariaLabel='Step 4 of 5'
+        aria-label='Step 4 of 5'
         ariaCompleteLabel='Complete'
         ariaCurrentLabel='Current'
         indicator='4'
@@ -46,7 +46,7 @@ storiesOf('Step Sequence', module).add('default', () => {
         Payment
       </StepSequenceItem>
       <StepSequenceItem
-        ariaLabel='Step 5 of 5'
+        aria-label='Step 5 of 5'
         ariaCompleteLabel='Complete'
         ariaCurrentLabel='Current'
         indicator='5'
