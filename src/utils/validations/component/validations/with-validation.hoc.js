@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Object } from 'es6-shim';
 import { ValidationsContext } from './form-with-validations.hoc';
 import Icon from '../../../../components/icon';
 import validator from '../../validator';
@@ -51,9 +50,14 @@ const withValidation = (WrappedComponent) => {
     }
 
     componentDidUpdate(prevProps) {
-      if (this.props !== prevProps && this.checkValidations(['info', 'warning', 'error'])) {
+      if (this.isUpdatedValidationProps(prevProps) && this.checkValidations(['info', 'warning', 'error'])) {
         this.context.addInput(this.props.name, this.validate);
       }
+    }
+
+    isUpdatedValidationProps(prevProps) {
+      const { error, warning, info } = this.props;
+      return error !== prevProps.error || warning !== prevProps.warning || info !== prevProps.info;
     }
 
     checkValidations(types) {
@@ -99,8 +103,7 @@ const withValidation = (WrappedComponent) => {
       if (Array.isArray(this.props[type]) && this.props[type].length === 0) return null;
 
       return new Promise(async (resolve) => {
-        const validate = await validator(this.props[type]);
-        return validate(this.props.value)
+        return validator(this.props[type])(this.props.value)
           .then(() => {
             this.updateValidationStatus(type);
             return resolve(true);

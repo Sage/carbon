@@ -8,7 +8,8 @@ const withValidations = (WrappedComponent) => {
     state = {
       errorCount: 0,
       warningCount: 0,
-      infoCount: 0
+      infoCount: 0,
+      formIsValidating: false
     }
 
     static propTypes = {
@@ -30,7 +31,7 @@ const withValidations = (WrappedComponent) => {
       let adjustment = -1;
 
       if (hasFailed) adjustment = 1;
-      else if (this.state[stateProp] === 0) adjustment = 0;
+      else if (this.state[stateProp] < 1) adjustment = 0;
 
       this.setState(prev => ({ [stateProp]: prev[stateProp] + adjustment }));
     }
@@ -44,12 +45,17 @@ const withValidations = (WrappedComponent) => {
     }
 
     validateRegisteredInputs = async () => {
+      this.setState({ formIsValidating: true });
+
       let promises = [];
       Object.keys(this.inputs).forEach((name) => {
         const validate = this.inputs[name];
         promises = promises.concat(validate(['error']));
       });
-      return Promise.all(promises).then(isValid => Promise.resolve(!isValid.includes(false)));
+      return Promise.all(promises).then((isValid) => {
+        this.setState({ formIsValidating: false });
+        return Promise.resolve(!isValid.includes(false));
+      });
     }
 
     render() {
@@ -60,7 +66,7 @@ const withValidations = (WrappedComponent) => {
             errorCount={ this.state.errorCount }
             warningCount={ this.state.warningCount }
             infoCount={ this.state.infoCount }
-            isValidating
+            isValidating={ this.state.formIsValidating }
             { ...this.props }
           >
             errors: { this.state.errorCount }

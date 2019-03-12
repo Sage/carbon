@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Validations component matches the snapshot when the HOC is passed an anonymous component with no name or display name 1`] = `
+exports[`when the withValidations HOC wraps a component matches the snapshot when the HOC is passed an anonymous component with no name or display name 1`] = `
 <Component
   error={Array []}
   info={Array []}
@@ -11,7 +11,7 @@ exports[`Validations component matches the snapshot when the HOC is passed an an
 />
 `;
 
-exports[`Validations component matches the snapshot with the input component wrapped in the HOC with default props 1`] = `
+exports[`when the withValidations HOC wraps a component matches the snapshot with the input component wrapped in the HOC with default props 1`] = `
 <MockComponent
   error={Array []}
   info={Array []}
@@ -22,7 +22,7 @@ exports[`Validations component matches the snapshot with the input component wra
 />
 `;
 
-exports[`Validations component when renderValidationMarkup is called returns the Icon when the component has an array of children 1`] = `
+exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns the Icon when the component has an array of children 1`] = `
 <MockComponent
   error={Array []}
   info={Array []}
@@ -42,7 +42,7 @@ exports[`Validations component when renderValidationMarkup is called returns the
 </MockComponent>
 `;
 
-exports[`Validations component when renderValidationMarkup is called returns the children if no type has been set 1`] = `
+exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns the children if no type has been set 1`] = `
 <MockComponent
   error={Array []}
   info={Array []}

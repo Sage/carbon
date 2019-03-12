@@ -65,7 +65,7 @@ const shallowRenderWithContext = props => shallow(
 
 const validations = [isNotZero, presence, asyncValidation];
 
-describe('Validations component', () => {
+describe('when the withValidations HOC wraps a component', () => {
   let wrapper, wrapper2;
 
   beforeEach(() => {
@@ -91,7 +91,7 @@ describe('Validations component', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  describe('when renderValidationMarkup is called', () => {
+  describe('when the component renders the validation icon', () => {
     it('returns an Icon with info type when the state has info and no warning or errors', () => {
       wrapper.setState({ hasInfo: true });
       wrapper.instance().renderValidationMarkup();
@@ -127,7 +127,7 @@ describe('Validations component', () => {
     });
   });
 
-  describe('when runValidation is called', () => {
+  describe('when it validates a subset of validations', () => {
     it('returns null when the array for a given validation type is empty', () => {
       types.forEach((type) => {
         expect(wrapper.instance().runValidation(type)).toEqual(null);
@@ -322,7 +322,7 @@ describe('Validations component', () => {
     });
   });
 
-  describe('Component registers using the context', () => {
+  describe('when the component mounts and unmounts', () => {
     it('registers itself on mount, when it has context and validations', () => {
       wrapper2 = shallowRenderWithContext({ error: presence });
       const spy = spyOn(wrapper2.instance().context, 'addInput');
@@ -351,14 +351,14 @@ describe('Validations component', () => {
       expect(spy).not.toHaveBeenCalled();
     });
 
-    it('cannot perform the registeration steps, when it has no context', () => {
+    it('cannot perform the registration steps, when it has no context', () => {
       const NoContextComponent = withValidation(MockComponent);
       const noContextWrapper = shallow(<NoContextComponent name='foo' error={ presence } />);
       expect(noContextWrapper.instance().checkValidations(['foo'])).toEqual(false);
     });
   });
 
-  describe('when the components value changes', () => {
+  describe('when the component value changes', () => {
     const mockEvent = { target: { value: 'foo' } };
     it('resets the validation status when it is not already false', () => {
       wrapper.setState({ hasInfo: presErr, hasWarning: presErr, hasError: presErr });

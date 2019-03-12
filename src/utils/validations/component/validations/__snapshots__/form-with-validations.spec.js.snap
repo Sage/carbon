@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`formWithValidation matches the snapshot when the HOC is passed an anonymous component with no name or display name 1`] = `
+exports[`when the formWithValidations HOC is wraps a component matches the snapshot when the it is passed an anonymous component with no name or display name 1`] = `
 <ContextProvider
   value={
     Object {
@@ -13,7 +13,7 @@ exports[`formWithValidation matches the snapshot when the HOC is passed an anony
   <Component
     errorCount={0}
     infoCount={0}
-    isValidating={true}
+    isValidating={false}
     validate={[Function]}
     warningCount={0}
   >
@@ -23,7 +23,7 @@ exports[`formWithValidation matches the snapshot when the HOC is passed an anony
 </ContextProvider>
 `;
 
-exports[`formWithValidation matches the snapshot, rendering with default props when the HOC is passed a component with children 1`] = `
+exports[`when the formWithValidations HOC is wraps a component matches the snapshot, rendering with default props for each of its children 1`] = `
 <ContextProvider
   value={
     Object {
@@ -36,25 +36,25 @@ exports[`formWithValidation matches the snapshot, rendering with default props w
   <MockComponent
     errorCount={0}
     infoCount={0}
-    isValidating={true}
+    isValidating={false}
     validate={[Function]}
     warningCount={0}
   >
     errors: 
     0
     <MockComponent
-      errors={[Function]}
+      error={[Function]}
       info={[Function]}
       name="foo"
       value="foo"
-      warnings={[Function]}
+      warning={[Function]}
     />
     <MockComponent
-      errors={[Function]}
+      error={[Function]}
       info={[Function]}
       name="bar"
       value=""
-      warnings={[Function]}
+      warning={[Function]}
     />
   </MockComponent>
 </ContextProvider>
