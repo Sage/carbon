@@ -1,3 +1,5 @@
+import { iget } from "../support/helper";
+
 const STORYBOOK_PREVIEW = '#storybook-preview-iframe'
 const CHILDREN_TEXTAREA = '#children'
 const FORM = 'form'
@@ -7,5 +9,3 @@ export const disabledCheckbox = () => cy.get(FORM).contains('disabled').find('in
 export const themeSelect = () => cy.get(FORM).contains('theme').find('select')
 export const buttonPreview = () => cy.get(STORYBOOK_PREVIEW).then(($iframe) => { return iget($iframe.contents(), "#story-root > button"); })
 export const buttonSubtextPreview = () => cy.get(STORYBOOK_PREVIEW).then(($iframe) => { return iget($iframe.contents(), '.carbon-button__subtext'); })
-
-function iget(doc, selector) { return cy.wrap(doc.find(selector)); }

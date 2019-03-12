@@ -17,8 +17,8 @@ Feature: Button component
   @positive
   Scenario Outline: Change button subtext
     Given I open Button component page
-    When I set Component size to "large"
-      And I set Component subtext to "<subtext>"
+    When I set component size to "large"
+      And I set component subtext to "<subtext>"
     Then Button subtext on preview is "<subtext>"
     Examples:
       | subtext                  |
@@ -53,7 +53,7 @@ Feature: Button component
   @positive
   Scenario Outline: Set Button size to small, medium and large
     Given I open Button component page
-    When I set Component size to "<size>"
+    When I set component size to "<size>"
     Then Button size property on preview is "<size>"
     Examples:
       | size   |

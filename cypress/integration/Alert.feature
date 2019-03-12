@@ -8,12 +8,12 @@ Feature: Alert component
       And I open Alert preview
     Then Alert title on preview is "<title>"
     Examples:
-      | title                         |
-      | First Label Test              |
-      | Second label test             |
+      | title                    |
+      | First Label Test         |
+      | Second label test        |
       | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                            |
-      | <>                             |
+      | 汉字                       |
+      | <>                       |
 
   @positive
   Scenario Outline: Change Alert subtitle
@@ -38,9 +38,9 @@ Feature: Alert component
     Examples:
       | children                 |
       | example subtext          |
-  | 1!@#$%^*()_+-=~[];:.,?{} |
-  | 汉字                       |
-  | <>                       |
+      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | 汉字                       |
+      | <>                       |
 
   @positive
   Scenario: Enable background UI
@@ -56,7 +56,7 @@ Feature: Alert component
       And I open Alert preview
     Then Background UI is disabled
 
-    @positive
+  @positive
   Scenario: Disable escape key
     Given I open Alert component page
     When I check disableEscKey
@@ -64,35 +64,68 @@ Feature: Alert component
       And I hit ESC key
     Then Alert dialog is visible
 
-@negative
-Scenario: Enable escape key
-  Given I open Alert component page
-  When I uncheck disableEscKey
-    And I open Alert preview
-    And I hit ESC key
-  Then Alert dialog is not visible
+  @negative
+  Scenario: Enable escape key
+    Given I open Alert component page
+    When I uncheck disableEscKey
+      And I open Alert preview
+      And I hit ESC key
+    Then Alert dialog is not visible
 
 
-# @positive
-# Scenario Outline: Set hight for Alert dialog
-# Given I open Alert component page
-# When I set height to "<height>"
-# And I open Alert preview
-# Then Alert dialog hight is set to "<hight>"
+  @positive
+  Scenario Outline: Set hieght for Alert dialog
+    Given I open Alert component page
+    When I set height to "<height>"
+      And I open Alert preview
+    Then Alert dialog height is set to "<height>"
+    Examples:
+      | height |
+      | 0      |
+      | 1      |
+      | 10     |
+      | 100    |
 
+  @negative
+  Scenario Outline: Set out of scope characters to height for Alert dialog
+    Given I open Alert component page
+    When I set height to "<height>"
+      And I open Alert preview
+    Then Alert dialog height is NOT set to "<height>"
+    Examples:
+      | height                   |
+      | -1                       |
+      | -10                      |
+      | 1!@#$%^*()_+-=~[];:.,?{} |
 
+  @positive
+  Scenario: ShowCloseIcon can close Alert
+    Given I open Alert component page
+    When I enable showCloseIcon
+      And I open Alert preview
+    Then CloseIcon is visible
+      And I click CloseIcon
+      And Alert dialog is not visible
 
+  @negative
+  Scenario: ShowCloseIcon is disabled
+    Given I open Alert component page
+    When I disable showCloseIcon
+      And I open Alert preview
+    Then CloseIcon is not visible
 
-# do not apply storybook
-# @positive
-#   Scenario: Open checkbox will open Alert dialog
-#     Given I open Alert component page
-#     When I check open checkbox
-#     Then Alert dialog is visible
-
-# @positive
-#   Scenario: Close Alert dialog via close icon
-#     Given I open Alert component page
-#       And I check open checkbox
-#     When I click close icon
-#     Then Alert dialog is not visible
+  @positive
+  Scenario Outline: Set Alert size to small, medium and large
+    Given I open Alert component page
+    When I set component size to "<size>"
+      And I open Alert preview
+    Then Alert size property on preview is "<size>"
+    Examples:
+      | size         |
+      | extra-small  |
+      | small        |
+      | medium-small |
+      | medium       |
+      | medium-large |
+      | large        |
+      | extra-large  |

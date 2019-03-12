@@ -1,4 +1,4 @@
-import { childrenTextArea, asSelect, disabledCheckbox, themeSelect, knobsTab, buttonPreview, buttonSubtextPreview } from "../../locators/buttonLocators";
+import { childrenTextArea, disabledCheckbox, themeSelect, buttonPreview, buttonSubtextPreview } from "../../locators/buttonLocators";
 
 const CARBON_BUTTON_PREFIX = 'carbon-button--';
 
