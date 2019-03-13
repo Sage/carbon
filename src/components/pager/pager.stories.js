@@ -68,7 +68,7 @@ storiesOf('Pager', module)
     }
   })
   .add('default', () => {
-    const totalRecords = number('totalRecords', '100');
+    const totalRecords = number('totalRecords', 100);
     const pageSize = select('pageSize', OptionsHelper.pageSizes, Pager.defaultProps.pageSize);
     const showPageSizeSelection = boolean('showPageSizeSelection', Pager.defaultProps.showPageSizeSelection);
 
