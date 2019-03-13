@@ -1,7 +1,6 @@
 import { iget } from "../support/helper";
+import { STORYBOOK_PREVIEW, FORM, STORYBOOK_BUTTON_PREVIEW } from "./commonLocators";
 
-const STORYBOOK_PREVIEW = '#storybook-preview-iframe'
-const FORM = 'form'
 const ALERT_DIALOG = '.carbon-dialog__dialog'
 const ALERT_DIALOG_TITLE = '#carbon-dialog-title'
 const ALERT_DIALOG_SUBTITLE = '#carbon-dialog-subtitle'
@@ -12,11 +11,10 @@ const DISABLE_ESC_KEY_CHECHBOX = '#disableEscKey'
 const SHOW_CLOSE_ICON_CHECKBOX = '#showCloseIcon'
 const TITLE_INPUT = '#title'
 const SUBTILE_INPUT = '#subtitle'
-const OPEN_ALERT_BUTTON = '#story-root > button'
 const ENABLE_BACKGROUND_UI_CHECKBOX = '#enableBackgroundUI'
 
 export const enableBackgroundUICheckbox = () => cy.get(FORM).find(ENABLE_BACKGROUND_UI_CHECKBOX)
-export const openAlertButton = () => cy.get(STORYBOOK_PREVIEW).then(($iframe) => { return iget($iframe.contents(), OPEN_ALERT_BUTTON); })
+export const openAlertButton = () => cy.get(STORYBOOK_PREVIEW).then(($iframe) => { return iget($iframe.contents(), STORYBOOK_BUTTON_PREVIEW); })
 export const backgroundBlocker = () => cy.get(STORYBOOK_PREVIEW).then(($iframe) => { return iget($iframe.contents(), BACKGROUND_UI_BLOCKER); })
 export const titleInput = () => cy.get(FORM).find(TITLE_INPUT)
 export const subtitleInput = () => cy.get(FORM).find(SUBTILE_INPUT)

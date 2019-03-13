@@ -1,7 +1,6 @@
 import { iget } from "../support/helper";
+import { STORYBOOK_PREVIEW, FORM } from "./commonLocators";
 
-const FORM = 'form'
-const STORYBOOK_PREVIEW = '#storybook-preview-iframe'
 const ANIMATED_MENU_BUTTON_PREVIEW = '.carbon-animated-menu-button'
 const ANIMATED_MENU_BUTTON_LABEL_PREVIEW = '.carbon-animated-menu-button__label'
 
