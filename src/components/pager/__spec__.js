@@ -17,7 +17,7 @@ describe('Pager', () => {
         currentPage='1'
         pageSize='10'
         showPageSizeSelection={ true }
-        totalRecords='100'
+        totalRecords={  100  }
         onPagination={ spy1 }
       />
     );
@@ -26,7 +26,7 @@ describe('Pager', () => {
       <Pager
         currentPage='2'
         pageSize='10'
-        totalRecords='20'
+        totalRecords={  20  }
         onPagination={ spy2 }
       />
     );
@@ -168,7 +168,21 @@ describe('Pager', () => {
           <Pager
             currentPage='1'
             pageSize='10'
-            totalRecords='0'
+            totalRecords={ 0 }
+            onPagination={ spy1 }
+          />
+        );
+        expect(instance.maxPage).toEqual(1);
+      });
+    });
+
+    describe('when total records is negative', () => {
+      it('defaults the maxPage to 1', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Pager
+            currentPage='1'
+            pageSize='10'
+            totalRecords={ -10 }
             onPagination={ spy1 }
           />
         );
@@ -183,7 +197,7 @@ describe('Pager', () => {
             currentPage='1'
             pageSize={ null }
             showPageSizeSelection={ true }
-            totalRecords='100'
+            totalRecords={ 100 }
             onPagination={ spy1 }
           />
         );
@@ -199,7 +213,7 @@ describe('Pager', () => {
             currentPage='1'
             pageSize='0'
             showPageSizeSelection={ true }
-            totalRecords='100'
+            totalRecords={ 100 }
             onPagination={ spy1 }
           />
         );
@@ -301,7 +315,7 @@ describe('Pager', () => {
           <Pager
             currentPage='1'
             pageSize='10'
-            totalRecords='1'
+            totalRecords={ 1 }
             onPagination={ spy1 }
           />
         );
@@ -348,6 +362,53 @@ describe('Pager', () => {
     });
   });
 
+  describe('totalRecordsCount', () => {
+    describe('when totalRecords is positive', () => {
+      it('returns totalRecords', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Pager
+            currentPage='1'
+            pageSize='10'
+            totalRecords={ 1 }
+            onPagination={ spy1 }
+          />
+        );
+
+        expect(instance.totalRecordsCount).toEqual(1);
+      });
+    });
+
+    describe('when totalRecords is zero', () => {
+      it('returns zero', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Pager
+            currentPage='1'
+            pageSize='10'
+            totalRecords={ 0 }
+            onPagination={ spy1 }
+          />
+        );
+
+        expect(instance.totalRecordsCount).toEqual(0);
+      });
+    });
+
+    describe('when totalRecords is negative', () => {
+      it('returns zero', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Pager
+            currentPage='1'
+            pageSize='10'
+            totalRecords={ -1 }
+            onPagination={ spy1 }
+          />
+        );
+
+        expect(instance.totalRecordsCount).toEqual(0);
+      });
+    });
+  });
+
   describe('tags on component', () => {
     let wrapper = shallow(
       <Pager
@@ -355,7 +416,7 @@ describe('Pager', () => {
         data-element='bar'
         data-role='baz'
         onPagination={ ()=>{} }
-        totalRecords='100'
+        totalRecords={ 100 }
       />
     );
 
@@ -370,7 +431,7 @@ describe('Pager', () => {
           onPagination={ ()=>{} }
           pageSize='10'
           showPageSizeSelection={ true }
-          totalRecords='100'
+          totalRecords={ 100 }
         />
       );
       elementsTagTest(wrapper, [
