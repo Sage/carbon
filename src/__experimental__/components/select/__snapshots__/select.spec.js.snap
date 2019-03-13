@@ -89,9 +89,9 @@ Object {
     <span
       data-portal-entrance="guid-12345"
     />
-    <label
+    <span
       autocomplete="off"
-      class="sc-ifAKCX euFpUR"
+      class="sc-ifAKCX jaOJuD"
       data-element="input"
       value=""
     >
@@ -100,7 +100,7 @@ Object {
         data-component="icon"
         data-element="dropdown"
       />
-    </label>
+    </span>
   </div>,
 }
 `;
