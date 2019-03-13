@@ -11,70 +11,37 @@ import Events from '../../utils/helpers/events';
 import tagComponent from '../../utils/helpers/tags';
 import './pager.scss';
 
-/**
- * A Pager widget.
- *
- * == How to use a Pager in a component:
- *
- * In your file
- *
- *   import Pager from 'carbon-react/lib/components/pager';
- *
- * To render a Pager:
- *
- *   <Pager currentPage='1' totalRecords='100' onPagination={ function(){} } />
- *
- * @class Pager
- */
 class Pager extends React.Component {
   static propTypes = {
 
     /**
      * Current visible page
-     *
-     * @property currentPage
-     * @type {String}
      */
     currentPage: PropTypes.string.isRequired,
 
     /**
      * Total number of records
-     *
-     * @property totalRecords
-     * @type {String}
      */
     totalRecords: PropTypes.string.isRequired,
 
     /**
      * Function called when any pager changes take place
      * PageSize, Current Page
-     *
-     * @property onPagination
-     * @type {Function}
      */
     onPagination: PropTypes.func.isRequired,
 
     /**
      * Pagination page size
-     *
-     * @property pageSize
-     * @type {String}
      */
     pageSize: PropTypes.string,
 
     /**
      * Should the page size selection dropdown be shown
-     *
-     * @property showPageSizeSelection
-     * @type {Boolean}
      */
     showPageSizeSelection: PropTypes.bool,
 
     /**
      * Set of page size options
-     *
-     * @property pageSizeSelectionOptions
-     * @type {Object}
      */
     pageSizeSelectionOptions: PropTypes.object
   }
