@@ -18,8 +18,7 @@ const Textbox = ({
 
 Textbox.propTypes = {
   children: PropTypes.node,
-  leftChildren: PropTypes.node,
-  name: PropTypes.string
+  leftChildren: PropTypes.node
 };
 
 export default Textbox;
