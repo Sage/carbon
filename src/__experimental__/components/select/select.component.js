@@ -51,6 +51,8 @@ class Select extends React.Component {
     ])
   }
 
+  static defaultProps = {}
+
   state = {
     filter: undefined,
     open: false

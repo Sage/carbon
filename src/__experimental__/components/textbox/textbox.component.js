@@ -32,4 +32,6 @@ Textbox.propTypes = {
   leftChildren: PropTypes.node
 };
 
+Textbox.defaultProps = {};
+
 export default Textbox;

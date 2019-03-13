@@ -7,17 +7,17 @@ storiesOf('Experimental/Textbox', module)
   .add('Basic', () => {
     return (
       <Textbox
-        disabled={ boolean('disabled', false) }
+        disabled={ boolean('disabled') }
         error={ text('error') }
         fieldHelp={ text('fieldHelp') }
         info={ text('info') }
         label={ text('label') }
         labelAlign={ select('labelAlign', ['left', 'right']) }
         labelHelp={ text('labelHelp') }
-        labelInline={ boolean('labelInline', false) }
-        placeholder={ text('placeholder', 'Enter Detail') }
-        readOnly={ boolean('readOnly', false) }
-        size={ select('size', ['small', 'medium', 'large'], 'medium') }
+        labelInline={ boolean('labelInline') }
+        placeholder={ text('placeholder') }
+        readOnly={ boolean('readOnly') }
+        size={ select('size', ['small', 'medium', 'large']) }
         warning={ text('warning') }
       />
     );
@@ -25,32 +25,32 @@ storiesOf('Experimental/Textbox', module)
   .add('Multiple', () => {
     return ([
       <Textbox
-        disabled={ boolean('disabled', false) }
+        disabled={ boolean('disabled') }
         error={ text('error') }
         fieldHelp={ text('fieldHelp') }
         info={ text('info') }
         label={ text('label') }
         labelAlign={ select('labelAlign', ['left', 'right']) }
         labelHelp={ text('labelHelp') }
-        labelInline={ boolean('labelInline', false) }
-        placeholder={ text('placeholder', 'Enter Detail') }
-        readOnly={ boolean('readOnly', false) }
-        size={ select('size', ['small', 'medium', 'large'], 'medium') }
+        labelInline={ boolean('labelInline') }
+        placeholder={ text('placeholder') }
+        readOnly={ boolean('readOnly') }
+        size={ select('size', ['small', 'medium', 'large']) }
         warning={ text('warning') }
         key='0'
       />,
       <Textbox
-        disabled={ boolean('disabled', false) }
+        disabled={ boolean('disabled') }
         error={ text('error') }
         fieldHelp={ text('fieldHelp') }
         info={ text('info') }
         label={ text('label') }
         labelAlign={ select('labelAlign', ['left', 'right']) }
         labelHelp={ text('labelHelp') }
-        labelInline={ boolean('labelInline', false) }
-        placeholder={ text('placeholder', 'Enter Detail') }
-        readOnly={ boolean('readOnly', false) }
-        size={ select('size', ['small', 'medium', 'large'], 'medium') }
+        labelInline={ boolean('labelInline') }
+        placeholder={ text('placeholder') }
+        readOnly={ boolean('readOnly') }
+        size={ select('size', ['small', 'medium', 'large']) }
         warning={ text('warning') }
         key='1'
       />

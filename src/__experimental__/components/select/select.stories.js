@@ -17,17 +17,17 @@ storiesOf('Experimental/Select', module)
     return (
       <State store={ singleSelectStore }>
         <Select
-          size={ select('size', ['small', 'medium', 'large'], 'medium') }
-          disabled={ boolean('disabled', false) }
-          readOnly={ boolean('readOnly', false) }
-          placeholder={ text('placeholder', 'Choose a Colour') }
-          info={ text('info') }
-          warning={ text('warning') }
+          disabled={ boolean('disabled') }
           error={ text('error') }
+          info={ text('info') }
           label={ text('label') }
-          labelInline={ boolean('labelInline', false) }
           labelAlign={ select('labelAlign', ['left', 'right']) }
+          labelInline={ boolean('labelInline') }
           onChange={ (ev) => { singleSelectStore.set({ value: ev.target.value }); } }
+          placeholder={ text('placeholder') }
+          readOnly={ boolean('readOnly') }
+          size={ select('size', ['small', 'medium', 'large']) }
+          warning={ text('warning') }
         >
           <Option text='Amber' value='1' />
           <Option text='Black' value='2' />
@@ -49,17 +49,17 @@ storiesOf('Experimental/Select', module)
     return (
       <State store={ multiSelectStore }>
         <Select
-          size={ select('size', ['small', 'medium', 'large'], 'medium') }
-          disabled={ boolean('disabled', false) }
-          readOnly={ boolean('readOnly', false) }
-          placeholder={ text('placeholder', 'Choose a Colour') }
-          info={ text('info') }
-          warning={ text('warning') }
+          disabled={ boolean('disabled') }
           error={ text('error') }
+          info={ text('info') }
           label={ text('label') }
-          labelInline={ boolean('labelInline', false) }
           labelAlign={ select('labelAlign', ['left', 'right']) }
+          labelInline={ boolean('labelInline') }
           onChange={ (ev) => { multiSelectStore.set({ value: ev.target.value }); } }
+          placeholder={ text('placeholder') }
+          readOnly={ boolean('readOnly') }
+          size={ select('size', ['small', 'medium', 'large']) }
+          warning={ text('warning') }
         >
           <Option text='Amber' value='1' />
           <Option text='Black' value='2' />
