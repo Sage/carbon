@@ -29,59 +29,36 @@ class SplitButton extends React.Component {
   static propTypes = {
     /**
      * Customizes the appearance, can be set to 'primary' or 'secondary'.
-     *
-     * @property as
-     * @type {String}
-     * @default 'secondary'
      */
     as: PropTypes.string,
 
     /**
      * A custom value for the data-element attribute
-     *
-     * @property data-element
-     * @type {String}
      */
     'data-element': PropTypes.string,
 
     /**
      * A custom value for the data-element attribute
-     *
-     * @property data-role
-     * @type {String}
      */
     'data-role': PropTypes.string,
 
     /**
      * The additional button to display.
-     *
-     * @property children
-     * @type {Multiple}
      */
     children: PropTypes.node.isRequired,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Gives the button a disabled state.
-     *
-     * @property boolean
-     * @type {Boolean}
-     * @default false
      */
     disabled: PropTypes.bool,
 
     /**
      * The text to be displayed in the SplitButton.
-     *
-     * @property text
-     * @type {String}
      */
     text: PropTypes.string.isRequired
   }
