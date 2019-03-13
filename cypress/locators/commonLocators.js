@@ -1,8 +1,10 @@
+import { iget } from "../support/helper";
+
 const FORM = 'form'
 const HEIGHT_INPUT = '#height'
 const CHILDREN_TEXTAREA = '#children'
 const LABEL = "#label"
-const STORYBOOK_PREVIEW = '#storybook-preview-iframe'
+export const STORYBOOK_PREVIEW = '#storybook-preview-iframe'
 
 export const labelInput = () => cy.get(LABEL)
 export const childrenTextArea = () => cy.get(CHILDREN_TEXTAREA)
