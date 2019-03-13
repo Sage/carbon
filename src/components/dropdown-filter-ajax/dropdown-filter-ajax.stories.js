@@ -13,6 +13,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import DropdownFilterAjax from './dropdown-filter-ajax';
 import { enableMock } from '../../../demo/xhr-mock';
+import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
 const store = new Store({
   value: '',
@@ -64,6 +65,36 @@ const options = ImmutableHelper.parseJSON([
   }
 ]);
 
+const infoText = (
+  <div>
+    <p>A dropdown filter widget using ajax.</p>
+
+    <StoryHeader>How to use a dropdown in a component:</StoryHeader>
+
+    <p>In your file</p>
+
+    <StoryCode padded>
+      {'import DropdownFilterAjax from "carbon-react/lib/components/dropdown-filter-ajax";'}
+    </StoryCode>
+
+    <p>To render a DropdownFilterAjax:</p>
+
+    <StoryCode padded>
+      {'<DropdownFilter name="foo" path="/foo" onChange={ myChangeHandler } />'}
+    </StoryCode>
+
+    <p>
+      {"In 'suggest' mode, the dropdown only shows once a filter term has been entered."}
+    </p>
+
+    <p>
+      {"You can define a function using the 'create' prop, which allows you to trigger events to create new items."}
+    </p>
+
+    <p>You can define the number of rows returned by the ajax request using the property rowsPerRequest.</p>
+  </div>
+);
+
 storiesOf('DropdownFilterAjax', module)
   .addParameters({
     info: {
@@ -104,6 +135,7 @@ storiesOf('DropdownFilterAjax', module)
       </State>
     );
   }, {
+    info: { text: infoText },
     notes: { markdown: notes }
   })
   .add('withCreate', () => {
@@ -141,28 +173,6 @@ storiesOf('DropdownFilterAjax', module)
       </State>
     );
   }, {
-    info: {
-      text: (
-        <div>
-          <p>A dropdown filter widget using ajax.</p>
-
-          <h2>How to use a dropdown in a component:</h2>
-
-          <p>In your file</p>
-
-          <code>{'import DropdownFilterAjax from "carbon-react/lib/components/dropdown-filter-ajax";'}</code>
-
-          <p>To render a DropdownFilterAjax:</p>
-
-          <code>{'<DropdownFilter name="foo" path="/foo" onChange={ myChangeHandler } />'}</code>
-
-          <p>You can also use the component in 'suggest' mode, which only shows the dropdown once a filter term has been entered.</p>
-
-          <p>You can also define a function using the 'create' prop, this will allow you to trigger events to create new items.</p>
-
-          <p>You can also define the number of rows returned by the ajax request using the property rowsPerRequest.</p>
-        </div>
-      )
-    },
+    info: { text: infoText },
     notes: { markdown: notes }
   });

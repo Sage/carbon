@@ -19,13 +19,11 @@ storiesOf('Fieldset', module)
         legend={ legend }
       >
         <Textbox
-          value=''
           label='First Name'
           labelInline
           labelAlign='right'
         />
         <Textbox
-          value=''
           label='Last Name'
           labelInline
           labelAlign='right'

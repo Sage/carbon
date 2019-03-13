@@ -5,6 +5,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import Form from './form';
 import Textbox from '../textbox';
+import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../.storybook/style/storybook-info.styles';
 
 storiesOf('Form', module)
   .addParameters({
@@ -57,26 +58,31 @@ storiesOf('Form', module)
       text: (
         <div>
           <p>A Form widget.</p>
-            
-          <h2>How to use a Form in a component:</h2>
-            
+
+          <StoryHeader>How to use a Form in a component:</StoryHeader>
+
           <p>In your file</p>
-    
-          <code>{'import Form from "carbon-react/lib/components/form";'}</code>
-    
+
+          <StoryCode padded>
+            {'import Form from "carbon-react/lib/components/form";'}
+          </StoryCode>
+
           <p>To render a Form:</p>
 
-          <code>
+          <StoryCodeBlock>
             {'<Form>'}
-              {'<Textbox />'}
-              {'<Textbox />'}
-              {'<Date />'}
+            {'  <Textbox />'}
+            {'  <Textbox />'}
+            {'  <Date />'}
             {'</Form>'}
-          </code>
-    
-          <p>Form provides the ability to hook into the form handle submission method.
-          By passing afterFormValidation or beforeFormValidation you can add custom
-          validation logic and prevent the form submission using <code>{'ev.preventDefault()'}</code></p>
+          </StoryCodeBlock>
+
+          <p>Form provides the ability to hook into the form handle submission method.</p>
+
+          <p>
+            Passing <StoryCode>afterFormValidation</StoryCode> or <StoryCode>beforeFormValidation</StoryCode> lets
+            you add custom logic and <StoryCode>ev.preventDefault()</StoryCode>.
+          </p>
         </div>
       )
     },

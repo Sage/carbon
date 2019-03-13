@@ -11,6 +11,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import Flash from './flash';
 import Button from '../button';
+import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
 const store = new Store({
   open: false
@@ -57,40 +58,60 @@ storiesOf('Flash', module)
         <div>
           <p>A Flash widget.</p>
 
-          <h2>How to use an Flash in a component:</h2>
-          
-          <p>The flash is rendered in two sections: a ventral message 'flash', and a dorsal coloured, expanding 'slider'.</p>
-    
+          <StoryHeader>How to use an Flash in a component:</StoryHeader>
+
+          <p>
+            {"Flash is rendered in two sections: a ventral message 'flash', and a dorsal coloured 'slider'."}
+          </p>
+
           <p>In your file</p>
-    
-          <code>{'import Flash from "carbon-react/lib/components/flash";'}</code>
-    
-          <p>To render a Flash, setup open and cancel handlers in your view to trigger
-          the message on and off:</p>
-    
-          <code>{'<Flash open={ openStatus } onDismiss={ myOnDismiss } message="Alert!" />'}</code>
-    
+
+          <StoryCode padded>
+            {'import Flash from "carbon-react/lib/components/flash";'}
+          </StoryCode>
+
+          <p>To render a Flash, setup open and cancel handlers in your view to trigger the message on and off:</p>
+
+          <StoryCode padded>
+            {'<Flash open={ openStatus } onDismiss={ myOnDismiss } message="Alert!" />'}
+          </StoryCode>
+
           <p>By default, the flash renders with a clickable close icon that hooks up with the onDismiss unction.</p>
-    
+
           <p>To instead have the flash disappear after a given time period, pass a prop of timeout in milliseconds.</p>
-    
-          <code>{'<Flash open={ openStatus } onDismiss={ myOnDismiss } message="Alert!" timeout={ 2000 }/>'}</code>
-    
+
+          <StoryCode padded>
+            {'<Flash open={ openStatus } onDismiss={ myOnDismiss } message="Alert!" timeout={ 2000 }/>'}
+          </StoryCode>
+
           <p>The flash message can be formatted in the following ways:</p>
 
           <ul>
-            <li>A string: "Alert"</li>
-            <li>An array: ["Message One", "Message Two"]</li>
-            <li>An object with description: <code>{'{ description: "My description" }'}</code></li>
-            <li>An object of key/value pairs: <code>{'{ first_name: "is required", last_name: "is required" }'}</code></li>
-            <li>An object with description and nested key/value pairs: </li>
+            <li>
+              {'A string: "Alert"'}
+            </li>
+            <li>
+              {'An array: ["Message One", "Message Two"]'}
+            </li>
+            <li>An object with description: <StoryCode>{'{ description: "My description" }'}</StoryCode></li>
+            <li>
+              <span>An object of key/value pairs:</span>
+              <StoryCode>{'{ first_name: "is required", last_name: "is required" }'}</StoryCode>
+            </li>
+            <li>An object with description and nested key/value pairs:</li>
           </ul>
-  
-          <code>{'{ description: { first_name: "is required", last_name: "is required" } }'}</code>
-  
-          <p>If a message is too long, it can be proxied to a dialog by adding "more" in your description.</p>
-    
-          <code>{'let message = "This is too long ::more:: This sentence is proxied to a dialog."'}</code>
+
+          <StoryCode padded>
+            {'{ description: { first_name: "is required", last_name: "is required" } }'}
+          </StoryCode>
+
+          <p>
+            {"If a message is too long, it can be proxied to a dialog by adding 'more' in your description."}
+          </p>
+
+          <StoryCode padded>
+            {'let message = "This is too long ::more:: This sentence is proxied to a dialog."'}
+          </StoryCode>
         </div>
       )
     },

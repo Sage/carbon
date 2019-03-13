@@ -12,6 +12,7 @@ import ImmutableHelper from '../../utils/helpers/immutable';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import Dropdown from './dropdown';
+import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
 const store = new Store({
   value: ''
@@ -80,19 +81,25 @@ storiesOf('Dropdown', module)
         <div>
           <p>A dropdown widget.</p>
 
-          <h2>How to use a dropdown in a component:</h2>
+          <StoryHeader>How to use a dropdown in a component:</StoryHeader>
 
           <p>In your file</p>
 
-          <code>{'import Dropdown from "carbon-react/lib/components/dropdown";'}</code>
+          <StoryCode padded>
+            {'import Dropdown from "carbon-react/lib/components/dropdown";'}
+          </StoryCode>
 
           <p>To render a Dropdown:</p>
 
-          <code>{'<Dropdown name="foo" options={ foo } onChange={ myChangeHandler } />'}</code>
+          <StoryCode padded>
+            {'<Dropdown name="foo" options={ foo } onChange={ myChangeHandler } />'}
+          </StoryCode>
 
           <p>The developer should pass data to the store as JSON. e.g.</p>
 
-          <code>{'foo: [{ id: 1, name: "Foo" }, { id: 2, name: "Bar" }]'}</code>
+          <StoryCode padded>
+            {'foo: [{ id: 1, name: "Foo" }, { id: 2, name: "Bar" }]'}
+          </StoryCode>
         </div>
       )
     },

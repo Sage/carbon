@@ -19,11 +19,9 @@ storiesOf('Filter', module)
         align={ align }
       >
         <Textbox
-          value=''
           label='First Name'
         />
         <Textbox
-          value=''
           label='Last Name'
         />
       </Filter>

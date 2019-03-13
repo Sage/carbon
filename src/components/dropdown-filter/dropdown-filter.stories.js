@@ -12,6 +12,7 @@ import ImmutableHelper from '../../utils/helpers/immutable';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import DropdownFilter from './dropdown-filter';
+import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
 const store = new Store({
   value: ''
@@ -50,6 +51,56 @@ const options = ImmutableHelper.parseJSON([
   }
 ]);
 
+const infoText = (
+  <div>
+    <p>A dropdown filter widget.</p>
+
+    <StoryHeader>How to use a dropdown in a component:</StoryHeader>
+
+    <p>In your file</p>
+
+    <StoryCode padded>
+      {'import DropdownFilter from "carbon-react/lib/components/dropdown-filter";'}
+    </StoryCode>
+
+    <p>To render a DropdownFilter:</p>
+
+    <StoryCode padded>
+      {'<DropdownFilter name="foo" options={ foo } onChange={ myChangeHandler } />'}
+    </StoryCode>
+
+    <p>The developer should pass data to the store as JSON. e.g.</p>
+
+    <StoryCode padded>
+      {'foo: [{ id: 1, name: "Foo" }, { id: 2, name: "Bar" }]'}
+    </StoryCode>
+
+    <p>
+      {"When using the component in 'suggest' mode, the dropdown only shows once a filter term has been entered."}
+    </p>
+
+    <p>
+      {"In 'freetext' mode, the component mimics 'suggest', but allows write-in text values as well as list options."}
+    </p>
+
+    <p>
+      {"Specify an initial write-in value with the 'visibleValue' property."}
+    </p>
+
+    <p>
+      {"Setting the 'freetextName' property adds a second hidden input for the write-in value."}
+    </p>
+
+    <p>
+      {"Otherwise, the 'name' property is used for the option id."}
+    </p>
+
+    <p>
+      {"You can define a function for the 'create' prop, which allows you to trigger events to create new items."}
+    </p>
+  </div>
+);
+
 storiesOf('Dropdown Filter', module)
   .addParameters({
     info: {
@@ -85,6 +136,7 @@ storiesOf('Dropdown Filter', module)
       </State>
     );
   }, {
+    info: { text: infoText },
     notes: { markdown: notes }
   })
   .add('with Create', () => {
@@ -117,36 +169,6 @@ storiesOf('Dropdown Filter', module)
       </State>
     );
   }, {
-    info: {
-      text: (
-        <div>
-          <p>A dropdown filter widget.</p>
-
-          <h2>How to use a dropdown in a component:</h2>
-
-          <p>In your file</p>
-
-          <code>{'import DropdownFilter from "carbon-react/lib/components/dropdown-filter";'}</code>
-
-          <p>To render a DropdownFilter:</p>
-
-          <code>{'<DropdownFilter name="foo" options={ foo } onChange={ myChangeHandler } />'}</code>
-
-          <p>The developer should pass data to the store as JSON. e.g.</p>
-
-          <code>{'foo: [{ id: 1, name: "Foo" }, { id: 2, name: "Bar" }]'}</code>
-
-          <p>You can also use the component in 'suggest' mode, which only shows the dropdown once a filter term has been entered.</p>
-
-          <p>You can also use the component in 'freetext' mode, which behaves like 'suggest', but allows write-in text values in addition to list options.</p>
-
-          <p>Specify an initial write-in value with the `visibleValue` property, instead of the `value` property for an option id.</p>
-
-          <p>Set the `freetextName` property to add a second hidden input for the write-in value, as opposed to the `name` property used for the option id.</p>
-
-          <p>You can also define a function using the 'create' prop, this will allow you to trigger events to create new items.</p>
-        </div>
-      )
-    },
+    info: { text: infoText },
     notes: { markdown: notes }
   });
