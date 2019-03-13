@@ -1,8 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import {
-  boolean, text, select
-} from '@storybook/addon-knobs';
+import { boolean, text, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import countriesList from '../../../demo/data/countries';
@@ -33,7 +31,7 @@ const buildRows = (pageSizeFromKnobs) => {
 
   const endIndex = pageSize * currentPage;
   const startIndex = endIndex - pageSize;
-  const rowsCountries = countriesList.slice(startIndex, endIndex);
+  const rowsCountries = countriesList.slice(startIndex, endIndex).toJS();
 
   const rows = [
     <TableRow key='header' as='header'>
@@ -48,28 +46,16 @@ const buildRows = (pageSizeFromKnobs) => {
     </TableRow>
   ];
 
-  if (store.get('sortOrder') === 'asc') {
-    rowsCountries.toJS().map(row => (
-      rows.push(
-        <TableRow key={ row.id } uniqueID={ row.id }>
-          <TableCell>{row.name}</TableCell>
-          <TableCell>{row.value}</TableCell>
-        </TableRow>
-      )
-    ));
-  } else {
-    rowsCountries
-      .toJS()
-      .reverse()
-      .map(row => (
-        rows.push(
-          <TableRow key={ row.id } uniqueID={ row.id }>
-            <TableCell>{row.name}</TableCell>
-            <TableCell>{row.value}</TableCell>
-          </TableRow>
-        )
-      ));
+  if (store.get('sortOrder') === 'desc') {
+    rowsCountries.reverse();
   }
+
+  rowsCountries.map(({ id, name, value }) => rows.push(
+    <TableRow key={ id } uniqueID={ id }>
+      <TableCell>{name}</TableCell>
+      <TableCell>{value}</TableCell>
+    </TableRow>
+  ));
 
   return rows;
 };
