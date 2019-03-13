@@ -15,7 +15,7 @@ storiesOf('Experimental/Textbox', module)
         labelAlign={ select('labelAlign', ['left', 'right']) }
         labelHelp={ text('labelHelp') }
         labelInline={ boolean('labelInline', false) }
-        placeholder={ text('placeholder', 'placeholder text') }
+        placeholder={ text('placeholder', 'Enter Detail') }
         readOnly={ boolean('readOnly', false) }
         size={ select('size', ['small', 'medium', 'large'], 'medium') }
         warning={ text('warning') }
@@ -33,10 +33,11 @@ storiesOf('Experimental/Textbox', module)
         labelAlign={ select('labelAlign', ['left', 'right']) }
         labelHelp={ text('labelHelp') }
         labelInline={ boolean('labelInline', false) }
-        placeholder={ text('placeholder', 'placeholder text') }
+        placeholder={ text('placeholder', 'Enter Detail') }
         readOnly={ boolean('readOnly', false) }
         size={ select('size', ['small', 'medium', 'large'], 'medium') }
         warning={ text('warning') }
+        key='0'
       />,
       <Textbox
         disabled={ boolean('disabled', false) }
@@ -47,10 +48,11 @@ storiesOf('Experimental/Textbox', module)
         labelAlign={ select('labelAlign', ['left', 'right']) }
         labelHelp={ text('labelHelp') }
         labelInline={ boolean('labelInline', false) }
-        placeholder={ text('placeholder', 'placeholder text') }
+        placeholder={ text('placeholder', 'Enter Detail') }
         readOnly={ boolean('readOnly', false) }
         size={ select('size', ['small', 'medium', 'large'], 'medium') }
         warning={ text('warning') }
+        key='1'
       />
     ]);
   });

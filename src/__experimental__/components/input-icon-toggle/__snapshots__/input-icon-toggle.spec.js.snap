@@ -16,13 +16,14 @@ exports[`InputIconToggle when initiated with children renders as expected 1`] = 
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  margin-right: -11px;
   width: 40px;
 }
 
-<label
+<span
   className="c0"
   size="medium"
 >
   mock content
-</label>
+</span>
 `;

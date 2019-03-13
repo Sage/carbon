@@ -2,12 +2,13 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 
-const InputIconToggleStyle = styled.label`
+const InputIconToggleStyle = styled.span`
   align-items: center;
   cursor: pointer;
   display: flex;
   height: 100%;
   justify-content: center;
+  margin-right: ${({ size, theme }) => `-${theme.input[size].padding};`}
 
   ${({ error, theme }) => error && css`
     color: ${theme.colors.error};
