@@ -1,6 +1,10 @@
-#cypress tests
+#Cypress Cucumber tests for Storybook
 
-* `git clone git@github.com:Sage/carbon.git`
-* `git checkout cypress-cucumber-storybook`
-* `npm install`
-* `npm run test-cypress`
+## Getting started
+
+1. Clone the carbon repository `git clone git@github.com:Sage/carbon.git`
+2. Checkout cypress-cucumber-storybook branch `git checkout cypress-cucumber-storybook`
+3. Install `npm install`
+4. Run storybook `npm run storybook`
+5. Open new terminal at the same path
+6. Run cypress `npm run test-cypress`
