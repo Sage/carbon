@@ -1,5 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
+import 'jest-styled-components';
 import { Input, InputPresentationContext } from '.';
 
 describe('Input', () => {
@@ -18,7 +20,7 @@ describe('Input', () => {
   };
 
   it('renders with an input', () => {
-    expect(renderMount()).toMatchSnapshot();
+    expect(TestRenderer.create(<Input />).toJSON()).toMatchSnapshot();
   });
 
   it('sends the input ref to the inputRef callback', () => {

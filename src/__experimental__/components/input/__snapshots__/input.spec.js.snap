@@ -1,257 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Input renders with an input 1`] = `
-<Input
-  onChange={[Function]}
->
-  <styled.input
-    onBlur={[Function]}
-    onChange={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-    theme={
-      Object {
-        "colors": Object {
-          "brand": "#00DC00",
-          "error": "#C7384F",
-          "info": "#0073C2",
-          "primary": "#26A826",
-          "secondary": "#006300",
-          "success": "#00B000",
-          "tertiary": "#004400",
-          "warning": "#FFB500",
-          "white": "#FFFFFF",
-        },
-        "input": Object {
-          "active": Object {
-            "border": "outline: 3px solid #FFB500;",
-          },
-          "borderColor": "#668491",
-          "disabled": Object {
-            "backgroundColor": "#F2F4F5",
-            "borderColor": "#CCD6DA",
-          },
-          "fieldHelp": Object {
-            "color": "inherit",
-            "marginSide": "0px",
-            "marginTop": "8px",
-          },
-          "gutter": "16px",
-          "hover": Object {
-            "borderColor": "#668491",
-          },
-          "label": Object {
-            "marginSide": "0px",
-          },
-          "large": Object {
-            "height": "48px",
-            "padding": "13px",
-          },
-          "medium": Object {
-            "height": "40px",
-            "padding": "11px",
-          },
-          "small": Object {
-            "height": "32px",
-            "padding": "8px",
-          },
-          "validation": Object {
-            "borderWidth": "2px",
-          },
-        },
-        "text": Object {
-          "color": "rgba(0,0,0,0.9)",
-          "disabled": "rgba(0,0,0,0.55)",
-          "placeholder": "rgba(0,0,0,0.3)",
-          "size": "14px",
-        },
-      }
-    }
-  >
-    <StyledComponent
-      forwardedComponent={
-        Object {
-          "$$typeof": Symbol(react.forward_ref),
-          "attrs": Array [],
-          "componentStyle": ComponentStyle {
-            "componentId": "sc-bwzfXH",
-            "isStatic": false,
-            "lastClassName": "CAiqa",
-            "rules": Array [
-              "
+.c0 {
   background: transparent;
   border: none;
-  color: ",
-              [Function],
-              ";
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
   flex-grow: 1;
-  font-size: ",
-              [Function],
-              ";
+  font-size: 14px;
   outline: none;
   width: 30px;
+}
 
-  &::placeholder {
-    color: ",
-              [Function],
-              ";
-  }
+.c0::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
 
-  ",
-              [Function],
-              "
-",
-            ],
-          },
-          "defaultProps": Object {
-            "theme": Object {
-              "colors": Object {
-                "brand": "#00DC00",
-                "error": "#C7384F",
-                "info": "#0073C2",
-                "primary": "#26A826",
-                "secondary": "#006300",
-                "success": "#00B000",
-                "tertiary": "#004400",
-                "warning": "#FFB500",
-                "white": "#FFFFFF",
-              },
-              "input": Object {
-                "active": Object {
-                  "border": "outline: 3px solid #FFB500;",
-                },
-                "borderColor": "#668491",
-                "disabled": Object {
-                  "backgroundColor": "#F2F4F5",
-                  "borderColor": "#CCD6DA",
-                },
-                "fieldHelp": Object {
-                  "color": "inherit",
-                  "marginSide": "0px",
-                  "marginTop": "8px",
-                },
-                "gutter": "16px",
-                "hover": Object {
-                  "borderColor": "#668491",
-                },
-                "label": Object {
-                  "marginSide": "0px",
-                },
-                "large": Object {
-                  "height": "48px",
-                  "padding": "13px",
-                },
-                "medium": Object {
-                  "height": "40px",
-                  "padding": "11px",
-                },
-                "small": Object {
-                  "height": "32px",
-                  "padding": "8px",
-                },
-                "validation": Object {
-                  "borderWidth": "2px",
-                },
-              },
-              "text": Object {
-                "color": "rgba(0,0,0,0.9)",
-                "disabled": "rgba(0,0,0,0.55)",
-                "placeholder": "rgba(0,0,0,0.3)",
-                "size": "14px",
-              },
-            },
-          },
-          "displayName": "styled.input",
-          "foldedComponentIds": Array [],
-          "propTypes": Object {
-            "disabled": [Function],
-          },
-          "render": [Function],
-          "styledComponentId": "sc-bwzfXH",
-          "target": "input",
-          "toString": [Function],
-          "warnTooManyClasses": [Function],
-          "withComponent": [Function],
-        }
-      }
-      forwardedRef={
-        Object {
-          "current": <input
-            class="sc-bwzfXH CAiqa"
-          />,
-        }
-      }
-      onBlur={[Function]}
-      onChange={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      theme={
-        Object {
-          "colors": Object {
-            "brand": "#00DC00",
-            "error": "#C7384F",
-            "info": "#0073C2",
-            "primary": "#26A826",
-            "secondary": "#006300",
-            "success": "#00B000",
-            "tertiary": "#004400",
-            "warning": "#FFB500",
-            "white": "#FFFFFF",
-          },
-          "input": Object {
-            "active": Object {
-              "border": "outline: 3px solid #FFB500;",
-            },
-            "borderColor": "#668491",
-            "disabled": Object {
-              "backgroundColor": "#F2F4F5",
-              "borderColor": "#CCD6DA",
-            },
-            "fieldHelp": Object {
-              "color": "inherit",
-              "marginSide": "0px",
-              "marginTop": "8px",
-            },
-            "gutter": "16px",
-            "hover": Object {
-              "borderColor": "#668491",
-            },
-            "label": Object {
-              "marginSide": "0px",
-            },
-            "large": Object {
-              "height": "48px",
-              "padding": "13px",
-            },
-            "medium": Object {
-              "height": "40px",
-              "padding": "11px",
-            },
-            "small": Object {
-              "height": "32px",
-              "padding": "8px",
-            },
-            "validation": Object {
-              "borderWidth": "2px",
-            },
-          },
-          "text": Object {
-            "color": "rgba(0,0,0,0.9)",
-            "disabled": "rgba(0,0,0,0.55)",
-            "placeholder": "rgba(0,0,0,0.3)",
-            "size": "14px",
-          },
-        }
-      }
-    >
-      <input
-        className="sc-bwzfXH CAiqa"
-        onBlur={[Function]}
-        onChange={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-      />
-    </StyledComponent>
-  </styled.input>
-</Input>
+.c0::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c0:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c0::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+<input
+  className="c0"
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+/>
 `;
