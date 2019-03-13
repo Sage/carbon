@@ -4,7 +4,6 @@ import { text, boolean } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import { enableMock } from '../../../demo/xhr-mock';
 import notes from './notes.md';
-
 import {
   TableAjax, TableRow, TableCell, TableHeader
 } from './table-ajax';
