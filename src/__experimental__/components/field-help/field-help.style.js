@@ -3,18 +3,17 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 
 const FieldHelpStyle = styled.span`
-  color: ${({ theme }) => theme.text.color};
+  color: ${({ theme }) => theme.input.fieldHelp.color};
   display: block;
-  line-height: 20px;
-  margin-left: 6px;
-  margin-top: 5px;
-  padding-left: 6px;
+  margin-left: ${({ theme }) => theme.input.fieldHelp.marginSide};
+  margin-right: ${({ theme }) => theme.input.fieldHelp.marginSide};
+  margin-top: ${({ theme }) => theme.input.fieldHelp.marginTop};
   white-space: pre-wrap;
   width: 100%;
 
-  ${({ labelInline, inputWidth }) => labelInline && `
+  ${({ labelInline, inputWidth, theme }) => labelInline && `
     align-self: center;
-    margin-left: ${inputWidth}%;
+    margin-left: calc(${inputWidth}% + ${theme.input.fieldHelp.marginSide} + ${theme.input.fieldHelp.marginSide});
     padding-left: 0;
   `}
 `;

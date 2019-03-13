@@ -1,25 +1,6 @@
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
-
-// states: {
-//   error: {
-//     color: palette.errorRed
-//   },
-//   warning: {
-//     color: palette.gold
-//   }
-// },
-// sizes: {
-//   small: {
-//     width: '32px'
-//   },
-//   medium: {
-//     width: '40px'
-//   },
-//   large: {
-//     width: '48px'
-//   }
-// }
 
 const InputIconToggleStyle = styled.label`
   align-items: center;
@@ -45,8 +26,15 @@ const InputIconToggleStyle = styled.label`
 `;
 
 InputIconToggleStyle.defaultProps = {
-  theme: BaseTheme,
-  large: true
+  size: 'medium',
+  theme: BaseTheme
+};
+
+InputIconToggleStyle.propTypes = {
+  error: PropTypes.string,
+  info: PropTypes.string,
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  warning: PropTypes.string
 };
 
 export default InputIconToggleStyle;

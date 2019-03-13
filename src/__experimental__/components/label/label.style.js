@@ -5,8 +5,10 @@ import BaseTheme from '../../../style/themes/base';
 const LabelStyle = styled.label`
   color: ${({ theme }) => theme.text.color};
   cursor: pointer;
-  font-weight: bold;
-  padding: 6px 0 14px;
+  font-weight: 600;
+  margin-left: ${({ theme }) => theme.input.label.marginSide};
+  margin-right: ${({ theme }) => theme.input.fieldHelp.marginSide};
+  padding: 0 0 8px;
   width: 100%;
 
   ${({
@@ -23,14 +25,15 @@ const LabelStyle = styled.label`
 
 LabelStyle.defaultProps = {
   align: 'left',
+  inputSize: 'medium',
   theme: BaseTheme,
   width: 30
 };
 
 LabelStyle.propTypes = {
-  align: PropTypes.string,
+  align: PropTypes.oneOf(['left', 'right']),
   inline: PropTypes.bool,
-  inputSize: PropTypes.string,
+  inputSize: PropTypes.oneOf(['small', 'medium', 'large']),
   width: PropTypes.number
 };
 

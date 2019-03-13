@@ -49,15 +49,19 @@ const FormField = ({
   );
 };
 
+FormField.defaultProps = {
+  size: 'medium'
+};
+
 FormField.propTypes = {
   children: PropTypes.node,
   fieldHelp: PropTypes.node,
   label: PropTypes.node,
-  labelAlign: PropTypes.string,
+  labelAlign: PropTypes.oneOf(['left', 'right']),
   labelHelp: PropTypes.node,
   labelInline: PropTypes.bool,
   labelWidth: PropTypes.number,
-  size: PropTypes.string
+  size: PropTypes.oneOf(['small', 'medium', 'large'])
 };
 
 export default FormField;

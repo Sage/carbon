@@ -5,7 +5,7 @@ const FormFieldStyle = styled.div`
   flex-wrap: wrap;
 
   & + & {
-    margin-top: 20px;
+    margin-top: ${({ theme }) => theme.input.gutter};
   }
 `;
 

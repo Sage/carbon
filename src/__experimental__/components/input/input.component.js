@@ -10,19 +10,6 @@ import StyledInput from './input.style';
 // will add additional supported on the decorated features without the need
 // for the decorators themselves.
 
-const selectTextOnFocus = (input) => {
-  // setTimeout is required so the dom has a chance to place the cursor in the input
-  setTimeout(() => {
-    const { length } = input.current.value;
-    const cursorStart = input.current.selectionStart;
-    const cursorEnd = input.current.selectionEnd;
-    // only select text if cursor is at the very end or the very start of the value
-    if ((cursorStart === 0 && cursorEnd === 0) || (cursorStart === length && cursorEnd === length)) {
-      input.current.setSelectionRange(0, length);
-    }
-  });
-};
-
 class Input extends React.Component {
   static propTypes = {
     className: PropTypes.string,
@@ -73,6 +60,19 @@ class Input extends React.Component {
       />
     );
   }
+}
+
+function selectTextOnFocus(input) {
+  // setTimeout is required so the dom has a chance to place the cursor in the input
+  setTimeout(() => {
+    const { length } = input.current.value;
+    const cursorStart = input.current.selectionStart;
+    const cursorEnd = input.current.selectionEnd;
+    // only select text if cursor is at the very end or the very start of the value
+    if ((cursorStart === 0 && cursorEnd === 0) || (cursorStart === length && cursorEnd === length)) {
+      input.current.setSelectionRange(0, length);
+    }
+  });
 }
 
 export default Input;

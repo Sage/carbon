@@ -28,25 +28,12 @@ const InputPresentationStyle = styled.div`
     background: transparent !important;
     border-color: transparent !important;
   `}
-  ${({ info, theme }) => info && css`
-    border-color: ${theme.colors.info};
-    box-shadow: inset 1px 1px 0 ${theme.colors.info},
-                inset -1px -1px 0 ${theme.colors.info};
-  `}
-  ${({ warning, theme }) => warning && css`
-    border-color: ${theme.colors.warning};
-    box-shadow: inset 1px 1px 0 ${theme.colors.warning},
-                inset -1px -1px 0 ${theme.colors.warning};
-  `}
-  ${({ error, theme }) => error && css`
-    border-color: ${theme.colors.error};
-    box-shadow: inset 1px 1px 0 ${theme.colors.error},
-                inset -1px -1px 0 ${theme.colors.error};
-  `}
   ${({ hasFocus, theme }) => hasFocus && css`
     && { ${theme.input.active.border}; }
   `}
-
+  ${renderValidationStyling('info')}
+  ${renderValidationStyling('warning')}
+  ${renderValidationStyling('error')}
   ${({ size, theme }) => css`
     min-height: ${theme.input[size].height};
     padding-left: ${theme.input[size].padding};
@@ -55,6 +42,7 @@ const InputPresentationStyle = styled.div`
 `;
 
 InputPresentationStyle.defaultProps = {
+  size: 'medium',
   theme: baseTheme
 };
 
@@ -64,8 +52,34 @@ InputPresentationStyle.propTypes = {
   hasFocus: PropTypes.bool,
   info: PropTypes.string,
   readOnly: PropTypes.bool,
-  size: PropTypes.string,
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
   warning: PropTypes.string
 };
+
+// Calculates the width of the border for the validation. We use a combination
+// of border and box-shadow so that when a thicker validation is applied it does
+// not push the content of the input around, therefore we add the thickness of
+// the box-shadow to the thickness of the border.
+function calcValidationWidth(theme) {
+  const { borderWidth } = theme.input.validation;
+  const borderWidthInt = borderWidth.substring(0, borderWidth.length - 2);
+  return `${borderWidthInt - 1}px`;
+}
+
+// Returns the styling for a validated input. This is common between the various
+// validation states, and does some calculations, therefore it has been moved
+// into its own function.
+function renderValidationStyling(type) {
+  return ({ theme, ...props }) => {
+    const validation = props[type];
+    if (!validation) return null;
+    const width = calcValidationWidth(theme);
+    return css`
+      border-color: ${theme.colors[type]} !important;
+      box-shadow: inset ${width} ${width} 0 ${theme.colors[type]},
+                  inset -${width} -${width} 0 ${theme.colors[type]};
+    `;
+  };
+}
 
 export default InputPresentationStyle;
