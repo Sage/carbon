@@ -72,66 +72,9 @@ Object {
   "onMouseLeave": [Function],
   "onSelect": [Function],
   "open": true,
-  "target": .c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: rgba(0,0,0,0.9);
-  background: transparent;
-  line-height: 16px;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  cursor: text;
-  margin: 0px;
-  min-height: 32px;
-  border: 1px solid #CCD6DA;
-  outline: 3px solid #FFB500;
-  height: 48px;
-  font-size: 16px;
-  padding-left: 13px;
-  padding-right: 13px;
-  width: 256px;
-}
-
-.c1 {
-  border: none;
-  background: transparent;
-  outline: none;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  width: 30px;
-  color: rgba(0,0,0,0.85);
-  font-size: 14px;
-}
-
-.c2 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  color: rgba(0,0,0,0.9);
-  cursor: pointer;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  height: 100%;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  margin-right: -13px;
-  width: 48px;
-}
-
-<div
+  "target": <div
     autocomplete="off"
-    class="carbon-input-presentation carbon-input-presentation--has-focus c0"
+    class="sc-htpNat drjLLH"
     data-element="input"
     role="presentation"
     type="text"
@@ -139,12 +82,18 @@ Object {
   >
     <input
       autocomplete="off"
-      class="c1"
+      class="sc-bxivhb wHvcT"
       data-element="input"
       value=""
     />
+    <span
+      data-portal-entrance="guid-12345"
+    />
     <label
-      class="c2"
+      autocomplete="off"
+      class="sc-ifAKCX euFpUR"
+      data-element="input"
+      value=""
     >
       <span
         class="carbon-icon icon-dropdown"
@@ -152,9 +101,6 @@ Object {
         data-element="dropdown"
       />
     </label>
-    <span
-      data-portal-entrance="guid-12345"
-    />
   </div>,
 }
 `;

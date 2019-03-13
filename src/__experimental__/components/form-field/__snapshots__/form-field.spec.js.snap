@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FormField default renders children with styling 1`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c1 + .c0 {
+  margin-top: 16px;
+}
+
+<div
+  className="c0 c1"
+>
+  <input />
+</div>
+`;
+
+exports[`FormField with a label renders the label component above the childen 1`] = `
+Array [
+  <Label
+    align="left"
+    help="Help me!"
+    inline={true}
+    inputSize="small"
+    labelWidth={20}
+  >
+    Name
+  </Label>,
+  <input />,
+]
+`;
+
+exports[`FormField with fieldHelp renders the FieldHelp component below the childen 1`] = `
+Array [
+  <input />,
+  <FieldHelp
+    labelInline={true}
+    labelWidth={20}
+  >
+    Help me!
+  </FieldHelp>,
+]
+`;

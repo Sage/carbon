@@ -37,7 +37,7 @@ const InputPresentationStyle = styled.div`
   ${({ size, theme }) => css`
     min-height: ${theme.input[size].height};
     padding-left: ${theme.input[size].padding};
-    padding-left: ${theme.input[size].padding};
+    padding-right: ${theme.input[size].padding};
   `}
 `;
 

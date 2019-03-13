@@ -13,7 +13,7 @@
     "start": "npm run gen-colors && npm run gen-docs && npm run webpack-dev-server",
     "build": "npm run gen-colors && npm run gen-docs && cross-env NODE_ENV=production npm run webpack && npm run prep-deploy",
     "test": "jest --config=./jest.conf.json",
-    "debug": "node --inspect ./node_modules/jest/bin/jest --watch --config=./jest.conf.json",
+    "debug": "node --inspect ./node_modules/jest-cli/bin/jest --watch --config=./jest.conf.json",
     "lint": "./node_modules/.bin/eslint",
     "lint-ts": "./node_modules/.bin/tslint 'src/**/*.ts'",
     "precompile": "npm run clean-lib && npm run copy-files && npm run babel",

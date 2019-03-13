@@ -24,30 +24,29 @@ const FormField = ({
   labelInline,
   labelWidth,
   size
-}) => {
-  return (
-    <FormFieldStyle>
-      { label && (
-        <Label
-          align={ labelAlign }
-          help={ labelHelp }
-          inline={ labelInline }
-          inputSize={ size }
-        >
-          { label }
-        </Label>
-      ) }
+}) => (
+  <FormFieldStyle>
+    { label && (
+      <Label
+        align={ labelAlign }
+        help={ labelHelp }
+        inline={ labelInline }
+        inputSize={ size }
+        labelWidth={ labelWidth }
+      >
+        { label }
+      </Label>
+    ) }
 
-      { children }
+    { children }
 
-      { fieldHelp && (
-        <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
-          { fieldHelp }
-        </FieldHelp>
-      ) }
-    </FormFieldStyle>
-  );
-};
+    { fieldHelp && (
+      <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
+        { fieldHelp }
+      </FieldHelp>
+    ) }
+  </FormFieldStyle>
+);
 
 FormField.defaultProps = {
   size: 'medium'

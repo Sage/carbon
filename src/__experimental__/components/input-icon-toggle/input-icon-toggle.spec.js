@@ -2,63 +2,60 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 import 'jest-styled-components';
-
 import Icon from 'components/icon';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import BaseTheme from '../../../style/themes/base';
+
 import InputIconToggle from './input-icon-toggle.component';
 
-const props = {
-  iconType: 'foo',
-  inputId: '123',
-  isHovered: false
-};
+function render(props, renderer = shallow) {
+  return renderer(
+    <InputIconToggle type='settings' { ...props } />
+  );
+}
 
 describe('InputIconToggle', () => {
-  let wrapper;
-
   describe('when initiated with the disabled prop set to true', () => {
-    const propsDisabled = { ...props, disabled: true };
-
-    beforeEach(() => {
-      wrapper = shallow(<InputIconToggle { ...propsDisabled } />);
-    });
-
     it('does not render anything', () => {
-      expect(wrapper.isEmptyRender()).toBeTruthy();
+      expect(render({ disabled: true }).isEmptyRender()).toBeTruthy();
     });
   });
 
-  describe('when initiated with the readonly prop set to true', () => {
-    const propsReadonly = { ...props, readonly: true };
-
-    beforeEach(() => {
-      wrapper = shallow(<InputIconToggle { ...propsReadonly } />);
-    });
-
+  describe('when initiated with the readOnly prop set to true', () => {
     it('does not render anything', () => {
-      expect(wrapper.isEmptyRender()).toBeTruthy();
+      expect(render({ readOnly: true }).isEmptyRender()).toBeTruthy();
     });
   });
 
-  describe('when initiated without the content prop', () => {
-    beforeEach(() => {
-      wrapper = shallow(<InputIconToggle { ...props } />);
-    });
-
+  describe('when initiated without children', () => {
     it('renders an Icon component with an icon type that was specified in the props', () => {
-      expect(wrapper.contains(<Icon type={ props.iconType } />)).toBeTruthy();
+      expect(render({ type: 'settings' }).contains(<Icon type='settings' />)).toBeTruthy();
     });
   });
 
-  describe('when initiated with the content prop', () => {
-    const mockContent = <span>mock content</span>;
-    const propsWithContent = { content: mockContent, ...props };
-
-    beforeEach(() => {
-      wrapper = TestRenderer.create(<InputIconToggle { ...propsWithContent } />);
-    });
-
+  describe('when initiated with children', () => {
     it('renders as expected', () => {
-      expect(wrapper).toMatchSnapshot();
+      expect(render({ children: 'mock content' }, TestRenderer.create)).toMatchSnapshot();
+    });
+  });
+
+  describe('validations', () => {
+    ['info', 'warning', 'error'].forEach((validation) => {
+      it(`updates the color for ${validation}`, () => {
+        assertStyleMatch({
+          color: BaseTheme.colors[validation]
+        }, render({ [validation]: 'validation!' }, TestRenderer.create).toJSON());
+      });
+    });
+  });
+
+  describe('sizes', () => {
+    [['small', '32px'], ['medium', '40px'], ['large', '48px']].forEach((size) => {
+      it(`updates the width for ${size[0]}`, () => {
+        assertStyleMatch({
+          width: size[1]
+        }, render({ size: size[0] }, TestRenderer.create).toJSON());
+      });
     });
   });
 });

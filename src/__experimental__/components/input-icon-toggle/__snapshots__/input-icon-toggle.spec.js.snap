@@ -1,12 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`InputIconToggle when initiated with the content prop renders as expected 1`] = `
+exports[`InputIconToggle when initiated with children renders as expected 1`] = `
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  color: rgba(0,0,0,0.9);
   cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
@@ -17,15 +16,13 @@ exports[`InputIconToggle when initiated with the content prop renders as expecte
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  margin-right: -13px;
-  width: 48px;
+  width: 40px;
 }
 
 <label
   className="c0"
+  size="medium"
 >
-  <span>
-    mock content
-  </span>
+  mock content
 </label>
 `;
