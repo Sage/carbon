@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ValidationsContext } from './form-with-validations.hoc';
-import Icon from '../../../../components/icon';
-import validator from '../../validator';
+import Icon from '../icon';
+import validator from '../../utils/validations/validator';
 
 const withValidation = (WrappedComponent) => {
   class WithValidation extends React.Component {
@@ -12,12 +12,11 @@ const withValidation = (WrappedComponent) => {
       children: PropTypes.node, // Children elements
       name: PropTypes.string.isRequired, // Name to uniquely identify the component
       value: PropTypes.string, // The current value of the component
-      validationTypes: PropTypes.arrayOf(PropTypes.string), // the types of validations to be run on the component
-      error: PropTypes.oneOfType([ // The error validations that should be run against the value
+      validations: PropTypes.oneOfType([ // The error validations that should be run against the value
         PropTypes.func,
         PropTypes.arrayOf(PropTypes.func)
       ]),
-      warning: PropTypes.oneOfType([ // The warnings validations that should be run against the value
+      warnings: PropTypes.oneOfType([ // The warnings validations that should be run against the value
         PropTypes.func,
         PropTypes.arrayOf(PropTypes.func)
       ]),
@@ -30,8 +29,8 @@ const withValidation = (WrappedComponent) => {
     };
 
     static defaultProps = {
-      error: [],
-      warning: [],
+      validations: [],
+      warnings: [],
       info: []
     }
 
@@ -42,22 +41,24 @@ const withValidation = (WrappedComponent) => {
     };
 
     componentDidMount() {
-      if (this.checkValidations(['info', 'warning', 'error'])) this.context.addInput(this.props.name, this.validate);
+      if (this.checkValidations(['info', 'warnings', 'validations'])) {
+        this.context.addInput(this.props.name, this.validate);
+      }
     }
 
     componentWillUnmount() {
-      if (this.checkValidations(['info', 'warning', 'error'])) this.context.removeInput(this.props.name);
+      if (this.checkValidations(['info', 'warnings', 'validations'])) this.context.removeInput(this.props.name);
     }
 
     componentDidUpdate(prevProps) {
-      if (this.isUpdatedValidationProps(prevProps) && this.checkValidations(['info', 'warning', 'error'])) {
+      if (this.isUpdatedValidationProps(prevProps) && this.checkValidations(['info', 'warnings', 'validations'])) {
         this.context.addInput(this.props.name, this.validate);
       }
     }
 
     isUpdatedValidationProps(prevProps) {
-      const { error, warning, info } = this.props;
-      return error !== prevProps.error || warning !== prevProps.warning || info !== prevProps.info;
+      const { validations, warnings, info } = this.props;
+      return validations !== prevProps.validations || warnings !== prevProps.warnings || info !== prevProps.info;
     }
 
     checkValidations(types) {
@@ -76,7 +77,7 @@ const withValidation = (WrappedComponent) => {
       return hasValidations;
     }
 
-    validate = (types = ['error', 'warning', 'info']) => {
+    validate = (types = ['validations', 'warnings', 'info']) => {
       const validationPromises = [];
       types.forEach((type) => {
         const validationPromise = this.runValidation(type);
@@ -87,7 +88,11 @@ const withValidation = (WrappedComponent) => {
 
     updateValidationStatus(type, errorStatus) {
       const { adjustCount } = this.context;
-      const stateProp = `has${type.charAt(0).toUpperCase() + type.slice(1)}`;
+      let stateProp = '';
+
+      if (type === 'validations') stateProp = 'hasError';
+      else if (type === 'warnings') stateProp = 'hasWarning';
+      else if (type === 'info') stateProp = 'hasInfo';
 
       if (errorStatus && !this.state[stateProp]) {
         adjustCount(type, true);

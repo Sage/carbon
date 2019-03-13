@@ -11,11 +11,11 @@ exports[`when the formWithValidations HOC is wraps a component matches the snaps
   }
 >
   <Component
-    errorCount={0}
     infoCount={0}
     isValidating={false}
     validate={[Function]}
-    warningCount={0}
+    validationsCount={0}
+    warningsCount={0}
   >
     errors: 
     0
@@ -34,27 +34,27 @@ exports[`when the formWithValidations HOC is wraps a component matches the snaps
   }
 >
   <MockComponent
-    errorCount={0}
     infoCount={0}
     isValidating={false}
     validate={[Function]}
-    warningCount={0}
+    validationsCount={0}
+    warningsCount={0}
   >
     errors: 
     0
     <MockComponent
-      error={[Function]}
       info={[Function]}
       name="foo"
+      validations={[Function]}
       value="foo"
-      warning={[Function]}
+      warnings={[Function]}
     />
     <MockComponent
-      error={[Function]}
       info={[Function]}
       name="bar"
+      validations={[Function]}
       value=""
-      warning={[Function]}
+      warnings={[Function]}
     />
   </MockComponent>
 </ContextProvider>

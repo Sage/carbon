@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import { withValidations } from '.';
-import validator from '../../validator';
+import validator from '../../utils/validations/validator';
 
 const error = Error('this value is required!');
 
@@ -31,26 +31,26 @@ const WithNoName = withValidations(() => <form />);
 describe('when the formWithValidations HOC is wraps a component', () => {
   let wrapper, context;
 
-  const Child = MockComponent;
-  const ValididationComp = withValidations(MockComponent);
+  const ChildWithValidation = MockComponent;
+  const ComponentWithValidations = withValidations(MockComponent);
   beforeEach(() => {
     wrapper = shallow(
-      <ValididationComp>
-        <Child
+      <ComponentWithValidations>
+        <ChildWithValidation
           name='foo'
-          error={ presence }
-          warning={ presence }
+          validations={ presence }
+          warnings={ presence }
           info={ presence }
           value='foo'
         />
-        <Child
+        <ChildWithValidation
           name='bar'
-          error={ presence }
-          warning={ presence }
+          validations={ presence }
+          warnings={ presence }
           info={ presence }
           value=''
         />
-      </ValididationComp>
+      </ComponentWithValidations>
     );
     context = wrapper.instance().getContext();
   });
@@ -66,7 +66,7 @@ describe('when the formWithValidations HOC is wraps a component', () => {
 
   it('passes context to allow inputs to register themselves', () => {
     wrapper.instance().props.children.forEach((child) => {
-      return mockRegisterChild(context, child.props.name, child.props.error);
+      return mockRegisterChild(context, child.props.name, child.props.validations);
     });
     expect(Object.keys(wrapper.instance().inputs).length).toEqual(2);
     wrapper.instance().props.children
@@ -75,7 +75,7 @@ describe('when the formWithValidations HOC is wraps a component', () => {
 
   it('passes context to allow inputs to unregister themselves', () => {
     wrapper.instance().props.children.forEach((child) => {
-      return mockRegisterChild(context, child.props.name, child.props.error);
+      return mockRegisterChild(context, child.props.name, child.props.validations);
     });
     wrapper.instance().props.children.forEach((child) => {
       return mockUnregisterChild(context, child.props.name);
@@ -86,24 +86,24 @@ describe('when the formWithValidations HOC is wraps a component', () => {
   });
 
   describe('when the context is used to adjust the validation counts', () => {
-    it('increments the error count when failed validation is detected', async () => {
+    it('increments the validations count when failed validation is detected', async () => {
       const { children } = wrapper.instance().props;
       const { inputs } = wrapper.instance();
       await children.forEach((child) => {
-        mockRegisterChild(context, child.props.name, child.props.error);
-        return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'error', true));
+        mockRegisterChild(context, child.props.name, child.props.validations);
+        return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'validations', true));
       });
-      expect(wrapper.instance().state.errorCount).toEqual(1);
+      expect(wrapper.instance().state.validationsCount).toEqual(1);
     });
 
-    it('increments the warning count when failed validation is detected', async () => {
+    it('increments the warnings count when failed validation is detected', async () => {
       const { children } = wrapper.instance().props;
       const { inputs } = wrapper.instance();
       await children.forEach((child) => {
-        mockRegisterChild(context, child.props.name, child.props.warning);
-        return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'warning', true));
+        mockRegisterChild(context, child.props.name, child.props.warnings);
+        return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'warnings', true));
       });
-      expect(wrapper.instance().state.warningCount).toEqual(1);
+      expect(wrapper.instance().state.warningsCount).toEqual(1);
     });
 
     it('increments the info count when failed validation is detected', async () => {
@@ -123,8 +123,8 @@ describe('when the formWithValidations HOC is wraps a component', () => {
         mockRegisterChild(context, child.props.name, child.props.info);
         return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'foo', true));
       });
-      expect(wrapper.instance().state.errorCount).toEqual(0);
-      expect(wrapper.instance().state.warningCount).toEqual(0);
+      expect(wrapper.instance().state.validationsCount).toEqual(0);
+      expect(wrapper.instance().state.warningsCount).toEqual(0);
       expect(wrapper.instance().state.infoCount).toEqual(0);
     });
 
@@ -134,30 +134,30 @@ describe('when the formWithValidations HOC is wraps a component', () => {
       await children.forEach((child) => {
         mockRegisterChild(context, child.props.name, child.props.info);
         return inputs[child.props.name](child.props.value).catch(() => {
-          mockCountCall(context, 'error');
-          mockCountCall(context, 'warning');
+          mockCountCall(context, 'validations');
+          mockCountCall(context, 'warnings');
           mockCountCall(context, 'info');
         });
       });
-      expect(wrapper.instance().state.errorCount).toEqual(0);
-      expect(wrapper.instance().state.warningCount).toEqual(0);
+      expect(wrapper.instance().state.validationsCount).toEqual(0);
+      expect(wrapper.instance().state.warningsCount).toEqual(0);
       expect(wrapper.instance().state.infoCount).toEqual(0);
     });
 
     it('decrements the count when the state value is greater or equal to zero and there is no failures', async () => {
       const { children } = wrapper.instance().props;
       const { inputs } = wrapper.instance();
-      wrapper.setState({ errorCount: 3, warningCount: 2, infoCount: 1 });
+      wrapper.setState({ validationsCount: 3, warningsCount: 2, infoCount: 1 });
       await children.forEach((child) => {
         mockRegisterChild(context, child.props.name, child.props.info);
         return inputs[child.props.name](child.props.value).catch(() => {
-          mockCountCall(context, 'error');
-          mockCountCall(context, 'warning');
+          mockCountCall(context, 'validations');
+          mockCountCall(context, 'warnings');
           mockCountCall(context, 'info');
         });
       });
-      expect(wrapper.instance().state.errorCount).toEqual(2);
-      expect(wrapper.instance().state.warningCount).toEqual(1);
+      expect(wrapper.instance().state.validationsCount).toEqual(2);
+      expect(wrapper.instance().state.warningsCount).toEqual(1);
       expect(wrapper.instance().state.infoCount).toEqual(0);
     });
   });
@@ -190,23 +190,23 @@ describe('when the formWithValidations HOC is wraps a component', () => {
       return validationPromises;
     };
 
-    it('resolves false when all children fail their error validations', async () => {
+    it('resolves false when all children fail their validations', async () => {
       index = 0;
       wrapper = shallow(
-        <ValididationComp>
-          <Child
+        <ComponentWithValidations>
+          <ChildWithValidation
             name='foo'
-            error={ [presence] }
+            validations={ [presence] }
           />
-          <Child
+          <ChildWithValidation
             name='bar'
-            error={ presence }
+            validations={ presence }
           />
-          <Child
+          <ChildWithValidation
             name='wiz'
-            error={ presence }
+            validations={ presence }
           />
-        </ValididationComp>
+        </ComponentWithValidations>
       );
       const { children } = wrapper.instance().props;
       context = wrapper.instance().getContext();
@@ -215,23 +215,23 @@ describe('when the formWithValidations HOC is wraps a component', () => {
       await expect(wrapper.instance().validateRegisteredInputs()).resolves.toEqual(false);
     });
 
-    it('resolves true when all children components passes their error validations', async () => {
+    it('resolves true when all children components passes their validations', async () => {
       index = 0;
       wrapper = shallow(
-        <ValididationComp>
-          <Child
+        <ComponentWithValidations>
+          <ChildWithValidation
             name='foo'
-            error={ passValidation }
+            validations={ passValidation }
           />
-          <Child
+          <ChildWithValidation
             name='bar'
-            error={ [passValidation] }
+            validations={ [passValidation] }
           />
-          <Child
+          <ChildWithValidation
             name='wiz'
-            error={ passValidation }
+            validations={ passValidation }
           />
-        </ValididationComp>
+        </ComponentWithValidations>
       );
       const { children } = wrapper.instance().props;
       context = wrapper.instance().getContext();
@@ -240,23 +240,23 @@ describe('when the formWithValidations HOC is wraps a component', () => {
       await expect(wrapper.instance().validateRegisteredInputs()).resolves.toEqual(true);
     });
 
-    it('resolves false when any of the children components fail any of their error validations', async () => {
+    it('resolves false when any of the children components fail any of their validations', async () => {
       index = 0;
       wrapper = shallow(
-        <ValididationComp>
-          <Child
+        <ComponentWithValidations>
+          <ChildWithValidation
             name='foo'
-            error={ passValidation }
+            validations={ passValidation }
           />
-          <Child
+          <ChildWithValidation
             name='bar'
-            error={ [passValidation, presence] }
+            validations={ [passValidation, presence] }
           />
-          <Child
+          <ChildWithValidation
             name='wiz'
-            error={ passValidation }
+            validations={ passValidation }
           />
-        </ValididationComp>
+        </ComponentWithValidations>
       );
       const { children } = wrapper.instance().props;
       context = wrapper.instance().getContext();

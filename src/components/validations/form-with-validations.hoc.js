@@ -6,14 +6,14 @@ const ValidationsContext = React.createContext();
 const withValidations = (WrappedComponent) => {
   class WithValidations extends React.Component {
     state = {
-      errorCount: 0,
-      warningCount: 0,
+      validationsCount: 0,
+      warningsCount: 0,
       infoCount: 0,
       formIsValidating: false
     }
 
     static propTypes = {
-      children: PropTypes.node
+      children: PropTypes.node // Children elements
     }
 
     inputs = {};
@@ -50,7 +50,7 @@ const withValidations = (WrappedComponent) => {
       let promises = [];
       Object.keys(this.inputs).forEach((name) => {
         const validate = this.inputs[name];
-        promises = promises.concat(validate(['error']));
+        promises = promises.concat(validate(['validations']));
       });
       return Promise.all(promises).then((isValid) => {
         this.setState({ formIsValidating: false });
@@ -63,13 +63,13 @@ const withValidations = (WrappedComponent) => {
         <ValidationsContext.Provider value={ this.getContext() }>
           <WrappedComponent
             validate={ this.validateRegisteredInputs }
-            errorCount={ this.state.errorCount }
-            warningCount={ this.state.warningCount }
+            validationsCount={ this.state.validationsCount }
+            warningsCount={ this.state.warningsCount }
             infoCount={ this.state.infoCount }
             isValidating={ this.state.formIsValidating }
             { ...this.props }
           >
-            errors: { this.state.errorCount }
+            errors: { this.state.validationsCount }
             { this.props.children }
           </WrappedComponent>
         </ValidationsContext.Provider>
