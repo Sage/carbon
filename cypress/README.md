@@ -1,4 +1,4 @@
-#Cypress Cucumber tests for Storybook
+# Cypress Cucumber tests for Storybook
 
 ## Getting started
 

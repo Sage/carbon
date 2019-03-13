@@ -1,4 +1,4 @@
-import { childrenTextArea, disabledCheckbox, themeSelect, buttonPreview, buttonSubtextPreview } from "../../locators/buttonLocators";
+import { disabledCheckbox, themeSelect, buttonPreview, buttonSubtextPreview } from "../../locators/buttonLocators";
 
 const CARBON_BUTTON_PREFIX = 'carbon-button--';
 
@@ -49,12 +49,3 @@ Then('Button subtext on preview is {string}', (subtext) => {
 Then('Button as property on preview is {string}', (as) => {
   buttonPreview().should('have.class', CARBON_BUTTON_PREFIX + as)
 });
-
-// this steps do not apply storybook
-// Then('I see {string} {string} for results', (text, asProperty) => {
-//   noResultsDropdown().should('have.text', `${text} "${asProperty}"`)
-// });
-
-// When('I type {string} to as property', (asProperty) => {
-  // asSelect().type(asProperty);
-// });

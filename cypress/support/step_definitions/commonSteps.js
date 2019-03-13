@@ -1,4 +1,4 @@
-import { asSelect, themeSelect, sizeSelect, subtextInput, heightInput, childrenTextArea } from "../../locators/commonLocators";
+import { asSelect, themeSelect, sizeSelect, subtextInput, heightInput, childrenTextArea, labelInput } from "../../locators/commonLocators";
 
 When('I set children to {string}', (text) => {
   childrenTextArea().clear().type(text);
@@ -30,5 +30,9 @@ When('I set height to {string}', (height) => {
 
 When('I check open checkbox', () => {
   openCheckbox().check();
+})
+
+When('I set label to {string}', (label) => {
+  labelInput().type(label)
 })
 
