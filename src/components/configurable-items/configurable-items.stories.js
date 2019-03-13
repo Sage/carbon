@@ -41,7 +41,7 @@ const handleDrag = (draggedIndex, hoveredIndex) => {
   store.set('configurableItemsData', configurableItemsData);
   action('dragged')();
 };
-const handleChange = rowIndex => () => {
+const handleChange = (rowIndex) => {
   const configurableItemsData = store.get('configurableItemsData');
 
   configurableItemsData[rowIndex].enabled = !configurableItemsData[rowIndex].enabled;
@@ -67,7 +67,7 @@ const rows = data => data.map((column, rowIndex) => {
       locked={ column.locked }
       name={ column.name }
       rowIndex={ rowIndex }
-      onChange={ handleChange(rowIndex) }
+      onChange={ () => handleChange(rowIndex) }
     />
   );
 });
