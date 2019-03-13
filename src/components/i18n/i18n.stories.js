@@ -4,6 +4,7 @@ import { text, boolean } from '@storybook/addon-knobs';
 import i18n from 'i18n-js';
 import notes from './notes.md';
 import I18nComponent from './i18n';
+import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
 i18n.translations = {
   en: {
@@ -30,17 +31,21 @@ storiesOf('I18nComponent', module)
       text: (
         <div>
           <p>A widget for internationalisation of text.</p>
-          
-          <h2>How to use an I18n component:</h2>
-          
+
+          <StoryHeader>How to use an I18n component:</StoryHeader>
+
           <p>In your file:</p>
-          
-          <code>{'import I18n from "carbon-react/lib/components/i18n";'}</code>
-  
+
+          <StoryCode padded>
+            {'import I18n from "carbon-react/lib/components/i18n";'}
+          </StoryCode>
+
           <p>To render the message:</p>
-          
-          <code>{'<I18n scope="foo" />'}</code>
-          
+
+          <StoryCode padded>
+            {'<I18n scope="foo" />'}
+          </StoryCode>
+
           <p>For additional properties specific to this component, see propTypes.</p>
         </div>
       )

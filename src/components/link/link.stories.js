@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import Link from './link';
+import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
 storiesOf('Link', module)
   .add('default', () => {
@@ -52,17 +53,21 @@ storiesOf('Link', module)
       text: (
         <div>
           <p>A link widget.</p>
-          
-          <h2>How to use a Link in a component:</h2>
-          
+
+          <StoryHeader>How to use a Link in a component:</StoryHeader>
+
           <p>In your file:</p>
-          
-          <code>{'import Link from "carbon-react/lib/components/link";'}</code>
-          
+
+          <StoryCode padded>
+            {'import Link from "carbon-react/lib/components/link";'}
+          </StoryCode>
+
           <p>To render the Link:</p>
-          
-          <code>{'<Link href="foo">Main Page</Link>'}</code>
-          
+
+          <StoryCode>
+            {'<Link href="foo">Main Page</Link>'}
+          </StoryCode>
+
           <p>For additional properties specific to this component, see propTypes.</p>
         </div>
       )
