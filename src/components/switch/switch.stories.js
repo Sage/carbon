@@ -6,9 +6,8 @@ import {
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import Switch from './switch';
-import notes from './notes.md';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
-import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
+import { notes, info } from './documentation';
 
 const store = new Store({
   value: false
@@ -68,18 +67,7 @@ storiesOf('Switch', module)
       );
     },
     {
-      info: {
-        text: (
-          <div>
-            <p>Switch component</p>
-            <p>This component extends Checkbox and adds a switch styling over the top.</p>
-            <StoryHeader> Implementation</StoryHeader>
-
-            <p>Import the component:</p>
-            <StoryCode padded>import Switch from {'"carbon-react/lib/components/switch"'}</StoryCode>
-          </div>
-        )
-      }
+      info: { text: info },
+      notes: { markdown: notes }
     },
-    { notes: { markdown: notes } }
   );

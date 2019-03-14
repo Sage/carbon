@@ -6,8 +6,7 @@ import {
 import { State, Store } from '@sambego/storybook-state';
 import Textarea from './textarea';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './notes.md';
-import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
+import { notes, info } from './documentation';
 
 const store = new Store({
   value: ''
@@ -75,20 +74,7 @@ storiesOf('Textarea', module)
       );
     },
     {
-      info: {
-        text: (
-          <div>
-            <p>Textarea component</p>
-
-            <StoryHeader> Implementation</StoryHeader>
-
-            <StoryCode padded>import Textarea from {'carbon-react/lib/components/textarea'}</StoryCode>
-
-            <p>To render a Textarea:</p>
-            <StoryCode padded>{'<Textarea name="myTextarea" />'}</StoryCode>
-          </div>
-        )
-      }
+      info: { text: info },
+      notes: { markdown: notes }
     },
-    { notes: { markdown: notes } }
   );
