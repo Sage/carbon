@@ -13,6 +13,6 @@ deploy/docs
 yarn.lock
 lib
 src/style-config/assets.scss
-package-lock.json
 cypress/fixtures/
 debug.log
+cypress/screenshots
