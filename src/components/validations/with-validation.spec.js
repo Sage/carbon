@@ -349,7 +349,6 @@ describe('when the withValidations HOC wraps a component', () => {
       expect(noContextWrapper.instance().checkValidations(['foo'])).toEqual(false);
     });
 
-
     it('cannot perform the unregistration steps, when it has no context', () => {
       const NoContextComponent = withValidation(MockComponent);
       const noContextWrapper = shallow(<NoContextComponent name='foo' validations={ presence } />);
