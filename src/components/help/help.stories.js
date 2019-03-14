@@ -11,7 +11,7 @@ storiesOf('Help', module)
     const tooltipPosition = children ? select(
       'tooltipPosition',
       OptionsHelper.positions,
-      Help.defaultProps.tooltipPosition
+      'right'
     ) : undefined;
     const tooltipAlign = children ? select(
       'tooltipAlign',
