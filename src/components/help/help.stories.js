@@ -4,6 +4,7 @@ import { text, select } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import Help from './help';
+import './help.stories.scss';
 
 storiesOf('Help', module)
   .add('default', () => {
@@ -11,7 +12,7 @@ storiesOf('Help', module)
     const tooltipPosition = children ? select(
       'tooltipPosition',
       OptionsHelper.positions,
-      'right'
+      Help.defaultProps.tooltipPosition
     ) : undefined;
     const tooltipAlign = children ? select(
       'tooltipAlign',
