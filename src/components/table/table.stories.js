@@ -165,9 +165,9 @@ storiesOf('Table', module)
             <p>To add a pagination footer to the table you will need to pass some extra props to the table</p>
 
             <StoryCodeBlock>
-              {
-                'let sizeOptions = Immutable.fromJS([{ id: "10", name: 10 }, { id: "25", name: 25 }, { id: "50", name: 50 }]),'
-              }{' '}
+              {`let sizeOptions = Immutable.fromJS([{ 
+                  id: "10", name: 10 }, { id: "25", name: 25 }, { id: "50", name: 50 
+                }]),`}{' '}
               {' <Table'}
               {'  paginate // Show the pagination footer'}
               {'  currentPage="1" // Required - Current visible page'}
