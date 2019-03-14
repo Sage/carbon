@@ -3,15 +3,6 @@ import PropTypes from 'prop-types';
 import Help from '../../../components/help/help';
 import LabelStyle from './label.style';
 
-/**
- * To import Label:
- *
- *  import Label from 'carbon-react/lib/components/label';
- *
- * To render Label:
- *
- *   <Label help='bar'>foo</Label>
- */
 const Label = ({
   children,
   help,

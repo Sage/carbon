@@ -3,15 +3,6 @@ import PropTypes from 'prop-types';
 import Icon from '../../../components/icon';
 import InputIconToggleStyle from './input-icon-toggle.style';
 
-/**
- * To import InputIconToggle:
- *
- *   import InputIconToggle from 'carbon-react/lib/components/input-icon-toggle';
- *
- * To render InputIconToggle:
- *
- *   <InputIconToggle type='dropdown' />
- */
 const InputIconToggle = ({
   type,
   children,

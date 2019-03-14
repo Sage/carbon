@@ -4,17 +4,6 @@ import FormFieldStyle from './form-field.style';
 import Label from '../label';
 import FieldHelp from '../field-help';
 
-/**
- * To import FormField:
- *
- *   import FormField from 'carbon-react/lib/__experimental__/components/form-field';
- *
- * To render FieldHelp:
- *
- *   <FormField label='Name'>
- *     <input />
- *   </FormField>
- */
 const FormField = ({
   children,
   fieldHelp,
