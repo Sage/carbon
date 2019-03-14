@@ -29,6 +29,31 @@ storiesOf('Sidebar', module)
     const position = select('position', OptionsHelper.alignBinary[0]);
     const size = select('size', OptionsHelper.sizesFull[3]);
     const className = text('className', '');
+    const open = boolean('open', false);
+
+    return (
+      <Sidebar
+        enableBackgroundUI={ enableBackgroundUI }
+        open={ open }
+        position={ position }
+        size={ size }
+        onCancel={ onCancel }
+      >
+        <SidebarHeader className={ className }>
+            Header Content
+        </SidebarHeader>
+        Main Content
+      </Sidebar>
+    );
+  }, {
+    notes: { markdown: notes }
+  })
+
+  .add('with button', () => {
+    const enableBackgroundUI = boolean('enableBackgroundUI', false);
+    const position = select('position', OptionsHelper.alignBinary[0]);
+    const size = select('size', OptionsHelper.sizesFull[3]);
+    const className = text('className', '');
 
     return (
       <State store={ store }>
