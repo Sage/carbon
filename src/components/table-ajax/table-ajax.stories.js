@@ -93,9 +93,7 @@ storiesOf('Table Ajax', module)
             getCustomHeaders={ getCustomHeaders }
             onChange={ data => handleChange(data) }
 
-          >
-            {store.get('children')}
-          </TableAjax>
+          />
         </State>
       );
     },
