@@ -1,48 +1,59 @@
 import styled, { css } from 'styled-components';
 import baseTheme from '../../../style/themes/base';
-import buttonBaseTheme from './themes/button-base.theme';
+import buttonTypes from './button-types.style';
 
 const StyledButton = styled.button`
-  ${(props) => {
-    const { theme, size } = props;
-    const buttonConfig = buttonBaseTheme(theme);
-    const sizeConfig = buttonConfig.sizes[size];
+  border: 2px solid transparent;
+  cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  font-weight: 600;
 
-    let themedButtonConfig = {};
-
-    if (props.renderAs === 'primary') {
-      if (props.disabled) themedButtonConfig = buttonConfig.variants.primary.disabled;
-      else if (props.darkBackground) themedButtonConfig = buttonConfig.variants.primary.darkBackground;
-      else themedButtonConfig = buttonConfig.variants.primary.standard;
-    }
-
-    if (props.renderAs === 'secondary') {
-      if (props.disabled) themedButtonConfig = buttonConfig.variants.secondary.disabled;
-      else if (props.darkBackground) themedButtonConfig = buttonConfig.variants.secondary.darkBackground;
-      else themedButtonConfig = buttonConfig.variants.secondary.standard;
-    }
-
-    if (props.renderAs === 'tertiary') {
-      if (props.disabled) themedButtonConfig = buttonConfig.variants.tertiary.disabled;
-      else themedButtonConfig = buttonConfig.variants.tertiary.standard;
-    }
-
-    if (props.renderAs === 'destructive') {
-      if (props.disabled) themedButtonConfig = buttonConfig.variants.primary.disabled;
-      else themedButtonConfig = buttonConfig.variants.destructive.standard;
-    }
-
-    return css`
-      ${themedButtonConfig}
-      ${sizeConfig};
-
-      &:focus {
-        outline: solid 3px ${theme.colors.warning};
-      }
-    `;
+  &:focus {
+    outline: solid 3px ${({ theme }) => theme.colors.warning};
   }
-}}
+
+  ${({ size, theme }) => size === 'small' && css`
+    font-size: ${theme.colors.text.size.default};
+    height: 32px;
+    padding-left: 16px;
+    padding-right: 16px;
+  `}
+  ${({ size, theme }) => size === 'medium' && css`
+    font-size: ${theme.colors.text.size.default};
+    height: 40px;
+    padding-left: 24px;
+    padding-right: 24px;
+  `}
+  ${({ size }) => size === 'large' && css`
+    font-size: 16px;
+    height: 48px;
+    padding-left: 32px;
+    padding-right: 32px;
+  `}
+
+  ${stylingForType}
 `;
+
+function queryColor(disabled) {
+  return (color, disabledColor) => {
+    if (!color) return 'transparent';
+    return disabled ? disabledColor : color;
+  };
+}
+
+function stylingForType({ disabled, renderAs, theme }) {
+  const type = buttonTypes(theme)[renderAs];
+  const renderValue = queryColor(disabled);
+  return css`
+    background: ${renderValue(type.default.background, theme.button.disabled.background)};
+    border-color: ${renderValue(type.default.borderColor, theme.button.disabled.text)};
+    color: ${renderValue(type.default.color, theme.button.disabled.text)};
+    &:hover {
+      background: ${renderValue(type.hover.background, theme.button.disabled.background)};
+      border-color: ${renderValue(type.hover.borderColor, theme.button.disabled.text)};
+      color: ${renderValue(type.hover.color, theme.button.disabled.text)};
+    }
+  `;
+}
 
 StyledButton.defaultProps = {
   theme: baseTheme,

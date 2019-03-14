@@ -3,57 +3,33 @@ import PropTypes from 'prop-types';
 import Icon from '../../../components/icon';
 import StyledButton from './button.style';
 
-const propsNotForElement = [
-  'as',
-  'children'
-];
-
-const checkPosition = position => position === 'before' || position === 'after';
-
-const renderButtonIcon = (props) => {
-  const { children } = props;
-  if (props.disabled || !checkPosition(props.iconPosition) || !props.iconType) {
-    return (
-      <span
-        key='children'
-        data-element='main-text'
-      >
-        children
-      </span>
-    );
-  }
-
-  if (props.iconPosition === 'before') return [children, <Icon key='btn-icon' type={ props.iconType } />];
-
-  return [<Icon key='btn-icon' type={ props.iconType } />, children]; // make styled component? data-element?
-};
-
-const filterProps = (props) => {
-  return Object.entries(props).reduce((acc, [key, value]) => {
-    if (!propsNotForElement.includes(key)) acc[key] = value;
-    return acc;
-  }, {});
-};
-
-const Button = (props) => {
-  return (
-    <StyledButton
-      renderAs={ props.as }
-      { ...filterProps(props) }
-      role='button'
-    >
-      { renderButtonIcon(props) }
-    </StyledButton>
-  );
-};
+const Button = ({
+  as,
+  children,
+  disabled,
+  iconPosition,
+  iconType,
+  size
+}) => (
+  <StyledButton
+    renderAs={ as }
+    disabled={ disabled }
+    role='button'
+    size={ size }
+  >
+    { iconType && iconPosition === 'before' && <Icon type={ iconType } /> }
+    { children }
+    { iconType && iconPosition === 'after' && <Icon type={ iconType } /> }
+  </StyledButton>
+);
 
 Button.propTypes = {
   as: PropTypes.string, // Customises the appearance can be set to 'primary', 'secondary', 'tertiary' or 'destructive'
   children: PropTypes.node.isRequired, // Required, what the button displays
   disabled: PropTypes.bool, // Apply disabled state to the button
-  size: PropTypes.string, // Assigns a size to the button
   iconPosition: PropTypes.string, // Defines an Icon position within the button 'before' / 'after'
-  iconType: PropTypes.string // Defines an Icon type within the button
+  iconType: PropTypes.string, // Defines an Icon type within the button
+  size: PropTypes.string // Assigns a size to the button
 };
 
 Button.defaultProps = {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-// import { text, select, boolean } from '@storybook/addon-knobs';
+import { text, select, boolean } from '@storybook/addon-knobs';
 // import { action } from '@storybook/addon-actions';
 import Button from '.';
 
@@ -14,12 +14,7 @@ storiesOf('Draft-Button', module)
     // const subtext = size === OptionsHelper.sizesRestricted[2] ? text('subtext', '') : undefined;
 
     return (
-      <Button
-        as='destructive'
-        size='medium'
-        disabled
-
-      >
+      <Button as={ select('as', ['primary', 'secondary', 'tertiary', 'destructive', 'darkBackground'], 'secondary') } disabled={ boolean('disabled') }>
         Save
       </Button>
     );
