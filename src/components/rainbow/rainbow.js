@@ -109,7 +109,7 @@ class Rainbow extends React.Component {
 
     // use the highchart api to update its data
     if (this.props.data !== nextProps.data) {
-      this._chart.series[0].setData(nextProps.data.toJS());
+      this._chart.series[0].setData(nextProps.data);
     }
 
     // never re-render the component
