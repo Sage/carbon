@@ -5,33 +5,20 @@ import AppWrapper from '../app-wrapper';
 import tagComponent from '../../utils/helpers/tags';
 import './navigation-bar.scss';
 
-/**
- * Renders a full width application bar.
- */
 class NavigationBar extends React.Component {
   static propTypes = {
     /**
      * Determines the style of the component eg. primary/secondary
-     *
-     * @property as
-     * @type {String}
-     * @default primary
      */
     as: PropTypes.string,
 
     /**
      * The rendered children of the component.
-     *
-     * @property children
-     * @type {Multiple}
      */
     children: PropTypes.node,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string
   }
