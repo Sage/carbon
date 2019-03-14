@@ -56,8 +56,8 @@ class Sandbox extends React.Component {
       const startPos = input.selectionStart;
       const endPos = input.selectionEnd;
       const newValue = `${input.value.substring(0, startPos)
-         }  ${
-         input.value.substring(endPos, input.value.length)}`;
+      }  ${
+        input.value.substring(endPos, input.value.length)}`;
 
       this.setState({ code: newValue }, () => {
         const newPos = startPos + 2;
