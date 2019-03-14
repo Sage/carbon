@@ -6,53 +6,43 @@ import { acronymize } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import './profile.scss';
 
-/**
- * Renders a user profile, with avatar.
- */
 class Profile extends React.Component {
   static propTypes = {
 
     /**
      * A custom class name for the component.
      *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * The user's name.
      *
-     * @property name
-     * @type {String}
      */
     name: PropTypes.string.isRequired,
 
     /**
      * The user's email.
      *
-     * @property email
-     * @type {String}
      */
     email: PropTypes.string.isRequired,
 
     /**
      * The user's initials.
      *
-     * @property initials
-     * @type {String}
      */
     initials: PropTypes.string,
 
     /**
      * Outputs a large name version.
      *
-     * @property large
-     * @type {Boolean}
      */
     large: PropTypes.bool
   }
 
+  static defaultProps = {
+    large: false
+  };
 
   /**
    * Returns the classes for the component.

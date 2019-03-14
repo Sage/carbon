@@ -2,19 +2,17 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
 import Profile from './profile';
-import notes from './notes.md';
+import { info, notes } from './documentation';
 
 storiesOf('Profile', module)
   .add('default', () => {
-    const className = text('className', '');
-    const email = text('email', 'andrewtale@sage.com');
-    const initials = text('initials', 'AT');
+    const email = text('email', 'johnsmith@sage.com');
+    const initials = text('initials', 'JS');
     const large = boolean('large', false);
-    const name = text('name', 'Andrew Tail');
+    const name = text('name', 'John Smith');
 
     return (
       <Profile
-        className={ className }
         email={ email }
         initials={ initials }
         large={ large }
@@ -22,5 +20,6 @@ storiesOf('Profile', module)
       />
     );
   }, {
+    info: { text: info },
     notes: { markdown: notes }
   });
