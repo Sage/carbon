@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
 import { Store, State } from '@sambego/storybook-state';
 import { Select, Option } from '.';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const singleSelectStore = new Store({
   value: undefined
@@ -21,12 +22,12 @@ storiesOf('Experimental/Select', module)
           error={ text('error') }
           info={ text('info') }
           label={ text('label') }
-          labelAlign={ select('labelAlign', ['left', 'right']) }
+          labelAlign={ select('labelAlign', OptionsHelper.alignBinary) }
           labelInline={ boolean('labelInline') }
           onChange={ (ev) => { singleSelectStore.set({ value: ev.target.value }); } }
           placeholder={ text('placeholder') }
           readOnly={ boolean('readOnly') }
-          size={ select('size', ['small', 'medium', 'large']) }
+          size={ select('size', OptionsHelper.sizesRestricted) }
           warning={ text('warning') }
         >
           <Option text='Amber' value='1' />
@@ -53,12 +54,12 @@ storiesOf('Experimental/Select', module)
           error={ text('error') }
           info={ text('info') }
           label={ text('label') }
-          labelAlign={ select('labelAlign', ['left', 'right']) }
+          labelAlign={ select('labelAlign', OptionsHelper.alignBinary) }
           labelInline={ boolean('labelInline') }
           onChange={ (ev) => { multiSelectStore.set({ value: ev.target.value }); } }
           placeholder={ text('placeholder') }
           readOnly={ boolean('readOnly') }
-          size={ select('size', ['small', 'medium', 'large']) }
+          size={ select('size', OptionsHelper.sizesRestricted) }
           warning={ text('warning') }
         >
           <Option text='Amber' value='1' />

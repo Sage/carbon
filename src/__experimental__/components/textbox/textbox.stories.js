@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
 import Textbox from '.';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 storiesOf('Experimental/Textbox', module)
   .add('Basic', () => {
@@ -12,12 +13,12 @@ storiesOf('Experimental/Textbox', module)
         fieldHelp={ text('fieldHelp') }
         info={ text('info') }
         label={ text('label') }
-        labelAlign={ select('labelAlign', ['left', 'right']) }
+        labelAlign={ select('labelAlign', OptionsHelper.alignBinary) }
         labelHelp={ text('labelHelp') }
         labelInline={ boolean('labelInline') }
         placeholder={ text('placeholder') }
         readOnly={ boolean('readOnly') }
-        size={ select('size', ['small', 'medium', 'large']) }
+        size={ select('size', OptionsHelper.sizesRestricted) }
         warning={ text('warning') }
       />
     );
@@ -30,12 +31,12 @@ storiesOf('Experimental/Textbox', module)
         fieldHelp={ text('fieldHelp') }
         info={ text('info') }
         label={ text('label') }
-        labelAlign={ select('labelAlign', ['left', 'right']) }
+        labelAlign={ select('labelAlign', OptionsHelper.alignBinary) }
         labelHelp={ text('labelHelp') }
         labelInline={ boolean('labelInline') }
         placeholder={ text('placeholder') }
         readOnly={ boolean('readOnly') }
-        size={ select('size', ['small', 'medium', 'large']) }
+        size={ select('size', OptionsHelper.sizesRestricted) }
         warning={ text('warning') }
         key='0'
       />,
@@ -45,12 +46,12 @@ storiesOf('Experimental/Textbox', module)
         fieldHelp={ text('fieldHelp') }
         info={ text('info') }
         label={ text('label') }
-        labelAlign={ select('labelAlign', ['left', 'right']) }
+        labelAlign={ select('labelAlign', OptionsHelper.alignBinary) }
         labelHelp={ text('labelHelp') }
         labelInline={ boolean('labelInline') }
         placeholder={ text('placeholder') }
         readOnly={ boolean('readOnly') }
-        size={ select('size', ['small', 'medium', 'large']) }
+        size={ select('size', OptionsHelper.sizesRestricted) }
         warning={ text('warning') }
         key='1'
       />
