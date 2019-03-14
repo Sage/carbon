@@ -24,9 +24,7 @@ storiesOf('Spinner', module).add(
 
           <p>Import the component:</p>
 
-          <StoryCode padded>i
-            {'mport Spinner from "carbon-react/lib/components/spinner"'}
-          </StoryCode>
+          <StoryCode padded>i{'mport Spinner from "carbon-react/lib/components/spinner"'}</StoryCode>
 
           <p>
             You can pass a <StoryCode> {'size'} </StoryCode> property to adjust the size of the spinner

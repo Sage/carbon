@@ -42,9 +42,7 @@ storiesOf('Split Button', module)
             <StoryHeader> Implementation</StoryHeader>
 
             <p>Import the component:</p>
-            <StoryCode padded>
-              {'import SplitButton from "react-carbon/lib/components/split-button"'}
-            </StoryCode>
+            <StoryCode padded>import SplitButton from {'"react-carbon/lib/components/split-button"'}</StoryCode>
 
             <p>To render a SplitButton (developer can add any buttons to dropdown):</p>
             <StoryCodeBlock>

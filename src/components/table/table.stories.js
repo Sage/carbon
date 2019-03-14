@@ -66,7 +66,8 @@ storiesOf('Table', module)
     info: {
       propTablesExclude: [State]
     }
-  }).add(
+  })
+  .add(
     'default',
     () => {
       const pageSize = text('pageSize', '5');
@@ -86,7 +87,7 @@ storiesOf('Table', module)
               actionToolbarChildren={ (context) => {
                 return [
                   <Button disabled={ context.disabled } key='single-action'>
-                  Test Action
+                    Test Action
                   </Button>,
                   <MultiActionButton
                     text='Actions' disabled={ context.disabled }
@@ -119,7 +120,8 @@ storiesOf('Table', module)
           )}
         </State>
       );
-    }, {
+    },
+    {
       info: {
         text: (
           <div>
@@ -140,25 +142,19 @@ storiesOf('Table', module)
               {'      <TableRow>'}
               {'        <TableCell>'}
               {'          { datum.firstName }'}
-              {'        </TableCell>'}
-              {' '}
-              {'        <TableCell>'}
+              {'        </TableCell>'} {'        <TableCell>'}
               {'          { datum.lastName }'}
               {'        </TableCell>'}
               {'      </TableRow>'}
               {'    );'}
               {'  });'}
-              {');'}
-              {' '}
-              {'// prepend array of rows with a header row'}
+              {');'} {'// prepend array of rows with a header row'}
               {'tableRows.unshift('}
               {'  <TableRow>'}
               {'    <TableHeader>First Name</TableHeader>'}
               {'    <TableHeader>Last Name</TableHeader>'}
               {'  </TableRow>'}
-              {');'}
-              {' '}
-              {'// render the table with the table rows'}
+              {');'} {'// render the table with the table rows'}
               {'<Table>'}
               {'  { tableRows }'}
               {'</Table>'}
@@ -169,8 +165,9 @@ storiesOf('Table', module)
             <p>To add a pagination footer to the table you will need to pass some extra props to the table</p>
 
             <StoryCodeBlock>
-              {'let sizeOptions = Immutable.fromJS([{ id: "10", name: 10 }, { id: "25", name: 25 }, { id: "50", name: 50 }]),'}
-              {' '}
+              {
+                'let sizeOptions = Immutable.fromJS([{ id: "10", name: 10 }, { id: "25", name: 25 }, { id: "50", name: 50 }]),'
+              }{' '}
               {' <Table'}
               {'  paginate // Show the pagination footer'}
               {'  currentPage="1" // Required - Current visible page'}
@@ -184,7 +181,9 @@ storiesOf('Table', module)
 
             <p>Sorting:</p>
 
-            <p> To enable column sorting, you will need to configure the
+            <p>
+              {' '}
+              To enable column sorting, you will need to configure the
               <StoryCode>{' <TableHeader /> '}</StoryCode> component.
             </p>
           </div>

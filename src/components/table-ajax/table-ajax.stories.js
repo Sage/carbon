@@ -110,7 +110,7 @@ storiesOf('Table Ajax', module)
             <p>
               To render a<StoryCode padded> {'Table'} </StoryCode>
               please see the
-              <StoryCode padded> Table </StoryCode>
+              <StoryCode padded> {'Table'} </StoryCode>
               component
             </p>
 
