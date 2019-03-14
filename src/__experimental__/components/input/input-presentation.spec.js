@@ -5,6 +5,7 @@ import { shallow, mount } from 'enzyme';
 import { InputPresentation, Input } from '.';
 import baseTheme from '../../../style/themes/base';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const mountRender = (props) => {
   return mount(<InputPresentation { ...props }><Input /></InputPresentation>);
@@ -25,7 +26,7 @@ describe('InputPresentation', () => {
 
   describe('style', () => {
     describe('sizes', () => {
-      ['small', 'medium', 'large'].forEach((size) => {
+      OptionsHelper.sizesRestricted.forEach((size) => {
         it(`has the right style for ${size}-sized inputs`, () => {
           assertStyleMatch({
             minHeight: baseTheme.input[size].height,
