@@ -72,7 +72,7 @@ storiesOf('Switch', module)
         text: (
           <div>
             <p>Switch component</p>
-            <p>This widget extends Checkbox and adds a switch styling over the top.</p>
+            <p>This component extends Checkbox and adds a switch styling over the top.</p>
             <StoryHeader> Implementation</StoryHeader>
 
             <p>Import the component:</p>
