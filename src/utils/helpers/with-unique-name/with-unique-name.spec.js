@@ -29,6 +29,9 @@ describe('withUniqueName HOC', () => {
 
   it('the generated name prop is persisted even after re-render', () => {
     wrapper = shallow(<InputComponent value='foo' />);
+    const wrapper2 = shallow(<InputComponent value='foo' />);
+    expect(wrapper2.props().name).not.toEqual(wrapper.props().name);
+
     const { name } = wrapper.props();
     for (let i = 0; i < 5; i++) {
       wrapper.setProps({ value: i });
