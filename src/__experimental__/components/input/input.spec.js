@@ -1,5 +1,7 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
+import 'jest-styled-components';
 import { Input, InputPresentationContext } from '.';
 
 describe('Input', () => {
@@ -18,18 +20,13 @@ describe('Input', () => {
   };
 
   it('renders with an input', () => {
-    expect(renderMount()).toMatchSnapshot();
+    expect(TestRenderer.create(<Input />).toJSON()).toMatchSnapshot();
   });
 
   it('sends the input ref to the inputRef callback', () => {
     const inputRef = jest.fn();
     const wrapper = renderMount({ inputRef });
     expect(inputRef).toHaveBeenCalledWith(wrapper.instance().input);
-  });
-
-  it('replaces old class name for new one', () => {
-    const wrapper = renderMount({ className: 'foo common-input__input' });
-    expect(wrapper.find('input').props().className).toEqual('foo carbon-input');
   });
 
   it('does not fail onBlur or Focus if none are defined', () => {

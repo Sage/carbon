@@ -58,7 +58,7 @@ class AppLayout extends React.Component {
         <div>
           <SelectionContainer>
             <StyledSelect value={ activeTheme } onChange={ this.handleSelectChange }>
-            <option value='classic'>Classic</option>
+              <option value='classic'>Classic</option>
               <option value='small'>Small</option>
               <option value='medium'>Medium</option>
               <option value='large'>Large</option>

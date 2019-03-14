@@ -1,3 +1,5 @@
+import input from './input.config';
+
 export default (palette) => {
   const { atOpacity } = palette,
       blackWithOpacity = atOpacity('#000000');
@@ -17,19 +19,17 @@ export default (palette) => {
       error: palette.errorRed,
       warning: palette.gold,
       success: palette.brilliantGreenShade(20),
-      info: palette.productBlueShade(3),
-
-      text: {
-        body: blackWithOpacity(0.9),
-        disabled: blackWithOpacity(0.55),
-        placeholder: blackWithOpacity(0.3)
-      }
+      info: palette.productBlueShade(3)
     },
-    sizes: {
-      text: {
-        default: '14px'
-      }
-    }
+
+    text: {
+      color: blackWithOpacity(0.9),
+      disabled: blackWithOpacity(0.55),
+      placeholder: blackWithOpacity(0.3),
+      size: '14px'
+    },
+
+    input: input(palette)
   };
 
   config.button = {

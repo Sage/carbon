@@ -1,15 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Input renders with an input 1`] = `
-<Input
-  onChange={[Function]}
->
-  <input
-    className="carbon-input"
-    onBlur={[Function]}
-    onChange={[Function]}
-    onClick={[Function]}
-    onFocus={[Function]}
-  />
-</Input>
+.c0 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c0::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c0::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c0:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c0::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+<input
+  className="c0"
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+/>
 `;
