@@ -3,6 +3,8 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { shallow } from 'enzyme';
 import FormField from '.';
+import FormFieldStyle from './form-field.style';
+import classicTheme from '../../../style/themes/classic';
 
 function render(props, renderer = shallow) {
   return renderer(
@@ -37,6 +39,13 @@ describe('FormField', () => {
         labelInline: true,
         labelWidth: 20
       }).children()).toMatchSnapshot();
+    });
+  });
+
+  describe('classic theme', () => {
+    it('adds custom margin top', () => {
+      const wrapper = TestRenderer.create(<FormFieldStyle theme={ classicTheme } />);
+      expect(wrapper).toMatchSnapshot();
     });
   });
 });

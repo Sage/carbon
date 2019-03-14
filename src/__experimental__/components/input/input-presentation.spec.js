@@ -4,8 +4,10 @@ import 'jest-styled-components';
 import { shallow, mount } from 'enzyme';
 import { InputPresentation, Input } from '.';
 import baseTheme from '../../../style/themes/base';
+import sizes from './input-sizes.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import classicTheme from '../../../style/themes/classic';
 
 const mountRender = (props) => {
   return mount(<InputPresentation { ...props }><Input /></InputPresentation>);
@@ -29,9 +31,9 @@ describe('InputPresentation', () => {
       OptionsHelper.sizesRestricted.forEach((size) => {
         it(`has the right style for ${size}-sized inputs`, () => {
           assertStyleMatch({
-            minHeight: baseTheme.input[size].height,
-            paddingLeft: baseTheme.input[size].padding,
-            paddingRight: baseTheme.input[size].padding
+            minHeight: sizes[size].height,
+            paddingLeft: sizes[size].padding,
+            paddingRight: sizes[size].padding
           }, mountRender({ size }));
         });
       });
@@ -53,8 +55,8 @@ describe('InputPresentation', () => {
     describe('disabled', () => {
       it('has the correct style rules', () => {
         assertStyleMatch({
-          background: baseTheme.input.disabled.backgroundColor,
-          borderColor: `${baseTheme.input.disabled.borderColor} !important`,
+          background: baseTheme.disabled.input,
+          borderColor: baseTheme.disabled.border,
           cursor: 'not-allowed'
         }, mountRender({ disabled: true }));
       });
@@ -127,6 +129,28 @@ describe('InputPresentation', () => {
         jest.runAllTimers();
         expect(focus).toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('classic theme', () => {
+    it('applies custom styling', () => {
+      expect(shallowRender({ theme: classicTheme }, TestRenderer.create)).toMatchSnapshot();
+    });
+
+    it('applies custom border and outline on focus', () => {
+      assertStyleMatch({
+        outline: 'none',
+        border: '1px solid #255bc7'
+      }, mountRender({ theme: classicTheme, hasFocus: true }), {
+        modifier: '&&'
+      });
+    });
+
+    it('applies custom background and border color on disabled', () => {
+      assertStyleMatch({
+        background: '#d9e0e4',
+        borderColor: '#d9e0e4 !important'
+      }, mountRender({ theme: classicTheme, disabled: true }));
     });
   });
 });

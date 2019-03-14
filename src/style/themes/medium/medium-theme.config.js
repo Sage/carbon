@@ -1,6 +1,8 @@
 export default (palette) => {
   return (
     {
+      name: 'medium',
+
       colors: {
         base: palette.productBlue,
         primary: palette.productBlueShade(3),

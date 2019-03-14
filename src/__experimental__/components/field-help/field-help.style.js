@@ -1,20 +1,28 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 
 const FieldHelpStyle = styled.span`
-  color: ${({ theme }) => theme.input.fieldHelp.color};
   display: block;
-  margin-left: ${({ theme }) => theme.input.fieldHelp.marginSide};
-  margin-right: ${({ theme }) => theme.input.fieldHelp.marginSide};
-  margin-top: ${({ theme }) => theme.input.fieldHelp.marginTop};
+  margin-top: 8px;
   white-space: pre-wrap;
   width: 100%;
 
-  ${({ labelInline, inputWidth, theme }) => labelInline && `
+  ${({ labelInline, inputWidth }) => labelInline && css`
     align-self: center;
-    margin-left: calc(${inputWidth}% + ${theme.input.fieldHelp.marginSide} + ${theme.input.fieldHelp.marginSide});
+    margin-left: ${inputWidth}%;
     padding-left: 0;
+  `}
+
+  ${({ labelInline, inputWidth, theme }) => theme.name === 'classic' && css`
+    color: #335c6d;
+    margin-left: 6px;
+    margin-right: 6px;
+    margin-top: 5px;
+
+    ${labelInline && css`
+      margin-left: calc(${inputWidth}% + 6px);
+    `}
   `}
 `;
 

@@ -1,6 +1,8 @@
 export default (palette) => {
   return (
     {
+      name: 'large',
+
       colors: {
         base: palette.amethyst,
         primary: palette.amethystTint(10),

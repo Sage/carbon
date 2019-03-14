@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import BaseTheme from '../../../style/themes/base';
 
 const FormFieldStyle = styled.div`
@@ -6,7 +6,7 @@ const FormFieldStyle = styled.div`
   flex-wrap: wrap;
 
   & + & {
-    margin-top: ${({ theme }) => theme.input.gutter};
+    margin-top: ${({ theme }) => (theme.name === 'classic' ? '10px' : '16px')};
   }
 `;
 

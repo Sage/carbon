@@ -5,8 +5,6 @@ exports[`Label renders the label 1`] = `
   color: rgba(0,0,0,0.9);
   cursor: pointer;
   font-weight: 600;
-  margin-left: 0px;
-  margin-right: 0px;
   padding: 0 0 8px;
   width: 100%;
 }

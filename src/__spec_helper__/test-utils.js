@@ -5,8 +5,8 @@ export const toCSSCase = (str) => {
   return str.split('').reduce(humpToDash, '');
 };
 
-export const assertStyleMatch = (styleSpec, component) => {
+export const assertStyleMatch = (styleSpec, component, opts) => {
   Object.entries(styleSpec).forEach(([attr, value]) => {
-    expect(component).toHaveStyleRule(toCSSCase(attr), value);
+    expect(component).toHaveStyleRule(toCSSCase(attr), value, opts);
   });
 };
