@@ -71,7 +71,7 @@ storiesOf('Table', module)
     () => {
       const pageSize = text('pageSize', '5');
       const selectable = boolean('selectable', false);
-      const highlightable = boolean('hightTable', false);
+      const highlightable = boolean('highlightable', false);
       const shrink = boolean('shrink', false);
       const caption = text('Caption', 'Country and Country Codes');
       const totalRecords = text('totalRecords', '50');
