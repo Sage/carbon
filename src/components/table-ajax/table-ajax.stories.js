@@ -15,17 +15,23 @@ const store = new Store({
   sortOrder: 'asc',
   sortedColumn: '',
   currentPage: '1',
-  countryList: []
+  countryList: [],
+  children: undefined
 });
 
-const handleChange = (e) => {
-  store.set({ countryList: e.data[0].items });
+const handleChange = (data) => {
+  store.set({ 
+    countryList: data.data[0].items,
+  });
+  setTimeout(() => {
+    store.set({ 
+      children: buildRows()
+    })
+  }, 500);
 };
 
-const buildRows = () => {
-  enableMock();
-
-  const rows = [
+const buildRows = () => (
+  <>
     <TableRow key='header' as='header'>
       <TableHeader
         sortable name='name'
@@ -33,20 +39,16 @@ const buildRows = () => {
       >
         Country
       </TableHeader>
-
       <TableHeader scope='col'>Code</TableHeader>
     </TableRow>
-  ];
-
-  store.get('countryList').map(row => rows.push(
-    <TableRow key={ row.id } uniqueID={ row.id }>
-      <TableCell>{row.name}</TableCell>
-      <TableCell>{row.value}</TableCell>
-    </TableRow>
-  ));
-
-  return rows;
-};
+    {store.get('countryList').map(row => (
+      <TableRow key={ row.id } uniqueID={ row.id }>
+        <TableCell>{row.name}</TableCell>
+        <TableCell>{row.value}</TableCell>
+      </TableRow>
+    ))}
+  </>
+);
 
 storiesOf('Table Ajax', module)
   .addParameters({
@@ -65,33 +67,31 @@ storiesOf('Table Ajax', module)
 
       return (
         <State store={ store }>
-          {() => (
-            <TableAjax
-              actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
-              actionToolbarChildren={ (context) => {
-                return [
-                  <Button disabled={ context.disabled } key='single-action'>
-                    Test Action
-                  </Button>,
-                  <MultiActionButton
-                    text='Actions' disabled={ context.disabled }
-                    key='multi-actions'
-                  >
-                    <Button>foo</Button>
-                    <Button>bar</Button>
-                    <Button>qux</Button>
-                  </MultiActionButton>
-                ];
-              } }
-              path='/countries'
-              pageSize={ pageSize }
-              paginate={ paginate }
-              getCustomHeaders={ getCustomHeaders }
-              onChange={ e => handleChange(e) }
-            >
-              {buildRows()}
-            </TableAjax>
-          )}
+          <TableAjax
+            actions={ { delete: { icon: 'bin' },
+            settings: { icon: 'settings' } } }
+            actionToolbarChildren={ (context) => {
+              return [
+                <Button disabled={ context.disabled } key='single-action'>
+                  Test Action
+                </Button>,
+                <MultiActionButton
+                  text='Actions' disabled={ context.disabled }
+                  key='multi-actions'
+                >
+                  <Button>foo</Button>
+                  <Button>bar</Button>
+                  <Button>qux</Button>
+                </MultiActionButton>
+              ];
+            } }
+            path='/countries'
+            pageSize={ pageSize }
+            paginate={ paginate }
+            getCustomHeaders={ getCustomHeaders }
+            onChange={ data => handleChange(data) }
+            children={ store.get('children') }
+          />
         </State>
       );
     },
@@ -108,15 +108,15 @@ storiesOf('Table Ajax', module)
             </StoryCodeBlock>
 
             <p>
-              To render a<StoryCode padded> {'Table'} </StoryCode>
+              To render a<StoryCode> {'Table'} </StoryCode>
               please see the
-              <StoryCode padded> {'Table'} </StoryCode>
+              <StoryCode> {'Table'} </StoryCode>
               component
             </p>
 
             <p>
-              <StoryCode padded> {'Table'} </StoryCode>
-              requires a<StoryCode padded> {'path'} </StoryCode>
+              <StoryCode> {'Table'} </StoryCode>
+              requires a<StoryCode> {'path'} </StoryCode>
               to be provided
             </p>
           </div>
