@@ -38,13 +38,11 @@ const buildRows = () => {
     </TableRow>
   ];
 
-  store.get('countryList').map(row => (
-    rows.push(
-      <TableRow key={ row.id } uniqueID={ row.id }>
-        <TableCell>{row.name}</TableCell>
-        <TableCell>{row.value}</TableCell>
-      </TableRow>
-    )
+  store.get('countryList').map(row => rows.push(
+    <TableRow key={ row.id } uniqueID={ row.id }>
+      <TableCell>{row.name}</TableCell>
+      <TableCell>{row.value}</TableCell>
+    </TableRow>
   ));
 
   return rows;
@@ -73,7 +71,7 @@ storiesOf('Table Ajax', module)
               actionToolbarChildren={ (context) => {
                 return [
                   <Button disabled={ context.disabled } key='single-action'>
-                  Test Action
+                    Test Action
                   </Button>,
                   <MultiActionButton
                     text='Actions' disabled={ context.disabled }
@@ -101,32 +99,26 @@ storiesOf('Table Ajax', module)
       info: {
         text: (
           <div>
-
             <p> Table Ajax component</p>
 
             <StoryHeader> Implementation</StoryHeader>
             <StoryCodeBlock>
-
               {'import Table from "carbon-react/lib/components/table-ajax"'}
               {'import { TableRow, TableCell, TableHeader } from "carbon-react/lib/components/table"'}
             </StoryCodeBlock>
 
-
             <p>
-            To render a
-              <StoryCode padded> {'Table'} </StoryCode>
-            please see the
+              To render a<StoryCode padded> {'Table'} </StoryCode>
+              please see the
               <StoryCode padded> Table </StoryCode>
-            component
+              component
             </p>
 
             <p>
               <StoryCode padded> {'Table'} </StoryCode>
-            requires a
-              <StoryCode padded> {'path'} </StoryCode>
-            to be provided
+              requires a<StoryCode padded> {'path'} </StoryCode>
+              to be provided
             </p>
-
           </div>
         )
       }
