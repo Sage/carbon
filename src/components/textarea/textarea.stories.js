@@ -32,7 +32,7 @@ storiesOf('Textarea', module).add(
     const labelInline = boolean('labelInline', false);
     const fieldHelpInline = boolean('fieldHelpInline', false);
     const expandable = boolean('expandable', Textarea.defaultProp.expandable);
-    const characterLimit = number('characterLimit', 0, rangeOptions);
+    const characterLimit = number('characterLimit', 50, rangeOptions);
     const enforceCharacterLimit = characterLimit ? boolean(
       'enforceCharacterLimit',
       Textarea.defaultProp.enforceCharacterLimit
