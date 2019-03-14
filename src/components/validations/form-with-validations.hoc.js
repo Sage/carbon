@@ -69,7 +69,6 @@ const withValidations = (WrappedComponent) => {
             isValidating={ this.state.formIsValidating }
             { ...this.props }
           >
-            errors: { this.state.validationsCount }
             { this.props.children }
           </WrappedComponent>
         </ValidationsContext.Provider>

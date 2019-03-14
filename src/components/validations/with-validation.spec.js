@@ -343,17 +343,17 @@ describe('when the withValidations HOC wraps a component', () => {
       expect(spy).toHaveBeenCalled();
     });
 
-    it('does not unregister on unmount, when it has no validations', () => {
-      wrapper2 = shallowRenderWithContext();
-      const spy = spyOn(wrapper2.instance().context, 'removeInput');
-      wrapper2.unmount();
-      expect(spy).not.toHaveBeenCalled();
-    });
-
     it('cannot perform the registration steps, when it has no context', () => {
       const NoContextComponent = withValidation(MockComponent);
       const noContextWrapper = shallow(<NoContextComponent name='foo' validations={ presence } />);
       expect(noContextWrapper.instance().checkValidations(['foo'])).toEqual(false);
+    });
+
+
+    it('cannot perform the unregistration steps, when it has no context', () => {
+      const NoContextComponent = withValidation(MockComponent);
+      const noContextWrapper = shallow(<NoContextComponent name='foo' validations={ presence } />);
+      expect(() => noContextWrapper.unmount()).not.toThrowError();
     });
   });
 

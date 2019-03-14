@@ -47,7 +47,7 @@ const withValidation = (WrappedComponent) => {
     }
 
     componentWillUnmount() {
-      if (this.checkValidations(['info', 'warnings', 'validations'])) this.context.removeInput(this.props.name);
+      if (this.context.removeInput) this.context.removeInput(this.props.name);
     }
 
     componentDidUpdate(prevProps) {
@@ -62,7 +62,7 @@ const withValidation = (WrappedComponent) => {
     }
 
     checkValidations(types) {
-      if (!this.context.addInput || !this.context.removeInput) return false;
+      if (!this.context.addInput) return false;
 
       let hasValidations = true;
       types.forEach((type) => {
