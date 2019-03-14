@@ -15,7 +15,7 @@ Feature: Button component
       | <>                       |
 
   @positive
-  Scenario Outline: Change button subtext
+  Scenario Outline: Change Button subtext
     Given I open Button component page
     When I set component size to "large"
       And I set component subtext to "<subtext>"
@@ -26,6 +26,22 @@ Feature: Button component
       | 1!@#$%^*()_+-=~[];:.,?{} |
       | 汉字                       |
       | <>                       |
+
+  @negative
+  Scenario: I set space character to Button subtext
+    Given I open Button component page
+    When I set component size to "large"
+      # I use space character below
+      And I set component subtext to " "
+    Then Button subtext on preview is " "
+
+  @positive
+  Scenario: I set component size to large but I leave Button subtext empty
+    Given I open Button component page
+    When I set component size to "large"
+    # And I leave Button subtext empty
+    Then Button subtext on preview is not visible
+
 
   @positive
   Scenario Outline: Change Button 'as' property

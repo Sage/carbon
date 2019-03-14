@@ -19,10 +19,11 @@
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
 
-beforeEach(() => {
-    cy.server();
-    cy.route('/countries*', {});
-})
+// You can mock if needed. Example below
+// beforeEach(() => {
+//     cy.server();
+//     cy.route('/countries*', {});
+// })
 
 Cypress.on('uncaught:exception', (err, runnable) => {
     // returning false here prevents Cypress from
@@ -37,4 +38,12 @@ Cypress.Commands.overwrite(
         string,
         Object.assign({}, options, { delay: 100 })
     )
+)
+
+Cypress.Commands.add("iFrame",
+    (selector) => {
+        cy.wait(100).get('#storybook-preview-iframe').then(($iframe) => {
+            return cy.wrap($iframe.contents().find(selector));
+        })
+    }
 )

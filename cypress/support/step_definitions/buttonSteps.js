@@ -47,6 +47,10 @@ Then('Button subtext on preview is {string}', (subtext) => {
   buttonSubtextPreview().should('have.text', subtext)
 });
 
+Then('Button subtext on preview is not visible', () => {
+  buttonSubtextPreview().should('not.exist')
+});
+
 Then('Button as property on preview is {string}', (as) => {
   buttonPreview().should('have.class', CARBON_BUTTON_PREFIX + as)
 });

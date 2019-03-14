@@ -74,7 +74,7 @@ Feature: Alert component
 
 
   @positive
-  Scenario Outline: Set hieght for Alert dialog
+  Scenario Outline: Set height for Alert dialog
     Given I open Alert component page
     When I set height to "<height>"
       And I open Alert preview
