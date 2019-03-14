@@ -22,10 +22,12 @@ export default (palette) => {
       text: {
         body: blackWithOpacity(0.9),
         disabled: blackWithOpacity(0.55),
-        placeholder: blackWithOpacity(0.3),
-        size: {
-          default: '14px'
-        }
+        placeholder: blackWithOpacity(0.3)
+      }
+    },
+    sizes: {
+      text: {
+        default: '14px'
       }
     }
   };

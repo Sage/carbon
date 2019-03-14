@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import baseTheme from '../../../style/themes/base';
 import buttonTypes from './button-types.style';
+import buttonSizes from './button-sizes.style';
 
 const StyledButton = styled.button`
   border: 2px solid transparent;
@@ -12,13 +13,13 @@ const StyledButton = styled.button`
   }
 
   ${({ size, theme }) => size === 'small' && css`
-    font-size: ${theme.colors.text.size.default};
+    font-size: ${theme.sizes.text.default};
     height: 32px;
     padding-left: 16px;
     padding-right: 16px;
   `}
   ${({ size, theme }) => size === 'medium' && css`
-    font-size: ${theme.colors.text.size.default};
+    font-size: ${theme.sizes.text.default};
     height: 40px;
     padding-left: 24px;
     padding-right: 24px;
@@ -32,6 +33,10 @@ const StyledButton = styled.button`
 
   ${stylingForType}
 `;
+
+function sizingButton({ size, theme }) {
+  const sizeStyle = buttonSizes = buttonSizes(size, theme);
+}
 
 function queryColor(disabled) {
   return (color, disabledColor) => {
