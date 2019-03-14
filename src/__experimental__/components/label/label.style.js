@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const LabelStyle = styled.label`
   color: ${({ theme }) => theme.text.color};
@@ -31,9 +32,9 @@ LabelStyle.defaultProps = {
 };
 
 LabelStyle.propTypes = {
-  align: PropTypes.oneOf(['left', 'right']),
+  align: PropTypes.oneOf(OptionsHelper.alignBinary),
   inline: PropTypes.bool,
-  inputSize: PropTypes.oneOf(['small', 'medium', 'large']),
+  inputSize: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   width: PropTypes.number
 };
 

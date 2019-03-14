@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import FormFieldStyle from './form-field.style';
 import Label from '../label';
 import FieldHelp from '../field-help';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const FormField = ({
   children,
@@ -45,11 +46,11 @@ FormField.propTypes = {
   children: PropTypes.node,
   fieldHelp: PropTypes.node,
   label: PropTypes.node,
-  labelAlign: PropTypes.oneOf(['left', 'right']),
+  labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
   labelHelp: PropTypes.node,
   labelInline: PropTypes.bool,
   labelWidth: PropTypes.number,
-  size: PropTypes.oneOf(['small', 'medium', 'large'])
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
 };
 
 export default FormField;

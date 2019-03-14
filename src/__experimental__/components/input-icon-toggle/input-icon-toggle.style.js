@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const InputIconToggleStyle = styled.span`
   align-items: center;
@@ -34,7 +35,7 @@ InputIconToggleStyle.defaultProps = {
 InputIconToggleStyle.propTypes = {
   error: PropTypes.string,
   info: PropTypes.string,
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   warning: PropTypes.string
 };
 

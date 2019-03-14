@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const InputPresentationStyle = styled.div`
   align-items: center;
@@ -52,7 +53,7 @@ InputPresentationStyle.propTypes = {
   hasFocus: PropTypes.bool,
   info: PropTypes.string,
   readOnly: PropTypes.bool,
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   warning: PropTypes.string
 };
 
