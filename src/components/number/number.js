@@ -7,47 +7,20 @@ import InputValidation from '../../utils/decorators/input-validation';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 
-/**
- * A number widget. It only allows entering of a whole number with an
- * optional minus sign.
- *
- * == How to use a Number in a component:
- *
- * In your file
- *
- *   import Number from 'carbon-react/lib/components/number';
- *
- * To render a Number:
- *
- *   <Number name="myNumber" />
- *
- * @class Number
- * @constructor
- * @decorators {Input,InputLabel,InputValidation}
- */
 const Number = Input(InputLabel(InputValidation(class Number extends React.Component {
   static propTypes = {
     /**
      * A custom class name for the component.
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * The value of the Number input element
-     *
-     * @property value
-     * @type {String}
      */
     value: PropTypes.string,
 
     /**
      * Event handler for the keyDown event
-     *
-     * @property onKeyDown
-     * @type {Function}
      */
     onKeyDown: PropTypes.func
   }
