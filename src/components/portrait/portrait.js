@@ -8,37 +8,12 @@ import Browser from '../../utils/helpers/browser';
 import Icon from '../icon';
 import './portrait.scss';
 
-/**
- * A Portrait Widget.
- *
- * == How to use a Portrait in a component
- *
- * In your file
- *
- *   import Portrait from 'carbon-react/lib/components/portrait';
- *
- * To render the Portrait
- *
- *   <Portrait src='/my-image' alt='my image' />
- *
- * To render a gravatar portrait
- *
- *   <Portrait gravatar='mygrav@email.com' />
- *
- * You can pass a 'size' property to adjust the size of the portrait
- *    The default is lmed
- *    options: small, smed, lmed, large
- *
- * For additional properties specific to this component, see propTypes.
- */
 class Portrait extends React.Component {
   static propTypes = {
 
     /**
      * A custom class name for the component.
      *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
@@ -46,16 +21,12 @@ class Portrait extends React.Component {
      * Size of the img
      * Options: small, smed, lmed, large
      *
-     * @property size
-     * @type {String}
      */
     size: PropTypes.string,
 
     /**
      * Source of the image
      *
-     * @property src
-     * @type {String}
      */
     src: (props) => {
       if (!props.gravatar && !props.src) {
@@ -68,16 +39,12 @@ class Portrait extends React.Component {
     /**
      * Gravatar email
      *
-     * @property src
-     * @type {String}
      */
     gravatar: PropTypes.string,
 
     /**
      * Alternate text for image
      *
-     * @property src
-     * @type {String}
      */
     alt: PropTypes.string,
 
@@ -85,26 +52,18 @@ class Portrait extends React.Component {
      * Shape of the portrait
      * Options - standard, circle, leaf
      *
-     * @property shape
-     * @type {String}
      */
     shape: PropTypes.string,
 
     /**
      * Initials to display as image
      *
-     * @property initials
-     * @type {String}
-     * @default 'U'
      */
     initials: PropTypes.string,
 
     /**
      * If to use a dark background instead of a light background.
      *
-     * @property darkBackground
-     * @type {Boolean}
-     * @default false
      */
     darkBackground: PropTypes.bool
   }
@@ -112,7 +71,8 @@ class Portrait extends React.Component {
   static defaultProps = {
     alt: '',
     size: 'medium',
-    shape: 'standard'
+    shape: 'standard',
+    darkBackground: false
   };
 
   /**
