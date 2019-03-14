@@ -92,8 +92,10 @@ storiesOf('Table Ajax', module)
             paginate={ paginate }
             getCustomHeaders={ getCustomHeaders }
             onChange={ data => handleChange(data) }
-            children={ store.get('children') }
-          />
+
+          >
+            {store.get('children')}
+          </TableAjax>
         </State>
       );
     },
