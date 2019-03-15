@@ -4,7 +4,7 @@ import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './notes.md';
+import notes from './documentation/notes.md';
 import Dialog from './dialog';
 import Button from '../button/button';
 

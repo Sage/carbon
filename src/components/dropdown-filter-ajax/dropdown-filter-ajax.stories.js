@@ -10,10 +10,10 @@ import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import ImmutableHelper from '../../utils/helpers/immutable';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './notes.md';
+import notes from './documentation/notes.md';
+import Info from './documentation/Info';
 import DropdownFilterAjax from './dropdown-filter-ajax';
 import { enableMock } from '../../../demo/xhr-mock';
-import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
 const store = new Store({
   value: '',
@@ -65,36 +65,6 @@ const options = ImmutableHelper.parseJSON([
   }
 ]);
 
-const infoText = (
-  <div>
-    <p>A dropdown filter widget using ajax.</p>
-
-    <StoryHeader>How to use a dropdown in a component:</StoryHeader>
-
-    <p>In your file</p>
-
-    <StoryCode padded>
-      {'import DropdownFilterAjax from "carbon-react/lib/components/dropdown-filter-ajax";'}
-    </StoryCode>
-
-    <p>To render a DropdownFilterAjax:</p>
-
-    <StoryCode padded>
-      {'<DropdownFilter name="foo" path="/foo" onChange={ myChangeHandler } />'}
-    </StoryCode>
-
-    <p>
-      {"In 'suggest' mode, the dropdown only shows once a filter term has been entered."}
-    </p>
-
-    <p>
-      {"You can define a function using the 'create' prop, which allows you to trigger events to create new items."}
-    </p>
-
-    <p>You can define the number of rows returned by the ajax request using the property rowsPerRequest.</p>
-  </div>
-);
-
 storiesOf('DropdownFilterAjax', module)
   .addParameters({
     info: {
@@ -135,7 +105,7 @@ storiesOf('DropdownFilterAjax', module)
       </State>
     );
   }, {
-    info: { text: infoText },
+    info: { text: Info },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   })
@@ -174,7 +144,7 @@ storiesOf('DropdownFilterAjax', module)
       </State>
     );
   }, {
-    info: { text: infoText },
+    info: { text: Info },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   });

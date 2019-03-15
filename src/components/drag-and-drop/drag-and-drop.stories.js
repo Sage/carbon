@@ -3,7 +3,8 @@ import { storiesOf } from '@storybook/react';
 import { boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import notes from './notes.md';
+import notes from './documentation/notes.md';
+import Info from './documentation/Info';
 import { DraggableContext } from './drag-and-drop';
 import {
   Table,
@@ -11,7 +12,6 @@ import {
   TableRow,
   TableCell
 } from '../table';
-import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../.storybook/style/storybook-info.styles';
 
 const store = new Store({
   dndData: [{
@@ -91,40 +91,6 @@ storiesOf('DraggableContext', module)
       </DraggableContext>
     );
   }, {
-    info: {
-      text: (
-        <div>
-          <p>A draggable context component</p>
-
-          <StoryHeader>How to use a draggable context in a component:</StoryHeader>
-
-          <p>In your file</p>
-
-          <StoryCode padded>
-            {'import { DraggableContext, WithDrop, WithDrag } from "carbon-react/lib/components/ag-and-drop"'}
-          </StoryCode>
-
-          <p>A draggable context is used to define an area in the page where drag and drop can be used.</p>
-
-          <p>You also need to use WithDrop and WithDrag:</p>
-
-          <StoryCodeBlock>
-            {'<DraggableContext onDrag={ onItemMoved }>'}
-            {'  <ol>'}
-            {'    {items.map((item, index) => {'}
-            {'      return ('}
-            {'        <WithDrop index={ index }>'}
-            {'          <li>'}
-            {'            <WithDrag><span>{ item.content }</span></WithDrag>'}
-            {'          </li>'}
-            {'        </WithDrop>'}
-            {'      );'}
-            {'    })}'}
-            {'  </ol>'}
-            {'</DraggableContext>'}
-          </StoryCodeBlock>
-        </div>
-      )
-    },
+    info: { text: Info },
     notes: { markdown: notes }
   });
