@@ -8,7 +8,7 @@ import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Modal from '../modal';
 import Alert from './alert';
-import notes from './notes.md';
+import { info, notes } from './documentation';
 
 const store = new Store({
   open: false
@@ -61,5 +61,6 @@ storiesOf('Alert', module)
       </State>
     );
   }, {
+    info: { text: info },
     notes: { markdown: notes }
   });
