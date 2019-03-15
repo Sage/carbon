@@ -61,8 +61,9 @@ $sizes: ("extra-small", $grid-margin-extra-small),
 
     // class added to style storybook example
     &.example-classname {
-      background-color: #50b848;
-      height: 10px;
+      background-color: #E8E8E8;
+      height: 30px;
+      padding-top: 5px;
     }
   }
 

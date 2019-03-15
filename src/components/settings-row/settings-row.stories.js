@@ -7,7 +7,7 @@ import { notes, info } from './documentation';
 storiesOf('SettingsRow', module)
   .add('default', () => {
     const description = text('description', 'Simple description');
-    const divider = boolean('divider', true);
+    const divider = boolean('divider', SettingsRow.defaultProps.divider);
     const title = text('title', 'This is the title');
 
     return (

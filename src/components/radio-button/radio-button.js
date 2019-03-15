@@ -29,7 +29,7 @@ const RadioButton = Input(InputLabel(InputValidation(class RadioButton extends R
     fieldHelpInline: PropTypes.bool
   }
 
-  static defaultProp = {
+  static defaultProps = {
     fieldHelpInline: false
   }
 

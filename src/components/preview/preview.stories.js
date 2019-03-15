@@ -14,8 +14,8 @@ storiesOf('Preview', module)
     () => {
       const children = text('children', 'Text rendered as children component.');
       const height = text('height');
-      const lines = number('lines', Preview.lines);
-      const loading = boolean('loading', true);
+      const lines = number('lines', Preview.defaultProps.lineslines);
+      const loading = boolean('loading', Preview.defaultProps.loading);
       const width = text('width');
 
       return (

@@ -19,7 +19,7 @@ const info = (
       {'<Portrait gravatar="mygrav@email.com" />'}
     </StoryCode>
 
-    <p>You can pass a size property to adjust the size of the portrait. The default value is medium. Possible options: small, smed, lmed, large.</p>
+    <p>You can pass a <StoryCode padded>size</StoryCode> property to adjust the size of the portrait. The default value is medium.</p>
   </div>
 );
 

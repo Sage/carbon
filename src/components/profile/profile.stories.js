@@ -8,7 +8,7 @@ storiesOf('Profile', module)
   .add('default', () => {
     const email = text('email', 'johnsmith@sage.com');
     const initials = text('initials', 'JS');
-    const large = boolean('large', false);
+    const large = boolean('large', Profile.defaultProps.large);
     const name = text('name', 'John Smith');
 
     return (

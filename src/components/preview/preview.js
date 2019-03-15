@@ -50,7 +50,8 @@ Preview.propTypes = {
 };
 
 Preview.defaultProps = {
-  lines: 1
+  lines: 1,
+  loading: true
 };
 
 function isLoading(loading, children) {

@@ -8,13 +8,13 @@ storiesOf('Row', module)
   .add('default', () => {
     // row
     const columnClasses = text('columnClasses', 'example-classname');
-    const columnDivide = boolean('columnDivide', Row.columnDivide);
-    const columns = text('columns', '5');
-    const gutter = text('gutter', Row.gutter);
+    const columnDivide = boolean('columnDivide', Row.defaultProps.columnDivide);
+    const columns = text('columns', '4');
+    const gutter = text('gutter', Row.defaultProps.gutter);
     // column
-    const columnAlign = text('columnAlign', Column.columnAlign);
-    const columnOffset = text('columnOffset', Column.columnOffset);
-    const columnSpan = text('columnSpan', Column.columnSpan);
+    const columnAlign = text('columnAlign', Column.defaultProps.columnAlign);
+    const columnOffset = text('columnOffset', Column.defaultProps.columnOffset);
+    const columnSpan = text('columnSpan', Column.defaultProps.columnSpan);
     const children = text('children');
 
     return (
@@ -24,6 +24,13 @@ storiesOf('Row', module)
         gutter={ gutter }
         columnClasses={ columnClasses }
       >
+        <Column
+          columnAlign={ columnAlign }
+          columnOffset={ columnOffset }
+          columnSpan={ columnSpan }
+        >
+          { children }
+        </Column>
         <Column
           columnAlign={ columnAlign }
           columnOffset={ columnOffset }
