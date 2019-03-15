@@ -37,4 +37,8 @@ storiesOf('GroupedCharacter', module)
         onChange={ action('change') }
       />
     );
+  }, {
+    knobs: {
+      escapeHTML: false
+    }
   });
