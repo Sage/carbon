@@ -9,22 +9,6 @@ import tagComponent from '../../utils/helpers/tags';
 import './radio-button.scss';
 
 /**
- * A radiobutton widget.
- *
- * == How to use a RadioButton in a component:
- *
- * In your file:
- *
- *   import RadioButton from 'carbon-react/lib/components/radio-button';
- *
- * To render the radiobutton:
- *
- *  <RadioButton name='frequency' value='weekly' label='Weekly'/>
- *  <RadioButton name='frequency' value='2weekly' label='2 Weekly' />
- *  <RadioButton name='frequency' value='4weekly' label='4 Weekly'/>
- *  <RadioButton name='frequency' value='monthly' label='Monthly' />
- *
- * For additional properties specific to this component, see propTypes.
  *
  * @class RadioButton
  * @constructor
@@ -35,22 +19,17 @@ const RadioButton = Input(InputLabel(InputValidation(class RadioButton extends R
     /**
      * A custom class name for the component.
      *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Displays fieldHelp inline with the radio button.
      *
-     * @property fieldHelpInline
-     * @type {Boolean}
      */
     fieldHelpInline: PropTypes.bool
   }
 
   static defaultProp = {
-    className: '',
     fieldHelpInline: false
   }
 
