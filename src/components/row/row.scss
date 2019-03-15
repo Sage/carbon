@@ -58,6 +58,12 @@ $sizes: ("extra-small", $grid-margin-extra-small),
     &.carbon-column--align-right {
       text-align: right;
     }
+
+    // class added to style storybook example
+    &.example-classname {
+      background-color: #50b848;
+      height: 10px;
+    }
   }
 
   @for $i from 2 through $max-columns {

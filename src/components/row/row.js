@@ -4,37 +4,12 @@ import classNames from 'classnames';
 import Column from './column';
 import './row.scss';
 
-/**
- * A row widget.
- *
- * This is a standalone row widget used for layout; for table rows use the table-row widget.
- *
- * == How to use a Row in a component:
- *
- * In your file
- *
- *   import { Row, Column } from 'carbon-react/lib/components/row';
- *
- * To render the Row:
- *
- *   <Row>
- *     <Column>Column1</Column>
- *     <Column>Column2</Column>
- *   </Row>
- *
- * A Rows child must be of type Column
- *
- * @class Row
- * @constructor
- */
 class Row extends React.Component {
   static propTypes = {
 
     /**
      * The elements to be rendered in the row
      *
-     * @property children
-     * @type {Object | Array}
      */
     children: PropTypes.oneOfType([
       PropTypes.array,
@@ -44,8 +19,6 @@ class Row extends React.Component {
     /**
      * Custom className
      *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
@@ -53,38 +26,31 @@ class Row extends React.Component {
      * Pass a custom value for the gutter
      * (extra-small, small, medium, large or extra-large)
      *
-     * @property gutter
-     * @type {String}
      */
     gutter: PropTypes.string,
 
     /**
      * Show a divide between columns
      *
-     * @property columnDivide
-     * @type {String}
      */
     columnDivide: PropTypes.bool,
 
     /**
      * Manually define number of columns
      *
-     * @property columns
-     * @type {String}
      */
     columns: PropTypes.string,
 
     /**
      * class to apply to each child column
      *
-     * @property columnClasses
-     * @type {String}
      */
     columnClasses: PropTypes.string
   }
 
   static defaultProps = {
-    gutter: 'medium'
+    gutter: 'medium',
+    columnDivide: true
   };
 
   /**

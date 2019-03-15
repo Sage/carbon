@@ -1,36 +1,30 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
-import OptionsHelper from '../../utils/helpers/options-helper';
 import { Row, Column } from './row';
-import notes from './notes.md';
+import { notes, info } from './documentation';
 
 storiesOf('Row', module)
-
   .add('default', () => {
     // row
-    const classNameRow = text('className', '');
-    const columnClasses = text('className', '');
-    const columnDivide = boolean('columnDivide', false);
-    const columns = text('columns', '3');
-    const gutter = text('gutter', 'medium');
+    const columnClasses = text('columnClasses', 'example-classname');
+    const columnDivide = boolean('columnDivide', Row.columnDivide);
+    const columns = text('columns', '5');
+    const gutter = text('gutter', Row.gutter);
     // column
-    const classNameColumn = text('className', '');
-    const columnAlign = text('columnAlign', OptionsHelper.alignBinary[0]);
-    const columnOffset = text('columnOffset', '0');
-    const columnSpan = text('columnSpan', '1');
-    const children = text('children', 'Column content');
+    const columnAlign = text('columnAlign', Column.columnAlign);
+    const columnOffset = text('columnOffset', Column.columnOffset);
+    const columnSpan = text('columnSpan', Column.columnSpan);
+    const children = text('children');
 
     return (
       <Row
-        className={ classNameRow }
-        columnClasses={ columnClasses }
         columnDivide={ columnDivide }
         columns={ columns }
         gutter={ gutter }
+        columnClasses={ columnClasses }
       >
         <Column
-          className={ classNameColumn }
           columnAlign={ columnAlign }
           columnOffset={ columnOffset }
           columnSpan={ columnSpan }
@@ -38,7 +32,6 @@ storiesOf('Row', module)
           { children }
         </Column>
         <Column
-          className={ classNameColumn }
           columnAlign={ columnAlign }
           columnOffset={ columnOffset }
           columnSpan={ columnSpan }
@@ -46,7 +39,6 @@ storiesOf('Row', module)
           { children }
         </Column>
         <Column
-          className={ classNameColumn }
           columnAlign={ columnAlign }
           columnOffset={ columnOffset }
           columnSpan={ columnSpan }
@@ -56,5 +48,6 @@ storiesOf('Row', module)
       </Row>
     );
   }, {
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    info: { text: info }
   });
