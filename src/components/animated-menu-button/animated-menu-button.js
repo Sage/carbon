@@ -36,17 +36,11 @@ class AnimatedMenuButton extends React.Component {
 
     /**
      * Children elements
-     *
-     * @property children
-     * @type {Node}
      */
     children: PropTypes.node,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
@@ -54,18 +48,11 @@ class AnimatedMenuButton extends React.Component {
      * The direction in which the menu expands.
      *
      * Options: right, left
-     *
-     * @property direction
-     * @type {String}
-     * @default left
      */
     direction: PropTypes.string,
 
     /**
      * A label to display at the top of the expanded menu.
-     *
-     * @property label
-     * @type {String}e
      */
     label: PropTypes.string,
 
@@ -73,10 +60,6 @@ class AnimatedMenuButton extends React.Component {
      * The size of the menu.
      *
      * Options: small, smed, medium, mlarge, large
-     *
-     * @property size
-     * @type {String}
-     * @default medium
      */
     size: PropTypes.string
   }
