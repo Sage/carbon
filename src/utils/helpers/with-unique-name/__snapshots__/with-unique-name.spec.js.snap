@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`withUniqueName HOC matches the snapshot when the it is passed an anonymous component with no name or display name 1`] = `
+<Component
+  name="foo"
+/>
+`;
