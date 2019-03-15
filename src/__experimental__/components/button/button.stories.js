@@ -18,6 +18,7 @@ storiesOf('Draft-Button', module)
           size={ size }
           disabled={ disabled }
           onClick={ action('click') }
+          subtext='test'
         >
           { children }
         </Button>
@@ -29,8 +30,6 @@ storiesOf('Draft-Button', module)
         >
           { children }
         </Button>
-        <button type='button' onClick={ action('click') }>test</button>
-
       </div>
     );
   });

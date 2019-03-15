@@ -7,6 +7,7 @@ const StyledButton = styled.button`
   border: 2px solid transparent;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   font-weight: 600;
+  line-height: 16px;
 
   &:focus {
     outline: solid 3px ${({ theme }) => theme.colors.warning};
@@ -14,6 +15,17 @@ const StyledButton = styled.button`
 
   ${stylingForType}
   ${({ theme, size }) => buttonSizes(theme)[size]}
+`;
+
+export const StyledButtonChildren = styled.span`
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+
+export const StyledSubtext = styled.span`
+  font-size: 14px;
+  font-weight: 400;
 `;
 
 function queryColor(disabled) {
