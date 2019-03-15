@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import notes from './notes.md';
 import Button from '.';
 
 storiesOf('Draft-Button', module)
@@ -10,6 +11,9 @@ storiesOf('Draft-Button', module)
     const children = text('children', 'DLS Button');
     const disabled = boolean('disabled', false);
     const size = select('size', ['small', 'medium', 'large'], 'medium');
+    const subtext = text('subtext', '');
+    const iconType = select('iconType', ['cross', 'filter', ''], '');
+    const iconPosition = select('iconPosition', ['before', 'after', ''], '');
 
     return (
       <div>
@@ -18,7 +22,9 @@ storiesOf('Draft-Button', module)
           size={ size }
           disabled={ disabled }
           onClick={ action('click') }
-          subtext='test'
+          subtext={ subtext }
+          iconPosition={ iconPosition }
+          iconType={ iconType }
         >
           { children }
         </Button>
@@ -27,9 +33,13 @@ storiesOf('Draft-Button', module)
           size={ size }
           disabled={ disabled }
           onClick={ action('click') }
+          iconPosition={ iconPosition }
+          iconType={ iconType }
         >
           { children }
         </Button>
       </div>
     );
+  }, {
+    notes: { markdown: notes }
   });

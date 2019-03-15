@@ -1,31 +1,45 @@
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 import buttonTypes from './button-types.style';
 import buttonSizes from './button-sizes.style';
 
 const StyledButton = styled.button`
+  align-items: center;
   border: 2px solid transparent;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
+  display: inline-flex;
+  flex-direction: column;
+  flex-flow: wrap;
   font-weight: 600;
-  line-height: 16px;
+  justify-content: center;
+  vertical-align: middle;
 
   &:focus {
     outline: solid 3px ${({ theme }) => theme.colors.warning};
   }
 
+  & + & {
+    margin-left: 16px;
+  }
+
   ${stylingForType}
-  ${({ theme, size }) => buttonSizes(theme)[size]}
+  ${({ theme, size }) => buttonSizes(theme)[size]};
+  ${({ iconPosition }) => css`
+    .carbon-icon {
+      margin-left: ${iconPosition === 'before' ? '-4px' : '8px'};
+      margin-right: ${iconPosition === 'before' ? '8px' : '-4px'};
+    }
+  `}
+
+  ${({ theme }) => theme.name === 'classic' && css`
+  `}
 `;
 
-export const StyledButtonChildren = styled.span`
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-`;
-
-export const StyledSubtext = styled.span`
+export const StyledButtonSubtext = styled.span`
   font-size: 14px;
   font-weight: 400;
+  display: block;
 `;
 
 function queryColor(disabled) {
@@ -55,4 +69,15 @@ StyledButton.defaultProps = {
   medium: true
 };
 
+
+StyledButton.propTypes = {
+  renderAs: PropTypes.string, // Customises appearance, options: 'primary', 'secondary', 'tertiary' or 'destructive'
+  children: PropTypes.node.isRequired, // Required, what the button displays
+  disabled: PropTypes.bool, // Apply disabled state to the button
+  iconPosition: PropTypes.string, // Defines an Icon position within the button 'before' / 'after'
+  iconType: PropTypes.string, // Defines an Icon type within the button
+  size: PropTypes.string, // Assigns a size to the button
+  onClick: PropTypes.func, // Passes callback to handle click events
+  subtext: PropTypes.string // Second text child, renders under main text, only works when size is "large"
+};
 export default StyledButton;

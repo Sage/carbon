@@ -1,12 +1,12 @@
-export default ({ sizes }) => ({
+export default ({ text }) => ({
   small: `
-    font-size: ${sizes.text.default};
+    font-size: ${text.default};
     height: 32px;
     padding-left: 16px;
     padding-right: 16px;
   `,
   medium: `
-    font-size: ${sizes.text.default};
+    font-size: ${text.default};
     height: 40px;
     padding-left: 24px;
     padding-right: 24px;
