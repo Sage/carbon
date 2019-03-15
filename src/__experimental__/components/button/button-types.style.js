@@ -1,4 +1,4 @@
-export default ({ colors, button }) => ({
+export default ({ colors }) => ({
   primary: {
     default: {
       background: colors.primary,
@@ -42,7 +42,7 @@ export default ({ colors, button }) => ({
       color: colors.white
     },
     hover: {
-      background: button.destructive.hover,
+      background: colors.destructive.hover,
       borderColor: undefined,
       color: colors.white
     }

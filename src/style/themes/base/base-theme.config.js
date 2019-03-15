@@ -19,7 +19,13 @@ export default (palette) => {
       error: palette.errorRed,
       warning: palette.gold,
       success: palette.brilliantGreenShade(20),
-      info: palette.productBlueShade(3)
+      info: palette.productBlueShade(3),
+      disabled: {
+        background: blackWithOpacity(0.1)
+      },
+      destructive: {
+        hover: palette.errorRedShade(20)
+      }
     },
 
     text: {
@@ -29,16 +35,21 @@ export default (palette) => {
       size: '14px'
     },
 
-    input: input(palette)
-  };
-
-  config.button = {
-    disabled: {
-      text: config.colors.text.placeholder,
-      background: blackWithOpacity(0.1)
+    sizes: {
+      text: {
+        default: '14px'
+      }
     },
-    destructive: {
-      hover: palette.errorRedShade(20)
+
+    input: input(palette),
+
+    button: {
+      disabled: {
+        background: blackWithOpacity(0.1)
+      },
+      destructive: {
+        hover: palette.errorRedShade(20)
+      }
     }
   };
 

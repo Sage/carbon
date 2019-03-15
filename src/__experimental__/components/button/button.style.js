@@ -12,31 +12,9 @@ const StyledButton = styled.button`
     outline: solid 3px ${({ theme }) => theme.colors.warning};
   }
 
-  ${({ size, theme }) => size === 'small' && css`
-    font-size: ${theme.sizes.text.default};
-    height: 32px;
-    padding-left: 16px;
-    padding-right: 16px;
-  `}
-  ${({ size, theme }) => size === 'medium' && css`
-    font-size: ${theme.sizes.text.default};
-    height: 40px;
-    padding-left: 24px;
-    padding-right: 24px;
-  `}
-  ${({ size }) => size === 'large' && css`
-    font-size: 16px;
-    height: 48px;
-    padding-left: 32px;
-    padding-right: 32px;
-  `}
-
   ${stylingForType}
+  ${({ theme, size }) => buttonSizes(theme)[size]}
 `;
-
-function sizingButton({ size, theme }) {
-  const sizeStyle = buttonSizes = buttonSizes(size, theme);
-}
 
 function queryColor(disabled) {
   return (color, disabledColor) => {
@@ -49,13 +27,13 @@ function stylingForType({ disabled, renderAs, theme }) {
   const type = buttonTypes(theme)[renderAs];
   const renderValue = queryColor(disabled);
   return css`
-    background: ${renderValue(type.default.background, theme.button.disabled.background)};
-    border-color: ${renderValue(type.default.borderColor, theme.button.disabled.text)};
-    color: ${renderValue(type.default.color, theme.button.disabled.text)};
+    background: ${renderValue(type.default.background, theme.colors.disabled.background)};
+    border-color: ${renderValue(type.default.borderColor, theme.text.placeholder)};
+    color: ${renderValue(type.default.color, theme.colors.disabled.text)};
     &:hover {
-      background: ${renderValue(type.hover.background, theme.button.disabled.background)};
-      border-color: ${renderValue(type.hover.borderColor, theme.button.disabled.text)};
-      color: ${renderValue(type.hover.color, theme.button.disabled.text)};
+      background: ${renderValue(type.hover.background, theme.colors.disabled.background)};
+      border-color: ${renderValue(type.hover.borderColor, theme.colors.disabled.text)};
+      color: ${renderValue(type.hover.color, theme.colors.disabled.text)};
     }
   `;
 }

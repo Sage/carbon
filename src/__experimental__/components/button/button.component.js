@@ -16,6 +16,7 @@ const Button = ({
     disabled={ disabled }
     role='button'
     size={ size }
+    type='button'
   >
     { iconType && iconPosition === 'before' && <Icon type={ iconType } /> }
     { children }
