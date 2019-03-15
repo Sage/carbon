@@ -37,5 +37,6 @@ const Info = (
       {'</DraggableContext>'}
     </StoryCodeBlock>
   </div>
-)
+);
+
 export default Info;
