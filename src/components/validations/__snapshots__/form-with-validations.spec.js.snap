@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`when the formWithValidations HOC is wraps a component matches the snapshot when the it is passed an anonymous component with no name or display name 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "addInput": [Function],
+      "adjustCount": [Function],
+      "removeInput": [Function],
+    }
+  }
+>
+  <Component
+    infoCount={0}
+    isValidating={false}
+    validate={[Function]}
+    validationsCount={0}
+    warningsCount={0}
+  />
+</ContextProvider>
+`;
+
+exports[`when the formWithValidations HOC is wraps a component matches the snapshot, rendering with default props for each of its children 1`] = `
+<ContextProvider
+  value={
+    Object {
+      "addInput": [Function],
+      "adjustCount": [Function],
+      "removeInput": [Function],
+    }
+  }
+>
+  <MockComponent
+    infoCount={0}
+    isValidating={false}
+    validate={[Function]}
+    validationsCount={0}
+    warningsCount={0}
+  >
+    <MockComponent
+      info={[Function]}
+      name="foo"
+      validations={[Function]}
+      value="foo"
+      warnings={[Function]}
+    />
+    <MockComponent
+      info={[Function]}
+      name="bar"
+      validations={[Function]}
+      value=""
+      warnings={[Function]}
+    />
+  </MockComponent>
+</ContextProvider>
+`;
