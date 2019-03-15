@@ -20,43 +20,31 @@ Preview.propTypes = {
   /**
    * Children elements
    *
-   * @property children
-   * @type {Node}
    */
   children: PropTypes.node,
   /**
    * Custom className
    *
-   * @property className
-   * @type {String}
    */
   className: PropTypes.string,
   /**
    * Custom height
    *
-   * @property height
-   * @type {String}
    */
   height: PropTypes.string,
   /**
    * Number of lines to generate for preview
    *
-   * @property lines
-   * @type {Number}
    */
   lines: PropTypes.number,
   /**
    * Custom loading
    *
-   * @property loading
-   * @type {Boolean}
    */
   loading: PropTypes.bool,
   /**
    * Custom width
    *
-   * @property width
-   * @type {String}
    */
   width: PropTypes.string
 };
