@@ -14,7 +14,8 @@ const InputDecoratorBridge = InputDecorator(InputValidation(
       leftChildren: PropTypes.node, // optional: will add additional child elements before the input
       inputIcon: PropTypes.string, // optional: hooks into the InputIcon decorator to add a button to the input
       formattedValue: PropTypes.string, // optional: will display this in the input instead value
-      inputRef: PropTypes.func // optional: a callback to retrieve the input reference
+      inputRef: PropTypes.func, // optional: a callback to retrieve the input reference
+      formFieldRef: PropTypes.func // optional: a callback to retrieve the formField reference
     }
 
     // this method is required as part of the InputDecorator API
@@ -31,6 +32,7 @@ const InputDecoratorBridge = InputDecorator(InputValidation(
     render() {
       const { className, ...inputProps } = this.inputProps;
       inputProps.inputRef = this.props.inputRef;
+      inputProps.formFieldRef = this.props.formFieldRef;
       inputProps.inputIcon = this.props.inputIcon;
       delete inputProps.ref; // ref is added by decorator, but we would like to move away from needing it
       if (typeof this.props.formattedValue === 'string') inputProps.value = this.props.formattedValue;

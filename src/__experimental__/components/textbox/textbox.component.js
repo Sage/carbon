@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Input, InputPresentation } from '../input';
 import InputIconToggle from '../input-icon-toggle';
@@ -12,10 +12,15 @@ const Textbox = ({
   children,
   inputIcon,
   leftChildren,
+  formFieldRef,
   ...props
 }) => {
+  const formField = useRef(null);
+
+  if (formFieldRef) formFieldRef(formField);
+
   return (
-    <FormField { ...props }>
+    <FormField ref={ formField } { ...props }>
       <InputPresentation type='text' { ...props }>
         { leftChildren }
         <Input { ...props } />
@@ -29,7 +34,8 @@ const Textbox = ({
 Textbox.propTypes = {
   children: PropTypes.node,
   inputIcon: PropTypes.string,
-  leftChildren: PropTypes.node
+  leftChildren: PropTypes.node,
+  formFieldRef: PropTypes.func
 };
 
 Textbox.defaultProps = {};
