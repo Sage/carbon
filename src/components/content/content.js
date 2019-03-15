@@ -14,71 +14,43 @@ class Content extends React.Component {
   static propTypes = {
     /**
      * The body of the content component.
-     *
-     * @property children
-     * @type {Object}
      */
     children: PropTypes.node,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * The title of the content component.
-     *
-     * @property title
-     * @type {String}
      */
     title: PropTypes.string,
 
     /**
      * Applies a theme to the Content
      * Value: primary, secondary
-     *
-     * @property as
-     * @type {String}
-     * @default primary
      */
     as: PropTypes.string,
 
     /**
      * Displays the content inline with it's title.
-     *
-     * @property inline
-     * @type {Boolean}
-     * @default false
      */
     inline: PropTypes.bool,
 
     /**
      * Aligns the content (left, center or right).
-     *
-     * @property align
-     * @type {String}
-     * @default left
      */
     align: PropTypes.string,
 
     /**
      * Sets a custom width for the title element.
-     *
-     * @property titleWidth
-     * @type {String}
      */
     titleWidth: PropTypes.string,
 
     /**
      * Over-rides the calculation of body width based on titleWidth
      * Sometimes we need the body to be full width while keeping a title width similar to other widths
-     *
-     * @property bodyFullWidth
-     * @type {Boolean}
-     * @default false
      */
     bodyFullWidth: PropTypes.bool
   }
