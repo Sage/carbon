@@ -30,7 +30,7 @@ Feature: Button Toggle Group component
   Scenario Outline: Change Button Toggle Group input width
     Given I open Button Toggle Group component page
     When I set input width to "<width>"
-    Then Width is set to "<width>"
+    Then Input width is set to "<width>"
     Examples:
       | width |
       | 1     |
@@ -41,7 +41,7 @@ Feature: Button Toggle Group component
   Scenario Outline: Set out of scope characters to Button Toggle Group input width
     Given I open Button Toggle Group component page
     When I set input width to "<width>"
-    Then Width is not set
+    Then Input width is not set
     Examples:
       | width                   |
       | !@#$%^*()_+-=~[];:.,?{} |
@@ -74,6 +74,29 @@ Feature: Button Toggle Group component
     Then Button Toggle Group component do not have label-inline property
 
   @positive
+  Scenario Outline: Change Button Toggle Group label width
+    Given I open Button Toggle Group component page
+    When I check label inline checkbox
+      And I set label width to "<width>"
+    Then Label width is set to "<width>"
+    Examples:
+      | width |
+      | 1     |
+      | 10    |
+      | 100   |
+
+  @negative
+  Scenario Outline: Set out of scope characters to Button Toggle Group input width
+    Given I open Button Toggle Group component page
+    When I set input width to "<width>"
+    Then Label width is not set
+    Examples:
+      | width                   |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | 汉字                      |
+      | <>                      |
+
+  @positive
   Scenario Outline: Change Toggle Button Group label align
     Given I open Button Toggle Group component page
     When I check label inline checkbox
@@ -81,5 +104,5 @@ Feature: Button Toggle Group component
     Then Button Toggle Group direction on preview is "<direction>"
     Examples:
       | direction |
-    # | left      |
-      | right |
+      | left      |
+      | right     |

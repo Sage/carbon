@@ -1,7 +1,7 @@
 import { helpIcon, labelPreview, labelHelpInput } from "../../locators/commonLocators";
 import {
   inputWidthInput, inputWidthPreview, fieldHelpInput,
-  fieldHelpPreview, labelHelpPreview, lableInlineCheckbox, buttonToggleGroupPreview, labelAlignInput
+  fieldHelpPreview, labelHelpPreview, lableInlineCheckbox, buttonToggleGroupPreview, labelAlignInput, labelWidthInput
 } from "../../locators/buttonToggleGroupLocators";
 
 Given('I open Button Toggle Group component page', () => {
@@ -24,11 +24,11 @@ When('I set input width to {string}', (width) => {
   inputWidthInput().clear().type(width)
 })
 
-Then('Width is set to {string}', (width) => {
+Then('Input width is set to {string}', (width) => {
   inputWidthPreview().should('have.attr', 'style').should('contain', `width: ${width}%`)
 })
 
-Then('Width is not set', () => {
+Then('Input width is not set', () => {
   inputWidthPreview().should('not.have.attr', 'style')
 })
 
@@ -72,3 +72,14 @@ Then('Button Toggle Group direction on preview is {string}', (direction) => {
   labelPreview().should('have.class', 'common-input__label--align-' + direction)
 })
 
+When('I set label width to {string}', (width) => {
+  labelWidthInput().clear().type(width)
+})
+
+Then('Label width is set to {string}', (width) => {
+  labelPreview().should('have.attr', 'style').should('contain', `width: ${width}%`)
+})
+
+Then('Label width is not set', () => {
+  labelPreview().should('not.have.attr', 'style')
+})
