@@ -8,10 +8,10 @@ Feature: Button Toggle Group component
     Then Label on preview is "<label>"
     Examples:
       | label                    |
-      | Example Test         |
-  | 1!@#$%^*()_+-=~[];:.,?{} |
-  | 汉字                       |
-  | <>                       |
+      | Example Test             |
+      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | 汉字                       |
+      | <>                       |
 
   @positive
   Scenario Outline: Change Button Toggle Group component label help
@@ -49,7 +49,7 @@ Feature: Button Toggle Group component
       | <>                      |
 
   @positive
-  Scenario Outline: Change Button Toggle Group component fieldHelp
+  Scenario Outline: Change Button Toggle Group component field help
     Given I open Button Toggle Group component page
     When I set field help to "<fieldHelp>"
     Then Field help on preview is set to "<fieldHelp>"
@@ -60,3 +60,26 @@ Feature: Button Toggle Group component
       | 汉字                       |
       | <>                       |
 
+  @positive
+  Scenario: Enable label inline checkbox
+    Given I open Button Toggle Group component page
+    When I check label inline checkbox
+    Then Button Toggle Group component has label-inline property
+
+  @positive
+  Scenario: Enable and disable label inline checkbox
+    Given I open Button Toggle Group component page
+    When I check label inline checkbox
+      And I uncheck label inline checkbox
+    Then Button Toggle Group component do not have label-inline property
+
+  @positive
+  Scenario Outline: Change Toggle Button Group label align
+    Given I open Button Toggle Group component page
+    When I check label inline checkbox
+      And I set label align "<direction>"
+    Then Button Toggle Group direction on preview is "<direction>"
+    Examples:
+      | direction |
+    # | left      |
+      | right |

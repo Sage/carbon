@@ -1,5 +1,8 @@
 import { helpIcon, labelPreview, labelHelpInput } from "../../locators/commonLocators";
-import { inputWidthInput, inputWidthPreview, fieldHelpInput, fieldHelpPreview, labelHelpPreview } from "../../locators/buttonToggleGroupLocators";
+import {
+  inputWidthInput, inputWidthPreview, fieldHelpInput,
+  fieldHelpPreview, labelHelpPreview, lableInlineCheckbox, buttonToggleGroupPreview, labelAlignInput
+} from "../../locators/buttonToggleGroupLocators";
 
 Given('I open Button Toggle Group component page', () => {
   cy.visit(Cypress.env('button_toggle_group_component_url'));
@@ -40,3 +43,32 @@ Then('Field help on preview is set to {string}', (text) => {
 Then('Label help on preview is set to {string}', (text) => {
   labelHelpPreview().should('have.text', text)
 })
+
+When('I check label inline checkbox', () => {
+  lableInlineCheckbox().check()
+})
+
+When('I uncheck label inline checkbox', () => {
+  lableInlineCheckbox().uncheck()
+})
+
+Then('Button Toggle Group component has label-inline property', () => {
+  buttonToggleGroupPreview().should('have.class', 'common-input--label-inline')
+  labelPreview().should('have.class', 'common-input__label--inline')
+  fieldHelpPreview().should('have.class', 'common-input__help-text--inline')
+})
+
+Then('Button Toggle Group component do not have label-inline property', () => {
+  buttonToggleGroupPreview().should('not.have.class', 'common-input--label-inline')
+  labelPreview().should('not.have.class', 'common-input__label--inline')
+  fieldHelpPreview().should('not.have.class', 'common-input__help-text--inline')
+})
+
+When('I set label align {string}', (direction) => {
+  labelAlignInput().type(direction)
+})
+
+Then('Button Toggle Group direction on preview is {string}', (direction) => {
+  labelPreview().should('have.class', 'common-input__label--align-' + direction)
+})
+

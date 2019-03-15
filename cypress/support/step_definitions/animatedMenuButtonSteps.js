@@ -1,4 +1,7 @@
-import { animatedMenuButtonLabelPreview, animatedMenuButtonPreview, animatedMenuButtonDirectionSelect } from "../../locators/animatedMenuButtonLocators";
+import {
+  animatedMenuButtonLabelPreview, animatedMenuButtonPreview,
+  animatedMenuButtonDirectionSelect
+} from "../../locators/animatedMenuButtonLocators";
 
 const CLASS_PREFIX = 'carbon-animated-menu-button--';
 
