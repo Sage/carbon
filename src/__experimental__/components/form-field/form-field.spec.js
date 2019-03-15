@@ -5,7 +5,6 @@ import { shallow } from 'enzyme';
 import FormField from '.';
 import FormFieldStyle from './form-field.style';
 import classicTheme from '../../../style/themes/classic';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 
 function render(props, renderer = shallow) {
   return renderer(
