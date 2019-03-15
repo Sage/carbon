@@ -18,7 +18,7 @@ const info = (
     </StoryCode>
 
     <p>The component rendering the Alert must pass down a prop of
-      <StoryCode>open</StoryCode>
+      <StoryCode padded>open</StoryCode>
         in order to open the alert.
     </p>
 
