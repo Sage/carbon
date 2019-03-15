@@ -31,5 +31,6 @@ storiesOf('Help', module)
       </Help>
     );
   }, {
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   });

@@ -21,4 +21,6 @@ storiesOf('InlineInputs', module)
         <Textbox />
       </InlineInputs>
     );
+  }, {
+    knobs: { escapeHTML: false }
   });

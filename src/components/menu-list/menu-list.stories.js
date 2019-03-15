@@ -47,5 +47,6 @@ storiesOf('MenuList', module)
       </MenuList>
     );
   }, {
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   });

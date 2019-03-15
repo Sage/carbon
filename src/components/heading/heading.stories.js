@@ -33,5 +33,6 @@ storiesOf('Heading', module)
       </Heading>
     );
   }, {
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   });

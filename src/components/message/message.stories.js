@@ -30,5 +30,6 @@ storiesOf('Message', module)
       </Message>
     );
   }, {
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   });
