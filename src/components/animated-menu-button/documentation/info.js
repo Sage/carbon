@@ -12,7 +12,7 @@ const info = (
     <StoryCode padded>import AnimatedMenuButton from {'"carbon-react/lib/components/animated-menu-button"'}</StoryCode>
 
     <p>
-      To render a <StoryCode>{'<AnimatedMenuButton />'}</StoryCode>, pass children to be rendered in the expanded menu:
+      To render a <StoryCode>{'<AnimatedMenuButton />'}</StoryCode> pass children to be rendered in the expanded menu:
     </p>
 
     <StoryCodeBlock>
