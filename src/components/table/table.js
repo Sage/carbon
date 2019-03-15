@@ -22,225 +22,144 @@ class Table extends React.Component {
   static propTypes = {
     /**
      * The actions to display in the toolbar
-     *
-     * @property actions - each action is object with the action attributes
-     * @type {Object}
      */
     actions: PropTypes.object,
 
     /**
      * The extra actions to display in the toolbar
-     *
-     * @property actionToolbarChildren - additional buttons can be added to the tool bar
-     * @type {Function}
      */
     actionToolbarChildren: PropTypes.func,
 
     /**
      * Children elements
-     *
-     * @property children
-     * @type {Node}
      */
     children: PropTypes.node,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Custom empty row
-     *
-     * @property customEmptyRow
-     * @type {Object}
      */
     customEmptyRow: PropTypes.node,
 
     /**
      * Data used to filter the data
-     *
-     * @property filter
-     * @type {Object}
      */
     filter: PropTypes.object,
 
     /**
      * Emitted when table component changes e.g.
      * Pager, sorting, filter
-     *
-     * @property onChange
-     * @type {Function}
      */
     onChange: PropTypes.func,
 
     /**
      * Enable configure icon that triggers this callback on click
-     *
-     * @property onConfigure
-     * @type {Function}
      */
     onConfigure: PropTypes.func,
 
     /**
      * Show the pagination footer
-     *
-     * @property paginate
-     * @type {Boolean}
      */
     paginate: PropTypes.bool,
 
     /**
      * Pagination
      * Current Visible Page
-     *
-     * @property currentPage
-     * @type {String}
      */
     currentPage: PropTypes.string,
 
     /**
      * Pagination
      * Page Size of grid (number of visible records)
-     *
-     * @property pageSize
-     * @type {String}
      */
     pageSize: PropTypes.string,
 
     /**
      * Pagination
      * Options for pageSize default - 10, 25, 50
-     *
-     * @property pageSizeSelectionOptions
-     * @type {Object} Immutable
      */
     pageSizeSelectionOptions: PropTypes.object,
 
     /**
      * Pagination
      * Is the page size dropdown visible
-     *
-     * @property showPageSizeSelection
-     * @type {Boolean}
      */
     showPageSizeSelection: PropTypes.bool,
 
     /**
      * Enables multi-selectable table rows.
-     *
-     * @property selectable
-     * @type {Boolean}
      */
     selectable: PropTypes.bool,
 
     /**
      * Enables highlightable table rows.
-     *
-     * @property highlightable
-     * @type {Boolean}
      */
     highlightable: PropTypes.bool,
 
     /**
      * A callback for when a row is selected.
-     *
-     * @property onSelect
-     * @type {Function}
      */
     onSelect: PropTypes.func,
 
     /**
      * A callback for when a row is highlighted.
-     *
-     * @property onHighlight
-     * @type {Function}
      */
     onHighlight: PropTypes.func,
 
     /**
      * A callback for when the page size changes.
-     *
-     * @property onPageSizeChange
-     * @type {Function}
      */
     onPageSizeChange: PropTypes.func,
 
     /**
      * Pagination
      * Total number of records in the grid
-     *
-     * @property totalRecords
-     * @type {String}
      */
     totalRecords: PropTypes.string,
 
     /**
      * Allow table to shrink in size.
-     *
-     * @property shrink
-     * @type {Boolean}
      */
     shrink: PropTypes.bool,
 
     /**
      * The currently sorted column.
-     *
-     * @property sortedColumn
-     * @type {String}
      */
     sortedColumn: PropTypes.string,
 
     /**
      * The current sort order applied.
-     *
-     * @property sortOrder
-     * @type {String}
      */
     sortOrder: PropTypes.string,
 
     /**
      * TableRows to be wrapped in <thead>
-     *
-     * @property thead
-     * @type {Object}
      */
     thead: PropTypes.object,
 
     /**
      * Determines if you want the table to automatically render a tbody.
-     *
-     * @property tbody
-     * @type {Object}
      */
     tbody: PropTypes.bool,
 
     /**
      * A string to render as the table's caption
-     *
-     * @property caption
-     * @type string
      */
     caption: PropTypes.string,
 
     /**
      * The HTML id of the element that contains a description
      * of this table.
-     *
-     * @property aria-describedby
-     * @type string
      */
     'aria-describedby': PropTypes.string,
 
     /**
      * Renders as light or dark
      * Uses common theme definition of 'primary' (dark, default) and 'secondary' (light)
-     *
-     * @property theme
-     * @type string
      */
     theme: PropTypes.string
   }

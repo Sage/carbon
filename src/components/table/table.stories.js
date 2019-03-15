@@ -12,11 +12,11 @@ import {
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 
-
 const store = new Store({
   sortOrder: 'asc',
   sortedColumn: '',
-  currentPage: '1'
+  currentPage: '1',
+  children: undefined
 });
 
 const handleChange = (e, tableOptions) => {
@@ -34,31 +34,29 @@ const buildRows = (pageSizeFromKnobs) => {
   const startIndex = endIndex - pageSize;
   const rowsCountries = countriesList.slice(startIndex, endIndex).toJS();
 
-  const rows = [
-    <TableRow key='header' as='header'>
-      <TableHeader
-        sortable name='name'
-        scope='col'
-      >
-        Country
-      </TableHeader>
-
-      <TableHeader scope='col'>Code</TableHeader>
-    </TableRow>
-  ];
-
   if (store.get('sortOrder') === 'desc') {
     rowsCountries.reverse();
   }
 
-  rowsCountries.map(({ id, name, value }) => rows.push(
-    <TableRow key={ id } uniqueID={ id }>
-      <TableCell>{name}</TableCell>
-      <TableCell>{value}</TableCell>
-    </TableRow>
-  ));
-
-  return rows;
+  return (
+    <>
+      <TableRow key='header' as='header'>
+        <TableHeader
+          sortable name='name'
+          scope='col'
+        >
+        Country
+        </TableHeader>
+        <TableHeader scope='col'>Code</TableHeader>
+      </TableRow>
+      {rowsCountries.map(row => (
+        <TableRow key={ row.id } uniqueID={ row.id }>
+          <TableCell>{row.name}</TableCell>
+          <TableCell>{row.value}</TableCell>
+        </TableRow>
+      ))}
+  </>
+  );
 };
 
 storiesOf('Table', module)
@@ -81,43 +79,38 @@ storiesOf('Table', module)
       const theme = select('theme', OptionsHelper.themesBinary, Table.defaultProps.theme);
 
       return (
-        <State store={ store }>
-          {state => (
-            <Table
-              actionToolbarChildren={ (context) => {
-                return [
-                  <Button disabled={ context.disabled } key='single-action'>
+        <State store={ store } parseState={ state => ({ ...state, children: buildRows(pageSize) }) }>
+
+          <Table
+            actionToolbarChildren={ (context) => {
+              return [
+                <Button disabled={ context.disabled } key='single-action'>
                     Test Action
-                  </Button>,
-                  <MultiActionButton
-                    text='Actions' disabled={ context.disabled }
-                    key='multi-actions'
-                  >
-                    <Button>foo</Button>
-                    <Button>bar</Button>
-                    <Button>qux</Button>
-                  </MultiActionButton>
-                ];
-              } }
-              path='/countries'
-              sortOrder={ state.sortOrder }
-              sortedColumn={ state.sortedColumn }
-              caption={ caption }
-              currentPage={ state.currentPage }
-              shrink={ shrink }
-              highlightable={ highlightable }
-              pageSize={ pageSize }
-              selectable={ selectable }
-              paginate={ paginate }
-              actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
-              totalRecords={ totalRecords }
-              showPageSizeSelection={ showPageSizeSelection }
-              onChange={ handleChange }
-              theme={ theme }
-            >
-              {buildRows(pageSize)}
-            </Table>
-          )}
+                </Button>,
+                <MultiActionButton
+                  text='Actions' disabled={ context.disabled }
+                  key='multi-actions'
+                >
+                  <Button>foo</Button>
+                  <Button>bar</Button>
+                  <Button>qux</Button>
+                </MultiActionButton>
+              ];
+            } }
+            path='/countries'
+            caption={ caption }
+            shrink={ shrink }
+            highlightable={ highlightable }
+            pageSize={ pageSize }
+            selectable={ selectable }
+            paginate={ paginate }
+            actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
+            totalRecords={ totalRecords }
+            showPageSizeSelection={ showPageSizeSelection }
+            onChange={ handleChange }
+            theme={ theme }
+          />
+
         </State>
       );
     },
