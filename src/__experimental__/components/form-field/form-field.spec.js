@@ -45,12 +45,10 @@ describe('FormField', () => {
 
   describe('classic theme', () => {
     it('adds custom margin top', () => {
-      const wrapper = TestRenderer.create(<FormFieldStyle theme={ classicTheme } />);
-      assertStyleMatch({
-        marginTop: '10px'
-      }, wrapper, {
-        modifier: '& + &'
-      });
+      const wrapper = TestRenderer.create(
+        <FormFieldStyle theme={ classicTheme } />
+      );
+      expect(wrapper.toJSON()).toMatchSnapshot();
     });
   });
 });
