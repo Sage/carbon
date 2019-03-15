@@ -137,7 +137,8 @@ storiesOf('Dropdown Filter', module)
     );
   }, {
     info: { text: infoText },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   })
   .add('with Create', () => {
     return (
@@ -170,5 +171,6 @@ storiesOf('Dropdown Filter', module)
     );
   }, {
     info: { text: infoText },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   });

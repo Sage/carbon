@@ -136,7 +136,8 @@ storiesOf('DropdownFilterAjax', module)
     );
   }, {
     info: { text: infoText },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   })
   .add('withCreate', () => {
     return (
@@ -174,5 +175,6 @@ storiesOf('DropdownFilterAjax', module)
     );
   }, {
     info: { text: infoText },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   });
