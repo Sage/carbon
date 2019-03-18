@@ -69,7 +69,7 @@ const defaultKnobs = () => {
         id: 2, name: 'Blue'
       }
     ])
-  }
+  };
 };
 
 storiesOf('DropdownFilterAjax', module)
