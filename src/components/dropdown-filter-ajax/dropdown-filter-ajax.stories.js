@@ -33,27 +33,27 @@ const onChange = (evt) => {
 };
 
 const defaultKnobs = () => {
-  const labelInline = boolean('labelInline', true);
+  const labelInline = boolean('labelInline');
 
   return {
-    autoFocus: boolean('autoFocus', false),
-    cacheVisibleValue: boolean('cacheVisibleValue', false),
-    disabled: boolean('disabled', false),
+    autoFocus: boolean('autoFocus'),
+    cacheVisibleValue: boolean('cacheVisibleValue'),
+    disabled: boolean('disabled'),
     name: text('name', 'Name'),
-    readOnly: boolean('readOnly', false),
-    timeToDisappear: number('timeToDisappear', 0),
+    readOnly: boolean('readOnly'),
+    timeToDisappear: number('timeToDisappear'),
     label: text('label', 'Dropdown Label'),
     labelInline,
-    labelWidth: labelInline ? text('labelWidth', '') : null,
-    labelAlign: labelInline ? select('labelAlign', OptionsHelper.alignBinary) : null,
+    labelWidth: labelInline ? text('labelWidth') : undefined,
+    labelAlign: labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined,
     labelHelp: text('labelHelp', 'This is help text'),
-    inputWidth: text('inputWidth', ''),
+    inputWidth: text('inputWidth'),
     fieldHelp: text('fieldHelp', 'This is field help text'),
-    fieldHelpInline: boolean('fieldHelpInline', false),
-    createText: text('createText', ''),
-    createIconType: text('createIconType', ''),
-    suggest: boolean('suggest', false),
-    freetext: boolean('freetext', false),
+    fieldHelpInline: boolean('fieldHelpInline'),
+    createText: text('createText'),
+    createIconType: text('createIconType'),
+    suggest: boolean('suggest'),
+    freetext: boolean('freetext'),
     path: text('path', '/countries'),
     acceptHeader: text('acceptHeader', DropdownFilterAjax.defaultProps.acceptHeader),
     rowsPerRequest: number('rowsPerRequest', DropdownFilterAjax.defaultProps.rowsPerRequest),
@@ -61,7 +61,7 @@ const defaultKnobs = () => {
       'dataRequestTimeout',
       DropdownFilterAjax.defaultProps.dataRequestTimeout
     ),
-    withCredentials: boolean('withCredentials', false),
+    withCredentials: boolean('withCredentials'),
     options: ImmutableHelper.parseJSON([
       {
         id: 1, name: 'Orange'
