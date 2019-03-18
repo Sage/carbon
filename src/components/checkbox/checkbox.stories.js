@@ -4,8 +4,8 @@ import {
   boolean, text, number, select
 } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './notes.md';
 import Checkbox from './checkbox.js';
+import { notes, info } from './documentation';
 
 storiesOf('Checkbox', module)
   .add('default', () => {
@@ -47,5 +47,6 @@ storiesOf('Checkbox', module)
       />
     );
   }, {
+    info: { text: info },
     notes: { markdown: notes }
   });
