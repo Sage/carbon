@@ -1,7 +1,9 @@
+import { THEMES } from '..';
+
 export default (palette) => {
   return (
     {
-      name: 'large',
+      name: THEMES.large,
 
       colors: {
         base: palette.amethyst,
