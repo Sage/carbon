@@ -10,16 +10,16 @@ const Button = ({
   iconPosition,
   iconType,
   size,
-  onClick,
-  subtext
+  subtext,
+  ...props
 }) => (
   <StyledButton
     renderAs={ as }
     disabled={ disabled }
     role='button'
     size={ size }
-    onClick={ onClick }
     iconPosition={ iconPosition }
+    { ...props }
   >
     { iconType && iconPosition === 'before' && <Icon type={ iconType } /> }
     <span>
@@ -31,13 +31,12 @@ const Button = ({
 );
 
 Button.propTypes = {
-  as: PropTypes.string, // Customises the appearance can be set to 'primary', 'secondary', 'tertiary' or 'destructive'
+  as: PropTypes.oneOf('primary', 'secondary', 'tertiary', 'destructive', 'darkBackground'),
   children: PropTypes.node.isRequired, // Required, what the button displays
   disabled: PropTypes.bool, // Apply disabled state to the button
   iconPosition: PropTypes.string, // Defines an Icon position within the button 'before' / 'after'
   iconType: PropTypes.string, // Defines an Icon type within the button
   size: PropTypes.string, // Assigns a size to the button
-  onClick: PropTypes.func, // Passes callback to handle click events
   subtext: PropTypes.string // Second text child, renders under main text, only works when size is "large"
 };
 

@@ -52,13 +52,15 @@ function queryColor(disabled) {
 function stylingForType({ disabled, renderAs, theme }) {
   const type = buttonTypes(theme)[renderAs];
   const renderValue = queryColor(disabled);
+
   return css`
     background: ${renderValue(type.default.background, theme.colors.disabled.background)};
-    border-color: ${renderValue(type.default.borderColor, theme.text.placeholder)};
+    border-color: ${renderValue(type.default.borderColor, theme.colors.disabled.background)};
     color: ${renderValue(type.default.color, theme.colors.disabled.text)};
     &:hover {
-      background: ${renderValue(type.hover.background, theme.colors.disabled.background)};
-      border-color: ${renderValue(type.hover.borderColor, theme.colors.disabled.text)};
+      background: ${renderValue(type.hover.background,
+    (renderAs === 'secondary' ? 'transparent' : theme.colors.disabled.background))};
+      border-color: ${renderValue(type.hover.borderColor, theme.colors.disabled.background)};
       color: ${renderValue(type.hover.color, theme.colors.disabled.text)};
     }
   `;
@@ -77,7 +79,6 @@ StyledButton.propTypes = {
   iconPosition: PropTypes.string, // Defines an Icon position within the button 'before' / 'after'
   iconType: PropTypes.string, // Defines an Icon type within the button
   size: PropTypes.string, // Assigns a size to the button
-  onClick: PropTypes.func, // Passes callback to handle click events
   subtext: PropTypes.string // Second text child, renders under main text, only works when size is "large"
 };
 export default StyledButton;
