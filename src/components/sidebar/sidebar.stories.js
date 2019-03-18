@@ -1,12 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { boolean, select, text } from '@storybook/addon-knobs';
+import { boolean, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { Sidebar, SidebarHeader } from './sidebar';
 import Button from '../button';
-import notes from './notes.md';
+import { notes, info } from './documentation';
 
 const store = new Store({
   open: false
@@ -24,12 +24,21 @@ const openSidebar = () => {
 
 
 storiesOf('Sidebar', module)
+
+  .addParameters({
+    info: {
+      propTablesExclude: [Button, State],
+      text: info
+    },
+    notes: {
+      markdown: notes
+    }
+  })
   .add('default', () => {
-    const enableBackgroundUI = boolean('enableBackgroundUI', false);
-    const position = select('position', OptionsHelper.alignBinary[0]);
-    const size = select('size', OptionsHelper.sizesFull[3]);
-    const className = text('className', '');
-    const open = boolean('open', false);
+    const enableBackgroundUI = boolean('enableBackgroundUI', Sidebar.defaultProps.enableBackgroundUI);
+    const position = select('position', OptionsHelper.alignBinary, Sidebar.defaultProps.position);
+    const size = select('size', OptionsHelper.sizesFull, Sidebar.defaultProps.size);
+    const open = boolean('open', Sidebar.defaultProps.open);
 
     return (
       <Sidebar
@@ -39,21 +48,18 @@ storiesOf('Sidebar', module)
         size={ size }
         onCancel={ onCancel }
       >
-        <SidebarHeader className={ className }>
+        <SidebarHeader>
             Header Content
         </SidebarHeader>
         Main Content
       </Sidebar>
     );
-  }, {
-    notes: { markdown: notes }
   })
 
   .add('with button', () => {
-    const enableBackgroundUI = boolean('enableBackgroundUI', false);
-    const position = select('position', OptionsHelper.alignBinary[0]);
-    const size = select('size', OptionsHelper.sizesFull[3]);
-    const className = text('className', '');
+    const enableBackgroundUI = boolean('enableBackgroundUI', Sidebar.defaultProps.enableBackgroundUI);
+    const position = select('position', OptionsHelper.alignBinary, Sidebar.defaultProps.position);
+    const size = select('size', OptionsHelper.sizesFull, Sidebar.defaultProps.size);
 
     return (
       <State store={ store }>
@@ -65,13 +71,11 @@ storiesOf('Sidebar', module)
           size={ size }
           onCancel={ onCancel }
         >
-          <SidebarHeader className={ className }>
+          <SidebarHeader>
             Header Content
           </SidebarHeader>
         Main Content
         </Sidebar>
       </State>
     );
-  }, {
-    notes: { markdown: notes }
   });
