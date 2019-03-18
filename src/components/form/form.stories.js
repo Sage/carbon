@@ -51,7 +51,7 @@ storiesOf('Form', module)
           label='Full Name'
           labelInline
           labelAlign='right'
-          validations={[ new PresenceValidation() ]}
+          validations={ [new PresenceValidation()] }
         />
       </Form>
     );
