@@ -46,7 +46,7 @@ storiesOf('Flash', module)
             open={ store.get('open') }
             as={ as }
             message={ message }
-            timeout={ timeout }
+            timeout={ timeout >= 0 ? timeout : undefined }
             onDismiss={ dismissHandler }
           />
         </State>
