@@ -22,7 +22,7 @@ class Pager extends React.Component {
     /**
      * Total number of records
      */
-    totalRecords: PropTypes.string.isRequired,
+    totalRecords: PropTypes.number.isRequired,
 
     /**
      * Function called when any pager changes take place
@@ -174,8 +174,8 @@ class Pager extends React.Component {
    * @return {Integer}
    */
   get maxPage() {
-    if (this.props.pageSize && this.props.pageSize !== '0') {
-      return Math.ceil(this.props.totalRecords / this.props.pageSize) || 1;
+    if (this.props.pageSize && this.props.pageSize !== '0' && this.totalRecordsCount > 0) {
+      return Math.ceil(this.totalRecordsCount / this.props.pageSize);
     }
     return 1;
   }
@@ -197,7 +197,7 @@ class Pager extends React.Component {
    * @return {Boolean}
    */
   get disableNext() {
-    return this.props.currentPage * this.props.pageSize >= Number(this.props.totalRecords);
+    return this.props.currentPage * this.props.pageSize >= this.totalRecordsCount;
   }
 
   /**
@@ -294,6 +294,16 @@ class Pager extends React.Component {
   }
 
   /**
+   * Total Records Count
+   *
+   * @method totalRecordsCount
+   * @return {Integer}
+   */
+  get totalRecordsCount() {
+    return this.props.totalRecords >= 0 ? this.props.totalRecords : 0;
+  }
+
+  /**
    * Render method for page
    *
    * @method render
@@ -316,7 +326,7 @@ class Pager extends React.Component {
         </div>
 
         <div className='carbon-pager__summary'>
-          { this.props.totalRecords }{ recordsText(this.props.totalRecords) }
+          { this.totalRecordsCount }{ recordsText(this.totalRecordsCount) }
         </div>
       </div>
     );
