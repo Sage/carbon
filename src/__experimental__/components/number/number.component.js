@@ -2,57 +2,62 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import InputDecoratorBridge from '../input-decorator-bridge';
 
-const Number = (props) => {
-  let formField, selectionStart, selectionEnd, deferredTimeout;
+class Number extends React.Component {
+  inst = Math.random();
 
-  return (
-    <InputDecoratorBridge
-      { ...props }
-      formFieldRef={ assignForm }
-      onChange={ handleOnChange }
-      onKeyDown={ handleKeyDown }
-    />
-  );
-
-  function assignForm(passedFormField) {
-    formField = passedFormField;
+  render() {
+    return (
+      <InputDecoratorBridge
+        { ...this.props }
+        formFieldRef={ this.assignForm }
+        onChange={ this.handleOnChange }
+        onKeyDown={ this.handleKeyDown }
+      />
+    );
   }
 
-  function handleOnChange(event) {
+  assignForm = (passedFormField) => {
+    this.formField = passedFormField;
+  };
+
+  handleOnChange = (event) => {
     if (isValidNumber(event.target.value)) {
-      formField.current.updateForm(event);
+      this.formField.current.updateForm(event);
 
-      if (props.onChange) props.onChange(event, props);
+      if (this.props.onChange) {
+        this.props.onChange(event, this.props);
+      }
 
-      //handleOnChangeDeferred(event);
+      this.handleOnChangeDeferred(event);
     } else {
       // reset the value
-      event.target.value = props.value || null;
+      event.target.value = this.props.value || null;
       // reset the selection range
-      event.target.setSelectionRange(selectionStart, selectionEnd);
+      event.target.setSelectionRange(this.selectionStart, this.selectionEnd);
     }
-  }
+  };
 
-  function handleOnChangeDeferred(event) {
-    if (props.onChangeDeferred) {
-      clearTimeout(deferredTimeout);
-      deferredTimeout = setTimeout(() => {
-        props.onChangeDeferred(event);
-      }, props.deferTimeout);
+  handleOnChangeDeferred = (event) => {
+    if (this.props.onChangeDeferred) {
+      clearTimeout(this.deferredTimeout);
+
+      this.deferredTimeout = setTimeout(() => {
+        this.props.onChangeDeferred(event);
+      }, this.props.deferTimeout);
     }
-  }
+  };
 
-  function handleKeyDown(ev) {
+  handleKeyDown = (ev) => {
     // track the selection start and end
-    selectionStart = ev.target.selectionStart;
-    selectionEnd = ev.target.selectionEnd;
+    this.selectionStart = ev.target.selectionStart;
+    this.selectionEnd = ev.target.selectionEnd;
 
-    if (props.onKeyDown) {
+    if (this.props.onKeyDown) {
       // we also send the props so more information can be extracted by the action
-      props.onKeyDown(ev, props);
+      this.props.onKeyDown(ev, this.props);
     }
-  }
-};
+  };
+}
 
 function isValidNumber(value) {
   const regex = new RegExp('^[-]?[0-9]*$');
