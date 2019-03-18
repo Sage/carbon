@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select, boolean } from '@storybook/addon-knobs';
-import notes from './notes.md';
+import notes from './documentation';
 import { Carousel, Slide } from './carousel.js';
 
 storiesOf('Carousel', module)
