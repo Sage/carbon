@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
-import { text, select, boolean } from '@storybook/addon-knobs';
+import { number, select, boolean } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import Pager from './pager';
 import notes from './notes.md';
@@ -68,7 +68,7 @@ storiesOf('Pager', module)
     }
   })
   .add('default', () => {
-    const totalRecords = text('totalRecords', '100');
+    const totalRecords = number('totalRecords', 100);
     const pageSize = select('pageSize', OptionsHelper.pageSizes, Pager.defaultProps.pageSize);
     const showPageSizeSelection = boolean('showPageSizeSelection', Pager.defaultProps.showPageSizeSelection);
 
