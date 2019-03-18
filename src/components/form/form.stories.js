@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import PresenceValidation from '../../utils/validations/presence';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import Form from './form';
@@ -50,6 +51,7 @@ storiesOf('Form', module)
           label='Full Name'
           labelInline
           labelAlign='right'
+          validations={[ new PresenceValidation() ]}
         />
       </Form>
     );
