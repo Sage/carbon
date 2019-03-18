@@ -35,8 +35,3 @@ When('I check open checkbox', () => {
 When('I set label to {string}', (label) => {
   labelInput().clear().type(label)
 })
-
-
-
-
-
