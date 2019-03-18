@@ -20,7 +20,7 @@ let definition = new Definition('pager', Pager, {
   },
   propTypes: {
     currentPage: "String",
-    totalRecords: "String",
+    totalRecords: "Number",
     onPagination: "Function",
     pageSize: "String",
     showPageSizeSelection: "Boolean",
