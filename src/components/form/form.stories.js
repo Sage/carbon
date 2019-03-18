@@ -17,7 +17,7 @@ storiesOf('Form', module)
     const unsavedWarning = boolean('unsavedWarning', false);
     const save = boolean('save', true);
     const cancel = boolean('cancel', true);
-    const buttonAlign = select('buttonAlign', OptionsHelper.alignBinary);
+    const buttonAlign = select('buttonAlign', OptionsHelper.alignBinary, Form.defaultProps.buttonAlign);
     const saving = boolean('saving', false);
     const cancelText = text('cancelText', '');
     const stickyFooter = boolean('stickyFooter', false);
