@@ -8,7 +8,7 @@ import Textbox from '../textbox';
 storiesOf('Fieldset', module)
   .addParameters({
     info: {
-      propTablesExclude: [Fieldset, Textbox]
+      propTablesExclude: [Textbox]
     }
   })
   .add('default', () => {
@@ -28,12 +28,29 @@ storiesOf('Fieldset', module)
           labelInline
           labelAlign='right'
         />
+        <Textbox
+          label='Address'
+          labelInline
+          labelAlign='right'
+        />
+        <Textbox
+          label='City'
+          labelInline
+          labelAlign='right'
+        />
+        <Textbox
+          label='Country'
+          labelInline
+          labelAlign='right'
+        />
+        <Textbox
+          label='Telephone'
+          labelInline
+          labelAlign='right'
+        />
       </Fieldset>
     );
   }, {
-    info: {
-      propTables: [Fieldset]
-    },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   });
