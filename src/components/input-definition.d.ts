@@ -1,6 +1,6 @@
 import { ChangeEvent } from 'react';
 import { AlignBinaryType } from '../utils/helpers/options-helper/option-helper';
-import { Validator } from '../utils/validations/validator';
+import { Validator } from '../utils/validations/validation-interface';
 
 export interface InputProps {
     value?: any;
