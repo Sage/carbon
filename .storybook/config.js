@@ -4,6 +4,7 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { withInfo } from '@storybook/addon-info';
 import { withA11y } from '@storybook/addon-a11y';
 import AppLayout from 'helpers/components/app-layout/app-layout';
+import './style/story-root.scss';
 
 const req = require.context('../src/components', true, /\.stories\.js$/);
 const infoOptions = {
