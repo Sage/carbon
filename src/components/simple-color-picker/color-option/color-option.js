@@ -14,51 +14,38 @@ import './color-option.scss';
 const ColorOption = Input(class ColorOption extends React.Component {
   static propTypes = {
     /**
-     * the value of the color that is represented by this ColorOption.
+     * the value of the color that is represented by this ColorOption
      *
-     * @property color
-     * @type {String}
      */
     color: PropTypes.string,
 
     /**
-     * the input name.
+     * the input name
      *
-     * @property name
-     * @type {String}
      */
     name: PropTypes.string,
 
     /**
-     * called when the user selects or deselects this color option.
+     * called when the user selects or deselects this color option
      *
-     * @property onChange
-     * @type {Function}
      */
     onChange: PropTypes.func,
 
     /**
-     * determines if this color option is selected or unselected.
+     * determines if this color option is selected or unselected
      *
-     * @property checked
-     * @type {Boolean}
      */
     checked: PropTypes.bool,
 
     /**
      * Custom className
      *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string
   }
 
   static defaultProps = {
     checked: false,
-    className: '',
-    color: '',
-    name: '',
     onChange: null
   }
 

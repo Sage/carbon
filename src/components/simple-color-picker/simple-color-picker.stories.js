@@ -6,7 +6,7 @@ import {
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import SimpleColorPicker from './simple-color-picker';
-import notes from './notes.md';
+import { notes, info } from './documentation';
 
 const store = new Store({
   selectedColor: '#00DC00'
@@ -21,8 +21,14 @@ const onChange = (e) => {
 
 
 storiesOf('SimpleColorPicker', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [State]
+    }
+  })
+
   .add('default', () => {
-    const name = text('name', '');
+    const name = text('name', 'basicPicker');
     const availableColors = array('availableColors', ['#00DC00', '#255BC7', '#ED1C5F']);
 
     return (
@@ -36,5 +42,6 @@ storiesOf('SimpleColorPicker', module)
       </State>
     );
   }, {
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    info: { text: info }
   });
