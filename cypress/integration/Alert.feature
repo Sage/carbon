@@ -9,8 +9,7 @@ Feature: Alert component
     Then Alert title on preview is "<title>"
     Examples:
       | title                    |
-      | First Label Test         |
-      | Second label test        |
+      | Title Label Test         |
       | 1!@#$%^*()_+-=~[];:.,?{} |
       | 汉字                       |
       | <>                       |
@@ -23,7 +22,7 @@ Feature: Alert component
     Then Alert subtitle on preview is "<subtitle>"
     Examples:
       | subtitle                 |
-      | example subtext          |
+      | Example subtext          |
       | 1!@#$%^*()_+-=~[];:.,?{} |
       | 汉字                       |
       | <>                       |
@@ -37,7 +36,7 @@ Feature: Alert component
     Then Alert children on preview is "<children>"
     Examples:
       | children                 |
-      | example subtext          |
+      | Example subtext          |
       | 1!@#$%^*()_+-=~[];:.,?{} |
       | 汉字                       |
       | <>                       |
@@ -71,7 +70,6 @@ Feature: Alert component
       And I open Alert preview
       And I hit ESC key
     Then Alert dialog is not visible
-
 
   @positive
   Scenario Outline: Set height for Alert dialog

@@ -8,9 +8,7 @@ Feature: App Wrapper component
     Then App Wrapper children on preview is "<children>"
     Examples:
       | children                 |
-      | example subtext          |
+      | Example test             |
       | 1!@#$%^*()_+-=~[];:.,?{} |
       | 汉字                       |
       | <>                       |
-
-  

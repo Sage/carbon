@@ -9,7 +9,7 @@ Feature: Animated Menu Button component
     Then Animated Menu Button label on preview is "<label>"
     Examples:
       | label                    |
-      | example subtext          |
+      | Example subtext          |
       | 1!@#$%^*()_+-=~[];:.,?{} |
       | 汉字                       |
       | <>                       |

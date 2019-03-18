@@ -42,7 +42,6 @@ Feature: Button component
     # And I leave Button subtext empty
     Then Button subtext on preview is not visible
 
-
   @positive
   Scenario Outline: Change Button 'as' property
     Given I open Button component page
