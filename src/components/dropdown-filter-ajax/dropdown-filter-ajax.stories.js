@@ -31,39 +31,46 @@ const onChange = (evt) => {
   });
   action('change')(evt);
 };
-const autoFocus = boolean('autoFocus', false);
-const cacheVisibleValue = boolean('cacheVisibleValue', false);
-const disabled = boolean('disabled', false);
-const name = text('name', 'Name');
-const readOnly = boolean('readOnly', false);
-const timeToDisappear = number('timeToDisappear', 0);
-const label = text('label', 'Dropdown Label');
-const labelInline = boolean('labelInline', true);
-const labelWidth = labelInline ? text('labelWidth', '') : null;
-const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : null;
-const labelHelp = text('labelHelp', 'This is help text');
-const inputWidth = text('inputWidth', '');
-const fieldHelp = text('fieldHelp', 'This is field help text');
-const fieldHelpInline = boolean('fieldHelpInline', false);
-const createText = text('createText', '');
-const createIconType = text('createIconType', '');
-const suggest = boolean('suggest', false);
-const freetext = boolean('freetext', false);
-const path = text('path', '/countries');
-const acceptHeader = text('acceptHeader', DropdownFilterAjax.defaultProps.acceptHeader);
-const rowsPerRequest = number('rowsPerRequest', DropdownFilterAjax.defaultProps.rowsPerRequest);
-const dataRequestTimeout = number(
-  'dataRequestTimeout',
-  DropdownFilterAjax.defaultProps.dataRequestTimeout
-);
-const withCredentials = boolean('withCredentials', false);
-const options = ImmutableHelper.parseJSON([
-  {
-    id: 1, name: 'Orange'
-  }, {
-    id: 2, name: 'Blue'
+
+const defaultKnobs = () => {
+  const labelInline = boolean('labelInline', true);
+
+  return {
+    autoFocus: boolean('autoFocus', false),
+    cacheVisibleValue: boolean('cacheVisibleValue', false),
+    disabled: boolean('disabled', false),
+    name: text('name', 'Name'),
+    readOnly: boolean('readOnly', false),
+    timeToDisappear: number('timeToDisappear', 0),
+    label: text('label', 'Dropdown Label'),
+    labelInline,
+    labelWidth: labelInline ? text('labelWidth', '') : null,
+    labelAlign: labelInline ? select('labelAlign', OptionsHelper.alignBinary) : null,
+    labelHelp: text('labelHelp', 'This is help text'),
+    inputWidth: text('inputWidth', ''),
+    fieldHelp: text('fieldHelp', 'This is field help text'),
+    fieldHelpInline: boolean('fieldHelpInline', false),
+    createText: text('createText', ''),
+    createIconType: text('createIconType', ''),
+    suggest: boolean('suggest', false),
+    freetext: boolean('freetext', false),
+    path: text('path', '/countries'),
+    acceptHeader: text('acceptHeader', DropdownFilterAjax.defaultProps.acceptHeader),
+    rowsPerRequest: number('rowsPerRequest', DropdownFilterAjax.defaultProps.rowsPerRequest),
+    dataRequestTimeout: number(
+      'dataRequestTimeout',
+      DropdownFilterAjax.defaultProps.dataRequestTimeout
+    ),
+    withCredentials: boolean('withCredentials', false),
+    options: ImmutableHelper.parseJSON([
+      {
+        id: 1, name: 'Orange'
+      }, {
+        id: 2, name: 'Blue'
+      }
+    ])
   }
-]);
+};
 
 storiesOf('DropdownFilterAjax', module)
   .addParameters({
@@ -72,73 +79,30 @@ storiesOf('DropdownFilterAjax', module)
     }
   })
   .add('default', () => {
+    const props = defaultKnobs();
+
     return (
       <State store={ store }>
         <DropdownFilterAjax
-          autoFocus={ autoFocus }
-          cacheVisibleValue={ cacheVisibleValue }
-          disabled={ disabled }
-          name={ name }
-          readOnly={ readOnly }
-          timeToDisappear={ timeToDisappear }
-          label={ label }
-          labelInline={ labelInline }
-          labelWidth={ labelWidth }
-          labelAlign={ labelAlign }
-          labelHelp={ labelHelp }
-          inputWidth={ inputWidth }
-          fieldHelp={ fieldHelp }
-          fieldHelpInline={ fieldHelpInline }
-          createText={ createText }
-          createIconType={ createIconType }
-          suggest={ suggest }
-          freetext={ freetext }
-          path={ path }
-          acceptHeader={ acceptHeader }
-          rowsPerRequest={ rowsPerRequest }
+          { ...props }
           getCustomHeaders={ () => ({}) }
-          dataRequestTimeout={ dataRequestTimeout }
-          withCredentials={ withCredentials }
-          options={ options }
           onChange={ onChange }
         />
       </State>
     );
   }, {
     info: { text: Info },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    notes: { markdown: notes }
   })
   .add('withCreate', () => {
+    const props = defaultKnobs();
+
     return (
       <State store={ store }>
         <DropdownFilterAjax
-          autoFocus={ autoFocus }
-          cacheVisibleValue={ cacheVisibleValue }
-          disabled={ disabled }
-          name={ name }
-          readOnly={ readOnly }
-          timeToDisappear={ timeToDisappear }
-          label={ label }
-          labelInline={ labelInline }
-          labelWidth={ labelWidth }
-          labelAlign={ labelAlign }
-          labelHelp={ labelHelp }
-          inputWidth={ inputWidth }
-          fieldHelp={ fieldHelp }
-          fieldHelpInline={ fieldHelpInline }
-          createText={ createText }
-          createIconType={ createIconType }
-          suggest={ suggest }
-          freetext={ freetext }
+          { ...props }
           create={ create }
-          path={ path }
-          acceptHeader={ acceptHeader }
-          rowsPerRequest={ rowsPerRequest }
           getCustomHeaders={ () => ({}) }
-          dataRequestTimeout={ dataRequestTimeout }
-          withCredentials={ withCredentials }
-          options={ options }
           onChange={ onChange }
         />
       </State>

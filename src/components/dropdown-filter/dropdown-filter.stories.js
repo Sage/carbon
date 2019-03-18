@@ -25,31 +25,38 @@ const onChange = (evt) => {
   store.set({ value: evt.target.value });
   action('change')(evt);
 };
-const autoFocus = boolean('autoFocus', false);
-const cacheVisibleValue = boolean('cacheVisibleValue', true);
-const disabled = boolean('disabled', false);
-const name = text('name', 'Name');
-const readOnly = boolean('readOnly', false);
-const timeToDisappear = number('timeToDisappear', 0);
-const label = text('label', 'Dropdown Label');
-const labelInline = boolean('labelInline', true);
-const labelWidth = labelInline ? text('labelWidth', '') : undefined;
-const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
-const labelHelp = text('labelHelp', 'This is help text');
-const inputWidth = text('inputWidth', '');
-const fieldHelp = text('fieldHelp', 'This is field help text');
-const fieldHelpInline = boolean('fieldHelpInline', false);
-const createText = text('createText', '');
-const createIconType = text('createIconType', '');
-const suggest = boolean('suggest', false);
-const freetext = boolean('freetext', false);
-const options = ImmutableHelper.parseJSON([
-  {
-    id: 1, name: 'Orange'
-  }, {
-    id: 2, name: 'Blue'
-  }
-]);
+
+const defaultKnobs = () => {
+  const labelInline = boolean('labelInline', true);
+
+  return {
+    autoFocus: boolean('autoFocus', false),
+    cacheVisibleValue: boolean('cacheVisibleValue', true),
+    disabled: boolean('disabled', false),
+    name: text('name', 'Name'),
+    readOnly: boolean('readOnly', false),
+    timeToDisappear: number('timeToDisappear', 0),
+    label: text('label', 'Dropdown Label'),
+    labelInline,
+    labelWidth: labelInline ? text('labelWidth', '') : undefined,
+    labelAlign: labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined,
+    labelHelp: text('labelHelp', 'This is help text'),
+    inputWidth: text('inputWidth', ''),
+    fieldHelp: text('fieldHelp', 'This is field help text'),
+    fieldHelpInline: boolean('fieldHelpInline', false),
+    createText: text('createText', ''),
+    createIconType: text('createIconType', ''),
+    suggest: boolean('suggest', false),
+    freetext: boolean('freetext', false),
+    options: ImmutableHelper.parseJSON([
+      {
+        id: 1, name: 'Orange'
+      }, {
+        id: 2, name: 'Blue'
+      }
+    ])
+  };
+};
 
 storiesOf('Dropdown Filter', module)
   .addParameters({
@@ -58,28 +65,12 @@ storiesOf('Dropdown Filter', module)
     }
   })
   .add('default', () => {
+    const props = defaultKnobs();
+
     return (
       <State store={ store }>
         <DropdownFilter
-          autoFocus={ autoFocus }
-          cacheVisibleValue={ cacheVisibleValue }
-          disabled={ disabled }
-          name={ name }
-          readOnly={ readOnly }
-          timeToDisappear={ timeToDisappear }
-          label={ label }
-          labelInline={ labelInline }
-          labelWidth={ labelWidth }
-          labelAlign={ labelAlign }
-          labelHelp={ labelHelp }
-          inputWidth={ inputWidth }
-          fieldHelp={ fieldHelp }
-          fieldHelpInline={ fieldHelpInline }
-          createText={ createText }
-          createIconType={ createIconType }
-          suggest={ suggest }
-          freetext={ freetext }
-          options={ options }
+          { ...props }
           onChange={ onChange }
           value={ store.get('value') }
         />
@@ -87,33 +78,16 @@ storiesOf('Dropdown Filter', module)
     );
   }, {
     info: { text: Info },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
+    notes: { markdown: notes }
   })
   .add('with Create', () => {
+    const props = defaultKnobs();
+
     return (
       <State store={ store }>
         <DropdownFilter
-          autoFocus={ autoFocus }
-          cacheVisibleValue={ cacheVisibleValue }
-          disabled={ disabled }
-          name={ name }
-          readOnly={ readOnly }
-          timeToDisappear={ timeToDisappear }
-          label={ label }
-          labelInline={ labelInline }
-          labelWidth={ labelWidth }
-          labelAlign={ labelAlign }
-          labelHelp={ labelHelp }
-          inputWidth={ inputWidth }
-          fieldHelp={ fieldHelp }
-          fieldHelpInline={ fieldHelpInline }
-          createText={ createText }
-          createIconType={ createIconType }
-          suggest={ suggest }
-          freetext={ freetext }
+          { ...props }
           create={ create }
-          options={ options }
           onChange={ onChange }
           value={ store.get('value') }
         />
