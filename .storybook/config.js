@@ -1,5 +1,5 @@
 import React from 'react';
-import { configure, addDecorator, addParameters } from '@storybook/react';
+import { configure, addDecorator } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { withInfo } from '@storybook/addon-info';
 import { withA11y } from '@storybook/addon-a11y';
