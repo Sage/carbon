@@ -1,6 +1,10 @@
+import { THEMES } from '..';
+
 export default (palette) => {
   return (
     {
+      name: THEMES.medium,
+
       colors: {
         base: palette.productBlue,
         primary: palette.productBlueShade(3),
