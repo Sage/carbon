@@ -8,32 +8,27 @@ import './settings-row.scss';
 class SettingsRow extends React.Component {
   static propTypes = {
     /**
-     * Component children
-     *
+     * This component supports children.
      */
     children: PropTypes.node,
 
     /**
-     * Custom className
-     *
+     * The CSS classes to apply to the component.
      */
     className: PropTypes.string,
 
     /**
-     * Heading title
-     *
+     * A title for this group of settings.
      */
     title: PropTypes.string,
 
     /**
-     * Heading description
-     *
+     * A string or JSX object that provides a short description about the group of settings.
      */
     description: PropTypes.node,
 
     /**
-     * Row divider
-     *
+     * Shows a divider below the component.
      */
     divider: PropTypes.bool
   };
@@ -41,7 +36,6 @@ class SettingsRow extends React.Component {
   static defaultProps = {
     divider: true
   };
-
 
   /**
    * Return class names
@@ -85,8 +79,8 @@ class SettingsRow extends React.Component {
   render() {
     return (
       <div className={ this.classes } { ...tagComponent('settings-row', this.props) }>
-        <div className='carbon-settings-row__header'>{ this.heading }</div>
-        <div className='carbon-settings-row__input'>{ this.props.children }</div>
+        <div className='carbon-settings-row__header'>{this.heading}</div>
+        <div className='carbon-settings-row__input'>{this.props.children}</div>
       </div>
     );
   }
