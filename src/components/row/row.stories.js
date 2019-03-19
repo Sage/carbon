@@ -1,60 +1,53 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, boolean } from '@storybook/addon-knobs';
+import { text, boolean, select } from '@storybook/addon-knobs';
+import OptionsHelper from '../../utils/helpers/options-helper';
 import { Row, Column } from './row';
 import { notes, info } from './documentation';
 
-storiesOf('Row', module)
-  .add('default', () => {
+storiesOf('Row', module).add(
+  'default',
+  () => {
     // row
-    const columnClasses = text('columnClasses', 'example-classname');
-    const columnDivide = boolean('columnDivide', Row.defaultProps.columnDivide);
-    const columns = text('columns', '4');
-    const gutter = text('gutter', Row.defaultProps.gutter);
+    const columnDivide = boolean('columnDivide', true);
+    const gutter = select('gutter', OptionsHelper.sizesFull, Row.defaultProps.gutter);
     // column
-    const columnAlign = text('columnAlign', Column.defaultProps.columnAlign);
+    const columnAlign = select('columnAlign', OptionsHelper.alignBinary, Column.defaultProps.columnAlign);
     const columnOffset = text('columnOffset', Column.defaultProps.columnOffset);
     const columnSpan = text('columnSpan', Column.defaultProps.columnSpan);
-    const children = text('children');
+    const children = text('children', 'content');
 
     return (
-      <Row
-        columnDivide={ columnDivide }
-        columns={ columns }
-        gutter={ gutter }
-        columnClasses={ columnClasses }
-      >
+      <Row columnDivide={ columnDivide } gutter={ gutter }>
         <Column
-          columnAlign={ columnAlign }
-          columnOffset={ columnOffset }
+          columnAlign={ columnAlign } columnOffset={ columnOffset }
           columnSpan={ columnSpan }
         >
-          { children }
+          {children}
         </Column>
         <Column
-          columnAlign={ columnAlign }
-          columnOffset={ columnOffset }
+          columnAlign={ columnAlign } columnOffset={ columnOffset }
           columnSpan={ columnSpan }
         >
-          { children }
+          {children}
         </Column>
         <Column
-          columnAlign={ columnAlign }
-          columnOffset={ columnOffset }
+          columnAlign={ columnAlign } columnOffset={ columnOffset }
           columnSpan={ columnSpan }
         >
-          { children }
+          {children}
         </Column>
         <Column
-          columnAlign={ columnAlign }
-          columnOffset={ columnOffset }
+          columnAlign={ columnAlign } columnOffset={ columnOffset }
           columnSpan={ columnSpan }
         >
-          { children }
+          {children}
         </Column>
       </Row>
     );
-  }, {
+  },
+  {
     notes: { markdown: notes },
     info: { text: info }
-  });
+  }
+);

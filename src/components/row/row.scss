@@ -2,13 +2,10 @@
 @import "./../../style-config/colors";
 
 $max-columns: 12 !default;
-$sizes: ("extra-small", $grid-margin-extra-small),
-        ("small", $grid-margin-small),
-        ("medium-small", $grid-margin-medium-small),
-        ("medium", $grid-margin-medium),
-        ("medium-large", $grid-margin-medium-large),
-        ("large", $grid-margin-large),
-        ("extra-large", $grid-margin-extra-large);
+$sizes: ("extra-small", $grid-margin-extra-small), ("small", $grid-margin-small),
+  ("medium-small", $grid-margin-medium-small), ("medium", $grid-margin-medium),
+  ("medium-large", $grid-margin-medium-large), ("large", $grid-margin-large),
+  ("extra-large", $grid-margin-extra-large);
 
 .carbon-row {
   clear: both;
@@ -58,13 +55,6 @@ $sizes: ("extra-small", $grid-margin-extra-small),
     &.carbon-column--align-right {
       text-align: right;
     }
-
-    // class added to style storybook example
-    &.example-classname {
-      background-color: #E8E8E8;
-      height: 30px;
-      padding-top: 5px;
-    }
   }
 
   @for $i from 2 through $max-columns {
@@ -74,7 +64,7 @@ $sizes: ("extra-small", $grid-margin-extra-small),
       > .carbon-column {
         width: $width;
 
-        &:nth-child(#{$i}n+1) {
+        &:nth-child(#{$i}n + 1) {
           clear: both;
         }
       }

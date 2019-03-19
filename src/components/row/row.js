@@ -6,51 +6,39 @@ import './row.scss';
 
 class Row extends React.Component {
   static propTypes = {
-
     /**
-     * The elements to be rendered in the row
-     *
+     * This component supports children of type Column.
      */
-    children: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.object
-    ]),
+    children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
 
     /**
-     * Custom className
-     *
+     * Classes to apply to the component.
      */
     className: PropTypes.string,
 
     /**
-     * Pass a custom value for the gutter
-     * (extra-small, small, medium, large or extra-large)
-     *
+     * Define how wide the gutter between the rows and columns should be.
      */
     gutter: PropTypes.string,
 
     /**
-     * Show a divide between columns
-     *
+     * Enable a divider between each column.
      */
     columnDivide: PropTypes.bool,
 
     /**
-     * Manually define number of columns
-     *
+     * Define a certain amount of columns, instead of basing it on the number of children.
      */
     columns: PropTypes.string,
 
     /**
-     * class to apply to each child column
-     *
+     * Classes to apply to all column children.
      */
     columnClasses: PropTypes.string
-  }
+  };
 
   static defaultProps = {
-    gutter: 'medium',
-    columnDivide: true
+    gutter: 'medium'
   };
 
   /**
@@ -62,14 +50,15 @@ class Row extends React.Component {
   buildColumns = () => {
     return React.Children.toArray(this.props.children).map((child) => {
       return React.cloneElement(
-        child, {
+        child,
+        {
           columnClasses: this.props.columnClasses,
           columnDivide: this.props.columnDivide
         },
         child.props.children
       );
     });
-  }
+  };
 
   /**
    * Main Class getter
@@ -95,16 +84,9 @@ class Row extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    return (
-      <div className={ this.mainClasses }>
-        { this.buildColumns() }
-      </div>
-    );
+    return <div className={ this.mainClasses }>{this.buildColumns()}</div>;
   }
 }
 
 export default Row;
-export {
-  Row,
-  Column
-};
+export { Row, Column };

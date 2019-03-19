@@ -4,12 +4,14 @@ import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/s
 const info = (
   <div>
     <p> Row Component </p>
-    <p> A row widget. This is a standalone row widget used for layout; for table rows use the table-row widget.</p>
+    <p> A row widget. Sets up a basic column-based UI layout.</p>
 
     <StoryHeader> Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode padded>import {'{ Row, Column }'} from {'"carbon-react/lib/components/row"'}</StoryCode>
+    <StoryCode padded>
+      import {'{ Row, Column }'} from {'"carbon-react/lib/components/row"'}
+    </StoryCode>
 
     <p>To render the Row:</p>
     <StoryCodeBlock>
