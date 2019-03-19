@@ -2,10 +2,7 @@
 
 exports[`FieldHelp renders as expected 1`] = `
 .c0 {
-  color: inherit;
   display: block;
-  margin-left: 0px;
-  margin-right: 0px;
   margin-top: 8px;
   white-space: pre-wrap;
   width: 100%;

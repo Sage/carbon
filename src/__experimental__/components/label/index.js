@@ -1,3 +1,1 @@
-import Label from './label.component';
-
-export default Label;
+export { default } from './label.component';

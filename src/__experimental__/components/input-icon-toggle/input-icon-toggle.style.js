@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import sizes from '../input/input-sizes.style';
 
 const InputIconToggleStyle = styled.span`
   align-items: center;
@@ -9,7 +10,7 @@ const InputIconToggleStyle = styled.span`
   display: flex;
   height: 100%;
   justify-content: center;
-  margin-right: ${({ size, theme }) => `-${theme.input[size].padding};`}
+  margin-right: ${({ size }) => `-${sizes[size].padding};`}
 
   ${({ error, theme }) => error && css`
     color: ${theme.colors.error};

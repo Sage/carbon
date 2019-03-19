@@ -1,3 +1,1 @@
-import FieldHelp from './field-help.component';
-
-export default FieldHelp;
+export { default } from './field-help.component';

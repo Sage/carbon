@@ -1,3 +1,1 @@
-import InputIconToggle from './input-icon-toggle.component';
-
-export default InputIconToggle;
+export { default } from './input-icon-toggle.component';

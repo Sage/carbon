@@ -2,27 +2,27 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import sizes from './input-sizes.style';
+import inputClassicStyling from './input-presentation-classic.style';
 
 const InputPresentationStyle = styled.div`
   align-items: center;
   background: transparent;
-  border: 1px solid ${({ theme }) => theme.input.borderColor};
+  border: 1px solid ${({ theme }) => theme.colors.border};
   box-sizing: border-box;
   cursor: text;
   display: flex;
-  flex: 1;
   flex-wrap: wrap;
+  flex: 1;
   margin: 0px;
-  min-height: 32px;
+  min-height: ${({ size }) => sizes[size].height};
+  padding-left: ${({ size }) => sizes[size].padding};
+  padding-right: ${({ size }) => sizes[size].padding};
   width: 100%;
 
-  &:hover {
-    border-color: ${({ theme }) => theme.input.hover.borderColor};
-  }
-
   ${({ disabled, theme }) => disabled && css`
-    background: ${theme.input.disabled.backgroundColor};
-    border-color: ${theme.input.disabled.borderColor} !important;
+    background: ${theme.disabled.input};
+    border-color: ${theme.disabled.border};
     cursor: not-allowed;
   `}
   ${({ readOnly }) => readOnly && css`
@@ -30,17 +30,25 @@ const InputPresentationStyle = styled.div`
     border-color: transparent !important;
   `}
   ${({ hasFocus, theme }) => hasFocus && css`
-    && { ${theme.input.active.border}; }
+    && { outline: 3px solid ${theme.colors.focus}; }
   `}
-  ${renderValidationStyling('info')}
-  ${renderValidationStyling('warning')}
-  ${renderValidationStyling('error')}
-  ${({ size, theme }) => css`
-    min-height: ${theme.input[size].height};
-    padding-left: ${theme.input[size].padding};
-    padding-right: ${theme.input[size].padding};
-  `}
+  ${stylingForValidation('info')}
+  ${stylingForValidation('warning')}
+  ${stylingForValidation('error')}
+
+  ${inputClassicStyling}
 `;
+
+function stylingForValidation(validation) {
+  return ({ theme, ...props }) => {
+    if (!props[validation]) return null;
+    return css`
+      border-color: ${theme.colors[validation]} !important;
+      box-shadow: inset 1px 1px 0 ${theme.colors[validation]},
+                  inset -1px -1px 0 ${theme.colors[validation]};
+    `;
+  };
+}
 
 InputPresentationStyle.defaultProps = {
   size: 'medium',
@@ -56,31 +64,5 @@ InputPresentationStyle.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   warning: PropTypes.string
 };
-
-// Calculates the width of the border for the validation. We use a combination
-// of border and box-shadow so that when a thicker validation is applied it does
-// not push the content of the input around, therefore we add the thickness of
-// the box-shadow to the thickness of the border.
-function calcValidationWidth(theme) {
-  const { borderWidth } = theme.input.validation;
-  const borderWidthInt = borderWidth.substring(0, borderWidth.length - 2);
-  return `${borderWidthInt - 1}px`;
-}
-
-// Returns the styling for a validated input. This is common between the various
-// validation states, and does some calculations, therefore it has been moved
-// into its own function.
-function renderValidationStyling(type) {
-  return ({ theme, ...props }) => {
-    const validation = props[type];
-    if (!validation) return null;
-    const width = calcValidationWidth(theme);
-    return css`
-      border-color: ${theme.colors[type]} !important;
-      box-shadow: inset ${width} ${width} 0 ${theme.colors[type]},
-                  inset -${width} -${width} 0 ${theme.colors[type]};
-    `;
-  };
-}
 
 export default InputPresentationStyle;
