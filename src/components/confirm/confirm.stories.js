@@ -6,7 +6,7 @@ import {
 import { State, Store } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './notes.md';
+import { notes, info } from './documentation';
 import Confirm from './confirm.js';
 
 const store = new Store({
@@ -67,5 +67,6 @@ storiesOf('Confirm', module)
       </State>
     );
   }, {
+    info: { text: info },
     notes: { markdown: notes }
   });
