@@ -4,9 +4,7 @@ import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/s
 const info = (
   <div>
     <p> Radio Button Component </p>
-    <p>A radio button widget.
-
-    </p>
+    <p>A radio button widget. Selects one option from a longer list.</p>
     <StoryHeader> Implementation</StoryHeader>
 
     <p>Import the component:</p>
