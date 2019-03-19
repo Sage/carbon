@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "6.3.0",
+  "version": "6.3.1",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "engineStrict": true,
   "engines": {
@@ -13,7 +13,7 @@
     "start": "npm run gen-colors && npm run gen-docs && npm run webpack-dev-server",
     "build": "npm run gen-colors && npm run gen-docs && cross-env NODE_ENV=production npm run webpack && npm run prep-deploy",
     "test": "jest --config=./jest.conf.json",
-    "debug": "node --inspect ./node_modules/jest/bin/jest --watch --config=./jest.conf.json",
+    "debug": "node --inspect ./node_modules/jest-cli/bin/jest --watch --config=./jest.conf.json",
     "lint": "./node_modules/.bin/eslint",
     "lint-ts": "./node_modules/.bin/tslint 'src/**/*.ts'",
     "precompile": "npm run clean-lib && npm run copy-files && npm run babel",
@@ -43,13 +43,14 @@
     "i18n-js": "^3.0.0"
   },
   "devDependencies": {
-    "@sambego/storybook-state": "^1.3.2",
-    "@storybook/addon-actions": "^4.1.11",
-    "@storybook/addon-info": "^4.1.11",
-    "@storybook/addon-knobs": "^4.1.11",
-    "@storybook/addon-notes": "^4.1.11",
-    "@storybook/addon-viewport": "^4.1.11",
-    "@storybook/react": "^4.1.11",
+    "@sambego/storybook-state": "^1.3.4",
+    "@storybook/addon-a11y": "^5.0.3",
+    "@storybook/addon-actions": "^5.0.3",
+    "@storybook/addon-info": "^5.0.3",
+    "@storybook/addon-knobs": "^5.0.3",
+    "@storybook/addon-notes": "^5.0.3",
+    "@storybook/addon-viewport": "^5.0.3",
+    "@storybook/react": "^5.0.3",
     "@types/enzyme": "3.1.15",
     "@types/enzyme-adapter-react-16": "1.0.3",
     "@types/jest": "23.3.13",

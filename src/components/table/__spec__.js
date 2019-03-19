@@ -33,7 +33,7 @@ describe('Table', () => {
         paginate={ true }
         currentPage='1'
         pageSize='10'
-        totalRecords='100'
+        totalRecords={ 100 }
         onChange={ spy }
       >
         <TableRow />
@@ -649,7 +649,7 @@ describe('Table', () => {
             currentPage='1'
             pageSize='10'
             onPageSizeChange={ callbackSpy }
-            totalRecords='100'
+            totalRecords={ 100 }
             onChange={ spy }
           >
             <TableRow />
@@ -775,7 +775,7 @@ describe('Table', () => {
       const props = instancePager.pagerProps;
       expect(props.currentPage).toEqual('1')
       expect(props.pageSize).toEqual('10')
-      expect(props.totalRecords).toEqual('100')
+      expect(props.totalRecords).toEqual(100)
     });
   });
 
