@@ -9,46 +9,38 @@ import './sidebar.scss';
 
 class Sidebar extends Modal {
   static propTypes = {
-
     /**
-     * A custom close event handler
-     *
+     * A callback for when cancelling the dialog is triggered. You can use this callback to close the dialog.
      */
     onCancel: PropTypes.func,
 
     /**
-     * Sets the open state of the sidebar
-     *
+     * A boolean to track the open state of the dialog.
      */
     open: PropTypes.bool,
 
     /**
-     * Determines if the user can interact with
-     * the background ui when the sidebar is open
-     *
+     * Set this prop to false to hide the translucent background when the dialog is open.
      */
     enableBackgroundUI: PropTypes.bool,
 
     /**
-     * Determines the position of the sidebar
-     * 'left' or 'right'
-     *
+     * Sets the position of sidebar, either left or right.
      */
     position: PropTypes.string,
 
     /**
-     * Size of dialog, default size is 450px
-     *
+     * Sets the size of the sidebar when open.
      */
     size: PropTypes.string
-  }
+  };
 
   static defaultProps = {
     position: 'right',
     size: 'medium',
     open: false,
     enableBackgroundUI: false
-  }
+  };
 
   /**
    * Returns classes for the component.
@@ -57,10 +49,7 @@ class Sidebar extends Modal {
    * @return {String} Main className
    */
   get mainClasses() {
-    return classNames(
-      'carbon-sidebar',
-      this.props.className
-    );
+    return classNames('carbon-sidebar', this.props.className);
   }
 
   /**
@@ -115,12 +104,9 @@ class Sidebar extends Modal {
    */
   get modalHTML() {
     return (
-      <div
-        className={ this.sidebarClasses }
-        { ...this.componentTags(this.props) }
-      >
-        { this.closeButton }
-        { this.props.children }
+      <div className={ this.sidebarClasses } { ...this.componentTags(this.props) }>
+        {this.closeButton}
+        {this.props.children}
       </div>
     );
   }
@@ -130,7 +116,4 @@ class Sidebar extends Modal {
   }
 }
 
-export {
-  Sidebar,
-  SidebarHeader
-};
+export { Sidebar, SidebarHeader };

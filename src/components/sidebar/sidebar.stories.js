@@ -19,12 +19,9 @@ const onCancel = () => {
 
 const openSidebar = () => {
   store.set({ open: true });
-  action('open')();
 };
 
-
 storiesOf('Sidebar', module)
-
   .addParameters({
     info: {
       propTablesExclude: [Button, State],
@@ -42,15 +39,11 @@ storiesOf('Sidebar', module)
 
     return (
       <Sidebar
-        enableBackgroundUI={ enableBackgroundUI }
-        open={ open }
-        position={ position }
-        size={ size }
+        enableBackgroundUI={ enableBackgroundUI } open={ open }
+        position={ position } size={ size }
         onCancel={ onCancel }
       >
-        <SidebarHeader>
-            Header Content
-        </SidebarHeader>
+        <SidebarHeader>Header Content</SidebarHeader>
         Main Content
       </Sidebar>
     );
@@ -71,10 +64,8 @@ storiesOf('Sidebar', module)
           size={ size }
           onCancel={ onCancel }
         >
-          <SidebarHeader>
-            Header Content
-          </SidebarHeader>
-        Main Content
+          <SidebarHeader>Header Content</SidebarHeader>
+          Main Content
         </Sidebar>
       </State>
     );

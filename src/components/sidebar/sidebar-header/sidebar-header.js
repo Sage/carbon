@@ -6,24 +6,17 @@ import './sidebar-header.scss';
 
 class SidebarHeader extends React.Component {
   static propTypes = {
-
     /**
-     * Required prop which will be the content
-     * of the sidebar header
-     *
+     * This component supports children.
      */
     children: PropTypes.node,
 
     /**
-     * Custom className
+     * A custom class name.
      *
      */
     className: PropTypes.string
-  }
-
-  static defaultProps = {
-    children: null
-  }
+  };
 
   /**
    * Returns classes for the component.
@@ -32,10 +25,7 @@ class SidebarHeader extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    return classNames(
-      'carbon-sidebar-header',
-      this.props.className
-    );
+    return classNames('carbon-sidebar-header', this.props.className);
   }
 
   /**
@@ -47,7 +37,7 @@ class SidebarHeader extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses } { ...tagComponent('sidebar-header', this.props) }>
-        { this.props.children }
+        {this.props.children}
       </div>
     );
   }
