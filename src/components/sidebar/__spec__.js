@@ -28,66 +28,6 @@ describe('Sidebar', () => {
     );
   });
 
-  describe('componentDidUpdate', () => {
-    let mockWindow;
-    let wrapper;
-    let instance;
-
-    beforeEach(() => {
-      mockWindow = {
-        addEventListener() {},
-        removeEventListener() {}
-      };
-
-      spyOn(Browser, 'getWindow').and.returnValue(mockWindow);
-    });
-
-    describe('when the Sidebar is open', () => {
-      beforeEach(() => {
-        wrapper = mount(
-          <Sidebar open onCancel={ spy } />
-        );
-        instance = wrapper.instance();
-      });
-
-      it('sets up event listeners to resize and close the Sidebar', () => {
-        spyOn(mockWindow, 'addEventListener');
-        wrapper.setProps({ title: 'Sidebar title' });
-
-        expect(mockWindow.addEventListener.calls.count()).toEqual(1);
-        expect(mockWindow.addEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
-      });
-
-      describe('when the Sidebar is already listening', () => {
-        it('does not set up event listeners', () => {
-          spyOn(mockWindow, 'addEventListener');
-          instance.listening = true;
-          wrapper.setProps({ title: 'Already listening' });
-
-          expect(mockWindow.addEventListener.calls.count()).toEqual(0);
-          expect(mockWindow.addEventListener).not.toHaveBeenCalled();
-        });
-      });
-    });
-
-    describe('when the Sidebar is closed', () => {
-      beforeEach(() => {
-        wrapper = mount(
-          <Sidebar onCancel={ spy } />
-        );
-        instance = wrapper.instance();
-        instance.listening = true;
-      });
-
-      it('removes event listeners for resize and closing', () => {
-        spyOn(mockWindow, 'removeEventListener');
-        wrapper.setProps({ title: 'Remove event handlers' });
-        expect(mockWindow.removeEventListener.calls.count()).toEqual(1);
-        expect(mockWindow.removeEventListener).toHaveBeenCalledWith('keyup', instance.closeModal);
-      });
-    });
-  });
-
   describe('sidebarClasses', () => {
     it('returns a base sidebar', () => {
       expect(wrapper).toMatchSnapshot();
