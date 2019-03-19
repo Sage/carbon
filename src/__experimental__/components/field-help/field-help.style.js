@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
+import { THEMES } from '../../../style/themes';
 
 const FieldHelpStyle = styled.span`
   display: block;
@@ -14,7 +15,7 @@ const FieldHelpStyle = styled.span`
     padding-left: 0;
   `}
 
-  ${({ labelInline, inputWidth, theme }) => theme.name === 'classic' && css`
+  ${({ labelInline, inputWidth, theme }) => theme.name === THEMES.classic && css`
     color: #335c6d;
     margin-left: 6px;
     margin-right: 6px;

@@ -51,6 +51,7 @@ class Select extends React.Component {
     ])
   }
 
+  // we don't have any default props, but we set an empty object for better storybook source code examples
   static defaultProps = {}
 
   state = {

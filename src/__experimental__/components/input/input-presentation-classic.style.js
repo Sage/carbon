@@ -1,6 +1,7 @@
 import { css } from 'styled-components';
+import { THEMES } from '../../../style/themes';
 
-export default ({ disabled, hasFocus, theme }) => theme.name === 'classic' && css`
+export default ({ disabled, hasFocus, theme }) => theme.name === THEMES.classic && css`
   border-color: #ccd6db;
   box-shadow: none;
   min-height: 31px;

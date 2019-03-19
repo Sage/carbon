@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import sizes from '../input/input-sizes.style';
+import { THEMES } from '../../../style/themes';
 
 const LabelStyle = styled.label`
   color: ${({ theme }) => theme.text.color};
@@ -24,7 +25,7 @@ const LabelStyle = styled.label`
     ${inputSize === 'large' && css`padding-top: 16px;`}
   `}
 
-  ${({ inline, theme }) => theme.name === 'classic' && css`
+  ${({ inline, theme }) => theme.name === THEMES.classic && css`
     padding-left: 6px;
     padding-right: 6px;
 
