@@ -5,84 +5,28 @@ import { merge } from 'lodash';
 import tagComponent from '../../utils/helpers/tags';
 import './rainbow.scss';
 
-/**
- * A rainbow chart using the Highcharts API.
- *
- * == How to use a Rainbow in a component:
- *
- * In your file:
- *
- *   import Rainbow from 'carbon-react/lib/components/rainbow';
- *
- * Note that the Rainbow component expects that you already have the Highcharts
- * library loaded. This may be true in case of some projects, which already have
- * that library available for their legacy code.
- * In other cases, you would need to import Highcharts before importing Rainbow:
- *
- *   import 'react-highcharts/dist/bundle/highcharts';
- *
- * To render the Rainbow:
- *
- *   let myImmutableData = Immutable.fromJS([
- *     {
- *       y: 30,
- *       name: 'First Bit',
- *       label: 'label for first bit',
- *       tooltip: 'more info about this bit',
- *       color: '#000' # we supply color by default, but you can supply your own like this
- *     }, {
- *       y: 70,
- *       name: 'Second Bit',
- *       label: 'label for second bit',
- *       tooltip: 'more info about this bit'
- *     }
- *   ]);
- *
- *   <Rainbow title="My Chart" data={ myImmutableData } />
- *
- * @class Rainbow
- * @constructor
- */
 class Rainbow extends React.Component {
   static propTypes = {
     /**
-     * A title for the component.
-     *
-     * @property title
-     * @type {String}
+     * Supply a custom title for the chart.
      */
     title: PropTypes.string,
 
     /**
-     * The data set for the component.
-     *
-     * @property data
-     * @type {Object}
+     * Supply data for the chart.
      */
     data: PropTypes.object.isRequired,
 
     /**
-     * Custom chart config for the component.
-     *
-     * @property config
-     * @type {Object}
+     * Supply a custom config object to the Highcharts.
      */
     config: PropTypes.object,
 
     /**
-     * Custom className
-     *
-     * @property className
-     * @type {String}
+     * Classes to apply to the component.
      */
     className: PropTypes.string
-  }
-
-  static defaultProps = {
-    className: '',
-    config: {},
-    title: ''
-  }
+  };
 
   /**
    * Renders the initial chart, and stores it on the ref so it can be updated later
@@ -123,10 +67,7 @@ class Rainbow extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    return classNames(
-      'carbon-rainbow',
-      this.props.className
-    );
+    return classNames('carbon-rainbow', this.props.className);
   }
 
   /**
@@ -138,7 +79,11 @@ class Rainbow extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses } { ...tagComponent('rainbow', this.props) }>
-        <div ref={ (chart) => { this._chart = chart; } } />
+        <div
+          ref={ (chart) => {
+            this._chart = chart;
+          } }
+        />
       </div>
     );
   }
@@ -189,7 +134,7 @@ function generateConfig(immutableData, title) {
       },
       positioner: (tooltipWidth, tooltipHeight, point) => {
         return () => {
-          const x = point.plotX - (tooltipWidth / 2);
+          const x = point.plotX - tooltipWidth / 2;
           const y = point.plotY - (tooltipHeight - 5);
 
           return { x, y };
@@ -231,8 +176,12 @@ function generateConfig(immutableData, title) {
         },
         point: {
           events: {
-            mouseOver: (ev) => { ev.target.graphic.zIndexSetter(1); },
-            mouseOut: (ev) => { ev.target.graphic.zIndexSetter(0); }
+            mouseOver: (ev) => {
+              ev.target.graphic.zIndexSetter(1);
+            },
+            mouseOut: (ev) => {
+              ev.target.graphic.zIndexSetter(0);
+            }
           }
         },
         states: {
@@ -242,11 +191,13 @@ function generateConfig(immutableData, title) {
         }
       }
     },
-    series: [{
-      data,
-      innerSize: '65%',
-      type: 'pie'
-    }]
+    series: [
+      {
+        data,
+        innerSize: '65%',
+        type: 'pie'
+      }
+    ]
   };
 }
 
