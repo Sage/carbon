@@ -9,7 +9,7 @@ storiesOf('App Wrapper', module).add(
   () => {
     const children = text(
       'children',
-      'This component will wrap its children within ' + 'the width constraints of your application.'
+      'This component will wrap its children within the width constraints of your application.'
     );
 
     return <AppWrapper>{children}</AppWrapper>;
