@@ -25,14 +25,17 @@ const StyledButton = styled.button`
 
   ${stylingForType}
   ${({ theme, size }) => buttonSizes(theme)[size]};
+
+  ${({ theme }) => theme.name === 'classic' && css`
+    border: 8px solid #255BC7;
+    outline: none;
+  `}
+
   ${({ iconPosition }) => css`
     .carbon-icon {
       margin-left: ${iconPosition === 'before' ? '-4px' : '8px'};
       margin-right: ${iconPosition === 'before' ? '8px' : '-4px'};
     }
-  `}
-
-  ${({ theme }) => theme.name === 'classic' && css`
   `}
 `;
 

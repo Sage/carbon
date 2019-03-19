@@ -1,6 +1,181 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button when the no props are passed except children sets the default variants to "secondary" and "medium" 1`] = `
+exports[`Button when a subtext prop is passed into the component does not render the subtext if the size prop is not "large" 1`] = `
+<styled.button
+  disabled={false}
+  iconPosition=""
+  medium={true}
+  renderAs="secondary"
+  role="button"
+  size="medium"
+  theme={
+    Object {
+      "button": Object {
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
+        "disabled": Object {
+          "background": "rgba(0,0,0,0.1)",
+        },
+      },
+      "colors": Object {
+        "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
+        "disabled": Object {
+          "background": "rgba(0,0,0,0.1)",
+          "border": "#CCD6DA",
+          "disabled": "rgba(0,0,0,0.55)",
+          "input": "#F2F4F5",
+        },
+        "error": "#C7384F",
+        "info": "#0073C2",
+        "primary": "#26A826",
+        "secondary": "#006300",
+        "success": "#00B000",
+        "tertiary": "#004400",
+        "warning": "#FFB500",
+        "white": "#FFFFFF",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+>
+  <span>
+    <span
+      data-element="main-text"
+    >
+      foo
+    </span>
+  </span>
+</styled.button>
+`;
+
+exports[`Button when a subtext prop is passed into the component renders the subtext if the size prop is "large" 1`] = `
+<styled.button
+  disabled={false}
+  iconPosition=""
+  medium={true}
+  renderAs="secondary"
+  role="button"
+  size="large"
+  theme={
+    Object {
+      "button": Object {
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
+        "disabled": Object {
+          "background": "rgba(0,0,0,0.1)",
+        },
+      },
+      "colors": Object {
+        "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
+        "disabled": Object {
+          "background": "rgba(0,0,0,0.1)",
+          "border": "#CCD6DA",
+          "disabled": "rgba(0,0,0,0.55)",
+          "input": "#F2F4F5",
+        },
+        "error": "#C7384F",
+        "info": "#0073C2",
+        "primary": "#26A826",
+        "secondary": "#006300",
+        "success": "#00B000",
+        "tertiary": "#004400",
+        "warning": "#FFB500",
+        "white": "#FFFFFF",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+>
+  <span>
+    <span
+      data-element="main-text"
+    >
+      foo
+    </span>
+    <styled.span>
+      foo
+    </styled.span>
+  </span>
+</styled.button>
+`;
+
+exports[`Button when no props other than children are passed into the component renders the default props and children to match the snapshot 1`] = `
+<styled.button
+  disabled={false}
+  iconPosition=""
+  medium={true}
+  renderAs="secondary"
+  role="button"
+  size="medium"
+  theme={
+    Object {
+      "button": Object {
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
+        "disabled": Object {
+          "background": "rgba(0,0,0,0.1)",
+        },
+      },
+      "colors": Object {
+        "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
+        "disabled": Object {
+          "background": "rgba(0,0,0,0.1)",
+          "border": "#CCD6DA",
+          "disabled": "rgba(0,0,0,0.55)",
+          "input": "#F2F4F5",
+        },
+        "error": "#C7384F",
+        "info": "#0073C2",
+        "primary": "#26A826",
+        "secondary": "#006300",
+        "success": "#00B000",
+        "tertiary": "#004400",
+        "warning": "#FFB500",
+        "white": "#FFFFFF",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+>
+  <span>
+    <span
+      data-element="main-text"
+    >
+      foo
+    </span>
+  </span>
+</styled.button>
+`;
+
+exports[`Button when only the icon position and type props and children are passed into the component renders the default props and children to match the snapshot with the Icon after children 1`] = `
+.c2 + .c0 {
+  margin-left: 16px;
+}
+
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -58,14 +233,90 @@ exports[`Button when the no props are passed except children sets the default va
   role="button"
   size="medium"
 >
-  
   <span>
     <span
       data-element="main-text"
     >
-      mock content
+      foo
     </span>
   </span>
-  
+  <span
+    className="carbon-icon icon-filter"
+    data-component="icon"
+    data-element="filter"
+  />
+</button>
+`;
+
+exports[`Button when only the icon position and type props and children are passed into the component renders the default props and children to match the snapshot with the Icon before children 1`] = `
+.c1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border: 2px solid transparent;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  font-weight: 600;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  background: transparent;
+  border-color: #26A826;
+  color: #26A826;
+  font-size: 14px;
+  height: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.c1:focus {
+  outline: solid 3px #FFB500;
+}
+
+.c1 + .c0 {
+  margin-left: 16px;
+}
+
+.c1:hover {
+  background: #006300;
+  border-color: #006300;
+  color: #FFFFFF;
+}
+
+.c1 .carbon-icon {
+  margin-left: -4px;
+  margin-right: 8px;
+}
+
+<button
+  className="c0 c1"
+  disabled={false}
+  role="button"
+  size="medium"
+>
+  <span
+    className="carbon-icon icon-filter"
+    data-component="icon"
+    data-element="filter"
+  />
+  <span>
+    <span
+      data-element="main-text"
+    >
+      foo
+    </span>
+  </span>
 </button>
 `;

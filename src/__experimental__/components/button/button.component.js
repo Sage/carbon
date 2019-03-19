@@ -31,7 +31,7 @@ const Button = ({
 );
 
 Button.propTypes = {
-  as: PropTypes.oneOf('primary', 'secondary', 'tertiary', 'destructive', 'darkBackground'),
+  as: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'destructive', 'darkBackground']),
   children: PropTypes.node.isRequired, // Required, what the button displays
   disabled: PropTypes.bool, // Apply disabled state to the button
   iconPosition: PropTypes.string, // Defines an Icon position within the button 'before' / 'after'
