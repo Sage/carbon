@@ -4,7 +4,7 @@ import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-i
 const info = (
   <div>
     <p> Preview Component </p>
-    <p> Applies a preview loading state animation</p>
+    <p> Applies a preview loading state animation.</p>
     <StoryHeader> Implementation</StoryHeader>
 
     <p>Import the component:</p>
