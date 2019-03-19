@@ -40,57 +40,38 @@ const TIMEOUT = 500;
  */
 class Modal extends React.Component {
   static propTypes = {
-
     /**
-     * A custom close event handler
-     *
-     * @property onCancel
-     * @type {Function}
+     * A custom close event handler.
      */
     onCancel: PropTypes.func,
 
     /**
-     * Sets the open state of the modal
-     *
-     * @property open
-     * @type {Boolean}
-     * @default false
+     * Sets the open state of the modal.
      */
     open: PropTypes.bool.isRequired,
 
     /**
      * Determines if the background is disabled
-     * when the modal is open
-     *
-     * @property enableBackgroundUI
-     * @type {Boolean}
-     * @default true
+     * when the modal is open.
      */
     enableBackgroundUI: PropTypes.bool,
 
     /**
-     * Determines if the Esc Key closes the modal
-     *
-     * @property disableEscKey
-     * @type {Boolean}
-     * @default true
+     * Determines if the Esc Key closes the modal.
      */
     disableEscKey: PropTypes.bool,
 
     /**
-     * The ARIA role to be applied to the modal
-     *
-     * @property ariaRole
-     * @type {String}
+     * The ARIA role to be applied to the modal.
      */
     ariaRole: PropTypes.string // eslint-disable-line react/no-unused-prop-types
-  }
+  };
 
   static defaultProps = {
     onCancel: null,
     enableBackgroundUI: false,
     disableEscKey: false
-  }
+  };
 
   static childContextTypes = {
     /**
@@ -101,7 +82,7 @@ class Modal extends React.Component {
      * @type {Object}
      */
     modal: PropTypes.object
-  }
+  };
 
   constructor(props) {
     super(props);
@@ -136,8 +117,7 @@ class Modal extends React.Component {
     this.openTimeout = setTimeout(() => {
       this.setState({ state: this.props.open ? 'open' : 'closed' });
     }, TIMEOUT);
-  }
-
+  };
 
   /**
    * Returns modal object to child components. Used to override form cancel button functionality.
@@ -173,7 +153,6 @@ class Modal extends React.Component {
     Browser.getWindow().removeEventListener('keyup', this.closeModal);
   }
 
-
   /**
    * A lifecycle method to update the component after it is re-rendered
    *
@@ -206,7 +185,7 @@ class Modal extends React.Component {
     if (this.props.open && this.props.onCancel && !this.props.disableEscKey && Events.isEscKey(ev)) {
       this.props.onCancel();
     }
-  }
+  };
 
   /**
    * Returns HTML for the background.
@@ -216,35 +195,45 @@ class Modal extends React.Component {
    */
   get backgroundHTML() {
     if (!this.props.enableBackgroundUI) {
-      return (
-        <div
-          className='carbon-modal__background'
-        />
-      );
+      return <div className='carbon-modal__background' />;
     }
     return null;
   }
 
   // Called after the modal opens
-  get onOpening() { return null; }
+  get onOpening() {
+    return null;
+  }
 
   // Called after the modal closes
-  get onClosing() { return null; }
+  get onClosing() {
+    return null;
+  }
 
   // Classes for parent div
-  get mainClasses() { return null; }
+  get mainClasses() {
+    return null;
+  }
 
   // Modal HTML shown when open
-  get modalHTML() { return null; }
+  get modalHTML() {
+    return null;
+  }
 
   // Modal transistion name
-  get transitionName() { return 'modal'; }
+  get transitionName() {
+    return 'modal';
+  }
 
   // modal background transisiton name
-  get backgroundTransitionName() { return 'modal-background'; }
+  get backgroundTransitionName() {
+    return 'modal-background';
+  }
 
   // stubbed method for component tags
-  componentTags() { return null; }
+  componentTags() {
+    return null;
+  }
 
   /**
    * Renders the component.
@@ -253,8 +242,7 @@ class Modal extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    let backgroundHTML,
-        modalHTML;
+    let backgroundHTML, modalHTML;
 
     if (this.props.open) {
       backgroundHTML = this.backgroundHTML;
@@ -264,8 +252,7 @@ class Modal extends React.Component {
     return (
       <Portal key='1'>
         <div
-          className={ this.mainClasses }
-          { ...this.componentTags(this.props) }
+          className={ this.mainClasses } { ...this.componentTags(this.props) }
           data-state={ this.state.state }
         >
           <CSSTransitionGroup
@@ -276,7 +263,7 @@ class Modal extends React.Component {
             transitionEnterTimeout={ TIMEOUT }
             transitionLeaveTimeout={ TIMEOUT }
           >
-            { backgroundHTML }
+            {backgroundHTML}
           </CSSTransitionGroup>
           <CSSTransitionGroup
             component='div'
@@ -286,7 +273,7 @@ class Modal extends React.Component {
             transitionEnterTimeout={ TIMEOUT }
             transitionLeaveTimeout={ TIMEOUT }
           >
-            { modalHTML }
+            {modalHTML}
           </CSSTransitionGroup>
         </div>
       </Portal>
