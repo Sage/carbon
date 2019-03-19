@@ -1,9 +1,11 @@
 Feature: Button Toggle Group component
-  I want to change Button Toggle Group label, help label, input width, field help
+  I want to change Button Toggle Group label, help label, input width, field help properties
+
+  Background: Open Button Toggle Group component page
+    Given I open Button Toggle Group component page
 
   @positive
   Scenario Outline: Change Button Toggle Group component label
-    Given I open Button Toggle Group component page
     When I set label to "<label>"
     Then Label on preview is "<label>"
     Examples:
@@ -15,7 +17,6 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario Outline: Change Button Toggle Group component label help
-    Given I open Button Toggle Group component page
     When I set label help to "<labelHelp>"
       And I hover mouse on help icon
     Then Label help on preview is set to "<labelHelp>"
@@ -28,7 +29,6 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario Outline: Change Button Toggle Group input width
-    Given I open Button Toggle Group component page
     When I set input width to "<width>"
     Then Input width is set to "<width>"
     Examples:
@@ -39,7 +39,6 @@ Feature: Button Toggle Group component
 
   @negative
   Scenario Outline: Set out of scope characters to Button Toggle Group input width
-    Given I open Button Toggle Group component page
     When I set input width to "<width>"
     Then Input width is not set
     Examples:
@@ -50,7 +49,6 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario Outline: Change Button Toggle Group component field help
-    Given I open Button Toggle Group component page
     When I set field help to "<fieldHelp>"
     Then Field help on preview is set to "<fieldHelp>"
     Examples:
@@ -62,20 +60,17 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario: Enable label inline checkbox
-    Given I open Button Toggle Group component page
     When I check label inline checkbox
     Then Button Toggle Group component has label-inline property
 
   @positive
   Scenario: Enable and disable label inline checkbox
-    Given I open Button Toggle Group component page
     When I check label inline checkbox
       And I uncheck label inline checkbox
     Then Button Toggle Group component do not have label-inline property
 
   @positive
   Scenario Outline: Change Button Toggle Group label width
-    Given I open Button Toggle Group component page
     When I check label inline checkbox
       And I set label width to "<width>"
     Then Label width is set to "<width>"
@@ -87,7 +82,6 @@ Feature: Button Toggle Group component
 
   @negative
   Scenario Outline: Set out of scope characters to Button Toggle Group input width
-    Given I open Button Toggle Group component page
     When I set input width to "<width>"
     Then Label width is not set
     Examples:
@@ -98,7 +92,6 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario Outline: Change Toggle Button Group label align
-    Given I open Button Toggle Group component page
     When I check label inline checkbox
       And I set label align "<direction>"
     Then Button Toggle Group direction on preview is "<direction>"
