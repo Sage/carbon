@@ -1,22 +1,84 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`InputPresentation renders presentational div and context provider for its children 1`] = `
+exports[`InputPresentation classic theme applies custom styling 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: transparent;
+  border: 1px solid #668491;
+  box-sizing: border-box;
+  cursor: text;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin: 0px;
+  min-height: 40px;
+  padding-left: 11px;
+  padding-right: 11px;
+  width: 100%;
+  border-color: #ccd6db;
+  box-shadow: none;
+  min-height: 31px;
+  padding-left: 6px;
+  padding-right: 6px;
+}
+
+.c0:hover {
+  border-color: #99adb6;
+}
+
 <div
-  className="carbon-input-presentation"
+  className="c0"
   onMouseDown={[Function]}
   role="presentation"
+  size="medium"
 >
-  <ContextProvider
-    value={
-      Object {
-        "hasFocus": false,
-        "inputRef": [Function],
-        "onBlur": [Function],
-        "onFocus": [Function],
-      }
-    }
-  >
-    sample children
-  </ContextProvider>
+  sample children
+</div>
+`;
+
+exports[`InputPresentation renders presentational div and context provider for its children 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: transparent;
+  border: 1px solid #668491;
+  box-sizing: border-box;
+  cursor: text;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin: 0px;
+  min-height: 40px;
+  padding-left: 11px;
+  padding-right: 11px;
+  width: 100%;
+}
+
+<div
+  className="c0"
+  onMouseDown={[Function]}
+  role="presentation"
+  size="medium"
+>
+  sample children
 </div>
 `;
