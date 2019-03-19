@@ -30,9 +30,7 @@ class Number extends React.Component {
 
       this.handleOnChangeDeferred(event);
     } else {
-      // reset the value
       event.target.value = this.props.value || null;
-      // reset the selection range
       event.target.setSelectionRange(this.selectionStart, this.selectionEnd);
     }
   };
@@ -48,12 +46,10 @@ class Number extends React.Component {
   };
 
   handleKeyDown = (ev) => {
-    // track the selection start and end
     this.selectionStart = ev.target.selectionStart;
     this.selectionEnd = ev.target.selectionEnd;
 
     if (this.props.onKeyDown) {
-      // we also send the props so more information can be extracted by the action
       this.props.onKeyDown(ev, this.props);
     }
   };
