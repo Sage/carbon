@@ -6,8 +6,8 @@ import { MenuList, MenuListItem } from './menu-list';
 
 storiesOf('MenuList', module)
   .add('default', () => {
-    const title = text('title', 'Menu List Title');
-    const collapsible = title ? text('collapsible', true) : undefined;
+    const title = text('title', '');
+    const collapsible = title ? boolean('collapsible', true) : undefined;
     const filterPlaceholder = text('filterPlaceholder', '');
     const initiallyOpen = boolean('initiallyOpen', true);
     const filter = boolean('filter', true);
