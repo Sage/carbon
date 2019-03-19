@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import './input-presentation.style.scss';
+import { filterOutInputEvents } from '../../../utils/ether/ether';
+import InputPresentationStyle from './input-presentation.style';
 
 const InputPresentationContext = React.createContext();
 
@@ -15,8 +15,7 @@ const InputPresentationContext = React.createContext();
 
 class InputPresentation extends React.Component {
   static propTypes = {
-    children: PropTypes.node,
-    className: PropTypes.string
+    children: PropTypes.node
   }
 
   state = {
@@ -42,12 +41,6 @@ class InputPresentation extends React.Component {
     };
   }
 
-  classNames() {
-    return classNames('carbon-input-presentation', this.props.className, {
-      'carbon-input-presentation--has-focus': this.state.hasFocus
-    });
-  }
-
   // use mouse down rather than click to accomodate click and drag events too
   handleMouseDown = () => {
     // use a zero timeout to ensure focus is applied even on click and drag events
@@ -56,19 +49,20 @@ class InputPresentation extends React.Component {
 
   render() {
     const { children, ...props } = this.props;
+    const filteredProps = filterOutInputEvents(props);
 
     return (
-      <div
-        { ...props }
+      <InputPresentationStyle
+        hasFocus={ this.state.hasFocus }
         role='presentation'
-        className={ this.classNames() }
         ref={ this.container }
         onMouseDown={ this.handleMouseDown }
+        { ...filteredProps }
       >
         <InputPresentationContext.Provider value={ this.contextForInput() }>
           { children }
         </InputPresentationContext.Provider>
-      </div>
+      </InputPresentationStyle>
     );
   }
 }
