@@ -7,33 +7,25 @@ import './simple-color-picker.scss';
 class SimpleColorPicker extends React.Component {
   static propTypes = {
     /**
-     * an array with all available colors that will be shown it the color picker
-     *
+     * An array of color choices to display.
      */
     availableColors: PropTypes.array,
 
     /**
-     * the value of the currently selected color
-     *
+     * The currently selected color.
      */
     selectedColor: PropTypes.string,
 
     /**
-     * the name of the input element
-     *
+     * The name to apply to the input.
      */
     name: PropTypes.string,
 
     /**
-     * a callback when the user changes the selected color
-     *
+     * A callback triggered when a color is selected.
      */
     onChange: PropTypes.func
-  }
-
-  static defaultProps = {
-    onChange: null
-  }
+  };
 
   /**
    * Returns true if the color passed as argument is currently
@@ -88,9 +80,7 @@ class SimpleColorPicker extends React.Component {
   render() {
     return (
       <div className='carbon-simple-color-picker' { ...tagComponent('simple-color-picker', this.props) }>
-        <ul className='carbon-simple-color-picker__color-options'>
-          { this._colorOptions }
-        </ul>
+        <ul className='carbon-simple-color-picker__color-options'>{this._colorOptions}</ul>
       </div>
     );
   }
