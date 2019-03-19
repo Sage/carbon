@@ -4,6 +4,7 @@ import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-i
 const info = (
   <div>
     <p> ShowEditPod Component </p>
+    <p>Presents and edits a set of content that’s grouped together visually (in one pre-configured component).</p>
 
     <StoryHeader> Implementation</StoryHeader>
 
