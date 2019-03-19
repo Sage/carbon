@@ -27,11 +27,11 @@ const onChange = (evt) => {
 };
 
 const defaultKnobs = () => {
-  const labelInline = boolean('labelInline');
+  const labelInline = boolean('labelInline', true);
 
   return {
     autoFocus: boolean('autoFocus'),
-    cacheVisibleValue: boolean('cacheVisibleValue'),
+    cacheVisibleValue: boolean('cacheVisibleValue', true),
     disabled: boolean('disabled'),
     name: text('name', 'Name'),
     readOnly: boolean('readOnly'),
