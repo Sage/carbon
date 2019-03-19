@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { State, Store } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
 import { cloneDeep } from 'lodash';
-import notes from './notes.md';
+import notes from './documentation';
 import { ConfigurableItems, ConfigurableItemRow } from './configurable-items.js';
 
 const defaultConfigurableItemsData = [
@@ -72,7 +72,7 @@ const rows = data => data.map((column, rowIndex) => {
   );
 });
 
-storiesOf('ConfigurableItems', module)
+storiesOf('Configurable Items', module)
   .addParameters({
     info: {
       propTablesExclude: [State]
