@@ -12,9 +12,9 @@ const code = `<Confirm
 const info = (
   <div>
     <p>Confirm</p>
-    <StoryHeader>Confirms or cancels an action.</StoryHeader>
+    <StoryHeader>Implementation</StoryHeader>
     <StoryCode>
-      {'mport Confirm from \'carbon-react/lib/components/confirm\';'}
+      {'import Confirm from \'carbon-react/lib/components/confirm\';'}
     </StoryCode>
 
     <p>To render a Confirm</p>

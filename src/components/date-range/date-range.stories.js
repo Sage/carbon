@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import notes from './notes.md';
+import notes from './documentation';
 import DateRange from './date-range.js';
 
 const store = new Store({

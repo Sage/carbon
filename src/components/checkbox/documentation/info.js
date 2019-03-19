@@ -9,7 +9,7 @@ const info = (
       {'import Checkbox from "carbon-react/lib/components/checkbox"'}
     </StoryCode>
 
-    <p>To render the Checkbox</p>
+    <p>To render a Checkbox</p>
     <StoryCode>
       {'<Checkbox name="myCheckbox" />'}
     </StoryCode>

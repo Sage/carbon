@@ -4,7 +4,7 @@ import {
   boolean, number, text, select
 } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './notes.md';
+import { notes, info } from './documentation';
 import DateInput from './date.js';
 
 storiesOf('DateInput', module)
@@ -52,5 +52,6 @@ storiesOf('DateInput', module)
       />
     );
   }, {
+    info: { text: info },
     notes: { markdown: notes }
   });

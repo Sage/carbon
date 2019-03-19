@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select, text } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './notes.md';
+import notes from './documentation';
 import Detail from './detail.js';
 
 storiesOf('Detail', module)

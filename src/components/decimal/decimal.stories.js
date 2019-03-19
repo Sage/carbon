@@ -6,7 +6,7 @@ import {
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './notes.md';
+import { notes, info } from './documentation';
 import Decimal from './decimal.js';
 
 const store = new Store({
@@ -79,5 +79,6 @@ storiesOf('Decimal', module)
       </State>
     );
   }, {
+    info: { text: info },
     notes: { markdown: notes }
   });

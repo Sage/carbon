@@ -19,7 +19,6 @@ class DateRange extends React.Component {
 
     /**
      * Custom callback - receives array of startDate and endDate
-
      */
     onChange: PropTypes.func.isRequired,
 
