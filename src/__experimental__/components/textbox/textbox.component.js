@@ -12,7 +12,6 @@ const Textbox = ({
   children,
   inputIcon,
   leftChildren,
-  formFieldRef,
   ...props
 }) => {
   return (
@@ -30,8 +29,7 @@ const Textbox = ({
 Textbox.propTypes = {
   children: PropTypes.node,
   inputIcon: PropTypes.string,
-  leftChildren: PropTypes.node,
-  formFieldRef: PropTypes.func
+  leftChildren: PropTypes.node
 };
 
 // we don't have any default props, but we set an empty object for better storybook source code examples
