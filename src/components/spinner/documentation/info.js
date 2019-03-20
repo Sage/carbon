@@ -15,7 +15,7 @@ const info = (
   You can pass a <StoryCode> {'size'} </StoryCode> property to adjust the size of the spinner
     </p>
 
-    <p>The default is medium </p>
+    <p>The default is medium</p>
 
     <StoryCode padded>
       {'options: extra-small, small, medium-small, medium, medium-large, large and extra-large'}
