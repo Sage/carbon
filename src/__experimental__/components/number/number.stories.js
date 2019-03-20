@@ -50,7 +50,7 @@ storiesOf('Experimental/Number Input', module)
 
     return (
       <State store={ store }>
-        {state => [
+        {state => (
           <Number
             value={ state.value }
             disabled={ disabled }
@@ -67,7 +67,7 @@ storiesOf('Experimental/Number Input', module)
             onChangeDeferred={ onChangeDeferred ? action('onChangeDeferred') : undefined }
             deferTimeout={ deferTimeout }
           />
-        ]}
+        )}
       </State>
     );
   }, {
