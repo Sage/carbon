@@ -5,7 +5,7 @@ const Info = (
   <div>
     <p>A Flash widget.</p>
 
-    <StoryHeader>How to use an Flash in a component:</StoryHeader>
+    <StoryHeader>How to use the Flash component:</StoryHeader>
 
     <p>
       {"Flash is rendered in two sections: a ventral message 'flash', and a dorsal coloured 'slider'."}
