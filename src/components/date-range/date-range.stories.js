@@ -14,7 +14,7 @@ const handleChange = (newDate) => {
   action('changed')(newDate);
 };
 
-storiesOf('DateRange', module)
+storiesOf('Date Range', module)
   .addParameters({
     info: {
       propTablesExclude: [State]

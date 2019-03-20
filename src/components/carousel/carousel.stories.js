@@ -19,7 +19,11 @@ storiesOf('Carousel', module)
     const enableSlideSelector = boolean('enableSlideSelector', Carousel.defaultProps.enableSlideSelector);
     const enablePreviousButton = boolean('enablePreviousButton', Carousel.defaultProps.enablePreviousButton);
     const enableNextButton = boolean('enableNextButton', Carousel.defaultProps.enableNextButton);
-    const transition = select('transition', transitionConfig, Carousel.defaultProps.transition);
+    const transition = select(
+      'transition',
+      transitionConfig,
+      Carousel.defaultProps.transition
+    );
 
     return (
       <Carousel

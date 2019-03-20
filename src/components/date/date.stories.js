@@ -7,7 +7,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 import DateInput from './date.js';
 
-storiesOf('DateInput', module)
+storiesOf('Date Input', module)
   .add('default', () => {
     const autoFocus = boolean('autoFocus', true);
     const disabled = boolean('disabled', false);
