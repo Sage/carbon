@@ -45,9 +45,12 @@ class Profile extends React.Component {
    * @return {String}
    */
   get classes() {
-    return classNames('carbon-profile', this.props.className, {
-      'carbon-profile--large': this.props.large
-    });
+    return classNames(
+      'carbon-profile',
+      this.props.className, {
+        'carbon-profile--large': this.props.large
+      }
+    );
   }
 
   /**
@@ -57,9 +60,7 @@ class Profile extends React.Component {
    * @return {String}
    */
   get initials() {
-    if (this.props.initials) {
-      return this.props.initials;
-    }
+    if (this.props.initials) { return this.props.initials; }
     return acronymize(this.props.name);
   }
 
@@ -90,11 +91,10 @@ class Profile extends React.Component {
     return (
       <div className='carbon-profile__details'>
         <span className='carbon-profile__name' data-element='name'>
-          {this.props.name}
-        </span>
-        <br />
+          { this.props.name }
+        </span><br />
         <span className='carbon-profile__email' data-element='email'>
-          {this.props.email}
+          { this.props.email }
         </span>
       </div>
     );
@@ -106,8 +106,8 @@ class Profile extends React.Component {
   render() {
     return (
       <div className={ this.classes } { ...tagComponent('profile', this.props) }>
-        {this.avatar}
-        {this.text}
+        { this.avatar }
+        { this.text }
       </div>
     );
   }
