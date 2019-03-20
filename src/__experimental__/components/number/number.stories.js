@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { State, Store } from '@sambego/storybook-state';
+import { StateDecorator, Store } from '@sambego/storybook-state';
 import {
   text,
   select,
@@ -23,6 +23,7 @@ const setValue = (ev) => {
   action('onChange')(ev);
   store.set({ value: ev.target.value });
 };
+
 const percentageRange = {
   range: true,
   min: 0,
@@ -31,6 +32,7 @@ const percentageRange = {
 };
 
 storiesOf('Experimental/Number Input', module)
+  .addDecorator(StateDecorator(store))
   .add('default', () => {
     const disabled = boolean('disabled', false);
     const readOnly = boolean('readOnly', false);
@@ -49,26 +51,22 @@ storiesOf('Experimental/Number Input', module)
     const deferTimeout = onChangeDeferred ? number('deferTimeout') : undefined;
 
     return (
-      <State store={ store }>
-        {state => (
-          <Number
-            value={ state.value }
-            disabled={ disabled }
-            readOnly={ readOnly }
-            inputWidth={ inputWidth }
-            fieldHelp={ fieldHelp }
-            label={ label }
-            labelHelp={ labelHelp }
-            labelInline={ labelInline }
-            labelWidth={ labelWidth }
-            labelAlign={ labelAlign }
-            onChange={ setValue }
-            onKeyDown={ action('onKeyDown') }
-            onChangeDeferred={ onChangeDeferred ? action('onChangeDeferred') : undefined }
-            deferTimeout={ deferTimeout }
-          />
-        )}
-      </State>
+      <Number
+        value={ store.get('value') }
+        disabled={ disabled }
+        readOnly={ readOnly }
+        inputWidth={ inputWidth }
+        fieldHelp={ fieldHelp }
+        label={ label }
+        labelHelp={ labelHelp }
+        labelInline={ labelInline }
+        labelWidth={ labelWidth }
+        labelAlign={ labelAlign }
+        onChange={ setValue }
+        onKeyDown={ action('onKeyDown') }
+        onChangeDeferred={ onChangeDeferred ? action('onChangeDeferred') : undefined }
+        deferTimeout={ deferTimeout }
+      />
     );
   }, {
     info: {
