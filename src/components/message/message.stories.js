@@ -8,7 +8,7 @@ import Message from './message';
 
 storiesOf('Message', module)
   .add('default', () => {
-    const as = select('as', OptionsHelper.themesBinary, Message.defaultProps.as);
+    const as = select('as', OptionsHelper.colors, Message.defaultProps.as);
     const border = boolean('border', Message.defaultProps.border);
     const open = boolean('open', Message.defaultProps.open);
     const roundedCorners = boolean('roundedCorners', Message.defaultProps.roundedCorners);
@@ -24,7 +24,7 @@ storiesOf('Message', module)
         roundedCorners={ roundedCorners }
         title={ title }
         transparent={ transparent }
-        onDismiss={ action('click') }
+        onDismiss={ evt => { action('click')(evt) } }
       >
         { children }
       </Message>
