@@ -2,5 +2,36 @@
   "files.exclude": {
     "**/.git": true,
     "**/coverage": true
+  },
+  "cucumberautocomplete.syncfeatures": "cypress/integration/**/*.feature",
+  "cucumberautocomplete.steps": ["cypress/support/step_definitions/**/*.js"],
+  "cucumberautocomplete.strictGherkinCompletion": true,
+  "cucumberautocomplete.smartSnippets": true,
+  "cucumberautocomplete.stepsInvariants": true,
+  "cucumberautocomplete.customParameters": [
+      {
+          "parameter":"{ab}",
+          "value":"(a|b)"
+      },
+      {
+          "parameter":/\{a.*\}/,
+          "value":"a"
+      },
+  ],
+  "cucumberautocomplete.pages": {
+      "users": "test/features/page_objects/users.storage.js",
+      "pathes": "test/features/page_objects/pathes.storage.js",
+      "main": "test/features/support/page_objects/main.page.js"
+  },
+  "cucumberautocomplete.skipDocStringsFormat": true,
+  "cucumberautocomplete.formatConfOverride": {
+      "And": 3,
+      "But": "relative",
+  },
+  "cucumberautocomplete.onTypeFormat": true,
+  "editor.quickSuggestions": {
+      "comments": false,
+      "strings": true,
+      "other": true
   }
 }

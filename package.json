@@ -13,6 +13,7 @@
     "start": "npm run gen-colors && npm run gen-docs && npm run webpack-dev-server",
     "build": "npm run gen-colors && npm run gen-docs && cross-env NODE_ENV=production npm run webpack && npm run prep-deploy",
     "test": "jest --config=./jest.conf.json",
+    "test-cypress": "cypress open",
     "debug": "node --inspect ./node_modules/jest-cli/bin/jest --watch --config=./jest.conf.json",
     "lint": "./node_modules/.bin/eslint",
     "lint-ts": "./node_modules/.bin/tslint 'src/**/*.ts'",
@@ -24,7 +25,8 @@
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpx \"src/**/!(*.js|*.md|*.snap)\" lib",
     "webpack": "node_modules/.bin/webpack",
-    "webpack-dev-server": "node_modules/.bin/webpack-dev-server"
+    "webpack-dev-server": "node_modules/.bin/webpack-dev-server",
+    "test:ci": "cypress run"
   },
   "repository": {
     "type": "git",
@@ -62,8 +64,11 @@
     "core-js": "^2.6.3",
     "cpx": "^1.5.0",
     "cross-env": "^5.2.0",
+    "cypress": "^3.2.0",
+    "cypress-cucumber-preprocessor": "^1.11.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "1.7.1",
+    "eslint-plugin-cypress": "^2.0.1",
     "flux": "^3.1.1",
     "highlight.js": "~9.6.0",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc12.tar.gz",
