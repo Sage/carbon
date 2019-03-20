@@ -41,10 +41,10 @@ storiesOf('ShowEditPod', module)
       const border = boolean('border', ShowEditPod.defaultProps.border);
       const buttonAlign = select('buttonAlign', OptionsHelper.alignBinary, ShowEditPod.defaultProps.buttonAlign);
       const cancel = boolean('cancel', ShowEditPod.defaultProps.cancel);
-      const cancelText = cancel ? text('cancelText', ShowEditPod.defaultProps.cancelText) : undefined;
-      const deleteText = text('deleteText', ShowEditPod.defaultProps.deleteText);
+      const cancelText = cancel ? text('cancelText', 'Cancel') : undefined;
+      const deleteText = text('deleteText', 'Delete');
       const editing = boolean('editing', store.get('editing'));
-      const saveText = text('saveText', ShowEditPod.defaultProps.saveText);
+      const saveText = text('saveText', 'Save');
       const saving = boolean('saving', ShowEditPod.defaultProps.saving);
       const title = text('title', 'Person');
       const transitionName = text('transitionName', ShowEditPod.defaultProps.transitionName);

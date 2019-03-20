@@ -116,9 +116,6 @@ class ShowEditPod extends React.Component {
     border: false,
     buttonAlign: 'right',
     transitionName: 'carbon-show-edit-pod__transition',
-    saveText: 'Save',
-    deleteText: 'Delete',
-    cancelText: 'Cancel',
     cancel: true,
     saving: false,
     validateOnMount: false

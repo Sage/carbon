@@ -241,7 +241,7 @@ describe('ShowEditPod', () => {
         const deleteLink = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-show-edit-pod__delete');
         expect(deleteLink.textContent).toEqual('foo');
       });
-    });
+    });  
   });
 
   describe('editContent', () => {
