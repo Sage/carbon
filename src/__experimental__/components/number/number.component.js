@@ -9,24 +9,15 @@ class Number extends React.Component {
     return (
       <InputDecoratorBridge
         { ...this.props }
-        formFieldRef={ this.assignForm }
         onChange={ this.handleOnChange }
         onKeyDown={ this.handleKeyDown }
       />
     );
   }
 
-  assignForm = (passedFormField) => {
-    this.formField = passedFormField;
-  };
-
   handleOnChange = (event) => {
-    if (isValidNumber(event.target.value)) {
-      this.formField.current.updateForm(event);
-
-      if (this.props.onChange) {
-        this.props.onChange(event, this.props);
-      }
+    if (isValidNumber(event.target.value) && this.props.onChange) {
+      this.props.onChange(event, this.props);
     } else {
       event.target.value = this.props.value || null;
       event.target.setSelectionRange(this.selectionStart, this.selectionEnd);

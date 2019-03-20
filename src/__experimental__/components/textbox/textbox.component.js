@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Input, InputPresentation } from '../input';
 import InputIconToggle from '../input-icon-toggle';
@@ -15,12 +15,8 @@ const Textbox = ({
   formFieldRef,
   ...props
 }) => {
-  const formField = useRef(null);
-
-  if (formFieldRef) formFieldRef(formField);
-
   return (
-    <FormField ref={ formField } { ...props }>
+    <FormField { ...props }>
       <InputPresentation type='text' { ...props }>
         { leftChildren }
         <Input { ...props } />

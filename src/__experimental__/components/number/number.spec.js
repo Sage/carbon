@@ -18,58 +18,38 @@ describe('Number Input', () => {
 
   describe("when it's input value is changed to", () => {
     describe.each([['an integer', '123456789'], ['a negative integer', '-123456789']])('%s', (desc, newValue) => {
-      let updateFormFn, mockFormField;
-
       beforeEach(() => {
-        updateFormFn = jest.fn();
-        mockFormField = {
-          current: {
-            updateForm: updateFormFn
-          }
-        };
-
         onChangeFn = jest.fn();
         onChangeDeferredFn = jest.fn();
         jest.useFakeTimers();
 
         wrapper = renderNumberInput({
           value: inputValue,
+          onChange: onChangeFn,
           onChangeDeferred: onChangeDeferredFn
         });
-        wrapper.instance().formField = mockFormField;
       });
 
-      it('calls the updateForm method', () => {
+      it('calls the onChange method', () => {
         simulateInputChange(wrapper, newValue);
-        expect(updateFormFn).toHaveBeenCalled();
+        expect(onChangeFn).toHaveBeenCalled();
       });
 
-      describe('and when the onChange prop is defined', () => {
-        beforeEach(() => {
-          wrapper.setProps({ onChange: onChangeFn });
-        });
+      it('the onChangeDeferred only after a default deferTimeout', () => {
+        simulateInputChange(wrapper, newValue);
+        expect(onChangeDeferredFn).not.toHaveBeenCalled();
+        jest.runTimersToTime(750);
+        expect(onChangeDeferredFn).toHaveBeenCalled();
+      });
 
-        it('calls the onChange method', () => {
-          simulateInputChange(wrapper, newValue);
-          expect(onChangeFn).toHaveBeenCalled();
-        });
+      it('calls the onChangeDeferred handler only after the deferTimeout', () => {
+        const deferTimeoutVal = 1000;
 
-        it('the onChangeDeferred only after a default deferTimeout', () => {
-          simulateInputChange(wrapper, newValue);
-          expect(onChangeDeferredFn).not.toHaveBeenCalled();
-          jest.runTimersToTime(750);
-          expect(onChangeDeferredFn).toHaveBeenCalled();
-        });
-
-        it('calls the onChangeDeferred handler only after the deferTimeout', () => {
-          const deferTimeoutVal = 1000;
-
-          wrapper.setProps({ deferTimeout: deferTimeoutVal });
-          simulateInputChange(wrapper, newValue);
-          expect(onChangeDeferredFn).not.toHaveBeenCalled();
-          jest.runTimersToTime(deferTimeoutVal);
-          expect(onChangeDeferredFn).toHaveBeenCalled();
-        });
+        wrapper.setProps({ deferTimeout: deferTimeoutVal });
+        simulateInputChange(wrapper, newValue);
+        expect(onChangeDeferredFn).not.toHaveBeenCalled();
+        jest.runTimersToTime(deferTimeoutVal);
+        expect(onChangeDeferredFn).toHaveBeenCalled();
       });
     });
 

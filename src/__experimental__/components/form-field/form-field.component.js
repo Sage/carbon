@@ -5,50 +5,38 @@ import Label from '../label';
 import FieldHelp from '../field-help';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
-class FormField extends React.Component {
-  updateForm = () => {
-    if (this.context.form) {
-      this.context.form.setIsDirty();
-    }
-  };
+const FormField = ({
+  children,
+  fieldHelp,
+  label,
+  labelAlign,
+  labelHelp,
+  labelInline,
+  labelWidth,
+  size
+}) => (
+  <FormFieldStyle>
+    { label && (
+      <Label
+        align={ labelAlign }
+        help={ labelHelp }
+        inline={ labelInline }
+        inputSize={ size }
+        width={ labelWidth }
+      >
+        { label }
+      </Label>
+    ) }
 
-  render() {
-    const {
-      children,
-      fieldHelp,
-      label,
-      labelAlign,
-      labelHelp,
-      labelInline,
-      labelWidth,
-      size
-    } = this.props;
+    { children }
 
-    return (
-      <FormFieldStyle>
-        { label && (
-          <Label
-            align={ labelAlign }
-            help={ labelHelp }
-            inline={ labelInline }
-            inputSize={ size }
-            width={ labelWidth }
-          >
-            { label }
-          </Label>
-        ) }
-
-        { children }
-
-        { fieldHelp && (
-          <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
-            { fieldHelp }
-          </FieldHelp>
-        ) }
-      </FormFieldStyle>
-    );
-  }
-}
+    { fieldHelp && (
+      <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
+        { fieldHelp }
+      </FieldHelp>
+    ) }
+  </FormFieldStyle>
+);
 
 FormField.defaultProps = {
   size: 'medium'

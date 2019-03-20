@@ -50,16 +50,4 @@ describe('FormField', () => {
       expect(wrapper.toJSON()).toMatchSnapshot();
     });
   });
-
-  describe('updateForm', () => {
-    it('adds custom margin top', () => {
-      const wrapper = render({});
-      const setIsDirtyFn = jest.fn();
-      const contextForm = { form: { setIsDirty: setIsDirtyFn } };
-      wrapper.instance().context = contextForm;
-      wrapper.instance().updateForm();
-
-      expect(setIsDirtyFn).toHaveBeenCalled();
-    });
-  });
 });
