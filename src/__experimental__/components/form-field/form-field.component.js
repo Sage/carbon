@@ -7,7 +7,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 
 class FormField extends React.Component {
   updateForm = () => {
-    if (this.isInForm) {
+    if (this.context.form) {
       this.context.form.setIsDirty();
     }
   };

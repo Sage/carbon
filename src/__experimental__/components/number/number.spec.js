@@ -11,44 +11,65 @@ describe('Number Input', () => {
 
   describe('when rendered', () => {
     it("should have the Textbox component as it's child", () => {
-      wrapper = mount(<Number />);
+      wrapper = renderNumberInput({});
       expect(wrapper.find(Textbox)).toHaveLength(1);
     });
   });
 
   describe("when it's input value is changed to", () => {
     describe.each([['an integer', '123456789'], ['a negative integer', '-123456789']])('%s', (desc, newValue) => {
+      let updateFormFn, mockFormField;
+
       beforeEach(() => {
+        updateFormFn = jest.fn();
+        mockFormField = {
+          current: {
+            updateForm: updateFormFn
+          }
+        };
+
         onChangeFn = jest.fn();
         onChangeDeferredFn = jest.fn();
         jest.useFakeTimers();
 
-        wrapper = mount(<Number
-          value={ inputValue } onChange={ onChangeFn }
-          onChangeDeferred={ onChangeDeferredFn }
-        />);
+        wrapper = renderNumberInput({
+          value: inputValue,
+          onChangeDeferred: onChangeDeferredFn
+        });
+        wrapper.instance().formField = mockFormField;
       });
 
-      it('calls the onChange method', () => {
+      it('calls the updateForm method', () => {
         simulateInputChange(wrapper, newValue);
-        expect(onChangeFn).toHaveBeenCalled();
+        expect(updateFormFn).toHaveBeenCalled();
       });
 
-      it('the onChangeDeferred only after a default deferTimeout', () => {
-        simulateInputChange(wrapper, newValue);
-        expect(onChangeDeferredFn).not.toHaveBeenCalled();
-        jest.runTimersToTime(750);
-        expect(onChangeDeferredFn).toHaveBeenCalled();
-      });
+      describe('and when the onChange prop is defined', () => {
+        beforeEach(() => {
+          wrapper.setProps({ onChange: onChangeFn });
+        });
 
-      it('calls the onChangeDeferred handler only after the deferTimeout', () => {
-        const deferTimeoutVal = 1000;
+        it('calls the onChange method', () => {
+          simulateInputChange(wrapper, newValue);
+          expect(onChangeFn).toHaveBeenCalled();
+        });
 
-        wrapper.setProps({ deferTimeout: deferTimeoutVal });
-        simulateInputChange(wrapper, newValue);
-        expect(onChangeDeferredFn).not.toHaveBeenCalled();
-        jest.runTimersToTime(deferTimeoutVal);
-        expect(onChangeDeferredFn).toHaveBeenCalled();
+        it('the onChangeDeferred only after a default deferTimeout', () => {
+          simulateInputChange(wrapper, newValue);
+          expect(onChangeDeferredFn).not.toHaveBeenCalled();
+          jest.runTimersToTime(750);
+          expect(onChangeDeferredFn).toHaveBeenCalled();
+        });
+
+        it('calls the onChangeDeferred handler only after the deferTimeout', () => {
+          const deferTimeoutVal = 1000;
+
+          wrapper.setProps({ deferTimeout: deferTimeoutVal });
+          simulateInputChange(wrapper, newValue);
+          expect(onChangeDeferredFn).not.toHaveBeenCalled();
+          jest.runTimersToTime(deferTimeoutVal);
+          expect(onChangeDeferredFn).toHaveBeenCalled();
+        });
       });
     });
 
@@ -58,9 +79,7 @@ describe('Number Input', () => {
       describe('with the value prop not defined', () => {
         beforeEach(() => {
           onChangeFn = jest.fn();
-
-          wrapper = mount(<Number />);
-
+          wrapper = renderNumberInput({});
           input = wrapper.find('input');
           inputInstance = input.instance();
           inputInstance.value = newValue;
@@ -77,7 +96,10 @@ describe('Number Input', () => {
           onChangeFn = jest.fn();
           jest.useFakeTimers();
 
-          wrapper = mount(<Number value={ inputValue } onChange={ onChangeFn } />);
+          wrapper = renderNumberInput({
+            value: inputValue,
+            onChange: onChangeFn
+          });
 
           setTextSelection(wrapper, selectionStart, selectionEnd);
           input = wrapper.find('input');
@@ -105,29 +127,37 @@ describe('Number Input', () => {
   });
 
   describe("when a key is pressed on it's input", () => {
-    let wrapperInstance, inputInstance;
+    const keyDownParams = { target: { selectionStart: 2, selectionEnd: 4 } };
+    let wrapperInstance;
 
     beforeEach(() => {
       onKeyDownFn = jest.fn();
-      wrapper = mount(<Number value={ inputValue } onKeyDown={ onKeyDownFn } />);
+      wrapper = renderNumberInput({
+        value: inputValue
+      });
       wrapperInstance = wrapper.instance();
       input = wrapper.find('input');
-      inputInstance = input.instance();
-      inputInstance.selectionStart = selectionStart;
-      inputInstance.selectionEnd = selectionEnd;
-      input.simulate('keyDown');
-    });
-
-    it('calls the onKeyDown prop method', () => {
-      expect(onKeyDownFn).toHaveBeenCalled();
     });
 
     it("component's selection start and end should mirror the input ones", () => {
+      input.simulate('keyDown', keyDownParams);
       expect(wrapperInstance.selectionStart).toBe(selectionStart);
       expect(wrapperInstance.selectionEnd).toBe(selectionEnd);
     });
+
+    describe('and when onKeyDown prop is defined', () => {
+      it('calls the onKeyDown prop method', () => {
+        wrapper.setProps({ onKeyDown: onKeyDownFn });
+        input.simulate('keyDown', keyDownParams);
+        expect(onKeyDownFn).toHaveBeenCalled();
+      });
+    });
   });
 });
+
+function renderNumberInput(props, renderer = mount) {
+  return renderer(<Number { ...props } />);
+}
 
 function simulateInputChange(wrapper, value) {
   const input = wrapper.find('input');

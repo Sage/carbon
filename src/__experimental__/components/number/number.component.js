@@ -27,21 +27,9 @@ class Number extends React.Component {
       if (this.props.onChange) {
         this.props.onChange(event, this.props);
       }
-
-      this.handleOnChangeDeferred(event);
     } else {
       event.target.value = this.props.value || null;
       event.target.setSelectionRange(this.selectionStart, this.selectionEnd);
-    }
-  };
-
-  handleOnChangeDeferred = (event) => {
-    if (this.props.onChangeDeferred) {
-      clearTimeout(this.deferredTimeout);
-
-      this.deferredTimeout = setTimeout(() => {
-        this.props.onChangeDeferred(event);
-      }, this.props.deferTimeout);
     }
   };
 
@@ -68,9 +56,9 @@ Number.defaultProps = {
 
 Number.propTypes = {
   value: PropTypes.string,
-  /** Event handler for the change event */
   disabled: PropTypes.bool,
   readonly: PropTypes.bool,
+  /** Event handler for the change event */
   onChange: PropTypes.func,
   /** Event handler for the keyDown event */
   onKeyDown: PropTypes.func,
@@ -89,7 +77,13 @@ Number.propTypes = {
   /** Width of a label in percentage. Works only when labelInline is true */
   labelWidth: PropTypes.number,
   /** Width of an input in percentage. Works only when labelInline is true */
-  inputWidth: PropTypes.number
+  inputWidth: PropTypes.number,
+  /** An array of info messages to apply to the input */
+  info: PropTypes.array,
+  /** An array of validations to apply to the input */
+  validations: PropTypes.array,
+  /** An array of warnings to apply to the input */
+  warnings: PropTypes.array
 };
 
 export default Number;
