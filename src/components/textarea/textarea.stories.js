@@ -32,15 +32,14 @@ storiesOf('Textarea', module)
     'default',
     () => {
       const { alignBinary } = OptionsHelper;
-
-      const warnOverLimit = boolean('warnOverLimit', Textarea.defaultProp.warnOverLimit);
+      const warnOverLimit = boolean('warnOverLimit', Textarea.defaultProps.warnOverLimit);
       const labelInline = boolean('labelInline', false);
       const fieldHelpInline = boolean('fieldHelpInline', false);
-      const expandable = boolean('expandable', Textarea.defaultProp.expandable);
+      const expandable = boolean('expandable', Textarea.defaultProps.expandable);
       const characterLimit = number('characterLimit', 50, rangeOptions);
       const enforceCharacterLimit = characterLimit ? boolean(
         'enforceCharacterLimit',
-        Textarea.defaultProp.enforceCharacterLimit
+        Textarea.defaultProps.enforceCharacterLimit
       ) : undefined;
       const inputWidth = number('inputWidth', 0, rangeOptions);
       const labelWidth = labelInline ? number('labelWidth', 0, rangeOptions) : undefined;
