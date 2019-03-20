@@ -23,6 +23,12 @@ const setValue = (ev) => {
   action('onChange')(ev);
   store.set({ value: ev.target.value });
 };
+const percentageRange = {
+  range: true,
+  min: 0,
+  max: 100,
+  step: 1
+};
 
 storiesOf('Experimental/Number Input', module)
   .add('default', () => {
@@ -32,8 +38,8 @@ storiesOf('Experimental/Number Input', module)
     const label = text('label', '');
     const labelHelp = label ? text('labelHelp') : undefined;
     const labelInline = label ? boolean('labelInline', false) : undefined;
-    const labelWidth = labelInline ? number('labelWidth', '') : undefined;
-    const inputWidth = labelInline ? number('inputWidth', '') : undefined;
+    const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
+    const inputWidth = labelInline ? number('inputWidth', 70, percentageRange) : undefined;
     const labelAlign = labelInline ? select(
       'labelAlign',
       OptionsHelper.alignBinary,
