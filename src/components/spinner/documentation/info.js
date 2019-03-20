@@ -5,7 +5,7 @@ const info = (
   <div>
     <p>Spinner component.</p>
 
-    <StoryHeader> Implementation</StoryHeader>
+    <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
 

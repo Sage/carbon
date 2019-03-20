@@ -13,9 +13,9 @@ const store = new Store({
   value: false
 });
 
-const handleChange = () => {
+const handleChange = (event) => {
   store.set({ value: !store.get('value') });
-  action('click')();
+  action('click')(event);
 };
 
 const numberConfig = {
