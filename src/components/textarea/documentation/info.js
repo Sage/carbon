@@ -5,7 +5,7 @@ const info = (
   <div>
     <p>Textarea component</p>
 
-    <StoryHeader> Implementation</StoryHeader>
+    <StoryHeader>Implementation</StoryHeader>
 
     <StoryCode padded>import Textarea from {'carbon-react/lib/components/textarea'}</StoryCode>
 

@@ -4,7 +4,7 @@ import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/s
 const info = (
   <div>
     <p>Table component</p>
-    <StoryHeader> Implementation</StoryHeader>
+    <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
     <StoryCode padded>
@@ -60,7 +60,6 @@ const info = (
     <p>Sorting:</p>
 
     <p>
-      {' '}
       To enable column sorting, you will need to configure the
       <StoryCode>{' <TableHeader /> '}</StoryCode> component.
     </p>

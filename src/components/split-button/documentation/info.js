@@ -3,7 +3,7 @@ import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/s
 
 const info = (
   <div>
-    <p>Split Button component </p>
+    <p>Split Button component</p>
     <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>

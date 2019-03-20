@@ -3,9 +3,9 @@ import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/s
 
 const info = (
   <div>
-    <p> Table Ajax component</p>
+    <p>Table Ajax component</p>
 
-    <StoryHeader> Implementation</StoryHeader>
+    <StoryHeader>Implementation</StoryHeader>
     <StoryCodeBlock>
       {'import Table from "carbon-react/lib/components/table-ajax"'}
       {'import { TableRow, TableCell, TableHeader } from "carbon-react/lib/components/table"'}

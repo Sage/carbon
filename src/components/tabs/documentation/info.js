@@ -5,12 +5,12 @@ const info = (
   <div>
     <p>Tabs component</p>
 
-    <StoryHeader> Implementation</StoryHeader>
+    <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
     <StoryCode padded>{'import { Tabs, Tab } from "carbon-react/lib/components/tabs"'}</StoryCode>
 
-    <p>To render Tabs component: </p>
+    <p>To render Tabs component:</p>
     <StoryCodeBlock>
       {'<Tabs>'}
       {'  <Tab title="Title 1" tabId="uniqueId1">'}
