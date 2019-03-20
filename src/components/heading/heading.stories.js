@@ -8,9 +8,7 @@ storiesOf('Heading', module)
   .add('default', () => {
     const title = text('title', 'This is a heading');
     const children = text('children', 'This is content beneath a heading');
-    const titleId = text('titleId', '');
     const subheader = text('subheader', 'This is a subheading');
-    const subtitleId = text('subtitleId', '');
     const help = text('help', '');
     const helpLink = text('helpLink', '');
     const backLink = text('backLink', '');
@@ -20,9 +18,7 @@ storiesOf('Heading', module)
     return (
       <Heading
         title={ title }
-        titleId={ titleId }
         subheader={ subheader }
-        subtitleId={ subtitleId }
         help={ help }
         helpLink={ helpLink }
         backLink={ backLink }
