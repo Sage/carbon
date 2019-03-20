@@ -13,13 +13,13 @@ const LabelStyle = styled.label`
   width: 100%;
 
   ${({
-    align, inline, inputSize, width
+    align, inline, inputSize, labelWidth
   }) => inline && css`
     box-sizing: border-box;
     padding-bottom: 0;
     padding-right: ${sizes[inputSize].padding};
     text-align: ${align};
-    width: ${width}%;
+    width: ${labelWidth}%;
     ${inputSize === 'small' && css`padding-top: 8px;`}
     ${inputSize === 'medium' && css`padding-top: 12px;`}
     ${inputSize === 'large' && css`padding-top: 16px;`}
@@ -41,7 +41,7 @@ LabelStyle.defaultProps = {
   align: 'left',
   inputSize: 'medium',
   theme: BaseTheme,
-  width: 30
+  labelWidth: 30
 };
 
 LabelStyle.propTypes = {

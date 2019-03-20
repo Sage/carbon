@@ -13,12 +13,13 @@ const InputPresentationStyle = styled.div`
   cursor: text;
   display: flex;
   flex-wrap: wrap;
-  flex: 1;
-  margin: 0px;
+  flex: ${({ inputWidth, labelInline }) => (
+    labelInline ? 1 : `0 0 ${inputWidth}%`
+  )};
+  margin: 0;
   min-height: ${({ size }) => sizes[size].height};
   padding-left: ${({ size }) => sizes[size].padding};
   padding-right: ${({ size }) => sizes[size].padding};
-  width: 100%;
 
   ${({ disabled, theme }) => disabled && css`
     background: ${theme.disabled.input};
