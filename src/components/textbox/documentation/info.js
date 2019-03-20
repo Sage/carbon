@@ -3,7 +3,7 @@ import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/s
 
 const info = (
   <div>
-    <p>Textbox component </p>
+    <p>Textbox component</p>
 
     <StoryHeader>Implementation</StoryHeader>
     <StoryCodeBlock>import Textbox from {'"carbon-react/lib/components/textbox"'}</StoryCodeBlock>
