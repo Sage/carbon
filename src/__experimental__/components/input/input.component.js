@@ -16,7 +16,9 @@ class Input extends React.Component {
     inputRef: PropTypes.func, // a callback to retrieve the input reference
     onBlur: PropTypes.func,
     onClick: PropTypes.func,
-    onFocus: PropTypes.func
+    onFocus: PropTypes.func,
+    onMouseOver: PropTypes.func,
+    onMouseOut: PropTypes.func
   }
 
   static contextType = InputPresentationContext
@@ -44,6 +46,16 @@ class Input extends React.Component {
     if (this.context && this.context.onBlur) this.context.onBlur(ev);
   };
 
+  handleMouseOver = (ev) => {
+    if (this.props.onMouseOver) this.props.onMouseOver(ev);
+    if (this.context && this.context.onMouseOver) this.context.onMouseOver(ev);
+  };
+
+  handleMouseOut = (ev) => {
+    if (this.props.onMouseOut) this.props.onMouseOut(ev);
+    if (this.context && this.context.onMouseOut) this.context.onMouseOut(ev);
+  };
+
   render() {
     const {
       inputRef,
@@ -57,6 +69,8 @@ class Input extends React.Component {
         onFocus={ this.handleFocus }
         onBlur={ this.handleBlur }
         onClick={ this.handleClick }
+        onMouseOver={ this.handleMouseOver }
+        onMouseOut={ this.handleMouseOut }
       />
     );
   }

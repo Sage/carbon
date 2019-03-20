@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../../../components/icon';
 import InputIconToggleStyle from './input-icon-toggle.style';
+import { InputPresentationContext } from '../input/input-presentation.component';
 
 const InputIconToggle = ({
   type,
@@ -12,9 +13,17 @@ const InputIconToggle = ({
 }) => {
   if (disabled || readOnly) return null;
 
+  const inputContext = useContext(InputPresentationContext);
+
   return (
-    <InputIconToggleStyle key='label-icon' { ...props }>
-      { children || <Icon type={ type } /> }
+    <InputIconToggleStyle
+      key='label-icon'
+      inputFocus={ inputContext.hasFocus }
+      inputHover={ inputContext.hasHover }
+      type={ type }
+      { ...props }
+    >
+      {children || <Icon type={ type } />}
     </InputIconToggleStyle>
   );
 };
