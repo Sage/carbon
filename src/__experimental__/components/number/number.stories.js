@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
+import { State, Store } from '@sambego/storybook-state';
 import {
   text,
   select,
@@ -11,6 +12,17 @@ import Number from './number.component';
 import notes from './notes.md';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-info.styles';
+
+const store = new Store(
+  {
+    value: ''
+  }
+);
+
+const setValue = (ev) => {
+  action('onChange')(ev);
+  store.set({ value: ev.target.value });
+};
 
 storiesOf('Experimental/Number Input', module)
   .add('default', () => {
@@ -27,28 +39,30 @@ storiesOf('Experimental/Number Input', module)
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ) : undefined;
-    const uncontrolled = boolean('uncontrolled', false);
-    const initialValue = uncontrolled ? '123456' : undefined;
     const onChangeDeferred = boolean('onChangeDeferred', false);
     const deferTimeout = onChangeDeferred ? number('deferTimeout') : undefined;
 
     return (
-      <Number
-        value={ initialValue }
-        disabled={ disabled }
-        readOnly={ readOnly }
-        inputWidth={ inputWidth }
-        fieldHelp={ fieldHelp }
-        label={ label }
-        labelHelp={ labelHelp }
-        labelInline={ labelInline }
-        labelWidth={ labelWidth }
-        labelAlign={ labelAlign }
-        onChange={ action('onChange') }
-        onKeyDown={ action('onKeyDown') }
-        onChangeDeferred={ onChangeDeferred ? action('onChangeDeferred') : undefined }
-        deferTimeout={ deferTimeout }
-      />
+      <State store={ store }>
+        {state => [
+          <Number
+            value={ state.value }
+            disabled={ disabled }
+            readOnly={ readOnly }
+            inputWidth={ inputWidth }
+            fieldHelp={ fieldHelp }
+            label={ label }
+            labelHelp={ labelHelp }
+            labelInline={ labelInline }
+            labelWidth={ labelWidth }
+            labelAlign={ labelAlign }
+            onChange={ setValue }
+            onKeyDown={ action('onKeyDown') }
+            onChangeDeferred={ onChangeDeferred ? action('onChangeDeferred') : undefined }
+            deferTimeout={ deferTimeout }
+          />
+        ]}
+      </State>
     );
   }, {
     info: {
