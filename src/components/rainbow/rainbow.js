@@ -67,7 +67,10 @@ class Rainbow extends React.Component {
    * @return {String} Main className
    */
   get mainClasses() {
-    return classNames('carbon-rainbow', this.props.className);
+    return classNames(
+      'carbon-rainbow',
+      this.props.className
+    );
   }
 
   /**
@@ -79,11 +82,7 @@ class Rainbow extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses } { ...tagComponent('rainbow', this.props) }>
-        <div
-          ref={ (chart) => {
-            this._chart = chart;
-          } }
-        />
+        <div ref={ (chart) => { this._chart = chart; } } />
       </div>
     );
   }
@@ -134,7 +133,7 @@ function generateConfig(immutableData, title) {
       },
       positioner: (tooltipWidth, tooltipHeight, point) => {
         return () => {
-          const x = point.plotX - tooltipWidth / 2;
+          const x = point.plotX - (tooltipWidth / 2);
           const y = point.plotY - (tooltipHeight - 5);
 
           return { x, y };
@@ -176,12 +175,8 @@ function generateConfig(immutableData, title) {
         },
         point: {
           events: {
-            mouseOver: (ev) => {
-              ev.target.graphic.zIndexSetter(1);
-            },
-            mouseOut: (ev) => {
-              ev.target.graphic.zIndexSetter(0);
-            }
+            mouseOver: (ev) => { ev.target.graphic.zIndexSetter(1); },
+            mouseOut: (ev) => { ev.target.graphic.zIndexSetter(0); }
           }
         },
         states: {
@@ -191,13 +186,11 @@ function generateConfig(immutableData, title) {
         }
       }
     },
-    series: [
-      {
-        data,
-        innerSize: '65%',
-        type: 'pie'
-      }
-    ]
+    series: [{
+      data,
+      innerSize: '65%',
+      type: 'pie'
+    }]
   };
 }
 

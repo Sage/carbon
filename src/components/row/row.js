@@ -50,15 +50,14 @@ class Row extends React.Component {
   buildColumns = () => {
     return React.Children.toArray(this.props.children).map((child) => {
       return React.cloneElement(
-        child,
-        {
+        child, {
           columnClasses: this.props.columnClasses,
           columnDivide: this.props.columnDivide
         },
         child.props.children
       );
     });
-  };
+  }
 
   /**
    * Main Class getter
@@ -84,9 +83,16 @@ class Row extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    return <div className={ this.mainClasses }>{this.buildColumns()}</div>;
+    return (
+      <div className={ this.mainClasses }>
+        { this.buildColumns() }
+      </div>
+    );
   }
 }
 
 export default Row;
-export { Row, Column };
+export {
+  Row,
+  Column
+};

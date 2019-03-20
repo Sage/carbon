@@ -79,8 +79,8 @@ class SettingsRow extends React.Component {
   render() {
     return (
       <div className={ this.classes } { ...tagComponent('settings-row', this.props) }>
-        <div className='carbon-settings-row__header'>{this.heading}</div>
-        <div className='carbon-settings-row__input'>{this.props.children}</div>
+        <div className='carbon-settings-row__header'>{ this.heading }</div>
+        <div className='carbon-settings-row__input'>{ this.props.children }</div>
       </div>
     );
   }

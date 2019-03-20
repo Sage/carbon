@@ -3,16 +3,24 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
 const classes = (props) => {
-  return classNames('carbon-column', props.className, props.columnClasses, {
-    [`carbon-column--offset-${props.columnOffset}`]: props.columnOffset,
-    [`carbon-column--span-${props.columnSpan}`]: props.columnSpan,
-    [`carbon-column--align-${props.columnAlign}`]: props.columnAlign,
-    'carbon-column--column-divide': props.columnDivide
-  });
+  return classNames(
+    'carbon-column',
+    props.className,
+    props.columnClasses, {
+      [`carbon-column--offset-${props.columnOffset}`]: props.columnOffset,
+      [`carbon-column--span-${props.columnSpan}`]: props.columnSpan,
+      [`carbon-column--align-${props.columnAlign}`]: props.columnAlign,
+      'carbon-column--column-divide': props.columnDivide
+    }
+  );
 };
 
 const Column = (props) => {
-  return <div className={ classes(props) }>{props.children}</div>;
+  return (
+    <div className={ classes(props) }>
+      { props.children }
+    </div>
+  );
 };
 
 Column.defaultProps = {
