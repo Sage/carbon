@@ -67,11 +67,29 @@ Number.defaultProps = {
 };
 
 Number.propTypes = {
-  onChange: PropTypes.func,
-  onKeyDown: PropTypes.func,
   value: PropTypes.string,
+  /** Event handler for the change event */
+  disabled: PropTypes.bool,
+  readonly: PropTypes.bool,
+  onChange: PropTypes.func,
+  /** Event handler for the keyDown event */
+  onKeyDown: PropTypes.func,
+  /** Defered callback called after the onChange event */
   onChangeDeferred: PropTypes.func,
-  deferTimeout: PropTypes.number
+  /** Integer to determine timeout for defered callback */
+  deferTimeout: PropTypes.number,
+  /** Label */
+  label: PropTypes.string,
+  /** Text applied to label help tooltip */
+  labelHelp: PropTypes.string,
+  /** Help content to be displayed under an input */
+  fieldHelp: PropTypes.node,
+  /** When true, label is placed in line an input */
+  labelInline: PropTypes.bool,
+  /** Width of a label in percentage. Works only when labelInline is true */
+  labelWidth: PropTypes.number,
+  /** Width of an input in percentage. Works only when labelInline is true */
+  inputWidth: PropTypes.number
 };
 
 export default Number;
