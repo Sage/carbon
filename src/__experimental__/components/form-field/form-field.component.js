@@ -32,7 +32,7 @@ class FormField extends React.Component {
             help={ labelHelp }
             inline={ labelInline }
             inputSize={ size }
-            labelWidth={ labelWidth }
+            width={ labelWidth }
           >
             { label }
           </Label>
