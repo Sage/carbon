@@ -121,8 +121,7 @@ class ShowEditPod extends React.Component {
     cancelText: 'Cancel',
     cancel: true,
     saving: false,
-    validateOnMount: false,
-    editing: false
+    validateOnMount: false
   };
 
   state = {
@@ -133,7 +132,7 @@ class ShowEditPod extends React.Component {
      * @property editing
      */
     editing: false // eslint-disable-line react/no-unused-state
-  };
+  }
 
   /**
    * Determine if the component is controlled internally or externally
@@ -174,7 +173,7 @@ class ShowEditPod extends React.Component {
     }
 
     this.__focusOnPod();
-  };
+  }
 
   /**
    * Emits the afterFormValidation Callback
@@ -192,7 +191,7 @@ class ShowEditPod extends React.Component {
         this.setState({ editing: false }); // eslint-disable-line react/no-unused-state
       }
     }
-  };
+  }
 
   /**
    * Emits the onCancel Callback
@@ -207,7 +206,7 @@ class ShowEditPod extends React.Component {
     if (this.stateControlled) {
       this.setState({ editing: false }); // eslint-disable-line react/no-unused-state
     }
-  };
+  }
 
   /**
    * Handles key down events
@@ -219,7 +218,7 @@ class ShowEditPod extends React.Component {
     if (Events.isEscKey(ev)) {
       this.onCancelEditForm(ev);
     }
-  };
+  }
 
   // Determines if controlled internally via state
   // Or externally via props
@@ -241,7 +240,10 @@ class ShowEditPod extends React.Component {
    * @method mainClasses
    */
   get mainClasses() {
-    return classNames('carbon-show-edit-pod', this.props.className);
+    return classNames(
+      'carbon-show-edit-pod',
+      this.props.className
+    );
   }
 
   /**
@@ -255,7 +257,7 @@ class ShowEditPod extends React.Component {
         as='error' className='carbon-show-edit-pod__delete'
         onClick={ this.props.onDelete }
       >
-        {this.props.deleteText || I18n.t('actions.delete', { defaultValue: 'Delete' })}
+        { this.props.deleteText || I18n.t('actions.delete', { defaultValue: 'Delete' }) }
       </Link>
     );
   }
@@ -280,7 +282,7 @@ class ShowEditPod extends React.Component {
         saving={ this.props.saving }
         validateOnMount={ this.props.validateOnMount }
       >
-        {this.props.editFields}
+        { this.props.editFields }
       </Form>
     );
   }
@@ -292,9 +294,9 @@ class ShowEditPod extends React.Component {
    */
   get content() {
     if (this[this.control].editing) {
-      return <div key='edit'>{this.editContent}</div>;
+      return <div key='edit'>{ this.editContent }</div>;
     }
-    return <div key='show'>{this.props.children}</div>;
+    return <div key='show'>{ this.props.children }</div>;
   }
 
   /**
@@ -348,7 +350,7 @@ class ShowEditPod extends React.Component {
    */
   __focusOnPod = () => {
     ReactDOM.findDOMNode(this.pod).focus(); // eslint-disable-line react/no-find-dom-node
-  };
+  }
 
   /**
    * @method render
@@ -358,9 +360,7 @@ class ShowEditPod extends React.Component {
       <Pod
         className={ this.mainClasses }
         { ...this.podProps }
-        ref={ (node) => {
-          this.pod = node;
-        } }
+        ref={ (node) => { this.pod = node; } }
         tabIndex='-1'
         { ...tagComponent('show-edit-pod', this.props) }
       >
@@ -370,7 +370,7 @@ class ShowEditPod extends React.Component {
           transitionEnterTimeout={ 300 }
           transitionLeaveTimeout={ 50 }
         >
-          {this.content}
+          { this.content }
         </CSSTransitionGroup>
       </Pod>
     );

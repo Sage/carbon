@@ -49,7 +49,10 @@ class Sidebar extends Modal {
    * @return {String} Main className
    */
   get mainClasses() {
-    return classNames('carbon-sidebar', this.props.className);
+    return classNames(
+      'carbon-sidebar',
+      this.props.className
+    );
   }
 
   /**
@@ -104,9 +107,12 @@ class Sidebar extends Modal {
    */
   get modalHTML() {
     return (
-      <div className={ this.sidebarClasses } { ...this.componentTags(this.props) }>
-        {this.closeButton}
-        {this.props.children}
+      <div
+        className={ this.sidebarClasses }
+        { ...this.componentTags(this.props) }
+      >
+        { this.closeButton }
+        { this.props.children }
       </div>
     );
   }
@@ -116,4 +122,7 @@ class Sidebar extends Modal {
   }
 }
 
-export { Sidebar, SidebarHeader };
+export {
+  Sidebar,
+  SidebarHeader
+};

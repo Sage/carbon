@@ -37,7 +37,7 @@ class SidebarHeader extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses } { ...tagComponent('sidebar-header', this.props) }>
-        {this.props.children}
+        { this.props.children }
       </div>
     );
   }
