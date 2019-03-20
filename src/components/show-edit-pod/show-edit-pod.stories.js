@@ -10,7 +10,7 @@ import Textbox from '../textbox';
 import { notes, info } from './documentation';
 
 const store = new Store({
-  editing: ShowEditPod.defaultProps.editing
+  editing: false
 });
 
 const onEdit = () => {
