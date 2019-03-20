@@ -14,7 +14,6 @@ storiesOf('App Wrapper', module)
         {children}
       </AppWrapper>
     );
-  },
-  {
+  }, {
     notes: { markdown: notes }
   });
