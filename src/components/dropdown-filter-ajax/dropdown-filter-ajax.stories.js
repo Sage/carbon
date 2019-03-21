@@ -8,7 +8,6 @@ import {
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import ImmutableHelper from '../../utils/helpers/immutable';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
@@ -87,7 +86,7 @@ storiesOf('DropdownFilterAjax', module)
     const create = (evt, component) => component.state.filter;
     const createText = text('createText');
     const createIconType = select('createIconType', OptionsHelper.icons, OptionsHelper.icons[0]);
-    
+
     return (
       <State store={ store }>
         <DropdownFilterAjax

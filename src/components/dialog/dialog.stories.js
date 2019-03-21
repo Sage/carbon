@@ -66,12 +66,12 @@ storiesOf('Dialog', module)
             onClick={ handleClick }
           >
             <Form>
-              <Textbox label="First Name" />
-              <Textbox label="Middle Name" />
-              <Textbox label="Surname" />
-              <Textbox label="Birth Place" />
-              <Textbox label="Favourite Colour" />
-              <Textbox label="Address" />
+              <Textbox label='First Name' />
+              <Textbox label='Middle Name' />
+              <Textbox label='Surname' />
+              <Textbox label='Birth Place' />
+              <Textbox label='Favourite Colour' />
+              <Textbox label='Address' />
             </Form>
           </Dialog>
         </State>
