@@ -1,4 +1,7 @@
-import { asSelect, themeSelect, sizeSelect, subtextInput, heightInput, childrenTextArea, labelInput, labelHelpInput } from "../../locators/commonLocators";
+import {
+  asSelect, themeSelect, sizeSelect, subtextInput,
+  heightInput, childrenTextArea, labelInput
+} from "../../locators/commonLocators";
 
 When('I set children to {string}', (text) => {
   childrenTextArea().clear().type(text);
