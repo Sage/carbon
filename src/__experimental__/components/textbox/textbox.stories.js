@@ -12,6 +12,8 @@ storiesOf('Experimental/Textbox', module)
         errorMessage={ text('errorMessage') }
         fieldHelp={ text('fieldHelp') }
         infoMessage={ text('infoMessage') }
+        info={ text('info') }
+        inputIcon={ select('inputIcon', OptionsHelper.icons) }
         label={ text('label') }
         labelAlign={ select('labelAlign', OptionsHelper.alignBinary) }
         labelHelp={ text('labelHelp') }

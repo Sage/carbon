@@ -47,7 +47,18 @@ exports[`FormField default renders children with styling 1`] = `
 `;
 
 exports[`FormField with a label renders the label component above the childen 1`] = `
-Array [
+<ContextProvider
+  value={
+    Object {
+      "hasFocus": false,
+      "hasHover": false,
+      "onBlur": [Function],
+      "onFocus": [Function],
+      "onMouseOut": [Function],
+      "onMouseOver": [Function],
+    }
+  }
+>
   <Label
     align="left"
     help="Help me!"
@@ -56,19 +67,30 @@ Array [
     labelWidth={20}
   >
     Name
-  </Label>,
-  <input />,
-]
+  </Label>
+  <input />
+</ContextProvider>
 `;
 
 exports[`FormField with fieldHelp renders the FieldHelp component below the childen 1`] = `
-Array [
-  <input />,
+<ContextProvider
+  value={
+    Object {
+      "hasFocus": false,
+      "hasHover": false,
+      "onBlur": [Function],
+      "onFocus": [Function],
+      "onMouseOut": [Function],
+      "onMouseOver": [Function],
+    }
+  }
+>
+  <input />
   <FieldHelp
     labelInline={true}
     labelWidth={20}
   >
     Help me!
-  </FieldHelp>,
-]
+  </FieldHelp>
+</ContextProvider>
 `;

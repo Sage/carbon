@@ -1,20 +1,46 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import PropTypes from 'prop-types';
+import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 
 import Help from '../../../components/help/help';
 import Label from './label.component';
+import { FormFieldContext } from '../form-field';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import classicTheme from '../../../style/themes/classic';
 
-function render(props, renderer = shallow) {
-  return renderer(
-    <Label { ...props }>
-      Name:
-    </Label>
+const LabelWithContext = ({ value, ...props }) => {
+  return (
+    <FormFieldContext.Provider value={ value }>
+      <Label { ...props }>
+        Name:
+      </Label>
+    </FormFieldContext.Provider>
   );
-}
+};
+
+LabelWithContext.propTypes = {
+  value: PropTypes.object
+};
+
+const render = (props, renderer = shallow, contextValue = {}) => {
+  let content;
+
+  if (renderer === shallow) {
+    content = (
+      <Label { ...props }>
+        Name:
+      </Label>
+    );
+  } else {
+    content = <LabelWithContext value={ contextValue } { ...props } />;
+  }
+
+  return renderer(content);
+};
+
+const mountRender = (props, contextValue = {}) => mount(<LabelWithContext value={ contextValue } { ...props } />);
 
 describe('Label', () => {
   it('renders the label', () => {
@@ -23,7 +49,7 @@ describe('Label', () => {
 
   describe('when initiated with the help prop', () => {
     it('contains Help component with the content specified in that prop', () => {
-      const wrapper = render({ help: 'Help me!' });
+      const wrapper = mountRender({ help: 'Help me!' });
       expect(wrapper.contains(<Help>Help me!</Help>)).toBeTruthy();
     });
   });

@@ -1,1 +1,1 @@
-export { default } from './form-field.component';
+export { FormField, FormFieldContext } from './form-field.component';

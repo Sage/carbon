@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import FormFieldStyle from './form-field.style';
 import Label from '../label';
 import FieldHelp from '../field-help';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+
+const FormFieldContext = React.createContext();
 
 const FormField = ({
   children,
@@ -14,29 +16,47 @@ const FormField = ({
   labelInline,
   labelWidth,
   size
-}) => (
-  <FormFieldStyle>
-    { label && (
-      <Label
-        align={ labelAlign }
-        help={ labelHelp }
-        inline={ labelInline }
-        inputSize={ size }
-        labelWidth={ labelWidth }
-      >
-        { label }
-      </Label>
-    ) }
+}) => {
+  const [hasHover, setHasHover] = useState(false),
+      [hasFocus, setHasFocus] = useState(false);
 
-    { children }
+  const contextForFormField = () => {
+    return {
+      hasFocus,
+      hasHover,
+      onFocus: () => setHasFocus(true),
+      onBlur: () => setHasFocus(false),
+      onMouseOver: () => setHasHover(true),
+      onMouseOut: () => setHasHover(false)
+    };
+  };
 
-    { fieldHelp && (
-      <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
-        { fieldHelp }
-      </FieldHelp>
-    ) }
-  </FormFieldStyle>
-);
+  return (
+    <FormFieldStyle>
+      <FormFieldContext.Provider value={ contextForFormField() }>
+        {label && (
+          <Label
+            align={ labelAlign }
+            help={ labelHelp }
+            inline={ labelInline }
+            inputSize={ size }
+            labelWidth={ labelWidth }
+          >
+            {label}
+          </Label>
+        )}
+
+        {children}
+
+        {fieldHelp && (
+          <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
+            {fieldHelp}
+          </FieldHelp>
+        )}
+      </FormFieldContext.Provider>
+    </FormFieldStyle>
+  );
+};
 
 FormField.defaultProps = {
   size: 'medium'
@@ -53,4 +73,4 @@ FormField.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
 };
 
-export default FormField;
+export { FormField, FormFieldContext };

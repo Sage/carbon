@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import sizes from '../input/input-sizes.style';
+import InputIconToggleClassicStyling from './input-icon-toggle-classic.style';
 
 const InputIconToggleStyle = styled.span`
   align-items: center;
@@ -26,6 +27,8 @@ const InputIconToggleStyle = styled.span`
     if (size === 'large') return css`width: 48px;`;
     return css`width: 40px;`;
   }}
+
+  ${InputIconToggleClassicStyling}
 `;
 
 InputIconToggleStyle.defaultProps = {
@@ -36,7 +39,10 @@ InputIconToggleStyle.defaultProps = {
 InputIconToggleStyle.propTypes = {
   error: PropTypes.string,
   info: PropTypes.string,
+  inputFocus: PropTypes.bool,
+  inputHover: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  type: PropTypes.string,
   warning: PropTypes.string
 };
 

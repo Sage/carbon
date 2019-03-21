@@ -2,7 +2,7 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { shallow } from 'enzyme';
-import FormField from '.';
+import { FormField } from '.';
 import FormFieldStyle from './form-field.style';
 import classicTheme from '../../../style/themes/classic';
 

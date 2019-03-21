@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { filterOutInputEvents } from '../../../utils/ether/ether';
 import InputPresentationStyle from './input-presentation.style';
+import { FormFieldContext } from '../form-field';
 
 const InputPresentationContext = React.createContext();
 
@@ -18,8 +19,11 @@ class InputPresentation extends React.Component {
     children: PropTypes.node
   }
 
+  static contextType = FormFieldContext;
+
   state = {
-    hasFocus: false
+    hasFocus: false,
+    hasHover: false
   }
 
   input = {}
@@ -30,13 +34,20 @@ class InputPresentation extends React.Component {
 
   onBlur = () => this.setState({ hasFocus: false })
 
+  onMouseOver = () => this.setState({ hasHover: true })
+
+  onMouseOut = () => this.setState({ hasHover: false })
+
   assignInput = (input) => { this.input = input; }
 
   contextForInput() {
     return {
-      hasFocus: this.state.hasFocus,
+      hasFocus: (this.context && this.context.hasFocus) || this.state.hasFocus,
+      hasHover: (this.context && this.context.hasHover) || this.state.hasHover,
       onFocus: this.onFocus,
       onBlur: this.onBlur,
+      onMouseOver: this.onMouseOver,
+      onMouseOut: this.onMouseOut,
       inputRef: this.assignInput
     };
   }
@@ -60,7 +71,7 @@ class InputPresentation extends React.Component {
         { ...filteredProps }
       >
         <InputPresentationContext.Provider value={ this.contextForInput() }>
-          { children }
+          {children}
         </InputPresentationContext.Provider>
       </InputPresentationStyle>
     );
