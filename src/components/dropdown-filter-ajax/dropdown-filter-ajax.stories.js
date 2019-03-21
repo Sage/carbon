@@ -62,13 +62,6 @@ const defaultKnobs = () => {
       DropdownFilterAjax.defaultProps.dataRequestTimeout
     ),
     withCredentials: boolean('withCredentials'),
-    options: ImmutableHelper.parseJSON([
-      {
-        id: 1, name: 'Orange'
-      }, {
-        id: 2, name: 'Blue'
-      }
-    ])
   };
 };
 
