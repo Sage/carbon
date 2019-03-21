@@ -3,10 +3,10 @@ import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/s
 
 const info = (
   <div>
-    <p> Rainbow Component </p>
+    <p>Rainbow Component </p>
     <p>A rainbow chart using the Highcharts API.</p>
 
-    <StoryHeader> Implementation</StoryHeader>
+    <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
     <StoryCode padded>import Rainbow from {'"carbon-react/lib/components/rainbow"'}</StoryCode>

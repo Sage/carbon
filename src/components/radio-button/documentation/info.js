@@ -3,9 +3,9 @@ import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/s
 
 const info = (
   <div>
-    <p> Radio Button Component </p>
+    <p>Radio Button Component</p>
     <p>A radio button widget. Selects one option from a longer list.</p>
-    <StoryHeader> Implementation</StoryHeader>
+    <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
     <StoryCode padded>import Radio Button from {'"carbon-react/lib/components/radio-button"'}</StoryCode>

@@ -3,10 +3,10 @@ import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/s
 
 const info = (
   <div>
-    <p> Simple Color Picker</p>
+    <p>Simple Color Picker</p>
     <p>A component that displays squares with color samples that you can choose from.</p>
 
-    <StoryHeader> Implementation</StoryHeader>
+    <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
     <StoryCode padded>import SimpleColorPicker from {'"carbon-react/lib/components/simple-color-picker"'}</StoryCode>

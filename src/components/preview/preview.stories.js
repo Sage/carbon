@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, text, number } from '@storybook/addon-knobs';
 import Preview from './preview';
-import info from './documentation/info';
+import info from './documentation';
 
 storiesOf('Preview', module)
   .addParameters({
@@ -21,8 +21,10 @@ storiesOf('Preview', module)
 
       return (
         <Preview
-          height={ height } lines={ lines }
-          loading={ loading } width={ width }
+          height={ height }
+          lines={ lines }
+          loading={ loading }
+          width={ width }
         >
           {children}
         </Preview>

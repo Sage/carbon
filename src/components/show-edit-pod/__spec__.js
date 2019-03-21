@@ -25,15 +25,18 @@ describe('ShowEditPod', () => {
 
     instance = TestUtils.renderIntoDocument(
       <ShowEditPod
-        afterFormValidation={ spy } onCancel={ cancelSpy }
+        afterFormValidation={ spy } 
+        onCancel={ cancelSpy }
         editFields={ editFields }
       />
     );
 
     externalInstance = TestUtils.renderIntoDocument(
       <ShowEditPod
-        afterFormValidation={ spy } onCancel={ cancelSpy }
-        editFields={ editFields } editing={ false }
+        afterFormValidation={ spy } 
+        onCancel={ cancelSpy }
+        editFields={ editFields } 
+        editing={ false }
       />
     );
   });
@@ -58,8 +61,10 @@ describe('ShowEditPod', () => {
       it('does not focus on the pod', () => {
         instance = TestUtils.renderIntoDocument(
           <ShowEditPod
-            afterFormValidation={ spy } onCancel={ cancelSpy }
-            editFields={ editFields } editing={ false }
+            afterFormValidation={ spy } 
+            onCancel={ cancelSpy }
+            editFields={ editFields } 
+            editing={ false }
           />
         );
         expect(ReactDOM.findDOMNode).not.toHaveBeenCalled();
@@ -71,8 +76,10 @@ describe('ShowEditPod', () => {
       it('focuses on the pod', () => {
         instance = TestUtils.renderIntoDocument(
           <ShowEditPod
-            afterFormValidation={ spy } onCancel={ cancelSpy }
-            editFields={ editFields } editing
+            afterFormValidation={ spy } 
+            onCancel={ cancelSpy }
+            editFields={ editFields } 
+            editing = { true }
           />
         );
         expect(ReactDOM.findDOMNode).toHaveBeenCalled();
@@ -101,7 +108,11 @@ describe('ShowEditPod', () => {
         it('calls the onEdit callback', () => {
           const editSpy = jasmine.createSpy('editSpy');
 
-          instance = TestUtils.renderIntoDocument(<ShowEditPod onEdit={ editSpy } />);
+          instance = TestUtils.renderIntoDocument(
+            <ShowEditPod 
+              onEdit={ editSpy } 
+            />
+          );
           instance.onEdit();
 
           expect(editSpy).toHaveBeenCalled();
@@ -122,7 +133,8 @@ describe('ShowEditPod', () => {
     let preventSpy, ev;
 
     beforeEach(() => {
-      (preventSpy = jasmine.createSpy('prevent')), (ev = { preventDefault: preventSpy });
+      preventSpy = jasmine.createSpy('prevent'),
+      ev = { preventDefault: preventSpy }
     });
 
     it('prevents default', () => {
@@ -261,8 +273,10 @@ describe('ShowEditPod', () => {
       beforeEach(() => {
         externalInstance = TestUtils.renderIntoDocument(
           <ShowEditPod
-            afterFormValidation={ spy } onCancel={ cancelSpy }
-            editFields={ editFields } editing
+            afterFormValidation={ spy } 
+            onCancel={ cancelSpy }
+            editFields={ editFields } 
+            editing = { true }
           />
         );
       });

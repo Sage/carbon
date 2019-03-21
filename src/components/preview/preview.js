@@ -13,7 +13,11 @@ const Preview = (props) => {
     return previews;
   }
 
-  return props.children;
+  if (props.children) {
+    return props.children;
+  }
+
+  return null;
 };
 
 Preview.propTypes = {

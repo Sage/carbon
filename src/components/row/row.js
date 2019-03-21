@@ -9,7 +9,10 @@ class Row extends React.Component {
     /**
      * This component supports children of type Column.
      */
-    children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]),
+    children: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object
+    ]),
 
     /**
      * Classes to apply to the component.
