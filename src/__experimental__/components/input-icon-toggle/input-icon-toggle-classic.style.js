@@ -8,7 +8,6 @@ export default ({
   border-left: 1px solid #bfccd2;
   box-sizing: border-box;
   color: #003349;
-  cursor: pointer;
   margin-right: -6.5px;
   width: ${type === 'dropdown' ? '20px' : '31px'};
 
