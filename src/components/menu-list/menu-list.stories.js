@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
-import notes from './notes.md';
+import notes from './documentation/notes.md';
 import { MenuList, MenuListItem } from './menu-list';
 
 storiesOf('MenuList', module)

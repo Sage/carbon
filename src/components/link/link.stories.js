@@ -3,7 +3,8 @@ import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './notes.md';
+import notes from './documentation/notes.md';
+import Info from './documentation/Info';
 import Link from './link';
 import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
@@ -49,29 +50,7 @@ storiesOf('Link', module)
       </Link>
     );
   }, {
-    info: {
-      text: (
-        <div>
-          <p>A link widget.</p>
-
-          <StoryHeader>How to use a Link in a component:</StoryHeader>
-
-          <p>In your file:</p>
-
-          <StoryCode padded>
-            {'import Link from "carbon-react/lib/components/link";'}
-          </StoryCode>
-
-          <p>To render the Link:</p>
-
-          <StoryCode>
-            {'<Link href="foo">Main Page</Link>'}
-          </StoryCode>
-
-          <p>For additional properties specific to this component, see propTypes.</p>
-        </div>
-      )
-    },
+    info: { text: Info },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   });
