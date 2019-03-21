@@ -8,38 +8,6 @@ import Dropdown from '../dropdown';
 import Link from '../link';
 import './dropdown-filter.scss';
 
-/**
- * A dropdown filter widget.
- *
- * == How to use a dropdown in a component:
- *
- * In your file
- *
- *   import DropdownFilter from 'carbon-react/lib/components/dropdown-filter';
- *
- * To render a DropdownFilter:
- *
- *   <DropdownFilter name="foo" options={ foo } onChange={ myChangeHandler } />
- *
- * The developer should pass data to the store as JSON. e.g.
- *
- *   foo: [{ id: 1, name: "Foo" }, { id: 2, name: "Bar" }]
- *
- * You can also use the component in 'suggest' mode, which only shows the dropdown
- * once a filter term has been entered.
- *
- * You can also use the component in 'freetext' mode, which behaves like 'suggest',
- * but allows write-in text values in addition to list options. Specify an initial
- * write-in value with the `visibleValue` property, instead of the `value` property
- * for an option id. Set the `freetextName` property to add a second hidden input
- * for the write-in value, as opposed to the `name` property used for the option id.
- *
- * You can also define a function using the 'create' prop, this will allow you
- * to trigger events to create new items.
- *
- * @class DropdownFilter
- * @constructor
- */
 class DropdownFilter extends Dropdown {
   /**
    * Constructor
