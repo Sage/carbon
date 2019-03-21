@@ -27,7 +27,7 @@ const onChange = (evt) => {
 };
 
 const defaultKnobs = () => {
-  const labelInline = boolean('labelInline', true);
+  const labelInline = boolean('labelInline', false);
 
   return {
     autoFocus: boolean('autoFocus'),

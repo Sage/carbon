@@ -37,7 +37,7 @@ storiesOf('Dropdown', module)
     const readOnly = boolean('readOnly', false);
     const timeToDisappear = number('timeToDisappear', 0);
     const label = text('label', 'Dropdown Label');
-    const labelInline = boolean('labelInline', true);
+    const labelInline = boolean('labelInline', false);
     const labelWidth = labelInline ? text('labelWidth', '') : undefined;
     const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
     const labelHelp = text('labelHelp', 'This is help text');
