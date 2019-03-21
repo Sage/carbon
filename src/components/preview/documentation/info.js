@@ -3,9 +3,9 @@ import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-i
 
 const info = (
   <div>
-    <p> Preview Component </p>
-    <p> Applies a preview loading state animation.</p>
-    <StoryHeader> Implementation</StoryHeader>
+    <p>Preview Component</p>
+    <p>Applies a preview loading state animation.</p>
+    <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
     <StoryCode padded>import Preview from {'"react-carbon/lib/components/preview"'}</StoryCode>

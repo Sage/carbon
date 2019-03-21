@@ -9,9 +9,7 @@ const info = (
     <StoryHeader> Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode padded>
-      import {'{ Row, Column }'} from {'"carbon-react/lib/components/row"'}
-    </StoryCode>
+    <StoryCode padded>{'import { Row, Column } from "carbon-react/lib/components/row"'}</StoryCode>
 
     <p>To render the Row:</p>
     <StoryCodeBlock>

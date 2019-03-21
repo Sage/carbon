@@ -20,10 +20,15 @@ describe('Rainbow', () => {
   let wrapper, data, chart;
 
   function render(props = {}) {
-    wrapper = mount(<Rainbow
-      title='My Title' data={ data }
+    wrapper = mount(
+    <Rainbow
+      title='My Title' 
+      data={ data }
       { ...props }
-    />);
+    />
+
+
+    );
   }
 
   beforeEach(() => {
@@ -33,8 +38,7 @@ describe('Rainbow', () => {
         name: 'First Bit',
         label: 'label for first bit',
         tooltip: 'more info about this bit'
-      },
-      {
+      }, {
         y: 70,
         name: 'Second Bit',
         label: 'label for second bit',
@@ -92,9 +96,11 @@ describe('Rainbow', () => {
   });
 
   describe('tags on component', () => {
-    const wrapper = shallow(<Rainbow
-      data-element='bar' data-role='baz'
-      data={ Immutable.fromJS({}) }
+    const wrapper = shallow(
+      <Rainbow
+        data-element='bar' 
+        data-role='baz'
+        data={ Immutable.fromJS({}) }
     />);
 
     it('include correct component, element and role data tags', () => {

@@ -3,9 +3,9 @@ import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-i
 
 const info = (
   <div>
-    <p> Portrait Component </p>
+    <p>Portrait Component</p>
     <p>Represents a person with their initials or an avatar.</p>
-    <StoryHeader> Implementation</StoryHeader>
+    <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
     <StoryCode padded>import Portrait from {'"react-carbon/lib/components/portrait"'}</StoryCode>

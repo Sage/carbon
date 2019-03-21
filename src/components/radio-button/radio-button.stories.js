@@ -19,6 +19,7 @@ storiesOf('Radio Button', module).add(
 
     return [
       <RadioButton
+        key='first-button'
         fieldHelp={ fieldHelp }
         fieldHelpInline={ fieldHelpInline }
         inputWidth={ inputWidth }
@@ -30,6 +31,7 @@ storiesOf('Radio Button', module).add(
         name='radio-buttons-example'
       />,
       <RadioButton
+        key='second-button'
         fieldHelp={ fieldHelp }
         fieldHelpInline={ fieldHelpInline }
         inputWidth={ inputWidth }
