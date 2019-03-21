@@ -2,7 +2,7 @@ Feature: Alert component
   I want to change Alert component properties
 
   Background: Open Alert component page
-    Given I open Alert component page
+    Given I open "Alert" component page
 
   @positive
   Scenario Outline: Change Alert component title

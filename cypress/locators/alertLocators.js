@@ -15,7 +15,7 @@ const ENABLE_BACKGROUND_UI_CHECKBOX = '#enableBackgroundUI'
 export const enableBackgroundUICheckbox = () => cy.get(FORM).find(ENABLE_BACKGROUND_UI_CHECKBOX)
 export const openAlertButton = () => cy.iFrame(COMMON_BUTTON_PREVIEW)
 export const backgroundBlocker = () => cy.iFrame(BACKGROUND_UI_BLOCKER)
-export const titleInput = () => cy.get(FORM).find(TITLE_INPUT)
+export const titleInput = () => cy.get(TITLE_INPUT)
 export const subtitleInput = () => cy.get(FORM).find(SUBTILE_INPUT)
 export const alertTitle = () => cy.iFrame(ALERT_DIALOG_TITLE)
 export const alertSubtitle = () => cy.iFrame(ALERT_DIALOG_SUBTITLE)
