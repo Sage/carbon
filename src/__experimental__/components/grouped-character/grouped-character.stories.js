@@ -13,12 +13,11 @@ storiesOf('Experimental/GroupedCharacter', module)
     return (
       <State store={ groupedCharacterStore }>
         <GroupedCharacter
-          groups={[2,2,4]}
-          inputWidth={'10px'}
-          separator={text('separator', '-')}
-          value={groupedCharacterStore.get('value')}
-          onChange={(ev) => { groupedCharacterStore.set({ value: ev.target.value }); }}
+          groups={ [2, 2, 4] }
+          separator={ text('separator', '-') }
+          value={ groupedCharacterStore.get('value') }
+          onChange={ (ev) => { groupedCharacterStore.set({ value: ev.target.value }); } }
         />
       </State>
     );
-  })
+  });

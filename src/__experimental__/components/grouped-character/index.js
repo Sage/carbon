@@ -1,38 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Textbox from '../textbox';
 import { generateGroups, toSum, toIndexSteps } from './grouped-character.utils';
 import Events from '../../../utils/helpers/events';
 
 const GroupedCharacter = (props) => {
-  const [node, setRef] = useState(null),
-      [cursorPos, updateCursorPos] = useState(0),
-      [pressedKey, updatePressedKey] = useState(null);
-
-  useEffect(
-    () => { if (node) { node.current.setSelectionRange(cursorPos, cursorPos); } }
-  );
+  const [pressedKey, updatePressedKey] = useState(null);
 
   const { separator, groups, value } = props;
   const stepIndices = groups.reduce(toIndexSteps, []);
 
   const handleChange = (e) => {
+    const i = e.target;
     const { selectionEnd } = e.target;
     let modifier = 0;
 
     if (stepIndices.includes(selectionEnd - 1)) modifier = 1;
-    if (stepIndices.includes(selectionEnd - 1) && Events.isBackspaceKey(pressedKey)) modifier = -1;
+    if (stepIndices.includes(selectionEnd - 1) && Events.isBackspaceKey({ which: pressedKey })) modifier = -1;
 
     props.onChange({ target: { value: e.target.value.split(separator).join('') } });
-    updateCursorPos(selectionEnd + modifier);
+    setTimeout(() => i.setSelectionRange(selectionEnd + modifier, selectionEnd + modifier));
   };
 
   return (
     <Textbox
       value={ generateGroups(groups, value).join(separator) }
-      inputRef={ input => setRef(input) }
       onChange={ handleChange }
-      onKeyDown={ e => updatePressedKey({ which: e.which }) }
+      onKeyDown={ ({ which }) => updatePressedKey(which) }
       onKeyPress={ (e) => {
         if (groups.reduce(toSum) === value.length) {
           e.preventDefault();

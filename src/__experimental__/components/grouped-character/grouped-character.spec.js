@@ -40,11 +40,34 @@ describe('GroupedCharacter', () => {
       });
       input = instance.find('input');
       input.simulate('keypress', { which: 46 });
-      expect(input.props().value).toEqual('12-34-5');
+      expect(onChange).toHaveBeenCalledWith({ target: { value: '1234' } });
     });
-    it('prevents default if ', () => {
-      input.simulate('keypress', { which: 46 });
-      expect(input.props().value).toEqual('12-34-5');
+    it('prevents default when value string at max length', () => {
+      const preventDefault = jest.fn();
+      input.simulate('keypress', { preventDefault });
+      expect(preventDefault).toHaveBeenCalled();
+    });
+    it('allows keydown events', () => {
+      const setSelectionRange = jest.fn();
+      jest.useFakeTimers();
+
+      input.simulate('change', { target: { selectionEnd: 1, value: '123', setSelectionRange } });
+      jest.runAllTimers();
+      expect(setSelectionRange).toHaveBeenCalledWith(1, 1);
+
+      input.simulate('change', { target: { selectionEnd: 3, value: '123', setSelectionRange } });
+      jest.runAllTimers();
+      expect(setSelectionRange).toHaveBeenCalledWith(4, 4);
+
+      input.simulate('keydown', { which: 8 });
+
+      input.simulate('change', { target: { selectionEnd: 1, value: '123', setSelectionRange } });
+      jest.runAllTimers();
+      expect(setSelectionRange).toHaveBeenCalledWith(1, 1);
+
+      input.simulate('change', { target: { selectionEnd: 3, value: '123', setSelectionRange } });
+      jest.runAllTimers();
+      expect(setSelectionRange).toHaveBeenCalledWith(2, 2);
     });
   });
 });
