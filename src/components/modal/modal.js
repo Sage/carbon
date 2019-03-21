@@ -41,28 +41,28 @@ const TIMEOUT = 500;
 class Modal extends React.Component {
   static propTypes = {
     /**
-     * A custom close event handler.
+     * A custom close event handler
      */
     onCancel: PropTypes.func,
 
     /**
-     * Sets the open state of the modal.
+     * Sets the open state of the modal
      */
     open: PropTypes.bool.isRequired,
 
     /**
      * Determines if the background is disabled
-     * when the modal is open.
+     * when the modal is open
      */
     enableBackgroundUI: PropTypes.bool,
 
     /**
-     * Determines if the Esc Key closes the modal.
+     * Determines if the Esc Key closes the modal
      */
     disableEscKey: PropTypes.bool,
 
     /**
-     * The ARIA role to be applied to the modal.
+     * The ARIA role to be applied to the modal
      */
     ariaRole: PropTypes.string // eslint-disable-line react/no-unused-prop-types
   }
