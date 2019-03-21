@@ -37,7 +37,7 @@ storiesOf('GroupedCharacter', module)
         labelHelp={ labelHelp }
         fieldHelp={ fieldHelp }
         fieldHelpInline={ fieldHelpInline }
-        onChange={ action('change') }
+        onChange={ (evt) => { action('change')(evt) } }
       />
     );
   }, {
