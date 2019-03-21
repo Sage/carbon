@@ -2,8 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './documentation/notes.md';
-import Info from './documentation/Info';
+import { notes, Info } from './documentation';
 import Icon from './icon';
 
 storiesOf('Icon', module)

@@ -2,8 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
 import i18n from 'i18n-js';
-import notes from './documentation/notes.md';
-import Info from './documentation/Info';
+import { notes, Info } from './documentation';
 import I18nComponent from './i18n';
 
 i18n.translations = {

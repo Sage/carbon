@@ -3,8 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './documentation/notes.md';
-import Info from './documentation/Info';
+import { notes, Info } from './documentation';
 import Link from './link';
 
 storiesOf('Link', module)

@@ -2,12 +2,12 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './documentation/notes.md';
+import { notes } from './documentation';
 import { Menu, MenuItem, SubmenuBlock } from './menu';
 
 storiesOf('Menu', module)
   .add('default', () => {
-    const as = select('as', OptionsHelper.themesBinary, OptionsHelper.themesBinary[0]);
+    const as = select('as', OptionsHelper.themesBinary, Menu.defaultProps.as);
 
     return (
       <Menu
