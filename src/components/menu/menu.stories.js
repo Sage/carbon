@@ -25,7 +25,7 @@ storiesOf('Menu', module)
         <MenuItem submenu='Item Two'>
           <MenuItem href='#'>Sub Menu Item One</MenuItem>
           <SubmenuBlock>
-            <MenuItem icon="settings" href='#'>Sub Menu Item Two</MenuItem>
+            <MenuItem icon='settings' href='#'>Sub Menu Item Two</MenuItem>
             <MenuItem href='#'>Sub Menu Item Three</MenuItem>
             <MenuItem divide href='#'>Sub Menu Item Four</MenuItem>
           </SubmenuBlock>

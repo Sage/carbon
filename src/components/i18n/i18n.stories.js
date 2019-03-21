@@ -5,7 +5,6 @@ import i18n from 'i18n-js';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import I18nComponent from './i18n';
-import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
 i18n.translations = {
   en: {

@@ -18,7 +18,7 @@ storiesOf('Message', module)
 
     // Allows onDismiss knob to be a boolean, but pass a function to component
     const onDismiss = boolean('onDismiss', true);
-    const testOnDismiss = onDismiss ? evt => { action('click')(evt) } : undefined;
+    const testOnDismiss = onDismiss ? (evt) => { action('click')(evt); } : undefined;
 
     return (
       <Message

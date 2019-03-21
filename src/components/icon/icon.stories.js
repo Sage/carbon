@@ -5,7 +5,6 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import Icon from './icon';
-import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
 storiesOf('Icon', module)
   .add('default', () => {
