@@ -16,6 +16,10 @@ storiesOf('Message', module)
     const transparent = boolean('transparent', Message.defaultProps.transparent);
     const children = text('children', 'This is some information from the Message Component.');
 
+    // Allows onDismiss knob to be a boolean, but pass a function to component
+    const onDismiss = boolean('onDismiss', true);
+    const testOnDismiss = onDismiss ? evt => { action('click')(evt) } : undefined;
+
     return (
       <Message
         as={ as }
@@ -24,7 +28,7 @@ storiesOf('Message', module)
         roundedCorners={ roundedCorners }
         title={ title }
         transparent={ transparent }
-        onDismiss={ evt => { action('click')(evt) } }
+        onDismiss={ testOnDismiss }
       >
         { children }
       </Message>
