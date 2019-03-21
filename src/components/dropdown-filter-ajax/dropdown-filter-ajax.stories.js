@@ -21,7 +21,6 @@ const store = new Store({
 });
 
 enableMock();
-const create = (evt, component) => component.state.filter;
 
 // Shared Props
 const onChange = (evt) => {
@@ -50,8 +49,6 @@ const defaultKnobs = () => {
     inputWidth: text('inputWidth'),
     fieldHelp: text('fieldHelp', 'This is field help text'),
     fieldHelpInline: boolean('fieldHelpInline'),
-    createText: text('createText'),
-    createIconType: text('createIconType'),
     suggest: boolean('suggest'),
     freetext: boolean('freetext'),
     path: text('path', '/countries'),
@@ -89,12 +86,17 @@ storiesOf('DropdownFilterAjax', module)
   })
   .add('withCreate', () => {
     const props = defaultKnobs();
-
+    const create = (evt, component) => component.state.filter;
+    const createText = text('createText');
+    const createIconType = select('createIconType', OptionsHelper.icons, OptionsHelper.icons[0]);
+    
     return (
       <State store={ store }>
         <DropdownFilterAjax
           { ...props }
           create={ create }
+          createText={ createText }
+          createIconType={ createIconType }
           getCustomHeaders={ () => ({}) }
           onChange={ onChange }
         />

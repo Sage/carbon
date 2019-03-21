@@ -18,8 +18,6 @@ const store = new Store({
   value: ''
 });
 
-const create = (_evt, component) => component.state.filter;
-
 // Shared Props
 const onChange = (evt) => {
   store.set({ value: evt.target.value });
@@ -44,8 +42,6 @@ const defaultKnobs = () => {
     inputWidth: text('inputWidth'),
     fieldHelp: text('fieldHelp', 'This is field help text'),
     fieldHelpInline: boolean('fieldHelpInline'),
-    createText: text('createText'),
-    createIconType: text('createIconType'),
     suggest: boolean('suggest'),
     freetext: boolean('freetext'),
     options: ImmutableHelper.parseJSON([
@@ -82,12 +78,17 @@ storiesOf('Dropdown Filter', module)
   })
   .add('with Create', () => {
     const props = defaultKnobs();
+    const create = (_evt, component) => component.state.filter;
+    const createText = text('createText', 'Blah');
+    const createIconType = select('createIconType', OptionsHelper.icons, OptionsHelper.icons[0]);
 
     return (
       <State store={ store }>
         <DropdownFilter
           { ...props }
           create={ create }
+          createText={ createText }
+          createIconType={ createIconType }
           onChange={ onChange }
           value={ store.get('value') }
         />
