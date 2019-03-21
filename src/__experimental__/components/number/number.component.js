@@ -3,8 +3,6 @@ import PropTypes from 'prop-types';
 import InputDecoratorBridge from '../input-decorator-bridge';
 
 class Number extends React.Component {
-  inst = Math.random();
-
   render() {
     return (
       <InputDecoratorBridge
@@ -40,10 +38,6 @@ function isValidNumber(value) {
 
   return result;
 }
-
-Number.defaultProps = {
-  deferTimeout: 750
-};
 
 Number.propTypes = {
   value: PropTypes.string,
