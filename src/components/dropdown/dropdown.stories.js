@@ -33,7 +33,6 @@ storiesOf('Dropdown', module)
     const autoFocus = boolean('autoFocus', false);
     const cacheVisibleValue = boolean('cacheVisibleValue', true);
     const disabled = boolean('disabled', false);
-    const name = text('name', 'Name');
     const readOnly = boolean('readOnly', false);
     const timeToDisappear = number('timeToDisappear', 0);
     const label = text('label', 'Dropdown Label');
@@ -58,7 +57,6 @@ storiesOf('Dropdown', module)
           autoFocus={ autoFocus }
           cacheVisibleValue={ cacheVisibleValue }
           disabled={ disabled }
-          name={ name }
           readOnly={ readOnly }
           timeToDisappear={ timeToDisappear }
           label={ label }

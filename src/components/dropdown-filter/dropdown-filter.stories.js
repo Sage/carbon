@@ -31,7 +31,6 @@ const defaultKnobs = () => {
     autoFocus: boolean('autoFocus'),
     cacheVisibleValue: boolean('cacheVisibleValue', true),
     disabled: boolean('disabled'),
-    name: text('name', 'Name'),
     readOnly: boolean('readOnly'),
     timeToDisappear: number('timeToDisappear'),
     label: text('label', 'Dropdown Label'),
