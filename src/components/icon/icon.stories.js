@@ -15,7 +15,7 @@ storiesOf('Icon', module)
       OptionsHelper.sizesRestricted,
       Icon.defaultProps.bgSize
     );
-    const bgShape = select('bgShape', OptionsHelper.shapes);
+    const bgShape = select('bgShape', OptionsHelper.shapes, OptionsHelper.shapes[0]);
     const tooltipMessage = text('tooltipMessage', '');
     const tooltipPosition = tooltipMessage ? select(
       'tooltipPosition',
