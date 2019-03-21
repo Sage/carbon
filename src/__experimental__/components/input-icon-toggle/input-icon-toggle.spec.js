@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TestRenderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
 import 'jest-styled-components';
@@ -9,21 +10,31 @@ import BaseTheme from '../../../style/themes/base';
 import InputIconToggle from './input-icon-toggle.component';
 import { InputPresentationContext } from '../input/input-presentation.component';
 
-const ToggleWithContext = (props) => {
+const ToggleWithContext = ({ value, ...props }) => {
   return (
-    <InputPresentationContext.Provider value={ {} }>
+    <InputPresentationContext.Provider value={ value }>
       <InputIconToggle type='settings' { ...props } />
     </InputPresentationContext.Provider>
   );
 };
 
-const render = (props, renderer = shallow) => {
-  return renderer(
-    (renderer === shallow) ? <InputIconToggle type='settings' { ...props } /> : <ToggleWithContext { ...props } />
-  );
+ToggleWithContext.propTypes = {
+  value: PropTypes.object
 };
 
-const mountRender = props => mount(<ToggleWithContext { ...props } />);
+const render = (props, renderer = shallow, contextValue = {}) => {
+  let content;
+
+  if (renderer === shallow) {
+    content = <InputIconToggle type='settings' { ...props } />;
+  } else {
+    content = <ToggleWithContext value={ contextValue } { ...props } />;
+  }
+
+  return renderer(content);
+};
+
+const mountRender = (props, contextValue = {}) => mount(<ToggleWithContext value={ contextValue } { ...props } />);
 
 describe('InputIconToggle', () => {
   describe('when initiated with the disabled prop set to true', () => {
