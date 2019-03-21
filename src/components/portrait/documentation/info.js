@@ -17,6 +17,17 @@ const info = (
     <StoryCode>{'<Portrait gravatar="mygrav@email.com" />'}</StoryCode>
 
     <p>
+      Portrait will be rendered if you pass a prop of
+      <StoryCode padded>src</StoryCode> or
+      <StoryCode padded>gravatar</StoryCode>
+      as a source for portrait image.
+    </p>
+
+    <p>
+      To render Portrait without an image, pass only <StoryCode padded>initials</StoryCode> prop.
+    </p>
+
+    <p>
       You can pass a <StoryCode padded>size</StoryCode> property to adjust the size of the portrait. The default value
       is medium.
     </p>

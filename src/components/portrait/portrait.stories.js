@@ -10,7 +10,9 @@ storiesOf('Portait', module).add(
   () => {
     const alt = text('alt', Portrait.defaultProps.alt);
     const darkBackground = boolean('darkBackground', Portrait.defaultProps.darkBackground);
-    const gravatar = text('gravatar');
+    const source = select('source', ['src', 'gravatar'], 'src');
+    const gravatar = source === 'gravatar' ? text('gravatar') : undefined;
+    const src = source === 'src' ? text('src') : undefined;
     const initials = text('initials', 'AZ');
     const shape = select('shape', OptionsHelper.shapesVaried, Portrait.defaultProps.shape);
     const size = select('size', OptionsHelper.sizesFull, Portrait.defaultProps.size);
@@ -23,6 +25,7 @@ storiesOf('Portait', module).add(
         initials={ initials }
         shape={ shape }
         size={ size }
+        src={ src }
       />
     );
   },
