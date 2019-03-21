@@ -34,15 +34,17 @@ describe('GroupedCharacter', () => {
       input = instance.find('input');
       expect(input.props().value).toEqual('12-34-5678');
     });
-    fit('formats the input value correctly when deleting characters next to separator', () => {
-      const deletePress = new KeyboardEvent('keydown', { which: '46' });
+    it('formats the input value correctly when deleting characters next to separator', () => {
       instance = mountComponent({
         separator, groups: basicGroupConfig, value: '12345', onChange
       });
       input = instance.find('input');
-      input.simulate('click');
-      document.dispatchEvent(deletePress);
-      expect(input.props().value).toEqual('12-34');
+      input.simulate('keypress', { which: 46 });
+      expect(input.props().value).toEqual('12-34-5');
+    });
+    it('prevents default if ', () => {
+      input.simulate('keypress', { which: 46 });
+      expect(input.props().value).toEqual('12-34-5');
     });
   });
 });
