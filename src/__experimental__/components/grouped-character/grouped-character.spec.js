@@ -34,18 +34,19 @@ describe('GroupedCharacter', () => {
       input = instance.find('input');
       expect(input.props().value).toEqual('12-34-5678');
     });
-    it('formats the input value correctly when deleting characters next to separator', () => {
-      instance = mountComponent({
-        separator, groups: basicGroupConfig, value: '12345', onChange
-      });
-      input = instance.find('input');
-      input.simulate('keypress', { which: 46 });
-      expect(onChange).toHaveBeenCalledWith({ target: { value: '1234' } });
-    });
     it('prevents default when value string at max length', () => {
       const preventDefault = jest.fn();
       input.simulate('keypress', { preventDefault });
       expect(preventDefault).toHaveBeenCalled();
+    });
+    it('does not prevent default when value string  less than max length', () => {
+      const preventDefault = jest.fn();
+      instance = mountComponent({
+        separator, groups: basicGroupConfig, value: '123', onChange
+      });
+      input = instance.find('input');
+      input.simulate('keypress', { preventDefault });
+      expect(preventDefault).not.toHaveBeenCalled();
     });
     it('allows keydown events', () => {
       const setSelectionRange = jest.fn();
