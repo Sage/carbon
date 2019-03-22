@@ -4,10 +4,13 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { withInfo } from '@storybook/addon-info';
 import { withA11y } from '@storybook/addon-a11y';
 import AppLayout from 'helpers/components/app-layout/app-layout';
-
+import setupI18n from '../demo/i18n/config';
+import '../demo/i18n/en';
 import './style/story-root.scss';
 
-const req = require.context('../src/', true, /\.stories\.js$/);
+setupI18n();
+
+const req = require.context('../src/components', true, /\.stories\.js$/);
 const infoOptions = {
   header: false,
   inline: true
