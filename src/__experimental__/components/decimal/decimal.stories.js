@@ -14,7 +14,6 @@ storiesOf('Experimental/Decimal', module)
     const precision = number('precision', Decimal.defaultProps.precision);
     const inputWidth = number('inputWidth', Decimal.defaultProps.inputWidth);
     const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
-    const fieldHelpInline = boolean('fieldHelpInline', false);
     const label = text('label', 'Example Decimal');
     const labelInline = label ? boolean('labelInline', false) : undefined;
     const labelWidth = labelInline ? number('labelWidth', 30) : undefined;
@@ -32,7 +31,6 @@ storiesOf('Experimental/Decimal', module)
         precision={ precision }
         inputWidth={ inputWidth }
         fieldHelp={ fieldHelp }
-        fieldHelpInline={ fieldHelpInline }
         label={ label }
         labelInline={ labelInline }
         labelWidth={ labelWidth }

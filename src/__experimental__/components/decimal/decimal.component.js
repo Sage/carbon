@@ -20,7 +20,6 @@ class Decimal extends React.Component {
 
   // inputWidth: PropTypes.number,
   // fieldHelp: PropTypes.number,
-  // fieldHelpInline: PropTypes.number,
   // label: PropTypes.number,
   // labelInline: PropTypes.number,
   // labelWidth: PropTypes.number,
