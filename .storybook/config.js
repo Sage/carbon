@@ -10,7 +10,7 @@ import './style/story-root.scss';
 
 setupI18n();
 
-const req = require.context('../src/components', true, /\.stories\.js$/);
+const req = require.context('../src', true, /\.stories\.js$/);
 const infoOptions = {
   header: false,
   inline: true
