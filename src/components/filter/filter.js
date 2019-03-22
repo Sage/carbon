@@ -5,18 +5,10 @@ import Form from '../form';
 import tagComponent from '../../utils/helpers/tags';
 import './filter.scss';
 
-/**
- * @class Filter
- * @constructor
- */
 class Filter extends Form {
   static propTypes = {
     /**
      * Aligns the children in the filter.
-     *
-     * @property align
-     * @type {String}
-     * @default left
      */
     align: PropTypes.string
   }
