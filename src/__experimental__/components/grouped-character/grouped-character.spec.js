@@ -16,7 +16,6 @@ describe('GroupedCharacter', () => {
   const basicGroupConfig = [2, 2, 4],
       separator = '-',
       valueString = '12345678';
-  
 
   describe('functionality', () => {
     let instance, input, onChange;
@@ -60,14 +59,10 @@ describe('GroupedCharacter', () => {
       input.simulate('keypress', { preventDefault });
       expect(preventDefault).not.toHaveBeenCalled();
     });
-
   });
 
   describe('keydown events', () => {
-
-    
     let setInputCursorTo, assertInputCursorAt, setSelectionRange, instance, input, onChange;
-    
 
     beforeEach(() => {
       onChange = jest.fn();
@@ -81,7 +76,7 @@ describe('GroupedCharacter', () => {
       assertInputCursorAt = assertSelectionRangeCalled(setSelectionRange);
     });
 
-    it('pressing a non-backspace character at the point where a separating character should appear adjusts the cursor positon forwards', () => {
+    it('pressing a character at the point where a separator should appear adjusts the cursor positon forwards', () => {
       setInputCursorTo(3);
       jest.runAllTimers();
       assertInputCursorAt(4);
