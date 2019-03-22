@@ -7,7 +7,6 @@ import Icon from '../icon';
 import { validProps } from '../../utils/ether';
 import Event from '../../utils/helpers/events';
 import tagComponent from '../../utils/helpers/tags';
-// import './link.scss';
 import LinkStyle from './link.style';
 
 class _Link extends React.Component {
