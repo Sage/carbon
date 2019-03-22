@@ -1,17 +1,15 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { StateDecorator, Store } from '@sambego/storybook-state';
+import { StateDecorator, Store, State } from '@sambego/storybook-state';
 import {
-  text,
-  select,
   boolean,
   number
 } from '@storybook/addon-knobs';
 import Number from './number.component';
 import notes from './notes.md';
-import OptionsHelper from '../../../utils/helpers/options-helper';
 import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-info.styles';
+import getTextboxStoryProps from '../textbox/textbox.stories';
 
 const store = new Store(
   {
@@ -24,44 +22,16 @@ const setValue = (ev) => {
   store.set({ value: ev.target.value });
 };
 
-const percentageRange = {
-  range: true,
-  min: 0,
-  max: 100,
-  step: 1
-};
-
 storiesOf('Experimental/Number Input', module)
   .addDecorator(StateDecorator(store))
   .add('default', () => {
-    const disabled = boolean('disabled', false);
-    const readOnly = boolean('readOnly', false);
-    const fieldHelp = text('fieldHelp', '');
-    const label = text('label', '');
-    const labelHelp = label ? text('labelHelp') : undefined;
-    const labelInline = label ? boolean('labelInline', false) : undefined;
-    const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
-    const inputWidth = labelInline ? number('inputWidth', 70, percentageRange) : undefined;
-    const labelAlign = labelInline ? select(
-      'labelAlign',
-      OptionsHelper.alignBinary,
-      OptionsHelper.alignBinary[0]
-    ) : undefined;
     const onChangeDeferred = boolean('onChangeDeferred', false);
     const deferTimeout = onChangeDeferred ? number('deferTimeout') : undefined;
 
     return (
       <Number
+        { ...getTextboxStoryProps() }
         value={ store.get('value') }
-        disabled={ disabled }
-        readOnly={ readOnly }
-        inputWidth={ inputWidth }
-        fieldHelp={ fieldHelp }
-        label={ label }
-        labelHelp={ labelHelp }
-        labelInline={ labelInline }
-        labelWidth={ labelWidth }
-        labelAlign={ labelAlign }
         onChange={ setValue }
         onKeyDown={ action('onKeyDown') }
         onChangeDeferred={ onChangeDeferred ? action('onChangeDeferred') : undefined }
@@ -90,7 +60,8 @@ storiesOf('Experimental/Number Input', module)
             {'<Number name="myNumber" />'}
           </StoryCode>
         </div>
-      )
+      ),
+      propTablesExclude: [State]
     },
     notes: { markdown: notes }
   });
