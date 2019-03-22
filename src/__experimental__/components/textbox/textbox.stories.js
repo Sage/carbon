@@ -9,9 +9,9 @@ storiesOf('Experimental/Textbox', module)
     return (
       <Textbox
         disabled={ boolean('disabled') }
-        error={ text('error') }
+        errorMessage={ text('errorMessage') }
         fieldHelp={ text('fieldHelp') }
-        info={ text('info') }
+        infoMessage={ text('infoMessage') }
         label={ text('label') }
         labelAlign={ select('labelAlign', OptionsHelper.alignBinary) }
         labelHelp={ text('labelHelp') }
@@ -19,7 +19,7 @@ storiesOf('Experimental/Textbox', module)
         placeholder={ text('placeholder') }
         readOnly={ boolean('readOnly') }
         size={ select('size', OptionsHelper.sizesRestricted) }
-        warning={ text('warning') }
+        warningMessage={ text('warningMessage') }
       />
     );
   })
@@ -27,9 +27,9 @@ storiesOf('Experimental/Textbox', module)
     return ([
       <Textbox
         disabled={ boolean('disabled') }
-        error={ text('error') }
+        errorMessage={ text('errorMessage') }
         fieldHelp={ text('fieldHelp') }
-        info={ text('info') }
+        infoMessage={ text('infoMessage') }
         label={ text('label') }
         labelAlign={ select('labelAlign', OptionsHelper.alignBinary) }
         labelHelp={ text('labelHelp') }
@@ -37,14 +37,14 @@ storiesOf('Experimental/Textbox', module)
         placeholder={ text('placeholder') }
         readOnly={ boolean('readOnly') }
         size={ select('size', OptionsHelper.sizesRestricted) }
-        warning={ text('warning') }
+        warningMessage={ text('warningMessage') }
         key='0'
       />,
       <Textbox
         disabled={ boolean('disabled') }
-        error={ text('error') }
+        errorMessage={ text('errorMessage') }
         fieldHelp={ text('fieldHelp') }
-        info={ text('info') }
+        infoMessage={ text('infoMessage') }
         label={ text('label') }
         labelAlign={ select('labelAlign', OptionsHelper.alignBinary) }
         labelHelp={ text('labelHelp') }
@@ -52,7 +52,7 @@ storiesOf('Experimental/Textbox', module)
         placeholder={ text('placeholder') }
         readOnly={ boolean('readOnly') }
         size={ select('size', OptionsHelper.sizesRestricted) }
-        warning={ text('warning') }
+        warningMessage={ text('warningMessage') }
         key='1'
       />
     ]);
