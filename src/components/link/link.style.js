@@ -5,19 +5,12 @@ import baseTheme from '../../style/themes/base';
 const LinkStyle = styled.div`
   a {
     font-size: 14px;
-    font-weight: normal;
-    font-style: normal;
-    font-stretch: normal;
-    line-height: normal;
-    letter-spacing: normal;
     text-decoration: underline;
-    display: flex;
     color: ${({ theme }) => theme.colors.primary} !important;
 
     &:hover {
       cursor: pointer;
       color: ${({ theme }) => theme.colors.secondary} !important;
-      text-decoration: underline;
     }
 
     &:focus {
