@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Textbox from '../textbox';
 import { generateGroups, toSum, toIndexSteps } from './grouped-character.utils';
-import Events from '../../../utils/helpers/events';
+import Events from '../../../utils/helpers/events/events';
 
 const GroupedCharacter = (props) => {
   const [pressedKey, updatePressedKey] = useState(null);

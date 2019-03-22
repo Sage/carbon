@@ -1,6 +1,6 @@
 import React from 'react';
 import { mount } from 'enzyme';
-import GroupedCharacter from '.';
+import GroupedCharacter from './grouped-character.component';
 
 const mountComponent = props => mount(<GroupedCharacter { ...props } />);
 const setCursorOn = (node, setSelectionRange) => (
