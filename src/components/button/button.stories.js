@@ -7,51 +7,53 @@ import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import Button from '.';
 
+const defaultKnobs = () => {
+  const size = select('size', OptionsHelper.sizesRestricted, OptionsHelper.sizesRestricted[1]);
+
+  return {
+    as: select('as', OptionsHelper.themesBinary, OptionsHelper.themesBinary[1]),
+    children: text('children', 'Example Button'),
+    disabled: boolean('disabled', false),
+    iconPosition: select('iconPosition', [...OptionsHelper.buttonIconPositions, ''], ''),
+    iconType: select('iconType', [...OptionsHelper.icons, ''], ''),
+    onClick: action('click'),
+    size,
+    subtext: size === OptionsHelper.sizesRestricted[2] ? text('subtext', '') : undefined,
+    theme: select('theme', OptionsHelper.buttonColors, OptionsHelper.buttonColors[0])
+  };
+};
+
 storiesOf('Button', module)
   .add('default', () => {
-    const renderAs = select('as', OptionsHelper.themesBinary, OptionsHelper.themesBinary[0]);
-    const children = text('children', 'Example Button');
-    const classicVariant = select('classicTheme', OptionsHelper.buttonColors, OptionsHelper.buttonColors[0]);
-    const disabled = boolean('disabled', false);
-    const iconType = select('iconType', [...OptionsHelper.icons, ''], '');
-    const iconPosition = select('iconPosition', [...OptionsHelper.buttonIconPositions, ''], '');
-    const size = select('size', OptionsHelper.sizesRestricted, OptionsHelper.sizesRestricted[1]);
-    const subtext = size === OptionsHelper.sizesRestricted[2] ? text('subtext', '') : undefined;
-    const addSibling = boolean('renderSibling', false);
-
+    const props = defaultKnobs();
+    const { children } = props;
     return (
-      <div>
-        <Button
-          as={ renderAs }
-          size={ size }
-          disabled={ disabled }
-          onClick={ action('click') }
-          subtext={ subtext }
-          iconPosition={ iconPosition }
-          iconType={ iconType }
-          theme={ classicVariant }
-        >
-          { children }
-        </Button>
-        {
-          addSibling
-          && (
-            <Button
-              as={ renderAs }
-              size={ size }
-              disabled={ disabled }
-              onClick={ action('click') }
-              iconPosition={ iconPosition }
-              iconType={ iconType }
-              theme={ classicVariant }
-            >
-              { children }
-            </Button>
-          )
-        }
-      </div>
+      <Button
+        { ...props }
+      >
+        { children }
+      </Button>
     );
   }, {
     info: { text: Info },
     notes: { markdown: notes }
+  })
+  .add('as a sibling', () => {
+    const props = defaultKnobs();
+    const { children } = props;
+    return (
+      <div>
+        <Button
+          { ...props }
+        >
+          { children }
+        </Button>
+
+        <Button
+          { ...props }
+        >
+          { children }
+        </Button>
+      </div>
+    );
   });

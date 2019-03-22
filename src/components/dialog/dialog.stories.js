@@ -6,7 +6,7 @@ import { State, Store } from '@sambego/storybook-state';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Dialog from './dialog';
-import Button from '../button/button';
+import Button from '../button';
 
 const store = new Store({
   open: false
