@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import LocaleUtils from 'react-day-picker/moment';
 import 'react-day-picker/lib/style.css';
 import './date.scss';
-import Navbar from './navbar';
+import StyledNavbar from './navbar/navbar.style';
 import StyledDayPicker from './day-picker.style';
 import Portal from '../portal';
 import Browser from '../../utils/helpers/browser';
@@ -465,9 +465,14 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
       fixedWeeks: true,
       initialMonth: this.state.datePickerValue || DateHelper.stringToDate(date),
       inline: true,
+      weekdayElement: (weekdayElementProps) => {
+        const { className } = weekdayElementProps;
+
+        return <div className={ className } role='columnheader'><abbr title='Wednesday'>We</abbr></div>;
+      },
       locale: I18n.locale,
       localeUtils: LocaleUtils,
-      navbarElement: <Navbar />,
+      navbarElement: <StyledNavbar />,
       onDayClick: this.handleDateSelect,
       ref: (input) => { this.datepicker = input; },
       selectedDays: [this.state.datePickerValue]

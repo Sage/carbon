@@ -10,7 +10,7 @@ const StyledDayPicker = styled(DayPicker)`
   font-size: 14px;
   font-weight: 700;
   overflow: hidden;
-  padding: 10px;
+  padding: 32px;
   position: absolute;
   text-align: center;
   user-select: none;
@@ -26,6 +26,10 @@ const StyledDayPicker = styled(DayPicker)`
   abbr[title] {
     border: none;
     cursor: initial;
+  }
+
+  .DayPicker-wrapper {
+    padding: 0;
   }
 
   .DayPicker-Month {
@@ -46,10 +50,10 @@ const StyledDayPicker = styled(DayPicker)`
   }
 
   .DayPicker-Caption {
-    background-color: #fff;
-    color: $black-85;
     height: 40px;
     line-height: 40px;
+    font-size: 16px;
+    font-weight: 800;
   
     >div {
       margin: 0 auto;
@@ -58,11 +62,11 @@ const StyledDayPicker = styled(DayPicker)`
   }
 
   .DayPicker-Weekday {
-    background-color: #fff;
-    font-size: 14px;
-    font-weight: 700;
+    color: #668592;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 800;
     text-align: center;
-    text-transform: capitalize;
   }
 
   .DayPicker-Day {

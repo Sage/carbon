@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import './navbar.scss';
+import StyledButton from './button.style';
+import Icon from '../../icon/icon';
 
 const Navbar = ({
   onPreviousClick,
@@ -9,20 +10,18 @@ const Navbar = ({
 }) => {
   return (
     <div className={ className }>
-      <button
+      <StyledButton
         type='button'
-        className='DayPicker-NavButton DayPicker-NavButton--prev'
         onClick={ () => onPreviousClick() }
       >
-        <span className='DayPicker-NavButton__arrow'>‹</span>
-      </button>
-      <button
+        <Icon type='chevron_left' />
+      </StyledButton>
+      <StyledButton
         type='button'
-        className='DayPicker-NavButton DayPicker-NavButton--next'
         onClick={ () => onNextClick() }
       >
-        <span className='DayPicker-NavButton__arrow'>›</span>
-      </button>
+        <Icon type='chevron_right' />
+      </StyledButton>
     </div>
   );
 };
