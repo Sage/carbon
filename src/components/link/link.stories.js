@@ -4,7 +4,7 @@ import { boolean } from '@storybook/addon-knobs';
 import Link from './link.component.js';
 
 storiesOf('Link', module).add('default', () => {
-  const disabled = boolean('disabled', true);
+  const disabled = boolean('disabled', false);
   return (
     <Link
       icon='calendar' iconAlign='left'

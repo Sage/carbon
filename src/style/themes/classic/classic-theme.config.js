@@ -6,10 +6,14 @@ export default (palette) => {
       name: THEMES.classic,
 
       colors: {
-        base: palette.productGreen,
-        primary: palette.productGreenShade(21),
-        secondary: palette.productGreenShade(41),
-        tertiary: palette.productGreenShade(61)
+        base: palette.blue,
+        primary: palette.blue,
+        secondary: palette.azul,
+        tertiary: palette.productBlueTint(61)
+      },
+
+      disabled: {
+        text: palette.slate
       }
     }
   );
