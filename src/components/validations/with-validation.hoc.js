@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { ValidationsContext } from './form-with-validations.hoc';
 import Icon from '../icon';
 import validator from '../../utils/validations/validator';
+import VALIDATION_TYPES from './validation-types.constant';
 
 const withValidation = (WrappedComponent) => {
   class WithValidation extends React.Component {
@@ -12,36 +13,29 @@ const withValidation = (WrappedComponent) => {
       children: PropTypes.node, // Children elements
       name: PropTypes.string.isRequired, // Name to uniquely identify the component
       value: PropTypes.string, // The current value of the component
-      validations: PropTypes.oneOfType([ // The error validations that should be run against the value
-        PropTypes.func,
-        PropTypes.arrayOf(PropTypes.func)
-      ]),
-      warnings: PropTypes.oneOfType([ // The warnings validations that should be run against the value
-        PropTypes.func,
-        PropTypes.arrayOf(PropTypes.func)
-      ]),
-      info: PropTypes.oneOfType([ // The info validations that should be run against the value
-        PropTypes.func,
-        PropTypes.arrayOf(PropTypes.func)
-      ]),
       onBlur: PropTypes.func, // Custom function to be called when the component blurs
-      onChange: PropTypes.func // Custom function called when component value changes
+      onChange: PropTypes.func, // Custom function called when component value changes
+      ...Object.values(VALIDATION_TYPES).reduce((acc, type) => ({
+        ...acc,
+        [type]: PropTypes.oneOfType([ // The info validations that should be run against the value
+          PropTypes.func,
+          PropTypes.arrayOf(PropTypes.func)
+        ])
+      }), {})
     };
 
-    static defaultProps = {
-      validations: [],
-      warnings: [],
-      info: []
-    }
+    static defaultProps = Object.values(VALIDATION_TYPES).reduce((acc, type) => ({
+      ...acc,
+      [type]: []
+    }), {});
 
-    state = {
-      hasError: false,
-      hasWarning: false,
-      hasInfo: false
-    };
+    state = Object.keys(VALIDATION_TYPES).reduce((acc, type) => ({
+      ...acc,
+      [`${type}Message`]: undefined
+    }), {});
 
     componentDidMount() {
-      if (this.checkValidations(['info', 'warnings', 'validations'])) {
+      if (this.checkValidations()) {
         this.context.addInput(this.props.name, this.validate);
       }
     }
@@ -51,21 +45,27 @@ const withValidation = (WrappedComponent) => {
     }
 
     componentDidUpdate(prevProps) {
-      if (this.isUpdatedValidationProps(prevProps) && this.checkValidations(['info', 'warnings', 'validations'])) {
+      if (this.isUpdatedValidationProps(prevProps) && this.checkValidations()) {
         this.context.addInput(this.props.name, this.validate);
       }
     }
 
     isUpdatedValidationProps(prevProps) {
-      const { validations, warnings, info } = this.props;
-      return validations !== prevProps.validations || warnings !== prevProps.warnings || info !== prevProps.info;
+      let updated = false;
+      const validationTypes = Object.values(VALIDATION_TYPES);
+      validationTypes.forEach((type) => {
+        if (this.props[type] !== prevProps[type]) updated = true;
+      });
+      return updated;
     }
 
-    checkValidations(types) {
+    checkValidations() {
       if (!this.context.addInput) return false;
 
+      const types = Object.keys(VALIDATION_TYPES);
       let hasValidations = true;
-      types.forEach((type) => {
+      types.forEach((validationType) => {
+        const type = VALIDATION_TYPES[validationType];
         if ((Array.isArray(this.props[type]) && this.props[type].length === 0)
           || typeof this.props[type] === 'undefined') {
           hasValidations = false;
@@ -77,7 +77,7 @@ const withValidation = (WrappedComponent) => {
       return hasValidations;
     }
 
-    validate = (types = ['validations', 'warnings', 'info']) => {
+    validate = (types = Object.keys(VALIDATION_TYPES)) => {
       const validationPromises = [];
       types.forEach((type) => {
         const validationPromise = this.runValidation(type);
@@ -86,24 +86,21 @@ const withValidation = (WrappedComponent) => {
       return validationPromises;
     }
 
-    updateValidationStatus(type, errorStatus) {
+    updateValidationStatus(type, message) {
       const { adjustCount } = this.context;
-      let stateProp = '';
+      const stateProp = `${type}Message`;
 
-      if (type === 'validations') stateProp = 'hasError';
-      else if (type === 'warnings') stateProp = 'hasWarning';
-      else if (type === 'info') stateProp = 'hasInfo';
-
-      if (errorStatus && !this.state[stateProp]) {
+      if (message && !this.state[stateProp]) {
         adjustCount(type, true);
-        this.setState({ [stateProp]: errorStatus });
-      } else if (!errorStatus && this.state[stateProp]) {
+        this.setState({ [stateProp]: message });
+      } else if (!message && this.state[stateProp]) {
         adjustCount(type);
-        this.setState({ [stateProp]: false });
+        this.setState({ [stateProp]: undefined });
       }
     }
 
-    runValidation(type) {
+    runValidation(validationType) {
+      const type = VALIDATION_TYPES[validationType];
       if (typeof this.props[type] === 'undefined') return null;
       if (Array.isArray(this.props[type]) && this.props[type].length === 0) return null;
 
@@ -122,10 +119,9 @@ const withValidation = (WrappedComponent) => {
     }
 
     renderValidationMarkup() {
-      let type;
-      if (this.state.hasInfo) type = 'info';
-      if (this.state.hasWarning) type = 'warning';
-      if (this.state.hasError) type = 'error';
+      const type = Object.keys(VALIDATION_TYPES).find((type) => {
+        return this.state[`${type}Message`];
+      });
       const validationIcon = type ? <Icon key={ `${type}-icon` } type={ type } /> : undefined;
       return validationIcon;
     }
@@ -138,19 +134,17 @@ const withValidation = (WrappedComponent) => {
 
     handleChange = (ev) => {
       this.blockValidation = true;
-      if (this.state.hasError) {
-        this.updateValidationStatus('error');
-        this.setState({ hasError: false });
+
+      Object.keys(VALIDATION_TYPES).forEach((type) => {
+        if (this.state[`${type}Message`]) {
+          this.updateValidationStatus(type);
+          this.setState({ [`${type}Message`]: false });
+        }
+      });
+
+      if (this.props.onChange) {
+        this.props.onChange(ev);
       }
-      if (this.state.hasWarning) {
-        this.updateValidationStatus('warning');
-        this.setState({ hasWarning: false });
-      }
-      if (this.state.hasInfo) {
-        this.updateValidationStatus('info');
-        this.setState({ hasInfo: false });
-      }
-      this.props.onChange(ev);
     }
 
     render() {
