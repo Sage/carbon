@@ -124,7 +124,7 @@ class _Link extends React.Component {
     return url.replace(this.typeRegex, '');
   }
 
-   linkTypeHOC = (Component, props) => (
+   generateTagBasedOnPropHOC = (Component, props) => (
      <LinkStyle disabled={ this.props.disabled }>
        <Component { ...props }>
          <span>
@@ -142,7 +142,7 @@ class _Link extends React.Component {
 
    render() {
      return (
-       this.linkTypeHOC(this.linkType.component, this.componentProps)
+       this.generateTagBasedOnPropHOC(this.linkType.component, this.componentProps)
      );
    }
 }
