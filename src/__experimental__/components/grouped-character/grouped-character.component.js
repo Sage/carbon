@@ -37,10 +37,10 @@ const GroupedCharacter = (props) => {
 };
 
 GroupedCharacter.propTypes = {
-  separator: PropTypes.string,
-  groups: PropTypes.array,
-  value: PropTypes.string,
-  onChange: PropTypes.func
+  separator: PropTypes.string, // character to be used as separator
+  groups: PropTypes.array, // pattern by which input value should be grouped
+  value: PropTypes.string, // input value
+  onChange: PropTypes.func // on change handler which will receive the input value without separators
 };
 
 export default GroupedCharacter;
