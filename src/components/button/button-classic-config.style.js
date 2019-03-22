@@ -9,7 +9,6 @@ export default {
         border: 1px solid #1e499f;
         color: #ffffff;
       }
-    
     `,
     grey: `
       background: #335c6d;
