@@ -31,7 +31,12 @@ const handleClick = (evt) => {
 storiesOf('Dialog', module)
   .addParameters({
     info: {
-      propTablesExclude: [Button, State]
+      propTablesExclude: [
+        Button,
+        State,
+        Form,
+        Textbox
+      ]
     }
   })
   .add('default', () => {
