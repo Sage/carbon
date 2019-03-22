@@ -3,14 +3,23 @@ import { mount } from 'enzyme';
 import GroupedCharacter from '.';
 
 const mountComponent = props => mount(<GroupedCharacter { ...props } />);
+const setCursorOn = (node, setSelectionRange) => (
+  selectionEnd => node.simulate('change', { target: { selectionEnd, value: '123', setSelectionRange } })
+);
+
+const assertSelectionRangeCalled = selectionFn => (
+  position => expect(selectionFn).toHaveBeenCalledWith(position, position)
+);
 
 describe('GroupedCharacter', () => {
+  jest.useFakeTimers();
   const basicGroupConfig = [2, 2, 4],
       separator = '-',
       valueString = '12345678';
-  let instance, input, onChange;
+  
 
   describe('functionality', () => {
+    let instance, input, onChange;
     beforeEach(() => {
       onChange = jest.fn();
 
@@ -23,10 +32,13 @@ describe('GroupedCharacter', () => {
     it('takes configuration for how text should be grouped', () => {
       expect(input.props().value).toEqual('12-34-5678');
     });
+
     it('emits an unformatted string', () => {
-      input.simulate('change', { target: { value: '123456' } });
+      input.simulate('change', { target: { value: '123456', setSelectionRange: () => {} } });
+      jest.runAllTimers();
       expect(onChange).toHaveBeenCalledWith({ target: { value: '123456' } });
     });
+
     it('does not allow values of length greater than that allowed by the group config', () => {
       instance = mountComponent({
         separator, groups: basicGroupConfig, value: '1234567890', onChange
@@ -48,27 +60,40 @@ describe('GroupedCharacter', () => {
       input.simulate('keypress', { preventDefault });
       expect(preventDefault).not.toHaveBeenCalled();
     });
-    it('allows keydown events', () => {
-      const setSelectionRange = jest.fn();
-      jest.useFakeTimers();
 
-      input.simulate('change', { target: { selectionEnd: 1, value: '123', setSelectionRange } });
+  });
+
+  describe('keydown events', () => {
+
+    
+    let setInputCursorTo, assertInputCursorAt, setSelectionRange, instance, input, onChange;
+    
+
+    beforeEach(() => {
+      onChange = jest.fn();
+      setSelectionRange = jest.fn();
+
+      instance = mountComponent({
+        separator, groups: basicGroupConfig, value: valueString, onChange
+      });
+      input = instance.find('input');
+      setInputCursorTo = setCursorOn(input, setSelectionRange);
+      assertInputCursorAt = assertSelectionRangeCalled(setSelectionRange);
+    });
+
+    it('pressing a non-backspace character at the point where a separating character should appear adjusts the cursor positon forwards', () => {
+      setInputCursorTo(3);
       jest.runAllTimers();
-      expect(setSelectionRange).toHaveBeenCalledWith(1, 1);
+      assertInputCursorAt(4);
+    });
 
-      input.simulate('change', { target: { selectionEnd: 3, value: '123', setSelectionRange } });
-      jest.runAllTimers();
-      expect(setSelectionRange).toHaveBeenCalledWith(4, 4);
-
+    it('pressing backspace after a separating character adjusts the cursor position backwards', () => {
+      // backspace
       input.simulate('keydown', { which: 8 });
 
-      input.simulate('change', { target: { selectionEnd: 1, value: '123', setSelectionRange } });
+      setInputCursorTo(3);
       jest.runAllTimers();
-      expect(setSelectionRange).toHaveBeenCalledWith(1, 1);
-
-      input.simulate('change', { target: { selectionEnd: 3, value: '123', setSelectionRange } });
-      jest.runAllTimers();
-      expect(setSelectionRange).toHaveBeenCalledWith(2, 2);
+      assertInputCursorAt(2);
     });
   });
 });
