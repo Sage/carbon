@@ -2,30 +2,46 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
-import Button from './button';
+import Button from '.';
 
 storiesOf('Button', module)
   .add('default', () => {
-    const asOption = select('as', OptionsHelper.themesBinary, OptionsHelper.themesBinary[0]);
-    const children = text('children', 'Example Button');
+    const renderAs = select('as', ['primary', 'secondary', 'tertiary', 'destructive', 'darkBackground'], 'secondary');
+    const children = text('children', 'DLS Button');
     const disabled = boolean('disabled', false);
-    const theme = select('theme', OptionsHelper.buttonColors, OptionsHelper.buttonColors[0]);
-    const size = select('size', OptionsHelper.sizesRestricted, OptionsHelper.sizesRestricted[1]);
-    const subtext = size === OptionsHelper.sizesRestricted[2] ? text('subtext', '') : undefined;
+    const size = select('size', ['small', 'medium', 'large'], 'medium');
+    const subtext = text('subtext', '');
+    const iconType = select('iconType', ['cross', 'filter', ''], '');
+    const iconPosition = select('iconPosition', ['before', 'after', ''], '');
+    const classicVariant = select('classicTheme', ['blue', 'grey', 'magenta', 'magenta-dull', 'red', 'white'], 'blue');
 
     return (
-      <Button
-        as={ asOption }
-        disabled={ disabled }
-        theme={ theme }
-        size={ size }
-        subtext={ subtext }
-        onClick={ action('click') }
-      >
-        {children}
-      </Button>
+      <div>
+        <Button
+          as={ renderAs }
+          size={ size }
+          disabled={ disabled }
+          onClick={ action('click') }
+          subtext={ subtext }
+          iconPosition={ iconPosition }
+          iconType={ iconType }
+          theme={ classicVariant }
+        >
+          { children }
+        </Button>
+        <Button
+          as={ renderAs }
+          size={ size }
+          disabled={ disabled }
+          onClick={ action('click') }
+          iconPosition={ iconPosition }
+          iconType={ iconType }
+          theme={ classicVariant }
+        >
+          { children }
+        </Button>
+      </div>
     );
   }, {
     notes: { markdown: notes }

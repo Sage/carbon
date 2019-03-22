@@ -1,35 +1,23 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import baseTheme from '../../../style/themes/base';
+import BaseTheme from '../../style/themes/base';
 import buttonTypes from './button-types.style';
 import buttonSizes from './button-sizes.style';
+import classicConfig from './button-classic-config.style';
 
 const StyledButton = styled.button`
   align-items: center;
-  border: 2px solid transparent;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   display: inline-flex;
   flex-direction: column;
   flex-flow: wrap;
-  font-weight: 600;
   justify-content: center;
   vertical-align: middle;
 
-  &:focus {
-    outline: solid 3px ${({ theme }) => theme.colors.warning};
-  }
+  ${({ theme }) => theme.name !== 'classic' && stylingForType}
+  ${({ theme, size }) => theme.name !== 'classic' && buttonSizes(theme)[size]}
 
-  & + & {
-    margin-left: 16px;
-  }
-
-  ${stylingForType}
-  ${({ theme, size }) => buttonSizes(theme)[size]};
-
-  ${({ theme }) => theme.name === 'classic' && css`
-    border: 8px solid #255BC7;
-    outline: none;
-  `}
+  ${({ theme, renderAs }) => theme.name === 'classic' && classicRenderAs(renderAs) && stylingForClassic}
 
   ${({ iconPosition }) => css`
     .carbon-icon {
@@ -57,23 +45,59 @@ function stylingForType({ disabled, renderAs, theme }) {
   const renderValue = queryColor(disabled);
 
   return css`
+    border: 2px solid transparent;
     background: ${renderValue(type.default.background, theme.colors.disabled.background)};
     border-color: ${renderValue(type.default.borderColor, theme.colors.disabled.background)};
     color: ${renderValue(type.default.color, theme.colors.disabled.text)};
+    font-weight: 600;
     &:hover {
       background: ${renderValue(type.hover.background,
     (renderAs === 'secondary' ? 'transparent' : theme.colors.disabled.background))};
       border-color: ${renderValue(type.hover.borderColor, theme.colors.disabled.background)};
       color: ${renderValue(type.hover.color, theme.colors.disabled.text)};
     }
+    &:focus {
+      outline: solid 3px ${theme.colors.warning};
+    }
+    & + & {
+      margin-left: 16px;
+    }
+  `;
+}
+
+function classicRenderAs(renderAs) {
+  return renderAs === 'primary' || renderAs === 'secondary';
+}
+
+function stylingForClassic({
+  disabled, renderAs, variant, size
+}) {
+  if (disabled) {
+    return css`
+      font-weight: 700;
+      ${classicConfig.disabled}
+      ${classicConfig[size]}
+      & + & {
+        margin-left: 15px;
+      }
+    `;
+  }
+  return css`
+    font-weight: 700;
+    ${classicConfig[renderAs][variant]}
+    ${classicConfig[size]}
+    & + & {
+      margin-left: 15px;
+    }
   `;
 }
 
 StyledButton.defaultProps = {
-  theme: baseTheme,
-  medium: true
+  theme: BaseTheme,
+  medium: true,
+  renderAs: 'secondary',
+  variant: 'blue'
 };
-
 
 StyledButton.propTypes = {
   renderAs: PropTypes.string, // Customises appearance, options: 'primary', 'secondary', 'tertiary' or 'destructive'
@@ -82,6 +106,7 @@ StyledButton.propTypes = {
   iconPosition: PropTypes.string, // Defines an Icon position within the button 'before' / 'after'
   iconType: PropTypes.string, // Defines an Icon type within the button
   size: PropTypes.string, // Assigns a size to the button
-  subtext: PropTypes.string // Second text child, renders under main text, only works when size is "large"
+  subtext: PropTypes.string, // Second text child, renders under main text, only works when size is "large"
+  variant: PropTypes.oneOf(['blue', 'grey', 'magenta', 'magenta-dull', 'red', 'white']) // controls legacy themes
 };
 export default StyledButton;

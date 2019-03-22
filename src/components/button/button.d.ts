@@ -1,8 +1,8 @@
 import * as React from 'react';
 export interface ButtonProps {
-  as?: 'primary' | 'secondary';
+  as?: 'primary' | 'secondary' | 'tertiary' | 'destructive' | 'darkBackground';
   disabled?: boolean;
-  theme?: 'blue' | 'grey' | 'magenta' | 'magenta-dull' | 'red' | 'white';
+  classicTheme?: 'blue' | 'grey' | 'magenta' | 'magenta-dull' | 'red' | 'white';
   size?: 'small' | 'medium' | 'large';
   subtext?: string;
   children?: React.ReactNode;

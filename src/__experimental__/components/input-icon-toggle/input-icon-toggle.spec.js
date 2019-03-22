@@ -49,7 +49,7 @@ describe('InputIconToggle', () => {
     });
   });
 
-  fdescribe('sizes', () => {
+  describe('sizes', () => {
     [['small', '32px'], ['medium', '40px'], ['large', '48px']].forEach((size) => {
       it(`updates the width for ${size[0]}`, () => {
         assertStyleMatch({

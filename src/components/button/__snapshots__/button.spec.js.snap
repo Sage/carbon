@@ -1,0 +1,1097 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Button when a subtext prop is passed into the component does not render the subtext if the size prop is not "large" 1`] = `
+<styled.button
+  data-component="button"
+  disabled={false}
+  iconPosition=""
+  iconType=""
+  medium={true}
+  renderAs="secondary"
+  role="button"
+  size="medium"
+  subtext="foo"
+  theme={
+    Object {
+      "colors": Object {
+        "base": "#00A376",
+        "border": "#668491",
+        "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
+        "disabled": Object {
+          "background": "rgba(0,0,0,0.1)",
+          "border": "#CCD6DA",
+          "disabled": "rgba(0,0,0,0.55)",
+          "input": "#F2F4F5",
+        },
+        "error": "#C7384F",
+        "focus": "#FFB500",
+        "info": "#0073C2",
+        "primary": "#26A826",
+        "secondary": "#006300",
+        "success": "#00B000",
+        "tertiary": "#004400",
+        "warning": "#FFB500",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "border": "#CCD6DA",
+        "disabled": "rgba(0,0,0,0.55)",
+        "input": "#F2F4F5",
+      },
+      "name": "base",
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+  variant="blue"
+>
+  <span>
+    <span
+      data-element="main-text"
+    >
+      foo
+    </span>
+  </span>
+</styled.button>
+`;
+
+exports[`Button when a subtext prop is passed into the component renders the subtext if the size prop is "large" 1`] = `
+<styled.button
+  data-component="button"
+  disabled={false}
+  iconPosition=""
+  iconType=""
+  medium={true}
+  renderAs="secondary"
+  role="button"
+  size="large"
+  subtext="foo"
+  theme={
+    Object {
+      "colors": Object {
+        "base": "#00A376",
+        "border": "#668491",
+        "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
+        "disabled": Object {
+          "background": "rgba(0,0,0,0.1)",
+          "border": "#CCD6DA",
+          "disabled": "rgba(0,0,0,0.55)",
+          "input": "#F2F4F5",
+        },
+        "error": "#C7384F",
+        "focus": "#FFB500",
+        "info": "#0073C2",
+        "primary": "#26A826",
+        "secondary": "#006300",
+        "success": "#00B000",
+        "tertiary": "#004400",
+        "warning": "#FFB500",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "border": "#CCD6DA",
+        "disabled": "rgba(0,0,0,0.55)",
+        "input": "#F2F4F5",
+      },
+      "name": "base",
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+  variant="blue"
+>
+  <span>
+    <span
+      data-element="main-text"
+    >
+      foo
+    </span>
+    <styled.span
+      data-element="subtext"
+    >
+      foo
+    </styled.span>
+  </span>
+</styled.button>
+`;
+
+exports[`Button when no props other than children are passed into the component renders the default props and children to match the snapshot 1`] = `
+<styled.button
+  data-component="button"
+  disabled={false}
+  iconPosition=""
+  iconType=""
+  medium={true}
+  renderAs="secondary"
+  role="button"
+  size="medium"
+  subtext=""
+  theme={
+    Object {
+      "colors": Object {
+        "base": "#00A376",
+        "border": "#668491",
+        "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
+        "disabled": Object {
+          "background": "rgba(0,0,0,0.1)",
+          "border": "#CCD6DA",
+          "disabled": "rgba(0,0,0,0.55)",
+          "input": "#F2F4F5",
+        },
+        "error": "#C7384F",
+        "focus": "#FFB500",
+        "info": "#0073C2",
+        "primary": "#26A826",
+        "secondary": "#006300",
+        "success": "#00B000",
+        "tertiary": "#004400",
+        "warning": "#FFB500",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "border": "#CCD6DA",
+        "disabled": "rgba(0,0,0,0.55)",
+        "input": "#F2F4F5",
+      },
+      "name": "base",
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+  variant="blue"
+>
+  <span>
+    <span
+      data-element="main-text"
+    >
+      foo
+    </span>
+  </span>
+</styled.button>
+`;
+
+exports[`Button when only the icon position and type props and children are passed into the component renders the default props and children to match the snapshot with the Icon after children 1`] = `
+.c2 + .c0 {
+  margin-left: 15px;
+}
+
+.c3 + .c0 {
+  margin-left: 15px;
+}
+
+.c4 + .c0 {
+  margin-left: 15px;
+}
+
+.c5 + .c0 {
+  margin-left: 15px;
+}
+
+.c6 + .c0 {
+  margin-left: 15px;
+}
+
+.c7 + .c0 {
+  margin-left: 15px;
+}
+
+.c8 + .c0 {
+  margin-left: 16px;
+}
+
+.c1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  border: 2px solid transparent;
+  background: transparent;
+  border-color: #26A826;
+  color: #26A826;
+  font-weight: 600;
+  font-size: 14px;
+  height: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.c1:hover {
+  background: #006300;
+  border-color: #006300;
+  color: #FFFFFF;
+}
+
+.c1:focus {
+  outline: solid 3px #FFB500;
+}
+
+.c1 + .c0 {
+  margin-left: 16px;
+}
+
+.c1 .carbon-icon {
+  margin-left: 8px;
+  margin-right: -4px;
+}
+
+<button
+  className="c0 c1"
+  data-component="button"
+  disabled={false}
+  role="button"
+  size="medium"
+>
+  <span>
+    <span
+      data-element="main-text"
+    >
+      foo
+    </span>
+  </span>
+  <span
+    className="carbon-icon icon-filter"
+    data-component="icon"
+    data-element="filter"
+  />
+</button>
+`;
+
+exports[`Button when only the icon position and type props and children are passed into the component renders the default props and children to match the snapshot with the Icon before children 1`] = `
+.c2 + .c0 {
+  margin-left: 15px;
+}
+
+.c3 + .c0 {
+  margin-left: 15px;
+}
+
+.c4 + .c0 {
+  margin-left: 15px;
+}
+
+.c5 + .c0 {
+  margin-left: 15px;
+}
+
+.c6 + .c0 {
+  margin-left: 15px;
+}
+
+.c7 + .c0 {
+  margin-left: 15px;
+}
+
+.c1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  border: 2px solid transparent;
+  background: transparent;
+  border-color: #26A826;
+  color: #26A826;
+  font-weight: 600;
+  font-size: 14px;
+  height: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.c1:hover {
+  background: #006300;
+  border-color: #006300;
+  color: #FFFFFF;
+}
+
+.c1:focus {
+  outline: solid 3px #FFB500;
+}
+
+.c1 + .c0 {
+  margin-left: 16px;
+}
+
+.c1 .carbon-icon {
+  margin-left: -4px;
+  margin-right: 8px;
+}
+
+<button
+  className="c0 c1"
+  data-component="button"
+  disabled={false}
+  role="button"
+  size="medium"
+>
+  <span
+    className="carbon-icon icon-filter"
+    data-component="icon"
+    data-element="filter"
+  />
+  <span>
+    <span
+      data-element="main-text"
+    >
+      foo
+    </span>
+  </span>
+</button>
+`;
+
+exports[`Button when the classic theme is applied matches the snapshot for the blue Button when default props are passed 1`] = `
+.c1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  font-weight: 700;
+  background: transparent;
+  border: 1px solid #255bc7;
+  color: #255bc7;
+}
+
+.c1:hover {
+  background: #1e499f;
+  border: 1px solid #1e499f;
+  color: #ffffff;
+}
+
+.c1:focus {
+  box-shadow: 0 0 6px rgba(25,99,246,.6);
+}
+
+.c1 + .c0 {
+  margin-left: 15px;
+}
+
+.c1 .carbon-icon {
+  margin-left: 8px;
+  margin-right: -4px;
+}
+
+.c2 + .c0 {
+  margin-left: 15px;
+}
+
+.c3 + .c0 {
+  margin-left: 15px;
+}
+
+.c4 + .c0 {
+  margin-left: 15px;
+}
+
+.c5 + .c0 {
+  margin-left: 15px;
+}
+
+.c6 + .c0 {
+  margin-left: 15px;
+}
+
+.c7 + .c0 {
+  margin-left: 16px;
+}
+
+.c8 + .c0 {
+  margin-left: 16px;
+}
+
+.c9 + .c0 {
+  margin-left: 16px;
+}
+
+.c10 + .c0 {
+  margin-left: 16px;
+}
+
+.c11 + .c0 {
+  margin-left: 16px;
+}
+
+.c12 + .c0 {
+  margin-left: 16px;
+}
+
+.c13 + .c0 {
+  margin-left: 16px;
+}
+
+.c14 + .c0 {
+  margin-left: 16px;
+}
+
+.c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+<button
+  className="c0 c1"
+>
+  Foo
+</button>
+`;
+
+exports[`Button when the classic theme is applied matches the snapshot for the grey Button when default props are passed 1`] = `
+.c2 + .c0 {
+  margin-left: 15px;
+}
+
+.c1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  font-weight: 700;
+  background: transparent;
+  border: 1px solid #335c6d;
+  color: #335c6d;
+}
+
+.c1:hover {
+  background: #003349;
+  border: 1px solid #003349;
+  color: #ffffff;
+}
+
+.c1:focus {
+  box-shadow: 0 0 6px rgba(51,92,109,.6);
+}
+
+.c1 + .c0 {
+  margin-left: 15px;
+}
+
+.c1 .carbon-icon {
+  margin-left: 8px;
+  margin-right: -4px;
+}
+
+.c3 + .c0 {
+  margin-left: 15px;
+}
+
+.c4 + .c0 {
+  margin-left: 15px;
+}
+
+.c5 + .c0 {
+  margin-left: 15px;
+}
+
+.c6 + .c0 {
+  margin-left: 15px;
+}
+
+.c7 + .c0 {
+  margin-left: 16px;
+}
+
+.c8 + .c0 {
+  margin-left: 16px;
+}
+
+.c9 + .c0 {
+  margin-left: 16px;
+}
+
+.c10 + .c0 {
+  margin-left: 16px;
+}
+
+.c11 + .c0 {
+  margin-left: 16px;
+}
+
+.c12 + .c0 {
+  margin-left: 16px;
+}
+
+.c13 + .c0 {
+  margin-left: 16px;
+}
+
+.c14 + .c0 {
+  margin-left: 16px;
+}
+
+.c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+<button
+  className="c0 c1"
+>
+  Foo
+</button>
+`;
+
+exports[`Button when the classic theme is applied matches the snapshot for the magenta Button when default props are passed 1`] = `
+.c2 + .c0 {
+  margin-left: 15px;
+}
+
+.c3 + .c0 {
+  margin-left: 15px;
+}
+
+.c1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  font-weight: 700;
+  background: transparent;
+  border: 1px solid #ed1c5f;
+  color: #ed1c5f;
+}
+
+.c1:hover {
+  background: #be164c;
+  border: 1px solid #be164c;
+  color: #ffffff;
+}
+
+.c1:focus {
+  box-shadow: 0 0 6px rgba(243,46,109,.6);
+}
+
+.c1 + .c0 {
+  margin-left: 15px;
+}
+
+.c1 .carbon-icon {
+  margin-left: 8px;
+  margin-right: -4px;
+}
+
+.c4 + .c0 {
+  margin-left: 15px;
+}
+
+.c5 + .c0 {
+  margin-left: 15px;
+}
+
+.c6 + .c0 {
+  margin-left: 15px;
+}
+
+.c7 + .c0 {
+  margin-left: 16px;
+}
+
+.c8 + .c0 {
+  margin-left: 16px;
+}
+
+.c9 + .c0 {
+  margin-left: 16px;
+}
+
+.c10 + .c0 {
+  margin-left: 16px;
+}
+
+.c11 + .c0 {
+  margin-left: 16px;
+}
+
+.c12 + .c0 {
+  margin-left: 16px;
+}
+
+.c13 + .c0 {
+  margin-left: 16px;
+}
+
+.c14 + .c0 {
+  margin-left: 16px;
+}
+
+.c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+<button
+  className="c0 c1"
+>
+  Foo
+</button>
+`;
+
+exports[`Button when the classic theme is applied matches the snapshot for the magenta-dull Button when default props are passed 1`] = `
+.c2 + .c0 {
+  margin-left: 15px;
+}
+
+.c3 + .c0 {
+  margin-left: 15px;
+}
+
+.c4 + .c0 {
+  margin-left: 15px;
+}
+
+.c1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  font-weight: 700;
+  background: transparent;
+  border: 1px solid #ca2a60;
+  color: #ca2a60;
+}
+
+.c1:hover {
+  background: #A2224A;
+  border: 1px solid #A2224A;
+  color: #ffffff;
+}
+
+.c1:focus {
+  box-shadow: 0 0 6px rgba(213,85,128,.6);
+}
+
+.c1 + .c0 {
+  margin-left: 15px;
+}
+
+.c1 .carbon-icon {
+  margin-left: 8px;
+  margin-right: -4px;
+}
+
+.c5 + .c0 {
+  margin-left: 15px;
+}
+
+.c6 + .c0 {
+  margin-left: 15px;
+}
+
+.c7 + .c0 {
+  margin-left: 16px;
+}
+
+.c8 + .c0 {
+  margin-left: 16px;
+}
+
+.c9 + .c0 {
+  margin-left: 16px;
+}
+
+.c10 + .c0 {
+  margin-left: 16px;
+}
+
+.c11 + .c0 {
+  margin-left: 16px;
+}
+
+.c12 + .c0 {
+  margin-left: 16px;
+}
+
+.c13 + .c0 {
+  margin-left: 16px;
+}
+
+.c14 + .c0 {
+  margin-left: 16px;
+}
+
+.c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+<button
+  className="c0 c1"
+>
+  Foo
+</button>
+`;
+
+exports[`Button when the classic theme is applied matches the snapshot for the red Button when default props are passed 1`] = `
+.c2 + .c0 {
+  margin-left: 15px;
+}
+
+.c3 + .c0 {
+  margin-left: 15px;
+}
+
+.c4 + .c0 {
+  margin-left: 15px;
+}
+
+.c5 + .c0 {
+  margin-left: 15px;
+}
+
+.c1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  font-weight: 700;
+  background: transparent;
+  border: 1px solid #c7384f;
+  color: #c7384f;
+}
+
+.c1:hover {
+  background: #9f2d3f;
+  border: 1px solid #9f2d3f;
+  color: #ffffff;
+}
+
+.c1:focus {
+  box-shadow: 0 0 6px rgba(228,44,45,.6);
+}
+
+.c1 + .c0 {
+  margin-left: 15px;
+}
+
+.c1 .carbon-icon {
+  margin-left: 8px;
+  margin-right: -4px;
+}
+
+.c6 + .c0 {
+  margin-left: 15px;
+}
+
+.c7 + .c0 {
+  margin-left: 16px;
+}
+
+.c8 + .c0 {
+  margin-left: 16px;
+}
+
+.c9 + .c0 {
+  margin-left: 16px;
+}
+
+.c10 + .c0 {
+  margin-left: 16px;
+}
+
+.c11 + .c0 {
+  margin-left: 16px;
+}
+
+.c12 + .c0 {
+  margin-left: 16px;
+}
+
+.c13 + .c0 {
+  margin-left: 16px;
+}
+
+.c14 + .c0 {
+  margin-left: 16px;
+}
+
+.c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+<button
+  className="c0 c1"
+>
+  Foo
+</button>
+`;
+
+exports[`Button when the classic theme is applied matches the snapshot for the white Button when default props are passed 1`] = `
+.c2 + .c0 {
+  margin-left: 15px;
+}
+
+.c3 + .c0 {
+  margin-left: 15px;
+}
+
+.c4 + .c0 {
+  margin-left: 15px;
+}
+
+.c5 + .c0 {
+  margin-left: 15px;
+}
+
+.c6 + .c0 {
+  margin-left: 15px;
+}
+
+.c1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  font-weight: 700;
+  background: transparent;
+  border: 1px solid #ffffff;
+  color: #ffffff;
+}
+
+.c1:hover {
+  background: #1e499f;
+  border: 1px solid #1e499f;
+  color: #ffffff;
+}
+
+.c1:focus {
+  box-shadow: 0 0 6px rgba(51,92,109,.6);
+}
+
+.c1 + .c0 {
+  margin-left: 15px;
+}
+
+.c1 .carbon-icon {
+  margin-left: 8px;
+  margin-right: -4px;
+}
+
+.c7 + .c0 {
+  margin-left: 16px;
+}
+
+.c8 + .c0 {
+  margin-left: 16px;
+}
+
+.c9 + .c0 {
+  margin-left: 16px;
+}
+
+.c10 + .c0 {
+  margin-left: 16px;
+}
+
+.c11 + .c0 {
+  margin-left: 16px;
+}
+
+.c12 + .c0 {
+  margin-left: 16px;
+}
+
+.c13 + .c0 {
+  margin-left: 16px;
+}
+
+.c14 + .c0 {
+  margin-left: 16px;
+}
+
+.c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+<button
+  className="c0 c1"
+>
+  Foo
+</button>
+`;

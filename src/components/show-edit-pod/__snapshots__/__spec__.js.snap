@@ -157,18 +157,233 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                             className="carbon-form-save__button"
                                             data-element="save"
                                             disabled={false}
+                                            iconPosition=""
+                                            iconType=""
                                             size="medium"
                                             subtext=""
                                             theme="blue"
                                           >
-                                            <button
-                                              className="carbon-button carbon-button--primary carbon-button--blue carbon-button--medium carbon-form-save__button"
+                                            <styled.button
+                                              className="carbon-form-save__button"
                                               data-component="button"
                                               data-element="save"
                                               disabled={false}
+                                              iconPosition=""
+                                              iconType=""
+                                              medium={true}
+                                              renderAs="primary"
+                                              role="button"
+                                              size="medium"
+                                              subtext=""
+                                              theme={
+                                                Object {
+                                                  "colors": Object {
+                                                    "base": "#00A376",
+                                                    "border": "#668491",
+                                                    "brand": "#00DC00",
+                                                    "destructive": Object {
+                                                      "hover": "#9F2C3F",
+                                                    },
+                                                    "disabled": Object {
+                                                      "background": "rgba(0,0,0,0.1)",
+                                                      "border": "#CCD6DA",
+                                                      "disabled": "rgba(0,0,0,0.55)",
+                                                      "input": "#F2F4F5",
+                                                    },
+                                                    "error": "#C7384F",
+                                                    "focus": "#FFB500",
+                                                    "info": "#0073C2",
+                                                    "primary": "#26A826",
+                                                    "secondary": "#006300",
+                                                    "success": "#00B000",
+                                                    "tertiary": "#004400",
+                                                    "warning": "#FFB500",
+                                                    "white": "#FFFFFF",
+                                                  },
+                                                  "disabled": Object {
+                                                    "border": "#CCD6DA",
+                                                    "disabled": "rgba(0,0,0,0.55)",
+                                                    "input": "#F2F4F5",
+                                                  },
+                                                  "name": "base",
+                                                  "text": Object {
+                                                    "color": "rgba(0,0,0,0.9)",
+                                                    "placeholder": "rgba(0,0,0,0.3)",
+                                                    "size": "14px",
+                                                  },
+                                                }
+                                              }
+                                              variant="blue"
                                             >
-                                              Save Me
-                                            </button>
+                                              <StyledComponent
+                                                className="carbon-form-save__button"
+                                                data-component="button"
+                                                data-element="save"
+                                                disabled={false}
+                                                forwardedComponent={
+                                                  Object {
+                                                    "$$typeof": Symbol(react.forward_ref),
+                                                    "attrs": Array [],
+                                                    "componentStyle": ComponentStyle {
+                                                      "componentId": "sc-bdVaJa",
+                                                      "isStatic": false,
+                                                      "lastClassName": "tBZZr",
+                                                      "rules": Array [
+                                                        "
+  align-items: center;
+  cursor: ",
+                                                        [Function],
+                                                        ";
+  display: inline-flex;
+  flex-direction: column;
+  flex-flow: wrap;
+  justify-content: center;
+  vertical-align: middle;
+
+  ",
+                                                        [Function],
+                                                        "
+  ",
+                                                        [Function],
+                                                        "
+
+  ",
+                                                        [Function],
+                                                        "
+
+  ",
+                                                        [Function],
+                                                        "
+",
+                                                      ],
+                                                    },
+                                                    "defaultProps": Object {
+                                                      "medium": true,
+                                                      "renderAs": "secondary",
+                                                      "theme": Object {
+                                                        "colors": Object {
+                                                          "base": "#00A376",
+                                                          "border": "#668491",
+                                                          "brand": "#00DC00",
+                                                          "destructive": Object {
+                                                            "hover": "#9F2C3F",
+                                                          },
+                                                          "disabled": Object {
+                                                            "background": "rgba(0,0,0,0.1)",
+                                                            "border": "#CCD6DA",
+                                                            "disabled": "rgba(0,0,0,0.55)",
+                                                            "input": "#F2F4F5",
+                                                          },
+                                                          "error": "#C7384F",
+                                                          "focus": "#FFB500",
+                                                          "info": "#0073C2",
+                                                          "primary": "#26A826",
+                                                          "secondary": "#006300",
+                                                          "success": "#00B000",
+                                                          "tertiary": "#004400",
+                                                          "warning": "#FFB500",
+                                                          "white": "#FFFFFF",
+                                                        },
+                                                        "disabled": Object {
+                                                          "border": "#CCD6DA",
+                                                          "disabled": "rgba(0,0,0,0.55)",
+                                                          "input": "#F2F4F5",
+                                                        },
+                                                        "name": "base",
+                                                        "text": Object {
+                                                          "color": "rgba(0,0,0,0.9)",
+                                                          "placeholder": "rgba(0,0,0,0.3)",
+                                                          "size": "14px",
+                                                        },
+                                                      },
+                                                      "variant": "blue",
+                                                    },
+                                                    "displayName": "styled.button",
+                                                    "foldedComponentIds": Array [],
+                                                    "propTypes": Object {
+                                                      "children": [Function],
+                                                      "disabled": [Function],
+                                                      "iconPosition": [Function],
+                                                      "iconType": [Function],
+                                                      "renderAs": [Function],
+                                                      "size": [Function],
+                                                      "subtext": [Function],
+                                                      "variant": [Function],
+                                                    },
+                                                    "render": [Function],
+                                                    "styledComponentId": "sc-bdVaJa",
+                                                    "target": "button",
+                                                    "toString": [Function],
+                                                    "warnTooManyClasses": [Function],
+                                                    "withComponent": [Function],
+                                                  }
+                                                }
+                                                forwardedRef={null}
+                                                iconPosition=""
+                                                iconType=""
+                                                medium={true}
+                                                renderAs="primary"
+                                                role="button"
+                                                size="medium"
+                                                subtext=""
+                                                theme={
+                                                  Object {
+                                                    "colors": Object {
+                                                      "base": "#00A376",
+                                                      "border": "#668491",
+                                                      "brand": "#00DC00",
+                                                      "destructive": Object {
+                                                        "hover": "#9F2C3F",
+                                                      },
+                                                      "disabled": Object {
+                                                        "background": "rgba(0,0,0,0.1)",
+                                                        "border": "#CCD6DA",
+                                                        "disabled": "rgba(0,0,0,0.55)",
+                                                        "input": "#F2F4F5",
+                                                      },
+                                                      "error": "#C7384F",
+                                                      "focus": "#FFB500",
+                                                      "info": "#0073C2",
+                                                      "primary": "#26A826",
+                                                      "secondary": "#006300",
+                                                      "success": "#00B000",
+                                                      "tertiary": "#004400",
+                                                      "warning": "#FFB500",
+                                                      "white": "#FFFFFF",
+                                                    },
+                                                    "disabled": Object {
+                                                      "border": "#CCD6DA",
+                                                      "disabled": "rgba(0,0,0,0.55)",
+                                                      "input": "#F2F4F5",
+                                                    },
+                                                    "name": "base",
+                                                    "text": Object {
+                                                      "color": "rgba(0,0,0,0.9)",
+                                                      "placeholder": "rgba(0,0,0,0.3)",
+                                                      "size": "14px",
+                                                    },
+                                                  }
+                                                }
+                                                variant="blue"
+                                              >
+                                                <button
+                                                  className="carbon-form-save__button sc-bdVaJa tBZZr"
+                                                  data-component="button"
+                                                  data-element="save"
+                                                  disabled={false}
+                                                  role="button"
+                                                  size="medium"
+                                                >
+                                                  <span>
+                                                    <span
+                                                      data-element="main-text"
+                                                    >
+                                                      Save Me
+                                                    </span>
+                                                  </span>
+                                                </button>
+                                              </StyledComponent>
+                                            </styled.button>
                                           </Button>
                                         </div>
                                       </SaveButton>

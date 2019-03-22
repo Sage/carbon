@@ -94,6 +94,8 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
             <Button
               as="secondary"
               disabled={false}
+              iconPosition=""
+              iconType=""
               size="medium"
               subtext=""
               theme="blue"
@@ -103,6 +105,8 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
             <Button
               as="secondary"
               disabled={false}
+              iconPosition=""
+              iconType=""
               size="medium"
               subtext=""
               theme="blue"

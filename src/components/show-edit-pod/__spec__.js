@@ -414,7 +414,9 @@ describe('ShowEditPod', () => {
         />
       );
 
-      elementsTagTest(wrapper.findWhere(n => n.type() === 'form'), [
+      const form = wrapper.find('.carbon-form');
+      expect(form.type()).toEqual('form');
+      elementsTagTest(form, [
         'edit-form'
       ]);
     });
