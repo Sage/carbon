@@ -32,6 +32,11 @@ const OptionsHelper = {
     'white'
   ],
 
+  buttonIconPositions: [
+    'before',
+    'after'
+  ],
+
   colors: [
     'default',
     'error',

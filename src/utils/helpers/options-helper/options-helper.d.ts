@@ -1,3 +1,13 @@
+export type ColorTypes =
+| 'default'
+| 'error'
+| 'help'
+| 'info'
+| 'maintenance'
+| 'new'
+| 'success'
+| 'warning';
+
 export type IconTypes =
 | 'add'
 | 'alert'
@@ -107,3 +117,5 @@ export type IconTypes =
 | 'view'
 | 'warning'
 | 'white-tick';
+
+export type AlignBinaryType = 'left' | 'right';

@@ -105,7 +105,7 @@ StyledButton.propTypes = {
   disabled: PropTypes.bool, // Apply disabled state to the button
   iconPosition: PropTypes.string, // Defines an Icon position within the button 'before' / 'after'
   iconType: PropTypes.string, // Defines an Icon type within the button
-  size: PropTypes.string, // Assigns a size to the button
+  size: PropTypes.oneOf(['small', 'medium', 'large']), // Assigns a size to the button
   subtext: PropTypes.string, // Second text child, renders under main text, only works when size is "large"
   variant: PropTypes.oneOf(['blue', 'grey', 'magenta', 'magenta-dull', 'red', 'white']) // controls legacy themes
 };

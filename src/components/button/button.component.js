@@ -69,7 +69,7 @@ Button.propTypes = {
   href: PropTypes.string,
   iconPosition: PropTypes.string, // Defines an Icon position within the button 'before' / 'after'
   iconType: PropTypes.string, // Defines an Icon type within the button
-  size: PropTypes.string, // Assigns a size to the button
+  size: PropTypes.oneOf(['small', 'medium', 'large']), // Assigns a size to the button
   subtext: (props) => {
     if (props.subtext.length > 0 && props.size !== 'large') {
       throw new Error('subtext prop has no effect unless the button is large');
