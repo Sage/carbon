@@ -8,19 +8,19 @@ class Decimal extends React.Component {
     value: '0.00'
   }
 
-  componentDidUpdate(prevProps, prevState) {
-    const test = this.testValue();
-    console.log(prevState.value, this.props.value)
-    console.log(prevState.value !== this.props.value, test)
-    if (prevState.value !== this.props.value && test) {
-      this.setState({
-        value: this.props.value
-      })
-    }
-  }
+  // componentDidUpdate(prevProps, prevState) {
+  //   const test = this.testValue();
+  //   console.log(prevState.value, this.props.value)
+  //   console.log(prevState.value !== this.props.value, test)
+  //   if (prevState.value !== this.props.value && test) {
+  //     this.setState({
+  //       value: this.props.value
+  //     })
+  //   }
+  // }
   
-  testValue = () => {
-    const { value, precision } = this.props;
+  testValue = (value) => {
+    const { precision } = this.props;
   
     const regex = /^[\d,]*[\.{1}]?\d{0,2}?$/;
     const isGoodDecimal = regex.test(value);
@@ -31,24 +31,28 @@ class Decimal extends React.Component {
     return true;
   }
 
-  // handleChange = (evt) => {
-  //   const test = this.testValue();
-  //   const { selectionEnd } = evt.target;
-  //   const i = evt.target;
+  handleChange = (evt) => {
+    const target = evt.target;
+    const { value, selectionEnd } = target;
+    const testString = this.testValue(value);
     
-  //   if (test) {
-  //     this.setState({
-  //       value: this.props.value
-  //     });
-  //     setTimeout(() => i.setSelectionRange(selectionEnd, selectionEnd))
-  //   }
-  // }
+    console.log(value)
+    console.log(testString)
+
+    if (testString) {
+      this.setState({ value });
+      this.props.onChange({ target: { value: value } })
+      setTimeout(() => {
+        target.setSelectionRange(selectionEnd, selectionEnd)
+      });
+    }
+  }
 
   render() {
     return (
       <TextBox
         {...this.props}
-        // onChange={ this.handleChange }
+        onChange={ this.handleChange }
         value={ this.state.value }
       />
     );
