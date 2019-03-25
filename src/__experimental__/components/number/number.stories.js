@@ -7,9 +7,10 @@ import {
   number
 } from '@storybook/addon-knobs';
 import Number from './number.component';
-import notes from './notes.md';
-import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-info.styles';
+import Textbox from '../textbox';
 import getTextboxStoryProps from '../textbox/textbox.stories';
+import notes from './documentation/notes.md';
+import info from './documentation/info';
 
 const store = new Store(
   {
@@ -25,43 +26,26 @@ const setValue = (ev) => {
 storiesOf('Experimental/Number Input', module)
   .addDecorator(StateDecorator(store))
   .add('default', () => {
-    const onChangeDeferred = boolean('onChangeDeferred', false);
-    const deferTimeout = onChangeDeferred ? number('deferTimeout') : undefined;
+    const onChangeDeferredEnabled = boolean('Enable "onChangeDeferred" Action', false);
+    const onKeyDownEnabled = boolean('Enable "onKeyDown" Action', false);
+    const deferTimeout = onChangeDeferredEnabled ? number('deferTimeout') : undefined;
 
     return (
       <Number
         { ...getTextboxStoryProps() }
         value={ store.get('value') }
         onChange={ setValue }
-        onKeyDown={ action('onKeyDown') }
-        onChangeDeferred={ onChangeDeferred ? action('onChangeDeferred') : undefined }
+        onKeyDown={ onKeyDownEnabled ? action('onKeyDown') : undefined }
+        onChangeDeferred={ onChangeDeferredEnabled ? action('onChangeDeferred') : undefined }
         deferTimeout={ deferTimeout }
       />
     );
   }, {
     info: {
-      text: (
-        <div>
-          <p>A number widget.</p>
-
-          <p>It only allows entering of a whole number with an optional minus sign.</p>
-
-          <StoryHeader>Implementation</StoryHeader>
-
-          <p>In your file</p>
-
-          <StoryCode padded>
-            {'import Number from "carbon-react/lib/components/number";'}
-          </StoryCode>
-
-          <p>To render a Number:</p>
-
-          <StoryCode padded>
-            {'<Number name="myNumber" />'}
-          </StoryCode>
-        </div>
-      ),
-      propTablesExclude: [State]
+      text: info,
+      propTables: [Textbox],
+      propTablesExclude: [Number, State],
+      excludedPropTypes: ['children', 'leftChildren', 'inputIcon']
     },
     notes: { markdown: notes }
   });
