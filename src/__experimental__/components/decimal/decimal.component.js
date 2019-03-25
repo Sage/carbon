@@ -34,11 +34,30 @@ class Decimal extends React.Component {
     }
   }
 
+  handleBlur = () => {
+    const { value } = this.state;
+    const addCommasRegex = /(\d)(?=(\d{3})+(?!\d))/g;
+    const parts = value.split('.');
+    const beforeDecimal = parts[0];
+    
+    let newBeforeDecimal = beforeDecimal.replace(/,/g, '');
+    newBeforeDecimal = newBeforeDecimal.replace(addCommasRegex, '$1,');
+    let array = [newBeforeDecimal];
+
+    if (parts[1]) {
+      array.push('.', parts[1]);
+    }
+    this.setState({
+      value: array.join('')
+    })
+  }
+
   render() {
     return (
       <TextBox
         {...this.props}
         onChange={ this.handleChange }
+        onBlur={ this.handleBlur }
         value={ this.state.value }
       />
     );
