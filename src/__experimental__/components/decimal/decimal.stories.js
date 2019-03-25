@@ -4,6 +4,7 @@ import { boolean, text, number, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { Decimal } from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import notes from './documentation';
 import { State, Store } from '@sambego/storybook-state';
 
 const store = new Store({
@@ -16,8 +17,11 @@ const setValue = (evt) => {
 };
 
 storiesOf('Experimental/Decimal', module)
-
-  .add('default', () => {
+  .addParameters({
+    info: {
+      propTablesExclude: [State]
+    }
+  }).add('default', () => {
     const align = select(
       'align',
       OptionsHelper.alignBinary,
@@ -54,4 +58,7 @@ storiesOf('Experimental/Decimal', module)
         />
       </State>
     );
+  }, {
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   });
