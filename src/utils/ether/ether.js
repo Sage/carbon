@@ -100,7 +100,8 @@ function filterOutInputEvents(props) {
     'onClick',
     'onKeyDown',
     'onKeyUp',
-    'onKeyPress'
+    'onKeyPress',
+    'onChangeDeferred'
   ]);
 }
 
