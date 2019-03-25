@@ -40,14 +40,15 @@ describe('InputPresentation', () => {
     });
 
     describe('validations', () => {
-      ['info', 'warning', 'error'].forEach((validation) => {
+      ['infoMessage', 'warningMessage', 'errorMessage'].forEach((message) => {
+        const validation = message.replace('Message', '');
         it(`has the right style for ${validation} validations`, () => {
           const boxShadow = `inset 1px 1px 0 ${baseTheme.colors[validation]}, `
           + `inset -1px -1px 0 ${baseTheme.colors[validation]}`;
           assertStyleMatch({
             borderColor: `${baseTheme.colors[validation]} !important`,
             boxShadow
-          }, mountRender({ [validation]: 'validation!' }));
+          }, mountRender({ [message]: 'validation!' }));
         });
       });
     });
