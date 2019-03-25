@@ -1,10 +1,31 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import TextBox from '../textbox';
 import I18nHelper from '../../../utils/helpers/i18n';
 
 const Decimal = (props) => {
   const [decimalValue, setDecimalValue] = useState('0.00');
+
+  useEffect(() => {
+    // Update decimalValue if precision prop changes
+    const { precision } = props;
+    const parts = decimalValue.split('.');
+    let newDecimal = parts[1];
+    const decimalLength = parts[1].length;
+    let diff;
+
+    if (precision > decimalLength) { // Precision increased
+      diff = precision - decimalLength;
+      for (let i = 0; i < diff; i++) {
+        newDecimal = newDecimal + '0';
+      }
+    } else if (precision < decimalLength) { // Precision decreased
+      diff = decimalLength - precision;
+      newDecimal = Math.round(newDecimal / (10 * diff));
+    }
+    
+    setDecimalValue([parts[0], '.', newDecimal].join(''));
+  }, [props.precision]);
 
   const testValue = (value) => {
     const { precision } = props;
@@ -47,6 +68,7 @@ const Decimal = (props) => {
     setDecimalValue(array.join(''));
   }
 
+  console.log(props)
   return (
     <TextBox
       {...props}
