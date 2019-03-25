@@ -33,16 +33,17 @@ const InputPresentationStyle = styled.div`
   ${({ hasFocus, theme }) => hasFocus && css`
     && { outline: 3px solid ${theme.colors.focus}; }
   `}
-  ${stylingForValidation('info')}
-  ${stylingForValidation('warning')}
-  ${stylingForValidation('error')}
+  ${stylingForValidation('infoMessage')}
+  ${stylingForValidation('warningMessage')}
+  ${stylingForValidation('errorMessage')}
 
   ${inputClassicStyling}
 `;
 
-function stylingForValidation(validation) {
+function stylingForValidation(message) {
+  const validation = message.replace('Message', '');
   return ({ theme, ...props }) => {
-    if (!props[validation]) return null;
+    if (!props[message]) return null;
     return css`
       border-color: ${theme.colors[validation]} !important;
       box-shadow: inset 1px 1px 0 ${theme.colors[validation]},
