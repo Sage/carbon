@@ -295,11 +295,13 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                     "propTypes": Object {
                                                       "children": [Function],
                                                       "disabled": [Function],
+                                                      "href": [Function],
                                                       "iconPosition": [Function],
                                                       "iconType": [Function],
                                                       "renderAs": [Function],
                                                       "size": [Function],
                                                       "subtext": [Function],
+                                                      "to": [Function],
                                                       "variant": [Function],
                                                     },
                                                     "render": [Function],
