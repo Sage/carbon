@@ -2,13 +2,12 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import Message from './message.component.js';
 
 storiesOf('MessageNew', module).add(
   'default',
   () => {
-    const as = select('as', OptionsHelper.colors, Message.defaultProps.as);
+    const as = select('as', ['info', 'error', 'success', 'warning'], Message.defaultProps.as);
     const border = boolean('border', Message.defaultProps.border);
     const open = boolean('open', Message.defaultProps.open);
     const roundedCorners = boolean('roundedCorners', Message.defaultProps.roundedCorners);

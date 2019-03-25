@@ -6,39 +6,67 @@ import {
   MessageContentStyle,
   MessageTitleStyle,
   MessageIconContainerStyle,
-  MessageCloseIconStyle,
-  MessageIconStyle,
   MessageCloseIconContainerStyle
 } from './message.style';
-import './message.scss';
+import Icon from '../icon';
 
 const Message = ({
-  as, border, children, className, open, onDismiss, roundedCorners, title, transparent
+  as,
+  border,
+  children,
+  className,
+  open,
+  onDismiss,
+  roundedCorners,
+  title,
+  transparent
 }) => {
-  return (
-    <MessageStyle
-      border={ border }
-      className={ className }
-      transparent={ transparent }
+  const typeIcon = (
+    <MessageIconContainerStyle
       type={ as }
       roundedCorners={ roundedCorners }
+      transparent={ transparent }
     >
-      <MessageIconContainerStyle type={ as } roundedCorners={ roundedCorners }>
-        <MessageIconStyle type={ as } />
-      </MessageIconContainerStyle>
-      <MessageContentStyle transparent={ transparent }>
-        <MessageTitleStyle data-element='title'>{title}</MessageTitleStyle>
-        <MessageBodyStyle>{children}</MessageBodyStyle>
-      </MessageContentStyle>
-      <MessageCloseIconContainerStyle>
-        <MessageCloseIconStyle
-          data-element='dismiss'
-          onClick={ onDismiss }
-          type='close'
-          roundedCorners={ roundedCorners }
-        />
-      </MessageCloseIconContainerStyle>
-    </MessageStyle>
+      <Icon type={ as } />
+    </MessageIconContainerStyle>
+  );
+
+  const dismissIcon = (
+    <MessageCloseIconContainerStyle type={ as }>
+      <Icon
+        data-element='dismiss'
+        onClick={ onDismiss }
+        type='close'
+      />
+    </MessageCloseIconContainerStyle>
+  );
+
+  const messageContent = (
+    <MessageContentStyle transparent={ transparent }>
+      <MessageTitleStyle
+        type={ as }
+        data-element='title'
+      >
+        {title}
+      </MessageTitleStyle>
+      <MessageBodyStyle>{children}</MessageBodyStyle>
+    </MessageContentStyle>
+  );
+
+  return (
+    open && (
+      <MessageStyle
+        border={ border }
+        className={ className }
+        transparent={ transparent }
+        type={ as }
+        roundedCorners={ roundedCorners }
+      >
+        {typeIcon}
+        {messageContent}
+        {onDismiss && dismissIcon}
+      </MessageStyle>
+    )
   );
 };
 

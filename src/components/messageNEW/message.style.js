@@ -1,49 +1,88 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import Icon from '../icon';
-import baseTheme from '../../style/themes/base';
 
 const MessageStyle = styled.div`
   position: relative;
-  ${({ theme }) => console.log(theme)}
   display: flex;
   justify-content: flex-start;
   align-content: center;
+  ${({ theme, type, transparent }) => theme.name === 'classic'
+    && !transparent
+    && css`
+      background-color: ${(type === 'info' && '#f3f8fe')
+        || (type === 'warning' && '#fff8f2')
+        || (type === 'error' && '#fdf5f5')
+        || (type === 'success' && '#dcf1da')};
+    `} 
   ${({ roundedCorners }) => roundedCorners
     && css`
       border-radius: 3px;
     `}
-  ${({ border }) => border
+  ${({ border, theme, type }) => border
     && css`
       border: 1px solid
-        ${({ type, theme }) => (type === 'info' && theme.colors.info)
+        ${(type === 'info' && theme.colors.info)
           || (type === 'warning' && theme.colors.warning)
           || (type === 'error' && theme.colors.error)
           || (type === 'success' && theme.colors.success)};
     `}
+    ${({ transparent }) => transparent
+      && css`
+        border: none;
+      `}
 `;
 const MessageContentStyle = styled.div`
   padding: 15px 20px;
   white-space: pre-wrap;
+  color: ${({ theme }) => theme.text.color};
 `;
 const MessageBodyStyle = styled.div``;
 const MessageTitleStyle = styled.div`
   font-weight: bold;
+  font-size: ${({ theme }) => theme.text.size}
+  color: ${({ type, theme }) => (type === 'info' && theme.colors.info)
+    || (type === 'warning' && theme.colors.warning)
+    || (type === 'error' && theme.colors.error)
+    || (type === 'success' && theme.colors.success)};
 `;
+
 const MessageIconContainerStyle = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
   width: 30px;
   text-align: center;
+  
   ${({ roundedCorners }) => roundedCorners
     && css`
-      border-radius: 3px;
+      border-radius: 3px 0 0 3px;
     `}
-  background-color: ${({ type, theme }) => (type === 'info' && theme.colors.info)
-    || (type === 'warning' && theme.colors.warning)
-    || (type === 'error' && theme.colors.error)
-    || (type === 'success' && theme.colors.success)};
+  background-color: 
+    ${({ type, theme }) => (type === 'info' && theme.colors.info)
+      || (type === 'warning' && theme.colors.warning)
+      || (type === 'error' && theme.colors.error)
+      || (type === 'success' && theme.colors.success)};
+    ${({ transparent, theme }) => transparent
+      && css`
+        background-color: ${theme.colors.white};
+      `}
+
+    span {
+        &:before {
+            color: 
+                ${({ type, theme }) => (type === 'info' && theme.colors.info)
+                  || (type === 'warning' && theme.colors.warning)
+                  || (type === 'error' && theme.colors.error)
+                  || (type === 'success' && theme.colors.success)};
+            
+                ${({ transparent, theme }) => !transparent
+                  && css`
+                    color: ${theme.colors.white};
+                  `}
+            display: block;
+            font-size: 16px;
+        }
+    }
 `;
 
 const MessageCloseIconContainerStyle = styled.div`
@@ -52,23 +91,18 @@ const MessageCloseIconContainerStyle = styled.div`
   margin-left: auto;
   justify-content: center;
   text-align: center;
-  border-radius: 3px 0 0 3px;
   width: 45px;
-`;
 
-const MessageCloseIconStyle = styled(Icon)`
-  cursor: pointer;
-  &:before {
-    font-size: 16px;
-    display: block;
-  }
-`;
-
-const MessageIconStyle = styled(Icon)`
-  &:before {
-    color: ${({ theme }) => theme.colors.white};
-    display: block;
-    font-size: 16px;
+  span {
+    cursor: pointer;
+    &:before {
+      font-size: 16px;
+      display: block;
+      color: ${({ theme, type }) => (type === 'info' && theme.colors.info)
+        || (type === 'warning' && theme.colors.warning)
+        || (type === 'error' && theme.colors.error)
+        || (type === 'success' && theme.colors.success)};
+    }
   }
 `;
 
@@ -92,7 +126,5 @@ export {
   MessageBodyStyle,
   MessageTitleStyle,
   MessageIconContainerStyle,
-  MessageCloseIconStyle,
-  MessageIconStyle,
   MessageCloseIconContainerStyle
 };
