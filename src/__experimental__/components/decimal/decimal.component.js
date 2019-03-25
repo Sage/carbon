@@ -1,15 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import TextBox from '../textbox';
 import I18nHelper from '../../../utils/helpers/i18n';
 
-class Decimal extends React.Component {
-  state = {
-    value: '0.00'
-  }
+const Decimal = (props) => {
+  const [decimalValue, setDecimalValue] = useState('0.00');
 
-  testValue = (value) => {
-    const { precision } = this.props;
+  const testValue = (value) => {
+    const { precision } = props;
     const format = I18nHelper.format();
     const delimiter = `\\${format.delimiter}`;
     const seperator = `\\${format.separator}`;
@@ -20,48 +18,43 @@ class Decimal extends React.Component {
     return isGoodDecimal;
   }
 
-  handleChange = (evt) => {
+  const handleChange = (evt) => {
     const target = evt.target;
     const { value, selectionEnd } = evt.target;
-    const testString = this.testValue(value);
+    const testString = testValue(value);
     
     if (testString) {
-      this.setState({ value });
-      this.props.onChange({ target: { value: value } })
+      setDecimalValue(value);
+      props.onChange({ target: { value: value } })
       setTimeout(() => {
         target.setSelectionRange(selectionEnd, selectionEnd)
       });
     }
   }
 
-  handleBlur = () => {
-    const { value } = this.state;
+  const handleBlur = () => {
     const addCommasRegex = /(\d)(?=(\d{3})+(?!\d))/g;
-    const parts = value.split('.');
-    const beforeDecimal = parts[0];
+    const parts = decimalValue.split('.');
+    const integer = parts[0];
     
-    let newBeforeDecimal = beforeDecimal.replace(/,/g, '');
-    newBeforeDecimal = newBeforeDecimal.replace(addCommasRegex, '$1,');
-    let array = [newBeforeDecimal];
+    let newInteger = integer.replace(/,/g, '');
+    newInteger = newInteger.replace(addCommasRegex, '$1,');
+    let array = [newInteger];
 
     if (parts[1]) {
       array.push('.', parts[1]);
     }
-    this.setState({
-      value: array.join('')
-    })
+    setDecimalValue(array.join(''));
   }
 
-  render() {
-    return (
-      <TextBox
-        {...this.props}
-        onChange={ this.handleChange }
-        onBlur={ this.handleBlur }
-        value={ this.state.value }
-      />
-    );
-  }
+  return (
+    <TextBox
+      {...props}
+      onChange={ handleChange }
+      onBlur={ handleBlur }
+      value={ decimalValue }
+    />
+  );
 };
 
 Decimal.propTypes = {
