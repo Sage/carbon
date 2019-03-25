@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, text, number, select } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import { Decimal } from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { State, Store } from '@sambego/storybook-state';
@@ -10,7 +11,7 @@ const store = new Store({
 });
 
 const setValue = (evt) => {
-  // action('onChange')(evt);
+  action('onChange')(evt);
   store.set({ value: evt.target.value });
 };
 
