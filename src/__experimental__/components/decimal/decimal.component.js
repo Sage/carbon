@@ -11,10 +11,10 @@ class Decimal extends React.Component {
   testValue = (value) => {
     const { precision } = this.props;
     const format = I18nHelper.format();
-    const del = `\\${format.delimiter}`;
-    const sep = `\\${format.separator}`;
+    const delimiter = `\\${format.delimiter}`;
+    const seperator = `\\${format.separator}`;
 
-    const regex = new RegExp(`^[\\d${del}]*[${sep}{1}]?\\d{0,${precision}}?$`);
+    const regex = new RegExp(`^[\\d${delimiter}]*[${seperator}{1}]?\\d{0,${precision}}?$`);
     const isGoodDecimal = regex.test(value);
 
     return isGoodDecimal;
