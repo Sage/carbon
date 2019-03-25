@@ -8,37 +8,23 @@ class Decimal extends React.Component {
     value: '0.00'
   }
 
-  // componentDidUpdate(prevProps, prevState) {
-  //   const test = this.testValue();
-  //   console.log(prevState.value, this.props.value)
-  //   console.log(prevState.value !== this.props.value, test)
-  //   if (prevState.value !== this.props.value && test) {
-  //     this.setState({
-  //       value: this.props.value
-  //     })
-  //   }
-  // }
-  
   testValue = (value) => {
     const { precision } = this.props;
-  
-    const regex = /^[\d,]*[\.{1}]?\d{0,2}?$/;
-    const isGoodDecimal = regex.test(value);
-    console.log(value)
-    console.log(isGoodDecimal)
-    if (!isGoodDecimal) { return false; }
+    const format = I18nHelper.format();
+    const del = `\\${format.delimiter}`;
+    const sep = `\\${format.separator}`;
 
-    return true;
+    const regex = new RegExp(`^[\\d${del}]*[${sep}{1}]?\\d{0,${precision}}?$`);
+    const isGoodDecimal = regex.test(value);
+
+    return isGoodDecimal;
   }
 
   handleChange = (evt) => {
     const target = evt.target;
-    const { value, selectionEnd } = target;
+    const { value, selectionEnd } = evt.target;
     const testString = this.testValue(value);
     
-    console.log(value)
-    console.log(testString)
-
     if (testString) {
       this.setState({ value });
       this.props.onChange({ target: { value: value } })
