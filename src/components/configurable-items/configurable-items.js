@@ -13,49 +13,31 @@ class ConfigurableItems extends React.Component {
   static propTypes = {
     /**
      * Children elements.
-     *
-     * @property children
-     * @type {Node}
      */
     children: PropTypes.node,
 
     /**
      * A custom class name for the component.
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Callback triggered when the form is canceled.
-     *
-     * @property onCancel
-     * @type {Function}
      */
     onCancel: PropTypes.func.isRequired,
 
     /**
      * Callback triggered when an item is dragged.
-     *
-     * @property onDrag
-     * @type {Function}
      */
     onDrag: PropTypes.func.isRequired,
 
     /**
      * Callback triggered when when the reset button is pressed.
-     *
-     * @property onReset
-     * @type {Function}
      */
     onReset: PropTypes.func,
 
     /**
      * Callback triggered when the form is saved.
-     *
-     * @property onSave
-     * @type {Function}
      */
     onSave: PropTypes.func.isRequired
   }
