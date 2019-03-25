@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import InputDecoratorBridge from '../input-decorator-bridge';
+import Textbox from '../textbox';
 
 class Number extends React.Component {
   render() {
@@ -40,35 +41,7 @@ function isValidNumber(value) {
 }
 
 Number.propTypes = {
-  value: PropTypes.string,
-  disabled: PropTypes.bool,
-  readonly: PropTypes.bool,
-  /** Event handler for the change event */
-  onChange: PropTypes.func,
-  /** Event handler for the keyDown event */
-  onKeyDown: PropTypes.func,
-  /** Defered callback called after the onChange event */
-  onChangeDeferred: PropTypes.func,
-  /** Integer to determine timeout for defered callback */
-  deferTimeout: PropTypes.number,
-  /** Label */
-  label: PropTypes.string,
-  /** Text applied to label help tooltip */
-  labelHelp: PropTypes.string,
-  /** Help content to be displayed under an input */
-  fieldHelp: PropTypes.node,
-  /** When true, label is placed in line an input */
-  labelInline: PropTypes.bool,
-  /** Width of a label in percentage. Works only when labelInline is true */
-  labelWidth: PropTypes.number,
-  /** Width of an input in percentage. Works only when labelInline is true */
-  inputWidth: PropTypes.number,
-  /** An array of info messages to apply to the input */
-  info: PropTypes.array,
-  /** An array of validations to apply to the input */
-  validations: PropTypes.array,
-  /** An array of warnings to apply to the input */
-  warnings: PropTypes.array
+  ...Textbox.propTypes
 };
 
 export default Number;
