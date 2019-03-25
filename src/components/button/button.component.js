@@ -4,6 +4,7 @@ import Icon from '../icon';
 import StyledButton, { StyledButtonSubtext } from './button.style';
 import tagComponent from '../../utils/helpers/tags';
 import Link from '../link';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 const Button = (props) => {
   const {
@@ -63,21 +64,31 @@ function renderChildren({
 }
 
 Button.propTypes = {
-  as: PropTypes.oneOf(['primary', 'secondary', 'tertiary', 'destructive', 'darkBackground']),
-  children: PropTypes.node.isRequired, // Required, what the button displays
-  disabled: PropTypes.bool, // Apply disabled state to the button
+  /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "destructive" | "darkBackground" */
+  as: PropTypes.oneOf(OptionsHelper.themesBinary),
+  /** The text the button displays */
+  children: PropTypes.node.isRequired,
+  /** Apply disabled state to the button */
+  disabled: PropTypes.bool,
+  /** Used to transfrom button into anchor */
   href: PropTypes.string,
-  iconPosition: PropTypes.string, // Defines an Icon position within the button 'before' / 'after'
-  iconType: PropTypes.string, // Defines an Icon type within the button
-  size: PropTypes.oneOf(['small', 'medium', 'large']), // Assigns a size to the button
+  /** Defines an Icon position within the button: "before" | "after" */
+  iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions, '']),
+  /** Defines an Icon type within the button (see Icon for options) */
+  iconType: PropTypes.oneOf([...OptionsHelper.icons, '']),
+  /** Assigns a size to the button: "small" | "medium" | "large" */
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  /** Second text child, renders under main text, only when size is "large" */
   subtext: (props) => {
     if (props.subtext.length > 0 && props.size !== 'large') {
       throw new Error('subtext prop has no effect unless the button is large');
     } else {
       return null;
     }
-  }, // Second text child, renders under main text, only when size is "large"
-  theme: PropTypes.oneOf(['blue', 'grey', 'magenta', 'magenta-dull', 'red', 'white']), // pass in legacy theme
+  },
+  /** Set this prop to pass in legacy theme color variants */
+  theme: PropTypes.oneOf(OptionsHelper.buttonColors),
+  /** Used to transfrom button into anchor */
   to: PropTypes.string
 };
 

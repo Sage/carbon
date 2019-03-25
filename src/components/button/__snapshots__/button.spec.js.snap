@@ -20,12 +20,6 @@ exports[`Button when a subtext prop is passed into the component does not render
         "destructive": Object {
           "hover": "#9F2C3F",
         },
-        "disabled": Object {
-          "background": "rgba(0,0,0,0.1)",
-          "border": "#CCD6DA",
-          "disabled": "rgba(0,0,0,0.55)",
-          "input": "#F2F4F5",
-        },
         "error": "#C7384F",
         "focus": "#FFB500",
         "info": "#0073C2",
@@ -37,9 +31,11 @@ exports[`Button when a subtext prop is passed into the component does not render
         "white": "#FFFFFF",
       },
       "disabled": Object {
+        "background": "rgba(0,0,0,0.1)",
         "border": "#CCD6DA",
         "disabled": "rgba(0,0,0,0.55)",
         "input": "#F2F4F5",
+        "text": "rgba(0,0,0,0.3)",
       },
       "name": "base",
       "text": Object {
@@ -81,12 +77,6 @@ exports[`Button when a subtext prop is passed into the component renders the sub
         "destructive": Object {
           "hover": "#9F2C3F",
         },
-        "disabled": Object {
-          "background": "rgba(0,0,0,0.1)",
-          "border": "#CCD6DA",
-          "disabled": "rgba(0,0,0,0.55)",
-          "input": "#F2F4F5",
-        },
         "error": "#C7384F",
         "focus": "#FFB500",
         "info": "#0073C2",
@@ -98,9 +88,11 @@ exports[`Button when a subtext prop is passed into the component renders the sub
         "white": "#FFFFFF",
       },
       "disabled": Object {
+        "background": "rgba(0,0,0,0.1)",
         "border": "#CCD6DA",
         "disabled": "rgba(0,0,0,0.55)",
         "input": "#F2F4F5",
+        "text": "rgba(0,0,0,0.3)",
       },
       "name": "base",
       "text": Object {
@@ -147,12 +139,6 @@ exports[`Button when no props other than children are passed into the component 
         "destructive": Object {
           "hover": "#9F2C3F",
         },
-        "disabled": Object {
-          "background": "rgba(0,0,0,0.1)",
-          "border": "#CCD6DA",
-          "disabled": "rgba(0,0,0,0.55)",
-          "input": "#F2F4F5",
-        },
         "error": "#C7384F",
         "focus": "#FFB500",
         "info": "#0073C2",
@@ -164,9 +150,11 @@ exports[`Button when no props other than children are passed into the component 
         "white": "#FFFFFF",
       },
       "disabled": Object {
+        "background": "rgba(0,0,0,0.1)",
         "border": "#CCD6DA",
         "disabled": "rgba(0,0,0,0.55)",
         "input": "#F2F4F5",
+        "text": "rgba(0,0,0,0.3)",
       },
       "name": "base",
       "text": Object {
@@ -424,6 +412,10 @@ exports[`Button when the classic theme is applied matches the snapshot for the b
 
 .c1:focus {
   box-shadow: 0 0 6px rgba(25,99,246,.6);
+  outline: none;
+  background: #1e499f;
+  border: 1px solid #1e499f;
+  color: #ffffff;
 }
 
 .c1 + .c0 {
@@ -546,6 +538,10 @@ exports[`Button when the classic theme is applied matches the snapshot for the g
 
 .c1:focus {
   box-shadow: 0 0 6px rgba(51,92,109,.6);
+  outline: none;
+  background: #003349;
+  border: 1px solid #003349;
+  color: #ffffff;
 }
 
 .c1 + .c0 {
@@ -668,6 +664,10 @@ exports[`Button when the classic theme is applied matches the snapshot for the m
 
 .c1:focus {
   box-shadow: 0 0 6px rgba(243,46,109,.6);
+  outline: none;
+  background: #be164c;
+  border: 1px solid #be164c;
+  color: #ffffff;
 }
 
 .c1 + .c0 {
@@ -790,6 +790,10 @@ exports[`Button when the classic theme is applied matches the snapshot for the m
 
 .c1:focus {
   box-shadow: 0 0 6px rgba(213,85,128,.6);
+  outline: none;
+  background: #A2224A;
+  border: 1px solid #A2224A;
+  color: #ffffff;
 }
 
 .c1 + .c0 {
@@ -912,6 +916,10 @@ exports[`Button when the classic theme is applied matches the snapshot for the r
 
 .c1:focus {
   box-shadow: 0 0 6px rgba(228,44,45,.6);
+  outline: none;
+  background: #9f2d3f;
+  border: 1px solid #9f2d3f;
+  color: #ffffff;
 }
 
 .c1 + .c0 {
@@ -1023,17 +1031,18 @@ exports[`Button when the classic theme is applied matches the snapshot for the w
   font-weight: 700;
   background: transparent;
   border: 1px solid #ffffff;
-  color: #ffffff;
+  color: rgba(0,0,0,85);
 }
 
 .c1:hover {
-  background: #1e499f;
-  border: 1px solid #1e499f;
-  color: #ffffff;
+  background: #ccc;
+  border: 1px solid #ccc;
+  color: #1b1d21;
 }
 
 .c1:focus {
   box-shadow: 0 0 6px rgba(51,92,109,.6);
+  outline: none;
 }
 
 .c1 + .c0 {

@@ -4,6 +4,7 @@ import BaseTheme from '../../style/themes/base';
 import buttonTypes from './button-types.style';
 import buttonSizes from './button-sizes.style';
 import classicConfig from './button-classic-config.style';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 const StyledButton = styled.button`
   align-items: center;
@@ -46,15 +47,15 @@ function stylingForType({ disabled, renderAs, theme }) {
 
   return css`
     border: 2px solid transparent;
-    background: ${renderValue(type.default.background, theme.colors.disabled.background)};
-    border-color: ${renderValue(type.default.borderColor, theme.colors.disabled.background)};
-    color: ${renderValue(type.default.color, theme.colors.disabled.text)};
+    background: ${renderValue(type.default.background, theme.disabled.border)};
+    border-color: ${renderValue(type.default.borderColor, theme.disabled.border)};
+    color: ${renderValue(type.default.color, theme.disabled.text)};
     font-weight: 600;
     &:hover {
       background: ${renderValue(type.hover.background,
-    (renderAs === 'secondary' ? 'transparent' : theme.colors.disabled.background))};
-      border-color: ${renderValue(type.hover.borderColor, theme.colors.disabled.background)};
-      color: ${renderValue(type.hover.color, theme.colors.disabled.text)};
+    (renderAs === 'secondary' ? 'transparent' : theme.disabled.border))};
+      border-color: ${renderValue(type.hover.borderColor, theme.disabled.border)};
+      color: ${renderValue(type.hover.color, theme.disabled.text)};
     }
     &:focus {
       outline: solid 3px ${theme.colors.warning};
@@ -100,13 +101,31 @@ StyledButton.defaultProps = {
 };
 
 StyledButton.propTypes = {
-  renderAs: PropTypes.string, // Customises appearance, options: 'primary', 'secondary', 'tertiary' or 'destructive'
-  children: PropTypes.node.isRequired, // Required, what the button displays
-  disabled: PropTypes.bool, // Apply disabled state to the button
-  iconPosition: PropTypes.string, // Defines an Icon position within the button 'before' / 'after'
-  iconType: PropTypes.string, // Defines an Icon type within the button
-  size: PropTypes.oneOf(['small', 'medium', 'large']), // Assigns a size to the button
-  subtext: PropTypes.string, // Second text child, renders under main text, only works when size is "large"
-  variant: PropTypes.oneOf(['blue', 'grey', 'magenta', 'magenta-dull', 'red', 'white']) // controls legacy themes
+  /** Color variants for new business themes */
+  renderAs: PropTypes.oneOf(OptionsHelper.themesBinary),
+  /** The text the button displays */
+  children: PropTypes.node.isRequired,
+  /** Apply disabled state to the button */
+  disabled: PropTypes.bool,
+  /** Used to transfrom button into anchor */
+  href: PropTypes.string,
+  /** Defines an Icon position within the button */
+  iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions, '']),
+  /** Defines an Icon type within the button */
+  iconType: PropTypes.oneOf([...OptionsHelper.icons, '']),
+  /** Assigns a size to the button */
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  /** Second text child, renders under main text, only when size is "large" */
+  subtext: (props) => {
+    if (props.subtext.length > 0 && props.size !== 'large') {
+      throw new Error('subtext prop has no effect unless the button is large');
+    } else {
+      return null;
+    }
+  },
+  /** Set this prop to pass in legacy theme color variants */
+  variant: PropTypes.oneOf(OptionsHelper.buttonColors),
+  /** Used to transfrom button into anchor */
+  to: PropTypes.string
 };
 export default StyledButton;

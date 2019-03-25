@@ -9,6 +9,10 @@ export default {
         border: 1px solid #1e499f;
         color: #ffffff;
       }
+      &:focus {
+        box-shadow: 0 0 6px rgba(25,99,246,.6);
+        outline: none;
+      }
     `,
     grey: `
       background: #335c6d;
@@ -21,6 +25,7 @@ export default {
       }
       &:focus {
         box-shadow: 0 0 6px rgba(51,92,109,.6);
+        outline: none;
       }
     `,
     magenta: `
@@ -34,6 +39,7 @@ export default {
       }
       &:focus {
         box-shadow: 0 0 6px rgba(243,46,109,.6);
+        outline: none;
       }
     `,
     'magenta-dull': `
@@ -47,6 +53,7 @@ export default {
       }
       &:focus {
         box-shadow: 0 0 6px rgba(213,85,128,.6);
+        outline: none;
       }
     `,
     red: `
@@ -60,19 +67,21 @@ export default {
       }
       &:focus {
         box-shadow: 0 0 6px rgba(228,44,45,.6);
+        outline: none;
       }
     `,
     white: `
       background: #ffffff;
       border: 1px solid transparent;
-      color: #ffffff;
+      color: rgba(0,0,0,85);
       &:hover {
-        background: #1e499f;
-        border: 1px solid #1e499f;
-        color: #ffffff;
+        background: #ccc;
+        border: 1px solid #ccc;
+        color: #1b1d21;
       }
       &:focus {
         box-shadow: 0 0 6px rgba(51,92,109,.6);
+        outline: none;
       }
     `
   },
@@ -88,6 +97,10 @@ export default {
       }
       &:focus {
         box-shadow: 0 0 6px rgba(25,99,246,.6);
+        outline: none;
+        background: #1e499f;
+        border: 1px solid #1e499f;
+        color: #ffffff;
       }
     `,
     grey: `
@@ -101,6 +114,10 @@ export default {
       }
       &:focus {
         box-shadow: 0 0 6px rgba(51,92,109,.6);
+        outline: none;
+        background: #003349;
+        border: 1px solid #003349;
+        color: #ffffff;
       }
     `,
     magenta: `
@@ -114,6 +131,10 @@ export default {
       }
       &:focus {
         box-shadow: 0 0 6px rgba(243,46,109,.6);
+        outline: none;
+        background: #be164c;
+        border: 1px solid #be164c;
+        color: #ffffff;
       }
     `,
     'magenta-dull': `
@@ -127,6 +148,10 @@ export default {
       }
       &:focus {
         box-shadow: 0 0 6px rgba(213,85,128,.6);
+        outline: none;
+        background: #A2224A;
+        border: 1px solid #A2224A;
+        color: #ffffff;
       }
     `,
     red: `
@@ -140,19 +165,24 @@ export default {
       }
       &:focus {
         box-shadow: 0 0 6px rgba(228,44,45,.6);
+        outline: none;
+        background: #9f2d3f;
+        border: 1px solid #9f2d3f;
+        color: #ffffff;
       }
     `,
     white: `
       background: transparent;
       border: 1px solid #ffffff;
-      color: #ffffff;
+      color: rgba(0,0,0,85);
       &:hover {
-        background: #1e499f;
-        border: 1px solid #1e499f;
-        color: #ffffff;
+        background: #ccc;
+        border: 1px solid #ccc;
+        color: #1b1d21;
       }
       &:focus {
         box-shadow: 0 0 6px rgba(51,92,109,.6);
+        outline: none;
       }
     `
   },
@@ -168,8 +198,7 @@ export default {
     }
   `,
   small: `
-    border-radius: 3px;
-    border-radius: 3px;
+    border-radius: 0;
     font-size: 11px;
     height: 25px;
     letter-spacing: .5px;

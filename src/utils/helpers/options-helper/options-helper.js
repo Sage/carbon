@@ -222,7 +222,10 @@ const OptionsHelper = {
 
   themesBinary: [
     'primary',
-    'secondary'
+    'secondary',
+    'tertiary',
+    'destructive',
+    'darkBackground'
   ],
 
   themesFull: [

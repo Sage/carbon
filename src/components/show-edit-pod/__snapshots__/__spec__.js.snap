@@ -184,12 +184,6 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                     "destructive": Object {
                                                       "hover": "#9F2C3F",
                                                     },
-                                                    "disabled": Object {
-                                                      "background": "rgba(0,0,0,0.1)",
-                                                      "border": "#CCD6DA",
-                                                      "disabled": "rgba(0,0,0,0.55)",
-                                                      "input": "#F2F4F5",
-                                                    },
                                                     "error": "#C7384F",
                                                     "focus": "#FFB500",
                                                     "info": "#0073C2",
@@ -201,9 +195,11 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                     "white": "#FFFFFF",
                                                   },
                                                   "disabled": Object {
+                                                    "background": "rgba(0,0,0,0.1)",
                                                     "border": "#CCD6DA",
                                                     "disabled": "rgba(0,0,0,0.55)",
                                                     "input": "#F2F4F5",
+                                                    "text": "rgba(0,0,0,0.3)",
                                                   },
                                                   "name": "base",
                                                   "text": Object {
@@ -268,12 +264,6 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                           "destructive": Object {
                                                             "hover": "#9F2C3F",
                                                           },
-                                                          "disabled": Object {
-                                                            "background": "rgba(0,0,0,0.1)",
-                                                            "border": "#CCD6DA",
-                                                            "disabled": "rgba(0,0,0,0.55)",
-                                                            "input": "#F2F4F5",
-                                                          },
                                                           "error": "#C7384F",
                                                           "focus": "#FFB500",
                                                           "info": "#0073C2",
@@ -285,9 +275,11 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                           "white": "#FFFFFF",
                                                         },
                                                         "disabled": Object {
+                                                          "background": "rgba(0,0,0,0.1)",
                                                           "border": "#CCD6DA",
                                                           "disabled": "rgba(0,0,0,0.55)",
                                                           "input": "#F2F4F5",
+                                                          "text": "rgba(0,0,0,0.3)",
                                                         },
                                                         "name": "base",
                                                         "text": Object {
@@ -335,12 +327,6 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                       "destructive": Object {
                                                         "hover": "#9F2C3F",
                                                       },
-                                                      "disabled": Object {
-                                                        "background": "rgba(0,0,0,0.1)",
-                                                        "border": "#CCD6DA",
-                                                        "disabled": "rgba(0,0,0,0.55)",
-                                                        "input": "#F2F4F5",
-                                                      },
                                                       "error": "#C7384F",
                                                       "focus": "#FFB500",
                                                       "info": "#0073C2",
@@ -352,9 +338,11 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                       "white": "#FFFFFF",
                                                     },
                                                     "disabled": Object {
+                                                      "background": "rgba(0,0,0,0.1)",
                                                       "border": "#CCD6DA",
                                                       "disabled": "rgba(0,0,0,0.55)",
                                                       "input": "#F2F4F5",
+                                                      "text": "rgba(0,0,0,0.3)",
                                                     },
                                                     "name": "base",
                                                     "text": Object {
