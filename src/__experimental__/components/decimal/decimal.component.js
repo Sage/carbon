@@ -68,7 +68,6 @@ const Decimal = (props) => {
     setDecimalValue(array.join(''));
   }
 
-  console.log(props)
   return (
     <TextBox
       {...props}
