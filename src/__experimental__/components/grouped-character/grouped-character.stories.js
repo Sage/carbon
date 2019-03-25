@@ -2,7 +2,6 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Store, State } from '@sambego/storybook-state';
 import { text, object } from '@storybook/addon-knobs';
-import { withInfo } from '@storybook/addon-info';
 import GroupedCharacter from './grouped-character.component';
 
 const groupedCharacterStore = new Store({
