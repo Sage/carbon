@@ -22,11 +22,13 @@ const StyledPre = styled.pre`
 
 const StoryCodeBlock = ({ children }) => (
   <StyledPre>
-    {children.map((item, index) => (
-      <StoryCode block key={ index }>
-        {item}
-      </StoryCode>
-    ))}
+    {Array.isArray(children)
+      ? children.map((item, index) => (
+          <StoryCode block key={index}>
+            {item}
+          </StoryCode>
+        ))
+      : children}
   </StyledPre>
 );
 
