@@ -1,6 +1,14 @@
 import React from 'react';
 import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/style/storybook-info.styles';
 
+const code = `
+<SimpleColorPicker
+  availableColors={["transparent", "#ff0102", "#34ff01"]}
+  selectedColor="#34ff01"
+  name="Picker"
+/>
+`;
+
 const info = (
   <div>
     <p>Simple Color Picker</p>
@@ -12,13 +20,7 @@ const info = (
     <StoryCode padded>import SimpleColorPicker from {'"carbon-react/lib/components/simple-color-picker"'}</StoryCode>
 
     <p>To render the SimpleColorPicker:</p>
-    <StoryCodeBlock>
-      {'<SimpleColorPicker'}
-      {' availableColors={["transparent", "#ff0102", "#34ff01"]}'}
-      {' selectedColor="#34ff01"'}
-      {' name="Picker"'}
-      {'/>'}
-    </StoryCodeBlock>
+    <StoryCodeBlock>{code}</StoryCodeBlock>
   </div>
 );
 

@@ -28,6 +28,10 @@ const onDelete = () => {
   action('delete')();
 };
 
+const afterFormValidation = () => {
+  action('afterFormValidation')();
+};
+
 storiesOf('ShowEditPod', module)
   .addParameters({
     info: {
@@ -51,15 +55,15 @@ storiesOf('ShowEditPod', module)
       const validateOnMount = boolean('validateOnMount', ShowEditPod.defaultProps.validateOnMount);
       const editFields = [
         <Textbox
-          key='first_name' label='First Name'
+          key='edit_first_name' label='First Name'
           value='Alan'
         />,
         <Textbox
-          key='second_name' label='Second Name'
+          key='edit_second_name' label='Second Name'
           value='Smith'
         />,
         <Textbox
-          key='telephone' label='Telephone'
+          key='edit_telephone' label='Telephone'
           value='000 000 0000'
         />
       ];
@@ -83,10 +87,17 @@ storiesOf('ShowEditPod', module)
             transitionName={ transitionName }
             validateOnMount={ validateOnMount }
             editFields={ editFields }
+            afterFormValidation={ afterFormValidation }
           >
-            <Content title='First Name'>Alan</Content>
-            <Content title='Last Name'>Smith</Content>
-            <Content title='Telephone'>000 000 0000</Content>
+            <Content key='first_name' title='First Name'>
+              Alan
+            </Content>
+            <Content key='second_name' title='Last Name'>
+              Smith
+            </Content>
+            <Content key='telephone' title='Telephone'>
+              000 000 0000
+            </Content>
           </ShowEditPod>
         </State>
       );
