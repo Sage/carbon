@@ -47,14 +47,14 @@ function stylingForType({ disabled, renderAs, theme }) {
 
   return css`
     border: 2px solid transparent;
-    background: ${renderValue(type.default.background, theme.disabled.border)};
-    border-color: ${renderValue(type.default.borderColor, theme.disabled.border)};
+    background: ${renderValue(type.default.background, theme.disabled.button)};
+    border-color: ${renderValue(type.default.borderColor, theme.disabled.button)};
     color: ${renderValue(type.default.color, theme.disabled.text)};
     font-weight: 600;
     &:hover {
       background: ${renderValue(type.hover.background,
-    (renderAs === 'secondary' ? 'transparent' : theme.disabled.border))};
-      border-color: ${renderValue(type.hover.borderColor, theme.disabled.border)};
+    (renderAs === 'secondary' ? 'transparent' : theme.disabled.button))};
+      border-color: ${renderValue(type.hover.borderColor, theme.disabled.button)};
       color: ${renderValue(type.hover.color, theme.disabled.text)};
     }
     &:focus {

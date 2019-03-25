@@ -102,8 +102,8 @@ describe('Button', () => {
 
         assertStyleMatch({
           background:
-          (variant === 'secondary' || variant === 'tertiary' ? 'transparent' : BaseTheme.disabled.border),
-          borderColor: (variant === 'secondary' ? BaseTheme.disabled.border : 'transparent'),
+          (variant === 'secondary' || variant === 'tertiary' ? 'transparent' : BaseTheme.disabled.button),
+          borderColor: (variant === 'secondary' ? BaseTheme.disabled.button : 'transparent'),
           color: BaseTheme.disabled.text
         }, wrapper);
       });
@@ -115,7 +115,7 @@ describe('Button', () => {
       const wrapper = render({ children: 'foo', disabled: true }, TestRenderer.create).toJSON();
       assertStyleMatch({
         background: 'transparent',
-        borderColor: BaseTheme.disabled.border,
+        borderColor: BaseTheme.disabled.button,
         color: BaseTheme.disabled.text,
         fontSize: '14px',
         height: `${sizes.medium[0].toString()}px`,
@@ -133,8 +133,8 @@ describe('Button', () => {
 
           assertStyleMatch({
             background:
-            (variant === 'secondary' || variant === 'tertiary' ? 'transparent' : BaseTheme.disabled.border),
-            borderColor: (variant === 'secondary' ? BaseTheme.disabled.border : 'transparent'),
+            (variant === 'secondary' || variant === 'tertiary' ? 'transparent' : BaseTheme.disabled.button),
+            borderColor: (variant === 'secondary' ? BaseTheme.disabled.button : 'transparent'),
             color: BaseTheme.disabled.text,
             fontSize: (size === 'large' ? '16px' : '14px'),
             height: `${sizes[size][0].toString()}px`,
