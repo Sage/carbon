@@ -29,7 +29,7 @@ const Textbox = ({
 Textbox.propTypes = {
   value: PropTypes.string,
   disabled: PropTypes.bool,
-  readonly: PropTypes.bool,
+  readOnly: PropTypes.bool,
   /** Event handler for the change event */
   onChange: PropTypes.func,
   /** Event handler for the keyDown event */
