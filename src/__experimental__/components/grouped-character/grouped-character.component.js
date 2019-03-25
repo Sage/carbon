@@ -10,15 +10,15 @@ const GroupedCharacter = (props) => {
   const { separator, groups, value } = props;
   const stepIndices = groups.reduce(toIndexSteps, []);
 
-  const handleChange = (e) => {
-    const i = e.target;
-    const { selectionEnd } = e.target;
+  const handleChange = (ev) => {
+    const i = ev.target;
+    const { selectionEnd } = ev.target;
     let modifier = 0;
 
     if (stepIndices.includes(selectionEnd - 1)) modifier = 1;
     if (stepIndices.includes(selectionEnd - 1) && Events.isBackspaceKey({ which: pressedKey })) modifier = -1;
 
-    props.onChange({ target: { value: e.target.value.split(separator).join('') } });
+    props.onChange({ target: { value: ev.target.value.split(separator).join('') } });
     setTimeout(() => i.setSelectionRange(selectionEnd + modifier, selectionEnd + modifier));
   };
 
@@ -27,9 +27,9 @@ const GroupedCharacter = (props) => {
       value={ generateGroups(groups, value).join(separator) }
       onChange={ handleChange }
       onKeyDown={ ({ which }) => updatePressedKey(which) }
-      onKeyPress={ (e) => {
+      onKeyPress={ (ev) => {
         if (groups.reduce(toSum) === value.length) {
-          e.preventDefault();
+          ev.preventDefault();
         }
       } }
     />
@@ -37,10 +37,14 @@ const GroupedCharacter = (props) => {
 };
 
 GroupedCharacter.propTypes = {
-  separator: PropTypes.string, // character to be used as separator
-  groups: PropTypes.array, // pattern by which input value should be grouped
-  value: PropTypes.string, // input value
-  onChange: PropTypes.func // on change handler which will receive the input value without separators
+  /** character to be used as separator */
+  separator: PropTypes.string,
+  /** pattern by which input value should be grouped */
+  groups: PropTypes.array,
+  /** input value */
+  value: PropTypes.string,
+  /** on change handler which will receive the input value without separators */
+  onChange: PropTypes.func
 };
 
 export default GroupedCharacter;
