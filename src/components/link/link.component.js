@@ -23,15 +23,14 @@ class Link extends React.Component {
     }
 
     // return early if there is no onClick or there is a href prop
-    if (!this.props.onClick || this.props.href) {
-      return;
-    }
-    // return early if the event is not an enter key
-    if (!Event.isEnterKey(ev)) {
+    // or the event is not an enter key
+    if (this.props.href || !Event.isEnterKey(ev)) {
       return;
     }
 
-    this.props.onClick(ev);
+    if (this.props.onClick) {
+      this.props.onClick(ev);
+    }
   }
 
   get iconLeft() {
@@ -116,7 +115,6 @@ class Link extends React.Component {
   render() {
     return (
       <LinkStyle disabled={ this.props.disabled }>
-        <div>test</div>
         {this.renderLink()}
       </LinkStyle>
     );

@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link renders as expected 1`] = `
+.c0 a {
+  font-size: 14px;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #26A826 !important;
+}
+
+.c0 a:hover {
+  cursor: pointer;
+  color: #006300 !important;
+}
+
+.c0 a:focus {
+  color: rgba(0,0,0,0.9) !important;
+  background-color: #FFB500;
+  outline: none;
+}
+
+<div
+  className="c0"
+  disabled={false}
+>
+  <a
+    data-component="link"
+    onKeyDown={[Function]}
+    tabIndex="0"
+  >
+    <span>
+      <span>
+        test
+      </span>
+    </span>
+  </a>
+</div>
+`;
