@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import TextBox from '../textbox';
+import Textbox from '../textbox';
 import I18nHelper from '../../../utils/helpers/i18n';
 
 const Decimal = (props) => {
@@ -32,11 +32,9 @@ const Decimal = (props) => {
     const format = I18nHelper.format();
     const delimiter = `\\${format.delimiter}`;
     const seperator = `\\${format.separator}`;
-
-    const regex = new RegExp(`^[\\d${delimiter}]*[${seperator}{1}]?\\d{0,${precision}}?$`);
-    const isGoodDecimal = regex.test(value);
-
-    return isGoodDecimal;
+    const isGoodDecimal = new RegExp(`^[\\d${delimiter}]*[${seperator}{1}]?\\d{0,${precision}}?$`);
+    
+    return isGoodDecimal.test(value);
   }
 
   const handleChange = (evt) => {
@@ -69,7 +67,7 @@ const Decimal = (props) => {
   }
 
   return (
-    <TextBox
+    <Textbox
       {...props}
       onChange={ handleChange }
       onBlur={ handleBlur }
@@ -98,7 +96,7 @@ Decimal.propTypes = {
 }
 
 Decimal.defaultProps = {
-  align: 'left',
+  align: 'right',
   precision: 2,
   inputWidth: 100
 };
