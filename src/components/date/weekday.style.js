@@ -29,14 +29,9 @@ const themeStyle = css`
 `;
 
 const WeekdayPicker = styled(Weekday)`
-${({ className }) => {
-    const selector = className ? `&.${className.split(' ').join('.')}` : '&';
-
-    return css`
-    ${selector} {
-      ${({ theme }) => (theme.name === 'classic' ? classicStyle : themeStyle)}
-    }
-    `;
-  }}`;
+  &.DayPicker-Weekday {
+    ${({ theme }) => (theme.name === 'classic' ? classicStyle : themeStyle)}
+  }
+`;
 
 export default WeekdayPicker;

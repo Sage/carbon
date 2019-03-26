@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import baseTheme from '../../../style/themes/base';
 
 const StyledButton = styled.button`
   align-items: center;
@@ -12,9 +11,5 @@ const StyledButton = styled.button`
   width: 40px;
   padding: 0;
 `;
-
-StyledButton.defaultProps = {
-  theme: baseTheme
-};
 
 export default StyledButton;

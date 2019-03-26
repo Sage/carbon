@@ -234,13 +234,7 @@ abbr[title] {
 }`;
 
 const StyledDayPicker = styled(DayPicker)`
-${({ className }) => {
-    const selector = className ? `&.${className.split(' ').join('.')}` : '&';
-
-    return css`
-      ${selector} {
-        ${({ theme }) => (theme.name === 'classic' ? classicStyle : themeStyle)}
-      }`;
-  }}`;
+  ${({ theme }) => (theme.name === 'classic' ? classicStyle : themeStyle)}
+}`;
 
 export default StyledDayPicker;
