@@ -160,7 +160,7 @@ class Modal extends React.Component {
    * @return {void}
    */
   componentDidMount() {
-    Browser.getWindow().addEventListener('keyup', this.closeModal);
+    if (this.props.open) this.handleOpen();
   }
 
   /**
@@ -170,9 +170,8 @@ class Modal extends React.Component {
    * @return {void}
    */
   componentWillUnmount() {
-    Browser.getWindow().removeEventListener('keyup', this.closeModal);
+    if (this.listening) this.handleClose();
   }
-
 
   /**
    * A lifecycle method to update the component after it is re-rendered
@@ -181,18 +180,25 @@ class Modal extends React.Component {
    * @return {void}
    */
   componentDidUpdate() {
-    const _window = Browser.getWindow();
     if (this.props.open && !this.listening) {
-      this.listening = true;
-      this.updateDataState();
-      this.onOpening; // eslint-disable-line no-unused-expressions
-      _window.addEventListener('keyup', this.closeModal);
+      this.handleOpen();
     } else if (!this.props.open && this.listening) {
-      this.listening = false;
-      this.updateDataState();
-      this.onClosing; // eslint-disable-line no-unused-expressions
-      _window.removeEventListener('keyup', this.closeModal);
+      this.handleClose();
     }
+  }
+
+  handleOpen() {
+    this.listening = true;
+    this.updateDataState();
+    this.onOpening; // eslint-disable-line no-unused-expressions
+    Browser.getWindow().addEventListener('keyup', this.closeModal);
+  }
+
+  handleClose() {
+    this.listening = false;
+    this.updateDataState();
+    this.onClosing; // eslint-disable-line no-unused-expressions
+    Browser.getWindow().removeEventListener('keyup', this.closeModal);
   }
 
   /**
