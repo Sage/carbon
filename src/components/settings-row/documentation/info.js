@@ -1,6 +1,12 @@
 import React from 'react';
 import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../.storybook/style/storybook-info.styles';
 
+const code = `
+<SettingsRow title="My Setting" description="My description">
+  <Checkbox label="Enable my setting" />
+  <span>Other content to go with input</span>
+</SettingsRow>`;
+
 const info = (
   <div>
     <p> Settings Row Component </p>
@@ -20,12 +26,7 @@ const info = (
     <StoryCode padded>import SettingsRow from {'"carbon-react/lib/components/settings-row"'}</StoryCode>
 
     <p>To render the SettingsRow:</p>
-    <StoryCodeBlock>
-      {'<SettingsRow title="My Setting" description="My description">'}
-      {' <Checkbox label="Enable my setting" />'}
-      {' <span>Other content to go with input</span>'}
-      {'</SettingsRow>'}
-    </StoryCodeBlock>
+    <StoryCodeBlock>{code}</StoryCodeBlock>
   </div>
 );
 
