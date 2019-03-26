@@ -19,8 +19,8 @@ storiesOf('Experimental/Select', module)
       <State store={ singleSelectStore }>
         <Select
           disabled={ boolean('disabled') }
-          error={ text('error') }
-          info={ text('info') }
+          errorMessage={ text('errorMessage') }
+          infoMessage={ text('infoMessage') }
           label={ text('label') }
           labelAlign={ select('labelAlign', OptionsHelper.alignBinary) }
           labelInline={ boolean('labelInline') }
@@ -28,7 +28,7 @@ storiesOf('Experimental/Select', module)
           placeholder={ text('placeholder') }
           readOnly={ boolean('readOnly') }
           size={ select('size', OptionsHelper.sizesRestricted) }
-          warning={ text('warning') }
+          warningMessage={ text('warningMessage') }
         >
           <Option text='Amber' value='1' />
           <Option text='Black' value='2' />
@@ -51,8 +51,8 @@ storiesOf('Experimental/Select', module)
       <State store={ multiSelectStore }>
         <Select
           disabled={ boolean('disabled') }
-          error={ text('error') }
-          info={ text('info') }
+          errorMessage={ text('errorMessage') }
+          infoMessage={ text('infoMessage') }
           label={ text('label') }
           labelAlign={ select('labelAlign', OptionsHelper.alignBinary) }
           labelInline={ boolean('labelInline') }
@@ -60,7 +60,7 @@ storiesOf('Experimental/Select', module)
           placeholder={ text('placeholder') }
           readOnly={ boolean('readOnly') }
           size={ select('size', OptionsHelper.sizesRestricted) }
-          warning={ text('warning') }
+          warningMessage={ text('warningMessage') }
         >
           <Option text='Amber' value='1' />
           <Option text='Black' value='2' />
