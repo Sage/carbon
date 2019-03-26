@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { Input, InputPresentation } from '../input';
 import InputIconToggle from '../input-icon-toggle';
 import FormField from '../form-field';
+import { withValidation } from '../../../components/validations';
+import withUniqueName from '../../../utils/helpers/with-unique-name';
 
 // This component is a working example of what a Textbox might look like
 // using only the new input componentry. It is still under development with
@@ -66,4 +68,4 @@ Textbox.propTypes = {
 Textbox.defaultProps = {
 };
 
-export default Textbox;
+export default withUniqueName(withValidation(Textbox));

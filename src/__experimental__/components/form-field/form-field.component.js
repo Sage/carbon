@@ -4,8 +4,6 @@ import FormFieldStyle from './form-field.style';
 import Label from '../label';
 import FieldHelp from '../field-help';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import { withValidation } from '../../../components/validations';
-import withUniqueName from '../../../utils/helpers/with-unique-name';
 
 const FormField = ({
   children,
@@ -55,4 +53,4 @@ FormField.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
 };
 
-export default withUniqueName(withValidation(FormField));
+export default FormField;
