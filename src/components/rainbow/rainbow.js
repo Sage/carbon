@@ -15,7 +15,7 @@ class Rainbow extends React.Component {
     /**
      * Supply data for the chart.
      */
-    data: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
+    data: PropTypes.object.isRequired,
 
     /**
      * Supply a custom config object to the Highcharts.

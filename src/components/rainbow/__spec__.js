@@ -1,8 +1,8 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
+import Rainbow from './rainbow';
 import Immutable from 'immutable';
 import { shallow, mount } from 'enzyme';
-import Rainbow from './rainbow';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 /* global jest */
@@ -12,22 +12,18 @@ describe('Rainbow', () => {
     chart() {
       return {
         setTitle() {},
-        series: [{ setData() {} }]
+        series: [
+          { setData() {} }
+        ]
       };
     }
   };
 
   let wrapper, data, chart;
 
-  function render(props = {}) {
+  function render(props={}) {
     wrapper = mount(
-    <Rainbow
-      title='My Title' 
-      data={ data }
-      { ...props }
-    />
-
-
+    <Rainbow title='My Title' data={ data } { ...props } />
     );
   }
 
@@ -58,22 +54,22 @@ describe('Rainbow', () => {
     });
 
     describe('when title changes', () => {
-      test('calls setTitle', () => {
+      test("calls setTitle", () => {
         wrapper.setProps({ title: 'different title', data: wrapper.props().data });
-        expect(chart.setTitle).toHaveBeenCalledWith({ text: 'different title' });
+        expect(chart.setTitle).toHaveBeenCalledWith({ text: "different title" });
       });
     });
 
     describe('when data changes', () => {
-      it('calls setData', () => {
+      it("calls setData", () => {
         const newData = Immutable.fromJS({ foo: 'bar' });
         wrapper.setProps({ title: wrapper.props().title, data: newData });
-        expect(chart.series[0].setData).toHaveBeenCalledWith(newData);
+        expect(chart.series[0].setData).toHaveBeenCalledWith(newData.toJS());
       });
     });
 
     describe('when nothing has changed', () => {
-      it('calls neither set methods', () => {
+      it("calls neither set methods", () => {
         const theProps = wrapper.props();
         wrapper.setProps({ title: theProps.title, data: theProps.data });
         expect(chart.setTitle).not.toHaveBeenCalled();
@@ -95,13 +91,13 @@ describe('Rainbow', () => {
     });
   });
 
-  describe('tags on component', () => {
-    const wrapper = shallow(
+  describe("tags on component", () => {
+    let wrapper = shallow(
       <Rainbow
         data-element='bar' 
         data-role='baz'
-        data={ Immutable.fromJS({}) }
-    />);
+        data={ Immutable.fromJS({}) }/>
+    );
 
     it('include correct component, element and role data tags', () => {
       rootTagTest(wrapper, 'rainbow', 'bar', 'baz');

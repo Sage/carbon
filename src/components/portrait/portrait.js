@@ -56,7 +56,7 @@ class Portrait extends React.Component {
      * Switch to a dark background (requires a hard re-render).
      */
     darkBackground: PropTypes.bool
-  };
+  }
 
   static defaultProps = {
     size: 'medium',
@@ -71,7 +71,8 @@ class Portrait extends React.Component {
    * @return {Void}
    */
   componentWillReceiveProps(nextProps) {
-    if (this.props.initials !== nextProps.initials || this.props.size !== nextProps.size) {
+    if (this.props.initials !== nextProps.initials
+        || this.props.size !== nextProps.size) {
       this.memoizeInitials = null;
     }
   }
@@ -91,9 +92,7 @@ class Portrait extends React.Component {
    * @return {String}
    */
   get imgSrc() {
-    if (this.props.gravatar) {
-      return this.gravatarSrc;
-    }
+    if (this.props.gravatar) { return this.gravatarSrc; }
     return this.props.src;
   }
 
@@ -163,7 +162,7 @@ class Portrait extends React.Component {
     context.fillRect(0, 0, size, size);
 
     return context;
-  };
+  }
 
   /**
    * Applies text to canvas.
@@ -178,7 +177,7 @@ class Portrait extends React.Component {
     context.fillText(letters.toUpperCase(), size / 2, size / 1.5);
 
     return context;
-  };
+  }
 
   /**
    * Maps size to width/height value
@@ -210,8 +209,7 @@ class Portrait extends React.Component {
       'carbon-portrait--image',
       `carbon-portrait--${this.props.size}`,
       `carbon-portrait--${this.props.shape}`,
-      this.props.className,
-      {
+      this.props.className, {
         'carbon-portrait--dark-background': this.props.darkBackground
       }
     );
@@ -225,12 +223,8 @@ class Portrait extends React.Component {
    */
   get initialsImage() {
     // if not using src, generate initials for potential fallback
-    if (this.props.src) {
-      return null;
-    }
-    if (!this.props.initials) {
-      return this.sansInitialsImage;
-    }
+    if (this.props.src) { return null; }
+    if (!this.props.initials) { return this.sansInitialsImage; }
 
     return (
       <img
@@ -267,7 +261,12 @@ class Portrait extends React.Component {
    * @return {Object}
    */
   get sansInitialsImage() {
-    return <Icon className='carbon-portrait__img carbon-portrait__sans-initials' type='individual' />;
+    return (
+      <Icon
+        className='carbon-portrait__img carbon-portrait__sans-initials'
+        type='individual'
+      />
+    );
   }
 
   /**
@@ -279,8 +278,8 @@ class Portrait extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses } { ...tagComponent('portrait', this.props) }>
-        {this.initialsImage}
-        {this.avatarImage}
+        { this.initialsImage }
+        { this.avatarImage }
       </div>
     );
   }
