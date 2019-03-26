@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CloseIconContainerStyle from './close-icon-component.style';
-import Icon from '../icon';
+import CloseIconContainerStyle from './close-icon.style';
+import Icon from '../icon/icon';
 
 const CloseIcon = ({ as, onDismiss }) => {
   return (

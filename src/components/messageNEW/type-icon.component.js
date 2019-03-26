@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TypeIconContainerStyle from './type-icon-component.style';
-import Icon from '../icon';
+import TypeIconContainerStyle from './type-icon.style';
+import Icon from '../icon/icon';
 
 const TypeIcon = ({ as, roundedCorners, transparent }) => {
   return (

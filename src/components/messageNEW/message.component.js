@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MessageStyle from './message.style';
-import CloseIcon from './close-icon-component';
-import TypeIcon from './type-icon-component';
+import CloseIcon from './close-icon.component';
+import TypeIcon from './type-icon.component';
 import MessageContent from './message-content.component';
 
 const Message = ({

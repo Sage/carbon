@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import MessageContentStyle from './message-content-component.style';
+import MessageContentStyle from './message-content.style';
 
 const MessageContent = ({
   as, title, transparent, children
