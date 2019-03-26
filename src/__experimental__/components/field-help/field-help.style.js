@@ -29,6 +29,7 @@ const FieldHelpStyle = styled.span`
 
 FieldHelpStyle.defaultProps = {
   inputWidth: 30,
+  labelWidth: 30,
   theme: BaseTheme
 };
 
