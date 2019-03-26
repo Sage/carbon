@@ -8,7 +8,7 @@ export default (palette) => {
       colors: {
         base: palette.blue,
         primary: palette.blue,
-        secondary: palette.azul,
+        secondary: palette.navyBlue,
         tertiary: palette.productBlueTint(61)
       },
 

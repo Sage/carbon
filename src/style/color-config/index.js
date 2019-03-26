@@ -1,6 +1,5 @@
 // Base colors
 export default {
-  azul: '004B87',
   blue: '255BC7',
   brilliantGreen: '00DC00',
   gold: 'FFB500',

@@ -23,20 +23,20 @@ describe('Link', () => {
   });
 
 
-  it('if `disabled` prop has been passed to the component', () => {
+  it('matches the expected style if `disabled` prop has been passed to the component', () => {
     assertStyleMatch({
       cursor: 'not-allowed'
     }, render({ disabled: true }).toJSON());
   });
 
   describe('should render a correct component based on prop', () => {
-    it('if prop `href` has been passed to the component it should render `<a>`', () => {
+    it('should render a `<a>` if prop the `href` has been passed to the component', () => {
       wrapper.setProps({ href: '#' });
 
       expect(wrapper.find('a')).toHaveLength(1);
     });
 
-    it('if prop `to` has been passed to the component it should render `<Link />`', () => {
+    it('should render a `<Link />` if prop the `to` has been passed to the component', () => {
       wrapper.setProps({ to: 'route' });
 
       expect(wrapper.find(RouterLink)).toHaveLength(1);
