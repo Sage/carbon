@@ -1,58 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {
-  MessageStyle,
-  MessageBodyStyle,
-  MessageContentStyle,
-  MessageTitleStyle,
-  MessageIconContainerStyle,
-  MessageCloseIconContainerStyle
-} from './message.style';
-import Icon from '../icon';
+import MessageStyle from './message.style';
+import CloseIcon from './close-icon-component';
+import TypeIcon from './type-icon-component';
+import MessageContent from './message-content.component';
 
 const Message = ({
-  as,
-  border,
-  children,
-  className,
-  open,
-  onDismiss,
-  roundedCorners,
-  title,
-  transparent
+  as, border, children, className, open, onDismiss, roundedCorners, title, transparent
 }) => {
-  const typeIcon = (
-    <MessageIconContainerStyle
-      type={ as }
-      roundedCorners={ roundedCorners }
-      transparent={ transparent }
-    >
-      <Icon type={ as } />
-    </MessageIconContainerStyle>
-  );
-
-  const dismissIcon = (
-    <MessageCloseIconContainerStyle type={ as }>
-      <Icon
-        data-element='dismiss'
-        onClick={ onDismiss }
-        type='close'
-      />
-    </MessageCloseIconContainerStyle>
-  );
-
-  const messageContent = (
-    <MessageContentStyle transparent={ transparent }>
-      <MessageTitleStyle
-        type={ as }
-        data-element='title'
-      >
-        {title}
-      </MessageTitleStyle>
-      <MessageBodyStyle>{children}</MessageBodyStyle>
-    </MessageContentStyle>
-  );
-
   return (
     open && (
       <MessageStyle
@@ -62,9 +17,17 @@ const Message = ({
         type={ as }
         roundedCorners={ roundedCorners }
       >
-        {typeIcon}
-        {messageContent}
-        {onDismiss && dismissIcon}
+        <TypeIcon
+          as={ as } roundedCorners={ roundedCorners }
+          transparent={ transparent }
+        />
+        <MessageContent
+          as={ as } transparent={ transparent }
+          title={ title }
+        >
+          {children}
+        </MessageContent>
+        {onDismiss && <CloseIcon as={ as } onDismiss={ onDismiss } />}
       </MessageStyle>
     )
   );

@@ -31,87 +31,6 @@ const MessageStyle = styled.div`
         border: none;
       `}
 `;
-const MessageContentStyle = styled.div`
-  padding: 15px 20px;
-  white-space: pre-wrap;
-  color: ${({ theme }) => theme.text.color};
-`;
-const MessageBodyStyle = styled.div``;
-const MessageTitleStyle = styled.div`
-  font-weight: bold;
-  font-size: ${({ theme }) => theme.text.size}
-  color: ${({ type, theme }) => (type === 'info' && theme.colors.info)
-    || (type === 'warning' && theme.colors.warning)
-    || (type === 'error' && theme.colors.error)
-    || (type === 'success' && theme.colors.success)};
-`;
-
-const MessageIconContainerStyle = styled.div`
-  align-items: center;
-  display: flex;
-  justify-content: center;
-  width: 30px;
-  text-align: center;
-  
-  ${({ roundedCorners }) => roundedCorners
-    && css`
-      border-radius: 3px 0 0 3px;
-    `}
-  background-color: 
-    ${({ type, theme }) => (type === 'info' && theme.colors.info)
-      || (type === 'warning' && theme.colors.warning)
-      || (type === 'error' && theme.colors.error)
-      || (type === 'success' && theme.colors.success)};
-    ${({ transparent, theme }) => transparent
-      && css`
-        background-color: ${theme.colors.white};
-      `}
-
-    span {
-        &:before {
-            color: 
-                ${({ type, theme }) => (type === 'info' && theme.colors.info)
-                  || (type === 'warning' && theme.colors.warning)
-                  || (type === 'error' && theme.colors.error)
-                  || (type === 'success' && theme.colors.success)};
-            
-                ${({ transparent, theme }) => !transparent
-                  && css`
-                    color: ${theme.colors.white};
-                  `}
-            display: block;
-            font-size: 16px;
-        }
-    }
-`;
-
-const MessageCloseIconContainerStyle = styled.div`
-  align-items: center;
-  display: flex;
-  margin-left: auto;
-  justify-content: center;
-  text-align: center;
-  width: 45px;
-
-  span {
-    cursor: pointer;
-    &:before {
-      font-size: 16px;
-      display: block;
-      color: ${({ theme, type }) => (type === 'info' && theme.colors.info)
-        || (type === 'warning' && theme.colors.warning)
-        || (type === 'error' && theme.colors.error)
-        || (type === 'success' && theme.colors.success)};
-    }
-  }
-`;
-
-MessageStyle.defaultProps = {
-  as: 'info',
-  border: true,
-  roundedCorners: true,
-  transparent: false
-};
 
 MessageStyle.propTypes = {
   as: PropTypes.oneOf(['error', 'success', 'warning', 'info']),
@@ -120,11 +39,4 @@ MessageStyle.propTypes = {
   transparent: PropTypes.bool
 };
 
-export {
-  MessageStyle,
-  MessageContentStyle,
-  MessageBodyStyle,
-  MessageTitleStyle,
-  MessageIconContainerStyle,
-  MessageCloseIconContainerStyle
-};
+export default MessageStyle;
