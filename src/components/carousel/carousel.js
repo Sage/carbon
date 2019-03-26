@@ -19,18 +19,11 @@ class Carousel extends React.Component {
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * The selected tab on page load
-     *
-     * @property initialSlideIndex
-     * @type {String}
-     * @default firstTab
      */
     initialSlideIndex: PropTypes.oneOfType([
       PropTypes.number,
@@ -39,9 +32,6 @@ class Carousel extends React.Component {
 
     /**
      * The selected slide
-     *
-     * @property slideIndex
-     * @type {String}
      */
     slideIndex: PropTypes.oneOfType([
       PropTypes.number,
@@ -50,9 +40,6 @@ class Carousel extends React.Component {
 
     /**
      * Individual tabs
-     *
-     * @property children
-     * @type {Object | Array}
      */
     children: PropTypes.oneOfType([
       PropTypes.array,
@@ -61,41 +48,26 @@ class Carousel extends React.Component {
 
     /**
      * Enables the slide selector
-     *
-     * @property enableSlideSelector
-     * @type {Boolean}
      */
     enableSlideSelector: PropTypes.bool,
 
     /**
      * Enables the previous button
-     *
-     * @property enablePreviousButton
-     * @type {Boolean}
      */
     enablePreviousButton: PropTypes.bool,
 
     /**
      * Enables the next button
-     *
-     * @property enableNextButton
-     * @type {Boolean}
      */
     enableNextButton: PropTypes.bool,
 
     /**
      * Action to be called on slide change
-     *
-     * @property onSlideChange
-     * @type {Function}
      */
     onSlideChange: PropTypes.func,
 
     /**
      * Controls which transition to use.
-     *
-     * @property transition
-     * @type {String}
      */
     transition: PropTypes.string
   }
