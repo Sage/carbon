@@ -23,5 +23,5 @@ export interface DecimalProps extends InputProps {
 /**
  * A decimal widget.
  */
-declare const Decimal: React.Component<DecimalProps, {}>;
+declare const Decimal: React.ComponentType<DecimalProps>;
 export default Decimal;
