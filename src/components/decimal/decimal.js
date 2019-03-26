@@ -8,23 +8,6 @@ import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import Logger from '../../utils/logger';
 
-/**
- * A decimal widget.
- *
- * == How to use a Decimal in a component:
- *
- * In your file
- *
- *   import Decimal from 'carbon-react/lib/components/decimal';
- *
- * To render the Decimal:
- *
- *   <Decimal name='myDecimal' />
- *
- * @class Decimal
- * @constructor
- * @decorators {Input,InputLabel,InputValidation}
- */
 const Decimal = Input(InputLabel(InputValidation(class Decimal extends React.Component {
   static propTypes = {
 
@@ -33,51 +16,31 @@ const Decimal = Input(InputLabel(InputValidation(class Decimal extends React.Com
     // react/no-unused-prop-types has been disabled for this prop
     /**
      * Sets the default value alignment
-     *
-     * @property align
-     * @type {String}
-     * @default 'right'
      */
     align: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * Callback function for when the decimal input
      * field blur event fires.
-     *
-     * @property onBlur
-     * @type {Void}
      */
     onBlur: PropTypes.func,
 
     /**
      * Callback to handle keyDown events.
-     *
-     * @property onKeyDown
-     * @type {Void}
      */
     onKeyDown: PropTypes.func,
 
     /**
      * Sets the precision of the field
-     *
-     * @property precision
-     * @type {Integer}
-     * @default 2
      */
     precision: PropTypes.number,
     /**
      * The value of the Number input element
-     *
-     * @property value
-     * @type {String}
      */
     value: PropTypes.string,
 
     /**
      * The name of the hidden input element
-     *
-     * @property name
-     * @type {String}
      */
     name: PropTypes.string
   };

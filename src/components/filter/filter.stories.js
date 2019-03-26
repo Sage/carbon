@@ -5,7 +5,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Filter from './filter';
 import Textbox from '../textbox';
 
-storiesOf('Filter', module)
+storiesOf('Filter Component', module)
   .addParameters({
     info: {
       propTablesExclude: [Textbox]
