@@ -247,7 +247,12 @@ describe('ShowEditPod', () => {
       it('renders the custom text', () => {
         const deleteSpy = jasmine.createSpy('delete');
 
-        instance = TestUtils.renderIntoDocument(<ShowEditPod onDelete={ deleteSpy } deleteText='foo' />);
+        instance = TestUtils.renderIntoDocument(
+          <ShowEditPod 
+            onDelete={ deleteSpy } 
+            deleteText='foo' 
+          />
+        );
 
         instance.setState({ editing: true });
         const deleteLink = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-show-edit-pod__delete');
