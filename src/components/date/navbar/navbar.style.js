@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import baseTheme from '../../../style/themes/base';
 import Navbar from './navbar';
 
 const StyledNavbar = styled(Navbar)`
@@ -9,5 +10,9 @@ const StyledNavbar = styled(Navbar)`
   top: 0;
 }
 `;
+
+StyledNavbar.defaultProps = {
+  theme: baseTheme
+};
 
 export default StyledNavbar;

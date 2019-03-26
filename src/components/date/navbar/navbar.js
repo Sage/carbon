@@ -11,12 +11,14 @@ const Navbar = ({
   return (
     <div className={ className }>
       <StyledButton
+        className='DayPicker-NavButton--prev'
         type='button'
         onClick={ () => onPreviousClick() }
       >
         <Icon type='chevron_left' />
       </StyledButton>
       <StyledButton
+        className='DayPicker-NavButton--next'
         type='button'
         onClick={ () => onNextClick() }
       >

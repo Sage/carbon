@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import baseTheme from '../../style/themes/base';
 import Weekday from './weekday.component';
 import weekdayClassicStyling from './weekday-classic.style';
 
@@ -20,5 +21,9 @@ const WeekdayPicker = styled(Weekday)`
   ${weekdayClassicStyling}
 }
 `;
+
+WeekdayPicker.defaultProps = {
+  theme: baseTheme
+};
 
 export default WeekdayPicker;

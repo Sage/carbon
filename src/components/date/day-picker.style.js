@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import DayPicker from 'react-day-picker';
+import baseTheme from '../../style/themes/base';
 import dayPickerClassicStyling from './day-picker-classic.style';
 
 const StyledDayPicker = styled(DayPicker)`
@@ -109,5 +110,9 @@ const StyledDayPicker = styled(DayPicker)`
 
   ${dayPickerClassicStyling}
 `;
+
+StyledDayPicker.defaultProps = {
+  theme: baseTheme
+};
 
 export default StyledDayPicker;
