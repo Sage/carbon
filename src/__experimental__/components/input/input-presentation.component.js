@@ -35,6 +35,7 @@ class InputPresentation extends React.Component {
   contextForInput() {
     return {
       hasFocus: this.state.hasFocus,
+      hasMouseOver: this.state.hasMouseOver,
       onFocus: this.onFocus,
       onBlur: this.onBlur,
       inputRef: this.assignInput
@@ -47,6 +48,14 @@ class InputPresentation extends React.Component {
     setTimeout(() => this.input.current.focus());
   }
 
+  handleMouseOver = () => {
+    this.setState({ hasMouseOver: true });
+  }
+
+  handleMouseOut = () => {
+    this.setState({ hasMouseOver: false });
+  }
+
   render() {
     const { children, ...props } = this.props;
     const filteredProps = filterOutInputEvents(props);
@@ -57,6 +66,8 @@ class InputPresentation extends React.Component {
         role='presentation'
         ref={ this.container }
         onMouseDown={ this.handleMouseDown }
+        onMouseOver={ this.handleMouseOver }
+        onMouseOut={ this.handleMouseOut }
         { ...filteredProps }
       >
         <InputPresentationContext.Provider value={ this.contextForInput() }>

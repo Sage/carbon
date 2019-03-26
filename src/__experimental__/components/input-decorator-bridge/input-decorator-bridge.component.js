@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import InputDecorator from '../../../utils/decorators/input/input';
-import InputValidation from '../../../utils/decorators/input-validation/input-validation';
 import { validProps } from '../../../utils/ether/ether';
 import Textbox from '../textbox';
 
 // This component creates a bridge between the new Textbox component and the old decorator classes.
 // As we remove the decorators, this bridge will become less useful and can be removed.
-const InputDecoratorBridge = InputDecorator(InputValidation(
+const InputDecoratorBridge = InputDecorator(
   class InputDecoratorBridge extends React.Component {
     static propTypes = {
       children: PropTypes.node, // optional: will add additional child elements after the input (eg. icons)
@@ -42,11 +41,10 @@ const InputDecoratorBridge = InputDecorator(InputValidation(
               { this.props.children }
             </Textbox>
           </div>
-          { this.validationHTML }
         </div>
       );
     }
   }
-));
+);
 
 export default InputDecoratorBridge;

@@ -58,12 +58,9 @@ InputPresentationStyle.defaultProps = {
 
 InputPresentationStyle.propTypes = {
   disabled: PropTypes.bool,
-  error: PropTypes.string,
   hasFocus: PropTypes.bool,
-  info: PropTypes.string,
   readOnly: PropTypes.bool,
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-  warning: PropTypes.string
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
 };
 
 export default InputPresentationStyle;

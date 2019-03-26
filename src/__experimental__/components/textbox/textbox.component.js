@@ -33,6 +33,7 @@ Textbox.propTypes = {
 };
 
 // we don't have any default props, but we set an empty object for better storybook source code examples
-Textbox.defaultProps = {};
+Textbox.defaultProps = {
+};
 
 export default Textbox;

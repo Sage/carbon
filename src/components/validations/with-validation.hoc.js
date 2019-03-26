@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ValidationsContext } from './form-with-validations.hoc';
+import { InputPresentationContext } from '../../__experimental__/components/input';
 import Icon from '../icon';
 import validator from '../../utils/validations/validator';
-import VALIDATION_TYPES from './validation-types.constant';
+import VALIDATION_TYPES from './validation-types.config';
 
 const withValidation = (WrappedComponent) => {
   class WithValidation extends React.Component {
@@ -19,6 +20,12 @@ const withValidation = (WrappedComponent) => {
         ...acc,
         [type]: PropTypes.oneOfType([ // The info validations that should be run against the value
           PropTypes.func,
+          PropTypes.arrayOf(
+            PropTypes.shape({
+              message: PropTypes.func,
+              validate: PropTypes.func
+            })
+          ),
           PropTypes.arrayOf(PropTypes.func)
         ])
       }), {})
@@ -41,7 +48,7 @@ const withValidation = (WrappedComponent) => {
     }
 
     componentWillUnmount() {
-      if (this.context.removeInput) this.context.removeInput(this.props.name);
+      if (this.context && this.context.removeInput) this.context.removeInput(this.props.name);
     }
 
     componentDidUpdate(prevProps) {
@@ -60,16 +67,14 @@ const withValidation = (WrappedComponent) => {
     }
 
     checkValidations() {
-      if (!this.context.addInput) return false;
+      if (!this.context || !this.context.addInput) return false;
 
       const types = Object.keys(VALIDATION_TYPES);
-      let hasValidations = true;
+      let hasValidations = false;
       types.forEach((validationType) => {
         const type = VALIDATION_TYPES[validationType];
-        if ((Array.isArray(this.props[type]) && this.props[type].length === 0)
-          || typeof this.props[type] === 'undefined') {
-          hasValidations = false;
-        } else {
+        if ((Array.isArray(this.props[type]) && this.props[type].length)
+          || typeof this.props[type] !== 'undefined') {
           hasValidations = true;
         }
       });
@@ -107,23 +112,37 @@ const withValidation = (WrappedComponent) => {
       return new Promise(async (resolve) => {
         return validator(this.props[type])(this.props.value)
           .then(() => {
-            this.updateValidationStatus(type);
+            this.updateValidationStatus(validationType);
             return resolve(true);
           })
           .catch((error) => {
             if (this.blockValidation) return resolve(true);
-            this.updateValidationStatus(type, error);
+            this.updateValidationStatus(validationType, error);
             return resolve(false);
           });
       });
     }
 
     renderValidationMarkup() {
-      const type = Object.keys(VALIDATION_TYPES).find((type) => {
-        return this.state[`${type}Message`];
-      });
-      const validationIcon = type ? <Icon key={ `${type}-icon` } type={ type } /> : undefined;
-      return validationIcon;
+      const type = Object.keys(VALIDATION_TYPES).find(t => (
+        this.props[`${t}Message`] || this.state[`${t}Message`]
+      ));
+      if (!type) return null;
+
+      return (
+        <InputPresentationContext.Consumer>
+          {
+            context => (
+              <Icon
+                key={ `${type}-icon` }
+                tooltipMessage={ this.props[`${type}Message`] || this.state[`${type}Message`] }
+                tooltipVisible={ context && (context.hasFocus || context.hasMouseOver) }
+                type={ type }
+              />
+            )
+          }
+        </InputPresentationContext.Consumer>
+      );
     }
 
     handleBlur = (ev) => {
@@ -147,9 +166,17 @@ const withValidation = (WrappedComponent) => {
       }
     }
 
+    validationProps() {
+      return Object.keys(VALIDATION_TYPES).reduce((acc, type) => ({
+        ...acc,
+        [`${type}Message`]: this.state[`${type}Message`]
+      }), {});
+    }
+
     render() {
       return (
         <WrappedComponent
+          { ...this.validationProps() }
           { ...this.props }
           onBlur={ this.handleBlur }
           onChange={ this.handleChange }

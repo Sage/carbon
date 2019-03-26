@@ -4,6 +4,8 @@ import { boolean, text, select } from '@storybook/addon-knobs';
 import Textbox from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
+Textbox.displayName = 'Textbox';
+
 storiesOf('Experimental/Textbox', module)
   .add('Basic', () => {
     return (

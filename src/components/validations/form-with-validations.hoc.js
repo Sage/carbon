@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import VALIDATION_TYPES from './validation-types.constant';
+import VALIDATION_TYPES from './validation-types.config';
 
 const ValidationsContext = React.createContext();
 
@@ -30,6 +30,7 @@ const withValidations = (WrappedComponent) => {
 
     adjustCount = (type, hasFailed) => {
       const TYPES = Object.keys(VALIDATION_TYPES);
+      console.log(type);
       if (!TYPES.includes(type)) {
         throw Error(`You can only validate for these given types: ${TYPES}`);
       }

@@ -390,19 +390,22 @@ class Form extends React.Component {
 
     const valid = await this.props.validate();
 
-    if (valid) {
-      this.resetIsDirty();
-    } else {
-      this.setState({ submitted: false });
-    }
-
     if (this.props.afterFormValidation) {
       this.props.afterFormValidation(ev, valid, this.enableForm);
     }
 
-    if (valid && this.props.onSubmit) {
+    if (valid) {
+      this.resetIsDirty();
+      this.triggerSubmit(ev, valid);
+    } else {
+      this.setState({ submitted: false });
+    }
+  }
+
+  triggerSubmit(ev, valid) {
+    if (this.props.onSubmit) {
       this.props.onSubmit(ev, valid, this.enableForm);
-    } else if (valid) {
+    } else {
       this._form.submit();
     }
   }
@@ -438,6 +441,11 @@ class Form extends React.Component {
   htmlProps = () => {
     const { ...props } = validProps(this);
     delete props.onSubmit;
+    delete props.isValidating;
+    delete props.errorCount;
+    delete props.warningCount;
+    delete props.infoCount;
+    delete props.validate;
     props.className = this.mainClasses;
     return props;
   }
