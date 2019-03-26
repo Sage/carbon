@@ -19,8 +19,7 @@ class InputPresentation extends React.Component {
   }
 
   state = {
-    hasFocus: false,
-    hasHover: false
+    hasFocus: false
   }
 
   input = {}
@@ -31,20 +30,13 @@ class InputPresentation extends React.Component {
 
   onBlur = () => this.setState({ hasFocus: false })
 
-  onMouseOver = () => this.setState({ hasHover: true })
-
-  onMouseOut = () => this.setState({ hasHover: false })
-
   assignInput = (input) => { this.input = input; }
 
   contextForInput() {
     return {
       hasFocus: this.state.hasFocus,
-      hasHover: this.state.hasHover,
       onFocus: this.onFocus,
       onBlur: this.onBlur,
-      onMouseOver: this.onMouseOver,
-      onMouseOut: this.onMouseOut,
       inputRef: this.assignInput
     };
   }
@@ -68,7 +60,7 @@ class InputPresentation extends React.Component {
         { ...filteredProps }
       >
         <InputPresentationContext.Provider value={ this.contextForInput() }>
-          {children}
+          { children }
         </InputPresentationContext.Provider>
       </InputPresentationStyle>
     );

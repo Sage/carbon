@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { THEMES } from '../../../style/themes';
+import LabelStyle from '../label/label.style';
 
 export default ({ disabled, hasFocus, theme }) => theme.name === THEMES.classic && css`
   border-color: #ccd6db;
@@ -8,6 +9,7 @@ export default ({ disabled, hasFocus, theme }) => theme.name === THEMES.classic 
   padding-left: 6px;
   padding-right: 6px;
 
+  ${LabelStyle}:hover + &,
   &:hover {
     border-color: #99adb6;
   }

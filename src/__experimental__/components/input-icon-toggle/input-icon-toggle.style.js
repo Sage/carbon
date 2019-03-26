@@ -39,10 +39,7 @@ InputIconToggleStyle.defaultProps = {
 InputIconToggleStyle.propTypes = {
   error: PropTypes.string,
   info: PropTypes.string,
-  inputFocus: PropTypes.bool,
-  inputHover: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-  type: PropTypes.string,
   warning: PropTypes.string
 };
 
