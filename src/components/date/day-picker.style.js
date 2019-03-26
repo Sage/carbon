@@ -37,7 +37,7 @@ abbr[title] {
   width: 100%;
 }
 
-.DayPicker-Day, .DayPicker-Weekday {
+.DayPicker-Day {
   padding: 10px 12px;
   border-color: #fff;
   border-style: solid;
@@ -49,10 +49,6 @@ abbr[title] {
 }
 
 .DayPicker-Day {
-  width: 14.28571%;
-}
-
-.DayPicker-Weekday {
   width: 14.28571%;
 }
 
@@ -92,7 +88,7 @@ abbr[title] {
   }
 }
 
-.DayPicker-Day, .DayPicker-Weekday {
+.DayPicker-Day {
   padding: 10px 12px;
   border-color: #fff;
   border-style: solid;
@@ -100,10 +96,6 @@ abbr[title] {
 }
 
 .DayPicker-Day {
-  width: 14.28571%;
-}
-
-.DayPicker-Weekday {
   width: 14.28571%;
 }
 
