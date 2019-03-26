@@ -9,8 +9,11 @@ const StyledInput = styled.input`
   flex-grow: 1;
   font-size: ${({ theme }) => theme.text.size};
   outline: none;
-  text-align: ${({ align }) => align}
   width: 100%;
+  
+  ${({ align }) => align && css`
+    text-align: ${align};
+  `}
 
   &::placeholder {
     color: ${({ theme }) => theme.text.placeholder};
