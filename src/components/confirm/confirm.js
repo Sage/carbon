@@ -32,34 +32,22 @@ import './confirm.scss';
  * You need to provide a custom cancel event handler to handle a close event via the 'no' button
  *
  * You need to provide a custom confirm event handler to handle a close event via the 'yes' button
- *
- * @class Confirm
- * @constructor
  */
 class Confirm extends Dialog {
   static propTypes = assign({}, Dialog.propTypes, {
 
     /**
      * A custom event handler when a confirmation takes place
-     *
-     * @property onConfirm
-     * @type {Function}
      */
     onConfirm: PropTypes.func.isRequired,
 
     /**
      * Customise the confirm button label
-     *
-     * @property onConfirm
-     * @type {String}
      */
     confirmLabel: PropTypes.string,
 
     /**
      * Customise the cancel button label
-     *
-     * @property onConfirm
-     * @type {String}
      */
     cancelLabel: PropTypes.string
   })
