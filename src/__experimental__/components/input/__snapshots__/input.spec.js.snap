@@ -11,7 +11,7 @@ exports[`Input renders with an input 1`] = `
   flex-grow: 1;
   font-size: 14px;
   outline: none;
-  width: 30px;
+  width: 100%;
 }
 
 .c0::-webkit-input-placeholder {
