@@ -3,22 +3,37 @@ import PropTypes from 'prop-types';
 import Textbox from '../textbox';
 import I18nHelper from '../../../utils/helpers/i18n';
 
-const Decimal = (props) => {
-  const [decimalValue, setDecimalValue] = useState(
-    testValue(props.value) ? props.value : Decimal.defaultProps.value
-  );
+class Decimal extends React.Component {
+  constructor(props) {
+    super(props);
+    const { value } = this.props;
+    const isValidInitVal = this.testValue(value);
+    const initVal = isValidInitVal ? value : Decimal.defaultProps.value;
 
-  useEffect(() => {
-    // Update decimalValue if precision prop changes
-    const { precision } = props;
+    if (!isValidInitVal) {
+      console.warn('Initial value is not a valid decimal');
+    }
 
-    setDecimalValue(I18nHelper.formatDecimal(
-      parseFloat(decimalValue),
-      validatePrecision())
-    );
-  }, [props.precision]);
+    this.state = {
+      decimalValue: initVal
+    }
+  }
 
-  const validatePrecision = () => {
+  componentDidUpdate(prevProps) {
+    const { precision } = this.props;
+    console.log('updated')
+    if (prevProps.precision !== precision) {
+      // Update decimalValue if precision prop changes
+      this.setState({
+        decimalValue: I18nHelper.formatDecimal(
+          parseFloat(this.state.decimalValue),
+          this.validatePrecision()
+        )
+      });
+    }
+  } 
+  
+  validatePrecision = () => {
     const { precision } = this.props;
 
     if (precision > 15) {
@@ -29,8 +44,9 @@ const Decimal = (props) => {
     return precision;
   }
 
-  const testValue = (value) => {
-    const { precision } = props;
+
+  testValue = (value) => {
+    const { precision } = this.props;
     const format = I18nHelper.format();
     const delimiter = `\\${format.delimiter}`;
     const seperator = `\\${format.separator}`;
@@ -39,35 +55,40 @@ const Decimal = (props) => {
     return isGoodDecimal.test(value);
   }
 
-  const handleChange = (evt) => {
+  handleChange = (evt) => {
     const target = evt.target;
     const { value, selectionEnd } = evt.target;
-    const testString = testValue(value);
-    
+    const testString = this.testValue(value);
     if (testString) {
-      setDecimalValue(value);
-      props.onChange({ target: { value: value } })
+      this.setState({
+        decimalValue: value
+      });
+      this.props.onChange({ target: { value: value } })
       setTimeout(() => {
         target.setSelectionRange(selectionEnd, selectionEnd)
       });
     }
   }
 
-  const handleBlur = () => {
-    const { precision } = props;
-    let noCommas = decimalValue.replace(/,/g, '');
+  handleBlur = () => {
+    const { precision } = this.props;
+    let noCommas = this.state.decimalValue.replace(/,/g, '');
     
-    setDecimalValue(I18nHelper.formatDecimal(parseFloat(noCommas), precision));
+    this.setState({
+      decimalValue: I18nHelper.formatDecimal(parseFloat(noCommas), precision)
+    })
   }
 
-  return (
-    <Textbox
-      {...props}
-      onChange={ handleChange }
-      onBlur={ handleBlur }
-      value={ decimalValue }
-    />
-  );
+  render() {
+    return (
+      <Textbox
+        {...this.props}
+        onChange={ this.handleChange }
+        onBlur={ this.handleBlur }
+        value={ this.state.decimalValue }
+      />
+    );
+  }
 };
 
 Decimal.propTypes = {
@@ -95,6 +116,7 @@ Decimal.defaultProps = {
   inputWidth: 100,
   value: '0.00'
 };
+
 
 
 export default Decimal;
