@@ -1,12 +1,21 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import 'jest-styled-components';
 import Icon from 'components/icon';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import BaseTheme from '../../../style/themes/base';
+import classicTheme from '../../../style/themes/classic';
+
+import InputStyle from '../input/input.style';
+import InputPresentationStyle from '../input/input-presentation.style';
+import LabelStyle from '../label/label.style';
 
 import InputIconToggle from './input-icon-toggle.component';
+
+const mountRender = (props) => {
+  return mount(<InputIconToggle type='settings' { ...props } />);
+};
 
 function render(props, renderer = shallow) {
   return renderer(
@@ -55,6 +64,56 @@ describe('InputIconToggle', () => {
         assertStyleMatch({
           width: size[1]
         }, render({ size: size[0] }, TestRenderer.create).toJSON());
+      });
+    });
+  });
+
+  describe('classic theme', () => {
+    const hoverStyles = {
+      backgroundColor: classicTheme.colors.hover,
+      borderColor: classicTheme.colors.hover,
+      color: '#fff'
+    };
+
+    const focusStyles = {
+      backgroundColor: classicTheme.colors.focus,
+      borderColor: classicTheme.colors.focus,
+      color: '#fff'
+    };
+
+    it('applies custom styling', () => {
+      expect(render({ theme: classicTheme }, TestRenderer.create)).toMatchSnapshot();
+    });
+
+    it('applies custom width for dropdowns', () => {
+      assertStyleMatch({
+        width: '20px'
+      }, mountRender({ theme: classicTheme, type: 'dropdown' }));
+    });
+
+    describe('application of state-based styles', () => {
+      it('applies focussed input styles on input focus', () => {
+        assertStyleMatch(focusStyles, mountRender({ theme: classicTheme }), {
+          modifier: `${InputStyle}:focus ~ &`
+        });
+      });
+
+      it('applies focussed input styles on input-icon-toggle hover', () => {
+        assertStyleMatch(focusStyles, mountRender({ theme: classicTheme }), {
+          modifier: `${InputPresentationStyle} &:hover`
+        });
+      });
+
+      it('applies custom colours on input hover', () => {
+        assertStyleMatch(hoverStyles, mountRender({ theme: classicTheme }), {
+          modifier: `${InputPresentationStyle}:hover &`
+        });
+      });
+
+      it('applies custom colours on label hover', () => {
+        assertStyleMatch(hoverStyles, mountRender({ theme: classicTheme }), {
+          modifier: `${LabelStyle}:hover + ${InputPresentationStyle} &`
+        });
       });
     });
   });

@@ -12,19 +12,20 @@ export default ({
   box-sizing: border-box;
   color: #003349;
   cursor: pointer;
-  margin-right: -5.5px;
+  margin-right: -6.5px;
   width: ${type === 'dropdown' ? '20px' : '31px'};
 
   ${InputPresentationStyle}:hover &,
   ${LabelStyle}:hover + ${InputPresentationStyle} & {
-    background-color: #1963f6;
-    border-color: #1963f6;
+    background-color: ${theme.colors.hover};
+    border-color: ${theme.colors.hover};
     color: #fff;
   }
 
-  ${InputStyle}:focus ~ & {
-    background-color: #004b87;
-    border-color: #004b87;
+  ${InputStyle}:focus ~ &,
+  ${InputPresentationStyle} &:hover {
+    background-color: ${theme.colors.focus};
+    border-color: ${theme.colors.focus};
     color: #fff;
   }
 `;

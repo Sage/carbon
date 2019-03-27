@@ -32,6 +32,7 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
   padding-right: 6px;
 }
 
+.c1:hover + .c0,
 .c0:hover {
   border-color: #99adb6;
 }

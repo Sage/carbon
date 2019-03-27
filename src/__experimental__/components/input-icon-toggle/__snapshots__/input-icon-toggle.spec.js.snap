@@ -1,5 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`InputIconToggle classic theme applies custom styling 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -11px;
+  width: 40px;
+  background-color: #e6ebed;
+  border-left: 1px solid #bfccd2;
+  box-sizing: border-box;
+  color: #003349;
+  cursor: pointer;
+  margin-right: -6.5px;
+  width: 31px;
+}
+
+.c2:hover .c0,
+.sc-bwzfXH:hover + .c2 .c0 {
+  background-color: #1963F6;
+  border-color: #1963F6;
+  color: #fff;
+}
+
+.c1:focus ~ .c0,
+.c2 .c0:hover {
+  background-color: #004B87;
+  border-color: #004B87;
+  color: #fff;
+}
+
+<span
+  className="c0"
+  size="medium"
+  type="settings"
+>
+  <span
+    className="carbon-icon icon-settings"
+    data-component="icon"
+    data-element="settings"
+  />
+</span>
+`;
+
 exports[`InputIconToggle when initiated with children renders as expected 1`] = `
 .c0 {
   -webkit-align-items: center;

@@ -6,6 +6,7 @@ export default {
   genericGreen: '009900',
   productGreen: '00A376',
   productBlue: '0077C8',
+  lightBlue: '1963F6',
   navyBlue: '004B87',
   amethyst: '582C83',
   plum: '8246AF',
