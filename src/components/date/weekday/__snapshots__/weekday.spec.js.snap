@@ -1,12 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Weekday classic theme applies custom styling 1`] = `
+.c0,
+.c0.DayPicker-Weekday {
+  border: none;
+  padding: 10px 12px;
+  width: 40px;
+  font-weight: 800;
+  color: #668592;
+  text-transform: uppercase;
+  font-size: 12px;
+  text-align: center;
+  background-color: #fff;
+  color: rgba(0,0,0,.6);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: capitalize;
+  border-color: #fff;
+  border-style: solid;
+  border-width: 0 3px 3px 3px;
+}
+
+.c1 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
 <div
-  className="sc-bdVaJa fObhsM"
+  className="c0"
   role="columnheader"
 >
   <abbr
-    className="sc-bwzfXH gdAzKI"
+    className="c1"
   >
     sample children
   </abbr>
@@ -14,12 +39,29 @@ exports[`Weekday classic theme applies custom styling 1`] = `
 `;
 
 exports[`Weekday renders presentational div and context provider for its children 1`] = `
+.c0,
+.c0.DayPicker-Weekday {
+  border: none;
+  padding: 10px 12px;
+  width: 40px;
+  font-weight: 800;
+  color: #668592;
+  text-transform: uppercase;
+  font-size: 12px;
+  text-align: center;
+}
+
+.c1 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
 <div
-  className="class-name sc-bdVaJa cwXVru"
+  className="c0"
   role="columnheader"
 >
   <abbr
-    className="sc-bwzfXH gdAzKI"
+    className="c1"
     title="tile"
   >
     sample children

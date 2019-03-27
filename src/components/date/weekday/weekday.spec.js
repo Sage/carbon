@@ -1,5 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
+import 'jest-styled-components';
 import classicTheme from '../../../style/themes/classic';
 import Weekday from './weekday.component';
 
@@ -9,7 +10,7 @@ describe('Weekday', () => {
   };
 
   it('renders presentational div and context provider for its children', () => {
-    expect(render({ title: 'tile', className: 'class-name' })).toMatchSnapshot();
+    expect(render({ title: 'tile' })).toMatchSnapshot();
   });
 
   describe('classic theme', () => {
