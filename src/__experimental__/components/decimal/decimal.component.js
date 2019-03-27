@@ -4,27 +4,13 @@ import Textbox from '../textbox';
 import I18nHelper from '../../../utils/helpers/i18n';
 
 const Decimal = (props) => {
-  const [decimalValue, setDecimalValue] = useState('0.00');
+  const [decimalValue, setDecimalValue] = useState(props.value);
 
   useEffect(() => {
     // Update decimalValue if precision prop changes
     const { precision } = props;
-    const parts = decimalValue.split('.');
-    let newDecimal = parts[1];
-    const decimalLength = parts[1].length;
-    let diff;
 
-    if (precision > decimalLength) { // Precision increased
-      diff = precision - decimalLength;
-      for (let i = 0; i < diff; i++) {
-        newDecimal = newDecimal + '0';
-      }
-    } else if (precision < decimalLength) { // Precision decreased
-      diff = decimalLength - precision;
-      newDecimal = Math.round(newDecimal / (10 * diff));
-    }
-    
-    setDecimalValue([parts[0], '.', newDecimal].join(''));
+    setDecimalValue(I18nHelper.formatDecimal(parseFloat(decimalValue), precision));
   }, [props.precision]);
 
   const testValue = (value) => {
@@ -52,18 +38,10 @@ const Decimal = (props) => {
   }
 
   const handleBlur = () => {
-    const addCommasRegex = /(\d)(?=(\d{3})+(?!\d))/g;
-    const parts = decimalValue.split('.');
-    const integer = parts[0];
+    const { precision } = props;
+    let noCommas = decimalValue.replace(/,/g, '');
     
-    let newInteger = integer.replace(/,/g, '');
-    newInteger = newInteger.replace(addCommasRegex, '$1,');
-    let array = [newInteger];
-
-    if (parts[1]) {
-      array.push('.', parts[1]);
-    }
-    setDecimalValue(array.join(''));
+    setDecimalValue(I18nHelper.formatDecimal(parseFloat(noCommas), precision));
   }
 
   return (
