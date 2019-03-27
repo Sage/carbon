@@ -1,10 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { ValidationsContext } from './form-with-validations.hoc';
-import { InputPresentationContext } from '../../__experimental__/components/input';
-import Icon from '../icon';
 import validator from '../../utils/validations/validator';
 import VALIDATION_TYPES from './validation-types.config';
+import ValidationIcon from './validation-icon.component';
 
 const withValidation = (WrappedComponent) => {
   class WithValidation extends React.Component {
@@ -55,6 +54,10 @@ const withValidation = (WrappedComponent) => {
       if (this.isUpdatedValidationProps(prevProps) && this.checkValidations()) {
         this.context.addInput(this.props.name, this.validate);
       }
+
+      if (prevProps.value !== this.props.value) {
+        this.validate();
+      }
     }
 
     isUpdatedValidationProps(prevProps) {
@@ -83,12 +86,16 @@ const withValidation = (WrappedComponent) => {
     }
 
     validate = (types = Object.keys(VALIDATION_TYPES)) => {
+      if (this.blockValidation) return new Promise(resolve => resolve(true));
+
       const validationPromises = [];
       types.forEach((type) => {
         const validationPromise = this.runValidation(type);
         if (validationPromise) validationPromises.push(validationPromise);
       });
-      return validationPromises;
+      return Promise.all(validationPromises).then((results) => {
+        return !results.includes(false);
+      });
     }
 
     updateValidationStatus(type, message) {
@@ -109,17 +116,18 @@ const withValidation = (WrappedComponent) => {
       if (typeof this.props[type] === 'undefined') return null;
       if (Array.isArray(this.props[type]) && this.props[type].length === 0) return null;
 
-      return new Promise(async (resolve) => {
-        return validator(this.props[type])(this.props.value)
-          .then(() => {
-            this.updateValidationStatus(validationType);
-            return resolve(true);
-          })
-          .catch((error) => {
-            if (this.blockValidation) return resolve(true);
-            this.updateValidationStatus(validationType, error);
-            return resolve(false);
-          });
+      return new Promise((resolve) => {
+        setTimeout(() => {
+          validator(this.props[type])(this.props.value, this.props)
+            .then(() => {
+              this.updateValidationStatus(validationType);
+              return resolve(true);
+            })
+            .catch((error) => {
+              this.updateValidationStatus(validationType, error.message);
+              return resolve(false);
+            });
+        }, 100); // allow 100ms delay to accommodate for browser events
       });
     }
 
@@ -130,18 +138,10 @@ const withValidation = (WrappedComponent) => {
       if (!type) return null;
 
       return (
-        <InputPresentationContext.Consumer>
-          {
-            context => (
-              <Icon
-                key={ `${type}-icon` }
-                tooltipMessage={ this.props[`${type}Message`] || this.state[`${type}Message`] }
-                tooltipVisible={ context && (context.hasFocus || context.hasMouseOver) }
-                type={ type }
-              />
-            )
-          }
-        </InputPresentationContext.Consumer>
+        <ValidationIcon
+          type={ type }
+          message={ this.props[`${type}Message`] || this.state[`${type}Message`] }
+        />
       );
     }
 

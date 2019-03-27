@@ -85,8 +85,9 @@ class Tooltip extends React.Component {
      * @type {String}
      * @default 'bottom'
      */
-    position: PropTypes.string
+    position: PropTypes.string,
 
+    type: PropTypes.string
   };
 
   static defaultProps = {
@@ -107,6 +108,7 @@ class Tooltip extends React.Component {
       'carbon-tooltip',
       `carbon-tooltip--position-${this.props.position}`,
       `carbon-tooltip--pointer-align-${this.props.align}`,
+      `carbon-tooltip--type-${this.props.type}`,
       this.props.className
     );
   }

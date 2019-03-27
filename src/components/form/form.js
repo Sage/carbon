@@ -520,7 +520,7 @@ class Form extends React.Component {
       <SaveButton
         saveButtonProps={ this.props.saveButtonProps }
         saveText={ this.props.saveText }
-        saving={ this.props.saving || this.state.submitted }
+        saving={ this.props.isValidating || this.props.saving || this.state.submitted }
       />
     );
   }

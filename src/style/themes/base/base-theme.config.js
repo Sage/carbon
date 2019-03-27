@@ -23,7 +23,7 @@ export default (palette) => {
       focus: palette.gold,
       info: palette.productBlueShade(3),
       success: palette.brilliantGreenShade(20),
-      warning: palette.gold
+      warning: palette.carrot
     },
 
     text: {

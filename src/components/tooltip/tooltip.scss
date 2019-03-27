@@ -19,6 +19,10 @@
   max-width: 300px;
   word-break: normal;
   white-space: pre-wrap;
+
+  .carbon-tooltip--type-error & {
+    background-color: $error;
+  }
 }
 
 .carbon-tooltip__pointer {
@@ -54,6 +58,10 @@
     @include arrow(up, $app-tooltip-pointer-size, $grey-dark-plus);
     border-top: none;
     position: absolute;
+
+    @at-root .carbon-tooltip--type-error#{&} {
+      border-bottom-color: $error;
+    }
   }
 }
 
@@ -65,6 +73,10 @@
     @include arrow(down, $app-tooltip-pointer-size, $grey-dark-plus);
     border-bottom: none;
     position: absolute;
+
+    @at-root .carbon-tooltip--type-error#{&} {
+      border-top-color: $error;
+    }
   }
 }
 
@@ -76,6 +88,10 @@
     @include arrow(up, $app-tooltip-pointer-size, $grey-dark-plus);
     border-top: none;
     position: absolute;
+
+    @at-root .carbon-tooltip--type-error#{&} {
+      border-bottom-color: $error;
+    }
   }
 }
 
@@ -88,6 +104,10 @@
     @include arrow(down, $app-tooltip-pointer-size, $grey-dark-plus);
     border-bottom: none;
     position: absolute;
+
+    @at-root .carbon-tooltip--type-error#{&} {
+      border-top-color: $error;
+    }
   }
 }
 
@@ -99,6 +119,10 @@
     @include arrow(up, $app-tooltip-pointer-size, $grey-dark-plus);
     border-top: none;
     position: absolute;
+
+    @at-root .carbon-tooltip--type-error#{&} {
+      border-bottom-color: $error;
+    }
   }
 }
 
@@ -110,6 +134,10 @@
     @include arrow(down, $app-tooltip-pointer-size, $grey-dark-plus);
     border-bottom: none;
     position: absolute;
+
+    @at-root .carbon-tooltip--type-error#{&} {
+      border-top-color: $error;
+    }
   }
 }
 
@@ -121,6 +149,10 @@
     @include arrow(right, $app-tooltip-pointer-size, $grey-dark-plus);
     border-right: none;
     position: absolute;
+
+    @at-root .carbon-tooltip--type-error#{&} {
+      border-left-color: $error;
+    }
   }
 }
 
@@ -132,6 +164,10 @@
     @include arrow(left, $app-tooltip-pointer-size, $grey-dark-plus);
     border-left: none;
     position: absolute;
+
+    @at-root .carbon-tooltip--type-error#{&} {
+      border-right-color: $error;
+    }
   }
 }
 
@@ -143,6 +179,10 @@
     @include arrow(right, $app-tooltip-pointer-size, $grey-dark-plus);
     border-right: none;
     position: absolute;
+
+    @at-root .carbon-tooltip--type-error#{&} {
+      border-left-color: $error;
+    }
   }
 }
 
@@ -154,6 +194,10 @@
     @include arrow(left, $app-tooltip-pointer-size, $grey-dark-plus);
     border-left: none;
     position: absolute;
+
+    @at-root .carbon-tooltip--type-error#{&} {
+      border-right-color: $error;
+    }
   }
 }
 
@@ -165,6 +209,10 @@
     @include arrow(right, $app-tooltip-pointer-size, $grey-dark-plus);
     border-right: none;
     position: absolute;
+
+    @at-root .carbon-tooltip--type-error#{&} {
+      border-left-color: $error;
+    }
   }
 }
 
@@ -176,5 +224,9 @@
     @include arrow(left, $app-tooltip-pointer-size, $grey-dark-plus);
     border-left: none;
     position: absolute;
+
+    @at-root .carbon-tooltip--type-error#{&} {
+      border-right-color: $error;
+    }
   }
 }

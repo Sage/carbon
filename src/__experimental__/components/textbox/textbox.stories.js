@@ -14,33 +14,13 @@ Textbox.displayName = 'Textbox';
 storiesOf('Experimental/Textbox', module)
   .add('Basic', () => {
     return (
-      <Textbox
-        errorMessage={ text('errorMessage') }
-        infoMessage={ text('infoMessage') }
-        warningMessage={ text('warningMessage') }
-        size={ select('size', OptionsHelper.sizesRestricted) }
-        { ...getTextboxStoryProps() }
-      />
+      <Textbox { ...getTextboxStoryProps() } />
     );
   })
   .add('Multiple', () => {
     return ([
-      <Textbox
-        errorMessage={ text('errorMessage') }
-        infoMessage={ text('infoMessage') }
-        warningMessage={ text('warningMessage') }
-        size={ select('size', OptionsHelper.sizesRestricted) }
-        key='0'
-        { ...getTextboxStoryProps() }
-      />,
-      <Textbox
-        errorMessage={ text('errorMessage') }
-        infoMessage={ text('infoMessage') }
-        warningMessage={ text('warningMessage') }
-        size={ select('size', OptionsHelper.sizesRestricted) }
-        key='1'
-        { ...getTextboxStoryProps() }
-      />
+      <Textbox key='0' { ...getTextboxStoryProps() } />,
+      <Textbox key='1' { ...getTextboxStoryProps() } />
     ]);
   });
 
@@ -62,6 +42,10 @@ function getTextboxStoryProps() {
   const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
   const inputWidth = labelInline ? number('inputWidth', 70, percentageRange) : undefined;
   const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
+  const errorMessage = text('errorMessage');
+  const infoMessage = text('infoMessage');
+  const warningMessage = text('warningMessage');
+  const size = select('size', OptionsHelper.sizesRestricted);
 
   return {
     disabled,
@@ -73,7 +57,11 @@ function getTextboxStoryProps() {
     labelHelp,
     labelInline,
     labelWidth,
-    labelAlign
+    labelAlign,
+    errorMessage,
+    infoMessage,
+    warningMessage,
+    size
   };
 }
 

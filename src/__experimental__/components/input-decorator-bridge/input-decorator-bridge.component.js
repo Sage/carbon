@@ -31,8 +31,8 @@ const InputDecoratorBridge = InputDecorator(
       const { className, ...inputProps } = this.inputProps;
       inputProps.inputRef = this.props.inputRef;
       inputProps.inputIcon = this.props.inputIcon;
+      inputProps.formattedValue = this.props.formattedValue;
       delete inputProps.ref; // ref is added by decorator, but we would like to move away from needing it
-      if (typeof this.props.formattedValue === 'string') inputProps.value = this.props.formattedValue;
 
       return (
         <div className={ this.classes() }>

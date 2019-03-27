@@ -125,6 +125,11 @@ const TooltipDecorator = (ComposedComponent) => {
      */
     _memoizedShifts = null;
 
+    componentDidMount() {
+      if (super.componentDidMount) super.componentDidMount();
+      if (this.props.tooltipVisible) this.positionTooltip();
+    }
+
     /**
      * @method componentWillUpdate
      * @return {Void}
@@ -367,6 +372,7 @@ const TooltipDecorator = (ComposedComponent) => {
               isVisible={ this.isVisible() }
               position={ this.props.tooltipPosition }
               ref={ (comp) => { this._tooltip = comp; } }
+              type={ this.props.tooltipType }
             >
               { this.props.tooltipMessage }
             </Tooltip>

@@ -14,13 +14,18 @@ const Textbox = ({
   children,
   inputIcon,
   leftChildren,
+  formattedValue,
+  value,
   ...props
 }) => {
   return (
     <FormField { ...props }>
       <InputPresentation type='text' { ...props }>
         { leftChildren }
-        <Input { ...props } />
+        <Input
+          { ...props }
+          value={ formattedValue || value }
+        />
         { children }
         { inputIcon && <InputIconToggle { ...props } type={ inputIcon } /> }
       </InputPresentation>
@@ -53,11 +58,20 @@ Textbox.propTypes = {
   /** Help content to be displayed under an input */
   fieldHelp: PropTypes.node,
   /** An array of info messages to apply to the input */
-  info: PropTypes.array,
+  info: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func
+  ]),
   /** An array of validations to apply to the input */
-  validations: PropTypes.array,
+  validations: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func
+  ]),
   /** An array of warnings to apply to the input */
-  warnings: PropTypes.array,
+  warnings: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.func
+  ]),
   /** Type of the icon that will be rendered next to the input */
   children: PropTypes.node,
   inputIcon: PropTypes.string,
