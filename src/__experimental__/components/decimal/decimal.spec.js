@@ -3,13 +3,13 @@ import { shallow, mount } from 'enzyme';
 import Decimal from './decimal.component';
 import Textbox from '../textbox/textbox.component';
 
-const input = shallow(<Decimal onChange={() => true} />)
+const input = shallow(<Decimal onChange={() => true} value='12.34' />)
 
 describe('Decimal', () => {
   describe('Input validation', () => {
     it('does not allow the user to enter letters or special characters', () => {
-      input.setProps({ value: '1hello$1.27' })
-      expect(input.find('Textbox').prop('value')).toEqual('11.27');
+      input.instance().handleChange({ target: {value: '1hello$1.27'} })
+      expect(input.find('Textbox').prop('value')).toEqual('12.34');
     });
     it('does not allow the user to enter commas after the decimal point', () => {
       const test = false;
