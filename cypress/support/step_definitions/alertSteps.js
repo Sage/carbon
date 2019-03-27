@@ -3,11 +3,7 @@ import {
   enableBackgroundUICheckbox, disableEscKeyCheckbox, subtitleInput, alertSubtitle, alertChildren, showCloseIconCheckbox
 } from "../../locators/alertLocators";
 
-const CARBON_DIALOG_PREFIX = 'carbon-dialog__dialog--';
-
-Given('I open Alert component page', () => {
-  cy.visit(Cypress.env('alert_component_url'))
-})
+const CARBON_DIALOG_PREFIX = 'carbon-dialog__dialog--'
 
 Then('Alert dialog is visible', () => {
   alertDialog().should('be.visible')

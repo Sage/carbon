@@ -1,4 +1,12 @@
-import { asSelect, themeSelect, sizeSelect, subtextInput, heightInput, childrenTextArea, labelInput, labelHelpInput } from "../../locators/commonLocators";
+import {
+  asSelect, themeSelect, sizeSelect, subtextInput,
+  heightInput, childrenTextArea, labelInput
+} from "../../locators/commonLocators";
+import { visitComponentUrl } from "../helper";
+
+Given('I open {string} component page', (component) => {
+  visitComponentUrl(component)
+})
 
 When('I set children to {string}', (text) => {
   childrenTextArea().clear().type(text);
