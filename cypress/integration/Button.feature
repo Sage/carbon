@@ -2,7 +2,7 @@ Feature: Button component
   I want to change Button label, theme, size and subtext properties
 
   Background: Open Button component page
-    Given I open Button component page
+    Given I open "Button" component page
 
   @positive
   Scenario Outline: Change Button component label
