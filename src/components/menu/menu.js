@@ -6,32 +6,20 @@ import SubmenuBlock from './submenu-block';
 import tagComponent from '../../utils/helpers/tags';
 import './menu.scss';
 
-/**
- * Renders a menu component, with menu items.
- */
 class Menu extends React.Component {
   static propTypes = {
     /**
      * Defines the style of the component eg. primary/secondary
-     *
-     * @property as
-     * @type {String}
      */
     as: PropTypes.string,
 
     /**
      * Children elements
-     *
-     * @property children
-     * @type {Node}
      */
     children: PropTypes.node,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string
   }
