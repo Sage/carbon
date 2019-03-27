@@ -72,7 +72,9 @@ class Decimal extends React.Component {
 
   handleBlur = () => {
     const { precision } = this.props;
-    let noCommas = this.state.decimalValue.replace(/,/g, '');
+    const format = I18nHelper.format();
+    const delimiterRegex = new RegExp(`\\${format.delimiter}`, 'g');
+    let noCommas = this.state.decimalValue.replace(delimiterRegex, '');
     
     this.setState({
       decimalValue: I18nHelper.formatDecimal(parseFloat(noCommas), precision)
