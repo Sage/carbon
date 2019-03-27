@@ -103,7 +103,7 @@ const StyledDayPicker = styled(DayPicker)`
   }
 
   .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-    background-color: ${({ theme }) => theme.colors.secondary};
+    background-color: ${({ theme }) => theme.colors.primary};
     color: #fff;
     font-weight: 800;
   }

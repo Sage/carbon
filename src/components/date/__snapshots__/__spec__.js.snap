@@ -111,7 +111,7 @@ exports[`Date DayPickerStyle classic theme applies custom styling 1`] = `
 }
 
 .c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: #006045;
+  background-color: #00805D;
   color: #fff;
   font-weight: 800;
 }
@@ -854,7 +854,7 @@ exports[`Date DayPickerStyle renders presentational div and context provider for
 }
 
 .c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: #006300;
+  background-color: #26A826;
   color: #fff;
   font-weight: 800;
 }
