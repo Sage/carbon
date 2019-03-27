@@ -8,7 +8,7 @@ function render(props) {
     <Decimal
       onChange={ () => true }
       value={ props.value }
-      precision={ props.precision || '2' }
+      precision={ props.precision || 2 }
     />
   );
 }
@@ -37,17 +37,17 @@ describe('Decimal', () => {
       expect(input.find(Textbox).prop('value')).toEqual('1,234,567.00');
     });
     it('updates the value after increasing the precison', () => {
-      const input = render({ value: '99.99', precision: '2' });
+      const input = render({ value: '99.99', precision: 2 });
       input.setProps({ precision: 4 });
       expect(input.find('Textbox').prop('value')).toEqual('99.9900');
     });
     it('updates the value after decreasing the precison', () => {
-      const input = render({ value: '1234.1234567', precision: '7' });
+      const input = render({ value: '1234.1234567', precision: 7 });
       input.setProps({ precision: 4 });
       expect(input.find(Textbox).prop('value')).toEqual('1,234.1235');
     });
     it('does not allow the precison to be greater than 15', () => {
-      const input = render({ value: '4.1234', precision: '4' });
+      const input = render({ value: '4.1234', precision: 4 });
       input.setProps({ precision: 20 });
       expect(input.find(Textbox).prop('value')).toEqual('4.123400000000000');
     });
