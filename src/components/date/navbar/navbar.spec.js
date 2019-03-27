@@ -1,22 +1,22 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 import Navbar from './navbar';
 import StyledButton from './button.style';
-import { shallow } from 'enzyme';
 
 describe('Navbar', () => {
-  let wrapper, onPreviousClick, onNextClick
+  let wrapper, onPreviousClick, onNextClick;
   describe('render', () => {
     beforeEach(() => {
       onPreviousClick = jest.fn();
       onNextClick = jest.fn();
       wrapper = shallow(
         <Navbar
-          onPreviousClick={onPreviousClick}
-          onNextClick={onNextClick}
+          onPreviousClick={ onPreviousClick }
+          onNextClick={ onNextClick }
           className='custom-class'
         />
-      )
+      );
     });
 
     it('returns a previous button that calls onPreviousClick', () => {
@@ -37,8 +37,8 @@ describe('Navbar', () => {
   });
 
   describe('Navbar Button', () => {
-    const shallowRender = (props, renderer = shallow) => {
-      return renderer(
+    const render = (props) => {
+      return TestRenderer.create(
         <StyledButton { ...props }>
           sample children
         </StyledButton>
@@ -46,7 +46,7 @@ describe('Navbar', () => {
     };
 
     it('renders presentational div and context provider for its children', () => {
-      expect(shallowRender({}, TestRenderer.create)).toMatchSnapshot();
+      expect(render()).toMatchSnapshot();
     });
   });
 });

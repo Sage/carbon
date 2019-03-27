@@ -643,8 +643,8 @@ describe('Date', () => {
   });
 
   describe('DayPickerStyle', () => {
-    const shallowRender = (props, renderer = shallow) => {
-      return renderer(
+    const render = (props) => {
+      return TestRenderer.create(
         <DayPickerStyle { ...props }>
           sample children
         </DayPickerStyle>
@@ -652,12 +652,12 @@ describe('Date', () => {
     };
 
     it('renders presentational div and context provider for its children', () => {
-      expect(shallowRender({}, TestRenderer.create)).toMatchSnapshot();
+      expect(render({}, TestRenderer.create)).toMatchSnapshot();
     });
 
     describe('classic theme', () => {
       it('applies custom styling', () => {
-        expect(shallowRender({ theme: classicTheme }, TestRenderer.create)).toMatchSnapshot();
+        expect(render({ theme: classicTheme }, TestRenderer.create)).toMatchSnapshot();
       });
     });
   });
