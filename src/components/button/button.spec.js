@@ -20,6 +20,7 @@ const render = (props, renderer = shallow) => {
 
 const variants = ['primary', 'secondary', 'tertiary', 'destructive', 'darkBackground'];
 const sizes = { small: [32, 16], medium: [40, 24], large: [48, 32] };
+const classicColorVariants = ['blue', 'grey', 'magenta', 'magenta-dull', 'red', 'white'];
 
 describe('Button', () => {
   describe('when no props other than children are passed into the component', () => {
@@ -29,12 +30,12 @@ describe('Button', () => {
       expect(wrapper.props().size).toEqual('medium');
       expect(wrapper.props().disabled).toEqual(false);
       expect(wrapper.props().iconPosition).toEqual('');
-      expect(!wrapper.contains(<Icon type='filter' />)).toBeTruthy();
+      expect(wrapper.contains(<Icon type='filter' />)).toBeFalsy();
       expect(wrapper).toMatchSnapshot();
     });
   });
 
-  describe('when only the icon position and type props and children are passed into the component', () => {
+  describe('when only the "iconPosition" and "iconType" props are passed into the component', () => {
     it('renders the default props and children to match the snapshot with the Icon before children', () => {
       const wrapper = render({ children: 'foo', iconType: 'filter', iconPosition: 'before' }, TestRenderer.create);
       expect(wrapper).toMatchSnapshot();
@@ -45,35 +46,32 @@ describe('Button', () => {
       expect(wrapper).toMatchSnapshot();
     });
 
-    ['before', 'after'].forEach((position) => {
-      it(`contains an Icon if "${position}" is passed as the "iconPosition" prop`, () => {
-        expect(
-          render({
-            children: 'foo',
-            iconType: 'filter',
-            iconPosition: 'after'
-          }).contains(
-            <Icon type='filter' />
-          )
-        ).toBeTruthy();
-      });
-    });
+    describe.each(['before', 'after'])(
+      'when position is set to "%s"',
+      (pos) => {
+        it('contains an Icon', () => {
+          expect(
+            render({
+              children: 'foo',
+              iconType: 'filter',
+              iconPosition: pos
+            }).contains(
+              <Icon type='filter' />
+            )
+          ).toBeTruthy();
+        });
+      }
+    );
   });
 
   describe('when a subtext prop is passed into the component', () => {
     it('does not render the subtext if the size prop is not "large"', () => {
-      const wrapper = render({ children: 'foo', subtext: 'foo' });
-      expect(wrapper.props().renderAs).toEqual('secondary');
-      expect(wrapper.props().size).toEqual('medium');
-      expect(wrapper.props().disabled).toEqual(false);
+      const wrapper = render({ children: 'foo', subtext: 'foo' }, TestRenderer.create);
       expect(wrapper).toMatchSnapshot();
     });
 
     it('renders the subtext if the size prop is "large"', () => {
-      const wrapper = render({ children: 'foo', size: 'large', subtext: 'foo' });
-      expect(wrapper.props().renderAs).toEqual('secondary');
-      expect(wrapper.props().size).toEqual('large');
-      expect(wrapper.props().disabled).toEqual(false);
+      const wrapper = render({ children: 'foo', size: 'large', subtext: 'foo' }, TestRenderer.create);
       expect(wrapper).toMatchSnapshot();
     });
   });
@@ -93,9 +91,10 @@ describe('Button', () => {
     });
   });
 
-  describe('when setting the "as" prop', () => {
-    variants.forEach((variant) => {
-      it(`matches the style for a ${variant} Button`, () => {
+  describe.each(variants)(
+    'when setting the "as" prop to "%s"',
+    (variant) => {
+      it('matches the expected style', () => {
         const wrapper = render({
           children: 'foo', disabled: true, renderAs: variant
         }, TestRenderer.create).toJSON();
@@ -107,8 +106,8 @@ describe('Button', () => {
           color: BaseTheme.disabled.text
         }, wrapper);
       });
-    });
-  });
+    }
+  );
 
   describe('when the "disabled" prop is passed', () => {
     it('matches the style for the default Button when no "as" and "size" props are passed', () => {
@@ -124,40 +123,62 @@ describe('Button', () => {
       }, wrapper);
     });
 
-    Object.keys(sizes).forEach((size) => {
-      variants.forEach((variant) => {
-        it(`matches the style for a ${size} ${variant} Button`, () => {
-          const wrapper = render({
-            children: 'foo', disabled: true, renderAs: variant, size
-          }, TestRenderer.create).toJSON();
+    describe.each(Object.keys(sizes))(
+      'when a "%s"',
+      (size) => {
+        describe.each(variants)(
+          ' "%s" button is renderred',
+          (variant) => {
+            it('matches the expected style', () => {
+              const wrapper = render({
+                children: 'foo', disabled: true, renderAs: variant, size
+              }, TestRenderer.create).toJSON();
 
-          assertStyleMatch({
-            background:
-            (variant === 'secondary' || variant === 'tertiary' ? 'transparent' : BaseTheme.disabled.button),
-            borderColor: (variant === 'secondary' ? BaseTheme.disabled.button : 'transparent'),
-            color: BaseTheme.disabled.text,
-            fontSize: (size === 'large' ? '16px' : '14px'),
-            height: `${sizes[size][0].toString()}px`,
-            paddingLeft: `${sizes[size][1].toString()}px`,
-            paddingRight: `${sizes[size][1].toString()}px`
-          }, wrapper);
-        });
-      });
-    });
+              assertStyleMatch({
+                background:
+                (variant === 'secondary' || variant === 'tertiary' ? 'transparent' : BaseTheme.disabled.button),
+                borderColor: (variant === 'secondary' ? BaseTheme.disabled.button : 'transparent'),
+                color: BaseTheme.disabled.text,
+                fontSize: (size === 'large' ? '16px' : '14px'),
+                height: `${sizes[size][0].toString()}px`,
+                paddingLeft: `${sizes[size][1].toString()}px`,
+                paddingRight: `${sizes[size][1].toString()}px`
+              }, wrapper);
+            });
+          }
+        );
+      }
+    );
   });
 
-  describe('when the classic theme is applied', () => {
-    ['blue', 'grey', 'magenta', 'magenta-dull', 'red', 'white'].forEach((variant) => {
+  describe.each(classicColorVariants)(
+    'when the color variant is set to "%s"',
+    (variant) => {
       const wrapper = TestRenderer.create(
         <StyledButton theme={ classicTheme } variant={ variant }>Foo</StyledButton>
       );
 
-      it(`matches the snapshot for the ${variant} Button when default props are passed`, () => {
+      it('matches the snapshot with the default props', () => {
         expect(wrapper).toMatchSnapshot();
       });
-    });
+    }
+  );
 
-    it('matches the expected style default "blue" Button default props are passed', () => {
+  describe('when the classic theme is applied', () => {
+    describe.each(classicColorVariants)(
+      'setting the color variant to "%s"',
+      (variant) => {
+        const wrapper = TestRenderer.create(
+          <StyledButton theme={ classicTheme } variant={ variant }>Foo</StyledButton>
+        );
+
+        it('matches the snapshot when default props are passed', () => {
+          expect(wrapper).toMatchSnapshot();
+        });
+      }
+    );
+
+    it('matches the expected style for a "blue" Button with default props', () => {
       const wrapper = TestRenderer.create(<StyledButton theme={ classicTheme }>foo</StyledButton>);
       assertStyleMatch({
         background: 'transparent',
@@ -166,7 +187,7 @@ describe('Button', () => {
       }, wrapper.toJSON());
     });
 
-    it('matches the expected style default "blue" Button default props are passed', () => {
+    it('matches the expected style default "diabled" Button', () => {
       const wrapper = TestRenderer.create(<StyledButton disabled theme={ classicTheme }>foo</StyledButton>);
       assertStyleMatch({
         background: '#e6ebed'
@@ -174,111 +195,90 @@ describe('Button', () => {
     });
   });
 
-  let defaultButton, primary, secondary, small, large, disabled, anchor, to;
+  describe('A basic button', () => {
+    const defaultButton = render({ children: 'Save' });
 
-  beforeEach(() => {
-    defaultButton = render({ children: 'Save' });
+    it('renders a button with defaults', () => {
+      expect(defaultButton.props().renderAs).toEqual('secondary');
+      expect(defaultButton.containsMatchingElement(
+        <span>Save</span>
+      )).toBeTruthy();
+    });
+  });
 
-    primary = render({
+  describe('A primary button', () => {
+    const primary = render({
       name: 'Primary Button',
       as: 'primary',
       onClick: jest.fn(),
       children: 'Primary'
     });
 
-    secondary = render({
-      name: 'Secondary Button',
-      className: 'customClass',
-      theme: 'red',
-      children: 'Secondary'
-    });
-
-    small = render({
-      name: 'Small Button',
-      size: 'small',
-      children: 'Small'
-    });
-
-    large = render({
-      name: 'Large Button',
-      size: 'large',
-      children: 'Large'
-    });
-
-    disabled = render({
-      name: 'Disabled Button',
-      disabled: true,
-      children: 'Disabled'
-    });
-
-    anchor = render({
-      href: '/foo',
-      children: 'Anchor'
-    }, mount);
-
-    to = render({
-      to: '/foo',
-      children: 'To'
-    }, mount);
-  });
-
-  describe('A basic button', () => {
-    it('renders a button with defaults', () => {
-      expect(defaultButton.props().renderAs).toEqual('secondary');
-      expect(defaultButton.containsMatchingElement(
-        <span>Save</span>
-      )).toBeTruthy();
-      expect(defaultButton.props().disabled).toEqual(false);
-      expect(defaultButton.props().size).toEqual('medium');
-      expect(defaultButton.props().variant).toEqual('blue');
-    });
-  });
-
-  describe('A primary button', () => {
     it('renders a primary button', () => {
       expect(primary.props().name).toEqual('Primary Button');
       expect(primary.props().renderAs).toEqual('primary');
       expect(primary.containsMatchingElement(
         <span>Primary</span>
       )).toBeTruthy();
-      expect(primary.props().disabled).toEqual(false);
     });
   });
 
   describe('A secondary button', () => {
+    const secondary = render({
+      name: 'Secondary Button',
+      className: 'customClass',
+      theme: 'red',
+      children: 'Secondary'
+    });
+
     it('renders a secondary button', () => {
       expect(secondary.props().name).toEqual('Secondary Button');
       expect(secondary.props().renderAs).toEqual('secondary');
       expect(secondary.containsMatchingElement(
         <span>Secondary</span>
       )).toBeTruthy();
-      expect(secondary.props().disabled).toEqual(false);
     });
   });
 
   describe('A small button', () => {
+    const small = render({
+      name: 'Small Button',
+      size: 'small',
+      children: 'Small'
+    });
+
     it('renders a small button', () => {
       expect(small.props().name).toEqual('Small Button');
       expect(small.props().size).toEqual('small');
       expect(small.containsMatchingElement(
         <span>Small</span>
       )).toBeTruthy();
-      expect(small.props().disabled).toEqual(false);
     });
   });
 
   describe('A large button', () => {
+    const large = render({
+      name: 'Large Button',
+      size: 'large',
+      children: 'Large'
+    });
+
     it('renders a large button', () => {
       expect(large.props().name).toEqual('Large Button');
       expect(large.props().size).toEqual('large');
       expect(large.containsMatchingElement(
         <span>Large</span>
       )).toBeTruthy();
-      expect(large.props().disabled).toEqual(false);
     });
   });
 
   describe('A disabled button', () => {
+    const disabled = render({
+      name: 'Disabled Button',
+      disabled: true,
+      children: 'Disabled'
+    });
+
     it('renders a disabled button', () => {
       expect(disabled.props().name).toEqual('Disabled Button');
       expect(disabled.props().renderAs).toEqual('secondary');
@@ -289,39 +289,35 @@ describe('Button', () => {
     });
   });
 
-  describe('Passing a custom onClick', () => {
-    it('triggers when the button is clicked', () => {
-      const wrapper = render({
-        children: 'foo',
-        onClick: jest.fn()
-      });
-
-      wrapper.simulate('click');
-      expect(wrapper.props().onClick).toHaveBeenCalled();
-    });
-  });
-
   describe('render', () => {
     describe('default', () => {
-      it('renders a button', () => {
+      it('renders a button with no link', () => {
         const wrapper = render({ children: 'foo ' }, mount);
-        expect(wrapper.type()).toEqual(Button);
+        expect(wrapper.find(Link).exists()).toEqual(false);
       });
     });
 
     describe('with href', () => {
+      const anchor = render({
+        href: '/foo',
+        children: 'Anchor'
+      }, mount);
+
       it('renders an anchor', () => {
-        expect(anchor.exists('_Link')).toEqual(true);
-        expect(anchor.find('_Link').length).toEqual(1);
-        expect(anchor.find('_Link').type()).toEqual(Link);
+        const anchorLink = anchor.find(Link);
+        expect(anchorLink.exists()).toEqual(true);
       });
     });
 
     describe('with to', () => {
+      const to = render({
+        to: '/foo',
+        children: 'To'
+      }, mount);
+
       it('renders an anchor', () => {
-        expect(to.exists('_Link')).toEqual(true);
-        expect(to.find('_Link').length).toEqual(1);
-        expect(to.find('_Link').type()).toEqual(Link);
+        const toLink = to.find(Link);
+        expect(toLink.exists()).toEqual(true);
       });
     });
   });
@@ -339,19 +335,15 @@ describe('Button', () => {
       });
     });
 
-    describe('invalid states', () => {
-      const sizesForInvalid = [
-        'small',
-        'medium'
-      ];
-
-      sizesForInvalid.forEach((size) => {
-        it(`throws an error if it is used on a ${size} button`, () => {
+    describe.each(['small', 'medium'])(
+      'when in an ivalid state and "%s"',
+      (size) => {
+        it('throws an error', () => {
           const subtext = () => { Button.propTypes.subtext({ subtext: 'test', size }); };
           expect(subtext).toThrowError('subtext prop has no effect unless the button is large');
         });
-      });
-    });
+      }
+    );
   });
 
   describe('tags on component', () => {

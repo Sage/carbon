@@ -47,7 +47,7 @@ export default {
       border: 1px solid transparent;
       color: #ffffff;
       &:hover {
-        background: #A2224A;
+        background: #a2224a;
         border: 1px solid #A2224A;
         color: #ffffff;
       }
@@ -142,15 +142,15 @@ export default {
       border: 1px solid #ca2a60;
       color: #ca2a60;
       &:hover {
-        background: #A2224A;
-        border: 1px solid #A2224A;
+        background: #a2224a;
+        border: 1px solid #a2224a;
         color: #ffffff;
       }
       &:focus {
         box-shadow: 0 0 6px rgba(213,85,128,.6);
         outline: none;
-        background: #A2224A;
-        border: 1px solid #A2224A;
+        background: #a2224a;
+        border: 1px solid #a2224a;
         color: #ffffff;
       }
     `,

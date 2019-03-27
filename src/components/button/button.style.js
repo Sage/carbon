@@ -15,15 +15,12 @@ const StyledButton = styled.button`
   justify-content: center;
   vertical-align: middle;
 
-  ${({ theme }) => theme.name !== 'classic' && stylingForType}
-  ${({ theme, size }) => theme.name !== 'classic' && buttonSizes(theme)[size]}
-
-  ${({ theme, renderAs }) => theme.name === 'classic' && classicRenderAs(renderAs) && stylingForClassic}
+  ${addButtonStyle}
 
   ${({ iconPosition }) => css`
     .carbon-icon {
-      margin-left: ${iconPosition === 'before' ? '-4px' : '8px'};
-      margin-right: ${iconPosition === 'before' ? '8px' : '-4px'};
+      margin-left: ${iconPosition === 'before' ? '0px' : '8px'};
+      margin-right: ${iconPosition === 'before' ? '8px' : '0px'};
     }
   `}
 `;
@@ -34,6 +31,12 @@ export const StyledButtonSubtext = styled.span`
   display: block;
 `;
 
+function addButtonStyle(props) {
+  const { theme, renderAs } = props;
+  if (theme.name === 'classic' && classicRenderAs(renderAs)) return stylingForClassic(props);
+  return stylingForType(props);
+}
+
 function queryColor(disabled) {
   return (color, disabledColor) => {
     if (!color) return 'transparent';
@@ -41,7 +44,12 @@ function queryColor(disabled) {
   };
 }
 
-function stylingForType({ disabled, renderAs, theme }) {
+function stylingForType({
+  disabled,
+  renderAs,
+  theme,
+  size
+}) {
   const type = buttonTypes(theme)[renderAs];
   const renderValue = queryColor(disabled);
 
@@ -63,6 +71,7 @@ function stylingForType({ disabled, renderAs, theme }) {
     & + & {
       margin-left: 16px;
     }
+    ${buttonSizes(theme)[size]}
   `;
 }
 
@@ -71,7 +80,10 @@ function classicRenderAs(renderAs) {
 }
 
 function stylingForClassic({
-  disabled, renderAs, variant, size
+  disabled,
+  renderAs,
+  variant,
+  size
 }) {
   if (disabled) {
     return css`

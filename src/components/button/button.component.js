@@ -16,18 +16,8 @@ const Button = (props) => {
     ...rest
   } = props;
 
-  if (props.href || props.to) {
-    return (
-      <Link
-        role='button'
-        variant={ theme }
-        { ...tagComponent('button', props) }
-        { ...rest }
-      >
-        { renderChildren(props) }
-      </Link>
-    );
-  }
+  if (props.href || props.to) return renderLink(theme, rest, props);
+
   return (
     <StyledButton
       disabled={ disabled }
@@ -43,6 +33,19 @@ const Button = (props) => {
     </StyledButton>
   );
 };
+
+function renderLink(theme, rest, props) {
+  return (
+    <Link
+      role='button'
+      variant={ theme }
+      { ...tagComponent('button', props) }
+      { ...rest }
+    >
+      { renderChildren(props) }
+    </Link>
+  );
+}
 
 function renderChildren({
   iconType,
