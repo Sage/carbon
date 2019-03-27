@@ -11,15 +11,19 @@ const GroupedCharacter = (props) => {
   const stepIndices = groups.reduce(toIndexSteps, []);
 
   const handleChange = (ev) => {
-    const i = ev.target;
+    const eventRef = ev.target;
     const { selectionEnd } = ev.target;
     let modifier = 0;
+    const isAtSelector = stepIndices.includes(selectionEnd - 1);
 
-    if (stepIndices.includes(selectionEnd - 1)) modifier = 1;
-    if (stepIndices.includes(selectionEnd - 1) && Events.isBackspaceKey({ which: pressedKey })) modifier = -1;
+    if (isAtSelector && Events.isBackspaceKey({ which: pressedKey })) {
+      modifier = -1;
+    } else if (isAtSelector) {
+      modifier = 1;
+    }
 
     props.onChange({ target: { value: ev.target.value.split(separator).join('') } });
-    setTimeout(() => i.setSelectionRange(selectionEnd + modifier, selectionEnd + modifier));
+    setTimeout(() => eventRef.setSelectionRange(selectionEnd + modifier, selectionEnd + modifier));
   };
 
   return (

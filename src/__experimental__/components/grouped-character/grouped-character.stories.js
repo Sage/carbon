@@ -8,6 +8,11 @@ const groupedCharacterStore = new Store({
   value: ''
 });
 
+const groups = object('groups', [2, 2, 4]);
+const separator = text('separator', '-');
+
+const onChange = (ev) => { groupedCharacterStore.set({ value: ev.target.value }); };
+
 storiesOf('Experimental/GroupedCharacter', module)
   .addParameters({
     info: { propTablesExclude: [State] }
@@ -17,10 +22,10 @@ storiesOf('Experimental/GroupedCharacter', module)
       return (
         <State store={ groupedCharacterStore }>
           <GroupedCharacter
-            groups={ object('groups', [2, 2, 4]) }
-            separator={ text('separator', '-') }
+            groups={ groups }
+            separator={ separator }
             value={ groupedCharacterStore.get('value') }
-            onChange={ (ev) => { groupedCharacterStore.set({ value: ev.target.value }); } }
+            onChange={ onChange }
           />
         </State>
       );
