@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Textbox from '../textbox';
 import I18nHelper from '../../../utils/helpers/i18n';
@@ -16,7 +16,7 @@ class Decimal extends React.Component {
 
     this.state = {
       decimalValue: initVal
-    }
+    };
   }
 
   componentDidUpdate(prevProps) {
@@ -24,6 +24,7 @@ class Decimal extends React.Component {
     if (prevProps.precision !== precision) {
       // Update decimalValue if precision prop changes
       const strippedDelimiters = this.stripDelimiters();
+      // eslint-disable-next-line react/no-did-update-set-state
       this.setState({
         decimalValue: I18nHelper.formatDecimal(
           parseFloat(strippedDelimiters),
@@ -31,8 +32,8 @@ class Decimal extends React.Component {
         )
       });
     }
-  } 
-  
+  }
+
   validatePrecision = () => {
     const { precision } = this.props;
 
@@ -51,21 +52,21 @@ class Decimal extends React.Component {
     const delimiter = `\\${format.delimiter}`;
     const seperator = `\\${format.separator}`;
     const isGoodDecimal = new RegExp(`^[\\d${delimiter}]*[${seperator}{1}]?\\d{0,${precision}}?$`);
-    
+
     return isGoodDecimal.test(value);
   }
 
   handleChange = (evt) => {
-    const target = evt.target;
+    const { target } = evt.target;
     const { value, selectionEnd } = evt.target;
     const testString = this.testValue(value);
     if (testString) {
       this.setState({
         decimalValue: value
       });
-      this.props.onChange({ target: { value: value } })
+      this.props.onChange({ target: { value } });
       setTimeout(() => {
-        target.setSelectionRange(selectionEnd, selectionEnd)
+        target.setSelectionRange(selectionEnd, selectionEnd);
       });
     }
   }
@@ -76,27 +77,27 @@ class Decimal extends React.Component {
 
     this.setState({
       decimalValue: I18nHelper.formatDecimal(parseFloat(strippedDelimiters), precision)
-    })
+    });
   }
 
   stripDelimiters = () => {
     const format = I18nHelper.format();
     const delimiterRegex = new RegExp(`\\${format.delimiter}`, 'g');
-    
+
     return this.state.decimalValue.replace(delimiterRegex, '');
   }
 
   render() {
     return (
       <Textbox
-        {...this.props}
+        { ...this.props }
         onChange={ this.handleChange }
         onBlur={ this.handleBlur }
         value={ this.state.decimalValue }
       />
     );
   }
-};
+}
 
 Decimal.propTypes = {
   /**
@@ -114,8 +115,12 @@ Decimal.propTypes = {
   /**
    * The value of the input
    */
-  value: PropTypes.string
-}
+  value: PropTypes.string,
+  /**
+   * Handler for change event
+   */
+  onChange: PropTypes.func
+};
 
 Decimal.defaultProps = {
   align: 'right',
@@ -123,7 +128,5 @@ Decimal.defaultProps = {
   inputWidth: 100,
   value: '0.00'
 };
-
-
 
 export default Decimal;

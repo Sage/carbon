@@ -1,11 +1,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { boolean, text, number, select } from '@storybook/addon-knobs';
+import {
+  boolean, text, number, select
+} from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import { Decimal } from '.';
+import { State, Store } from '@sambego/storybook-state';
+import Decimal from './decimal.component';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import notes from './documentation';
-import { State, Store } from '@sambego/storybook-state';
 
 const store = new Store({
   value: '0.00'
@@ -38,8 +40,7 @@ storiesOf('Experimental/Decimal', module)
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ) : undefined;
-    const labelHelp = label ?
-      text('labelHelp', 'This text provides help for the label.') : undefined;
+    const labelHelp = label ? text('labelHelp', 'This text provides help for the label.') : undefined;
 
     return (
       <State store={ store }>
