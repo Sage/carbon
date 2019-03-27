@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, number, boolean } from '@storybook/addon-knobs';
+import { text, boolean, select } from '@storybook/addon-knobs';
+import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
 import ButtonToggle from '../button-toggle/button-toggle';
 import ButtonToggleGroup from './button-toggle-group';
@@ -12,7 +13,6 @@ storiesOf('Button Toggle Group', module)
       propTables: [ButtonToggleGroup]
     }
   }).add('default', () => {
-    const timeToDisappear = number('timeToDisappear', 0);
     const label = text('label', 'Example ButtonToggleGroup');
     const labelHelp = text('labelHelp', 'This text provides more information for the label.');
     const inputWidth = text('inputWidth', '');
@@ -20,11 +20,14 @@ storiesOf('Button Toggle Group', module)
     const fieldHelpInline = boolean('fieldHelpInline', false);
     const labelInline = boolean('labelInline', false);
     const labelWidth = labelInline ? text('labelWidth', '') : undefined;
-    const labelAlign = labelInline ? text('labelAlign', '') : undefined;
+    const labelAlign = labelInline ? select(
+      'labelAlign',
+      OptionsHelper.alignBinary,
+      OptionsHelper.alignBinary[0]
+    ) : undefined;
 
     return (
       <ButtonToggleGroup
-        timeToDisappear={ timeToDisappear }
         label={ label }
         labelInline={ labelInline }
         labelWidth={ labelWidth }
