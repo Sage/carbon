@@ -76,7 +76,8 @@ Decimal.propTypes = {
 Decimal.defaultProps = {
   align: 'right',
   precision: 2,
-  inputWidth: 100
+  inputWidth: 100,
+  value: '0.00'
 };
 
 
