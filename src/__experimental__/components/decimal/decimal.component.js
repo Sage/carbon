@@ -4,14 +4,30 @@ import Textbox from '../textbox';
 import I18nHelper from '../../../utils/helpers/i18n';
 
 const Decimal = (props) => {
-  const [decimalValue, setDecimalValue] = useState(props.value);
+  const [decimalValue, setDecimalValue] = useState(
+    testValue(props.value) ? props.value : Decimal.defaultProps.value
+  );
 
   useEffect(() => {
     // Update decimalValue if precision prop changes
     const { precision } = props;
 
-    setDecimalValue(I18nHelper.formatDecimal(parseFloat(decimalValue), precision));
+    setDecimalValue(I18nHelper.formatDecimal(
+      parseFloat(decimalValue),
+      validatePrecision())
+    );
   }, [props.precision]);
+
+  const validatePrecision = () => {
+    const { precision } = this.props;
+
+    if (precision > 15) {
+      console.warn('Precision cannot be greater than 15');
+      return 15;
+    }
+
+    return precision;
+  }
 
   const testValue = (value) => {
     const { precision } = props;
