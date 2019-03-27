@@ -9,21 +9,27 @@ const GroupedCharacter = (props) => {
 
   const { separator, groups, value } = props;
   const stepIndices = groups.reduce(toIndexSteps, []);
+  stepIndices.pop();
 
   const handleChange = (ev) => {
     const eventRef = ev.target;
     const { selectionEnd } = ev.target;
     let modifier = 0;
-    const isAtSelector = stepIndices.includes(selectionEnd - 1);
 
-    if (isAtSelector && Events.isBackspaceKey({ which: pressedKey })) {
+    const isAtSelector = stepIndices.includes(selectionEnd - 1),
+        backspacePressed = Events.isBackspaceKey({ which: pressedKey });
+
+    if (isAtSelector && backspacePressed) {
       modifier = -1;
     } else if (isAtSelector) {
       modifier = 1;
     }
 
-    props.onChange({ target: { value: ev.target.value.split(separator).join('') } });
-    setTimeout(() => eventRef.setSelectionRange(selectionEnd + modifier, selectionEnd + modifier));
+    const newCursorPos = selectionEnd + (separator.length * (modifier || 1));
+    const reProcessedInputValue = ev.target.value.split(separator).join('');
+
+    props.onChange({ target: { value: reProcessedInputValue } });
+    setTimeout(() => eventRef.setSelectionRange(newCursorPos, newCursorPos));
   };
 
   return (
@@ -39,6 +45,7 @@ const GroupedCharacter = (props) => {
     />
   );
 };
+
 
 GroupedCharacter.propTypes = {
   /** character to be used as separator */
