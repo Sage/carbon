@@ -21,12 +21,12 @@ class Decimal extends React.Component {
 
   componentDidUpdate(prevProps) {
     const { precision } = this.props;
-    console.log('updated')
     if (prevProps.precision !== precision) {
       // Update decimalValue if precision prop changes
+      const strippedDelimiters = this.stripDelimiters();
       this.setState({
         decimalValue: I18nHelper.formatDecimal(
-          parseFloat(this.state.decimalValue),
+          parseFloat(strippedDelimiters),
           this.validatePrecision()
         )
       });
@@ -72,13 +72,18 @@ class Decimal extends React.Component {
 
   handleBlur = () => {
     const { precision } = this.props;
+    const strippedDelimiters = this.stripDelimiters();
+
+    this.setState({
+      decimalValue: I18nHelper.formatDecimal(parseFloat(strippedDelimiters), precision)
+    })
+  }
+
+  stripDelimiters = () => {
     const format = I18nHelper.format();
     const delimiterRegex = new RegExp(`\\${format.delimiter}`, 'g');
-    let noCommas = this.state.decimalValue.replace(delimiterRegex, '');
     
-    this.setState({
-      decimalValue: I18nHelper.formatDecimal(parseFloat(noCommas), precision)
-    })
+    return this.state.decimalValue.replace(delimiterRegex, '');
   }
 
   render() {
