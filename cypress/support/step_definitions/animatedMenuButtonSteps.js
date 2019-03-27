@@ -5,10 +5,6 @@ import {
 
 const CLASS_PREFIX = 'carbon-animated-menu-button--';
 
-Given('I open Animated Menu Button component page', () => {
-  cy.visit(Cypress.env('animated_menu_button'));
-})
-
 When('I set direction to {string}', (direction) => {
   animatedMenuButtonDirectionSelect().select(direction)
 })

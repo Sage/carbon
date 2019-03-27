@@ -3,7 +3,7 @@ Feature: App Wrapper component
 
   @positive
   Scenario Outline: Change App Wrapper children
-    Given I open App Wrapper component page
+    Given I open "App Wrapper" component page
     When I set children to "<children>"
     Then App Wrapper children on preview is "<children>"
     Examples:
