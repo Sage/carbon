@@ -74,7 +74,6 @@ storiesOf('Button', module)
   .add('default', () => {
     const props = defaultKnobs();
     const { children } = props;
-
     return (
       <Button
         { ...props }
