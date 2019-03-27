@@ -1,10 +1,9 @@
 import styled from 'styled-components';
-import baseTheme from '../../style/themes/base';
-import Weekday from './weekday.component';
+import baseTheme from '../../../style/themes/base';
 import weekdayClassicStyling from './weekday-classic.style';
 
-const WeekdayPicker = styled(Weekday)`
-&.DayPicker-Weekday {
+const WeekdayStyle = styled.div`
+&, &.DayPicker-Weekday {
   border: none;
   padding: 10px 12px;
   width: 40px;
@@ -13,17 +12,13 @@ const WeekdayPicker = styled(Weekday)`
   text-transform: uppercase;
   font-size: 12px;
   text-align: center;
-  
-  abbr {
-    text-decoration: none;
-  }
 
   ${weekdayClassicStyling}
 }
 `;
 
-WeekdayPicker.defaultProps = {
+WeekdayStyle.defaultProps = {
   theme: baseTheme
 };
 
-export default WeekdayPicker;
+export default WeekdayStyle;

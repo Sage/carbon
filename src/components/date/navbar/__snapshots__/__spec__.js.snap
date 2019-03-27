@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Navbar Navbar Button renders presentational div and context provider for its children 1`] = `
+<button
+  className="sc-bdVaJa fCIlHW"
+>
+  sample children
+</button>
+`;

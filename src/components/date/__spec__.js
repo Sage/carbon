@@ -1,16 +1,17 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
+import TestRenderer from 'react-test-renderer';
 import moment from 'moment';
 import LocaleUtils from 'react-day-picker/moment';
 import I18n from 'i18n-js';
-import DayPicker from 'react-day-picker';
-import Browser from './../../utils/helpers/browser';
+import DayPickerStyle from './day-picker.style';
 import DateHelper from './../../utils/helpers/date';
 import Date from './date';
 import Portal from './../portal';
 import Events from './../../utils/helpers/events';
 import { shallow, mount } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import classicTheme from '../../style/themes/classic';
 
 describe('Date', () => {
   let instance, wrapper;
@@ -638,6 +639,26 @@ describe('Date', () => {
         'input',
         'label'
       ]);
+    });
+  });
+
+  describe('DayPickerStyle', () => {
+    const shallowRender = (props, renderer = shallow) => {
+      return renderer(
+        <DayPickerStyle { ...props }>
+          sample children
+        </DayPickerStyle>
+      );
+    };
+
+    it('renders presentational div and context provider for its children', () => {
+      expect(shallowRender({}, TestRenderer.create)).toMatchSnapshot();
+    });
+
+    describe('classic theme', () => {
+      it('applies custom styling', () => {
+        expect(shallowRender({ theme: classicTheme }, TestRenderer.create)).toMatchSnapshot();
+      });
     });
   });
 });

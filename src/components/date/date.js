@@ -6,7 +6,7 @@ import 'react-day-picker/lib/style.css';
 import './date.scss';
 import StyledNavbar from './navbar/navbar.style';
 import StyledDayPicker from './day-picker.style';
-import StyledWeekday from './weekday.style';
+import Weekday from './weekday/weekday.component';
 import Portal from '../portal';
 import Browser from '../../utils/helpers/browser';
 import Input from '../../utils/decorators/input';
@@ -472,9 +472,9 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
         const weekdayShort = weekdayLong.substring(0, 3);
 
         return (
-          <StyledWeekday className={ className } title={ weekdayLong }>
+          <Weekday className={ className } title={ weekdayLong }>
             {weekdayShort}
-          </StyledWeekday>
+          </Weekday>
         );
       },
       locale: I18n.locale,

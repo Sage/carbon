@@ -1,5 +1,7 @@
 import React from 'react';
+import TestRenderer from 'react-test-renderer';
 import Navbar from './navbar';
+import StyledButton from './button.style';
 import { shallow } from 'enzyme';
 
 describe('Navbar', () => {
@@ -31,6 +33,20 @@ describe('Navbar', () => {
 
     it('applies the custom class name', () => {
       expect(wrapper.find('.custom-class').length).toEqual(1);
+    });
+  });
+
+  describe('Navbar Button', () => {
+    const shallowRender = (props, renderer = shallow) => {
+      return renderer(
+        <StyledButton { ...props }>
+          sample children
+        </StyledButton>
+      );
+    };
+
+    it('renders presentational div and context provider for its children', () => {
+      expect(shallowRender({}, TestRenderer.create)).toMatchSnapshot();
     });
   });
 });

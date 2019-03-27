@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Weekday classic theme applies custom styling 1`] = `
+<div
+  className="sc-bdVaJa fObhsM"
+  role="columnheader"
+>
+  <abbr
+    className="sc-bwzfXH gdAzKI"
+  >
+    sample children
+  </abbr>
+</div>
+`;
+
+exports[`Weekday renders presentational div and context provider for its children 1`] = `
+<div
+  className="class-name sc-bdVaJa cwXVru"
+  role="columnheader"
+>
+  <abbr
+    className="sc-bwzfXH gdAzKI"
+    title="tile"
+  >
+    sample children
+  </abbr>
+</div>
+`;
