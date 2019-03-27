@@ -52,23 +52,4 @@ describe('Decimal', () => {
       expect(input.find(Textbox).prop('value')).toEqual('4.123400000000000');
     });
   });
-  // DQ: THESE DON'T ACTUALLY BELONG HERE?!?!
-  describe('Layout', () => {
-    it('allows the input width to be set', () => {
-      const test = false;
-      expect(test).toEqual(true);
-    });
-    it('sets the input width correctly if the inlineInput prop is true', () => {
-      const test = false;
-      expect(test).toEqual(true);
-    });
-    it('allows the label width to be set if the inlineInput prop is true', () => {
-      const test = false;
-      expect(test).toEqual(true);
-    });
-    it('aligns the value within the input based on align prop', () => {
-      const test = false;
-      expect(test).toEqual(true);
-    });
-  });
 });

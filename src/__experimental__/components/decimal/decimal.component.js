@@ -45,7 +45,6 @@ class Decimal extends React.Component {
     return precision;
   }
 
-
   testValue = (value) => {
     const { precision } = this.props;
     const format = I18nHelper.format();

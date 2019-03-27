@@ -39,6 +39,19 @@ describe('InputPresentation', () => {
       });
     });
 
+    describe('width', () => {
+      it('renders correctly with a custom width', () => {
+        assertStyleMatch({
+          flex: '0 0 54%'
+        }, mountRender({ inputWidth: 54 }));
+      });
+      it('sets the correct input width if the inlineInput prop is true', () => {
+        assertStyleMatch({
+          flex: '0 0 70%'
+        }, mountRender({ labelInline: true, labelWidth: 30, inputWidth: 100 }));
+      });
+    });
+
     describe('validations', () => {
       ['infoMessage', 'warningMessage', 'errorMessage'].forEach((message) => {
         const validation = message.replace('Message', '');
