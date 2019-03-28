@@ -8,7 +8,7 @@ function render(props) {
     <Decimal
       onChange={ () => true }
       value={ props.value }
-      precision={ props.precision || 2 }
+      precision={ props.precision }
     />
   );
 }
