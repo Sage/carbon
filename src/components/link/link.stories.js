@@ -4,7 +4,7 @@ import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info } from './documentation';
-import Link from './link';
+import Link from './link.component';
 
 storiesOf('Link', module)
   .add('default', () => {

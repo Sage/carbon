@@ -6,6 +6,10 @@ import { Link as RouterLink } from 'react-router';
 import Link from './link.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
+function renderLink(props, renderer = shallow) {
+  return renderer(<Link { ...props }>Link Component</Link>);
+}
+
 const render = (props) => {
   return TestRenderer.create(<Link { ...props }>test</Link>);
 };
@@ -15,13 +19,12 @@ describe('Link', () => {
 
   beforeEach(() => {
     // eslint-disable-next-line jsx-a11y/anchor-is-valid
-    wrapper = shallow(<Link>test</Link>);
+    wrapper = renderLink({});
   });
 
   it('renders as expected', () => {
     expect(render()).toMatchSnapshot();
   });
-
 
   it('matches the expected style if `disabled` prop has been passed to the component', () => {
     assertStyleMatch({
@@ -29,71 +32,85 @@ describe('Link', () => {
     }, render({ disabled: true }).toJSON());
   });
 
-  describe('should render a correct component based on prop', () => {
-    it('should render a `<a>` if prop the `href` has been passed to the component', () => {
+  describe('when component received a `href` prop', () => {
+    it('should render an `<a>` element', () => {
       wrapper.setProps({ href: '#' });
 
       expect(wrapper.find('a')).toHaveLength(1);
     });
+  });
 
-    it('should render a `<Link />` if prop the `to` has been passed to the component', () => {
+  describe('when component received a `to` prop', () => {
+    it('should render a `<RouterLink />` element', () => {
       wrapper.setProps({ to: 'route' });
 
       expect(wrapper.find(RouterLink)).toHaveLength(1);
     });
   });
 
-  describe('should render an icon if prop `icon` has been passed to the component', () => {
+  describe('when component received an `icon` prop', () => {
     beforeEach(() => {
       wrapper.setProps({ icon: 'basket' });
     });
 
-    it('the `Icon` rendered', () => {
+    it('should render an `Icon` correctly with the `basket` value', () => {
       expect(wrapper.find('Icon').props().type).toEqual('basket');
     });
 
-    it('default align of the icon should be left', () => {
+    it('should render an `Icon` on the left side of the component by default', () => {
       expect(wrapper.find('Icon').hasClass('carbon-link__icon--align-left')).toEqual(true);
     });
 
-    it('if `iconAlign` prop is `right` then the icon should render on the right side of the component', () => {
-      wrapper.setProps({ iconAlign: 'right' });
+    describe('and component recevied an `iconAlign: right` prop', () => {
+      it('should render an `Icon` on the right side of the component', () => {
+        wrapper.setProps({ iconAlign: 'right' });
 
-      expect(wrapper.find('Icon').hasClass('carbon-link__icon--align-right')).toEqual(true);
+        expect(wrapper.find('Icon').hasClass('carbon-link__icon--align-right')).toEqual(true);
+      });
     });
   });
 
-  describe('should generate correct events when `onKeyDown` prop has been passed to the component', () => {
-    it('if prop `onClick` has been passed to the component', () => {
-      const spy = jest.fn();
-      wrapper.setProps({ onClick: spy, to: 'testRoute', onKeyDown: spy });
-      wrapper.find(RouterLink).simulate('keydown', { keyCode: 13 });
+  describe('when component received an `onKeyDown` prop', () => {
+    let spy;
 
-      expect(spy).toHaveBeenCalled();
+    beforeEach(() => {
+      spy = jest.fn();
     });
 
-    it('if prop `href` has been passed to the component', () => {
-      const spy = jest.fn();
-      wrapper.setProps({ href: '#', onClick: spy });
-      wrapper.find('a').simulate('keydown', { which: 13 });
+    describe('and an `onClick` prop has been received', () => {
+      it('should `RouterLink` be clickable', () => {
+        wrapper.setProps({ onClick: spy, to: 'testRoute', onKeyDown: spy });
+        wrapper.find(RouterLink).simulate('keydown', { keyCode: 13 });
 
-      expect(spy).not.toHaveBeenCalled();
+        expect(spy).toHaveBeenCalled();
+      });
     });
 
-    it('if prop `to` has been passed to the component', () => {
-      const spy = jest.fn();
-      wrapper.setProps({ to: 'testRoute', onClick: spy });
-      wrapper.find(RouterLink).simulate('keydown', { which: 13 });
+    describe('and a `href` prop has been received', () => {
+      it('should `a` be clickable', () => {
+        wrapper.setProps({ href: '#', onClick: spy });
+        wrapper.find('a').simulate('keydown', { which: 13 });
 
-      expect(spy).toHaveBeenCalled();
+        expect(spy).not.toHaveBeenCalled();
+      });
     });
 
-    it('if prop `to` has been passed to the component but there was not `onClick` prop', () => {
-      const spy = jest.fn();
-      wrapper.setProps({ to: 'testRoute', onKeyDown: spy });
-      wrapper.find(RouterLink).simulate('keydown', { which: 13 });
+    describe('and a `to` props has been recevied', () => {
+      it('should `RouterLink` be clickable', () => {
+        wrapper.setProps({ to: 'testRoute', onClick: spy });
+        wrapper.find(RouterLink).simulate('keydown', { which: 13 });
 
-      expect(spy).toHaveBeenCalled();
+        expect(spy).toHaveBeenCalled();
+      });
+    });
+
+    describe('and component received a `to` prop but a `onClick` props is not available', () => {
+      it('should `RouterLink be clickable` correctly', () => {
+        wrapper.setProps({ to: 'testRoute', onKeyDown: spy });
+        wrapper.find(RouterLink).simulate('keydown', { which: 13 });
+
+        expect(spy).toHaveBeenCalled();
+      });
     });
   });
 });
