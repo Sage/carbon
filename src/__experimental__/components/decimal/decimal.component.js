@@ -3,8 +3,92 @@ import PropTypes from 'prop-types';
 import Textbox from '../textbox';
 import I18nHelper from '../../../utils/helpers/i18n';
 import Logger from '../../../utils/logger';
+import { select } from '@storybook/addon-knobs';
 
-class Decimal extends React.Component {
+const Decimal = (props) => {
+  // value comes:
+  // onReactMount
+  // onReactUpdate
+  // onChange
+
+  function formatValue() {
+    const { value } = props;
+    const isValid = testValue(value);
+    const input = { isActive: true }
+    // Only format value if input is not active
+    if (input.isActive) { // TODO: Get isActive from Textbox
+      return value;
+    } else {
+      // Strip delimiters otherwise formatDecimal Helper goes nuts
+      const format = I18nHelper.format();
+      const delimiter = `\\${format.delimiter}`;
+      const removeDelimiter = new RegExp(`[${delimiter}]*`, 'g');
+      const noDelimiters = value.replace(removeDelimiter, '');
+
+      return I18nHelper.formatDecimal(
+        noDelimiters,
+        validatePrecision()
+      );
+    }
+  }
+
+  function stripInvalidChars() {
+    const format = I18nHelper.format();
+    const delimiter = `\\${format.delimiter}`;
+    const seperator = `\\${format.separator}`;
+    const removeCharacters = new RegExp(`[^\\d${seperator}${delimiter}]*`, 'g');
+
+    return props.value.replace(removeCharacters, '');
+  }
+  
+  function validatePrecision() {
+    const { precision } = props;
+
+    if (precision > 15) {
+      Logger.warn('Precision cannot be greater than 15');
+      return 15;
+    }
+
+    return precision;
+  }
+
+  function testValue(value) {
+    const { precision } = props;
+    const format = I18nHelper.format();
+    const delimiter = `\\${format.delimiter}`;
+    const seperator = `\\${format.separator}`;
+    const isGoodDecimal = new RegExp(`^[\\d${delimiter}]*[${seperator}{1}]?\\d{0,${precision}}?$`);
+
+    return isGoodDecimal.test(value);
+  }
+
+  function onChange (evt) {
+    const { target } = evt;
+    const { value, selectionEnd } = evt.target;
+    const isValid = testValue(value);
+
+    if (isValid) {
+      props.onChange(evt);
+    
+      setTimeout(() => {
+        const newPosition = testValue(value) ? selectionEnd : selectionEnd - 1;
+        target.setSelectionRange(newPosition, newPosition);
+      });
+    }
+  }
+
+  return (
+    <Textbox
+      {...props}
+      onChange={ onChange }
+      value={ formatValue() }
+    />
+  )
+}
+
+
+
+class OldDecimal extends React.Component {
   constructor(props) {
     super(props);
     const { value } = this.props;
