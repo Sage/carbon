@@ -14,74 +14,47 @@ class DateRange extends React.Component {
     /**
      * Optional label for endDate field
      * eslint is disabled because the prop is used to determine the label in the dateProps function
-     *
-     * @property endDate
-     * @type {String}
      */
     endLabel: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * Custom callback - receives array of startDate and endDate
-     *
-     * @property onChange
-     * @type {Func}
      */
     onChange: PropTypes.func.isRequired,
 
     /**
      * An array containing the value of startDate and endDate
-     *
-     * @property value
-     * @type {Array}
      */
     value: PropTypes.array.isRequired,
 
     /**
      * Optional label for startDate field
      * eslint is disabled because the prop is used to determine the label in the dateProps function
-     *
-     * @property startLabel
-     * @type {String}
      */
     startLabel: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * Custom message for startDate field
-     *
-     * @property startDate
-     * @type {String}
      */
     startMessage: PropTypes.string,
 
     /**
      * Custom message for endDate field
-     *
-     * @property endDate
-     * @type {String}
      */
     endMessage: PropTypes.string,
 
     /**
      * Display labels inline
-     *
-     * @property labelsInline
-     * @type {Boolean}
      */
     labelsInline: PropTypes.bool,
 
     /**
      * Props for the child start Date component
-     *
-     * @property startDateProps
-     * @type {Object}
      */
     startDateProps: PropTypes.object,
 
     /**
      * Props for the child end Date component
-     *
-     * @property endDateProps
-     * @type {Object}
      */
     endDateProps: PropTypes.object
   };
