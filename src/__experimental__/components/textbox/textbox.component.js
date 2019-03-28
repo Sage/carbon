@@ -24,7 +24,7 @@ const Textbox = ({
         { leftChildren }
         <Input
           { ...props }
-          value={ formattedValue || value }
+          value={ visibleValue(value, formattedValue) }
         />
         { children }
         { inputIcon && <InputIconToggle { ...props } type={ inputIcon } /> }
@@ -33,7 +33,16 @@ const Textbox = ({
   );
 };
 
+function visibleValue(value, formattedValue) {
+  return (typeof formattedValue === 'string') ? formattedValue : value;
+}
+
 Textbox.propTypes = {
+  /**
+   * An optional alternative for props.value, this is useful if the
+   * real value is an ID but you want to show a human-readable version.
+   */
+  formattedValue: PropTypes.string,
   value: PropTypes.string,
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
