@@ -25,10 +25,6 @@ describe('Button', () => {
   describe('when no props other than children are passed into the component', () => {
     it('renders the default props and children to match the snapshot', () => {
       const wrapper = render({ children: 'foo' });
-      expect(wrapper.props().renderAs).toEqual('secondary');
-      expect(wrapper.props().size).toEqual('medium');
-      expect(wrapper.props().disabled).toEqual(false);
-      expect(wrapper.props().iconPosition).toEqual('');
       expect(wrapper.contains(<Icon type='filter' />)).toBeFalsy();
       expect(wrapper).toMatchSnapshot();
     });
@@ -75,8 +71,8 @@ describe('Button', () => {
     });
   });
 
-  describe('when the no props are passed except children', () => {
-    it('sets the default variants to "secondary" and "medium"', () => {
+  describe('when there are no props passed except children', () => {
+    it('matchwes the expect styles for a default button with variants "secondary" and "medium"', () => {
       const wrapper = render({ children: 'foo' }, TestRenderer.create).toJSON();
       assertStyleMatch({
         background: 'transparent',
@@ -185,7 +181,7 @@ describe('Button', () => {
       }, wrapper.toJSON());
     });
 
-    it('matches the expected style default "diabled" Button', () => {
+    it('matches the expected style default "disabled" Button', () => {
       const wrapper = TestRenderer.create(<StyledButton disabled theme={ classicTheme }>foo</StyledButton>);
       assertStyleMatch({
         background: '#e6ebed'

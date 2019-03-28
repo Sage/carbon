@@ -1,13 +1,44 @@
+const blue = {
+  default: '#255bc7',
+  hover: '#1e499f'
+};
+
+const grey = {
+  default: '#335c6d',
+  hover: '#003349'
+};
+
+const magenta = {
+  default: '#ed1c5f',
+  hover: '#be164c'
+};
+
+const magentaDull = {
+  default: '#ca2a60',
+  hover: '#be164c'
+};
+
+const red = {
+  default: '#c7384f',
+  hover: '#9f2d3f'
+};
+
+const white = {
+  default: '#ffffff',
+  hover: '#cccccc',
+  text: '#1b1d21'
+};
+
 export default {
   primary: {
     blue: `
-      background: #255bc7;
+      background: ${blue.default};
       border: 1px solid transparent;
-      color: #ffffff;
+      color: ${white.default};
       &:hover {
-        background: #1e499f;
-        border: 1px solid #1e499f;
-        color: #ffffff;
+        background: ${blue.hover};
+        border: 1px solid ${blue.hover};
+        color: ${white.default};
       }
       &:focus {
         box-shadow: 0 0 6px rgba(25,99,246,.6);
@@ -15,13 +46,13 @@ export default {
       }
     `,
     grey: `
-      background: #335c6d;
+      background: ${grey.hover};
       border: 1px solid transparent;
-      color: #ffffff;
+      color: ${white.default};
       &:hover {
-        background: #003349;
-        border: 1px solid #003349;
-        color: #ffffff;
+        background: ${blue.default};
+        border: 1px solid ${blue.default};
+        color: ${white.default};
       }
       &:focus {
         box-shadow: 0 0 6px rgba(51,92,109,.6);
@@ -29,13 +60,13 @@ export default {
       }
     `,
     magenta: `
-      background: #ed1c5f;
+      background: ${magenta.hover};
       border: 1px solid transparent;
-      color: #ffffff;
+      color: ${white.default};
       &:hover {
-        background: #be164c;
-        border: 1px solid #be164c;
-        color: #ffffff;
+        background: ;
+        border: 1px solid ${magenta.hover};
+        color: ${white.default};
       }
       &:focus {
         box-shadow: 0 0 6px rgba(243,46,109,.6);
@@ -43,13 +74,13 @@ export default {
       }
     `,
     'magenta-dull': `
-      background: #ca2a60;
+      background: ${magentaDull.default};
       border: 1px solid transparent;
-      color: #ffffff;
+      color: ${white.default};
       &:hover {
-        background: #a2224a;
-        border: 1px solid #A2224A;
-        color: #ffffff;
+        background: #${magentaDull.hover};
+        border: 1px solid #${magentaDull.hover};
+        color: ${white.default};
       }
       &:focus {
         box-shadow: 0 0 6px rgba(213,85,128,.6);
@@ -57,13 +88,13 @@ export default {
       }
     `,
     red: `
-      background: #c7384f;
+      background: ${red.default};
       border: 1px solid transparent;
-      color: #ffffff;
+      color: ${white.default};
       &:hover {
-        background: #9f2d3f;
-        border: 1px solid #9f2d3f;
-        color: #ffffff;
+        background: ${red.hover};
+        border: 1px solid ${red.hover};
+        color: ${white.default};
       }
       &:focus {
         box-shadow: 0 0 6px rgba(228,44,45,.6);
@@ -71,13 +102,13 @@ export default {
       }
     `,
     white: `
-      background: #ffffff;
+      background: ${white.default};
       border: 1px solid transparent;
-      color: rgba(0,0,0,85);
+      color: rgba(0,0,0, 85);
       &:hover {
-        background: #ccc;
-        border: 1px solid #ccc;
-        color: #1b1d21;
+        background: ${white.hover};
+        border: 1px solid ${white.hover};
+        color: ${white.text};
       }
       &:focus {
         box-shadow: 0 0 6px rgba(51,92,109,.6);
@@ -88,97 +119,97 @@ export default {
   secondary: {
     blue: `
       background: transparent;
-      border: 1px solid #255bc7;
-      color: #255bc7;
+      border: 1px solid ${blue.default};
+      color: ${blue.default};
       &:hover {
-        background: #1e499f;
-        border: 1px solid #1e499f;
-        color: #ffffff;
+        background: ${blue.hover};
+        border: 1px solid ${blue.hover};
+        color: ${white.default};
       }
       &:focus {
         box-shadow: 0 0 6px rgba(25,99,246,.6);
         outline: none;
-        background: #1e499f;
-        border: 1px solid #1e499f;
-        color: #ffffff;
+        background: ${blue.hover};
+        border: 1px solid ${blue.hover};
+        color: ${white.default};
       }
     `,
     grey: `
       background: transparent;
-      border: 1px solid #335c6d;
-      color: #335c6d;
+      border: 1px solid ${grey.default};
+      color: ${grey.default};
       &:hover {
-        background: #003349;
-        border: 1px solid #003349;
-        color: #ffffff;
+        background: ${grey.hover};
+        border: 1px solid ${grey.hover};
+        color: ${white.default};
       }
       &:focus {
         box-shadow: 0 0 6px rgba(51,92,109,.6);
         outline: none;
-        background: #003349;
-        border: 1px solid #003349;
-        color: #ffffff;
+        background: ${grey.hover};
+        border: 1px solid ${grey.hover};
+        color: ${white.default};
       }
     `,
     magenta: `
       background: transparent;
-      border: 1px solid #ed1c5f;
-      color: #ed1c5f;
+      border: 1px solid ${magenta.default};
+      color: ${magenta.default};
       &:hover {
-        background: #be164c;
-        border: 1px solid #be164c;
-        color: #ffffff;
+        background: ${magenta.hover};
+        border: 1px solid ${magenta.hover};
+        color: ${white.default};
       }
       &:focus {
         box-shadow: 0 0 6px rgba(243,46,109,.6);
         outline: none;
-        background: #be164c;
-        border: 1px solid #be164c;
-        color: #ffffff;
+        background: ${magenta.hover};
+        border: 1px solid ${magenta.hover};
+        color: ${white.default};
       }
     `,
     'magenta-dull': `
       background: transparent;
-      border: 1px solid #ca2a60;
-      color: #ca2a60;
+      border: 1px solid ${magentaDull.default};
+      color: ${magentaDull.default};
       &:hover {
-        background: #a2224a;
-        border: 1px solid #a2224a;
-        color: #ffffff;
+        background: #${magentaDull.hover};
+        border: 1px solid #${magentaDull.hover};
+        color: ${white.default};
       }
       &:focus {
         box-shadow: 0 0 6px rgba(213,85,128,.6);
         outline: none;
-        background: #a2224a;
-        border: 1px solid #a2224a;
-        color: #ffffff;
+        background: #${magentaDull.hover};
+        border: 1px solid #${magentaDull.hover};
+        color: ${white.default};
       }
     `,
     red: `
       background: transparent;
-      border: 1px solid #c7384f;
-      color: #c7384f;
+      border: 1px solid ${red.default};
+      color: ${red.default};
       &:hover {
-        background: #9f2d3f;
-        border: 1px solid #9f2d3f;
-        color: #ffffff;
+        background: ${red.hover};
+        border: 1px solid ${red.hover};
+        color: ${white.default};
       }
       &:focus {
         box-shadow: 0 0 6px rgba(228,44,45,.6);
         outline: none;
-        background: #9f2d3f;
-        border: 1px solid #9f2d3f;
-        color: #ffffff;
+        background: ${red.hover};
+        border: 1px solid ${red.hover};
+        color: ${white.default};
       }
     `,
     white: `
       background: transparent;
-      border: 1px solid #ffffff;
-      color: rgba(0,0,0,85);
+      border: 1px solid ${white.default};
+      color: rgba(0,0,0, 85);
       &:hover {
-        background: #ccc;
-        border: 1px solid #ccc;
-        color: #1b1d21;
+        background: ${white.hover};
+        border: 1px solid ${white.hover};
+        color: ${white.text};
       }
       &:focus {
         box-shadow: 0 0 6px rgba(51,92,109,.6);

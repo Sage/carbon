@@ -17,7 +17,7 @@ const defaultKnobs = () => {
     disabled: boolean('disabled', false),
     iconPosition: select('iconPosition', [...OptionsHelper.buttonIconPositions, ''], ''),
     iconType: select('iconType', [...OptionsHelper.icons, ''], ''),
-    onClick: action('click'),
+    onClick: ev => action('click')(ev),
     size,
     subtext: size === OptionsHelper.sizesRestricted[2] ? text('subtext', '') : undefined,
     theme: select('theme', OptionsHelper.buttonColors, OptionsHelper.buttonColors[0]),
