@@ -33,6 +33,7 @@ const GroupedCharacter = (props) => {
 
   return (
     <Textbox
+      { ...props }
       value={ generateGroups(groups, value).join(separator) }
       onChange={ handleChange }
       onKeyDown={ ({ which }) => updatePressedKey(which) }
