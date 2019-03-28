@@ -18,7 +18,6 @@ describe('Link', () => {
   let wrapper;
 
   beforeEach(() => {
-    // eslint-disable-next-line jsx-a11y/anchor-is-valid
     wrapper = renderLink({});
   });
 
