@@ -26,7 +26,6 @@ const DIALOG_TITLE = '#carbon-dialog-title'
 const DIALOG_SUBTITLE = '#carbon-dialog-subtitle'
 const BACKGROUND_UI_BLOCKER = '.carbon-modal__background'
 const HELP_ICON_PREVIEW = '.icon-question'
-const BUTTON_ICON_PREVIEW = '.carbon-icon'
 export const STORY_ROOT = '#story-root'
 export const commonButtonPreview = () => cy.iFrame(STORY_ROOT).find('button')
 export const backgroundBlocker = () => cy.iFrame(BACKGROUND_UI_BLOCKER)
@@ -34,4 +33,3 @@ export const dialogTitle = () => cy.iFrame(DIALOG_TITLE)
 export const dialogSubtitle = () => cy.iFrame(DIALOG_SUBTITLE)
 export const labelPreview = () => cy.iFrame(STORY_ROOT).find('label').first()
 export const helpIcon = () => cy.iFrame(HELP_ICON_PREVIEW)
-export const buttonIconPreview = () => cy.iFrame(BUTTON_ICON_PREVIEW)
