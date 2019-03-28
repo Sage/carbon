@@ -3,4 +3,11 @@
   flex-direction: column;
   justify-content: center;
   margin: 3px 2px 3px 0;
+
+  .carbon-pill {
+    max-width: 170px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
 }
