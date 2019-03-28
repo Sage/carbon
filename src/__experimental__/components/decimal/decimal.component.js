@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Textbox from '../textbox';
 import I18nHelper from '../../../utils/helpers/i18n';
+import Logger from '../../../utils/logger';
 
 class Decimal extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class Decimal extends React.Component {
     const initVal = isValidInitVal ? value : Decimal.defaultProps.value;
 
     if (!isValidInitVal) {
-      console.warn('Initial value is not a valid decimal');
+      Logger.warn('Initial value is not a valid decimal');
     }
 
     this.state = {
@@ -38,7 +39,7 @@ class Decimal extends React.Component {
     const { precision } = this.props;
 
     if (precision > 15) {
-      console.warn('Precision cannot be greater than 15');
+      Logger.warn('Precision cannot be greater than 15');
       return 15;
     }
 
@@ -56,7 +57,7 @@ class Decimal extends React.Component {
   }
 
   handleChange = (evt) => {
-    const { target } = evt.target;
+    const { target } = evt;
     const { value, selectionEnd } = evt.target;
     const testString = this.testValue(value);
     if (testString) {

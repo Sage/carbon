@@ -20,6 +20,10 @@ describe('Decimal', () => {
       input.instance().handleChange({ target: { value: '14.79' } });
       expect(input.find(Textbox).prop('value')).toEqual('14.79');
     });
+    it('renders a default value if the initial value is invalid', () => {
+      const input = render({ value: '12abc.852' });
+      expect(input.find(Textbox).prop('value')).toEqual('0.00');
+    });
     it('does not allow the user to enter letters or special characters', () => {
       const input = render({ value: '12.34' });
       input.instance().handleChange({ target: { value: '1hello$1.27' } });
@@ -50,6 +54,23 @@ describe('Decimal', () => {
       const input = render({ value: '4.1234', precision: 4 });
       input.setProps({ precision: 20 });
       expect(input.find(Textbox).prop('value')).toEqual('4.123400000000000');
+    });
+  });
+  describe('Input handling', () => {
+    it('calls setSelection after updating input', async () => {
+      const setSelectionMock = jest.fn();
+      jest.useFakeTimers();
+      const evt = {
+        target: {
+          value: '123456.78',
+          setSelectionRange: setSelectionMock,
+          selectionEnd: 3
+        }
+      };
+      const input = render({ value: '1234567.00' });
+      input.instance().handleChange(evt);
+      jest.runAllTimers();
+      expect(setSelectionMock).toHaveBeenCalledWith(3, 3);
     });
   });
 });
