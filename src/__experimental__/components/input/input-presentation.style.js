@@ -4,6 +4,7 @@ import baseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import sizes from './input-sizes.style';
 import inputClassicStyling from './input-presentation-classic.style';
+import VALIDATION_TYPES from '../../../components/validations/validation-types.config';
 
 const InputPresentationStyle = styled.div`
   align-items: center;
@@ -32,23 +33,22 @@ const InputPresentationStyle = styled.div`
   ${({ hasFocus, theme }) => hasFocus && css`
     && { outline: 3px solid ${theme.colors.focus}; }
   `}
-  ${stylingForValidation('infoMessage')}
-  ${stylingForValidation('warningMessage')}
-  ${stylingForValidation('errorMessage')}
-
+  ${stylingForValidations}
   ${inputClassicStyling}
 `;
 
-function stylingForValidation(message) {
-  const validation = message.replace('Message', '');
-  return ({ theme, ...props }) => {
-    if (!props[message]) return null;
-    return css`
-      border-color: ${theme.colors[validation]} !important;
-      box-shadow: inset 1px 1px 0 ${theme.colors[validation]},
-                  inset -1px -1px 0 ${theme.colors[validation]};
-    `;
-  };
+function stylingForValidations({ theme, ...props }) {
+  let styling = '';
+  Object.keys(VALIDATION_TYPES).reverse().forEach((type) => {
+    if (props[`${type}Message`]) {
+      styling += `
+        border-color: ${theme.colors[type]} !important;
+        box-shadow: inset 1px 1px 0 ${theme.colors[type]},
+                    inset -1px -1px 0 ${theme.colors[type]};
+      `;
+    }
+  });
+  return styling;
 }
 
 InputPresentationStyle.defaultProps = {

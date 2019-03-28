@@ -48,19 +48,16 @@ class InputPresentation extends React.Component {
     setTimeout(() => this.input.current.focus());
   }
 
-  handleMouseOver = () => {
-    this.setState({ hasMouseOver: true });
-  }
+  handleMouseOver = () => this.setState({ hasMouseOver: true });
 
-  handleMouseOut = () => {
-    this.setState({ hasMouseOver: false });
-  }
+  handleMouseOut = () => this.setState({ hasMouseOver: false });
 
   render() {
     const { children, ...props } = this.props;
     const filteredProps = filterOutInputEvents(props);
 
     return (
+      // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
       <InputPresentationStyle
         hasFocus={ this.state.hasFocus }
         role='presentation'
