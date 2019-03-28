@@ -959,16 +959,16 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c1:hover {
-  background: #a2224a;
-  border: 1px solid #a2224a;
+  background: ##be164c;
+  border: 1px solid ##be164c;
   color: #ffffff;
 }
 
 .c1:focus {
   box-shadow: 0 0 6px rgba(213,85,128,.6);
   outline: none;
-  background: #a2224a;
-  border: 1px solid #a2224a;
+  background: ##be164c;
+  border: 1px solid ##be164c;
   color: #ffffff;
 }
 
@@ -1245,8 +1245,8 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c1:hover {
-  background: #ccc;
-  border: 1px solid #ccc;
+  background: #cccccc;
+  border: 1px solid #cccccc;
   color: #1b1d21;
 }
 
@@ -1790,16 +1790,16 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
 }
 
 .c1:hover {
-  background: #a2224a;
-  border: 1px solid #a2224a;
+  background: ##be164c;
+  border: 1px solid ##be164c;
   color: #ffffff;
 }
 
 .c1:focus {
   box-shadow: 0 0 6px rgba(213,85,128,.6);
   outline: none;
-  background: #a2224a;
-  border: 1px solid #a2224a;
+  background: ##be164c;
+  border: 1px solid ##be164c;
   color: #ffffff;
 }
 
@@ -2076,8 +2076,8 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
 }
 
 .c1:hover {
-  background: #ccc;
-  border: 1px solid #ccc;
+  background: #cccccc;
+  border: 1px solid #cccccc;
   color: #1b1d21;
 }
 
