@@ -10,53 +10,44 @@ describe('Modal', () => {
   describe('componentDidMount', () => {
     beforeEach(() => {
       mockWindow = {
-        addEventListener() {},
-        removeEventListener() {}
+        addEventListener: jest.fn()
       };
-      jest.useFakeTimers();
-      wrapper = shallow(
-        <Modal open onCancel={ onCancel } />
-      );
       spyOn(Browser, 'getWindow').and.returnValue(mockWindow);
-      spyOn(mockWindow, 'addEventListener');
-    });
-
-    afterEach(() => {
-      jest.useRealTimers();
     });
 
     it('binds the key event listener to the window', () => {
-      wrapper.instance().componentDidMount();
-          expect(mockWindow.addEventListener.calls.count()).toEqual(1);
-          expect(mockWindow.addEventListener).toHaveBeenCalled();
+      wrapper = shallow(<Modal open onCancel={ onCancel } />);
+      expect(mockWindow.addEventListener.mock.calls.length).toEqual(1);
+      expect(mockWindow.addEventListener).toHaveBeenCalled();
     });
 
+    it('does not bind if component is not open on mount', () => {
+      wrapper = shallow(<Modal open={ false } onCancel={ onCancel } />);
+      expect(mockWindow.addEventListener).not.toHaveBeenCalled();
+    })
   });
   
   describe('componentWillUnmount', () => {
     beforeEach(() => {
       mockWindow = {
-        addEventListener() {},
-        removeEventListener() {}
+        addEventListener: jest.fn(),
+        removeEventListener: jest.fn()
       };
-      jest.useFakeTimers();
-      wrapper = shallow(
-        <Modal open onCancel={ onCancel } />
-      );
       spyOn(Browser, 'getWindow').and.returnValue(mockWindow);
-      spyOn(mockWindow, 'removeEventListener');
     });
 
-    afterEach(() => {
-      jest.useRealTimers();
+    it('removes the event listener if modal was open', () => {
+      wrapper = shallow(<Modal open onCancel={ onCancel } />);
+      wrapper.unmount();
+      expect(mockWindow.removeEventListener.mock.calls.length).toEqual(1);
+      expect(mockWindow.removeEventListener).toHaveBeenCalled();
     });
 
-    it('binds the key event listener to the window', () => {
-      wrapper.instance().componentWillUnmount();
-          expect(mockWindow.removeEventListener.calls.count()).toEqual(1);
-          expect(mockWindow.removeEventListener).toHaveBeenCalled();
+    it('does not remove the event listener if it was not in use', () => {
+      wrapper = shallow(<Modal onCancel={ onCancel } />);
+      wrapper.unmount();
+      expect(mockWindow.removeEventListener).not.toHaveBeenCalled();
     });
-
   });
 
   describe('componentDidUpdate', () => {
@@ -74,7 +65,7 @@ describe('Modal', () => {
         jest.useFakeTimers();
         onCancel = jasmine.createSpy('cancel');
         wrapper = shallow(
-          <Modal open onCancel={ onCancel } />
+          <Modal onCancel={ onCancel } />
         );
       });
 
@@ -84,7 +75,7 @@ describe('Modal', () => {
 
       it('sets up event listeners to resize and close the modal', () => {
         spyOn(mockWindow, 'addEventListener');
-         wrapper.instance().componentDidUpdate();
+        wrapper.setProps({ open: true });
         jest.runAllTimers();
         expect(mockWindow.addEventListener.calls.count()).toEqual(1);
         expect(mockWindow.addEventListener).toHaveBeenCalledWith('keyup', wrapper.instance().closeModal);
@@ -94,7 +85,7 @@ describe('Modal', () => {
         spyOn(mockWindow, 'removeEventListener');
         spyOn(window, 'setTimeout');
         jest.useFakeTimers();
-        wrapper.instance().componentDidUpdate();
+        wrapper.setProps({ open: true });
         jest.runTimersToTime(500);
         expect(clearTimeout).toHaveBeenCalled();
         expect(wrapper.state()).toEqual({ state: 'open' });

@@ -188,7 +188,10 @@ class Select extends React.Component {
     return (
       values.map((value, index) => (
         <div key={ value.value } className='carbon-select__pill'>
-          <Pill onDelete={ canDelete ? () => this.removeItem(index) : undefined }>
+          <Pill
+            onDelete={ canDelete ? () => this.removeItem(index) : undefined }
+            title={ value.text }
+          >
             { value.text }
           </Pill>
         </div>
