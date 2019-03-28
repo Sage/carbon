@@ -69,7 +69,7 @@ describe('Link', () => {
     });
   });
 
-  describe('when component received an `onKeyDown` prop', () => {
+  describe('when the `onKeyDown` event is triggered', () => {
     let spy;
 
     beforeEach(() => {
