@@ -9,25 +9,16 @@ class Create extends React.Component {
   static propTypes = {
     /**
      * Children elements
-     *
-     * @property children
-     * @type {Node}
      */
     children: PropTypes.node,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Props for the link
-     *
-     * @property linkProps
-     * @type {Object}
      */
     linkProps: PropTypes.object
   };
