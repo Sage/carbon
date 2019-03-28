@@ -42,90 +42,27 @@ const today = DateHelper.todayFormatted('YYYY-MM-DD');
  * @decorators {Input,InputIcon,InputLabel,InputValidation}
  */
 class Date extends React.Component {
-  // Required for validProps function
   static propTypes = {
-    /**
-     * Automatically focus on component mount
-     *
-     * @property autoFocus
-     * @type {Boolean}
-    */
+    /** Automatically focus on component mount */
     autoFocus: PropTypes.bool,
-
-    /**
-     * Disable all user interaction.
-     *
-     * @property disabled
-     * @type {boolean}
-     */
+    /** Disable all user interaction */
     disabled: PropTypes.bool,
-
-    /**
-     * Used to provide additional validations on composed components.
-     *
-     * @property internalValidations
-     * @type {Array}
-     */
+    /** Used to provide additional validations on composed components */
     internalValidations: PropTypes.array,
-
-    /**
-     * Minimum possible date
-     *
-     * @property minDate
-     * @type {String}
-     */
+    /** Minimum possible date */
     minDate: PropTypes.string,
-
-    /**
-     * Maximum possible date
-     *
-     * @property maxDate
-     * @type {String}
-     */
+    /** Maximum possible date */
     maxDate: PropTypes.string,
-
-    /**
-     * Specify a callback triggered on blur
-     *
-     * @property onBlur
-     * @type {Function}
-     */
+    /** Specify a callback triggered on blur */
     onBlur: PropTypes.func,
-
-    /**
-     * Display the currently selected value without displaying the input
-     *
-     * @property readOnly
-     * @type {Boolean}
-     */
+    /** Display the currently selected value without displaying the input */
     readOnly: PropTypes.bool,
-
-    /**
-     * The current date
-     *
-     * @property value
-     * @type {String}
-     */
+    /** The current date */
     value: PropTypes.string
   };
 
   static defaultProps = {
-    /**
-     * Sets the default value of the date field
-     *
-     * @property value
-     * @type {String}
-     * @default Today's date
-     */
     value: today,
-
-    /**
-    * Sets validations that should always be found on the component
-    *
-    * @property internalValidations
-    * @type {Array}
-    * @default DateValidator
-    */
     internalValidations: [new DateValidator()]
   }
 
@@ -140,34 +77,24 @@ class Date extends React.Component {
 
   bridge = React.createRef() // this is a reference to the input decorator bridge component
 
+  hiddenInput = React.createRef();
+
+  hiddenInputDateFormat = 'YYYY-MM-DD';
+
+  blurBlocked = false // stops the blur callback from triggering (closing the list) when we don't want it to
+
   state = {
-    /**
-     * Sets open state of the datepicker
-     *
-     * @property open
-     * @type {Boolean}
-     * @default false
-     */
+    /** Sets open state of the datepicker */
     open: false,
-
-    /**
-     * Keeps track of hidden value
-     *
-     * @property datePickerValue
-     * @type {String}
-     * @default null
-     */
+    /** Keeps track of hidden value */
     datePickerValue: null,
-
-    /**
-     * Sets the default value of the decimal field
-     *
-     * @property visibleValue
-     * @type {String}
-     * @default value
-     */
+    /** Sets the default value of the decimal field */
     visibleValue: this.formatVisibleValue(this.props.value)
   }
+
+  /**
+   * Sets the hidden format
+   */
 
   constructor(args) {
     super(args);
@@ -210,12 +137,32 @@ class Date extends React.Component {
    */
   componentDidUpdate(prevProps) {
     if (this.datePickerValueChanged(prevProps)) {
-      this.bridge.current.blockBlur = false;
-      this._handleBlur();
+      this.unblockBlur();
+      this.handleBlur(); // TODO validate
     }
   }
 
   assignInput = (input) => { this._input = input.current; }
+
+  blockBlur() {
+    this.blurBlocked = true;
+    this.bridge.current.blockBlur = true; // this is to support the legacy behaviour in the bridge
+  }
+
+  unblockBlur() {
+    this.blurBlocked = false;
+    this.bridge.current.blockBlur = false; // this is to support the legacy behaviour in the bridge
+  }
+
+  handleBlur = (ev) => {
+    if (this.blurBlocked) return;
+
+    this.updateVisibleValue();
+
+    if (this.props.onBlur) {
+      this.props.onBlur(ev);
+    }
+  }
 
   /**
    *  Checks that the datepicker selected value has changed
@@ -225,7 +172,7 @@ class Date extends React.Component {
    * @return {Boolean}
    */
   datePickerValueChanged = (prevProps) => {
-    return this.bridge.current.blockBlur && this.props.value && prevProps.value !== this.props.value;
+    return this.blurBlocked && this.props.value && prevProps.value !== this.props.value;
   }
 
   /**
@@ -236,9 +183,9 @@ class Date extends React.Component {
    * @return {void}
    */
   emitOnChangeCallback = (val) => {
-    const hiddenField = this.hidden;
     const isValid = DateHelper.isValidDate(val, { sanitize: (typeof val === 'string') });
-    hiddenField.value = isValid ? DateHelper.formatDateString(val, this.hiddenFormat()) : val;
+    this.hiddenInput.value = isValid ? DateHelper.formatDateString(val, this.hiddenInputDateFormat) : val;
+    this.bridge.current._handleOnChange({ target: this.hiddenInput });
   }
 
   /**
@@ -248,6 +195,7 @@ class Date extends React.Component {
    * @return {void}
    */
   openDatePicker = () => {
+    this.blockBlur();
     this._document.addEventListener('click', this.closeDatePicker);
     this.setState({ open: true });
 
@@ -292,23 +240,27 @@ class Date extends React.Component {
    * @return {void}
    */
   handleVisibleInputChange = (ev) => {
-    const input = DateHelper.sanitizeDateInput(ev.target.value),
-        validDate = DateHelper.isValidDate(input),
+    const sanitizedInputValue = DateHelper.sanitizeDateInput(ev.target.value),
+        isValidDate = DateHelper.isValidDate(sanitizedInputValue),
         newState = { visibleValue: ev.target.value };
 
     // Updates the hidden value after first formatting to default hidden format
-    if (validDate) {
-      const hiddenValue = DateHelper.formatValue(input, this.hiddenFormat());
-      newState.datePickerValue = DateHelper.stringToDate(hiddenValue);
+    if (isValidDate) {
+      const formattedValue = DateHelper.formatValue(sanitizedInputValue, this.hiddenInputDateFormat);
+      const dateObject = DateHelper.stringToDate(formattedValue);
 
-      if (this.datepicker && this.monthOrYearHasChanged(newState.datePickerValue)) {
-        this.datepicker.showMonth(newState.datePickerValue);
+      newState.datePickerValue = dateObject;
+
+      if (this.datepicker && this.monthOrYearHasChanged(dateObject)) {
+        this.datepicker.showMonth(dateObject);
       }
 
-      this.emitOnChangeCallback(hiddenValue);
+      if (ev.target === this.hiddenInput) return;
+      this.emitOnChangeCallback(formattedValue);
     } else {
       this.emitOnChangeCallback(ev.target.value);
     }
+
     this.setState(newState);
   }
 
@@ -347,26 +299,12 @@ class Date extends React.Component {
    * @return {void}
    */
   handleDateSelect = (val, modifiers) => {
-    if (modifiers.disabled) { return; }
-    this.bridge.current.blockBlur = true;
+    if (modifiers.disabled) return;
+    this.blockBlur();
     this.closeDatePicker();
-    this.bridge.current._handleContentChange();
+    this.bridge.current._handleContentChange(); // temporary - resets validation on the old bridge component
     this.emitOnChangeCallback(val);
     this.updateVisibleValue();
-    this.bridge.current._handleOnChange({ target: this.hidden });
-  }
-
-  /**
-   * Updates visible value on blur
-   *
-   * @method handleBlur
-   * @return {void}
-   */
-  handleBlur = () => {
-    this.updateVisibleValue();
-    if (this.props.onBlur) {
-      this.props.onBlur();
-    }
   }
 
   /**
@@ -406,37 +344,10 @@ class Date extends React.Component {
   get inputProps() {
     const { ...props } = validProps(this);
     props.className = this.inputClasses;
-    props.onChange = this.handleVisibleInputChange;
-    props.onBlur = this.handleBlur;
     props.value = this.state.visibleValue;
-    props.onKeyDown = this.handleKeyDown;
-    props.disabled = this.props.disabled;
-    props.readOnly = this.props.readOnly;
 
     delete props.autoFocus;
     delete props.internalValidations;
-
-    if (!this.props.readOnly && !this.props.disabled) {
-      props.onFocus = chainFunctions(this.handleFocus, props.onFocus);
-    }
-
-    return props;
-  }
-
-  /**
-   * A getter for hidden input props.
-   *
-   * @method hiddenInputProps
-   * @return {Object} props for the hidden input
-   */
-  get hiddenInputProps() {
-    const props = {
-      ref: 'hidden',
-      type: 'hidden',
-      readOnly: true,
-      'data-element': 'hidden-input',
-      value: DateHelper.formatValue(this.props.value, this.hiddenFormat())
-    };
 
     return props;
   }
@@ -499,34 +410,6 @@ class Date extends React.Component {
   }
 
   /**
-  * A getter that returns datepicker specific props
-  *
-  * @method datePickerProps
-  * @return {Object}
-  */
-  get datePickerProps() {
-    let date = this.state.datePickerValue;
-
-    if (!date) {
-      date = this.props.value;
-    }
-
-    return {
-      disabledDays: this.disabledDays(),
-      enableOutsideDays: true,
-      fixedWeeks: true,
-      initialMonth: this.state.datePickerValue || DateHelper.stringToDate(date),
-      inline: true,
-      locale: I18n.locale,
-      localeUtils: LocaleUtils,
-      navbarElement: <Navbar />,
-      onDayClick: this.handleDateSelect,
-      ref: (input) => { this.datepicker = input; },
-      selectedDays: [this.state.datePickerValue]
-    };
-  }
-
-  /**
    * Updates the containerStyle state
    *
    * @method updateDatePickerPosition
@@ -575,6 +458,34 @@ class Date extends React.Component {
   }
 
   /**
+  * A getter that returns datepicker specific props
+  *
+  * @method datePickerProps
+  * @return {Object}
+  */
+  get datePickerProps() {
+    let date = this.state.datePickerValue;
+
+    if (!date) {
+      date = this.props.value;
+    }
+
+    return {
+      disabledDays: this.disabledDays(),
+      enableOutsideDays: true,
+      fixedWeeks: true,
+      initialMonth: this.state.datePickerValue || DateHelper.stringToDate(date),
+      inline: true,
+      locale: I18n.locale,
+      localeUtils: LocaleUtils,
+      navbarElement: <Navbar />,
+      onDayClick: this.handleDateSelect,
+      ref: (component) => { this.datepicker = component; },
+      selectedDays: [this.state.datePickerValue]
+    };
+  }
+
+  /**
    * Returns the DayPicker component
    *
    * @method renderDatePicker
@@ -590,11 +501,27 @@ class Date extends React.Component {
     );
   }
 
+  /**
+   * A getter for hidden input props.
+   *
+   * @method hiddenInputProps
+   * @return {Object} props for the hidden input
+   */
+  get hiddenInputProps() {
+    return {
+      type: 'hidden',
+      readOnly: true,
+      'data-element': 'hidden-input',
+      onChange: (ev) => { ev.stopImmediatePropagation(); },
+      value: DateHelper.formatValue(this.props.value, this.hiddenInputDateFormat)
+    };
+  }
+
   renderHiddenInput() {
     return (
       <input
         { ...this.hiddenInputProps }
-        ref={ (node) => { this.hidden = node; } }
+        ref={ (node) => { this.hiddenInput = node; } }
       />
     );
   }
@@ -610,16 +537,6 @@ class Date extends React.Component {
   }
 
   /**
-   * Sets the hidden format
-   *
-   * @method hiddenFormat
-   * @return {String} formatted date string
-   */
-  hiddenFormat() {
-    return 'YYYY-MM-DD';
-  }
-
-  /**
    * Adds delimiters to the value
    *
    * @method formatVisibleValue
@@ -631,7 +548,7 @@ class Date extends React.Component {
     return DateHelper.formatValue(
       value || today,
       this.visibleFormat(),
-      { formats: this.hiddenFormat(), sanitize: false }
+      { formats: this.hiddenInputDateFormat, sanitize: false }
     );
   }
 
@@ -643,15 +560,27 @@ class Date extends React.Component {
    */
 
   render() {
+    const isComponentActive = !this.props.disabled && !this.props.readOnly;
+    let events = {};
+
+    if (isComponentActive) {
+      events = {
+        onBlur: this.handleBlur,
+        onChange: this.handleVisibleInputChange,
+        onFocus: chainFunctions(this.handleFocus, this.props.onFocus),
+        onKeyDown: this.handleKeyDown,
+        onClick: this.handleWidgetClick
+      };
+    }
+
     return (
       <InputDecoratorBridge
         className={ this.mainClasses }
-        onClick={ this.handleWidgetClick }
-        onFocus={ this.handleFocus }
         inputRef={ this.assignInput }
         ref={ this.bridge }
         { ...this.inputProps }
         { ...tagComponent('date', this.props) }
+        { ...events }
       >
         { this.renderHiddenInput() }
         { this.renderDatePicker() }
