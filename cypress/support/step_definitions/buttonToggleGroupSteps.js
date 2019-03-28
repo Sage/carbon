@@ -42,7 +42,6 @@ Then('Field help on preview is set to {string}', (text) => {
 })
 
 Then('Label help on preview is set to {string}', (text) => {
-  cy.wait(50) //required because of storybook slow detach attach
   labelHelpPreview().should('have.text', text)
 })
 

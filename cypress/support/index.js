@@ -44,8 +44,9 @@ Cypress.Commands.add("iFrame", (selector) => { getItem(selector, 20) })
 
 function getItem(selector, counter) {
     cy.wait(50).get('#storybook-preview-iframe').then(($iframe) => {
-        if (!$iframe.has(selector) && counter > 0) {
-            return getItem(selector, counter--)
+        if (!$iframe.contents().find(selector).length && counter > 0) {
+            counter--
+            return getItem(selector, counter)
         } else {
             return cy.wrap($iframe.contents().find(selector));
         }

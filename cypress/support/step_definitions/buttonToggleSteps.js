@@ -20,7 +20,6 @@ When('I set button icon to {string}', (iconName) => {
 })
 
 Then('Button icon on preview is {string}', (iconName) => {
-  cy.wait(500) //required because of storybook slow detach attach
   buttonToggleIconNamePreview()
     // .should('have.class', "icon-" + iconName) //probably old solutuon?
     .should('have.attr', 'data-element', iconName)
@@ -35,7 +34,6 @@ Then('Button icon size on preview is {string}', (size) => {
     //small is default property that's why it's absent inside class
     buttonToggleIconPreview().should('not.have.class', BUTTON_TOGGLE_ICON_CLASS + size)
   } else {
-    cy.wait(500) //required because of storybook slow detach attach
     buttonToggleIconPreview().should('have.class', BUTTON_TOGGLE_ICON_CLASS + size)
   }
 })
