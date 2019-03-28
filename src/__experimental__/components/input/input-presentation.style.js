@@ -60,7 +60,11 @@ InputPresentationStyle.propTypes = {
   disabled: PropTypes.bool,
   hasFocus: PropTypes.bool,
   readOnly: PropTypes.bool,
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  ...Object.keys(VALIDATION_TYPES).reduce((acc, type) => ({
+    ...acc,
+    [`${type}Message`]: PropTypes.string
+  }), {})
 };
 
 export default InputPresentationStyle;

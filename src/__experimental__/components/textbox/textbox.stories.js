@@ -9,6 +9,7 @@ import {
 import Textbox from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
+// set the display name so the story source makes sense
 Textbox.displayName = 'Textbox';
 
 storiesOf('Experimental/Textbox', module)

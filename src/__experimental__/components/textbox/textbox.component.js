@@ -5,6 +5,7 @@ import InputIconToggle from '../input-icon-toggle';
 import FormField from '../form-field';
 import { withValidation } from '../../../components/validations';
 import withUniqueName from '../../../utils/helpers/with-unique-name';
+import VALIDATION_TYPES from '../../../components/validations/validation-types.config';
 
 // This component is a working example of what a Textbox might look like
 // using only the new input componentry. It is still under development with
@@ -66,25 +67,16 @@ Textbox.propTypes = {
   inputWidth: PropTypes.number,
   /** Help content to be displayed under an input */
   fieldHelp: PropTypes.node,
-  /** An array of info messages to apply to the input */
-  info: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func
-  ]),
-  /** An array of validations to apply to the input */
-  validations: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func
-  ]),
-  /** An array of warnings to apply to the input */
-  warnings: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.func
-  ]),
   /** Type of the icon that will be rendered next to the input */
   children: PropTypes.node,
   inputIcon: PropTypes.string,
-  leftChildren: PropTypes.node
+  leftChildren: PropTypes.node,
+  ...Object.values(VALIDATION_TYPES).reduce((acc, type) => ({
+    [type]: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.func
+    ])
+  }), {})
 };
 
 // we don't have any default props, but we set an empty object for better storybook source code examples

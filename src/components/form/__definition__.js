@@ -73,7 +73,7 @@ let definition = new Definition('form', Form, {
     cancelText: '',
     children: `<Textbox
     label="Name"
-    warnings={[ new PresenceValidation() ]}
+    validations={[ new PresenceValidation() ]}
     />`,
     saveText: ''
   }

@@ -82,7 +82,8 @@ storiesOf('Validations', module)
                 label='Async Validator'
                 validations={ asyncValidator }
                 onChange={ ev => asyncStore.set({ value: ev.target.value }) }
-                fieldHelp='This async validator will pause for 2 seconds before it validates. It requires a value of "valid" to pass.'
+                fieldHelp='This async validator will pause for 2 seconds before it validates.
+                  It requires a value of "valid" to pass.'
                 labelInline={ boolean('labelInline') }
                 size={ select('size', OptionsHelper.sizesRestricted) }
               />
@@ -97,7 +98,8 @@ storiesOf('Validations', module)
                 label='Info'
                 info={ infoValidator }
                 onChange={ ev => infoStore.set({ value: ev.target.value }) }
-                fieldHelp='This example uses an info validator, these do not block form submission and are not flagged by the form.'
+                fieldHelp='This example uses an info validator, these do not block form
+                  submission and are not flagged by the form.'
                 labelInline={ boolean('labelInline') }
                 size={ select('size', OptionsHelper.sizesRestricted) }
               >
@@ -144,7 +146,8 @@ storiesOf('Validations', module)
                 warnings={ warningValidator }
                 info={ infoValidator }
                 onChange={ ev => allStore.set({ value: ev.target.value }) }
-                fieldHelp='This example uses all of the validations above! It will fail fast, reporting any failing validations without waiting for asynchronous ones to complete.'
+                fieldHelp='This example uses all of the validations above! It will fail fast, reporting
+                  any failing validations without waiting for asynchronous ones to complete.'
                 labelInline={ boolean('labelInline') }
                 size={ select('size', OptionsHelper.sizesRestricted) }
               />

@@ -142,7 +142,32 @@ class Form extends React.Component {
     /**
      * Hide or show the summary
      */
-    showSummary: PropTypes.bool
+    showSummary: PropTypes.bool,
+
+    /**
+     * A function used to handle form validation
+     */
+    validate: PropTypes.func,
+
+    /**
+     * Determines if the form is a validating state and should be disabled from submiting
+     */
+    isValidating: PropTypes.bool,
+
+    /**
+     * The total number of errors present in the form
+     */
+    errorCount: PropTypes.number,
+
+    /**
+     * The total number of warnings present in the form
+     */
+    warningCount: PropTypes.number,
+
+    /**
+     * The total number of infos present in the form
+     */
+    infoCount: PropTypes.number
   }
 
   static defaultProps = {
@@ -202,8 +227,7 @@ class Form extends React.Component {
         getActiveInput: this.getActiveInput,
         setIsDirty: this.setIsDirty,
         resetIsDirty: this.resetIsDirty,
-        setActiveInput: this.setActiveInput,
-        validate: this.validate
+        setActiveInput: this.setActiveInput
       }
     };
   }
@@ -441,11 +465,6 @@ class Form extends React.Component {
   htmlProps = () => {
     const { ...props } = validProps(this);
     delete props.onSubmit;
-    delete props.isValidating;
-    delete props.errorCount;
-    delete props.warningCount;
-    delete props.infoCount;
-    delete props.validate;
     props.className = this.mainClasses;
     return props;
   }
