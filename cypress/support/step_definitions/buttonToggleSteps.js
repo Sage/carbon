@@ -4,8 +4,8 @@ import {
 } from "../../locators/buttonToggleLocators";
 import { visitComponentUrl } from "../helper";
 
-const BUTTON_TOGGLE_ICON_CLASS = 'carbon-button-toggle__button-icon'
-const BUTTON_TOGGLE_CLASS = 'carbon-button-toggle'
+const BUTTON_TOGGLE_ICON_CLASS = 'carbon-button-toggle__button-icon--'
+const BUTTON_TOGGLE_CLASS = 'carbon-button-toggle--'
 
 Given('I open Button Toggle component page', () => {
   visitComponentUrl('button_toggle_url')
@@ -20,6 +20,7 @@ When('I set button icon to {string}', (iconName) => {
 })
 
 Then('Button icon on preview is {string}', (iconName) => {
+  cy.wait(500) //required because of storybook slow detach attach
   buttonToggleIconNamePreview()
     // .should('have.class', "icon-" + iconName) //probably old solutuon?
     .should('have.attr', 'data-element', iconName)
@@ -32,9 +33,10 @@ When('I set button icon size to {string}', (size) => {
 Then('Button icon size on preview is {string}', (size) => {
   if (size == 'small') {
     //small is default property that's why it's absent inside class
-    buttonToggleIconPreview().should('not.have.class', BUTTON_TOGGLE_ICON_CLASS + '--' + size)
+    buttonToggleIconPreview().should('not.have.class', BUTTON_TOGGLE_ICON_CLASS + size)
   } else {
-    buttonToggleIconPreview().should('have.class', BUTTON_TOGGLE_ICON_CLASS + '--' + size)
+    cy.wait(500) //required because of storybook slow detach attach
+    buttonToggleIconPreview().should('have.class', BUTTON_TOGGLE_ICON_CLASS + size)
   }
 })
 
@@ -43,7 +45,7 @@ Then('Button icon not exists on preview', () => {
 })
 
 Then('Button Toggle size on preview is {string}', (size) => {
-  buttonTogglePreview().should('have.class', BUTTON_TOGGLE_CLASS + '--' + size)
+  buttonTogglePreview().should('have.class', BUTTON_TOGGLE_CLASS + size)
 })
 
 Then('Button Toggle is disabled', () => {
@@ -65,9 +67,9 @@ When('I uncheck grouped', () => {
 })
 
 Then('Button Toggle is grouped', () => {
-  buttonTogglePreview().should('have.class', BUTTON_TOGGLE_CLASS + '--grouped')
+  buttonTogglePreview().should('have.class', BUTTON_TOGGLE_CLASS + 'grouped')
 })
 
 Then('Button Toggle is not grouped', () => {
-  buttonTogglePreview().should('not.have.class', BUTTON_TOGGLE_CLASS + '--grouped')
+  buttonTogglePreview().should('not.have.class', BUTTON_TOGGLE_CLASS + 'grouped')
 })
