@@ -72,7 +72,7 @@ describe('Button', () => {
   });
 
   describe('when there are no props passed except children', () => {
-    it('matchwes the expect styles for a default button with variants "secondary" and "medium"', () => {
+    it('matches the expect styles for a default button with variants "secondary" and "medium"', () => {
       const wrapper = render({ children: 'foo' }, TestRenderer.create).toJSON();
       assertStyleMatch({
         background: 'transparent',
