@@ -14,7 +14,6 @@ const StyledButton = styled.button`
   flex-flow: wrap;
   justify-content: center;
   vertical-align: middle;
-
   ${addButtonStyle}
 
   ${({ iconPosition }) => css`
@@ -37,34 +36,20 @@ function addButtonStyle(props) {
   return stylingForType(props);
 }
 
-function queryColor(disabled) {
-  return (color, disabledColor) => {
-    if (!color) return 'transparent';
-    return disabled ? disabledColor : color;
-  };
-}
-
 function stylingForType({
   disabled,
   renderAs,
   theme,
   size
 }) {
-  const type = buttonTypes(theme)[renderAs];
-  const renderValue = queryColor(disabled);
-
   return css`
     border: 2px solid transparent;
-    background: ${renderValue(type.default.background, theme.disabled.button)};
-    border-color: ${renderValue(type.default.borderColor, theme.disabled.button)};
-    color: ${renderValue(type.default.color, theme.disabled.text)};
+    box-sizing: border-box;
+    ${disabled ? buttonTypes(theme)[renderAs].disabled : buttonTypes(theme)[renderAs].default};
     font-weight: 600;
-    &:hover {
-      background: ${renderValue(type.hover.background,
-    (renderAs === 'secondary' ? 'transparent' : theme.disabled.button))};
-      border-color: ${renderValue(type.hover.borderColor, theme.disabled.button)};
-      color: ${renderValue(type.hover.color, theme.disabled.text)};
-    }
+    padding-top: 1px;
+    padding-bottom: 1px;
+    text-decoration: none;
     &:focus {
       outline: solid 3px ${theme.colors.warning};
     }
@@ -87,6 +72,7 @@ function stylingForClassic({
 }) {
   if (disabled) {
     return css`
+      box-sizing: border-box;
       font-weight: 700;
       ${classicConfig.disabled}
       ${classicConfig[size]}
@@ -96,6 +82,7 @@ function stylingForClassic({
     `;
   }
   return css`
+    box-sizing: border-box;
     font-weight: 700;
     ${classicConfig[renderAs][variant]}
     ${classicConfig[size]}

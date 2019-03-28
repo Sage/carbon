@@ -2,7 +2,6 @@ import React from 'react';
 import 'jest-styled-components';
 import { mount, shallow } from 'enzyme';
 import Icon from 'components/icon';
-import Link from 'components/link';
 import TestRenderer from 'react-test-renderer';
 import Button from '.';
 import StyledButton from './button.style';
@@ -48,13 +47,13 @@ describe('Button', () => {
 
     describe.each(['before', 'after'])(
       'when position is set to "%s"',
-      (pos) => {
+      (position) => {
         it('contains an Icon', () => {
           expect(
             render({
               children: 'foo',
               iconType: 'filter',
-              iconPosition: pos
+              iconPosition: position
             }).contains(
               <Icon type='filter' />
             )
@@ -98,7 +97,6 @@ describe('Button', () => {
         const wrapper = render({
           children: 'foo', disabled: true, renderAs: variant
         }, TestRenderer.create).toJSON();
-
         assertStyleMatch({
           background:
           (variant === 'secondary' || variant === 'tertiary' ? 'transparent' : BaseTheme.disabled.button),
@@ -293,7 +291,7 @@ describe('Button', () => {
     describe('default', () => {
       it('renders a button with no link', () => {
         const wrapper = render({ children: 'foo ' }, mount);
-        expect(wrapper.find(Link).exists()).toEqual(false);
+        expect(wrapper.find('a').exists()).toEqual(false);
       });
     });
 
@@ -304,7 +302,7 @@ describe('Button', () => {
       }, mount);
 
       it('renders an anchor', () => {
-        const anchorLink = anchor.find(Link);
+        const anchorLink = anchor.find('a');
         expect(anchorLink.exists()).toEqual(true);
       });
     });
@@ -316,7 +314,7 @@ describe('Button', () => {
       }, mount);
 
       it('renders an anchor', () => {
-        const toLink = to.find(Link);
+        const toLink = to.find('a');
         expect(toLink.exists()).toEqual(true);
       });
     });

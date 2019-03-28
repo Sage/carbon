@@ -10,7 +10,7 @@ import Button from '.';
 
 const defaultKnobs = () => {
   const size = select('size', OptionsHelper.sizesRestricted, OptionsHelper.sizesRestricted[1]);
-  const linkType = select('link type', ['to', 'href', ''], '');
+  // const linkType = select('link type', ['to', 'href', ''], '');
 
   return {
     as: select('as', OptionsHelper.themesBinary, OptionsHelper.themesBinary[1]),
@@ -22,8 +22,8 @@ const defaultKnobs = () => {
     size,
     subtext: size === OptionsHelper.sizesRestricted[2] ? text('subtext', '') : undefined,
     theme: select('theme', OptionsHelper.buttonColors, OptionsHelper.buttonColors[0]),
-    to: linkType === 'to' ? '#' : undefined,
-    href: linkType === 'href' ? '#' : undefined
+    to: text('to'),
+    href: text('href')
   };
 };
 

@@ -7,6 +7,7 @@ export default ({ text }) => ({
   `,
   medium: `
     font-size: ${text.size};
+    max-height: 40px;
     height: 40px;
     padding-left: 24px;
     padding-right: 24px;
