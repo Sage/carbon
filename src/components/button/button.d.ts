@@ -7,5 +7,5 @@ export interface ButtonProps {
   subtext?: string;
   children?: React.ReactNode;
 }
-declare const Button: React.ComponentType<ButtonProps>;
+declare const Button: React.ComponentType<ButtonProps & React.HTMLProps<HTMLButtonElement>>;
 export default Button;
