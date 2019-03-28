@@ -20,8 +20,6 @@ const DialogStyle = styled.div`
     outline: none;
   }
 
-  ${props => console.log('wrapper', props)}
-
   ${({ size }) => size && css`
     width: ${dialogSizes[size]}
   `}
@@ -37,7 +35,6 @@ const DialogTitleStyle = styled.div`
 `;
 
 const DialogContentStyle = styled.div`
-  ${props => console.log('content', props)}
   box-sizing: border-box;
   height: 100%;
   overflow-y: auto;
