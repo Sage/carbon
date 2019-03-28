@@ -164,6 +164,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                             theme="blue"
                                           >
                                             <styled.button
+                                              as="button"
                                               className="carbon-form-save__button"
                                               data-component="button"
                                               data-element="save"
@@ -213,6 +214,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                               variant="blue"
                                             >
                                               <StyledComponent
+                                                as="button"
                                                 className="carbon-form-save__button"
                                                 data-component="button"
                                                 data-element="save"
@@ -224,7 +226,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                     "componentStyle": ComponentStyle {
                                                       "componentId": "sc-bdVaJa",
                                                       "isStatic": false,
-                                                      "lastClassName": "hZiLbg",
+                                                      "lastClassName": "iMjxja",
                                                       "rules": Array [
                                                         "
   align-items: center;
@@ -236,7 +238,6 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
   flex-flow: wrap;
   justify-content: center;
   vertical-align: middle;
-
   ",
                                                         [Function],
                                                         "
@@ -353,7 +354,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                 variant="blue"
                                               >
                                                 <button
-                                                  className="carbon-form-save__button sc-bdVaJa hZiLbg"
+                                                  className="carbon-form-save__button sc-bdVaJa iMjxja"
                                                   data-component="button"
                                                   data-element="save"
                                                   disabled={false}
