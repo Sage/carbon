@@ -33,18 +33,10 @@ class Link extends React.Component {
     }
   }
 
-  get iconLeft() {
-    if (!this.props.icon || this.props.iconAlign !== 'left') {
-      return null;
-    }
-    return this.icon;
-  }
+  renderLinkIcon = (currentAlignment) => {
+    const hasProperAlignment = this.props.icon && (this.props.iconAlign === currentAlignment);
 
-  get iconRight() {
-    if (!this.props.icon || this.props.iconAlign !== 'right') {
-      return null;
-    }
-    return this.icon;
+    return hasProperAlignment ? this.icon : null;
   }
 
   get icon() {
@@ -87,11 +79,11 @@ class Link extends React.Component {
   renderLinkContent() {
     return (
       <span>
-        {this.iconLeft}
+        {this.renderLinkIcon('left')}
 
         <span>{this.props.children}</span>
 
-        {this.iconRight}
+        {this.renderLinkIcon('right')}
       </span>
     );
   }
