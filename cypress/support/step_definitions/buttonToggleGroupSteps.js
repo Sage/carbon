@@ -3,9 +3,10 @@ import {
   inputWidthInput, inputWidthPreview, fieldHelpInput,
   fieldHelpPreview, labelHelpPreview, lableInlineCheckbox, buttonToggleGroupPreview, labelAlignInput, labelWidthInput
 } from "../../locators/buttonToggleGroupLocators";
+import { visitComponentUrl } from "../helper";
 
 Given('I open Button Toggle Group component page', () => {
-  cy.visit(Cypress.env('button_toggle_group_component_url'));
+  visitComponentUrl('button_toggle_group_component_url')
 });
 
 Then('Label on preview is {string}', (label) => {
@@ -69,7 +70,13 @@ When('I set label align {string}', (direction) => {
 })
 
 Then('Button Toggle Group direction on preview is {string}', (direction) => {
-  labelPreview().should('have.class', 'common-input__label--align-' + direction)
+  
+  if (direction == 'left') {
+    //left is default property that's why it's absent inside class
+    labelPreview().should('not.have.class', 'common-input__label--align-' + direction)
+  } else {
+    labelPreview().should('have.class', 'common-input__label--align-' + direction)
+  }
 })
 
 When('I set label width to {string}', (width) => {
