@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Content from '../content';
 import MessageContentStyle from './message-content.style';
 
 const MessageContent = ({
@@ -7,8 +8,9 @@ const MessageContent = ({
 }) => {
   return (
     <MessageContentStyle type={ as } transparent={ transparent }>
-      <div data-element='title'>{title}</div>
-      <div>{children}</div>
+      <Content title={ title } className='message-content'>
+        {children}
+      </Content>
     </MessageContentStyle>
   );
 };

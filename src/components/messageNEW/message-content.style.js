@@ -1,19 +1,19 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import classicConfig from './message-classic-config.style';
 
 const MessageContentStyle = styled.div`
   padding: 15px 20px;
   white-space: pre-wrap;
-  color: ${({ theme }) => theme.text.color};
 
-  div:first-of-type {
-    font-weight: bold;
-    font-size: ${({ theme }) => theme.text.size}
-    color: ${({ type, theme }) => (type === 'info' && theme.name === 'classic' && theme.colors.info)
-      || (type === 'warning' && theme.name === 'classic' && theme.colors.warning)
-      || (type === 'error' && theme.name === 'classic' && theme.colors.error)
-      || (type === 'success' && theme.name === 'classic' && theme.colors.success)};
-
-  }
+  ${({ theme, type }) => theme.name === 'classic' && styligForClassic(type)}
 `;
+
+function styligForClassic(type) {
+  return css`
+    .carbon-content__title {
+      color: ${classicConfig[type].color};
+    }
+  `;
+}
 
 export default MessageContentStyle;

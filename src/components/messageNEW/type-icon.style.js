@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import classicConfig from './message-classic-config.style';
 
 const TypeIconContainerStyle = styled.div`
   align-items: center;
@@ -11,32 +12,57 @@ const TypeIconContainerStyle = styled.div`
     && css`
       border-radius: 3px 0 0 3px;
     `}
-  background-color: 
-    ${({ type, theme }) => (type === 'info' && theme.colors.info)
+
+  ${({ theme, type, transparent }) => theme.name === 'classic' && stylingForClassic(type, transparent)}
+  ${({ theme, type, transparent }) => theme.name !== 'classic' && stylingForType(type, theme, transparent)}
+`;
+
+function stylingForClassic(type, transparent) {
+  if (transparent) {
+    return css`
+      background-color: #fff;
+      span {
+        &:before {
+          color: ${classicConfig[type].color};
+        }
+      }
+    `;
+  }
+
+  return css`
+    background-color: ${classicConfig[type].color};
+    span {
+      &:before {
+        color: #fff;
+      }
+    }
+  `;
+}
+
+function stylingForType(type, theme, transparent) {
+  if (transparent) {
+    return css`
+      background-color: #fff;
+      span {
+        &:before {
+          color: ${classicConfig[type].color};
+        }
+      }
+    `;
+  }
+
+  return css`
+    background-color: ${(type === 'info' && theme.colors.info)
       || (type === 'warning' && theme.colors.warning)
       || (type === 'error' && theme.colors.error)
       || (type === 'success' && theme.colors.success)};
-    ${({ transparent, theme }) => transparent
-      && css`
-        background-color: ${theme.colors.white};
-      `}
 
     span {
-        &:before {
-            color: 
-                ${({ type, theme }) => (type === 'info' && theme.colors.info)
-                  || (type === 'warning' && theme.colors.warning)
-                  || (type === 'error' && theme.colors.error)
-                  || (type === 'success' && theme.colors.success)};
-            
-                ${({ transparent, theme }) => !transparent
-                  && css`
-                    color: ${theme.colors.white};
-                  `}
-            display: block;
-            font-size: 16px;
-        }
+      &:before {
+        color: ${theme.colors.white};
+      }
     }
-`;
+  `;
+}
 
 export default TypeIconContainerStyle;

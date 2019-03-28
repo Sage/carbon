@@ -16,6 +16,7 @@ const Message = ({
         transparent={ transparent }
         type={ as }
         roundedCorners={ roundedCorners }
+        role='status'
       >
         <TypeIcon
           as={ as } roundedCorners={ roundedCorners }
