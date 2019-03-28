@@ -4,8 +4,8 @@ import baseTheme from '../../style/themes/base';
 import dayPickerClassicStyle from './day-picker-classic.style';
 
 const StyledDayPicker = styled(DayPicker)`
-  background-color: #fff;
-  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1);
+  background-color: ${({ theme }) => theme.colors.white};
+  box-shadow: ${({ theme }) => theme.shadows.depth1};
   color: ${({ theme }) => theme.text.color};
   display: block;
   font-size: 14px;
@@ -54,14 +54,14 @@ const StyledDayPicker = styled(DayPicker)`
   }
 
   .DayPicker-Day {
-    background-color: #fff;
+    background-color: ${({ theme }) => theme.colors.white};
     cursor: pointer;
     padding: 10px;
     border: none;
     font-weight: 800;
 
     &:hover {
-      background-color: #F2F5F6;
+      background-color: ${({ theme }) => theme.disabled.input};
       color: ${({ theme }) => theme.text.color};
     }
 
@@ -81,30 +81,23 @@ const StyledDayPicker = styled(DayPicker)`
 
   .DayPicker-Day--today, .DayPicker-Day--today.DayPicker-Day--outside {
     font-weight: 800;
-  }
-
-  .DayPicker-Day--today {
     color: ${({ theme }) => theme.text.color};
-    background-color: #ccd6db;
+    background-color: ${({ theme }) => theme.disabled.border};
   }
 
   .DayPicker-Day--outside {
     color: ${({ theme }) => theme.disabled.disabled};
-
-  }
-
-  .DayPicker-Day--outside {
-    background-color: #fff;
+    background-color: $${({ theme }) => theme.colors.white};
   }
 
   .DayPicker-Day--disabled, .DayPicker-Day--disabled:hover {
-    background-color: #fff;
+    background-color: ${({ theme }) => theme.colors.white};
     cursor: default;
   }
 
   .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
     background-color: ${({ theme }) => theme.colors.primary};
-    color: #fff;
+    color: ${({ theme }) => theme.colors.white};
     font-weight: 800;
   }
 

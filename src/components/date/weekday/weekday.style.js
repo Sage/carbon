@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import baseTheme from '../../../style/themes/base';
-import weekdayClassicStyling from './weekday-classic.style';
+import weekdayClassicStyle from './weekday-classic.style';
 
 const WeekdayStyle = styled.div`
 &, &.DayPicker-Weekday {
@@ -8,12 +8,12 @@ const WeekdayStyle = styled.div`
   padding: 10px 12px;
   width: 40px;
   font-weight: 800;
-  color: #668592;
+  color: ${({ theme }) => theme.colors.border};
   text-transform: uppercase;
   font-size: 12px;
   text-align: center;
 
-  ${weekdayClassicStyling}
+  ${weekdayClassicStyle}
 }
 `;
 
