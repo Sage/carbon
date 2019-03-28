@@ -14,10 +14,16 @@ import ElementResize from './../../utils/helpers/element-resize';
 /* global jest */
 
 describe('Dialog', () => {
-  let instance, onCancel;
+  let instance, onCancel, mockWindow;
 
   beforeEach(() => {
     onCancel = jasmine.createSpy('cancel');
+    mockWindow = {
+      addEventListener() { },
+      removeEventListener() { },
+      getComputedStyle() { return {}; }
+    }
+    Browser.getWindow = jest.fn().mockReturnValue(mockWindow);
   });
 
   describe('Lifecycle functions', () => {
@@ -74,23 +80,13 @@ describe('Dialog', () => {
     });
 
     describe('componentDidUpdate', () => {
-      let mockWindow, wrapper;
-
-      beforeEach(() => {
-        mockWindow = {
-          addEventListener() {},
-          removeEventListener() {},
-          getComputedStyle() { return {} }
-        };
-
-        spyOn(Browser, 'getWindow').and.returnValue(mockWindow);
-      });
+      let wrapper;
 
       describe('when the dialog is open', () => {
         beforeEach(() => {
           jest.useFakeTimers();
           wrapper = mount(
-            <Dialog open onCancel={ onCancel } />
+            <Dialog onCancel={ onCancel } />
           );
           instance = wrapper.instance();
         });
@@ -101,7 +97,7 @@ describe('Dialog', () => {
 
         it('centers the dialog', () => {
           spyOn(instance, 'centerDialog');
-          wrapper.setProps({ title: 'Dialog title' });
+          wrapper.setProps({ open: true });
           jest.runAllTimers();
           expect(instance.centerDialog).toHaveBeenCalled();
         });
@@ -110,7 +106,7 @@ describe('Dialog', () => {
           const instance = wrapper.instance();
           spyOn(ElementResize, 'addListener');
           spyOn(mockWindow, 'addEventListener');
-          wrapper.setProps({ title: 'Dialog title' });
+          wrapper.setProps({ open: true });
           jest.runAllTimers();
           expect(mockWindow.addEventListener.calls.count()).toEqual(2);
           expect(mockWindow.addEventListener).toHaveBeenCalledWith('resize', instance.centerDialog);
@@ -123,7 +119,7 @@ describe('Dialog', () => {
             spyOn(mockWindow, 'addEventListener');
 
             instance.listening = true;
-            wrapper.setProps({ title: 'Dialog title' });
+            wrapper.setProps({ open: true });
 
             expect(mockWindow.addEventListener.calls.count()).toEqual(0);
             expect(mockWindow.addEventListener).not.toHaveBeenCalled();
@@ -157,11 +153,6 @@ describe('Dialog', () => {
       describe('when Dialog is closed and listening', () => {
         beforeEach(() => {
           jest.useFakeTimers();
-          mockWindow = {
-            addEventListener() {},
-            removeEventListener() {},
-            getComputedStyle() { return {} }
-          };
           wrapper = mount(
             <Dialog onCancel={ onCancel } />
           );
@@ -187,15 +178,15 @@ describe('Dialog', () => {
 
   describe('centerDialog', () => {
     beforeEach(() => {
-      const mockWindow = {
+      mockWindow = {
+        ...mockWindow,
         innerHeight: 300,
         innerWidth: 100,
         pageYOffset: 10,
         pageXOffset: 10
       }
 
-      Browser.getWindow = jest.fn();
-      Browser.getWindow.mockReturnValue(mockWindow);
+      Browser.getWindow = jest.fn().mockReturnValue(mockWindow);
 
       instance = TestUtils.renderIntoDocument(
         <Dialog open onCancel={ onCancel } />
@@ -472,15 +463,6 @@ describe('Dialog', () => {
       let wrapper;
 
       beforeEach(() => {
-        const mockWindow = {
-          addEventListener() { },
-          removeEventListener() { },
-          getComputedStyle() { return {}; }
-        };
-
-        Browser.getWindow = jest.fn();
-        Browser.getWindow.mockReturnValue(mockWindow);
-
         wrapper = mount(
           <Dialog
             onCancel={() => { }}

@@ -22,7 +22,7 @@ const FormField = ({
         help={ labelHelp }
         inline={ labelInline }
         inputSize={ size }
-        labelWidth={ labelWidth }
+        width={ labelWidth }
       >
         { label }
       </Label>
