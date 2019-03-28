@@ -15,17 +15,16 @@ const GroupedCharacter = (props) => {
     const eventRef = ev.target;
     const { selectionEnd } = ev.target;
     let modifier = 0;
-
-    const isAtSelector = stepIndices.includes(selectionEnd - 1),
+    const isAtOneBeyondSeparator = stepIndices.includes(selectionEnd - 1),
         backspacePressed = Events.isBackspaceKey({ which: pressedKey });
 
-    if (isAtSelector && backspacePressed) {
+    if (isAtOneBeyondSeparator && backspacePressed) {
       modifier = -1;
-    } else if (isAtSelector) {
+    } else if (isAtOneBeyondSeparator) {
       modifier = 1;
     }
 
-    const newCursorPos = selectionEnd + (separator.length * (modifier || 1));
+    const newCursorPos = selectionEnd + (1 * modifier);
     const reProcessedInputValue = ev.target.value.split(separator).join('');
 
     props.onChange({ target: { value: reProcessedInputValue } });
