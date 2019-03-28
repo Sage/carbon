@@ -6,21 +6,21 @@ const LinkStyle = styled.div`
   a {
     font-size: 14px;
     text-decoration: underline;
-    color: ${({ theme }) => theme.colors.primary} !important;
+    color: ${({ theme }) => theme.colors.primary};
 
     &:hover {
       cursor: pointer;
-      color: ${({ theme }) => theme.colors.secondary} !important;
+      color: ${({ theme }) => theme.colors.secondary};
     }
 
     &:focus {
-      color: ${({ theme }) => theme.text.color} !important;
+      color: ${({ theme }) => theme.text.color};
       background-color: ${({ theme }) => theme.colors.focus};
       outline: none;
     }
 
     ${({ disabled, theme }) => disabled && css`
-      color: ${theme.disabled.text} !important;
+      color: ${theme.disabled.text};
       pointer-events: none;
     `}
   }
