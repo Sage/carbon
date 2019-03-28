@@ -42,7 +42,7 @@ Cypress.Commands.overwrite(
 
 Cypress.Commands.add("iFrame",
     (selector) => {
-        cy.wait(100).get('#storybook-preview-iframe').then(($iframe) => {
+        cy.wait(200).get('#storybook-preview-iframe').then(($iframe) => {
             return cy.wrap($iframe.contents().find(selector));
         })
     }

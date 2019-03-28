@@ -9,92 +9,46 @@ import Event from '../../utils/helpers/events';
 import tagComponent from '../../utils/helpers/tags';
 import './link.scss';
 
-/**
- * A link widget.
- *
- * == How to use a Link in a component:
- *
- * In your file:
- *
- *   import Link from 'carbon-react/lib/components/link';
- *
- * To render the Link:
- *
- *  <Link href='foo'>Main Page</Link>
- *
- * For additional properties specific to this component, see propTypes.
- *
- * @class Link
- * @constructor
- */
 class _Link extends React.Component {
   static propTypes = {
     /**
      * Children elements
-     *
-     * @property children
-     * @type {Node}
      */
     children: PropTypes.node,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Gives the link a disabled state.
-     *
-     * @property disabled
-     * @type {Boolean}
-     * @default undefined
      */
     disabled: PropTypes.bool,
 
     /**
      * Use `href` to use a generic anchor. You can also prefix your value
      * with `to:` or `href:` to override the prop type.
-     *
-     * @property href
-     * @type {String}
-     * @default undefined
      */
     href: PropTypes.string,
 
     /**
      * Renders an icon inline with the link.
-     *
-     * @property icon
-     * @type {String}
-     * @default undefined
      */
     icon: PropTypes.string,
 
     /**
      * Configures the alignment of the icon (left or right).
-     *
-     * @property iconAlign
-     * @type {String}
-     * @default left
      */
     iconAlign: PropTypes.string,
 
     /**
      * Function called when the mouse is clicked.
-     *
-     * @property onClick
-     * @type {Function}
      */
     onClick: PropTypes.func,
 
     /**
      * Function called when a key is pressed.
-     *
-     * @property onKeyDown
-     * @type {Function}
      */
     onKeyDown: PropTypes.func,
 
@@ -102,46 +56,27 @@ class _Link extends React.Component {
      * Allows the <a> tag to be set in or out of the tab order of the page
      * Boolean is used as tabindex > 0 is not really necessary, HTML order should
      * take precedence
-     *
-     * @property tabbable
-     * @type {Boolean}
-     * @default true
      */
     tabbable: PropTypes.bool,
 
     /**
      * Use `to` to use the React Router link. You can also prefix your value
      * with `to:` or `href:` to override the prop type.
-     *
-     * @property to
-     * @type {String}
-     * @default undefined
      */
     to: PropTypes.string,
 
     /**
      * The message for this tooltip
-     *
-     * @property
-     * @type {String}
      */
     tooltipMessage: PropTypes.string,
 
     /**
      * The position of this tooltip: top, bottom, left or right
-     *
-     * @property
-     * @default top
-     * @type {String}
      */
     tooltipPosition: PropTypes.string,
 
     /**
      * The alignment of this tooltip: left, right or center
-     *
-     * @property
-     * @default center
-     * @type {String}
      */
     tooltipAlign: PropTypes.string
   }

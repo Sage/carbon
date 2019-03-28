@@ -7,69 +7,30 @@ import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import './icon.scss';
 
-/**
- * An Icon widget.
- *
- * == How to use an Icon in a component:
- *
- * In your file
- *
- *   import Icon from 'carbon-react/lib/components/icon';
- *
- * To render an Icon:
- *
- *   <Icon type='foo' />
- *
- * 'type' is a required prop
- *
- * This widget follows this pattern:
- * https://facebook.github.io/react/blog/2015/09/10/react-v0.14-rc1.html#stateless-function-components
- *
- * For information on how to use the Tooltip Decorator see the decorator docs.
- *
- * @class Icon
- * @constructor
- */
 const Icon = TooltipDecorator(class Icon extends React.Component {
   static propTypes = {
     /**
      * Add classes to this component
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Icon type
-     *
-     * @property  type
-     * @type      {String}
      */
     type: PropTypes.string.isRequired,
 
     /**
      * Background size
-     *
-     * @property  bgSize
-     * @type      {String}
-     * @default   'small'
      */
     bgSize: PropTypes.oneOf(['small', 'medium', 'large']),
 
     /**
      * Background shape
-     *
-     * @property  bgShape
-     * @type      {String}
      */
     bgShape: PropTypes.oneOf(['square', 'rounded-rect', 'circle']),
 
     /**
      * Background color theme
-     *
-     * @property  bgTheme
-     * @type      {String}
      */
     bgTheme: PropTypes.string
   };

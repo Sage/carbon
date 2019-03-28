@@ -3,10 +3,6 @@ import { buttonPreview } from "../../locators/commonLocators";
 
 const CARBON_BUTTON_PREFIX = 'carbon-button--';
 
-Given('I open Button component page', () => {
-  cy.visit(Cypress.env('button_component_url'));
-});
-
 Then('Button label on preview is {string}', (label) => {
   buttonPreview().should('have.text', label)
 });
