@@ -56,9 +56,10 @@ const StyledDayPicker = styled(DayPicker)`
   .DayPicker-Day {
     background-color: ${({ theme }) => theme.colors.white};
     cursor: pointer;
-    padding: 10px;
     border: none;
     font-weight: 800;
+    width: 40px;
+    padding: 0;
 
     &:hover {
       background-color: ${({ theme }) => theme.disabled.input};
@@ -72,11 +73,6 @@ const StyledDayPicker = styled(DayPicker)`
     abbr {
       text-decoration: none;
     }
-  }
-
-  .DayPicker-Day {
-    padding: 10px 12px;
-    width: 40px;
   }
 
   .DayPicker-Day--today, .DayPicker-Day--today.DayPicker-Day--outside {
