@@ -70,45 +70,48 @@ describe('Link', () => {
   });
 
   describe('when the `onKeyDown` event is triggered', () => {
-    let spy;
+    let onClickFn;
+    let onKeyDownFn;
 
     beforeEach(() => {
-      spy = jest.fn();
+      onClickFn = jest.fn();
+      onKeyDownFn = jest.fn();
     });
 
-    describe('and an `onClick` prop has been received', () => {
-      it('should `RouterLink` be clickable', () => {
-        wrapper.setProps({ onClick: spy, to: 'testRoute', onKeyDown: spy });
-        wrapper.find(RouterLink).simulate('keydown', { keyCode: 13 });
+    it('should trigger an `onKeyDown` prop', () => {
+      wrapper.setProps({ to: 'testRoute', onKeyDown: onKeyDownFn });
+      wrapper.find(RouterLink).simulate('keydown', { keyCode: 13 });
 
-        expect(spy).toHaveBeenCalled();
-      });
+      expect(onKeyDownFn).toHaveBeenCalled();
     });
 
     describe('and a `href` prop has been received', () => {
-      it('should `a` be clickable', () => {
-        wrapper.setProps({ href: '#', onClick: spy });
+      it('should not trigger `onClick` prop', () => {
+        wrapper.setProps({ href: '#', onKeyDown: onKeyDownFn, onClick: onClickFn });
         wrapper.find('a').simulate('keydown', { which: 13 });
 
-        expect(spy).not.toHaveBeenCalled();
+        expect(onKeyDownFn).toHaveBeenCalled();
+        expect(onClickFn).not.toHaveBeenCalled();
       });
     });
 
     describe('and a `to` props has been recevied', () => {
-      it('should `RouterLink` be clickable', () => {
-        wrapper.setProps({ to: 'testRoute', onClick: spy });
+      it('should trigger `onClick` prop', () => {
+        wrapper.setProps({ to: 'testRoute', onClick: onClickFn });
         wrapper.find(RouterLink).simulate('keydown', { which: 13 });
 
-        expect(spy).toHaveBeenCalled();
+        expect(onKeyDownFn).not.toHaveBeenCalled();
+        expect(onClickFn).toHaveBeenCalled();
       });
     });
 
     describe('and component received a `to` prop but a `onClick` props is not available', () => {
-      it('should `RouterLink be clickable` correctly', () => {
-        wrapper.setProps({ to: 'testRoute', onKeyDown: spy });
+      it('should trigger `onKeyDown` prop but not `onClickFn`', () => {
+        wrapper.setProps({ to: 'testRoute', onKeyDown: onKeyDownFn });
         wrapper.find(RouterLink).simulate('keydown', { which: 13 });
 
-        expect(spy).toHaveBeenCalled();
+        expect(onKeyDownFn).toHaveBeenCalled();
+        expect(onClickFn).not.toHaveBeenCalled();
       });
     });
   });

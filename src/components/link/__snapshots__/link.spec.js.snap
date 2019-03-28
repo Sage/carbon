@@ -5,16 +5,16 @@ exports[`Link renders as expected 1`] = `
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: #26A826 !important;
+  color: #26A826;
 }
 
 .c0 a:hover {
   cursor: pointer;
-  color: #006300 !important;
+  color: #006300;
 }
 
 .c0 a:focus {
-  color: rgba(0,0,0,0.9) !important;
+  color: rgba(0,0,0,0.9);
   background-color: #FFB500;
   outline: none;
 }
