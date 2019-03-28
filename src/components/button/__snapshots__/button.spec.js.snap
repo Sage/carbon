@@ -25,10 +25,6 @@ exports[`Button when a subtext prop is passed into the component does not render
   margin-left: 15px;
 }
 
-.c8 + .c0 {
-  margin-left: 16px;
-}
-
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -51,11 +47,17 @@ exports[`Button when a subtext prop is passed into the component does not render
   justify-content: center;
   vertical-align: middle;
   border: 2px solid transparent;
+  box-sizing: border-box;
   background: transparent;
   border-color: #26A826;
   color: #26A826;
   font-weight: 600;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 14px;
+  max-height: 40px;
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
@@ -78,6 +80,10 @@ exports[`Button when a subtext prop is passed into the component does not render
 .c1 .carbon-icon {
   margin-left: 8px;
   margin-right: 0px;
+}
+
+.c8 + .c0 {
+  margin-left: 16px;
 }
 
 <button
@@ -154,10 +160,15 @@ exports[`Button when a subtext prop is passed into the component renders the sub
   justify-content: center;
   vertical-align: middle;
   border: 2px solid transparent;
+  box-sizing: border-box;
   background: transparent;
   border-color: #26A826;
   color: #26A826;
   font-weight: 600;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 16px;
   height: 48px;
   padding-left: 32px;
@@ -216,6 +227,7 @@ exports[`Button when a subtext prop is passed into the component renders the sub
 
 exports[`Button when no props other than children are passed into the component renders the default props and children to match the snapshot 1`] = `
 <styled.button
+  as="button"
   data-component="button"
   disabled={false}
   iconPosition=""
@@ -297,10 +309,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 15px;
 }
 
-.c8 + .c0 {
-  margin-left: 16px;
-}
-
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -323,11 +331,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   justify-content: center;
   vertical-align: middle;
   border: 2px solid transparent;
+  box-sizing: border-box;
   background: transparent;
   border-color: #26A826;
   color: #26A826;
   font-weight: 600;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 14px;
+  max-height: 40px;
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
@@ -350,6 +364,10 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 .c1 .carbon-icon {
   margin-left: 8px;
   margin-right: 0px;
+}
+
+.c8 + .c0 {
+  margin-left: 16px;
 }
 
 <button
@@ -399,6 +417,10 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-left: 15px;
 }
 
+.c8 + .c0 {
+  margin-left: 16px;
+}
+
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -421,11 +443,17 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   justify-content: center;
   vertical-align: middle;
   border: 2px solid transparent;
+  box-sizing: border-box;
   background: transparent;
   border-color: #26A826;
   color: #26A826;
   font-weight: 600;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
   font-size: 14px;
+  max-height: 40px;
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
@@ -494,6 +522,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  box-sizing: border-box;
   font-weight: 700;
   background: transparent;
   border: 1px solid #255bc7;
@@ -591,6 +620,18 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 16px;
 }
 
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
+.c20 + .c0 {
+  margin-left: 16px;
+}
+
+.c21 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
 >
@@ -624,6 +665,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  box-sizing: border-box;
   font-weight: 700;
   background: transparent;
   border: 1px solid #335c6d;
@@ -717,6 +759,18 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 16px;
 }
 
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
+.c20 + .c0 {
+  margin-left: 16px;
+}
+
+.c21 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
 >
@@ -754,6 +808,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  box-sizing: border-box;
   font-weight: 700;
   background: transparent;
   border: 1px solid #ed1c5f;
@@ -843,6 +898,18 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 16px;
 }
 
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
+.c20 + .c0 {
+  margin-left: 16px;
+}
+
+.c21 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
 >
@@ -884,6 +951,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  box-sizing: border-box;
   font-weight: 700;
   background: transparent;
   border: 1px solid #ca2a60;
@@ -969,6 +1037,18 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 16px;
 }
 
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
+.c20 + .c0 {
+  margin-left: 16px;
+}
+
+.c21 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
 >
@@ -1014,6 +1094,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  box-sizing: border-box;
   font-weight: 700;
   background: transparent;
   border: 1px solid #c7384f;
@@ -1092,6 +1173,18 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c18 + .c0 {
+  margin-left: 16px;
+}
+
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
+.c20 + .c0 {
+  margin-left: 16px;
+}
+
+.c21 + .c0 {
   margin-left: 16px;
 }
 
@@ -1144,6 +1237,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  box-sizing: border-box;
   font-weight: 700;
   background: transparent;
   border: 1px solid #ffffff;
@@ -1218,6 +1312,18 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 16px;
 }
 
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
+.c20 + .c0 {
+  margin-left: 16px;
+}
+
+.c21 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
 >
@@ -1247,6 +1353,7 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  box-sizing: border-box;
   font-weight: 700;
   background: transparent;
   border: 1px solid #255bc7;
@@ -1344,6 +1451,18 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
   margin-left: 16px;
 }
 
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
+.c20 + .c0 {
+  margin-left: 16px;
+}
+
+.c21 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
 >
@@ -1377,6 +1496,7 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  box-sizing: border-box;
   font-weight: 700;
   background: transparent;
   border: 1px solid #335c6d;
@@ -1470,6 +1590,18 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   margin-left: 16px;
 }
 
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
+.c20 + .c0 {
+  margin-left: 16px;
+}
+
+.c21 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
 >
@@ -1507,6 +1639,7 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  box-sizing: border-box;
   font-weight: 700;
   background: transparent;
   border: 1px solid #ed1c5f;
@@ -1596,6 +1729,18 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   margin-left: 16px;
 }
 
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
+.c20 + .c0 {
+  margin-left: 16px;
+}
+
+.c21 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
 >
@@ -1637,6 +1782,7 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  box-sizing: border-box;
   font-weight: 700;
   background: transparent;
   border: 1px solid #ca2a60;
@@ -1722,6 +1868,18 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   margin-left: 16px;
 }
 
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
+.c20 + .c0 {
+  margin-left: 16px;
+}
+
+.c21 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
 >
@@ -1767,6 +1925,7 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  box-sizing: border-box;
   font-weight: 700;
   background: transparent;
   border: 1px solid #c7384f;
@@ -1848,6 +2007,18 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   margin-left: 16px;
 }
 
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
+.c20 + .c0 {
+  margin-left: 16px;
+}
+
+.c21 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
 >
@@ -1897,6 +2068,7 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   -ms-flex-pack: center;
   justify-content: center;
   vertical-align: middle;
+  box-sizing: border-box;
   font-weight: 700;
   background: transparent;
   border: 1px solid #ffffff;
@@ -1968,6 +2140,18 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
 }
 
 .c18 + .c0 {
+  margin-left: 16px;
+}
+
+.c19 + .c0 {
+  margin-left: 16px;
+}
+
+.c20 + .c0 {
+  margin-left: 16px;
+}
+
+.c21 + .c0 {
   margin-left: 16px;
 }
 

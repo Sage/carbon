@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import Icon from '../icon';
 import StyledButton, { StyledButtonSubtext } from './button.style';
 import tagComponent from '../../utils/helpers/tags';
-import Link from '../link';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 const Button = (props) => {
@@ -16,8 +15,6 @@ const Button = (props) => {
     ...rest
   } = props;
 
-  if (props.href || props.to) return renderLink(theme, rest, props);
-
   return (
     <StyledButton
       disabled={ disabled }
@@ -26,6 +23,7 @@ const Button = (props) => {
       iconType={ iconType }
       iconPosition={ iconPosition }
       variant={ theme }
+      as={ (props.href || props.to) ? 'a' : 'button' }
       { ...tagComponent('button', props) }
       { ...rest }
     >
@@ -33,19 +31,6 @@ const Button = (props) => {
     </StyledButton>
   );
 };
-
-function renderLink(theme, rest, props) {
-  return (
-    <Link
-      role='button'
-      variant={ theme }
-      { ...tagComponent('button', props) }
-      { ...rest }
-    >
-      { renderChildren(props) }
-    </Link>
-  );
-}
 
 function renderChildren({
   iconType,
