@@ -8,8 +8,6 @@ const groupedCharacterStore = new Store({
   value: ''
 });
 
-
-
 const onChange = (ev) => { groupedCharacterStore.set({ value: ev.target.value }); };
 
 storiesOf('Experimental/GroupedCharacter', module)
@@ -20,7 +18,7 @@ storiesOf('Experimental/GroupedCharacter', module)
     () => {
       const groups = object('groups', [2, 2, 4]);
       const separator = text('separator', '-');
-      
+
       return (
         <State store={ groupedCharacterStore }>
           <GroupedCharacter
