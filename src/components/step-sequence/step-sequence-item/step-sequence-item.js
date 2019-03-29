@@ -17,7 +17,7 @@ const ariaRoleProp = (status) => {
 
 const completeLabel = (label, status) => {
   if (label && status === 'complete') {
-    return <span className='carbon-step-sequence-item__visually-hidden'>{ label }</span>;
+    return <span className='carbon-step-sequence-item__visually-hidden'>{label}</span>;
   }
 
   return null;
@@ -25,30 +25,24 @@ const completeLabel = (label, status) => {
 
 const currentLabel = (label, status) => {
   if (label && status === 'current') {
-    return <span className='carbon-step-sequence-item__visually-hidden'>{ label }</span>;
+    return <span className='carbon-step-sequence-item__visually-hidden'>{label}</span>;
   }
 
   return null;
 };
 
 const StepSequenceItem = ({
-  children,
-  indicator,
-  status,
-  hiddenCompleteLabel,
-  hiddenCurrentLabel,
-  ...props
+  children, indicator, status, hiddenCompleteLabel, hiddenCurrentLabel, ...props
 }) => (
   <li
-    className={ classes(status) }
-    { ...ariaRoleProp(status) }
+    className={ classes(status) } { ...ariaRoleProp(status) }
     { ...props }
   >
-    { completeLabel(hiddenCompleteLabel, status) }
-    { currentLabel(hiddenCurrentLabel, status) }
+    {completeLabel(hiddenCompleteLabel, status)}
+    {currentLabel(hiddenCurrentLabel, status)}
     <div className='carbon-step-sequence-item__label'>
-      <span className='carbon-step-sequence-item__indicator'>{ stepMarker(status, indicator) }</span>
-      { children }
+      <span className='carbon-step-sequence-item__indicator'>{stepMarker(status, indicator)}</span>
+      {children}
     </div>
   </li>
 );
@@ -56,11 +50,8 @@ const StepSequenceItem = ({
 StepSequenceItem.propTypes = {
   children: PropTypes.node.isRequired,
   indicator: PropTypes.string.isRequired,
-  status: PropTypes.oneOf([
-    'complete',
-    'current',
-    'incomplete'
-  ]),
+  ariaLabel: PropTypes.string,
+  status: PropTypes.oneOf(['complete', 'current', 'incomplete']),
   hiddenCompleteLabel: PropTypes.string,
   hiddenCurrentLabel: PropTypes.string
 };
