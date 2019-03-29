@@ -1,8 +1,9 @@
 import { visitComponentUrl } from "../helper";
 import {
-  asSelect, themeSelect, sizeSelect, subtextInput, dialogSubtitle, titleInput,
-  heightInput, childrenTextArea, labelInput, dialogTitle, commonButtonPreview
+  asSelect, themeSelect, sizeSelect, subtextInput, titleInput,
+  heightInput, childrenTextArea, labelInput, commonButtonPreview
 } from "../../locators/commonLocators";
+import { dialogTitle, dialogSubtitle } from "../../locators/alertDialogLocators";
 
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component)
@@ -33,7 +34,7 @@ When('I set component theme property to {string}', (theme) => {
 });
 
 When('I set height to {string}', (height) => {
-  heightInput().type(height)
+  heightInput().clear().type(height)
 });
 
 When('I check open checkbox', () => {
