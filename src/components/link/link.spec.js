@@ -25,10 +25,12 @@ describe('Link', () => {
     expect(render()).toMatchSnapshot();
   });
 
-  it('matches the expected style if `disabled` prop has been passed to the component', () => {
-    assertStyleMatch({
-      cursor: 'not-allowed'
-    }, render({ disabled: true }).toJSON());
+  describe('when component received a `disabled` prop', () => {
+    it('should matches the expected style', () => {
+      assertStyleMatch({
+        cursor: 'not-allowed'
+      }, render({ disabled: true }).toJSON());
+    });
   });
 
   describe('when component received a `href` prop', () => {
@@ -90,7 +92,6 @@ describe('Link', () => {
         wrapper.setProps({ href: '#', onKeyDown: onKeyDownFn, onClick: onClickFn });
         wrapper.find('a').simulate('keydown', { which: 13 });
 
-        expect(onKeyDownFn).toHaveBeenCalled();
         expect(onClickFn).not.toHaveBeenCalled();
       });
     });
@@ -100,17 +101,21 @@ describe('Link', () => {
         wrapper.setProps({ to: 'testRoute', onClick: onClickFn });
         wrapper.find(RouterLink).simulate('keydown', { which: 13 });
 
-        expect(onKeyDownFn).not.toHaveBeenCalled();
         expect(onClickFn).toHaveBeenCalled();
       });
     });
 
     describe('and component received a `to` prop but a `onClick` props is not available', () => {
-      it('should trigger `onKeyDown` prop but not `onClickFn`', () => {
+      beforeEach(() => {
         wrapper.setProps({ to: 'testRoute', onKeyDown: onKeyDownFn });
         wrapper.find(RouterLink).simulate('keydown', { which: 13 });
+      });
 
+      it('should trigger `onKeyDown` prop', () => {
         expect(onKeyDownFn).toHaveBeenCalled();
+      });
+
+      it('should not trigger an `onClick` prop', () => {
         expect(onClickFn).not.toHaveBeenCalled();
       });
     });
