@@ -28,7 +28,7 @@ export interface FlashProps {
    * Sets the time in Milliseconds the flash remains on the screen. After the timeout it will call the onDimiss
    * callback. This will remove the close icon when set.
    */
-  timeout?: number;
+  timeout?: string | number;
 }
 
 /**
@@ -36,5 +36,5 @@ export interface FlashProps {
  *
  * The flash is rendered in two sections: a ventral message 'flash', and a dorsal coloured, expanding 'slider'.
  */
-declare const Flash: React.Component<FlashProps, {}>;
+declare const Flash: React.ComponentType<FlashProps>;
 export default Flash;

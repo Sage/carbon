@@ -10,103 +10,26 @@ import tagComponent from '../../utils/helpers/tags';
 import Browser from '../../utils/helpers/browser';
 import './tabs.scss';
 
-/**
- * A Tabs widget.
- *
- * == How to use a Tabs Widget in a component:
- *
- * In your file
- *
- *   import { Tabs, Tab } from 'carbon-react/lib/components/tabs';
- *
- * To render a Tabs Widget:
- *
- *   <Tabs>
- *     <Tab title='Title 1' tabId='uniqueId1'>
- *
- *       <Textbox />
- *       <Textbox />
- *
- *     </Tab>
- *
- *     <Tab title='Title 2' tabId='uniqueId2'>
- *
- *       <Date />
- *       <Textbox />
- *
- *     </Tab>
- *   </Tabs>
- *
- * Optionally, you can pass `renderHiddenTabs` prop to the Tabs. By default this is
- * set to true and therefore all tabs will be rendered. The selected tab will have
- * a class of `selected` and all other tabs will have a class of `hidden` which sets
- * their display to `none`.
- *
- * Setting `renderHiddenTabs to false will add a small performance improvement as
- * all previously hidden tabs will not be rendered to the page.
- *
- * If you are using the tab component within a form all tabs should be rendered so that
- * form validation can work correctly.
- *
- * The tabs widget also allows you to select a tab on page load. By default this is set
- * to the first tab. To set a different tab on page load pass a tabId to the
- * selectedTabId prop as shown in the example below.
- *
- * To render a Tabs Widget with Options:
- *
- *   <Tabs renderHiddenTabs={ false } selectedTabId='uniqueId2' >
- *     <Tab title='Title 1' tabId='uniqueId1'>
- *
- *       <Textbox />
- *       <Textbox />
- *
- *     </Tab>
- *
- *     <Tab title='Title 2' tabId='uniqueId2'>
- *
- *       <Date />
- *       <Textbox />
- *
- *     </Tab>
- *   </Tabs>
- *
- * @class Tabs
- * @constructor
- */
 class Tabs extends React.Component {
   static propTypes = {
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Should the unfocussed tabs be rendered to the page
-     *
-     * @property renderHiddenTabs
-     * @type {Boolean}
-     * @default true
      */
     renderHiddenTabs: PropTypes.bool,
 
     /**
      * The tab to be displayed updating this prop will change the visible tab.
      * Defaults to the first tab upon initial load.
-     *
-     * @property selectedTabId
-     * @type {String}
-     * @default firstTab
      */
     selectedTabId: PropTypes.string,
 
     /**
      * Individual tabs
-     *
-     * @property children
-     * @type {Object | Array}
      */
     children: PropTypes.oneOfType([
       PropTypes.array,
@@ -115,25 +38,16 @@ class Tabs extends React.Component {
 
     /**
      * Aligns the tab headers
-     *
-     * @property align
-     * @type {String}
      */
     align: PropTypes.string,
 
     /**
      * Emitted when the visible tab is changed
-     *
-     * @property onTabChange
-     * @type {Func}
      */
     onTabChange: PropTypes.func,
 
     /**
      * The position of tabs with respect to the content (top (default) or left)
-     *
-     * @property position
-     * @type {String}
      */
     position: PropTypes.string
   }
