@@ -13,65 +13,41 @@ class MenuItem extends React.Component {
   static propTypes = {
     /**
      * Children elements
-     *
-     * @property children
-     * @type {Node}
      */
     children: PropTypes.node.isRequired,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * onClick handler
-     *
-     * @property onClick
-     * @type {Function}
      */
     onClick: PropTypes.func,
 
     /**
      * Adds an icon to the menu item.
-     *
-     * @property icon
-     * @type {String}
      */
     icon: PropTypes.string,
 
     /**
      * Defines which direction the submenu will hang eg. left/right
-     *
-     * @property submenuDirection
-     * @type {String}
      */
     submenuDirection: PropTypes.string,
 
     /**
      * Is the menu item the currently selected item.
-     *
-     * @property selected
-     * @type {Boolean}
      */
     selected: PropTypes.bool,
 
     /**
      * (for submenus) renders with a divide between items.
-     *
-     * @property divide
-     * @type {Boolean}
      */
     divide: PropTypes.bool,
 
     /**
      * A title for the menu item that has a submenu.
-     *
-     * @property submenu
-     * @type {String | Object}
      */
     submenu: PropTypes.oneOfType([
       PropTypes.string,
@@ -80,25 +56,16 @@ class MenuItem extends React.Component {
 
     /**
      * The href to use for the menu item.
-     *
-     * @property href
-     * @type {String}
      */
     href: PropTypes.string,
 
     /**
      * The to link to use for the menu item.
-     *
-     * @property to
-     * @type {String}
      */
     to: PropTypes.string,
 
     /**
      * The target to use for the menu item.
-     *
-     * @property target
-     * @type {String}
      */
     target: PropTypes.string
   }

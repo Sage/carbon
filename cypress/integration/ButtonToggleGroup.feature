@@ -2,7 +2,7 @@ Feature: Button Toggle Group component
   I want to change Button Toggle Group label, help label, input width, field help properties
 
   Background: Open Button Toggle Group component page
-    Given I open Button Toggle Group component page
+    Given I open "Button Toggle Group" component page
 
   @positive
   Scenario Outline: Change Button Toggle Group component label

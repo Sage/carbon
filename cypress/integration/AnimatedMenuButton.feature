@@ -2,7 +2,7 @@ Feature: Animated Menu Button component
   I want to change Animated Menu Button component properties
 
   Background: Open Animated Menu Button component page
-    Given I open Animated Menu Button component page
+    Given I open "Animated Menu Button" component page
 
   @positive
   Scenario Outline: Change Animated Menu Button label

@@ -1,4 +1,4 @@
-import { FORM, STORYBOOK_BUTTON_PREVIEW } from "./commonLocators";
+import { FORM, COMMON_BUTTON_PREVIEW } from "./commonLocators";
 
 const ALERT_DIALOG = '.carbon-dialog__dialog'
 const ALERT_DIALOG_TITLE = '#carbon-dialog-title'
@@ -13,9 +13,9 @@ const SUBTILE_INPUT = '#subtitle'
 const ENABLE_BACKGROUND_UI_CHECKBOX = '#enableBackgroundUI'
 
 export const enableBackgroundUICheckbox = () => cy.get(FORM).find(ENABLE_BACKGROUND_UI_CHECKBOX)
-export const openAlertButton = () => cy.iFrame(STORYBOOK_BUTTON_PREVIEW)
+export const openAlertButton = () => cy.iFrame(COMMON_BUTTON_PREVIEW)
 export const backgroundBlocker = () => cy.iFrame(BACKGROUND_UI_BLOCKER)
-export const titleInput = () => cy.get(FORM).find(TITLE_INPUT)
+export const titleInput = () => cy.get(TITLE_INPUT)
 export const subtitleInput = () => cy.get(FORM).find(SUBTILE_INPUT)
 export const alertTitle = () => cy.iFrame(ALERT_DIALOG_TITLE)
 export const alertSubtitle = () => cy.iFrame(ALERT_DIALOG_SUBTITLE)
