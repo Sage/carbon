@@ -1,0 +1,1 @@
+Bug Fixes: "Sets default Accept header for SelectAsync requests to 'application/json'."

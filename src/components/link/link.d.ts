@@ -17,5 +17,5 @@ export interface LinkProps {
   children?: React.ReactNode;
 }
 
-declare const Link: React.ComponentType<LinkProps>;
+declare const Link: React.ComponentType<LinkProps & React.HTMLProps<HTMLLinkElement>>;
 export default Link;

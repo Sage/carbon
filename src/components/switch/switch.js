@@ -12,18 +12,6 @@ const switchClasses = (props) => {
   return classNames('carbon-switch', props.className, loadingClass, reverseClass);
 };
 
-/**
- * A Switch widget.
- *
- * This widget extends Checkbox and adds a switch styling over the top.
- *
- * == How to use a Switch component:
- *
- * In your file:
- *
- *   import Switch from 'carbon-react/lib/components/switch';
- *   <Switch label='My switch component.' />
- */
 const Switch = props => (
   <Checkbox
     disabled={ props.loading }
