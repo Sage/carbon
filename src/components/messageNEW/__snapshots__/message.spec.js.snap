@@ -1,0 +1,88 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message when rendered should match snapshot 1`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border-radius: 3px;
+  background-color: #FFFFFF;
+  border: 1px solid #0077C8;
+}
+
+.c1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 30px;
+  text-align: center;
+  border-radius: 3px 0 0 3px;
+  background-color: #0077C8;
+}
+
+.c1 span:before {
+  color: #FFFFFF;
+}
+
+.c2 {
+  padding: 15px 20px;
+  white-space: pre-wrap;
+}
+
+<info
+  className="c0"
+  role="status"
+  type="info"
+>
+  <info
+    className="c1"
+    type="info"
+  >
+    <span
+      className="carbon-icon icon-info"
+      data-component="icon"
+      data-element="info"
+    />
+  </info>
+  <div
+    className="c2"
+    type="info"
+  >
+    <div
+      className="carbon-content message-content carbon-content--primary carbon-content--align-left"
+      data-component="content"
+    >
+      <div
+        className="carbon-content__title"
+        data-element="title"
+        style={Object {}}
+      />
+      <div
+        className="carbon-content__body"
+        data-element="body"
+        style={Object {}}
+      >
+        Message
+      </div>
+    </div>
+  </div>
+</info>
+`;

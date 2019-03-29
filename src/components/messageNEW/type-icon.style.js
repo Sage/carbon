@@ -1,5 +1,8 @@
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import classicConfig from './message-classic-config.style';
+import BaseTheme from '../../style/themes/base';
+import { THEMES } from '../../style/themes';
 
 const TypeIconContainerStyle = styled.div`
   align-items: center;
@@ -13,8 +16,8 @@ const TypeIconContainerStyle = styled.div`
       border-radius: 3px 0 0 3px;
     `}
 
-  ${({ theme, type, transparent }) => theme.name === 'classic' && stylingForClassic(type, transparent)}
-  ${({ theme, type, transparent }) => theme.name !== 'classic' && stylingForType(type, theme, transparent)}
+  ${({ theme, type, transparent }) => theme.name === THEMES.classic && stylingForClassic(type, transparent)}
+  ${({ theme, type, transparent }) => theme.name !== THEMES.classic && stylingForType(type, theme, transparent)}
 `;
 
 function stylingForClassic(type, transparent) {
@@ -52,10 +55,7 @@ function stylingForType(type, theme, transparent) {
   }
 
   return css`
-    background-color: ${(type === 'info' && theme.colors.info)
-      || (type === 'warning' && theme.colors.warning)
-      || (type === 'error' && theme.colors.error)
-      || (type === 'success' && theme.colors.success)};
+    background-color: ${theme.colors[type]};
 
     span {
       &:before {
@@ -64,5 +64,19 @@ function stylingForType(type, theme, transparent) {
     }
   `;
 }
+
+TypeIconContainerStyle.defaultProps = {
+  as: 'info',
+  roundedCorners: true,
+  theme: BaseTheme,
+  transparent: false
+};
+
+TypeIconContainerStyle.propTypes = {
+  as: PropTypes.string,
+  border: PropTypes.bool,
+  roundedCorners: PropTypes.bool,
+  transparent: PropTypes.bool
+};
 
 export default TypeIconContainerStyle;

@@ -1,42 +1,53 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import classicConfig from './message-classic-config.style';
+import BaseTheme from '../../style/themes/base';
+import { THEMES } from '../../style/themes';
 
 const MessageStyle = styled.div`
   position: relative;
   display: flex;
   justify-content: flex-start;
   align-content: center;
-
-  ${({ roundedCorners }) => roundedCorners
-    && css`
-      border-radius: 3px;
-    `}
-
-  ${({
-    theme, type, transparent, border
-  }) => theme.name === 'classic' && styligForClassic(type, transparent, border)}
-  ${({ theme, type, transparent }) => theme.name !== 'classic' && stylingForType(type, theme, transparent)}
+  ${addCornersStyle}
+  ${addProperStyles}
 `;
+
+function addCornersStyle(props) {
+  const { roundedCorners } = props;
+  if (roundedCorners) {
+    return css`
+      border-radius: 3px;
+    `;
+  }
+  return css`
+    border-radius: none;
+  `;
+}
+
+function addProperStyles(props) {
+  const {
+    theme, type, transparent, border
+  } = props;
+  if (theme.name === THEMES.classic) return stylingForClassic(type, transparent, border, theme);
+  return stylingForType(type, theme, transparent);
+}
 
 function stylingForType(type, theme, transparent) {
   if (transparent) {
     return css`
       border: none;
+      background-color: ${theme.colors.white};
     `;
   }
 
   return css`
-    background-color: #fff;
-    border: 1px solid
-      ${(type === 'info' && theme.colors.info)
-        || (type === 'warning' && theme.colors.warning)
-        || (type === 'error' && theme.colors.error)
-        || (type === 'success' && theme.colors.success)};
+    background-color: ${theme.colors.white};
+    border: 1px solid ${theme.colors[type]};
   `;
 }
 
-function styligForClassic(type, transparent, border) {
+function stylingForClassic(type, transparent, border) {
   if (transparent) {
     return css`
       border: none;
@@ -47,7 +58,7 @@ function styligForClassic(type, transparent, border) {
   if (!border) {
     return css`
       border: none;
-      background-color: ${classicConfig[type].backgroundColor};
+      background-color: ${classicConfig.transparent.backgroundColor};
     `;
   }
 
@@ -56,6 +67,14 @@ function styligForClassic(type, transparent, border) {
     border: 1px solid ${classicConfig[type].borderColor};
   `;
 }
+
+MessageStyle.defaultProps = {
+  border: true,
+  as: 'info',
+  roundedCorners: true,
+  theme: BaseTheme,
+  transparent: false
+};
 
 MessageStyle.propTypes = {
   as: PropTypes.string,

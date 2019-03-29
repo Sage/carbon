@@ -5,10 +5,10 @@ const MessageContentStyle = styled.div`
   padding: 15px 20px;
   white-space: pre-wrap;
 
-  ${({ theme, type }) => theme.name === 'classic' && styligForClassic(type)}
+  ${({ theme, type }) => theme.name === 'classic' && stylingForClassic(type)}
 `;
 
-function styligForClassic(type) {
+function stylingForClassic(type) {
   return css`
     .carbon-content__title {
       color: ${classicConfig[type].color};

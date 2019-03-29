@@ -1,5 +1,8 @@
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import classicConfig from './message-classic-config.style';
+import BaseTheme from '../../style/themes/base';
+import { THEMES } from '../../style/themes';
 
 const CloseIconContainerStyle = styled.div`
   align-items: center;
@@ -8,9 +11,7 @@ const CloseIconContainerStyle = styled.div`
   justify-content: center;
   text-align: center;
   width: 45px;
-
-  ${({ theme, type }) => theme.name === 'classic' && stylingForClassic(type)}
-  ${({ theme, type }) => theme.name !== 'classic' && stylingForType(type, theme)}
+  ${addProperStyles}
 
   span {
     cursor: pointer;
@@ -21,6 +22,12 @@ const CloseIconContainerStyle = styled.div`
   }
 `;
 
+function addProperStyles(props) {
+  const { theme, type } = props;
+  if (theme.name === THEMES.classic) return stylingForClassic(type);
+  return stylingForType(type, theme);
+}
+
 function stylingForClassic(type) {
   return css`
     color: ${classicConfig[type].color};
@@ -29,11 +36,22 @@ function stylingForClassic(type) {
 
 function stylingForType(type, theme) {
   return css`
-    color: ${(type === 'info' && theme.colors.info)
-      || (type === 'warning' && theme.colors.warning)
-      || (type === 'error' && theme.colors.error)
-      || (type === 'success' && theme.colors.success)};
+    color: ${theme.colors[type]};
   `;
 }
+
+CloseIconContainerStyle.defaultProps = {
+  as: 'info',
+  roundedCorners: true,
+  theme: BaseTheme,
+  transparent: false
+};
+
+CloseIconContainerStyle.propTypes = {
+  as: PropTypes.string,
+  border: PropTypes.bool,
+  roundedCorners: PropTypes.bool,
+  transparent: PropTypes.bool
+};
 
 export default CloseIconContainerStyle;
