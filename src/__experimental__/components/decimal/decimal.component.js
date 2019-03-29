@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Textbox from '../textbox';
 import I18nHelper from '../../../utils/helpers/i18n';
@@ -8,6 +8,9 @@ class Decimal extends React.Component {
   state = {
     input: null
   }
+
+  // For tests
+  document = document;
 
   formatValue = () => {
     const { value } = this.props;
@@ -87,7 +90,7 @@ class Decimal extends React.Component {
       />
     );
   }
-};
+}
 
 Decimal.propTypes = {
   /**
