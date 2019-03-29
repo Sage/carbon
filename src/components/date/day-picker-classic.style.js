@@ -11,10 +11,11 @@ export default ({ theme }) => theme.name === THEMES.classic && css`
     background-color: ${theme.colors.white};
     color: rgba(0, 0, 0, .85);
     font-weight: 600;
+    font-size: 14px;
   }
 
   .DayPicker-Day {
-    width: 14.28571%;
+    min-width: auto;
     border-color: ${theme.colors.white};
     border-style: solid;
     border-width: 0 3px 3px 3px;
@@ -26,19 +27,8 @@ export default ({ theme }) => theme.name === THEMES.classic && css`
     }
   }
 
-  .DayPicker-Day--disabled, .DayPicker-Day--disabled:hover {
-    background-color: ${theme.colors.white};
-    cursor: default;
-  }
-
-  .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-    background-color: ${theme.colors.blue};
-    color: ${theme.colors.white};
-    font-weight: 700;
-  }
-
   .DayPicker-Day--outside {
-    color: ${theme.disabled.disabled};
+    color: ${theme.colors.greyDarkBlue50};
 
     &:hover {
       background-color: ${theme.disabled.input};
@@ -53,5 +43,17 @@ export default ({ theme }) => theme.name === THEMES.classic && css`
 
   .DayPicker-Day--disabled, .DayPicker-Day--disabled:hover {
     color: ${theme.disabled.disabled};
+    background-color: ${theme.colors.white};
+    cursor: default;
+  }
+
+  .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+    color: ${theme.colors.white};
+    background-color: ${theme.colors.blue};
+    font-weight: 700;
+  }
+
+  .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
+    background-color: ${theme.colors.blue};
   }
 `;

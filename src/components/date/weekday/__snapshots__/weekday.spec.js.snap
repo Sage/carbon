@@ -4,21 +4,23 @@ exports[`Weekday classic theme applies custom styling 1`] = `
 .c0,
 .c0.DayPicker-Weekday {
   border: none;
-  padding: 10px 12px;
-  width: 40px;
+  min-width: 40px;
   font-weight: 800;
-  color: #668592;
+  color: #668491;
   text-transform: uppercase;
   font-size: 12px;
   text-align: center;
-  background-color: #fff;
+  padding: 20px 0 5px;
+  background-color: #FFFFFF;
   color: rgba(0,0,0,.6);
   font-size: 14px;
   font-weight: 700;
   text-transform: capitalize;
-  border-color: #fff;
+  border-color: #FFFFFF;
   border-style: solid;
   border-width: 0 3px 3px 3px;
+  min-width: auto;
+  padding: 10px 12px;
 }
 
 .c1 {
@@ -42,13 +44,13 @@ exports[`Weekday renders presentational div and context provider for its childre
 .c0,
 .c0.DayPicker-Weekday {
   border: none;
-  padding: 10px 12px;
-  width: 40px;
+  min-width: 40px;
   font-weight: 800;
-  color: #668592;
+  color: #668491;
   text-transform: uppercase;
   font-size: 12px;
   text-align: center;
+  padding: 20px 0 5px;
 }
 
 .c1 {

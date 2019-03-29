@@ -2,14 +2,14 @@
 
 exports[`Date DayPickerStyle classic theme applies custom styling 1`] = `
 .c0 {
-  background-color: #fff;
+  background-color: #FFFFFF;
   box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
-  color: rgba(0,0,0,0.9);
+  color: #255bc7;
   display: block;
   font-size: 14px;
   font-weight: 800;
   overflow: hidden;
-  padding: 32px;
+  padding: 24px;
   position: absolute;
   text-align: center;
   -webkit-user-select: none;
@@ -19,6 +19,7 @@ exports[`Date DayPickerStyle classic theme applies custom styling 1`] = `
   font-weight: 700;
   padding: 10px;
   font-weight: 600;
+  color: #255bc7;
 }
 
 .c0 * {
@@ -48,8 +49,8 @@ exports[`Date DayPickerStyle classic theme applies custom styling 1`] = `
 }
 
 .c0 .DayPicker-Caption {
-  height: 40px;
   line-height: 40px;
+  height: 40px;
   font-size: 16px;
   font-weight: 800;
 }
@@ -60,16 +61,17 @@ exports[`Date DayPickerStyle classic theme applies custom styling 1`] = `
 }
 
 .c0 .DayPicker-Day {
-  background-color: #fff;
+  min-width: 40px;
+  background-color: #FFFFFF;
   cursor: pointer;
-  padding: 10px;
   border: none;
   font-weight: 800;
+  padding: 10px 0;
 }
 
 .c0 .DayPicker-Day:hover {
-  background-color: #F2F5F6;
-  color: rgba(0,0,0,0.9);
+  background-color: #1e499f;
+  color: #255bc7;
 }
 
 .c0 .DayPicker-Day +* {
@@ -81,51 +83,46 @@ exports[`Date DayPickerStyle classic theme applies custom styling 1`] = `
   text-decoration: none;
 }
 
-.c0 .DayPicker-Day {
-  padding: 10px 12px;
-  width: 40px;
-}
-
 .c0 .DayPicker-Day--today,
 .c0 .DayPicker-Day--today.DayPicker-Day--outside {
   font-weight: 800;
-}
-
-.c0 .DayPicker-Day--today {
-  color: rgba(0,0,0,0.9);
-  background-color: #ccd6db;
+  color: #255bc7;
+  background-color: #4d7080;
 }
 
 .c0 .DayPicker-Day--outside {
-  color: rgba(0,0,0,0.55);
-}
-
-.c0 .DayPicker-Day--outside {
-  background-color: #fff;
+  color: #b3c2c8;
+  background-color: $#FFFFFF;
 }
 
 .c0 .DayPicker-Day--disabled,
 .c0 .DayPicker-Day--disabled:hover {
-  background-color: #fff;
+  color: #b3c2c8;
+  background-color: #FFFFFF;
   cursor: default;
 }
 
 .c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
   background-color: #00805D;
-  color: #fff;
+  color: #FFFFFF;
   font-weight: 800;
 }
 
+.c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
+  background-color: #00805D;
+  color: #FFFFFF;
+}
+
 .c0 .DayPicker-Caption {
-  background-color: #fff;
+  background-color: #FFFFFF;
   color: rgba(0,0,0,.85);
   font-weight: 600;
+  font-size: 14px;
 }
 
 .c0 .DayPicker-Day {
-  color: #255bc7;
-  width: 14.28571%;
-  border-color: #fff;
+  min-width: auto;
+  border-color: #FFFFFF;
   border-style: solid;
   border-width: 0 3px 3px 3px;
   font-weight: 600;
@@ -133,19 +130,7 @@ exports[`Date DayPickerStyle classic theme applies custom styling 1`] = `
 
 .c0 .DayPicker-Day:hover {
   background-color: #1e499f;
-  color: #fff;
-}
-
-.c0 .DayPicker-Day--disabled,
-.c0 .DayPicker-Day--disabled:hover {
-  background-color: #fff;
-  cursor: default;
-}
-
-.c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: #255bc7;
-  color: #fff;
-  font-weight: 700;
+  color: #FFFFFF;
 }
 
 .c0 .DayPicker-Day--outside {
@@ -153,19 +138,31 @@ exports[`Date DayPickerStyle classic theme applies custom styling 1`] = `
 }
 
 .c0 .DayPicker-Day--outside:hover {
-  background-color: #004b87;
-  color: #fff;
+  background-color: #1e499f;
+  color: #FFFFFF;
 }
 
 .c0 .DayPicker-Day--today,
 .c0 .DayPicker-Day--today.DayPicker-Day--outside {
   background-color: #4d7080;
-  color: #fff;
+  color: #FFFFFF;
 }
 
 .c0 .DayPicker-Day--disabled,
 .c0 .DayPicker-Day--disabled:hover {
   color: #b3c2c8;
+  background-color: #FFFFFF;
+  cursor: default;
+}
+
+.c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+  color: #FFFFFF;
+  background-color: #255BC7;
+  font-weight: 700;
+}
+
+.c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
+  background-color: #255BC7;
 }
 
 <div
@@ -666,7 +663,7 @@ exports[`Date DayPickerStyle classic theme applies custom styling 1`] = `
             aria-disabled={false}
             aria-label="Thu Mar 28 2019"
             aria-selected={false}
-            className="DayPicker-Day DayPicker-Day--today"
+            className="DayPicker-Day"
             onClick={[Function]}
             onKeyDown={[Function]}
             role="gridcell"
@@ -678,7 +675,7 @@ exports[`Date DayPickerStyle classic theme applies custom styling 1`] = `
             aria-disabled={false}
             aria-label="Fri Mar 29 2019"
             aria-selected={false}
-            className="DayPicker-Day"
+            className="DayPicker-Day DayPicker-Day--today"
             onClick={[Function]}
             onKeyDown={[Function]}
             role="gridcell"
@@ -748,14 +745,14 @@ exports[`Date DayPickerStyle classic theme applies custom styling 1`] = `
 
 exports[`Date DayPickerStyle renders presentational div and context provider for its children 1`] = `
 .c0 {
-  background-color: #fff;
+  background-color: #FFFFFF;
   box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
   color: rgba(0,0,0,0.9);
   display: block;
   font-size: 14px;
   font-weight: 800;
   overflow: hidden;
-  padding: 32px;
+  padding: 24px;
   position: absolute;
   text-align: center;
   -webkit-user-select: none;
@@ -791,8 +788,8 @@ exports[`Date DayPickerStyle renders presentational div and context provider for
 }
 
 .c0 .DayPicker-Caption {
-  height: 40px;
   line-height: 40px;
+  height: 40px;
   font-size: 16px;
   font-weight: 800;
 }
@@ -803,15 +800,16 @@ exports[`Date DayPickerStyle renders presentational div and context provider for
 }
 
 .c0 .DayPicker-Day {
-  background-color: #fff;
+  min-width: 40px;
+  background-color: #FFFFFF;
   cursor: pointer;
-  padding: 10px;
   border: none;
   font-weight: 800;
+  padding: 10px 0;
 }
 
 .c0 .DayPicker-Day:hover {
-  background-color: #F2F5F6;
+  background-color: #F2F4F5;
   color: rgba(0,0,0,0.9);
 }
 
@@ -824,39 +822,34 @@ exports[`Date DayPickerStyle renders presentational div and context provider for
   text-decoration: none;
 }
 
-.c0 .DayPicker-Day {
-  padding: 10px 12px;
-  width: 40px;
-}
-
 .c0 .DayPicker-Day--today,
 .c0 .DayPicker-Day--today.DayPicker-Day--outside {
   font-weight: 800;
-}
-
-.c0 .DayPicker-Day--today {
   color: rgba(0,0,0,0.9);
-  background-color: #ccd6db;
+  background-color: #CCD6DA;
 }
 
 .c0 .DayPicker-Day--outside {
   color: rgba(0,0,0,0.55);
-}
-
-.c0 .DayPicker-Day--outside {
-  background-color: #fff;
+  background-color: $#FFFFFF;
 }
 
 .c0 .DayPicker-Day--disabled,
 .c0 .DayPicker-Day--disabled:hover {
-  background-color: #fff;
+  color: rgba(0,0,0,0.55);
+  background-color: #FFFFFF;
   cursor: default;
 }
 
 .c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
   background-color: #26A826;
-  color: #fff;
+  color: #FFFFFF;
   font-weight: 800;
+}
+
+.c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
+  background-color: #26A826;
+  color: #FFFFFF;
 }
 
 <div
@@ -1357,7 +1350,7 @@ exports[`Date DayPickerStyle renders presentational div and context provider for
             aria-disabled={false}
             aria-label="Thu Mar 28 2019"
             aria-selected={false}
-            className="DayPicker-Day DayPicker-Day--today"
+            className="DayPicker-Day"
             onClick={[Function]}
             onKeyDown={[Function]}
             role="gridcell"
@@ -1369,7 +1362,7 @@ exports[`Date DayPickerStyle renders presentational div and context provider for
             aria-disabled={false}
             aria-label="Fri Mar 29 2019"
             aria-selected={false}
-            className="DayPicker-Day"
+            className="DayPicker-Day DayPicker-Day--today"
             onClick={[Function]}
             onKeyDown={[Function]}
             role="gridcell"

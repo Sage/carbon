@@ -12,7 +12,8 @@ export default (palette) => {
         tertiary: palette.productGreenShade(61),
 
         // generic
-        blue: '#255BC7'
+        blue: '#255BC7',
+        greyDarkBlue50: '#8099a4'
       },
 
       text: {

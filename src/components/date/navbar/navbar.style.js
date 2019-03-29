@@ -8,6 +8,7 @@ const StyledNavbar = styled(Navbar)`
   justify-content: space-between;
   padding: 0;
   top: 0;
+  height: 40px;
 }
 `;
 

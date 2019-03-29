@@ -5,13 +5,13 @@ import weekdayClassicStyle from './weekday-classic.style';
 const WeekdayStyle = styled.div`
 &, &.DayPicker-Weekday {
   border: none;
-  width: 40px;
+  min-width: 40px;
   font-weight: 800;
   color: ${({ theme }) => theme.colors.border};
   text-transform: uppercase;
   font-size: 12px;
   text-align: center;
-  padding: 0;
+  padding: 20px 0 5px;
 
   ${weekdayClassicStyle}
 }`;
