@@ -12,7 +12,7 @@ const dialogSizes = {
 
 const DialogStyle = styled.div`
   background-color: ${({ theme }) => theme.disabled.background};
-  box-shadow: $shadow-depth-3;
+  box-shadow: ${({ theme }) => theme.shadows.depth3};
   position: fixed;
   top: 50%;
 
