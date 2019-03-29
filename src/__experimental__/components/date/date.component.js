@@ -1,19 +1,15 @@
 import React from 'react';
 import I18n from 'i18n-js';
 import PropTypes from 'prop-types';
-import DayPicker from 'react-day-picker';
-import LocaleUtils from 'react-day-picker/moment';
 import 'react-day-picker/lib/style.css';
 import 'components/date/date.scss';
-import Portal from 'components/portal';
-import Browser from 'utils/helpers/browser';
 import Events from 'utils/helpers/events';
 import DateHelper from 'utils/helpers/date';
 import DateValidator from 'utils/validations/date';
 import chainFunctions from 'utils/helpers/chain-functions';
 import { validProps } from 'utils/ether';
 import tagComponent from 'utils/helpers/tags';
-import Navbar from 'components/date/navbar/navbar';
+import DatePicker from './datePicker.component';
 import Textbox from '../textbox';
 
 /**
@@ -64,7 +60,7 @@ class Date extends React.Component {
   static defaultProps = {
     value: today,
     internalValidations: [new DateValidator()]
-  }
+  };
 
   /**
    * Stores the document - allows us to override it different contexts, such as
@@ -75,7 +71,7 @@ class Date extends React.Component {
    */
   _document = document;
 
-  blurBlocked = false // stops the blur callback from triggering (closing the list) when we don't want it to
+  blurBlocked = false; // stops the blur callback from triggering (closing the list) when we don't want it to
 
   state = {
     /** Sets open state of the datepicker */
@@ -84,16 +80,7 @@ class Date extends React.Component {
     datePickerValue: null,
     /** Sets the default value of the decimal field */
     visibleValue: this.formatVisibleValue(this.props.value)
-  }
-
-  /**
-   * Sets the hidden format
-   */
-
-  constructor(args) {
-    super(args);
-    this.window = Browser.getWindow();
-  }
+  };
 
   /**
    * Manually focus if autoFocus is applied - allows us to prevent the list from opening.
@@ -136,7 +123,9 @@ class Date extends React.Component {
     }
   }
 
-  assignInput = (input) => { this._input = input.current; }
+  assignInput = (input) => {
+    this._input = input.current;
+  };
 
   blockBlur() {
     this.blurBlocked = true;
@@ -154,7 +143,7 @@ class Date extends React.Component {
     if (this.props.onBlur) {
       this.props.onBlur(ev);
     }
-  }
+  };
 
   /**
    *  Checks that the datepicker selected value has changed
@@ -165,7 +154,11 @@ class Date extends React.Component {
    */
   datePickerValueChanged = (prevProps) => {
     return this.blurBlocked && this.props.value && prevProps.value !== this.props.value;
-  }
+  };
+
+  updateDatePickerValue = (newValue) => {
+    this.setState({ datePickerValue: DateHelper.stringToDate(newValue) });
+  };
 
   /**
    * Opens the date picker.
@@ -179,11 +172,9 @@ class Date extends React.Component {
     this.setState({ open: true });
 
     if (DateHelper.isValidDate(this.props.value)) {
-      this.setState({
-        datePickerValue: DateHelper.stringToDate(this.props.value)
-      });
+      this.updateDatePickerValue(this.props.value);
     }
-  }
+  };
 
   /**
    * Closes the date picker.
@@ -196,7 +187,7 @@ class Date extends React.Component {
     this.setState({
       open: false
     });
-  }
+  };
 
   /**
    * Updates field with the formatted date value.
@@ -207,11 +198,11 @@ class Date extends React.Component {
   updateVisibleValue = (val) => {
     const date = this.formatVisibleValue(val);
     this.emitOnChangeCallback({ target: { value: date } });
-  }
+  };
 
   emitOnChangeCallback = (ev) => {
     this.props.onChange(ev);
-  }
+  };
 
   /**
    * Handles user input and updates date picker appropriately.
@@ -231,42 +222,11 @@ class Date extends React.Component {
       const dateObject = DateHelper.stringToDate(formattedValue);
 
       newState.datePickerValue = dateObject;
-
-      if (this.datepicker && this.monthOrYearHasChanged(dateObject)) {
-        this.datepicker.showMonth(dateObject);
-      }
     }
 
     this.emitOnChangeCallback(ev);
     this.setState(newState);
-  }
-
-  /**
-   * Determines if the new date's month or year has changed from the currently selected.
-   *
-   * @method monthOrYearHasChanged
-   * @param {Date}
-   * @return {Boolean}
-   */
-  monthOrYearHasChanged = (newDate) => {
-    const currentDate = this.datepicker.state.currentMonth;
-
-    return (
-      (currentDate.getMonth() !== newDate.getMonth())
-      || (currentDate.getYear() !== newDate.getYear())
-    );
-  }
-
-  /**
-   * Prevents propagation so date picker does not close on click inside the widget.
-   *
-   * @method handleWidgetClick
-   * @param {Object} ev event
-   * @return {void}
-   */
-  handleWidgetClick = (ev) => {
-    ev.nativeEvent.stopImmediatePropagation();
-  }
+  };
 
   /**
    * Sets the value of the input from the date picker.
@@ -280,7 +240,7 @@ class Date extends React.Component {
     this.blockBlur();
     this.closeDatePicker();
     this.updateVisibleValue(val);
-  }
+  };
 
   /**
    * Opens the datepicker on focus
@@ -294,7 +254,7 @@ class Date extends React.Component {
     } else {
       this.openDatePicker();
     }
-  }
+  };
 
   /**
    * Handles specific key down events
@@ -347,122 +307,20 @@ class Date extends React.Component {
     return 'carbon-date__input';
   }
 
-  /**
-  * Returns the disabled array of days specified by props maxDate and minDate
-  *
-  * @method disabledDays
-  * @return {Array}
-  */
-  disabledDays() {
-    if (!this.props.minDate && !this.props.maxDate) { return null; }
-    const days = [];
-    if (this.props.minDate) {
-      days.push({ before: DateHelper.stringToDate(this.props.minDate) });
-    }
-    if (this.props.maxDate) {
-      days.push({ after: DateHelper.stringToDate(this.props.maxDate) });
-    }
-    return days;
-  }
-
-  /**
-   * Updates the containerStyle state
-   *
-   * @method updateDatePickerPosition
-   * @return {Void}
-   */
-  updateDatePickerPosition = () => {
-    this.setState({ containerStyle: this.containerStyle });
-  }
-
-  /**
-   * Returns the bounding rect for the input
-   *
-   * @method getInputBoundingRect
-   * @return {Object}
-   */
-  getInputBoundingRect() {
-    return this._input.getBoundingClientRect();
-  }
-
-  /**
-   * Returns the style for the DayPicker container
-   *
-   * @method containerStyle
-   * @return {Object}
-   */
-  get containerStyle() {
-    const inputRect = this.getInputBoundingRect();
-    const offsetY = window.pageYOffset;
-    return {
-      left: inputRect.left,
-      top: inputRect.bottom + offsetY
-    };
-  }
-
-  /**
-   * Returns the props for the DayPicker container
-   *
-   * @method containerProps
-   * @return {Object}
-   */
-  get containerProps() {
-    return {
-      style: this.state.containerStyle,
-      onClick: this.handleWidgetClick
-    };
-  }
-
-  /**
-  * A getter that returns datepicker specific props
-  *
-  * @method datePickerProps
-  * @return {Object}
-  */
   get datePickerProps() {
-    let date = this.state.datePickerValue;
-
-    if (!date) {
-      date = this.props.value;
-    }
-
     return {
-      disabledDays: this.disabledDays(),
-      enableOutsideDays: true,
-      fixedWeeks: true,
-      initialMonth: this.state.datePickerValue || DateHelper.stringToDate(date),
-      inline: true,
-      locale: I18n.locale,
-      localeUtils: LocaleUtils,
-      navbarElement: <Navbar />,
-      onDayClick: this.handleDateSelect,
-      ref: (component) => { this.datepicker = component; },
-      selectedDays: [this.state.datePickerValue]
+      open: this.state.open,
+      input: this._input,
+      datePickerValue: this.state.datePickerValue
     };
   }
 
   /**
-   * Returns the DayPicker component
+   * Formats the visible date using i18n
    *
-   * @method renderDatePicker
-   * @return {Object} JSX
+   * @method visibleFormat
+   * @return {String} formatted date string
    */
-  renderDatePicker() {
-    return (
-      this.state.open && (
-        <Portal onReposition={ this.updateDatePickerPosition }>
-          <DayPicker { ...this.datePickerProps } containerProps={ this.containerProps } />
-        </Portal>
-      )
-    );
-  }
-
-  /**
-  * Formats the visible date using i18n
-  *
-  * @method visibleFormat
-  * @return {String} formatted date string
-  */
   visibleFormat() {
     return I18n.t('date.formats.javascript', { defaultValue: 'DD/MM/YYYY' }).toUpperCase();
   }
@@ -476,11 +334,10 @@ class Date extends React.Component {
    */
   formatVisibleValue(value) {
     // Don't sanitize so it accepts the hidden format (with dash separators)
-    return DateHelper.formatValue(
-      value || today,
-      this.visibleFormat(),
-      { formats: this.hiddenInputDateFormat, sanitize: false }
-    );
+    return DateHelper.formatValue(value || today, this.visibleFormat(), {
+      formats: this.hiddenInputDateFormat,
+      sanitize: false
+    });
   }
 
   /**
@@ -490,13 +347,13 @@ class Date extends React.Component {
    * @return {Object} JSX
    */
   render() {
-    const isComponentActive = (!this.props.disabled && !this.props.readOnly);
+    const isComponentActive = !this.props.disabled && !this.props.readOnly;
     let events = {};
 
     if (isComponentActive) {
       events = {
         onBlur: this.handleBlur,
-        onChange: this.handleVisibleInputChange,
+        //onChange: this.handleVisibleInputChange,
         onFocus: chainFunctions(this.handleFocus, this.props.onFocus),
         onKeyDown: this.handleKeyDown,
         onClick: this.handleWidgetClick
@@ -512,7 +369,7 @@ class Date extends React.Component {
         { ...tagComponent('date', this.props) }
         { ...events }
       >
-        { this.renderDatePicker() }
+        {this.state.open && <DatePicker { ...this.datePickerProps } />}
       </Textbox>
     );
   }
