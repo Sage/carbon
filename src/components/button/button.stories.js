@@ -12,15 +12,15 @@ const defaultKnobs = () => {
   const size = select('size', OptionsHelper.sizesRestricted, OptionsHelper.sizesRestricted[1]);
 
   return {
-    as: select('as', OptionsHelper.themesBinary, OptionsHelper.themesBinary[1]),
+    as: select('as', OptionsHelper.themesBinary, Button.defaultProps.as),
     children: text('children', 'Example Button'),
-    disabled: boolean('disabled', false),
-    iconPosition: select('iconPosition', [...OptionsHelper.buttonIconPositions, ''], ''),
-    iconType: select('iconType', [...OptionsHelper.icons, ''], ''),
+    disabled: boolean('disabled', Button.defaultProps.disabled),
+    iconPosition: select('iconPosition', [...OptionsHelper.buttonIconPositions, ''], Button.defaultProps.iconPosition),
+    iconType: select('iconType', [...OptionsHelper.icons, ''], Button.defaultProps.iconType),
     onClick: ev => action('click')(ev),
     size,
-    subtext: size === OptionsHelper.sizesRestricted[2] ? text('subtext', '') : undefined,
-    theme: select('theme', OptionsHelper.buttonColors, OptionsHelper.buttonColors[0]),
+    subtext: size === OptionsHelper.sizesRestricted[2] ? text('subtext', Button.defaultProps.subtext) : undefined,
+    theme: select('theme', OptionsHelper.buttonColors, Button.defaultProps.theme),
     to: text('to'),
     href: text('href')
   };
