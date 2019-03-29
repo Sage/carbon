@@ -1,4 +1,12 @@
-import { asSelect, themeSelect, sizeSelect, subtextInput, heightInput, childrenTextArea, labelInput, labelHelpInput } from "../../locators/commonLocators";
+import { visitComponentUrl } from "../helper";
+import {
+  asSelect, themeSelect, sizeSelect, subtextInput, dialogSubtitle, titleInput,
+  heightInput, childrenTextArea, labelInput, dialogTitle, commonButtonPreview
+} from "../../locators/commonLocators";
+
+Given('I open {string} component page', (component) => {
+  visitComponentUrl(component)
+})
 
 When('I set children to {string}', (text) => {
   childrenTextArea().clear().type(text);
@@ -34,4 +42,24 @@ When('I check open checkbox', () => {
 
 When('I set label to {string}', (label) => {
   labelInput().clear().type(label)
+})
+
+When('I open component preview', () => {
+  commonButtonPreview().click()
+})
+
+When('I set title to {string}', (title) => {
+  titleInput().clear().type(title)
+})
+
+Then('component title on preview is {string}', (title) => {
+  dialogTitle().should('have.text', title)
+})
+
+Then('component subtitle on preview is {string}', (subtitle) => {
+  dialogSubtitle().should('have.text', subtitle)
+})
+
+When('I open component preview', () => {
+  commonButtonPreview().click()
 })

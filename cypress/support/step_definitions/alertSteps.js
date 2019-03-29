@@ -1,48 +1,16 @@
+import { closeIconButton, alertChildren, showCloseIconCheckbox, dialogPreview } from "../../locators/alertLocators"
 import {
-  titleInput, openAlertButton, alertTitle, alertDialog, closeIconButton, backgroundBlocker,
-  enableBackgroundUICheckbox, disableEscKeyCheckbox, subtitleInput, alertSubtitle, alertChildren, showCloseIconCheckbox
-} from "../../locators/alertLocators";
+  enableBackgroundUICheckbox, disableEscKeyCheckbox, subtitleInput, backgroundBlocker
+} from "../../locators/commonLocators"
 
-const CARBON_DIALOG_PREFIX = 'carbon-dialog__dialog--';
-
-Given('I open Alert component page', () => {
-  cy.visit(Cypress.env('alert_component_url'))
-})
-
-Then('Alert dialog is visible', () => {
-  alertDialog().should('be.visible')
-})
+const CARBON_DIALOG_PREFIX = 'carbon-dialog__dialog--'
 
 When('I click close icon', () => {
   closeIconButton().click();
 })
 
-Then('Alert dialog is not visible', () => {
-  alertDialog().should('not.exist')
-})
-
-When('I set title to {string}', (title) => {
-  titleInput().clear().type(title)
-})
-
 When('I set subtitle to {string}', (subtitle) => {
   subtitleInput().clear().type(subtitle)
-})
-
-Then('Alert subtitle on preview is {string}', (subtitle) => {
-  alertSubtitle().should('have.text', subtitle)
-})
-
-When('I open Alert preview', () => {
-  openAlertButton().click()
-})
-
-Then('Alert title on preview is {string}', (title) => {
-  alertTitle().should('have.text', title)
-})
-
-Then('Alert children on preview is {string}', (children) => {
-  alertChildren().should('have.text', children)
 })
 
 When('I check enableBackgroundUI', () => {
@@ -70,15 +38,15 @@ When('I uncheck disableEscKey', () => {
 })
 
 When('I hit ESC key', () => {
-  alertDialog().type('{esc}')
+  dialogPreview().type('{esc}')
 })
 
 Then('Alert dialog height is set to {string}', (height) => {
-  alertDialog().should('have.attr', 'style').should('contain', `min-height: ${height}px`)
+  dialogPreview().should('have.attr', 'style').should('contain', `min-height: ${height}px`)
 })
 
 Then('Alert dialog height is NOT set to {string}', (height) => {
-  alertDialog().should('have.attr', 'style').should('not.contain', `min-height: ${height}px`)
+  dialogPreview().should('have.attr', 'style').should('not.contain', `min-height: ${height}px`)
 })
 
 When('I enable showCloseIcon', () => {
@@ -102,5 +70,17 @@ Then('CloseIcon is not visible', () => {
 })
 
 Then('Alert size property on preview is {string}', (size) => {
-  alertDialog().should('have.class', CARBON_DIALOG_PREFIX + size)
+  dialogPreview().should('have.class', CARBON_DIALOG_PREFIX + size)
 });
+
+Then('Alert children on preview is {string}', (children) => {
+  alertChildren().should('have.text', children)
+})
+
+Then('dialog is visible', () => {
+  dialogPreview().should('be.visible')
+})
+
+Then('dialog is not visible', () => {
+  dialogPreview().should('not.exist')
+})

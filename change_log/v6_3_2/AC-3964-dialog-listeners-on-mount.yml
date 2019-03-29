@@ -1,0 +1,1 @@
+Bug Fixes: "AC-3964 - Fixes event listeners from not being set up correctly on dialog mount."

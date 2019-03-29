@@ -1,1 +1,6 @@
-export function iget(doc, selector) { return cy.wrap(doc.find(selector)); }
+import { knobsTab } from "../locators/commonLocators";
+
+export function visitComponentUrl(url) {
+    cy.visit(Cypress.env(url))
+    knobsTab().click()
+}

@@ -5,10 +5,6 @@ import {
 
 const CLASS_PREFIX = 'carbon-animated-menu-button--';
 
-Given('I open Animated Menu Button component page', () => {
-  cy.visit(Cypress.env('animated_menu_button'));
-})
-
 When('I set direction to {string}', (direction) => {
   animatedMenuButtonDirectionSelect().select(direction)
 })
@@ -22,6 +18,7 @@ Then('Animated Menu Button label on preview is {string}', (text) => {
 })
 
 Then('Animated Menu Button direction on preview is {string}', (direction) => {
+  cy.wait(300) //required because of storybook slow detach attach
   animatedMenuButtonPreview().should('have.class', CLASS_PREFIX + direction)
 })
 
