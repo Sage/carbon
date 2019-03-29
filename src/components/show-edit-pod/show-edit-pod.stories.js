@@ -47,7 +47,6 @@ storiesOf('ShowEditPod', module)
       const cancel = boolean('cancel', ShowEditPod.defaultProps.cancel);
       const cancelText = cancel ? text('cancelText', 'Cancel') : undefined;
       const deleteText = text('deleteText', 'Delete');
-      const editing = boolean('editing', store.get('editing'));
       const saveText = text('saveText', 'Save');
       const saving = boolean('saving', ShowEditPod.defaultProps.saving);
       const title = text('title', 'Person');
@@ -77,7 +76,6 @@ storiesOf('ShowEditPod', module)
             cancel={ cancel }
             cancelText={ cancelText }
             deleteText={ deleteText }
-            editing={ editing }
             onDelete={ onDelete }
             onCancel={ onCancel }
             onEdit={ onEdit }

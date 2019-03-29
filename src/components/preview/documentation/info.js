@@ -9,6 +9,13 @@ const info = (
 
     <p>Import the component:</p>
     <StoryCode padded>import Preview from {'"react-carbon/lib/components/preview"'}</StoryCode>
+    <p>
+      You can set the custom height for the preview line by setting <StoryCode padded>height</StoryCode> prop (e.g.
+      20px).
+    </p>
+    <p>
+      You can also set the width of the component by setting <StoryCode padded>width</StoryCode> prop (e.g. 50%).
+    </p>
   </div>
 );
 
