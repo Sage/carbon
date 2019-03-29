@@ -35,7 +35,8 @@ export default (palette) => {
     disabled: {
       border: palette.slateTint(80),
       disabled: blackWithOpacity(0.55),
-      input: palette.slateTint(95)
+      input: palette.slateTint(95),
+      background: palette.slateTint(95)
     }
   };
 };

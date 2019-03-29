@@ -11,7 +11,7 @@ const dialogSizes = {
 };
 
 const DialogStyle = styled.div`
-  background-color: $slate-tint-95;
+  background-color: ${({ theme }) => theme.disabled.background};
   box-shadow: $shadow-depth-3;
   position: fixed;
   top: 50%;
