@@ -4,16 +4,25 @@ import Textbox from '../textbox';
 import I18nHelper from '../../../utils/helpers/i18n';
 import Logger from '../../../utils/logger';
 
-const Decimal = (props) => {
-  const [input, setInput] = useState(null);
+class Decimal extends React.Component {
+  state = {
+    input: null
+  }
 
-  function formatValue() {
-    const { value } = props;
-    // Only format value if input is not active
+  formatValue = () => {
+    const { value } = this.props;
+    const { input } = this.state;
+
+    // Return unformatted value if component has not mounted
+    if (!input) {
+      return value;
+    }
+    // Return unformatted value if input is being used
     if (input && document.activeElement === input.current) {
       return value;
     }
 
+    // Only format value if input is not active
     // Strip delimiters otherwise formatDecimal Helper goes nuts
     const format = I18nHelper.format();
     const delimiter = `\\${format.delimiter}`;
@@ -22,12 +31,12 @@ const Decimal = (props) => {
 
     return I18nHelper.formatDecimal(
       noDelimiters,
-      validatePrecision()
+      this.validatePrecision()
     );
   }
 
-  function validatePrecision() {
-    const { precision } = props;
+  validatePrecision = () => {
+    const { precision } = this.props;
 
     if (precision > 15) {
       Logger.warn('Precision cannot be greater than 15');
@@ -37,8 +46,8 @@ const Decimal = (props) => {
     return precision;
   }
 
-  function testValue(value) {
-    const { precision } = props;
+  testValue = (value) => {
+    const { precision } = this.props;
     const format = I18nHelper.format();
     const delimiter = `\\${format.delimiter}`;
     const seperator = `\\${format.separator}`;
@@ -47,13 +56,13 @@ const Decimal = (props) => {
     return isGoodDecimal.test(value);
   }
 
-  function onChange (evt) {
+  onChange = (evt) => {
     const { target } = evt;
     const { value, selectionEnd } = evt.target;
-    const isValid = testValue(value);
+    const isValid = this.testValue(value);
 
     if (isValid) {
-      props.onChange(evt);
+      this.props.onChange(evt);
 
       setTimeout(() => {
         target.setSelectionRange(selectionEnd, selectionEnd);
@@ -61,21 +70,23 @@ const Decimal = (props) => {
     }
   }
 
-  function onBlur (evt) {
+  onBlur = (evt) => {
     // Call onChange to force decimal formattting
     // Alternative is to store input value in state.
-    onChange(evt);
+    this.onChange(evt);
   }
 
-  return (
-    <Textbox
-      { ...props }
-      onChange={ onChange }
-      onBlur={ onBlur }
-      value={ formatValue() }
-      inputRef={ (inputRef) => { setInput(inputRef); } }
-    />
-  );
+  render() {
+    return (
+      <Textbox
+        { ...this.props }
+        onChange={ this.onChange }
+        onBlur={ this.onBlur }
+        value={ this.formatValue() }
+        inputRef={ (input) => { this.setState({ input }); } }
+      />
+    );
+  }
 };
 
 Decimal.propTypes = {
