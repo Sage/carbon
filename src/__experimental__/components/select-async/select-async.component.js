@@ -100,6 +100,9 @@ class SelectAsync extends React.Component {
         page,
         items_per_page: itemsPerPage,
         search
+      },
+      headers: {
+        Accept: 'application/json'
       }
     };
 

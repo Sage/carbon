@@ -26,6 +26,9 @@ const validRequest = ({ search, page, extra }) => ({
     page,
     search
   },
+  headers: {
+    Accept: 'application/json'
+  },
   ...extra
 });
 const mockResponse = (response) => {
