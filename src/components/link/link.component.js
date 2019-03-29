@@ -114,18 +114,31 @@ class Link extends React.Component {
 }
 
 Link.propTypes = {
+  /** Child content to render in the link. */
   children: PropTypes.node,
+  /** Classes to apply to the component. */
   className: PropTypes.string,
+  /** The disabled state of the link. */
   disabled: PropTypes.bool,
+  /** An href for an anchor tag. */
   href: PropTypes.string,
+  /** An icon to display next to the link. */
   icon: PropTypes.string,
+  /** Which side of the link to the render the link. */
   iconAlign: PropTypes.string,
+  /** Function called when the mouse is clicked. */
   onClick: PropTypes.func,
+  /** Function called when a key is pressed. */
   onKeyDown: PropTypes.func,
+  /** Whether to include the link in the tab order of the page */
   tabbable: PropTypes.bool,
+  /** Using `to` instead of `href` will create a React Router link rather than a web href. */
   to: PropTypes.string,
+  /** A message to display as a tooltip to the link. */
   tooltipMessage: PropTypes.string,
+  /** Positions the tooltip with the link. */
   tooltipPosition: PropTypes.string,
+  /** Aligns the tooltip. */
   tooltipAlign: PropTypes.string
 };
 
