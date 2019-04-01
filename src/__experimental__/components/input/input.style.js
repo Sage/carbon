@@ -9,7 +9,7 @@ const StyledInput = styled.input`
   flex-grow: 1;
   font-size: ${({ theme }) => theme.text.size};
   outline: none;
-  width: 100%;
+  width: 30px;
   
   ${({ align }) => align && css`
     text-align: ${align};

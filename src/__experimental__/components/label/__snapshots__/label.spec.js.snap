@@ -12,7 +12,6 @@ exports[`Label renders the label 1`] = `
 <label
   className="c0"
   data-element="label"
-  width={30}
 >
   Name:
 </label>
