@@ -5,15 +5,14 @@ import I18nHelper from '../../../utils/helpers/i18n';
 import Logger from '../../../utils/logger';
 
 class Decimal extends React.Component {
-
   input = null;
-  
+
   // Create ref to document for tests
   _document = document;
 
   formatValue = () => {
     const { value } = this.props;
-    const input = this.input;
+    const { input } = this;
 
     // Return unformatted value if component has not mounted
     if (!input) {
@@ -89,7 +88,7 @@ class Decimal extends React.Component {
       />
     );
   }
-};
+}
 
 Decimal.propTypes = {
   /**

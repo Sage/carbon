@@ -64,31 +64,29 @@ describe('Decimal', () => {
       const instance = renderIntoDocument({ value: '1234567.00' });
       expect(instance.formatValue()).toEqual('1,234,567.00');
     });
-    
+
     it('updates the value after increasing the precison', () => {
       const instance = renderIntoDocument({ value: '99.99', precision: 4 });
       expect(instance.formatValue()).toEqual('99.9900');
     });
-    
+
     it('updates the value after decreasing the precison', () => {
-      const instance = renderIntoDocument({ value: '234.1234567' precision: 4 });
+      const instance = renderIntoDocument({ value: '234.1234567', precision: 4 });
       expect(instance.formatValue()).toEqual('234.1235');
     });
-    
+
     it('does not allow the precison to be greater than 15', () => {
-      const instance = renderIntoDocument({ value: '4.1234' precision: 20 });
+      const instance = renderIntoDocument({ value: '4.1234', precision: 20 });
       expect(instance.formatValue()).toEqual('4.123400000000000');
     });
-    
+
     it('does not format number if input is active', () => {
-      const instance = TestUtils.renderIntoDocument(
-        <Decimal value='1234567.00' />
-      );
+      const instance = renderIntoDocument({ value: '1234567.00' });
       instance._document = {
         activeElement: instance.input.current
       };
       expect(instance.formatValue()).toEqual('1234567.00');
-    }); 
+    });
   });
   describe('Input handling', () => {
     it('calls setSelection after updating input', async () => {
