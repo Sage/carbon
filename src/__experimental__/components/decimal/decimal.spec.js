@@ -52,7 +52,7 @@ describe('Decimal', () => {
 
     it('does not allow the user to enter letters or special characters', () => {
       const wrapper = render({ value: '12.34' });
-      wrapper.instance().onChange({ target: { value: '1hello$1.27' } });
+      wrapper.instance().onChange({ target: { value: '1!@£$%^&*()#_+=}{|":;\<>?qwertyuiopasd\'fghjklzxcvbnm1.27' } });
       assertCorrectTextboxVal(wrapper, '12.34');
     });
 
