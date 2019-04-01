@@ -158,8 +158,6 @@ class Dialog extends Modal {
     return classNames(
       'carbon-dialog__dialog',
       {
-        // [`carbon-dialog__dialog--${this.props.size}`]: typeof this.props.size !== 'undefined',
-        // 'carbon-dialog__dialog--fixed-bottom': this.appliedFixedBottom,
         'carbon-dialog__dialog--has-height': this.props.height,
         'carbon-dialog__dialog--sticky-form-footer': this.props.stickyFormFooter
       }
