@@ -27,8 +27,8 @@ class Decimal extends React.Component {
     // Strip delimiters otherwise formatDecimal Helper goes nuts
     const format = I18nHelper.format();
     const delimiter = `\\${format.delimiter}`;
-    const removeDelimiter = new RegExp(`[${delimiter}]*`, 'g');
-    const noDelimiters = value.replace(removeDelimiter, '');
+    const delimiterMatcher = new RegExp(`[${delimiter}]*`, 'g');
+    const noDelimiters = value.replace(delimiterMatcher, '');
 
     return I18nHelper.formatDecimal(
       noDelimiters,
@@ -52,9 +52,9 @@ class Decimal extends React.Component {
     const format = I18nHelper.format();
     const delimiter = `\\${format.delimiter}`;
     const seperator = `\\${format.separator}`;
-    const isGoodDecimal = new RegExp(`^[\\d${delimiter}]*[${seperator}{1}]?\\d{0,${precision}}?$`);
+    const validDecimalMatcher = new RegExp(`^[\\d${delimiter}]*[${seperator}{1}]?\\d{0,${precision}}?$`);
 
-    return isGoodDecimal.test(value);
+    return validDecimalMatcher.test(value);
   }
 
   onChange = (evt) => {
