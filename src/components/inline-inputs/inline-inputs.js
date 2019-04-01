@@ -72,17 +72,11 @@ Label.defaultProps = {
 InlineInputs.propTypes = assign({}, {
   /**
    * Children elements
-   *
-   * @property children
-   * @type {Node}
    */
   children: PropTypes.node,
 
   /**
    * A custom class name for the component.
-   *
-   * @property className
-   * @type {String}
    */
   className: PropTypes.string
 }, Label.propTypes);

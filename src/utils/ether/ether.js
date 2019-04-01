@@ -85,11 +85,26 @@ function insertAt(value, options) {
 
   return result;
 }
+/**
+ * Filters out input events from the passed React props
+ *
+ * @param {Object} props
+ */
+function filterOutInputEvents(props) {
+  return omit(props, [
+    'onFocus',
+    'onBlur',
+    'onChange',
+    'onMouseDown',
+    'onMouseUp',
+    'onClick',
+    'onKeyDown',
+    'onKeyUp',
+    'onKeyPress',
+    'onChangeDeferred'
+  ]);
+}
 
 export {
-  acronymize,
-  append,
-  insertAt,
-  styleElement,
-  validProps
+  acronymize, append, insertAt, styleElement, validProps, filterOutInputEvents
 };

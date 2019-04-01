@@ -6,58 +6,25 @@ import Button from '../button';
 import SplitButton from '../split-button';
 import './multi-action-button.scss';
 
-/**
- * A MultiActionButton widget.
- *
- * == How to use a MultiActionButton in a component:
- *
- * In your file
- *
- *   import MultiActionButton from 'carbon-react/lib/components/multi-action-button';
- *
- * To render a MultiActionButton (developer can add any buttons to dropdown):
- *
- *   <MultiActionButton text="Main Text">
- *     <Button onClick="buttonClickHandler1">Button name 1</Button>
- *     <Button onClick="buttonClickHandler2">Button name 2</Button>
- *   </MultiActionButton>
- *
- * @class MultiActionButton
- * @constructor
- */
 class MultiActionButton extends SplitButton {
   static propTypes = {
     /**
      * Customizes the appearance, can be set to 'primary', 'secondary' or 'transparent'.
-     *
-     * @property as
-     * @type {String}
-     * @default 'secondary'
      */
     as: PropTypes.string,
 
     /**
      * The text to be displayed in the SplitButton.
-     *
-     * @property text
-     * @type {String}
      */
     text: PropTypes.string.isRequired,
 
     /**
      * Gives the button a disabled state.
-     *
-     * @property boolean
-     * @type {Boolean}
-     * @default false
      */
     disabled: PropTypes.bool,
 
     /**
      * Aligns the button's options, can be set to `right`.
-     *
-     * @property align
-     * @type {String}
      */
     align: PropTypes.string
   }

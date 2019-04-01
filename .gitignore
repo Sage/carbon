@@ -13,3 +13,5 @@ deploy/docs
 yarn.lock
 lib
 src/style-config/assets.scss
+cypress/fixtures/
+cypress/screenshots

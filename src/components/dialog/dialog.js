@@ -35,17 +35,11 @@ class Dialog extends Modal {
   static propTypes = assign({}, Modal.propTypes, {
     /**
      * Allows developers to specify a specific height for the dialog.
-     *
-     * @property height
-     * @type {String}
      */
     height: PropTypes.string,
 
     /**
      * Title displayed at top of dialog
-     *
-     * @property title
-     * @type {Object}
      */
     title: PropTypes.oneOfType([
       PropTypes.string,
@@ -54,37 +48,22 @@ class Dialog extends Modal {
 
     /**
      * Subtitle displayed at top of dialog
-     *
-     * @property subtitle
-     * @type {String}
      */
     subtitle: PropTypes.string,
 
     /**
      * Size of dialog, default size is 750px
-     *
-     * @property size
-     * @type {String}
-     * @default med
      */
     size: PropTypes.string,
 
     /**
      * Determines if the close icon is shown
-     *
-     * @property showCloseIcon
-     * @type {Boolean}
-     * @default true
      */
     showCloseIcon: PropTypes.bool,
 
     /**
      * If true then the dialog receives focus
      * when it opens
-     *
-     * @property autoFocus
-     * @type {Boolean}
-     * @default false
      */
     autoFocus: PropTypes.bool,
 

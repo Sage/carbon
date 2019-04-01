@@ -5,7 +5,10 @@ exports[`Row columnClasses passes the prop to its children 1`] = `
   className="carbon-row carbon-row--gutter-medium carbon-row--columns-1"
 >
   <Column
+    columnAlign="left"
     columnClasses="myChildClasses"
+    columnOffset="0"
+    columnSpan="1"
     key=".0"
   />
 </div>
@@ -16,7 +19,10 @@ exports[`Row columnDivide when columnDivide is true passes columnDivide to its c
   className="carbon-row carbon-row--gutter-medium carbon-row--columns-1"
 >
   <Column
+    columnAlign="left"
     columnDivide={true}
+    columnOffset="0"
+    columnSpan="1"
     key=".0"
   />
 </div>
@@ -27,9 +33,15 @@ exports[`Row columns when a null column is passed ignores the null child 1`] = `
   className="carbon-row carbon-row--gutter-medium carbon-row--columns-2"
 >
   <Column
+    columnAlign="left"
+    columnOffset="0"
+    columnSpan="1"
     key=".$0"
   />
   <Column
+    columnAlign="left"
+    columnOffset="0"
+    columnSpan="1"
     key=".$1"
   />
 </div>
@@ -40,15 +52,27 @@ exports[`Row columns when column number is not passed determines the columns fro
   className="carbon-row carbon-row--gutter-medium carbon-row--columns-4"
 >
   <Column
+    columnAlign="left"
+    columnOffset="0"
+    columnSpan="1"
     key=".0"
   />
   <Column
+    columnAlign="left"
+    columnOffset="0"
+    columnSpan="1"
     key=".1"
   />
   <Column
+    columnAlign="left"
+    columnOffset="0"
+    columnSpan="1"
     key=".2"
   />
   <Column
+    columnAlign="left"
+    columnOffset="0"
+    columnSpan="1"
     key=".3"
   />
 </div>
@@ -59,6 +83,9 @@ exports[`Row columns when column number is passed sets the passed column as the 
   className="carbon-row carbon-row--gutter-medium carbon-row--columns-50"
 >
   <Column
+    columnAlign="left"
+    columnOffset="0"
+    columnSpan="1"
     key=".0"
   />
 </div>

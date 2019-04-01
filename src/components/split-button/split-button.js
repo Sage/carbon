@@ -6,82 +6,40 @@ import Button from '../button';
 import { validProps } from '../../utils/ether';
 import './split-button.scss';
 
-/**
- * A SplitButton widget.
- *
- * == How to use a SplitButton in a component:
- *
- * In your file
- *
- *   import SplitButton from 'react-carbon/lib/components/split-button';
- *
- * To render a SplitButton (developer can add any buttons to dropdown):
- *
- *   <SplitButton text="Main Button" onClick={clickHandler}>
- *     <Button onClick="buttonClickHandler1">Button name 1</Button>
- *     <Button onClick="buttonClickHandler2">Button name 2</Button>
- *   </SplitButton>
- *
- * @class SplitButton
- * @constructor
- */
 class SplitButton extends React.Component {
   static propTypes = {
     /**
      * Customizes the appearance, can be set to 'primary' or 'secondary'.
-     *
-     * @property as
-     * @type {String}
-     * @default 'secondary'
      */
     as: PropTypes.string,
 
     /**
      * A custom value for the data-element attribute
-     *
-     * @property data-element
-     * @type {String}
      */
     'data-element': PropTypes.string,
 
     /**
      * A custom value for the data-element attribute
-     *
-     * @property data-role
-     * @type {String}
      */
     'data-role': PropTypes.string,
 
     /**
      * The additional button to display.
-     *
-     * @property children
-     * @type {Multiple}
      */
     children: PropTypes.node.isRequired,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Gives the button a disabled state.
-     *
-     * @property boolean
-     * @type {Boolean}
-     * @default false
      */
     disabled: PropTypes.bool,
 
     /**
      * The text to be displayed in the SplitButton.
-     *
-     * @property text
-     * @type {String}
      */
     text: PropTypes.string.isRequired
   }
@@ -101,18 +59,12 @@ class SplitButton extends React.Component {
   state = {
     /**
      * Tracks whether the additional buttons should be visible.
-     *
-     * @property showAdditionalButtons
-     * @type {Boolean}
-     * @default false
      */
     showAdditionalButtons: false
   }
 
   /**
    * Shows the additional buttons.
-   *
-   * @method showButtons
    */
   showButtons = () => {
     this.setState({ showAdditionalButtons: true });
@@ -120,8 +72,6 @@ class SplitButton extends React.Component {
 
   /**
    * Hides additional buttons.
-   *
-   * @method hideButtons
    */
   hideButtons = () => {
     this.setState({ showAdditionalButtons: false });
@@ -129,9 +79,6 @@ class SplitButton extends React.Component {
 
   /**
    * Returns classes for the component.
-   *
-   * @method mainClasses
-   * @return {String} Main className
    */
   get mainClasses() {
     return classNames(
@@ -145,9 +92,6 @@ class SplitButton extends React.Component {
 
   /**
    * Returns classes for the additional actions.
-   *
-   * @method mainClasses
-   * @return {String} Main className
    */
   get additionalButtonsClasses() {
     return classNames(
@@ -160,9 +104,6 @@ class SplitButton extends React.Component {
 
   /**
    * Returns classes for toggle button.
-   *
-   * @method mainClasses
-   * @return {String} Main className
    */
   get toggleButtonClasses() {
     return 'carbon-split-button__toggle';
@@ -170,9 +111,6 @@ class SplitButton extends React.Component {
 
   /**
    * Returns props for the main button.
-   *
-   * @method mainButtonProps
-   * @return {Object}
    */
   get mainButtonProps() {
     const { ...props } = validProps(this);
@@ -183,9 +121,6 @@ class SplitButton extends React.Component {
 
   /**
    * Returns props for the toggle.
-   *
-   * @method toggleButtonProps
-   * @return {Object}
    */
   get toggleButtonProps() {
     const opts = {
@@ -204,9 +139,6 @@ class SplitButton extends React.Component {
 
   /**
    * Returns the data tags for the component.
-   *
-   * @method componentTags
-   * @return {Object}
    */
   componentTags() {
     return {
@@ -218,9 +150,6 @@ class SplitButton extends React.Component {
 
   /**
    * Returns the HTML for the main button.
-   *
-   * @method renderMainButton
-   * @return {Object}
    */
   get renderMainButton() {
     return (
@@ -238,9 +167,6 @@ class SplitButton extends React.Component {
 
   /**
    * Returns the HTML for the additional buttons.
-   *
-   * @method renderAdditionalButtons
-   * @return {Object}
    */
   get renderAdditionalButtons() {
     return (
@@ -250,10 +176,6 @@ class SplitButton extends React.Component {
     );
   }
 
-  /**
-   * @method render
-   * @return {Object}
-   */
   render() {
     return (
       <div
