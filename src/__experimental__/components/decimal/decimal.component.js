@@ -47,7 +47,7 @@ class Decimal extends React.Component {
     return precision;
   }
 
-  testValue = (value) => {
+  isValidDecimal = (value) => {
     const { precision } = this.props;
     const format = I18nHelper.format();
     const delimiter = `\\${format.delimiter}`;
@@ -60,7 +60,7 @@ class Decimal extends React.Component {
   onChange = (evt) => {
     const { target } = evt;
     const { value, selectionEnd } = evt.target;
-    const isValid = this.testValue(value);
+    const isValid = this.isValidDecimal(value);
 
     if (isValid) {
       this.props.onChange(evt);
