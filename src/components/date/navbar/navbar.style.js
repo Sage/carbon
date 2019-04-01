@@ -4,7 +4,7 @@ import Navbar from './navbar';
 
 const StyledNavbar = styled(Navbar)`
 &.DayPicker-NavBar {
-  display: flexbox;
+  display: flex;
   justify-content: space-between;
   padding: 0;
   top: 0;
