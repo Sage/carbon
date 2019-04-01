@@ -23,7 +23,7 @@ exports[`InputIconToggle classic theme applies custom styling 1`] = `
   box-sizing: border-box;
   color: #003349;
   cursor: pointer;
-  margin-right: -6.5px;
+  margin-right: -5.5px;
   width: 31px;
 }
 

@@ -12,7 +12,7 @@ export default ({
   box-sizing: border-box;
   color: ${theme.colors.iconColor};
   cursor: pointer;
-  margin-right: -6.5px;
+  margin-right: -5.5px;
   width: ${type === 'dropdown' ? '20px' : '31px'};
 
   ${InputPresentationStyle}:hover &,
