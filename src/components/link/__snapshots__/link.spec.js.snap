@@ -15,7 +15,7 @@ exports[`Link renders as expected 1`] = `
 
 .c0 a:focus {
   color: rgba(0,0,0,0.9);
-  background-color: #FFB500;
+  background-color: #FFDA7F;
   outline: none;
 }
 
