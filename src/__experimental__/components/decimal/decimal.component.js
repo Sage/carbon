@@ -5,23 +5,22 @@ import I18nHelper from '../../../utils/helpers/i18n';
 import Logger from '../../../utils/logger';
 
 class Decimal extends React.Component {
-  state = {
-    input: null
-  }
 
-  // For tests
-  document = document;
+  input = null;
+  
+  // Create ref to document for tests
+  _document = document;
 
   formatValue = () => {
     const { value } = this.props;
-    const { input } = this.state;
+    const input = this.input;
 
     // Return unformatted value if component has not mounted
     if (!input) {
       return value;
     }
     // Return unformatted value if input is being used
-    if (input && document.activeElement === input.current) {
+    if (input && this._document.activeElement === input.current) {
       return value;
     }
 
@@ -86,11 +85,11 @@ class Decimal extends React.Component {
         onChange={ this.onChange }
         onBlur={ this.onBlur }
         value={ this.formatValue() }
-        inputRef={ (input) => { this.setState({ input }); } }
+        inputRef={ (input) => { this.input = input; } }
       />
     );
   }
-}
+};
 
 Decimal.propTypes = {
   /**
