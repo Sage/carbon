@@ -15,7 +15,7 @@ export default (palette) => {
         iconBorder: '#bfccd2',
         iconColor: palette.slate,
         iconColorAlt: '#fff',
-        iconHover: palette.lightBlue,
+        iconHover: '#1963f6',
         iconFocus: palette.navyBlue
       }
     }
