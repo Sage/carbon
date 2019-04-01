@@ -7,25 +7,25 @@ import InputStyle from '../input/input.style';
 export default ({
   theme, type
 }) => theme.name === THEMES.classic && css`
-  background-color: #e6ebed;
-  border-left: 1px solid #bfccd2;
+  background-color: ${theme.colors.iconBackground};
+  border-left: 1px solid ${theme.colors.iconBorder};
   box-sizing: border-box;
-  color: #003349;
+  color: ${theme.colors.iconColor};
   cursor: pointer;
   margin-right: -6.5px;
   width: ${type === 'dropdown' ? '20px' : '31px'};
 
   ${InputPresentationStyle}:hover &,
   ${LabelStyle}:hover + ${InputPresentationStyle} & {
-    background-color: ${theme.colors.hover};
-    border-color: ${theme.colors.hover};
-    color: #fff;
+    background-color: ${theme.colors.iconHover};
+    border-color: ${theme.colors.iconHover};
+    color: ${theme.colors.iconColorAlt};
   }
 
   ${InputStyle}:focus ~ &,
   ${InputPresentationStyle} &:hover {
-    background-color: ${theme.colors.focus};
-    border-color: ${theme.colors.focus};
-    color: #fff;
+    background-color: ${theme.colors.iconFocus};
+    border-color: ${theme.colors.iconFocus};
+    color: ${theme.colors.iconColorAlt};
   }
 `;
