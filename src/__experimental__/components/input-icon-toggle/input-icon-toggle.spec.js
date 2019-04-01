@@ -70,14 +70,14 @@ describe('InputIconToggle', () => {
 
   describe('classic theme', () => {
     const hoverStyles = {
-      backgroundColor: classicTheme.colors.hover,
-      borderColor: classicTheme.colors.hover,
+      backgroundColor: classicTheme.colors.iconHover,
+      borderColor: classicTheme.colors.iconHover,
       color: '#fff'
     };
 
     const focusStyles = {
-      backgroundColor: classicTheme.colors.focus,
-      borderColor: classicTheme.colors.focus,
+      backgroundColor: classicTheme.colors.iconFocus,
+      borderColor: classicTheme.colors.iconFocus,
       color: '#fff'
     };
 
