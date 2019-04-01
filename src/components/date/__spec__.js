@@ -653,12 +653,12 @@ describe('Date', () => {
     };
 
     it('renders presentational div and context provider for its children', () => {
-      expect(render({}, TestRenderer.create)).toMatchSnapshot();
+      expect(render({ value: '2019-04-01' }, TestRenderer.create)).toMatchSnapshot();
     });
 
     describe('classic theme', () => {
       it('applies custom styling', () => {
-        expect(render({ theme: classicTheme }, TestRenderer.create)).toMatchSnapshot();
+        expect(render({ theme: classicTheme, value: '2019-04-01' }, TestRenderer.create)).toMatchSnapshot();
       });
     });
   });
