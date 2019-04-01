@@ -1,0 +1,9 @@
+Improvements: "
+  Improvements to the Tooltip decorator
+
+  Allowing anyone who is interacting with a html element using the tooltip decorator to move their mouse from the element they are hovering over into the tooltip.
+
+  While the mouse is inside of the tooltip or the html element wrapped in the decorator, the tooltip will remain visible.
+
+  When moving the mouse out of the tooltip or the html element wrapped in the decorator, the tooltip will close.
+"
