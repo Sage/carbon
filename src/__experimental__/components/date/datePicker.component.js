@@ -11,11 +11,11 @@ import Portal from 'components/portal';
 const DatePicker = (props) => {
   const window = Browser.getWindow();
   const [containerPosition, updateDatePickerPosition] = useState(getContainerPosition(window, props.input));
-  const datepicker = useRef(null);
   const containerProps = {
     style: containerPosition,
     onClick: handleWidgetClick
   };
+  const datepicker = useRef(null);
 
   const datePickerProps = {
     disabledDays: getDisabledDays(props.minDate, props.maxDate),
@@ -32,7 +32,7 @@ const DatePicker = (props) => {
 
   useEffect(() => {
     if (props.datePickerValue && monthOrYearHasChanged(datepicker, props.datePickerValue)) {
-      datepicker.showMonth(props.datePickerValue);
+      datepicker.current.showMonth(props.datePickerValue);
     }
   });
 
@@ -51,7 +51,7 @@ DatePicker.propTypes = {
   minDate: PropTypes.string,
   /** Maximum possible date */
   maxDate: PropTypes.string,
-  input: PropTypes.element,
+  input: PropTypes.object,
   datePickerValue: PropTypes.object,
   handleDateSelect: PropTypes.func
 };
@@ -76,16 +76,20 @@ function monthOrYearHasChanged(datepicker, newDate) {
  * @return {Array}
  */
 function getDisabledDays(minDate, maxDate) {
+  const days = [];
+
   if (!minDate && !maxDate) {
     return null;
   }
-  const days = [];
+
   if (minDate) {
     days.push({ before: DateHelper.stringToDate(minDate) });
   }
+
   if (maxDate) {
     days.push({ after: DateHelper.stringToDate(maxDate) });
   }
+
   return days;
 }
 
