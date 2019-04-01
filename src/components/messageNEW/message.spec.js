@@ -1,61 +1,86 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import Message from './message.component';
 import 'jest-styled-components';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import classicTheme from '../../style/themes/classic';
-import classicConfig from './message-classic-config.style';
+import { shallow } from 'enzyme';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
+import MessageStyle from './message.style';
+import Message from './message.component';
+import classicTheme from '../../style/themes/classic';
 
-function render(props) {
-  return TestRenderer.create(<Message { ...props }>Message</Message>);
+function render(props, renderer = TestRenderer.create) {
+  return renderer(<MessageStyle { ...props }>Message</MessageStyle>);
 }
 
 describe('Message', () => {
   describe('when rendered', () => {
-    it('should match snapshot', () => {
-      expect(render()).toMatchSnapshot();
+    it('should match the snapshot', () => {
+      OptionsHelper.messages.forEach((messageType) => {
+        const wrapper = render({ type: messageType });
+        expect(wrapper.toJSON()).toMatchSnapshot();
+      });
+    });
+  });
+
+  describe('when onDismiss function is not provided', () => {
+    it('should not render the close icon', () => {
+      const wrapper = shallow(<Message onDismiss={ false }>Message</Message>);
+      expect(wrapper.children().length).toEqual(2);
+    });
+  });
+
+  describe('when onDismiss function is provided', () => {
+    it('should not render the close icon', () => {
+      const wrapper = shallow(<Message onDismiss>Message</Message>);
+      expect(wrapper.children().length).toEqual(3);
     });
   });
 
   describe('when roundedCorners prop is set to false', () => {
     it('should apply no border-radius style', () => {
-      const wrapper = render({
-        roundedCorners: false
-      });
-      assertStyleMatch(
-        {
-          borderRadius: 'none'
-        },
-        wrapper.toJSON()
-      );
+      const wrapper = render({ roundedCorners: false });
+      expect(wrapper.toJSON()).toMatchSnapshot();
     });
   });
 
   describe('when roundedCorners prop is not passed', () => {
     it('should apply proper border-radius style', () => {
-      const wrapper = render();
-      assertStyleMatch(
-        {
-          borderRadius: '3px'
-        },
-        wrapper.toJSON()
-      );
+      expect(render().toJSON()).toMatchSnapshot();
+    });
+  });
+
+  describe('when transparent prop is set to true', () => {
+    it('should render the message without the border', () => {
+      OptionsHelper.colors.forEach((messageType) => {
+        const wrapper = render({ transparent: true, type: messageType });
+        expect(wrapper.toJSON()).toMatchSnapshot();
+      });
     });
   });
 
   describe('when in classic mode', () => {
+    describe('when rendered', () => {
+      it('should match the snapshot', () => {
+        OptionsHelper.messages.forEach((messageType) => {
+          const wrapper = render({ theme: classicTheme, type: messageType });
+          expect(wrapper.toJSON()).toMatchSnapshot();
+        });
+      });
+    });
+
     describe('when transparent prop is set to true', () => {
-      OptionsHelper.colors.forEach((messageType) => {
-        it('should remove border and background color', () => {
+      it('should render the message without the border and background color', () => {
+        OptionsHelper.colors.forEach((messageType) => {
           const wrapper = render({ transparent: true, theme: classicTheme, type: messageType });
-          assertStyleMatch(
-            {
-              border: 'none',
-              backgroundColor: classicConfig.transparent.backgroundColor
-            },
-            wrapper.toJSON()
-          );
+          expect(wrapper.toJSON()).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('when border prop is set to false', () => {
+      it('should render the message without a border', () => {
+        OptionsHelper.colors.forEach((messageType) => {
+          const wrapper = render({ border: false, theme: classicTheme, type: messageType });
+          expect(wrapper.toJSON()).toMatchSnapshot();
         });
       });
     });

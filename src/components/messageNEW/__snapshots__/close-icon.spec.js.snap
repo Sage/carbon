@@ -1,6 +1,321 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`CloseIcon when rendered should match snapshot 1`] = `
+exports[`CloseIcon when in classic mode when rendered should match the snapshot 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  width: 45px;
+  color: #335c6d;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+<info
+  className="c0"
+  type="default"
+/>
+`;
+
+exports[`CloseIcon when in classic mode when rendered should match the snapshot 2`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  width: 45px;
+  color: #c7384f;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+<info
+  className="c0"
+  type="error"
+/>
+`;
+
+exports[`CloseIcon when in classic mode when rendered should match the snapshot 3`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  width: 45px;
+  color: #ffab00;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+<info
+  className="c0"
+  type="help"
+/>
+`;
+
+exports[`CloseIcon when in classic mode when rendered should match the snapshot 4`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  width: 45px;
+  color: #1573e6;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+<info
+  className="c0"
+  type="info"
+/>
+`;
+
+exports[`CloseIcon when in classic mode when rendered should match the snapshot 5`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  width: 45px;
+  color: #ff7d00;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+<info
+  className="c0"
+  type="maintenance"
+/>
+`;
+
+exports[`CloseIcon when in classic mode when rendered should match the snapshot 6`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  width: 45px;
+  color: #639;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+<info
+  className="c0"
+  type="new"
+/>
+`;
+
+exports[`CloseIcon when in classic mode when rendered should match the snapshot 7`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  width: 45px;
+  color: #50b848;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+<info
+  className="c0"
+  type="success"
+/>
+`;
+
+exports[`CloseIcon when in classic mode when rendered should match the snapshot 8`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  width: 45px;
+  color: #ff7d00;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+<info
+  className="c0"
+  type="warning"
+/>
+`;
+
+exports[`CloseIcon when rendered should match the snapshot 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  width: 45px;
+  color: #C7384F;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+<info
+  className="c0"
+  type="error"
+/>
+`;
+
+exports[`CloseIcon when rendered should match the snapshot 2`] = `
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -32,11 +347,118 @@ exports[`CloseIcon when rendered should match snapshot 1`] = `
 <info
   className="c0"
   type="info"
+/>
+`;
+
+exports[`CloseIcon when rendered should match the snapshot 3`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  width: 45px;
+  color: #00B000;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+<info
+  className="c0"
+  type="success"
+/>
+`;
+
+exports[`CloseIcon when rendered should match the snapshot 4`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  width: 45px;
+  color: #E96400;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+<info
+  className="c0"
+  type="warning"
+/>
+`;
+
+exports[`CloseIcon when rendered should render correctly 1`] = `
+<styled.div
+  as="info"
+  roundedCorners={true}
+  theme={
+    Object {
+      "colors": Object {
+        "border": "#668491",
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFB500",
+        "info": "#0077C8",
+        "primary": "#26A826",
+        "secondary": "#006300",
+        "success": "#00B000",
+        "tertiary": "#004400",
+        "warning": "#E96400",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "border": "#CCD6DA",
+        "disabled": "rgba(0,0,0,0.55)",
+        "input": "#F2F4F5",
+      },
+      "name": "base",
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+  transparent={false}
+  type="info"
 >
-  <span
-    className="carbon-icon icon-close"
-    data-component="icon"
-    data-element="close"
+  <Icon
+    bgSize="small"
+    data-element="dismiss"
+    type="close"
   />
-</info>
+</styled.div>
 `;

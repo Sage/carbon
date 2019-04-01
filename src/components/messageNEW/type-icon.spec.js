@@ -1,24 +1,56 @@
 import React from 'react';
-import { shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 import TypeIcon from './type-icon.component';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import TypeIconStyle from './type-icon.style';
 import 'jest-styled-components';
-import classicConfig from './message-classic-config.style';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
+import classicTheme from '../../style/themes/classic';
 
-function render(props) {
-  return shallow(<TypeIcon { ...props } />);
-}
-
-function renderStyle(props) {
-  return TestRenderer.create(<TypeIcon { ...props } />);
+function render(props, renderer = TestRenderer.create) {
+  return renderer(<TypeIconStyle { ...props } />);
 }
 
 describe('TypeIcon', () => {
   describe('when rendered', () => {
-    it('should match snapshot', () => {
-      expect(render()).toMatchSnapshot();
+    it('renders correctly', () => {
+      expect(shallow(<TypeIcon />)).toMatchSnapshot();
+    });
+
+    it('should match the snapshot', () => {
+      OptionsHelper.messages.forEach((messageType) => {
+        const wrapper = render({ type: messageType });
+        expect(wrapper.toJSON()).toMatchSnapshot();
+      });
+    });
+  });
+
+  describe('when transparent prop is set to true', () => {
+    it('applies white background and the type icon with the proper style applied', () => {
+      OptionsHelper.messages.forEach((messageType) => {
+        const wrapper = render({ transparent: true, type: messageType });
+        expect(wrapper.toJSON()).toMatchSnapshot();
+      });
+    });
+  });
+
+  describe('when in classic mode', () => {
+    describe('when rendered', () => {
+      it('should match the snapshot', () => {
+        OptionsHelper.colors.forEach((messageType) => {
+          const wrapper = render({ type: messageType, theme: classicTheme });
+          expect(wrapper.toJSON()).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('when transparent prop is set to true', () => {
+      it('applies white background and the type icon with the proper style applied', () => {
+        OptionsHelper.colors.forEach((messageType) => {
+          const wrapper = render({ transparent: true, type: messageType, theme: classicTheme });
+          expect(wrapper.toJSON()).toMatchSnapshot();
+        });
+      });
     });
   });
 });

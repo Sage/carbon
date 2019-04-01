@@ -1,6 +1,82 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MessageContent when rendered should match snapshot 1`] = `
+exports[` 1`] = `
+.c0 {
+  padding: 15px 20px;
+  white-space: pre-wrap;
+}
+
+.c0 .carbon-content__title {
+  color: #c7384f;
+}
+
+<div
+  className="c0"
+  title="Example title"
+  type="error"
+>
+  Message
+</div>
+`;
+
+exports[` 2`] = `
+.c0 {
+  padding: 15px 20px;
+  white-space: pre-wrap;
+}
+
+.c0 .carbon-content__title {
+  color: #1573e6;
+}
+
+<div
+  className="c0"
+  title="Example title"
+  type="info"
+>
+  Message
+</div>
+`;
+
+exports[` 3`] = `
+.c0 {
+  padding: 15px 20px;
+  white-space: pre-wrap;
+}
+
+.c0 .carbon-content__title {
+  color: #50b848;
+}
+
+<div
+  className="c0"
+  title="Example title"
+  type="success"
+>
+  Message
+</div>
+`;
+
+exports[` 4`] = `
+.c0 {
+  padding: 15px 20px;
+  white-space: pre-wrap;
+}
+
+.c0 .carbon-content__title {
+  color: #ff7d00;
+}
+
+<div
+  className="c0"
+  title="Example title"
+  type="warning"
+>
+  Message
+</div>
+`;
+
+exports[`MessageContent when rendered should render correctly 1`] = `
 <styled.div
   transparent={false}
   type="info"
