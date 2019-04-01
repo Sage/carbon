@@ -1,0 +1,3 @@
+Bug Fixes: |
+  Fixes issue that prevented html element events being passed to components by adding intersection types
+  to the definitons for any component that rneders an html input element
