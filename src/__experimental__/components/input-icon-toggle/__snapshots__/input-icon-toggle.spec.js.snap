@@ -29,8 +29,8 @@ exports[`InputIconToggle classic theme applies custom styling 1`] = `
 
 .c2:hover .c0,
 .sc-bwzfXH:hover + .c2 .c0 {
-  background-color: #1963F6;
-  border-color: #1963F6;
+  background-color: #1963f6;
+  border-color: #1963f6;
   color: #fff;
 }
 
