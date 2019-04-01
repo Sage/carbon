@@ -36,3 +36,84 @@ exports[`Link renders as expected 1`] = `
   </a>
 </div>
 `;
+
+exports[`Link should render as expected 1`] = `
+"
+  a{
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+  
+    &:hover{
+      cursor: pointer;
+      text-decoration: underline;
+    }
+  }"
+`;
+
+exports[`Link when component has classic theme should render correct style 1`] = `
+.c0 a {
+  font-size: 14px;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #26A826;
+}
+
+.c0 a:hover {
+  cursor: pointer;
+  color: #006300;
+}
+
+.c0 a:focus {
+  color: rgba(0,0,0,0.9);
+  background-color: #FFDA7F;
+  outline: none;
+}
+
+<div
+  className="c0"
+  disabled={false}
+>
+  <a
+    data-component="link"
+    onKeyDown={[Function]}
+    tabIndex="0"
+    theme={
+      Object {
+        "colors": Object {
+          "base": "#255BC7",
+          "border": "#668491",
+          "brand": "#00DC00",
+          "error": "#C7384F",
+          "focus": "#FFDA7F",
+          "info": "#0073C2",
+          "primary": "#255BC7",
+          "secondary": "#004B87",
+          "success": "#00B000",
+          "tertiary": "#9BC9E9",
+          "warning": "#FFB500",
+          "white": "#FFFFFF",
+        },
+        "disabled": Object {
+          "border": "#CCD6DA",
+          "disabled": "rgba(0,0,0,0.55)",
+          "input": "#F2F4F5",
+          "text": "#003349",
+        },
+        "name": "classic",
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.3)",
+          "size": "14px",
+        },
+      }
+    }
+  >
+    <span>
+      <span>
+        test
+      </span>
+    </span>
+  </a>
+</div>
+`;

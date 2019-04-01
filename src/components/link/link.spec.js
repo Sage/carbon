@@ -5,6 +5,8 @@ import TestRenderer from 'react-test-renderer';
 import { Link as RouterLink } from 'react-router';
 import Link from './link.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import classicTheme from '../../style/themes/classic';
+import LinkClassic from './link-classic.style';
 
 function renderLink(props, renderer = shallow) {
   return renderer(<Link { ...props }>Link Component</Link>);
@@ -23,6 +25,12 @@ describe('Link', () => {
 
   it('renders as expected', () => {
     expect(render()).toMatchSnapshot();
+  });
+
+  describe('when component has classic theme', () => {
+    it('should render correct style', () => {
+      expect(render({ theme: classicTheme })).toMatchSnapshot();
+    });
   });
 
   describe('when component received a `disabled` prop', () => {
@@ -119,5 +127,17 @@ describe('Link', () => {
         expect(onClickFn).not.toHaveBeenCalled();
       });
     });
+  });
+});
+
+describe('Link', () => {
+  let wrapper;
+
+  beforeEach(() => {
+    wrapper = TestRenderer.create(<LinkClassic theme={ { name: 'classic' } } />);
+  });
+
+  it('should render as expected', () => {
+    expect(wrapper).toMatchSnapshot();
   });
 });
