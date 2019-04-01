@@ -89,12 +89,12 @@ describe('Decimal', () => {
     });
   });
   describe('Input handling', () => {
-    it('calls setSelection after updating input', async () => {
+    it('calls setSelection after passing invalid value', async () => {
       const setSelectionMock = jest.fn();
       jest.useFakeTimers();
       const evt = {
         target: {
-          value: '123456.78',
+          value: '123s456.78',
           setSelectionRange: setSelectionMock,
           selectionEnd: 3
         }
@@ -102,7 +102,7 @@ describe('Decimal', () => {
       const input = render({ value: '1234567.00' });
       input.instance().onChange(evt);
       jest.runAllTimers();
-      expect(setSelectionMock).toHaveBeenCalledWith(3, 3);
+      expect(setSelectionMock).toHaveBeenCalledWith(2, 2);
     });
   });
 });
