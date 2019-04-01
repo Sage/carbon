@@ -64,9 +64,10 @@ class Decimal extends React.Component {
 
     if (isValid) {
       this.props.onChange(evt);
-
+    } else {
+      const newPosition = selectionEnd - 1;
       setTimeout(() => {
-        target.setSelectionRange(selectionEnd, selectionEnd);
+        target.setSelectionRange(newPosition, newPosition);
       });
     }
   }
