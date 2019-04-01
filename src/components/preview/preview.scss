@@ -1,5 +1,5 @@
-@import 'colors.scss';
-@import 'general';
+@import "./../../style-config/colors";
+@import "./../../style-config/general";
 
 .carbon-preview {
   animation: shimmer 2s ease infinite;
