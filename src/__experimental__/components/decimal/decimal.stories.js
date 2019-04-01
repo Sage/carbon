@@ -10,7 +10,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import notes from './documentation';
 
 const store = new Store({
-  value: '0.00'
+  value: Decimal.defaultProps.value
 });
 
 const setValue = (evt) => {

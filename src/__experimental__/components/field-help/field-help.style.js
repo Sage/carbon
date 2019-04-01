@@ -28,13 +28,12 @@ const FieldHelpStyle = styled.span`
 `;
 
 FieldHelpStyle.defaultProps = {
-  inputWidth: 30,
   labelWidth: 30,
   theme: BaseTheme
 };
 
 FieldHelpStyle.propTypes = {
-  inputWidth: PropTypes.number,
+  labelWidth: PropTypes.number,
   labelInline: PropTypes.bool
 };
 
