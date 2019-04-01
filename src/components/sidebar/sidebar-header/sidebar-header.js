@@ -4,54 +4,19 @@ import classNames from 'classnames';
 import tagComponent from '../../../utils/helpers/tags';
 import './sidebar-header.scss';
 
-/**
- * A Sidebar Header widget.
- *
- * Sidebar header can be used as a first child of the Sidebar component
- *
- * == How to use a Sidebar Header in a component:
- *
- * In your file
- *
- *   import { Sidebar, SidebarHeader } from 'carbon-react/lib/components/sidebar';
- *
- * To render the Sidebar Header:
- *
- *   <Sidebar
- *     onClose={ closeSidebar }
- *     open={ true }
- *   >
- *   <SidebarHeader />
- *   </Sidebar>
- *
- * @class SidebarHeader
- * @constructor
- */
 class SidebarHeader extends React.Component {
   static propTypes = {
-
     /**
-     * Required prop which will be the content
-     * of the sidebar header
-     *
-     * @property children
-     * @type {Multiple}
+     * This component supports children.
      */
     children: PropTypes.node,
 
     /**
-     * Custom className
+     * A custom class name.
      *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string
-  }
-
-  static defaultProps = {
-    children: null,
-    className: ''
-  }
+  };
 
   /**
    * Returns classes for the component.
