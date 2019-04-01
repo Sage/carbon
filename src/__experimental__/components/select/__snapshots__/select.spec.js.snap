@@ -121,6 +121,7 @@ Array [
       fill={false}
       onClick={null}
       onDelete={[Function]}
+      title="Orange"
     >
       Orange
     </Pill>
@@ -134,6 +135,7 @@ Array [
       fill={false}
       onClick={null}
       onDelete={[Function]}
+      title="Blue"
     >
       Blue
     </Pill>
@@ -147,6 +149,7 @@ Array [
       fill={false}
       onClick={null}
       onDelete={[Function]}
+      title="Red"
     >
       Red
     </Pill>
