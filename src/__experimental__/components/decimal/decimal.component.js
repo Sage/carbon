@@ -38,7 +38,7 @@ class Decimal extends React.Component {
 
   validatePrecision = () => {
     const {
-      precision
+      precision,
       maxPrecision
     } = this.props;
 

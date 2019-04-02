@@ -3,10 +3,10 @@ import { shallow, mount } from 'enzyme';
 import Decimal from './decimal.component';
 import Textbox from '../textbox/textbox.component';
 
-function render(props, render = shallow) {
+function render(props, renderType = shallow) {
   const onChange = props.onChange ? props.onChange : () => true;
 
-  return render(
+  return renderType(
     <Decimal
       onChange={ onChange }
       value={ props.value }
@@ -41,7 +41,7 @@ describe('Decimal', () => {
 
     it('does not allow the user to enter letters or special characters', () => {
       const wrapper = render({ value: '12.34' });
-      wrapper.instance().onChange({ target: { value: '1!@£$%^&*()#_+=}{|":;\<>?qwertyuiopasd\'fghjklzxcvbnm1.27' } });
+      wrapper.instance().onChange({ target: { value: '1!@£$%^&*()#_+=}{|":;<>?qwertyuiopasd\\\'fghjklzxcvbnm1.27' } });
       assertCorrectTextboxVal(wrapper, '12.34');
     });
 
