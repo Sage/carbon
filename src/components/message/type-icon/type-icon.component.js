@@ -1,16 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import TypeIconContainerStyle from './type-icon.style';
+import TypeIconStyle from './type-icon.style';
 import Icon from '../../icon/icon';
 
 const TypeIcon = ({ as, roundedCorners, transparent }) => {
   return (
-    <TypeIconContainerStyle
+    <TypeIconStyle
       type={ as } roundedCorners={ roundedCorners }
       transparent={ transparent }
     >
       <Icon type={ as } />
-    </TypeIconContainerStyle>
+    </TypeIconStyle>
   );
 };
 
@@ -21,7 +21,7 @@ TypeIcon.defaultProps = {
 };
 
 TypeIcon.propTypes = {
-  as: PropTypes.string,
+  as: PropTypes.oneOf(['error', 'success', 'info', 'warning']),
   roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool
 };

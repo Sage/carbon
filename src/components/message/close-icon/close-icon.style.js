@@ -4,7 +4,7 @@ import classicConfig from '../message-classic-config.style';
 import BaseTheme from '../../../style/themes/base';
 import { THEMES } from '../../../style/themes';
 
-const CloseIconContainerStyle = styled.div`
+const CloseIconStyle = styled.div`
   align-items: center;
   display: flex;
   margin-left: auto;
@@ -40,18 +40,18 @@ function stylingForType(type, theme) {
   `;
 }
 
-CloseIconContainerStyle.defaultProps = {
+CloseIconStyle.defaultProps = {
   as: 'info',
   roundedCorners: true,
   theme: BaseTheme,
   transparent: false
 };
 
-CloseIconContainerStyle.propTypes = {
-  as: PropTypes.string,
+CloseIconStyle.propTypes = {
+  as: PropTypes.oneOf(['error', 'success', 'info', 'warning']),
   border: PropTypes.bool,
   roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool
 };
 
-export default CloseIconContainerStyle;
+export default CloseIconStyle;

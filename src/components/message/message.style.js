@@ -51,7 +51,7 @@ function stylingForClassic(type, transparent, border) {
   if (transparent) {
     return css`
       border: none;
-      background-color: ${classicConfig.transparent.backgroundColor};
+      background-color: ${classicConfig.white};
     `;
   }
 

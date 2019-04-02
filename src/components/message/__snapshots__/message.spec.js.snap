@@ -340,7 +340,6 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   align-content: center;
   border-radius: 3px;
   border: none;
-  background-color: #FFFFFF;
 }
 
 <info
@@ -367,7 +366,6 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   align-content: center;
   border-radius: 3px;
   border: none;
-  background-color: #FFFFFF;
 }
 
 <info
@@ -394,7 +392,6 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   align-content: center;
   border-radius: 3px;
   border: none;
-  background-color: #FFFFFF;
 }
 
 <info
@@ -421,7 +418,6 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   align-content: center;
   border-radius: 3px;
   border: none;
-  background-color: #FFFFFF;
 }
 
 <info
@@ -448,7 +444,6 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   align-content: center;
   border-radius: 3px;
   border: none;
-  background-color: #FFFFFF;
 }
 
 <info
@@ -475,7 +470,6 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   align-content: center;
   border-radius: 3px;
   border: none;
-  background-color: #FFFFFF;
 }
 
 <info
@@ -502,7 +496,6 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   align-content: center;
   border-radius: 3px;
   border: none;
-  background-color: #FFFFFF;
 }
 
 <info
@@ -529,7 +522,6 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   align-content: center;
   border-radius: 3px;
   border: none;
-  background-color: #FFFFFF;
 }
 
 <info
@@ -637,7 +629,7 @@ exports[`Message when rendered should match the snapshot 4`] = `
   align-content: center;
   border-radius: 3px;
   background-color: #FFFFFF;
-  border: 1px solid;
+  border: 1px solid #E96400;
 }
 
 <info

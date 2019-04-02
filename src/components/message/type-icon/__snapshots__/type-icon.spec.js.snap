@@ -21,7 +21,7 @@ exports[`TypeIcon when in classic mode when rendered should match the snapshot 1
 }
 
 .c0 span:before {
-  color: #fff;
+  color: #FFFFFF;
 }
 
 <info
@@ -51,7 +51,7 @@ exports[`TypeIcon when in classic mode when rendered should match the snapshot 2
 }
 
 .c0 span:before {
-  color: #fff;
+  color: #FFFFFF;
 }
 
 <info
@@ -81,7 +81,7 @@ exports[`TypeIcon when in classic mode when rendered should match the snapshot 3
 }
 
 .c0 span:before {
-  color: #fff;
+  color: #FFFFFF;
 }
 
 <info
@@ -111,7 +111,7 @@ exports[`TypeIcon when in classic mode when rendered should match the snapshot 4
 }
 
 .c0 span:before {
-  color: #fff;
+  color: #FFFFFF;
 }
 
 <info
@@ -141,7 +141,7 @@ exports[`TypeIcon when in classic mode when rendered should match the snapshot 5
 }
 
 .c0 span:before {
-  color: #fff;
+  color: #FFFFFF;
 }
 
 <info
@@ -171,7 +171,7 @@ exports[`TypeIcon when in classic mode when rendered should match the snapshot 6
 }
 
 .c0 span:before {
-  color: #fff;
+  color: #FFFFFF;
 }
 
 <info
@@ -201,7 +201,7 @@ exports[`TypeIcon when in classic mode when rendered should match the snapshot 7
 }
 
 .c0 span:before {
-  color: #fff;
+  color: #FFFFFF;
 }
 
 <info
@@ -231,7 +231,7 @@ exports[`TypeIcon when in classic mode when rendered should match the snapshot 8
 }
 
 .c0 span:before {
-  color: #fff;
+  color: #FFFFFF;
 }
 
 <info
@@ -257,7 +257,7 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #fff;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -287,7 +287,7 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #fff;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -317,7 +317,7 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #fff;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -347,7 +347,7 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #fff;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -377,7 +377,7 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #fff;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -407,7 +407,7 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #fff;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -437,7 +437,7 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #fff;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -467,7 +467,7 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #fff;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -496,7 +496,7 @@ exports[`TypeIcon when rendered renders correctly 1`] = `
         "secondary": "#006300",
         "success": "#00B000",
         "tertiary": "#004400",
-        "warning": undefined,
+        "warning": "#E96400",
         "white": "#FFFFFF",
       },
       "disabled": Object {
@@ -629,6 +629,7 @@ exports[`TypeIcon when rendered should match the snapshot 4`] = `
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
+  background-color: #E96400;
 }
 
 .c0 span:before {
@@ -658,11 +659,11 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #fff;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
-  color: #c7384f;
+  color: #C7384F;
 }
 
 <info
@@ -688,11 +689,11 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #fff;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
-  color: #1573e6;
+  color: #0073C2;
 }
 
 <info
@@ -718,11 +719,11 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #fff;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
-  color: #50b848;
+  color: #00B000;
 }
 
 <info
@@ -748,11 +749,11 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #fff;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
-  color: #ff7d00;
+  color: #E96400;
 }
 
 <info

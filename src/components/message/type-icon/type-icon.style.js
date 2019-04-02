@@ -4,7 +4,7 @@ import classicConfig from '../message-classic-config.style';
 import BaseTheme from '../../../style/themes/base';
 import { THEMES } from '../../../style/themes';
 
-const TypeIconContainerStyle = styled.div`
+const TypeIconStyle = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
@@ -23,7 +23,7 @@ const TypeIconContainerStyle = styled.div`
 function stylingForClassic(type, transparent) {
   if (transparent) {
     return css`
-      background-color: #fff;
+      background-color: ${classicConfig.transparent.white};
       span {
         &:before {
           color: ${classicConfig[type].color};
@@ -36,7 +36,7 @@ function stylingForClassic(type, transparent) {
     background-color: ${classicConfig[type].color};
     span {
       &:before {
-        color: #fff;
+        color: ${classicConfig.transparent.white};
       }
     }
   `;
@@ -45,10 +45,10 @@ function stylingForClassic(type, transparent) {
 function stylingForType(type, theme, transparent) {
   if (transparent) {
     return css`
-      background-color: #fff;
+      background-color: ${theme.colors.white};
       span {
         &:before {
-          color: ${classicConfig[type].color};
+          color: ${theme.colors[type]};
         }
       }
     `;
@@ -65,18 +65,18 @@ function stylingForType(type, theme, transparent) {
   `;
 }
 
-TypeIconContainerStyle.defaultProps = {
+TypeIconStyle.defaultProps = {
   as: 'info',
   roundedCorners: true,
   theme: BaseTheme,
   transparent: false
 };
 
-TypeIconContainerStyle.propTypes = {
-  as: PropTypes.string,
+TypeIconStyle.propTypes = {
+  as: PropTypes.oneOf(['error', 'success', 'info', 'warning']),
   border: PropTypes.bool,
   roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool
 };
 
-export default TypeIconContainerStyle;
+export default TypeIconStyle;
