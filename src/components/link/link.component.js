@@ -106,7 +106,9 @@ class Link extends React.Component {
 
   render() {
     return (
-      <LinkStyle disabled={ this.props.disabled }>
+      <LinkStyle
+        data-component='link' disabled={ this.props.disabled }
+      >
         {this.renderLink()}
       </LinkStyle>
     );

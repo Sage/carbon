@@ -80,7 +80,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                       >
                         <Form
                           additionalActions={
-                            <_Link
+                            <Link
                               as="error"
                               className="carbon-show-edit-pod__delete"
                               iconAlign="left"
@@ -88,7 +88,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                               tabbable={true}
                             >
                               Delete
-                            </_Link>
+                            </Link>
                           }
                           afterFormValidation={[Function]}
                           beforeFormValidation={[Function]}
@@ -179,31 +179,192 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                   <div
                                     className="carbon-form__additional-actions"
                                   >
-                                    <_Link
+                                    <Link
                                       as="error"
                                       className="carbon-show-edit-pod__delete"
                                       iconAlign="left"
                                       onClick={[Function]}
                                       tabbable={true}
                                     >
-                                      <a
-                                        as="error"
-                                        className="carbon-link__anchor carbon-show-edit-pod__delete"
+                                      <styled.div
                                         data-component="link"
-                                        href={null}
-                                        onClick={[Function]}
-                                        onKeyDown={[Function]}
-                                        tabIndex="0"
+                                        disabled={false}
+                                        theme={
+                                          Object {
+                                            "colors": Object {
+                                              "border": "#668491",
+                                              "brand": "#00DC00",
+                                              "error": "#C7384F",
+                                              "focus": "#FFDA7F",
+                                              "info": "#0073C2",
+                                              "primary": "#26A826",
+                                              "secondary": "#006300",
+                                              "success": "#00B000",
+                                              "tertiary": "#004400",
+                                              "warning": "#FFB500",
+                                              "white": "#FFFFFF",
+                                            },
+                                            "disabled": Object {
+                                              "border": "#CCD6DA",
+                                              "disabled": "rgba(0,0,0,0.55)",
+                                              "input": "#F2F4F5",
+                                              "text": "rgba(0,0,0,0.3)",
+                                            },
+                                            "name": "base",
+                                            "text": Object {
+                                              "color": "rgba(0,0,0,0.9)",
+                                              "placeholder": "rgba(0,0,0,0.3)",
+                                              "size": "14px",
+                                            },
+                                          }
+                                        }
                                       >
-                                        <span>
-                                          <span
-                                            className="carbon-link__content"
+                                        <StyledComponent
+                                          data-component="link"
+                                          disabled={false}
+                                          forwardedComponent={
+                                            Object {
+                                              "$$typeof": Symbol(react.forward_ref),
+                                              "attrs": Array [],
+                                              "componentStyle": ComponentStyle {
+                                                "componentId": "sc-bdVaJa",
+                                                "isStatic": false,
+                                                "lastClassName": "dCBiUO",
+                                                "rules": Array [
+                                                  "
+display: inline;
+a {
+  font-size: 14px;
+  text-decoration: underline;
+  color: ",
+                                                  [Function],
+                                                  ";
+  
+  &:hover {
+    cursor: pointer;
+    color: ",
+                                                  [Function],
+                                                  ";
+  }
+
+  ",
+                                                  [Function],
+                                                  "  
+  
+  ",
+                                                  [Function],
+                                                  "  
+}
+
+",
+                                                  [Function],
+                                                  "
+
+",
+                                                  [Function],
+                                                  "
+",
+                                                ],
+                                              },
+                                              "defaultProps": Object {
+                                                "disabled": false,
+                                                "theme": Object {
+                                                  "colors": Object {
+                                                    "border": "#668491",
+                                                    "brand": "#00DC00",
+                                                    "error": "#C7384F",
+                                                    "focus": "#FFDA7F",
+                                                    "info": "#0073C2",
+                                                    "primary": "#26A826",
+                                                    "secondary": "#006300",
+                                                    "success": "#00B000",
+                                                    "tertiary": "#004400",
+                                                    "warning": "#FFB500",
+                                                    "white": "#FFFFFF",
+                                                  },
+                                                  "disabled": Object {
+                                                    "border": "#CCD6DA",
+                                                    "disabled": "rgba(0,0,0,0.55)",
+                                                    "input": "#F2F4F5",
+                                                    "text": "rgba(0,0,0,0.3)",
+                                                  },
+                                                  "name": "base",
+                                                  "text": Object {
+                                                    "color": "rgba(0,0,0,0.9)",
+                                                    "placeholder": "rgba(0,0,0,0.3)",
+                                                    "size": "14px",
+                                                  },
+                                                },
+                                              },
+                                              "displayName": "styled.div",
+                                              "foldedComponentIds": Array [],
+                                              "propTypes": Object {
+                                                "disabled": [Function],
+                                              },
+                                              "render": [Function],
+                                              "styledComponentId": "sc-bdVaJa",
+                                              "target": "div",
+                                              "toString": [Function],
+                                              "warnTooManyClasses": [Function],
+                                              "withComponent": [Function],
+                                            }
+                                          }
+                                          forwardedRef={null}
+                                          theme={
+                                            Object {
+                                              "colors": Object {
+                                                "border": "#668491",
+                                                "brand": "#00DC00",
+                                                "error": "#C7384F",
+                                                "focus": "#FFDA7F",
+                                                "info": "#0073C2",
+                                                "primary": "#26A826",
+                                                "secondary": "#006300",
+                                                "success": "#00B000",
+                                                "tertiary": "#004400",
+                                                "warning": "#FFB500",
+                                                "white": "#FFFFFF",
+                                              },
+                                              "disabled": Object {
+                                                "border": "#CCD6DA",
+                                                "disabled": "rgba(0,0,0,0.55)",
+                                                "input": "#F2F4F5",
+                                                "text": "rgba(0,0,0,0.3)",
+                                              },
+                                              "name": "base",
+                                              "text": Object {
+                                                "color": "rgba(0,0,0,0.9)",
+                                                "placeholder": "rgba(0,0,0,0.3)",
+                                                "size": "14px",
+                                              },
+                                            }
+                                          }
+                                        >
+                                          <div
+                                            className="sc-bdVaJa dCBiUO"
+                                            data-component="link"
+                                            disabled={false}
                                           >
-                                            Delete
-                                          </span>
-                                        </span>
-                                      </a>
-                                    </_Link>
+                                            <a
+                                              as="error"
+                                              className="carbon-show-edit-pod__delete"
+                                              data-component="link"
+                                              onClick={[Function]}
+                                              onKeyDown={[Function]}
+                                              tabIndex="0"
+                                            >
+                                              <span>
+                                                <span
+                                                  className="carbon-link__content"
+                                                >
+                                                  Delete
+                                                </span>
+                                              </span>
+                                            </a>
+                                          </div>
+                                        </StyledComponent>
+                                      </styled.div>
+                                    </Link>
                                   </div>
                                 </div>
                               </AppWrapper>

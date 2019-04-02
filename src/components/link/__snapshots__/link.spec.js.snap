@@ -1,6 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Link renders as expected 1`] = `
+.c0 {
+  display: inline;
+}
+
 .c0 a {
   font-size: 14px;
   -webkit-text-decoration: underline;
@@ -21,6 +25,7 @@ exports[`Link renders as expected 1`] = `
 
 <div
   className="c0"
+  data-component="link"
   disabled={false}
 >
   <a
@@ -29,7 +34,9 @@ exports[`Link renders as expected 1`] = `
     tabIndex="0"
   >
     <span>
-      <span>
+      <span
+        className="carbon-link__content"
+      >
         test
       </span>
     </span>
@@ -52,6 +59,10 @@ exports[`Link should render as expected 1`] = `
 `;
 
 exports[`Link when component has classic theme should render correct style 1`] = `
+.c0 {
+  display: inline;
+}
+
 .c0 a {
   font-size: 14px;
   -webkit-text-decoration: underline;
@@ -72,6 +83,7 @@ exports[`Link when component has classic theme should render correct style 1`] =
 
 <div
   className="c0"
+  data-component="link"
   disabled={false}
 >
   <a
@@ -110,7 +122,9 @@ exports[`Link when component has classic theme should render correct style 1`] =
     }
   >
     <span>
-      <span>
+      <span
+        className="carbon-link__content"
+      >
         test
       </span>
     </span>

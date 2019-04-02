@@ -5,6 +5,7 @@ import classicThemeForLink from './link-classic.style';
 import { THEMES } from '../../style/themes';
 
 const LinkStyle = styled.div`
+display: inline;
 a {
   font-size: 14px;
   text-decoration: underline;
