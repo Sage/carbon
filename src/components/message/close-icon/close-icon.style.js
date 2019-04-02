@@ -1,9 +1,9 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
-import classicConfig from '../message-classic-config.style';
 import BaseTheme from '../../../style/themes/base';
 import { THEMES } from '../../../style/themes';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import classicConfig from '../message-classic-config.style';
 
 const CloseIconStyle = styled.div`
   align-items: center;
@@ -12,8 +12,7 @@ const CloseIconStyle = styled.div`
   justify-content: center;
   text-align: center;
   width: 45px;
-  ${addProperStyles}
-
+  color: ${({ type, theme }) => (theme.name === THEMES.classic ? classicConfig[type].color : theme.colors[type])};
   span {
     cursor: pointer;
     &:before {
@@ -22,24 +21,6 @@ const CloseIconStyle = styled.div`
     }
   }
 `;
-
-function addProperStyles(props) {
-  const { theme, type } = props;
-  if (theme.name === THEMES.classic) return stylingForClassic(type);
-  return stylingForType(type, theme);
-}
-
-function stylingForClassic(type) {
-  return css`
-    color: ${classicConfig[type].color};
-  `;
-}
-
-function stylingForType(type, theme) {
-  return css`
-    color: ${theme.colors[type]};
-  `;
-}
 
 CloseIconStyle.defaultProps = {
   as: 'info',
