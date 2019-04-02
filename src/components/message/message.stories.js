@@ -4,7 +4,7 @@ import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
-import Message from './message';
+import Message from './message.component';
 
 storiesOf('Message', module)
   .add('default', () => {
