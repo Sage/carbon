@@ -583,7 +583,7 @@ exports[`Message when rendered should match the snapshot 2`] = `
   align-content: center;
   border-radius: 3px;
   background-color: #FFFFFF;
-  border: 1px solid #0077C8;
+  border: 1px solid #0073C2;
 }
 
 <info
@@ -637,7 +637,7 @@ exports[`Message when rendered should match the snapshot 4`] = `
   align-content: center;
   border-radius: 3px;
   background-color: #FFFFFF;
-  border: 1px solid #E96400;
+  border: 1px solid;
 }
 
 <info

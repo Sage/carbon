@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MessageStyle from './message.style';
-import CloseIcon from './CloseIcon/close-icon.component';
-import TypeIcon from './TypeIcon/type-icon.component';
-import MessageContent from './MessageContent/message-content.component';
+import CloseIcon from './close-icon/close-icon.component';
+import TypeIcon from './type-icon/type-icon.component';
+import MessageContent from './message-content/message-content.component';
 
 const Message = ({
   as, border, children, className, open, onDismiss, roundedCorners, title, transparent

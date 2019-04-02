@@ -21,8 +21,8 @@ export default (palette) => {
       // status
       error: palette.errorRed,
       focus: palette.gold,
-      info: palette.infoBlue,
-      success: palette.successGreen,
+      info: palette.productBlueShade(3),
+      success: palette.brilliantGreenShade(20),
       warning: palette.warningOrange
     },
 

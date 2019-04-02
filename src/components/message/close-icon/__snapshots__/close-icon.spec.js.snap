@@ -332,7 +332,7 @@ exports[`CloseIcon when rendered should match the snapshot 2`] = `
   justify-content: center;
   text-align: center;
   width: 45px;
-  color: #0077C8;
+  color: #0073C2;
 }
 
 .c0 span {
@@ -402,7 +402,6 @@ exports[`CloseIcon when rendered should match the snapshot 4`] = `
   justify-content: center;
   text-align: center;
   width: 45px;
-  color: #E96400;
 }
 
 .c0 span {
@@ -431,12 +430,12 @@ exports[`CloseIcon when rendered should render correctly 1`] = `
         "brand": "#00DC00",
         "error": "#C7384F",
         "focus": "#FFB500",
-        "info": "#0077C8",
+        "info": "#0073C2",
         "primary": "#26A826",
         "secondary": "#006300",
         "success": "#00B000",
         "tertiary": "#004400",
-        "warning": "#E96400",
+        "warning": undefined,
         "white": "#FFFFFF",
       },
       "disabled": Object {
