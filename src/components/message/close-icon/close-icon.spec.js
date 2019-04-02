@@ -14,24 +14,26 @@ function render(props, renderer = TestRenderer.create) {
 describe('CloseIcon', () => {
   describe('when rendered', () => {
     it('should render correctly', () => {
-      expect(shallow(<CloseIcon />)).toMatchSnapshot();
+      expect(shallow(<CloseIcon />)).toHaveLength(1);
     });
+  });
 
-    it('should match the snapshot', () => {
-      OptionsHelper.messages.forEach((messageType) => {
+  describe('when render with no additional props', () => {
+    OptionsHelper.messages.forEach((messageType) => {
+      it(`should match snapshot for ${messageType}`, () => {
         const wrapper = render({ type: messageType });
         expect(wrapper.toJSON()).toMatchSnapshot();
       });
     });
   });
+});
 
-  describe('when in classic mode', () => {
-    describe('when rendered', () => {
+describe('when in classic mode', () => {
+  OptionsHelper.colors.forEach((messageType) => {
+    describe(`when rendered as ${messageType}`, () => {
       it('should match the snapshot', () => {
-        OptionsHelper.colors.forEach((messageType) => {
-          const wrapper = render({ type: messageType, theme: classicTheme });
-          expect(wrapper.toJSON()).toMatchSnapshot();
-        });
+        const wrapper = render({ type: messageType, theme: classicTheme });
+        expect(wrapper.toJSON()).toMatchSnapshot();
       });
     });
   });
