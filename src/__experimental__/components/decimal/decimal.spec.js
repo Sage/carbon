@@ -11,6 +11,7 @@ function render(props, renderType = shallow) {
       onChange={ onChange }
       value={ props.value }
       precision={ props.precision }
+      maxPrecision={ props.maxPrecision }
     />
   );
 }
@@ -79,8 +80,8 @@ describe('Decimal', () => {
       assertCorrectTextboxVal(wrapper, '234.1235');
     });
 
-    it('does not allow the precison to be greater than 15', () => {
-      const wrapper = render({ value: '4.1234' }, mount);
+    it('does not allow the precison to be greater than the max precision', () => {
+      const wrapper = render({ value: '4.1234', maxPrecision: 15 }, mount);
 
       wrapper.setProps({ precision: 20 });
       assertCorrectTextboxVal(wrapper, '4.123400000000000');
