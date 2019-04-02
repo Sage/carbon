@@ -6,6 +6,7 @@ import {
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import Decimal from './decimal.component';
+import Textbox from '../textbox';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import notes from './documentation';
 
@@ -21,7 +22,8 @@ const setValue = (evt) => {
 storiesOf('Experimental/Decimal', module)
   .addParameters({
     info: {
-      propTablesExclude: [State]
+      propTablesExclude: [State],
+      propTables: [Textbox]
     }
   }).add('default', () => {
     const align = select(
