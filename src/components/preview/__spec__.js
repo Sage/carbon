@@ -5,13 +5,12 @@ import Preview from './preview';
 const renderShallow = (children, props) => {
   return shallow(
     <Preview { ...props }>
-      { children }
-    </Preview>
-  );
+      {children}
+    </Preview>);
 };
 
 describe('Preview', () => {
-  describe('when given children', () => {  
+  describe('when given children', () => {
     it('will render the children', () => {
       const wrapper = renderShallow('This is some text');
       expect(wrapper).toMatchSnapshot();
@@ -21,6 +20,13 @@ describe('Preview', () => {
   describe('when given no children', () => {
     it('will render the placeholder', () => {
       const wrapper = renderShallow();
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+
+  describe('when given no children and a falsy loading prop', () => {
+    it('will render nothing', () => {
+      const wrapper = renderShallow(null, { loading: false });
       expect(wrapper).toMatchSnapshot();
     });
   });
