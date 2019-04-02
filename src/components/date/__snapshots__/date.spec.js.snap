@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Date DayPickerStyle classic theme applies custom styling 1`] = `
+exports[`Date StyledDayPicker classic theme applies custom styling 1`] = `
 .c0 {
   background-color: #FFFFFF;
   box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
@@ -702,7 +702,7 @@ exports[`Date DayPickerStyle classic theme applies custom styling 1`] = `
 </div>
 `;
 
-exports[`Date DayPickerStyle renders presentational div and context provider for its children 1`] = `
+exports[`Date StyledDayPicker renders presentational div and context provider for its children 1`] = `
 .c0 {
   background-color: #FFFFFF;
   box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);

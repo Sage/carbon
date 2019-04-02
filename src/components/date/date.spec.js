@@ -6,7 +6,7 @@ import moment from 'moment';
 import LocaleUtils from 'react-day-picker/moment';
 import I18n from 'i18n-js';
 import { shallow, mount } from 'enzyme';
-import DayPickerStyle from './day-picker.style';
+import StyledDayPicker from './day-picker.style';
 import DateHelper from '../../utils/helpers/date';
 import Date from './date.component';
 import Events from '../../utils/helpers/events';
@@ -670,12 +670,12 @@ describe('Date', () => {
     });
   });
 
-  describe('DayPickerStyle', () => {
+  describe('StyledDayPicker', () => {
     const render = (props) => {
       return TestRenderer.create(
-        <DayPickerStyle { ...props }>
+        <StyledDayPicker { ...props }>
           sample children
-        </DayPickerStyle>
+        </StyledDayPicker>
       );
     };
 
