@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
-const AbbrStyle = styled.abbr`
+const StyledAbbr = styled.abbr`
     text-decoration: none;
 `;
 
-export default AbbrStyle;
+export default StyledAbbr;

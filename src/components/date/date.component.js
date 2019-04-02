@@ -5,7 +5,7 @@ import LocaleUtils from 'react-day-picker/moment';
 import 'react-day-picker/lib/style.css';
 import './date.scss';
 import Navbar from './navbar/navbar.component';
-import DayPickerStyle from './day-picker.style';
+import StyledDayPicker from './day-picker.style';
 import Weekday from './weekday/weekday.component';
 import Portal from '../portal';
 import Browser from '../../utils/helpers/browser';
@@ -544,7 +544,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     return (
       this.state.open && (
         <Portal onReposition={ this.updateDatePickerPosition }>
-          <DayPickerStyle { ...this.datePickerProps } containerProps={ this.containerProps } />
+          <StyledDayPicker { ...this.datePickerProps } containerProps={ this.containerProps } />
         </Portal>
       )
     );

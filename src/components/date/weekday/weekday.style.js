@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import baseTheme from '../../../style/themes/base';
 import weekdayClassicStyle from './weekday-classic.style';
 
-const WeekdayStyle = styled.div`
+const StyledWeekday = styled.div`
 &, &.DayPicker-Weekday {
   border: none;
   min-width: 40px;
@@ -16,8 +16,8 @@ const WeekdayStyle = styled.div`
   ${weekdayClassicStyle}
 }`;
 
-WeekdayStyle.defaultProps = {
+StyledWeekday.defaultProps = {
   theme: baseTheme
 };
 
-export default WeekdayStyle;
+export default StyledWeekday;

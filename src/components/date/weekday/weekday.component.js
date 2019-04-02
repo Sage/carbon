@@ -1,17 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import WeekdayStyle from './weekday.style';
-import AbbrStyle from './abbr.style';
+import StyledWeekday from './weekday.style';
+import StyledAbbr from './abbr.style';
 
 const Weekday = ({
   className, title, children, ...props
 }) => (
-  <WeekdayStyle
+  <StyledWeekday
     className={ className } role='columnheader'
     { ...props }
   >
-    <AbbrStyle title={ title }>{children}</AbbrStyle>
-  </WeekdayStyle>
+    <StyledAbbr title={ title }>{children}</StyledAbbr>
+  </StyledWeekday>
 );
 
 Weekday.propTypes = {
