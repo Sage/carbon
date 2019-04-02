@@ -81,7 +81,7 @@ class Link extends React.Component {
       <span>
         {this.renderLinkIcon()}
 
-        <span>{this.props.children}</span>
+        <span className='carbon-link__content'>{this.props.children}</span>
 
         {this.renderLinkIcon('right')}
       </span>
