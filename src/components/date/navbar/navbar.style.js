@@ -1,8 +1,7 @@
 import styled from 'styled-components';
 import baseTheme from '../../../style/themes/base';
-import Navbar from './navbar';
 
-const StyledNavbar = styled(Navbar)`
+const StyledNavbar = styled.div`
 &.DayPicker-NavBar {
   display: flex;
   justify-content: space-between;

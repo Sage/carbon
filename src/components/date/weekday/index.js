@@ -1,3 +1,1 @@
-import Weekday from './weekday.component';
-
-export default Weekday;
+export { default } from './weekday.component';

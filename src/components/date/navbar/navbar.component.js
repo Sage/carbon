@@ -1,15 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledButton from './button.style';
+import NavbarStyle from './navbar.style';
 import Icon from '../../icon/icon';
 
 const Navbar = ({
   onPreviousClick,
   onNextClick,
-  className
+  ...props
 }) => {
   return (
-    <div className={ className }>
+    <NavbarStyle { ...props }>
       <StyledButton
         type='button'
         onClick={ () => onPreviousClick() }
@@ -22,14 +23,13 @@ const Navbar = ({
       >
         <Icon type='chevron_right' />
       </StyledButton>
-    </div>
+    </NavbarStyle>
   );
 };
 
 Navbar.propTypes = {
   onPreviousClick: PropTypes.func,
-  onNextClick: PropTypes.func,
-  className: PropTypes.string
+  onNextClick: PropTypes.func
 };
 
 export default Navbar;

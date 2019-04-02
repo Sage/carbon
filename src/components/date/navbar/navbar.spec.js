@@ -2,7 +2,7 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 import 'jest-styled-components';
-import Navbar from './navbar';
+import Navbar from './navbar.component';
 import ButtonStyle from './button.style';
 
 describe('Navbar', () => {
