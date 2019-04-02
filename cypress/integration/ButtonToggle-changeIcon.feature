@@ -2,7 +2,12 @@ Feature: Button Toggle component - set all possible icon and verify
   I want to change Button Toggle icon
 
   Background: Open Button Toggle component page
-    Given I open "Button Toggle" component page                  |
+    Given I open "Button Toggle" component page
+
+@negative
+  Scenario: Change Button Toggle icon to null
+    When I set button icon to "null"
+    Then Button icon not exists on preview
 
   @positive
   Scenario Outline: Change Button Toggle icon
@@ -118,5 +123,3 @@ Feature: Button Toggle component - set all possible icon and verify
       | view              |
       | warning           |
       | white-tick        |
-
-  

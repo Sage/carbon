@@ -5,72 +5,30 @@ import Heading from '../heading';
 import tagComponent from '../../utils/helpers/tags';
 import './settings-row.scss';
 
-/**
- * UI for a settings page row
- *
- * SettingsRow implements our UX design for settings pages. It accepts a `title` string to be displayed at the top left
- * of the row. The `description` property accepts a string or JSX object to support flexible layout of elements
- * (e.g. Links, bolded text, paragraphs) in the header column under the title. The default divider line at the bottom
- * of the row may be disabled by setting `divider={ false }`. All children are rendered in the input column to the
- * right of the header column.
- *
- *
- * == How to use a SettingsRow in a component:
- *
- * In your file:
- *
- *    import SettingsRow from 'carbon-react/lib/components/settings-row';
- *
- * To render the SettingsRow:
- *
- *    <SettingsRow title='My Setting' description='My description'>
- *      <Checkbox label='Enable my setting' />
- *      <span>Other content to go with input</span>
- *    </SettingsRow>
- *
- * @class SettingsRow
- * @constructor
- */
 class SettingsRow extends React.Component {
   static propTypes = {
     /**
-     * Component children
-     *
-     * @property  children
-     * @type      {Object}
+     * This component supports children.
      */
     children: PropTypes.node,
 
     /**
-     * Custom className
-     *
-     * @property className
-     * @type {String}
+     * The CSS classes to apply to the component.
      */
     className: PropTypes.string,
 
     /**
-     * Heading title
-     *
-     * @property  title
-     * @type      {String}
+     * A title for this group of settings.
      */
     title: PropTypes.string,
 
     /**
-     * Heading description
-     *
-     * @property  description
-     * @type      {Node}
+     * A string or JSX object that provides a short description about the group of settings.
      */
     description: PropTypes.node,
 
     /**
-     * Row divider
-     *
-     * @property  divider
-     * @type      {Boolean}
-     * @default   true
+     * Shows a divider below the component.
      */
     divider: PropTypes.bool
   };

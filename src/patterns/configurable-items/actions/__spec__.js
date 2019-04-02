@@ -1,4 +1,4 @@
-import { Dispatcher } from './../../../utils/flux';
+import { Dispatcher } from 'carbon-state-management/lib/flux';
 import Constants from './../constants';
 import Actions from './actions.js';
 
