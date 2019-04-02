@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[` 1`] = `
+exports[`MessageContent when in classic theme when the title prop is provided should render the title with a proper color applied 1`] = `
 .c0 {
   padding: 15px 20px;
   white-space: pre-wrap;
@@ -19,7 +19,7 @@ exports[` 1`] = `
 </div>
 `;
 
-exports[` 2`] = `
+exports[`MessageContent when in classic theme when the title prop is provided should render the title with a proper color applied 2`] = `
 .c0 {
   padding: 15px 20px;
   white-space: pre-wrap;
@@ -38,7 +38,7 @@ exports[` 2`] = `
 </div>
 `;
 
-exports[` 3`] = `
+exports[`MessageContent when in classic theme when the title prop is provided should render the title with a proper color applied 3`] = `
 .c0 {
   padding: 15px 20px;
   white-space: pre-wrap;
@@ -57,7 +57,7 @@ exports[` 3`] = `
 </div>
 `;
 
-exports[` 4`] = `
+exports[`MessageContent when in classic theme when the title prop is provided should render the title with a proper color applied 4`] = `
 .c0 {
   padding: 15px 20px;
   white-space: pre-wrap;

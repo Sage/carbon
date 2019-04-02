@@ -21,8 +21,10 @@ describe('MessageContent', () => {
   describe('when in classic theme', () => {
     describe('when the title prop is provided', () => {
       OptionsHelper.messages.forEach((messageType) => {
-        const wrapper = render({ theme: classicTheme, type: messageType, title: 'Example title' });
-        expect(wrapper.toJSON()).toMatchSnapshot();
+        it('should render the title with a proper color applied', () => {
+          const wrapper = render({ theme: classicTheme, type: messageType, title: 'Example title' });
+          expect(wrapper.toJSON()).toMatchSnapshot();
+        });
       });
     });
   });
