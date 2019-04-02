@@ -1,0 +1,16 @@
+.carbon-link__icon {
+  margin-right: 5px;
+  position: relative;
+  top: -2px;
+
+  .carbon-icon__svg {
+    height: 16px;
+    vertical-align: middle;
+    width: 16px;
+  }
+}
+
+.carbon-link__icon--align-right {
+  margin-right: 0;
+  margin-left: 5px;
+}

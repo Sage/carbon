@@ -8,6 +8,7 @@ import { validProps } from '../../utils/ether';
 import Event from '../../utils/helpers/events';
 import tagComponent from '../../utils/helpers/tags';
 import LinkStyle from './link.style';
+import './link.scss';
 
 class Link extends React.Component {
   static safeProps = ['onClick'];
