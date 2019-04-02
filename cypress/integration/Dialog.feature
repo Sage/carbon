@@ -1,5 +1,5 @@
 Feature: Dialog component
-  I want to change Alert component properties
+  I want to change Dialog component properties
 
   Background: Open Dialog component page
     Given I open "Dialog" component page

@@ -9,6 +9,10 @@ Given('I open {string} component page', (component) => {
   visitComponentUrl(component)
 })
 
+Given('I open {string} component page without knobs', (component) => {
+  visitComponentUrl(component, false)
+})
+
 When('I set children to {string}', (text) => {
   childrenTextArea().clear().type(text);
 });
