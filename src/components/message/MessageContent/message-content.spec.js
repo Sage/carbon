@@ -4,8 +4,8 @@ import { shallow } from 'enzyme';
 import MessageContent from './message-content.component';
 import MessageContentStyle from './message-content.style';
 import 'jest-styled-components';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
-import classicTheme from '../../style/themes/classic';
+import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
+import classicTheme from '../../../style/themes/classic';
 
 function render(props, renderer = TestRenderer.create) {
   return renderer(<MessageContentStyle { ...props }>Message</MessageContentStyle>);

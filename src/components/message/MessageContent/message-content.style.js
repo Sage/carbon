@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import classicConfig from './message-classic-config.style';
+import classicConfig from '../message-classic-config.style';
 
 const MessageContentStyle = styled.div`
   padding: 15px 20px;

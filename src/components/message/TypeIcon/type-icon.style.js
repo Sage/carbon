@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import classicConfig from './message-classic-config.style';
-import BaseTheme from '../../style/themes/base';
-import { THEMES } from '../../style/themes';
+import classicConfig from '../message-classic-config.style';
+import BaseTheme from '../../../style/themes/base';
+import { THEMES } from '../../../style/themes';
 
 const TypeIconContainerStyle = styled.div`
   align-items: center;
