@@ -573,111 +573,54 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
 `;
 
 exports[`Message when rendered should match the snapshot 1`] = `
-.c0 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  border-radius: 3px;
-  background-color: #FFFFFF;
-  border: 1px solid #C7384F;
-}
-
-<info
-  className="c0"
-  type="error"
->
-  Message
-</info>
-`;
-
-exports[`Message when rendered should match the snapshot 2`] = `
-.c0 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  border-radius: 3px;
-  background-color: #FFFFFF;
-  border: 1px solid #0073C2;
-}
-
-<info
-  className="c0"
+<styled.div
+  as="info"
+  border={true}
+  role="status"
+  roundedCorners={true}
+  theme={
+    Object {
+      "colors": Object {
+        "border": "#668491",
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFB500",
+        "info": "#0073C2",
+        "primary": "#26A826",
+        "secondary": "#006300",
+        "success": "#00B000",
+        "tertiary": "#004400",
+        "warning": "#E96400",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "border": "#CCD6DA",
+        "disabled": "rgba(0,0,0,0.55)",
+        "input": "#F2F4F5",
+      },
+      "name": "base",
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+  transparent={false}
   type="info"
 >
-  Message
-</info>
-`;
-
-exports[`Message when rendered should match the snapshot 3`] = `
-.c0 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  border-radius: 3px;
-  background-color: #FFFFFF;
-  border: 1px solid #00B000;
-}
-
-<info
-  className="c0"
-  type="success"
->
-  Message
-</info>
-`;
-
-exports[`Message when rendered should match the snapshot 4`] = `
-.c0 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  border-radius: 3px;
-  background-color: #FFFFFF;
-  border: 1px solid #E96400;
-}
-
-<info
-  className="c0"
-  type="warning"
->
-  Message
-</info>
+  <TypeIcon
+    as="info"
+    roundedCorners={true}
+    transparent={false}
+  />
+  <MessageContent
+    as="info"
+    transparent={false}
+  >
+    Message
+  </MessageContent>
+</styled.div>
 `;
 
 exports[`Message when roundedCorners prop is not passed should apply proper border-radius style 1`] = `

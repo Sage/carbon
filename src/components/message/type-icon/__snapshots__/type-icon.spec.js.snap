@@ -24,6 +24,10 @@ exports[`TypeIcon when in classic mode when rendered should match the snapshot 1
   color: #FFFFFF;
 }
 
+.c0 span:before {
+  color: #FFFFFF;
+}
+
 <info
   className="c0"
   type="default"
@@ -47,7 +51,12 @@ exports[`TypeIcon when in classic mode when rendered should match the snapshot 2
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
+  background-color: #C7384F;
   background-color: #c7384f;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -84,6 +93,10 @@ exports[`TypeIcon when in classic mode when rendered should match the snapshot 3
   color: #FFFFFF;
 }
 
+.c0 span:before {
+  color: #FFFFFF;
+}
+
 <info
   className="c0"
   type="help"
@@ -107,7 +120,12 @@ exports[`TypeIcon when in classic mode when rendered should match the snapshot 4
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
+  background-color: #0073C2;
   background-color: #1573e6;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -144,6 +162,10 @@ exports[`TypeIcon when in classic mode when rendered should match the snapshot 5
   color: #FFFFFF;
 }
 
+.c0 span:before {
+  color: #FFFFFF;
+}
+
 <info
   className="c0"
   type="maintenance"
@@ -174,6 +196,10 @@ exports[`TypeIcon when in classic mode when rendered should match the snapshot 6
   color: #FFFFFF;
 }
 
+.c0 span:before {
+  color: #FFFFFF;
+}
+
 <info
   className="c0"
   type="new"
@@ -197,7 +223,12 @@ exports[`TypeIcon when in classic mode when rendered should match the snapshot 7
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
+  background-color: #00B000;
   background-color: #50b848;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -227,7 +258,12 @@ exports[`TypeIcon when in classic mode when rendered should match the snapshot 8
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
+  background-color: #E96400;
   background-color: #ff7d00;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -257,6 +293,7 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
+  background-color: #FFFFFF;
   background-color: #FFFFFF;
 }
 
@@ -288,6 +325,11 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
   text-align: center;
   border-radius: 3px 0 0 3px;
   background-color: #FFFFFF;
+  background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #C7384F;
 }
 
 .c0 span:before {
@@ -317,6 +359,7 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
+  background-color: #FFFFFF;
   background-color: #FFFFFF;
 }
 
@@ -348,6 +391,11 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
   text-align: center;
   border-radius: 3px 0 0 3px;
   background-color: #FFFFFF;
+  background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #0073C2;
 }
 
 .c0 span:before {
@@ -377,6 +425,7 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
+  background-color: #FFFFFF;
   background-color: #FFFFFF;
 }
 
@@ -408,6 +457,7 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
   text-align: center;
   border-radius: 3px 0 0 3px;
   background-color: #FFFFFF;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -438,6 +488,11 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
   text-align: center;
   border-radius: 3px 0 0 3px;
   background-color: #FFFFFF;
+  background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #00B000;
 }
 
 .c0 span:before {
@@ -468,6 +523,11 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
   text-align: center;
   border-radius: 3px 0 0 3px;
   background-color: #FFFFFF;
+  background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #E96400;
 }
 
 .c0 span:before {
@@ -639,6 +699,34 @@ exports[`TypeIcon when rendered should match the snapshot 4`] = `
 <info
   className="c0"
   type="warning"
+/>
+`;
+
+exports[`TypeIcon when roundedCorners prop is set to false should apply no border-radius 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 30px;
+  text-align: center;
+  border-radius: 0;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<info
+  className="c0"
 />
 `;
 

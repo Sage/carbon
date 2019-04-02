@@ -14,10 +14,8 @@ function render(props, renderer = TestRenderer.create) {
 describe('Message', () => {
   describe('when rendered', () => {
     it('should match the snapshot', () => {
-      OptionsHelper.messages.forEach((messageType) => {
-        const wrapper = render({ type: messageType });
-        expect(wrapper.toJSON()).toMatchSnapshot();
-      });
+      const wrapper = shallow(<Message>Message</Message>);
+      expect(wrapper).toMatchSnapshot();
     });
   });
 
