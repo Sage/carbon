@@ -12,12 +12,14 @@ const TypeIconStyle = styled.div`
   width: 30px;
   text-align: center;
   border-radius: ${({ roundedCorners }) => (roundedCorners ? '3px 0 0 3px' : '0')};
-  background-color: ${({ theme, type, transparent }) => (transparent ? theme.colors.white : theme.colors[type])};
-  span {
+  ${({ theme, transparent, type }) => (theme.name !== THEMES.classic ? `background-color: ${transparent ? theme.colors.white : theme.colors[type]}` : null)}
+  ${({ theme, transparent, type }) => (theme.name !== THEMES.classic
+    ? `span {
     &:before {
-      color: ${({ theme, transparent, type }) => (transparent ? theme.colors[type] : theme.colors.white)};
-    }
-  }
+      color: ${transparent ? theme.colors[type] : theme.colors.white}
+    }};`
+    : null)}
+
   ${({ theme }) => (theme.name === THEMES.classic ? typeIconClassicStyle : null)}
 `;
 
