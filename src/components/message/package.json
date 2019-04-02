@@ -1,4 +1,4 @@
 {
   "name": "message",
-  "main": "./message.js"
+  "main": "./message.component.js"
 }
