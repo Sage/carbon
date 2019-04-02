@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../style/themes/base';
 import { THEMES } from '../../style/themes';
@@ -9,23 +9,16 @@ const MessageStyle = styled.div`
   display: flex;
   justify-content: flex-start;
   align-content: center;
-  ${({ roundedCorners }) => (roundedCorners
-    ? css`
-          border-radius: 3px;
-        `
-    : css`
-          border-radius: none;
-        `)}
-  ${({ transparent, theme, type }) => (transparent
-    ? css`
-          border: none;
-          background-color: ${theme.colors.white};
-        `
-    : css`
-          background-color: ${theme.colors.white};
-          border: 1px solid ${theme.colors[type]};
-        `)}
-  ${({ theme }) => (theme.name === THEMES.classic ? messageClassicStyle : null)}
+  border-radius: ${({ roundedCorners }) => (roundedCorners ? '3px;' : '0px;')};
+  ${({ transparent, theme, type }) => {
+    theme.name === THEMES.classic
+      ? `
+  border: ${transparent ? 'none;' : `border: 1px solid ${theme.colors[type]};`}
+  background-color: ${transparent ? `${theme.colors.white};` : `${theme.colors.white};`}
+  `
+      : null;
+  }}
+  ${({ theme }) => (theme.name === THEMES.classic ? messageClassicStyle : null)};
 `;
 
 MessageStyle.defaultProps = {
