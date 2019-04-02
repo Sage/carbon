@@ -45,11 +45,6 @@ describe('InputPresentation', () => {
           flex: '0 0 54%'
         }, mountRender({ inputWidth: 54 }));
       });
-      it('sets the correct input width if the inlineInput prop is true', () => {
-        assertStyleMatch({
-          flex: '0 0 70%'
-        }, mountRender({ labelInline: true, labelWidth: 30, inputWidth: 100 }));
-      });
     });
 
     describe('validations', () => {
