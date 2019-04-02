@@ -1,0 +1,1 @@
+Bug Fixes: "Reverts date formatter back as using utc forces it to default to UK locale"
