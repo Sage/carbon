@@ -37,11 +37,14 @@ class Decimal extends React.Component {
   }
 
   validatePrecision = () => {
-    const { precision } = this.props;
+    const {
+      precision
+      maxPrecision
+    } = this.props;
 
-    if (precision > 15) {
-      Logger.warn('Precision cannot be greater than 15');
-      return 15;
+    if (precision > maxPrecision) {
+      Logger.warn(`Precision cannot be greater than ${maxPrecision}`);
+      return maxPrecision;
     }
 
     return precision;
@@ -111,12 +114,17 @@ Decimal.propTypes = {
   /**
    * Handler for change event
    */
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
+  /**
+   * Maximum value for precision
+   */
+  maxPrecision: PropTypes.number
 };
 
 Decimal.defaultProps = {
   align: 'right',
   precision: 2,
+  maxPrecision: 15,
   inputWidth: 100,
   value: '0.00'
 };
