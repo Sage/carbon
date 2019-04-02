@@ -8,111 +8,61 @@ import Browser from '../../utils/helpers/browser';
 import Icon from '../icon';
 import './portrait.scss';
 
-/**
- * A Portrait Widget.
- *
- * == How to use a Portrait in a component
- *
- * In your file
- *
- *   import Portrait from 'carbon-react/lib/components/portrait';
- *
- * To render the Portrait
- *
- *   <Portrait src='/my-image' alt='my image' />
- *
- * To render a gravatar portrait
- *
- *   <Portrait gravatar='mygrav@email.com' />
- *
- * You can pass a 'size' property to adjust the size of the portrait
- *    The default is lmed
- *    options: small, smed, lmed, large
- *
- * For additional properties specific to this component, see propTypes.
- */
 class Portrait extends React.Component {
   static propTypes = {
-
     /**
      * A custom class name for the component.
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
-     * Size of the img
-     * Options: small, smed, lmed, large
-     *
-     * @property size
-     * @type {String}
+     * Defines the size of the Portrait.
      */
     size: PropTypes.string,
 
     /**
-     * Source of the image
+     * Define an image source.
      *
-     * @property src
-     * @type {String}
      */
     src: (props) => {
-      if (!props.gravatar && !props.src) {
-        throw new Error('Portrait requires a prop of "src" OR a prop of "gravatar"');
+      if (!props.gravatar && !props.src && !props.initials) {
+        throw new Error('Portrait requires a prop of "src", "gravatar" or "initials"');
       } else if (props.gravatar && props.src) {
-        throw new Error('Portrait requires a prop of "src" OR a prop of "gravatar" but not both');
+        throw new Error('Portrait requires a prop of "src" or "gravatar" but not both');
       }
     },
 
     /**
-     * Gravatar email
-     *
-     * @property src
-     * @type {String}
+     * Define an email address registered with gravatar.
      */
     gravatar: PropTypes.string,
 
     /**
-     * Alternate text for image
-     *
-     * @property src
-     * @type {String}
+     * Defines the alt HTML string.
      */
     alt: PropTypes.string,
 
     /**
-     * Shape of the portrait
-     * Options - standard, circle, leaf
-     *
-     * @property shape
-     * @type {String}
+     * Defines the shape of the Portrait.
      */
     shape: PropTypes.string,
 
     /**
-     * Initials to display as image
-     *
-     * @property initials
-     * @type {String}
-     * @default 'U'
+     * Define some initials to render in the Portrait.
      */
     initials: PropTypes.string,
 
     /**
-     * If to use a dark background instead of a light background.
-     *
-     * @property darkBackground
-     * @type {Boolean}
-     * @default false
+     * Switch to a dark background (requires a hard re-render).
      */
     darkBackground: PropTypes.bool
   }
 
   static defaultProps = {
-    alt: '',
     size: 'medium',
-    shape: 'standard'
+    shape: 'standard',
+    darkBackground: false,
+    alt: ''
   };
 
   /**
