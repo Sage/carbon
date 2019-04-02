@@ -1,5 +1,5 @@
 import Dispatcher from './../../dispatcher';
-import Store from 'utils/flux/store';
+import Store from 'carbon-state-management/lib/flux/store';
 import Browser from 'utils/helpers/browser';
 import BrowserActions from './../../actions/browser';
 import BrowserConstants from './../../constants/browser';

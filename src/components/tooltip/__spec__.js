@@ -89,6 +89,22 @@ describe('tooltip', () => {
         expect(wrapper.is('#help-tooltip')).toBe(true);
       });
     });
+
+    describe('when a prop of onMouseEnter and onMouseLeave is passed', () => {
+      it('adds the onMouseEnter function and when mouse enter has happened it calls the passed function', () => {
+        const onMouseEnter = jest.fn();
+        wrapper.setProps({ onMouseEnter });
+        wrapper.simulate('mouseenter');
+        expect(onMouseEnter).toHaveBeenCalled();
+      });
+
+      it('adds the onMouseLeave function and when mouse enter has happened it calls the passed function', () => {
+        const onMouseLeave = jest.fn();
+        wrapper.setProps({ onMouseLeave });
+        wrapper.simulate('mouseleave');
+        expect(onMouseLeave).toHaveBeenCalled();
+      });
+    });
   });
 
   describe('when the tooltip is toggled off', () => {
