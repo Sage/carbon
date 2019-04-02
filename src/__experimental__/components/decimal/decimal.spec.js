@@ -1,29 +1,18 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import TestUtils from 'react-dom/test-utils';
+import { shallow, mount } from 'enzyme';
 import Decimal from './decimal.component';
 import Textbox from '../textbox/textbox.component';
 
-function render(props) {
+function render(props, render = shallow) {
   const onChange = props.onChange ? props.onChange : () => true;
 
-  return shallow(
+  return render(
     <Decimal
       onChange={ onChange }
       value={ props.value }
       precision={ props.precision }
     />
   );
-}
-
-function renderIntoDocument(props) {
-  return TestUtils.renderIntoDocument(
-    <Decimal value={ props.value } precision={ props.precision } />
-  );
-}
-
-function assertCorrectlyFormattedVal(instance, value) {
-  return expect(instance.formatValue()).toEqual(value);
 }
 
 function assertCorrectTextboxVal(wrapper, value) {
@@ -69,32 +58,42 @@ describe('Decimal', () => {
       expect(onChange).toHaveBeenCalled();
     });
 
-    it('formats with delimiters with input is not active', () => {
-      const instance = renderIntoDocument({ value: '1234567.00' });
-      assertCorrectlyFormattedVal(instance, '1,234,567.00');
+    it('formats with delimiters when input is not active', () => {
+      const wrapper = render({ value: '12345.00' }, mount);
+
+      wrapper.setProps({ value: '1234567.00' });
+      assertCorrectTextboxVal(wrapper, '1,234,567.00');
     });
 
     it('updates the value after increasing the precison', () => {
-      const instance = renderIntoDocument({ value: '99.99', precision: 4 });
-      assertCorrectlyFormattedVal(instance, '99.9900');
+      const wrapper = render({ value: '99.99' }, mount);
+
+      wrapper.setProps({ precision: 4 });
+      assertCorrectTextboxVal(wrapper, '99.9900');
     });
 
     it('updates the value after decreasing the precison', () => {
-      const instance = renderIntoDocument({ value: '234.1234567', precision: 4 });
-      assertCorrectlyFormattedVal(instance, '234.1235');
+      const wrapper = render({ value: '234.1234567' }, mount);
+
+      wrapper.setProps({ precision: 4 });
+      assertCorrectTextboxVal(wrapper, '234.1235');
     });
 
     it('does not allow the precison to be greater than 15', () => {
-      const instance = renderIntoDocument({ value: '4.1234', precision: 20 });
-      assertCorrectlyFormattedVal(instance, '4.123400000000000');
+      const wrapper = render({ value: '4.1234' }, mount);
+
+      wrapper.setProps({ precision: 20 });
+      assertCorrectTextboxVal(wrapper, '4.123400000000000');
     });
 
     it('does not format number if input is active', () => {
-      const instance = renderIntoDocument({ value: '1234567.00' });
-      instance._document = {
-        activeElement: instance.input.current
+      const wrapper = render({ value: '1234.00' }, mount);
+
+      wrapper.instance()._document = {
+        activeElement: wrapper.instance().input.current
       };
-      assertCorrectlyFormattedVal(instance, '1234567.00');
+      wrapper.setProps({ value: '1234.00' });
+      assertCorrectTextboxVal(wrapper, '1234.00');
     });
   });
   describe('Input handling', () => {
