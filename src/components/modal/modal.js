@@ -40,7 +40,6 @@ const TIMEOUT = 500;
  */
 class Modal extends React.Component {
   static propTypes = {
-
     /**
      * A custom close event handler
      */
@@ -119,7 +118,6 @@ class Modal extends React.Component {
       this.setState({ state: this.props.open ? 'open' : 'closed' });
     }, TIMEOUT);
   }
-
 
   /**
    * Returns modal object to child components. Used to override form cancel button functionality.
