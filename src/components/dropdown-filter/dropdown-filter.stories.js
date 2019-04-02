@@ -78,7 +78,7 @@ storiesOf('Dropdown Filter', module)
   .add('with Create', () => {
     const props = defaultKnobs();
     const create = (_evt, component) => component.state.filter;
-    const createText = text('createText', 'Create New');
+    const createText = text('createText');
     const createIconType = select('createIconType', OptionsHelper.icons, OptionsHelper.icons[0]);
 
     return (
