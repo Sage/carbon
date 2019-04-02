@@ -19,10 +19,6 @@ const InputPresentationStyle = styled.div`
   padding-left: ${({ size }) => sizes[size].padding};
   padding-right: ${({ size }) => sizes[size].padding};
 
-  ${({ labelInline, inputWidth, labelWidth }) => labelInline && css`
-    flex: 0 0 ${(100 - labelWidth) * (inputWidth / 100)}%;
-  `}
-  
   ${({ disabled, theme }) => disabled && css`
     background: ${theme.disabled.input};
     border-color: ${theme.disabled.border};
