@@ -53,7 +53,7 @@ Array [
     help="Help me!"
     inline={true}
     inputSize="small"
-    width={20}
+    labelWidth={20}
   >
     Name
   </Label>,
