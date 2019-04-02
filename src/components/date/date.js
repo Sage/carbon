@@ -22,92 +22,49 @@ import tagComponent from '../../utils/helpers/tags';
 /**
  * Stores a reference to the current date in the given format,
  * which can be used for default values.
- *
- * @property _today
- * @type {string}
  */
 const today = DateHelper.todayFormatted('YYYY-MM-DD');
-/**
- * A Date widget.
- *
- * == How to use a Date in a component:
- *
- * In your file
- *
- *   import Date from 'carbon-react/lib/components/Date';
- *
- * To render the Date:
- *
- *   <Date name="myDate" />
- *
- * @class Date
- * @constructor
- * @decorators {Input,InputIcon,InputLabel,InputValidation}
- */
+
 const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React.Component {
   // Required for validProps function
   static propTypes = {
     /**
      * Automatically focus on component mount
-     *
-     * @property autoFocus
-     * @type {Boolean}
     */
     autoFocus: PropTypes.bool,
 
     /**
      * Disable all user interaction.
-     *
-     * @property disabled
-     * @type {boolean}
      */
     disabled: PropTypes.bool,
 
     /**
      * Used to provide additional validations on composed components.
-     *
-     * @property internalValidations
-     * @type {Array}
      */
     internalValidations: PropTypes.array,
 
     /**
      * Minimum possible date
-     *
-     * @property minDate
-     * @type {String}
      */
     minDate: PropTypes.string,
 
     /**
      * Maximum possible date
-     *
-     * @property maxDate
-     * @type {String}
      */
     maxDate: PropTypes.string,
 
     /**
      * Specify a callback triggered on blur
-     *
-     * @property onBlur
-     * @type {Function}
      */
     onBlur: PropTypes.func,
 
     /**
      * Display the currently selected value without displaying the input
-     *
-     * @property readOnly
-     * @type {Boolean}
      */
     readOnly: PropTypes.bool,
 
     /**
      * The current date
-     *
-     * @property value
-     * @type {String}
      */
     value: PropTypes.string
   };
@@ -115,19 +72,11 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
   static defaultProps = {
     /**
      * Sets the default value of the date field
-     *
-     * @property value
-     * @type {String}
-     * @default Today's date
      */
     value: today,
 
     /**
     * Sets validations that should always be found on the component
-    *
-    * @property internalValidations
-    * @type {Array}
-    * @default DateValidator
     */
     internalValidations: [new DateValidator()]
   }
