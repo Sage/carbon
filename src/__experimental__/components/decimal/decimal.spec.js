@@ -52,11 +52,11 @@ describe('Decimal', () => {
       assertCorrectTextboxVal(wrapper, '34.56');
     });
 
-    it('forces change event if user blurs', () => {
-      const onChange = jest.fn();
-      const wrapper = render({ onChange });
-      wrapper.instance().onBlur({ target: { value: '1' } });
-      expect(onChange).toHaveBeenCalled();
+    it('forces update on user blurs', () => {
+      const wrapper = render({ value: '1.00' }, mount);
+      wrapper.setProps({ value: '2' });
+      wrapper.instance().onBlur();
+      assertCorrectTextboxVal(wrapper, '2.00');
     });
 
     it('formats with delimiters when input is not active', () => {

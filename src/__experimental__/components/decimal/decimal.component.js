@@ -75,10 +75,8 @@ class Decimal extends React.Component {
     }
   }
 
-  onBlur = (evt) => {
-    // Call onChange to force decimal formattting
-    // Alternative is to store input value in state.
-    this.onChange(evt);
+  onBlur = () => {
+    this.forceUpdate();
   }
 
   render() {
