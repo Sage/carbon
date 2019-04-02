@@ -125,7 +125,6 @@ Decimal.defaultProps = {
   align: 'right',
   precision: 2,
   maxPrecision: 15,
-  inputWidth: 100,
   value: '0.00'
 };
 
