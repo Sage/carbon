@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import React from 'react';
 
 // Flux
-import { connect } from 'utils/flux';
+import { connect } from 'carbon-state-management/lib/flux';
 import BrowserStore from '../../stores/browser';
 import DemoStore from '../../stores/demo';
 

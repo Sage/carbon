@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { connect } from 'utils/flux';
+import { connect } from 'carbon-state-management/lib/flux';
 import { titleize, humanize } from 'underscore.string';
 import ComponentStore from './../../../stores/component';
 import I18n from 'i18n-js';
