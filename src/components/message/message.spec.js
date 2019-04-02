@@ -23,14 +23,15 @@ describe('Message', () => {
 
   describe('when onDismiss function is not provided', () => {
     it('should not render the close icon', () => {
-      const wrapper = shallow(<Message onDismiss={ false }>Message</Message>);
+      const wrapper = shallow(<Message>Message</Message>);
       expect(wrapper.children().length).toEqual(2);
     });
   });
 
   describe('when onDismiss function is provided', () => {
     it('should not render the close icon', () => {
-      const wrapper = shallow(<Message onDismiss>Message</Message>);
+      const onDismiss = jest.fn();
+      const wrapper = shallow(<Message onDismiss={ onDismiss }>Message</Message>);
       expect(wrapper.children().length).toEqual(3);
     });
   });
