@@ -1,3 +1,1 @@
-import Decimal from './decimal.component';
-
-export default Decimal;
+export { default } from './decimal.component';
