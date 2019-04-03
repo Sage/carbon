@@ -12,21 +12,16 @@ const TypeIconStyle = styled.div`
   width: 30px;
   text-align: center;
   border-radius: ${({ roundedCorners }) => (roundedCorners ? '3px 0 0 3px' : '0')};
-  ${({ theme, transparent, type }) => (theme.name !== THEMES.classic ? getBackgroundColor(transparent, theme, type) && getIconColor(transparent, theme, type) : null)}
+  ${({ theme, transparent, type }) => (theme.name !== THEMES.classic ? getBackgroundAndIconColor(transparent, theme, type) : null)}
   ${({ theme }) => (theme.name === THEMES.classic ? typeIconClassicStyle : null)}
 `;
 
-function getBackgroundColor(transparent, theme, type) {
+function getBackgroundAndIconColor(transparent, theme, type) {
   return `
-    background-color: ${transparent ? theme.colors.white : theme.colors[type]}
-  `;
-}
-
-function getIconColor(transparent, theme, type) {
-  return `
+    background-color: ${transparent ? theme.colors.white : theme.colors[type]};
     span {
       &:before {
-        color: ${transparent ? theme.colors[type] : theme.colors.white}
+        color: ${transparent ? theme.colors[type] : theme.colors.white};
       }
     }
   `;
