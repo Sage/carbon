@@ -15,6 +15,8 @@ exports[`Message when in classic mode when border prop is set to false should re
   -ms-flex-line-pack: center;
   align-content: center;
   border-radius: 3px;
+  border: border:1px solid undefined;
+  background-color: #FFFFFF;
   border: none;
   background-color: #335c6d;
 }
@@ -42,6 +44,8 @@ exports[`Message when in classic mode when border prop is set to false should re
   -ms-flex-line-pack: center;
   align-content: center;
   border-radius: 3px;
+  border: border:1px solid #C7384F;
+  background-color: #FFFFFF;
   border: none;
   background-color: #fdf5f5;
 }
@@ -69,6 +73,8 @@ exports[`Message when in classic mode when border prop is set to false should re
   -ms-flex-line-pack: center;
   align-content: center;
   border-radius: 3px;
+  border: border:1px solid undefined;
+  background-color: #FFFFFF;
   border: none;
   background-color: #fffbf2;
 }
@@ -96,6 +102,8 @@ exports[`Message when in classic mode when border prop is set to false should re
   -ms-flex-line-pack: center;
   align-content: center;
   border-radius: 3px;
+  border: border:1px solid #0073C2;
+  background-color: #FFFFFF;
   border: none;
   background-color: #f3f8fe;
 }
@@ -123,6 +131,8 @@ exports[`Message when in classic mode when border prop is set to false should re
   -ms-flex-line-pack: center;
   align-content: center;
   border-radius: 3px;
+  border: border:1px solid undefined;
+  background-color: #FFFFFF;
   border: none;
   background-color: #fff8f2;
 }
@@ -150,6 +160,8 @@ exports[`Message when in classic mode when border prop is set to false should re
   -ms-flex-line-pack: center;
   align-content: center;
   border-radius: 3px;
+  border: border:1px solid undefined;
+  background-color: #FFFFFF;
   border: none;
   background-color: #f7f5fa;
 }
@@ -177,6 +189,8 @@ exports[`Message when in classic mode when border prop is set to false should re
   -ms-flex-line-pack: center;
   align-content: center;
   border-radius: 3px;
+  border: border:1px solid #00B000;
+  background-color: #FFFFFF;
   border: none;
   background-color: #f6fbf6;
 }
@@ -204,6 +218,8 @@ exports[`Message when in classic mode when border prop is set to false should re
   -ms-flex-line-pack: center;
   align-content: center;
   border-radius: 3px;
+  border: border:1px solid #E96400;
+  background-color: #FFFFFF;
   border: none;
   background-color: #fff8f2;
 }
@@ -231,6 +247,8 @@ exports[`Message when in classic mode when rendered should match the snapshot 1`
   -ms-flex-line-pack: center;
   align-content: center;
   border-radius: 3px;
+  border: border:1px solid #C7384F;
+  background-color: #FFFFFF;
   border: 1px solid #f7d9d9;
   background-color: #fdf5f5;
 }
@@ -258,6 +276,8 @@ exports[`Message when in classic mode when rendered should match the snapshot 2`
   -ms-flex-line-pack: center;
   align-content: center;
   border-radius: 3px;
+  border: border:1px solid #0073C2;
+  background-color: #FFFFFF;
   border: 1px solid #d0e3fa;
   background-color: #f3f8fe;
 }
@@ -285,6 +305,8 @@ exports[`Message when in classic mode when rendered should match the snapshot 3`
   -ms-flex-line-pack: center;
   align-content: center;
   border-radius: 3px;
+  border: border:1px solid #00B000;
+  background-color: #FFFFFF;
   border: 1px solid #dcf1da;
   background-color: #f6fbf6;
 }
@@ -312,6 +334,8 @@ exports[`Message when in classic mode when rendered should match the snapshot 4`
   -ms-flex-line-pack: center;
   align-content: center;
   border-radius: 3px;
+  border: border:1px solid #E96400;
+  background-color: #FFFFFF;
   border: 1px solid #ffe4cc;
   background-color: #fff8f2;
 }
@@ -340,6 +364,8 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   align-content: center;
   border-radius: 3px;
   border: none;
+  background-color: #FFFFFF;
+  border: none;
 }
 
 <info
@@ -365,6 +391,8 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -ms-flex-line-pack: center;
   align-content: center;
   border-radius: 3px;
+  border: none;
+  background-color: #FFFFFF;
   border: none;
 }
 
@@ -392,6 +420,8 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   align-content: center;
   border-radius: 3px;
   border: none;
+  background-color: #FFFFFF;
+  border: none;
 }
 
 <info
@@ -417,6 +447,8 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -ms-flex-line-pack: center;
   align-content: center;
   border-radius: 3px;
+  border: none;
+  background-color: #FFFFFF;
   border: none;
 }
 
@@ -444,6 +476,8 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   align-content: center;
   border-radius: 3px;
   border: none;
+  background-color: #FFFFFF;
+  border: none;
 }
 
 <info
@@ -469,6 +503,8 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -ms-flex-line-pack: center;
   align-content: center;
   border-radius: 3px;
+  border: none;
+  background-color: #FFFFFF;
   border: none;
 }
 
@@ -496,6 +532,8 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   align-content: center;
   border-radius: 3px;
   border: none;
+  background-color: #FFFFFF;
+  border: none;
 }
 
 <info
@@ -521,6 +559,8 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -ms-flex-line-pack: center;
   align-content: center;
   border-radius: 3px;
+  border: none;
+  background-color: #FFFFFF;
   border: none;
 }
 

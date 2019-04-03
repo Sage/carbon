@@ -17,6 +17,11 @@ describe('TypeIcon', () => {
       expect(shallow(<TypeIcon />)).toHaveLength(1);
     });
 
+    it('should match the snapshot', () => {
+      const wrapper = shallow(<TypeIcon />);
+      expect(wrapper).toMatchSnapshot();
+    });
+
     describe('with no additional props', () => {
       OptionsHelper.messages.forEach((messageType) => {
         it(`should match the snapshot for ${messageType}`, () => {

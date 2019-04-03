@@ -480,6 +480,48 @@ exports[`TypeIcon when in classic mode when transparent prop is set to true appl
 />
 `;
 
+exports[`TypeIcon when rendered should match the snapshot 1`] = `
+<styled.div
+  as="info"
+  roundedCorners={true}
+  theme={
+    Object {
+      "colors": Object {
+        "border": "#668491",
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFB500",
+        "info": "#0073C2",
+        "primary": "#26A826",
+        "secondary": "#006300",
+        "success": "#00B000",
+        "tertiary": "#004400",
+        "warning": "#E96400",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "border": "#CCD6DA",
+        "disabled": "rgba(0,0,0,0.55)",
+        "input": "#F2F4F5",
+      },
+      "name": "base",
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+  transparent={false}
+  type="info"
+>
+  <Icon
+    bgSize="small"
+    type="info"
+  />
+</styled.div>
+`;
+
 exports[`TypeIcon when rendered with no additional props should match the snapshot for error 1`] = `
 .c0 {
   -webkit-align-items: center;
@@ -497,7 +539,6 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #C7384F;
 }
 
 .c0 span:before {
@@ -527,7 +568,6 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #0073C2;
 }
 
 .c0 span:before {
@@ -557,7 +597,6 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #00B000;
 }
 
 .c0 span:before {
@@ -587,7 +626,6 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #E96400;
 }
 
 .c0 span:before {
@@ -617,7 +655,6 @@ exports[`TypeIcon when roundedCorners prop is set to false should apply no borde
   width: 30px;
   text-align: center;
   border-radius: 0;
-  background-color: undefined;
 }
 
 .c0 span:before {
@@ -646,7 +683,6 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -676,7 +712,6 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -706,7 +741,6 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -736,7 +770,6 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   width: 30px;
   text-align: center;
   border-radius: 3px 0 0 3px;
-  background-color: #FFFFFF;
 }
 
 .c0 span:before {

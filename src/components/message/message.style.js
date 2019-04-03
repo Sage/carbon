@@ -9,17 +9,17 @@ const MessageStyle = styled.div`
   display: flex;
   justify-content: flex-start;
   align-content: center;
-  border-radius: ${({ roundedCorners }) => (roundedCorners ? '3px;' : '0px;')};
-  ${({ transparent, theme, type }) => {
-    theme.name === THEMES.classic
-      ? `
-  border: ${transparent ? 'none;' : `border: 1px solid ${theme.colors[type]};`}
-  background-color: ${transparent ? `${theme.colors.white};` : `${theme.colors.white};`}
-  `
-      : null;
-  }}
+  border-radius: ${({ roundedCorners }) => (roundedCorners ? '3px;' : '0px;')}
+  ${({ theme, transparent, type }) => (theme.name === THEMES.classic ? getBorderAndBackgroundStyles(theme, transparent, type) : null)}
   ${({ theme }) => (theme.name === THEMES.classic ? messageClassicStyle : null)};
 `;
+
+function getBorderAndBackgroundStyles(theme, transparent, type) {
+  return `
+    border: ${transparent ? 'none;' : `border: 1px solid ${theme.colors[type]};`}
+    background-color: ${transparent ? `${theme.colors.white};` : `${theme.colors.white};`}
+  `;
+}
 
 MessageStyle.defaultProps = {
   border: true,
