@@ -15,11 +15,6 @@ Feature: Button Toggle component
       | 汉字                       |
       | <>                       |
 
-  @negative
-  Scenario: Change Button Toggle icon to null
-    When I set button icon to "null"
-    Then Button icon not exists on preview
-
   @positive
   Scenario Outline: Change button icon size property
     When I set button icon to "arrow_left"

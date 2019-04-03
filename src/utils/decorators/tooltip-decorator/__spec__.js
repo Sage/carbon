@@ -146,6 +146,14 @@ describe('tooltip-decorator', () => {
       expect(topTooltip.setState).toHaveBeenCalledWith({ isVisible: true });
     });
 
+    it('clears the timeout', () => {
+      spyOn(window, 'clearTimeout');
+
+      topTooltip.onShow();
+      jest.runTimersToTime(300);
+      expect(window.clearTimeout).toHaveBeenCalledWith(topTooltip._hideTooltipTimeout);
+    });
+
     it('calls positionTooltip after a timeout', () => {
       topTooltip.onShow();
       jest.runTimersToTime(300);
@@ -154,16 +162,18 @@ describe('tooltip-decorator', () => {
   });
 
   describe('on hide', () => {
-    it('hides the tooltip', () => {
+    it('hides the tooltip after a timeout', () => {
       spyOn(topTooltip, 'setState');
       topTooltip.onHide();
+      jest.runTimersToTime(300);
       expect(topTooltip.setState).toHaveBeenCalledWith({ isVisible: false });
     });
 
     it('clears the timeout', () => {
       spyOn(window, 'clearTimeout');
       topTooltip.onHide();
-      expect(window.clearTimeout).toHaveBeenCalledWith(topTooltip._tooltipTimeout);
+      jest.runTimersToTime(300);
+      expect(window.clearTimeout).toHaveBeenCalledWith(topTooltip._showTooltipTimeout);
     });
   });
 

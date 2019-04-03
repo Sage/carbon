@@ -18,45 +18,27 @@ const Preview = (props) => {
 
 Preview.propTypes = {
   /**
-   * Children elements
-   *
-   * @property children
-   * @type {Node}
+   * Children content to render in the component.
    */
   children: PropTypes.node,
   /**
-   * Custom className
-   *
-   * @property className
-   * @type {String}
+   * Classes to be applied to the component.
    */
   className: PropTypes.string,
   /**
-   * Custom height
-   *
-   * @property height
-   * @type {String}
+   * A custom height.
    */
   height: PropTypes.string,
   /**
-   * Number of lines to generate for preview
-   *
-   * @property lines
-   * @type {Number}
+   * The number of lines to render.
    */
   lines: PropTypes.number,
   /**
-   * Custom loading
-   *
-   * @property loading
-   * @type {Boolean}
+   * Provides more control over when in a loading state.
    */
   loading: PropTypes.bool,
   /**
-   * Custom width
-   *
-   * @property width
-   * @type {String}
+   * A custom width
    */
   width: PropTypes.string
 };

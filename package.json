@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "6.3.2",
+  "version": "7.0.1",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "engineStrict": true,
   "engines": {
@@ -39,7 +39,6 @@
   },
   "homepage": "https://github.com/Sage/carbon#readme",
   "peerDependencies": {
-    "flux": "^3.1.1",
     "react": "^16.8.2",
     "react-dom": "^16.8.2",
     "i18n-js": "^3.0.0"
@@ -61,6 +60,7 @@
     "@types/react-dom": "16.0.11",
     "babel-standalone": "~6.17.0",
     "carbon-factory": "7.1.0",
+    "carbon-state-management": "0.0.6",
     "core-js": "^2.6.3",
     "cpx": "^1.5.0",
     "cross-env": "^5.2.0",
@@ -69,6 +69,7 @@
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "1.7.1",
     "eslint-plugin-cypress": "^2.0.1",
+    "events": "~1.1.1",
     "flux": "^3.1.1",
     "highlight.js": "~9.6.0",
     "i18n-js": "http://github.com/fnando/i18n-js/archive/v3.0.0.rc12.tar.gz",
@@ -91,7 +92,6 @@
     "classnames": "~2.2.3",
     "crypto-js": "~3.1.6",
     "escape-string-regexp": "~1.0.5",
-    "events": "~1.1.1",
     "form-serialize": "~0.7.0",
     "highcharts": "~5.0.2",
     "immutable": "~3.8.1",
