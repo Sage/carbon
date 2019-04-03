@@ -1,11 +1,12 @@
 import React from 'react';
 import I18n from 'i18n-js';
 import PropTypes from 'prop-types';
-import DayPicker from 'react-day-picker';
 import LocaleUtils from 'react-day-picker/moment';
 import 'react-day-picker/lib/style.css';
 import './date.scss';
-import Navbar from './navbar';
+import Navbar from './navbar/navbar.component';
+import StyledDayPicker from './day-picker.style';
+import Weekday from './weekday/weekday.component';
 import Portal from '../portal';
 import Browser from '../../utils/helpers/browser';
 import Input from '../../utils/decorators/input';
@@ -465,6 +466,17 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
       fixedWeeks: true,
       initialMonth: this.state.datePickerValue || DateHelper.stringToDate(date),
       inline: true,
+      weekdayElement: (weekdayElementProps) => {
+        const { className, weekday, localeUtils } = weekdayElementProps;
+        const weekdayLong = localeUtils.formatWeekdayLong(weekday);
+        const weekdayShort = weekdayLong.substring(0, 3);
+
+        return (
+          <Weekday className={ className } title={ weekdayLong }>
+            {weekdayShort}
+          </Weekday>
+        );
+      },
       locale: I18n.locale,
       localeUtils: LocaleUtils,
       navbarElement: <Navbar />,
@@ -532,7 +544,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     return (
       this.state.open && (
         <Portal onReposition={ this.updateDatePickerPosition }>
-          <DayPicker { ...this.datePickerProps } containerProps={ this.containerProps } />
+          <StyledDayPicker { ...this.datePickerProps } containerProps={ this.containerProps } />
         </Portal>
       )
     );
