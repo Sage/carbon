@@ -9,8 +9,12 @@ Given('I open {string} component page', (component) => {
   visitComponentUrl(component)
 })
 
-Given('I open {string} component page without knobs', (component) => {
-  visitComponentUrl(component, false)
+Given('I open {string} component page with button', (component) => {
+  visitComponentUrl(component, 'with_button')
+})
+
+Given('I open {string} component iframe', (component) => {
+  visitComponentUrl(component, 'default', true)
 })
 
 When('I set children to {string}', (text) => {

@@ -3,11 +3,6 @@ import {
   inputWidthInput, inputWidthPreview, fieldHelpInput, fieldHelpPreview, labelHelpPreview,
   lableInlineCheckbox, buttonToggleGroupPreview, labelAlignSelect, labelWidthInput
 } from "../../locators/buttonToggleGroupLocators";
-import { visitComponentUrl } from "../helper";
-
-Given('I open Button Toggle Group component page', () => {
-  visitComponentUrl('button_toggle_group_component_url')
-});
 
 Then('Label on preview is {string}', (label) => {
   labelPreview().should('have.text', label)

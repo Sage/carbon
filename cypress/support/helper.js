@@ -1,9 +1,10 @@
 import { knobsTab } from "../locators/commonLocators"
 import { draggableRecordByText } from "../locators/draggableContextLocators"
+import { DEBUG_FLAG } from ".";
 
-export function visitComponentUrl(url, openKnobs = true) {
-    cy.visit(Cypress.env(url))
-    if (openKnobs) knobsTab().click()
+export function visitComponentUrl(component, suffix = 'default', iFrameOnly = false) {
+    cy.visit(prepareUrl(component, suffix, iFrameOnly))
+    if(!iFrameOnly) knobsTab().click()
 }
 
 export function dragAndDropForDraggableRecord(record, position) {
@@ -21,9 +22,15 @@ export function dragAndDropForDraggableRecord(record, position) {
     //put row record on top of page, then move down every TEN_PIXEL_MOVE
     for (let i = 0; i < START_HIGHT + (position * ROW_HIGHT); i += TEN_PIXEL_MOVE) {
         draggableRecord
-            .trigger('mousemove', { clientY: i, force: true, log: false })
-            .wait(100, { log: false })
+            .trigger('mousemove', { clientY: i, force: true, log: DEBUG_FLAG })
+            .wait(100, { log: DEBUG_FLAG })
     }
     draggableRecord
         .trigger('mouseup', { force: true })
+}
+
+function prepareUrl(component, suffix, iFrameOnly){
+    let url = Cypress.env('localhost')
+    iFrameOnly ? url += Cypress.env('iframe') : url+= Cypress.env('story')
+    return url + component.toLowerCase().replace(/ /g, '-') + Cypress.env(suffix)
 }

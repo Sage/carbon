@@ -1,3 +1,5 @@
+export const DEBUG_FLAG = false
+
 // ***********************************************************
 // This example support/index.js is processed and
 // loaded automatically before your test files.
@@ -43,7 +45,9 @@ Cypress.Commands.overwrite(
 Cypress.Commands.add("iFrame", (selector) => { getItem(selector, 20) })
 
 function getItem(selector, counter) {
-    cy.wait(50).get('#storybook-preview-iframe').then(($iframe) => {
+    cy.wait(50, { log: DEBUG_FLAG })
+    .get('#storybook-preview-iframe', { log: DEBUG_FLAG })
+    .then(($iframe) => {
         if (!$iframe.contents().find(selector).length && counter > 0) {
             return getItem(selector, --counter)
         } else {

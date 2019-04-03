@@ -2,7 +2,7 @@ Feature: Draggable Context component
   I want to change Draggable Context component
 
   Background: Open Draggable Context component page
-    Given I open "Draggable Context" component page without knobs
+    Given I open "DraggableContext" component iframe
 
   @positive
   Scenario Outline: Drag record inside Draggable Context
