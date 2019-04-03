@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
-import DayPicker from 'react-day-picker';
+import 'react-day-picker/lib/style.css';
 import LocaleUtils from 'react-day-picker/moment';
-import Browser from 'utils/helpers/browser';
-import DateHelper from 'utils/helpers/date';
-import Navbar from 'components/date/navbar/navbar';
-import Portal from 'components/portal';
+import Browser from '../../../utils/helpers/browser';
+import DateHelper from '../../../utils/helpers/date';
+import Portal from '../../../components/portal';
+import Navbar from './navbar';
+import StyledDayPicker from './day-picker.style';
 
 const DatePicker = (props) => {
   const window = Browser.getWindow();
@@ -38,7 +39,7 @@ const DatePicker = (props) => {
 
   return (
     <Portal onReposition={ () => updateDatePickerPosition(getContainerPosition(window, props.inputElement)) }>
-      <DayPicker
+      <StyledDayPicker
         { ...datePickerProps } containerProps={ containerProps }
         ref={ datepicker }
       />
