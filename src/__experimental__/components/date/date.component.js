@@ -38,9 +38,9 @@ class Date extends React.Component {
     disabled: PropTypes.bool,
     /** Used to provide additional validations on composed components */
     internalValidations: PropTypes.array,
-    /** Minimum possible date */
+    /** Minimum possible date YYYY-MM-DD */
     minDate: PropTypes.string,
-    /** Maximum possible date */
+    /** Maximum possible date YYYY-MM-DD */
     maxDate: PropTypes.string,
     /** Specify a callback triggered on blur */
     onBlur: PropTypes.func,
@@ -207,7 +207,8 @@ class Date extends React.Component {
 
   render() {
     const isComponentActive = !this.props.disabled && !this.props.readOnly;
-    const { minDate, maxDate, ...inputProps } = validProps(this);
+    const { ...inputProps } = validProps(this);
+    const { minDate, maxDate } = this.props;
     let events = {};
 
     delete inputProps.autoFocus;
