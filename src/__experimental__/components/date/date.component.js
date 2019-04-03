@@ -1,15 +1,14 @@
 import React from 'react';
 import I18n from 'i18n-js';
 import PropTypes from 'prop-types';
-import 'react-day-picker/lib/style.css';
-import 'components/date/date.scss';
-import Events from 'utils/helpers/events';
-import DateHelper from 'utils/helpers/date';
-import DateValidator from 'utils/validations/date';
-import { validProps } from 'utils/ether';
-import tagComponent from 'utils/helpers/tags';
+import Events from '../../../utils/helpers/events';
+import DateHelper from '../../../utils/helpers/date';
+import DateValidator from '../../../utils/validations/date';
+import { validProps } from '../../../utils/ether';
+import tagComponent from '../../../utils/helpers/tags';
 import DatePicker from './datePicker.component';
 import InputDecoratorBridge from '../input-decorator-bridge';
+import StyledDateInput from './date.style';
 
 const isoDateFormat = 'YYYY-MM-DD';
 const today = DateHelper.todayFormatted(isoDateFormat);
@@ -142,7 +141,7 @@ class Date extends React.Component {
   closeDatePicker = () => {
     this._document.removeEventListener('click', this.closeDatePicker);
     this.setState({
-      isDatePickerOpen: false
+        isDatePickerOpen: false
     });
   };
 
@@ -224,7 +223,7 @@ class Date extends React.Component {
     }
 
     return (
-      <div
+      <StyledDateInput
         onClick={ stopClickPropagation }
         onKeyDown={ this.handleKeyDown }
         role='presentation'
@@ -239,7 +238,7 @@ class Date extends React.Component {
           { ...events }
         />
         {this.state.isDatePickerOpen && this.renderDatePicker({ minDate, maxDate }) }
-      </div>
+      </StyledDateInput>
     );
   }
 }
