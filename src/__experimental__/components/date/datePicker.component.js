@@ -10,10 +10,10 @@ import Portal from 'components/portal';
 
 const DatePicker = (props) => {
   const window = Browser.getWindow();
-  const [containerPosition, updateDatePickerPosition] = useState(getContainerPosition(window, props.input));
+  const [containerPosition, updateDatePickerPosition] = useState(getContainerPosition(window, props.inputElement));
   const containerProps = {
     style: containerPosition,
-    onClick: handleWidgetClick
+    onClick: stopClickPropagation
   };
   const datepicker = useRef(null);
 
@@ -21,23 +21,23 @@ const DatePicker = (props) => {
     disabledDays: getDisabledDays(props.minDate, props.maxDate),
     enableOutsideDays: true,
     fixedWeeks: true,
-    initialMonth: props.datePickerValue || DateHelper.stringToDate(props.input.value),
+    initialMonth: props.selectedDate || DateHelper.stringToDate(props.inputElement.value),
     inline: true,
     locale: I18n.locale,
     localeUtils: LocaleUtils,
     navbarElement: <Navbar />,
     onDayClick: props.handleDateSelect,
-    selectedDays: [props.datePickerValue]
+    selectedDays: [props.selectedDate]
   };
 
   useEffect(() => {
-    if (props.datePickerValue && monthOrYearHasChanged(datepicker, props.datePickerValue)) {
-      datepicker.current.showMonth(props.datePickerValue);
+    if (props.selectedDate && monthOrYearHasChanged(datepicker, props.selectedDate)) {
+      datepicker.current.showMonth(props.selectedDate);
     }
   });
 
   return (
-    <Portal onReposition={ () => updateDatePickerPosition(getContainerPosition(window, props.input)) }>
+    <Portal onReposition={ () => updateDatePickerPosition(getContainerPosition(window, props.inputElement)) }>
       <DayPicker
         { ...datePickerProps } containerProps={ containerProps }
         ref={ datepicker }
@@ -51,8 +51,10 @@ DatePicker.propTypes = {
   minDate: PropTypes.string,
   /** Maximum possible date */
   maxDate: PropTypes.string,
-  input: PropTypes.object,
-  datePickerValue: PropTypes.object,
+  /** Element that the DatePicker will be displayed under */
+  inputElement: PropTypes.object,
+  /** Currently selected date */
+  selectedDate: PropTypes.object,
   handleDateSelect: PropTypes.func
 };
 
@@ -116,7 +118,7 @@ function getContainerPosition(window, input) {
  * @param {Object} ev event
  * @return {void}
  */
-function handleWidgetClick(ev) {
+function stopClickPropagation(ev) {
   ev.nativeEvent.stopImmediatePropagation();
 }
 
