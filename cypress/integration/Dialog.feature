@@ -114,3 +114,26 @@ Feature: Dialog component
       And I open component preview
       And I hit ESC key
     Then dialog is not visible
+
+  @positive
+  Scenario Outline: Click outside Dialog without background and Dialog remains open
+    When I uncheck enableBackgroundUI
+      And I open component preview
+      And I click on "<position>" outside dialog
+    Then dialog is visible
+    Examples:
+      | position |
+      | top      |
+      | topRight |
+      | right    |
+
+  @positive
+  Scenario Outline: Click on background outside Dialog and Dialog remains open
+    When I open component preview
+      And I click on background "<position>" outside dialog
+    Then dialog is visible
+    Examples:
+      | position |
+      | top      |
+      | topRight |
+      | right    |

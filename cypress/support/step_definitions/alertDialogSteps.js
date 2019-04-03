@@ -3,7 +3,7 @@ import {
   dialogPreview, stickyFormFooter, disableEscKeyCheckbox, backgroundBlocker
 } from "../../locators/alertDialogLocators"
 import {
-  enableBackgroundUICheckbox, subtitleInput
+  enableBackgroundUICheckbox, subtitleInput, STORY_ROOT
 } from "../../locators/commonLocators"
 
 const CARBON_DIALOG_PREFIX = 'carbon-dialog__dialog--'
@@ -102,4 +102,12 @@ Then('stickyFormFooter is enabled', () => {
 
 Then('stickyFormFooter is disabled', () => {
   dialogPreview().should('not.have.class', CARBON_DIALOG_PREFIX + 'sticky-form-footer')
+})
+
+When('I click on {string} outside dialog', (position) => {
+  cy.iFrame(STORY_ROOT).click(position, { force: true })
+})
+
+When('I click on background {string} outside dialog', (position) => {
+  backgroundBlocker().click(position, { force: true })
 })
