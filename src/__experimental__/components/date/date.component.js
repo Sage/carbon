@@ -140,8 +140,11 @@ class Date extends React.Component {
 
   closeDatePicker = () => {
     this._document.removeEventListener('click', this.closeDatePicker);
-    this.setState({
+    this.setState((prevState) => {
+      return {
+        visibleValue: this.formatVisibleValue(prevState.selectedDate),
         isDatePickerOpen: false
+      };
     });
   };
 
