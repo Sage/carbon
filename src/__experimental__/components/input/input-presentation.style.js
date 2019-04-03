@@ -36,6 +36,10 @@ const InputPresentationStyle = styled.div`
   ${stylingForValidation('errorMessage')}
 
   ${inputClassicStyling}
+
+  input::-ms-clear {
+    display: none;
+  }
 `;
 
 function stylingForValidation(message) {
