@@ -58,7 +58,7 @@ class Link extends React.Component {
   }
 
   get tabIndex() {
-    return this.props.tabbable && this.props.disabled ? '-1' : '0';
+    return this.props.tabbable && !this.props.disabled ? '0' : '-1';
   }
 
   get componentProps() {
