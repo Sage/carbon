@@ -40,7 +40,7 @@ const DialogContentStyle = styled.div`
   overflow-y: auto;
   padding: 0px 35px 30px;
   width: 100%;
-
+  
   ${({ fixedBottom }) => fixedBottom && css`
     @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
       overflow-y: scroll
@@ -49,8 +49,12 @@ const DialogContentStyle = styled.div`
 `;
 
 const DialogInnerContentStyle = styled.div`
+  ${props => console.log(props)}
   padding-top: 20px;
   position: relative;
+  ${({ height }) => height && css`
+    min-height: ${height - 40}px}
+  `}
 `;
 
 export {

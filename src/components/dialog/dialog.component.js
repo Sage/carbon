@@ -209,8 +209,6 @@ class Dialog extends Modal {
       fixedBottom: this.appliedFixedBottom
     };
 
-    const style = {};
-
     if (this.props.ariaRole) {
       dialogProps.role = this.props.ariaRole;
     }
@@ -221,10 +219,6 @@ class Dialog extends Modal {
 
     if (this.props.subtitle) {
       dialogProps['aria-describedby'] = 'carbon-dialog-subtitle';
-    }
-
-    if (this.props.height) {
-      style.minHeight = `calc(${height} - 40px)`;
     }
 
     return (
@@ -240,7 +234,7 @@ class Dialog extends Modal {
           <DialogInnerContentStyle
             fixedBottom={ this.appliedFixedBottom }
             ref={ (c) => { this._innerContent = c; } }
-            style={ style }
+            height={ this.props.height }
           >
             { this.props.children }
             { this.additionalContent() }
