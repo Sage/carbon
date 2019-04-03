@@ -10,8 +10,8 @@ const TypeIconStyle = styled.div`
   align-items: center;
   display: flex;
   justify-content: center;
-  width: 30px;
   text-align: center;
+  padding: 0 7px;
   ${({ theme, transparent, type }) => (theme.name !== THEMES.classic ? getBackgroundAndIconColor(transparent, theme, type) : null)}
   ${({ theme }) => (theme.name === THEMES.classic ? typeIconClassicStyle : null)}
 `;

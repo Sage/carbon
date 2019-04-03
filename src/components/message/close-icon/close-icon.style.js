@@ -11,7 +11,7 @@ const CloseIconStyle = styled.div`
   margin-left: auto;
   justify-content: center;
   text-align: center;
-  width: 45px;
+  padding: 0 15px;
   color: ${({ type, theme }) => (theme.name === THEMES.classic ? classicConfig[type].color : theme.colors[type])};
   span {
     cursor: pointer;
