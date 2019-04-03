@@ -11,28 +11,17 @@ import './dropdown-filter.scss';
 class DropdownFilter extends Dropdown {
   /**
    * Constructor
-   *
-   * @constructor
-   * @param {Array} args - Arguments
    */
   constructor(...args) {
     super(...args);
 
     /**
      * The user input search text.
-     *
-     * @property filter
-     * @type {String}
-     * @default null
      */
     this.state.filter = this.hasFreetextValue() ? this.props.visibleValue : null;
 
     /**
      * Determines if list is being opened on current render.
-     *
-     * @property openingList
-     * @type {Boolean}
-     * @default false
      */
     this.openingList = false;
 
@@ -45,9 +34,6 @@ class DropdownFilter extends Dropdown {
 
     /**
      * The ID value for the component
-     *
-     * @property value
-     * @type {String}
      */
     value: PropTypes.oneOfType([
       PropTypes.string,
@@ -57,65 +43,41 @@ class DropdownFilter extends Dropdown {
     /**
      * The visible value for the component
      * Provides a visible value in `freetext` mode when no option is selected.
-     *
-     * @property visibleValue
-     * @type {String}
      */
     visibleValue: PropTypes.string,
 
     /**
      * The options to be displayed in the dropdown. Should be set in the store and passed from the parent component.
-     *
-     * @property options
-     * @type {object}
      */
     options: PropTypes.object.isRequired,
 
     /**
      * Enables create functionality for dropdown.
-     *
-     * @property create
-     * @type {Function}
      */
     create: PropTypes.func,
 
     /**
      * Customizes text for the create functionality of the dropdown.
-     *
-     * @property createText
-     * @type {String}
      */
     createText: PropTypes.string,
 
     /**
      * Customizes the Carbon Icon type for the create functionality of the dropdown.
-     *
-     * @property createIconType
-     * @type {String}
      */
     createIconType: PropTypes.string,
 
     /**
      * Should the dropdown act and look like a suggestable input instead.
-     *
-     * @property suggest
-     * @type {Boolean}
      */
     suggest: PropTypes.bool,
 
     /**
      * Should the dropdown accept free text as well as suggested options?
-     *
-     * @property freetext
-     * @type {Boolean}
      */
     freetext: PropTypes.bool,
 
     /**
      * Name for freetext value hidden input containing visibleValue in freetext mode
-     *
-     * @property freetextName
-     * @type {String}
      */
     freetextName: PropTypes.string
   });
