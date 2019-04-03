@@ -400,7 +400,11 @@ describe('ShowEditPod', () => {
     describe('on internal elements', () => {
       const wrapper = mount(<ShowEditPod editing onEdit={ () => {} } />);
 
-      elementsTagTest(wrapper.findWhere(n => n.type() === 'form'), ['edit-form']);
+      const form = wrapper.find('.carbon-form');
+      expect(form.type()).toEqual('form');
+      elementsTagTest(form, [
+        'edit-form'
+      ]);
     });
   });
 });

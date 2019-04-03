@@ -8,7 +8,7 @@ import notes from './documentation/notes.md';
 import Dialog from './dialog';
 import Form from '../form';
 import Textbox from '../textbox';
-import Button from '../button/button';
+import Button from '../button';
 
 const store = new Store({
   open: false

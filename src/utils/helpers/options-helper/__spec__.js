@@ -24,6 +24,12 @@ describe('OptionsHelper', () => {
       'white'
     ]);
   });
+  it('buttonIconPositions', () => {
+    expect(OptionsHelper.buttonIconPositions).toEqual([
+      'before',
+      'after'
+    ]);
+  });
   it('colors', () => {
     expect(OptionsHelper.colors).toEqual([
       'default',
@@ -197,7 +203,10 @@ describe('OptionsHelper', () => {
   it('themesBinary', () => {
     expect(OptionsHelper.themesBinary).toEqual([
       'primary',
-      'secondary'
+      'secondary',
+      'tertiary',
+      'destructive',
+      'darkBackground'
     ]);
   });
   it('themesFull', () => {

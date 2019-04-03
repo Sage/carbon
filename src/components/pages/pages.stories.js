@@ -6,7 +6,7 @@ import { State, Store } from '@sambego/storybook-state';
 import { Pages, Page } from './pages';
 import DialogFullScreen from '../dialog-full-screen/dialog-full-screen';
 import Heading from '../heading/heading';
-import Button from '../button/button';
+import Button from '../button';
 
 const store = new Store({
   open: false,
