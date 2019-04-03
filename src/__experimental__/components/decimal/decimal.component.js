@@ -47,7 +47,7 @@ class Decimal extends React.Component {
       return maxPrecision;
     }
 
-    if (precision < 0) {
+    if (!precision || precision < 0) {
       return Decimal.defaultProps.precision;
     }
 
