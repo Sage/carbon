@@ -14,9 +14,9 @@ exports[`Message when in classic mode when border prop is set to false should re
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
   background-color: #335c6d;
+  border-radius: 0px;
 }
 
 <info
@@ -41,9 +41,9 @@ exports[`Message when in classic mode when border prop is set to false should re
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
   background-color: #fdf5f5;
+  border-radius: 0px;
 }
 
 <info
@@ -68,9 +68,9 @@ exports[`Message when in classic mode when border prop is set to false should re
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
   background-color: #fffbf2;
+  border-radius: 0px;
 }
 
 <info
@@ -95,9 +95,9 @@ exports[`Message when in classic mode when border prop is set to false should re
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
   background-color: #f3f8fe;
+  border-radius: 0px;
 }
 
 <info
@@ -122,9 +122,9 @@ exports[`Message when in classic mode when border prop is set to false should re
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
   background-color: #fff8f2;
+  border-radius: 0px;
 }
 
 <info
@@ -149,9 +149,9 @@ exports[`Message when in classic mode when border prop is set to false should re
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
   background-color: #f7f5fa;
+  border-radius: 0px;
 }
 
 <info
@@ -176,9 +176,9 @@ exports[`Message when in classic mode when border prop is set to false should re
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
   background-color: #f6fbf6;
+  border-radius: 0px;
 }
 
 <info
@@ -203,9 +203,9 @@ exports[`Message when in classic mode when border prop is set to false should re
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
   background-color: #fff8f2;
+  border-radius: 0px;
 }
 
 <info
@@ -230,14 +230,14 @@ exports[`Message when in classic mode when rendered should match the snapshot 1`
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
+  border: 1px solid #335c6d;
+  background-color: #335c6d;
   border-radius: 3px;
-  border: 1px solid #f7d9d9;
-  background-color: #fdf5f5;
 }
 
 <info
   className="c0"
-  type="error"
+  type="default"
 >
   Message
 </info>
@@ -257,14 +257,14 @@ exports[`Message when in classic mode when rendered should match the snapshot 2`
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
+  border: 1px solid #f7d9d9;
+  background-color: #fdf5f5;
   border-radius: 3px;
-  border: 1px solid #d0e3fa;
-  background-color: #f3f8fe;
 }
 
 <info
   className="c0"
-  type="info"
+  type="error"
 >
   Message
 </info>
@@ -284,14 +284,14 @@ exports[`Message when in classic mode when rendered should match the snapshot 3`
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
+  border: 1px solid #fec;
+  background-color: #fffbf2;
   border-radius: 3px;
-  border: 1px solid #dcf1da;
-  background-color: #f6fbf6;
 }
 
 <info
   className="c0"
-  type="success"
+  type="help"
 >
   Message
 </info>
@@ -311,9 +311,549 @@ exports[`Message when in classic mode when rendered should match the snapshot 4`
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
+  border: 1px solid #d0e3fa;
+  background-color: #f3f8fe;
   border-radius: 3px;
+}
+
+<info
+  className="c0"
+  type="info"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 5`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
   border: 1px solid #ffe4cc;
   background-color: #fff8f2;
+  border-radius: 3px;
+}
+
+<info
+  className="c0"
+  type="maintenance"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 6`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #e0d6eb;
+  background-color: #f7f5fa;
+  border-radius: 3px;
+}
+
+<info
+  className="c0"
+  type="new"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 7`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #dcf1da;
+  background-color: #f6fbf6;
+  border-radius: 3px;
+}
+
+<info
+  className="c0"
+  type="success"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 8`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #ffe4cc;
+  background-color: #fff8f2;
+  border-radius: 3px;
+}
+
+<info
+  className="c0"
+  type="warning"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when roundedCorners prop is not passed should apply proper border-radius style 1`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #335c6d;
+  background-color: #335c6d;
+  border-radius: 3px;
+}
+
+<info
+  className="c0"
+  type="default"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when roundedCorners prop is not passed should apply proper border-radius style 2`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #f7d9d9;
+  background-color: #fdf5f5;
+  border-radius: 3px;
+}
+
+<info
+  className="c0"
+  type="error"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when roundedCorners prop is not passed should apply proper border-radius style 3`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #fec;
+  background-color: #fffbf2;
+  border-radius: 3px;
+}
+
+<info
+  className="c0"
+  type="help"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when roundedCorners prop is not passed should apply proper border-radius style 4`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #d0e3fa;
+  background-color: #f3f8fe;
+  border-radius: 3px;
+}
+
+<info
+  className="c0"
+  type="info"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when roundedCorners prop is not passed should apply proper border-radius style 5`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #ffe4cc;
+  background-color: #fff8f2;
+  border-radius: 3px;
+}
+
+<info
+  className="c0"
+  type="maintenance"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when roundedCorners prop is not passed should apply proper border-radius style 6`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #e0d6eb;
+  background-color: #f7f5fa;
+  border-radius: 3px;
+}
+
+<info
+  className="c0"
+  type="new"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when roundedCorners prop is not passed should apply proper border-radius style 7`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #dcf1da;
+  background-color: #f6fbf6;
+  border-radius: 3px;
+}
+
+<info
+  className="c0"
+  type="success"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when roundedCorners prop is not passed should apply proper border-radius style 8`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #ffe4cc;
+  background-color: #fff8f2;
+  border-radius: 3px;
+}
+
+<info
+  className="c0"
+  type="warning"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when roundedCorners prop is set to false should apply no border-radius style 1`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #335c6d;
+  background-color: #335c6d;
+  border-radius: 0px;
+}
+
+<info
+  className="c0"
+  type="default"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when roundedCorners prop is set to false should apply no border-radius style 2`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #f7d9d9;
+  background-color: #fdf5f5;
+  border-radius: 0px;
+}
+
+<info
+  className="c0"
+  type="error"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when roundedCorners prop is set to false should apply no border-radius style 3`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #fec;
+  background-color: #fffbf2;
+  border-radius: 0px;
+}
+
+<info
+  className="c0"
+  type="help"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when roundedCorners prop is set to false should apply no border-radius style 4`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #d0e3fa;
+  background-color: #f3f8fe;
+  border-radius: 0px;
+}
+
+<info
+  className="c0"
+  type="info"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when roundedCorners prop is set to false should apply no border-radius style 5`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #ffe4cc;
+  background-color: #fff8f2;
+  border-radius: 0px;
+}
+
+<info
+  className="c0"
+  type="maintenance"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when roundedCorners prop is set to false should apply no border-radius style 6`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #e0d6eb;
+  background-color: #f7f5fa;
+  border-radius: 0px;
+}
+
+<info
+  className="c0"
+  type="new"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when roundedCorners prop is set to false should apply no border-radius style 7`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #dcf1da;
+  background-color: #f6fbf6;
+  border-radius: 0px;
+}
+
+<info
+  className="c0"
+  type="success"
+>
+  Message
+</info>
+`;
+
+exports[`Message when in classic mode when roundedCorners prop is set to false should apply no border-radius style 8`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #ffe4cc;
+  background-color: #fff8f2;
+  border-radius: 0px;
 }
 
 <info
@@ -338,8 +878,8 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
+  border-radius: 3px;
 }
 
 <info
@@ -364,8 +904,8 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
+  border-radius: 3px;
 }
 
 <info
@@ -390,8 +930,8 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
+  border-radius: 3px;
 }
 
 <info
@@ -416,8 +956,8 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
+  border-radius: 3px;
 }
 
 <info
@@ -442,8 +982,8 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
+  border-radius: 3px;
 }
 
 <info
@@ -468,8 +1008,8 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
+  border-radius: 3px;
 }
 
 <info
@@ -494,8 +1034,8 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
+  border-radius: 3px;
 }
 
 <info
@@ -520,8 +1060,8 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
+  border-radius: 3px;
 }
 
 <info
@@ -583,7 +1123,7 @@ exports[`Message when rendered should match the snapshot 1`] = `
 </styled.div>
 `;
 
-exports[`Message when roundedCorners prop is not passed should apply proper border-radius style 1`] = `
+exports[`Message when transparent prop is not passed should render the message with border in a proper color and a white background 1`] = `
 .c0 {
   position: relative;
   display: -webkit-box;
@@ -597,19 +1137,19 @@ exports[`Message when roundedCorners prop is not passed should apply proper bord
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
-  border: 1px solid undefined;
+  border: 1px solid #C7384F;
   background-color: #FFFFFF;
 }
 
 <info
   className="c0"
+  type="error"
 >
   Message
 </info>
 `;
 
-exports[`Message when roundedCorners prop is set to false should apply no border-radius style 1`] = `
+exports[`Message when transparent prop is not passed should render the message with border in a proper color and a white background 2`] = `
 .c0 {
   position: relative;
   display: -webkit-box;
@@ -623,13 +1163,65 @@ exports[`Message when roundedCorners prop is set to false should apply no border
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 0px;
-  border: 1px solid undefined;
+  border: 1px solid #0073C2;
   background-color: #FFFFFF;
 }
 
 <info
   className="c0"
+  type="info"
+>
+  Message
+</info>
+`;
+
+exports[`Message when transparent prop is not passed should render the message with border in a proper color and a white background 3`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #00B000;
+  background-color: #FFFFFF;
+}
+
+<info
+  className="c0"
+  type="success"
+>
+  Message
+</info>
+`;
+
+exports[`Message when transparent prop is not passed should render the message with border in a proper color and a white background 4`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #E96400;
+  background-color: #FFFFFF;
+}
+
+<info
+  className="c0"
+  type="warning"
 >
   Message
 </info>
@@ -649,14 +1241,13 @@ exports[`Message when transparent prop is set to true should render the message 
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
   background-color: #FFFFFF;
 }
 
 <info
   className="c0"
-  type="default"
+  type="error"
 >
   Message
 </info>
@@ -676,14 +1267,13 @@ exports[`Message when transparent prop is set to true should render the message 
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
   background-color: #FFFFFF;
 }
 
 <info
   className="c0"
-  type="error"
+  type="info"
 >
   Message
 </info>
@@ -703,14 +1293,13 @@ exports[`Message when transparent prop is set to true should render the message 
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
   border: none;
   background-color: #FFFFFF;
 }
 
 <info
   className="c0"
-  type="help"
+  type="success"
 >
   Message
 </info>
@@ -730,115 +1319,6 @@ exports[`Message when transparent prop is set to true should render the message 
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border-radius: 3px;
-  border: none;
-  background-color: #FFFFFF;
-}
-
-<info
-  className="c0"
-  type="info"
->
-  Message
-</info>
-`;
-
-exports[`Message when transparent prop is set to true should render the message without the border 5`] = `
-.c0 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  border-radius: 3px;
-  border: none;
-  background-color: #FFFFFF;
-}
-
-<info
-  className="c0"
-  type="maintenance"
->
-  Message
-</info>
-`;
-
-exports[`Message when transparent prop is set to true should render the message without the border 6`] = `
-.c0 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  border-radius: 3px;
-  border: none;
-  background-color: #FFFFFF;
-}
-
-<info
-  className="c0"
-  type="new"
->
-  Message
-</info>
-`;
-
-exports[`Message when transparent prop is set to true should render the message without the border 7`] = `
-.c0 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  border-radius: 3px;
-  border: none;
-  background-color: #FFFFFF;
-}
-
-<info
-  className="c0"
-  type="success"
->
-  Message
-</info>
-`;
-
-exports[`Message when transparent prop is set to true should render the message without the border 8`] = `
-.c0 {
-  position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-align-content: center;
-  -ms-flex-line-pack: center;
-  align-content: center;
-  border-radius: 3px;
   border: none;
   background-color: #FFFFFF;
 }

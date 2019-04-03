@@ -32,13 +32,6 @@ describe('TypeIcon', () => {
     });
   });
 
-  describe('when roundedCorners prop is set to false', () => {
-    it('should apply no border-radius', () => {
-      const wrapper = render({ roundedCorners: false });
-      expect(wrapper.toJSON()).toMatchSnapshot();
-    });
-  });
-
   describe('when transparent prop is set to true', () => {
     it('applies white background and the type icon with the proper style applied', () => {
       OptionsHelper.messages.forEach((messageType) => {
@@ -53,6 +46,15 @@ describe('TypeIcon', () => {
       OptionsHelper.colors.forEach((messageType) => {
         it(`should match the snapshot for ${messageType}`, () => {
           const wrapper = render({ type: messageType, theme: classicTheme });
+          expect(wrapper.toJSON()).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('when roundedCorners prop is set to false', () => {
+      it('should apply no border-radius', () => {
+        OptionsHelper.colors.forEach((messageType) => {
+          const wrapper = render({ roundedCorners: false, theme: classicTheme, type: messageType });
           expect(wrapper.toJSON()).toMatchSnapshot();
         });
       });

@@ -10,9 +10,8 @@ const MessageStyle = styled.div`
   display: flex;
   justify-content: flex-start;
   align-content: center;
-  border-radius: ${({ roundedCorners }) => (roundedCorners ? '3px;' : '0px;')}
-    ${({ theme, transparent, type }) => (theme.name !== THEMES.classic ? getBorderAndBackgroundStyles(theme, transparent, type) : null)}
-    ${({ theme }) => (theme.name === THEMES.classic ? messageClassicStyle : null)};
+  ${({ theme, transparent, type }) => (theme.name !== THEMES.classic ? getBorderAndBackgroundStyles(theme, transparent, type) : null)}
+  ${({ theme }) => (theme.name === THEMES.classic ? messageClassicStyle : null)};
 `;
 
 function getBorderAndBackgroundStyles(theme, transparent, type) {

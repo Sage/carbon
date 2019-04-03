@@ -12,7 +12,6 @@ const TypeIconStyle = styled.div`
   justify-content: center;
   width: 30px;
   text-align: center;
-  border-radius: ${({ roundedCorners }) => (roundedCorners ? '3px 0 0 3px' : '0')};
   ${({ theme, transparent, type }) => (theme.name !== THEMES.classic ? getBackgroundAndIconColor(transparent, theme, type) : null)}
   ${({ theme }) => (theme.name === THEMES.classic ? typeIconClassicStyle : null)}
 `;

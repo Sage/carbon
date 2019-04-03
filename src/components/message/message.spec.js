@@ -34,23 +34,19 @@ describe('Message', () => {
     });
   });
 
-  describe('when roundedCorners prop is set to false', () => {
-    it('should apply no border-radius style', () => {
-      const wrapper = render({ roundedCorners: false });
-      expect(wrapper.toJSON()).toMatchSnapshot();
-    });
-  });
-
-  describe('when roundedCorners prop is not passed', () => {
-    it('should apply proper border-radius style', () => {
-      expect(render().toJSON()).toMatchSnapshot();
-    });
-  });
-
   describe('when transparent prop is set to true', () => {
     it('should render the message without the border', () => {
-      OptionsHelper.colors.forEach((messageType) => {
+      OptionsHelper.messages.forEach((messageType) => {
         const wrapper = render({ transparent: true, type: messageType });
+        expect(wrapper.toJSON()).toMatchSnapshot();
+      });
+    });
+  });
+
+  describe('when transparent prop is not passed', () => {
+    it('should render the message with border in a proper color and a white background', () => {
+      OptionsHelper.messages.forEach((messageType) => {
+        const wrapper = render({ type: messageType });
         expect(wrapper.toJSON()).toMatchSnapshot();
       });
     });
@@ -59,7 +55,7 @@ describe('Message', () => {
   describe('when in classic mode', () => {
     describe('when rendered', () => {
       it('should match the snapshot', () => {
-        OptionsHelper.messages.forEach((messageType) => {
+        OptionsHelper.colors.forEach((messageType) => {
           const wrapper = render({ theme: classicTheme, type: messageType });
           expect(wrapper.toJSON()).toMatchSnapshot();
         });
@@ -79,6 +75,24 @@ describe('Message', () => {
       it('should render the message without a border', () => {
         OptionsHelper.colors.forEach((messageType) => {
           const wrapper = render({ border: false, theme: classicTheme, type: messageType });
+          expect(wrapper.toJSON()).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('when roundedCorners prop is set to false', () => {
+      it('should apply no border-radius style', () => {
+        OptionsHelper.colors.forEach((messageType) => {
+          const wrapper = render({ roundedCorners: false, theme: classicTheme, type: messageType });
+          expect(wrapper.toJSON()).toMatchSnapshot();
+        });
+      });
+    });
+
+    describe('when roundedCorners prop is not passed', () => {
+      it('should apply proper border-radius style', () => {
+        OptionsHelper.colors.forEach((messageType) => {
+          const wrapper = render({ theme: classicTheme, type: messageType });
           expect(wrapper.toJSON()).toMatchSnapshot();
         });
       });
