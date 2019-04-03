@@ -8,7 +8,6 @@ import {
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import ImmutableHelper from '../../utils/helpers/immutable';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
@@ -21,7 +20,6 @@ const store = new Store({
 });
 
 enableMock();
-const create = (evt, component) => component.state.filter;
 
 // Shared Props
 const onChange = (evt) => {
@@ -39,7 +37,6 @@ const defaultKnobs = () => {
     autoFocus: boolean('autoFocus'),
     cacheVisibleValue: boolean('cacheVisibleValue'),
     disabled: boolean('disabled'),
-    name: text('name', 'Name'),
     readOnly: boolean('readOnly'),
     timeToDisappear: number('timeToDisappear'),
     label: text('label', 'Dropdown Label'),
@@ -50,8 +47,6 @@ const defaultKnobs = () => {
     inputWidth: text('inputWidth'),
     fieldHelp: text('fieldHelp', 'This is field help text'),
     fieldHelpInline: boolean('fieldHelpInline'),
-    createText: text('createText'),
-    createIconType: text('createIconType'),
     suggest: boolean('suggest'),
     freetext: boolean('freetext'),
     path: text('path', '/countries'),
@@ -60,15 +55,7 @@ const defaultKnobs = () => {
     dataRequestTimeout: number(
       'dataRequestTimeout',
       DropdownFilterAjax.defaultProps.dataRequestTimeout
-    ),
-    withCredentials: boolean('withCredentials'),
-    options: ImmutableHelper.parseJSON([
-      {
-        id: 1, name: 'Orange'
-      }, {
-        id: 2, name: 'Blue'
-      }
-    ])
+    )
   };
 };
 
@@ -96,12 +83,17 @@ storiesOf('DropdownFilterAjax', module)
   })
   .add('withCreate', () => {
     const props = defaultKnobs();
+    const create = (evt, component) => component.state.filter;
+    const createText = text('createText');
+    const createIconType = select('createIconType', OptionsHelper.icons, OptionsHelper.icons[0]);
 
     return (
       <State store={ store }>
         <DropdownFilterAjax
           { ...props }
           create={ create }
+          createText={ createText }
+          createIconType={ createIconType }
           getCustomHeaders={ () => ({}) }
           onChange={ onChange }
         />

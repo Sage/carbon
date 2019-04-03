@@ -34,7 +34,7 @@ storiesOf('Flash', module)
     }
   })
   .add('default', () => {
-    const as = select('as', OptionsHelper.colors);
+    const as = select('as', OptionsHelper.colors, OptionsHelper.colors[0]);
     const message = text('message', 'This is a flash message');
     const timeout = number('timeout', 0);
 

@@ -5,7 +5,7 @@ import {
 } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
-import DateInput from './date.js';
+import DateInput from '.';
 
 storiesOf('Date Input', module)
   .add('default', () => {
