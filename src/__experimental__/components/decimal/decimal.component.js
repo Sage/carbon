@@ -60,13 +60,13 @@ class Decimal extends React.Component {
     return validDecimalMatcher.test(value);
   }
 
-  onChange = (evt) => {
-    const { target } = evt;
-    const { value, selectionEnd } = evt.target;
+  onChange = (ev) => {
+    const { target } = ev;
+    const { value, selectionEnd } = ev.target;
     const isValid = this.isValidDecimal(value);
 
     if (isValid) {
-      this.props.onChange(evt);
+      this.props.onChange(ev);
     } else {
       const newPosition = selectionEnd - 1;
       setTimeout(() => {

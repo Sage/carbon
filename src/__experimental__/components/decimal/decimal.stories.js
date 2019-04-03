@@ -15,9 +15,9 @@ const store = new Store({
   value: Decimal.defaultProps.value
 });
 
-const setValue = (evt) => {
-  action('onChange')(evt);
-  store.set({ value: evt.target.value });
+const setValue = (ev) => {
+  action('onChange')(ev);
+  store.set({ value: ev.target.value });
 };
 
 storiesOf('Experimental/Decimal', module)
