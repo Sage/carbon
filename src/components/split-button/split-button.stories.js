@@ -1,10 +1,29 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, boolean, select } from '@storybook/addon-knobs';
-import SplitButton from './split-button';
+import {
+  text, boolean, select, action
+} from '@storybook/addon-knobs';
+import SplitButton from './split-button.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Button from '../button';
 import { notes, info } from './documentation';
+
+const defaultKnobs = () => {
+  const size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
+
+  return {
+    as: select('as', [OptionsHelper.themesBinary[0], OptionsHelper.themesBinary[1]], Button.defaultProps.as),
+    dataElement: text('data-element'),
+    dataRole: text('data-role'),
+    disabled: boolean('disabled', Button.defaultProps.disabled),
+    iconPosition: select('iconPosition', [...OptionsHelper.buttonIconPositions, ''], Button.defaultProps.iconPosition),
+    iconType: select('iconType', [...OptionsHelper.icons, ''], Button.defaultProps.iconType),
+    onClick: ev => action('click')(ev),
+    size,
+    subtext: size === OptionsHelper.sizesRestricted[2] ? text('subtext', Button.defaultProps.subtext) : undefined,
+    textContent: text('children', 'Example Split Button')
+  };
+};
 
 storiesOf('Split Button', module)
   .addParameters({
@@ -15,21 +34,25 @@ storiesOf('Split Button', module)
   .add(
     'default',
     () => {
-      const as = select('as', OptionsHelper.themesBinary, SplitButton.defaultProps.as);
-      const dataElement = text('data-element');
-      const dataRole = text('data-role');
-      const disabled = boolean('disabled', SplitButton.defaultProps.disabled);
-      const textContent = text('text', 'Example Split Button');
-
+      const props = defaultKnobs();
+      const {
+        as,
+        dataElement,
+        dataRole,
+        disabled,
+        textContent
+      } = props;
       return (
         <SplitButton
-          as={ as } data-element={ dataElement }
-          data-role={ dataRole } disabled={ disabled }
+          as={ as }
+          data-element={ dataElement }
+          data-role={ dataRole }
+          disabled={ disabled }
           text={ textContent }
         >
-          <Button>Example Button</Button>
-          <Button>Example Button</Button>
-          <Button>Example Button</Button>
+          <Button { ...props }>Example Button</Button>
+          <Button { ...props }>Example Button</Button>
+          <Button { ...props }>Example Button</Button>
         </SplitButton>
       );
     },
