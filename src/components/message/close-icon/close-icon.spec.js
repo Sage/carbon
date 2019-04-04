@@ -21,7 +21,7 @@ describe('CloseIcon', () => {
   describe('when render with no additional props', () => {
     OptionsHelper.messages.forEach((messageType) => {
       it(`should match snapshot for ${messageType}`, () => {
-        const wrapper = render({ type: messageType });
+        const wrapper = render({ messageType });
         expect(wrapper.toJSON()).toMatchSnapshot();
       });
     });
@@ -32,7 +32,7 @@ describe('when in classic mode', () => {
   OptionsHelper.colors.forEach((messageType) => {
     describe(`when rendered as ${messageType}`, () => {
       it('should match the snapshot', () => {
-        const wrapper = render({ type: messageType, theme: classicTheme });
+        const wrapper = render({ messageType, theme: classicTheme });
         expect(wrapper.toJSON()).toMatchSnapshot();
       });
     });

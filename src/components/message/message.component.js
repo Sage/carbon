@@ -7,7 +7,7 @@ import MessageContent from './message-content/message-content.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 const Message = ({
-  as, border, children, className, open, onDismiss, roundedCorners, title, transparent
+  messageType, border, children, className, open, onDismiss, roundedCorners, title, transparent
 }) => {
   return (
     open && (
@@ -15,28 +15,28 @@ const Message = ({
         border={ border }
         className={ className }
         transparent={ transparent }
-        type={ as }
+        messageType={ messageType }
         roundedCorners={ roundedCorners }
         role='status'
       >
         <TypeIcon
-          as={ as } roundedCorners={ roundedCorners }
+          messageType={ messageType } roundedCorners={ roundedCorners }
           transparent={ transparent }
         />
         <MessageContent
-          as={ as } transparent={ transparent }
+          messageType={ messageType } transparent={ transparent }
           title={ title }
         >
           {children}
         </MessageContent>
-        {onDismiss && <CloseIcon as={ as } onDismiss={ onDismiss } />}
+        {onDismiss && <CloseIcon messageType={ messageType } onDismiss={ onDismiss } />}
       </MessageStyle>
     )
   );
 };
 
 Message.defaultProps = {
-  as: 'info',
+  messageType: 'info',
   border: true,
   open: true,
   roundedCorners: true,
@@ -44,7 +44,7 @@ Message.defaultProps = {
 };
 
 Message.propTypes = {
-  as: PropTypes.oneOf(OptionsHelper.colors),
+  messageType: PropTypes.oneOf(OptionsHelper.colors),
   border: PropTypes.bool,
   children: PropTypes.node,
   className: PropTypes.string,

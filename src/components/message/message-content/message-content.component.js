@@ -5,10 +5,10 @@ import MessageContentStyle from './message-content.style';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const MessageContent = ({
-  as, title, transparent, children
+  messageType, title, transparent, children
 }) => {
   return (
-    <MessageContentStyle type={ as } transparent={ transparent }>
+    <MessageContentStyle messageType={ messageType } transparent={ transparent }>
       <Content title={ title } className='message-content'>
         {children}
       </Content>
@@ -17,12 +17,12 @@ const MessageContent = ({
 };
 
 MessageContent.defaultProps = {
-  as: 'info',
+  messageType: 'info',
   transparent: false
 };
 
 MessageContent.propTypes = {
-  as: PropTypes.oneOf(OptionsHelper.colors),
+  messageType: PropTypes.oneOf(OptionsHelper.colors),
   title: PropTypes.string,
   transparent: PropTypes.bool,
   children: PropTypes.node

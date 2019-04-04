@@ -12,30 +12,30 @@ const TypeIconStyle = styled.div`
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  ${({ theme, transparent, type }) => (theme.name !== THEMES.classic ? getBackgroundAndIconColor(transparent, theme, type) : null)}
+  ${({ theme, transparent, messageType }) => (theme.name !== THEMES.classic ? getBackgroundAndIconColor(transparent, theme, messageType) : null)}
   ${({ theme }) => (theme.name === THEMES.classic ? typeIconClassicStyle : null)}
 `;
 
-function getBackgroundAndIconColor(transparent, theme, type) {
+function getBackgroundAndIconColor(transparent, theme, messageType) {
   return `
-    background-color: ${transparent ? theme.colors.white : theme.colors[type]};
+    background-color: ${transparent ? theme.colors.white : theme.colors[messageType]};
     span {
       &:before {
-        color: ${transparent ? theme.colors[type] : theme.colors.white};
+        color: ${transparent ? theme.colors[messageType] : theme.colors.white};
       }
     }
   `;
 }
 
 TypeIconStyle.defaultProps = {
-  as: 'info',
+  messageType: 'info',
   roundedCorners: true,
   theme: BaseTheme,
   transparent: false
 };
 
 TypeIconStyle.propTypes = {
-  as: PropTypes.oneOf(OptionsHelper.messages),
+  messageType: PropTypes.oneOf(OptionsHelper.messages),
   border: PropTypes.bool,
   roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool

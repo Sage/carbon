@@ -4,9 +4,9 @@ import CloseIconStyle from './close-icon.style';
 import Icon from '../../icon/icon';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
-const CloseIcon = ({ as, onDismiss }) => {
+const CloseIcon = ({ messageType, onDismiss }) => {
   return (
-    <CloseIconStyle type={ as }>
+    <CloseIconStyle messageType={ messageType }>
       <Icon
         data-element='dismiss' onClick={ onDismiss }
         type='close'
@@ -16,11 +16,11 @@ const CloseIcon = ({ as, onDismiss }) => {
 };
 
 CloseIcon.defaultProps = {
-  as: 'info'
+  messageType: 'info'
 };
 
 CloseIcon.propTypes = {
-  as: PropTypes.oneOf(OptionsHelper.colors),
+  messageType: PropTypes.oneOf(OptionsHelper.colors),
   onDismiss: PropTypes.func
 };
 

@@ -17,6 +17,8 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  border: none;
+  background-color: #FFFFFF;
   color: #C7384F;
 }
 
@@ -29,9 +31,17 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   display: block;
 }
 
-<info
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
   className="c0"
-  type="error"
 />
 `;
 
@@ -52,6 +62,8 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  border: none;
+  background-color: #FFFFFF;
   color: #0073C2;
 }
 
@@ -64,9 +76,17 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   display: block;
 }
 
-<info
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
   className="c0"
-  type="info"
 />
 `;
 
@@ -87,6 +107,8 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  border: none;
+  background-color: #FFFFFF;
   color: #00B000;
 }
 
@@ -99,9 +121,17 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   display: block;
 }
 
-<info
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
   className="c0"
-  type="success"
 />
 `;
 
@@ -122,6 +152,8 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  border: none;
+  background-color: #FFFFFF;
   color: #E96400;
 }
 
@@ -134,9 +166,17 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   display: block;
 }
 
-<info
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
   className="c0"
-  type="warning"
 />
 `;
 
@@ -157,6 +197,8 @@ exports[`when in classic mode when rendered as default should match the snapshot
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  border: none;
+  background-color: #335c6d;
   color: #335c6d;
 }
 
@@ -169,9 +211,17 @@ exports[`when in classic mode when rendered as default should match the snapshot
   display: block;
 }
 
-<info
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
   className="c0"
-  type="default"
 />
 `;
 
@@ -192,6 +242,8 @@ exports[`when in classic mode when rendered as error should match the snapshot 1
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  border: none;
+  background-color: #fdf5f5;
   color: #c7384f;
 }
 
@@ -204,9 +256,17 @@ exports[`when in classic mode when rendered as error should match the snapshot 1
   display: block;
 }
 
-<info
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
   className="c0"
-  type="error"
 />
 `;
 
@@ -227,6 +287,8 @@ exports[`when in classic mode when rendered as help should match the snapshot 1`
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  border: none;
+  background-color: #fffbf2;
   color: #ffab00;
 }
 
@@ -239,9 +301,17 @@ exports[`when in classic mode when rendered as help should match the snapshot 1`
   display: block;
 }
 
-<info
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
   className="c0"
-  type="help"
 />
 `;
 
@@ -262,6 +332,8 @@ exports[`when in classic mode when rendered as info should match the snapshot 1`
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  border: none;
+  background-color: #f3f8fe;
   color: #1573e6;
 }
 
@@ -274,9 +346,17 @@ exports[`when in classic mode when rendered as info should match the snapshot 1`
   display: block;
 }
 
-<info
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
   className="c0"
-  type="info"
 />
 `;
 
@@ -297,6 +377,8 @@ exports[`when in classic mode when rendered as maintenance should match the snap
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  border: none;
+  background-color: #fff8f2;
   color: #ff7d00;
 }
 
@@ -309,9 +391,17 @@ exports[`when in classic mode when rendered as maintenance should match the snap
   display: block;
 }
 
-<info
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
   className="c0"
-  type="maintenance"
 />
 `;
 
@@ -332,6 +422,8 @@ exports[`when in classic mode when rendered as new should match the snapshot 1`]
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  border: none;
+  background-color: #f7f5fa;
   color: #639;
 }
 
@@ -344,9 +436,17 @@ exports[`when in classic mode when rendered as new should match the snapshot 1`]
   display: block;
 }
 
-<info
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
   className="c0"
-  type="new"
 />
 `;
 
@@ -367,6 +467,8 @@ exports[`when in classic mode when rendered as success should match the snapshot
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  border: none;
+  background-color: #f6fbf6;
   color: #50b848;
 }
 
@@ -379,9 +481,17 @@ exports[`when in classic mode when rendered as success should match the snapshot
   display: block;
 }
 
-<info
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
   className="c0"
-  type="success"
 />
 `;
 
@@ -402,6 +512,8 @@ exports[`when in classic mode when rendered as warning should match the snapshot
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  border: none;
+  background-color: #fff8f2;
   color: #ff7d00;
 }
 
@@ -414,8 +526,16 @@ exports[`when in classic mode when rendered as warning should match the snapshot
   display: block;
 }
 
-<info
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
   className="c0"
-  type="warning"
 />
 `;

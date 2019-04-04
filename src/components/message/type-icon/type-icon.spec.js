@@ -22,7 +22,7 @@ describe('TypeIcon', () => {
     describe('with no additional props', () => {
       OptionsHelper.messages.forEach((messageType) => {
         it(`should match the snapshot for ${messageType}`, () => {
-          const wrapper = render({ type: messageType });
+          const wrapper = render({ messageType });
           expect(wrapper.toJSON()).toMatchSnapshot();
         });
       });
@@ -32,7 +32,7 @@ describe('TypeIcon', () => {
   describe('when transparent prop is set to true', () => {
     it('applies white background and the type icon with the proper style applied', () => {
       OptionsHelper.messages.forEach((messageType) => {
-        const wrapper = render({ transparent: true, type: messageType });
+        const wrapper = render({ transparent: true, messageType });
         expect(wrapper.toJSON()).toMatchSnapshot();
       });
     });
@@ -42,7 +42,7 @@ describe('TypeIcon', () => {
     describe('when rendered', () => {
       OptionsHelper.colors.forEach((messageType) => {
         it(`should match the snapshot for ${messageType}`, () => {
-          const wrapper = render({ type: messageType, theme: classicTheme });
+          const wrapper = render({ messageType, theme: classicTheme });
           expect(wrapper.toJSON()).toMatchSnapshot();
         });
       });
@@ -68,7 +68,7 @@ describe('TypeIcon', () => {
     describe('when transparent prop is set to true', () => {
       OptionsHelper.colors.forEach((messageType) => {
         it(`applies white background and the type icon with the proper style applied for ${messageType}`, () => {
-          const wrapper = render({ transparent: true, type: messageType, theme: classicTheme });
+          const wrapper = render({ transparent: true, messageType, theme: classicTheme });
           expect(wrapper.toJSON()).toMatchSnapshot();
         });
       });

@@ -22,7 +22,7 @@ describe('MessageContent', () => {
     describe('when the title prop is provided', () => {
       OptionsHelper.messages.forEach((messageType) => {
         it('should render the title with a proper color applied', () => {
-          const wrapper = render({ theme: classicTheme, type: messageType, title: 'Example title' });
+          const wrapper = render({ theme: classicTheme, messageType, title: 'Example title' });
           expect(wrapper.toJSON()).toMatchSnapshot();
         });
       });

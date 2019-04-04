@@ -1,17 +1,20 @@
+/* eslint-disable max-len */
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import { THEMES } from '../../../style/themes';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
-const CloseIconStyle = styled.div`
+const CloseIconStyle = styled.button`
   align-items: center;
   display: flex;
   margin-left: auto;
   justify-content: center;
   text-align: center;
   padding: 0 15px;
-  color: ${({ type, theme }) => (theme.name === THEMES.classic ? theme.colors[type][0] : theme.colors[type])};
+  border: none;
+  background-color: ${({ messageType, theme }) => (theme.name === THEMES.classic ? theme.colors[messageType][1] : theme.colors.white)};
+  color: ${({ messageType, theme }) => (theme.name === THEMES.classic ? theme.colors[messageType][0] : theme.colors[messageType])};
   span {
     cursor: pointer;
     &:before {
@@ -19,17 +22,27 @@ const CloseIconStyle = styled.div`
       display: block;
     }
   }
+
+  &:focus {
+    outline: none;
+    span {
+      &:before {
+        padding: 5px;
+        border: 2px solid ${({ theme }) => theme.colors.focus};
+      }
+    }
+  }
 `;
 
 CloseIconStyle.defaultProps = {
-  as: 'info',
+  messageType: 'info',
   roundedCorners: true,
   theme: BaseTheme,
   transparent: false
 };
 
 CloseIconStyle.propTypes = {
-  as: PropTypes.oneOf(OptionsHelper.messages),
+  messageType: PropTypes.oneOf(OptionsHelper.messages),
   border: PropTypes.bool,
   roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool

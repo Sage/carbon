@@ -24,9 +24,8 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   color: #FFFFFF;
 }
 
-<info
+<div
   className="c0"
-  type="default"
 />
 `;
 
@@ -54,9 +53,8 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   color: #FFFFFF;
 }
 
-<info
+<div
   className="c0"
-  type="error"
 />
 `;
 
@@ -84,9 +82,8 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   color: #FFFFFF;
 }
 
-<info
+<div
   className="c0"
-  type="help"
 />
 `;
 
@@ -114,9 +111,8 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   color: #FFFFFF;
 }
 
-<info
+<div
   className="c0"
-  type="info"
 />
 `;
 
@@ -144,9 +140,8 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   color: #FFFFFF;
 }
 
-<info
+<div
   className="c0"
-  type="maintenance"
 />
 `;
 
@@ -174,9 +169,8 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   color: #FFFFFF;
 }
 
-<info
+<div
   className="c0"
-  type="new"
 />
 `;
 
@@ -204,9 +198,8 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   color: #FFFFFF;
 }
 
-<info
+<div
   className="c0"
-  type="success"
 />
 `;
 
@@ -234,9 +227,8 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   color: #FFFFFF;
 }
 
-<info
+<div
   className="c0"
-  type="warning"
 />
 `;
 
@@ -264,9 +256,8 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   color: #335c6d;
 }
 
-<info
+<div
   className="c0"
-  type="default"
 />
 `;
 
@@ -294,9 +285,8 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   color: #c7384f;
 }
 
-<info
+<div
   className="c0"
-  type="error"
 />
 `;
 
@@ -324,9 +314,8 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   color: #ffab00;
 }
 
-<info
+<div
   className="c0"
-  type="help"
 />
 `;
 
@@ -354,9 +343,8 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   color: #1573e6;
 }
 
-<info
+<div
   className="c0"
-  type="info"
 />
 `;
 
@@ -384,9 +372,8 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   color: #ff7d00;
 }
 
-<info
+<div
   className="c0"
-  type="maintenance"
 />
 `;
 
@@ -414,9 +401,8 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   color: #639;
 }
 
-<info
+<div
   className="c0"
-  type="new"
 />
 `;
 
@@ -444,9 +430,8 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   color: #50b848;
 }
 
-<info
+<div
   className="c0"
-  type="success"
 />
 `;
 
@@ -474,15 +459,14 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   color: #ff7d00;
 }
 
-<info
+<div
   className="c0"
-  type="warning"
 />
 `;
 
 exports[`TypeIcon when rendered should match the snapshot 1`] = `
 <styled.div
-  as="info"
+  messageType="info"
   roundedCorners={true}
   theme={
     Object {
@@ -520,7 +504,6 @@ exports[`TypeIcon when rendered should match the snapshot 1`] = `
     }
   }
   transparent={false}
-  type="info"
 >
   <Icon
     bgSize="small"
@@ -552,9 +535,8 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   color: #FFFFFF;
 }
 
-<info
+<div
   className="c0"
-  type="error"
 />
 `;
 
@@ -581,9 +563,8 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   color: #FFFFFF;
 }
 
-<info
+<div
   className="c0"
-  type="info"
 />
 `;
 
@@ -610,9 +591,8 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   color: #FFFFFF;
 }
 
-<info
+<div
   className="c0"
-  type="success"
 />
 `;
 
@@ -639,9 +619,8 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   color: #FFFFFF;
 }
 
-<info
+<div
   className="c0"
-  type="warning"
 />
 `;
 
@@ -668,9 +647,8 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   color: #C7384F;
 }
 
-<info
+<div
   className="c0"
-  type="error"
 />
 `;
 
@@ -697,9 +675,8 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   color: #0073C2;
 }
 
-<info
+<div
   className="c0"
-  type="info"
 />
 `;
 
@@ -726,9 +703,8 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   color: #00B000;
 }
 
-<info
+<div
   className="c0"
-  type="success"
 />
 `;
 
@@ -755,8 +731,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   color: #E96400;
 }
 
-<info
+<div
   className="c0"
-  type="warning"
 />
 `;

@@ -10,27 +10,27 @@ const MessageStyle = styled.div`
   display: flex;
   justify-content: flex-start;
   align-content: center;
-  ${({ theme, transparent, type }) => (theme.name !== THEMES.classic ? getBorderAndBackgroundStyles(theme, transparent, type) : null)}
+  ${({ theme, transparent, messageType }) => (theme.name !== THEMES.classic ? getBorderAndBackgroundStyles(theme, transparent, messageType) : null)}
   ${({ theme }) => (theme.name === THEMES.classic ? messageClassicStyle : null)};
 `;
 
-function getBorderAndBackgroundStyles(theme, transparent, type) {
+function getBorderAndBackgroundStyles(theme, transparent, messageType) {
   return `
-    border: ${transparent ? 'none;' : `1px solid ${theme.colors[type]};`}
+    border: ${transparent ? 'none;' : `1px solid ${theme.colors[messageType]};`}
     background-color: ${transparent ? `${theme.colors.white};` : `${theme.colors.white};`}
   `;
 }
 
 MessageStyle.defaultProps = {
   border: true,
-  as: 'info',
+  messageType: 'info',
   roundedCorners: true,
   theme: BaseTheme,
   transparent: false
 };
 
 MessageStyle.propTypes = {
-  as: PropTypes.string,
+  messageType: PropTypes.string,
   border: PropTypes.bool,
   roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool

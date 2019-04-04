@@ -19,12 +19,11 @@ exports[`Message when in classic mode when rendered should match the snapshot 1`
   border-radius: 3px;
 }
 
-<info
+<div
   className="c0"
-  type="default"
 >
   Message
-</info>
+</div>
 `;
 
 exports[`Message when in classic mode when rendered should match the snapshot 2`] = `
@@ -46,12 +45,11 @@ exports[`Message when in classic mode when rendered should match the snapshot 2`
   border-radius: 3px;
 }
 
-<info
+<div
   className="c0"
-  type="error"
 >
   Message
-</info>
+</div>
 `;
 
 exports[`Message when in classic mode when rendered should match the snapshot 3`] = `
@@ -73,12 +71,11 @@ exports[`Message when in classic mode when rendered should match the snapshot 3`
   border-radius: 3px;
 }
 
-<info
+<div
   className="c0"
-  type="help"
 >
   Message
-</info>
+</div>
 `;
 
 exports[`Message when in classic mode when rendered should match the snapshot 4`] = `
@@ -100,12 +97,11 @@ exports[`Message when in classic mode when rendered should match the snapshot 4`
   border-radius: 3px;
 }
 
-<info
+<div
   className="c0"
-  type="info"
 >
   Message
-</info>
+</div>
 `;
 
 exports[`Message when in classic mode when rendered should match the snapshot 5`] = `
@@ -127,12 +123,11 @@ exports[`Message when in classic mode when rendered should match the snapshot 5`
   border-radius: 3px;
 }
 
-<info
+<div
   className="c0"
-  type="maintenance"
 >
   Message
-</info>
+</div>
 `;
 
 exports[`Message when in classic mode when rendered should match the snapshot 6`] = `
@@ -154,12 +149,11 @@ exports[`Message when in classic mode when rendered should match the snapshot 6`
   border-radius: 3px;
 }
 
-<info
+<div
   className="c0"
-  type="new"
 >
   Message
-</info>
+</div>
 `;
 
 exports[`Message when in classic mode when rendered should match the snapshot 7`] = `
@@ -181,12 +175,11 @@ exports[`Message when in classic mode when rendered should match the snapshot 7`
   border-radius: 3px;
 }
 
-<info
+<div
   className="c0"
-  type="success"
 >
   Message
-</info>
+</div>
 `;
 
 exports[`Message when in classic mode when rendered should match the snapshot 8`] = `
@@ -208,18 +201,17 @@ exports[`Message when in classic mode when rendered should match the snapshot 8`
   border-radius: 3px;
 }
 
-<info
+<div
   className="c0"
-  type="warning"
 >
   Message
-</info>
+</div>
 `;
 
 exports[`Message when rendered should match the snapshot 1`] = `
 <styled.div
-  as="info"
   border={true}
+  messageType="info"
   role="status"
   roundedCorners={true}
   theme={
@@ -258,15 +250,14 @@ exports[`Message when rendered should match the snapshot 1`] = `
     }
   }
   transparent={false}
-  type="info"
 >
   <TypeIcon
-    as="info"
+    messageType="info"
     roundedCorners={true}
     transparent={false}
   />
   <MessageContent
-    as="info"
+    messageType="info"
     transparent={false}
   >
     Message
@@ -292,12 +283,11 @@ exports[`Message when transparent prop is not passed should render the message w
   background-color: #FFFFFF;
 }
 
-<info
+<div
   className="c0"
-  type="error"
 >
   Message
-</info>
+</div>
 `;
 
 exports[`Message when transparent prop is not passed should render the message with border in a proper color and a white background 2`] = `
@@ -318,12 +308,11 @@ exports[`Message when transparent prop is not passed should render the message w
   background-color: #FFFFFF;
 }
 
-<info
+<div
   className="c0"
-  type="info"
 >
   Message
-</info>
+</div>
 `;
 
 exports[`Message when transparent prop is not passed should render the message with border in a proper color and a white background 3`] = `
@@ -344,12 +333,11 @@ exports[`Message when transparent prop is not passed should render the message w
   background-color: #FFFFFF;
 }
 
-<info
+<div
   className="c0"
-  type="success"
 >
   Message
-</info>
+</div>
 `;
 
 exports[`Message when transparent prop is not passed should render the message with border in a proper color and a white background 4`] = `
@@ -370,10 +358,9 @@ exports[`Message when transparent prop is not passed should render the message w
   background-color: #FFFFFF;
 }
 
-<info
+<div
   className="c0"
-  type="warning"
 >
   Message
-</info>
+</div>
 `;
