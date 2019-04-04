@@ -3,6 +3,7 @@ import TestUtils from 'react-dom/test-utils';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import moment from 'moment';
+import MockDate from 'mockdate';
 import LocaleUtils from 'react-day-picker/moment';
 import I18n from 'i18n-js';
 import { shallow, mount } from 'enzyme';
@@ -678,6 +679,14 @@ describe('Date', () => {
         </StyledDayPicker>
       );
     };
+
+    beforeEach(() => {
+      MockDate.set('4/3/2019');
+    });
+
+    afterEach(() => {
+      MockDate.reset();
+    });
 
     it('renders presentational div and context provider for its children', () => {
       expect(render({ value: '2019-04-01' }, TestRenderer.create)).toMatchSnapshot();
