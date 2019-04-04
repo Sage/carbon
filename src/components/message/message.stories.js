@@ -9,10 +9,8 @@ import Message from './message.component';
 storiesOf('Message', module).add(
   'default',
   () => {
-    const as = select('as', OptionsHelper.colors, Message.defaultProps.as);
-    const border = boolean('border', Message.defaultProps.border);
+    const as = select('as', OptionsHelper.messages, Message.defaultProps.as);
     const open = boolean('open', Message.defaultProps.open);
-    const roundedCorners = boolean('roundedCorners', Message.defaultProps.roundedCorners);
     const title = text('title');
     const transparent = boolean('transparent', Message.defaultProps.transparent);
     const children = text('children', 'This is some information from the Message Component.');
@@ -23,12 +21,8 @@ storiesOf('Message', module).add(
 
     return (
       <Message
-        as={ as }
-        border={ border }
-        open={ open }
-        roundedCorners={ roundedCorners }
-        title={ title }
-        transparent={ transparent }
+        as={ as } open={ open }
+        title={ title } transparent={ transparent }
         onDismiss={ testOnDismiss }
       >
         {children}

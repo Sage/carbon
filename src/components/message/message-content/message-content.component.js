@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Content from '../../content/content';
 import MessageContentStyle from './message-content.style';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const MessageContent = ({
   as, title, transparent, children
@@ -21,7 +22,7 @@ MessageContent.defaultProps = {
 };
 
 MessageContent.propTypes = {
-  as: PropTypes.string,
+  as: PropTypes.oneOf(OptionsHelper.colors),
   title: PropTypes.string,
   transparent: PropTypes.bool,
   children: PropTypes.node

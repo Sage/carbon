@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import CloseIconStyle from './close-icon.style';
 import Icon from '../../icon/icon';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const CloseIcon = ({ as, onDismiss }) => {
   return (
@@ -19,7 +20,7 @@ CloseIcon.defaultProps = {
 };
 
 CloseIcon.propTypes = {
-  as: PropTypes.oneOf(['error', 'success', 'info', 'warning']),
+  as: PropTypes.oneOf(OptionsHelper.colors),
   onDismiss: PropTypes.func
 };
 

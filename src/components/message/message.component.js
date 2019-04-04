@@ -4,6 +4,7 @@ import MessageStyle from './message.style';
 import CloseIcon from './close-icon/close-icon.component';
 import TypeIcon from './type-icon/type-icon.component';
 import MessageContent from './message-content/message-content.component';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 const Message = ({
   as, border, children, className, open, onDismiss, roundedCorners, title, transparent
@@ -43,7 +44,7 @@ Message.defaultProps = {
 };
 
 Message.propTypes = {
-  as: PropTypes.string,
+  as: PropTypes.oneOf(OptionsHelper.colors),
   border: PropTypes.bool,
   children: PropTypes.node,
   className: PropTypes.string,
