@@ -1,26 +1,25 @@
 import { css } from 'styled-components';
 import { THEMES } from '../../style/themes';
-import classicConfig from './message-classic-config.style';
 
 export default ({
   theme, border, transparent, type
 }) => theme.name === THEMES.classic
   && css`
-    border: ${getBorderStyle(border, transparent, type)};
-    background-color: ${getBackgroundColorStyle(transparent, type)};
+    border: ${getBorderStyle(border, transparent, type, theme)};
+    background-color: ${getBackgroundColorStyle(transparent, type, theme)};
     border-radius: ${({ roundedCorners }) => (roundedCorners && border ? '3px;' : '0px;')};
   `;
 
-function getBorderStyle(border, transparent, type) {
+function getBorderStyle(border, transparent, type, theme) {
   if (border === false || transparent) {
     return 'none';
   }
-  return `1px solid ${classicConfig[type].borderColor}`;
+  return `1px solid ${theme.colors[type][2]}`;
 }
 
-function getBackgroundColorStyle(transparent, type) {
+function getBackgroundColorStyle(transparent, type, theme) {
   if (transparent) {
-    return classicConfig.white;
+    return theme.colors.white;
   }
-  return classicConfig[type].backgroundColor;
+  return theme.colors[type][1];
 }

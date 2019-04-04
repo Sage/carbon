@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import classicConfig from '../message-classic-config.style';
 import { THEMES } from '../../../style/themes';
 
 const MessageContentStyle = styled.div`
@@ -8,7 +7,7 @@ const MessageContentStyle = styled.div`
   ${({ theme, type }) => theme.name === THEMES.classic
     && css`
       .carbon-content__title {
-        color: ${classicConfig[type].color};
+        color: ${theme.colors[type][0]};
       }
     `}
 `;

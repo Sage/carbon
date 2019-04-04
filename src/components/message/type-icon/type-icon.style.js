@@ -17,6 +17,7 @@ const TypeIconStyle = styled.div`
 `;
 
 function getBackgroundAndIconColor(transparent, theme, type) {
+  console.log(theme, 'theme');
   return `
     background-color: ${transparent ? theme.colors.white : theme.colors[type]};
     span {

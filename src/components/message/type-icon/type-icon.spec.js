@@ -41,7 +41,7 @@ describe('TypeIcon', () => {
     });
   });
 
-  describe('when in classic mode', () => {
+  describe('when in classic theme', () => {
     describe('when rendered', () => {
       OptionsHelper.colors.forEach((messageType) => {
         it(`should match the snapshot for ${messageType}`, () => {

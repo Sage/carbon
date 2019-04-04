@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import { THEMES } from '../../../style/themes';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import classicConfig from '../message-classic-config.style';
 
 const CloseIconStyle = styled.div`
   align-items: center;
@@ -12,7 +11,7 @@ const CloseIconStyle = styled.div`
   justify-content: center;
   text-align: center;
   padding: 0 15px;
-  color: ${({ type, theme }) => (theme.name === THEMES.classic ? classicConfig[type].color : theme.colors[type])};
+  color: ${({ type, theme }) => (theme.name === THEMES.classic ? theme.colors[type][0] : theme.colors[type])};
   span {
     cursor: pointer;
     &:before {

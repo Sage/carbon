@@ -864,7 +864,7 @@ exports[`Message when in classic mode when roundedCorners prop is set to false s
 </info>
 `;
 
-exports[`Message when in classic mode when transparent prop is set to true should render the message without the border and background color 1`] = `
+exports[`Message when in classic mode when transparent prop is set to true should render the message without the border and background color in white 1`] = `
 .c0 {
   position: relative;
   display: -webkit-box;
@@ -879,6 +879,7 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -ms-flex-line-pack: center;
   align-content: center;
   border: none;
+  background-color: #FFFFFF;
   border-radius: 3px;
 }
 
@@ -890,7 +891,7 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
 </info>
 `;
 
-exports[`Message when in classic mode when transparent prop is set to true should render the message without the border and background color 2`] = `
+exports[`Message when in classic mode when transparent prop is set to true should render the message without the border and background color in white 2`] = `
 .c0 {
   position: relative;
   display: -webkit-box;
@@ -905,6 +906,7 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -ms-flex-line-pack: center;
   align-content: center;
   border: none;
+  background-color: #FFFFFF;
   border-radius: 3px;
 }
 
@@ -916,7 +918,7 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
 </info>
 `;
 
-exports[`Message when in classic mode when transparent prop is set to true should render the message without the border and background color 3`] = `
+exports[`Message when in classic mode when transparent prop is set to true should render the message without the border and background color in white 3`] = `
 .c0 {
   position: relative;
   display: -webkit-box;
@@ -931,6 +933,7 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -ms-flex-line-pack: center;
   align-content: center;
   border: none;
+  background-color: #FFFFFF;
   border-radius: 3px;
 }
 
@@ -942,7 +945,7 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
 </info>
 `;
 
-exports[`Message when in classic mode when transparent prop is set to true should render the message without the border and background color 4`] = `
+exports[`Message when in classic mode when transparent prop is set to true should render the message without the border and background color in white 4`] = `
 .c0 {
   position: relative;
   display: -webkit-box;
@@ -957,6 +960,7 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -ms-flex-line-pack: center;
   align-content: center;
   border: none;
+  background-color: #FFFFFF;
   border-radius: 3px;
 }
 
@@ -968,7 +972,7 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
 </info>
 `;
 
-exports[`Message when in classic mode when transparent prop is set to true should render the message without the border and background color 5`] = `
+exports[`Message when in classic mode when transparent prop is set to true should render the message without the border and background color in white 5`] = `
 .c0 {
   position: relative;
   display: -webkit-box;
@@ -983,6 +987,7 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -ms-flex-line-pack: center;
   align-content: center;
   border: none;
+  background-color: #FFFFFF;
   border-radius: 3px;
 }
 
@@ -994,7 +999,7 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
 </info>
 `;
 
-exports[`Message when in classic mode when transparent prop is set to true should render the message without the border and background color 6`] = `
+exports[`Message when in classic mode when transparent prop is set to true should render the message without the border and background color in white 6`] = `
 .c0 {
   position: relative;
   display: -webkit-box;
@@ -1009,6 +1014,7 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -ms-flex-line-pack: center;
   align-content: center;
   border: none;
+  background-color: #FFFFFF;
   border-radius: 3px;
 }
 
@@ -1020,7 +1026,7 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
 </info>
 `;
 
-exports[`Message when in classic mode when transparent prop is set to true should render the message without the border and background color 7`] = `
+exports[`Message when in classic mode when transparent prop is set to true should render the message without the border and background color in white 7`] = `
 .c0 {
   position: relative;
   display: -webkit-box;
@@ -1035,6 +1041,7 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -ms-flex-line-pack: center;
   align-content: center;
   border: none;
+  background-color: #FFFFFF;
   border-radius: 3px;
 }
 
@@ -1046,7 +1053,7 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
 </info>
 `;
 
-exports[`Message when in classic mode when transparent prop is set to true should render the message without the border and background color 8`] = `
+exports[`Message when in classic mode when transparent prop is set to true should render the message without the border and background color in white 8`] = `
 .c0 {
   position: relative;
   display: -webkit-box;
@@ -1061,6 +1068,7 @@ exports[`Message when in classic mode when transparent prop is set to true shoul
   -ms-flex-line-pack: center;
   align-content: center;
   border: none;
+  background-color: #FFFFFF;
   border-radius: 3px;
 }
 

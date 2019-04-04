@@ -63,7 +63,7 @@ describe('Message', () => {
     });
 
     describe('when transparent prop is set to true', () => {
-      it('should render the message without the border and background color', () => {
+      it('should render the message without the border and background color in white', () => {
         OptionsHelper.colors.forEach((messageType) => {
           const wrapper = render({ transparent: true, theme: classicTheme, type: messageType });
           expect(wrapper.toJSON()).toMatchSnapshot();
