@@ -35,6 +35,10 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
   border-color: #99adb6;
 }
 
+.c0 input::-ms-clear {
+  display: none;
+}
+
 <div
   className="c0"
   onMouseDown={[Function]}
@@ -69,6 +73,10 @@ exports[`InputPresentation renders presentational div and context provider for i
   min-height: 40px;
   padding-left: 11px;
   padding-right: 11px;
+}
+
+.c0 input::-ms-clear {
+  display: none;
 }
 
 <div
