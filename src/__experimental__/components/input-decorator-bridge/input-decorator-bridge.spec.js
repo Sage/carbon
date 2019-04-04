@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import InputDecoratorBridge from './input-decorator-bridge.component';
+import Textbox from '../textbox';
 
 jest.mock('../../../utils/helpers/guid', () => () => 'mocked-guid');
 
@@ -33,13 +34,8 @@ describe('InputDecoratorBridge', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
-  it('uses a formatted value on the Textbox if one is supplied', () => {
-    const wrapper = shallowRender({ formattedValue: 'formatted!' });
-    expect(wrapper.find('Textbox').props().value).toEqual('formatted!');
-  });
-
   it('assigns custom html attributes to Textbox', () => {
     const wrapper = shallowRender({ placeholder: 'placeholder value' });
-    expect(wrapper.find('Textbox').props().placeholder).toEqual('placeholder value');
+    expect(wrapper.find(Textbox).props().placeholder).toEqual('placeholder value');
   });
 });

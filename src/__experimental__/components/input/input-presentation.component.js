@@ -19,7 +19,8 @@ class InputPresentation extends React.Component {
   }
 
   state = {
-    hasFocus: false
+    hasFocus: false,
+    hasMouseOver: false
   }
 
   input = {}

@@ -3,6 +3,7 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { shallow, mount } from 'enzyme';
 import { InputPresentation, Input } from '.';
+import InputPresentationStyle from './input-presentation.style';
 import baseTheme from '../../../style/themes/base';
 import sizes from './input-sizes.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
@@ -87,7 +88,7 @@ describe('InputPresentation', () => {
     // helper function to retrieve latest context, enzyme does not currently
     // support easily fetching this
     const getContext = renderedWrapper => (
-      renderedWrapper.update().find('[role="presentation"]')
+      renderedWrapper.update().find(InputPresentationStyle)
         .childAt(0).props().value
     );
 
@@ -112,6 +113,24 @@ describe('InputPresentation', () => {
       context.onBlur();
       context = getContext(wrapper);
       expect(context.hasFocus).toEqual(false);
+    });
+
+    it('provides hasMouseOver state defaulting to false', () => {
+      expect(context.hasMouseOver).toEqual(false);
+    });
+
+    it('enables hasMouseOver on mouse over', () => {
+      expect(context.hasMouseOver).toEqual(false);
+      wrapper.find(InputPresentationStyle).simulate('mouseover');
+      context = getContext(wrapper);
+      expect(context.hasMouseOver).toEqual(true);
+    });
+
+    it('disables hasMouseOver on mouse out', () => {
+      expect(context.hasMouseOver).toEqual(true);
+      wrapper.find(InputPresentationStyle).simulate('mouseout');
+      context = getContext(wrapper);
+      expect(context.hasMouseOver).toEqual(false);
     });
 
     it('assigns a given input to the component', () => {

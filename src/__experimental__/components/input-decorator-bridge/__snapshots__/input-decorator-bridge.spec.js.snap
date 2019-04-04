@@ -5,35 +5,23 @@ exports[`InputDecoratorBridge renders the Textbox component with:
          * markup for label, validation and field help
          * children and left children 1`] = `
 <div
-  className="common-input--error common-input"
+  className="common-input"
 >
   <div
     className="common-input__field"
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
   >
-    <Textbox
+    <WithUniqueName(WithValidation(Textbox))
       autoComplete="off"
       data-element="input"
       fieldHelp="please help!"
       inputRef={[Function]}
       leftChildren="southpaw children"
-      onBlur={[Function]}
       onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
       value="1"
     >
       normal children
-    </Textbox>
+    </WithUniqueName(WithValidation(Textbox))>
   </div>
-  <Icon
-    bgSize="small"
-    className="common-input__icon common-input__icon--error"
-    key="0"
-    style={Object {}}
-    type="error"
-  />
 </div>
 `;
 
@@ -43,18 +31,13 @@ exports[`InputDecoratorBridge renders with an inputIcon if one is supplied 1`] =
 >
   <div
     className="common-input__field"
-    onMouseOut={[Function]}
-    onMouseOver={[Function]}
   >
-    <Textbox
+    <WithUniqueName(WithValidation(Textbox))
       autoComplete="off"
       data-element="input"
       inputIcon="dropdown"
       inputRef={[Function]}
-      onBlur={[Function]}
       onChange={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
       value="1"
     />
   </div>

@@ -74,16 +74,17 @@ Object {
   "open": true,
   "target": <div
     autocomplete="off"
-    class="sc-htpNat hwJTIW"
+    class="sc-htpNat lhQRHp"
     data-element="input"
+    name="guid-12345"
     role="presentation"
     type="text"
-    value=""
   >
     <input
       autocomplete="off"
       class="sc-bxivhb wHvcT"
       data-element="input"
+      name="guid-12345"
       value=""
     />
     <span
@@ -91,9 +92,9 @@ Object {
     />
     <span
       autocomplete="off"
-      class="sc-ifAKCX jaOJuD"
+      class="sc-ifAKCX hjDnux"
       data-element="input"
-      value=""
+      name="guid-12345"
     >
       <span
         class="carbon-icon icon-dropdown"
