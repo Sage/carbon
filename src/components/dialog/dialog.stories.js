@@ -6,6 +6,8 @@ import { State, Store } from '@sambego/storybook-state';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Dialog from './dialog';
+import Form from '../form';
+import Textbox from '../textbox';
 import Button from '../button/button';
 
 const store = new Store({
@@ -29,7 +31,12 @@ const handleClick = (evt) => {
 storiesOf('Dialog', module)
   .addParameters({
     info: {
-      propTablesExclude: [Button, State]
+      propTablesExclude: [
+        Button,
+        State,
+        Form,
+        Textbox
+      ]
     }
   })
   .add('default', () => {
@@ -62,7 +69,16 @@ storiesOf('Dialog', module)
             disableEscKey={ disableEscKey }
             ariaRole={ ariaRole }
             onClick={ handleClick }
-          />
+          >
+            <Form>
+              <Textbox label='First Name' />
+              <Textbox label='Middle Name' />
+              <Textbox label='Surname' />
+              <Textbox label='Birth Place' />
+              <Textbox label='Favourite Colour' />
+              <Textbox label='Address' />
+            </Form>
+          </Dialog>
         </State>
       </div>
     );

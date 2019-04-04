@@ -1,5 +1,5 @@
 import Dispatcher from './../../dispatcher';
-import Store from 'utils/flux/store';
+import Store from 'carbon-state-management/lib/flux/store';
 import ImmutableHelper from 'utils/helpers/immutable';
 import DocumentConstants from './../../constants/document';
 

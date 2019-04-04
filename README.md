@@ -16,7 +16,6 @@ See the [demo and documentation site](https://carbon.sage.com/) for live example
 ### Guides
 
 * [Assets](docs/guides/assets.md)
-* [Flux](docs/guides/flux.md) - please note that Carbon does not require Flux and supports any React compatible state container.
 * [Immutable](docs/guides/immutable.md)
 * [Validations](docs/guides/validations.md)
 * [Decorators](docs/guides/decorators.md)
@@ -52,7 +51,6 @@ Bug Fixes: "Modal: The Modal is now centered in the browser."
 The following is a list of technologies Carbon utilises:
 
 * [React](http://facebook.github.io/react/) ([JSX](https://facebook.github.io/jsx/)) - Components are written using React, as well as the useful JSX syntax.
-* [Flux](https://facebook.github.io/flux/) - If your application requires a heavy use of data and interaction, Carbon provides utilities for easily integrating Flux based data stores.
 * [Immutable.js](https://facebook.github.io/immutable-js/) - For better performance and data handling, the components rely on using immutable data.
 * [Node](https://nodejs.org/) ([CommonJS](https://nodejs.org/docs/latest/api/modules.html)) - The components (or modules) are written using the CommonJS pattern. This allows for modularity and creating isolated/independent components.
 * [Webpack](https://webpack.js.org/) - In order to consume the modular components in the browser, the code is compiled through Webpack. This also allows managing other dependencies such as stylesheets and images.

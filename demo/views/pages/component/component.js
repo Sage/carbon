@@ -10,7 +10,7 @@ import ComponentPreview from './component-preview';
 import ComponentAPI from './component-api';
 
 // Flux Components
-import { connect } from 'utils/flux';
+import { connect } from 'carbon-state-management/lib/flux';
 import ComponentActions from '../../../actions/component';
 import ComponentStore from '../../../stores/component';
 

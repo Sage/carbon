@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'utils/flux';
+import { connect } from 'carbon-state-management/lib/flux';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import DocumentStore from './../../../stores/document';
 import DocumentActions from './../../../actions/document';
