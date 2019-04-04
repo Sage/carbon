@@ -6,6 +6,7 @@ import TypeIconStyle from './type-icon.style';
 import 'jest-styled-components';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import classicTheme from '../../../style/themes/classic';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 
 function render(props, renderer = TestRenderer.create) {
   return renderer(<TypeIconStyle { ...props } />);
@@ -13,10 +14,6 @@ function render(props, renderer = TestRenderer.create) {
 
 describe('TypeIcon', () => {
   describe('when rendered', () => {
-    it('renders correctly', () => {
-      expect(shallow(<TypeIcon />)).toHaveLength(1);
-    });
-
     it('should match the snapshot', () => {
       const wrapper = shallow(<TypeIcon />);
       expect(wrapper).toMatchSnapshot();
@@ -53,10 +50,18 @@ describe('TypeIcon', () => {
 
     describe('when roundedCorners prop is set to false', () => {
       it('should apply no border-radius', () => {
-        OptionsHelper.colors.forEach((messageType) => {
-          const wrapper = render({ roundedCorners: false, theme: classicTheme, type: messageType });
-          expect(wrapper.toJSON()).toMatchSnapshot();
+        const wrapper = render({
+          roundedCorners: false,
+          theme: classicTheme,
+          type: 'info'
         });
+
+        assertStyleMatch(
+          {
+            borderRadius: '0px'
+          },
+          wrapper.toJSON()
+        );
       });
     });
 

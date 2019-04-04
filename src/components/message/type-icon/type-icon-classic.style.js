@@ -5,7 +5,7 @@ export default ({
   theme, transparent, type, roundedCorners
 }) => theme.name === THEMES.classic
   && css`
-    border-radius: ${roundedCorners ? '3px 0 0 3px' : '0'};
+    border-radius: ${roundedCorners ? '3px 0 0 3px' : '0px'};
     background-color: ${transparent ? theme.colors.white : theme.colors[type][0]};
     span {
       &:before {
