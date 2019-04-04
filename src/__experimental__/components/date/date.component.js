@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import Events from '../../../utils/helpers/events';
 import DateHelper from '../../../utils/helpers/date';
 import DateValidator from '../../../utils/validations/date';
-import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
 import DatePicker from './datePicker.component';
 import InputDecoratorBridge from '../input-decorator-bridge';
 import StyledDateInput from './date.style';
+import Textbox from '../textbox';
 
 const isoDateFormat = 'YYYY-MM-DD';
 const today = DateHelper.todayFormatted(isoDateFormat);
@@ -32,10 +32,9 @@ const today = DateHelper.todayFormatted(isoDateFormat);
  */
 class Date extends React.Component {
   static propTypes = {
+    ...Textbox.propTypes,
     /** Automatically focus on component mount */
     autoFocus: PropTypes.bool,
-    /** Disable all user interaction */
-    disabled: PropTypes.bool,
     /** Used to provide additional validations on composed components */
     internalValidations: PropTypes.array,
     /** Minimum possible date YYYY-MM-DD */
@@ -48,8 +47,6 @@ class Date extends React.Component {
     onChange: PropTypes.func,
     /** Specify a callback triggered on focus */
     onFocus: PropTypes.func,
-    /** Display the currently selected value without displaying the input */
-    readOnly: PropTypes.bool,
     /** The current date */
     value: PropTypes.string
   };
@@ -210,10 +207,8 @@ class Date extends React.Component {
 
   render() {
     const isComponentActive = !this.props.disabled && !this.props.readOnly;
-    const { ...inputProps } = validProps(this);
-    const { minDate, maxDate } = this.props;
+    const { minDate, maxDate, ...inputProps } = this.props;
     let events = {};
-
     delete inputProps.autoFocus;
     delete inputProps.internalValidations;
 
@@ -233,11 +228,11 @@ class Date extends React.Component {
         role='presentation'
       >
         <InputDecoratorBridge
+          { ...inputProps }
           inputIcon='calendar'
           value={ this.state.visibleValue }
           inputRef={ this.assignInput }
           ref={ this.bridge }
-          { ...this.inputProps }
           { ...tagComponent('date', this.props) }
           { ...events }
         />

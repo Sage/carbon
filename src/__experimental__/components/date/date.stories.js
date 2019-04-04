@@ -36,7 +36,7 @@ storiesOf('Experimental/Date Input', module)
 
     return (
       <DateInput
-        { ...getTextboxStoryProps() }
+        { ...getFilteredTextboxStoryProps() }
         autoFocus={ autoFocus }
         minDate={ minDate }
         maxDate={ maxDate }
@@ -52,7 +52,14 @@ storiesOf('Experimental/Date Input', module)
       text: info,
       propTables: [Textbox],
       propTablesExclude: [Number, State],
-      excludedPropTypes: ['children', 'leftChildren', 'inputIcon']
+      excludedPropTypes: ['children', 'leftChildren', 'inputIcon', 'placeholder', 'inputWidth']
     },
     notes: { markdown: notes }
   });
+
+function getFilteredTextboxStoryProps() {
+  const textboxProps = getTextboxStoryProps();
+  const { inputWidth, placeholder, ...filteredTextboxProps } = textboxProps;
+
+  return filteredTextboxProps;
+}

@@ -1,14 +1,12 @@
 import styled from 'styled-components';
-import baseTheme from '../../../style/themes/base';
-import { THEMES } from '../../../style/themes';
+import InputPresentationStyle from '../input/input-presentation.style';
 
 const StyledDateInput = styled.div`
-    box-sizing: content-box;
-    width: ${({ theme }) => ((theme.name === THEMES.classic) ? '120px' : '130px')};
+    & ${InputPresentationStyle} {
+      box-sizing: content-box;
+      flex: none;
+      width: 120px;
+    }
 `;
-
-StyledDateInput.defaultProps = {
-  theme: baseTheme
-};
 
 export default StyledDateInput;
