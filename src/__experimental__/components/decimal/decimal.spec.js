@@ -66,6 +66,18 @@ describe('Decimal', () => {
       assertCorrectTextboxVal(wrapper, '1,234,567.00');
     });
 
+    it('does not format number if input is active', () => {
+      const wrapper = render({ value: '1234.00' }, mount);
+
+      wrapper.instance()._document = {
+        activeElement: wrapper.instance().input.current
+      };
+      wrapper.setProps({ value: '1234.00' });
+      assertCorrectTextboxVal(wrapper, '1234.00');
+    });
+  });
+
+  describe('Precision handling', () => {
     it('updates the value after increasing the precison', () => {
       const wrapper = render({ value: '99.99' }, mount);
 
@@ -87,16 +99,21 @@ describe('Decimal', () => {
       assertCorrectTextboxVal(wrapper, '4.123400000000000');
     });
 
-    it('does not format number if input is active', () => {
-      const wrapper = render({ value: '1234.00' }, mount);
+    it('uses the defaultProp if precision is a falsey value', () => {
+      const wrapper = render({ value: '5.1234' }, mount);
 
-      wrapper.instance()._document = {
-        activeElement: wrapper.instance().input.current
-      };
-      wrapper.setProps({ value: '1234.00' });
-      assertCorrectTextboxVal(wrapper, '1234.00');
+      wrapper.setProps({ precision: 0 });
+      assertCorrectTextboxVal(wrapper, '5.12');
+    });
+
+    it('uses the defaultProp if precision is not positive', () => {
+      const wrapper = render({ value: '6.1234' }, mount);
+
+      wrapper.setProps({ precision: -3 });
+      assertCorrectTextboxVal(wrapper, '6.12');
     });
   });
+
   describe('Input handling', () => {
     it('calls setSelection after passing invalid value', async () => {
       const setSelectionMock = jest.fn();
