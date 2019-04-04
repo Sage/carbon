@@ -3,54 +3,43 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
+import FieldsetStyle from './fieldset.style';
 
-class Fieldset extends React.Component {
-  static propTypes = {
-    /**
-     * Children elements
-     */
-    children: PropTypes.node,
-
-    /**
-     * A label for the fieldset.
-     */
-    legend: PropTypes.string
-  };
-
-
-  /**
-   * Returns the legend if on is defined.
-   *
-   * @method legend
-   * @return {Object} JSX
-   */
-  get legend() {
-    if (!this.props.legend) { return null; }
+const Fieldset = (props) => {
+  function legend() {
+    if (!props.legend) { return null; }
 
     return (
       <legend className='carbon-fieldset__legend common-input__label' data-element='legend'>
-        { this.props.legend }
+        { props.legend }
       </legend>
     );
   }
 
-  /**
-   * @method render
-   */
-  render() {
-    const { className, ...props } = validProps(this);
-    const classes = classNames('carbon-fieldset', className);
+  const { className, ...safeProps } = validProps(this);
+  const classes = classNames('carbon-fieldset', className);
 
-    return (
-      <fieldset
-        className={ classes } { ...props }
-        { ...tagComponent('fieldset', this.props) }
-      >
-        { this.legend }
-        { this.props.children }
-      </fieldset>
-    );
-  }
-}
+  return (
+    <FieldsetStyle
+      className={ classes }
+      { ...tagComponent('fieldset', props) }
+      { ...safeProps }
+    >
+      { legend() }
+      { props.children }
+    </FieldsetStyle>
+  );
+};
+
+Fieldset.propTypes = {
+  /**
+   * Children elements
+   */
+  children: PropTypes.node,
+  /**
+   * A label for the fieldset.
+   */
+  legend: PropTypes.string
+};
 
 export default Fieldset;

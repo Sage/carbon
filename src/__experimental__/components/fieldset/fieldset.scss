@@ -1,0 +1,63 @@
+@import "./../../style-config/input-field";
+
+.carbon-fieldset {
+  border: none;
+  margin: 0;
+  padding: 0;
+
+  .carbon-icon.carbon-input-icon,
+  .common-input__icon {
+    z-index: 2;
+    &.icon-error {
+      top: 5px;
+    }
+  }
+
+  .common-input__input--error {
+    position: relative;
+    z-index: 1;
+  }
+
+  .common-input__icon--warning {
+    right: 5px;
+    top: 6px;
+    z-index: 2;
+  }
+
+  .common-input__input:focus,
+  .common-input__input:hover {
+    position: relative;
+    z-index: 2;
+  }
+
+  .common-input + .common-input {
+    margin-top: -1px;
+
+    .common-input__input {
+      border-radius: 0;
+    }
+  }
+
+  .common-input:first-child {
+    .common-input__input {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+
+  .common-input:last-child {
+    .common-input__input {
+      border-radius: 0 0 $input-border-radius $input-border-radius;
+    }
+  }
+
+  .common-input--readonly {
+    .common-input__input {
+      border: $input-common-border;
+    }
+
+    .common-input__input:hover {
+      border: $input-common-border;
+    }
+  }
+}
