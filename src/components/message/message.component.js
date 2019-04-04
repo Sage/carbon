@@ -5,13 +5,15 @@ import CloseIcon from './close-icon/close-icon.component';
 import TypeIcon from './type-icon/type-icon.component';
 import MessageContent from './message-content/message-content.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import tagComponent from '../../utils/helpers/tags';
 
 const Message = ({
-  messageType, border, children, className, open, onDismiss, roundedCorners, title, transparent
+  messageType, border, children, className, open, onDismiss, roundedCorners, title, transparent, ...rest
 }) => {
   return (
     open && (
       <MessageStyle
+        { ...tagComponent('message', rest) }
         border={ border }
         className={ className }
         transparent={ transparent }
