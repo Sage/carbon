@@ -112,11 +112,18 @@ const TooltipDecorator = (ComposedComponent) => {
     });
 
     /**
-     * Timeout for firing ajax request
+     * Timeout for firing ajax request for showing the tooltip
      *
-     * @property _tooltipTimeout
+     * @property _showTooltipTimeout
      */
-    _tooltipTimeout = null;
+    _showTooltipTimeout = null;
+
+    /**
+     * Timeout for firing ajax request for hiding the tooltip
+     *
+     * @property _hideTooltipTimeout
+     */
+    _hideTooltipTimeout = null;
 
     /**
      * Cache the shifts calculations (used for positioning)
@@ -192,7 +199,9 @@ const TooltipDecorator = (ComposedComponent) => {
      * @return {void}
      */
     onShow = () => {
-      this._tooltipTimeout = setTimeout(() => {
+      clearTimeout(this._hideTooltipTimeout);
+
+      this._showTooltipTimeout = setTimeout(() => {
         this.setState({ isVisible: true });
         this.positionTooltip();
       }, 100);
@@ -205,8 +214,11 @@ const TooltipDecorator = (ComposedComponent) => {
      * @return {void}
      */
     onHide = () => {
-      clearTimeout(this._tooltipTimeout);
-      this.setState({ isVisible: false });
+      clearTimeout(this._showTooltipTimeout);
+
+      this._hideTooltipTimeout = setTimeout(() => {
+        this.setState({ isVisible: false });
+      }, 100);
     };
 
     /**
@@ -370,6 +382,8 @@ const TooltipDecorator = (ComposedComponent) => {
               align={ this.state.tooltipAlign || this.props.tooltipAlign }
               data-element='tooltip'
               isVisible={ this.isVisible() }
+              onMouseEnter={ this.onShow }
+              onMouseLeave={ this.onHide }
               position={ this.props.tooltipPosition }
               ref={ (comp) => { this._tooltip = comp; } }
               type={ this.props.tooltipType }

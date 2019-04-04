@@ -87,6 +87,28 @@ class Tooltip extends React.Component {
      */
     position: PropTypes.string,
 
+    /**
+     * Sets a onMouseEnter function
+     *
+     * @property onMouseEnter
+     * @type {Function}
+     */
+    onMouseEnter: PropTypes.func,
+
+    /**
+     * Sets a onMouseLeave function
+     *
+     * @property onMouseLeave
+     * @type {Function}
+     */
+    onMouseLeave: PropTypes.func,
+
+    /**
+     * Defines the message type
+     *
+     * @property type
+     * @type {String}
+     */
     type: PropTypes.string
   };
 
@@ -133,6 +155,9 @@ class Tooltip extends React.Component {
     if (this.props.id) {
       tooltipProps.id = this.props.id;
     }
+
+    if (this.props.onMouseEnter) { tooltipProps.onMouseEnter = this.props.onMouseEnter; }
+    if (this.props.onMouseLeave) { tooltipProps.onMouseLeave = this.props.onMouseLeave; }
 
     return (
       <div
