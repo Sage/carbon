@@ -1,21 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Dialog dialog headers when a props object title is passed wraps it within a div 1`] = `
-<div
-  className="carbon-dialog__title"
->
-  <Row
-    gutter="medium"
-  >
-    <Column>
-      Row1
-    </Column>
-    <Column>
-      Row2
-    </Column>
-  </Row>
-</div>
-`;
+exports[`Dialog dialog headers when a props object title is passed wraps it within a div 1`] = `null`;
 
 exports[`Dialog render when dialog is open has the correct content, tags, elements etc 1`] = `
 <Portal
@@ -52,25 +37,60 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
       transitionLeaveTimeout={500}
       transitionName="modal"
     >
-      <div
+      <styled.div
         aria-describedby="carbon-dialog-subtitle"
         aria-labelledby="carbon-dialog-title"
-        className="carbon-dialog__dialog carbon-dialog__dialog--small carbon-dialog__dialog--has-height"
+        className="carbon-dialog__dialog carbon-dialog__dialog--has-height"
         data-component="dialog"
         data-element="bar"
         data-role="baz"
         onBlur={[Function]}
         role="dialog"
+        size="small"
         style={
           Object {
             "minHeight": "500px",
           }
         }
         tabIndex={0}
+        theme={
+          Object {
+            "colors": Object {
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFB500",
+              "info": "#0073C2",
+              "primary": "#26A826",
+              "secondary": "#006300",
+              "success": "#00B000",
+              "tertiary": "#004400",
+              "warning": "#FFB500",
+              "white": "#FFFFFF",
+            },
+            "disabled": Object {
+              "background": "#F2F4F5",
+              "border": "#CCD6DA",
+              "disabled": "rgba(0,0,0,0.55)",
+              "input": "#F2F4F5",
+            },
+            "name": "base",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          }
+        }
       >
-        <div
-          className="carbon-dialog__title carbon-dialog__title--has-subheader"
-        >
+        <styled.div>
           <Heading
             divider={true}
             separator={false}
@@ -79,17 +99,10 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
             title="Test"
             titleId="carbon-dialog-title"
           />
-        </div>
-        <div
-          className="carbon-dialog__content"
-        >
-          <div
-            className="carbon-dialog__inner-content"
-            style={
-              Object {
-                "minHeight": "calc(500px - 40px)",
-              }
-            }
+        </styled.div>
+        <styled.div>
+          <styled.div
+            height="500"
           >
             <Button
               as="secondary"
@@ -109,8 +122,8 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
             >
               Button
             </Button>
-          </div>
-        </div>
+          </styled.div>
+        </styled.div>
         <Icon
           bgSize="small"
           className="carbon-dialog__close"
@@ -120,7 +133,7 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
           tabIndex="0"
           type="close"
         />
-      </div>
+      </styled.div>
     </CSSTransitionGroup>
   </div>
 </Portal>

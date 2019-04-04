@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import baseTheme from '../../style/themes/base';
 
 const dialogSizes = {
   extraSmall: '300px',
@@ -22,6 +23,11 @@ const DialogStyle = styled.div`
 
   ${({ size }) => size && css`
     width: ${dialogSizes[size]}
+
+    // IE10+ fix (caters for scrollbar width)
+      @media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+        width: $size - 16;
+      }
   `}
 
   ${({ fixedBottom }) => fixedBottom && css`
@@ -49,13 +55,16 @@ const DialogContentStyle = styled.div`
 `;
 
 const DialogInnerContentStyle = styled.div`
-  ${props => console.log(props)}
   padding-top: 20px;
   position: relative;
   ${({ height }) => height && css`
     min-height: ${height - 40}px}
   `}
 `;
+
+DialogStyle.defaultProps = {
+  theme: baseTheme
+};
 
 export {
   DialogStyle,
