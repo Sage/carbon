@@ -28,6 +28,7 @@ class Dialog extends Modal {
   }
 
   componentDidMount() {
+    super.componentDidMount();
     if (this.props.open) {
       this.centerDialog();
       if (this.props.autoFocus) {

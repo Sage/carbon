@@ -30,6 +30,8 @@ exports[`Preview when given children but a truthy loading prop will render the p
 
 exports[`Preview when given children will render the children 1`] = `"This is some text"`;
 
+exports[`Preview when given no children and a falsy loading prop will render nothing 1`] = `""`;
+
 exports[`Preview when given no children will render the placeholder 1`] = `
 <span
   className="carbon-preview"

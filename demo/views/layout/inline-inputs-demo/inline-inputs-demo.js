@@ -1,5 +1,5 @@
 import React from 'react';
-import { connect } from 'utils/flux';
+import { connect } from 'carbon-state-management/lib/flux';
 import Immutable from 'immutable';
 import AppStore from './../../../stores/app';
 import AppActions from './../../../actions/app';
