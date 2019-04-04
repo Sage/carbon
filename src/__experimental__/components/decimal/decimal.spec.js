@@ -99,10 +99,10 @@ describe('Decimal', () => {
       assertCorrectTextboxVal(wrapper, '4.123400000000000');
     });
 
-    it('uses the defaultProp if precision is a falsey value', () => {
+    it('uses the defaultProp if precision is an empty string', () => {
       const wrapper = render({ value: '5.1234' }, mount);
 
-      wrapper.setProps({ precision: 0 });
+      wrapper.setProps({ precision: '' });
       assertCorrectTextboxVal(wrapper, '5.12');
     });
 
