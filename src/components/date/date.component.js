@@ -67,7 +67,12 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     /**
      * The current date
      */
-    value: PropTypes.string
+    value: PropTypes.string,
+
+    /*
+    * The today date
+    */
+    todayButton: PropTypes.string
   };
 
   static defaultProps = {
@@ -454,6 +459,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
   * @return {Object}
   */
   get datePickerProps() {
+    const { todayButton } = this.props;
     let date = this.state.datePickerValue;
 
     if (!date) {
@@ -482,7 +488,8 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
       navbarElement: <Navbar />,
       onDayClick: this.handleDateSelect,
       ref: (input) => { this.datepicker = input; },
-      selectedDays: [this.state.datePickerValue]
+      selectedDays: [this.state.datePickerValue],
+      todayButton
     };
   }
 
