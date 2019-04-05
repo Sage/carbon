@@ -13,7 +13,7 @@ export default (palette) => {
       baseBlue: '#255BC7',
       greyDarkBlue50: '#8099a4',
 
-      // messages status (order of colors: main color / background color / border color )
+      // messages status (main/background/border)
       error: ['#c7384f', '#fdf5f5', '#f7d9d9'],
       default: ['#335c6d', '#335c6d', '#335c6d'],
       maintenance: ['#ff7d00', '#fff8f2', '#ffe4cc'],
