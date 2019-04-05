@@ -20,6 +20,10 @@ export default (palette) => {
         color: '#255bc7'
       },
 
+      label: {
+        color: '#003349'
+      },
+
       disabled: {
         input: '#1e499f',
         disabled: '#b3c2c8',

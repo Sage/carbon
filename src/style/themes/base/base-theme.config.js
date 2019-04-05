@@ -32,6 +32,10 @@ export default (palette) => {
       size: '14px'
     },
 
+    label: {
+      color: blackWithOpacity(0.9)
+    },
+
     disabled: {
       border: palette.slateTint(80),
       disabled: blackWithOpacity(0.55),
