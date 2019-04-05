@@ -7,11 +7,9 @@ export function visitComponentUrl(component, suffix = 'default', iFrameOnly = fa
     if(!iFrameOnly) knobsTab().click()
 }
 
-export function dragAndDropForDraggableRecord(record, position) {
+export function dragAndDrop(draggableRecord, destinationPosition, startFromHight) {
     const ROW_HIGHT = 35
-    const START_HIGHT = 130
     const TEN_PIXEL_MOVE = 10
-    const draggableRecord = draggableRecordByText(record)
 
     draggableRecord
         .trigger('mousedown', { force: true })
@@ -20,7 +18,7 @@ export function dragAndDropForDraggableRecord(record, position) {
         .wait(100) //required for correct drag&drop headless browser (100ms)
 
     //put row record on top of page, then move down every TEN_PIXEL_MOVE
-    for (let i = 0; i < START_HIGHT + (position * ROW_HIGHT); i += TEN_PIXEL_MOVE) {
+    for (let i = 0; i < startFromHight + (destinationPosition * ROW_HIGHT); i += TEN_PIXEL_MOVE) {
         draggableRecord
             .trigger('mousemove', { clientY: i, force: true, log: DEBUG_FLAG })
             .wait(100, { log: DEBUG_FLAG })

@@ -1,10 +1,11 @@
-import { draggableRecordByPosition } from "./../../locators/draggableContextLocators"
-import { dragAndDropForDraggableRecord } from "../helper"
+import { draggableRecordByPosition, draggableRecordByText } from "./../../locators/draggableContextLocators"
+import { dragAndDrop } from "../helper"
 
-When('I drag {string} to {int}', (record, position) => {
-    dragAndDropForDraggableRecord(record, position)
+When('I drag Draggable Context {string} to {int}', (record, destinationId) => {
+    const START_POSITION = 130
+    dragAndDrop(draggableRecordByText(record), destinationId, START_POSITION)
 })
 
-Then('{string} is dragged to {int}', (record, position) => {
-    draggableRecordByPosition(position).should('have.text', record)
+Then('Draggable Context {string} is dragged to {int}', (record, destinationId) => {
+    draggableRecordByPosition(destinationId).should('have.text', record)
 })
