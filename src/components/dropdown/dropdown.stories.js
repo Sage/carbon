@@ -33,11 +33,10 @@ storiesOf('Dropdown', module)
     const autoFocus = boolean('autoFocus', false);
     const cacheVisibleValue = boolean('cacheVisibleValue', true);
     const disabled = boolean('disabled', false);
-    const name = text('name', 'Name');
     const readOnly = boolean('readOnly', false);
     const timeToDisappear = number('timeToDisappear', 0);
     const label = text('label', 'Dropdown Label');
-    const labelInline = boolean('labelInline', true);
+    const labelInline = boolean('labelInline', false);
     const labelWidth = labelInline ? text('labelWidth', '') : undefined;
     const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
     const labelHelp = text('labelHelp', 'This is help text');
@@ -58,7 +57,6 @@ storiesOf('Dropdown', module)
           autoFocus={ autoFocus }
           cacheVisibleValue={ cacheVisibleValue }
           disabled={ disabled }
-          name={ name }
           readOnly={ readOnly }
           timeToDisappear={ timeToDisappear }
           label={ label }

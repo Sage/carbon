@@ -1,0 +1,1 @@
+Breaking Changes: "We have removed Flux and the utils supporting flux. These are now available in a new npm module carbon-state-management."

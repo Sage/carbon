@@ -1,5 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[` 1`] = `undefined`;
+
 exports[`ShowEditPod edit form props where onDelete is provided should get through to the delete button Link 1`] = `
 <ShowEditPod
   as="transparent"
