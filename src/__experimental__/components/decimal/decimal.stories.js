@@ -27,12 +27,18 @@ storiesOf('Experimental/Decimal', module)
       propTables: [Textbox]
     }
   }).add('default', () => {
+    const precisionRange = {
+      range: true,
+      min: 0,
+      max: Decimal.defaultProps.maxPrecision,
+      step: 1
+    };
     const align = select(
       'align',
       OptionsHelper.alignBinary,
       Decimal.defaultProps.align
     );
-    const precision = number('precision', Decimal.defaultProps.precision);
+    const precision = number('precision', Decimal.defaultProps.precision, precisionRange);
 
     return (
       <State store={ store }>
