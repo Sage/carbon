@@ -5,31 +5,33 @@ import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
 import FieldsetStyle from './fieldset.style';
 
-const Fieldset = (props) => {
-  function legend() {
-    if (!props.legend) { return null; }
+class Fieldset extends React.Component {
+  legend = () => {
+    if (!this.props.legend) { return null; }
 
     return (
       <legend className='carbon-fieldset__legend common-input__label' data-element='legend'>
-        { props.legend }
+        { this.props.legend }
       </legend>
     );
   }
 
-  const { className, ...safeProps } = validProps(this);
-  const classes = classNames('carbon-fieldset', className);
+  render() {
+    const { className, ...safeProps } = validProps(this);
+    const classes = classNames('carbon-fieldset', className);
 
-  return (
-    <FieldsetStyle
-      className={ classes }
-      { ...tagComponent('fieldset', props) }
-      { ...safeProps }
-    >
-      { legend() }
-      { props.children }
-    </FieldsetStyle>
-  );
-};
+    return (
+      <FieldsetStyle
+        className={ classes }
+        { ...tagComponent('fieldset', this.props) }
+        { ...safeProps }
+      >
+        { this.legend() }
+        { this.props.children }
+      </FieldsetStyle>
+    );
+  }
+}
 
 Fieldset.propTypes = {
   /**
