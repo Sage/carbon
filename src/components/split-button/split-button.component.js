@@ -72,7 +72,7 @@ class SplitButton extends React.Component {
      * Tracks whether the additional buttons should be visible.
      */
     showAdditionalButtons: false,
-    selectedIndex: 0 // defaults to nothing being highlighted
+    selectedIndex: -1 // defaults to nothing being highlighted
   }
 
   /**
@@ -87,7 +87,7 @@ class SplitButton extends React.Component {
    * Hides additional buttons.
    */
   hideButtons = () => {
-    this.setState({ showAdditionalButtons: false });
+    this.setState({ showAdditionalButtons: false, selectedIndex: -1 });
     document.removeEventListener('keydown', this.handleKeyDown);
   }
 
@@ -97,19 +97,19 @@ class SplitButton extends React.Component {
     } else {
       this.setState({ selectedIndex: length - 1 });
     }
-    this.additionalButtons[index].focus();
+    // console.log(this.additionalButtons);
+    // this.additionalButtons[index].current.focus();
   }
 
-  handleDownPress(index) {
-    if (index < this.additionalButtons.length - 1) {
+  handleDownPress(index, length) {
+    if (index < length - 1) {
       this.setState(prevState => ({
         selectedIndex: prevState.selectedIndex + 1
       }));
     } else {
       this.setState({ selectedIndex: 0 });
     }
-    console.log(this.additionalButtons);
-    this.additionalButtons[index].focus();
+    // this.additionalButtons[index].current.focus();
   }
 
   handleKeyDown = (ev) => {
@@ -190,8 +190,8 @@ class SplitButton extends React.Component {
     );
   }
 
-  addButtonRef() {
-    this.additionalButtons.push(React.createRef());
+  addButtonRef(index) {
+    this.additionalButtons[index] = React.createRef();
   }
 
   /**
@@ -207,7 +207,7 @@ class SplitButton extends React.Component {
           return React.cloneElement(child,
             {
               key: index.toString(),
-              ref: this.addButtonRef(index)
+              className: index === this.state.selectedIndex ? 'active-child' : ''
             });
         })
         }
