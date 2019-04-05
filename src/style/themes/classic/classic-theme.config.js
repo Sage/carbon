@@ -12,16 +12,6 @@ export default (palette) => {
       // generic
       baseBlue: '#255BC7',
       greyDarkBlue50: '#8099a4'
-
-      // messages status (main/background/border)
-      // error: ['#c7384f', '#fdf5f5', '#f7d9d9'],
-      // default: ['#335c6d', '#335c6d', '#335c6d'],[]
-      // maintenance: ['#ff7d00', '#fff8f2', '#ffe4cc'],
-      // new: ['#639', '#f7f5fa', '#e0d6eb'],
-      // info: ['#1573e6', '#f3f8fe', '#d0e3fa'],
-      // help: ['#ffab00', '#fffbf2', '#fec'],
-      // success: ['#50b848', '#f6fbf6', '#dcf1da'],
-      // warning: ['#ff7d00', '#fff8f2', '#ffe4cc']
     },
 
     status: {
