@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import 'react-day-picker/lib/style.css';
 import LocaleUtils from 'react-day-picker/moment';
-import Browser from '../../../utils/helpers/browser';
-import DateHelper from '../../../utils/helpers/date';
-import Portal from '../../../components/portal';
+import Browser from '../../../utils/helpers/browser/browser';
+import DateHelper from '../../../utils/helpers/date/date';
+import Portal from '../../../components/portal/portal';
 import Navbar from './navbar';
 import StyledDayPicker from './day-picker.style';
 
@@ -22,7 +22,7 @@ const DatePicker = (props) => {
     disabledDays: getDisabledDays(props.minDate, props.maxDate),
     enableOutsideDays: true,
     fixedWeeks: true,
-    initialMonth: props.selectedDate || DateHelper.stringToDate(props.inputElement.value),
+    initialMonth: props.selectedDate,
     inline: true,
     locale: I18n.locale,
     localeUtils: LocaleUtils,
@@ -53,9 +53,10 @@ DatePicker.propTypes = {
   /** Maximum possible date */
   maxDate: PropTypes.string,
   /** Element that the DatePicker will be displayed under */
-  inputElement: PropTypes.object,
+  inputElement: PropTypes.object.isRequired,
   /** Currently selected date */
   selectedDate: PropTypes.object,
+  /** Callback to set selected date */
   handleDateSelect: PropTypes.func
 };
 

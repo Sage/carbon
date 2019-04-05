@@ -5,7 +5,7 @@ import Events from '../../../utils/helpers/events';
 import DateHelper from '../../../utils/helpers/date';
 import DateValidator from '../../../utils/validations/date';
 import tagComponent from '../../../utils/helpers/tags';
-import DatePicker from './datePicker.component';
+import DatePicker from './date-picker.component';
 import InputDecoratorBridge from '../input-decorator-bridge';
 import StyledDateInput from './date.style';
 import Textbox from '../textbox';
@@ -184,8 +184,7 @@ class Date extends React.Component {
   };
 
   updateDatePickerValue = (newValue) => {
-    const isoFormattedValue = DateHelper.formatValue(newValue, isoDateFormat);
-    const isoDate = DateHelper.stringToDate(isoFormattedValue);
+    const isoDate = convertToIsoDate(newValue);
 
     this.setState({ selectedDate: isoDate });
   };
@@ -197,7 +196,7 @@ class Date extends React.Component {
   renderDatePicker = (passedProps) => {
     const datePickerProps = {
       inputElement: this.input && this.input.parentElement,
-      selectedDate: this.state.selectedDate,
+      selectedDate: this.state.selectedDate || convertToIsoDate(this.state.visibleValue),
       handleDateSelect: this.handleDateSelect,
       ...passedProps
     };
@@ -210,7 +209,6 @@ class Date extends React.Component {
     const { minDate, maxDate, ...inputProps } = this.props;
     let events = {};
     delete inputProps.autoFocus;
-    delete inputProps.internalValidations;
 
     if (isComponentActive) {
       events = {
@@ -248,6 +246,13 @@ function getVisibleFormat() {
 
 function stopClickPropagation(ev) {
   ev.nativeEvent.stopImmediatePropagation();
+}
+
+function convertToIsoDate(dateString) {
+  const isoFormattedValue = DateHelper.formatValue(dateString, isoDateFormat);
+  const isoDate = DateHelper.stringToDate(isoFormattedValue);
+
+  return isoDate;
 }
 
 export default Date;
