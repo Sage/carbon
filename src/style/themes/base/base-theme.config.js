@@ -40,9 +40,9 @@ export default (palette) => {
         }
       },
       padding: {
-        primary: '10px 8px',
-        secondary: '10px 11px',
-        tertiary: '10px 13px'
+        primary: '9px 1px',
+        secondary: '9px 4px',
+        tertiary: '9px 6px'
       }
     },
 

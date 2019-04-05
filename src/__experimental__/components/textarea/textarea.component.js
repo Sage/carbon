@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import StyledInputPresentation from './input-presentation.style';
 import FormField from '../form-field';
 import StyledTextarea from './textarea.style';
 
@@ -8,12 +9,18 @@ const Textarea = ({
 }) => {
   return (
     <FormField { ...props }>
-      <StyledTextarea
+      <StyledInputPresentation
+        type='textarea'
         width={ width }
         height={ height }
-        size={ size }
-        { ...props }
-      />
+      >
+        <StyledTextarea
+          width={ width }
+          height={ height }
+          size={ size }
+          { ...props }
+        />
+      </StyledInputPresentation>
     </FormField>
   );
 };

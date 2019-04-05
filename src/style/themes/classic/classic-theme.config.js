@@ -24,6 +24,11 @@ export default (palette) => {
         input: '#1e499f',
         disabled: '#b3c2c8',
         border: '#4d7080'
+      },
+      status: {
+        error: {
+          main: 'red'
+        }
       }
     }
   );
