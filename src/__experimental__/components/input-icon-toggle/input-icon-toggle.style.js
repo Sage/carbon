@@ -13,13 +13,13 @@ const InputIconToggleStyle = styled.span`
   margin-right: ${({ size }) => `-${sizes[size].padding};`}
 
   ${({ error, theme }) => error && css`
-    color: ${theme.colors.error};
+    color: ${theme.status.error};
   `}
   ${({ warning, theme }) => warning && css`
-    color: ${theme.colors.warning};
+    color: ${theme.status.warning};
   `}
   ${({ info, theme }) => info && css`
-    color: ${theme.colors.info};
+    color: ${theme.status.info};
   `}
   ${({ size }) => {
     if (size === 'small') return css`width: 32px;`;

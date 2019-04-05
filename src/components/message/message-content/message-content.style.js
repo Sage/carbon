@@ -7,7 +7,7 @@ const MessageContentStyle = styled.div`
   ${({ theme, messageType }) => theme.name === THEMES.classic
     && css`
       .carbon-content__title {
-        color: ${theme.colors[messageType][0]};
+        color: ${theme.status[messageType]};
       }
     `}
 `;

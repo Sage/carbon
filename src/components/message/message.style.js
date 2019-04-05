@@ -17,7 +17,7 @@ const MessageStyle = styled.div`
 
 function getBorderAndBackgroundStyles(theme, transparent, messageType) {
   return `
-    border: ${transparent ? 'none;' : `1px solid ${theme.colors[messageType]};`}
+    border: ${transparent ? 'none;' : `1px solid ${theme.status[messageType]};`}
     background-color: ${transparent ? `${theme.colors.white};` : `${theme.colors.white};`}
   `;
 }

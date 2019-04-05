@@ -44,9 +44,9 @@ function stylingForValidation(message) {
   return ({ theme, ...props }) => {
     if (!props[message]) return null;
     return css`
-      border-color: ${theme.colors[validation]} !important;
-      box-shadow: inset 1px 1px 0 ${theme.colors[validation]},
-                  inset -1px -1px 0 ${theme.colors[validation]};
+      border-color: ${theme.status[validation]} !important;
+      box-shadow: inset 1px 1px 0 ${theme.status[validation]},
+                  inset -1px -1px 0 ${theme.status[validation]};
     `;
   };
 }

@@ -18,7 +18,6 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   text-align: center;
   padding: 0 15px;
   border: none;
-  background-color: #FFFFFF;
   color: #C7384F;
 }
 
@@ -63,7 +62,6 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   text-align: center;
   padding: 0 15px;
   border: none;
-  background-color: #FFFFFF;
   color: #0073C2;
 }
 
@@ -108,7 +106,6 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   text-align: center;
   padding: 0 15px;
   border: none;
-  background-color: #FFFFFF;
   color: #00B000;
 }
 
@@ -153,7 +150,6 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   text-align: center;
   padding: 0 15px;
   border: none;
-  background-color: #FFFFFF;
   color: #E96400;
 }
 

@@ -13,10 +13,10 @@ const CloseIconStyle = styled.button`
   padding: 0 15px;
   border: none;
   background-color: ${({ messageType, theme }) => {
-    return theme.name === THEMES.classic ? theme.colors[messageType][1] : theme.colors.white;
+    return theme.name === THEMES.classic ? theme.status[`${messageType}Background`] : theme.status.white;
   }};
   color: ${({ messageType, theme }) => {
-    return theme.name === THEMES.classic ? theme.colors[messageType][0] : theme.colors[messageType];
+    return theme.name === THEMES.classic ? theme.status[messageType] : theme.status[messageType];
   }};
   span {
     cursor: pointer;
@@ -31,7 +31,7 @@ const CloseIconStyle = styled.button`
     span {
       &:before {
         padding: 5px;
-        border: 2px solid ${({ theme }) => theme.colors.focus};
+        border: 2px solid ${({ theme }) => theme.status.focus};
       }
     }
   }

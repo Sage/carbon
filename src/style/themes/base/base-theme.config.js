@@ -16,9 +16,10 @@ export default (palette) => {
       border: palette.slateTint(40),
 
       // generic
-      white: '#FFFFFF',
+      white: '#FFFFFF'
+    },
 
-      // status
+    status: {
       error: palette.errorRed,
       focus: palette.gold,
       info: palette.productBlueShade(3),

@@ -43,10 +43,10 @@ describe('InputPresentation', () => {
       ['infoMessage', 'warningMessage', 'errorMessage'].forEach((message) => {
         const validation = message.replace('Message', '');
         it(`has the right style for ${validation} validations`, () => {
-          const boxShadow = `inset 1px 1px 0 ${baseTheme.colors[validation]}, `
-          + `inset -1px -1px 0 ${baseTheme.colors[validation]}`;
+          const boxShadow = `inset 1px 1px 0 ${baseTheme.status[validation]}, `
+          + `inset -1px -1px 0 ${baseTheme.status[validation]}`;
           assertStyleMatch({
-            borderColor: `${baseTheme.colors[validation]} !important`,
+            borderColor: `${baseTheme.status[validation]} !important`,
             boxShadow
           }, mountRender({ [message]: 'validation!' }));
         });

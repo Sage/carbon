@@ -43,7 +43,7 @@ describe('InputIconToggle', () => {
     ['info', 'warning', 'error'].forEach((validation) => {
       it(`updates the color for ${validation}`, () => {
         assertStyleMatch({
-          color: BaseTheme.colors[validation]
+          color: BaseTheme.status[validation]
         }, render({ [validation]: 'validation!' }, TestRenderer.create).toJSON());
       });
     });

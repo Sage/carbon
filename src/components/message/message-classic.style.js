@@ -14,12 +14,12 @@ function getBorderStyle(border, transparent, messageType, theme) {
   if (border === false || transparent) {
     return 'none';
   }
-  return `1px solid ${theme.colors[messageType][2]}`;
+  return `1px solid ${theme.status[`${messageType}Border`]}`;
 }
 
 function getBackgroundColorStyle(transparent, messageType, theme) {
   if (transparent) {
     return theme.colors.white;
   }
-  return theme.colors[messageType][1];
+  return theme.status[`${messageType}Background`];
 }
