@@ -21,12 +21,12 @@ describe('Fieldset', () => {
   describe('Fieldset Legend', () => {
     it('is rendered if supplied', () => {
       const wrapper = render({ legend: 'Legend' });
-      expect(wrapper.find(LegendStyle).length).toEqual(1);
+      expect(wrapper.find(LegendStyle).exists()).toEqual(true);
     });
 
     it('is not rendered if omited', () => {
       const wrapper = render();
-      expect(wrapper.find(LegendStyle).length).toEqual(0);
+      expect(wrapper.find(LegendStyle).exists()).toEqual(false);
     });
   });
 });
