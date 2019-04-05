@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../style/themes/base';
@@ -10,7 +9,9 @@ const MessageStyle = styled.div`
   display: flex;
   justify-content: flex-start;
   align-content: center;
-  ${({ theme, transparent, messageType }) => (theme.name !== THEMES.classic ? getBorderAndBackgroundStyles(theme, transparent, messageType) : null)}
+  ${({ theme, transparent, messageType }) => {
+    return theme.name !== THEMES.classic ? getBorderAndBackgroundStyles(theme, transparent, messageType) : null;
+  }}
   ${({ theme }) => (theme.name === THEMES.classic ? messageClassicStyle : null)};
 `;
 

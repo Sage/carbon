@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
@@ -13,8 +12,12 @@ const CloseIconStyle = styled.button`
   text-align: center;
   padding: 0 15px;
   border: none;
-  background-color: ${({ messageType, theme }) => (theme.name === THEMES.classic ? theme.colors[messageType][1] : theme.colors.white)};
-  color: ${({ messageType, theme }) => (theme.name === THEMES.classic ? theme.colors[messageType][0] : theme.colors[messageType])};
+  background-color: ${({ messageType, theme }) => {
+    return theme.name === THEMES.classic ? theme.colors[messageType][1] : theme.colors.white;
+  }};
+  color: ${({ messageType, theme }) => {
+    return theme.name === THEMES.classic ? theme.colors[messageType][0] : theme.colors[messageType];
+  }};
   span {
     cursor: pointer;
     &:before {
