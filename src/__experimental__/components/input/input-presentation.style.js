@@ -30,7 +30,10 @@ const InputPresentationStyle = styled.div`
     border-color: transparent !important;
   `}
   ${({ hasFocus, theme }) => hasFocus && css`
-    && { outline: 3px solid ${theme.colors.focus}; }
+    && { 
+      outline: 3px solid ${theme.colors.focus};
+      z-index: 2;
+    }
   `}
   ${stylingForValidation('infoMessage')}
   ${stylingForValidation('warningMessage')}

@@ -1,6 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import FormFieldStyle from '../form-field/form-field.style';
-import InputPresentation from '../input/input-presentation.style';
 
 const FieldsetStyle = styled.fieldset`
   border: none;
@@ -11,9 +10,6 @@ const FieldsetStyle = styled.fieldset`
     margin-top: 0;
     margin-bottom: -1px;
   }
-  ${InputPresentation} {
-    border: 1px solid #668592;
-  }
 `;
 
 const LegendStyle = styled.legend`
@@ -21,6 +17,15 @@ const LegendStyle = styled.legend`
   font-weight: 600;
   line-height: 24px;
   margin-bottom: 32px;
+
+  ${({ theme }) => theme.name === 'classic' && css`
+    color: ${theme.label.color};
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 14px;
+    margin: 0 0 8px 0;
+    padding: 0 6px;
+  `}
 `;
 
 export {
