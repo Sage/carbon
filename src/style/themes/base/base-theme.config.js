@@ -20,7 +20,7 @@ export default (palette) => {
 
       // status
       error: palette.errorRed,
-      focus: palette.gold,
+      focus: palette.goldTint(50),
       info: palette.productBlueShade(3),
       success: palette.brilliantGreenShade(20),
       warning: palette.gold

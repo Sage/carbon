@@ -9,10 +9,7 @@ export default (palette) => {
         base: palette.amethyst,
         primary: palette.amethystTint(10),
         secondary: palette.amethystShade(10),
-        tertiary: palette.amethystShade(30),
-
-        // status
-        focus: palette.goldTint(50)
+        tertiary: palette.amethystShade(30)
       }
     }
   );
