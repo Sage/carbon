@@ -2,7 +2,7 @@ const isLegacy = func => typeof func === 'object';
 
 const handleLegacyValidation = (func, value, props) => {
   if (func.validate(value, props)) return Promise.resolve();
-  return Promise.reject(new Error(func.message()));
+  return Promise.reject(func.message());
 };
 
 const validator = validationFunctions => (value, props) => {
