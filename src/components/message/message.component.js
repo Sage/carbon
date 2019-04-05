@@ -7,13 +7,15 @@ import MessageContent from './message-content/message-content.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import tagComponent from '../../utils/helpers/tags';
 
-const Message = ({
-  messageType, border, children, className, open, onDismiss, roundedCorners, title, transparent, ...rest
-}) => {
+const Message = (props) => {
+  const {
+    open, border, className, transparent, title, messageType, roundedCorners, children, onDismiss
+  } = props;
+
   return (
     open && (
       <MessageStyle
-        { ...tagComponent('message', rest) }
+        { ...tagComponent('Message', props) }
         border={ border }
         className={ className }
         transparent={ transparent }
