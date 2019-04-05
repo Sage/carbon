@@ -1,21 +1,29 @@
-import styled, { css } from 'styled-components';
-// import BaseTheme from '../../../style/themes/base';
-// import OptionsHelper from '../../../utils/helpers/options-helper';
-// import sizes from '../input/input-sizes.style';
-// import { THEMES } from '../../../style/themes';
+import styled from 'styled-components';
+import FormFieldStyle from '../form-field/form-field.style';
+import InputPresentation from '../input/input-presentation.style';
 
 const FieldsetStyle = styled.fieldset`
   border: none;
   margin: 0;
   padding: 0;
-  /* background-color: pink; */
+
+  ${FormFieldStyle} {
+    margin-top: 0;
+    margin-bottom: -1px;
+  }
+  ${InputPresentation} {
+    border: 1px solid #668592;
+  }
 `;
 
-FieldsetStyle.defaultProps = {
+const LegendStyle = styled.legend`
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  margin-bottom: 32px;
+`;
+
+export {
+  FieldsetStyle,
+  LegendStyle
 };
-
-FieldsetStyle.propTypes = {
-};
-
-
-export default FieldsetStyle;

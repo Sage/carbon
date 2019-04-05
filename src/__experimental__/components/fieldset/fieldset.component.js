@@ -3,16 +3,17 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
-import FieldsetStyle from './fieldset.style';
+import { FieldsetStyle, LegendStyle } from './fieldset.style';
 
 class Fieldset extends React.Component {
   legend = () => {
     if (!this.props.legend) { return null; }
 
     return (
-      <legend className='carbon-fieldset__legend common-input__label' data-element='legend'>
+      <LegendStyle data-element='legend'>
         { this.props.legend }
-      </legend>
+      </LegendStyle>
+      // <legend className='common-input__label'>
     );
   }
 
@@ -35,11 +36,11 @@ class Fieldset extends React.Component {
 
 Fieldset.propTypes = {
   /**
-   * Children elements
+   * Child elements
    */
   children: PropTypes.node,
   /**
-   * A label for the fieldset.
+   * The text for the fieldsets legend element.
    */
   legend: PropTypes.string
 };
