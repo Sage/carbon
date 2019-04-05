@@ -1,0 +1,1 @@
+Bug Fixes: "Fixes bugs in unit tests for date component. Mock date to avoid generate different today day in the snapshot."
