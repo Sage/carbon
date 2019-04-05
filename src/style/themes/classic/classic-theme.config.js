@@ -6,10 +6,10 @@ export default (palette) => {
       name: THEMES.classic,
 
       colors: {
-        base: palette.blue,
-        primary: palette.blue,
-        secondary: palette.navyBlue,
-        tertiary: palette.productBlueTint(61),
+        base: palette.productGreen,
+        primary: palette.productGreenShade(21),
+        secondary: palette.productGreenShade(41),
+        tertiary: palette.productGreenShade(61),
 
         // generic
         greyDarkBlue50: '#8099a4'

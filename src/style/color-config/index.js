@@ -1,6 +1,5 @@
 // Base colors
 export default {
-  blue: '255BC7',
   brilliantGreen: '00DC00',
   gold: 'FFB500',
   errorRed: 'C7384F',
