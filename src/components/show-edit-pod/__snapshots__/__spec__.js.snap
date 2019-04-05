@@ -195,7 +195,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                               "border": "#668491",
                                               "brand": "#00DC00",
                                               "error": "#C7384F",
-                                              "focus": "#FFDA7F",
+                                              "focus": "#FFB500",
                                               "info": "#0073C2",
                                               "primary": "#26A826",
                                               "secondary": "#006300",
@@ -236,7 +236,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                               "componentStyle": ComponentStyle {
                                                 "componentId": "sc-bdVaJa",
                                                 "isStatic": false,
-                                                "lastClassName": "dCBiUO",
+                                                "lastClassName": "bgrOWr",
                                                 "rules": Array [
                                                   "
 display: inline;
@@ -280,7 +280,7 @@ a {
                                                     "border": "#668491",
                                                     "brand": "#00DC00",
                                                     "error": "#C7384F",
-                                                    "focus": "#FFDA7F",
+                                                    "focus": "#FFB500",
                                                     "info": "#0073C2",
                                                     "primary": "#26A826",
                                                     "secondary": "#006300",
@@ -330,7 +330,7 @@ a {
                                                 "border": "#668491",
                                                 "brand": "#00DC00",
                                                 "error": "#C7384F",
-                                                "focus": "#FFDA7F",
+                                                "focus": "#FFB500",
                                                 "info": "#0073C2",
                                                 "primary": "#26A826",
                                                 "secondary": "#006300",
@@ -362,7 +362,7 @@ a {
                                           }
                                         >
                                           <div
-                                            className="sc-bdVaJa dCBiUO"
+                                            className="sc-bdVaJa bgrOWr"
                                             data-component="link"
                                             disabled={false}
                                           >
@@ -375,9 +375,7 @@ a {
                                               tabIndex="0"
                                             >
                                               <span>
-                                                <span
-                                                  className="carbon-link__content"
-                                                >
+                                                <span>
                                                   Delete
                                                 </span>
                                               </span>

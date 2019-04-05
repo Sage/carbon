@@ -19,7 +19,7 @@ exports[`Link renders as expected 1`] = `
 
 .c0 a:focus {
   color: rgba(0,0,0,0.9);
-  background-color: #FFDA7F;
+  background-color: #FFB500;
   outline: none;
 }
 
@@ -34,9 +34,7 @@ exports[`Link renders as expected 1`] = `
     tabIndex="0"
   >
     <span>
-      <span
-        className="carbon-link__content"
-      >
+      <span>
         test
       </span>
     </span>
@@ -77,7 +75,7 @@ exports[`Link when component has classic theme should render correct style 1`] =
 
 .c0 a:focus {
   color: rgba(0,0,0,0.9);
-  background-color: #FFDA7F;
+  background-color: #FFB500;
   outline: none;
 }
 
@@ -97,7 +95,7 @@ exports[`Link when component has classic theme should render correct style 1`] =
           "border": "#668491",
           "brand": "#00DC00",
           "error": "#C7384F",
-          "focus": "#FFDA7F",
+          "focus": "#FFB500",
           "greyDarkBlue50": "#8099a4",
           "info": "#0073C2",
           "primary": "#255BC7",
@@ -130,9 +128,7 @@ exports[`Link when component has classic theme should render correct style 1`] =
     }
   >
     <span>
-      <span
-        className="carbon-link__content"
-      >
+      <span>
         test
       </span>
     </span>
