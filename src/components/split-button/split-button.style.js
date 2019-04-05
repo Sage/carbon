@@ -8,17 +8,12 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 const StyledSplitButtonContainer = styled.div`
   display: inline-block;
   position: relative;
-`;
-// size the main button
-export const StyledToggleButton = styled(StyledButton)`
-  &:active {
-    background-color: ${({ theme }) => (theme.name === 'classic' ? '#1963f6' : theme.colors.tertiary)};
-    border-color: ${({ theme }) => (theme.name === 'classic' ? '#1963f6' : theme.colors.tertiary)};
-    && .carbon-icon {
-      color: ${colors.white};
-    }
+  &:focus {
+    z-index: 20;
   }
-    
+`;
+// Need to size the main button
+export const StyledToggleButton = styled(StyledButton)`
   ${styleSplitButton}
 
   && {
@@ -37,6 +32,13 @@ function styleSplitButton(props) {
 
 function applyClassicStyling(props) {
   return css`
+    &:active {
+      background-color: ${colors.classic.active};
+      border-color: ${colors.classic.active};
+      && .carbon-icon {
+        color: ${colors.white};
+      }
+    }
     padding: 0 5px;
     ${classicToggleStyle(props)}
     z-index: 20;
@@ -56,6 +58,13 @@ function classicToggleStyle({ displayed }) {
 
 function applyModernStyling(props) {
   return css`
+    &:active {
+      background-color: ${({ theme }) => theme.colors.tertiary};
+      border-color: ${({ theme }) => theme.colors.tertiary};
+      && .carbon-icon {
+        color: ${colors.white};
+      }
+    }
     padding: 0 8px
     ${modernToggleStyle(props)}
   `;
