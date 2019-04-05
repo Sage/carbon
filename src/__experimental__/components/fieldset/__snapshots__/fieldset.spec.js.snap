@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Fieldset renders correctly 1`] = `
+<styled.fieldset
+  className="carbon-fieldset"
+  data-component="fieldset"
+>
+  <Textbox />
+</styled.fieldset>
+`;

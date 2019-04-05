@@ -13,15 +13,20 @@ function render(props, renderType = shallow) {
 }
 
 describe('Fieldset', () => {
-  it('renders its children', () => {
+  it('renders correctly', () => {
     const wrapper = render();
-    expect(wrapper.find(Textbox).length).toEqual(1);
+    expect(wrapper).toMatchSnapshot();
   });
 
   describe('Fieldset Legend', () => {
     it('is rendered if supplied', () => {
       const wrapper = render({ legend: 'Legend' });
       expect(wrapper.find(LegendStyle).length).toEqual(1);
+    });
+
+    it('is not rendered if omited', () => {
+      const wrapper = render();
+      expect(wrapper.find(LegendStyle).length).toEqual(0);
     });
   });
 });
