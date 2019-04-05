@@ -211,7 +211,7 @@ exports[`Message when in classic mode when rendered should match the snapshot 8`
 exports[`Message when rendered should match the snapshot 1`] = `
 <styled.div
   border={true}
-  data-component="message"
+  data-component="Message"
   messageType="info"
   role="status"
   roundedCorners={true}
