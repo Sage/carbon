@@ -50,9 +50,24 @@ storiesOf('Split Button', module)
           disabled={ disabled }
           text={ textContent }
         >
-          <Button { ...props }>Example Button</Button>
-          <Button { ...props }>Example Button</Button>
-          <Button { ...props }>Example Button</Button>
+          <Button
+            { ...props }
+            onClick={ ev => action('click')(ev) }
+          >
+            Example Button
+          </Button>
+          <Button
+            { ...props }
+            onClick={ ev => action('click')(ev) }
+          >
+            Example Button
+          </Button>
+          <Button
+            { ...props }
+            onClick={ ev => action('click')(ev) }
+          >
+            Example Button
+          </Button>
         </SplitButton>
       );
     },

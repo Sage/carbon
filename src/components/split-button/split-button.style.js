@@ -2,41 +2,28 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import StyledButton from '../button/button.style';
 import BaseTheme from '../../style/themes/base';
+import colors from './split-button-colors.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 const StyledSplitButtonContainer = styled.div`
   display: inline-block;
   position: relative;
-  && .horribleHack {
-    border-color: ${({ theme }) => (theme.name === 'classic' ? '#1e499f' : theme.colors.secondary)};
-    color: #ffffff;
-    margin-left: 0;
-    min-width: 100%;
-    padding: 5px 18px;
-    ~ {
-      text-align: left;
-    }
-    &:hover {
-      background-color: #163777;
-    }
-  }
 `;
-
+// size the main button
 export const StyledToggleButton = styled(StyledButton)`
-  height: 31px;
-  width: 10px;
   &:active {
-    background-color: #1963f6;
-    border-color: #1963f6;
+    background-color: ${({ theme }) => (theme.name === 'classic' ? '#1963f6' : theme.colors.tertiary)};
+    border-color: ${({ theme }) => (theme.name === 'classic' ? '#1963f6' : theme.colors.tertiary)};
     && .carbon-icon {
-      color: #ffffff;
+      color: ${colors.white};
     }
   }
-  
-  ${({ disabled }) => !disabled && styleToggleButton}
+    
+  ${styleSplitButton}
 
   && {
     margin-left: 0;
+    border-left: none;
   }
 
   && .carbon-icon {
@@ -44,110 +31,49 @@ export const StyledToggleButton = styled(StyledButton)`
   }
 `;
 
-function styleToggleButton(props) {
-  return props.theme.name === 'classic' ? classicToggleStyle(props) : modernToggleStyle(props);
+function styleSplitButton(props) {
+  return props.theme.name === 'classic' ? applyClassicStyling(props) : applyModernStyling(props);
 }
 
-function classicToggleStyle(props) {
-  const { displayed } = props;
+function applyClassicStyling(props) {
+  return css`
+    padding: 0 5px;
+    ${classicToggleStyle(props)}
+    z-index: 20;
+  `;
+}
+
+function classicToggleStyle({ displayed }) {
   if (!displayed) return null;
   return css`
-    background-color: #1e499f;
-    border-bottom-color: #1e499f;
+    background-color: ${colors.classic.secondary};
+    border-color: ${colors.classic.secondary};
     && .carbon-icon {
-      color: #ffffff;
+      color: ${colors.white};
     }
   `;
 }
 
-function modernToggleStyle(props) {
-  const { displayed, theme } = props;
-  if (!displayed) return null;
+function applyModernStyling(props) {
   return css`
+    padding: 0 8px
+    ${modernToggleStyle(props)}
+  `;
+}
+
+function modernToggleStyle({ displayed, theme }) {
+  if (!displayed) return null;
+  return `
     background-color: ${theme.colors.secondary};
-    border-bottom-color: ${theme.colors.secondary};
+    border-color: ${theme.colors.secondary};
     && .carbon-icon {
-      color: #ffffff;
+      color: ${colors.white};
+    }
+    &:focus {
+      border-left-color: ${theme.colors.secondary};
     }
   `;
 }
-
-export const StyledSplitButtonChildrenContainer = styled.div`
-  background-color: ${({ theme }) => (theme.name === 'classic' ? '#1e499f' : theme.colors.secondary)};
-  min-width: 100%;
-  position: absolute;
-  z-index: 10;
-
-  ${({ displayButtons }) => (!displayButtons ? 'display: none' : undefined)}
-`;
-
-StyledSplitButtonChildrenContainer.propTypes = {
-  displayButtons: PropTypes.bool
-};
-
-StyledSplitButtonChildrenContainer.defaultProps = {
-  displayButtons: false
-};
-
-// function stylingForClassic({ disabled, theme }) {
-//   if (disabled) {
-//     return css`
-//     `;
-//   }
-//   return css`
-//     & + & {
-//       margin-left: 0;
-//     }
-
-//     && .horribleHack {
-//       border-color: #1e499f;
-//       color: #ffffff;
-//       margin-left: 0;
-//       min-width: 100%;
-//       padding: 5px 18px;
-//       ~ {
-//         text-align: left;
-//       }
-//       &:hover {
-//         background-color: #163777;
-//       }
-//     }
-//   `;
-// }
-
-// function addButtonStyle(props) {
-//   const { theme } = props;
-//   if (theme.name === 'classic') return stylingForClassic(props);
-//   return stylingForType(props);
-// }
-
-// function stylingForType({
-//   disabled,
-//   renderAs,
-//   theme,
-//   size
-// }) {
-//   return css`
-//     border: 2px solid transparent;
-//     box-sizing: border-box;
-//     ${disabled ? buttonTypes(theme)[renderAs].disabled : buttonTypes(theme)[renderAs].default};
-//     font-weight: 600;
-//     padding-top: 1px;
-//     padding-bottom: 1px;
-//     text-decoration: none;
-//     &:focus {
-//       outline: solid 3px ${theme.colors.warning};
-//     }
-//     & + & {
-//       margin-left: 16px;
-//     }
-//     ${buttonSizes(theme)[size]}
-//   `;
-// }
-
-// function classicRenderAs(renderAs) {
-//   return renderAs === 'primary' || renderAs === 'secondary';
-// }
 
 StyledSplitButtonContainer.defaultProps = {
   theme: BaseTheme,
