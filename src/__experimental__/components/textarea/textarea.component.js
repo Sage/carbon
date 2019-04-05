@@ -1,40 +1,87 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledInputPresentation from './input-presentation.style';
+import TextareaInput from './textarea-input.component';
 import FormField from '../form-field';
-import StyledTextarea from './textarea.style';
+
+// This component is a working example of what a Textbox might look like
+// using only the new input componentry. It is still under development with
+// subject to change as we continue to remove the decorator classes.
 
 const Textarea = ({
-  width, height, size, ...props
+  children,
+  size,
+  width,
+  height,
+  label,
+  ...props
 }) => {
   return (
-    <FormField { ...props }>
+    <FormField label={ label } { ...props }>
       <StyledInputPresentation
-        type='textarea'
+        type='text'
+        size={ size }
         width={ width }
         height={ height }
+        { ...props }
       >
-        <StyledTextarea
+        <TextareaInput
+          size={ size }
           width={ width }
           height={ height }
-          size={ size }
           { ...props }
         />
+        { children }
       </StyledInputPresentation>
     </FormField>
   );
 };
 
-Textarea.defaultProps = {
-  width: '100%',
-  height: '45px',
-  size: 'small'
+Textarea.propTypes = {
+  value: PropTypes.string,
+  disabled: PropTypes.bool,
+  readOnly: PropTypes.bool,
+  /** Event handler for the change event */
+  onChange: PropTypes.func,
+  /** Event handler for the keyDown event */
+  onKeyDown: PropTypes.func,
+  /** Defered callback called after the onChange event */
+  onChangeDeferred: PropTypes.func,
+  /** Integer to determine timeout for defered callback */
+  deferTimeout: PropTypes.number,
+  /** Height */
+  height: PropTypes.string,
+  /** Label */
+  label: PropTypes.string,
+  /** Text applied to label help tooltip */
+  labelHelp: PropTypes.string,
+  /** When true, label is placed in line an input */
+  labelInline: PropTypes.bool,
+  /** Width of a label in percentage. Works only when labelInline is true */
+  labelWidth: PropTypes.number,
+  /** Width of an input in percentage. Works only when labelInline is true */
+  inputWidth: PropTypes.number,
+  /** Help content to be displayed under an input */
+  fieldHelp: PropTypes.node,
+  /** An array of info messages to apply to the input */
+  info: PropTypes.array,
+  /** One of type of size to apply to the textarea */
+  size: PropTypes.oneOf(['small', 'medium', 'large']),
+  /** An array of validations to apply to the input */
+  validations: PropTypes.array,
+  /** An array of warnings to apply to the input */
+  warnings: PropTypes.array,
+  /** Width */
+  width: PropTypes.string,
+  /** Type of the icon that will be rendered next to the input */
+  children: PropTypes.node
 };
 
-Textarea.propTypes = {
-  width: PropTypes.string,
-  height: PropTypes.string,
-  size: PropTypes.oneOf(['small', 'medium', 'large'])
+// we don't have any default props, but we set an empty object for better storybook source code examples
+Textarea.defaultProps = {
+  height: '45px',
+  width: '100%',
+  size: 'small'
 };
 
 export default Textarea;
