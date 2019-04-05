@@ -1,7 +1,9 @@
-import { visitComponentUrl } from "../helper";
+import { visitComponentUrl, setSlidebar } from "../helper";
 import {
   asSelect, themeSelect, sizeSelect, subtextInput, titleInput,
-  heightInput, childrenTextArea, labelInput, commonButtonPreview
+  heightInput, childrenTextArea, labelInput, commonButtonPreview,
+  labelPreview, helpIcon, labelHelpInput, inputWidthSlider, fieldHelpInput,
+  fieldHelpPreview, labelWidthSlider, lableInlineCheckbox, labelAlignSelect
 } from "../../locators/commonLocators";
 import { dialogTitle, dialogSubtitle } from "../../locators/alertDialogLocators";
 
@@ -23,10 +25,6 @@ When('I set children to {string}', (text) => {
 
 When('I set as property to {string}', (asProperty) => {
   asSelect().select(asProperty);
-})
-
-When('I type {string} to as property', (asProperty) => {
-  asSelect().type(asProperty);
 })
 
 When('I set component size to {string}', (size) => {
@@ -69,6 +67,47 @@ Then('component subtitle on preview is {string}', (subtitle) => {
   dialogSubtitle().should('have.text', subtitle)
 })
 
-When('I open component preview', () => {
-  commonButtonPreview().click()
+Then('Label on preview is {string}', (label) => {
+  labelPreview().should('have.text', label)
+});
+
+When('I set label help to {string}', (labelHelp) => {
+  labelHelpInput().clear().type(labelHelp)
+})
+
+When('I hover mouse on help icon', () => {
+  helpIcon().trigger('mouseover')
+});
+
+When('I set input width slider to {int}', (width) => {
+  setSlidebar(inputWidthSlider(), width)
+})
+
+When('I set field help to {string}', (width) => {
+  fieldHelpInput().clear().type(width)
+})
+
+Then('Field help on preview is set to {string}', (text) => {
+  fieldHelpPreview().should('have.text', text)
+})
+
+When('I set label width slider to {int}', (width) => {
+  setSlidebar(labelWidthSlider(), width)
+})
+
+When('I check label inline checkbox', () => {
+  lableInlineCheckbox().check()
+})
+
+When('I set label align {string}', (direction) => {
+  labelAlignSelect().select(direction)
+})
+
+Then('direction on preview is {string}', (direction) => {
+  if (direction == 'left') {
+    //left is default property that's why it's absent inside class
+    labelPreview().should('not.have.class', 'common-input__label--align-' + direction)
+  } else {
+    labelPreview().should('have.class', 'common-input__label--align-' + direction)
+  }
 })

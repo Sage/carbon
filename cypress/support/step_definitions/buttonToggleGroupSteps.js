@@ -1,20 +1,8 @@
-import { helpIcon, labelPreview, labelHelpInput } from "../../locators/commonLocators";
+import { labelPreview, fieldHelpPreview } from "../../locators/commonLocators";
 import {
-  inputWidthInput, inputWidthPreview, fieldHelpInput, fieldHelpPreview, labelHelpPreview,
+  inputWidthInput, inputWidthPreview, labelHelpPreview,
   lableInlineCheckbox, buttonToggleGroupPreview, labelAlignSelect, labelWidthInput
 } from "../../locators/buttonToggleGroupLocators";
-
-Then('Label on preview is {string}', (label) => {
-  labelPreview().should('have.text', label)
-});
-
-When('I set label help to {string}', (labelHelp) => {
-  labelHelpInput().clear().type(labelHelp)
-})
-
-When('I hover mouse on help icon', () => {
-  helpIcon().trigger('mouseover')
-});
 
 When('I set input width to {string}', (width) => {
   inputWidthInput().clear().type(width)
@@ -28,20 +16,8 @@ Then('Input width is not set', () => {
   inputWidthPreview().should('not.have.attr', 'style')
 })
 
-When('I set field help to {string}', (width) => {
-  fieldHelpInput().clear().type(width)
-})
-
-Then('Field help on preview is set to {string}', (text) => {
-  fieldHelpPreview().should('have.text', text)
-})
-
 Then('Label help on preview is set to {string}', (text) => {
   labelHelpPreview().should('have.text', text)
-})
-
-When('I check label inline checkbox', () => {
-  lableInlineCheckbox().check()
 })
 
 When('I uncheck label inline checkbox', () => {
@@ -58,20 +34,6 @@ Then('Button Toggle Group component do not have label-inline property', () => {
   buttonToggleGroupPreview().should('not.have.class', 'common-input--label-inline')
   labelPreview().should('not.have.class', 'common-input__label--inline')
   fieldHelpPreview().should('not.have.class', 'common-input__help-text--inline')
-})
-
-When('I set label align {string}', (direction) => {
-  labelAlignSelect().select(direction)
-})
-
-Then('Button Toggle Group direction on preview is {string}', (direction) => {
-
-  if (direction == 'left') {
-    //left is default property that's why it's absent inside class
-    labelPreview().should('not.have.class', 'common-input__label--align-' + direction)
-  } else {
-    labelPreview().should('have.class', 'common-input__label--align-' + direction)
-  }
 })
 
 When('I set label width to {string}', (width) => {

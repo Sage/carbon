@@ -1,10 +1,9 @@
 import { knobsTab } from "../locators/commonLocators"
-import { draggableRecordByText } from "../locators/draggableContextLocators"
 import { DEBUG_FLAG } from ".";
 
 export function visitComponentUrl(component, suffix = 'default', iFrameOnly = false) {
     cy.visit(prepareUrl(component, suffix, iFrameOnly))
-    if(!iFrameOnly) knobsTab().click()
+    if (!iFrameOnly) knobsTab().click()
 }
 
 export function dragAndDrop(draggableRecord, destinationPosition, startFromHight) {
@@ -27,8 +26,17 @@ export function dragAndDrop(draggableRecord, destinationPosition, startFromHight
         .trigger('mouseup', { force: true })
 }
 
-function prepareUrl(component, suffix, iFrameOnly){
+function prepareUrl(component, suffix, iFrameOnly) {
     let url = Cypress.env('localhost')
-    iFrameOnly ? url += Cypress.env('iframe') : url+= Cypress.env('story')
+    iFrameOnly ? url += Cypress.env('iframe') : url += Cypress.env('story')
     return url + component.toLowerCase().replace(/ /g, '-') + Cypress.env(suffix)
+}
+
+export function setSlidebar(selector, value) {
+    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set
+    selector.then(($range) => {
+        const range = $range[0]
+        nativeInputValueSetter.call(range, value)
+        range.dispatchEvent(new Event('change', { value: value, bubbles: true }))
+    });
 }

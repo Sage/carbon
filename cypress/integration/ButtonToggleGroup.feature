@@ -94,7 +94,7 @@ Feature: Button Toggle Group component
   Scenario Outline: Change Toggle Button Group label align
     When I check label inline checkbox
       And I set label align "<direction>"
-    Then Button Toggle Group direction on preview is "<direction>"
+    Then direction on preview is "<direction>"
     Examples:
       | direction |
       | left      |
