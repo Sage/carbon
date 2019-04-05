@@ -312,7 +312,7 @@ const TooltipDecorator = (ComposedComponent) => {
             target = this.getTarget();
         if (!tooltip || !target) {
           // Can't find the tooltip or target so hide
-          this.setState({ isVisible: false });
+          if (this.state.isVisible) this.setState({ isVisible: false });
           return;
         }
 
