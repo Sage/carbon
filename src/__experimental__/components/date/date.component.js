@@ -77,11 +77,15 @@ class Date extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.hasDatePickerValueChanged(prevProps)) {
+    if (this.blurBlocked && this.hasDatePickerValueChanged(prevProps)) {
       this.unblockBlur();
       this.handleBlur(); // TODO validate
     }
   }
+
+  hasDatePickerValueChanged = (prevProps) => {
+    return this.props.value && prevProps.value !== this.props.value;
+  };
 
   assignInput = (input) => {
     this.input = input.current;
@@ -116,10 +120,6 @@ class Date extends React.Component {
     if (Events.isTabKey(ev)) {
       this.closeDatePicker();
     }
-  };
-
-  hasDatePickerValueChanged = (prevProps) => {
-    return this.blurBlocked && this.props.value && prevProps.value !== this.props.value;
   };
 
   openDatePicker = () => {
@@ -200,6 +200,7 @@ class Date extends React.Component {
       handleDateSelect: this.handleDateSelect,
       ...passedProps
     };
+    console.log('rendered');
 
     return <DatePicker { ...datePickerProps } />;
   }
