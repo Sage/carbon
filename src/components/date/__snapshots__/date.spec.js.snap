@@ -4,7 +4,6 @@ exports[`Date StyledDayPicker classic theme applies custom styling 1`] = `
 .c0 {
   background-color: #FFFFFF;
   box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
-  color: #255BC7;
   display: block;
   font-size: 14px;
   font-weight: 800;
@@ -19,7 +18,6 @@ exports[`Date StyledDayPicker classic theme applies custom styling 1`] = `
   font-weight: 700;
   padding: 10px;
   font-weight: 600;
-  color: #255BC7;
 }
 
 .c0 * {
@@ -71,7 +69,6 @@ exports[`Date StyledDayPicker classic theme applies custom styling 1`] = `
 
 .c0 .DayPicker-Day:hover {
   background-color: #1e499f;
-  color: #255BC7;
 }
 
 .c0 .DayPicker-Day +* {
@@ -86,7 +83,6 @@ exports[`Date StyledDayPicker classic theme applies custom styling 1`] = `
 .c0 .DayPicker-Day--today,
 .c0 .DayPicker-Day--today.DayPicker-Day--outside {
   font-weight: 800;
-  color: #255BC7;
   background-color: #4d7080;
 }
 
@@ -103,13 +99,13 @@ exports[`Date StyledDayPicker classic theme applies custom styling 1`] = `
 }
 
 .c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
-  background-color: #255BC7;
+  background-color: #00805D;
   color: #FFFFFF;
   font-weight: 800;
 }
 
 .c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
-  background-color: #255BC7;
+  background-color: #00805D;
   color: #FFFFFF;
 }
 
@@ -157,12 +153,12 @@ exports[`Date StyledDayPicker classic theme applies custom styling 1`] = `
 
 .c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
   color: #FFFFFF;
-  background-color: #255BC7;
+  background-color: #00805D;
   font-weight: 700;
 }
 
 .c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
-  background-color: #255BC7;
+  background-color: #00805D;
 }
 
 <div
