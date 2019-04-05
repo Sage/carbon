@@ -530,7 +530,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  background-color: undefined;
+  background-color: #C7384F;
 }
 
 .c0 span:before {
@@ -558,7 +558,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  background-color: undefined;
+  background-color: #0073C2;
 }
 
 .c0 span:before {
@@ -586,7 +586,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  background-color: undefined;
+  background-color: #00B000;
 }
 
 .c0 span:before {
@@ -614,7 +614,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  background-color: undefined;
+  background-color: #E96400;
 }
 
 .c0 span:before {
@@ -646,7 +646,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
 }
 
 .c0 span:before {
-  color: undefined;
+  color: #C7384F;
 }
 
 <div
@@ -674,7 +674,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
 }
 
 .c0 span:before {
-  color: undefined;
+  color: #0073C2;
 }
 
 <div
@@ -702,7 +702,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
 }
 
 .c0 span:before {
-  color: undefined;
+  color: #00B000;
 }
 
 <div
@@ -730,7 +730,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
 }
 
 .c0 span:before {
-  color: undefined;
+  color: #E96400;
 }
 
 <div

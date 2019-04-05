@@ -15,9 +15,7 @@ const CloseIconStyle = styled.button`
   background-color: ${({ messageType, theme }) => {
     return theme.name === THEMES.classic ? theme.status[`${messageType}Background`] : theme.status.white;
   }};
-  color: ${({ messageType, theme }) => {
-    return theme.name === THEMES.classic ? theme.status[messageType] : theme.status[messageType];
-  }};
+  color: ${({ messageType, theme }) => theme.status[messageType]}};
   span {
     cursor: pointer;
     &:before {
