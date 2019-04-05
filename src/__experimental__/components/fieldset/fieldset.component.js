@@ -13,7 +13,6 @@ class Fieldset extends React.Component {
       <LegendStyle data-element='legend'>
         { this.props.legend }
       </LegendStyle>
-      // <legend className='common-input__label'>
     );
   }
 
