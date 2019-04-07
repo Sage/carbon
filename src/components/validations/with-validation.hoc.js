@@ -76,8 +76,9 @@ const withValidation = (WrappedComponent) => {
       let hasValidations = false;
       types.forEach((validationType) => {
         const type = VALIDATION_TYPES[validationType];
-        if ((Array.isArray(this.props[type]) && this.props[type].length)
-          || typeof this.props[type] !== 'undefined') {
+        const isArray = Array.isArray(this.props[type]);
+        if ((isArray && this.props[type].length)
+          || (!isArray && typeof this.props[type] !== 'undefined')) {
           hasValidations = true;
         }
       });
