@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
-import Form from './form';
+import { Form } from './form';
 import Textbox from './../textbox';
 import Portal from './../portal';
 import Validation from './../../utils/validations/presence';
@@ -27,12 +27,6 @@ describe('Form', () => {
     instance = TestUtils.renderIntoDocument(
       <Form />
     );
-  });
-
-  describe('initialize', () => {
-    it('sets the errorCount to 0', () => {
-      expect(instance.state.errorCount).toEqual(0);
-    });
   });
 
   describe('componentWillReceiveProps', () => {
@@ -240,78 +234,6 @@ describe('Form', () => {
     });
   });
 
-  describe('incrementErrorCount', () => {
-    it('increments the state error count', () => {
-      instance.errorCount = 2;
-      instance.incrementErrorCount();
-      expect(instance.state.errorCount).toEqual(3);
-    });
-  });
-
-  describe('decrementErrorCount', () => {
-    it('decreases the state error count', () => {
-      instance.errorCount = 2;
-      instance.decrementErrorCount();
-      expect(instance.state.errorCount).toEqual(1);
-    });
-  });
-
-  describe('incrementWarningCount', () => {
-    it('increments the state warning count', () => {
-      instance.warningCount = 2;
-      instance.incrementWarningCount();
-      expect(instance.state.warningCount).toEqual(3);
-    });
-  });
-
-  describe('decrementWarningCount', () => {
-    it('decreases the state warning count', () => {
-      instance.warningCount = 2;
-      instance.decrementWarningCount();
-      expect(instance.state.warningCount).toEqual(1);
-    });
-  });
-
-  describe('attachToForm', () => {
-    let textbox;
-
-    beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
-        <Form><Textbox validations={ [new Validation()] } value='' /></Form>
-      );
-      textbox = TestUtils.findRenderedComponentWithType(instance, Textbox);
-    });
-
-    describe('when the component is self contained', () => {
-      it('adds a input by its guid', () => {
-        expect(instance.inputs[textbox._guid]).toBeTruthy();
-      });
-    });
-  });
-
-  describe('detachFromForm', () => {
-    let grid;
-    let excludedTextbox;
-
-    beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
-        <Form>
-          <Textbox validations={ [new Validation()] } value='' />
-        </Form>
-      );
-
-      excludedTextbox = TestUtils.findRenderedComponentWithType(instance, Textbox);
-    });
-
-    describe('when the component is self contained', () => {
-      it('removes a input by its guid', () => {
-        expect(instance.inputs[excludedTextbox._guid]).toBeTruthy();
-        instance.detachFromForm(instance.inputs[excludedTextbox._guid]);
-        expect(instance.inputs[excludedTextbox._guid]).toBeFalsy();
-      });
-    });
-  });
-
   describe('getActiveInput', () => {
     it('returns the currently active input', () => {
       let activeInput = "my input";
@@ -475,37 +397,6 @@ describe('Form', () => {
           TestUtils.Simulate.submit(form);
           expect(spy).not.toHaveBeenCalled();
         });
-      });
-    });
-  });
-
-  describe('validate', () => {
-    describe('invalid input', () => {
-      it('does not not submit the form', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Form>
-            <Textbox validations={ [new Validation()] } name='test' value='' />
-          </Form>
-        );
-
-        spyOn(instance, 'setState');
-        instance.validate();
-        expect(instance.setState).toHaveBeenCalledWith({ errorCount: 1 });
-      });
-    });
-
-    describe('disabled input', () => {
-      it('does not validate the input', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Form>
-            <Textbox validations={ [new Validation()] } disabled={ true } />
-          </Form>
-        );
-
-        let textbox = TestUtils.findRenderedComponentWithType(instance, Textbox);
-        spyOn(textbox, 'validate');
-        instance.validate();
-        expect(textbox.validate).not.toHaveBeenCalled();
       });
     });
   });

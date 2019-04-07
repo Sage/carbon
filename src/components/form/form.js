@@ -677,4 +677,7 @@ function generateCSRFToken(doc) {
   );
 }
 
-export default withValidations(Form);
+const FormWithValidations = withValidations(Form);
+
+export { Form, FormWithValidations }; // export version without hoc if required
+export default FormWithValidations;
