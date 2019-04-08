@@ -1,13 +1,8 @@
 import { helpIcon, labelPreview, labelHelpInput } from "../../locators/commonLocators";
 import {
-  inputWidthInput, inputWidthPreview, fieldHelpInput,
-  fieldHelpPreview, labelHelpPreview, lableInlineCheckbox, buttonToggleGroupPreview, labelAlignInput, labelWidthInput
+  inputWidthInput, inputWidthPreview, fieldHelpInput, fieldHelpPreview, labelHelpPreview,
+  lableInlineCheckbox, buttonToggleGroupPreview, labelAlignSelect, labelWidthInput
 } from "../../locators/buttonToggleGroupLocators";
-import { visitComponentUrl } from "../helper";
-
-Given('I open Button Toggle Group component page', () => {
-  visitComponentUrl('button_toggle_group_component_url')
-});
 
 Then('Label on preview is {string}', (label) => {
   labelPreview().should('have.text', label)
@@ -66,11 +61,11 @@ Then('Button Toggle Group component do not have label-inline property', () => {
 })
 
 When('I set label align {string}', (direction) => {
-  labelAlignInput().type(direction)
+  labelAlignSelect().select(direction)
 })
 
 Then('Button Toggle Group direction on preview is {string}', (direction) => {
-  
+
   if (direction == 'left') {
     //left is default property that's why it's absent inside class
     labelPreview().should('not.have.class', 'common-input__label--align-' + direction)
