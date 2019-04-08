@@ -141,7 +141,7 @@ describe('InputPresentation', () => {
     it('applies custom border and outline on focus', () => {
       assertStyleMatch({
         outline: 'none',
-        border: '1px solid #255bc7'
+        border: '1px solid #255BC7'
       }, mountRender({ theme: classicTheme, hasFocus: true }), {
         modifier: '&&'
       });

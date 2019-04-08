@@ -11,9 +11,6 @@ export default (palette) => {
         secondary: palette.productGreenShade(41),
         tertiary: palette.productGreenShade(61),
 
-        // element
-        border: '#ccd6db',
-
         // generic
         baseBlue: '#255BC7',
         greyDarkBlue50: '#8099a4'
