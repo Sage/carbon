@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ValidationIcon renders with an icon for the given type 1`] = `
+<div
+  className="sc-bdVaJa cNTvlU"
+  type="error"
+>
+  <Icon
+    bgSize="small"
+    key="error-icon"
+    tooltipType="error"
+    type="error"
+  >
+    <span
+      className="carbon-icon icon-error"
+      data-component="icon"
+      data-element="error"
+      key="icon"
+      tooltipType="error"
+    />
+  </Icon>
+</div>
+`;

@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import PropTypes from 'prop-types';
 import { withValidation } from '.';
 import guid from '../../utils/helpers/guid';
-import Icon from '../icon';
+import VALIDATION_TYPES from './validation-types.config';
 
 const presErr = new Error('this value is required!');
 
@@ -57,7 +57,7 @@ InputComponent.contextTypes = {
 
 const WithNoDisplayName = withValidation(() => <input />);
 
-const types = ['validations', 'warnings', 'info'];
+const types = Object.keys(VALIDATION_TYPES);
 
 const shallowRenderWithContext = props => shallow(
   <InputComponent name={ guid() } { ...props } />, { context }
@@ -92,36 +92,34 @@ describe('when the withValidations HOC wraps a component', () => {
 
   describe('when the component renders the validation icon', () => {
     it('returns an Icon with info type when the state has info and no warning or validations', () => {
-      wrapper.setState({ hasInfo: true });
+      wrapper.setState({ infoMessage: true });
       wrapper.instance().renderValidationMarkup();
-      expect(wrapper.contains(<Icon type='info' />)).toEqual(true);
+      expect(wrapper).toMatchSnapshot();
     });
 
     it('returns an Icon with warning type when the state has warning and no validations', () => {
-      wrapper.setState({ hasInfo: true, hasWarning: true });
+      wrapper.setState({ infoMessage: true, warningMessage: true });
       wrapper.instance().renderValidationMarkup();
-      expect(wrapper.contains(<Icon type='warning' />)).toEqual(true);
+      expect(wrapper).toMatchSnapshot();
     });
 
     it('returns an Icon with error type when the state has failed validations', () => {
-      wrapper.setState({ hasInfo: true, hasWarning: true, hasError: true });
+      wrapper.setState({ infoMessage: true, warningMessage: true, errorMessage: true });
       wrapper.instance().renderValidationMarkup();
-      expect(wrapper.contains(<Icon type='error' />)).toEqual(true);
+      expect(wrapper).toMatchSnapshot();
     });
 
     it('returns the children if no type has been set', () => {
       wrapper.setProps({ children: <div /> });
       const markup = wrapper.instance().renderValidationMarkup();
-      expect(markup).toEqual(undefined);
-      expect(wrapper.contains(<Icon />)).toEqual(false);
+      expect(markup).toEqual(null);
       expect(wrapper).toMatchSnapshot();
     });
 
     it('returns the Icon when the component has an array of children', () => {
-      wrapper.setState({ hasInfo: true, hasWarning: true, hasError: true });
+      wrapper.setState({ infoMessage: true, warningMessage: true, errorMessage: true });
       wrapper.setProps({ children: [<div />, 'foo', <div />] });
       wrapper.instance().renderValidationMarkup();
-      expect(wrapper.contains(<Icon type='error' />)).toEqual(true);
       expect(wrapper).toMatchSnapshot();
     });
   });
@@ -169,7 +167,7 @@ describe('when the withValidations HOC wraps a component', () => {
       const spy = spyOn(wrapper2.instance().context, 'adjustCount');
       const validate = await wrapper2.instance().runValidation(types[0]);
       expect(validate).toEqual(false);
-      expect(spy).toHaveBeenCalledWith('validations', true);
+      expect(spy).toHaveBeenCalledWith('error', true);
     });
 
     it('resolves false when the warnings array is not all valid', async () => {
@@ -177,14 +175,14 @@ describe('when the withValidations HOC wraps a component', () => {
       const spy = spyOn(wrapper2.instance().context, 'adjustCount');
       const validate = await wrapper2.instance().runValidation(types[1]);
       expect(validate).toEqual(false);
-      expect(spy).toHaveBeenCalledWith('warnings', true);
+      expect(spy).toHaveBeenCalledWith('warning', true);
     });
 
     it('resolves true when a validation fails but the validation is blocked', async () => {
       wrapper2 = shallowRenderWithContext({ info: presence, value: '' });
       wrapper2.instance().blockValidation = true;
       const spy = spyOn(wrapper2.instance().context, 'adjustCount');
-      const validate = await wrapper2.instance().runValidation(types[2]);
+      const validate = await wrapper2.instance().validate(types[2]);
       expect(validate).toEqual(true);
       expect(spy).not.toHaveBeenCalled();
     });
@@ -200,41 +198,41 @@ describe('when the withValidations HOC wraps a component', () => {
     it('sets the error state to false when validation passes after previously failing', async () => {
       wrapper2 = shallowRenderWithContext({ validations: presence, value: 'foo' });
       wrapper2.setState({
-        hasError: failErr
+        errorMessage: failErr.message
       });
       const spy1 = spyOn(wrapper2.instance(), 'setState');
       const spy2 = spyOn(wrapper2.instance().context, 'adjustCount');
       await wrapper2.instance().runValidation(types[0]);
       expect(spy1).toHaveBeenCalledWith({
-        hasError: false
+        errorMessage: undefined
       });
-      expect(spy2).toHaveBeenCalledWith('validations');
+      expect(spy2).toHaveBeenCalledWith('error');
     });
 
     it('sets the warnings state to false when validation passes after previously failing', async () => {
       wrapper2 = shallowRenderWithContext({ warnings: presence, value: 'foo' });
       wrapper2.setState({
-        hasWarning: failErr
+        warningMessage: failErr.message
       });
       const spy1 = spyOn(wrapper2.instance(), 'setState');
       const spy2 = spyOn(wrapper2.instance().context, 'adjustCount');
       await wrapper2.instance().runValidation(types[1]);
       expect(spy1).toHaveBeenCalledWith({
-        hasWarning: false
+        warningMessage: undefined
       });
-      expect(spy2).toHaveBeenCalledWith('warnings');
+      expect(spy2).toHaveBeenCalledWith('warning');
     });
 
     it('sets the info state to false when validation passes after previously failing', async () => {
       wrapper2 = shallowRenderWithContext({ info: presence, value: 'foo' });
       wrapper2.setState({
-        hasInfo: failErr
+        infoMessage: failErr.message
       });
       const spy1 = spyOn(wrapper2.instance(), 'setState');
       const spy2 = spyOn(wrapper2.instance().context, 'adjustCount');
       await wrapper2.instance().runValidation(types[2]);
       expect(spy1).toHaveBeenCalledWith({
-        hasInfo: false
+        infoMessage: undefined
       });
       expect(spy2).toHaveBeenCalledWith('info');
     });
@@ -244,18 +242,18 @@ describe('when the withValidations HOC wraps a component', () => {
       const spy = spyOn(wrapper.instance(), 'setState');
       const validate = await wrapper.instance().runValidation('fooType');
       expect(spy).not.toHaveBeenCalled();
-      expect(validate).toEqual(true);
+      expect(validate).toEqual(null);
     });
 
     it('removes errors when the inputs validation passes', async () => {
       wrapper2 = shallowRenderWithContext({ validations: presence, value: 'foo' });
       wrapper2.setState({
-        hasError: failErr
+        errorMessage: failErr
       });
       const spy = spyOn(wrapper2.instance().context, 'adjustCount');
       const validate = await wrapper2.instance().runValidation(types[0]);
       expect(validate).toEqual(true);
-      expect(spy).toHaveBeenCalledWith('validations');
+      expect(spy).toHaveBeenCalledWith('error');
     });
   });
 
@@ -265,14 +263,14 @@ describe('when the withValidations HOC wraps a component', () => {
     const passWrapper = shallow(<InputComponent name='foo' />, { context });
     const mixWrapper = shallow(<InputComponent name='foo' />, { context });
 
-    beforeEach(() => {
+    beforeEach(async () => {
       failWrapper.setProps({
         validations: [failValidation],
         warnings: [failValidation],
         info: failValidation,
         value: 'foo'
       });
-      allValidationsFail = failWrapper.instance().validate();
+      allValidationsFail = await failWrapper.instance().validate();
 
       passWrapper.setProps({
         validations: [presence],
@@ -280,7 +278,7 @@ describe('when the withValidations HOC wraps a component', () => {
         info: presence,
         value: 'foo'
       });
-      allValidationsPass = passWrapper.instance().validate();
+      allValidationsPass = await passWrapper.instance().validate();
 
       mixWrapper.setProps({
         validations: [presence],
@@ -288,7 +286,7 @@ describe('when the withValidations HOC wraps a component', () => {
         info: presence,
         value: 'foo'
       });
-      mixValidations = mixWrapper.instance().validate();
+      mixValidations = await mixWrapper.instance().validate();
     });
 
     it('is called when the onBlur callback is triggered', () => {
@@ -298,26 +296,24 @@ describe('when the withValidations HOC wraps a component', () => {
     });
 
     it('resolves promises to true when all validation props are valid', async () => {
-      allValidationsPass.forEach(validation => expect(validation).resolves.toEqual(true));
-      expect(passWrapper.state().hasError).toEqual(false);
-      expect(passWrapper.state().hasWarning).toEqual(false);
-      expect(passWrapper.state().hasInfo).toEqual(false);
+      expect(allValidationsPass).toEqual(true);
+      expect(passWrapper.state().errorMessage).toEqual(undefined);
+      expect(passWrapper.state().warningMessage).toEqual(undefined);
+      expect(passWrapper.state().infoMessage).toEqual(undefined);
     });
 
     it('resolves true a validation prop is valid and false when it fails validation', async () => {
-      expect(mixValidations[0]).resolves.toEqual(true);
-      expect(mixValidations[1]).resolves.toEqual(false);
-      expect(mixValidations[2]).resolves.toEqual(true);
-      expect(mixWrapper.state().hasError).toEqual(false);
-      expect(mixWrapper.state().hasWarning).toEqual(failErr);
-      expect(mixWrapper.state().hasInfo).toEqual(false);
+      expect(mixValidations).toEqual(false);
+      expect(mixWrapper.state().errorMessage).toEqual(undefined);
+      expect(mixWrapper.state().warningMessage).toEqual(failErr.message);
+      expect(mixWrapper.state().infoMessage).toEqual(undefined);
     });
 
     it('sets the state for each of the failed validations subsets when they fail', async () => {
-      allValidationsFail.forEach(validation => expect(validation).resolves.toEqual(false));
-      expect(failWrapper.state().hasError).toEqual(failErr);
-      expect(failWrapper.state().hasWarning).toEqual(failErr);
-      expect(failWrapper.state().hasInfo).toEqual(failErr);
+      expect(allValidationsFail).toEqual(false);
+      expect(failWrapper.state().errorMessage).toEqual(failErr.message);
+      expect(failWrapper.state().warningMessage).toEqual(failErr.message);
+      expect(failWrapper.state().infoMessage).toEqual(failErr.message);
     });
   });
 
@@ -359,22 +355,21 @@ describe('when the withValidations HOC wraps a component', () => {
   describe('when the component value changes', () => {
     const mockEvent = { target: { value: 'foo' } };
     it('resets the validation status when it is not already false', () => {
-      wrapper.setState({ hasInfo: presErr, hasWarning: presErr, hasError: presErr });
+      wrapper.setState({ infoMessage: presErr, warningMessage: presErr, errorMessage: presErr });
       wrapper.setProps({ onChange: ev => ev.target.value });
       wrapper.instance().handleChange(mockEvent);
-      expect(wrapper.instance().state.hasInfo).toEqual(false);
-      expect(wrapper.instance().state.hasWarning).toEqual(false);
-      expect(wrapper.instance().state.hasError).toEqual(false);
+      expect(wrapper.instance().state.infoMessage).toEqual(false);
+      expect(wrapper.instance().state.warningMessage).toEqual(false);
+      expect(wrapper.instance().state.errorMessage).toEqual(false);
     });
 
     it('does nothing when the validation status is already false', () => {
-      wrapper.setState({ hasInfo: false, hasWarning: false, hasError: false });
-      wrapper.setProps({ onChange: ev => ev.target.value });
+      wrapper.setState({ infoMessage: false, warningMessage: false, errorMessage: false });
       const spy = spyOn(wrapper.instance(), 'updateValidationStatus');
       wrapper.instance().handleChange(mockEvent);
-      expect(wrapper.instance().state.hasInfo).toEqual(false);
-      expect(wrapper.instance().state.hasWarning).toEqual(false);
-      expect(wrapper.instance().state.hasError).toEqual(false);
+      expect(wrapper.instance().state.infoMessage).toEqual(false);
+      expect(wrapper.instance().state.warningMessage).toEqual(false);
+      expect(wrapper.instance().state.errorMessage).toEqual(false);
       expect(spy).not.toHaveBeenCalled();
     });
   });

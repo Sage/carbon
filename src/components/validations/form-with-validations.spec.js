@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import { withValidations } from '.';
 import validator from '../../utils/validations/validator';
+import VALIDATION_TYPES from './validation-types.config';
 
 const error = Error('this value is required!');
 
@@ -91,9 +92,9 @@ describe('when the formWithValidations HOC is wraps a component', () => {
       const { inputs } = wrapper.instance();
       await children.forEach((child) => {
         mockRegisterChild(context, child.props.name, child.props.validations);
-        return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'validations', true));
+        return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'error', true));
       });
-      expect(wrapper.instance().state.validationsCount).toEqual(1);
+      expect(wrapper.instance().state.errorCount).toEqual(1);
     });
 
     it('increments the warnings count when failed validation is detected', async () => {
@@ -101,9 +102,9 @@ describe('when the formWithValidations HOC is wraps a component', () => {
       const { inputs } = wrapper.instance();
       await children.forEach((child) => {
         mockRegisterChild(context, child.props.name, child.props.warnings);
-        return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'warnings', true));
+        return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'warning', true));
       });
-      expect(wrapper.instance().state.warningsCount).toEqual(1);
+      expect(wrapper.instance().state.warningCount).toEqual(1);
     });
 
     it('increments the info count when failed validation is detected', async () => {
@@ -123,41 +124,25 @@ describe('when the formWithValidations HOC is wraps a component', () => {
         mockRegisterChild(context, child.props.name, child.props.info);
         return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'foo', true));
       });
-      expect(wrapper.instance().state.validationsCount).toEqual(0);
-      expect(wrapper.instance().state.warningsCount).toEqual(0);
-      expect(wrapper.instance().state.infoCount).toEqual(0);
-    });
-
-    it('does not decrement a count unless the relevant state value is greater than zero', async () => {
-      const { children } = wrapper.instance().props;
-      const { inputs } = wrapper.instance();
-      await children.forEach((child) => {
-        mockRegisterChild(context, child.props.name, child.props.info);
-        return inputs[child.props.name](child.props.value).catch(() => {
-          mockCountCall(context, 'validations');
-          mockCountCall(context, 'warnings');
-          mockCountCall(context, 'info');
-        });
-      });
-      expect(wrapper.instance().state.validationsCount).toEqual(0);
-      expect(wrapper.instance().state.warningsCount).toEqual(0);
+      expect(wrapper.instance().state.errorCount).toEqual(0);
+      expect(wrapper.instance().state.warningCount).toEqual(0);
       expect(wrapper.instance().state.infoCount).toEqual(0);
     });
 
     it('decrements the count when the state value is greater or equal to zero and there is no failures', async () => {
       const { children } = wrapper.instance().props;
       const { inputs } = wrapper.instance();
-      wrapper.setState({ validationsCount: 3, warningsCount: 2, infoCount: 1 });
+      wrapper.setState({ errorCount: 3, warningCount: 2, infoCount: 1 });
       await children.forEach((child) => {
         mockRegisterChild(context, child.props.name, child.props.info);
         return inputs[child.props.name](child.props.value).catch(() => {
-          mockCountCall(context, 'validations');
-          mockCountCall(context, 'warnings');
+          mockCountCall(context, 'error');
+          mockCountCall(context, 'warning');
           mockCountCall(context, 'info');
         });
       });
-      expect(wrapper.instance().state.validationsCount).toEqual(2);
-      expect(wrapper.instance().state.warningsCount).toEqual(1);
+      expect(wrapper.instance().state.errorCount).toEqual(2);
+      expect(wrapper.instance().state.warningCount).toEqual(1);
       expect(wrapper.instance().state.infoCount).toEqual(0);
     });
   });
@@ -167,9 +152,10 @@ describe('when the formWithValidations HOC is wraps a component', () => {
 
     const mockRunValidation = (type) => {
       const child = wrapper.instance().props.children[index];
+      const validationType = VALIDATION_TYPES[type];
 
       return new Promise(async (resolve) => {
-        const validate = await validator(child.props[type]);
+        const validate = await validator(child.props[validationType]);
         return validate(child.props.value)
           .then(() => {
             return resolve(true);
