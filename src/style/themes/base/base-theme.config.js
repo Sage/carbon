@@ -19,7 +19,6 @@ export default (palette) => {
 
       // element
       border: palette.slateTint(40),
-      borderHover: palette.slateTint(40),
 
       // status
       error: palette.errorRed,
@@ -33,10 +32,6 @@ export default (palette) => {
       color: blackWithOpacity(0.9),
       placeholder: blackWithOpacity(0.3),
       size: '14px'
-    },
-
-    label: {
-      color: blackWithOpacity(0.9)
     },
 
     disabled: {

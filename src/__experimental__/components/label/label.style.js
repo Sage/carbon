@@ -6,7 +6,7 @@ import sizes from '../input/input-sizes.style';
 import { THEMES } from '../../../style/themes';
 
 const LabelStyle = styled.label`
-  color: ${({ theme }) => theme.label.color};
+  color: ${({ theme }) => theme.text.color};
   cursor: pointer;
   font-weight: 600;
   padding: 0 0 8px;

@@ -19,7 +19,7 @@ const LegendStyle = styled.legend`
   margin-bottom: 32px;
 
   ${({ theme }) => theme.name === 'classic' && css`
-    color: ${theme.label.color};
+    color: ${theme.text.color};
     font-size: 14px;
     font-weight: bold;
     line-height: 14px;
