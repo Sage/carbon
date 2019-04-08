@@ -33,7 +33,12 @@ const Message = (props) => {
         >
           {children}
         </MessageContent>
-        {onDismiss && <CloseIcon messageType={ messageType } onDismiss={ onDismiss } />}
+        {onDismiss && (
+          <CloseIcon
+            messageType={ messageType } onDismiss={ onDismiss }
+            transparent={ transparent }
+          />
+        )}
       </MessageStyle>
     )
   );

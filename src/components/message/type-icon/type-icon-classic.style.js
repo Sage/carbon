@@ -7,6 +7,7 @@ export default ({ theme, messageType, roundedCorners }) => theme.name === THEMES
   background-color: ${classicThemeColors[messageType].main};
 
   ${({ transparent }) => transparent && css`
+    background-color: ${classicThemeColors.transparent.backgroundColor};
     span {
       &:before {
         color: ${classicThemeColors[messageType].main};

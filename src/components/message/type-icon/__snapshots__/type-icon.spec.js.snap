@@ -255,6 +255,7 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   background-color: #FFFFFF;
   border-radius: 3px 0 0 3px;
   background-color: #335c6d;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -290,6 +291,7 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   background-color: #FFFFFF;
   border-radius: 3px 0 0 3px;
   background-color: #c7384f;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -328,6 +330,7 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   background-color: #FFFFFF;
   border-radius: 3px 0 0 3px;
   background-color: #ffab00;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -363,6 +366,7 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   background-color: #FFFFFF;
   border-radius: 3px 0 0 3px;
   background-color: #1573e6;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -401,6 +405,7 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   background-color: #FFFFFF;
   border-radius: 3px 0 0 3px;
   background-color: #ff7d00;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -435,6 +440,7 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   background-color: #FFFFFF;
   border-radius: 3px 0 0 3px;
   background-color: #639;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -470,6 +476,7 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   background-color: #FFFFFF;
   border-radius: 3px 0 0 3px;
   background-color: #50b848;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -509,6 +516,7 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   background-color: #FFFFFF;
   border-radius: 3px 0 0 3px;
   background-color: #ff7d00;
+  background-color: #FFFFFF;
 }
 
 .c0 span:before {

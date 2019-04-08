@@ -11,9 +11,9 @@ const CloseIconStyle = styled.button`
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  width: 45px;
   border: none;
-  background-color: ${({ theme }) => theme.colors.white}
-  color: ${({ messageType, theme }) => theme.colors[messageType]}};  
+  color: ${({ messageType, theme }) => theme.colors[messageType]}};
   span {
     cursor: pointer;
     &:before {

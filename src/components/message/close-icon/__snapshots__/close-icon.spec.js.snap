@@ -17,8 +17,8 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  width: 45px;
   border: none;
-  background-color: #FFFFFF;
   color: #C7384F;
 }
 
@@ -62,8 +62,8 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  width: 45px;
   border: none;
-  background-color: #FFFFFF;
   color: #0073C2;
 }
 
@@ -107,8 +107,8 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  width: 45px;
   border: none;
-  background-color: #FFFFFF;
   color: #00B000;
 }
 
@@ -152,8 +152,8 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  width: 45px;
   border: none;
-  background-color: #FFFFFF;
   color: #E96400;
 }
 
@@ -197,8 +197,8 @@ exports[`when in classic mode when rendered as default should match the snapshot
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  width: 45px;
   border: none;
-  background-color: #FFFFFF;
   background-color: #335c6d;
 }
 
@@ -242,8 +242,8 @@ exports[`when in classic mode when rendered as error should match the snapshot 1
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  width: 45px;
   border: none;
-  background-color: #FFFFFF;
   color: #C7384F;
   background-color: #fdf5f5;
 }
@@ -288,8 +288,8 @@ exports[`when in classic mode when rendered as help should match the snapshot 1`
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  width: 45px;
   border: none;
-  background-color: #FFFFFF;
   background-color: #fffbf2;
 }
 
@@ -333,8 +333,8 @@ exports[`when in classic mode when rendered as info should match the snapshot 1`
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  width: 45px;
   border: none;
-  background-color: #FFFFFF;
   color: #0073C2;
   background-color: #f3f8fe;
 }
@@ -379,8 +379,8 @@ exports[`when in classic mode when rendered as maintenance should match the snap
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  width: 45px;
   border: none;
-  background-color: #FFFFFF;
   background-color: #fff8f2;
 }
 
@@ -424,8 +424,8 @@ exports[`when in classic mode when rendered as new should match the snapshot 1`]
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  width: 45px;
   border: none;
-  background-color: #FFFFFF;
   background-color: #f7f5fa;
 }
 
@@ -469,8 +469,8 @@ exports[`when in classic mode when rendered as success should match the snapshot
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  width: 45px;
   border: none;
-  background-color: #FFFFFF;
   color: #00B000;
   background-color: #f6fbf6;
 }
@@ -515,8 +515,8 @@ exports[`when in classic mode when rendered as warning should match the snapshot
   justify-content: center;
   text-align: center;
   padding: 0 15px;
+  width: 45px;
   border: none;
-  background-color: #FFFFFF;
   color: #E96400;
   background-color: #fff8f2;
 }
