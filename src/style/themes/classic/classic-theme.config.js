@@ -17,11 +17,11 @@ export default (palette) => {
     text: {
       color: '#255bc7'
     },
-
     disabled: {
       input: '#1e499f',
       disabled: '#b3c2c8',
       border: '#4d7080'
+    }
     }
   };
 };
