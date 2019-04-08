@@ -2,25 +2,17 @@ import { css } from 'styled-components';
 import { THEMES } from '../../style/themes';
 import classicThemeColors from './message-classic-theme-colors';
 
-export default ({
-  theme, border, transparent, messageType
-}) => theme.name === THEMES.classic
-  && css`
-    border: ${getBorderStyle(border, transparent, messageType)};
-    background-color: ${getBackgroundColorStyle(transparent, messageType)};
-    border-radius: ${({ roundedCorners }) => (roundedCorners && border ? '3px;' : '0px;')};
-  `;
+export default ({ theme, messageType }) => theme.name === THEMES.classic && css`
+  border: 1px solid ${classicThemeColors[messageType].borderColor};
+  background-color: ${classicThemeColors[messageType].backgroundColor};
+  border-radius: ${({ roundedCorners, border }) => (roundedCorners && border ? '3px;' : '0px;')};
 
-function getBorderStyle(border, transparent, messageType) {
-  if (border === false || transparent) {
-    return 'none';
-  }
-  return `1px solid ${classicThemeColors[messageType].borderColor}`;
-}
+  ${({ border }) => !border && css`
+    border: none;
+  `}
 
-function getBackgroundColorStyle(transparent, messageType) {
-  if (transparent) {
-    return classicThemeColors.transparent.backgroundColor;
-  }
-  return classicThemeColors[messageType].backgroundColor;
-}
+  ${({ transparent }) => transparent && css`
+    border: none;
+    background-color: ${classicThemeColors.transparent.backgroundColor};
+  `}
+`;

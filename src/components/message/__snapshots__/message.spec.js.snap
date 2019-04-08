@@ -14,6 +14,8 @@ exports[`Message when in classic mode when rendered should match the snapshot 1`
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
+  border: 1px solid;
+  background-color: #FFFFFF;
   border: 1px solid #335c6d;
   background-color: #335c6d;
   border-radius: 3px;
@@ -40,6 +42,8 @@ exports[`Message when in classic mode when rendered should match the snapshot 2`
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
+  border: 1px solid #C7384F;
+  background-color: #FFFFFF;
   border: 1px solid #f7d9d9;
   background-color: #fdf5f5;
   border-radius: 3px;
@@ -66,6 +70,8 @@ exports[`Message when in classic mode when rendered should match the snapshot 3`
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
+  border: 1px solid;
+  background-color: #FFFFFF;
   border: 1px solid #fec;
   background-color: #fffbf2;
   border-radius: 3px;
@@ -92,6 +98,8 @@ exports[`Message when in classic mode when rendered should match the snapshot 4`
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
+  border: 1px solid #0073C2;
+  background-color: #FFFFFF;
   border: 1px solid #d0e3fa;
   background-color: #f3f8fe;
   border-radius: 3px;
@@ -118,6 +126,8 @@ exports[`Message when in classic mode when rendered should match the snapshot 5`
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
+  border: 1px solid;
+  background-color: #FFFFFF;
   border: 1px solid #ffe4cc;
   background-color: #fff8f2;
   border-radius: 3px;
@@ -144,6 +154,8 @@ exports[`Message when in classic mode when rendered should match the snapshot 6`
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
+  border: 1px solid;
+  background-color: #FFFFFF;
   border: 1px solid #e0d6eb;
   background-color: #f7f5fa;
   border-radius: 3px;
@@ -170,6 +182,8 @@ exports[`Message when in classic mode when rendered should match the snapshot 7`
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
+  border: 1px solid #00B000;
+  background-color: #FFFFFF;
   border: 1px solid #dcf1da;
   background-color: #f6fbf6;
   border-radius: 3px;
@@ -196,6 +210,8 @@ exports[`Message when in classic mode when rendered should match the snapshot 8`
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
+  border: 1px solid #E96400;
+  background-color: #FFFFFF;
   border: 1px solid #ffe4cc;
   background-color: #fff8f2;
   border-radius: 3px;

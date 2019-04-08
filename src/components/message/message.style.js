@@ -1,26 +1,22 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../style/themes/base';
-import { THEMES } from '../../style/themes';
-import messageClassicStyle from './message-classic.style';
+import messageClassicStyling from './message-classic.style';
 
 const MessageStyle = styled.div`
   position: relative;
   display: flex;
   justify-content: flex-start;
   align-content: center;
-  ${({ theme, transparent, messageType }) => {
-    return theme.name !== THEMES.classic ? getBorderAndBackgroundStyles(theme, transparent, messageType) : null;
-  }}
-  ${({ theme }) => (theme.name === THEMES.classic ? messageClassicStyle : null)};
-`;
+  border: 1px solid ${({ theme, messageType }) => theme.colors[messageType]};
+  background-color: ${({ theme }) => theme.colors.white};
 
-function getBorderAndBackgroundStyles(theme, transparent, messageType) {
-  return `
-    border: ${transparent ? 'none;' : `1px solid ${theme.colors[messageType]};`}
-    background-color: ${transparent ? `${theme.colors.white};` : `${theme.colors.white};`}
-  `;
-}
+  ${({ transparent }) => transparent && css`
+      border: none;
+  `}
+
+  ${messageClassicStyling}
+`;
 
 MessageStyle.defaultProps = {
   border: true,
