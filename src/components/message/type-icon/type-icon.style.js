@@ -1,8 +1,6 @@
-/* eslint-disable max-len */
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
-import { THEMES } from '../../../style/themes';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import typeIconClassicStyle from './type-icon-classic.style';
 
@@ -12,20 +10,24 @@ const TypeIconStyle = styled.div`
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  ${({ theme, transparent, messageType }) => (theme.name !== THEMES.classic ? getBackgroundAndIconColor(transparent, theme, messageType) : null)}
-  ${({ theme }) => (theme.name === THEMES.classic ? typeIconClassicStyle : null)}
-`;
+  background-color: ${({ theme, messageType }) => theme.colors[messageType]};
+  span {
+    &:before {
+      color: ${({ theme }) => theme.colors.white};
+    }
+  }
 
-function getBackgroundAndIconColor(transparent, theme, messageType) {
-  return `
-    background-color: ${transparent ? theme.colors.white : theme.colors[messageType]};
+  ${({ theme, transparent, messageType }) => transparent && css`
+    background-color: ${theme.colors.white};
     span {
       &:before {
-        color: ${transparent ? theme.colors[messageType] : theme.colors.white};
+        color: ${theme.colors[messageType]};
       }
     }
-  `;
-}
+  `}
+
+  ${typeIconClassicStyle}
+`;
 
 TypeIconStyle.defaultProps = {
   messageType: 'info',

@@ -45,6 +45,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   justify-content: center;
   text-align: center;
   padding: 0 7px;
+  background-color: #C7384F;
   border-radius: 3px 0 0 3px;
   background-color: #c7384f;
 }
@@ -103,6 +104,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   justify-content: center;
   text-align: center;
   padding: 0 7px;
+  background-color: #0073C2;
   border-radius: 3px 0 0 3px;
   background-color: #1573e6;
 }
@@ -190,6 +192,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   justify-content: center;
   text-align: center;
   padding: 0 7px;
+  background-color: #00B000;
   border-radius: 3px 0 0 3px;
   background-color: #50b848;
 }
@@ -219,6 +222,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   justify-content: center;
   text-align: center;
   padding: 0 7px;
+  background-color: #E96400;
   border-radius: 3px 0 0 3px;
   background-color: #ff7d00;
 }
@@ -248,8 +252,13 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  border-radius: 3px 0 0 3px;
   background-color: #FFFFFF;
+  border-radius: 3px 0 0 3px;
+  background-color: #335c6d;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -277,8 +286,18 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  border-radius: 3px 0 0 3px;
+  background-color: #C7384F;
   background-color: #FFFFFF;
+  border-radius: 3px 0 0 3px;
+  background-color: #c7384f;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #C7384F;
 }
 
 .c0 span:before {
@@ -306,8 +325,13 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  border-radius: 3px 0 0 3px;
   background-color: #FFFFFF;
+  border-radius: 3px 0 0 3px;
+  background-color: #ffab00;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -335,8 +359,18 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  border-radius: 3px 0 0 3px;
+  background-color: #0073C2;
   background-color: #FFFFFF;
+  border-radius: 3px 0 0 3px;
+  background-color: #1573e6;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #0073C2;
 }
 
 .c0 span:before {
@@ -364,8 +398,13 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  border-radius: 3px 0 0 3px;
   background-color: #FFFFFF;
+  border-radius: 3px 0 0 3px;
+  background-color: #ff7d00;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -393,8 +432,13 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  border-radius: 3px 0 0 3px;
   background-color: #FFFFFF;
+  border-radius: 3px 0 0 3px;
+  background-color: #639;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -422,8 +466,18 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  border-radius: 3px 0 0 3px;
+  background-color: #00B000;
   background-color: #FFFFFF;
+  border-radius: 3px 0 0 3px;
+  background-color: #50b848;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #00B000;
 }
 
 .c0 span:before {
@@ -451,8 +505,18 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  border-radius: 3px 0 0 3px;
+  background-color: #E96400;
   background-color: #FFFFFF;
+  border-radius: 3px 0 0 3px;
+  background-color: #ff7d00;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #E96400;
 }
 
 .c0 span:before {
@@ -640,7 +704,12 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   justify-content: center;
   text-align: center;
   padding: 0 7px;
+  background-color: #C7384F;
   background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -668,7 +737,12 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   justify-content: center;
   text-align: center;
   padding: 0 7px;
+  background-color: #0073C2;
   background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -696,7 +770,12 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   justify-content: center;
   text-align: center;
   padding: 0 7px;
+  background-color: #00B000;
   background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
 }
 
 .c0 span:before {
@@ -724,7 +803,12 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   justify-content: center;
   text-align: center;
   padding: 0 7px;
+  background-color: #E96400;
   background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
 }
 
 .c0 span:before {
