@@ -198,6 +198,7 @@ exports[`when in classic mode when rendered as default should match the snapshot
   text-align: center;
   padding: 0 15px;
   border: none;
+  background-color: #FFFFFF;
   background-color: #335c6d;
 }
 
@@ -242,8 +243,9 @@ exports[`when in classic mode when rendered as error should match the snapshot 1
   text-align: center;
   padding: 0 15px;
   border: none;
-  background-color: #fdf5f5;
+  background-color: #FFFFFF;
   color: #C7384F;
+  background-color: #fdf5f5;
 }
 
 .c0 span {
@@ -287,6 +289,7 @@ exports[`when in classic mode when rendered as help should match the snapshot 1`
   text-align: center;
   padding: 0 15px;
   border: none;
+  background-color: #FFFFFF;
   background-color: #fffbf2;
 }
 
@@ -331,8 +334,9 @@ exports[`when in classic mode when rendered as info should match the snapshot 1`
   text-align: center;
   padding: 0 15px;
   border: none;
-  background-color: #f3f8fe;
+  background-color: #FFFFFF;
   color: #0073C2;
+  background-color: #f3f8fe;
 }
 
 .c0 span {
@@ -376,6 +380,7 @@ exports[`when in classic mode when rendered as maintenance should match the snap
   text-align: center;
   padding: 0 15px;
   border: none;
+  background-color: #FFFFFF;
   background-color: #fff8f2;
 }
 
@@ -420,6 +425,7 @@ exports[`when in classic mode when rendered as new should match the snapshot 1`]
   text-align: center;
   padding: 0 15px;
   border: none;
+  background-color: #FFFFFF;
   background-color: #f7f5fa;
 }
 
@@ -464,8 +470,9 @@ exports[`when in classic mode when rendered as success should match the snapshot
   text-align: center;
   padding: 0 15px;
   border: none;
-  background-color: #f6fbf6;
+  background-color: #FFFFFF;
   color: #00B000;
+  background-color: #f6fbf6;
 }
 
 .c0 span {
@@ -509,8 +516,9 @@ exports[`when in classic mode when rendered as warning should match the snapshot
   text-align: center;
   padding: 0 15px;
   border: none;
-  background-color: #fff8f2;
+  background-color: #FFFFFF;
   color: #E96400;
+  background-color: #fff8f2;
 }
 
 .c0 span {

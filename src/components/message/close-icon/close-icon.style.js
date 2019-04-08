@@ -1,9 +1,8 @@
 import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
-import { THEMES } from '../../../style/themes';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import classicThemeColors from '../message-classic-theme-colors';
+import CloseIconClassicStyling from './close-icon-classic.style';
 
 const CloseIconStyle = styled.button`
   align-items: center;
@@ -13,10 +12,8 @@ const CloseIconStyle = styled.button`
   text-align: center;
   padding: 0 15px;
   border: none;
-  background-color: ${({ messageType, theme }) => {
-    return theme.name === THEMES.classic ? classicThemeColors[messageType].backgroundColor : theme.colors.white;
-  }};
-  color: ${({ messageType, theme }) => theme.colors[messageType]}};
+  background-color: ${({ theme }) => theme.colors.white}
+  color: ${({ messageType, theme }) => theme.colors[messageType]}};  
   span {
     cursor: pointer;
     &:before {
@@ -34,6 +31,8 @@ const CloseIconStyle = styled.button`
       }
     }
   }
+
+  ${CloseIconClassicStyling}
 `;
 
 CloseIconStyle.defaultProps = {
