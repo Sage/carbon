@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import Fieldset from './fieldset.component';
 import Textbox from '../textbox';
 import { LegendStyle } from './fieldset.style';
+import classicTheme from '../../../style/themes/classic';
 
 function render(props, renderType = shallow) {
   return renderType(
@@ -12,10 +13,11 @@ function render(props, renderType = shallow) {
   );
 }
 
+const basicWrapper = render();
+
 describe('Fieldset', () => {
   it('renders correctly', () => {
-    const wrapper = render();
-    expect(wrapper).toMatchSnapshot();
+    expect(basicWrapper).toMatchSnapshot();
   });
 
   describe('Fieldset Legend', () => {
@@ -25,8 +27,12 @@ describe('Fieldset', () => {
     });
 
     it('is not rendered if omited', () => {
-      const wrapper = render();
-      expect(wrapper.find(LegendStyle).exists()).toEqual(false);
+      expect(basicWrapper.find(LegendStyle).exists()).toEqual(false);
+    });
+
+    it('applies classic theme styling', () => {
+      const wrapper = render({ theme: classicTheme, legend: 'Legend' });
+      expect(wrapper).toMatchSnapshot();
     });
   });
 });
