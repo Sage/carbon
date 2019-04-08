@@ -8,7 +8,7 @@ import { notes, Info } from './documentation';
 import Button from '.';
 
 const defaultKnobs = () => {
-  const size = select('size', OptionsHelper.sizesRestricted, OptionsHelper.sizesRestricted[1]);
+  const size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
 
   return {
     as: select('as', OptionsHelper.themesBinary, Button.defaultProps.as),
