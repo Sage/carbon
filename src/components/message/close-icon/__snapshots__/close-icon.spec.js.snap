@@ -18,6 +18,7 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   text-align: center;
   padding: 0 15px;
   border: none;
+  background-color: #FFFFFF;
   color: #C7384F;
 }
 
@@ -62,6 +63,7 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   text-align: center;
   padding: 0 15px;
   border: none;
+  background-color: #FFFFFF;
   color: #0073C2;
 }
 
@@ -106,6 +108,7 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   text-align: center;
   padding: 0 15px;
   border: none;
+  background-color: #FFFFFF;
   color: #00B000;
 }
 
@@ -150,6 +153,7 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   text-align: center;
   padding: 0 15px;
   border: none;
+  background-color: #FFFFFF;
   color: #E96400;
 }
 
@@ -195,7 +199,6 @@ exports[`when in classic mode when rendered as default should match the snapshot
   padding: 0 15px;
   border: none;
   background-color: #335c6d;
-  color: #335c6d;
 }
 
 .c0 span {
@@ -240,7 +243,7 @@ exports[`when in classic mode when rendered as error should match the snapshot 1
   padding: 0 15px;
   border: none;
   background-color: #fdf5f5;
-  color: #c7384f;
+  color: #C7384F;
 }
 
 .c0 span {
@@ -285,7 +288,6 @@ exports[`when in classic mode when rendered as help should match the snapshot 1`
   padding: 0 15px;
   border: none;
   background-color: #fffbf2;
-  color: #ffab00;
 }
 
 .c0 span {
@@ -330,7 +332,7 @@ exports[`when in classic mode when rendered as info should match the snapshot 1`
   padding: 0 15px;
   border: none;
   background-color: #f3f8fe;
-  color: #1573e6;
+  color: #0073C2;
 }
 
 .c0 span {
@@ -375,7 +377,6 @@ exports[`when in classic mode when rendered as maintenance should match the snap
   padding: 0 15px;
   border: none;
   background-color: #fff8f2;
-  color: #ff7d00;
 }
 
 .c0 span {
@@ -420,7 +421,6 @@ exports[`when in classic mode when rendered as new should match the snapshot 1`]
   padding: 0 15px;
   border: none;
   background-color: #f7f5fa;
-  color: #639;
 }
 
 .c0 span {
@@ -465,7 +465,7 @@ exports[`when in classic mode when rendered as success should match the snapshot
   padding: 0 15px;
   border: none;
   background-color: #f6fbf6;
-  color: #50b848;
+  color: #00B000;
 }
 
 .c0 span {
@@ -510,7 +510,7 @@ exports[`when in classic mode when rendered as warning should match the snapshot
   padding: 0 15px;
   border: none;
   background-color: #fff8f2;
-  color: #ff7d00;
+  color: #E96400;
 }
 
 .c0 span {

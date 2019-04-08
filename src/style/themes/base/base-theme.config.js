@@ -14,17 +14,14 @@ export default (palette) => {
       tertiary: palette.genericGreenShade(55),
       brand: palette.brilliantGreen,
       border: palette.slateTint(40),
-
-      // generic
-      white: '#FFFFFF'
-    },
-
-    status: {
       error: palette.errorRed,
       focus: palette.gold,
       info: palette.productBlueShade(3),
       success: palette.brilliantGreenShade(20),
-      warning: palette.carrotOrange
+      warning: palette.carrotOrange,
+
+      // generic
+      white: '#FFFFFF'
     },
 
     text: {

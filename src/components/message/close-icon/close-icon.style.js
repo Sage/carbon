@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import { THEMES } from '../../../style/themes';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import classicThemeColors from '../message-classic-theme-colors';
 
 const CloseIconStyle = styled.button`
   align-items: center;
@@ -13,9 +14,9 @@ const CloseIconStyle = styled.button`
   padding: 0 15px;
   border: none;
   background-color: ${({ messageType, theme }) => {
-    return theme.name === THEMES.classic ? theme.status[`${messageType}Background`] : theme.status.white;
+    return theme.name === THEMES.classic ? classicThemeColors[messageType].backgroundColor : theme.colors.white;
   }};
-  color: ${({ messageType, theme }) => theme.status[messageType]}};
+  color: ${({ messageType, theme }) => theme.colors[messageType]}};
   span {
     cursor: pointer;
     &:before {
@@ -29,7 +30,7 @@ const CloseIconStyle = styled.button`
     span {
       &:before {
         padding: 5px;
-        border: 2px solid ${({ theme }) => theme.status.focus};
+        border: 2px solid ${({ theme }) => theme.colors.focus};
       }
     }
   }

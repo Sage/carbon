@@ -220,9 +220,14 @@ exports[`Message when rendered should match the snapshot 1`] = `
       "colors": Object {
         "border": "#668491",
         "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFB500",
+        "info": "#0073C2",
         "primary": "#26A826",
         "secondary": "#006300",
+        "success": "#00B000",
         "tertiary": "#004400",
+        "warning": "#E96400",
         "white": "#FFFFFF",
       },
       "disabled": Object {
@@ -237,13 +242,6 @@ exports[`Message when rendered should match the snapshot 1`] = `
         "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
         "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
         "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-      },
-      "status": Object {
-        "error": "#C7384F",
-        "focus": "#FFB500",
-        "info": "#0073C2",
-        "success": "#00B000",
-        "warning": "#E96400",
       },
       "text": Object {
         "color": "rgba(0,0,0,0.9)",

@@ -18,10 +18,10 @@ const TypeIconStyle = styled.div`
 
 function getBackgroundAndIconColor(transparent, theme, messageType) {
   return `
-    background-color: ${transparent ? theme.colors.white : theme.status[messageType]};
+    background-color: ${transparent ? theme.colors.white : theme.colors[messageType]};
     span {
       &:before {
-        color: ${transparent ? theme.status[messageType] : theme.colors.white};
+        color: ${transparent ? theme.colors[messageType] : theme.colors.white};
       }
     }
   `;
