@@ -31,6 +31,13 @@ function styleSplitButton(props) {
 }
 
 function applyClassicStyling(props) {
+  if (props.disabled) {
+    return css`
+      padding: 0 5px;
+      ${classicToggleStyle(props)}
+      z-index: 20;
+    `;
+  }
   return css`
     &:active {
       background-color: ${colors.classic.active};
@@ -57,6 +64,12 @@ function classicToggleStyle({ displayed }) {
 }
 
 function applyModernStyling(props) {
+  if (props.disabled) {
+    return css`
+      padding: 0 8px
+      ${modernToggleStyle(props)}
+    `;
+  }
   return css`
     &:active {
       background-color: ${({ theme }) => theme.colors.tertiary};

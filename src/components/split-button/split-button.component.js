@@ -194,23 +194,35 @@ class SplitButton extends React.Component {
     this.additionalButtons[index] = React.createRef();
   }
 
+  addChildProps() {
+    const { children } = this.props;
+    if (!Array.isArray(children)) {
+      return React.cloneElement(children,
+        {
+          key: '0',
+          className: this.state.selectedIndex === 0 ? 'active-child' : ''
+        });
+    }
+    return children.map((child, index) => {
+      return React.cloneElement(child,
+        {
+          key: index.toString(),
+          className: index === this.state.selectedIndex ? 'active-child' : ''
+        });
+    });
+  }
+
   /**
    * Returns the HTML for the additional buttons.
    */
   get renderAdditionalButtons() {
+    if (!this.state.showAdditionalButtons) return null;
     return (
       <StyledSplitButtonChildrenContainer
         displayButtons={ this.state.showAdditionalButtons }
         data-element='additional-buttons'
       >
-        { this.props.children.map((child, index) => {
-          return React.cloneElement(child,
-            {
-              key: index.toString(),
-              className: index === this.state.selectedIndex ? 'active-child' : ''
-            });
-        })
-        }
+        { this.addChildProps() }
       </StyledSplitButtonChildrenContainer>
     );
   }
@@ -218,7 +230,6 @@ class SplitButton extends React.Component {
   render() {
     return (
       <StyledSplitButtonContainer
-        className={ this.mainClasses }
         onMouseLeave={ this.hideButtons }
         { ...this.componentTags() }
       >
