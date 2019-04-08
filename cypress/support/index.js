@@ -40,10 +40,15 @@ Cypress.Commands.overwrite(
     )
 )
 
-Cypress.Commands.add("iFrame",
-    (selector) => {
-        cy.wait(200).get('#storybook-preview-iframe').then(($iframe) => {
+Cypress.Commands.add("iFrame", (selector) => { getItem(selector, 20) })
+
+function getItem(selector, counter) {
+    cy.wait(50).get('#storybook-preview-iframe').then(($iframe) => {
+        if (!$iframe.contents().find(selector).length && counter > 0) {
+            counter--
+            return getItem(selector, counter)
+        } else {
             return cy.wrap($iframe.contents().find(selector));
-        })
-    }
-)
+        }
+    })
+}

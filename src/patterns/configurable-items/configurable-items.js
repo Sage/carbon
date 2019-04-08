@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { connect } from '../../utils/flux';
+import { connect } from 'carbon-state-management/lib/flux';
 import tagComponent from '../../utils/helpers/tags';
 import Dialog from '../../components/dialog';
 import ConfigurableItemsStore from './store';

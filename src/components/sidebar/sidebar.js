@@ -7,85 +7,40 @@ import Icon from '../icon';
 import Modal from '../modal';
 import './sidebar.scss';
 
-/**
- * A Sidebar widget.
- *
- * == How to use a Sidebar in a component:
- *
- * In your file
- *
- *   import { Sidebar } from 'carbon-react/lib/components/sidebar';
- *
- * To render the Sidebar:
- *
- *   <Sidebar
- *     onCancel={ closeSidebar }
- *     open={ true }
- *   />
- *
- * Side bar is positioned on the right hand screen of the window by default.
- * To position the sidebar on the left hand side pass `position='left'` to the component.
- *
- * The background behind the sidebar is disabled by default. To allow the user to interact
- * with all the UI pass `enableBackgroundUI={ true}` to the component
- *
- * @class Sidebar
- * @constructor
- */
 class Sidebar extends Modal {
   static propTypes = {
-
     /**
-     * A custom close event handler
-     *
-     * @property onCancel
-     * @type {Function}
+     * A callback for when cancelling the dialog is triggered. You can use this callback to close the dialog.
      */
     onCancel: PropTypes.func,
 
     /**
-     * Sets the open state of the sidebar
-     *
-     * @property open
-     * @type {Boolean}
-     * @default false
+     * A boolean to track the open state of the dialog.
      */
     open: PropTypes.bool,
 
     /**
-     * Determines if the user can interact with
-     * the background ui when the sidebar is open
-     *
-     * @property enableBackgroundUI
-     * @type {Boolean}
-     * @default false
+     * Set this prop to false to hide the translucent background when the dialog is open.
      */
     enableBackgroundUI: PropTypes.bool,
 
     /**
-     * Determines the position of the sidebar
-     * 'left' or 'right'
-     *
-     * @property position
-     * @type {String}
-     * @default 'right'
+     * Sets the position of sidebar, either left or right.
      */
     position: PropTypes.string,
 
     /**
-     * Size of dialog, default size is 450px
-     *
-     * @property size
-     * @type {String}
-     * @default medium
+     * Sets the size of the sidebar when open.
      */
     size: PropTypes.string
-  }
+  };
 
   static defaultProps = {
     position: 'right',
-    size: 'medium'
-  }
+    size: 'medium',
+    open: false,
+    enableBackgroundUI: false
+  };
 
   /**
    * Returns classes for the component.

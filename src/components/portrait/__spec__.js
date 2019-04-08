@@ -103,7 +103,7 @@ describe('Portrait', () => {
           );
 
           const expected =
-            'Warning: Failed prop type: Portrait requires a prop of "src" OR a prop of "gravatar"\n    in Portrait';
+            'Warning: Failed prop type: Portrait requires a prop of "src", "gravatar" or "initials';
           const actual = console.error.calls.argsFor(0)[0]; // eslint-disable-line no-console
 
           expect(actual).toMatch(expected);
@@ -120,7 +120,7 @@ describe('Portrait', () => {
           );
 
           const expected =
-            'Warning: Failed prop type: Portrait requires a prop of "src" OR a prop of "gravatar" but not both\n    in Portrait';
+            'Warning: Failed prop type: Portrait requires a prop of "src" or "gravatar" but not both';
           const actual = console.error.calls.argsFor(0)[0]; // eslint-disable-line no-console
           expect(actual).toMatch(expected);
         });

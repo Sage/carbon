@@ -15,54 +15,33 @@ class Tab extends React.Component {
   static propTypes = {
     /**
      * The id of the corresponding control that must be activated to show the tab
-     *
-     * @property aria-labelledby
-     * @type {String}
-     *
      */
     'aria-labelledby': PropTypes.string,
 
     /**
      * The role of the component
-     *
-     * @property role
-     * @type {String}
-     *
      */
     role: PropTypes.string,
 
     /**
      * Visible title in tabs header
      * Consumed within tabs component
-     *
-     * @property title
-     * @type {String}
-     *
      */
     title: PropTypes.string.isRequired, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * id to identify the tab within the component
      * used when validating and switching tabs
-     *
-     * @property tabId
-     * @type {String}
      */
     tabId: PropTypes.string.isRequired,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Children elements
-     *
-     * @property children
-     * @type {Node}
      */
     children: PropTypes.node
   }
@@ -78,9 +57,6 @@ class Tab extends React.Component {
     /**
      * Defines what contexts are available to this tab componenet
      * https://facebook.github.io/react/docs/context.html
-     *
-     * @property tabs
-     * @type {Object}
      */
     tabs: PropTypes.object
   }
@@ -90,9 +66,6 @@ class Tab extends React.Component {
     /**
      * Defines a context object for context children of this tab component.
      * https://facebook.github.io/react/docs/context.html
-     *
-     * @property tab
-     * @type {Object}
      */
     tab: PropTypes.object
   }
@@ -139,9 +112,6 @@ class Tab extends React.Component {
    * Sets warning state to passed param
    * It notifies the parent context of the change
    * and sets the current warning state to the new value
-   *
-   * @method setWarning
-   * @param {Boolean} warning updates warning of this tab
    */
   setWarning = (warning) => {
     this.context.tabs.changeWarning(this.props.tabId, warning);
