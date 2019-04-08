@@ -35,6 +35,17 @@ describe('when in classic mode', () => {
         const wrapper = render({ messageType, theme: classicTheme });
         expect(wrapper.toJSON()).toMatchSnapshot();
       });
+
+      describe('when transparent prop is set to true', () => {
+        it('should apply white color background', () => {
+          const wrapper = render({
+            transparent: true,
+            theme: classicTheme,
+            messageType
+          });
+          expect(wrapper.toJSON()).toMatchSnapshot();
+        });
+      });
     });
   });
 });

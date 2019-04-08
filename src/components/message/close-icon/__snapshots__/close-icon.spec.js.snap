@@ -225,6 +225,52 @@ exports[`when in classic mode when rendered as default should match the snapshot
 />
 `;
 
+exports[`when in classic mode when rendered as default when transparent prop is set to true should apply white color background 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 15px;
+  width: 45px;
+  border: none;
+  background-color: #335c6d;
+  background-color: #FFFFFF;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
+  className="c0"
+/>
+`;
+
 exports[`when in classic mode when rendered as error should match the snapshot 1`] = `
 .c0 {
   -webkit-align-items: center;
@@ -271,6 +317,53 @@ exports[`when in classic mode when rendered as error should match the snapshot 1
 />
 `;
 
+exports[`when in classic mode when rendered as error when transparent prop is set to true should apply white color background 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 15px;
+  width: 45px;
+  border: none;
+  color: #C7384F;
+  background-color: #fdf5f5;
+  background-color: #FFFFFF;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
+  className="c0"
+/>
+`;
+
 exports[`when in classic mode when rendered as help should match the snapshot 1`] = `
 .c0 {
   -webkit-align-items: center;
@@ -291,6 +384,52 @@ exports[`when in classic mode when rendered as help should match the snapshot 1`
   width: 45px;
   border: none;
   background-color: #fffbf2;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
+  className="c0"
+/>
+`;
+
+exports[`when in classic mode when rendered as help when transparent prop is set to true should apply white color background 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 15px;
+  width: 45px;
+  border: none;
+  background-color: #fffbf2;
+  background-color: #FFFFFF;
 }
 
 .c0 span {
@@ -362,6 +501,53 @@ exports[`when in classic mode when rendered as info should match the snapshot 1`
 />
 `;
 
+exports[`when in classic mode when rendered as info when transparent prop is set to true should apply white color background 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 15px;
+  width: 45px;
+  border: none;
+  color: #0073C2;
+  background-color: #f3f8fe;
+  background-color: #FFFFFF;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
+  className="c0"
+/>
+`;
+
 exports[`when in classic mode when rendered as maintenance should match the snapshot 1`] = `
 .c0 {
   -webkit-align-items: center;
@@ -407,6 +593,52 @@ exports[`when in classic mode when rendered as maintenance should match the snap
 />
 `;
 
+exports[`when in classic mode when rendered as maintenance when transparent prop is set to true should apply white color background 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 15px;
+  width: 45px;
+  border: none;
+  background-color: #fff8f2;
+  background-color: #FFFFFF;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
+  className="c0"
+/>
+`;
+
 exports[`when in classic mode when rendered as new should match the snapshot 1`] = `
 .c0 {
   -webkit-align-items: center;
@@ -427,6 +659,52 @@ exports[`when in classic mode when rendered as new should match the snapshot 1`]
   width: 45px;
   border: none;
   background-color: #f7f5fa;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
+  className="c0"
+/>
+`;
+
+exports[`when in classic mode when rendered as new when transparent prop is set to true should apply white color background 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 15px;
+  width: 45px;
+  border: none;
+  background-color: #f7f5fa;
+  background-color: #FFFFFF;
 }
 
 .c0 span {
@@ -498,6 +776,53 @@ exports[`when in classic mode when rendered as success should match the snapshot
 />
 `;
 
+exports[`when in classic mode when rendered as success when transparent prop is set to true should apply white color background 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 15px;
+  width: 45px;
+  border: none;
+  color: #00B000;
+  background-color: #f6fbf6;
+  background-color: #FFFFFF;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
+  className="c0"
+/>
+`;
+
 exports[`when in classic mode when rendered as warning should match the snapshot 1`] = `
 .c0 {
   -webkit-align-items: center;
@@ -519,6 +844,53 @@ exports[`when in classic mode when rendered as warning should match the snapshot
   border: none;
   color: #E96400;
   background-color: #fff8f2;
+}
+
+.c0 span {
+  cursor: pointer;
+}
+
+.c0 span:before {
+  font-size: 16px;
+  display: block;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0:focus span:before {
+  padding: 5px;
+  border: 2px solid #FFB500;
+}
+
+<button
+  className="c0"
+/>
+`;
+
+exports[`when in classic mode when rendered as warning when transparent prop is set to true should apply white color background 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-left: auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 15px;
+  width: 45px;
+  border: none;
+  color: #E96400;
+  background-color: #fff8f2;
+  background-color: #FFFFFF;
 }
 
 .c0 span {
