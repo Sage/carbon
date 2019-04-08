@@ -13,12 +13,7 @@ import './link.scss';
 class Link extends React.Component {
   static safeProps = ['onClick'];
 
-  constructor() {
-    super();
-    this.onKeyDown = this.onKeyDown.bind(this);
-  }
-
-  onKeyDown(ev) {
+  onKeyDown = (ev) => {
     if (this.props.onKeyDown) {
       this.props.onKeyDown(ev);
     }
