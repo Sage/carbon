@@ -1,16 +1,10 @@
-import styled, { css } from 'styled-components';
-import { THEMES } from '../../../style/themes';
-import classicThemeColors from '../message-classic-theme-colors';
+import styled from 'styled-components';
+import messageContentClassicStyling from './message-content-classic.style';
 
 const MessageContentStyle = styled.div`
   padding: 15px 20px;
   white-space: pre-wrap;
-  ${({ theme, messageType }) => theme.name === THEMES.classic
-    && css`
-      .carbon-content__title {
-        color: ${classicThemeColors[messageType].main};
-      }
-    `}
+  ${messageContentClassicStyling}
 `;
 
 export default MessageContentStyle;
