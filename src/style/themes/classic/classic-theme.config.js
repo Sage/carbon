@@ -15,10 +15,6 @@ export default (palette) => {
         greyDarkBlue50: '#8099a4'
       },
 
-      text: {
-        color: '#255bc7'
-      },
-
       disabled: {
         text: palette.slate,
         input: '#1e499f',

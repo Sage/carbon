@@ -5,7 +5,7 @@ export default ({ theme }) => theme.name === THEMES.classic && css`
   font-weight: 700;
   padding: 10px;
   font-weight: 600;
-  color: ${theme.text.color};
+  color: ${theme.colors.baseBlue};
 
   .DayPicker-Caption {
     background-color: ${theme.colors.white};
