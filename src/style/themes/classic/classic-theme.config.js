@@ -14,6 +14,7 @@ export default (palette) => {
         // element
         border: '#ccd6db',
         borderHover: '#99adb6',
+        borderFocus: '#668592',
 
         // generic
         baseBlue: '#255BC7',

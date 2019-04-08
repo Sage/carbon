@@ -9,13 +9,13 @@ export default ({ disabled, hasFocus, theme }) => theme.name === THEMES.classic 
   padding-right: 6px;
 
   &:hover {
-    border-color: #99adb6;
+    border-color: ${theme.colors.borderHover};
     z-index: 2;
   }
 
   ${hasFocus && css`
     && {
-      border: 1px solid #255bc7;
+      border: 1px solid ${theme.colors.borderFocus};
       outline: none;
     }
   `}
