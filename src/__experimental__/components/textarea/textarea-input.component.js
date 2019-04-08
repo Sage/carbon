@@ -5,8 +5,6 @@ import StyledTextareaInput from './textarea-input.style';
 
 class TextareaInput extends Component {
   static propTypes = {
-    width: PropTypes.string,
-    height: PropTypes.string,
     size: PropTypes.oneOf(['small', 'medium', 'large']),
     inputRef: PropTypes.func, // a callback to retrieve the input reference
     onBlur: PropTypes.func,
@@ -41,16 +39,12 @@ class TextareaInput extends Component {
 
   render() {
     const {
-      width,
-      height,
       size,
       ...props
     } = this.props;
 
     return (
       <StyledTextareaInput
-        width={ width }
-        height={ height }
         size={ size }
         ref={ this.input }
         onFocus={ this.handleFocus }
@@ -63,8 +57,6 @@ class TextareaInput extends Component {
 }
 
 TextareaInput.defaultProps = {
-  width: '100%',
-  height: '45px',
   size: 'small'
 };
 
