@@ -16,9 +16,10 @@ exports[`Message when in classic mode when rendered should match the snapshot 1`
   align-content: center;
   border: 1px solid;
   background-color: #FFFFFF;
-  border: 1px solid #335c6d;
+  border: none;
   background-color: #335c6d;
   border-radius: 3px;
+  border: 1px solid #335c6d;
 }
 
 <div
@@ -44,9 +45,10 @@ exports[`Message when in classic mode when rendered should match the snapshot 2`
   align-content: center;
   border: 1px solid #C7384F;
   background-color: #FFFFFF;
-  border: 1px solid #f7d9d9;
+  border: none;
   background-color: #fdf5f5;
   border-radius: 3px;
+  border: 1px solid #f7d9d9;
 }
 
 <div
@@ -72,9 +74,10 @@ exports[`Message when in classic mode when rendered should match the snapshot 3`
   align-content: center;
   border: 1px solid;
   background-color: #FFFFFF;
-  border: 1px solid #fec;
+  border: none;
   background-color: #fffbf2;
   border-radius: 3px;
+  border: 1px solid #fec;
 }
 
 <div
@@ -100,9 +103,10 @@ exports[`Message when in classic mode when rendered should match the snapshot 4`
   align-content: center;
   border: 1px solid #0073C2;
   background-color: #FFFFFF;
-  border: 1px solid #d0e3fa;
+  border: none;
   background-color: #f3f8fe;
   border-radius: 3px;
+  border: 1px solid #d0e3fa;
 }
 
 <div
@@ -128,9 +132,10 @@ exports[`Message when in classic mode when rendered should match the snapshot 5`
   align-content: center;
   border: 1px solid;
   background-color: #FFFFFF;
-  border: 1px solid #ffe4cc;
+  border: none;
   background-color: #fff8f2;
   border-radius: 3px;
+  border: 1px solid #ffe4cc;
 }
 
 <div
@@ -156,9 +161,10 @@ exports[`Message when in classic mode when rendered should match the snapshot 6`
   align-content: center;
   border: 1px solid;
   background-color: #FFFFFF;
-  border: 1px solid #e0d6eb;
+  border: none;
   background-color: #f7f5fa;
   border-radius: 3px;
+  border: 1px solid #e0d6eb;
 }
 
 <div
@@ -184,9 +190,10 @@ exports[`Message when in classic mode when rendered should match the snapshot 7`
   align-content: center;
   border: 1px solid #00B000;
   background-color: #FFFFFF;
-  border: 1px solid #dcf1da;
+  border: none;
   background-color: #f6fbf6;
   border-radius: 3px;
+  border: 1px solid #dcf1da;
 }
 
 <div
@@ -212,9 +219,10 @@ exports[`Message when in classic mode when rendered should match the snapshot 8`
   align-content: center;
   border: 1px solid #E96400;
   background-color: #FFFFFF;
-  border: 1px solid #ffe4cc;
+  border: none;
   background-color: #fff8f2;
   border-radius: 3px;
+  border: 1px solid #ffe4cc;
 }
 
 <div
@@ -224,7 +232,7 @@ exports[`Message when in classic mode when rendered should match the snapshot 8`
 </div>
 `;
 
-exports[`Message when rendered should match the snapshot 1`] = `
+exports[`Message when in small/medium/large theme should match the snapshot 1`] = `
 <styled.div
   border={true}
   data-component="Message"

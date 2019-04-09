@@ -14,25 +14,24 @@ function render(props, renderer = TestRenderer.create) {
 }
 
 describe('Message', () => {
-  describe('when rendered', () => {
+  describe('when in small/medium/large theme', () => {
+    let wrapper;
+    beforeEach(() => {
+      wrapper = shallow(<Message>Message</Message>);
+    });
+
     it('should match the snapshot', () => {
-      const wrapper = shallow(<Message>Message</Message>);
       expect(wrapper).toMatchSnapshot();
     });
-  });
 
-  describe('when onDismiss function is not provided', () => {
-    it('not renders the close icon when the onDismiss prop ', () => {
-      const wrapper = shallow(<Message>Message</Message>);
+    it('does not render the close icon when onDismiss prop is not provided', () => {
       const closeIcon = wrapper.find(CloseIcon);
       expect(closeIcon.length).toEqual(0);
     });
-  });
 
-  describe('when onDismiss function is provided', () => {
-    it('should render the close icon', () => {
+    it('renders the close icon when onDismiss function is provided', () => {
       const onDismiss = jest.fn();
-      const wrapper = shallow(<Message onDismiss={ onDismiss }>Message</Message>);
+      wrapper.setProps({ onDismiss });
       const closeIcon = wrapper.find(CloseIcon);
       expect(closeIcon.length).toEqual(1);
     });
