@@ -10,7 +10,7 @@ storiesOf('Link', module)
   .add('default', () => {
     const children = text('children', 'Link');
     const disabled = boolean('disabled', false);
-    const href = text('href', '');
+    const href = text('href');
     const icon = select('icon', ['', ...OptionsHelper.icons], '');
     const iconAlign = select(
       'iconAlign',
