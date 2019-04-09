@@ -2,12 +2,12 @@
 const INPUT_WIDTH_INPUT = '#inputWidth'
 const FIELD_HELP_INPUT = '#fieldHelp'
 const LABLEL_INLINE_CHECKBOX = '#labelInline'
-const LABEL_ALIGN_INPUT = '#labelAlign'
+const LABEL_ALIGN_SELECT = 'select[name="labelAlign"]'
 const LABEL_WIDTH_INPUT = '#labelWidth'
 export const inputWidthInput = () => cy.get(INPUT_WIDTH_INPUT)
 export const fieldHelpInput = () => cy.get(FIELD_HELP_INPUT)
 export const lableInlineCheckbox = () => cy.get(LABLEL_INLINE_CHECKBOX)
-export const labelAlignInput = () => cy.get(LABEL_ALIGN_INPUT)
+export const labelAlignSelect = () => cy.get(LABEL_ALIGN_SELECT)
 export const labelWidthInput = () => cy.get(LABEL_WIDTH_INPUT)
 
 //component preview locators
