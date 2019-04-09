@@ -19,7 +19,6 @@ exports[`Date StyledDayPicker classic theme applies custom styling 1`] = `
   font-weight: 700;
   padding: 10px;
   font-weight: 600;
-  color: #255BC7;
 }
 
 .c0 * {
@@ -157,12 +156,12 @@ exports[`Date StyledDayPicker classic theme applies custom styling 1`] = `
 
 .c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
   color: #FFFFFF;
-  background-color: #255BC7;
+  background-color: #00805D;
   font-weight: 700;
 }
 
 .c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
-  background-color: #255BC7;
+  background-color: #00805D;
 }
 
 <div
