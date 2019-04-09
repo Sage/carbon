@@ -78,8 +78,8 @@ export default {
       border: 1px solid transparent;
       color: ${white.default};
       &:hover {
-        background: #${magentaDull.hover};
-        border: 1px solid #${magentaDull.hover};
+        background: ${magentaDull.hover};
+        border: 1px solid ${magentaDull.hover};
         color: ${white.default};
       }
       &:focus {
@@ -173,15 +173,15 @@ export default {
       border: 1px solid ${magentaDull.default};
       color: ${magentaDull.default};
       &:hover {
-        background: #${magentaDull.hover};
-        border: 1px solid #${magentaDull.hover};
+        background: ${magentaDull.hover};
+        border: 1px solid ${magentaDull.hover};
         color: ${white.default};
       }
       &:focus {
         box-shadow: 0 0 6px rgba(213,85,128,.6);
         outline: none;
-        background: #${magentaDull.hover};
-        border: 1px solid #${magentaDull.hover};
+        background: ${magentaDull.hover};
+        border: 1px solid ${magentaDull.hover};
         color: ${white.default};
       }
     `,
