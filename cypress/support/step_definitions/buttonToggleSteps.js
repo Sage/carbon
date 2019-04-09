@@ -2,14 +2,9 @@ import {
   buttonToggleLabelPreview, buttonIconSelect, buttonToggleIconNamePreview,
   buttonIconSizeSelect, buttonToggleIconPreview, buttonTogglePreview, buttonToggleGroupedCheckbox
 } from "../../locators/buttonToggleLocators";
-import { visitComponentUrl } from "../helper";
 
 const BUTTON_TOGGLE_ICON_CLASS = 'carbon-button-toggle__button-icon--'
 const BUTTON_TOGGLE_CLASS = 'carbon-button-toggle--'
-
-Given('I open Button Toggle component page', () => {
-  visitComponentUrl('button_toggle_url')
-})
 
 Then('Button Toggle label on preview is {string}', (label) => {
   buttonToggleLabelPreview().should('have.text', label)
