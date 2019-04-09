@@ -205,6 +205,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                               "white": "#FFFFFF",
                                             },
                                             "disabled": Object {
+                                              "background": "#F2F4F5",
                                               "border": "#CCD6DA",
                                               "disabled": "rgba(0,0,0,0.55)",
                                               "input": "#F2F4F5",
@@ -290,6 +291,7 @@ a {
                                                     "white": "#FFFFFF",
                                                   },
                                                   "disabled": Object {
+                                                    "background": "#F2F4F5",
                                                     "border": "#CCD6DA",
                                                     "disabled": "rgba(0,0,0,0.55)",
                                                     "input": "#F2F4F5",
@@ -340,6 +342,7 @@ a {
                                                 "white": "#FFFFFF",
                                               },
                                               "disabled": Object {
+                                                "background": "#F2F4F5",
                                                 "border": "#CCD6DA",
                                                 "disabled": "rgba(0,0,0,0.55)",
                                                 "input": "#F2F4F5",
