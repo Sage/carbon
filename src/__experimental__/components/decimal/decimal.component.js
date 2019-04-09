@@ -59,7 +59,7 @@ class Decimal extends React.Component {
     const format = I18nHelper.format();
     const delimiter = `\\${format.delimiter}`;
     const seperator = `\\${format.separator}`;
-    const validDecimalMatcher = new RegExp(`^[\\d${delimiter}]*[${seperator}{1}]?\\d{0,${precision}}?$`);
+    const validDecimalMatcher = new RegExp(`^[-]?[\\d${delimiter}]*[${seperator}{1}]?\\d{0,${precision}}?$`);
 
     return validDecimalMatcher.test(value);
   }

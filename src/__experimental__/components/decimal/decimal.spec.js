@@ -32,6 +32,11 @@ describe('Decimal', () => {
       assertCorrectTextboxVal(wrapper, '12abc.85');
     });
 
+    it('renders a negative value ', () => {
+      const wrapper = render({ value: '-81.25' });
+      assertCorrectTextboxVal(wrapper, '-81.25');
+    });
+
     it('updates an external state onChange', () => {
       const onChange = jest.fn();
       const wrapper = render({ onChange });
