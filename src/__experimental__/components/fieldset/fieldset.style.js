@@ -1,5 +1,6 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import FormFieldStyle from '../form-field/form-field.style';
+import fieldsetClassicStyle from './fieldset-classic.style';
 
 const FieldsetStyle = styled.fieldset`
   border: none;
@@ -18,14 +19,7 @@ const LegendStyle = styled.legend`
   line-height: 24px;
   margin-bottom: 32px;
 
-  ${({ theme }) => theme.name === 'classic' && css`
-    color: ${theme.text.color};
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 14px;
-    margin: 0 0 8px 0;
-    padding: 0 6px;
-  `}
+  ${fieldsetClassicStyle}
 `;
 
 export {
