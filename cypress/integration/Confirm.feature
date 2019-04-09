@@ -5,41 +5,99 @@ Feature: Confirm component
     Given I open "Confirm" component page
 
   @positive
-  Scenario Outline: Change data in Confirm dialog
+  Scenario Outline: Change children in Confirm dialog
     When I set children to "<children>"
-      And I set title to "<title>"
-      And I set cancelButton to "<cancelButton>"
-      And I set confirmButton to "<confirmButton>"
-      And I set subtitle to "<subtitle>"
       And I click on a openButton
-    Then dialog inner context children on preview is "<children><cancelButton><confirmButton>"
-      And dialog title context children on preview is "<title>"
-      And dialog subtitle context is "<subtitle>"
+    Then dialog inner context children on preview is "<children>"
     Examples:
-      | children                 | confirmButton            | cancelButton             | subtitle                  | title                    |
-      | Example subtext          | Yes                      | No                       | null                      | <>                       |
-      | 1!@#$%^*()_+-=~[];:.,?{} | Tak                      | <>                       | 汉字                       | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                      | 1!@#$%^*()_+-=~[];:.,?{} | Nie                      | \'                        | 汉字                      |
-      | <>                       | 汉字                      | 1!@#$%^*()_+-=~[];:.,?{} | Example subtitle          | Example title            |
-      | 0                        | null                     | cancelButton             | 000                       | null                     |
-
+      | children                 |
+      | Example subtext          |
+      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | 汉字                      |
+      | <>                       |
+      | 0                        |
 
   @positive
-  Scenario Outline: Change the height / size of Confirm dialog
+  Scenario Outline: Change title in Confirm dialog
+    When I set title to "<title>"
+      And I click on a openButton
+    Then dialog title context children on preview is "<title>"
+    Examples:
+      | title                    |
+      | <>                       |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | 汉字                      |
+      | Example title            |
+      | null                     |
+
+  @positive
+  Scenario Outline: Change cancelButton in Confirm dialog
+    When I set cancelButton to "<cancelButton>"
+      And I click on a openButton
+    Then dialog inner context cancelButton on preview is "<cancelButton>"
+    Examples:
+      | cancelButton             | 
+      | No                       | 
+      | <>                       | 
+      | Nie                      | 
+      | 1!@#$%^*()_+-=~[];:.,?{} | 
+      | cancelButton             | 
+
+  @positive
+  Scenario Outline: Change confirmButton in Confirm dialog
+    When I set confirmButton to "<confirmButton>"
+      And I click on a openButton
+    Then dialog inner context confirmButton on preview is "<confirmButton>"
+    Examples:
+      | confirmButton            |
+      | Yes                      |
+      | Tak                      |
+      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | 汉字                      |
+      | null                     |
+
+  @positive
+  Scenario Outline: Change subtitle in Confirm dialog
+    When I set subtitle to "<subtitle>"
+      And I click on a openButton
+    Then dialog subtitle context is "<subtitle>"
+    Examples:
+      | subtitle                  |
+      | null                      |
+      | 汉字                       |
+      | \'                        |
+      | Example subtitle          |
+      | 000                       |
+
+  @positive
+  Scenario Outline: Change the height of Confirm dialog
     When I set input height to "<height>"
-      And I set component size to "<size>"
       And I click on a openButton
     Then Confirm dialog input height is "<height>"
-      And Confirm dialog size property on preview is "<size>"
     Examples:
-      | height | size               | 
-      | 0      | small              | 
-      | 100    | medium-small       | 
-      | 10     | extra-small        | 
-      | 15     | medium             |
-      | 1500   | medium-large       | 
-      | 2      | large              | 
-      | 999    | extra-large        |
+      | height |
+      | 0      |
+      | 100    |
+      | 10     |
+      | 15     |
+      | 1500   |
+      | 2      |
+      | 999    |
+
+  @positive
+  Scenario Outline: Change the size of Confirm dialog
+    When I set component size to "<size>"
+      And I click on a openButton
+    Then Confirm dialog size property on preview is "<size>"
+    Examples:
+      | size               | 
+      | small              | 
+      | medium-small       | 
+      | extra-small        | 
+      | medium             |
+      | medium-large       | 
+      | large              | 
+      | extra-large        |
 
   @positive
   Scenario: Enable background UI

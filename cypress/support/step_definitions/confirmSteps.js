@@ -1,11 +1,11 @@
 import { visitComponentUrl } from '../helper';
 import {
   asSelect, sizeSelect, subtextInput, titleInput,
-  heightInput, childrenTextArea, labelInput, dialogTitle,
+  heightInput, labelInput, dialogTitle,
 } from '../../locators/commonLocators';
 import {
   openButton, dialogInnerContent, cancelLabel, confirmLabel, backgroundUICheckbox, backGroundUILocator,
-  disableEscKeyCheckbox, dialogPreview, showCloseIconCheckbox, closeIconButton, dialogSubtitle, stickyFormFooterCheckbox,
+  disableEscKeyCheckbox, dialogPreview, showCloseIconCheckbox, closeIconButton, dialogSubtitle, stickyFormFooterCheckbox, childrenTextArea, dialogInnerContentTextArea, dialogInnerContentCancelButton, dialogInnerContentConfirmButton,
 } from '../../locators/confirmLocators';
 
 const CARBON_DIALOG_PREFIX = 'carbon-dialog__dialog--';
@@ -51,8 +51,16 @@ When('I click on a openButton', () => {
   openButton().click();
 });
 
-Then('dialog inner context children on preview is {string}', (children, confirmButton, cancelButton) => {
-  dialogInnerContent().should('have.text', children, confirmButton, cancelButton);
+Then('dialog inner context children on preview is {string}', (children) => {
+  dialogInnerContentTextArea().should('have.text', `${children}`);
+});
+
+Then('dialog inner context cancelButton on preview is {string}', (cancelButton) => {
+  dialogInnerContentCancelButton().should('have.text', cancelButton);
+});
+
+Then('dialog inner context confirmButton on preview is {string}', (confirmButton) => {
+  dialogInnerContentConfirmButton().should('have.text', confirmButton);
 });
 
 Then('dialog title context children on preview is {string}', (title) => {
