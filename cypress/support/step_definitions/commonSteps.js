@@ -1,7 +1,7 @@
 import { visitComponentUrl } from "../helper";
 import {
   asSelect, themeSelect, sizeSelect, subtextInput, dialogSubtitle, titleInput,
-  heightInput, childrenTextArea, labelInput, dialogTitle, commonButtonPreview
+  heightInput, childrenTextArea, labelInput, dialogTitle, commonButtonPreview, alignSelect
 } from "../../locators/commonLocators";
 
 Given('I open {string} component page', (component) => {
@@ -63,3 +63,7 @@ Then('component subtitle on preview is {string}', (subtitle) => {
 When('I open component preview', () => {
   commonButtonPreview().click()
 })
+
+When('I set align property to {string}', (asProperty) => {
+  alignSelect().select(asProperty);
+});
