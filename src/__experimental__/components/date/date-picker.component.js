@@ -27,7 +27,7 @@ const DatePicker = (props) => {
     locale: I18n.locale,
     localeUtils: LocaleUtils,
     navbarElement: <Navbar />,
-    onDayClick: props.handleDateSelect,
+    onDayClick: handleDayClick,
     selectedDays: [props.selectedDate]
   };
 
@@ -36,6 +36,10 @@ const DatePicker = (props) => {
       datepicker.current.showMonth(props.selectedDate);
     }
   });
+
+  function handleDayClick(selectedDate, modifiers) {
+    if (!modifiers.disabled) props.handleDateSelect(selectedDate);
+  }
 
   return (
     <Portal onReposition={ () => updateDatePickerPosition(getContainerPosition(window, props.inputElement)) }>
@@ -62,10 +66,6 @@ DatePicker.propTypes = {
 
 /**
  * Determines if the new date's month or year has changed from the currently selected.
- *
- * @method monthOrYearHasChanged
- * @param {Date}
- * @return {Boolean}
  */
 function monthOrYearHasChanged(datepicker, newDate) {
   const currentDate = datepicker.current.state.currentMonth;
@@ -75,9 +75,6 @@ function monthOrYearHasChanged(datepicker, newDate) {
 
 /**
  * Returns the disabled array of days specified by props maxDate and minDate
- *
- * @method getDisabledDays
- * @return {Array}
  */
 function getDisabledDays(minDate, maxDate) {
   const days = [];
@@ -99,9 +96,6 @@ function getDisabledDays(minDate, maxDate) {
 
 /**
  * Returns the style for the DayPicker container
- *
- * @method containerPosition
- * @return {Object}
  */
 function getContainerPosition(window, input) {
   const inputRect = input.getBoundingClientRect();
@@ -115,10 +109,6 @@ function getContainerPosition(window, input) {
 
 /**
  * Prevents propagation so date picker does not close on click inside the widget.
- *
- * @method handleWidgetClick
- * @param {Object} ev event
- * @return {void}
  */
 function stopClickPropagation(ev) {
   ev.nativeEvent.stopImmediatePropagation();

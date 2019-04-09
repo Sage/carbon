@@ -6,11 +6,11 @@ import DateHelper from '../../../utils/helpers/date';
 import DateValidator from '../../../utils/validations/date';
 import tagComponent from '../../../utils/helpers/tags';
 import DatePicker from './date-picker.component';
-import InputDecoratorBridge from '../input-decorator-bridge';
 import StyledDateInput from './date.style';
 import Textbox from '../textbox';
 
 const isoDateFormat = 'YYYY-MM-DD';
+const defaultDateFormat = 'DD/MM/YYYY';
 const today = DateHelper.todayFormatted(isoDateFormat);
 
 /**
@@ -56,12 +56,7 @@ class Date extends React.Component {
     internalValidations: [new DateValidator()]
   };
 
-  // Stores the document - allows us to override it different contexts, such as when running tests.
-  _document = document;
-
-  bridge = React.createRef() // this is a reference to the input decorator bridge component
-
-  blurBlocked = false; // stops the blur callback from triggering (closing the list) when we don't want it to
+  isBlurBlocked = false; // stops the blur callback from triggering (closing the list) when we don't want it to
 
   state = {
     isDatePickerOpen: false,
@@ -71,14 +66,14 @@ class Date extends React.Component {
 
   componentDidMount() {
     if (this.props.autoFocus) {
-      this.blockFocus = true;
+      this.isAutoFocused = true;
       this.input.focus();
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (this.blurBlocked && this.hasDatePickerValueChanged(prevProps)) {
-      this.unblockBlur();
+    if (this.isBlurBlocked && this.hasDatePickerValueChanged(prevProps)) {
+      this.isBlurBlocked = false;
       this.handleBlur(); // TODO validate
     }
   }
@@ -91,24 +86,21 @@ class Date extends React.Component {
     this.input = input.current;
   };
 
-  blockBlur() {
-    this.blurBlocked = true;
-    this.bridge.current.blockBlur = true; // this is to support the legacy behaviour in the bridge
-  }
-
-  unblockBlur() {
-    this.blurBlocked = false;
-    this.bridge.current.blockBlur = false; // this is to support the legacy behaviour in the bridge
-  }
-
   handleBlur = (ev) => {
-    if (this.blurBlocked) return;
+    const { disabled, readOnly } = this.props;
+
+    if (disabled || readOnly || this.isBlurBlocked) return;
+
     if (this.props.onBlur) this.props.onBlur(ev);
   }
 
   handleFocus = (ev) => {
-    if (this.blockFocus) {
-      this.blockFocus = false;
+    const { disabled, readOnly } = this.props;
+
+    if (disabled || readOnly) return;
+
+    if (this.isAutoFocused) {
+      this.isAutoFocused = false;
     } else {
       this.openDatePicker();
     }
@@ -125,8 +117,8 @@ class Date extends React.Component {
   openDatePicker = () => {
     const isValidDate = DateHelper.isValidDate(this.props.value);
 
-    this.blockBlur();
-    this._document.addEventListener('click', this.closeDatePicker);
+    this.isBlurBlocked = true;
+    document.addEventListener('click', this.closeDatePicker);
 
     if (isValidDate) {
       this.updateDatePickerValue(this.props.value);
@@ -136,7 +128,7 @@ class Date extends React.Component {
   };
 
   closeDatePicker = () => {
-    this._document.removeEventListener('click', this.closeDatePicker);
+    document.removeEventListener('click', this.closeDatePicker);
     this.setState((prevState) => {
       return {
         visibleValue: this.formatVisibleValue(prevState.selectedDate),
@@ -145,12 +137,10 @@ class Date extends React.Component {
     });
   };
 
-  handleDateSelect = (selectedDate, modifiers) => {
+  handleDateSelect = (selectedDate) => {
     const stringDateIso = DateHelper.formatDateString(selectedDate, isoDateFormat);
 
-    if (modifiers.disabled) return;
-
-    this.blockBlur();
+    this.isBlurBlocked = true;
     this.closeDatePicker();
     this.updateVisibleValue(selectedDate);
     this.emitOnChangeCallback(stringDateIso);
@@ -170,9 +160,12 @@ class Date extends React.Component {
   }
 
   handleVisibleInputChange = (ev) => {
+    const { disabled, readOnly } = this.props;
     const dateWithSlashes = DateHelper.sanitizeDateInput(ev.target.value);
     const isValidDate = DateHelper.isValidDate(dateWithSlashes);
     const isoDateString = DateHelper.formatDateString(dateWithSlashes, isoDateFormat);
+
+    if (disabled || readOnly) return;
 
     // Updates the hidden value after first formatting to default hidden format
     if (isValidDate) {
@@ -190,35 +183,33 @@ class Date extends React.Component {
   };
 
   emitOnChangeCallback = (stringDate) => {
-    this.props.onChange({ target: { value: stringDate } });
+    const changePayload = { target: { value: stringDate } };
+
+    if (this.props.onChange) this.props.onChange(changePayload);
   };
 
-  renderDatePicker = (passedProps) => {
+  renderDatePicker = (dateRangeProps) => {
     const datePickerProps = {
       inputElement: this.input && this.input.parentElement,
       selectedDate: this.state.selectedDate || convertToIsoDate(this.state.visibleValue),
       handleDateSelect: this.handleDateSelect,
-      ...passedProps
+      ...dateRangeProps
     };
-    console.log('rendered');
 
     return <DatePicker { ...datePickerProps } />;
   }
 
   render() {
-    const isComponentActive = !this.props.disabled && !this.props.readOnly;
     const { minDate, maxDate, ...inputProps } = this.props;
     let events = {};
     delete inputProps.autoFocus;
 
-    if (isComponentActive) {
-      events = {
-        onBlur: this.handleBlur,
-        onChange: this.handleVisibleInputChange,
-        onFocus: this.handleFocus,
-        onKeyDown: this.handleKeyDown
-      };
-    }
+    events = {
+      onBlur: this.handleBlur,
+      onChange: this.handleVisibleInputChange,
+      onFocus: this.handleFocus,
+      onKeyDown: this.handleKeyDown
+    };
 
     return (
       <StyledDateInput
@@ -226,12 +217,11 @@ class Date extends React.Component {
         onKeyDown={ this.handleKeyDown }
         role='presentation'
       >
-        <InputDecoratorBridge
+        <Textbox
           { ...inputProps }
           inputIcon='calendar'
           value={ this.state.visibleValue }
           inputRef={ this.assignInput }
-          ref={ this.bridge }
           { ...tagComponent('date', this.props) }
           { ...events }
         />
@@ -242,7 +232,7 @@ class Date extends React.Component {
 }
 
 function getVisibleFormat() {
-  return I18n.t('date.formats.javascript', { defaultValue: 'DD/MM/YYYY' }).toUpperCase();
+  return I18n.t('date.formats.javascript', { defaultValue: defaultDateFormat }).toUpperCase();
 }
 
 function stopClickPropagation(ev) {
