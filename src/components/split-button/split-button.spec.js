@@ -14,8 +14,14 @@ import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 const render = (mainProps, childProps, renderer = shallow) => {
   const { children } = childProps;
   return renderer(
-    <SplitButton { ...mainProps }>
-      <Button { ...childProps }>{ children }</Button>
+    <SplitButton
+      { ...mainProps }
+      data-element='bar'
+      data-role='baz'
+    >
+      <Button { ...childProps }>
+        { children }
+      </Button>
     </SplitButton>
   );
 };
@@ -67,72 +73,61 @@ describe('SplitButton', () => {
       expect(wrapper.state().showAdditionalButtons).toEqual(true);
     });
 
-    it('renders more buttons', () => {
+    it('renders more buttons to match snapshot', () => {
       toggle.simulate('mouseenter');
-      const block = wrapper.find('[data-element="additional-buttons"]');
-      expect(block).not.toBe(null);
+      expect(wrapper).toMatchSnapshot();
     });
 
     it('when disabled it does not change the state', () => {
       const wrapper2 = render(
         { text: 'mainButton', disabled: true }, { children: 'Second Button' }
       );
-      const block = wrapper2.find('[data-component="split-button"]');
+      const block = wrapper2.find('[data-element="open"]');
       block.simulate('mouseenter');
       expect(wrapper2.state().showAdditionalButtons).toEqual(false);
     });
   });
 
   describe('mouse leave split-button', () => {
+    let wrapper2, toggle2, mainButton;
+    beforeEach(() => {
+      wrapper2 = render({ text: 'mainButton' }, { children: 'Second Button' });
+      mainButton = wrapper2.find('[data-element="main-button"]');
+      toggle2 = wrapper2.find('[data-element="open"]');
+    });
     it('changes showAdditionalButtons state', () => {
-      const wrapper2 = render(
-        { text: 'mainButton' }, { children: 'Second Button' }
-      );
-      const block = wrapper2.find('[data-component="split-button"]');
-      block.simulate('mouseleave');
+      toggle2.simulate('mouseenter');
+      expect(wrapper2.state().showAdditionalButtons).toEqual(true);
+      mainButton.simulate('mouseenter');
+      wrapper2.instance().forceUpdate();
       expect(wrapper2.state().showAdditionalButtons).toEqual(false);
     });
 
-    fit('hides additional buttons', () => {
-      const wrapper2 = render(
-        { text: 'mainButton' }, { children: 'Second Button' }
-      );
-      const toggle2 = wrapper2.find('[data-element="open"]');
-      const block = wrapper2.find('[data-element="additional-buttons"]');
-      toggle2.simulate('mouseleave');
+    it('hides additional buttons', () => {
+      toggle2.simulate('mouseenter');
+      expect(wrapper2.containsMatchingElement(
+        <Button>Second Button</Button>
+      )).toBeTruthy();
 
-      // TestUtils.Simulate.mouseLeave(toggle);
-      // const block = TestUtils
-      //   .findRenderedDOMComponentWithClass(
-      //     wrapper,
-      //     'carbon-split-button__additional-buttons carbon-split-button__additional-buttons--hidden'
-      //   );
-      expect(block).not.toBe(null);
+      mainButton.simulate('mouseenter');
+      expect(wrapper2.containsMatchingElement(
+        <Button>Second Button</Button>
+      )).toBeFalsy();
     });
   });
 
   describe('click button', () => {
     it('the handler should be called', () => {
-      // const toggle = TestUtils.findRenderedDOMComponentWithClass(wrapper, 'carbon-split-button__toggle');
-      TestUtils.Simulate.mouseEnter(toggle);
-      wrapper.forceUpdate();
-      const button = TestUtils.findRenderedDOMComponentWithClass(wrapper, 'second-button');
-      TestUtils.Simulate.click(button);
+      toggle.simulate('mouseenter');
+      wrapper.instance().forceUpdate();
+      const button = wrapper.find('[data-element="additional-buttons"]').find(Button);
+      button.simulate('click');
       expect(handleSecondButton).toHaveBeenCalled();
     });
   });
 
   describe('tags', () => {
     describe('on component', () => {
-      wrapper = shallow(
-        <SplitButton
-          data-element='bar' data-role='baz'
-          text='Test'
-        >
-          <Button>Test</Button>
-        </SplitButton>
-      );
-
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapper, 'split-button', 'bar', 'baz');
       });
@@ -141,7 +136,8 @@ describe('SplitButton', () => {
     describe('on internal elements', () => {
       wrapper = shallow(
         <SplitButton text='Test'>
-          <Button>Test</Button>
+          <Button>Test1</Button>
+          <Button>Test2</Button>
         </SplitButton>
       );
       wrapper.setState({ showAdditionalButtons: true });

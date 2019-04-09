@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SplitButton mouse enter dropdown toggle renders more buttons to match snapshot 1`] = `
+<styled.div
+  data-component="split-button"
+  data-element="bar"
+  data-role="baz"
+  medium={true}
+  onMouseLeave={[Function]}
+  renderAs="secondary"
+  theme={
+    Object {
+      "colors": Object {
+        "base": "#00A376",
+        "border": "#668491",
+        "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
+        "error": "#C7384F",
+        "focus": "#FFB500",
+        "info": "#0073C2",
+        "primary": "#26A826",
+        "secondary": "#006300",
+        "success": "#00B000",
+        "tertiary": "#004400",
+        "warning": "#FFB500",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "background": "rgba(0,0,0,0.1)",
+        "border": "#CCD6DA",
+        "button": "#E5EAEC",
+        "disabled": "rgba(0,0,0,0.55)",
+        "input": "#F2F4F5",
+        "text": "rgba(0,0,0,0.3)",
+      },
+      "name": "base",
+      "shadows": Object {
+        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+  variant="blue"
+>
+  <div>
+    <Button
+      as="secondary"
+      data-element="main-button"
+      disabled={false}
+      iconPosition=""
+      iconType=""
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      size="medium"
+      subtext=""
+      theme="blue"
+    >
+      mainButton
+    </Button>
+    <Styled(styled.button)
+      data-element="open"
+      disabled={false}
+      displayed={true}
+      medium={true}
+      onBlur={[Function]}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      renderAs="secondary"
+      size="medium"
+      theme={
+        Object {
+          "colors": Object {
+            "base": "#00A376",
+            "border": "#668491",
+            "brand": "#00DC00",
+            "destructive": Object {
+              "hover": "#9F2C3F",
+            },
+            "error": "#C7384F",
+            "focus": "#FFB500",
+            "info": "#0073C2",
+            "primary": "#26A826",
+            "secondary": "#006300",
+            "success": "#00B000",
+            "tertiary": "#004400",
+            "warning": "#FFB500",
+            "white": "#FFFFFF",
+          },
+          "disabled": Object {
+            "background": "rgba(0,0,0,0.1)",
+            "border": "#CCD6DA",
+            "button": "#E5EAEC",
+            "disabled": "rgba(0,0,0,0.55)",
+            "input": "#F2F4F5",
+            "text": "rgba(0,0,0,0.3)",
+          },
+          "name": "base",
+          "shadows": Object {
+            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+          },
+          "text": Object {
+            "color": "rgba(0,0,0,0.9)",
+            "placeholder": "rgba(0,0,0,0.3)",
+            "size": "14px",
+          },
+        }
+      }
+      variant="blue"
+    >
+      <Icon
+        bgSize="small"
+        type="dropdown"
+      />
+    </Styled(styled.button)>
+  </div>
+  <styled.div
+    data-element="additional-buttons"
+    displayButtons={true}
+  >
+    <Button
+      as="secondary"
+      className=""
+      disabled={false}
+      iconPosition=""
+      iconType=""
+      key="0"
+      onClick={[Function]}
+      size="medium"
+      subtext=""
+      theme="blue"
+    >
+      Second Button
+    </Button>
+  </styled.div>
+</styled.div>
+`;

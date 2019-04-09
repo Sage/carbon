@@ -10,7 +10,7 @@ const StyledSplitButtonChildrenContainer = styled.div`
   right: 0;
   ${styleChildrenContainer}
   
-  ${StyledButton}{
+  ${StyledButton} {
     ${applyStylingToChildButtons}
     color: ${colors.white};
     margin-left: 0;
@@ -18,10 +18,6 @@ const StyledSplitButtonChildrenContainer = styled.div`
     min-width: 100%;
     z-index: 10;
     text-align: left;
-  }
-  
-  .active-child {
-    ${applyScrollStyling}
   }
 
   ${({ displayButtons }) => (!displayButtons ? 'display: none' : undefined)}
@@ -61,20 +57,6 @@ function applyStylingToChildButtons({ theme }) {
     &:hover {
       background-color: ${theme.colors.tertiary};
     }
-  `;
-}
-
-function applyScrollStyling({ theme }) {
-  if (theme.name === 'classic') {
-    return css`
-      background-color: ${colors.classic.tertiary};
-      box-shadow: 0 0 6px rgba(25,99,246,.6);
-      outline: none;
-    `;
-  }
-  return css`
-    background-color: ${theme.colors.tertiary};
-    outline: solid 3px ${theme.colors.warning};
   `;
 }
 

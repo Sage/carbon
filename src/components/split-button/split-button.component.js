@@ -59,12 +59,13 @@ class SplitButton extends React.Component {
     size: 'medium'
   }
 
-  static safeProps = ['disabled', 'as', 'size']
+  static safeProps = ['as', 'disabled', 'size']
 
-  constructor(args) {
-    super(args);
+  constructor(props) {
+    super(props);
     this.componentTags = this.componentTags.bind(this);
     this.additionalButtons = [];
+    this.splitButtons = [];
   }
 
   state = {
@@ -72,7 +73,8 @@ class SplitButton extends React.Component {
      * Tracks whether the additional buttons should be visible.
      */
     showAdditionalButtons: false,
-    selectedIndex: -1 // defaults to nothing being highlighted
+    selectedIndex: -1, // defaults to nothing being highlighted
+    isClassic: null
   }
 
   /**
@@ -91,14 +93,18 @@ class SplitButton extends React.Component {
     document.removeEventListener('keydown', this.handleKeyDown);
   }
 
+  navigateButton() {
+    const { selectedIndex } = this.state;
+    this.additionalButtons[selectedIndex].focus();
+  }
+
   handleUpPress(index, length) {
     if (index > 0) {
       this.setState(prevState => ({ selectedIndex: prevState.selectedIndex - 1 }));
     } else {
       this.setState({ selectedIndex: length - 1 });
     }
-    // console.log(this.additionalButtons);
-    // this.additionalButtons[index].current.focus();
+    this.navigateButton();
   }
 
   handleDownPress(index, length) {
@@ -109,7 +115,7 @@ class SplitButton extends React.Component {
     } else {
       this.setState({ selectedIndex: 0 });
     }
-    // this.additionalButtons[index].current.focus();
+    this.navigateButton();
   }
 
   handleKeyDown = (ev) => {
@@ -117,9 +123,12 @@ class SplitButton extends React.Component {
     const { children } = this.props;
     if (Events.isUpKey(ev)) {
       ev.preventDefault();
+      this.splitButtons.forEach(btn => btn.blur());
       this.handleUpPress(selectedIndex, children.length);
     } else if (Events.isDownKey(ev)) {
+      this.splitButtons[1].blur();
       ev.preventDefault();
+      this.splitButtons.forEach(btn => btn.blur());
       this.handleDownPress(selectedIndex, children.length);
     }
   }
@@ -130,7 +139,6 @@ class SplitButton extends React.Component {
   get mainButtonProps() {
     const { ...props } = validProps(this);
     props.onMouseEnter = this.hideButtons;
-    props.onBlur = this.hideButtons;
     props.onFocus = this.showButtons;
     return props;
   }
@@ -141,11 +149,12 @@ class SplitButton extends React.Component {
   get toggleButtonProps() {
     const opts = {
       disabled: this.props.disabled,
-      renderAs: this.props.as,
-      onBlur: this.hideButtons,
+      displayed: this.state.showAdditionalButtons,
+      // onBlur: this.hideButtons,
       onClick: (ev) => { ev.preventDefault(); },
       onFocus: this.showButtons,
-      displayed: this.state.showAdditionalButtons,
+      ref: this.toggle,
+      renderAs: this.props.as,
       size: this.props.size
     };
 
@@ -167,6 +176,18 @@ class SplitButton extends React.Component {
     };
   }
 
+  addRef(identifier, ref, index) {
+    this[identifier][index] = ref;
+  }
+
+  handleTheme = (theme) => {
+    console.log(this.state.isClassic);
+    if (this.state.isClassic) return null;
+    // this.setState({ isClassic: theme.NAME === 'classic' });
+
+    return null;
+  }
+
   /**
    * Returns the HTML for the main button.
    */
@@ -176,6 +197,8 @@ class SplitButton extends React.Component {
         <Button
           { ...this.mainButtonProps }
           data-element='main-button'
+          ref={ main => this.addRef('splitButtons', main, 0) }
+          checkTheme={ this.handleTheme }
         >
           { this.props.text}
         </Button>
@@ -183,6 +206,7 @@ class SplitButton extends React.Component {
         <StyledToggleButton
           { ...this.toggleButtonProps }
           data-element='open'
+          ref={ toggle => this.addRef('splitButtons', toggle, 1) }
         >
           <Icon type='dropdown' />
         </StyledToggleButton>
@@ -196,18 +220,14 @@ class SplitButton extends React.Component {
 
   addChildProps() {
     const { children } = this.props;
-    if (!Array.isArray(children)) {
-      return React.cloneElement(children,
-        {
-          key: '0',
-          className: this.state.selectedIndex === 0 ? 'active-child' : ''
-        });
-    }
-    return children.map((child, index) => {
+    let childArray = children;
+    if (!Array.isArray(children)) childArray = [children];
+
+    return childArray.map((child, index) => {
       return React.cloneElement(child,
         {
           key: index.toString(),
-          className: index === this.state.selectedIndex ? 'active-child' : ''
+          ref: button => this.addRef('additionalButtons', button, index)
         });
     });
   }
