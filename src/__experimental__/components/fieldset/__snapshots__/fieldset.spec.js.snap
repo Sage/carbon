@@ -49,7 +49,7 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
         "componentStyle": ComponentStyle {
           "componentId": "sc-htpNat",
           "isStatic": false,
-          "lastClassName": "cWIOqS",
+          "lastClassName": "eUJwey",
           "rules": Array [
             "
   font-size: 20px;
@@ -114,7 +114,7 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
     }
   >
     <legend
-      className="sc-htpNat cWIOqS"
+      className="sc-htpNat eUJwey"
     />
   </StyledComponent>
 </styled.legend>
