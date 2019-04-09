@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { InputPresentationContext } from '../input/input-presentation.component';
-import StyledTextareaInput from './textarea-input.style';
 
 class TextareaInput extends Component {
   static propTypes = {
-    size: PropTypes.oneOf(['small', 'medium', 'large']),
     inputRef: PropTypes.func, // a callback to retrieve the input reference
+    maxLength: PropTypes.string,
     onBlur: PropTypes.func,
+    onChange: PropTypes.func,
     onClick: PropTypes.func,
     onFocus: PropTypes.func
   }
@@ -38,27 +38,20 @@ class TextareaInput extends Component {
   };
 
   render() {
-    const {
-      size,
-      ...props
-    } = this.props;
+    const { onChange, maxLength } = this.props;
 
     return (
-      <StyledTextareaInput
-        size={ size }
+      <textarea
         ref={ this.input }
         onFocus={ this.handleFocus }
         onBlur={ this.handleBlur }
         onClick={ this.handleClick }
-        { ...props }
+        maxLength={ maxLength }
+        onChange={ onChange }
       />
     );
   }
 }
-
-TextareaInput.defaultProps = {
-  size: 'small'
-};
 
 function selectTextOnFocus(input) {
   // setTimeout is required so the dom has a chance to place the cursor in the input

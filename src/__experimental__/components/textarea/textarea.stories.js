@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { boolean, number } from '@storybook/addon-knobs';
+import { boolean, number, text } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import getTextboxStoryProps from '../textbox/textbox.stories';
 import Textarea from '.';
@@ -31,7 +31,7 @@ storiesOf('Experimental/Textarea', module)
     () => {
       const warnOverLimit = boolean('warnOverLimit', Textarea.defaultProps.warnOverLimit);
       const expandable = boolean('expandable', Textarea.defaultProps.expandable);
-      const characterLimit = number('characterLimit', 50, rangeOptions);
+      const characterLimit = text('characterLimit', '10');
       const enforceCharacterLimit = characterLimit ? boolean(
         'enforceCharacterLimit',
         Textarea.defaultProps.enforceCharacterLimit
@@ -43,13 +43,10 @@ storiesOf('Experimental/Textarea', module)
         <State store={ store }>
           <Textarea
             warnOverLimit={ warnOverLimit }
-            enforceCharacterLimit={ enforceCharacterLimit }
-            characterLimit={ String(characterLimit) }
-            cols={ cols }
-            expandable={ expandable }
-            rows={ rows }
             onChange={ handleChange }
-            { ...getTextboxStoryProps }
+            characterLimit={ characterLimit }
+            enforceCharacterLimit={ enforceCharacterLimit }
+            expandable={ expandable }
           />
         </State>
       );

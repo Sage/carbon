@@ -12,7 +12,7 @@ const CharacterCount = ({ value, limit }) => {
 
 CharacterCount.propTypes = {
   value: PropTypes.number.isRequired,
-  limit: PropTypes.number.isRequired
+  limit: PropTypes.string.isRequired
 };
 
 export default CharacterCount;

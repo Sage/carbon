@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import { validProps } from '../../../utils/ether';
 import { InputPresentation } from '../input';
 import FormField from '../form-field';
-import TextareaInput from './textarea-input.component';
+import TextareaStyle from './textarea.style';
 import CharacterCount from './character-count';
+import TextareaInput from './textarea-input.component';
 
 
 class Textarea extends React.Component {
@@ -39,6 +40,8 @@ class Textarea extends React.Component {
      * Label
      * */
     label: PropTypes.string,
+
+    onChange: PropTypes.func,
 
     /**
      * The number of visible text lines for the control
@@ -105,7 +108,9 @@ class Textarea extends React.Component {
    * Resizes the textarea based on update if it can expand
    */
   componentDidUpdate() {
-    if (this.props.expandable) {
+    const { expandable } = this.props;
+
+    if (expandable) {
       this.expandTextarea();
     }
   }
@@ -201,6 +206,8 @@ class Textarea extends React.Component {
     const value = this.props.value || '';
 
     if (!this.props.characterLimit) { return null; }
+    return <CharacterCount value={ value.length } limit={ this.props.characterLimit } />;
+
     // return (
     //   <div className={ this.textAreaClasses } data-element='character-limit'>
     //     { I18n.t('textarea.limit.prefix', { defaultValue: 'You have used ' }) }
@@ -214,10 +221,9 @@ class Textarea extends React.Component {
     //     { I18n.t('textarea.limit.suffix', { defaultValue: ' characters' }) }
     //   </div>
     // );
-    return <div>counter</div>;
   }
 
-  inputRefCallback(inputRef) {
+  inputRefCallback = (inputRef) => {
     this.setState({ _input: inputRef.current });
   }
 
@@ -227,24 +233,28 @@ class Textarea extends React.Component {
    */
   render() {
     const {
-      label, size, children
+      label, size, children, characterLimit, enforceCharacterLimit, onChange
     } = this.props;
     return (
-      <FormField label={ label } { ...this.props }>
-        <InputPresentation
-          type='text'
-          size={ size }
-          { ...this.props }
-        >
-          <TextareaInput
-            inputRef={ this.inputRefCallback.bind(this) }
+      <TextareaStyle>
+        <FormField label={ label } { ...this.props }>
+          <InputPresentation
+            type='text'
             size={ size }
             { ...this.props }
-          />
-          { children }
-        </InputPresentation>
-        <CharacterCount value={ 23 } limit={ 24 } />
-      </FormField>
+          >
+            <TextareaInput
+              inputRef={ this.inputRefCallback }
+              size={ size }
+              maxLength={ enforceCharacterLimit && characterLimit }
+              onChange={ onChange }
+              { ...this.props }
+            />
+            { children }
+          </InputPresentation>
+          {this.characterCount}
+        </FormField>
+      </TextareaStyle>
     );
   }
 }
