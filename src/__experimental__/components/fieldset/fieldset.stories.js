@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text } from '@storybook/addon-knobs';
-import notes from './documentation/notes.md';
+import notes from './documentation';
 import Fieldset from './fieldset.component';
 import Textbox from '../textbox';
 

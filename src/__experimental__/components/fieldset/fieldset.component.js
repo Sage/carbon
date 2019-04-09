@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
 import { FieldsetStyle, LegendStyle } from './fieldset.style';
 
 class Fieldset extends React.Component {
   legend = () => {
-    if (!this.props.legend) { return null; }
+    if (!this.props.legend) return null;
 
     return (
       <LegendStyle data-element='legend'>
@@ -18,11 +17,9 @@ class Fieldset extends React.Component {
 
   render() {
     const { className, ...safeProps } = validProps(this);
-    const classes = classNames('carbon-fieldset', className);
 
     return (
       <FieldsetStyle
-        className={ classes }
         { ...tagComponent('fieldset', this.props) }
         { ...safeProps }
       >

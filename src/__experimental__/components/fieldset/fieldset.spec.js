@@ -5,8 +5,8 @@ import Textbox from '../textbox';
 import { LegendStyle } from './fieldset.style';
 import classicTheme from '../../../style/themes/classic';
 
-function render(props, renderType = shallow) {
-  return renderType(
+function render(props) {
+  return shallow(
     <Fieldset { ...props }>
       <Textbox />
     </Fieldset>
