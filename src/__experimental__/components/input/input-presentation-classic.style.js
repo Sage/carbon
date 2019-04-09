@@ -10,6 +10,7 @@ export default ({ disabled, hasFocus, theme }) => theme.name === THEMES.classic 
 
   &:hover {
     border-color: #99adb6;
+    z-index: 2;
   }
 
   ${hasFocus && css`
