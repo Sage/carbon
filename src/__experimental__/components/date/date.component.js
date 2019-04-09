@@ -214,7 +214,6 @@ class Date extends React.Component {
     return (
       <StyledDateInput
         onClick={ stopClickPropagation }
-        onKeyDown={ this.handleKeyDown }
         role='presentation'
       >
         <Textbox
