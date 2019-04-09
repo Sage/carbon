@@ -1,10 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
-<styled.fieldset
-  className="carbon-fieldset"
-  data-component="fieldset"
-  legend="Legend"
+<styled.legend
   theme={
     Object {
       "colors": Object {
@@ -44,13 +41,83 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
     }
   }
 >
-  <styled.legend
-    data-element="legend"
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-htpNat",
+          "isStatic": false,
+          "lastClassName": "iLBnvu",
+          "rules": Array [
+            "
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  margin-bottom: 32px;
+
+  ",
+            [Function],
+            "
+",
+          ],
+        },
+        "displayName": "styled.legend",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "sc-htpNat",
+        "target": "legend",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
+    }
+    forwardedRef={null}
+    theme={
+      Object {
+        "colors": Object {
+          "base": "#00A376",
+          "baseBlue": "#255BC7",
+          "border": "#668491",
+          "brand": "#00DC00",
+          "error": "#C7384F",
+          "focus": "#FFB500",
+          "greyDarkBlue50": "#8099a4",
+          "info": "#0073C2",
+          "primary": "#00805D",
+          "secondary": "#006045",
+          "success": "#00B000",
+          "tertiary": "#003F2E",
+          "warning": "#FFB500",
+          "white": "#FFFFFF",
+        },
+        "disabled": Object {
+          "border": "#4d7080",
+          "disabled": "#b3c2c8",
+          "input": "#1e499f",
+        },
+        "name": "classic",
+        "shadows": Object {
+          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.3)",
+          "size": "14px",
+        },
+      }
+    }
   >
-    Legend
-  </styled.legend>
-  <Textbox />
-</styled.fieldset>
+    <legend
+      className="sc-htpNat iLBnvu"
+    />
+  </StyledComponent>
+</styled.legend>
 `;
 
 exports[`Fieldset renders correctly 1`] = `

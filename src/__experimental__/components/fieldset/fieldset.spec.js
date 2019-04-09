@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Fieldset from './fieldset.component';
 import Textbox from '../textbox';
 import { LegendStyle } from './fieldset.style';
@@ -31,8 +31,7 @@ describe('Fieldset', () => {
     });
 
     it('applies classic theme styling', () => {
-      const wrapper = render({ theme: classicTheme, legend: 'Legend' });
-      expect(wrapper).toMatchSnapshot();
+      expect(mount(<LegendStyle theme={ classicTheme } />)).toMatchSnapshot();
     });
   });
 });
