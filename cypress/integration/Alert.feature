@@ -2,7 +2,7 @@ Feature: Alert component
   I want to change Alert component properties
 
   Background: Open Alert component page
-    Given I open "Alert" component page
+    Given I open "Alert" component page with button
 
   @positive
   Scenario Outline: Change Alert component title
@@ -70,7 +70,7 @@ Feature: Alert component
   Scenario Outline: Set height for Alert dialog
     When I set height to "<height>"
       And I open component preview
-    Then Alert dialog height is set to "<height>"
+    Then Dialog height is set to "<height>"
     Examples:
       | height |
       | 0      |
@@ -82,7 +82,7 @@ Feature: Alert component
   Scenario Outline: Set out of scope characters to height for Alert dialog
     When I set height to "<height>"
       And I open component preview
-    Then Alert dialog height is NOT set to "<height>"
+    Then Dialog height is not set to "<height>"
     Examples:
       | height                   |
       | -1                       |
@@ -107,7 +107,7 @@ Feature: Alert component
   Scenario Outline: Set Alert size to small, medium and large
     When I set component size to "<size>"
       And I open component preview
-    Then Alert size property on preview is "<size>"
+    Then Dialog size property on preview is "<size>"
     Examples:
       | size         |
       | extra-small  |
