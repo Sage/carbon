@@ -5,7 +5,7 @@ import classicThemeForLink from './link-classic.style';
 import { THEMES } from '../../style/themes';
 
 const LinkStyle = styled.div`
-display: inline;
+display: inline-block;
 a {
   font-size: 14px;
   text-decoration: underline;
@@ -19,6 +19,7 @@ a {
   ${({ theme }) => theme.name !== THEMES.classic && css`
     &:focus {
       color: ${theme.text.color};
+      cursor: default;
       background-color: ${theme.colors.focus};
       outline: none;
     }

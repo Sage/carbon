@@ -236,10 +236,10 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                               "componentStyle": ComponentStyle {
                                                 "componentId": "sc-bdVaJa",
                                                 "isStatic": false,
-                                                "lastClassName": "dCBiUO",
+                                                "lastClassName": "jOPhMr",
                                                 "rules": Array [
                                                   "
-display: inline;
+display: inline-block;
 a {
   font-size: 14px;
   text-decoration: underline;
@@ -362,7 +362,7 @@ a {
                                           }
                                         >
                                           <div
-                                            className="sc-bdVaJa dCBiUO"
+                                            className="sc-bdVaJa jOPhMr"
                                             data-component="link"
                                             disabled={false}
                                           >

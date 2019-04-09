@@ -2,7 +2,7 @@
 
 exports[`Link renders as expected 1`] = `
 .c0 {
-  display: inline;
+  display: inline-block;
 }
 
 .c0 a {
@@ -19,6 +19,7 @@ exports[`Link renders as expected 1`] = `
 
 .c0 a:focus {
   color: rgba(0,0,0,0.9);
+  cursor: default;
   background-color: #FFDA7F;
   outline: none;
 }
@@ -60,7 +61,7 @@ exports[`Link should render as expected 1`] = `
 
 exports[`Link when component has classic theme should render correct style 1`] = `
 .c0 {
-  display: inline;
+  display: inline-block;
 }
 
 .c0 a {
@@ -77,6 +78,7 @@ exports[`Link when component has classic theme should render correct style 1`] =
 
 .c0 a:focus {
   color: rgba(0,0,0,0.9);
+  cursor: default;
   background-color: #FFDA7F;
   outline: none;
 }
