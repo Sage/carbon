@@ -5,7 +5,7 @@ import StyledButton, { StyledButtonSubtext } from './button.style';
 import tagComponent from '../../utils/helpers/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
-const Button = (props) => {
+const Button = React.forwardRef((props, ref) => {
   const {
     as,
     disabled,
@@ -14,7 +14,6 @@ const Button = (props) => {
     theme,
     ...rest
   } = props;
-
   return (
     <StyledButton
       disabled={ disabled }
@@ -26,11 +25,12 @@ const Button = (props) => {
       as={ (props.href || props.to) ? 'a' : 'button' }
       { ...tagComponent('button', props) }
       { ...rest }
+      ref={ ref }
     >
       { renderChildren(props) }
     </StyledButton>
   );
-};
+});
 
 function renderChildren({
   iconType,
@@ -77,7 +77,8 @@ Button.propTypes = {
   /** Set this prop to pass in legacy theme color variants */
   theme: PropTypes.oneOf(OptionsHelper.buttonColors),
   /** Used to transfrom button into anchor */
-  to: PropTypes.string
+  to: PropTypes.string,
+  checkTheme: PropTypes.func
 };
 
 Button.defaultProps = {
