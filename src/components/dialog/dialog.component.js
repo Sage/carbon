@@ -65,7 +65,8 @@ class Dialog extends Modal {
   }
 
   centerDialog = (animating) => {
-    if (!this._dialog) { return; }
+    if (!this._dialog) return;
+
     const height = this._dialog.offsetHeight / 2,
         width = this._dialog.offsetWidth / 2,
         win = this.window;
@@ -114,12 +115,12 @@ class Dialog extends Modal {
   }
 
   focusDialog() {
-    if (!this._dialog) { return; }
+    if (!this._dialog) return;
     this._dialog.focus();
   }
 
   shouldHaveFixedBottom = () => {
-    if (!this._innerContent) { return false; }
+    if (!this._innerContent) return false;
 
     const contentHeight = this._innerContent.offsetHeight + this._innerContent.offsetTop,
         windowHeight = this.window.innerHeight - this._dialog.offsetTop - 1;
@@ -128,7 +129,7 @@ class Dialog extends Modal {
   }
 
   get dialogTitle() {
-    if (!this.props.title) { return null; }
+    if (!this.props.title) return null;
 
     let { title } = this.props;
 

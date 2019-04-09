@@ -12,10 +12,19 @@ const dialogSizes = {
 };
 
 const DialogStyle = styled.div`
-  background-color: ${({ theme }) => theme.disabled.background};
+  background-color: #F2F5F6;
   box-shadow: ${({ theme }) => theme.shadows.depth3};
   position: fixed;
   top: 50%;
+
+  .carbon-heading--has-divider .carbon-heading__header {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .carbon-heading__title {
+    color: ${({ theme }) => theme.text.color}
+  }
 
   &:focus {
     outline: none;
@@ -38,6 +47,7 @@ const DialogStyle = styled.div`
 
 const DialogTitleStyle = styled.div`
   padding: 23px 35px 0;
+  border-bottom: 1px solid #ccd6db;
 `;
 
 const DialogContentStyle = styled.div`
