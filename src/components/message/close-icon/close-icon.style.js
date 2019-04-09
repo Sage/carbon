@@ -26,8 +26,9 @@ const CloseIconStyle = styled.button`
     outline: none;
     span {
       &:before {
-        padding: 5px;
-        border: 2px solid ${({ theme }) => theme.colors.focus};
+        padding: 3px;
+        outline: 2px solid ${({ theme }) => theme.colors.focus};
+ 
       }
     }
   }

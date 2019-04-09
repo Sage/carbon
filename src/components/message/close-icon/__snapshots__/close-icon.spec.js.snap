@@ -36,8 +36,8 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
 }
 
 <button
@@ -81,8 +81,8 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
 }
 
 <button
@@ -126,8 +126,8 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
 }
 
 <button
@@ -171,8 +171,8 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
 }
 
 <button
@@ -216,8 +216,12 @@ exports[`when in classic mode when rendered as default should match the snapshot
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus span:before {
+  border: none;
 }
 
 <button
@@ -262,8 +266,12 @@ exports[`when in classic mode when rendered as default when transparent prop is 
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus span:before {
+  border: none;
 }
 
 <button
@@ -308,8 +316,12 @@ exports[`when in classic mode when rendered as error should match the snapshot 1
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus span:before {
+  border: none;
 }
 
 <button
@@ -355,8 +367,12 @@ exports[`when in classic mode when rendered as error when transparent prop is se
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus span:before {
+  border: none;
 }
 
 <button
@@ -400,8 +416,12 @@ exports[`when in classic mode when rendered as help should match the snapshot 1`
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus span:before {
+  border: none;
 }
 
 <button
@@ -446,8 +466,12 @@ exports[`when in classic mode when rendered as help when transparent prop is set
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus span:before {
+  border: none;
 }
 
 <button
@@ -492,8 +516,12 @@ exports[`when in classic mode when rendered as info should match the snapshot 1`
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus span:before {
+  border: none;
 }
 
 <button
@@ -539,8 +567,12 @@ exports[`when in classic mode when rendered as info when transparent prop is set
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus span:before {
+  border: none;
 }
 
 <button
@@ -584,8 +616,12 @@ exports[`when in classic mode when rendered as maintenance should match the snap
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus span:before {
+  border: none;
 }
 
 <button
@@ -630,8 +666,12 @@ exports[`when in classic mode when rendered as maintenance when transparent prop
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus span:before {
+  border: none;
 }
 
 <button
@@ -675,8 +715,12 @@ exports[`when in classic mode when rendered as new should match the snapshot 1`]
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus span:before {
+  border: none;
 }
 
 <button
@@ -721,8 +765,12 @@ exports[`when in classic mode when rendered as new when transparent prop is set 
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus span:before {
+  border: none;
 }
 
 <button
@@ -767,8 +815,12 @@ exports[`when in classic mode when rendered as success should match the snapshot
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus span:before {
+  border: none;
 }
 
 <button
@@ -814,8 +866,12 @@ exports[`when in classic mode when rendered as success when transparent prop is 
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus span:before {
+  border: none;
 }
 
 <button
@@ -860,8 +916,12 @@ exports[`when in classic mode when rendered as warning should match the snapshot
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus span:before {
+  border: none;
 }
 
 <button
@@ -907,8 +967,12 @@ exports[`when in classic mode when rendered as warning when transparent prop is 
 }
 
 .c0:focus span:before {
-  padding: 5px;
-  border: 2px solid #FFB500;
+  padding: 3px;
+  outline: 2px solid #FFB500;
+}
+
+.c0:focus span:before {
+  border: none;
 }
 
 <button

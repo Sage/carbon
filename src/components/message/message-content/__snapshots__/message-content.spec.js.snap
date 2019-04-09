@@ -7,6 +7,14 @@ exports[`MessageContent when in classic theme when the title prop is provided sh
 }
 
 .c0 .carbon-content__title {
+  margin-bottom: 2px;
+}
+
+.c0 .carbon-content__body {
+  margin-top: 0px;
+}
+
+.c0 .carbon-content__title {
   color: #c7384f;
 }
 
@@ -22,6 +30,14 @@ exports[`MessageContent when in classic theme when the title prop is provided sh
 .c0 {
   padding: 15px 20px;
   white-space: pre-wrap;
+}
+
+.c0 .carbon-content__title {
+  margin-bottom: 2px;
+}
+
+.c0 .carbon-content__body {
+  margin-top: 0px;
 }
 
 .c0 .carbon-content__title {
@@ -43,6 +59,14 @@ exports[`MessageContent when in classic theme when the title prop is provided sh
 }
 
 .c0 .carbon-content__title {
+  margin-bottom: 2px;
+}
+
+.c0 .carbon-content__body {
+  margin-top: 0px;
+}
+
+.c0 .carbon-content__title {
   color: #50b848;
 }
 
@@ -58,6 +82,14 @@ exports[`MessageContent when in classic theme when the title prop is provided sh
 .c0 {
   padding: 15px 20px;
   white-space: pre-wrap;
+}
+
+.c0 .carbon-content__title {
+  margin-bottom: 2px;
+}
+
+.c0 .carbon-content__body {
+  margin-top: 0px;
 }
 
 .c0 .carbon-content__title {
