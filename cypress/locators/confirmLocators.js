@@ -1,8 +1,8 @@
 import { FORM } from './commonLocators';
 
 // knobs locators
-const OPEN_BUTTON = '.css-174wqyd';
-const CHILDREN_TEXTAREA = 'textarea[id="children"][class="css-1cwfumf"]';
+const OPEN_BUTTON = 'button[type="button"][name="open"]';
+const CHILDREN_TEXTAREA = 'textarea[id="children"]';
 const TITLE_INPUT = '#title';
 const DISABLE_ESC_KEY_CHECHBOX = '#disableEscKey';
 const HEIGHT_INPUT = '#height';
@@ -27,9 +27,6 @@ export const cancelLabel = () => cy.get(CANCEL_LABEL);
 // component preview locators
 
 const DIALOG_INNER_CONTENT = '.carbon-dialog__inner-content';
-// const DIALOG_INNER_CONTENT_TEXT_AREA = `${DIALOG_INNER_CONTENT}.childNodes[0]`;
-// const DIALOG_INNER_CONTENT_CANCEL_BUTTON = `${DIALOG_INNER_CONTENT}.childNodes[1].childNodes[0]`;
-// const DIALOG_INNER_CONTENT_CONFIRM_BUTTON = `${DIALOG_INNER_CONTENT}.childNodes[1].childNodes[1]`;
 const DIALOG_TITLE = '.carbon-dialog-title';
 const BACKGROUND_UI_LOCATOR = '.carbon-modal__background modal-background-enter';
 const DIALOG = '.carbon-dialog__dialog';
@@ -41,6 +38,3 @@ export const backGroundUILocator = () => cy.get(BACKGROUND_UI_LOCATOR);
 export const dialogPreview = () => cy.iFrame(DIALOG);
 export const closeIconButton = () => cy.iFrame(CLOSE_ICON_BUTTON);
 export const dialogSubtitle = () => cy.iFrame(DIALOG_SUBTITLE);
-export const dialogInnerContentTextArea = () => cy.iFrame(DIALOG_INNER_CONTENT).children().first();
-export const dialogInnerContentCancelButton = () => cy.iFrame(DIALOG_INNER_CONTENT);
-export const dialogInnerContentConfirmButton = () => cy.iFrame(DIALOG_INNER_CONTENT);

@@ -51,16 +51,8 @@ When('I click on a openButton', () => {
   openButton().click();
 });
 
-Then('dialog inner context children on preview is {string}', (children) => {
-  dialogInnerContentTextArea().should('have.text', `${children}`);
-});
-
-Then('dialog inner context cancelButton on preview is {string}', (cancelButton) => {
-  dialogInnerContentCancelButton().should('have.text', cancelButton);
-});
-
-Then('dialog inner context confirmButton on preview is {string}', (confirmButton) => {
-  dialogInnerContentConfirmButton().should('have.text', confirmButton);
+Then('dialog inner context children on preview is {string}', (children, cancelButton, confirmButton) => {
+  dialogInnerContent().should('have.text', children, cancelButton, confirmButton);
 });
 
 Then('dialog title context children on preview is {string}', (title) => {

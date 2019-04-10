@@ -5,17 +5,19 @@ Feature: Confirm component
     Given I open "Confirm" component page
 
   @positive
-  Scenario Outline: Change children in Confirm dialog
+  Scenario Outline: Change data in inner context in Confirm dialog
     When I set children to "<children>"
+      And I set cancelButton to "<cancelButton>"
+      And I set confirmButton to "<confirmButton>"
       And I click on a openButton
-    Then dialog inner context children on preview is "<children>"
+    Then dialog inner context children on preview is "<children><cancelButton><confirmButton>"
     Examples:
-      | children                 |
-      | Example subtext          |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                      |
-      | <>                       |
-      | 0                        |
+      | children                 | cancelButton             | confirmButton            |
+      | Example subtext          | No                       | Yes                      |
+      | 1!@#$%^*()_+-=~[];:.,?{} | <>                       | Tak                      |
+      | 汉字                      | Nie                      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | <>                       | 1!@#$%^*()_+-=~[];:.,?{} | 汉字                      |
+      | 0                        | cancelButton             | null                     |
 
   @positive
   Scenario Outline: Change title in Confirm dialog
@@ -28,32 +30,6 @@ Feature: Confirm component
       | !@#$%^*()_+-=~[];:.,?{}  |
       | 汉字                      |
       | Example title            |
-      | null                     |
-
-  @positive
-  Scenario Outline: Change cancelButton in Confirm dialog
-    When I set cancelButton to "<cancelButton>"
-      And I click on a openButton
-    Then dialog inner context cancelButton on preview is "<cancelButton>"
-    Examples:
-      | cancelButton             | 
-      | No                       | 
-      | <>                       | 
-      | Nie                      | 
-      | 1!@#$%^*()_+-=~[];:.,?{} | 
-      | cancelButton             | 
-
-  @positive
-  Scenario Outline: Change confirmButton in Confirm dialog
-    When I set confirmButton to "<confirmButton>"
-      And I click on a openButton
-    Then dialog inner context confirmButton on preview is "<confirmButton>"
-    Examples:
-      | confirmButton            |
-      | Yes                      |
-      | Tak                      |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                      |
       | null                     |
 
   @positive
