@@ -7,7 +7,7 @@ Feature: Button Toggle Group component
   @positive
   Scenario Outline: Change Button Toggle Group component label
     When I set label to "<label>"
-    Then Label on preview is "<label>"
+    Then label on preview is "<label>"
     Examples:
       | label                    |
       | Example Test             |

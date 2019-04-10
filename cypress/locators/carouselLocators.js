@@ -22,26 +22,13 @@ export const previousArrowButton = () => cy.iFrame(PREVIOUS_ARROW_BUTTON);
 export const nextArrowButton = () => cy.iFrame(NEXT_ARROW_BUTTON);
 export const slideSelector = () => cy.iFrame(CAROUSEL_SLIDE_SELECTOR);
 export const slideSelectorIndex = (index) => slideSelector().children(`:nth-child(${index + 1})`); // +1 because nodes are indexed from 1
-export const newSlide = (transition = 'slide', direction = 'right') => {
-    let selector;
-    switch (transition) {
-        case 'slide':
-            switch (direction) {
-                case 'right':
-                    selector = `.${transition}-next-enter-active`;
-                    break;
-                case 'left':
-                    selector = `.${transition}-previous-enter-active`;
-                    break;
-                default:
-                    throw 'right or left only allowed'
-            }
-            break;
-        case 'fade':
-            selector = `.carousel-transition-${transition}-enter-active`;
-            break;
-        default:
-            throw 'fade or slide only allowed'
+export const giveTransition = (transition, direction) => {
+    let directionString = '';
+    let prefix = '';
+    if (transition === 'slide') {
+        directionString = direction === 'right' ? '-next' : '-previous';
+    } else {
+        prefix = 'carousel-transition-';
     }
-    return cy.iFrame(selector);
-}
+    return cy.iFrame(`.${prefix}${transition}${directionString}-enter-active`);
+};

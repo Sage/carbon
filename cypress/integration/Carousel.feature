@@ -6,7 +6,7 @@ Feature: Carousel component
 
   @positive
   Scenario: Initial slide title is Slide One
-    #When I open "Carousel" component page
+  # When step is run on background as Given
     Then slide title is "Slide One"
 
   @positive
@@ -52,7 +52,7 @@ Feature: Carousel component
     Then next button is not visible
 
   @positive
-  Scenario Outline: Set transition to slide/fade when I move left/right
+  Scenario Outline: Set transition to "<transition>" when I move "<direction>"
     When I set transition to "<transition>"
       And I click carousel "<direction>" button
    Then transition is set to "<transition>" with "<direction>"
@@ -67,7 +67,7 @@ Feature: Carousel component
   Scenario Outline: Move Carousel left
     When I set slide index to <index>
       And I move carousel "left"
-    And slide title is "<title>"
+    Then slide title is "<title>"
     Examples:
       | index | title       |
       | 1     | Slide One   |

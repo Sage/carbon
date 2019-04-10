@@ -1,6 +1,6 @@
 import {
   slide, slideIndexSelect, carousel, nextArrowButton, previousArrowButton, slideSelectorIndex,
-  enableSlideSelectorCheckbox, slideSelector, enableNextButtonCheckbox, enablePreviousButtonCheckbox, transitionSelect, newSlide
+  enableSlideSelectorCheckbox, slideSelector, enableNextButtonCheckbox, enablePreviousButtonCheckbox, transitionSelect, giveTransition
 } from '../../locators/carouselLocators';
 import { DEBUG_FLAG } from '..';
 
@@ -101,5 +101,5 @@ When('I set transition to {string}', (transition) => {
 });
 
 Then('transition is set to {string} with {string}', (transition, direction) => {
-  newSlide(transition, direction).should('exist');
+  giveTransition(transition, direction).should('exist');
 });

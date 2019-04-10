@@ -29,7 +29,7 @@ Feature: Checkbox component
   @positive
   Scenario Outline: Change Checkbox component label
     When I set label to "<label>"
-    Then Label on preview is "<label>"
+    Then label on preview is "<label>"
     Examples:
       | label                    |
       | Example Test             |
@@ -52,7 +52,7 @@ Feature: Checkbox component
   @positive
   Scenario Outline: Change Checkbox input width
     When I set input width slider to <width>
-    Then Checkbox input width is set to <width>
+    Then checkbox input width is set to <width>
     Examples:
       | width |
       | 1     |

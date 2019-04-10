@@ -1,49 +1,49 @@
 import { labelPreview, fieldHelpPreview } from "../../locators/commonLocators";
 import {
   inputWidthInput, inputWidthPreview, labelHelpPreview,
-  lableInlineCheckbox, buttonToggleGroupPreview, labelAlignSelect, labelWidthInput
+  lableInlineCheckbox, buttonToggleGroupPreview, labelWidthInput
 } from "../../locators/buttonToggleGroupLocators";
 
 When('I set input width to {string}', (width) => {
-  inputWidthInput().clear().type(width)
+  inputWidthInput().clear().type(width);
 })
 
 Then('Input width is set to {string}', (width) => {
-  inputWidthPreview().should('have.attr', 'style').should('contain', `width: ${width}%`)
+  inputWidthPreview().should('have.attr', 'style').should('contain', `width: ${width}%`);
 })
 
 Then('Input width is not set', () => {
-  inputWidthPreview().should('not.have.attr', 'style')
+  inputWidthPreview().should('not.have.attr', 'style');
 })
 
 Then('Label help on preview is set to {string}', (text) => {
-  labelHelpPreview().should('have.text', text)
+  labelHelpPreview().should('have.text', text);
 })
 
 When('I uncheck label inline checkbox', () => {
-  lableInlineCheckbox().uncheck()
+  lableInlineCheckbox().uncheck();
 })
 
 Then('Button Toggle Group component has label-inline property', () => {
-  buttonToggleGroupPreview().should('have.class', 'common-input--label-inline')
-  labelPreview().should('have.class', 'common-input__label--inline')
-  fieldHelpPreview().should('have.class', 'common-input__help-text--inline')
+  buttonToggleGroupPreview().should('have.class', 'common-input--label-inline');
+  labelPreview().should('have.class', 'common-input__label--inline');
+  fieldHelpPreview().should('have.class', 'common-input__help-text--inline');
 })
 
 Then('Button Toggle Group component do not have label-inline property', () => {
-  buttonToggleGroupPreview().should('not.have.class', 'common-input--label-inline')
-  labelPreview().should('not.have.class', 'common-input__label--inline')
-  fieldHelpPreview().should('not.have.class', 'common-input__help-text--inline')
+  buttonToggleGroupPreview().should('not.have.class', 'common-input--label-inline');
+  labelPreview().should('not.have.class', 'common-input__label--inline');
+  fieldHelpPreview().should('not.have.class', 'common-input__help-text--inline');
 })
 
 When('I set label width to {string}', (width) => {
-  labelWidthInput().clear().type(width)
+  labelWidthInput().clear().type(width);
 })
 
 Then('Label width is set to {string}', (width) => {
-  labelPreview().should('have.attr', 'style').should('contain', `width: ${width}%`)
+  labelPreview().should('have.attr', 'style').should('contain', `width: ${width}%`);
 })
 
 Then('Label width is not set', () => {
-  labelPreview().should('not.have.attr', 'style')
+  labelPreview().should('not.have.attr', 'style');
 })

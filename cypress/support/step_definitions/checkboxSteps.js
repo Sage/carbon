@@ -30,7 +30,7 @@ When('I disable fieldHelpInline', () => {
   fieldHelpInlineCheckbox().uncheck()
 })
 
-Then('Checkbox input width is set to {int}', (width) => {
+Then('checkbox input width is set to {int}', (width) => {
   checkboxCommonInputField().should('have.attr', 'style').should('contain', `width: ${width}%`)
 })
 

@@ -6,11 +6,11 @@ export function visitComponentUrl(component, suffix = 'default', iFrameOnly = fa
     if (!iFrameOnly) knobsTab().click()
 }
 
-export function dragAndDrop(draggableRecord, destinationPosition, startFromHight) {
+export function dragAndDrop(draggableElement, destinationPosition, startFromHight) {
     const ROW_HIGHT = 35
     const TEN_PIXEL_MOVE = 10
 
-    draggableRecord
+    draggableElement
         .trigger('mousedown', { force: true })
         .wait(500) //required for correct drag&drop headless browser (500ms)
         .trigger('mousemove', { force: true })
@@ -18,11 +18,11 @@ export function dragAndDrop(draggableRecord, destinationPosition, startFromHight
 
     //put row record on top of page, then move down every TEN_PIXEL_MOVE
     for (let i = 0; i < startFromHight + (destinationPosition * ROW_HIGHT); i += TEN_PIXEL_MOVE) {
-        draggableRecord
+        draggableElement
             .trigger('mousemove', { clientY: i, force: true, log: DEBUG_FLAG })
             .wait(100, { log: DEBUG_FLAG })
     }
-    draggableRecord
+    draggableElement
         .trigger('mouseup', { force: true })
 }
 

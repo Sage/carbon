@@ -67,7 +67,7 @@ Then('component subtitle on preview is {string}', (subtitle) => {
   dialogSubtitle().should('have.text', subtitle)
 })
 
-Then('Label on preview is {string}', (label) => {
+Then('label on preview is {string}', (label) => {
   labelPreview().should('have.text', label)
 });
 
