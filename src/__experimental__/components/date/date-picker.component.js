@@ -13,8 +13,7 @@ const DatePicker = (props) => {
   const window = Browser.getWindow();
   const [containerPosition, updateDatePickerPosition] = useState(getContainerPosition(window, props.inputElement));
   const containerProps = {
-    style: containerPosition,
-    onClick: stopClickPropagation
+    style: containerPosition
   };
   const datepicker = useRef(null);
 
@@ -35,7 +34,7 @@ const DatePicker = (props) => {
     if (props.selectedDate && monthOrYearHasChanged(datepicker, props.selectedDate)) {
       datepicker.current.showMonth(props.selectedDate);
     }
-  });
+  }, [props.selectedDate]);
 
   function handleDayClick(selectedDate, modifiers) {
     if (!modifiers.disabled) props.handleDateSelect(selectedDate);
@@ -105,13 +104,6 @@ function getContainerPosition(window, input) {
     left: inputRect.left,
     top: inputRect.bottom + offsetY
   };
-}
-
-/**
- * Prevents propagation so date picker does not close on click inside the widget.
- */
-function stopClickPropagation(ev) {
-  ev.nativeEvent.stopImmediatePropagation();
 }
 
 export default DatePicker;

@@ -1,5 +1,5 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../../style/themes';
+import { THEMES } from '../../../../style/themes';
 
 export default ({ theme }) => theme.name === THEMES.classic && css`
   background-color: ${theme.colors.white};
