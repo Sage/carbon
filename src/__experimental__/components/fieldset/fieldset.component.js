@@ -4,31 +4,32 @@ import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
 import { FieldsetStyle, LegendStyle } from './fieldset.style';
 
-class Fieldset extends React.Component {
-  legend = () => {
-    if (!this.props.legend) return null;
+const Fieldset = (props) => {
+  const legend = () => {
+    if (!props.legend) return null;
 
     return (
       <LegendStyle data-element='legend'>
-        { this.props.legend }
+        { props.legend }
       </LegendStyle>
     );
-  }
+  };
 
-  render() {
-    const { className, ...safeProps } = validProps(this);
+  const { className, ...safeProps } = validProps({
+    propTypes: Fieldset.propTypes,
+    props
+  });
 
-    return (
-      <FieldsetStyle
-        { ...tagComponent('fieldset', this.props) }
-        { ...safeProps }
-      >
-        { this.legend() }
-        { this.props.children }
-      </FieldsetStyle>
-    );
-  }
-}
+  return (
+    <FieldsetStyle
+      { ...tagComponent('fieldset', props) }
+      { ...safeProps }
+    >
+      { legend() }
+      { props.children }
+    </FieldsetStyle>
+  );
+};
 
 Fieldset.propTypes = {
   /**
