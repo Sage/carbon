@@ -4,6 +4,7 @@ import { validProps } from '../../../utils/ether';
 import { InputPresentation } from '../input';
 import FormField from '../form-field';
 import TextareaStyle from './textarea.style';
+import StyledTextareaWrapper from './textarea-wrapper.style';
 import CharacterCount from './character-count';
 import TextareaInput from './textarea-input.component';
 
@@ -25,6 +26,8 @@ class Textarea extends React.Component {
      */
     cols: PropTypes.number,
 
+    disabled: PropTypes.bool,
+
     /**
      * Stop the user typing over the characterLimit
      */
@@ -42,6 +45,10 @@ class Textarea extends React.Component {
     label: PropTypes.string,
 
     onChange: PropTypes.func,
+
+    placeholder: PropTypes.string,
+
+    readOnly: PropTypes.bool,
 
     /**
      * The number of visible text lines for the control
@@ -65,8 +72,10 @@ class Textarea extends React.Component {
   }
 
   static defaultProps = {
+    disabled: false,
     expandable: false,
     enforceCharacterLimit: true,
+    readOnly: false,
     warnOverLimit: false
   }
 
@@ -207,20 +216,6 @@ class Textarea extends React.Component {
 
     if (!this.props.characterLimit) { return null; }
     return <CharacterCount value={ value.length } limit={ this.props.characterLimit } />;
-
-    // return (
-    //   <div className={ this.textAreaClasses } data-element='character-limit'>
-    //     { I18n.t('textarea.limit.prefix', { defaultValue: 'You have used ' }) }
-    //     <span className='carbon-textarea__limit-used'>
-    //       { I18n.toNumber(value.length, this.i18nNumberOpts) }
-    //     </span>
-    //     { I18n.t('textarea.limit.middle', { defaultValue: ' of ' }) }
-    //     <span className='carbon-textarea__limit-max'>
-    //       { I18n.toNumber(this.props.characterLimit, this.i18nNumberOpts) }
-    //     </span>
-    //     { I18n.t('textarea.limit.suffix', { defaultValue: ' characters' }) }
-    //   </div>
-    // );
   }
 
   inputRefCallback = (inputRef) => {
@@ -233,26 +228,38 @@ class Textarea extends React.Component {
    */
   render() {
     const {
-      label, size, children, characterLimit, enforceCharacterLimit, onChange
+      label,
+      size,
+      children,
+      characterLimit,
+      enforceCharacterLimit,
+      onChange,
+      disabled,
+      readOnly,
+      placeholder
     } = this.props;
+
     return (
       <TextareaStyle>
         <FormField label={ label } { ...this.props }>
-          <InputPresentation
-            type='text'
-            size={ size }
-            { ...this.props }
-          >
-            <TextareaInput
-              inputRef={ this.inputRefCallback }
+          <StyledTextareaWrapper>
+            <InputPresentation
+              type='text'
               size={ size }
-              maxLength={ enforceCharacterLimit && characterLimit }
-              onChange={ onChange }
               { ...this.props }
-            />
-            { children }
-          </InputPresentation>
-          {this.characterCount}
+            >
+              <TextareaInput
+                inputRef={ this.inputRefCallback }
+                maxLength={ enforceCharacterLimit && characterLimit }
+                onChange={ onChange }
+                disabled={ disabled }
+                readOnly={ readOnly }
+                placeholder={ placeholder }
+              />
+              { children }
+            </InputPresentation>
+            {this.characterCount}
+          </StyledTextareaWrapper>
         </FormField>
       </TextareaStyle>
     );

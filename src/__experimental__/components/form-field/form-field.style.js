@@ -4,7 +4,6 @@ import { THEMES } from '../../../style/themes';
 
 const FormFieldStyle = styled.div`
   display: flex;
-  flex-direction: column;
   flex-wrap: wrap;
 
   & + & {

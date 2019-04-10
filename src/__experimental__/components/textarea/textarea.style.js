@@ -4,6 +4,7 @@ import FormFieldStyle from '../form-field/form-field.style';
 const StyledTextarea = styled.div`
   ${FormFieldStyle} {
     textarea {
+      background-color: transparent;
       flex: 1;
       padding-top: 12px;
       padding-bottom: 12px;
@@ -13,6 +14,10 @@ const StyledTextarea = styled.div`
     
       &:focus {
         outline: none;
+      }
+
+      &:disabled {
+        cursor: not-allowed;
       }
     }
   }

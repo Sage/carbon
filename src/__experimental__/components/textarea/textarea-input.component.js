@@ -38,7 +38,10 @@ class TextareaInput extends Component {
   };
 
   render() {
-    const { onChange, maxLength } = this.props;
+    const {
+      inputRef,
+      ...props
+    } = this.props;
 
     return (
       <textarea
@@ -46,8 +49,7 @@ class TextareaInput extends Component {
         onFocus={ this.handleFocus }
         onBlur={ this.handleBlur }
         onClick={ this.handleClick }
-        maxLength={ maxLength }
-        onChange={ onChange }
+        { ...props }
       />
     );
   }

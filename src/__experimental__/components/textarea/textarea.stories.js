@@ -1,8 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { boolean, number, text } from '@storybook/addon-knobs';
+import {
+  boolean, number, text, select
+} from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
-import getTextboxStoryProps from '../textbox/textbox.stories';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import Textarea from '.';
 // import { notes, info } from './documentation';
 
@@ -28,31 +30,60 @@ storiesOf('Experimental/Textarea', module)
     }
   }).add(
     'default',
-    () => {
-      const warnOverLimit = boolean('warnOverLimit', Textarea.defaultProps.warnOverLimit);
-      const expandable = boolean('expandable', Textarea.defaultProps.expandable);
-      const characterLimit = text('characterLimit', '10');
-      const enforceCharacterLimit = characterLimit ? boolean(
-        'enforceCharacterLimit',
-        Textarea.defaultProps.enforceCharacterLimit
-      ) : undefined;
-      const cols = number('cols', 0, rangeOptions);
-      const rows = number('rows', 0, rangeOptions);
-
-      return (
-        <State store={ store }>
-          <Textarea
-            warnOverLimit={ warnOverLimit }
-            onChange={ handleChange }
-            characterLimit={ characterLimit }
-            enforceCharacterLimit={ enforceCharacterLimit }
-            expandable={ expandable }
-          />
-        </State>
-      );
-    },
+    () => (
+      <State store={ store }>
+        <Textarea
+          { ...getTextareaStoryProps() }
+        />
+      </State>
+    ),
     // {
     //   info: { text: info },
     //   notes: { markdown: notes }
     // },
   );
+
+function getTextareaStoryProps() {
+  const percentageRange = {
+    range: true,
+    min: 0,
+    max: 100,
+    step: 1
+  };
+  const warnOverLimit = boolean('warnOverLimit', Textarea.defaultProps.warnOverLimit);
+  const expandable = boolean('expandable', Textarea.defaultProps.expandable);
+  const characterLimit = text('characterLimit', '10');
+  const enforceCharacterLimit = characterLimit ? boolean(
+    'enforceCharacterLimit',
+    Textarea.defaultProps.enforceCharacterLimit
+  ) : undefined;
+  const cols = number('cols', 0, rangeOptions);
+  const rows = number('rows', 0, rangeOptions);
+  const disabled = boolean('disabled', false);
+  const readOnly = boolean('readOnly', false);
+  const placeholder = text('placeholder', '');
+  const fieldHelp = text('fieldHelp', '');
+  const label = text('label', '');
+  const labelHelp = label ? text('labelHelp', '') : undefined;
+  const labelInline = label ? boolean('labelInline', false) : undefined;
+  const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
+  const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
+
+  return {
+    warnOverLimit,
+    expandable,
+    characterLimit,
+    enforceCharacterLimit,
+    cols,
+    rows,
+    disabled,
+    readOnly,
+    placeholder,
+    fieldHelp,
+    label,
+    labelHelp,
+    labelInline,
+    labelWidth,
+    labelAlign
+  };
+}
