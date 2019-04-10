@@ -24,11 +24,10 @@ export const slideSelector = () => cy.iFrame(CAROUSEL_SLIDE_SELECTOR);
 export const slideSelectorIndex = (index) => slideSelector().children(`:nth-child(${index + 1})`); // +1 because nodes are indexed from 1
 export const giveTransition = (transition, direction) => {
     let directionString = '';
-    let prefix = '';
+    let prefix = 'carousel-transition-';
     if (transition === 'slide') {
         directionString = direction === 'right' ? '-next' : '-previous';
-    } else {
-        prefix = 'carousel-transition-';
+        prefix = '';
     }
     return cy.iFrame(`.${prefix}${transition}${directionString}-enter-active`);
 };

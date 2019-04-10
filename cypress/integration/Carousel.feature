@@ -52,7 +52,7 @@ Feature: Carousel component
     Then next button is not visible
 
   @positive
-  Scenario Outline: Set transition to "<transition>" when I move "<direction>"
+  Scenario Outline: Set transition to <transition> when I move <direction>
     When I set transition to "<transition>"
       And I click carousel "<direction>" button
    Then transition is set to "<transition>" with "<direction>"
