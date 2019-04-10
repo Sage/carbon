@@ -61,7 +61,7 @@ class Date extends React.Component {
   state = {
     isDatePickerOpen: false,
     selectedDate: null,
-    visibleValue: this.formatVisibleValue(this.props.value)
+    visibleValue: formatVisibleValue(this.props.value)
   };
 
   componentDidMount() {
@@ -74,7 +74,7 @@ class Date extends React.Component {
   componentDidUpdate(prevProps) {
     if (this.isBlurBlocked && this.hasDatePickerValueChanged(prevProps)) {
       this.isBlurBlocked = false;
-      this.handleBlur(); // TODO validate
+      this.handleBlur();
     }
   }
 
@@ -115,15 +115,9 @@ class Date extends React.Component {
   };
 
   openDatePicker = () => {
-    const isValidDate = DateHelper.isValidDate(this.props.value);
-
     this.isBlurBlocked = true;
     document.addEventListener('click', this.closeDatePicker);
-
-    if (isValidDate) {
-      this.updateDatePickerValue(this.props.value);
-    }
-
+    this.updateDatePickerValue(this.state.visibleValue);
     this.setState({ isDatePickerOpen: true });
   };
 
@@ -131,7 +125,7 @@ class Date extends React.Component {
     document.removeEventListener('click', this.closeDatePicker);
     this.setState((prevState) => {
       return {
-        visibleValue: this.formatVisibleValue(prevState.selectedDate),
+        visibleValue: formatVisibleValue(prevState.selectedDate),
         isDatePickerOpen: false
       };
     });
@@ -147,17 +141,9 @@ class Date extends React.Component {
   };
 
   updateVisibleValue = (date) => {
-    const formattedDateString = this.formatVisibleValue(date);
+    const formattedDateString = formatVisibleValue(date);
     this.setState({ visibleValue: formattedDateString });
   };
-
-  formatVisibleValue(value) {
-    // Don't sanitize so it accepts the hidden format (with dash separators)
-    return DateHelper.formatValue(value || today, getVisibleFormat(), {
-      formats: isoDateFormat,
-      sanitize: false
-    });
-  }
 
   handleVisibleInputChange = (ev) => {
     const { disabled, readOnly } = this.props;
@@ -191,7 +177,7 @@ class Date extends React.Component {
   renderDatePicker = (dateRangeProps) => {
     const datePickerProps = {
       inputElement: this.input && this.input.parentElement,
-      selectedDate: this.state.selectedDate || convertToIsoDate(this.state.visibleValue),
+      selectedDate: this.state.selectedDate,
       handleDateSelect: this.handleDateSelect,
       ...dateRangeProps
     };
@@ -228,6 +214,14 @@ class Date extends React.Component {
       </StyledDateInput>
     );
   }
+}
+
+function formatVisibleValue(value) {
+  // Don't sanitize so it accepts the hidden format (with dash separators)
+  return DateHelper.formatValue(value || today, getVisibleFormat(), {
+    formats: isoDateFormat,
+    sanitize: false
+  });
 }
 
 function getVisibleFormat() {
