@@ -15,7 +15,7 @@ export default ({ disabled, hasFocus, theme }) => theme.name === THEMES.classic 
 
   ${hasFocus && css`
     && {
-      border: 1px solid ${theme.colors.baseBlue};
+      border: 1px solid #255BC7;
       outline: none;
     }
   `}

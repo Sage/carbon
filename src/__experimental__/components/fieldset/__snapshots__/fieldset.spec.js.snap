@@ -6,11 +6,10 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
     Object {
       "colors": Object {
         "base": "#00A376",
-        "baseBlue": "#255BC7",
         "border": "#668491",
         "brand": "#00DC00",
         "error": "#C7384F",
-        "focus": "#FFB500",
+        "focus": "#FFDA7F",
         "greyDarkBlue50": "#8099a4",
         "info": "#0073C2",
         "primary": "#00805D",
@@ -24,6 +23,7 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
         "border": "#4d7080",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
+        "text": "#003349",
       },
       "name": "classic",
       "shadows": Object {
@@ -78,11 +78,10 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
       Object {
         "colors": Object {
           "base": "#00A376",
-          "baseBlue": "#255BC7",
           "border": "#668491",
           "brand": "#00DC00",
           "error": "#C7384F",
-          "focus": "#FFB500",
+          "focus": "#FFDA7F",
           "greyDarkBlue50": "#8099a4",
           "info": "#0073C2",
           "primary": "#00805D",
@@ -96,6 +95,7 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
           "border": "#4d7080",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
+          "text": "#003349",
         },
         "name": "classic",
         "shadows": Object {
