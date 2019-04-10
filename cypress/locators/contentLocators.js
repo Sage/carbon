@@ -6,7 +6,6 @@ export const inlineCheckbox = () => cy.get(INLINE);
 export const bodyFullWidthCheckbox = () => cy.get(BODY_FULL_WIDTH);
 export const titleWidth = () => cy.get(TITLE_WIDTH);
 
-
 // component preview locators
 const CONTENT_PREVIEW = '.carbon-content';
 const CONTENT_TITLE = '.carbon-content__title';

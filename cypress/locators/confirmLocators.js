@@ -25,9 +25,8 @@ export const confirmLabel = () => cy.get(CONFIRM_LABEL);
 export const cancelLabel = () => cy.get(CANCEL_LABEL);
 
 // component preview locators
-
 const DIALOG_INNER_CONTENT = '.carbon-dialog__inner-content';
-const DIALOG_TITLE = '.carbon-dialog-title';
+const DIALOG_TITLE = '#carbon-dialog-title';
 const BACKGROUND_UI_LOCATOR = '.carbon-modal__background modal-background-enter';
 const DIALOG = '.carbon-dialog__dialog';
 const CLOSE_ICON_BUTTON = '.icon-close';

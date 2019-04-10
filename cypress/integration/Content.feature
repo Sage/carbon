@@ -5,47 +5,72 @@ Feature: Content component
     Given I open "Content" component page
 
   @positive
-  Scenario Outline: Change data in Content dialog
+  Scenario Outline: Change children in Content dialog
     When I set children to "<children>"
-      And I set title to "<title>"
-      And I set as property to "<property>"
-      And I set align property to "<alignProperty>"
-    Then Content children on preview is "<children>"
-      And Content title context children on preview is "<title>"
-      And Content as property is set to "<property>"
-      And Content align property is set to "<alignProperty>"
+    Then content children on preview is "<children>"
     Examples:
-      | children                 | alignProperty             | property    	| title                    |
-      | Example subtext          | right                     | primary      | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 1!@#$%^*()_+-=~[];:.,?{} | center                    | secondary    | <>                       |
-      | 汉字                      | left                      | primary      | 汉字                     |
-      | <>                       | right                     | secondary    | Example title            |
-      | 0                        | center                    | primary      | null                     |
+      | children                 |
+      | Example subtext          |
+      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | 汉字                      |
+      | <>                       |
+      | 0                        |
+
+  @positive
+  Scenario Outline: Change title in Content dialog
+    When I set title to "<title>"
+    Then content title context children on preview is "<title>"
+    Examples:
+      | title                    |
+      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | <>                       |
+      | 汉字                      |
+      | Example title            |
+      | null                     |
+
+  @positive
+  Scenario Outline: Change property in Content dialog
+    When I set as property to "<property>"
+    Then content as property is set to "<property>"
+    Examples:
+      | property   |
+      | primary    |
+      | secondary  |
+
+  @positive
+  Scenario Outline: Change alignProperty in Content dialog
+    When I set align property to "<alignProperty>"
+    Then content align property is set to "<alignProperty>"
+    Examples:
+      | alignProperty |
+      | right         |
+      | center        |
+      | left          |
+
 
   @positive
   Scenario: BodyFullWidth enabled
     When I check bodyFullWidth checkbox
-    Then Content preview has bodyFullWidth parameter enabled
+    Then content preview has bodyFullWidth parameter enabled
 
-  @negative
+  @positive
   Scenario: BodyFullWidth disabled
     When I uncheck bodyFullWidth checkbox
-    Then Content preview has no bodyFullWidth parameter
+    Then content preview has no bodyFullWidth parameter
 
   @positive
   Scenario Outline: Inline enabled and change title width
     When I check inline checkbox
       And I set titleWidth parameter to "<width>"
-    Then Content preview has inline parameter enabled
-      And Content preview height is "<width>"
+    Then content preview has inline parameter enabled
+      And content preview width is "<width>"
     Examples:
       | width  |
       | 0      |
       | 100    |
-      | -10    |
       | 15     |
 
-  @negative
+  @positive
   Scenario: Inline disabled
     When I uncheck inline checkbox
-    Then Content preview has no inline parameter
+    Then content preview has no inline parameter

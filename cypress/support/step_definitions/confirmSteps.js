@@ -1,11 +1,11 @@
 import { visitComponentUrl } from '../helper';
 import {
   asSelect, sizeSelect, subtextInput, titleInput,
-  heightInput, labelInput, dialogTitle,
+  heightInput, labelInput,
 } from '../../locators/commonLocators';
 import {
-  openButton, dialogInnerContent, cancelLabel, confirmLabel, backgroundUICheckbox, backGroundUILocator,
-  disableEscKeyCheckbox, dialogPreview, showCloseIconCheckbox, closeIconButton, dialogSubtitle, stickyFormFooterCheckbox, childrenTextArea, dialogInnerContentTextArea, dialogInnerContentCancelButton, dialogInnerContentConfirmButton,
+  openButton, dialogInnerContent, dialogTitle, cancelLabel, confirmLabel, backgroundUICheckbox, backGroundUILocator,
+  disableEscKeyCheckbox, dialogPreview, showCloseIconCheckbox, closeIconButton, dialogSubtitle, stickyFormFooterCheckbox, childrenTextArea,
 } from '../../locators/confirmLocators';
 
 const CARBON_DIALOG_PREFIX = 'carbon-dialog__dialog--';
@@ -39,9 +39,9 @@ When('I set title to {string}', (title) => {
   titleInput().clear().type(title);
 });
 
-Then('component title on preview is {string}', (title) => {
-  dialogTitle().should('have.text', title);
-});
+// Then('component title on preview is {string}', (title) => {
+//   dialogTitle().should('have.text', title);
+// });
 
 Then('component subtitle on preview is {string}', (subtitle) => {
   dialogSubtitle().should('have.text', subtitle);
