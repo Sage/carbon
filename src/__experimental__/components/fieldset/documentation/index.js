@@ -1,3 +1,1 @@
-import notes from './notes.md';
-
-export default notes;
+export { default } from './notes.md';

@@ -15,7 +15,7 @@ const Fieldset = (props) => {
     );
   };
 
-  const { className, ...safeProps } = validProps({
+  const { ...safeProps } = validProps({
     propTypes: Fieldset.propTypes,
     props
   });
