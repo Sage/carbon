@@ -15,9 +15,10 @@ const StyledSplitButtonChildrenContainer = styled.div`
     color: ${colors.white};
     margin-left: 0;
     margin-top: 3px;
+    padding-bottom: 5px;
+    padding-top: 5px;
     min-width: 100%;
     z-index: 10;
-    text-align: left;
   }
 
   ${({ displayButtons }) => (!displayButtons ? 'display: none' : undefined)}
@@ -41,19 +42,24 @@ function styleChildrenContainer({ theme }) {
 function applyStylingToChildButtons({ theme }) {
   if (theme.name === 'classic') {
     return css`
+      display: block;
       background-color: ${colors.classic.secondary};
       border: 1px solid ${colors.classic.secondary};
-      &:hover {
+      text-align: left;
+      &:focus {
         background-color: ${colors.classic.tertiary};
       }
-      & span {
-        text-align: left;
+      &:hover {
+        background-color: ${colors.classic.tertiary};
       }
     `;
   }
   return css`
     background-color: ${theme.colors.secondary};
     border: 1px solid ${theme.colors.secondary};
+    &:focus {
+      background-color: ${theme.colors.tertiary};
+    }
     &:hover {
       background-color: ${theme.colors.tertiary};
     }

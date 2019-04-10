@@ -13,8 +13,12 @@ const StyledSplitButtonContainer = styled.div`
   }
 `;
 // Need to size the main button
+
+export const StyledMainButton = styled(StyledButton)`
+`;
+
 export const StyledToggleButton = styled(StyledButton)`
-  ${styleSplitButton}
+  ${styleToggleButton}
 
   && {
     margin-left: 0;
@@ -26,7 +30,7 @@ export const StyledToggleButton = styled(StyledButton)`
   }
 `;
 
-function styleSplitButton(props) {
+function styleToggleButton(props) {
   return props.theme.name === 'classic' ? applyClassicStyling(props) : applyModernStyling(props);
 }
 
@@ -107,8 +111,6 @@ StyledSplitButtonContainer.defaultProps = {
 StyledSplitButtonContainer.propTypes = {
   /** Color variants for new business themes */
   renderAs: PropTypes.oneOf([OptionsHelper.themesBinary[0], OptionsHelper.themesBinary[1]]),
-  /** The text the button displays */
-  // children: PropTypes.node.isRequired,
   /** Apply disabled state to the button */
   disabled: PropTypes.bool,
   /** Used to transfrom button into anchor */

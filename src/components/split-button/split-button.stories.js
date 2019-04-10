@@ -1,8 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import {
-  text, boolean, select, action
+  text, boolean, select
 } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import SplitButton from './split-button.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Button from '../button';
@@ -40,6 +41,7 @@ storiesOf('Split Button', module)
         dataElement,
         dataRole,
         disabled,
+        onClick,
         textContent
       } = props;
       return (
@@ -48,6 +50,7 @@ storiesOf('Split Button', module)
           data-element={ dataElement }
           data-role={ dataRole }
           disabled={ disabled }
+          onClick={ onClick }
           text={ textContent }
         >
           <Button

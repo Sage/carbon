@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withTheme } from 'styled-components';
 import Icon from '../icon/icon';
 import Button from '../button';
 import StyledSplitButtonContainer, { StyledToggleButton } from './split-button.style';
@@ -50,7 +51,12 @@ class SplitButton extends React.Component {
     /**
      * The text to be displayed in the SplitButton.
      */
-    text: PropTypes.string.isRequired
+    text: PropTypes.string.isRequired,
+
+    /**
+     * The busineess theme passed to the component from the theme provider
+     */
+    theme: PropTypes.object
   }
 
   static defaultProps = {
@@ -73,8 +79,10 @@ class SplitButton extends React.Component {
      * Tracks whether the additional buttons should be visible.
      */
     showAdditionalButtons: false,
-    selectedIndex: -1, // defaults to nothing being highlighted
-    isClassic: null
+    /**
+     * Tracks the selected additional button, defaults to nothing being highlighted
+     */
+    selectedIndex: -1
   }
 
   /**
@@ -139,7 +147,7 @@ class SplitButton extends React.Component {
   get mainButtonProps() {
     const { ...props } = validProps(this);
     props.onMouseEnter = this.hideButtons;
-    props.onFocus = this.showButtons;
+    // props.onFocus = theme.name === 'classic' ? undefined : this.showButtons;
     return props;
   }
 
@@ -180,14 +188,6 @@ class SplitButton extends React.Component {
     this[identifier][index] = ref;
   }
 
-  handleTheme = (theme) => {
-    console.log(this.state.isClassic);
-    if (this.state.isClassic) return null;
-    // this.setState({ isClassic: theme.NAME === 'classic' });
-
-    return null;
-  }
-
   /**
    * Returns the HTML for the main button.
    */
@@ -198,7 +198,6 @@ class SplitButton extends React.Component {
           { ...this.mainButtonProps }
           data-element='main-button'
           ref={ main => this.addRef('splitButtons', main, 0) }
-          checkTheme={ this.handleTheme }
         >
           { this.props.text}
         </Button>
@@ -219,16 +218,17 @@ class SplitButton extends React.Component {
   }
 
   addChildProps() {
-    const { children } = this.props;
-    let childArray = children;
-    if (!Array.isArray(children)) childArray = [children];
+    const { children, theme } = this.props;
+    const childArray = Array.isArray(children) ? children : [children];
 
     return childArray.map((child, index) => {
-      return React.cloneElement(child,
-        {
-          key: index.toString(),
-          ref: button => this.addRef('additionalButtons', button, index)
-        });
+      const props = {
+        key: index.toString(),
+        ref: button => this.addRef('additionalButtons', button, index)
+      };
+      if (theme.name === 'classic') props.size = 'medium';
+
+      return React.cloneElement(child, props);
     });
   }
 
@@ -260,4 +260,4 @@ class SplitButton extends React.Component {
   }
 }
 
-export default SplitButton;
+export default withTheme(SplitButton);

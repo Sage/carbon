@@ -3,10 +3,10 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from '../icon';
 import Button from '../button';
-import SplitButton from '../split-button';
+// import SplitButton from '../split-button';
 import './multi-action-button.scss';
 
-class MultiActionButton extends SplitButton {
+class MultiActionButton extends React.Component {
   static propTypes = {
     /**
      * Customizes the appearance, can be set to 'primary', 'secondary' or 'transparent'.

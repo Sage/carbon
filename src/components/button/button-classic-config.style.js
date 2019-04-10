@@ -60,7 +60,7 @@ export default {
       }
     `,
     magenta: `
-      background: ${magenta.hover};
+      background: ${magenta.default};
       border: 1px solid transparent;
       color: ${white.default};
       &:hover {
