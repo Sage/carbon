@@ -249,30 +249,28 @@ class Textarea extends React.Component {
     } = this.props;
 
     return (
-      <TextareaStyle>
-        <FormField label={ label } { ...this.props }>
-          <StyledTextareaWrapper>
-            <InputPresentation
-              type='text'
-              size={ size }
-              { ...this.props }
-            >
-              <TextareaInput
-                inputRef={ this.inputRefCallback }
-                maxLength={ enforceCharacterLimit && characterLimit ? characterLimit : undefined }
-                onChange={ onChange }
-                disabled={ disabled }
-                readOnly={ readOnly }
-                placeholder={ placeholder }
-                rows={ rows }
-                cols={ cols }
-              />
-              { children }
-            </InputPresentation>
-            {this.characterCount}
-          </StyledTextareaWrapper>
-        </FormField>
-      </TextareaStyle>
+      <FormField label={ label } { ...this.props }>
+        <StyledTextareaWrapper>
+          <InputPresentation
+            type='text'
+            size={ size }
+            { ...this.props }
+          >
+            <TextareaInput
+              inputRef={ this.inputRefCallback }
+              maxLength={ enforceCharacterLimit && characterLimit ? characterLimit : undefined }
+              onChange={ onChange }
+              disabled={ disabled }
+              readOnly={ readOnly }
+              placeholder={ placeholder }
+              rows={ rows }
+              cols={ cols }
+            />
+            { children }
+          </InputPresentation>
+          {this.characterCount}
+        </StyledTextareaWrapper>
+      </FormField>
     );
   }
 }

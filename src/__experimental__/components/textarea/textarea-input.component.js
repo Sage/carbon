@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { InputPresentationContext } from '../input/input-presentation.component';
+import StyledTextarea from './textarea.style';
 
 class TextareaInput extends Component {
   static propTypes = {
@@ -44,7 +45,7 @@ class TextareaInput extends Component {
     } = this.props;
 
     return (
-      <textarea
+      <StyledTextarea
         ref={ this.input }
         onFocus={ this.handleFocus }
         onBlur={ this.handleBlur }
