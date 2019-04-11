@@ -1,7 +1,7 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
-import SplitButton from './split-button.component';
+import { shallow, mount } from 'enzyme';
+import SplitButtonWithTheme, { SplitButton } from './split-button.component';
 import Icon from '../icon';
 import Button from '../button';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
@@ -9,7 +9,14 @@ import StyledSplitButton from './split-button.style';
 import StyledSplitButtonChildren from './split-button-children.style';
 import BaseTheme from '../../style/themes/base';
 import classicTheme from '../../style/themes/classic';
-import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import {
+  assertStyleMatch,
+  keyboard,
+  assertKeyboardTraversal,
+  assertHoverTraversal,
+  click
+} from '../../__spec_helper__/test-utils';
+import 'jest-styled-components';
 
 const render = (mainProps, childProps, renderer = shallow) => {
   const { children } = childProps;
@@ -31,6 +38,22 @@ describe('SplitButton', () => {
   const handleMainButton = jasmine.createSpy('main');
   const handleSecondButton = jasmine.createSpy('second');
 
+  // beforeEach(() => {
+  //   wrapper = render(
+  //     {
+  //       text: 'mainButton',
+  //       onClick: handleMainButton
+  //     },
+  //     {
+  //       onClick: handleSecondButton,
+  //       children: 'Second Button'
+  //     }
+  //   );
+  //   splitButton = wrapper.find('SplitButton');
+  //   toggle = splitButton.find('[data-element="open"]').hostNodes();
+  // });
+
+
   beforeEach(() => {
     wrapper = render(
       {
@@ -47,7 +70,7 @@ describe('SplitButton', () => {
 
   describe('render with custom className', () => {
     it('sets default state', () => {
-      expect(wrapper.state().showAdditionalButtons).toEqual(false);
+      expect(wrapper.instance().state.showAdditionalButtons).toEqual(false);
     });
 
     it('renders dropdown icon', () => {
@@ -73,7 +96,7 @@ describe('SplitButton', () => {
       expect(wrapper.state().showAdditionalButtons).toEqual(true);
     });
 
-    it('renders more buttons to match snapshot', () => {
+    it('renders additional buttons to match snapshot', () => {
       toggle.simulate('mouseenter');
       expect(wrapper).toMatchSnapshot();
     });
@@ -95,6 +118,7 @@ describe('SplitButton', () => {
       mainButton = wrapper2.find('[data-element="main-button"]');
       toggle2 = wrapper2.find('[data-element="open"]');
     });
+
     it('changes showAdditionalButtons state', () => {
       toggle2.simulate('mouseenter');
       expect(wrapper2.state().showAdditionalButtons).toEqual(true);
@@ -116,13 +140,81 @@ describe('SplitButton', () => {
     });
   });
 
-  describe('click button', () => {
-    it('the handler should be called', () => {
+  describe('clicking a button', () => {
+    it('the handler should be called on the main button', () => {
       toggle.simulate('mouseenter');
       wrapper.instance().forceUpdate();
       const button = wrapper.find('[data-element="additional-buttons"]').find(Button);
       button.simulate('click');
       expect(handleSecondButton).toHaveBeenCalled();
+    });
+  });
+
+  describe('keyboard accessibility of additional buttons', () => {
+    // assert index state
+    // assert style
+    describe('pressing the "up" key', () => {
+      it('increments the selected index state', () => {
+
+      });
+
+      it('matches the expected style for the button indexed', () => {
+
+      });
+    });
+
+    describe('pressing the "down" key', () => {
+      beforeEach(() => {
+        wrapper = mount(
+          <SplitButton
+            text='mainButton'
+            data-element='bar'
+            data-role='baz'
+          >
+            <Button>
+              Extra Button
+            </Button>
+            <Button>
+              Extra Button
+            </Button>
+            <Button>
+              Extra Button
+            </Button>
+          </SplitButton>
+        );
+        // wrapper = render({ text: 'mainButton' }, { children: 'Second Button' });
+        toggle = wrapper.find('[data-element="open"]').hostNodes();
+      });
+
+      fit('decrements the selected index state', () => {
+        // console.log('refs : ', wrapper.instance().splitButtons);
+        toggle.prop('onFocus')();
+        wrapper.props().children.forEach((_, index) => {
+          keyboard.pressDownArrow();
+          expect(wrapper.instance().state.selectedIndex).toEqual(index);
+        });
+      });
+
+      it('matches the expected style for the button indexed', () => {
+
+      });
+    });
+  });
+
+  describe('button refs', () => {
+    // assert main buttons have refs
+    // assert additional buttons have refs
+    beforeEach(() => {
+      wrapper = render({ text: 'mainButton' }, { children: 'Second Button' }, mount);
+    });
+
+    it('creates and stores refs for the main and toggle buttons', () => {
+      expect(wrapper.instance().splitButtons.length).toEqual(2);
+      expect(wrapper.instance().splitButtons[0]).not.toEqual(wrapper.instance().splitButtons[1]);
+    });
+
+    it('creates and stores refs for the any additonal buttons', () => {
+
     });
   });
 

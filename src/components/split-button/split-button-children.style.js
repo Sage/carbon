@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import BaseTheme from '../../style/themes/base';
 import StyledButton from '../button/button.style';
 import colors from './split-button-colors.style';
 // import OptionsHelper from '../../utils/helpers/options-helper';
@@ -14,11 +15,14 @@ const StyledSplitButtonChildrenContainer = styled.div`
     ${applyStylingToChildButtons}
     color: ${colors.white};
     margin-left: 0;
-    margin-top: 3px;
+    margin-bottom: 3px;
     padding-bottom: 5px;
     padding-top: 5px;
     min-width: 100%;
     z-index: 10;
+    & + & {
+      margin-top: 3px;
+    }
   }
 
   ${({ displayButtons }) => (!displayButtons ? 'display: none' : undefined)}
@@ -35,6 +39,7 @@ function styleChildrenContainer({ theme }) {
   return `
     background-color: ${theme.colors.secondary};
     min-width: 75%;
+    padding-top: 2px;
     width: 75%;
   `;
 }
@@ -71,7 +76,8 @@ StyledSplitButtonChildrenContainer.propTypes = {
 };
 
 StyledSplitButtonChildrenContainer.defaultProps = {
-  displayButtons: false
+  displayButtons: false,
+  theme: BaseTheme
 };
 
 export default StyledSplitButtonChildrenContainer;

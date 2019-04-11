@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SplitButton mouse enter dropdown toggle renders more buttons to match snapshot 1`] = `
+exports[`SplitButton mouse enter dropdown toggle renders additional buttons to match snapshot 1`] = `
 <styled.div
   data-component="split-button"
   data-element="bar"
@@ -53,13 +53,12 @@ exports[`SplitButton mouse enter dropdown toggle renders more buttons to match s
   variant="blue"
 >
   <div>
-    <Button
+    <ForwardRef
       as="secondary"
       data-element="main-button"
       disabled={false}
       iconPosition=""
       iconType=""
-      onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
       onMouseEnter={[Function]}
@@ -68,13 +67,12 @@ exports[`SplitButton mouse enter dropdown toggle renders more buttons to match s
       theme="blue"
     >
       mainButton
-    </Button>
+    </ForwardRef>
     <Styled(styled.button)
       data-element="open"
       disabled={false}
       displayed={true}
       medium={true}
-      onBlur={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
       onMouseEnter={[Function]}
@@ -134,9 +132,8 @@ exports[`SplitButton mouse enter dropdown toggle renders more buttons to match s
     data-element="additional-buttons"
     displayButtons={true}
   >
-    <Button
+    <ForwardRef
       as="secondary"
-      className=""
       disabled={false}
       iconPosition=""
       iconType=""
@@ -147,7 +144,7 @@ exports[`SplitButton mouse enter dropdown toggle renders more buttons to match s
       theme="blue"
     >
       Second Button
-    </Button>
+    </ForwardRef>
   </styled.div>
 </styled.div>
 `;
