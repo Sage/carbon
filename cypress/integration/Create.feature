@@ -12,8 +12,7 @@ Feature: Create component
       And create className on preview is "<className>"
     Examples:
       | children                 | className                |
-      | Example subtext          | 汉字                      |
-      | 1!@#$%^*()_+-=~[];:.,?{} | Кирилиця                 |
-      | 汉字                      | <>                       |
-      | <>                       | right                    |
-      | 0                        | 1!@#$%^*()_+-=~[];:.,?{} |
+      | áéíóú¿¡üñ                | ÄÖÜßäöü                  |
+      | 1!@#$%^*()_+-=~[];:.,?{} | <>                       |
+      | ÄÖÜßäöüß                 | áéíóú¿¡üñ                |
+      | <>                       | 1!@#$%^*()_+-=~[];:.,?{} |

@@ -13,11 +13,10 @@ Feature: Confirm component
     Then dialog inner context children on preview is "<children><cancelButton><confirmButton>"
     Examples:
       | children                 | cancelButton             | confirmButton            |
-      | Example subtext          | No                       | Yes                      |
-      | 1!@#$%^*()_+-=~[];:.,?{} | <>                       | Так                      |
-      | 汉字                      | Ні                       | 1!@#$%^*()_+-=~[];:.,?{} |
-      | <>                       | 1!@#$%^*()_+-=~[];:.,?{} | 汉字                      |
-      | 0                        | 汉字                      | null                     |
+      | áéíóú¿¡üñ                | ÄÖÜßäöü                  | <>                       |
+      | 1!@#$%^*()_+-=~[];:.,?{} | <>                       | ÄÖÜßäöü                  |
+      | ÄÖÜßäöüß                 | áéíóú¿¡üñ                | 1!@#$%^*()_+-=~[];:.,?{} |
+      | <>                       | 1!@#$%^*()_+-=~[];:.,?{} | áéíóú¿¡üñ                |
 
   @positive
   Scenario Outline: Change title in Confirm dialog
@@ -28,9 +27,8 @@ Feature: Confirm component
       | title                    |
       | <>                       |
       | !@#$%^*()_+-=~[];:.,?{}  |
-      | 汉字                      |
-      | Example title            |
-      | null                     |
+      | áéíóú¿¡üñ                |
+      | ÄÖÜßäöü                  |
 
   @positive
   Scenario Outline: Change subtitle in Confirm dialog
@@ -38,12 +36,11 @@ Feature: Confirm component
       And I click on a openButton
     Then dialog subtitle context is "<subtitle>"
     Examples:
-      | subtitle                  |
-      | null                      |
-      | 汉字                       |
-      | \'                        |
-      | Example subtitle          |
-      | 000                       |
+      | subtitle                 |
+      | <>                       |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | áéíóú¿¡üñ                |
+      | ÄÖÜßäöü                  |
 
   @positive
   Scenario Outline: Change the height of Confirm dialog
