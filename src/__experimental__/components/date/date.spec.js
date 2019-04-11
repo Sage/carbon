@@ -9,7 +9,7 @@ describe('Date', () => {
   let wrapper;
 
   describe('when the Component is rendered', () => {
-    it("then the Textbox component should be rendered as it's descendant", () => {
+    it("should have the Textbox component rendered as it's descendant", () => {
       wrapper = render({});
       expect(wrapper.find(Textbox).exists()).toBe(true);
     });
@@ -178,7 +178,7 @@ describe('Date', () => {
         .handleDateSelect(mockDate);
     });
 
-    it('then the DatePicker component should be removed', () => {
+    it('should not contain the DatePicker component', () => {
       expect(
         wrapper
           .update()
@@ -187,7 +187,7 @@ describe('Date', () => {
       ).toBe(false);
     });
 
-    it('then the input element should be updated to reflect the passed date', () => {
+    it('should update the input element to reflect the passed date', () => {
       expect(wrapper.update().find('input').prop('value')).toBe(getFormattedDate(mockDate));
     });
   });

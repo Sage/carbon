@@ -2,7 +2,7 @@ import moment from 'moment';
 import MockDate from 'mockdate';
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { mount, shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import DayPicker from 'react-day-picker';
 import Portal from '../../../components/portal/portal';
 import DatePicker from './date-picker.component';
@@ -19,7 +19,7 @@ describe('DatePicker', () => {
 
   describe('when rendered with an "inputElement" prop', () => {
     beforeEach(() => {
-      wrapper = render({ selectedDate: currentDate, inputElement }, mount);
+      wrapper = render({ selectedDate: currentDate, inputElement });
     });
 
     it('should render a "Portal" component', () => {
@@ -33,7 +33,7 @@ describe('DatePicker', () => {
 
   describe('when rendered with "minDate" prop', () => {
     beforeEach(() => {
-      wrapper = render({ inputElement, minDate: firstDate }, mount);
+      wrapper = render({ inputElement, minDate: firstDate });
     });
 
     it(`should pass to the "DayPicker" component the "disabledDays" 
@@ -45,7 +45,7 @@ describe('DatePicker', () => {
 
   describe('when rendered with "maxDate" prop', () => {
     beforeEach(() => {
-      wrapper = render({ inputElement, maxDate: secondDate }, mount);
+      wrapper = render({ inputElement, maxDate: secondDate });
     });
 
     it(`should pass to the "DayPicker" component the "disabledDays" 
@@ -57,7 +57,7 @@ describe('DatePicker', () => {
 
   describe('when rendered with both "minDate" and "maxDate" props', () => {
     beforeEach(() => {
-      wrapper = render({ inputElement, minDate: firstDate, maxDate: secondDate }, mount);
+      wrapper = render({ inputElement, minDate: firstDate, maxDate: secondDate });
     });
 
     it(`should pass to the "DayPicker" component the "disabledDays" 
@@ -72,7 +72,7 @@ describe('DatePicker', () => {
 
     beforeEach(() => {
       handleDateSelectFn = jest.fn();
-      wrapper = render({ selectedDate: currentDate, inputElement, handleDateSelect: handleDateSelectFn }, mount);
+      wrapper = render({ selectedDate: currentDate, inputElement, handleDateSelect: handleDateSelectFn });
     });
 
     describe('without a disabled modifier', () => {
@@ -95,7 +95,7 @@ describe('DatePicker', () => {
     const selectedDate = moment(firstDate).toDate();
 
     beforeEach(() => {
-      wrapper = render({ inputElement }, mount);
+      wrapper = render({ inputElement });
     });
 
     it('then "showMonth" method on the "DayPicker" should have been called with the same date', () => {
@@ -130,7 +130,7 @@ describe('StyledDayPicker', () => {
   });
 });
 
-function render(props, renderer = shallow) {
+function render(props, renderer = mount) {
   return renderer(<DatePicker { ...props } />);
 }
 

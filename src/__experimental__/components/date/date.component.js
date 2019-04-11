@@ -13,23 +13,6 @@ const isoDateFormat = 'YYYY-MM-DD';
 const defaultDateFormat = 'DD/MM/YYYY';
 const today = DateHelper.todayFormatted(isoDateFormat);
 
-/**
- * A Date widget.
- *
- * == How to use a Date in a component:
- *
- * In your file
- *
- *   import Date from 'carbon-react/lib/components/Date';
- *
- * To render the Date:
- *
- *   <Date name="myDate" />
- *
- * @class Date
- * @constructor
- * @decorators {Input,InputIcon,InputLabel,InputValidation}
- */
 class Date extends React.Component {
   static propTypes = {
     ...Textbox.propTypes,
@@ -141,8 +124,8 @@ class Date extends React.Component {
   };
 
   updateVisibleValue = (date) => {
-    const formattedDateString = formatVisibleValue(date);
-    this.setState({ visibleValue: formattedDateString });
+    const visibleValue = formatVisibleValue(date);
+    this.setState({ visibleValue });
   };
 
   handleVisibleInputChange = (ev) => {
