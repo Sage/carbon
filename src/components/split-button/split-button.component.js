@@ -74,11 +74,7 @@ export class SplitButton extends React.Component {
     /**
      * Tracks whether the additional buttons should be visible.
      */
-    showAdditionalButtons: false,
-    /**
-     * Tracks the selected additional button, defaults to nothing being highlighted
-     */
-    selectedIndex: -1
+    showAdditionalButtons: false
   }
 
   /**
@@ -86,7 +82,6 @@ export class SplitButton extends React.Component {
    */
   showButtons = () => {
     this.setState({ showAdditionalButtons: true });
-    // this.additionalButtons[0] = document.activeElement;
     if (!this.listening) {
       document.addEventListener('keydown', this.handleKeyDown);
       this.listening = true;
@@ -97,50 +92,43 @@ export class SplitButton extends React.Component {
    * Hides additional buttons.
    */
   hideButtons = () => {
-    this.setState({ showAdditionalButtons: false, selectedIndex: -1 });
+    this.setState({ showAdditionalButtons: false });
     if (this.listening) {
       document.removeEventListener('keydown', this.handleKeyDown);
       this.listening = false;
     }
   }
 
-  scrollToNextButton() {
-    const { selectedIndex } = this.state;
-    this.additionalButtons[selectedIndex].focus();
+  activeIndex(el) {
+    return el === document.activeElement;
+  }
+
+  scrollToNextButton(index) {
+    this.additionalButtons[index].focus();
   }
 
   handleUpPress(index, length) {
-    if (index > 0) {
-      this.setState(prevState => ({ selectedIndex: prevState.selectedIndex - 1 }));
-    } else {
-      this.setState({ selectedIndex: length - 1 });
-    }
+    const decrementedIndex = index > 0 ? index - 1 : length - 1;
 
-    this.scrollToNextButton();
+    this.scrollToNextButton(decrementedIndex);
   }
 
   handleDownPress(index, length) {
-    if (index < length - 1) {
-      this.setState(prevState => ({
-        selectedIndex: prevState.selectedIndex + 1
-      }));
-    } else {
-      this.setState({ selectedIndex: 0 });
-    }
-    this.scrollToNextButton();
+    const incrementedIndex = index < length - 1 ? index + 1 : 0;
+
+    this.scrollToNextButton(incrementedIndex);
   }
 
   handleKeyDown = (ev) => {
-    const { selectedIndex } = this.state;
     const { children } = this.props;
     if (Events.isUpKey(ev)) {
       ev.preventDefault();
       this.splitButtons.forEach(btn => btn.blur());
-      this.handleUpPress(selectedIndex, children.length);
+      this.handleUpPress(this.additionalButtons.findIndex(this.activeIndex), children.length);
     } else if (Events.isDownKey(ev)) {
       ev.preventDefault();
       this.splitButtons.forEach(btn => btn.blur());
-      this.handleDownPress(selectedIndex, children.length);
+      this.handleDownPress(this.additionalButtons.findIndex(this.activeIndex), children.length);
     }
   }
 
