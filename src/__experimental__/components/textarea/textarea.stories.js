@@ -6,7 +6,7 @@ import {
 import { State, Store } from '@sambego/storybook-state';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Textarea from '.';
-// import { notes, info } from './documentation';
+import { notes, info } from './documentation';
 
 const store = new Store({
   value: ''
@@ -38,10 +38,10 @@ storiesOf('Experimental/Textarea', module)
         />
       </State>
     ),
-    // {
-    //   info: { text: info },
-    //   notes: { markdown: notes }
-    // },
+    {
+      info: { text: info },
+      notes: { markdown: notes }
+    },
   );
 
 function getTextareaStoryProps() {
