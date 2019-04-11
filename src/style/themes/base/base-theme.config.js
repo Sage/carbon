@@ -32,20 +32,6 @@ export default (palette) => {
       size: '14px'
     },
 
-    field: {
-      text: {
-        size: {
-          primary: '14px',
-          secondary: '16px'
-        }
-      },
-      padding: {
-        primary: '9px 1px',
-        secondary: '9px 4px',
-        tertiary: '9px 6px'
-      }
-    },
-
     disabled: {
       border: palette.slateTint(80),
       disabled: blackWithOpacity(0.55),
