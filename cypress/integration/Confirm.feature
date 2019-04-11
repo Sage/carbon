@@ -14,10 +14,10 @@ Feature: Confirm component
     Examples:
       | children                 | cancelButton             | confirmButton            |
       | Example subtext          | No                       | Yes                      |
-      | 1!@#$%^*()_+-=~[];:.,?{} | <>                       | Tak                      |
-      | 汉字                      | Nie                      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | 1!@#$%^*()_+-=~[];:.,?{} | <>                       | Так                      |
+      | 汉字                      | Ні                       | 1!@#$%^*()_+-=~[];:.,?{} |
       | <>                       | 1!@#$%^*()_+-=~[];:.,?{} | 汉字                      |
-      | 0                        | cancelButton             | null                     |
+      | 0                        | 汉字                      | null                     |
 
   @positive
   Scenario Outline: Change title in Confirm dialog
