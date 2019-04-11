@@ -66,6 +66,8 @@ class ComponentPreview extends React.Component {
       components.push(component);
     }
 
+    console.log(classic);
+
     ReactDOM.render(
       <ThemeProvider theme={ classic }><div>{ components }</div></ThemeProvider>,
       this.refs.demo

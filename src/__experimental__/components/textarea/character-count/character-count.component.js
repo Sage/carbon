@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyledCharacterCount from './character-count.style';
 
-const CharacterCount = ({ value, limit }) => {
+const CharacterCount = ({ value, limit, ...props }) => {
   return (
-    <StyledCharacterCount>
+    <StyledCharacterCount { ...props }>
       {value}/{limit}
     </StyledCharacterCount>
   );

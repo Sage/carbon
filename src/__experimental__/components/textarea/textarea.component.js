@@ -213,9 +213,16 @@ class Textarea extends React.Component {
    */
   get characterCount() {
     const value = this.props.value || '';
+    const { characterLimit, warnOverLimit } = this.props;
 
-    if (!this.props.characterLimit) { return null; }
-    return <CharacterCount value={ value.length } limit={ this.props.characterLimit } />;
+    if (!characterLimit) { return null; }
+    return (
+      <CharacterCount
+        isOverLimit={ this.overLimit && warnOverLimit }
+        value={ value.length }
+        limit={ characterLimit }
+      />
+    );
   }
 
   inputRefCallback = (inputRef) => {
@@ -236,7 +243,9 @@ class Textarea extends React.Component {
       onChange,
       disabled,
       readOnly,
-      placeholder
+      placeholder,
+      rows,
+      cols
     } = this.props;
 
     return (
@@ -250,11 +259,13 @@ class Textarea extends React.Component {
             >
               <TextareaInput
                 inputRef={ this.inputRefCallback }
-                maxLength={ enforceCharacterLimit && characterLimit }
+                maxLength={ enforceCharacterLimit && characterLimit ? characterLimit : undefined }
                 onChange={ onChange }
                 disabled={ disabled }
                 readOnly={ readOnly }
                 placeholder={ placeholder }
+                rows={ rows }
+                cols={ cols }
               />
               { children }
             </InputPresentation>

@@ -5,7 +5,7 @@ const StyledCharacterCount = styled.div`
   font-size: 12px;
   margin-top: 4px;
   margin-bottom: 4px;
-  color: ${({ theme }) => theme.disabled.disabled}
+  color: ${({ theme, isOverLimit }) => (isOverLimit ? theme.colors.error : theme.disabled.disabled)}
 `;
 
 export default StyledCharacterCount;

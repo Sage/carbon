@@ -33,6 +33,7 @@ storiesOf('Experimental/Textarea', module)
     () => (
       <State store={ store }>
         <Textarea
+          onChange={ handleChange }
           { ...getTextareaStoryProps() }
         />
       </State>
@@ -52,7 +53,7 @@ function getTextareaStoryProps() {
   };
   const warnOverLimit = boolean('warnOverLimit', Textarea.defaultProps.warnOverLimit);
   const expandable = boolean('expandable', Textarea.defaultProps.expandable);
-  const characterLimit = text('characterLimit', '10');
+  const characterLimit = text('characterLimit', '');
   const enforceCharacterLimit = characterLimit ? boolean(
     'enforceCharacterLimit',
     Textarea.defaultProps.enforceCharacterLimit
