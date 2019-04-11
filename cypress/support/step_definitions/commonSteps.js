@@ -1,9 +1,11 @@
 import { visitComponentUrl } from "../helper";
 import {
-  asSelect, themeSelect, sizeSelect, subtextInput, titleInput,
-  heightInput, childrenTextArea, labelInput, commonButtonPreview
+  asSelect, sizeSelect, subtextInput, titleInput,
+  heightInput, childrenTextArea, labelInput, commonButtonPreview, alignSelect
 } from "../../locators/commonLocators";
+
 import { dialogTitle, dialogSubtitle } from "../../locators/alertDialogLocators";
+import { themeSelect } from "../../locators/ButtonLocators";
 
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component)
@@ -45,10 +47,6 @@ When('I set height to {string}', (height) => {
   heightInput().clear().type(height)
 });
 
-When('I check open checkbox', () => {
-  openCheckbox().check();
-})
-
 When('I set label to {string}', (label) => {
   labelInput().clear().type(label)
 })
@@ -72,3 +70,7 @@ Then('component subtitle on preview is {string}', (subtitle) => {
 When('I open component preview', () => {
   commonButtonPreview().click()
 })
+
+When('I set align property to {string}', (asProperty) => {
+  alignSelect().select(asProperty);
+});
