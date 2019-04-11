@@ -13,7 +13,6 @@ import {
   DialogContentStyle,
   DialogInnerContentStyle
 } from './dialog.style';
-import './dialog.scss';
 
 const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog--open';
 
@@ -156,16 +155,6 @@ class Dialog extends Modal {
     );
   }
 
-  get dialogClasses() {
-    return classNames(
-      'carbon-dialog__dialog',
-      {
-        'carbon-dialog__dialog--has-height': this.props.height,
-        'carbon-dialog__dialog--sticky-form-footer': this.props.stickyFormFooter
-      }
-    );
-  }
-
   get closeIcon() {
     if (this.props.showCloseIcon) {
       return (
@@ -202,13 +191,15 @@ class Dialog extends Modal {
     }
 
     const dialogProps = {
-      className: this.dialogClasses,
       tabIndex: 0,
       style: {
         minHeight: height
       },
       size: this.props.size,
-      fixedBottom: this.appliedFixedBottom
+      fixedBottom: this.appliedFixedBottom,
+      stickyFormFooter: this.props.stickyFormFooter,
+      height: this.props.height,
+      theme: this.props.theme
     };
 
     if (this.props.ariaRole) {
@@ -232,9 +223,12 @@ class Dialog extends Modal {
       >
         { this.dialogTitle }
 
-        <DialogContentStyle ref={ (c) => { this._content = c; } }>
+        <DialogContentStyle
+          ref={ (c) => { this._content = c; } }
+          height={ this.props.height }
+          fixedBottom={ this.appliedFixedBottom }
+        >
           <DialogInnerContentStyle
-            fixedBottom={ this.appliedFixedBottom }
             ref={ (c) => { this._innerContent = c; } }
             height={ this.props.height }
           >

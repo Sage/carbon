@@ -38,7 +38,6 @@ exports[`Alert include correct component, element and role data tags 1`] = `
       <styled.div
         aria-describedby="carbon-dialog-subtitle"
         aria-labelledby="carbon-dialog-title"
-        className="carbon-dialog__dialog carbon-alert__alert"
         data-component="alert"
         data-element="bar"
         data-role="baz"
@@ -67,7 +66,6 @@ exports[`Alert include correct component, element and role data tags 1`] = `
               "white": "#FFFFFF",
             },
             "disabled": Object {
-              "background": "#F2F4F5",
               "border": "#CCD6DA",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
@@ -89,7 +87,44 @@ exports[`Alert include correct component, element and role data tags 1`] = `
           }
         }
       >
-        <styled.div>
+        <styled.div
+          theme={
+            Object {
+              "colors": Object {
+                "border": "#668491",
+                "brand": "#00DC00",
+                "error": "#C7384F",
+                "focus": "#FFDA7F",
+                "info": "#0073C2",
+                "primary": "#26A826",
+                "secondary": "#006300",
+                "success": "#00B000",
+                "tertiary": "#004400",
+                "warning": "#FFB500",
+                "white": "#FFFFFF",
+              },
+              "disabled": Object {
+                "border": "#CCD6DA",
+                "disabled": "rgba(0,0,0,0.55)",
+                "input": "#F2F4F5",
+                "text": "rgba(0,0,0,0.3)",
+              },
+              "name": "base",
+              "shadows": Object {
+                "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+              },
+              "text": Object {
+                "color": "rgba(0,0,0,0.9)",
+                "placeholder": "rgba(0,0,0,0.3)",
+                "size": "14px",
+              },
+            }
+          }
+        >
           <Heading
             divider={true}
             separator={false}

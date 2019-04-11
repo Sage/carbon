@@ -11,6 +11,7 @@ import Heading from '../heading/heading';
 import { Row, Column } from '../row/row';
 import ElementResize from '../../utils/helpers/element-resize/element-resize';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import classicTheme from '../../style/themes/classic';
 
 /* global jest */
 
@@ -473,6 +474,7 @@ describe('Dialog', () => {
             subtitle='Test'
             title='Test'
             ariaRole='dialog'
+            theme={ classicTheme }
           />
         );
       });
@@ -515,31 +517,6 @@ describe('Dialog', () => {
         });
       });
 
-      describe('when fixedBottom is passed to the DialogStyle', () => {
-        it('should render matched snapshot', () => {
-          assertStyleMatch({
-            bottom: '0',
-            minHeight: '0px !important'
-          }, TestRenderer.create(<DialogStyle open fixedBottom />).toJSON());
-        });
-      });
-
-      describe('when fixedBottom is passed to the DialogContentStyle', () => {
-        it('should render matched snpashot', () => {
-          assertStyleMatch({
-            overflowY: 'auto'
-          }, TestRenderer.create(<DialogContentStyle fixedBottom />).toJSON());
-        });
-      });
-
-      describe('when height is passed to the DialogInnerContentStyle', () => {
-        it('should render matched snapshot', () => {
-          assertStyleMatch({
-            minHeight: '360px'
-          }, TestRenderer.create(<DialogInnerContentStyle height={ 400 } fixedBottom />).toJSON());
-        });
-      });
-
       it('returns focus to the dialog element when focus leaves the close icon', () => {
         const dialogElement = wrapper.find('[role="dialog"]').first().getDOMNode();
         spyOn(dialogElement, 'focus');
@@ -547,6 +524,31 @@ describe('Dialog', () => {
         closeIcon.simulate('blur');
         expect(dialogElement.focus).toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('when fixedBottom is passed to the DialogStyle', () => {
+    it('should render matched snapshot', () => {
+      assertStyleMatch({
+        bottom: '0',
+        minHeight: '0px !important'
+      }, TestRenderer.create(<DialogStyle open fixedBottom />).toJSON());
+    });
+  });
+
+  describe('when fixedBottom is passed to the DialogContentStyle', () => {
+    it('should render matched snpashot', () => {
+      assertStyleMatch({
+        overflowY: 'auto'
+      }, TestRenderer.create(<DialogContentStyle fixedBottom />).toJSON());
+    });
+  });
+
+  describe('when height is passed to the DialogInnerContentStyle', () => {
+    it('should render matched snapshot', () => {
+      assertStyleMatch({
+        minHeight: '360px'
+      }, TestRenderer.create(<DialogInnerContentStyle height={ 400 } fixedBottom />).toJSON());
     });
   });
 });
