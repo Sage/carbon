@@ -1,15 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import CloseIconStyle from './close-icon.style';
-import Icon from '../../icon/icon';
+import { CloseIconStyle, LinkStyle } from './close-icon.style';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const CloseIcon = ({ messageType, onDismiss, transparent }) => {
   return (
     <CloseIconStyle messageType={ messageType } transparent={ transparent }>
-      <Icon
-        data-element='dismiss' onClick={ onDismiss }
-        type='close'
+      <LinkStyle
+        icon='close' data-element='dismsiss'
+        onClick={ onDismiss }
       />
     </CloseIconStyle>
   );

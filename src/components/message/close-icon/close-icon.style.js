@@ -3,37 +3,39 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import CloseIconClassicStyling from './close-icon-classic.style';
+import Link from '../../link';
+import { THEMES } from '../../../style/themes';
 
-const CloseIconStyle = styled.button`
+const CloseIconStyle = styled.div`
   align-items: center;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   color: ${({ messageType, theme }) => theme.colors[messageType]}};
-  span {
-    cursor: pointer;
-    &:before {
-      font-size: 16px;
-      display: block;
-    }
+
+  ${CloseIconClassicStyling}
+`;
+
+const LinkStyle = styled(Link)`
+  .carbon-link__content {
+    display: none;
+  }
+  .carbon-link__icon {
+    margin-right: 0;
   }
 
   &:focus {
     outline: none;
-    span {
+    span span {
       &:before {
-        padding: 3px;
-        outline: 2px solid ${({ theme }) => theme.colors.focus};
- 
+        outline: 2px solid ${({ theme }) => theme.name !== THEMES.classic && theme.colors.focus};
+        outline-offset: 3px;
       }
     }
   }
-
-  ${CloseIconClassicStyling}
 `;
 
 CloseIconStyle.defaultProps = {
@@ -50,4 +52,4 @@ CloseIconStyle.propTypes = {
   transparent: PropTypes.bool
 };
 
-export default CloseIconStyle;
+export { CloseIconStyle, LinkStyle };
