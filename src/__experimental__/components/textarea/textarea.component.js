@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import I18n from 'i18n-js';
 import { validProps } from '../../../utils/ether';
 import { InputPresentation } from '../input';
 import FormField from '../form-field';
-import StyledTextareaWrapper from './textarea-wrapper.style';
 import CharacterCount from './character-count';
 import TextareaInput from './textarea-input.component';
 
+const i18nNumberOpts = { precision: 0 };
 
 class Textarea extends React.Component {
   static propTypes = {
@@ -111,11 +112,13 @@ class Textarea extends React.Component {
     const { characterLimit, warnOverLimit } = this.props;
 
     if (!characterLimit) { return null; }
+
     return (
       <CharacterCount
         isOverLimit={ this.overLimit && warnOverLimit }
-        value={ value.length }
-        limit={ characterLimit }
+        value={ I18n.toNumber(value.length, i18nNumberOpts) }
+        limit={ I18n.toNumber(characterLimit, i18nNumberOpts) }
+        data-element='character-limit'
       />
     );
   }
@@ -140,8 +143,8 @@ class Textarea extends React.Component {
     } = this.props;
 
     return (
-      <FormField label={ label } { ...this.props }>
-        <StyledTextareaWrapper>
+      <>
+        <FormField label={ label } { ...this.props }>
           <InputPresentation
             type='text'
             size={ size }
@@ -159,9 +162,9 @@ class Textarea extends React.Component {
             />
             { children }
           </InputPresentation>
-          {this.characterCount}
-        </StyledTextareaWrapper>
-      </FormField>
+        </FormField>
+        {this.characterCount}
+      </>
     );
   }
 }
