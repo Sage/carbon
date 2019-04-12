@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StyledDateInput renders correctly for default theme 1`] = `
+.c0 .c1 {
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  width: 135px;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`StyledDateInput renders correctly for the "classic" theme 1`] = `
+.c0 .c1 {
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  width: 135px;
+  width: 120px;
+}
+
+<div
+  className="c0"
+/>
+`;

@@ -1,9 +1,28 @@
-import React from 'react';
 import moment from 'moment';
+import React from 'react';
+import TestRenderer from 'react-test-renderer';
+import 'jest-styled-components';
 import { mount } from 'enzyme';
 import Date from './date.component';
 import DatePicker from './date-picker.component';
 import Textbox from '../textbox';
+import StyledDateInput from './date.style';
+import { THEMES } from '../../../style/themes';
+
+describe('StyledDateInput', () => {
+  it('renders correctly for default theme', () => {
+    const wrapper = TestRenderer.create(<StyledDateInput />);
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders correctly for the "classic" theme', () => {
+    const mockTheme = {
+      name: THEMES.classic
+    };
+    const wrapper = TestRenderer.create(<StyledDateInput theme={ mockTheme } />);
+    expect(wrapper).toMatchSnapshot();
+  });
+});
 
 describe('Date', () => {
   let wrapper;

@@ -2,6 +2,7 @@ import moment from 'moment';
 import MockDate from 'mockdate';
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
+import 'jest-styled-components';
 import { mount } from 'enzyme';
 import DayPicker from 'react-day-picker';
 import Portal from '../../../components/portal/portal';

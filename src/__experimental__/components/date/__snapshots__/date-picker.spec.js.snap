@@ -1,8 +1,169 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StyledDayPicker classic theme applies custom styling 1`] = `
+.c0 {
+  background-color: #FFFFFF;
+  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
+  color: rgba(0,0,0,0.9);
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+  margin-top: 3px;
+  overflow: hidden;
+  padding: 24px;
+  position: absolute;
+  text-align: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  font-weight: 700;
+  margin-top: 0;
+  padding: 10px;
+  font-weight: 600;
+  color: rgba(0,0,0,0.9);
+}
+
+.c0 * {
+  box-sizing: border-box;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0 abbr[title] {
+  border: none;
+  cursor: initial;
+}
+
+.c0 .DayPicker-wrapper {
+  padding: 0;
+}
+
+.c0 .DayPicker-Month {
+  margin: 0 0 2px;
+}
+
+.c0 .DayPicker-Body,
+.c0 .DayPicker-Week {
+  width: 100%;
+}
+
+.c0 .DayPicker-Caption {
+  line-height: 40px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.c0 .DayPicker-Caption >div {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.c0 .DayPicker-Day {
+  min-width: 40px;
+  background-color: #FFFFFF;
+  cursor: pointer;
+  border: none;
+  font-weight: 800;
+  padding: 10px 0;
+}
+
+.c0 .DayPicker-Day:hover {
+  background-color: #1e499f;
+  color: rgba(0,0,0,0.9);
+}
+
+.c0 .DayPicker-Day +* {
+  border-left: 1px;
+}
+
+.c0 .DayPicker-Day abbr {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0 .DayPicker-Day--today,
+.c0 .DayPicker-Day--today.DayPicker-Day--outside {
+  font-weight: 800;
+  color: rgba(0,0,0,0.9);
+  background-color: #4d7080;
+}
+
+.c0 .DayPicker-Day--outside {
+  color: #b3c2c8;
+  background-color: $#FFFFFF;
+}
+
+.c0 .DayPicker-Day--disabled,
+.c0 .DayPicker-Day--disabled:hover {
+  color: #b3c2c8;
+  background-color: #FFFFFF;
+  cursor: default;
+}
+
+.c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+  background-color: #00805D;
+  color: #FFFFFF;
+  font-weight: 800;
+}
+
+.c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
+  background-color: #00805D;
+  color: #FFFFFF;
+}
+
+.c0 .DayPicker-Caption {
+  background-color: #FFFFFF;
+  color: rgba(0,0,0,.85);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.c0 .DayPicker-Day {
+  min-width: auto;
+  border-color: #FFFFFF;
+  border-style: solid;
+  border-width: 0 3px 3px 3px;
+  font-weight: 600;
+}
+
+.c0 .DayPicker-Day:hover {
+  background-color: #1e499f;
+  color: #FFFFFF;
+}
+
+.c0 .DayPicker-Day--outside {
+  color: #8099a4;
+}
+
+.c0 .DayPicker-Day--outside:hover {
+  background-color: #1e499f;
+  color: #FFFFFF;
+}
+
+.c0 .DayPicker-Day--today,
+.c0 .DayPicker-Day--today.DayPicker-Day--outside {
+  background-color: #4d7080;
+  color: #FFFFFF;
+}
+
+.c0 .DayPicker-Day--disabled,
+.c0 .DayPicker-Day--disabled:hover {
+  color: #b3c2c8;
+  background-color: #FFFFFF;
+  cursor: default;
+}
+
+.c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
 <div
-  className="DayPicker DayPicker--interactionDisabled sc-htpNat kDSRNv"
+  className="DayPicker DayPicker--interactionDisabled c0"
   lang="en"
   role="application"
 >
@@ -539,8 +700,117 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
 `;
 
 exports[`StyledDayPicker renders presentational div and context provider for its children 1`] = `
+.c0 {
+  background-color: #FFFFFF;
+  box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
+  color: rgba(0,0,0,0.9);
+  display: block;
+  font-size: 14px;
+  font-weight: 800;
+  margin-top: 3px;
+  overflow: hidden;
+  padding: 24px;
+  position: absolute;
+  text-align: center;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c0 * {
+  box-sizing: border-box;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0 abbr[title] {
+  border: none;
+  cursor: initial;
+}
+
+.c0 .DayPicker-wrapper {
+  padding: 0;
+}
+
+.c0 .DayPicker-Month {
+  margin: 0 0 2px;
+}
+
+.c0 .DayPicker-Body,
+.c0 .DayPicker-Week {
+  width: 100%;
+}
+
+.c0 .DayPicker-Caption {
+  line-height: 40px;
+  height: 40px;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.c0 .DayPicker-Caption >div {
+  margin: 0 auto;
+  width: 80%;
+}
+
+.c0 .DayPicker-Day {
+  min-width: 40px;
+  background-color: #FFFFFF;
+  cursor: pointer;
+  border: none;
+  font-weight: 800;
+  padding: 10px 0;
+}
+
+.c0 .DayPicker-Day:hover {
+  background-color: #F2F4F5;
+  color: rgba(0,0,0,0.9);
+}
+
+.c0 .DayPicker-Day +* {
+  border-left: 1px;
+}
+
+.c0 .DayPicker-Day abbr {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c0 .DayPicker-Day--today,
+.c0 .DayPicker-Day--today.DayPicker-Day--outside {
+  font-weight: 800;
+  color: rgba(0,0,0,0.9);
+  background-color: #CCD6DA;
+}
+
+.c0 .DayPicker-Day--outside {
+  color: rgba(0,0,0,0.55);
+  background-color: $#FFFFFF;
+}
+
+.c0 .DayPicker-Day--disabled,
+.c0 .DayPicker-Day--disabled:hover {
+  color: rgba(0,0,0,0.55);
+  background-color: #FFFFFF;
+  cursor: default;
+}
+
+.c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
+  background-color: #26A826;
+  color: #FFFFFF;
+  font-weight: 800;
+}
+
+.c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
+  background-color: #26A826;
+  color: #FFFFFF;
+}
+
 <div
-  className="DayPicker DayPicker--interactionDisabled sc-htpNat jRdpFN"
+  className="DayPicker DayPicker--interactionDisabled c0"
   lang="en"
   role="application"
 >

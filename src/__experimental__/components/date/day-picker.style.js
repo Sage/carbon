@@ -10,6 +10,7 @@ const StyledDayPicker = styled(DayPicker)`
   display: block;
   font-size: 14px;
   font-weight: 800;
+  margin-top: 3px;
   overflow: hidden;
   padding: 24px;
   position: absolute;

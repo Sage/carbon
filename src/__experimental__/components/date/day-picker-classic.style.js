@@ -3,6 +3,7 @@ import { THEMES } from '../../../style/themes';
 
 export default ({ theme }) => theme.name === THEMES.classic && css`
   font-weight: 700;
+  margin-top: 0;
   padding: 10px;
   font-weight: 600;
   color: ${theme.text.color};
