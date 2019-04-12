@@ -10,8 +10,7 @@ import {
 import DateInput from './date.component';
 import Textbox from '../textbox';
 import getTextboxStoryProps from '../textbox/textbox.stories';
-import notes from './documentation/notes.md';
-import info from './documentation/info';
+import { notes, info } from './documentation';
 
 const store = new Store(
   {
@@ -30,9 +29,6 @@ storiesOf('Experimental/Date Input', module)
     const autoFocus = boolean('autoFocus', true);
     const minDate = text('minDate', '');
     const maxDate = text('maxDate', '');
-    const onChangeDeferredEnabled = boolean('Enable "onChangeDeferred" Action', false);
-    const onKeyDownEnabled = boolean('Enable "onKeyDown" Action', false);
-    const deferTimeout = onChangeDeferredEnabled ? number('deferTimeout') : undefined;
 
     return (
       <DateInput
@@ -42,9 +38,6 @@ storiesOf('Experimental/Date Input', module)
         maxDate={ maxDate }
         value={ store.get('value') }
         onChange={ setValue }
-        onKeyDown={ onKeyDownEnabled ? action('onKeyDown') : undefined }
-        onChangeDeferred={ onChangeDeferredEnabled ? action('onChangeDeferred') : undefined }
-        deferTimeout={ deferTimeout }
       />
     );
   }, {
