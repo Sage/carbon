@@ -242,7 +242,8 @@ class Dialog extends Modal {
   }
 }
 
-Dialog.propTypes = assign({}, Modal.propTypes, {
+Dialog.propTypes = {
+  ...Modal.propTypes,
   height: PropTypes.string,
   title: PropTypes.oneOfType([
     PropTypes.string,
@@ -253,7 +254,7 @@ Dialog.propTypes = assign({}, Modal.propTypes, {
   showCloseIcon: PropTypes.bool,
   autoFocus: PropTypes.bool,
   stickyFormFooter: PropTypes.bool
-});
+};
 
 Dialog.defaultProps = {
   autoFocus: true,
