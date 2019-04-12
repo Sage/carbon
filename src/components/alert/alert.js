@@ -37,18 +37,6 @@ class Alert extends Dialog {
     this.focusDialog = this.focusDialog.bind(this);
   }
 
-  /**
-   * Returns classes for the alert, combines with dialog class names..
-   *
-   * @method dialogClasses
-   */
-  get dialogClasses() {
-    return classNames(
-      super.dialogClasses,
-      'carbon-alert__alert'
-    );
-  }
-
   componentTags(props) {
     return {
       'data-component': 'alert',

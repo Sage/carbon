@@ -375,7 +375,9 @@ a {
                                               tabIndex="0"
                                             >
                                               <span>
-                                                <span>
+                                                <span
+                                                  className="carbon-link__content"
+                                                >
                                                   Delete
                                                 </span>
                                               </span>

@@ -536,6 +536,24 @@ describe('Dialog', () => {
     });
   });
 
+  describe('when height is passed to the DialogStyle', () => {
+    it('should render matched snapshot', () => {
+      assertStyleMatch({
+        minHeight: '360px'
+      }, TestRenderer.create(<DialogStyle open height='400' />).toJSON());
+    });
+  });
+
+  describe('when fixedBottom and stickyFormFooter are passed to the DialogStyle', () => {
+    const wrapper = TestRenderer.create(<DialogStyle
+      open stickyFormFooter
+      fixedBottom
+    />);
+    it('should render matched snapshot', () => {
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+
   describe('when fixedBottom is passed to the DialogContentStyle', () => {
     it('should render matched snpashot', () => {
       assertStyleMatch({

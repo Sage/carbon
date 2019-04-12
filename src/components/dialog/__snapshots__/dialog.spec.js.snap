@@ -177,3 +177,57 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
   </div>
 </Portal>
 `;
+
+exports[`Dialog when fixedBottom and stickyFormFooter are passed to the DialogStyle should render matched snapshot 1`] = `
+.c0 {
+  background-color: #F2F5F6;
+  box-shadow: 0 10px 30px 0 rgba(0,20,29,0.1),0 30px 60px 0 rgba(0,20,29,0.1);
+  position: fixed;
+  top: 50%;
+  bottom: 0;
+  min-height: 0px !important;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0 .carbon-form__footer-wrapper {
+  box-sizing: border-box;
+  -webkit-animation: form-buttons-animate-in 0.25s ease-out;
+  animation: form-buttons-animate-in 0.25s ease-out;
+  background-color: white;
+  bottom: 0;
+  left: auto;
+  margin-left: -35px;
+  box-shadow: 0 -4px 12px 0 rgba(0,0,0,0.05);
+  padding-bottom: 13px;
+  padding-top: 15px;
+  padding-left: 35px;
+  padding-right: 35px;
+  position: fixed;
+  z-index: 1000;
+}
+
+.c0 .carbon-dialog__close {
+  color: #4d7080;
+  cursor: pointer;
+  position: absolute;
+  right: 35px;
+  top: 28px;
+  z-index: 1;
+}
+
+.c0 .carbon-dialog__close:hover {
+  color: #255BC7;
+}
+
+.c0 .carbon-dialog__close.carbon-icon {
+  position: absolute;
+}
+
+<div
+  className="c0"
+  open={true}
+/>
+`;
