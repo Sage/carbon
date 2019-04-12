@@ -4,7 +4,6 @@ import { action } from '@storybook/addon-actions';
 import { StateDecorator, Store, State } from '@sambego/storybook-state';
 import {
   boolean,
-  number,
   text
 } from '@storybook/addon-knobs';
 import DateInput from './date.component';
