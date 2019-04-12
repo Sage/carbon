@@ -1,4 +1,3 @@
-import classNames from 'classnames';
 import { assign } from 'lodash';
 import Dialog from '../dialog';
 
