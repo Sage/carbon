@@ -1,9 +1,10 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import CloseIconClassicStyling from './close-icon-classic.style';
 import Link from '../../link';
+import { THEMES } from '../../../style/themes';
 
 const CloseIconStyle = styled.div`
   align-items: center;
@@ -13,7 +14,27 @@ const CloseIconStyle = styled.div`
   justify-content: center;
   text-align: center;
   border: none;
-  color: ${({ messageType, theme }) => theme.colors[messageType]}};
+
+  .icon-close {
+    &:before {
+      color: ${({ messageType, theme }) => theme.colors[messageType]}};
+    }
+  }
+
+  ${({ theme }) => theme.name !== THEMES.classic && css`
+    .message__close-icon {
+      &:focus {
+        outline: none;
+        background-color: ${theme.colors.white};
+        span span {
+          &:before {
+            outline: 2px solid ${theme.colors.focus};
+            outline-offset: 3px;
+          }
+        }
+      }
+    }
+  `}
 
   ${CloseIconClassicStyling}
 `;
@@ -24,16 +45,6 @@ const LinkStyle = styled(Link)`
   }
   .carbon-link__icon {
     margin-right: 0;
-  }
-
-  &:focus {
-    outline: none;
-    span span {
-      &:before {
-        outline: 2px solid ${({ theme }) => theme.colors.focus};
-        outline-offset: 3px;
-      }
-    }
   }
 `;
 
@@ -49,10 +60,6 @@ CloseIconStyle.propTypes = {
   border: PropTypes.bool,
   roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool
-};
-
-LinkStyle.defaultProps = {
-  theme: BaseTheme
 };
 
 export { CloseIconStyle, LinkStyle };

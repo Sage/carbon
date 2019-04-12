@@ -96,6 +96,7 @@ exports[`Link when component has classic theme should render correct style 1`] =
       Object {
         "colors": Object {
           "base": "#00A376",
+          "baseBlue": "#255BC7",
           "border": "#668491",
           "brand": "#00DC00",
           "error": "#C7384F",
@@ -106,7 +107,7 @@ exports[`Link when component has classic theme should render correct style 1`] =
           "secondary": "#006045",
           "success": "#00B000",
           "tertiary": "#003F2E",
-          "warning": "#FFB500",
+          "warning": "#E96400",
           "white": "#FFFFFF",
         },
         "disabled": Object {

@@ -8,7 +8,7 @@ const CloseIcon = ({ messageType, onDismiss, transparent }) => {
     <CloseIconStyle messageType={ messageType } transparent={ transparent }>
       <LinkStyle
         icon='close' data-element='dismsiss'
-        onClick={ onDismiss }
+        className='message__close-icon' onClick={ onDismiss }
       />
     </CloseIconStyle>
   );

@@ -245,7 +245,7 @@ exports[`Message when in small/medium/large theme should match the snapshot 1`] 
         "border": "#668491",
         "brand": "#00DC00",
         "error": "#C7384F",
-        "focus": "#FFB500",
+        "focus": "#FFDA7F",
         "info": "#0073C2",
         "primary": "#26A826",
         "secondary": "#006300",
@@ -258,6 +258,7 @@ exports[`Message when in small/medium/large theme should match the snapshot 1`] 
         "border": "#CCD6DA",
         "disabled": "rgba(0,0,0,0.55)",
         "input": "#F2F4F5",
+        "text": "rgba(0,0,0,0.3)",
       },
       "name": "base",
       "shadows": Object {

@@ -18,7 +18,20 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   justify-content: center;
   text-align: center;
   border: none;
+}
+
+.c0 .icon-close:before {
   color: #C7384F;
+}
+
+.c0 .message__close-icon:focus {
+  outline: none;
+  background-color: #FFFFFF;
+}
+
+.c0 .message__close-icon:focus span span:before {
+  outline: 2px solid #FFDA7F;
+  outline-offset: 3px;
 }
 
 <div
@@ -44,7 +57,20 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   justify-content: center;
   text-align: center;
   border: none;
+}
+
+.c0 .icon-close:before {
   color: #0073C2;
+}
+
+.c0 .message__close-icon:focus {
+  outline: none;
+  background-color: #FFFFFF;
+}
+
+.c0 .message__close-icon:focus span span:before {
+  outline: 2px solid #FFDA7F;
+  outline-offset: 3px;
 }
 
 <div
@@ -70,7 +96,20 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   justify-content: center;
   text-align: center;
   border: none;
+}
+
+.c0 .icon-close:before {
   color: #00B000;
+}
+
+.c0 .message__close-icon:focus {
+  outline: none;
+  background-color: #FFFFFF;
+}
+
+.c0 .message__close-icon:focus span span:before {
+  outline: 2px solid #FFDA7F;
+  outline-offset: 3px;
 }
 
 <div
@@ -96,7 +135,20 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   justify-content: center;
   text-align: center;
   border: none;
+}
+
+.c0 .icon-close:before {
   color: #E96400;
+}
+
+.c0 .message__close-icon:focus {
+  outline: none;
+  background-color: #FFFFFF;
+}
+
+.c0 .message__close-icon:focus span span:before {
+  outline: 2px solid #FFDA7F;
+  outline-offset: 3px;
 }
 
 <div
@@ -105,71 +157,53 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
 `;
 
 exports[`LinkStyle applies peoper styling when focused 1`] = `
-.c0 .carbon-link__content {
-  display: none;
+.c0 {
+  display: inline-block;
 }
 
-.c0 .carbon-link__icon {
-  margin-right: 0;
+.c0 a {
+  font-size: 14px;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #26A826;
 }
 
-.c0:focus {
+.c0 a:hover {
+  cursor: pointer;
+  color: #006300;
+}
+
+.c0 a:focus {
+  color: rgba(0,0,0,0.9);
+  cursor: default;
+  background-color: #FFDA7F;
   outline: none;
 }
 
-.c0:focus span span:before {
-  outline: 2px solid #FFB500;
-  outline-offset: 3px;
+.c1 .carbon-link__content {
+  display: none;
 }
 
-<a
-  className="carbon-link__anchor c0"
+.c1 .carbon-link__icon {
+  margin-right: 0;
+}
+
+<div
+  className="c0"
   data-component="link"
-  href={null}
-  onKeyDown={[Function]}
-  tabIndex="0"
-  theme={
-    Object {
-      "colors": Object {
-        "border": "#668491",
-        "brand": "#00DC00",
-        "error": "#C7384F",
-        "focus": "#FFB500",
-        "info": "#0073C2",
-        "primary": "#26A826",
-        "secondary": "#006300",
-        "success": "#00B000",
-        "tertiary": "#004400",
-        "warning": "#E96400",
-        "white": "#FFFFFF",
-      },
-      "disabled": Object {
-        "border": "#CCD6DA",
-        "disabled": "rgba(0,0,0,0.55)",
-        "input": "#F2F4F5",
-      },
-      "name": "base",
-      "shadows": Object {
-        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
-        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-      },
-      "text": Object {
-        "color": "rgba(0,0,0,0.9)",
-        "placeholder": "rgba(0,0,0,0.3)",
-        "size": "14px",
-      },
-    }
-  }
+  disabled={false}
 >
-  <span>
-    <span
-      className="carbon-link__content"
-    />
-  </span>
-</a>
+  <a
+    className="c1"
+    data-component="link"
+    onKeyDown={[Function]}
+    tabIndex="0"
+  >
+    <span>
+      <span />
+    </span>
+  </a>
+</div>
 `;
 
 exports[`when in classic mode when rendered as default should match the snapshot 1`] = `
@@ -243,8 +277,11 @@ exports[`when in classic mode when rendered as error should match the snapshot 1
   justify-content: center;
   text-align: center;
   border: none;
-  color: #C7384F;
   background-color: #fdf5f5;
+}
+
+.c0 .icon-close:before {
+  color: #C7384F;
 }
 
 <div
@@ -270,9 +307,12 @@ exports[`when in classic mode when rendered as error when transparent prop is se
   justify-content: center;
   text-align: center;
   border: none;
-  color: #C7384F;
   background-color: #fdf5f5;
   background-color: #FFFFFF;
+}
+
+.c0 .icon-close:before {
+  color: #C7384F;
 }
 
 <div
@@ -351,8 +391,11 @@ exports[`when in classic mode when rendered as info should match the snapshot 1`
   justify-content: center;
   text-align: center;
   border: none;
-  color: #0073C2;
   background-color: #f3f8fe;
+}
+
+.c0 .icon-close:before {
+  color: #0073C2;
 }
 
 <div
@@ -378,9 +421,12 @@ exports[`when in classic mode when rendered as info when transparent prop is set
   justify-content: center;
   text-align: center;
   border: none;
-  color: #0073C2;
   background-color: #f3f8fe;
   background-color: #FFFFFF;
+}
+
+.c0 .icon-close:before {
+  color: #0073C2;
 }
 
 <div
@@ -512,8 +558,11 @@ exports[`when in classic mode when rendered as success should match the snapshot
   justify-content: center;
   text-align: center;
   border: none;
-  color: #00B000;
   background-color: #f6fbf6;
+}
+
+.c0 .icon-close:before {
+  color: #00B000;
 }
 
 <div
@@ -539,9 +588,12 @@ exports[`when in classic mode when rendered as success when transparent prop is 
   justify-content: center;
   text-align: center;
   border: none;
-  color: #00B000;
   background-color: #f6fbf6;
   background-color: #FFFFFF;
+}
+
+.c0 .icon-close:before {
+  color: #00B000;
 }
 
 <div
@@ -567,8 +619,11 @@ exports[`when in classic mode when rendered as warning should match the snapshot
   justify-content: center;
   text-align: center;
   border: none;
-  color: #E96400;
   background-color: #fff8f2;
+}
+
+.c0 .icon-close:before {
+  color: #E96400;
 }
 
 <div
@@ -594,9 +649,12 @@ exports[`when in classic mode when rendered as warning when transparent prop is 
   justify-content: center;
   text-align: center;
   border: none;
-  color: #E96400;
   background-color: #fff8f2;
   background-color: #FFFFFF;
+}
+
+.c0 .icon-close:before {
+  color: #E96400;
 }
 
 <div
