@@ -1,26 +1,12 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
+import { inputStyle } from '../input/input.style';
 
 const StyledTextarea = styled.textarea`
-  background-color: transparent;
-  flex-grow: 1;
-  padding-top: 12px;
-  padding-bottom: 12px;
-  border: none;
-  resize: none;
-  box-sizing: border-box;
-  color: ${({ theme }) => theme.text.color};
-  font-size: ${({ theme }) => theme.text.size};
-  outline: none
-  &::placeholder {
-    color: ${({ theme }) => theme.text.placeholder};
-  }
-
-  ${({ disabled, theme }) => disabled && css`
-    color: ${theme.disabled.text};
-    cursor: not-allowed;
-  `}
+resize: none;
+min-height: 40px;
+${inputStyle}
 `;
 
 StyledTextarea.defaultProps = {

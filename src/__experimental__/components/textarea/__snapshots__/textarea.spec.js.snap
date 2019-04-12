@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Textarea renders with InputPresentation and Input and all props passed to Input 1`] = `
+<FormField
+  disabled={false}
+  enforceCharacterLimit={true}
+  expandable={false}
+  readOnly={false}
+  size="medium"
+  value="foobar"
+  warnOverLimit={false}
+>
+  <styled.div>
+    <InputPresentation
+      disabled={false}
+      enforceCharacterLimit={true}
+      expandable={false}
+      readOnly={false}
+      type="text"
+      value="foobar"
+      warnOverLimit={false}
+    >
+      <TextareaInput
+        disabled={false}
+        inputRef={[Function]}
+        readOnly={false}
+      />
+    </InputPresentation>
+  </styled.div>
+</FormField>
+`;
