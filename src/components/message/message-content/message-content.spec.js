@@ -7,8 +7,8 @@ import 'jest-styled-components';
 import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
 import classicTheme from '../../../style/themes/classic';
 
-function render(props, renderer = TestRenderer.create) {
-  return renderer(<MessageContentStyle { ...props }>Message</MessageContentStyle>);
+function render(props) {
+  return TestRenderer.create(<MessageContentStyle { ...props }>Message</MessageContentStyle>);
 }
 
 describe('MessageContent', () => {
@@ -23,7 +23,7 @@ describe('MessageContent', () => {
       OptionsHelper.messages.forEach((messageType) => {
         it('should render the title with a proper color applied', () => {
           const wrapper = render({ theme: classicTheme, messageType, title: 'Example title' });
-          expect(wrapper.toJSON()).toMatchSnapshot();
+          expect(wrapper).toMatchSnapshot();
         });
       });
     });

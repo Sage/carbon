@@ -4,7 +4,6 @@ import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import CloseIconClassicStyling from './close-icon-classic.style';
 import Link from '../../link';
-import { THEMES } from '../../../style/themes';
 
 const CloseIconStyle = styled.div`
   align-items: center;
@@ -31,7 +30,7 @@ const LinkStyle = styled(Link)`
     outline: none;
     span span {
       &:before {
-        outline: 2px solid ${({ theme }) => theme.name !== THEMES.classic && theme.colors.focus};
+        outline: 2px solid ${({ theme }) => theme.colors.focus};
         outline-offset: 3px;
       }
     }
@@ -50,6 +49,10 @@ CloseIconStyle.propTypes = {
   border: PropTypes.bool,
   roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool
+};
+
+LinkStyle.defaultProps = {
+  theme: BaseTheme
 };
 
 export { CloseIconStyle, LinkStyle };

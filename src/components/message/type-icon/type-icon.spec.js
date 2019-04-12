@@ -8,8 +8,8 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import classicTheme from '../../../style/themes/classic';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 
-function render(props, renderer = TestRenderer.create) {
-  return renderer(<TypeIconStyle { ...props } />);
+function render(props) {
+  return TestRenderer.create(<TypeIconStyle { ...props } />);
 }
 
 describe('TypeIcon', () => {
@@ -23,7 +23,7 @@ describe('TypeIcon', () => {
       OptionsHelper.messages.forEach((messageType) => {
         it(`should match the snapshot for ${messageType}`, () => {
           const wrapper = render({ messageType });
-          expect(wrapper.toJSON()).toMatchSnapshot();
+          expect(wrapper).toMatchSnapshot();
         });
       });
     });
@@ -33,7 +33,7 @@ describe('TypeIcon', () => {
     it('applies white background and the type icon with the proper style applied', () => {
       OptionsHelper.messages.forEach((messageType) => {
         const wrapper = render({ transparent: true, messageType });
-        expect(wrapper.toJSON()).toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
       });
     });
   });
@@ -43,7 +43,7 @@ describe('TypeIcon', () => {
       OptionsHelper.colors.forEach((messageType) => {
         it(`should match the snapshot for ${messageType}`, () => {
           const wrapper = render({ messageType, theme: classicTheme });
-          expect(wrapper.toJSON()).toMatchSnapshot();
+          expect(wrapper).toMatchSnapshot();
         });
       });
     });
@@ -69,7 +69,7 @@ describe('TypeIcon', () => {
       OptionsHelper.colors.forEach((messageType) => {
         it(`applies white background and the type icon with the proper style applied for ${messageType}`, () => {
           const wrapper = render({ transparent: true, messageType, theme: classicTheme });
-          expect(wrapper.toJSON()).toMatchSnapshot();
+          expect(wrapper).toMatchSnapshot();
         });
       });
     });

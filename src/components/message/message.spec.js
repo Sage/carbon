@@ -9,8 +9,8 @@ import classicTheme from '../../style/themes/classic';
 import CloseIcon from './close-icon/close-icon.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
-function render(props, renderer = TestRenderer.create) {
-  return renderer(<MessageStyle { ...props }>Message</MessageStyle>);
+function render(props) {
+  return TestRenderer.create(<MessageStyle { ...props }>Message</MessageStyle>);
 }
 
 describe('Message', () => {
@@ -26,14 +26,14 @@ describe('Message', () => {
 
     it('does not render the close icon when onDismiss prop is not provided', () => {
       const closeIcon = wrapper.find(CloseIcon);
-      expect(closeIcon.length).toEqual(0);
+      expect(closeIcon.exists()).toEqual(false);
     });
 
     it('renders the close icon when onDismiss function is provided', () => {
       const onDismiss = jest.fn();
       wrapper.setProps({ onDismiss });
       const closeIcon = wrapper.find(CloseIcon);
-      expect(closeIcon.length).toEqual(1);
+      expect(closeIcon.exists()).toEqual(true);
     });
   });
 
@@ -57,7 +57,7 @@ describe('Message', () => {
     it('should render the message with border in a proper color and a white background', () => {
       OptionsHelper.messages.forEach((messageType) => {
         const wrapper = render({ messageType });
-        expect(wrapper.toJSON()).toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
       });
     });
   });
@@ -67,7 +67,7 @@ describe('Message', () => {
       it('should match the snapshot', () => {
         OptionsHelper.colors.forEach((messageType) => {
           const wrapper = render({ theme: classicTheme, messageType });
-          expect(wrapper.toJSON()).toMatchSnapshot();
+          expect(wrapper).toMatchSnapshot();
         });
       });
     });

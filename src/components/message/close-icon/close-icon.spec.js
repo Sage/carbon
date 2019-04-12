@@ -2,13 +2,13 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 import CloseIcon from './close-icon.component';
-import CloseIconStyle from './close-icon.style';
+import { CloseIconStyle, LinkStyle } from './close-icon.style';
 import 'jest-styled-components';
 import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
 import classicTheme from '../../../style/themes/classic';
 
-function render(props, renderer = TestRenderer.create) {
-  return renderer(<CloseIconStyle { ...props } />);
+function render(props) {
+  return TestRenderer.create(<CloseIconStyle { ...props } />);
 }
 
 describe('CloseIcon', () => {
@@ -22,7 +22,7 @@ describe('CloseIcon', () => {
     OptionsHelper.messages.forEach((messageType) => {
       it(`should match snapshot for ${messageType}`, () => {
         const wrapper = render({ messageType });
-        expect(wrapper.toJSON()).toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
       });
     });
   });
@@ -33,7 +33,7 @@ describe('when in classic mode', () => {
     describe(`when rendered as ${messageType}`, () => {
       it('should match the snapshot', () => {
         const wrapper = render({ messageType, theme: classicTheme });
-        expect(wrapper.toJSON()).toMatchSnapshot();
+        expect(wrapper).toMatchSnapshot();
       });
 
       describe('when transparent prop is set to true', () => {
@@ -43,9 +43,16 @@ describe('when in classic mode', () => {
             theme: classicTheme,
             messageType
           });
-          expect(wrapper.toJSON()).toMatchSnapshot();
+          expect(wrapper).toMatchSnapshot();
         });
       });
     });
+  });
+});
+
+describe('LinkStyle', () => {
+  it('applies peoper styling when focused', () => {
+    const wrapper = TestRenderer.create(<LinkStyle />);
+    expect(wrapper).toMatchSnapshot();
   });
 });

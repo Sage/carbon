@@ -11,36 +11,17 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   color: #C7384F;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -56,36 +37,17 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   color: #0073C2;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -101,36 +63,17 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   color: #00B000;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -146,38 +89,87 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   color: #E96400;
 }
 
-.c0 span {
-  cursor: pointer;
+<div
+  className="c0"
+/>
+`;
+
+exports[`LinkStyle applies peoper styling when focused 1`] = `
+.c0 .carbon-link__content {
+  display: none;
 }
 
-.c0 span:before {
-  font-size: 16px;
-  display: block;
+.c0 .carbon-link__icon {
+  margin-right: 0;
 }
 
 .c0:focus {
   outline: none;
 }
 
-.c0:focus span:before {
-  padding: 3px;
+.c0:focus span span:before {
   outline: 2px solid #FFB500;
+  outline-offset: 3px;
 }
 
-<button
-  className="c0"
-/>
+<a
+  className="carbon-link__anchor c0"
+  data-component="link"
+  href={null}
+  onKeyDown={[Function]}
+  tabIndex="0"
+  theme={
+    Object {
+      "colors": Object {
+        "border": "#668491",
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFB500",
+        "info": "#0073C2",
+        "primary": "#26A826",
+        "secondary": "#006300",
+        "success": "#00B000",
+        "tertiary": "#004400",
+        "warning": "#E96400",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "border": "#CCD6DA",
+        "disabled": "rgba(0,0,0,0.55)",
+        "input": "#F2F4F5",
+      },
+      "name": "base",
+      "shadows": Object {
+        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+>
+  <span>
+    <span
+      className="carbon-link__content"
+    />
+  </span>
+</a>
 `;
 
 exports[`when in classic mode when rendered as default should match the snapshot 1`] = `
@@ -191,40 +183,17 @@ exports[`when in classic mode when rendered as default should match the snapshot
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   background-color: #335c6d;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus span:before {
-  border: none;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -240,41 +209,18 @@ exports[`when in classic mode when rendered as default when transparent prop is 
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   background-color: #335c6d;
   background-color: #FFFFFF;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus span:before {
-  border: none;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -290,41 +236,18 @@ exports[`when in classic mode when rendered as error should match the snapshot 1
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   color: #C7384F;
   background-color: #fdf5f5;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus span:before {
-  border: none;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -340,42 +263,19 @@ exports[`when in classic mode when rendered as error when transparent prop is se
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   color: #C7384F;
   background-color: #fdf5f5;
   background-color: #FFFFFF;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus span:before {
-  border: none;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -391,40 +291,17 @@ exports[`when in classic mode when rendered as help should match the snapshot 1`
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   background-color: #fffbf2;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus span:before {
-  border: none;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -440,41 +317,18 @@ exports[`when in classic mode when rendered as help when transparent prop is set
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   background-color: #fffbf2;
   background-color: #FFFFFF;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus span:before {
-  border: none;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -490,41 +344,18 @@ exports[`when in classic mode when rendered as info should match the snapshot 1`
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   color: #0073C2;
   background-color: #f3f8fe;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus span:before {
-  border: none;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -540,42 +371,19 @@ exports[`when in classic mode when rendered as info when transparent prop is set
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   color: #0073C2;
   background-color: #f3f8fe;
   background-color: #FFFFFF;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus span:before {
-  border: none;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -591,40 +399,17 @@ exports[`when in classic mode when rendered as maintenance should match the snap
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   background-color: #fff8f2;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus span:before {
-  border: none;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -640,41 +425,18 @@ exports[`when in classic mode when rendered as maintenance when transparent prop
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   background-color: #fff8f2;
   background-color: #FFFFFF;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus span:before {
-  border: none;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -690,40 +452,17 @@ exports[`when in classic mode when rendered as new should match the snapshot 1`]
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   background-color: #f7f5fa;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus span:before {
-  border: none;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -739,41 +478,18 @@ exports[`when in classic mode when rendered as new when transparent prop is set 
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   background-color: #f7f5fa;
   background-color: #FFFFFF;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus span:before {
-  border: none;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -789,41 +505,18 @@ exports[`when in classic mode when rendered as success should match the snapshot
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   color: #00B000;
   background-color: #f6fbf6;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus span:before {
-  border: none;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -839,42 +532,19 @@ exports[`when in classic mode when rendered as success when transparent prop is 
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   color: #00B000;
   background-color: #f6fbf6;
   background-color: #FFFFFF;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus span:before {
-  border: none;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -890,41 +560,18 @@ exports[`when in classic mode when rendered as warning should match the snapshot
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   color: #E96400;
   background-color: #fff8f2;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus span:before {
-  border: none;
-}
-
-<button
+<div
   className="c0"
 />
 `;
@@ -940,42 +587,19 @@ exports[`when in classic mode when rendered as warning when transparent prop is 
   display: -ms-flexbox;
   display: flex;
   margin-left: auto;
+  margin-right: 15px;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 15px;
-  width: 45px;
   border: none;
   color: #E96400;
   background-color: #fff8f2;
   background-color: #FFFFFF;
 }
 
-.c0 span {
-  cursor: pointer;
-}
-
-.c0 span:before {
-  font-size: 16px;
-  display: block;
-}
-
-.c0:focus {
-  outline: none;
-}
-
-.c0:focus span:before {
-  padding: 3px;
-  outline: 2px solid #FFB500;
-}
-
-.c0:focus span:before {
-  border: none;
-}
-
-<button
+<div
   className="c0"
 />
 `;
