@@ -131,6 +131,48 @@ exports[`SplitButton mouse enter dropdown toggle renders additional buttons to m
   <styled.div
     data-element="additional-buttons"
     displayButtons={true}
+    theme={
+      Object {
+        "colors": Object {
+          "base": "#00A376",
+          "border": "#668491",
+          "brand": "#00DC00",
+          "destructive": Object {
+            "hover": "#9F2C3F",
+          },
+          "error": "#C7384F",
+          "focus": "#FFB500",
+          "info": "#0073C2",
+          "primary": "#26A826",
+          "secondary": "#006300",
+          "success": "#00B000",
+          "tertiary": "#004400",
+          "warning": "#FFB500",
+          "white": "#FFFFFF",
+        },
+        "disabled": Object {
+          "background": "rgba(0,0,0,0.1)",
+          "border": "#CCD6DA",
+          "button": "#E5EAEC",
+          "disabled": "rgba(0,0,0,0.55)",
+          "input": "#F2F4F5",
+          "text": "rgba(0,0,0,0.3)",
+        },
+        "name": "base",
+        "shadows": Object {
+          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.3)",
+          "size": "14px",
+        },
+      }
+    }
   >
     <ForwardRef
       as="secondary"
@@ -141,6 +183,7 @@ exports[`SplitButton mouse enter dropdown toggle renders additional buttons to m
       onClick={[Function]}
       size="medium"
       subtext=""
+      tabIndex={-1}
       theme="blue"
     >
       Second Button

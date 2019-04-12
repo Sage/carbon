@@ -11,10 +11,7 @@ import BaseTheme from '../../style/themes/base';
 import classicTheme from '../../style/themes/classic';
 import {
   assertStyleMatch,
-  keyboard,
-  assertKeyboardTraversal,
-  assertHoverTraversal,
-  click
+  keyboard
 } from '../../__spec_helper__/test-utils';
 import 'jest-styled-components';
 
@@ -151,49 +148,74 @@ describe('SplitButton', () => {
   });
 
   describe('keyboard accessibility of additional buttons', () => {
+    beforeEach(() => {
+      wrapper = mount(
+        <SplitButton
+          text='mainButton'
+          data-element='bar'
+          data-role='baz'
+        >
+          <Button>
+            Extra Button
+          </Button>
+          <Button>
+            Extra Button
+          </Button>
+          <Button>
+            Extra Button
+          </Button>
+        </SplitButton>
+      );
+      toggle = wrapper.find('[data-element="open"]').hostNodes();
+      toggle.prop('onFocus')();
+      // wrapperJSON = wrapper.toJSON;
+    });
+
     // assert index state
     // assert style
     describe('pressing the "up" key', () => {
-      it('increments the selected index state', () => {
+      // fit('adds focus to the button referenced by the index', async () => {
+      //   const { additionalButtons } = wrapper.instance();
+      //   toggle.prop('onFocus')();
+      //   const spys = [];
+      // for (let index = additionalButtons.length - 1; index >= 0; index--) {
+      //   keyboard.pressUpArrow();
+      //   const button = additionalButtons[index];
+      //   spys.push(spyOn(button, 'focus'));
+      // }
+      //   await setInterval(() => spys.forEach(spy => expect(spy).not.toHaveBeenCalled(), 200));
+      // });
 
-      });
-
-      it('matches the expected style for the button indexed', () => {
-
+      fit('matches the expected style for the button indexed', () => {
+        const { additionalButtons } = wrapper.instance();
+        for (let index = additionalButtons.length - 1; index >= 0; index--) {
+          keyboard.pressUpArrow();
+          const button = additionalButtons[index];
+          assertStyleMatch({
+            background: 'transparent',
+            borderColor: BaseTheme.colors.primary,
+            color: BaseTheme.colors.primary,
+            fontSize: '14px',
+            height: '40px',
+            paddingLeft: '24px',
+            paddingRight: '24px'
+          }, button);
+        }
       });
     });
 
     describe('pressing the "down" key', () => {
-      beforeEach(() => {
-        wrapper = mount(
-          <SplitButton
-            text='mainButton'
-            data-element='bar'
-            data-role='baz'
-          >
-            <Button>
-              Extra Button
-            </Button>
-            <Button>
-              Extra Button
-            </Button>
-            <Button>
-              Extra Button
-            </Button>
-          </SplitButton>
-        );
-        // wrapper = render({ text: 'mainButton' }, { children: 'Second Button' });
-        toggle = wrapper.find('[data-element="open"]').hostNodes();
-      });
-
-      fit('decrements the selected index state', () => {
-        // console.log('refs : ', wrapper.instance().splitButtons);
-        toggle.prop('onFocus')();
-        wrapper.props().children.forEach((_, index) => {
-          keyboard.pressDownArrow();
-          expect(wrapper.instance().state.selectedIndex).toEqual(index);
-        });
-      });
+      // it('adds focus to the button referenced by the index', () => {
+      //   toggle = wrapper.find('[data-element="open"]').hostNodes();
+      //   const { additionalButtons } = wrapper.instance();
+      //   toggle.prop('onFocus')();
+      //   wrapper.props().children.forEach((_, index) => {
+      //     keyboard.pressDownArrow();
+      //     const button = additionalButtons[index];
+      //     const spy = spyOn(button, 'focus');
+      //     setInterval(() => expect(spy).toHaveBeenCalled(), 200);
+      //   });
+      // });
 
       it('matches the expected style for the button indexed', () => {
 
@@ -209,8 +231,10 @@ describe('SplitButton', () => {
     });
 
     it('creates and stores refs for the main and toggle buttons', () => {
-      expect(wrapper.instance().splitButtons.length).toEqual(2);
-      expect(wrapper.instance().splitButtons[0]).not.toEqual(wrapper.instance().splitButtons[1]);
+      const { splitButtons } = wrapper.instance();
+      expect(splitButtons.length).toEqual(2);
+      splitButtons.forEach(btn => expect(btn).not.toEqual(null));
+      expect(splitButtons[0]).not.toEqual(wrapper.instance().splitButtons[1]);
     });
 
     it('creates and stores refs for the any additonal buttons', () => {

@@ -99,8 +99,8 @@ export class SplitButton extends React.Component {
     }
   }
 
-  activeIndex(el) {
-    return el === document.activeElement;
+  activeIndex(node) {
+    return node === document.activeElement;
   }
 
   scrollToNextButton(index) {
