@@ -41,6 +41,10 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
   display: none;
 }
 
+.c0 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
+}
+
 <div
   className="c0"
   onMouseDown={[Function]}
@@ -80,6 +84,10 @@ exports[`InputPresentation renders presentational div and context provider for i
 
 .c0 input::-ms-clear {
   display: none;
+}
+
+.c0 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
 }
 
 <div

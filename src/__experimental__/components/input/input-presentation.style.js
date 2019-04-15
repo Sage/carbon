@@ -44,6 +44,9 @@ const InputPresentationStyle = styled.div`
   input::-ms-clear {
     display: none;
   }
+  input::-webkit-contacts-auto-fill-button {
+    display: none!important;
+  }
 `;
 
 function stylingForValidation(message) {
