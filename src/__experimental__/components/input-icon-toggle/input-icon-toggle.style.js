@@ -30,6 +30,7 @@ const InputIconToggleStyle = styled.span`
 
   ${({ theme }) => theme.name === THEMES.classic && css`
     background-color: #e6ebed;
+    margin-right: -6px;
     
     &:hover {
       color: #fff;
