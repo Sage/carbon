@@ -28,7 +28,6 @@ exports[`StyledDateInput renders correctly for the "classic" theme 1`] = `
 .c0 .c1 {
   border-left: 1px solid #bfccd2;
   box-sizing: border-box;
-  margin-right: -6px;
   width: 31px;
 }
 
