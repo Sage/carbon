@@ -11,7 +11,7 @@ const dateClassicStyle = ({ theme }) => theme.name === THEMES.classic && css`
   & ${InputIconToggleStyle} {
     border-left: 1px solid #bfccd2;
     box-sizing: border-box;
-    margin-right: -7px;
+    margin-right: -6px;
     width: 31px;
   }
 `;

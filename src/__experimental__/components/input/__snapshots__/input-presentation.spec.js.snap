@@ -36,6 +36,17 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
   border-color: #99adb6;
 }
 
+.c0:hover .c1 {
+  background-color: #255bc7;
+  border-color: #255bc7;
+  color: #fff;
+}
+
+.c0:hover .c1:hover {
+  background-color: #1e499f;
+  border-color: #1e499f;
+}
+
 <div
   className="c0"
   onMouseDown={[Function]}

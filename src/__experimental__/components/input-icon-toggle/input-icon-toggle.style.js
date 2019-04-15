@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import sizes from '../input/input-sizes.style';
+import { THEMES } from '../../../style/themes';
 
 const InputIconToggleStyle = styled.span`
   align-items: center;
@@ -26,6 +27,14 @@ const InputIconToggleStyle = styled.span`
     if (size === 'large') return css`width: 48px;`;
     return css`width: 40px;`;
   }}
+
+  ${({ theme }) => theme.name === THEMES.classic && css`
+    background-color: #e6ebed;
+    
+    &:hover {
+      color: #fff;
+    }
+  `}
 `;
 
 InputIconToggleStyle.defaultProps = {

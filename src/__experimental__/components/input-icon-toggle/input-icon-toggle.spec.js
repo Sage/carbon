@@ -58,4 +58,12 @@ describe('InputIconToggle', () => {
       });
     });
   });
+
+  describe('clasic theme', () => {
+    it('when active', () => {
+      assertStyleMatch({
+        backgroundColor: '#e6ebed'
+      }, render({ theme: { name: 'classic' } }, TestRenderer.create).toJSON());
+    });
+  });
 });

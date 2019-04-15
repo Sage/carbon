@@ -14,12 +14,22 @@ exports[`StyledDateInput renders correctly for default theme 1`] = `
 `;
 
 exports[`StyledDateInput renders correctly for the "classic" theme 1`] = `
-.c0 .c1 {
+.c0 .c2 {
   -webkit-flex: none;
   -ms-flex: none;
   flex: none;
   width: 135px;
+}
+
+.c0 .c2 {
   width: 120px;
+}
+
+.c0 .c1 {
+  border-left: 1px solid #bfccd2;
+  box-sizing: border-box;
+  margin-right: -6px;
+  width: 31px;
 }
 
 <div

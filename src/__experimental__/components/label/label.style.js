@@ -4,6 +4,7 @@ import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import sizes from '../input/input-sizes.style';
 import { THEMES } from '../../../style/themes';
+import InputIconToggleStyle from '../input-icon-toggle/input-icon-toggle.style';
 
 const LabelStyle = styled.label`
   color: ${({ theme }) => theme.text.color};
@@ -34,6 +35,11 @@ const LabelStyle = styled.label`
       padding-top: 7px;
       padding-right: 8px;
     `}
+    
+    &:hover ${InputIconToggleStyle} {
+      background-color: #1e499f;
+      border-color: #1e499f;
+    }
   `}
 `;
 
