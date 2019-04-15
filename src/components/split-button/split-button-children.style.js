@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../style/themes/base';
 import StyledButton from '../button/button.style';
 import colors from './split-button-colors.style';
+import { THEMES } from '../../style/themes';
 
 const StyledSplitButtonChildrenContainer = styled.div`
   max-width: 100%;
@@ -28,7 +29,7 @@ const StyledSplitButtonChildrenContainer = styled.div`
 `;
 
 function styleChildrenContainer({ theme }) {
-  if (theme.name === 'classic') {
+  if (theme.name === THEMES.classic) {
     return `
       background-color: ${colors.classic.secondary};
       min-width: 100%;
@@ -44,7 +45,7 @@ function styleChildrenContainer({ theme }) {
 }
 
 function applyStylingToChildButtons({ theme }) {
-  if (theme.name === 'classic') {
+  if (theme.name === THEMES.classic) {
     return css`
       display: block;
       background-color: ${colors.classic.secondary};

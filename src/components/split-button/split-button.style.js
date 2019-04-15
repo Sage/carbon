@@ -4,6 +4,7 @@ import StyledButton from '../button/button.style';
 import BaseTheme from '../../style/themes/base';
 import colors from './split-button-colors.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import { THEMES } from '../../style/themes';
 
 const StyledSplitButtonContainer = styled.div`
   display: inline-block;
@@ -28,7 +29,7 @@ export const StyledToggleButton = styled(StyledButton)`
 `;
 
 function styleToggleButton(props) {
-  return props.theme.name === 'classic' ? applyClassicStyling(props) : applyModernStyling(props);
+  return props.theme.name === THEMES.classic ? applyClassicStyling(props) : applyModernStyling(props);
 }
 
 function applyClassicStyling(props) {

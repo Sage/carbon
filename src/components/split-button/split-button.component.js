@@ -8,6 +8,7 @@ import StyledSplitButtonChildrenContainer from './split-button-children.style';
 import { validProps } from '../../utils/ether/ether';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Events from '../../utils/helpers/events';
+import { THEMES } from '../../style/themes';
 
 export class SplitButton extends React.Component {
   static propTypes = {
@@ -49,7 +50,7 @@ export class SplitButton extends React.Component {
     text: PropTypes.string.isRequired,
 
     /**
-     * The busineess theme passed to the component from the theme provider
+     * The business theme passed to the component from the theme provider
      */
     theme: PropTypes.object
   }
@@ -66,7 +67,7 @@ export class SplitButton extends React.Component {
     super(props);
     this.componentTags = this.componentTags.bind(this);
     this.additionalButtons = [];
-    this.splitButtons = [];
+    this.splitButton = React.createRef();
     this.listening = false;
   }
 
@@ -99,11 +100,9 @@ export class SplitButton extends React.Component {
     }
   }
 
-  blurSplitButtons(index) {
+  blurSplitButton(index) {
     if (index !== -1) {
-      this.splitButtons.forEach((btn) => {
-        if (btn) btn.blur();
-      });
+      if (this.splitButton.current) this.splitButton.current.blur();
     }
   }
 
@@ -116,17 +115,15 @@ export class SplitButton extends React.Component {
     const currentIndex = this.additionalButtons.findIndex(this.activeElementIndex);
     let nextIndex = -1;
 
-    // console.log('spliiiiiiit', this.splitButtons);
     if (Events.isUpKey(ev)) {
-      this.blurSplitButtons();
+      this.blurSplitButton();
       nextIndex = currentIndex > 0 ? currentIndex - 1 : children.length - 1;
       ev.preventDefault();
     } else if (Events.isDownKey(ev)) {
-      this.blurSplitButtons();
+      this.blurSplitButton();
       nextIndex = currentIndex < children.length - 1 ? currentIndex + 1 : 0;
       ev.preventDefault();
     }
-    // console.log('element focused')
     this.additionalButtons[nextIndex].focus();
   }
 
@@ -149,7 +146,7 @@ export class SplitButton extends React.Component {
       displayed: this.state.showAdditionalButtons,
       onClick: (ev) => { ev.preventDefault(); },
       onFocus: this.showButtons,
-      ref: this.toggle,
+      ref: this.splitButton,
       renderAs: this.props.as,
       size: this.props.size
     };
@@ -172,9 +169,9 @@ export class SplitButton extends React.Component {
     };
   }
 
-  addRef(identifier, ref, index) {
+  addRef(ref, index) {
     if (!ref) return;
-    if (this[identifier][index] !== ref) this[identifier][index] = ref;
+    if (this.additionalButtons[index] !== ref) this.additionalButtons[index] = ref;
   }
 
   /**
@@ -186,7 +183,6 @@ export class SplitButton extends React.Component {
         <Button
           { ...this.mainButtonProps }
           data-element='main-button'
-          ref={ main => this.addRef('splitButtons', main, 0) }
         >
           { this.props.text}
         </Button>
@@ -194,7 +190,6 @@ export class SplitButton extends React.Component {
         <StyledToggleButton
           { ...this.toggleButtonProps }
           data-element='open'
-          ref={ toggle => this.addRef('splitButtons', toggle, 1) }
         >
           <Icon type='dropdown' />
         </StyledToggleButton>
@@ -209,10 +204,10 @@ export class SplitButton extends React.Component {
     return childArray.map((child, index) => {
       const props = {
         key: index.toString(),
-        ref: button => this.addRef('additionalButtons', button, index),
+        ref: button => this.addRef(button, index),
         tabIndex: -1
       };
-      if (theme && theme.name === 'classic') props.size = 'medium';
+      if (theme && theme.name === THEMES.classic) props.size = 'medium';
 
       return React.cloneElement(child, props);
     });
@@ -222,13 +217,14 @@ export class SplitButton extends React.Component {
    * Returns the HTML for the additional buttons.
    */
   get renderAdditionalButtons() {
+    const children = this.childrenWithProps();
     if (!this.state.showAdditionalButtons) return null;
     return (
       <StyledSplitButtonChildrenContainer
         displayButtons={ this.state.showAdditionalButtons }
         data-element='additional-buttons'
       >
-        { this.childrenWithProps() }
+        { children }
       </StyledSplitButtonChildrenContainer>
     );
   }

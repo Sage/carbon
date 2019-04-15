@@ -11,7 +11,7 @@ const assertStyleMatch = (styleSpec, component, opts) => {
   });
 };
 
-const makeArray = n => [...Array(n).keys()];
+const makeArrayKeys = n => [...Array(n).keys()];
 
 const keyPress = (code) => {
   const ev = new KeyboardEvent('keydown', { which: code });
@@ -27,7 +27,7 @@ const keyMap = {
   Tab: '9'
 };
 
-const repeat = action => (n = 1) => makeArray(n).forEach(() => action());
+const repeat = action => (n = 1) => makeArrayKeys(n).forEach(() => action());
 
 const keyboard = Object.keys(keyMap).reduce((acc, key) => {
   acc[`press${key}`] = () => repeat(keyPress(keyMap[key]));
@@ -74,7 +74,7 @@ export {
   hoverList,
   selectedItemOf,
   childrenFrom,
-  makeArray,
+  makeArrayKeys,
   keyboard,
   assertKeyboardTraversal,
   assertHoverTraversal,
