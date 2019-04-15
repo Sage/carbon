@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SplitButton mouse enter dropdown toggle renders additional buttons to match snapshot 1`] = `
+exports[`SplitButton toggle button with mouse events mouse enter dropdown toggle renders additional buttons to match snapshot 1`] = `
 <styled.div
   data-component="split-button"
   data-element="bar"
@@ -59,7 +59,6 @@ exports[`SplitButton mouse enter dropdown toggle renders additional buttons to m
       disabled={false}
       iconPosition=""
       iconType=""
-      onClick={[Function]}
       onFocus={[Function]}
       onMouseEnter={[Function]}
       size="medium"
@@ -180,7 +179,6 @@ exports[`SplitButton mouse enter dropdown toggle renders additional buttons to m
       iconPosition=""
       iconType=""
       key="0"
-      onClick={[Function]}
       size="medium"
       subtext=""
       tabIndex={-1}

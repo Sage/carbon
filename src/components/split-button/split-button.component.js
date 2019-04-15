@@ -67,7 +67,6 @@ export class SplitButton extends React.Component {
     super(props);
     this.componentTags = this.componentTags.bind(this);
     this.additionalButtons = [];
-    this.splitButton = React.createRef();
     this.listening = false;
   }
 
@@ -100,12 +99,6 @@ export class SplitButton extends React.Component {
     }
   }
 
-  blurSplitButton(index) {
-    if (index !== -1) {
-      if (this.splitButton.current) this.splitButton.current.blur();
-    }
-  }
-
   activeElementIndex(node) {
     return node === document.activeElement;
   }
@@ -116,11 +109,9 @@ export class SplitButton extends React.Component {
     let nextIndex = -1;
 
     if (Events.isUpKey(ev)) {
-      this.blurSplitButton();
       nextIndex = currentIndex > 0 ? currentIndex - 1 : children.length - 1;
       ev.preventDefault();
     } else if (Events.isDownKey(ev)) {
-      this.blurSplitButton();
       nextIndex = currentIndex < children.length - 1 ? currentIndex + 1 : 0;
       ev.preventDefault();
     }
@@ -146,7 +137,6 @@ export class SplitButton extends React.Component {
       displayed: this.state.showAdditionalButtons,
       onClick: (ev) => { ev.preventDefault(); },
       onFocus: this.showButtons,
-      ref: this.splitButton,
       renderAs: this.props.as,
       size: this.props.size
     };
