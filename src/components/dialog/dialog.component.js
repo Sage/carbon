@@ -143,7 +143,7 @@ class Dialog extends Modal {
     }
 
     return (
-      <DialogTitleStyle ref={ (c) => { this._title = c; } }>{ title }</DialogTitleStyle>
+      <DialogTitleStyle ref={ (titleRef) => { this._title = titleRef; } }>{ title }</DialogTitleStyle>
     );
   }
 
@@ -215,7 +215,7 @@ class Dialog extends Modal {
 
     return (
       <DialogStyle
-        ref={ (d) => { this._dialog = d; } }
+        ref={ (dialog) => { this._dialog = dialog; } }
         { ...dialogProps }
         { ...this.componentTags(this.props) }
         onBlur={ this.onDialogBlur }
@@ -223,12 +223,12 @@ class Dialog extends Modal {
         { this.dialogTitle }
 
         <DialogContentStyle
-          ref={ (c) => { this._content = c; } }
+          ref={ (content) => { this._content = content; } }
           height={ this.props.height }
           fixedBottom={ this.appliedFixedBottom }
         >
           <DialogInnerContentStyle
-            ref={ (c) => { this._innerContent = c; } }
+            ref={ (innerContent) => { this._innerContent = innerContent; } }
             height={ this.props.height }
           >
             { this.props.children }
@@ -243,14 +243,20 @@ class Dialog extends Modal {
 
 Dialog.propTypes = {
   ...Modal.propTypes,
+  /** Allows developers to specify a specific height for the dialog. */
   height: PropTypes.string,
+  /** Title displayed at top of dialog */
   title: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
   ]),
+  /** Subtitle displayed at top of dialog */
   subtitle: PropTypes.string,
+  /** Size of dialog, default size is 750px */
   size: PropTypes.string,
+  /** Determines if the close icon is shown */
   showCloseIcon: PropTypes.bool,
+  /** If true then the dialog receives focus when it opens */
   autoFocus: PropTypes.bool,
   stickyFormFooter: PropTypes.bool
 };

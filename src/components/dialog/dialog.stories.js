@@ -9,6 +9,7 @@ import Dialog from './dialog.component';
 import Form from '../form';
 import Textbox from '../textbox';
 import Button from '../button/button';
+import Modal from '../modal/modal';
 
 const store = new Store({
   open: false
@@ -29,16 +30,6 @@ const handleClick = (evt) => {
 };
 
 storiesOf('Dialog', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [
-        Button,
-        State,
-        Form,
-        Textbox
-      ]
-    }
-  })
   .add('default', () => {
     const height = text('height', '400');
     const title = text('title', 'Example Dialog');
@@ -83,6 +74,15 @@ storiesOf('Dialog', module)
       </div>
     );
   }, {
+    info: {
+      propTablesExclude: [
+        Button,
+        State,
+        Form,
+        Textbox,
+        Modal
+      ]
+    },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   });
