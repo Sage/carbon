@@ -65,7 +65,7 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
               "secondary": "#006300",
               "success": "#00B000",
               "tertiary": "#004400",
-              "warning": "#FFB500",
+              "warning": "#E96400",
               "white": "#FFFFFF",
             },
             "disabled": Object {
@@ -103,7 +103,7 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
                 "secondary": "#006300",
                 "success": "#00B000",
                 "tertiary": "#004400",
-                "warning": "#FFB500",
+                "warning": "#E96400",
                 "white": "#FFFFFF",
               },
               "disabled": Object {
