@@ -52,7 +52,6 @@ function getTextboxStoryProps() {
   };
   const disabled = boolean('disabled', false);
   const readOnly = boolean('readOnly', false);
-  const placeholder = text('placeholder');
   const fieldHelp = text('fieldHelp');
   const inputWidth = number('inputWidth', 100, percentageRange);
   const label = text('label');
@@ -64,7 +63,6 @@ function getTextboxStoryProps() {
   return {
     disabled,
     readOnly,
-    placeholder,
     inputWidth,
     fieldHelp,
     label,
