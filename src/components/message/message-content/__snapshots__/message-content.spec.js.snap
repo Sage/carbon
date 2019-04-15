@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MessageContent when in classic theme when the title prop is provided should render the title with a proper color applied 1`] = `
+.c0 {
+  padding: 15px 20px;
+  white-space: pre-wrap;
+}
+
+.c0 .carbon-content__title {
+  margin-bottom: 2px;
+}
+
+.c0 .carbon-content__body {
+  margin-top: 0px;
+}
+
+.c0 .carbon-content__title {
+  color: #c7384f;
+}
+
+<div
+  className="c0"
+  title="Example title"
+>
+  Message
+</div>
+`;
+
+exports[`MessageContent when in classic theme when the title prop is provided should render the title with a proper color applied 2`] = `
+.c0 {
+  padding: 15px 20px;
+  white-space: pre-wrap;
+}
+
+.c0 .carbon-content__title {
+  margin-bottom: 2px;
+}
+
+.c0 .carbon-content__body {
+  margin-top: 0px;
+}
+
+.c0 .carbon-content__title {
+  color: #1573e6;
+}
+
+<div
+  className="c0"
+  title="Example title"
+>
+  Message
+</div>
+`;
+
+exports[`MessageContent when in classic theme when the title prop is provided should render the title with a proper color applied 3`] = `
+.c0 {
+  padding: 15px 20px;
+  white-space: pre-wrap;
+}
+
+.c0 .carbon-content__title {
+  margin-bottom: 2px;
+}
+
+.c0 .carbon-content__body {
+  margin-top: 0px;
+}
+
+.c0 .carbon-content__title {
+  color: #50b848;
+}
+
+<div
+  className="c0"
+  title="Example title"
+>
+  Message
+</div>
+`;
+
+exports[`MessageContent when in classic theme when the title prop is provided should render the title with a proper color applied 4`] = `
+.c0 {
+  padding: 15px 20px;
+  white-space: pre-wrap;
+}
+
+.c0 .carbon-content__title {
+  margin-bottom: 2px;
+}
+
+.c0 .carbon-content__body {
+  margin-top: 0px;
+}
+
+.c0 .carbon-content__title {
+  color: #ff7d00;
+}
+
+<div
+  className="c0"
+  title="Example title"
+>
+  Message
+</div>
+`;
+
+exports[`MessageContent when rendered should render correctly 1`] = `
+<styled.div
+  messageType="info"
+  transparent={false}
+>
+  <Content
+    align="left"
+    as="primary"
+    bodyFullWidth={false}
+    className="message-content"
+    inline={false}
+  />
+</styled.div>
+`;
