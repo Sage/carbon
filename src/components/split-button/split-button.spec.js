@@ -15,41 +15,34 @@ import {
 } from '../../__spec_helper__/test-utils';
 import 'jest-styled-components';
 
-const render = (mainProps, childProps, renderer = shallow) => {
-  const { children } = childProps;
+const render = (mainProps, childButtons, childProps, renderer = shallow) => {
   return renderer(
     <SplitButton
       { ...mainProps }
       data-element='bar'
       data-role='baz'
     >
-      <Button { ...childProps }>
-        { children }
-      </Button>
+      { renderChildButtons(childButtons, childProps) }
     </SplitButton>
   );
 };
+
+function renderChildButtons(buttons, childProps) {
+  if (buttons.length === 0) {
+    const { children } = childProps;
+    return (
+      <Button { ...childProps }>
+        { children }
+      </Button>
+    );
+  }
+  return buttons;
+}
 
 describe('SplitButton', () => {
   let wrapper, toggle;
   const handleMainButton = jasmine.createSpy('main');
   const handleSecondButton = jasmine.createSpy('second');
-
-  // beforeEach(() => {
-  //   wrapper = render(
-  //     {
-  //       text: 'mainButton',
-  //       onClick: handleMainButton
-  //     },
-  //     {
-  //       onClick: handleSecondButton,
-  //       children: 'Second Button'
-  //     }
-  //   );
-  //   splitButton = wrapper.find('SplitButton');
-  //   toggle = splitButton.find('[data-element="open"]').hostNodes();
-  // });
-
 
   beforeEach(() => {
     wrapper = render(
@@ -57,6 +50,7 @@ describe('SplitButton', () => {
         text: 'mainButton',
         onClick: handleMainButton
       },
+      [],
       {
         onClick: handleSecondButton,
         children: 'Second Button'
@@ -100,7 +94,7 @@ describe('SplitButton', () => {
 
     it('when disabled it does not change the state', () => {
       const wrapper2 = render(
-        { text: 'mainButton', disabled: true }, { children: 'Second Button' }
+        { text: 'mainButton', disabled: true }, [], { children: 'Second Button' }
       );
       const block = wrapper2.find('[data-element="open"]');
       block.simulate('mouseenter');
@@ -111,7 +105,7 @@ describe('SplitButton', () => {
   describe('mouse leave split-button', () => {
     let wrapper2, toggle2, mainButton;
     beforeEach(() => {
-      wrapper2 = render({ text: 'mainButton' }, { children: 'Second Button' });
+      wrapper2 = render({ text: 'mainButton' }, [], { children: 'Second Button' });
       mainButton = wrapper2.find('[data-element="main-button"]');
       toggle2 = wrapper2.find('[data-element="open"]');
     });
@@ -147,47 +141,37 @@ describe('SplitButton', () => {
     });
   });
 
-  describe('keyboard accessibility of additional buttons', () => {
-    beforeEach(() => {
-      wrapper = mount(
-        <SplitButton
-          text='mainButton'
-          data-element='bar'
-          data-role='baz'
-        >
-          <Button>
-            Extra Button
-          </Button>
-          <Button>
-            Extra Button
-          </Button>
-          <Button>
-            Extra Button
-          </Button>
-        </SplitButton>
-      );
-      toggle = wrapper.find('[data-element="open"]').hostNodes();
-      toggle.prop('onFocus')();
-      // wrapperJSON = wrapper.toJSON;
-    });
-
-    // assert index state
-    // assert style
+  describe('keyboard accessibility of additional buttons', async () => {
     describe('pressing the "up" key', () => {
-      // fit('adds focus to the button referenced by the index', async () => {
-      //   const { additionalButtons } = wrapper.instance();
-      //   toggle.prop('onFocus')();
-      //   const spys = [];
-      // for (let index = additionalButtons.length - 1; index >= 0; index--) {
-      //   keyboard.pressUpArrow();
-      //   const button = additionalButtons[index];
-      //   spys.push(spyOn(button, 'focus'));
-      // }
-      //   await setInterval(() => spys.forEach(spy => expect(spy).not.toHaveBeenCalled(), 200));
-      // });
+      let wrapper2;
+      beforeEach(() => {
+        wrapper2 = render({
+          text: 'mainButton',
+          'data-element': 'bar',
+          'data-role': 'baz'
+        },
+        [
+          <Button>Extra Button</Button>,
+          <Button>Extra Button</Button>,
+          <Button>Extra Button</Button>
+        ],
+        {}, mount);
+        toggle = wrapper2.find('[data-element="open"]').hostNodes();
+        toggle.prop('onFocus')();
+      });
+      it('adds focus to the button referenced by the index', () => {
+        const { additionalButtons } = wrapper2.instance();
+        for (let index = additionalButtons.length - 1; index >= 0; index--) {
+          const button = additionalButtons[index];
+          const spy = spyOn(button, 'focus');
+          keyboard.pressUpArrow();
+          expect(spy).toBeCalled();
+        }
+        // setInterval(() => spys.forEach(spy => expect(spy).toHaveBeenCalled(), 200));
+      });
 
       fit('matches the expected style for the button indexed', () => {
-        const { additionalButtons } = wrapper.instance();
+        const { additionalButtons } = wrapper2.instance();
         for (let index = additionalButtons.length - 1; index >= 0; index--) {
           keyboard.pressUpArrow();
           const button = additionalButtons[index];
@@ -202,14 +186,34 @@ describe('SplitButton', () => {
           }, button);
         }
       });
+
+      afterEach(() => {
+        wrapper2.unmount();
+      });
     });
 
     describe('pressing the "down" key', () => {
+      let wrapper3;
+      beforeEach(() => {
+        wrapper3 = render({
+          text: 'mainButton',
+          'data-element': 'bar',
+          'data-role': 'baz'
+        },
+        [
+          <Button>Extra Button</Button>,
+          <Button>Extra Button</Button>,
+          <Button>Extra Button</Button>
+        ],
+        {}, mount);
+        toggle = wrapper3.find('[data-element="open"]').hostNodes();
+        toggle.prop('onFocus')();
+      });
       // it('adds focus to the button referenced by the index', () => {
-      //   toggle = wrapper.find('[data-element="open"]').hostNodes();
-      //   const { additionalButtons } = wrapper.instance();
+      //   toggle = wrapper2.find('[data-element="open"]').hostNodes();
+      //   const { additionalButtons } = wrapper2.instance();
       //   toggle.prop('onFocus')();
-      //   wrapper.props().children.forEach((_, index) => {
+      //   wrapper2.props().children.forEach((_, index) => {
       //     keyboard.pressDownArrow();
       //     const button = additionalButtons[index];
       //     const spy = spyOn(button, 'focus');
@@ -217,17 +221,42 @@ describe('SplitButton', () => {
       //   });
       // });
 
-      it('matches the expected style for the button indexed', () => {
-
+      fit('matches the expected style for the button indexed', () => {
+        const { additionalButtons } = wrapper3.instance();
+        // console.log('split', wrapper3.instance().additionalButtons);
+        additionalButtons.forEach((_, index) => {
+          const button = additionalButtons[index];
+          keyboard.pressDownArrow();
+          // console.log('test focus call');
+          assertStyleMatch({
+            background: 'transparent',
+            borderColor: BaseTheme.colors.primary,
+            color: BaseTheme.colors.primary,
+            fontSize: '14px',
+            height: '40px',
+            paddingLeft: '24px',
+            paddingRight: '24px'
+          }, button);
+        });
+      });
+      afterEach(() => {
+        wrapper3.unmount();
       });
     });
   });
 
   describe('button refs', () => {
-    // assert main buttons have refs
-    // assert additional buttons have refs
     beforeEach(() => {
-      wrapper = render({ text: 'mainButton' }, { children: 'Second Button' }, mount);
+      wrapper = render({
+        text: 'mainButton',
+        'data-element': 'bar',
+        'data-role': 'baz'
+      },
+      [
+        <Button>Extra Button</Button>,
+        <Button>Extra Button</Button>
+      ],
+      {}, mount);
     });
 
     it('creates and stores refs for the main and toggle buttons', () => {
@@ -238,7 +267,16 @@ describe('SplitButton', () => {
     });
 
     it('creates and stores refs for the any additonal buttons', () => {
+      toggle = wrapper.find('[data-element="open"]').hostNodes();
+      toggle.prop('onFocus')();
+      const { additionalButtons } = wrapper.instance();
+      expect(additionalButtons.length).toEqual(2);
+      additionalButtons.forEach(btn => expect(btn).not.toEqual(null));
+      expect(additionalButtons[0]).not.toEqual(wrapper.instance().splitButtons[1]);
+    });
 
+    afterEach(() => {
+      wrapper.unmount();
     });
   });
 

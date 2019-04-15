@@ -99,37 +99,35 @@ export class SplitButton extends React.Component {
     }
   }
 
-  activeIndex(node) {
+  blurSplitButtons(index) {
+    if (index !== -1) {
+      this.splitButtons.forEach((btn) => {
+        if (btn) btn.blur();
+      });
+    }
+  }
+
+  activeElementIndex(node) {
     return node === document.activeElement;
-  }
-
-  scrollToNextButton(index) {
-    this.additionalButtons[index].focus();
-  }
-
-  handleUpPress(index, length) {
-    const decrementedIndex = index > 0 ? index - 1 : length - 1;
-
-    this.scrollToNextButton(decrementedIndex);
-  }
-
-  handleDownPress(index, length) {
-    const incrementedIndex = index < length - 1 ? index + 1 : 0;
-
-    this.scrollToNextButton(incrementedIndex);
   }
 
   handleKeyDown = (ev) => {
     const { children } = this.props;
+    const currentIndex = this.additionalButtons.findIndex(this.activeElementIndex);
+    let nextIndex = -1;
+
+    // console.log('spliiiiiiit', this.splitButtons);
     if (Events.isUpKey(ev)) {
+      this.blurSplitButtons();
+      nextIndex = currentIndex > 0 ? currentIndex - 1 : children.length - 1;
       ev.preventDefault();
-      this.splitButtons.forEach(btn => btn.blur());
-      this.handleUpPress(this.additionalButtons.findIndex(this.activeIndex), children.length);
     } else if (Events.isDownKey(ev)) {
+      this.blurSplitButtons();
+      nextIndex = currentIndex < children.length - 1 ? currentIndex + 1 : 0;
       ev.preventDefault();
-      this.splitButtons.forEach(btn => btn.blur());
-      this.handleDownPress(this.additionalButtons.findIndex(this.activeIndex), children.length);
     }
+    // console.log('element focused')
+    this.additionalButtons[nextIndex].focus();
   }
 
   /**
@@ -175,6 +173,7 @@ export class SplitButton extends React.Component {
   }
 
   addRef(identifier, ref, index) {
+    if (!ref) return;
     if (this[identifier][index] !== ref) this[identifier][index] = ref;
   }
 

@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../style/themes/base';
 import StyledButton from '../button/button.style';
 import colors from './split-button-colors.style';
-// import OptionsHelper from '../../utils/helpers/options-helper';
 
 const StyledSplitButtonChildrenContainer = styled.div`
   max-width: 100%;

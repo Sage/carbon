@@ -14,9 +14,6 @@ const StyledSplitButtonContainer = styled.div`
 `;
 // Need to size the main button
 
-export const StyledMainButton = styled(StyledButton)`
-`;
-
 export const StyledToggleButton = styled(StyledButton)`
   ${styleToggleButton}
 
@@ -70,7 +67,7 @@ function classicToggleStyle({ displayed }) {
 function applyModernStyling(props) {
   if (props.disabled) {
     return css`
-      padding: 0 8px
+      padding: 0 8px;
       ${modernToggleStyle(props)}
     `;
   }
@@ -82,7 +79,7 @@ function applyModernStyling(props) {
         color: ${colors.white};
       }
     }
-    padding: 0 8px
+    padding: 0 8px;
     ${modernToggleStyle(props)}
   `;
 }
