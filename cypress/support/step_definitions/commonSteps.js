@@ -5,7 +5,9 @@ import {
   labelPreview, helpIcon, labelHelpInput, inputWidthSlider, fieldHelpInput,
   fieldHelpPreview, labelWidthSlider, lableInlineCheckbox, labelAlignSelect
 } from "../../locators/commonLocators";
+
 import { dialogTitle, dialogSubtitle } from "../../locators/alertDialogLocators";
+import { themeSelect } from "../../locators/ButtonLocators";
 
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component)
@@ -42,10 +44,6 @@ When('I set component theme property to {string}', (theme) => {
 When('I set height to {string}', (height) => {
   heightInput().clear().type(height)
 });
-
-When('I check open checkbox', () => {
-  openCheckbox().check();
-})
 
 When('I set label to {string}', (label) => {
   labelInput().clear().type(label)
@@ -111,3 +109,8 @@ Then('direction on preview is {string}', (direction) => {
     labelPreview().should('have.class', 'common-input__label--align-' + direction)
   }
 })
+
+When('I set align property to {string}', (asProperty) => {
+  alignSelect().select(asProperty);
+});
+
