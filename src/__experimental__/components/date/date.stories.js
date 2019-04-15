@@ -8,7 +8,7 @@ import {
 } from '@storybook/addon-knobs';
 import DateInput from './date.component';
 import Textbox from '../textbox';
-import getTextboxStoryProps from '../textbox/textbox.stories';
+import getCommonTextboxStoryProps from '../textbox/textbox.stories';
 import { notes, info } from './documentation';
 
 const store = new Store(
@@ -31,7 +31,7 @@ storiesOf('Experimental/Date Input', module)
 
     return (
       <DateInput
-        { ...getFilteredTextboxStoryProps() }
+        { ...getCommonTextboxStoryProps({ inputWidthEnabled: false }) }
         autoFocus={ autoFocus }
         minDate={ minDate }
         maxDate={ maxDate }
@@ -48,10 +48,3 @@ storiesOf('Experimental/Date Input', module)
     },
     notes: { markdown: notes }
   });
-
-function getFilteredTextboxStoryProps() {
-  const textboxProps = getTextboxStoryProps();
-  const { inputWidth, placeholder, ...filteredTextboxProps } = textboxProps;
-
-  return filteredTextboxProps;
-}
