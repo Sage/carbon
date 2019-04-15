@@ -2,8 +2,8 @@ import { draggableRecordByPosition, draggableRecordByText } from "./../../locato
 import { dragAndDrop } from "../helper"
 
 When('I drag Draggable Context {string} to {int}', (record, destinationId) => {
-    const START_POSITION = 130
-    dragAndDrop(draggableRecordByText(record), destinationId, START_POSITION)
+    const startPosition = 130
+    dragAndDrop(draggableRecordByText(record), destinationId, startPosition)
 })
 
 Then('Draggable Context {string} is dragged to {int}', (record, destinationId) => {

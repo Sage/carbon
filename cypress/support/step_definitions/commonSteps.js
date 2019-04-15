@@ -1,6 +1,6 @@
 import { visitComponentUrl, setSlidebar } from "../helper";
 import {
-  asSelect, themeSelect, sizeSelect, subtextInput, titleInput,
+  asSelect, sizeSelect, subtextInput, titleInput,
   heightInput, childrenTextArea, labelInput, commonButtonPreview,
   labelPreview, helpIcon, labelHelpInput, inputWidthSlider, fieldHelpInput,
   fieldHelpPreview, labelWidthSlider, lableInlineCheckbox, labelAlignSelect

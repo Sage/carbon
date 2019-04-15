@@ -2,8 +2,8 @@ import { draggableItemByText, draggableItemByPosition } from "../../locators/con
 import { dragAndDrop } from "../helper";
 
 When('I drag Configurable Items {string} to {int}', (record, destinationId) => {
-    const START_POSITION = 110;
-    dragAndDrop(draggableItemByText(record), destinationId, START_POSITION);
+    const startPosition = 110;
+    dragAndDrop(draggableItemByText(record), destinationId, startPosition);
 })
 
 Then('Configurable Items {string} is dragged to {int}', (record, destinationId) => {
