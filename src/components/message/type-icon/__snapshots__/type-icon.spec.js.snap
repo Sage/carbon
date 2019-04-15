@@ -1,0 +1,830 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TypeIcon when in classic theme when rendered should match the snapshot for default 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  border-radius: 3px 0 0 3px;
+  background-color: #335c6d;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when in classic theme when rendered should match the snapshot for error 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #C7384F;
+  border-radius: 3px 0 0 3px;
+  background-color: #c7384f;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when in classic theme when rendered should match the snapshot for help 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  border-radius: 3px 0 0 3px;
+  background-color: #ffab00;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when in classic theme when rendered should match the snapshot for info 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #0073C2;
+  border-radius: 3px 0 0 3px;
+  background-color: #1573e6;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when in classic theme when rendered should match the snapshot for maintenance 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  border-radius: 3px 0 0 3px;
+  background-color: #ff7d00;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when in classic theme when rendered should match the snapshot for new 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  border-radius: 3px 0 0 3px;
+  background-color: #639;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when in classic theme when rendered should match the snapshot for success 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #00B000;
+  border-radius: 3px 0 0 3px;
+  background-color: #50b848;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when in classic theme when rendered should match the snapshot for warning 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #E96400;
+  border-radius: 3px 0 0 3px;
+  background-color: #ff7d00;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when in classic theme when transparent prop is set to true applies white background and the type icon with the proper style applied for default 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #FFFFFF;
+  border-radius: 3px 0 0 3px;
+  background-color: #335c6d;
+  background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #335c6d;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when in classic theme when transparent prop is set to true applies white background and the type icon with the proper style applied for error 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #C7384F;
+  background-color: #FFFFFF;
+  border-radius: 3px 0 0 3px;
+  background-color: #c7384f;
+  background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #C7384F;
+}
+
+.c0 span:before {
+  color: #c7384f;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when in classic theme when transparent prop is set to true applies white background and the type icon with the proper style applied for help 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #FFFFFF;
+  border-radius: 3px 0 0 3px;
+  background-color: #ffab00;
+  background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #ffab00;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when in classic theme when transparent prop is set to true applies white background and the type icon with the proper style applied for info 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #0073C2;
+  background-color: #FFFFFF;
+  border-radius: 3px 0 0 3px;
+  background-color: #1573e6;
+  background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #0073C2;
+}
+
+.c0 span:before {
+  color: #1573e6;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when in classic theme when transparent prop is set to true applies white background and the type icon with the proper style applied for maintenance 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #FFFFFF;
+  border-radius: 3px 0 0 3px;
+  background-color: #ff7d00;
+  background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #ff7d00;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when in classic theme when transparent prop is set to true applies white background and the type icon with the proper style applied for new 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #FFFFFF;
+  border-radius: 3px 0 0 3px;
+  background-color: #639;
+  background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #639;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when in classic theme when transparent prop is set to true applies white background and the type icon with the proper style applied for success 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #00B000;
+  background-color: #FFFFFF;
+  border-radius: 3px 0 0 3px;
+  background-color: #50b848;
+  background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #00B000;
+}
+
+.c0 span:before {
+  color: #50b848;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when in classic theme when transparent prop is set to true applies white background and the type icon with the proper style applied for warning 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #E96400;
+  background-color: #FFFFFF;
+  border-radius: 3px 0 0 3px;
+  background-color: #ff7d00;
+  background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #E96400;
+}
+
+.c0 span:before {
+  color: #ff7d00;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when rendered should match the snapshot 1`] = `
+<styled.div
+  messageType="info"
+  roundedCorners={true}
+  theme={
+    Object {
+      "colors": Object {
+        "border": "#668491",
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFDA7F",
+        "info": "#0073C2",
+        "primary": "#26A826",
+        "secondary": "#006300",
+        "success": "#00B000",
+        "tertiary": "#004400",
+        "warning": "#E96400",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "border": "#CCD6DA",
+        "disabled": "rgba(0,0,0,0.55)",
+        "input": "#F2F4F5",
+        "text": "rgba(0,0,0,0.3)",
+      },
+      "name": "base",
+      "shadows": Object {
+        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+  transparent={false}
+>
+  <Icon
+    bgSize="small"
+    type="info"
+  />
+</styled.div>
+`;
+
+exports[`TypeIcon when rendered with no additional props should match the snapshot for error 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #C7384F;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when rendered with no additional props should match the snapshot for info 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #0073C2;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when rendered with no additional props should match the snapshot for success 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #00B000;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when rendered with no additional props should match the snapshot for warning 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #E96400;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when transparent prop is set to true applies white background and the type icon with the proper style applied 1`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #C7384F;
+  background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #C7384F;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when transparent prop is set to true applies white background and the type icon with the proper style applied 2`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #0073C2;
+  background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #0073C2;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when transparent prop is set to true applies white background and the type icon with the proper style applied 3`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #00B000;
+  background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #00B000;
+}
+
+<div
+  className="c0"
+/>
+`;
+
+exports[`TypeIcon when transparent prop is set to true applies white background and the type icon with the proper style applied 4`] = `
+.c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  text-align: center;
+  padding: 0 7px;
+  background-color: #E96400;
+  background-color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #FFFFFF;
+}
+
+.c0 span:before {
+  color: #E96400;
+}
+
+<div
+  className="c0"
+/>
+`;

@@ -19,6 +19,7 @@ exports[`Date StyledDayPicker classic theme applies custom styling 1`] = `
   font-weight: 700;
   padding: 10px;
   font-weight: 600;
+  color: #255BC7;
 }
 
 .c0 * {
