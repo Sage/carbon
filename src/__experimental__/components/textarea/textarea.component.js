@@ -95,18 +95,6 @@ class Textarea extends React.Component {
     return value.length > parseInt(this.props.characterLimit, 10);
   }
 
-  get inputProps() {
-    const { ...props } = validProps(this);
-    props.rows = this.props.rows;
-    props.cols = this.props.cols;
-
-    if (this.props.characterLimit && this.props.enforceCharacterLimit) {
-      props.maxLength = this.props.characterLimit;
-    }
-
-    return props;
-  }
-
   get characterCount() {
     const value = this.props.value || '';
     const { characterLimit, warnOverLimit } = this.props;
