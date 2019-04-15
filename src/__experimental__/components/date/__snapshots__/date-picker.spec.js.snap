@@ -159,7 +159,12 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
 
 .c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
   color: #FFFFFF;
+  background-color: #255BC7;
   font-weight: 700;
+}
+
+.c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
+  background-color: #255BC7;
 }
 
 <div
