@@ -54,6 +54,7 @@ storiesOf('Experimental/Textarea', module)
       const labelHelp = label ? text('labelHelp', '') : undefined;
       const labelInline = label ? boolean('labelInline', false) : undefined;
       const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
+      const inputWidth = labelInline ? number('inputWidth', 30, percentageRange) : undefined;
       const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
 
       return (
@@ -74,6 +75,7 @@ storiesOf('Experimental/Textarea', module)
             labelHelp={ labelHelp }
             labelInline={ labelInline }
             labelWidth={ labelWidth }
+            inputWidth={ inputWidth }
             labelAlign={ labelAlign }
           />
         </State>
