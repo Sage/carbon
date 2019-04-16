@@ -102,8 +102,8 @@ storiesOf('Dialog', module)
               <Textbox label='Pet Name' />
               <DateInput name='date' label="Pet's birthday" />
               <Checkbox name='checkbox' label='Do you like my Dog' />
+              <div>This is an example of a dialog with a Form as content</div>
             </Form>
-            This is an example of a dialog with a Form as content
           </Dialog>
         </State>
       </div>
