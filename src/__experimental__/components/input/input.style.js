@@ -10,6 +10,10 @@ const inputStyle = css`
   font-size: ${({ theme }) => theme.text.size};
   outline: none;
   width: 30px;
+  
+  ${({ align }) => align && css`
+    text-align: ${align};
+  `}
 
   &::placeholder {
     color: ${({ theme }) => theme.text.placeholder};
