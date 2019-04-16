@@ -1,15 +1,17 @@
 import {
   slide, slideIndexSelect, carousel, nextArrowButton, previousArrowButton, slideSelectorIndex,
-  enableSlideSelectorCheckbox, slideSelector, enableNextButtonCheckbox, enablePreviousButtonCheckbox, transitionSelect, giveTransition
-} from '../../locators/carouselLocators';
+  enableSlideSelectorCheckbox, slideSelector, enableNextButtonCheckbox,
+  enablePreviousButtonCheckbox, transitionSelect, giveTransition,
+} from '../../locators/carousel-locators';
 import { DEBUG_FLAG } from '..';
 
 function waitForCarouselMove() {
-  carousel().should('have.length', 2, { log: DEBUG_FLAG }); // two slides visible during carousel move 
+  carousel().should('have.length', 2, { log: DEBUG_FLAG }); // two slides visible during carousel move
   carousel().should('have.length', 1, { log: DEBUG_FLAG }); // one slide visible after carousel move
 }
 
 function clickCarouselButton(direction) {
+  const err = 'Direction can be only left or right';
   switch (direction) {
     case 'left':
       previousArrowButton().click();
@@ -17,7 +19,7 @@ function clickCarouselButton(direction) {
     case 'right':
       nextArrowButton().click();
       break;
-    default: throw 'Direction can be only left or right';
+    default: throw err;
   }
 }
 
