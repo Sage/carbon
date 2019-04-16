@@ -39,6 +39,14 @@ describe('InputPresentation', () => {
       });
     });
 
+    describe('width', () => {
+      it('renders correctly with a custom width', () => {
+        assertStyleMatch({
+          flex: '0 0 54%'
+        }, mountRender({ inputWidth: 54 }));
+      });
+    });
+
     describe('validations', () => {
       ['infoMessage', 'warningMessage', 'errorMessage'].forEach((message) => {
         const validation = message.replace('Message', '');
