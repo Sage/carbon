@@ -74,7 +74,7 @@ Object {
   "open": true,
   "target": <div
     autocomplete="off"
-    class="sc-htpNat iEZfSM"
+    class="sc-bxivhb hSnxuE"
     data-element="input"
     role="presentation"
     type="text"
@@ -82,7 +82,11 @@ Object {
   >
     <input
       autocomplete="off"
+<<<<<<< HEAD
       class="sc-bxivhb ituBSK"
+=======
+      class="sc-ifAKCX iHTfyA"
+>>>>>>> b92f6ef720617ff6e374dbc79d2cf42467b7cb30
       data-element="input"
       value=""
     />
@@ -91,7 +95,7 @@ Object {
     />
     <span
       autocomplete="off"
-      class="sc-ifAKCX jaOJuD"
+      class="sc-htpNat hmqeKz"
       data-element="input"
       value=""
     >

@@ -200,7 +200,9 @@ exports[`LinkStyle applies peoper styling when focused 1`] = `
     tabIndex="0"
   >
     <span>
-      <span />
+      <span
+        className="carbon-link__content"
+      />
     </span>
   </a>
 </div>
