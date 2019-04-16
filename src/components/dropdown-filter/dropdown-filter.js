@@ -98,12 +98,13 @@ class DropdownFilter extends Dropdown {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.visibleValue !== this.props.visibleValue) {
-        this.setState({
-            filter: nextProps.visibleValue
-        });
+      this.setState({
+        filter: nextProps.visibleValue
+      });
     }
-    super.componentWillReceiveProps(nextProps)
+    super.componentWillReceiveProps(nextProps);
   }
+
   /**
    * Selects the value for the component
    *
