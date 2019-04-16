@@ -25,6 +25,10 @@ const LabelStyle = styled.label`
     ${inputSize === 'large' && css`padding-top: 16px;`}
   `}
 
+  ${({ theme }) => theme.name === THEMES.classic && css`
+    color: #003349;
+  `}
+
   ${({ inline, theme }) => theme.name === THEMES.classic && css`
     padding-left: 6px;
     padding-right: 6px;
