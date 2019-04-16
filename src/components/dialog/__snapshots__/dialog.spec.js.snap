@@ -1,12 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Alert include correct component, element and role data tags 1`] = `
+exports[`Dialog dialog headers when a props object title is passed wraps it within a div 1`] = `null`;
+
+exports[`Dialog render when dialog is open has the correct content, tags, elements etc 1`] = `
 <Portal
   key="1"
 >
   <div
-    className="carbon-dialog"
-    data-component="alert"
+    className="carbon-dialog foo"
+    data-component="dialog"
     data-element="bar"
     data-role="baz"
     data-state="open"
@@ -38,15 +40,16 @@ exports[`Alert include correct component, element and role data tags 1`] = `
       <styled.div
         aria-describedby="carbon-dialog-subtitle"
         aria-labelledby="carbon-dialog-title"
-        data-component="alert"
+        data-component="dialog"
         data-element="bar"
         data-role="baz"
+        height="500"
         onBlur={[Function]}
         role="dialog"
-        size="extra-small"
+        size="small"
         style={
           Object {
-            "minHeight": undefined,
+            "minHeight": "500px",
           }
         }
         tabIndex={0}
@@ -128,14 +131,37 @@ exports[`Alert include correct component, element and role data tags 1`] = `
           <Heading
             divider={true}
             separator={false}
-            subheader="Alert Subtitle"
+            subheader="Test"
             subtitleId="carbon-dialog-subtitle"
-            title="Alert title"
+            title="Test"
             titleId="carbon-dialog-title"
           />
         </styled.div>
-        <styled.div>
-          <styled.div />
+        <styled.div
+          height="500"
+        >
+          <styled.div
+            height="500"
+          >
+            <Button
+              as="secondary"
+              disabled={false}
+              size="medium"
+              subtext=""
+              theme="blue"
+            >
+              Button
+            </Button>
+            <Button
+              as="secondary"
+              disabled={false}
+              size="medium"
+              subtext=""
+              theme="blue"
+            >
+              Button
+            </Button>
+          </styled.div>
         </styled.div>
         <Icon
           bgSize="small"
@@ -150,4 +176,58 @@ exports[`Alert include correct component, element and role data tags 1`] = `
     </CSSTransitionGroup>
   </div>
 </Portal>
+`;
+
+exports[`Dialog when fixedBottom and stickyFormFooter are passed to the DialogStyle should render matched snapshot 1`] = `
+.c0 {
+  background-color: #F2F5F6;
+  box-shadow: 0 10px 30px 0 rgba(0,20,29,0.1),0 30px 60px 0 rgba(0,20,29,0.1);
+  position: fixed;
+  top: 50%;
+  bottom: 0;
+  min-height: 0px !important;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0 .carbon-form__footer-wrapper {
+  box-sizing: border-box;
+  -webkit-animation: form-buttons-animate-in 0.25s ease-out;
+  animation: form-buttons-animate-in 0.25s ease-out;
+  background-color: white;
+  bottom: 0;
+  left: auto;
+  margin-left: -35px;
+  box-shadow: 0 -4px 12px 0 rgba(0,0,0,0.05);
+  padding-bottom: 13px;
+  padding-top: 15px;
+  padding-left: 35px;
+  padding-right: 35px;
+  position: fixed;
+  z-index: 1000;
+}
+
+.c0 .carbon-dialog__close {
+  color: #4d7080;
+  cursor: pointer;
+  position: absolute;
+  right: 35px;
+  top: 28px;
+  z-index: 1;
+}
+
+.c0 .carbon-dialog__close:hover {
+  color: #255BC7;
+}
+
+.c0 .carbon-dialog__close.carbon-icon {
+  position: absolute;
+}
+
+<div
+  className="c0"
+  open={true}
+/>
 `;
