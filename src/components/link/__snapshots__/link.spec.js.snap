@@ -35,7 +35,9 @@ exports[`Link renders as expected 1`] = `
     tabIndex="0"
   >
     <span>
-      <span>
+      <span
+        className="carbon-link__content"
+      >
         test
       </span>
     </span>
@@ -133,7 +135,9 @@ exports[`Link when component has classic theme should render correct style 1`] =
     }
   >
     <span>
-      <span>
+      <span
+        className="carbon-link__content"
+      >
         test
       </span>
     </span>

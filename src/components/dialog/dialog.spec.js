@@ -1,15 +1,17 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import Bowser from 'bowser';
+import TestRenderer from 'react-test-renderer';
+import 'jest-styled-components';
 import { mount, shallow } from 'enzyme';
-import Browser from '../../utils/helpers/browser';
-import Dialog from './dialog';
-import Button from './../button';
-import Heading from './../heading';
-import Portal from './../portal';
-import { Row, Column } from './../row';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import ElementResize from './../../utils/helpers/element-resize';
+import Browser from '../../utils/helpers/browser/browser';
+import Dialog from './dialog.component';
+import { DialogStyle, DialogContentStyle, DialogInnerContentStyle } from './dialog.style';
+import Button from '../button';
+import Heading from '../heading/heading';
+import { Row, Column } from '../row/row';
+import ElementResize from '../../utils/helpers/element-resize/element-resize';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import classicTheme from '../../style/themes/classic';
 
 /* global jest */
 
@@ -22,7 +24,7 @@ describe('Dialog', () => {
       addEventListener() { },
       removeEventListener() { },
       getComputedStyle() { return {}; }
-    }
+    };
     Browser.getWindow = jest.fn().mockReturnValue(mockWindow);
   });
 
@@ -103,7 +105,6 @@ describe('Dialog', () => {
         });
 
         it('sets up event listeners to resize and close the dialog', () => {
-          const instance = wrapper.instance();
           spyOn(ElementResize, 'addListener');
           spyOn(mockWindow, 'addEventListener');
           wrapper.setProps({ open: true });
@@ -131,14 +132,16 @@ describe('Dialog', () => {
       describe('when the dialog is closed', () => {
         beforeEach(() => {
           wrapper = mount(
-            <Dialog open={ true } onCancel={ onCancel } stickyFormFooter />
+            <Dialog
+              open onCancel={ onCancel }
+              stickyFormFooter
+            />
           );
           instance = wrapper.instance();
           instance.listening = true;
         });
 
         it('removes event listeners for resize and closing', () => {
-          const instance = wrapper.instance();
           spyOn(ElementResize, 'removeListener');
           spyOn(mockWindow, 'removeEventListener');
           wrapper.setProps({ open: false });
@@ -171,7 +174,6 @@ describe('Dialog', () => {
           jest.runAllTimers();
           expect(instance.updateDataState).toHaveBeenCalled();
         });
-
       });
     });
   });
@@ -184,7 +186,7 @@ describe('Dialog', () => {
         innerWidth: 100,
         pageYOffset: 10,
         pageXOffset: 10
-      }
+      };
 
       Browser.getWindow = jest.fn().mockReturnValue(mockWindow);
 
@@ -232,7 +234,7 @@ describe('Dialog', () => {
 
     describe('when there is content and no title', () => {
       it('applies height to content with 0 title', () => {
-        instance._content = { style: {}};
+        instance._content = { style: {} };
         instance.centerDialog();
         expect(instance._content.style.height).toEqual('calc(100% - 0px)');
       });
@@ -240,8 +242,8 @@ describe('Dialog', () => {
 
     describe('when there is content and a title', () => {
       it('applies height to content based on title', () => {
-        instance._title = { offsetHeight: '100'};
-        instance._content = { style: {}};
+        instance._title = { offsetHeight: '100' };
+        instance._content = { style: {} };
         instance.centerDialog();
         expect(instance._content.style.height).toEqual('calc(100% - 100px)');
       });
@@ -339,7 +341,7 @@ describe('Dialog', () => {
             title='Dialog title'
             subtitle='Dialog subtitle'
           />
-        )
+        );
         expect(wrapper.find(Heading).prop('subheader')).toEqual('Dialog subtitle');
         expect(wrapper.find(Heading).prop('title')).toEqual('Dialog title');
       });
@@ -351,14 +353,14 @@ describe('Dialog', () => {
           <Dialog
             onCancel={ onCancel }
             open
-            title={
+            title={ (
               <Row>
                 <Column>Row1</Column>
                 <Column>Row2</Column>
               </Row>
-            }
+            ) }
           />
-        )
+        );
         expect(wrapper.find('.carbon-dialog__title')).toMatchSnapshot();
       });
     });
@@ -443,7 +445,9 @@ describe('Dialog', () => {
     });
 
     describe('when title, subtitle, and ariaRole are not set', () => {
-      it('does not render a role attribute from the ariaRole prop, aria-labelledby pointing at the title element or an aria-describedby attribute pointing at the subtitle element', () => {
+      it(`does not render a role attribute from the ariaRole prop,
+      aria-labelledby pointing at the title element or 
+      an aria-describedby attribute pointing at the subtitle element`, () => {
         wrapper = mount(
           <Dialog
             onCancel={ () => {} }
@@ -460,18 +464,17 @@ describe('Dialog', () => {
     });
 
     describe('focus', () => {
-      let wrapper;
-
       beforeEach(() => {
         wrapper = mount(
           <Dialog
-            onCancel={() => { }}
-            onConfirm={() => { }}
+            onCancel={ () => { } }
+            onConfirm={ () => { } }
             showCloseIcon
             open
             subtitle='Test'
             title='Test'
             ariaRole='dialog'
+            theme={ classicTheme }
           />
         );
       });
@@ -515,12 +518,55 @@ describe('Dialog', () => {
       });
 
       it('returns focus to the dialog element when focus leaves the close icon', () => {
-        const dialogElement = wrapper.find('[role="dialog"]').getDOMNode();
+        const dialogElement = wrapper.find('[role="dialog"]').first().getDOMNode();
         spyOn(dialogElement, 'focus');
         const closeIcon = wrapper.find('[data-element="close"]').hostNodes().findWhere(n => n.type() === 'span');
         closeIcon.simulate('blur');
         expect(dialogElement.focus).toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('when fixedBottom is passed to the DialogStyle', () => {
+    it('should render matched snapshot', () => {
+      assertStyleMatch({
+        bottom: '0',
+        minHeight: '0px !important'
+      }, TestRenderer.create(<DialogStyle open fixedBottom />).toJSON());
+    });
+  });
+
+  describe('when height is passed to the DialogStyle', () => {
+    it('should render matched snapshot', () => {
+      assertStyleMatch({
+        minHeight: '360px'
+      }, TestRenderer.create(<DialogStyle open height='400' />).toJSON());
+    });
+  });
+
+  describe('when fixedBottom and stickyFormFooter are passed to the DialogStyle', () => {
+    const wrapper = TestRenderer.create(<DialogStyle
+      open stickyFormFooter
+      fixedBottom
+    />);
+    it('should render matched snapshot', () => {
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+
+  describe('when fixedBottom is passed to the DialogContentStyle', () => {
+    it('should render matched snpashot', () => {
+      assertStyleMatch({
+        overflowY: 'auto'
+      }, TestRenderer.create(<DialogContentStyle fixedBottom />).toJSON());
+    });
+  });
+
+  describe('when height is passed to the DialogInnerContentStyle', () => {
+    it('should render matched snapshot', () => {
+      assertStyleMatch({
+        minHeight: '360px'
+      }, TestRenderer.create(<DialogInnerContentStyle height={ 400 } fixedBottom />).toJSON());
     });
   });
 });

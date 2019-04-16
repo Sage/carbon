@@ -1,82 +1,19 @@
 import React from 'react';
 import classNames from 'classnames';
-import { assign } from 'lodash';
 import PropTypes from 'prop-types';
 import Browser from '../../utils/helpers/browser';
 import Icon from '../icon';
 import Modal from '../modal';
 import Heading from '../heading';
 import ElementResize from '../../utils/helpers/element-resize';
-import './dialog.scss';
+import {
+  DialogStyle,
+  DialogTitleStyle,
+  DialogContentStyle,
+  DialogInnerContentStyle
+} from './dialog.style';
 
-const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog--open';
-
-/**
- * A Dialog widget.
- *
- * == How to use a Dialog in a component:
- *
- * In your file
- *
- *   import Dialog from 'carbon-react/lib/components/dialog';
- *
- * To render a Dialog:
- *
- *   <Dialog onCancel={ customEventHandler } />
- *
- * The component rendering the Dialog must pass down a prop of 'open' in order to open the dialog.
- *
- * You need to provide a custom cancel event handler to handle a close event.
- *
- * @class Dialog
- * @constructor
- */
 class Dialog extends Modal {
-  static propTypes = assign({}, Modal.propTypes, {
-    /**
-     * Allows developers to specify a specific height for the dialog.
-     */
-    height: PropTypes.string,
-
-    /**
-     * Title displayed at top of dialog
-     */
-    title: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object
-    ]),
-
-    /**
-     * Subtitle displayed at top of dialog
-     */
-    subtitle: PropTypes.string,
-
-    /**
-     * Size of dialog, default size is 750px
-     */
-    size: PropTypes.string,
-
-    /**
-     * Determines if the close icon is shown
-     */
-    showCloseIcon: PropTypes.bool,
-
-    /**
-     * If true then the dialog receives focus
-     * when it opens
-     */
-    autoFocus: PropTypes.bool,
-
-    stickyFormFooter: PropTypes.bool
-  })
-
-  static defaultProps = {
-    autoFocus: true,
-    size: 'medium',
-    showCloseIcon: true,
-    ariaRole: 'dialog'
-  }
-
   constructor(args) {
     super(args);
     this.componentTags = this.componentTags.bind(this);
@@ -86,12 +23,6 @@ class Dialog extends Modal {
     this.window = Browser.getWindow();
   }
 
-  /**
-   * A lifecycle method to update the component on initialize
-   *
-   * @method componentDidMount
-   * @return {void}
-   */
   componentDidMount() {
     super.componentDidMount();
     if (this.props.open) {
@@ -102,37 +33,15 @@ class Dialog extends Modal {
     }
   }
 
-  /**
-   * Event handler to handle keyboard
-   * focus leaving the dialog element.
-   */
   onDialogBlur(ev) { } // eslint-disable-line no-unused-vars
 
-  /**
-   * Event handler for when the close icon
-   * loses keyboard focus.
-   *
-   * As the close icon is the last element in the dialog
-   * source, when the keyboard focus leaves the close
-   * icon return the focus to the dialog itself.
-   *
-   * @return {Void}
-   */
   onCloseIconBlur(ev) {
     ev.preventDefault();
     this.focusDialog();
   }
 
-  /**
-   * Called by ComponentDidUpdate when
-   * Dialog is opened
-   * @override
-   *
-   * @method onOpening
-   * @return {Void}
-   */
   get onOpening() {
-    this.document.documentElement.classList.add(DIALOG_OPEN_HTML_CLASS);
+    this.document.documentElement.style.overflow = 'hidden';
     this.centerDialog(true);
     ElementResize.addListener(this._innerContent, this.applyFixedBottom);
     this.window.addEventListener('resize', this.centerDialog);
@@ -144,30 +53,16 @@ class Dialog extends Modal {
     return null;
   }
 
-  /**
-   * Called by ComponentDidUpdate when
-   * Dialog is closed
-   * @override
-   *
-   * @method onClosing
-   * @return {Void}
-   */
   get onClosing() {
     this.appliedFixedBottom = false;
-    this.document.documentElement.classList.remove(DIALOG_OPEN_HTML_CLASS);
+    this.document.documentElement.style.overflow = '';
     this.window.removeEventListener('resize', this.centerDialog);
     return ElementResize.removeListener(this._innerContent, this.applyFixedBottom);
   }
 
-  /**
-   * Centers dialog relative to window
-   *
-   * @method centerDialog
-   * @param {Boolean} notRender - declares that the method was called not as part of the component lifecycle
-   * @return {void}
-   */
   centerDialog = (animating) => {
-    if (!this._dialog) { return; }
+    if (!this._dialog) return;
+
     const height = this._dialog.offsetHeight / 2,
         width = this._dialog.offsetWidth / 2,
         win = this.window;
@@ -216,18 +111,12 @@ class Dialog extends Modal {
   }
 
   focusDialog() {
-    if (!this._dialog) { return; }
+    if (!this._dialog) return;
     this._dialog.focus();
   }
 
-  /**
-   * Determines if the dialog should have a fixed bottom.
-   *
-   * @method shouldHaveFixedBottom
-   * @return {Boolean}
-   */
   shouldHaveFixedBottom = () => {
-    if (!this._innerContent) { return false; }
+    if (!this._innerContent) return false;
 
     const contentHeight = this._innerContent.offsetHeight + this._innerContent.offsetTop,
         windowHeight = this.window.innerHeight - this._dialog.offsetTop - 1;
@@ -235,19 +124,10 @@ class Dialog extends Modal {
     return contentHeight > windowHeight;
   }
 
-  /**
-   * Returns HTML and text for the dialog title.
-   *
-   * @method dialogTitle
-   * @return {String} title to display
-   */
   get dialogTitle() {
-    if (!this.props.title) { return null; }
+    if (!this.props.title) return null;
 
     let { title } = this.props;
-    const classes = classNames('carbon-dialog__title', {
-      'carbon-dialog__title--has-subheader': this.props.subtitle
-    });
 
     if (typeof title === 'string') {
       title = (
@@ -261,40 +141,14 @@ class Dialog extends Modal {
     }
 
     return (
-      <div className={ classes } ref={ (c) => { this._title = c; } }>{ title }</div>
+      <DialogTitleStyle ref={ (titleRef) => { this._title = titleRef; } }>{ title }</DialogTitleStyle>
     );
   }
 
-  /**
-   * Returns classes for the component.
-   * @override
-   *
-   * @method mainClasses
-   * @return {String} Main className
-   */
   get mainClasses() {
     return classNames(
       'carbon-dialog',
       this.props.className
-    );
-  }
-
-  /**
-   * Returns classes for the dialog.
-   * @override
-   *
-   * @method dialogClasses
-   * @return {String} dialog className
-   */
-  get dialogClasses() {
-    return classNames(
-      'carbon-dialog__dialog',
-      {
-        [`carbon-dialog__dialog--${this.props.size}`]: typeof this.props.size !== 'undefined',
-        'carbon-dialog__dialog--fixed-bottom': this.appliedFixedBottom,
-        'carbon-dialog__dialog--has-height': this.props.height,
-        'carbon-dialog__dialog--sticky-form-footer': this.props.stickyFormFooter
-      }
     );
   }
 
@@ -326,12 +180,6 @@ class Dialog extends Modal {
     return null;
   }
 
-  /**
-   * Returns the computed HTML for the dialog.
-   *
-   * @method dialogHTML
-   * @return {Object} JSX for dialog
-   */
   get modalHTML() {
     let { height } = this.props;
 
@@ -340,14 +188,16 @@ class Dialog extends Modal {
     }
 
     const dialogProps = {
-      className: this.dialogClasses,
       tabIndex: 0,
       style: {
         minHeight: height
-      }
+      },
+      size: this.props.size,
+      fixedBottom: this.appliedFixedBottom,
+      stickyFormFooter: this.props.stickyFormFooter,
+      height: this.props.height,
+      theme: this.props.theme
     };
-
-    const style = {};
 
     if (this.props.ariaRole) {
       dialogProps.role = this.props.ariaRole;
@@ -361,32 +211,59 @@ class Dialog extends Modal {
       dialogProps['aria-describedby'] = 'carbon-dialog-subtitle';
     }
 
-    if (this.props.height) {
-      style.minHeight = `calc(${height} - 40px)`;
-    }
-
     return (
-      <div
-        ref={ (d) => { this._dialog = d; } }
+      <DialogStyle
+        ref={ (dialog) => { this._dialog = dialog; } }
         { ...dialogProps }
         { ...this.componentTags(this.props) }
         onBlur={ this.onDialogBlur }
       >
         { this.dialogTitle }
 
-        <div className='carbon-dialog__content' ref={ (c) => { this._content = c; } }>
-          <div
-            className='carbon-dialog__inner-content' ref={ (c) => { this._innerContent = c; } }
-            style={ style }
+        <DialogContentStyle
+          ref={ (content) => { this._content = content; } }
+          height={ this.props.height }
+          fixedBottom={ this.appliedFixedBottom }
+        >
+          <DialogInnerContentStyle
+            ref={ (innerContent) => { this._innerContent = innerContent; } }
+            height={ this.props.height }
           >
             { this.props.children }
             { this.additionalContent() }
-          </div>
-        </div>
+          </DialogInnerContentStyle>
+        </DialogContentStyle>
         { this.closeIcon }
-      </div>
+      </DialogStyle>
     );
   }
 }
+
+Dialog.propTypes = {
+  ...Modal.propTypes,
+  /** Allows developers to specify a specific height for the dialog. */
+  height: PropTypes.string,
+  /** Title displayed at top of dialog */
+  title: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object
+  ]),
+  /** Subtitle displayed at top of dialog */
+  subtitle: PropTypes.string,
+  /** Size of dialog, default size is 750px */
+  size: PropTypes.string,
+  /** Determines if the close icon is shown */
+  showCloseIcon: PropTypes.bool,
+  /** If true then the dialog receives focus when it opens */
+  autoFocus: PropTypes.bool,
+  stickyFormFooter: PropTypes.bool
+};
+
+Dialog.defaultProps = {
+  autoFocus: true,
+  size: 'medium',
+  showCloseIcon: true,
+  ariaRole: 'dialog'
+};
 
 export default Dialog;
