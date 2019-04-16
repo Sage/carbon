@@ -58,8 +58,6 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
 }
 
 .c3 {
-  resize: none;
-  min-height: 40px;
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -70,6 +68,8 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   font-size: 14px;
   outline: none;
   width: 30px;
+  resize: none;
+  min-height: 40px;
 }
 
 .c3::-webkit-input-placeholder {
@@ -478,8 +478,6 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
 }
 
 .c1 {
-  resize: none;
-  min-height: 40px;
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -490,6 +488,8 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   font-size: 14px;
   outline: none;
   width: 30px;
+  resize: none;
+  min-height: 40px;
 }
 
 .c1::-webkit-input-placeholder {
@@ -583,7 +583,8 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                     maxLength="5"
                     readOnly={false}
                   >
-                    <styled.textarea
+                    <Styled(styled.input)
+                      as="textarea"
                       disabled={false}
                       maxLength="5"
                       onBlur={[Function]}
@@ -628,6 +629,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                       }
                     >
                       <StyledComponent
+                        as="textarea"
                         disabled={false}
                         forwardedComponent={
                           Object {
@@ -638,10 +640,6 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                               "isStatic": false,
                               "lastClassName": "c3",
                               "rules": Array [
-                                "
-  resize: none;
-  min-height: 40px;
-  ",
                                 "
   background: transparent;
   border: none;
@@ -670,6 +668,8 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                                 "
 ",
                                 "
+  resize: none;
+  min-height: 40px;
 ",
                               ],
                             },
@@ -709,14 +709,16 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                                 },
                               },
                             },
-                            "displayName": "styled.textarea",
-                            "foldedComponentIds": Array [],
+                            "displayName": "Styled(styled.input)",
+                            "foldedComponentIds": Array [
+                              "sc-ifAKCX",
+                            ],
                             "propTypes": Object {
                               "disabled": [Function],
                             },
                             "render": [Function],
                             "styledComponentId": "sc-htoDjs",
-                            "target": "textarea",
+                            "target": "input",
                             "toString": [Function],
                             "warnTooManyClasses": [Function],
                             "withComponent": [Function],
@@ -782,7 +784,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                           readOnly={false}
                         />
                       </StyledComponent>
-                    </styled.textarea>
+                    </Styled(styled.input)>
                   </TextareaInput>
                 </div>
               </StyledComponent>
@@ -1056,8 +1058,6 @@ exports[`Textarea when rendered should render default 1`] = `
 }
 
 .c3 {
-  resize: none;
-  min-height: 40px;
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -1068,6 +1068,8 @@ exports[`Textarea when rendered should render default 1`] = `
   font-size: 14px;
   outline: none;
   width: 30px;
+  resize: none;
+  min-height: 40px;
 }
 
 .c3::-webkit-input-placeholder {
@@ -1467,8 +1469,6 @@ exports[`Textarea when rendered should render default 1`] = `
 }
 
 .c1 {
-  resize: none;
-  min-height: 40px;
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -1479,6 +1479,8 @@ exports[`Textarea when rendered should render default 1`] = `
   font-size: 14px;
   outline: none;
   width: 30px;
+  resize: none;
+  min-height: 40px;
 }
 
 .c1::-webkit-input-placeholder {
@@ -1567,7 +1569,8 @@ exports[`Textarea when rendered should render default 1`] = `
                     inputRef={[Function]}
                     readOnly={false}
                   >
-                    <styled.textarea
+                    <Styled(styled.input)
+                      as="textarea"
                       disabled={false}
                       onBlur={[Function]}
                       onClick={[Function]}
@@ -1611,6 +1614,7 @@ exports[`Textarea when rendered should render default 1`] = `
                       }
                     >
                       <StyledComponent
+                        as="textarea"
                         disabled={false}
                         forwardedComponent={
                           Object {
@@ -1621,10 +1625,6 @@ exports[`Textarea when rendered should render default 1`] = `
                               "isStatic": false,
                               "lastClassName": "c3",
                               "rules": Array [
-                                "
-  resize: none;
-  min-height: 40px;
-  ",
                                 "
   background: transparent;
   border: none;
@@ -1653,6 +1653,8 @@ exports[`Textarea when rendered should render default 1`] = `
                                 "
 ",
                                 "
+  resize: none;
+  min-height: 40px;
 ",
                               ],
                             },
@@ -1692,14 +1694,16 @@ exports[`Textarea when rendered should render default 1`] = `
                                 },
                               },
                             },
-                            "displayName": "styled.textarea",
-                            "foldedComponentIds": Array [],
+                            "displayName": "Styled(styled.input)",
+                            "foldedComponentIds": Array [
+                              "sc-ifAKCX",
+                            ],
                             "propTypes": Object {
                               "disabled": [Function],
                             },
                             "render": [Function],
                             "styledComponentId": "sc-htoDjs",
-                            "target": "textarea",
+                            "target": "input",
                             "toString": [Function],
                             "warnTooManyClasses": [Function],
                             "withComponent": [Function],
@@ -1762,7 +1766,7 @@ exports[`Textarea when rendered should render default 1`] = `
                           readOnly={false}
                         />
                       </StyledComponent>
-                    </styled.textarea>
+                    </Styled(styled.input)>
                   </TextareaInput>
                 </div>
               </StyledComponent>
