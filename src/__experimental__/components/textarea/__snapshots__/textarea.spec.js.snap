@@ -639,9 +639,9 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                               "lastClassName": "c3",
                               "rules": Array [
                                 "
-resize: none;
-min-height: 40px;
-",
+  resize: none;
+  min-height: 40px;
+  ",
                                 "
   background: transparent;
   border: none;
@@ -1622,9 +1622,9 @@ exports[`Textarea when rendered should render default 1`] = `
                               "lastClassName": "c3",
                               "rules": Array [
                                 "
-resize: none;
-min-height: 40px;
-",
+  resize: none;
+  min-height: 40px;
+  ",
                                 "
   background: transparent;
   border: none;

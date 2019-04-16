@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import { InputPresentation } from '../input';
 import FormField from '../form-field';
 import CharacterCount from './character-count';
@@ -30,7 +31,7 @@ class Textarea extends React.Component {
     /** The number of visible text lines for the control */
     rows: PropTypes.number,
     /** One of type of size to apply to the textarea */
-    size: PropTypes.oneOf(['small', 'medium', 'large']),
+    size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
     /** The value of the Textarea */
     value: PropTypes.string,
     /** Whether to display the character count message in red */

@@ -4,9 +4,9 @@ import baseTheme from '../../../style/themes/base';
 import { inputStyle } from '../input/input.style';
 
 const StyledTextarea = styled.textarea`
-resize: none;
-min-height: 40px;
-${inputStyle}
+  resize: none;
+  min-height: 40px;
+  ${inputStyle}
 `;
 
 StyledTextarea.defaultProps = {
