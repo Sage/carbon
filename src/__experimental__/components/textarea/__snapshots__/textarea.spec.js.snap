@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Textarea when rendered and when characterLimit prop is defined and when warnOverLimit prop is true should be styled for warn over limit 1`] = `
+exports[`Textarea when rendered and when characterLimit prop is defined and when warnOverLimit prop is true and a limit is over should be styled for warn over limit 1`] = `
 .c4 {
   text-align: right;
   font-size: 12px;

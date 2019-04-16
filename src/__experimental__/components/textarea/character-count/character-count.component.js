@@ -14,13 +14,14 @@ const CharacterCount = ({
       <ClassicCharacterCount
         value={ value }
         limit={ limit }
+        theme={ theme }
         { ...props }
       />
     );
   }
 
   return (
-    <StyledCharacterCount { ...props }>
+    <StyledCharacterCount theme={ theme } { ...props }>
       {value}/{limit}
     </StyledCharacterCount>
   );
