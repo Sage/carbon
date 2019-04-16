@@ -16,6 +16,7 @@ class TextareaInput extends Input {
 
     return (
       <StyledTextarea
+        as='textarea'
         ref={ this.input }
         onFocus={ this.handleFocus }
         onBlur={ this.handleBlur }

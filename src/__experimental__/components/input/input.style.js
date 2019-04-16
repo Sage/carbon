@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 
-const inputStyle = css`
+const StyledInput = styled.input`
   background: transparent;
   border: none;
   color: ${({ theme }) => theme.text.color};
@@ -25,10 +25,6 @@ const inputStyle = css`
   `}
 `;
 
-const StyledInput = styled.input`
-  ${inputStyle}
-`;
-
 StyledInput.defaultProps = {
   theme: baseTheme
 };
@@ -37,4 +33,4 @@ StyledInput.propTypes = {
   disabled: PropTypes.bool
 };
 
-export { StyledInput as default, inputStyle };
+export default StyledInput;
