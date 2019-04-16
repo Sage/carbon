@@ -16,7 +16,7 @@ const DialogStyle = styled.div`
   box-shadow: ${({ theme }) => theme.shadows.depth3};
   position: fixed;
   top: 50%;
-
+  
   &:focus {
     outline: none;
   }

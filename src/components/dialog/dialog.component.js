@@ -13,8 +13,6 @@ import {
   DialogInnerContentStyle
 } from './dialog.style';
 
-const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog--open';
-
 class Dialog extends Modal {
   constructor(args) {
     super(args);
@@ -43,7 +41,7 @@ class Dialog extends Modal {
   }
 
   get onOpening() {
-    this.document.documentElement.classList.add(DIALOG_OPEN_HTML_CLASS);
+    this.document.documentElement.style.overflow = 'hidden';
     this.centerDialog(true);
     ElementResize.addListener(this._innerContent, this.applyFixedBottom);
     this.window.addEventListener('resize', this.centerDialog);
@@ -57,7 +55,7 @@ class Dialog extends Modal {
 
   get onClosing() {
     this.appliedFixedBottom = false;
-    this.document.documentElement.classList.remove(DIALOG_OPEN_HTML_CLASS);
+    this.document.documentElement.style.overflow = '';
     this.window.removeEventListener('resize', this.centerDialog);
     return ElementResize.removeListener(this._innerContent, this.applyFixedBottom);
   }
