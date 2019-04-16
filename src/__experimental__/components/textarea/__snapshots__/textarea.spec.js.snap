@@ -325,7 +325,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                     "$$typeof": Symbol(react.forward_ref),
                     "attrs": Array [],
                     "componentStyle": ComponentStyle {
-                      "componentId": "sc-htpNat",
+                      "componentId": "sc-bxivhb",
                       "isStatic": false,
                       "lastClassName": "c2",
                       "rules": Array [
@@ -435,7 +435,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                       "warning": [Function],
                     },
                     "render": [Function],
-                    "styledComponentId": "sc-htpNat",
+                    "styledComponentId": "sc-bxivhb",
                     "target": "div",
                     "toString": [Function],
                     "warnTooManyClasses": [Function],
@@ -634,7 +634,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                             "$$typeof": Symbol(react.forward_ref),
                             "attrs": Array [],
                             "componentStyle": ComponentStyle {
-                              "componentId": "sc-gzVnrw",
+                              "componentId": "sc-htoDjs",
                               "isStatic": false,
                               "lastClassName": "c3",
                               "rules": Array [
@@ -715,7 +715,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                               "disabled": [Function],
                             },
                             "render": [Function],
-                            "styledComponentId": "sc-gzVnrw",
+                            "styledComponentId": "sc-htoDjs",
                             "target": "textarea",
                             "toString": [Function],
                             "warnTooManyClasses": [Function],
@@ -1314,7 +1314,7 @@ exports[`Textarea when rendered should render default 1`] = `
                     "$$typeof": Symbol(react.forward_ref),
                     "attrs": Array [],
                     "componentStyle": ComponentStyle {
-                      "componentId": "sc-htpNat",
+                      "componentId": "sc-bxivhb",
                       "isStatic": false,
                       "lastClassName": "c2",
                       "rules": Array [
@@ -1424,7 +1424,7 @@ exports[`Textarea when rendered should render default 1`] = `
                       "warning": [Function],
                     },
                     "render": [Function],
-                    "styledComponentId": "sc-htpNat",
+                    "styledComponentId": "sc-bxivhb",
                     "target": "div",
                     "toString": [Function],
                     "warnTooManyClasses": [Function],
@@ -1617,7 +1617,7 @@ exports[`Textarea when rendered should render default 1`] = `
                             "$$typeof": Symbol(react.forward_ref),
                             "attrs": Array [],
                             "componentStyle": ComponentStyle {
-                              "componentId": "sc-gzVnrw",
+                              "componentId": "sc-htoDjs",
                               "isStatic": false,
                               "lastClassName": "c3",
                               "rules": Array [
@@ -1698,7 +1698,7 @@ exports[`Textarea when rendered should render default 1`] = `
                               "disabled": [Function],
                             },
                             "render": [Function],
-                            "styledComponentId": "sc-gzVnrw",
+                            "styledComponentId": "sc-htoDjs",
                             "target": "textarea",
                             "toString": [Function],
                             "warnTooManyClasses": [Function],
