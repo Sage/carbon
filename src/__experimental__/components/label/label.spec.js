@@ -40,6 +40,12 @@ describe('Label', () => {
       }, render({ inline: true }, TestRenderer.create).toJSON());
     });
 
+    it('applies correct styling for inline label with 0 width', () => {
+      assertStyleMatch({
+        width: '30%'
+      }, render({ inline: true, width: 0 }, TestRenderer.create).toJSON());
+    });
+
     describe('when it uses different input sizes', () => {
       it('renders the correct padding-top', () => {
         assertStyleMatch(

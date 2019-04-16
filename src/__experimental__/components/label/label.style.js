@@ -20,7 +20,7 @@ const LabelStyle = styled.label`
     padding-bottom: 0;
     padding-right: ${sizes[inputSize].padding};
     text-align: ${align};
-    width: ${width}%;
+    width: ${width === 0 ? LabelStyle.defaultProps.width : width}%;
     ${inputSize === 'small' && css`padding-top: 8px;`}
     ${inputSize === 'medium' && css`padding-top: 12px;`}
     ${inputSize === 'large' && css`padding-top: 16px;`}

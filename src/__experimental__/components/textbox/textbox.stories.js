@@ -57,14 +57,14 @@ function getCommonTextboxStoryProps(config = defaultStoryPropsConfig) {
     max: 100,
     step: 1
   };
-  const disabled = boolean('disabled');
-  const readOnly = boolean('readOnly');
+  const disabled = boolean('disabled', false);
+  const readOnly = boolean('readOnly', false);
   const fieldHelp = text('fieldHelp');
   const label = text('label');
   const labelHelp = label ? text('labelHelp') : undefined;
-  const labelInline = label ? boolean('labelInline') : undefined;
+  const labelInline = label ? boolean('labelInline', false) : undefined;
   const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
-  const inputWidth = labelInline && config.inputWidthEnabled ? number('inputWidth', 70, percentageRange) : undefined;
+  const inputWidth = labelInline && config.inputWidthEnabled ? number('inputWidth', 100, percentageRange) : undefined;
   const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
 
   return {
