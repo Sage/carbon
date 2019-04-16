@@ -11,7 +11,7 @@ import StyledDayPicker from './day-picker.style';
 
 const DatePicker = (props) => {
   const window = Browser.getWindow();
-  const [containerPosition, updateDatePickerPosition] = useState(getContainerPosition(window, props.inputElement));
+  const [containerPosition, setContainerPosition] = useState(() => getContainerPosition(window, props.inputElement));
   const containerProps = {
     style: containerPosition
   };
@@ -41,7 +41,7 @@ const DatePicker = (props) => {
   }
 
   return (
-    <Portal onReposition={ () => updateDatePickerPosition(getContainerPosition(window, props.inputElement)) }>
+    <Portal onReposition={ () => setContainerPosition(getContainerPosition(window, props.inputElement)) }>
       <StyledDayPicker
         { ...datePickerProps } containerProps={ containerProps }
         ref={ datepicker }
