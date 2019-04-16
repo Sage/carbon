@@ -33,6 +33,7 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
 
 .c0:hover {
   border-color: #99adb6;
+  z-index: 2;
 }
 
 .c0:hover .c1 {
@@ -48,6 +49,10 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
 
 .c0 input::-ms-clear {
   display: none;
+}
+
+.c0 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
 }
 
 <div
@@ -88,6 +93,10 @@ exports[`InputPresentation renders presentational div and context provider for i
 
 .c0 input::-ms-clear {
   display: none;
+}
+
+.c0 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
 }
 
 <div

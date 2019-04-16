@@ -13,10 +13,12 @@ export default (palette) => {
       secondary: palette.genericGreenShade(35),
       tertiary: palette.genericGreenShade(55),
       brand: palette.brilliantGreen,
-      border: palette.slateTint(40),
 
       // generic
       white: '#FFFFFF',
+
+      // element
+      border: palette.slateTint(40),
 
       // status
       error: palette.errorRed,
