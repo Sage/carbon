@@ -22,31 +22,37 @@ storiesOf('Experimental/Fieldset', module)
           label='First Name'
           labelInline
           labelAlign='right'
+          inputWidth={ 70 }
         />
         <Textbox
           label='Last Name'
           labelInline
           labelAlign='right'
+          inputWidth={ 70 }
         />
         <Textbox
           label='Address'
           labelInline
           labelAlign='right'
+          inputWidth={ 70 }
         />
         <Textbox
           label='City'
           labelInline
           labelAlign='right'
+          inputWidth={ 70 }
         />
         <Textbox
           label='Country'
           labelInline
           labelAlign='right'
+          inputWidth={ 70 }
         />
         <Textbox
           label='Telephone'
           labelInline
           labelAlign='right'
+          inputWidth={ 70 }
         />
       </Fieldset>
     );
