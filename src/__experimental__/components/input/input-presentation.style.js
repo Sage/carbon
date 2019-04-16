@@ -13,12 +13,11 @@ const InputPresentationStyle = styled.div`
   cursor: text;
   display: flex;
   flex-wrap: wrap;
-  flex: 1;
-  margin: 0px;
+  flex: 0 0 ${({ inputWidth }) => inputWidth}%;
+  margin: 0;
   min-height: ${({ size }) => sizes[size].height};
   padding-left: ${({ size }) => sizes[size].padding};
   padding-right: ${({ size }) => sizes[size].padding};
-  width: 100%;
 
   ${({ disabled, theme }) => disabled && css`
     background: ${theme.disabled.input};
@@ -62,6 +61,7 @@ function stylingForValidation(message) {
 }
 
 InputPresentationStyle.defaultProps = {
+  inputWidth: 100,
   size: 'medium',
   theme: baseTheme
 };
