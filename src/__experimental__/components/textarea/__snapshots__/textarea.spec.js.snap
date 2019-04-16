@@ -1,5 +1,983 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Textarea when rendered and when characterLimit prop is defined and when warnOverLimit prop is true should be styled for warn over limit 1`] = `
+.c4 {
+  text-align: right;
+  font-size: 12px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  color: #C7384F;
+  font-weight: 700;
+}
+
+.c2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: transparent;
+  border: 1px solid #668491;
+  box-sizing: border-box;
+  cursor: text;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin: 0px;
+  min-height: 40px;
+  padding-left: 11px;
+  padding-right: 11px;
+  width: 100%;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c1 + .c0 {
+  margin-top: 16px;
+}
+
+.c3 {
+  resize: none;
+  min-height: 40px;
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c3::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c3::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c3:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c3::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+<Textarea
+  characterLimit="5"
+  disabled={false}
+  enforceCharacterLimit={true}
+  expandable={false}
+  readOnly={false}
+  value="abcdefg"
+  warnOverLimit={true}
+>
+  <FormField
+    characterLimit="5"
+    disabled={false}
+    enforceCharacterLimit={true}
+    expandable={false}
+    readOnly={false}
+    size="medium"
+    value="abcdefg"
+    warnOverLimit={true}
+  >
+    <styled.div
+      theme={
+        Object {
+          "colors": Object {
+            "border": "#668491",
+            "brand": "#00DC00",
+            "error": "#C7384F",
+            "focus": "#FFDA7F",
+            "info": "#0073C2",
+            "primary": "#26A826",
+            "secondary": "#006300",
+            "success": "#00B000",
+            "tertiary": "#004400",
+            "warning": "#FFB500",
+            "white": "#FFFFFF",
+          },
+          "disabled": Object {
+            "border": "#CCD6DA",
+            "disabled": "rgba(0,0,0,0.55)",
+            "input": "#F2F4F5",
+            "text": "rgba(0,0,0,0.3)",
+          },
+          "name": "base",
+          "shadows": Object {
+            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+          },
+          "text": Object {
+            "color": "rgba(0,0,0,0.9)",
+            "placeholder": "rgba(0,0,0,0.3)",
+            "size": "14px",
+          },
+        }
+      }
+    >
+      <StyledComponent
+        forwardedComponent={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "attrs": Array [],
+            "componentStyle": ComponentStyle {
+              "componentId": "c0",
+              "isStatic": false,
+              "lastClassName": "c1",
+              "rules": Array [
+                "
+  display: flex;
+  flex-wrap: wrap;
+
+  & + & {
+    margin-top: ",
+                [Function],
+                ";
+  }
+",
+              ],
+            },
+            "defaultProps": Object {
+              "theme": Object {
+                "colors": Object {
+                  "border": "#668491",
+                  "brand": "#00DC00",
+                  "error": "#C7384F",
+                  "focus": "#FFDA7F",
+                  "info": "#0073C2",
+                  "primary": "#26A826",
+                  "secondary": "#006300",
+                  "success": "#00B000",
+                  "tertiary": "#004400",
+                  "warning": "#FFB500",
+                  "white": "#FFFFFF",
+                },
+                "disabled": Object {
+                  "border": "#CCD6DA",
+                  "disabled": "rgba(0,0,0,0.55)",
+                  "input": "#F2F4F5",
+                  "text": "rgba(0,0,0,0.3)",
+                },
+                "name": "base",
+                "shadows": Object {
+                  "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                  "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                  "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                  "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                  "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                },
+                "text": Object {
+                  "color": "rgba(0,0,0,0.9)",
+                  "placeholder": "rgba(0,0,0,0.3)",
+                  "size": "14px",
+                },
+              },
+            },
+            "displayName": "styled.div",
+            "foldedComponentIds": Array [],
+            "render": [Function],
+            "styledComponentId": "c0",
+            "target": "div",
+            "toString": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+          }
+        }
+        forwardedRef={null}
+        theme={
+          Object {
+            "colors": Object {
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFDA7F",
+              "info": "#0073C2",
+              "primary": "#26A826",
+              "secondary": "#006300",
+              "success": "#00B000",
+              "tertiary": "#004400",
+              "warning": "#FFB500",
+              "white": "#FFFFFF",
+            },
+            "disabled": Object {
+              "border": "#CCD6DA",
+              "disabled": "rgba(0,0,0,0.55)",
+              "input": "#F2F4F5",
+              "text": "rgba(0,0,0,0.3)",
+            },
+            "name": "base",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          }
+        }
+      >
+        <div
+          className="c0 c1"
+        >
+          <InputPresentation
+            characterLimit="5"
+            disabled={false}
+            enforceCharacterLimit={true}
+            expandable={false}
+            readOnly={false}
+            type="text"
+            value="abcdefg"
+            warnOverLimit={true}
+          >
+            <styled.div
+              characterLimit="5"
+              disabled={false}
+              enforceCharacterLimit={true}
+              expandable={false}
+              hasFocus={false}
+              onMouseDown={[Function]}
+              readOnly={false}
+              role="presentation"
+              size="medium"
+              theme={
+                Object {
+                  "colors": Object {
+                    "border": "#668491",
+                    "brand": "#00DC00",
+                    "error": "#C7384F",
+                    "focus": "#FFDA7F",
+                    "info": "#0073C2",
+                    "primary": "#26A826",
+                    "secondary": "#006300",
+                    "success": "#00B000",
+                    "tertiary": "#004400",
+                    "warning": "#FFB500",
+                    "white": "#FFFFFF",
+                  },
+                  "disabled": Object {
+                    "border": "#CCD6DA",
+                    "disabled": "rgba(0,0,0,0.55)",
+                    "input": "#F2F4F5",
+                    "text": "rgba(0,0,0,0.3)",
+                  },
+                  "name": "base",
+                  "shadows": Object {
+                    "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                    "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                    "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                    "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                    "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                  },
+                  "text": Object {
+                    "color": "rgba(0,0,0,0.9)",
+                    "placeholder": "rgba(0,0,0,0.3)",
+                    "size": "14px",
+                  },
+                }
+              }
+              type="text"
+              value="abcdefg"
+              warnOverLimit={true}
+            >
+              <StyledComponent
+                characterLimit="5"
+                disabled={false}
+                enforceCharacterLimit={true}
+                expandable={false}
+                forwardedComponent={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "attrs": Array [],
+                    "componentStyle": ComponentStyle {
+                      "componentId": "sc-htpNat",
+                      "isStatic": false,
+                      "lastClassName": "c2",
+                      "rules": Array [
+                        "
+  align-items: center;
+  background: transparent;
+  border: 1px solid ",
+                        [Function],
+                        ";
+  box-sizing: border-box;
+  cursor: text;
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+  margin: 0px;
+  min-height: ",
+                        [Function],
+                        ";
+  padding-left: ",
+                        [Function],
+                        ";
+  padding-right: ",
+                        [Function],
+                        ";
+  width: 100%;
+
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+
+  ",
+                        [Function],
+                        "
+",
+                      ],
+                    },
+                    "defaultProps": Object {
+                      "size": "medium",
+                      "theme": Object {
+                        "colors": Object {
+                          "border": "#668491",
+                          "brand": "#00DC00",
+                          "error": "#C7384F",
+                          "focus": "#FFDA7F",
+                          "info": "#0073C2",
+                          "primary": "#26A826",
+                          "secondary": "#006300",
+                          "success": "#00B000",
+                          "tertiary": "#004400",
+                          "warning": "#FFB500",
+                          "white": "#FFFFFF",
+                        },
+                        "disabled": Object {
+                          "border": "#CCD6DA",
+                          "disabled": "rgba(0,0,0,0.55)",
+                          "input": "#F2F4F5",
+                          "text": "rgba(0,0,0,0.3)",
+                        },
+                        "name": "base",
+                        "shadows": Object {
+                          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                        },
+                        "text": Object {
+                          "color": "rgba(0,0,0,0.9)",
+                          "placeholder": "rgba(0,0,0,0.3)",
+                          "size": "14px",
+                        },
+                      },
+                    },
+                    "displayName": "styled.div",
+                    "foldedComponentIds": Array [],
+                    "propTypes": Object {
+                      "disabled": [Function],
+                      "error": [Function],
+                      "hasFocus": [Function],
+                      "info": [Function],
+                      "readOnly": [Function],
+                      "size": [Function],
+                      "warning": [Function],
+                    },
+                    "render": [Function],
+                    "styledComponentId": "sc-htpNat",
+                    "target": "div",
+                    "toString": [Function],
+                    "warnTooManyClasses": [Function],
+                    "withComponent": [Function],
+                  }
+                }
+                forwardedRef={
+                  Object {
+                    "current": .c0 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  background: transparent;
+  border: 1px solid #668491;
+  box-sizing: border-box;
+  cursor: text;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  margin: 0px;
+  min-height: 40px;
+  padding-left: 11px;
+  padding-right: 11px;
+  width: 100%;
+}
+
+.c1 {
+  resize: none;
+  min-height: 40px;
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c1::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+<div
+                      class="c0"
+                      role="presentation"
+                      type="text"
+                      value="abcdefg"
+                    >
+                      <textarea
+                        class="c1"
+                        maxlength="5"
+                      />
+                    </div>,
+                  }
+                }
+                hasFocus={false}
+                onMouseDown={[Function]}
+                readOnly={false}
+                role="presentation"
+                size="medium"
+                theme={
+                  Object {
+                    "colors": Object {
+                      "border": "#668491",
+                      "brand": "#00DC00",
+                      "error": "#C7384F",
+                      "focus": "#FFDA7F",
+                      "info": "#0073C2",
+                      "primary": "#26A826",
+                      "secondary": "#006300",
+                      "success": "#00B000",
+                      "tertiary": "#004400",
+                      "warning": "#FFB500",
+                      "white": "#FFFFFF",
+                    },
+                    "disabled": Object {
+                      "border": "#CCD6DA",
+                      "disabled": "rgba(0,0,0,0.55)",
+                      "input": "#F2F4F5",
+                      "text": "rgba(0,0,0,0.3)",
+                    },
+                    "name": "base",
+                    "shadows": Object {
+                      "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                      "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                      "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                      "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                      "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                    },
+                    "text": Object {
+                      "color": "rgba(0,0,0,0.9)",
+                      "placeholder": "rgba(0,0,0,0.3)",
+                      "size": "14px",
+                    },
+                  }
+                }
+                type="text"
+                value="abcdefg"
+                warnOverLimit={true}
+              >
+                <div
+                  className="c2"
+                  disabled={false}
+                  onMouseDown={[Function]}
+                  readOnly={false}
+                  role="presentation"
+                  size="medium"
+                  type="text"
+                  value="abcdefg"
+                >
+                  <TextareaInput
+                    disabled={false}
+                    inputRef={[Function]}
+                    maxLength="5"
+                    readOnly={false}
+                  >
+                    <styled.textarea
+                      disabled={false}
+                      maxLength="5"
+                      onBlur={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      readOnly={false}
+                      theme={
+                        Object {
+                          "colors": Object {
+                            "border": "#668491",
+                            "brand": "#00DC00",
+                            "error": "#C7384F",
+                            "focus": "#FFDA7F",
+                            "info": "#0073C2",
+                            "primary": "#26A826",
+                            "secondary": "#006300",
+                            "success": "#00B000",
+                            "tertiary": "#004400",
+                            "warning": "#FFB500",
+                            "white": "#FFFFFF",
+                          },
+                          "disabled": Object {
+                            "border": "#CCD6DA",
+                            "disabled": "rgba(0,0,0,0.55)",
+                            "input": "#F2F4F5",
+                            "text": "rgba(0,0,0,0.3)",
+                          },
+                          "name": "base",
+                          "shadows": Object {
+                            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                          },
+                          "text": Object {
+                            "color": "rgba(0,0,0,0.9)",
+                            "placeholder": "rgba(0,0,0,0.3)",
+                            "size": "14px",
+                          },
+                        }
+                      }
+                    >
+                      <StyledComponent
+                        disabled={false}
+                        forwardedComponent={
+                          Object {
+                            "$$typeof": Symbol(react.forward_ref),
+                            "attrs": Array [],
+                            "componentStyle": ComponentStyle {
+                              "componentId": "sc-gzVnrw",
+                              "isStatic": false,
+                              "lastClassName": "c3",
+                              "rules": Array [
+                                "
+resize: none;
+min-height: 40px;
+",
+                                "
+  background: transparent;
+  border: none;
+  color: ",
+                                [Function],
+                                ";
+  flex-grow: 1;
+  font-size: ",
+                                [Function],
+                                ";
+  outline: none;
+  width: 30px;
+
+  &::placeholder {
+    color: ",
+                                [Function],
+                                ";
+  }
+
+  ",
+                                [Function],
+                                "
+",
+                                "
+",
+                              ],
+                            },
+                            "defaultProps": Object {
+                              "theme": Object {
+                                "colors": Object {
+                                  "border": "#668491",
+                                  "brand": "#00DC00",
+                                  "error": "#C7384F",
+                                  "focus": "#FFDA7F",
+                                  "info": "#0073C2",
+                                  "primary": "#26A826",
+                                  "secondary": "#006300",
+                                  "success": "#00B000",
+                                  "tertiary": "#004400",
+                                  "warning": "#FFB500",
+                                  "white": "#FFFFFF",
+                                },
+                                "disabled": Object {
+                                  "border": "#CCD6DA",
+                                  "disabled": "rgba(0,0,0,0.55)",
+                                  "input": "#F2F4F5",
+                                  "text": "rgba(0,0,0,0.3)",
+                                },
+                                "name": "base",
+                                "shadows": Object {
+                                  "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                  "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                  "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                  "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                  "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                },
+                                "text": Object {
+                                  "color": "rgba(0,0,0,0.9)",
+                                  "placeholder": "rgba(0,0,0,0.3)",
+                                  "size": "14px",
+                                },
+                              },
+                            },
+                            "displayName": "styled.textarea",
+                            "foldedComponentIds": Array [],
+                            "propTypes": Object {
+                              "disabled": [Function],
+                            },
+                            "render": [Function],
+                            "styledComponentId": "sc-gzVnrw",
+                            "target": "textarea",
+                            "toString": [Function],
+                            "warnTooManyClasses": [Function],
+                            "withComponent": [Function],
+                          }
+                        }
+                        forwardedRef={
+                          Object {
+                            "current": <textarea
+                              class="c3"
+                              maxlength="5"
+                            />,
+                          }
+                        }
+                        maxLength="5"
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        readOnly={false}
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "border": "#668491",
+                              "brand": "#00DC00",
+                              "error": "#C7384F",
+                              "focus": "#FFDA7F",
+                              "info": "#0073C2",
+                              "primary": "#26A826",
+                              "secondary": "#006300",
+                              "success": "#00B000",
+                              "tertiary": "#004400",
+                              "warning": "#FFB500",
+                              "white": "#FFFFFF",
+                            },
+                            "disabled": Object {
+                              "border": "#CCD6DA",
+                              "disabled": "rgba(0,0,0,0.55)",
+                              "input": "#F2F4F5",
+                              "text": "rgba(0,0,0,0.3)",
+                            },
+                            "name": "base",
+                            "shadows": Object {
+                              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                            },
+                            "text": Object {
+                              "color": "rgba(0,0,0,0.9)",
+                              "placeholder": "rgba(0,0,0,0.3)",
+                              "size": "14px",
+                            },
+                          }
+                        }
+                      >
+                        <textarea
+                          className="c3"
+                          disabled={false}
+                          maxLength="5"
+                          onBlur={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          readOnly={false}
+                        />
+                      </StyledComponent>
+                    </styled.textarea>
+                  </TextareaInput>
+                </div>
+              </StyledComponent>
+            </styled.div>
+          </InputPresentation>
+        </div>
+      </StyledComponent>
+    </styled.div>
+  </FormField>
+  <WithTheme(CharacterCount)
+    data-element="character-limit"
+    isOverLimit={true}
+    limit="5"
+    value="7"
+  >
+    <CharacterCount
+      data-element="character-limit"
+      isOverLimit={true}
+      limit="5"
+      theme={
+        Object {
+          "colors": Object {
+            "border": "#668491",
+            "brand": "#00DC00",
+            "error": "#C7384F",
+            "focus": "#FFDA7F",
+            "info": "#0073C2",
+            "primary": "#26A826",
+            "secondary": "#006300",
+            "success": "#00B000",
+            "tertiary": "#004400",
+            "warning": "#FFB500",
+            "white": "#FFFFFF",
+          },
+          "disabled": Object {
+            "border": "#CCD6DA",
+            "disabled": "rgba(0,0,0,0.55)",
+            "input": "#F2F4F5",
+            "text": "rgba(0,0,0,0.3)",
+          },
+          "name": "base",
+          "shadows": Object {
+            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+          },
+          "text": Object {
+            "color": "rgba(0,0,0,0.9)",
+            "placeholder": "rgba(0,0,0,0.3)",
+            "size": "14px",
+          },
+        }
+      }
+      value="7"
+    >
+      <styled.div
+        data-element="character-limit"
+        isOverLimit={true}
+        theme={
+          Object {
+            "colors": Object {
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFDA7F",
+              "info": "#0073C2",
+              "primary": "#26A826",
+              "secondary": "#006300",
+              "success": "#00B000",
+              "tertiary": "#004400",
+              "warning": "#FFB500",
+              "white": "#FFFFFF",
+            },
+            "disabled": Object {
+              "border": "#CCD6DA",
+              "disabled": "rgba(0,0,0,0.55)",
+              "input": "#F2F4F5",
+              "text": "rgba(0,0,0,0.3)",
+            },
+            "name": "base",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          }
+        }
+      >
+        <StyledComponent
+          data-element="character-limit"
+          forwardedComponent={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "attrs": Array [],
+              "componentStyle": ComponentStyle {
+                "componentId": "sc-bdVaJa",
+                "isStatic": false,
+                "lastClassName": "c4",
+                "rules": Array [
+                  "
+  text-align: right;
+  font-size: 12px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  color: ",
+                  [Function],
+                  ";
+
+  ",
+                  [Function],
+                  "
+
+",
+                ],
+              },
+              "defaultProps": Object {
+                "theme": Object {
+                  "colors": Object {
+                    "border": "#668491",
+                    "brand": "#00DC00",
+                    "error": "#C7384F",
+                    "focus": "#FFDA7F",
+                    "info": "#0073C2",
+                    "primary": "#26A826",
+                    "secondary": "#006300",
+                    "success": "#00B000",
+                    "tertiary": "#004400",
+                    "warning": "#FFB500",
+                    "white": "#FFFFFF",
+                  },
+                  "disabled": Object {
+                    "border": "#CCD6DA",
+                    "disabled": "rgba(0,0,0,0.55)",
+                    "input": "#F2F4F5",
+                    "text": "rgba(0,0,0,0.3)",
+                  },
+                  "name": "base",
+                  "shadows": Object {
+                    "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                    "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                    "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                    "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                    "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                  },
+                  "text": Object {
+                    "color": "rgba(0,0,0,0.9)",
+                    "placeholder": "rgba(0,0,0,0.3)",
+                    "size": "14px",
+                  },
+                },
+              },
+              "displayName": "styled.div",
+              "foldedComponentIds": Array [],
+              "render": [Function],
+              "styledComponentId": "sc-bdVaJa",
+              "target": "div",
+              "toString": [Function],
+              "warnTooManyClasses": [Function],
+              "withComponent": [Function],
+            }
+          }
+          forwardedRef={null}
+          isOverLimit={true}
+          theme={
+            Object {
+              "colors": Object {
+                "border": "#668491",
+                "brand": "#00DC00",
+                "error": "#C7384F",
+                "focus": "#FFDA7F",
+                "info": "#0073C2",
+                "primary": "#26A826",
+                "secondary": "#006300",
+                "success": "#00B000",
+                "tertiary": "#004400",
+                "warning": "#FFB500",
+                "white": "#FFFFFF",
+              },
+              "disabled": Object {
+                "border": "#CCD6DA",
+                "disabled": "rgba(0,0,0,0.55)",
+                "input": "#F2F4F5",
+                "text": "rgba(0,0,0,0.3)",
+              },
+              "name": "base",
+              "shadows": Object {
+                "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+              },
+              "text": Object {
+                "color": "rgba(0,0,0,0.9)",
+                "placeholder": "rgba(0,0,0,0.3)",
+                "size": "14px",
+              },
+            }
+          }
+        >
+          <div
+            className="c4"
+            data-element="character-limit"
+          >
+            7
+            /
+            5
+          </div>
+        </StyledComponent>
+      </styled.div>
+    </CharacterCount>
+  </WithTheme(CharacterCount)>
+</Textarea>
+`;
+
 exports[`Textarea when rendered should render default 1`] = `
 .c2 {
   -webkit-align-items: center;

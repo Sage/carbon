@@ -71,9 +71,19 @@ describe('Textarea', () => {
     });
 
     describe('and when characterLimit prop is defined', () => {
-      it('should have a CharacterCount as it\'s child', () => {
+      beforeEach(() => {
         wrapper.setProps({ characterLimit: '5' });
+      });
+
+      it('should have a CharacterCount as it\'s child', () => {
         expect(wrapper.find(CharacterCount).exists()).toBe(true);
+      });
+
+      describe('and when warnOverLimit prop is true and a limit is over', () => {
+        it('should be styled for warn over limit', () => {
+          wrapper.setProps({ warnOverLimit: true, value: 'abcdefg' });
+          expect(wrapper).toMatchSnapshot();
+        });
       });
     });
   });
