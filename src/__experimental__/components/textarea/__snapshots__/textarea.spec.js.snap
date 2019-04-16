@@ -26,14 +26,21 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 0px;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  margin: 0;
   min-height: 40px;
   padding-left: 11px;
   padding-right: 11px;
-  width: 100%;
+}
+
+.c2 input::-ms-clear {
+  display: none;
+}
+
+.c2 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
 }
 
 .c1 {
@@ -113,7 +120,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
             "secondary": "#006300",
             "success": "#00B000",
             "tertiary": "#004400",
-            "warning": "#FFB500",
+            "warning": "#E96400",
             "white": "#FFFFFF",
           },
           "disabled": Object {
@@ -172,7 +179,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                   "secondary": "#006300",
                   "success": "#00B000",
                   "tertiary": "#004400",
-                  "warning": "#FFB500",
+                  "warning": "#E96400",
                   "white": "#FFFFFF",
                 },
                 "disabled": Object {
@@ -219,7 +226,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
               "secondary": "#006300",
               "success": "#00B000",
               "tertiary": "#004400",
-              "warning": "#FFB500",
+              "warning": "#E96400",
               "white": "#FFFFFF",
             },
             "disabled": Object {
@@ -263,6 +270,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
               enforceCharacterLimit={true}
               expandable={false}
               hasFocus={false}
+              inputWidth={100}
               onMouseDown={[Function]}
               readOnly={false}
               role="presentation"
@@ -279,7 +287,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                     "secondary": "#006300",
                     "success": "#00B000",
                     "tertiary": "#004400",
-                    "warning": "#FFB500",
+                    "warning": "#E96400",
                     "white": "#FFFFFF",
                   },
                   "disabled": Object {
@@ -331,8 +339,10 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   cursor: text;
   display: flex;
   flex-wrap: wrap;
-  flex: 1;
-  margin: 0px;
+  flex: 0 0 ",
+                        [Function],
+                        "%;
+  margin: 0;
   min-height: ",
                         [Function],
                         ";
@@ -342,7 +352,6 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   padding-right: ",
                         [Function],
                         ";
-  width: 100%;
 
   ",
                         [Function],
@@ -366,10 +375,18 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   ",
                         [Function],
                         "
+
+  input::-ms-clear {
+    display: none;
+  }
+  input::-webkit-contacts-auto-fill-button {
+    display: none!important;
+  }
 ",
                       ],
                     },
                     "defaultProps": Object {
+                      "inputWidth": 100,
                       "size": "medium",
                       "theme": Object {
                         "colors": Object {
@@ -382,7 +399,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                           "secondary": "#006300",
                           "success": "#00B000",
                           "tertiary": "#004400",
-                          "warning": "#FFB500",
+                          "warning": "#E96400",
                           "white": "#FFFFFF",
                         },
                         "disabled": Object {
@@ -443,14 +460,21 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 0px;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  margin: 0;
   min-height: 40px;
   padding-left: 11px;
   padding-right: 11px;
-  width: 100%;
+}
+
+.c0 input::-ms-clear {
+  display: none;
+}
+
+.c0 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
 }
 
 .c1 {
@@ -498,6 +522,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                   }
                 }
                 hasFocus={false}
+                inputWidth={100}
                 onMouseDown={[Function]}
                 readOnly={false}
                 role="presentation"
@@ -514,7 +539,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                       "secondary": "#006300",
                       "success": "#00B000",
                       "tertiary": "#004400",
-                      "warning": "#FFB500",
+                      "warning": "#E96400",
                       "white": "#FFFFFF",
                     },
                     "disabled": Object {
@@ -577,7 +602,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                             "secondary": "#006300",
                             "success": "#00B000",
                             "tertiary": "#004400",
-                            "warning": "#FFB500",
+                            "warning": "#E96400",
                             "white": "#FFFFFF",
                           },
                           "disabled": Object {
@@ -629,6 +654,10 @@ min-height: 40px;
                                 ";
   outline: none;
   width: 30px;
+  
+  ",
+                                [Function],
+                                "
 
   &::placeholder {
     color: ",
@@ -656,7 +685,7 @@ min-height: 40px;
                                   "secondary": "#006300",
                                   "success": "#00B000",
                                   "tertiary": "#004400",
-                                  "warning": "#FFB500",
+                                  "warning": "#E96400",
                                   "white": "#FFFFFF",
                                 },
                                 "disabled": Object {
@@ -718,7 +747,7 @@ min-height: 40px;
                               "secondary": "#006300",
                               "success": "#00B000",
                               "tertiary": "#004400",
-                              "warning": "#FFB500",
+                              "warning": "#E96400",
                               "white": "#FFFFFF",
                             },
                             "disabled": Object {
@@ -785,7 +814,7 @@ min-height: 40px;
             "secondary": "#006300",
             "success": "#00B000",
             "tertiary": "#004400",
-            "warning": "#FFB500",
+            "warning": "#E96400",
             "white": "#FFFFFF",
           },
           "disabled": Object {
@@ -826,7 +855,7 @@ min-height: 40px;
               "secondary": "#006300",
               "success": "#00B000",
               "tertiary": "#004400",
-              "warning": "#FFB500",
+              "warning": "#E96400",
               "white": "#FFFFFF",
             },
             "disabled": Object {
@@ -890,7 +919,7 @@ min-height: 40px;
                     "secondary": "#006300",
                     "success": "#00B000",
                     "tertiary": "#004400",
-                    "warning": "#FFB500",
+                    "warning": "#E96400",
                     "white": "#FFFFFF",
                   },
                   "disabled": Object {
@@ -938,7 +967,7 @@ min-height: 40px;
                 "secondary": "#006300",
                 "success": "#00B000",
                 "tertiary": "#004400",
-                "warning": "#FFB500",
+                "warning": "#E96400",
                 "white": "#FFFFFF",
               },
               "disabled": Object {
@@ -995,14 +1024,21 @@ exports[`Textarea when rendered should render default 1`] = `
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 0px;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  margin: 0;
   min-height: 40px;
   padding-left: 11px;
   padding-right: 11px;
-  width: 100%;
+}
+
+.c2 input::-ms-clear {
+  display: none;
+}
+
+.c2 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
 }
 
 .c1 {
@@ -1078,7 +1114,7 @@ exports[`Textarea when rendered should render default 1`] = `
             "secondary": "#006300",
             "success": "#00B000",
             "tertiary": "#004400",
-            "warning": "#FFB500",
+            "warning": "#E96400",
             "white": "#FFFFFF",
           },
           "disabled": Object {
@@ -1137,7 +1173,7 @@ exports[`Textarea when rendered should render default 1`] = `
                   "secondary": "#006300",
                   "success": "#00B000",
                   "tertiary": "#004400",
-                  "warning": "#FFB500",
+                  "warning": "#E96400",
                   "white": "#FFFFFF",
                 },
                 "disabled": Object {
@@ -1184,7 +1220,7 @@ exports[`Textarea when rendered should render default 1`] = `
               "secondary": "#006300",
               "success": "#00B000",
               "tertiary": "#004400",
-              "warning": "#FFB500",
+              "warning": "#E96400",
               "white": "#FFFFFF",
             },
             "disabled": Object {
@@ -1225,6 +1261,7 @@ exports[`Textarea when rendered should render default 1`] = `
               enforceCharacterLimit={true}
               expandable={false}
               hasFocus={false}
+              inputWidth={100}
               onMouseDown={[Function]}
               readOnly={false}
               role="presentation"
@@ -1241,7 +1278,7 @@ exports[`Textarea when rendered should render default 1`] = `
                     "secondary": "#006300",
                     "success": "#00B000",
                     "tertiary": "#004400",
-                    "warning": "#FFB500",
+                    "warning": "#E96400",
                     "white": "#FFFFFF",
                   },
                   "disabled": Object {
@@ -1291,8 +1328,10 @@ exports[`Textarea when rendered should render default 1`] = `
   cursor: text;
   display: flex;
   flex-wrap: wrap;
-  flex: 1;
-  margin: 0px;
+  flex: 0 0 ",
+                        [Function],
+                        "%;
+  margin: 0;
   min-height: ",
                         [Function],
                         ";
@@ -1302,7 +1341,6 @@ exports[`Textarea when rendered should render default 1`] = `
   padding-right: ",
                         [Function],
                         ";
-  width: 100%;
 
   ",
                         [Function],
@@ -1326,10 +1364,18 @@ exports[`Textarea when rendered should render default 1`] = `
   ",
                         [Function],
                         "
+
+  input::-ms-clear {
+    display: none;
+  }
+  input::-webkit-contacts-auto-fill-button {
+    display: none!important;
+  }
 ",
                       ],
                     },
                     "defaultProps": Object {
+                      "inputWidth": 100,
                       "size": "medium",
                       "theme": Object {
                         "colors": Object {
@@ -1342,7 +1388,7 @@ exports[`Textarea when rendered should render default 1`] = `
                           "secondary": "#006300",
                           "success": "#00B000",
                           "tertiary": "#004400",
-                          "warning": "#FFB500",
+                          "warning": "#E96400",
                           "white": "#FFFFFF",
                         },
                         "disabled": Object {
@@ -1403,14 +1449,21 @@ exports[`Textarea when rendered should render default 1`] = `
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 0px;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  margin: 0;
   min-height: 40px;
   padding-left: 11px;
   padding-right: 11px;
-  width: 100%;
+}
+
+.c0 input::-ms-clear {
+  display: none;
+}
+
+.c0 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
 }
 
 .c1 {
@@ -1456,6 +1509,7 @@ exports[`Textarea when rendered should render default 1`] = `
                   }
                 }
                 hasFocus={false}
+                inputWidth={100}
                 onMouseDown={[Function]}
                 readOnly={false}
                 role="presentation"
@@ -1472,7 +1526,7 @@ exports[`Textarea when rendered should render default 1`] = `
                       "secondary": "#006300",
                       "success": "#00B000",
                       "tertiary": "#004400",
-                      "warning": "#FFB500",
+                      "warning": "#E96400",
                       "white": "#FFFFFF",
                     },
                     "disabled": Object {
@@ -1531,7 +1585,7 @@ exports[`Textarea when rendered should render default 1`] = `
                             "secondary": "#006300",
                             "success": "#00B000",
                             "tertiary": "#004400",
-                            "warning": "#FFB500",
+                            "warning": "#E96400",
                             "white": "#FFFFFF",
                           },
                           "disabled": Object {
@@ -1583,6 +1637,10 @@ min-height: 40px;
                                 ";
   outline: none;
   width: 30px;
+  
+  ",
+                                [Function],
+                                "
 
   &::placeholder {
     color: ",
@@ -1610,7 +1668,7 @@ min-height: 40px;
                                   "secondary": "#006300",
                                   "success": "#00B000",
                                   "tertiary": "#004400",
-                                  "warning": "#FFB500",
+                                  "warning": "#E96400",
                                   "white": "#FFFFFF",
                                 },
                                 "disabled": Object {
@@ -1670,7 +1728,7 @@ min-height: 40px;
                               "secondary": "#006300",
                               "success": "#00B000",
                               "tertiary": "#004400",
-                              "warning": "#FFB500",
+                              "warning": "#E96400",
                               "white": "#FFFFFF",
                             },
                             "disabled": Object {
