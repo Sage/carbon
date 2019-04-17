@@ -8,46 +8,7 @@ import Modal from '../modal';
 import './sidebar.scss';
 
 class Sidebar extends Modal {
-  static propTypes = {
-    /**
-     * A callback for when cancelling the dialog is triggered. You can use this callback to close the dialog.
-     */
-    onCancel: PropTypes.func,
-
-    /**
-     * A boolean to track the open state of the dialog.
-     */
-    open: PropTypes.bool,
-
-    /**
-     * Set this prop to false to hide the translucent background when the dialog is open.
-     */
-    enableBackgroundUI: PropTypes.bool,
-
-    /**
-     * Sets the position of sidebar, either left or right.
-     */
-    position: PropTypes.string,
-
-    /**
-     * Sets the size of the sidebar when open.
-     */
-    size: PropTypes.string
-  };
-
-  static defaultProps = {
-    position: 'right',
-    size: 'medium',
-    open: false,
-    enableBackgroundUI: false
-  };
-
-  /**
-   * Returns classes for the component.
-   *
-   * @method mainClasses
-   * @return {String} Main className
-   */
+  /** Returns classes for the component. */
   get mainClasses() {
     return classNames(
       'carbon-sidebar',
@@ -55,12 +16,7 @@ class Sidebar extends Modal {
     );
   }
 
-  /**
-   * Returns classes for the sidebar.
-   *
-   * @method sidebarClasses
-   * @return {String} sidebar className
-   */
+  /** Returns classes for the sidebar. */
   get sidebarClasses() {
     return classNames(
       'carbon-sidebar__sidebar',
@@ -69,12 +25,7 @@ class Sidebar extends Modal {
     );
   }
 
-  /**
-   * Returns the markup for the close icon.
-   *
-   * @method closeButton
-   * @return {Object} JSX
-   */
+  /** Returns the markup for the close icon. */
   get closeButton() {
     if (this.props.onCancel) {
       return (
@@ -99,12 +50,7 @@ class Sidebar extends Modal {
     };
   }
 
-  /**
-   * Returns the computed HTML for the sidebar.
-   *
-   * @method sidebarHTML
-   * @return {Object} JSX for sidebar
-   */
+  /** Returns the computed HTML for the sidebar. */
   get modalHTML() {
     return (
       <div
@@ -121,6 +67,25 @@ class Sidebar extends Modal {
     return `sidebar--${this.props.position}`;
   }
 }
+
+Sidebar.propTypes = {
+  onCancel: PropTypes.func,
+  /** A boolean to track the open state of the dialog */
+  open: PropTypes.bool,
+  /** Set this prop to false to hide the translucent background when the dialog is open. */
+  enableBackgroundUI: PropTypes.bool,
+  /** Sets the position of sidebar, either left or right. */
+  position: PropTypes.string,
+  /** Sets the size of the sidebar when open. */
+  size: PropTypes.string
+};
+
+Sidebar.defaultProps = {
+  position: 'right',
+  size: 'medium',
+  open: false,
+  enableBackgroundUI: false
+};
 
 export {
   Sidebar,
