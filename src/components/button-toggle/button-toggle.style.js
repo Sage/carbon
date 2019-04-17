@@ -10,9 +10,8 @@ const StyledButtonToogle = styled.button`
   font-weight: 600;
 
   &:hover {
-    background-color: ${({ theme }) => theme.colors.primary}; /* ToDo */
-    background-color: #e6f6f1;
-    border-color: ${({ theme }) => theme.text.color};
+    background-color: ${({ theme }) => theme.colors.whiteMix};
+    border-color: ${({ theme }) => theme.colors.tertiary};
   }
 
   &:focus {

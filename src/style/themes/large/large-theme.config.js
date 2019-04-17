@@ -9,7 +9,8 @@ export default (palette) => {
         base: palette.amethyst,
         primary: palette.amethystTint(10),
         secondary: palette.amethystShade(10),
-        tertiary: palette.amethystShade(30)
+        tertiary: palette.amethystShade(30),
+        whiteMix: '#eee9f2'
       }
     }
   );

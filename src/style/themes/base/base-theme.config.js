@@ -13,6 +13,7 @@ export default (palette) => {
       secondary: palette.genericGreenShade(35),
       tertiary: palette.genericGreenShade(55),
       brand: palette.brilliantGreen,
+      whiteMix: '#e5f2ee',
 
       // generic
       white: '#FFFFFF',
