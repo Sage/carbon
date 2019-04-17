@@ -1,21 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon';
+import { StyledButtonToogle, StyledButtonToggleIcon } from './button-toggle.style';
 
 const ButtonToggle = (props) => {
   function icon() {
     if (!props.buttonIcon) return null;
 
     return (
-      <Icon type={ props.buttonIcon } />
+      <StyledButtonToggleIcon { ...props }>
+        <Icon type={ props.buttonIcon } />
+      </StyledButtonToggleIcon>
     );
   }
 
   return (
-    <button type='button'>
-      {icon()}
-      {props.children}
-    </button>
+    <StyledButtonToogle { ...props }>
+      <div className='content-wrapper'>
+        {icon()}
+        {props.children}
+      </div>
+    </StyledButtonToogle>
   );
 };
 

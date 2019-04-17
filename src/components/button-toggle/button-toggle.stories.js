@@ -12,7 +12,11 @@ storiesOf('Button Toggle', module)
   .add('default', () => {
     const children = text('children', 'Option');
     const buttonIcon = select('buttonIcon', [null, ...OptionsHelper.icons]);
-    // const buttonIconSize = select('buttonIconSize', OptionsHelper.sizesBinary, OptionsHelper.sizesBinary[0]);
+    const buttonIconSize = select(
+      'buttonIconSize',
+      OptionsHelper.sizesBinary,
+      ButtonToggle.defaultProps.buttonIconSize
+    );
     // const size = select('size', OptionsHelper.sizesBinary, ButtonToggle.defaultProps.size);
     // const disabled = boolean('disabled', false);
     // const grouped = boolean('grouped', false);
@@ -21,19 +25,22 @@ storiesOf('Button Toggle', module)
       [
         <ButtonToggle
           buttonIcon={ buttonIcon }
-          key='key1'
+          buttonIconSize={ buttonIconSize }
+          key='button-toggle-1'
         >
           {children}
         </ButtonToggle>,
         <ButtonToggle
           buttonIcon={ buttonIcon }
-          key='key2'
+          buttonIconSize={ buttonIconSize }
+          key='button-toggle-2'
         >
           {children}
         </ButtonToggle>,
         <ButtonToggle
           buttonIcon={ buttonIcon }
-          key='key3'
+          buttonIconSize={ buttonIconSize }
+          key='button-toggle-3'
         >
           {children}
         </ButtonToggle>
