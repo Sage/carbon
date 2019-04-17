@@ -16,7 +16,7 @@
 
 ### Locators
 #### Files structure
-<p></p>
+<code>
 <code>├── cypress</code>
 <code>│ ├── fixture</code>
 <code>│ ├── integration</code>
@@ -30,7 +30,7 @@
 <code>│ &nbsp;&nbsp;&nbsp;&nbsp;└── [component-name]-steps.js <i>(files with cucumber steps)</i></code>
 <code>├── .eslintrc.json</code>
 <code>├── README.md</code>
-<code>└── tsconfig.json</code>
+<code>└── tsconfig.json</code></code>
 
 #### How to locate elements
 Always use unique selectors to locate elements with order below:
