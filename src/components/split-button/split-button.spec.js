@@ -2,6 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import SplitButton from './split-button.component';
+import StyledSplitButton, { StyledToggleButton } from './split-button.style';
 import StyledSplitButtonChildContainer from './split-button-children.style';
 import Icon from '../icon';
 import Button from '../button';
@@ -27,6 +28,22 @@ const render = (mainProps, childButtons, renderer = shallow) => {
       { childButtons }
     </SplitButton>
   );
+};
+
+const buildSizeConfig = (name, size) => {
+  const sizeObj = {};
+  sizeObj.fontSizze = size === 'large' ? '16px' : '14px';
+  if (size === 'small') {
+    sizeObj.height = '32px';
+    sizeObj.padding = '16px';
+  } else if (size === 'medium') {
+    sizeObj.height = '40px';
+    sizeObj.padding = '24px';
+  } else if (size === 'large') {
+    sizeObj.height = '48px';
+    sizeObj.padding = '32px';
+  }
+  return sizeObj;
 };
 
 const sizes = ['small', 'medium', 'large'];
@@ -145,9 +162,9 @@ describe('SplitButton', () => {
           wrapper3.instance().showButtons();
           const { additionalButtons } = wrapper3.instance();
 
-          for (let index = 0; index < additionalButtons.length; index++) {
+          for (let index = 0; index <= additionalButtons.length; index++) {
             keyboard.pressDownArrow();
-            const button = additionalButtons[index];
+            const button = index < additionalButtons.length ? additionalButtons[index] : additionalButtons[0];
             expect(wrapper3.instance().isActiveElement(button)).toEqual(true);
           }
           wrapper3.instance().hideButtons();
@@ -225,22 +242,6 @@ describe('SplitButton', () => {
     }
   );
 
-  const buildSizeConfig = (name, size) => {
-    const sizeObj = {};
-    sizeObj.fontSizze = size === 'large' ? '16px' : '14px';
-    if (size === 'small') {
-      sizeObj.height = '32px';
-      sizeObj.padding = '16px';
-    } else if (size === 'medium') {
-      sizeObj.height = '40px';
-      sizeObj.padding = '24px';
-    } else if (size === 'large') {
-      sizeObj.height = '48px';
-      sizeObj.padding = '32px';
-    }
-    return sizeObj;
-  };
-
   describe.each(sizes)(
     'when the "%s" size prop is passed',
     (size) => {
@@ -249,7 +250,6 @@ describe('SplitButton', () => {
         (name, theme) => {
           it('has the expected styling', () => {
             const children = [
-              <StyledButton size={ size }>Foo</StyledButton>,
               <StyledButton size={ size }>Foo</StyledButton>
             ];
 
@@ -283,7 +283,6 @@ describe('SplitButton', () => {
     (size) => {
       it('matches the expected styling for a "medium" button', () => {
         const children = [
-          <StyledButton size={ size }>Foo</StyledButton>,
           <StyledButton size={ size }>Foo</StyledButton>
         ];
 
@@ -368,12 +367,31 @@ describe('SplitButton', () => {
           </Button>
         );
         toggle = wrapper.find('[data-element="open"]');
-        const block = wrapper.find('[data-element="open"]');
-        block.simulate('mouseenter');
+        toggle.simulate('mouseenter');
         expect(wrapper.state().showAdditionalButtons).toEqual(false);
       });
 
+      it('when disabled it has the expected styling', () => {
+        wrapper = render(
+          {
+            text: 'mainButton',
+            disabled: true
+          },
+          <Button>
+              Second Button
+          </Button>,
+          mount
+        );
+
+        toggle = wrapper.find('[data-element="open"]').hostNodes();
+        assertStyleMatch({
+          background: 'transparent',
+          color: 'rgba(0,0,0,0.3)'
+        }, toggle);
+      });
+
       afterEach(() => {
+        wrapper.instance().hideButtons();
         wrapper.unmount();
       });
     });

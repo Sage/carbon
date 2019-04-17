@@ -57,12 +57,9 @@ exports[`SplitButton toggle button with mouse events mouse enter dropdown toggle
       as="secondary"
       data-element="main-button"
       disabled={false}
-      iconPosition=""
-      iconType=""
       onFocus={[Function]}
       onMouseEnter={[Function]}
       size="medium"
-      subtext=""
       theme="blue"
     >
       mainButton
@@ -176,11 +173,8 @@ exports[`SplitButton toggle button with mouse events mouse enter dropdown toggle
     <ForwardRef
       as="secondary"
       disabled={false}
-      iconPosition=""
-      iconType=""
       key="0"
       size="medium"
-      subtext=""
       tabIndex={-1}
       theme="blue"
     >

@@ -13,6 +13,7 @@ const StyledSplitButtonContainer = styled.div`
       font-size: 14px;
       height: 31px;
       line-height: 16px;
+      letter-spacing: 0;
       margin-left: 0;
       margin-right: 0;
       padding: 0 18px;
@@ -40,7 +41,9 @@ function styleToggleButton(props) {
 function applyClassicStyling(props) {
   if (props.disabled) {
     return css`
-      padding: 0 5px;
+      && {
+        padding: 0 5px;
+      }
       ${classicToggleStyle(props)}
       z-index: 20;
     `;
@@ -75,7 +78,7 @@ function classicToggleStyle({ displayed }) {
 function applyModernStyling(props) {
   if (props.disabled) {
     return css`
-      padding: 0 8px;
+      ${sizeToggleButton(props)}
       ${modernToggleStyle(props)}
     `;
   }
@@ -87,9 +90,16 @@ function applyModernStyling(props) {
         color: ${colors.white};
       }
     }
-    padding: 0 8px;
+    ${sizeToggleButton(props)}
     ${modernToggleStyle(props)}
   `;
+}
+
+function sizeToggleButton({ size }) {
+  if (size === 'large') return css`padding 0 14px;`;
+  if (size === 'medium') return css`padding 0 10px;`;
+
+  return css`padding 0 5px;`;
 }
 
 function modernToggleStyle({ displayed, theme }) {
