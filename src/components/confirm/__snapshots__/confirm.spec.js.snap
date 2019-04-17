@@ -5,7 +5,7 @@ exports[`Confirm default snapshot renders as expected 1`] = `
   key="1"
 >
   <div
-    className="carbon-dialog carbon-confirm"
+    className="carbon-dialog"
     data-component="confirm"
     data-element="bar"
     data-role="baz"
@@ -136,41 +136,30 @@ exports[`Confirm default snapshot renders as expected 1`] = `
         </styled.div>
         <styled.div>
           <styled.div>
-            <div
-              className="carbon-confirm__buttons clearfix"
-              key="confirm-buttons"
-            >
-              <div
-                className="carbon-confirm__button carbon-confirm__no"
+            <styled.div>
+              <Button
+                as="primary"
+                data-element="confirm"
+                disabled={false}
+                onClick={[Function]}
+                size="medium"
+                subtext=""
+                theme="blue"
               >
-                <Button
-                  as="secondary"
-                  data-element="cancel"
-                  disabled={false}
-                  onClick={[Function]}
-                  size="medium"
-                  subtext=""
-                  theme="blue"
-                >
-                  No
-                </Button>
-              </div>
-              <div
-                className="carbon-confirm__button carbon-confirm__yes"
+                Yes
+              </Button>
+              <Button
+                as="secondary"
+                data-element="cancel"
+                disabled={false}
+                onClick={[Function]}
+                size="medium"
+                subtext=""
+                theme="blue"
               >
-                <Button
-                  as="primary"
-                  data-element="confirm"
-                  disabled={false}
-                  onClick={[Function]}
-                  size="medium"
-                  subtext=""
-                  theme="blue"
-                >
-                  Yes
-                </Button>
-              </div>
-            </div>
+                No
+              </Button>
+            </styled.div>
           </styled.div>
         </styled.div>
       </styled.div>
