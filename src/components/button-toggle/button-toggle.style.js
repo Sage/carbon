@@ -2,12 +2,22 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { THEMES } from '../../style/themes';
 
-const StyledButtonToogle = styled.button`
+const StyledButtonToogle = styled.div`
+  display: inline;
+`;
+
+const StyledButtonToogleLabel = styled.label`
+  display: inline-block;
   height: 40px;
   padding: 0 24px;
   border: 1px solid ${({ theme }) => theme.colors.border};
   font-size: 14px;
   font-weight: 600;
+
+  input:checked ~ & {
+    color: ${({ theme }) => theme.colors.white};
+    background-color: ${({ theme }) => theme.colors.tertiary};
+  }
 
   &:hover {
     background-color: ${({ theme }) => theme.colors.whiteMix};
@@ -22,6 +32,8 @@ const StyledButtonToogle = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 100%;
+    height: 100%;
   }
 
   ${({ buttonIconSize }) => buttonIconSize === 'large' && css`
@@ -64,5 +76,6 @@ StyledButtonToggleIcon.propTypes = {
 
 export {
   StyledButtonToogle,
+  StyledButtonToogleLabel,
   StyledButtonToggleIcon
 };

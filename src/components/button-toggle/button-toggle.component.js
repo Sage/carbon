@@ -1,9 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon';
-import { StyledButtonToogle, StyledButtonToggleIcon } from './button-toggle.style';
+import { StyledButtonToogle, StyledButtonToogleLabel, StyledButtonToggleIcon } from './button-toggle.style';
+import guid from '../../utils/helpers/guid';
 
 const ButtonToggle = (props) => {
+  const inputGuid = guid();
+
   function icon() {
     if (!props.buttonIcon) return null;
 
@@ -14,19 +17,52 @@ const ButtonToggle = (props) => {
     );
   }
 
+  function hiddenInput() {
+    return (
+      <input
+        type='radio'
+        name={ props.name }
+        id={ inputGuid }
+        onChange={ onChangeHandler }
+        style={ { // ToDo: Move to styled-component?
+          width: 0,
+          height: 0,
+          visibility: 'hidden'
+        } }
+      />
+    );
+  }
+
+  function onChangeHandler(ev) {
+    props.onChange(ev, this.props);
+  }
+
   return (
-    <StyledButtonToogle { ...props }>
-      <div className='content-wrapper'>
-        {icon()}
-        {props.children}
-      </div>
+    <StyledButtonToogle>
+      {hiddenInput()}
+      <StyledButtonToogleLabel { ...props } htmlFor={ inputGuid }>
+        <div className='content-wrapper'>
+          {icon()}
+          {props.children}
+        </div>
+      </StyledButtonToogleLabel>
     </StyledButtonToogle>
   );
 };
 
 ButtonToggle.propTypes = {
   /**
-   * Which buttonIcon the button should render.
+   * Name used on the hidden radio button.
+   */
+  name: PropTypes.string,
+
+  /**
+   * Change handler passed in from parent.
+   */
+  onChange: PropTypes.func,
+
+  /**
+   * buttonIcon the to render.
    */
   buttonIcon: PropTypes.string,
 
@@ -51,7 +87,7 @@ ButtonToggle.propTypes = {
   disabled: PropTypes.bool,
 
   /**
-   * A required prop. This is what the button will display.
+   * A required prop. This is the button text.
    */
   children: PropTypes.node.isRequired
 };

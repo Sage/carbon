@@ -24,6 +24,7 @@ storiesOf('Button Toggle', module)
     return (
       [
         <ButtonToggle
+          name='new-button-toggle'
           buttonIcon={ buttonIcon }
           buttonIconSize={ buttonIconSize }
           key='button-toggle-1'
@@ -31,6 +32,7 @@ storiesOf('Button Toggle', module)
           {children}
         </ButtonToggle>,
         <ButtonToggle
+          name='new-button-toggle'
           buttonIcon={ buttonIcon }
           buttonIconSize={ buttonIconSize }
           key='button-toggle-2'
@@ -38,6 +40,7 @@ storiesOf('Button Toggle', module)
           {children}
         </ButtonToggle>,
         <ButtonToggle
+          name='new-button-toggle'
           buttonIcon={ buttonIcon }
           buttonIconSize={ buttonIconSize }
           key='button-toggle-3'
