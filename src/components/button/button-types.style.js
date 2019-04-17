@@ -81,7 +81,7 @@ export default ({ colors, disabled }) => ({
       border-color: transparent;
       color: ${disabled.text};
       &:hover {
-        background: ${colors.secondary};
+        background: ${disabled.button};
         border-color: transparent;
         color: ${disabled.text};
       }
@@ -103,7 +103,7 @@ export default ({ colors, disabled }) => ({
       border-color: transparent;
       color: ${disabled.text};
       &:hover {
-        background: ${colors.secondary};
+        background: ${disabled.button};
         border-color: transparent;
         color: ${disabled.text};
       }

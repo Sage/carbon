@@ -86,6 +86,7 @@ function stylingForClassic({
     font-weight: 700;
     ${classicConfig[renderAs][variant]}
     ${classicConfig[size]}
+    text-decoration: none;
     & + & {
       margin-left: 15px;
     }
