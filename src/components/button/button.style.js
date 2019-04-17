@@ -7,7 +7,6 @@ import classicConfig from './button-classic-config.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 const StyledButton = styled.button`
-  ${props => props.checkTheme && props.checkTheme(props.theme)}
   align-items: center;
   cursor: ${({ disabled }) => (disabled ? 'not-allowed' : 'pointer')};
   display: inline-flex;
@@ -87,6 +86,7 @@ function stylingForClassic({
     font-weight: 700;
     ${classicConfig[renderAs][variant]}
     ${classicConfig[size]}
+    text-decoration: none;
     & + & {
       margin-left: 15px;
     }
