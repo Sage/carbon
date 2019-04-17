@@ -1,32 +1,6 @@
-import { assign } from 'lodash';
-import Dialog from '../dialog';
+import Dialog from '../dialog/dialog.component';
 
-/**
- * A Alert widget.
- *
- * == How to use a Alert in a component:
- *
- * In your file
- *
- *   import Alert from 'carbon-react/lib/components/alert';
- *
- * To render a Alert:
- *
- *   <Alert onCancel={ customEventHandler } open={ false }/>
- *
- * The component rendering the Alert must pass down a prop of 'open' in order to open the alert.
- *
- * You need to provide a custom cancel event handler to handle a close event.
- *
- * @class Alert
- * @constructor
- */
 class Alert extends Dialog {
-  static defaultProps = assign({}, Dialog.defaultProps, {
-    role: 'alertdialog',
-    size: 'extra-small'
-  })
-
   constructor(props) {
     super(props);
     // focusDialog is called via setTimeout in onDialogBlur,
@@ -52,9 +26,6 @@ class Alert extends Dialog {
    * no other element can receive keyboard focus.
    * Therefore focus should remain on the dialog
    * element while it is open.
-   *
-   * @override
-   * @return {Void}
    */
   onDialogBlur(ev) {
     if (!this.props.showCloseIcon) {
@@ -65,5 +36,11 @@ class Alert extends Dialog {
     }
   }
 }
+
+Alert.defaultProps = {
+  ...Dialog.defaultProps,
+  role: 'alertdialog',
+  size: 'extra-small'
+};
 
 export default Alert;
