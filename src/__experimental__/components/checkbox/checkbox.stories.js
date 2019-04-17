@@ -15,21 +15,21 @@ const formStore = new Store({
 storiesOf('Experimental/Checkbox', module)
   .add('default', () => {
     return (
-      <State store={ formStore }>
+      <State store={formStore}>
         <Checkbox
-          onChange={ handleChange }
-          { ...defaultKnobs() }
+          onChange={handleChange}
+          {...defaultKnobs()}
         />
       </State>
     );
   }, {
-    info: {
-      text: info,
-      propTablesExclude: [State],
-      excludedPropTypes: ['children']
-    },
-    notes: { markdown: notes }
-  });
+      info: {
+        text: info,
+        propTablesExclude: [State],
+        excludedPropTypes: ['children']
+      },
+      notes: { markdown: notes }
+    });
 
 function handleChange(ev) {
   formStore.set({ checked: ev.target.checked });
