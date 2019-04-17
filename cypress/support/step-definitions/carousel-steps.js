@@ -11,7 +11,6 @@ function waitForCarouselMove() {
 }
 
 function clickCarouselButton(direction) {
-  const err = 'Direction can be only left or right';
   switch (direction) {
     case 'left':
       previousArrowButton().click();
@@ -19,7 +18,7 @@ function clickCarouselButton(direction) {
     case 'right':
       nextArrowButton().click();
       break;
-    default: throw err;
+    default: throw new Error('Direction can be only left or right');
   }
 }
 

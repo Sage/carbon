@@ -6,7 +6,6 @@ export const showCloseIconCheckbox = () => cy.get(SHOW_CLOSE_ICON_CHECKBOX);
 export const stickyFormFooter = () => cy.get(STICKY_FORM_FOOTER);
 export const disableEscKeyCheckbox = () => cy.get(DISABLE_ESC_KEY_CHECHBOX);
 
-
 // component preview locators
 const CLOSE_ICON_BUTTON = '.icon-close';
 const ALERT_CHILDREN = '.carbon-dialog__inner-content';
