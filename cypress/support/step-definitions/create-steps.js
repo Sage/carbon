@@ -1,4 +1,4 @@
-import { className, contentPreview } from '../../locators/createLocators';
+import { className, contentPreview } from '../../locators/create-locators';
 
 When('I set className to {string}', (title) => {
   className().clear().type(title);
