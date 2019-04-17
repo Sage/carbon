@@ -11,7 +11,6 @@ const sidebarSizes = {
 };
 
 const SidebarStyle = styled.div`
-  ${props => console.log(props)}
   background-color: #e6ebed;
   border-radius: 1px;
   bottom: 0;
