@@ -10,42 +10,6 @@ import TextareaInput from './textarea-input.component';
 const i18nNumberOpts = { precision: 0 };
 
 class Textarea extends React.Component {
-  static propTypes = {
-    /** Character limit of the textarea */
-    characterLimit: PropTypes.string,
-    /** Type of the icon that will be rendered next to the input */
-    children: PropTypes.node,
-    /** The visible width of the text control, in average character widths */
-    cols: PropTypes.number,
-    /** Adds disabled property */
-    disabled: PropTypes.bool,
-    /** Stop the user typing over the characterLimit */
-    enforceCharacterLimit: PropTypes.bool,
-    /** Allows the Textareas Height to change based on user input */
-    expandable: PropTypes.bool,
-    label: PropTypes.string,
-    onChange: PropTypes.func,
-    placeholder: PropTypes.string,
-    /** Adds readOnly property */
-    readOnly: PropTypes.bool,
-    /** The number of visible text lines for the control */
-    rows: PropTypes.number,
-    /** One of type of size to apply to the textarea */
-    size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-    /** The value of the Textarea */
-    value: PropTypes.string,
-    /** Whether to display the character count message in red */
-    warnOverLimit: PropTypes.bool
-  }
-
-  static defaultProps = {
-    disabled: false,
-    expandable: false,
-    enforceCharacterLimit: true,
-    readOnly: false,
-    warnOverLimit: false
-  }
-
   // Minimum height of the textarea
   minHeight = 0;
 
@@ -156,5 +120,41 @@ class Textarea extends React.Component {
     );
   }
 }
+
+Textarea.propTypes = {
+  /** Character limit of the textarea */
+  characterLimit: PropTypes.string,
+  /** Type of the icon that will be rendered next to the input */
+  children: PropTypes.node,
+  /** The visible width of the text control, in average character widths */
+  cols: PropTypes.number,
+  /** Adds disabled property */
+  disabled: PropTypes.bool,
+  /** Stop the user typing over the characterLimit */
+  enforceCharacterLimit: PropTypes.bool,
+  /** Allows the Textareas Height to change based on user input */
+  expandable: PropTypes.bool,
+  label: PropTypes.string,
+  onChange: PropTypes.func,
+  placeholder: PropTypes.string,
+  /** Adds readOnly property */
+  readOnly: PropTypes.bool,
+  /** The number of visible text lines for the control */
+  rows: PropTypes.number,
+  /** One of type of size to apply to the textarea */
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  /** The value of the Textarea */
+  value: PropTypes.string,
+  /** Whether to display the character count message in red */
+  warnOverLimit: PropTypes.bool
+};
+
+Textarea.defaultProps = {
+  disabled: false,
+  expandable: false,
+  enforceCharacterLimit: true,
+  readOnly: false,
+  warnOverLimit: false
+};
 
 export default Textarea;
