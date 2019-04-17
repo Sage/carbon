@@ -9,7 +9,12 @@ import {
 import Textbox from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
+const defaultStoryPropsConfig = {
+  inputWidthEnabled: true
+};
+
 storiesOf('Experimental/Textbox', module)
+
   .add('Basic', () => {
     return (
       <Textbox
@@ -17,7 +22,8 @@ storiesOf('Experimental/Textbox', module)
         infoMessage={ text('infoMessage') }
         warningMessage={ text('warningMessage') }
         size={ select('size', OptionsHelper.sizesRestricted) }
-        { ...getTextboxStoryProps() }
+        placeholder={ text('placeholder') }
+        { ...getCommonTextboxStoryProps() }
       />
     );
   })
@@ -28,22 +34,24 @@ storiesOf('Experimental/Textbox', module)
         infoMessage={ text('infoMessage') }
         warningMessage={ text('warningMessage') }
         size={ select('size', OptionsHelper.sizesRestricted) }
+        placeholder={ text('placeholder') }
         key='0'
-        { ...getTextboxStoryProps() }
+        { ...getCommonTextboxStoryProps() }
       />,
       <Textbox
         errorMessage={ text('errorMessage') }
         infoMessage={ text('infoMessage') }
         warningMessage={ text('warningMessage') }
         size={ select('size', OptionsHelper.sizesRestricted) }
+        placeholder={ text('placeholder') }
         key='1'
-        { ...getTextboxStoryProps() }
+        { ...getCommonTextboxStoryProps() }
       />
     ]);
   });
 
 
-function getTextboxStoryProps() {
+function getCommonTextboxStoryProps(config = defaultStoryPropsConfig) {
   const percentageRange = {
     range: true,
     min: 0,
@@ -53,11 +61,11 @@ function getTextboxStoryProps() {
   const disabled = boolean('disabled', false);
   const readOnly = boolean('readOnly', false);
   const fieldHelp = text('fieldHelp');
-  const inputWidth = number('inputWidth', 100, percentageRange);
   const label = text('label');
   const labelHelp = label ? text('labelHelp') : undefined;
   const labelInline = label ? boolean('labelInline', false) : undefined;
   const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
+  const inputWidth = labelInline && config.inputWidthEnabled ? number('inputWidth', 100, percentageRange) : undefined;
   const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
 
   return {
@@ -73,4 +81,4 @@ function getTextboxStoryProps() {
   };
 }
 
-export default getTextboxStoryProps;
+export default getCommonTextboxStoryProps;

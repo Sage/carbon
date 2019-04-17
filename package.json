@@ -109,5 +109,8 @@
     "react-transition-group": "^1.2.1",
     "styled-components": "^4.1.3",
     "superagent": "~3.8.2"
+  },
+  "cypress-cucumber-preprocessor": {
+    "step_definitions": "cypress/support/step-definitions/"
   }
 }
