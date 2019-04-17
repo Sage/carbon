@@ -265,6 +265,13 @@ exports[`Button when no props other than children are passed into the component 
         "text": "rgba(0,0,0,0.3)",
       },
       "name": "base",
+      "shadows": Object {
+        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+      },
       "text": Object {
         "color": "rgba(0,0,0,0.9)",
         "placeholder": "rgba(0,0,0,0.3)",
@@ -959,16 +966,16 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c1:hover {
-  background: ##be164c;
-  border: 1px solid ##be164c;
+  background: #be164c;
+  border: 1px solid #be164c;
   color: #ffffff;
 }
 
 .c1:focus {
   box-shadow: 0 0 6px rgba(213,85,128,.6);
   outline: none;
-  background: ##be164c;
-  border: 1px solid ##be164c;
+  background: #be164c;
+  border: 1px solid #be164c;
   color: #ffffff;
 }
 
@@ -1790,16 +1797,16 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
 }
 
 .c1:hover {
-  background: ##be164c;
-  border: 1px solid ##be164c;
+  background: #be164c;
+  border: 1px solid #be164c;
   color: #ffffff;
 }
 
 .c1:focus {
   box-shadow: 0 0 6px rgba(213,85,128,.6);
   outline: none;
-  background: ##be164c;
-  border: 1px solid ##be164c;
+  background: #be164c;
+  border: 1px solid #be164c;
   color: #ffffff;
 }
 

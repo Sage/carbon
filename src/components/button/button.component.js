@@ -85,9 +85,6 @@ Button.defaultProps = {
   as: 'secondary',
   size: 'medium',
   disabled: false,
-  iconPosition: '',
-  iconType: '',
-  subtext: '',
   theme: 'blue'
 };
 
