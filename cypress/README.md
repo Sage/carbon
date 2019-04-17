@@ -16,8 +16,21 @@
 
 ### Locators
 #### Files structure
-`cypress/locators/[component-name]/index.js` - exported arrow functions for locators
-`cypress/locators/[component-name]/locators.js` - string const locators
+<p></p>
+<code>├── cypress</code>
+<code>│ ├── fixture</code>
+<code>│ ├── integration</code>
+<code>│ ├── locators</code>
+<code>│ &nbsp;&nbsp;└── [component-name]</code>
+<code>│ &nbsp;&nbsp;&nbsp;&nbsp;├── index.js <i>(exported arrow functions for locators)</i></code>
+<code>│ &nbsp;&nbsp;&nbsp;&nbsp;└── locators.js <i>(string const locators)</i></code>
+<code>│ ├── plugins</code>
+<code>│ └── support</code>
+<code>│ &nbsp;&nbsp;└──step-definitions</code>
+<code>│ &nbsp;&nbsp;&nbsp;&nbsp;└── [component-name]-steps.js <i>(files with cucumber steps)</i></code>
+<code>├── .eslintrc.json</code>
+<code>├── README.md</code>
+<code>└── tsconfig.json</code>
 
 #### How to locate elements
 Always use unique selectors to locate elements with order below:
