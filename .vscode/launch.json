@@ -4,23 +4,21 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Run Current Spec",
-            "program": "${workspaceRoot}/node_modules/.bin/jest",
-            "args": [
-              "--runInBand",
-              "--config=./jest.conf.json",
-              "${file}"
-            ],
-            "runtimeArgs": [
-              "--nolazy"
-            ],
-            "stopOnEntry": false,
-            "cwd": "${workspaceRoot}",
-            "sourceMaps": true,
-            "console": "internalConsole"
-          }
+      {
+        "type": "node",
+        "request": "launch",
+        "name": "Run Current Spec",
+        "program": "${workspaceRoot}/node_modules/.bin/jest",
+        "args": [
+          "--config=./jest.conf.json",
+          "${file}"
+        ],
+        "stopOnEntry": false,
+        "cwd": "${workspaceRoot}",
+        "sourceMaps": true,
+        "console": "integratedTerminal",
+        "internalConsoleOptions": "neverOpen",
+        "disableOptimisticBPs": true,
+      }
     ]
-}
+  }

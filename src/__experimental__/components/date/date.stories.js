@@ -4,13 +4,12 @@ import { action } from '@storybook/addon-actions';
 import { StateDecorator, Store, State } from '@sambego/storybook-state';
 import {
   boolean,
-  number
+  text
 } from '@storybook/addon-knobs';
-import Number from './number.component';
+import DateInput from './date.component';
 import Textbox from '../textbox';
 import getCommonTextboxStoryProps from '../textbox/textbox.stories';
-import notes from './documentation/notes.md';
-import info from './documentation/info';
+import { notes, info } from './documentation';
 
 const store = new Store(
   {
@@ -23,21 +22,21 @@ const setValue = (ev) => {
   store.set({ value: ev.target.value });
 };
 
-storiesOf('Experimental/Number Input', module)
+storiesOf('Experimental/Date Input', module)
   .addDecorator(StateDecorator(store))
   .add('default', () => {
-    const onChangeDeferredEnabled = boolean('Enable "onChangeDeferred" Action', false);
-    const onKeyDownEnabled = boolean('Enable "onKeyDown" Action', false);
-    const deferTimeout = onChangeDeferredEnabled ? number('deferTimeout') : undefined;
+    const autoFocus = boolean('autoFocus', true);
+    const minDate = text('minDate', '');
+    const maxDate = text('maxDate', '');
 
     return (
-      <Number
-        { ...getCommonTextboxStoryProps() }
+      <DateInput
+        { ...getCommonTextboxStoryProps({ inputWidthEnabled: false }) }
+        autoFocus={ autoFocus }
+        minDate={ minDate }
+        maxDate={ maxDate }
         value={ store.get('value') }
         onChange={ setValue }
-        onKeyDown={ onKeyDownEnabled ? action('onKeyDown') : undefined }
-        onChangeDeferred={ onChangeDeferredEnabled ? action('onChangeDeferred') : undefined }
-        deferTimeout={ deferTimeout }
       />
     );
   }, {
@@ -45,7 +44,7 @@ storiesOf('Experimental/Number Input', module)
       text: info,
       propTables: [Textbox],
       propTablesExclude: [Number, State],
-      excludedPropTypes: ['children', 'leftChildren', 'inputIcon']
+      excludedPropTypes: ['children', 'leftChildren', 'inputIcon', 'placeholder', 'inputWidth']
     },
     notes: { markdown: notes }
   });

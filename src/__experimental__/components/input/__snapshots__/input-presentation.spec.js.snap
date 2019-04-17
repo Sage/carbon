@@ -36,6 +36,17 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
   z-index: 2;
 }
 
+.c0:hover .c1 {
+  background-color: #255bc7;
+  border-color: #255bc7;
+  color: #fff;
+}
+
+.c0:hover .c1:hover {
+  background-color: #1e499f;
+  border-color: #1e499f;
+}
+
 .c0 input::-ms-clear {
   display: none;
 }
