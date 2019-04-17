@@ -75,16 +75,12 @@ class DateRange extends React.Component {
 
     if (changedDate === 'endDate') {
       this.props.onChange([this.startDate, newValue]);
-      if (DateHelper.isValidDate(this.startDate)) {
-        // resets validations on opposing field. This is a code smell
-        this._startDate._handleContentChange();
-      }
     }
 
     // Triggers validations on both fields
     if (DateHelper.isValidDate(newValue)) {
-      this._startDate._handleBlur();
-      this._endDate._handleBlur();
+      this._startDate.handleBlur();
+      this._endDate.handleBlur();
     }
   }
 
