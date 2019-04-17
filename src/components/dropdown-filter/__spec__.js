@@ -81,13 +81,11 @@ describe('DropdownFilter', () => {
             visibleValue: 'abc',
             freetext: true
         }
-        instance = TestUtils.renderIntoDocument(
-          <DropdownFilter {...props} />
-        );
 
-        expect(instance.state.filter).toEqual('abc');
-        instance.componentWillReceiveProps({ ...props, visibleValue: 'def' });
-        expect(instance.state.filter).toEqual('def');
+        const wrapper = shallow(<DropdownFilter { ...props } />);
+        expect(wrapper.find('input.carbon-dropdown__input').props().value).toBe('abc');
+        wrapper.setProps({ visibleValue: 'def' });
+        expect(wrapper.find('input.carbon-dropdown__input').props().value).toBe('def');
       });
     });
   });
