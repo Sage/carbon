@@ -16,21 +16,21 @@
 
 ### Locators
 #### Files structure
-<code>
-<code>├── cypress</code>
-<code>│ ├── fixture</code>
-<code>│ ├── integration</code>
-<code>│ ├── locators</code>
-<code>│ &nbsp;&nbsp;└── [component-name]</code>
-<code>│ &nbsp;&nbsp;&nbsp;&nbsp;├── index.js <i>(exported arrow functions for locators)</i></code>
-<code>│ &nbsp;&nbsp;&nbsp;&nbsp;└── locators.js <i>(string const locators)</i></code>
-<code>│ ├── plugins</code>
-<code>│ └── support</code>
-<code>│ &nbsp;&nbsp;└──step-definitions</code>
-<code>│ &nbsp;&nbsp;&nbsp;&nbsp;└── [component-name]-steps.js <i>(files with cucumber steps)</i></code>
-<code>├── .eslintrc.json</code>
-<code>├── README.md</code>
-<code>└── tsconfig.json</code></code>
+<p><code>.</code></p>
+<p><code>├── cypress</code></p>
+<p><code>│ ├── fixture</code></p>
+<p><code>│ ├── integration</code></p>
+<p><code>│ ├── locators</code></p>
+<p><code>│ &nbsp;&nbsp;└── `[component-name]`</code></p>
+<p><code>│ &nbsp;&nbsp;&nbsp;&nbsp;├── index.js <i>(exported arrow functions for locators)</i></code></p>
+<p><code>│ &nbsp;&nbsp;&nbsp;&nbsp;└── locators.js <i>(string const locators)</i></code></p>
+<p><code>│ ├── plugins</code></p>
+<p><code>│ └── support</code></p>
+<p><code>│ &nbsp;&nbsp;└──step-definitions</code></p>
+<p><code>│ &nbsp;&nbsp;&nbsp;&nbsp;└── `[component-name]-steps.js` <i>(files with `cucumber steps`)</i></code></p>
+<p><code>├── .eslintrc.json</code></p>
+<p><code>├── README.md</code></p>
+<p><code>└── tsconfig.json</code></p>
 
 #### How to locate elements
 Always use unique selectors to locate elements with order below:
