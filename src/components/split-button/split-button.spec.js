@@ -1,11 +1,16 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import SplitButtonWithTheme, { SplitButton } from './split-button.component';
+import TestRenderer from 'react-test-renderer';
+import SplitButton from './split-button.component';
+import StyledSplitButtonChildContainer from './split-button-children.style';
 import Icon from '../icon';
 import Button from '../button';
+import StyledButton from '../button/button.style';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import BaseTheme from '../../style/themes/base';
-import classicTheme from '../../style/themes/classic';
+import ClassicTheme from '../../style/themes/classic';
+import SmallTheme from '../../style/themes/small';
+import MediumTheme from '../../style/themes/medium';
+import LargeTheme from '../../style/themes/large';
 import {
   assertStyleMatch,
   keyboard
@@ -24,7 +29,14 @@ const render = (mainProps, childButtons, renderer = shallow) => {
   );
 };
 
-const themes = ['classic', 'small', 'medium', 'large'];
+const sizes = ['small', 'medium', 'large'];
+
+const themes = [
+  ['classic', ClassicTheme],
+  ['small', SmallTheme],
+  ['medium', MediumTheme],
+  ['large', LargeTheme]
+];
 
 describe('SplitButton', () => {
   let wrapper, toggle;
@@ -88,136 +100,210 @@ describe('SplitButton', () => {
   });
 
   describe('keyboard accessibility of additional buttons', () => {
-    describe('pressing the "up" key', () => {
-      // let wrapper2;
-      // beforeEach(() => {
-      //   wrapper2 = render({
-      //     text: 'mainButton',
-      //     'data-element': 'bar',
-      //     'data-role': 'baz'
-      //   },
-      //   [
-      //     <Button>Extra Button</Button>,
-      //     <Button>Extra Button</Button>,
-      //     <Button>Extra Button</Button>
-      //   ],
-      //   mount);
-      //   toggle = wrapper2.find('[data-element="open"]').hostNodes();
-      //   toggle.prop('onFocus')();
-      // });
+    describe.each(themes)(
+      'when "up" key is pressed and the theme is set to "%s"',
+      (name, theme) => {
+        it('matches the expected style for the button indexed', () => {
+          const wrapper2 = render({
+            text: 'mainButton',
+            theme
+          },
+          [
+            <Button>Extra Button</Button>,
+            <Button>Extra Button</Button>,
+            <Button>Extra Button</Button>
+          ],
+          mount);
 
-      // it('adds focus to the button referenced by the index', () => {
-      //   const { additionalButtons } = wrapper2.instance();
-      //   for (let index = additionalButtons.length - 1; index >= 0; index--) {
-      //     const button = additionalButtons[index];
-      //     const spy = spyOn(button, 'focus');
-      //     keyboard.pressUpArrow();
-      //     expect(spy).toBeCalled();
-      //   }
-      //   // setInterval(() => spys.forEach(spy => expect(spy).toHaveBeenCalled(), 200));
-      // });
+          wrapper2.instance().showButtons();
+          const { additionalButtons } = wrapper2.instance();
 
-      it('matches the expected style for the button indexed', () => {
-        const wrapper2 = render({
-          text: 'mainButton',
-          'data-element': 'bar',
-          'data-role': 'baz'
-        },
-        [
-          <Button>Extra Button</Button>,
-          <Button>Extra Button</Button>,
-          <Button>Extra Button</Button>
-        ],
-        mount);
-        const toggle2 = wrapper2.find('[data-element="open"]').hostNodes();
-        toggle2.prop('onFocus')();
-        const { additionalButtons } = wrapper2.instance();
+          for (let index = additionalButtons.length - 1; index >= 0; index--) {
+            const button = additionalButtons[index];
+            keyboard.pressUpArrow();
+            expect(wrapper2.instance().isActiveElement(button)).toEqual(true);
+          }
+          wrapper2.instance().hideButtons();
+        });
+      }
+    );
 
-        for (let index = additionalButtons.length - 1; index >= 0; index--) {
-          const button = additionalButtons[index];
-          keyboard.pressUpArrow();
-          assertStyleMatch({
-            background: 'transparent',
-            borderColor: BaseTheme.colors.primary,
-            color: BaseTheme.colors.primary,
-            fontSize: '14px',
-            height: '40px',
-            paddingLeft: '24px',
-            paddingRight: '24px'
-          }, button);
-        }
-      });
+    describe.each(themes)(
+      'when "down" key is pressed and the theme is set to "%s"',
+      (_, theme) => {
+        it('matches the expected style for the button indexed', () => {
+          const wrapper3 = render({
+            text: 'mainButton',
+            theme
+          },
+          [
+            <Button>Extra Button</Button>,
+            <Button>Extra Button</Button>,
+            <Button>Extra Button</Button>
+          ],
+          mount);
+          wrapper3.instance().showButtons();
+          const { additionalButtons } = wrapper3.instance();
 
-      // afterEach(() => {
-      //   wrapper2.unmount();
-      // });
-    });
+          for (let index = 0; index < additionalButtons.length; index++) {
+            keyboard.pressDownArrow();
+            const button = additionalButtons[index];
+            expect(wrapper3.instance().isActiveElement(button)).toEqual(true);
+          }
+          wrapper3.instance().hideButtons();
+        });
+      }
+    );
 
-    describe('pressing the "down" key', () => {
-      // let wrapper3, toggle3;
-      // beforeEach(() => {
-      //   wrapper3 = render({
-      //     text: 'mainButton',
-      //     'data-element': 'bar',
-      //     'data-role': 'baz'
-      //   },
-      //   [
-      //     <Button>Extra Button</Button>,
-      //     <Button>Extra Button</Button>,
-      //     <Button>Extra Button</Button>
-      //   ],
-      //   mount);
-      //   toggle3 = wrapper3.find('[data-element="open"]').hostNodes();
-      //   toggle3.prop('onFocus')();
-      // });
-
-      // it('adds focus to the button referenced by the index', () => {
-      //   toggle = wrapper3.find('[data-element="open"]').hostNodes();
-      //   const { additionalButtons } = wrapper3.instance();
-      //   wrapper3.props().children.forEach((_, index) => {
-      //     const button = additionalButtons[index];
-      //     const spy = spyOn(button, 'focus');
-      //     keyboard.pressDownArrow();
-      //     expect(spy).toHaveBeenCalled();
-      //   });
-      // });
-
-      it('matches the expected style for the button indexed', () => {
-        const wrapper3 = render({
-          text: 'mainButton',
-          'data-element': 'bar',
-          'data-role': 'baz'
-        },
-        [
-          <Button>Extra Button</Button>,
-          <Button>Extra Button</Button>,
-          <Button>Extra Button</Button>
-        ],
-        mount);
-        const toggle3 = wrapper3.find('[data-element="open"]').hostNodes();
-        toggle3.prop('onFocus')();
-        const { additionalButtons } = wrapper3.instance();
-
-        for (let index = 0; index < additionalButtons.length; index++) {
-          const button = additionalButtons[index];
-          keyboard.pressDownArrow();
-          assertStyleMatch({
-            background: 'transparent',
-            borderColor: BaseTheme.colors.primary,
-            color: BaseTheme.colors.primary,
-            fontSize: '14px',
-            height: '40px',
-            paddingLeft: '24px',
-            paddingRight: '24px'
-          }, button);
-        }
-      });
-
-      // afterEach(() => {
-      //   wrapper3.unmount();
-      // });
-    });
+    describe.each(themes)(
+      'when "tab" key is pressed and the theme is set to "%s"',
+      (_, theme) => {
+        it('it calls the "hideButtons" function', () => {
+          const wrapper4 = render({
+            text: 'mainButton',
+            theme
+          },
+          [
+            <Button>Extra Button</Button>,
+            <Button>Extra Button</Button>,
+            <Button>Extra Button</Button>
+          ],
+          mount);
+          wrapper4.instance().showButtons();
+          const spy = spyOn(wrapper4.instance(), 'hideButtons');
+          keyboard.pressTab();
+          expect(spy).toHaveBeenCalled();
+          wrapper4.instance().hideButtons();
+        });
+      }
+    );
   });
+
+  describe.each(themes)(
+    'when the theme is set to "%s"',
+    (name, theme) => {
+      it('has the expected style', () => {
+        const themedWrapper = mount(
+          <StyledSplitButtonChildContainer theme={ theme }>
+            <StyledButton>Foo</StyledButton>
+          </StyledSplitButtonChildContainer>
+        );
+
+        const themeColors = {
+          classic: '#1e499f',
+          small: '#006045',
+          medium: '#005B9A',
+          large: '#4F2775'
+        };
+
+        assertStyleMatch({
+          backgroundColor: themeColors[name],
+          border: `1px solid ${themeColors[name]}`,
+          display: name === 'classic' ? 'block' : undefined
+        }, themedWrapper, { modifier: `${StyledButton}` });
+      });
+
+      it('matches the expected style for the focused "additional button"', () => {
+        const themedWrapper = mount(
+          <StyledSplitButtonChildContainer theme={ theme }>
+            <StyledButton>Foo</StyledButton>
+          </StyledSplitButtonChildContainer>
+        );
+
+        const themeColors = {
+          classic: '#163777',
+          small: '#003F2E',
+          medium: '#004372',
+          large: '#3D1E5B'
+        };
+
+        themedWrapper.find('button').simulate('focus');
+        assertStyleMatch({
+          backgroundColor: themeColors[name]
+        }, themedWrapper, { modifier: `${StyledButton}:focus` });
+      });
+    }
+  );
+
+  const buildSizeConfig = (name, size) => {
+    const sizeObj = {};
+    sizeObj.fontSizze = size === 'large' ? '16px' : '14px';
+    if (size === 'small') {
+      sizeObj.height = '32px';
+      sizeObj.padding = '16px';
+    } else if (size === 'medium') {
+      sizeObj.height = '40px';
+      sizeObj.padding = '24px';
+    } else if (size === 'large') {
+      sizeObj.height = '48px';
+      sizeObj.padding = '32px';
+    }
+    return sizeObj;
+  };
+
+  describe.each(sizes)(
+    'when the "%s" size prop is passed',
+    (size) => {
+      describe.each([themes[1], themes[2], themes[3]])(
+        'with the "%s" business theme',
+        (name, theme) => {
+          it('has the expected styling', () => {
+            const children = [
+              <StyledButton size={ size }>Foo</StyledButton>,
+              <StyledButton size={ size }>Foo</StyledButton>
+            ];
+
+            const themedWrapper = mount(
+              <StyledSplitButtonChildContainer theme={ theme }>
+                { children }
+              </StyledSplitButtonChildContainer>
+            );
+
+            const expectedStyle = buildSizeConfig(name, size);
+
+            for (let index = 0; index < children.length - 1; index++) {
+              assertStyleMatch({
+                fontSize: expectedStyle.fontSize
+              }, themedWrapper, { modifier: `${StyledButton}` });
+
+              assertStyleMatch({
+                height: expectedStyle.height,
+                paddingLeft: expectedStyle.padding,
+                paddingRight: expectedStyle.padding
+              }, TestRenderer.create(children[index]).toJSON());
+            }
+          });
+        }
+      );
+    }
+  );
+
+  describe.each(sizes)(
+    'when the "%s" size prop is passed with a "classic" theme to the buttons',
+    (size) => {
+      it('matches the expected styling for a "medium" button', () => {
+        const children = [
+          <StyledButton size={ size }>Foo</StyledButton>,
+          <StyledButton size={ size }>Foo</StyledButton>
+        ];
+
+        const themedWrapper = mount(
+          <StyledSplitButtonChildContainer theme={ ClassicTheme }>
+            { children }
+          </StyledSplitButtonChildContainer>
+        );
+
+        for (let index = 0; index < children.length - 1; index++) {
+          assertStyleMatch({
+            fontSize: '14px',
+            height: '31px',
+            padding: '0 18px',
+            textAlign: 'left'
+          }, themedWrapper, { modifier: `${StyledButton}` });
+        }
+      });
+    }
+  );
 
   describe('button refs', () => {
     let wrapper4;
@@ -234,7 +320,7 @@ describe('SplitButton', () => {
       mount);
     });
 
-    it('creates and stores refs for the any additonal buttons', () => {
+    it('creates and stores refs for the additonal buttons', () => {
       toggle = wrapper4.find('[data-element="open"]').hostNodes();
       toggle.prop('onFocus')();
       const { additionalButtons } = wrapper4.instance();
@@ -255,7 +341,7 @@ describe('SplitButton', () => {
             text: 'mainButton'
           },
           <Button>
-              Second Button
+            Second Button
           </Button>
         );
         toggle = wrapper.find('[data-element="open"]');
@@ -311,10 +397,14 @@ describe('SplitButton', () => {
 
       it('changes showAdditionalButtons state', () => {
         toggle.simulate('mouseenter');
+        toggle.simulate('mouseenter'); // for branch coverage
         expect(wrapper.state().showAdditionalButtons).toEqual(true);
-        mainButton.simulate('mouseenter');
+        expect(wrapper.instance().listening).toEqual(true);
+        wrapper.simulate('mouseleave');
+        wrapper.simulate('mouseleave'); // for branch coverage
         wrapper.instance().forceUpdate();
         expect(wrapper.state().showAdditionalButtons).toEqual(false);
+        expect(wrapper.instance().listening).toEqual(false);
       });
 
       it('hides additional buttons', () => {
@@ -388,23 +478,19 @@ describe('SplitButton', () => {
     });
 
     describe('on internal elements', () => {
-      wrapper = shallow(
+      const wrapper5 = shallow(
         <SplitButton text='Test'>
           <Button>Test1</Button>
           <Button>Test2</Button>
         </SplitButton>
       );
-      wrapper.setState({ showAdditionalButtons: true });
+      wrapper5.setState({ showAdditionalButtons: true });
 
-      elementsTagTest(wrapper, [
+      elementsTagTest(wrapper5, [
         'additional-buttons',
         'main-button',
         'open'
       ]);
     });
-  });
-
-  afterEach(() => {
-    wrapper.unmount();
   });
 });

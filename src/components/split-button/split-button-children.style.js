@@ -47,9 +47,13 @@ function styleChildrenContainer({ theme }) {
 function applyStylingToChildButtons({ theme }) {
   if (theme.name === THEMES.classic) {
     return css`
-      display: block;
       background-color: ${colors.classic.secondary};
       border: 1px solid ${colors.classic.secondary};
+      display: block;
+      font-size: 14px;
+      height: 31px;
+      letter-spacing: 0;
+      padding: 0 18px;
       text-align: left;
       &:focus {
         background-color: ${colors.classic.tertiary};

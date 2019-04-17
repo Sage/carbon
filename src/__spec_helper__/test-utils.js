@@ -56,7 +56,7 @@ const selectedItemReducer = method => wrapper => (acc, i) => {
 const arraysEqual = (arr1, arr2) => arr1.sort().join(',') === arr2.sort().join(',');
 
 const assertCorrectTraversal = method => expect => ({ num, nonSelectables = [] }) => (wrapper) => {
-  const array = makeArray(num);
+  const array = makeArrayKeys(num);
   const validIndexes = array.filter(isSelectableGiven(nonSelectables));
 
   const indexesThatWereSelected = array

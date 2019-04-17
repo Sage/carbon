@@ -3,17 +3,22 @@ import PropTypes from 'prop-types';
 import StyledButton from '../button/button.style';
 import BaseTheme from '../../style/themes/base';
 import colors from './split-button-colors.style';
-import OptionsHelper from '../../utils/helpers/options-helper';
 import { THEMES } from '../../style/themes';
 
 const StyledSplitButtonContainer = styled.div`
   display: inline-block;
   position: relative;
-  &:focus {
-    z-index: 20;
-  }
+  ${({ theme }) => theme.name === THEMES.classic && css`
+    ${StyledButton} {
+      font-size: 14px;
+      height: 31px;
+      line-height: 16px;
+      margin-left: 0;
+      margin-right: 0;
+      padding: 0 18px;
+    }
+  `}
 `;
-// Need to size the main button
 
 export const StyledToggleButton = styled(StyledButton)`
   ${styleToggleButton}
@@ -48,7 +53,9 @@ function applyClassicStyling(props) {
         color: ${colors.white};
       }
     }
-    padding: 0 5px;
+    && {
+      padding: 0 5px;
+    }
     ${classicToggleStyle(props)}
     z-index: 20;
   `;
@@ -107,27 +114,7 @@ StyledSplitButtonContainer.defaultProps = {
 };
 
 StyledSplitButtonContainer.propTypes = {
-  /** Color variants for new business themes */
-  renderAs: PropTypes.oneOf([OptionsHelper.themesBinary[0], OptionsHelper.themesBinary[1]]),
-  /** Apply disabled state to the button */
-  disabled: PropTypes.bool,
-  /** Used to transfrom button into anchor */
-  href: PropTypes.string,
-  /** Defines an Icon position within the button */
-  iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions, '']),
-  /** Defines an Icon type within the button */
-  iconType: PropTypes.oneOf([...OptionsHelper.icons, '']),
-  /** Assigns a size to the button */
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-  /** Second text child, renders under main text, only when size is "large" */
-  subtext: (props) => {
-    if (props.subtext.length > 0 && props.size !== 'large') {
-      throw new Error('subtext prop has no effect unless the button is large');
-    } else {
-      return null;
-    }
-  },
-  /** Used to transfrom button into anchor */
-  to: PropTypes.string
+  /** Function to handle mouse leave event */
+  onMouseLeave: PropTypes.func
 };
 export default StyledSplitButtonContainer;

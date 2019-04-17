@@ -52,6 +52,7 @@ storiesOf('Split Button', module)
           disabled={ disabled }
           onClick={ onClick }
           text={ textContent }
+          { ...props }
         >
           <Button
             { ...props }

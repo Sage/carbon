@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withTheme } from 'styled-components';
 import Icon from '../icon/icon';
 import Button from '../button';
 import StyledSplitButtonContainer, { StyledToggleButton } from './split-button.style';
@@ -8,9 +7,8 @@ import StyledSplitButtonChildrenContainer from './split-button-children.style';
 import { validProps } from '../../utils/ether/ether';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Events from '../../utils/helpers/events';
-import { THEMES } from '../../style/themes';
 
-export class SplitButton extends React.Component {
+class SplitButton extends React.Component {
   static propTypes = {
     /**
      * Customizes the appearance, can be set to 'primary' or 'secondary'.
@@ -66,6 +64,8 @@ export class SplitButton extends React.Component {
   constructor(props) {
     super(props);
     this.componentTags = this.componentTags.bind(this);
+    this.showButtons = this.showButtons.bind(this);
+    this.hideButtons = this.hideButtons.bind(this);
     this.additionalButtons = [];
     this.listening = false;
   }
@@ -80,7 +80,7 @@ export class SplitButton extends React.Component {
   /**
    * Shows the additional buttons.
    */
-  showButtons = () => {
+  showButtons() {
     this.setState({ showAdditionalButtons: true });
     if (!this.listening) {
       document.addEventListener('keydown', this.handleKeyDown);
@@ -91,7 +91,7 @@ export class SplitButton extends React.Component {
   /**
    * Hides additional buttons.
    */
-  hideButtons = () => {
+  hideButtons() {
     this.setState({ showAdditionalButtons: false });
     if (this.listening) {
       document.removeEventListener('keydown', this.handleKeyDown);
@@ -99,23 +99,33 @@ export class SplitButton extends React.Component {
     }
   }
 
-  activeElementIndex(node) {
+  /**
+   * Checks if node is active element.
+   */
+  isActiveElement(node) {
     return node === document.activeElement;
   }
 
+  /**
+   * Handles up/down key navigation
+   */
   handleKeyDown = (ev) => {
     const { children } = this.props;
-    const currentIndex = this.additionalButtons.findIndex(this.activeElementIndex);
+    const currentIndex = this.additionalButtons.findIndex(this.isActiveElement);
     let nextIndex = -1;
-
     if (Events.isUpKey(ev)) {
       nextIndex = currentIndex > 0 ? currentIndex - 1 : children.length - 1;
       ev.preventDefault();
-    } else if (Events.isDownKey(ev)) {
+    } if (Events.isDownKey(ev)) {
       nextIndex = currentIndex < children.length - 1 ? currentIndex + 1 : 0;
       ev.preventDefault();
+    } else if (Events.isTabKey(ev)) {
+      this.hideButtons();
     }
-    this.additionalButtons[nextIndex].focus();
+
+    if (nextIndex > -1) {
+      this.additionalButtons[nextIndex].focus();
+    }
   }
 
   /**
@@ -159,9 +169,12 @@ export class SplitButton extends React.Component {
     };
   }
 
+  /**
+   * Instantiates the additional button refs
+   */
   addRef(ref, index) {
     if (!ref) return;
-    if (this.additionalButtons[index] !== ref) this.additionalButtons[index] = ref;
+    this.additionalButtons[index] = ref;
   }
 
   /**
@@ -187,8 +200,11 @@ export class SplitButton extends React.Component {
     );
   }
 
+  /**
+   * Passes in additional button props
+   */
   childrenWithProps() {
-    const { children, theme } = this.props;
+    const { children } = this.props;
     const childArray = Array.isArray(children) ? children : [children];
 
     return childArray.map((child, index) => {
@@ -197,8 +213,6 @@ export class SplitButton extends React.Component {
         ref: button => this.addRef(button, index),
         tabIndex: -1
       };
-      if (theme && theme.name === THEMES.classic) props.size = 'medium';
-
       return React.cloneElement(child, props);
     });
   }
@@ -231,4 +245,4 @@ export class SplitButton extends React.Component {
     );
   }
 }
-export default withTheme(SplitButton);
+export default SplitButton;
