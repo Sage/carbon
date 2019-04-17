@@ -1,4 +1,4 @@
-import { FORM } from './commonLocators';
+import { FORM } from './common-locators';
 
 // knobs locators
 const OPEN_BUTTON = 'button[type="button"][name="open"]';
