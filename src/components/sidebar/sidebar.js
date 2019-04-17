@@ -5,23 +5,20 @@ import classNames from 'classnames';
 import SidebarHeader from './sidebar-header';
 import Icon from '../icon';
 import Modal from '../modal';
+import SidebarStyle from './sidebar.style';
 import './sidebar.scss';
 
 class Sidebar extends Modal {
+  constructor(props) {
+    super(props);
+    console.log(props);
+  }
+
   /** Returns classes for the component. */
   get mainClasses() {
     return classNames(
       'carbon-sidebar',
       this.props.className
-    );
-  }
-
-  /** Returns classes for the sidebar. */
-  get sidebarClasses() {
-    return classNames(
-      'carbon-sidebar__sidebar',
-      `carbon-sidebar__sidebar--${this.props.position}`,
-      `carbon-sidebar__sidebar--${this.props.size}`
     );
   }
 
@@ -53,13 +50,14 @@ class Sidebar extends Modal {
   /** Returns the computed HTML for the sidebar. */
   get modalHTML() {
     return (
-      <div
-        className={ this.sidebarClasses }
+      <SidebarStyle
+        position={ this.props.position }
+        size={ this.props.size }
         { ...this.componentTags(this.props) }
       >
         { this.closeButton }
         { this.props.children }
-      </div>
+      </SidebarStyle>
     );
   }
 
