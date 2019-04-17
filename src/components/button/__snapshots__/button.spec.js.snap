@@ -92,7 +92,6 @@ exports[`Button when a subtext prop is passed into the component does not render
   role="button"
   size="medium"
 >
-  
   <span>
     <span
       data-element="main-text"
@@ -100,7 +99,6 @@ exports[`Button when a subtext prop is passed into the component does not render
       foo
     </span>
   </span>
-  
 </button>
 `;
 
@@ -206,7 +204,6 @@ exports[`Button when a subtext prop is passed into the component renders the sub
   role="button"
   size="large"
 >
-  
   <span>
     <span
       data-element="main-text"
@@ -220,7 +217,6 @@ exports[`Button when a subtext prop is passed into the component renders the sub
       foo
     </span>
   </span>
-  
 </button>
 `;
 
@@ -229,13 +225,10 @@ exports[`Button when no props other than children are passed into the component 
   as="button"
   data-component="button"
   disabled={false}
-  iconPosition=""
-  iconType=""
   medium={true}
   renderAs="secondary"
   role="button"
   size="medium"
-  subtext=""
   theme={
     Object {
       "colors": Object {
@@ -531,6 +524,8 @@ exports[`Button when the classic theme is applied setting the color variant to "
   background: transparent;
   border: 1px solid #255bc7;
   color: #255bc7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c1:hover {
@@ -674,6 +669,8 @@ exports[`Button when the classic theme is applied setting the color variant to "
   background: transparent;
   border: 1px solid #335c6d;
   color: #335c6d;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c1:hover {
@@ -817,6 +814,8 @@ exports[`Button when the classic theme is applied setting the color variant to "
   background: transparent;
   border: 1px solid #ed1c5f;
   color: #ed1c5f;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c1:hover {
@@ -960,6 +959,8 @@ exports[`Button when the classic theme is applied setting the color variant to "
   background: transparent;
   border: 1px solid #ca2a60;
   color: #ca2a60;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c1:hover {
@@ -1103,6 +1104,8 @@ exports[`Button when the classic theme is applied setting the color variant to "
   background: transparent;
   border: 1px solid #c7384f;
   color: #c7384f;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c1:hover {
@@ -1246,6 +1249,8 @@ exports[`Button when the classic theme is applied setting the color variant to "
   background: transparent;
   border: 1px solid #ffffff;
   color: rgba(0,0,0,85);
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c1:hover {
@@ -1362,6 +1367,8 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
   background: transparent;
   border: 1px solid #255bc7;
   color: #255bc7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c1:hover {
@@ -1505,6 +1512,8 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   background: transparent;
   border: 1px solid #335c6d;
   color: #335c6d;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c1:hover {
@@ -1648,6 +1657,8 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   background: transparent;
   border: 1px solid #ed1c5f;
   color: #ed1c5f;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c1:hover {
@@ -1791,6 +1802,8 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   background: transparent;
   border: 1px solid #ca2a60;
   color: #ca2a60;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c1:hover {
@@ -1934,6 +1947,8 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   background: transparent;
   border: 1px solid #c7384f;
   color: #c7384f;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c1:hover {
@@ -2077,6 +2092,8 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   background: transparent;
   border: 1px solid #ffffff;
   color: rgba(0,0,0,85);
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c1:hover {
