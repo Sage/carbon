@@ -72,6 +72,26 @@ describe('DropdownFilter', () => {
     });
   });
 
+  describe('componentWillReceiveProps', () => {
+    describe('should update the filter if visible value changed,', () => {
+      it('sets openingList to true', () => {
+        const props = {
+            name:'foo',
+            options: Immutable.fromJS([]),
+            visibleValue: 'abc',
+            freetext: true
+        }
+        instance = TestUtils.renderIntoDocument(
+          <DropdownFilter {...props} />
+        );
+
+        expect(instance.state.filter).toEqual('abc');
+        instance.componentWillReceiveProps({ ...props, visibleValue: 'def' });
+        expect(instance.state.filter).toEqual('def');
+      });
+    });
+  });
+
   describe('selectValue', () => {
     it('removes filter', () => {
       spyOn(instance, 'setState');
