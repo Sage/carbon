@@ -10,7 +10,7 @@ import { notes, info } from './documentation';
 import Confirm from './confirm.component.js';
 
 const store = new Store({
-  open: true
+  open: false
 });
 
 const handleCancel = () => {

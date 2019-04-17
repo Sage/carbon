@@ -23,7 +23,7 @@ const info = (
       {code}
     </StoryCodeBlock>
 
-    <p>The component rendering the Confirm must pass down a prop of <StoryCode padded>open={ true }</StoryCode> to open the confirm dialog.</p>
+    <p>Confirm must receive a prop of <StoryCode padded>{'open={ true }'}</StoryCode> to open the confirm dialog.</p>
 
     <p>You need to provide a custom cancel/confirm event handlers to handle these events via buttons. </p>
   </div>
