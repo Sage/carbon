@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 import Button from '../button';
@@ -8,59 +8,7 @@ import { validProps } from '../../utils/ether/ether';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Events from '../../utils/helpers/events';
 
-class SplitButton extends React.Component {
-  static propTypes = {
-    /**
-     * Customizes the appearance, can be set to 'primary' or 'secondary'.
-     */
-    as: PropTypes.string,
-
-    /**
-     * A custom value for the data-element attribute
-     */
-    'data-element': PropTypes.string,
-
-    /**
-     * A custom value for the data-element attribute
-     */
-    'data-role': PropTypes.string,
-
-    /**
-     * The additional button to display.
-     */
-    children: PropTypes.node.isRequired,
-
-    /**
-     * Gives the button a disabled state.
-     */
-    disabled: PropTypes.bool,
-
-    // keyNavigation: PropTypes.bool,
-
-    /**
-     * The size of the buttons in the SplitButton.
-     */
-    size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-
-    /**
-     * The text to be displayed in the SplitButton.
-     */
-    text: PropTypes.string.isRequired,
-
-    /**
-     * The business theme passed to the component from the theme provider
-     */
-    theme: PropTypes.object
-  }
-
-  static defaultProps = {
-    as: 'secondary',
-    disabled: false,
-    size: 'medium'
-  }
-
-  static safeProps = ['as', 'disabled', 'size']
-
+class SplitButton extends Component {
   constructor(props) {
     super(props);
     this.componentTags = this.componentTags.bind(this);
@@ -245,4 +193,55 @@ class SplitButton extends React.Component {
     );
   }
 }
+
+SplitButton.propTypes = {
+  /**
+   * Customizes the appearance, can be set to 'primary' or 'secondary'.
+   */
+  as: PropTypes.string,
+
+  /**
+   * The additional button to display.
+   */
+  children: PropTypes.node.isRequired,
+
+  /**
+   * A custom value for the data-element attribute
+   */
+  'data-element': PropTypes.string,
+
+  /**
+   * A custom value for the data-element attribute
+   */
+  'data-role': PropTypes.string,
+
+  /**
+   * Gives the button a disabled state.
+   */
+  disabled: PropTypes.bool,
+
+  /**
+   * The size of the buttons in the SplitButton.
+   */
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+
+  /**
+   * The text to be displayed in the SplitButton.
+   */
+  text: PropTypes.string.isRequired,
+
+  /**
+   * The business theme passed to the component from the theme provider
+   */
+  theme: PropTypes.object
+};
+
+SplitButton.defaultProps = {
+  as: 'secondary',
+  disabled: false,
+  size: 'medium'
+};
+
+SplitButton.safeProps = ['as', 'disabled', 'size'];
+
 export default SplitButton;

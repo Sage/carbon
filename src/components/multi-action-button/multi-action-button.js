@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from '../icon';
@@ -6,29 +6,7 @@ import Button from '../button';
 // import SplitButton from '../split-button';
 import './multi-action-button.scss';
 
-class MultiActionButton extends React.Component {
-  static propTypes = {
-    /**
-     * Customizes the appearance, can be set to 'primary', 'secondary' or 'transparent'.
-     */
-    as: PropTypes.string,
-
-    /**
-     * The text to be displayed in the SplitButton.
-     */
-    text: PropTypes.string.isRequired,
-
-    /**
-     * Gives the button a disabled state.
-     */
-    disabled: PropTypes.bool,
-
-    /**
-     * Aligns the button's options, can be set to `right`.
-     */
-    align: PropTypes.string
-  }
-
+class MultiActionButton extends Component {
   /**
    * Returns classes for the component.
    * @override
@@ -96,5 +74,37 @@ class MultiActionButton extends React.Component {
     };
   }
 }
+
+MultiActionButton.propTypes = {
+  /**
+   * Customizes the appearance, can be set to 'primary', 'secondary' or 'transparent'.
+   */
+  as: PropTypes.string,
+
+  /**
+   * The text to be displayed in the SplitButton.
+   */
+  text: PropTypes.string.isRequired,
+
+  /**
+   * Gives the button a disabled state.
+   */
+  disabled: PropTypes.bool,
+
+  /**
+   * A custom value for the data-element attribute
+   */
+  'data-element': PropTypes.string,
+
+  /**
+   * A custom value for the data-element attribute
+   */
+  'data-role': PropTypes.string,
+
+  /**
+   * Aligns the button's options, can be set to `right`.
+   */
+  align: PropTypes.string
+};
 
 export default MultiActionButton;
