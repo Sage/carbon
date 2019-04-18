@@ -2,14 +2,6 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { THEMES } from '../../style/themes';
 
-const StyledButtonToogle = styled.div`
-  display: inline-block;
-
-  &:not(:first-of-type) {
-    margin-left: 10px;
-  }
-`;
-
 const StyledButtonToogleLabel = styled.label`
   display: inline-block;
   height: 40px;
@@ -106,6 +98,8 @@ const StyledButtonToggleIcon = styled.div`
   margin-right: 8px;
   
   ${({ buttonIconSize }) => buttonIconSize === 'large' && css`
+    margin-right: 0;
+    
     .carbon-icon {
       margin-right: 0;
       margin-bottom: 8px;
@@ -123,6 +117,23 @@ const StyledButtonToggleIcon = styled.div`
     .carbon-icon::before {
       font-size: ${`${iconFontSizes.classic[`${buttonIconSize}Icon`]}px`};
       line-height: ${`${iconFontSizes.classic[`${buttonIconSize}Icon`]}px`};
+    }
+  `};
+`;
+
+const StyledButtonToogle = styled.div`
+  display: inline-block;
+
+  &:not(:first-of-type) {
+    margin-left: 10px;
+  }
+  
+  ${({ grouped }) => grouped && css`
+    &:not(:first-of-type) {
+      margin-left: 0;
+      ${StyledButtonToogleLabel} {
+        border-left-width: ${grouped ? '0' : '1px'};
+      }
     }
   `};
 `;

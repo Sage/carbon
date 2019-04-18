@@ -40,7 +40,7 @@ const ButtonToggle = (props) => {
   }
 
   return (
-    <StyledButtonToogle>
+    <StyledButtonToogle { ...props }>
       {hiddenInput()}
       <StyledButtonToogleLabel { ...props } htmlFor={ inputGuid }>
         <div className='content-wrapper'>
