@@ -2,11 +2,13 @@ import { visitComponentUrl } from '../helper';
 import {
   asSelect, sizeSelect, subtextInput, titleInput,
   heightInput, labelInput,
-} from '../../locators/commonLocators';
+} from '../../locators/common-locators';
 import {
-  openButton, dialogInnerContent, dialogTitle, cancelLabel, confirmLabel, backgroundUICheckbox, backGroundUILocator,
-  disableEscKeyCheckbox, dialogPreview, showCloseIconCheckbox, closeIconButton, dialogSubtitle, stickyFormFooterCheckbox, childrenTextArea,
-} from '../../locators/confirmLocators';
+  openButton, dialogInnerContent, dialogTitle, cancelLabel, confirmLabel,
+  backgroundUICheckbox, backGroundUILocator, disableEscKeyCheckbox, dialogPreview,
+  showCloseIconCheckbox, closeIconButton, dialogSubtitle, stickyFormFooterCheckbox,
+  childrenTextArea,
+} from '../../locators/confirm-locators';
 
 const CARBON_DIALOG_PREFIX = 'carbon-dialog__dialog--';
 const STICKY_FORM_FOOTER_PARAMETER = 'carbon-dialog__dialog--sticky-form-footer';
