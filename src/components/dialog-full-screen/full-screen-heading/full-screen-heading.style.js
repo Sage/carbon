@@ -1,21 +1,21 @@
-@import "./../../../style-config/colors";
-@import "./../dialog-full-screen-variables";
+import styled from 'styled-components';
+import ClassicFullScreenHeading from './classic-full-screen-heading.style';
 
-.carbon-full-screen-heading {
-  border-bottom: 1px solid #CED0D3;
+const StyledFullScreenHeading = styled.div`
+  border-bottom: 1px solid ${({ theme }) => theme.disabled.border};
 
   .carbon-app-wrapper {
     position: relative;
   }
 
   .carbon-heading {
-    height: $title-height;
+    height: 87px;
 
     .carbon-heading__header {
       align-items: center;
       box-sizing: content-box;
       display: flex;
-      height: $title-height;
+      height: 87px;
       margin-bottom: 0;
       padding-bottom: 0;
       width: 100%;
@@ -30,8 +30,12 @@
       }
 
       .carbon-dialog-full-screen & {
-        background-color: $grey-light;
+        background-color: ${({ theme }) => theme.disabled.background};
       }
     }
   }
-}
+
+  ${ClassicFullScreenHeading}
+`;
+
+export default StyledFullScreenHeading;

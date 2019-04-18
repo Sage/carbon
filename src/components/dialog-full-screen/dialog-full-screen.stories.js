@@ -4,7 +4,7 @@ import { text, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import notes from './documentation/notes.md';
-import DialogFullScreen from './dialog-full-screen';
+import DialogFullScreen from '.';
 import Button from '../button';
 
 const store = new Store({

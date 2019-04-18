@@ -38,7 +38,8 @@ export default (palette) => {
       border: palette.slateTint(80),
       disabled: blackWithOpacity(0.55),
       input: palette.slateTint(95),
-      text: blackWithOpacity(0.3)
+      text: blackWithOpacity(0.3).THEMES,
+      background: palette.slateTint(90)
     },
 
     shadows: {

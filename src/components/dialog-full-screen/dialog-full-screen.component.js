@@ -26,9 +26,6 @@ const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog-full-screen--open';
  * The component rendering the DialogFullScreen must pass down a prop of 'open' in order to open the dialog.
  *
  * You need to provide a custom cancel event handler to handle a close event.
- *
- * @class DialogFullScreen
- * @constructor
  */
 class DialogFullScreen extends Modal {
   constructor(props) {
