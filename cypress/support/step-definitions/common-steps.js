@@ -3,7 +3,7 @@ import {
   asSelect, sizeSelect, subtextInput, titleInput,
   heightInput, childrenTextArea, labelInput, commonButtonPreview,
   labelPreview, helpIcon, labelHelpInput, inputWidthSlider, fieldHelpInput,
-  fieldHelpPreview, labelWidthSlider, lableInlineCheckbox, labelAlignSelect, alignSelect,
+  fieldHelpPreview, labelWidthSlider, labelInlineCheckbox, labelAlignSelect, alignSelect,
 } from '../../locators';
 
 import { dialogTitle, dialogSubtitle } from '../../locators/alert-dialog';
@@ -94,7 +94,7 @@ When('I set label width slider to {int}', (width) => {
 });
 
 When('I check label inline checkbox', () => {
-  lableInlineCheckbox().check();
+  labelInlineCheckbox().check();
 });
 
 When('I set label align {string}', (direction) => {

@@ -1,7 +1,7 @@
 // knobs locators
 export const SHOW_CLOSE_ICON_CHECKBOX = '#showCloseIcon';
 export const STICKY_FORM_FOOTER = '#stickyFormFooter';
-export const DISABLE_ESC_KEY_CHECHBOX = '#disableEscKey';
+export const DISABLE_ESC_KEY_CHECKBOX = '#disableEscKey';
 
 // component preview locators
 export const CLOSE_ICON_BUTTON = '.icon-close';

@@ -9,10 +9,9 @@ export const ENABLE_BACKGROUND_UI_CHECKBOX = '#enableBackgroundUI';
 export const INPUT_WIDTH_SLIDER = 'input[name="inputWidth"]';
 export const LABEL_WIDTH_SLIDER = 'input[name="labelWidth"]';
 export const FIELD_HELP_INPUT = '#fieldHelp';
-export const LABLEL_INLINE_CHECKBOX = '#labelInline';
+export const LABEL_INLINE_CHECKBOX = '#labelInline';
 export const LABEL_ALIGN_SELECT = 'select[name="labelAlign"]';
 export const FORM = '#storybook-panel-root';
-
 
 // component preview locators
 export const HELP_ICON_PREVIEW = '.icon-question';

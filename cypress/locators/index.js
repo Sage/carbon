@@ -1,7 +1,7 @@
 import {
   ENABLE_BACKGROUND_UI_CHECKBOX, TITLE_INPUT, SUBTILE_INPUT, LABEL_INPUT,
   CHILDREN_TEXTAREA, HEIGHT_INPUT, LABEL_HELP_INPUT, INPUT_WIDTH_SLIDER,
-  LABEL_WIDTH_SLIDER, FIELD_HELP_INPUT, LABLEL_INLINE_CHECKBOX, LABEL_ALIGN_SELECT,
+  LABEL_WIDTH_SLIDER, FIELD_HELP_INPUT, LABEL_INLINE_CHECKBOX, LABEL_ALIGN_SELECT,
   HELP_ICON_PREVIEW, FIELD_HELP_PREVIEW, LABEL_HELP_PREVIEW, FORM, STORY_ROOT,
 } from './locators';
 
@@ -21,7 +21,7 @@ export const labelHelpInput = () => cy.get(LABEL_HELP_INPUT);
 export const inputWidthSlider = () => cy.get(INPUT_WIDTH_SLIDER);
 export const labelWidthSlider = () => cy.get(LABEL_WIDTH_SLIDER);
 export const fieldHelpInput = () => cy.get(FIELD_HELP_INPUT);
-export const lableInlineCheckbox = () => cy.get(LABLEL_INLINE_CHECKBOX);
+export const labelInlineCheckbox = () => cy.get(LABEL_INLINE_CHECKBOX);
 export const labelAlignSelect = () => cy.get(LABEL_ALIGN_SELECT);
 
 // component preview locators

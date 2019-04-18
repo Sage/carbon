@@ -2,7 +2,7 @@
 export const OPEN_BUTTON = 'button[type="button"][name="open"]';
 export const CHILDREN_TEXTAREA = 'textarea[id="children"]';
 export const TITLE_INPUT = '#title';
-export const DISABLE_ESC_KEY_CHECHBOX = '#disableEscKey';
+export const DISABLE_ESC_KEY_CHECKBOX = '#disableEscKey';
 export const HEIGHT_INPUT = '#height';
 export const SUBTILE_INPUT = '#subtitle';
 export const SHOW_CLOSE_ICON_CONFIRM = '#showCloseIcon';

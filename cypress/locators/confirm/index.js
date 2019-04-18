@@ -4,13 +4,13 @@ import {
   STICKY_FORM_FOOTER_CHECKBOX, BACKGROUND_UI_CHECKBOX, CONFIRM_LABEL, CANCEL_LABEL,
   DIALOG_INNER_CONTENT, DIALOG_TITLE, BACKGROUND_UI_LOCATOR, DIALOG,
 } from './locators';
-import { DISABLE_ESC_KEY_CHECHBOX, CLOSE_ICON_BUTTON, DIALOG_SUBTITLE } from '../alert-dialog/locators';
+import { DISABLE_ESC_KEY_CHECKBOX, CLOSE_ICON_BUTTON, DIALOG_SUBTITLE } from '../alert-dialog/locators';
 
 // knobs locators
 export const openButton = () => cy.get(OPEN_BUTTON);
 export const childrenTextArea = () => cy.get(CHILDREN_TEXTAREA);
 export const titleInput = () => cy.get(TITLE_INPUT);
-export const disableEscKeyCheckbox = () => cy.get(DISABLE_ESC_KEY_CHECHBOX);
+export const disableEscKeyCheckbox = () => cy.get(DISABLE_ESC_KEY_CHECKBOX);
 export const heightInput = () => cy.get(HEIGHT_INPUT);
 export const subtitleInput = () => cy.get(FORM).find(SUBTILE_INPUT);
 export const showCloseIconCheckbox = () => cy.get(SHOW_CLOSE_ICON_CONFIRM);

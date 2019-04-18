@@ -1,12 +1,12 @@
 import {
-  SHOW_CLOSE_ICON_CHECKBOX, STICKY_FORM_FOOTER, DISABLE_ESC_KEY_CHECHBOX, CLOSE_ICON_BUTTON,
+  SHOW_CLOSE_ICON_CHECKBOX, STICKY_FORM_FOOTER, DISABLE_ESC_KEY_CHECKBOX, CLOSE_ICON_BUTTON,
   ALERT_CHILDREN, ALERT_DIALOG, BACKGROUND_UI_BLOCKER, DIALOG_TITLE, DIALOG_SUBTITLE,
 } from './locators';
 
 // knobs locators
 export const showCloseIconCheckbox = () => cy.get(SHOW_CLOSE_ICON_CHECKBOX);
 export const stickyFormFooter = () => cy.get(STICKY_FORM_FOOTER);
-export const disableEscKeyCheckbox = () => cy.get(DISABLE_ESC_KEY_CHECHBOX);
+export const disableEscKeyCheckbox = () => cy.get(DISABLE_ESC_KEY_CHECKBOX);
 
 // component preview locators
 export const closeIconButton = () => cy.iFrame(CLOSE_ICON_BUTTON);

@@ -1,4 +1,4 @@
-import { labelPreview, fieldHelpPreview, lableInlineCheckbox } from '../../locators';
+import { labelPreview, fieldHelpPreview, labelInlineCheckbox } from '../../locators';
 import {
   inputWidthInput, inputWidthPreview, labelHelpPreview,
   buttonToggleGroupPreview, labelWidthInput,
@@ -21,7 +21,7 @@ Then('Label help on preview is set to {string}', (text) => {
 });
 
 When('I uncheck label inline checkbox', () => {
-  lableInlineCheckbox().uncheck();
+  labelInlineCheckbox().uncheck();
 });
 
 Then('Button Toggle Group component has label-inline property', () => {
