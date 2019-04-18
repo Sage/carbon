@@ -4,7 +4,7 @@ import {
   text, select, boolean
 } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
-// import notes from './notes.md';
+import notes from './documentation/notes.md';
 import ButtonToggle from './button-toggle.component';
 
 storiesOf('Button Toggle', module)
@@ -58,5 +58,5 @@ storiesOf('Button Toggle', module)
       ]
     );
   }, {
-    // notes: { markdown: notes }
+    notes: { markdown: notes }
   });
