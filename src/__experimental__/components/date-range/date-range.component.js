@@ -51,12 +51,12 @@ class DateRange extends React.Component {
     /**
      * Props for the child start Date component
      */
-    startDateProps: PropTypes.shape(Date.propTypes),
+    startDateProps: PropTypes.shape({ ...Date.propTypes, value: PropTypes.string }),
 
     /**
      * Props for the child end Date component
      */
-    endDateProps: PropTypes.shape(Date.propTypes)
+    endDateProps: PropTypes.shape({ ...Date.propTypes, value: PropTypes.string })
   };
 
   /**
