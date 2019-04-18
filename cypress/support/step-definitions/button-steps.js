@@ -1,5 +1,5 @@
-import { disabledCheckbox, themeSelect, buttonSubtextPreview } from '../../locators/button-locators';
-import { commonButtonPreview } from '../../locators/common-locators';
+import { disabledCheckbox, themeSelect, buttonSubtextPreview } from '../../locators/button';
+import { commonButtonPreview } from '../../locators';
 
 const CARBON_BUTTON_PREFIX = 'carbon-button--';
 
