@@ -1,4 +1,4 @@
-import { draggableRecordByPosition, draggableRecordByText } from '../../locators/draggable-context-locators';
+import { draggableRecordByPosition, draggableRecordByText } from '../../locators/draggable-context';
 import { dragAndDrop } from '../helper';
 
 When('I drag Draggable Context {string} to {int}', (record, destinationId) => {

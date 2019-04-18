@@ -1,7 +1,7 @@
 import {
   buttonToggleLabelPreview, buttonIconSelect, buttonToggleIconNamePreview,
   buttonIconSizeSelect, buttonToggleIconPreview, buttonTogglePreview, buttonToggleGroupedCheckbox,
-} from '../../locators/button-toggle-locators';
+} from '../../locators/button-toggle';
 
 const BUTTON_TOGGLE_ICON_CLASS = 'carbon-button-toggle__button-icon--';
 const BUTTON_TOGGLE_CLASS = 'carbon-button-toggle--';
