@@ -36,6 +36,10 @@ export default (palette) => {
       }
     },
 
+    help: {
+      color: blackWithOpacity(0.65)
+    },
+
     text: {
       color: blackWithOpacity(0.9),
       placeholder: blackWithOpacity(0.3),

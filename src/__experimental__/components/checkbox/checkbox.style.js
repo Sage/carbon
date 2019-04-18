@@ -17,8 +17,8 @@ const StyledCheckbox = styled.div`
   }
 
   svg {
-    background-color: #ffffff;
-    border: solid 1px #668592;
+    background-color: ${baseTheme.colors.white};
+    border: solid 1px ${baseTheme.colors.border};
   }
 
   input[type=checkbox],
@@ -40,7 +40,7 @@ const StyledCheckbox = styled.div`
   input[type=checkbox]:not([disabled]) {
     &:focus + svg,
     &:hover + svg {
-      outline: solid 3px #ffb403;
+      outline: solid 3px ${baseTheme.colors.focus};
     }
   }
 
@@ -50,16 +50,18 @@ const StyledCheckbox = styled.div`
     width: auto;
 
     & ${StyledHelp} {
-      color: rgba(0, 0, 0, 0.65);
+      color: ${baseTheme.help.color};
       vertical-align: bottom;
 
       &:hover, &:focus {
-        color: rgba(0, 0, 0, 0.9);
+        color: ${baseTheme.text.color};
       }
     }
   }
 
-  label:hover + .carbon-checkbox__input input[type=checkbox]:not([disabled]) + svg { outline: solid 3px #ffb403; }
+  label:hover + .carbon-checkbox__input input[type=checkbox]:not([disabled]) + svg {
+    outline: solid 3px ${baseTheme.colors.focus};
+  }
 
   ${FieldHelpStyle} {
     margin-left: 16px;
@@ -96,16 +98,16 @@ const StyledCheckbox = styled.div`
   ${({ disabled }) => disabled && css`
     ${LabelStyle} {
       &, & ${StyledHelp} {
-        color: rgba(0, 0, 0, 0.55);
+        color: ${baseTheme.disabled.disabled};
       }
     }
 
     svg {
-      background-color: #f2f5f6;
-      border: 1px solid #ccd6db;
+      background-color: ${baseTheme.disabled.input};
+      border: 1px solid ${baseTheme.disabled.border};
     }
 
-    svg .checkbox-check { fill: ${({ checked }) => (checked ? '#ccd6db' : '#f2f5f6')}; }
+    svg .checkbox-check { fill: ${({ checked }) => (checked ? baseTheme.disabled.border : baseTheme.disabled.input)}; }
 
     input[type=checkbox],
     svg,
@@ -119,7 +121,7 @@ const StyledCheckbox = styled.div`
 
   ${({ error }) => error && css`
     svg {
-      border: 1px solid #c7384f;
+      border: 1px solid ${baseTheme.colors.error};
     }
   `}
 

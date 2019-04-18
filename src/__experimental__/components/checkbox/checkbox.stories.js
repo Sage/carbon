@@ -21,6 +21,11 @@ storiesOf('Experimental/Checkbox', module)
         />
       </State>
     );
+  }, {
+    info: {
+      propTablesExclude: [State],
+      excludedPropTypes: ['children']
+    }
   });
 
 function handleChange(ev) {
@@ -39,13 +44,13 @@ function defaultKnobs() {
     inputWidth: number('inputWidth', 0, {
       range: true,
       min: 0,
-      max: 50,
+      max: 100,
       step: 1
     }),
     labelWidth: number('labelWidth', 0, {
       range: true,
       min: 0,
-      max: 50,
+      max: 100,
       step: 1
     }),
     labelAlign: select(
