@@ -40,7 +40,7 @@ const StyledButtonToogleLabel = styled.label`
     height: 100%;
   }
 
-  ${({ buttonIconSize }) => buttonIconSize === 'large' && css`
+  ${({ buttonIcon, buttonIconSize }) => buttonIcon && buttonIconSize === 'large' && css`
     min-width: 104px;
     height: 104px;
     padding: 0 16px;
@@ -53,7 +53,7 @@ const StyledButtonToogleLabel = styled.label`
   /* CLASSIC STYLES */
   ${({ theme }) => theme.name === THEMES.classic && css`
     height: 47px;
-
+    
     input:checked ~ & {
       color: ${theme.colors.white};
       background-color: #1573e6;
@@ -67,17 +67,21 @@ const StyledButtonToogleLabel = styled.label`
 
     &:focus {
       outline: 0;
-    }
+    }  
+
+    ${({ size }) => size === 'small' && css`
+      height: auto;
+      padding: 5px 8px;
+      font-weight: 700;
+      font-size: 12px;
+    `};
+  
+    ${({ size, buttonIcon, buttonIconSize }) => buttonIcon && size === 'large' && buttonIconSize === 'large' && css`
+      height: auto;
+      padding-top: ${size === 'large' ? '15px' : '0'};
+      padding-bottom: ${size === 'large' ? '15px' : '0'};
+    `};
   `};
-
-  ${({ theme, size }) => theme.name === THEMES.classic && size === 'small' && css`
-    height: auto;
-    padding: 5px 8px;
-    font-weight: 700;
-    font-size: 12px;
-  `};
-
-
 `;
 
 const iconFontSizes = {
@@ -92,22 +96,23 @@ const iconFontSizes = {
 };
 
 const StyledButtonToggleIcon = styled.div`
-  .carbon-icon::before {
-    font-size: ${`${iconFontSizes.modern.smallIcon}px`};
-    line-height: ${`${iconFontSizes.modern.smallIcon}px`};
-  }
-
+  margin-right: 8px;
+  
   ${({ buttonIconSize }) => buttonIconSize === 'large' && css`
-    .carbon-icon::before {
-      font-size: ${`${iconFontSizes.modern.largeIcon}px`};
-      line-height: ${`${iconFontSizes.modern.largeIcon}px`};
-    }
     .carbon-icon {
+      margin-right: 0;
       margin-bottom: 8px;
+    }
+
+    .carbon-icon::before {
+      font-size: ${`${iconFontSizes.modern[`${buttonIconSize}Icon`]}px`};
+      line-height: ${`${iconFontSizes.modern[`${buttonIconSize}Icon`]}px`};
     }
   `}
 
   ${({ theme, buttonIconSize }) => theme.name === THEMES.classic && css`
+    margin-right: ${buttonIconSize === 'large' ? '0' : '3px'};
+  
     .carbon-icon::before {
       font-size: ${`${iconFontSizes.classic[`${buttonIconSize}Icon`]}px`};
       line-height: ${`${iconFontSizes.classic[`${buttonIconSize}Icon`]}px`};
