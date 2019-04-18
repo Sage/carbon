@@ -5,41 +5,30 @@ import { validProps } from '../../../utils/ether';
 import FormField from '../form-field';
 import CheckboxStyle from './checkbox.style';
 
-class Checkbox extends React.Component {
-  get checkboxStyleProps() {
-    return {
-      checked: this.props.checked,
-      disabled: this.props.disabled,
-      error: this.props.error,
-      fieldHelpInline: this.props.fieldHelpInline,
-      inputWidth: this.props.inputWidth,
-      labelAlign: this.props.labelAlign,
-      labelWidth: this.props.labelWidth,
-      reverse: this.props.reverse,
-      size: this.props.size
-    };
-  }
+const Checkbox = (props) => {
+  const formFieldProps = () => {
+    const { ...validFormFieldProps } = validProps(
+      { propTypes: Checkbox.propTypes, safeProps: ['fieldHelpInline'], props }
+    );
 
-  get formFieldProps() {
-    const { ...props } = validProps(this, ['fieldHelpInline']);
+    validFormFieldProps.reverse = !props.reverse;
 
-    props.reverse = !this.props.reverse;
+    return validFormFieldProps;
+  };
 
-    return props;
-  }
+  const inputProps = () => {
+    const { ...validInputProps } = validProps(
+      { propTypes: Checkbox.propTypes, safeProps: ['disabled', 'onChange'], props }
+    );
 
-  get inputProps() {
-    const { ...props } = validProps(this, ['disabled', 'onChange']);
-    // React uses checked instead of value to define the state of a checkbox
-    props.className = this.inputClasses;
-    props.type = 'checkbox';
-    delete props.children;
-    delete props.fieldHelp;
-    delete props.labelHelp;
-    return props;
-  }
+    validInputProps.type = 'checkbox';
+    delete validInputProps.children;
+    delete validInputProps.fieldHelp;
+    delete validInputProps.labelHelp;
+    return validInputProps;
+  };
 
-  get checkboxSprite() {
+  const checkboxSprite = () => {
     return (
       <svg
         width='12' height='10'
@@ -55,31 +44,29 @@ class Checkbox extends React.Component {
         />
       </svg>
     );
-  }
+  };
 
-  render() {
-    return (
-      <CheckboxStyle
-        { ...tagComponent('checkbox', this.props) }
-        { ...this.checkboxStyleProps }
+  return (
+    <CheckboxStyle
+      { ...tagComponent('checkbox', props) }
+      { ...props }
+    >
+      <FormField
+        labelHelpIcon='info'
+        { ...formFieldProps() }
       >
-        <FormField
-          labelHelpIcon='info'
-          { ...this.formFieldProps }
-        >
-          <div className='carbon-checkbox__input'>
-            <input
-              aria-checked={ this.props.checked }
-              role='checkbox'
-              { ...this.inputProps }
-            />
-            {this.checkboxSprite}
-          </div>
-        </FormField>
-      </CheckboxStyle>
-    );
-  }
-}
+        <div className='carbon-checkbox__input'>
+          <input
+            aria-checked={ props.checked }
+            role='checkbox'
+            { ...inputProps() }
+          />
+          {checkboxSprite()}
+        </div>
+      </FormField>
+    </CheckboxStyle>
+  );
+};
 
 Checkbox.propTypes = {
   checked: PropTypes.bool,
