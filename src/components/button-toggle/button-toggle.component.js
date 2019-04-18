@@ -25,6 +25,7 @@ const ButtonToggle = (props) => {
         id={ inputGuid }
         onChange={ onChangeHandler }
         style={ { // ToDo: Move to styled-component?
+          position: 'absolute',
           width: 0,
           height: 0,
           visibility: 'hidden'
@@ -72,7 +73,8 @@ ButtonToggle.propTypes = {
   buttonIconSize: PropTypes.string,
 
   /**
-   * Sets the size of the button (eg. large)
+   * Sets the size of the button (padding, font-size).
+   * Only used in Classic theme.
    */
   size: PropTypes.string,
 

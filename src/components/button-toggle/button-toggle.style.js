@@ -3,7 +3,11 @@ import styled, { css } from 'styled-components';
 import { THEMES } from '../../style/themes';
 
 const StyledButtonToogle = styled.div`
-  display: inline;
+  display: inline-block;
+
+  &:not(:first-of-type) {
+    margin-left: 10px;
+  }
 `;
 
 const StyledButtonToogleLabel = styled.label`
@@ -13,7 +17,7 @@ const StyledButtonToogleLabel = styled.label`
   border: 1px solid ${({ theme }) => theme.colors.border};
   font-size: 14px;
   font-weight: 600;
-
+  
   input:checked ~ & {
     color: ${({ theme }) => theme.colors.white};
     background-color: ${({ theme }) => theme.colors.tertiary};
@@ -45,23 +49,68 @@ const StyledButtonToogleLabel = styled.label`
       flex-direction: column;
     }
   `}
+
+  /* CLASSIC STYLES */
+  ${({ theme }) => theme.name === THEMES.classic && css`
+    height: 47px;
+
+    input:checked ~ & {
+      color: ${theme.colors.white};
+      background-color: #1573e6;
+    }
+    
+    &:hover {
+      border-color: #1e499f;
+      color: ${theme.colors.white};
+      background-color: #1e499f;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+  `};
+
+  ${({ theme, size }) => theme.name === THEMES.classic && size === 'small' && css`
+    height: auto;
+    padding: 5px 8px;
+    font-weight: 700;
+    font-size: 12px;
+  `};
+
+
 `;
 
+const iconFontSizes = {
+  classic: {
+    smallIcon: 16,
+    largeIcon: 60
+  },
+  modern: {
+    smallIcon: 16,
+    largeIcon: 32
+  }
+};
+
 const StyledButtonToggleIcon = styled.div`
+  .carbon-icon::before {
+    font-size: ${`${iconFontSizes.modern.smallIcon}px`};
+    line-height: ${`${iconFontSizes.modern.smallIcon}px`};
+  }
+
   ${({ buttonIconSize }) => buttonIconSize === 'large' && css`
     .carbon-icon::before {
-      font-size: 40px;
-      line-height: 40px;
+      font-size: ${`${iconFontSizes.modern.largeIcon}px`};
+      line-height: ${`${iconFontSizes.modern.largeIcon}px`};
     }
     .carbon-icon {
       margin-bottom: 8px;
     }
   `}
 
-  ${({ theme }) => theme.name === THEMES.classic && css`
+  ${({ theme, buttonIconSize }) => theme.name === THEMES.classic && css`
     .carbon-icon::before {
-      font-size: 60px;
-      line-height: 60px;
+      font-size: ${`${iconFontSizes.classic[`${buttonIconSize}Icon`]}px`};
+      line-height: ${`${iconFontSizes.classic[`${buttonIconSize}Icon`]}px`};
     }
   `};
 `;
