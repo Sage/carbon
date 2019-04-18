@@ -27,7 +27,8 @@ export const DEBUG_FLAG = false;
 //     cy.route('/countries*', {});
 // })
 
-Cypress.on('uncaught:exception', () => false);
+/* returning false here prevents Cypress from failing the test */
+Cypress.on('uncaught:exception', (err, runnable) => false);
 
 Cypress.Commands.overwrite(
   'type',

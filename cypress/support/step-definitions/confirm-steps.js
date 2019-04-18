@@ -1,7 +1,6 @@
 import { visitComponentUrl } from '../helper';
 import {
-  asSelect, sizeSelect, subtextInput, titleInput,
-  heightInput, labelInput,
+  asSelect, sizeSelect, subtextInput, titleInput, heightInput, labelInput,
 } from '../../locators';
 import {
   openButton, dialogInnerContent, dialogTitle, cancelLabel, confirmLabel, backgroundUICheckbox,
