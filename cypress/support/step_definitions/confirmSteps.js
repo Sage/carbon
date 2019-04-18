@@ -2,11 +2,12 @@ import { visitComponentUrl } from '../helper';
 import {
   asSelect, sizeSelect, subtextInput, titleInput,
   heightInput, labelInput,
-} from '../../locators/commonLocators';
+} from '../../locators';
 import {
-  openButton, dialogInnerContent, dialogTitle, cancelLabel, confirmLabel, backgroundUICheckbox, backGroundUILocator,
-  disableEscKeyCheckbox, dialogPreview, showCloseIconCheckbox, closeIconButton, dialogSubtitle, stickyFormFooterCheckbox, childrenTextArea,
-} from '../../locators/confirmLocators';
+  openButton, dialogInnerContent, dialogTitle, cancelLabel, confirmLabel, backgroundUICheckbox,
+  backGroundUILocator, disableEscKeyCheckbox, dialogPreview, showCloseIconCheckbox,
+  closeIconButton, dialogSubtitle, stickyFormFooterCheckbox, childrenTextArea,
+} from '../../locators/confirm';
 
 const CARBON_DIALOG_PREFIX = 'carbon-dialog__dialog--';
 const STICKY_FORM_FOOTER_PARAMETER = 'carbon-dialog__dialog--sticky-form-footer';
@@ -38,10 +39,6 @@ When('I set label to {string}', (label) => {
 When('I set title to {string}', (title) => {
   titleInput().clear().type(title);
 });
-
-// Then('component title on preview is {string}', (title) => {
-//   dialogTitle().should('have.text', title);
-// });
 
 Then('component subtitle on preview is {string}', (subtitle) => {
   dialogSubtitle().should('have.text', subtitle);
@@ -92,7 +89,7 @@ When('I uncheck disableEscKey', () => {
 });
 
 When('I hit ESC key on Confirm dialog', () => {
-  dialogPreview().type('{esc}');
+  dialogPreview().trigger('keydown', { keyCode: 27, which: 27 });
 });
 
 Then('Confirm dialog is visible', () => {
