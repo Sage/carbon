@@ -1,7 +1,7 @@
 import {
   reverseCheckbox, checkboxHelpTextPreview, fieldHelpInlineCheckbox,
   checkboxCommonInputField, checkboxLabelPreview,
-} from '../../locators/checkbox-locators';
+} from '../../locators/checkbox';
 
 const CHECKBOX_HELP_TEXT_CLASS_PREFIX = 'carbon-checkbox__help-text--';
 const CHECKBOX_LABEL_CLASS_PREFIX = 'common-input__label--';
