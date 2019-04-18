@@ -64,6 +64,7 @@ exports[`Confirm default snapshot renders as expected 1`] = `
               "tertiary": "#004400",
               "warning": "#E96400",
               "white": "#FFFFFF",
+              "whiteMix": "#e5f2ee",
             },
             "disabled": Object {
               "border": "#CCD6DA",
@@ -102,6 +103,7 @@ exports[`Confirm default snapshot renders as expected 1`] = `
                 "tertiary": "#004400",
                 "warning": "#E96400",
                 "white": "#FFFFFF",
+                "whiteMix": "#e5f2ee",
               },
               "disabled": Object {
                 "border": "#CCD6DA",

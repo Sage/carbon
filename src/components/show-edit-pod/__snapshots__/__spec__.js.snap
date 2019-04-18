@@ -203,6 +203,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                               "tertiary": "#004400",
                                               "warning": "#E96400",
                                               "white": "#FFFFFF",
+                                              "whiteMix": "#e5f2ee",
                                             },
                                             "disabled": Object {
                                               "border": "#CCD6DA",
@@ -288,6 +289,7 @@ a {
                                                     "tertiary": "#004400",
                                                     "warning": "#E96400",
                                                     "white": "#FFFFFF",
+                                                    "whiteMix": "#e5f2ee",
                                                   },
                                                   "disabled": Object {
                                                     "border": "#CCD6DA",
@@ -338,6 +340,7 @@ a {
                                                 "tertiary": "#004400",
                                                 "warning": "#E96400",
                                                 "white": "#FFFFFF",
+                                                "whiteMix": "#e5f2ee",
                                               },
                                               "disabled": Object {
                                                 "border": "#CCD6DA",

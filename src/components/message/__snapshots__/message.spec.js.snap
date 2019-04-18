@@ -253,6 +253,7 @@ exports[`Message when in small/medium/large theme should match the snapshot 1`] 
         "tertiary": "#004400",
         "warning": "#E96400",
         "white": "#FFFFFF",
+        "whiteMix": "#e5f2ee",
       },
       "disabled": Object {
         "border": "#CCD6DA",

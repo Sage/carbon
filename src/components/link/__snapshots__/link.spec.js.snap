@@ -111,6 +111,7 @@ exports[`Link when component has classic theme should render correct style 1`] =
           "tertiary": "#003F2E",
           "warning": "#E96400",
           "white": "#FFFFFF",
+          "whiteMix": "#e5f2ee",
         },
         "disabled": Object {
           "border": "#4d7080",
