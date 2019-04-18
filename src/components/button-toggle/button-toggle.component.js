@@ -24,6 +24,7 @@ const ButtonToggle = (props) => {
         name={ props.name }
         id={ inputGuid }
         onChange={ onChangeHandler }
+        disabled={ props.disabled }
         style={ { // ToDo: Move to styled-component?
           position: 'absolute',
           width: 0,
