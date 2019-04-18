@@ -67,7 +67,7 @@ const StyledCheckbox = styled.div`
     padding-left: 6px;
   }
 
-  ${({ size, fieldHelpInline }) => size === 'large' && css`
+  ${({ size, fieldHelpInline, theme }) => theme.name !== THEMES.classic && size === 'large' && css`
     .carbon-checkbox__input,
     input[type=checkbox],
     input[type=checkbox] + svg {
@@ -177,6 +177,12 @@ const StyledCheckbox = styled.div`
     label:hover + .carbon-checkbox__input input[type=checkbox]:not([disabled]) + svg {
       border: 1px solid #1963f6;
       outline: none;
+    }
+  `}
+
+  ${({ theme, fieldHelpInline, reverse }) => theme.name === THEMES.classic && fieldHelpInline && reverse && css`
+    .carbon-checkbox__input {
+      padding-left: 6px;
     }
   `}
 `;
