@@ -40,7 +40,7 @@ const StyledCheckbox = styled.div`
   input[type=checkbox]:not([disabled]) {
     &:focus + svg,
     &:hover + svg {
-      outline: solid 2px #ffb403;
+      outline: solid 3px #ffb403;
     }
   }
 
@@ -59,7 +59,7 @@ const StyledCheckbox = styled.div`
     }
   }
 
-  label:hover + .carbon-checkbox__input input[type=checkbox]:not([disabled]) + svg { outline: solid 2px #ffb403; }
+  label:hover + .carbon-checkbox__input input[type=checkbox]:not([disabled]) + svg { outline: solid 3px #ffb403; }
 
   ${FieldHelpStyle} {
     margin-left: 16px;
@@ -178,6 +178,10 @@ const StyledCheckbox = styled.div`
       border: 1px solid #1963f6;
       outline: none;
     }
+  `}
+
+  ${({ theme, checked }) => theme.name === THEMES.classic && checked && css`
+    svg path { fill: rgba(0, 0, 0, 0.85); }
   `}
 
   ${({ theme, fieldHelpInline, reverse }) => theme.name === THEMES.classic && fieldHelpInline && reverse && css`
