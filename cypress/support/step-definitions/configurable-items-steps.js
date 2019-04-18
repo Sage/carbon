@@ -1,4 +1,4 @@
-import { draggableItemByText, draggableItemByPosition } from '../../locators/configurable-items-locators';
+import { draggableItemByText, draggableItemByPosition } from '../../locators/configurable-items';
 import { dragAndDrop } from '../helper';
 
 When('I drag Configurable Items {string} to {int}', (record, destinationId) => {

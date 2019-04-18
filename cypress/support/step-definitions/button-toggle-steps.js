@@ -1,11 +1,7 @@
 import {
   buttonToggleLabelPreview, buttonIconSelect, buttonToggleIconNamePreview,
   buttonIconSizeSelect, buttonToggleIconPreview, buttonTogglePreview, buttonToggleGroupedCheckbox,
-<<<<<<< HEAD:cypress/support/step_definitions/buttonToggleSteps.js
 } from '../../locators/button-toggle';
-=======
-} from '../../locators/button-toggle-locators';
->>>>>>> master:cypress/support/step-definitions/button-toggle-steps.js
 
 const BUTTON_TOGGLE_ICON_CLASS = 'carbon-button-toggle__button-icon--';
 const BUTTON_TOGGLE_CLASS = 'carbon-button-toggle--';
