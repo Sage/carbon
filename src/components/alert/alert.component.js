@@ -1,4 +1,4 @@
-import Dialog from '../dialog/dialog.component';
+import Dialog from '../dialog';
 
 class Alert extends Dialog {
   constructor(props) {
