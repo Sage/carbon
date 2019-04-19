@@ -23,7 +23,10 @@ const handleOpen = () => {
 
 storiesOf('Alert', module)
   .addParameters({
-    info: { text: info },
+    info: {
+      text: info,
+      propTablesExclude: [State, Button]
+    },
     notes: { markdown: notes }
   })
   .add('default', () => {
