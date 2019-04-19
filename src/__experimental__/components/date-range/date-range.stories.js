@@ -15,11 +15,6 @@ const handleChange = (newDate) => {
 };
 
 storiesOf('Experimental/Date Range', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [State]
-    }
-  })
   .add('default', () => {
     const endLabel = text('endLabel', '');
     const startLabel = text('startLabel', '');
@@ -41,5 +36,8 @@ storiesOf('Experimental/Date Range', module)
       </State>
     );
   }, {
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    info: {
+      propTablesExclude: [State]
+    }
   });
