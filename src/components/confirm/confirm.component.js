@@ -10,9 +10,6 @@ class Confirm extends Dialog {
   /**
    * Returns main classes for the component combined with
    * dialog main classes.
-   *
-   * @method mainClasses
-   * @return {String} Main className
    */
   get mainClasses() {
     return classNames(super.mainClasses);
@@ -21,8 +18,6 @@ class Confirm extends Dialog {
   /**
    * Get the yes and no buttons for the confirm dialog
    *
-   * @method confirmButtons
-   * @return {Object} JSX yes and no buttons
    */
   additionalContent() {
     return (
