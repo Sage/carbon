@@ -1,10 +1,12 @@
 import {
   closeIconButton, alertChildren, showCloseIconCheckbox,
   dialogPreview, stickyFormFooter, disableEscKeyCheckbox, backgroundBlocker,
-} from '../../locators/alert-dialog-locators';
+} from '../../locators/alert-dialog';
+
 import {
-  enableBackgroundUICheckbox, subtitleInput, STORY_ROOT,
-} from '../../locators/common-locators';
+  enableBackgroundUICheckbox, subtitleInput,
+} from '../../locators';
+import { STORY_ROOT } from '../../locators/locators';
 
 const CARBON_DIALOG_PREFIX = 'carbon-dialog__dialog--';
 
@@ -41,7 +43,7 @@ When('I uncheck disableEscKey', () => {
 });
 
 When('I hit ESC key', () => {
-  dialogPreview().type('{esc}');
+  dialogPreview().trigger('keydown', { keyCode: 27, which: 27 });
 });
 
 Then('Dialog height is set to {string}', (height) => {
