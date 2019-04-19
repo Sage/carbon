@@ -1,4 +1,4 @@
-import { dialogFullScreenChildren, dialogFullScreenPreview } from '../../locators/dialog-full-screen-locators';
+import { dialogFullScreenChildren, dialogFullScreenPreview } from '../../locators/dialog-full-screen';
 
 When('I hit ESC key on Full Dialog Screen', () => {
   dialogFullScreenPreview().trigger('keydown', { keyCode: 27, which: 27 });

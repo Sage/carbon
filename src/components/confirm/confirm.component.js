@@ -1,7 +1,6 @@
 import React from 'react';
 import I18n from 'i18n-js';
 import classNames from 'classnames';
-import { assign } from 'lodash';
 import PropTypes from 'prop-types';
 import Dialog from '../dialog/dialog.component';
 import Button from '../button';
@@ -55,12 +54,14 @@ class Confirm extends Dialog {
   }
 }
 
-Confirm.defaultProps = assign({}, Dialog.defaultProps, {
+Confirm.defaultProps = {
+  ...Dialog.defaultProps,
   size: 'extra-small',
   showCloseIcon: false
-});
+};
 
-Confirm.propTypes = assign({}, Dialog.propTypes, {
+Confirm.propTypes = {
+  ...Dialog.propTypes,
   /**
    * A custom event handler when a confirmation takes place
    */
@@ -75,6 +76,6 @@ Confirm.propTypes = assign({}, Dialog.propTypes, {
    * Customise the cancel button label
    */
   cancelLabel: PropTypes.string
-});
+};
 
 export default Confirm;
