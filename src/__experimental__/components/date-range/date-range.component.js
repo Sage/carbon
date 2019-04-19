@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import { assign } from 'lodash';
-import classNames from 'classnames';
 import Date from '../date';
 import DateRangeValidator from '../../../utils/validations/date-range';
 import DateHelper from '../../../utils/helpers/date';
@@ -169,11 +168,9 @@ class DateRange extends React.Component {
       value: this[`${propsKey}Date`]
     }, dateProps);
 
-    props.className = classNames(
-      dateProps.className
-    );
-
+    props.className = dateProps.className;
     props.validations = defaultValidations.concat(dateProps.validations || []);
+
     return props;
   }
 
