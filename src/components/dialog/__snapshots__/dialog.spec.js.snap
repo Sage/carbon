@@ -1,0 +1,233 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dialog dialog headers when a props object title is passed wraps it within a div 1`] = `null`;
+
+exports[`Dialog render when dialog is open has the correct content, tags, elements etc 1`] = `
+<Portal
+  key="1"
+>
+  <div
+    className="carbon-dialog foo"
+    data-component="dialog"
+    data-element="bar"
+    data-role="baz"
+    data-state="open"
+  >
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={true}
+      transitionAppearTimeout={500}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal-background"
+    >
+      <div
+        className="carbon-modal__background"
+      />
+    </CSSTransitionGroup>
+    <CSSTransitionGroup
+      component="div"
+      transitionAppear={true}
+      transitionAppearTimeout={500}
+      transitionEnter={true}
+      transitionEnterTimeout={500}
+      transitionLeave={true}
+      transitionLeaveTimeout={500}
+      transitionName="modal"
+    >
+      <styled.div
+        aria-describedby="carbon-dialog-subtitle"
+        aria-labelledby="carbon-dialog-title"
+        data-component="dialog"
+        data-element="bar"
+        data-role="baz"
+        height="500"
+        onBlur={[Function]}
+        role="dialog"
+        size="small"
+        style={
+          Object {
+            "minHeight": "500px",
+          }
+        }
+        tabIndex={0}
+        theme={
+          Object {
+            "colors": Object {
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFDA7F",
+              "info": "#0073C2",
+              "primary": "#26A826",
+              "secondary": "#006300",
+              "success": "#00B000",
+              "tertiary": "#004400",
+              "warning": "#E96400",
+              "white": "#FFFFFF",
+            },
+            "disabled": Object {
+              "border": "#CCD6DA",
+              "disabled": "rgba(0,0,0,0.55)",
+              "input": "#F2F4F5",
+              "text": "rgba(0,0,0,0.3)",
+            },
+            "name": "base",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          }
+        }
+      >
+        <styled.div
+          theme={
+            Object {
+              "colors": Object {
+                "border": "#668491",
+                "brand": "#00DC00",
+                "error": "#C7384F",
+                "focus": "#FFDA7F",
+                "info": "#0073C2",
+                "primary": "#26A826",
+                "secondary": "#006300",
+                "success": "#00B000",
+                "tertiary": "#004400",
+                "warning": "#E96400",
+                "white": "#FFFFFF",
+              },
+              "disabled": Object {
+                "border": "#CCD6DA",
+                "disabled": "rgba(0,0,0,0.55)",
+                "input": "#F2F4F5",
+                "text": "rgba(0,0,0,0.3)",
+              },
+              "name": "base",
+              "shadows": Object {
+                "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+              },
+              "text": Object {
+                "color": "rgba(0,0,0,0.9)",
+                "placeholder": "rgba(0,0,0,0.3)",
+                "size": "14px",
+              },
+            }
+          }
+        >
+          <Heading
+            divider={true}
+            separator={false}
+            subheader="Test"
+            subtitleId="carbon-dialog-subtitle"
+            title="Test"
+            titleId="carbon-dialog-title"
+          />
+        </styled.div>
+        <styled.div
+          height="500"
+        >
+          <styled.div
+            height="500"
+          >
+            <Button
+              as="secondary"
+              disabled={false}
+              size="medium"
+              subtext=""
+              theme="blue"
+            >
+              Button
+            </Button>
+            <Button
+              as="secondary"
+              disabled={false}
+              size="medium"
+              subtext=""
+              theme="blue"
+            >
+              Button
+            </Button>
+          </styled.div>
+        </styled.div>
+        <Icon
+          bgSize="small"
+          className="carbon-dialog__close"
+          data-element="close"
+          onBlur={[Function]}
+          onClick={[Function]}
+          tabIndex="0"
+          type="close"
+        />
+      </styled.div>
+    </CSSTransitionGroup>
+  </div>
+</Portal>
+`;
+
+exports[`Dialog when fixedBottom and stickyFormFooter are passed to the DialogStyle should render matched snapshot 1`] = `
+.c0 {
+  background-color: #F2F5F6;
+  box-shadow: 0 10px 30px 0 rgba(0,20,29,0.1),0 30px 60px 0 rgba(0,20,29,0.1);
+  position: fixed;
+  top: 50%;
+  bottom: 0;
+  min-height: 0px !important;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+.c0 .carbon-form__footer-wrapper {
+  box-sizing: border-box;
+  -webkit-animation: form-buttons-animate-in 0.25s ease-out;
+  animation: form-buttons-animate-in 0.25s ease-out;
+  background-color: white;
+  bottom: 0;
+  left: auto;
+  margin-left: -35px;
+  box-shadow: 0 -4px 12px 0 rgba(0,0,0,0.05);
+  padding-bottom: 13px;
+  padding-top: 15px;
+  padding-left: 35px;
+  padding-right: 35px;
+  position: fixed;
+  z-index: 1000;
+}
+
+.c0 .carbon-dialog__close {
+  color: #4d7080;
+  cursor: pointer;
+  position: absolute;
+  right: 35px;
+  top: 28px;
+  z-index: 1;
+}
+
+.c0 .carbon-dialog__close:hover {
+  color: #255BC7;
+}
+
+.c0 .carbon-dialog__close.carbon-icon {
+  position: absolute;
+}
+
+<div
+  className="c0"
+  open={true}
+/>
+`;

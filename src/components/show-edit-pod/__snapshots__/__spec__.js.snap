@@ -201,7 +201,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                               "secondary": "#006300",
                                               "success": "#00B000",
                                               "tertiary": "#004400",
-                                              "warning": "#FFB500",
+                                              "warning": "#E96400",
                                               "white": "#FFFFFF",
                                             },
                                             "disabled": Object {
@@ -286,7 +286,7 @@ a {
                                                     "secondary": "#006300",
                                                     "success": "#00B000",
                                                     "tertiary": "#004400",
-                                                    "warning": "#FFB500",
+                                                    "warning": "#E96400",
                                                     "white": "#FFFFFF",
                                                   },
                                                   "disabled": Object {
@@ -336,7 +336,7 @@ a {
                                                 "secondary": "#006300",
                                                 "success": "#00B000",
                                                 "tertiary": "#004400",
-                                                "warning": "#FFB500",
+                                                "warning": "#E96400",
                                                 "white": "#FFFFFF",
                                               },
                                               "disabled": Object {
@@ -375,7 +375,9 @@ a {
                                               tabIndex="0"
                                             >
                                               <span>
-                                                <span>
+                                                <span
+                                                  className="carbon-link__content"
+                                                >
                                                   Delete
                                                 </span>
                                               </span>

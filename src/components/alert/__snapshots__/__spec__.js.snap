@@ -35,24 +35,95 @@ exports[`Alert include correct component, element and role data tags 1`] = `
       transitionLeaveTimeout={500}
       transitionName="modal"
     >
-      <div
+      <styled.div
         aria-describedby="carbon-dialog-subtitle"
         aria-labelledby="carbon-dialog-title"
-        className="carbon-dialog__dialog carbon-dialog__dialog--extra-small carbon-alert__alert"
         data-component="alert"
         data-element="bar"
         data-role="baz"
         onBlur={[Function]}
         role="dialog"
+        size="extra-small"
         style={
           Object {
             "minHeight": undefined,
           }
         }
         tabIndex={0}
+        theme={
+          Object {
+            "colors": Object {
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFDA7F",
+              "info": "#0073C2",
+              "primary": "#26A826",
+              "secondary": "#006300",
+              "success": "#00B000",
+              "tertiary": "#004400",
+              "warning": "#E96400",
+              "white": "#FFFFFF",
+            },
+            "disabled": Object {
+              "border": "#CCD6DA",
+              "disabled": "rgba(0,0,0,0.55)",
+              "input": "#F2F4F5",
+              "text": "rgba(0,0,0,0.3)",
+            },
+            "name": "base",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          }
+        }
       >
-        <div
-          className="carbon-dialog__title carbon-dialog__title--has-subheader"
+        <styled.div
+          theme={
+            Object {
+              "colors": Object {
+                "border": "#668491",
+                "brand": "#00DC00",
+                "error": "#C7384F",
+                "focus": "#FFDA7F",
+                "info": "#0073C2",
+                "primary": "#26A826",
+                "secondary": "#006300",
+                "success": "#00B000",
+                "tertiary": "#004400",
+                "warning": "#E96400",
+                "white": "#FFFFFF",
+              },
+              "disabled": Object {
+                "border": "#CCD6DA",
+                "disabled": "rgba(0,0,0,0.55)",
+                "input": "#F2F4F5",
+                "text": "rgba(0,0,0,0.3)",
+              },
+              "name": "base",
+              "shadows": Object {
+                "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+              },
+              "text": Object {
+                "color": "rgba(0,0,0,0.9)",
+                "placeholder": "rgba(0,0,0,0.3)",
+                "size": "14px",
+              },
+            }
+          }
         >
           <Heading
             divider={true}
@@ -62,15 +133,10 @@ exports[`Alert include correct component, element and role data tags 1`] = `
             title="Alert title"
             titleId="carbon-dialog-title"
           />
-        </div>
-        <div
-          className="carbon-dialog__content"
-        >
-          <div
-            className="carbon-dialog__inner-content"
-            style={Object {}}
-          />
-        </div>
+        </styled.div>
+        <styled.div>
+          <styled.div />
+        </styled.div>
         <Icon
           bgSize="small"
           className="carbon-dialog__close"
@@ -80,7 +146,7 @@ exports[`Alert include correct component, element and role data tags 1`] = `
           tabIndex="0"
           type="close"
         />
-      </div>
+      </styled.div>
     </CSSTransitionGroup>
   </div>
 </Portal>

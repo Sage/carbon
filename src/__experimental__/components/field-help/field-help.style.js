@@ -9,31 +9,31 @@ const FieldHelpStyle = styled.span`
   white-space: pre-wrap;
   width: 100%;
 
-  ${({ labelInline, inputWidth }) => labelInline && css`
+  ${({ labelInline, labelWidth }) => labelInline && css`
     align-self: center;
-    margin-left: ${inputWidth}%;
+    margin-left: ${labelWidth}%;
     padding-left: 0;
   `}
 
-  ${({ labelInline, inputWidth, theme }) => theme.name === THEMES.classic && css`
+  ${({ labelInline, labelWidth, theme }) => theme.name === THEMES.classic && css`
     color: #335c6d;
     margin-left: 6px;
     margin-right: 6px;
     margin-top: 5px;
 
     ${labelInline && css`
-      margin-left: calc(${inputWidth}% + 6px);
+      margin-left: calc(${labelWidth}% + 6px);
     `}
   `}
 `;
 
 FieldHelpStyle.defaultProps = {
-  inputWidth: 30,
+  labelWidth: 30,
   theme: BaseTheme
 };
 
 FieldHelpStyle.propTypes = {
-  inputWidth: PropTypes.number,
+  labelWidth: PropTypes.number,
   labelInline: PropTypes.bool
 };
 
