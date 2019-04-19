@@ -2,7 +2,7 @@ import {
   slide, slideIndexSelect, carousel, nextArrowButton, previousArrowButton, slideSelectorIndex,
   enableSlideSelectorCheckbox, slideSelector, enableNextButtonCheckbox,
   enablePreviousButtonCheckbox, transitionSelect, giveTransition,
-} from '../../locators/carousel-locators';
+} from '../../locators/carousel';
 import { DEBUG_FLAG } from '..';
 
 function waitForCarouselMove() {

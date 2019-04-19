@@ -3,12 +3,11 @@ import {
   asSelect, sizeSelect, subtextInput, titleInput,
   heightInput, childrenTextArea, labelInput, commonButtonPreview,
   labelPreview, helpIcon, labelHelpInput, inputWidthSlider, fieldHelpInput,
-  fieldHelpPreview, labelWidthSlider, labelInlineCheckbox, labelAlignSelect,
-  alignSelect,
-} from '../../locators/common-locators';
+  fieldHelpPreview, labelWidthSlider, labelInlineCheckbox, labelAlignSelect, alignSelect,
+} from '../../locators';
 
-import { dialogTitle, dialogSubtitle } from '../../locators/alert-dialog-locators';
-import { themeSelect } from '../../locators/button-locators';
+import { dialogTitle, dialogSubtitle } from '../../locators/alert-dialog';
+import { themeSelect } from '../../locators/button';
 
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
