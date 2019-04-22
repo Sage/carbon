@@ -91,16 +91,17 @@ class Textarea extends React.Component {
       readOnly,
       placeholder,
       rows,
-      cols
+      cols,
+      ...props
     } = this.props;
 
     return (
       <>
-        <FormField label={ label } { ...this.props }>
+        <FormField label={ label } { ...props }>
           <InputPresentation
             type='text'
             size={ size }
-            { ...this.props }
+            { ...props }
           >
             <TextareaInput
               inputRef={ this.inputRefCallback }
@@ -111,6 +112,7 @@ class Textarea extends React.Component {
               placeholder={ placeholder }
               rows={ rows }
               cols={ cols }
+              { ...props }
             />
             { children }
           </InputPresentation>
