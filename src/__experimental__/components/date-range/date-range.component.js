@@ -15,7 +15,6 @@ class DateRange extends React.Component {
      * eslint is disabled because the prop is used to determine the label in the dateProps function
      */
     endLabel: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-
     /** Custom callback - receives array of startDate and endDate */
     onChange: PropTypes.func.isRequired,
     /** An array containing the value of startDate and endDate */
@@ -37,9 +36,7 @@ class DateRange extends React.Component {
     endDateProps: PropTypes.shape({ ...Date.propTypes, value: PropTypes.string })
   };
 
-  /**
-   * onChange function -triggers validations on both fields and updates opposing field when one changed.
-   */
+  /** onChange function -triggers validations on both fields and updates opposing field when one changed. */
   _onChange = (changedDate, ev) => {
     const newValue = ev.target.value;
 
