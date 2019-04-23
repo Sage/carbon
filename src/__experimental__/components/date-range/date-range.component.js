@@ -16,45 +16,24 @@ class DateRange extends React.Component {
      */
     endLabel: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
 
-    /**
-     * Custom callback - receives array of startDate and endDate
-     */
+    /** Custom callback - receives array of startDate and endDate */
     onChange: PropTypes.func.isRequired,
-
-    /**
-     * An array containing the value of startDate and endDate
-     */
+    /** An array containing the value of startDate and endDate */
     value: PropTypes.array.isRequired,
-
     /**
      * Optional label for startDate field
      * eslint is disabled because the prop is used to determine the label in the dateProps function
      */
     startLabel: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
-
-    /**
-     * Custom message for startDate field
-     */
+    /** Custom message for startDate field */
     startMessage: PropTypes.string,
-
-    /**
-     * Custom message for endDate field
-     */
+    /** Custom message for endDate field */
     endMessage: PropTypes.string,
-
-    /**
-     * Display labels inline
-     */
+    /** Display labels inline */
     labelsInline: PropTypes.bool,
-
-    /**
-     * Props for the child start Date component
-     */
+    /** Props for the child start Date component */
     startDateProps: PropTypes.shape({ ...Date.propTypes, value: PropTypes.string }),
-
-    /**
-     * Props for the child end Date component
-     */
+    /** Props for the child end Date component */
     endDateProps: PropTypes.shape({ ...Date.propTypes, value: PropTypes.string })
   };
 
@@ -79,9 +58,7 @@ class DateRange extends React.Component {
     }
   }
 
-  /**
-   * The startDate value
-   */
+  /** The startDate value */
   get startDate() {
     if (this.props.startDateProps && this.props.startDateProps.value) {
       return this.props.startDateProps.value;
@@ -89,9 +66,7 @@ class DateRange extends React.Component {
     return this.props.value[0];
   }
 
-  /**
-   * The endDate value
-   */
+  /** The endDate value */
   get endDate() {
     if (this.props.endDateProps && this.props.endDateProps.value) {
       return this.props.endDateProps.value;
@@ -99,40 +74,29 @@ class DateRange extends React.Component {
     return this.props.value[1];
   }
 
-  /**
-   * The error message for the start message.
-   */
+  /** The error message for the start message. */
   get startMessage() {
     return this.props.startMessage
       || I18n.t('errors.messages.date_range', { defaultValue: 'Start date must not be later than the end date' });
   }
 
-  /**
-   * The error message for the end message.
-   */
+  /** The error message for the end message. */
   get endMessage() {
     return this.props.endMessage
      || I18n.t('errors.messages.date_range', { defaultValue: 'End date cannot be earlier than the start date' });
   }
 
 
-  /**
-   * Handle focus on start date field
-   */
+  /** Handle focus on start date field */
   focusStart = () => {
     this._endDate.closeDatePicker();
   }
 
-  /**
-   * Handle focus on end date field
-   */
+  /** Handle focus on end date field */
   focusEnd = () => {
     this._startDate.closeDatePicker();
   }
 
-  /**
-   * The startDate props
-   */
   startDateProps() {
     return this.dateProps('start', [
       new DateRangeValidator({
@@ -142,9 +106,6 @@ class DateRange extends React.Component {
     ]);
   }
 
-  /**
-   * The endDate props
-   */
   endDateProps() {
     return this.dateProps('end', [
       new DateRangeValidator({
@@ -154,9 +115,6 @@ class DateRange extends React.Component {
     ]);
   }
 
-  /**
-   * The startDate/endDate props
-   */
   dateProps(propsKey, defaultValidations) {
     const dateProps = this.props[`${propsKey}DateProps`] || {};
 
