@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 
 const StyledHelp = styled.a`
@@ -18,12 +17,6 @@ const StyledHelp = styled.a`
 
 StyledHelp.defaultProps = {
   theme: baseTheme
-};
-
-StyledHelp.propTypes = {
-  disabled: PropTypes.bool,
-  error: PropTypes.bool,
-  size: PropTypes.string
 };
 
 export default StyledHelp;

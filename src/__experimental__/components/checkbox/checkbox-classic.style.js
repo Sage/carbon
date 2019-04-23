@@ -25,6 +25,10 @@ export default ({ disabled, checked, theme }) => theme.name === THEMES.classic &
     outline: none;
   }
 
+  ${() => checked && css`
+    svg path { fill: rgba(0, 0, 0, 0.85); }
+  `}
+
   ${() => disabled && css`
     ${LabelStyle} {
       &, & ${StyledHelp} {
@@ -38,10 +42,6 @@ export default ({ disabled, checked, theme }) => theme.name === THEMES.classic &
     }
 
     svg .checkbox-check { fill: ${() => (checked ? theme.disabled.border : theme.disabled.disabled)}; }
-  `}
-
-  ${() => checked && css`
-    svg path { fill: rgba(0, 0, 0, 0.85); }
   `}
 
   ${({ fieldHelpInline, reverse }) => fieldHelpInline && reverse && css`

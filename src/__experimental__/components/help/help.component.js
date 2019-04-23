@@ -17,7 +17,8 @@ class Help extends React.Component {
 
   static defaultProps = {
     tooltipPosition: 'top',
-    tooltipAlign: 'center'
+    tooltipAlign: 'center',
+    type: 'help'
   }
 
   get mainClasses() {
@@ -38,7 +39,7 @@ class Help extends React.Component {
         { ...tagComponent('help', this.props) }
       >
         <Icon
-          type={ this.props.type ? this.props.type : 'help' }
+          type={ this.props.type }
           tooltipMessage={ this.props.children }
           tooltipPosition={ this.props.tooltipPosition }
           tooltipAlign={ this.props.tooltipAlign }

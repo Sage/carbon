@@ -10,8 +10,8 @@ import { THEMES } from '../../../style/themes';
 
 const StyledCheckbox = styled.div`
   ${({
-  checked, disabled, error, fieldHelpInline, inputWidth, reverse, size, theme
-}) => css`
+    checked, disabled, error, fieldHelpInline, inputWidth, reverse, size, theme
+  }) => css`
     padding-top: 8px;
 
     .carbon-checkbox__input {
