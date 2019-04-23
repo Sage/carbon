@@ -4,18 +4,19 @@ import ClassicFullScreenHeading from './classic-full-screen-heading.style';
 const StyledFullScreenHeading = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.disabled.border};
 
-  .div {
+  & > .div {
     position: relative;
   }
 
   .carbon-heading {
-    height: 87px;
+    height: 106px;
 
     .carbon-heading__header {
+      background-color: transparent;
       align-items: center;
       box-sizing: content-box;
       display: flex;
-      height: 87px;
+      height: 106px;
       margin-bottom: 0;
       padding-bottom: 0;
       width: 100%;

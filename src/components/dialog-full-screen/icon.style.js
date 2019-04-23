@@ -1,8 +1,9 @@
 import styled from 'styled-components';
 import Icon from '../icon';
+import ClassicIconStyle from './classic-icon.style';
 
 const StyledIcon = styled(Icon)`
-  color: #4d7080;
+  color: ${({ theme }) => theme.colors.border};
   cursor: pointer;
   margin-top: -8px;
   right: 40px;
@@ -14,13 +15,15 @@ const StyledIcon = styled(Icon)`
     display: block;
   }
   
-  &:before {
+  &:before, &.carbon-icon:before {
     font-size: 24px;
   }
   
   &:hover {
-    color: #255BC7;
+    color: ${({ theme }) => theme.icon.focus};
   }
+
+  ${ClassicIconStyle}
 `;
 
 export default StyledIcon;
