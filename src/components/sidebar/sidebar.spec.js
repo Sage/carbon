@@ -1,10 +1,10 @@
 import React from 'react';
+import 'jest-styled-components';
 import { shallow, mount } from 'enzyme';
-import Browser from '../../utils/helpers/browser';
-import { Sidebar } from './sidebar';
-import Textbox from './../textbox';
-import Portal from './../portal';
-import Icon from './../icon';
+import Sidebar from './sidebar.component';
+import Textbox from '../textbox/textbox';
+import SidebarStyle from './sidebar.style';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
 describe('Sidebar', () => {
   let wrapper, spy;
@@ -54,8 +54,6 @@ describe('Sidebar', () => {
           />
         );
         expect(wrapper.find('.carbon-modal__background').length).toEqual(0);
-        expect(wrapper.find('.carbon-sidebar__sidebar--left').length).toEqual(1);
-        expect(wrapper.find('.carbon-sidebar__sidebar--small').length).toEqual(1);
       });
     });
 
@@ -74,10 +72,43 @@ describe('Sidebar', () => {
   describe('Behaviour', () => {
     describe('clicking the close icon sidebar', () => {
       it('closes the sidebar', () => {
-        let icon = wrapper.find('.carbon-sidebar__close-icon');
+        const icon = wrapper.find('.carbon-sidebar__close-icon');
         icon.simulate('click');
         expect(spy).toHaveBeenCalled();
       });
+    });
+  });
+});
+
+describe('SidebarStyle', () => {
+  describe('when prop size is passed to the component and position is set to right', () => {
+    const wrapper = mount(<SidebarStyle
+      open size='extra-small'
+      position='right'
+    />);
+
+    it('should render correct style', () => {
+      assertStyleMatch({
+        width: '150px',
+        boxShadow: '-10px 0 15px rgba(0,0,0,0.05)',
+        borderLeft: '1px solid #ccd6db',
+        right: '0'
+      }, wrapper);
+    });
+  });
+
+  describe('when prop left is passed to the component', () => {
+    const wrapper = mount(<SidebarStyle
+      open size='extra-small'
+      position='left'
+    />);
+
+    it('should render correct style', () => {
+      assertStyleMatch({
+        boxShadow: '10px 0 15px rgba(0,0,0,0.05)',
+        borderRight: '1px solid #ccd6db',
+        left: '0'
+      }, wrapper);
     });
   });
 });

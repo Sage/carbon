@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-
-import SidebarHeader from './sidebar-header';
-import Icon from '../icon';
-import Modal from '../modal';
+import Icon from '../icon/icon';
+import Modal from '../modal/modal';
 import SidebarStyle from './sidebar.style';
 import './sidebar.scss';
 
@@ -80,7 +78,4 @@ Sidebar.defaultProps = {
   enableBackgroundUI: false
 };
 
-export {
-  Sidebar,
-  SidebarHeader
-};
+export default Sidebar;
