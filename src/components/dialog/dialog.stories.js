@@ -3,12 +3,17 @@ import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
+import { fromJS } from 'immutable';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
-import Dialog from './dialog';
+import Dialog from './dialog.component';
 import Form from '../form';
 import Textbox from '../textbox';
 import Button from '../button/button';
+import Modal from '../modal/modal';
+import DateInput from '../date';
+import Dropdown from '../dropdown/dropdown';
+import Checkbox from '../checkbox/checkbox';
 
 const store = new Store({
   open: false
@@ -29,21 +34,11 @@ const handleClick = (evt) => {
 };
 
 storiesOf('Dialog', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [
-        Button,
-        State,
-        Form,
-        Textbox
-      ]
-    }
-  })
   .add('default', () => {
     const height = text('height', '400');
     const title = text('title', 'Example Dialog');
     const subtitle = text('subtitle', 'Example Subtitle');
-    const size = select('size', OptionsHelper.sizesRestricted, Dialog.defaultProps.size);
+    const size = select('size', OptionsHelper.sizesFull, Dialog.defaultProps.size);
     const showCloseIcon = boolean('showCloseIcon', Dialog.defaultProps.showCloseIcon);
     const autoFocus = boolean('autoFocus', Dialog.defaultProps.autoFocus);
     const stickyFormFooter = boolean('stickyFormFooter', false);
@@ -77,12 +72,55 @@ storiesOf('Dialog', module)
               <Textbox label='Birth Place' />
               <Textbox label='Favourite Colour' />
               <Textbox label='Address' />
+              <DateInput name='date' label='Birthday' />
+              <Dropdown
+                name='foo' options={ fromJS([{
+                  id: '1', name: 'Orange'
+                }, {
+                  id: '2', name: 'Blue'
+                }, {
+                  id: '3', name: 'Green'
+                }, {
+                  id: '4', name: 'Black'
+                }, {
+                  id: '5', name: 'Yellow'
+                }, {
+                  id: '6', name: 'White'
+                }, {
+                  id: '7', name: 'Magenta'
+                }, {
+                  id: '8', name: 'Cyan'
+                }, {
+                  id: '9', name: 'Red'
+                }, {
+                  id: '10', name: 'Grey'
+                }, {
+                  id: '11', name: 'Purple'
+                }]) }
+                value='1'
+              />
+              <Textbox label='Pet Name' />
+              <DateInput name='date' label="Pet's birthday" />
+              <Checkbox name='checkbox' label='Do you like my Dog' />
+              <div>This is an example of a dialog with a Form as content</div>
             </Form>
           </Dialog>
         </State>
       </div>
     );
   }, {
+    info: {
+      propTablesExclude: [
+        Button,
+        State,
+        Form,
+        Textbox,
+        Checkbox,
+        DateInput,
+        Dropdown,
+        Modal
+      ]
+    },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   });

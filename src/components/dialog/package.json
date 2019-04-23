@@ -1,4 +1,4 @@
 {
   "name": "dialog",
-  "main": "./dialog.js"
+  "main": "./dialog.component.js"
 }
