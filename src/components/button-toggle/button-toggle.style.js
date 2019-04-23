@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { THEMES } from '../../style/themes';
 
-const StyledButtonToogleLabel = styled.label`
+const StyledButtonToggleLabel = styled.label`
   display: inline-block;
   height: 40px;
   padding: 0 24px;
@@ -121,7 +121,7 @@ const StyledButtonToggleIcon = styled.div`
   `};
 `;
 
-const StyledButtonToogle = styled.div`
+const StyledButtonToggle = styled.div`
   display: inline-block;
 
   &:not(:first-of-type) {
@@ -131,14 +131,14 @@ const StyledButtonToogle = styled.div`
   ${({ grouped }) => grouped && css`
     &:not(:first-of-type) {
       margin-left: 0;
-      ${StyledButtonToogleLabel} {
+      ${StyledButtonToggleLabel} {
         border-left-width: 0;
       }
     }
   `};
 `;
 
-StyledButtonToogle.propTypes = {
+StyledButtonToggle.propTypes = {
   buttonSize: PropTypes.string
 };
 
@@ -147,7 +147,7 @@ StyledButtonToggleIcon.propTypes = {
 };
 
 export {
-  StyledButtonToogle,
-  StyledButtonToogleLabel,
+  StyledButtonToggle,
+  StyledButtonToggleLabel,
   StyledButtonToggleIcon
 };

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon';
-import { StyledButtonToogle, StyledButtonToogleLabel, StyledButtonToggleIcon } from './button-toggle.style';
+import { StyledButtonToggle, StyledButtonToggleLabel, StyledButtonToggleIcon } from './button-toggle.style';
 import guid from '../../utils/helpers/guid';
 
 const ButtonToggle = (props) => {
@@ -40,15 +40,15 @@ const ButtonToggle = (props) => {
   }
 
   return (
-    <StyledButtonToogle { ...props }>
+    <StyledButtonToggle { ...props }>
       {hiddenInput()}
-      <StyledButtonToogleLabel { ...props } htmlFor={ inputGuid }>
+      <StyledButtonToggleLabel { ...props } htmlFor={ inputGuid }>
         <div className='content-wrapper'>
           {icon()}
           {props.children}
         </div>
-      </StyledButtonToogleLabel>
-    </StyledButtonToogle>
+      </StyledButtonToggleLabel>
+    </StyledButtonToggle>
   );
 };
 
