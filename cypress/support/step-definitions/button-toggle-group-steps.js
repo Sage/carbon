@@ -1,8 +1,8 @@
-import { labelPreview, fieldHelpPreview, labelInlineCheckbox } from '../../locators/common-locators';
+import { labelPreview, fieldHelpPreview, labelInlineCheckbox } from '../../locators';
 import {
   inputWidthInput, inputWidthPreview, labelHelpPreview,
   buttonToggleGroupPreview, labelWidthInput,
-} from '../../locators/button-toggle-group-locators';
+} from '../../locators/button-toggle-group';
 
 When('I set input width to {string}', (width) => {
   inputWidthInput().clear().type(width);
