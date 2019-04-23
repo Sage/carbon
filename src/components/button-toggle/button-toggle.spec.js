@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import guid from '../../utils/helpers/guid';
@@ -7,7 +7,7 @@ import classicTheme from '../../style/themes/classic';
 import smallTheme from '../../style/themes/small';
 import ButtonToggle from './button-toggle.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import { StyledButtonToogle, StyledButtonToggleIcon } from './button-toggle.style';
+import { StyledButtonToggleIcon } from './button-toggle.style';
 
 jest.mock('../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -16,8 +16,8 @@ const testRender = (props) => {
   return TestRenderer.create(<ButtonToggle { ...props }>Button</ButtonToggle>);
 };
 
-const render = (props, renderType = mount) => {
-  return renderType(<ButtonToggle { ...props }>Button</ButtonToggle>);
+const render = (props) => {
+  return mount(<ButtonToggle { ...props }>Button</ButtonToggle>);
 };
 
 describe('ButtonToggle', () => {
@@ -94,25 +94,21 @@ describe('ButtonToggle', () => {
         marginRight: '3px'
       }, wrapper.find(StyledButtonToggleIcon));
     });
-    // it('renders correctly when grouped', () => {
-    //   const props = {
-    //     theme: classicTheme,
-    //     grouped: true,
-    //     children: 'Text'
-    //   };
-    //   const wrapper = mount(
-    //     <div>
-    //       <ButtonToggle { ...props } />
-    //       <ButtonToggle { ...props } />
-    //     </div>
-    //   );
-    //   assertStyleMatch({
-    //     marginLeft: '10px'
-    //   }, wrapper.find(StyledButtonToogle).last());
-    //   assertStyleMatch({
-    //     marginLeft: '0'
-    //   }, wrapper.find(StyledButtonToogle).first());
-    // });
+    it('renders correctly when grouped', () => {
+      const props = {
+        theme: classicTheme,
+        grouped: true,
+        children: 'Text'
+      };
+      const wrapper = mount(
+        <div>
+          <ButtonToggle { ...props } />
+          <ButtonToggle { ...props } />
+        </div>
+      );
+      // Uses snapshot as jest/enzyme doesnt support :first-of-type
+      expect(wrapper).toMatchSnapshot();
+    });
   });
   describe('As a form element', () => {
     it('calls onChange when the value changes', () => {

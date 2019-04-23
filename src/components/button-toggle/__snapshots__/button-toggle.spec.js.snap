@@ -96,6 +96,823 @@ input:checked ~ .c1 {
 </div>
 `;
 
+exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
+.c2 {
+  display: inline-block;
+  height: 40px;
+  padding: 0 24px;
+  border: 1px solid #668491;
+  font-size: 14px;
+  font-weight: 600;
+  height: 47px;
+}
+
+input:checked ~ .c2 {
+  color: #FFFFFF;
+  background-color: #003F2E;
+}
+
+.c2:hover {
+  background-color: #e5f2ee;
+  border-color: #003F2E;
+}
+
+.c2:focus {
+  outline: 3px solid #FFDA7F;
+}
+
+.c2 .content-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+input:checked ~ .c2 {
+  color: #FFFFFF;
+  background-color: #1573e6;
+}
+
+.c2:hover {
+  border-color: #1e499f;
+  color: #FFFFFF;
+  background-color: #1e499f;
+}
+
+.c2:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: inline-block;
+}
+
+.c0:not(:first-of-type) {
+  margin-left: 10px;
+}
+
+.c0:not(:first-of-type) {
+  margin-left: 0;
+}
+
+.c0:not(:first-of-type) .c1 {
+  border-left-width: 0;
+}
+
+<div>
+  <ButtonToggle
+    grouped={true}
+    size="large"
+    theme={
+      Object {
+        "colors": Object {
+          "base": "#00A376",
+          "baseBlue": "#255BC7",
+          "border": "#668491",
+          "brand": "#00DC00",
+          "error": "#C7384F",
+          "focus": "#FFDA7F",
+          "greyDarkBlue50": "#8099a4",
+          "info": "#0073C2",
+          "primary": "#00805D",
+          "secondary": "#006045",
+          "success": "#00B000",
+          "tertiary": "#003F2E",
+          "warning": "#E96400",
+          "white": "#FFFFFF",
+          "whiteMix": "#e5f2ee",
+        },
+        "disabled": Object {
+          "border": "#4d7080",
+          "disabled": "#b3c2c8",
+          "input": "#1e499f",
+          "text": "#003349",
+        },
+        "name": "classic",
+        "shadows": Object {
+          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.3)",
+          "size": "14px",
+        },
+      }
+    }
+  >
+    <styled.div
+      grouped={true}
+      size="large"
+      theme={
+        Object {
+          "colors": Object {
+            "base": "#00A376",
+            "baseBlue": "#255BC7",
+            "border": "#668491",
+            "brand": "#00DC00",
+            "error": "#C7384F",
+            "focus": "#FFDA7F",
+            "greyDarkBlue50": "#8099a4",
+            "info": "#0073C2",
+            "primary": "#00805D",
+            "secondary": "#006045",
+            "success": "#00B000",
+            "tertiary": "#003F2E",
+            "warning": "#E96400",
+            "white": "#FFFFFF",
+            "whiteMix": "#e5f2ee",
+          },
+          "disabled": Object {
+            "border": "#4d7080",
+            "disabled": "#b3c2c8",
+            "input": "#1e499f",
+            "text": "#003349",
+          },
+          "name": "classic",
+          "shadows": Object {
+            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+          },
+          "text": Object {
+            "color": "rgba(0,0,0,0.9)",
+            "placeholder": "rgba(0,0,0,0.3)",
+            "size": "14px",
+          },
+        }
+      }
+    >
+      <StyledComponent
+        forwardedComponent={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "attrs": Array [],
+            "componentStyle": ComponentStyle {
+              "componentId": "sc-htpNat",
+              "isStatic": false,
+              "lastClassName": "c0",
+              "rules": Array [
+                "
+  display: inline-block;
+
+  &:not(:first-of-type) {
+    margin-left: 10px;
+  }
+  
+  ",
+                [Function],
+                ";
+",
+              ],
+            },
+            "displayName": "styled.div",
+            "foldedComponentIds": Array [],
+            "propTypes": Object {
+              "buttonSize": [Function],
+            },
+            "render": [Function],
+            "styledComponentId": "sc-htpNat",
+            "target": "div",
+            "toString": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+          }
+        }
+        forwardedRef={null}
+        grouped={true}
+        size="large"
+        theme={
+          Object {
+            "colors": Object {
+              "base": "#00A376",
+              "baseBlue": "#255BC7",
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFDA7F",
+              "greyDarkBlue50": "#8099a4",
+              "info": "#0073C2",
+              "primary": "#00805D",
+              "secondary": "#006045",
+              "success": "#00B000",
+              "tertiary": "#003F2E",
+              "warning": "#E96400",
+              "white": "#FFFFFF",
+              "whiteMix": "#e5f2ee",
+            },
+            "disabled": Object {
+              "border": "#4d7080",
+              "disabled": "#b3c2c8",
+              "input": "#1e499f",
+              "text": "#003349",
+            },
+            "name": "classic",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          }
+        }
+      >
+        <div
+          className="c0"
+          size="large"
+        >
+          <input
+            id="guid-12345"
+            onChange={[Function]}
+            style={
+              Object {
+                "height": 0,
+                "position": "absolute",
+                "visibility": "hidden",
+                "width": 0,
+              }
+            }
+            type="radio"
+          />
+          <styled.label
+            grouped={true}
+            htmlFor="guid-12345"
+            size="large"
+            theme={
+              Object {
+                "colors": Object {
+                  "base": "#00A376",
+                  "baseBlue": "#255BC7",
+                  "border": "#668491",
+                  "brand": "#00DC00",
+                  "error": "#C7384F",
+                  "focus": "#FFDA7F",
+                  "greyDarkBlue50": "#8099a4",
+                  "info": "#0073C2",
+                  "primary": "#00805D",
+                  "secondary": "#006045",
+                  "success": "#00B000",
+                  "tertiary": "#003F2E",
+                  "warning": "#E96400",
+                  "white": "#FFFFFF",
+                  "whiteMix": "#e5f2ee",
+                },
+                "disabled": Object {
+                  "border": "#4d7080",
+                  "disabled": "#b3c2c8",
+                  "input": "#1e499f",
+                  "text": "#003349",
+                },
+                "name": "classic",
+                "shadows": Object {
+                  "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                  "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                  "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                  "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                  "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                },
+                "text": Object {
+                  "color": "rgba(0,0,0,0.9)",
+                  "placeholder": "rgba(0,0,0,0.3)",
+                  "size": "14px",
+                },
+              }
+            }
+          >
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "c1",
+                    "isStatic": false,
+                    "lastClassName": "c2",
+                    "rules": Array [
+                      "
+  display: inline-block;
+  height: 40px;
+  padding: 0 24px;
+  border: 1px solid ",
+                      [Function],
+                      ";
+  font-size: 14px;
+  font-weight: 600;
+  
+  input:checked ~ & {
+    color: ",
+                      [Function],
+                      ";
+    background-color: ",
+                      [Function],
+                      ";
+  }
+
+  &:hover {
+    background-color: ",
+                      [Function],
+                      ";
+    border-color: ",
+                      [Function],
+                      ";
+  }
+
+  &:focus {
+    outline: 3px solid ",
+                      [Function],
+                      ";
+  }
+
+  .content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  ",
+                      [Function],
+                      "
+
+  ",
+                      [Function],
+                      ";
+
+
+  /* CLASSIC STYLES */
+  ",
+                      [Function],
+                      ";
+",
+                    ],
+                  },
+                  "displayName": "styled.label",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "c1",
+                  "target": "label",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+              grouped={true}
+              htmlFor="guid-12345"
+              size="large"
+              theme={
+                Object {
+                  "colors": Object {
+                    "base": "#00A376",
+                    "baseBlue": "#255BC7",
+                    "border": "#668491",
+                    "brand": "#00DC00",
+                    "error": "#C7384F",
+                    "focus": "#FFDA7F",
+                    "greyDarkBlue50": "#8099a4",
+                    "info": "#0073C2",
+                    "primary": "#00805D",
+                    "secondary": "#006045",
+                    "success": "#00B000",
+                    "tertiary": "#003F2E",
+                    "warning": "#E96400",
+                    "white": "#FFFFFF",
+                    "whiteMix": "#e5f2ee",
+                  },
+                  "disabled": Object {
+                    "border": "#4d7080",
+                    "disabled": "#b3c2c8",
+                    "input": "#1e499f",
+                    "text": "#003349",
+                  },
+                  "name": "classic",
+                  "shadows": Object {
+                    "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                    "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                    "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                    "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                    "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                  },
+                  "text": Object {
+                    "color": "rgba(0,0,0,0.9)",
+                    "placeholder": "rgba(0,0,0,0.3)",
+                    "size": "14px",
+                  },
+                }
+              }
+            >
+              <label
+                className="c1 c2"
+                htmlFor="guid-12345"
+                size="large"
+              >
+                <div
+                  className="content-wrapper"
+                >
+                  Text
+                </div>
+              </label>
+            </StyledComponent>
+          </styled.label>
+        </div>
+      </StyledComponent>
+    </styled.div>
+  </ButtonToggle>
+  <ButtonToggle
+    grouped={true}
+    size="large"
+    theme={
+      Object {
+        "colors": Object {
+          "base": "#00A376",
+          "baseBlue": "#255BC7",
+          "border": "#668491",
+          "brand": "#00DC00",
+          "error": "#C7384F",
+          "focus": "#FFDA7F",
+          "greyDarkBlue50": "#8099a4",
+          "info": "#0073C2",
+          "primary": "#00805D",
+          "secondary": "#006045",
+          "success": "#00B000",
+          "tertiary": "#003F2E",
+          "warning": "#E96400",
+          "white": "#FFFFFF",
+          "whiteMix": "#e5f2ee",
+        },
+        "disabled": Object {
+          "border": "#4d7080",
+          "disabled": "#b3c2c8",
+          "input": "#1e499f",
+          "text": "#003349",
+        },
+        "name": "classic",
+        "shadows": Object {
+          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.3)",
+          "size": "14px",
+        },
+      }
+    }
+  >
+    <styled.div
+      grouped={true}
+      size="large"
+      theme={
+        Object {
+          "colors": Object {
+            "base": "#00A376",
+            "baseBlue": "#255BC7",
+            "border": "#668491",
+            "brand": "#00DC00",
+            "error": "#C7384F",
+            "focus": "#FFDA7F",
+            "greyDarkBlue50": "#8099a4",
+            "info": "#0073C2",
+            "primary": "#00805D",
+            "secondary": "#006045",
+            "success": "#00B000",
+            "tertiary": "#003F2E",
+            "warning": "#E96400",
+            "white": "#FFFFFF",
+            "whiteMix": "#e5f2ee",
+          },
+          "disabled": Object {
+            "border": "#4d7080",
+            "disabled": "#b3c2c8",
+            "input": "#1e499f",
+            "text": "#003349",
+          },
+          "name": "classic",
+          "shadows": Object {
+            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+          },
+          "text": Object {
+            "color": "rgba(0,0,0,0.9)",
+            "placeholder": "rgba(0,0,0,0.3)",
+            "size": "14px",
+          },
+        }
+      }
+    >
+      <StyledComponent
+        forwardedComponent={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "attrs": Array [],
+            "componentStyle": ComponentStyle {
+              "componentId": "sc-htpNat",
+              "isStatic": false,
+              "lastClassName": "c0",
+              "rules": Array [
+                "
+  display: inline-block;
+
+  &:not(:first-of-type) {
+    margin-left: 10px;
+  }
+  
+  ",
+                [Function],
+                ";
+",
+              ],
+            },
+            "displayName": "styled.div",
+            "foldedComponentIds": Array [],
+            "propTypes": Object {
+              "buttonSize": [Function],
+            },
+            "render": [Function],
+            "styledComponentId": "sc-htpNat",
+            "target": "div",
+            "toString": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+          }
+        }
+        forwardedRef={null}
+        grouped={true}
+        size="large"
+        theme={
+          Object {
+            "colors": Object {
+              "base": "#00A376",
+              "baseBlue": "#255BC7",
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFDA7F",
+              "greyDarkBlue50": "#8099a4",
+              "info": "#0073C2",
+              "primary": "#00805D",
+              "secondary": "#006045",
+              "success": "#00B000",
+              "tertiary": "#003F2E",
+              "warning": "#E96400",
+              "white": "#FFFFFF",
+              "whiteMix": "#e5f2ee",
+            },
+            "disabled": Object {
+              "border": "#4d7080",
+              "disabled": "#b3c2c8",
+              "input": "#1e499f",
+              "text": "#003349",
+            },
+            "name": "classic",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          }
+        }
+      >
+        <div
+          className="c0"
+          size="large"
+        >
+          <input
+            id="guid-12345"
+            onChange={[Function]}
+            style={
+              Object {
+                "height": 0,
+                "position": "absolute",
+                "visibility": "hidden",
+                "width": 0,
+              }
+            }
+            type="radio"
+          />
+          <styled.label
+            grouped={true}
+            htmlFor="guid-12345"
+            size="large"
+            theme={
+              Object {
+                "colors": Object {
+                  "base": "#00A376",
+                  "baseBlue": "#255BC7",
+                  "border": "#668491",
+                  "brand": "#00DC00",
+                  "error": "#C7384F",
+                  "focus": "#FFDA7F",
+                  "greyDarkBlue50": "#8099a4",
+                  "info": "#0073C2",
+                  "primary": "#00805D",
+                  "secondary": "#006045",
+                  "success": "#00B000",
+                  "tertiary": "#003F2E",
+                  "warning": "#E96400",
+                  "white": "#FFFFFF",
+                  "whiteMix": "#e5f2ee",
+                },
+                "disabled": Object {
+                  "border": "#4d7080",
+                  "disabled": "#b3c2c8",
+                  "input": "#1e499f",
+                  "text": "#003349",
+                },
+                "name": "classic",
+                "shadows": Object {
+                  "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                  "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                  "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                  "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                  "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                },
+                "text": Object {
+                  "color": "rgba(0,0,0,0.9)",
+                  "placeholder": "rgba(0,0,0,0.3)",
+                  "size": "14px",
+                },
+              }
+            }
+          >
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "c1",
+                    "isStatic": false,
+                    "lastClassName": "c2",
+                    "rules": Array [
+                      "
+  display: inline-block;
+  height: 40px;
+  padding: 0 24px;
+  border: 1px solid ",
+                      [Function],
+                      ";
+  font-size: 14px;
+  font-weight: 600;
+  
+  input:checked ~ & {
+    color: ",
+                      [Function],
+                      ";
+    background-color: ",
+                      [Function],
+                      ";
+  }
+
+  &:hover {
+    background-color: ",
+                      [Function],
+                      ";
+    border-color: ",
+                      [Function],
+                      ";
+  }
+
+  &:focus {
+    outline: 3px solid ",
+                      [Function],
+                      ";
+  }
+
+  .content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  ",
+                      [Function],
+                      "
+
+  ",
+                      [Function],
+                      ";
+
+
+  /* CLASSIC STYLES */
+  ",
+                      [Function],
+                      ";
+",
+                    ],
+                  },
+                  "displayName": "styled.label",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "c1",
+                  "target": "label",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+              grouped={true}
+              htmlFor="guid-12345"
+              size="large"
+              theme={
+                Object {
+                  "colors": Object {
+                    "base": "#00A376",
+                    "baseBlue": "#255BC7",
+                    "border": "#668491",
+                    "brand": "#00DC00",
+                    "error": "#C7384F",
+                    "focus": "#FFDA7F",
+                    "greyDarkBlue50": "#8099a4",
+                    "info": "#0073C2",
+                    "primary": "#00805D",
+                    "secondary": "#006045",
+                    "success": "#00B000",
+                    "tertiary": "#003F2E",
+                    "warning": "#E96400",
+                    "white": "#FFFFFF",
+                    "whiteMix": "#e5f2ee",
+                  },
+                  "disabled": Object {
+                    "border": "#4d7080",
+                    "disabled": "#b3c2c8",
+                    "input": "#1e499f",
+                    "text": "#003349",
+                  },
+                  "name": "classic",
+                  "shadows": Object {
+                    "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                    "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                    "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                    "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                    "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                  },
+                  "text": Object {
+                    "color": "rgba(0,0,0,0.9)",
+                    "placeholder": "rgba(0,0,0,0.3)",
+                    "size": "14px",
+                  },
+                }
+              }
+            >
+              <label
+                className="c1 c2"
+                htmlFor="guid-12345"
+                size="large"
+              >
+                <div
+                  className="content-wrapper"
+                >
+                  Text
+                </div>
+              </label>
+            </StyledComponent>
+          </styled.label>
+        </div>
+      </StyledComponent>
+    </styled.div>
+  </ButtonToggle>
+</div>
+`;
+
 exports[`ButtonToggle Modern themes renders correctly with small theme 1`] = `
 .c1 {
   display: inline-block;

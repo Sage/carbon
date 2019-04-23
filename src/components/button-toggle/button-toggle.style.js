@@ -132,7 +132,7 @@ const StyledButtonToogle = styled.div`
     &:not(:first-of-type) {
       margin-left: 0;
       ${StyledButtonToogleLabel} {
-        border-left-width: ${grouped ? '0' : '1px'};
+        border-left-width: 0;
       }
     }
   `};
