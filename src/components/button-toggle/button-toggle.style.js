@@ -77,8 +77,8 @@ const StyledButtonToogleLabel = styled.label`
   
     ${({ size, buttonIcon, buttonIconSize }) => buttonIcon && size === 'large' && buttonIconSize === 'large' && css`
       height: auto;
-      padding-top: ${size === 'large' ? '15px' : '0'};
-      padding-bottom: ${size === 'large' ? '15px' : '0'};
+      padding-top: 15px;
+      padding-bottom: 15px;
     `};
   `};
 `;

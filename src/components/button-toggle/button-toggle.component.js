@@ -36,7 +36,7 @@ const ButtonToggle = (props) => {
   }
 
   function onChangeHandler(ev) {
-    props.onChange(ev, this.props);
+    props.onChange(ev, props);
   }
 
   return (

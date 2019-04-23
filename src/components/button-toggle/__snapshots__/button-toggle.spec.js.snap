@@ -1,0 +1,177 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ButtonToggle Classic theme renders correctly with default settings 1`] = `
+.c1 {
+  display: inline-block;
+  height: 40px;
+  padding: 0 24px;
+  border: 1px solid #668491;
+  font-size: 14px;
+  font-weight: 600;
+  height: 47px;
+}
+
+input:checked ~ .c1 {
+  color: #FFFFFF;
+  background-color: #003F2E;
+}
+
+.c1:hover {
+  background-color: #e5f2ee;
+  border-color: #003F2E;
+}
+
+.c1:focus {
+  outline: 3px solid #FFDA7F;
+}
+
+.c1 .content-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+input:checked ~ .c1 {
+  color: #FFFFFF;
+  background-color: #1573e6;
+}
+
+.c1:hover {
+  border-color: #1e499f;
+  color: #FFFFFF;
+  background-color: #1e499f;
+}
+
+.c1:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: inline-block;
+}
+
+.c0:not(:first-of-type) {
+  margin-left: 10px;
+}
+
+<div
+  className="c0"
+  size="large"
+>
+  <input
+    id="guid-12345"
+    onChange={[Function]}
+    style={
+      Object {
+        "height": 0,
+        "position": "absolute",
+        "visibility": "hidden",
+        "width": 0,
+      }
+    }
+    type="radio"
+  />
+  <label
+    className="c1"
+    htmlFor="guid-12345"
+    size="large"
+  >
+    <div
+      className="content-wrapper"
+    >
+      Button
+    </div>
+  </label>
+</div>
+`;
+
+exports[`ButtonToggle Modern themes renders correctly with small theme 1`] = `
+.c1 {
+  display: inline-block;
+  height: 40px;
+  padding: 0 24px;
+  border: 1px solid #668491;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+input:checked ~ .c1 {
+  color: #FFFFFF;
+  background-color: #003F2E;
+}
+
+.c1:hover {
+  background-color: #e5f2ee;
+  border-color: #003F2E;
+}
+
+.c1:focus {
+  outline: 3px solid #FFDA7F;
+}
+
+.c1 .content-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.c0 {
+  display: inline-block;
+}
+
+.c0:not(:first-of-type) {
+  margin-left: 10px;
+}
+
+<div
+  className="c0"
+  size="large"
+>
+  <input
+    id="guid-12345"
+    onChange={[Function]}
+    style={
+      Object {
+        "height": 0,
+        "position": "absolute",
+        "visibility": "hidden",
+        "width": 0,
+      }
+    }
+    type="radio"
+  />
+  <label
+    className="c1"
+    htmlFor="guid-12345"
+    size="large"
+  >
+    <div
+      className="content-wrapper"
+    >
+      Button
+    </div>
+  </label>
+</div>
+`;
