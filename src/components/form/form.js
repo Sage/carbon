@@ -243,6 +243,10 @@ class Form extends React.Component {
       this.addStickyFooterListeners();
     }
 
+    if (this.props.validateOnMount) {
+      this.props.validate();
+    }
+
     if (this.props.unsavedWarning) {
       this.addUnsavedWarningListener();
     }
