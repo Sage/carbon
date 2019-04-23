@@ -1,7 +1,7 @@
 // Base colors
 export default {
   brilliantGreen: '00DC00',
-  carrotOrange: 'E96400'
+  carrotOrange: 'E96400',
   errorRed: 'C7384F',
   genericGreen: '009900',
   gold: 'FFB500',
@@ -10,5 +10,5 @@ export default {
   navyBlue: '004B87',
   amethyst: '582C83',
   plum: '8246AF',
-  slate: '003349',
+  slate: '003349'
 };
