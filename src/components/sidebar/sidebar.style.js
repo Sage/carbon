@@ -21,20 +21,20 @@ const SidebarStyle = styled.div`
   z-index: 1002;
   
     ${({ size }) => size && css`
-        width: ${sidebarSizes[size]}
-    `}
+        width: ${sidebarSizes[size]};
+    `};
 
     ${({ position }) => position === 'right' && css`
         box-shadow: -10px 0 15px rgba(0, 0, 0, 0.05);
         border-left: 1px solid #ccd6db;
         right: 0;
-    `}
+    `};
 
     ${({ position }) => position === 'left' && css`
-        box-shadow: 10px 0 15px rgba(0, 0, 0, 0.05);
-        border-right: 1px solid #ccd6db;
-        left: 0;
-    `}
+            box-shadow: 10px 0 15px rgba(0, 0, 0, 0.05);
+            border-right: 1px solid #ccd6db;
+            left: 0;
+    `};
 
     .carbon-sidebar__close {
         cursor: pointer;
@@ -45,9 +45,8 @@ const SidebarStyle = styled.div`
 
         &:hover {
             color: #255BC7;
-        }
-    }
-
+        };
+    };
 `;
 
 export default SidebarStyle;

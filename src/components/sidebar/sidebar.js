@@ -9,11 +9,6 @@ import SidebarStyle from './sidebar.style';
 import './sidebar.scss';
 
 class Sidebar extends Modal {
-  constructor(props) {
-    super(props);
-    console.log(props);
-  }
-
   /** Returns classes for the component. */
   get mainClasses() {
     return classNames(

@@ -1,10 +1,4 @@
-@import "./../../style-config/colors";
-@import "./../../style-config/mixins";
-@import "./../../style-config/z-index";
-
 $sidebar-animation-length: 250ms;
-$sidebar-background-opacity: 0.6;
-$sidebar-background-animation-length: 250ms;
 
 // sidebar right animation:
 .sidebar--right-enter {
