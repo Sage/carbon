@@ -4,6 +4,7 @@ import { text, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import notes from './documentation/notes.md';
+import Info from './documentation/Info';
 import DialogFullScreen from '.';
 import Button from '../button';
 
@@ -59,6 +60,7 @@ storiesOf('Dialog Full Screen', module)
       </div>
     );
   }, {
+    info: { text: Info },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   });

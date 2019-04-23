@@ -4,7 +4,7 @@ import ClassicFullScreenHeading from './classic-full-screen-heading.style';
 const StyledFullScreenHeading = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.disabled.border};
 
-  .carbon-app-wrapper {
+  .div {
     position: relative;
   }
 
