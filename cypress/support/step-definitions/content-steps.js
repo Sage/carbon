@@ -1,6 +1,6 @@
 import {
   contentBody, contentTitle, inlineCheckbox, bodyFullWidthCheckbox, contentPreview, titleWidth,
-} from '../../locators/content-locators';
+} from '../../locators/content';
 
 const CONTENT_AS_LABEL = 'carbon-content--';
 const CONTENT_ALIGN_LABEL = `${CONTENT_AS_LABEL}align-`;

@@ -2,13 +2,13 @@ import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
 
 const dialogSizes = {
-  extraSmall: '300px',
+  'extra-small': '300px',
   small: '380px',
-  mediumSmall: '540px',
+  'medium-small': '540px',
   medium: '750px',
-  mediumLarge: '850px',
+  'medium-large': '850px',
   large: '960px',
-  extraLarge: '1080px'
+  'extra-large': '1080px'
 };
 
 const DialogStyle = styled.div`
