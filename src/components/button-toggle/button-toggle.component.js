@@ -23,7 +23,6 @@ const ButtonToggle = (props) => {
         type='radio'
         name={ props.name }
         id={ inputGuid }
-        onChange={ onChangeHandler }
         disabled={ props.disabled }
         style={ { // ToDo: Move to styled-component?
           position: 'absolute',
@@ -35,14 +34,13 @@ const ButtonToggle = (props) => {
     );
   }
 
-  function onChangeHandler(ev) {
-    props.onChange(ev, props);
-  }
-
   return (
     <StyledButtonToggle { ...props }>
       {hiddenInput()}
-      <StyledButtonToggleLabel { ...props } htmlFor={ inputGuid }>
+      <StyledButtonToggleLabel
+        { ...props } htmlFor={ inputGuid }
+        tabIndex='0'
+      >
         <div className='content-wrapper'>
           {icon()}
           {props.children}

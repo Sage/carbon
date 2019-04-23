@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text, boolean, select } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './notes.md';
-import ButtonToggle from '../button-toggle/button-toggle';
+import ButtonToggle from '../button-toggle/button-toggle.component';
 import ButtonToggleGroup from './button-toggle-group';
 
 storiesOf('Button Toggle Group', module)

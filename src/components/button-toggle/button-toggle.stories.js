@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import {
   text, select, boolean
 } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import ButtonToggle from './button-toggle.component';
@@ -20,6 +21,10 @@ storiesOf('Button Toggle', module)
     const disabled = boolean('disabled', false);
     const grouped = boolean('grouped', false);
 
+    const onChange = (ev) => {
+      action('onChange')(ev);
+    };
+
     return (
       [
         <ButtonToggle
@@ -29,6 +34,7 @@ storiesOf('Button Toggle', module)
           buttonIconSize={ buttonIconSize }
           disabled={ disabled }
           grouped={ grouped }
+          onChange={ onChange }
           key='button-toggle-1'
         >
           {children}
@@ -40,6 +46,7 @@ storiesOf('Button Toggle', module)
           buttonIconSize={ buttonIconSize }
           disabled={ disabled }
           grouped={ grouped }
+          onChange={ onChange }
           key='button-toggle-2'
         >
           {children}
@@ -51,6 +58,7 @@ storiesOf('Button Toggle', module)
           buttonIconSize={ buttonIconSize }
           disabled={ disabled }
           grouped={ grouped }
+          onChange={ onChange }
           key='button-toggle-3'
         >
           {children}
