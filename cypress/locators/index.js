@@ -2,7 +2,7 @@ import {
   ENABLE_BACKGROUND_UI_CHECKBOX, TITLE_INPUT, SUBTILE_INPUT, LABEL_INPUT,
   CHILDREN_TEXTAREA, HEIGHT_INPUT, LABEL_HELP_INPUT, INPUT_WIDTH_SLIDER,
   LABEL_WIDTH_SLIDER, FIELD_HELP_INPUT, LABEL_INLINE_CHECKBOX, LABEL_ALIGN_SELECT,
-  HELP_ICON_PREVIEW, FIELD_HELP_PREVIEW, LABEL_HELP_PREVIEW, FORM, STORY_ROOT,
+  HELP_ICON_PREVIEW, FIELD_HELP_PREVIEW, FORM, STORY_ROOT, LABEL_HELP_PREVIEW,
 } from './locators';
 
 // knobs locators
@@ -12,6 +12,7 @@ export const subtitleInput = () => cy.get(FORM).find(SUBTILE_INPUT);
 export const knobsTab = () => cy.get(FORM).find('button').contains('Knobs');
 export const labelInput = () => cy.get(LABEL_INPUT);
 export const childrenTextArea = () => cy.get(CHILDREN_TEXTAREA);
+export const disabledCheckbox = () => cy.get(FORM).contains('disabled').find('input');
 export const sizeSelect = () => cy.get(FORM).contains('size').find('select');
 export const subtextInput = () => cy.get(FORM).contains('subtext').find('textarea');
 export const asSelect = () => cy.get(FORM).contains('as').find('select');
