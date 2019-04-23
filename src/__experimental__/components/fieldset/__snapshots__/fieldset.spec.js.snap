@@ -17,7 +17,7 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
         "secondary": "#006045",
         "success": "#00B000",
         "tertiary": "#003F2E",
-        "warning": "#E96400",
+        "warning": "#FFB500",
         "white": "#FFFFFF",
       },
       "disabled": Object {
@@ -90,7 +90,7 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
           "secondary": "#006045",
           "success": "#00B000",
           "tertiary": "#003F2E",
-          "warning": "#E96400",
+          "warning": "#FFB500",
           "white": "#FFFFFF",
         },
         "disabled": Object {
@@ -126,6 +126,6 @@ exports[`Fieldset renders correctly 1`] = `
 <styled.fieldset
   data-component="fieldset"
 >
-  <Textbox />
+  <WithUniqueName(WithValidation(Textbox)) />
 </styled.fieldset>
 `;

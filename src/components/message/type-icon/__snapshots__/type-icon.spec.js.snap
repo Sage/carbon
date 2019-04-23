@@ -222,7 +222,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  background-color: #E96400;
+  background-color: #FFB500;
   border-radius: 3px 0 0 3px;
   background-color: #ff7d00;
 }
@@ -512,7 +512,7 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  background-color: #E96400;
+  background-color: #FFB500;
   background-color: #FFFFFF;
   border-radius: 3px 0 0 3px;
   background-color: #ff7d00;
@@ -524,7 +524,7 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
 }
 
 .c0 span:before {
-  color: #E96400;
+  color: #FFB500;
 }
 
 .c0 span:before {
