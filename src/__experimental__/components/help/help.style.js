@@ -11,7 +11,7 @@ const StyledHelp = styled.a`
   top: -1px;
 
   &:hover {
-    color: $blue;
+    color: '#255BC7';
     text-decoration: underline;
   }
 `;
