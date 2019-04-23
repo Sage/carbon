@@ -74,7 +74,11 @@ Object {
   "open": true,
   "target": <div
     autocomplete="off"
+<<<<<<< HEAD
     class="sc-htpNat lhQRHp"
+=======
+    class="sc-bxivhb hSnxuE"
+>>>>>>> c8e9815058f9ab10ce638cb7536b11c943a16a9c
     data-element="input"
     name="guid-12345"
     role="presentation"
@@ -82,7 +86,7 @@ Object {
   >
     <input
       autocomplete="off"
-      class="sc-bxivhb wHvcT"
+      class="sc-ifAKCX iHTfyA"
       data-element="input"
       name="guid-12345"
       value=""
@@ -92,7 +96,11 @@ Object {
     />
     <span
       autocomplete="off"
+<<<<<<< HEAD
       class="sc-ifAKCX hjDnux"
+=======
+      class="sc-htpNat hmqeKz"
+>>>>>>> c8e9815058f9ab10ce638cb7536b11c943a16a9c
       data-element="input"
       name="guid-12345"
     >

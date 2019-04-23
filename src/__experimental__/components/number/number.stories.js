@@ -8,7 +8,7 @@ import {
 } from '@storybook/addon-knobs';
 import Number from './number.component';
 import Textbox from '../textbox';
-import getTextboxStoryProps from '../textbox/textbox.stories';
+import getCommonTextboxStoryProps from '../textbox/textbox.stories';
 import notes from './documentation/notes.md';
 import info from './documentation/info';
 
@@ -32,7 +32,7 @@ storiesOf('Experimental/Number Input', module)
 
     return (
       <Number
-        { ...getTextboxStoryProps() }
+        { ...getCommonTextboxStoryProps() }
         value={ store.get('value') }
         onChange={ setValue }
         onKeyDown={ onKeyDownEnabled ? action('onKeyDown') : undefined }

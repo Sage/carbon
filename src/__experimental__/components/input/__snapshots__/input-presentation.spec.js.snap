@@ -17,14 +17,13 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 0px;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  margin: 0;
   min-height: 40px;
   padding-left: 11px;
   padding-right: 11px;
-  width: 100%;
   border-color: #ccd6db;
   box-shadow: none;
   min-height: 31px;
@@ -34,6 +33,26 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
 
 .c0:hover {
   border-color: #99adb6;
+  z-index: 2;
+}
+
+.c0:hover .c1 {
+  background-color: #255bc7;
+  border-color: #255bc7;
+  color: #fff;
+}
+
+.c0:hover .c1:hover {
+  background-color: #1e499f;
+  border-color: #1e499f;
+}
+
+.c0 input::-ms-clear {
+  display: none;
+}
+
+.c0 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
 }
 
 <div
@@ -65,14 +84,21 @@ exports[`InputPresentation renders presentational div and context provider for i
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-flex: 1;
-  -ms-flex: 1;
-  flex: 1;
-  margin: 0px;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  margin: 0;
   min-height: 40px;
   padding-left: 11px;
   padding-right: 11px;
-  width: 100%;
+}
+
+.c0 input::-ms-clear {
+  display: none;
+}
+
+.c0 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
 }
 
 <div

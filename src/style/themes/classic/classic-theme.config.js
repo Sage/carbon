@@ -1,27 +1,25 @@
 import { THEMES } from '..';
 
 export default (palette) => {
-  return (
-    {
-      name: THEMES.classic,
+  return {
+    name: THEMES.classic,
+    colors: {
+      base: palette.productGreen,
+      primary: palette.productGreenShade(21),
+      secondary: palette.productGreenShade(41),
+      tertiary: palette.productGreenShade(61),
 
-      colors: {
-        base: palette.productGreen,
-        primary: palette.productGreenShade(21),
-        secondary: palette.productGreenShade(41),
-        tertiary: palette.productGreenShade(61),
+      // generic
+      baseBlue: '#255BC7',
+      greyDarkBlue50: '#8099a4',
+      warning: palette.gold
+    },
 
-        // generic
-        baseBlue: '#255BC7',
-        greyDarkBlue50: '#8099a4',
-        warning: palette.gold
-      },
-
-      disabled: {
-        input: '#1e499f',
-        disabled: '#b3c2c8',
-        border: '#4d7080'
-      }
+    disabled: {
+      text: palette.slate,
+      input: '#1e499f',
+      disabled: '#b3c2c8',
+      border: '#4d7080'
     }
-  );
+  };
 };
