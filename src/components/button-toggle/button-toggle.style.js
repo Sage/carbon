@@ -9,6 +9,7 @@ const StyledButtonToggleLabel = styled.label`
   border: 1px solid ${({ theme }) => theme.colors.border};
   font-size: 14px;
   font-weight: 600;
+  background-color: ${({ theme }) => theme.colors.white};
   
   input:checked ~ & {
     color: ${({ theme }) => theme.colors.white};

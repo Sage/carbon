@@ -1,10 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, boolean, select } from '@storybook/addon-knobs';
+import {
+  text, number, boolean, select, percentageRange
+} from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './notes.md';
+import notes from './documentation/notes.md';
 import ButtonToggle from '../button-toggle/button-toggle.component';
-import ButtonToggleGroup from './button-toggle-group';
+import ButtonToggleGroup from './button-toggle-group.component';
 
 storiesOf('Button Toggle Group', module)
   .addParameters({
@@ -14,17 +16,17 @@ storiesOf('Button Toggle Group', module)
     }
   }).add('default', () => {
     const label = text('label', 'Example ButtonToggleGroup');
-    const labelHelp = text('labelHelp', 'This text provides more information for the label.');
-    const inputWidth = text('inputWidth', '');
-    const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
-    const fieldHelpInline = boolean('fieldHelpInline', false);
     const labelInline = boolean('labelInline', false);
-    const labelWidth = labelInline ? text('labelWidth', '') : undefined;
+    const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
     const labelAlign = labelInline ? select(
       'labelAlign',
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ) : undefined;
+    const labelHelp = text('labelHelp', 'This text provides more information for the label.');
+    const inputWidth = labelInline ? number('inputWidth', 70, percentageRange) : undefined;
+    const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
+    const fieldHelpInline = boolean('fieldHelpInline', false);
 
     return (
       <ButtonToggleGroup
@@ -38,21 +40,21 @@ storiesOf('Button Toggle Group', module)
         fieldHelpInline={ fieldHelpInline }
       >
         <ButtonToggle
-          name='grouped'
+          name='button-toggle-group'
           id='foo'
           value='foo'
         >
             Foo
         </ButtonToggle>
         <ButtonToggle
-          name='grouped'
+          name='button-toggle-group'
           id='bar'
           value='bar'
         >
             Bar
         </ButtonToggle>
         <ButtonToggle
-          name='grouped'
+          name='button-toggle-group'
           id='baz'
           value='baz'
         >
