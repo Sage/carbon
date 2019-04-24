@@ -23,15 +23,13 @@ class Confirm extends Dialog {
     return (
       <StyledConfirmButtons>
         <Button
-          onClick={ this.props.onConfirm }
-          data-element='confirm'
+          onClick={ this.props.onConfirm } data-element='confirm'
           as='primary'
         >
           {this.props.confirmLabel || I18n.t('confirm.yes', { defaultValue: 'Yes' })}
         </Button>
         <Button
-          onClick={ this.props.onCancel }
-          data-element='cancel'
+          onClick={ this.props.onCancel } data-element='cancel'
           as='secondary'
         >
           {this.props.cancelLabel || I18n.t('confirm.no', { defaultValue: 'No' })}
@@ -57,19 +55,13 @@ Confirm.defaultProps = {
 
 Confirm.propTypes = {
   ...Dialog.propTypes,
-  /**
-   * A custom event handler when a confirmation takes place
-   */
+  // ** A custom event handler when a confirmation takes place */
   onConfirm: PropTypes.func.isRequired,
 
-  /**
-   * Customise the confirm button label
-   */
+  // ** Customise the confirm button label */
   confirmLabel: PropTypes.string,
 
-  /**
-   * Customise the cancel button label
-   */
+  // ** Customise the cancel button label */
   cancelLabel: PropTypes.string
 };
 
