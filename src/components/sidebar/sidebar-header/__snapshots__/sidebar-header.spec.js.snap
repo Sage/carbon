@@ -2,7 +2,7 @@
 
 exports[`SidebarHeaderStyle should render base sidebar header 1`] = `
 .c0 {
-  background-color: #fff;
+  background-color: #FFFFFF;
   box-sizing: content-box;
   margin-left: -20px;
   padding: 20px;
@@ -62,7 +62,9 @@ exports[`SidebarHeaderStyle should render base sidebar header 1`] = `
           "lastClassName": "c0",
           "rules": Array [
             "
-  background-color: #fff;
+  background-color: ",
+            [Function],
+            ";
   box-sizing: content-box;
   margin-left: -20px;
   padding: 20px;
@@ -174,7 +176,7 @@ exports[`SidebarHeaderStyle should render base sidebar header 1`] = `
 
 exports[`SidebarHeaderStyle when classic theme is provided to the component should render correct style 1`] = `
 .c0 {
-  background-color: #fff;
+  background-color: #FFFFFF;
   box-sizing: content-box;
   margin-left: -20px;
   padding: 20px;
@@ -234,7 +236,9 @@ exports[`SidebarHeaderStyle when classic theme is provided to the component shou
           "lastClassName": "c0",
           "rules": Array [
             "
-  background-color: #fff;
+  background-color: ",
+            [Function],
+            ";
   box-sizing: content-box;
   margin-left: -20px;
   padding: 20px;

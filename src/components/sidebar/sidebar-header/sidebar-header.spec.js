@@ -22,12 +22,6 @@ describe('Sidebar Header', () => {
       expect(wrapper.find(Textbox)).toBeTruthy();
     });
   });
-
-  describe('tags on component', () => {
-    it('include correct component, element and role data tags', () => {
-      wrapper.setProps({ 'data-element': 'bar', 'data-role': 'baz' });
-    });
-  });
 });
 
 describe('SidebarHeaderStyle', () => {
