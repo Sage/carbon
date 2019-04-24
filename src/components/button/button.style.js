@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../style/themes/base';
 import buttonTypes from './button-types.style';
 import buttonSizes from './button-sizes.style';
-import classicConfig from './button-classic-config.style';
+import buttonClasicStyle from './button-classic.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { THEMES } from '../../style/themes';
 
@@ -32,8 +32,8 @@ export const StyledButtonSubtext = styled.span`
 `;
 
 function addButtonStyle(props) {
-  const { theme, colorVariant } = props;
-  if (theme.name === THEMES.classic && isClassicColorVariant(colorVariant)) return stylingForClassic(props);
+  if (isClassicButton(props)) return buttonClasicStyle(props);
+
   return stylingForType(props);
 }
 
@@ -61,37 +61,11 @@ function stylingForType({
   `;
 }
 
-function isClassicColorVariant(colorVariant) {
-  return OptionsHelper.themesBinaryClassic.includes(colorVariant);
-}
+function isClassicButton({ theme, colorVariant }) {
+  const isClassicTheme = (theme.name === THEMES.classic);
+  const isClassicColorVariant = OptionsHelper.themesBinaryClassic.includes(colorVariant);
 
-function stylingForClassic({
-  disabled,
-  colorVariant,
-  variant,
-  size
-}) {
-  if (disabled) {
-    return css`
-      box-sizing: border-box;
-      font-weight: 700;
-      ${classicConfig.disabled}
-      ${classicConfig[size]}
-      & + & {
-        margin-left: 15px;
-      }
-    `;
-  }
-  return css`
-    box-sizing: border-box;
-    font-weight: 700;
-    ${classicConfig[colorVariant][variant]}
-    ${classicConfig[size]}
-    text-decoration: none;
-    & + & {
-      margin-left: 15px;
-    }
-  `;
+  return isClassicTheme && isClassicColorVariant;
 }
 
 StyledButton.defaultProps = {
