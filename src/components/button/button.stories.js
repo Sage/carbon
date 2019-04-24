@@ -7,6 +7,16 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info } from './documentation';
 import Button from '.';
 
+const getIconKnobs = () => {
+  const defaultPosition = Button.defaultProps.iconPosition;
+  const hasIcon = boolean('has icon', false);
+
+  return {
+    iconType: hasIcon ? select('iconType', [...OptionsHelper.icons, ''], '') : undefined,
+    iconPosition: hasIcon ? select('iconPosition', [...OptionsHelper.buttonIconPositions], defaultPosition) : undefined
+  };
+};
+
 const defaultKnobs = () => {
   const size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
 
@@ -14,14 +24,13 @@ const defaultKnobs = () => {
     as: select('as', OptionsHelper.themesBinary, Button.defaultProps.as),
     children: text('children', 'Example Button'),
     disabled: boolean('disabled', Button.defaultProps.disabled),
-    iconPosition: select('iconPosition', [...OptionsHelper.buttonIconPositions, ''], Button.defaultProps.iconPosition),
-    iconType: select('iconType', [...OptionsHelper.icons, ''], Button.defaultProps.iconType),
     onClick: ev => action('click')(ev),
     size,
     subtext: size === OptionsHelper.sizesRestricted[2] ? text('subtext', Button.defaultProps.subtext) : undefined,
     theme: select('theme', OptionsHelper.buttonColors, Button.defaultProps.theme),
     to: text('to'),
-    href: text('href')
+    href: text('href'),
+    ...getIconKnobs()
   };
 };
 
