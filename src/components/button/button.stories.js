@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ThemeProvider } from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { notes, Info } from './documentation';
+import { notes, Info, InfoClassic } from './documentation';
 import Button from '.';
+import classic from '../../style/themes/classic';
 
 const getIconKnobs = () => {
   const defaultPosition = Button.defaultProps.iconPosition;
@@ -17,16 +19,17 @@ const getIconKnobs = () => {
   };
 };
 
-const defaultKnobs = () => {
+const getKnobs = (isClassic) => {
   const size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
+  const buttonThemes = isClassic ? OptionsHelper.themesBinaryClassic : OptionsHelper.themesBinary;
 
   return {
-    as: select('as', OptionsHelper.themesBinary, Button.defaultProps.as),
+    as: select('as', buttonThemes, Button.defaultProps.as),
     children: text('children', 'Example Button'),
     disabled: boolean('disabled', Button.defaultProps.disabled),
     onClick: ev => action('click')(ev),
     size,
-    subtext: size === OptionsHelper.sizesRestricted[2] ? text('subtext', Button.defaultProps.subtext) : undefined,
+    subtext: (size === OptionsHelper.sizesRestricted[2]) ? text('subtext', Button.defaultProps.subtext) : undefined,
     theme: select('theme', OptionsHelper.buttonColors, Button.defaultProps.theme),
     to: text('to'),
     href: text('href'),
@@ -79,7 +82,7 @@ TableComponent.propTypes = {
 
 storiesOf('Button', module)
   .add('default', () => {
-    const props = defaultKnobs();
+    const props = getKnobs();
     const { children } = props;
     return (
       <Button
@@ -92,8 +95,24 @@ storiesOf('Button', module)
     info: { TableComponent, text: Info },
     notes: { markdown: notes }
   })
+  .add('classic', () => {
+    const props = getKnobs(true);
+    const { children } = props;
+    return (
+      <ThemeProvider theme={ classic }>
+        <Button
+          { ...props }
+        >
+          { children }
+        </Button>
+      </ThemeProvider>
+    );
+  }, {
+    info: { TableComponent, text: InfoClassic },
+    notes: { markdown: notes }
+  })
   .add('as a sibling', () => {
-    const props = defaultKnobs();
+    const props = getKnobs();
     const { children } = props;
     return (
       <div>

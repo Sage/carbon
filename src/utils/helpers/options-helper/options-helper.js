@@ -228,6 +228,11 @@ const OptionsHelper = {
     'darkBackground'
   ],
 
+  themesBinaryClassic: [
+    'primary',
+    'secondary'
+  ],
+
   themesFull: [
     'primary',
     'secondary',
