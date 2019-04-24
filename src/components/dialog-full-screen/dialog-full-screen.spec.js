@@ -1,11 +1,9 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import DialogFullScreen from './dialog-full-screen';
+import DialogFullScreen from './dialog-full-screen.component';
 import FullScreenHeading from './full-screen-heading';
 import Button from '../button';
 import guid from '../../utils/helpers/guid';
-import Portal from '../portal';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Icon from '../icon';
 import Heading from '../heading';
 
@@ -40,18 +38,6 @@ describe('DialogFullScreen', () => {
     });
   });
 
-  describe('dialogClasses', () => {
-    it('returns the full screen dialog class', () => {
-      expect(instance.dialogClasses).toEqual('carbon-dialog-full-screen__dialog');
-    });
-  });
-
-  describe('mainClasses', () => {
-    it('returns the full screen dialog class and custom class', () => {
-      expect(instance.mainClasses).toEqual('foo carbon-dialog-full-screen');
-    });
-  });
-
   describe('modalHTML', () => {
     beforeEach(() => {
       wrapper = mount(
@@ -68,13 +54,8 @@ describe('DialogFullScreen', () => {
       instance = wrapper.instance();
     });
 
-    it('renders a parent div with mainClasses attached', () => {
-      expect(wrapper.find('div.foo.carbon-dialog-full-screen').length).toEqual(1);
-    });
-
     it('renders the dialog', () => {
       expect(instance._dialog).toBeTruthy();
-      expect(instance._dialog.className).toEqual('carbon-dialog-full-screen__dialog modal-appear');
     });
 
     it('closes when the exit icon is click', () => {
@@ -100,9 +81,9 @@ describe('DialogFullScreen', () => {
       jest.useRealTimers();
     });
 
-    it('adds a carbon-dialog-full-screen--open class to the body', () => {
+    it('sets overflow hidden to the body', () => {
       const html = wrapper.instance().document.documentElement;
-      expect(html.className).toMatch('carbon-dialog-full-screen--open');
+      expect(html.style.overflow).toMatch('hidden');
     });
   });
 
@@ -112,11 +93,10 @@ describe('DialogFullScreen', () => {
       wrapper.setProps({ open: true });
     });
 
-    it('removes a carbon-dialog-full-screen--open class to the body', () => {
+    it('removes overflow hidden from the body', () => {
       const html = wrapper.instance().document.documentElement;
-      expect(html.className).toMatch('carbon-dialog-full-screen--open');
       wrapper.setProps({ open: false });
-      expect(html.className).not.toMatch('carbon-dialog-full-screen--open');
+      expect(html.style.overflow).not.toMatch('hidden');
     });
   });
 
