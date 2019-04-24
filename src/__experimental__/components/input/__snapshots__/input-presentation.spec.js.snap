@@ -58,6 +58,8 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
 <div
   className="c0"
   onMouseDown={[Function]}
+  onMouseOut={[Function]}
+  onMouseOver={[Function]}
   role="presentation"
   size="medium"
 >
@@ -102,6 +104,8 @@ exports[`InputPresentation renders presentational div and context provider for i
 <div
   className="c0"
   onMouseDown={[Function]}
+  onMouseOut={[Function]}
+  onMouseOver={[Function]}
   role="presentation"
   size="medium"
 >

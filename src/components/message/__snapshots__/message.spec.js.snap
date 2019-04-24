@@ -217,7 +217,7 @@ exports[`Message when in classic mode when rendered should match the snapshot 8`
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border: 1px solid #E96400;
+  border: 1px solid #FFB500;
   background-color: #FFFFFF;
   border: none;
   background-color: #fff8f2;

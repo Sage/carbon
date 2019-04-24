@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { Input, InputPresentation } from '../input';
 import InputIconToggle from '../input-icon-toggle';
 import FormField from '../form-field';
+import { withValidation } from '../../../components/validations';
+import withUniqueName from '../../../utils/helpers/with-unique-name';
+import VALIDATION_TYPES from '../../../components/validations/validation-types.config';
 
 // This component is a working example of what a Textbox might look like
 // using only the new input componentry. It is still under development with
@@ -12,13 +15,18 @@ const Textbox = ({
   children,
   inputIcon,
   leftChildren,
+  formattedValue,
+  value,
   ...props
 }) => {
   return (
     <FormField { ...props }>
       <InputPresentation type='text' { ...props }>
         { leftChildren }
-        <Input { ...props } />
+        <Input
+          { ...props }
+          value={ visibleValue(value, formattedValue) }
+        />
         { children }
         { inputIcon && <InputIconToggle { ...props } type={ inputIcon } /> }
       </InputPresentation>
@@ -26,7 +34,16 @@ const Textbox = ({
   );
 };
 
+function visibleValue(value, formattedValue) {
+  return (typeof formattedValue === 'string') ? formattedValue : value;
+}
+
 Textbox.propTypes = {
+  /**
+   * An optional alternative for props.value, this is useful if the
+   * real value is an ID but you want to show a human-readable version.
+   */
+  formattedValue: PropTypes.string,
   value: PropTypes.string,
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
@@ -50,19 +67,20 @@ Textbox.propTypes = {
   inputWidth: PropTypes.number,
   /** Help content to be displayed under an input */
   fieldHelp: PropTypes.node,
-  /** An array of info messages to apply to the input */
-  info: PropTypes.array,
-  /** An array of validations to apply to the input */
-  validations: PropTypes.array,
-  /** An array of warnings to apply to the input */
-  warnings: PropTypes.array,
   /** Type of the icon that will be rendered next to the input */
   children: PropTypes.node,
   inputIcon: PropTypes.string,
-  leftChildren: PropTypes.node
+  leftChildren: PropTypes.node,
+  ...Object.values(VALIDATION_TYPES).reduce((acc, type) => ({
+    [type]: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.func
+    ])
+  }), {})
 };
 
 // we don't have any default props, but we set an empty object for better storybook source code examples
-Textbox.defaultProps = {};
+Textbox.defaultProps = {
+};
 
-export default Textbox;
+export default withUniqueName(withValidation(Textbox));

@@ -9,6 +9,9 @@ import {
 import Textbox from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
+// set the display name so the story source makes sense
+Textbox.displayName = 'Textbox';
+
 const defaultStoryPropsConfig = {
   inputWidthEnabled: true
 };
@@ -18,10 +21,6 @@ storiesOf('Experimental/Textbox', module)
   .add('Basic', () => {
     return (
       <Textbox
-        errorMessage={ text('errorMessage') }
-        infoMessage={ text('infoMessage') }
-        warningMessage={ text('warningMessage') }
-        size={ select('size', OptionsHelper.sizesRestricted) }
         placeholder={ text('placeholder') }
         { ...getCommonTextboxStoryProps() }
       />
@@ -29,20 +28,13 @@ storiesOf('Experimental/Textbox', module)
   })
   .add('Multiple', () => {
     return ([
+
       <Textbox
-        errorMessage={ text('errorMessage') }
-        infoMessage={ text('infoMessage') }
-        warningMessage={ text('warningMessage') }
-        size={ select('size', OptionsHelper.sizesRestricted) }
         placeholder={ text('placeholder') }
         key='0'
         { ...getCommonTextboxStoryProps() }
       />,
       <Textbox
-        errorMessage={ text('errorMessage') }
-        infoMessage={ text('infoMessage') }
-        warningMessage={ text('warningMessage') }
-        size={ select('size', OptionsHelper.sizesRestricted) }
         placeholder={ text('placeholder') }
         key='1'
         { ...getCommonTextboxStoryProps() }
@@ -67,6 +59,10 @@ function getCommonTextboxStoryProps(config = defaultStoryPropsConfig) {
   const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
   const inputWidth = labelInline && config.inputWidthEnabled ? number('inputWidth', 100, percentageRange) : undefined;
   const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
+  const errorMessage = text('errorMessage');
+  const infoMessage = text('infoMessage');
+  const warningMessage = text('warningMessage');
+  const size = select('size', OptionsHelper.sizesRestricted);
 
   return {
     disabled,
@@ -77,7 +73,11 @@ function getCommonTextboxStoryProps(config = defaultStoryPropsConfig) {
     labelHelp,
     labelInline,
     labelWidth,
-    labelAlign
+    labelAlign,
+    errorMessage,
+    infoMessage,
+    warningMessage,
+    size
   };
 }
 

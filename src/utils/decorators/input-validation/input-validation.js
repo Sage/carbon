@@ -6,6 +6,7 @@ import Browser from '../../helpers/browser';
 import Icon from '../../../components/icon';
 import chainFunctions from '../../helpers/chain-functions';
 import Portal from '../../../components/portal';
+import { ValidationsContext } from '../../../components/validations';
 
 const window = Browser.getWindow();
 /**
@@ -48,6 +49,9 @@ const InputValidation = (ComposedComponent) => {
       super(...args);
 
       this._window = Browser.getWindow();
+
+      // use this property to store the new context
+      this.newContextIntegration = null;
 
       // use the super components state, or create an empty object
       this.state = this.state || {};
@@ -225,20 +229,13 @@ const InputValidation = (ComposedComponent) => {
       }
     }
 
-    /**
-     * A lifecycle method for when the component is added to the page.
-     *
-     * @method componentWillMount
-     * @return {void}
-     */
-    componentWillMount() {
-      // call the components super method if it exists
-      /* istanbul ignore else */
-      if (super.componentWillMount) { super.componentWillMount(); }
-
-      if (this.context.form && (this._validations() || this.props.warnings || this.props.info)) {
-        // attach the input to the form so the form can track what it needs to validate on submit
-        this.context.form.attachToForm(this);
+    initValidationInput = (context) => {
+      if (!this.newContextIntegration && context) {
+        this.newContextIntegration = context;
+        if (this._validations() || this.props.warnings || this.props.info) {
+          // attach the input to the form so the form can track what it needs to validate on submit
+          context.addInput(this._guid, this.validateFromForm);
+        }
       }
     }
 
@@ -256,7 +253,7 @@ const InputValidation = (ComposedComponent) => {
       if (this._validations() || this.props.warnings || this.props.info) {
         this._handleContentChange();
         if (this.isAttachedToForm) {
-          this.context.form.detachFromForm(this);
+          this.newContextIntegration.removeInput(this._guid);
         }
       }
     }
@@ -374,7 +371,7 @@ const InputValidation = (ComposedComponent) => {
           // if input has a form
           if (this.isAttachedToForm) {
             // increment the error count on the form
-            this.context.form.incrementWarningCount();
+            this.newContextIntegration.adjustCount('warning', true);
           }
 
           // if input has a tab
@@ -421,6 +418,8 @@ const InputValidation = (ComposedComponent) => {
       return valid;
     }
 
+    validateFromForm = () => this.validate();
+
     /**
      * Provides a callback method for validate to support Ajax
      *
@@ -435,7 +434,7 @@ const InputValidation = (ComposedComponent) => {
           // if input has a form
           if (this.isAttachedToForm) {
             // increment the error count on the form
-            this.context.form.incrementErrorCount();
+            this.newContextIntegration.adjustCount('error', true);
           }
 
           // if input has a tab
@@ -503,11 +502,11 @@ const InputValidation = (ComposedComponent) => {
         // if there is a form, decrement the error count
         if (this.isAttachedToForm) {
           if (!this.state.valid) {
-            this.context.form.decrementErrorCount();
+            this.newContextIntegration.adjustCount('error', false);
           }
 
           if (this.state.warning) {
-            this.context.form.decrementWarningCount();
+            this.newContextIntegration.adjustCount('warning', false);
           }
         }
 
@@ -598,7 +597,7 @@ const InputValidation = (ComposedComponent) => {
      * @return {Boolean}
      */
     get isAttachedToForm() {
-      return this.context.form && this.context.form.inputs[this._guid];
+      return this.newContextIntegration;
     }
 
     /**
@@ -609,7 +608,13 @@ const InputValidation = (ComposedComponent) => {
      */
     get validationHTML() {
       let type = '';
-      if (this.state.valid && !this.state.warning && !this.state.info) { return null; }
+      const validationContext = (
+        <ValidationsContext.Consumer key='validation-context'>
+          { this.initValidationInput }
+        </ValidationsContext.Consumer>
+      );
+
+      if (this.state.valid && !this.state.warning && !this.state.info) { return validationContext; }
 
       if (!this.state.valid) {
         type = 'error';
@@ -648,6 +653,7 @@ const InputValidation = (ComposedComponent) => {
       );
 
       return [
+        validationContext,
         <Icon
           key='0'
           ref={ (validationIcon) => { this.validationIcon = validationIcon; } }

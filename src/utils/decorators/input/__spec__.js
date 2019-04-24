@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Input from './input';
-import Form from './../../../components/form';
+import { FormWithoutValidations as Form } from './../../../components/form';
 import Icon from './../../../components/icon';
 import Help from './../../../components/help';
 import { shallow } from 'enzyme';
