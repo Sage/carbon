@@ -36,10 +36,11 @@ class DialogFullScreen extends Modal {
    * Returns the computed HTML for the dialog.
    */
   get modalHTML() {
+    const { props } = this;
     return (
       <StyledDialogFullScreen
         ref={ (d) => { this._dialog = d; } }
-        { ...this.componentTags(this.props) }
+        { ...this.componentTags(props) }
       >
         { this.dialogTitle() }
 
