@@ -7,7 +7,7 @@ const StyledButtonToggleLabel = styled.label`
   height: 40px;
   padding: 0 24px;
   border: 1px solid ${({ theme }) => theme.colors.border};
-  font-size: 14px;
+  font-size: ${({ theme }) => theme.text.size};
   font-weight: 600;
   background-color: ${({ theme }) => theme.colors.white};
   
@@ -139,6 +139,12 @@ const StyledButtonToggle = styled.div`
   `};
 `;
 
+const StyledButtonToggleInput = styled.input`
+  width: 0;
+  height: 0;
+  opacity: 0;
+`;
+
 StyledButtonToggle.propTypes = {
   buttonSize: PropTypes.string
 };
@@ -150,5 +156,6 @@ StyledButtonToggleIcon.propTypes = {
 export {
   StyledButtonToggle,
   StyledButtonToggleLabel,
-  StyledButtonToggleIcon
+  StyledButtonToggleIcon,
+  StyledButtonToggleInput
 };

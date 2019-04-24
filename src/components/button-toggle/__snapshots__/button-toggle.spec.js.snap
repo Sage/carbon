@@ -1,101 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ButtonToggle Classic theme renders correctly with default settings 1`] = `
-.c1 {
-  display: inline-block;
-  height: 40px;
-  padding: 0 24px;
-  border: 1px solid #668491;
-  font-size: 14px;
-  font-weight: 600;
-  background-color: #FFFFFF;
-  height: 47px;
-}
-
-input:checked ~ .c1 {
-  color: #FFFFFF;
-  background-color: #003F2E;
-}
-
-input:focus ~ .c1 {
-  outline: 3px solid #FFDA7F;
-}
-
-.c1:hover {
-  background-color: #e5f2ee;
-  border-color: #003F2E;
-}
-
-.c1 .content-wrapper {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-}
-
-input:checked ~ .c1 {
-  color: #FFFFFF;
-  background-color: #1573e6;
-}
-
-.c1:hover {
-  border-color: #1e499f;
-  color: #FFFFFF;
-  background-color: #1e499f;
-}
-
-.c1:focus {
-  outline: 0;
-}
-
-.c0 {
-  display: inline-block;
-}
-
-.c0:not(:first-of-type) {
-  margin-left: 10px;
-}
-
-<div
-  className="c0"
-  size="large"
->
-  <input
-    id="guid-12345"
-    style={
-      Object {
-        "height": 0,
-        "opacity": 0,
-        "width": 0,
-      }
-    }
-    type="radio"
-  />
-  <label
-    className="c1"
-    htmlFor="guid-12345"
-    size="large"
-  >
-    <div
-      className="content-wrapper"
-    >
-      Button
-    </div>
-  </label>
-</div>
-`;
-
-exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
 .c2 {
   display: inline-block;
   height: 40px;
@@ -161,12 +66,113 @@ input:checked ~ .c2 {
   margin-left: 10px;
 }
 
+.c1 {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+<div
+  className="c0"
+  size="large"
+>
+  <input
+    className="c1"
+    id="guid-12345"
+    type="radio"
+  />
+  <label
+    className="c2"
+    htmlFor="guid-12345"
+    size="large"
+  >
+    <div
+      className="content-wrapper"
+    >
+      Button
+    </div>
+  </label>
+</div>
+`;
+
+exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
+.c3 {
+  display: inline-block;
+  height: 40px;
+  padding: 0 24px;
+  border: 1px solid #668491;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: #FFFFFF;
+  height: 47px;
+}
+
+input:checked ~ .c3 {
+  color: #FFFFFF;
+  background-color: #003F2E;
+}
+
+input:focus ~ .c3 {
+  outline: 3px solid #FFDA7F;
+}
+
+.c3:hover {
+  background-color: #e5f2ee;
+  border-color: #003F2E;
+}
+
+.c3 .content-wrapper {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+input:checked ~ .c3 {
+  color: #FFFFFF;
+  background-color: #1573e6;
+}
+
+.c3:hover {
+  border-color: #1e499f;
+  color: #FFFFFF;
+  background-color: #1e499f;
+}
+
+.c3:focus {
+  outline: 0;
+}
+
+.c0 {
+  display: inline-block;
+}
+
+.c0:not(:first-of-type) {
+  margin-left: 10px;
+}
+
 .c0:not(:first-of-type) {
   margin-left: 0;
 }
 
-.c0:not(:first-of-type) .c1 {
+.c0:not(:first-of-type) .c2 {
   border-left-width: 0;
+}
+
+.c1 {
+  width: 0;
+  height: 0;
+  opacity: 0;
 }
 
 <div>
@@ -342,17 +348,48 @@ input:checked ~ .c2 {
           className="c0"
           size="large"
         >
-          <input
+          <styled.input
             id="guid-12345"
-            style={
-              Object {
-                "height": 0,
-                "opacity": 0,
-                "width": 0,
-              }
-            }
             type="radio"
-          />
+          >
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "sc-bxivhb",
+                    "isStatic": true,
+                    "lastClassName": "c1",
+                    "rules": Array [
+                      "
+  width: 0;
+  height: 0;
+  opacity: 0;
+",
+                    ],
+                  },
+                  "displayName": "styled.input",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "sc-bxivhb",
+                  "target": "input",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+              id="guid-12345"
+              type="radio"
+            >
+              <input
+                className="c1"
+                id="guid-12345"
+                type="radio"
+              />
+            </StyledComponent>
+          </styled.input>
           <styled.label
             grouped={true}
             htmlFor="guid-12345"
@@ -404,9 +441,9 @@ input:checked ~ .c2 {
                   "$$typeof": Symbol(react.forward_ref),
                   "attrs": Array [],
                   "componentStyle": ComponentStyle {
-                    "componentId": "c1",
+                    "componentId": "c2",
                     "isStatic": false,
-                    "lastClassName": "c2",
+                    "lastClassName": "c3",
                     "rules": Array [
                       "
   display: inline-block;
@@ -415,7 +452,9 @@ input:checked ~ .c2 {
   border: 1px solid ",
                       [Function],
                       ";
-  font-size: 14px;
+  font-size: ",
+                      [Function],
+                      ";
   font-weight: 600;
   background-color: ",
                       [Function],
@@ -472,7 +511,7 @@ input:checked ~ .c2 {
                   "displayName": "styled.label",
                   "foldedComponentIds": Array [],
                   "render": [Function],
-                  "styledComponentId": "c1",
+                  "styledComponentId": "c2",
                   "target": "label",
                   "toString": [Function],
                   "warnTooManyClasses": [Function],
@@ -525,7 +564,7 @@ input:checked ~ .c2 {
               }
             >
               <label
-                className="c1 c2"
+                className="c2 c3"
                 htmlFor="guid-12345"
                 size="large"
               >
@@ -713,17 +752,48 @@ input:checked ~ .c2 {
           className="c0"
           size="large"
         >
-          <input
+          <styled.input
             id="guid-12345"
-            style={
-              Object {
-                "height": 0,
-                "opacity": 0,
-                "width": 0,
-              }
-            }
             type="radio"
-          />
+          >
+            <StyledComponent
+              forwardedComponent={
+                Object {
+                  "$$typeof": Symbol(react.forward_ref),
+                  "attrs": Array [],
+                  "componentStyle": ComponentStyle {
+                    "componentId": "sc-bxivhb",
+                    "isStatic": true,
+                    "lastClassName": "c1",
+                    "rules": Array [
+                      "
+  width: 0;
+  height: 0;
+  opacity: 0;
+",
+                    ],
+                  },
+                  "displayName": "styled.input",
+                  "foldedComponentIds": Array [],
+                  "render": [Function],
+                  "styledComponentId": "sc-bxivhb",
+                  "target": "input",
+                  "toString": [Function],
+                  "warnTooManyClasses": [Function],
+                  "withComponent": [Function],
+                }
+              }
+              forwardedRef={null}
+              id="guid-12345"
+              type="radio"
+            >
+              <input
+                className="c1"
+                id="guid-12345"
+                type="radio"
+              />
+            </StyledComponent>
+          </styled.input>
           <styled.label
             grouped={true}
             htmlFor="guid-12345"
@@ -775,9 +845,9 @@ input:checked ~ .c2 {
                   "$$typeof": Symbol(react.forward_ref),
                   "attrs": Array [],
                   "componentStyle": ComponentStyle {
-                    "componentId": "c1",
+                    "componentId": "c2",
                     "isStatic": false,
-                    "lastClassName": "c2",
+                    "lastClassName": "c3",
                     "rules": Array [
                       "
   display: inline-block;
@@ -786,7 +856,9 @@ input:checked ~ .c2 {
   border: 1px solid ",
                       [Function],
                       ";
-  font-size: 14px;
+  font-size: ",
+                      [Function],
+                      ";
   font-weight: 600;
   background-color: ",
                       [Function],
@@ -843,7 +915,7 @@ input:checked ~ .c2 {
                   "displayName": "styled.label",
                   "foldedComponentIds": Array [],
                   "render": [Function],
-                  "styledComponentId": "c1",
+                  "styledComponentId": "c2",
                   "target": "label",
                   "toString": [Function],
                   "warnTooManyClasses": [Function],
@@ -896,7 +968,7 @@ input:checked ~ .c2 {
               }
             >
               <label
-                className="c1 c2"
+                className="c2 c3"
                 htmlFor="guid-12345"
                 size="large"
               >
@@ -916,7 +988,7 @@ input:checked ~ .c2 {
 `;
 
 exports[`ButtonToggle Modern themes renders correctly with small theme 1`] = `
-.c1 {
+.c2 {
   display: inline-block;
   height: 40px;
   padding: 0 24px;
@@ -926,21 +998,21 @@ exports[`ButtonToggle Modern themes renders correctly with small theme 1`] = `
   background-color: #FFFFFF;
 }
 
-input:checked ~ .c1 {
+input:checked ~ .c2 {
   color: #FFFFFF;
   background-color: #003F2E;
 }
 
-input:focus ~ .c1 {
+input:focus ~ .c2 {
   outline: 3px solid #FFDA7F;
 }
 
-.c1:hover {
+.c2:hover {
   background-color: #e5f2ee;
   border-color: #003F2E;
 }
 
-.c1 .content-wrapper {
+.c2 .content-wrapper {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -965,23 +1037,23 @@ input:focus ~ .c1 {
   margin-left: 10px;
 }
 
+.c1 {
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
 <div
   className="c0"
   size="large"
 >
   <input
+    className="c1"
     id="guid-12345"
-    style={
-      Object {
-        "height": 0,
-        "opacity": 0,
-        "width": 0,
-      }
-    }
     type="radio"
   />
   <label
-    className="c1"
+    className="c2"
     htmlFor="guid-12345"
     size="large"
   >

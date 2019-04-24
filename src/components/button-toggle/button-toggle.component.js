@@ -1,7 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon';
-import { StyledButtonToggle, StyledButtonToggleLabel, StyledButtonToggleIcon } from './button-toggle.style';
+import {
+  StyledButtonToggle,
+  StyledButtonToggleLabel,
+  StyledButtonToggleInput,
+  StyledButtonToggleIcon
+} from './button-toggle.style';
 import guid from '../../utils/helpers/guid';
 
 const ButtonToggle = (props) => {
@@ -19,16 +24,11 @@ const ButtonToggle = (props) => {
 
   function hiddenInput() {
     return (
-      <input
+      <StyledButtonToggleInput
         type='radio'
         name={ props.name }
         id={ inputGuid }
         disabled={ props.disabled }
-        style={ { // ToDo: Move to styled-component?
-          width: 0,
-          height: 0,
-          opacity: 0
-        } }
       />
     );
   }
