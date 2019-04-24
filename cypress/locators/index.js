@@ -14,6 +14,7 @@ export const subtitleInput = () => cy.get(FORM).find(SUBTILE_INPUT);
 export const knobsTab = () => cy.get(FORM).find('button').contains('Knobs');
 export const labelInput = () => cy.get(LABEL_INPUT);
 export const childrenTextArea = () => cy.get(CHILDREN_TEXTAREA);
+export const disabledCheckbox = () => cy.get(FORM).contains('disabled').find('input');
 export const sizeSelect = () => cy.get(FORM).contains('size').find('select');
 export const subtextInput = () => cy.get(FORM).contains('subtext').find('textarea');
 export const asSelect = () => cy.get(FORM).contains('as').find('select');

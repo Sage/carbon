@@ -1,11 +1,11 @@
 import { visitComponentUrl, setSlidebar, clickOntoESCKey } from '../helper';
 import {
-  asSelect, sizeSelect, subtextInput, titleInput,
+  asSelect, sizeSelect, subtextInput, titleInput, disabledCheckbox,
   heightInput, childrenTextArea, labelInput, commonButtonPreview,
   labelPreview, helpIcon, labelHelpInput, inputWidthSlider, fieldHelpInput,
   fieldHelpPreview, labelWidthSlider, labelInlineCheckbox, labelAlignSelect, alignSelect,
   disableEscKeyCheckbox, backgroundUILocator, showCloseIconCheckbox, closeIconButton,
-  subtitleInput, enableBackgroundUICheckbox,
+  subtitleInput, enableBackgroundUICheckbox, labelHelpPreview,
 } from '../../locators';
 
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
@@ -77,6 +77,10 @@ When('I set label help to {string}', (labelHelp) => {
 
 When('I hover mouse on help icon', () => {
   helpIcon().trigger('mouseover');
+});
+
+Then('Label help on preview is set to {string}', (text) => {
+  labelHelpPreview().should('have.text', text);
 });
 
 When('I set input width slider to {int}', (width) => {
@@ -174,4 +178,12 @@ When('I uncheck disableEscKey', () => {
 
 When('I hit ESC key', () => {
   clickOntoESCKey();
+});
+
+When('I disable {word} component', () => {
+  disabledCheckbox().check();
+});
+
+When('I enable {word} component', () => {
+  disabledCheckbox().uncheck();
 });

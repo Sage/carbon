@@ -36,13 +36,13 @@ Feature: Button Toggle component
 
   @positive
   Scenario: Disable Button
-    When I disable Button
+    When I disable Button component
     Then Button Toggle is disabled
 
   @positive
   Scenario: Disable and enable Button
-    When I disable Button
-      And I enable Button
+    When I disable Button component
+      And I enable Button component
     Then Button Toggle is enabled
 
   @positive
@@ -52,6 +52,6 @@ Feature: Button Toggle component
 
   @positive
   Scenario: Enable and disable Button Toggle grouped property
-    When I disable Button
-      And I enable Button
+    When I disable Button component
+      And I enable Button component
     Then Button Toggle is not grouped
