@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from '../icon/icon';
 import Modal from '../modal/modal';
-import SidebarStyle from './sidebar.style';
+import { SidebarStyle, SidebarCloseStyle } from './sidebar.style';
 import './sidebar.scss';
 
 class Sidebar extends Modal {
@@ -19,14 +19,14 @@ class Sidebar extends Modal {
   get closeButton() {
     if (this.props.onCancel) {
       return (
-        <span className='carbon-sidebar__close'>
+        <SidebarCloseStyle>
           <Icon
             className='carbon-sidebar__close-icon'
             data-element='close'
             onClick={ this.props.onCancel }
             type='close'
           />
-        </span>
+        </SidebarCloseStyle>
       );
     }
     return null;

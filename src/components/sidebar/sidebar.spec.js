@@ -3,7 +3,7 @@ import 'jest-styled-components';
 import { shallow, mount } from 'enzyme';
 import Sidebar from './sidebar.component';
 import Textbox from '../textbox/textbox';
-import SidebarStyle from './sidebar.style';
+import { SidebarStyle } from './sidebar.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
 describe('Sidebar', () => {

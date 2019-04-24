@@ -35,18 +35,18 @@ const SidebarStyle = styled.div`
             border-right: 1px solid #ccd6db;
             left: 0;
     `};
+`;
 
-    .carbon-sidebar__close {
-        cursor: pointer;
-        position: absolute;
-        right: 20px;
-        top: 15px;
-        z-index: 1;
+const SidebarCloseStyle = styled.div`
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 15px;
+    z-index: 1;
 
-        &:hover {
-            color: #255BC7;
-        };
+    &:hover {
+        color: #255BC7;
     };
 `;
 
-export default SidebarStyle;
+export { SidebarStyle, SidebarCloseStyle };
