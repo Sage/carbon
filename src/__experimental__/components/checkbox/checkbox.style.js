@@ -6,7 +6,6 @@ import HiddenCheckboxStyle from './hidden-checkbox.style';
 import LabelStyle from '../label/label.style';
 import StyledHelp from '../help/help.style';
 import checkBoxClassicStyle from './checkbox-classic.style';
-import { THEMES } from '../../../style/themes';
 
 const StyledCheckbox = styled.div`
   ${({
@@ -69,7 +68,7 @@ const StyledCheckbox = styled.div`
       padding-left: 6px;
     }
 
-    ${() => theme.name !== THEMES.classic && size === 'large' && css`
+    ${() => size === 'large' && css`
       .carbon-checkbox__input,
       ${HiddenCheckboxStyle},
       ${HiddenCheckboxStyle} + svg {

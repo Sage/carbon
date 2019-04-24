@@ -427,6 +427,11 @@ exports[`Checkbox Classic theme Large theme renders as expected 1`] = `
   outline: solid 3px #FFDA7F;
 }
 
+.c17 .c3,
+.c17 svg {
+  padding: 1px;
+}
+
 .c17 .carbon-checkbox__input,
 .c17 .c3,
 .c17 .c3 + svg {
@@ -466,6 +471,11 @@ exports[`Checkbox Classic theme Large theme renders as expected 1`] = `
 
 .c18 label:hover + .carbon-checkbox__input .c3:not([disabled]) + svg {
   outline: solid 3px #FFDA7F;
+}
+
+.c18 .c3,
+.c18 svg {
+  padding: 1px;
 }
 
 .c18 .carbon-checkbox__input,
@@ -519,6 +529,11 @@ exports[`Checkbox Classic theme Large theme renders as expected 1`] = `
   cursor: not-allowed;
 }
 
+.c19 .c3,
+.c19 svg {
+  padding: 1px;
+}
+
 .c19 .carbon-checkbox__input,
 .c19 .c3,
 .c19 .c3 + svg {
@@ -570,6 +585,11 @@ exports[`Checkbox Classic theme Large theme renders as expected 1`] = `
   cursor: not-allowed;
 }
 
+.c20 .c3,
+.c20 svg {
+  padding: 1px;
+}
+
 .c20 .carbon-checkbox__input,
 .c20 .c3,
 .c20 .c3 + svg {
@@ -609,6 +629,11 @@ exports[`Checkbox Classic theme Large theme renders as expected 1`] = `
 
 .c21 label:hover + .carbon-checkbox__input .c3:not([disabled]) + svg {
   outline: solid 3px #FFDA7F;
+}
+
+.c21 .c3,
+.c21 svg {
+  padding: 1px;
 }
 
 .c21 .carbon-checkbox__input,
@@ -1088,6 +1113,11 @@ exports[`Checkbox Classic theme Medium theme renders as expected 1`] = `
   outline: solid 3px #FFDA7F;
 }
 
+.c17 .c3,
+.c17 svg {
+  padding: 1px;
+}
+
 .c17 .carbon-checkbox__input,
 .c17 .c3,
 .c17 .c3 + svg {
@@ -1127,6 +1157,11 @@ exports[`Checkbox Classic theme Medium theme renders as expected 1`] = `
 
 .c18 label:hover + .carbon-checkbox__input .c3:not([disabled]) + svg {
   outline: solid 3px #FFDA7F;
+}
+
+.c18 .c3,
+.c18 svg {
+  padding: 1px;
 }
 
 .c18 .carbon-checkbox__input,
@@ -1180,6 +1215,11 @@ exports[`Checkbox Classic theme Medium theme renders as expected 1`] = `
   cursor: not-allowed;
 }
 
+.c19 .c3,
+.c19 svg {
+  padding: 1px;
+}
+
 .c19 .carbon-checkbox__input,
 .c19 .c3,
 .c19 .c3 + svg {
@@ -1231,6 +1271,11 @@ exports[`Checkbox Classic theme Medium theme renders as expected 1`] = `
   cursor: not-allowed;
 }
 
+.c20 .c3,
+.c20 svg {
+  padding: 1px;
+}
+
 .c20 .carbon-checkbox__input,
 .c20 .c3,
 .c20 .c3 + svg {
@@ -1270,6 +1315,11 @@ exports[`Checkbox Classic theme Medium theme renders as expected 1`] = `
 
 .c21 label:hover + .carbon-checkbox__input .c3:not([disabled]) + svg {
   outline: solid 3px #FFDA7F;
+}
+
+.c21 .c3,
+.c21 svg {
+  padding: 1px;
 }
 
 .c21 .carbon-checkbox__input,
@@ -1749,6 +1799,11 @@ exports[`Checkbox Classic theme Small theme renders as expected 1`] = `
   outline: solid 3px #FFDA7F;
 }
 
+.c17 .c3,
+.c17 svg {
+  padding: 1px;
+}
+
 .c17 .carbon-checkbox__input,
 .c17 .c3,
 .c17 .c3 + svg {
@@ -1788,6 +1843,11 @@ exports[`Checkbox Classic theme Small theme renders as expected 1`] = `
 
 .c18 label:hover + .carbon-checkbox__input .c3:not([disabled]) + svg {
   outline: solid 3px #FFDA7F;
+}
+
+.c18 .c3,
+.c18 svg {
+  padding: 1px;
 }
 
 .c18 .carbon-checkbox__input,
@@ -1841,6 +1901,11 @@ exports[`Checkbox Classic theme Small theme renders as expected 1`] = `
   cursor: not-allowed;
 }
 
+.c19 .c3,
+.c19 svg {
+  padding: 1px;
+}
+
 .c19 .carbon-checkbox__input,
 .c19 .c3,
 .c19 .c3 + svg {
@@ -1892,6 +1957,11 @@ exports[`Checkbox Classic theme Small theme renders as expected 1`] = `
   cursor: not-allowed;
 }
 
+.c20 .c3,
+.c20 svg {
+  padding: 1px;
+}
+
 .c20 .carbon-checkbox__input,
 .c20 .c3,
 .c20 .c3 + svg {
@@ -1931,6 +2001,11 @@ exports[`Checkbox Classic theme Small theme renders as expected 1`] = `
 
 .c21 label:hover + .carbon-checkbox__input .c3:not([disabled]) + svg {
   outline: solid 3px #FFDA7F;
+}
+
+.c21 .c3,
+.c21 svg {
+  padding: 1px;
 }
 
 .c21 .carbon-checkbox__input,
@@ -2410,11 +2485,34 @@ exports[`Checkbox Classic theme renders as expected 1`] = `
   width: %;
 }
 
+.c0 .carbon-checkbox__input {
+  padding: 1px 0 0 0;
+}
+
+.c0 .c3,
+.c0 svg {
+  padding: 1px;
+}
+
 .c0 .carbon-checkbox__input,
 .c0 .c3,
 .c0 .c3 + svg {
   height: 15px;
   width: 15px;
+}
+
+.c0 .c20 {
+  margin-left: 15px;
+}
+
+.c0 .c20,
+.c0 .c19 {
+  padding-left: 6px;
+}
+
+.c0 .c19 {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .c0 .c3:not([disabled]):focus + svg,
@@ -2840,6 +2938,11 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   outline: solid 3px #FFDA7F;
 }
 
+.c18 .c3,
+.c18 svg {
+  padding: 1px;
+}
+
 .c18 .carbon-checkbox__input,
 .c18 .c3,
 .c18 .c3 + svg {
@@ -2932,11 +3035,34 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   width: %;
 }
 
+.c0 .carbon-checkbox__input {
+  padding: 1px 0 0 0;
+}
+
+.c0 .c3,
+.c0 svg {
+  padding: 1px;
+}
+
 .c0 .carbon-checkbox__input,
 .c0 .c3,
 .c0 .c3 + svg {
   height: 15px;
   width: 15px;
+}
+
+.c0 .c21 {
+  margin-left: 15px;
+}
+
+.c0 .c21,
+.c0 .c20 {
+  padding-left: 6px;
+}
+
+.c0 .c20 {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .c0 .c3:not([disabled]):focus + svg,
@@ -3367,6 +3493,11 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   outline: solid 3px #FFDA7F;
 }
 
+.c18 .c3,
+.c18 svg {
+  padding: 1px;
+}
+
 .c18 .carbon-checkbox__input,
 .c18 .c3,
 .c18 .c3 + svg {
@@ -3406,6 +3537,11 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
 
 .c19 label:hover + .carbon-checkbox__input .c3:not([disabled]) + svg {
   outline: solid 3px #FFDA7F;
+}
+
+.c19 .c3,
+.c19 svg {
+  padding: 1px;
 }
 
 .c19 .carbon-checkbox__input,
@@ -3524,11 +3660,34 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   width: %;
 }
 
+.c0 .carbon-checkbox__input {
+  padding: 1px 0 0 0;
+}
+
+.c0 .c3,
+.c0 svg {
+  padding: 1px;
+}
+
 .c0 .carbon-checkbox__input,
 .c0 .c3,
 .c0 .c3 + svg {
   height: 15px;
   width: 15px;
+}
+
+.c0 .c22 {
+  margin-left: 15px;
+}
+
+.c0 .c22,
+.c0 .c21 {
+  padding-left: 6px;
+}
+
+.c0 .c21 {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .c0 .c3:not([disabled]):focus + svg,
@@ -3975,6 +4134,11 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
   outline: solid 3px #FFDA7F;
 }
 
+.c18 .c3,
+.c18 svg {
+  padding: 1px;
+}
+
 .c18 .carbon-checkbox__input,
 .c18 .c3,
 .c18 .c3 + svg {
@@ -4014,6 +4178,11 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
 
 .c19 label:hover + .carbon-checkbox__input .c3:not([disabled]) + svg {
   outline: solid 3px #FFDA7F;
+}
+
+.c19 .c3,
+.c19 svg {
+  padding: 1px;
 }
 
 .c19 .carbon-checkbox__input,
@@ -4065,6 +4234,11 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
 .c20 .c22:focus {
   outline: none;
   cursor: not-allowed;
+}
+
+.c20 .c3,
+.c20 svg {
+  padding: 1px;
 }
 
 .c20 .carbon-checkbox__input,
@@ -4179,11 +4353,34 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
   width: %;
 }
 
+.c0 .carbon-checkbox__input {
+  padding: 1px 0 0 0;
+}
+
+.c0 .c3,
+.c0 svg {
+  padding: 1px;
+}
+
 .c0 .carbon-checkbox__input,
 .c0 .c3,
 .c0 .c3 + svg {
   height: 15px;
   width: 15px;
+}
+
+.c0 .c23 {
+  margin-left: 15px;
+}
+
+.c0 .c23,
+.c0 .c22 {
+  padding-left: 6px;
+}
+
+.c0 .c22 {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .c0 .c3:not([disabled]):focus + svg,
@@ -4625,6 +4822,11 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
   outline: solid 3px #FFDA7F;
 }
 
+.c18 .c3,
+.c18 svg {
+  padding: 1px;
+}
+
 .c18 .carbon-checkbox__input,
 .c18 .c3,
 .c18 .c3 + svg {
@@ -4664,6 +4866,11 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
 
 .c19 label:hover + .carbon-checkbox__input .c3:not([disabled]) + svg {
   outline: solid 3px #FFDA7F;
+}
+
+.c19 .c3,
+.c19 svg {
+  padding: 1px;
 }
 
 .c19 .carbon-checkbox__input,
@@ -4717,6 +4924,11 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
   cursor: not-allowed;
 }
 
+.c20 .c3,
+.c20 svg {
+  padding: 1px;
+}
+
 .c20 .carbon-checkbox__input,
 .c20 .c3,
 .c20 .c3 + svg {
@@ -4766,6 +4978,11 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
 .c21 .c23:focus {
   outline: none;
   cursor: not-allowed;
+}
+
+.c21 .c3,
+.c21 svg {
+  padding: 1px;
 }
 
 .c21 .carbon-checkbox__input,
@@ -4870,11 +5087,35 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
   padding-left: 6px;
 }
 
+.c0 .carbon-checkbox__input {
+  padding: 1px 0 0 0;
+}
+
+.c0 .c3,
+.c0 svg {
+  padding: 1px;
+}
+
 .c0 .carbon-checkbox__input,
 .c0 .c3,
 .c0 .c3 + svg {
   height: 15px;
   width: 15px;
+}
+
+.c0 .c24 {
+  margin-left: 15px;
+}
+
+.c0 .c24,
+.c0 .c23 {
+  padding-left: 6px;
+}
+
+.c0 .c24,
+.c0 .c23 {
+  padding-top: 0px;
+  padding-bottom: 0px;
 }
 
 .c0 .c3:not([disabled]):focus + svg,
