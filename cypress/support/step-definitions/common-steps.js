@@ -1,12 +1,14 @@
-import { visitComponentUrl, setSlidebar } from '../helper';
+import { visitComponentUrl, setSlidebar, clickOntoESCKey } from '../helper';
 import {
   asSelect, sizeSelect, subtextInput, titleInput,
   heightInput, childrenTextArea, labelInput, commonButtonPreview,
   labelPreview, helpIcon, labelHelpInput, inputWidthSlider, fieldHelpInput,
   fieldHelpPreview, labelWidthSlider, labelInlineCheckbox, labelAlignSelect, alignSelect,
+  disableEscKeyCheckbox, backgroundUILocator, showCloseIconCheckbox, closeIconButton,
+  subtitleInput, enableBackgroundUICheckbox,
 } from '../../locators';
 
-import { dialogTitle, dialogSubtitle } from '../../locators/alert-dialog';
+import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { themeSelect } from '../../locators/button';
 
 Given('I open {string} component page', (component) => {
@@ -112,4 +114,64 @@ Then('direction on preview is {string}', (direction) => {
 
 When('I set align property to {string}', (asProperty) => {
   alignSelect().select(asProperty);
+});
+
+Then('Background UI is enabled', () => {
+  backgroundUILocator().should('not.exist');
+});
+
+Then('Background UI is disabled', () => {
+  backgroundUILocator().should('exist');
+});
+
+When('I check disableEscKey', () => {
+  disableEscKeyCheckbox().check();
+});
+
+When('I uncheck disableEscKey', () => {
+  disableEscKeyCheckbox().uncheck({ force: true });
+});
+
+When('I enable showCloseIcon', () => {
+  showCloseIconCheckbox().check({ force: true });
+});
+
+When('I disable showCloseIcon', () => {
+  showCloseIconCheckbox().uncheck({ force: true });
+});
+
+Then('CloseIcon is visible', () => {
+  closeIconButton().should('be.visible');
+});
+
+Then('I click CloseIcon', () => {
+  closeIconButton().click();
+});
+
+Then('CloseIcon is not visible', () => {
+  closeIconButton().should('not.exist');
+});
+
+When('I set subtitle to {string}', (subtitle) => {
+  subtitleInput().clear().type(subtitle);
+});
+
+When('I check enableBackgroundUI', () => {
+  enableBackgroundUICheckbox().check();
+});
+
+When('I uncheck enableBackgroundUI', () => {
+  enableBackgroundUICheckbox().uncheck({ force: true });
+});
+
+When('I check disableEscKey', () => {
+  disableEscKeyCheckbox().check();
+});
+
+When('I uncheck disableEscKey', () => {
+  disableEscKeyCheckbox().uncheck({ force: true });
+});
+
+When('I hit ESC key', () => {
+  clickOntoESCKey();
 });

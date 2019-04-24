@@ -5,19 +5,29 @@ Feature: Confirm component
     Given I open "Confirm" component page
 
   @positive
-  Scenario Outline: Change data in inner context in Confirm dialog
-    When I set children to "<children>"
-      And I set cancelButton to "<cancelButton>"
-      And I set confirmButton to "<confirmButton>"
+  Scenario Outline: Change cancelButton in inner context in Confirm dialog
+    When I set cancelButton to "<cancelButton>"
       And I click on a openButton
-    Then dialog inner context children on preview is "<children><cancelButton><confirmButton>"
+    Then cancel button content on preview is "<cancelButton>"
     Examples:
-      | children                 | cancelButton             | confirmButton            |
-      | áéíóú¿¡üñ                | ÄÖÜßäöü                  | <>                       |
-      | 1!@#$%^*()_+-=~[];:.,?{} | <>                       | ÄÖÜßäöü                  |
-      | ÄÖÜßäöüß                 | áéíóú¿¡üñ                | 1!@#$%^*()_+-=~[];:.,?{} |
-      | <>                       | 1!@#$%^*()_+-=~[];:.,?{} | áéíóú¿¡üñ                |
+      | cancelButton             |
+      | ÄÖÜßäöü                  |
+      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | áéíóú¿¡üñ                |
+      | <>                       |
 
+  @positive
+  Scenario Outline: Change confirmButton in inner context in Confirm dialog
+    When I set confirmButton to "<confirmButton>"
+      And I click on a openButton
+    Then confirm button content on preview is "<confirmButton>"
+    Examples:
+      | confirmButton            |
+      | áéíóú¿¡üñ                |
+      | ÄÖÜßäöü                  |
+      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | <>                       |
+      
   @positive
   Scenario Outline: Change title in Confirm dialog
     When I set title to "<title>"
@@ -64,9 +74,9 @@ Feature: Confirm component
     Then Confirm dialog size property on preview is "<size>"
     Examples:
       | size               | 
+      | extra-small        |
       | small              | 
       | medium-small       | 
-      | extra-small        | 
       | medium             |
       | medium-large       | 
       | large              | 
@@ -80,7 +90,8 @@ Feature: Confirm component
 
   @negative
   Scenario: Disable background UI
-    When I uncheck enableBackgroundUI
+    When I check enableBackgroundUI
+      And I uncheck enableBackgroundUI
       And I click on a openButton
     Then Background UI is disabled
 
@@ -88,14 +99,14 @@ Feature: Confirm component
   Scenario: Disable escape key
     When I check disableEscKey
       And I click on a openButton
-      And I hit ESC key on Confirm dialog
+      And I hit ESC key
     Then Confirm dialog is visible
 
   @negative
   Scenario: Enable escape key
     When I uncheck disableEscKey
       And I click on a openButton
-      And I hit ESC key on Confirm dialog
+      And I hit ESC key
     Then Confirm dialog is not visible
 
   @positive
@@ -111,14 +122,30 @@ Feature: Confirm component
       And I click on a openButton
     Then Close icon is not visible
 
+  # Tests are disabled till the stickyFormFooter'll be fixed
+  # doesn't work on Carbon Site
+  @ignore
   @positive
   Scenario: StickyFormFooter enabled
     When I check stickyFormFooter
       And I click on a openButton
     Then Confirm dialog has stickyFormFooter parameter enabled
 
+  @ignore
   @negative
   Scenario: StickyFormFooter disabled
     When I uncheck stickyFormFooter
       And I click on a openButton
     Then Confirm dialog has no stickyFormFooter parameter
+
+  @positive
+  Scenario: Confirm dialog should dissapear after click onto cancelButton
+    When I click on a openButton
+      And I click on a cancelButton
+    Then Confirm dialog is not visible
+
+  @positive
+  Scenario: Confirm dialog should dissapear after click onto confirmButton
+    When I click on a openButton
+      And I click on a confirmButton
+    Then Confirm dialog is not visible

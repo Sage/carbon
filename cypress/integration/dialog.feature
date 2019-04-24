@@ -34,9 +34,9 @@ Feature: Dialog component
     Then component title on preview is "<title>"
     Examples:
       | title                    |
-      | Title Label Test         |
+      | ÄÖÜßäöü                  |
       | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | áéíóú¿¡üñ                |
       | <>                       |
 
   @positive
@@ -46,9 +46,9 @@ Feature: Dialog component
     Then component subtitle on preview is "<subtitle>"
     Examples:
       | subtitle                 |
-      | Example subtext          |
+      | ÄÖÜßäöü                  |
       | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | áéíóú¿¡üñ                |
       | <>                       |
 
   @positive
@@ -93,13 +93,14 @@ Feature: Dialog component
   Scenario: Enable background UI
     When I check enableBackgroundUI
       And I open component preview
-    Then Background UI is enabled
+    Then background UI is enabled
 
   @positive
   Scenario: Disable background UI
-    When I uncheck enableBackgroundUI
+    When I check enableBackgroundUI
+      And I uncheck enableBackgroundUI
       And I open component preview
-    Then Background UI is disabled
+    Then background UI is disabled
 
   @positive
   Scenario: Disable escape key

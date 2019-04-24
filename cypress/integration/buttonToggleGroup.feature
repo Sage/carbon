@@ -10,9 +10,9 @@ Feature: Button Toggle Group component
     Then label on preview is "<label>"
     Examples:
       | label                    |
-      | Example Test             |
+      | ÄÖÜßäöü                  |
       | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | áéíóú¿¡üñ                |
       | <>                       |
 
   @positive
@@ -22,9 +22,9 @@ Feature: Button Toggle Group component
     Then Label help on preview is set to "<labelHelp>"
     Examples:
       | labelHelp                |
-      | Example Test             |
+      | ÄÖÜßäöü                  |
       | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | áéíóú¿¡üñ                |
       | <>                       |
 
   @positive
@@ -53,9 +53,9 @@ Feature: Button Toggle Group component
     Then Field help on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                |
-      | Example Test             |
+      | ÄÖÜßäöü                  |
       | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | áéíóú¿¡üñ                |
       | <>                       |
 
   @positive

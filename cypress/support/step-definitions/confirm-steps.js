@@ -1,15 +1,16 @@
-import { visitComponentUrl } from '../helper';
+import { visitComponentUrl, checkTheSizeOfTheElement } from '../helper';
 import {
   asSelect, sizeSelect, subtextInput, titleInput, heightInput, labelInput,
+  disableEscKeyCheckbox, backgroundUILocator,
 } from '../../locators';
 import {
-  openButton, dialogInnerContent, dialogTitle, cancelLabel, confirmLabel, backgroundUICheckbox,
-  backGroundUILocator, disableEscKeyCheckbox, dialogPreview, showCloseIconCheckbox,
-  closeIconButton, dialogSubtitle, stickyFormFooterCheckbox, childrenTextArea,
+  openButton, dialogTitle, cancelLabel, confirmLabel,
+  dialogPreview, showCloseIconCheckbox, closeIconButton,
+  dialogSubtitle, stickyFormFooterCheckbox,
+  childrenTextArea, confirmButton, cancelButton,
 } from '../../locators/confirm';
 
-const CARBON_DIALOG_PREFIX = 'carbon-dialog__dialog--';
-const STICKY_FORM_FOOTER_PARAMETER = 'carbon-dialog__dialog--sticky-form-footer';
+const STICKY_FORM_FOOTER_PARAMETER = 'TODO';
 
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
@@ -47,8 +48,20 @@ When('I click on a openButton', () => {
   openButton().click();
 });
 
-Then('dialog inner context children on preview is {string}', (children, cancelButton, confirmButton) => {
-  dialogInnerContent().should('have.text', children, cancelButton, confirmButton);
+When('I click on a cancelButton', () => {
+  cancelButton().click();
+});
+
+When('I click on a confirmButton', () => {
+  confirmButton().click();
+});
+
+Then('confirm button content on preview is {string}', (confirmButtonText) => {
+  confirmButton().should('have.text', confirmButtonText);
+});
+
+Then('cancel button content on preview is {string}', (cancelButtonText) => {
+  cancelButton().should('have.text', cancelButtonText);
 });
 
 Then('dialog title context children on preview is {string}', (title) => {
@@ -63,20 +76,12 @@ When('I set confirmButton to {string}', (text) => {
   confirmLabel().clear().type(text);
 });
 
-When('I check enableBackgroundUI', () => {
-  backgroundUICheckbox().check();
-});
-
-When('I uncheck enableBackgroundUI', () => {
-  backgroundUICheckbox().uncheck({ force: true });
-});
-
 Then('Background UI is enabled', () => {
-  backGroundUILocator().should('not.exist');
+  backgroundUILocator().should('not.exist');
 });
 
 Then('Background UI is disabled', () => {
-  backGroundUILocator().should('exist');
+  backgroundUILocator().should('exist');
 });
 
 When('I check disableEscKey', () => {
@@ -85,10 +90,6 @@ When('I check disableEscKey', () => {
 
 When('I uncheck disableEscKey', () => {
   disableEscKeyCheckbox().uncheck({ force: true });
-});
-
-When('I hit ESC key on Confirm dialog', () => {
-  dialogPreview().trigger('keydown', { keyCode: 27, which: 27 });
 });
 
 Then('Confirm dialog is visible', () => {
@@ -124,7 +125,7 @@ Then('Confirm dialog input height is {string}', (height) => {
 });
 
 Then('Confirm dialog size property on preview is {string}', (size) => {
-  dialogPreview().should('have.class', CARBON_DIALOG_PREFIX + size);
+  checkTheSizeOfTheElement(dialogPreview(), size);
 });
 
 When('I check stickyFormFooter', () => {

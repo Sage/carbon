@@ -10,9 +10,9 @@ Feature: Button Toggle component
     Then Button Toggle label on preview is "<label>"
     Examples:
       | label                    |
-      | Example Label Test       |
+      | ÄÖÜßäöü                  |
       | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | áéíóú¿¡üñ                |
       | <>                       |
 
   @positive

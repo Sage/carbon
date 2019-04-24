@@ -10,9 +10,9 @@ Feature: Button component
     Then Button label on preview is "<label>"
     Examples:
       | label                    |
-      | Example Label Test       |
+      | ÄÖÜßäöü                  |
       | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | áéíóú¿¡üñ                |
       | <>                       |
 
   @positive
@@ -22,9 +22,9 @@ Feature: Button component
     Then Button subtext on preview is "<subtext>"
     Examples:
       | subtext                  |
-      | Example subtext          |
+      | ÄÖÜßäöü                  |
       | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | áéíóú¿¡üñ                |
       | <>                       |
 
   @negative

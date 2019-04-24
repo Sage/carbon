@@ -11,10 +11,10 @@ Feature: Alert component
     Then component title on preview is "<title>"
     Examples:
       | title                    |
-      | Title Label Test         |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
       | <>                       |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | áéíóú¿¡üñ                |
+      | ÄÖÜßäöü                  |
 
   @positive
   Scenario Outline: Change Alert subtitle
@@ -23,10 +23,10 @@ Feature: Alert component
     Then component subtitle on preview is "<subtitle>"
     Examples:
       | subtitle                 |
-      | Example subtext          |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
       | <>                       |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | áéíóú¿¡üñ                |
+      | ÄÖÜßäöü                  |
 
   @positive
   Scenario Outline: Change Alert children
@@ -35,10 +35,10 @@ Feature: Alert component
     Then Alert children on preview is "<children>"
     Examples:
       | children                 |
-      | Example subtext          |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
       | <>                       |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | áéíóú¿¡üñ                |
+      | ÄÖÜßäöü                  |
 
   @positive
   Scenario: Enable background UI
@@ -48,7 +48,8 @@ Feature: Alert component
 
   @negative
   Scenario: Disable background UI
-    When I uncheck enableBackgroundUI
+    When I check enableBackgroundUI
+      And I uncheck enableBackgroundUI
       And I open component preview
     Then Background UI is disabled
 
@@ -57,20 +58,20 @@ Feature: Alert component
     When I check disableEscKey
       And I open component preview
       And I hit ESC key
-    Then dialog is visible
+    Then alert is visible
 
   @negative
   Scenario: Enable escape key
     When I uncheck disableEscKey
       And I open component preview
       And I hit ESC key
-    Then dialog is not visible
+    Then alert is not visible
 
   @positive
   Scenario Outline: Set height for Alert dialog
     When I set height to "<height>"
       And I open component preview
-    Then Dialog height is set to "<height>"
+    Then alert height is set to "<height>"
     Examples:
       | height |
       | 0      |
@@ -82,7 +83,7 @@ Feature: Alert component
   Scenario Outline: Set out of scope characters to height for Alert dialog
     When I set height to "<height>"
       And I open component preview
-    Then Dialog height is not set to "<height>"
+    Then alert height is set to "<height>"
     Examples:
       | height                   |
       | -1                       |
@@ -95,7 +96,7 @@ Feature: Alert component
       And I open component preview
     Then CloseIcon is visible
       And I click CloseIcon
-      And dialog is not visible
+      And alert is not visible
 
   @negative
   Scenario: ShowCloseIcon is disabled
@@ -107,7 +108,7 @@ Feature: Alert component
   Scenario Outline: Set Alert size to small, medium and large
     When I set component size to "<size>"
       And I open component preview
-    Then Dialog size property on preview is "<size>"
+    Then alert size property on preview is "<size>"
     Examples:
       | size         |
       | extra-small  |
