@@ -68,7 +68,7 @@ export default ({
       border: 1px solid ${theme.disabled.border};
     }
 
-    svg .checkbox-check { fill: ${() => (checked ? theme.disabled.border : theme.disabled.disabled)}; }
+    svg path { fill: ${() => (checked ? theme.disabled.border : theme.disabled.disabled)}; }
   `}
 
   ${() => fieldHelpInline && reverse && css`

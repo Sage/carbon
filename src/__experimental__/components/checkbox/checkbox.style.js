@@ -111,7 +111,7 @@ const StyledCheckbox = styled.div`
         border: 1px solid ${theme.disabled.border};
       }
 
-      svg .checkbox-check { fill: ${() => (checked ? theme.disabled.border : theme.disabled.input)}; }
+      svg path { fill: ${() => (checked ? theme.disabled.border : theme.disabled.input)}; }
 
       ${HiddenCheckboxStyle},
       svg,

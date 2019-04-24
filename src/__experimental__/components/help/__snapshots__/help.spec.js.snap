@@ -18,7 +18,7 @@ exports[`Help correctly renders different icon types 1`] = `
 }
 
 <a
-  className="carbon-help c0"
+  className="c0"
   data-component="help"
   rel="noopener noreferrer"
   target="_blank"
@@ -49,7 +49,7 @@ exports[`Help renders as expected 1`] = `
 }
 
 <a
-  className="carbon-help c0"
+  className="c0"
   data-component="help"
   rel="noopener noreferrer"
   target="_blank"
@@ -80,7 +80,7 @@ exports[`Help sets appropriate className when passed an href 1`] = `
 }
 
 <a
-  className="carbon-help carbon-help__href c0"
+  className="c0"
   data-component="help"
   href="test"
   rel="noopener noreferrer"

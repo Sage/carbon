@@ -675,7 +675,6 @@ exports[`Checkbox Classic theme Large theme renders as expected 1`] = `
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -1361,7 +1360,6 @@ exports[`Checkbox Classic theme Medium theme renders as expected 1`] = `
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -2047,7 +2045,6 @@ exports[`Checkbox Classic theme Small theme renders as expected 1`] = `
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -2547,7 +2544,6 @@ exports[`Checkbox Classic theme renders as expected 1`] = `
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -3102,7 +3098,6 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -3634,7 +3629,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   border: 1px solid #4d7080;
 }
 
-.c0 svg .checkbox-check {
+.c0 svg path {
   fill: #4d7080;
 }
 
@@ -3715,7 +3710,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   border: 1px solid #4d7080;
 }
 
-.c0 svg .checkbox-check {
+.c0 svg path {
   fill: #4d7080;
 }
 
@@ -3743,7 +3738,6 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -4327,7 +4321,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
   border: 1px solid #4d7080;
 }
 
-.c0 svg .checkbox-check {
+.c0 svg path {
   fill: #1e499f;
 }
 
@@ -4404,7 +4398,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
   border: 1px solid #4d7080;
 }
 
-.c0 svg .checkbox-check {
+.c0 svg path {
   fill: #b3c2c8;
 }
 
@@ -4431,7 +4425,6 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -5154,7 +5147,6 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -5278,7 +5270,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -5461,7 +5452,6 @@ exports[`Checkbox base theme renders the appropriate styles when checked=true 1`
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -5643,7 +5633,7 @@ exports[`Checkbox base theme renders the appropriate styles when checked=true 2`
   border: 1px solid #CCD6DA;
 }
 
-.c0 svg .checkbox-check {
+.c0 svg path {
   fill: #CCD6DA;
 }
 
@@ -5693,7 +5683,6 @@ exports[`Checkbox base theme renders the appropriate styles when checked=true 2`
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -5904,7 +5893,7 @@ exports[`Checkbox base theme renders the appropriate styles when disabled=true 1
   border: 1px solid #CCD6DA;
 }
 
-.c0 svg .checkbox-check {
+.c0 svg path {
   fill: #F2F4F5;
 }
 
@@ -5953,7 +5942,6 @@ exports[`Checkbox base theme renders the appropriate styles when disabled=true 1
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -6224,7 +6212,6 @@ exports[`Checkbox base theme renders the appropriate styles when error=true 1`] 
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -6520,7 +6507,6 @@ exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -6863,7 +6849,6 @@ exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -7280,7 +7265,6 @@ exports[`Checkbox base theme renders the appropriate styles when reverse=true 1`
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -7730,7 +7714,6 @@ exports[`Checkbox base theme renders the appropriate styles when reverse=true 2`
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -8074,7 +8057,6 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -8445,7 +8427,6 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -8835,7 +8816,6 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
@@ -9005,7 +8985,6 @@ exports[`Checkbox base theme renders the appropriate styles when size=large 1`] 
         width="12"
       >
         <path
-          className="checkbox-check"
           d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
           fill="#FFFFFF"
           fillRule="evenodd"
