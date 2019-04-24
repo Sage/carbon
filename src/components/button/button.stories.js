@@ -31,8 +31,6 @@ const getKnobs = (isClassic) => {
     size,
     subtext: (size === OptionsHelper.sizesRestricted[2]) ? text('subtext', Button.defaultProps.subtext) : undefined,
     theme: select('theme', OptionsHelper.buttonColors, Button.defaultProps.theme),
-    to: text('to'),
-    href: text('href'),
     ...getIconKnobs()
   };
 };

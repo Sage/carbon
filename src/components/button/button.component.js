@@ -22,7 +22,6 @@ const Button = React.forwardRef((props, ref) => {
       iconType={ iconType }
       iconPosition={ iconPosition }
       variant={ theme }
-      as={ (props.href || props.to) ? 'a' : 'button' }
       { ...tagComponent('button', props) }
       { ...rest }
       ref={ ref }
@@ -58,8 +57,6 @@ Button.propTypes = {
   children: PropTypes.node.isRequired,
   /** Apply disabled state to the button */
   disabled: PropTypes.bool,
-  /** Used to transfrom button into anchor */
-  href: PropTypes.string,
   /** Defines an Icon position within the button: "before" | "after" */
   iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions]),
   /** Defines an Icon type within the button (see Icon for options) */
@@ -76,8 +73,6 @@ Button.propTypes = {
   },
   /** Set this prop to pass in legacy theme color variants */
   theme: PropTypes.oneOf(OptionsHelper.buttonColors),
-  /** Used to transfrom button into anchor */
-  to: PropTypes.string,
   checkTheme: PropTypes.func
 };
 
