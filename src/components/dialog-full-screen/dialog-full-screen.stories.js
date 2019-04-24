@@ -74,7 +74,6 @@ storiesOf('Dialog Full Screen', module)
     const enableBackgroundUI = boolean('enableBackgroundUI', false);
     const disableEscKey = boolean('disableEscKey', false);
     const ariaRole = text('ariaRole', 'dialog');
-    const stickyFooter = boolean('stickyFooter', true);
     const formHeight = text('form height', '2000px');
 
     return (
@@ -91,7 +90,7 @@ storiesOf('Dialog Full Screen', module)
             ariaRole={ ariaRole }
             onClick={ handleClick }
           >
-            <Form stickyFooter={ stickyFooter }>
+            <Form stickyFooter>
               { children }
               <div style={ { height: formHeight } } />
             </Form>
