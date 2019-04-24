@@ -2,13 +2,14 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import DialogFullScreen from './dialog-full-screen';
 import FullScreenHeading from './full-screen-heading';
-import Button from './../button';
+import Button from '../button';
 import guid from '../../utils/helpers/guid';
-import Portal from './../portal';
+import Portal from '../portal';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import Icon from './../icon';
-import Heading from './../heading';
-jest.mock('../../utils/helpers/guid')
+import Icon from '../icon';
+import Heading from '../heading';
+
+jest.mock('../../utils/helpers/guid');
 
 describe('DialogFullScreen', () => {
   guid.mockImplementation(() => 'guid-12345');

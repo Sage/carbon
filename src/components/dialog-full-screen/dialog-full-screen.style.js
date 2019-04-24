@@ -1,7 +1,8 @@
 import styled from 'styled-components';
-import ClassicDialogFullScreenStyle from './classic-dialog-full-screen.style';
+import ClassicDialogFullScreenStyle from './dialog-full-screen-classic.style';
+import baseTheme from '../../style/themes/base';
 
-const StyledDialogFullScreenHeading = styled.div`
+const StyledDialogFullScreen = styled.div`
   background-color: ${({ theme }) => theme.disabled.input};
   height: 100%;
   left: 0;
@@ -18,4 +19,9 @@ const StyledDialogFullScreenHeading = styled.div`
   ${ClassicDialogFullScreenStyle}
 `;
 
-export default StyledDialogFullScreenHeading;
+StyledDialogFullScreen.defaultProps = {
+  theme: baseTheme
+};
+
+
+export default StyledDialogFullScreen;

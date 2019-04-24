@@ -1,5 +1,6 @@
 import styled from 'styled-components';
-import ClassicFullScreenHeading from './classic-full-screen-heading.style';
+import ClassicFullScreenHeading from './full-screen-heading-classic.style';
+import baseTheme from '../../../style/themes/base';
 
 const StyledFullScreenHeading = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.disabled.border};
@@ -38,5 +39,9 @@ const StyledFullScreenHeading = styled.div`
 
   ${ClassicFullScreenHeading}
 `;
+
+StyledFullScreenHeading.defaultProps = {
+  theme: baseTheme
+};
 
 export default StyledFullScreenHeading;
