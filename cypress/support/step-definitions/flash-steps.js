@@ -2,8 +2,10 @@ import {
   flashPreview, getIconPreview, messageInput, messagePreview, timeoutInput,
 } from '../../locators/flash';
 
+const FLASH_PREFIX = 'carbon-flash--';
+
 Then('Flash as is set to {string} and icon is set to {string}', (as, icon) => {
-  flashPreview().should('have.class', `carbon-flash--${as}`);
+  flashPreview().should('have.class', `${FLASH_PREFIX}${as}`);
   getIconPreview(icon).should('exist');
 });
 
