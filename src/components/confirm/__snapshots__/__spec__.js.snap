@@ -81,11 +81,9 @@ exports[`Confirm default snapshot renders as expected 1`] = `
                   as="secondary"
                   data-element="cancel"
                   disabled={false}
-                  iconPosition=""
-                  iconType=""
+                  iconPosition="before"
                   onClick={[Function]}
                   size="medium"
-                  subtext=""
                   theme="blue"
                 >
                   No
@@ -98,11 +96,9 @@ exports[`Confirm default snapshot renders as expected 1`] = `
                   as="primary"
                   data-element="confirm"
                   disabled={false}
-                  iconPosition=""
-                  iconType=""
+                  iconPosition="before"
                   onClick={[Function]}
                   size="medium"
-                  subtext=""
                   theme="blue"
                 >
                   Yes

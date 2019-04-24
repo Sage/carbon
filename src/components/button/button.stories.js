@@ -1,27 +1,45 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ThemeProvider } from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { notes, Info } from './documentation';
+import { notes, Info, InfoClassic } from './documentation';
 import Button from '.';
+import classic from '../../style/themes/classic';
 
-const defaultKnobs = () => {
-  const size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
+const getIconKnobs = () => {
+  const defaultPosition = Button.defaultProps.iconPosition;
+  const hasIcon = boolean('has icon', false);
 
   return {
-    as: select('as', OptionsHelper.themesBinary, Button.defaultProps.as),
+    iconType: hasIcon ? select('iconType', [...OptionsHelper.icons, ''], '') : undefined,
+    iconPosition: hasIcon ? select('iconPosition', [...OptionsHelper.buttonIconPositions], defaultPosition) : undefined
+  };
+};
+
+const getKnobs = (isClassic) => {
+  const size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
+  let theme, as, buttonType;
+
+  if (isClassic) {
+    theme = select('theme', OptionsHelper.buttonColors, Button.defaultProps.theme);
+    as = select('as', OptionsHelper.themesBinaryClassic, Button.defaultProps.as);
+  } else {
+    buttonType = select('buttonType', OptionsHelper.themesBinary, Button.defaultProps.as);
+  }
+
+  return {
+    buttonType,
     children: text('children', 'Example Button'),
     disabled: boolean('disabled', Button.defaultProps.disabled),
-    iconPosition: select('iconPosition', [...OptionsHelper.buttonIconPositions, ''], Button.defaultProps.iconPosition),
-    iconType: select('iconType', [...OptionsHelper.icons, ''], Button.defaultProps.iconType),
     onClick: ev => action('click')(ev),
     size,
-    subtext: size === OptionsHelper.sizesRestricted[2] ? text('subtext', Button.defaultProps.subtext) : undefined,
-    theme: select('theme', OptionsHelper.buttonColors, Button.defaultProps.theme),
-    to: text('to'),
-    href: text('href')
+    subtext: (size === OptionsHelper.sizesRestricted[2]) ? text('subtext', Button.defaultProps.subtext) : undefined,
+    as,
+    theme,
+    ...getIconKnobs()
   };
 };
 
@@ -70,7 +88,7 @@ TableComponent.propTypes = {
 
 storiesOf('Button', module)
   .add('default', () => {
-    const props = defaultKnobs();
+    const props = getKnobs();
     const { children } = props;
     return (
       <Button
@@ -83,8 +101,24 @@ storiesOf('Button', module)
     info: { TableComponent, text: Info },
     notes: { markdown: notes }
   })
+  .add('classic', () => {
+    const props = getKnobs(true);
+    const { children } = props;
+    return (
+      <ThemeProvider theme={ classic }>
+        <Button
+          { ...props }
+        >
+          { children }
+        </Button>
+      </ThemeProvider>
+    );
+  }, {
+    info: { TableComponent, text: InfoClassic },
+    notes: { markdown: notes }
+  })
   .add('as a sibling', () => {
-    const props = defaultKnobs();
+    const props = getKnobs();
     const { children } = props;
     return (
       <div>

@@ -102,10 +102,8 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
             <ForwardRef
               as="secondary"
               disabled={false}
-              iconPosition=""
-              iconType=""
+              iconPosition="before"
               size="medium"
-              subtext=""
               theme="blue"
             >
               Button
@@ -113,10 +111,8 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
             <ForwardRef
               as="secondary"
               disabled={false}
-              iconPosition=""
-              iconType=""
+              iconPosition="before"
               size="medium"
-              subtext=""
               theme="blue"
             >
               Button

@@ -3,8 +3,9 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../style/themes/base';
 import buttonTypes from './button-types.style';
 import buttonSizes from './button-sizes.style';
-import classicConfig from './button-classic-config.style';
+import buttonClasicStyle from './button-classic.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import { THEMES } from '../../style/themes';
 
 const StyledButton = styled.button`
   align-items: center;
@@ -31,21 +32,21 @@ export const StyledButtonSubtext = styled.span`
 `;
 
 function addButtonStyle(props) {
-  const { theme, renderAs } = props;
-  if (theme.name === 'classic' && classicRenderAs(renderAs)) return stylingForClassic(props);
+  if (isClassicButton(props)) return buttonClasicStyle(props);
+
   return stylingForType(props);
 }
 
 function stylingForType({
   disabled,
-  renderAs,
+  buttonType,
   theme,
   size
 }) {
   return css`
     border: 2px solid transparent;
     box-sizing: border-box;
-    ${disabled ? buttonTypes(theme)[renderAs].disabled : buttonTypes(theme)[renderAs].default};
+    ${disabled ? buttonTypes(theme)[buttonType].disabled : buttonTypes(theme)[buttonType].default};
     font-weight: 600;
     padding-top: 1px;
     padding-bottom: 1px;
@@ -60,49 +61,23 @@ function stylingForType({
   `;
 }
 
-function classicRenderAs(renderAs) {
-  return renderAs === 'primary' || renderAs === 'secondary';
-}
+function isClassicButton({ theme, buttonType }) {
+  const isClassicTheme = (theme.name === THEMES.classic);
+  const isClassicButtonType = OptionsHelper.themesBinaryClassic.includes(buttonType);
 
-function stylingForClassic({
-  disabled,
-  renderAs,
-  variant,
-  size
-}) {
-  if (disabled) {
-    return css`
-      box-sizing: border-box;
-      font-weight: 700;
-      ${classicConfig.disabled}
-      ${classicConfig[size]}
-      & + & {
-        margin-left: 15px;
-      }
-    `;
-  }
-  return css`
-    box-sizing: border-box;
-    font-weight: 700;
-    ${classicConfig[renderAs][variant]}
-    ${classicConfig[size]}
-    text-decoration: none;
-    & + & {
-      margin-left: 15px;
-    }
-  `;
+  return isClassicTheme && isClassicButtonType;
 }
 
 StyledButton.defaultProps = {
   theme: BaseTheme,
   medium: true,
-  renderAs: 'secondary',
-  variant: 'blue'
+  buttonType: 'secondary',
+  legacyColorVariant: 'blue'
 };
 
 StyledButton.propTypes = {
-  /** Color variants for new business themes */
-  renderAs: PropTypes.oneOf(OptionsHelper.themesBinary),
+  /** Button types for new business themes */
+  buttonType: PropTypes.oneOf(OptionsHelper.themesBinary),
   /** The text the button displays */
   children: PropTypes.node.isRequired,
   /** Apply disabled state to the button */
@@ -124,7 +99,7 @@ StyledButton.propTypes = {
     }
   },
   /** Set this prop to pass in legacy theme color variants */
-  variant: PropTypes.oneOf(OptionsHelper.buttonColors),
+  legacyColorVariant: PropTypes.oneOf(OptionsHelper.buttonColors),
   /** Used to transfrom button into anchor */
   to: PropTypes.string
 };

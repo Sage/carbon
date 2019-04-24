@@ -8,6 +8,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 const Button = React.forwardRef((props, ref) => {
   const {
     as,
+    buttonType,
     disabled,
     iconPosition,
     iconType,
@@ -17,12 +18,11 @@ const Button = React.forwardRef((props, ref) => {
   return (
     <StyledButton
       disabled={ disabled }
-      renderAs={ as }
+      buttonType={ buttonType || as }
       role='button'
       iconType={ iconType }
       iconPosition={ iconPosition }
-      variant={ theme }
-      as={ (props.href || props.to) ? 'a' : 'button' }
+      legacyColorVariant={ theme }
       { ...tagComponent('button', props) }
       { ...rest }
       ref={ ref }
@@ -53,15 +53,13 @@ function renderChildren({
 
 Button.propTypes = {
   /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "destructive" | "darkBackground" */
-  as: PropTypes.oneOf(OptionsHelper.themesBinary),
+  buttonType: PropTypes.oneOf(OptionsHelper.themesBinary),
   /** The text the button displays */
   children: PropTypes.node.isRequired,
   /** Apply disabled state to the button */
   disabled: PropTypes.bool,
-  /** Used to transfrom button into anchor */
-  href: PropTypes.string,
   /** Defines an Icon position within the button: "before" | "after" */
-  iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions, '']),
+  iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions]),
   /** Defines an Icon type within the button (see Icon for options) */
   iconType: PropTypes.oneOf([...OptionsHelper.icons, '']),
   /** Assigns a size to the button: "small" | "medium" | "large" */
@@ -74,10 +72,10 @@ Button.propTypes = {
       return null;
     }
   },
+  /** Button types for legacy theme: "primary" | "secondary" */
+  as: PropTypes.oneOf(OptionsHelper.themesBinaryClassic),
   /** Set this prop to pass in legacy theme color variants */
   theme: PropTypes.oneOf(OptionsHelper.buttonColors),
-  /** Used to transfrom button into anchor */
-  to: PropTypes.string,
   checkTheme: PropTypes.func
 };
 
@@ -85,6 +83,7 @@ Button.defaultProps = {
   as: 'secondary',
   size: 'medium',
   disabled: false,
+  iconPosition: 'before',
   theme: 'blue'
 };
 
