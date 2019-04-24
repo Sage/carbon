@@ -75,7 +75,8 @@ Feature: Dropdown component
       | fieldHelp                |
       | Example Test             |
       | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | áéíóú¿¡üñ                |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
