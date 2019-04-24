@@ -25,10 +25,9 @@ const ButtonToggle = (props) => {
         id={ inputGuid }
         disabled={ props.disabled }
         style={ { // ToDo: Move to styled-component?
-          position: 'absolute',
           width: 0,
           height: 0,
-          visibility: 'hidden'
+          opacity: 0
         } }
       />
     );
@@ -39,7 +38,6 @@ const ButtonToggle = (props) => {
       {hiddenInput()}
       <StyledButtonToggleLabel
         { ...props } htmlFor={ inputGuid }
-        tabIndex='0'
       >
         <div className='content-wrapper'>
           {icon()}

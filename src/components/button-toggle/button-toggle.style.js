@@ -16,13 +16,13 @@ const StyledButtonToggleLabel = styled.label`
     background-color: ${({ theme }) => theme.colors.tertiary};
   }
 
+  input:focus ~ & {
+    outline: 3px solid ${({ theme }) => theme.colors.focus};
+  }
+
   &:hover {
     background-color: ${({ theme }) => theme.colors.whiteMix};
     border-color: ${({ theme }) => theme.colors.tertiary};
-  }
-
-  &:focus {
-    outline: 3px solid ${({ theme }) => theme.colors.focus};
   }
 
   .content-wrapper {

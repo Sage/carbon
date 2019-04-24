@@ -17,13 +17,13 @@ input:checked ~ .c1 {
   background-color: #003F2E;
 }
 
+input:focus ~ .c1 {
+  outline: 3px solid #FFDA7F;
+}
+
 .c1:hover {
   background-color: #e5f2ee;
   border-color: #003F2E;
-}
-
-.c1:focus {
-  outline: 3px solid #FFDA7F;
 }
 
 .c1 .content-wrapper {
@@ -75,8 +75,7 @@ input:checked ~ .c1 {
     style={
       Object {
         "height": 0,
-        "position": "absolute",
-        "visibility": "hidden",
+        "opacity": 0,
         "width": 0,
       }
     }
@@ -86,7 +85,6 @@ input:checked ~ .c1 {
     className="c1"
     htmlFor="guid-12345"
     size="large"
-    tabIndex="0"
   >
     <div
       className="content-wrapper"
@@ -114,13 +112,13 @@ input:checked ~ .c2 {
   background-color: #003F2E;
 }
 
+input:focus ~ .c2 {
+  outline: 3px solid #FFDA7F;
+}
+
 .c2:hover {
   background-color: #e5f2ee;
   border-color: #003F2E;
-}
-
-.c2:focus {
-  outline: 3px solid #FFDA7F;
 }
 
 .c2 .content-wrapper {
@@ -349,8 +347,7 @@ input:checked ~ .c2 {
             style={
               Object {
                 "height": 0,
-                "position": "absolute",
-                "visibility": "hidden",
+                "opacity": 0,
                 "width": 0,
               }
             }
@@ -360,7 +357,6 @@ input:checked ~ .c2 {
             grouped={true}
             htmlFor="guid-12345"
             size="large"
-            tabIndex="0"
             theme={
               Object {
                 "colors": Object {
@@ -434,17 +430,17 @@ input:checked ~ .c2 {
                       ";
   }
 
+  input:focus ~ & {
+    outline: 3px solid ",
+                      [Function],
+                      ";
+  }
+
   &:hover {
     background-color: ",
                       [Function],
                       ";
     border-color: ",
-                      [Function],
-                      ";
-  }
-
-  &:focus {
-    outline: 3px solid ",
                       [Function],
                       ";
   }
@@ -487,7 +483,6 @@ input:checked ~ .c2 {
               grouped={true}
               htmlFor="guid-12345"
               size="large"
-              tabIndex="0"
               theme={
                 Object {
                   "colors": Object {
@@ -533,7 +528,6 @@ input:checked ~ .c2 {
                 className="c1 c2"
                 htmlFor="guid-12345"
                 size="large"
-                tabIndex="0"
               >
                 <div
                   className="content-wrapper"
@@ -724,8 +718,7 @@ input:checked ~ .c2 {
             style={
               Object {
                 "height": 0,
-                "position": "absolute",
-                "visibility": "hidden",
+                "opacity": 0,
                 "width": 0,
               }
             }
@@ -735,7 +728,6 @@ input:checked ~ .c2 {
             grouped={true}
             htmlFor="guid-12345"
             size="large"
-            tabIndex="0"
             theme={
               Object {
                 "colors": Object {
@@ -809,17 +801,17 @@ input:checked ~ .c2 {
                       ";
   }
 
+  input:focus ~ & {
+    outline: 3px solid ",
+                      [Function],
+                      ";
+  }
+
   &:hover {
     background-color: ",
                       [Function],
                       ";
     border-color: ",
-                      [Function],
-                      ";
-  }
-
-  &:focus {
-    outline: 3px solid ",
                       [Function],
                       ";
   }
@@ -862,7 +854,6 @@ input:checked ~ .c2 {
               grouped={true}
               htmlFor="guid-12345"
               size="large"
-              tabIndex="0"
               theme={
                 Object {
                   "colors": Object {
@@ -908,7 +899,6 @@ input:checked ~ .c2 {
                 className="c1 c2"
                 htmlFor="guid-12345"
                 size="large"
-                tabIndex="0"
               >
                 <div
                   className="content-wrapper"
@@ -941,13 +931,13 @@ input:checked ~ .c1 {
   background-color: #003F2E;
 }
 
+input:focus ~ .c1 {
+  outline: 3px solid #FFDA7F;
+}
+
 .c1:hover {
   background-color: #e5f2ee;
   border-color: #003F2E;
-}
-
-.c1:focus {
-  outline: 3px solid #FFDA7F;
 }
 
 .c1 .content-wrapper {
@@ -984,8 +974,7 @@ input:checked ~ .c1 {
     style={
       Object {
         "height": 0,
-        "position": "absolute",
-        "visibility": "hidden",
+        "opacity": 0,
         "width": 0,
       }
     }
@@ -995,7 +984,6 @@ input:checked ~ .c1 {
     className="c1"
     htmlFor="guid-12345"
     size="large"
-    tabIndex="0"
   >
     <div
       className="content-wrapper"
