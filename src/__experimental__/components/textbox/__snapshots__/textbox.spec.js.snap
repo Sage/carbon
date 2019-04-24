@@ -3,7 +3,7 @@
 exports[`Textbox renders with InputPresentation and Input and all props passed to Input 1`] = `
 <FormField
   info={Array []}
-  name="ef068864-7b73-37d0-ad36-9def8cc91c44"
+  name="mocked-guid"
   onBlur={[Function]}
   onChange={[Function]}
   size="medium"
@@ -12,7 +12,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
 >
   <InputPresentation
     info={Array []}
-    name="ef068864-7b73-37d0-ad36-9def8cc91c44"
+    name="mocked-guid"
     onBlur={[Function]}
     onChange={[Function]}
     type="text"
@@ -22,7 +22,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
     southpaw children
     <Input
       info={Array []}
-      name="ef068864-7b73-37d0-ad36-9def8cc91c44"
+      name="mocked-guid"
       onBlur={[Function]}
       onChange={[Function]}
       validations={Array []}

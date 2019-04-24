@@ -18,7 +18,7 @@ import { withValidations } from '../validations';
 import ElementResize from '../../utils/helpers/element-resize';
 import './form.scss';
 
-class Form extends React.Component {
+class FormWithoutValidations extends React.Component {
   static propTypes = {
 
     /**
@@ -681,7 +681,7 @@ function generateCSRFToken(doc) {
   );
 }
 
-const FormWithValidations = withValidations(Form);
+const Form = withValidations(FormWithoutValidations);
 
-export { Form, FormWithValidations }; // export version without hoc if required
-export default FormWithValidations;
+export { FormWithoutValidations }; // export version without hoc if required
+export default Form;

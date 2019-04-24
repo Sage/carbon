@@ -7,6 +7,7 @@ import {
 } from '@storybook/addon-knobs';
 import Form from '../form';
 import Textbox from '../../__experimental__/components/textbox';
+import TextboxLegacy from '../textbox';
 import { Select, Option } from '../../__experimental__/components/select';
 import PresenceValidator from '../../utils/validations/presence';
 import { Row, Column } from '../row';
@@ -148,6 +149,21 @@ storiesOf('Validations', module)
                 onChange={ ev => allStore.set({ value: ev.target.value }) }
                 fieldHelp='This example uses all of the validations above! It will fail fast, reporting
                   any failing validations without waiting for asynchronous ones to complete.'
+                labelInline={ boolean('labelInline') }
+                size={ select('size', OptionsHelper.sizesRestricted) }
+              />
+            </State>
+          </Column>
+        </Row>
+
+        <Row columns='2'>
+          <Column>
+            <State store={ legacyStore }>
+              <TextboxLegacy
+                label='Legacy Validation (decorators)'
+                validations={ [new PresenceValidator()] }
+                onChange={ ev => legacyStore.set({ value: ev.target.value }) }
+                fieldHelp='This example uses the old decorator Textbox (now deprecated).'
                 labelInline={ boolean('labelInline') }
                 size={ select('size', OptionsHelper.sizesRestricted) }
               />

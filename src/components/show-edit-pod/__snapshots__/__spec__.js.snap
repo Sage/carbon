@@ -78,7 +78,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                       <div
                         key=".$edit"
                       >
-                        <WithValidations(Form)
+                        <WithValidations(FormWithoutValidations)
                           additionalActions={
                             <Link
                               as="error"
@@ -101,7 +101,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                           saving={false}
                           validateOnMount={true}
                         >
-                          <Form
+                          <FormWithoutValidations
                             additionalActions={
                               <Link
                                 as="error"
@@ -419,8 +419,8 @@ a {
                                 </AppWrapper>
                               </div>
                             </form>
-                          </Form>
-                        </WithValidations(Form)>
+                          </FormWithoutValidations>
+                        </WithValidations(FormWithoutValidations)>
                       </div>
                     </CSSTransitionGroupChild>
                   </div>

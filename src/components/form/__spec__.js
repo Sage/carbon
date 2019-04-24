@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
-import FormWithValidations, { Form } from './form';
+import FormWithValidations, { FormWithoutValidations as Form } from './form';
 import Textbox from './../textbox';
 import Portal from './../portal';
 import Validation from './../../utils/validations/presence';
@@ -17,7 +17,6 @@ import ElementResize from './../../utils/helpers/element-resize';
 
 import { mount, shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import { doesNotReject } from 'assert';
 
 /* global jest */
 
@@ -313,18 +312,6 @@ describe('Form', () => {
     });
 
     describe('when autoDisabled prop is passed,', () => {
-      it('state.submitted should be false', () => {
-        let spy = jasmine.createSpy('spy');
-        instance = TestUtils.renderIntoDocument(
-          <Form autoDisabled onSubmit={ spy }>
-            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
-          </Form>
-        );
-        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-        TestUtils.Simulate.submit(form);
-        expect(instance.state.submitted).toBe(false);
-      });
-
       it('state.submitted should be true after form has been submitted', () => {
         const spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
@@ -349,6 +336,21 @@ describe('Form', () => {
           expect(enableFormFunc).toBe(instance.enableForm);
   
           enableFormFunc();
+          expect(instance.state.submitted).toBe(false);
+          done();
+        });
+        const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
+      });
+
+      it('state.submitted should be false if form is invalid', () => {
+        const spy = jest.fn();
+        instance = TestUtils.renderIntoDocument(
+          <Form autoDisable onSubmit={ spy } validate={ () => false }>
+            <Textbox validations={ [new Validation()] } name='test' value='invalid' />
+          </Form>
+        );
+        spy.mockImplementation(() => {
           expect(instance.state.submitted).toBe(false);
           done();
         });
