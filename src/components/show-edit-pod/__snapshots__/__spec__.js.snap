@@ -154,30 +154,26 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                           className="carbon-form-save"
                                           data-component="save"
                                         >
-                                          <Button
+                                          <ForwardRef
                                             as="primary"
                                             className="carbon-form-save__button"
                                             data-element="save"
                                             disabled={false}
-                                            iconPosition=""
-                                            iconType=""
+                                            iconPosition="before"
                                             size="medium"
-                                            subtext=""
                                             theme="blue"
                                           >
                                             <styled.button
-                                              as="button"
+                                              buttonType="primary"
                                               className="carbon-form-save__button"
                                               data-component="button"
                                               data-element="save"
                                               disabled={false}
-                                              iconPosition=""
-                                              iconType=""
+                                              iconPosition="before"
+                                              legacyColorVariant="blue"
                                               medium={true}
-                                              renderAs="primary"
                                               role="button"
                                               size="medium"
-                                              subtext=""
                                               theme={
                                                 Object {
                                                   "colors": Object {
@@ -206,6 +202,13 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                     "text": "rgba(0,0,0,0.3)",
                                                   },
                                                   "name": "base",
+                                                  "shadows": Object {
+                                                    "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                                    "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                                    "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                                    "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                                    "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                                  },
                                                   "text": Object {
                                                     "color": "rgba(0,0,0,0.9)",
                                                     "placeholder": "rgba(0,0,0,0.3)",
@@ -213,10 +216,9 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                   },
                                                 }
                                               }
-                                              variant="blue"
                                             >
                                               <StyledComponent
-                                                as="button"
+                                                buttonType="primary"
                                                 className="carbon-form-save__button"
                                                 data-component="button"
                                                 data-element="save"
@@ -228,7 +230,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                     "componentStyle": ComponentStyle {
                                                       "componentId": "sc-bdVaJa",
                                                       "isStatic": false,
-                                                      "lastClassName": "iMjxja",
+                                                      "lastClassName": "cCYfiA",
                                                       "rules": Array [
                                                         "
   align-items: center;
@@ -251,8 +253,9 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                       ],
                                                     },
                                                     "defaultProps": Object {
+                                                      "buttonType": "secondary",
+                                                      "legacyColorVariant": "blue",
                                                       "medium": true,
-                                                      "renderAs": "secondary",
                                                       "theme": Object {
                                                         "colors": Object {
                                                           "base": "#00A376",
@@ -280,27 +283,33 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                           "text": "rgba(0,0,0,0.3)",
                                                         },
                                                         "name": "base",
+                                                        "shadows": Object {
+                                                          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                                          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                                          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                                          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                                          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                                        },
                                                         "text": Object {
                                                           "color": "rgba(0,0,0,0.9)",
                                                           "placeholder": "rgba(0,0,0,0.3)",
                                                           "size": "14px",
                                                         },
                                                       },
-                                                      "variant": "blue",
                                                     },
                                                     "displayName": "styled.button",
                                                     "foldedComponentIds": Array [],
                                                     "propTypes": Object {
+                                                      "buttonType": [Function],
                                                       "children": [Function],
                                                       "disabled": [Function],
                                                       "href": [Function],
                                                       "iconPosition": [Function],
                                                       "iconType": [Function],
-                                                      "renderAs": [Function],
+                                                      "legacyColorVariant": [Function],
                                                       "size": [Function],
                                                       "subtext": [Function],
                                                       "to": [Function],
-                                                      "variant": [Function],
                                                     },
                                                     "render": [Function],
                                                     "styledComponentId": "sc-bdVaJa",
@@ -311,13 +320,11 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                   }
                                                 }
                                                 forwardedRef={null}
-                                                iconPosition=""
-                                                iconType=""
+                                                iconPosition="before"
+                                                legacyColorVariant="blue"
                                                 medium={true}
-                                                renderAs="primary"
                                                 role="button"
                                                 size="medium"
-                                                subtext=""
                                                 theme={
                                                   Object {
                                                     "colors": Object {
@@ -346,6 +353,13 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                       "text": "rgba(0,0,0,0.3)",
                                                     },
                                                     "name": "base",
+                                                    "shadows": Object {
+                                                      "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                                      "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                                      "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                                      "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                                      "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                                    },
                                                     "text": Object {
                                                       "color": "rgba(0,0,0,0.9)",
                                                       "placeholder": "rgba(0,0,0,0.3)",
@@ -353,10 +367,9 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                     },
                                                   }
                                                 }
-                                                variant="blue"
                                               >
                                                 <button
-                                                  className="carbon-form-save__button sc-bdVaJa iMjxja"
+                                                  className="carbon-form-save__button sc-bdVaJa cCYfiA"
                                                   data-component="button"
                                                   data-element="save"
                                                   disabled={false}
@@ -373,7 +386,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                 </button>
                                               </StyledComponent>
                                             </styled.button>
-                                          </Button>
+                                          </ForwardRef>
                                         </div>
                                       </SaveButton>
                                     </div>

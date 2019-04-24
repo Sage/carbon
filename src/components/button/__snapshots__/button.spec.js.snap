@@ -5,26 +5,6 @@ exports[`Button when a subtext prop is passed into the component does not render
   margin-left: 15px;
 }
 
-.c3 + .c0 {
-  margin-left: 15px;
-}
-
-.c4 + .c0 {
-  margin-left: 15px;
-}
-
-.c5 + .c0 {
-  margin-left: 15px;
-}
-
-.c6 + .c0 {
-  margin-left: 15px;
-}
-
-.c7 + .c0 {
-  margin-left: 15px;
-}
-
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -78,11 +58,11 @@ exports[`Button when a subtext prop is passed into the component does not render
 }
 
 .c1 .carbon-icon {
-  margin-left: 8px;
-  margin-right: 0px;
+  margin-left: 0px;
+  margin-right: 8px;
 }
 
-.c8 + .c0 {
+.c3 + .c0 {
   margin-left: 16px;
 }
 
@@ -109,30 +89,10 @@ exports[`Button when a subtext prop is passed into the component renders the sub
 }
 
 .c4 + .c0 {
-  margin-left: 15px;
-}
-
-.c5 + .c0 {
-  margin-left: 15px;
-}
-
-.c6 + .c0 {
-  margin-left: 15px;
-}
-
-.c7 + .c0 {
-  margin-left: 15px;
-}
-
-.c8 + .c0 {
-  margin-left: 15px;
-}
-
-.c9 + .c0 {
   margin-left: 16px;
 }
 
-.c10 + .c0 {
+.c5 + .c0 {
   margin-left: 16px;
 }
 
@@ -188,8 +148,8 @@ exports[`Button when a subtext prop is passed into the component renders the sub
 }
 
 .c1 .carbon-icon {
-  margin-left: 8px;
-  margin-right: 0px;
+  margin-left: 0px;
+  margin-right: 8px;
 }
 
 .c2 {
@@ -223,11 +183,12 @@ exports[`Button when a subtext prop is passed into the component renders the sub
 
 exports[`Button when no props other than children are passed into the component renders the default props and children to match the snapshot 1`] = `
 <styled.button
-  as="button"
+  buttonType="secondary"
   data-component="button"
   disabled={false}
+  iconPosition="before"
+  legacyColorVariant="blue"
   medium={true}
-  renderAs="secondary"
   role="button"
   size="medium"
   theme={
@@ -272,7 +233,6 @@ exports[`Button when no props other than children are passed into the component 
       },
     }
   }
-  variant="blue"
 >
   <span>
     <span
@@ -290,23 +250,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c3 + .c0 {
-  margin-left: 15px;
-}
-
-.c4 + .c0 {
-  margin-left: 15px;
-}
-
-.c5 + .c0 {
-  margin-left: 15px;
-}
-
-.c6 + .c0 {
-  margin-left: 15px;
-}
-
-.c7 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c1 {
@@ -366,10 +310,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   margin-right: 0px;
 }
 
-.c8 + .c0 {
-  margin-left: 16px;
-}
-
 <button
   className="c0 c1"
   data-component="button"
@@ -395,30 +335,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon before children 1`] = `
 .c2 + .c0 {
   margin-left: 15px;
-}
-
-.c3 + .c0 {
-  margin-left: 15px;
-}
-
-.c4 + .c0 {
-  margin-left: 15px;
-}
-
-.c5 + .c0 {
-  margin-left: 15px;
-}
-
-.c6 + .c0 {
-  margin-left: 15px;
-}
-
-.c7 + .c0 {
-  margin-left: 15px;
-}
-
-.c8 + .c0 {
-  margin-left: 16px;
 }
 
 .c1 {
@@ -555,23 +471,23 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c2 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c3 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c4 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c5 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c6 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c7 + .c0 {
@@ -611,26 +527,6 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c16 + .c0 {
-  margin-left: 16px;
-}
-
-.c17 + .c0 {
-  margin-left: 16px;
-}
-
-.c18 + .c0 {
-  margin-left: 16px;
-}
-
-.c19 + .c0 {
-  margin-left: 16px;
-}
-
-.c20 + .c0 {
-  margin-left: 16px;
-}
-
-.c21 + .c0 {
   margin-left: 16px;
 }
 
@@ -642,10 +538,6 @@ exports[`Button when the classic theme is applied setting the color variant to "
 `;
 
 exports[`Button when the classic theme is applied setting the color variant to "grey" matches the snapshot when default props are passed 1`] = `
-.c2 + .c0 {
-  margin-left: 15px;
-}
-
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -670,23 +562,23 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-sizing: border-box;
   font-weight: 700;
   background: transparent;
-  border: 1px solid #335c6d;
-  color: #335c6d;
+  border: 1px solid #255bc7;
+  color: #255bc7;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 .c1:hover {
-  background: #003349;
-  border: 1px solid #003349;
+  background: #1e499f;
+  border: 1px solid #1e499f;
   color: #ffffff;
 }
 
 .c1:focus {
-  box-shadow: 0 0 6px rgba(51,92,109,.6);
+  box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
-  background: #003349;
-  border: 1px solid #003349;
+  background: #1e499f;
+  border: 1px solid #1e499f;
   color: #ffffff;
 }
 
@@ -699,20 +591,24 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-right: 0px;
 }
 
+.c2 + .c0 {
+  margin-left: 16px;
+}
+
 .c3 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c4 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c5 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c6 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c7 + .c0 {
@@ -752,26 +648,6 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c16 + .c0 {
-  margin-left: 16px;
-}
-
-.c17 + .c0 {
-  margin-left: 16px;
-}
-
-.c18 + .c0 {
-  margin-left: 16px;
-}
-
-.c19 + .c0 {
-  margin-left: 16px;
-}
-
-.c20 + .c0 {
-  margin-left: 16px;
-}
-
-.c21 + .c0 {
   margin-left: 16px;
 }
 
@@ -783,14 +659,6 @@ exports[`Button when the classic theme is applied setting the color variant to "
 `;
 
 exports[`Button when the classic theme is applied setting the color variant to "magenta" matches the snapshot when default props are passed 1`] = `
-.c2 + .c0 {
-  margin-left: 15px;
-}
-
-.c3 + .c0 {
-  margin-left: 15px;
-}
-
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -815,23 +683,23 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-sizing: border-box;
   font-weight: 700;
   background: transparent;
-  border: 1px solid #ed1c5f;
-  color: #ed1c5f;
+  border: 1px solid #255bc7;
+  color: #255bc7;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 .c1:hover {
-  background: #be164c;
-  border: 1px solid #be164c;
+  background: #1e499f;
+  border: 1px solid #1e499f;
   color: #ffffff;
 }
 
 .c1:focus {
-  box-shadow: 0 0 6px rgba(243,46,109,.6);
+  box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
-  background: #be164c;
-  border: 1px solid #be164c;
+  background: #1e499f;
+  border: 1px solid #1e499f;
   color: #ffffff;
 }
 
@@ -844,16 +712,24 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-right: 0px;
 }
 
+.c2 + .c0 {
+  margin-left: 16px;
+}
+
+.c3 + .c0 {
+  margin-left: 16px;
+}
+
 .c4 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c5 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c6 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c7 + .c0 {
@@ -893,26 +769,6 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c16 + .c0 {
-  margin-left: 16px;
-}
-
-.c17 + .c0 {
-  margin-left: 16px;
-}
-
-.c18 + .c0 {
-  margin-left: 16px;
-}
-
-.c19 + .c0 {
-  margin-left: 16px;
-}
-
-.c20 + .c0 {
-  margin-left: 16px;
-}
-
-.c21 + .c0 {
   margin-left: 16px;
 }
 
@@ -924,18 +780,6 @@ exports[`Button when the classic theme is applied setting the color variant to "
 `;
 
 exports[`Button when the classic theme is applied setting the color variant to "magenta-dull" matches the snapshot when default props are passed 1`] = `
-.c2 + .c0 {
-  margin-left: 15px;
-}
-
-.c3 + .c0 {
-  margin-left: 15px;
-}
-
-.c4 + .c0 {
-  margin-left: 15px;
-}
-
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -960,23 +804,23 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-sizing: border-box;
   font-weight: 700;
   background: transparent;
-  border: 1px solid #ca2a60;
-  color: #ca2a60;
+  border: 1px solid #255bc7;
+  color: #255bc7;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 .c1:hover {
-  background: #be164c;
-  border: 1px solid #be164c;
+  background: #1e499f;
+  border: 1px solid #1e499f;
   color: #ffffff;
 }
 
 .c1:focus {
-  box-shadow: 0 0 6px rgba(213,85,128,.6);
+  box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
-  background: #be164c;
-  border: 1px solid #be164c;
+  background: #1e499f;
+  border: 1px solid #1e499f;
   color: #ffffff;
 }
 
@@ -989,12 +833,24 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-right: 0px;
 }
 
+.c2 + .c0 {
+  margin-left: 16px;
+}
+
+.c3 + .c0 {
+  margin-left: 16px;
+}
+
+.c4 + .c0 {
+  margin-left: 16px;
+}
+
 .c5 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c6 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c7 + .c0 {
@@ -1034,26 +890,6 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c16 + .c0 {
-  margin-left: 16px;
-}
-
-.c17 + .c0 {
-  margin-left: 16px;
-}
-
-.c18 + .c0 {
-  margin-left: 16px;
-}
-
-.c19 + .c0 {
-  margin-left: 16px;
-}
-
-.c20 + .c0 {
-  margin-left: 16px;
-}
-
-.c21 + .c0 {
   margin-left: 16px;
 }
 
@@ -1065,22 +901,6 @@ exports[`Button when the classic theme is applied setting the color variant to "
 `;
 
 exports[`Button when the classic theme is applied setting the color variant to "red" matches the snapshot when default props are passed 1`] = `
-.c2 + .c0 {
-  margin-left: 15px;
-}
-
-.c3 + .c0 {
-  margin-left: 15px;
-}
-
-.c4 + .c0 {
-  margin-left: 15px;
-}
-
-.c5 + .c0 {
-  margin-left: 15px;
-}
-
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -1105,23 +925,23 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-sizing: border-box;
   font-weight: 700;
   background: transparent;
-  border: 1px solid #c7384f;
-  color: #c7384f;
+  border: 1px solid #255bc7;
+  color: #255bc7;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 .c1:hover {
-  background: #9f2d3f;
-  border: 1px solid #9f2d3f;
+  background: #1e499f;
+  border: 1px solid #1e499f;
   color: #ffffff;
 }
 
 .c1:focus {
-  box-shadow: 0 0 6px rgba(228,44,45,.6);
+  box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
-  background: #9f2d3f;
-  border: 1px solid #9f2d3f;
+  background: #1e499f;
+  border: 1px solid #1e499f;
   color: #ffffff;
 }
 
@@ -1134,8 +954,24 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-right: 0px;
 }
 
+.c2 + .c0 {
+  margin-left: 16px;
+}
+
+.c3 + .c0 {
+  margin-left: 16px;
+}
+
+.c4 + .c0 {
+  margin-left: 16px;
+}
+
+.c5 + .c0 {
+  margin-left: 16px;
+}
+
 .c6 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c7 + .c0 {
@@ -1175,26 +1011,6 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c16 + .c0 {
-  margin-left: 16px;
-}
-
-.c17 + .c0 {
-  margin-left: 16px;
-}
-
-.c18 + .c0 {
-  margin-left: 16px;
-}
-
-.c19 + .c0 {
-  margin-left: 16px;
-}
-
-.c20 + .c0 {
-  margin-left: 16px;
-}
-
-.c21 + .c0 {
   margin-left: 16px;
 }
 
@@ -1206,26 +1022,6 @@ exports[`Button when the classic theme is applied setting the color variant to "
 `;
 
 exports[`Button when the classic theme is applied setting the color variant to "white" matches the snapshot when default props are passed 1`] = `
-.c2 + .c0 {
-  margin-left: 15px;
-}
-
-.c3 + .c0 {
-  margin-left: 15px;
-}
-
-.c4 + .c0 {
-  margin-left: 15px;
-}
-
-.c5 + .c0 {
-  margin-left: 15px;
-}
-
-.c6 + .c0 {
-  margin-left: 15px;
-}
-
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -1250,21 +1046,24 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-sizing: border-box;
   font-weight: 700;
   background: transparent;
-  border: 1px solid #ffffff;
-  color: rgba(0,0,0,85);
+  border: 1px solid #255bc7;
+  color: #255bc7;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 .c1:hover {
-  background: #cccccc;
-  border: 1px solid #cccccc;
-  color: #1b1d21;
+  background: #1e499f;
+  border: 1px solid #1e499f;
+  color: #ffffff;
 }
 
 .c1:focus {
-  box-shadow: 0 0 6px rgba(51,92,109,.6);
+  box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
+  background: #1e499f;
+  border: 1px solid #1e499f;
+  color: #ffffff;
 }
 
 .c1 + .c0 {
@@ -1274,6 +1073,26 @@ exports[`Button when the classic theme is applied setting the color variant to "
 .c1 .carbon-icon {
   margin-left: 8px;
   margin-right: 0px;
+}
+
+.c2 + .c0 {
+  margin-left: 16px;
+}
+
+.c3 + .c0 {
+  margin-left: 16px;
+}
+
+.c4 + .c0 {
+  margin-left: 16px;
+}
+
+.c5 + .c0 {
+  margin-left: 16px;
+}
+
+.c6 + .c0 {
+  margin-left: 16px;
 }
 
 .c7 + .c0 {
@@ -1313,26 +1132,6 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c16 + .c0 {
-  margin-left: 16px;
-}
-
-.c17 + .c0 {
-  margin-left: 16px;
-}
-
-.c18 + .c0 {
-  margin-left: 16px;
-}
-
-.c19 + .c0 {
-  margin-left: 16px;
-}
-
-.c20 + .c0 {
-  margin-left: 16px;
-}
-
-.c21 + .c0 {
   margin-left: 16px;
 }
 
@@ -1398,23 +1197,23 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
 }
 
 .c2 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c3 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c4 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c5 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c6 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c7 + .c0 {
@@ -1454,26 +1253,6 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
 }
 
 .c16 + .c0 {
-  margin-left: 16px;
-}
-
-.c17 + .c0 {
-  margin-left: 16px;
-}
-
-.c18 + .c0 {
-  margin-left: 16px;
-}
-
-.c19 + .c0 {
-  margin-left: 16px;
-}
-
-.c20 + .c0 {
-  margin-left: 16px;
-}
-
-.c21 + .c0 {
   margin-left: 16px;
 }
 
@@ -1485,10 +1264,6 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
 `;
 
 exports[`Button when the color variant is set to "grey" matches the snapshot with the default props 1`] = `
-.c2 + .c0 {
-  margin-left: 15px;
-}
-
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -1513,23 +1288,23 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   box-sizing: border-box;
   font-weight: 700;
   background: transparent;
-  border: 1px solid #335c6d;
-  color: #335c6d;
+  border: 1px solid #255bc7;
+  color: #255bc7;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 .c1:hover {
-  background: #003349;
-  border: 1px solid #003349;
+  background: #1e499f;
+  border: 1px solid #1e499f;
   color: #ffffff;
 }
 
 .c1:focus {
-  box-shadow: 0 0 6px rgba(51,92,109,.6);
+  box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
-  background: #003349;
-  border: 1px solid #003349;
+  background: #1e499f;
+  border: 1px solid #1e499f;
   color: #ffffff;
 }
 
@@ -1542,20 +1317,24 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   margin-right: 0px;
 }
 
+.c2 + .c0 {
+  margin-left: 16px;
+}
+
 .c3 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c4 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c5 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c6 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c7 + .c0 {
@@ -1595,26 +1374,6 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
 }
 
 .c16 + .c0 {
-  margin-left: 16px;
-}
-
-.c17 + .c0 {
-  margin-left: 16px;
-}
-
-.c18 + .c0 {
-  margin-left: 16px;
-}
-
-.c19 + .c0 {
-  margin-left: 16px;
-}
-
-.c20 + .c0 {
-  margin-left: 16px;
-}
-
-.c21 + .c0 {
   margin-left: 16px;
 }
 
@@ -1626,14 +1385,6 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
 `;
 
 exports[`Button when the color variant is set to "magenta" matches the snapshot with the default props 1`] = `
-.c2 + .c0 {
-  margin-left: 15px;
-}
-
-.c3 + .c0 {
-  margin-left: 15px;
-}
-
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -1658,23 +1409,23 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   box-sizing: border-box;
   font-weight: 700;
   background: transparent;
-  border: 1px solid #ed1c5f;
-  color: #ed1c5f;
+  border: 1px solid #255bc7;
+  color: #255bc7;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 .c1:hover {
-  background: #be164c;
-  border: 1px solid #be164c;
+  background: #1e499f;
+  border: 1px solid #1e499f;
   color: #ffffff;
 }
 
 .c1:focus {
-  box-shadow: 0 0 6px rgba(243,46,109,.6);
+  box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
-  background: #be164c;
-  border: 1px solid #be164c;
+  background: #1e499f;
+  border: 1px solid #1e499f;
   color: #ffffff;
 }
 
@@ -1687,16 +1438,24 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   margin-right: 0px;
 }
 
+.c2 + .c0 {
+  margin-left: 16px;
+}
+
+.c3 + .c0 {
+  margin-left: 16px;
+}
+
 .c4 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c5 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c6 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c7 + .c0 {
@@ -1736,26 +1495,6 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
 }
 
 .c16 + .c0 {
-  margin-left: 16px;
-}
-
-.c17 + .c0 {
-  margin-left: 16px;
-}
-
-.c18 + .c0 {
-  margin-left: 16px;
-}
-
-.c19 + .c0 {
-  margin-left: 16px;
-}
-
-.c20 + .c0 {
-  margin-left: 16px;
-}
-
-.c21 + .c0 {
   margin-left: 16px;
 }
 
@@ -1767,18 +1506,6 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
 `;
 
 exports[`Button when the color variant is set to "magenta-dull" matches the snapshot with the default props 1`] = `
-.c2 + .c0 {
-  margin-left: 15px;
-}
-
-.c3 + .c0 {
-  margin-left: 15px;
-}
-
-.c4 + .c0 {
-  margin-left: 15px;
-}
-
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -1803,23 +1530,23 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   box-sizing: border-box;
   font-weight: 700;
   background: transparent;
-  border: 1px solid #ca2a60;
-  color: #ca2a60;
+  border: 1px solid #255bc7;
+  color: #255bc7;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 .c1:hover {
-  background: #be164c;
-  border: 1px solid #be164c;
+  background: #1e499f;
+  border: 1px solid #1e499f;
   color: #ffffff;
 }
 
 .c1:focus {
-  box-shadow: 0 0 6px rgba(213,85,128,.6);
+  box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
-  background: #be164c;
-  border: 1px solid #be164c;
+  background: #1e499f;
+  border: 1px solid #1e499f;
   color: #ffffff;
 }
 
@@ -1832,12 +1559,24 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   margin-right: 0px;
 }
 
+.c2 + .c0 {
+  margin-left: 16px;
+}
+
+.c3 + .c0 {
+  margin-left: 16px;
+}
+
+.c4 + .c0 {
+  margin-left: 16px;
+}
+
 .c5 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c6 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c7 + .c0 {
@@ -1877,26 +1616,6 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
 }
 
 .c16 + .c0 {
-  margin-left: 16px;
-}
-
-.c17 + .c0 {
-  margin-left: 16px;
-}
-
-.c18 + .c0 {
-  margin-left: 16px;
-}
-
-.c19 + .c0 {
-  margin-left: 16px;
-}
-
-.c20 + .c0 {
-  margin-left: 16px;
-}
-
-.c21 + .c0 {
   margin-left: 16px;
 }
 
@@ -1908,22 +1627,6 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
 `;
 
 exports[`Button when the color variant is set to "red" matches the snapshot with the default props 1`] = `
-.c2 + .c0 {
-  margin-left: 15px;
-}
-
-.c3 + .c0 {
-  margin-left: 15px;
-}
-
-.c4 + .c0 {
-  margin-left: 15px;
-}
-
-.c5 + .c0 {
-  margin-left: 15px;
-}
-
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -1948,23 +1651,23 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   box-sizing: border-box;
   font-weight: 700;
   background: transparent;
-  border: 1px solid #c7384f;
-  color: #c7384f;
+  border: 1px solid #255bc7;
+  color: #255bc7;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 .c1:hover {
-  background: #9f2d3f;
-  border: 1px solid #9f2d3f;
+  background: #1e499f;
+  border: 1px solid #1e499f;
   color: #ffffff;
 }
 
 .c1:focus {
-  box-shadow: 0 0 6px rgba(228,44,45,.6);
+  box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
-  background: #9f2d3f;
-  border: 1px solid #9f2d3f;
+  background: #1e499f;
+  border: 1px solid #1e499f;
   color: #ffffff;
 }
 
@@ -1977,8 +1680,24 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   margin-right: 0px;
 }
 
+.c2 + .c0 {
+  margin-left: 16px;
+}
+
+.c3 + .c0 {
+  margin-left: 16px;
+}
+
+.c4 + .c0 {
+  margin-left: 16px;
+}
+
+.c5 + .c0 {
+  margin-left: 16px;
+}
+
 .c6 + .c0 {
-  margin-left: 15px;
+  margin-left: 16px;
 }
 
 .c7 + .c0 {
@@ -2018,26 +1737,6 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
 }
 
 .c16 + .c0 {
-  margin-left: 16px;
-}
-
-.c17 + .c0 {
-  margin-left: 16px;
-}
-
-.c18 + .c0 {
-  margin-left: 16px;
-}
-
-.c19 + .c0 {
-  margin-left: 16px;
-}
-
-.c20 + .c0 {
-  margin-left: 16px;
-}
-
-.c21 + .c0 {
   margin-left: 16px;
 }
 
@@ -2049,26 +1748,6 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
 `;
 
 exports[`Button when the color variant is set to "white" matches the snapshot with the default props 1`] = `
-.c2 + .c0 {
-  margin-left: 15px;
-}
-
-.c3 + .c0 {
-  margin-left: 15px;
-}
-
-.c4 + .c0 {
-  margin-left: 15px;
-}
-
-.c5 + .c0 {
-  margin-left: 15px;
-}
-
-.c6 + .c0 {
-  margin-left: 15px;
-}
-
 .c1 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -2093,21 +1772,24 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   box-sizing: border-box;
   font-weight: 700;
   background: transparent;
-  border: 1px solid #ffffff;
-  color: rgba(0,0,0,85);
+  border: 1px solid #255bc7;
+  color: #255bc7;
   -webkit-text-decoration: none;
   text-decoration: none;
 }
 
 .c1:hover {
-  background: #cccccc;
-  border: 1px solid #cccccc;
-  color: #1b1d21;
+  background: #1e499f;
+  border: 1px solid #1e499f;
+  color: #ffffff;
 }
 
 .c1:focus {
-  box-shadow: 0 0 6px rgba(51,92,109,.6);
+  box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
+  background: #1e499f;
+  border: 1px solid #1e499f;
+  color: #ffffff;
 }
 
 .c1 + .c0 {
@@ -2117,6 +1799,26 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
 .c1 .carbon-icon {
   margin-left: 8px;
   margin-right: 0px;
+}
+
+.c2 + .c0 {
+  margin-left: 16px;
+}
+
+.c3 + .c0 {
+  margin-left: 16px;
+}
+
+.c4 + .c0 {
+  margin-left: 16px;
+}
+
+.c5 + .c0 {
+  margin-left: 16px;
+}
+
+.c6 + .c0 {
+  margin-left: 16px;
 }
 
 .c7 + .c0 {
@@ -2156,26 +1858,6 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
 }
 
 .c16 + .c0 {
-  margin-left: 16px;
-}
-
-.c17 + .c0 {
-  margin-left: 16px;
-}
-
-.c18 + .c0 {
-  margin-left: 16px;
-}
-
-.c19 + .c0 {
-  margin-left: 16px;
-}
-
-.c20 + .c0 {
-  margin-left: 16px;
-}
-
-.c21 + .c0 {
   margin-left: 16px;
 }
 
