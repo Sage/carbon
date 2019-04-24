@@ -6,6 +6,8 @@ import {
 import { Store, State } from '@sambego/storybook-state';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Checkbox from '.';
+import info from './documentation/info';
+import notes from './documentation/notes.md';
 
 const formStore = new Store({
   checked: false
@@ -23,9 +25,11 @@ storiesOf('Experimental/Checkbox', module)
     );
   }, {
     info: {
+      text: info,
       propTablesExclude: [State],
       excludedPropTypes: ['children']
-    }
+    },
+    notes: { markdown: notes }
   });
 
 function handleChange(ev) {

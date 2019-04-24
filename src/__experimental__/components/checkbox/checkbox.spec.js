@@ -3,6 +3,9 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import Checkbox from './checkbox.component';
 import classicTheme from '../../../style/themes/classic';
+import smallTheme from '../../../style/themes/small';
+import mediumTheme from '../../../style/themes/medium';
+import largeTheme from '../../../style/themes/large';
 
 
 function render(props) {
@@ -95,6 +98,24 @@ describe('Checkbox', () => {
 
     it('renders the appropriate styles when fieldHelpInline=true and reverse=true', () => {
       expect(render({ fieldHelpInline: true, reverse: true, ...opts })).toMatchSnapshot();
+    });
+
+    describe('Small theme', () => {
+      it('renders as expected', () => {
+        expect(render({ theme: smallTheme })).toMatchSnapshot();
+      });
+    });
+
+    describe('Medium theme', () => {
+      it('renders as expected', () => {
+        expect(render({ theme: mediumTheme })).toMatchSnapshot();
+      });
+    });
+
+    describe('Large theme', () => {
+      it('renders as expected', () => {
+        expect(render({ theme: largeTheme })).toMatchSnapshot();
+      });
     });
   });
 });
