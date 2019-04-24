@@ -3,7 +3,7 @@ import sidebarHeaderClassicStyle from './classic-sidebar-header.style';
 import baseTheme from '../../../style/themes/base';
 
 const SidebarHeaderStyle = styled.div`
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.colors.white};
   box-sizing: content-box;
   margin-left: -20px;
   padding: 20px;
