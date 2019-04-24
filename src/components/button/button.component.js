@@ -17,7 +17,7 @@ const Button = React.forwardRef((props, ref) => {
   return (
     <StyledButton
       disabled={ disabled }
-      renderAs={ as }
+      colorVariant={ as }
       role='button'
       iconType={ iconType }
       iconPosition={ iconPosition }
@@ -61,7 +61,7 @@ Button.propTypes = {
   /** Used to transfrom button into anchor */
   href: PropTypes.string,
   /** Defines an Icon position within the button: "before" | "after" */
-  iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions, '']),
+  iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions]),
   /** Defines an Icon type within the button (see Icon for options) */
   iconType: PropTypes.oneOf([...OptionsHelper.icons, '']),
   /** Assigns a size to the button: "small" | "medium" | "large" */
@@ -85,6 +85,7 @@ Button.defaultProps = {
   as: 'secondary',
   size: 'medium',
   disabled: false,
+  iconPosition: 'before',
   theme: 'blue'
 };
 

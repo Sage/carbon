@@ -5,6 +5,7 @@ import buttonTypes from './button-types.style';
 import buttonSizes from './button-sizes.style';
 import classicConfig from './button-classic-config.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import { THEMES } from '../../style/themes';
 
 const StyledButton = styled.button`
   align-items: center;
@@ -31,21 +32,21 @@ export const StyledButtonSubtext = styled.span`
 `;
 
 function addButtonStyle(props) {
-  const { theme, renderAs } = props;
-  if (theme.name === 'classic' && classicRenderAs(renderAs)) return stylingForClassic(props);
+  const { theme, colorVariant } = props;
+  if (theme.name === THEMES.classic && isClassicColorVariant(colorVariant)) return stylingForClassic(props);
   return stylingForType(props);
 }
 
 function stylingForType({
   disabled,
-  renderAs,
+  colorVariant,
   theme,
   size
 }) {
   return css`
     border: 2px solid transparent;
     box-sizing: border-box;
-    ${disabled ? buttonTypes(theme)[renderAs].disabled : buttonTypes(theme)[renderAs].default};
+    ${disabled ? buttonTypes(theme)[colorVariant].disabled : buttonTypes(theme)[colorVariant].default};
     font-weight: 600;
     padding-top: 1px;
     padding-bottom: 1px;
@@ -60,13 +61,13 @@ function stylingForType({
   `;
 }
 
-function classicRenderAs(renderAs) {
-  return renderAs === 'primary' || renderAs === 'secondary';
+function isClassicColorVariant(colorVariant) {
+  return OptionsHelper.themesBinaryClassic.includes(colorVariant);
 }
 
 function stylingForClassic({
   disabled,
-  renderAs,
+  colorVariant,
   variant,
   size
 }) {
@@ -84,7 +85,7 @@ function stylingForClassic({
   return css`
     box-sizing: border-box;
     font-weight: 700;
-    ${classicConfig[renderAs][variant]}
+    ${classicConfig[colorVariant][variant]}
     ${classicConfig[size]}
     text-decoration: none;
     & + & {
@@ -96,13 +97,13 @@ function stylingForClassic({
 StyledButton.defaultProps = {
   theme: BaseTheme,
   medium: true,
-  renderAs: 'secondary',
+  colorVariant: 'secondary',
   variant: 'blue'
 };
 
 StyledButton.propTypes = {
   /** Color variants for new business themes */
-  renderAs: PropTypes.oneOf(OptionsHelper.themesBinary),
+  colorVariant: PropTypes.oneOf(OptionsHelper.themesBinary),
   /** The text the button displays */
   children: PropTypes.node.isRequired,
   /** Apply disabled state to the button */
