@@ -1,26 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import tagComponent from '../../../utils/helpers/tags/tags';
 import SidebarHeaderStyle from './sidebar-header.style';
 
-class SidebarHeader extends React.Component {
-  /** Returns classes for the component. */
-  get mainClasses() {
-    return classNames(
-      this.props.className
-    );
-  }
-
-  /** Renders the component. */
-  render() {
-    return (
-      <SidebarHeaderStyle className={ this.mainClasses } { ...tagComponent('sidebar-header', this.props) }>
-        { this.props.children }
-      </SidebarHeaderStyle>
-    );
-  }
-}
+const SidebarHeader = props => (
+  <SidebarHeaderStyle className={ props.className } { ...tagComponent('sidebar-header', props) }>
+    { props.children }
+  </SidebarHeaderStyle>
+);
 
 SidebarHeader.propTypes = {
   /** This component supports children. */
