@@ -7,6 +7,7 @@ import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import DialogFullScreen from '.';
 import Button from '../button';
+import Form from '../form';
 
 const store = new Store({
   open: false
@@ -24,6 +25,12 @@ const handleOpen = () => {
 
 const handleClick = (evt) => {
   action('click')(evt);
+};
+
+const storyParameters = {
+  info: { text: Info },
+  notes: { markdown: notes },
+  knobs: { escapeHTML: false }
 };
 
 storiesOf('Dialog Full Screen', module)
@@ -59,8 +66,37 @@ storiesOf('Dialog Full Screen', module)
         </State>
       </div>
     );
-  }, {
-    info: { text: Info },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
-  });
+  }, storyParameters)
+  .add('with sticky footer', () => {
+    const title = text('title', 'Example Dialog');
+    const subtitle = text('subtitle', 'Example Subtitle');
+    const children = text('children', 'Text Content');
+    const enableBackgroundUI = boolean('enableBackgroundUI', false);
+    const disableEscKey = boolean('disableEscKey', false);
+    const ariaRole = text('ariaRole', 'dialog');
+    const stickyFooter = boolean('stickyFooter', true);
+    const formHeight = text('form height', '2000px');
+
+    return (
+      <div>
+        <Button onClick={ handleOpen }>Open Preview</Button>
+        <State store={ store }>
+          <DialogFullScreen
+            open={ store.get('open') }
+            onCancel={ handleCancel }
+            title={ title }
+            subtitle={ subtitle }
+            enableBackgroundUI={ enableBackgroundUI }
+            disableEscKey={ disableEscKey }
+            ariaRole={ ariaRole }
+            onClick={ handleClick }
+          >
+            <Form stickyFooter={ stickyFooter }>
+              { children }
+              <div style={ { height: formHeight } } />
+            </Form>
+          </DialogFullScreen>
+        </State>
+      </div>
+    );
+  }, storyParameters);
