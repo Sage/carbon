@@ -1,6 +1,6 @@
 import React from 'react';
 import 'jest-styled-components';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import Icon from 'components/icon';
 import TestRenderer from 'react-test-renderer';
 import Button from '.';
@@ -87,11 +87,11 @@ describe('Button', () => {
   });
 
   describe.each(variants)(
-    'when setting the "as" prop to "%s"',
+    'when setting the "buttonType" prop to "%s"',
     (variant) => {
       it('matches the expected style', () => {
         const wrapper = render({
-          children: 'foo', disabled: true, renderAs: variant
+          children: 'foo', disabled: true, buttonType: variant
         }, TestRenderer.create).toJSON();
         assertStyleMatch({
           background:
@@ -125,7 +125,7 @@ describe('Button', () => {
           (variant) => {
             it('matches the expected style', () => {
               const wrapper = render({
-                children: 'foo', disabled: true, renderAs: variant, size
+                children: 'foo', disabled: true, buttonType: variant, size
               }, TestRenderer.create).toJSON();
 
               assertStyleMatch({
@@ -193,7 +193,7 @@ describe('Button', () => {
     const defaultButton = render({ children: 'Save' });
 
     it('renders a button with defaults', () => {
-      expect(defaultButton.props().renderAs).toEqual('secondary');
+      expect(defaultButton.props().buttonType).toEqual('secondary');
       expect(defaultButton.containsMatchingElement(
         <span>Save</span>
       )).toBeTruthy();
@@ -210,7 +210,7 @@ describe('Button', () => {
 
     it('renders a primary button', () => {
       expect(primary.props().name).toEqual('Primary Button');
-      expect(primary.props().renderAs).toEqual('primary');
+      expect(primary.props().buttonType).toEqual('primary');
       expect(primary.containsMatchingElement(
         <span>Primary</span>
       )).toBeTruthy();
@@ -227,7 +227,7 @@ describe('Button', () => {
 
     it('renders a secondary button', () => {
       expect(secondary.props().name).toEqual('Secondary Button');
-      expect(secondary.props().renderAs).toEqual('secondary');
+      expect(secondary.props().buttonType).toEqual('secondary');
       expect(secondary.containsMatchingElement(
         <span>Secondary</span>
       )).toBeTruthy();
@@ -275,44 +275,11 @@ describe('Button', () => {
 
     it('renders a disabled button', () => {
       expect(disabled.props().name).toEqual('Disabled Button');
-      expect(disabled.props().renderAs).toEqual('secondary');
+      expect(disabled.props().buttonType).toEqual('secondary');
       expect(disabled.containsMatchingElement(
         <span>Disabled</span>
       )).toBeTruthy();
       expect(disabled.props().disabled).toEqual(true);
-    });
-  });
-
-  describe('render', () => {
-    describe('default', () => {
-      it('renders a button with no link', () => {
-        const wrapper = render({ children: 'foo ' }, mount);
-        expect(wrapper.find('a').exists()).toEqual(false);
-      });
-    });
-
-    describe('with href', () => {
-      const anchor = render({
-        href: '/foo',
-        children: 'Anchor'
-      }, mount);
-
-      it('renders an anchor', () => {
-        const anchorLink = anchor.find('a');
-        expect(anchorLink.exists()).toEqual(true);
-      });
-    });
-
-    describe('with to', () => {
-      const to = render({
-        to: '/foo',
-        children: 'To'
-      }, mount);
-
-      it('renders an anchor', () => {
-        const toLink = to.find('a');
-        expect(toLink.exists()).toEqual(true);
-      });
     });
   });
 
