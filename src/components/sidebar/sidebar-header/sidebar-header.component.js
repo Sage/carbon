@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags/tags';
 import SidebarHeaderStyle from './sidebar-header.style';
 
-const SidebarHeader = props => (
-  <SidebarHeaderStyle className={ props.className } { ...tagComponent('sidebar-header', props) }>
-    { props.children }
+const SidebarHeader = ({ className, children, ...props }) => (
+  <SidebarHeaderStyle className={ className } { ...tagComponent('sidebar-header', props) }>
+    { children }
   </SidebarHeaderStyle>
 );
 
