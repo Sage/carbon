@@ -1,187 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Sidebar sidebarClasses returns a base sidebar 1`] = `
-<Portal
-  key="1"
->
-  <div
-    className="carbon-sidebar custom-class"
-    data-component="sidebar"
-    data-element="bar"
-    data-role="baz"
-    data-state="open"
-  >
-    <CSSTransitionGroup
-      component="div"
-      transitionAppear={true}
-      transitionAppearTimeout={500}
-      transitionEnter={true}
-      transitionEnterTimeout={500}
-      transitionLeave={true}
-      transitionLeaveTimeout={500}
-      transitionName="modal-background"
-    >
-      <div
-        className="carbon-modal__background"
-      />
-    </CSSTransitionGroup>
-    <CSSTransitionGroup
-      component="div"
-      transitionAppear={true}
-      transitionAppearTimeout={500}
-      transitionEnter={true}
-      transitionEnterTimeout={500}
-      transitionLeave={true}
-      transitionLeaveTimeout={500}
-      transitionName="sidebar--right"
-    >
-      <styled.div
-        data-component="sidebar"
-        data-element="bar"
-        data-role="baz"
-        position="right"
-        size="medium"
-        theme={
-          Object {
-            "colors": Object {
-              "border": "#668491",
-              "brand": "#00DC00",
-              "error": "#C7384F",
-              "focus": "#FFDA7F",
-              "focusedIcon": "#335B6D",
-              "info": "#0073C2",
-              "primary": "#26A826",
-              "secondary": "#006300",
-              "success": "#00B000",
-              "tertiary": "#004400",
-              "warning": "#E96400",
-              "white": "#FFFFFF",
-            },
-            "disabled": Object {
-              "border": "#CCD6DA",
-              "disabled": "rgba(0,0,0,0.55)",
-              "input": "#F2F4F5",
-              "text": "rgba(0,0,0,0.3)",
-            },
-            "name": "base",
-            "shadows": Object {
-              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
-              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-            },
-            "text": Object {
-              "color": "rgba(0,0,0,0.9)",
-              "placeholder": "rgba(0,0,0,0.3)",
-              "size": "14px",
-            },
-          }
-        }
-      >
-        <styled.div
-          theme={
-            Object {
-              "colors": Object {
-                "border": "#668491",
-                "brand": "#00DC00",
-                "error": "#C7384F",
-                "focus": "#FFDA7F",
-                "focusedIcon": "#335B6D",
-                "info": "#0073C2",
-                "primary": "#26A826",
-                "secondary": "#006300",
-                "success": "#00B000",
-                "tertiary": "#004400",
-                "warning": "#E96400",
-                "white": "#FFFFFF",
-              },
-              "disabled": Object {
-                "border": "#CCD6DA",
-                "disabled": "rgba(0,0,0,0.55)",
-                "input": "#F2F4F5",
-                "text": "rgba(0,0,0,0.3)",
-              },
-              "name": "base",
-              "shadows": Object {
-                "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
-                "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-                "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-                "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-                "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-              },
-              "text": Object {
-                "color": "rgba(0,0,0,0.9)",
-                "placeholder": "rgba(0,0,0,0.3)",
-                "size": "14px",
-              },
-            }
-          }
-        >
-          <Icon
-            bgSize="small"
-            className="carbon-sidebar__close-icon"
-            data-element="close"
-            onClick={[Function]}
-            type="close"
-          />
-        </styled.div>
-        <Textbox />
-        <Textbox />
-        <Textbox />
-      </styled.div>
-    </CSSTransitionGroup>
-  </div>
-</Portal>
-`;
-
-exports[`SidebarStyle When classic style is passed to the component should render correct style 1`] = `
+exports[`SidebarHeaderStyle should render base sidebar header 1`] = `
 .c0 {
-  background-color: #1e499f;
-  border-radius: 1px;
-  bottom: 0;
-  overflow: auto;
+  background-color: #fff;
+  box-sizing: content-box;
+  margin-left: -20px;
   padding: 20px;
-  position: fixed;
-  top: 0;
-  z-index: 1002;
-  width: 150px;
-  box-shadow: 10px 0 15px rgba(0,0,0,0.05);
-  left: 0;
-  background-color: #e6ebed;
-  border-right: 1px solid #ccd6db;
+  position: relative;
+  top: -20px;
+  width: 100%;
+  box-shadow: inset 0 -1px 0 0 #CCD6DA;
 }
 
 <styled.div
-  open={true}
-  position="left"
-  size="extra-small"
   theme={
     Object {
       "colors": Object {
-        "base": "#00A376",
-        "baseBlue": "#255BC7",
         "border": "#668491",
         "brand": "#00DC00",
         "error": "#C7384F",
         "focus": "#FFDA7F",
         "focusedIcon": "#335B6D",
-        "greyDarkBlue50": "#8099a4",
         "info": "#0073C2",
-        "primary": "#00805D",
-        "secondary": "#006045",
+        "primary": "#26A826",
+        "secondary": "#006300",
         "success": "#00B000",
-        "tertiary": "#003F2E",
+        "tertiary": "#004400",
         "warning": "#E96400",
         "white": "#FFFFFF",
       },
       "disabled": Object {
-        "border": "#4d7080",
-        "disabled": "#b3c2c8",
-        "input": "#1e499f",
-        "text": "#003349",
+        "border": "#CCD6DA",
+        "disabled": "rgba(0,0,0,0.55)",
+        "input": "#F2F4F5",
+        "text": "rgba(0,0,0,0.3)",
       },
-      "name": "classic",
+      "name": "base",
       "shadows": Object {
         "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
         "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
@@ -208,30 +62,18 @@ exports[`SidebarStyle When classic style is passed to the component should rende
           "lastClassName": "c0",
           "rules": Array [
             "
-  background-color: ",
-            [Function],
-            ";
-  border-radius: 1px;
-  bottom: 0;
-  overflow: auto;
+  background-color: #fff;
+  box-sizing: content-box;
+  margin-left: -20px;
   padding: 20px;
-  position: fixed;
-  top: 0;
-  z-index: 1002;
-  
-    ",
+  position: relative;
+  top: -20px;
+  width: 100%;
+  box-shadow: inset 0 -1px 0 0 ",
             [Function],
             ";
 
-    ",
-            [Function],
-            ";
-
-    ",
-            [Function],
-            ";
-
-    ",
+  ",
             [Function],
             "
 ",
@@ -285,35 +127,29 @@ exports[`SidebarStyle When classic style is passed to the component should rende
       }
     }
     forwardedRef={null}
-    open={true}
-    position="left"
-    size="extra-small"
     theme={
       Object {
         "colors": Object {
-          "base": "#00A376",
-          "baseBlue": "#255BC7",
           "border": "#668491",
           "brand": "#00DC00",
           "error": "#C7384F",
           "focus": "#FFDA7F",
           "focusedIcon": "#335B6D",
-          "greyDarkBlue50": "#8099a4",
           "info": "#0073C2",
-          "primary": "#00805D",
-          "secondary": "#006045",
+          "primary": "#26A826",
+          "secondary": "#006300",
           "success": "#00B000",
-          "tertiary": "#003F2E",
+          "tertiary": "#004400",
           "warning": "#E96400",
           "white": "#FFFFFF",
         },
         "disabled": Object {
-          "border": "#4d7080",
-          "disabled": "#b3c2c8",
-          "input": "#1e499f",
-          "text": "#003349",
+          "border": "#CCD6DA",
+          "disabled": "rgba(0,0,0,0.55)",
+          "input": "#F2F4F5",
+          "text": "rgba(0,0,0,0.3)",
         },
-        "name": "classic",
+        "name": "base",
         "shadows": Object {
           "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
           "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
@@ -331,59 +167,47 @@ exports[`SidebarStyle When classic style is passed to the component should rende
   >
     <div
       className="c0"
-      open={true}
-      size="extra-small"
     />
   </StyledComponent>
 </styled.div>
 `;
 
-exports[`SidebarStyle When classic style is passed to the component should render correct style 2`] = `
+exports[`SidebarHeaderStyle when classic theme is provided to the component should render correct style 1`] = `
 .c0 {
-  cursor: pointer;
-  position: absolute;
-  right: 20px;
-  top: 15px;
-  z-index: 1;
-  color: #668491;
-  color: rgba(0,0,0,0.85);
-}
-
-.c0:hover {
-  color: #335B6D;
-}
-
-.c0:hover {
-  color: #255BC7;
+  background-color: #fff;
+  box-sizing: content-box;
+  margin-left: -20px;
+  padding: 20px;
+  position: relative;
+  top: -20px;
+  width: 100%;
+  box-shadow: inset 0 -1px 0 0 #CCD6DA;
 }
 
 <styled.div
   theme={
     Object {
       "colors": Object {
-        "base": "#00A376",
-        "baseBlue": "#255BC7",
         "border": "#668491",
         "brand": "#00DC00",
         "error": "#C7384F",
         "focus": "#FFDA7F",
         "focusedIcon": "#335B6D",
-        "greyDarkBlue50": "#8099a4",
         "info": "#0073C2",
-        "primary": "#00805D",
-        "secondary": "#006045",
+        "primary": "#26A826",
+        "secondary": "#006300",
         "success": "#00B000",
-        "tertiary": "#003F2E",
+        "tertiary": "#004400",
         "warning": "#E96400",
         "white": "#FFFFFF",
       },
       "disabled": Object {
-        "border": "#4d7080",
-        "disabled": "#b3c2c8",
-        "input": "#1e499f",
-        "text": "#003349",
+        "border": "#CCD6DA",
+        "disabled": "rgba(0,0,0,0.55)",
+        "input": "#F2F4F5",
+        "text": "rgba(0,0,0,0.3)",
       },
-      "name": "classic",
+      "name": "base",
       "shadows": Object {
         "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
         "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
@@ -405,27 +229,23 @@ exports[`SidebarStyle When classic style is passed to the component should rende
         "$$typeof": Symbol(react.forward_ref),
         "attrs": Array [],
         "componentStyle": ComponentStyle {
-          "componentId": "sc-bwzfXH",
+          "componentId": "sc-bdVaJa",
           "isStatic": false,
           "lastClassName": "c0",
           "rules": Array [
             "
-    cursor: pointer;
-    position: absolute;
-    right: 20px;
-    top: 15px;
-    z-index: 1;
-    color: ",
+  background-color: #fff;
+  box-sizing: content-box;
+  margin-left: -20px;
+  padding: 20px;
+  position: relative;
+  top: -20px;
+  width: 100%;
+  box-shadow: inset 0 -1px 0 0 ",
             [Function],
             ";
 
-    &:hover {
-        color: ",
-            [Function],
-            ";
-    };
-
-    ",
+  ",
             [Function],
             "
 ",
@@ -471,7 +291,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
         "displayName": "styled.div",
         "foldedComponentIds": Array [],
         "render": [Function],
-        "styledComponentId": "sc-bwzfXH",
+        "styledComponentId": "sc-bdVaJa",
         "target": "div",
         "toString": [Function],
         "warnTooManyClasses": [Function],
@@ -482,29 +302,26 @@ exports[`SidebarStyle When classic style is passed to the component should rende
     theme={
       Object {
         "colors": Object {
-          "base": "#00A376",
-          "baseBlue": "#255BC7",
           "border": "#668491",
           "brand": "#00DC00",
           "error": "#C7384F",
           "focus": "#FFDA7F",
           "focusedIcon": "#335B6D",
-          "greyDarkBlue50": "#8099a4",
           "info": "#0073C2",
-          "primary": "#00805D",
-          "secondary": "#006045",
+          "primary": "#26A826",
+          "secondary": "#006300",
           "success": "#00B000",
-          "tertiary": "#003F2E",
+          "tertiary": "#004400",
           "warning": "#E96400",
           "white": "#FFFFFF",
         },
         "disabled": Object {
-          "border": "#4d7080",
-          "disabled": "#b3c2c8",
-          "input": "#1e499f",
-          "text": "#003349",
+          "border": "#CCD6DA",
+          "disabled": "rgba(0,0,0,0.55)",
+          "input": "#F2F4F5",
+          "text": "rgba(0,0,0,0.3)",
         },
-        "name": "classic",
+        "name": "base",
         "shadows": Object {
           "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
           "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",

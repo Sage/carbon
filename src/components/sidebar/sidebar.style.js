@@ -1,4 +1,6 @@
 import styled, { css } from 'styled-components';
+import baseTheme from '../../style/themes/base';
+import { sidebarClassicStyle, sidebarCloseClassicStyle } from './classic-sidebar.style';
 
 const sidebarSizes = {
   'extra-small': '150px',
@@ -11,7 +13,7 @@ const sidebarSizes = {
 };
 
 const SidebarStyle = styled.div`
-  background-color: #e6ebed;
+  background-color: ${({ theme }) => theme.disabled.input};
   border-radius: 1px;
   bottom: 0;
   overflow: auto;
@@ -26,15 +28,15 @@ const SidebarStyle = styled.div`
 
     ${({ position }) => position === 'right' && css`
         box-shadow: -10px 0 15px rgba(0, 0, 0, 0.05);
-        border-left: 1px solid #ccd6db;
         right: 0;
     `};
 
     ${({ position }) => position === 'left' && css`
-            box-shadow: 10px 0 15px rgba(0, 0, 0, 0.05);
-            border-right: 1px solid #ccd6db;
-            left: 0;
+        box-shadow: 10px 0 15px rgba(0, 0, 0, 0.05);
+        left: 0;
     `};
+
+    ${sidebarClassicStyle}
 `;
 
 const SidebarCloseStyle = styled.div`
@@ -43,10 +45,21 @@ const SidebarCloseStyle = styled.div`
     right: 20px;
     top: 15px;
     z-index: 1;
+    color: ${({ theme }) => theme.colors.border};
 
     &:hover {
-        color: #255BC7;
+        color: ${({ theme }) => theme.colors.focusedIcon};
     };
+
+    ${sidebarCloseClassicStyle}
 `;
+
+SidebarStyle.defaultProps = {
+  theme: baseTheme
+};
+
+SidebarCloseStyle.defaultProps = {
+  theme: baseTheme
+};
 
 export { SidebarStyle, SidebarCloseStyle };

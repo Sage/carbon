@@ -3,8 +3,9 @@ import 'jest-styled-components';
 import { shallow, mount } from 'enzyme';
 import Sidebar from './sidebar.component';
 import Textbox from '../textbox/textbox';
-import { SidebarStyle } from './sidebar.style';
+import { SidebarStyle, SidebarCloseStyle } from './sidebar.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import classicTheme from '../../style/themes/classic';
 
 describe('Sidebar', () => {
   let wrapper, spy;
@@ -91,7 +92,6 @@ describe('SidebarStyle', () => {
       assertStyleMatch({
         width: '150px',
         boxShadow: '-10px 0 15px rgba(0,0,0,0.05)',
-        borderLeft: '1px solid #ccd6db',
         right: '0'
       }, wrapper);
     });
@@ -106,8 +106,31 @@ describe('SidebarStyle', () => {
     it('should render correct style', () => {
       assertStyleMatch({
         boxShadow: '10px 0 15px rgba(0,0,0,0.05)',
-        borderRight: '1px solid #ccd6db',
         left: '0'
+      }, wrapper);
+    });
+  });
+
+  describe('When classic style is passed to the component', () => {
+    const closeIconWrapper = mount(<SidebarCloseStyle theme={ classicTheme } />);
+    let wrapper;
+
+    it('should render correct style', () => {
+      wrapper = mount(<SidebarStyle
+        theme={ classicTheme }
+        open size='extra-small'
+        position='left'
+      />);
+
+      expect(wrapper).toMatchSnapshot();
+      expect(closeIconWrapper).toMatchSnapshot();
+    });
+
+    describe('when classic style is passed to the component and position is right', () => {
+      wrapper = mount(<SidebarStyle theme={ classicTheme } position='right' />);
+
+      assertStyleMatch({
+        borderLeft: '1px solid #ccd6db'
       }, wrapper);
     });
   });
