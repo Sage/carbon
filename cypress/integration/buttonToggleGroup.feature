@@ -10,9 +10,11 @@ Feature: Button Toggle Group component
     Then label on preview is "<label>"
     Examples:
       | label                    |
-      | ÄÖÜßäöü                  |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
@@ -22,9 +24,11 @@ Feature: Button Toggle Group component
     Then Label help on preview is set to "<labelHelp>"
     Examples:
       | labelHelp                |
-      | ÄÖÜßäöü                  |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
@@ -53,9 +57,11 @@ Feature: Button Toggle Group component
     Then Field help on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                |
-      | ÄÖÜßäöü                  |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
@@ -87,7 +93,7 @@ Feature: Button Toggle Group component
     Examples:
       | width                   |
       | !@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                      |
+      | 汉字                     |
       | <>                      |
 
   @positive

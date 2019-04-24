@@ -32,9 +32,11 @@ Feature: Checkbox component
     Then label on preview is "<label>"
     Examples:
       | label                    |
-      | ÄÖÜßäöü                  |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
@@ -44,9 +46,11 @@ Feature: Checkbox component
     Then Label help on preview is set to "<labelHelp>"
     Examples:
       | labelHelp                |
-      | ÄÖÜßäöü                  |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
@@ -76,9 +80,11 @@ Feature: Checkbox component
     Then Field help on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                |
-      | ÄÖÜßäöü                  |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive

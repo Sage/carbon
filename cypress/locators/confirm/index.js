@@ -1,6 +1,6 @@
 import { FORM, CLOSE_ICON_BUTTON } from '../locators';
 import {
-  OPEN_BUTTON, CHILDREN_TEXTAREA, TITLE_INPUT, HEIGHT_INPUT, SUBTILE_INPUT, SHOW_CLOSE_ICON_CONFIRM,
+  OPEN_BUTTON, CHILDREN_AREA, TITLE_INPUT, HEIGHT_INPUT, SUBTILE_INPUT, SHOW_CLOSE_ICON_CONFIRM,
   STICKY_FORM_FOOTER_CHECKBOX, CONFIRM_LABEL, CANCEL_LABEL,
   DIALOG_INNER_CONTENT, DIALOG_TITLE, DIALOG, CANCEL_BUTTON, CONFIRM_BUTTON,
 } from './locators';
@@ -22,6 +22,6 @@ export const dialogTitle = () => cy.iFrame(DIALOG_TITLE);
 export const dialogPreview = () => cy.iFrame(DIALOG);
 export const closeIconButton = () => cy.iFrame(CLOSE_ICON_BUTTON);
 export const dialogSubtitle = () => cy.iFrame(DIALOG_SUBTITLE);
-export const childrenTextArea = () => cy.iFrame(CHILDREN_TEXTAREA);
+export const childrenArea = () => cy.iFrame(CHILDREN_AREA);
 export const confirmButton = () => cy.iFrame(CONFIRM_BUTTON);
 export const cancelButton = () => cy.iFrame(CANCEL_BUTTON);

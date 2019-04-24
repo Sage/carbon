@@ -11,9 +11,11 @@ Feature: Dialog Full Screen component
     Then component title on preview is "<title>"
     Examples:
       | title                    |
-      | ÄÖÜßäöü                  |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
@@ -23,9 +25,11 @@ Feature: Dialog Full Screen component
     Then component subtitle on preview is "<subtitle>"
     Examples:
       | subtitle                 |
-      | ÄÖÜßäöü                  |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
@@ -35,9 +39,11 @@ Feature: Dialog Full Screen component
     Then Dialog Full Screen children on preview is "<children>"
     Examples:
       | children                 |
-      | ÄÖÜßäöü                  |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive

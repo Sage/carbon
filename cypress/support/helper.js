@@ -1,16 +1,6 @@
 import { knobsTab } from '../locators';
 import { DEBUG_FLAG } from '.';
 
-const dialogSizes = Object.freeze({
-  extraSmall: { name: 'extra-small', width: '300px' },
-  small: { name: 'small', width: '380px' },
-  mediumSmall: { name: 'medium-small', width: '540px' },
-  medium: { name: 'medium', width: '750px' },
-  mediumLarge: { name: 'medium-large', width: '850px' },
-  large: { name: 'large', width: '960px' },
-  extraLarge: { name: 'extra-large', width: '1080px' },
-});
-
 function prepareUrl(component, suffix, iFrameOnly) {
   let url = Cypress.env('localhost');
   // eslint-disable-next-line no-unused-expressions
@@ -52,38 +42,7 @@ export function setSlidebar(selector, value) {
   });
 }
 
-function shouldHaveCssElementWidth(size) {
-  return cy.should('have.css', 'width', size);
-}
-
-export function checkTheSizeOfTheElement(element, size) {
-  switch (size) {
-    case dialogSizes.extraSmall.name:
-      shouldHaveCssElementWidth(dialogSizes.extraSmall.width);
-      break;
-    case dialogSizes.small.name:
-      shouldHaveCssElementWidth(dialogSizes.small.width);
-      break;
-    case dialogSizes.mediumSmall.name:
-      shouldHaveCssElementWidth(dialogSizes.mediumSmall.width);
-      break;
-    case dialogSizes.medium.name:
-      shouldHaveCssElementWidth(dialogSizes.medium.width);
-      break;
-    case dialogSizes.mediumLarge.name:
-      shouldHaveCssElementWidth(dialogSizes.mediumLarge.width);
-      break;
-    case dialogSizes.large.name:
-      shouldHaveCssElementWidth(dialogSizes.large.width);
-      break;
-    case dialogSizes.extraLarge.name:
-      shouldHaveCssElementWidth(dialogSizes.extraLarge.width);
-      break;
-    default: throw new Error(`Size: ${size} is not defined`);
-  }
-}
-
-export function clickOntoESCKey() {
+export function pressESCKey() {
   // using Shift+Esc - because of storybook shortcuts overeride
   cy.iFrame('body').type('{shift}{esc}');
 }

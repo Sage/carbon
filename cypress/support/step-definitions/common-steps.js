@@ -1,4 +1,4 @@
-import { visitComponentUrl, setSlidebar, clickOntoESCKey } from '../helper';
+import { visitComponentUrl, setSlidebar, pressESCKey } from '../helper';
 import {
   asSelect, sizeSelect, subtextInput, titleInput, disabledCheckbox,
   heightInput, childrenTextArea, labelInput, commonButtonPreview,
@@ -144,15 +144,15 @@ When('I disable showCloseIcon', () => {
   showCloseIconCheckbox().uncheck({ force: true });
 });
 
-Then('CloseIcon is visible', () => {
+Then('closeIcon is visible', () => {
   closeIconButton().should('be.visible');
 });
 
-Then('I click CloseIcon', () => {
+Then('I click closeIcon', () => {
   closeIconButton().click();
 });
 
-Then('CloseIcon is not visible', () => {
+Then('closeIcon is not visible', () => {
   closeIconButton().should('not.exist');
 });
 
@@ -177,7 +177,7 @@ When('I uncheck disableEscKey', () => {
 });
 
 When('I hit ESC key', () => {
-  clickOntoESCKey();
+  pressESCKey();
 });
 
 When('I disable {word} component', () => {

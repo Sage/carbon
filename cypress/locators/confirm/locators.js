@@ -15,6 +15,6 @@ export const DIALOG_TITLE = '#carbon-dialog-title';
 export const DIALOG = 'div[role="dialog"][data-component="confirm"][aria-labelledby="carbon-dialog-title"]';
 export const CLOSE_ICON_BUTTON = '.icon-close';
 export const DIALOG_SUBTITLE = '#carbon-dialog-subtitle';
-export const CHILDREN_TEXTAREA = 'span[data-element="confirm-children"]';
+export const CHILDREN_AREA = 'span[data-element="confirm-children"]';
 export const CONFIRM_BUTTON = 'button[data-element="confirm"]';
 export const CANCEL_BUTTON = 'button[data-element="cancel"]';

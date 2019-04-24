@@ -1,4 +1,4 @@
-import { visitComponentUrl, checkTheSizeOfTheElement } from '../helper';
+import { visitComponentUrl } from '../helper';
 import {
   asSelect, sizeSelect, subtextInput, titleInput, heightInput, labelInput,
   disableEscKeyCheckbox, backgroundUILocator,
@@ -7,7 +7,7 @@ import {
   openButton, dialogTitle, cancelLabel, confirmLabel,
   dialogPreview, showCloseIconCheckbox, closeIconButton,
   dialogSubtitle, stickyFormFooterCheckbox,
-  childrenTextArea, confirmButton, cancelButton,
+  childrenArea, confirmButton, cancelButton,
 } from '../../locators/confirm';
 
 const STICKY_FORM_FOOTER_PARAMETER = 'TODO';
@@ -17,7 +17,7 @@ Given('I open {string} component page', (component) => {
 });
 
 When('I set children to {string}', (text) => {
-  childrenTextArea().clear().type(text);
+  childrenArea().clear().type(text);
 });
 
 When('I type {string} to as property', (asProperty) => {
@@ -125,7 +125,7 @@ Then('Confirm dialog input height is {string}', (height) => {
 });
 
 Then('Confirm dialog size property on preview is {string}', (size) => {
-  checkTheSizeOfTheElement(dialogPreview(), size);
+  dialogPreview().should('have.css', 'width', `${size}px`);
 });
 
 When('I check stickyFormFooter', () => {

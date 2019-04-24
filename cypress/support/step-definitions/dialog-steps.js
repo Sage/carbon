@@ -1,4 +1,3 @@
-import { checkTheSizeOfTheElement } from '../helper';
 import { backgroundBlocker, dialogPreview, dialogStickyFormFooter } from '../../locators/dialog/index';
 import { STORY_ROOT } from '../../locators/locators';
 
@@ -27,14 +26,14 @@ Then('Dialog height is not set to {string}', (height) => {
 });
 
 Then('Dialog size property on preview is {string}', (size) => {
-  checkTheSizeOfTheElement(dialogPreview(), size);
+  dialogPreview().should('have.css', 'width', `${size}px`);
 });
 
-Then('dialog is visible', () => {
+Then('Dialog is visible', () => {
   dialogPreview().should('be.visible');
 });
 
-Then('dialog is not visible', () => {
+Then('Dialog is not visible', () => {
   dialogPreview().should('not.exist');
 });
 

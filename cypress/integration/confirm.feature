@@ -11,9 +11,11 @@ Feature: Confirm component
     Then cancel button content on preview is "<cancelButton>"
     Examples:
       | cancelButton             |
-      | ÄÖÜßäöü                  |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
@@ -23,9 +25,11 @@ Feature: Confirm component
     Then confirm button content on preview is "<confirmButton>"
     Examples:
       | confirmButton            |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
-      | ÄÖÜßäöü                  |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
       
   @positive
@@ -35,10 +39,12 @@ Feature: Confirm component
     Then dialog title context children on preview is "<title>"
     Examples:
       | title                    |
-      | <>                       |
-      | !@#$%^*()_+-=~[];:.,?{}  |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
-      | ÄÖÜßäöü                  |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
+      | <>                       |
 
   @positive
   Scenario Outline: Change subtitle in Confirm dialog
@@ -47,10 +53,12 @@ Feature: Confirm component
     Then dialog subtitle context is "<subtitle>"
     Examples:
       | subtitle                 |
-      | <>                       |
-      | !@#$%^*()_+-=~[];:.,?{}  |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
-      | ÄÖÜßäöü                  |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
+      | <>                       |
 
   @positive
   Scenario Outline: Change the height of Confirm dialog
@@ -69,18 +77,18 @@ Feature: Confirm component
 
   @positive
   Scenario Outline: Change the size of Confirm dialog
-    When I set component size to "<size>"
+    When I set component size to "<sizeName>"
       And I click on a openButton
-    Then Confirm dialog size property on preview is "<size>"
+    Then Confirm dialog size property on preview is "<sizePropertyInPx>"
     Examples:
-      | size               | 
-      | extra-small        |
-      | small              | 
-      | medium-small       | 
-      | medium             |
-      | medium-large       | 
-      | large              | 
-      | extra-large        |
+      | sizeName     | sizePropertyInPx |
+      | extra-small  |       300        |
+      | small        |       380        |
+      | medium-small |       540        |
+      | medium       |       750        |
+      | medium-large |       850        |
+      | large        |       960        |
+      | extra-large  |       1080       |
 
   @positive
   Scenario: Enable background UI
