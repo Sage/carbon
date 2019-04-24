@@ -1,7 +1,6 @@
 import { labelPreview, fieldHelpPreview, labelInlineCheckbox } from '../../locators';
 import {
-  inputWidthInput, inputWidthPreview, labelHelpPreview,
-  buttonToggleGroupPreview, labelWidthInput,
+  inputWidthInput, inputWidthPreview, buttonToggleGroupPreview, labelWidthInput,
 } from '../../locators/button-toggle-group';
 
 When('I set input width to {string}', (width) => {
@@ -14,10 +13,6 @@ Then('Input width is set to {string}', (width) => {
 
 Then('Input width is not set', () => {
   inputWidthPreview().should('not.have.attr', 'style');
-});
-
-Then('Label help on preview is set to {string}', (text) => {
-  labelHelpPreview().should('have.text', text);
 });
 
 When('I uncheck label inline checkbox', () => {
