@@ -3,14 +3,12 @@ import { THEMES } from '../../style/themes';
 
 const sidebarClassicStyle = ({ theme }) => theme.name === THEMES.classic && css`
     background-color: #e6ebed;
+    
+    ${({ position }) => {
+    const oppositeSide = position === 'right' ? 'left' : 'right';
 
-     ${({ position }) => position === 'right' && css`
-         border-left: 1px solid #ccd6db;
-    `};
-
-    ${({ position }) => position === 'left' && css`
-        border-right: 1px solid #ccd6db;
-    `};
+    return `border-${oppositeSide}: 1px solid #ccd6db`;
+  }}
 `;
 
 const sidebarCloseClassicStyle = ({ theme }) => theme.name === THEMES.classic && css`
