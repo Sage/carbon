@@ -42,9 +42,7 @@ exports[`Sidebar sidebarClasses returns a base sidebar 1`] = `
         position="right"
         size="medium"
       >
-        <span
-          className="carbon-sidebar__close"
-        >
+        <styled.div>
           <Icon
             bgSize="small"
             className="carbon-sidebar__close-icon"
@@ -52,7 +50,7 @@ exports[`Sidebar sidebarClasses returns a base sidebar 1`] = `
             onClick={[Function]}
             type="close"
           />
-        </span>
+        </styled.div>
         <Textbox />
         <Textbox />
         <Textbox />
