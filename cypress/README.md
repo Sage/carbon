@@ -36,6 +36,6 @@
 
 #### How to locate elements
 Always use unique selectors to locate elements with order below:
-1. `[data-component="unique-tag"]`
+1. `[data-component="unique-tag"]` for component and `[data-element="unique-tag"]` for component's element
 2. `#id`
 3. `.class-name`
