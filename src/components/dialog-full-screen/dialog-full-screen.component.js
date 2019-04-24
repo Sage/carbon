@@ -8,7 +8,6 @@ import StyledContent from './content.style';
 import StyledIcon from './icon.style';
 import Browser from '../../utils/helpers/browser';
 
-const DIALOG_OPEN_HTML_CLASS = 'carbon-dialog-full-screen--open';
 
 class DialogFullScreen extends Modal {
   constructor(props) {
@@ -57,14 +56,18 @@ class DialogFullScreen extends Modal {
    * Overrides the original function to disable the document's scroll.
    */
   get onOpening() {
-    return this.document.documentElement.classList.add(DIALOG_OPEN_HTML_CLASS);
+    this.document.documentElement.style.overflow = 'hidden';
+
+    return this.document.documentElement;
   }
 
   /**
    * Overrides the original function to enable the document's scroll.
    */
   get onClosing() {
-    return this.document.documentElement.classList.remove(DIALOG_OPEN_HTML_CLASS);
+    this.document.documentElement.style.overflow = 'auto';
+
+    return this.document.documentElement;
   }
 
   /**

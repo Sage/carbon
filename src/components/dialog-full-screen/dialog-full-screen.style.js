@@ -10,10 +10,6 @@ const StyledDialogFullScreen = styled.div`
   top: 0;
   width: 100%;
   z-index: 1000;
-  
-  .carbon-dialog-full-screen--open & {
-    overflow: hidden;
-  }
 
   ${ClassicDialogFullScreenStyle}
 `;
