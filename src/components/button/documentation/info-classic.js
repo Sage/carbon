@@ -3,7 +3,7 @@ import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-i
 
 const InfoClassic = (
   <div>
-    <p>A Button component.</p>
+    <p>A Legacy Button component.</p>
 
     <StoryHeader>How to use the Button component:</StoryHeader>
 

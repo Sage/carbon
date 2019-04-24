@@ -39,14 +39,14 @@ function addButtonStyle(props) {
 
 function stylingForType({
   disabled,
-  colorVariant,
+  buttonType,
   theme,
   size
 }) {
   return css`
     border: 2px solid transparent;
     box-sizing: border-box;
-    ${disabled ? buttonTypes(theme)[colorVariant].disabled : buttonTypes(theme)[colorVariant].default};
+    ${disabled ? buttonTypes(theme)[buttonType].disabled : buttonTypes(theme)[buttonType].default};
     font-weight: 600;
     padding-top: 1px;
     padding-bottom: 1px;
@@ -61,23 +61,23 @@ function stylingForType({
   `;
 }
 
-function isClassicButton({ theme, colorVariant }) {
+function isClassicButton({ theme, buttonType }) {
   const isClassicTheme = (theme.name === THEMES.classic);
-  const isClassicColorVariant = OptionsHelper.themesBinaryClassic.includes(colorVariant);
+  const isClassicButtonType = OptionsHelper.themesBinaryClassic.includes(buttonType);
 
-  return isClassicTheme && isClassicColorVariant;
+  return isClassicTheme && isClassicButtonType;
 }
 
 StyledButton.defaultProps = {
   theme: BaseTheme,
   medium: true,
-  colorVariant: 'secondary',
-  variant: 'blue'
+  buttonType: 'secondary',
+  legacyColorVariant: 'blue'
 };
 
 StyledButton.propTypes = {
-  /** Color variants for new business themes */
-  colorVariant: PropTypes.oneOf(OptionsHelper.themesBinary),
+  /** Button types for new business themes */
+  buttonType: PropTypes.oneOf(OptionsHelper.themesBinary),
   /** The text the button displays */
   children: PropTypes.node.isRequired,
   /** Apply disabled state to the button */
@@ -99,7 +99,7 @@ StyledButton.propTypes = {
     }
   },
   /** Set this prop to pass in legacy theme color variants */
-  variant: PropTypes.oneOf(OptionsHelper.buttonColors),
+  legacyColorVariant: PropTypes.oneOf(OptionsHelper.buttonColors),
   /** Used to transfrom button into anchor */
   to: PropTypes.string
 };

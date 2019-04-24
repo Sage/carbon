@@ -231,7 +231,7 @@ const buttonStyles = {
     }
   `,
   small: `
-    border-radius: 0;
+    border-radius: 3px;
     font-size: 11px;
     height: 25px;
     letter-spacing: .5px;
@@ -258,7 +258,7 @@ const buttonStyles = {
 };
 
 export default ({
-  disabled, colorVariant, variant, size
+  disabled, buttonType, legacyColorVariant, size
 }) => {
   if (disabled) {
     return css`
@@ -275,7 +275,7 @@ export default ({
   return css`
     box-sizing: border-box;
     font-weight: 700;
-    ${buttonStyles[colorVariant][variant]}
+    ${buttonStyles[buttonType][legacyColorVariant]}
     ${buttonStyles[size]}
     text-decoration: none;
     
