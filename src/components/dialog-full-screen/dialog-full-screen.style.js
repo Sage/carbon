@@ -14,7 +14,6 @@ const StyledDialogFullScreen = styled.div`
   .carbon-dialog-full-screen--open & {
     overflow: hidden;
   }
-  
 
   ${ClassicDialogFullScreenStyle}
 `;
