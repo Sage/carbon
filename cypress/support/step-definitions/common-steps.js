@@ -1,9 +1,10 @@
 import { visitComponentUrl, setSlidebar } from '../helper';
 import {
-  asSelect, sizeSelect, subtextInput, titleInput,
+  asSelect, sizeSelect, subtextInput, titleInput, disabledCheckbox,
   heightInput, childrenTextArea, labelInput, commonButtonPreview,
   labelPreview, helpIcon, labelHelpInput, inputWidthSlider, fieldHelpInput,
   fieldHelpPreview, labelWidthSlider, labelInlineCheckbox, labelAlignSelect, alignSelect,
+  labelHelpPreview,
 } from '../../locators';
 
 import { dialogTitle, dialogSubtitle } from '../../locators/alert-dialog';
@@ -77,6 +78,10 @@ When('I hover mouse on help icon', () => {
   helpIcon().trigger('mouseover');
 });
 
+Then('Label help on preview is set to {string}', (text) => {
+  labelHelpPreview().should('have.text', text);
+});
+
 When('I set input width slider to {int}', (width) => {
   setSlidebar(inputWidthSlider(), width);
 });
@@ -112,4 +117,12 @@ Then('direction on preview is {string}', (direction) => {
 
 When('I set align property to {string}', (asProperty) => {
   alignSelect().select(asProperty);
+});
+
+When('I disable {word} component', () => {
+  disabledCheckbox().check();
+});
+
+When('I enable {word} component', () => {
+  disabledCheckbox().uncheck();
 });

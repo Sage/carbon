@@ -51,13 +51,13 @@ Feature: Button component
 
   @positive
   Scenario: Disable Button
-    When I disable Button
+    When I disable Button component
     Then Button is disabled
 
   @positive
   Scenario: Disable and enable Button
-    When I disable Button
-      And I enable Button
+    When I disable Button component
+      And I enable Button component
     Then Button is enabled
 
   @positive
