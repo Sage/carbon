@@ -47,7 +47,6 @@ describe('ButtonToggleGroup', () => {
   describe('Style props', () => {
     it('renders with the correct width', () => {
       const wrapper = render({ theme: classicTheme, labelInline: true, inputWidth: 48 }, mount);
-      console.log(wrapper.find(ButtonToggleGroupStyle))
       assertStyleMatch({
         width: '48%'
       }, wrapper.find(ButtonToggleGroupStyle));
