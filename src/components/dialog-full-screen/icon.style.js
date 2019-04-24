@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import Icon from '../icon';
 import baseTheme from '../../style/themes/base';
-import ClassicIconStyle from './icon-classic.style';
+import classicIconStyle from './icon-classic.style';
 
 const StyledIcon = styled(Icon)`
   color: ${({ theme }) => theme.colors.border};
@@ -24,7 +24,7 @@ const StyledIcon = styled(Icon)`
     color: ${({ theme }) => theme.icon.focus};
   }
 
-  ${ClassicIconStyle}
+  ${classicIconStyle}
 `;
 
 StyledIcon.defaultProps = {

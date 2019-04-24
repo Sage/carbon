@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ClassicFullScreenHeading from './full-screen-heading-classic.style';
+import fullScreenHeadingClassic from './full-screen-heading-classic.style';
 import baseTheme from '../../../style/themes/base';
 
 const StyledFullScreenHeading = styled.div`
@@ -37,7 +37,7 @@ const StyledFullScreenHeading = styled.div`
     }
   }
 
-  ${ClassicFullScreenHeading}
+  ${fullScreenHeadingClassic}
 `;
 
 StyledFullScreenHeading.defaultProps = {

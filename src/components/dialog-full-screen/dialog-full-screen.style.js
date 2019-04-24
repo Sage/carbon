@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ClassicDialogFullScreenStyle from './dialog-full-screen-classic.style';
+import classicDialogFullScreenStyle from './dialog-full-screen-classic.style';
 import baseTheme from '../../style/themes/base';
 
 const StyledDialogFullScreen = styled.div`
@@ -11,7 +11,7 @@ const StyledDialogFullScreen = styled.div`
   width: 100%;
   z-index: 1000;
 
-  ${ClassicDialogFullScreenStyle}
+  ${classicDialogFullScreenStyle}
 `;
 
 StyledDialogFullScreen.defaultProps = {
