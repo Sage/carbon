@@ -7,10 +7,7 @@ const ValidationsContext = React.createContext();
 const withValidations = (WrappedComponent) => {
   class WithValidations extends React.Component {
     state = {
-      ...Object.keys(VALIDATION_TYPES).reduce((acc, type) => ({
-        ...acc,
-        [`${type}Count`]: 0
-      }), {}),
+      ...buildInitialValidationState(),
       formIsValidating: false
     }
 
@@ -87,5 +84,12 @@ const withValidations = (WrappedComponent) => {
 
   return WithValidations;
 };
+
+function buildInitialValidationState() {
+  return Object.keys(VALIDATION_TYPES).reduce((acc, type) => ({
+    ...acc,
+    [`${type}Count`]: 0
+  }), {});
+}
 
 export { ValidationsContext, withValidations };

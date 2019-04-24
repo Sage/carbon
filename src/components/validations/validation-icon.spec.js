@@ -10,20 +10,20 @@ describe('ValidationIcon', () => {
   });
 
   it('shows the tooltip if context has focus', () => {
-    const wrapper = mount(
-      <InputPresentationContext.Provider value={ { hasFocus: true } }>
-        <ValidationIcon type='error' />
-      </InputPresentationContext.Provider>
-    ).find('Icon');
-    expect(wrapper.props().tooltipVisible).toEqual(true);
+    const icon = renderWithContext({ hasFocus: true }).find('Icon');
+    expect(icon.props().tooltipVisible).toEqual(true);
   });
 
   it('shows the tooltip if context has mouse over', () => {
-    const wrapper = mount(
-      <InputPresentationContext.Provider value={ { hasMouseOver: true } }>
-        <ValidationIcon type='error' />
-      </InputPresentationContext.Provider>
-    ).find('Icon');
-    expect(wrapper.props().tooltipVisible).toEqual(true);
+    const icon = renderWithContext({ hasMouseOver: true }).find('Icon');
+    expect(icon.props().tooltipVisible).toEqual(true);
   });
 });
+
+function renderWithContext(props) {
+  return mount(
+    <InputPresentationContext.Provider { ...props }>
+      <ValidationIcon type='error' />
+    </InputPresentationContext.Provider>
+  );
+}

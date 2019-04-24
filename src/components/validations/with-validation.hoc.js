@@ -76,9 +76,11 @@ const withValidation = (WrappedComponent) => {
       let hasValidations = false;
       types.forEach((validationType) => {
         const type = VALIDATION_TYPES[validationType];
-        const isArray = Array.isArray(this.props[type]);
-        if ((isArray && this.props[type].length)
-          || (!isArray && typeof this.props[type] !== 'undefined')) {
+        const validation = this.props[type];
+        const isArray = Array.isArray(validation);
+        const isPopulatedArray = isArray && validation.length;
+        const isDefined = typeof validation !== 'undefined';
+        if (isPopulatedArray || (!isArray && isDefined)) {
           hasValidations = true;
         }
       });
@@ -133,8 +135,8 @@ const withValidation = (WrappedComponent) => {
     }
 
     renderValidationMarkup() {
-      const type = Object.keys(VALIDATION_TYPES).find(t => (
-        this.props[`${t}Message`] || this.state[`${t}Message`]
+      const type = Object.keys(VALIDATION_TYPES).find(validationType => (
+        this.props[`${validationType}Message`] || this.state[`${validationType}Message`]
       ));
       if (!type) return null;
 
@@ -168,6 +170,7 @@ const withValidation = (WrappedComponent) => {
     }
 
     validationProps() {
+      // builds '[validationType]Message' props for the defined validation types
       return Object.keys(VALIDATION_TYPES).reduce((acc, type) => ({
         ...acc,
         [`${type}Message`]: this.state[`${type}Message`]

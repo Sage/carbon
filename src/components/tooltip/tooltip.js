@@ -105,9 +105,6 @@ class Tooltip extends React.Component {
 
     /**
      * Defines the message type
-     *
-     * @property type
-     * @type {String}
      */
     type: PropTypes.string
   };
