@@ -19,4 +19,8 @@ const StyledContent = styled.div`
   ${contentClassicStyle}
 `;
 
+StyledContent.defaultProps = {
+  headingHeight: 0
+};
+
 export default StyledContent;

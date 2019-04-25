@@ -52,16 +52,12 @@ exports[`DialogFullScreen tags on component include correct component, elements 
 }
 
 .c1 + .c4 {
-  height: calc(100% - px);
+  height: calc(100% - 0px);
 }
 
 .c4 .carbon-app-wrapper {
   max-width: none;
   padding: 27px 32px 32px 32px;
-}
-
-.c1 + .c5 {
-  height: calc(100% - 0px);
 }
 
 .c3 {
@@ -156,16 +152,12 @@ exports[`DialogFullScreen tags on component include correct component, elements 
 }
 
 .c1 + .c4 {
-  height: calc(100% - px);
+  height: calc(100% - 0px);
 }
 
 .c4 .carbon-app-wrapper {
   max-width: none;
   padding: 27px 32px 32px 32px;
-}
-
-.c1 + .c5 {
-  height: calc(100% - 0px);
 }
 
 .c3 {
@@ -1059,6 +1051,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                         </ForwardRef>
                         <styled.div
                           data-element="content"
+                          headingHeight={0}
                         >
                           <StyledComponent
                             data-element="content"
@@ -1089,6 +1082,9 @@ exports[`DialogFullScreen tags on component include correct component, elements 
 ",
                                   ],
                                 },
+                                "defaultProps": Object {
+                                  "headingHeight": 0,
+                                },
                                 "displayName": "styled.div",
                                 "foldedComponentIds": Array [],
                                 "render": [Function],
@@ -1100,6 +1096,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                               }
                             }
                             forwardedRef={null}
+                            headingHeight={0}
                           >
                             <div
                               className="c4"
@@ -1176,10 +1173,6 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
 }
 
 .c0 + .c2 {
-  height: calc(100% - px);
-}
-
-.c0 + .c3 {
   height: calc(100% - 0px);
 }
 
@@ -1443,7 +1436,7 @@ exports[`Styled StyledContent classic theme applies custom styling 1`] = `
 }
 
 .c1 + .c0 {
-  height: calc(100% - px);
+  height: calc(100% - 0px);
 }
 
 .c0 .carbon-app-wrapper {
@@ -1457,6 +1450,7 @@ exports[`Styled StyledContent classic theme applies custom styling 1`] = `
 }
 
 <styled.div
+  headingHeight={0}
   theme={
     Object {
       "colors": Object {
@@ -1529,6 +1523,9 @@ exports[`Styled StyledContent classic theme applies custom styling 1`] = `
 ",
           ],
         },
+        "defaultProps": Object {
+          "headingHeight": 0,
+        },
         "displayName": "styled.div",
         "foldedComponentIds": Array [],
         "render": [Function],
@@ -1540,6 +1537,7 @@ exports[`Styled StyledContent classic theme applies custom styling 1`] = `
       }
     }
     forwardedRef={null}
+    headingHeight={0}
     theme={
       Object {
         "colors": Object {
