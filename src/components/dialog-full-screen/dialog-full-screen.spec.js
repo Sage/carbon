@@ -5,6 +5,7 @@ import DialogFullScreen from './dialog-full-screen.component';
 import FullScreenHeading from './full-screen-heading';
 import StyledDialogFullScreen from './dialog-full-screen.style';
 import StyledIcon from './icon.style';
+import StyledContent from './content.style';
 import classicTheme from '../../style/themes/classic';
 import Button from '../button';
 import guid from '../../utils/helpers/guid';
@@ -190,6 +191,19 @@ describe('Styled StyledIcon', () => {
     it('applies custom styling', () => {
       const wrapper = mount(
         <StyledIcon
+          theme={ classicTheme }
+        />
+      );
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+});
+
+describe('Styled StyledContent', () => {
+  describe('classic theme', () => {
+    it('applies custom styling', () => {
+      const wrapper = mount(
+        <StyledContent
           theme={ classicTheme }
         />
       );

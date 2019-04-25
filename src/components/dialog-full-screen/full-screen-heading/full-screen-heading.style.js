@@ -8,20 +8,19 @@ const StyledFullScreenHeading = styled.div`
   .carbon-app-wrapper {
     position: relative;
     max-width: none;
+    padding: 32px;
   }
 
   .carbon-heading {
-    height: 106px;
-
     .carbon-heading__header {
       background-color: transparent;
       align-items: center;
       box-sizing: content-box;
       display: flex;
-      height: 106px;
       margin-bottom: 0;
       padding-bottom: 0;
       width: 100%;
+      border: none;
 
       .icon-chevron_left:before {
         font-size: 24px;

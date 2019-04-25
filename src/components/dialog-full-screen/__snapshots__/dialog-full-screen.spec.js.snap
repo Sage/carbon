@@ -5,12 +5,10 @@ exports[`DialogFullScreen tags on component include correct component, elements 
   border-bottom: 1px solid #CCD6DA;
 }
 
-.c2 > .div {
+.c2 .carbon-app-wrapper {
   position: relative;
-}
-
-.c2 .carbon-heading {
-  height: 106px;
+  max-width: none;
+  padding: 32px;
 }
 
 .c2 .carbon-heading .carbon-heading__header {
@@ -24,10 +22,10 @@ exports[`DialogFullScreen tags on component include correct component, elements 
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  height: 106px;
   margin-bottom: 0;
   padding-bottom: 0;
   width: 100%;
+  border: none;
 }
 
 .c2 .carbon-heading .carbon-heading__header .icon-chevron_left:before {
@@ -50,13 +48,17 @@ exports[`DialogFullScreen tags on component include correct component, elements 
 }
 
 .c4 {
-  padding: 30px 0;
   overflow-y: auto;
   height: calc(100% - 60px);
 }
 
 .c1 + .c4 {
   height: calc(100% - 166px);
+}
+
+.c4 .carbon-app-wrapper {
+  max-width: none;
+  padding: 27px 32px 32px 32px;
 }
 
 .c3 {
@@ -104,12 +106,10 @@ exports[`DialogFullScreen tags on component include correct component, elements 
   border-bottom: 1px solid #CCD6DA;
 }
 
-.c2 > .div {
+.c2 .carbon-app-wrapper {
   position: relative;
-}
-
-.c2 .carbon-heading {
-  height: 106px;
+  max-width: none;
+  padding: 32px;
 }
 
 .c2 .carbon-heading .carbon-heading__header {
@@ -123,10 +123,10 @@ exports[`DialogFullScreen tags on component include correct component, elements 
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  height: 106px;
   margin-bottom: 0;
   padding-bottom: 0;
   width: 100%;
+  border: none;
 }
 
 .c2 .carbon-heading .carbon-heading__header .icon-chevron_left:before {
@@ -149,13 +149,17 @@ exports[`DialogFullScreen tags on component include correct component, elements 
 }
 
 .c4 {
-  padding: 30px 0;
   overflow-y: auto;
   height: calc(100% - 60px);
 }
 
 .c1 + .c4 {
   height: calc(100% - 166px);
+}
+
+.c4 .carbon-app-wrapper {
+  max-width: none;
+  padding: 27px 32px 32px 32px;
 }
 
 .c3 {
@@ -552,22 +556,22 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                       [Function],
                                       ";
 
-  & > .div {
+  .carbon-app-wrapper {
     position: relative;
+    max-width: none;
+    padding: 32px;
   }
 
   .carbon-heading {
-    height: 106px;
-
     .carbon-heading__header {
       background-color: transparent;
       align-items: center;
       box-sizing: content-box;
       display: flex;
-      height: 106px;
       margin-bottom: 0;
       padding-bottom: 0;
       width: 100%;
+      border: none;
 
       .icon-chevron_left:before {
         font-size: 24px;
@@ -1015,11 +1019,10 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                 "attrs": Array [],
                                 "componentStyle": ComponentStyle {
                                   "componentId": "sc-bxivhb",
-                                  "isStatic": true,
+                                  "isStatic": false,
                                   "lastClassName": "c4",
                                   "rules": Array [
                                     "
-  padding: 30px 0;
   overflow-y: auto;
   height: calc(100% - 60px);
 
@@ -1028,6 +1031,15 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                     " + & {
     height: calc(100% - 166px);
   }
+
+  .carbon-app-wrapper {
+    max-width: none;
+    padding: 27px 32px 32px 32px;
+  }
+
+  ",
+                                    [Function],
+                                    "
 ",
                                   ],
                                 },
@@ -1076,12 +1088,10 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
   border-bottom-color: #CCD6DA;
 }
 
-.c1 > .div {
+.c1 .carbon-app-wrapper {
   position: relative;
-}
-
-.c1 .carbon-heading {
-  height: 106px;
+  max-width: none;
+  padding: 32px;
 }
 
 .c1 .carbon-heading .carbon-heading__header {
@@ -1095,10 +1105,10 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  height: 106px;
   margin-bottom: 0;
   padding-bottom: 0;
   width: 100%;
+  border: none;
 }
 
 .c1 .carbon-heading .carbon-heading__header .icon-chevron_left:before {
@@ -1108,6 +1118,15 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
 .c1 .carbon-heading .carbon-heading__header .carbon-heading__back {
   margin-top: -8px;
   margin-left: -5px;
+}
+
+.c1 .carbon-app-wrapper {
+  max-width: 1600px;
+  padding: 0 40px;
+}
+
+.c1 .carbon-heading .carbon-heading__header {
+  height: 106px;
 }
 
 .c0 + .c2 {
@@ -1221,22 +1240,22 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
               [Function],
               ";
 
-  & > .div {
+  .carbon-app-wrapper {
     position: relative;
+    max-width: none;
+    padding: 32px;
   }
 
   .carbon-heading {
-    height: 106px;
-
     .carbon-heading__header {
       background-color: transparent;
       align-items: center;
       box-sizing: content-box;
       display: flex;
-      height: 106px;
       margin-bottom: 0;
       padding-bottom: 0;
       width: 100%;
+      border: none;
 
       .icon-chevron_left:before {
         font-size: 24px;
@@ -1364,6 +1383,166 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
     </StyledComponent>
   </styled.div>
 </FullScreenHeading>
+`;
+
+exports[`Styled StyledContent classic theme applies custom styling 1`] = `
+.c0 {
+  overflow-y: auto;
+  height: calc(100% - 60px);
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.c1 + .c0 {
+  height: calc(100% - 166px);
+}
+
+.c0 .carbon-app-wrapper {
+  max-width: none;
+  padding: 27px 32px 32px 32px;
+}
+
+.c0 .carbon-app-wrapper {
+  max-width: 1600px;
+  padding: 0 40px;
+}
+
+<styled.div
+  theme={
+    Object {
+      "colors": Object {
+        "base": "#00A376",
+        "baseBlue": "#255BC7",
+        "border": "#668491",
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFDA7F",
+        "greyDarkBlue50": "#8099a4",
+        "info": "#0073C2",
+        "primary": "#00805D",
+        "secondary": "#006045",
+        "success": "#00B000",
+        "tertiary": "#003F2E",
+        "warning": "#E96400",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "background": "#E5EAEC",
+        "border": "#4d7080",
+        "disabled": "#b3c2c8",
+        "input": "#1e499f",
+        "text": "#003349",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
+      },
+      "name": "classic",
+      "shadows": Object {
+        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-bxivhb",
+          "isStatic": false,
+          "lastClassName": "c0",
+          "rules": Array [
+            "
+  overflow-y: auto;
+  height: calc(100% - 60px);
+
+  ",
+            ".c1",
+            " + & {
+    height: calc(100% - 166px);
+  }
+
+  .carbon-app-wrapper {
+    max-width: none;
+    padding: 27px 32px 32px 32px;
+  }
+
+  ",
+            [Function],
+            "
+",
+          ],
+        },
+        "displayName": "styled.div",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "sc-bxivhb",
+        "target": "div",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
+    }
+    forwardedRef={null}
+    theme={
+      Object {
+        "colors": Object {
+          "base": "#00A376",
+          "baseBlue": "#255BC7",
+          "border": "#668491",
+          "brand": "#00DC00",
+          "error": "#C7384F",
+          "focus": "#FFDA7F",
+          "greyDarkBlue50": "#8099a4",
+          "info": "#0073C2",
+          "primary": "#00805D",
+          "secondary": "#006045",
+          "success": "#00B000",
+          "tertiary": "#003F2E",
+          "warning": "#E96400",
+          "white": "#FFFFFF",
+        },
+        "disabled": Object {
+          "background": "#E5EAEC",
+          "border": "#4d7080",
+          "disabled": "#b3c2c8",
+          "input": "#1e499f",
+          "text": "#003349",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
+        },
+        "name": "classic",
+        "shadows": Object {
+          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.3)",
+          "size": "14px",
+        },
+      }
+    }
+  >
+    <div
+      className="c0"
+    />
+  </StyledComponent>
+</styled.div>
 `;
 
 exports[`Styled StyledDialogFullScreen classic theme applies custom styling 1`] = `
