@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import { compact } from 'lodash';
 import classNames from 'classnames';
-import Tab from './tab';
+import Tab from './tab/tab.component';
 import Event from '../../utils/helpers/events';
 import tagComponent from '../../utils/helpers/tags';
 import Browser from '../../utils/helpers/browser';
@@ -31,10 +31,7 @@ class Tabs extends React.Component {
     /**
      * Individual tabs
      */
-    children: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.object
-    ]).isRequired,
+    children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
 
     /**
      * Aligns the tab headers
@@ -50,16 +47,15 @@ class Tabs extends React.Component {
      * The position of tabs with respect to the content (top (default) or left)
      */
     position: PropTypes.string
-  }
+  };
 
   static defaultProps = {
     renderHiddenTabs: true,
     align: 'left',
     position: 'top'
-  }
+  };
 
   static childContextTypes = {
-
     /**
      * Defines a context object for tab of the tabs component.
      * https://facebook.github.io/react/docs/context.html
@@ -68,10 +64,9 @@ class Tabs extends React.Component {
      * @type {Object}
      */
     tabs: PropTypes.object
-  }
+  };
 
   state = {
-
     /**
      * Tracks the validity of each tab
      *
@@ -87,7 +82,7 @@ class Tabs extends React.Component {
      * @type {Object}
      */
     tabWarning: Immutable.Map()
-  }
+  };
 
   /**
    * Returns tabs object to tab component.
@@ -140,15 +135,14 @@ class Tabs extends React.Component {
   }
 
   /**
-  * A lifecycle method that is called when props are updated.
-  * Used here to change the visible tab when selectedTabId is updated.
-  *
-  * @method  componentWillReceiveProps
-  * @param {object} nextProps
-  */
+   * A lifecycle method that is called when props are updated.
+   * Used here to change the visible tab when selectedTabId is updated.
+   *
+   * @method  componentWillReceiveProps
+   * @param {object} nextProps
+   */
   componentWillReceiveProps(nextProps) {
-    if (this.props.selectedTabId !== nextProps.selectedTabId
-        && nextProps.selectedTabId !== this.state.selectedTabId) {
+    if (this.props.selectedTabId !== nextProps.selectedTabId && nextProps.selectedTabId !== this.state.selectedTabId) {
       this.updateVisibleTab(nextProps.selectedTabId);
     }
   }
@@ -171,7 +165,7 @@ class Tabs extends React.Component {
    */
   changeValidity = (id, valid) => {
     this.setState(prevState => ({ tabValidity: prevState.tabValidity.set(id, valid) }));
-  }
+  };
 
   /**
    * Sets the warning state of the given tab (id)
@@ -182,7 +176,7 @@ class Tabs extends React.Component {
    */
   changeWarning = (id, warning) => {
     this.setState(prevState => ({ tabWarning: prevState.tabWarning.set(id, warning) }));
-  }
+  };
 
   /**
    * Handles the changing of tabs with the mouse
@@ -191,10 +185,12 @@ class Tabs extends React.Component {
    * @param {Event} ev Click Event
    */
   handleTabClick = (ev) => {
-    if (Event.isEventType(ev, 'keydown')) { return; }
+    if (Event.isEventType(ev, 'keydown')) {
+      return;
+    }
     const { tabid } = ev.target.dataset;
     this.updateVisibleTab(tabid);
-  }
+  };
 
   /**
    * Handles the keyboard navigation of tabs
@@ -216,7 +212,7 @@ class Tabs extends React.Component {
         this.goToTab(event, index + 1);
       }
     };
-  }
+  };
 
   /**
    * Will trigger the tab at the given index.
@@ -275,11 +271,7 @@ class Tabs extends React.Component {
    * @method mainClasses Main Class getter
    */
   get mainClasses() {
-    return classNames(
-      'carbon-tabs',
-      `carbon-tabs__position-${this.props.position}`,
-      this.props.className
-    );
+    return classNames('carbon-tabs', `carbon-tabs__position-${this.props.position}`, this.props.className);
   }
 
   /**
@@ -294,7 +286,7 @@ class Tabs extends React.Component {
       `carbon-tabs__headers--align-${this.props.align}`,
       'carbon-tabs__headers'
     );
-  }
+  };
 
   /**
    * Generates the HTML classes for the given tab.
@@ -307,16 +299,12 @@ class Tabs extends React.Component {
     const tabHasError = this.state.tabValidity.get(tab.props.tabId) === false,
         tabHasWarning = this.state.tabWarning.get(tab.props.tabId) === true && !tabHasError;
 
-    return classNames(
-      'carbon-tabs__headers__header',
-      tab.props.headerClassName,
-      {
-        'carbon-tabs__headers__header--error': tabHasError,
-        'carbon-tabs__headers__header--warning': tabHasWarning,
-        'carbon-tabs__headers__header--selected': this.isTabSelected(tab.props.tabId)
-      }
-    );
-  }
+    return classNames('carbon-tabs__headers__header', tab.props.headerClassName, {
+      'carbon-tabs__headers__header--error': tabHasError,
+      'carbon-tabs__headers__header--warning': tabHasWarning,
+      'carbon-tabs__headers__header--selected': this.isTabSelected(tab.props.tabId)
+    });
+  };
 
   /**
    * Returns true/false for if the given tab id is selected.
@@ -368,21 +356,20 @@ class Tabs extends React.Component {
           key={ child.props.tabId }
           onClick={ this.handleTabClick }
           onKeyDown={ this.handleKeyDown(index) }
-          ref={ (node) => { this[ref] = node; } }
+          ref={ (node) => {
+            this[ref] = node;
+          } }
           role='tab'
           tabIndex={ this.isTabSelected(child.props.tabId) ? '0' : '-1' }
         >
-          { child.props.title }
+          {child.props.title}
         </li>
       );
     });
 
     return (
-      <ul
-        className={ this.tabsHeaderClasses() }
-        role='tablist'
-      >
-        { tabTitles }
+      <ul className={ this.tabsHeaderClasses() } role='tablist'>
+        {tabTitles}
       </ul>
     );
   }
@@ -412,7 +399,9 @@ class Tabs extends React.Component {
    * @return {JSX} all tabs
    */
   get tabs() {
-    if (!this.props.renderHiddenTabs) { return this.visibleTab; }
+    if (!this.props.renderHiddenTabs) {
+      return this.visibleTab;
+    }
 
     const tabs = this.children.map((child, index) => {
       let klass = 'hidden';
@@ -422,7 +411,7 @@ class Tabs extends React.Component {
       }
 
       const props = {
-        'aria-labelledby': this.tabRefs[index],
+        ariaLabelledby: this.tabRefs[index],
         className: klass,
         role: 'tabPanel'
       };
@@ -452,8 +441,8 @@ class Tabs extends React.Component {
   render() {
     return (
       <div className={ this.mainClasses } { ...tagComponent('tabs', this.props) }>
-        { this.tabHeaders }
-        { this.tabs }
+        {this.tabHeaders}
+        {this.tabs}
       </div>
     );
   }
