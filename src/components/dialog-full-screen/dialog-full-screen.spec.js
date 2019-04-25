@@ -1,7 +1,11 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import 'jest-styled-components';
 import DialogFullScreen from './dialog-full-screen.component';
 import FullScreenHeading from './full-screen-heading';
+import StyledDialogFullScreen from './dialog-full-screen.style';
+import StyledIcon from './icon.style';
+import classicTheme from '../../style/themes/classic';
 import Button from '../button';
 import guid from '../../utils/helpers/guid';
 import Icon from '../icon';
@@ -151,6 +155,45 @@ describe('DialogFullScreen', () => {
         );
         expect(wrapper).toMatchSnapshot();
       });
+    });
+  });
+});
+
+describe('Styled FullScreenHeading', () => {
+  describe('classic theme', () => {
+    it('applies custom styling', () => {
+      const wrapper = mount(
+        <FullScreenHeading
+          theme={ classicTheme }
+        />
+      );
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+});
+
+describe('Styled StyledDialogFullScreen', () => {
+  describe('classic theme', () => {
+    it('applies custom styling', () => {
+      const wrapper = mount(
+        <StyledDialogFullScreen
+          theme={ classicTheme }
+        />
+      );
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+});
+
+describe('Styled StyledIcon', () => {
+  describe('classic theme', () => {
+    it('applies custom styling', () => {
+      const wrapper = mount(
+        <StyledIcon
+          theme={ classicTheme }
+        />
+      );
+      expect(wrapper).toMatchSnapshot();
     });
   });
 });

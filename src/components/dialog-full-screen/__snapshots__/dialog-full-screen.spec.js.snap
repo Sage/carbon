@@ -1,6 +1,92 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`DialogFullScreen tags on component include correct component, elements and role data tags 1`] = `
+.c2 {
+  border-bottom: 1px solid #CCD6DA;
+}
+
+.c2 > .div {
+  position: relative;
+}
+
+.c2 .carbon-heading {
+  height: 106px;
+}
+
+.c2 .carbon-heading .carbon-heading__header {
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: content-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 106px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  width: 100%;
+}
+
+.c2 .carbon-heading .carbon-heading__header .icon-chevron_left:before {
+  font-size: 24px;
+}
+
+.c2 .carbon-heading .carbon-heading__header .carbon-heading__back {
+  margin-top: -8px;
+  margin-left: -5px;
+}
+
+.carbon-dialog-full-screen .c2 .carbon-heading .carbon-heading__header {
+  background-color: #E5EAEC;
+}
+
+.c0 {
+  background-color: #F2F4F5;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.c4 {
+  padding: 30px 0;
+  overflow-y: auto;
+  height: calc(100% - 60px);
+}
+
+.c1 + .c4 {
+  height: calc(100% - 166px);
+}
+
+.c3 {
+  color: #668491;
+  cursor: pointer;
+  margin-top: -8px;
+  right: 40px;
+  top: 53px;
+  z-index: 1002;
+}
+
+.c3,
+.c3.carbon-icon {
+  position: absolute;
+  display: block;
+}
+
+.c3:before,
+.c3.carbon-icon:before {
+  font-size: 24px;
+}
+
+.c3:hover {
+  color: #335B6D;
+}
+
 <DialogFullScreen
   data-element="bar"
   data-role="baz"
@@ -18,7 +104,93 @@ exports[`DialogFullScreen tags on component include correct component, elements 
     >
       <Portal
         containerInfo={
-          <div
+          .c2 {
+  border-bottom: 1px solid #CCD6DA;
+}
+
+.c2 > .div {
+  position: relative;
+}
+
+.c2 .carbon-heading {
+  height: 106px;
+}
+
+.c2 .carbon-heading .carbon-heading__header {
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: content-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 106px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  width: 100%;
+}
+
+.c2 .carbon-heading .carbon-heading__header .icon-chevron_left:before {
+  font-size: 24px;
+}
+
+.c2 .carbon-heading .carbon-heading__header .carbon-heading__back {
+  margin-top: -8px;
+  margin-left: -5px;
+}
+
+.carbon-dialog-full-screen .c2 .carbon-heading .carbon-heading__header {
+  background-color: #E5EAEC;
+}
+
+.c0 {
+  background-color: #F2F4F5;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.c4 {
+  padding: 30px 0;
+  overflow-y: auto;
+  height: calc(100% - 60px);
+}
+
+.c1 + .c4 {
+  height: calc(100% - 166px);
+}
+
+.c3 {
+  color: #668491;
+  cursor: pointer;
+  margin-top: -8px;
+  right: 40px;
+  top: 53px;
+  z-index: 1002;
+}
+
+.c3,
+.c3.carbon-icon {
+  position: absolute;
+  display: block;
+}
+
+.c3:before,
+.c3.carbon-icon:before {
+  font-size: 24px;
+}
+
+.c3:hover {
+  color: #335B6D;
+}
+
+<div
             class="carbon-portal"
             data-portal-exit="guid-12345"
           >
@@ -31,13 +203,13 @@ exports[`DialogFullScreen tags on component include correct component, elements 
               <div />
               <div>
                 <div
-                  class="sc-htpNat beiaAK modal-appear"
+                  class="c0 modal-appear"
                   data-component="dialog-full-screen"
                   data-element="bar"
                   data-role="baz"
                 >
                   <div
-                    class="sc-bwzfXH eTIMyc"
+                    class="c1 c2"
                     data-component="full-screen-heading"
                   >
                     <div
@@ -45,7 +217,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                       data-component="app-wrapper"
                     >
                       <span
-                        class="carbon-icon sc-ifAKCX bCYhHg icon-close"
+                        class="carbon-icon c3 icon-close"
                         data-component="icon"
                         data-element="close"
                         theme="[object Object]"
@@ -77,7 +249,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                     </div>
                   </div>
                   <div
-                    class="sc-bxivhb edbqGQ"
+                    class="c4"
                     data-element="content"
                   >
                     <div
@@ -211,7 +383,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                           "componentStyle": ComponentStyle {
                             "componentId": "sc-htpNat",
                             "isStatic": false,
-                            "lastClassName": "beiaAK",
+                            "lastClassName": "c0",
                             "rules": Array [
                               "
   background-color: ",
@@ -323,7 +495,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                       }
                     >
                       <div
-                        className="sc-htpNat beiaAK"
+                        className="c0"
                         data-component="dialog-full-screen"
                         data-element="bar"
                         data-role="baz"
@@ -379,9 +551,9 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                   "$$typeof": Symbol(react.forward_ref),
                                   "attrs": Array [],
                                   "componentStyle": ComponentStyle {
-                                    "componentId": "sc-bwzfXH",
+                                    "componentId": "c1",
                                     "isStatic": false,
-                                    "lastClassName": "eTIMyc",
+                                    "lastClassName": "c2",
                                     "rules": Array [
                                       "
   border-bottom: 1px solid ",
@@ -471,7 +643,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                   "displayName": "styled.div",
                                   "foldedComponentIds": Array [],
                                   "render": [Function],
-                                  "styledComponentId": "sc-bwzfXH",
+                                  "styledComponentId": "c1",
                                   "target": "div",
                                   "toString": [Function],
                                   "warnTooManyClasses": [Function],
@@ -521,7 +693,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                               }
                             >
                               <div
-                                className="sc-bwzfXH eTIMyc"
+                                className="c1 c2"
                                 data-component="full-screen-heading"
                               >
                                 <AppWrapper>
@@ -583,7 +755,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                             "componentStyle": ComponentStyle {
                                               "componentId": "sc-ifAKCX",
                                               "isStatic": false,
-                                              "lastClassName": "bCYhHg",
+                                              "lastClassName": "c3",
                                               "rules": Array [
                                                 "
   color: ",
@@ -713,7 +885,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                       >
                                         <Icon
                                           bgSize="small"
-                                          className="sc-ifAKCX bCYhHg"
+                                          className="c3"
                                           data-element="close"
                                           onClick={[Function]}
                                           theme={
@@ -759,7 +931,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                           type="close"
                                         >
                                           <span
-                                            className="carbon-icon sc-ifAKCX bCYhHg icon-close"
+                                            className="carbon-icon c3 icon-close"
                                             data-component="icon"
                                             data-element="close"
                                             key="icon"
@@ -858,7 +1030,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                 "componentStyle": ComponentStyle {
                                   "componentId": "sc-bxivhb",
                                   "isStatic": true,
-                                  "lastClassName": "edbqGQ",
+                                  "lastClassName": "c4",
                                   "rules": Array [
                                     "
   padding: 30px 0;
@@ -866,7 +1038,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
   height: calc(100% - 60px);
 
   ",
-                                    ".sc-bwzfXH",
+                                    ".c1",
                                     " + & {
     height: calc(100% - 166px);
   }
@@ -886,7 +1058,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                             forwardedRef={null}
                           >
                             <div
-                              className="sc-bxivhb edbqGQ"
+                              className="c4"
                               data-element="content"
                             >
                               <AppWrapper>
@@ -910,4 +1082,808 @@ exports[`DialogFullScreen tags on component include correct component, elements 
     </span>
   </Portal>
 </DialogFullScreen>
+`;
+
+exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
+.c1 {
+  border-bottom: 1px solid #4d7080;
+  border-bottom-color: #CCD6DA;
+}
+
+.c1 > .div {
+  position: relative;
+}
+
+.c1 .carbon-heading {
+  height: 106px;
+}
+
+.c1 .carbon-heading .carbon-heading__header {
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: content-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 106px;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  width: 100%;
+}
+
+.c1 .carbon-heading .carbon-heading__header .icon-chevron_left:before {
+  font-size: 24px;
+}
+
+.c1 .carbon-heading .carbon-heading__header .carbon-heading__back {
+  margin-top: -8px;
+  margin-left: -5px;
+}
+
+.carbon-dialog-full-screen .c1 .carbon-heading .carbon-heading__header {
+  background-color: #E5EAEC;
+}
+
+.c0 + .c2 {
+  height: calc(100% - 166px);
+}
+
+<FullScreenHeading
+  theme={
+    Object {
+      "colors": Object {
+        "base": "#00A376",
+        "baseBlue": "#255BC7",
+        "border": "#668491",
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFDA7F",
+        "greyDarkBlue50": "#8099a4",
+        "info": "#0073C2",
+        "primary": "#00805D",
+        "secondary": "#006045",
+        "success": "#00B000",
+        "tertiary": "#003F2E",
+        "warning": "#E96400",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "background": "#E5EAEC",
+        "border": "#4d7080",
+        "disabled": "#b3c2c8",
+        "input": "#1e499f",
+        "text": "#003349",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
+      },
+      "name": "classic",
+      "shadows": Object {
+        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+>
+  <styled.div
+    data-component="full-screen-heading"
+    theme={
+      Object {
+        "colors": Object {
+          "base": "#00A376",
+          "baseBlue": "#255BC7",
+          "border": "#668491",
+          "brand": "#00DC00",
+          "error": "#C7384F",
+          "focus": "#FFDA7F",
+          "greyDarkBlue50": "#8099a4",
+          "info": "#0073C2",
+          "primary": "#00805D",
+          "secondary": "#006045",
+          "success": "#00B000",
+          "tertiary": "#003F2E",
+          "warning": "#E96400",
+          "white": "#FFFFFF",
+        },
+        "disabled": Object {
+          "background": "#E5EAEC",
+          "border": "#4d7080",
+          "disabled": "#b3c2c8",
+          "input": "#1e499f",
+          "text": "#003349",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
+        },
+        "name": "classic",
+        "shadows": Object {
+          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.3)",
+          "size": "14px",
+        },
+      }
+    }
+  >
+    <StyledComponent
+      data-component="full-screen-heading"
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "c0",
+            "isStatic": false,
+            "lastClassName": "c1",
+            "rules": Array [
+              "
+  border-bottom: 1px solid ",
+              [Function],
+              ";
+
+  & > .div {
+    position: relative;
+  }
+
+  .carbon-heading {
+    height: 106px;
+
+    .carbon-heading__header {
+      background-color: transparent;
+      align-items: center;
+      box-sizing: content-box;
+      display: flex;
+      height: 106px;
+      margin-bottom: 0;
+      padding-bottom: 0;
+      width: 100%;
+
+      .icon-chevron_left:before {
+        font-size: 24px;
+      }
+
+      .carbon-heading__back {
+        margin-top: -8px;
+        margin-left: -5px;
+      }
+
+      .carbon-dialog-full-screen & {
+        background-color: ",
+              [Function],
+              ";
+      }
+    }
+  }
+
+  ",
+              [Function],
+              "
+",
+            ],
+          },
+          "defaultProps": Object {
+            "theme": Object {
+              "colors": Object {
+                "border": "#668491",
+                "brand": "#00DC00",
+                "error": "#C7384F",
+                "focus": "#FFDA7F",
+                "info": "#0073C2",
+                "primary": "#26A826",
+                "secondary": "#006300",
+                "success": "#00B000",
+                "tertiary": "#004400",
+                "warning": "#E96400",
+                "white": "#FFFFFF",
+              },
+              "disabled": Object {
+                "background": "#E5EAEC",
+                "border": "#CCD6DA",
+                "disabled": "rgba(0,0,0,0.55)",
+                "input": "#F2F4F5",
+                "text": "rgba(0,0,0,0.3)",
+              },
+              "icon": Object {
+                "focus": "#335B6D",
+              },
+              "name": "base",
+              "shadows": Object {
+                "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+              },
+              "text": Object {
+                "color": "rgba(0,0,0,0.9)",
+                "placeholder": "rgba(0,0,0,0.3)",
+                "size": "14px",
+              },
+            },
+          },
+          "displayName": "styled.div",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "c0",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+      theme={
+        Object {
+          "colors": Object {
+            "base": "#00A376",
+            "baseBlue": "#255BC7",
+            "border": "#668491",
+            "brand": "#00DC00",
+            "error": "#C7384F",
+            "focus": "#FFDA7F",
+            "greyDarkBlue50": "#8099a4",
+            "info": "#0073C2",
+            "primary": "#00805D",
+            "secondary": "#006045",
+            "success": "#00B000",
+            "tertiary": "#003F2E",
+            "warning": "#E96400",
+            "white": "#FFFFFF",
+          },
+          "disabled": Object {
+            "background": "#E5EAEC",
+            "border": "#4d7080",
+            "disabled": "#b3c2c8",
+            "input": "#1e499f",
+            "text": "#003349",
+          },
+          "icon": Object {
+            "focus": "#335B6D",
+          },
+          "name": "classic",
+          "shadows": Object {
+            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+          },
+          "text": Object {
+            "color": "rgba(0,0,0,0.9)",
+            "placeholder": "rgba(0,0,0,0.3)",
+            "size": "14px",
+          },
+        }
+      }
+    >
+      <div
+        className="c0 c1"
+        data-component="full-screen-heading"
+      >
+        <AppWrapper>
+          <div
+            className="carbon-app-wrapper"
+            data-component="app-wrapper"
+          />
+        </AppWrapper>
+      </div>
+    </StyledComponent>
+  </styled.div>
+</FullScreenHeading>
+`;
+
+exports[`Styled StyledDialogFullScreen classic theme applies custom styling 1`] = `
+.c0 {
+  background-color: #1e499f;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #e6ebed;
+}
+
+<styled.div
+  theme={
+    Object {
+      "colors": Object {
+        "base": "#00A376",
+        "baseBlue": "#255BC7",
+        "border": "#668491",
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFDA7F",
+        "greyDarkBlue50": "#8099a4",
+        "info": "#0073C2",
+        "primary": "#00805D",
+        "secondary": "#006045",
+        "success": "#00B000",
+        "tertiary": "#003F2E",
+        "warning": "#E96400",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "background": "#E5EAEC",
+        "border": "#4d7080",
+        "disabled": "#b3c2c8",
+        "input": "#1e499f",
+        "text": "#003349",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
+      },
+      "name": "classic",
+      "shadows": Object {
+        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-htpNat",
+          "isStatic": false,
+          "lastClassName": "c0",
+          "rules": Array [
+            "
+  background-color: ",
+            [Function],
+            ";
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+
+  ",
+            [Function],
+            "
+",
+          ],
+        },
+        "defaultProps": Object {
+          "theme": Object {
+            "colors": Object {
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFDA7F",
+              "info": "#0073C2",
+              "primary": "#26A826",
+              "secondary": "#006300",
+              "success": "#00B000",
+              "tertiary": "#004400",
+              "warning": "#E96400",
+              "white": "#FFFFFF",
+            },
+            "disabled": Object {
+              "background": "#E5EAEC",
+              "border": "#CCD6DA",
+              "disabled": "rgba(0,0,0,0.55)",
+              "input": "#F2F4F5",
+              "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
+            },
+            "name": "base",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          },
+        },
+        "displayName": "styled.div",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "sc-htpNat",
+        "target": "div",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
+    }
+    forwardedRef={null}
+    theme={
+      Object {
+        "colors": Object {
+          "base": "#00A376",
+          "baseBlue": "#255BC7",
+          "border": "#668491",
+          "brand": "#00DC00",
+          "error": "#C7384F",
+          "focus": "#FFDA7F",
+          "greyDarkBlue50": "#8099a4",
+          "info": "#0073C2",
+          "primary": "#00805D",
+          "secondary": "#006045",
+          "success": "#00B000",
+          "tertiary": "#003F2E",
+          "warning": "#E96400",
+          "white": "#FFFFFF",
+        },
+        "disabled": Object {
+          "background": "#E5EAEC",
+          "border": "#4d7080",
+          "disabled": "#b3c2c8",
+          "input": "#1e499f",
+          "text": "#003349",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
+        },
+        "name": "classic",
+        "shadows": Object {
+          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.3)",
+          "size": "14px",
+        },
+      }
+    }
+  >
+    <div
+      className="c0"
+    />
+  </StyledComponent>
+</styled.div>
+`;
+
+exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
+.c0 {
+  color: #668491;
+  cursor: pointer;
+  margin-top: -8px;
+  right: 40px;
+  top: 53px;
+  z-index: 1002;
+  color: #4d7080;
+}
+
+.c0,
+.c0.carbon-icon {
+  position: absolute;
+  display: block;
+}
+
+.c0:before,
+.c0.carbon-icon:before {
+  font-size: 24px;
+}
+
+.c0:hover {
+  color: #335B6D;
+}
+
+.c0:hover {
+  color: #255BC7;
+}
+
+<Styled(Icon)
+  theme={
+    Object {
+      "colors": Object {
+        "base": "#00A376",
+        "baseBlue": "#255BC7",
+        "border": "#668491",
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFDA7F",
+        "greyDarkBlue50": "#8099a4",
+        "info": "#0073C2",
+        "primary": "#00805D",
+        "secondary": "#006045",
+        "success": "#00B000",
+        "tertiary": "#003F2E",
+        "warning": "#E96400",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "background": "#E5EAEC",
+        "border": "#4d7080",
+        "disabled": "#b3c2c8",
+        "input": "#1e499f",
+        "text": "#003349",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
+      },
+      "name": "classic",
+      "shadows": Object {
+        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-ifAKCX",
+          "isStatic": false,
+          "lastClassName": "c0",
+          "rules": Array [
+            "
+  color: ",
+            [Function],
+            ";
+  cursor: pointer;
+  margin-top: -8px;
+  right: 40px;
+  top: 53px;
+  z-index: 1002;
+
+  &, &.carbon-icon {
+    position: absolute;
+    display: block;
+  }
+  
+  &:before, &.carbon-icon:before {
+    font-size: 24px;
+  }
+  
+  &:hover {
+    color: ",
+            [Function],
+            ";
+  }
+
+  ",
+            [Function],
+            "
+",
+          ],
+        },
+        "defaultProps": Object {
+          "theme": Object {
+            "colors": Object {
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFDA7F",
+              "info": "#0073C2",
+              "primary": "#26A826",
+              "secondary": "#006300",
+              "success": "#00B000",
+              "tertiary": "#004400",
+              "warning": "#E96400",
+              "white": "#FFFFFF",
+            },
+            "disabled": Object {
+              "background": "#E5EAEC",
+              "border": "#CCD6DA",
+              "disabled": "rgba(0,0,0,0.55)",
+              "input": "#F2F4F5",
+              "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
+            },
+            "name": "base",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          },
+        },
+        "displayName": "Styled(Icon)",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "sc-ifAKCX",
+        "target": [Function],
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+        Symbol(Symbol.hasInstance): [Function],
+      }
+    }
+    forwardedRef={null}
+    theme={
+      Object {
+        "colors": Object {
+          "base": "#00A376",
+          "baseBlue": "#255BC7",
+          "border": "#668491",
+          "brand": "#00DC00",
+          "error": "#C7384F",
+          "focus": "#FFDA7F",
+          "greyDarkBlue50": "#8099a4",
+          "info": "#0073C2",
+          "primary": "#00805D",
+          "secondary": "#006045",
+          "success": "#00B000",
+          "tertiary": "#003F2E",
+          "warning": "#E96400",
+          "white": "#FFFFFF",
+        },
+        "disabled": Object {
+          "background": "#E5EAEC",
+          "border": "#4d7080",
+          "disabled": "#b3c2c8",
+          "input": "#1e499f",
+          "text": "#003349",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
+        },
+        "name": "classic",
+        "shadows": Object {
+          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.3)",
+          "size": "14px",
+        },
+      }
+    }
+  >
+    <Icon
+      bgSize="small"
+      className="c0"
+      theme={
+        Object {
+          "colors": Object {
+            "base": "#00A376",
+            "baseBlue": "#255BC7",
+            "border": "#668491",
+            "brand": "#00DC00",
+            "error": "#C7384F",
+            "focus": "#FFDA7F",
+            "greyDarkBlue50": "#8099a4",
+            "info": "#0073C2",
+            "primary": "#00805D",
+            "secondary": "#006045",
+            "success": "#00B000",
+            "tertiary": "#003F2E",
+            "warning": "#E96400",
+            "white": "#FFFFFF",
+          },
+          "disabled": Object {
+            "background": "#E5EAEC",
+            "border": "#4d7080",
+            "disabled": "#b3c2c8",
+            "input": "#1e499f",
+            "text": "#003349",
+          },
+          "icon": Object {
+            "focus": "#335B6D",
+          },
+          "name": "classic",
+          "shadows": Object {
+            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+          },
+          "text": Object {
+            "color": "rgba(0,0,0,0.9)",
+            "placeholder": "rgba(0,0,0,0.3)",
+            "size": "14px",
+          },
+        }
+      }
+    >
+      <span
+        className="carbon-icon c0 icon-undefined"
+        data-component="icon"
+        key="icon"
+        theme={
+          Object {
+            "colors": Object {
+              "base": "#00A376",
+              "baseBlue": "#255BC7",
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFDA7F",
+              "greyDarkBlue50": "#8099a4",
+              "info": "#0073C2",
+              "primary": "#00805D",
+              "secondary": "#006045",
+              "success": "#00B000",
+              "tertiary": "#003F2E",
+              "warning": "#E96400",
+              "white": "#FFFFFF",
+            },
+            "disabled": Object {
+              "background": "#E5EAEC",
+              "border": "#4d7080",
+              "disabled": "#b3c2c8",
+              "input": "#1e499f",
+              "text": "#003349",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
+            },
+            "name": "classic",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          }
+        }
+      />
+    </Icon>
+  </StyledComponent>
+</Styled(Icon)>
 `;
