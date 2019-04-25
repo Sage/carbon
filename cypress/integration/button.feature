@@ -10,9 +10,11 @@ Feature: Button component
     Then Button label on preview is "<label>"
     Examples:
       | label                    |
-      | Example Label Test       |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | Sample text              |
+      | 1234567890               |
+      | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
@@ -22,9 +24,11 @@ Feature: Button component
     Then Button subtext on preview is "<subtext>"
     Examples:
       | subtext                  |
-      | Example subtext          |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | Sample text              |
+      | 1234567890               |
+      | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @negative
@@ -51,13 +55,13 @@ Feature: Button component
 
   @positive
   Scenario: Disable Button
-    When I disable Button
+    When I disable Button component
     Then Button is disabled
 
   @positive
   Scenario: Disable and enable Button
-    When I disable Button
-      And I enable Button
+    When I disable Button component
+      And I enable Button component
     Then Button is enabled
 
   @positive
