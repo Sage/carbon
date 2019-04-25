@@ -31,6 +31,7 @@ class DialogFullScreen extends Modal {
   headingRef = React.createRef();
 
   componentDidUpdate() {
+    super.componentDidUpdate();
     this.updateHeadingHeight();
   }
 
@@ -43,7 +44,7 @@ class DialogFullScreen extends Modal {
   }
 
   updateHeadingHeight() {
-    if (this.state.headingHeight !== this.headingRef.current.clientHeight) {
+    if (this.headingRef.current && this.state.headingHeight !== this.headingRef.current.clientHeight) {
       this.setState({ headingHeight: this.headingRef.current.clientHeight });
     }
   }
