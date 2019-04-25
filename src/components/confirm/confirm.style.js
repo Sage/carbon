@@ -1,13 +1,14 @@
 import styled from 'styled-components';
+import Button from '../button';
 
 const StyledConfirmButtons = styled.div`
   margin-top: 20px;
   display: flex;
   justify-content: flex-end;
-
-  .carbon-button {
-    margin-left: 10px;
-  }
 `;
 
-export default StyledConfirmButtons;
+const StyledButton = styled(Button)`
+  margin-left: 10px;
+`;
+
+export { StyledConfirmButtons, StyledButton };

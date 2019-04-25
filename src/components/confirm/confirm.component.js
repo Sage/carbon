@@ -3,37 +3,30 @@ import I18n from 'i18n-js';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Dialog from '../dialog/dialog.component';
-import Button from '../button';
-import StyledConfirmButtons from './confirm.style';
+import { StyledConfirmButtons, StyledButton } from './confirm.style';
 
 class Confirm extends Dialog {
-  /**
-   * Returns main classes for the component combined with
-   * dialog main classes.
-   */
+  // ** Returns main classes for the component combined with dialog main classes. */
   get mainClasses() {
     return classNames(super.mainClasses);
   }
 
-  /**
-   * Get the yes and no buttons for the confirm dialog
-   *
-   */
+  // ** Get the yes and no buttons for the confirm dialog */
   additionalContent() {
     return (
       <StyledConfirmButtons>
-        <Button
+        <StyledButton
           onClick={ this.props.onConfirm } data-element='confirm'
-          as='primary'
+          buttonType='primary'
         >
           {this.props.confirmLabel || I18n.t('confirm.yes', { defaultValue: 'Yes' })}
-        </Button>
-        <Button
+        </StyledButton>
+        <StyledButton
           onClick={ this.props.onCancel } data-element='cancel'
-          as='secondary'
+          buttonType='secondary'
         >
           {this.props.cancelLabel || I18n.t('confirm.no', { defaultValue: 'No' })}
-        </Button>
+        </StyledButton>
       </StyledConfirmButtons>
     );
   }
