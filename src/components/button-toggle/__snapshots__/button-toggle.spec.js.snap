@@ -67,6 +67,7 @@ input:checked ~ .c2 {
 }
 
 .c1 {
+  position: absolute;
   width: 0;
   height: 0;
   opacity: 0;
@@ -170,6 +171,7 @@ input:checked ~ .c3 {
 }
 
 .c1 {
+  position: absolute;
   width: 0;
   height: 0;
   opacity: 0;
@@ -363,6 +365,7 @@ input:checked ~ .c3 {
                     "lastClassName": "c1",
                     "rules": Array [
                       "
+  position: absolute;
   width: 0;
   height: 0;
   opacity: 0;
@@ -767,6 +770,7 @@ input:checked ~ .c3 {
                     "lastClassName": "c1",
                     "rules": Array [
                       "
+  position: absolute;
   width: 0;
   height: 0;
   opacity: 0;
@@ -1038,6 +1042,7 @@ input:focus ~ .c2 {
 }
 
 .c1 {
+  position: absolute;
   width: 0;
   height: 0;
   opacity: 0;

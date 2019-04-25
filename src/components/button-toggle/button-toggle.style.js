@@ -140,6 +140,7 @@ const StyledButtonToggle = styled.div`
 `;
 
 const StyledButtonToggleInput = styled.input`
+  position: absolute;
   width: 0;
   height: 0;
   opacity: 0;
