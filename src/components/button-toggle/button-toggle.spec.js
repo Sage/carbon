@@ -110,15 +110,4 @@ describe('ButtonToggle', () => {
       expect(wrapper).toMatchSnapshot();
     });
   });
-  describe('As a form element', () => {
-    it('calls onChange when the value changes', () => {
-      const onChange = jest.fn();
-      const wrapper = render({
-        theme: classicTheme,
-        onChange
-      });
-      wrapper.find('input').simulate('change');
-      expect(onChange).toHaveBeenCalled();
-    });
-  });
 });
