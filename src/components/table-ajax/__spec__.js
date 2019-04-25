@@ -281,6 +281,58 @@ describe('TableAjax', () => {
         expect(instance.resetTableHeight).toBeCalled();
       });
     });
+
+    describe('when postAction is true', () => {
+      beforeEach(() => {
+        spy = jasmine.createSpy('onChange spy');
+
+        wrapper = mount(
+          <TableAjax
+            onAjaxError={ () => {} }
+            className="foo"
+            path='/test'
+            onChange={ spy }
+            postAction
+          >
+            <TableRow />
+          </TableAjax>
+        );
+        instance = wrapper.instance();
+      });
+
+      it('resets the select all component', () => {
+        let selectAllComponent = {
+          setState: jasmine.createSpy()
+        };
+        instance.selectAllComponent = selectAllComponent;
+        instance.emitOnChangeCallback('data', options);
+        expect(selectAllComponent.setState).toHaveBeenCalledWith({ selected: false });
+        expect(instance.selectAllComponent).toBe(null);
+      });
+
+      describe('when page size is less than previous page size', () => {
+        it('calls resetTableHeight on successful response', () => {
+          instance.resetTableHeight = jest.fn();
+          options = { currentPage: '1', pageSize: '5' }
+          Request.__setMockResponse({
+            status() {
+              return 200;
+            },
+            ok() {
+              return true;
+            },
+            body: {
+              data: 'foo'
+            }
+          });
+
+          instance.emitOnChangeCallback('data', options);
+          jest.runTimersToTime(251);
+
+          expect(instance.resetTableHeight).toBeCalled();
+        });
+      });
+    });
   });
 
   describe('stopTimeout', () => {
