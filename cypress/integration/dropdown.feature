@@ -29,9 +29,10 @@ Feature: Dropdown component
     Then Dropdown label is set to "<label>"
     Examples:
       | label                    |
-      | Example text             |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
       | <>                       |
 
@@ -41,9 +42,10 @@ Feature: Dropdown component
     Then Label help on preview is set to "<label>"
     Examples:
       | label                    |
-      | Example text             |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
       | <>                       |
 
@@ -73,9 +75,10 @@ Feature: Dropdown component
     Then Field help on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                |
-      | Example Test             |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
       | <>                       |
 
