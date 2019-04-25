@@ -114,7 +114,15 @@ class TableAjax extends Table {
      * @property onAjaxError
      * @type {Function}
      */
-    onAjaxError: PropTypes.func
+    onAjaxError: PropTypes.func,
+
+    /**
+     * A prop to allow the override of the default get request and perform a post.
+     * @property postAction
+     * @type {Boolean}
+
+     */
+    postAction: PropTypes.bool
   }
 
   static defaultProps = {
@@ -343,15 +351,27 @@ class TableAjax extends Table {
         dataState: 'requested',
         ariaBusy: true
       });
-      this._request = Request
-        .get(this.props.path)
-        .set(this.getHeaders())
-        .query(this.queryParams(element, options))
-        .end((err, response) => {
-          this._hasRetreivedData = true;
-          this.handleResponse(err, response);
-          if (resetHeight) { this.resetTableHeight(); }
-        });
+      if (this.props.postAction) {
+        this._request = Request
+          .post(this.props.path)
+          .set(this.getHeaders())
+          .query(this.queryParams(element, options))
+          .end((err, response) => {
+            this._hasRetreivedData = true;
+            this.handleResponse(err, response);
+            if (resetHeight) { this.resetTableHeight(); }
+          });
+      } else {
+        this._request = Request
+          .get(this.props.path)
+          .set(this.getHeaders())
+          .query(this.queryParams(element, options))
+          .end((err, response) => {
+            this._hasRetreivedData = true;
+            this.handleResponse(err, response);
+            if (resetHeight) { this.resetTableHeight(); }
+          });
+      }
     }, timeout);
   }
 
