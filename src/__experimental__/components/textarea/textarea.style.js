@@ -6,6 +6,8 @@ import StyledInput from '../input/input.style';
 const StyledTextarea = styled(StyledInput)`
   resize: none;
   min-height: 40px;
+  padding-top: 5px;
+  padding-bottom: 5px;
 `;
 
 StyledTextarea.defaultProps = {

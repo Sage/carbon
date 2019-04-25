@@ -45,6 +45,7 @@ storiesOf('Experimental/Textarea', module)
       const placeholder = text('placeholder', '');
       const fieldHelp = text('fieldHelp', '');
       const characterLimit = text('characterLimit', '');
+      const inputWidth = number('inputWidth', 100, percentageRange);
       const warnOverLimit = characterLimit ? boolean('warnOverLimit', Textarea.defaultProps.warnOverLimit) : undefined;
       const enforceCharacterLimit = characterLimit ? boolean(
         'enforceCharacterLimit',
@@ -54,7 +55,6 @@ storiesOf('Experimental/Textarea', module)
       const labelHelp = label ? text('labelHelp', '') : undefined;
       const labelInline = label ? boolean('labelInline', false) : undefined;
       const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
-      const inputWidth = labelInline ? number('inputWidth', 30, percentageRange) : undefined;
       const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
 
       return (
