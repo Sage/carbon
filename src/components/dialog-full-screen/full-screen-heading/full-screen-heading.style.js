@@ -30,10 +30,6 @@ const StyledFullScreenHeading = styled.div`
         margin-top: -8px;
         margin-left: -5px;
       }
-
-      .carbon-dialog-full-screen & {
-        background-color: ${({ theme }) => theme.disabled.background};
-      }
     }
   }
 
