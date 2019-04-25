@@ -49,14 +49,22 @@ const ButtonToggle = (props) => {
 };
 
 ButtonToggle.propTypes = {
-  name: PropTypes.string, /** Name used on the hidden radio button. */
-  onChange: PropTypes.func, /** Change handler passed in from parent. */
-  buttonIcon: PropTypes.string, /** buttonIcon the to render. */
-  buttonIconSize: PropTypes.string, /** Sets the size of the buttonIcon (eg. large) */
-  size: PropTypes.string, /** Sets the size of the button (padding, font-size). Only used in Classic theme. */
-  grouped: PropTypes.bool, /** Remove spacing from between buttons. */
-  disabled: PropTypes.bool, /** Disable all user interaction. */
-  children: PropTypes.node.isRequired /** A required prop. This is the button text. */
+  /** Name used on the hidden radio button. */
+  name: PropTypes.string,
+  /** Change handler passed in from parent. */
+  onChange: PropTypes.func,
+  /** buttonIcon the to render. */
+  buttonIcon: PropTypes.string,
+  /** Sets the size of the buttonIcon (eg. large) */
+  buttonIconSize: PropTypes.string,
+  /** Sets the size of the button (padding, font-size). Only used in Classic theme. */
+  size: PropTypes.string,
+  /** Remove spacing from between buttons. */
+  grouped: PropTypes.bool,
+  /** Disable all user interaction. */
+  disabled: PropTypes.bool,
+  /** A required prop. This is the button text. */
+  children: PropTypes.node.isRequired
 };
 
 ButtonToggle.defaultProps = {

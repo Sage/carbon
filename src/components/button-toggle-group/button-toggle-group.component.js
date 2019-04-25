@@ -14,15 +14,24 @@ const ButtonToggleGroup = (props) => {
 };
 
 ButtonToggleGroup.propTypes = {
-  children: PropTypes.node.isRequired, /** Children to be rendered (ButtonToggle). */
-  label: PropTypes.string, /** Text for the label. */
-  labelHelp: PropTypes.string, /** Text for the labels help tooltip. */
-  inputWidth: PropTypes.number, /** The percentage width of the ButtonToggleGroup. */
-  fieldHelp: PropTypes.string, /** The text for the field help. */
-  fieldHelpInline: PropTypes.bool, /** Sets the field help to inline. */
-  labelInline: PropTypes.bool, /** Sets the label to be inline. */
-  labelWidth: PropTypes.number, /** The percentage width of the label. */
-  labelAlign: PropTypes.string /** The alignment for the text in the label. */
+  /** Children to be rendered (ButtonToggle). */
+  children: PropTypes.node.isRequired,
+  /** Text for the label. */
+  label: PropTypes.string,
+  /** Text for the labels help tooltip. */
+  labelHelp: PropTypes.string,
+  /** The percentage width of the ButtonToggleGroup. */
+  inputWidth: PropTypes.number,
+  /** The text for the field help. */
+  fieldHelp: PropTypes.string,
+  /** Sets the field help to inline. */
+  fieldHelpInline: PropTypes.bool,
+  /** Sets the label to be inline. */
+  labelInline: PropTypes.bool,
+  /** The percentage width of the label. */
+  labelWidth: PropTypes.number,
+  /** The alignment for the text in the label. */
+  labelAlign: PropTypes.string
 };
 
 export default ButtonToggleGroup;
