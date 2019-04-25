@@ -39,10 +39,6 @@ exports[`DialogFullScreen tags on component include correct component, elements 
   margin-left: -5px;
 }
 
-.carbon-dialog-full-screen .c2 .carbon-heading .carbon-heading__header {
-  background-color: #E5EAEC;
-}
-
 .c0 {
   background-color: #F2F4F5;
   height: 100%;
@@ -140,10 +136,6 @@ exports[`DialogFullScreen tags on component include correct component, elements 
 .c2 .carbon-heading .carbon-heading__header .carbon-heading__back {
   margin-top: -8px;
   margin-left: -5px;
-}
-
-.carbon-dialog-full-screen .c2 .carbon-heading .carbon-heading__header {
-  background-color: #E5EAEC;
 }
 
 .c0 {
@@ -584,12 +576,6 @@ exports[`DialogFullScreen tags on component include correct component, elements 
       .carbon-heading__back {
         margin-top: -8px;
         margin-left: -5px;
-      }
-
-      .carbon-dialog-full-screen & {
-        background-color: ",
-                                      [Function],
-                                      ";
       }
     }
   }
@@ -1124,10 +1110,6 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
   margin-left: -5px;
 }
 
-.carbon-dialog-full-screen .c1 .carbon-heading .carbon-heading__header {
-  background-color: #E5EAEC;
-}
-
 .c0 + .c2 {
   height: calc(100% - 166px);
 }
@@ -1263,12 +1245,6 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
       .carbon-heading__back {
         margin-top: -8px;
         margin-left: -5px;
-      }
-
-      .carbon-dialog-full-screen & {
-        background-color: ",
-              [Function],
-              ";
       }
     }
   }
