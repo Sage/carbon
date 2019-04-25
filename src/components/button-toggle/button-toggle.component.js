@@ -5,7 +5,8 @@ import {
   StyledButtonToggle,
   StyledButtonToggleLabel,
   StyledButtonToggleInput,
-  StyledButtonToggleIcon
+  StyledButtonToggleIcon,
+  StyledButtonToggleContentWrapper
 } from './button-toggle.style';
 import guid from '../../utils/helpers/guid';
 
@@ -39,10 +40,10 @@ const ButtonToggle = (props) => {
       <StyledButtonToggleLabel
         { ...props } htmlFor={ inputGuid }
       >
-        <div className='content-wrapper'>
+        <StyledButtonToggleContentWrapper>
           {icon()}
           {props.children}
-        </div>
+        </StyledButtonToggleContentWrapper>
       </StyledButtonToggleLabel>
     </StyledButtonToggle>
   );

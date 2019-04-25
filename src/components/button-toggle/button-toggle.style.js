@@ -2,6 +2,14 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { THEMES } from '../../style/themes';
 
+const StyledButtonToggleContentWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
+
 const StyledButtonToggleLabel = styled.label`
   display: inline-block;
   height: 40px;
@@ -25,20 +33,12 @@ const StyledButtonToggleLabel = styled.label`
     border-color: ${({ theme }) => theme.colors.tertiary};
   }
 
-  .content-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  }
-
   ${({ buttonIcon, buttonIconSize }) => buttonIcon && buttonIconSize === 'large' && css`
     min-width: 104px;
     height: 104px;
     padding: 0 16px;
 
-    .content-wrapper {
+    ${StyledButtonToggleContentWrapper} {
       flex-direction: column;
     }
   `}
@@ -49,11 +49,11 @@ const StyledButtonToggleLabel = styled.label`
     color: rgba(0,0,0,.2) !important;
   `};
 
-
   /* CLASSIC STYLES */
   ${({ theme }) => theme.name === THEMES.classic && css`
     height: 47px;
-    
+    font-weight: 900;
+
     input:checked ~ & {
       color: ${theme.colors.white};
       background-color: #1573e6;
@@ -158,5 +158,6 @@ export {
   StyledButtonToggle,
   StyledButtonToggleLabel,
   StyledButtonToggleIcon,
-  StyledButtonToggleInput
+  StyledButtonToggleInput,
+  StyledButtonToggleContentWrapper
 };

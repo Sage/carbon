@@ -1,32 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ButtonToggle Classic theme renders correctly with default settings 1`] = `
-.c2 {
-  display: inline-block;
-  height: 40px;
-  padding: 0 24px;
-  border: 1px solid #668491;
-  font-size: 14px;
-  font-weight: 600;
-  background-color: #FFFFFF;
-  height: 47px;
-}
-
-input:checked ~ .c2 {
-  color: #FFFFFF;
-  background-color: #003F2E;
-}
-
-input:focus ~ .c2 {
-  outline: 3px solid #FFDA7F;
-}
-
-.c2:hover {
-  background-color: #e5f2ee;
-  border-color: #003F2E;
-}
-
-.c2 .content-wrapper {
+.c3 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -41,6 +16,32 @@ input:focus ~ .c2 {
   align-items: center;
   width: 100%;
   height: 100%;
+}
+
+.c2 {
+  display: inline-block;
+  height: 40px;
+  padding: 0 24px;
+  border: 1px solid #668491;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: #FFFFFF;
+  height: 47px;
+  font-weight: 900;
+}
+
+input:checked ~ .c2 {
+  color: #FFFFFF;
+  background-color: #003F2E;
+}
+
+input:focus ~ .c2 {
+  outline: 3px solid #FFDA7F;
+}
+
+.c2:hover {
+  background-color: #e5f2ee;
+  border-color: #003F2E;
 }
 
 input:checked ~ .c2 {
@@ -88,7 +89,7 @@ input:focus ~ .c2 {
     size="large"
   >
     <div
-      className="content-wrapper"
+      className="c3"
     >
       Button
     </div>
@@ -97,32 +98,7 @@ input:focus ~ .c2 {
 `;
 
 exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
-.c3 {
-  display: inline-block;
-  height: 40px;
-  padding: 0 24px;
-  border: 1px solid #668491;
-  font-size: 14px;
-  font-weight: 600;
-  background-color: #FFFFFF;
-  height: 47px;
-}
-
-input:checked ~ .c3 {
-  color: #FFFFFF;
-  background-color: #003F2E;
-}
-
-input:focus ~ .c3 {
-  outline: 3px solid #FFDA7F;
-}
-
-.c3:hover {
-  background-color: #e5f2ee;
-  border-color: #003F2E;
-}
-
-.c3 .content-wrapper {
+.c5 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -139,6 +115,32 @@ input:focus ~ .c3 {
   height: 100%;
 }
 
+.c3 {
+  display: inline-block;
+  height: 40px;
+  padding: 0 24px;
+  border: 1px solid #668491;
+  font-size: 14px;
+  font-weight: 600;
+  background-color: #FFFFFF;
+  height: 47px;
+  font-weight: 900;
+}
+
+input:checked ~ .c3 {
+  color: #FFFFFF;
+  background-color: #003F2E;
+}
+
+input:focus ~ .c3 {
+  outline: 3px solid #FFDA7F;
+}
+
+.c3:hover {
+  background-color: #e5f2ee;
+  border-color: #003F2E;
+}
+
 input:checked ~ .c3 {
   color: #FFFFFF;
   background-color: #1573e6;
@@ -152,6 +154,18 @@ input:focus ~ .c3 {
   border-color: #1e499f;
   color: #FFFFFF;
   background-color: #1e499f;
+}
+
+.c6 .c4 {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.c7 .c4 {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
 }
 
 .c0 {
@@ -272,7 +286,7 @@ input:focus ~ .c3 {
             "$$typeof": Symbol(react.forward_ref),
             "attrs": Array [],
             "componentStyle": ComponentStyle {
-              "componentId": "sc-htpNat",
+              "componentId": "sc-bxivhb",
               "isStatic": false,
               "lastClassName": "c0",
               "rules": Array [
@@ -295,7 +309,7 @@ input:focus ~ .c3 {
               "buttonSize": [Function],
             },
             "render": [Function],
-            "styledComponentId": "sc-htpNat",
+            "styledComponentId": "sc-bxivhb",
             "target": "div",
             "toString": [Function],
             "warnTooManyClasses": [Function],
@@ -360,7 +374,7 @@ input:focus ~ .c3 {
                   "$$typeof": Symbol(react.forward_ref),
                   "attrs": Array [],
                   "componentStyle": ComponentStyle {
-                    "componentId": "sc-bxivhb",
+                    "componentId": "sc-ifAKCX",
                     "isStatic": true,
                     "lastClassName": "c1",
                     "rules": Array [
@@ -375,7 +389,7 @@ input:focus ~ .c3 {
                   "displayName": "styled.input",
                   "foldedComponentIds": Array [],
                   "render": [Function],
-                  "styledComponentId": "sc-bxivhb",
+                  "styledComponentId": "sc-ifAKCX",
                   "target": "input",
                   "toString": [Function],
                   "warnTooManyClasses": [Function],
@@ -487,14 +501,6 @@ input:focus ~ .c3 {
                       ";
   }
 
-  .content-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  }
-
   ",
                       [Function],
                       "
@@ -502,7 +508,6 @@ input:focus ~ .c3 {
   ",
                       [Function],
                       ";
-
 
   /* CLASSIC STYLES */
   ",
@@ -571,11 +576,45 @@ input:focus ~ .c3 {
                 htmlFor="guid-12345"
                 size="large"
               >
-                <div
-                  className="content-wrapper"
-                >
-                  Text
-                </div>
+                <styled.div>
+                  <StyledComponent
+                    forwardedComponent={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "attrs": Array [],
+                        "componentStyle": ComponentStyle {
+                          "componentId": "c4",
+                          "isStatic": true,
+                          "lastClassName": "c5",
+                          "rules": Array [
+                            "
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+",
+                          ],
+                        },
+                        "displayName": "styled.div",
+                        "foldedComponentIds": Array [],
+                        "render": [Function],
+                        "styledComponentId": "c4",
+                        "target": "div",
+                        "toString": [Function],
+                        "warnTooManyClasses": [Function],
+                        "withComponent": [Function],
+                      }
+                    }
+                    forwardedRef={null}
+                  >
+                    <div
+                      className="c4 c5"
+                    >
+                      Text
+                    </div>
+                  </StyledComponent>
+                </styled.div>
               </label>
             </StyledComponent>
           </styled.label>
@@ -677,7 +716,7 @@ input:focus ~ .c3 {
             "$$typeof": Symbol(react.forward_ref),
             "attrs": Array [],
             "componentStyle": ComponentStyle {
-              "componentId": "sc-htpNat",
+              "componentId": "sc-bxivhb",
               "isStatic": false,
               "lastClassName": "c0",
               "rules": Array [
@@ -700,7 +739,7 @@ input:focus ~ .c3 {
               "buttonSize": [Function],
             },
             "render": [Function],
-            "styledComponentId": "sc-htpNat",
+            "styledComponentId": "sc-bxivhb",
             "target": "div",
             "toString": [Function],
             "warnTooManyClasses": [Function],
@@ -765,7 +804,7 @@ input:focus ~ .c3 {
                   "$$typeof": Symbol(react.forward_ref),
                   "attrs": Array [],
                   "componentStyle": ComponentStyle {
-                    "componentId": "sc-bxivhb",
+                    "componentId": "sc-ifAKCX",
                     "isStatic": true,
                     "lastClassName": "c1",
                     "rules": Array [
@@ -780,7 +819,7 @@ input:focus ~ .c3 {
                   "displayName": "styled.input",
                   "foldedComponentIds": Array [],
                   "render": [Function],
-                  "styledComponentId": "sc-bxivhb",
+                  "styledComponentId": "sc-ifAKCX",
                   "target": "input",
                   "toString": [Function],
                   "warnTooManyClasses": [Function],
@@ -892,14 +931,6 @@ input:focus ~ .c3 {
                       ";
   }
 
-  .content-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    height: 100%;
-  }
-
   ",
                       [Function],
                       "
@@ -907,7 +938,6 @@ input:focus ~ .c3 {
   ",
                       [Function],
                       ";
-
 
   /* CLASSIC STYLES */
   ",
@@ -976,11 +1006,45 @@ input:focus ~ .c3 {
                 htmlFor="guid-12345"
                 size="large"
               >
-                <div
-                  className="content-wrapper"
-                >
-                  Text
-                </div>
+                <styled.div>
+                  <StyledComponent
+                    forwardedComponent={
+                      Object {
+                        "$$typeof": Symbol(react.forward_ref),
+                        "attrs": Array [],
+                        "componentStyle": ComponentStyle {
+                          "componentId": "c4",
+                          "isStatic": true,
+                          "lastClassName": "c5",
+                          "rules": Array [
+                            "
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+",
+                          ],
+                        },
+                        "displayName": "styled.div",
+                        "foldedComponentIds": Array [],
+                        "render": [Function],
+                        "styledComponentId": "c4",
+                        "target": "div",
+                        "toString": [Function],
+                        "warnTooManyClasses": [Function],
+                        "withComponent": [Function],
+                      }
+                    }
+                    forwardedRef={null}
+                  >
+                    <div
+                      className="c4 c5"
+                    >
+                      Text
+                    </div>
+                  </StyledComponent>
+                </styled.div>
               </label>
             </StyledComponent>
           </styled.label>
@@ -992,6 +1056,29 @@ input:focus ~ .c3 {
 `;
 
 exports[`ButtonToggle Modern themes renders correctly with small theme 1`] = `
+.c4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.c5 .c3 {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
 .c2 {
   display: inline-block;
   height: 40px;
@@ -1014,23 +1101,6 @@ input:focus ~ .c2 {
 .c2:hover {
   background-color: #e5f2ee;
   border-color: #003F2E;
-}
-
-.c2 .content-wrapper {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
 }
 
 .c0 {
@@ -1063,7 +1133,7 @@ input:focus ~ .c2 {
     size="large"
   >
     <div
-      className="content-wrapper"
+      className="c3 c4"
     >
       Button
     </div>
