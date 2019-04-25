@@ -36,7 +36,7 @@ Feature: Confirm component
   Scenario Outline: Change title in Confirm dialog
     When I set title to "<title>"
       And I click on a openButton
-    Then dialog title context children on preview is "<title>"
+    Then dialog title context on preview is "<title>"
     Examples:
       | title                    |
       | Sample text              |

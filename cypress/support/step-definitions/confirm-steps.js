@@ -7,17 +7,13 @@ import {
   openButton, dialogTitle, cancelLabel, confirmLabel,
   dialogPreview, showCloseIconCheckbox, closeIconButton,
   dialogSubtitle, stickyFormFooterCheckbox,
-  childrenArea, confirmButton, cancelButton,
+  confirmButton, cancelButton,
 } from '../../locators/confirm';
 
 const STICKY_FORM_FOOTER_PARAMETER = 'TODO';
 
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
-});
-
-When('I set children to {string}', (text) => {
-  childrenArea().clear().type(text);
 });
 
 When('I type {string} to as property', (asProperty) => {
@@ -64,7 +60,7 @@ Then('cancel button content on preview is {string}', (cancelButtonText) => {
   cancelButton().should('have.text', cancelButtonText);
 });
 
-Then('dialog title context children on preview is {string}', (title) => {
+Then('dialog title context on preview is {string}', (title) => {
   dialogTitle().should('have.text', title);
 });
 

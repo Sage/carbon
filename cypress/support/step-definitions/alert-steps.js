@@ -1,5 +1,5 @@
 import {
-  alertChildren, alertDialogPreview, alertHeight,
+  alertDialogPreview, alertHeight,
 } from '../../locators/alert';
 
 Then('Alert height is set to {string}', (height) => {
@@ -15,7 +15,7 @@ Then('Alert size property on preview is {string}', (size) => {
 });
 
 Then('Alert children on preview is {string}', (children) => {
-  alertChildren().should('have.text', children);
+  alertDialogPreview().children().eq(1).should('have.text', children);
 });
 
 Then('Alert is not visible', () => {
