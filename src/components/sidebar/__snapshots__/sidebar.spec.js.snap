@@ -146,10 +146,12 @@ exports[`SidebarStyle When classic style is passed to the component should rende
   top: 0;
   z-index: 1002;
   width: 150px;
-  box-shadow: 10px 0 15px rgba(0,0,0,0.05);
+  box-shadow: 0 10px 30px 0 rgba(0,20,29,0.1),0 30px 60px 0 rgba(0,20,29,0.1);
   left: 0;
   background-color: #e6ebed;
   border-right: 1px solid #ccd6db;
+  box-shadow: 10px 0 15px rgba(0,0,0,.05);
+  left: 0;
 }
 
 <styled.div
@@ -219,10 +221,6 @@ exports[`SidebarStyle When classic style is passed to the component should rende
   top: 0;
   z-index: 1002;
   
-  ",
-            [Function],
-            ";
-
   ",
             [Function],
             ";

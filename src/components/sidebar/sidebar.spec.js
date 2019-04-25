@@ -91,7 +91,7 @@ describe('SidebarStyle', () => {
     it('should render correct style', () => {
       assertStyleMatch({
         width: '150px',
-        boxShadow: '-10px 0 15px rgba(0,0,0,0.05)',
+        boxShadow: '0 10px 30px 0 rgba(0,20,29,0.1),0 30px 60px 0 rgba(0,20,29,0.1)',
         right: '0'
       }, wrapper);
     });
@@ -105,7 +105,7 @@ describe('SidebarStyle', () => {
 
     it('should render correct style', () => {
       assertStyleMatch({
-        boxShadow: '10px 0 15px rgba(0,0,0,0.05)',
+        boxShadow: '0 10px 30px 0 rgba(0,20,29,0.1),0 30px 60px 0 rgba(0,20,29,0.1)',
         left: '0'
       }, wrapper);
     });

@@ -26,14 +26,9 @@ const SidebarStyle = styled.div`
       width: ${sidebarSizes[size]};
   `};
 
-  ${({ position }) => position === 'right' && css`
-      box-shadow: -10px 0 15px rgba(0, 0, 0, 0.05);
-      right: 0;
-  `};
-
-  ${({ position }) => position === 'left' && css`
-      box-shadow: 10px 0 15px rgba(0, 0, 0, 0.05);
-      left: 0;
+  ${({ position, theme }) => position && css`
+      box-shadow: ${theme.shadows.depth3};
+      ${position}: 0;
   `};
 
   ${sidebarClassicStyle}

@@ -4,11 +4,17 @@ import { THEMES } from '../../style/themes';
 const sidebarClassicStyle = ({ theme }) => theme.name === THEMES.classic && css`
     background-color: #e6ebed;
     
-    ${({ position }) => {
-    const oppositeSide = position === 'right' ? 'left' : 'right';
+    ${({ position }) => position === 'right' && css`
+        border-left: 1px solid #ccd6db;
+        box-shadow: -10px 0 15px rgba(0,0,0,.05);
+        right: 0;
+    `}
 
-    return `border-${oppositeSide}: 1px solid #ccd6db`;
-  }}
+    ${({ position }) => position === 'left' && css`
+        border-right: 1px solid #ccd6db;
+        box-shadow: 10px 0 15px rgba(0,0,0,.05);
+        left: 0;
+    `}
 `;
 
 const sidebarCloseClassicStyle = ({ theme }) => theme.name === THEMES.classic && css`
