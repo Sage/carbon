@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import sidebarHeaderClassicStyle from './classic-sidebar-header.style';
+import sidebarHeaderClassicStyle from './sidebar-header-classic.style';
 import baseTheme from '../../../style/themes/base';
 
 const SidebarHeaderStyle = styled.div`

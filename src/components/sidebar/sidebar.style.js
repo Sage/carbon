@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
-import { sidebarClassicStyle, sidebarCloseClassicStyle } from './classic-sidebar.style';
+import { sidebarClassicStyle, sidebarCloseClassicStyle } from './sidebar-classic.style';
 
 const sidebarSizes = {
   'extra-small': '150px',
@@ -22,36 +22,36 @@ const SidebarStyle = styled.div`
   top: 0;
   z-index: 1002;
   
-    ${({ size }) => size && css`
-        width: ${sidebarSizes[size]};
-    `};
+  ${({ size }) => size && css`
+      width: ${sidebarSizes[size]};
+  `};
 
-    ${({ position }) => position === 'right' && css`
-        box-shadow: -10px 0 15px rgba(0, 0, 0, 0.05);
-        right: 0;
-    `};
+  ${({ position }) => position === 'right' && css`
+      box-shadow: -10px 0 15px rgba(0, 0, 0, 0.05);
+      right: 0;
+  `};
 
-    ${({ position }) => position === 'left' && css`
-        box-shadow: 10px 0 15px rgba(0, 0, 0, 0.05);
-        left: 0;
-    `};
+  ${({ position }) => position === 'left' && css`
+      box-shadow: 10px 0 15px rgba(0, 0, 0, 0.05);
+      left: 0;
+  `};
 
-    ${sidebarClassicStyle}
+  ${sidebarClassicStyle}
 `;
 
 const SidebarCloseStyle = styled.div`
-    cursor: pointer;
-    position: absolute;
-    right: 20px;
-    top: 15px;
-    z-index: 1;
-    color: ${({ theme }) => theme.colors.border};
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  z-index: 1;
+  color: ${({ theme }) => theme.colors.border};
 
-    &:hover {
-        color: ${({ theme }) => theme.colors.focusedIcon};
-    };
+  &:hover {
+      color: ${({ theme }) => theme.colors.focusedIcon};
+  };
 
-    ${sidebarCloseClassicStyle}
+  ${sidebarCloseClassicStyle}
 `;
 
 SidebarStyle.defaultProps = {

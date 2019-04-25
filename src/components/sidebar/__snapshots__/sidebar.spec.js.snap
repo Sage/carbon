@@ -219,19 +219,19 @@ exports[`SidebarStyle When classic style is passed to the component should rende
   top: 0;
   z-index: 1002;
   
-    ",
+  ",
             [Function],
             ";
 
-    ",
+  ",
             [Function],
             ";
 
-    ",
+  ",
             [Function],
             ";
 
-    ",
+  ",
             [Function],
             "
 ",
@@ -410,22 +410,22 @@ exports[`SidebarStyle When classic style is passed to the component should rende
           "lastClassName": "c0",
           "rules": Array [
             "
-    cursor: pointer;
-    position: absolute;
-    right: 20px;
-    top: 15px;
-    z-index: 1;
-    color: ",
+  cursor: pointer;
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  z-index: 1;
+  color: ",
             [Function],
             ";
 
-    &:hover {
-        color: ",
+  &:hover {
+      color: ",
             [Function],
             ";
-    };
+  };
 
-    ",
+  ",
             [Function],
             "
 ",
