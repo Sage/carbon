@@ -5,7 +5,7 @@ import {
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './documentation/notes.md';
+import notes from './documentation';
 import ButtonToggle from './button-toggle.component';
 
 storiesOf('Button Toggle', module)

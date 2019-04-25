@@ -4,7 +4,7 @@ import {
   text, number, boolean, select, percentageRange
 } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import notes from './documentation/notes.md';
+import notes from './documentation';
 import ButtonToggle from '../button-toggle/button-toggle.component';
 import ButtonToggleGroup from './button-toggle-group.component';
 
