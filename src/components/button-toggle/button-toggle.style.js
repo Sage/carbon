@@ -58,16 +58,16 @@ const StyledButtonToggleLabel = styled.label`
       color: ${theme.colors.white};
       background-color: #1573e6;
     }
+
+    input:focus ~ & {
+      outline: 0;
+    }  
     
     &:hover {
       border-color: #1e499f;
       color: ${theme.colors.white};
       background-color: #1e499f;
     }
-
-    &:focus {
-      outline: 0;
-    }  
 
     ${({ size }) => size === 'small' && css`
       height: auto;
