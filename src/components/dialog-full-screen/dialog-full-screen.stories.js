@@ -3,8 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import notes from './documentation/notes.md';
-import Info from './documentation/Info';
+import { notes, info } from './documentation';
 import DialogFullScreen from '.';
 import Button from '../button';
 import Form from '../form';
@@ -27,17 +26,14 @@ const handleClick = (evt) => {
   action('click')(evt);
 };
 
-const storyParameters = {
-  info: { text: Info },
-  notes: { markdown: notes },
-  knobs: { escapeHTML: false }
-};
-
 storiesOf('Dialog Full Screen', module)
   .addParameters({
     info: {
-      propTablesExclude: [Button, State]
-    }
+      propTablesExclude: [Button, State],
+      text: info
+    },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   })
   .add('default', () => {
     const title = text('title', 'Example Dialog');
@@ -66,7 +62,7 @@ storiesOf('Dialog Full Screen', module)
         </State>
       </div>
     );
-  }, storyParameters)
+  })
   .add('with sticky footer', () => {
     const title = text('title', 'Example Dialog');
     const subtitle = text('subtitle', 'Example Subtitle');
@@ -98,4 +94,4 @@ storiesOf('Dialog Full Screen', module)
         </State>
       </div>
     );
-  }, storyParameters);
+  });

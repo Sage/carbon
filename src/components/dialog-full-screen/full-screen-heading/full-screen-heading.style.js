@@ -5,8 +5,9 @@ import baseTheme from '../../../style/themes/base';
 const StyledFullScreenHeading = styled.div`
   border-bottom: 1px solid ${({ theme }) => theme.disabled.border};
 
-  & > .div {
+  .carbon-app-wrapper {
     position: relative;
+    max-width: none;
   }
 
   .carbon-heading {
