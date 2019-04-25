@@ -49,16 +49,19 @@ exports[`DialogFullScreen tags on component include correct component, elements 
 
 .c4 {
   overflow-y: auto;
-  height: calc(100% - 60px);
 }
 
 .c1 + .c4 {
-  height: calc(100% - 166px);
+  height: calc(100% - px);
 }
 
 .c4 .carbon-app-wrapper {
   max-width: none;
   padding: 27px 32px 32px 32px;
+}
+
+.c1 + .c5 {
+  height: calc(100% - 0px);
 }
 
 .c3 {
@@ -150,16 +153,19 @@ exports[`DialogFullScreen tags on component include correct component, elements 
 
 .c4 {
   overflow-y: auto;
-  height: calc(100% - 60px);
 }
 
 .c1 + .c4 {
-  height: calc(100% - 166px);
+  height: calc(100% - px);
 }
 
 .c4 .carbon-app-wrapper {
   max-width: none;
   padding: 27px 32px 32px 32px;
+}
+
+.c1 + .c5 {
+  height: calc(100% - 0px);
 }
 
 .c3 {
@@ -496,7 +502,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                         data-element="bar"
                         data-role="baz"
                       >
-                        <FullScreenHeading>
+                        <ForwardRef>
                           <styled.div
                             data-component="full-screen-heading"
                             theme={
@@ -640,7 +646,50 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                   "withComponent": [Function],
                                 }
                               }
-                              forwardedRef={null}
+                              forwardedRef={
+                                Object {
+                                  "current": <div
+                                    class="c1 c2"
+                                    data-component="full-screen-heading"
+                                  >
+                                    <div
+                                      class="carbon-app-wrapper"
+                                      data-component="app-wrapper"
+                                    >
+                                      <span
+                                        class="carbon-icon c3 icon-close"
+                                        data-component="icon"
+                                        data-element="close"
+                                        theme="[object Object]"
+                                      />
+                                      <div
+                                        class="carbon-heading carbon-heading--has-divider"
+                                        data-component="heading"
+                                      >
+                                        <div
+                                          class="carbon-heading__header"
+                                        >
+                                          <div
+                                            class="carbon-heading__headers"
+                                          >
+                                            <div
+                                              class="carbon-heading__main-header"
+                                            >
+                                              <h1
+                                                class="carbon-heading__title"
+                                                data-element="title"
+                                                id="carbon-dialog-title"
+                                              >
+                                                Test
+                                              </h1>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>,
+                                }
+                              }
                               theme={
                                 Object {
                                   "colors": Object {
@@ -1007,7 +1056,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                               </div>
                             </StyledComponent>
                           </styled.div>
-                        </FullScreenHeading>
+                        </ForwardRef>
                         <styled.div
                           data-element="content"
                         >
@@ -1024,13 +1073,10 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                   "rules": Array [
                                     "
   overflow-y: auto;
-  height: calc(100% - 60px);
 
   ",
-                                    ".c1",
-                                    " + & {
-    height: calc(100% - 166px);
-  }
+                                    [Function],
+                                    "
 
   .carbon-app-wrapper {
     max-width: none;
@@ -1130,10 +1176,14 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
 }
 
 .c0 + .c2 {
-  height: calc(100% - 166px);
+  height: calc(100% - px);
 }
 
-<FullScreenHeading
+.c0 + .c3 {
+  height: calc(100% - 0px);
+}
+
+<ForwardRef
   theme={
     Object {
       "colors": Object {
@@ -1382,19 +1432,18 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
       </div>
     </StyledComponent>
   </styled.div>
-</FullScreenHeading>
+</ForwardRef>
 `;
 
 exports[`Styled StyledContent classic theme applies custom styling 1`] = `
 .c0 {
   overflow-y: auto;
-  height: calc(100% - 60px);
   padding-top: 30px;
   padding-bottom: 30px;
 }
 
 .c1 + .c0 {
-  height: calc(100% - 166px);
+  height: calc(100% - px);
 }
 
 .c0 .carbon-app-wrapper {
@@ -1464,13 +1513,10 @@ exports[`Styled StyledContent classic theme applies custom styling 1`] = `
           "rules": Array [
             "
   overflow-y: auto;
-  height: calc(100% - 60px);
 
   ",
-            ".c1",
-            " + & {
-    height: calc(100% - 166px);
-  }
+            [Function],
+            "
 
   .carbon-app-wrapper {
     max-width: none;

@@ -4,20 +4,21 @@ import AppWrapper from '../../app-wrapper';
 import tagComponent from '../../../utils/helpers/tags';
 import StyledFullScreenHeading from './full-screen-heading.style';
 
-const FullScreenHeading = (props) => {
+const FullScreenHeading = React.forwardRef((props, ref) => {
   const { children, ...otherProps } = props;
 
   return (
     <StyledFullScreenHeading
       { ...otherProps }
       { ...tagComponent('full-screen-heading', props) }
+      ref={ ref }
     >
       <AppWrapper>
         { children }
       </AppWrapper>
     </StyledFullScreenHeading>
   );
-};
+});
 
 FullScreenHeading.propTypes = {
   children: PropTypes.node

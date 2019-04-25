@@ -19,9 +19,19 @@ class DialogFullScreen extends Modal {
     this.document = Browser.getDocument();
   }
 
+  static state = {
+    headingHeight: undefined
+  };
+
   static defaultProps = {
     open: false,
     enableBackgroundUI: true
+  }
+
+  headingRef = React.createRef();
+
+  componentDidUpdate() {
+    this.updateHeadingHeight();
   }
 
   componentTags(props) {
@@ -32,11 +42,18 @@ class DialogFullScreen extends Modal {
     };
   }
 
+  updateHeadingHeight() {
+    if (this.state.headingHeight !== this.headingRef.current.clientHeight) {
+      this.setState({ headingHeight: this.headingRef.current.clientHeight });
+    }
+  }
+
   /**
    * Returns the computed HTML for the dialog.
    */
   get modalHTML() {
     const { props } = this;
+
     return (
       <StyledDialogFullScreen
         ref={ (d) => { this._dialog = d; } }
@@ -44,7 +61,7 @@ class DialogFullScreen extends Modal {
       >
         { this.dialogTitle() }
 
-        <StyledContent data-element='content'>
+        <StyledContent headingHeight={ this.state.headingHeight } data-element='content'>
           <AppWrapper>
             { this.props.children }
           </AppWrapper>
@@ -89,7 +106,7 @@ class DialogFullScreen extends Modal {
     }
 
     return (
-      <FullScreenHeading>
+      <FullScreenHeading ref={ this.headingRef }>
         <StyledIcon
           data-element='close'
           onClick={ this.props.onCancel }
