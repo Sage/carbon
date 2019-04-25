@@ -11,9 +11,11 @@ Feature: Alert component
     Then component title on preview is "<title>"
     Examples:
       | title                    |
-      | Title Label Test         |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | Sample text              |
+      | 1234567890               |
+      | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
@@ -23,9 +25,11 @@ Feature: Alert component
     Then component subtitle on preview is "<subtitle>"
     Examples:
       | subtitle                 |
-      | Example subtext          |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | Sample text              |
+      | 1234567890               |
+      | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
@@ -35,9 +39,11 @@ Feature: Alert component
     Then Alert children on preview is "<children>"
     Examples:
       | children                 |
-      | Example subtext          |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | Sample text              |
+      | 1234567890               |
+      | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
@@ -48,7 +54,8 @@ Feature: Alert component
 
   @negative
   Scenario: Disable background UI
-    When I uncheck enableBackgroundUI
+    When I check enableBackgroundUI
+      And I uncheck enableBackgroundUI
       And I open component preview
     Then Background UI is disabled
 
@@ -57,20 +64,20 @@ Feature: Alert component
     When I check disableEscKey
       And I open component preview
       And I hit ESC key
-    Then dialog is visible
+    Then Alert is visible
 
   @negative
   Scenario: Enable escape key
     When I uncheck disableEscKey
       And I open component preview
       And I hit ESC key
-    Then dialog is not visible
+    Then Alert is not visible
 
   @positive
   Scenario Outline: Set height for Alert dialog
     When I set height to "<height>"
       And I open component preview
-    Then Dialog height is set to "<height>"
+    Then Alert height is set to "<height>"
     Examples:
       | height |
       | 0      |
@@ -82,7 +89,7 @@ Feature: Alert component
   Scenario Outline: Set out of scope characters to height for Alert dialog
     When I set height to "<height>"
       And I open component preview
-    Then Dialog height is not set to "<height>"
+    Then Alert height is set to "<height>"
     Examples:
       | height                   |
       | -1                       |
@@ -93,27 +100,27 @@ Feature: Alert component
   Scenario: ShowCloseIcon can close Alert
     When I enable showCloseIcon
       And I open component preview
-    Then CloseIcon is visible
-      And I click CloseIcon
-      And dialog is not visible
+    Then closeIcon is visible
+      And I click closeIcon
+      And Alert is not visible
 
   @negative
   Scenario: ShowCloseIcon is disabled
     When I disable showCloseIcon
       And I open component preview
-    Then CloseIcon is not visible
+    Then closeIcon is not visible
 
   @positive
   Scenario Outline: Set Alert size to small, medium and large
-    When I set component size to "<size>"
+    When I set component size to "<sizeName>"
       And I open component preview
-    Then Dialog size property on preview is "<size>"
+    Then Alert size property on preview is "<sizePropertyInPx>"
     Examples:
-      | size         |
-      | extra-small  |
-      | small        |
-      | medium-small |
-      | medium       |
-      | medium-large |
-      | large        |
-      | extra-large  |
+      | sizeName     | sizePropertyInPx |
+      | extra-small  |       300        |
+      | small        |       380        |
+      | medium-small |       540        |
+      | medium       |       750        |
+      | medium-large |       850        |
+      | large        |       960        |
+      | extra-large  |       1080       |
