@@ -5,7 +5,7 @@ import StyledButton, { StyledButtonSubtext } from './button.style';
 import tagComponent from '../../utils/helpers/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
-const Button = React.forwardRef((props, ref) => {
+const Button = (props) => {
   const {
     as,
     buttonType,
@@ -13,6 +13,7 @@ const Button = React.forwardRef((props, ref) => {
     iconPosition,
     iconType,
     theme,
+    forwardRef,
     ...rest
   } = props;
   return (
@@ -25,12 +26,12 @@ const Button = React.forwardRef((props, ref) => {
       legacyColorVariant={ theme }
       { ...tagComponent('button', props) }
       { ...rest }
-      ref={ ref }
+      ref={ forwardRef }
     >
       { renderChildren(props) }
     </StyledButton>
   );
-});
+};
 
 function renderChildren({
   iconType,
@@ -72,6 +73,8 @@ Button.propTypes = {
       return null;
     }
   },
+  /** Ref to be forwarded */
+  forwardRef: PropTypes.func,
   /** Button types for legacy theme: "primary" | "secondary" */
   as: PropTypes.oneOf(OptionsHelper.themesBinaryClassic),
   /** Set this prop to pass in legacy theme color variants */
@@ -84,7 +87,18 @@ Button.defaultProps = {
   size: 'medium',
   disabled: false,
   iconPosition: 'before',
-  theme: 'blue'
+  theme: 'blue',
+  subtext: ''
 };
 
-export default Button;
+/** HOC created as a workaround for a Storybook rendering wrong PropTables and Story Source when forwarding a ref */
+const withForwardRef = () => {
+  const ForwardRefButton = React.forwardRef((props, ref) => <Button forwardRef={ ref } { ...props } />);
+
+  ForwardRefButton.displayName = 'Button';
+  ForwardRefButton.defaultProps = Button.defaultProps;
+
+  return ForwardRefButton;
+};
+
+export default withForwardRef(Button);
