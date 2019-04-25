@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
+import CheckboxInputWrapper from './checkbox-input-wrapper.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckboxStyle from './hidden-checkbox.style';
 import LabelStyle from '../label/label.style';
@@ -13,7 +14,7 @@ const StyledCheckbox = styled.div`
   }) => css`
     padding-top: 8px;
 
-    .carbon-checkbox__input {
+    ${CheckboxInputWrapper} {
       padding-top: 1px;
     }
 
@@ -29,7 +30,7 @@ const StyledCheckbox = styled.div`
       padding: 1px;
     }
 
-    .carbon-checkbox__input,
+    ${CheckboxInputWrapper},
     ${HiddenCheckboxStyle},
     svg {
       box-sizing: border-box;
@@ -58,7 +59,7 @@ const StyledCheckbox = styled.div`
       }
     }
 
-    label:hover + .carbon-checkbox__input ${HiddenCheckboxStyle}:not([disabled]) + svg {
+    label:hover + ${CheckboxInputWrapper} ${HiddenCheckboxStyle}:not([disabled]) + svg {
       outline: solid 3px ${theme.colors.focus};
     }
 
@@ -69,7 +70,7 @@ const StyledCheckbox = styled.div`
     }
 
     ${() => size === 'large' && css`
-      .carbon-checkbox__input,
+      ${CheckboxInputWrapper},
       ${HiddenCheckboxStyle},
       ${HiddenCheckboxStyle} + svg {
         height: 24px;
@@ -138,7 +139,7 @@ const StyledCheckbox = styled.div`
     `}
 
     ${() => inputWidth !== 0 && css`
-      .carbon-checkbox__input {
+      ${CheckboxInputWrapper} {
         width: ${inputWidth}%;
       }
 
@@ -160,7 +161,7 @@ const StyledCheckbox = styled.div`
     `}
 
     ${() => reverse && fieldHelpInline && css`
-      .carbon-checkbox__input { padding-left: 6px; }
+      ${CheckboxInputWrapper} { padding-left: 6px; }
     `}
 
     ${checkBoxClassicStyle}

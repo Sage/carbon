@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { THEMES } from '../../../style/themes';
+import CheckboxInputWrapper from './checkbox-input-wrapper.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckboxStyle from './hidden-checkbox.style';
 import LabelStyle from '../label/label.style';
@@ -8,7 +9,7 @@ import StyledHelp from '../help/help.style';
 export default ({
   checked, disabled, fieldHelpInline, reverse, theme
 }) => theme.name === THEMES.classic && css`
-  .carbon-checkbox__input {
+  ${CheckboxInputWrapper} {
     padding: 1px 0 0 0;
   }
 
@@ -17,7 +18,7 @@ export default ({
     padding: 1px;
   }
 
-  .carbon-checkbox__input,
+  ${CheckboxInputWrapper},
   ${HiddenCheckboxStyle},
   ${HiddenCheckboxStyle} + svg {
     height: 15px;
@@ -47,7 +48,7 @@ export default ({
     }
   }
 
-  label:hover + .carbon-checkbox__input ${HiddenCheckboxStyle}:not([disabled]) + svg {
+  label:hover + ${CheckboxInputWrapper} ${HiddenCheckboxStyle}:not([disabled]) + svg {
     border: 1px solid #1963f6;
     outline: none;
   }
@@ -72,7 +73,7 @@ export default ({
   `}
 
   ${() => fieldHelpInline && reverse && css`
-    .carbon-checkbox__input {
+    ${CheckboxInputWrapper} {
       padding-left: 6px;
     }
   `}

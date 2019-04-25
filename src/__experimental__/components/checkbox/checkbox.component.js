@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import { validProps } from '../../../utils/ether';
+import CheckboxInputWrapper from './checkbox-input-wrapper.style';
 import FormField from '../form-field';
 import HiddenCheckbox from './hidden-checkbox.component';
 import CheckboxStyle from './checkbox.style';
@@ -42,10 +43,10 @@ const Checkbox = (props) => {
         labelHelpIcon='info'
         { ...formFieldProps }
       >
-        <div className='carbon-checkbox__input'>
+        <CheckboxInputWrapper>
           <HiddenCheckbox { ...inputProps } />
           {checkboxSprite()}
-        </div>
+        </CheckboxInputWrapper>
       </FormField>
     </CheckboxStyle>
   );
