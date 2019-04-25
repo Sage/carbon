@@ -11,9 +11,11 @@ Feature: Dialog Full Screen component
     Then component title on preview is "<title>"
     Examples:
       | title                    |
-      | Title Label Test         |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | Sample text              |
+      | 1234567890               |
+      | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
@@ -23,9 +25,11 @@ Feature: Dialog Full Screen component
     Then component subtitle on preview is "<subtitle>"
     Examples:
       | subtitle                 |
-      | Example subtext          |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | Sample text              |
+      | 1234567890               |
+      | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
@@ -35,9 +39,11 @@ Feature: Dialog Full Screen component
     Then Dialog Full Screen children on preview is "<children>"
     Examples:
       | children                 |
-      | Example subtext          |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | Sample text              |
+      | 1234567890               |
+      | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
@@ -48,7 +54,8 @@ Feature: Dialog Full Screen component
 
   @negative
   Scenario: Disable background UI
-    When I uncheck enableBackgroundUI
+    When I check enableBackgroundUI
+      And I uncheck enableBackgroundUI
       And I open component preview
     Then Background UI is disabled
 
@@ -56,18 +63,13 @@ Feature: Dialog Full Screen component
   Scenario: Disable escape key
     When I check disableEscKey
       And I open component preview
-      And I hit ESC key on Full Dialog Screen
+      And I hit ESC key
     Then Dialog Full Screen is visible
 
   @negative
   Scenario: Enable escape key
-    When I uncheck disableEscKey
+    When I check disableEscKey
+      And I uncheck disableEscKey
       And I open component preview
-      And I hit ESC key on Full Dialog Screen
-    Then Dialog Full Screen is not visible
-
- @positive
-  Scenario: Close icon
-    When I open component preview
-      And I click close icon
+      And I hit ESC key
     Then Dialog Full Screen is not visible

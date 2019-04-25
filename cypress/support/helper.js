@@ -41,3 +41,8 @@ export function setSlidebar(selector, value) {
     range.dispatchEvent(new Event('change', { value, bubbles: true }));
   });
 }
+
+export function pressESCKey() {
+  // using Shift+Esc - because of storybook shortcuts overeride
+  cy.iFrame('body').type('{shift}{esc}');
+}

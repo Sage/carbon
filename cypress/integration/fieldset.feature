@@ -10,9 +10,10 @@ Feature: Fieldset component
     Then legend on preview is "<legend>"
     Examples:
       | legend                   |
-      | Example text             |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
       | <>                       |
 

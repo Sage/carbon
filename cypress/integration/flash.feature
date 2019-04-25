@@ -27,9 +27,10 @@ Feature: Flash component
     Then Flash message is set to "<message>"
     Examples:
       | message                  |
-      | Example text             |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
+      | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
       | <>                       |
 
