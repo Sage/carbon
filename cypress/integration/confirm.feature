@@ -132,19 +132,19 @@ Feature: Confirm component
 
   # Tests are disabled till the stickyFormFooter'll be fixed
   # doesn't work on Carbon Site
-  @ignore
-  @positive
-  Scenario: StickyFormFooter enabled
-    When I check stickyFormFooter
-      And I click on a openButton
-    Then Confirm dialog has stickyFormFooter parameter enabled
+  # @ignore
+  # @positive
+  # Scenario: StickyFormFooter enabled
+  #   When I check stickyFormFooter
+  #     And I click on a openButton
+  #   Then Confirm dialog has stickyFormFooter parameter enabled
 
-  @ignore
-  @negative
-  Scenario: StickyFormFooter disabled
-    When I uncheck stickyFormFooter
-      And I click on a openButton
-    Then Confirm dialog has no stickyFormFooter parameter
+  # @ignore
+  # @negative
+  # Scenario: StickyFormFooter disabled
+  #   When I uncheck stickyFormFooter
+  #     And I click on a openButton
+  #   Then Confirm dialog has no stickyFormFooter parameter
 
   @positive
   Scenario: Confirm dialog should dissapear after click onto cancelButton
