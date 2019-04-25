@@ -216,6 +216,8 @@ input:focus ~ .c3 {
         },
         "disabled": Object {
           "border": "#4d7080",
+          "button": "#e6ebed",
+          "buttonText": "rgba(0,0,0,.2)",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
           "text": "#003349",
@@ -260,6 +262,8 @@ input:focus ~ .c3 {
           },
           "disabled": Object {
             "border": "#4d7080",
+            "button": "#e6ebed",
+            "buttonText": "rgba(0,0,0,.2)",
             "disabled": "#b3c2c8",
             "input": "#1e499f",
             "text": "#003349",
@@ -340,6 +344,8 @@ input:focus ~ .c3 {
             },
             "disabled": Object {
               "border": "#4d7080",
+              "button": "#e6ebed",
+              "buttonText": "rgba(0,0,0,.2)",
               "disabled": "#b3c2c8",
               "input": "#1e499f",
               "text": "#003349",
@@ -432,6 +438,8 @@ input:focus ~ .c3 {
                 },
                 "disabled": Object {
                   "border": "#4d7080",
+                  "button": "#e6ebed",
+                  "buttonText": "rgba(0,0,0,.2)",
                   "disabled": "#b3c2c8",
                   "input": "#1e499f",
                   "text": "#003349",
@@ -551,6 +559,8 @@ input:focus ~ .c3 {
                   },
                   "disabled": Object {
                     "border": "#4d7080",
+                    "button": "#e6ebed",
+                    "buttonText": "rgba(0,0,0,.2)",
                     "disabled": "#b3c2c8",
                     "input": "#1e499f",
                     "text": "#003349",
@@ -646,6 +656,8 @@ input:focus ~ .c3 {
         },
         "disabled": Object {
           "border": "#4d7080",
+          "button": "#e6ebed",
+          "buttonText": "rgba(0,0,0,.2)",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
           "text": "#003349",
@@ -690,6 +702,8 @@ input:focus ~ .c3 {
           },
           "disabled": Object {
             "border": "#4d7080",
+            "button": "#e6ebed",
+            "buttonText": "rgba(0,0,0,.2)",
             "disabled": "#b3c2c8",
             "input": "#1e499f",
             "text": "#003349",
@@ -770,6 +784,8 @@ input:focus ~ .c3 {
             },
             "disabled": Object {
               "border": "#4d7080",
+              "button": "#e6ebed",
+              "buttonText": "rgba(0,0,0,.2)",
               "disabled": "#b3c2c8",
               "input": "#1e499f",
               "text": "#003349",
@@ -862,6 +878,8 @@ input:focus ~ .c3 {
                 },
                 "disabled": Object {
                   "border": "#4d7080",
+                  "button": "#e6ebed",
+                  "buttonText": "rgba(0,0,0,.2)",
                   "disabled": "#b3c2c8",
                   "input": "#1e499f",
                   "text": "#003349",
@@ -981,6 +999,8 @@ input:focus ~ .c3 {
                   },
                   "disabled": Object {
                     "border": "#4d7080",
+                    "button": "#e6ebed",
+                    "buttonText": "rgba(0,0,0,.2)",
                     "disabled": "#b3c2c8",
                     "input": "#1e499f",
                     "text": "#003349",

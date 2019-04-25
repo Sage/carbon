@@ -24,6 +24,8 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
       },
       "disabled": Object {
         "border": "#4d7080",
+        "button": "#e6ebed",
+        "buttonText": "rgba(0,0,0,.2)",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
         "text": "#003349",
@@ -66,6 +68,8 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
         },
         "disabled": Object {
           "border": "#4d7080",
+          "button": "#e6ebed",
+          "buttonText": "rgba(0,0,0,.2)",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
           "text": "#003349",
@@ -111,6 +115,8 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
           },
           "disabled": Object {
             "border": "#4d7080",
+            "button": "#e6ebed",
+            "buttonText": "rgba(0,0,0,.2)",
             "disabled": "#b3c2c8",
             "input": "#1e499f",
             "text": "#003349",
@@ -159,6 +165,8 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
           },
           "disabled": Object {
             "border": "#4d7080",
+            "button": "#e6ebed",
+            "buttonText": "rgba(0,0,0,.2)",
             "disabled": "#b3c2c8",
             "input": "#1e499f",
             "text": "#003349",
@@ -208,6 +216,8 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
       },
       "disabled": Object {
         "border": "#CCD6DA",
+        "button": "#e6ebed",
+        "buttonText": "rgba(0,0,0,.2)",
         "disabled": "rgba(0,0,0,0.55)",
         "input": "#F2F4F5",
         "text": "rgba(0,0,0,0.3)",
@@ -248,6 +258,8 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
         },
         "disabled": Object {
           "border": "#CCD6DA",
+          "button": "#e6ebed",
+          "buttonText": "rgba(0,0,0,.2)",
           "disabled": "rgba(0,0,0,0.55)",
           "input": "#F2F4F5",
           "text": "rgba(0,0,0,0.3)",
@@ -291,6 +303,8 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
           },
           "disabled": Object {
             "border": "#CCD6DA",
+            "button": "#e6ebed",
+            "buttonText": "rgba(0,0,0,.2)",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
             "text": "rgba(0,0,0,0.3)",
@@ -337,6 +351,8 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
           },
           "disabled": Object {
             "border": "#CCD6DA",
+            "button": "#e6ebed",
+            "buttonText": "rgba(0,0,0,.2)",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
             "text": "rgba(0,0,0,0.3)",

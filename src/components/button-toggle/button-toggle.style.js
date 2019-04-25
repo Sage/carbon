@@ -44,9 +44,9 @@ const StyledButtonToggleLabel = styled.label`
   `}
 
   ${({ disabled }) => disabled && css`
-    background-color: #e6ebed !important;
-    border-color: #e6ebed !important;
-    color: rgba(0,0,0,.2) !important;
+    background-color: ${({ theme }) => `${theme.disabled.button} !important`};
+    border-color: ${({ theme }) => `${theme.disabled.button} !important`};
+    color: ${({ theme }) => `${theme.disabled.buttonText} !important`};
   `};
 
   /* CLASSIC STYLES */

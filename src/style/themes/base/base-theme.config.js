@@ -39,7 +39,9 @@ export default (palette) => {
       border: palette.slateTint(80),
       disabled: blackWithOpacity(0.55),
       input: palette.slateTint(95),
-      text: blackWithOpacity(0.3)
+      text: blackWithOpacity(0.3),
+      button: '#e6ebed',
+      buttonText: 'rgba(0,0,0,.2)'
     },
 
     shadows: {
