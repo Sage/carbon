@@ -100,6 +100,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   warnOverLimit={true}
 >
   <FormField
+    disabled={false}
     expandable={false}
     size="medium"
     value="abcdefg"
@@ -253,12 +254,14 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
           className="c0 c1"
         >
           <InputPresentation
+            disabled={false}
             expandable={false}
             type="text"
             value="abcdefg"
             warnOverLimit={true}
           >
             <styled.div
+              disabled={false}
               expandable={false}
               hasFocus={false}
               inputWidth={100}
@@ -306,6 +309,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
               warnOverLimit={true}
             >
               <StyledComponent
+                disabled={false}
                 expandable={false}
                 forwardedComponent={
                   Object {
@@ -559,6 +563,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
               >
                 <div
                   className="c2"
+                  disabled={false}
                   onMouseDown={[Function]}
                   role="presentation"
                   size="medium"
@@ -1100,6 +1105,7 @@ exports[`Textarea when rendered should render default 1`] = `
   warnOverLimit={false}
 >
   <FormField
+    disabled={false}
     expandable={false}
     size="medium"
     warnOverLimit={false}
@@ -1252,11 +1258,13 @@ exports[`Textarea when rendered should render default 1`] = `
           className="c0 c1"
         >
           <InputPresentation
+            disabled={false}
             expandable={false}
             type="text"
             warnOverLimit={false}
           >
             <styled.div
+              disabled={false}
               expandable={false}
               hasFocus={false}
               inputWidth={100}
@@ -1303,6 +1311,7 @@ exports[`Textarea when rendered should render default 1`] = `
               warnOverLimit={false}
             >
               <StyledComponent
+                disabled={false}
                 expandable={false}
                 forwardedComponent={
                   Object {
@@ -1551,6 +1560,7 @@ exports[`Textarea when rendered should render default 1`] = `
               >
                 <div
                   className="c2"
+                  disabled={false}
                   onMouseDown={[Function]}
                   role="presentation"
                   size="medium"

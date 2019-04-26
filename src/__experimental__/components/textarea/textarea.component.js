@@ -97,10 +97,15 @@ class Textarea extends React.Component {
 
     return (
       <>
-        <FormField label={ label } { ...props }>
+        <FormField
+          label={ label }
+          disabled={ disabled }
+          { ...props }
+        >
           <InputPresentation
             type='text'
             size={ size }
+            disabled={ disabled }
             { ...props }
           >
             <TextareaInput
