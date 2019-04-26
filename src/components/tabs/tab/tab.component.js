@@ -29,12 +29,15 @@ class Tab extends React.Component {
 
   render() {
     const {
-      ariaLabelledby, className, role, children
+      ariaLabelledby, className, role, children, isTabSelected, position
     } = this.props;
     return (
       <StyledTab
-        aria-labelledby={ ariaLabelledby } className={ className }
+        aria-labelledby={ ariaLabelledby }
+        className={ className }
         role={ role }
+        isTabSelected={ isTabSelected }
+        position={ position }
       >
         {children}
       </StyledTab>
@@ -65,7 +68,9 @@ Tab.propTypes = {
   // TODO: po co ten title
   tabId: PropTypes.string.isRequired,
   className: PropTypes.string,
-  children: PropTypes.node
+  children: PropTypes.node,
+  isTabSelected: PropTypes.bool,
+  position: PropTypes.string
 };
 
 export default Tab;

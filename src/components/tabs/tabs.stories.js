@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
-import { Tab, Tabs } from './tabs';
+import { Tab, Tabs } from './tabs.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 
@@ -32,5 +32,5 @@ storiesOf('Tabs', module)
     {
       info: { text: info },
       notes: { markdown: notes }
-    },
+    }
   );
