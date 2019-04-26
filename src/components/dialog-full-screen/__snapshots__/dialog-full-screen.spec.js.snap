@@ -198,9 +198,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
               <div>
                 <div
                   class="c0 modal-appear"
-                  data-component="dialog-full-screen"
-                  data-element="bar"
-                  data-role="baz"
+                  data-element="dialog-full-screen"
                 >
                   <div
                     class="c1 c2"
@@ -321,9 +319,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                   name="modal"
                 >
                   <styled.div
-                    data-component="dialog-full-screen"
-                    data-element="bar"
-                    data-role="baz"
+                    data-element="dialog-full-screen"
                     key=".0"
                     theme={
                       Object {
@@ -367,9 +363,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                     }
                   >
                     <StyledComponent
-                      data-component="dialog-full-screen"
-                      data-element="bar"
-                      data-role="baz"
+                      data-element="dialog-full-screen"
                       forwardedComponent={
                         Object {
                           "$$typeof": Symbol(react.forward_ref),
@@ -490,9 +484,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                     >
                       <div
                         className="c0"
-                        data-component="dialog-full-screen"
-                        data-element="bar"
-                        data-role="baz"
+                        data-element="dialog-full-screen"
                       >
                         <ForwardRef>
                           <styled.div
