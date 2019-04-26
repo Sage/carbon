@@ -139,8 +139,6 @@ $iconSizes: (
 @include icon(create,         "\e940");
 @include icon(piggy_bank,     "\e926");
 @include icon(entry,          "\e92c");
-
-// New
 @include icon(edited,         "\e938");
 @include icon(refresh,        "\e945");
 @include icon(sync,           "\e944");
@@ -219,3 +217,8 @@ $iconSizes: (
 @include icon(book,           D);
 @include icon(bank,           G);
 @include icon(new,            k);
+
+
+// New
+@include icon(video,          "\e95e");
+@include icon(play,           "\e95f");
