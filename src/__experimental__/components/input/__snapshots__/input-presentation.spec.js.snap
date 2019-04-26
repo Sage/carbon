@@ -6,7 +6,7 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background: transparent;
+  background: #fff;
   border: 1px solid #668491;
   box-sizing: border-box;
   cursor: text;
@@ -71,7 +71,7 @@ exports[`InputPresentation renders presentational div and context provider for i
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  background: transparent;
+  background: #fff;
   border: 1px solid #668491;
   box-sizing: border-box;
   cursor: text;
