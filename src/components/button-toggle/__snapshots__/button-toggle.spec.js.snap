@@ -517,10 +517,9 @@ input:focus ~ .c3 {
                       [Function],
                       ";
 
-  /* CLASSIC STYLES */
-  ",
+    ",
                       [Function],
-                      ";
+                      "
 ",
                     ],
                   },
@@ -957,10 +956,9 @@ input:focus ~ .c3 {
                       [Function],
                       ";
 
-  /* CLASSIC STYLES */
-  ",
+    ",
                       [Function],
-                      ";
+                      "
 ",
                     ],
                   },
