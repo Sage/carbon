@@ -23,6 +23,10 @@ const StyledInput = styled.input`
     color: ${theme.disabled.text};
     cursor: not-allowed;
   `}
+
+  &:invalid, &:required {
+    box-shadow: none;
+  }
 `;
 
 StyledInput.defaultProps = {

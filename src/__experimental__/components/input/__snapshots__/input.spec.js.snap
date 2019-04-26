@@ -30,6 +30,11 @@ exports[`Input renders with an input 1`] = `
   color: rgba(0,0,0,0.3);
 }
 
+.c0:invalid,
+.c0:required {
+  box-shadow: none;
+}
+
 <input
   className="c0"
   onBlur={[Function]}

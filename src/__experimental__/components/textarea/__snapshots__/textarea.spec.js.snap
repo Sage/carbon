@@ -90,6 +90,11 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   color: rgba(0,0,0,0.3);
 }
 
+.c3:invalid,
+.c3:required {
+  box-shadow: none;
+}
+
 <Textarea
   characterLimit="5"
   disabled={false}
@@ -501,6 +506,11 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   color: rgba(0,0,0,0.3);
 }
 
+.c1:invalid,
+.c1:required {
+  box-shadow: none;
+}
+
 <div
                       class="c0"
                       role="presentation"
@@ -666,6 +676,10 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   ",
                                 [Function],
                                 "
+
+  &:invalid, &:required {
+    box-shadow: none;
+  }
 ",
                                 "
   resize: none;
@@ -1097,6 +1111,11 @@ exports[`Textarea when rendered should render default 1`] = `
   color: rgba(0,0,0,0.3);
 }
 
+.c3:invalid,
+.c3:required {
+  box-shadow: none;
+}
+
 <Textarea
   disabled={false}
   enforceCharacterLimit={true}
@@ -1503,6 +1522,11 @@ exports[`Textarea when rendered should render default 1`] = `
   color: rgba(0,0,0,0.3);
 }
 
+.c1:invalid,
+.c1:required {
+  box-shadow: none;
+}
+
 <div
                       class="c0"
                       role="presentation"
@@ -1658,6 +1682,10 @@ exports[`Textarea when rendered should render default 1`] = `
   ",
                                 [Function],
                                 "
+
+  &:invalid, &:required {
+    box-shadow: none;
+  }
 ",
                                 "
   resize: none;
