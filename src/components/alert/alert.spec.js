@@ -1,13 +1,12 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import Alert from './alert';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import Alert from '.';
 
 /* global jest */
 
 describe('Alert', () => {
   let wrapper;
-  let onCancel = jasmine.createSpy('cancel');
+  const onCancel = jasmine.createSpy('cancel');
 
   beforeEach(() => {
     wrapper = shallow(
@@ -27,12 +26,14 @@ describe('Alert', () => {
   });
 
   describe('keyboard focus', () => {
-    let wrapper;
     let mockEvent;
 
     beforeEach(() => {
       wrapper = mount(
-        <Alert open title='Test' subtitle='Test' showCloseIcon={ false } />
+        <Alert
+          open title='Test'
+          subtitle='Test' showCloseIcon={ false }
+        />
       );
 
       mockEvent = {
