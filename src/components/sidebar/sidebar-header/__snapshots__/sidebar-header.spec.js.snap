@@ -3,7 +3,7 @@
 exports[`SidebarHeaderStyle should render base sidebar header 1`] = `
 .c0 {
   background-color: #FFFFFF;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
   box-sizing: content-box;
   margin-left: -20px;
@@ -68,7 +68,7 @@ exports[`SidebarHeaderStyle should render base sidebar header 1`] = `
   background-color: ",
             [Function],
             ";
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
   box-sizing: content-box;
   margin-left: -20px;
@@ -185,7 +185,7 @@ exports[`SidebarHeaderStyle should render base sidebar header 1`] = `
 exports[`SidebarHeaderStyle when classic theme is provided to the component should render correct style 1`] = `
 .c0 {
   background-color: #FFFFFF;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
   box-sizing: content-box;
   margin-left: -20px;
@@ -250,7 +250,7 @@ exports[`SidebarHeaderStyle when classic theme is provided to the component shou
   background-color: ",
             [Function],
             ";
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
   box-sizing: content-box;
   margin-left: -20px;

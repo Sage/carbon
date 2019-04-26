@@ -4,7 +4,7 @@ import baseTheme from '../../../style/themes/base';
 
 const SidebarHeaderStyle = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
   box-sizing: content-box;
   margin-left: -20px;
