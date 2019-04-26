@@ -165,10 +165,9 @@ class Tabs extends React.Component {
     const tabHasError = this.state.tabValidity.get(tab.props.tabId) === false,
         tabHasWarning = this.state.tabWarning.get(tab.props.tabId) === true && !tabHasError;
 
-    return classNames('carbon-tabs__headers__header', tab.props.headerClassName, {
+    return classNames({
       'carbon-tabs__headers__header--error': tabHasError,
-      'carbon-tabs__headers__header--warning': tabHasWarning,
-      'carbon-tabs__headers__header--selected': this.isTabSelected(tab.props.tabId)
+      'carbon-tabs__headers__header--warning': tabHasWarning
     });
   };
 

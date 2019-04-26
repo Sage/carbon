@@ -1,9 +1,26 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
+import { State, Store } from '@sambego/storybook-state';
 import { Tab, Tabs } from './tabs.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
+
+const store = new Store({
+  selectedTabId: 'tab-1'
+});
+
+const checkIfSelected = (tabId) => {
+  if (tabId === store.get('selectedTabId')) {
+    return true;
+  }
+
+  return false;
+};
+
+const selectTab = (e) => {
+  store.set('selectedTabId', e.target.tabId);
+};
 
 storiesOf('Tabs', module)
   .addParameters({
@@ -19,14 +36,22 @@ storiesOf('Tabs', module)
       const position = select('position', selectOption, Tabs.defaultProps.position);
 
       return (
-        <Tabs align={ align } position={ position }>
-          <Tab tabId='tab-1' title='Tab 1'>
-            Content for tab 1
-          </Tab>
-          <Tab tabId='tab-2' title='Tab 2'>
-            Content for tab 2
-          </Tab>
-        </Tabs>
+        <State store={ store }>
+          <Tabs align={ align } position={ position }>
+            <Tab
+              tabId='tab-1' title='Tab 1'
+              onClick={ e => selectTab(e) } isTabSelected={ checkIfSelected('tab-1') }
+            >
+              Content for tab 1
+            </Tab>
+            <Tab
+              tabId='tab-2' title='Tab 2'
+              onClick={ e => selectTab(e) } isTabSelected={ checkIfSelected('tab-2') }
+            >
+              Content for tab 2
+            </Tab>
+          </Tabs>
+        </State>
       );
     },
     {
