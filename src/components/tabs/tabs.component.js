@@ -199,6 +199,7 @@ class Tabs extends React.Component {
       this.tabRefs.push(ref);
       return (
         <TabHeader
+          position={ this.props.position }
           isTabSelected={ this.isTabSelected(child.props.tabId) }
           title={ child.props.title }
           aria-selected={ this.isTabSelected(child.props.tabId) }
@@ -219,7 +220,10 @@ class Tabs extends React.Component {
     });
 
     return (
-      <TabsHeader align={ this.props.align } role='tablist'>
+      <TabsHeader
+        align={ this.props.align } position={ this.props.position }
+        role='tablist'
+      >
         {tabTitles}
       </TabsHeader>
     );

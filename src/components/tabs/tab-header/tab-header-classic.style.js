@@ -41,4 +41,29 @@ export default ({ theme }) => theme.name === THEMES.classic
         background-color: #fff;
         border-bottom-color: #1963f6;
       `}
+
+      ${({ position }) => position === 'left'
+        && css`
+          background-color: #fff;
+          border-bottom-color: #1963f6;
+          border-bottom: 0px;
+          border-right: 2px solid #ccd6db;
+          display: block;
+          height: auto;
+          margin-left: 0px;
+          margin-top: 2px;
+
+          &:first-child {
+            margin-top: 0;
+          }
+
+          &:hover {
+            border-right-color: #1963f6;
+          }
+
+          ${({ isTabSelected }) => isTabSelected
+            && css`
+              border-right-color: #1963f6;
+            `}
+        `}
   `;
