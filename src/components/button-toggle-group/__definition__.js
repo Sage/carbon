@@ -1,4 +1,4 @@
-import ButtonToggleGroup from './';
+import ButtonToggleGroup from './button-toggle-group.component';
 import Definition from './../../../demo/utils/definition';
 
 const definition = new Definition('button-toggle-group', ButtonToggleGroup, {
