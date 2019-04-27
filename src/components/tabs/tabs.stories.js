@@ -37,7 +37,10 @@ storiesOf('Tabs', module)
 
       return (
         <State store={ store }>
-          <Tabs align={ align } position={ position }>
+          <Tabs
+            align={ align } position={ position }
+            onTabChange={ e => selectTab(e) }
+          >
             <Tab
               tabId='tab-1' title='Tab 1'
               onClick={ e => selectTab(e) } isTabSelected={ checkIfSelected('tab-1') }

@@ -15,14 +15,10 @@ import TabHeader from './tab-header/tab-header.component';
 
 class Tabs extends React.Component {
   state = {
-    // ** Tracks the validity of each tab */
     tabValidity: Immutable.Map(),
-
-    // ** Tracks the warning of each tab */
     tabWarning: Immutable.Map()
   };
 
-  // ** Returns tabs object to tab component. */
   getChildContext() {
     return {
       tabs: {
@@ -201,10 +197,9 @@ class Tabs extends React.Component {
           position={ this.props.position }
           isTabSelected={ this.isTabSelected(child.props.tabId) }
           title={ child.props.title }
-          aria-selected={ this.isTabSelected(child.props.tabId) }
+          ariaSelected={ this.isTabSelected(child.props.tabId) }
           className={ this.tabHeaderClasses(child) }
-          data-element='select-tab'
-          data-tabid={ child.props.tabId }
+          dataTabId={ child.props.tabId }
           id={ ref }
           key={ child.props.tabId }
           onClick={ this.handleTabClick }

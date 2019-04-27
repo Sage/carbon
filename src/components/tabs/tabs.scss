@@ -1,11 +1,6 @@
 @import "./../../style-config/colors";
 @import "./../../style-config/general";
 
-$carbon-tabs__header__background-color: #f5f6f7 !default;
-$carbon-tabs__header__border-color: $grey-dark-blue-20 !default;
-$carbon-tabs__header--selected_border-color: $blue-bright !default;
-$carbon-tabs__header__color: $grey-dark !default;
-
 .carbon-tabs__headers__header--error {
   border-bottom-color: $red;
 }
