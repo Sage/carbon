@@ -10,10 +10,12 @@ Feature: Content component
     Then content children on preview is "<children>"
     Examples:
       | children                 |
-      | <>                       |
-      | !@#$%^*()_+-=~[];:.,?{}  |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
-      | ÄÖÜßäöü                  |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
+      | <>                       |
 
   @positive
   Scenario Outline: Change title in Content dialog
@@ -21,10 +23,12 @@ Feature: Content component
     Then content title context children on preview is "<title>"
     Examples:
       | title                    |
-      | <>                       |
-      | !@#$%^*()_+-=~[];:.,?{}  |
+      | Sample text              |
+      | 1234567890               |
       | áéíóú¿¡üñ                |
-      | ÄÖÜßäöü                  |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
+      | <>                       |
 
   @positive
   Scenario Outline: Change property in Content dialog
