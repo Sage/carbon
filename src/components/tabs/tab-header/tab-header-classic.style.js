@@ -32,7 +32,7 @@ export default ({ theme }) => theme.name === THEMES.classic
         }
       `}
 
-    ${({ position }) => position === 'left'
+    ${({ position }) => position === 'vertical'
       && css`
         background-color: #f5f6f7;
         border-bottom: 0px;

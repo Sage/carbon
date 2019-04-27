@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledTab from './tab.style';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 class Tab extends React.Component {
-  // ** Returns tab object to context children. */
   getChildContext() {
     return {
       tab: {
@@ -13,16 +13,10 @@ class Tab extends React.Component {
     };
   }
 
-  // ** Sets valid state to passed param
-  // It notifies the parent context of the change
-  // and sets the current valid state to the new value */
   setValidity = (valid) => {
     this.context.tabs.changeValidity(this.props.tabId, valid);
   };
 
-  // ** Sets warning state to passed param
-  // It notifies the parent context of the change
-  //  and sets the current warning state to the new value */
   setWarning = (warning) => {
     this.context.tabs.changeWarning(this.props.tabId, warning);
   };
@@ -46,14 +40,10 @@ class Tab extends React.Component {
   }
 }
 
-// ** Defines a context object for context children of this tab component.
-// https://facebook.github.io/react/docs/context.html */
 Tab.childContextTypes = {
   tab: PropTypes.object
 };
 
-// ** Defines what contexts are available to this tab componenet
-// https://facebook.github.io/react/docs/context.html */
 Tab.contextTypes = {
   tabs: PropTypes.object
 };
@@ -70,7 +60,7 @@ Tab.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   isTabSelected: PropTypes.bool,
-  position: PropTypes.string
+  position: PropTypes.oneOf(OptionsHelper.orientation)
 };
 
 export default Tab;

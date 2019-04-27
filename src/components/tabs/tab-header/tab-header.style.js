@@ -1,11 +1,13 @@
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import tabHeaderClassicStyle from './tab-header-classic.style';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const StyledTabHeader = styled.li`
 background-color: transparent;
-border-bottom: 2px solid ${({ theme }) => theme.colors.secondary};
-color: ${({ theme }) => theme.text.color};
+border-bottom: 2px solid #e5eaec; // TODO: zmienic na kolor z palety
+color: ${({ theme }) => theme.disabled.disabled};
 display: inline-block;
 font-weight: bold;
 height: 100%;
@@ -19,33 +21,33 @@ padding: 11px 15px 10px;
 &:focus,
 &:hover {
   background: transparent;
-  border-bottom-color: #004b87;
-  color: #fff;
+  border-bottom-color: ${({ theme }) => theme.colors.secondary};
+  color: ${({ theme }) => theme.text.color};
   outline: none;
 }
 
 &:focus {
   outline: none;
-  box-shadow: 0 0 6px rgba(37, 91, 199, 0.6);
 }
 
 ${({ isTabSelected }) => isTabSelected
   && css`
-    background-color: #fff;
-    border-bottom-color: #1963f6;
+    color: ${({ theme }) => theme.text.color};
+    background-color: transparent;
+    border-bottom-color: ${({ theme }) => theme.colors.primary};
 
     &:hover {
-      background: #fff;
-      border-bottom-color: #1963f6;
-      color: #003349;
+      background: transparent;
+      border-bottom-color: ${({ theme }) => theme.colors.primary};
+      color: ${({ theme }) => theme.text.color};
     }
   `}
 
-  ${({ position }) => position === 'left'
+  ${({ position }) => position === 'vertical'
     && css`
-      background-color: #f5f6f7;
+      background-color: transparent;
       border-bottom: 0px;
-      border-right: 2px solid #ccd6db;
+      border-right: 2px solid #e5eaec; // TODO: zmienic na kolor z palety
       display: block;
       height: auto;
       margin-left: 0px;
@@ -56,26 +58,31 @@ ${({ isTabSelected }) => isTabSelected
       }
 
       &:hover {
-        border-right-color: #004b87;
-        background-color: #004b87;
+        background: transparent;
+        border-right-color: ${({ theme }) => theme.colors.secondary};
       }
 
       ${({ isTabSelected }) => isTabSelected
         && css`
-          border-right-color: #1963f6;
-          background-color: #fff;
+          border-right-color: ${({ theme }) => theme.colors.primary};
+          background-color: transparent;
 
           &:hover {
-            border-right-color: #1963f6;
-            background-color: #fff;
+            border-right-color: ${({ theme }) => theme.colors.primary};
+            background-color: transparent;
           }
         `}
     `}
   ${tabHeaderClassicStyle}
 `;
 
+StyledTabHeader.propTypes = {
+  position: PropTypes.oneOf(OptionsHelper.orientation)
+};
+
 StyledTabHeader.defaultProps = {
-  theme: BaseTheme
+  theme: BaseTheme,
+  position: 'horizontal'
 };
 
 export default StyledTabHeader;

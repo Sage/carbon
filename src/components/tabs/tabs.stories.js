@@ -27,9 +27,8 @@ storiesOf('Tabs', module)
   .add(
     'default',
     () => {
-      const selectOption = ['top', 'left'];
       const align = select('align', OptionsHelper.alignBinary, Tabs.defaultProps.align);
-      const position = select('position', selectOption, Tabs.defaultProps.position);
+      const position = select('position', OptionsHelper.orientation, Tabs.defaultProps.position);
 
       return (
         <State store={ store }>

@@ -2,27 +2,40 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyledTabHeader from './tab-header.style';
 
-const TabHeader = (props) => {
+const TabHeader = ({
+  isTabSelected,
+  ariaSelected,
+  className,
+  dataTabId,
+  id,
+  onClick,
+  onKeyDown,
+  tabIndex,
+  position,
+  title
+}) => {
   return (
     <StyledTabHeader
-      isTabSelected={ props.isTabSelected }
-      aria-selected={ props.ariaSelected }
-      className={ props.className }
+      isTabSelected={ isTabSelected }
+      aria-selected={ ariaSelected }
+      className={ className }
       data-element='select-tab'
-      data-tabid={ props.dataTabId }
-      id={ props.id }
-      onClick={ props.onClick }
-      onKeyDown={ props.onKeyDown }
+      data-tabid={ dataTabId }
+      id={ id }
+      onClick={ onClick }
+      onKeyDown={ onKeyDown }
       role='tab'
-      tabIndex={ props.tabIndex }
-      position={ props.position }
+      tabIndex={ tabIndex }
+      position={ position }
     >
-      {props.title}
+      {title}
     </StyledTabHeader>
   );
 };
 
-TabHeader.defaultProps = {};
+TabHeader.defaultProps = {
+  position: 'horizontal'
+};
 
 TabHeader.propTypes = {
   title: PropTypes.string.isRequired,

@@ -12,6 +12,7 @@ import './tabs.scss';
 import StyledTabs from './tabs.style';
 import TabsHeader from './tabs-header/tabs-header.component';
 import TabHeader from './tab-header/tab-header.component';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 class Tabs extends React.Component {
   state = {
@@ -264,7 +265,7 @@ class Tabs extends React.Component {
    * Determines if the tab titles are in a vertical format.
    */
   isVertical(position) {
-    return position === 'left';
+    return position === 'vertical';
   }
 
   render() {
@@ -289,7 +290,7 @@ Tabs.childContextTypes = {
 Tabs.defaultProps = {
   renderHiddenTabs: true,
   align: 'left',
-  position: 'top'
+  position: 'horizontal'
 };
 
 Tabs.propTypes = {
@@ -297,10 +298,9 @@ Tabs.propTypes = {
   renderHiddenTabs: PropTypes.bool,
   selectedTabId: PropTypes.string,
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
-  align: PropTypes.string,
+  align: PropTypes.oneOf(OptionsHelper.alignBinary),
   onTabChange: PropTypes.func,
-  position: PropTypes.string
-  // TODO: position jako oneOf a nie string
+  position: PropTypes.oneOf(OptionsHelper.orientation)
 };
 
 export { Tabs, Tab };

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledTabsHeader from './tabs-header.style';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const TabsHeader = ({ align, children, position }) => {
   return (
@@ -14,13 +15,14 @@ const TabsHeader = ({ align, children, position }) => {
 };
 
 TabsHeader.defaultProps = {
-  align: 'left'
+  align: 'left',
+  position: 'horizontal'
 };
 
 TabsHeader.propTypes = {
-  align: PropTypes.string,
-  children: PropTypes.any, // TODO: wywalic to any
-  position: PropTypes.string
+  align: PropTypes.oneOf(OptionsHelper.alignBinary),
+  children: PropTypes.node.isRequired,
+  position: PropTypes.oneOf(OptionsHelper.orientation)
 };
 
 export default TabsHeader;
