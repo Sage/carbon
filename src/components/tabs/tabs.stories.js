@@ -53,6 +53,24 @@ storiesOf('Tabs', module)
             >
               Content for tab 2
             </Tab>
+            <Tab
+              tabId='tab-3' title='Tab 3'
+              onClick={ e => selectTab(e) } isTabSelected={ checkIfSelected('tab-3') }
+            >
+              Content for tab 3
+            </Tab>
+            <Tab
+              tabId='tab-4' title='Tab 4'
+              onClick={ e => selectTab(e) } isTabSelected={ checkIfSelected('tab-4') }
+            >
+              Content for tab 4
+            </Tab>
+            <Tab
+              tabId='tab-5' title='Tab 5'
+              onClick={ e => selectTab(e) } isTabSelected={ checkIfSelected('tab-5') }
+            >
+              Content for tab 5
+            </Tab>
           </Tabs>
         </State>
       );
