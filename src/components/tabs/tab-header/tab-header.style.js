@@ -1,10 +1,11 @@
 import styled, { css } from 'styled-components';
+import BaseTheme from '../../../style/themes/base';
 import tabHeaderClassicStyle from './tab-header-classic.style';
 
 const StyledTabHeader = styled.li`
-background-color: #f5f6f7;
-border-bottom: 2px solid #ccd6db;
-color: #003349;
+background-color: transparent;
+border-bottom: 2px solid ${({ theme }) => theme.colors.secondary};
+color: ${({ theme }) => theme.text.color};
 display: inline-block;
 font-weight: bold;
 height: 100%;
@@ -17,7 +18,7 @@ padding: 11px 15px 10px;
 
 &:focus,
 &:hover {
-  background: #004b87;
+  background: transparent;
   border-bottom-color: #004b87;
   color: #fff;
   outline: none;
@@ -56,7 +57,7 @@ ${({ isTabSelected }) => isTabSelected
 
       &:hover {
         border-right-color: #004b87;
-        background: #004b87;
+        background-color: #004b87;
       }
 
       ${({ isTabSelected }) => isTabSelected
@@ -72,5 +73,9 @@ ${({ isTabSelected }) => isTabSelected
     `}
   ${tabHeaderClassicStyle}
 `;
+
+StyledTabHeader.defaultProps = {
+  theme: BaseTheme
+};
 
 export default StyledTabHeader;

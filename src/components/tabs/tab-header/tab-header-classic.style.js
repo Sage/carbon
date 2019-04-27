@@ -32,26 +32,26 @@ export default ({ theme }) => theme.name === THEMES.classic
         }
       `}
 
-      ${({ position }) => position === 'left'
-        && css`
-          background-color: #f5f6f7;
-          border-bottom: 0px;
-          border-right: 2px solid #ccd6db;
+    ${({ position }) => position === 'left'
+      && css`
+        background-color: #f5f6f7;
+        border-bottom: 0px;
+        border-right: 2px solid #ccd6db;
 
-          &:hover {
-            border-right-color: #004b87;
-            background: #004b87;
-          }
+        &:hover {
+          border-right-color: #004b87;
+          background: #004b87;
+        }
 
-          ${({ isTabSelected }) => isTabSelected
-            && css`
+        ${({ isTabSelected }) => isTabSelected
+          && css`
+            border-right-color: #1963f6;
+            background-color: #fff;
+
+            &:hover {
               border-right-color: #1963f6;
               background-color: #fff;
-
-              &:hover {
-                border-right-color: #1963f6;
-                background-color: #fff;
-              }
-            `}
-        `}
+            }
+          `}
+      `}
   `;

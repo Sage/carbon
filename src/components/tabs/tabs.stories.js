@@ -18,10 +18,6 @@ const checkIfSelected = (tabId) => {
   return false;
 };
 
-const selectTab = (e) => {
-  store.set('selectedTabId', e.target.tabId);
-};
-
 storiesOf('Tabs', module)
   .addParameters({
     info: {
@@ -37,37 +33,34 @@ storiesOf('Tabs', module)
 
       return (
         <State store={ store }>
-          <Tabs
-            align={ align } position={ position }
-            onTabChange={ e => selectTab(e) }
-          >
+          <Tabs align={ align } position={ position }>
             <Tab
               tabId='tab-1' title='Tab 1'
-              onClick={ e => selectTab(e) } isTabSelected={ checkIfSelected('tab-1') }
+              key='tab-1' isTabSelected={ checkIfSelected('tab-1') }
             >
               Content for tab 1
             </Tab>
             <Tab
               tabId='tab-2' title='Tab 2'
-              onClick={ e => selectTab(e) } isTabSelected={ checkIfSelected('tab-2') }
+              key='tab-2' isTabSelected={ checkIfSelected('tab-2') }
             >
               Content for tab 2
             </Tab>
             <Tab
               tabId='tab-3' title='Tab 3'
-              onClick={ e => selectTab(e) } isTabSelected={ checkIfSelected('tab-3') }
+              key='tab-3' isTabSelected={ checkIfSelected('tab-3') }
             >
               Content for tab 3
             </Tab>
             <Tab
               tabId='tab-4' title='Tab 4'
-              onClick={ e => selectTab(e) } isTabSelected={ checkIfSelected('tab-4') }
+              key='tab-4' isTabSelected={ checkIfSelected('tab-4') }
             >
               Content for tab 4
             </Tab>
             <Tab
               tabId='tab-5' title='Tab 5'
-              onClick={ e => selectTab(e) } isTabSelected={ checkIfSelected('tab-5') }
+              key='tab-5' isTabSelected={ checkIfSelected('tab-5') }
             >
               Content for tab 5
             </Tab>

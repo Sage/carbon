@@ -189,7 +189,7 @@ class Tabs extends React.Component {
    */
   get tabHeaders() {
     this.tabRefs = [];
-    const tabTitles = this.children.map((child, index) => {
+    const tabHeaders = this.children.map((child, index) => {
       const ref = `${child.props.tabId}-tab`;
       this.tabRefs.push(ref);
       return (
@@ -201,12 +201,9 @@ class Tabs extends React.Component {
           className={ this.tabHeaderClasses(child) }
           dataTabId={ child.props.tabId }
           id={ ref }
-          key={ child.props.tabId }
+          key={ ref }
           onClick={ this.handleTabClick }
           onKeyDown={ this.handleKeyDown(index) }
-          ref={ (node) => {
-            this[ref] = node;
-          } }
           role='tab'
           tabIndex={ this.isTabSelected(child.props.tabId) ? '0' : '-1' }
         />
@@ -218,7 +215,7 @@ class Tabs extends React.Component {
         align={ this.props.align } position={ this.props.position }
         role='tablist'
       >
-        {tabTitles}
+        {tabHeaders}
       </TabsHeader>
     );
   }
@@ -251,6 +248,7 @@ class Tabs extends React.Component {
         <Tab
           role='tabPanel'
           position={ this.props.position }
+          key={ this.tabRefs[index] }
           ariaLabelledby={ this.tabRefs[index] }
           isTabSelected={ this.isTabSelected(child.props.tabId) }
         >
