@@ -67,7 +67,7 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
               "tertiary": "#004400",
               "warning": "#E96400",
               "white": "#FFFFFF",
-              "whiteMix": "#e5f2ee",
+              "whiteMix": "#E5F4E5",
             },
             "disabled": Object {
               "border": "#CCD6DA",
@@ -108,7 +108,7 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
                 "tertiary": "#004400",
                 "warning": "#E96400",
                 "white": "#FFFFFF",
-                "whiteMix": "#e5f2ee",
+                "whiteMix": "#E5F4E5",
               },
               "disabled": Object {
                 "border": "#CCD6DA",

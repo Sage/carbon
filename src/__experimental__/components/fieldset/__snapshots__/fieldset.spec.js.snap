@@ -19,7 +19,7 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
         "tertiary": "#003F2E",
         "warning": "#E96400",
         "white": "#FFFFFF",
-        "whiteMix": "#e5f2ee",
+        "whiteMix": "#E5F4E5",
       },
       "disabled": Object {
         "border": "#4d7080",
@@ -95,7 +95,7 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
           "tertiary": "#003F2E",
           "warning": "#E96400",
           "white": "#FFFFFF",
-          "whiteMix": "#e5f2ee",
+          "whiteMix": "#E5F4E5",
         },
         "disabled": Object {
           "border": "#4d7080",
