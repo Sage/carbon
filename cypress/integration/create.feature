@@ -5,14 +5,27 @@ Feature: Create component
     Given I open "Create" component page
 
   @positive
-  Scenario Outline: Change data in Create component
+  Scenario Outline: Change children in Create component
     When I set children to "<children>"
-      And I set className to "<className>"
     Then create children on preview is "<children>"
-      And create className on preview is "<className>"
     Examples:
-      | children                 | className                |
-      | áéíóú¿¡üñ                | ÄÖÜßäöü                  |
-      | 1!@#$%^*()_+-=~[];:.,?{} | <>                       |
-      | ÄÖÜßäöüß                 | áéíóú¿¡üñ                |
-      | <>                       | 1!@#$%^*()_+-=~[];:.,?{} |
+      | children                 |
+      | Sample text              |
+      | 1234567890               |
+      | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
+      | <>                       |
+
+  @positive
+  Scenario Outline: Change className in Create component
+    When I set className to "<className>"
+    Then create className on preview is "<className>"
+    Examples:
+      | className                |
+      | Sample text              |
+      | 1234567890               |
+      | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
+      | <>                       |

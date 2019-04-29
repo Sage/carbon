@@ -1,4 +1,4 @@
-import { disabledCheckbox, themeSelect, buttonSubtextPreview } from '../../locators/button';
+import { themeSelect, buttonSubtextPreview } from '../../locators/button';
 import { commonButtonPreview } from '../../locators';
 
 const CARBON_BUTTON_PREFIX = 'carbon-button--';
@@ -7,16 +7,8 @@ Then('Button label on preview is {string}', (label) => {
   commonButtonPreview().should('have.text', label);
 });
 
-When('I disable Button', () => {
-  disabledCheckbox().check();
-});
-
 Then('Button is disabled', () => {
   commonButtonPreview().should('be.disabled');
-});
-
-When('I enable Button', () => {
-  disabledCheckbox().uncheck();
 });
 
 Then('Button is enabled', () => {
