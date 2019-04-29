@@ -313,7 +313,6 @@ describe('TableAjax', () => {
         it('calls resetTableHeight on successful response', () => {
           instance.resetTableHeight = jest.fn();
           options = { currentPage: '1', pageSize: '5' }
-
           Request.__setMockResponse({
             status() {
               return 200;
