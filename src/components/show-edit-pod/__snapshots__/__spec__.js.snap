@@ -205,10 +205,14 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                               "white": "#FFFFFF",
                                             },
                                             "disabled": Object {
+                                              "background": "#E5EAEC",
                                               "border": "#CCD6DA",
                                               "disabled": "rgba(0,0,0,0.55)",
                                               "input": "#F2F4F5",
                                               "text": "rgba(0,0,0,0.3)",
+                                            },
+                                            "icon": Object {
+                                              "focus": "#335B6D",
                                             },
                                             "name": "base",
                                             "shadows": Object {
@@ -290,10 +294,14 @@ a {
                                                     "white": "#FFFFFF",
                                                   },
                                                   "disabled": Object {
+                                                    "background": "#E5EAEC",
                                                     "border": "#CCD6DA",
                                                     "disabled": "rgba(0,0,0,0.55)",
                                                     "input": "#F2F4F5",
                                                     "text": "rgba(0,0,0,0.3)",
+                                                  },
+                                                  "icon": Object {
+                                                    "focus": "#335B6D",
                                                   },
                                                   "name": "base",
                                                   "shadows": Object {
@@ -340,10 +348,14 @@ a {
                                                 "white": "#FFFFFF",
                                               },
                                               "disabled": Object {
+                                                "background": "#E5EAEC",
                                                 "border": "#CCD6DA",
                                                 "disabled": "rgba(0,0,0,0.55)",
                                                 "input": "#F2F4F5",
                                                 "text": "rgba(0,0,0,0.3)",
+                                              },
+                                              "icon": Object {
+                                                "focus": "#335B6D",
                                               },
                                               "name": "base",
                                               "shadows": Object {
