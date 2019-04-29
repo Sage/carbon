@@ -2,9 +2,10 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import tabsHeaderClassicStyle from './tabs-header-classic.style';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import baseTheme from '../../../style/themes/base';
 
 const StyledTabHeaders = styled.ul`
-box-shadow: inset 0px -2px 0px 0px #e5eaec; // TODO: zmienic na kolor z palety
+box-shadow: inset 0px -2px 0px 0px ${({ theme }) => theme.colors.disabled.button};
 cursor: pointer;
 list-style: none;
 margin: 0 0 10px;
@@ -17,7 +18,7 @@ ${({ align }) => align === 'right'
 
 ${({ position }) => position === 'vertical'
   && css`
-    box-shadow: inset -2px 0px 0px 0px #e5eaec; // TODO: zmienic na kolor z palety
+    box-shadow: inset -2px 0px 0px 0px ${({ theme }) => theme.colors.disabled.button};
     display: inline-block;
     width: 20%;
     margin: 0 10px 0;
@@ -27,7 +28,8 @@ ${({ position }) => position === 'vertical'
 
 StyledTabHeaders.defaultProps = {
   align: 'left',
-  position: 'horizontal'
+  position: 'horizontal',
+  theme: baseTheme
 };
 
 StyledTabHeaders.propTypes = {
