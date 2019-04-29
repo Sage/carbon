@@ -30,10 +30,14 @@ exports[`SidebarHeaderStyle should render base sidebar header 1`] = `
         "white": "#FFFFFF",
       },
       "disabled": Object {
+        "background": "#E5EAEC",
         "border": "#CCD6DA",
         "disabled": "rgba(0,0,0,0.55)",
         "input": "#F2F4F5",
         "text": "rgba(0,0,0,0.3)",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
       },
       "name": "base",
       "shadows": Object {
@@ -99,10 +103,14 @@ exports[`SidebarHeaderStyle should render base sidebar header 1`] = `
               "white": "#FFFFFF",
             },
             "disabled": Object {
+              "background": "#E5EAEC",
               "border": "#CCD6DA",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
             },
             "name": "base",
             "shadows": Object {
@@ -147,10 +155,14 @@ exports[`SidebarHeaderStyle should render base sidebar header 1`] = `
           "white": "#FFFFFF",
         },
         "disabled": Object {
+          "background": "#E5EAEC",
           "border": "#CCD6DA",
           "disabled": "rgba(0,0,0,0.55)",
           "input": "#F2F4F5",
           "text": "rgba(0,0,0,0.3)",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
         },
         "name": "base",
         "shadows": Object {
@@ -205,10 +217,14 @@ exports[`SidebarHeaderStyle when classic theme is provided to the component shou
         "white": "#FFFFFF",
       },
       "disabled": Object {
+        "background": "#E5EAEC",
         "border": "#CCD6DA",
         "disabled": "rgba(0,0,0,0.55)",
         "input": "#F2F4F5",
         "text": "rgba(0,0,0,0.3)",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
       },
       "name": "base",
       "shadows": Object {
@@ -274,10 +290,14 @@ exports[`SidebarHeaderStyle when classic theme is provided to the component shou
               "white": "#FFFFFF",
             },
             "disabled": Object {
+              "background": "#E5EAEC",
               "border": "#CCD6DA",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
             },
             "name": "base",
             "shadows": Object {
@@ -322,10 +342,14 @@ exports[`SidebarHeaderStyle when classic theme is provided to the component shou
           "white": "#FFFFFF",
         },
         "disabled": Object {
+          "background": "#E5EAEC",
           "border": "#CCD6DA",
           "disabled": "rgba(0,0,0,0.55)",
           "input": "#F2F4F5",
           "text": "rgba(0,0,0,0.3)",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
         },
         "name": "base",
         "shadows": Object {

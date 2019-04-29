@@ -58,10 +58,14 @@ exports[`Sidebar sidebarClasses returns a base sidebar 1`] = `
               "white": "#FFFFFF",
             },
             "disabled": Object {
+              "background": "#E5EAEC",
               "border": "#CCD6DA",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
             },
             "name": "base",
             "shadows": Object {
@@ -97,10 +101,14 @@ exports[`Sidebar sidebarClasses returns a base sidebar 1`] = `
                 "white": "#FFFFFF",
               },
               "disabled": Object {
+                "background": "#E5EAEC",
                 "border": "#CCD6DA",
                 "disabled": "rgba(0,0,0,0.55)",
                 "input": "#F2F4F5",
                 "text": "rgba(0,0,0,0.3)",
+              },
+              "icon": Object {
+                "focus": "#335B6D",
               },
               "name": "base",
               "shadows": Object {
@@ -177,10 +185,14 @@ exports[`SidebarStyle When classic style is passed to the component should rende
         "white": "#FFFFFF",
       },
       "disabled": Object {
+        "background": "#E5EAEC",
         "border": "#4d7080",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
         "text": "#003349",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
       },
       "name": "classic",
       "shadows": Object {
@@ -249,10 +261,14 @@ exports[`SidebarStyle When classic style is passed to the component should rende
               "white": "#FFFFFF",
             },
             "disabled": Object {
+              "background": "#E5EAEC",
               "border": "#CCD6DA",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
             },
             "name": "base",
             "shadows": Object {
@@ -303,10 +319,14 @@ exports[`SidebarStyle When classic style is passed to the component should rende
           "white": "#FFFFFF",
         },
         "disabled": Object {
+          "background": "#E5EAEC",
           "border": "#4d7080",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
           "text": "#003349",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
         },
         "name": "classic",
         "shadows": Object {
@@ -373,10 +393,14 @@ exports[`SidebarStyle When classic style is passed to the component should rende
         "white": "#FFFFFF",
       },
       "disabled": Object {
+        "background": "#E5EAEC",
         "border": "#4d7080",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
         "text": "#003349",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
       },
       "name": "classic",
       "shadows": Object {
@@ -443,10 +467,14 @@ exports[`SidebarStyle When classic style is passed to the component should rende
               "white": "#FFFFFF",
             },
             "disabled": Object {
+              "background": "#E5EAEC",
               "border": "#CCD6DA",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
             },
             "name": "base",
             "shadows": Object {
@@ -494,10 +522,14 @@ exports[`SidebarStyle When classic style is passed to the component should rende
           "white": "#FFFFFF",
         },
         "disabled": Object {
+          "background": "#E5EAEC",
           "border": "#4d7080",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
           "text": "#003349",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
         },
         "name": "classic",
         "shadows": Object {
