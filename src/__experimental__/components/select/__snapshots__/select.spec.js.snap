@@ -93,9 +93,10 @@ Object {
     />
     <span
       autocomplete="off"
-      class="sc-htpNat fljFQf"
+      class="sc-htpNat hmqeKz"
       data-element="input"
       name="guid-12345"
+      type="dropdown"
     >
       <span
         class="carbon-icon icon-dropdown"

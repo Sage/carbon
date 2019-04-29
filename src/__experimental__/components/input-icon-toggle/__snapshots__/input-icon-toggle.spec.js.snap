@@ -23,6 +23,7 @@ exports[`InputIconToggle when initiated with children renders as expected 1`] = 
 <span
   className="c0"
   size="medium"
+  type="settings"
 >
   mock content
 </span>
