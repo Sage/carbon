@@ -8,5 +8,9 @@ const sidebarHeaderClassicStyle = ({ theme }) => theme.name === THEMES.classic &
     font-weight: normal;
     box-shadow: none;
     color: rgba(0,0,0,.85);
+    width: 100%;
+    top: -20px;
+    margin-left: -20px;
+
 `;
 export default sidebarHeaderClassicStyle;

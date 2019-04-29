@@ -140,7 +140,6 @@ exports[`SidebarStyle When classic style is passed to the component should rende
   background-color: #1e499f;
   border-radius: 1px;
   bottom: 0;
-  padding: 20px;
   position: fixed;
   top: 0;
   z-index: 1002;
@@ -148,6 +147,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
   box-shadow: 0 10px 30px 0 rgba(0,20,29,0.1),0 30px 60px 0 rgba(0,20,29,0.1);
   left: 0;
   background-color: #e6ebed;
+  padding: 20px;
   border-right: 1px solid #ccd6db;
   box-shadow: 10px 0 15px rgba(0,0,0,.05);
   left: 0;
@@ -214,7 +214,6 @@ exports[`SidebarStyle When classic style is passed to the component should rende
             ";
   border-radius: 1px;
   bottom: 0;
-  padding: 20px;
   position: fixed;
   top: 0;
   z-index: 1002;

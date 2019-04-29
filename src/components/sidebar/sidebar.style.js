@@ -16,7 +16,6 @@ const SidebarStyle = styled.div`
   background-color: ${({ theme }) => theme.disabled.input};
   border-radius: 1px;
   bottom: 0;
-  padding: 20px;
   position: fixed;
   top: 0;
   z-index: 1002;

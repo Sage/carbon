@@ -3,6 +3,7 @@ import { THEMES } from '../../style/themes';
 
 const sidebarClassicStyle = ({ theme }) => theme.name === THEMES.classic && css`
     background-color: #e6ebed;
+    padding: 20px;
     
     ${({ position }) => position === 'right' && css`
         border-left: 1px solid #ccd6db;
