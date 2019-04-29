@@ -557,12 +557,16 @@ exports[`TypeIcon when rendered should match the snapshot 1`] = `
         "whiteMix": "#E5F4E5",
       },
       "disabled": Object {
+        "background": "#E5EAEC",
         "border": "#CCD6DA",
         "button": "#e6ebed",
         "buttonText": "rgba(0,0,0,.2)",
         "disabled": "rgba(0,0,0,0.55)",
         "input": "#F2F4F5",
         "text": "rgba(0,0,0,0.3)",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
       },
       "name": "base",
       "shadows": Object {
