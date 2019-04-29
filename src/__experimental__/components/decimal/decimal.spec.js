@@ -46,9 +46,17 @@ describe('Decimal', () => {
     });
 
     it('does not allow the user to enter letters or special characters', () => {
-      const wrapper = render({ value: '12.34' });
+      const onChange = jest.fn();
+      const wrapper = render({ value: '212.34', onChange });
       wrapper.instance().onChange({ target: { value: '1!@£$%^&*()#_+=}{|":;<>?qwertyuiopasd\\\'fghjklzxcvbnm1.27' } });
-      assertCorrectTextboxVal(wrapper, '12.34');
+      expect(onChange).not.toHaveBeenCalled();
+    });
+
+    it('allows the user to enter values without letters or special characters', () => {
+      const onChange = jest.fn();
+      const wrapper = render({ value: '212.34', onChange });
+      wrapper.instance().onChange({ target: { value: '1234.56' } });
+      expect(onChange).toHaveBeenCalledWith({ target: { value: '1234.56' } });
     });
 
     it('does not allow the user to enter commas after the decimal point', () => {
