@@ -10,7 +10,7 @@ export default (palette) => {
         primary: palette.productBlueShade(3),
         secondary: palette.productBlueShade(23),
         tertiary: palette.productBlueShade(43),
-        whiteMix: '#dee8f0'
+        whiteMix: palette.productBlueTint(90)
       }
     }
   );
