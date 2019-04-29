@@ -14,38 +14,34 @@ Then('input direction is {string}', (direction) => {
 });
 
 Then('Decimal component is disabled', () => {
-  dropdownInputPreview().should('be.disabled');
+  labelPreview().should('have.attr', 'disabled');
 });
 
 Then('Decimal component is enabled', () => {
-  dropdownInputPreview().should('not.be.disabled');
+  labelPreview().should('not.have.attr', 'disabled');
 });
 
 Then('Decimal component is readOnly', () => {
-  dropdownInputPreview().should('be.readOnly');
-});
-
-Then('Decimal component is readOnly', () => {
-  dropdownComponentPreview().should('have.class', 'common-input--readonly');
+  labelPreview().should('have.attr', 'readonly');
 });
 
 Then('Decimal component is not readOnly', () => {
-  dropdownComponentPreview().should('not.have.class', 'common-input--readonly');
+  labelPreview().should('not.have.attr', 'readonly');
 });
 
 When('I hover mouse onto help icon', () => {
   helpIcon().trigger('mouseover');
 });
 
-When('labelWidth on preview is {int}', (width) => {
+When('label width on preview is {int}', (width) => {
   label().should('have.attr', 'width').should('contain', `${width}`);
 });
 
-When('inputWidth on preview is {int}', (width) => {
+When('input width on preview is {int}', (width) => {
   labelPreview().should('have.css', 'flex').should('contain', `${width}`);
 });
 
-Then('labelAlign on preview is set to {string}', (labelAlign) => {
+Then('label align on preview is set to {string}', (labelAlign) => {
   label().should('have.css', TEXT_ALIGN, `${labelAlign}`);
 });
 
@@ -67,4 +63,8 @@ When('I set input precision slider to {int}', (precision) => {
 
 Then('input precision slider is set to {int}', (precision) => {
   inputPrecisionSlider().should('have.attr', 'value').should('contain', `${precision}`);
+});
+
+Then('label is set to inline', () => {
+  label().should('have.css', TEXT_ALIGN, 'left');
 });
