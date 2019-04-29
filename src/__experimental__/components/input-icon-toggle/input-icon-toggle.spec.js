@@ -65,5 +65,11 @@ describe('InputIconToggle', () => {
         backgroundColor: '#e6ebed'
       }, render({ theme: { name: 'classic' } }, TestRenderer.create).toJSON());
     });
+
+    it('renders a narrow button when a dropdown', () => {
+      assertStyleMatch({
+        width: '20px'
+      }, render({ type: 'dropdown', theme: { name: 'classic' } }, TestRenderer.create).toJSON());
+    });
   });
 });
