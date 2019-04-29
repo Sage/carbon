@@ -237,7 +237,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
   emitOnChangeCallback = (val) => {
     const hiddenField = this.hidden;
     const isValid = DateHelper.isValidDate(val, { sanitize: (typeof val === 'string') });
-    hiddenField.value = isValid ? DateHelper.formatDateString(val, this.hiddenFormat()) : val;
+    hiddenField.value = isValid ? DateHelper.formatDateString(val, this.hiddenFormat(), false) : val;
     this._handleOnChange({ target: hiddenField });
   }
 

@@ -62,12 +62,12 @@ const DateHelper = {
    * @method formatDateString
    * @param {String} value current value e.g. Wed Aug 23 2017 12:00:00 GMT+0100 (BST)
    * @param {String} formatTo Desired format e.g. YYYY-MM-DD
+   * @param {boolean} utcFormat set whether date should be utc formatted
    * @return {String} formatted date
    */
-  formatDateString: (value, formatTo) => {
-    return (
-      moment(new Date(value).getTime()).format(formatTo)
-    );
+  formatDateString: (value, formatTo, utcFormat = true) => {
+    const momentMethod = utcFormat ? moment.utc : moment;
+    return momentMethod(new Date(value).getTime()).format(formatTo);
   },
 
   /**
