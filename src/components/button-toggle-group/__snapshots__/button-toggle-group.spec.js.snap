@@ -23,12 +23,16 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
         "whiteMix": "#E5F4E5",
       },
       "disabled": Object {
+        "background": "#E5EAEC",
         "border": "#4d7080",
         "button": "#e6ebed",
         "buttonText": "rgba(0,0,0,.2)",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
         "text": "#003349",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
       },
       "name": "classic",
       "shadows": Object {
@@ -67,12 +71,16 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
           "whiteMix": "#E5F4E5",
         },
         "disabled": Object {
+          "background": "#E5EAEC",
           "border": "#4d7080",
           "button": "#e6ebed",
           "buttonText": "rgba(0,0,0,.2)",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
           "text": "#003349",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
         },
         "name": "classic",
         "shadows": Object {
@@ -114,12 +122,16 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
             "whiteMix": "#E5F4E5",
           },
           "disabled": Object {
+            "background": "#E5EAEC",
             "border": "#4d7080",
             "button": "#e6ebed",
             "buttonText": "rgba(0,0,0,.2)",
             "disabled": "#b3c2c8",
             "input": "#1e499f",
             "text": "#003349",
+          },
+          "icon": Object {
+            "focus": "#335B6D",
           },
           "name": "classic",
           "shadows": Object {
@@ -164,12 +176,16 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
             "whiteMix": "#E5F4E5",
           },
           "disabled": Object {
+            "background": "#E5EAEC",
             "border": "#4d7080",
             "button": "#e6ebed",
             "buttonText": "rgba(0,0,0,.2)",
             "disabled": "#b3c2c8",
             "input": "#1e499f",
             "text": "#003349",
+          },
+          "icon": Object {
+            "focus": "#335B6D",
           },
           "name": "classic",
           "shadows": Object {
@@ -215,12 +231,16 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
         "whiteMix": "#E5F5F1",
       },
       "disabled": Object {
+        "background": "#E5EAEC",
         "border": "#CCD6DA",
         "button": "#e6ebed",
         "buttonText": "rgba(0,0,0,.2)",
         "disabled": "rgba(0,0,0,0.55)",
         "input": "#F2F4F5",
         "text": "rgba(0,0,0,0.3)",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
       },
       "name": "small",
       "shadows": Object {
@@ -257,12 +277,16 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
           "whiteMix": "#E5F5F1",
         },
         "disabled": Object {
+          "background": "#E5EAEC",
           "border": "#CCD6DA",
           "button": "#e6ebed",
           "buttonText": "rgba(0,0,0,.2)",
           "disabled": "rgba(0,0,0,0.55)",
           "input": "#F2F4F5",
           "text": "rgba(0,0,0,0.3)",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
         },
         "name": "small",
         "shadows": Object {
@@ -302,12 +326,16 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
             "whiteMix": "#E5F5F1",
           },
           "disabled": Object {
+            "background": "#E5EAEC",
             "border": "#CCD6DA",
             "button": "#e6ebed",
             "buttonText": "rgba(0,0,0,.2)",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
             "text": "rgba(0,0,0,0.3)",
+          },
+          "icon": Object {
+            "focus": "#335B6D",
           },
           "name": "small",
           "shadows": Object {
@@ -350,12 +378,16 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
             "whiteMix": "#E5F5F1",
           },
           "disabled": Object {
+            "background": "#E5EAEC",
             "border": "#CCD6DA",
             "button": "#e6ebed",
             "buttonText": "rgba(0,0,0,.2)",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
             "text": "rgba(0,0,0,0.3)",
+          },
+          "icon": Object {
+            "focus": "#335B6D",
           },
           "name": "small",
           "shadows": Object {
