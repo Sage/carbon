@@ -14,8 +14,15 @@
 2. Use kebab-case for all `*.js` file names
 3. Use camelCase for `*.feature` file names
 
-### Locators
-#### Files structure
+## Scenario tags
+Use scenario tags:
+1. `@positive` for happy path
+2. `@negative` for negative scenario
+3. `@ignore` for temporary ignored scenarios
+4. `@[bug-number]` for example `@FE-1234` - use this tag after `@ignore` to explain why test is ignored.
+5. `@ignore` and `@[bug-number]` should be removed after bug fix
+
+## Files structure
 ```
 .
 ├── cypress
@@ -33,8 +40,8 @@
 ├── README.md
 └── tsconfig.json
 ```
-
-#### How to locate elements
+## Locators
+### How to locate elements
 Always use unique selectors to locate elements with order below:
 1. `[data-component="unique-tag"]` for component and `[data-element="unique-tag"]` for component's element
 2. `#id`

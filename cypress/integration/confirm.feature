@@ -130,21 +130,21 @@ Feature: Confirm component
       And I click on a openButton
     Then Close icon is not visible
 
-  # Tests are disabled till the stickyFormFooter'll be fixed
+  # Tests are disabled until the stickyFormFooter will be fixed
   # doesn't work on Carbon Site
-  # @ignore
-  # @positive
-  # Scenario: StickyFormFooter enabled
-  #   When I check stickyFormFooter
-  #     And I click on a openButton
-  #   Then Confirm dialog has stickyFormFooter parameter enabled
+  @ignore
+  @positive
+  Scenario: StickyFormFooter enabled
+    When I check stickyFormFooter
+      And I click on a openButton
+    Then Confirm dialog has stickyFormFooter parameter enabled
 
-  # @ignore
-  # @negative
-  # Scenario: StickyFormFooter disabled
-  #   When I uncheck stickyFormFooter
-  #     And I click on a openButton
-  #   Then Confirm dialog has no stickyFormFooter parameter
+  @ignore
+  @negative
+  Scenario: StickyFormFooter disabled
+    When I uncheck stickyFormFooter
+      And I click on a openButton
+    Then Confirm dialog has no stickyFormFooter parameter
 
   @positive
   Scenario: Confirm dialog should dissapear after click onto cancelButton
@@ -152,6 +152,7 @@ Feature: Confirm component
       And I click on a cancelButton
     Then Confirm dialog is not visible
 
+  @ignore @FE-1487
   @positive
   Scenario: Confirm dialog should dissapear after click onto confirmButton
     When I click on a openButton
