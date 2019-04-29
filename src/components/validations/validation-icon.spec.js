@@ -22,7 +22,7 @@ describe('ValidationIcon', () => {
 
 function renderWithContext(props) {
   return mount(
-    <InputPresentationContext.Provider { ...props }>
+    <InputPresentationContext.Provider value={ props }>
       <ValidationIcon type='error' />
     </InputPresentationContext.Provider>
   );
