@@ -131,7 +131,7 @@ class DateRange extends React.Component {
 
   render () {
     return (
-      <StyledDateRange { ...tagComponent('date-range', this.props) }>
+      <StyledDateRange { ...tagComponent('date-range', this.props) } labelsInline={ this.props.labelsInline }>
         <Date
           { ...this.startDateProps() } onFocus={ this.focusStart }
           data-element='start-date'

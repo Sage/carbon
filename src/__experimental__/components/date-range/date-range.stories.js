@@ -16,8 +16,8 @@ const handleChange = (newDate) => {
 
 storiesOf('Experimental/Date Range', module)
   .add('default', () => {
-    const endLabel = text('endLabel', '');
     const startLabel = text('startLabel', '');
+    const endLabel = text('endLabel', '');
     const startMessage = text('startMessage', 'Start date must not be later than the end date');
     const endMessage = text('endMessage', 'End date cannot be earlier than the start date');
     const labelsInline = (startLabel || endLabel) ? boolean('labelsInline', false) : undefined;
