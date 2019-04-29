@@ -83,6 +83,12 @@ class Decimal extends React.Component {
     this.forceUpdate();
   }
 
+  dataComponent = () => {
+    return {
+      'data-component': 'decimal'
+    };
+  }
+
   render() {
     return (
       <Textbox
@@ -91,6 +97,7 @@ class Decimal extends React.Component {
         onBlur={ this.onBlur }
         value={ this.formatValue() }
         inputRef={ (input) => { this.input = input; } }
+        { ...this.dataComponent() }
       />
     );
   }

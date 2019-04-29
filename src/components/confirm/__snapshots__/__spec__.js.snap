@@ -67,10 +67,14 @@ exports[`Confirm default snapshot renders as expected 1`] = `
               "white": "#FFFFFF",
             },
             "disabled": Object {
+              "background": "#E5EAEC",
               "border": "#CCD6DA",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
             },
             "name": "base",
             "shadows": Object {
@@ -106,10 +110,14 @@ exports[`Confirm default snapshot renders as expected 1`] = `
                 "white": "#FFFFFF",
               },
               "disabled": Object {
+                "background": "#E5EAEC",
                 "border": "#CCD6DA",
                 "disabled": "rgba(0,0,0,0.55)",
                 "input": "#F2F4F5",
                 "text": "rgba(0,0,0,0.3)",
+              },
+              "icon": Object {
+                "focus": "#335B6D",
               },
               "name": "base",
               "shadows": Object {

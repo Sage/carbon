@@ -22,10 +22,14 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
         "white": "#FFFFFF",
       },
       "disabled": Object {
+        "background": "#E5EAEC",
         "border": "#4d7080",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
         "text": "#003349",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
       },
       "name": "classic",
       "shadows": Object {
@@ -96,10 +100,14 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
           "white": "#FFFFFF",
         },
         "disabled": Object {
+          "background": "#E5EAEC",
           "border": "#4d7080",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
           "text": "#003349",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
         },
         "name": "classic",
         "shadows": Object {
