@@ -137,28 +137,20 @@ exports[`Confirm default snapshot renders as expected 1`] = `
         <styled.div>
           <styled.div>
             <styled.div>
-              <Button
-                as="primary"
+              <Styled(Button)
+                buttonType="primary"
                 data-element="confirm"
-                disabled={false}
                 onClick={[Function]}
-                size="medium"
-                subtext=""
-                theme="blue"
               >
                 Yes
-              </Button>
-              <Button
-                as="secondary"
+              </Styled(Button)>
+              <Styled(Button)
+                buttonType="secondary"
                 data-element="cancel"
-                disabled={false}
                 onClick={[Function]}
-                size="medium"
-                subtext=""
-                theme="blue"
               >
                 No
-              </Button>
+              </Styled(Button)>
             </styled.div>
           </styled.div>
         </styled.div>
