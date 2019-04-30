@@ -1,11 +1,15 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
+import 'jest-styled-components';
 import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
 import DateRange from './date-range.component';
 import Date from '../date';
 import DateRangeValidator from '../../../utils/validations/date-range';
 import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
+import StyledDateRange from './date-range.style';
+import StyledDateInput from '../date/date.style';
 
 describe('DateRange', () => {
   let instance, customOnChange;
@@ -317,5 +321,17 @@ describe('DateRange', () => {
         'end-date'
       ]);
     });
+  });
+});
+
+describe('StyledDateRange', () => {
+  it('renders Date inputs correctly when the labels are inline', () => {
+    const wrapper = TestRenderer.create(<StyledDateRange labelsInline><StyledDateInput /></StyledDateRange>);
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders Date inputs correctly when the labels are not inline', () => {
+    const wrapper = TestRenderer.create(<StyledDateRange><StyledDateInput /></StyledDateRange>);
+    expect(wrapper).toMatchSnapshot();
   });
 });
