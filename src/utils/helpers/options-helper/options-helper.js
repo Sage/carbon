@@ -48,6 +48,13 @@ const OptionsHelper = {
     'warning'
   ],
 
+  messages: [
+    'error',
+    'info',
+    'success',
+    'warning'
+  ],
+
   icons: [
     'add',
     'alert',

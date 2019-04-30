@@ -15,17 +15,19 @@ export default (palette) => {
       secondary: palette.genericGreenShade(35),
       tertiary: palette.genericGreenShade(55),
       brand: palette.brilliantGreen,
-      border: palette.slateTint(40),
 
       // generic
       white: '#FFFFFF',
 
+      // element
+      border: palette.slateTint(40),
+
       // status
       error: palette.errorRed,
-      focus: palette.gold,
+      focus: palette.goldTint(50),
       info: palette.productBlueShade(3),
       success: palette.brilliantGreenShade(20),
-      warning: palette.gold,
+      warning: palette.carrotOrange,
       destructive: {
         hover: palette.errorRedShade(20)
       }
@@ -38,12 +40,16 @@ export default (palette) => {
     },
 
     disabled: {
-      background: blackWithOpacity(0.1),
       border: palette.slateTint(80),
       button: palette.slateTint(90),
       disabled: blackWithOpacity(0.55),
       input: palette.slateTint(95),
-      text: blackWithOpacity(0.3)
+      text: blackWithOpacity(0.3),
+      background: palette.slateTint(90)
+    },
+
+    icon: {
+      focus: palette.slateTint(20)
     },
 
     shadows: {

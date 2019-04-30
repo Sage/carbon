@@ -72,18 +72,6 @@ class Confirm extends Dialog {
   }
 
   /**
-   * Returns classes for the confirm, combines with dialog class names.
-   *
-   * @method dialogClasses
-   */
-  get dialogClasses() {
-    return classNames(
-      super.dialogClasses,
-      'carbon-confirm__confirm'
-    );
-  }
-
-  /**
    * Get the yes and no buttons for the confirm dialog
    *
    * @method confirmButtons

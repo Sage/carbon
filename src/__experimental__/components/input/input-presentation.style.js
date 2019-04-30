@@ -13,12 +13,11 @@ const InputPresentationStyle = styled.div`
   cursor: text;
   display: flex;
   flex-wrap: wrap;
-  flex: 1;
-  margin: 0px;
+  flex: 0 0 ${({ inputWidth }) => inputWidth}%;
+  margin: 0;
   min-height: ${({ size }) => sizes[size].height};
   padding-left: ${({ size }) => sizes[size].padding};
   padding-right: ${({ size }) => sizes[size].padding};
-  width: 100%;
 
   ${({ disabled, theme }) => disabled && css`
     background: ${theme.disabled.input};
@@ -30,13 +29,23 @@ const InputPresentationStyle = styled.div`
     border-color: transparent !important;
   `}
   ${({ hasFocus, theme }) => hasFocus && css`
-    && { outline: 3px solid ${theme.colors.focus}; }
+    && { 
+      outline: 3px solid ${theme.colors.focus};
+      z-index: 2;
+    }
   `}
   ${stylingForValidation('infoMessage')}
   ${stylingForValidation('warningMessage')}
   ${stylingForValidation('errorMessage')}
 
   ${inputClassicStyling}
+
+  input::-ms-clear {
+    display: none;
+  }
+  input::-webkit-contacts-auto-fill-button {
+    display: none!important;
+  }
 `;
 
 function stylingForValidation(message) {
@@ -52,6 +61,7 @@ function stylingForValidation(message) {
 }
 
 InputPresentationStyle.defaultProps = {
+  inputWidth: 100,
   size: 'medium',
   theme: baseTheme
 };

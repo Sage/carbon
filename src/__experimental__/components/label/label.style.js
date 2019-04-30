@@ -4,6 +4,7 @@ import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import sizes from '../input/input-sizes.style';
 import { THEMES } from '../../../style/themes';
+import InputIconToggleStyle from '../input-icon-toggle/input-icon-toggle.style';
 
 const LabelStyle = styled.label`
   color: ${({ theme }) => theme.text.color};
@@ -19,10 +20,14 @@ const LabelStyle = styled.label`
     padding-bottom: 0;
     padding-right: ${sizes[inputSize].padding};
     text-align: ${align};
-    width: ${width}%;
+    width: ${width === 0 ? LabelStyle.defaultProps.width : width}%;
     ${inputSize === 'small' && css`padding-top: 8px;`}
     ${inputSize === 'medium' && css`padding-top: 12px;`}
     ${inputSize === 'large' && css`padding-top: 16px;`}
+  `}
+
+  ${({ theme }) => theme.name === THEMES.classic && css`
+    color: #003349;
   `}
 
   ${({ inline, theme }) => theme.name === THEMES.classic && css`
@@ -34,6 +39,11 @@ const LabelStyle = styled.label`
       padding-top: 7px;
       padding-right: 8px;
     `}
+    
+    &:hover ${InputIconToggleStyle} {
+      background-color: #1e499f;
+      border-color: #1e499f;
+    }
   `}
 `;
 

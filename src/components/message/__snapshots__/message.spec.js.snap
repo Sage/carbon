@@ -1,0 +1,396 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message when in classic mode when rendered should match the snapshot 1`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid;
+  background-color: #FFFFFF;
+  border: none;
+  background-color: #335c6d;
+  border-radius: 3px;
+  border: 1px solid #335c6d;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 2`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #C7384F;
+  background-color: #FFFFFF;
+  border: none;
+  background-color: #fdf5f5;
+  border-radius: 3px;
+  border: 1px solid #f7d9d9;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 3`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid;
+  background-color: #FFFFFF;
+  border: none;
+  background-color: #fffbf2;
+  border-radius: 3px;
+  border: 1px solid #fec;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 4`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #0073C2;
+  background-color: #FFFFFF;
+  border: none;
+  background-color: #f3f8fe;
+  border-radius: 3px;
+  border: 1px solid #d0e3fa;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 5`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid;
+  background-color: #FFFFFF;
+  border: none;
+  background-color: #fff8f2;
+  border-radius: 3px;
+  border: 1px solid #ffe4cc;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 6`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid;
+  background-color: #FFFFFF;
+  border: none;
+  background-color: #f7f5fa;
+  border-radius: 3px;
+  border: 1px solid #e0d6eb;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 7`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #00B000;
+  background-color: #FFFFFF;
+  border: none;
+  background-color: #f6fbf6;
+  border-radius: 3px;
+  border: 1px solid #dcf1da;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when in classic mode when rendered should match the snapshot 8`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #E96400;
+  background-color: #FFFFFF;
+  border: none;
+  background-color: #fff8f2;
+  border-radius: 3px;
+  border: 1px solid #ffe4cc;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when in small/medium/large theme should match the snapshot 1`] = `
+<styled.div
+  border={true}
+  data-component="Message"
+  messageType="info"
+  role="status"
+  roundedCorners={true}
+  theme={
+    Object {
+      "colors": Object {
+        "border": "#668491",
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFDA7F",
+        "info": "#0073C2",
+        "primary": "#26A826",
+        "secondary": "#006300",
+        "success": "#00B000",
+        "tertiary": "#004400",
+        "warning": "#E96400",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "background": "#E5EAEC",
+        "border": "#CCD6DA",
+        "disabled": "rgba(0,0,0,0.55)",
+        "input": "#F2F4F5",
+        "text": "rgba(0,0,0,0.3)",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
+      },
+      "name": "base",
+      "shadows": Object {
+        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+  transparent={false}
+>
+  <TypeIcon
+    messageType="info"
+    roundedCorners={true}
+    transparent={false}
+  />
+  <MessageContent
+    messageType="info"
+    transparent={false}
+  >
+    Message
+  </MessageContent>
+</styled.div>
+`;
+
+exports[`Message when transparent prop is not passed should render the message with border in a proper color and a white background 1`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #C7384F;
+  background-color: #FFFFFF;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when transparent prop is not passed should render the message with border in a proper color and a white background 2`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #0073C2;
+  background-color: #FFFFFF;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when transparent prop is not passed should render the message with border in a proper color and a white background 3`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #00B000;
+  background-color: #FFFFFF;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;
+
+exports[`Message when transparent prop is not passed should render the message with border in a proper color and a white background 4`] = `
+.c0 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+  -webkit-align-content: center;
+  -ms-flex-line-pack: center;
+  align-content: center;
+  border: 1px solid #E96400;
+  background-color: #FFFFFF;
+}
+
+<div
+  className="c0"
+>
+  Message
+</div>
+`;

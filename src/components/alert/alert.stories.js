@@ -4,9 +4,9 @@ import { boolean, text, select } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import Button from '../button';
-import Alert from './alert';
-import notes from './notes.md';
+import Button from '../button/button';
+import Alert from '.';
+import { notes, info } from './documentation';
 
 const store = new Store({
   open: false
@@ -22,6 +22,13 @@ const handleOpen = () => {
 };
 
 storiesOf('Alert', module)
+  .addParameters({
+    info: {
+      text: info,
+      propTablesExclude: [State, Button]
+    },
+    notes: { markdown: notes }
+  })
   .add('default', () => {
     const title = text('title', 'Attention');
     const subtitle = text('subtitle', '');
@@ -31,7 +38,7 @@ storiesOf('Alert', module)
     const ariaRole = text('ariaRole', 'dialog');
     const height = text('height', '');
     const showCloseIcon = boolean('showCloseIcon', true);
-    const size = select('size', OptionsHelper.sizesFull, OptionsHelper.sizesFull[0]);
+    const size = select('size', OptionsHelper.sizesFull, Alert.defaultProps.size);
     const stickyFormFooter = boolean('stickyFormFooter', false);
     const open = boolean('open', false);
 
@@ -52,8 +59,6 @@ storiesOf('Alert', module)
         {children}
       </Alert>
     );
-  }, {
-    notes: { markdown: notes }
   })
   .add('with button', () => {
     const title = text('title', 'Attention');
@@ -64,7 +69,7 @@ storiesOf('Alert', module)
     const ariaRole = text('ariaRole', 'dialog');
     const height = text('height', '');
     const showCloseIcon = boolean('showCloseIcon', true);
-    const size = select('size', OptionsHelper.sizesFull, OptionsHelper.sizesFull[0]);
+    const size = select('size', OptionsHelper.sizesFull, Alert.defaultProps.size);
     const stickyFormFooter = boolean('stickyFormFooter', false);
 
     return (
@@ -88,6 +93,4 @@ storiesOf('Alert', module)
         </Alert>
       </State>
     );
-  }, {
-    notes: { markdown: notes }
   });
