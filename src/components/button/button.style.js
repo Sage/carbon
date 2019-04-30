@@ -86,8 +86,6 @@ StyledButton.propTypes = {
   href: PropTypes.string,
   /** Defines an Icon position within the button */
   iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions, '']),
-  /** Defines an Icon type within the button */
-  iconType: PropTypes.oneOf([...OptionsHelper.icons, '']),
   /** Assigns a size to the button */
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** Second text child, renders under main text, only when size is "large" */

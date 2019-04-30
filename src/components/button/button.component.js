@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon';
 import StyledButton, { StyledButtonSubtext } from './button.style';
+import Link from '../link';
 import tagComponent from '../../utils/helpers/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
@@ -11,17 +12,22 @@ const Button = (props) => {
     buttonType,
     disabled,
     iconPosition,
-    iconType,
     theme,
     forwardRef,
+    href,
+    to,
     ...rest
   } = props;
+
+  if (href || to) {
+    return <Link { ...props } />;
+  }
+
   return (
     <StyledButton
       disabled={ disabled }
       buttonType={ buttonType || as }
       role='button'
-      iconType={ iconType }
       iconPosition={ iconPosition }
       legacyColorVariant={ theme }
       { ...tagComponent('button', props) }
@@ -79,7 +85,12 @@ Button.propTypes = {
   as: PropTypes.oneOf(OptionsHelper.themesBinaryClassic),
   /** Set this prop to pass in legacy theme color variants */
   theme: PropTypes.oneOf(OptionsHelper.buttonColors),
-  checkTheme: PropTypes.func
+  checkTheme: PropTypes.func,
+  /** Legacy - used to transfrom button into anchor */
+  href: PropTypes.string,
+  /** Legacy - used to transfrom button into anchor */
+  to: PropTypes.string
+
 };
 
 Button.defaultProps = {
