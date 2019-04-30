@@ -34,9 +34,11 @@ Feature: Dialog component
     Then component title on preview is "<title>"
     Examples:
       | title                    |
-      | Title Label Test         |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | Sample text              |
+      | 1234567890               |
+      | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
@@ -46,35 +48,41 @@ Feature: Dialog component
     Then component subtitle on preview is "<subtitle>"
     Examples:
       | subtitle                 |
-      | Example subtext          |
-      | 1!@#$%^*()_+-=~[];:.,?{} |
-      | 汉字                       |
+      | Sample text              |
+      | 1234567890               |
+      | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
       | <>                       |
 
   @positive
   Scenario Outline: Set Dialog size to small, medium and large
-    When I set component size to "<size>"
+    When I set component size to "<sizeName>"
       And I open component preview
-    Then Dialog size property on preview is "<size>"
+    Then Dialog size property on preview is "<sizePropertyInPx>"
     Examples:
-      | size   |
-      | small  |
-      | medium |
-      | large  |
+      | sizeName     | sizePropertyInPx |
+      | extra-small  |       300        |
+      | small        |       380        |
+      | medium-small |       540        |
+      | medium       |       750        |
+      | medium-large |       850        |
+      | large        |       960        |
+      | extra-large  |       1080       |
 
   @positive
   Scenario: ShowCloseIcon can close Dialog
     When I enable showCloseIcon
       And I open component preview
-    Then CloseIcon is visible
-      And I click CloseIcon
-      And dialog is not visible
+    Then closeIcon is visible
+      And I click closeIcon
+      And Dialog is not visible
 
   @positive
   Scenario: Disable ShowCloseIcon
     When I disable showCloseIcon
       And I open component preview
-    Then CloseIcon is not visible
+    Then closeIcon is not visible
 
   @positive
   Scenario: Enable StickyFormFooter
@@ -93,34 +101,35 @@ Feature: Dialog component
   Scenario: Enable background UI
     When I check enableBackgroundUI
       And I open component preview
-    Then Background UI is enabled
+    Then background UI is enabled
 
   @positive
   Scenario: Disable background UI
-    When I uncheck enableBackgroundUI
+    When I check enableBackgroundUI
+      And I uncheck enableBackgroundUI
       And I open component preview
-    Then Background UI is disabled
+    Then background UI is disabled
 
   @positive
   Scenario: Disable escape key
     When I check disableEscKey
       And I open component preview
       And I hit ESC key
-    Then dialog is visible
+    Then Dialog is visible
 
   @positive
   Scenario: Enable escape key
     When I uncheck disableEscKey
       And I open component preview
       And I hit ESC key
-    Then dialog is not visible
+    Then Dialog is not visible
 
   @positive
   Scenario Outline: Click outside Dialog without background and Dialog remains open
     When I uncheck enableBackgroundUI
       And I open component preview
       And I click on "<position>" outside dialog
-    Then dialog is visible
+    Then Dialog is visible
     Examples:
       | position |
       | top      |
@@ -131,7 +140,7 @@ Feature: Dialog component
   Scenario Outline: Click on background outside Dialog and Dialog remains open
     When I open component preview
       And I click on background "<position>" outside dialog
-    Then dialog is visible
+    Then Dialog is visible
     Examples:
       | position |
       | top      |

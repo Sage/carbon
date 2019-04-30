@@ -1,8 +1,9 @@
-import { knobsTab } from '../locators/common-locators';
+import { knobsTab } from '../locators';
 import { DEBUG_FLAG } from '.';
 
 function prepareUrl(component, suffix, iFrameOnly) {
   let url = Cypress.env('localhost');
+  // eslint-disable-next-line no-unused-expressions
   iFrameOnly ? url += Cypress.env('iframe') : url += Cypress.env('story');
   return url + component.toLowerCase().replace(/ /g, '-') + Cypress.env(suffix);
 }
@@ -39,4 +40,9 @@ export function setSlidebar(selector, value) {
     nativeInputValueSetter.call(range, value);
     range.dispatchEvent(new Event('change', { value, bubbles: true }));
   });
+}
+
+export function pressESCKey() {
+  // using Shift+Esc - because of storybook shortcuts overeride
+  cy.iFrame('body').type('{shift}{esc}');
 }

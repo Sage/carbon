@@ -1,7 +1,6 @@
 import {
-  animatedMenuButtonLabelPreview, animatedMenuButtonPreview,
-  animatedMenuButtonDirectionSelect,
-} from '../../locators/animated-menu-button-locators';
+  animatedMenuButtonPreview, animatedMenuButtonDirectionSelect, animatedMenuButtonLabel,
+} from '../../locators/animated-menu-button';
 
 const CLASS_PREFIX = 'carbon-animated-menu-button--';
 
@@ -14,7 +13,7 @@ When('I trigger Animated Menu Button preview', () => {
 });
 
 Then('Animated Menu Button label on preview is {string}', (text) => {
-  animatedMenuButtonLabelPreview().should('have.text', text);
+  animatedMenuButtonLabel().should('have.text', text);
 });
 
 Then('Animated Menu Button direction on preview is {string}', (direction) => {
