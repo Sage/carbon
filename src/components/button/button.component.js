@@ -14,14 +14,8 @@ const Button = (props) => {
     iconPosition,
     theme,
     forwardRef,
-    href,
-    to,
     ...rest
   } = props;
-
-  if (href || to) {
-    return <Link { ...props } />;
-  }
 
   return (
     <StyledButton
@@ -39,20 +33,31 @@ const Button = (props) => {
   );
 };
 
-function renderChildren({
-  iconType,
-  iconPosition,
-  size,
-  subtext,
-  children
-}) {
+function renderChildren(props) {
+  const {
+    iconType,
+    iconPosition,
+    size,
+    subtext,
+    children,
+    href,
+    to
+  } = props;
+  let buttonContent = (
+    <>
+      <span data-element='main-text'>{ children }</span>
+      { size === 'large' && <StyledButtonSubtext data-element='subtext'>{ subtext }</StyledButtonSubtext> }
+    </>
+  );
+
+  if (href || to) {
+    buttonContent = <Link { ...props }>{buttonContent}</Link>;
+  }
+
   return (
     <>
       { iconType && iconPosition === 'before' && <Icon type={ iconType } /> }
-      <span>
-        <span data-element='main-text'>{ children }</span>
-        { size === 'large' && <StyledButtonSubtext data-element='subtext'>{ subtext }</StyledButtonSubtext> }
-      </span>
+      {buttonContent}
       { iconType && iconPosition === 'after' && <Icon type={ iconType } /> }
     </>
   );
