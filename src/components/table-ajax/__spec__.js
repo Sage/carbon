@@ -2,7 +2,7 @@ import React from 'react';
 import Immutable from 'immutable';
 import { TableAjax, TableRow } from './table-ajax';
 import { shallow, mount } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Pager from './../pager';
 
 import Request from 'superagent';
@@ -277,8 +277,59 @@ describe('TableAjax', () => {
 
         instance.emitOnChangeCallback('data', options);
         jest.runTimersToTime(251);
-
+        expect(Request.get).toHaveBeenLastCalledWith('/test');
         expect(instance.resetTableHeight).toBeCalled();
+      });
+    });
+
+    describe('when postAction is true', () => {
+      beforeEach(() => {
+        spy = jasmine.createSpy('onChange spy');
+        wrapper = mount(
+          <TableAjax
+            onAjaxError={ () => {} }
+            className="foo"
+            path='/test'
+            onChange={ spy }
+            postAction
+          >
+            <TableRow />
+          </TableAjax>
+        );
+        instance = wrapper.instance();
+      });
+
+      it('resets the select all component', () => {
+        let selectAllComponent = {
+          setState: jasmine.createSpy()
+        };
+        instance.selectAllComponent = selectAllComponent;
+        instance.emitOnChangeCallback('data', options);
+        expect(selectAllComponent.setState).toHaveBeenCalledWith({ selected: false });
+        expect(instance.selectAllComponent).toBe(null);
+      });
+
+      describe('when page size is less than previous page size', () => {
+        it('calls resetTableHeight on successful response', () => {
+          instance.resetTableHeight = jest.fn();
+          options = { currentPage: '1', pageSize: '5' }
+          Request.__setMockResponse({
+            status() {
+              return 200;
+            },
+            ok() {
+              return true;
+            },
+            body: {
+              data: 'foo'
+            }
+          });
+
+          instance.emitOnChangeCallback('data', options);
+          jest.runTimersToTime(251);
+          expect(Request.post).toHaveBeenLastCalledWith('/test');
+          expect(instance.resetTableHeight).toBeCalled();
+        });
       });
     });
   });
@@ -353,16 +404,9 @@ describe('TableAjax', () => {
   });
 
   describe('handleRequest', () => {
-    let wrapper,
-        response;
+    let wrapper;
 
     beforeEach(() => {
-      response = {
-        body: {
-          records: 1
-        }
-      };
-
       wrapper = mount(
         <TableAjax
           path='/test'

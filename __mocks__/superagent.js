@@ -27,12 +27,8 @@ var Request = (method, url) => {
   return Request;
 }
 
-Request.post = () => {
-  return Request;
-};
-Request.get = () => {
-  return Request;
-};
+Request.post = jest.fn().mockReturnThis();
+Request.get = jest.fn().mockReturnThis();
 Request.send = () => {
   return Request;
 };
