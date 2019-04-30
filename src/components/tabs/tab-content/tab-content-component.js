@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyledTabHeader from './tab-header.style';
+import StyledTabContent from './tab-content-style';
 
-const TabHeader = ({
-  isTabSelected, className, tabId, id, onClick, onKeyDown, tabIndex, position, title
+const TabContent = ({
+  isTabSelected, className, tabId, id, onClick, onKeyDown, tabIndex, position, children
 }) => {
   return (
-    <StyledTabHeader
+    <StyledTabContent
       isTabSelected={ isTabSelected }
       aria-selected={ isTabSelected }
       className={ className }
@@ -19,17 +19,17 @@ const TabHeader = ({
       tabIndex={ tabIndex }
       position={ position }
     >
-      {title}
-    </StyledTabHeader>
+      {children}
+    </StyledTabContent>
   );
 };
 
-TabHeader.defaultProps = {
+TabContent.defaultProps = {
   position: 'horizontal'
 };
 
-TabHeader.propTypes = {
-  title: PropTypes.string.isRequired,
+TabContent.propTypes = {
+  children: PropTypes.node,
   isTabSelected: PropTypes.bool,
   position: PropTypes.string,
   className: PropTypes.string,
@@ -40,4 +40,4 @@ TabHeader.propTypes = {
   tabIndex: PropTypes.string
 };
 
-export default TabHeader;
+export default TabContent;

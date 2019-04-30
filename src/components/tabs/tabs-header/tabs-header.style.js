@@ -5,7 +5,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import baseTheme from '../../../style/themes/base';
 
 const StyledTabHeaders = styled.ul`
-box-shadow: inset 0px -2px 0px 0px ${({ theme }) => theme.colors.disabled.button};
+box-shadow: inset 0px -2px 0px 0px ${({ theme }) => theme.disabled.button};
 cursor: pointer;
 list-style: none;
 margin: 0 0 10px;
@@ -18,7 +18,7 @@ ${({ align }) => align === 'right'
 
 ${({ position }) => position === 'vertical'
   && css`
-    box-shadow: inset -2px 0px 0px 0px ${({ theme }) => theme.colors.disabled.button};
+    box-shadow: inset -2px 0px 0px 0px ${({ theme }) => theme.disabled.button};
     display: inline-block;
     width: 20%;
     margin: 0 10px 0;

@@ -29,7 +29,11 @@ class Tabs extends React.Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
+    this.setInitialSeletedTab();
+  }
+
+  setInitialSeletedTab() {
     let selectedTabId;
 
     if (this.props.selectedTabId) {
@@ -60,33 +64,29 @@ class Tabs extends React.Component {
     this.setState({ selectedTabId });
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.selectedTabId !== nextProps.selectedTabId && nextProps.selectedTabId !== this.state.selectedTabId) {
-      this.updateVisibleTab(nextProps.selectedTabId);
+  static getDerivedStateFromProps(nextProps, prevState) {
+    if (prevState.selectedTabId !== nextProps.selectedTabId && nextProps.selectedTabId !== prevState.selectedTabId) {
+      return { selectedTabId: nextProps.selectedTabId };
     }
+
+    return null;
   }
 
-  // ** Store the window object as property. */
+  componentDidUpdate(nextProps) {
+    const { selectedTabId } = nextProps;
+    this.updateVisibleTab(selectedTabId);
+  }
+
   _window = Browser.getWindow();
 
-  /**
-   * Sets the validity state of the given tab (id) to the
-   * given state (valid)
-   */
   changeValidity = (id, valid) => {
     this.setState(prevState => ({ tabValidity: prevState.tabValidity.set(id, valid) }));
   };
 
-  /**
-   * Sets the warning state of the given tab (id)
-   */
   changeWarning = (id, warning) => {
     this.setState(prevState => ({ tabWarning: prevState.tabWarning.set(id, warning) }));
   };
 
-  /**
-   * Handles the changing of tabs with the mouse
-   */
   handleTabClick = (ev) => {
     if (Event.isEventType(ev, 'keydown')) {
       return;
@@ -133,23 +133,14 @@ class Tabs extends React.Component {
     this.focusTab(this[nextRef]);
   }
 
-  /**
-   * Updates the currently visible tab
-   */
-  updateVisibleTab(tabid) {
-    const url = `${this._window.location.origin}${this._window.location.pathname}#${tabid}`;
+  updateVisibleTab(tabId) {
+    const url = `${this._window.location.origin}${this._window.location.pathname}#${tabId}`;
     this._window.history.replaceState(null, 'change-tab', url);
-
-    this.setState({ selectedTabId: tabid });
-
     if (this.props.onTabChange) {
-      this.props.onTabChange(tabid);
+      this.props.onTabChange(tabId);
     }
   }
 
-  /**
-   * Focuses the tab for the reference specified
-   */
   focusTab(ref) {
     const domNode = ReactDOM.findDOMNode(ref); // eslint-disable-line react/no-find-dom-node
     domNode.focus();
@@ -168,58 +159,47 @@ class Tabs extends React.Component {
     });
   };
 
-  // ** Returns true/false for if the given tab id is selected. */
   isTabSelected = tabId => tabId === this.state.selectedTabId;
 
-  /**
-   * The children nodes converted into an Array
-   */
   get children() {
     return compact(React.Children.toArray(this.props.children));
   }
 
-  /**
-   * Array of the tabIds for the child nodes
-   */
   get tabIds() {
     return this.children.map(child => child.props.tabId);
   }
 
-  /**
-   * Build the headers for the tab component
-   */
-  get tabHeaders() {
-    this.tabRefs = [];
-    const tabHeaders = this.children.map((child, index) => {
-      const ref = `${child.props.tabId}-tab`;
-      this.tabRefs.push(ref);
-      return (
-        <TabHeader
-          position={ this.props.position }
-          isTabSelected={ this.isTabSelected(child.props.tabId) }
-          title={ child.props.title }
-          ariaSelected={ this.isTabSelected(child.props.tabId) }
-          className={ this.tabHeaderClasses(child) }
-          dataTabId={ child.props.tabId }
-          id={ ref }
-          key={ ref }
-          onClick={ this.handleTabClick }
-          onKeyDown={ this.handleKeyDown(index) }
-          role='tab'
-          tabIndex={ this.isTabSelected(child.props.tabId) ? '0' : '-1' }
-        />
-      );
-    });
+  // get tabHeaders() {
+  //   this.tabRefs = [];
+  //   const tabHeaders = this.children.map((child, index) => {
+  //     const ref = `${child.props.tabId}-tab`;
+  //     this.tabRefs.push(ref);
+  //     return (
+  //       <TabHeader
+  //         position={ this.props.position }
+  //         isTabSelected={ this.isTabSelected(child.props.tabId) }
+  //         title={ child.props.title }
+  //         className={ this.tabHeaderClasses(child) }
+  //         tabId={ child.props.tabId }
+  //         id={ ref }
+  //         key={ ref }
+  //         onClick={ this.handleTabClick }
+  //         onKeyDown={ this.handleKeyDown(index) }
+  //         role='tab'
+  //         tabIndex={ this.isTabSelected(child.props.tabId) ? '0' : '-1' }
+  //       />
+  //     );
+  //   });
 
-    return (
-      <TabsHeader
-        align={ this.props.align } position={ this.props.position }
-        role='tablist'
-      >
-        {tabHeaders}
-      </TabsHeader>
-    );
-  }
+  //   return (
+  //     <TabsHeader
+  //       align={ this.props.align } position={ this.props.position }
+  //       role='tablist'
+  //     >
+  //       {tabHeaders}
+  //     </TabsHeader>
+  //   );
+  // }
 
   /**
    * Builds the single currently selected tab
@@ -233,6 +213,14 @@ class Tabs extends React.Component {
       }
     });
 
+    // return (
+    //   <Tab
+    //     role='tabPanel' position={ this.props.position }
+    //     isTabSelected={ this.isTabSelected(visibleTab.props.tabId) }
+    //   >
+    //     {visibleTab.props.children}
+    //   </Tab>
+    // );
     return React.cloneElement(visibleTab, { isTabSelected: this.isTabSelected(visibleTab.props.tabId) });
   }
 
@@ -244,16 +232,15 @@ class Tabs extends React.Component {
       return this.visibleTab;
     }
 
-    const tabs = this.children.map((child, index) => {
+    const tabs = this.children.map((tab) => {
       return (
         <Tab
+          tabId={ tab.props.tabId }
           role='tabPanel'
           position={ this.props.position }
-          key={ this.tabRefs[index] }
-          ariaLabelledby={ this.tabRefs[index] }
-          isTabSelected={ this.isTabSelected(child.props.tabId) }
+          isTabSelected={ this.isTabSelected(tab.props.tabId) }
         >
-          {child.props.children}
+          {tab.props.children}
         </Tab>
       );
     });
