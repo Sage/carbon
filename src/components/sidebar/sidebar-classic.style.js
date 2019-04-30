@@ -20,7 +20,8 @@ const sidebarClassicStyle = ({ theme }) => theme.name === THEMES.classic && css`
 
 const sidebarCloseClassicStyle = ({ theme }) => theme.name === THEMES.classic && css`
     color: rgba(0, 0, 0, 0.85);
-
+    top: 15px;
+    
     &:hover {
         color: #255BC7;
     };

@@ -150,6 +150,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
   bottom: 0;
   position: fixed;
   top: 0;
+  padding: 27px 32px 32px 32px;
   z-index: 1002;
   width: 150px;
   box-shadow: 0 10px 30px 0 rgba(0,20,29,0.1),0 30px 60px 0 rgba(0,20,29,0.1);
@@ -228,6 +229,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
   bottom: 0;
   position: fixed;
   top: 0;
+  padding: 27px 32px 32px 32px;
   z-index: 1002;
   
   ",
@@ -358,10 +360,11 @@ exports[`SidebarStyle When classic style is passed to the component should rende
   cursor: pointer;
   position: absolute;
   right: 20px;
-  top: 15px;
+  top: 27px;
   z-index: 1;
   color: #668491;
   color: rgba(0,0,0,0.85);
+  top: 15px;
 }
 
 .c0:hover {
@@ -432,7 +435,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
   cursor: pointer;
   position: absolute;
   right: 20px;
-  top: 15px;
+  top: 27px;
   z-index: 1;
   color: ",
             [Function],

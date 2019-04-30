@@ -18,6 +18,7 @@ const SidebarStyle = styled.div`
   bottom: 0;
   position: fixed;
   top: 0;
+  padding: 27px 32px 32px 32px;
   z-index: 1002;
   
   ${({ size }) => size && css`
@@ -36,7 +37,7 @@ const SidebarCloseStyle = styled.div`
   cursor: pointer;
   position: absolute;
   right: 20px;
-  top: 15px;
+  top: 27px;
   z-index: 1;
   color: ${({ theme }) => theme.colors.border};
 

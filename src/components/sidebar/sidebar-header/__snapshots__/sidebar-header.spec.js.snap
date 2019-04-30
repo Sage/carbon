@@ -5,8 +5,11 @@ exports[`SidebarHeaderStyle should render base sidebar header 1`] = `
   background-color: #FFFFFF;
   box-shadow: inset 0 -1px 0 0 #CCD6DA;
   box-sizing: content-box;
-  padding: 27px 32px 32px 32px;
   position: relative;
+  padding: 27px 32px 32px 32px;
+  top: -27px;
+  margin-left: -32px;
+  width: 100%;
   color: rgba(0,0,0,0.9);
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
@@ -73,8 +76,11 @@ exports[`SidebarHeaderStyle should render base sidebar header 1`] = `
             [Function],
             ";
   box-sizing: content-box;
-  padding: 27px 32px 32px 32px;
   position: relative;
+  padding: 27px 32px 32px 32px;
+  top: -27px;
+  margin-left: -32px;
+  width: 100%;
   color: ",
             [Function],
             ";
@@ -192,8 +198,11 @@ exports[`SidebarHeaderStyle when classic theme is provided to the component shou
   background-color: #FFFFFF;
   box-shadow: inset 0 -1px 0 0 #CCD6DA;
   box-sizing: content-box;
-  padding: 27px 32px 32px 32px;
   position: relative;
+  padding: 27px 32px 32px 32px;
+  top: -27px;
+  margin-left: -32px;
+  width: 100%;
   color: rgba(0,0,0,0.9);
   -webkit-transition: all 0.2s ease;
   transition: all 0.2s ease;
@@ -260,8 +269,11 @@ exports[`SidebarHeaderStyle when classic theme is provided to the component shou
             [Function],
             ";
   box-sizing: content-box;
-  padding: 27px 32px 32px 32px;
   position: relative;
+  padding: 27px 32px 32px 32px;
+  top: -27px;
+  margin-left: -32px;
+  width: 100%;
   color: ",
             [Function],
             ";
