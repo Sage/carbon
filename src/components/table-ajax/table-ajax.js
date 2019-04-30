@@ -351,27 +351,16 @@ class TableAjax extends Table {
         dataState: 'requested',
         ariaBusy: true
       });
-      if (this.props.postAction) {
-        this._request = Request
-          .post(this.props.path)
-          .set(this.getHeaders())
-          .query(this.queryParams(element, options))
-          .end((err, response) => {
-            this._hasRetreivedData = true;
-            this.handleResponse(err, response);
-            if (resetHeight) { this.resetTableHeight(); }
-          });
-      } else {
-        this._request = Request
-          .get(this.props.path)
-          .set(this.getHeaders())
-          .query(this.queryParams(element, options))
-          .end((err, response) => {
-            this._hasRetreivedData = true;
-            this.handleResponse(err, response);
-            if (resetHeight) { this.resetTableHeight(); }
-          });
-      }
+
+      const verb = this.props.postAction ? 'post' : 'get';
+      this._request = Request[verb](this.props.path)
+        .set(this.getHeaders())
+        .query(this.queryParams(element, options))
+        .end((err, response) => {
+          this._hasRetreivedData = true;
+          this.handleResponse(err, response);
+          if (resetHeight) { this.resetTableHeight(); }
+        });
     }, timeout);
   }
 
