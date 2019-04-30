@@ -37,7 +37,7 @@ const SidebarCloseStyle = styled.div`
   cursor: pointer;
   position: absolute;
   right: 20px;
-  top: 27px;
+  top: 26px;
   z-index: 1;
   color: ${({ theme }) => theme.colors.border};
 

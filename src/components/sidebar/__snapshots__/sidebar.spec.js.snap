@@ -360,7 +360,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
   cursor: pointer;
   position: absolute;
   right: 20px;
-  top: 27px;
+  top: 26px;
   z-index: 1;
   color: #668491;
   color: rgba(0,0,0,0.85);
@@ -435,7 +435,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
   cursor: pointer;
   position: absolute;
   right: 20px;
-  top: 27px;
+  top: 26px;
   z-index: 1;
   color: ",
             [Function],
