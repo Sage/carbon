@@ -3,7 +3,7 @@ import Request from 'superagent';
 import serialize from '../../utils/helpers/serialize';
 import {
   Table, TableRow, TableCell, TableHeader, TableSubheader
-} from '../table';
+} from '../table/table.component';
 import Logger from '../../utils/logger';
 
 class TableAjax extends Table {

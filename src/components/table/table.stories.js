@@ -8,7 +8,7 @@ import Button from '../button';
 import MultiActionButton from '../multi-action-button';
 import {
   Table, TableCell, TableHeader, TableRow
-} from './table';
+} from '.';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 
