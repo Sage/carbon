@@ -371,7 +371,6 @@ class TableAjax extends Table {
             if (resetHeight) { this.resetTableHeight(); }
           });
       }
-
     }, timeout);
   }
 
