@@ -2,21 +2,9 @@
 
 exports[`Checkbox Classic theme Large theme renders as expected 1`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -64,13 +52,13 @@ exports[`Checkbox Classic theme Large theme renders as expected 1`] = `
   width: auto;
 }
 
-.c0 .c25 .c24 {
+.c0 .c25 .c26 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c25 .c24:hover,
-.c0 .c25 .c24:focus {
+.c0 .c25 .c26:hover,
+.c0 .c25 .c26:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -78,7 +66,7 @@ exports[`Checkbox Classic theme Large theme renders as expected 1`] = `
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c26 {
+.c0 .c24 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
@@ -88,7 +76,7 @@ exports[`Checkbox Classic theme Large theme renders as expected 1`] = `
   width: %;
 }
 
-.c0 .c26 {
+.c0 .c24 {
   margin-left: %;
 }
 
@@ -824,6 +812,20 @@ exports[`Checkbox Classic theme Large theme renders as expected 1`] = `
 
 .c23 .c3 {
   padding-left: 6px;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -860,21 +862,9 @@ exports[`Checkbox Classic theme Large theme renders as expected 1`] = `
 
 exports[`Checkbox Classic theme Medium theme renders as expected 1`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -922,13 +912,13 @@ exports[`Checkbox Classic theme Medium theme renders as expected 1`] = `
   width: auto;
 }
 
-.c0 .c25 .c24 {
+.c0 .c25 .c26 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c25 .c24:hover,
-.c0 .c25 .c24:focus {
+.c0 .c25 .c26:hover,
+.c0 .c25 .c26:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -936,7 +926,7 @@ exports[`Checkbox Classic theme Medium theme renders as expected 1`] = `
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c26 {
+.c0 .c24 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
@@ -946,7 +936,7 @@ exports[`Checkbox Classic theme Medium theme renders as expected 1`] = `
   width: %;
 }
 
-.c0 .c26 {
+.c0 .c24 {
   margin-left: %;
 }
 
@@ -1682,6 +1672,20 @@ exports[`Checkbox Classic theme Medium theme renders as expected 1`] = `
 
 .c23 .c3 {
   padding-left: 6px;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -1718,21 +1722,9 @@ exports[`Checkbox Classic theme Medium theme renders as expected 1`] = `
 
 exports[`Checkbox Classic theme Small theme renders as expected 1`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -1780,13 +1772,13 @@ exports[`Checkbox Classic theme Small theme renders as expected 1`] = `
   width: auto;
 }
 
-.c0 .c25 .c24 {
+.c0 .c25 .c26 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c25 .c24:hover,
-.c0 .c25 .c24:focus {
+.c0 .c25 .c26:hover,
+.c0 .c25 .c26:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -1794,7 +1786,7 @@ exports[`Checkbox Classic theme Small theme renders as expected 1`] = `
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c26 {
+.c0 .c24 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
@@ -1804,7 +1796,7 @@ exports[`Checkbox Classic theme Small theme renders as expected 1`] = `
   width: %;
 }
 
-.c0 .c26 {
+.c0 .c24 {
   margin-left: %;
 }
 
@@ -2542,6 +2534,20 @@ exports[`Checkbox Classic theme Small theme renders as expected 1`] = `
   padding-left: 6px;
 }
 
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
+}
+
 <div
   className="c0"
   data-component="checkbox"
@@ -2576,21 +2582,9 @@ exports[`Checkbox Classic theme Small theme renders as expected 1`] = `
 
 exports[`Checkbox Classic theme renders as expected 1`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -3081,13 +3075,13 @@ exports[`Checkbox Classic theme renders as expected 1`] = `
   width: auto;
 }
 
-.c0 .c21 .c20 {
+.c0 .c21 .c22 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c21 .c20:hover,
-.c0 .c21 .c20:focus {
+.c0 .c21 .c22:hover,
+.c0 .c21 .c22:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -3095,7 +3089,7 @@ exports[`Checkbox Classic theme renders as expected 1`] = `
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c22 {
+.c0 .c20 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
@@ -3105,7 +3099,7 @@ exports[`Checkbox Classic theme renders as expected 1`] = `
   width: %;
 }
 
-.c0 .c22 {
+.c0 .c20 {
   margin-left: %;
 }
 
@@ -3129,7 +3123,7 @@ exports[`Checkbox Classic theme renders as expected 1`] = `
   width: 15px;
 }
 
-.c0 .c22 {
+.c0 .c20 {
   margin-left: 15px;
 }
 
@@ -3137,7 +3131,7 @@ exports[`Checkbox Classic theme renders as expected 1`] = `
   content: '\\E943';
 }
 
-.c0 .c22,
+.c0 .c20,
 .c0 .c21 {
   padding-left: 6px;
 }
@@ -3156,6 +3150,20 @@ exports[`Checkbox Classic theme renders as expected 1`] = `
 .c0 label:hover + .c3 .c5:not([disabled]) + svg {
   border: 1px solid #1963f6;
   outline: none;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -3192,21 +3200,9 @@ exports[`Checkbox Classic theme renders as expected 1`] = `
 
 exports[`Checkbox Classic theme renders the appropriate styles when checked=true 1`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -3755,13 +3751,13 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   width: auto;
 }
 
-.c0 .c22 .c21 {
+.c0 .c22 .c23 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c22 .c21:hover,
-.c0 .c22 .c21:focus {
+.c0 .c22 .c23:hover,
+.c0 .c22 .c23:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -3769,7 +3765,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c23 {
+.c0 .c21 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
@@ -3783,7 +3779,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   width: %;
 }
 
-.c0 .c23 {
+.c0 .c21 {
   margin-left: %;
 }
 
@@ -3807,7 +3803,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   width: 15px;
 }
 
-.c0 .c23 {
+.c0 .c21 {
   margin-left: 15px;
 }
 
@@ -3815,7 +3811,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   content: '\\E943';
 }
 
-.c0 .c23,
+.c0 .c21,
 .c0 .c22 {
   padding-left: 6px;
 }
@@ -3838,6 +3834,20 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
 
 .c0 svg path {
   fill: rgba(0,0,0,0.85);
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -3875,21 +3885,9 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
 
 exports[`Checkbox Classic theme renders the appropriate styles when checked=true 2`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -4496,13 +4494,13 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   width: auto;
 }
 
-.c0 .c23 .c22 {
+.c0 .c23 .c24 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c23 .c22:hover,
-.c0 .c23 .c22:focus {
+.c0 .c23 .c24:hover,
+.c0 .c23 .c24:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -4510,7 +4508,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c24 {
+.c0 .c22 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
@@ -4521,7 +4519,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
 }
 
 .c0 .c23,
-.c0 .c23 .c22 {
+.c0 .c23 .c24 {
   color: #b3c2c8;
 }
 
@@ -4548,7 +4546,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   width: %;
 }
 
-.c0 .c24 {
+.c0 .c22 {
   margin-left: %;
 }
 
@@ -4572,7 +4570,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   width: 15px;
 }
 
-.c0 .c24 {
+.c0 .c22 {
   margin-left: 15px;
 }
 
@@ -4580,7 +4578,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   content: '\\E943';
 }
 
-.c0 .c24,
+.c0 .c22,
 .c0 .c23 {
   padding-left: 6px;
 }
@@ -4606,7 +4604,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
 }
 
 .c0 .c23,
-.c0 .c23 .c22 {
+.c0 .c23 .c24 {
   color: #003349;
 }
 
@@ -4617,6 +4615,20 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
 
 .c0 svg path {
   fill: #4d7080;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -4656,21 +4668,9 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
 
 exports[`Checkbox Classic theme renders the appropriate styles when disabled=true 1`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -5345,13 +5345,13 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
   width: auto;
 }
 
-.c0 .c24 .c23 {
+.c0 .c24 .c25 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c24 .c23:hover,
-.c0 .c24 .c23:focus {
+.c0 .c24 .c25:hover,
+.c0 .c24 .c25:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -5359,14 +5359,14 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c25 {
+.c0 .c23 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
 .c0 .c24,
-.c0 .c24 .c23 {
+.c0 .c24 .c25 {
   color: #b3c2c8;
 }
 
@@ -5393,7 +5393,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
   width: %;
 }
 
-.c0 .c25 {
+.c0 .c23 {
   margin-left: %;
 }
 
@@ -5417,7 +5417,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
   width: 15px;
 }
 
-.c0 .c25 {
+.c0 .c23 {
   margin-left: 15px;
 }
 
@@ -5425,7 +5425,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
   content: '\\E943';
 }
 
-.c0 .c25,
+.c0 .c23,
 .c0 .c24 {
   padding-left: 6px;
 }
@@ -5447,7 +5447,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
 }
 
 .c0 .c24,
-.c0 .c24 .c23 {
+.c0 .c24 .c25 {
   color: #003349;
 }
 
@@ -5458,6 +5458,20 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
 
 .c0 svg path {
   fill: #b3c2c8;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -5496,21 +5510,9 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
 
 exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInline=true and reverse=true 1`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -6253,13 +6255,13 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
   width: auto;
 }
 
-.c0 .c25 .c24 {
+.c0 .c25 .c26 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c25 .c24:hover,
-.c0 .c25 .c24:focus {
+.c0 .c25 .c26:hover,
+.c0 .c25 .c26:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -6267,13 +6269,13 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c26 {
+.c0 .c24 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c0 .c26 {
+.c0 .c24 {
   display: inline;
   margin: 0;
   padding-left: 0;
@@ -6284,7 +6286,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
   width: %;
 }
 
-.c0 .c26 {
+.c0 .c24 {
   margin-right: %;
 }
 
@@ -6292,7 +6294,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
   width: %;
 }
 
-.c0 .c26 {
+.c0 .c24 {
   margin-left: 0;
 }
 
@@ -6316,7 +6318,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
   width: 15px;
 }
 
-.c0 .c26 {
+.c0 .c24 {
   margin-left: 15px;
 }
 
@@ -6324,12 +6326,12 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
   content: '\\E943';
 }
 
-.c0 .c26,
+.c0 .c24,
 .c0 .c25 {
   padding-left: 6px;
 }
 
-.c0 .c26,
+.c0 .c24,
 .c0 .c25 {
   padding-top: 0px;
   padding-bottom: 0px;
@@ -6346,12 +6348,26 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
   outline: none;
 }
 
-.c0 .c26 {
+.c0 .c24 {
   margin-left: 0;
 }
 
 .c0 .c3 {
   padding-left: 6px;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -6388,21 +6404,9 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
 
 exports[`Checkbox base theme renders as expected 1`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -6450,13 +6454,13 @@ exports[`Checkbox base theme renders as expected 1`] = `
   width: auto;
 }
 
-.c0 .c8 .c7 {
+.c0 .c8 .c9 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c8 .c7:hover,
-.c0 .c8 .c7:focus {
+.c0 .c8 .c9:hover,
+.c0 .c8 .c9:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -6464,7 +6468,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c9 {
+.c0 .c7 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
@@ -6474,12 +6478,26 @@ exports[`Checkbox base theme renders as expected 1`] = `
   width: %;
 }
 
-.c0 .c9 {
+.c0 .c7 {
   margin-left: %;
 }
 
 .c0 .c8 {
   width: %;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -6516,21 +6534,9 @@ exports[`Checkbox base theme renders as expected 1`] = `
 
 exports[`Checkbox base theme renders the appropriate styles when checked=true 1`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -6648,13 +6654,13 @@ exports[`Checkbox base theme renders the appropriate styles when checked=true 1`
   width: auto;
 }
 
-.c0 .c10 .c9 {
+.c0 .c10 .c11 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c10 .c9:hover,
-.c0 .c10 .c9:focus {
+.c0 .c10 .c11:hover,
+.c0 .c10 .c11:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -6662,7 +6668,7 @@ exports[`Checkbox base theme renders the appropriate styles when checked=true 1`
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c11 {
+.c0 .c9 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
@@ -6676,12 +6682,26 @@ exports[`Checkbox base theme renders the appropriate styles when checked=true 1`
   width: %;
 }
 
-.c0 .c11 {
+.c0 .c9 {
   margin-left: %;
 }
 
 .c0 .c10 {
   width: %;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -6719,21 +6739,9 @@ exports[`Checkbox base theme renders the appropriate styles when checked=true 1`
 
 exports[`Checkbox base theme renders the appropriate styles when checked=true 2`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -6882,13 +6890,13 @@ exports[`Checkbox base theme renders the appropriate styles when checked=true 2`
   width: auto;
 }
 
-.c0 .c11 .c10 {
+.c0 .c11 .c12 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c11 .c10:hover,
-.c0 .c11 .c10:focus {
+.c0 .c11 .c12:hover,
+.c0 .c11 .c12:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -6896,7 +6904,7 @@ exports[`Checkbox base theme renders the appropriate styles when checked=true 2`
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c12 {
+.c0 .c10 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
@@ -6907,7 +6915,7 @@ exports[`Checkbox base theme renders the appropriate styles when checked=true 2`
 }
 
 .c0 .c11,
-.c0 .c11 .c10 {
+.c0 .c11 .c12 {
   color: rgba(0,0,0,0.55);
 }
 
@@ -6934,12 +6942,26 @@ exports[`Checkbox base theme renders the appropriate styles when checked=true 2`
   width: %;
 }
 
-.c0 .c12 {
+.c0 .c10 {
   margin-left: %;
 }
 
 .c0 .c11 {
   width: %;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -6979,21 +7001,9 @@ exports[`Checkbox base theme renders the appropriate styles when checked=true 2`
 
 exports[`Checkbox base theme renders the appropriate styles when disabled=true 1`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -7183,13 +7193,13 @@ exports[`Checkbox base theme renders the appropriate styles when disabled=true 1
   width: auto;
 }
 
-.c0 .c12 .c11 {
+.c0 .c12 .c13 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c12 .c11:hover,
-.c0 .c12 .c11:focus {
+.c0 .c12 .c13:hover,
+.c0 .c12 .c13:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -7197,14 +7207,14 @@ exports[`Checkbox base theme renders the appropriate styles when disabled=true 1
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c13 {
+.c0 .c11 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
 .c0 .c12,
-.c0 .c12 .c11 {
+.c0 .c12 .c13 {
   color: rgba(0,0,0,0.55);
 }
 
@@ -7231,12 +7241,26 @@ exports[`Checkbox base theme renders the appropriate styles when disabled=true 1
   width: %;
 }
 
-.c0 .c13 {
+.c0 .c11 {
   margin-left: %;
 }
 
 .c0 .c12 {
   width: %;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -7275,21 +7299,9 @@ exports[`Checkbox base theme renders the appropriate styles when disabled=true 1
 
 exports[`Checkbox base theme renders the appropriate styles when error=true 1`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -7520,13 +7532,13 @@ exports[`Checkbox base theme renders the appropriate styles when error=true 1`] 
   width: auto;
 }
 
-.c0 .c13 .c12 {
+.c0 .c13 .c14 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c13 .c12:hover,
-.c0 .c13 .c12:focus {
+.c0 .c13 .c14:hover,
+.c0 .c13 .c14:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -7534,7 +7546,7 @@ exports[`Checkbox base theme renders the appropriate styles when error=true 1`] 
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c14 {
+.c0 .c12 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
@@ -7548,12 +7560,26 @@ exports[`Checkbox base theme renders the appropriate styles when error=true 1`] 
   width: %;
 }
 
-.c0 .c14 {
+.c0 .c12 {
   margin-left: %;
 }
 
 .c0 .c13 {
   width: %;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -7590,21 +7616,9 @@ exports[`Checkbox base theme renders the appropriate styles when error=true 1`] 
 
 exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline=true 1`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -7866,13 +7880,13 @@ exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline
   width: auto;
 }
 
-.c0 .c14 .c13 {
+.c0 .c14 .c15 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c14 .c13:hover,
-.c0 .c14 .c13:focus {
+.c0 .c14 .c15:hover,
+.c0 .c14 .c15:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -7880,13 +7894,13 @@ exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c15 {
+.c0 .c13 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c0 .c15 {
+.c0 .c13 {
   display: inline;
   margin: 0;
   padding-left: 0;
@@ -7897,12 +7911,26 @@ exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline
   width: %;
 }
 
-.c0 .c15 {
+.c0 .c13 {
   margin-left: %;
 }
 
 .c0 .c14 {
   width: %;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -7939,21 +7967,9 @@ exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline
 
 exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline=true 2`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -8246,13 +8262,13 @@ exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline
   width: auto;
 }
 
-.c0 .c15 .c14 {
+.c0 .c15 .c16 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c15 .c14:hover,
-.c0 .c15 .c14:focus {
+.c0 .c15 .c16:hover,
+.c0 .c15 .c16:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -8260,7 +8276,7 @@ exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c16 {
+.c0 .c14 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
@@ -8274,22 +8290,22 @@ exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline
   width: 24px;
 }
 
-.c0 .c16 {
+.c0 .c14 {
   margin-left: 24px;
 }
 
-.c0 .c16,
+.c0 .c14,
 .c0 .c15 {
   padding-left: 8px;
 }
 
-.c0 .c16,
+.c0 .c14,
 .c0 .c15 {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-.c0 .c16 {
+.c0 .c14 {
   display: inline;
   margin: 0;
   padding-left: 0;
@@ -8300,12 +8316,26 @@ exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline
   width: %;
 }
 
-.c0 .c16 {
+.c0 .c14 {
   margin-left: %;
 }
 
 .c0 .c15 {
   width: %;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -8323,6 +8353,7 @@ exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline
         className="c5 c6"
         id="guid-12345"
         role="checkbox"
+        size="large"
         type="checkbox"
       />
       <svg
@@ -8343,21 +8374,9 @@ exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline
 
 exports[`Checkbox base theme renders the appropriate styles when reverse=true 1`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -8782,13 +8801,13 @@ exports[`Checkbox base theme renders the appropriate styles when reverse=true 1`
   width: auto;
 }
 
-.c0 .c19 .c18 {
+.c0 .c19 .c20 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c19 .c18:hover,
-.c0 .c19 .c18:focus {
+.c0 .c19 .c20:hover,
+.c0 .c19 .c20:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -8796,7 +8815,7 @@ exports[`Checkbox base theme renders the appropriate styles when reverse=true 1`
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c20 {
+.c0 .c18 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
@@ -8806,7 +8825,7 @@ exports[`Checkbox base theme renders the appropriate styles when reverse=true 1`
   width: %;
 }
 
-.c0 .c20 {
+.c0 .c18 {
   margin-right: %;
 }
 
@@ -8814,8 +8833,22 @@ exports[`Checkbox base theme renders the appropriate styles when reverse=true 1`
   width: %;
 }
 
-.c0 .c20 {
+.c0 .c18 {
   margin-left: 0;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -8852,21 +8885,9 @@ exports[`Checkbox base theme renders the appropriate styles when reverse=true 1`
 
 exports[`Checkbox base theme renders the appropriate styles when reverse=true 2`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -9322,13 +9343,13 @@ exports[`Checkbox base theme renders the appropriate styles when reverse=true 2`
   width: auto;
 }
 
-.c0 .c20 .c19 {
+.c0 .c20 .c21 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c20 .c19:hover,
-.c0 .c20 .c19:focus {
+.c0 .c20 .c21:hover,
+.c0 .c20 .c21:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -9336,13 +9357,13 @@ exports[`Checkbox base theme renders the appropriate styles when reverse=true 2`
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c21 {
+.c0 .c19 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
 }
 
-.c0 .c21 {
+.c0 .c19 {
   display: inline;
   margin: 0;
   padding-left: 0;
@@ -9353,7 +9374,7 @@ exports[`Checkbox base theme renders the appropriate styles when reverse=true 2`
   width: %;
 }
 
-.c0 .c21 {
+.c0 .c19 {
   margin-right: %;
 }
 
@@ -9361,12 +9382,26 @@ exports[`Checkbox base theme renders the appropriate styles when reverse=true 2`
   width: %;
 }
 
-.c0 .c21 {
+.c0 .c19 {
   margin-left: 0;
 }
 
 .c0 .c3 {
   padding-left: 6px;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -9403,21 +9438,9 @@ exports[`Checkbox base theme renders the appropriate styles when reverse=true 2`
 
 exports[`Checkbox base theme renders the appropriate styles when setting a custom inputWidth 1`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -9749,13 +9772,13 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
   width: auto;
 }
 
-.c0 .c16 .c15 {
+.c0 .c16 .c17 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c16 .c15:hover,
-.c0 .c16 .c15:focus {
+.c0 .c16 .c17:hover,
+.c0 .c16 .c17:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -9763,7 +9786,7 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c17 {
+.c0 .c15 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
@@ -9773,12 +9796,26 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
   width: 50%;
 }
 
-.c0 .c17 {
+.c0 .c15 {
   margin-left: 50%;
 }
 
 .c0 .c16 {
   width: %;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -9815,21 +9852,9 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
 
 exports[`Checkbox base theme renders the appropriate styles when setting a custom inputWidth 2`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -10192,13 +10217,13 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
   width: auto;
 }
 
-.c0 .c17 .c16 {
+.c0 .c17 .c18 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c17 .c16:hover,
-.c0 .c17 .c16:focus {
+.c0 .c17 .c18:hover,
+.c0 .c17 .c18:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -10206,7 +10231,7 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c18 {
+.c0 .c16 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
@@ -10216,7 +10241,7 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
   width: 50%;
 }
 
-.c0 .c18 {
+.c0 .c16 {
   margin-right: 50%;
 }
 
@@ -10224,8 +10249,22 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
   width: %;
 }
 
-.c0 .c18 {
+.c0 .c16 {
   margin-left: 0;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -10262,21 +10301,9 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
 
 exports[`Checkbox base theme renders the appropriate styles when setting a custom labelWidth 1`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -10670,13 +10697,13 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
   width: auto;
 }
 
-.c0 .c18 .c17 {
+.c0 .c18 .c19 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c18 .c17:hover,
-.c0 .c18 .c17:focus {
+.c0 .c18 .c19:hover,
+.c0 .c18 .c19:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -10684,7 +10711,7 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c19 {
+.c0 .c17 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
@@ -10694,12 +10721,26 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
   width: %;
 }
 
-.c0 .c19 {
+.c0 .c17 {
   margin-left: %;
 }
 
 .c0 .c18 {
   width: 50%;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -10736,21 +10777,9 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
 
 exports[`Checkbox base theme renders the appropriate styles when size=large 1`] = `
 .c4 {
+  display: inline-block;
   padding-top: 1px;
-}
-
-.c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-}
-
-.c2 + .c1 {
-  margin-top: 16px;
+  position: relative;
 }
 
 .c6 {
@@ -10829,13 +10858,13 @@ exports[`Checkbox base theme renders the appropriate styles when size=large 1`] 
   width: auto;
 }
 
-.c0 .c9 .c8 {
+.c0 .c9 .c10 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c9 .c8:hover,
-.c0 .c9 .c8:focus {
+.c0 .c9 .c10:hover,
+.c0 .c9 .c10:focus {
   color: rgba(0,0,0,0.9);
 }
 
@@ -10843,7 +10872,7 @@ exports[`Checkbox base theme renders the appropriate styles when size=large 1`] 
   outline: solid 3px #FFDA7F;
 }
 
-.c0 .c10 {
+.c0 .c8 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
@@ -10857,11 +10886,11 @@ exports[`Checkbox base theme renders the appropriate styles when size=large 1`] 
   width: 24px;
 }
 
-.c0 .c10 {
+.c0 .c8 {
   margin-left: 24px;
 }
 
-.c0 .c10,
+.c0 .c8,
 .c0 .c9 {
   padding-left: 8px;
 }
@@ -10875,12 +10904,26 @@ exports[`Checkbox base theme renders the appropriate styles when size=large 1`] 
   width: %;
 }
 
-.c0 .c10 {
+.c0 .c8 {
   margin-left: %;
 }
 
 .c0 .c9 {
   width: %;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c2 + .c1 {
+  margin-top: 16px;
 }
 
 <div
@@ -10898,6 +10941,7 @@ exports[`Checkbox base theme renders the appropriate styles when size=large 1`] 
         className="c5 c6"
         id="guid-12345"
         role="checkbox"
+        size="large"
         type="checkbox"
       />
       <svg

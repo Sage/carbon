@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HiddenCheckbox renders as expected 1`] = `
+exports[`HiddenCheckableInput renders as expected 1`] = `
 .c0 {
   cursor: pointer;
   opacity: 0;
@@ -10,7 +10,5 @@ exports[`HiddenCheckbox renders as expected 1`] = `
 
 <input
   className="c0"
-  role="checkbox"
-  type="checkbox"
 />
 `;
