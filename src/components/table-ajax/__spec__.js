@@ -278,6 +278,7 @@ describe('TableAjax', () => {
         instance.emitOnChangeCallback('data', options);
         jest.runTimersToTime(251);
         expect(Request.get).toHaveBeenLastCalledWith('/test');
+        expect(Request.query).toHaveBeenLastCalledWith("page=1&rows=5");
         expect(instance.resetTableHeight).toBeCalled();
       });
     });
@@ -328,6 +329,7 @@ describe('TableAjax', () => {
           instance.emitOnChangeCallback('data', options);
           jest.runTimersToTime(251);
           expect(Request.post).toHaveBeenLastCalledWith('/test');
+          expect(Request.send).toHaveBeenLastCalledWith({ page: '1', rows: '5' });
           expect(instance.resetTableHeight).toBeCalled();
         });
       });

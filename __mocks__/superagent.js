@@ -5,11 +5,11 @@
 var mockDelay;
 var mockError;
 var mockResponse = {
-  status() { 
-    return 200; 
+  status() {
+    return 200;
   },
-  ok() { 
-    return true; 
+  ok() {
+    return true;
   },
   body: {
     walla: true
@@ -29,12 +29,8 @@ var Request = (method, url) => {
 
 Request.post = jest.fn().mockReturnThis();
 Request.get = jest.fn().mockReturnThis();
-Request.send = () => {
-  return Request;
-};
-Request.query = () => {
-  return Request;
-};
+Request.send = jest.fn().mockReturnThis();
+Request.query = jest.fn().mockReturnThis();
 Request.field = () => {
   return Request;
 };
