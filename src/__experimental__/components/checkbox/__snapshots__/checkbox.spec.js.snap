@@ -838,6 +838,7 @@ exports[`Checkbox Classic theme Large theme renders as expected 1`] = `
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -1695,6 +1696,7 @@ exports[`Checkbox Classic theme Medium theme renders as expected 1`] = `
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -2552,6 +2554,7 @@ exports[`Checkbox Classic theme Small theme renders as expected 1`] = `
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -3130,6 +3133,10 @@ exports[`Checkbox Classic theme renders as expected 1`] = `
   margin-left: 15px;
 }
 
+.c0 .c21 .carbon-icon::before {
+  content: '\\E943';
+}
+
 .c0 .c22,
 .c0 .c21 {
   padding-left: 6px;
@@ -3163,6 +3170,7 @@ exports[`Checkbox Classic theme renders as expected 1`] = `
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -3803,6 +3811,10 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   margin-left: 15px;
 }
 
+.c0 .c22 .carbon-icon::before {
+  content: '\\E943';
+}
+
 .c0 .c23,
 .c0 .c22 {
   padding-left: 6px;
@@ -3841,6 +3853,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -4563,6 +4576,10 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
   margin-left: 15px;
 }
 
+.c0 .c23 .carbon-icon::before {
+  content: '\\E943';
+}
+
 .c0 .c24,
 .c0 .c23 {
   padding-left: 6px;
@@ -4617,6 +4634,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when checked=true
       <input
         className="c5 c6"
         disabled={true}
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -5403,6 +5421,10 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
   margin-left: 15px;
 }
 
+.c0 .c24 .carbon-icon::before {
+  content: '\\E943';
+}
+
 .c0 .c25,
 .c0 .c24 {
   padding-left: 6px;
@@ -5452,6 +5474,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when disabled=tru
       <input
         className="c5 c6"
         disabled={true}
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -6253,6 +6276,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
 .c0 .c26 {
   display: inline;
   margin: 0;
+  padding-left: 0;
   width: auto;
 }
 
@@ -6296,6 +6320,10 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
   margin-left: 15px;
 }
 
+.c0 .c25 .carbon-icon::before {
+  content: '\\E943';
+}
+
 .c0 .c26,
 .c0 .c25 {
   padding-left: 6px;
@@ -6318,6 +6346,10 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
   outline: none;
 }
 
+.c0 .c26 {
+  margin-left: 0;
+}
+
 .c0 .c3 {
   padding-left: 6px;
 }
@@ -6334,6 +6366,7 @@ exports[`Checkbox Classic theme renders the appropriate styles when fieldHelpInl
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -6461,6 +6494,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -6663,6 +6697,7 @@ exports[`Checkbox base theme renders the appropriate styles when checked=true 1`
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -6922,6 +6957,7 @@ exports[`Checkbox base theme renders the appropriate styles when checked=true 2`
       <input
         className="c5 c6"
         disabled={true}
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -7217,6 +7253,7 @@ exports[`Checkbox base theme renders the appropriate styles when disabled=true 1
       <input
         className="c5 c6"
         disabled={true}
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -7531,6 +7568,7 @@ exports[`Checkbox base theme renders the appropriate styles when error=true 1`] 
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -7851,6 +7889,7 @@ exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline
 .c0 .c15 {
   display: inline;
   margin: 0;
+  padding-left: 0;
   width: auto;
 }
 
@@ -7878,6 +7917,7 @@ exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -8252,6 +8292,7 @@ exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline
 .c0 .c16 {
   display: inline;
   margin: 0;
+  padding-left: 0;
   width: auto;
 }
 
@@ -8280,6 +8321,7 @@ exports[`Checkbox base theme renders the appropriate styles when fieldHelpInline
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -8788,6 +8830,7 @@ exports[`Checkbox base theme renders the appropriate styles when reverse=true 1`
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -9302,6 +9345,7 @@ exports[`Checkbox base theme renders the appropriate styles when reverse=true 2`
 .c0 .c21 {
   display: inline;
   margin: 0;
+  padding-left: 0;
   width: auto;
 }
 
@@ -9337,6 +9381,7 @@ exports[`Checkbox base theme renders the appropriate styles when reverse=true 2`
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -9748,6 +9793,7 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -10194,6 +10240,7 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -10667,6 +10714,7 @@ exports[`Checkbox base theme renders the appropriate styles when setting a custo
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />
@@ -10848,6 +10896,7 @@ exports[`Checkbox base theme renders the appropriate styles when size=large 1`] 
     >
       <input
         className="c5 c6"
+        id="guid-12345"
         role="checkbox"
         type="checkbox"
       />

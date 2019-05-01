@@ -2,11 +2,14 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import Checkbox from './checkbox.component';
+import guid from '../../../utils/helpers/guid/guid';
 import classicTheme from '../../../style/themes/classic';
 import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
 import largeTheme from '../../../style/themes/large';
 
+jest.mock('../../../utils/helpers/guid');
+guid.mockImplementation(() => 'guid-12345');
 
 function render(props) {
   return TestRenderer.create(<Checkbox { ...props } />);

@@ -6,6 +6,7 @@ import CheckboxInputWrapper from './checkbox-input-wrapper.style';
 import FormField from '../form-field';
 import HiddenCheckbox from './hidden-checkbox.component';
 import CheckboxStyle from './checkbox.style';
+import guid from '../../../utils/helpers/guid/guid';
 
 const checkboxSprite = () => {
   return (
@@ -25,24 +26,28 @@ const checkboxSprite = () => {
 };
 
 const Checkbox = (props) => {
+  const inputId = guid();
+
   const formFieldProps = {
     ...validProps({ propTypes: Checkbox.propTypes, safeProps: ['fieldHelpInline'], props }),
+    labelFor: inputId,
+    labelHelpIcon: 'info',
     reverse: !props.reverse
   };
 
   const {
     children, fieldHelp, labelHelp, ...inputProps
-  } = validProps({ propTypes: Checkbox.propTypes, safeProps: ['disabled', 'onChange'], props });
+  } = {
+    ...validProps({ propTypes: Checkbox.propTypes, safeProps: ['disabled', 'onChange'], props }),
+    id: inputId
+  };
 
   return (
     <CheckboxStyle
       { ...tagComponent('checkbox', props) }
       { ...props }
     >
-      <FormField
-        labelHelpIcon='info'
-        { ...formFieldProps }
-      >
+      <FormField { ...formFieldProps }>
         <CheckboxInputWrapper>
           <HiddenCheckbox { ...inputProps } />
           {checkboxSprite()}

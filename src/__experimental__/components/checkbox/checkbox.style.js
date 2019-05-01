@@ -134,6 +134,7 @@ const StyledCheckbox = styled.div`
       ${FieldHelpStyle} {
         display: inline;
         margin: 0;
+        padding-left: 0;
         width: auto;
       }
     `}

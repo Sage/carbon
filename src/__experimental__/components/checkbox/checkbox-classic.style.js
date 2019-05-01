@@ -29,6 +29,10 @@ export default ({
     margin-left: 15px;
   }
 
+  ${LabelStyle} .carbon-icon::before {
+    content: '\\E943';
+  }
+
   ${FieldHelpStyle},
   ${LabelStyle} {
     padding-left: 6px;
@@ -70,6 +74,12 @@ export default ({
     }
 
     svg path { fill: ${() => (checked ? theme.disabled.border : theme.disabled.disabled)}; }
+  `}
+
+  ${() => fieldHelpInline && css`
+    ${FieldHelpStyle} {
+      margin-left: 0;
+    }
   `}
 
   ${() => fieldHelpInline && reverse && css`

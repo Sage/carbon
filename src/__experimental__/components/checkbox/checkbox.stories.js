@@ -62,7 +62,6 @@ function defaultKnobs() {
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ),
-    name: text('name', 'inputName'),
     size: select('size', OptionsHelper.sizesBinary, 'small')
   });
 }
