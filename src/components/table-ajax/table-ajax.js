@@ -352,15 +352,25 @@ class TableAjax extends Table {
         ariaBusy: true
       });
 
-      const verb = this.props.postAction ? 'post' : 'get';
-      this._request = Request[verb](this.props.path)
-        .set(this.getHeaders())
-        .query(this.queryParams(element, options))
-        .end((err, response) => {
-          this._hasRetreivedData = true;
-          this.handleResponse(err, response);
-          if (resetHeight) { this.resetTableHeight(); }
-        });
+      if (this.props.postAction) {
+        this._request = Request.post(this.props.path)
+          .set(this.getHeaders())
+          .send(this.queryParams(element, options))
+          .end((err, response) => {
+            this._hasRetreivedData = true;
+            this.handleResponse(err, response);
+            if (resetHeight) { this.resetTableHeight(); }
+          });
+      } else {
+        this._request = Request.get(this.props.path)
+          .set(this.getHeaders())
+          .query(this.queryParams(element, options))
+          .end((err, response) => {
+            this._hasRetreivedData = true;
+            this.handleResponse(err, response);
+            if (resetHeight) { this.resetTableHeight(); }
+          });
+      }
     }, timeout);
   }
 
@@ -419,6 +429,10 @@ class TableAjax extends Table {
     query.rows = options.pageSize;
     if (options.sortOrder) { query.sord = options.sortOrder; }
     if (options.sortedColumn) { query.sidx = options.sortedColumn; }
+
+    if (this.props.postAction) {
+      return query;
+    }
 
     if (this.props.formatRequest) {
       return serialize(this.props.formatRequest(query));
