@@ -1,13 +1,13 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
-import HiddenCheckbox from './hidden-checkbox.component';
+import HiddenCheckableInput from './hidden-checkbox.component';
 
 function render(props) {
-  return TestRenderer.create(<HiddenCheckbox { ...props } />);
+  return TestRenderer.create(<HiddenCheckableInput { ...props } />);
 }
 
-describe('HiddenCheckbox', () => {
+describe('HiddenCheckableInput', () => {
   it('renders as expected', () => {
     expect(render()).toMatchSnapshot();
   });

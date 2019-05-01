@@ -1,26 +1,26 @@
 import { css } from 'styled-components';
 import { THEMES } from '../../../style/themes';
-import CheckboxInputWrapper from './checkbox-input-wrapper.style';
+import StyledCheckableInput from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
-import HiddenCheckboxStyle from './hidden-checkbox.style';
+import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
 import StyledHelp from '../help/help.style';
 
 export default ({
   checked, disabled, fieldHelpInline, reverse, theme
 }) => theme.name === THEMES.classic && css`
-  ${CheckboxInputWrapper} {
+  ${StyledCheckableInput} {
     padding: 1px 0 0 0;
   }
 
-  ${HiddenCheckboxStyle},
+  ${HiddenCheckableInputStyle},
   svg {
     padding: 1px;
   }
 
-  ${CheckboxInputWrapper},
-  ${HiddenCheckboxStyle},
-  ${HiddenCheckboxStyle} + svg {
+  ${StyledCheckableInput},
+  ${HiddenCheckableInputStyle},
+  ${HiddenCheckableInputStyle} + svg {
     height: 15px;
     width: 15px;
   }
@@ -44,7 +44,7 @@ export default ({
     padding-bottom: 0px;
   }
 
-  ${HiddenCheckboxStyle}:not([disabled]) {
+  ${HiddenCheckableInputStyle}:not([disabled]) {
     &:focus + svg,
     &:hover + svg {
       border: 1px solid #1963f6;
@@ -52,7 +52,7 @@ export default ({
     }
   }
 
-  label:hover + ${CheckboxInputWrapper} ${HiddenCheckboxStyle}:not([disabled]) + svg {
+  label:hover + ${StyledCheckableInput} ${HiddenCheckableInputStyle}:not([disabled]) + svg {
     border: 1px solid #1963f6;
     outline: none;
   }
@@ -83,7 +83,7 @@ export default ({
   `}
 
   ${() => fieldHelpInline && reverse && css`
-    ${CheckboxInputWrapper} {
+    ${StyledCheckableInput} {
       padding-left: 6px;
     }
   `}
