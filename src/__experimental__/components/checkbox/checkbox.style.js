@@ -10,8 +10,8 @@ import checkBoxClassicStyle from './checkbox-classic.style';
 
 const StyledCheckbox = styled.div`
   ${({
-  checked, disabled, error, fieldHelpInline, inputWidth, labelAlign, labelWidth, reverse, size, theme
-}) => css`
+    checked, disabled, error, fieldHelpInline, inputWidth, labelAlign, labelWidth, reverse, size, theme
+  }) => css`
     padding-top: 8px;
 
     ${StyledCheckableInput} {
