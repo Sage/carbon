@@ -7,6 +7,7 @@ import I18n from 'i18n-js';
 import ActionToolbar from '../action-toolbar/action-toolbar';
 import Icon from '../icon/icon';
 import Link from '../link';
+import StyledTable, { StyledInternalTableWrapper } from './table.style';
 import TableRow from './table-row';
 import TableCell from './table-cell';
 import TableHeader from './table-header';
@@ -19,178 +20,6 @@ import './table.scss';
 import './table--secondary-theme.scss';
 
 class Table extends React.Component {
-  static propTypes = {
-    /**
-     * The actions to display in the toolbar
-     */
-    actions: PropTypes.object,
-
-    /**
-     * The extra actions to display in the toolbar
-     */
-    actionToolbarChildren: PropTypes.func,
-
-    /**
-     * Children elements
-     */
-    children: PropTypes.node,
-
-    /**
-     * Custom className
-     */
-    className: PropTypes.string,
-
-    /**
-     * Custom empty row
-     */
-    customEmptyRow: PropTypes.node,
-
-    /**
-     * Data used to filter the data
-     */
-    filter: PropTypes.object,
-
-    /**
-     * Emitted when table component changes e.g.
-     * Pager, sorting, filter
-     */
-    onChange: PropTypes.func,
-
-    /**
-     * Enable configure icon that triggers this callback on click
-     */
-    onConfigure: PropTypes.func,
-
-    /**
-     * Show the pagination footer
-     */
-    paginate: PropTypes.bool,
-
-    /**
-     * Pagination
-     * Current Visible Page
-     */
-    currentPage: PropTypes.string,
-
-    /**
-     * Pagination
-     * Page Size of grid (number of visible records)
-     */
-    pageSize: PropTypes.string,
-
-    /**
-     * Pagination
-     * Options for pageSize default - 10, 25, 50
-     */
-    pageSizeSelectionOptions: PropTypes.object,
-
-    /**
-     * Pagination
-     * Is the page size dropdown visible
-     */
-    showPageSizeSelection: PropTypes.bool,
-
-    /**
-     * Enables multi-selectable table rows.
-     */
-    selectable: PropTypes.bool,
-
-    /**
-     * Enables highlightable table rows.
-     */
-    highlightable: PropTypes.bool,
-
-    /**
-     * A callback for when a row is selected.
-     */
-    onSelect: PropTypes.func,
-
-    /**
-     * A callback for when a row is highlighted.
-     */
-    onHighlight: PropTypes.func,
-
-    /**
-     * A callback for when the page size changes.
-     */
-    onPageSizeChange: PropTypes.func,
-
-    /**
-     * Pagination
-     * Total number of records in the grid
-     */
-    totalRecords: PropTypes.string,
-
-    /**
-     * Allow table to shrink in size.
-     */
-    shrink: PropTypes.bool,
-
-    /**
-     * The currently sorted column.
-     */
-    sortedColumn: PropTypes.string,
-
-    /**
-     * The current sort order applied.
-     */
-    sortOrder: PropTypes.string,
-
-    /**
-     * TableRows to be wrapped in <thead>
-     */
-    thead: PropTypes.object,
-
-    /**
-     * Determines if you want the table to automatically render a tbody.
-     */
-    tbody: PropTypes.bool,
-
-    /**
-     * A string to render as the table's caption
-     */
-    caption: PropTypes.string,
-
-    /**
-     * The HTML id of the element that contains a description
-     * of this table.
-     */
-    'aria-describedby': PropTypes.string,
-
-    /**
-     * Renders as light or dark
-     * Uses common theme definition of 'primary' (dark, default) and 'secondary' (light)
-     */
-    theme: PropTypes.string
-  }
-
-  static childContextTypes = {
-    /**
-     * Defines a context object for child components of the table component.
-     * https://facebook.github.io/react/docs/context.html
-     *
-     * @property childContextTypes
-     * @type {Object}
-     */
-    attachActionToolbar: PropTypes.func, // tracks the action toolbar component
-    detachActionToolbar: PropTypes.func, // tracks the action toolbar component
-    attachToTable: PropTypes.func, // attach the row to the table
-    checkSelection: PropTypes.func, // a function to check if the row is currently selected
-    detachFromTable: PropTypes.func, // detach the row from the table
-    highlightRow: PropTypes.func, // highlights the row
-    selectable: PropTypes.bool, // table can enable all rows to be multi-selectable
-    onSort: PropTypes.func, // a callback function for when a sort order is updated
-    selectAll: PropTypes.func, // a callback function for when all visible rows are selected
-    selectRow: PropTypes.func, // a callback function for when a row is selected
-    highlightable: PropTypes.bool, // table can enable all rows to be highlightable
-    sortOrder: PropTypes.string, // the current sort order applied
-    sortedColumn: PropTypes.string // the currently sorted column
-  }
-
-  static defaultProps = {
-    theme: 'primary'
-  }
-
   state = {
     selectedCount: 0
   }
@@ -757,11 +586,13 @@ class Table extends React.Component {
    */
   get mainClasses() {
     return classNames(
-      'carbon-table',
-      this.props.className,
-      `carbon-table--${this.props.theme}`
+      // 'carbon-table',
+      this.props.className
+      // `carbon-table--${this.props.theme}`
     );
   }
+
+  // need to rename theme prop passed to styled
 
   /**
    * Classes that apply to the table wrapper
@@ -771,7 +602,7 @@ class Table extends React.Component {
    */
   get wrapperClasses() {
     return classNames(
-      'carbon-table__wrapper',
+      // 'carbon-table__wrapper',
       this.props.className,
       {
         'carbon-table--pager': this.props.paginate,
@@ -984,33 +815,203 @@ class Table extends React.Component {
    * @method render
    */
   render() {
-    const tableProps = {
-      className: this.tableClasses
-    };
+    const tableProps = {};
 
     if (this.props['aria-describedby']) {
       tableProps['aria-describedby'] = this.props['aria-describedby'];
     }
 
     return (
-      <div className={ this.mainClasses } { ...this.componentTags(this.props) }>
+      <div { ...this.componentTags(this.props) }>
         { this.actionToolbar }
-        <div className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } }>
+        <StyledInternalTableWrapper className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } }>
           { this.configureLink(this.props.onConfigure) }
-          <table
+          <StyledTable
             ref={ (table) => { this._table = table; } }
             { ...tableProps }
           >
             { this.caption }
             { this.thead }
             { this.tbody }
-          </table>
-        </div>
+          </StyledTable>
+        </StyledInternalTableWrapper>
         { this.pager }
       </div>
     );
   }
 }
+
+Table.propTypes = {
+  /**
+   * The actions to display in the toolbar
+   */
+  actions: PropTypes.object,
+
+  /**
+   * The extra actions to display in the toolbar
+   */
+  actionToolbarChildren: PropTypes.func,
+
+  /**
+   * Children elements
+   */
+  children: PropTypes.node,
+
+  /**
+   * Custom className
+   */
+  className: PropTypes.string,
+
+  /**
+   * Custom empty row
+   */
+  customEmptyRow: PropTypes.node,
+
+  /**
+   * Data used to filter the data
+   */
+  filter: PropTypes.object,
+
+  /**
+   * Emitted when table component changes e.g.
+   * Pager, sorting, filter
+   */
+  onChange: PropTypes.func,
+
+  /**
+   * Enable configure icon that triggers this callback on click
+   */
+  onConfigure: PropTypes.func,
+
+  /**
+   * Show the pagination footer
+   */
+  paginate: PropTypes.bool,
+
+  /**
+   * Pagination
+   * Current Visible Page
+   */
+  currentPage: PropTypes.string,
+
+  /**
+   * Pagination
+   * Page Size of grid (number of visible records)
+   */
+  pageSize: PropTypes.string,
+
+  /**
+   * Pagination
+   * Options for pageSize default - 10, 25, 50
+   */
+  pageSizeSelectionOptions: PropTypes.object,
+
+  /**
+   * Pagination
+   * Is the page size dropdown visible
+   */
+  showPageSizeSelection: PropTypes.bool,
+
+  /**
+   * Enables multi-selectable table rows.
+   */
+  selectable: PropTypes.bool,
+
+  /**
+   * Enables highlightable table rows.
+   */
+  highlightable: PropTypes.bool,
+
+  /**
+   * A callback for when a row is selected.
+   */
+  onSelect: PropTypes.func,
+
+  /**
+   * A callback for when a row is highlighted.
+   */
+  onHighlight: PropTypes.func,
+
+  /**
+   * A callback for when the page size changes.
+   */
+  onPageSizeChange: PropTypes.func,
+
+  /**
+   * Pagination
+   * Total number of records in the grid
+   */
+  totalRecords: PropTypes.string,
+
+  /**
+   * Allow table to shrink in size.
+   */
+  shrink: PropTypes.bool,
+
+  /**
+   * The currently sorted column.
+   */
+  sortedColumn: PropTypes.string,
+
+  /**
+   * The current sort order applied.
+   */
+  sortOrder: PropTypes.string,
+
+  /**
+   * TableRows to be wrapped in <thead>
+   */
+  thead: PropTypes.object,
+
+  /**
+   * Determines if you want the table to automatically render a tbody.
+   */
+  tbody: PropTypes.bool,
+
+  /**
+   * A string to render as the table's caption
+   */
+  caption: PropTypes.string,
+
+  /**
+   * The HTML id of the element that contains a description
+   * of this table.
+   */
+  'aria-describedby': PropTypes.string,
+
+  /**
+   * Renders as light or dark
+   * Uses common theme definition of 'primary' (dark, default) and 'secondary' (light)
+   */
+  theme: PropTypes.string
+};
+
+Table.childContextTypes = {
+  /**
+   * Defines a context object for child components of the table component.
+   * https://facebook.github.io/react/docs/context.html
+   *
+   * @property childContextTypes
+   * @type {Object}
+   */
+  attachActionToolbar: PropTypes.func, // tracks the action toolbar component
+  detachActionToolbar: PropTypes.func, // tracks the action toolbar component
+  attachToTable: PropTypes.func, // attach the row to the table
+  checkSelection: PropTypes.func, // a function to check if the row is currently selected
+  detachFromTable: PropTypes.func, // detach the row from the table
+  highlightRow: PropTypes.func, // highlights the row
+  selectable: PropTypes.bool, // table can enable all rows to be multi-selectable
+  onSort: PropTypes.func, // a callback function for when a sort order is updated
+  selectAll: PropTypes.func, // a callback function for when all visible rows are selected
+  selectRow: PropTypes.func, // a callback function for when a row is selected
+  highlightable: PropTypes.bool, // table can enable all rows to be highlightable
+  sortOrder: PropTypes.string, // the current sort order applied
+  sortedColumn: PropTypes.string // the currently sorted column
+};
+
+Table.defaultProps = {
+  theme: 'primary'
+};
 
 export {
   Table,

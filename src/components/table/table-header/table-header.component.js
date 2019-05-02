@@ -210,7 +210,6 @@ class TableHeader extends React.Component {
     } else {
       contents = this.props.children;
     }
-    console.log(this.props.align);
     return (
       <StyledTableHeader
         { ...this.tableHeaderProps } { ...this.componentTags(this.props) }

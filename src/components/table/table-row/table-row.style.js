@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import StyledTableCell from '../table-cell/table-cell.style';
 import StyledTableHeader from '../table-header/table-header.style';
+import StyledDraggableTableCell from '../draggable-table-cell/draggable-table-cell.style';
 import { THEMES } from '../../../style/themes';
 
 const StyledTableRow = styled.tr`
@@ -19,7 +20,7 @@ function classicStyledRow(props) {
     &:hover .common-input__input {
       border-color: #E7F1FC;
     }
-    
+
     ${props.highlightable && props.hightlighted && `
       ${StyledTableCell} {
         background-color: #D0E3FA;
@@ -105,6 +106,8 @@ function classicStyledRow(props) {
         border-radius: 0 0px 0 0;
       }
     }
+
+    ${applyDraggableClassicStyling(props)}
   `;
 }
 
@@ -116,6 +119,23 @@ function classicCellHoverStyling() {
     position: absolute;
     top: -1px;
     width: 100%;
+  `;
+}
+
+function applyDraggableClassicStyling({ dragged, dragging }) {
+  return `
+    .draggable-table-cell__icon {
+      cursor: move;
+      padding: 8.5px 14px;
+    
+      ${dragging && dragged && `
+        &,
+        .custom-drag-layer & {
+          cursor: grabbing;
+          cursor: -moz-grabbing;
+          cursor: -webkit-grabbing;
+        }
+      `}
   `;
 }
 
