@@ -17,6 +17,8 @@ const handlePagination = (ev) => {
 };
 
 const TableComponent = ({ propDefinitions }) => {
+  // Custom TableComponent for displaying pageSizeSelectionOptions correctly
+  // Can remove when no longer using Immutable
   const props = propDefinitions.map(
     ({
       property,
@@ -58,15 +60,10 @@ const TableComponent = ({ propDefinitions }) => {
 };
 
 TableComponent.propTypes = {
-  propDefinitions: PropTypes.object
+  propDefinitions: PropTypes.array
 };
 
 storiesOf('Pager', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [State]
-    }
-  })
   .add('default', () => {
     const totalRecords = number('totalRecords', 100);
     const pageSize = select('pageSize', OptionsHelper.pageSizes, Pager.defaultProps.pageSize);
@@ -85,6 +82,7 @@ storiesOf('Pager', module)
     );
   }, {
     info: {
+      propTablesExclude: [State],
       TableComponent,
       text: (
         <div>
