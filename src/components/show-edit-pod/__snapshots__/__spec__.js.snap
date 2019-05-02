@@ -176,6 +176,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                               theme="blue"
                                             >
                                               <styled.button
+                                                as="button"
                                                 buttonType="primary"
                                                 className="carbon-form-save__button"
                                                 data-component="button"
@@ -235,6 +236,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                 }
                                               >
                                                 <StyledComponent
+                                                  as="button"
                                                   buttonType="primary"
                                                   className="carbon-form-save__button"
                                                   data-component="button"

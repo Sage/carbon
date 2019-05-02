@@ -14,6 +14,7 @@ const Button = (props) => {
     iconPosition,
     theme,
     forwardRef,
+    href,
     ...rest
   } = props;
 
@@ -23,6 +24,7 @@ const Button = (props) => {
 
   return (
     <StyledButton
+      as={ href ? 'div' : 'button' }
       disabled={ disabled }
       buttonType={ buttonType || as }
       role='button'
