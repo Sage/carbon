@@ -551,6 +551,7 @@ exports[`TypeIcon when rendered should match the snapshot 1`] = `
         },
         "error": "#C7384F",
         "focus": "#FFDA7F",
+        "focusedIcon": "#335B6D",
         "info": "#0073C2",
         "primary": "#26A826",
         "secondary": "#006300",

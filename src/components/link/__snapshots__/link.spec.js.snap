@@ -106,6 +106,7 @@ exports[`Link when component has classic theme should render correct style 1`] =
           },
           "error": "#C7384F",
           "focus": "#FFDA7F",
+          "focusedIcon": "#335B6D",
           "greyDarkBlue50": "#8099a4",
           "info": "#0073C2",
           "primary": "#00805D",
