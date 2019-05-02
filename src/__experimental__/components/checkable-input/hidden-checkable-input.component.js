@@ -2,11 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
 
-const HiddenCheckableInput = ({ checked, type, ...props }) => {
+const HiddenCheckableInput = ({
+  checked, role, type, ...props
+}) => {
   return (
     <HiddenCheckableInputStyle
       aria-checked={ checked }
-      role={ type }
+      role={ role || type }
       type={ type }
       { ...props }
     />
@@ -15,7 +17,8 @@ const HiddenCheckableInput = ({ checked, type, ...props }) => {
 
 HiddenCheckableInput.propTypes = {
   checked: PropTypes.bool,
-  type: PropTypes.string
+  role: PropTypes.string,
+  type: PropTypes.string.isRequired
 };
 
 export default HiddenCheckableInput;
