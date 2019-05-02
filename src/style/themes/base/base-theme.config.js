@@ -34,6 +34,10 @@ export default (palette) => {
       size: '14px'
     },
 
+    table: {
+      pager: palette.slateTint(95)
+    },
+
     disabled: {
       border: palette.slateTint(80),
       disabled: blackWithOpacity(0.55),

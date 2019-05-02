@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { THEMES } from '../../style/themes';
 
 const PagerContainerStyles = styled.div`
   display: flex;
@@ -7,7 +8,10 @@ const PagerContainerStyles = styled.div`
   padding: 3px 16px;
   border: 1px solid #d8dfe3;
   border-top-width: 0;
-  background-color: #fafbfb;
+  
+  ${({ theme }) => theme.name === THEMES.classic && css`
+    background-color: ${theme.table.pager};
+  `};
 `;
 
 const PagerSizeOptionsStyles = styled.div`
