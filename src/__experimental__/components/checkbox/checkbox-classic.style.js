@@ -57,11 +57,11 @@ export default ({
     outline: none;
   }
 
-  ${() => checked && css`
+  ${checked && `
     svg path { fill: rgba(0, 0, 0, 0.85); }
   `}
 
-  ${() => disabled && css`
+  ${disabled && `
     ${LabelStyle} {
       &, & ${StyledHelp} {
         color: ${theme.disabled.text};
@@ -73,16 +73,16 @@ export default ({
       border: 1px solid ${theme.disabled.border};
     }
 
-    svg path { fill: ${() => (checked ? theme.disabled.border : theme.disabled.disabled)}; }
+    svg path { fill: ${checked ? theme.disabled.border : theme.disabled.disabled}; }
   `}
 
-  ${() => fieldHelpInline && css`
+  ${fieldHelpInline && `
     ${FieldHelpStyle} {
       margin-left: 0;
     }
   `}
 
-  ${() => fieldHelpInline && reverse && css`
+  ${fieldHelpInline && reverse && `
     ${StyledCheckableInput} {
       padding-left: 6px;
     }

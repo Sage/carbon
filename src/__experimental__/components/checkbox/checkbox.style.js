@@ -10,8 +10,8 @@ import checkBoxClassicStyle from './checkbox-classic.style';
 
 const StyledCheckbox = styled.div`
   ${({
-    checked, disabled, error, fieldHelpInline, inputWidth, reverse, size, theme
-  }) => css`
+  checked, disabled, error, fieldHelpInline, inputWidth, labelAlign, labelWidth, reverse, size, theme
+}) => css`
     padding-top: 8px;
 
     ${StyledCheckableInput} {
@@ -46,7 +46,7 @@ const StyledCheckbox = styled.div`
 
     ${LabelStyle} {
       padding: 0 6px;
-      text-align: ${({ labelAlign }) => labelAlign};
+      text-align: ${labelAlign};
       width: auto;
 
       & ${StyledHelp} {
@@ -69,7 +69,7 @@ const StyledCheckbox = styled.div`
       padding-left: 6px;
     }
 
-    ${() => size === 'large' && css`
+    ${size === 'large' && css`
       ${StyledCheckableInput},
       ${HiddenCheckableInputStyle},
       ${HiddenCheckableInputStyle} + svg {
@@ -94,13 +94,13 @@ const StyledCheckbox = styled.div`
       }
     `}
 
-    ${() => checked && css`
+    ${checked && `
       svg path {
         fill: ${theme.colors.primary};
       }
     `}
 
-    ${() => disabled && css`
+    ${disabled && `
       ${LabelStyle} {
         &, & ${StyledHelp} {
           color: ${theme.disabled.disabled};
@@ -112,7 +112,7 @@ const StyledCheckbox = styled.div`
         border: 1px solid ${theme.disabled.border};
       }
 
-      svg path { fill: ${() => (checked ? theme.disabled.border : theme.disabled.input)}; }
+      svg path { fill: ${(checked ? theme.disabled.border : theme.disabled.input)}; }
 
       ${HiddenCheckableInputStyle},
       svg,
@@ -124,13 +124,13 @@ const StyledCheckbox = styled.div`
       }
     `}
 
-    ${() => error && css`
+    ${error && `
       svg {
         border: 1px solid ${theme.colors.error};
       }
     `}
 
-    ${() => fieldHelpInline && css`
+    ${fieldHelpInline && `
       ${FieldHelpStyle} {
         display: inline;
         margin: 0;
@@ -139,7 +139,7 @@ const StyledCheckbox = styled.div`
       }
     `}
 
-    ${() => inputWidth !== 0 && css`
+    ${inputWidth !== 0 && `
       ${StyledCheckableInput} {
         width: ${inputWidth}%;
       }
@@ -149,19 +149,19 @@ const StyledCheckbox = styled.div`
       }
     `}
 
-    ${({ labelWidth }) => labelWidth !== 0 && css`
+    ${labelWidth !== 0 && `
       ${LabelStyle} {
         width: ${labelWidth}%;
       }
     `}
 
-    ${() => reverse && css`
+    ${reverse && `
       ${FieldHelpStyle} {
         margin-left: 0;
       }
     `}
 
-    ${() => reverse && fieldHelpInline && css`
+    ${reverse && fieldHelpInline && `
       ${StyledCheckableInput} { padding-left: 6px; }
     `}
 
