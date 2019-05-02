@@ -6,8 +6,10 @@ import {
   PagerContainerStyles,
   PagerSizeOptionsStyles,
   PagerNavigationStyles,
-  PagerSummaryStyles
+  PagerSummaryStyles,
+  PagerSizeOptionsInnerStyles
 } from './pager.styles';
+import Dropdown from '../dropdown';
 
 const Pager = (props) => {
   const [currentPage, setCurrentPage] = useState(props.currentPage);
@@ -16,21 +18,92 @@ const Pager = (props) => {
     setCurrentPage(props.currentPage);
   }, [props.currentPage]);
 
-  function recordsText(numberOfRecords) {
-    const count = numberOfRecords >= 0 ? numberOfRecords : 0;
-    const descriptor = I18n.t(
-      'pager.records',
-      { count: Number(numberOfRecords), defaultValue: ' records' }
-    );
+  /** Term used to describe table data */
+  const descriptor = I18n.t(
+    'pager.records',
+    { count: Number(props.totalRecords), defaultValue: ' records' }
+  );
 
-    return `${count} ${descriptor}`;
+  // function recordsText(numberOfRecords) {
+  //   const count = numberOfRecords >= 0 ? numberOfRecords : 0;
+
+  //   return `${count} ${descriptor}`;
+  // }
+
+  /** Return callback binding the element to target */
+  const emitCallbackSelector = (element) => {
+    return (ev) => {
+      emitChangeCallback(element, ev);
+    };
+  };
+
+  /** Emit change function depending on event */
+  const emitChangeCallback = (element, ev) => {
+    let newPage, newPageSize;
+    switch (element) {
+      case 'next':
+        newPage = String(Number(this.props.currentPage) + 1);
+        this.props.onPagination(newPage, this.props.pageSize, element);
+        break;
+
+      case 'input':
+        newPage = Math.abs(Number(ev.target.value));
+
+        if (Number.isNaN(newPage)) { newPage = '1'; }
+
+        if (!newPage) {
+          this.setState({ currentPage: this.props.currentPage });
+          break;
+        }
+
+        if (newPage > this.maxPage) { newPage = String(this.maxPage); }
+
+        this.props.onPagination(String(newPage), this.props.pageSize, element);
+        break;
+
+      case 'previous':
+        newPage = String(Number(this.props.currentPage) - 1);
+        this.props.onPagination(newPage, this.props.pageSize, element);
+        break;
+
+      case 'size':
+        newPageSize = ev.target.value;
+        if (!this.props.pageSizeSelectionOptions.find(x => x.get('id') === newPageSize)) {
+          break;
+        }
+        // TODO: Clever current page correction
+        this.props.onPagination('1', newPageSize, element);
+        break;
+      default:
+        break;
+    }
+  };
+
+  function sizeSelector() {
+    return (
+      <Dropdown
+        options={ props.pageSizeSelectionOptions }
+        value={ props.pageSize }
+        onChange={ emitCallbackSelector('size') }
+        data-element='page-select'
+      />
+    );
+  }
+
+  function pageSizeOptions() {
+    if (!props.showPageSizeSelection) return null;
+
+    // return `Show ${sizeSelector()} ${descriptor}`;
+    return (
+      <PagerSizeOptionsInnerStyles>Show {sizeSelector()} {descriptor}</PagerSizeOptionsInnerStyles>
+    );
   }
 
   return (
     <PagerContainerStyles>
-      <PagerSizeOptionsStyles>Show 100 items</PagerSizeOptionsStyles>
+      <PagerSizeOptionsStyles>{pageSizeOptions()}</PagerSizeOptionsStyles>
       <PagerNavigationStyles>First Prev Page {currentPage} Next Last</PagerNavigationStyles>
-      <PagerSummaryStyles>{recordsText(props.totalRecords)}</PagerSummaryStyles>
+      <PagerSummaryStyles>{props.totalRecords} {descriptor}</PagerSummaryStyles>
     </PagerContainerStyles>
   );
 };
@@ -48,7 +121,7 @@ Pager.propTypes = {
   showPageSizeSelection: PropTypes.bool,
   /** Set of page size options */
   pageSizeSelectionOptions: PropTypes.object
-}
+};
 
 Pager.defaultProps = {
   pageSize: '10',
@@ -58,6 +131,6 @@ Pager.defaultProps = {
     { id: '25', name: 25 },
     { id: '50', name: 50 }
   ])
-}
+};
 
 export default Pager;
