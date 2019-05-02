@@ -21,11 +21,15 @@ const getIconKnobs = () => {
 
 const getKnobs = (isClassic) => {
   const size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
-  let theme, as, buttonType;
+  let classicProps = {}, buttonType;
 
   if (isClassic) {
-    theme = select('theme', OptionsHelper.buttonColors, Button.defaultProps.theme);
-    as = select('as', OptionsHelper.themesBinaryClassic, Button.defaultProps.as);
+    classicProps = {
+      theme: select('theme', OptionsHelper.buttonColors, Button.defaultProps.theme),
+      as: select('as', OptionsHelper.themesBinaryClassic, Button.defaultProps.as),
+      href: text('href'),
+      to: text('to')
+    };
   } else {
     buttonType = select('buttonType', OptionsHelper.themesBinary, Button.defaultProps.as);
   }
@@ -37,8 +41,7 @@ const getKnobs = (isClassic) => {
     onClick: ev => action('click')(ev),
     size,
     subtext: (size === OptionsHelper.sizesRestricted[2]) ? text('subtext', Button.defaultProps.subtext) : undefined,
-    as,
-    theme,
+    ...classicProps,
     ...getIconKnobs()
   };
 };
