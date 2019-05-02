@@ -231,6 +231,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
+.c1 .c16 a:hover {
+  color: #FFF;
+}
+
 .c1 .carbon-icon {
   margin-left: 8px;
   margin-right: 0px;
@@ -346,6 +350,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 
 .c1 + .c0 {
   margin-left: 15px;
+}
+
+.c1 .c16 a:hover {
+  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -465,6 +473,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
+.c1 .c16 a:hover {
+  color: #FFF;
+}
+
 .c1 .carbon-icon {
   margin-left: 8px;
   margin-right: 0px;
@@ -580,6 +592,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 
 .c1 + .c0 {
   margin-left: 15px;
+}
+
+.c1 .c16 a:hover {
+  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -699,6 +715,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
+.c1 .c16 a:hover {
+  color: #FFF;
+}
+
 .c1 .carbon-icon {
   margin-left: 8px;
   margin-right: 0px;
@@ -814,6 +834,10 @@ exports[`Button when the classic theme is applied setting the color variant to "
 
 .c1 + .c0 {
   margin-left: 15px;
+}
+
+.c1 .c16 a:hover {
+  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -933,6 +957,10 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
   margin-left: 15px;
 }
 
+.c1 .c16 a:hover {
+  color: #FFF;
+}
+
 .c1 .carbon-icon {
   margin-left: 8px;
   margin-right: 0px;
@@ -1048,6 +1076,10 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
 
 .c1 + .c0 {
   margin-left: 15px;
+}
+
+.c1 .c16 a:hover {
+  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -1167,6 +1199,10 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   margin-left: 15px;
 }
 
+.c1 .c16 a:hover {
+  color: #FFF;
+}
+
 .c1 .carbon-icon {
   margin-left: 8px;
   margin-right: 0px;
@@ -1282,6 +1318,10 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
 
 .c1 + .c0 {
   margin-left: 15px;
+}
+
+.c1 .c16 a:hover {
+  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -1401,6 +1441,10 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   margin-left: 15px;
 }
 
+.c1 .c16 a:hover {
+  color: #FFF;
+}
+
 .c1 .carbon-icon {
   margin-left: 8px;
   margin-right: 0px;
@@ -1518,6 +1562,10 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   margin-left: 15px;
 }
 
+.c1 .c16 a:hover {
+  color: #FFF;
+}
+
 .c1 .carbon-icon {
   margin-left: 8px;
   margin-right: 0px;
@@ -1583,5 +1631,327 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   className="c0 c1"
 >
   Foo
+</button>
+`;
+
+exports[`Button with href prop specified renders link properly 1`] = `
+.c3 {
+  display: inline-block;
+}
+
+.c3 a {
+  font-size: 14px;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #26A826;
+}
+
+.c3 a:hover {
+  cursor: pointer;
+  color: #006300;
+}
+
+.c3 a:focus {
+  color: rgba(0,0,0,0.9);
+  cursor: default;
+  background-color: #FFDA7F;
+  outline: none;
+}
+
+.c4 + .c0 {
+  margin-left: 15px;
+}
+
+.c4 .c2 a:hover {
+  color: #FFF;
+}
+
+.c5 + .c0 {
+  margin-left: 16px;
+}
+
+.c6 + .c0 {
+  margin-left: 16px;
+}
+
+.c7 + .c0 {
+  margin-left: 16px;
+}
+
+.c8 + .c0 {
+  margin-left: 16px;
+}
+
+.c9 + .c0 {
+  margin-left: 16px;
+}
+
+.c10 + .c0 {
+  margin-left: 16px;
+}
+
+.c11 + .c0 {
+  margin-left: 16px;
+}
+
+.c12 + .c0 {
+  margin-left: 16px;
+}
+
+.c13 + .c0 {
+  margin-left: 16px;
+}
+
+.c14 + .c0 {
+  margin-left: 16px;
+}
+
+.c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
+  margin-left: 16px;
+}
+
+.c19 + .c0 {
+  margin-left: 15px;
+}
+
+.c1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+  font-weight: 700;
+  background: #255bc7;
+  border: 1px solid transparent;
+  color: #ffffff;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover {
+  background: #1e499f;
+  border: 1px solid #1e499f;
+  color: #ffffff;
+}
+
+.c1:focus {
+  box-shadow: 0 0 6px rgba(25,99,246,.6);
+  outline: none;
+}
+
+.c1 + .c0 {
+  margin-left: 15px;
+}
+
+.c1 .c2 a {
+  color: #FFF;
+}
+
+.c1 .c2 a:hover {
+  color: #FFF;
+}
+
+.c1 .carbon-icon {
+  margin-left: 8px;
+  margin-right: 0px;
+}
+
+<button
+  className="c0 c1"
+  href="link"
+>
+  <div
+    className="c2 c3"
+    disabled={false}
+  />
+</button>
+`;
+
+exports[`Button with to prop specified renders link properly 1`] = `
+.c3 {
+  display: inline-block;
+}
+
+.c3 a {
+  font-size: 14px;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #26A826;
+}
+
+.c3 a:hover {
+  cursor: pointer;
+  color: #006300;
+}
+
+.c3 a:focus {
+  color: rgba(0,0,0,0.9);
+  cursor: default;
+  background-color: #FFDA7F;
+  outline: none;
+}
+
+.c4 + .c0 {
+  margin-left: 15px;
+}
+
+.c4 .c2 a:hover {
+  color: #FFF;
+}
+
+.c5 + .c0 {
+  margin-left: 16px;
+}
+
+.c6 + .c0 {
+  margin-left: 16px;
+}
+
+.c7 + .c0 {
+  margin-left: 16px;
+}
+
+.c8 + .c0 {
+  margin-left: 16px;
+}
+
+.c9 + .c0 {
+  margin-left: 16px;
+}
+
+.c10 + .c0 {
+  margin-left: 16px;
+}
+
+.c11 + .c0 {
+  margin-left: 16px;
+}
+
+.c12 + .c0 {
+  margin-left: 16px;
+}
+
+.c13 + .c0 {
+  margin-left: 16px;
+}
+
+.c14 + .c0 {
+  margin-left: 16px;
+}
+
+.c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
+  margin-left: 16px;
+}
+
+.c19 + .c0 {
+  margin-left: 15px;
+}
+
+.c1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+  font-weight: 700;
+  background: #255bc7;
+  border: 1px solid transparent;
+  color: #ffffff;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover {
+  background: #1e499f;
+  border: 1px solid #1e499f;
+  color: #ffffff;
+}
+
+.c1:focus {
+  box-shadow: 0 0 6px rgba(25,99,246,.6);
+  outline: none;
+}
+
+.c1 + .c0 {
+  margin-left: 15px;
+}
+
+.c1 .c2 a {
+  color: #FFF;
+}
+
+.c1 .c2 a:hover {
+  color: #FFF;
+}
+
+.c1 .carbon-icon {
+  margin-left: 8px;
+  margin-right: 0px;
+}
+
+<button
+  className="c0 c1"
+  to="link"
+>
+  <div
+    className="c2 c3"
+    disabled={false}
+  />
 </button>
 `;

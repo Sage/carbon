@@ -11,6 +11,7 @@ import classicTheme from '../../style/themes/classic';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Link from '../link';
+import LinkStyle from '../link/link.style';
 
 const render = (props, renderer = shallow) => {
   return renderer(
@@ -329,6 +330,24 @@ describe('Button', () => {
         const toLink = to.find(Link);
         expect(toLink.exists()).toEqual(true);
       });
+    });
+  });
+
+  describe.each(['to', 'href'])('with %s prop specified', (prop) => {
+    it('renders link properly', () => {
+      const props = {
+        [prop]: 'link'
+      };
+      const wrapper = TestRenderer.create(
+        <StyledButton
+          theme={ classicTheme }
+          buttonType='primary'
+          { ...props }
+        >
+          <LinkStyle />
+        </StyledButton>
+      );
+      expect(wrapper).toMatchSnapshot();
     });
   });
 });
