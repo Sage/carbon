@@ -232,7 +232,7 @@ const buttonStyles = {
     }
   `,
   small: `
-    border-radius: 3px;
+    border-radius: 0;
     font-size: 11px;
     height: 25px;
     letter-spacing: .5px;
