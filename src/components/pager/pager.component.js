@@ -6,12 +6,14 @@ import {
   PagerContainerStyles,
   PagerSizeOptionsStyles,
   PagerNavigationStyles,
+  PagerButtonWrapperStyles,
   PagerSummaryStyles,
   PagerNoSelectStyles,
   PagerSizeOptionsInnerStyles
 } from './pager.styles';
 import Dropdown from '../dropdown';
 import NumberComponent from '../number';
+import Icon from '../icon';
 import Events from '../../utils/helpers/events';
 
 const Pager = (props) => {
@@ -28,7 +30,7 @@ const Pager = (props) => {
   );
 
   function maxPages() {
-    const totalRecordsCount = props.totalRecords >= 0 ? props.totalRecords : 0
+    const totalRecordsCount = props.totalRecords >= 0 ? props.totalRecords : 0;
 
     if (props.pageSize && props.pageSize !== '0' && totalRecordsCount > 0) {
       return Math.ceil(totalRecordsCount / props.pageSize);
@@ -36,52 +38,16 @@ const Pager = (props) => {
     return 1;
   }
 
-  /** Emit change function depending on event */
-  const emitChangeCallback = (element, ev) => {
-    let newPage, newPageSize;
-    switch (element) {
-      case 'next':
-        newPage = String(Number(this.props.currentPage) + 1);
-        this.props.onPagination(newPage, this.props.pageSize, element);
-        break;
+  const updatePageFromInput = (ev) => {
+    let newPage = Math.abs(Number(ev.target.value));
 
-      case 'input':
-        newPage = Math.abs(Number(ev.target.value));
-
-        if (Number.isNaN(newPage)) { newPage = '1'; }
-
-        if (!newPage) {
-          this.setState({ currentPage: this.props.currentPage });
-          break;
-        }
-
-        if (newPage > this.maxPages) { newPage = String(this.maxPages); }
-
-        this.props.onPagination(String(newPage), this.props.pageSize, element);
-        break;
-
-      case 'previous':
-        newPage = String(Number(this.props.currentPage) - 1);
-        this.props.onPagination(newPage, this.props.pageSize, element);
-        break;
-
-      case 'size':
-        newPageSize = ev.target.value;
-        if (!props.pageSizeSelectionOptions.find(x => x.get('id') === newPageSize)) {
-          break;
-        }
-        props.onPagination('1', newPageSize, element);
-        break;
-      default:
-        break;
+    if (Number.isNaN(newPage)) { newPage = '1'; }
+    if (!newPage) {
+      setCurrentPage(this.props.currentPage);
     }
-  };
+    if (newPage > maxPages) { newPage = String(maxPages); }
 
-  /** Return callback binding the element to target */
-  const emitCallbackSelector = (element) => {
-    return (ev) => {
-      emitChangeCallback(element, ev);
-    };
+    props.onPagination(String(newPage), this.props.pageSize, 'input');
   };
 
   function currentPageInput() {
@@ -92,17 +58,15 @@ const Pager = (props) => {
       onChange: (ev) => {
         setCurrentPage(ev.target.value);
       },
-      onBlur: emitCallbackSelector('input'),
+      onBlur: updatePageFromInput,
       onKeyUp: (ev) => {
         if (Events.isEnterKey(ev)) {
-          emitChangeCallback('input', ev);
+          updatePageFromInput(ev);
         }
       }
     };
 
-    return (
-      <NumberComponent { ...currentPageInputProps } />
-    );
+    return <NumberComponent { ...currentPageInputProps } />;
   }
 
   function sizeSelector() {
@@ -110,7 +74,7 @@ const Pager = (props) => {
       <Dropdown
         options={ props.pageSizeSelectionOptions }
         value={ props.pageSize }
-        onChange={ emitCallbackSelector('size') }
+        onChange={ (ev) => { props.onPagination('1', ev.target.value, 'size'); } }
         data-element='page-select'
       />
     );
@@ -124,11 +88,35 @@ const Pager = (props) => {
     return props.showPageSizeSelection ? elem : null;
   }
 
+  function navArrow(step) {
+    const arrowProps = {
+      'data-element': 'next-page',
+      type: 'dropdown'
+    };
+    const totalRecordsCount = props.totalRecords >= 0 ? props.totalRecords : 0;
+    const disabled = props.currentPage * props.pageSize >= totalRecordsCount;
+
+    return (
+      <PagerButtonWrapperStyles disabled={ disabled } next={ step === 1 }>
+        <Icon
+          onClick={ () => { navArrowChange(step); } }
+          { ...arrowProps }
+        />
+      </PagerButtonWrapperStyles>
+    );
+  }
+
+  function navArrowChange(step) {
+    const newPage = String(Number(props.currentPage) + step);
+    const desc = step === 1 ? 'next' : 'previous';
+    props.onPagination(newPage, props.pageSize, desc);
+  }
+
   return (
     <PagerContainerStyles>
       <PagerSizeOptionsStyles>{pageSizeOptions()}</PagerSizeOptionsStyles>
       <PagerNavigationStyles>
-        {/* { this.previousArrow } */}
+        { navArrow(-1) }
         <PagerNoSelectStyles>
           { I18n.t('pager.page_x', { defaultValue: 'Page ' }) }
         </PagerNoSelectStyles>
@@ -136,7 +124,7 @@ const Pager = (props) => {
         <PagerNoSelectStyles>
           { I18n.t('pager.of_y', { defaultValue: ' of ' }) }{ maxPages() }
         </PagerNoSelectStyles>
-        {/* { this.nextArrow } */}
+        { navArrow(1) }
       </PagerNavigationStyles>
       <PagerSummaryStyles>{props.totalRecords} {descriptor}</PagerSummaryStyles>
     </PagerContainerStyles>

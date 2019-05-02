@@ -37,6 +37,24 @@ const PagerNavigationStyles = styled.div`
   align-items: center;
 `;
 
+const PagerButtonWrapperStyles = styled.div`
+  display: inline-block;
+  transform: rotate(90deg) scale(1.4);
+  cursor: pointer;
+  margin-right: 8px;
+
+  ${({ disabled }) => disabled && css`
+    opacity: 0.3;
+    cursor: default;
+  `};
+
+  ${({ next }) => next && css`
+    transform: rotate(-90deg) scale(1.4);
+    margin-right: 0;
+    margin-left: 8px;
+  `};
+`;
+
 const PagerNoSelectStyles = styled.span`
   user-select: none;
 `;
@@ -52,6 +70,7 @@ export {
   PagerSizeOptionsStyles,
   PagerSizeOptionsInnerStyles,
   PagerNavigationStyles,
+  PagerButtonWrapperStyles,
   PagerNoSelectStyles,
   PagerSummaryStyles
 };

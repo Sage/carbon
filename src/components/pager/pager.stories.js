@@ -3,17 +3,25 @@ import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import { number, select, boolean } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
-import Pager from './pager.component';
+import Pager from './pager';
 import notes from './notes.md';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
 const store = new Store({
-  currentPage: '1'
+  currentPage: '1',
+  pageSize: Pager.defaultProps.pageSize
 });
 
-const handlePagination = (ev) => {
-  store.set({ currentPage: ev });
+const handlePagination = (newPage, pageSize, type) => {
+  if (type === 'size') {
+    store.set({
+      pageSize,
+      currentPage: newPage
+    });
+  } else {
+    store.set({ currentPage: newPage });
+  }
 };
 
 const TableComponent = ({ propDefinitions }) => {
