@@ -89,13 +89,7 @@ StyledButton.propTypes = {
   /** Assigns a size to the button */
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** Second text child, renders under main text, only when size is "large" */
-  subtext: (props) => {
-    if (props.subtext.length > 0 && props.size !== 'large') {
-      throw new Error('subtext prop has no effect unless the button is large');
-    } else {
-      return null;
-    }
-  },
+  subtext: PropTypes.string,
   /** Set this prop to pass in legacy theme color variants */
   legacyColorVariant: PropTypes.oneOf(OptionsHelper.buttonColors),
   /** Used to transfrom button into anchor */

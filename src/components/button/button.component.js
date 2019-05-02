@@ -17,6 +17,10 @@ const Button = (props) => {
     ...rest
   } = props;
 
+  if (props.subtext.length > 0 && props.size !== 'large') {
+    throw new Error('subtext prop has no effect unless the button is large');
+  }
+
   return (
     <StyledButton
       disabled={ disabled }
@@ -77,13 +81,7 @@ Button.propTypes = {
   /** Assigns a size to the button: "small" | "medium" | "large" */
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** Second text child, renders under main text, only when size is "large" */
-  subtext: (props) => {
-    if (props.subtext.length > 0 && props.size !== 'large') {
-      throw new Error('subtext prop has no effect unless the button is large');
-    } else {
-      return null;
-    }
-  },
+  subtext: PropTypes.string,
   /** Ref to be forwarded */
   forwardRef: PropTypes.func,
   /** Button types for legacy theme: "primary" | "secondary" */

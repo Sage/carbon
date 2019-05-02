@@ -101,6 +101,9 @@ exports[`Link when component has classic theme should render correct style 1`] =
           "baseBlue": "#255BC7",
           "border": "#668491",
           "brand": "#00DC00",
+          "destructive": Object {
+            "hover": "#9F2C3F",
+          },
           "error": "#C7384F",
           "focus": "#FFDA7F",
           "greyDarkBlue50": "#8099a4",
@@ -115,6 +118,7 @@ exports[`Link when component has classic theme should render correct style 1`] =
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#4d7080",
+          "button": "#E5EAEC",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
           "text": "#003349",

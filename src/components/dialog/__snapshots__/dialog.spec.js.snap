@@ -56,8 +56,12 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
         theme={
           Object {
             "colors": Object {
+              "base": "#00A376",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
               "focus": "#FFDA7F",
               "info": "#0073C2",
@@ -71,6 +75,7 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
+              "button": "#E5EAEC",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
@@ -98,8 +103,12 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
           theme={
             Object {
               "colors": Object {
+                "base": "#00A376",
                 "border": "#668491",
                 "brand": "#00DC00",
+                "destructive": Object {
+                  "hover": "#9F2C3F",
+                },
                 "error": "#C7384F",
                 "focus": "#FFDA7F",
                 "info": "#0073C2",
@@ -113,6 +122,7 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
               "disabled": Object {
                 "background": "#E5EAEC",
                 "border": "#CCD6DA",
+                "button": "#E5EAEC",
                 "disabled": "rgba(0,0,0,0.55)",
                 "input": "#F2F4F5",
                 "text": "rgba(0,0,0,0.3)",
@@ -154,6 +164,7 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
             <Button
               as="secondary"
               disabled={false}
+              iconPosition="before"
               size="medium"
               subtext=""
               theme="blue"
@@ -163,6 +174,7 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
             <Button
               as="secondary"
               disabled={false}
+              iconPosition="before"
               size="medium"
               subtext=""
               theme="blue"

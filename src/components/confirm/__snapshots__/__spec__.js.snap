@@ -53,8 +53,12 @@ exports[`Confirm default snapshot renders as expected 1`] = `
         theme={
           Object {
             "colors": Object {
+              "base": "#00A376",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
               "focus": "#FFDA7F",
               "info": "#0073C2",
@@ -68,6 +72,7 @@ exports[`Confirm default snapshot renders as expected 1`] = `
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
+              "button": "#E5EAEC",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
@@ -95,8 +100,12 @@ exports[`Confirm default snapshot renders as expected 1`] = `
           theme={
             Object {
               "colors": Object {
+                "base": "#00A376",
                 "border": "#668491",
                 "brand": "#00DC00",
+                "destructive": Object {
+                  "hover": "#9F2C3F",
+                },
                 "error": "#C7384F",
                 "focus": "#FFDA7F",
                 "info": "#0073C2",
@@ -110,6 +119,7 @@ exports[`Confirm default snapshot renders as expected 1`] = `
               "disabled": Object {
                 "background": "#E5EAEC",
                 "border": "#CCD6DA",
+                "button": "#E5EAEC",
                 "disabled": "rgba(0,0,0,0.55)",
                 "input": "#F2F4F5",
                 "text": "rgba(0,0,0,0.3)",
@@ -151,32 +161,34 @@ exports[`Confirm default snapshot renders as expected 1`] = `
               <div
                 className="carbon-confirm__button carbon-confirm__no"
               >
-                <ForwardRef
+                <Button
                   as="secondary"
                   data-element="cancel"
                   disabled={false}
                   iconPosition="before"
                   onClick={[Function]}
                   size="medium"
+                  subtext=""
                   theme="blue"
                 >
                   No
-                </ForwardRef>
+                </Button>
               </div>
               <div
                 className="carbon-confirm__button carbon-confirm__yes"
               >
-                <ForwardRef
+                <Button
                   as="primary"
                   data-element="confirm"
                   disabled={false}
                   iconPosition="before"
                   onClick={[Function]}
                   size="medium"
+                  subtext=""
                   theme="blue"
                 >
                   Yes
-                </ForwardRef>
+                </Button>
               </div>
             </div>
           </styled.div>
