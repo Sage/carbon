@@ -1,0 +1,387 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SidebarHeaderStyle should render base sidebar header 1`] = `
+.c0 {
+  background-color: #FFFFFF;
+  box-shadow: inset 0 -1px 0 0 #CCD6DA;
+  box-sizing: content-box;
+  position: relative;
+  padding: 27px 32px 32px 32px;
+  top: -27px;
+  margin-left: -32px;
+  width: 100%;
+  color: rgba(0,0,0,0.9);
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+<styled.div
+  theme={
+    Object {
+      "colors": Object {
+        "border": "#668491",
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFDA7F",
+        "focusedIcon": "#335B6D",
+        "info": "#0073C2",
+        "primary": "#26A826",
+        "secondary": "#006300",
+        "success": "#00B000",
+        "tertiary": "#004400",
+        "warning": "#E96400",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "background": "#E5EAEC",
+        "border": "#CCD6DA",
+        "disabled": "rgba(0,0,0,0.55)",
+        "input": "#F2F4F5",
+        "text": "rgba(0,0,0,0.3)",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
+      },
+      "name": "base",
+      "shadows": Object {
+        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-bdVaJa",
+          "isStatic": false,
+          "lastClassName": "c0",
+          "rules": Array [
+            "
+  background-color: ",
+            [Function],
+            ";
+  box-shadow: inset 0 -1px 0 0 ",
+            [Function],
+            ";
+  box-sizing: content-box;
+  position: relative;
+  padding: 27px 32px 32px 32px;
+  top: -27px;
+  margin-left: -32px;
+  width: 100%;
+  color: ",
+            [Function],
+            ";
+  transition: all 0.2s ease;
+
+  ",
+            [Function],
+            "
+",
+          ],
+        },
+        "defaultProps": Object {
+          "theme": Object {
+            "colors": Object {
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFDA7F",
+              "focusedIcon": "#335B6D",
+              "info": "#0073C2",
+              "primary": "#26A826",
+              "secondary": "#006300",
+              "success": "#00B000",
+              "tertiary": "#004400",
+              "warning": "#E96400",
+              "white": "#FFFFFF",
+            },
+            "disabled": Object {
+              "background": "#E5EAEC",
+              "border": "#CCD6DA",
+              "disabled": "rgba(0,0,0,0.55)",
+              "input": "#F2F4F5",
+              "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
+            },
+            "name": "base",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          },
+        },
+        "displayName": "styled.div",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "sc-bdVaJa",
+        "target": "div",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
+    }
+    forwardedRef={null}
+    theme={
+      Object {
+        "colors": Object {
+          "border": "#668491",
+          "brand": "#00DC00",
+          "error": "#C7384F",
+          "focus": "#FFDA7F",
+          "focusedIcon": "#335B6D",
+          "info": "#0073C2",
+          "primary": "#26A826",
+          "secondary": "#006300",
+          "success": "#00B000",
+          "tertiary": "#004400",
+          "warning": "#E96400",
+          "white": "#FFFFFF",
+        },
+        "disabled": Object {
+          "background": "#E5EAEC",
+          "border": "#CCD6DA",
+          "disabled": "rgba(0,0,0,0.55)",
+          "input": "#F2F4F5",
+          "text": "rgba(0,0,0,0.3)",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
+        },
+        "name": "base",
+        "shadows": Object {
+          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.3)",
+          "size": "14px",
+        },
+      }
+    }
+  >
+    <div
+      className="c0"
+    />
+  </StyledComponent>
+</styled.div>
+`;
+
+exports[`SidebarHeaderStyle when classic theme is provided to the component should render correct style 1`] = `
+.c0 {
+  background-color: #FFFFFF;
+  box-shadow: inset 0 -1px 0 0 #CCD6DA;
+  box-sizing: content-box;
+  position: relative;
+  padding: 27px 32px 32px 32px;
+  top: -27px;
+  margin-left: -32px;
+  width: 100%;
+  color: rgba(0,0,0,0.9);
+  -webkit-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+}
+
+<styled.div
+  theme={
+    Object {
+      "colors": Object {
+        "border": "#668491",
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFDA7F",
+        "focusedIcon": "#335B6D",
+        "info": "#0073C2",
+        "primary": "#26A826",
+        "secondary": "#006300",
+        "success": "#00B000",
+        "tertiary": "#004400",
+        "warning": "#E96400",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "background": "#E5EAEC",
+        "border": "#CCD6DA",
+        "disabled": "rgba(0,0,0,0.55)",
+        "input": "#F2F4F5",
+        "text": "rgba(0,0,0,0.3)",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
+      },
+      "name": "base",
+      "shadows": Object {
+        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-bdVaJa",
+          "isStatic": false,
+          "lastClassName": "c0",
+          "rules": Array [
+            "
+  background-color: ",
+            [Function],
+            ";
+  box-shadow: inset 0 -1px 0 0 ",
+            [Function],
+            ";
+  box-sizing: content-box;
+  position: relative;
+  padding: 27px 32px 32px 32px;
+  top: -27px;
+  margin-left: -32px;
+  width: 100%;
+  color: ",
+            [Function],
+            ";
+  transition: all 0.2s ease;
+
+  ",
+            [Function],
+            "
+",
+          ],
+        },
+        "defaultProps": Object {
+          "theme": Object {
+            "colors": Object {
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFDA7F",
+              "focusedIcon": "#335B6D",
+              "info": "#0073C2",
+              "primary": "#26A826",
+              "secondary": "#006300",
+              "success": "#00B000",
+              "tertiary": "#004400",
+              "warning": "#E96400",
+              "white": "#FFFFFF",
+            },
+            "disabled": Object {
+              "background": "#E5EAEC",
+              "border": "#CCD6DA",
+              "disabled": "rgba(0,0,0,0.55)",
+              "input": "#F2F4F5",
+              "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
+            },
+            "name": "base",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          },
+        },
+        "displayName": "styled.div",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "sc-bdVaJa",
+        "target": "div",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
+    }
+    forwardedRef={null}
+    theme={
+      Object {
+        "colors": Object {
+          "border": "#668491",
+          "brand": "#00DC00",
+          "error": "#C7384F",
+          "focus": "#FFDA7F",
+          "focusedIcon": "#335B6D",
+          "info": "#0073C2",
+          "primary": "#26A826",
+          "secondary": "#006300",
+          "success": "#00B000",
+          "tertiary": "#004400",
+          "warning": "#E96400",
+          "white": "#FFFFFF",
+        },
+        "disabled": Object {
+          "background": "#E5EAEC",
+          "border": "#CCD6DA",
+          "disabled": "rgba(0,0,0,0.55)",
+          "input": "#F2F4F5",
+          "text": "rgba(0,0,0,0.3)",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
+        },
+        "name": "base",
+        "shadows": Object {
+          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.3)",
+          "size": "14px",
+        },
+      }
+    }
+  >
+    <div
+      className="c0"
+    />
+  </StyledComponent>
+</styled.div>
+`;
