@@ -208,7 +208,7 @@ const buttonStyles = {
     white: `
       background: transparent;
       border: 1px solid ${white.default};
-      color: rgba(0,0,0, 85);
+      color: ${white.default};
       &:hover {
         background: ${white.hover};
         border: 1px solid ${white.hover};
