@@ -72,6 +72,25 @@ describe('DropdownFilter', () => {
     });
   });
 
+
+  describe('componentWillReceiveProps', () => {
+    describe('should update the filter if visible value changed,', () => {
+      it('sets openingList to true', () => {
+        const props = {
+            name:'foo',
+            options: Immutable.fromJS([]),
+            visibleValue: 'abc',
+            freetext: true
+        }
+
+        const wrapper = shallow(<DropdownFilter { ...props } />);
+        expect(wrapper.find('input.carbon-dropdown__input').props().value).toBe('abc');
+        wrapper.setProps({ visibleValue: 'def' });
+        expect(wrapper.find('input.carbon-dropdown__input').props().value).toBe('def');
+      });
+    });
+  });
+
   describe('selectValue', () => {
     it('removes filter', () => {
       spyOn(instance, 'setState');
