@@ -10,6 +10,7 @@ import classicTheme from '../../style/themes/classic';
 
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import Link from '../link';
 
 const render = (props, renderer = shallow) => {
   return renderer(
@@ -267,14 +268,14 @@ describe('Button', () => {
       try {
         const wrapper = render({ children: 'foo', subtext: 'bar' }).dive();
 
-        expect(wrapper.find('[data-element="subtext"]')).toHaveLength(0);
+        expect(wrapper.find('[data-element="subtext"]').exists()).toBe(false);
       } catch (error) {} // eslint-disable-line no-empty
     });
 
     it('renders the subtext if the size prop is "large"', () => {
       const wrapper = render({ children: 'foo', size: 'large', subtext: 'bar' }).dive();
 
-      expect(wrapper.find('[data-element="subtext"]')).toHaveLength(1);
+      expect(wrapper.find('[data-element="subtext"]').exists()).toBe(true);
     });
 
     describe.each(['small', 'medium'])(
@@ -294,6 +295,40 @@ describe('Button', () => {
       const wrapper = shallow(<Button data-element='bar' data-role='baz'>Test</Button>).dive();
 
       rootTagTest(wrapper, 'button', 'bar', 'baz');
+    });
+  });
+
+  // Legacy functionalities
+  describe('render', () => {
+    describe('default', () => {
+      it('does not contain a Link component', () => {
+        const wrapper = render({ children: 'foo ' }).dive();
+        expect(wrapper.find(Link).exists()).toEqual(false);
+      });
+    });
+
+    describe('with href', () => {
+      const anchor = render({
+        href: '/foo',
+        children: 'Anchor'
+      }).dive();
+
+      it('contains a Link component', () => {
+        const anchorLink = anchor.find(Link);
+        expect(anchorLink.exists()).toEqual(true);
+      });
+    });
+
+    describe('with to', () => {
+      const to = render({
+        to: '/foo',
+        children: 'To'
+      }).dive();
+
+      it('contains a Link component', () => {
+        const toLink = to.find(Link);
+        expect(toLink.exists()).toEqual(true);
+      });
     });
   });
 });
