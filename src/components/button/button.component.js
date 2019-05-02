@@ -55,7 +55,7 @@ function renderChildren(props) {
   );
 
   if (href || to) {
-    buttonContent = <Link { ...props }>{buttonContent}</Link>;
+    buttonContent = <Link href={ href } to={ to }>{buttonContent}</Link>;
   }
 
   return (

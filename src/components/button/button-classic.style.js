@@ -1,4 +1,5 @@
 import { css } from 'styled-components';
+import LinkStyle from '../link/link.style';
 
 const blue = {
   default: '#255bc7',
@@ -281,6 +282,16 @@ export default ({
     
     & + & {
       margin-left: 15px;
+    }
+
+    ${buttonType === 'primary' && `
+      & ${LinkStyle} a {
+        color: #FFF;
+      }
+    `}
+
+    & ${LinkStyle} a:hover {
+      color: #FFF;
     }
   `;
 };
