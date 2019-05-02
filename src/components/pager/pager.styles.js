@@ -4,7 +4,7 @@ const PagerContainerStyles = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 2px 16px;
+  padding: 3px 16px;
   border: 1px solid #d8dfe3;
   border-top-width: 0;
   background-color: #fafbfb;
@@ -30,7 +30,11 @@ const PagerNavigationStyles = styled.div`
   display: flex;
   flex: 1 1 auto;
   justify-content: center;
-  padding: 8px 0;
+  align-items: center;
+`;
+
+const PagerNoSelectStyles = styled.span`
+  user-select: none;
 `;
 
 const PagerSummaryStyles = styled.div`
@@ -44,5 +48,6 @@ export {
   PagerSizeOptionsStyles,
   PagerSizeOptionsInnerStyles,
   PagerNavigationStyles,
+  PagerNoSelectStyles,
   PagerSummaryStyles
 };
