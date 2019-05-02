@@ -231,6 +231,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
+.c1:hover .c16 a,
 .c1 .c16 a:hover {
   color: #FFF;
 }
@@ -352,6 +353,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
+.c1:hover .c16 a,
 .c1 .c16 a:hover {
   color: #FFF;
 }
@@ -473,6 +475,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
+.c1:hover .c16 a,
 .c1 .c16 a:hover {
   color: #FFF;
 }
@@ -594,6 +597,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
+.c1:hover .c16 a,
 .c1 .c16 a:hover {
   color: #FFF;
 }
@@ -715,6 +719,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
+.c1:hover .c16 a,
 .c1 .c16 a:hover {
   color: #FFF;
 }
@@ -836,6 +841,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
+.c1:hover .c16 a,
 .c1 .c16 a:hover {
   color: #FFF;
 }
@@ -957,6 +963,7 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
   margin-left: 15px;
 }
 
+.c1:hover .c16 a,
 .c1 .c16 a:hover {
   color: #FFF;
 }
@@ -1078,6 +1085,7 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   margin-left: 15px;
 }
 
+.c1:hover .c16 a,
 .c1 .c16 a:hover {
   color: #FFF;
 }
@@ -1199,6 +1207,7 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   margin-left: 15px;
 }
 
+.c1:hover .c16 a,
 .c1 .c16 a:hover {
   color: #FFF;
 }
@@ -1320,6 +1329,7 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   margin-left: 15px;
 }
 
+.c1:hover .c16 a,
 .c1 .c16 a:hover {
   color: #FFF;
 }
@@ -1441,6 +1451,7 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   margin-left: 15px;
 }
 
+.c1:hover .c16 a,
 .c1 .c16 a:hover {
   color: #FFF;
 }
@@ -1562,6 +1573,7 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   margin-left: 15px;
 }
 
+.c1:hover .c16 a,
 .c1 .c16 a:hover {
   color: #FFF;
 }
@@ -1662,6 +1674,7 @@ exports[`Button with href prop specified renders link properly 1`] = `
   margin-left: 15px;
 }
 
+.c4:hover .c2 a,
 .c4 .c2 a:hover {
   color: #FFF;
 }
@@ -1771,10 +1784,12 @@ exports[`Button with href prop specified renders link properly 1`] = `
   margin-left: 15px;
 }
 
+.c1 .c2,
 .c1 .c2 a {
   color: #FFF;
 }
 
+.c1:hover .c2 a,
 .c1 .c2 a:hover {
   color: #FFF;
 }
@@ -1823,6 +1838,7 @@ exports[`Button with to prop specified renders link properly 1`] = `
   margin-left: 15px;
 }
 
+.c4:hover .c2 a,
 .c4 .c2 a:hover {
   color: #FFF;
 }
@@ -1932,10 +1948,12 @@ exports[`Button with to prop specified renders link properly 1`] = `
   margin-left: 15px;
 }
 
+.c1 .c2,
 .c1 .c2 a {
   color: #FFF;
 }
 
+.c1:hover .c2 a,
 .c1 .c2 a:hover {
   color: #FFF;
 }

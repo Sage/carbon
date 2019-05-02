@@ -285,11 +285,13 @@ export default ({
     }
 
     ${buttonType === 'primary' && `
+      & ${LinkStyle},
       & ${LinkStyle} a {
         color: #FFF;
       }
     `}
-
+  
+    &:hover ${LinkStyle} a,
     & ${LinkStyle} a:hover {
       color: #FFF;
     }

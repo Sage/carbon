@@ -44,8 +44,12 @@ exports[`Sidebar sidebarClasses returns a base sidebar 1`] = `
         theme={
           Object {
             "colors": Object {
+              "base": "#00A376",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
               "focus": "#FFDA7F",
               "focusedIcon": "#335B6D",
@@ -60,6 +64,7 @@ exports[`Sidebar sidebarClasses returns a base sidebar 1`] = `
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
+              "button": "#E5EAEC",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
@@ -87,8 +92,12 @@ exports[`Sidebar sidebarClasses returns a base sidebar 1`] = `
           theme={
             Object {
               "colors": Object {
+                "base": "#00A376",
                 "border": "#668491",
                 "brand": "#00DC00",
+                "destructive": Object {
+                  "hover": "#9F2C3F",
+                },
                 "error": "#C7384F",
                 "focus": "#FFDA7F",
                 "focusedIcon": "#335B6D",
@@ -103,6 +112,7 @@ exports[`Sidebar sidebarClasses returns a base sidebar 1`] = `
               "disabled": Object {
                 "background": "#E5EAEC",
                 "border": "#CCD6DA",
+                "button": "#E5EAEC",
                 "disabled": "rgba(0,0,0,0.55)",
                 "input": "#F2F4F5",
                 "text": "rgba(0,0,0,0.3)",
@@ -173,6 +183,9 @@ exports[`SidebarStyle When classic style is passed to the component should rende
         "baseBlue": "#255BC7",
         "border": "#668491",
         "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
         "error": "#C7384F",
         "focus": "#FFDA7F",
         "focusedIcon": "#335B6D",
@@ -188,6 +201,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#4d7080",
+        "button": "#E5EAEC",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
         "text": "#003349",
@@ -249,8 +263,12 @@ exports[`SidebarStyle When classic style is passed to the component should rende
         "defaultProps": Object {
           "theme": Object {
             "colors": Object {
+              "base": "#00A376",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
               "focus": "#FFDA7F",
               "focusedIcon": "#335B6D",
@@ -265,6 +283,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
+              "button": "#E5EAEC",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
@@ -308,6 +327,9 @@ exports[`SidebarStyle When classic style is passed to the component should rende
           "baseBlue": "#255BC7",
           "border": "#668491",
           "brand": "#00DC00",
+          "destructive": Object {
+            "hover": "#9F2C3F",
+          },
           "error": "#C7384F",
           "focus": "#FFDA7F",
           "focusedIcon": "#335B6D",
@@ -323,6 +345,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#4d7080",
+          "button": "#E5EAEC",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
           "text": "#003349",
@@ -383,6 +406,9 @@ exports[`SidebarStyle When classic style is passed to the component should rende
         "baseBlue": "#255BC7",
         "border": "#668491",
         "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
         "error": "#C7384F",
         "focus": "#FFDA7F",
         "focusedIcon": "#335B6D",
@@ -398,6 +424,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#4d7080",
+        "button": "#E5EAEC",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
         "text": "#003349",
@@ -456,8 +483,12 @@ exports[`SidebarStyle When classic style is passed to the component should rende
         "defaultProps": Object {
           "theme": Object {
             "colors": Object {
+              "base": "#00A376",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
               "focus": "#FFDA7F",
               "focusedIcon": "#335B6D",
@@ -472,6 +503,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
+              "button": "#E5EAEC",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
@@ -512,6 +544,9 @@ exports[`SidebarStyle When classic style is passed to the component should rende
           "baseBlue": "#255BC7",
           "border": "#668491",
           "brand": "#00DC00",
+          "destructive": Object {
+            "hover": "#9F2C3F",
+          },
           "error": "#C7384F",
           "focus": "#FFDA7F",
           "focusedIcon": "#335B6D",
@@ -527,6 +562,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#4d7080",
+          "button": "#E5EAEC",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
           "text": "#003349",
