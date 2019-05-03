@@ -3,7 +3,6 @@ import FormFieldStyle from '../form-field/form-field.style';
 
 const StyledCheckableInput = styled.div`
   display: inline-block;
-  padding-top: 1px;
   position: relative;
 `;
 

@@ -11,7 +11,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
 
 .c5 {
   display: inline-block;
-  padding-top: 1px;
   position: relative;
 }
 
@@ -29,6 +28,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
   cursor: pointer;
   opacity: 0;
   margin: 0;
+  position: relative;
   z-index: 999;
 }
 
