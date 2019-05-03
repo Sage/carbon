@@ -239,6 +239,7 @@ class Select extends React.Component {
       <>
         <InputDecoratorBridge
           { ...props } // this needs to send all of the original props
+          data-component='carbon-select'
           className={ this.className(className) }
           formattedValue={ this.formattedValue(this.state.filter, value) }
           inputIcon={ this.isMultiValue(value) ? undefined : 'dropdown' }
