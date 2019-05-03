@@ -16,9 +16,6 @@ import DraggableTableCell from './draggable-table-cell';
 import Pager from '../pager/pager';
 import Spinner from '../spinner/spinner';
 
-import './table.scss';
-import './table--secondary-theme.scss';
-
 class Table extends React.Component {
   state = {
     selectedCount: 0
@@ -579,49 +576,6 @@ class Table extends React.Component {
   }
 
   /**
-   * Classes that apply to the parent table div
-   *
-   * @method mainClasses
-   * @return {String}
-   */
-  get mainClasses() {
-    return classNames(
-      // 'carbon-table',
-      this.props.className
-      // `carbon-table--${this.props.theme}`
-    );
-  }
-
-  // need to rename theme prop passed to styled
-
-  /**
-   * Classes that apply to the table wrapper
-   *
-   * @method wrapperClasses
-   * @return {String}
-   */
-  get wrapperClasses() {
-    return classNames(
-      // 'carbon-table__wrapper',
-      this.props.className,
-      {
-        'carbon-table--pager': this.props.paginate,
-        'carbon-table--configurable': this.props.onConfigure
-      }
-    );
-  }
-
-  /**
-   * Classes to apply to the table
-   *
-   * @method tableClasses
-   * @return {String}
-   */
-  get tableClasses() {
-    return 'carbon-table__table';
-  }
-
-  /**
    * Returns thead content wrapped in <thead>
    *
    * @method thead
@@ -803,7 +757,7 @@ class Table extends React.Component {
    */
   get caption() {
     if (this.props.caption) {
-      return <caption className='carbon-table__caption'>{ this.props.caption }</caption>;
+      return <caption>{ this.props.caption }</caption>;
     }
 
     return null;
@@ -815,7 +769,9 @@ class Table extends React.Component {
    * @method render
    */
   render() {
-    const tableProps = {};
+    const tableProps = {
+      tableType: this.props.theme
+    };
 
     if (this.props['aria-describedby']) {
       tableProps['aria-describedby'] = this.props['aria-describedby'];
@@ -824,7 +780,7 @@ class Table extends React.Component {
     return (
       <div { ...this.componentTags(this.props) }>
         { this.actionToolbar }
-        <StyledInternalTableWrapper className={ this.wrapperClasses } ref={ (wrapper) => { this._wrapper = wrapper; } }>
+        <StyledInternalTableWrapper ref={ (wrapper) => { this._wrapper = wrapper; } }>
           { this.configureLink(this.props.onConfigure) }
           <StyledTable
             ref={ (table) => { this._table = table; } }

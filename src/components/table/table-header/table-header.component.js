@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import StyledTableHeader from './table-header.style';
 import Icon from '../../icon/icon';
 import { validProps } from '../../../utils/ether/ether';
-import './table-header.scss';
+// import './table-header.scss';
 
 /**
  * A TableHeader widget.
@@ -56,7 +56,6 @@ class TableHeader extends React.Component {
 
     delete props.children;
 
-    // props.className = this.tableHeaderClasses();
     if (this.props.sortable) props.onClick = this.emitSortEvent;
     return props;
   }
@@ -199,7 +198,6 @@ class TableHeader extends React.Component {
       contents = (
         <a
           href={ `#sort-${sortOrder}` }
-          className='carbon-table-header--sort'
           aria-label={ this.sortDescription }
           onClick={ this.onSortableColumnClick }
         >
@@ -215,6 +213,7 @@ class TableHeader extends React.Component {
         { ...this.tableHeaderProps } { ...this.componentTags(this.props) }
         { ...this.ariaAttributes() }
         align={ this.props.align }
+        sortable={ this.props.sortable }
       >
         { contents }
       </StyledTableHeader>

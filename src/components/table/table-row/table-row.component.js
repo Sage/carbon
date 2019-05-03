@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import StyledTableRow from './table-row.style';
 import TableCell from '../table-cell';
 import TableHeader from '../table-header';
@@ -10,7 +9,6 @@ import WithDrop from '../../drag-and-drop/with-drop/with-drop';
 import DraggableTableCell from '../draggable-table-cell';
 import { validProps } from '../../../utils/ether/ether';
 import tagComponent from '../../../utils/helpers/tags/tags';
-import './table-row.scss';
 
 /**
  * A TableRow widget.
@@ -187,10 +185,10 @@ class TableRow extends React.Component {
    */
   get rowProps() {
     const { ...props } = validProps(this);
-    // props.className = this.mainClasses;
 
     if (this.context.highlightable || this.props.highlightable) {
       props.onClick = this.onRowClick;
+      props.highlighted = this.state.highlighted;
     }
 
     props.selectable = this.context.selectable;
@@ -219,7 +217,7 @@ class TableRow extends React.Component {
     const cell = this.isHeader ? TableHeader : TableCell;
 
     return React.createElement(cell, {
-      key: 'select', isSelectable: true
+      key: 'select'
     }, this.multiSelect);
   }
 
@@ -346,7 +344,7 @@ class TableRow extends React.Component {
         { ...this.rowProps }
         dragged={ this.isDraggged }
         dragging={ this.draggingIsOccurring }
-        selected={ this.props.selected }
+        selected={ this.state.selected }
         { ...tagComponent('table-row', this.props) }
         ref={ (node) => { this._row = node; } }
       >

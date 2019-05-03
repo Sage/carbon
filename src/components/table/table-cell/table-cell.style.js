@@ -30,16 +30,6 @@ function classicStyledCell(props) {
       margin-right: -6px;
       margin-top: -4px;
     }
-
-    ${props.isSelectable && `
-      text-align: center;
-      width: 18px;
-    
-      .carbon-checkbox {
-        height: 15px;
-        padding-top: 0;
-      }
-    `}
     
     ${props.action && `
       width: 18px;

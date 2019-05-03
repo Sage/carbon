@@ -26,6 +26,16 @@
   }
 }
 
+// need to work out how to do this and why its done
+
+/**
+ ${StyledTableCell} {
+        background: transparent;
+        border-color: white;
+        color: white;
+      }
+*/
+
 .carbon-table-row--selected .carbon-table-cell * {
   background: transparent;
   border-color: white;

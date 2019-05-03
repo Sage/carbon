@@ -2,12 +2,12 @@ import styled from 'styled-components';
 import {
   applyClassicInternalStyling,
   applyClassicTableStyling
-} from './classicTableStyling.style.js';
+} from './table-classic.style.js';
 import {
   applyModernInternalStyling,
   applyModernTableStyling
-} from './modernTableStyling.style.js';
-// import StyledLink from '../'
+} from './table-modern.style.js';
+import StyledLink from '../link/link-classic.style';
 import { THEMES } from '../../style/themes';
 
 const StyledTable = styled.table`
@@ -18,9 +18,41 @@ const StyledTable = styled.table`
 
 export const StyledInternalTableWrapper = styled.div`
   ${styleInternalWrapper}
+
   ${({ onConfigure }) => onConfigure && `
-    &, ${StyledTable} {
+    ${StyledTable} {
       border-radius: 0 0px 0px 0px;
+    }
+    
+    & ${StyledLink} {
+      left: -25px;
+      position: absolute;
+      top: -1px;
+      width: 25px;
+
+      a {
+        align-items: center;
+        background-color: #335B6D;
+        border: 1px solid #CCD6DA;
+        border-right: none;
+        border-radius: 25px 0 0 25px;
+        box-sizing: content-box;
+        color: #ffffff;
+        display: flex;
+        height: 100%;
+        justify-content: center;
+
+        &:hover {
+          background-color: #19475A;
+          color: #ffffff;
+        }
+    
+        :first-child {
+          height: 19px;
+          margin-right: -4px;
+          z-index: 3;
+        }
+      }
     }
   `}
 `;

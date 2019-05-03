@@ -1,17 +1,17 @@
 import { css } from 'styled-components';
 
-const applyModernMainWrapperStyling = (props) => {
+function applyModernMainWrapperStyling(props) {
   return css``;
-};
+}
 
 
-const applyModernInternalStyling = (props) => {
+function applyModernInternalStyling(props) {
   return css``;
-};
+}
 
-const applyModernTableStyling = (props) => {
+function applyModernTableStyling(props) {
   return css``;
-};
+}
 
 export {
   applyModernMainWrapperStyling,
