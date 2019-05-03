@@ -8,12 +8,14 @@ const PagerContainerStyles = styled.div`
   align-items: center;
   border: 1px solid #d8dfe3;
   border-top-width: 0;
-
+  font-size: 13px;
+  
   ${({ theme }) => css`
-    background-color: ${theme.table.pager};
+  background-color: ${theme.table.pager};
   `};
   ${({ theme }) => theme.name === THEMES.classic && css`
     padding: 3px 16px;
+    font-size: 14px;
   `};
 `;
 
@@ -39,16 +41,25 @@ const PagerNavigationStyles = styled.div`
   justify-content: center;
   align-items: center;
 
-  ${({ theme }) => theme.name !== THEMES.classic && css`
+  .carbon-number__input {
+    width: 34px;
+    height: 24px;
+    padding: 0;
+    margin: 0 4px;
+    line-height: 24px;
+    text-align: center;
+  }
+  ${({ theme }) => theme.name === THEMES.classic && css`
     .carbon-number__input {
-      height: 24px;
-      padding: 0;
-      line-height: 24px;
+      width: 35px;
+      height: 31px;
     }
   `};
 `;
 
 const PagerNavInnerStyles = styled.div`
+  display: flex;
+  align-items: center;
   padding: 0 12px;
 `;
 
