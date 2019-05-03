@@ -4,8 +4,10 @@ import { withTheme } from 'styled-components';
 import I18n from 'i18n-js';
 import {
   PagerNavigationStyles,
+  PagerNavInnerStyles,
   PagerNoSelectStyles,
-  PagerButtonWrapperStyles
+  PagerButtonWrapperStyles,
+  PagerLinkStyles
 } from './pager.styles';
 import Icon from '../icon';
 import NumberComponent from '../number';
@@ -17,11 +19,11 @@ const PagerNavigation = (props) => {
 
     if (Number.isNaN(newPage)) { newPage = '1'; }
     if (!newPage) {
-      props.setCurrentPage(this.props.currentPage);
+      props.setCurrentPage(props.currentPage);
     }
     if (newPage > maxPages()) { newPage = String(maxPages()); }
 
-    props.onPagination(String(newPage), this.props.pageSize, 'input');
+    props.onPagination(String(newPage), props.pageSize, 'input');
   };
 
   function maxPages() {
@@ -58,7 +60,48 @@ const PagerNavigation = (props) => {
   }
 
   function navLink(type) {
-    return type;
+    const currentPage = Number(props.currentPage);
+    const navLinkConfig = {
+      first: {
+        text: 'First',
+        destination: '1'
+      },
+      last: {
+        text: 'Last',
+        destination: String(maxPages())
+      },
+      next: {
+        text: 'Next',
+        destination: String(currentPage + 1)
+      },
+      back: {
+        text: 'Back',
+        destination: String(currentPage - 1)
+      }
+    };
+
+    function disabled() {
+      if (currentPage === 1) {
+        return type === 'back' || type === 'first';
+      }
+      if (currentPage === maxPages()) {
+        return type === 'next' || type === 'last';
+      }
+      return false;
+    }
+
+    return (
+      <PagerLinkStyles
+        disabled={ disabled() }
+        onClick={ () => {
+          if (!disabled()) {
+            props.onPagination(navLinkConfig[type].destination, props.pageSize, type);
+          }
+        } }
+      >
+        {navLinkConfig[type].text}
+      </PagerLinkStyles>
+    );
   }
 
   function currentPageInput() {
@@ -99,13 +142,15 @@ const PagerNavigation = (props) => {
     <PagerNavigationStyles>
       { navLink('first') }
       { navLink('back') }
-      <PagerNoSelectStyles>
-        { I18n.t('pager.page_x', { defaultValue: 'Page ' }) }
-      </PagerNoSelectStyles>
-      { currentPageInput() }
-      <PagerNoSelectStyles>
-        { I18n.t('pager.of_y', { defaultValue: ' of ' }) }{ maxPages() }
-      </PagerNoSelectStyles>
+      <PagerNavInnerStyles>
+        <PagerNoSelectStyles>
+          { I18n.t('pager.page_x', { defaultValue: 'Page ' }) }
+        </PagerNoSelectStyles>
+        { currentPageInput() }
+        <PagerNoSelectStyles>
+          { I18n.t('pager.of_y', { defaultValue: ' of ' }) }{ maxPages() }
+        </PagerNoSelectStyles>
+      </PagerNavInnerStyles>
       { navLink('next') }
       { navLink('last') }
     </PagerNavigationStyles>

@@ -4,16 +4,16 @@ import { THEMES } from '../../style/themes';
 const PagerContainerStyles = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: 9px 24px;
   align-items: center;
-  padding: 3px 16px;
   border: 1px solid #d8dfe3;
   border-top-width: 0;
-  
-  /* ${({ theme }) => theme.name === THEMES.classic && css`
-    background-color: ${theme.table.pager};
-  `}; */
+
   ${({ theme }) => css`
     background-color: ${theme.table.pager};
+  `};
+  ${({ theme }) => theme.name === THEMES.classic && css`
+    padding: 3px 16px;
   `};
 `;
 
@@ -38,6 +38,18 @@ const PagerNavigationStyles = styled.div`
   flex: 1 1 auto;
   justify-content: center;
   align-items: center;
+
+  ${({ theme }) => theme.name !== THEMES.classic && css`
+    .carbon-number__input {
+      height: 24px;
+      padding: 0;
+      line-height: 24px;
+    }
+  `};
+`;
+
+const PagerNavInnerStyles = styled.div`
+  padding: 0 12px;
 `;
 
 const PagerButtonWrapperStyles = styled.div`
@@ -58,6 +70,22 @@ const PagerButtonWrapperStyles = styled.div`
   `};
 `;
 
+const PagerLinkStyles = styled.button`
+  padding: 0 12px;
+  font-size: 13px;
+  border-width: 0;
+  text-decoration: underline;
+  background-color: transparent;
+  cursor: pointer;
+  &:focus {
+    outline: none;
+  }
+
+  ${({ disabled }) => disabled && css`
+    color: rgba(0,0,0,0.3);
+  `};
+`;
+
 const PagerNoSelectStyles = styled.span`
   user-select: none;
 `;
@@ -73,6 +101,8 @@ export {
   PagerSizeOptionsStyles,
   PagerSizeOptionsInnerStyles,
   PagerNavigationStyles,
+  PagerNavInnerStyles,
+  PagerLinkStyles,
   PagerButtonWrapperStyles,
   PagerNoSelectStyles,
   PagerSummaryStyles
