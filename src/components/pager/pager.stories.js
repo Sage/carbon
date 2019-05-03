@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
-import { number, select, boolean } from '@storybook/addon-knobs';
+import { number, boolean } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import Pager from './pager.component';
 import notes from './notes.md';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
 const store = new Store({
@@ -74,14 +73,11 @@ TableComponent.propTypes = {
 storiesOf('Pager', module)
   .add('default', () => {
     const totalRecords = number('totalRecords', 100);
-    const pageSize = select('pageSize', OptionsHelper.pageSizes, Pager.defaultProps.pageSize);
     const showPageSizeSelection = boolean('showPageSizeSelection', Pager.defaultProps.showPageSizeSelection);
 
     return (
       <State store={ store }>
         <Pager
-          currentPage={ store.get('currentPage') }
-          pageSize={ pageSize }
           showPageSizeSelection={ showPageSizeSelection }
           totalRecords={ totalRecords }
           onPagination={ handlePagination }
