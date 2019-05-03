@@ -1,6 +1,8 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import baseTheme from '../../../style/themes/base';
 import SwitchSliderPanel from './switch-slider-panel.style';
+import ClassicSwitchSliderStyles from './switch-slider-classic.style';
 
 const StyledSwitchSlider = styled.span`
   ${({
@@ -20,14 +22,13 @@ const StyledSwitchSlider = styled.span`
     width: 60px;
 
     &::before {
-      background-color: white;
+      background-color: #ffffff;
       bottom: 2px;
       box-shadow: 0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15);
       content: "";
       height: 20px;
       position: absolute;
       left: 2px;
-      -webkit-transition: transform .4s;
       transition: transform .4s;
       width: 20px;
     }
@@ -40,19 +41,25 @@ const StyledSwitchSlider = styled.span`
       background-color: ${theme.colors.primary};
 
       &::before {
-        -webkit-transform: translateX(36px);
-        -ms-transform: translateX(36px);
         transform: translateX(36px);
       }
     `}
 
-    ${disabled && (checked ? `
-      background-color: #66c8ad;
-    ` : `
+    ${disabled && `
       background-color: #e6ebed;
 
+      &::before {
+        opacity: 0.8;
+      }
+
       ${SwitchSliderPanel} { color: rgba(0, 0, 0, 0.55); }
-    `)}
+    `}
+
+    ${disabled && checked && `
+      background-color: ${theme.colors.disabled};
+
+      ${SwitchSliderPanel} { color: #ffffff; }
+    `}
 
     ${size === 'large' && `
       &::before {
@@ -60,7 +67,20 @@ const StyledSwitchSlider = styled.span`
         width: 36px;
       }
     `}
+
+    ${ClassicSwitchSliderStyles}
   `}
 `;
+
+StyledSwitchSlider.PropTypes = {
+  checked: PropTypes.bool,
+  disabled: PropTypes.bool,
+  size: PropTypes.string,
+  theme: PropTypes.object
+};
+
+StyledSwitchSlider.defaultProps = {
+  theme: baseTheme
+};
 
 export default StyledSwitchSlider;

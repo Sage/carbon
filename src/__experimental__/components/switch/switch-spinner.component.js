@@ -1,14 +1,20 @@
 import React from 'react';
-import { StyledSwitchSpinner, SwitchSpinnerDot } from './switch-spinner.style';
+import PropTypes from 'prop-types';
+import StyledSwitchSpinner from './switch-spinner.style';
+import SwitchSpinnerDot from './switch-spinner-dot.style';
 
-const SwitchSpinner = (props) => {
+const SwitchSpinner = ({ checked }) => {
   return (
-    <StyledSwitchSpinner { ...props }>
-      <SwitchSpinnerDot />
-      <SwitchSpinnerDot />
-      <SwitchSpinnerDot />
+    <StyledSwitchSpinner>
+      <SwitchSpinnerDot checked={ checked } />
+      <SwitchSpinnerDot checked={ checked } />
+      <SwitchSpinnerDot checked={ checked } />
     </StyledSwitchSpinner>
   );
+};
+
+SwitchSpinner.propTypes = {
+  checked: PropTypes.bool
 };
 
 export default SwitchSpinner;
