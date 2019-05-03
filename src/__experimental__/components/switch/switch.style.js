@@ -8,11 +8,12 @@ import StyledCheckableInput from '../checkable-input/checkable-input.style';
 import StyledSwitchSlider from './switch-slider.style';
 import StyledHelp from '../help/help.style';
 
+import ClassicSwitchStyles from './switch-classic.style';
+
 const StyledSwitch = styled.div`
   ${({
     disabled, fieldHelpInline, labelInline, reverse, size, theme
   }) => css`
-
     ${StyledCheckableInput}, ${HiddenCheckableInputStyle} {
       border: none;
       box-sizing: border-box;
@@ -84,16 +85,22 @@ const StyledSwitch = styled.div`
         padding: 3px 0;
         width: auto;
       }
+
+      ${FieldHelpStyle} {
+        margin-top: 0;
+      }
     `}
 
-    ${labelInline && reverse && `
+    ${labelInline && reverse && css`
       ${LabelStyle} {
         margin-left: 10px;
       }
 
-      ${FieldHelpStyle} {
-        margin-left: 70px;
-      }
+      ${!fieldHelpInline && `
+        ${FieldHelpStyle} {
+          margin-left: 70px;
+        }
+      `}
     `}
 
     ${labelInline && fieldHelpInline && `
@@ -127,13 +134,28 @@ const StyledSwitch = styled.div`
         }
       `}
 
-      ${labelInline && reverse && `
+      ${!fieldHelpInline && labelInline && reverse && `
         ${FieldHelpStyle} {
           margin-left: 88px;
         }
       `}
     `}
+
+    ${ClassicSwitchStyles}
   `}
 `;
+
+StyledSwitch.propTypes = {
+  disabled: PropTypes.bool,
+  fieldHelpInline: PropTypes.bool,
+  labelInline: PropTypes.bool,
+  reverse: PropTypes.bool,
+  size: PropTypes.string,
+  theme: PropTypes.node
+};
+
+StyledSwitch.defaultProps = {
+  theme: baseTheme
+};
 
 export default StyledSwitch;

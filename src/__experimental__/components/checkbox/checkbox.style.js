@@ -187,7 +187,7 @@ CheckboxStyle.propTypes = {
   error: PropTypes.bool,
   fieldHelpInline: PropTypes.bool,
   inputWidth: PropTypes.number,
-  labeLAlign: PropTypes.string,
+  labelAlign: PropTypes.string,
   labelWidth: PropTypes.number,
   size: PropTypes.string
 };
