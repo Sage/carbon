@@ -12,88 +12,32 @@ import Link from '../link';
 import tagComponent from '../../utils/helpers/tags';
 import './flash.scss';
 
-/**
- * A Flash widget.
- *
- * The flash is rendered in two sections: a ventral message 'flash', and a
- * dorsal coloured, expanding 'slider'.
- *
- * == How to use an Flash in a component:
- *
- * In your file
- *
- *   import Flash from 'carbon-react/lib/components/flash';
- *
- * To render a Flash, setup open and cancel handlers in your view to trigger
- * the message on and off:
- *
- *  <Flash open={ openStatus } onDismiss={ myOnDismiss } message='Alert!' />
- *
- * By default, the flash renders with a clickable close icon that hooks up with the onDismiss function.
- *
- * To instead have the flash disappear after a given time period, pass a prop of timeout in milliseconds.
- *
- *  <Flash open={ openStatus } onDismiss={ myOnDismiss } message='Alert!' timeout={ 2000 }/>
- *
- * The flash message can be formatted in the following ways:
- *
- *  * A string: "Alert"
- *  * An array: ["Message One", "Message Two"]
- *  * An object with description: { description: "My description" }
- *  * An object of key/value pairs: { first_name: "is required", last_name: "is required" }
- *  * An object with description with nested key/value pairs:
- *    { description: { first_name: "is required", last_name: "is required" } }
- *
- * If a message is too long, it can be proxied to a dialog by adding `::more::` in your description.
- *
- *  let message = "This is too long ::more:: This sentence is proxied to a dialog."
- *
- * @class Flash
- * @constructor
- */
 class Flash extends React.Component {
   static propTypes = {
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * A custom close event handler
-     *
-     * @property onDismiss
-     * @type {Function}
      */
     onDismiss: PropTypes.func.isRequired,
 
     /**
      * Sets the open state of the flash.
-     *
-     * @property open
-     * @type {Boolean}
-     * @default false
      */
     open: PropTypes.bool.isRequired,
 
     /**
      * Type of notification.
      * (see the 'iconColorSets' for possible values)
-     *
-     * @property as
-     * @type {String}
-     * @default 'success'
      */
     as: PropTypes.string,
 
     /**
      * Contents of message.
-     *
-     * @property message
-     * @type {String|Object|Array}
      */
     message: PropTypes.oneOfType([
       PropTypes.string,
@@ -103,9 +47,6 @@ class Flash extends React.Component {
 
     /**
      * Time for flash to remain on screen
-     *
-     * @property timeout
-     * @type {Number} in milliseconds
      */
     timeout: PropTypes.oneOfType([
       PropTypes.string,

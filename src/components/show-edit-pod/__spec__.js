@@ -1,30 +1,31 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
+import { shallow, mount } from 'enzyme';
+import ReactDOM from 'react-dom';
 import ShowEditPod from './show-edit-pod';
-import Form from './../form';
-import Link from './../link';
-import Textbox from './../textbox';
-import Pod from './../pod';
-import Events from './../../utils/helpers/events'
+import Form from '../form';
+import Link from '../link';
+import Textbox from '../textbox';
+import Pod from '../pod';
+import Events from '../../utils/helpers/events';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
-import { shallow, mount } from 'enzyme';
-
-import ReactDOM from 'react-dom';
 
 describe('ShowEditPod', () => {
-  let instance, externalInstance, spy, cancelSpy,
-      content = <div className='foo'/>,
-      editFields = [ <Textbox key='1' /> ];
+  let instance,
+      externalInstance,
+      spy,
+      cancelSpy,
+      content = <div className='foo' />,
+      editFields = [<Textbox key='1' />];
 
   beforeEach(() => {
-
     spy = jasmine.createSpy('afterFormValidation');
     cancelSpy = jasmine.createSpy('onCancel');
 
     instance = TestUtils.renderIntoDocument(
       <ShowEditPod
-        afterFormValidation={ spy }
+        afterFormValidation={ spy } 
         onCancel={ cancelSpy }
         editFields={ editFields }
       />
@@ -32,9 +33,9 @@ describe('ShowEditPod', () => {
 
     externalInstance = TestUtils.renderIntoDocument(
       <ShowEditPod
-        afterFormValidation={ spy }
+        afterFormValidation={ spy } 
         onCancel={ cancelSpy }
-        editFields={ editFields }
+        editFields={ editFields } 
         editing={ false }
       />
     );
@@ -44,12 +45,6 @@ describe('ShowEditPod', () => {
     describe('when editing prop is set', () => {
       it('keeps control as props', () => {
         expect(externalInstance.control).toEqual('props');
-      });
-    });
-
-    describe('when editing prop is not set', () => {
-      it('sets the control to state', () => {
-        expect(instance.control).toEqual('state');
       });
     });
   });
@@ -66,9 +61,9 @@ describe('ShowEditPod', () => {
       it('does not focus on the pod', () => {
         instance = TestUtils.renderIntoDocument(
           <ShowEditPod
-            afterFormValidation={ spy }
+            afterFormValidation={ spy } 
             onCancel={ cancelSpy }
-            editFields={ editFields }
+            editFields={ editFields } 
             editing={ false }
           />
         );
@@ -81,10 +76,10 @@ describe('ShowEditPod', () => {
       it('focuses on the pod', () => {
         instance = TestUtils.renderIntoDocument(
           <ShowEditPod
-            afterFormValidation={ spy }
+            afterFormValidation={ spy } 
             onCancel={ cancelSpy }
-            editFields={ editFields }
-            editing={ true }
+            editFields={ editFields } 
+            editing = { true }
           />
         );
         expect(ReactDOM.findDOMNode).toHaveBeenCalled();
@@ -100,9 +95,9 @@ describe('ShowEditPod', () => {
         expect(instance.state.editing).toBeTruthy();
       });
 
-      it("sets focus on the DOM node", () => {
+      it('sets focus on the DOM node', () => {
         instance.control = 'props';
-        let focusSpy = jasmine.createSpy('focus');
+        const focusSpy = jasmine.createSpy('focus');
         spyOn(ReactDOM, 'findDOMNode').and.returnValue({ focus: focusSpy });
         instance.onEdit();
         expect(ReactDOM.findDOMNode).toHaveBeenCalled();
@@ -111,9 +106,13 @@ describe('ShowEditPod', () => {
 
       describe('when edit function is passed', () => {
         it('calls the onEdit callback', () => {
-          let editSpy = jasmine.createSpy('editSpy');
+          const editSpy = jasmine.createSpy('editSpy');
 
-          instance = TestUtils.renderIntoDocument(<ShowEditPod onEdit={ editSpy } />);
+          instance = TestUtils.renderIntoDocument(
+            <ShowEditPod 
+              onEdit={ editSpy } 
+            />
+          );
           instance.onEdit();
 
           expect(editSpy).toHaveBeenCalled();
@@ -192,9 +191,7 @@ describe('ShowEditPod', () => {
 
     describe('when onCancel does not exits', () => {
       it('sets editing to false', () => {
-        instance = TestUtils.renderIntoDocument(
-          <ShowEditPod />
-        );
+        instance = TestUtils.renderIntoDocument(<ShowEditPod />);
 
         instance.onCancelEditForm();
         expect(instance.state.editing).toBeFalsy();
@@ -226,29 +223,21 @@ describe('ShowEditPod', () => {
 
   describe('mainClasses', () => {
     it('returns the base class', () => {
-      expect(instance.mainClasses).toEqual('carbon-show-edit-pod')
+      expect(instance.mainClasses).toEqual('carbon-show-edit-pod');
     });
 
     it('returns any passed props', () => {
-      instance = TestUtils.renderIntoDocument(
-        <ShowEditPod
-          className='foo'
-        />
-      );
+      instance = TestUtils.renderIntoDocument(<ShowEditPod className='foo' />);
 
-      expect(instance.mainClasses).toEqual('carbon-show-edit-pod foo')
+      expect(instance.mainClasses).toEqual('carbon-show-edit-pod foo');
     });
   });
 
   describe('deleteButton', () => {
     it('renders a link', () => {
-      let deleteSpy = jasmine.createSpy('delete');
+      const deleteSpy = jasmine.createSpy('delete');
 
-      instance = TestUtils.renderIntoDocument(
-        <ShowEditPod
-          onDelete={ deleteSpy }
-        />
-      );
+      instance = TestUtils.renderIntoDocument(<ShowEditPod onDelete={ deleteSpy } />);
       instance.setState({ editing: true });
 
       TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-show-edit-pod__delete');
@@ -256,20 +245,20 @@ describe('ShowEditPod', () => {
 
     describe('when delete text is passed', () => {
       it('renders the custom text', () => {
-        let deleteSpy = jasmine.createSpy('delete');
+        const deleteSpy = jasmine.createSpy('delete');
 
         instance = TestUtils.renderIntoDocument(
-          <ShowEditPod
-            onDelete={ deleteSpy }
-            deleteText='foo'
+          <ShowEditPod 
+            onDelete={ deleteSpy } 
+            deleteText='foo' 
           />
         );
 
         instance.setState({ editing: true });
-        let deleteLink = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-show-edit-pod__delete');
+        const deleteLink = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-show-edit-pod__delete');
         expect(deleteLink.textContent).toEqual('foo');
       });
-    });
+    });  
   });
 
   describe('editContent', () => {
@@ -289,10 +278,10 @@ describe('ShowEditPod', () => {
       beforeEach(() => {
         externalInstance = TestUtils.renderIntoDocument(
           <ShowEditPod
-            afterFormValidation={ spy }
+            afterFormValidation={ spy } 
             onCancel={ cancelSpy }
-            editFields={ editFields }
-            editing={ true }
+            editFields={ editFields } 
+            editing = { true }
           />
         );
       });
@@ -309,33 +298,31 @@ describe('ShowEditPod', () => {
 
   describe('contentProps', () => {
     it('returns props for the content field including a custom onEdit', () => {
-      let props = instance.contentProps;
+      const props = instance.contentProps;
       expect(props.onEdit).toEqual(instance.onEdit);
     });
 
-    it("leaves onEdit as false if false is sent in", () => {
-      let falseEditInstance = TestUtils.renderIntoDocument(
-        <ShowEditPod onEdit={ false } />
-      );
-      let props = falseEditInstance.contentProps;
+    it('leaves onEdit as false if false is sent in', () => {
+      const falseEditInstance = TestUtils.renderIntoDocument(<ShowEditPod onEdit={ false } />);
+      const props = falseEditInstance.contentProps;
       expect(props.onEdit).toBeUndefined();
     });
 
     it('strips out the className prop', () => {
-      let props = instance.contentProps;
+      const props = instance.contentProps;
       expect(props.className).toBeUndefined();
     });
   });
 
   describe('editingProps', () => {
     it('returns the defined props', () => {
-      let props = instance.editingProps;
+      const props = instance.editingProps;
       expect(props.as).toEqual('secondary');
       expect(props.onKeyDown).toEqual(instance.onKeyDown);
     });
 
     it('strips out the className and onEdit props', () => {
-      let props = instance.editingProps;
+      const props = instance.editingProps;
       expect(props.className).toBeUndefined();
       expect(props.onEdit).toBeUndefined();
     });
@@ -347,7 +334,7 @@ describe('ShowEditPod', () => {
     });
   });
 
-  describe("edit form props", () => {
+  describe('edit form props', () => {
     let wrapper;
     let beforeFormValidation;
 
@@ -359,19 +346,19 @@ describe('ShowEditPod', () => {
           buttonAlign='left'
           cancel={ false }
           cancelText='Cancel Me'
-          editing={ true }
+          editing
           saveText='Save Me'
           saving={ false }
-          validateOnMount={ true }
+          validateOnMount
         />
       );
-    })
+    });
 
-    it("creates a Form with the expected props when editing is set to true", () => {
-      let editForm = wrapper.find(Form);
-      let instance = wrapper.instance();
+    it('creates a Form with the expected props when editing is set to true', () => {
+      const editForm = wrapper.find(Form);
+      const instance = wrapper.instance();
 
-      let props = editForm.props();
+      const props = editForm.props();
 
       expect(props.afterFormValidation).toEqual(instance.onSaveEditForm);
       expect(props.beforeFormValidation).toEqual(beforeFormValidation);
@@ -385,38 +372,35 @@ describe('ShowEditPod', () => {
       expect(props.validateOnMount).toEqual(true);
     });
 
-    describe("where onDelete is provided", () => {
-      it("should get through to the delete button Link", () => {
+    describe('where onDelete is provided', () => {
+      it('should get through to the delete button Link', () => {
         const onDelete = jasmine.createSpy();
         wrapper.setProps({
           deleteText: 'Delete',
-          onDelete: onDelete
+          onDelete
         });
         expect(wrapper).toMatchSnapshot();
       });
     });
+
+    describe('when onDelete is not provided', () => {
+      expect(wrapper).toMatchSnapshot();
+    })
   });
 
-  describe("tags", () => {
-    describe("on component", () => {
-      let wrapper = shallow(<ShowEditPod data-element='bar' data-role='baz' />);
+  describe('tags', () => {
+    describe('on component', () => {
+      const wrapper = shallow(<ShowEditPod data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapper, 'show-edit-pod', 'bar', 'baz');
       });
     });
 
-    describe("on internal elements", () => {
-      let wrapper = mount(
-        <ShowEditPod
-          editing={ true }
-          onEdit={ ()=>{} }
-        />
-      );
+    describe('on internal elements', () => {
+      const wrapper = mount(<ShowEditPod editing onEdit={ () => {} } />);
 
-      elementsTagTest(wrapper.findWhere(n => n.type() === 'form'), [
-        'edit-form'
-      ]);
+      elementsTagTest(wrapper.findWhere(n => n.type() === 'form'), ['edit-form']);
     });
   });
 });

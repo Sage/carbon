@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`when the withValidations HOC wraps a component matches the snapshot when the HOC is passed an anonymous component with no name or display name 1`] = `
+<Component
+  info={Array []}
+  name="foo"
+  onBlur={[Function]}
+  onChange={[Function]}
+  validations={Array []}
+  warnings={Array []}
+/>
+`;
+
+exports[`when the withValidations HOC wraps a component matches the snapshot with the input component wrapped in the HOC with default props 1`] = `
+<MockComponent
+  info={Array []}
+  name="foo "
+  onBlur={[Function]}
+  onChange={[Function]}
+  validations={Array []}
+  warnings={Array []}
+/>
+`;
+
+exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns the Icon when the component has an array of children 1`] = `
+<MockComponent
+  info={Array []}
+  name="foo"
+  onBlur={[Function]}
+  onChange={[Function]}
+  validations={Array []}
+  warnings={Array []}
+>
+  <div />
+  foo
+  <div />
+  <Icon
+    bgSize="small"
+    key="error-icon"
+    type="error"
+  />
+</MockComponent>
+`;
+
+exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns the children if no type has been set 1`] = `
+<MockComponent
+  info={Array []}
+  name="foo"
+  onBlur={[Function]}
+  onChange={[Function]}
+  validations={Array []}
+  warnings={Array []}
+>
+  <div />
+</MockComponent>
+`;

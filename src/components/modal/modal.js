@@ -40,48 +40,29 @@ const TIMEOUT = 500;
  */
 class Modal extends React.Component {
   static propTypes = {
-
     /**
      * A custom close event handler
-     *
-     * @property onCancel
-     * @type {Function}
      */
     onCancel: PropTypes.func,
 
     /**
      * Sets the open state of the modal
-     *
-     * @property open
-     * @type {Boolean}
-     * @default false
      */
     open: PropTypes.bool.isRequired,
 
     /**
      * Determines if the background is disabled
      * when the modal is open
-     *
-     * @property enableBackgroundUI
-     * @type {Boolean}
-     * @default true
      */
     enableBackgroundUI: PropTypes.bool,
 
     /**
      * Determines if the Esc Key closes the modal
-     *
-     * @property disableEscKey
-     * @type {Boolean}
-     * @default true
      */
     disableEscKey: PropTypes.bool,
 
     /**
      * The ARIA role to be applied to the modal
-     *
-     * @property ariaRole
-     * @type {String}
      */
     ariaRole: PropTypes.string // eslint-disable-line react/no-unused-prop-types
   }
@@ -137,7 +118,6 @@ class Modal extends React.Component {
       this.setState({ state: this.props.open ? 'open' : 'closed' });
     }, TIMEOUT);
   }
-
 
   /**
    * Returns modal object to child components. Used to override form cancel button functionality.

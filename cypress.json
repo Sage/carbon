@@ -1,0 +1,10 @@
+{
+  "ignoreTestFiles": ["**/examples/*", "**/!(*.spec).js"],
+  "baseUrl": "https://carbon.sage.com/",
+  "blacklistHosts": ["www.google-analytics.com", "sockjs*", "countries*"],
+  "video": false,
+  "failOnStatusCode": false,
+  "viewportWidth": 1366,
+  "viewportHeight": 768,
+  "env": { "TAGS": "not @ignore" }
+}

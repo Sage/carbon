@@ -126,19 +126,34 @@ Object {
   "onSelect": [Function],
   "open": true,
   "target": <div
-    class="carbon-input-presentation carbon-input-presentation--has-focus"
+    autocomplete="off"
+    class="sc-bxivhb hSnxuE"
+    data-element="input"
     role="presentation"
+    type="text"
+    value=""
   >
     <input
       autocomplete="off"
-      class="carbon-input"
+      class="sc-ifAKCX iHTfyA"
       data-element="input"
-      id="guid-12345"
       value=""
     />
     <span
       data-portal-entrance="guid-12345"
     />
+    <span
+      autocomplete="off"
+      class="sc-htpNat hmqeKz"
+      data-element="input"
+      value=""
+    >
+      <span
+        class="carbon-icon icon-dropdown"
+        data-component="icon"
+        data-element="dropdown"
+      />
+    </span>
   </div>,
 }
 `;

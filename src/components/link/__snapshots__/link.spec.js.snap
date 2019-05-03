@@ -1,0 +1,151 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Link renders as expected 1`] = `
+.c0 {
+  display: inline-block;
+}
+
+.c0 a {
+  font-size: 14px;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #26A826;
+}
+
+.c0 a:hover {
+  cursor: pointer;
+  color: #006300;
+}
+
+.c0 a:focus {
+  color: rgba(0,0,0,0.9);
+  cursor: default;
+  background-color: #FFDA7F;
+  outline: none;
+}
+
+<div
+  className="c0"
+  data-component="link"
+  disabled={false}
+>
+  <a
+    data-component="link"
+    onKeyDown={[Function]}
+    tabIndex="0"
+  >
+    <span>
+      <span
+        className="carbon-link__content"
+      >
+        test
+      </span>
+    </span>
+  </a>
+</div>
+`;
+
+exports[`Link should render as expected 1`] = `
+"
+  a{
+    cursor: pointer;
+    font-weight: bold;
+    text-decoration: none;
+    color: #255BC7;
+  
+    &:hover{
+      cursor: pointer;
+      color: #004B87;
+      text-decoration: underline;
+    }
+  }"
+`;
+
+exports[`Link when component has classic theme should render correct style 1`] = `
+.c0 {
+  display: inline-block;
+}
+
+.c0 a {
+  font-size: 14px;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #26A826;
+}
+
+.c0 a:hover {
+  cursor: pointer;
+  color: #006300;
+}
+
+.c0 a:focus {
+  color: rgba(0,0,0,0.9);
+  cursor: default;
+  background-color: #FFDA7F;
+  outline: none;
+}
+
+<div
+  className="c0"
+  data-component="link"
+  disabled={false}
+>
+  <a
+    data-component="link"
+    onKeyDown={[Function]}
+    tabIndex="0"
+    theme={
+      Object {
+        "colors": Object {
+          "base": "#00A376",
+          "baseBlue": "#255BC7",
+          "border": "#668491",
+          "brand": "#00DC00",
+          "error": "#C7384F",
+          "focus": "#FFDA7F",
+          "focusedIcon": "#335B6D",
+          "greyDarkBlue50": "#8099a4",
+          "info": "#0073C2",
+          "primary": "#00805D",
+          "secondary": "#006045",
+          "success": "#00B000",
+          "tertiary": "#003F2E",
+          "warning": "#E96400",
+          "white": "#FFFFFF",
+        },
+        "disabled": Object {
+          "background": "#E5EAEC",
+          "border": "#4d7080",
+          "disabled": "#b3c2c8",
+          "input": "#1e499f",
+          "text": "#003349",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
+        },
+        "name": "classic",
+        "shadows": Object {
+          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.3)",
+          "size": "14px",
+        },
+      }
+    }
+  >
+    <span>
+      <span
+        className="carbon-link__content"
+      >
+        test
+      </span>
+    </span>
+  </a>
+</div>
+`;

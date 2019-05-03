@@ -4,37 +4,10 @@ import classNames from 'classnames';
 import Column from './column';
 import './row.scss';
 
-/**
- * A row widget.
- *
- * This is a standalone row widget used for layout; for table rows use the table-row widget.
- *
- * == How to use a Row in a component:
- *
- * In your file
- *
- *   import { Row, Column } from 'carbon-react/lib/components/row';
- *
- * To render the Row:
- *
- *   <Row>
- *     <Column>Column1</Column>
- *     <Column>Column2</Column>
- *   </Row>
- *
- * A Rows child must be of type Column
- *
- * @class Row
- * @constructor
- */
 class Row extends React.Component {
   static propTypes = {
-
     /**
-     * The elements to be rendered in the row
-     *
-     * @property children
-     * @type {Object | Array}
+     * This component supports children of type Column.
      */
     children: PropTypes.oneOfType([
       PropTypes.array,
@@ -42,46 +15,30 @@ class Row extends React.Component {
     ]),
 
     /**
-     * Custom className
-     *
-     * @property className
-     * @type {String}
+     * Classes to apply to the component.
      */
     className: PropTypes.string,
 
     /**
-     * Pass a custom value for the gutter
-     * (extra-small, small, medium, large or extra-large)
-     *
-     * @property gutter
-     * @type {String}
+     * Define how wide the gutter between the rows and columns should be.
      */
     gutter: PropTypes.string,
 
     /**
-     * Show a divide between columns
-     *
-     * @property columnDivide
-     * @type {String}
+     * Enable a divider between each column.
      */
     columnDivide: PropTypes.bool,
 
     /**
-     * Manually define number of columns
-     *
-     * @property columns
-     * @type {String}
+     * Define a certain amount of columns, instead of basing it on the number of children.
      */
     columns: PropTypes.string,
 
     /**
-     * class to apply to each child column
-     *
-     * @property columnClasses
-     * @type {String}
+     * Classes to apply to all column children.
      */
     columnClasses: PropTypes.string
-  }
+  };
 
   static defaultProps = {
     gutter: 'medium'

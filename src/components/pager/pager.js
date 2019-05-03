@@ -11,70 +11,37 @@ import Events from '../../utils/helpers/events';
 import tagComponent from '../../utils/helpers/tags';
 import './pager.scss';
 
-/**
- * A Pager widget.
- *
- * == How to use a Pager in a component:
- *
- * In your file
- *
- *   import Pager from 'carbon-react/lib/components/pager';
- *
- * To render a Pager:
- *
- *   <Pager currentPage='1' totalRecords='100' onPagination={ function(){} } />
- *
- * @class Pager
- */
 class Pager extends React.Component {
   static propTypes = {
 
     /**
      * Current visible page
-     *
-     * @property currentPage
-     * @type {String}
      */
     currentPage: PropTypes.string.isRequired,
 
     /**
      * Total number of records
-     *
-     * @property totalRecords
-     * @type {String}
      */
-    totalRecords: PropTypes.string.isRequired,
+    totalRecords: PropTypes.number.isRequired,
 
     /**
      * Function called when any pager changes take place
      * PageSize, Current Page
-     *
-     * @property onPagination
-     * @type {Function}
      */
     onPagination: PropTypes.func.isRequired,
 
     /**
      * Pagination page size
-     *
-     * @property pageSize
-     * @type {String}
      */
     pageSize: PropTypes.string,
 
     /**
      * Should the page size selection dropdown be shown
-     *
-     * @property showPageSizeSelection
-     * @type {Boolean}
      */
     showPageSizeSelection: PropTypes.bool,
 
     /**
      * Set of page size options
-     *
-     * @property pageSizeSelectionOptions
-     * @type {Object}
      */
     pageSizeSelectionOptions: PropTypes.object
   }
@@ -207,8 +174,8 @@ class Pager extends React.Component {
    * @return {Integer}
    */
   get maxPage() {
-    if (this.props.pageSize && this.props.pageSize !== '0') {
-      return Math.ceil(this.props.totalRecords / this.props.pageSize) || 1;
+    if (this.props.pageSize && this.props.pageSize !== '0' && this.totalRecordsCount > 0) {
+      return Math.ceil(this.totalRecordsCount / this.props.pageSize);
     }
     return 1;
   }
@@ -230,7 +197,7 @@ class Pager extends React.Component {
    * @return {Boolean}
    */
   get disableNext() {
-    return this.props.currentPage * this.props.pageSize >= Number(this.props.totalRecords);
+    return this.props.currentPage * this.props.pageSize >= this.totalRecordsCount;
   }
 
   /**
@@ -327,6 +294,16 @@ class Pager extends React.Component {
   }
 
   /**
+   * Total Records Count
+   *
+   * @method totalRecordsCount
+   * @return {Integer}
+   */
+  get totalRecordsCount() {
+    return this.props.totalRecords >= 0 ? this.props.totalRecords : 0;
+  }
+
+  /**
    * Render method for page
    *
    * @method render
@@ -349,7 +326,7 @@ class Pager extends React.Component {
         </div>
 
         <div className='carbon-pager__summary'>
-          { this.props.totalRecords }{ recordsText(this.props.totalRecords) }
+          { this.totalRecordsCount }{ recordsText(this.totalRecordsCount) }
         </div>
       </div>
     );
