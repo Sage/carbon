@@ -50,10 +50,10 @@ function renderChildren(props) {
     to
   } = props;
   let buttonContent = (
-    <>
+    <span>
       <span data-element='main-text'>{ children }</span>
       { size === 'large' && <StyledButtonSubtext data-element='subtext'>{ subtext }</StyledButtonSubtext> }
-    </>
+    </span>
   );
 
   if (href || to) {

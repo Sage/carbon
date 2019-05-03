@@ -52,7 +52,7 @@ function stylingForType({
     padding-bottom: 1px;
     text-decoration: none;
     &:focus {
-      outline: solid 3px ${theme.colors.warning};
+      outline: solid 3px ${theme.colors.focus};
     }
     & + & {
       margin-left: 16px;

@@ -68,7 +68,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c1:focus {
-  outline: solid 3px #E96400;
+  outline: solid 3px #FFDA7F;
 }
 
 .c1 + .c0 {
@@ -87,10 +87,12 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   role="button"
   size="medium"
 >
-  <span
-    data-element="main-text"
-  >
-    foo
+  <span>
+    <span
+      data-element="main-text"
+    >
+      foo
+    </span>
   </span>
   <span
     className="carbon-icon icon-filter"
@@ -150,7 +152,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c1:focus {
-  outline: solid 3px #E96400;
+  outline: solid 3px #FFDA7F;
 }
 
 .c1 + .c0 {
@@ -174,10 +176,12 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
     data-component="icon"
     data-element="filter"
   />
-  <span
-    data-element="main-text"
-  >
-    foo
+  <span>
+    <span
+      data-element="main-text"
+    >
+      foo
+    </span>
   </span>
 </button>
 `;
