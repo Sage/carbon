@@ -46,13 +46,18 @@ const PagerNavigation = (props) => {
       'data-element': 'next-page',
       type: 'dropdown'
     };
-    const totalRecordsCount = props.totalRecords >= 0 ? props.totalRecords : 0;
-    const disabled = props.currentPage * props.pageSize >= totalRecordsCount;
+
+    function disabled() {
+      if (step === -1) {
+        return props.currentPage === '1';
+      }
+      return props.currentPage === String(maxPages());
+    }
 
     return (
-      <PagerButtonWrapperStyles disabled={ disabled } next={ step === 1 }>
+      <PagerButtonWrapperStyles disabled={ disabled() } next={ step === 1 }>
         <Icon
-          onClick={ () => { navArrowChange(step); } }
+          onClick={ () => { if (!disabled()) { navArrowChange(step); } } }
           { ...arrowProps }
         />
       </PagerButtonWrapperStyles>

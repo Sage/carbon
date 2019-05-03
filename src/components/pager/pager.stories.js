@@ -78,6 +78,7 @@ storiesOf('Pager', module)
     return (
       <State store={ store }>
         <Pager
+          currentPage={ store.get('currentPage') }
           showPageSizeSelection={ showPageSizeSelection }
           totalRecords={ totalRecords }
           onPagination={ handlePagination }
