@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Immutable from 'immutable';
-import classicTheme from '../../../style/themes/classic';
-import smallTheme from '../../../style/themes/small';
+import classicTheme from '../../style/themes/classic';
+import smallTheme from '../../style/themes/small';
 import Pager from './pager.component';
 
 const pageSizeSelectionOptions = Immutable.fromJS([
@@ -35,11 +35,11 @@ describe('Pager', () => {
   };
 
   it('renders the Pager correctly with the classic theme', () => {
-    const wrapper = render({ ...props, theme: classicTheme });
+    const wrapper = render({ ...props, theme: classicTheme }, mount);
     expect(wrapper).toMatchSnapshot();
   });
   it('renders the Pager correctly with the small theme', () => {
-    const wrapper = render({ ...props, theme: smallTheme });
+    const wrapper = render({ ...props, theme: smallTheme }, mount);
     expect(wrapper).toMatchSnapshot();
   });
 });
