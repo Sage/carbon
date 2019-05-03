@@ -123,6 +123,7 @@ describe('OptionsHelper', () => {
       'people',
       'person',
       'phone',
+      'play',
       'plus',
       'print',
       'progressed',
@@ -143,6 +144,7 @@ describe('OptionsHelper', () => {
       'unlocked',
       'upload',
       'uploaded',
+      'video',
       'view',
       'warning',
       'white-tick'

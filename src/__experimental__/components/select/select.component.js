@@ -149,9 +149,10 @@ class Select extends React.Component {
     if (!this.isMultiValue(value)) {
       // only closes the dropdown if not multi-value
       newState.open = false;
-      newState.filter = undefined;
       this.unblockBlur();
     }
+
+    newState.filter = undefined;
     this.setState(newState);
     this.bridge.current._handleContentChange(); // temporary - resets validation on the old bridge component
 

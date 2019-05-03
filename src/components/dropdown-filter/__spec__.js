@@ -531,6 +531,15 @@ describe('DropdownFilter', () => {
         expect(instance.results([]).props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--no-results');
         expect(instance.results([]).props.children).toEqual('No results match "foo"');
       });
+
+      describe('when filter is null', () => {
+        it('adds no items option with correct translation', () => {
+          instance.setState({ filter: null });
+          expect(instance.results([]).type).toEqual('li');
+          expect(instance.results([]).props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--no-results');
+          expect(instance.results([]).props.children).toEqual('No results match ""');
+        });
+      });
     });
 
     describe('if there are items', () => {
