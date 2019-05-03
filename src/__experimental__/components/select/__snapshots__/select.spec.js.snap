@@ -4,7 +4,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
 <Textbox
   autoComplete="off"
   data-element="input"
-  id="guid-12345"
+  inputIcon="dropdown"
   inputRef={[Function]}
   leftChildren={false}
   onBlur={[Function]}
@@ -14,39 +14,946 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
   onKeyDown={[Function]}
   value=""
 >
-  <InputPresentation>
-    <div
-      className="carbon-input-presentation"
-      onMouseDown={[Function]}
-      role="presentation"
+  <FormField
+    autoComplete="off"
+    data-element="input"
+    inputRef={[Function]}
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    size="medium"
+    value=""
+  >
+    <styled.div
+      theme={
+        Object {
+          "colors": Object {
+            "border": "#668491",
+            "brand": "#00DC00",
+            "error": "#C7384F",
+            "focus": "#FFDA7F",
+            "focusedIcon": "#335B6D",
+            "info": "#0073C2",
+            "primary": "#26A826",
+            "secondary": "#006300",
+            "success": "#00B000",
+            "tertiary": "#004400",
+            "warning": "#E96400",
+            "white": "#FFFFFF",
+          },
+          "disabled": Object {
+            "background": "#E5EAEC",
+            "border": "#CCD6DA",
+            "disabled": "rgba(0,0,0,0.55)",
+            "input": "#F2F4F5",
+            "text": "rgba(0,0,0,0.3)",
+          },
+          "icon": Object {
+            "focus": "#335B6D",
+          },
+          "name": "base",
+          "shadows": Object {
+            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+          },
+          "text": Object {
+            "color": "rgba(0,0,0,0.9)",
+            "placeholder": "rgba(0,0,0,0.3)",
+            "size": "14px",
+          },
+        }
+      }
     >
-      <Input
-        autoComplete="off"
-        data-element="input"
-        id="guid-12345"
-        inputRef={[Function]}
-        onBlur={[Function]}
-        onChange={[Function]}
-        onClick={[Function]}
-        onFocus={[Function]}
-        onKeyDown={[Function]}
-        value=""
+      <StyledComponent
+        forwardedComponent={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "attrs": Array [],
+            "componentStyle": ComponentStyle {
+              "componentId": "sc-EHOje",
+              "isStatic": false,
+              "lastClassName": "fxZUgt",
+              "rules": Array [
+                "
+  display: flex;
+  flex-wrap: wrap;
+
+  & + & {
+    margin-top: ",
+                [Function],
+                ";
+  }
+",
+              ],
+            },
+            "defaultProps": Object {
+              "theme": Object {
+                "colors": Object {
+                  "border": "#668491",
+                  "brand": "#00DC00",
+                  "error": "#C7384F",
+                  "focus": "#FFDA7F",
+                  "focusedIcon": "#335B6D",
+                  "info": "#0073C2",
+                  "primary": "#26A826",
+                  "secondary": "#006300",
+                  "success": "#00B000",
+                  "tertiary": "#004400",
+                  "warning": "#E96400",
+                  "white": "#FFFFFF",
+                },
+                "disabled": Object {
+                  "background": "#E5EAEC",
+                  "border": "#CCD6DA",
+                  "disabled": "rgba(0,0,0,0.55)",
+                  "input": "#F2F4F5",
+                  "text": "rgba(0,0,0,0.3)",
+                },
+                "icon": Object {
+                  "focus": "#335B6D",
+                },
+                "name": "base",
+                "shadows": Object {
+                  "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                  "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                  "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                  "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                  "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                },
+                "text": Object {
+                  "color": "rgba(0,0,0,0.9)",
+                  "placeholder": "rgba(0,0,0,0.3)",
+                  "size": "14px",
+                },
+              },
+            },
+            "displayName": "styled.div",
+            "foldedComponentIds": Array [],
+            "render": [Function],
+            "styledComponentId": "sc-EHOje",
+            "target": "div",
+            "toString": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+          }
+        }
+        forwardedRef={null}
+        theme={
+          Object {
+            "colors": Object {
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFDA7F",
+              "focusedIcon": "#335B6D",
+              "info": "#0073C2",
+              "primary": "#26A826",
+              "secondary": "#006300",
+              "success": "#00B000",
+              "tertiary": "#004400",
+              "warning": "#E96400",
+              "white": "#FFFFFF",
+            },
+            "disabled": Object {
+              "background": "#E5EAEC",
+              "border": "#CCD6DA",
+              "disabled": "rgba(0,0,0,0.55)",
+              "input": "#F2F4F5",
+              "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
+            },
+            "name": "base",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          }
+        }
       >
-        <input
-          autoComplete="off"
-          className="carbon-input"
-          data-element="input"
-          id="guid-12345"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          value=""
-        />
-      </Input>
-    </div>
-  </InputPresentation>
+        <div
+          className="sc-EHOje fxZUgt"
+        >
+          <InputPresentation
+            autoComplete="off"
+            data-element="input"
+            inputRef={[Function]}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value=""
+          >
+            <styled.div
+              autoComplete="off"
+              data-element="input"
+              hasFocus={false}
+              inputRef={[Function]}
+              inputWidth={100}
+              onMouseDown={[Function]}
+              role="presentation"
+              size="medium"
+              theme={
+                Object {
+                  "colors": Object {
+                    "border": "#668491",
+                    "brand": "#00DC00",
+                    "error": "#C7384F",
+                    "focus": "#FFDA7F",
+                    "focusedIcon": "#335B6D",
+                    "info": "#0073C2",
+                    "primary": "#26A826",
+                    "secondary": "#006300",
+                    "success": "#00B000",
+                    "tertiary": "#004400",
+                    "warning": "#E96400",
+                    "white": "#FFFFFF",
+                  },
+                  "disabled": Object {
+                    "background": "#E5EAEC",
+                    "border": "#CCD6DA",
+                    "disabled": "rgba(0,0,0,0.55)",
+                    "input": "#F2F4F5",
+                    "text": "rgba(0,0,0,0.3)",
+                  },
+                  "icon": Object {
+                    "focus": "#335B6D",
+                  },
+                  "name": "base",
+                  "shadows": Object {
+                    "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                    "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                    "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                    "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                    "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                  },
+                  "text": Object {
+                    "color": "rgba(0,0,0,0.9)",
+                    "placeholder": "rgba(0,0,0,0.3)",
+                    "size": "14px",
+                  },
+                }
+              }
+              type="text"
+              value=""
+            >
+              <StyledComponent
+                autoComplete="off"
+                data-element="input"
+                forwardedComponent={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "attrs": Array [],
+                    "componentStyle": ComponentStyle {
+                      "componentId": "sc-bxivhb",
+                      "isStatic": false,
+                      "lastClassName": "igPrLp",
+                      "rules": Array [
+                        "
+  align-items: center;
+  background: transparent;
+  border: 1px solid ",
+                        [Function],
+                        ";
+  box-sizing: border-box;
+  cursor: text;
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 ",
+                        [Function],
+                        "%;
+  margin: 0;
+  min-height: ",
+                        [Function],
+                        ";
+  padding-left: ",
+                        [Function],
+                        ";
+  padding-right: ",
+                        [Function],
+                        ";
+
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+
+  ",
+                        [Function],
+                        "
+
+  input::-ms-clear {
+    display: none;
+  }
+  input::-webkit-contacts-auto-fill-button {
+    display: none!important;
+  }
+",
+                      ],
+                    },
+                    "defaultProps": Object {
+                      "inputWidth": 100,
+                      "size": "medium",
+                      "theme": Object {
+                        "colors": Object {
+                          "border": "#668491",
+                          "brand": "#00DC00",
+                          "error": "#C7384F",
+                          "focus": "#FFDA7F",
+                          "focusedIcon": "#335B6D",
+                          "info": "#0073C2",
+                          "primary": "#26A826",
+                          "secondary": "#006300",
+                          "success": "#00B000",
+                          "tertiary": "#004400",
+                          "warning": "#E96400",
+                          "white": "#FFFFFF",
+                        },
+                        "disabled": Object {
+                          "background": "#E5EAEC",
+                          "border": "#CCD6DA",
+                          "disabled": "rgba(0,0,0,0.55)",
+                          "input": "#F2F4F5",
+                          "text": "rgba(0,0,0,0.3)",
+                        },
+                        "icon": Object {
+                          "focus": "#335B6D",
+                        },
+                        "name": "base",
+                        "shadows": Object {
+                          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                        },
+                        "text": Object {
+                          "color": "rgba(0,0,0,0.9)",
+                          "placeholder": "rgba(0,0,0,0.3)",
+                          "size": "14px",
+                        },
+                      },
+                    },
+                    "displayName": "styled.div",
+                    "foldedComponentIds": Array [],
+                    "propTypes": Object {
+                      "disabled": [Function],
+                      "error": [Function],
+                      "hasFocus": [Function],
+                      "info": [Function],
+                      "readOnly": [Function],
+                      "size": [Function],
+                      "warning": [Function],
+                    },
+                    "render": [Function],
+                    "styledComponentId": "sc-bxivhb",
+                    "target": "div",
+                    "toString": [Function],
+                    "warnTooManyClasses": [Function],
+                    "withComponent": [Function],
+                  }
+                }
+                forwardedRef={
+                  Object {
+                    "current": <div
+                      autocomplete="off"
+                      class="sc-bxivhb igPrLp"
+                      data-element="input"
+                      role="presentation"
+                      type="text"
+                      value=""
+                    >
+                      <input
+                        autocomplete="off"
+                        class="sc-ifAKCX iHTfyA"
+                        data-element="input"
+                        value=""
+                      />
+                      <span
+                        autocomplete="off"
+                        class="sc-htpNat hmqeKz"
+                        data-element="input"
+                        value=""
+                      >
+                        <span
+                          class="carbon-icon icon-dropdown"
+                          data-component="icon"
+                          data-element="dropdown"
+                        />
+                      </span>
+                    </div>,
+                  }
+                }
+                hasFocus={false}
+                inputRef={[Function]}
+                inputWidth={100}
+                onMouseDown={[Function]}
+                role="presentation"
+                size="medium"
+                theme={
+                  Object {
+                    "colors": Object {
+                      "border": "#668491",
+                      "brand": "#00DC00",
+                      "error": "#C7384F",
+                      "focus": "#FFDA7F",
+                      "focusedIcon": "#335B6D",
+                      "info": "#0073C2",
+                      "primary": "#26A826",
+                      "secondary": "#006300",
+                      "success": "#00B000",
+                      "tertiary": "#004400",
+                      "warning": "#E96400",
+                      "white": "#FFFFFF",
+                    },
+                    "disabled": Object {
+                      "background": "#E5EAEC",
+                      "border": "#CCD6DA",
+                      "disabled": "rgba(0,0,0,0.55)",
+                      "input": "#F2F4F5",
+                      "text": "rgba(0,0,0,0.3)",
+                    },
+                    "icon": Object {
+                      "focus": "#335B6D",
+                    },
+                    "name": "base",
+                    "shadows": Object {
+                      "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                      "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                      "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                      "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                      "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                    },
+                    "text": Object {
+                      "color": "rgba(0,0,0,0.9)",
+                      "placeholder": "rgba(0,0,0,0.3)",
+                      "size": "14px",
+                    },
+                  }
+                }
+                type="text"
+                value=""
+              >
+                <div
+                  autoComplete="off"
+                  className="sc-bxivhb igPrLp"
+                  data-element="input"
+                  onMouseDown={[Function]}
+                  role="presentation"
+                  size="medium"
+                  type="text"
+                  value=""
+                >
+                  <Input
+                    autoComplete="off"
+                    data-element="input"
+                    inputRef={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    value=""
+                  >
+                    <styled.input
+                      autoComplete="off"
+                      data-element="input"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      theme={
+                        Object {
+                          "colors": Object {
+                            "border": "#668491",
+                            "brand": "#00DC00",
+                            "error": "#C7384F",
+                            "focus": "#FFDA7F",
+                            "focusedIcon": "#335B6D",
+                            "info": "#0073C2",
+                            "primary": "#26A826",
+                            "secondary": "#006300",
+                            "success": "#00B000",
+                            "tertiary": "#004400",
+                            "warning": "#E96400",
+                            "white": "#FFFFFF",
+                          },
+                          "disabled": Object {
+                            "background": "#E5EAEC",
+                            "border": "#CCD6DA",
+                            "disabled": "rgba(0,0,0,0.55)",
+                            "input": "#F2F4F5",
+                            "text": "rgba(0,0,0,0.3)",
+                          },
+                          "icon": Object {
+                            "focus": "#335B6D",
+                          },
+                          "name": "base",
+                          "shadows": Object {
+                            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                          },
+                          "text": Object {
+                            "color": "rgba(0,0,0,0.9)",
+                            "placeholder": "rgba(0,0,0,0.3)",
+                            "size": "14px",
+                          },
+                        }
+                      }
+                      value=""
+                    >
+                      <StyledComponent
+                        autoComplete="off"
+                        data-element="input"
+                        forwardedComponent={
+                          Object {
+                            "$$typeof": Symbol(react.forward_ref),
+                            "attrs": Array [],
+                            "componentStyle": ComponentStyle {
+                              "componentId": "sc-ifAKCX",
+                              "isStatic": false,
+                              "lastClassName": "iHTfyA",
+                              "rules": Array [
+                                "
+  background: transparent;
+  border: none;
+  color: ",
+                                [Function],
+                                ";
+  flex-grow: 1;
+  font-size: ",
+                                [Function],
+                                ";
+  outline: none;
+  width: 30px;
+  
+  ",
+                                [Function],
+                                "
+
+  &::placeholder {
+    color: ",
+                                [Function],
+                                ";
+  }
+
+  ",
+                                [Function],
+                                "
+",
+                              ],
+                            },
+                            "defaultProps": Object {
+                              "theme": Object {
+                                "colors": Object {
+                                  "border": "#668491",
+                                  "brand": "#00DC00",
+                                  "error": "#C7384F",
+                                  "focus": "#FFDA7F",
+                                  "focusedIcon": "#335B6D",
+                                  "info": "#0073C2",
+                                  "primary": "#26A826",
+                                  "secondary": "#006300",
+                                  "success": "#00B000",
+                                  "tertiary": "#004400",
+                                  "warning": "#E96400",
+                                  "white": "#FFFFFF",
+                                },
+                                "disabled": Object {
+                                  "background": "#E5EAEC",
+                                  "border": "#CCD6DA",
+                                  "disabled": "rgba(0,0,0,0.55)",
+                                  "input": "#F2F4F5",
+                                  "text": "rgba(0,0,0,0.3)",
+                                },
+                                "icon": Object {
+                                  "focus": "#335B6D",
+                                },
+                                "name": "base",
+                                "shadows": Object {
+                                  "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                  "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                  "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                  "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                  "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                },
+                                "text": Object {
+                                  "color": "rgba(0,0,0,0.9)",
+                                  "placeholder": "rgba(0,0,0,0.3)",
+                                  "size": "14px",
+                                },
+                              },
+                            },
+                            "displayName": "styled.input",
+                            "foldedComponentIds": Array [],
+                            "propTypes": Object {
+                              "disabled": [Function],
+                            },
+                            "render": [Function],
+                            "styledComponentId": "sc-ifAKCX",
+                            "target": "input",
+                            "toString": [Function],
+                            "warnTooManyClasses": [Function],
+                            "withComponent": [Function],
+                          }
+                        }
+                        forwardedRef={
+                          Object {
+                            "current": <input
+                              autocomplete="off"
+                              class="sc-ifAKCX iHTfyA"
+                              data-element="input"
+                              value=""
+                            />,
+                          }
+                        }
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "border": "#668491",
+                              "brand": "#00DC00",
+                              "error": "#C7384F",
+                              "focus": "#FFDA7F",
+                              "focusedIcon": "#335B6D",
+                              "info": "#0073C2",
+                              "primary": "#26A826",
+                              "secondary": "#006300",
+                              "success": "#00B000",
+                              "tertiary": "#004400",
+                              "warning": "#E96400",
+                              "white": "#FFFFFF",
+                            },
+                            "disabled": Object {
+                              "background": "#E5EAEC",
+                              "border": "#CCD6DA",
+                              "disabled": "rgba(0,0,0,0.55)",
+                              "input": "#F2F4F5",
+                              "text": "rgba(0,0,0,0.3)",
+                            },
+                            "icon": Object {
+                              "focus": "#335B6D",
+                            },
+                            "name": "base",
+                            "shadows": Object {
+                              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                            },
+                            "text": Object {
+                              "color": "rgba(0,0,0,0.9)",
+                              "placeholder": "rgba(0,0,0,0.3)",
+                              "size": "14px",
+                            },
+                          }
+                        }
+                        value=""
+                      >
+                        <input
+                          autoComplete="off"
+                          className="sc-ifAKCX iHTfyA"
+                          data-element="input"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          value=""
+                        />
+                      </StyledComponent>
+                    </styled.input>
+                  </Input>
+                  <InputIconToggle
+                    autoComplete="off"
+                    data-element="input"
+                    inputRef={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    type="dropdown"
+                    value=""
+                  >
+                    <styled.span
+                      autoComplete="off"
+                      data-element="input"
+                      inputRef={[Function]}
+                      key="label-icon"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      size="medium"
+                      theme={
+                        Object {
+                          "colors": Object {
+                            "border": "#668491",
+                            "brand": "#00DC00",
+                            "error": "#C7384F",
+                            "focus": "#FFDA7F",
+                            "focusedIcon": "#335B6D",
+                            "info": "#0073C2",
+                            "primary": "#26A826",
+                            "secondary": "#006300",
+                            "success": "#00B000",
+                            "tertiary": "#004400",
+                            "warning": "#E96400",
+                            "white": "#FFFFFF",
+                          },
+                          "disabled": Object {
+                            "background": "#E5EAEC",
+                            "border": "#CCD6DA",
+                            "disabled": "rgba(0,0,0,0.55)",
+                            "input": "#F2F4F5",
+                            "text": "rgba(0,0,0,0.3)",
+                          },
+                          "icon": Object {
+                            "focus": "#335B6D",
+                          },
+                          "name": "base",
+                          "shadows": Object {
+                            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                          },
+                          "text": Object {
+                            "color": "rgba(0,0,0,0.9)",
+                            "placeholder": "rgba(0,0,0,0.3)",
+                            "size": "14px",
+                          },
+                        }
+                      }
+                      value=""
+                    >
+                      <StyledComponent
+                        autoComplete="off"
+                        data-element="input"
+                        forwardedComponent={
+                          Object {
+                            "$$typeof": Symbol(react.forward_ref),
+                            "attrs": Array [],
+                            "componentStyle": ComponentStyle {
+                              "componentId": "sc-htpNat",
+                              "isStatic": false,
+                              "lastClassName": "hmqeKz",
+                              "rules": Array [
+                                "
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  margin-right: ",
+                                [Function],
+                                "
+
+  ",
+                                [Function],
+                                "
+  ",
+                                [Function],
+                                "
+  ",
+                                [Function],
+                                "
+  ",
+                                [Function],
+                                "
+
+  ",
+                                [Function],
+                                "
+",
+                              ],
+                            },
+                            "defaultProps": Object {
+                              "size": "medium",
+                              "theme": Object {
+                                "colors": Object {
+                                  "border": "#668491",
+                                  "brand": "#00DC00",
+                                  "error": "#C7384F",
+                                  "focus": "#FFDA7F",
+                                  "focusedIcon": "#335B6D",
+                                  "info": "#0073C2",
+                                  "primary": "#26A826",
+                                  "secondary": "#006300",
+                                  "success": "#00B000",
+                                  "tertiary": "#004400",
+                                  "warning": "#E96400",
+                                  "white": "#FFFFFF",
+                                },
+                                "disabled": Object {
+                                  "background": "#E5EAEC",
+                                  "border": "#CCD6DA",
+                                  "disabled": "rgba(0,0,0,0.55)",
+                                  "input": "#F2F4F5",
+                                  "text": "rgba(0,0,0,0.3)",
+                                },
+                                "icon": Object {
+                                  "focus": "#335B6D",
+                                },
+                                "name": "base",
+                                "shadows": Object {
+                                  "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                  "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                  "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                  "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                  "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                },
+                                "text": Object {
+                                  "color": "rgba(0,0,0,0.9)",
+                                  "placeholder": "rgba(0,0,0,0.3)",
+                                  "size": "14px",
+                                },
+                              },
+                            },
+                            "displayName": "styled.span",
+                            "foldedComponentIds": Array [],
+                            "propTypes": Object {
+                              "error": [Function],
+                              "info": [Function],
+                              "size": [Function],
+                              "warning": [Function],
+                            },
+                            "render": [Function],
+                            "styledComponentId": "sc-htpNat",
+                            "target": "span",
+                            "toString": [Function],
+                            "warnTooManyClasses": [Function],
+                            "withComponent": [Function],
+                          }
+                        }
+                        forwardedRef={null}
+                        inputRef={[Function]}
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        size="medium"
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "border": "#668491",
+                              "brand": "#00DC00",
+                              "error": "#C7384F",
+                              "focus": "#FFDA7F",
+                              "focusedIcon": "#335B6D",
+                              "info": "#0073C2",
+                              "primary": "#26A826",
+                              "secondary": "#006300",
+                              "success": "#00B000",
+                              "tertiary": "#004400",
+                              "warning": "#E96400",
+                              "white": "#FFFFFF",
+                            },
+                            "disabled": Object {
+                              "background": "#E5EAEC",
+                              "border": "#CCD6DA",
+                              "disabled": "rgba(0,0,0,0.55)",
+                              "input": "#F2F4F5",
+                              "text": "rgba(0,0,0,0.3)",
+                            },
+                            "icon": Object {
+                              "focus": "#335B6D",
+                            },
+                            "name": "base",
+                            "shadows": Object {
+                              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                            },
+                            "text": Object {
+                              "color": "rgba(0,0,0,0.9)",
+                              "placeholder": "rgba(0,0,0,0.3)",
+                              "size": "14px",
+                            },
+                          }
+                        }
+                        value=""
+                      >
+                        <span
+                          autoComplete="off"
+                          className="sc-htpNat hmqeKz"
+                          data-element="input"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          size="medium"
+                          value=""
+                        >
+                          <Icon
+                            bgSize="small"
+                            type="dropdown"
+                          >
+                            <span
+                              className="carbon-icon icon-dropdown"
+                              data-component="icon"
+                              data-element="dropdown"
+                              key="icon"
+                            />
+                          </Icon>
+                        </span>
+                      </StyledComponent>
+                    </styled.span>
+                  </InputIconToggle>
+                </div>
+              </StyledComponent>
+            </styled.div>
+          </InputPresentation>
+        </div>
+      </StyledComponent>
+    </styled.div>
+  </FormField>
 </Textbox>
 `;
 
