@@ -130,7 +130,8 @@ const PagerNavigation = (props) => {
     return <NumberComponent { ...currentPageInputProps } />;
   }
 
-  if (props.theme.name === 'classic') {
+  const { theme } = props;
+  if (theme && theme.name === 'classic') {
     return (
       <PagerNavigationStyles>
         { navArrow(-1) }

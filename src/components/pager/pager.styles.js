@@ -9,13 +9,12 @@ const PagerContainerStyles = styled.div`
   border: 1px solid #d8dfe3;
   border-top-width: 0;
   font-size: 13px;
+  background-color: '#FAFBFB';
   
-  ${({ theme }) => css`
-  background-color: ${theme.table.pager};
-  `};
   ${({ theme }) => theme.name === THEMES.classic && css`
     padding: 3px 16px;
     font-size: 14px;
+    background-color: '#F2F4F5';
   `};
 `;
 

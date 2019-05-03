@@ -14,10 +14,6 @@ export default (palette) => {
       greyDarkBlue50: '#8099a4'
     },
 
-    table: {
-      pager: palette.slateTint(95)
-    },
-
     disabled: {
       text: palette.slate,
       input: '#1e499f',
