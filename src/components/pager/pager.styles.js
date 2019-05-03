@@ -9,7 +9,10 @@ const PagerContainerStyles = styled.div`
   border: 1px solid #d8dfe3;
   border-top-width: 0;
   
-  ${({ theme }) => theme.name === THEMES.classic && css`
+  /* ${({ theme }) => theme.name === THEMES.classic && css`
+    background-color: ${theme.table.pager};
+  `}; */
+  ${({ theme }) => css`
     background-color: ${theme.table.pager};
   `};
 `;

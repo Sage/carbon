@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import { number, select, boolean } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
-import Pager from './pager';
+import Pager from './pager.component';
 import notes from './notes.md';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';

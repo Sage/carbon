@@ -35,7 +35,7 @@ export default (palette) => {
     },
 
     table: {
-      pager: palette.slateTint(95)
+      pager: '#FAFBFB'
     },
 
     disabled: {
