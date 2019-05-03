@@ -307,7 +307,7 @@ class DropdownFilter extends Dropdown {
           {
             I18n.t('dropdownlist.no_results', {
               defaultValue: 'No results match "%{term}"',
-              term: this.state.filter
+              term: this.state.filter || ''
             })
           }
         </li>
