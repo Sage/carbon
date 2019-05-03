@@ -213,6 +213,12 @@ exports[`Button when the classic theme is applied setting the color variant to "
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
   border: 1px solid #1e499f;
@@ -333,6 +339,12 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #255bc7;
   -webkit-text-decoration: none;
   text-decoration: none;
+}
+
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
 }
 
 .c1:hover {
@@ -457,6 +469,12 @@ exports[`Button when the classic theme is applied setting the color variant to "
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
   border: 1px solid #1e499f;
@@ -577,6 +595,12 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #255bc7;
   -webkit-text-decoration: none;
   text-decoration: none;
+}
+
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
 }
 
 .c1:hover {
@@ -701,6 +725,12 @@ exports[`Button when the classic theme is applied setting the color variant to "
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
   border: 1px solid #1e499f;
@@ -821,6 +851,12 @@ exports[`Button when the classic theme is applied setting the color variant to "
   color: #255bc7;
   -webkit-text-decoration: none;
   text-decoration: none;
+}
+
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
 }
 
 .c1:hover {
@@ -945,6 +981,12 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
   border: 1px solid #1e499f;
@@ -1065,6 +1107,12 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   color: #255bc7;
   -webkit-text-decoration: none;
   text-decoration: none;
+}
+
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
 }
 
 .c1:hover {
@@ -1189,6 +1237,12 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
   border: 1px solid #1e499f;
@@ -1309,6 +1363,12 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   color: #255bc7;
   -webkit-text-decoration: none;
   text-decoration: none;
+}
+
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
 }
 
 .c1:hover {
@@ -1433,6 +1493,12 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
   border: 1px solid #1e499f;
@@ -1553,6 +1619,12 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   color: #255bc7;
   -webkit-text-decoration: none;
   text-decoration: none;
+}
+
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
 }
 
 .c1:hover {
@@ -1769,6 +1841,12 @@ exports[`Button with href prop specified renders link properly 1`] = `
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
   border: 1px solid #1e499f;
@@ -1931,6 +2009,12 @@ exports[`Button with to prop specified renders link properly 1`] = `
   color: #ffffff;
   -webkit-text-decoration: none;
   text-decoration: none;
+}
+
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
 }
 
 .c1:hover {

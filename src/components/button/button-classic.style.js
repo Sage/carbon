@@ -3,33 +3,39 @@ import LinkStyle from '../link/link.style';
 
 const blue = {
   default: '#255bc7',
-  hover: '#1e499f'
+  hover: '#1e499f',
+  active: '#1963f6'
 };
 
 const grey = {
   default: '#335c6d',
-  hover: '#003349'
+  hover: '#003349',
+  active: '#335c6d'
 };
 
 const magenta = {
   default: '#ed1c5f',
-  hover: '#be164c'
+  hover: '#be164c',
+  active: '#f32e6d'
 };
 
 const magentaDull = {
   default: '#ca2a60',
-  hover: '#be164c'
+  hover: '#be164c',
+  active: '#d55580'
 };
 
 const red = {
   default: '#c7384f',
-  hover: '#9f2d3f'
+  hover: '#9f2d3f',
+  active: '#e42c2d'
 };
 
 const white = {
   default: '#ffffff',
   hover: '#cccccc',
-  text: '#1b1d21'
+  text: '#1b1d21',
+  active: '#e6ebed'
 };
 
 const buttonStyles = {
@@ -38,6 +44,11 @@ const buttonStyles = {
       background: ${blue.default};
       border: 1px solid transparent;
       color: ${white.default};
+      &:active {
+        background-color: ${blue.active};
+        border-color: ${blue.active};
+        color: ${white.default};
+      }
       &:hover {
         background: ${blue.hover};
         border: 1px solid ${blue.hover};
@@ -52,9 +63,14 @@ const buttonStyles = {
       background: ${grey.hover};
       border: 1px solid transparent;
       color: ${white.default};
+      &:active {
+        background-color: ${grey.active};
+        border-color: ${grey.active};
+        color: ${white.default};
+      }
       &:hover {
-        background: ${blue.default};
-        border: 1px solid ${blue.default};
+        background: ${grey.default};
+        border: 1px solid ${grey.default};
         color: ${white.default};
       }
       &:focus {
@@ -66,6 +82,11 @@ const buttonStyles = {
       background: ${magenta.default};
       border: 1px solid transparent;
       color: ${white.default};
+      &:active: {
+        background-color: ${magenta.active};
+        border-color: ${magenta.active};
+        color: ${white.default}
+      }
       &:hover {
         background: ${magenta.hover};
         border: 1px solid ${magenta.hover};
@@ -80,6 +101,11 @@ const buttonStyles = {
       background: ${magentaDull.default};
       border: 1px solid transparent;
       color: ${white.default};
+      &:active {
+        background-color: ${magentaDull.active};
+        border-color: ${magentaDull.active};
+        color: ${white.default};
+      }
       &:hover {
         background: ${magentaDull.hover};
         border: 1px solid ${magentaDull.hover};
@@ -94,6 +120,11 @@ const buttonStyles = {
       background: ${red.default};
       border: 1px solid transparent;
       color: ${white.default};
+      &:active {
+        background-color: ${red.active};
+        border-color: ${red.active};
+        color: ${white.default};
+      }
       &:hover {
         background: ${red.hover};
         border: 1px solid ${red.hover};
@@ -108,6 +139,11 @@ const buttonStyles = {
       background: ${white.default};
       border: 1px solid transparent;
       color: rgba(0,0,0, 85);
+      &:active {
+        background-color: ${white.active};
+        border-color: ${white.active}
+        color: ${white.text};
+      }
       &:hover {
         background: ${white.hover};
         border: 1px solid ${white.hover};
@@ -124,6 +160,11 @@ const buttonStyles = {
       background: transparent;
       border: 1px solid ${blue.default};
       color: ${blue.default};
+      &:active {
+        background-color: ${blue.active};
+        border-color: ${blue.active};
+        color: ${white.default};
+      }
       &:hover {
         background: ${blue.hover};
         border: 1px solid ${blue.hover};
@@ -141,6 +182,11 @@ const buttonStyles = {
       background: transparent;
       border: 1px solid ${grey.default};
       color: ${grey.default};
+      &:active {
+        background-color: ${grey.active};
+        border-color: ${grey.active};
+        color: ${white.default};
+      }
       &:hover {
         background: ${grey.hover};
         border: 1px solid ${grey.hover};
@@ -158,6 +204,11 @@ const buttonStyles = {
       background: transparent;
       border: 1px solid ${magenta.default};
       color: ${magenta.default};
+      &:active {
+        background-color: ${magenta.active};
+        border-color: ${magenta.active};
+        color: ${white.default}
+      }
       &:hover {
         background: ${magenta.hover};
         border: 1px solid ${magenta.hover};
@@ -175,6 +226,11 @@ const buttonStyles = {
       background: transparent;
       border: 1px solid ${magentaDull.default};
       color: ${magentaDull.default};
+      &:active {
+        background-color: ${magentaDull.active};
+        border-color: ${magentaDull.active};
+        color: ${white.default};
+      }
       &:hover {
         background: ${magentaDull.hover};
         border: 1px solid ${magentaDull.hover};
@@ -192,6 +248,11 @@ const buttonStyles = {
       background: transparent;
       border: 1px solid ${red.default};
       color: ${red.default};
+      &:active {
+        background-color: ${red.active};
+        border-color: ${red.active};
+        color: ${white.default};
+      }
       &:hover {
         background: ${red.hover};
         border: 1px solid ${red.hover};
@@ -209,6 +270,11 @@ const buttonStyles = {
       background: transparent;
       border: 1px solid ${white.default};
       color: ${white.default};
+      &:active {
+        background-color: ${white.active};
+        border-color: ${white.active}
+        color: ${white.text};
+      }
       &:hover {
         background: ${white.hover};
         border: 1px solid ${white.hover};
