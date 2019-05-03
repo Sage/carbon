@@ -57,7 +57,9 @@ const PagerNavigation = (props) => {
     return (
       <PagerButtonWrapperStyles disabled={ disabled() } next={ step === 1 }>
         <Icon
-          onClick={ () => { if (!disabled()) { navArrowChange(step); } } }
+          onClick={ () => {
+            if (!disabled()) { navArrowChange(step); }
+          } }
           { ...arrowProps }
         />
       </PagerButtonWrapperStyles>
