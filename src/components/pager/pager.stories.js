@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { number, boolean } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import Pager from './pager.component';
-import notes from './notes.md';
+import notes from './documentation';
 import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
 const store = new Store({
