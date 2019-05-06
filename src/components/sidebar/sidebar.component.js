@@ -73,7 +73,7 @@ Sidebar.propTypes = {
 
 Sidebar.defaultProps = {
   position: 'right',
-  size: 'medium',
+  size: 'small',
   open: false,
   enableBackgroundUI: false
 };
