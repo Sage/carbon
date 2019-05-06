@@ -66,6 +66,15 @@ describe('Select', () => {
     expect(list.props()).toMatchSnapshot();
   });
 
+  it('applies custom data-* attributes at the right level', () => {
+    const wrapper = renderWrapper({
+      props: { 'data-role': 'custom-role', 'data-element': 'custom-element' }
+    });
+    expect(wrapper.find('div').first().prop('data-role')).toEqual('custom-role');
+    expect(wrapper.find('div').first().prop('data-element')).toEqual('custom-element');
+    expect(wrapper.find('Textbox')).toMatchSnapshot();
+  });
+
   it('triggers an onOpen callback if provided, but not if already open', () => {
     const onOpen = jest.fn();
     const wrapper = renderWrapper({ props: { onOpen } });

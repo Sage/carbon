@@ -196,6 +196,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                               "brand": "#00DC00",
                                               "error": "#C7384F",
                                               "focus": "#FFDA7F",
+                                              "focusedIcon": "#335B6D",
                                               "info": "#0073C2",
                                               "primary": "#26A826",
                                               "secondary": "#006300",
@@ -205,10 +206,14 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                               "white": "#FFFFFF",
                                             },
                                             "disabled": Object {
+                                              "background": "#E5EAEC",
                                               "border": "#CCD6DA",
                                               "disabled": "rgba(0,0,0,0.55)",
                                               "input": "#F2F4F5",
                                               "text": "rgba(0,0,0,0.3)",
+                                            },
+                                            "icon": Object {
+                                              "focus": "#335B6D",
                                             },
                                             "name": "base",
                                             "shadows": Object {
@@ -281,6 +286,7 @@ a {
                                                     "brand": "#00DC00",
                                                     "error": "#C7384F",
                                                     "focus": "#FFDA7F",
+                                                    "focusedIcon": "#335B6D",
                                                     "info": "#0073C2",
                                                     "primary": "#26A826",
                                                     "secondary": "#006300",
@@ -290,10 +296,14 @@ a {
                                                     "white": "#FFFFFF",
                                                   },
                                                   "disabled": Object {
+                                                    "background": "#E5EAEC",
                                                     "border": "#CCD6DA",
                                                     "disabled": "rgba(0,0,0,0.55)",
                                                     "input": "#F2F4F5",
                                                     "text": "rgba(0,0,0,0.3)",
+                                                  },
+                                                  "icon": Object {
+                                                    "focus": "#335B6D",
                                                   },
                                                   "name": "base",
                                                   "shadows": Object {
@@ -331,6 +341,7 @@ a {
                                                 "brand": "#00DC00",
                                                 "error": "#C7384F",
                                                 "focus": "#FFDA7F",
+                                                "focusedIcon": "#335B6D",
                                                 "info": "#0073C2",
                                                 "primary": "#26A826",
                                                 "secondary": "#006300",
@@ -340,10 +351,14 @@ a {
                                                 "white": "#FFFFFF",
                                               },
                                               "disabled": Object {
+                                                "background": "#E5EAEC",
                                                 "border": "#CCD6DA",
                                                 "disabled": "rgba(0,0,0,0.55)",
                                                 "input": "#F2F4F5",
                                                 "text": "rgba(0,0,0,0.3)",
+                                              },
+                                              "icon": Object {
+                                                "focus": "#335B6D",
                                               },
                                               "name": "base",
                                               "shadows": Object {

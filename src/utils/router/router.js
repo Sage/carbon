@@ -2,8 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Router, browserHistory } from 'react-router';
 
+let isInitial = true;
 const onRouteUpdate = () => {
   global.window.scrollTo(0, 0);
+
+  if (isInitial) {
+    isInitial = false;
+    return;
+  }
 
   if (global.ga) {
     global.ga('set', 'page', global.location.pathname);

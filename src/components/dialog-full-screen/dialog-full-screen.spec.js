@@ -1,14 +1,18 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import DialogFullScreen from './dialog-full-screen';
+import 'jest-styled-components';
+import DialogFullScreen from './dialog-full-screen.component';
 import FullScreenHeading from './full-screen-heading';
-import Button from './../button';
+import StyledDialogFullScreen from './dialog-full-screen.style';
+import StyledIcon from './icon.style';
+import StyledContent from './content.style';
+import classicTheme from '../../style/themes/classic';
+import Button from '../button';
 import guid from '../../utils/helpers/guid';
-import Portal from './../portal';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import Icon from './../icon';
-import Heading from './../heading';
-jest.mock('../../utils/helpers/guid')
+import Icon from '../icon';
+import Heading from '../heading';
+
+jest.mock('../../utils/helpers/guid');
 
 describe('DialogFullScreen', () => {
   guid.mockImplementation(() => 'guid-12345');
@@ -39,18 +43,6 @@ describe('DialogFullScreen', () => {
     });
   });
 
-  describe('dialogClasses', () => {
-    it('returns the full screen dialog class', () => {
-      expect(instance.dialogClasses).toEqual('carbon-dialog-full-screen__dialog');
-    });
-  });
-
-  describe('mainClasses', () => {
-    it('returns the full screen dialog class and custom class', () => {
-      expect(instance.mainClasses).toEqual('foo carbon-dialog-full-screen');
-    });
-  });
-
   describe('modalHTML', () => {
     beforeEach(() => {
       wrapper = mount(
@@ -67,13 +59,8 @@ describe('DialogFullScreen', () => {
       instance = wrapper.instance();
     });
 
-    it('renders a parent div with mainClasses attached', () => {
-      expect(wrapper.find('div.foo.carbon-dialog-full-screen').length).toEqual(1);
-    });
-
     it('renders the dialog', () => {
       expect(instance._dialog).toBeTruthy();
-      expect(instance._dialog.className).toEqual('carbon-dialog-full-screen__dialog modal-appear');
     });
 
     it('closes when the exit icon is click', () => {
@@ -99,9 +86,9 @@ describe('DialogFullScreen', () => {
       jest.useRealTimers();
     });
 
-    it('adds a carbon-dialog-full-screen--open class to the body', () => {
+    it('sets overflow hidden to the body', () => {
       const html = wrapper.instance().document.documentElement;
-      expect(html.className).toMatch('carbon-dialog-full-screen--open');
+      expect(html.style.overflow).toMatch('hidden');
     });
   });
 
@@ -111,11 +98,10 @@ describe('DialogFullScreen', () => {
       wrapper.setProps({ open: true });
     });
 
-    it('removes a carbon-dialog-full-screen--open class to the body', () => {
+    it('removes overflow hidden from the body', () => {
       const html = wrapper.instance().document.documentElement;
-      expect(html.className).toMatch('carbon-dialog-full-screen--open');
       wrapper.setProps({ open: false });
-      expect(html.className).not.toMatch('carbon-dialog-full-screen--open');
+      expect(html.style.overflow).not.toMatch('hidden');
     });
   });
 
@@ -170,6 +156,58 @@ describe('DialogFullScreen', () => {
         );
         expect(wrapper).toMatchSnapshot();
       });
+    });
+  });
+});
+
+describe('Styled FullScreenHeading', () => {
+  describe('classic theme', () => {
+    it('applies custom styling', () => {
+      const wrapper = mount(
+        <FullScreenHeading
+          theme={ classicTheme }
+        />
+      );
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+});
+
+describe('Styled StyledDialogFullScreen', () => {
+  describe('classic theme', () => {
+    it('applies custom styling', () => {
+      const wrapper = mount(
+        <StyledDialogFullScreen
+          theme={ classicTheme }
+        />
+      );
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+});
+
+describe('Styled StyledIcon', () => {
+  describe('classic theme', () => {
+    it('applies custom styling', () => {
+      const wrapper = mount(
+        <StyledIcon
+          theme={ classicTheme }
+        />
+      );
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+});
+
+describe('Styled StyledContent', () => {
+  describe('classic theme', () => {
+    it('applies custom styling', () => {
+      const wrapper = mount(
+        <StyledContent
+          theme={ classicTheme }
+        />
+      );
+      expect(wrapper).toMatchSnapshot();
     });
   });
 });

@@ -82,6 +82,15 @@ class DropdownFilter extends Dropdown {
     freetextName: PropTypes.string
   });
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.visibleValue !== this.props.visibleValue) {
+      this.setState({
+        filter: nextProps.visibleValue
+      });
+    }
+    super.componentWillReceiveProps(nextProps);
+  }
+
   /**
    * Lifecycle hook for when the component will update.
    *
@@ -237,7 +246,7 @@ class DropdownFilter extends Dropdown {
           {
             I18n.t('dropdownlist.no_results', {
               defaultValue: 'No results match "%{term}"',
-              term: this.state.filter
+              term: this.state.filter || ''
             })
           }
         </li>

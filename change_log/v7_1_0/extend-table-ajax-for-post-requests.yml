@@ -1,0 +1,1 @@
+New Features: "Extends the TableAjax component with a prop `postAction` providing the ability to override the default get request with a post request."
