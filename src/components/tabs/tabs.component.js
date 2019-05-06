@@ -35,7 +35,7 @@ class Tabs extends React.Component {
     if (this.props.selectedTabId) {
       selectedTabId = this.props.selectedTabId;
     } else {
-      const hash = this._window.location.hash.substring(1); // TODO: czemu tu jest jedynka a nie 0
+      const hash = this._window.location.hash.substring(1);
 
       if (Array.isArray(this.props.children)) {
         const children = compact(this.props.children);
