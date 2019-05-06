@@ -1,6 +1,94 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Select applies custom data-* attributes at the right level 1`] = `
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -11px;
+  width: 40px;
+}
+
+.c2 {
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  background: transparent;
+  border: 1px solid #668491;
+  box-sizing: border-box;
+  cursor: text;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  margin: 0;
+  min-height: 40px;
+  padding-left: 11px;
+  padding-right: 11px;
+}
+
+.c2 input::-ms-clear {
+  display: none;
+}
+
+.c2 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
+}
+
+.c3 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c3::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c3::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c3:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c3::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1 {
+  display: block;
+}
+
+.c1 + .c0 {
+  margin-top: 16px;
+}
+
 <Textbox
   autoComplete="off"
   data-element="input"
@@ -75,13 +163,14 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
             "$$typeof": Symbol(react.forward_ref),
             "attrs": Array [],
             "componentStyle": ComponentStyle {
-              "componentId": "sc-EHOje",
+              "componentId": "c0",
               "isStatic": false,
-              "lastClassName": "fxZUgt",
+              "lastClassName": "c1",
               "rules": Array [
                 "
-  display: flex;
-  flex-wrap: wrap;
+  ",
+                [Function],
+                "
 
   & + & {
     margin-top: ",
@@ -135,7 +224,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
             "displayName": "styled.div",
             "foldedComponentIds": Array [],
             "render": [Function],
-            "styledComponentId": "sc-EHOje",
+            "styledComponentId": "c0",
             "target": "div",
             "toString": [Function],
             "warnTooManyClasses": [Function],
@@ -186,7 +275,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
         }
       >
         <div
-          className="sc-EHOje fxZUgt"
+          className="c0 c1"
         >
           <InputPresentation
             autoComplete="off"
@@ -263,10 +352,10 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                     "componentStyle": ComponentStyle {
                       "componentId": "sc-bxivhb",
                       "isStatic": false,
-                      "lastClassName": "igPrLp",
+                      "lastClassName": "c2",
                       "rules": Array [
                         "
-  align-items: center;
+  align-items: stretch;
   background: transparent;
   border: 1px solid ",
                         [Function],
@@ -385,9 +474,89 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                 }
                 forwardedRef={
                   Object {
-                    "current": <div
+                    "current": .c2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -11px;
+  width: 40px;
+}
+
+.c0 {
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  background: transparent;
+  border: 1px solid #668491;
+  box-sizing: border-box;
+  cursor: text;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  margin: 0;
+  min-height: 40px;
+  padding-left: 11px;
+  padding-right: 11px;
+}
+
+.c0 input::-ms-clear {
+  display: none;
+}
+
+.c0 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
+}
+
+.c1 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c1::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+<div
                       autocomplete="off"
-                      class="sc-bxivhb igPrLp"
+                      class="c0"
                       data-element="input"
                       role="presentation"
                       type="text"
@@ -395,13 +564,13 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                     >
                       <input
                         autocomplete="off"
-                        class="sc-ifAKCX iHTfyA"
+                        class="c1"
                         data-element="input"
                         value=""
                       />
                       <span
                         autocomplete="off"
-                        class="sc-htpNat hmqeKz"
+                        class="c2"
                         data-element="input"
                         value=""
                       >
@@ -466,7 +635,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
               >
                 <div
                   autoComplete="off"
-                  className="sc-bxivhb igPrLp"
+                  className="c2"
                   data-element="input"
                   onMouseDown={[Function]}
                   role="presentation"
@@ -546,7 +715,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                             "componentStyle": ComponentStyle {
                               "componentId": "sc-ifAKCX",
                               "isStatic": false,
-                              "lastClassName": "iHTfyA",
+                              "lastClassName": "c3",
                               "rules": Array [
                                 "
   background: transparent;
@@ -635,7 +804,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                           Object {
                             "current": <input
                               autocomplete="off"
-                              class="sc-ifAKCX iHTfyA"
+                              class="c3"
                               data-element="input"
                               value=""
                             />,
@@ -691,7 +860,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                       >
                         <input
                           autoComplete="off"
-                          className="sc-ifAKCX iHTfyA"
+                          className="c3"
                           data-element="input"
                           onBlur={[Function]}
                           onChange={[Function]}
@@ -779,13 +948,12 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                             "componentStyle": ComponentStyle {
                               "componentId": "sc-htpNat",
                               "isStatic": false,
-                              "lastClassName": "hmqeKz",
+                              "lastClassName": "c4",
                               "rules": Array [
                                 "
   align-items: center;
   cursor: pointer;
   display: flex;
-  height: 100%;
   justify-content: center;
   margin-right: ",
                                 [Function],
@@ -921,7 +1089,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                       >
                         <span
                           autoComplete="off"
-                          className="sc-htpNat hmqeKz"
+                          className="c4"
                           data-element="input"
                           onBlur={[Function]}
                           onChange={[Function]}
@@ -1032,9 +1200,94 @@ Object {
   "onMouseLeave": [Function],
   "onSelect": [Function],
   "open": true,
-  "target": <div
+  "target": .c2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -11px;
+  width: 40px;
+}
+
+.c0 {
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  background: transparent;
+  border: 1px solid #668491;
+  box-sizing: border-box;
+  cursor: text;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  margin: 0;
+  min-height: 40px;
+  padding-left: 11px;
+  padding-right: 11px;
+}
+
+.c0.c0 {
+  outline: 3px solid #FFDA7F;
+  z-index: 2;
+}
+
+.c0 input::-ms-clear {
+  display: none;
+}
+
+.c0 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
+}
+
+.c1 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c1::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+<div
     autocomplete="off"
-    class="sc-bxivhb ecEIri"
+    class="c0"
     data-element="input"
     role="presentation"
     type="text"
@@ -1042,7 +1295,7 @@ Object {
   >
     <input
       autocomplete="off"
-      class="sc-ifAKCX iHTfyA"
+      class="c1"
       data-element="input"
       value=""
     />
@@ -1051,7 +1304,7 @@ Object {
     />
     <span
       autocomplete="off"
-      class="sc-htpNat bCzDDv"
+      class="c2"
       data-element="input"
       value=""
     >
