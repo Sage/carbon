@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import tagComponent from '../../utils/helpers/tags';
+import tagComponent from '../../utils/helpers/tags/tags';
 import Link from '../link';
-import './create.scss';
+import CreateStyle from './create.style';
+// import './create.scss';
 
 class Create extends React.Component {
   static propTypes = {
@@ -50,9 +51,11 @@ class Create extends React.Component {
    */
   render() {
     return (
-      <Link { ...this.linkProps() } { ...tagComponent('create', this.props) }>
+      <CreateStyle
+        { ...this.linkProps() } { ...tagComponent('create', this.props) }
+      >
         { this.props.children }
-      </Link>
+      </CreateStyle>
     );
   }
 }
