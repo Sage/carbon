@@ -1,8 +1,8 @@
-import Button from './';
+import { OriginalButton } from './button.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 
-let definition = new Definition('button', Button, {
+let definition = new Definition('button', OriginalButton, {
   description: `Performs an action.`,
   designerNotes: `
 * Avoid using buttons for navigation (taking the user somewhere else) - use them for performing an action or command.

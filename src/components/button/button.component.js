@@ -117,4 +117,5 @@ const withForwardRef = () => {
   return ForwardRefButton;
 };
 
+export { Button as OriginalButton };
 export default withForwardRef(Button);
