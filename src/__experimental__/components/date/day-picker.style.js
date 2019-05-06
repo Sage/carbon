@@ -1,9 +1,8 @@
 import styled from 'styled-components';
-import DayPicker from 'react-day-picker';
 import baseTheme from '../../../style/themes/base';
 import dayPickerClassicStyle from './day-picker-classic.style';
 
-const StyledDayPicker = styled(DayPicker)`
+const StyledDayPicker = styled.div`
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: ${({ theme }) => theme.shadows.depth1};
   color: ${({ theme }) => theme.text.color};

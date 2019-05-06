@@ -3,7 +3,7 @@ import MockDate from 'mockdate';
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
-import { mount } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import DayPicker from 'react-day-picker';
 import Portal from '../../../components/portal/portal';
 import DatePicker from './date-picker.component';
@@ -24,11 +24,11 @@ describe('DatePicker', () => {
     });
 
     it('should render a "Portal" component', () => {
-      expect(wrapper.find(Portal)).toHaveLength(1);
+      expect(wrapper.find(Portal).exists()).toBe(true);
     });
 
     it('should render a "DayPicker" component inside a "Portal"', () => {
-      expect(wrapper.find(Portal).contains(DayPicker)).toBe(true);
+      expect(wrapper.find(Portal).find(DayPicker).exists()).toBe(true);
     });
   });
 
@@ -96,7 +96,7 @@ describe('DatePicker', () => {
     const selectedDate = moment(firstDate).toDate();
 
     beforeEach(() => {
-      wrapper = render({ inputElement });
+      wrapper = render({ inputElement }, mount);
     });
 
     it('then "showMonth" method on the "DayPicker" should have been called with the same date', () => {
@@ -131,10 +131,10 @@ describe('StyledDayPicker', () => {
   });
 });
 
-function render(props, renderer = mount) {
+function render(props, renderer = shallow) {
   return renderer(<DatePicker { ...props } />);
 }
 
 function renderStyledDayPicker(props) {
-  return TestRenderer.create(<StyledDayPicker { ...props }>sample children</StyledDayPicker>);
+  return TestRenderer.create(<StyledDayPicker { ...props } />);
 }

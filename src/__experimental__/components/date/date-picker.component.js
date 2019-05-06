@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import 'react-day-picker/lib/style.css';
 import LocaleUtils from 'react-day-picker/moment';
+import DayPicker from 'react-day-picker';
 import Browser from '../../../utils/helpers/browser/browser';
 import DateHelper from '../../../utils/helpers/date/date';
 import Portal from '../../../components/portal/portal';
@@ -42,10 +43,13 @@ const DatePicker = (props) => {
 
   return (
     <Portal onReposition={ () => setContainerPosition(getContainerPosition(window, props.inputElement)) }>
-      <StyledDayPicker
-        { ...datePickerProps } containerProps={ containerProps }
-        ref={ datepicker }
-      />
+      <StyledDayPicker>
+        <DayPicker
+          { ...datePickerProps }
+          containerProps={ containerProps }
+          ref={ datepicker }
+        />
+      </StyledDayPicker>
     </Portal>
   );
 };
