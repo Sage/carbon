@@ -2,10 +2,10 @@
 
 exports[`InputPresentation classic theme applies custom styling 1`] = `
 .c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   background: transparent;
   border: 1px solid #668491;
   box-sizing: border-box;
@@ -67,10 +67,10 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
 
 exports[`InputPresentation renders presentational div and context provider for its children 1`] = `
 .c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   background: transparent;
   border: 1px solid #668491;
   box-sizing: border-box;

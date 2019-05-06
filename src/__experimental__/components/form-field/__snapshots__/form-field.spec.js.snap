@@ -6,13 +6,7 @@ exports[`FormField classic theme adds custom margin top 1`] = `
 }
 
 .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  display: block;
 }
 
 .c1 + .c0 {
@@ -24,15 +18,38 @@ exports[`FormField classic theme adds custom margin top 1`] = `
 />
 `;
 
-exports[`FormField default renders children with styling 1`] = `
+exports[`FormField classic theme when inline renders the FieldHelp component below the childen 1`] = `
+.c2 + .c0 {
+  margin-top: 16px;
+}
+
+.c3 + .c0 {
+  margin-top: 10px;
+}
+
 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+}
+
+.c1 + .c0 {
+  margin-top: 16px;
+}
+
+<div
+  className="c0 c1"
+/>
+`;
+
+exports[`FormField default renders children with styling 1`] = `
+.c1 {
+  display: block;
 }
 
 .c1 + .c0 {
