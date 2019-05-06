@@ -6,7 +6,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const StyledTabHeader = styled.li`
 background-color: transparent;
-border-bottom: 2px solid #e5eaec; // TODO: zmienic na kolor z palety
+border-bottom: 2px solid ${({ theme }) => theme.disabled.button};
 color: ${({ theme }) => theme.disabled.disabled};
 display: inline-block;
 font-weight: bold;
@@ -47,7 +47,7 @@ ${({ isTabSelected }) => isTabSelected
     && css`
       background-color: transparent;
       border-bottom: 0px;
-      border-right: 2px solid #e5eaec; // TODO: zmienic na kolor z palety
+      border-right: 2px solid ${({ theme }) => theme.disabled.button};
       display: block;
       height: auto;
       margin-left: 0px;

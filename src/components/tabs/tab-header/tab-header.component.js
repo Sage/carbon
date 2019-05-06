@@ -3,21 +3,11 @@ import PropTypes from 'prop-types';
 import StyledTabHeader from './tab-header.style';
 
 const TabHeader = ({
-  isTabSelected,
-  ariaSelected,
-  className,
-  dataTabId,
-  id,
-  onClick,
-  onKeyDown,
-  tabIndex,
-  position,
-  title
+  isTabSelected, className, dataTabId, id, onClick, onKeyDown, tabIndex, position, title
 }) => {
   return (
     <StyledTabHeader
-      isTabSelected={ isTabSelected }
-      aria-selected={ ariaSelected }
+      aria-selected={ isTabSelected }
       className={ className }
       data-element='select-tab'
       data-tabid={ dataTabId }
@@ -27,6 +17,7 @@ const TabHeader = ({
       role='tab'
       tabIndex={ tabIndex }
       position={ position }
+      isTabSelected={ isTabSelected }
     >
       {title}
     </StyledTabHeader>
@@ -41,7 +32,6 @@ TabHeader.propTypes = {
   title: PropTypes.string.isRequired,
   isTabSelected: PropTypes.bool,
   position: PropTypes.string,
-  ariaSelected: PropTypes.bool,
   className: PropTypes.string,
   dataTabId: PropTypes.string,
   id: PropTypes.string,

@@ -15,11 +15,30 @@ import TabHeader from './tab-header/tab-header.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 class Tabs extends React.Component {
+  static childContextTypes = {
+    /**
+     * Defines a context object for tab of the tabs component.
+     * https://facebook.github.io/react/docs/context.html
+     *
+     */
+    tabs: PropTypes.object
+  };
+
   state = {
+    /**
+     * Tracks the validity of each tab
+     */
     tabValidity: Immutable.Map(),
+
+    /**
+     * Tracks the warning of each tab
+     */
     tabWarning: Immutable.Map()
   };
 
+  /**
+   * Returns tabs object to tab component.
+   */
   getChildContext() {
     return {
       tabs: {
@@ -31,7 +50,6 @@ class Tabs extends React.Component {
 
   componentWillMount() {
     let selectedTabId;
-
     if (this.props.selectedTabId) {
       selectedTabId = this.props.selectedTabId;
     } else {
@@ -190,23 +208,23 @@ class Tabs extends React.Component {
    */
   get tabHeaders() {
     this.tabRefs = [];
-    const tabHeaders = this.children.map((child, index) => {
+    const tabTitles = this.children.map((child, index) => {
       const ref = `${child.props.tabId}-tab`;
       this.tabRefs.push(ref);
       return (
         <TabHeader
-          position={ this.props.position }
-          isTabSelected={ this.isTabSelected(child.props.tabId) }
-          title={ child.props.title }
-          ariaSelected={ this.isTabSelected(child.props.tabId) }
           className={ this.tabHeaderClasses(child) }
-          dataTabId={ child.props.tabId }
+          data-tabid={ child.props.tabId }
           id={ ref }
-          key={ ref }
+          key={ child.props.tabId }
           onClick={ this.handleTabClick }
           onKeyDown={ this.handleKeyDown(index) }
-          role='tab'
+          ref={ (node) => {
+            this[ref] = node;
+          } }
           tabIndex={ this.isTabSelected(child.props.tabId) ? '0' : '-1' }
+          title={ child.props.title }
+          isTabSelected={ this.isTabSelected(child.props.tabId) }
         />
       );
     });
@@ -216,7 +234,7 @@ class Tabs extends React.Component {
         align={ this.props.align } position={ this.props.position }
         role='tablist'
       >
-        {tabHeaders}
+        {tabTitles}
       </TabsHeader>
     );
   }
@@ -247,7 +265,6 @@ class Tabs extends React.Component {
     const tabs = this.children.map((child, index) => {
       return (
         <Tab
-          role='tabPanel'
           position={ this.props.position }
           key={ this.tabRefs[index] }
           ariaLabelledby={ this.tabRefs[index] }
