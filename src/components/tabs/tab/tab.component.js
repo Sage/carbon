@@ -2,10 +2,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import StyledTab from './tab.style';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import TabHeader from '../tab-header/tab-header.component';
-import TabContent from '../tab-content/tab-content-component';
 
 class Tab extends React.Component {
+  getChildContext() {
+    return {
+      tab: {
+        setValidity: this.setValidity,
+        setWarning: this.setWarning
+      }
+    };
+  }
+
   setValidity = (valid) => {
     this.context.tabs.changeValidity(this.props.tabId, valid);
   };
@@ -16,33 +23,26 @@ class Tab extends React.Component {
 
   render() {
     const {
-      ariaLabelledby, className, role, children, isTabSelected, position, title, tabId
+      ariaLabelledby, className, role, children, isTabSelected, position, title
     } = this.props;
     return (
       <StyledTab
         aria-labelledby={ ariaLabelledby }
         className={ className }
         role={ role }
+        title={ title }
         isTabSelected={ isTabSelected }
         position={ position }
       >
-        <TabHeader
-          position={ position }
-          isTabSelected={ isTabSelected }
-          title={ title }
-          // className={ this.tabHeaderClasses(child) }
-          tabId={ tabId }
-          id={ tabId }
-          onClick={ this.handleTabClick }
-          // onKeyDown={ this.handleKeyDown(index) }
-          role='tab'
-          tabIndex={ isTabSelected ? '0' : '-1' }
-        />
-        <TabContent>{children}</TabContent>
+        {children}
       </StyledTab>
     );
   }
 }
+
+Tab.childContextTypes = {
+  tab: PropTypes.object
+};
 
 Tab.contextTypes = {
   tabs: PropTypes.object
