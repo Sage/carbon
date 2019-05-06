@@ -114,6 +114,7 @@ exports[`Link when component has classic theme should render correct style 1`] =
         },
         "disabled": Object {
           "border": "#4d7080",
+          "button": "#E5EAEC",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
           "text": "#003349",

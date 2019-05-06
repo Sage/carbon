@@ -70,6 +70,7 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
             },
             "disabled": Object {
               "border": "#CCD6DA",
+              "button": "#E5EAEC",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
@@ -108,6 +109,7 @@ exports[`Dialog render when dialog is open has the correct content, tags, elemen
               },
               "disabled": Object {
                 "border": "#CCD6DA",
+                "button": "#E5EAEC",
                 "disabled": "rgba(0,0,0,0.55)",
                 "input": "#F2F4F5",
                 "text": "rgba(0,0,0,0.3)",

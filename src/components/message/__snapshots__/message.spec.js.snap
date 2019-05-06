@@ -256,6 +256,7 @@ exports[`Message when in small/medium/large theme should match the snapshot 1`] 
       },
       "disabled": Object {
         "border": "#CCD6DA",
+        "button": "#E5EAEC",
         "disabled": "rgba(0,0,0,0.55)",
         "input": "#F2F4F5",
         "text": "rgba(0,0,0,0.3)",
