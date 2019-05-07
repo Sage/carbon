@@ -482,13 +482,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  display: block;
 }
 
 .c2 + .c1 {
