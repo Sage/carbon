@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import 'jest-styled-components';
 import TestRenderer from 'react-test-renderer';
 import { Link as RouterLink } from 'react-router';
@@ -52,7 +52,7 @@ describe('Link', () => {
   describe('when component received a `to` prop', () => {
     it('should render a `<RouterLink />` element', () => {
       wrapper.setProps({ to: 'route' });
-      console.log(wrapper.debug());
+
       expect(wrapper.find(RouterLink)).toHaveLength(1);
     });
   });
