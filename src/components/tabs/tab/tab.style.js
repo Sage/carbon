@@ -10,18 +10,18 @@ const StyledTab = styled.div`
       display: block;
     `}
   ${({ isTabSelected, position }) => isTabSelected
-    && position === 'vertical'
+    && position === 'left'
     && css`
       width: 80%;
     `}
 `;
 
 StyledTab.defaultProps = {
-  position: 'horizontal'
+  position: 'top'
 };
 
 StyledTab.propTypes = {
-  position: propTypes.oneOf(OptionsHelper.orientation)
+  position: propTypes.oneOf(['top', 'left'])
 };
 
 export default StyledTab;

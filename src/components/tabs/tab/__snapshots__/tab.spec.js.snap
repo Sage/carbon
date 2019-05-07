@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tab renders as expected 1`] = `
+.c0 {
+  display: none;
+}
+
+<div
+  className="c0"
+  role="tabPanel"
+  title="Tab Title 1"
+>
+  Tab content
+</div>
+`;
+
+exports[`Tab when a tab is selected matches the snaphot 1`] = `
+.c0 {
+  display: none;
+  display: block;
+}
+
+<div
+  className="c0"
+  role="tabPanel"
+  title="Tab Title 1"
+>
+  Tab content
+</div>
+`;
+
+exports[`Tab when a tab is selected when position prop is set to vertical matches the snaphot 1`] = `
+.c0 {
+  display: none;
+  display: block;
+  width: 80%;
+}
+
+<div
+  className="c0"
+  role="tabPanel"
+  title="Tab Title 1"
+>
+  Tab content
+</div>
+`;
+
+exports[`Tab when position prop is set to vertical matches the snaphot 1`] = `
+.c0 {
+  display: none;
+}
+
+<div
+  className="c0"
+  role="tabPanel"
+  title="Tab Title 1"
+>
+  Tab content
+</div>
+`;

@@ -282,7 +282,7 @@ class Tabs extends React.Component {
    * Determines if the tab titles are in a vertical format.
    */
   isVertical(position) {
-    return position === 'vertical';
+    return position === 'left';
   }
 
   render() {
@@ -307,7 +307,7 @@ Tabs.childContextTypes = {
 Tabs.defaultProps = {
   renderHiddenTabs: true,
   align: 'left',
-  position: 'horizontal'
+  position: 'top'
 };
 
 Tabs.propTypes = {
@@ -317,7 +317,7 @@ Tabs.propTypes = {
   children: PropTypes.oneOfType([PropTypes.array, PropTypes.object]).isRequired,
   align: PropTypes.oneOf(OptionsHelper.alignBinary),
   onTabChange: PropTypes.func,
-  position: PropTypes.oneOf(OptionsHelper.orientation)
+  position: PropTypes.oneOf(['top', 'left'])
 };
 
 export { Tabs, Tab };

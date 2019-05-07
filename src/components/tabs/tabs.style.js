@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 const StyledTabs = styled.div`
-  ${({ position }) => position === 'horizontal'
+  ${({ position }) => position === 'top'
     && css`
       margin-top: 15px;
     `}
 
-  ${({ position }) => position === 'vertical'
+  ${({ position }) => position === 'left'
     && css`
       display: flex;
       width: 100%;
@@ -16,11 +16,11 @@ const StyledTabs = styled.div`
 `;
 
 StyledTabs.defaultProps = {
-  position: 'horizontal'
+  position: 'top'
 };
 
 StyledTabs.propTypes = {
-  position: PropTypes.oneOf(OptionsHelper.orientation)
+  position: PropTypes.oneOf(['top', 'left'])
 };
 
 export default StyledTabs;

@@ -72,7 +72,7 @@ class Tab extends React.Component {
 }
 
 Tab.defaultProps = {
-  position: 'horizontal'
+  position: 'top'
 };
 
 Tab.propTypes = {
@@ -81,7 +81,7 @@ Tab.propTypes = {
   className: PropTypes.string,
   children: PropTypes.node,
   isTabSelected: PropTypes.bool,
-  position: PropTypes.oneOf(OptionsHelper.orientation),
+  position: PropTypes.oneOf(['top', 'left']),
   ariaLabelledby: PropTypes.string
 };
 

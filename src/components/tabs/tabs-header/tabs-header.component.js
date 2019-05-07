@@ -16,13 +16,13 @@ const TabsHeader = ({ align, children, position }) => {
 
 TabsHeader.defaultProps = {
   align: 'left',
-  position: 'horizontal'
+  position: 'top'
 };
 
 TabsHeader.propTypes = {
   align: PropTypes.oneOf(OptionsHelper.alignBinary),
   children: PropTypes.node.isRequired,
-  position: PropTypes.oneOf(OptionsHelper.orientation)
+  position: PropTypes.oneOf(['top', 'left'])
 };
 
 export default TabsHeader;

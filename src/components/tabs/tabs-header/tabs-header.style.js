@@ -5,6 +5,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import baseTheme from '../../../style/themes/base';
 
 const StyledTabHeaders = styled.ul`
+display: flex;
 box-shadow: inset 0px -2px 0px 0px ${({ theme }) => theme.disabled.button};
 cursor: pointer;
 list-style: none;
@@ -16,10 +17,10 @@ ${({ align }) => align === 'right'
     text-align: right;
   `}
 
-${({ position }) => position === 'vertical'
+${({ position }) => position === 'left'
   && css`
+    flex-direction: column;
     box-shadow: inset -2px 0px 0px 0px ${({ theme }) => theme.disabled.button};
-    display: inline-block;
     width: 20%;
     margin: 0 10px 0;
   `}
@@ -28,13 +29,13 @@ ${({ position }) => position === 'vertical'
 
 StyledTabHeaders.defaultProps = {
   align: 'left',
-  position: 'horizontal',
+  position: 'top',
   theme: baseTheme
 };
 
 StyledTabHeaders.propTypes = {
   align: PropTypes.oneOf(OptionsHelper.alignBinary),
-  position: PropTypes.oneOf(OptionsHelper.orientation)
+  position: PropTypes.oneOf(['top', 'left'])
 };
 
 export default StyledTabHeaders;

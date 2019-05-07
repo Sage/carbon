@@ -25,13 +25,13 @@ const TabHeader = ({
 };
 
 TabHeader.defaultProps = {
-  position: 'horizontal'
+  position: 'top'
 };
 
 TabHeader.propTypes = {
   title: PropTypes.string.isRequired,
   isTabSelected: PropTypes.bool,
-  position: PropTypes.string,
+  position: PropTypes.oneOf(['top', 'left']),
   className: PropTypes.string,
   dataTabId: PropTypes.string,
   id: PropTypes.string,

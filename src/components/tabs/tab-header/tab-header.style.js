@@ -43,7 +43,7 @@ ${({ isTabSelected }) => isTabSelected
     }
   `}
 
-  ${({ position }) => position === 'vertical'
+  ${({ position }) => position === 'left'
     && css`
       background-color: transparent;
       border-bottom: 0px;
@@ -77,12 +77,12 @@ ${({ isTabSelected }) => isTabSelected
 `;
 
 StyledTabHeader.propTypes = {
-  position: PropTypes.oneOf(OptionsHelper.orientation)
+  position: PropTypes.oneOf(['top', 'left'])
 };
 
 StyledTabHeader.defaultProps = {
   theme: BaseTheme,
-  position: 'horizontal'
+  position: 'top'
 };
 
 export default StyledTabHeader;
