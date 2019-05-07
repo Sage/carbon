@@ -92,27 +92,27 @@ Feature: Confirm component
 
   @positive
   Scenario: Enable background UI
-    When I check enableBackgroundUI
+    When I check enableBackgroundUI checkbox
       And I click on a openButton
     Then Background UI is enabled
 
   @negative
   Scenario: Disable background UI
-    When I check enableBackgroundUI
-      And I uncheck enableBackgroundUI
+    When I check enableBackgroundUI checkbox
+      And I uncheck enableBackgroundUI checkbox
       And I click on a openButton
     Then Background UI is disabled
 
   @positive
   Scenario: Disable escape key
-    When I check disableEscKey
+    When I check disableEscKey checkbox
       And I click on a openButton
       And I hit ESC key
     Then Confirm dialog is visible
 
   @negative
   Scenario: Enable escape key
-    When I uncheck disableEscKey
+    When I uncheck disableEscKey checkbox
       And I click on a openButton
       And I hit ESC key
     Then Confirm dialog is not visible
