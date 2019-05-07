@@ -4,8 +4,9 @@ exports[`Label renders the label 1`] = `
 .c0 {
   color: rgba(0,0,0,0.9);
   cursor: pointer;
+  display: block;
   font-weight: 600;
-  padding: 0 0 8px;
+  padding-bottom: 8px;
   width: 100%;
 }
 

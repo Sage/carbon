@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
+import 'jest-styled-components';
 import Select from './select.component';
 import guid from '../../../utils/helpers/guid';
 import Events from '../../../utils/helpers/events';

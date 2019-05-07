@@ -13,4 +13,5 @@ const sidebarHeaderClassicStyle = ({ theme }) => theme.name === THEMES.classic &
     margin-left: -20px;
 
 `;
+
 export default sidebarHeaderClassicStyle;
