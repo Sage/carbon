@@ -20,7 +20,7 @@ exports[`ButtonToggle Classic theme renders correctly with default settings 1`] 
 
 .c2 {
   display: inline-block;
-  height: 40px;
+  height: 38px;
   padding: 0 24px;
   border: 1px solid #668491;
   font-size: 14px;
@@ -117,7 +117,7 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
 
 .c3 {
   display: inline-block;
-  height: 40px;
+  height: 38px;
   padding: 0 24px;
   border: 1px solid #668491;
   font-size: 14px;
@@ -204,6 +204,7 @@ input:focus ~ .c3 {
           "brand": "#00DC00",
           "error": "#C7384F",
           "focus": "#FFDA7F",
+          "focusedIcon": "#335B6D",
           "greyDarkBlue50": "#8099a4",
           "info": "#0073C2",
           "primary": "#00805D",
@@ -254,6 +255,7 @@ input:focus ~ .c3 {
             "brand": "#00DC00",
             "error": "#C7384F",
             "focus": "#FFDA7F",
+            "focusedIcon": "#335B6D",
             "greyDarkBlue50": "#8099a4",
             "info": "#0073C2",
             "primary": "#00805D",
@@ -340,6 +342,7 @@ input:focus ~ .c3 {
               "brand": "#00DC00",
               "error": "#C7384F",
               "focus": "#FFDA7F",
+              "focusedIcon": "#335B6D",
               "greyDarkBlue50": "#8099a4",
               "info": "#0073C2",
               "primary": "#00805D",
@@ -438,6 +441,7 @@ input:focus ~ .c3 {
                   "brand": "#00DC00",
                   "error": "#C7384F",
                   "focus": "#FFDA7F",
+                  "focusedIcon": "#335B6D",
                   "greyDarkBlue50": "#8099a4",
                   "info": "#0073C2",
                   "primary": "#00805D",
@@ -488,7 +492,7 @@ input:focus ~ .c3 {
                     "rules": Array [
                       "
   display: inline-block;
-  height: 40px;
+  height: 38px;
   padding: 0 24px;
   border: 1px solid ",
                       [Function],
@@ -562,6 +566,7 @@ input:focus ~ .c3 {
                     "brand": "#00DC00",
                     "error": "#C7384F",
                     "focus": "#FFDA7F",
+                    "focusedIcon": "#335B6D",
                     "greyDarkBlue50": "#8099a4",
                     "info": "#0073C2",
                     "primary": "#00805D",
@@ -663,6 +668,7 @@ input:focus ~ .c3 {
           "brand": "#00DC00",
           "error": "#C7384F",
           "focus": "#FFDA7F",
+          "focusedIcon": "#335B6D",
           "greyDarkBlue50": "#8099a4",
           "info": "#0073C2",
           "primary": "#00805D",
@@ -713,6 +719,7 @@ input:focus ~ .c3 {
             "brand": "#00DC00",
             "error": "#C7384F",
             "focus": "#FFDA7F",
+            "focusedIcon": "#335B6D",
             "greyDarkBlue50": "#8099a4",
             "info": "#0073C2",
             "primary": "#00805D",
@@ -799,6 +806,7 @@ input:focus ~ .c3 {
               "brand": "#00DC00",
               "error": "#C7384F",
               "focus": "#FFDA7F",
+              "focusedIcon": "#335B6D",
               "greyDarkBlue50": "#8099a4",
               "info": "#0073C2",
               "primary": "#00805D",
@@ -897,6 +905,7 @@ input:focus ~ .c3 {
                   "brand": "#00DC00",
                   "error": "#C7384F",
                   "focus": "#FFDA7F",
+                  "focusedIcon": "#335B6D",
                   "greyDarkBlue50": "#8099a4",
                   "info": "#0073C2",
                   "primary": "#00805D",
@@ -947,7 +956,7 @@ input:focus ~ .c3 {
                     "rules": Array [
                       "
   display: inline-block;
-  height: 40px;
+  height: 38px;
   padding: 0 24px;
   border: 1px solid ",
                       [Function],
@@ -1021,6 +1030,7 @@ input:focus ~ .c3 {
                     "brand": "#00DC00",
                     "error": "#C7384F",
                     "focus": "#FFDA7F",
+                    "focusedIcon": "#335B6D",
                     "greyDarkBlue50": "#8099a4",
                     "info": "#0073C2",
                     "primary": "#00805D",
@@ -1139,7 +1149,7 @@ exports[`ButtonToggle Modern themes renders correctly with small theme 1`] = `
 
 .c2 {
   display: inline-block;
-  height: 40px;
+  height: 38px;
   padding: 0 24px;
   border: 1px solid #668491;
   font-size: 14px;
