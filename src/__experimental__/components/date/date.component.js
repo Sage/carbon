@@ -125,7 +125,10 @@ class Date extends React.Component {
 
   updateVisibleValue = (date) => {
     const visibleValue = formatVisibleValue(date);
-    this.setState({ visibleValue });
+    this.setState({
+      selectedDate: date,
+      visibleValue
+    });
   };
 
   handleVisibleInputChange = (ev) => {
@@ -222,4 +225,5 @@ function convertToIsoDate(dateString) {
   return isoDate;
 }
 
+export { defaultDateFormat };
 export default Date;

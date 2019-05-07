@@ -6,7 +6,7 @@ import sizes from './input-sizes.style';
 import inputClassicStyling from './input-presentation-classic.style';
 
 const InputPresentationStyle = styled.div`
-  align-items: center;
+  align-items: stretch;
   background: transparent;
   border: 1px solid ${({ theme }) => theme.colors.border};
   box-sizing: border-box;

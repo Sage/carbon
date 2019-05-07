@@ -9,7 +9,6 @@ const InputIconToggleStyle = styled.span`
   align-items: center;
   cursor: pointer;
   display: flex;
-  height: 100%;
   justify-content: center;
   margin-right: ${({ size }) => `-${sizes[size].padding};`}
 

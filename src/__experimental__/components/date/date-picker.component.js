@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import 'react-day-picker/lib/style.css';
 import LocaleUtils from 'react-day-picker/moment';
+import DayPicker from 'react-day-picker';
 import Browser from '../../../utils/helpers/browser/browser';
 import DateHelper from '../../../utils/helpers/date/date';
 import Portal from '../../../components/portal/portal';
 import Navbar from './navbar';
+import Weekday from './weekday';
 import StyledDayPicker from './day-picker.style';
 
 const DatePicker = (props) => {
@@ -27,7 +29,18 @@ const DatePicker = (props) => {
     localeUtils: LocaleUtils,
     navbarElement: <Navbar />,
     onDayClick: handleDayClick,
-    selectedDays: [props.selectedDate]
+    selectedDays: [props.selectedDate],
+    weekdayElement: (weekdayElementProps) => {
+      const { className, weekday, localeUtils } = weekdayElementProps;
+      const weekdayLong = localeUtils.formatWeekdayLong(weekday);
+      const weekdayShort = weekdayLong.substring(0, 3);
+
+      return (
+        <Weekday className={ className } title={ weekdayLong }>
+          {weekdayShort}
+        </Weekday>
+      );
+    }
   };
 
   useEffect(() => {
@@ -42,10 +55,13 @@ const DatePicker = (props) => {
 
   return (
     <Portal onReposition={ () => setContainerPosition(getContainerPosition(window, props.inputElement)) }>
-      <StyledDayPicker
-        { ...datePickerProps } containerProps={ containerProps }
-        ref={ datepicker }
-      />
+      <StyledDayPicker>
+        <DayPicker
+          { ...datePickerProps }
+          containerProps={ containerProps }
+          ref={ datepicker }
+        />
+      </StyledDayPicker>
     </Portal>
   );
 };
