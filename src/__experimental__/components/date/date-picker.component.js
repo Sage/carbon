@@ -8,7 +8,7 @@ import Browser from '../../../utils/helpers/browser/browser';
 import DateHelper from '../../../utils/helpers/date/date';
 import Portal from '../../../components/portal/portal';
 import Navbar from './navbar';
-import Weekday from './weekday/weekday.component';
+import Weekday from './weekday';
 import StyledDayPicker from './day-picker.style';
 
 const DatePicker = (props) => {
