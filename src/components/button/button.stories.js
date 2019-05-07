@@ -102,7 +102,10 @@ storiesOf('Button', module)
     );
   }, {
     info: { TableComponent, text: Info },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: {
+      escapeHTML: false
+    }
   })
   .add('classic', () => {
     const props = getKnobs(true);
@@ -118,7 +121,10 @@ storiesOf('Button', module)
     );
   }, {
     info: { TableComponent, text: InfoClassic },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: {
+      escapeHTML: false
+    }
   })
   .add('as a sibling', () => {
     const props = getKnobs();
