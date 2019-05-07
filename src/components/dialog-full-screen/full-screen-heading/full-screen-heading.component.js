@@ -1,33 +1,27 @@
 import React from 'react';
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import AppWrapper from '../../app-wrapper';
 import tagComponent from '../../../utils/helpers/tags';
-import './full-screen-heading.scss';
+import StyledFullScreenHeading from './full-screen-heading.style';
 
-const fullScreenHeadingClasses = (props) => {
-  return classNames('carbon-full-screen-heading', props.className);
-};
-
-const FullScreenHeading = (props) => {
+const FullScreenHeading = React.forwardRef((props, ref) => {
   const { children, ...otherProps } = props;
 
   return (
-    <div
+    <StyledFullScreenHeading
       { ...otherProps }
-      className={ fullScreenHeadingClasses(props) }
       { ...tagComponent('full-screen-heading', props) }
+      ref={ ref }
     >
       <AppWrapper>
         { children }
       </AppWrapper>
-    </div>
+    </StyledFullScreenHeading>
   );
-};
+});
 
 FullScreenHeading.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string
+  children: PropTypes.node
 };
 
 export default FullScreenHeading;

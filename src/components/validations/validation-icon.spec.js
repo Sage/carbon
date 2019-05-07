@@ -2,6 +2,7 @@ import React from 'react';
 import { mount } from 'enzyme';
 import ValidationIcon from './validation-icon.component';
 import { InputPresentationContext } from '../../__experimental__/components/input';
+import 'jest-styled-components';
 
 describe('ValidationIcon', () => {
   it('renders with an icon for the given type', () => {

@@ -1,0 +1,2105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DialogFullScreen tags on component include correct component, elements and role data tags 1`] = `
+.c2 {
+  border-bottom: 1px solid #CCD6DA;
+}
+
+.c2 .carbon-app-wrapper {
+  position: relative;
+  max-width: none;
+  padding: 32px;
+}
+
+.c2 .carbon-heading .carbon-heading__header {
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: content-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  width: 100%;
+  border: none;
+}
+
+.c2 .carbon-heading .carbon-heading__header .icon-chevron_left:before {
+  font-size: 24px;
+}
+
+.c2 .carbon-heading .carbon-heading__header .carbon-heading__back {
+  margin-top: -8px;
+  margin-left: -5px;
+}
+
+.c0 {
+  background-color: #F2F4F5;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.c4 {
+  overflow-y: auto;
+}
+
+.c1 + .c4 {
+  height: calc(100% - 0px);
+}
+
+.c4 .carbon-app-wrapper {
+  max-width: none;
+  padding: 27px 32px 32px 32px;
+}
+
+.c3 {
+  color: #668491;
+  cursor: pointer;
+  margin-top: -8px;
+  right: 40px;
+  top: 53px;
+  z-index: 1002;
+}
+
+.c3,
+.c3.carbon-icon {
+  position: absolute;
+  display: block;
+}
+
+.c3:before,
+.c3.carbon-icon:before {
+  font-size: 24px;
+}
+
+.c3:hover {
+  color: #335B6D;
+}
+
+<DialogFullScreen
+  data-element="bar"
+  data-role="baz"
+  enableBackgroundUI={true}
+  onCancel={[Function]}
+  onConfirm={[Function]}
+  open={true}
+  title="Test"
+>
+  <Portal
+    key="1"
+  >
+    <span
+      data-portal-entrance="guid-12345"
+    >
+      <Portal
+        containerInfo={
+          .c2 {
+  border-bottom: 1px solid #CCD6DA;
+}
+
+.c2 .carbon-app-wrapper {
+  position: relative;
+  max-width: none;
+  padding: 32px;
+}
+
+.c2 .carbon-heading .carbon-heading__header {
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: content-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  width: 100%;
+  border: none;
+}
+
+.c2 .carbon-heading .carbon-heading__header .icon-chevron_left:before {
+  font-size: 24px;
+}
+
+.c2 .carbon-heading .carbon-heading__header .carbon-heading__back {
+  margin-top: -8px;
+  margin-left: -5px;
+}
+
+.c0 {
+  background-color: #F2F4F5;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.c4 {
+  overflow-y: auto;
+}
+
+.c1 + .c4 {
+  height: calc(100% - 0px);
+}
+
+.c4 .carbon-app-wrapper {
+  max-width: none;
+  padding: 27px 32px 32px 32px;
+}
+
+.c3 {
+  color: #668491;
+  cursor: pointer;
+  margin-top: -8px;
+  right: 40px;
+  top: 53px;
+  z-index: 1002;
+}
+
+.c3,
+.c3.carbon-icon {
+  position: absolute;
+  display: block;
+}
+
+.c3:before,
+.c3.carbon-icon:before {
+  font-size: 24px;
+}
+
+.c3:hover {
+  color: #335B6D;
+}
+
+<div
+            class="carbon-portal"
+            data-portal-exit="guid-12345"
+          >
+            <div
+              data-component="dialog-full-screen"
+              data-element="bar"
+              data-role="baz"
+              data-state="open"
+            >
+              <div />
+              <div>
+                <div
+                  class="c0 modal-appear"
+                  data-element="dialog-full-screen"
+                >
+                  <div
+                    class="c1 c2"
+                    data-component="full-screen-heading"
+                  >
+                    <div
+                      class="carbon-app-wrapper"
+                      data-component="app-wrapper"
+                    >
+                      <span
+                        class="carbon-icon c3 icon-close"
+                        data-component="icon"
+                        data-element="close"
+                        theme="[object Object]"
+                      />
+                      <div
+                        class="carbon-heading carbon-heading--has-divider"
+                        data-component="heading"
+                      >
+                        <div
+                          class="carbon-heading__header"
+                        >
+                          <div
+                            class="carbon-heading__headers"
+                          >
+                            <div
+                              class="carbon-heading__main-header"
+                            >
+                              <h1
+                                class="carbon-heading__title"
+                                data-element="title"
+                                id="carbon-dialog-title"
+                              >
+                                Test
+                              </h1>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="c4"
+                    data-element="content"
+                  >
+                    <div
+                      class="carbon-app-wrapper"
+                      data-component="app-wrapper"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        }
+      >
+        <div
+          className={null}
+          data-component="dialog-full-screen"
+          data-element="bar"
+          data-role="baz"
+          data-state="open"
+        >
+          <CSSTransitionGroup
+            component="div"
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+            transitionEnter={true}
+            transitionEnterTimeout={500}
+            transitionLeave={true}
+            transitionLeaveTimeout={500}
+            transitionName="modal-background"
+          >
+            <TransitionGroup
+              childFactory={[Function]}
+              component="div"
+              transitionAppear={true}
+              transitionAppearTimeout={500}
+              transitionEnter={true}
+              transitionEnterTimeout={500}
+              transitionLeave={true}
+              transitionLeaveTimeout={500}
+              transitionName="modal-background"
+            >
+              <div />
+            </TransitionGroup>
+          </CSSTransitionGroup>
+          <CSSTransitionGroup
+            component="div"
+            transitionAppear={true}
+            transitionAppearTimeout={500}
+            transitionEnter={true}
+            transitionEnterTimeout={500}
+            transitionLeave={true}
+            transitionLeaveTimeout={500}
+            transitionName="modal"
+          >
+            <TransitionGroup
+              childFactory={[Function]}
+              component="div"
+              transitionAppear={true}
+              transitionAppearTimeout={500}
+              transitionEnter={true}
+              transitionEnterTimeout={500}
+              transitionLeave={true}
+              transitionLeaveTimeout={500}
+              transitionName="modal"
+            >
+              <div>
+                <CSSTransitionGroupChild
+                  appear={true}
+                  appearTimeout={500}
+                  enter={true}
+                  enterTimeout={500}
+                  key=".0"
+                  leave={true}
+                  leaveTimeout={500}
+                  name="modal"
+                >
+                  <styled.div
+                    data-element="dialog-full-screen"
+                    key=".0"
+                    theme={
+                      Object {
+                        "colors": Object {
+                          "border": "#668491",
+                          "brand": "#00DC00",
+                          "error": "#C7384F",
+                          "focus": "#FFDA7F",
+                          "focusedIcon": "#335B6D",
+                          "info": "#0073C2",
+                          "primary": "#26A826",
+                          "secondary": "#006300",
+                          "success": "#00B000",
+                          "tertiary": "#004400",
+                          "warning": "#E96400",
+                          "white": "#FFFFFF",
+                        },
+                        "disabled": Object {
+                          "background": "#E5EAEC",
+                          "border": "#CCD6DA",
+                          "disabled": "rgba(0,0,0,0.55)",
+                          "input": "#F2F4F5",
+                          "text": "rgba(0,0,0,0.3)",
+                        },
+                        "icon": Object {
+                          "focus": "#335B6D",
+                        },
+                        "name": "base",
+                        "shadows": Object {
+                          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                        },
+                        "text": Object {
+                          "color": "rgba(0,0,0,0.9)",
+                          "placeholder": "rgba(0,0,0,0.3)",
+                          "size": "14px",
+                        },
+                      }
+                    }
+                  >
+                    <StyledComponent
+                      data-element="dialog-full-screen"
+                      forwardedComponent={
+                        Object {
+                          "$$typeof": Symbol(react.forward_ref),
+                          "attrs": Array [],
+                          "componentStyle": ComponentStyle {
+                            "componentId": "sc-htpNat",
+                            "isStatic": false,
+                            "lastClassName": "c0",
+                            "rules": Array [
+                              "
+  background-color: ",
+                              [Function],
+                              ";
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+
+  ",
+                              [Function],
+                              "
+",
+                            ],
+                          },
+                          "defaultProps": Object {
+                            "theme": Object {
+                              "colors": Object {
+                                "border": "#668491",
+                                "brand": "#00DC00",
+                                "error": "#C7384F",
+                                "focus": "#FFDA7F",
+                                "focusedIcon": "#335B6D",
+                                "info": "#0073C2",
+                                "primary": "#26A826",
+                                "secondary": "#006300",
+                                "success": "#00B000",
+                                "tertiary": "#004400",
+                                "warning": "#E96400",
+                                "white": "#FFFFFF",
+                              },
+                              "disabled": Object {
+                                "background": "#E5EAEC",
+                                "border": "#CCD6DA",
+                                "disabled": "rgba(0,0,0,0.55)",
+                                "input": "#F2F4F5",
+                                "text": "rgba(0,0,0,0.3)",
+                              },
+                              "icon": Object {
+                                "focus": "#335B6D",
+                              },
+                              "name": "base",
+                              "shadows": Object {
+                                "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                              },
+                              "text": Object {
+                                "color": "rgba(0,0,0,0.9)",
+                                "placeholder": "rgba(0,0,0,0.3)",
+                                "size": "14px",
+                              },
+                            },
+                          },
+                          "displayName": "styled.div",
+                          "foldedComponentIds": Array [],
+                          "render": [Function],
+                          "styledComponentId": "sc-htpNat",
+                          "target": "div",
+                          "toString": [Function],
+                          "warnTooManyClasses": [Function],
+                          "withComponent": [Function],
+                        }
+                      }
+                      forwardedRef={[Function]}
+                      theme={
+                        Object {
+                          "colors": Object {
+                            "border": "#668491",
+                            "brand": "#00DC00",
+                            "error": "#C7384F",
+                            "focus": "#FFDA7F",
+                            "focusedIcon": "#335B6D",
+                            "info": "#0073C2",
+                            "primary": "#26A826",
+                            "secondary": "#006300",
+                            "success": "#00B000",
+                            "tertiary": "#004400",
+                            "warning": "#E96400",
+                            "white": "#FFFFFF",
+                          },
+                          "disabled": Object {
+                            "background": "#E5EAEC",
+                            "border": "#CCD6DA",
+                            "disabled": "rgba(0,0,0,0.55)",
+                            "input": "#F2F4F5",
+                            "text": "rgba(0,0,0,0.3)",
+                          },
+                          "icon": Object {
+                            "focus": "#335B6D",
+                          },
+                          "name": "base",
+                          "shadows": Object {
+                            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                          },
+                          "text": Object {
+                            "color": "rgba(0,0,0,0.9)",
+                            "placeholder": "rgba(0,0,0,0.3)",
+                            "size": "14px",
+                          },
+                        }
+                      }
+                    >
+                      <div
+                        className="c0"
+                        data-element="dialog-full-screen"
+                      >
+                        <ForwardRef>
+                          <styled.div
+                            data-component="full-screen-heading"
+                            theme={
+                              Object {
+                                "colors": Object {
+                                  "border": "#668491",
+                                  "brand": "#00DC00",
+                                  "error": "#C7384F",
+                                  "focus": "#FFDA7F",
+                                  "focusedIcon": "#335B6D",
+                                  "info": "#0073C2",
+                                  "primary": "#26A826",
+                                  "secondary": "#006300",
+                                  "success": "#00B000",
+                                  "tertiary": "#004400",
+                                  "warning": "#E96400",
+                                  "white": "#FFFFFF",
+                                },
+                                "disabled": Object {
+                                  "background": "#E5EAEC",
+                                  "border": "#CCD6DA",
+                                  "disabled": "rgba(0,0,0,0.55)",
+                                  "input": "#F2F4F5",
+                                  "text": "rgba(0,0,0,0.3)",
+                                },
+                                "icon": Object {
+                                  "focus": "#335B6D",
+                                },
+                                "name": "base",
+                                "shadows": Object {
+                                  "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                  "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                  "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                  "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                  "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                },
+                                "text": Object {
+                                  "color": "rgba(0,0,0,0.9)",
+                                  "placeholder": "rgba(0,0,0,0.3)",
+                                  "size": "14px",
+                                },
+                              }
+                            }
+                          >
+                            <StyledComponent
+                              data-component="full-screen-heading"
+                              forwardedComponent={
+                                Object {
+                                  "$$typeof": Symbol(react.forward_ref),
+                                  "attrs": Array [],
+                                  "componentStyle": ComponentStyle {
+                                    "componentId": "c1",
+                                    "isStatic": false,
+                                    "lastClassName": "c2",
+                                    "rules": Array [
+                                      "
+  border-bottom: 1px solid ",
+                                      [Function],
+                                      ";
+
+  .carbon-app-wrapper {
+    position: relative;
+    max-width: none;
+    padding: 32px;
+  }
+
+  .carbon-heading {
+    .carbon-heading__header {
+      background-color: transparent;
+      align-items: center;
+      box-sizing: content-box;
+      display: flex;
+      margin-bottom: 0;
+      padding-bottom: 0;
+      width: 100%;
+      border: none;
+
+      .icon-chevron_left:before {
+        font-size: 24px;
+      }
+
+      .carbon-heading__back {
+        margin-top: -8px;
+        margin-left: -5px;
+      }
+    }
+  }
+
+  ",
+                                      [Function],
+                                      "
+",
+                                    ],
+                                  },
+                                  "defaultProps": Object {
+                                    "theme": Object {
+                                      "colors": Object {
+                                        "border": "#668491",
+                                        "brand": "#00DC00",
+                                        "error": "#C7384F",
+                                        "focus": "#FFDA7F",
+                                        "focusedIcon": "#335B6D",
+                                        "info": "#0073C2",
+                                        "primary": "#26A826",
+                                        "secondary": "#006300",
+                                        "success": "#00B000",
+                                        "tertiary": "#004400",
+                                        "warning": "#E96400",
+                                        "white": "#FFFFFF",
+                                      },
+                                      "disabled": Object {
+                                        "background": "#E5EAEC",
+                                        "border": "#CCD6DA",
+                                        "disabled": "rgba(0,0,0,0.55)",
+                                        "input": "#F2F4F5",
+                                        "text": "rgba(0,0,0,0.3)",
+                                      },
+                                      "icon": Object {
+                                        "focus": "#335B6D",
+                                      },
+                                      "name": "base",
+                                      "shadows": Object {
+                                        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                      },
+                                      "text": Object {
+                                        "color": "rgba(0,0,0,0.9)",
+                                        "placeholder": "rgba(0,0,0,0.3)",
+                                        "size": "14px",
+                                      },
+                                    },
+                                  },
+                                  "displayName": "styled.div",
+                                  "foldedComponentIds": Array [],
+                                  "render": [Function],
+                                  "styledComponentId": "c1",
+                                  "target": "div",
+                                  "toString": [Function],
+                                  "warnTooManyClasses": [Function],
+                                  "withComponent": [Function],
+                                }
+                              }
+                              forwardedRef={
+                                Object {
+                                  "current": <div
+                                    class="c1 c2"
+                                    data-component="full-screen-heading"
+                                  >
+                                    <div
+                                      class="carbon-app-wrapper"
+                                      data-component="app-wrapper"
+                                    >
+                                      <span
+                                        class="carbon-icon c3 icon-close"
+                                        data-component="icon"
+                                        data-element="close"
+                                        theme="[object Object]"
+                                      />
+                                      <div
+                                        class="carbon-heading carbon-heading--has-divider"
+                                        data-component="heading"
+                                      >
+                                        <div
+                                          class="carbon-heading__header"
+                                        >
+                                          <div
+                                            class="carbon-heading__headers"
+                                          >
+                                            <div
+                                              class="carbon-heading__main-header"
+                                            >
+                                              <h1
+                                                class="carbon-heading__title"
+                                                data-element="title"
+                                                id="carbon-dialog-title"
+                                              >
+                                                Test
+                                              </h1>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>,
+                                }
+                              }
+                              theme={
+                                Object {
+                                  "colors": Object {
+                                    "border": "#668491",
+                                    "brand": "#00DC00",
+                                    "error": "#C7384F",
+                                    "focus": "#FFDA7F",
+                                    "focusedIcon": "#335B6D",
+                                    "info": "#0073C2",
+                                    "primary": "#26A826",
+                                    "secondary": "#006300",
+                                    "success": "#00B000",
+                                    "tertiary": "#004400",
+                                    "warning": "#E96400",
+                                    "white": "#FFFFFF",
+                                  },
+                                  "disabled": Object {
+                                    "background": "#E5EAEC",
+                                    "border": "#CCD6DA",
+                                    "disabled": "rgba(0,0,0,0.55)",
+                                    "input": "#F2F4F5",
+                                    "text": "rgba(0,0,0,0.3)",
+                                  },
+                                  "icon": Object {
+                                    "focus": "#335B6D",
+                                  },
+                                  "name": "base",
+                                  "shadows": Object {
+                                    "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                    "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                    "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                    "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                    "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                  },
+                                  "text": Object {
+                                    "color": "rgba(0,0,0,0.9)",
+                                    "placeholder": "rgba(0,0,0,0.3)",
+                                    "size": "14px",
+                                  },
+                                }
+                              }
+                            >
+                              <div
+                                className="c1 c2"
+                                data-component="full-screen-heading"
+                              >
+                                <AppWrapper>
+                                  <div
+                                    className="carbon-app-wrapper"
+                                    data-component="app-wrapper"
+                                  >
+                                    <Styled(Icon)
+                                      data-element="close"
+                                      onClick={[Function]}
+                                      theme={
+                                        Object {
+                                          "colors": Object {
+                                            "border": "#668491",
+                                            "brand": "#00DC00",
+                                            "error": "#C7384F",
+                                            "focus": "#FFDA7F",
+                                            "focusedIcon": "#335B6D",
+                                            "info": "#0073C2",
+                                            "primary": "#26A826",
+                                            "secondary": "#006300",
+                                            "success": "#00B000",
+                                            "tertiary": "#004400",
+                                            "warning": "#E96400",
+                                            "white": "#FFFFFF",
+                                          },
+                                          "disabled": Object {
+                                            "background": "#E5EAEC",
+                                            "border": "#CCD6DA",
+                                            "disabled": "rgba(0,0,0,0.55)",
+                                            "input": "#F2F4F5",
+                                            "text": "rgba(0,0,0,0.3)",
+                                          },
+                                          "icon": Object {
+                                            "focus": "#335B6D",
+                                          },
+                                          "name": "base",
+                                          "shadows": Object {
+                                            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                          },
+                                          "text": Object {
+                                            "color": "rgba(0,0,0,0.9)",
+                                            "placeholder": "rgba(0,0,0,0.3)",
+                                            "size": "14px",
+                                          },
+                                        }
+                                      }
+                                      type="close"
+                                    >
+                                      <StyledComponent
+                                        data-element="close"
+                                        forwardedComponent={
+                                          Object {
+                                            "$$typeof": Symbol(react.forward_ref),
+                                            "attrs": Array [],
+                                            "componentStyle": ComponentStyle {
+                                              "componentId": "sc-ifAKCX",
+                                              "isStatic": false,
+                                              "lastClassName": "c3",
+                                              "rules": Array [
+                                                "
+  color: ",
+                                                [Function],
+                                                ";
+  cursor: pointer;
+  margin-top: -8px;
+  right: 40px;
+  top: 53px;
+  z-index: 1002;
+
+  &, &.carbon-icon {
+    position: absolute;
+    display: block;
+  }
+  
+  &:before, &.carbon-icon:before {
+    font-size: 24px;
+  }
+  
+  &:hover {
+    color: ",
+                                                [Function],
+                                                ";
+  }
+
+  ",
+                                                [Function],
+                                                "
+",
+                                              ],
+                                            },
+                                            "defaultProps": Object {
+                                              "theme": Object {
+                                                "colors": Object {
+                                                  "border": "#668491",
+                                                  "brand": "#00DC00",
+                                                  "error": "#C7384F",
+                                                  "focus": "#FFDA7F",
+                                                  "focusedIcon": "#335B6D",
+                                                  "info": "#0073C2",
+                                                  "primary": "#26A826",
+                                                  "secondary": "#006300",
+                                                  "success": "#00B000",
+                                                  "tertiary": "#004400",
+                                                  "warning": "#E96400",
+                                                  "white": "#FFFFFF",
+                                                },
+                                                "disabled": Object {
+                                                  "background": "#E5EAEC",
+                                                  "border": "#CCD6DA",
+                                                  "disabled": "rgba(0,0,0,0.55)",
+                                                  "input": "#F2F4F5",
+                                                  "text": "rgba(0,0,0,0.3)",
+                                                },
+                                                "icon": Object {
+                                                  "focus": "#335B6D",
+                                                },
+                                                "name": "base",
+                                                "shadows": Object {
+                                                  "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                                  "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                                  "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                                  "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                                  "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                                },
+                                                "text": Object {
+                                                  "color": "rgba(0,0,0,0.9)",
+                                                  "placeholder": "rgba(0,0,0,0.3)",
+                                                  "size": "14px",
+                                                },
+                                              },
+                                            },
+                                            "displayName": "Styled(Icon)",
+                                            "foldedComponentIds": Array [],
+                                            "render": [Function],
+                                            "styledComponentId": "sc-ifAKCX",
+                                            "target": [Function],
+                                            "toString": [Function],
+                                            "warnTooManyClasses": [Function],
+                                            "withComponent": [Function],
+                                            Symbol(Symbol.hasInstance): [Function],
+                                          }
+                                        }
+                                        forwardedRef={null}
+                                        onClick={[Function]}
+                                        theme={
+                                          Object {
+                                            "colors": Object {
+                                              "border": "#668491",
+                                              "brand": "#00DC00",
+                                              "error": "#C7384F",
+                                              "focus": "#FFDA7F",
+                                              "focusedIcon": "#335B6D",
+                                              "info": "#0073C2",
+                                              "primary": "#26A826",
+                                              "secondary": "#006300",
+                                              "success": "#00B000",
+                                              "tertiary": "#004400",
+                                              "warning": "#E96400",
+                                              "white": "#FFFFFF",
+                                            },
+                                            "disabled": Object {
+                                              "background": "#E5EAEC",
+                                              "border": "#CCD6DA",
+                                              "disabled": "rgba(0,0,0,0.55)",
+                                              "input": "#F2F4F5",
+                                              "text": "rgba(0,0,0,0.3)",
+                                            },
+                                            "icon": Object {
+                                              "focus": "#335B6D",
+                                            },
+                                            "name": "base",
+                                            "shadows": Object {
+                                              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                            },
+                                            "text": Object {
+                                              "color": "rgba(0,0,0,0.9)",
+                                              "placeholder": "rgba(0,0,0,0.3)",
+                                              "size": "14px",
+                                            },
+                                          }
+                                        }
+                                        type="close"
+                                      >
+                                        <Icon
+                                          bgSize="small"
+                                          className="c3"
+                                          data-element="close"
+                                          onClick={[Function]}
+                                          theme={
+                                            Object {
+                                              "colors": Object {
+                                                "border": "#668491",
+                                                "brand": "#00DC00",
+                                                "error": "#C7384F",
+                                                "focus": "#FFDA7F",
+                                                "focusedIcon": "#335B6D",
+                                                "info": "#0073C2",
+                                                "primary": "#26A826",
+                                                "secondary": "#006300",
+                                                "success": "#00B000",
+                                                "tertiary": "#004400",
+                                                "warning": "#E96400",
+                                                "white": "#FFFFFF",
+                                              },
+                                              "disabled": Object {
+                                                "background": "#E5EAEC",
+                                                "border": "#CCD6DA",
+                                                "disabled": "rgba(0,0,0,0.55)",
+                                                "input": "#F2F4F5",
+                                                "text": "rgba(0,0,0,0.3)",
+                                              },
+                                              "icon": Object {
+                                                "focus": "#335B6D",
+                                              },
+                                              "name": "base",
+                                              "shadows": Object {
+                                                "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                                "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                                "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                                "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                                "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                              },
+                                              "text": Object {
+                                                "color": "rgba(0,0,0,0.9)",
+                                                "placeholder": "rgba(0,0,0,0.3)",
+                                                "size": "14px",
+                                              },
+                                            }
+                                          }
+                                          type="close"
+                                        >
+                                          <span
+                                            className="carbon-icon c3 icon-close"
+                                            data-component="icon"
+                                            data-element="close"
+                                            key="icon"
+                                            onClick={[Function]}
+                                            theme={
+                                              Object {
+                                                "colors": Object {
+                                                  "border": "#668491",
+                                                  "brand": "#00DC00",
+                                                  "error": "#C7384F",
+                                                  "focus": "#FFDA7F",
+                                                  "focusedIcon": "#335B6D",
+                                                  "info": "#0073C2",
+                                                  "primary": "#26A826",
+                                                  "secondary": "#006300",
+                                                  "success": "#00B000",
+                                                  "tertiary": "#004400",
+                                                  "warning": "#E96400",
+                                                  "white": "#FFFFFF",
+                                                },
+                                                "disabled": Object {
+                                                  "background": "#E5EAEC",
+                                                  "border": "#CCD6DA",
+                                                  "disabled": "rgba(0,0,0,0.55)",
+                                                  "input": "#F2F4F5",
+                                                  "text": "rgba(0,0,0,0.3)",
+                                                },
+                                                "icon": Object {
+                                                  "focus": "#335B6D",
+                                                },
+                                                "name": "base",
+                                                "shadows": Object {
+                                                  "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                                  "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                                  "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                                  "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                                  "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                                },
+                                                "text": Object {
+                                                  "color": "rgba(0,0,0,0.9)",
+                                                  "placeholder": "rgba(0,0,0,0.3)",
+                                                  "size": "14px",
+                                                },
+                                              }
+                                            }
+                                          />
+                                        </Icon>
+                                      </StyledComponent>
+                                    </Styled(Icon)>
+                                    <Heading
+                                      divider={true}
+                                      separator={false}
+                                      subtitleId="carbon-dialog-subtitle"
+                                      title="Test"
+                                      titleId="carbon-dialog-title"
+                                    >
+                                      <div
+                                        className="carbon-heading carbon-heading--has-divider"
+                                        data-component="heading"
+                                      >
+                                        <div
+                                          className="carbon-heading__header"
+                                        >
+                                          <div
+                                            className="carbon-heading__headers"
+                                          >
+                                            <div
+                                              className="carbon-heading__main-header"
+                                            >
+                                              <h1
+                                                className="carbon-heading__title"
+                                                data-element="title"
+                                                id="carbon-dialog-title"
+                                              >
+                                                Test
+                                              </h1>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </Heading>
+                                  </div>
+                                </AppWrapper>
+                              </div>
+                            </StyledComponent>
+                          </styled.div>
+                        </ForwardRef>
+                        <styled.div
+                          data-element="content"
+                          headingHeight={0}
+                        >
+                          <StyledComponent
+                            data-element="content"
+                            forwardedComponent={
+                              Object {
+                                "$$typeof": Symbol(react.forward_ref),
+                                "attrs": Array [],
+                                "componentStyle": ComponentStyle {
+                                  "componentId": "sc-bxivhb",
+                                  "isStatic": false,
+                                  "lastClassName": "c4",
+                                  "rules": Array [
+                                    "
+  overflow-y: auto;
+
+  ",
+                                    [Function],
+                                    "
+
+  .carbon-app-wrapper {
+    max-width: none;
+    padding: 27px 32px 32px 32px;
+  }
+
+  ",
+                                    [Function],
+                                    "
+",
+                                  ],
+                                },
+                                "defaultProps": Object {
+                                  "headingHeight": 0,
+                                },
+                                "displayName": "styled.div",
+                                "foldedComponentIds": Array [],
+                                "render": [Function],
+                                "styledComponentId": "sc-bxivhb",
+                                "target": "div",
+                                "toString": [Function],
+                                "warnTooManyClasses": [Function],
+                                "withComponent": [Function],
+                              }
+                            }
+                            forwardedRef={null}
+                            headingHeight={0}
+                          >
+                            <div
+                              className="c4"
+                              data-element="content"
+                            >
+                              <AppWrapper>
+                                <div
+                                  className="carbon-app-wrapper"
+                                  data-component="app-wrapper"
+                                />
+                              </AppWrapper>
+                            </div>
+                          </StyledComponent>
+                        </styled.div>
+                      </div>
+                    </StyledComponent>
+                  </styled.div>
+                </CSSTransitionGroupChild>
+              </div>
+            </TransitionGroup>
+          </CSSTransitionGroup>
+        </div>
+      </Portal>
+    </span>
+  </Portal>
+</DialogFullScreen>
+`;
+
+exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
+.c1 {
+  border-bottom: 1px solid #4d7080;
+  border-bottom-color: #CCD6DA;
+}
+
+.c1 .carbon-app-wrapper {
+  position: relative;
+  max-width: none;
+  padding: 32px;
+}
+
+.c1 .carbon-heading .carbon-heading__header {
+  background-color: transparent;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  box-sizing: content-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  width: 100%;
+  border: none;
+}
+
+.c1 .carbon-heading .carbon-heading__header .icon-chevron_left:before {
+  font-size: 24px;
+}
+
+.c1 .carbon-heading .carbon-heading__header .carbon-heading__back {
+  margin-top: -8px;
+  margin-left: -5px;
+}
+
+.c1 .carbon-app-wrapper {
+  max-width: 1600px;
+  padding: 0 40px;
+}
+
+.c1 .carbon-heading .carbon-heading__header {
+  height: 106px;
+}
+
+.c0 + .c2 {
+  height: calc(100% - 0px);
+}
+
+<ForwardRef
+  theme={
+    Object {
+      "colors": Object {
+        "base": "#00A376",
+        "baseBlue": "#255BC7",
+        "border": "#668491",
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFDA7F",
+        "focusedIcon": "#335B6D",
+        "greyDarkBlue50": "#8099a4",
+        "info": "#0073C2",
+        "primary": "#00805D",
+        "secondary": "#006045",
+        "success": "#00B000",
+        "tertiary": "#003F2E",
+        "warning": "#FFB500",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "background": "#E5EAEC",
+        "border": "#4d7080",
+        "disabled": "#b3c2c8",
+        "input": "#1e499f",
+        "text": "#003349",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
+      },
+      "name": "classic",
+      "shadows": Object {
+        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+>
+  <styled.div
+    data-component="full-screen-heading"
+    theme={
+      Object {
+        "colors": Object {
+          "base": "#00A376",
+          "baseBlue": "#255BC7",
+          "border": "#668491",
+          "brand": "#00DC00",
+          "error": "#C7384F",
+          "focus": "#FFDA7F",
+          "focusedIcon": "#335B6D",
+          "greyDarkBlue50": "#8099a4",
+          "info": "#0073C2",
+          "primary": "#00805D",
+          "secondary": "#006045",
+          "success": "#00B000",
+          "tertiary": "#003F2E",
+          "warning": "#FFB500",
+          "white": "#FFFFFF",
+        },
+        "disabled": Object {
+          "background": "#E5EAEC",
+          "border": "#4d7080",
+          "disabled": "#b3c2c8",
+          "input": "#1e499f",
+          "text": "#003349",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
+        },
+        "name": "classic",
+        "shadows": Object {
+          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.3)",
+          "size": "14px",
+        },
+      }
+    }
+  >
+    <StyledComponent
+      data-component="full-screen-heading"
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "c0",
+            "isStatic": false,
+            "lastClassName": "c1",
+            "rules": Array [
+              "
+  border-bottom: 1px solid ",
+              [Function],
+              ";
+
+  .carbon-app-wrapper {
+    position: relative;
+    max-width: none;
+    padding: 32px;
+  }
+
+  .carbon-heading {
+    .carbon-heading__header {
+      background-color: transparent;
+      align-items: center;
+      box-sizing: content-box;
+      display: flex;
+      margin-bottom: 0;
+      padding-bottom: 0;
+      width: 100%;
+      border: none;
+
+      .icon-chevron_left:before {
+        font-size: 24px;
+      }
+
+      .carbon-heading__back {
+        margin-top: -8px;
+        margin-left: -5px;
+      }
+    }
+  }
+
+  ",
+              [Function],
+              "
+",
+            ],
+          },
+          "defaultProps": Object {
+            "theme": Object {
+              "colors": Object {
+                "border": "#668491",
+                "brand": "#00DC00",
+                "error": "#C7384F",
+                "focus": "#FFDA7F",
+                "focusedIcon": "#335B6D",
+                "info": "#0073C2",
+                "primary": "#26A826",
+                "secondary": "#006300",
+                "success": "#00B000",
+                "tertiary": "#004400",
+                "warning": "#E96400",
+                "white": "#FFFFFF",
+              },
+              "disabled": Object {
+                "background": "#E5EAEC",
+                "border": "#CCD6DA",
+                "disabled": "rgba(0,0,0,0.55)",
+                "input": "#F2F4F5",
+                "text": "rgba(0,0,0,0.3)",
+              },
+              "icon": Object {
+                "focus": "#335B6D",
+              },
+              "name": "base",
+              "shadows": Object {
+                "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+              },
+              "text": Object {
+                "color": "rgba(0,0,0,0.9)",
+                "placeholder": "rgba(0,0,0,0.3)",
+                "size": "14px",
+              },
+            },
+          },
+          "displayName": "styled.div",
+          "foldedComponentIds": Array [],
+          "render": [Function],
+          "styledComponentId": "c0",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+      theme={
+        Object {
+          "colors": Object {
+            "base": "#00A376",
+            "baseBlue": "#255BC7",
+            "border": "#668491",
+            "brand": "#00DC00",
+            "error": "#C7384F",
+            "focus": "#FFDA7F",
+            "focusedIcon": "#335B6D",
+            "greyDarkBlue50": "#8099a4",
+            "info": "#0073C2",
+            "primary": "#00805D",
+            "secondary": "#006045",
+            "success": "#00B000",
+            "tertiary": "#003F2E",
+            "warning": "#FFB500",
+            "white": "#FFFFFF",
+          },
+          "disabled": Object {
+            "background": "#E5EAEC",
+            "border": "#4d7080",
+            "disabled": "#b3c2c8",
+            "input": "#1e499f",
+            "text": "#003349",
+          },
+          "icon": Object {
+            "focus": "#335B6D",
+          },
+          "name": "classic",
+          "shadows": Object {
+            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+          },
+          "text": Object {
+            "color": "rgba(0,0,0,0.9)",
+            "placeholder": "rgba(0,0,0,0.3)",
+            "size": "14px",
+          },
+        }
+      }
+    >
+      <div
+        className="c0 c1"
+        data-component="full-screen-heading"
+      >
+        <AppWrapper>
+          <div
+            className="carbon-app-wrapper"
+            data-component="app-wrapper"
+          />
+        </AppWrapper>
+      </div>
+    </StyledComponent>
+  </styled.div>
+</ForwardRef>
+`;
+
+exports[`Styled StyledContent classic theme applies custom styling 1`] = `
+.c0 {
+  overflow-y: auto;
+  padding-top: 30px;
+  padding-bottom: 30px;
+}
+
+.c1 + .c0 {
+  height: calc(100% - 0px);
+}
+
+.c0 .carbon-app-wrapper {
+  max-width: none;
+  padding: 27px 32px 32px 32px;
+}
+
+.c0 .carbon-app-wrapper {
+  max-width: 1600px;
+  padding: 0 40px;
+}
+
+<styled.div
+  headingHeight={0}
+  theme={
+    Object {
+      "colors": Object {
+        "base": "#00A376",
+        "baseBlue": "#255BC7",
+        "border": "#668491",
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFDA7F",
+        "focusedIcon": "#335B6D",
+        "greyDarkBlue50": "#8099a4",
+        "info": "#0073C2",
+        "primary": "#00805D",
+        "secondary": "#006045",
+        "success": "#00B000",
+        "tertiary": "#003F2E",
+        "warning": "#FFB500",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "background": "#E5EAEC",
+        "border": "#4d7080",
+        "disabled": "#b3c2c8",
+        "input": "#1e499f",
+        "text": "#003349",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
+      },
+      "name": "classic",
+      "shadows": Object {
+        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-bxivhb",
+          "isStatic": false,
+          "lastClassName": "c0",
+          "rules": Array [
+            "
+  overflow-y: auto;
+
+  ",
+            [Function],
+            "
+
+  .carbon-app-wrapper {
+    max-width: none;
+    padding: 27px 32px 32px 32px;
+  }
+
+  ",
+            [Function],
+            "
+",
+          ],
+        },
+        "defaultProps": Object {
+          "headingHeight": 0,
+        },
+        "displayName": "styled.div",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "sc-bxivhb",
+        "target": "div",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
+    }
+    forwardedRef={null}
+    headingHeight={0}
+    theme={
+      Object {
+        "colors": Object {
+          "base": "#00A376",
+          "baseBlue": "#255BC7",
+          "border": "#668491",
+          "brand": "#00DC00",
+          "error": "#C7384F",
+          "focus": "#FFDA7F",
+          "focusedIcon": "#335B6D",
+          "greyDarkBlue50": "#8099a4",
+          "info": "#0073C2",
+          "primary": "#00805D",
+          "secondary": "#006045",
+          "success": "#00B000",
+          "tertiary": "#003F2E",
+          "warning": "#FFB500",
+          "white": "#FFFFFF",
+        },
+        "disabled": Object {
+          "background": "#E5EAEC",
+          "border": "#4d7080",
+          "disabled": "#b3c2c8",
+          "input": "#1e499f",
+          "text": "#003349",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
+        },
+        "name": "classic",
+        "shadows": Object {
+          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.3)",
+          "size": "14px",
+        },
+      }
+    }
+  >
+    <div
+      className="c0"
+    />
+  </StyledComponent>
+</styled.div>
+`;
+
+exports[`Styled StyledDialogFullScreen classic theme applies custom styling 1`] = `
+.c0 {
+  background-color: #1e499f;
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: #e6ebed;
+}
+
+<styled.div
+  theme={
+    Object {
+      "colors": Object {
+        "base": "#00A376",
+        "baseBlue": "#255BC7",
+        "border": "#668491",
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFDA7F",
+        "focusedIcon": "#335B6D",
+        "greyDarkBlue50": "#8099a4",
+        "info": "#0073C2",
+        "primary": "#00805D",
+        "secondary": "#006045",
+        "success": "#00B000",
+        "tertiary": "#003F2E",
+        "warning": "#FFB500",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "background": "#E5EAEC",
+        "border": "#4d7080",
+        "disabled": "#b3c2c8",
+        "input": "#1e499f",
+        "text": "#003349",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
+      },
+      "name": "classic",
+      "shadows": Object {
+        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-htpNat",
+          "isStatic": false,
+          "lastClassName": "c0",
+          "rules": Array [
+            "
+  background-color: ",
+            [Function],
+            ";
+  height: 100%;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+
+  ",
+            [Function],
+            "
+",
+          ],
+        },
+        "defaultProps": Object {
+          "theme": Object {
+            "colors": Object {
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFDA7F",
+              "focusedIcon": "#335B6D",
+              "info": "#0073C2",
+              "primary": "#26A826",
+              "secondary": "#006300",
+              "success": "#00B000",
+              "tertiary": "#004400",
+              "warning": "#E96400",
+              "white": "#FFFFFF",
+            },
+            "disabled": Object {
+              "background": "#E5EAEC",
+              "border": "#CCD6DA",
+              "disabled": "rgba(0,0,0,0.55)",
+              "input": "#F2F4F5",
+              "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
+            },
+            "name": "base",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          },
+        },
+        "displayName": "styled.div",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "sc-htpNat",
+        "target": "div",
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+      }
+    }
+    forwardedRef={null}
+    theme={
+      Object {
+        "colors": Object {
+          "base": "#00A376",
+          "baseBlue": "#255BC7",
+          "border": "#668491",
+          "brand": "#00DC00",
+          "error": "#C7384F",
+          "focus": "#FFDA7F",
+          "focusedIcon": "#335B6D",
+          "greyDarkBlue50": "#8099a4",
+          "info": "#0073C2",
+          "primary": "#00805D",
+          "secondary": "#006045",
+          "success": "#00B000",
+          "tertiary": "#003F2E",
+          "warning": "#FFB500",
+          "white": "#FFFFFF",
+        },
+        "disabled": Object {
+          "background": "#E5EAEC",
+          "border": "#4d7080",
+          "disabled": "#b3c2c8",
+          "input": "#1e499f",
+          "text": "#003349",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
+        },
+        "name": "classic",
+        "shadows": Object {
+          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.3)",
+          "size": "14px",
+        },
+      }
+    }
+  >
+    <div
+      className="c0"
+    />
+  </StyledComponent>
+</styled.div>
+`;
+
+exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
+.c0 {
+  color: #668491;
+  cursor: pointer;
+  margin-top: -8px;
+  right: 40px;
+  top: 53px;
+  z-index: 1002;
+  color: #4d7080;
+}
+
+.c0,
+.c0.carbon-icon {
+  position: absolute;
+  display: block;
+}
+
+.c0:before,
+.c0.carbon-icon:before {
+  font-size: 24px;
+}
+
+.c0:hover {
+  color: #335B6D;
+}
+
+.c0:hover {
+  color: #255BC7;
+}
+
+<Styled(Icon)
+  theme={
+    Object {
+      "colors": Object {
+        "base": "#00A376",
+        "baseBlue": "#255BC7",
+        "border": "#668491",
+        "brand": "#00DC00",
+        "error": "#C7384F",
+        "focus": "#FFDA7F",
+        "focusedIcon": "#335B6D",
+        "greyDarkBlue50": "#8099a4",
+        "info": "#0073C2",
+        "primary": "#00805D",
+        "secondary": "#006045",
+        "success": "#00B000",
+        "tertiary": "#003F2E",
+        "warning": "#FFB500",
+        "white": "#FFFFFF",
+      },
+      "disabled": Object {
+        "background": "#E5EAEC",
+        "border": "#4d7080",
+        "disabled": "#b3c2c8",
+        "input": "#1e499f",
+        "text": "#003349",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
+      },
+      "name": "classic",
+      "shadows": Object {
+        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+      },
+      "text": Object {
+        "color": "rgba(0,0,0,0.9)",
+        "placeholder": "rgba(0,0,0,0.3)",
+        "size": "14px",
+      },
+    }
+  }
+>
+  <StyledComponent
+    forwardedComponent={
+      Object {
+        "$$typeof": Symbol(react.forward_ref),
+        "attrs": Array [],
+        "componentStyle": ComponentStyle {
+          "componentId": "sc-ifAKCX",
+          "isStatic": false,
+          "lastClassName": "c0",
+          "rules": Array [
+            "
+  color: ",
+            [Function],
+            ";
+  cursor: pointer;
+  margin-top: -8px;
+  right: 40px;
+  top: 53px;
+  z-index: 1002;
+
+  &, &.carbon-icon {
+    position: absolute;
+    display: block;
+  }
+  
+  &:before, &.carbon-icon:before {
+    font-size: 24px;
+  }
+  
+  &:hover {
+    color: ",
+            [Function],
+            ";
+  }
+
+  ",
+            [Function],
+            "
+",
+          ],
+        },
+        "defaultProps": Object {
+          "theme": Object {
+            "colors": Object {
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFDA7F",
+              "focusedIcon": "#335B6D",
+              "info": "#0073C2",
+              "primary": "#26A826",
+              "secondary": "#006300",
+              "success": "#00B000",
+              "tertiary": "#004400",
+              "warning": "#E96400",
+              "white": "#FFFFFF",
+            },
+            "disabled": Object {
+              "background": "#E5EAEC",
+              "border": "#CCD6DA",
+              "disabled": "rgba(0,0,0,0.55)",
+              "input": "#F2F4F5",
+              "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
+            },
+            "name": "base",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          },
+        },
+        "displayName": "Styled(Icon)",
+        "foldedComponentIds": Array [],
+        "render": [Function],
+        "styledComponentId": "sc-ifAKCX",
+        "target": [Function],
+        "toString": [Function],
+        "warnTooManyClasses": [Function],
+        "withComponent": [Function],
+        Symbol(Symbol.hasInstance): [Function],
+      }
+    }
+    forwardedRef={null}
+    theme={
+      Object {
+        "colors": Object {
+          "base": "#00A376",
+          "baseBlue": "#255BC7",
+          "border": "#668491",
+          "brand": "#00DC00",
+          "error": "#C7384F",
+          "focus": "#FFDA7F",
+          "focusedIcon": "#335B6D",
+          "greyDarkBlue50": "#8099a4",
+          "info": "#0073C2",
+          "primary": "#00805D",
+          "secondary": "#006045",
+          "success": "#00B000",
+          "tertiary": "#003F2E",
+          "warning": "#FFB500",
+          "white": "#FFFFFF",
+        },
+        "disabled": Object {
+          "background": "#E5EAEC",
+          "border": "#4d7080",
+          "disabled": "#b3c2c8",
+          "input": "#1e499f",
+          "text": "#003349",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
+        },
+        "name": "classic",
+        "shadows": Object {
+          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "text": Object {
+          "color": "rgba(0,0,0,0.9)",
+          "placeholder": "rgba(0,0,0,0.3)",
+          "size": "14px",
+        },
+      }
+    }
+  >
+    <Icon
+      bgSize="small"
+      className="c0"
+      theme={
+        Object {
+          "colors": Object {
+            "base": "#00A376",
+            "baseBlue": "#255BC7",
+            "border": "#668491",
+            "brand": "#00DC00",
+            "error": "#C7384F",
+            "focus": "#FFDA7F",
+            "focusedIcon": "#335B6D",
+            "greyDarkBlue50": "#8099a4",
+            "info": "#0073C2",
+            "primary": "#00805D",
+            "secondary": "#006045",
+            "success": "#00B000",
+            "tertiary": "#003F2E",
+            "warning": "#FFB500",
+            "white": "#FFFFFF",
+          },
+          "disabled": Object {
+            "background": "#E5EAEC",
+            "border": "#4d7080",
+            "disabled": "#b3c2c8",
+            "input": "#1e499f",
+            "text": "#003349",
+          },
+          "icon": Object {
+            "focus": "#335B6D",
+          },
+          "name": "classic",
+          "shadows": Object {
+            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+          },
+          "text": Object {
+            "color": "rgba(0,0,0,0.9)",
+            "placeholder": "rgba(0,0,0,0.3)",
+            "size": "14px",
+          },
+        }
+      }
+    >
+      <span
+        className="carbon-icon c0 icon-undefined"
+        data-component="icon"
+        key="icon"
+        theme={
+          Object {
+            "colors": Object {
+              "base": "#00A376",
+              "baseBlue": "#255BC7",
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFDA7F",
+              "focusedIcon": "#335B6D",
+              "greyDarkBlue50": "#8099a4",
+              "info": "#0073C2",
+              "primary": "#00805D",
+              "secondary": "#006045",
+              "success": "#00B000",
+              "tertiary": "#003F2E",
+              "warning": "#FFB500",
+              "white": "#FFFFFF",
+            },
+            "disabled": Object {
+              "background": "#E5EAEC",
+              "border": "#4d7080",
+              "disabled": "#b3c2c8",
+              "input": "#1e499f",
+              "text": "#003349",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
+            },
+            "name": "classic",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          }
+        }
+      />
+    </Icon>
+  </StyledComponent>
+</Styled(Icon)>
+`;

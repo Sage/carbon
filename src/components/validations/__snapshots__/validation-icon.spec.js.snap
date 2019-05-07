@@ -1,8 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ValidationIcon renders with an icon for the given type 1`] = `
+.c0 {
+  color: #C7384F;
+  font-size: 13px;
+}
+
 <div
-  className="sc-bdVaJa cNTvlU"
+  className="c0"
   type="error"
 >
   <Icon

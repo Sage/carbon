@@ -20,6 +20,6 @@ export const DISABLE_ESC_KEY_CHECKBOX = '#disableEscKey';
 // component preview locators
 export const HELP_ICON_PREVIEW = '.icon-question';
 export const LABEL_HELP_PREVIEW = '.carbon-tooltip__container';
-export const FIELD_HELP_PREVIEW = '.common-input__help-text';
+export const FIELD_HELP_PREVIEW = 'span[data-element="help"]';
 export const STORY_ROOT = '#story-root';
 export const BACKGROUND_UI_LOCATOR = 'div[class="carbon-modal__background"]';
