@@ -13,7 +13,7 @@ const StyledButtonToggleContentWrapper = styled.div`
 
 const StyledButtonToggleLabel = styled.label`
   display: inline-block;
-  height: 40px;
+  height: 38px;
   padding: 0 24px;
   border: 1px solid ${({ theme }) => theme.colors.border};
   font-size: ${({ theme }) => theme.text.size};
