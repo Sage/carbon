@@ -1,8 +1,7 @@
 import { FORM, CLOSE_ICON_BUTTON } from '../locators';
 import {
-  OPEN_BUTTON, TITLE_INPUT, HEIGHT_INPUT, SUBTILE_INPUT, SHOW_CLOSE_ICON_CONFIRM,
-  STICKY_FORM_FOOTER_CHECKBOX, CONFIRM_LABEL, CANCEL_LABEL,
-  DIALOG_INNER_CONTENT, DIALOG_TITLE, DIALOG, CANCEL_BUTTON, CONFIRM_BUTTON,
+  OPEN_BUTTON, TITLE_INPUT, HEIGHT_INPUT, SUBTILE_INPUT, SHOW_CLOSE_ICON_CONFIRM, CONFIRM_LABEL,
+  CANCEL_LABEL, DIALOG_INNER_CONTENT, DIALOG_TITLE, DIALOG, CANCEL_BUTTON, CONFIRM_BUTTON,
 } from './locators';
 import { DIALOG_SUBTITLE } from '../dialog/locators';
 
@@ -12,7 +11,6 @@ export const titleInput = () => cy.get(TITLE_INPUT);
 export const heightInput = () => cy.get(HEIGHT_INPUT);
 export const subtitleInput = () => cy.get(FORM).find(SUBTILE_INPUT);
 export const showCloseIconCheckbox = () => cy.get(SHOW_CLOSE_ICON_CONFIRM);
-export const stickyFormFooterCheckbox = () => cy.get(STICKY_FORM_FOOTER_CHECKBOX);
 export const confirmLabel = () => cy.get(CONFIRM_LABEL);
 export const cancelLabel = () => cy.get(CANCEL_LABEL);
 

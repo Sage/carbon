@@ -86,14 +86,14 @@ Feature: Dialog component
 
   @positive
   Scenario: Enable StickyFormFooter
-    When I enable stickyFormFooter
+    When I check stickyFormFooter checkbox
       And I open component preview
     Then stickyFormFooter is enabled
 
   @positive
   Scenario: Disable StickyFormFooter
-    When I enable stickyFormFooter
-      And I disable stickyFormFooter
+    When I check stickyFormFooter checkbox
+      And I uncheck stickyFormFooter checkbox
       And I open component preview
     Then stickyFormFooter is disabled
 

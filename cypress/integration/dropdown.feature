@@ -37,8 +37,8 @@ Feature: Dropdown component
       | <>                       |
 
   Scenario Outline: Set Dropdown label help
-    When I set label help to "<label>"
-      And I hover mouse on help icon
+    When I set labelHelp to "<label>"
+      And I hover mouse onto help icon
     Then Label help on preview is set to "<label>"
     Examples:
       | label                    |
@@ -71,7 +71,7 @@ Feature: Dropdown component
 
   @positive
   Scenario Outline: Change Dropdown component field help
-    When I set field help to "<fieldHelp>"
+    When I set fieldHelp to "<fieldHelp>"
     Then Field help on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                |

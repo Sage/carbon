@@ -11,10 +11,10 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
 }
 
 .c2 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   background: #fff;
   border: 1px solid #668491;
   box-sizing: border-box;
@@ -44,13 +44,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
 }
 
 .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  display: block;
 }
 
 .c1 + .c0 {
@@ -119,6 +113,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
             "brand": "#00DC00",
             "error": "#C7384F",
             "focus": "#FFDA7F",
+            "focusedIcon": "#335B6D",
             "info": "#0073C2",
             "primary": "#26A826",
             "secondary": "#006300",
@@ -128,10 +123,14 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
             "white": "#FFFFFF",
           },
           "disabled": Object {
+            "background": "#E5EAEC",
             "border": "#CCD6DA",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
             "text": "rgba(0,0,0,0.3)",
+          },
+          "icon": Object {
+            "focus": "#335B6D",
           },
           "name": "base",
           "shadows": Object {
@@ -160,8 +159,9 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
               "lastClassName": "c1",
               "rules": Array [
                 "
-  display: flex;
-  flex-wrap: wrap;
+  ",
+                [Function],
+                "
 
   & + & {
     margin-top: ",
@@ -178,6 +178,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                   "brand": "#00DC00",
                   "error": "#C7384F",
                   "focus": "#FFDA7F",
+                  "focusedIcon": "#335B6D",
                   "info": "#0073C2",
                   "primary": "#26A826",
                   "secondary": "#006300",
@@ -187,10 +188,14 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                   "white": "#FFFFFF",
                 },
                 "disabled": Object {
+                  "background": "#E5EAEC",
                   "border": "#CCD6DA",
                   "disabled": "rgba(0,0,0,0.55)",
                   "input": "#F2F4F5",
                   "text": "rgba(0,0,0,0.3)",
+                },
+                "icon": Object {
+                  "focus": "#335B6D",
                 },
                 "name": "base",
                 "shadows": Object {
@@ -225,6 +230,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
               "brand": "#00DC00",
               "error": "#C7384F",
               "focus": "#FFDA7F",
+              "focusedIcon": "#335B6D",
               "info": "#0073C2",
               "primary": "#26A826",
               "secondary": "#006300",
@@ -234,10 +240,14 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
               "white": "#FFFFFF",
             },
             "disabled": Object {
+              "background": "#E5EAEC",
               "border": "#CCD6DA",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
             },
             "name": "base",
             "shadows": Object {
@@ -280,6 +290,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                     "brand": "#00DC00",
                     "error": "#C7384F",
                     "focus": "#FFDA7F",
+                    "focusedIcon": "#335B6D",
                     "info": "#0073C2",
                     "primary": "#26A826",
                     "secondary": "#006300",
@@ -289,10 +300,14 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                     "white": "#FFFFFF",
                   },
                   "disabled": Object {
+                    "background": "#E5EAEC",
                     "border": "#CCD6DA",
                     "disabled": "rgba(0,0,0,0.55)",
                     "input": "#F2F4F5",
                     "text": "rgba(0,0,0,0.3)",
+                  },
+                  "icon": Object {
+                    "focus": "#335B6D",
                   },
                   "name": "base",
                   "shadows": Object {
@@ -326,7 +341,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                       "lastClassName": "c2",
                       "rules": Array [
                         "
-  align-items: center;
+  align-items: stretch;
   background: #fff;
   border: 1px solid ",
                         [Function],
@@ -390,6 +405,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                           "brand": "#00DC00",
                           "error": "#C7384F",
                           "focus": "#FFDA7F",
+                          "focusedIcon": "#335B6D",
                           "info": "#0073C2",
                           "primary": "#26A826",
                           "secondary": "#006300",
@@ -399,10 +415,14 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                           "white": "#FFFFFF",
                         },
                         "disabled": Object {
+                          "background": "#E5EAEC",
                           "border": "#CCD6DA",
                           "disabled": "rgba(0,0,0,0.55)",
                           "input": "#F2F4F5",
                           "text": "rgba(0,0,0,0.3)",
+                        },
+                        "icon": Object {
+                          "focus": "#335B6D",
                         },
                         "name": "base",
                         "shadows": Object {
@@ -441,10 +461,10 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                 forwardedRef={
                   Object {
                     "current": .c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   background: #fff;
   border: 1px solid #668491;
   box-sizing: border-box;
@@ -538,6 +558,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                       "brand": "#00DC00",
                       "error": "#C7384F",
                       "focus": "#FFDA7F",
+                      "focusedIcon": "#335B6D",
                       "info": "#0073C2",
                       "primary": "#26A826",
                       "secondary": "#006300",
@@ -547,10 +568,14 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                       "white": "#FFFFFF",
                     },
                     "disabled": Object {
+                      "background": "#E5EAEC",
                       "border": "#CCD6DA",
                       "disabled": "rgba(0,0,0,0.55)",
                       "input": "#F2F4F5",
                       "text": "rgba(0,0,0,0.3)",
+                    },
+                    "icon": Object {
+                      "focus": "#335B6D",
                     },
                     "name": "base",
                     "shadows": Object {
@@ -605,6 +630,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                             "brand": "#00DC00",
                             "error": "#C7384F",
                             "focus": "#FFDA7F",
+                            "focusedIcon": "#335B6D",
                             "info": "#0073C2",
                             "primary": "#26A826",
                             "secondary": "#006300",
@@ -614,10 +640,14 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                             "white": "#FFFFFF",
                           },
                           "disabled": Object {
+                            "background": "#E5EAEC",
                             "border": "#CCD6DA",
                             "disabled": "rgba(0,0,0,0.55)",
                             "input": "#F2F4F5",
                             "text": "rgba(0,0,0,0.3)",
+                          },
+                          "icon": Object {
+                            "focus": "#335B6D",
                           },
                           "name": "base",
                           "shadows": Object {
@@ -696,6 +726,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                                   "brand": "#00DC00",
                                   "error": "#C7384F",
                                   "focus": "#FFDA7F",
+                                  "focusedIcon": "#335B6D",
                                   "info": "#0073C2",
                                   "primary": "#26A826",
                                   "secondary": "#006300",
@@ -705,10 +736,14 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                                   "white": "#FFFFFF",
                                 },
                                 "disabled": Object {
+                                  "background": "#E5EAEC",
                                   "border": "#CCD6DA",
                                   "disabled": "rgba(0,0,0,0.55)",
                                   "input": "#F2F4F5",
                                   "text": "rgba(0,0,0,0.3)",
+                                },
+                                "icon": Object {
+                                  "focus": "#335B6D",
                                 },
                                 "name": "base",
                                 "shadows": Object {
@@ -762,6 +797,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                               "brand": "#00DC00",
                               "error": "#C7384F",
                               "focus": "#FFDA7F",
+                              "focusedIcon": "#335B6D",
                               "info": "#0073C2",
                               "primary": "#26A826",
                               "secondary": "#006300",
@@ -771,10 +807,14 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                               "white": "#FFFFFF",
                             },
                             "disabled": Object {
+                              "background": "#E5EAEC",
                               "border": "#CCD6DA",
                               "disabled": "rgba(0,0,0,0.55)",
                               "input": "#F2F4F5",
                               "text": "rgba(0,0,0,0.3)",
+                            },
+                            "icon": Object {
+                              "focus": "#335B6D",
                             },
                             "name": "base",
                             "shadows": Object {
@@ -832,6 +872,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
             "brand": "#00DC00",
             "error": "#C7384F",
             "focus": "#FFDA7F",
+            "focusedIcon": "#335B6D",
             "info": "#0073C2",
             "primary": "#26A826",
             "secondary": "#006300",
@@ -841,10 +882,14 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
             "white": "#FFFFFF",
           },
           "disabled": Object {
+            "background": "#E5EAEC",
             "border": "#CCD6DA",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
             "text": "rgba(0,0,0,0.3)",
+          },
+          "icon": Object {
+            "focus": "#335B6D",
           },
           "name": "base",
           "shadows": Object {
@@ -873,6 +918,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
               "brand": "#00DC00",
               "error": "#C7384F",
               "focus": "#FFDA7F",
+              "focusedIcon": "#335B6D",
               "info": "#0073C2",
               "primary": "#26A826",
               "secondary": "#006300",
@@ -882,10 +928,14 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
               "white": "#FFFFFF",
             },
             "disabled": Object {
+              "background": "#E5EAEC",
               "border": "#CCD6DA",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
             },
             "name": "base",
             "shadows": Object {
@@ -937,6 +987,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                     "brand": "#00DC00",
                     "error": "#C7384F",
                     "focus": "#FFDA7F",
+                    "focusedIcon": "#335B6D",
                     "info": "#0073C2",
                     "primary": "#26A826",
                     "secondary": "#006300",
@@ -946,10 +997,14 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                     "white": "#FFFFFF",
                   },
                   "disabled": Object {
+                    "background": "#E5EAEC",
                     "border": "#CCD6DA",
                     "disabled": "rgba(0,0,0,0.55)",
                     "input": "#F2F4F5",
                     "text": "rgba(0,0,0,0.3)",
+                  },
+                  "icon": Object {
+                    "focus": "#335B6D",
                   },
                   "name": "base",
                   "shadows": Object {
@@ -985,6 +1040,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                 "brand": "#00DC00",
                 "error": "#C7384F",
                 "focus": "#FFDA7F",
+                "focusedIcon": "#335B6D",
                 "info": "#0073C2",
                 "primary": "#26A826",
                 "secondary": "#006300",
@@ -994,10 +1050,14 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                 "white": "#FFFFFF",
               },
               "disabled": Object {
+                "background": "#E5EAEC",
                 "border": "#CCD6DA",
                 "disabled": "rgba(0,0,0,0.55)",
                 "input": "#F2F4F5",
                 "text": "rgba(0,0,0,0.3)",
+              },
+              "icon": Object {
+                "focus": "#335B6D",
               },
               "name": "base",
               "shadows": Object {
@@ -1032,10 +1092,10 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
 
 exports[`Textarea when rendered should render default 1`] = `
 .c2 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   background: #fff;
   border: 1px solid #668491;
   box-sizing: border-box;
@@ -1065,13 +1125,7 @@ exports[`Textarea when rendered should render default 1`] = `
 }
 
 .c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-wrap: wrap;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
+  display: block;
 }
 
 .c1 + .c0 {
@@ -1137,6 +1191,7 @@ exports[`Textarea when rendered should render default 1`] = `
             "brand": "#00DC00",
             "error": "#C7384F",
             "focus": "#FFDA7F",
+            "focusedIcon": "#335B6D",
             "info": "#0073C2",
             "primary": "#26A826",
             "secondary": "#006300",
@@ -1146,10 +1201,14 @@ exports[`Textarea when rendered should render default 1`] = `
             "white": "#FFFFFF",
           },
           "disabled": Object {
+            "background": "#E5EAEC",
             "border": "#CCD6DA",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
             "text": "rgba(0,0,0,0.3)",
+          },
+          "icon": Object {
+            "focus": "#335B6D",
           },
           "name": "base",
           "shadows": Object {
@@ -1178,8 +1237,9 @@ exports[`Textarea when rendered should render default 1`] = `
               "lastClassName": "c1",
               "rules": Array [
                 "
-  display: flex;
-  flex-wrap: wrap;
+  ",
+                [Function],
+                "
 
   & + & {
     margin-top: ",
@@ -1196,6 +1256,7 @@ exports[`Textarea when rendered should render default 1`] = `
                   "brand": "#00DC00",
                   "error": "#C7384F",
                   "focus": "#FFDA7F",
+                  "focusedIcon": "#335B6D",
                   "info": "#0073C2",
                   "primary": "#26A826",
                   "secondary": "#006300",
@@ -1205,10 +1266,14 @@ exports[`Textarea when rendered should render default 1`] = `
                   "white": "#FFFFFF",
                 },
                 "disabled": Object {
+                  "background": "#E5EAEC",
                   "border": "#CCD6DA",
                   "disabled": "rgba(0,0,0,0.55)",
                   "input": "#F2F4F5",
                   "text": "rgba(0,0,0,0.3)",
+                },
+                "icon": Object {
+                  "focus": "#335B6D",
                 },
                 "name": "base",
                 "shadows": Object {
@@ -1243,6 +1308,7 @@ exports[`Textarea when rendered should render default 1`] = `
               "brand": "#00DC00",
               "error": "#C7384F",
               "focus": "#FFDA7F",
+              "focusedIcon": "#335B6D",
               "info": "#0073C2",
               "primary": "#26A826",
               "secondary": "#006300",
@@ -1252,10 +1318,14 @@ exports[`Textarea when rendered should render default 1`] = `
               "white": "#FFFFFF",
             },
             "disabled": Object {
+              "background": "#E5EAEC",
               "border": "#CCD6DA",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
             },
             "name": "base",
             "shadows": Object {
@@ -1297,6 +1367,7 @@ exports[`Textarea when rendered should render default 1`] = `
                     "brand": "#00DC00",
                     "error": "#C7384F",
                     "focus": "#FFDA7F",
+                    "focusedIcon": "#335B6D",
                     "info": "#0073C2",
                     "primary": "#26A826",
                     "secondary": "#006300",
@@ -1306,10 +1377,14 @@ exports[`Textarea when rendered should render default 1`] = `
                     "white": "#FFFFFF",
                   },
                   "disabled": Object {
+                    "background": "#E5EAEC",
                     "border": "#CCD6DA",
                     "disabled": "rgba(0,0,0,0.55)",
                     "input": "#F2F4F5",
                     "text": "rgba(0,0,0,0.3)",
+                  },
+                  "icon": Object {
+                    "focus": "#335B6D",
                   },
                   "name": "base",
                   "shadows": Object {
@@ -1342,7 +1417,7 @@ exports[`Textarea when rendered should render default 1`] = `
                       "lastClassName": "c2",
                       "rules": Array [
                         "
-  align-items: center;
+  align-items: stretch;
   background: #fff;
   border: 1px solid ",
                         [Function],
@@ -1406,6 +1481,7 @@ exports[`Textarea when rendered should render default 1`] = `
                           "brand": "#00DC00",
                           "error": "#C7384F",
                           "focus": "#FFDA7F",
+                          "focusedIcon": "#335B6D",
                           "info": "#0073C2",
                           "primary": "#26A826",
                           "secondary": "#006300",
@@ -1415,10 +1491,14 @@ exports[`Textarea when rendered should render default 1`] = `
                           "white": "#FFFFFF",
                         },
                         "disabled": Object {
+                          "background": "#E5EAEC",
                           "border": "#CCD6DA",
                           "disabled": "rgba(0,0,0,0.55)",
                           "input": "#F2F4F5",
                           "text": "rgba(0,0,0,0.3)",
+                        },
+                        "icon": Object {
+                          "focus": "#335B6D",
                         },
                         "name": "base",
                         "shadows": Object {
@@ -1457,10 +1537,10 @@ exports[`Textarea when rendered should render default 1`] = `
                 forwardedRef={
                   Object {
                     "current": .c0 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   background: #fff;
   border: 1px solid #668491;
   box-sizing: border-box;
@@ -1550,6 +1630,7 @@ exports[`Textarea when rendered should render default 1`] = `
                       "brand": "#00DC00",
                       "error": "#C7384F",
                       "focus": "#FFDA7F",
+                      "focusedIcon": "#335B6D",
                       "info": "#0073C2",
                       "primary": "#26A826",
                       "secondary": "#006300",
@@ -1559,10 +1640,14 @@ exports[`Textarea when rendered should render default 1`] = `
                       "white": "#FFFFFF",
                     },
                     "disabled": Object {
+                      "background": "#E5EAEC",
                       "border": "#CCD6DA",
                       "disabled": "rgba(0,0,0,0.55)",
                       "input": "#F2F4F5",
                       "text": "rgba(0,0,0,0.3)",
+                    },
+                    "icon": Object {
+                      "focus": "#335B6D",
                     },
                     "name": "base",
                     "shadows": Object {
@@ -1612,6 +1697,7 @@ exports[`Textarea when rendered should render default 1`] = `
                             "brand": "#00DC00",
                             "error": "#C7384F",
                             "focus": "#FFDA7F",
+                            "focusedIcon": "#335B6D",
                             "info": "#0073C2",
                             "primary": "#26A826",
                             "secondary": "#006300",
@@ -1621,10 +1707,14 @@ exports[`Textarea when rendered should render default 1`] = `
                             "white": "#FFFFFF",
                           },
                           "disabled": Object {
+                            "background": "#E5EAEC",
                             "border": "#CCD6DA",
                             "disabled": "rgba(0,0,0,0.55)",
                             "input": "#F2F4F5",
                             "text": "rgba(0,0,0,0.3)",
+                          },
+                          "icon": Object {
+                            "focus": "#335B6D",
                           },
                           "name": "base",
                           "shadows": Object {
@@ -1702,6 +1792,7 @@ exports[`Textarea when rendered should render default 1`] = `
                                   "brand": "#00DC00",
                                   "error": "#C7384F",
                                   "focus": "#FFDA7F",
+                                  "focusedIcon": "#335B6D",
                                   "info": "#0073C2",
                                   "primary": "#26A826",
                                   "secondary": "#006300",
@@ -1711,10 +1802,14 @@ exports[`Textarea when rendered should render default 1`] = `
                                   "white": "#FFFFFF",
                                 },
                                 "disabled": Object {
+                                  "background": "#E5EAEC",
                                   "border": "#CCD6DA",
                                   "disabled": "rgba(0,0,0,0.55)",
                                   "input": "#F2F4F5",
                                   "text": "rgba(0,0,0,0.3)",
+                                },
+                                "icon": Object {
+                                  "focus": "#335B6D",
                                 },
                                 "name": "base",
                                 "shadows": Object {
@@ -1764,6 +1859,7 @@ exports[`Textarea when rendered should render default 1`] = `
                               "brand": "#00DC00",
                               "error": "#C7384F",
                               "focus": "#FFDA7F",
+                              "focusedIcon": "#335B6D",
                               "info": "#0073C2",
                               "primary": "#26A826",
                               "secondary": "#006300",
@@ -1773,10 +1869,14 @@ exports[`Textarea when rendered should render default 1`] = `
                               "white": "#FFFFFF",
                             },
                             "disabled": Object {
+                              "background": "#E5EAEC",
                               "border": "#CCD6DA",
                               "disabled": "rgba(0,0,0,0.55)",
                               "input": "#F2F4F5",
                               "text": "rgba(0,0,0,0.3)",
+                            },
+                            "icon": Object {
+                              "focus": "#335B6D",
                             },
                             "name": "base",
                             "shadows": Object {
