@@ -111,7 +111,6 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
 }
 
 .c0 .DayPicker {
-  font-weight: 700;
   margin-top: 0;
   padding: 10px;
   font-weight: 600;
