@@ -3,7 +3,6 @@ import { THEMES } from '../../../style/themes';
 
 export default ({ theme }) => theme.name === THEMES.classic && css`
   .DayPicker {
-    font-weight: 700;
     margin-top: 0;
     padding: 10px;
     font-weight: 600;
