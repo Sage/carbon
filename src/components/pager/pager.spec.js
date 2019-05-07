@@ -1,6 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Immutable from 'immutable';
+import 'jest-styled-components';
 import classicTheme from '../../style/themes/classic';
 import smallTheme from '../../style/themes/small';
 import Pager from './pager.component';

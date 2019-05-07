@@ -1,21 +1,22 @@
 import styled, { css } from 'styled-components';
-import { THEMES } from '../../style/themes';
+import {
+  PagerContainerClassicStyles,
+  PagerNavigationClassicStyles
+} from './pager-classic.styles';
 
 const PagerContainerStyles = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 9px 24px;
   align-items: center;
+  /** TODO: Update hardcoded colour after Table component complete */
   border: 1px solid #d8dfe3;
   border-top-width: 0;
   font-size: 13px;
-  background-color: '#FAFBFB';
+  /** TODO: Update hardcoded colour after Table component complete */
+  background-color: #FAFBFB;
   
-  ${({ theme }) => theme.name === THEMES.classic && css`
-    padding: 3px 16px;
-    font-size: 14px;
-    background-color: '#F2F4F5';
-  `};
+  ${PagerContainerClassicStyles}
 `;
 
 const PagerSizeOptionsStyles = styled.div`
@@ -48,12 +49,8 @@ const PagerNavigationStyles = styled.div`
     line-height: 24px;
     text-align: center;
   }
-  ${({ theme }) => theme.name === THEMES.classic && css`
-    .carbon-number__input {
-      width: 35px;
-      height: 31px;
-    }
-  `};
+
+  ${PagerNavigationClassicStyles}
 `;
 
 const PagerNavInnerStyles = styled.div`

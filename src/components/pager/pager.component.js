@@ -6,7 +6,6 @@ import PagerNavigation from './pager-navigation.component';
 import {
   PagerContainerStyles,
   PagerSizeOptionsStyles,
-
   PagerSummaryStyles,
   PagerSizeOptionsInnerStyles
 } from './pager.styles';
