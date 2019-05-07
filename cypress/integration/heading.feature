@@ -1,7 +1,7 @@
 Feature: Heading component
   I want to change Heading component properties
 
-  Background: Open Heading component component page
+  Background: Open Heading component page
     Given I open "Heading" component page
 
   @positive
