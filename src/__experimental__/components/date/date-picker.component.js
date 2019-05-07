@@ -8,6 +8,7 @@ import Browser from '../../../utils/helpers/browser/browser';
 import DateHelper from '../../../utils/helpers/date/date';
 import Portal from '../../../components/portal/portal';
 import Navbar from './navbar';
+import Weekday from './weekday/weekday.component';
 import StyledDayPicker from './day-picker.style';
 
 const DatePicker = (props) => {
@@ -28,7 +29,18 @@ const DatePicker = (props) => {
     localeUtils: LocaleUtils,
     navbarElement: <Navbar />,
     onDayClick: handleDayClick,
-    selectedDays: [props.selectedDate]
+    selectedDays: [props.selectedDate],
+    weekdayElement: (weekdayElementProps) => {
+      const { className, weekday, localeUtils } = weekdayElementProps;
+      const weekdayLong = localeUtils.formatWeekdayLong(weekday);
+      const weekdayShort = weekdayLong.substring(0, 3);
+
+      return (
+        <Weekday className={ className } title={ weekdayLong }>
+          {weekdayShort}
+        </Weekday>
+      );
+    }
   };
 
   useEffect(() => {
