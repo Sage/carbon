@@ -1,0 +1,92 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tabs when rendered matches the snaphot 1`] = `
+.c3 {
+  display: none;
+  display: block;
+}
+
+.c0 {
+  margin-top: 15px;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  box-shadow: inset 0px -2px 0px 0px #E5EAEC;
+  cursor: pointer;
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+.c2 {
+  background-color: transparent;
+  border-bottom: 2px solid #E5EAEC;
+  color: rgba(0,0,0,0.55);
+  display: inline-block;
+  font-weight: bold;
+  height: 100%;
+  margin-left: 2px;
+  padding: 11px 15px 10px;
+  color: rgba(0,0,0,0.9);
+  background-color: transparent;
+  border-bottom-color: #26A826;
+}
+
+.c2:first-child {
+  margin-left: 0;
+}
+
+.c2:focus,
+.c2:hover {
+  background: transparent;
+  border-bottom-color: #006300;
+  color: rgba(0,0,0,0.9);
+  outline: none;
+}
+
+.c2:focus {
+  outline: none;
+}
+
+.c2:hover {
+  background: transparent;
+  border-bottom-color: #26A826;
+  color: rgba(0,0,0,0.9);
+}
+
+<div
+  className="c0"
+  data-component="tabs"
+>
+  <ul
+    className="c1"
+    role="tablist"
+  >
+    <li
+      aria-selected={true}
+      className="c2"
+      data-component="tab-header"
+      data-element="select-tab"
+      id="uniqueid1-tab"
+      onClick={[Function]}
+      onKeyDown={[Function]}
+      role="tab"
+      tabIndex="0"
+    >
+      Tab Title 1
+    </li>
+  </ul>
+  <div
+    aria-labelledby="uniqueid1-tab"
+    className="c3"
+    data-component="tab"
+    role="tabPanel"
+  >
+    Tab Content
+  </div>
+</div>
+`;

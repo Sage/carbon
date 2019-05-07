@@ -4,7 +4,6 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import Tab from './tab.component';
 import Textbox from '../../textbox/textbox';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 
 describe('Tab', () => {
   let instance;

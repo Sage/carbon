@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabHeader renders as expected 1`] = `
+.c0 {
+  background-color: transparent;
+  border-bottom: 2px solid #E5EAEC;
+  color: rgba(0,0,0,0.55);
+  display: inline-block;
+  font-weight: bold;
+  height: 100%;
+  margin-left: 2px;
+  padding: 11px 15px 10px;
+}
+
+.c0:first-child {
+  margin-left: 0;
+}
+
+.c0:focus,
+.c0:hover {
+  background: transparent;
+  border-bottom-color: #006300;
+  color: rgba(0,0,0,0.9);
+  outline: none;
+}
+
+.c0:focus {
+  outline: none;
+}
+
+<li
+  className="c0"
+  data-component="tab-header"
+  data-element="select-tab"
+  id="uniqueid1"
+  role="tab"
+>
+  Tab Title 1
+</li>
+`;

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledTab from './tab.style';
-import OptionsHelper from '../../../utils/helpers/options-helper';
+import tagComponent from '../../../utils/helpers/tags/tags';
 
 class Tab extends React.Component {
   static contextTypes = {
@@ -64,6 +64,7 @@ class Tab extends React.Component {
         isTabSelected={ isTabSelected }
         aria-labelledby={ ariaLabelledby }
         position={ position }
+        { ...tagComponent('tab', this.props) }
       >
         {children}
       </StyledTab>

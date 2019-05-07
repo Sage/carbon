@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledTabHeader from './tab-header.style';
+import tagComponent from '../../../utils/helpers/tags/tags';
 
 const TabHeader = ({
-  isTabSelected, className, dataTabId, id, onClick, onKeyDown, tabIndex, position, title
+  isTabSelected, className, dataTabId, id, onClick, onKeyDown, tabIndex, position, title, ...props
 }) => {
   return (
     <StyledTabHeader
@@ -18,6 +19,7 @@ const TabHeader = ({
       tabIndex={ tabIndex }
       position={ position }
       isTabSelected={ isTabSelected }
+      { ...tagComponent('tab-header', props) }
     >
       {title}
     </StyledTabHeader>

@@ -7,6 +7,7 @@ exports[`Tab renders as expected 1`] = `
 
 <div
   className="c0"
+  data-component="tab"
   role="tabPanel"
   title="Tab Title 1"
 >
@@ -22,6 +23,7 @@ exports[`Tab when a tab is selected matches the snaphot 1`] = `
 
 <div
   className="c0"
+  data-component="tab"
   role="tabPanel"
   title="Tab Title 1"
 >
@@ -38,6 +40,7 @@ exports[`Tab when a tab is selected when position prop is set to vertical matche
 
 <div
   className="c0"
+  data-component="tab"
   role="tabPanel"
   title="Tab Title 1"
 >
@@ -52,6 +55,7 @@ exports[`Tab when position prop is set to vertical matches the snaphot 1`] = `
 
 <div
   className="c0"
+  data-component="tab"
   role="tabPanel"
   title="Tab Title 1"
 >

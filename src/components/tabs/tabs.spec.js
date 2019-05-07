@@ -2,10 +2,12 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
 import { Tabs, Tab } from './tabs.component';
-import Textbox from './../textbox';
+import Textbox from '../textbox/textbox';
 import { shallow, mount } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import Browser from '../../utils/helpers/browser';
+import TestRenderer from 'react-test-renderer';
+import 'jest-styled-components';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
+import Browser from '../../utils/helpers/browser/browser';
 
 describe('Tabs', () => {
   let instance;
@@ -133,9 +135,6 @@ describe('Tabs', () => {
     });
   });
 
-
-
-
   describe('Change in tab prop', () => {
     let instance, tabs, unique1Tab, unique2Tab;
     beforeEach(() => {
@@ -171,8 +170,8 @@ describe('Tabs', () => {
       tabs = TestUtils.scryRenderedComponentsWithType(instance, Tab);
       unique1Tab = tabs[0];
       unique2Tab = tabs[1];
-      expect(unique1Tab.props.className).toEqual('hidden');
-      expect(unique2Tab.props.className).not.toEqual('hidden');
+      expect(unique1Tab.props.isTabSelected).toEqual(false);
+      expect(unique2Tab.props.isTabSelected).not.toEqual(false);
     });
 
     describe('without noTabChange function', () => {
@@ -180,16 +179,16 @@ describe('Tabs', () => {
         instance.setState({
           selectedTabId: "uniqueid1"
         });
-        expect(unique2Tab.props.className).toEqual('hidden');
-        expect(unique1Tab.props.className).not.toEqual('hidden');
+        expect(unique2Tab.props.isTabSelected).toEqual(false);
+        expect(unique1Tab.props.isTabSelected).not.toEqual(false);
       });
 
       it('change in other tab', () => {
         instance.setState({
           align: 'right'
         });
-        expect(unique1Tab.props.className).toEqual('hidden');
-        expect(unique2Tab.props.className).not.toEqual('hidden');
+        expect(unique1Tab.props.isTabSelected).toEqual(false);
+        expect(unique2Tab.props.isTabSelected).not.toEqual(false);
       });
     });
 
@@ -210,6 +209,7 @@ describe('Tabs', () => {
       });
     });
 
+    // tu
     describe('when tab already clicked to new prop', () => {
       it('does not change tab', () => {
         let tabs = TestUtils.findRenderedComponentWithType(instance, Tabs);
@@ -253,6 +253,7 @@ describe('Tabs', () => {
   });
 
   describe('handleTabClick', () => {
+    // tylko ten jeden it
     it('sets the state to the currently selected tabId', () => {
       spyOn(instance, 'handleTabClick');
       let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
@@ -306,36 +307,24 @@ describe('Tabs', () => {
     });
   });
 
-  describe('mainClasses', () => {
-    it('returns the main class for the component', () => {
-      expect(instance.mainClasses).toEqual('carbon-tabs carbon-tabs__position-top');
+  describe('when rendered', () => {
+
+    function render(props) {
+      return TestRenderer.create(
+        <Tabs {...props}>
+          <Tab title='Tab Title 1' tabId='uniqueid1'>Tab Content</Tab>
+        </Tabs>
+      );
+    }
+    it('matches the snaphot', () => {
+      expect(render()).toMatchSnapshot();
     });
 
     describe('when passing custom classNames', () => {
       it('adds it to the classList', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Tabs className='1tab' initialTabId='uniqueid2'>
-            <Tab title='Tab Title 1' tabId='uniqueid1'>
-              <Textbox name='foo'/>
-              <Textbox name='bar'/>
-            </Tab>
-          </Tabs>);
+        wrapper = render({ className: 'class' });
 
-        expect(instance.mainClasses).toEqual('carbon-tabs carbon-tabs__position-top 1tab');
-      });
-    });
-
-    describe('when passing a position prop', () => {
-      it('adds it to the classList', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Tabs position='left'>
-            <Tab title='Tab Title 1' tabId='uniqueid1'>
-              <Textbox name='foo'/>
-              <Textbox name='bar'/>
-            </Tab>
-          </Tabs>);
-
-        expect(instance.mainClasses).toEqual('carbon-tabs carbon-tabs__position-left');
+        expect(wrapper).hasClass('1tab').toBeTruthy();
       });
     });
   });
@@ -490,7 +479,7 @@ describe('Tabs', () => {
     });
 
     it('adds a class of selected to the tab', () => {
-      expect(instance.visibleTab.props.className).toEqual('carbon-tab--selected');
+      expect(instance.visibleTab.props.isTabSelected).toEqual(true);
     });
   });
 
@@ -501,11 +490,11 @@ describe('Tabs', () => {
       });
 
       it('adds a selected class to the visible tab', () => {
-        expect(instance.tabs[0].props.className).toEqual('carbon-tab--selected');
+        expect(instance.tabs[0].props.isTabSelected).toEqual(true);
       });
 
       it('adds a hidden class to all other tabs', () => {
-        expect(instance.tabs[1].props.className).toEqual('hidden');
+        expect(instance.tabs[1].props.isTabSelected).toEqual(false);
       });
 
       describe('when passed a null child', () => {
@@ -578,14 +567,6 @@ describe('Tabs', () => {
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapper, 'tabs', 'bar', 'baz');
       });
-    });
-
-    describe("on internal elements", () => {
-      let wrapper = shallow(<Tabs><Tab tabId='2' title='Test' /></Tabs>);
-
-      elementsTagTest(wrapper, [
-        'select-tab'
-      ]);
     });
   });
 
