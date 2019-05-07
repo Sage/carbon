@@ -1,12 +1,20 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
+import { css } from 'styled-components';
 import Checkbox from './checkbox.component';
+import StyledCheckableInput from '../checkable-input/checkable-input.style';
+import FieldHelpStyle from '../field-help/field-help.style';
+import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
+import LabelStyle from '../label/label.style';
+import StyledHelp from '../help/help.style';
 import guid from '../../../utils/helpers/guid/guid';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import classicTheme from '../../../style/themes/classic';
 import smallTheme from '../../../style/themes/small';
 import mediumTheme from '../../../style/themes/medium';
 import largeTheme from '../../../style/themes/large';
+import baseTheme from '../../../style/themes/base';
 
 jest.mock('../../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
@@ -21,59 +29,210 @@ describe('Checkbox', () => {
       expect(render()).toMatchSnapshot();
     });
 
-    it('renders the appropriate styles when size=large', () => {
-      expect(render({ size: 'large' })).toMatchSnapshot();
+    describe('when size=large', () => {
+      const wrapper = render({ size: 'large' }).toJSON();
+
+      it('applies the appropriate input display element styles', () => {
+        const styles = {
+          height: '24px',
+          padding: '2px',
+          width: '24px'
+        };
+
+        assertStyleMatch(styles, wrapper, { modifier: css`${StyledCheckableInput}` });
+
+        assertStyleMatch(styles, wrapper, { modifier: css`${HiddenCheckableInputStyle}` });
+
+        assertStyleMatch(styles, wrapper, { modifier: (css`${`${HiddenCheckableInputStyle} + svg`}`) });
+      });
+
+      it('applies the appropriate FieldHelp styles', () => {
+        assertStyleMatch({
+          marginLeft: '24px',
+          paddingLeft: '8px'
+        }, wrapper, { modifier: css`${FieldHelpStyle}` });
+      });
+
+      it('applies the appropriate Label styles', () => {
+        assertStyleMatch({
+          paddingBottom: '4px',
+          paddingLeft: '8px',
+          paddingTop: '4px'
+        }, wrapper, { modifier: css`${LabelStyle}` });
+      });
     });
 
-    it('renders the appropriate styles when checked=true', () => {
-      describe('default', () => {
-        expect(render({ checked: true })).toMatchSnapshot();
+    describe('when size=large and fieldHelpInline=true', () => {
+      const wrapper = render({ fieldHelpInline: true, size: 'large' }).toJSON();
+
+      it('applies the appropriate FieldHelp styles', () => {
+        assertStyleMatch({
+          paddingBottom: '4px',
+          paddingTop: '4px'
+        }, wrapper, { modifier: css`${FieldHelpStyle}` });
+      });
+    });
+
+    describe('when checked=true', () => {
+      it('renders the correct check colour', () => {
+        const wrapper = render({ checked: true }).toJSON();
+
+        assertStyleMatch({
+          fill: baseTheme.colors.primary
+        }, wrapper, { modifier: 'svg path' });
       });
 
       describe('and disabled=true', () => {
-        expect(render({ checked: true, disabled: true })).toMatchSnapshot();
+        const wrapper = render({ checked: true, disabled: true }).toJSON();
+
+        it('renders the correct check colour', () => {
+          assertStyleMatch({
+            fill: baseTheme.disabled.border
+          }, wrapper, { modifier: 'svg path' });
+        });
       });
     });
 
-    it('renders the appropriate styles when disabled=true', () => {
-      expect(render({ disabled: true })).toMatchSnapshot();
+    describe('when disabled=true', () => {
+      const wrapper = render({ disabled: true }).toJSON();
+
+      it('applies the appropriate Label styles', () => {
+        assertStyleMatch({
+          color: baseTheme.disabled.disabled
+        }, wrapper, { modifier: css`${LabelStyle}` });
+      });
+
+      it('applies the appropriate Help styles', () => {
+        assertStyleMatch({
+          color: baseTheme.disabled.disabled
+        }, wrapper, { modifier: css`${LabelStyle} ${StyledHelp}` });
+      });
+
+      it('applies the appropriate svg wrapper styles', () => {
+        assertStyleMatch({
+          backgroundColor: baseTheme.disabled.input,
+          border: `1px solid ${baseTheme.disabled.border}`
+        }, wrapper, { modifier: 'svg' });
+      });
+
+      it('applies the appropriate check styles', () => {
+        assertStyleMatch({
+          fill: baseTheme.disabled.input
+        }, wrapper, { modifier: 'svg path' });
+      });
+
+      describe('and hover / focus is applied', () => {
+        const hoverFocusStyles = {
+          outline: 'none',
+          cursor: 'not-allowed'
+        };
+
+        it('applies the appropriate hidden input hover styles', () => {
+          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${HiddenCheckableInputStyle}:hover`}` });
+        });
+
+        it('applies the appropriate hidden input focus styles', () => {
+          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${HiddenCheckableInputStyle}:focus`}` });
+        });
+
+        it('applies the appropriate svg hover styles', () => {
+          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: 'svg:hover' });
+        });
+
+        it('applies the appropriate svg focus styles', () => {
+          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: 'svg:focus' });
+        });
+
+        it('applies the appropriate label hover styles', () => {
+          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${LabelStyle}:hover`}` });
+        });
+
+        it('applies the appropriate label focus styles', () => {
+          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${LabelStyle}:focus`}` });
+        });
+      });
     });
 
-    it('renders the appropriate styles when error=true', () => {
-      expect(render({ error: true })).toMatchSnapshot();
+    describe('when error=true', () => {
+      it('renders the correct svg styles', () => {
+        const wrapper = render({ error: true }).toJSON();
+
+        assertStyleMatch({
+          border: `1px solid ${baseTheme.colors.error}`
+        }, wrapper, { modifier: 'svg' });
+      });
     });
 
-    it('renders the appropriate styles when fieldHelpInline=true', () => {
+    describe('when fieldHelpInline=true', () => {
+      it('renders the correct FieldHelp styles', () => {
+        const wrapper = render({ fieldHelpInline: true }).toJSON();
+
+        assertStyleMatch({
+          display: 'inline',
+          margin: '0',
+          paddingLeft: '0',
+          width: 'auto'
+        }, wrapper, { modifier: css`${FieldHelpStyle}` });
+      });
+    });
+
+    describe('when setting a custom inputWidth', () => {
       describe('default', () => {
-        expect(render({ fieldHelpInline: true })).toMatchSnapshot();
-      });
+        const wrapper = render({ inputWidth: 50 }).toJSON();
 
-      describe('and size=large', () => {
-        expect(render({ fieldHelpInline: true, size: 'large' })).toMatchSnapshot();
-      });
-    });
+        it('renders the correct CheckableInput styles', () => {
+          assertStyleMatch({
+            width: '50%'
+          }, wrapper, { modifier: css`${StyledCheckableInput}` });
+        });
 
-    it('renders the appropriate styles when setting a custom inputWidth', () => {
-      describe('default', () => {
-        expect(render({ inputWidth: 50 })).toMatchSnapshot();
+        it('renders the correct FieldHelp styles', () => {
+          assertStyleMatch({
+            marginLeft: '50%'
+          }, wrapper, { modifier: css`${FieldHelpStyle}` });
+        });
       });
 
       describe('reversed', () => {
-        expect(render({ inputWidth: 50, reverse: true })).toMatchSnapshot();
+        it('renders the correct FieldHelp styles', () => {
+          const wrapper = render({ inputWidth: 50, reverse: true }).toJSON();
+
+          assertStyleMatch({
+            marginRight: '50%'
+          }, wrapper, { modifier: css`${FieldHelpStyle}` });
+        });
       });
     });
 
-    it('renders the appropriate styles when setting a custom labelWidth', () => {
-      expect(render({ labelWidth: 50 })).toMatchSnapshot();
+    describe('when setting a custom labelWidth', () => {
+      it('renders the correct Label styles', () => {
+        const wrapper = render({ labelWidth: 50 }).toJSON();
+
+        assertStyleMatch({
+          width: '50%'
+        }, wrapper, { modifier: css`${LabelStyle}` });
+      });
     });
 
-    it('renders the appropriate styles when reverse=true', () => {
+    describe('when reverse=true', () => {
       describe('default', () => {
-        expect(render({ reverse: true })).toMatchSnapshot();
+        const wrapper = render({ reverse: true }).toJSON();
+
+        it('renders the correct FieldHelp styles', () => {
+          assertStyleMatch({
+            marginLeft: '0'
+          }, wrapper, { modifier: css`${FieldHelpStyle}` });
+        });
       });
 
       describe('and fieldHelpInline=true', () => {
-        expect(render({ fieldHelpInline: true, reverse: true })).toMatchSnapshot();
+        const wrapper = render({ reverse: true, fieldHelpInline: true }).toJSON();
+
+        it('renders the correct CheckableInput styles', () => {
+          assertStyleMatch({
+            paddingLeft: '6px'
+          }, wrapper, { modifier: css`${StyledCheckableInput}` });
+        });
       });
     });
   });
@@ -81,43 +240,185 @@ describe('Checkbox', () => {
   describe('Classic theme', () => {
     const opts = { theme: classicTheme };
 
-    it('renders as expected', () => {
-      expect(render(opts)).toMatchSnapshot();
+    describe('default', () => {
+      const wrapper = render(opts).toJSON();
+
+      it('applies appropriate CheckableInput styles', () => {
+        assertStyleMatch({
+          height: '15px',
+          padding: '1px 0 0 0',
+          width: '15px'
+        }, wrapper, { modifier: css`${StyledCheckableInput}` });
+      });
+
+      it('applies appropriate hidden input styles', () => {
+        assertStyleMatch({
+          height: '15px',
+          padding: '1px',
+          width: '15px'
+        }, wrapper, { modifier: css`${HiddenCheckableInputStyle}` });
+      });
+
+      it('applies appropriate svg styles', () => {
+        assertStyleMatch({
+          height: '15px',
+          width: '15px'
+        }, wrapper, { modifier: css`${`${HiddenCheckableInputStyle} + svg`}` });
+      });
+
+      it('applies appropriate FieldHelp styles', () => {
+        assertStyleMatch({
+          marginLeft: '15px',
+          paddingLeft: '6px'
+        }, wrapper, { modifier: css`${FieldHelpStyle}` });
+      });
+
+      it('applies appropriate Icon styles', () => {
+        assertStyleMatch({
+          content: "'\\E943'"
+        }, wrapper, { modifier: css`${`${LabelStyle} .carbon-icon::before`}` });
+      });
+
+      it('applies appropriate Label styles', () => {
+        assertStyleMatch({
+          paddingLeft: '6px',
+          paddingBottom: '0',
+          paddingTop: '0'
+        }, wrapper, { modifier: css`${LabelStyle}` });
+      });
+
+      describe('when hover / focus is applied', () => {
+        const hoverFocusStyles = {
+          border: '1px solid #1963f6',
+          outline: 'none'
+        };
+
+        it('applies the appropriate hidden input hover styles', () => {
+          assertStyleMatch(
+            hoverFocusStyles,
+            wrapper,
+            { modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):focus + svg`}` }
+          );
+        });
+
+        it('applies the appropriate hidden input focus styles', () => {
+          assertStyleMatch(
+            hoverFocusStyles,
+            wrapper,
+            { modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):hover + svg`}` }
+          );
+        });
+      });
     });
 
-    it('renders the appropriate styles when checked=true', () => {
-      describe('default', () => {
-        expect(render({ checked: true, ...opts })).toMatchSnapshot();
+    describe('when checked=true', () => {
+      it('renders the correct check colour', () => {
+        const wrapper = render({ checked: true, ...opts }).toJSON();
+
+        assertStyleMatch({
+          fill: 'rgba(0,0,0,0.85)'
+        }, wrapper, { modifier: 'svg path' });
       });
 
       describe('and disabled=true', () => {
-        expect(render({ checked: true, disabled: true, ...opts })).toMatchSnapshot();
+        const wrapper = render({ checked: true, disabled: true, ...opts }).toJSON();
+
+        it('renders the correct check colour', () => {
+          assertStyleMatch({
+            fill: classicTheme.disabled.border
+          }, wrapper, { modifier: 'svg path' });
+        });
       });
     });
 
-    it('renders the appropriate styles when disabled=true', () => {
-      expect(render({ disabled: true, ...opts })).toMatchSnapshot();
+    describe('when disabled=true', () => {
+      const wrapper = render({ disabled: true, ...opts }).toJSON();
+
+      it('applies the appropriate Label styles', () => {
+        assertStyleMatch({
+          color: classicTheme.disabled.text
+        }, wrapper, { modifier: css`${LabelStyle}` });
+      });
+
+      it('applies the appropriate Help styles', () => {
+        assertStyleMatch({
+          color: classicTheme.disabled.text
+        }, wrapper, { modifier: css`${LabelStyle} ${StyledHelp}` });
+      });
+
+      it('applies the appropriate svg wrapper styles', () => {
+        assertStyleMatch({
+          backgroundColor: classicTheme.disabled.disabled,
+          border: `1px solid ${classicTheme.disabled.border}`
+        }, wrapper, { modifier: 'svg' });
+      });
+
+      it('applies the appropriate check styles', () => {
+        assertStyleMatch({
+          fill: classicTheme.disabled.disabled
+        }, wrapper, { modifier: 'svg path' });
+      });
     });
 
-    it('renders the appropriate styles when fieldHelpInline=true and reverse=true', () => {
-      expect(render({ fieldHelpInline: true, reverse: true, ...opts })).toMatchSnapshot();
+    describe('when fieldHelpInline=true', () => {
+      describe('default', () => {
+        it('applies the appropriate FieldHelp style', () => {
+          const wrapper = render({ fieldHelpInline: true, ...opts }).toJSON();
+
+          assertStyleMatch({
+            marginLeft: '0',
+            paddingBottom: '0',
+            paddingTop: '0'
+          }, wrapper, { modifier: css`${FieldHelpStyle}` });
+        });
+      });
+
+      describe('when fieldHelpInline=true and reverse=true', () => {
+        it('applies the appropriate CheckableInput style', () => {
+          const wrapper = render({ fieldHelpInline: true, reverse: true, ...opts }).toJSON();
+
+          assertStyleMatch({
+            paddingLeft: '6px'
+          }, wrapper, { modifier: css`${StyledCheckableInput}` });
+        });
+      });
+    });
+
+    describe('when fieldHelpInline=true and reverse=true', () => {
+      const wrapper = render({ fieldHelpInline: true, reverse: true, ...opts }).toJSON();
+
+      assertStyleMatch({
+        paddingLeft: '6px'
+      }, wrapper, { modifier: css`${StyledCheckableInput}` });
     });
 
     describe('Small theme', () => {
-      it('renders as expected', () => {
-        expect(render({ theme: smallTheme })).toMatchSnapshot();
+      it('sets the appropriate check colour', () => {
+        const wrapper = render({ theme: smallTheme, checked: true }).toJSON();
+
+        assertStyleMatch({
+          fill: smallTheme.colors.primary
+        }, wrapper, { modifier: 'svg path' });
       });
     });
 
     describe('Medium theme', () => {
-      it('renders as expected', () => {
-        expect(render({ theme: mediumTheme })).toMatchSnapshot();
+      it('sets the appropriate check colour', () => {
+        const wrapper = render({ theme: mediumTheme, checked: true }).toJSON();
+
+        assertStyleMatch({
+          fill: mediumTheme.colors.primary
+        }, wrapper, { modifier: 'svg path' });
       });
     });
 
     describe('Large theme', () => {
-      it('renders as expected', () => {
-        expect(render({ theme: largeTheme })).toMatchSnapshot();
+      it('sets the appropriate check colour', () => {
+        const wrapper = render({ theme: largeTheme, checked: true }).toJSON();
+
+        assertStyleMatch({
+          fill: largeTheme.colors.primary
+        }, wrapper, { modifier: 'svg path' });
       });
     });
   });

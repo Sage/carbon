@@ -40,8 +40,8 @@ export default ({
 
   ${fieldHelpInline && `${FieldHelpStyle},`}
   ${LabelStyle} {
-    padding-top: 0px;
-    padding-bottom: 0px;
+    padding-top: 0;
+    padding-bottom: 0;
   }
 
   ${HiddenCheckableInputStyle}:not([disabled]) {
@@ -50,11 +50,6 @@ export default ({
       border: 1px solid #1963f6;
       outline: none;
     }
-  }
-
-  label:hover + ${StyledCheckableInput} ${HiddenCheckableInputStyle}:not([disabled]) + svg {
-    border: 1px solid #1963f6;
-    outline: none;
   }
 
   ${checked && `

@@ -59,10 +59,6 @@ const StyledCheckbox = styled.div`
       }
     }
 
-    label:hover + ${StyledCheckableInput} ${HiddenCheckableInputStyle}:not([disabled]) + svg {
-      outline: solid 3px ${theme.colors.focus};
-    }
-
     ${FieldHelpStyle} {
       margin-left: 16px;
       margin-top: 0;
@@ -139,7 +135,7 @@ const StyledCheckbox = styled.div`
       }
     `}
 
-    ${inputWidth !== 0 && `
+    ${inputWidth !== undefined && inputWidth !== 0 && `
       ${StyledCheckableInput} {
         width: ${inputWidth}%;
       }
@@ -149,7 +145,7 @@ const StyledCheckbox = styled.div`
       }
     `}
 
-    ${labelWidth !== 0 && `
+    ${labelWidth !== undefined && labelWidth !== 0 && `
       ${LabelStyle} {
         width: ${labelWidth}%;
       }
