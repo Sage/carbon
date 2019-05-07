@@ -7,7 +7,7 @@ import Icon from '../icon';
 import { validProps } from '../../utils/ether';
 import Event from '../../utils/helpers/events';
 import tagComponent from '../../utils/helpers/tags';
-import LinkStyle from './link.style';
+import { LinkStyle, LinkStyleAnchor, LinkRouterStyle } from './link.style';
 import './link.scss';
 
 class Link extends React.Component {
@@ -90,16 +90,19 @@ class Link extends React.Component {
   renderLink() {
     if (this.props.to) {
       return (
-        <RouterLink to={ this.props.to } { ...this.componentProps }>
+        <LinkStyleAnchor
+          as={ RouterLink } to={ this.props.to }
+          { ...this.componentProps }
+        >
           {this.renderLinkContent()}
-        </RouterLink>
+        </LinkStyleAnchor>
       );
     }
 
     return (
-      <a href={ this.props.href } { ...this.componentProps }>
+      <LinkStyleAnchor href={ this.props.href } { ...this.componentProps }>
         {this.renderLinkContent()}
-      </a>
+      </LinkStyleAnchor>
     );
   }
 

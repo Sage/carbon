@@ -9,17 +9,18 @@ const CreateStyle = styled(Link)`
     border: 1px dashed ${({ theme }) => theme.colors.border};
     display: block;
     padding: 12px 12px 10px;
+    font-size: 16px;
     text-align: center;
     font-weight: 700;
-    text-decoration: none !important;
+    text-decoration: none ;
 
     :hover{
         background-color: ${({ theme }) => theme.colors.white}
     }
    
     :focus{
-        background-color: ${({ theme }) => theme.colors.white} !important;
-        outline: 3px solid ${({ theme }) => theme.colors.focus} !important;
+        background-color: ${({ theme }) => theme.colors.white} ;
+        outline: 3px solid ${({ theme }) => theme.colors.focus} ;
     }
     
     ${createClassicStyle}

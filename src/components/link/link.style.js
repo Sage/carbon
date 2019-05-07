@@ -1,12 +1,10 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../style/themes/base';
-import classicThemeForLink from './link-classic.style';
+import classicThemeForLinkAnchor from './link-classic.style';
 import { THEMES } from '../../style/themes';
 
-const LinkStyle = styled.div`
-display: inline-block;
-a {
+const LinkStyleAnchor = styled.a`
   font-size: 14px;
   text-decoration: underline;
   color: ${({ theme }) => theme.colors.primary};
@@ -24,16 +22,26 @@ a {
       outline: none;
     }
   `}  
-  
+
+  ${classicThemeForLinkAnchor};
+`;
+
+const LinkRouterStyle = styled(LinkStyleAnchor);
+
+const LinkStyle = styled.div`
+  display: inline-block;
+
   ${({ disabled, theme }) => disabled && css`
+    cursor: not-allowed;
+
+  ${LinkStyleAnchor} { 
     color: ${theme.disabled.text};
     pointer-events: none;
-  `}  
-}
 
-${({ disabled }) => disabled && css`cursor: not-allowed;`}
+  ${classicThemeForLinkAnchor};
 
-${classicThemeForLink}
+  }
+`}
 `;
 
 LinkStyle.defaultProps = {
@@ -45,4 +53,8 @@ LinkStyle.propTypes = {
   disabled: PropTypes.bool
 };
 
-export default LinkStyle;
+LinkStyleAnchor.defaultProps = {
+  theme: baseTheme
+};
+
+export { LinkStyle, LinkStyleAnchor, LinkRouterStyle };
