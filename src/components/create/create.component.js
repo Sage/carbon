@@ -11,9 +11,7 @@ class Create extends React.Component {
     this.linkProps = this.linkProps.bind(this);
   }
 
-  /**
-   * Returns the props for the component.
-   */
+  /** Returns the props for the component. */
   linkProps() {
     const { className, ...props } = this.props;
 
