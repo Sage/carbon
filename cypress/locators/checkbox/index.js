@@ -1,11 +1,6 @@
 import {
-  REVERSE_CHECKBOX, FIELD_HELP_INLINE_CHECKBOX, CHECKBOX_HELP,
-  CHECKBOX_COMMON_INPUT_FIELD, CHECKBOX_LABEL,
+  CHECKBOX_HELP, CHECKBOX_COMMON_INPUT_FIELD, CHECKBOX_LABEL,
 } from './locators';
-
-// knobs locators
-export const reverseCheckbox = () => cy.get(REVERSE_CHECKBOX);
-export const fieldHelpInlineCheckbox = () => cy.get(FIELD_HELP_INLINE_CHECKBOX);
 
 // component preview locators
 export const checkboxHelpTextPreview = () => cy.iFrame(CHECKBOX_HELP);

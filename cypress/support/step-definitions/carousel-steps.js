@@ -1,7 +1,6 @@
 import {
   slide, slideIndexSelect, carousel, nextArrowButton, previousArrowButton, slideSelectorIndex,
-  enableSlideSelectorCheckbox, slideSelector, enableNextButtonCheckbox,
-  enablePreviousButtonCheckbox, transitionSelect, giveTransition,
+  slideSelector, transitionSelect, giveTransition,
 } from '../../locators/carousel';
 import { DEBUG_FLAG } from '..';
 
@@ -49,14 +48,6 @@ When('I set slide selector {int}', (index) => {
   }
 });
 
-When('I enable slide selector', () => {
-  enableSlideSelectorCheckbox().check();
-});
-
-When('I disable slide selector', () => {
-  enableSlideSelectorCheckbox().uncheck();
-});
-
 Then('slide selector is visible', () => {
   slideSelector().should('be.visible');
 });
@@ -65,28 +56,12 @@ Then('slide selector is not visible', () => {
   slideSelector().should('not.exist');
 });
 
-When('I enable previous button', () => {
-  enablePreviousButtonCheckbox().check();
-});
-
-When('I disable previous button', () => {
-  enablePreviousButtonCheckbox().uncheck();
-});
-
 Then('previous button is visible', () => {
   previousArrowButton().should('be.visible');
 });
 
 Then('previous button is not visible', () => {
   previousArrowButton().should('not.exist');
-});
-
-When('I enable next button', () => {
-  enableNextButtonCheckbox().check();
-});
-
-When('I disable next button', () => {
-  enableNextButtonCheckbox().uncheck();
 });
 
 Then('next button is visible', () => {

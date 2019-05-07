@@ -19,8 +19,8 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario Outline: Change Button Toggle Group component label help
-    When I set label help to "<labelHelp>"
-      And I hover mouse on help icon
+    When I set labelHelp to "<labelHelp>"
+      And I hover mouse onto help icon
     Then Label help on preview is set to "<labelHelp>"
     Examples:
       | labelHelp                |
@@ -53,7 +53,7 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario Outline: Change Button Toggle Group component field help
-    When I set field help to "<fieldHelp>"
+    When I set fieldHelp to "<fieldHelp>"
     Then Field help on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                |

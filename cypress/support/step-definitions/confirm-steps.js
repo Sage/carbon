@@ -1,13 +1,10 @@
 import { visitComponentUrl } from '../helper';
 import {
-  asSelect, sizeSelect, subtextInput, titleInput, heightInput, labelInput,
-  disableEscKeyCheckbox, backgroundUILocator,
+  asSelect, sizeSelect, subtextInput, heightInput, backgroundUILocator,
 } from '../../locators';
 import {
-  openButton, dialogTitle, cancelLabel, confirmLabel,
-  dialogPreview, showCloseIconCheckbox, closeIconButton,
-  dialogSubtitle, stickyFormFooterCheckbox,
-  confirmButton, cancelButton,
+  openButton, dialogTitle, cancelLabel, confirmLabel, dialogPreview, closeIconButton,
+  dialogSubtitle, confirmButton, cancelButton,
 } from '../../locators/confirm';
 
 Given('I open {string} component page', (component) => {
@@ -24,14 +21,6 @@ When('I set component size to {string}', (size) => {
 
 When('I set component subtext to {string}', (subtext) => {
   subtextInput().type(subtext);
-});
-
-When('I set label to {string}', (label) => {
-  labelInput().clear().type(label);
-});
-
-When('I set title to {string}', (title) => {
-  titleInput().clear().type(title);
 });
 
 Then('component subtitle on preview is {string}', (subtitle) => {
@@ -78,28 +67,12 @@ Then('Background UI is disabled', () => {
   backgroundUILocator().should('exist');
 });
 
-When('I check disableEscKey', () => {
-  disableEscKeyCheckbox().check();
-});
-
-When('I uncheck disableEscKey', () => {
-  disableEscKeyCheckbox().uncheck({ force: true });
-});
-
 Then('Confirm dialog is visible', () => {
   dialogPreview().should('be.visible');
 });
 
 Then('Confirm dialog is not visible', () => {
   dialogPreview().should('not.exist');
-});
-
-When('I check closeIconCheckbox', () => {
-  showCloseIconCheckbox().check();
-});
-
-When('I uncheck closeIconCheckbox', () => {
-  showCloseIconCheckbox().uncheck({ force: true });
 });
 
 Then('Close icon is not visible', () => {
@@ -120,14 +93,6 @@ Then('Confirm dialog input height is {string}', (height) => {
 
 Then('Confirm dialog size property on preview is {string}', (size) => {
   dialogPreview().should('have.css', 'width', `${size}px`);
-});
-
-When('I check stickyFormFooter', () => {
-  stickyFormFooterCheckbox().check();
-});
-
-When('I uncheck stickyFormFooter', () => {
-  stickyFormFooterCheckbox().uncheck({ force: true });
 });
 
 Then('Confirm dialog has stickyFormFooter parameter enabled', () => {

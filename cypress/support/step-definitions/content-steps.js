@@ -1,5 +1,5 @@
 import {
-  contentBody, contentTitle, inlineCheckbox, bodyFullWidthCheckbox, contentPreview, titleWidth,
+  contentBody, contentTitle, contentPreview, titleWidth,
 } from '../../locators/content';
 
 const CONTENT_AS_LABEL = 'carbon-content--';
@@ -21,22 +21,6 @@ Then('content as property is set to {string}', (sourseButton) => {
 
 Then('content align property is set to {string}', (as) => {
   contentPreview().should('have.class', CONTENT_ALIGN_LABEL + as);
-});
-
-When('I check inline checkbox', () => {
-  inlineCheckbox().check();
-});
-
-When('I uncheck inline checkbox', () => {
-  inlineCheckbox().uncheck({ force: true });
-});
-
-When('I check bodyFullWidth checkbox', () => {
-  bodyFullWidthCheckbox().check();
-});
-
-When('I uncheck bodyFullWidth checkbox', () => {
-  bodyFullWidthCheckbox().uncheck({ force: true });
 });
 
 Then('content preview has bodyFullWidth parameter enabled', () => {

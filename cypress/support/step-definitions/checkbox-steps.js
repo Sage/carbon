@@ -1,18 +1,10 @@
 import {
-  reverseCheckbox, checkboxHelpTextPreview, fieldHelpInlineCheckbox,
-  checkboxCommonInputField, checkboxLabelPreview,
+  checkboxHelpTextPreview, checkboxCommonInputField, checkboxLabelPreview,
 } from '../../locators/checkbox';
 
 const CHECKBOX_HELP_TEXT_CLASS_PREFIX = 'carbon-checkbox__help-text--';
 const CHECKBOX_LABEL_CLASS_PREFIX = 'common-input__label--';
 
-When('I enable reverse checkbox', () => {
-  reverseCheckbox().check();
-});
-
-When('I disable reverse checkbox', () => {
-  reverseCheckbox().uncheck();
-});
 
 Then('checkbox helpText property is set to {string}', (property) => {
   checkboxHelpTextPreview().should('have.class', CHECKBOX_HELP_TEXT_CLASS_PREFIX + property);
@@ -20,15 +12,6 @@ Then('checkbox helpText property is set to {string}', (property) => {
 
 Then('checkbox helpText property is not set to {string}', (property) => {
   checkboxHelpTextPreview().should('not.have.class', CHECKBOX_HELP_TEXT_CLASS_PREFIX + property);
-});
-
-
-When('I enable fieldHelpInline', () => {
-  fieldHelpInlineCheckbox().check();
-});
-
-When('I disable fieldHelpInline', () => {
-  fieldHelpInlineCheckbox().uncheck();
 });
 
 Then('checkbox input width is set to {int}', (width) => {

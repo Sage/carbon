@@ -1,6 +1,4 @@
-import {
-  alertDialogPreview, alertHeight,
-} from '../../locators/alert';
+import { alertDialogPreview, alertHeight } from '../../locators/alert';
 
 Then('Alert height is set to {string}', (height) => {
   alertHeight().should('have.attr', 'height').should('contain', `${height}`);

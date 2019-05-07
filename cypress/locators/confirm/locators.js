@@ -1,11 +1,9 @@
 // knobs locators
 export const OPEN_BUTTON = 'button[type="button"][name="open"]';
 export const TITLE_INPUT = '#title';
-export const DISABLE_ESC_KEY_CHECKBOX = '#disableEscKey';
 export const HEIGHT_INPUT = '#height';
 export const SUBTILE_INPUT = '#subtitle';
 export const SHOW_CLOSE_ICON_CONFIRM = '#showCloseIcon';
-export const STICKY_FORM_FOOTER_CHECKBOX = '#stickyFormFooter';
 export const CONFIRM_LABEL = '#confirmLabel';
 export const CANCEL_LABEL = '#cancelLabel';
 

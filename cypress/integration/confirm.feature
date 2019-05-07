@@ -5,12 +5,12 @@ Feature: Confirm component
     Given I open "Confirm" component page
 
   @positive
-  Scenario Outline: Change cancelButton in inner context in Confirm dialog
-    When I set cancelButton to "<cancelButton>"
+  Scenario Outline: Change cancelLabel in inner context in Confirm dialog
+    When I set cancelLabel to "<cancelLabel>"
       And I click on a openButton
-    Then cancel button content on preview is "<cancelButton>"
+    Then cancel button content on preview is "<cancelLabel>"
     Examples:
-      | cancelButton             |
+      | cancelLabel             |
       | Sample text              |
       | 1234567890               |
       | áéíóú¿¡üñ                |
@@ -19,12 +19,12 @@ Feature: Confirm component
       | <>                       |
 
   @positive
-  Scenario Outline: Change confirmButton in inner context in Confirm dialog
-    When I set confirmButton to "<confirmButton>"
+  Scenario Outline: Change confirmLabel in inner context in Confirm dialog
+    When I set confirmLabel to "<confirmLabel>"
       And I click on a openButton
-    Then confirm button content on preview is "<confirmButton>"
+    Then confirm button content on preview is "<confirmLabel>"
     Examples:
-      | confirmButton            |
+      | confirmLabel            |
       | Sample text              |
       | 1234567890               |
       | áéíóú¿¡üñ                |
@@ -119,14 +119,14 @@ Feature: Confirm component
 
   @positive
   Scenario: Close icon enabled
-    When I check closeIconCheckbox
+    When I check closeIconCheckbox checkbox
       And I click on a openButton
       And I click close icon
     Then Confirm dialog is not visible
 
   @negative
   Scenario: Close icon disabled
-    When I uncheck closeIconCheckbox
+    When I uncheck closeIconCheckbox checkbox
       And I click on a openButton
     Then Close icon is not visible
 
@@ -135,14 +135,14 @@ Feature: Confirm component
   @ignore
   @positive
   Scenario: StickyFormFooter enabled
-    When I check stickyFormFooter
+    When I check stickyFormFooter checkbox
       And I click on a openButton
     Then Confirm dialog has stickyFormFooter parameter enabled
 
   @ignore
   @negative
   Scenario: StickyFormFooter disabled
-    When I uncheck stickyFormFooter
+    When I uncheck stickyFormFooter checkbox
       And I click on a openButton
     Then Confirm dialog has no stickyFormFooter parameter
 

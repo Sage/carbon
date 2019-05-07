@@ -6,24 +6,24 @@ Feature: Checkbox component
 
   @positive
   Scenario: Enable reverse checkbox
-    When I enable reverse checkbox
+    When I check reverse checkbox
     Then checkbox helpText property is set to "reverse"
 
   @positive
   Scenario: Enable and disable reverse checkbox
-    When I enable reverse checkbox
-      And I disable reverse checkbox
+    When I check reverse checkbox
+      And I uncheck reverse checkbox
     Then checkbox helpText property is not set to "reverse"
 
   @positive
   Scenario: Enable fieldHelpInline
-    When I enable fieldHelpInline
+    When I check fieldHelpInline checkbox
     Then checkbox helpText property is set to "fieldHelpInline"
 
   @positive
   Scenario: Enable and disable fieldHelpInline
-    When I enable fieldHelpInline
-      And I disable fieldHelpInline
+    When I check fieldHelpInline checkbox
+      And I uncheck fieldHelpInline checkbox
     Then checkbox helpText property is not set to "fieldHelpInline"
 
   @positive
@@ -41,8 +41,8 @@ Feature: Checkbox component
 
   @positive
   Scenario Outline: Change Checkbox component label help
-    When I set label help to "<labelHelp>"
-      And I hover mouse on help icon
+    When I set labelHelp to "<labelHelp>"
+      And I hover mouse onto help icon
     Then Label help on preview is set to "<labelHelp>"
     Examples:
       | labelHelp                |
@@ -76,7 +76,7 @@ Feature: Checkbox component
 
   @positive
   Scenario Outline: Change Checkbox component field help
-    When I set field help to "<fieldHelp>"
+    When I set fieldHelp to "<fieldHelp>"
     Then Field help on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                |

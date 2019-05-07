@@ -1,9 +1,6 @@
 import { backgroundBlocker, dialogPreview, dialogStickyFormFooter } from '../../locators/dialog/index';
 import { STORY_ROOT } from '../../locators/locators';
-
-import {
-  closeIconButton, stickyFormFooter,
-} from '../../locators/index';
+import { closeIconButton } from '../../locators/index';
 
 When('I click close icon', () => {
   closeIconButton().click();
@@ -35,14 +32,6 @@ Then('Dialog is visible', () => {
 
 Then('Dialog is not visible', () => {
   dialogPreview().should('not.exist');
-});
-
-When('I enable stickyFormFooter', () => {
-  stickyFormFooter().check();
-});
-
-When('I disable stickyFormFooter', () => {
-  stickyFormFooter().uncheck();
 });
 
 Then('stickyFormFooter is enabled', () => {
