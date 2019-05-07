@@ -44,10 +44,24 @@ describe('FormField', () => {
 
   describe('classic theme', () => {
     it('adds custom margin top', () => {
-      const wrapper = TestRenderer.create(
-        <FormFieldStyle theme={ classicTheme } />
-      );
+      const wrapper = renderFormFieldStyle({
+        theme: classicTheme
+      });
       expect(wrapper.toJSON()).toMatchSnapshot();
+    });
+
+    describe('when inline', () => {
+      it('renders the FieldHelp component below the childen', () => {
+        const wrapper = renderFormFieldStyle({
+          inline: true
+        });
+
+        expect(wrapper).toMatchSnapshot();
+      });
     });
   });
 });
+
+function renderFormFieldStyle(props) {
+  return TestRenderer.create(<FormFieldStyle { ...props } />);
+}
