@@ -11,7 +11,6 @@ exports[`InputIconToggle when initiated with children renders as expected 1`] = 
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  height: 100%;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;

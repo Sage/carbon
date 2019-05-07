@@ -3,7 +3,7 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { mount } from 'enzyme';
-import Date from './date.component';
+import Date, { defaultDateFormat } from './date.component';
 import DatePicker from './date-picker.component';
 import Textbox from '../textbox';
 import StyledDateInput from './date.style';
@@ -311,7 +311,7 @@ function render(props, renderer = mount) {
 }
 
 function getFormattedDate(date) {
-  return date.format('DD/MM/YYYY');
+  return date.format(defaultDateFormat);
 }
 
 function simulateFocusOnInput(container) {
