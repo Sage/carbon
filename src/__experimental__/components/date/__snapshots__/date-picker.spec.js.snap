@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StyledDayPicker classic theme applies custom styling 1`] = `
-.c0 {
+.c0 .DayPicker {
   background-color: #FFFFFF;
   box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
   color: rgba(0,0,0,0.9);
@@ -17,22 +17,17 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  font-weight: 700;
-  margin-top: 0;
-  padding: 10px;
-  font-weight: 600;
-  color: rgba(0,0,0,0.9);
 }
 
-.c0 * {
+.c0 .DayPicker * {
   box-sizing: border-box;
 }
 
-.c0:focus {
+.c0 .DayPicker:focus {
   outline: none;
 }
 
-.c0 abbr[title] {
+.c0 .DayPicker abbr[title] {
   border: none;
   cursor: initial;
 }
@@ -115,6 +110,14 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
   color: #FFFFFF;
 }
 
+.c0 .DayPicker {
+  font-weight: 700;
+  margin-top: 0;
+  padding: 10px;
+  font-weight: 600;
+  color: rgba(0,0,0,0.9);
+}
+
 .c0 .DayPicker-Caption {
   background-color: #FFFFFF;
   color: rgba(0,0,0,.85);
@@ -174,7 +177,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
 `;
 
 exports[`StyledDayPicker renders presentational div and context provider for its children 1`] = `
-.c0 {
+.c0 .DayPicker {
   background-color: #FFFFFF;
   box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
   color: rgba(0,0,0,0.9);
@@ -192,15 +195,15 @@ exports[`StyledDayPicker renders presentational div and context provider for its
   user-select: none;
 }
 
-.c0 * {
+.c0 .DayPicker * {
   box-sizing: border-box;
 }
 
-.c0:focus {
+.c0 .DayPicker:focus {
   outline: none;
 }
 
-.c0 abbr[title] {
+.c0 .DayPicker abbr[title] {
   border: none;
   cursor: initial;
 }
