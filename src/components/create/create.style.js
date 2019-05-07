@@ -18,6 +18,7 @@ const CreateStyle = styled(Link)`
     }
    
     :focus{
+        color: ${({ theme }) => theme.colors.primary};
         background-color: ${({ theme }) => theme.colors.white} ;
         outline: 3px solid ${({ theme }) => theme.colors.focus} ;
     }
