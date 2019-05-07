@@ -370,7 +370,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                           "$$typeof": Symbol(react.forward_ref),
                           "attrs": Array [],
                           "componentStyle": ComponentStyle {
-                            "componentId": "sc-htpNat",
+                            "componentId": "sc-bxivhb",
                             "isStatic": false,
                             "lastClassName": "c0",
                             "rules": Array [
@@ -435,7 +435,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                           "displayName": "styled.div",
                           "foldedComponentIds": Array [],
                           "render": [Function],
-                          "styledComponentId": "sc-htpNat",
+                          "styledComponentId": "sc-bxivhb",
                           "target": "div",
                           "toString": [Function],
                           "warnTooManyClasses": [Function],
@@ -783,7 +783,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                             "$$typeof": Symbol(react.forward_ref),
                                             "attrs": Array [],
                                             "componentStyle": ComponentStyle {
-                                              "componentId": "sc-ifAKCX",
+                                              "componentId": "sc-EHOje",
                                               "isStatic": false,
                                               "lastClassName": "c3",
                                               "rules": Array [
@@ -862,7 +862,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                             "displayName": "Styled(Icon)",
                                             "foldedComponentIds": Array [],
                                             "render": [Function],
-                                            "styledComponentId": "sc-ifAKCX",
+                                            "styledComponentId": "sc-EHOje",
                                             "target": [Function],
                                             "toString": [Function],
                                             "warnTooManyClasses": [Function],
@@ -1063,7 +1063,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                 "$$typeof": Symbol(react.forward_ref),
                                 "attrs": Array [],
                                 "componentStyle": ComponentStyle {
-                                  "componentId": "sc-bxivhb",
+                                  "componentId": "sc-ifAKCX",
                                   "isStatic": false,
                                   "lastClassName": "c4",
                                   "rules": Array [
@@ -1091,7 +1091,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                 "displayName": "styled.div",
                                 "foldedComponentIds": Array [],
                                 "render": [Function],
-                                "styledComponentId": "sc-bxivhb",
+                                "styledComponentId": "sc-ifAKCX",
                                 "target": "div",
                                 "toString": [Function],
                                 "warnTooManyClasses": [Function],
@@ -1509,7 +1509,7 @@ exports[`Styled StyledContent classic theme applies custom styling 1`] = `
         "$$typeof": Symbol(react.forward_ref),
         "attrs": Array [],
         "componentStyle": ComponentStyle {
-          "componentId": "sc-bxivhb",
+          "componentId": "sc-ifAKCX",
           "isStatic": false,
           "lastClassName": "c0",
           "rules": Array [
@@ -1537,7 +1537,7 @@ exports[`Styled StyledContent classic theme applies custom styling 1`] = `
         "displayName": "styled.div",
         "foldedComponentIds": Array [],
         "render": [Function],
-        "styledComponentId": "sc-bxivhb",
+        "styledComponentId": "sc-ifAKCX",
         "target": "div",
         "toString": [Function],
         "warnTooManyClasses": [Function],
@@ -1662,7 +1662,7 @@ exports[`Styled StyledDialogFullScreen classic theme applies custom styling 1`] 
         "$$typeof": Symbol(react.forward_ref),
         "attrs": Array [],
         "componentStyle": ComponentStyle {
-          "componentId": "sc-htpNat",
+          "componentId": "sc-bxivhb",
           "isStatic": false,
           "lastClassName": "c0",
           "rules": Array [
@@ -1727,7 +1727,7 @@ exports[`Styled StyledDialogFullScreen classic theme applies custom styling 1`] 
         "displayName": "styled.div",
         "foldedComponentIds": Array [],
         "render": [Function],
-        "styledComponentId": "sc-htpNat",
+        "styledComponentId": "sc-bxivhb",
         "target": "div",
         "toString": [Function],
         "warnTooManyClasses": [Function],
@@ -1869,7 +1869,7 @@ exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
         "$$typeof": Symbol(react.forward_ref),
         "attrs": Array [],
         "componentStyle": ComponentStyle {
-          "componentId": "sc-ifAKCX",
+          "componentId": "sc-EHOje",
           "isStatic": false,
           "lastClassName": "c0",
           "rules": Array [
@@ -1948,7 +1948,7 @@ exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
         "displayName": "Styled(Icon)",
         "foldedComponentIds": Array [],
         "render": [Function],
-        "styledComponentId": "sc-ifAKCX",
+        "styledComponentId": "sc-EHOje",
         "target": [Function],
         "toString": [Function],
         "warnTooManyClasses": [Function],

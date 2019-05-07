@@ -9,7 +9,6 @@ const CreateStyle = styled(Link)`
     border: 1px dashed ${({ theme }) => theme.colors.border};
     display: block;
     padding: 12px 12px 10px;
-    font-size: 16px;
     text-align: center;
     font-weight: 700;
     text-decoration: none ;

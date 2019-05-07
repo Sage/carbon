@@ -1,7 +1,8 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
+import 'jest-styled-components';
 import Link from './../link';
-import Create from './create';
+import Create from './create.component';
 
 describe('Create', () => {
   let instance, link;
