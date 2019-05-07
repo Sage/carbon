@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
+import baseTheme from '../../style/themes/base';
 import { THEMES } from '../../style/themes';
 import StyledButtonToggleClassicLabel from './button-toggle-classic.style';
 
@@ -121,6 +122,14 @@ StyledButtonToggle.propTypes = {
 
 StyledButtonToggleIcon.propTypes = {
   buttonIconSize: PropTypes.string
+};
+
+StyledButtonToggleLabel.defaultProps = {
+  theme: baseTheme
+};
+
+StyledButtonToggleLabel.defaultProps = {
+  theme: baseTheme
 };
 
 export {
