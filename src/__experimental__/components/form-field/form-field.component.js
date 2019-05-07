@@ -16,7 +16,7 @@ const FormField = ({
   name,
   size
 }) => (
-  <FormFieldStyle>
+  <FormFieldStyle inline={ labelInline }>
     { label && (
       <Label
         align={ labelAlign }

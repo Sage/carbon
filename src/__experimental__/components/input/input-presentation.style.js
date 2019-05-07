@@ -7,7 +7,7 @@ import inputClassicStyling from './input-presentation-classic.style';
 import VALIDATION_TYPES from '../../../components/validations/validation-types.config';
 
 const InputPresentationStyle = styled.div`
-  align-items: center;
+  align-items: stretch;
   background: transparent;
   border: 1px solid ${({ theme }) => theme.colors.border};
   box-sizing: border-box;

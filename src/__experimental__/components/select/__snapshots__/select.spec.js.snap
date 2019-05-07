@@ -1,9 +1,1183 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Select applies custom data-* attributes at the right level 1`] = `
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -11px;
+  width: 40px;
+}
+
+.c2 {
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  background: transparent;
+  border: 1px solid #668491;
+  box-sizing: border-box;
+  cursor: text;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  margin: 0;
+  min-height: 40px;
+  padding-left: 11px;
+  padding-right: 11px;
+}
+
+.c2 input::-ms-clear {
+  display: none;
+}
+
+.c2 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
+}
+
+.c3 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c3::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c3::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c3:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c3::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1 {
+  display: block;
+}
+
+.c1 + .c0 {
+  margin-top: 16px;
+}
+
+<Textbox
+  autoComplete="off"
+  data-element="input"
+  formattedValue=""
+  info={Array []}
+  inputIcon="dropdown"
+  inputRef={[Function]}
+  leftChildren={false}
+  name="guid-12345"
+  onBlur={[Function]}
+  onChange={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  validations={Array []}
+  warnings={Array []}
+>
+  <FormField
+    autoComplete="off"
+    data-element="input"
+    info={Array []}
+    inputRef={[Function]}
+    name="guid-12345"
+    onBlur={[Function]}
+    onChange={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    size="medium"
+    validations={Array []}
+    warnings={Array []}
+  >
+    <styled.div
+      theme={
+        Object {
+          "colors": Object {
+            "border": "#668491",
+            "brand": "#00DC00",
+            "error": "#C7384F",
+            "focus": "#FFDA7F",
+            "focusedIcon": "#335B6D",
+            "info": "#0073C2",
+            "primary": "#26A826",
+            "secondary": "#006300",
+            "success": "#00B000",
+            "tertiary": "#004400",
+            "warning": "#E96400",
+            "white": "#FFFFFF",
+          },
+          "disabled": Object {
+            "background": "#E5EAEC",
+            "border": "#CCD6DA",
+            "disabled": "rgba(0,0,0,0.55)",
+            "input": "#F2F4F5",
+            "text": "rgba(0,0,0,0.3)",
+          },
+          "icon": Object {
+            "focus": "#335B6D",
+          },
+          "name": "base",
+          "shadows": Object {
+            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+          },
+          "text": Object {
+            "color": "rgba(0,0,0,0.9)",
+            "placeholder": "rgba(0,0,0,0.3)",
+            "size": "14px",
+          },
+        }
+      }
+    >
+      <StyledComponent
+        forwardedComponent={
+          Object {
+            "$$typeof": Symbol(react.forward_ref),
+            "attrs": Array [],
+            "componentStyle": ComponentStyle {
+              "componentId": "c0",
+              "isStatic": false,
+              "lastClassName": "c1",
+              "rules": Array [
+                "
+  ",
+                [Function],
+                "
+
+  & + & {
+    margin-top: ",
+                [Function],
+                ";
+  }
+",
+              ],
+            },
+            "defaultProps": Object {
+              "theme": Object {
+                "colors": Object {
+                  "border": "#668491",
+                  "brand": "#00DC00",
+                  "error": "#C7384F",
+                  "focus": "#FFDA7F",
+                  "focusedIcon": "#335B6D",
+                  "info": "#0073C2",
+                  "primary": "#26A826",
+                  "secondary": "#006300",
+                  "success": "#00B000",
+                  "tertiary": "#004400",
+                  "warning": "#E96400",
+                  "white": "#FFFFFF",
+                },
+                "disabled": Object {
+                  "background": "#E5EAEC",
+                  "border": "#CCD6DA",
+                  "disabled": "rgba(0,0,0,0.55)",
+                  "input": "#F2F4F5",
+                  "text": "rgba(0,0,0,0.3)",
+                },
+                "icon": Object {
+                  "focus": "#335B6D",
+                },
+                "name": "base",
+                "shadows": Object {
+                  "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                  "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                  "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                  "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                  "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                },
+                "text": Object {
+                  "color": "rgba(0,0,0,0.9)",
+                  "placeholder": "rgba(0,0,0,0.3)",
+                  "size": "14px",
+                },
+              },
+            },
+            "displayName": "styled.div",
+            "foldedComponentIds": Array [],
+            "render": [Function],
+            "styledComponentId": "c0",
+            "target": "div",
+            "toString": [Function],
+            "warnTooManyClasses": [Function],
+            "withComponent": [Function],
+          }
+        }
+        forwardedRef={null}
+        theme={
+          Object {
+            "colors": Object {
+              "border": "#668491",
+              "brand": "#00DC00",
+              "error": "#C7384F",
+              "focus": "#FFDA7F",
+              "focusedIcon": "#335B6D",
+              "info": "#0073C2",
+              "primary": "#26A826",
+              "secondary": "#006300",
+              "success": "#00B000",
+              "tertiary": "#004400",
+              "warning": "#E96400",
+              "white": "#FFFFFF",
+            },
+            "disabled": Object {
+              "background": "#E5EAEC",
+              "border": "#CCD6DA",
+              "disabled": "rgba(0,0,0,0.55)",
+              "input": "#F2F4F5",
+              "text": "rgba(0,0,0,0.3)",
+            },
+            "icon": Object {
+              "focus": "#335B6D",
+            },
+            "name": "base",
+            "shadows": Object {
+              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+            },
+            "text": Object {
+              "color": "rgba(0,0,0,0.9)",
+              "placeholder": "rgba(0,0,0,0.3)",
+              "size": "14px",
+            },
+          }
+        }
+      >
+        <div
+          className="c0 c1"
+        >
+          <InputPresentation
+            autoComplete="off"
+            data-element="input"
+            info={Array []}
+            inputRef={[Function]}
+            name="guid-12345"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onClick={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            validations={Array []}
+            warnings={Array []}
+          >
+            <styled.div
+              autoComplete="off"
+              data-element="input"
+              hasFocus={false}
+              info={Array []}
+              inputRef={[Function]}
+              inputWidth={100}
+              name="guid-12345"
+              onMouseDown={[Function]}
+              onMouseOut={[Function]}
+              onMouseOver={[Function]}
+              role="presentation"
+              size="medium"
+              theme={
+                Object {
+                  "colors": Object {
+                    "border": "#668491",
+                    "brand": "#00DC00",
+                    "error": "#C7384F",
+                    "focus": "#FFDA7F",
+                    "focusedIcon": "#335B6D",
+                    "info": "#0073C2",
+                    "primary": "#26A826",
+                    "secondary": "#006300",
+                    "success": "#00B000",
+                    "tertiary": "#004400",
+                    "warning": "#E96400",
+                    "white": "#FFFFFF",
+                  },
+                  "disabled": Object {
+                    "background": "#E5EAEC",
+                    "border": "#CCD6DA",
+                    "disabled": "rgba(0,0,0,0.55)",
+                    "input": "#F2F4F5",
+                    "text": "rgba(0,0,0,0.3)",
+                  },
+                  "icon": Object {
+                    "focus": "#335B6D",
+                  },
+                  "name": "base",
+                  "shadows": Object {
+                    "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                    "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                    "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                    "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                    "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                  },
+                  "text": Object {
+                    "color": "rgba(0,0,0,0.9)",
+                    "placeholder": "rgba(0,0,0,0.3)",
+                    "size": "14px",
+                  },
+                }
+              }
+              type="text"
+              validations={Array []}
+              warnings={Array []}
+            >
+              <StyledComponent
+                autoComplete="off"
+                data-element="input"
+                forwardedComponent={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "attrs": Array [],
+                    "componentStyle": ComponentStyle {
+                      "componentId": "sc-bxivhb",
+                      "isStatic": false,
+                      "lastClassName": "c2",
+                      "rules": Array [
+                        "
+  align-items: stretch;
+  background: transparent;
+  border: 1px solid ",
+                        [Function],
+                        ";
+  box-sizing: border-box;
+  cursor: text;
+  display: flex;
+  flex-wrap: wrap;
+  flex: 0 0 ",
+                        [Function],
+                        "%;
+  margin: 0;
+  min-height: ",
+                        [Function],
+                        ";
+  padding-left: ",
+                        [Function],
+                        ";
+  padding-right: ",
+                        [Function],
+                        ";
+
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+
+  input::-ms-clear {
+    display: none;
+  }
+  input::-webkit-contacts-auto-fill-button {
+    display: none!important;
+  }
+",
+                      ],
+                    },
+                    "defaultProps": Object {
+                      "inputWidth": 100,
+                      "size": "medium",
+                      "theme": Object {
+                        "colors": Object {
+                          "border": "#668491",
+                          "brand": "#00DC00",
+                          "error": "#C7384F",
+                          "focus": "#FFDA7F",
+                          "focusedIcon": "#335B6D",
+                          "info": "#0073C2",
+                          "primary": "#26A826",
+                          "secondary": "#006300",
+                          "success": "#00B000",
+                          "tertiary": "#004400",
+                          "warning": "#E96400",
+                          "white": "#FFFFFF",
+                        },
+                        "disabled": Object {
+                          "background": "#E5EAEC",
+                          "border": "#CCD6DA",
+                          "disabled": "rgba(0,0,0,0.55)",
+                          "input": "#F2F4F5",
+                          "text": "rgba(0,0,0,0.3)",
+                        },
+                        "icon": Object {
+                          "focus": "#335B6D",
+                        },
+                        "name": "base",
+                        "shadows": Object {
+                          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                        },
+                        "text": Object {
+                          "color": "rgba(0,0,0,0.9)",
+                          "placeholder": "rgba(0,0,0,0.3)",
+                          "size": "14px",
+                        },
+                      },
+                    },
+                    "displayName": "styled.div",
+                    "foldedComponentIds": Array [],
+                    "propTypes": Object {
+                      "disabled": [Function],
+                      "errorMessage": [Function],
+                      "hasFocus": [Function],
+                      "infoMessage": [Function],
+                      "readOnly": [Function],
+                      "size": [Function],
+                      "warningMessage": [Function],
+                    },
+                    "render": [Function],
+                    "styledComponentId": "sc-bxivhb",
+                    "target": "div",
+                    "toString": [Function],
+                    "warnTooManyClasses": [Function],
+                    "withComponent": [Function],
+                  }
+                }
+                forwardedRef={
+                  Object {
+                    "current": .c2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -11px;
+  width: 40px;
+}
+
+.c0 {
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  background: transparent;
+  border: 1px solid #668491;
+  box-sizing: border-box;
+  cursor: text;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  margin: 0;
+  min-height: 40px;
+  padding-left: 11px;
+  padding-right: 11px;
+}
+
+.c0 input::-ms-clear {
+  display: none;
+}
+
+.c0 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
+}
+
+.c1 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c1::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+<div
+                      autocomplete="off"
+                      class="c0"
+                      data-element="input"
+                      name="guid-12345"
+                      role="presentation"
+                      type="text"
+                    >
+                      <input
+                        autocomplete="off"
+                        class="c1"
+                        data-element="input"
+                        id="guid-12345"
+                        name="guid-12345"
+                        value=""
+                      />
+                      <span
+                        autocomplete="off"
+                        class="c2"
+                        data-element="input"
+                        name="guid-12345"
+                        type="dropdown"
+                      >
+                        <span
+                          class="carbon-icon icon-dropdown"
+                          data-component="icon"
+                          data-element="dropdown"
+                        />
+                      </span>
+                    </div>,
+                  }
+                }
+                hasFocus={false}
+                info={Array []}
+                inputRef={[Function]}
+                inputWidth={100}
+                name="guid-12345"
+                onMouseDown={[Function]}
+                onMouseOut={[Function]}
+                onMouseOver={[Function]}
+                role="presentation"
+                size="medium"
+                theme={
+                  Object {
+                    "colors": Object {
+                      "border": "#668491",
+                      "brand": "#00DC00",
+                      "error": "#C7384F",
+                      "focus": "#FFDA7F",
+                      "focusedIcon": "#335B6D",
+                      "info": "#0073C2",
+                      "primary": "#26A826",
+                      "secondary": "#006300",
+                      "success": "#00B000",
+                      "tertiary": "#004400",
+                      "warning": "#E96400",
+                      "white": "#FFFFFF",
+                    },
+                    "disabled": Object {
+                      "background": "#E5EAEC",
+                      "border": "#CCD6DA",
+                      "disabled": "rgba(0,0,0,0.55)",
+                      "input": "#F2F4F5",
+                      "text": "rgba(0,0,0,0.3)",
+                    },
+                    "icon": Object {
+                      "focus": "#335B6D",
+                    },
+                    "name": "base",
+                    "shadows": Object {
+                      "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                      "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                      "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                      "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                      "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                    },
+                    "text": Object {
+                      "color": "rgba(0,0,0,0.9)",
+                      "placeholder": "rgba(0,0,0,0.3)",
+                      "size": "14px",
+                    },
+                  }
+                }
+                type="text"
+                validations={Array []}
+                warnings={Array []}
+              >
+                <div
+                  autoComplete="off"
+                  className="c2"
+                  data-element="input"
+                  name="guid-12345"
+                  onMouseDown={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
+                  role="presentation"
+                  size="medium"
+                  type="text"
+                >
+                  <Input
+                    autoComplete="off"
+                    data-element="input"
+                    info={Array []}
+                    inputRef={[Function]}
+                    name="guid-12345"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    validations={Array []}
+                    value=""
+                    warnings={Array []}
+                  >
+                    <styled.input
+                      autoComplete="off"
+                      data-element="input"
+                      id="guid-12345"
+                      info={Array []}
+                      name="guid-12345"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      theme={
+                        Object {
+                          "colors": Object {
+                            "border": "#668491",
+                            "brand": "#00DC00",
+                            "error": "#C7384F",
+                            "focus": "#FFDA7F",
+                            "focusedIcon": "#335B6D",
+                            "info": "#0073C2",
+                            "primary": "#26A826",
+                            "secondary": "#006300",
+                            "success": "#00B000",
+                            "tertiary": "#004400",
+                            "warning": "#E96400",
+                            "white": "#FFFFFF",
+                          },
+                          "disabled": Object {
+                            "background": "#E5EAEC",
+                            "border": "#CCD6DA",
+                            "disabled": "rgba(0,0,0,0.55)",
+                            "input": "#F2F4F5",
+                            "text": "rgba(0,0,0,0.3)",
+                          },
+                          "icon": Object {
+                            "focus": "#335B6D",
+                          },
+                          "name": "base",
+                          "shadows": Object {
+                            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                          },
+                          "text": Object {
+                            "color": "rgba(0,0,0,0.9)",
+                            "placeholder": "rgba(0,0,0,0.3)",
+                            "size": "14px",
+                          },
+                        }
+                      }
+                      validations={Array []}
+                      value=""
+                      warnings={Array []}
+                    >
+                      <StyledComponent
+                        autoComplete="off"
+                        data-element="input"
+                        forwardedComponent={
+                          Object {
+                            "$$typeof": Symbol(react.forward_ref),
+                            "attrs": Array [],
+                            "componentStyle": ComponentStyle {
+                              "componentId": "sc-ifAKCX",
+                              "isStatic": false,
+                              "lastClassName": "c3",
+                              "rules": Array [
+                                "
+  background: transparent;
+  border: none;
+  color: ",
+                                [Function],
+                                ";
+  flex-grow: 1;
+  font-size: ",
+                                [Function],
+                                ";
+  outline: none;
+  width: 30px;
+  
+  ",
+                                [Function],
+                                "
+
+  &::placeholder {
+    color: ",
+                                [Function],
+                                ";
+  }
+
+  ",
+                                [Function],
+                                "
+",
+                              ],
+                            },
+                            "defaultProps": Object {
+                              "theme": Object {
+                                "colors": Object {
+                                  "border": "#668491",
+                                  "brand": "#00DC00",
+                                  "error": "#C7384F",
+                                  "focus": "#FFDA7F",
+                                  "focusedIcon": "#335B6D",
+                                  "info": "#0073C2",
+                                  "primary": "#26A826",
+                                  "secondary": "#006300",
+                                  "success": "#00B000",
+                                  "tertiary": "#004400",
+                                  "warning": "#E96400",
+                                  "white": "#FFFFFF",
+                                },
+                                "disabled": Object {
+                                  "background": "#E5EAEC",
+                                  "border": "#CCD6DA",
+                                  "disabled": "rgba(0,0,0,0.55)",
+                                  "input": "#F2F4F5",
+                                  "text": "rgba(0,0,0,0.3)",
+                                },
+                                "icon": Object {
+                                  "focus": "#335B6D",
+                                },
+                                "name": "base",
+                                "shadows": Object {
+                                  "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                  "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                  "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                  "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                  "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                },
+                                "text": Object {
+                                  "color": "rgba(0,0,0,0.9)",
+                                  "placeholder": "rgba(0,0,0,0.3)",
+                                  "size": "14px",
+                                },
+                              },
+                            },
+                            "displayName": "styled.input",
+                            "foldedComponentIds": Array [],
+                            "propTypes": Object {
+                              "disabled": [Function],
+                            },
+                            "render": [Function],
+                            "styledComponentId": "sc-ifAKCX",
+                            "target": "input",
+                            "toString": [Function],
+                            "warnTooManyClasses": [Function],
+                            "withComponent": [Function],
+                          }
+                        }
+                        forwardedRef={
+                          Object {
+                            "current": <input
+                              autocomplete="off"
+                              class="c3"
+                              data-element="input"
+                              id="guid-12345"
+                              name="guid-12345"
+                              value=""
+                            />,
+                          }
+                        }
+                        id="guid-12345"
+                        info={Array []}
+                        name="guid-12345"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "border": "#668491",
+                              "brand": "#00DC00",
+                              "error": "#C7384F",
+                              "focus": "#FFDA7F",
+                              "focusedIcon": "#335B6D",
+                              "info": "#0073C2",
+                              "primary": "#26A826",
+                              "secondary": "#006300",
+                              "success": "#00B000",
+                              "tertiary": "#004400",
+                              "warning": "#E96400",
+                              "white": "#FFFFFF",
+                            },
+                            "disabled": Object {
+                              "background": "#E5EAEC",
+                              "border": "#CCD6DA",
+                              "disabled": "rgba(0,0,0,0.55)",
+                              "input": "#F2F4F5",
+                              "text": "rgba(0,0,0,0.3)",
+                            },
+                            "icon": Object {
+                              "focus": "#335B6D",
+                            },
+                            "name": "base",
+                            "shadows": Object {
+                              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                            },
+                            "text": Object {
+                              "color": "rgba(0,0,0,0.9)",
+                              "placeholder": "rgba(0,0,0,0.3)",
+                              "size": "14px",
+                            },
+                          }
+                        }
+                        validations={Array []}
+                        value=""
+                        warnings={Array []}
+                      >
+                        <input
+                          autoComplete="off"
+                          className="c3"
+                          data-element="input"
+                          id="guid-12345"
+                          name="guid-12345"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          value=""
+                        />
+                      </StyledComponent>
+                    </styled.input>
+                  </Input>
+                  <InputIconToggle
+                    autoComplete="off"
+                    data-element="input"
+                    info={Array []}
+                    inputRef={[Function]}
+                    name="guid-12345"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onClick={[Function]}
+                    onFocus={[Function]}
+                    onKeyDown={[Function]}
+                    type="dropdown"
+                    validations={Array []}
+                    warnings={Array []}
+                  >
+                    <styled.span
+                      autoComplete="off"
+                      data-element="input"
+                      info={Array []}
+                      inputRef={[Function]}
+                      key="label-icon"
+                      name="guid-12345"
+                      onBlur={[Function]}
+                      onChange={[Function]}
+                      onClick={[Function]}
+                      onFocus={[Function]}
+                      onKeyDown={[Function]}
+                      size="medium"
+                      theme={
+                        Object {
+                          "colors": Object {
+                            "border": "#668491",
+                            "brand": "#00DC00",
+                            "error": "#C7384F",
+                            "focus": "#FFDA7F",
+                            "focusedIcon": "#335B6D",
+                            "info": "#0073C2",
+                            "primary": "#26A826",
+                            "secondary": "#006300",
+                            "success": "#00B000",
+                            "tertiary": "#004400",
+                            "warning": "#E96400",
+                            "white": "#FFFFFF",
+                          },
+                          "disabled": Object {
+                            "background": "#E5EAEC",
+                            "border": "#CCD6DA",
+                            "disabled": "rgba(0,0,0,0.55)",
+                            "input": "#F2F4F5",
+                            "text": "rgba(0,0,0,0.3)",
+                          },
+                          "icon": Object {
+                            "focus": "#335B6D",
+                          },
+                          "name": "base",
+                          "shadows": Object {
+                            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                          },
+                          "text": Object {
+                            "color": "rgba(0,0,0,0.9)",
+                            "placeholder": "rgba(0,0,0,0.3)",
+                            "size": "14px",
+                          },
+                        }
+                      }
+                      type="dropdown"
+                      validations={Array []}
+                      warnings={Array []}
+                    >
+                      <StyledComponent
+                        autoComplete="off"
+                        data-element="input"
+                        forwardedComponent={
+                          Object {
+                            "$$typeof": Symbol(react.forward_ref),
+                            "attrs": Array [],
+                            "componentStyle": ComponentStyle {
+                              "componentId": "sc-htpNat",
+                              "isStatic": false,
+                              "lastClassName": "c4",
+                              "rules": Array [
+                                "
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  margin-right: ",
+                                [Function],
+                                "
+
+  ",
+                                [Function],
+                                "
+  ",
+                                [Function],
+                                "
+  ",
+                                [Function],
+                                "
+  ",
+                                [Function],
+                                "
+
+  ",
+                                [Function],
+                                "
+",
+                              ],
+                            },
+                            "defaultProps": Object {
+                              "size": "medium",
+                              "theme": Object {
+                                "colors": Object {
+                                  "border": "#668491",
+                                  "brand": "#00DC00",
+                                  "error": "#C7384F",
+                                  "focus": "#FFDA7F",
+                                  "focusedIcon": "#335B6D",
+                                  "info": "#0073C2",
+                                  "primary": "#26A826",
+                                  "secondary": "#006300",
+                                  "success": "#00B000",
+                                  "tertiary": "#004400",
+                                  "warning": "#E96400",
+                                  "white": "#FFFFFF",
+                                },
+                                "disabled": Object {
+                                  "background": "#E5EAEC",
+                                  "border": "#CCD6DA",
+                                  "disabled": "rgba(0,0,0,0.55)",
+                                  "input": "#F2F4F5",
+                                  "text": "rgba(0,0,0,0.3)",
+                                },
+                                "icon": Object {
+                                  "focus": "#335B6D",
+                                },
+                                "name": "base",
+                                "shadows": Object {
+                                  "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                                  "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                                  "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                                  "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                                  "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                                },
+                                "text": Object {
+                                  "color": "rgba(0,0,0,0.9)",
+                                  "placeholder": "rgba(0,0,0,0.3)",
+                                  "size": "14px",
+                                },
+                              },
+                            },
+                            "displayName": "styled.span",
+                            "foldedComponentIds": Array [],
+                            "propTypes": Object {
+                              "errorMessage": [Function],
+                              "infoMessage": [Function],
+                              "size": [Function],
+                              "warningMessage": [Function],
+                            },
+                            "render": [Function],
+                            "styledComponentId": "sc-htpNat",
+                            "target": "span",
+                            "toString": [Function],
+                            "warnTooManyClasses": [Function],
+                            "withComponent": [Function],
+                          }
+                        }
+                        forwardedRef={null}
+                        info={Array []}
+                        inputRef={[Function]}
+                        name="guid-12345"
+                        onBlur={[Function]}
+                        onChange={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        onKeyDown={[Function]}
+                        size="medium"
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "border": "#668491",
+                              "brand": "#00DC00",
+                              "error": "#C7384F",
+                              "focus": "#FFDA7F",
+                              "focusedIcon": "#335B6D",
+                              "info": "#0073C2",
+                              "primary": "#26A826",
+                              "secondary": "#006300",
+                              "success": "#00B000",
+                              "tertiary": "#004400",
+                              "warning": "#E96400",
+                              "white": "#FFFFFF",
+                            },
+                            "disabled": Object {
+                              "background": "#E5EAEC",
+                              "border": "#CCD6DA",
+                              "disabled": "rgba(0,0,0,0.55)",
+                              "input": "#F2F4F5",
+                              "text": "rgba(0,0,0,0.3)",
+                            },
+                            "icon": Object {
+                              "focus": "#335B6D",
+                            },
+                            "name": "base",
+                            "shadows": Object {
+                              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                            },
+                            "text": Object {
+                              "color": "rgba(0,0,0,0.9)",
+                              "placeholder": "rgba(0,0,0,0.3)",
+                              "size": "14px",
+                            },
+                          }
+                        }
+                        type="dropdown"
+                        validations={Array []}
+                        warnings={Array []}
+                      >
+                        <span
+                          autoComplete="off"
+                          className="c4"
+                          data-element="input"
+                          name="guid-12345"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onClick={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          size="medium"
+                          type="dropdown"
+                        >
+                          <Icon
+                            bgSize="small"
+                            type="dropdown"
+                          >
+                            <span
+                              className="carbon-icon icon-dropdown"
+                              data-component="icon"
+                              data-element="dropdown"
+                              key="icon"
+                            />
+                          </Icon>
+                        </span>
+                      </StyledComponent>
+                    </styled.span>
+                  </InputIconToggle>
+                </div>
+              </StyledComponent>
+            </styled.div>
+          </InputPresentation>
+        </div>
+      </StyledComponent>
+    </styled.div>
+  </FormField>
+</Textbox>
+`;
+
 exports[`Select does not apply any events if disabled or readonly 1`] = `
 <Fragment>
   <InputDecoratorBridge
     className="carbon-select"
+    data-component="carbon-select"
     formattedValue=""
     inputIcon="dropdown"
     inputRef={[Function]}
@@ -21,6 +1195,7 @@ exports[`Select does not apply any events if disabled or readonly 2`] = `
 <Fragment>
   <InputDecoratorBridge
     className="carbon-select"
+    data-component="carbon-select"
     formattedValue=""
     inputIcon="dropdown"
     inputRef={[Function]}
@@ -38,6 +1213,7 @@ exports[`Select renders only the InputDecoratorBridge when closed 1`] = `
 <Fragment>
   <InputDecoratorBridge
     className="carbon-select"
+    data-component="carbon-select"
     formattedValue=""
     inputIcon="dropdown"
     inputRef={[Function]}
@@ -72,9 +1248,94 @@ Object {
   "onMouseLeave": [Function],
   "onSelect": [Function],
   "open": true,
-  "target": <div
+  "target": .c2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -11px;
+  width: 40px;
+}
+
+.c0 {
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  background: transparent;
+  border: 1px solid #668491;
+  box-sizing: border-box;
+  cursor: text;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex: 0 0 100%;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  margin: 0;
+  min-height: 40px;
+  padding-left: 11px;
+  padding-right: 11px;
+}
+
+.c0.c0 {
+  outline: 3px solid #FFDA7F;
+  z-index: 2;
+}
+
+.c0 input::-ms-clear {
+  display: none;
+}
+
+.c0 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
+}
+
+.c1 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c1::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c1::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+<div
     autocomplete="off"
-    class="sc-bxivhb fVQitu"
+    class="c0"
     data-element="input"
     name="guid-12345"
     role="presentation"
@@ -82,7 +1343,7 @@ Object {
   >
     <input
       autocomplete="off"
-      class="sc-ifAKCX iHTfyA"
+      class="c1"
       data-element="input"
       id="guid-12345"
       name="guid-12345"
@@ -93,7 +1354,7 @@ Object {
     />
     <span
       autocomplete="off"
-      class="sc-htpNat hmqeKz"
+      class="c2"
       data-element="input"
       name="guid-12345"
       type="dropdown"
