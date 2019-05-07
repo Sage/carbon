@@ -6,6 +6,7 @@ import {
 import { Store, State } from '@sambego/storybook-state';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Switch from '.';
+import { info, notes } from './documentation';
 
 const formStore = new Store({
   checked: false
@@ -23,9 +24,11 @@ storiesOf('Experimental/Switch', module)
     );
   }, {
     info: {
+      text: info,
       propTablesExclude: [State],
       excludedPropTypes: ['children']
-    }
+    },
+    notes: { markdown: notes }
   });
 
 function handleChange(ev) {
