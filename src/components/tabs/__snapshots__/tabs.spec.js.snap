@@ -68,7 +68,7 @@ exports[`Tabs when rendered matches the snaphot 1`] = `
   >
     <li
       aria-selected={true}
-      className="c2"
+      className="  c2"
       data-component="tab-header"
       data-element="select-tab"
       data-tabid="uniqueid1"

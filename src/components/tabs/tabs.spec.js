@@ -1,32 +1,33 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
-import { Tabs, Tab } from './tabs.component';
-import Textbox from '../textbox/textbox';
 import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
+import { Tabs, Tab } from './tabs.component';
+import Textbox from '../textbox/textbox';
 import 'jest-styled-components';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import Browser from '../../utils/helpers/browser/browser';
 import { Test } from 'tslint';
+import TabHeader from './tab-header/tab-header.component';
 
 describe('Tabs', () => {
   let instance;
-  let instanceWithNull = TestUtils.renderIntoDocument(
+  const instanceWithNull = TestUtils.renderIntoDocument(
     <Tabs renderHiddenTabs={ false }>
-      { null }
+      {null}
       <Tab title='Tab Title 1' tabId='uniqueid1'>
-        <Textbox name='foo'/>
-        <Textbox name='bar'/>
+        <Textbox name='foo' />
+        <Textbox name='bar' />
       </Tab>
     </Tabs>
   );
 
-  let instanceOneChild = TestUtils.renderIntoDocument(
+  const instanceOneChild = TestUtils.renderIntoDocument(
     <Tabs renderHiddenTabs={ false }>
       <Tab title='Tab Title 1' tabId='uniqueid1'>
-        <Textbox name='foo'/>
-        <Textbox name='bar'/>
+        <Textbox name='foo' />
+        <Textbox name='bar' />
       </Tab>
     </Tabs>
   );
@@ -34,7 +35,9 @@ describe('Tabs', () => {
   function render(props, renderer = shallow) {
     return renderer(
       <Tabs { ...props }>
-        <Tab title='Tab Title 1' tabId='uniqueid1'>Tab Content</Tab>
+        <Tab title='Tab Title 1' tabId='uniqueid1'>
+          Tab Content
+        </Tab>
       </Tabs>
     );
   }
@@ -42,17 +45,28 @@ describe('Tabs', () => {
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <Tabs>
-        <Tab title='Tab Title 1' tabId='uniqueid1' className='class1' headerClassName='headerClass1'>
-          <Textbox name='foo'/>
-          <Textbox name='bar'/>
+        <Tab
+          title='Tab Title 1' tabId='uniqueid1'
+          className='class1' headerClassName='headerClass1'
+        >
+          <Textbox name='foo' />
+          <Textbox name='bar' />
         </Tab>
-        <Tab title='Tab Title 2' tabId='uniqueid2' className='class2' headerClassName='headerClass2'>
-          <Textbox name='baz'/>
-          <Textbox name='bax'/>
+        <Tab
+          title='Tab Title 2' tabId='uniqueid2'
+          className='class2' headerClassName='headerClass2'
+        >
+          <Textbox name='baz' />
+          <Textbox name='bax' />
         </Tab>
-        <Tab title='Tab Title 3' tabId='uniqueid3' className='class3 class4' headerClassName='headerClass3 headerClass4'>
-          <Textbox name='bar'/>
-          <Textbox name='bap'/>
+        <Tab
+          title='Tab Title 3'
+          tabId='uniqueid3'
+          className='class3 class4'
+          headerClassName='headerClass3 headerClass4'
+        >
+          <Textbox name='bar' />
+          <Textbox name='bap' />
         </Tab>
       </Tabs>
     );
@@ -60,7 +74,7 @@ describe('Tabs', () => {
       history: {
         replaceState: () => {}
       },
-      location: ""
+      location: ''
     };
   });
 
@@ -80,16 +94,16 @@ describe('Tabs', () => {
           instance = TestUtils.renderIntoDocument(
             <Tabs selectedTabId='uniqueid2'>
               <Tab title='Tab Title 1' tabId='uniqueid1'>
-                <Textbox name='foo'/>
-                <Textbox name='bar'/>
+                <Textbox name='foo' />
+                <Textbox name='bar' />
               </Tab>
               <Tab title='Tab Title 2' tabId='uniqueid2'>
-                <Textbox name='baz'/>
-                <Textbox name='bax'/>
+                <Textbox name='baz' />
+                <Textbox name='bax' />
               </Tab>
             </Tabs>
           );
-          instance._window = { location: "#uniqueid1" };
+          instance._window = { location: '#uniqueid1' };
 
           expect(instance.state.selectedTabId).toEqual('uniqueid2');
         });
@@ -100,25 +114,25 @@ describe('Tabs', () => {
           instance = TestUtils.renderIntoDocument(
             <Tabs>
               <Tab title='Tab Title 1' tabId='uniqueid1'>
-                <Textbox name='foo'/>
-                <Textbox name='bar'/>
+                <Textbox name='foo' />
+                <Textbox name='bar' />
               </Tab>
               <Tab title='Tab Title 2' tabId='uniqueid2'>
-                <Textbox name='baz'/>
-                <Textbox name='bax'/>
+                <Textbox name='baz' />
+                <Textbox name='bax' />
               </Tab>
             </Tabs>
           );
         });
 
         it('matches the hash so uses the tab', () => {
-          instance._window = { location: { hash: "#uniqueid2" }};
+          instance._window = { location: { hash: '#uniqueid2' } };
           instance.componentWillMount();
           expect(instance.state.selectedTabId).toEqual('uniqueid2');
         });
 
         it('does not match the hash so uses first tab', () => {
-          instance._window = { location: { hash: "#foo" }};
+          instance._window = { location: { hash: '#foo' } };
           instance.componentWillMount();
           expect(instance.state.selectedTabId).toEqual('uniqueid1');
         });
@@ -151,30 +165,31 @@ describe('Tabs', () => {
         history: {
           replaceState: () => {}
         },
-        location: ""
+        location: ''
       });
       class DummyComponent extends React.Component {
         state = {
-          selectedTabId: "uniqueid2", align: 'left'
-        }
+          selectedTabId: 'uniqueid2',
+          align: 'left'
+        };
 
         render() {
           return (
             <Tabs { ...this.state }>
               <Tab title='Tab Title 1' tabId='uniqueid1'>
-                <Textbox name='foo'/>
-                <Textbox name='bar'/>
+                <Textbox name='foo' />
+                <Textbox name='bar' />
               </Tab>
               <Tab title='Tab Title 2' tabId='uniqueid2'>
-                <Textbox name='baz'/>
-                <Textbox name='bax'/>
+                <Textbox name='baz' />
+                <Textbox name='bax' />
               </Tab>
             </Tabs>
           );
         }
-      };
+      }
 
-      let TestParent = React.createFactory(DummyComponent);
+      const TestParent = React.createFactory(DummyComponent);
       instance = TestUtils.renderIntoDocument(TestParent());
       tabs = TestUtils.scryRenderedComponentsWithType(instance, Tab);
       unique1Tab = tabs[0];
@@ -186,7 +201,7 @@ describe('Tabs', () => {
     describe('without noTabChange function', () => {
       it('changes tab to current prop', () => {
         instance.setState({
-          selectedTabId: "uniqueid1"
+          selectedTabId: 'uniqueid1'
         });
         expect(unique2Tab.props.isTabSelected).toEqual(false);
         expect(unique1Tab.props.isTabSelected).not.toEqual(false);
@@ -212,7 +227,7 @@ describe('Tabs', () => {
 
       it('calls onTabChange function', () => {
         instance.setState({
-          selectedTabId: "uniqueid1"
+          selectedTabId: 'uniqueid1'
         });
         expect(onClick).toHaveBeenCalledWith('uniqueid1');
       });
@@ -221,16 +236,16 @@ describe('Tabs', () => {
     // tu
     describe('when tab already clicked to new prop', () => {
       it('does not change tab', () => {
-        let tabs = TestUtils.findRenderedComponentWithType(instance, Tabs);
+        const tabs = TestUtils.findRenderedComponentWithType(instance, Tabs);
         spyOn(tabs, 'updateVisibleTab').and.callThrough();
-        let tabHeaders = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'ul');
+        const tabHeaders = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'ul');
         TestUtils.Simulate.click(tabHeaders[0], { target: { dataset: { tabid: 'uniqueid1' } } });
         expect(tabs.updateVisibleTab).toHaveBeenCalled();
 
         tabs.updateVisibleTab.calls.reset();
 
         instance.setState({
-          selectedTabId: "uniqueid1"
+          selectedTabId: 'uniqueid1'
         });
         expect(tabs.updateVisibleTab).not.toHaveBeenCalled();
       });
@@ -239,25 +254,25 @@ describe('Tabs', () => {
 
   describe('changeValidity', () => {
     beforeEach(() => {
-      instance.setState({ tabValidity: Immutable.fromJS({ 'foo': true })});
+      instance.setState({ tabValidity: Immutable.fromJS({ foo: true }) });
       spyOn(instance, 'setState').and.callThrough();
       instance.changeValidity('foo', false);
     });
 
     it('sets the validity state for the given tab', () => {
-      expect(instance.state.tabValidity.toJS()).toEqual({ 'foo': false });
+      expect(instance.state.tabValidity.toJS()).toEqual({ foo: false });
     });
   });
 
   describe('changeWarning', () => {
     beforeEach(() => {
-      instance.setState({ tabWarning: Immutable.fromJS({ 'foo': false })});
+      instance.setState({ tabWarning: Immutable.fromJS({ foo: false }) });
       spyOn(instance, 'setState').and.callThrough();
       instance.changeWarning('foo', true);
     });
 
     it('sets the warning state for the given tab', () => {
-      expect(instance.state.tabWarning.toJS()).toEqual({ 'foo': true });
+      expect(instance.state.tabWarning.toJS()).toEqual({ foo: true });
     });
   });
 
@@ -265,18 +280,17 @@ describe('Tabs', () => {
     // tylko ten jeden it
     it('sets the state to the currently selected tabId', () => {
       spyOn(instance, 'handleTabClick');
-      let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
+      const secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
 
       expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toBeFalsy();
 
       TestUtils.Simulate.click(secondTab, { target: { dataset: { tabid: 'uniqueid2' } } });
 
-
       expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toBeTruthy();
     });
 
     it('sets the location', () => {
-      let replaceSpy = jasmine.createSpy('replaceState');
+      const replaceSpy = jasmine.createSpy('replaceState');
       instance._window = {
         history: {
           replaceState: replaceSpy
@@ -286,19 +300,19 @@ describe('Tabs', () => {
           pathname: 'bar'
         }
       };
-      instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
+      instance.handleTabClick({ target: { dataset: { tabid: 'foo' } } });
       expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#foo');
     });
 
     describe('when a onTabChange prop is passed', () => {
       it('calls the prop', () => {
-        let clickSpy = jasmine.createSpy('tabClick');
+        const clickSpy = jasmine.createSpy('tabClick');
 
-        let instance = TestUtils.renderIntoDocument(
-          <Tabs onTabChange={ clickSpy } >
+        const instance = TestUtils.renderIntoDocument(
+          <Tabs onTabChange={ clickSpy }>
             <Tab title='Tab Title 1' tabId='uniqueid1'>
-              <Textbox name='foo'/>
-              <Textbox name='bar'/>
+              <Textbox name='foo' />
+              <Textbox name='bar' />
             </Tab>
           </Tabs>
         );
@@ -310,7 +324,7 @@ describe('Tabs', () => {
           location: ''
         };
 
-        instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
+        instance.handleTabClick({ target: { dataset: { tabid: 'foo' } } });
         expect(clickSpy).toHaveBeenCalledWith('foo');
       });
     });
@@ -336,18 +350,19 @@ describe('Tabs', () => {
       instance = TestUtils.renderIntoDocument(
         <Tabs renderHiddenTabs={ false }>
           <Tab title='Tab Title 1' tabId='uniqueid1'>
-            <Textbox name='foo'/>
-            <Textbox name='bar'/>
+            <Textbox name='foo' />
+            <Textbox name='bar' />
           </Tab>
           <Tab title='Tab Title 2' tabId='uniqueid2'>
-            <Textbox name='baz'/>
-            <Textbox name='bax'/>
+            <Textbox name='baz' />
+            <Textbox name='bax' />
           </Tab>
-        </Tabs>);
+        </Tabs>
+      );
     });
 
     it('returns the currently visible tab', () => {
-      let tab = instance.visibleTab;
+      const tab = instance.visibleTab;
       expect(tab.props.title).toEqual('Tab Title 1');
       expect(tab.props.tabId).toEqual('uniqueid1');
     });
@@ -373,7 +388,7 @@ describe('Tabs', () => {
 
       describe('when passed a null child', () => {
         it('ignores the null child', () => {
-          let tabs = TestUtils.scryRenderedDOMComponentsWithTag(instanceWithNull, 'carbon-tab');
+          const tabs = TestUtils.scryRenderedDOMComponentsWithTag(instanceWithNull, 'carbon-tab');
           expect(tabs.length).toEqual(1);
         });
       });
@@ -384,14 +399,15 @@ describe('Tabs', () => {
         instance = TestUtils.renderIntoDocument(
           <Tabs renderHiddenTabs={ false }>
             <Tab title='Tab Title 1' tabId='uniqueid1'>
-              <Textbox name='foo'/>
-              <Textbox name='bar'/>
+              <Textbox name='foo' />
+              <Textbox name='bar' />
             </Tab>
             <Tab title='Tab Title 2' tabId='uniqueid2'>
-              <Textbox name='baz'/>
-              <Textbox name='bax'/>
+              <Textbox name='baz' />
+              <Textbox name='bax' />
             </Tab>
-          </Tabs>);
+          </Tabs>
+        );
 
         expect(typeof instance.tabs).toEqual('object');
       });
@@ -399,7 +415,7 @@ describe('Tabs', () => {
 
     describe('when there is one child', () => {
       it('renders the only child', () => {
-        const wrapper = render({ renderHiddenTab: false }, shallow );
+        const wrapper = render({ renderHiddenTab: false }, shallow);
         expect(wrapper).toHaveLength(1);
       });
     });
@@ -407,13 +423,13 @@ describe('Tabs', () => {
 
   describe('render', () => {
     it('creates a parent div for the component', () => {
-      let div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+      const div = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(div.className).toEqual('carbon-tabs carbon-tabs__position-top');
     });
 
     it('renders the tab headers', () => {
-      let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
-      let items = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li');
+      const list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
+      const items = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li');
       expect(list.className).toEqual('carbon-tabs__headers carbon-tabs__headers--align-left carbon-tabs__headers');
       expect(items.length).toEqual(3);
     });
@@ -421,7 +437,7 @@ describe('Tabs', () => {
 
   describe("handleTabClick() tab trigger isn't going to happen on any keypress", () => {
     it("doesn't trigger", () => {
-      let ev = {
+      const ev = {
         which: 1,
         type: 'keydown',
         target: {
@@ -434,9 +450,13 @@ describe('Tabs', () => {
     });
   });
 
-  describe("tags", () => {
-    describe("on component", () => {
-      const wrapper = shallow(<Tabs data-element='bar' data-role='baz'><Tab tabId='1' title='Test' /></Tabs>);
+  describe('tags', () => {
+    describe('on component', () => {
+      const wrapper = shallow(
+        <Tabs data-element='bar' data-role='baz'>
+          <Tab tabId='1' title='Test' />
+        </Tabs>
+      );
 
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapper, 'tabs', 'bar', 'baz');
@@ -445,7 +465,7 @@ describe('Tabs', () => {
   });
 
   describe('Keyboard navigation', () => {
-    let wrapper, replaceSpy
+    let wrapper, replaceSpy;
 
     describe('when the orientation is horizontal', () => {
       beforeEach(() => {
@@ -471,21 +491,24 @@ describe('Tabs', () => {
       describe('when pressing the right arrow', () => {
         it('focuses on the next right tab and loops back round to the first tab', () => {
           wrapper.setState({ selectedTabId: 'tab1' });
-          wrapper.find({ isTabSelected: true }).instance().focus();
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .instance()
+            .focus();
           expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1');
-          wrapper.find({ isTabSelected: true }).simulate(
-            'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
-          );
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .simulate('keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {} });
           expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2');
           expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
-          wrapper.find({ isTabSelected: true }).simulate(
-            'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
-          );
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .simulate('keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {} });
           expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3');
           expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab3');
-          wrapper.find({ isTabSelected: true }).simulate(
-            'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
-          );
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .simulate('keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {} });
           expect(replaceSpy.mock.calls.length).toEqual(3);
           expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1');
         });
@@ -493,40 +516,43 @@ describe('Tabs', () => {
 
       describe('when pressing the left arrow', () => {
         it('focuses on the next left tab and loops back round to the last tab', () => {
-          wrapper.setState({ selectedTabId: "tab3" });
-          wrapper.find('.carbon-tabs__headers__header--selected').instance().focus();
-          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-            'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
-          );
+          wrapper.setState({ selectedTabId: 'tab3' });
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .instance()
+            .focus();
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3');
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .simulate('keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {} });
           expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
-          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-            'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
-          );
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2');
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .simulate('keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {} });
           expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab1');
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-            'keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {}}
-          );
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .simulate('keyDown', { key: 'ArrowLeft', which: 37, stopPropagation: () => {} });
           expect(replaceSpy.mock.calls.length).toEqual(3);
-          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3');
         });
       });
 
       describe('when pressing the up key', () => {
         it('doesnt do anything', () => {
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-            'keyDown', { key: 'UpArrow', which: 38, stopPropagation: () => {}}
-          );
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .simulate('keyDown', { key: 'UpArrow', which: 38, stopPropagation: () => {} });
           expect(replaceSpy).not.toHaveBeenCalled();
         });
       });
 
       describe('when pressing the down key', () => {
         it('doesnt do anything', () => {
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-            'keyDown', { key: 'DownArrow', which: 40, stopPropagation: () => {}}
-          );
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .simulate('keyDown', { key: 'DownArrow', which: 40, stopPropagation: () => {} });
           expect(replaceSpy).not.toHaveBeenCalled();
         });
       });
@@ -555,63 +581,69 @@ describe('Tabs', () => {
 
       describe('when pressing the down arrow', () => {
         it('focuses on the next below tab and loops back round to the top tab', () => {
-          wrapper.setState({ selectedTabId: "tab1" });
-          wrapper.find('.carbon-tabs__headers__header--selected').instance().focus();
-          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-            'keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {}}
-          );
-          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
+          wrapper.setState({ selectedTabId: 'tab1' });
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .instance()
+            .focus();
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1');
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .simulate('keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {} });
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2');
           expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-            'keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {}}
-          );
-          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .simulate('keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {} });
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3');
           expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab3');
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-            'keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {}}
-          );
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .simulate('keyDown', { key: 'ArrowDown', which: 40, stopPropagation: () => {} });
           expect(replaceSpy.mock.calls.length).toEqual(3);
-          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1');
         });
       });
 
       describe('when pressing the up arrow', () => {
         it('focuses on the next above tab and loops back round to the bottom tab', () => {
-          wrapper.setState({ selectedTabId: "tab3" });
-          wrapper.find('.carbon-tabs__headers__header--selected').instance().focus();
-          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-            'keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {}}
-          );
+          wrapper.setState({ selectedTabId: 'tab3' });
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .instance()
+            .focus();
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3');
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .simulate('keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {} });
           expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
-          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-            'keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {}}
-          );
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2');
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .simulate('keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {} });
           expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab1');
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-            'keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {}}
-          );
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .simulate('keyDown', { key: 'ArrowUp', which: 38, stopPropagation: () => {} });
           expect(replaceSpy.mock.calls.length).toEqual(3);
-          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3');
         });
       });
 
       describe('when pressing the left key', () => {
         it('doesnt do anything', () => {
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-            'keyDown', { key: 'LeftArrow', which: 37, stopPropagation: () => {}}
-          );
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .simulate('keyDown', { key: 'LeftArrow', which: 37, stopPropagation: () => {} });
           expect(replaceSpy).not.toHaveBeenCalled();
         });
       });
 
       describe('when pressing the right key', () => {
         it('doesnt do anything', () => {
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
-            'keyDown', { key: 'RightArrow', which: 39, stopPropagation: () => {}}
-          );
+          wrapper
+            .find('.carbon-tabs__headers__header--selected')
+            .simulate('keyDown', { key: 'RightArrow', which: 39, stopPropagation: () => {} });
           expect(replaceSpy).not.toHaveBeenCalled();
         });
       });

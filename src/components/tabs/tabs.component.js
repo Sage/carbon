@@ -144,7 +144,6 @@ class Tabs extends React.Component {
     } else if (index === this.tabIds.length) {
       newIndex = 0;
     }
-
     const nextTabId = this.tabIds[newIndex];
     const nextRef = this.tabRefs[newIndex];
     this.updateVisibleTab(nextTabId);
@@ -211,10 +210,11 @@ class Tabs extends React.Component {
     const tabTitles = this.children.map((child, index) => {
       const ref = `${child.props.tabId}-tab`;
       this.tabRefs.push(ref);
+      const tabClass = child.props.className ? child.props.className : '';
       return (
         <TabHeader
           position={ this.props.position }
-          className={ this.tabHeaderClasses(child) }
+          className={ `${this.tabHeaderClasses(child)} ${tabClass}` }
           dataTabId={ child.props.tabId }
           id={ ref }
           key={ child.props.tabId }
