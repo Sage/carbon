@@ -20,6 +20,7 @@ export default (palette) => {
       withOpacity: baseWithOpacity(0.55),
 
       // generic
+      slate: '#003349',
       white: '#FFFFFF',
 
       // element
@@ -43,10 +44,6 @@ export default (palette) => {
       color: blackWithOpacity(0.65)
     },
 
-    help: {
-      color: blackWithOpacity(0.65)
-    },
-
     text: {
       color: blackWithOpacity(0.9),
       placeholder: blackWithOpacity(0.3),
@@ -60,7 +57,8 @@ export default (palette) => {
       input: palette.slateTint(95),
       text: blackWithOpacity(0.3),
       buttonText: 'rgba(0,0,0,.2)',
-      background: palette.slateTint(90)
+      background: palette.slateTint(90),
+      switch: palette.slateTint(89.5)
     },
 
     icon: {
@@ -73,6 +71,10 @@ export default (palette) => {
       depth3: '0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)',
       depth4: '0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)',
       cards: '0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)'
+    },
+
+    switch: {
+      off: '#CCD6DB'
     }
   };
 };

@@ -1,21 +1,23 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import ClassicSwitchSliderPanelStyles from './switch-slider-panel-classic.style';
 
 const SwitchSliderPanel = styled.div`
-  border: 0;
-  color: #ffffff;
-  margin: auto;
+  ${({ theme }) => css`
+    border: 0;
+    color: ${theme.colors.white};
+    margin: auto;
 
-  &[type='on'] {
-    margin-left: 9px;
-  }
+    &[type='on'] {
+      margin-left: 9px;
+    }
 
-  &[type='off'] {
-    color: rgba(0, 0, 0, 0.9);
-    margin-right: 6px;
-  }
+    &[type='off'] {
+      color: ${theme.text.color};
+      margin-right: 6px;
+    }
 
-  ${ClassicSwitchSliderPanelStyles}
+    ${ClassicSwitchSliderPanelStyles}
+  `}
 `;
 
 export default SwitchSliderPanel;

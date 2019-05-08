@@ -3,7 +3,7 @@ import { THEMES } from '../../../style/themes';
 
 export default ({ loading, theme }) => theme.name === THEMES.classic && css`
   &[type='off'] {
-    color: #ffffff;
+    color: ${theme.colors.white};
 
     ${!loading && `
       margin-right: 9px;

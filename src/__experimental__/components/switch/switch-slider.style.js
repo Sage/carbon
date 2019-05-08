@@ -8,7 +8,7 @@ const StyledSwitchSlider = styled.span`
   ${({
     checked, disabled, size, theme
   }) => css`
-    background-color: #ccd6db;
+    background-color: ${theme.switch.off};
     bottom: 0;
     display: flex;
     font-size: 12px;
@@ -22,9 +22,9 @@ const StyledSwitchSlider = styled.span`
     width: 60px;
 
     &::before {
-      background-color: #ffffff;
+      background-color: ${theme.colors.white};
       bottom: 2px;
-      box-shadow: 0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15);
+      box-shadow: ${theme.shadows.cards};
       content: "";
       height: 20px;
       position: absolute;
@@ -46,25 +46,29 @@ const StyledSwitchSlider = styled.span`
     `}
 
     ${disabled && `
-      background-color: #e6ebed;
+      background-color: ${theme.disabled.background};
 
       &::before {
         opacity: 0.8;
       }
 
-      ${SwitchSliderPanel} { color: rgba(0, 0, 0, 0.55); }
+      ${SwitchSliderPanel} { color: ${theme.disabled.disabled}; }
     `}
 
     ${disabled && checked && `
       background-color: ${theme.colors.disabled};
 
-      ${SwitchSliderPanel} { color: #ffffff; }
+      ${SwitchSliderPanel} { color: ${theme.colors.white}; }
     `}
 
-    ${size === 'large' && `
+    ${size === 'large' && css`
       &::before {
         height: 36px;
         width: 36px;
+
+        ${checked && `
+          transform: translateX(38px);
+        `}
       }
     `}
 
@@ -72,7 +76,7 @@ const StyledSwitchSlider = styled.span`
   `}
 `;
 
-StyledSwitchSlider.PropTypes = {
+StyledSwitchSlider.propTypes = {
   checked: PropTypes.bool,
   disabled: PropTypes.bool,
   size: PropTypes.string,
