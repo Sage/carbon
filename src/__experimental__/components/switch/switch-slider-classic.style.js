@@ -19,7 +19,7 @@ export default ({
   }
 
   ${checked && `
-    background-color: #255bc7;
+    background-color: ${theme.colors.baseBlue};
 
     &::before {
         transform: translateX(28px);
