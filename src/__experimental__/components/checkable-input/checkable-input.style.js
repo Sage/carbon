@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import FormFieldStyle from '../form-field/form-field.style';
 
 const StyledCheckableInput = styled.div`
   display: inline-block;
@@ -6,4 +7,11 @@ const StyledCheckableInput = styled.div`
   position: relative;
 `;
 
-export default StyledCheckableInput;
+const StyledCheckableInputWrapper = styled.div`
+  ${FormFieldStyle} {
+    display: flex;
+    flex-wrap: wrap;
+  }
+`;
+
+export { StyledCheckableInput, StyledCheckableInputWrapper };

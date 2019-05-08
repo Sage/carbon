@@ -3,7 +3,7 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { css } from 'styled-components';
 import Checkbox from './checkbox.component';
-import StyledCheckableInput from '../checkable-input/checkable-input.style';
+import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { validProps } from '../../../utils/ether';
-import StyledCheckableInput from './checkable-input.style';
+import { StyledCheckableInput, StyledCheckableInputWrapper } from './checkable-input.style';
 import FormField from '../form-field';
 import HiddenCheckableInput from './hidden-checkable-input.component';
 import guid from '../../../utils/helpers/guid/guid';
@@ -24,12 +24,14 @@ const CheckableInput = (props) => {
   };
 
   return (
-    <FormField { ...formFieldProps }>
-      <StyledCheckableInput>
-        <HiddenCheckableInput { ...inputProps } />
-        {props.children}
-      </StyledCheckableInput>
-    </FormField>
+    <StyledCheckableInputWrapper>
+      <FormField { ...formFieldProps }>
+        <StyledCheckableInput>
+          <HiddenCheckableInput { ...inputProps } />
+          {props.children}
+        </StyledCheckableInput>
+      </FormField>
+    </StyledCheckableInputWrapper>
   );
 };
 

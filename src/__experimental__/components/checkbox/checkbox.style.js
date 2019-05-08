@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
-import StyledCheckableInput from '../checkable-input/checkable-input.style';
+import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';

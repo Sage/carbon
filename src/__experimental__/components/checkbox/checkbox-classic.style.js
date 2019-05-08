@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 import { THEMES } from '../../../style/themes';
-import StyledCheckableInput from '../checkable-input/checkable-input.style';
+import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
@@ -56,7 +56,7 @@ export default ({
     svg path { fill: rgba(0, 0, 0, 0.85); }
   `}
 
-  ${disabled && `
+  ${disabled && css`
     ${LabelStyle} {
       &, & ${StyledHelp} {
         color: ${theme.disabled.text};
@@ -71,7 +71,7 @@ export default ({
     svg path { fill: ${checked ? theme.disabled.border : theme.disabled.disabled}; }
   `}
 
-  ${fieldHelpInline && `
+  ${(fieldHelpInline || reverse) && `
     ${FieldHelpStyle} {
       margin-left: 0;
     }
