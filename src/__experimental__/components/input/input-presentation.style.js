@@ -7,7 +7,7 @@ import inputClassicStyling from './input-presentation-classic.style';
 
 const InputPresentationStyle = styled.div`
   align-items: stretch;
-  background: transparent;
+  background: #fff;
   border: 1px solid ${({ theme }) => theme.colors.border};
   box-sizing: border-box;
   cursor: text;
