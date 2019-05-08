@@ -44,5 +44,5 @@ describe('Create', () => {
 });
 
 describe('Create classic', () => {
-  expect(shallow(<CreateClassicStyle theme={ classicTheme } />)).toMatchSnapshot();
+  expect(TestRenderer.create(<CreateClassicStyle theme={ classicTheme } />)).toMatchSnapshot();
 });
