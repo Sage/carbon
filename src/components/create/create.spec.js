@@ -1,26 +1,48 @@
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
 import 'jest-styled-components';
-import Link from '../link';
+import { shallow } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
 import Create from './create.component';
+import classicTheme from '../../style/themes/classic';
+import CreateClassicStyle from './create-classic.style';
+import CreateStyle from './create.style';
+
+function render(props) {
+  return shallow(<Create { ...props }> Create component </Create>);
+}
 
 describe('Create', () => {
-  let instance, link;
+  let wrapper;
 
   beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(
-      <Create className="custom-class">Foobar</Create>
-    );
-    link = TestUtils.findRenderedComponentWithType(instance, Link);
+    wrapper = render({});
   });
 
-  it('renders with the correct classes', () => {
-    expect(link.props.className).toEqual('carbon-create custom-class');
+  it('should render correctly', () => {
+    expect(TestRenderer.create(<CreateStyle />)).toMatchSnapshot();
   });
 
-  it('renders with the props for the link', () => {
-    expect(link.props.icon).toEqual('add');
-    expect(link.props.iconAlign).toEqual('right');
-    expect(link.props.children).toEqual('Foobar');
+  it('should render correct', () => {
+    expect(wrapper).toMatchSnapshot();
   });
+
+  describe('when classic style has been provided', () => {
+    it('should apply custom styling ', () => {
+      wrapper.setProps({ theme: 'classic' });
+
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+
+  describe('when `custom class` is privded', () => {
+    it('component should contain correct className', () => {
+      wrapper.setProps({ className: 'custom-class' });
+
+      expect(wrapper.hasClass('custom-class')).toBeTruthy();
+    });
+  });
+});
+
+describe('Create classic', () => {
+  expect(shallow(<CreateClassicStyle theme={ classicTheme } />)).toMatchSnapshot();
 });

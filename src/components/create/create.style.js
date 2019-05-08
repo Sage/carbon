@@ -1,12 +1,13 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Link from '../link';
-import LinkStyle from '../link/link.style';
 import baseTheme from '../../style/themes/base';
 import createClassicStyle from './create-classic.style';
 
 const CreateStyle = styled(Link)`
-    background-color: ${({ theme }) => theme.disabled.input};
-    border: 1px dashed ${({ theme }) => theme.colors.border};
+    ${({ theme }) => css`
+        background-color: ${theme.disabled.input};
+        border: 1px dashed ${theme.colors.border};
+    `};
     display: block;
     padding: 12px 12px 10px;
     text-align: center;
