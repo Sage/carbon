@@ -1,6 +1,4 @@
-import {
-  flashPreview, getIconPreview, messageInput, messagePreview, timeoutInput,
-} from '../../locators/flash';
+import { flashPreview, getIconPreview, messagePreview } from '../../locators/flash';
 
 const FLASH_PREFIX = 'carbon-flash--';
 
@@ -9,16 +7,8 @@ Then('Flash as is set to {string} and icon is set to {string}', (as, icon) => {
   getIconPreview(icon).should('exist');
 });
 
-When('I set message property to {string}', (message) => {
-  messageInput().clear().type(message);
-});
-
 Then('Flash message is set to {string}', (message) => {
   messagePreview().should('have.text', message);
-});
-
-When('I set timeout property to {int}', (timeout) => {
-  timeoutInput().clear().type(timeout);
 });
 
 When('I wait {int}', (timeout) => {

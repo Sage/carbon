@@ -1,6 +1,6 @@
 import {
   buttonToggleLabelPreview, buttonIconSelect, buttonToggleIconNamePreview,
-  buttonIconSizeSelect, buttonToggleIconPreview, buttonTogglePreview, buttonToggleGroupedCheckbox,
+  buttonIconSizeSelect, buttonToggleIconPreview, buttonTogglePreview,
 } from '../../locators/button-toggle';
 
 const BUTTON_TOGGLE_ICON_CLASS = 'carbon-button-toggle__button-icon--';
@@ -15,9 +15,7 @@ When('I set button icon to {string}', (iconName) => {
 });
 
 Then('Button icon on preview is {string}', (iconName) => {
-  buttonToggleIconNamePreview()
-    // .should('have.class', "icon-" + iconName) //probably old solutuon?
-    .should('have.attr', 'data-element', iconName);
+  buttonToggleIconNamePreview().should('have.attr', 'data-element', iconName);
 });
 
 When('I set button icon size to {string}', (size) => {
@@ -49,14 +47,6 @@ Then('Button Toggle is disabled', () => {
 Then('Button Toggle is enabled', () => {
   buttonTogglePreview().should('not.have.class', 'common-input--disabled');
   buttonToggleLabelPreview().should('not.have.class', 'carbon-button-toggle__label--disabled');
-});
-
-When('I check grouped', () => {
-  buttonToggleGroupedCheckbox().check();
-});
-
-When('I uncheck grouped', () => {
-  buttonToggleGroupedCheckbox().uncheck();
 });
 
 Then('Button Toggle is grouped', () => {
