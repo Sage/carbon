@@ -4,7 +4,7 @@ import baseTheme from '../../../style/themes/base';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
-import StyledCheckableInput from '../checkable-input/checkable-input.style';
+import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledSwitchSlider from './switch-slider.style';
 import StyledHelp from '../help/help.style';
 
