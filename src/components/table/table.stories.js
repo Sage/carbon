@@ -40,7 +40,10 @@ const buildRows = (pageSizeFromKnobs) => {
 
   return (
     <>
-      <TableRow key='header' as='header'>
+      <TableRow
+        key='header'
+        as='header'
+      >
         <TableHeader
           sortable name='name'
           scope='col'
@@ -50,7 +53,10 @@ const buildRows = (pageSizeFromKnobs) => {
         <TableHeader scope='col'>Code</TableHeader>
       </TableRow>
       {rowsCountries.map(row => (
-        <TableRow key={ row.id } uniqueID={ row.id }>
+        <TableRow
+          key={ row.id }
+          uniqueID={ row.id }
+        >
           <TableCell>{row.name}</TableCell>
           <TableCell>{row.value}</TableCell>
         </TableRow>
@@ -76,10 +82,12 @@ storiesOf('Table', module)
       const totalRecords = text('totalRecords', '50');
       const paginate = boolean('paginate', false);
       const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
-      const theme = select('theme', OptionsHelper.themesBinary, Table.defaultProps.theme);
+      const theme = select('theme', OptionsHelper.tableThemes, Table.defaultProps.theme);
+      const size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
+      const isZebra = boolean('zebra striping', false);
 
       return (
-        <State store={ store } parseState={ state => ({ ...state, children: buildRows(pageSize) }) }>
+        <State store={ store } parseState={ state => ({ ...state, children: buildRows(pageSize, size) }) }>
 
           <Table
             actionToolbarChildren={ (context) => {
@@ -109,6 +117,8 @@ storiesOf('Table', module)
             showPageSizeSelection={ showPageSizeSelection }
             onChange={ handleChange }
             theme={ theme }
+            size={ size }
+            isZebra={ isZebra }
           />
 
         </State>

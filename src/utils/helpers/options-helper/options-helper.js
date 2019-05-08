@@ -233,6 +233,19 @@ const OptionsHelper = {
     'tertiary',
     'tile',
     'transparent'
+  ],
+
+  tableThemes: [
+    'primary',
+    'secondary',
+    'tertiary'
+  ],
+
+  tableSizes: [
+    'compact',
+    'small',
+    'medium',
+    'large'
   ]
 };
 

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import StyledTableHeader from './table-header.style';
 import Icon from '../../icon/icon';
 import { validProps } from '../../../utils/ether/ether';
@@ -65,22 +64,6 @@ class TableHeader extends React.Component {
   }
 
   /**
-   * Returns classes to apply to the sort icon
-   *
-   * @method sortIconClasses
-   * @return {JSX} Icon JSX
-   */
-  get sortIconClasses() {
-    return classNames(
-      'carbon-table-header__icon',
-      {
-        [`carbon-table-header__icon--align-${this.props.align}`]: this.props.align
-      }
-    );
-  }
-
-
-  /**
    * Returns sort icon HTML if column is sortable and has been sorted.
    *
    * @method sortIconHTML
@@ -89,7 +72,7 @@ class TableHeader extends React.Component {
   get sortIconHTML() {
     if (this.sorted) {
       const type = this.context.sortOrder === 'desc' ? 'sort-down' : 'sort-up';
-      return <Icon type={ type } className={ this.sortIconClasses } />;
+      return <Icon type={ type } />;
     }
     return null;
   }
@@ -134,23 +117,6 @@ class TableHeader extends React.Component {
 
     return `Sortable column, ${currentSortDescription}activate to sort column ${nextSortOrder}`;
   }
-
-  /**
-   * Returns classes to be used on the TH element.
-   *
-   * @method tableHeaderClasses
-   * @return {String}
-   */
-  // tableHeaderClasses() {
-  //   return classNames(
-  //     'carbon-table-header',
-  //     this.props.className,
-  //     {
-  //       [`carbon-table-header--align-${this.props.align}`]: this.props.align,
-  //       'carbon-table-header--sortable': this.props.sortable
-  //     }
-  //   );
-  // }
 
   ariaAttributes() {
     const aria = {};
@@ -234,11 +200,6 @@ TableHeader.propTypes = {
   children: PropTypes.node,
 
   /**
-   * Custom className
-   */
-  className: PropTypes.string,
-
-  /**
    * Name of the column to sort. Should correspond to name in database.
    */
   name(props, propName) {
@@ -261,7 +222,6 @@ TableHeader.propTypes = {
 TableHeader.defaultProps = {
   align: '',
   children: null,
-  className: '',
   name: '',
   sortable: false
 };

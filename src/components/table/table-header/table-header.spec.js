@@ -1,16 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import 'jest-styled-components';
 import TestUtils from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-import { Table, TableRow } from '../table';
-import TableHeader from './table-header';
+import TestRenderer from 'react-test-renderer';
+import { Table, TableRow } from '../table.component';
+import TableHeader from './table-header.component';
 import Icon from '../../icon';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
+import BaseTheme from '../../../style/themes/base';
+import ClassicTheme from '../../../style/themes/classic';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 
 describe('TableHeader', () => {
   let instance, instanceSortable, instanceCustomSort,
-      sortableColumn, sortableHeader, changeSpy, sortableCustomHeader,
-      sortableCustomColumn;
+      sortableColumn, sortableHeader, changeSpy, sortableCustomHeader;
+      // , sortableCustomColumn;
 
   beforeEach(() => {
     changeSpy = jasmine.createSpy('changeSpy');
@@ -19,7 +23,7 @@ describe('TableHeader', () => {
       <Table>
         <TableRow>
           <TableHeader
-            className='foo' align='right'
+            align='right'
             style={ { width: '50px' } }
           />
         </TableRow>
@@ -47,7 +51,7 @@ describe('TableHeader', () => {
 
     sortableColumn = TestUtils.findRenderedDOMComponentWithTag(instanceSortable, 'th');
     sortableHeader = TestUtils.scryRenderedComponentsWithType(instanceSortable, TableHeader)[0];
-    sortableCustomColumn = TestUtils.findRenderedDOMComponentWithTag(instanceCustomSort, 'th');
+    // sortableCustomColumn = TestUtils.findRenderedDOMComponentWithTag(instanceCustomSort, 'th');
     sortableCustomHeader = TestUtils.scryRenderedComponentsWithType(instanceCustomSort, TableHeader)[0];
   });
 
@@ -64,7 +68,9 @@ describe('TableHeader', () => {
           </TableRow>
         </Table>
       );
-      expect(console.error.calls.argsFor(0)[0]).toMatch('Failed prop type: Sortable columns require a prop of name of type String');
+      expect(
+        console.error.calls.argsFor(0)[0]
+      ).toMatch('Failed prop type: Sortable columns require a prop of name of type String');
     });
 
     it('throws an error if the name is not a string', () => {
@@ -151,13 +157,14 @@ describe('TableHeader', () => {
         });
 
         it('states the column is sortable, and activating will sort descending', () => {
-          const ariaLink = wrapper.find('a[aria-label="Sortable column, activate to sort column descending"]');
+          ariaLink = wrapper.find('a[aria-label="Sortable column, activate to sort column descending"]');
           expect(ariaLink.exists()).toBe(true);
         });
 
         it('includes the current sort order after sorting', () => {
           wrapper.setProps({ sortOrder: 'desc' });
-          const ariaLink = wrapper.find('a[aria-label="Sortable column, sorted descending, activate to sort column ascending"]');
+          ariaLink = wrapper
+            .find('a[aria-label="Sortable column, sorted descending, activate to sort column ascending"]');
           expect(ariaLink.exists()).toBe(true);
         });
       });
@@ -275,12 +282,16 @@ describe('TableHeader', () => {
 
         it('includes "sorted descending"  when the current sort order is "desc"', () => {
           wrapper.setContext({ sortOrder: 'desc' });
-          expect(wrapper.instance().sortDescription).toEqual('Sortable column, sorted descending, activate to sort column ascending');
+          expect(
+            wrapper.instance().sortDescription
+          ).toEqual('Sortable column, sorted descending, activate to sort column ascending');
         });
 
         it('includes "sorted ascending"  when the current sort order is "asc"', () => {
           wrapper.setContext({ sortOrder: 'asc' });
-          expect(wrapper.instance().sortDescription).toEqual('Sortable column, sorted ascending, activate to sort column descending');
+          expect(
+            wrapper.instance().sortDescription
+          ).toEqual('Sortable column, sorted ascending, activate to sort column descending');
         });
       });
 
@@ -313,30 +324,71 @@ describe('TableHeader', () => {
 
 
   describe('render', () => {
+    let wrapper, th;
+    beforeEach(() => {
+      wrapper = mount(
+        <Table>
+          <TableRow>
+            <TableHeader
+              align='right'
+              style={ { width: '50px' } }
+            />
+          </TableRow>
+        </Table>
+      );
+      th = wrapper.find('th').hostNodes();
+    });
+
     it('renders additional props to the th element', () => {
-      const th = TestUtils.findRenderedDOMComponentWithTag(instance, 'th');
-      expect(th.style.width).toEqual('50px');
+      expect(th.exists()).toBeTruthy();
+      expect(th.prop('style').width).toEqual('50px');
     });
 
-    it('renders a th with correct classes', () => {
-      const th = TestUtils.findRenderedDOMComponentWithTag(instance, 'th');
-      expect(th).toBeDefined();
-      expect(th.className).toEqual('carbon-table-header foo carbon-table-header--align-right');
+    it('renders a th to match the expected style', () => {
+      assertStyleMatch({
+        backgroundColor: BaseTheme.table.header,
+        borderBottom: `1px solid ${BaseTheme.table.secondary}`,
+        borderLeft: `1px solid ${BaseTheme.colors.border}`,
+        color: BaseTheme.colors.white,
+        textAlign: 'right'
+      }, th);
     });
 
-    it('renders the sort icon with correct classes', () => {
-      sortableHeader.context.sortedColumn = 'name';
-      sortableHeader.forceUpdate();
-      const icon = TestUtils.findRenderedComponentWithType(instanceSortable, Icon);
-      expect(icon.props.className).toEqual('carbon-table-header__icon');
+    it('renders the sort icon to match the snapshot', () => {
+      wrapper = mount(
+        <Table>
+          <TableRow>
+            <TableHeader
+              align='right'
+              sortable
+            />
+          </TableRow>
+        </Table>
+      );
+      th = wrapper.find('th').hostNodes();
+      expect(th).toMatchSnapshot();
     });
 
     describe('when aligned to the right', () => {
       it('renders the sort icon with correct classes', () => {
-        sortableCustomHeader.context.sortedColumn = 'name';
-        sortableCustomHeader.forceUpdate();
-        const icon = TestUtils.findRenderedComponentWithType(instanceCustomSort, Icon);
-        expect(icon.props.className).toEqual('carbon-table-header__icon carbon-table-header__icon--align-right');
+        wrapper = mount(
+          <Table>
+            <TableRow>
+              <TableHeader
+                align='right'
+                sortable
+              />
+            </TableRow>
+          </Table>
+        );
+        th = wrapper.find('a').hostNodes();
+        assertStyleMatch({
+          backgroundColor: BaseTheme.table.header,
+          borderBottom: `1px solid ${BaseTheme.table.secondary}`,
+          borderLeft: `1px solid ${BaseTheme.colors.border}`,
+          color: BaseTheme.colors.white,
+          textAlign: 'left'
+        }, th);
       });
     });
   });

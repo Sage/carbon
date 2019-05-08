@@ -154,25 +154,6 @@ class TableRow extends React.Component {
     }
   }
 
-  /**
-   * Classes to be applied to the table row component
-   *
-   * @method mainClasses Main Class getter
-   */
-  // get mainClasses() {
-  //   const isDragIndexMatch = this.context.dragAndDropActiveIndex === this.props.index;
-  //   return classNames(
-  //     'carbon-table-row',
-  //     this.props.className, {
-  //       'carbon-table-row--clickable': this.props.onClick || this.props.highlightable || this.context.highlightable,
-  //       'carbon-table-row--selected': this.state.selected,
-  //       'carbon-table-row--highlighted': (this.state.highlighted && !this.state.selected),
-  //       'carbon-table-row--dragged': (this.draggingIsOccurring() && isDragIndexMatch), // pass this as prop to styled comp
-  //       'carbon-table-row--dragging': (this.draggingIsOccurring())
-  //     }
-  //   );
-  // }
-
   get isDraggged() {
     return this.draggingIsOccurring() && this.context.dragAndDropActiveIndex === this.props.index;
   }
@@ -361,11 +342,6 @@ TableRow.propTypes = {
    * Children elements
    */
   children: PropTypes.node,
-
-  /**
-   * A custom class name for the component.
-   */
-  className: PropTypes.string,
 
   /**
    * Allows developers to specify a callback after the row is clicked.

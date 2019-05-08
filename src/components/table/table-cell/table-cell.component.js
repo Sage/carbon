@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import StyledTableCell from './table-cell.style';
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
-import './table-cell.scss';
 
 /**
  * A TableCell widget.
@@ -24,21 +22,6 @@ import './table-cell.scss';
  */
 class TableCell extends React.Component {
   /**
-   * Returns classes to be used on the TD element.
-   *
-   * @method tableCellClasses
-   * @return {String}
-   */
-  get tableCellClasses() {
-    return classNames(
-      'carbon-table-cell',
-      this.props.className,
-      // { [`carbon-table-cell--align-${this.props.align}`]: this.props.align },
-      { 'carbon-table-cell--action': this.props.action }
-    );
-  }
-
-  /**
    * Returns props to be used on the TD element.
    *
    * @method tableCellProps
@@ -49,7 +32,6 @@ class TableCell extends React.Component {
 
     delete props.children;
     props.align = this.props.align;
-    props.isSelectable = this.props.isSelectable;
     return props;
   }
 
@@ -81,19 +63,11 @@ TableCell.propTypes = {
   /**
    * Children elements
    */
-  children: PropTypes.node,
-
-  /**
-   * Custom className
-   */
-  className: PropTypes.string,
-
-  isSelectable: PropTypes.bool
+  children: PropTypes.node
 };
 
 TableCell.defaultProps = {
-  align: '',
-  isSelectable: false
+  align: ''
 };
 
 export default TableCell;

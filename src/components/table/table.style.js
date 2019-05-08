@@ -1,23 +1,59 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import {
   applyClassicInternalStyling,
   applyClassicTableStyling
 } from './table-classic.style.js';
 import {
-  applyModernInternalStyling,
-  applyModernTableStyling
+  applyModernTableStyling,
+  applyModernInternalStyling
 } from './table-modern.style.js';
 import StyledLink from '../link/link-classic.style';
+import baseTheme from '../../style/themes/base';
 import { THEMES } from '../../style/themes';
 
 const StyledTable = styled.table`
+  border-collapse: separate;
+  border-radius: 0px;
+  border-spacing: 0;
+  min-width: 100%;
+  table-layout: fixed;
+  width: auto;
+  word-break: break-all;
+  
   ${(props) => {
-    return props.theme.name === THEMES.classic ? applyClassicTableStyling(props) : applyModernTableStyling();
+    return isClassic(props.theme) ? applyClassicTableStyling(props) : applyModernTableStyling(props);
   }}
+
+  & caption {
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    width: 1px;
+    position: absolute;
+    top: -99999px;
+  }
+
+  ${({ paginate }) => {
+    if (paginate) {
+      return css`
+        border-bottom-left-radius: 0;
+        border-bottom-right-radius: 0;
+      `;
+    }
+    return css``;
+  }
+}
 `;
+
+function isClassic({ name }) {
+  return name === THEMES.classic || !name;
+}
 
 export const StyledInternalTableWrapper = styled.div`
   ${styleInternalWrapper}
+  border-radius: 0px;
+  overflow: visible;
+  position: relative;
 
   ${({ onConfigure }) => onConfigure && `
     ${StyledTable} {
@@ -58,7 +94,15 @@ export const StyledInternalTableWrapper = styled.div`
 `;
 
 function styleInternalWrapper(props) {
-  return props.theme.name === THEMES.classic ? applyClassicInternalStyling(props) : applyModernInternalStyling();
+  return isClassic(props.theme) ? applyClassicInternalStyling(props) : applyModernInternalStyling(props);
 }
+
+StyledTable.propTyopes = {
+
+};
+
+StyledTable.defaultProps = {
+  theme: baseTheme
+};
 
 export default StyledTable;

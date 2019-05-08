@@ -1,14 +1,15 @@
 import styled, { css } from 'styled-components';
 import StyledTableCell from '../table-cell/table-cell.style';
-import { THEMES } from '../../../style/themes';
+import baseTheme from '../../../style/themes/base';
+// import { THEMES } from '../../../style/themes';
 
 const StyledTableSubheader = styled(StyledTableCell)`
-  ${styleTableSubheader}
+  ${applyClassicSubheaderStyling}
 `;
 
-function styleTableSubheader(props) {
-  return props.theme.name === THEMES.classic ? applyClassicSubheaderStyling() : applyModernSubheaderStyling();
-}
+// function styleTableSubheader(props) {
+//   return props.theme.name === THEMES.classic ? applyClassicSubheaderStyling() : applyModernSubheaderStyling();
+// }
 
 function applyClassicSubheaderStyling() {
   return css`
@@ -18,8 +19,8 @@ function applyClassicSubheaderStyling() {
   `;
 }
 
-function applyModernSubheaderStyling() {
-
-}
+StyledTableSubheader.defaultProps = {
+  theme: baseTheme
+};
 
 export default StyledTableSubheader;

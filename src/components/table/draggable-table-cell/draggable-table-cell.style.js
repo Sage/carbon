@@ -1,14 +1,10 @@
 import styled, { css } from 'styled-components';
 import StyledTableCell from '../table-cell/table-cell.style';
-import { THEMES } from '../../../style/themes';
+import baseTheme from '../../../style/themes/base';
 
 const StyledDraggableTableCell = styled(StyledTableCell)`
-  ${styleDraggableTableCell}
+  ${applyClassicDraggableStyling}
 `;
-
-function styleDraggableTableCell(props) {
-  return props.theme.name === THEMES.classic ? applyClassicDraggableStyling() : applyModernDraggableStyling();
-}
 
 function applyClassicDraggableStyling() {
   return css`
@@ -22,16 +18,10 @@ function applyClassicDraggableStyling() {
   `;
 }
 
-function applyModernDraggableStyling() {
-  return css`
-    padding: 0;
-    width: 21px;  
-    user-select: none;
+StyledDraggableTableCell.propTypes = {};
 
-    &${StyledTableCell}:first-child {
-      padding-left: 0;
-    }
-  `;
-}
+StyledDraggableTableCell.defaultProps = {
+  theme: baseTheme
+};
 
 export default StyledDraggableTableCell;

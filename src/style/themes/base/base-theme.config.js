@@ -43,6 +43,21 @@ export default (palette) => {
       background: palette.slateTint(90)
     },
 
+    table: {
+      primary: palette.slateTint(95),
+      secondary: palette.slateTint(80),
+      tertiary: palette.slateTint(10),
+      header: palette.slateTint(20),
+      selected: palette.slateTint(85),
+      zebra: palette.slateTint(98),
+      sizes: {
+        compact: '24px',
+        small: '32px',
+        medium: '40px',
+        large: '48px'
+      }
+    },
+
     icon: {
       focus: palette.slateTint(20)
     },

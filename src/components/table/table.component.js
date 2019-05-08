@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import classNames from 'classnames';
 import Immutable from 'immutable';
 import I18n from 'i18n-js';
 import ActionToolbar from '../action-toolbar/action-toolbar';
@@ -15,6 +14,7 @@ import TableSubheader from './table-subheader';
 import DraggableTableCell from './draggable-table-cell';
 import Pager from '../pager/pager';
 import Spinner from '../spinner/spinner';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 class Table extends React.Component {
   state = {
@@ -770,7 +770,9 @@ class Table extends React.Component {
    */
   render() {
     const tableProps = {
-      tableType: this.props.theme
+      tableType: this.props.theme,
+      size: this.props.size,
+      isZebra: this.props.isZebra
     };
 
     if (this.props['aria-describedby']) {
@@ -936,10 +938,18 @@ Table.propTypes = {
   'aria-describedby': PropTypes.string,
 
   /**
-   * Renders as light or dark
-   * Uses common theme definition of 'primary' (dark, default) and 'secondary' (light)
+   * Renders as light or dark or transparent
+   * Uses common theme definition of 'primary' / 'dark', 'secondary' / 'light', 'tertiary' / 'transparent'
    */
-  theme: PropTypes.string
+  theme: PropTypes.oneOf(OptionsHelper.tableThemes),
+
+  /**
+   * Used to define the tables size
+   * Renders as:  'compact', 'small', 'medium' and 'large'
+   */
+  size: PropTypes.oneOf(OptionsHelper.tableSizes.concat(['dark', 'light', 'transparent'])),
+
+  isZebra: PropTypes.bool
 };
 
 Table.childContextTypes = {
@@ -966,7 +976,8 @@ Table.childContextTypes = {
 };
 
 Table.defaultProps = {
-  theme: 'primary'
+  theme: OptionsHelper.tableThemes[0],
+  size: OptionsHelper.tableSizes[2]
 };
 
 export {
