@@ -40,7 +40,7 @@ Feature: Date Input component
       | <>                       |
 
   @positive
-  Scenario Outline: Change DateInput label label
+  Scenario Outline: Change DateInput label
     When I set label to "<label>"
     Then label on preview is "<label>"
     Examples:
@@ -107,16 +107,16 @@ Feature: Date Input component
 
   @positive 
   Scenario Outline: Change Date Input component label width with slider
-    When I set label to "<label>"
+    When I set label to "Sample text"
       And I check labelInline checkbox
       And I set label width slider to <width>
     Then label width on preview is <width>
     Examples:
-      | label       | width |
-      | Sample text |  0    |
-      | Sample text |  10   |
-      | Sample text |  50   |
-      | Sample text |  100  |      
+      | width |
+      |  0    |
+      |  10   |
+      |  50   |
+      |  100  |      
 
   @positive 
   Scenario: Check Date Input today date

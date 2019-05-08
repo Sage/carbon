@@ -5,7 +5,7 @@ import { labelPreview } from '../../locators';
 
 const TEXT_ALIGN = 'text-align';
 const DAY = 'DayPicker-Day--';
-const TODAY_DAY = Cypress.moment().format('llll').substring(16, 'days').replace(',', '');
+const TODAY_DAY = Cypress.moment().format('ddd MMM D, YYYY');
 
 Then('Date input is disabled', () => {
   dateInput().should('have.attr', 'disabled');

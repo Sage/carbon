@@ -7,7 +7,7 @@ Feature: Date Range component
   @positive
   Scenario Outline: Change Date Range start label
     When I set startLabel to "<label>"
-    Then start label on preview is "<label>"
+    Then startLabel on preview is "<label>"
     Examples:
       | label                    |
       | Sample text              |
@@ -20,7 +20,7 @@ Feature: Date Range component
   @positive
   Scenario Outline: Change Date Range end label
     When I set endLabel to "<label>"
-    Then end label on preview is "<label>"
+    Then endLabel on preview is "<label>"
     Examples:
       | label                    |
       | Sample text              |
@@ -58,10 +58,10 @@ Feature: Date Range component
       And I click into startDateInput
       And I choose date "<dayStart>" via DayPicker
       And I hover mouse onto error icon
-    Then start message error on preview is "<startMessage>"
+    Then startMessage error on preview is "<startMessage>"
     Examples:
-      | startMessage             | dayStart        |
-      | Sample text              | Tue Nov 1, 2016 |
+      | startMessage | dayStart        |
+      | Sample text  | Tue Nov 1, 2016 |
 
   @ignore
   # @positive  Ignored untill validation-branch will be merged with master
@@ -70,7 +70,7 @@ Feature: Date Range component
       And I click into endDateInput
       And I choose date "<dayEnd>" via DayPicker
       And I hover mouse onto error icon
-    Then end message error on preview is "<endMessage>"
+    Then endMessage error on preview is "<endMessage>"
     Examples:
-      | endMessage               | dayEnd           |
-      | Sample text              | Fri Sep 30, 2016 |
+      | endMessage  | dayEnd           |
+      | Sample text | Fri Sep 30, 2016 |

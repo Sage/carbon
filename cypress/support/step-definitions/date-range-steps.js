@@ -5,30 +5,32 @@ import {
 const TEXT_ALIGN = 'text-align';
 const START_LABEL = 'start';
 const END_LABEL = 'end';
+const START_LABEL_INDEX = 1;
+const END_LABEL_INDEX = 2;
 
-Then('start label on preview is {string}', (label) => {
-  labelPreview(1).should('have.text', label);
+Then('startLabel on preview is {string}', (label) => {
+  labelPreview(START_LABEL_INDEX).should('have.text', label);
 });
 
-Then('end label on preview is {string}', (label) => {
-  labelPreview(2).should('have.text', label);
+Then('endLabel on preview is {string}', (label) => {
+  labelPreview(END_LABEL_INDEX).should('have.text', label);
 });
 
 Then('labels are set to inline', () => {
-  labelPreview(1).should('have.css', TEXT_ALIGN, 'left');
-  labelPreview(2).should('have.css', TEXT_ALIGN, 'left');
+  labelPreview(START_LABEL_INDEX).should('have.css', TEXT_ALIGN, 'left');
+  labelPreview(END_LABEL_INDEX).should('have.css', TEXT_ALIGN, 'left');
 });
 
 Then('labels are not set to inline', () => {
-  labelPreview(1).should('not.have.css', TEXT_ALIGN, 'left');
-  labelPreview(2).should('not.have.css', TEXT_ALIGN, 'left');
+  labelPreview(START_LABEL_INDEX).should('not.have.css', TEXT_ALIGN, 'left');
+  labelPreview(END_LABEL_INDEX).should('not.have.css', TEXT_ALIGN, 'left');
 });
 
-Then('start message error on preview is {string}', (errorMessage) => {
+Then('startMessage error on preview is {string}', (errorMessage) => {
   errorMessage().should('have.text', errorMessage);
 });
 
-Then('end message error on preview is {string}', (errorMessage) => {
+Then('endMessage error on preview is {string}', (errorMessage) => {
   errorMessage().should('have.text', errorMessage);
 });
 
@@ -37,9 +39,9 @@ When('I hover mouse onto error icon', () => {
 });
 
 When('I click into startDateInput', () => {
-  dateInput(1, START_LABEL).click();
+  dateInput(START_LABEL_INDEX, START_LABEL).click();
 });
 
 When('I click into endDateInput', () => {
-  dateInput(2, END_LABEL).click();
+  dateInput(END_LABEL_INDEX, END_LABEL).click();
 });
