@@ -62,7 +62,7 @@ Feature: Confirm component
 
   @positive
   Scenario Outline: Change the height of Confirm dialog
-    When I set input height to "<height>"
+    When I set height to "<height>"
       And I click on a openButton
     Then Confirm dialog input height is "<height>"
     Examples:
