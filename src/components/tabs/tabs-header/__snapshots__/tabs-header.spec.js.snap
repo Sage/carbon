@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabsHeader renders as expected 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  box-shadow: inset 0px -2px 0px 0px #E5EAEC;
+  cursor: pointer;
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+<ul
+  className="c0"
+/>
+`;
+
+exports[`TabsHeader when in classic style renders as expected 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  box-shadow: inset 0px -2px 0px 0px #E5EAEC;
+  cursor: pointer;
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+  box-shadow: inset 0px -2px 0px 0px #ccd6db;
+}
+
+<ul
+  className="c0"
+/>
+`;
+
+exports[`TabsHeader when position prop is set to left applies proper styles 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  box-shadow: inset 0px -2px 0px 0px #E5EAEC;
+  cursor: pointer;
+  list-style: none;
+  margin: 0 0 10px;
+  padding: 0;
+}
+
+<ul
+  className="c0"
+/>
+`;
