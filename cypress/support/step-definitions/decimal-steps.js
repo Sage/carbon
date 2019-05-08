@@ -1,5 +1,5 @@
 import {
-  alignSelect, labelPreview, helpIcon, label, inputPrecisionSlider,
+  alignSelect, labelPreview, label, inputPrecisionSlider,
 } from '../../locators/decimal/index';
 import { setSlidebar } from '../helper';
 
@@ -27,10 +27,6 @@ Then('Decimal component is readOnly', () => {
 
 Then('Decimal component is not readOnly', () => {
   labelPreview().should('not.have.attr', 'readonly');
-});
-
-When('I hover mouse onto help icon', () => {
-  helpIcon().trigger('mouseover');
 });
 
 When('label width on preview is {int}', (width) => {

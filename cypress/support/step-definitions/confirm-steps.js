@@ -1,13 +1,8 @@
 import { visitComponentUrl } from '../helper';
+import { asSelect, sizeSelect, backgroundUILocator } from '../../locators';
 import {
-  asSelect, sizeSelect, subtextInput, titleInput, heightInput, labelInput,
-  disableEscKeyCheckbox, backgroundUILocator,
-} from '../../locators';
-import {
-  openButton, dialogTitle, cancelLabel, confirmLabel,
-  dialogPreview, showCloseIconCheckbox, closeIconButton,
-  dialogSubtitle, stickyFormFooterCheckbox,
-  confirmButton, cancelButton,
+  openButton, dialogTitle, dialogPreview, closeIconButton,
+  dialogSubtitle, confirmButton, cancelButton,
 } from '../../locators/confirm';
 
 Given('I open {string} component page', (component) => {
@@ -20,18 +15,6 @@ When('I type {string} to as property', (asProperty) => {
 
 When('I set component size to {string}', (size) => {
   sizeSelect().select(size);
-});
-
-When('I set component subtext to {string}', (subtext) => {
-  subtextInput().type(subtext);
-});
-
-When('I set label to {string}', (label) => {
-  labelInput().clear().type(label);
-});
-
-When('I set title to {string}', (title) => {
-  titleInput().clear().type(title);
 });
 
 Then('component subtitle on preview is {string}', (subtitle) => {
@@ -62,28 +45,12 @@ Then('dialog title context on preview is {string}', (title) => {
   dialogTitle().should('have.text', title);
 });
 
-When('I set cancelButton to {string}', (text) => {
-  cancelLabel().clear().type(text);
-});
-
-When('I set confirmButton to {string}', (text) => {
-  confirmLabel().clear().type(text);
-});
-
 Then('Background UI is enabled', () => {
   backgroundUILocator().should('not.exist');
 });
 
 Then('Background UI is disabled', () => {
   backgroundUILocator().should('exist');
-});
-
-When('I check disableEscKey', () => {
-  disableEscKeyCheckbox().check();
-});
-
-When('I uncheck disableEscKey', () => {
-  disableEscKeyCheckbox().uncheck({ force: true });
 });
 
 Then('Confirm dialog is visible', () => {
@@ -94,14 +61,6 @@ Then('Confirm dialog is not visible', () => {
   dialogPreview().should('not.exist');
 });
 
-When('I check closeIconCheckbox', () => {
-  showCloseIconCheckbox().check();
-});
-
-When('I uncheck closeIconCheckbox', () => {
-  showCloseIconCheckbox().uncheck({ force: true });
-});
-
 Then('Close icon is not visible', () => {
   closeIconButton().should('not.exist');
 });
@@ -110,24 +69,12 @@ Then('dialog subtitle context is {string}', (title) => {
   dialogSubtitle().should('have.text', title);
 });
 
-When('I set input height to {string}', (height) => {
-  heightInput().clear().type(height);
-});
-
 Then('Confirm dialog input height is {string}', (height) => {
   dialogPreview().should('have.attr', 'style').should('contain', `min-height: ${height}px`);
 });
 
 Then('Confirm dialog size property on preview is {string}', (size) => {
   dialogPreview().should('have.css', 'width', `${size}px`);
-});
-
-When('I check stickyFormFooter', () => {
-  stickyFormFooterCheckbox().check();
-});
-
-When('I uncheck stickyFormFooter', () => {
-  stickyFormFooterCheckbox().uncheck({ force: true });
 });
 
 Then('Confirm dialog has stickyFormFooter parameter enabled', () => {
