@@ -6,7 +6,7 @@ export default ({ theme }) => theme.name === THEMES.classic && css`
     background-color: transparent;
 
     :hover{
-        background: transparent;
+        background: #fff;
     }
 
     :focus {
