@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import BaseTheme from '../../style/themes/base';
+import { THEMES } from '../../style/themes';
 
 const ValidationIconStyle = styled.div`
   color: ${({ type, theme }) => theme.colors[type]};
@@ -7,7 +8,7 @@ const ValidationIconStyle = styled.div`
   align-items: center;
 
   ${({ theme }) => {
-    if (theme.name === 'classic') {
+    if (theme.name === THEMES.classic) {
       return css`
         margin-right: -2px;
         margin-top: -1px;
