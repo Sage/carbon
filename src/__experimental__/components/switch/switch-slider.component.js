@@ -7,29 +7,17 @@ import StyledSwitchSlider from './switch-slider.style';
 import SwitchSliderPanel from './switch-slider-panel.style';
 import SwitchSpinner from './switch-spinner.component';
 
-function contentOrSpinner(content, props) {
-  if (props.loading) { return <SwitchSpinner { ...props } />; }
-  return content;
-}
-
-const SwitchSlider = (props) => {
-  const contentForOn = () => {
-    if (props.theme.name === THEMES.classic) return <Icon type='tick' />;
-    return 'ON';
-  };
-
-  const contentForOff = () => {
-    if (props.theme.name === THEMES.classic) return <Icon type='cross' />;
-    return 'OFF';
-  };
+const SwitchSlider = ({ loading, theme, ...props }) => {
+  const on = theme.name === THEMES.classic ? <Icon type='tick' /> : 'ON';
+  const off = theme.name === THEMES.classic ? <Icon type='cross' /> : 'OFF';
 
   return (
     <StyledSwitchSlider { ...props }>
       <SwitchSliderPanel type='on' { ...props }>
-        {contentOrSpinner(contentForOn(), props)}
+        {loading ? <SwitchSpinner { ...props } /> : on}
       </SwitchSliderPanel>
       <SwitchSliderPanel type='off' { ...props }>
-        {contentOrSpinner(contentForOff(), props)}
+        {loading ? <SwitchSpinner { ...props } /> : off}
       </SwitchSliderPanel>
     </StyledSwitchSlider>
   );
