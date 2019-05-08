@@ -1,4 +1,4 @@
-import { labelPreview, fieldHelpPreview, labelInlineCheckbox } from '../../locators';
+import { labelPreview, fieldHelpPreview } from '../../locators';
 import {
   inputWidthInput, inputWidthPreview, buttonToggleGroupPreview, labelWidthInput,
 } from '../../locators/button-toggle-group';
@@ -13,10 +13,6 @@ Then('Input width is set to {string}', (width) => {
 
 Then('Input width is not set', () => {
   inputWidthPreview().should('not.have.attr', 'style');
-});
-
-When('I uncheck label inline checkbox', () => {
-  labelInlineCheckbox().uncheck();
 });
 
 Then('Button Toggle Group component has label-inline property', () => {

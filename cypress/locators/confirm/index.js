@@ -1,18 +1,11 @@
-import { FORM, CLOSE_ICON_BUTTON } from '../locators';
+import { CLOSE_ICON_BUTTON } from '../locators';
 import {
-  OPEN_BUTTON, TITLE_INPUT, HEIGHT_INPUT, SUBTILE_INPUT, SHOW_CLOSE_ICON_CONFIRM, CONFIRM_LABEL,
-  CANCEL_LABEL, DIALOG_INNER_CONTENT, DIALOG_TITLE, DIALOG, CANCEL_BUTTON, CONFIRM_BUTTON,
+  OPEN_BUTTON, DIALOG_INNER_CONTENT, DIALOG_TITLE, DIALOG, CANCEL_BUTTON, CONFIRM_BUTTON,
 } from './locators';
 import { DIALOG_SUBTITLE } from '../dialog/locators';
 
 // knobs locators
 export const openButton = () => cy.get(OPEN_BUTTON);
-export const titleInput = () => cy.get(TITLE_INPUT);
-export const heightInput = () => cy.get(HEIGHT_INPUT);
-export const subtitleInput = () => cy.get(FORM).find(SUBTILE_INPUT);
-export const showCloseIconCheckbox = () => cy.get(SHOW_CLOSE_ICON_CONFIRM);
-export const confirmLabel = () => cy.get(CONFIRM_LABEL);
-export const cancelLabel = () => cy.get(CANCEL_LABEL);
 
 // component preview locators
 export const dialogInnerContent = () => cy.iFrame(DIALOG_INNER_CONTENT);

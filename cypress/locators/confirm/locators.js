@@ -1,11 +1,5 @@
 // knobs locators
 export const OPEN_BUTTON = 'button[type="button"][name="open"]';
-export const TITLE_INPUT = '#title';
-export const HEIGHT_INPUT = '#height';
-export const SUBTILE_INPUT = '#subtitle';
-export const SHOW_CLOSE_ICON_CONFIRM = '#showCloseIcon';
-export const CONFIRM_LABEL = '#confirmLabel';
-export const CANCEL_LABEL = '#cancelLabel';
 
 // component preview locators
 export const DIALOG_INNER_CONTENT = '.carbon-dialog__inner-content';

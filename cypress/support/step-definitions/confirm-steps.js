@@ -1,9 +1,7 @@
 import { visitComponentUrl } from '../helper';
+import { asSelect, sizeSelect, backgroundUILocator } from '../../locators';
 import {
-  asSelect, sizeSelect, subtextInput, heightInput, backgroundUILocator,
-} from '../../locators';
-import {
-  openButton, dialogTitle, cancelLabel, confirmLabel, dialogPreview, closeIconButton,
+  openButton, dialogTitle, dialogPreview, closeIconButton,
   dialogSubtitle, confirmButton, cancelButton,
 } from '../../locators/confirm';
 
@@ -17,10 +15,6 @@ When('I type {string} to as property', (asProperty) => {
 
 When('I set component size to {string}', (size) => {
   sizeSelect().select(size);
-});
-
-When('I set component subtext to {string}', (subtext) => {
-  subtextInput().type(subtext);
 });
 
 Then('component subtitle on preview is {string}', (subtitle) => {
@@ -51,14 +45,6 @@ Then('dialog title context on preview is {string}', (title) => {
   dialogTitle().should('have.text', title);
 });
 
-When('I set cancelButton to {string}', (text) => {
-  cancelLabel().clear().type(text);
-});
-
-When('I set confirmButton to {string}', (text) => {
-  confirmLabel().clear().type(text);
-});
-
 Then('Background UI is enabled', () => {
   backgroundUILocator().should('not.exist');
 });
@@ -81,10 +67,6 @@ Then('Close icon is not visible', () => {
 
 Then('dialog subtitle context is {string}', (title) => {
   dialogSubtitle().should('have.text', title);
-});
-
-When('I set input height to {string}', (height) => {
-  heightInput().clear().type(height);
 });
 
 Then('Confirm dialog input height is {string}', (height) => {
