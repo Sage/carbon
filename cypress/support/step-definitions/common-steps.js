@@ -1,10 +1,8 @@
 import { visitComponentUrl, setSlidebar, pressESCKey } from '../helper';
 import {
-  asSelect, sizeSelect, subtextInput, disabledCheckbox, commonButtonPreview,
-  labelPreview, helpIcon, inputWidthSlider,
-  fieldHelpPreview, labelWidthSlider, labelInlineCheckbox, labelAlignSelect, alignSelect,
-  disableEscKeyCheckbox, backgroundUILocator, showCloseIconCheckbox, closeIconButton,
-  enableBackgroundUICheckbox, labelHelpPreview, getKnobsInput,
+  asSelect, sizeSelect, commonButtonPreview, labelPreview, helpIcon, inputWidthSlider,
+  fieldHelpPreview, labelWidthSlider, labelAlignSelect, alignSelect, backgroundUILocator,
+  closeIconButton, labelHelpPreview, getKnobsInput,
 } from '../../locators';
 
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
@@ -26,16 +24,16 @@ When('I set {word} to {string}', (propertyName, text) => {
   getKnobsInput(propertyName).clear().type(text);
 });
 
+When('I set {word} to empty', (propertyName) => {
+  getKnobsInput(propertyName).clear();
+});
+
 When('I set as property to {string}', (asProperty) => {
   asSelect().select(asProperty);
 });
 
 When('I set component size to {string}', (size) => {
   sizeSelect().select(size);
-});
-
-When('I set component subtext to {string}', (subtext) => {
-  subtextInput().type(subtext);
 });
 
 When('I set component theme property to {string}', (theme) => {
@@ -78,10 +76,6 @@ When('I set label width slider to {int}', (width) => {
   setSlidebar(labelWidthSlider(), width);
 });
 
-When('I check label inline checkbox', () => {
-  labelInlineCheckbox().check();
-});
-
 When('I set label align {string}', (direction) => {
   labelAlignSelect().select(direction);
 });
@@ -107,22 +101,6 @@ Then('Background UI is disabled', () => {
   backgroundUILocator().should('exist');
 });
 
-When('I check disableEscKey', () => {
-  disableEscKeyCheckbox().check();
-});
-
-When('I uncheck disableEscKey', () => {
-  disableEscKeyCheckbox().uncheck({ force: true });
-});
-
-When('I enable showCloseIcon', () => {
-  showCloseIconCheckbox().check({ force: true });
-});
-
-When('I disable showCloseIcon', () => {
-  showCloseIconCheckbox().uncheck({ force: true });
-});
-
 Then('closeIcon is visible', () => {
   closeIconButton().should('be.visible');
 });
@@ -135,32 +113,16 @@ Then('closeIcon is not visible', () => {
   closeIconButton().should('not.exist');
 });
 
-When('I check enableBackgroundUI', () => {
-  enableBackgroundUICheckbox().check();
-});
-
-When('I uncheck enableBackgroundUI', () => {
-  enableBackgroundUICheckbox().uncheck({ force: true });
-});
-
-When('I check disableEscKey', () => {
-  disableEscKeyCheckbox().check();
-});
-
-When('I uncheck disableEscKey', () => {
-  disableEscKeyCheckbox().uncheck({ force: true });
-});
-
 When('I hit ESC key', () => {
   pressESCKey();
 });
 
 When('I disable {word} component', () => {
-  disabledCheckbox().check();
+  getKnobsInput('disabled').check();
 });
 
 When('I enable {word} component', () => {
-  disabledCheckbox().uncheck();
+  getKnobsInput('disabled').uncheck();
 });
 
 When('I check {word} checkbox', (checkboxName) => {
