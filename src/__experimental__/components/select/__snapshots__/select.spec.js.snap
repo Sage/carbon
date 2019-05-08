@@ -35,9 +35,9 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-flex: 0 0 100%;
-  -ms-flex: 0 0 100%;
-  flex: 0 0 100%;
+  -webkit-flex: 0 0 70%;
+  -ms-flex: 0 0 70%;
+  flex: 0 0 70%;
   margin: 0;
   min-height: 40px;
   padding-left: 11px;
@@ -101,6 +101,8 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
   info={Array []}
   inputIcon="dropdown"
   inputRef={[Function]}
+  inputWidth={70}
+  labelWidth={30}
   leftChildren={false}
   name="guid-12345"
   onBlur={[Function]}
@@ -116,6 +118,8 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
     data-element="input"
     info={Array []}
     inputRef={[Function]}
+    inputWidth={70}
+    labelWidth={30}
     name="guid-12345"
     onBlur={[Function]}
     onChange={[Function]}
@@ -294,6 +298,8 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
             data-element="input"
             info={Array []}
             inputRef={[Function]}
+            inputWidth={70}
+            labelWidth={30}
             name="guid-12345"
             onBlur={[Function]}
             onChange={[Function]}
@@ -310,7 +316,8 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
               hasFocus={false}
               info={Array []}
               inputRef={[Function]}
-              inputWidth={100}
+              inputWidth={70}
+              labelWidth={30}
               name="guid-12345"
               onMouseDown={[Function]}
               onMouseOut={[Function]}
@@ -521,9 +528,9 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-flex: 0 0 100%;
-  -ms-flex: 0 0 100%;
-  flex: 0 0 100%;
+  -webkit-flex: 0 0 70%;
+  -ms-flex: 0 0 70%;
+  flex: 0 0 70%;
   margin: 0;
   min-height: 40px;
   padding-left: 11px;
@@ -607,7 +614,8 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                 hasFocus={false}
                 info={Array []}
                 inputRef={[Function]}
-                inputWidth={100}
+                inputWidth={70}
+                labelWidth={30}
                 name="guid-12345"
                 onMouseDown={[Function]}
                 onMouseOut={[Function]}
@@ -676,6 +684,8 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                     data-element="input"
                     info={Array []}
                     inputRef={[Function]}
+                    inputWidth={70}
+                    labelWidth={30}
                     name="guid-12345"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -691,6 +701,8 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                       data-element="input"
                       id="guid-12345"
                       info={Array []}
+                      inputWidth={70}
+                      labelWidth={30}
                       name="guid-12345"
                       onBlur={[Function]}
                       onChange={[Function]}
@@ -855,6 +867,8 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                         }
                         id="guid-12345"
                         info={Array []}
+                        inputWidth={70}
+                        labelWidth={30}
                         name="guid-12345"
                         onBlur={[Function]}
                         onChange={[Function]}
@@ -927,6 +941,8 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                     data-element="input"
                     info={Array []}
                     inputRef={[Function]}
+                    inputWidth={70}
+                    labelWidth={30}
                     name="guid-12345"
                     onBlur={[Function]}
                     onChange={[Function]}
@@ -942,7 +958,9 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                       data-element="input"
                       info={Array []}
                       inputRef={[Function]}
+                      inputWidth={70}
                       key="label-icon"
+                      labelWidth={30}
                       name="guid-12345"
                       onBlur={[Function]}
                       onChange={[Function]}
@@ -1096,6 +1114,8 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                         forwardedRef={null}
                         info={Array []}
                         inputRef={[Function]}
+                        inputWidth={70}
+                        labelWidth={30}
                         name="guid-12345"
                         onBlur={[Function]}
                         onChange={[Function]}
@@ -1296,9 +1316,9 @@ Object {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-flex: 0 0 100%;
-  -ms-flex: 0 0 100%;
-  flex: 0 0 100%;
+  -webkit-flex: 0 0 70%;
+  -ms-flex: 0 0 70%;
+  flex: 0 0 70%;
   margin: 0;
   min-height: 40px;
   padding-left: 11px;

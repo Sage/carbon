@@ -79,8 +79,9 @@ Textbox.propTypes = {
   }), {})
 };
 
-// we don't have any default props, but we set an empty object for better storybook source code examples
 Textbox.defaultProps = {
+  labelWidth: 30,
+  inputWidth: 70
 };
 
 export default withUniqueName(withValidation(Textbox));

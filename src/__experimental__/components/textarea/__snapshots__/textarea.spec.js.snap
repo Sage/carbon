@@ -281,6 +281,8 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
               hasFocus={false}
               inputWidth={100}
               onMouseDown={[Function]}
+              onMouseOut={[Function]}
+              onMouseOver={[Function]}
               role="presentation"
               size="medium"
               theme={
@@ -379,13 +381,6 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   ",
                         [Function],
                         "
-  ",
-                        [Function],
-                        "
-
-  ",
-                        [Function],
-                        "
 
   input::-ms-clear {
     display: none;
@@ -443,12 +438,12 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                     "foldedComponentIds": Array [],
                     "propTypes": Object {
                       "disabled": [Function],
-                      "error": [Function],
+                      "errorMessage": [Function],
                       "hasFocus": [Function],
-                      "info": [Function],
+                      "infoMessage": [Function],
                       "readOnly": [Function],
                       "size": [Function],
-                      "warning": [Function],
+                      "warningMessage": [Function],
                     },
                     "render": [Function],
                     "styledComponentId": "sc-bxivhb",
@@ -549,6 +544,8 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                 hasFocus={false}
                 inputWidth={100}
                 onMouseDown={[Function]}
+                onMouseOut={[Function]}
+                onMouseOver={[Function]}
                 role="presentation"
                 size="medium"
                 theme={
@@ -600,6 +597,8 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                   className="c2"
                   disabled={false}
                   onMouseDown={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
                   role="presentation"
                   size="medium"
                   type="text"
@@ -1358,6 +1357,8 @@ exports[`Textarea when rendered should render default 1`] = `
               hasFocus={false}
               inputWidth={100}
               onMouseDown={[Function]}
+              onMouseOut={[Function]}
+              onMouseOver={[Function]}
               role="presentation"
               size="medium"
               theme={
@@ -1455,13 +1456,6 @@ exports[`Textarea when rendered should render default 1`] = `
   ",
                         [Function],
                         "
-  ",
-                        [Function],
-                        "
-
-  ",
-                        [Function],
-                        "
 
   input::-ms-clear {
     display: none;
@@ -1519,12 +1513,12 @@ exports[`Textarea when rendered should render default 1`] = `
                     "foldedComponentIds": Array [],
                     "propTypes": Object {
                       "disabled": [Function],
-                      "error": [Function],
+                      "errorMessage": [Function],
                       "hasFocus": [Function],
-                      "info": [Function],
+                      "infoMessage": [Function],
                       "readOnly": [Function],
                       "size": [Function],
-                      "warning": [Function],
+                      "warningMessage": [Function],
                     },
                     "render": [Function],
                     "styledComponentId": "sc-bxivhb",
@@ -1621,6 +1615,8 @@ exports[`Textarea when rendered should render default 1`] = `
                 hasFocus={false}
                 inputWidth={100}
                 onMouseDown={[Function]}
+                onMouseOut={[Function]}
+                onMouseOver={[Function]}
                 role="presentation"
                 size="medium"
                 theme={
@@ -1671,6 +1667,8 @@ exports[`Textarea when rendered should render default 1`] = `
                   className="c2"
                   disabled={false}
                   onMouseDown={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
                   role="presentation"
                   size="medium"
                   type="text"

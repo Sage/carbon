@@ -3,6 +3,8 @@
 exports[`Textbox renders with InputPresentation and Input and all props passed to Input 1`] = `
 <FormField
   info={Array []}
+  inputWidth={70}
+  labelWidth={30}
   name="mocked-guid"
   onBlur={[Function]}
   onChange={[Function]}
@@ -12,6 +14,8 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
 >
   <InputPresentation
     info={Array []}
+    inputWidth={70}
+    labelWidth={30}
     name="mocked-guid"
     onBlur={[Function]}
     onChange={[Function]}
@@ -22,6 +26,8 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
     southpaw children
     <Input
       info={Array []}
+      inputWidth={70}
+      labelWidth={30}
       name="mocked-guid"
       onBlur={[Function]}
       onChange={[Function]}

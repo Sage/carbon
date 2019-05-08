@@ -5,6 +5,7 @@ import {
   boolean,
   select
 } from '@storybook/addon-knobs';
+import I18n from 'i18n-js';
 import Form from '../form';
 import Textbox from '../../__experimental__/components/textbox';
 import TextboxLegacy from '../textbox';
@@ -12,6 +13,12 @@ import { Select, Option } from '../../__experimental__/components/select';
 import PresenceValidator from '../../utils/validations/presence';
 import { Row, Column } from '../row';
 import OptionsHelper from '../../utils/helpers/options-helper';
+
+I18n.translations.en.errors = {
+  messages: {
+    blank: 'This field is required.'
+  }
+};
 
 const presenceStore = new Store({ value: '' });
 const asyncStore = new Store({ value: '' });
