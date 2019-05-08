@@ -1,9 +1,8 @@
 import {
-  CHILDREN_PREVIEW, FOOTNOTE_PREVIEW, FOOTNOTE_INPUT, ICON_SELECT, ICON_PREVIEW,
+  CHILDREN_PREVIEW, FOOTNOTE_PREVIEW, ICON_SELECT, ICON_PREVIEW,
 } from './locators';
 
 // knobs locators
-export const footnoteInput = () => cy.get(FOOTNOTE_INPUT);
 export const iconSelect = () => cy.get(ICON_SELECT);
 
 // component preview locators

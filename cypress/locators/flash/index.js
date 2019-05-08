@@ -1,10 +1,4 @@
-import {
-  FLASH_PREVIEW, MESSAGE_INPUT, TIMEOUT_INPUT, MESSAGE_PREVIEW,
-} from './locators';
-
-// knobs locators
-export const messageInput = () => cy.get(MESSAGE_INPUT);
-export const timeoutInput = () => cy.get(TIMEOUT_INPUT);
+import { FLASH_PREVIEW, MESSAGE_PREVIEW } from './locators';
 
 // component preview locators
 export const flashPreview = () => cy.iFrame(FLASH_PREVIEW);
