@@ -19,8 +19,8 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario Outline: Change Button Toggle Group component label help
-    When I set label help to "<labelHelp>"
-      And I hover mouse on help icon
+    When I set labelHelp to "<labelHelp>"
+      And I hover mouse onto help icon
     Then Label help on preview is set to "<labelHelp>"
     Examples:
       | labelHelp                |
@@ -53,7 +53,7 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario Outline: Change Button Toggle Group component field help
-    When I set field help to "<fieldHelp>"
+    When I set fieldHelp to "<fieldHelp>"
     Then Field help on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                |
@@ -66,18 +66,18 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario: Enable label inline checkbox
-    When I check label inline checkbox
+    When I check labelInline checkbox
     Then Button Toggle Group component has label-inline property
 
   @positive
   Scenario: Enable and disable label inline checkbox
-    When I check label inline checkbox
-      And I uncheck label inline checkbox
+    When I check labelInline checkbox
+      And I uncheck labelInline checkbox
     Then Button Toggle Group component do not have label-inline property
 
   @positive
   Scenario Outline: Change Button Toggle Group label width
-    When I check label inline checkbox
+    When I check labelInline checkbox
       And I set label width to "<width>"
     Then Label width is set to "<width>"
     Examples:
@@ -98,7 +98,7 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario Outline: Change Toggle Button Group label align
-    When I check label inline checkbox
+    When I check labelInline checkbox
       And I set label align "<direction>"
     Then direction on preview is "<direction>"
     Examples:

@@ -1,8 +1,5 @@
 // knobs locators
 export const SLIDE_INDEX_SELECT = 'select[name="slideIndex"]';
-export const ENABLE_SLIDE_SELECTOR_CHECKBOX = '#enableSlideSelector';
-export const ENABLE_PREVIOUS_BUTTON_CHECKBOX = '#enablePreviousButton';
-export const ENABLE_NEXT_BUTTON_CHECKBOX = '#enableNextButton';
 export const TRANSITION_SELECT = 'select[name="transition"]';
 
 // component preview locators

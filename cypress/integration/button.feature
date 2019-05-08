@@ -20,7 +20,7 @@ Feature: Button component
   @positive
   Scenario Outline: Change Button subtext
     When I set component size to "large"
-      And I set component subtext to "<subtext>"
+      And I set subtext to "<subtext>"
     Then Button subtext on preview is "<subtext>"
     Examples:
       | subtext                  |
@@ -35,7 +35,7 @@ Feature: Button component
   Scenario: I set space character to Button subtext
     When I set component size to "large"
       # I use space character below
-      And I set component subtext to " "
+      And I set subtext to " "
     Then Button subtext on preview is " "
 
   @positive
