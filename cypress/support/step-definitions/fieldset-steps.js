@@ -1,12 +1,4 @@
-import { legendInput, legendPreview } from '../../locators/legend';
-
-When('I set legend to {string}', (legend) => {
-  legendInput().clear().type(legend);
-});
-
-When('I set legend to empty', () => {
-  legendInput().clear();
-});
+import { legendPreview } from '../../locators/legend';
 
 Then('legend on preview is {string}', (legend) => {
   legendPreview().should('have.text', legend);

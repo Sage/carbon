@@ -16,12 +16,12 @@ Feature: Dropdown component
     Then Dropdown is enabled
 
   Scenario: Dropdown is readOnly
-    When I check readOnly
+    When I check readOnly checkbox
     Then Dropdown is readOnly
 
   Scenario: Dropdown is not readOnly
-    When I check readOnly
-      And I uncheck readOnly
+    When I check readOnly checkbox
+      And I uncheck readOnly checkbox
     Then Dropdown is not readOnly
 
   Scenario Outline: Set Dropdown label
@@ -84,7 +84,7 @@ Feature: Dropdown component
 
   @positive
   Scenario Outline: Change Dropdown label align
-    When I check label inline checkbox
+    When I check labelInline checkbox
       And I set label align "<direction>"
     Then direction on preview is "<direction>"
     Examples:
