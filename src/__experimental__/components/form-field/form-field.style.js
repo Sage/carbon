@@ -6,8 +6,9 @@ const FormFieldStyle = styled.div`
   ${({ inline }) => {
     if (inline) {
       return `
-        display: flex;
         align-items: baseline;
+        display: flex;
+        flex-wrap: wrap;
       `;
     }
 
