@@ -33,6 +33,31 @@ describe('TabHeader', () => {
     expect(wrapper.children().text()).toEqual('Tab Title 1');
   });
 
+  it('has the role of tab', () => {
+    wrapper = render();
+    expect(wrapper.find("[role='tab']").exists()).toEqual(true);
+  });
+
+  it('has data-element set to select-tab', () => {
+    wrapper = render();
+    expect(wrapper.find("[data-element='select-tab']").exists()).toEqual(true);
+  });
+
+  it('has aria-selected set to true when isTabSelected prop is true', () => {
+    wrapper = render({ isTabSelected: true });
+    expect(wrapper.find('[aria-selected=true]').exists()).toEqual(true);
+  });
+
+  it('has aria-selected set to false when isTabSelected prop is false', () => {
+    wrapper = render({ isTabSelected: false });
+    expect(wrapper.find('[aria-selected=false]').exists()).toEqual(true);
+  });
+
+  it('has data-tabid set', () => {
+    wrapper = render();
+    expect(wrapper.find("[role='tab']").exists()).toEqual(true);
+  });
+
   describe('when isTabSelected prop is set to true', () => {
     it('applies proper styling', () => {
       wrapper = renderStyles({ isTabSelected: true });

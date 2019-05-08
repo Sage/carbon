@@ -32,9 +32,21 @@ describe('TabsHeader', () => {
     expect(wrapper.children()).toHaveLength(2);
   });
 
+  it('has the role of tablist', () => {
+    wrapper = render();
+    expect(wrapper.find("[role='tablist']").exists()).toEqual(true);
+  });
+
   describe('when position prop is set to left', () => {
     it('applies proper styles', () => {
-      wrapper = renderStyles({ position: 'left ' });
+      wrapper = renderStyles({ position: 'left' });
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+
+  describe('when align prop is set to right', () => {
+    it('applies proper styles', () => {
+      wrapper = renderStyles({ align: 'right' });
       expect(wrapper).toMatchSnapshot();
     });
   });
