@@ -1,0 +1,76 @@
+Feature: Date Range component
+  I want to change Confirm component properties
+
+  Background: Open Date Range component page
+    Given I open "Experimental Date Range" component page
+
+  @positive
+  Scenario Outline: Change Date Range start label
+    When I set startLabel to "<label>"
+    Then start label on preview is "<label>"
+    Examples:
+      | label                    |
+      | Sample text              |
+      | 1234567890               |
+      | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
+      | <>                       |
+
+  @positive
+  Scenario Outline: Change Date Range end label
+    When I set endLabel to "<label>"
+    Then end label on preview is "<label>"
+    Examples:
+      | label                    |
+      | Sample text              |
+      | 1234567890               |
+      | áéíóú¿¡üñ                |
+      | !@#$%^*()_+-=~[];:.,?{}  |
+      | ÄÖÜßäöüß                 |
+      | <>                       |
+
+  @positive
+  Scenario Outline: Enable labels inline checkbox
+    When I set startLabel to "<label>"
+      And I set endLabel to "<label>"
+      And I check labelsInline checkbox
+    Then labels are set to inline
+    Examples:
+      | label       |
+      | Sample text |
+
+  @positive
+  Scenario Outline: Enable and disable labels inline checkbox
+    When I set startLabel to "<label>"
+      And I set endLabel to "<label>"
+      And I check labelsInline checkbox
+      And I uncheck labelsInline checkbox
+    Then labels are not set to inline
+    Examples:
+      | label       |
+      | Sample text |
+
+  @ignore
+  # @positive Ignored untill validation-branch will be merged with master
+  Scenario Outline: Change Date Range Start Message Error component and check the error message
+    When I set startMessage to "<startMessage>"
+      And I click into startDateInput
+      And I choose date "<dayStart>" via DayPicker
+      And I hover mouse onto error icon
+    Then start message error on preview is "<startMessage>"
+    Examples:
+      | startMessage             | dayStart        |
+      | Sample text              | Tue Nov 1, 2016 |
+
+  @ignore
+  # @positive  Ignored untill validation-branch will be merged with master
+  Scenario Outline: Change Date Range End Message Error component and check the error message
+    When I set endMessage to "<endMessage>"
+      And I click into endDateInput
+      And I choose date "<dayEnd>" via DayPicker
+      And I hover mouse onto error icon
+    Then end message error on preview is "<endMessage>"
+    Examples:
+      | endMessage               | dayEnd           |
+      | Sample text              | Fri Sep 30, 2016 |
