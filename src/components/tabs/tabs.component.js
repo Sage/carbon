@@ -213,8 +213,9 @@ class Tabs extends React.Component {
       this.tabRefs.push(ref);
       return (
         <TabHeader
+          position={ this.props.position }
           className={ this.tabHeaderClasses(child) }
-          data-tabid={ child.props.tabId }
+          dataTabId={ child.props.tabId }
           id={ ref }
           key={ child.props.tabId }
           onClick={ this.handleTabClick }

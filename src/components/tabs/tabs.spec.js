@@ -8,6 +8,7 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import Browser from '../../utils/helpers/browser/browser';
+import { Test } from 'tslint';
 
 describe('Tabs', () => {
   let instance;
@@ -29,6 +30,14 @@ describe('Tabs', () => {
       </Tab>
     </Tabs>
   );
+
+  function render(props, renderer = shallow) {
+    return renderer(
+      <Tabs { ...props }>
+        <Tab title='Tab Title 1' tabId='uniqueid1'>Tab Content</Tab>
+      </Tabs>
+    );
+  }
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
@@ -214,7 +223,7 @@ describe('Tabs', () => {
       it('does not change tab', () => {
         let tabs = TestUtils.findRenderedComponentWithType(instance, Tabs);
         spyOn(tabs, 'updateVisibleTab').and.callThrough();
-        let tabHeaders = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-tabs__headers__header')
+        let tabHeaders = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'ul');
         TestUtils.Simulate.click(tabHeaders[0], { target: { dataset: { tabid: 'uniqueid1' } } });
         expect(tabs.updateVisibleTab).toHaveBeenCalled();
 
@@ -308,151 +317,16 @@ describe('Tabs', () => {
   });
 
   describe('when rendered', () => {
+    let wrapper;
 
-    function render(props) {
-      return TestRenderer.create(
-        <Tabs {...props}>
-          <Tab title='Tab Title 1' tabId='uniqueid1'>Tab Content</Tab>
-        </Tabs>
-      );
-    }
     it('matches the snaphot', () => {
-      expect(render()).toMatchSnapshot();
+      expect(render({}, TestRenderer.create)).toMatchSnapshot();
     });
 
     describe('when passing custom classNames', () => {
       it('adds it to the classList', () => {
-        wrapper = render({ className: 'class' });
-
-        expect(wrapper).hasClass('1tab').toBeTruthy();
-      });
-    });
-  });
-
-  describe('tabsHeaderClasses', () => {
-    it('adds a carbon-tabs__headers class to the tab', () => {
-      let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
-      expect(list.classList.contains('carbon-tabs__headers')).toEqual(true);
-    });
-
-    it('adds the align className included in the props to the tab', () => {
-      let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
-      expect(list.classList.contains('carbon-tabs__headers--align-left')).toEqual(true);
-    });
-
-    it('adds the position className included in the props to the tab', () => {
-      let list = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul');
-      expect(list.classList.contains('carbon-tabs__headers')).toEqual(true);
-    });
-  });
-
-  describe('tabHeaderClasses', () => {
-    it('adds a carbon-tabs__header class to the tab', () => {
-      let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-      expect(secondTab.classList.contains('carbon-tabs__headers__header')).toBeTruthy();
-    });
-
-    it('adds the className included in the props to the tab', () => {
-      let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-      expect(secondTab.classList.contains('headerClass2')).toBeTruthy();
-    });
-
-    it('adds the className included in the props as an array to the tab', () => {
-      let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[2];
-      expect(secondTab.classList.contains('headerClass3')).toBeTruthy();
-      expect(secondTab.classList.contains('headerClass4')).toBeTruthy();
-    });
-
-    it('does not add a selected class to the header', () => {
-      let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-      expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toBeFalsy();
-    });
-
-    describe('when tab is selected tab', () => {
-      it('adds a selected class to the header', () => {
-        let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[0];
-        expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toBeTruthy();
-      });
-    });
-
-    describe('when tab is inValid', () => {
-      it('adds a error class to the header', () => {
-        instance.setState({ tabValidity: Immutable.fromJS({ 'uniqueid2': false })});
-        let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-        expect(secondTab.className).toEqual('carbon-tabs__headers__header headerClass2 carbon-tabs__headers__header--error');
-      });
-    });
-
-    describe('when tab has a warning', () => {
-      it('adds a warning class to the header', () => {
-        instance.setState({ tabWarning: Immutable.fromJS({ 'uniqueid2': true })});
-        let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-        expect(secondTab.className).toEqual('carbon-tabs__headers__header headerClass2 carbon-tabs__headers__header--warning');
-      });
-
-      describe('when tab has an error as well', () => {
-        it('does not add a warning class', () => {
-          instance.setState({ tabWarning: Immutable.fromJS({ 'uniqueid2': true }), tabValidity: Immutable.fromJS({ 'uniqueid2': false }) });
-          let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-          expect(secondTab.classList.contains('carbon-tabs__headers__header--warning')).toBeFalsy();
-        });
-      });
-    });
-  });
-
-  describe('tabHeaders', () => {
-    it('renders unordered list of headers', () => {
-      expect(instance.tabHeaders.type).toBe('ul');
-    });
-
-    it('has the role of tablist', () => {
-      expect(instance.tabHeaders.props.role).toEqual('tablist');
-    });
-
-    it('renders a list item for each tab passed to the tabs', () => {
-      expect(instance.tabHeaders.props.children.length).toEqual(3);
-    });
-
-    it('adds a data-tabid to each list item', () => {
-      expect(instance.tabHeaders.props.children[0].props['data-tabid']).toEqual('uniqueid1');
-    });
-
-    it('adds a role of tab to each list item', () => {
-      expect(instance.tabHeaders.props.children[0].props.role).toEqual('tab');
-    });
-
-    it('sets aria-selected to true for the selected tab', () => {
-      expect(instance.tabHeaders.props.children[0].props['aria-selected']).toBeTruthy();
-      expect(instance.tabHeaders.props.children[1].props['aria-selected']).toBeFalsy();
-      expect(instance.tabHeaders.props.children[2].props['aria-selected']).toBeFalsy();
-    });
-
-    describe('when passed a null child', () => {
-      it('ignores the null child', () => {
-        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceWithNull, 'carbon-tabs__headers__header')
-        expect(headers.length).toEqual(1);
-      });
-    });
-
-    describe('when there is only one child', () => {
-      it('renders a single header', () => {
-        let headers = TestUtils.scryRenderedDOMComponentsWithClass(instanceOneChild, 'carbon-tabs__headers__header')
-        expect(headers.length).toEqual(1);
-      });
-    });
-
-    describe('when a align prop is passed', () => {
-      it('adds a aligned class', () => {
-        let instance = TestUtils.renderIntoDocument(
-          <Tabs align='right'>
-            <Tab title='Tab Title 1' tabId='uniqueid1'>
-              <Textbox name='bar'/>
-            </Tab>
-          </Tabs>
-        );
-
-        let headers = TestUtils.findRenderedDOMComponentWithTag(instance, 'ul')
-        expect(headers.className).toEqual('carbon-tabs__headers carbon-tabs__headers--align-right carbon-tabs__headers');
+        wrapper = render({ className: 'class' }, shallow);
+        expect(wrapper.exists('.class')).toEqual(true);
       });
     });
   });
@@ -499,7 +373,7 @@ describe('Tabs', () => {
 
       describe('when passed a null child', () => {
         it('ignores the null child', () => {
-          let tabs = TestUtils.scryRenderedDOMComponentsWithClass(instanceWithNull, 'carbon-tab')
+          let tabs = TestUtils.scryRenderedDOMComponentsWithTag(instanceWithNull, 'carbon-tab');
           expect(tabs.length).toEqual(1);
         });
       });
@@ -525,8 +399,8 @@ describe('Tabs', () => {
 
     describe('when there is one child', () => {
       it('renders the only child', () => {
-        let tabs = TestUtils.scryRenderedDOMComponentsWithClass(instanceOneChild, 'carbon-tab')
-        expect(tabs.length).toEqual(1);
+        const wrapper = render({ renderHiddenTab: false }, shallow );
+        expect(wrapper).toHaveLength(1);
       });
     });
   });
@@ -562,7 +436,7 @@ describe('Tabs', () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      let wrapper = shallow(<Tabs data-element='bar' data-role='baz'><Tab tabId='1' title='Test' /></Tabs>);
+      const wrapper = shallow(<Tabs data-element='bar' data-role='baz'><Tab tabId='1' title='Test' /></Tabs>);
 
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapper, 'tabs', 'bar', 'baz');
@@ -596,24 +470,24 @@ describe('Tabs', () => {
 
       describe('when pressing the right arrow', () => {
         it('focuses on the next right tab and loops back round to the first tab', () => {
-          wrapper.setState({ selectedTabId: "tab1" });
-          wrapper.find('.carbon-tabs__headers__header--selected').instance().focus();
-          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+          wrapper.setState({ selectedTabId: 'tab1' });
+          wrapper.find({ isTabSelected: true }).instance().focus();
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1');
+          wrapper.find({ isTabSelected: true }).simulate(
             'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
           );
-          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2')
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab2');
           expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab2');
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+          wrapper.find({ isTabSelected: true }).simulate(
             'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
           );
-          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3')
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab3');
           expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#tab3');
-          wrapper.find('.carbon-tabs__headers__header--selected').simulate(
+          wrapper.find({ isTabSelected: true }).simulate(
             'keyDown', { key: 'ArrowRight', which: 39, stopPropagation: () => {}}
           );
           expect(replaceSpy.mock.calls.length).toEqual(3);
-          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1')
+          expect(Browser.getActiveElement().getAttribute('data-tabid')).toEqual('tab1');
         });
       });
 
