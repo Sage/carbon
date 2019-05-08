@@ -109,14 +109,16 @@ const PagerNavigation = (props) => {
     );
   }
 
+  function handlePageInputChange(ev) {
+    props.setCurrentPage(ev.target.value);
+  }
+
   function currentPageInput() {
     const currentPageInputProps = {
       value: props.currentPage,
       className: 'carbon-pager__current-page',
       'data-element': 'current-page',
-      onChange: (ev) => {
-        props.setCurrentPage(ev.target.value);
-      },
+      onChange: handlePageInputChange,
       onBlur: updatePageFromInput,
       onKeyUp: (ev) => {
         if (!Events.isEnterKey(ev)) {
