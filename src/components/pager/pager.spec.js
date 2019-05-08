@@ -15,14 +15,7 @@ const pageSizeSelectionOptions = Immutable.fromJS([
 
 function render(props, renderType = shallow) {
   return renderType(
-    <Pager
-      currentPage={ props.currentPage }
-      totalRecords={ props.totalRecords }
-      onPagination={ props.onPagination }
-      pageSize={ props.pageSize }
-      showPageSizeSelection={ props.showPageSizeSelection }
-      pageSizeSelectionOptions={ props.pageSizeSelectionOptions }
-    />
+    <Pager { ...props } />
   );
 }
 
