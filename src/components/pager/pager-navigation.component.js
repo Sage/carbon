@@ -18,9 +18,6 @@ const PagerNavigation = (props) => {
     let newPage = Math.abs(Number(ev.target.value));
 
     if (Number.isNaN(newPage)) { newPage = '1'; }
-    if (!newPage) {
-      props.setCurrentPage(props.currentPage);
-    }
     if (newPage > maxPages()) { newPage = String(maxPages()); }
 
     props.onPagination(String(newPage), props.pageSize, 'input');
@@ -99,11 +96,12 @@ const PagerNavigation = (props) => {
 
     return (
       <PagerLinkStyles
-        disabled={ disabled() }
+        isDisabled={ disabled() }
         onClick={ () => {
-          if (!disabled()) {
-            props.onPagination(navLinkConfig[type].destination, props.pageSize, type);
+          if (disabled()) {
+            return false;
           }
+          return props.onPagination(navLinkConfig[type].destination, props.pageSize, type);
         } }
       >
         {navLinkConfig[type].text}
@@ -121,9 +119,10 @@ const PagerNavigation = (props) => {
       },
       onBlur: updatePageFromInput,
       onKeyUp: (ev) => {
-        if (Events.isEnterKey(ev)) {
-          updatePageFromInput(ev);
+        if (!Events.isEnterKey(ev)) {
+          return false;
         }
+        return updatePageFromInput(ev);
       }
     };
 

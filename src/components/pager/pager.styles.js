@@ -88,7 +88,7 @@ const PagerLinkStyles = styled.button`
     outline: none;
   }
 
-  ${({ disabled }) => disabled && css`
+  ${({ isDisabled }) => isDisabled && css`
     color: rgba(0,0,0,0.3);
   `};
 `;

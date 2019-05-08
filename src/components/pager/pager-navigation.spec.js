@@ -74,8 +74,59 @@ describe('Pager Navigation', () => {
       );
 
       const input = wrapper.find('input');
-      input.simulate('keyup', { which: 13 });
-      expect(onPagination).toHaveBeenCalledWith('7', '10', 'input');
+      input.simulate('keyup', { which: 13, target: { value: '6' } });
+      expect(onPagination).toHaveBeenCalledWith('6', '10', 'input');
+    });
+    it('does not update correctly on keypress (not enter)', () => {
+      const onPagination = jest.fn();
+      const wrapper = render(
+        {
+          ...props,
+          currentPage: '7',
+          setCurrentPage: () => true,
+          onPagination,
+          theme: smallTheme
+        },
+        mount
+      );
+
+      const input = wrapper.find('input');
+      input.simulate('keyup', { which: 2, target: { value: '6' } });
+      expect(onPagination).not.toHaveBeenCalled();
+    });
+    it('updates correctly if new value is NaN', () => {
+      const onPagination = jest.fn();
+      const wrapper = render(
+        {
+          ...props,
+          currentPage: '7',
+          setCurrentPage: () => true,
+          onPagination,
+          theme: smallTheme
+        },
+        mount
+      );
+
+      const input = wrapper.find('input');
+      input.simulate('keyup', { which: 13, target: { value: 'asdfghjk' } });
+      expect(onPagination).toHaveBeenCalledWith('1', '10', 'input');
+    });
+    it('updates correctly if new value is higher than max pages', () => {
+      const onPagination = jest.fn();
+      const wrapper = render(
+        {
+          ...props,
+          currentPage: '7',
+          setCurrentPage: () => true,
+          onPagination,
+          theme: smallTheme
+        },
+        mount
+      );
+
+      const input = wrapper.find('input');
+      input.simulate('keyup', { which: 13, target: { value: '200' } });
+      expect(onPagination).toHaveBeenCalledWith('10', '10', 'input');
     });
   });
 
