@@ -30,7 +30,7 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
 }
 
 .c0 .message__close-icon:focus span span:before {
-  outline: 2px solid #FFDA7F;
+  outline: 2px solid #FFB500;
   outline-offset: 3px;
 }
 
@@ -69,7 +69,7 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
 }
 
 .c0 .message__close-icon:focus span span:before {
-  outline: 2px solid #FFDA7F;
+  outline: 2px solid #FFB500;
   outline-offset: 3px;
 }
 
@@ -108,7 +108,7 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
 }
 
 .c0 .message__close-icon:focus span span:before {
-  outline: 2px solid #FFDA7F;
+  outline: 2px solid #FFB500;
   outline-offset: 3px;
 }
 
@@ -147,7 +147,7 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
 }
 
 .c0 .message__close-icon:focus span span:before {
-  outline: 2px solid #FFDA7F;
+  outline: 2px solid #FFB500;
   outline-offset: 3px;
 }
 

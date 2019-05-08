@@ -4,9 +4,13 @@ exports[` 1`] = `
 "
     border: 1px dashed #99adb6;
     background-color: transparent;
+    
+    .carbon-icon::before {
+        font-size:16px;
+    }
 
     :hover{
-        background: transparent;
+        background: #fff;
     }
 
     :focus {
@@ -28,8 +32,9 @@ exports[`Create should render correct 1`] = `
         "border": "#668491",
         "brand": "#00DC00",
         "error": "#C7384F",
-        "focus": "#FFDA7F",
+        "focus": "#FFB500",
         "focusedIcon": "#335B6D",
+        "focusedLink": "#FFDA7F",
         "info": "#0073C2",
         "primary": "#26A826",
         "secondary": "#006300",
@@ -101,6 +106,7 @@ exports[`Create should render correctly 1`] = `
   font-weight: 700;
   -webkit-text-decoration: none;
   text-decoration: none;
+  width: 100%;
 }
 
 .c1:hover {
@@ -110,7 +116,11 @@ exports[`Create should render correctly 1`] = `
 .c1:focus {
   color: #26A826;
   background-color: #FFFFFF;
-  outline: 3px solid #FFDA7F;
+  outline: 3px solid #FFB500;
+}
+
+.c1 .carbon-icon::before {
+  font-size: 12px;
 }
 
 <div

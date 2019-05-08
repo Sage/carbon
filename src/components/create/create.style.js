@@ -11,6 +11,7 @@ const CreateStyle = styled(Link)`
     text-align: center;
     font-weight: 700;
     text-decoration: none;
+    width: 100%;
 
     :hover{
         background-color: ${({ theme }) => theme.colors.white};
@@ -20,6 +21,10 @@ const CreateStyle = styled(Link)`
         color: ${({ theme }) => theme.colors.primary};
         background-color: ${({ theme }) => theme.colors.white};
         outline: 3px solid ${({ theme }) => theme.colors.focus};
+    }
+
+    .carbon-icon::before {
+        font-size:12px;
     }
     
     ${createClassicStyle}

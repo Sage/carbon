@@ -20,10 +20,11 @@ export default (palette) => {
       // element
       border: palette.slateTint(40),
       focusedIcon: palette.slateTint(20),
+      focusedLink: palette.goldTint(50),
 
       // status
       error: palette.errorRed,
-      focus: palette.goldTint(50),
+      focus: palette.gold,
       info: palette.productBlueShade(3),
       success: palette.brilliantGreenShade(20),
       warning: palette.carrotOrange

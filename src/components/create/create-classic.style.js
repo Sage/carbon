@@ -4,6 +4,10 @@ import { THEMES } from '../../style/themes';
 export default ({ theme }) => theme.name === THEMES.classic && css`
     border: 1px dashed #99adb6;
     background-color: transparent;
+    
+    .carbon-icon::before {
+        font-size:16px;
+    }
 
     :hover{
         background: #fff;
