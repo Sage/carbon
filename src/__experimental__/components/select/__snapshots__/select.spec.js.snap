@@ -24,7 +24,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  background: transparent;
+  background: #fff;
   border: 1px solid #668491;
   box-sizing: border-box;
   cursor: text;
@@ -79,6 +79,11 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
 
 .c3::placeholder {
   color: rgba(0,0,0,0.3);
+}
+
+.c3:invalid,
+.c3:required {
+  box-shadow: none;
 }
 
 .c1 {
@@ -356,7 +361,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                       "rules": Array [
                         "
   align-items: stretch;
-  background: transparent;
+  background: #fff;
   border: 1px solid ",
                         [Function],
                         ";
@@ -497,7 +502,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  background: transparent;
+  background: #fff;
   border: 1px solid #668491;
   box-sizing: border-box;
   cursor: text;
@@ -552,6 +557,11 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
 
 .c1::placeholder {
   color: rgba(0,0,0,0.3);
+}
+
+.c1:invalid,
+.c1:required {
+  box-shadow: none;
 }
 
 <div
@@ -743,6 +753,10 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
   ",
                                 [Function],
                                 "
+
+  &:invalid, &:required {
+    box-shadow: none;
+  }
 ",
                               ],
                             },
@@ -1223,7 +1237,7 @@ Object {
   -webkit-box-align: stretch;
   -ms-flex-align: stretch;
   align-items: stretch;
-  background: transparent;
+  background: #fff;
   border: 1px solid #668491;
   box-sizing: border-box;
   cursor: text;
@@ -1283,6 +1297,11 @@ Object {
 
 .c1::placeholder {
   color: rgba(0,0,0,0.3);
+}
+
+.c1:invalid,
+.c1:required {
+  box-shadow: none;
 }
 
 <div
