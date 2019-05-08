@@ -1,6 +1,14 @@
 import { OriginalButton } from './button.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
+import PropTypes from 'prop-types';
+
+// Removing Carbon DLS specific props from the legacy demo
+delete OriginalButton.propTypes.checkTheme;
+delete OriginalButton.propTypes.forwardRef;
+delete OriginalButton.propTypes.buttonType;
+delete OriginalButton.propTypes.iconPosition;
+delete OriginalButton.propTypes.iconType;
 
 let definition = new Definition('button', OriginalButton, {
   description: `Performs an action.`,
@@ -18,7 +26,7 @@ let definition = new Definition('button', OriginalButton, {
 * Choosing one option from a highly visible range? [Try Button Toggle](/components/button-toggle).
  `,
   propOptions: {
-    as: OptionsHelper.themesBinary,
+    as: OptionsHelper.themesBinaryClassic,
     theme: OptionsHelper.buttonColors,
     size: OptionsHelper.sizesRestricted
   },
