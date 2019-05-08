@@ -19,7 +19,6 @@ exports[` 1`] = `
 
 exports[`Create should render correct 1`] = `
 <Styled(Link)
-  className="carbon-create"
   data-component="create"
   icon="add"
   iconAlign="right"
@@ -136,7 +135,6 @@ exports[`Create should render correctly 1`] = `
 
 exports[`Create when classic style has been provided should apply custom styling  1`] = `
 <Styled(Link)
-  className="carbon-create"
   data-component="create"
   icon="add"
   iconAlign="right"

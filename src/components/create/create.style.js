@@ -1,27 +1,25 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Link from '../link';
 import baseTheme from '../../style/themes/base';
 import createClassicStyle from './create-classic.style';
 
 const CreateStyle = styled(Link)`
-    ${({ theme }) => css`
-        background-color: ${theme.disabled.input};
-        border: 1px dashed ${theme.colors.border};
-    `};
+    background-color: ${({ theme }) => theme.disabled.input};
+    border: 1px dashed ${({ theme }) => theme.colors.border};
     display: block;
     padding: 12px 12px 10px;
     text-align: center;
     font-weight: 700;
-    text-decoration: none ;
+    text-decoration: none;
 
     :hover{
-        background-color: ${({ theme }) => theme.colors.white}
+        background-color: ${({ theme }) => theme.colors.white};
     }
    
     :focus{
         color: ${({ theme }) => theme.colors.primary};
-        background-color: ${({ theme }) => theme.colors.white} ;
-        outline: 3px solid ${({ theme }) => theme.colors.focus} ;
+        background-color: ${({ theme }) => theme.colors.white};
+        outline: 3px solid ${({ theme }) => theme.colors.focus};
     }
     
     ${createClassicStyle}

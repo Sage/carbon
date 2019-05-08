@@ -1,9 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import tagComponent from '../../utils/helpers/tags/tags';
 import CreateStyle from './create.style';
-// import './create.scss';
 
 class Create extends React.Component {
   constructor(args) {
@@ -13,9 +11,7 @@ class Create extends React.Component {
 
   /** Returns the props for the component. */
   linkProps() {
-    const { className, ...props } = this.props;
-
-    props.className = classNames('carbon-create', className);
+    const { ...props } = this.props;
 
     props.iconAlign = 'right';
     props.icon = 'add';
@@ -36,10 +32,8 @@ class Create extends React.Component {
 Create.propTypes = {
   /** Children elements */
   children: PropTypes.node,
-
   /** Custom className */
   className: PropTypes.string,
-
   /** Props for the link */
   linkProps: PropTypes.object
 };
