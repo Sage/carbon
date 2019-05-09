@@ -50,7 +50,6 @@ TabHeader.defaultProps = {
 
 TabHeader.propTypes = {
   tabHasError: PropTypes.bool,
-  validation: PropTypes.object,
   tabHasWarning: PropTypes.bool,
   title: PropTypes.string.isRequired,
   isTabSelected: PropTypes.bool,

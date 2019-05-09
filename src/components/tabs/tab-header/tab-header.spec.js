@@ -26,7 +26,7 @@ describe('TabHeader', () => {
   let wrapper;
   it('renders as expected', () => {
     wrapper = renderStyles();
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
   it('renders a title as its child with a text passed as a prop', () => {
@@ -35,39 +35,58 @@ describe('TabHeader', () => {
     expect(wrapper.children().text()).toEqual('Tab Title 1');
   });
 
-  it('has the role of tab', () => {
+  describe('attributes', () => {
     wrapper = render();
-    expect(wrapper.find("[role='tab']").exists()).toEqual(true);
-  });
-
-  it('has data-element set to select-tab', () => {
-    wrapper = render();
-    expect(wrapper.find("[data-element='select-tab']").exists()).toEqual(true);
-  });
-
-  it('has aria-selected set to true when isTabSelected prop is true', () => {
-    wrapper = render({ isTabSelected: true });
-    expect(wrapper.find('[aria-selected=true]').exists()).toEqual(true);
-  });
-
-  it('has data-tabid equal to tabId', () => {
-    wrapper = render();
-    expect(wrapper.find("[data-tabid='uniqueid1']").exists()).toEqual(true);
-  });
-
-  it('has aria-selected set to false when isTabSelected prop is false', () => {
-    wrapper = render({ isTabSelected: false });
-    expect(wrapper.find('[aria-selected=false]').exists()).toEqual(true);
-  });
-
-  describe('when isTabSelected prop is set to true', () => {
-    it('applies proper styling', () => {
-      wrapper = renderStyles({ isTabSelected: true });
-      expect(wrapper).toMatchSnapshot();
+    it('role equals "tab"', () => {
+      expect(wrapper.find("[role='tab']").exists()).toEqual(true);
+    });
+    it('data-element equals "select-tab"', () => {
+      expect(wrapper.find("[data-element='select-tab']").exists()).toEqual(true);
+    });
+    it('data-tabid equals tabId', () => {
+      expect(wrapper.find("[data-tabid='uniqueid1']").exists()).toEqual(true);
     });
   });
 
-  describe('when tabHasWarning prop is true', () => {
+  describe('when tab is selected', () => {
+    it('has aria-selected attribute set to true', () => {
+      wrapper = render({ isTabSelected: true });
+      expect(wrapper.find('[aria-selected=true]').exists()).toEqual(true);
+    });
+
+    it('applies proper styling', () => {
+      wrapper = renderStyles({ isTabSelected: true });
+      expect(wrapper.toJSON()).toMatchSnapshot();
+    });
+
+    describe('when position prop is set to left', () => {
+      it('applies proper styling ', () => {
+        wrapper = renderStyles({ position: 'left', isTabSelected: true });
+        expect(wrapper.toJSON).toMatchSnapshot();
+      });
+    });
+  });
+
+  describe('when tab is not selected', () => {
+    it('has aria-selected attribute set to false', () => {
+      wrapper = render({ isTabSelected: false });
+      expect(wrapper.find('[aria-selected=false]').exists()).toEqual(true);
+    });
+
+    describe('when position prop is set to left', () => {
+      it('applies proper styles', () => {
+        wrapper = renderStyles({ position: 'left', isTabSelected: false });
+        expect(wrapper.toJSON()).toMatchSnapshot();
+      });
+    });
+  });
+
+  it('contains custom className if passed as a prop', () => {
+    wrapper = render({ className: 'class' });
+    expect(wrapper.find('.class').exists()).toEqual(true);
+  });
+
+  describe('when tab has warning', () => {
     it('applies proper styling', () => {
       wrapper = renderStyles({ tabHasWarning: true });
       assertStyleMatch(
@@ -79,7 +98,7 @@ describe('TabHeader', () => {
     });
   });
 
-  describe('when tabHasError prop is true', () => {
+  describe('when tab has error', () => {
     it('applies proper styling', () => {
       wrapper = renderStyles({ tabHasError: true });
       assertStyleMatch(
@@ -91,57 +110,55 @@ describe('TabHeader', () => {
     });
   });
 
-  describe('when position prop is set to left', () => {
-    it('renders as expected', () => {
-      wrapper = renderStyles({ position: 'left' });
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('renders as expected when isTabSelected prop is set to true as well', () => {
-      wrapper = renderStyles({ position: 'left', isTabSelected: true });
-      expect(wrapper).toMatchSnapshot();
-    });
-  });
-
   describe('when in classic theme', () => {
     it('renders as expected', () => {
       wrapper = renderStyles({ theme: classicTheme });
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.toJSON()).toMatchSnapshot();
     });
 
-    it('applies proper styling when isTabSelected prop is set to true', () => {
-      wrapper = renderStyles({ theme: classicTheme, isTabSelected: true });
-      expect(wrapper).toMatchSnapshot();
+    describe('when position prop is set to left', () => {
+      it('applies proper styling', () => {
+        wrapper = renderStyles({ theme: classicTheme, position: 'left' });
+        expect(wrapper.toJSON()).toMatchSnapshot();
+      });
     });
 
-    it('applies proper styling when position prop is set to left and isTabSelected prop set to true', () => {
-      wrapper = renderStyles({ theme: classicTheme, position: 'left', isTabSelected: true });
-      expect(wrapper).toMatchSnapshot();
+    describe('when tab is selected', () => {
+      it('applies proper styling', () => {
+        wrapper = renderStyles({ theme: classicTheme, isTabSelected: true });
+        expect(wrapper.toJSON()).toMatchSnapshot();
+      });
+
+      describe('and the position prop is set to left', () => {
+        it('applies proper styling', () => {
+          wrapper = renderStyles({ theme: classicTheme, position: 'left', isTabSelected: true });
+          expect(wrapper.toJSON()).toMatchSnapshot();
+        });
+      });
     });
 
-    it('applies proper styling when position prop is set to left', () => {
-      wrapper = renderStyles({ theme: classicTheme, position: 'left' });
-      expect(wrapper).toMatchSnapshot();
+    describe('when tab has error', () => {
+      it('applies proper border-bottom color', () => {
+        wrapper = renderStyles({ theme: classicTheme, tabHasError: true });
+        assertStyleMatch(
+          {
+            borderBottom: '2px solid #ff7d00'
+          },
+          wrapper.toJSON()
+        );
+      });
     });
 
-    it('applies proper styling when tabHasError is true', () => {
-      wrapper = renderStyles({ theme: classicTheme, tabHasError: true });
-      assertStyleMatch(
-        {
-          borderBottom: '2px solid #ff7d00'
-        },
-        wrapper.toJSON()
-      );
-    });
-
-    it('applies proper styling when tabHasWarning is true', () => {
-      wrapper = renderStyles({ theme: classicTheme, tabHasWarning: true });
-      assertStyleMatch(
-        {
-          borderBottom: '2px solid #d63f40'
-        },
-        wrapper.toJSON()
-      );
+    describe('when tab has warning', () => {
+      it('applies proper border-bottom color', () => {
+        wrapper = renderStyles({ theme: classicTheme, tabHasWarning: true });
+        assertStyleMatch(
+          {
+            borderBottom: '2px solid #d63f40'
+          },
+          wrapper.toJSON()
+        );
+      });
     });
   });
 });
