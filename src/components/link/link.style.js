@@ -29,8 +29,6 @@ const LinkStyleAnchor = styled.a`
 const LinkRouterStyle = styled(LinkStyleAnchor);
 
 const LinkStyle = styled.div`
-  display: inline-block;
-
   ${({ disabled, theme }) => disabled && css`
     cursor: not-allowed;
 
