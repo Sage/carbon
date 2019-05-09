@@ -31,6 +31,14 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
   padding-right: 6px;
 }
 
+.c0 .c2 {
+  height: calc(40px - 4px);
+}
+
+.c0 .c2 {
+  height: 27px;
+}
+
 .c0:hover {
   border-color: #99adb6;
   z-index: 2;
@@ -58,6 +66,8 @@ exports[`InputPresentation classic theme applies custom styling 1`] = `
 <div
   className="c0"
   onMouseDown={[Function]}
+  onMouseOut={[Function]}
+  onMouseOver={[Function]}
   role="presentation"
   size="medium"
 >
@@ -91,6 +101,10 @@ exports[`InputPresentation renders presentational div and context provider for i
   padding-right: 11px;
 }
 
+.c0 .c1 {
+  height: calc(40px - 4px);
+}
+
 .c0 input::-ms-clear {
   display: none;
 }
@@ -102,6 +116,8 @@ exports[`InputPresentation renders presentational div and context provider for i
 <div
   className="c0"
   onMouseDown={[Function]}
+  onMouseOut={[Function]}
+  onMouseOver={[Function]}
   role="presentation"
   size="medium"
 >

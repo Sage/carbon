@@ -2,16 +2,38 @@
 
 exports[`Textbox renders with InputPresentation and Input and all props passed to Input 1`] = `
 <FormField
+  info={Array []}
+  inputWidth={70}
+  labelWidth={30}
+  name="mocked-guid"
+  onBlur={[Function]}
+  onChange={[Function]}
   size="medium"
-  value="foobar"
+  validations={Array []}
+  warnings={Array []}
 >
   <InputPresentation
+    info={Array []}
+    inputWidth={70}
+    labelWidth={30}
+    name="mocked-guid"
+    onBlur={[Function]}
+    onChange={[Function]}
     type="text"
-    value="foobar"
+    validations={Array []}
+    warnings={Array []}
   >
     southpaw children
     <Input
+      info={Array []}
+      inputWidth={70}
+      labelWidth={30}
+      name="mocked-guid"
+      onBlur={[Function]}
+      onChange={[Function]}
+      validations={Array []}
       value="foobar"
+      warnings={Array []}
     />
     normal children
   </InputPresentation>

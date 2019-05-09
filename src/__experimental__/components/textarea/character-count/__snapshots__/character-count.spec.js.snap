@@ -31,7 +31,7 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
         "secondary": "#006045",
         "success": "#00B000",
         "tertiary": "#003F2E",
-        "warning": "#E96400",
+        "warning": "#FFB500",
         "white": "#FFFFFF",
       },
       "disabled": Object {
@@ -81,7 +81,7 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
           "secondary": "#006045",
           "success": "#00B000",
           "tertiary": "#003F2E",
-          "warning": "#E96400",
+          "warning": "#FFB500",
           "white": "#FFFFFF",
         },
         "disabled": Object {
@@ -131,7 +131,7 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
             "secondary": "#006045",
             "success": "#00B000",
             "tertiary": "#003F2E",
-            "warning": "#E96400",
+            "warning": "#FFB500",
             "white": "#FFFFFF",
           },
           "disabled": Object {
@@ -180,7 +180,7 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
               "secondary": "#006045",
               "success": "#00B000",
               "tertiary": "#003F2E",
-              "warning": "#E96400",
+              "warning": "#FFB500",
               "white": "#FFFFFF",
             },
             "disabled": Object {
@@ -264,7 +264,7 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
                 "secondary": "#006045",
                 "success": "#00B000",
                 "tertiary": "#003F2E",
-                "warning": "#E96400",
+                "warning": "#FFB500",
                 "white": "#FFFFFF",
               },
               "disabled": Object {
@@ -345,7 +345,7 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
         "secondary": "#006045",
         "success": "#00B000",
         "tertiary": "#003F2E",
-        "warning": "#E96400",
+        "warning": "#FFB500",
         "white": "#FFFFFF",
       },
       "disabled": Object {
@@ -395,7 +395,7 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
           "secondary": "#006045",
           "success": "#00B000",
           "tertiary": "#003F2E",
-          "warning": "#E96400",
+          "warning": "#FFB500",
           "white": "#FFFFFF",
         },
         "disabled": Object {
@@ -445,7 +445,7 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
             "secondary": "#006045",
             "success": "#00B000",
             "tertiary": "#003F2E",
-            "warning": "#E96400",
+            "warning": "#FFB500",
             "white": "#FFFFFF",
           },
           "disabled": Object {
@@ -494,7 +494,7 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
               "secondary": "#006045",
               "success": "#00B000",
               "tertiary": "#003F2E",
-              "warning": "#E96400",
+              "warning": "#FFB500",
               "white": "#FFFFFF",
             },
             "disabled": Object {
@@ -578,7 +578,7 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
                 "secondary": "#006045",
                 "success": "#00B000",
                 "tertiary": "#003F2E",
-                "warning": "#E96400",
+                "warning": "#FFB500",
                 "white": "#FFFFFF",
               },
               "disabled": Object {
