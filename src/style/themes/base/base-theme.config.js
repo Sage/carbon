@@ -20,7 +20,7 @@ export default (palette) => {
       // element
       border: palette.slateTint(40),
       focusedIcon: palette.slateTint(20),
-      focusedLink: palette.goldTint(50),
+      focusedLinkBackground: palette.goldTint(50),
 
       // status
       error: palette.errorRed,

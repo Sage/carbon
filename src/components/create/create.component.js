@@ -4,13 +4,8 @@ import tagComponent from '../../utils/helpers/tags/tags';
 import CreateStyle from './create.style';
 
 class Create extends React.Component {
-  constructor(args) {
-    super(args);
-    this.linkProps = this.linkProps.bind(this);
-  }
-
   /** Returns the props for the component. */
-  linkProps() {
+  linkProps = () => {
     const { ...props } = this.props;
 
     props.iconAlign = 'right';

@@ -18,7 +18,7 @@ const LinkStyleAnchor = styled.a`
     &:focus {
       color: ${theme.text.color};
       cursor: default;
-      background-color: ${theme.colors.focusedLink};
+      background-color: ${theme.colors.focusedLinkBackground};
       outline: none;
     }
   `}  

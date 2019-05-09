@@ -34,8 +34,8 @@ describe('Create', () => {
     });
   });
 
-  describe('when `custom class` is privded', () => {
-    it('component should contain correct className', () => {
+  describe('when `custom class` is provided to component', () => {
+    it('should contain correct class name', () => {
       wrapper.setProps({ className: 'custom-class' });
 
       expect(wrapper.hasClass('custom-class')).toBeTruthy();
