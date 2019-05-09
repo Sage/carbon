@@ -8,14 +8,14 @@ import classicTheme from '../../../style/themes/classic';
 
 function render(props) {
   return shallow(<TabHeader
-    title='Tab Title 1' id='uniqueid1'
+    title='Tab Title 1' dataTabId='uniqueid1'
     { ...props }
   />);
 }
 
 function renderStyles(props) {
   return TestRenderer.create(<StyledTabHeader
-    title='Tab Title 1' id='uniqueid1'
+    title='Tab Title 1' dataTabId='uniqueid1'
     { ...props }
   />);
 }
@@ -48,14 +48,14 @@ describe('TabHeader', () => {
     expect(wrapper.find('[aria-selected=true]').exists()).toEqual(true);
   });
 
+  it('has data-tabid equal to tabId', () => {
+    wrapper = render();
+    expect(wrapper.find("[data-tabid='uniqueid1']").exists()).toEqual(true);
+  });
+
   it('has aria-selected set to false when isTabSelected prop is false', () => {
     wrapper = render({ isTabSelected: false });
     expect(wrapper.find('[aria-selected=false]').exists()).toEqual(true);
-  });
-
-  it('has data-tabid set', () => {
-    wrapper = render();
-    expect(wrapper.find("[role='tab']").exists()).toEqual(true);
   });
 
   describe('when isTabSelected prop is set to true', () => {

@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import OptionsHelper from '../../utils/helpers/options-helper';
 
 const StyledTabs = styled.div`
   ${({ position }) => position === 'top'

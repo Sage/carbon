@@ -2,12 +2,14 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
 import { shallow, mount } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { Tabs, Tab } from './tabs.component';
 import Textbox from '../textbox';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Browser from '../../utils/helpers/browser';
 import TabsHeader from './tabs-header/tabs-header.component';
+import StyledTabs from './tabs.style';
 
 function render(props) {
   return shallow(
@@ -26,10 +28,7 @@ function render(props) {
 }
 
 function renderStyles(props) {
-  return TestRenderer.create(<StyledTabHeader
-    title='Tab Title 1' id='uniqueid1'
-    { ...props }
-  />);
+  return TestRenderer.create(<StyledTabs { ...props } />);
 }
 
 describe('Tabs', () => {
@@ -415,12 +414,6 @@ describe('Tabs', () => {
     });
   });
 
-  describe('tabHeaders', () => {
-    it('adds a data-tabid to each list item', () => {
-      expect(instance.tabHeaders.props.children[0].props['data-tabid']).toEqual('uniqueid1');
-    });
-  });
-
   describe('visibleTab', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
@@ -464,8 +457,16 @@ describe('Tabs', () => {
 
       describe('when passed a null child', () => {
         it('ignores the null child', () => {
-          const tabs = TestUtils.scryRenderedDOMComponentsWithClass(instanceWithNull, 'carbon-tab');
-          expect(tabs.length).toEqual(1);
+          const wrapper = shallow(
+            <Tabs>
+              <Tab title='title-1' tabId='tabId-1' />
+              <Tab title='title-2' tabId='tabId-2' />
+              {null}
+            </Tabs>
+          );
+
+          expect(wrapper.find(Tab)).toHaveLength(2);
+          expect(wrapper.children()).toHaveLength(3);
         });
       });
     });
@@ -473,14 +474,20 @@ describe('Tabs', () => {
     describe('when renderHiddenTabs is set to false', () => {
       it('returns a single child tab component', () => {
         const wrapper = render({ renderHiddenTabs: false });
-        expect(wrapper.children()).toHaveLength(1);
+        expect(wrapper.find(Tab)).toHaveLength(1);
+        expect(wrapper.children()).toHaveLength(2);
       });
     });
 
     describe('when there is one child', () => {
       it('renders the only child', () => {
-          const tabs = TestUtils.scryRenderedDOMComponentsWithClass(instanceOneChild, 'carbon-tab');
-          expect(tabs.length).toEqual(1);
+        const wrapper = shallow(
+          <Tabs renderHiddenTabs={ false }>
+            <Tab title='title' tabId='tabId-1' />
+          </Tabs>
+        );
+        expect(wrapper.find(Tab)).toHaveLength(1);
+        expect(wrapper.children()).toHaveLength(2);
       });
     });
   });

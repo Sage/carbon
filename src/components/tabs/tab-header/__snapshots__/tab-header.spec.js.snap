@@ -30,7 +30,6 @@ exports[`TabHeader renders as expected 1`] = `
 
 <li
   className="c0"
-  id="uniqueid1"
   title="Tab Title 1"
 />
 `;
@@ -98,7 +97,6 @@ exports[`TabHeader when in classic style applies proper styling when isTabSelect
 
 <li
   className="c0"
-  id="uniqueid1"
   title="Tab Title 1"
 />
 `;
@@ -173,7 +171,6 @@ exports[`TabHeader when in classic style applies proper styling when position pr
 
 <li
   className="c0"
-  id="uniqueid1"
   title="Tab Title 1"
 />
 `;
@@ -279,7 +276,6 @@ exports[`TabHeader when in classic style applies proper styling when position pr
 
 <li
   className="c0"
-  id="uniqueid1"
   title="Tab Title 1"
 />
 `;
@@ -330,7 +326,6 @@ exports[`TabHeader when in classic style renders as expected 1`] = `
 
 <li
   className="c0"
-  id="uniqueid1"
   title="Tab Title 1"
 />
 `;
@@ -374,7 +369,6 @@ exports[`TabHeader when isTabSelected prop is set to true applies proper styling
 
 <li
   className="c0"
-  id="uniqueid1"
   title="Tab Title 1"
 />
 `;
@@ -425,7 +419,6 @@ exports[`TabHeader when position prop is set to left renders as expected 1`] = `
 
 <li
   className="c0"
-  id="uniqueid1"
   title="Tab Title 1"
 />
 `;
@@ -492,7 +485,6 @@ exports[`TabHeader when position prop is set to left renders as expected when is
 
 <li
   className="c0"
-  id="uniqueid1"
   title="Tab Title 1"
 />
 `;
