@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Textarea when rendered and when characterLimit prop is defined and when warnOverLimit prop is true and a limit is over should be styled for warn over limit 1`] = `
-.c4 {
+.c5 {
   text-align: right;
   font-size: 12px;
   margin-top: 4px;
@@ -35,6 +35,10 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   padding-right: 11px;
 }
 
+.c2 .c3 {
+  height: calc(40px - 4px);
+}
+
 .c2 input::-ms-clear {
   display: none;
 }
@@ -51,7 +55,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   margin-top: 16px;
 }
 
-.c3 {
+.c4 {
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -68,24 +72,24 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   padding-bottom: 5px;
 }
 
-.c3::-webkit-input-placeholder {
+.c4::-webkit-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c3::-moz-placeholder {
+.c4::-moz-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c3:-ms-input-placeholder {
+.c4:-ms-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c3::placeholder {
+.c4::placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c3:invalid,
-.c3:required {
+.c4:invalid,
+.c4:required {
   box-shadow: none;
 }
 
@@ -281,6 +285,8 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
               hasFocus={false}
               inputWidth={100}
               onMouseDown={[Function]}
+              onMouseOut={[Function]}
+              onMouseOver={[Function]}
               role="presentation"
               size="medium"
               theme={
@@ -336,7 +342,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                     "$$typeof": Symbol(react.forward_ref),
                     "attrs": Array [],
                     "componentStyle": ComponentStyle {
-                      "componentId": "sc-bxivhb",
+                      "componentId": "sc-ifAKCX",
                       "isStatic": false,
                       "lastClassName": "c2",
                       "rules": Array [
@@ -365,24 +371,26 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                         ";
 
   ",
+                        ".c3",
+                        " {
+    /* this is required for an IE11 fix: */
+    height: calc(",
                         [Function],
-                        "
-  ",
-                        [Function],
-                        "
-  ",
-                        [Function],
-                        "
-  ",
-                        [Function],
-                        "
-  ",
-                        [Function],
-                        "
-  ",
-                        [Function],
-                        "
+                        " - 4px);
+  }
 
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
   ",
                         [Function],
                         "
@@ -443,15 +451,15 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                     "foldedComponentIds": Array [],
                     "propTypes": Object {
                       "disabled": [Function],
-                      "error": [Function],
+                      "errorMessage": [Function],
                       "hasFocus": [Function],
-                      "info": [Function],
+                      "infoMessage": [Function],
                       "readOnly": [Function],
                       "size": [Function],
-                      "warning": [Function],
+                      "warningMessage": [Function],
                     },
                     "render": [Function],
-                    "styledComponentId": "sc-bxivhb",
+                    "styledComponentId": "sc-ifAKCX",
                     "target": "div",
                     "toString": [Function],
                     "warnTooManyClasses": [Function],
@@ -485,6 +493,10 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   padding-right: 11px;
 }
 
+.c0 .c1 {
+  height: calc(40px - 4px);
+}
+
 .c0 input::-ms-clear {
   display: none;
 }
@@ -493,7 +505,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   display: none!important;
 }
 
-.c1 {
+.c2 {
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -510,24 +522,24 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
   padding-bottom: 5px;
 }
 
-.c1::-webkit-input-placeholder {
+.c2::-webkit-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c1::-moz-placeholder {
+.c2::-moz-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c1:-ms-input-placeholder {
+.c2:-ms-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c1::placeholder {
+.c2::placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c1:invalid,
-.c1:required {
+.c2:invalid,
+.c2:required {
   box-shadow: none;
 }
 
@@ -538,7 +550,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                       value="abcdefg"
                     >
                       <textarea
-                        class="c1"
+                        class="c1 c2"
                         maxlength="5"
                       >
                         abcdefg
@@ -549,6 +561,8 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                 hasFocus={false}
                 inputWidth={100}
                 onMouseDown={[Function]}
+                onMouseOut={[Function]}
+                onMouseOver={[Function]}
                 role="presentation"
                 size="medium"
                 theme={
@@ -600,6 +614,8 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                   className="c2"
                   disabled={false}
                   onMouseDown={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
                   role="presentation"
                   size="medium"
                   type="text"
@@ -678,7 +694,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                             "componentStyle": ComponentStyle {
                               "componentId": "sc-htoDjs",
                               "isStatic": false,
-                              "lastClassName": "c3",
+                              "lastClassName": "c4",
                               "rules": Array [
                                 "
   background: transparent;
@@ -762,7 +778,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                             },
                             "displayName": "Styled(styled.input)",
                             "foldedComponentIds": Array [
-                              "sc-ifAKCX",
+                              "c3",
                             ],
                             "propTypes": Object {
                               "disabled": [Function],
@@ -778,7 +794,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                         forwardedRef={
                           Object {
                             "current": <textarea
-                              class="c3"
+                              class="c3 c4"
                               maxlength="5"
                             >
                               abcdefg
@@ -835,7 +851,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                         warnOverLimit={true}
                       >
                         <textarea
-                          className="c3"
+                          className="c3 c4"
                           disabled={false}
                           maxLength="5"
                           onBlur={[Function]}
@@ -962,7 +978,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
               "componentStyle": ComponentStyle {
                 "componentId": "sc-bdVaJa",
                 "isStatic": false,
-                "lastClassName": "c4",
+                "lastClassName": "c5",
                 "rules": Array [
                   "
   text-align: right;
@@ -1076,7 +1092,7 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
           }
         >
           <div
-            className="c4"
+            className="c5"
             data-element="character-limit"
           >
             7
@@ -1116,6 +1132,10 @@ exports[`Textarea when rendered should render default 1`] = `
   padding-right: 11px;
 }
 
+.c2 .c3 {
+  height: calc(40px - 4px);
+}
+
 .c2 input::-ms-clear {
   display: none;
 }
@@ -1132,7 +1152,7 @@ exports[`Textarea when rendered should render default 1`] = `
   margin-top: 16px;
 }
 
-.c3 {
+.c4 {
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -1149,24 +1169,24 @@ exports[`Textarea when rendered should render default 1`] = `
   padding-bottom: 5px;
 }
 
-.c3::-webkit-input-placeholder {
+.c4::-webkit-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c3::-moz-placeholder {
+.c4::-moz-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c3:-ms-input-placeholder {
+.c4:-ms-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c3::placeholder {
+.c4::placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c3:invalid,
-.c3:required {
+.c4:invalid,
+.c4:required {
   box-shadow: none;
 }
 
@@ -1358,6 +1378,8 @@ exports[`Textarea when rendered should render default 1`] = `
               hasFocus={false}
               inputWidth={100}
               onMouseDown={[Function]}
+              onMouseOut={[Function]}
+              onMouseOver={[Function]}
               role="presentation"
               size="medium"
               theme={
@@ -1412,7 +1434,7 @@ exports[`Textarea when rendered should render default 1`] = `
                     "$$typeof": Symbol(react.forward_ref),
                     "attrs": Array [],
                     "componentStyle": ComponentStyle {
-                      "componentId": "sc-bxivhb",
+                      "componentId": "sc-ifAKCX",
                       "isStatic": false,
                       "lastClassName": "c2",
                       "rules": Array [
@@ -1441,24 +1463,26 @@ exports[`Textarea when rendered should render default 1`] = `
                         ";
 
   ",
+                        ".c3",
+                        " {
+    /* this is required for an IE11 fix: */
+    height: calc(",
                         [Function],
-                        "
-  ",
-                        [Function],
-                        "
-  ",
-                        [Function],
-                        "
-  ",
-                        [Function],
-                        "
-  ",
-                        [Function],
-                        "
-  ",
-                        [Function],
-                        "
+                        " - 4px);
+  }
 
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
   ",
                         [Function],
                         "
@@ -1519,15 +1543,15 @@ exports[`Textarea when rendered should render default 1`] = `
                     "foldedComponentIds": Array [],
                     "propTypes": Object {
                       "disabled": [Function],
-                      "error": [Function],
+                      "errorMessage": [Function],
                       "hasFocus": [Function],
-                      "info": [Function],
+                      "infoMessage": [Function],
                       "readOnly": [Function],
                       "size": [Function],
-                      "warning": [Function],
+                      "warningMessage": [Function],
                     },
                     "render": [Function],
-                    "styledComponentId": "sc-bxivhb",
+                    "styledComponentId": "sc-ifAKCX",
                     "target": "div",
                     "toString": [Function],
                     "warnTooManyClasses": [Function],
@@ -1561,6 +1585,10 @@ exports[`Textarea when rendered should render default 1`] = `
   padding-right: 11px;
 }
 
+.c0 .c1 {
+  height: calc(40px - 4px);
+}
+
 .c0 input::-ms-clear {
   display: none;
 }
@@ -1569,7 +1597,7 @@ exports[`Textarea when rendered should render default 1`] = `
   display: none!important;
 }
 
-.c1 {
+.c2 {
   background: transparent;
   border: none;
   color: rgba(0,0,0,0.9);
@@ -1586,24 +1614,24 @@ exports[`Textarea when rendered should render default 1`] = `
   padding-bottom: 5px;
 }
 
-.c1::-webkit-input-placeholder {
+.c2::-webkit-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c1::-moz-placeholder {
+.c2::-moz-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c1:-ms-input-placeholder {
+.c2:-ms-input-placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c1::placeholder {
+.c2::placeholder {
   color: rgba(0,0,0,0.3);
 }
 
-.c1:invalid,
-.c1:required {
+.c2:invalid,
+.c2:required {
   box-shadow: none;
 }
 
@@ -1613,7 +1641,7 @@ exports[`Textarea when rendered should render default 1`] = `
                       type="text"
                     >
                       <textarea
-                        class="c1"
+                        class="c1 c2"
                       />
                     </div>,
                   }
@@ -1621,6 +1649,8 @@ exports[`Textarea when rendered should render default 1`] = `
                 hasFocus={false}
                 inputWidth={100}
                 onMouseDown={[Function]}
+                onMouseOut={[Function]}
+                onMouseOver={[Function]}
                 role="presentation"
                 size="medium"
                 theme={
@@ -1671,6 +1701,8 @@ exports[`Textarea when rendered should render default 1`] = `
                   className="c2"
                   disabled={false}
                   onMouseDown={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
                   role="presentation"
                   size="medium"
                   type="text"
@@ -1744,7 +1776,7 @@ exports[`Textarea when rendered should render default 1`] = `
                             "componentStyle": ComponentStyle {
                               "componentId": "sc-htoDjs",
                               "isStatic": false,
-                              "lastClassName": "c3",
+                              "lastClassName": "c4",
                               "rules": Array [
                                 "
   background: transparent;
@@ -1828,7 +1860,7 @@ exports[`Textarea when rendered should render default 1`] = `
                             },
                             "displayName": "Styled(styled.input)",
                             "foldedComponentIds": Array [
-                              "sc-ifAKCX",
+                              "c3",
                             ],
                             "propTypes": Object {
                               "disabled": [Function],
@@ -1844,7 +1876,7 @@ exports[`Textarea when rendered should render default 1`] = `
                         forwardedRef={
                           Object {
                             "current": <textarea
-                              class="c3"
+                              class="c3 c4"
                             />,
                           }
                         }
@@ -1896,7 +1928,7 @@ exports[`Textarea when rendered should render default 1`] = `
                         warnOverLimit={false}
                       >
                         <textarea
-                          className="c3"
+                          className="c3 c4"
                           disabled={false}
                           onBlur={[Function]}
                           onClick={[Function]}

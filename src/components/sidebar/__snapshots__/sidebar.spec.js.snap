@@ -182,7 +182,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
         "secondary": "#006045",
         "success": "#00B000",
         "tertiary": "#003F2E",
-        "warning": "#E96400",
+        "warning": "#FFB500",
         "white": "#FFFFFF",
       },
       "disabled": Object {
@@ -317,7 +317,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
           "secondary": "#006045",
           "success": "#00B000",
           "tertiary": "#003F2E",
-          "warning": "#E96400",
+          "warning": "#FFB500",
           "white": "#FFFFFF",
         },
         "disabled": Object {
@@ -392,7 +392,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
         "secondary": "#006045",
         "success": "#00B000",
         "tertiary": "#003F2E",
-        "warning": "#E96400",
+        "warning": "#FFB500",
         "white": "#FFFFFF",
       },
       "disabled": Object {
@@ -521,7 +521,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
           "secondary": "#006045",
           "success": "#00B000",
           "tertiary": "#003F2E",
-          "warning": "#E96400",
+          "warning": "#FFB500",
           "white": "#FFFFFF",
         },
         "disabled": Object {
