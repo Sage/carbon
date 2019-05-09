@@ -5,6 +5,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import sizes from './input-sizes.style';
 import inputClassicStyling from './input-presentation-classic.style';
 import VALIDATION_TYPES from '../../../components/validations/validation-types.config';
+import StyledInput from './input.style';
 
 const InputPresentationStyle = styled.div`
   align-items: stretch;
@@ -19,6 +20,11 @@ const InputPresentationStyle = styled.div`
   min-height: ${({ size }) => sizes[size].height};
   padding-left: ${({ size }) => sizes[size].padding};
   padding-right: ${({ size }) => sizes[size].padding};
+
+  ${StyledInput} {
+    /* this is required for an IE11 fix: */
+    height: calc(${({ size }) => sizes[size].height} - 4px);
+  }
 
   ${({ disabled, theme }) => disabled && css`
     background: ${theme.disabled.input};
