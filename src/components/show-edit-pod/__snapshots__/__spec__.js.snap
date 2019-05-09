@@ -242,11 +242,9 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                               "componentStyle": ComponentStyle {
                                                 "componentId": "sc-bwzfXH",
                                                 "isStatic": false,
-                                                "lastClassName": "iCKmfn",
+                                                "lastClassName": "bGgvvP",
                                                 "rules": Array [
                                                   "
-  display: inline-block;
-
   ",
                                                   [Function],
                                                   "
@@ -354,7 +352,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                           }
                                         >
                                           <div
-                                            className="sc-bwzfXH iCKmfn"
+                                            className="sc-bwzfXH bGgvvP"
                                             data-component="link"
                                             disabled={false}
                                           >

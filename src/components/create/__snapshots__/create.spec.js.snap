@@ -74,19 +74,19 @@ exports[`Create should render correct 1`] = `
 `;
 
 exports[`Create should render correctly 1`] = `
-.c2 {
+.c1 {
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #26A826;
 }
 
-.c2:hover {
+.c1:hover {
   cursor: pointer;
   color: #006300;
 }
 
-.c2:focus {
+.c1:focus {
   color: rgba(0,0,0,0.9);
   cursor: default;
   background-color: #FFDA7F;
@@ -94,10 +94,6 @@ exports[`Create should render correctly 1`] = `
 }
 
 .c0 {
-  display: inline-block;
-}
-
-.c1 {
   background-color: #F2F4F5;
   border: 1px dashed #668491;
   display: block;
@@ -109,27 +105,27 @@ exports[`Create should render correctly 1`] = `
   width: 100%;
 }
 
-.c1:hover {
+.c0:hover {
   background-color: #FFFFFF;
 }
 
-.c1:focus {
+.c0:focus {
   color: #26A826;
   background-color: #FFFFFF;
   outline: 3px solid #FFB500;
 }
 
-.c1 .carbon-icon::before {
+.c0 .carbon-icon::before {
   font-size: 12px;
 }
 
 <div
-  className="c0"
+  className=""
   data-component="link"
   disabled={false}
 >
   <a
-    className="c1 c2"
+    className="c0 c1"
     data-component="link"
     onKeyDown={[Function]}
     tabIndex="0"
