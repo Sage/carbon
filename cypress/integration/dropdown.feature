@@ -39,7 +39,7 @@ Feature: Dropdown component
   Scenario Outline: Set Dropdown label help
     When I set labelHelp to "<label>"
       And I hover mouse onto help icon
-    Then Label help on preview is set to "<label>"
+    Then tooltipPreview on preview is set to "<label>"
     Examples:
       | label                    |
       | Sample text              |
