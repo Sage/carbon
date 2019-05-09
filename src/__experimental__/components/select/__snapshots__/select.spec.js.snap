@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Select applies custom data-* attributes at the right level 1`] = `
-.c4 {
+.c5 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -17,6 +17,40 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
   justify-content: center;
   margin-right: -11px;
   width: 40px;
+}
+
+.c4 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c4::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c4::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c4:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c4::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c4:invalid,
+.c4:required {
+  box-shadow: none;
 }
 
 .c2 {
@@ -44,6 +78,10 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
   padding-right: 11px;
 }
 
+.c2 .c3 {
+  height: calc(40px - 4px);
+}
+
 .c2 input::-ms-clear {
   display: none;
 }
@@ -52,38 +90,8 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
   display: none!important;
 }
 
-.c3 {
-  background: transparent;
-  border: none;
-  color: rgba(0,0,0,0.9);
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-size: 14px;
-  outline: none;
-  width: 30px;
-}
-
-.c3::-webkit-input-placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c3::-moz-placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c3:-ms-input-placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c3::placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c3:invalid,
-.c3:required {
-  box-shadow: none;
+.c6 .c3 {
+  height: calc(40px - 4px);
 }
 
 .c1 {
@@ -377,7 +385,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                     "$$typeof": Symbol(react.forward_ref),
                     "attrs": Array [],
                     "componentStyle": ComponentStyle {
-                      "componentId": "sc-bxivhb",
+                      "componentId": "sc-ifAKCX",
                       "isStatic": false,
                       "lastClassName": "c2",
                       "rules": Array [
@@ -404,6 +412,15 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
   padding-right: ",
                         [Function],
                         ";
+
+  ",
+                        ".c3",
+                        " {
+    /* this is required for an IE11 fix: */
+    height: calc(",
+                        [Function],
+                        " - 4px);
+  }
 
   ",
                         [Function],
@@ -485,7 +502,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                       "warningMessage": [Function],
                     },
                     "render": [Function],
-                    "styledComponentId": "sc-bxivhb",
+                    "styledComponentId": "sc-ifAKCX",
                     "target": "div",
                     "toString": [Function],
                     "warnTooManyClasses": [Function],
@@ -494,7 +511,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                 }
                 forwardedRef={
                   Object {
-                    "current": .c2 {
+                    "current": .c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -510,6 +527,40 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
   justify-content: center;
   margin-right: -11px;
   width: 40px;
+}
+
+.c2 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c2::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c2::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c2:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c2::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c2:invalid,
+.c2:required {
+  box-shadow: none;
 }
 
 .c0 {
@@ -537,6 +588,10 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
   padding-right: 11px;
 }
 
+.c0 .c1 {
+  height: calc(40px - 4px);
+}
+
 .c0 input::-ms-clear {
   display: none;
 }
@@ -545,38 +600,8 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
   display: none!important;
 }
 
-.c1 {
-  background: transparent;
-  border: none;
-  color: rgba(0,0,0,0.9);
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-size: 14px;
-  outline: none;
-  width: 30px;
-}
-
-.c1::-webkit-input-placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c1::-moz-placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c1:-ms-input-placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c1::placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c1:invalid,
-.c1:required {
-  box-shadow: none;
+.c4 .c1 {
+  height: calc(40px - 4px);
 }
 
 <div
@@ -589,7 +614,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                     >
                       <input
                         autocomplete="off"
-                        class="c1"
+                        class="c1 c2"
                         data-element="input"
                         id="guid-12345"
                         name="guid-12345"
@@ -597,7 +622,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                       />
                       <span
                         autocomplete="off"
-                        class="c2"
+                        class="c3"
                         data-element="input"
                         name="guid-12345"
                         type="dropdown"
@@ -762,9 +787,9 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                             "$$typeof": Symbol(react.forward_ref),
                             "attrs": Array [],
                             "componentStyle": ComponentStyle {
-                              "componentId": "sc-ifAKCX",
+                              "componentId": "c3",
                               "isStatic": false,
-                              "lastClassName": "c3",
+                              "lastClassName": "c4",
                               "rules": Array [
                                 "
   background: transparent;
@@ -846,7 +871,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                               "disabled": [Function],
                             },
                             "render": [Function],
-                            "styledComponentId": "sc-ifAKCX",
+                            "styledComponentId": "c3",
                             "target": "input",
                             "toString": [Function],
                             "warnTooManyClasses": [Function],
@@ -857,7 +882,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                           Object {
                             "current": <input
                               autocomplete="off"
-                              class="c3"
+                              class="c3 c4"
                               data-element="input"
                               id="guid-12345"
                               name="guid-12345"
@@ -922,7 +947,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                       >
                         <input
                           autoComplete="off"
-                          className="c3"
+                          className="c3 c4"
                           data-element="input"
                           id="guid-12345"
                           name="guid-12345"
@@ -1023,7 +1048,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                             "componentStyle": ComponentStyle {
                               "componentId": "sc-htpNat",
                               "isStatic": false,
-                              "lastClassName": "c4",
+                              "lastClassName": "c5",
                               "rules": Array [
                                 "
   align-items: center;
@@ -1170,7 +1195,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                       >
                         <span
                           autoComplete="off"
-                          className="c4"
+                          className="c5"
                           data-element="input"
                           name="guid-12345"
                           onBlur={[Function]}
@@ -1282,7 +1307,7 @@ Object {
   "onMouseLeave": [Function],
   "onSelect": [Function],
   "open": true,
-  "target": .c2 {
+  "target": .c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1298,6 +1323,44 @@ Object {
   justify-content: center;
   margin-right: -11px;
   width: 40px;
+}
+
+.c2 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c2::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c2::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c2:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c2::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c2:invalid,
+.c2:required {
+  box-shadow: none;
+}
+
+.c4 .c1 {
+  height: calc(40px - 4px);
 }
 
 .c0 {
@@ -1325,6 +1388,10 @@ Object {
   padding-right: 11px;
 }
 
+.c0 .c1 {
+  height: calc(40px - 4px);
+}
+
 .c0.c0 {
   outline: 3px solid #FFDA7F;
   z-index: 2;
@@ -1338,40 +1405,6 @@ Object {
   display: none!important;
 }
 
-.c1 {
-  background: transparent;
-  border: none;
-  color: rgba(0,0,0,0.9);
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  font-size: 14px;
-  outline: none;
-  width: 30px;
-}
-
-.c1::-webkit-input-placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c1::-moz-placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c1:-ms-input-placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c1::placeholder {
-  color: rgba(0,0,0,0.3);
-}
-
-.c1:invalid,
-.c1:required {
-  box-shadow: none;
-}
-
 <div
     autocomplete="off"
     class="c0"
@@ -1382,7 +1415,7 @@ Object {
   >
     <input
       autocomplete="off"
-      class="c1"
+      class="c1 c2"
       data-element="input"
       id="guid-12345"
       name="guid-12345"
@@ -1393,7 +1426,7 @@ Object {
     />
     <span
       autocomplete="off"
-      class="c2"
+      class="c3"
       data-element="input"
       name="guid-12345"
       type="dropdown"
