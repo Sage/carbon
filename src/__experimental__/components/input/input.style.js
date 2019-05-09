@@ -20,9 +20,13 @@ const StyledInput = styled.input`
   }
 
   ${({ disabled, theme }) => disabled && css`
-    color: ${theme.disabled.text};
+    color: ${theme.disabled.disabled};
     cursor: not-allowed;
   `}
+
+  &:invalid, &:required {
+    box-shadow: none;
+  }
 `;
 
 StyledInput.defaultProps = {
