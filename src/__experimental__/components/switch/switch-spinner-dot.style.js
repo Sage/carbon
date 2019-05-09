@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
+import baseTheme from '../../../style/themes/base';
 import ClassicSwitchSpinnerDotStyles from './switch-spinner-dot-classic.style';
 
 const SwitchSpinnerDot = styled.div`
@@ -41,7 +42,12 @@ const SwitchSpinnerDot = styled.div`
 `;
 
 SwitchSpinnerDot.propTypes = {
-  checked: PropTypes.bool
+  checked: PropTypes.bool,
+  theme: PropTypes.object
+};
+
+SwitchSpinnerDot.defaultProps = {
+  theme: baseTheme
 };
 
 export default SwitchSpinnerDot;
