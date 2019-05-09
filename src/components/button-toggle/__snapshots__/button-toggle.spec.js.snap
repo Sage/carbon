@@ -36,7 +36,7 @@ input:checked ~ .c2 {
 }
 
 input:focus ~ .c2 {
-  outline: 3px solid #FFDA7F;
+  outline: 3px solid #FFB500;
 }
 
 .c2:hover {
@@ -133,7 +133,7 @@ input:checked ~ .c3 {
 }
 
 input:focus ~ .c3 {
-  outline: 3px solid #FFDA7F;
+  outline: 3px solid #FFB500;
 }
 
 .c3:hover {
@@ -203,7 +203,7 @@ input:focus ~ .c3 {
           "border": "#668491",
           "brand": "#00DC00",
           "error": "#C7384F",
-          "focus": "#FFDA7F",
+          "focus": "#FFB500",
           "focusedIcon": "#335B6D",
           "greyDarkBlue50": "#8099a4",
           "info": "#0073C2",
@@ -254,7 +254,7 @@ input:focus ~ .c3 {
             "border": "#668491",
             "brand": "#00DC00",
             "error": "#C7384F",
-            "focus": "#FFDA7F",
+            "focus": "#FFB500",
             "focusedIcon": "#335B6D",
             "greyDarkBlue50": "#8099a4",
             "info": "#0073C2",
@@ -341,7 +341,7 @@ input:focus ~ .c3 {
               "border": "#668491",
               "brand": "#00DC00",
               "error": "#C7384F",
-              "focus": "#FFDA7F",
+              "focus": "#FFB500",
               "focusedIcon": "#335B6D",
               "greyDarkBlue50": "#8099a4",
               "info": "#0073C2",
@@ -444,7 +444,7 @@ input:focus ~ .c3 {
                   "border": "#668491",
                   "brand": "#00DC00",
                   "error": "#C7384F",
-                  "focus": "#FFDA7F",
+                  "focus": "#FFB500",
                   "focusedIcon": "#335B6D",
                   "greyDarkBlue50": "#8099a4",
                   "info": "#0073C2",
@@ -553,7 +553,7 @@ input:focus ~ .c3 {
                         "border": "#668491",
                         "brand": "#00DC00",
                         "error": "#C7384F",
-                        "focus": "#FFDA7F",
+                        "focus": "#FFB500",
                         "focusedIcon": "#335B6D",
                         "info": "#0073C2",
                         "primary": "#26A826",
@@ -613,7 +613,7 @@ input:focus ~ .c3 {
                     "border": "#668491",
                     "brand": "#00DC00",
                     "error": "#C7384F",
-                    "focus": "#FFDA7F",
+                    "focus": "#FFB500",
                     "focusedIcon": "#335B6D",
                     "greyDarkBlue50": "#8099a4",
                     "info": "#0073C2",
@@ -704,7 +704,7 @@ input:focus ~ .c3 {
                               "border": "#668491",
                               "brand": "#00DC00",
                               "error": "#C7384F",
-                              "focus": "#FFDA7F",
+                              "focus": "#FFB500",
                               "focusedIcon": "#335B6D",
                               "greyDarkBlue50": "#8099a4",
                               "info": "#0073C2",
@@ -766,7 +766,7 @@ input:focus ~ .c3 {
           "border": "#668491",
           "brand": "#00DC00",
           "error": "#C7384F",
-          "focus": "#FFDA7F",
+          "focus": "#FFB500",
           "focusedIcon": "#335B6D",
           "greyDarkBlue50": "#8099a4",
           "info": "#0073C2",
@@ -817,7 +817,7 @@ input:focus ~ .c3 {
             "border": "#668491",
             "brand": "#00DC00",
             "error": "#C7384F",
-            "focus": "#FFDA7F",
+            "focus": "#FFB500",
             "focusedIcon": "#335B6D",
             "greyDarkBlue50": "#8099a4",
             "info": "#0073C2",
@@ -904,7 +904,7 @@ input:focus ~ .c3 {
               "border": "#668491",
               "brand": "#00DC00",
               "error": "#C7384F",
-              "focus": "#FFDA7F",
+              "focus": "#FFB500",
               "focusedIcon": "#335B6D",
               "greyDarkBlue50": "#8099a4",
               "info": "#0073C2",
@@ -1007,7 +1007,7 @@ input:focus ~ .c3 {
                   "border": "#668491",
                   "brand": "#00DC00",
                   "error": "#C7384F",
-                  "focus": "#FFDA7F",
+                  "focus": "#FFB500",
                   "focusedIcon": "#335B6D",
                   "greyDarkBlue50": "#8099a4",
                   "info": "#0073C2",
@@ -1116,7 +1116,7 @@ input:focus ~ .c3 {
                         "border": "#668491",
                         "brand": "#00DC00",
                         "error": "#C7384F",
-                        "focus": "#FFDA7F",
+                        "focus": "#FFB500",
                         "focusedIcon": "#335B6D",
                         "info": "#0073C2",
                         "primary": "#26A826",
@@ -1176,7 +1176,7 @@ input:focus ~ .c3 {
                     "border": "#668491",
                     "brand": "#00DC00",
                     "error": "#C7384F",
-                    "focus": "#FFDA7F",
+                    "focus": "#FFB500",
                     "focusedIcon": "#335B6D",
                     "greyDarkBlue50": "#8099a4",
                     "info": "#0073C2",
@@ -1267,7 +1267,7 @@ input:focus ~ .c3 {
                               "border": "#668491",
                               "brand": "#00DC00",
                               "error": "#C7384F",
-                              "focus": "#FFDA7F",
+                              "focus": "#FFB500",
                               "focusedIcon": "#335B6D",
                               "greyDarkBlue50": "#8099a4",
                               "info": "#0073C2",
@@ -1361,7 +1361,7 @@ input:checked ~ .c2 {
 }
 
 input:focus ~ .c2 {
-  outline: 3px solid #FFDA7F;
+  outline: 3px solid #FFB500;
 }
 
 .c2:hover {

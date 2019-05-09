@@ -20,7 +20,7 @@ exports[`Link renders as expected 1`] = `
 .c0 a:focus {
   color: rgba(0,0,0,0.9);
   cursor: default;
-  background-color: #FFDA7F;
+  background-color: #FFB500;
   outline: none;
 }
 
@@ -81,7 +81,7 @@ exports[`Link when component has classic theme should render correct style 1`] =
 .c0 a:focus {
   color: rgba(0,0,0,0.9);
   cursor: default;
-  background-color: #FFDA7F;
+  background-color: #FFB500;
   outline: none;
 }
 
@@ -102,7 +102,7 @@ exports[`Link when component has classic theme should render correct style 1`] =
           "border": "#668491",
           "brand": "#00DC00",
           "error": "#C7384F",
-          "focus": "#FFDA7F",
+          "focus": "#FFB500",
           "focusedIcon": "#335B6D",
           "greyDarkBlue50": "#8099a4",
           "info": "#0073C2",
