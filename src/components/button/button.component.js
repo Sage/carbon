@@ -41,6 +41,7 @@ const Button = (props) => {
 
 function renderChildren(props) {
   const {
+    disabled,
     iconType,
     iconPosition,
     size,
@@ -56,7 +57,7 @@ function renderChildren(props) {
     </span>
   );
 
-  if (href || to) {
+  if (!disabled && (href || to)) {
     buttonContent = <Link href={ href } to={ to }>{buttonContent}</Link>;
   }
 

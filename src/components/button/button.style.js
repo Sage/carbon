@@ -6,6 +6,7 @@ import buttonSizes from './button-sizes.style';
 import buttonClasicStyle from './button-classic.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { THEMES } from '../../style/themes';
+import buttonLinkStyle from './button-link.style';
 
 const StyledButton = styled.button`
   align-items: center;
@@ -46,7 +47,6 @@ function stylingForType({
   return css`
     border: 2px solid transparent;
     box-sizing: border-box;
-    ${disabled ? buttonTypes(theme)[buttonType].disabled : buttonTypes(theme)[buttonType].default};
     font-weight: 600;
     padding-top: 1px;
     padding-bottom: 1px;
@@ -57,6 +57,8 @@ function stylingForType({
     & + & {
       margin-left: 16px;
     }
+
+    ${buttonTypes(theme, disabled)[buttonType]};
     ${buttonSizes(theme)[size]}
   `;
 }
