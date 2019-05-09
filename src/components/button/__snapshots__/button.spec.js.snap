@@ -46,25 +46,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   vertical-align: middle;
   border: 2px solid transparent;
   box-sizing: border-box;
-  background: transparent;
-  border-color: #26A826;
-  color: #26A826;
   font-weight: 600;
   padding-top: 1px;
   padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
+  background: transparent;
+  border-color: #26A826;
+  color: #26A826;
   font-size: 14px;
   max-height: 40px;
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
-}
-
-.c1:hover {
-  background: #006300;
-  border-color: #006300;
-  color: #FFFFFF;
 }
 
 .c1:focus {
@@ -73,6 +67,25 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c1 + .c0 {
   margin-left: 16px;
+}
+
+.c1:hover {
+  background: #006300;
+  border-color: #006300;
+  color: #FFFFFF;
+}
+
+.c1 .c4,
+.c1 .c4 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover .c4 a,
+.c1 .c4 a:hover,
+.c1 .c4 a:active {
+  color: #FFFFFF;
 }
 
 .c1 .carbon-icon {
@@ -130,25 +143,19 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   vertical-align: middle;
   border: 2px solid transparent;
   box-sizing: border-box;
-  background: transparent;
-  border-color: #26A826;
-  color: #26A826;
   font-weight: 600;
   padding-top: 1px;
   padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
+  background: transparent;
+  border-color: #26A826;
+  color: #26A826;
   font-size: 14px;
   max-height: 40px;
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
-}
-
-.c1:hover {
-  background: #006300;
-  border-color: #006300;
-  color: #FFFFFF;
 }
 
 .c1:focus {
@@ -157,6 +164,25 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 
 .c1 + .c0 {
   margin-left: 16px;
+}
+
+.c1:hover {
+  background: #006300;
+  border-color: #006300;
+  color: #FFFFFF;
+}
+
+.c1 .c3,
+.c1 .c3 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover .c3 a,
+.c1 .c3 a:hover,
+.c1 .c3 a:active {
+  color: #FFFFFF;
 }
 
 .c1 .carbon-icon {
@@ -225,7 +251,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
 
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -233,17 +259,25 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
+  color: #ffffff;
+}
+
+.c1 .c19,
+.c1 .c19 a {
+  color: #255bc7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover .c19 a,
+.c1 .c19 a:hover,
+.c1 .c19 a:active {
   color: #ffffff;
 }
 
 .c1 + .c0 {
   margin-left: 15px;
-}
-
-.c1:hover .c16 a,
-.c1 .c16 a:hover {
-  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -304,6 +338,18 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -353,7 +399,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
 
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -361,17 +407,25 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
+  color: #ffffff;
+}
+
+.c1 .c19,
+.c1 .c19 a {
+  color: #255bc7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover .c19 a,
+.c1 .c19 a:hover,
+.c1 .c19 a:active {
   color: #ffffff;
 }
 
 .c1 + .c0 {
   margin-left: 15px;
-}
-
-.c1:hover .c16 a,
-.c1 .c16 a:hover {
-  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -432,6 +486,18 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -481,7 +547,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
 
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -489,17 +555,25 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
+  color: #ffffff;
+}
+
+.c1 .c19,
+.c1 .c19 a {
+  color: #255bc7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover .c19 a,
+.c1 .c19 a:hover,
+.c1 .c19 a:active {
   color: #ffffff;
 }
 
 .c1 + .c0 {
   margin-left: 15px;
-}
-
-.c1:hover .c16 a,
-.c1 .c16 a:hover {
-  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -560,6 +634,18 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -609,7 +695,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
 
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -617,17 +703,25 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
+  color: #ffffff;
+}
+
+.c1 .c19,
+.c1 .c19 a {
+  color: #255bc7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover .c19 a,
+.c1 .c19 a:hover,
+.c1 .c19 a:active {
   color: #ffffff;
 }
 
 .c1 + .c0 {
   margin-left: 15px;
-}
-
-.c1:hover .c16 a,
-.c1 .c16 a:hover {
-  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -688,6 +782,18 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -737,7 +843,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
 
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -745,17 +851,25 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
+  color: #ffffff;
+}
+
+.c1 .c19,
+.c1 .c19 a {
+  color: #255bc7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover .c19 a,
+.c1 .c19 a:hover,
+.c1 .c19 a:active {
   color: #ffffff;
 }
 
 .c1 + .c0 {
   margin-left: 15px;
-}
-
-.c1:hover .c16 a,
-.c1 .c16 a:hover {
-  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -816,6 +930,18 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -865,7 +991,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
 
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -873,17 +999,25 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
+  color: #ffffff;
+}
+
+.c1 .c19,
+.c1 .c19 a {
+  color: #255bc7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover .c19 a,
+.c1 .c19 a:hover,
+.c1 .c19 a:active {
   color: #ffffff;
 }
 
 .c1 + .c0 {
   margin-left: 15px;
-}
-
-.c1:hover .c16 a,
-.c1 .c16 a:hover {
-  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -944,6 +1078,18 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -993,7 +1139,7 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
 
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1001,17 +1147,25 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
+  color: #ffffff;
+}
+
+.c1 .c19,
+.c1 .c19 a {
+  color: #255bc7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover .c19 a,
+.c1 .c19 a:hover,
+.c1 .c19 a:active {
   color: #ffffff;
 }
 
 .c1 + .c0 {
   margin-left: 15px;
-}
-
-.c1:hover .c16 a,
-.c1 .c16 a:hover {
-  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -1072,6 +1226,18 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
 }
 
 .c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -1121,7 +1287,7 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
 
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1129,17 +1295,25 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
+  color: #ffffff;
+}
+
+.c1 .c19,
+.c1 .c19 a {
+  color: #255bc7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover .c19 a,
+.c1 .c19 a:hover,
+.c1 .c19 a:active {
   color: #ffffff;
 }
 
 .c1 + .c0 {
   margin-left: 15px;
-}
-
-.c1:hover .c16 a,
-.c1 .c16 a:hover {
-  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -1200,6 +1374,18 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
 }
 
 .c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -1249,7 +1435,7 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
 
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1257,17 +1443,25 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
+  color: #ffffff;
+}
+
+.c1 .c19,
+.c1 .c19 a {
+  color: #255bc7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover .c19 a,
+.c1 .c19 a:hover,
+.c1 .c19 a:active {
   color: #ffffff;
 }
 
 .c1 + .c0 {
   margin-left: 15px;
-}
-
-.c1:hover .c16 a,
-.c1 .c16 a:hover {
-  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -1328,6 +1522,18 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
 }
 
 .c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -1377,7 +1583,7 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
 
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1385,17 +1591,25 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
+  color: #ffffff;
+}
+
+.c1 .c19,
+.c1 .c19 a {
+  color: #255bc7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover .c19 a,
+.c1 .c19 a:hover,
+.c1 .c19 a:active {
   color: #ffffff;
 }
 
 .c1 + .c0 {
   margin-left: 15px;
-}
-
-.c1:hover .c16 a,
-.c1 .c16 a:hover {
-  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -1456,6 +1670,18 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
 }
 
 .c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -1505,7 +1731,7 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
 
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1513,17 +1739,25 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
+  color: #ffffff;
+}
+
+.c1 .c19,
+.c1 .c19 a {
+  color: #255bc7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover .c19 a,
+.c1 .c19 a:hover,
+.c1 .c19 a:active {
   color: #ffffff;
 }
 
 .c1 + .c0 {
   margin-left: 15px;
-}
-
-.c1:hover .c16 a,
-.c1 .c16 a:hover {
-  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -1584,6 +1818,18 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
 }
 
 .c15 + .c0 {
+  margin-left: 16px;
+}
+
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -1633,7 +1879,7 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
 
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1641,17 +1887,25 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
+  color: #ffffff;
+}
+
+.c1 .c19,
+.c1 .c19 a {
+  color: #255bc7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1:hover .c19 a,
+.c1 .c19 a:hover,
+.c1 .c19 a:active {
   color: #ffffff;
 }
 
 .c1 + .c0 {
   margin-left: 15px;
-}
-
-.c1:hover .c16 a,
-.c1 .c16 a:hover {
-  color: #FFF;
 }
 
 .c1 .carbon-icon {
@@ -1715,6 +1969,18 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   margin-left: 16px;
 }
 
+.c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
+  margin-left: 16px;
+}
+
 <button
   className="c0 c1"
 >
@@ -1746,72 +2012,313 @@ exports[`Button with href prop specified renders link properly 1`] = `
   outline: none;
 }
 
-.c4 + .c0 {
-  margin-left: 15px;
+.c4 .c2,
+.c4 .c2 a {
+  color: #255bc7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c4:hover .c2 a,
-.c4 .c2 a:hover {
-  color: #FFF;
+.c4 .c2 a:hover,
+.c4 .c2 a:active {
+  color: #ffffff;
+}
+
+.c4 + .c0 {
+  margin-left: 15px;
 }
 
 .c5 + .c0 {
   margin-left: 16px;
 }
 
+.c5 .c2,
+.c5 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c5:hover .c2 a,
+.c5 .c2 a:hover,
+.c5 .c2 a:active {
+  color: #FFFFFF;
+}
+
 .c6 + .c0 {
   margin-left: 16px;
+}
+
+.c6 .c2,
+.c6 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c6:hover .c2 a,
+.c6 .c2 a:hover,
+.c6 .c2 a:active {
+  color: #FFFFFF;
 }
 
 .c7 + .c0 {
   margin-left: 16px;
 }
 
+.c7 .c2,
+.c7 .c2 a {
+  color: #FFFFFF;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c7:hover .c2 a,
+.c7 .c2 a:hover,
+.c7 .c2 a:active {
+  color: #FFFFFF;
+}
+
 .c8 + .c0 {
   margin-left: 16px;
+}
+
+.c8 .c2,
+.c8 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c8:hover .c2 a,
+.c8 .c2 a:hover,
+.c8 .c2 a:active {
+  color: #FFFFFF;
 }
 
 .c9 + .c0 {
   margin-left: 16px;
 }
 
+.c9 .c2,
+.c9 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c9:hover .c2 a,
+.c9 .c2 a:hover,
+.c9 .c2 a:active {
+  color: #006300;
+}
+
 .c10 + .c0 {
   margin-left: 16px;
+}
+
+.c10 .c2,
+.c10 .c2 a {
+  color: #FFFFFF;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c10:hover .c2 a,
+.c10 .c2 a:hover,
+.c10 .c2 a:active {
+  color: #FFFFFF;
 }
 
 .c11 + .c0 {
   margin-left: 16px;
 }
 
+.c11 .c2,
+.c11 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c11:hover .c2 a,
+.c11 .c2 a:hover,
+.c11 .c2 a:active {
+  color: #FFFFFF;
+}
+
 .c12 + .c0 {
   margin-left: 16px;
+}
+
+.c12 .c2,
+.c12 .c2 a {
+  color: #FFFFFF;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c12:hover .c2 a,
+.c12 .c2 a:hover,
+.c12 .c2 a:active {
+  color: #FFFFFF;
 }
 
 .c13 + .c0 {
   margin-left: 16px;
 }
 
+.c13 .c2,
+.c13 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c13:hover .c2 a,
+.c13 .c2 a:hover,
+.c13 .c2 a:active {
+  color: #FFFFFF;
+}
+
 .c14 + .c0 {
   margin-left: 16px;
+}
+
+.c14 .c2,
+.c14 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c14:hover .c2 a,
+.c14 .c2 a:hover,
+.c14 .c2 a:active {
+  color: #006300;
 }
 
 .c15 + .c0 {
   margin-left: 16px;
 }
 
+.c15 .c2,
+.c15 .c2 a {
+  color: #FFFFFF;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c15:hover .c2 a,
+.c15 .c2 a:hover,
+.c15 .c2 a:active {
+  color: #FFFFFF;
+}
+
 .c16 + .c0 {
   margin-left: 16px;
+}
+
+.c16 .c2,
+.c16 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c16:hover .c2 a,
+.c16 .c2 a:hover,
+.c16 .c2 a:active {
+  color: #FFFFFF;
 }
 
 .c17 + .c0 {
   margin-left: 16px;
 }
 
+.c17 .c2,
+.c17 .c2 a {
+  color: #FFFFFF;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c17:hover .c2 a,
+.c17 .c2 a:hover,
+.c17 .c2 a:active {
+  color: #FFFFFF;
+}
+
 .c18 + .c0 {
   margin-left: 16px;
 }
 
+.c18 .c2,
+.c18 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c18:hover .c2 a,
+.c18 .c2 a:hover,
+.c18 .c2 a:active {
+  color: #FFFFFF;
+}
+
 .c19 + .c0 {
+  margin-left: 16px;
+}
+
+.c19 .c2,
+.c19 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c19:hover .c2 a,
+.c19 .c2 a:hover,
+.c19 .c2 a:active {
+  color: #006300;
+}
+
+.c20 + .c0 {
+  margin-left: 16px;
+}
+
+.c20 .c2,
+.c20 .c2 a {
+  color: #FFFFFF;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c20:hover .c2 a,
+.c20 .c2 a:hover,
+.c20 .c2 a:active {
+  color: #FFFFFF;
+}
+
+.c21 + .c0 {
+  margin-left: 16px;
+}
+
+.c21 .c2,
+.c21 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c21:hover .c2 a,
+.c21 .c2 a:hover,
+.c21 .c2 a:active {
+  color: #FFFFFF;
+}
+
+.c22 + .c0 {
   margin-left: 15px;
 }
 
@@ -1848,13 +2355,11 @@ exports[`Button with href prop specified renders link properly 1`] = `
 .c1:active {
   background-color: #1963f6;
   border-color: #1963f6;
-  color: #ffffff;
 }
 
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
-  color: #ffffff;
+  border-color: #1e499f;
 }
 
 .c1:focus {
@@ -1862,18 +2367,21 @@ exports[`Button with href prop specified renders link properly 1`] = `
   outline: none;
 }
 
-.c1 + .c0 {
-  margin-left: 15px;
-}
-
 .c1 .c2,
 .c1 .c2 a {
-  color: #FFF;
+  color: #ffffff;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c1:hover .c2 a,
-.c1 .c2 a:hover {
-  color: #FFF;
+.c1 .c2 a:hover,
+.c1 .c2 a:active {
+  color: #ffffff;
+}
+
+.c1 + .c0 {
+  margin-left: 15px;
 }
 
 .c1 .carbon-icon {
@@ -1916,72 +2424,313 @@ exports[`Button with to prop specified renders link properly 1`] = `
   outline: none;
 }
 
-.c4 + .c0 {
-  margin-left: 15px;
+.c4 .c2,
+.c4 .c2 a {
+  color: #255bc7;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c4:hover .c2 a,
-.c4 .c2 a:hover {
-  color: #FFF;
+.c4 .c2 a:hover,
+.c4 .c2 a:active {
+  color: #ffffff;
+}
+
+.c4 + .c0 {
+  margin-left: 15px;
 }
 
 .c5 + .c0 {
   margin-left: 16px;
 }
 
+.c5 .c2,
+.c5 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c5:hover .c2 a,
+.c5 .c2 a:hover,
+.c5 .c2 a:active {
+  color: #FFFFFF;
+}
+
 .c6 + .c0 {
   margin-left: 16px;
+}
+
+.c6 .c2,
+.c6 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c6:hover .c2 a,
+.c6 .c2 a:hover,
+.c6 .c2 a:active {
+  color: #FFFFFF;
 }
 
 .c7 + .c0 {
   margin-left: 16px;
 }
 
+.c7 .c2,
+.c7 .c2 a {
+  color: #FFFFFF;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c7:hover .c2 a,
+.c7 .c2 a:hover,
+.c7 .c2 a:active {
+  color: #FFFFFF;
+}
+
 .c8 + .c0 {
   margin-left: 16px;
+}
+
+.c8 .c2,
+.c8 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c8:hover .c2 a,
+.c8 .c2 a:hover,
+.c8 .c2 a:active {
+  color: #FFFFFF;
 }
 
 .c9 + .c0 {
   margin-left: 16px;
 }
 
+.c9 .c2,
+.c9 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c9:hover .c2 a,
+.c9 .c2 a:hover,
+.c9 .c2 a:active {
+  color: #006300;
+}
+
 .c10 + .c0 {
   margin-left: 16px;
+}
+
+.c10 .c2,
+.c10 .c2 a {
+  color: #FFFFFF;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c10:hover .c2 a,
+.c10 .c2 a:hover,
+.c10 .c2 a:active {
+  color: #FFFFFF;
 }
 
 .c11 + .c0 {
   margin-left: 16px;
 }
 
+.c11 .c2,
+.c11 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c11:hover .c2 a,
+.c11 .c2 a:hover,
+.c11 .c2 a:active {
+  color: #FFFFFF;
+}
+
 .c12 + .c0 {
   margin-left: 16px;
+}
+
+.c12 .c2,
+.c12 .c2 a {
+  color: #FFFFFF;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c12:hover .c2 a,
+.c12 .c2 a:hover,
+.c12 .c2 a:active {
+  color: #FFFFFF;
 }
 
 .c13 + .c0 {
   margin-left: 16px;
 }
 
+.c13 .c2,
+.c13 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c13:hover .c2 a,
+.c13 .c2 a:hover,
+.c13 .c2 a:active {
+  color: #FFFFFF;
+}
+
 .c14 + .c0 {
   margin-left: 16px;
+}
+
+.c14 .c2,
+.c14 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c14:hover .c2 a,
+.c14 .c2 a:hover,
+.c14 .c2 a:active {
+  color: #006300;
 }
 
 .c15 + .c0 {
   margin-left: 16px;
 }
 
+.c15 .c2,
+.c15 .c2 a {
+  color: #FFFFFF;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c15:hover .c2 a,
+.c15 .c2 a:hover,
+.c15 .c2 a:active {
+  color: #FFFFFF;
+}
+
 .c16 + .c0 {
   margin-left: 16px;
+}
+
+.c16 .c2,
+.c16 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c16:hover .c2 a,
+.c16 .c2 a:hover,
+.c16 .c2 a:active {
+  color: #FFFFFF;
 }
 
 .c17 + .c0 {
   margin-left: 16px;
 }
 
+.c17 .c2,
+.c17 .c2 a {
+  color: #FFFFFF;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c17:hover .c2 a,
+.c17 .c2 a:hover,
+.c17 .c2 a:active {
+  color: #FFFFFF;
+}
+
 .c18 + .c0 {
   margin-left: 16px;
 }
 
+.c18 .c2,
+.c18 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c18:hover .c2 a,
+.c18 .c2 a:hover,
+.c18 .c2 a:active {
+  color: #FFFFFF;
+}
+
 .c19 + .c0 {
+  margin-left: 16px;
+}
+
+.c19 .c2,
+.c19 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c19:hover .c2 a,
+.c19 .c2 a:hover,
+.c19 .c2 a:active {
+  color: #006300;
+}
+
+.c20 + .c0 {
+  margin-left: 16px;
+}
+
+.c20 .c2,
+.c20 .c2 a {
+  color: #FFFFFF;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c20:hover .c2 a,
+.c20 .c2 a:hover,
+.c20 .c2 a:active {
+  color: #FFFFFF;
+}
+
+.c21 + .c0 {
+  margin-left: 16px;
+}
+
+.c21 .c2,
+.c21 .c2 a {
+  color: #26A826;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c21:hover .c2 a,
+.c21 .c2 a:hover,
+.c21 .c2 a:active {
+  color: #FFFFFF;
+}
+
+.c22 + .c0 {
   margin-left: 15px;
 }
 
@@ -2018,13 +2767,11 @@ exports[`Button with to prop specified renders link properly 1`] = `
 .c1:active {
   background-color: #1963f6;
   border-color: #1963f6;
-  color: #ffffff;
 }
 
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
-  color: #ffffff;
+  border-color: #1e499f;
 }
 
 .c1:focus {
@@ -2032,18 +2779,21 @@ exports[`Button with to prop specified renders link properly 1`] = `
   outline: none;
 }
 
-.c1 + .c0 {
-  margin-left: 15px;
-}
-
 .c1 .c2,
 .c1 .c2 a {
-  color: #FFF;
+  color: #ffffff;
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .c1:hover .c2 a,
-.c1 .c2 a:hover {
-  color: #FFF;
+.c1 .c2 a:hover,
+.c1 .c2 a:active {
+  color: #ffffff;
+}
+
+.c1 + .c0 {
+  margin-left: 15px;
 }
 
 .c1 .carbon-icon {

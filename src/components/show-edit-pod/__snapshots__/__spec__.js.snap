@@ -249,7 +249,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                       "componentStyle": ComponentStyle {
                                                         "componentId": "sc-bwzfXH",
                                                         "isStatic": false,
-                                                        "lastClassName": "HjbtW",
+                                                        "lastClassName": "kpYGcE",
                                                         "rules": Array [
                                                           "
   align-items: center;
@@ -396,17 +396,19 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                   }
                                                 >
                                                   <button
-                                                    className="carbon-form-save__button sc-bwzfXH HjbtW"
+                                                    className="carbon-form-save__button sc-bwzfXH kpYGcE"
                                                     data-component="button"
                                                     data-element="save"
                                                     disabled={false}
                                                     role="button"
                                                     size="medium"
                                                   >
-                                                    <span
-                                                      data-element="main-text"
-                                                    >
-                                                      Save Me
+                                                    <span>
+                                                      <span
+                                                        data-element="main-text"
+                                                      >
+                                                        Save Me
+                                                      </span>
                                                     </span>
                                                   </button>
                                                 </StyledComponent>

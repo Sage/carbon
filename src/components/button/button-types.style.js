@@ -9,7 +9,7 @@ export default ({ colors, disabled }, isDisabled) => ({
       background: ${colors.secondary};
     }
 
-    ${isDisabled && `
+    ${isDisabled ? `
       background: ${disabled.button};
       color: ${disabled.text};
       &:hover {
@@ -17,7 +17,7 @@ export default ({ colors, disabled }, isDisabled) => ({
         border-color: ${disabled.button};
         color: ${disabled.text};
       }
-    `}
+    ` : ''}
     ${buttonLinkStyle(colors.white, colors.white)}
   `,
   secondary: `
@@ -32,7 +32,7 @@ export default ({ colors, disabled }, isDisabled) => ({
 
       ${buttonLinkStyle(colors.primary, colors.white)}
 
-      ${isDisabled && `
+      ${isDisabled ? `
         border-color: ${disabled.button};
         color: ${disabled.text};
         &:hover {
@@ -40,7 +40,7 @@ export default ({ colors, disabled }, isDisabled) => ({
           border-color: ${disabled.button};
           color: ${disabled.text};
         }
-      `}
+    ` : ''}
   `,
   tertiary: `
     background: transparent;
@@ -52,12 +52,12 @@ export default ({ colors, disabled }, isDisabled) => ({
 
     ${buttonLinkStyle(colors.primary, colors.secondary)}
 
-    ${isDisabled && `
+    ${isDisabled ? `
       color: ${disabled.text};
       &:hover {
         color: ${disabled.text};
       }
-    `}
+    ` : ''}
   `,
   destructive: `
     background: ${colors.error};
@@ -69,14 +69,14 @@ export default ({ colors, disabled }, isDisabled) => ({
 
     ${buttonLinkStyle(colors.white, colors.white)}
 
-    ${isDisabled && `
+    ${isDisabled ? `
       background: ${disabled.button};
       color: ${disabled.text};
       &:hover {
         background: ${disabled.button};
         color: ${disabled.text};
       }
-    `}
+    ` : ''}
   `,
   darkBackground: `
     background: ${colors.white};
@@ -89,13 +89,13 @@ export default ({ colors, disabled }, isDisabled) => ({
 
     ${buttonLinkStyle(colors.primary, colors.white)}
 
-    ${isDisabled && `
+    ${isDisabled ? `
       background: ${disabled.button};
       color: ${disabled.text};
       &:hover {
         background: ${disabled.button};
         color: ${disabled.text};
       }
-    `}
+    ` : ''}
   `
 });
