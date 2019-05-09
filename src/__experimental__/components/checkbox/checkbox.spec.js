@@ -287,6 +287,26 @@ describe('Checkbox', () => {
         }, wrapper, { modifier: css`${LabelStyle}` });
       });
 
+      describe('Help styles', () => {
+        it('applies correct default style', () => {
+          assertStyleMatch({
+            color: '#8099a4'
+          }, wrapper, { modifier: css`${LabelStyle} ${StyledHelp}` });
+        });
+
+        it('applies correct hover style', () => {
+          assertStyleMatch({
+            color: '#8099a4'
+          }, wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}:hover`}` });
+        });
+
+        it('applies correct focus style', () => {
+          assertStyleMatch({
+            color: '#8099a4'
+          }, wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}:focus`}` });
+        });
+      });
+
       describe('when hover / focus is applied', () => {
         const hoverFocusStyles = {
           border: '1px solid #1963f6',

@@ -29,6 +29,12 @@ export default ({
     margin-left: 15px;
   }
 
+  ${LabelStyle} ${StyledHelp} {
+    &, &:hover, &:focus {
+      color: #8099a4;
+    }
+  }
+
   ${LabelStyle} .carbon-icon::before {
     content: '\\E943';
   }
