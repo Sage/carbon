@@ -4,7 +4,7 @@ import { validProps } from '../../../utils/ether';
 import { StyledCheckableInput, StyledCheckableInputWrapper } from './checkable-input.style';
 import FormField from '../form-field';
 import HiddenCheckableInput from './hidden-checkable-input.component';
-import guid from '../../../utils/helpers/guid/guid';
+import guid from '../../../utils/helpers/guid';
 
 const CheckableInput = (props) => {
   const inputId = guid();
