@@ -247,7 +247,7 @@ exports[`Message when in small/medium/large theme should match the snapshot 1`] 
         "error": "#C7384F",
         "focus": "#FFB500",
         "focusedIcon": "#335B6D",
-        "focusedLink": "#FFDA7F",
+        "focusedLinkBackground": "#FFDA7F",
         "info": "#0073C2",
         "primary": "#26A826",
         "secondary": "#006300",
