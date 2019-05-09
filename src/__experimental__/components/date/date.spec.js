@@ -303,6 +303,18 @@ describe('Date', () => {
         document.body.removeChild(domNode);
       });
     });
+
+    // To be removed after the DateRange component is refactored
+    describe('when the "closeDatePicker" method has been called', () => {
+      it('then the visible value should not change', () => {
+        const mockDate = getFormattedDate(moment('2012-02-01'));
+        wrapper = mount(<Date value={ mockDate } />);
+        wrapper.instance().closeDatePicker();
+        const input = wrapper.find('input');
+
+        expect(input.instance().value).toBe(mockDate);
+      });
+    });
   });
 });
 
