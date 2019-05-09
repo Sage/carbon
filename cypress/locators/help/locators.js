@@ -1,2 +1,2 @@
 // component preview locators
-export const TOOLTIP_PREVIEW = '[data-component="tooltip"][data-element="tooltip"]';
+export const TOOLTIP_PREVIEW = '[data-element="tooltip"]';

@@ -19,7 +19,7 @@ Feature: Help component
       | <>                      |
 
   @positive
-  Scenario Outline: Change tooltipPosition
+  Scenario Outline: Change tooltip position
     When I select tooltipPosition to "<tooltipPosition>"
       And I hover mouse onto help icon
     Then tooltipPosition is set to "<tooltipPosition>"

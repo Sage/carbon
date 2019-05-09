@@ -5,121 +5,7 @@ Feature: Icon component
     Given I open "Icon" component page
 
   @positive
-  Scenario Outline: Change type
-    When I select type to "<type>"
-    Then icon on preview is "<type>"
-    Examples:
-      | type              |
-      | add               |
-      | alert             |
-      | analysis          |
-      | arrow_down        |
-      | arrow_left        |
-      | arrow_right       |
-      | arrow_up          |
-      | attach            |
-      | basket            |
-      | bin               |
-      | blocked           |
-      | blocked_square    |
-      | bulk_destroy      |
-      | business          |
-      | calendar          |
-      | call              |
-      | camera            |
-      | card_view         |
-      | caret_down        |
-      | cart              |
-      | chat              |
-      | chart_bar         |
-      | chart_line        |
-      | chart_pie         |
-      | chat_notes        |
-      | chevron_down      |
-      | chevron_left      |
-      | chevron_right     |
-      | chevron_up        |
-      | clock             |
-      | close             |
-      | collaborate       |
-      | copy              |
-      | connect           |
-      | credit_card       |
-      | credit_card_slash |
-      | cross             |
-      | csv               |
-      | delete            |
-      | delivery          |
-      | disputed          |
-      | download          |
-      | drag              |
-      | drag_vertical     |
-      | draft             |
-      | dropdown          |
-      | duplicate         |
-      | edit              |
-      | edited            |
-      | email             |
-      | error             |
-      | favourite         |
-      | favourite_lined   |
-      | fax               |
-      | feedback          |
-      | filter            |
-      | filter_new        |
-      | fit_height        |
-      | fit_width         |
-      | folder            |
-      | gift              |
-      | graph             |
-      | grid              |
-      | home              |
-      | image             |
-      | in_progress       |
-      | in_transit        |
-      | info              |
-      | individual        |
-      | key               |
-      | link              |
-      | list_view         |
-      | locked            |
-      | location          |
-      | logout            |
-      | marker            |
-      | message           |
-      | messages          |
-      | minus             |
-      | mobile            |
-      | pdf               |
-      | people            |
-      | person            |
-      | phone             |
-      | plus              |
-      | print             |
-      | progressed        |
-      | question          |
-      | refresh           |
-      | remove            |
-      | save              |
-      | search            |
-      | services          |
-      | settings          |
-      | share             |
-      | shop              |
-      | sort_down         |
-      | sort_up           |
-      | submitted         |
-      | sync              |
-      | tick              |
-      | unlocked          |
-      | upload            |
-      | uploaded          |
-      | view              |
-      | warning           |
-      | white-tick        |
-
-  @positive
-  Scenario Outline: Change bgTheme
+  Scenario Outline: Change background theme
     When I select bgTheme to "<bgTheme>"
     Then bgTheme is set to "<bgTheme>"
     Examples:
@@ -146,7 +32,7 @@ Feature: Icon component
   @positive
   Scenario Outline: Change tooltipMessage
     When I set tooltipMessage to "<tooltipMessage>"
-    And I hover mouse onto icon
+      And I hover mouse onto icon
     Then tooltipPreview on preview is set to "<tooltipMessage>"
     Examples:
       | tooltipMessage          |
@@ -156,3 +42,30 @@ Feature: Icon component
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
       | <>                      |
+
+  @positive
+  Scenario Outline: Change tooltip position
+    When I set tooltipMessage to "sample message"
+      And I select tooltipPosition to "<tooltipPosition>"
+      And I hover mouse onto icon
+    Then tooltipPosition is set to "<tooltipPosition>"
+    Examples:
+      | tooltipPosition |
+      | left            |
+      | right           |
+      | top             |
+      | bottom          |
+
+  @positive
+  Scenario Outline: Change tooltipAlign
+    When I set tooltipMessage to "sample message"
+      And I select tooltipAlign to "<tooltipAlign>"
+      And I hover mouse onto icon
+    Then tooltipAlign is set to "<tooltipAlign>"
+    Examples:
+      | tooltipAlign |
+      | left         |
+      | right        |
+      | top          |
+      | bottom       |
+      | center       |
