@@ -27,10 +27,8 @@ export default ({
     width: 15px;
   }
 
-  ${LabelStyle} ${StyledHelp} {
-    &, &:hover, &:focus {
-      color: #8099a4;
-    }
+  ${FieldHelpStyle} {
+    margin-left: 15px;
   }
 
   ${LabelStyle} ${StyledHelp} {
