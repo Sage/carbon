@@ -34,7 +34,7 @@ exports[`TabHeader renders as expected 1`] = `
 />
 `;
 
-exports[`TabHeader when in classic style applies proper styling when isTabSelected prop is set to true 1`] = `
+exports[`TabHeader when in classic theme applies proper styling when isTabSelected prop is set to true 1`] = `
 .c0 {
   background-color: transparent;
   border-bottom: 2px solid #E5EAEC;
@@ -101,7 +101,7 @@ exports[`TabHeader when in classic style applies proper styling when isTabSelect
 />
 `;
 
-exports[`TabHeader when in classic style applies proper styling when position prop is set to left 1`] = `
+exports[`TabHeader when in classic theme applies proper styling when position prop is set to left 1`] = `
 .c0 {
   background-color: transparent;
   border-bottom: 2px solid #E5EAEC;
@@ -175,7 +175,7 @@ exports[`TabHeader when in classic style applies proper styling when position pr
 />
 `;
 
-exports[`TabHeader when in classic style applies proper styling when position prop is set to left and isTabSelected prop set to true 1`] = `
+exports[`TabHeader when in classic theme applies proper styling when position prop is set to left and isTabSelected prop set to true 1`] = `
 .c0 {
   background-color: transparent;
   border-bottom: 2px solid #E5EAEC;
@@ -280,7 +280,7 @@ exports[`TabHeader when in classic style applies proper styling when position pr
 />
 `;
 
-exports[`TabHeader when in classic style renders as expected 1`] = `
+exports[`TabHeader when in classic theme renders as expected 1`] = `
 .c0 {
   background-color: transparent;
   border-bottom: 2px solid #E5EAEC;

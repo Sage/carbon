@@ -20,6 +20,16 @@ export default ({ theme }) => theme.name === THEMES.classic
       box-shadow: 0 0 6px rgba(37, 91, 199, 0.6);
     }
 
+    ${({ tabHasWarning }) => tabHasWarning
+      && css`
+        border-bottom: 2px solid #d63f40;
+      `}
+
+    ${({ tabHasError }) => tabHasError
+      && css`
+        border-bottom: 2px solid #ff7d00;
+      `}
+
     ${({ isTabSelected }) => isTabSelected
       && css`
         background-color: #fff;

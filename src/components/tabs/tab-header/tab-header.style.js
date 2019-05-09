@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import tabHeaderClassicStyle from './tab-header-classic.style';
-import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const StyledTabHeader = styled.li`
 background-color: transparent;
@@ -29,6 +28,16 @@ padding: 11px 15px 10px;
 &:focus {
   outline: none;
 }
+
+${({ tabHasWarning }) => tabHasWarning
+  && css`
+    border-bottom: 2px solid ${({ theme }) => theme.colors.warning};
+  `}
+
+${({ tabHasError }) => tabHasError
+  && css`
+    border-bottom: 2px solid ${({ theme }) => theme.colors.error};
+  `}
 
 ${({ isTabSelected }) => isTabSelected
   && css`

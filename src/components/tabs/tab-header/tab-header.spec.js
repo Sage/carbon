@@ -5,6 +5,8 @@ import { shallow } from 'enzyme';
 import TabHeader from './tab-header.component';
 import StyledTabHeader from './tab-header.style';
 import classicTheme from '../../../style/themes/classic';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import baseTheme from '../../../style/themes/base';
 
 function render(props) {
   return shallow(<TabHeader
@@ -65,6 +67,30 @@ describe('TabHeader', () => {
     });
   });
 
+  describe('when tabHasWarning prop is true', () => {
+    it('applies proper styling', () => {
+      wrapper = renderStyles({ tabHasWarning: true });
+      assertStyleMatch(
+        {
+          borderBottom: `2px solid ${baseTheme.colors.warning}`
+        },
+        wrapper.toJSON()
+      );
+    });
+  });
+
+  describe('when tabHasError prop is true', () => {
+    it('applies proper styling', () => {
+      wrapper = renderStyles({ tabHasError: true });
+      assertStyleMatch(
+        {
+          borderBottom: `2px solid ${baseTheme.colors.error}`
+        },
+        wrapper.toJSON()
+      );
+    });
+  });
+
   describe('when position prop is set to left', () => {
     it('renders as expected', () => {
       wrapper = renderStyles({ position: 'left' });
@@ -77,7 +103,7 @@ describe('TabHeader', () => {
     });
   });
 
-  describe('when in classic style', () => {
+  describe('when in classic theme', () => {
     it('renders as expected', () => {
       wrapper = renderStyles({ theme: classicTheme });
       expect(wrapper).toMatchSnapshot();
@@ -96,6 +122,26 @@ describe('TabHeader', () => {
     it('applies proper styling when position prop is set to left', () => {
       wrapper = renderStyles({ theme: classicTheme, position: 'left' });
       expect(wrapper).toMatchSnapshot();
+    });
+
+    it('applies proper styling when tabHasError is true', () => {
+      wrapper = renderStyles({ theme: classicTheme, tabHasError: true });
+      assertStyleMatch(
+        {
+          borderBottom: '2px solid #ff7d00'
+        },
+        wrapper.toJSON()
+      );
+    });
+
+    it('applies proper styling when tabHasWarning is true', () => {
+      wrapper = renderStyles({ theme: classicTheme, tabHasWarning: true });
+      assertStyleMatch(
+        {
+          borderBottom: '2px solid #d63f40'
+        },
+        wrapper.toJSON()
+      );
     });
   });
 });

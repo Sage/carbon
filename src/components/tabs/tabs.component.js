@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import Immutable from 'immutable';
 import { compact } from 'lodash';
-import classNames from 'classnames';
 import Tab from './tab/tab.component';
 import Event from '../../utils/helpers/events/events';
 import tagComponent from '../../utils/helpers/tags/tags';
@@ -172,17 +171,14 @@ class Tabs extends React.Component {
     domNode.focus();
   }
 
-  /**
-   * Generates the HTML classes for the given tab.
-   */
-  tabHeaderClasses = (tab) => {
-    const tabHasError = this.state.tabValidity.get(tab.props.tabId) === false,
-        tabHasWarning = this.state.tabWarning.get(tab.props.tabId) === true && !tabHasError;
+  tabHasError = (tab) => {
+    const tabHasError = this.state.tabValidity.get(tab.props.tabId) === false;
+    return tabHasError;
+  };
 
-    return classNames({
-      'carbon-tabs__headers__header--error': tabHasError,
-      'carbon-tabs__headers__header--warning': tabHasWarning
-    });
+  tabHasWarning = (tab) => {
+    const tabHasWarning = this.state.tabWarning.get(tab.props.tabId) === true && !this.tabHasError(tab);
+    return tabHasWarning;
   };
 
   // ** Returns true/false for if the given tab id is selected. */
@@ -210,11 +206,12 @@ class Tabs extends React.Component {
     const tabTitles = this.children.map((child, index) => {
       const ref = `${child.props.tabId}-tab`;
       this.tabRefs.push(ref);
-      const tabClass = child.props.className ? child.props.className : '';
       return (
         <TabHeader
           position={ this.props.position }
-          className={ `${this.tabHeaderClasses(child)} ${tabClass}` }
+          className={ child.props.className || '' }
+          tabHasError={ this.tabHasError(child) }
+          tabHasWarning={ this.tabHasWarning(child) }
           dataTabId={ child.props.tabId }
           id={ ref }
           key={ child.props.tabId }

@@ -16,8 +16,11 @@ class TabHeader extends React.Component {
       tabIndex,
       position,
       title,
+      tabHasError,
+      tabHasWarning,
       ...props
     } = this.props;
+
     return (
       <StyledTabHeader
         aria-selected={ isTabSelected }
@@ -31,6 +34,8 @@ class TabHeader extends React.Component {
         tabIndex={ tabIndex }
         position={ position }
         isTabSelected={ isTabSelected }
+        tabHasError={ tabHasError }
+        tabHasWarning={ tabHasWarning }
         { ...tagComponent('tab-header', props) }
       >
         {title}
@@ -44,6 +49,9 @@ TabHeader.defaultProps = {
 };
 
 TabHeader.propTypes = {
+  tabHasError: PropTypes.bool,
+  validation: PropTypes.object,
+  tabHasWarning: PropTypes.bool,
   title: PropTypes.string.isRequired,
   isTabSelected: PropTypes.bool,
   position: PropTypes.oneOf(['top', 'left']),
