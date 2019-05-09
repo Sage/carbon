@@ -385,49 +385,53 @@ input:focus ~ .c3 {
           className="c0"
           size="large"
         >
-          <styled.input
-            id="guid-12345"
-            type="radio"
+          <ButtonToggleInput
+            guid="guid-12345"
           >
-            <StyledComponent
-              forwardedComponent={
-                Object {
-                  "$$typeof": Symbol(react.forward_ref),
-                  "attrs": Array [],
-                  "componentStyle": ComponentStyle {
-                    "componentId": "sc-ifAKCX",
-                    "isStatic": true,
-                    "lastClassName": "c1",
-                    "rules": Array [
-                      "
+            <styled.input
+              id="guid-12345"
+              type="radio"
+            >
+              <StyledComponent
+                forwardedComponent={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "attrs": Array [],
+                    "componentStyle": ComponentStyle {
+                      "componentId": "sc-ifAKCX",
+                      "isStatic": true,
+                      "lastClassName": "c1",
+                      "rules": Array [
+                        "
   position: absolute;
   width: 0;
   height: 0;
   opacity: 0;
 ",
-                    ],
-                  },
-                  "displayName": "styled.input",
-                  "foldedComponentIds": Array [],
-                  "render": [Function],
-                  "styledComponentId": "sc-ifAKCX",
-                  "target": "input",
-                  "toString": [Function],
-                  "warnTooManyClasses": [Function],
-                  "withComponent": [Function],
+                      ],
+                    },
+                    "displayName": "styled.input",
+                    "foldedComponentIds": Array [],
+                    "render": [Function],
+                    "styledComponentId": "sc-ifAKCX",
+                    "target": "input",
+                    "toString": [Function],
+                    "warnTooManyClasses": [Function],
+                    "withComponent": [Function],
+                  }
                 }
-              }
-              forwardedRef={null}
-              id="guid-12345"
-              type="radio"
-            >
-              <input
-                className="c1"
+                forwardedRef={null}
                 id="guid-12345"
                 type="radio"
-              />
-            </StyledComponent>
-          </styled.input>
+              >
+                <input
+                  className="c1"
+                  id="guid-12345"
+                  type="radio"
+                />
+              </StyledComponent>
+            </styled.input>
+          </ButtonToggleInput>
           <styled.label
             grouped={true}
             htmlFor="guid-12345"
@@ -689,6 +693,57 @@ input:focus ~ .c3 {
                     <div
                       className="c4 c5"
                     >
+                      <ButtonToggleIcon
+                        grouped={true}
+                        size="large"
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "base": "#00A376",
+                              "baseBlue": "#255BC7",
+                              "border": "#668491",
+                              "brand": "#00DC00",
+                              "error": "#C7384F",
+                              "focus": "#FFDA7F",
+                              "focusedIcon": "#335B6D",
+                              "greyDarkBlue50": "#8099a4",
+                              "info": "#0073C2",
+                              "primary": "#00805D",
+                              "secondary": "#006045",
+                              "success": "#00B000",
+                              "tertiary": "#003F2E",
+                              "warning": "#E96400",
+                              "white": "#FFFFFF",
+                              "whiteMix": "#E5F4E5",
+                            },
+                            "disabled": Object {
+                              "background": "#E5EAEC",
+                              "border": "#4d7080",
+                              "button": "#e6ebed",
+                              "buttonText": "rgba(0,0,0,.2)",
+                              "disabled": "#b3c2c8",
+                              "input": "#1e499f",
+                              "text": "#003349",
+                            },
+                            "icon": Object {
+                              "focus": "#335B6D",
+                            },
+                            "name": "classic",
+                            "shadows": Object {
+                              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                            },
+                            "text": Object {
+                              "color": "rgba(0,0,0,0.9)",
+                              "placeholder": "rgba(0,0,0,0.3)",
+                              "size": "14px",
+                            },
+                          }
+                        }
+                      />
                       Text
                     </div>
                   </StyledComponent>
@@ -893,49 +948,53 @@ input:focus ~ .c3 {
           className="c0"
           size="large"
         >
-          <styled.input
-            id="guid-12345"
-            type="radio"
+          <ButtonToggleInput
+            guid="guid-12345"
           >
-            <StyledComponent
-              forwardedComponent={
-                Object {
-                  "$$typeof": Symbol(react.forward_ref),
-                  "attrs": Array [],
-                  "componentStyle": ComponentStyle {
-                    "componentId": "sc-ifAKCX",
-                    "isStatic": true,
-                    "lastClassName": "c1",
-                    "rules": Array [
-                      "
+            <styled.input
+              id="guid-12345"
+              type="radio"
+            >
+              <StyledComponent
+                forwardedComponent={
+                  Object {
+                    "$$typeof": Symbol(react.forward_ref),
+                    "attrs": Array [],
+                    "componentStyle": ComponentStyle {
+                      "componentId": "sc-ifAKCX",
+                      "isStatic": true,
+                      "lastClassName": "c1",
+                      "rules": Array [
+                        "
   position: absolute;
   width: 0;
   height: 0;
   opacity: 0;
 ",
-                    ],
-                  },
-                  "displayName": "styled.input",
-                  "foldedComponentIds": Array [],
-                  "render": [Function],
-                  "styledComponentId": "sc-ifAKCX",
-                  "target": "input",
-                  "toString": [Function],
-                  "warnTooManyClasses": [Function],
-                  "withComponent": [Function],
+                      ],
+                    },
+                    "displayName": "styled.input",
+                    "foldedComponentIds": Array [],
+                    "render": [Function],
+                    "styledComponentId": "sc-ifAKCX",
+                    "target": "input",
+                    "toString": [Function],
+                    "warnTooManyClasses": [Function],
+                    "withComponent": [Function],
+                  }
                 }
-              }
-              forwardedRef={null}
-              id="guid-12345"
-              type="radio"
-            >
-              <input
-                className="c1"
+                forwardedRef={null}
                 id="guid-12345"
                 type="radio"
-              />
-            </StyledComponent>
-          </styled.input>
+              >
+                <input
+                  className="c1"
+                  id="guid-12345"
+                  type="radio"
+                />
+              </StyledComponent>
+            </styled.input>
+          </ButtonToggleInput>
           <styled.label
             grouped={true}
             htmlFor="guid-12345"
@@ -1197,6 +1256,57 @@ input:focus ~ .c3 {
                     <div
                       className="c4 c5"
                     >
+                      <ButtonToggleIcon
+                        grouped={true}
+                        size="large"
+                        theme={
+                          Object {
+                            "colors": Object {
+                              "base": "#00A376",
+                              "baseBlue": "#255BC7",
+                              "border": "#668491",
+                              "brand": "#00DC00",
+                              "error": "#C7384F",
+                              "focus": "#FFDA7F",
+                              "focusedIcon": "#335B6D",
+                              "greyDarkBlue50": "#8099a4",
+                              "info": "#0073C2",
+                              "primary": "#00805D",
+                              "secondary": "#006045",
+                              "success": "#00B000",
+                              "tertiary": "#003F2E",
+                              "warning": "#E96400",
+                              "white": "#FFFFFF",
+                              "whiteMix": "#E5F4E5",
+                            },
+                            "disabled": Object {
+                              "background": "#E5EAEC",
+                              "border": "#4d7080",
+                              "button": "#e6ebed",
+                              "buttonText": "rgba(0,0,0,.2)",
+                              "disabled": "#b3c2c8",
+                              "input": "#1e499f",
+                              "text": "#003349",
+                            },
+                            "icon": Object {
+                              "focus": "#335B6D",
+                            },
+                            "name": "classic",
+                            "shadows": Object {
+                              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                            },
+                            "text": Object {
+                              "color": "rgba(0,0,0,0.9)",
+                              "placeholder": "rgba(0,0,0,0.3)",
+                              "size": "14px",
+                            },
+                          }
+                        }
+                      />
                       Text
                     </div>
                   </StyledComponent>

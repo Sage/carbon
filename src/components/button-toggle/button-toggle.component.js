@@ -1,47 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../icon';
 import {
   StyledButtonToggle,
   StyledButtonToggleLabel,
-  StyledButtonToggleInput,
-  StyledButtonToggleIcon,
   StyledButtonToggleContentWrapper
 } from './button-toggle.style';
 import guid from '../../utils/helpers/guid';
+import ButtonToggleIcon from './button-toggle-icon.component';
+import ButtonToggleInput from './button-toggle-input.component';
 
 const ButtonToggle = (props) => {
   const inputGuid = guid();
 
-  function icon() {
-    if (!props.buttonIcon) return null;
-
-    return (
-      <StyledButtonToggleIcon { ...props }>
-        <Icon type={ props.buttonIcon } />
-      </StyledButtonToggleIcon>
-    );
-  }
-
-  function hiddenInput() {
-    return (
-      <StyledButtonToggleInput
-        type='radio'
-        name={ props.name }
-        id={ inputGuid }
-        disabled={ props.disabled }
-      />
-    );
-  }
-
   return (
     <StyledButtonToggle { ...props }>
-      {hiddenInput()}
+      <ButtonToggleInput
+        name={ props.name }
+        disabled={ props.disabled }
+        guid={ inputGuid }
+      />
       <StyledButtonToggleLabel
         { ...props } htmlFor={ inputGuid }
       >
         <StyledButtonToggleContentWrapper>
-          {icon()}
+          <ButtonToggleIcon
+            { ...props }
+          />
           {props.children}
         </StyledButtonToggleContentWrapper>
       </StyledButtonToggleLabel>
@@ -54,7 +38,7 @@ ButtonToggle.propTypes = {
   name: PropTypes.string,
   /** Change handler passed in from parent. */
   onChange: PropTypes.func,
-  /** buttonIcon the to render. */
+  /** buttonIcon to render. */
   buttonIcon: PropTypes.string,
   /** Sets the size of the buttonIcon (eg. large) */
   buttonIconSize: PropTypes.string,
