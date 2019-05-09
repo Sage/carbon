@@ -44,7 +44,7 @@ describe('InputIconToggle', () => {
       it(`updates the color for ${validation}`, () => {
         assertStyleMatch({
           color: BaseTheme.colors[validation]
-        }, render({ [validation]: 'validation!' }, TestRenderer.create).toJSON());
+        }, render({ [`${validation}Message`]: 'validation!' }, TestRenderer.create).toJSON());
       });
     });
   });
@@ -64,6 +64,12 @@ describe('InputIconToggle', () => {
       assertStyleMatch({
         backgroundColor: '#e6ebed'
       }, render({ theme: { name: 'classic' } }, TestRenderer.create).toJSON());
+    });
+
+    it('renders a narrow button when a dropdown', () => {
+      assertStyleMatch({
+        width: '20px'
+      }, render({ type: 'dropdown', theme: { name: 'classic' } }, TestRenderer.create).toJSON());
     });
   });
 });

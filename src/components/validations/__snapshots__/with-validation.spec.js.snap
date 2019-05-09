@@ -22,21 +22,77 @@ exports[`when the withValidations HOC wraps a component matches the snapshot wit
 />
 `;
 
-exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns the Icon when the component has an array of children 1`] = `
+exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns an Icon with error type when the state has failed validations 1`] = `
+<MockComponent
+  errorMessage={true}
+  info={Array []}
+  infoMessage={true}
+  name="foo"
+  onBlur={[Function]}
+  onChange={[Function]}
+  validations={Array []}
+  warningMessage={true}
+  warnings={Array []}
+>
+  <ValidationIcon
+    message={true}
+    type="error"
+  />
+</MockComponent>
+`;
+
+exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns an Icon with info type when the state has info and no warning or validations 1`] = `
 <MockComponent
   info={Array []}
+  infoMessage={true}
   name="foo"
   onBlur={[Function]}
   onChange={[Function]}
   validations={Array []}
   warnings={Array []}
 >
+  <ValidationIcon
+    message={true}
+    type="info"
+  />
+</MockComponent>
+`;
+
+exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns an Icon with warning type when the state has warning and no validations 1`] = `
+<MockComponent
+  info={Array []}
+  infoMessage={true}
+  name="foo"
+  onBlur={[Function]}
+  onChange={[Function]}
+  validations={Array []}
+  warningMessage={true}
+  warnings={Array []}
+>
+  <ValidationIcon
+    message={true}
+    type="warning"
+  />
+</MockComponent>
+`;
+
+exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns the Icon when the component has an array of children 1`] = `
+<MockComponent
+  errorMessage={true}
+  info={Array []}
+  infoMessage={true}
+  name="foo"
+  onBlur={[Function]}
+  onChange={[Function]}
+  validations={Array []}
+  warningMessage={true}
+  warnings={Array []}
+>
   <div />
   foo
   <div />
-  <Icon
-    bgSize="small"
-    key="error-icon"
+  <ValidationIcon
+    message={true}
     type="error"
   />
 </MockComponent>

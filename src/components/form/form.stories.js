@@ -5,7 +5,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import PresenceValidation from '../../utils/validations/presence';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
-import Form from './form';
+import Form, { FormWithoutValidations } from '.';
 import Textbox from '../textbox';
 
 storiesOf('Form', module)
@@ -18,7 +18,11 @@ storiesOf('Form', module)
     const unsavedWarning = boolean('unsavedWarning', false);
     const save = boolean('save', true);
     const cancel = boolean('cancel', true);
-    const buttonAlign = select('buttonAlign', OptionsHelper.alignBinary, Form.defaultProps.buttonAlign);
+    const buttonAlign = select(
+      'buttonAlign',
+      OptionsHelper.alignBinary,
+      FormWithoutValidations.defaultProps.buttonAlign
+    );
     const saving = boolean('saving', false);
     const cancelText = text('cancelText', '');
     const stickyFooter = boolean('stickyFooter', false);

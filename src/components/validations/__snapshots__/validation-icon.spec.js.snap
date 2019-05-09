@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ValidationIcon renders with an icon for the given type 1`] = `
+.c0 {
+  color: #C7384F;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+<div
+  className="c0"
+  type="error"
+>
+  <Icon
+    bgSize="small"
+    key="error-icon"
+    tooltipType="error"
+    type="error"
+  >
+    <span
+      className="carbon-icon icon-error"
+      data-component="icon"
+      data-element="error"
+      key="icon"
+      tooltipType="error"
+    />
+  </Icon>
+</div>
+`;
+
+exports[`ValidationIcon renders with an icon with classic styling 1`] = `
+.c0 {
+  color: #C7384F;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin-right: -2px;
+  margin-top: -1px;
+}
+
+.c0 .carbon-icon:before {
+  font-size: 20px;
+}
+
+<div
+  className="c0"
+  type="error"
+/>
+`;
