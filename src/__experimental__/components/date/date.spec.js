@@ -3,7 +3,7 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { mount } from 'enzyme';
-import Date from './date.component';
+import Date, { defaultDateFormat } from './date.component';
 import DatePicker from './date-picker.component';
 import Textbox from '../textbox';
 import StyledDateInput from './date.style';
@@ -303,6 +303,18 @@ describe('Date', () => {
         document.body.removeChild(domNode);
       });
     });
+
+    // To be removed after the DateRange component is refactored
+    describe('when the "closeDatePicker" method has been called', () => {
+      it('then the visible value should not change', () => {
+        const mockDate = getFormattedDate(moment('2012-02-01'));
+        wrapper = mount(<Date value={ mockDate } />);
+        wrapper.instance().closeDatePicker();
+        const input = wrapper.find('input');
+
+        expect(input.instance().value).toBe(mockDate);
+      });
+    });
   });
 });
 
@@ -311,7 +323,7 @@ function render(props, renderer = mount) {
 }
 
 function getFormattedDate(date) {
-  return date.format('DD/MM/YYYY');
+  return date.format(defaultDateFormat);
 }
 
 function simulateFocusOnInput(container) {

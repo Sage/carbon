@@ -141,6 +141,7 @@ const OptionsHelper = {
     'people',
     'person',
     'phone',
+    'play',
     'plus',
     'print',
     'progressed',
@@ -161,6 +162,7 @@ const OptionsHelper = {
     'unlocked',
     'upload',
     'uploaded',
+    'video',
     'view',
     'warning',
     'white-tick'

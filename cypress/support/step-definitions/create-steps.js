@@ -1,4 +1,5 @@
-import { className, contentPreview, link } from '../../locators/create';
+import { className, contentPreview } from '../../locators/create';
+import { link } from '../../locators';
 
 const LINK_CLASS_NAME = 'carbon-create ';
 

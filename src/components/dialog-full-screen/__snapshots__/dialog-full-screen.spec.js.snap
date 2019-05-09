@@ -1254,7 +1254,7 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
         "secondary": "#006045",
         "success": "#00B000",
         "tertiary": "#003F2E",
-        "warning": "#E96400",
+        "warning": "#FFB500",
         "white": "#FFFFFF",
       },
       "disabled": Object {
@@ -1305,7 +1305,7 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
           "secondary": "#006045",
           "success": "#00B000",
           "tertiary": "#003F2E",
-          "warning": "#E96400",
+          "warning": "#FFB500",
           "white": "#FFFFFF",
         },
         "disabled": Object {
@@ -1461,7 +1461,7 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
             "secondary": "#006045",
             "success": "#00B000",
             "tertiary": "#003F2E",
-            "warning": "#E96400",
+            "warning": "#FFB500",
             "white": "#FFFFFF",
           },
           "disabled": Object {
@@ -1549,7 +1549,7 @@ exports[`Styled StyledContent classic theme applies custom styling 1`] = `
         "secondary": "#006045",
         "success": "#00B000",
         "tertiary": "#003F2E",
-        "warning": "#E96400",
+        "warning": "#FFB500",
         "white": "#FFFFFF",
       },
       "disabled": Object {
@@ -1641,7 +1641,7 @@ exports[`Styled StyledContent classic theme applies custom styling 1`] = `
           "secondary": "#006045",
           "success": "#00B000",
           "tertiary": "#003F2E",
-          "warning": "#E96400",
+          "warning": "#FFB500",
           "white": "#FFFFFF",
         },
         "disabled": Object {
@@ -1710,7 +1710,7 @@ exports[`Styled StyledDialogFullScreen classic theme applies custom styling 1`] 
         "secondary": "#006045",
         "success": "#00B000",
         "tertiary": "#003F2E",
-        "warning": "#E96400",
+        "warning": "#FFB500",
         "white": "#FFFFFF",
       },
       "disabled": Object {
@@ -1843,7 +1843,7 @@ exports[`Styled StyledDialogFullScreen classic theme applies custom styling 1`] 
           "secondary": "#006045",
           "success": "#00B000",
           "tertiary": "#003F2E",
-          "warning": "#E96400",
+          "warning": "#FFB500",
           "white": "#FFFFFF",
         },
         "disabled": Object {
@@ -1930,7 +1930,7 @@ exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
         "secondary": "#006045",
         "success": "#00B000",
         "tertiary": "#003F2E",
-        "warning": "#E96400",
+        "warning": "#FFB500",
         "white": "#FFFFFF",
       },
       "disabled": Object {
@@ -2078,7 +2078,7 @@ exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
           "secondary": "#006045",
           "success": "#00B000",
           "tertiary": "#003F2E",
-          "warning": "#E96400",
+          "warning": "#FFB500",
           "white": "#FFFFFF",
         },
         "disabled": Object {
@@ -2130,7 +2130,7 @@ exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
             "secondary": "#006045",
             "success": "#00B000",
             "tertiary": "#003F2E",
-            "warning": "#E96400",
+            "warning": "#FFB500",
             "white": "#FFFFFF",
           },
           "disabled": Object {
@@ -2183,7 +2183,7 @@ exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
               "secondary": "#006045",
               "success": "#00B000",
               "tertiary": "#003F2E",
-              "warning": "#E96400",
+              "warning": "#FFB500",
               "white": "#FFFFFF",
             },
             "disabled": Object {

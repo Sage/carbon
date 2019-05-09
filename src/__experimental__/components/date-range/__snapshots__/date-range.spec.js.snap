@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StyledDateRange renders Date inputs correctly when the labels are inline 1`] = `
+.c2 .c4 {
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  width: 135px;
+}
+
+.c3 .c1 {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c3 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c0 .c1 {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.c0 .c1:first-child {
+  margin-right: 15px;
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1 c2"
+  />
+</div>
+`;
+
+exports[`StyledDateRange renders Date inputs correctly when the labels are not inline 1`] = `
+.c2 .c4 {
+  -webkit-flex: none;
+  -ms-flex: none;
+  flex: none;
+  width: 135px;
+}
+
+.c0 .c1 {
+  display: inline-block;
+  vertical-align: bottom;
+}
+
+.c0 .c1:first-child {
+  margin-right: 15px;
+}
+
+.c3 .c1 {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.c3 .c1:first-child {
+  margin-right: 15px;
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1 c2"
+  />
+</div>
+`;
