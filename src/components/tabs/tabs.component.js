@@ -7,7 +7,6 @@ import Tab from './tab/tab.component';
 import Event from '../../utils/helpers/events/events';
 import tagComponent from '../../utils/helpers/tags/tags';
 import Browser from '../../utils/helpers/browser/browser';
-import './tabs.scss';
 import StyledTabs from './tabs.style';
 import TabsHeader from './tabs-header/tabs-header.component';
 import TabHeader from './tab-header/tab-header.component';
@@ -263,6 +262,7 @@ class Tabs extends React.Component {
     const tabs = this.children.map((child, index) => {
       return (
         <Tab
+          role='tabpanel'
           title={ child.props.title }
           tabId={ child.props.tabId }
           position={ this.props.position }

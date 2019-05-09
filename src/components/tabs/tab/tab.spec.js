@@ -11,8 +11,7 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 function render(props) {
   return shallow(
     <Tab
-      title='Tab Title 1'
-      tabId='uniqueid1'
+      title='Tab Title 1' tabId='uniqueid1'
       { ...props }
     >
       <p>TabContent 1</p>
@@ -22,55 +21,16 @@ function render(props) {
 }
 
 function renderStyles(props) {
-  return TestRenderer.create(
-    <StyledTab
-      title='Tab Title 1'
-      dataTabId='uniqueid1'
-      { ...props }
-    />
-  );
+  return TestRenderer.create(<StyledTab
+    title='Tab Title 1' dataTabId='uniqueid1'
+    { ...props }
+  />);
 }
-
-describe('Tab validation', () => {
-  let instance;
-
-  beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(
-      <Tab
-        title='Tab Title 1' tabId='uniqueid1'
-        id='uniqueid1'
-      >
-        <Textbox name='foo' />
-        <Textbox name='bar' />
-      </Tab>
-    );
-  });
-
-  describe('setValidity', () => {
-    it('calls the parent tab context with the new state', () => {
-      const spy = jasmine.createSpy('spy');
-      instance.context = { tabs: { changeValidity: spy } };
-      instance.setValidity(false);
-
-      expect(spy).toHaveBeenCalledWith(instance.props.id, false);
-    });
-  });
-
-  describe('setWarning', () => {
-    it('calls the parent tab context with the new state', () => {
-      const spy = jasmine.createSpy('spy');
-      instance.context = { tabs: { changeWarning: spy } };
-      instance.setWarning(true);
-
-      expect(spy).toHaveBeenCalledWith(instance.props.id, true);
-    });
-  });
-});
 
 describe('Tab', () => {
   let wrapper;
   it('renders as expected', () => {
-    expect(renderStyles()).toMatchSnapshot();
+    expect(renderStyles().toJSON()).toMatchSnapshot();
   });
 
   it('renders its children correctly', () => {
@@ -123,6 +83,42 @@ describe('Tab', () => {
           },
           wrapper.toJSON()
         );
+      });
+    });
+  });
+
+  describe('Tab validation', () => {
+    let instance;
+
+    beforeEach(() => {
+      instance = TestUtils.renderIntoDocument(
+        <Tab
+          title='Tab Title 1' tabId='uniqueid1'
+          id='uniqueid1'
+        >
+          <Textbox name='foo' />
+          <Textbox name='bar' />
+        </Tab>
+      );
+    });
+
+    describe('setValidity', () => {
+      it('calls the parent tab context with the new state', () => {
+        const spy = jasmine.createSpy('spy');
+        instance.context = { tabs: { changeValidity: spy } };
+        instance.setValidity(false);
+
+        expect(spy).toHaveBeenCalledWith(instance.props.id, false);
+      });
+    });
+
+    describe('setWarning', () => {
+      it('calls the parent tab context with the new state', () => {
+        const spy = jasmine.createSpy('spy');
+        instance.context = { tabs: { changeWarning: spy } };
+        instance.setWarning(true);
+
+        expect(spy).toHaveBeenCalledWith(instance.props.id, true);
       });
     });
   });

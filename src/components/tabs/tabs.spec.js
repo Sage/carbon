@@ -9,7 +9,6 @@ import Textbox from '../textbox';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Browser from '../../utils/helpers/browser';
 import TabsHeader from './tabs-header/tabs-header.component';
-import TabHeader from './tab-header/tab-header.component';
 import StyledTabs from './tabs.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
