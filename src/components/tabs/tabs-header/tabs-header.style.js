@@ -14,6 +14,7 @@ padding: 0;
 
 ${({ align }) => align === 'right'
   && css`
+    justify-content: flex-end;
     text-align: right;
   `}
 

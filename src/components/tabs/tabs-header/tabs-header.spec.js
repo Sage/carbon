@@ -1,7 +1,7 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import TabsHeader from './tabs-header.component';
 import StyledTabsHeader from './tabs-header.style';
 import classicTheme from '../../../style/themes/classic';
@@ -11,7 +11,7 @@ function render(props) {
   return shallow(
     <TabsHeader { ...props }>
       <TabHeader title='title-1' tabId='tabId-1' />
-      <TabHeader title='title-1' tabId='tabId-1' />
+      <TabHeader title='title-2' tabId='tabId-2' />
     </TabsHeader>
   );
 }

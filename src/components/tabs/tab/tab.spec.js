@@ -10,17 +10,21 @@ describe('Tab', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Tab title='Tab Title 1' tabId='uniqueid1' id='uniqueid1'>
-        <Textbox name='foo'/>
-        <Textbox name='bar'/>
-      </Tab>);
+      <Tab
+        title='Tab Title 1' tabId='uniqueid1'
+        id='uniqueid1'
+      >
+        <Textbox name='foo' />
+        <Textbox name='bar' />
+      </Tab>
+    );
   });
 
   describe('setValidity', () => {
     it('calls the parent tab context with the new state', () => {
-      let spy = jasmine.createSpy('spy');
+      const spy = jasmine.createSpy('spy');
       instance.context = { tabs: { changeValidity: spy } };
-      instance.setValidity(false)
+      instance.setValidity(false);
 
       expect(spy).toHaveBeenCalledWith(instance.props.id, false);
     });
@@ -28,9 +32,9 @@ describe('Tab', () => {
 
   describe('setWarning', () => {
     it('calls the parent tab context with the new state', () => {
-      let spy = jasmine.createSpy('spy');
+      const spy = jasmine.createSpy('spy');
       instance.context = { tabs: { changeWarning: spy } };
-      instance.setWarning(true)
+      instance.setWarning(true);
 
       expect(spy).toHaveBeenCalledWith(instance.props.id, true);
     });
@@ -39,7 +43,11 @@ describe('Tab', () => {
 
 function render(props) {
   return TestRenderer.create(
-    <Tab title='Tab Title 1' tabId='uniqueid1' id='uniqueid1' {...props}>Tab content
+    <Tab
+      title='Tab Title 1' tabId='uniqueid1'
+      id='uniqueid1' { ...props }
+    >
+      Tab content
     </Tab>
   );
 }
@@ -49,12 +57,12 @@ describe('Tab', () => {
   it('renders as expected', () => {
     expect(render()).toMatchSnapshot();
   });
-  
+
   describe('when a tab is selected', () => {
     wrapper = render({
-      isTabSelected: true,
+      isTabSelected: true
     });
-    
+
     it('matches the snaphot', () => {
       expect(wrapper).toMatchSnapshot();
     });
@@ -64,18 +72,18 @@ describe('Tab', () => {
         wrapper = render({
           isTabSelected: true,
           position: 'left'
-        })
+        });
         expect(wrapper).toMatchSnapshot();
-      })
-    })
+      });
+    });
   });
 
   describe('when position prop is set to vertical', () => {
     it('matches the snaphot', () => {
       wrapper = render({
-        position: 'left',
+        position: 'left'
       });
       expect(wrapper).toMatchSnapshot();
     });
   });
-})
+});

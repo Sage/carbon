@@ -263,6 +263,8 @@ class Tabs extends React.Component {
     const tabs = this.children.map((child, index) => {
       return (
         <Tab
+          title={ child.props.title }
+          tabId={ child.props.tabId }
           position={ this.props.position }
           key={ this.tabRefs[index] }
           ariaLabelledby={ this.tabRefs[index] }

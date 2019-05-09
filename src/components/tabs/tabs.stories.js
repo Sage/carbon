@@ -36,8 +36,7 @@ storiesOf('Tabs', module)
           <Tabs align={ align } position={ position }>
             <Tab
               tabId='tab-1' title='Tab 1'
-              className='testowa' key='tab-1'
-              isTabSelected={ checkIfSelected('tab-1') }
+              key='tab-1' isTabSelected={ checkIfSelected('tab-1') }
             >
               Content for tab 1
             </Tab>
