@@ -35,6 +35,24 @@ describe('TabHeader', () => {
     expect(wrapper.children().text()).toEqual('Tab Title 1');
   });
 
+  describe('when clicked', () => {
+    it('triggers onClick function', () => {
+      const onClickFunction = jest.fn();
+      wrapper = render({ onClick: onClickFunction });
+      wrapper.simulate('click');
+      expect(onClickFunction).toHaveBeenCalled();
+    });
+  });
+
+  describe('when onKeyDown', () => {
+    it('triggers onKeyDown function', () => {
+      const onKeyDownFunction = jest.fn();
+      wrapper = render({ onKeyDown: onKeyDownFunction });
+      wrapper.simulate('click');
+      expect(onKeyDownFunction).toHaveBeenCalled();
+    });
+  });
+
   describe('attributes', () => {
     wrapper = render();
     it('role equals "tab"', () => {
