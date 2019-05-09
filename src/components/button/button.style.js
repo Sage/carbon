@@ -6,7 +6,6 @@ import buttonSizes from './button-sizes.style';
 import buttonClasicStyle from './button-classic.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { THEMES } from '../../style/themes';
-import buttonLinkStyle from './button-link.style';
 
 const StyledButton = styled.button`
   align-items: center;

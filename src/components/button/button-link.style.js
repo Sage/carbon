@@ -5,6 +5,7 @@ const buttonLinkStyle = (color, hoverColor) => {
     ${LinkStyle},
     ${LinkStyle} a {
       color: ${color};
+      text-decoration: none;
     }
     
     &:hover ${LinkStyle} a,
