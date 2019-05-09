@@ -22,7 +22,6 @@ class Tab extends React.Component {
 
   /**
    * Returns tab object to context children.
-   *
    */
   getChildContext() {
     return {
@@ -54,12 +53,12 @@ class Tab extends React.Component {
 
   render() {
     const {
-      className, children, isTabSelected, position, title, ariaLabelledby
+      className, children, isTabSelected, position, title, ariaLabelledby, role
     } = this.props;
     return (
       <StyledTab
         className={ className }
-        role='tabPanel'
+        role={ role }
         title={ title }
         isTabSelected={ isTabSelected }
         aria-labelledby={ ariaLabelledby }
@@ -73,7 +72,8 @@ class Tab extends React.Component {
 }
 
 Tab.defaultProps = {
-  position: 'top'
+  position: 'top',
+  role: 'tabpanel'
 };
 
 Tab.propTypes = {
@@ -83,6 +83,7 @@ Tab.propTypes = {
   children: PropTypes.node,
   isTabSelected: PropTypes.bool,
   position: PropTypes.oneOf(['top', 'left']),
+  role: PropTypes.string,
   ariaLabelledby: PropTypes.string
 };
 

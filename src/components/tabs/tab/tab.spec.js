@@ -1,11 +1,37 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import TestRenderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 import 'jest-styled-components';
 import Tab from './tab.component';
+import StyledTab from './tab.style';
 import Textbox from '../../textbox/textbox';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 
-describe('Tab', () => {
+function render(props) {
+  return shallow(
+    <Tab
+      title='Tab Title 1'
+      tabId='uniqueid1'
+      { ...props }
+    >
+      <p>TabContent 1</p>
+      <p>TabContent 2</p>
+    </Tab>
+  );
+}
+
+function renderStyles(props) {
+  return TestRenderer.create(
+    <StyledTab
+      title='Tab Title 1'
+      dataTabId='uniqueid1'
+      { ...props }
+    />
+  );
+}
+
+describe('Tab validation', () => {
   let instance;
 
   beforeEach(() => {
@@ -41,49 +67,63 @@ describe('Tab', () => {
   });
 });
 
-function render(props) {
-  return TestRenderer.create(
-    <Tab
-      title='Tab Title 1' tabId='uniqueid1'
-      id='uniqueid1' { ...props }
-    >
-      Tab content
-    </Tab>
-  );
-}
-
 describe('Tab', () => {
   let wrapper;
   it('renders as expected', () => {
-    expect(render()).toMatchSnapshot();
+    expect(renderStyles()).toMatchSnapshot();
+  });
+
+  it('renders its children correctly', () => {
+    expect(render().children()).toHaveLength(2);
+  });
+
+  it('contains custom className if passed as a prop', () => {
+    wrapper = render({ className: 'class' });
+    expect(wrapper.find('.class').exists()).toEqual(true);
+  });
+
+  it('has a default role if not set', () => {
+    wrapper = render();
+    expect(wrapper.find("[role='tabpanel']").exists()).toEqual(true);
+  });
+
+  it('has a custom role if provided', () => {
+    wrapper = render({ role: 'anotherRole' });
+    expect(wrapper.find("[role='anotherRole']").exists()).toEqual(true);
+  });
+
+  it('sets the aria-labelledby based on ariaLabelledBy prop', () => {
+    wrapper = render({ ariaLabelledby: 'ariaLabelledby' });
+    expect(wrapper.find("[aria-labelledby='ariaLabelledby']").exists()).toEqual(true);
   });
 
   describe('when a tab is selected', () => {
-    wrapper = render({
-      isTabSelected: true
+    it('applies display block property', () => {
+      wrapper = renderStyles({
+        isTabSelected: true
+      });
+
+      assertStyleMatch(
+        {
+          display: 'block'
+        },
+        wrapper.toJSON()
+      );
     });
 
-    it('matches the snaphot', () => {
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    describe('when position prop is set to vertical', () => {
-      it('matches the snaphot', () => {
-        wrapper = render({
+    describe('when position prop is set to left and the tab is selected', () => {
+      it('applies width of 80%', () => {
+        wrapper = renderStyles({
           isTabSelected: true,
           position: 'left'
         });
-        expect(wrapper).toMatchSnapshot();
+        assertStyleMatch(
+          {
+            width: '80%'
+          },
+          wrapper.toJSON()
+        );
       });
-    });
-  });
-
-  describe('when position prop is set to vertical', () => {
-    it('matches the snaphot', () => {
-      wrapper = render({
-        position: 'left'
-      });
-      expect(wrapper).toMatchSnapshot();
     });
   });
 });
