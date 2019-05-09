@@ -20,7 +20,7 @@ Feature: Icon component
       | default     |
 
   @positive
-  Scenario Outline: Change bgShape
+  Scenario Outline: Change background shape
     When I select bgShape to "<bgShape>"
     Then bgShape is set to "<bgShape>"
     Examples:
@@ -30,7 +30,7 @@ Feature: Icon component
       | square       |
 
   @positive
-  Scenario Outline: Change tooltipMessage
+  Scenario Outline: Change tooltip message
     When I set tooltipMessage to "<tooltipMessage>"
       And I hover mouse onto icon
     Then tooltipPreview on preview is set to "<tooltipMessage>"
@@ -57,7 +57,7 @@ Feature: Icon component
       | bottom          |
 
   @positive
-  Scenario Outline: Change tooltipAlign
+  Scenario Outline: Change tooltip align
     When I set tooltipMessage to "sample message"
       And I select tooltipAlign to "<tooltipAlign>"
       And I hover mouse onto icon
