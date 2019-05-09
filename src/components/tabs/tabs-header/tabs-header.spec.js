@@ -1,7 +1,7 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import TabsHeader from './tabs-header.component';
 import StyledTabsHeader from './tabs-header.style';
 import classicTheme from '../../../style/themes/classic';
@@ -24,10 +24,10 @@ describe('TabsHeader', () => {
   let wrapper;
   it('renders as expected', () => {
     wrapper = renderStyles();
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.toJSON()).toMatchSnapshot();
   });
 
-  it('renders children correctly if passed', () => {
+  it('renders children correctly', () => {
     wrapper = render();
     expect(wrapper.children()).toHaveLength(2);
   });
@@ -40,21 +40,21 @@ describe('TabsHeader', () => {
   describe('when position prop is set to left', () => {
     it('applies proper styles', () => {
       wrapper = renderStyles({ position: 'left' });
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.toJSON()).toMatchSnapshot();
     });
   });
 
   describe('when align prop is set to right', () => {
     it('applies proper styles', () => {
       wrapper = renderStyles({ align: 'right' });
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.toJSON()).toMatchSnapshot();
     });
   });
 
   describe('when in classic style', () => {
     it('renders as expected', () => {
       wrapper = renderStyles({ theme: classicTheme });
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.toJSON()).toMatchSnapshot();
     });
   });
 });
