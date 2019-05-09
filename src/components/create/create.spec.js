@@ -22,7 +22,7 @@ describe('Create', () => {
     expect(TestRenderer.create(<CreateStyle />)).toMatchSnapshot();
   });
 
-  it('should render correct', () => {
+  it('should render correctly', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
