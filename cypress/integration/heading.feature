@@ -22,13 +22,12 @@ Feature: Heading component
     When I set children to "<children>"
     Then heading children on preview is "<children>"
     Examples:
-      | children                |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
-      | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
+      | children    |
+      | Sample text |
+      | 1234567890  |
+      | áéíóú¿¡üñ   |
+      | ÄÖÜßäöüß    |
+      | <>          |
 
   @positive
   Scenario Outline: Change subheader
@@ -47,7 +46,7 @@ Feature: Heading component
   Scenario Outline: Change help
     When I set help to "<help>"
       And I hover mouse onto help icon
-    Then Label help on preview is set to "<help>"
+    Then tooltipPreview on preview is set to "<help>"
     Examples:
       | help                    |
       | Sample text             |
@@ -60,7 +59,7 @@ Feature: Heading component
   @positive
   Scenario Outline: Change helpLink
     When I set helpLink to "<helpLink>"
-    Then helpLink on preview is "<helpLink>"
+    Then link on preview is "<helpLink>"
     Examples:
       | helpLink                |
       | Sample text             |
@@ -102,4 +101,3 @@ Feature: Heading component
   Scenario: Uncheck separator
     When I uncheck separator checkbox
     Then separator is not visible
-    

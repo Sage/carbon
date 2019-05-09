@@ -2,7 +2,7 @@ import { visitComponentUrl, setSlidebar, pressESCKey } from '../helper';
 import {
   asSelect, sizeSelect, commonButtonPreview, labelPreview, helpIcon, inputWidthSlider,
   fieldHelpPreview, labelWidthSlider, labelAlignSelect, alignSelect, backgroundUILocator,
-  closeIconButton, labelHelpPreview, getKnobsInput,
+  closeIconButton, tooltipPreview, getKnobsInput, icon,
 } from '../../locators';
 
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
@@ -26,6 +26,10 @@ When('I set {word} to {string}', (propertyName, text) => {
 
 When('I set {word} to empty', (propertyName) => {
   getKnobsInput(propertyName).clear();
+});
+
+When('I select {word} to {string}', (propertyName, selection) => {
+  getKnobsInput(propertyName).select(selection);
 });
 
 When('I set as property to {string}', (asProperty) => {
@@ -60,8 +64,13 @@ When('I hover mouse onto help icon', () => {
   helpIcon().trigger('mouseover');
 });
 
-Then('Label help on preview is set to {string}', (text) => {
-  labelHelpPreview().should('have.text', text);
+When('I hover mouse onto icon', () => {
+  cy.wait(100); // required becasue element might be reloaded
+  icon().trigger('mouseover');
+});
+
+Then('tooltipPreview on preview is set to {string}', (text) => {
+  tooltipPreview().should('have.text', text);
 });
 
 When('I set input width slider to {int}', (width) => {

@@ -1,4 +1,4 @@
-import { legendPreview } from '../../locators/legend';
+import { legendPreview } from '../../locators/fieldset';
 
 Then('legend on preview is {string}', (legend) => {
   legendPreview().should('have.text', legend);
