@@ -223,7 +223,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                 "border": "#668491",
                                                 "brand": "#00DC00",
                                                 "error": "#C7384F",
-                                                "focus": "#FFDA7F",
+                                                "focus": "#FFB500",
                                                 "focusedIcon": "#335B6D",
                                                 "info": "#0073C2",
                                                 "primary": "#26A826",
@@ -232,10 +232,13 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                 "tertiary": "#004400",
                                                 "warning": "#E96400",
                                                 "white": "#FFFFFF",
+                                                "whiteMix": "#E5F4E5",
                                               },
                                               "disabled": Object {
                                                 "background": "#E5EAEC",
                                                 "border": "#CCD6DA",
+                                                "button": "#e6ebed",
+                                                "buttonText": "rgba(0,0,0,.2)",
                                                 "disabled": "rgba(0,0,0,0.55)",
                                                 "input": "#F2F4F5",
                                                 "text": "rgba(0,0,0,0.3)",
@@ -269,7 +272,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                 "componentStyle": ComponentStyle {
                                                   "componentId": "sc-bdVaJa",
                                                   "isStatic": false,
-                                                  "lastClassName": "jOPhMr",
+                                                  "lastClassName": "jaNRBk",
                                                   "rules": Array [
                                                     "
 display: inline-block;
@@ -313,7 +316,7 @@ a {
                                                       "border": "#668491",
                                                       "brand": "#00DC00",
                                                       "error": "#C7384F",
-                                                      "focus": "#FFDA7F",
+                                                      "focus": "#FFB500",
                                                       "focusedIcon": "#335B6D",
                                                       "info": "#0073C2",
                                                       "primary": "#26A826",
@@ -322,10 +325,13 @@ a {
                                                       "tertiary": "#004400",
                                                       "warning": "#E96400",
                                                       "white": "#FFFFFF",
+                                                      "whiteMix": "#E5F4E5",
                                                     },
                                                     "disabled": Object {
                                                       "background": "#E5EAEC",
                                                       "border": "#CCD6DA",
+                                                      "button": "#e6ebed",
+                                                      "buttonText": "rgba(0,0,0,.2)",
                                                       "disabled": "rgba(0,0,0,0.55)",
                                                       "input": "#F2F4F5",
                                                       "text": "rgba(0,0,0,0.3)",
@@ -368,7 +374,7 @@ a {
                                                   "border": "#668491",
                                                   "brand": "#00DC00",
                                                   "error": "#C7384F",
-                                                  "focus": "#FFDA7F",
+                                                  "focus": "#FFB500",
                                                   "focusedIcon": "#335B6D",
                                                   "info": "#0073C2",
                                                   "primary": "#26A826",
@@ -377,10 +383,13 @@ a {
                                                   "tertiary": "#004400",
                                                   "warning": "#E96400",
                                                   "white": "#FFFFFF",
+                                                  "whiteMix": "#E5F4E5",
                                                 },
                                                 "disabled": Object {
                                                   "background": "#E5EAEC",
                                                   "border": "#CCD6DA",
+                                                  "button": "#e6ebed",
+                                                  "buttonText": "rgba(0,0,0,.2)",
                                                   "disabled": "rgba(0,0,0,0.55)",
                                                   "input": "#F2F4F5",
                                                   "text": "rgba(0,0,0,0.3)",
@@ -405,7 +414,7 @@ a {
                                             }
                                           >
                                             <div
-                                              className="sc-bdVaJa jOPhMr"
+                                              className="sc-bdVaJa jaNRBk"
                                               data-component="link"
                                               disabled={false}
                                             >
