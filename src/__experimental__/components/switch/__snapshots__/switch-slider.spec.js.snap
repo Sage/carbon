@@ -18,7 +18,6 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
 
 .c0 {
   background-color: #CCD6DB;
-  bottom: 0;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -32,7 +31,6 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
   -ms-letter-spacing: 1px;
   letter-spacing: 1px;
   position: absolute;
-  right: 0;
   top: 0;
   width: 60px;
 }
