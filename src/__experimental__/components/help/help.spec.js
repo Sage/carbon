@@ -12,10 +12,6 @@ describe('Help', () => {
     expect(render()).toMatchSnapshot();
   });
 
-  it('sets appropriate className when passed an href', () => {
-    expect(render({ href: 'test' })).toMatchSnapshot();
-  });
-
   it('correctly renders different icon types', () => {
     expect(render({ type: 'info' })).toMatchSnapshot();
   });

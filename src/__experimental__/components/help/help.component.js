@@ -7,7 +7,6 @@ import StyledHelp from './help.style';
 const Help = (props) => {
   return (
     <StyledHelp
-      className={ props.className }
       href={ props.href }
       target='_blank'
       rel='noopener noreferrer'
@@ -24,7 +23,6 @@ const Help = (props) => {
 };
 
 Help.propTypes = {
-  className: PropTypes.string,
   children: PropTypes.string,
   type: PropTypes.string,
   tooltipPosition: PropTypes.string,

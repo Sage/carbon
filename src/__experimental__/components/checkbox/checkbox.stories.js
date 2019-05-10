@@ -6,8 +6,7 @@ import {
 import { Store, State } from '@sambego/storybook-state';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Checkbox from '.';
-import info from './documentation/info';
-import notes from './documentation/notes.md';
+import { info, notes } from './documentation';
 
 const formStore = new Store({
   checked: false
