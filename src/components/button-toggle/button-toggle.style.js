@@ -16,24 +16,27 @@ const StyledButtonToggleLabel = styled.label`
   display: inline-block;
   height: 38px;
   padding: 0 24px;
-  border: 1px solid ${({ theme }) => theme.colors.border};
-  font-size: ${({ theme }) => theme.text.size};
   font-weight: 600;
-  background-color: ${({ theme }) => theme.colors.white};
-  
-  input:checked ~ & {
-    color: ${({ theme }) => theme.colors.white};
-    background-color: ${({ theme }) => theme.colors.tertiary};
-  }
 
-  input:focus ~ & {
-    outline: 3px solid ${({ theme }) => theme.colors.focus};
-  }
+  ${({ theme }) => css`
+    border: 1px solid ${theme.colors.border};
+    font-size: ${theme.text.size};
+    background-color: ${theme.colors.white};
+    
+    input:checked ~ & {
+      color: ${theme.colors.white};
+      background-color: ${theme.colors.tertiary};
+    }
 
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.whiteMix};
-    border-color: ${({ theme }) => theme.colors.tertiary};
-  }
+    input:focus ~ & {
+      outline: 3px solid ${theme.colors.focus};
+    }
+
+    &:hover {
+      background-color: ${theme.colors.whiteMix};
+      border-color: ${theme.colors.tertiary};
+    }
+  `};
 
   ${({ buttonIcon, buttonIconSize }) => buttonIcon && buttonIconSize === 'large' && css`
     min-width: 104px;
@@ -45,10 +48,10 @@ const StyledButtonToggleLabel = styled.label`
     }
   `}
 
-  ${({ disabled }) => disabled && css`
-    background-color: ${({ theme }) => `${theme.disabled.button} !important`};
-    border-color: ${({ theme }) => `${theme.disabled.button} !important`};
-    color: ${({ theme }) => `${theme.disabled.buttonText} !important`};
+  ${({ disabled, theme }) => disabled && css`
+    background-color: ${theme.disabled.button} !important};
+    border-color: ${theme.disabled.button} !important};
+    color: ${theme.disabled.buttonText} !important};
   `};
 
     ${StyledButtonToggleClassicLabel}

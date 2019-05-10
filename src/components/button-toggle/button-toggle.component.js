@@ -11,6 +11,7 @@ import ButtonToggleInput from './button-toggle-input.component';
 
 const ButtonToggle = (props) => {
   const inputGuid = guid();
+  const icon = props.buttonIcon ? <ButtonToggleIcon { ...props } /> : null;
 
   return (
     <StyledButtonToggle { ...props }>
@@ -23,9 +24,7 @@ const ButtonToggle = (props) => {
         { ...props } htmlFor={ inputGuid }
       >
         <StyledButtonToggleContentWrapper>
-          <ButtonToggleIcon
-            { ...props }
-          />
+          { icon }
           {props.children}
         </StyledButtonToggleContentWrapper>
       </StyledButtonToggleLabel>

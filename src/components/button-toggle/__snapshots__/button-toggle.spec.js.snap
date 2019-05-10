@@ -22,9 +22,9 @@ exports[`ButtonToggle Classic theme renders correctly with default settings 1`] 
   display: inline-block;
   height: 38px;
   padding: 0 24px;
+  font-weight: 600;
   border: 1px solid #668491;
   font-size: 14px;
-  font-weight: 600;
   background-color: #FFFFFF;
   height: 47px;
   font-weight: 900;
@@ -119,9 +119,9 @@ exports[`ButtonToggle General styling renders correctly when grouped 1`] = `
   display: inline-block;
   height: 38px;
   padding: 0 24px;
+  font-weight: 600;
   border: 1px solid #668491;
   font-size: 14px;
-  font-weight: 600;
   background-color: #FFFFFF;
   height: 47px;
   font-weight: 900;
@@ -498,40 +498,11 @@ input:focus ~ .c3 {
   display: inline-block;
   height: 38px;
   padding: 0 24px;
-  border: 1px solid ",
-                      [Function],
-                      ";
-  font-size: ",
-                      [Function],
-                      ";
   font-weight: 600;
-  background-color: ",
-                      [Function],
-                      ";
-  
-  input:checked ~ & {
-    color: ",
-                      [Function],
-                      ";
-    background-color: ",
-                      [Function],
-                      ";
-  }
 
-  input:focus ~ & {
-    outline: 3px solid ",
+  ",
                       [Function],
                       ";
-  }
-
-  &:hover {
-    background-color: ",
-                      [Function],
-                      ";
-    border-color: ",
-                      [Function],
-                      ";
-  }
 
   ",
                       [Function],
@@ -693,57 +664,6 @@ input:focus ~ .c3 {
                     <div
                       className="c4 c5"
                     >
-                      <ButtonToggleIcon
-                        grouped={true}
-                        size="large"
-                        theme={
-                          Object {
-                            "colors": Object {
-                              "base": "#00A376",
-                              "baseBlue": "#255BC7",
-                              "border": "#668491",
-                              "brand": "#00DC00",
-                              "error": "#C7384F",
-                              "focus": "#FFB500",
-                              "focusedIcon": "#335B6D",
-                              "greyDarkBlue50": "#8099a4",
-                              "info": "#0073C2",
-                              "primary": "#00805D",
-                              "secondary": "#006045",
-                              "success": "#00B000",
-                              "tertiary": "#003F2E",
-                              "warning": "#FFB500",
-                              "white": "#FFFFFF",
-                              "whiteMix": "#E5F4E5",
-                            },
-                            "disabled": Object {
-                              "background": "#E5EAEC",
-                              "border": "#4d7080",
-                              "button": "#e6ebed",
-                              "buttonText": "rgba(0,0,0,.2)",
-                              "disabled": "#b3c2c8",
-                              "input": "#1e499f",
-                              "text": "#003349",
-                            },
-                            "icon": Object {
-                              "focus": "#335B6D",
-                            },
-                            "name": "classic",
-                            "shadows": Object {
-                              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
-                              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-                              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-                              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-                              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-                            },
-                            "text": Object {
-                              "color": "rgba(0,0,0,0.9)",
-                              "placeholder": "rgba(0,0,0,0.3)",
-                              "size": "14px",
-                            },
-                          }
-                        }
-                      />
                       Text
                     </div>
                   </StyledComponent>
@@ -1061,40 +981,11 @@ input:focus ~ .c3 {
   display: inline-block;
   height: 38px;
   padding: 0 24px;
-  border: 1px solid ",
-                      [Function],
-                      ";
-  font-size: ",
-                      [Function],
-                      ";
   font-weight: 600;
-  background-color: ",
-                      [Function],
-                      ";
-  
-  input:checked ~ & {
-    color: ",
-                      [Function],
-                      ";
-    background-color: ",
-                      [Function],
-                      ";
-  }
 
-  input:focus ~ & {
-    outline: 3px solid ",
+  ",
                       [Function],
                       ";
-  }
-
-  &:hover {
-    background-color: ",
-                      [Function],
-                      ";
-    border-color: ",
-                      [Function],
-                      ";
-  }
 
   ",
                       [Function],
@@ -1256,57 +1147,6 @@ input:focus ~ .c3 {
                     <div
                       className="c4 c5"
                     >
-                      <ButtonToggleIcon
-                        grouped={true}
-                        size="large"
-                        theme={
-                          Object {
-                            "colors": Object {
-                              "base": "#00A376",
-                              "baseBlue": "#255BC7",
-                              "border": "#668491",
-                              "brand": "#00DC00",
-                              "error": "#C7384F",
-                              "focus": "#FFB500",
-                              "focusedIcon": "#335B6D",
-                              "greyDarkBlue50": "#8099a4",
-                              "info": "#0073C2",
-                              "primary": "#00805D",
-                              "secondary": "#006045",
-                              "success": "#00B000",
-                              "tertiary": "#003F2E",
-                              "warning": "#FFB500",
-                              "white": "#FFFFFF",
-                              "whiteMix": "#E5F4E5",
-                            },
-                            "disabled": Object {
-                              "background": "#E5EAEC",
-                              "border": "#4d7080",
-                              "button": "#e6ebed",
-                              "buttonText": "rgba(0,0,0,.2)",
-                              "disabled": "#b3c2c8",
-                              "input": "#1e499f",
-                              "text": "#003349",
-                            },
-                            "icon": Object {
-                              "focus": "#335B6D",
-                            },
-                            "name": "classic",
-                            "shadows": Object {
-                              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
-                              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-                              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-                              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-                              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-                            },
-                            "text": Object {
-                              "color": "rgba(0,0,0,0.9)",
-                              "placeholder": "rgba(0,0,0,0.3)",
-                              "size": "14px",
-                            },
-                          }
-                        }
-                      />
                       Text
                     </div>
                   </StyledComponent>
@@ -1349,9 +1189,9 @@ exports[`ButtonToggle Modern themes renders correctly with small theme 1`] = `
   display: inline-block;
   height: 38px;
   padding: 0 24px;
+  font-weight: 600;
   border: 1px solid #668491;
   font-size: 14px;
-  font-weight: 600;
   background-color: #FFFFFF;
 }
 
