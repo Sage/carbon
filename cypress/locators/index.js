@@ -1,7 +1,7 @@
 import {
   INPUT_WIDTH_SLIDER, LABEL_WIDTH_SLIDER, LABEL_ALIGN_SELECT, HELP_ICON_PREVIEW,
-  FIELD_HELP_PREVIEW, LABEL_HELP_PREVIEW, FORM, STORY_ROOT, STICKY_FORM_FOOTER, CLOSE_ICON_BUTTON,
-  BACKGROUND_UI_LOCATOR, LINK,
+  FIELD_HELP_PREVIEW, TOOLTIP_PREVIEW, FORM, STORY_ROOT, STICKY_FORM_FOOTER, CLOSE_ICON_BUTTON,
+  BACKGROUND_UI_LOCATOR, LINK, ICON,
 } from './locators';
 
 // knobs locators
@@ -19,8 +19,9 @@ export const stickyFormFooter = () => cy.get(STICKY_FORM_FOOTER);
 export const commonButtonPreview = () => cy.iFrame(STORY_ROOT).find('button');
 export const labelPreview = () => cy.iFrame(STORY_ROOT).find('label').first();
 export const helpIcon = () => cy.iFrame(HELP_ICON_PREVIEW);
-export const labelHelpPreview = () => cy.iFrame(LABEL_HELP_PREVIEW);
+export const tooltipPreview = () => cy.iFrame(TOOLTIP_PREVIEW);
 export const fieldHelpPreview = () => cy.iFrame(FIELD_HELP_PREVIEW);
 export const closeIconButton = () => cy.iFrame(CLOSE_ICON_BUTTON);
 export const backgroundUILocator = () => cy.iFrame(BACKGROUND_UI_LOCATOR);
 export const link = () => cy.iFrame(LINK);
+export const icon = () => cy.iFrame(ICON);

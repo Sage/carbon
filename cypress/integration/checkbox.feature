@@ -43,7 +43,7 @@ Feature: Checkbox component
   Scenario Outline: Change Checkbox component label help
     When I set labelHelp to "<labelHelp>"
       And I hover mouse onto help icon
-    Then Label help on preview is set to "<labelHelp>"
+    Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp                |
       | Sample text              |

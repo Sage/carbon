@@ -45,7 +45,7 @@ Feature: Decimal component
     When I set label to "<label>"
       And I set labelHelp to "<label>"
       And I hover mouse onto help icon
-    Then Label help on preview is set to "<label>"
+    Then tooltipPreview on preview is set to "<label>"
     Examples:
       | label                    |
       | Sample text              |
@@ -148,10 +148,10 @@ Feature: Decimal component
 
   @negative
   Scenario Outline: Check Decimal component input field will not accept characters except numbers
-    When I set labelInput to "<labelInput>"
-    Then Decimal labelInput is not set to "<labelInput>"
+    When I set label to "<label>"
+    Then Decimal label is not set to "<label>"
     Examples:
-      | labelInput               |
+      | label                    |
       | Sample text              |
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |

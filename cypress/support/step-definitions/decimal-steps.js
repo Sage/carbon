@@ -49,7 +49,7 @@ Then('Decimal labelInput is set to {string}', (labelInput) => {
   labelPreview().children().should('have.attr', 'value').should('contain', `${labelInput}`);
 });
 
-Then('Decimal labelInput is not set to {string}', (labelInput) => {
+Then('Decimal label is not set to {string}', (labelInput) => {
   labelPreview().children().should('have.attr', 'value').should('not.contain', `${labelInput}`);
 });
 

@@ -13,7 +13,9 @@ import StyledInput from './input.style';
 class Input extends React.Component {
   static propTypes = {
     className: PropTypes.string,
+    id: PropTypes.string,
     inputRef: PropTypes.func, // a callback to retrieve the input reference
+    name: PropTypes.string,
     onBlur: PropTypes.func,
     onClick: PropTypes.func,
     onFocus: PropTypes.func
@@ -53,6 +55,7 @@ class Input extends React.Component {
     return (
       <StyledInput
         { ...props }
+        id={ this.props.id || this.props.name }
         ref={ this.input }
         onFocus={ this.handleFocus }
         onBlur={ this.handleBlur }

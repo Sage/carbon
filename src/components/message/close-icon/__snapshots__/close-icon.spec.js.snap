@@ -625,7 +625,7 @@ exports[`when in classic mode when rendered as warning should match the snapshot
 }
 
 .c0 .icon-close:before {
-  color: #E96400;
+  color: #FFB500;
 }
 
 <div
@@ -656,7 +656,7 @@ exports[`when in classic mode when rendered as warning when transparent prop is 
 }
 
 .c0 .icon-close:before {
-  color: #E96400;
+  color: #FFB500;
 }
 
 <div
