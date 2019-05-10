@@ -3,26 +3,24 @@ import PropTypes from 'prop-types';
 import tagComponent from '../../utils/helpers/tags/tags';
 import CreateStyle from './create.style';
 
-class Create extends React.Component {
+const Create = (props) => {
   /** Returns the props for the component. */
-  linkProps = () => {
-    const { ...props } = this.props;
+  const linkProps = () => {
+    const { ...componentProps } = props;
 
-    props.iconAlign = 'right';
-    props.icon = 'add';
-    return props;
-  }
+    componentProps.iconAlign = 'right';
+    componentProps.icon = 'add';
+    return componentProps;
+  };
 
-  render() {
-    return (
-      <CreateStyle
-        { ...this.linkProps() } { ...tagComponent('create', this.props) }
-      >
-        { this.props.children }
-      </CreateStyle>
-    );
-  }
-}
+  return (
+    <CreateStyle
+      { ...linkProps() } { ...tagComponent('create', props) }
+    >
+      { props.children }
+    </CreateStyle>
+  );
+};
 
 Create.propTypes = {
   /** Children elements */
