@@ -1,70 +1,77 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link as RouterLink } from 'react-router';
 import Icon from '../icon';
 import StyledButton, { StyledButtonSubtext } from './button.style';
-import Link from '../link';
 import tagComponent from '../../utils/helpers/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 const Button = (props) => {
-  const {
-    as,
-    buttonType,
-    disabled,
-    iconPosition,
-    theme,
-    forwardRef,
-    href,
-    ...rest
-  } = props;
+  const { disabled, to, iconType } = props;
 
   if (props.subtext.length > 0 && props.size !== 'large') {
     throw new Error('subtext prop has no effect unless the button is large');
   }
 
+  // added to support legacy link buttons
+  if (!disabled && to) {
+    return (
+      <RouterLink to={ to } type={ iconType }>
+        {renderStyledButton(props)}
+      </RouterLink>
+    );
+  }
+
+  return renderStyledButton(props);
+};
+
+function renderStyledButton(buttonProps) {
+  const {
+    as,
+    buttonType,
+    iconType,
+    theme,
+    forwardRef,
+    href,
+    ...styleProps
+  } = buttonProps;
+
+  // added to support legacy link buttons
+  if (href) {
+    styleProps.href = href;
+  }
+
   return (
     <StyledButton
-      as={ href ? 'div' : 'button' }
-      disabled={ disabled }
+      as={ href ? 'a' : 'button' } // legacy link button feature
       buttonType={ buttonType || as }
       role='button'
-      iconPosition={ iconPosition }
       legacyColorVariant={ theme }
-      { ...tagComponent('button', props) }
-      { ...rest }
+      { ...tagComponent('button', buttonProps) }
+      { ...styleProps }
       ref={ forwardRef }
     >
-      { renderChildren(props) }
+      { renderChildren(buttonProps) }
     </StyledButton>
   );
-};
+}
 
 function renderChildren(props) {
   const {
-    disabled,
     iconType,
     iconPosition,
     size,
     subtext,
-    children,
-    href,
-    to
+    children
   } = props;
-  let buttonContent = (
-    <span>
-      <span data-element='main-text'>{ children }</span>
-      { size === 'large' && <StyledButtonSubtext data-element='subtext'>{ subtext }</StyledButtonSubtext> }
-    </span>
-  );
-
-  if (!disabled && (href || to)) {
-    buttonContent = <Link href={ href } to={ to }>{buttonContent}</Link>;
-  }
 
   return (
     <>
       { iconType && iconPosition === 'before' && <Icon type={ iconType } /> }
-      {buttonContent}
+      <span>
+        <span data-element='main-text'>{ children }</span>
+        { size === 'large' && <StyledButtonSubtext data-element='subtext'>{ subtext }</StyledButtonSubtext> }
+      </span>
       { iconType && iconPosition === 'after' && <Icon type={ iconType } /> }
     </>
   );

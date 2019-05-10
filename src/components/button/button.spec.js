@@ -1,6 +1,7 @@
 import React from 'react';
 import 'jest-styled-components';
 import { shallow } from 'enzyme';
+import { Link as RouterLink } from 'react-router';
 import Icon from 'components/icon';
 import TestRenderer from 'react-test-renderer';
 import Button from './button.component';
@@ -10,8 +11,6 @@ import classicTheme from '../../style/themes/classic';
 
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import Link from '../link';
-import LinkStyle from '../link/link.style';
 
 const render = (props, renderer = shallow) => {
   return renderer(
@@ -301,53 +300,26 @@ describe('Button', () => {
 
   // Legacy functionalities
   describe('render', () => {
-    describe('default', () => {
-      it('does not contain a Link component', () => {
-        const wrapper = render({ children: 'foo ' }).dive();
-        expect(wrapper.find(Link).exists()).toEqual(false);
-      });
-    });
-
     describe('with href', () => {
-      const anchor = render({
+      const wrapper = render({
         href: '/foo',
         children: 'Anchor'
       }).dive();
 
-      it('contains a Link component', () => {
-        const anchorLink = anchor.find(Link);
-        expect(anchorLink.exists()).toEqual(true);
+      it('renders an anchor element instead of a button', () => {
+        expect(wrapper.find(StyledButton).props().as).toEqual('a');
       });
     });
 
     describe('with to', () => {
-      const to = render({
+      const wrapper = render({
         to: '/foo',
         children: 'To'
       }).dive();
 
-      it('contains a Link component', () => {
-        const toLink = to.find(Link);
-        expect(toLink.exists()).toEqual(true);
+      it('renders a Button inside a Router Link component', () => {
+        expect(wrapper.type()).toEqual(RouterLink);
       });
-    });
-  });
-
-  describe.each(['to', 'href'])('with %s prop specified', (prop) => {
-    it('renders link properly', () => {
-      const props = {
-        [prop]: 'link'
-      };
-      const wrapper = TestRenderer.create(
-        <StyledButton
-          theme={ classicTheme }
-          buttonType='primary'
-          { ...props }
-        >
-          <LinkStyle />
-        </StyledButton>
-      );
-      expect(wrapper).toMatchSnapshot();
     });
   });
 });

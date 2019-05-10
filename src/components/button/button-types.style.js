@@ -1,5 +1,3 @@
-import buttonLinkStyle from './button-link.style';
-
 export default ({ colors, disabled }, isDisabled) => ({
   primary: `
     background: ${colors.primary};
@@ -18,7 +16,6 @@ export default ({ colors, disabled }, isDisabled) => ({
         color: ${disabled.text};
       }
     ` : ''}
-    ${buttonLinkStyle(colors.white, colors.white)}
   `,
   secondary: `
       background: transparent;
@@ -29,8 +26,6 @@ export default ({ colors, disabled }, isDisabled) => ({
         border-color: ${colors.secondary};
         color: ${colors.white};
       }
-
-      ${buttonLinkStyle(colors.primary, colors.white)}
 
       ${isDisabled ? `
         border-color: ${disabled.button};
@@ -50,8 +45,6 @@ export default ({ colors, disabled }, isDisabled) => ({
       color: ${colors.secondary}
     }
 
-    ${buttonLinkStyle(colors.primary, colors.secondary)}
-
     ${isDisabled ? `
       color: ${disabled.text};
       &:hover {
@@ -66,8 +59,6 @@ export default ({ colors, disabled }, isDisabled) => ({
     &:hover {
       background: ${colors.destructive.hover};
     }
-
-    ${buttonLinkStyle(colors.white, colors.white)}
 
     ${isDisabled ? `
       background: ${disabled.button};
@@ -86,8 +77,6 @@ export default ({ colors, disabled }, isDisabled) => ({
       background: ${colors.secondary};
       color: ${colors.white};
     }
-
-    ${buttonLinkStyle(colors.primary, colors.white)}
 
     ${isDisabled ? `
       background: ${disabled.button};

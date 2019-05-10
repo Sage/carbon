@@ -1,5 +1,4 @@
 import { css } from 'styled-components';
-import buttonLinkStyle from './button-link.style';
 
 const blue = {
   default: '#255bc7',
@@ -56,8 +55,6 @@ const buttonStyles = {
         box-shadow: 0 0 6px rgba(25,99,246,.6);
         outline: none;
       }
-
-      ${buttonLinkStyle(white.default, white.default)}
     `,
     grey: `
       background: ${grey.default};
@@ -75,8 +72,6 @@ const buttonStyles = {
         box-shadow: 0 0 6px rgba(51,92,109,.6);
         outline: none;
       }
-
-      ${buttonLinkStyle(white.default, white.default)}
     `,
     magenta: `
       background: ${magenta.default};
@@ -94,8 +89,6 @@ const buttonStyles = {
         box-shadow: 0 0 6px rgba(243,46,109,.6);
         outline: none;
       }
-
-      ${buttonLinkStyle(white.default, white.default)}
     `,
     'magenta-dull': `
       background: ${magentaDull.default};
@@ -113,8 +106,6 @@ const buttonStyles = {
         box-shadow: 0 0 6px rgba(213,85,128,.6);
         outline: none;
       }
-
-      ${buttonLinkStyle(white.default, white.default)}
     `,
     red: `
       background: ${red.default};
@@ -132,8 +123,6 @@ const buttonStyles = {
         box-shadow: 0 0 6px rgba(228,44,45,.6);
         outline: none;
       }
-
-      ${buttonLinkStyle(white.default, white.default)}
     `,
     white: `
       background: ${white.default};
@@ -153,8 +142,6 @@ const buttonStyles = {
         box-shadow: 0 0 6px rgba(51,92,109,.6);
         outline: none;
       }
-
-      ${buttonLinkStyle('rgba(0,0,0, 85)', white.text)}
     `
   },
   secondary: {
@@ -179,8 +166,6 @@ const buttonStyles = {
         border-color: ${blue.hover};
         color: ${white.default};
       }
-
-      ${buttonLinkStyle(blue.default, white.default)}
     `,
     grey: `
       background: transparent;
@@ -203,8 +188,6 @@ const buttonStyles = {
         border-color: ${grey.hover};
         color: ${white.default};
       }
-
-      ${buttonLinkStyle(grey.default, white.default)}
     `,
     magenta: `
       background: transparent;
@@ -227,8 +210,6 @@ const buttonStyles = {
         border-color: ${magenta.hover};
         color: ${white.default};
       }
-
-      ${buttonLinkStyle(magenta.default, white.default)}
     `,
     'magenta-dull': `
       background: transparent;
@@ -251,8 +232,6 @@ const buttonStyles = {
         border-color: ${magentaDull.hover};
         color: ${white.default};
       }
-
-      ${buttonLinkStyle(magentaDull.default, white.default)}
     `,
     red: `
       background: transparent;
@@ -275,8 +254,6 @@ const buttonStyles = {
         border-color: ${red.hover};
         color: ${white.default};
       }
-
-      ${buttonLinkStyle(red.default, white.default)}
     `,
     white: `
       background: transparent;
@@ -296,8 +273,6 @@ const buttonStyles = {
         box-shadow: 0 0 6px rgba(51,92,109,.6);
         outline: none;
       }
-
-      ${buttonLinkStyle(white.default, white.text)}
     `
   },
   disabled: `
