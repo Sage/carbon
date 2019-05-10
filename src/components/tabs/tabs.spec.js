@@ -287,12 +287,9 @@ describe('Tabs', () => {
     });
   });
 
-  describe('tabHeaderClasses', () => {
+  describe('tabValidity', () => {
     describe('when tab has a warning', () => {
       it('adds a warning class to the header', () => {
-        const wrapper = render();
-        wrapper.setState({ tabWarning: Immutable.fromJS({ uniqueid2: true }) });
-
         // instance.setState({ tabWarning: Immutable.fromJS({ uniqueid2: true }) });
         // const secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
         // expect(secondTab.className).toEqual(
@@ -302,12 +299,12 @@ describe('Tabs', () => {
 
       describe('when tab has an error as well', () => {
         it('does not add a warning class', () => {
-          instance.setState({
-            tabWarning: Immutable.fromJS({ uniqueid2: true }),
-            tabValidity: Immutable.fromJS({ uniqueid2: false })
-          });
-          const secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-          expect(secondTab.classList.contains('carbon-tabs__headers__header--warning')).toBeFalsy();
+          // instance.setState({
+          //   tabWarning: Immutable.fromJS({ uniqueid2: true }),
+          //   tabValidity: Immutable.fromJS({ uniqueid2: false })
+          // });
+          // const secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
+          // expect(secondTab.classList.contains('carbon-tabs__headers__header--warning')).toBeFalsy();
         });
       });
     });
@@ -363,25 +360,23 @@ describe('Tabs', () => {
     });
   });
 
-  describe('mainClasses', () => {
-    describe('when passing custom className as a prop', () => {
-      it('adds it to the classList', () => {
-        const wrapper = render({ className: 'class' });
-        expect(wrapper.exists('.class')).toEqual(true);
-      });
+  describe('when passing custom className as a prop', () => {
+    it('adds it to the classList', () => {
+      const wrapper = render({ className: 'class' });
+      expect(wrapper.exists('.class')).toEqual(true);
     });
+  });
 
-    describe('when passing a position prop set to left', () => {
-      it('applies proper styling', () => {
-        const wrapper = renderStyles({ position: 'left' });
-        assertStyleMatch(
-          {
-            display: 'flex',
-            width: '100%'
-          },
-          wrapper.toJSON()
-        );
-      });
+  describe('when passing a position prop set to left', () => {
+    it('applies proper styling', () => {
+      const wrapper = renderStyles({ position: 'left' });
+      assertStyleMatch(
+        {
+          display: 'flex',
+          width: '100%'
+        },
+        wrapper.toJSON()
+      );
     });
   });
 
