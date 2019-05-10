@@ -5,7 +5,7 @@ import TabTitleClassicStyle from './tab-title-classic.style';
 
 const StyledTabTitle = styled.li`
 background-color: transparent;
-border-bottom: 2px solid ${({ theme }) => theme.disabled.button};
+border-bottom: 2px solid ${({ theme }) => theme.disabled.background};
 color: ${({ theme }) => theme.disabled.disabled};
 display: inline-block;
 font-weight: bold;
@@ -56,7 +56,7 @@ ${({ isTabSelected }) => isTabSelected
     && css`
       background-color: transparent;
       border-bottom: 0px;
-      border-right: 2px solid ${({ theme }) => theme.disabled.button};
+      border-right: 2px solid ${({ theme }) => theme.disabled.background};
       display: block;
       height: auto;
       margin-left: 0px;

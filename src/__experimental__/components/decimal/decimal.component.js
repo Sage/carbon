@@ -59,7 +59,7 @@ class Decimal extends React.Component {
     const format = I18nHelper.format();
     const delimiter = `\\${format.delimiter}`;
     const seperator = `\\${format.separator}`;
-    const validDecimalMatcher = new RegExp(`^[-]?[\\d${delimiter}]*[${seperator}{1}]?\\d{0,${precision}}?$`);
+    const validDecimalMatcher = new RegExp(`^[-]?[\\d${delimiter}]*[${seperator}]?\\d{0,${precision}}?$`);
 
     return validDecimalMatcher.test(value);
   }
@@ -83,6 +83,12 @@ class Decimal extends React.Component {
     this.forceUpdate();
   }
 
+  dataComponent = () => {
+    return {
+      'data-component': 'decimal'
+    };
+  }
+
   render() {
     return (
       <Textbox
@@ -91,6 +97,7 @@ class Decimal extends React.Component {
         onBlur={ this.onBlur }
         value={ this.formatValue() }
         inputRef={ (input) => { this.input = input; } }
+        { ...this.dataComponent() }
       />
     );
   }

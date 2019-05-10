@@ -48,28 +48,28 @@ Feature: Dialog Full Screen component
 
   @positive
   Scenario: Enable background UI
-    When I check enableBackgroundUI
+    When I check enableBackgroundUI checkbox
       And I open component preview
     Then Background UI is enabled
 
   @negative
   Scenario: Disable background UI
-    When I check enableBackgroundUI
-      And I uncheck enableBackgroundUI
+    When I check enableBackgroundUI checkbox
+      And I uncheck enableBackgroundUI checkbox
       And I open component preview
     Then Background UI is disabled
 
   @positive
   Scenario: Disable escape key
-    When I check disableEscKey
+    When I check disableEscKey checkbox
       And I open component preview
       And I hit ESC key
     Then Dialog Full Screen is visible
 
   @negative
   Scenario: Enable escape key
-    When I check disableEscKey
-      And I uncheck disableEscKey
+    When I check disableEscKey checkbox
+      And I uncheck disableEscKey checkbox
       And I open component preview
       And I hit ESC key
     Then Dialog Full Screen is not visible

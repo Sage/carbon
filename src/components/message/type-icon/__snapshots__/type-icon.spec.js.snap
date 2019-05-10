@@ -222,7 +222,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  background-color: #E96400;
+  background-color: #FFB500;
   border-radius: 3px 0 0 3px;
   background-color: #ff7d00;
 }
@@ -512,7 +512,7 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   justify-content: center;
   text-align: center;
   padding: 0 7px;
-  background-color: #E96400;
+  background-color: #FFB500;
   background-color: #FFFFFF;
   border-radius: 3px 0 0 3px;
   background-color: #ff7d00;
@@ -524,7 +524,7 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
 }
 
 .c0 span:before {
-  color: #E96400;
+  color: #FFB500;
 }
 
 .c0 span:before {
@@ -547,6 +547,7 @@ exports[`TypeIcon when rendered should match the snapshot 1`] = `
         "brand": "#00DC00",
         "error": "#C7384F",
         "focus": "#FFDA7F",
+        "focusedIcon": "#335B6D",
         "info": "#0073C2",
         "primary": "#26A826",
         "secondary": "#006300",
@@ -556,11 +557,14 @@ exports[`TypeIcon when rendered should match the snapshot 1`] = `
         "white": "#FFFFFF",
       },
       "disabled": Object {
+        "background": "#E5EAEC",
         "border": "#CCD6DA",
-        "button": "#E5EAEC",
         "disabled": "rgba(0,0,0,0.55)",
         "input": "#F2F4F5",
         "text": "rgba(0,0,0,0.3)",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
       },
       "name": "base",
       "shadows": Object {

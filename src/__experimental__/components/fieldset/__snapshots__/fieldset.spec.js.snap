@@ -11,21 +11,25 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
         "brand": "#00DC00",
         "error": "#C7384F",
         "focus": "#FFDA7F",
+        "focusedIcon": "#335B6D",
         "greyDarkBlue50": "#8099a4",
         "info": "#0073C2",
         "primary": "#00805D",
         "secondary": "#006045",
         "success": "#00B000",
         "tertiary": "#003F2E",
-        "warning": "#E96400",
+        "warning": "#FFB500",
         "white": "#FFFFFF",
       },
       "disabled": Object {
+        "background": "#E5EAEC",
         "border": "#4d7080",
-        "button": "#E5EAEC",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
         "text": "#003349",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
       },
       "name": "classic",
       "shadows": Object {
@@ -85,21 +89,25 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
           "brand": "#00DC00",
           "error": "#C7384F",
           "focus": "#FFDA7F",
+          "focusedIcon": "#335B6D",
           "greyDarkBlue50": "#8099a4",
           "info": "#0073C2",
           "primary": "#00805D",
           "secondary": "#006045",
           "success": "#00B000",
           "tertiary": "#003F2E",
-          "warning": "#E96400",
+          "warning": "#FFB500",
           "white": "#FFFFFF",
         },
         "disabled": Object {
+          "background": "#E5EAEC",
           "border": "#4d7080",
-          "button": "#E5EAEC",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
           "text": "#003349",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
         },
         "name": "classic",
         "shadows": Object {
@@ -128,6 +136,6 @@ exports[`Fieldset renders correctly 1`] = `
 <styled.fieldset
   data-component="fieldset"
 >
-  <Textbox />
+  <WithUniqueName(WithValidation(Textbox)) />
 </styled.fieldset>
 `;

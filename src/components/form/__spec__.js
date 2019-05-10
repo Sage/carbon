@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
-import Form from './form';
+import FormWithValidations, { FormWithoutValidations as Form } from './form';
 import Textbox from './../textbox';
 import Portal from './../portal';
 import Validation from './../../utils/validations/presence';
@@ -21,18 +21,13 @@ import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-spec
 /* global jest */
 
 describe('Form', () => {
-  let instance, wrapper;
+  let instance, wrapper, validate;
 
   beforeEach(() => {
+    validate = jest.fn().mockImplementation(() => true);
     instance = TestUtils.renderIntoDocument(
-      <Form />
+      <Form validate={ validate } />
     );
-  });
-
-  describe('initialize', () => {
-    it('sets the errorCount to 0', () => {
-      expect(instance.state.errorCount).toEqual(0);
-    });
   });
 
   describe('componentWillReceiveProps', () => {
@@ -76,17 +71,14 @@ describe('Form', () => {
 
   describe('componentDidMount', () => {
     it('does not validate by default', () => {
-      spyOn(instance, 'validate');
-      instance.componentDidMount();
-      expect(instance.validate).not.toHaveBeenCalled();
+      instance = TestUtils.renderIntoDocument(<Form validate={ validate } />);
+      expect(validate).not.toHaveBeenCalled();
     });
 
     describe('when validateOnMount is set to true', () => {
       it('validates the form', () => {
-        instance = TestUtils.renderIntoDocument(<Form validateOnMount={ true } />);
-        spyOn(instance, 'validate');
-        instance.componentDidMount();
-        expect(instance.validate).toHaveBeenCalled();
+        instance = TestUtils.renderIntoDocument(<Form validateOnMount validate={ validate } />);
+        expect(validate).toHaveBeenCalled();
       });
     });
 
@@ -240,78 +232,6 @@ describe('Form', () => {
     });
   });
 
-  describe('incrementErrorCount', () => {
-    it('increments the state error count', () => {
-      instance.errorCount = 2;
-      instance.incrementErrorCount();
-      expect(instance.state.errorCount).toEqual(3);
-    });
-  });
-
-  describe('decrementErrorCount', () => {
-    it('decreases the state error count', () => {
-      instance.errorCount = 2;
-      instance.decrementErrorCount();
-      expect(instance.state.errorCount).toEqual(1);
-    });
-  });
-
-  describe('incrementWarningCount', () => {
-    it('increments the state warning count', () => {
-      instance.warningCount = 2;
-      instance.incrementWarningCount();
-      expect(instance.state.warningCount).toEqual(3);
-    });
-  });
-
-  describe('decrementWarningCount', () => {
-    it('decreases the state warning count', () => {
-      instance.warningCount = 2;
-      instance.decrementWarningCount();
-      expect(instance.state.warningCount).toEqual(1);
-    });
-  });
-
-  describe('attachToForm', () => {
-    let textbox;
-
-    beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
-        <Form><Textbox validations={ [new Validation()] } value='' /></Form>
-      );
-      textbox = TestUtils.findRenderedComponentWithType(instance, Textbox);
-    });
-
-    describe('when the component is self contained', () => {
-      it('adds a input by its guid', () => {
-        expect(instance.inputs[textbox._guid]).toBeTruthy();
-      });
-    });
-  });
-
-  describe('detachFromForm', () => {
-    let grid;
-    let excludedTextbox;
-
-    beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
-        <Form>
-          <Textbox validations={ [new Validation()] } value='' />
-        </Form>
-      );
-
-      excludedTextbox = TestUtils.findRenderedComponentWithType(instance, Textbox);
-    });
-
-    describe('when the component is self contained', () => {
-      it('removes a input by its guid', () => {
-        expect(instance.inputs[excludedTextbox._guid]).toBeTruthy();
-        instance.detachFromForm(instance.inputs[excludedTextbox._guid]);
-        expect(instance.inputs[excludedTextbox._guid]).toBeFalsy();
-      });
-    });
-  });
-
   describe('getActiveInput', () => {
     it('returns the currently active input', () => {
       let activeInput = "my input";
@@ -355,10 +275,9 @@ describe('Form', () => {
 
   describe('handleOnSubmit', () => {
     it('calls the validate method', () => {
-      spyOn(instance, 'validate');
       let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
       TestUtils.Simulate.submit(form);
-      expect(instance.validate).toHaveBeenCalled();
+      expect(validate).toHaveBeenCalled();
     });
 
     describe('when a beforeFormValidation prop is passed', () => {
@@ -376,32 +295,23 @@ describe('Form', () => {
     });
 
     describe('when a afterFormValidation prop is passed', () => {
-      it('calls the afterFormValidation', () => {
-        let spy = jasmine.createSpy('spy');
+      it('calls the afterFormValidation', (done) => {
+        let spy = jest.fn();
         instance = TestUtils.renderIntoDocument(
-          <Form afterFormValidation={ spy }>
+          <Form afterFormValidation={ spy } validate={ () => true }>
             <Textbox validations={ [new Validation()] } name='test' value='Valid' />
           </Form>
         );
+        spy.mockImplementation(() => {
+          expect(spy).toHaveBeenCalled();
+          done();
+        })
         let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
-        expect(spy).toHaveBeenCalled();
       });
     });
 
     describe('when autoDisabled prop is passed,', () => {
-      it('state.submitted should be false', () => {
-        let spy = jasmine.createSpy('spy');
-        instance = TestUtils.renderIntoDocument(
-          <Form autoDisabled onSubmit={ spy }>
-            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
-          </Form>
-        );
-        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-        TestUtils.Simulate.submit(form);
-        expect(instance.state.submitted).toBe(false);
-      });
-
       it('state.submitted should be true after form has been submitted', () => {
         const spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
@@ -414,21 +324,38 @@ describe('Form', () => {
         expect(instance.state.submitted).toBe(true);
       });
 
-      it('form has been submitted and enableFormFunc called, state.submitted to be false ', () => {
-        const spy = jasmine.createSpy('spy');
+      it('form has been submitted and enableFormFunc called, state.submitted to be false ', (done) => {
+        const spy = jest.fn();
         instance = TestUtils.renderIntoDocument(
-          <Form autoDisable onSubmit={ spy }>
+          <Form autoDisable onSubmit={ spy } validate={ () => true }>
             <Textbox validations={ [new Validation()] } name='test' value='Valid' />
           </Form>
         );
+        spy.mockImplementation(() => {
+          const enableFormFunc = spy.mock.calls[0][2];
+          expect(enableFormFunc).toBe(instance.enableForm);
+  
+          enableFormFunc();
+          expect(instance.state.submitted).toBe(false);
+          done();
+        });
         const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
+      });
 
-        const enableFormFunc = spy.calls.first().args[2];
-        expect(enableFormFunc).toBe(instance.enableForm);
-
-        enableFormFunc();
-        expect(instance.state.submitted).toBe(false);
+      it('state.submitted should be false if form is invalid', () => {
+        const spy = jest.fn();
+        instance = TestUtils.renderIntoDocument(
+          <Form autoDisable onSubmit={ spy } validate={ () => false }>
+            <Textbox validations={ [new Validation()] } name='test' value='invalid' />
+          </Form>
+        );
+        spy.mockImplementation(() => {
+          expect(instance.state.submitted).toBe(false);
+          done();
+        });
+        const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        TestUtils.Simulate.submit(form);
       });
     });
 
@@ -449,17 +376,19 @@ describe('Form', () => {
     describe('when a onSubmit prop is passed', () => {
       describe('and the form is valid', () => {
         it('calls the onSubmit prop', () => {
-          const spy = jasmine.createSpy('spy');
+          const spy = jest.fn().mockImplementation(() => {
+            expect(spy).toHaveBeenCalledWith(jasmine.any(Object), true, jasmine.any(Function));
+            done();
+          })
 
           instance = TestUtils.renderIntoDocument(
-            <Form onSubmit={ spy }>
+            <FormWithValidations onSubmit={ spy }>
               <Textbox validations={ [new Validation()] } name='test' value='Valid' />
-            </Form>
+            </FormWithValidations>
           );
 
           const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
           TestUtils.Simulate.submit(form);
-          expect(spy).toHaveBeenCalledWith(jasmine.any(Object), true, instance.enableForm);
         });
       });
 
@@ -475,37 +404,6 @@ describe('Form', () => {
           TestUtils.Simulate.submit(form);
           expect(spy).not.toHaveBeenCalled();
         });
-      });
-    });
-  });
-
-  describe('validate', () => {
-    describe('invalid input', () => {
-      it('does not not submit the form', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Form>
-            <Textbox validations={ [new Validation()] } name='test' value='' />
-          </Form>
-        );
-
-        spyOn(instance, 'setState');
-        instance.validate();
-        expect(instance.setState).toHaveBeenCalledWith({ errorCount: 1 });
-      });
-    });
-
-    describe('disabled input', () => {
-      it('does not validate the input', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Form>
-            <Textbox validations={ [new Validation()] } disabled={ true } />
-          </Form>
-        );
-
-        let textbox = TestUtils.findRenderedComponentWithType(instance, Textbox);
-        spyOn(textbox, 'validate');
-        instance.validate();
-        expect(textbox.validate).not.toHaveBeenCalled();
       });
     });
   });
@@ -692,9 +590,10 @@ describe('Form', () => {
                 saveText='Some custom save text'
                 saving={ false }
                 saveButtonProps={ { theme: 'red' } }
+                errorCount={ 2 }
+                warningCount={ 3 }
               />
             )
-            wrapper.setState({ errorCount: 2, warningCount: 3 });
           });
 
           it('renders a cancel button with expected props', () => {

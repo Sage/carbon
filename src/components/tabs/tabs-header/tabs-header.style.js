@@ -6,7 +6,7 @@ import baseTheme from '../../../style/themes/base';
 
 const StyledTabHeaders = styled.ul`
 display: flex;
-box-shadow: inset 0px -2px 0px 0px ${({ theme }) => theme.disabled.button};
+box-shadow: inset 0px -2px 0px 0px ${({ theme }) => theme.disabled.background};
 cursor: pointer;
 list-style: none;
 margin: 0 0 10px;
@@ -21,7 +21,7 @@ ${({ align }) => align === 'right'
 ${({ position }) => position === 'left'
   && css`
     flex-direction: column;
-    box-shadow: inset -2px 0px 0px 0px ${({ theme }) => theme.disabled.button};
+    box-shadow: inset -2px 0px 0px 0px ${({ theme }) => theme.disabled.background};
     width: 20%;
     margin: 0 10px 0;
   `}

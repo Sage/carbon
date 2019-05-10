@@ -19,6 +19,7 @@ export default (palette) => {
 
       // element
       border: palette.slateTint(40),
+      focusedIcon: palette.slateTint(20),
 
       // status
       error: palette.errorRed,
@@ -39,7 +40,11 @@ export default (palette) => {
       disabled: blackWithOpacity(0.55),
       input: palette.slateTint(95),
       text: blackWithOpacity(0.3),
-      button: palette.slateTint(90)
+      background: palette.slateTint(90)
+    },
+
+    icon: {
+      focus: palette.slateTint(20)
     },
 
     shadows: {
