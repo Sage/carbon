@@ -5,17 +5,15 @@ import CreateStyle from './create.style';
 
 const Create = (props) => {
   /** Returns the props for the component. */
-  const linkProps = () => {
-    const { ...componentProps } = props;
-
-    componentProps.iconAlign = 'right';
-    componentProps.icon = 'add';
-    return componentProps;
+  const linkProps = {
+    iconAlign: 'right',
+    icon: 'add',
+    ...props
   };
 
   return (
     <CreateStyle
-      { ...linkProps() } { ...tagComponent('create', props) }
+      { ...linkProps } { ...tagComponent('create', props) }
     >
       { props.children }
     </CreateStyle>
