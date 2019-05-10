@@ -171,7 +171,7 @@ describe('Tabs', () => {
   });
 
   describe('Change in tab prop', () => {
-    let instance, tabs, unique1Tab, unique2Tab;
+    let tabs, unique1Tab, unique2Tab;
     beforeEach(() => {
       spyOn(Browser, 'getWindow').and.returnValue({
         history: {
@@ -338,7 +338,7 @@ describe('Tabs', () => {
       it('calls the prop', () => {
         const clickSpy = jasmine.createSpy('tabClick');
 
-        const instance = TestUtils.renderIntoDocument(
+        instance = TestUtils.renderIntoDocument(
           <Tabs onTabChange={ clickSpy }>
             <Tab title='Tab Title 1' tabId='uniqueid1'>
               <Textbox name='foo' />
@@ -413,11 +413,11 @@ describe('Tabs', () => {
         expect(instance.tabs.length).toEqual(3);
       });
 
-      it('adds a selected class to the visible tab', () => {
+      it('adds a selected prop equal true to the visible tab', () => {
         expect(instance.tabs[0].props.isTabSelected).toEqual(true);
       });
 
-      it('adds a hidden class to all other tabs', () => {
+      it('does not add selected prop equal true to all other tabs', () => {
         expect(instance.tabs[1].props.isTabSelected).toEqual(false);
       });
 
