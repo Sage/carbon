@@ -9,7 +9,6 @@ const StyledSwitchSlider = styled.span`
     checked, disabled, size, theme
   }) => css`
     background-color: ${theme.switch.off};
-    bottom: 0;
     display: flex;
     font-size: 12px;
     font-weight: bold;
@@ -17,7 +16,6 @@ const StyledSwitchSlider = styled.span`
     left: 0;
     letter-spacing: 1px;
     position: absolute;
-    right: 0;
     top: 0;
     width: 60px;
 
