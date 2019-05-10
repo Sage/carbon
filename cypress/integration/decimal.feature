@@ -7,7 +7,7 @@ Feature: Decimal component
 
   @positive
   Scenario Outline: Change Decimal component fieldHelp
-    When I set field help to "<fieldHelp>"
+    When I set fieldHelp to "<fieldHelp>"
     Then Field help on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                    |
@@ -43,7 +43,7 @@ Feature: Decimal component
   @positive
   Scenario Outline: Change Decimal component label help
     When I set label to "<label>"
-      And I set label help to "<label>"
+      And I set labelHelp to "<label>"
       And I hover mouse onto help icon
     Then Label help on preview is set to "<label>"
     Examples:
@@ -58,7 +58,7 @@ Feature: Decimal component
   @positive
   Scenario Outline: Change Decimal component label inline
     When I set label to "<label>"
-      And I check label inline checkbox
+      And I check labelInline checkbox
     Then label is set to inline
     Examples:
       | label                    |
@@ -67,8 +67,8 @@ Feature: Decimal component
   @positive
   Scenario Outline: Change Decimal component label width
     When I set label to "<label>"
-      And I set label help to "<label>"
-      And I check label inline checkbox
+      And I set labelHelp to "<label>"
+      And I check labelInline checkbox
       And I set label width slider to <width>
     Then label width on preview is <width>
     Examples:
@@ -81,8 +81,8 @@ Feature: Decimal component
   @positive
   Scenario Outline: Change Decimal component input width
     When I set label to "<label>"
-      And I set label help to "<label>"
-      And I check label inline checkbox
+      And I set labelHelp to "<label>"
+      And I check labelInline checkbox
       And I set input width slider to <width>
     Then input width on preview is <width>
     Examples:
@@ -95,8 +95,8 @@ Feature: Decimal component
   @positive
   Scenario Outline: Change Decimal component label align
     When I set label to "<label>"
-      And I set label help to "<label>"
-      And I check label inline checkbox
+      And I set labelHelp to "<label>"
+      And I check labelInline checkbox
       And I set label align "<labelAlign>"
     Then label align on preview is set to "<labelAlign>"
     Examples:
@@ -170,10 +170,10 @@ Feature: Decimal component
     Then Decimal component is enabled
 
   Scenario: Decimal component is readOnly
-    When I check readOnly
+    When I check readOnly checkbox
     Then Decimal component is readOnly
 
   Scenario: Decimal component is not readOnly
-    When I check readOnly
-      And I uncheck readOnly
+    When I check readOnly checkbox
+      And I uncheck readOnly checkbox
     Then Decimal component is not readOnly

@@ -84,6 +84,7 @@ export type IconTypes =
 | 'people'
 | 'person'
 | 'phone'
+| 'play'
 | 'plus'
 | 'print'
 | 'progressed'
@@ -104,6 +105,7 @@ export type IconTypes =
 | 'unlocked'
 | 'upload'
 | 'uploaded'
+| 'video'
 | 'view'
 | 'warning'
 | 'white-tick';

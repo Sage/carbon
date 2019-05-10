@@ -1,13 +1,9 @@
 import {
-  childrenPreview, footnotePreview, footnoteInput, iconSelect, iconPreview,
+  childrenPreview, footnotePreview, iconSelect, iconPreview,
 } from '../../locators/detail';
 
 Then('detail children on preview is {string}', (children) => {
   childrenPreview().should('have.text', children);
-});
-
-When('I set footnote to {string}', (footnote) => {
-  footnoteInput().clear().type(footnote);
 });
 
 Then('detail footnote on preview is {string}', (footnote) => {
