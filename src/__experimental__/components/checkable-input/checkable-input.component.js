@@ -35,9 +35,9 @@ class CheckableInput extends React.Component {
   render() {
     return (
       <StyledCheckableInputWrapper>
-        <FormField { ...this.formFieldProps(this.props) }>
+        <FormField {...this.formFieldProps(this.props)}>
           <StyledCheckableInput>
-            <HiddenCheckableInput { ...this.inputProps(this.props) } />
+            <HiddenCheckableInput {...this.inputProps(this.props)} />
             {this.props.children}
           </StyledCheckableInput>
         </FormField>
@@ -66,7 +66,9 @@ CheckableInput.propTypes = {
   /** Accepts a callback function which can be used to update parent state on change */
   onChange: PropTypes.func,
   /** Reverses label and CheckableInput display */
-  reverse: PropTypes.bool
+  reverse: PropTypes.bool,
+  /** Specifies input type, 'checkbox' or 'switch' */
+  type: PropTypes.string.isRequired
 };
 
 CheckableInput.defaultProps = {
