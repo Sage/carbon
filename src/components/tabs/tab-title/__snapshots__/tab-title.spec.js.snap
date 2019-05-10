@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TabHeader renders as expected 1`] = `
+exports[`TabTitle renders as expected 1`] = `
 .c0 {
   background-color: transparent;
   border-bottom: 2px solid #E5EAEC;
@@ -34,7 +34,7 @@ exports[`TabHeader renders as expected 1`] = `
 />
 `;
 
-exports[`TabHeader when in classic theme renders as expected 1`] = `
+exports[`TabTitle when in classic theme renders as expected 1`] = `
 .c0 {
   background-color: transparent;
   border-bottom: 2px solid #E5EAEC;
@@ -84,7 +84,7 @@ exports[`TabHeader when in classic theme renders as expected 1`] = `
 />
 `;
 
-exports[`TabHeader when in classic theme when position prop is set to left applies proper styling 1`] = `
+exports[`TabTitle when in classic theme when position prop is set to left applies proper styling 1`] = `
 .c0 {
   background-color: transparent;
   border-bottom: 2px solid #E5EAEC;
@@ -158,7 +158,7 @@ exports[`TabHeader when in classic theme when position prop is set to left appli
 />
 `;
 
-exports[`TabHeader when in classic theme when tab is selected and the position prop is set to left applies proper styling 1`] = `
+exports[`TabTitle when in classic theme when tab is selected and the position prop is set to left applies proper styling 1`] = `
 .c0 {
   background-color: transparent;
   border-bottom: 2px solid #E5EAEC;
@@ -263,7 +263,7 @@ exports[`TabHeader when in classic theme when tab is selected and the position p
 />
 `;
 
-exports[`TabHeader when in classic theme when tab is selected applies proper styling 1`] = `
+exports[`TabTitle when in classic theme when tab is selected applies proper styling 1`] = `
 .c0 {
   background-color: transparent;
   border-bottom: 2px solid #E5EAEC;
@@ -330,7 +330,7 @@ exports[`TabHeader when in classic theme when tab is selected applies proper sty
 />
 `;
 
-exports[`TabHeader when tab is not selected when position prop is set to left applies proper styles 1`] = `
+exports[`TabTitle when tab is not selected when position prop is set to left applies proper styles 1`] = `
 .c0 {
   background-color: transparent;
   border-bottom: 2px solid #E5EAEC;
@@ -380,7 +380,7 @@ exports[`TabHeader when tab is not selected when position prop is set to left ap
 />
 `;
 
-exports[`TabHeader when tab is selected applies proper styling 1`] = `
+exports[`TabTitle when tab is selected applies proper styling 1`] = `
 .c0 {
   background-color: transparent;
   border-bottom: 2px solid #E5EAEC;
@@ -423,4 +423,4 @@ exports[`TabHeader when tab is selected applies proper styling 1`] = `
 />
 `;
 
-exports[`TabHeader when tab is selected when position prop is set to left applies proper styling  1`] = `[Function]`;
+exports[`TabTitle when tab is selected when position prop is set to left applies proper styling  1`] = `[Function]`;

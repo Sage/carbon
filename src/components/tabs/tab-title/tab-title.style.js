@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
-import tabHeaderClassicStyle from './tab-header-classic.style';
+import TabTitleClassicStyle from './tab-title-classic.style';
 
-const StyledTabHeader = styled.li`
+const StyledTabTitle = styled.li`
 background-color: transparent;
 border-bottom: 2px solid ${({ theme }) => theme.disabled.button};
 color: ${({ theme }) => theme.disabled.disabled};
@@ -82,16 +82,16 @@ ${({ isTabSelected }) => isTabSelected
           }
         `}
     `}
-  ${tabHeaderClassicStyle}
+  ${TabTitleClassicStyle}
 `;
 
-StyledTabHeader.propTypes = {
+StyledTabTitle.propTypes = {
   position: PropTypes.oneOf(['top', 'left'])
 };
 
-StyledTabHeader.defaultProps = {
+StyledTabTitle.defaultProps = {
   theme: BaseTheme,
   position: 'top'
 };
 
-export default StyledTabHeader;
+export default StyledTabTitle;

@@ -5,13 +5,13 @@ import { shallow } from 'enzyme';
 import TabsHeader from './tabs-header.component';
 import StyledTabsHeader from './tabs-header.style';
 import classicTheme from '../../../style/themes/classic';
-import TabHeader from '../tab-header/tab-header.component';
+import TabTitle from '../tab-title/tab-title.component';
 
 function render(props) {
   return shallow(
     <TabsHeader { ...props }>
-      <TabHeader title='title-1' tabId='tabId-1' />
-      <TabHeader title='title-2' tabId='tabId-2' />
+      <TabTitle title='title-1' tabId='tabId-1' />
+      <TabTitle title='title-2' tabId='tabId-2' />
     </TabsHeader>
   );
 }

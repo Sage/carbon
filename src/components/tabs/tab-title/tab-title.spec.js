@@ -2,27 +2,27 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { shallow } from 'enzyme';
-import TabHeader from './tab-header.component';
-import StyledTabHeader from './tab-header.style';
+import TabTitle from './tab-title.component';
+import StyledTabTitle from './tab-title.style';
 import classicTheme from '../../../style/themes/classic';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import baseTheme from '../../../style/themes/base';
 
 function render(props) {
-  return shallow(<TabHeader
+  return shallow(<TabTitle
     title='Tab Title 1' dataTabId='uniqueid1'
     { ...props }
   />);
 }
 
 function renderStyles(props) {
-  return TestRenderer.create(<StyledTabHeader
+  return TestRenderer.create(<StyledTabTitle
     title='Tab Title 1' dataTabId='uniqueid1'
     { ...props }
   />);
 }
 
-describe('TabHeader', () => {
+describe('TabTitle', () => {
   let wrapper;
   it('renders as expected', () => {
     wrapper = renderStyles();

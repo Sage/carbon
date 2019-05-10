@@ -1,10 +1,10 @@
 /* eslint-disable react/prefer-stateless-function */
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyledTabHeader from './tab-header.style';
+import StyledTabTitle from './tab-title.style';
 import tagComponent from '../../../utils/helpers/tags/tags';
 
-class TabHeader extends React.Component {
+class TabTitle extends React.Component {
   render() {
     const {
       isTabSelected,
@@ -22,7 +22,7 @@ class TabHeader extends React.Component {
     } = this.props;
 
     return (
-      <StyledTabHeader
+      <StyledTabTitle
         aria-selected={ isTabSelected }
         className={ className }
         data-element='select-tab'
@@ -39,16 +39,16 @@ class TabHeader extends React.Component {
         { ...tagComponent('tab-header', props) }
       >
         {title}
-      </StyledTabHeader>
+      </StyledTabTitle>
     );
   }
 }
 
-TabHeader.defaultProps = {
+TabTitle.defaultProps = {
   position: 'top'
 };
 
-TabHeader.propTypes = {
+TabTitle.propTypes = {
   tabHasError: PropTypes.bool,
   tabHasWarning: PropTypes.bool,
   title: PropTypes.string.isRequired,
@@ -62,4 +62,4 @@ TabHeader.propTypes = {
   tabIndex: PropTypes.string
 };
 
-export default TabHeader;
+export default TabTitle;

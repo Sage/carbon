@@ -9,7 +9,7 @@ import tagComponent from '../../utils/helpers/tags/tags';
 import Browser from '../../utils/helpers/browser/browser';
 import StyledTabs from './tabs.style';
 import TabsHeader from './tabs-header/tabs-header.component';
-import TabHeader from './tab-header/tab-header.component';
+import TabTitle from './tab-title/tab-title.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 class Tabs extends React.Component {
@@ -206,7 +206,7 @@ class Tabs extends React.Component {
       const ref = `${child.props.tabId}-tab`;
       this.tabRefs.push(ref);
       return (
-        <TabHeader
+        <TabTitle
           position={ this.props.position }
           className={ child.props.className || '' }
           tabHasError={ this.tabHasError(child) }
