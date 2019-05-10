@@ -170,14 +170,10 @@ class Tabs extends React.Component {
     domNode.focus();
   }
 
-  tabHasError = (tab) => {
-    const tabHasError = this.state.tabValidity.get(tab.props.tabId) === false;
-    return tabHasError;
-  };
-
-  tabHasWarning = (tab) => {
-    const tabHasWarning = this.state.tabWarning.get(tab.props.tabId) === true && !this.tabHasError(tab);
-    return tabHasWarning;
+  getTabValidationValues = (tab) => {
+    const tabHasError = this.state.tabValidity.get(tab.props.tabId) === false,
+        tabHasWarning = this.state.tabWarning.get(tab.props.tabId) === true && !tabHasError;
+    return { tabHasError, tabHasWarning };
   };
 
   // ** Returns true/false for if the given tab id is selected. */
@@ -205,12 +201,12 @@ class Tabs extends React.Component {
     const tabTitles = this.children.map((child, index) => {
       const ref = `${child.props.tabId}-tab`;
       this.tabRefs.push(ref);
+      const tabValidationValues = this.getTabValidationValues(child);
+      const { tabHasError, tabHasWarning } = tabValidationValues;
       return (
         <TabTitle
           position={ this.props.position }
           className={ child.props.className || '' }
-          tabHasError={ this.tabHasError(child) }
-          tabHasWarning={ this.tabHasWarning(child) }
           dataTabId={ child.props.tabId }
           id={ ref }
           key={ child.props.tabId }
@@ -222,6 +218,8 @@ class Tabs extends React.Component {
           tabIndex={ this.isTabSelected(child.props.tabId) ? '0' : '-1' }
           title={ child.props.title }
           isTabSelected={ this.isTabSelected(child.props.tabId) }
+          tabHasError={ tabHasError }
+          tabHasWarning={ tabHasWarning }
         />
       );
     });

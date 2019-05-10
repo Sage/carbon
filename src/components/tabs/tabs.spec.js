@@ -287,16 +287,39 @@ describe('Tabs', () => {
     });
   });
 
+  describe('tabHeaderClasses', () => {
+    describe('when tab has a warning', () => {
+      it('adds a warning class to the header', () => {
+        const wrapper = render();
+        wrapper.setState({ tabWarning: Immutable.fromJS({ uniqueid2: true }) });
+
+        // instance.setState({ tabWarning: Immutable.fromJS({ uniqueid2: true }) });
+        // const secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
+        // expect(secondTab.className).toEqual(
+        //   'carbon-tabs__headers__header headerClass2 carbon-tabs__headers__header--warning'
+        // );
+      });
+
+      describe('when tab has an error as well', () => {
+        it('does not add a warning class', () => {
+          instance.setState({
+            tabWarning: Immutable.fromJS({ uniqueid2: true }),
+            tabValidity: Immutable.fromJS({ uniqueid2: false })
+          });
+          const secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
+          expect(secondTab.classList.contains('carbon-tabs__headers__header--warning')).toBeFalsy();
+        });
+      });
+    });
+  });
+
   describe('handleTabClick', () => {
     it('sets the state to the currently selected tabId', () => {
       spyOn(instance, 'handleTabClick');
       const secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-
-      expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toBeFalsy();
-
+      expect(secondTab.attributes['aria-selected'].value).toEqual('false');
       TestUtils.Simulate.click(secondTab, { target: { dataset: { tabid: 'uniqueid2' } } });
-
-      expect(secondTab.classList.contains('carbon-tabs__headers__header--selected')).toBeTruthy();
+      expect(secondTab.attributes['aria-selected'].value).toEqual('true');
     });
 
     it('sets the location', () => {

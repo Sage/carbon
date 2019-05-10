@@ -49,8 +49,6 @@ TabTitle.defaultProps = {
 };
 
 TabTitle.propTypes = {
-  tabHasError: PropTypes.bool,
-  tabHasWarning: PropTypes.bool,
   title: PropTypes.string.isRequired,
   isTabSelected: PropTypes.bool,
   position: PropTypes.oneOf(['top', 'left']),
@@ -59,7 +57,9 @@ TabTitle.propTypes = {
   id: PropTypes.string,
   onClick: PropTypes.func,
   onKeyDown: PropTypes.func,
-  tabIndex: PropTypes.string
+  tabIndex: PropTypes.string,
+  tabHasError: PropTypes.bool,
+  tabHasWarning: PropTypes.bool
 };
 
 export default TabTitle;
