@@ -2,19 +2,18 @@ import React from 'react';
 import 'jest-styled-components';
 import TestUtils from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-import TestRenderer from 'react-test-renderer';
+// import TestRenderer from 'react-test-renderer';
 import { Table, TableRow } from '../table.component';
 import TableHeader from './table-header.component';
-import Icon from '../../icon';
+import StyledTableHeader from './table-header.style';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import BaseTheme from '../../../style/themes/base';
 import ClassicTheme from '../../../style/themes/classic';
+import SmallTheme from '../../../style/themes/small';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 
 describe('TableHeader', () => {
-  let instance, instanceSortable, instanceCustomSort,
-      sortableColumn, sortableHeader, changeSpy, sortableCustomHeader;
-      // , sortableCustomColumn;
+  let instance, instanceSortable, sortableColumn, sortableHeader, changeSpy;
 
   beforeEach(() => {
     changeSpy = jasmine.createSpy('changeSpy');
@@ -38,21 +37,10 @@ describe('TableHeader', () => {
       </Table>
     );
 
-    instanceCustomSort = TestUtils.renderIntoDocument(
-      <Table onChange={ changeSpy } sortOrder='desc'>
-        <TableRow>
-          <TableHeader
-            sortable align='right'
-            name='name'
-          />
-        </TableRow>
-      </Table>
-    );
-
     sortableColumn = TestUtils.findRenderedDOMComponentWithTag(instanceSortable, 'th');
     sortableHeader = TestUtils.scryRenderedComponentsWithType(instanceSortable, TableHeader)[0];
     // sortableCustomColumn = TestUtils.findRenderedDOMComponentWithTag(instanceCustomSort, 'th');
-    sortableCustomHeader = TestUtils.scryRenderedComponentsWithType(instanceCustomSort, TableHeader)[0];
+    // sortableCustomHeader = TestUtils.scryRenderedComponentsWithType(instanceCustomSort, TableHeader)[0];
   });
 
   describe('prop checking', () => {
@@ -322,6 +310,43 @@ describe('TableHeader', () => {
     });
   });
 
+  describe.each(['compact', 'small', 'medium', 'large'])(
+    'when the theme is classic',
+    (size) => {
+      const wrapper = mount(
+        <StyledTableHeader
+          theme={ ClassicTheme }
+          size={ size }
+        />
+      );
+
+      const th = wrapper.find('th').hostNodes();
+      it(`matches the expected style when the size is ${size}`, () => {
+        assertStyleMatch({
+          height: BaseTheme.table.sizes.medium
+        }, th);
+      });
+    },
+  );
+
+  describe.each(['compact', 'small', 'medium', 'large'])(
+    'when the theme is not classic',
+    (size) => {
+      const wrapper = mount(
+        <StyledTableHeader
+          theme={ SmallTheme }
+          size={ size }
+        />
+      );
+      const th = wrapper.find('th').hostNodes();
+
+      it(`matches the expected style when the size is ${size}`, () => {
+        assertStyleMatch({
+          height: BaseTheme.table.sizes[size]
+        }, th);
+      });
+    },
+  );
 
   describe('render', () => {
     let wrapper, th;
@@ -344,7 +369,7 @@ describe('TableHeader', () => {
       expect(th.prop('style').width).toEqual('50px');
     });
 
-    it('renders a th to match the expected style', () => {
+    it('renders a th to match the expected default style', () => {
       assertStyleMatch({
         backgroundColor: BaseTheme.table.header,
         borderBottom: `1px solid ${BaseTheme.table.secondary}`,
@@ -367,29 +392,6 @@ describe('TableHeader', () => {
       );
       th = wrapper.find('th').hostNodes();
       expect(th).toMatchSnapshot();
-    });
-
-    describe('when aligned to the right', () => {
-      it('renders the sort icon with correct classes', () => {
-        wrapper = mount(
-          <Table>
-            <TableRow>
-              <TableHeader
-                align='right'
-                sortable
-              />
-            </TableRow>
-          </Table>
-        );
-        th = wrapper.find('a').hostNodes();
-        assertStyleMatch({
-          backgroundColor: BaseTheme.table.header,
-          borderBottom: `1px solid ${BaseTheme.table.secondary}`,
-          borderLeft: `1px solid ${BaseTheme.colors.border}`,
-          color: BaseTheme.colors.white,
-          textAlign: 'left'
-        }, th);
-      });
     });
   });
 
