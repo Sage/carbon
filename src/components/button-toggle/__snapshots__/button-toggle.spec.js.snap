@@ -211,6 +211,7 @@ input:focus ~ .c3 {
           "error": "#C7384F",
           "focus": "#FFB500",
           "focusedIcon": "#335B6D",
+          "focusedLinkBackground": "#FFDA7F",
           "greyDarkBlue50": "#8099a4",
           "info": "#0073C2",
           "primary": "#00805D",
@@ -262,6 +263,7 @@ input:focus ~ .c3 {
             "error": "#C7384F",
             "focus": "#FFB500",
             "focusedIcon": "#335B6D",
+            "focusedLinkBackground": "#FFDA7F",
             "greyDarkBlue50": "#8099a4",
             "info": "#0073C2",
             "primary": "#00805D",
@@ -349,6 +351,7 @@ input:focus ~ .c3 {
               "error": "#C7384F",
               "focus": "#FFB500",
               "focusedIcon": "#335B6D",
+              "focusedLinkBackground": "#FFDA7F",
               "greyDarkBlue50": "#8099a4",
               "info": "#0073C2",
               "primary": "#00805D",
@@ -452,6 +455,7 @@ input:focus ~ .c3 {
                   "error": "#C7384F",
                   "focus": "#FFB500",
                   "focusedIcon": "#335B6D",
+                  "focusedLinkBackground": "#FFDA7F",
                   "greyDarkBlue50": "#8099a4",
                   "info": "#0073C2",
                   "primary": "#00805D",
@@ -532,6 +536,7 @@ input:focus ~ .c3 {
                         "error": "#C7384F",
                         "focus": "#FFB500",
                         "focusedIcon": "#335B6D",
+                        "focusedLinkBackground": "#FFDA7F",
                         "info": "#0073C2",
                         "primary": "#26A826",
                         "secondary": "#006300",
@@ -592,6 +597,7 @@ input:focus ~ .c3 {
                     "error": "#C7384F",
                     "focus": "#FFB500",
                     "focusedIcon": "#335B6D",
+                    "focusedLinkBackground": "#FFDA7F",
                     "greyDarkBlue50": "#8099a4",
                     "info": "#0073C2",
                     "primary": "#00805D",
@@ -652,7 +658,6 @@ input:focus ~ .c3 {
   align-items: center;
   width: 100%;
   height: 100%;
-
 ",
                           ],
                         },
@@ -695,6 +700,7 @@ input:focus ~ .c3 {
           "error": "#C7384F",
           "focus": "#FFB500",
           "focusedIcon": "#335B6D",
+          "focusedLinkBackground": "#FFDA7F",
           "greyDarkBlue50": "#8099a4",
           "info": "#0073C2",
           "primary": "#00805D",
@@ -746,6 +752,7 @@ input:focus ~ .c3 {
             "error": "#C7384F",
             "focus": "#FFB500",
             "focusedIcon": "#335B6D",
+            "focusedLinkBackground": "#FFDA7F",
             "greyDarkBlue50": "#8099a4",
             "info": "#0073C2",
             "primary": "#00805D",
@@ -833,6 +840,7 @@ input:focus ~ .c3 {
               "error": "#C7384F",
               "focus": "#FFB500",
               "focusedIcon": "#335B6D",
+              "focusedLinkBackground": "#FFDA7F",
               "greyDarkBlue50": "#8099a4",
               "info": "#0073C2",
               "primary": "#00805D",
@@ -936,6 +944,7 @@ input:focus ~ .c3 {
                   "error": "#C7384F",
                   "focus": "#FFB500",
                   "focusedIcon": "#335B6D",
+                  "focusedLinkBackground": "#FFDA7F",
                   "greyDarkBlue50": "#8099a4",
                   "info": "#0073C2",
                   "primary": "#00805D",
@@ -1016,6 +1025,7 @@ input:focus ~ .c3 {
                         "error": "#C7384F",
                         "focus": "#FFB500",
                         "focusedIcon": "#335B6D",
+                        "focusedLinkBackground": "#FFDA7F",
                         "info": "#0073C2",
                         "primary": "#26A826",
                         "secondary": "#006300",
@@ -1076,6 +1086,7 @@ input:focus ~ .c3 {
                     "error": "#C7384F",
                     "focus": "#FFB500",
                     "focusedIcon": "#335B6D",
+                    "focusedLinkBackground": "#FFDA7F",
                     "greyDarkBlue50": "#8099a4",
                     "info": "#0073C2",
                     "primary": "#00805D",
@@ -1136,7 +1147,6 @@ input:focus ~ .c3 {
   align-items: center;
   width: 100%;
   height: 100%;
-
 ",
                           ],
                         },
