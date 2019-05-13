@@ -1,246 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Button when a subtext prop is passed into the component does not render the subtext if the size prop is not "large" 1`] = `
-.c2 + .c0 {
-  margin-left: 15px;
-}
-
-.c1 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-flex-flow: wrap;
-  -ms-flex-flow: wrap;
-  flex-flow: wrap;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  vertical-align: middle;
-  border: 2px solid transparent;
-  box-sizing: border-box;
-  background: transparent;
-  border-color: #26A826;
-  color: #26A826;
-  font-weight: 600;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  font-size: 14px;
-  height: 40px;
-  padding-left: 24px;
-  padding-right: 24px;
-}
-
-.c1:hover {
-  background: #006300;
-  border-color: #006300;
-  color: #FFFFFF;
-}
-
-.c1:focus {
-  outline: solid 3px #FFB500;
-}
-
-.c1 + .c0 {
-  margin-left: 16px;
-}
-
-.c1 .carbon-icon {
-  margin-left: 0px;
-  margin-right: 8px;
-}
-
-.c3 + .c0 {
-  margin-left: 16px;
-}
-
-<button
-  className="c0 c1"
-  data-component="button"
-  disabled={false}
-  role="button"
-  size="medium"
->
-  <span>
-    <span
-      data-element="main-text"
-    >
-      foo
-    </span>
-  </span>
-</button>
-`;
-
-exports[`Button when a subtext prop is passed into the component renders the subtext if the size prop is "large" 1`] = `
-.c3 + .c0 {
-  margin-left: 15px;
-}
-
-.c4 + .c0 {
-  margin-left: 16px;
-}
-
-.c5 + .c0 {
-  margin-left: 16px;
-}
-
-.c1 {
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -webkit-flex-flow: wrap;
-  -ms-flex-flow: wrap;
-  flex-flow: wrap;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  vertical-align: middle;
-  border: 2px solid transparent;
-  box-sizing: border-box;
-  background: transparent;
-  border-color: #26A826;
-  color: #26A826;
-  font-weight: 600;
-  padding-top: 1px;
-  padding-bottom: 1px;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  font-size: 16px;
-  height: 48px;
-  padding-left: 32px;
-  padding-right: 32px;
-}
-
-.c1:hover {
-  background: #006300;
-  border-color: #006300;
-  color: #FFFFFF;
-}
-
-.c1:focus {
-  outline: solid 3px #FFB500;
-}
-
-.c1 + .c0 {
-  margin-left: 16px;
-}
-
-.c1 .carbon-icon {
-  margin-left: 0px;
-  margin-right: 8px;
-}
-
-.c2 {
-  font-size: 14px;
-  font-weight: 400;
-  display: block;
-}
-
-<button
-  className="c0 c1"
-  data-component="button"
-  disabled={false}
-  role="button"
-  size="large"
->
-  <span>
-    <span
-      data-element="main-text"
-    >
-      foo
-    </span>
-    <span
-      className="c2"
-      data-element="subtext"
-    >
-      foo
-    </span>
-  </span>
-</button>
-`;
-
 exports[`Button when no props other than children are passed into the component renders the default props and children to match the snapshot 1`] = `
-<styled.button
-  buttonType="secondary"
-  data-component="button"
+<Button
+  as="secondary"
   disabled={false}
+  forwardRef={null}
   iconPosition="before"
-  legacyColorVariant="blue"
-  medium={true}
-  role="button"
   size="medium"
-  theme={
-    Object {
-      "colors": Object {
-        "base": "#00A376",
-        "border": "#668491",
-        "brand": "#00DC00",
-        "destructive": Object {
-          "hover": "#9F2C3F",
-        },
-        "error": "#C7384F",
-        "focus": "#FFB500",
-        "info": "#0073C2",
-        "primary": "#26A826",
-        "secondary": "#006300",
-        "success": "#00B000",
-        "tertiary": "#004400",
-        "warning": "#FFB500",
-        "white": "#FFFFFF",
-      },
-      "disabled": Object {
-        "background": "rgba(0,0,0,0.1)",
-        "border": "#CCD6DA",
-        "button": "#E5EAEC",
-        "disabled": "rgba(0,0,0,0.55)",
-        "input": "#F2F4F5",
-        "text": "rgba(0,0,0,0.3)",
-      },
-      "name": "base",
-      "shadows": Object {
-        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
-        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-      },
-      "text": Object {
-        "color": "rgba(0,0,0,0.9)",
-        "placeholder": "rgba(0,0,0,0.3)",
-        "size": "14px",
-      },
-    }
-  }
+  subtext=""
+  theme="blue"
 >
-  <span>
-    <span
-      data-element="main-text"
-    >
-      foo
-    </span>
-  </span>
-</styled.button>
+  foo
+</Button>
 `;
 
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon after children 1`] = `
@@ -275,32 +46,32 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   vertical-align: middle;
   border: 2px solid transparent;
   box-sizing: border-box;
-  background: transparent;
-  border-color: #26A826;
-  color: #26A826;
   font-weight: 600;
   padding-top: 1px;
   padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
+  background: transparent;
+  border-color: #26A826;
+  color: #26A826;
   font-size: 14px;
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
 }
 
-.c1:hover {
-  background: #006300;
-  border-color: #006300;
-  color: #FFFFFF;
-}
-
 .c1:focus {
-  outline: solid 3px #FFB500;
+  outline: solid 3px #FFDA7F;
 }
 
 .c1 + .c0 {
   margin-left: 16px;
+}
+
+.c1:hover {
+  background: #006300;
+  border-color: #006300;
+  color: #FFFFFF;
 }
 
 .c1 .carbon-icon {
@@ -358,32 +129,32 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   vertical-align: middle;
   border: 2px solid transparent;
   box-sizing: border-box;
-  background: transparent;
-  border-color: #26A826;
-  color: #26A826;
   font-weight: 600;
   padding-top: 1px;
   padding-bottom: 1px;
   -webkit-text-decoration: none;
   text-decoration: none;
+  background: transparent;
+  border-color: #26A826;
+  color: #26A826;
   font-size: 14px;
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
 }
 
-.c1:hover {
-  background: #006300;
-  border-color: #006300;
-  color: #FFFFFF;
-}
-
 .c1:focus {
-  outline: solid 3px #FFB500;
+  outline: solid 3px #FFDA7F;
 }
 
 .c1 + .c0 {
   margin-left: 16px;
+}
+
+.c1:hover {
+  background: #006300;
+  border-color: #006300;
+  color: #FFFFFF;
 }
 
 .c1 .carbon-icon {
@@ -444,9 +215,15 @@ exports[`Button when the classic theme is applied setting the color variant to "
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -454,7 +231,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -524,6 +301,14 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -565,9 +350,15 @@ exports[`Button when the classic theme is applied setting the color variant to "
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -575,7 +366,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -645,6 +436,14 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -686,9 +485,15 @@ exports[`Button when the classic theme is applied setting the color variant to "
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -696,7 +501,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -766,6 +571,14 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -807,9 +620,15 @@ exports[`Button when the classic theme is applied setting the color variant to "
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -817,7 +636,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -887,6 +706,14 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -928,9 +755,15 @@ exports[`Button when the classic theme is applied setting the color variant to "
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -938,7 +771,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1008,6 +841,14 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -1049,9 +890,15 @@ exports[`Button when the classic theme is applied setting the color variant to "
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1059,7 +906,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1129,6 +976,14 @@ exports[`Button when the classic theme is applied setting the color variant to "
 }
 
 .c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -1170,9 +1025,15 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1180,7 +1041,7 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1250,6 +1111,14 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
 }
 
 .c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -1291,9 +1160,15 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1301,7 +1176,7 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1371,6 +1246,14 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
 }
 
 .c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -1412,9 +1295,15 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1422,7 +1311,7 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1492,6 +1381,14 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
 }
 
 .c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -1533,9 +1430,15 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1543,7 +1446,7 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1613,6 +1516,14 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
 }
 
 .c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -1654,9 +1565,15 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1664,7 +1581,7 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1734,6 +1651,14 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
 }
 
 .c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 
@@ -1775,9 +1700,15 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   text-decoration: none;
 }
 
+.c1:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
 .c1:hover {
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1785,7 +1716,7 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   box-shadow: 0 0 6px rgba(25,99,246,.6);
   outline: none;
   background: #1e499f;
-  border: 1px solid #1e499f;
+  border-color: #1e499f;
   color: #ffffff;
 }
 
@@ -1855,6 +1786,14 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
 }
 
 .c16 + .c0 {
+  margin-left: 16px;
+}
+
+.c17 + .c0 {
+  margin-left: 16px;
+}
+
+.c18 + .c0 {
   margin-left: 16px;
 }
 

@@ -72,6 +72,25 @@ describe('DropdownFilter', () => {
     });
   });
 
+
+  describe('componentWillReceiveProps', () => {
+    describe('should update the filter if visible value changed,', () => {
+      it('sets openingList to true', () => {
+        const props = {
+            name:'foo',
+            options: Immutable.fromJS([]),
+            visibleValue: 'abc',
+            freetext: true
+        }
+
+        const wrapper = shallow(<DropdownFilter { ...props } />);
+        expect(wrapper.find('input.carbon-dropdown__input').props().value).toBe('abc');
+        wrapper.setProps({ visibleValue: 'def' });
+        expect(wrapper.find('input.carbon-dropdown__input').props().value).toBe('def');
+      });
+    });
+  });
+
   describe('selectValue', () => {
     it('removes filter', () => {
       spyOn(instance, 'setState');
@@ -530,6 +549,15 @@ describe('DropdownFilter', () => {
         expect(instance.results([]).type).toEqual('li');
         expect(instance.results([]).props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--no-results');
         expect(instance.results([]).props.children).toEqual('No results match "foo"');
+      });
+
+      describe('when filter is null', () => {
+        it('adds no items option with correct translation', () => {
+          instance.setState({ filter: null });
+          expect(instance.results([]).type).toEqual('li');
+          expect(instance.results([]).props.className).toEqual('carbon-dropdown__list-item carbon-dropdown__list-item--no-results');
+          expect(instance.results([]).props.children).toEqual('No results match ""');
+        });
       });
     });
 

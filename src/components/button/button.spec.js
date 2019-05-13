@@ -1,9 +1,10 @@
 import React from 'react';
 import 'jest-styled-components';
 import { shallow } from 'enzyme';
+import { Link as RouterLink } from 'react-router';
 import Icon from 'components/icon';
 import TestRenderer from 'react-test-renderer';
-import Button from '.';
+import Button from './button.component';
 import StyledButton from './button.style';
 import BaseTheme from '../../style/themes/base';
 import classicTheme from '../../style/themes/classic';
@@ -45,30 +46,20 @@ describe('Button', () => {
       'when position is set to "%s"',
       (position) => {
         it('contains an Icon', () => {
+          const wrapper = render({
+            children: 'foo',
+            iconType: 'filter',
+            iconPosition: position
+          }).dive();
+
           expect(
-            render({
-              children: 'foo',
-              iconType: 'filter',
-              iconPosition: position
-            }).contains(
+            wrapper.contains(
               <Icon type='filter' />
             )
           ).toBeTruthy();
         });
       }
     );
-  });
-
-  describe('when a subtext prop is passed into the component', () => {
-    it('does not render the subtext if the size prop is not "large"', () => {
-      const wrapper = render({ children: 'foo', subtext: 'foo' }, TestRenderer.create);
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('renders the subtext if the size prop is "large"', () => {
-      const wrapper = render({ children: 'foo', size: 'large', subtext: 'foo' }, TestRenderer.create);
-      expect(wrapper).toMatchSnapshot();
-    });
   });
 
   describe('when there are no props passed except children', () => {
@@ -189,24 +180,13 @@ describe('Button', () => {
     });
   });
 
-  describe('A basic button', () => {
-    const defaultButton = render({ children: 'Save' });
-
-    it('renders a button with defaults', () => {
-      expect(defaultButton.props().buttonType).toEqual('secondary');
-      expect(defaultButton.containsMatchingElement(
-        <span>Save</span>
-      )).toBeTruthy();
-    });
-  });
-
   describe('A primary button', () => {
     const primary = render({
       name: 'Primary Button',
       as: 'primary',
       onClick: jest.fn(),
       children: 'Primary'
-    });
+    }).dive();
 
     it('renders a primary button', () => {
       expect(primary.props().name).toEqual('Primary Button');
@@ -223,7 +203,7 @@ describe('Button', () => {
       className: 'customClass',
       theme: 'red',
       children: 'Secondary'
-    });
+    }).dive();
 
     it('renders a secondary button', () => {
       expect(secondary.props().name).toEqual('Secondary Button');
@@ -239,7 +219,7 @@ describe('Button', () => {
       name: 'Small Button',
       size: 'small',
       children: 'Small'
-    });
+    }).dive();
 
     it('renders a small button', () => {
       expect(small.props().name).toEqual('Small Button');
@@ -255,7 +235,7 @@ describe('Button', () => {
       name: 'Large Button',
       size: 'large',
       children: 'Large'
-    });
+    }).dive();
 
     it('renders a large button', () => {
       expect(large.props().name).toEqual('Large Button');
@@ -271,7 +251,7 @@ describe('Button', () => {
       name: 'Disabled Button',
       disabled: true,
       children: 'Disabled'
-    });
+    }).dive();
 
     it('renders a disabled button', () => {
       expect(disabled.props().name).toEqual('Disabled Button');
@@ -283,35 +263,63 @@ describe('Button', () => {
     });
   });
 
-  describe('subtext prop', () => {
-    describe('rendered correctly', () => {
-      let wrapper;
-      beforeEach(() => {
-        wrapper = render({ size: 'large', subtext: 'Test', children: 'A Button' });
-      });
-      it('adds a modify class and outputs in the correct child element', () => {
-        const subtextElement = wrapper.find('[data-element="subtext"]');
-        expect(subtextElement.length).toEqual(1);
-        expect(subtextElement.text()).toEqual('Test');
-      });
+  describe('when a subtext prop is passed into the component', () => {
+    it('does not render the subtext if the size prop is not "large"', () => {
+      try {
+        const wrapper = render({ children: 'foo', subtext: 'bar' }).dive();
+
+        expect(wrapper.find('[data-element="subtext"]').exists()).toBe(false);
+      } catch (error) {} // eslint-disable-line no-empty
+    });
+
+    it('renders the subtext if the size prop is "large"', () => {
+      const wrapper = render({ children: 'foo', size: 'large', subtext: 'bar' }).dive();
+
+      expect(wrapper.find('[data-element="subtext"]').exists()).toBe(true);
     });
 
     describe.each(['small', 'medium'])(
-      'when in an ivalid state and "%s"',
+      'when the "subtext" prop is specified and the size prop is set to "%s"',
       (size) => {
         it('throws an error', () => {
-          const subtext = () => { Button.propTypes.subtext({ subtext: 'test', size }); };
-          expect(subtext).toThrowError('subtext prop has no effect unless the button is large');
+          expect(() => {
+            render({ children: 'foo', subtext: 'bar', size }).dive();
+          }).toThrowError('subtext prop has no effect unless the button is large');
         });
       }
     );
   });
 
   describe('tags on component', () => {
-    const wrapper = shallow(<Button data-element='bar' data-role='baz'>Test</Button>);
-
     it('includes correct component, element and role data tags', () => {
+      const wrapper = shallow(<Button data-element='bar' data-role='baz'>Test</Button>).dive();
+
       rootTagTest(wrapper, 'button', 'bar', 'baz');
+    });
+  });
+
+  // Legacy functionalities
+  describe('render', () => {
+    describe('with href', () => {
+      const wrapper = render({
+        href: '/foo',
+        children: 'Anchor'
+      }).dive();
+
+      it('renders an anchor element instead of a button', () => {
+        expect(wrapper.find(StyledButton).props().as).toEqual('a');
+      });
+    });
+
+    describe('with to', () => {
+      const wrapper = render({
+        to: '/foo',
+        children: 'To'
+      }).dive();
+
+      it('renders a Button inside a Router Link component', () => {
+        expect(wrapper.type()).toEqual(RouterLink);
+      });
     });
   });
 });

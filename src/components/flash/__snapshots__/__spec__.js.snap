@@ -50,7 +50,7 @@ exports[` 1`] = `
               <span>
                 bun
                  
-                <_Link
+                <Link
                   className="carbon-flash__link"
                   data-element="more-info"
                   iconAlign="left"
@@ -58,7 +58,7 @@ exports[` 1`] = `
                   tabbable={true}
                 >
                   More Information
-                </_Link>
+                </Link>
               </span>
             </div>
             <Icon

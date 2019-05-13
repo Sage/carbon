@@ -29,7 +29,6 @@ storiesOf('Confirm', module)
   })
   .add('default', () => {
     button('open', handleOpen);
-    const children = text('children', 'This is an example of a confirm.');
     const title = text('title', 'Are you sure?');
     const enableBackgroundUI = boolean('enableBackgroundUI', false);
     const disableEscKey = boolean('disableEscKey', false);
@@ -62,7 +61,7 @@ storiesOf('Confirm', module)
           onConfirm={ action('confirm') }
           onCancel={ handleCancel }
         >
-          { children }
+          <span data-element='confirm-children'>This is an example of a confirm.</span>
         </Confirm>
       </State>
     );

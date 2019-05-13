@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { Input, InputPresentationContext } from '.';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 
 describe('Input', () => {
   const renderMount = (props, context) => {
@@ -21,6 +22,14 @@ describe('Input', () => {
 
   it('renders with an input', () => {
     expect(TestRenderer.create(<Input />).toJSON()).toMatchSnapshot();
+  });
+
+  it('aligns the text as per the align prop', () => {
+    const wrapper = TestRenderer.create(<Input align='right' />);
+
+    assertStyleMatch({
+      textAlign: 'right'
+    }, wrapper.toJSON());
   });
 
   it('sends the input ref to the inputRef callback', () => {

@@ -63,12 +63,13 @@ class AppLayout extends React.Component {
               <option value={ THEMES.small }>Small</option>
               <option value={ THEMES.medium }>Medium</option>
               <option value={ THEMES.large }>Large</option>
+              <option value=''>None</option>
             </StyledSelect>
           </SelectionContainer>
         </div>
 
         <div>
-          <ThemeProvider theme={ themes[activeTheme] }>{children}</ThemeProvider>
+          { activeTheme ? (<ThemeProvider theme={ themes[activeTheme] }>{children}</ThemeProvider>) : children };
         </div>
       </StyledContainer>
     );

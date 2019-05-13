@@ -5,7 +5,7 @@ export default ({ theme }) => theme.name === THEMES.classic && css`
   font-weight: 700;
   padding: 10px;
   font-weight: 600;
-  color: ${theme.text.color};
+  color: ${theme.colors.baseBlue};
 
   .DayPicker-Caption {
     background-color: ${theme.colors.white};
@@ -49,11 +49,11 @@ export default ({ theme }) => theme.name === THEMES.classic && css`
 
   .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
     color: ${theme.colors.white};
-    background-color: ${theme.colors.baseBlue};
+    background-color: ${theme.colors.primary};
     font-weight: 700;
   }
 
   .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
-    background-color: ${theme.colors.baseBlue};
+    background-color: ${theme.colors.primary};
   }
 `;

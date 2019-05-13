@@ -4,21 +4,27 @@ import baseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import sizes from './input-sizes.style';
 import inputClassicStyling from './input-presentation-classic.style';
+import VALIDATION_TYPES from '../../../components/validations/validation-types.config';
+import StyledInput from './input.style';
 
 const InputPresentationStyle = styled.div`
-  align-items: center;
-  background: transparent;
+  align-items: stretch;
+  background: #fff;
   border: 1px solid ${({ theme }) => theme.colors.border};
   box-sizing: border-box;
   cursor: text;
   display: flex;
   flex-wrap: wrap;
-  flex: 1;
-  margin: 0px;
+  flex: 0 0 ${({ inputWidth }) => inputWidth}%;
+  margin: 0;
   min-height: ${({ size }) => sizes[size].height};
   padding-left: ${({ size }) => sizes[size].padding};
   padding-right: ${({ size }) => sizes[size].padding};
-  width: 100%;
+
+  ${StyledInput} {
+    /* this is required for an IE11 fix: */
+    height: calc(${({ size }) => sizes[size].height} - 4px);
+  }
 
   ${({ disabled, theme }) => disabled && css`
     background: ${theme.disabled.input};
@@ -30,40 +36,51 @@ const InputPresentationStyle = styled.div`
     border-color: transparent !important;
   `}
   ${({ hasFocus, theme }) => hasFocus && css`
-    && { outline: 3px solid ${theme.colors.focus}; }
+    && { 
+      outline: 3px solid ${theme.colors.focus};
+      z-index: 2;
+    }
   `}
-  ${stylingForValidation('infoMessage')}
-  ${stylingForValidation('warningMessage')}
-  ${stylingForValidation('errorMessage')}
-
+  ${stylingForValidations}
   ${inputClassicStyling}
+
+  input::-ms-clear {
+    display: none;
+  }
+  input::-webkit-contacts-auto-fill-button {
+    display: none!important;
+  }
 `;
 
-function stylingForValidation(message) {
-  const validation = message.replace('Message', '');
-  return ({ theme, ...props }) => {
-    if (!props[message]) return null;
-    return css`
-      border-color: ${theme.colors[validation]} !important;
-      box-shadow: inset 1px 1px 0 ${theme.colors[validation]},
-                  inset -1px -1px 0 ${theme.colors[validation]};
-    `;
-  };
+function stylingForValidations({ theme, ...props }) {
+  let styling = '';
+  Object.keys(VALIDATION_TYPES).reverse().forEach((type) => {
+    if (props[`${type}Message`]) {
+      styling += `
+        border-color: ${theme.colors[type]} !important;
+        box-shadow: inset 1px 1px 0 ${theme.colors[type]},
+                    inset -1px -1px 0 ${theme.colors[type]};
+      `;
+    }
+  });
+  return styling;
 }
 
 InputPresentationStyle.defaultProps = {
+  inputWidth: 100,
   size: 'medium',
   theme: baseTheme
 };
 
 InputPresentationStyle.propTypes = {
   disabled: PropTypes.bool,
-  error: PropTypes.string,
   hasFocus: PropTypes.bool,
-  info: PropTypes.string,
   readOnly: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-  warning: PropTypes.string
+  ...Object.keys(VALIDATION_TYPES).reduce((acc, type) => ({
+    ...acc,
+    [`${type}Message`]: PropTypes.string
+  }), {})
 };
 
 export default InputPresentationStyle;

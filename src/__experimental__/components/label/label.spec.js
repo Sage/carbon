@@ -34,28 +34,15 @@ describe('Label', () => {
         boxSizing: 'border-box',
         paddingBottom: '0',
         paddingRight: '11px',
-        paddingTop: '12px',
         textAlign: 'left',
         width: '30%'
       }, render({ inline: true }, TestRenderer.create).toJSON());
     });
 
-    describe('when it uses different input sizes', () => {
-      it('renders the correct padding-top', () => {
-        assertStyleMatch(
-          { paddingTop: '8px' },
-          render({
-            inline: true, inputSize: 'small'
-          }, TestRenderer.create).toJSON()
-        );
-
-        assertStyleMatch(
-          { paddingTop: '16px' },
-          render({
-            inline: true, inputSize: 'large'
-          }, TestRenderer.create).toJSON()
-        );
-      });
+    it('applies correct styling for inline label with 0 width', () => {
+      assertStyleMatch({
+        width: '30%'
+      }, render({ inline: true, width: 0 }, TestRenderer.create).toJSON());
     });
   });
 
@@ -71,7 +58,6 @@ describe('Label', () => {
       it('renders with custom padding', () => {
         assertStyleMatch({
           paddingLeft: '0',
-          paddingTop: '7px',
           paddingRight: '8px'
         }, render({ theme: classicTheme, inline: true }, TestRenderer.create).toJSON());
       });

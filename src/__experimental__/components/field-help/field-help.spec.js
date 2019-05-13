@@ -31,7 +31,7 @@ describe('FieldHelp', () => {
 
       assertStyleMatch({
         alignSelf: 'center',
-        marginLeft: '50%',
+        marginLeft: '30%',
         paddingLeft: '0'
       }, wrapper.toJSON());
     });

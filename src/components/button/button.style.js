@@ -46,17 +46,18 @@ function stylingForType({
   return css`
     border: 2px solid transparent;
     box-sizing: border-box;
-    ${disabled ? buttonTypes(theme)[buttonType].disabled : buttonTypes(theme)[buttonType].default};
     font-weight: 600;
     padding-top: 1px;
     padding-bottom: 1px;
     text-decoration: none;
     &:focus {
-      outline: solid 3px ${theme.colors.warning};
+      outline: solid 3px ${theme.colors.focus};
     }
     & + & {
       margin-left: 16px;
     }
+
+    ${buttonTypes(theme, disabled)[buttonType]};
     ${buttonSizes(theme)[size]}
   `;
 }
@@ -86,18 +87,10 @@ StyledButton.propTypes = {
   href: PropTypes.string,
   /** Defines an Icon position within the button */
   iconPosition: PropTypes.oneOf([...OptionsHelper.buttonIconPositions, '']),
-  /** Defines an Icon type within the button */
-  iconType: PropTypes.oneOf([...OptionsHelper.icons, '']),
   /** Assigns a size to the button */
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** Second text child, renders under main text, only when size is "large" */
-  subtext: (props) => {
-    if (props.subtext.length > 0 && props.size !== 'large') {
-      throw new Error('subtext prop has no effect unless the button is large');
-    } else {
-      return null;
-    }
-  },
+  subtext: PropTypes.string,
   /** Set this prop to pass in legacy theme color variants */
   legacyColorVariant: PropTypes.oneOf(OptionsHelper.buttonColors),
   /** Used to transfrom button into anchor */

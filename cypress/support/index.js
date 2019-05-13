@@ -1,3 +1,5 @@
+export const DEBUG_FLAG = false;
+
 // ***********************************************************
 // This example support/index.js is processed and
 // loaded automatically before your test files.
@@ -25,30 +27,27 @@
 //     cy.route('/countries*', {});
 // })
 
-Cypress.on('uncaught:exception', (err, runnable) => {
-    // returning false here prevents Cypress from
-    // failing the test
-    return false
-})
+/* returning false here prevents Cypress from failing the test */
+Cypress.on('uncaught:exception', (err, runnable) => false);
 
 Cypress.Commands.overwrite(
-    "type",
-    (originalFn, subject, string, options) => originalFn(
-        subject,
-        string,
-        Object.assign({}, options, { delay: 100 })
-    )
-)
-
-Cypress.Commands.add("iFrame", (selector) => { getItem(selector, 20) })
+  'type',
+  (originalFn, subject, string, options) => originalFn(
+    subject,
+    string,
+    Object.assign({}, options, { delay: 100 }),
+  ),
+);
 
 function getItem(selector, counter) {
-    cy.wait(50).get('#storybook-preview-iframe').then(($iframe) => {
-        if (!$iframe.contents().find(selector).length && counter > 0) {
-            counter--
-            return getItem(selector, counter)
-        } else {
-            return cy.wrap($iframe.contents().find(selector));
-        }
-    })
+  cy.wait(50, { log: DEBUG_FLAG })
+    .get('#storybook-preview-iframe', { log: DEBUG_FLAG })
+    .then(($iframe) => {
+      if (!$iframe.contents().find(selector).length && counter > 0) {
+        return getItem(selector, --counter);
+      }
+      return cy.wrap($iframe.contents().find(selector));
+    });
 }
+
+Cypress.Commands.add('iFrame', (selector) => { getItem(selector, 20); });

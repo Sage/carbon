@@ -5,7 +5,6 @@ const ScrollableListItem = styled.li`
   ${({ isSelectable }) => isSelectable && css`cursor: pointer;`}
   ${({ isSelected }) => isSelected && css`background-color: #E6E9E7;`}
   box-sizing: content-box;
-  height: 15px;
   padding: 5px 6px;
   width: 100%;
 `;

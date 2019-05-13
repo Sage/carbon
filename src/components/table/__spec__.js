@@ -701,7 +701,7 @@ describe('Table', () => {
     });
 
     it('adds configure link that triggers the onConfigure callback', () => {
-      const configureLink = wrapper.find(Link);
+      const configureLink = wrapper.find('a');
       expect(configureLink.length).toEqual(1)
       configureLink.simulate('click', { preventDefault: () => {} });
       expect(onConfigureSpy).toHaveBeenCalled();

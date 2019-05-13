@@ -57,10 +57,10 @@ function styleElement(element, attribute, value) {
  * @param {Array?} _safeProps
  * @return {Object} props
  */
-function validProps(instance, safeProps) {
-  const klass = instance.constructor;
+function validProps(input, safeProps) {
+  const klass = input.isReactComponent ? input.constructor : input;
   const unsafeProps = difference(Object.keys(klass.propTypes), safeProps || klass.safeProps || []);
-  return omit(instance.props, unsafeProps);
+  return omit(input.props, unsafeProps);
 }
 
 /**

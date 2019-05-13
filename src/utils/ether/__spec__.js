@@ -49,27 +49,30 @@ describe('Ether', () => {
 
   describe('validProps', () => {
 
-    class Foo {
-
-      constructor() {
-        this.props = { foo: 'foo', bar: 'bar', quux: 'quux'};
-      }
-
+    class Foo extends React.Component {
       static propTypes = {
         foo: PropTypes.bool,
         bar: PropTypes.bool
       };
-
+      
       static safeProps = ['foo'];
+      
+      render() {
+        return <div />;
+      }
     }
 
+    const instance = new Foo({
+      foo: 'foo',
+      bar: 'bar',
+      quux: 'quux'
+    });
+
     it('creates valid props', () => {
-      const instance = new Foo();
       expect(validProps(instance)).toEqual({ foo: 'foo', quux: 'quux' });
     });
 
     it('creates valid props with explicit safeProps', () => {
-      const instance = new Foo();
       expect(validProps(instance, ['bar'])).toEqual({ bar: 'bar', quux: 'quux' });
     });
   });

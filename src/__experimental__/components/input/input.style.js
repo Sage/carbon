@@ -10,15 +10,23 @@ const StyledInput = styled.input`
   font-size: ${({ theme }) => theme.text.size};
   outline: none;
   width: 30px;
+  
+  ${({ align }) => align && css`
+    text-align: ${align};
+  `}
 
   &::placeholder {
     color: ${({ theme }) => theme.text.placeholder};
   }
 
   ${({ disabled, theme }) => disabled && css`
-    color: ${theme.disabled.text};
+    color: ${theme.disabled.disabled};
     cursor: not-allowed;
   `}
+
+  &:invalid, &:required {
+    box-shadow: none;
+  }
 `;
 
 StyledInput.defaultProps = {
