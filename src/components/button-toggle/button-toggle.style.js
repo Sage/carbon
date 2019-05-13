@@ -2,7 +2,10 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
 import { THEMES } from '../../style/themes';
-import StyledButtonToggleClassicLabel from './button-toggle-classic.style';
+import {
+  StyledButtonToggleClassicLabel,
+  StyledButtonToggleClassicIcon
+} from './button-toggle-classic.style';
 
 const StyledButtonToggleContentWrapper = styled.div`
   display: flex;
@@ -97,6 +100,8 @@ const StyledButtonToggleIcon = styled.div`
       line-height: ${`${iconFontSizes.classic[`${buttonIconSize}Icon`]}px`};
     }
   `};
+
+  ${StyledButtonToggleClassicIcon}
 `;
 
 const StyledButtonToggle = styled.div`

@@ -67,7 +67,7 @@ describe('ButtonToggle', () => {
       });
       assertStyleMatch({
         minWidth: '104px',
-        height: '104px',
+        height: '102px',
         padding: '0 16px'
       }, wrapper.find('label'));
     });
