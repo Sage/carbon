@@ -4,6 +4,7 @@ import { THEMES } from '../../style/themes';
 export default ({ theme }) => theme.name === THEMES.classic && css`
   height: 47px;
   font-weight: 900;
+  border: 1px solid #ccd6db;
 
   input:checked ~ & {
     color: ${theme.colors.white};
