@@ -40,7 +40,7 @@ const StyledButtonToggleLabel = styled.label`
 
   ${({ buttonIcon, buttonIconSize }) => buttonIcon && buttonIconSize === 'large' && css`
     min-width: 104px;
-    height: 104px;
+    height: 102px;
     padding: 0 16px;
 
     ${StyledButtonToggleContentWrapper} {
