@@ -61,7 +61,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c1:focus {
-  outline: solid 3px #FFDA7F;
+  outline: solid 3px #FFB500;
 }
 
 .c1 + .c0 {
@@ -144,7 +144,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
 }
 
 .c1:focus {
-  outline: solid 3px #FFDA7F;
+  outline: solid 3px #FFB500;
 }
 
 .c1 + .c0 {

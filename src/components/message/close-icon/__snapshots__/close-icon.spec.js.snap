@@ -30,7 +30,7 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
 }
 
 .c0 .message__close-icon:focus span span:before {
-  outline: 2px solid #FFDA7F;
+  outline: 2px solid #FFB500;
   outline-offset: 3px;
 }
 
@@ -69,7 +69,7 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
 }
 
 .c0 .message__close-icon:focus span span:before {
-  outline: 2px solid #FFDA7F;
+  outline: 2px solid #FFB500;
   outline-offset: 3px;
 }
 
@@ -108,7 +108,7 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
 }
 
 .c0 .message__close-icon:focus span span:before {
-  outline: 2px solid #FFDA7F;
+  outline: 2px solid #FFB500;
   outline-offset: 3px;
 }
 
@@ -147,7 +147,7 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
 }
 
 .c0 .message__close-icon:focus span span:before {
-  outline: 2px solid #FFDA7F;
+  outline: 2px solid #FFB500;
   outline-offset: 3px;
 }
 
@@ -157,44 +157,40 @@ exports[`CloseIcon when render with no additional props should match snapshot fo
 `;
 
 exports[`LinkStyle applies peoper styling when focused 1`] = `
-.c0 {
-  display: inline-block;
-}
-
-.c0 a {
+.c1 {
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #26A826;
 }
 
-.c0 a:hover {
+.c1:hover {
   cursor: pointer;
   color: #006300;
 }
 
-.c0 a:focus {
+.c1:focus {
   color: rgba(0,0,0,0.9);
   cursor: default;
   background-color: #FFDA7F;
   outline: none;
 }
 
-.c1 .carbon-link__content {
+.c0 .carbon-link__content {
   display: none;
 }
 
-.c1 .carbon-link__icon {
+.c0 .carbon-link__icon {
   margin-right: 0;
 }
 
 <div
-  className="c0"
+  className=""
   data-component="link"
   disabled={false}
 >
   <a
-    className="c1"
+    className="c0 c1"
     data-component="link"
     onKeyDown={[Function]}
     tabIndex="0"
