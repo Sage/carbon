@@ -8,34 +8,6 @@ import Portal from '../portal';
 import './toast.scss';
 
 class Toast extends React.Component {
-  static propTypes = {
-
-    /**
-     * Customizes the appearance through colour
-     * (see the 'iconColorSets' for possible values)
-     */
-    as: PropTypes.string,
-
-    /** Custom className */
-    className: PropTypes.string,
-
-    /** The rendered children of the component. */
-    children: PropTypes.node,
-
-    /** Determines if the toast is open. */
-    open: PropTypes.bool,
-
-    /** Callback for when dismissed. */
-    onDismiss: PropTypes.func
-  }
-
-  static defaultProps = {
-    as: 'warning',
-    className: '',
-    onDismiss: null,
-    open: true
-  }
-
   /** Classes to be applied to the component. */
   get componentClasses() {
     return classNames(
@@ -96,5 +68,25 @@ class Toast extends React.Component {
     );
   }
 }
+
+Toast.propTypes = {
+  /** Customizes the appearance through colour see the 'iconColorSets' for possible values) */
+  as: PropTypes.string,
+  /** Custom className */
+  className: PropTypes.string,
+  /** The rendered children of the component. */
+  children: PropTypes.node,
+  /** Determines if the toast is open. */
+  open: PropTypes.bool,
+  /** Callback for when dismissed. */
+  onDismiss: PropTypes.func
+};
+
+Toast.defaultProps = {
+  as: 'warning',
+  className: '',
+  onDismiss: null,
+  open: true
+};
 
 export default Toast;
