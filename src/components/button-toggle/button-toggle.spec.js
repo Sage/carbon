@@ -100,7 +100,7 @@ describe('ButtonToggle', () => {
         grouped: true,
         children: 'Text'
       };
-      const wrapper = mount(
+      const wrapper = TestRenderer.create(
         <div>
           <ButtonToggle { ...props } />
           <ButtonToggle { ...props } />

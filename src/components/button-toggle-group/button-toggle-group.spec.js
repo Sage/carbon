@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import classicTheme from '../../style/themes/classic';
 import smallTheme from '../../style/themes/small';
@@ -34,13 +35,13 @@ const render = (props, renderType = shallow) => {
 describe('ButtonToggleGroup', () => {
   describe('Classic theme', () => {
     it('renders correctly with default settings', () => {
-      const wrapper = render({ theme: classicTheme });
+      const wrapper = render({ theme: classicTheme }, TestRenderer.create);
       expect(wrapper).toMatchSnapshot();
     });
   });
   describe('Modern theme', () => {
     it('renders correctly with default settings', () => {
-      const wrapper = render({ theme: smallTheme });
+      const wrapper = render({ theme: smallTheme }, TestRenderer.create);
       expect(wrapper).toMatchSnapshot();
     });
   });
