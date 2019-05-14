@@ -1,7 +1,7 @@
 Feature: InlineInputs component
   I want to change InlineInputs component properties
 
-  Background: Open Date Range component page
+  Background: Open InlineInputs component page
     Given I open "InlineInputs" component page
 
   @positive
