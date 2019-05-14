@@ -79,7 +79,7 @@ const StyledSwitch = styled.div`
       }
     `}
 
-    ${labelInline && `
+    ${labelInline && css`
       ${LabelStyle} {
         margin: 0 32px 0 0;
         padding: 3px 0;
@@ -89,29 +89,29 @@ const StyledSwitch = styled.div`
       ${FieldHelpStyle} {
         margin-top: 0;
       }
-    `}
 
-    ${labelInline && reverse && css`
-      ${LabelStyle} {
-        margin-left: 10px;
-      }
+      ${reverse && css`
+        ${LabelStyle} {
+          margin-left: 10px;
+        }
 
-      ${!fieldHelpInline && `
+        ${!fieldHelpInline && `
+          ${FieldHelpStyle} {
+            margin-left: 70px;
+          }
+        `}
+      `}
+
+      ${fieldHelpInline && `
+        ${LabelStyle} {
+          margin-right: 10px;
+        }
+
         ${FieldHelpStyle} {
-          margin-left: 70px;
+          margin-top: 0;
+          padding: 3px 0;
         }
       `}
-    `}
-
-    ${labelInline && fieldHelpInline && `
-      ${LabelStyle} {
-        margin-right: 10px;
-      }
-
-      ${FieldHelpStyle} {
-        margin-top: 0;
-        padding: 3px 0;
-      }
     `}
 
     ${size === 'large' && css`
@@ -127,17 +127,17 @@ const StyledSwitch = styled.div`
         }
       `}
 
-      ${labelInline && `
+      ${labelInline && css`
         ${LabelStyle} {
           margin-top: 1px;
           padding: 10px 0;
         }
-      `}
 
-      ${!fieldHelpInline && labelInline && reverse && `
-        ${FieldHelpStyle} {
-          margin-left: 88px;
-        }
+        ${!fieldHelpInline && reverse && `
+          ${FieldHelpStyle} {
+            margin-left: 88px;
+          }
+        `}
       `}
     `}
 

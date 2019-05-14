@@ -9,19 +9,21 @@ import SwitchSliderPanel from './switch-slider-panel.style';
 import SwitchSpinner from './switch-spinner.component';
 
 const SwitchSlider = (props) => {
-  const { theme, loading } = props;
+  const { theme, checked, loading } = props;
 
   const on = theme.name === THEMES.classic ? <Icon type='tick' /> : 'ON';
   const off = theme.name === THEMES.classic ? <Icon type='cross' /> : 'OFF';
+  const panelContent = checked ? on : off;
+
+  const sliderContent = (
+    <SwitchSliderPanel type={ checked ? 'on' : 'off' } { ...props }>
+      {loading ? <SwitchSpinner { ...props } /> : panelContent}
+    </SwitchSliderPanel>
+  );
 
   return (
     <StyledSwitchSlider { ...props }>
-      <SwitchSliderPanel type='on' { ...props }>
-        {loading ? <SwitchSpinner { ...props } /> : on}
-      </SwitchSliderPanel>
-      <SwitchSliderPanel type='off' { ...props }>
-        {loading ? <SwitchSpinner { ...props } /> : off}
-      </SwitchSliderPanel>
+      {sliderContent}
     </StyledSwitchSlider>
   );
 };

@@ -27,12 +27,24 @@ describe('SwitchSlider', () => {
       describe('default', () => {
         const panels = render().root.findAllByType(SwitchSliderPanel);
 
-        it('renders the text "ON" in the first panel', () => {
+        it('renders the text "OFF" in the panel', () => {
+          expect(panels[0].props.children).toBe('OFF');
+        });
+
+        it('renders only one panel', () => {
+          expect(panels.length).toBe(1);
+        });
+      });
+
+      describe('when checked=true', () => {
+        const panels = render({ checked: true }).root.findAllByType(SwitchSliderPanel);
+
+        it('renders the text "ON" in the panel', () => {
           expect(panels[0].props.children).toBe('ON');
         });
 
-        it('renders the text "OFF" in the second panel', () => {
-          expect(panels[1].props.children).toBe('OFF');
+        it('renders only one panel', () => {
+          expect(panels.length).toBe(1);
         });
       });
 
@@ -43,8 +55,8 @@ describe('SwitchSlider', () => {
           expect(panels[0].props.children.type).toBe(SwitchSpinner);
         });
 
-        it('renders a SwitchSpinner in the second panel', () => {
-          expect(panels[1].props.children.type).toBe(SwitchSpinner);
+        it('renders only one panel', () => {
+          expect(panels.length).toBe(1);
         });
       });
     });
@@ -62,12 +74,6 @@ describe('SwitchSlider', () => {
         assertStyleMatch({
           transform: 'translateX(36px)'
         }, wrapper, { modifier: '::before' });
-      });
-
-      it('hides the appropriate panel', () => {
-        assertStyleMatch({
-          display: 'none'
-        }, wrapper, { modifier: css`${`${SwitchSliderPanel}[type=off]`}` });
       });
     });
 
@@ -134,26 +140,38 @@ describe('SwitchSlider', () => {
       describe('default', () => {
         const panels = render(opts).root.findAllByType(SwitchSliderPanel);
 
-        it('renders a tick Icon in the first panel', () => {
+        it('renders a cross Icon in the panel', () => {
+          expect(panels[0].props.children.type).toBe(Icon);
+          expect(panels[0].props.children.props.type).toBe('cross');
+        });
+
+        it('renders only one panel', () => {
+          expect(panels.length).toBe(1);
+        });
+      });
+
+      describe('when checked=true', () => {
+        const panels = render({ checked: true, ...opts }).root.findAllByType(SwitchSliderPanel);
+
+        it('renders a tick Icon in the panel', () => {
           expect(panels[0].props.children.type).toBe(Icon);
           expect(panels[0].props.children.props.type).toBe('tick');
         });
 
-        it('renders a cross Icon in the second panel', () => {
-          expect(panels[1].props.children.type).toBe(Icon);
-          expect(panels[1].props.children.props.type).toBe('cross');
+        it('renders only one panel', () => {
+          expect(panels.length).toBe(1);
         });
       });
 
       describe('when loading=true', () => {
         const panels = render({ loading: true, ...opts }).root.findAllByType(SwitchSliderPanel);
 
-        it('renders a SwitchSpinner in the first panel', () => {
+        it('renders a SwitchSpinner in the panel', () => {
           expect(panels[0].props.children.type).toBe(SwitchSpinner);
         });
 
-        it('renders a SwitchSpinner in the second panel', () => {
-          expect(panels[1].props.children.type).toBe(SwitchSpinner);
+        it('renders only one panel', () => {
+          expect(panels.length).toBe(1);
         });
       });
     });

@@ -49,24 +49,16 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
   width: 20px;
 }
 
-.c0 .c1[type=on] {
-  display: none;
-}
-
-.c3 .c1[type=off] {
-  display: none;
-}
-
-.c4 .c1[type=on] {
-  display: none;
+.c3 .c1 {
+  color: rgba(0,0,0,0.55);
 }
 
 .c4 .c1 {
   color: rgba(0,0,0,0.55);
 }
 
-.c5 .c1[type=off] {
-  display: none;
+.c4 .c1 {
+  color: #FFFFFF;
 }
 
 .c5 .c1 {
@@ -77,83 +69,25 @@ exports[`SwitchSlider base theme renders as expected 1`] = `
   color: #FFFFFF;
 }
 
-.c6 .c1[type=on] {
-  display: none;
-}
-
-.c7 .c1[type=off] {
-  display: none;
-}
-
-.c8 .c1[type=on] {
-  display: none;
-}
-
-.c9 .c1[type=on] {
-  display: none;
-}
-
-.c10 .c1[type=off] {
-  display: none;
-}
-
-.c11 .c1[type=off] {
-  display: none;
-}
-
-.c12 .c1[type=off] {
-  display: none;
-}
-
-.c12 .c1 {
+.c6 .c1 {
   color: rgba(0,0,0,0.55);
 }
 
-.c12 .c1 {
+.c6 .c1 {
   color: #FFFFFF;
 }
 
-.c13 .c1[type=off] {
-  display: none;
-}
-
-.c14 .c1[type=off] {
-  display: none;
-}
-
-.c14 .c1 {
+.c7 .c1 {
   color: rgba(0,0,0,0.55);
 }
 
-.c14 .c1 {
-  color: #FFFFFF;
-}
-
-.c15 .c1[type=off] {
-  display: none;
-}
-
-.c16 .c1[type=off] {
-  display: none;
-}
-
-.c16 .c1 {
-  color: rgba(0,0,0,0.55);
-}
-
-.c16 .c1 {
+.c7 .c1 {
   color: #FFFFFF;
 }
 
 <span
   className="c0"
 >
-  <div
-    className="c1 c2"
-    type="on"
-  >
-    ON
-  </div>
   <div
     className="c1 c2"
     type="off"
