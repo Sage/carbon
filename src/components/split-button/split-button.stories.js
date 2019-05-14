@@ -9,20 +9,37 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Button from '../button';
 import { notes, info } from './documentation';
 
-const defaultKnobs = () => {
-  const size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
+const getIconKnobs = () => {
+  const defaultPosition = Button.defaultProps.iconPosition;
+  const hasIcon = boolean('has icon', false);
 
   return {
-    as: select('as', [OptionsHelper.themesBinary[0], OptionsHelper.themesBinary[1]], Button.defaultProps.as),
+    iconType: hasIcon ? select('iconType', [...OptionsHelper.icons, ''], '') : undefined,
+    iconPosition: hasIcon ? select('iconPosition', [...OptionsHelper.buttonIconPositions], defaultPosition) : undefined
+  };
+};
+
+const getKnobs = (isClassic) => {
+  const size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
+  let as, buttonType;
+
+  if (isClassic) {
+    as = select('as', OptionsHelper.themesBinaryClassic, Button.defaultProps.as);
+  } else {
+    buttonType = select('buttonType', OptionsHelper.themesBinary, Button.defaultProps.as);
+  }
+
+  return {
+    as,
+    buttonType,
     dataElement: text('data-element'),
     dataRole: text('data-role'),
     disabled: boolean('disabled', Button.defaultProps.disabled),
-    iconPosition: select('iconPosition', [...OptionsHelper.buttonIconPositions, ''], Button.defaultProps.iconPosition),
-    iconType: select('iconType', [...OptionsHelper.icons, ''], Button.defaultProps.iconType),
     onClick: ev => action('click')(ev),
     size,
-    subtext: size === OptionsHelper.sizesRestricted[2] ? text('subtext', Button.defaultProps.subtext) : undefined,
-    textContent: text('children', 'Example Split Button')
+    textContent: text('children', 'Example Split Button'),
+    subtext: (size === OptionsHelper.sizesRestricted[2]) ? text('subtext', Button.defaultProps.subtext) : undefined,
+    ...getIconKnobs()
   };
 };
 
@@ -35,7 +52,7 @@ storiesOf('Split Button', module)
   .add(
     'default',
     () => {
-      const props = defaultKnobs();
+      const props = getKnobs();
       const {
         as,
         dataElement,
@@ -55,19 +72,16 @@ storiesOf('Split Button', module)
           { ...props }
         >
           <Button
-            { ...props }
             onClick={ ev => action('click')(ev) }
           >
             Example Button
           </Button>
           <Button
-            { ...props }
             onClick={ ev => action('click')(ev) }
           >
             Example Button
           </Button>
           <Button
-            { ...props }
             onClick={ ev => action('click')(ev) }
           >
             Example Button
