@@ -15,6 +15,7 @@ const StyledSplitButtonChildrenContainer = styled.div`
     ${applyStylingToChildButtons}
     color: ${colors.white};
     margin-left: 0;
+    margin-top: 3px;
     margin-bottom: 3px;
     min-width: 100%;
     z-index: 10;
