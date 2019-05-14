@@ -3,7 +3,7 @@ import {
   pressTABKey,
 } from '../helper';
 import {
-  asSelect, sizeSelect, commonButtonPreview, labelPreview, helpIcon, inputWidthSlider,
+  sizeSelect, commonButtonPreview, labelPreview, helpIcon, inputWidthSlider,
   fieldHelpPreview, labelWidthSlider, labelAlignSelect, alignSelect, backgroundUILocator,
   closeIconButton, tooltipPreview, getKnobsInput, icon,
 } from '../../locators';
@@ -33,10 +33,6 @@ When('I set {word} to empty', (propertyName) => {
 
 When('I select {word} to {string}', (propertyName, selection) => {
   getKnobsInput(propertyName).select(selection);
-});
-
-When('I set as property to {string}', (asProperty) => {
-  asSelect().select(asProperty);
 });
 
 When('I set component size to {string}', (size) => {
