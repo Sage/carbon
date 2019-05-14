@@ -7,73 +7,25 @@ import tagComponent from '../../utils/helpers/tags';
 import Portal from '../portal';
 import './toast.scss';
 
-/**
-* A Toast widget.
-*
-* == How to use a Toast in a component:
-*
-* In your file:
-*
-*   import Toast from 'carbon-react/lib/components/toast'
-*
-* To render the Toast:
-*
-*   <Toast open={ true } onDismiss={ this.dismissHandler } as='info'>
-*     My toast content
-*   </Toast>
-*
-* Additionally you can pass optional props to the Toast component
-*
-*   as: Customizes the appearence of the toast changing the colour
-*       (see the 'iconColorSets' for possible values).
-*
-* @class Toast
-* @constructor
-*/
 class Toast extends React.Component {
   static propTypes = {
 
     /**
      * Customizes the appearance through colour
      * (see the 'iconColorSets' for possible values)
-     *
-     * @property as
-     * @type {String}
-     * @default 'warning'
      */
     as: PropTypes.string,
 
-    /**
-     * Custom className
-     *
-     * @property className
-     * @type {String}
-     */
+    /** Custom className */
     className: PropTypes.string,
 
-    /**
-     * The rendered children of the component.
-     *
-     * @property children
-     * @type {Node}
-     */
+    /** The rendered children of the component. */
     children: PropTypes.node,
 
-    /**
-     * Determines if the toast is open.
-     *
-     * @property open
-     * @type {Boolean}
-     * @default true
-     */
+    /** Determines if the toast is open. */
     open: PropTypes.bool,
 
-    /**
-     * Callback for when dismissed.
-     *
-     * @property onDismiss
-     * @type {Function}
-     */
+    /** Callback for when dismissed. */
     onDismiss: PropTypes.func
   }
 
@@ -84,11 +36,7 @@ class Toast extends React.Component {
     open: true
   }
 
-  /**
-   * Classes to be applied to the component.
-   *
-   * @method componentClasses
-   */
+  /** Classes to be applied to the component. */
   get componentClasses() {
     return classNames(
       'carbon-toast',
@@ -97,11 +45,7 @@ class Toast extends React.Component {
     );
   }
 
-  /**
-   * Content rendered for dismiss X
-   *
-   * @method dismissIcon
-   */
+  /** Content rendered for dismiss X */
   get dismissIcon() {
     if (this.props.onDismiss) {
       return (
@@ -116,11 +60,7 @@ class Toast extends React.Component {
     return null;
   }
 
-  /**
-   * Content rendered for the toast.
-   *
-   * @method toastContent
-   */
+  /** Content rendered for the toast. */
   get toastContent() {
     if (this.props.open) {
       return (
@@ -138,11 +78,7 @@ class Toast extends React.Component {
     return null;
   }
 
-  /**
-   * Renders the component.
-   *
-   * @method render
-   */
+  /** Renders the component. */
   render() {
     return (
       <Portal>

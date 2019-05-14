@@ -4,12 +4,13 @@ import { select, text, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import Toast from '.';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
-import notes from './documentation';
+import { notes, info } from './documentation';
 
 storiesOf('Toast', module)
   .addParameters({
     knobs: { escapeHTML: false },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    info: { text: info }
   })
   .add('Classic', () => {
     const as = select('as', OptionsHelper.colors, OptionsHelper.colors[2]);
