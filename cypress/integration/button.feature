@@ -46,7 +46,7 @@ Feature: Button component
 
   @positive
   Scenario Outline: Change Button 'as' property
-    When I set as property to "<as>"
+    When I select as to "<as>"
     Then Button as property on preview is "<as>"
     Examples:
       | as        |
