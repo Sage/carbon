@@ -28,6 +28,7 @@ const Button = (props) => {
 function renderStyledButton(buttonProps) {
   const {
     as,
+    disabled,
     buttonType,
     iconType,
     theme,
@@ -43,8 +44,9 @@ function renderStyledButton(buttonProps) {
 
   return (
     <StyledButton
-      as={ href ? 'a' : 'button' } // legacy link button feature
+      as={ (!disabled && href) ? 'a' : 'button' } // legacy link button feature
       buttonType={ buttonType || as }
+      disabled={ disabled }
       role='button'
       legacyColorVariant={ theme }
       { ...tagComponent('button', buttonProps) }
