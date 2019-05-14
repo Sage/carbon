@@ -1,11 +1,20 @@
 import React from 'react';
+import 'jest-styled-components';
 import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
-import { Table, TableHeader, TableRow, TableCell } from './table';
-import ActionToolbar from './../action-toolbar';
-import Link from './../link';
 import { shallow, mount } from 'enzyme';
+import {
+  Table, TableHeader, TableRow, TableCell
+} from './table.component';
+import StyledTableCell from './table-cell/table-cell.style';
+import StyledTableRow from './table-row/table-row.style';
+import StyledTable from './table.style';
+import StyledTableHeader from './table-header/table-header.style';
+import ActionToolbar from '../action-toolbar';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import BaseTheme from '../../style/themes/base';
+import SmallTheme from '../../style/themes/small';
 
 describe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy, row;
@@ -22,15 +31,15 @@ describe('Table', () => {
     );
 
     instance = TestUtils.renderIntoDocument(
-      <Table className="foo">
+      <Table className='foo'>
         { row }
       </Table>
     );
 
     instancePager = TestUtils.renderIntoDocument(
       <Table
-        className="foo"
-        paginate={ true }
+        className='foo'
+        paginate
         currentPage='1'
         pageSize='10'
         totalRecords={ 100 }
@@ -43,7 +52,7 @@ describe('Table', () => {
     instanceSortable = TestUtils.renderIntoDocument(
       <Table className='bar' onChange={ spy }>
         <TableRow key='header'>
-          <TableHeader sortable={true} name='name'>
+          <TableHeader sortable name='name'>
             Names
           </TableHeader>
         </TableRow>
@@ -59,9 +68,9 @@ describe('Table', () => {
         currentPage='10'
         pageSize='25'
         totalRecords='2500'
-       >
+      >
         <TableRow>
-          <TableHeader sortable={ true } name='name'/>
+          <TableHeader sortable name='name' />
         </TableRow>
       </Table>
     );
@@ -70,7 +79,7 @@ describe('Table', () => {
   describe('attachToTable', () => {
     it('adds itself to the object', () => {
       instance.attachToTable('foo', 'bar');
-      expect(instance.rows['foo']).toEqual('bar');
+      expect(instance.rows.foo).toEqual('bar');
     });
   });
 
@@ -78,9 +87,9 @@ describe('Table', () => {
     it('removes itself from the object', () => {
       instance.rows = {
         foo: 'bar'
-      }
+      };
       instance.detachFromTable('foo');
-      expect(instance.rows['foo']).toBe(undefined);
+      expect(instance.rows.foo).toBe(undefined);
     });
   });
 
@@ -93,7 +102,7 @@ describe('Table', () => {
 
   describe('detachActionToolbar', () => {
     it('removes itself from the object', () => {
-      instance.actionToolbarComponent = "foo";
+      instance.actionToolbarComponent = 'foo';
       instance.detachActionToolbar();
       expect(instance.actionToolbarComponent).toBe(null);
     });
@@ -128,9 +137,9 @@ describe('Table', () => {
     });
 
     it('unselects all rows', () => {
-      row = { setState: function(value) {} };
+      row = { setState(value) {} };
       spyOn(row, 'setState');
-      instance.rows = { '0': row }
+      instance.rows = { 0: row };
       instance.refresh();
       expect(row.setState).toHaveBeenCalledWith({ selected: false });
     });
@@ -152,7 +161,7 @@ describe('Table', () => {
   });
 
   describe('selectRow', () => {
-    row;
+    // row;
 
     beforeEach(() => {
       row = TestUtils.findRenderedComponentWithType(instance, TableRow);
@@ -183,36 +192,38 @@ describe('Table', () => {
     });
 
     describe('if multi select', () => {
-      spy;
+      // spy;
 
       beforeEach(() => {
         spy = jasmine.createSpy();
-        instance = TestUtils.renderIntoDocument(<Table onSelect={ spy } selectable={ true }><TableRow uniqueID="foo" /></Table>);
+        instance = TestUtils.renderIntoDocument(<Table onSelect={ spy } selectable><TableRow uniqueID='foo' /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
       });
 
       describe('if row is to be unselected', () => {
         it('removes the row', () => {
-          instance.selectedRows["foo"] = "bar";
+          instance.selectedRows.foo = 'bar';
           instance.selectRow('foo', row, false);
-          expect(instance.selectedRows["foo"]).toBe(undefined);
+          expect(instance.selectedRows.foo).toBe(undefined);
         });
       });
 
       describe('if row is to be selected', () => {
         it('adds the row', () => {
           instance.selectRow('foo', row, true);
-          expect(instance.selectedRows["foo"]).toEqual(row);
+          expect(instance.selectedRows.foo).toEqual(row);
         });
       });
 
       describe('if row is to be selected but is selectAll', () => {
         it('does not add the row', () => {
-          instance = TestUtils.renderIntoDocument(<Table onSelect={ spy } selectable={ true }><TableRow uniqueID="foo" selectAll={ true } /></Table>);
+          instance = TestUtils.renderIntoDocument(
+            <Table onSelect={ spy } selectable><TableRow uniqueID='foo' selectAll /></Table>
+          );
           row = TestUtils.findRenderedComponentWithType(instance, TableRow);
           instance.selectRow('foo', row, true);
-          expect(instance.selectedRows["foo"]).toBe(undefined);
+          expect(instance.selectedRows.foo).toBe(undefined);
         });
       });
 
@@ -223,7 +234,7 @@ describe('Table', () => {
 
       it('calls onSelect callback', () => {
         instance.selectRow('foo', row, true);
-        expect(spy).toHaveBeenCalledWith({'foo': row});
+        expect(spy).toHaveBeenCalledWith({ foo: row });
       });
 
       it('skips the onSelect callback', () => {
@@ -234,7 +245,7 @@ describe('Table', () => {
 
     describe('if highlight row', () => {
       beforeEach(() => {
-        instance = TestUtils.renderIntoDocument(<Table highlightable={ true }><TableRow uniqueID="foo" /></Table>);
+        instance = TestUtils.renderIntoDocument(<Table highlightable><TableRow uniqueID='foo' /></Table>);
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         spyOn(row, 'setState');
       });
@@ -286,7 +297,7 @@ describe('Table', () => {
         instance.highlightRow('bar', row);
         expect(instance.highlightedRow).toEqual({
           id: 'bar',
-          row: row
+          row
         });
       });
     });
@@ -299,7 +310,9 @@ describe('Table', () => {
     describe('if there is an onHighlight callback', () => {
       it('calls the callback', () => {
         spy = jasmine.createSpy();
-        instance = TestUtils.renderIntoDocument(<Table highlightable={ true } onHighlight={ spy }><TableRow uniqueID="foo" /></Table>);
+        instance = TestUtils.renderIntoDocument(
+          <Table highlightable onHighlight={ spy }><TableRow uniqueID='foo' /></Table>
+        );
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         instance.highlightRow('foo', row, true);
         expect(spy).toHaveBeenCalledWith('foo', true, row);
@@ -308,21 +321,21 @@ describe('Table', () => {
   });
 
   describe('selectAll', () => {
-    row;
+    // row;
 
     beforeEach(() => {
       row = TestUtils.findRenderedComponentWithType(instance, TableRow);
       instance.rows = {
-        foo: { props: { uniqueID: "foo" }, shouldHaveMultiSelectColumn: true },
-        bar: { props: { uniqueID: "bar" }, shouldHaveMultiSelectColumn: true }
+        foo: { props: { uniqueID: 'foo' }, shouldHaveMultiSelectColumn: true },
+        bar: { props: { uniqueID: 'bar' }, shouldHaveMultiSelectColumn: true }
       };
     });
 
     it('calls selectRow for item in row array', () => {
       spyOn(instance, 'selectRow');
       instance.selectAll(row);
-      expect(instance.selectRow).toHaveBeenCalledWith("foo", instance.rows["foo"], true, true);
-      expect(instance.selectRow).toHaveBeenCalledWith("bar", instance.rows["bar"], true, true);
+      expect(instance.selectRow).toHaveBeenCalledWith('foo', instance.rows.foo, true, true);
+      expect(instance.selectRow).toHaveBeenCalledWith('bar', instance.rows.bar, true, true);
     });
 
     it('calls setState on the row', () => {
@@ -372,12 +385,12 @@ describe('Table', () => {
         instance.actionToolbarComponent = {
           setState: spy
         };
-        instance.selectedRows = { foo: {}, bar: {}};
+        instance.selectedRows = { foo: {}, bar: {} };
         row = { state: {}, setState: () => {} };
         instance.selectAll(row);
         expect(instance.actionToolbarComponent.setState).toHaveBeenCalledWith({
           total: 2,
-          selected: {'foo': {}, 'bar': {}}
+          selected: { foo: {}, bar: {} }
         });
       });
     });
@@ -386,14 +399,14 @@ describe('Table', () => {
       it('only selects rows that can be selected', () => {
         row = TestUtils.findRenderedComponentWithType(instance, TableRow);
         instance.rows = {
-          foo: { props: { uniqueID: "foo" }, shouldHaveMultiSelectColumn: false },
-          bar: { props: { uniqueID: "bar" }, shouldHaveMultiSelectColumn: true }
+          foo: { props: { uniqueID: 'foo' }, shouldHaveMultiSelectColumn: false },
+          bar: { props: { uniqueID: 'bar' }, shouldHaveMultiSelectColumn: true }
         };
 
         spyOn(instance, 'selectRow');
         instance.selectAll(row);
-        expect(instance.selectRow).not.toHaveBeenCalledWith("foo", instance.rows["foo"], true, true);
-        expect(instance.selectRow).toHaveBeenCalledWith("bar", instance.rows["bar"], true, true);
+        expect(instance.selectRow).not.toHaveBeenCalledWith('foo', instance.rows.foo, true, true);
+        expect(instance.selectRow).toHaveBeenCalledWith('bar', instance.rows.bar, true, true);
       });
     });
   });
@@ -422,9 +435,9 @@ describe('Table', () => {
     let data;
 
     beforeEach(() => {
-      data = Immutable.fromJS({ foo: "bar" });
+      data = Immutable.fromJS({ foo: 'bar' });
       instance = TestUtils.renderIntoDocument(
-        <Table filter={ data }></Table>
+        <Table filter={ data } />
       );
       spyOn(instance, 'emitOnChangeCallback');
     });
@@ -453,7 +466,7 @@ describe('Table', () => {
     describe('when highlightable is disabled', () => {
       it('resets the highlighted row', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table highlightable={ true } />
+          <Table highlightable />
         );
         spyOn(instance, 'resetHighlightedRow');
         instance.componentWillReceiveProps({ highlightable: false });
@@ -464,7 +477,7 @@ describe('Table', () => {
     describe('when selectable is disabled', () => {
       it('resets the selectable rows', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table selectable={ true } />
+          <Table selectable />
         );
         instance.rows = {
           foo: { props: { uniqueID: 'foo' } }
@@ -488,7 +501,7 @@ describe('Table', () => {
     describe('when table height should reset', () => {
       it('calls to reset the table height', () => {
         spyOn(instance, 'shouldResetTableHeight').and.returnValue(true);
-        spyOn(instance, 'resetTableHeight')
+        spyOn(instance, 'resetTableHeight');
 
         instance.componentDidUpdate();
         expect(instance.resetTableHeight).toHaveBeenCalled();
@@ -498,7 +511,7 @@ describe('Table', () => {
     describe('when table height should not reset', () => {
       it('calls to resize the table', () => {
         spyOn(instance, 'shouldResetTableHeight').and.returnValue(false);
-        spyOn(instance, 'resizeTable')
+        spyOn(instance, 'resizeTable');
 
         instance.componentDidUpdate();
         expect(instance.resizeTable).toHaveBeenCalled();
@@ -513,7 +526,7 @@ describe('Table', () => {
 
     it('Resets the table wrapper height to the tableOffset', () => {
       instance._wrapper = { style: { minHeight: '100px' } };
-      instance._table = { offsetHeight: '50' }
+      instance._table = { offsetHeight: '50' };
 
       instance.tableHeight = 100;
 
@@ -529,7 +542,7 @@ describe('Table', () => {
     describe('when offsetHeight is greater than table height', () => {
       it('sets the table minHeight and tableHeight to the offsetHeight', () => {
         instance._wrapper = { style: { minHeight: '10px' } };
-        instance._table = { offsetHeight: '50' }
+        instance._table = { offsetHeight: '50' };
         instance.tableHeight = '10';
 
         instance.resizeTable();
@@ -542,7 +555,7 @@ describe('Table', () => {
     describe('when offsetHeight is less than table height', () => {
       it('maintains the current height', () => {
         instance._wrapper = { style: { minHeight: '50px' } };
-        instance._table = { offsetHeight: '10' }
+        instance._table = { offsetHeight: '10' };
         instance.tableHeight = '50';
 
         instance.resizeTable();
@@ -555,14 +568,14 @@ describe('Table', () => {
     describe('when shrink is enabled', () => {
       beforeEach(() => {
         instance = TestUtils.renderIntoDocument(
-          <Table shrink={ true }></Table>
+          <Table shrink />
         );
       });
 
       describe('when new height has not changed', () => {
         it('does nothing', () => {
           instance._wrapper = { style: { minHeight: '50px' } };
-          instance._table = { offsetHeight: '50' }
+          instance._table = { offsetHeight: '50' };
           instance.tableHeight = '50';
 
           instance.resizeTable();
@@ -575,7 +588,7 @@ describe('Table', () => {
       describe('when new height is less than old height', () => {
         it('updates the height', () => {
           instance._wrapper = { style: { minHeight: '50px' } };
-          instance._table = { offsetHeight: '10' }
+          instance._table = { offsetHeight: '10' };
           instance.tableHeight = '50';
 
           instance.resizeTable();
@@ -590,14 +603,14 @@ describe('Table', () => {
   describe('shouldResetTableHeight', () => {
     describe('when new page size is smaller than previous', () => {
       it('returns true', () => {
-        const prevProps = { pageSize: '1' }
+        const prevProps = { pageSize: '1' };
         expect(instancePager.shouldResetTableHeight(prevProps, {}));
       });
     });
 
     describe('when new page size is larger or equal to the previous', () => {
       it('returns false', () => {
-        const prevProps = { pageSize: '100' }
+        const prevProps = { pageSize: '100' };
         expect(instancePager.shouldResetTableHeight(prevProps, {}));
       });
     });
@@ -644,8 +657,8 @@ describe('Table', () => {
         callbackSpy = jasmine.createSpy();
         instanceCallBack = TestUtils.renderIntoDocument(
           <Table
-            className="foo"
-            paginate={ true }
+            className='foo'
+            paginate
             currentPage='1'
             pageSize='10'
             onPageSizeChange={ callbackSpy }
@@ -687,26 +700,26 @@ describe('Table', () => {
     beforeEach(() => {
       wrapper = mount(
         <Table
-          className="foo"
+          className='foo'
           onConfigure={ onConfigureSpy }
         >
           <TableRow />
         </Table>
-      )
+      );
     });
 
     it('adds the carbon-table--configurable class', () => {
-      const table = wrapper.find('.carbon-table--configurable')
+      const table = wrapper.find('.carbon-table--configurable');
       expect(table).toBeDefined();
     });
 
     it('adds configure link that triggers the onConfigure callback', () => {
       const configureLink = wrapper.find('a');
-      expect(configureLink.length).toEqual(1)
+      expect(configureLink.length).toEqual(1);
       configureLink.simulate('click', { preventDefault: () => {} });
       expect(onConfigureSpy).toHaveBeenCalled();
     });
-  })
+  });
 
   describe('emitOptions', () => {
     it('gathers all relevent props to emit', () => {
@@ -773,9 +786,9 @@ describe('Table', () => {
   describe('pagerProps', () => {
     it('gathers all props that apply to the pager', () => {
       const props = instancePager.pagerProps;
-      expect(props.currentPage).toEqual('1')
-      expect(props.pageSize).toEqual('10')
-      expect(props.totalRecords).toEqual(100)
+      expect(props.currentPage).toEqual('1');
+      expect(props.pageSize).toEqual('10');
+      expect(props.totalRecords).toEqual(100);
     });
   });
 
@@ -783,10 +796,9 @@ describe('Table', () => {
     describe('when pageSize is passed', () => {
       it('returns the prop pageSize', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table path='/test' pageSize='123'>
-          </Table>
+          <Table path='/test' pageSize='123' />
         );
-        expect(instance.defaultPageSize).toEqual('123')
+        expect(instance.defaultPageSize).toEqual('123');
       });
     });
 
@@ -799,16 +811,15 @@ describe('Table', () => {
         ]);
 
         instance = TestUtils.renderIntoDocument(
-          <Table pageSizeSelectionOptions={ options }>
-          </Table>
+          <Table pageSizeSelectionOptions={ options } />
         );
-        expect(instance.defaultPageSize).toEqual('1')
+        expect(instance.defaultPageSize).toEqual('1');
       });
     });
 
     describe('when neither pageSize or options are passed', () => {
       it('returns a default of 10', () => {
-        expect(instance.defaultPageSize).toEqual('10')
+        expect(instance.defaultPageSize).toEqual('10');
       });
     });
   });
@@ -817,8 +828,7 @@ describe('Table', () => {
     describe('when thead is not provided', () => {
       it('returns the the correct markup', () => {
         instance = TestUtils.renderIntoDocument(
-          <Table path='/test'>
-          </Table>
+          <Table path='/test' />
         );
         const parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
         expect(parent).toBeUndefined();
@@ -828,23 +838,22 @@ describe('Table', () => {
     describe('when thead is provided', () => {
       it('returns the the correct markup', () => {
         const header = (
-          <TableRow key="header">
+          <TableRow key='header'>
             <TableHeader>
               foo
             </TableHeader>
           </TableRow>
         );
         instance = TestUtils.renderIntoDocument(
-          <Table path='/test' thead={header}>
-          </Table>
+          <Table path='/test' thead={ header } />
         );
         const parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
         expect(parent).toBeDefined();
         expect(instance.thead).toEqual(
-          <thead className="carbon-table__header">
+          <thead className='carbon-table__header'>
             {header}
           </thead>
-        )
+        );
       });
     });
   });
@@ -855,8 +864,10 @@ describe('Table', () => {
     });
 
     it('returns custom tbody when setting tbody prop to false', () => {
-      instance = TestUtils.renderIntoDocument(<Table tbody={ false }><tbody className="custom"><tr><td></td></tr></tbody></Table>);
-      expect(instance.tbody.props.className).toEqual("custom");
+      instance = TestUtils.renderIntoDocument(
+        <Table tbody={ false }><tbody className='custom'><tr><td /></tr></tbody></Table>
+      );
+      expect(instance.tbody.props.className).toEqual('custom');
     });
   });
 
@@ -885,7 +896,7 @@ describe('Table', () => {
     describe('if there are children that are immutable', () => {
       it('returns the children if there are children', () => {
         const data = Immutable.fromJS([{ foo: 1 }, { foo: 2 }]),
-            children = data.map((_, index) => <tr key={ index }></tr>);
+            children = data.map((_, index) => <tr key={ index } />);
         instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
 
         expect(instance.tableContent).toEqual(children);
@@ -893,7 +904,7 @@ describe('Table', () => {
 
       it('returns the loadingRow if no children and not yet received data', () => {
         const data = Immutable.fromJS([]),
-            children = data.map((_, index) => <tr key={ index }></tr>);
+            children = data.map((_, index) => <tr key={ index } />);
         instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
         instance._hasRetreivedData = false;
 
@@ -902,7 +913,7 @@ describe('Table', () => {
 
       it('returns the emptyRow if no children and has received data', () => {
         const data = Immutable.fromJS([]),
-            children = data.map((_, index) => <tr key={ index }></tr>);
+            children = data.map((_, index) => <tr key={ index } />);
         instance = TestUtils.renderIntoDocument(<Table>{ children }</Table>);
         instance._hasRetreivedData = true;
 
@@ -932,9 +943,9 @@ describe('Table', () => {
       describe('when a customEmptyRow has been provided', () => {
         test('the custom empty row is rendered instead of the default', () => {
           const data = Immutable.fromJS([]),
-              children = data.map((_, index) => <tr key={ index }></tr>);
+              children = data.map((_, index) => <tr key={ index } />);
           const customEmptyRow = <TableRow className='phil'>Custom Empty Row</TableRow>;
-          instance = TestUtils.renderIntoDocument(<Table customEmptyRow={ customEmptyRow } >{ children }</Table>);
+          instance = TestUtils.renderIntoDocument(<Table customEmptyRow={ customEmptyRow }>{ children }</Table>);
           instance._hasRetreivedData = true;
 
           expect(instance.tableContent).toEqual(customEmptyRow);
@@ -944,7 +955,7 @@ describe('Table', () => {
 
     describe('if children count is 0 and has not yet retrieved data', () => {
       it('will return the loading row', () => {
-        instance = TestUtils.renderIntoDocument(<Table></Table>);
+        instance = TestUtils.renderIntoDocument(<Table />);
         instance._hasRetreivedData = false;
         expect(instance.tableContent).toEqual(instance.loadingRow);
       });
@@ -952,7 +963,7 @@ describe('Table', () => {
 
     describe('if children count is 0 and has retrieved data', () => {
       it('will return the empty row', () => {
-        instance = TestUtils.renderIntoDocument(<Table></Table>);
+        instance = TestUtils.renderIntoDocument(<Table />);
         instance._hasRetreivedData = true;
         expect(instance.tableContent).toEqual(instance.emptyRow);
       });
@@ -963,12 +974,12 @@ describe('Table', () => {
     it('renders a table with correct classes', () => {
       const parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(parent).toBeDefined();
-      expect(parent.className).toEqual('carbon-table foo carbon-table--primary');
+      // expect(parent.className).toEqual('carbon-table foo carbon-table--primary');
     });
 
     it('renders a caption tag when a caption prop is given', () => {
       const wrapper = shallow(
-        <Table caption="Acme widgets" />
+        <Table caption='Acme widgets' />
       );
 
       const captionTag = wrapper.find('caption');
@@ -984,7 +995,10 @@ describe('Table', () => {
     it('renders an action toolbar if actions are passed', () => {
       const func = () => {};
       const toolbarWrapper = shallow(
-        <Table className="foo" actions={ {foo: 'bar'} } selectable={ true } actionToolbarChildren={ func }>
+        <Table
+          className='foo' actions={ { foo: 'bar' } }
+          selectable actionToolbarChildren={ func }
+        >
           { row }
         </Table>
       );
@@ -996,11 +1010,11 @@ describe('Table', () => {
 
     describe('when aria-describedby is in the table props', () => {
       it('renders an aria-describedby attribute on the table element', () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <Table aria-describedby='description' />
         );
 
-        const table = wrapper.find('table');
+        const table = wrapper.find('table').hostNodes();
 
         expect(table.is('[aria-describedby="description"]')).toBe(true);
       });
@@ -1008,18 +1022,18 @@ describe('Table', () => {
 
     describe('when aria-describedby is not in the table props', () => {
       it('does not render an aria-describedby attribute on the table element', () => {
-        const wrapper = shallow(
+        const wrapper = mount(
           <Table />
         );
 
-        const table = wrapper.find('table');
+        const table = wrapper.find('table').hostNodes();
 
         expect(table.is('[aria-describedby="description"]')).toBe(false);
       });
     });
   });
 
-  describe("tags on component", () => {
+  describe('tags on component', () => {
     it('include correct component, element and role data tags', () => {
       const wrapper = shallow(
         <Table
@@ -1034,19 +1048,63 @@ describe('Table', () => {
     });
   });
 
-  describe("theme", () => {
-    it("renders a --secondary if the theme is set to 'secondary'", () => {
-      const wrapper = shallow(
+  describe('theme', () => {
+    it("renders to match the expected style for a 'secondary' table", () => {
+      const wrapper = mount(
         <Table theme='secondary' />
       );
-      expect(wrapper.find('.carbon-table--secondary').exists()).toBeTruthy();
+
+      assertStyleMatch({
+        backgroundColor: '#F2F4F5',
+        border: '1px solid #CCD6DA'
+      }, wrapper.find(Table));
+
+      const table = wrapper.find('table').hostNodes();
+
+      assertStyleMatch({
+        backgroundColor: '#ffffff'
+      }, table);
+
+      assertStyleMatch({
+        backgroundColor: '#CCD6DA',
+        color: '#003349'
+      }, table, { modifier: `${StyledTableHeader}` });
     });
 
-    it("renders a --primary if the theme is missing (default)", () => {
-      const wrapper = shallow(
-        <Table />
-      );
-      expect(wrapper.find('.carbon-table--primary').exists()).toBeTruthy();
-    });
+    describe.each(['primary', 'dark', 'secondary', 'light', 'tertiary', 'transparent'])(
+      'when the table type is %s',
+      (type) => {
+        it(`renders to match the expected style when the type is ${type}`, () => {
+          const wrapper = mount(
+            <StyledTable
+              isZebra
+              theme={ SmallTheme }
+              tableType={ type }
+            >
+              <StyledTableRow>
+                <StyledTableCell />
+              </StyledTableRow>
+            </StyledTable>
+          );
+
+          const table = wrapper.find('table').hostNodes();
+          // assertStyleMatch({
+          //   backgroundColor: type === 'tertiary' || type === 'transparent' ? 'transparent' : BaseTheme.colors.white
+          // }, table);
+
+          if (!['primary', 'dark'].includes(type)) {
+            // assertStyleMatch({
+            //   backgroundColor:
+            //     type === 'tertiary' || type === 'transparent' ? 'transparent' : BaseTheme.table.secondary,
+            //   color: BaseTheme.text.color
+            // }, table, { modifier: `${StyledTableHeader}` });
+
+            assertStyleMatch({
+              backgroundColor: '#F2F4F5'
+            }, table, { modified: `${StyledTableRow}` });
+          }
+        });
+      }
+    );
   });
 });

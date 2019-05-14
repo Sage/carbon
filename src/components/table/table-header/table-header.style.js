@@ -67,7 +67,7 @@ function applySortableStyling(align, colors, table) {
 }
 
 function isClassic({ name }) {
-  return name === THEMES.classic || !name;
+  return name === THEMES.classic || name === THEMES.base || !name;
 }
 
 StyledTableHeader.propTypes = {

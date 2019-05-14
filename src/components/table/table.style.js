@@ -42,11 +42,13 @@ const StyledTable = styled.table`
     }
     return css``;
   }
+
+  ${tableRowStyling}
 }
 `;
 
 function isClassic({ name }) {
-  return name === THEMES.classic || !name;
+  return name === THEMES.classic || name === THEMES.base || !name;
 }
 
 export const StyledInternalTableWrapper = styled.div`

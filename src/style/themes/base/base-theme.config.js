@@ -48,6 +48,7 @@ export default (palette) => {
       secondary: palette.slateTint(80),
       tertiary: palette.slateTint(10),
       header: palette.slateTint(20),
+      hover: palette.slateTint(90),
       selected: palette.slateTint(85),
       zebra: palette.slateTint(98),
       sizes: {
