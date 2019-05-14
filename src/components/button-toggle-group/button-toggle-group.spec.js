@@ -2,12 +2,16 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
+import guid from '../../utils/helpers/guid';
 import classicTheme from '../../style/themes/classic';
 import smallTheme from '../../style/themes/small';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import ButtonToggleGroup from './button-toggle-group.component';
 import ButtonToggle from '../button-toggle/button-toggle.component';
 import ButtonToggleGroupStyle from './button-toggle-group.style';
+
+jest.mock('../../utils/helpers/guid');
+guid.mockImplementation(() => 'guid-12345');
 
 const render = (props, renderType = shallow) => {
   return renderType(

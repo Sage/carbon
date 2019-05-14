@@ -100,13 +100,13 @@ input:focus ~ .c4 {
     >
       <input
         className="c3"
-        id="abdb5619-53ea-0734-27d2-5f8072a249fb"
+        id="guid-12345"
         name="button-toggle-group"
         type="radio"
       />
       <label
         className="c4"
-        htmlFor="abdb5619-53ea-0734-27d2-5f8072a249fb"
+        htmlFor="guid-12345"
         id="foo"
         name="button-toggle-group"
         size="large"
@@ -128,13 +128,13 @@ input:focus ~ .c4 {
     >
       <input
         className="c3"
-        id="27f81971-3444-72ee-cee5-3a1441060f11"
+        id="guid-12345"
         name="button-toggle-group"
         type="radio"
       />
       <label
         className="c4"
-        htmlFor="27f81971-3444-72ee-cee5-3a1441060f11"
+        htmlFor="guid-12345"
         id="bar"
         name="button-toggle-group"
         size="large"
@@ -231,13 +231,13 @@ input:focus ~ .c4 {
     >
       <input
         className="c3"
-        id="84822f13-ed09-320f-3ca6-53972d208943"
+        id="guid-12345"
         name="button-toggle-group"
         type="radio"
       />
       <label
         className="c4"
-        htmlFor="84822f13-ed09-320f-3ca6-53972d208943"
+        htmlFor="guid-12345"
         id="foo"
         name="button-toggle-group"
         size="large"
@@ -259,13 +259,13 @@ input:focus ~ .c4 {
     >
       <input
         className="c3"
-        id="36e3716f-5c85-cdbd-fa42-07e55c1acfa6"
+        id="guid-12345"
         name="button-toggle-group"
         type="radio"
       />
       <label
         className="c4"
-        htmlFor="36e3716f-5c85-cdbd-fa42-07e55c1acfa6"
+        htmlFor="guid-12345"
         id="bar"
         name="button-toggle-group"
         size="large"
