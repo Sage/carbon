@@ -32,16 +32,16 @@ export default ({
     content: '\\E943';
   }
 
-  ${labelInline && `
+  ${labelInline && css`
     ${LabelStyle} {
       padding: 5px 0;
     }
-  `}
 
-  ${!fieldHelpInline && labelInline && reverse && `
-    ${FieldHelpStyle} {
-      margin-left: 66px;
-    }
+    ${!fieldHelpInline && reverse && `
+      ${FieldHelpStyle} {
+        margin-left: 66px;
+      }
+    `}
   `}
 
   ${size === 'large' && css`
@@ -57,17 +57,17 @@ export default ({
       }
     `}
 
-    ${labelInline && `
+    ${labelInline && css`
       ${LabelStyle} {
         margin-top: 0;
         padding: 5px 0;
       }
-    `}
 
-    ${!fieldHelpInline && labelInline && reverse && `
-      ${FieldHelpStyle} {
-        margin-left: 66px;
-      }
+      ${!fieldHelpInline && reverse && `
+        ${FieldHelpStyle} {
+          margin-left: 66px;
+        }
+      `}
     `}
   `}
 `;

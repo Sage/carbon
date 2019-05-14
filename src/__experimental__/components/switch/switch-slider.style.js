@@ -31,10 +31,6 @@ const StyledSwitchSlider = styled.span`
       width: 20px;
     }
 
-    ${SwitchSliderPanel}[type=${checked ? 'off' : 'on'}] {
-      display: none;
-    }
-
     ${checked && `
       background-color: ${theme.colors.primary};
 
@@ -43,7 +39,7 @@ const StyledSwitchSlider = styled.span`
       }
     `}
 
-    ${disabled && `
+    ${disabled && css`
       background-color: ${theme.disabled.background};
 
       &::before {
@@ -51,12 +47,12 @@ const StyledSwitchSlider = styled.span`
       }
 
       ${SwitchSliderPanel} { color: ${theme.disabled.disabled}; }
-    `}
 
-    ${disabled && checked && `
-      background-color: ${theme.colors.disabled};
+      ${checked && `
+        background-color: ${theme.colors.disabled};
 
-      ${SwitchSliderPanel} { color: ${theme.colors.white}; }
+        ${SwitchSliderPanel} { color: ${theme.colors.white}; }
+      `}
     `}
 
     ${size === 'large' && css`

@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import {
   boolean, text, number, select
 } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import { Store, State } from '@sambego/storybook-state';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Switch from '.';
@@ -33,6 +34,7 @@ storiesOf('Experimental/Switch', module)
 
 function handleChange(ev) {
   formStore.set({ checked: ev.target.checked });
+  action('checked')(ev.target.checked);
 }
 
 function defaultKnobs() {
