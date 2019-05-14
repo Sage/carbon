@@ -2,16 +2,17 @@ import React from 'react';
 import classNames from 'classnames';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import PropTypes from 'prop-types';
-import Icon from '../icon';
-import tagComponent from '../../utils/helpers/tags';
-import Portal from '../portal';
+import Icon from '../icon/icon';
+import tagComponent from '../../utils/helpers/tags/tags';
+import Portal from '../portal/portal';
+import { ToastStyle } from './toast.style';
 import './toast.scss';
 
 class Toast extends React.Component {
   /** Classes to be applied to the component. */
   get componentClasses() {
     return classNames(
-      'carbon-toast',
+      // 'carbon-toast',
       this.props.className,
       `carbon-toast--${this.props.as}`
     );
@@ -36,7 +37,7 @@ class Toast extends React.Component {
   get toastContent() {
     if (this.props.open) {
       return (
-        <div className={ this.componentClasses } { ...tagComponent('toast', this.props) }>
+        <ToastStyle className={ this.componentClasses } { ...tagComponent('toast', this.props) }>
           <div className='carbon-toast__type'>
             <Icon className='carbon-toast__type-icon' type={ this.props.as } />
           </div>
@@ -44,7 +45,7 @@ class Toast extends React.Component {
             { this.props.children }
           </div>
           { this.dismissIcon }
-        </div>
+        </ToastStyle>
       );
     }
     return null;

@@ -7,14 +7,14 @@ $toast-border: 1px solid !default;
 $toast-top-position: 0 !default;
 $toast-width: 300px !default;
 
-.carbon-toast {
-  margin-top: $toast-anim-end;
-  position: fixed;
-  right: $toast-anim-end;
-  top: $toast-top-position;
-  width: $toast-width;
-  z-index: $z-toast;
-}
+// .carbon-toast {
+//   margin-top: $toast-anim-end;
+//   position: fixed;
+//   right: $toast-anim-end;
+//   top: $toast-top-position;
+//   width: $toast-width;
+//   z-index: $z-toast;
+// }
 
 .carbon-toast__close,
 .carbon-toast__type {
