@@ -11,8 +11,8 @@ const StyledTableRow = css`
   }
 `;
 
-function isClassic(theme) {
-  return theme.name === THEMES.classic || theme.name === THEMES.base || !theme;
+function isClassic({ name }) {
+  return name === THEMES.classic || name === THEMES.base;
 }
 
 function addCommonStyling(props) {

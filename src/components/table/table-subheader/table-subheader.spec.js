@@ -1,32 +1,37 @@
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
-import { Table, TableRow } from './../table';
-import TableSubheader from './../table-subheader';
-import { shallow } from 'enzyme';
+import 'jest-styled-components';
+import { shallow, mount } from 'enzyme';
+import { Table, TableRow } from '../table.component';
+import TableSubheader from '.';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import BaseTheme from '../../../style/themes/base';
 
 describe('TableSubheader', () => {
-  let instance;
-
-  beforeEach(() => {
-    instance = TestUtils.renderIntoDocument(
-      <Table>
-        <TableRow>
-          <TableSubheader className='foo' align='right' style={{ width: '50px' }} />
-        </TableRow>
-      </Table>
-    );
-  });
-
   describe('render', () => {
     it('renders a th with correct classes', () => {
-      let th = TestUtils.findRenderedDOMComponentWithTag(instance, 'th');
+      const wrapper = mount(
+        <Table>
+          <TableRow>
+            <TableSubheader
+              className='foo' align='right'
+              style={ { width: '50px' } }
+            />
+          </TableRow>
+        </Table>
+      );
+
+      const th = wrapper.find('[data-component="table-sub-header"]').hostNodes();
       expect(th).toBeDefined();
-      expect(th.className).toEqual('carbon-table-subheader carbon-table-header foo carbon-table-header--align-right');
+      assertStyleMatch({
+        backgroundColor: '#001E2B',
+        color: BaseTheme.colors.white,
+        fontWeight: 'bold'
+      }, th);
     });
   });
-  describe("tags on component", () => {
-    let wrapper = shallow(<TableSubheader data-element='bar' data-role='baz' />);
+  describe('tags on component', () => {
+    const wrapper = shallow(<TableSubheader data-element='bar' data-role='baz' />);
 
     it('include correct component, element and role data tags', () => {
       rootTagTest(wrapper, 'table-sub-header', 'bar', 'baz');

@@ -46,9 +46,3 @@ export {
 
 // what do the mainclasses do?
 // CSStansition component
-
-// carbon-table--configurable {
-//   &.carbon-table__wrapper, .carbon-table__table {
-//     border-radius: 0 $tables__border-radius $tables__border-radius $tables__border-radius;
-//   }
-// } CONFUSING

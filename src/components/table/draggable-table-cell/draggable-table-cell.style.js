@@ -12,7 +12,7 @@ function applyClassicDraggableStyling() {
     width: 21px;  
     user-select: none;
 
-    &${StyledTableCell}:first-child {
+    ${StyledTableCell}:first-child {
       padding-left: 0;
     }
   `;

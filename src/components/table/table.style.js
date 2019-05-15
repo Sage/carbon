@@ -35,13 +35,7 @@ const StyledTable = styled.table`
   }
 
   ${({ paginate }) => {
-    if (paginate) {
-      return css`
-        border-bottom-left-radius: 0;
-        border-bottom-right-radius: 0;
-      `;
-    }
-    return css``;
+    return paginate && applyPaginationStyle;
   }}
 
   ${tableRowStyling}
@@ -51,18 +45,25 @@ function isClassic({ name }) {
   return name === THEMES.classic || name === THEMES.base || !name;
 }
 
+function applyPaginationStyle() {
+  return css`
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+`;
+}
+
 export const StyledInternalTableWrapper = styled.div`
   ${styleInternalWrapper}
   border-radius: 0px;
   overflow: visible;
   position: relative;
 
-  ${({ onConfigure }) => onConfigure && `
+  ${({ onConfigure, theme }) => onConfigure && css`
     ${StyledTable} {
       border-radius: 0 0px 0px 0px;
     }
     
-    & ${StyledLink} {
+    ${StyledLink} {
       left: -25px;
       position: absolute;
       top: -1px;
@@ -70,19 +71,19 @@ export const StyledInternalTableWrapper = styled.div`
 
       a {
         align-items: center;
-        background-color: #335B6D;
-        border: 1px solid #CCD6DA;
+        background-color: ${theme.table.header};
+        border: 1px solid ${theme.table.secondary};
         border-right: none;
         border-radius: 25px 0 0 25px;
         box-sizing: content-box;
-        color: #ffffff;
+        color: ${theme.colors.white};
         display: flex;
         height: 100%;
         justify-content: center;
 
         &:hover {
           background-color: #19475A;
-          color: #ffffff;
+          color: ${theme.colors.white};
         }
     
         :first-child {
@@ -104,6 +105,10 @@ StyledTable.propTyopes = {
 };
 
 StyledTable.defaultProps = {
+  theme: baseTheme
+};
+
+StyledInternalTableWrapper.defaultProps = {
   theme: baseTheme
 };
 

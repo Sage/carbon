@@ -1,23 +1,14 @@
 import styled, { css } from 'styled-components';
-import StyledTableCell from '../table-cell/table-cell.style';
+import StyledTableHeader from '../table-header/table-header.style';
 import baseTheme from '../../../style/themes/base';
-// import { THEMES } from '../../../style/themes';
 
-const StyledTableSubheader = styled(StyledTableCell)`
-  ${applyClassicSubheaderStyling}
-`;
-
-// function styleTableSubheader(props) {
-//   return props.theme.name === THEMES.classic ? applyClassicSubheaderStyling() : applyModernSubheaderStyling();
-// }
-
-function applyClassicSubheaderStyling() {
-  return css`
+const StyledTableSubheader = styled(StyledTableHeader)`
+  ${({ theme }) => css`
     background-color: #001E2B;
-    color: white;
+    color: ${theme.colors.white};
     font-weight: bold;
-  `;
-}
+  `}
+`;
 
 StyledTableSubheader.defaultProps = {
   theme: baseTheme

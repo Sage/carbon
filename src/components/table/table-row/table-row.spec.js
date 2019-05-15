@@ -1,11 +1,13 @@
 import React from 'react';
 import 'jest-styled-components';
 import TestUtils from 'react-dom/test-utils';
-import { shallow, mount } from 'enzyme';
+import { mount } from 'enzyme';
 import { Table, TableCell } from '../table.component';
 import TableRow from './table-row.component';
 import TableHeader from '../table-header';
 import DraggableTableCell from '../draggable-table-cell';
+import StyledTable from '../table.style';
+import StyledTableCell from '../table-cell/table-cell.style';
 import Checkbox from '../../checkbox';
 import BaseTheme from '../../../style/themes/base';
 import ClassicTheme from '../../../style/themes/classic';
@@ -493,13 +495,12 @@ describe('TableRow', () => {
 
     describe('if is not classic theme', () => {
       it('renders a row to match the snapshot', () => {
-        // expect(
-        //   shallow(
-        //     <TableRow theme={ ClassicTheme }>
-        //       <TableCell />
-        //     </TableRow>
-        //   )
-        // ).toMatchSnapshot();
+        const wrapper = mount(
+          <StyledTable theme={ SmallTheme }>
+            <TableRow><TableCell /></TableRow>
+          </StyledTable>
+        );
+        expect(wrapper).toMatchSnapshot();
       });
     });
   });

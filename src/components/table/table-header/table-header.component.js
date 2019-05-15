@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import StyledTableHeader from './table-header.style';
 import Icon from '../../icon/icon';
 import { validProps } from '../../../utils/ether/ether';
-// import './table-header.scss';
 
 /**
  * A TableHeader widget.
@@ -151,6 +150,10 @@ class TableHeader extends React.Component {
     };
   }
 
+  styledComponent() {
+    return this.props.styledComponent || StyledTableHeader;
+  }
+
   /**
    * Renders the component.
    *
@@ -175,14 +178,17 @@ class TableHeader extends React.Component {
       contents = this.props.children;
     }
     return (
-      <StyledTableHeader
-        { ...this.tableHeaderProps } { ...this.componentTags(this.props) }
-        { ...this.ariaAttributes() }
-        align={ this.props.align }
-        sortable={ this.props.sortable }
-      >
-        { contents }
-      </StyledTableHeader>
+      React.createElement(
+        this.styledComponent(),
+        {
+          ...this.componentTags(this.props),
+          ...this.tableHeaderProps,
+          ...this.ariaAttributes(),
+          align: this.props.align,
+          sortable: this.props.sortable
+        },
+        contents
+      )
     );
   }
 }
@@ -216,7 +222,12 @@ TableHeader.propTypes = {
   /**
    * Whether column is sortable.
    */
-  sortable: PropTypes.bool
+  sortable: PropTypes.bool,
+
+  /**
+   * Whether component is a subheader.
+   */
+  styledComponent: PropTypes.node
 };
 
 TableHeader.defaultProps = {

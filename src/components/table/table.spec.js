@@ -6,9 +6,7 @@ import { shallow, mount } from 'enzyme';
 import {
   Table, TableHeader, TableRow, TableCell
 } from './table.component';
-import StyledTableCell from './table-cell/table-cell.style';
-import StyledTableRow from './table-row/table-row.style';
-import StyledTable from './table.style';
+import StyledTable, { StyledInternalTableWrapper } from './table.style';
 import StyledTableHeader from './table-header/table-header.style';
 import ActionToolbar from '../action-toolbar';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
@@ -1094,13 +1092,69 @@ describe('Table', () => {
                 type === 'tertiary' || type === 'transparent' ? 'transparent' : BaseTheme.table.secondary,
               color: BaseTheme.text.color
             }, table, { modifier: `${StyledTableHeader}` });
-
-          // assertStyleMatch({
-          //   backgroundColor: '#F2F4F5'
-          // }, table, { modified: `${StyledTableRow}` });
           }
         });
       }
     );
+  });
+
+  describe('onConfigure', () => {
+    it('renders to match the extra elements to match the snapshot for a configurable table', () => {
+      const wrapper = mount(
+        <Table onConfigure />
+      );
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('renders to match the expected style for a classic themed configurable table', () => {
+      const wrapper = mount(
+        <StyledInternalTableWrapper onConfigure />
+      );
+
+      assertStyleMatch({
+        backgroundColor: '#F2F4F5',
+        border: '1px solid #CCD6DA',
+        borderRadius: '0px',
+        overflow: 'visible'
+      }, wrapper);
+
+      assertStyleMatch({
+        borderRadius: '0 0px 0px 0px'
+      }, wrapper, { modifier: `${StyledTable}` });
+    });
+
+    describe.each(['primary', 'dark', 'secondary', 'light', 'tertiary', 'transparent'])(
+      'when the table type is %s',
+      (type) => {
+        it(`renders to match the expected style for a small themed configurable table of ${type} type`, () => {
+          const wrapper = mount(
+            <StyledInternalTableWrapper
+              onConfigure
+              theme={ SmallTheme }
+              tableType={ type }
+            />
+          );
+
+          assertStyleMatch({
+            backgroundColor: type === 'tertiary' || type === 'transparent' ? 'transparent' : BaseTheme.table.primary,
+            border:
+            `1px solid ${type === 'tertiary' || type === 'transparent' ? 'transparent' : BaseTheme.table.primary}`
+          }, wrapper);
+        });
+      }
+    );
+  });
+
+  describe('pagination', () => {
+    it('renders to match the expected style for a table with a pager', () => {
+      const wrapper = mount(
+        <Table paginate />
+      );
+
+      assertStyleMatch({
+        borderBottomLeftRadius: '0',
+        borderBottomRightRadius: '0'
+      }, wrapper.find('table').hostNodes());
+    });
   });
 });

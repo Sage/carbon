@@ -615,7 +615,7 @@ class Table extends React.Component {
     if (!onConfigure) { return null; }
 
     return (
-      <div className='carbon-table__configure-link'>
+      <div>
         <Link href='#' onClick={ onConfigure }>
           <Icon type='settings' />
         </Link>
@@ -772,7 +772,8 @@ class Table extends React.Component {
     const tableProps = {
       tableType: this.props.theme,
       size: this.props.size,
-      isZebra: this.props.isZebra
+      isZebra: this.props.isZebra,
+      paginate: this.props.paginate
     };
 
     if (this.props['aria-describedby']) {
