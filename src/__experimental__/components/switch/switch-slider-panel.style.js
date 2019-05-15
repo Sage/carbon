@@ -4,10 +4,11 @@ import baseTheme from '../../../style/themes/base';
 import ClassicSwitchSliderPanelStyles from './switch-slider-panel-classic.style';
 
 const SwitchSliderPanel = styled.div`
-  ${({ theme }) => css`
+  ${({ size, theme }) => css`
     border: 0;
     color: ${theme.colors.white};
     margin: auto;
+    margin-top: ${size === 'large' ? '12px' : '5px'};
 
     &[type='on'] {
       margin-left: 9px;
