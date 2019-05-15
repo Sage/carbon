@@ -3,6 +3,87 @@
 exports[` 1`] = `undefined`;
 
 exports[`ShowEditPod edit form props where onDelete is provided should get through to the delete button Link 1`] = `
+.c2 {
+  font-size: 14px;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #26A826;
+}
+
+.c2:hover {
+  cursor: pointer;
+  color: #006300;
+}
+
+.c2:focus {
+  color: rgba(0,0,0,0.9);
+  cursor: default;
+  background-color: #FFDA7F;
+  outline: none;
+}
+
+.c1 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  font-weight: 600;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background: #26A826;
+  border-color: transparent;
+  color: #FFFFFF;
+  font-size: 14px;
+  height: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.c1:focus {
+  outline: solid 3px #FFB500;
+}
+
+.c1 + .c0 {
+  margin-left: 16px;
+}
+
+.c1:hover {
+  background: #006300;
+}
+
+.c1 .carbon-icon {
+  margin-left: 0px;
+  margin-right: 8px;
+}
+
+.c3 + .c0 {
+  margin-left: 16px;
+}
+
+.c4 + .c0 {
+  margin-left: 16px;
+}
+
 <ShowEditPod
   as="transparent"
   beforeFormValidation={[Function]}
@@ -278,9 +359,9 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                         "$$typeof": Symbol(react.forward_ref),
                                                         "attrs": Array [],
                                                         "componentStyle": ComponentStyle {
-                                                          "componentId": "sc-htpNat",
+                                                          "componentId": "c0",
                                                           "isStatic": false,
-                                                          "lastClassName": "ekcagk",
+                                                          "lastClassName": "c1",
                                                           "rules": Array [
                                                             "
   align-items: center;
@@ -368,7 +449,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                           "to": [Function],
                                                         },
                                                         "render": [Function],
-                                                        "styledComponentId": "sc-htpNat",
+                                                        "styledComponentId": "c0",
                                                         "target": "button",
                                                         "toString": [Function],
                                                         "warnTooManyClasses": [Function],
@@ -433,7 +514,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                     }
                                                   >
                                                     <button
-                                                      className="carbon-form-save__button sc-htpNat ekcagk"
+                                                      className="carbon-form-save__button c0 c1"
                                                       data-component="button"
                                                       data-element="save"
                                                       disabled={false}
@@ -653,7 +734,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                             }
                                           >
                                             <div
-                                              className="sc-bwzfXH bGgvvP"
+                                              className=""
                                               data-component="link"
                                               disabled={false}
                                             >
@@ -725,7 +806,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                       "componentStyle": ComponentStyle {
                                                         "componentId": "sc-bdVaJa",
                                                         "isStatic": false,
-                                                        "lastClassName": "jJFyNb",
+                                                        "lastClassName": "c2",
                                                         "rules": Array [
                                                           "
   font-size: 14px;
@@ -865,7 +946,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                   }
                                                 >
                                                   <error
-                                                    className="carbon-show-edit-pod__delete sc-bdVaJa jJFyNb"
+                                                    className="carbon-show-edit-pod__delete c2"
                                                     data-component="link"
                                                     onClick={[Function]}
                                                     onKeyDown={[Function]}

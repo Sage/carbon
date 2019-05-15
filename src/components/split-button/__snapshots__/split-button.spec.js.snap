@@ -19,21 +19,28 @@ exports[`SplitButton toggle button with mouse events mouse enter dropdown toggle
         },
         "error": "#C7384F",
         "focus": "#FFB500",
+        "focusedIcon": "#335B6D",
+        "focusedLinkBackground": "#FFDA7F",
         "info": "#0073C2",
         "primary": "#26A826",
         "secondary": "#006300",
         "success": "#00B000",
         "tertiary": "#004400",
-        "warning": "#FFB500",
+        "warning": "#E96400",
         "white": "#FFFFFF",
+        "whiteMix": "#E5F4E5",
       },
       "disabled": Object {
-        "background": "rgba(0,0,0,0.1)",
+        "background": "#E5EAEC",
         "border": "#CCD6DA",
         "button": "#E5EAEC",
+        "buttonText": "rgba(0,0,0,.2)",
         "disabled": "rgba(0,0,0,0.55)",
         "input": "#F2F4F5",
         "text": "rgba(0,0,0,0.3)",
+      },
+      "icon": Object {
+        "focus": "#335B6D",
       },
       "name": "base",
       "shadows": Object {
@@ -53,21 +60,25 @@ exports[`SplitButton toggle button with mouse events mouse enter dropdown toggle
   variant="blue"
 >
   <div>
-    <ForwardRef
+    <Button
       as="secondary"
       data-element="main-button"
       disabled={false}
+      iconPosition="before"
       onFocus={[Function]}
       onMouseEnter={[Function]}
       size="medium"
+      subtext=""
       theme="blue"
     >
       mainButton
-    </ForwardRef>
+    </Button>
     <Styled(styled.button)
+      buttonType="secondary"
       data-element="open"
       disabled={false}
       displayed={true}
+      legacyColorVariant="blue"
       medium={true}
       onClick={[Function]}
       onFocus={[Function]}
@@ -85,21 +96,28 @@ exports[`SplitButton toggle button with mouse events mouse enter dropdown toggle
             },
             "error": "#C7384F",
             "focus": "#FFB500",
+            "focusedIcon": "#335B6D",
+            "focusedLinkBackground": "#FFDA7F",
             "info": "#0073C2",
             "primary": "#26A826",
             "secondary": "#006300",
             "success": "#00B000",
             "tertiary": "#004400",
-            "warning": "#FFB500",
+            "warning": "#E96400",
             "white": "#FFFFFF",
+            "whiteMix": "#E5F4E5",
           },
           "disabled": Object {
-            "background": "rgba(0,0,0,0.1)",
+            "background": "#E5EAEC",
             "border": "#CCD6DA",
             "button": "#E5EAEC",
+            "buttonText": "rgba(0,0,0,.2)",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
             "text": "rgba(0,0,0,0.3)",
+          },
+          "icon": Object {
+            "focus": "#335B6D",
           },
           "name": "base",
           "shadows": Object {
@@ -116,7 +134,6 @@ exports[`SplitButton toggle button with mouse events mouse enter dropdown toggle
           },
         }
       }
-      variant="blue"
     >
       <Icon
         bgSize="small"
@@ -138,21 +155,28 @@ exports[`SplitButton toggle button with mouse events mouse enter dropdown toggle
           },
           "error": "#C7384F",
           "focus": "#FFB500",
+          "focusedIcon": "#335B6D",
+          "focusedLinkBackground": "#FFDA7F",
           "info": "#0073C2",
           "primary": "#26A826",
           "secondary": "#006300",
           "success": "#00B000",
           "tertiary": "#004400",
-          "warning": "#FFB500",
+          "warning": "#E96400",
           "white": "#FFFFFF",
+          "whiteMix": "#E5F4E5",
         },
         "disabled": Object {
-          "background": "rgba(0,0,0,0.1)",
+          "background": "#E5EAEC",
           "border": "#CCD6DA",
           "button": "#E5EAEC",
+          "buttonText": "rgba(0,0,0,.2)",
           "disabled": "rgba(0,0,0,0.55)",
           "input": "#F2F4F5",
           "text": "rgba(0,0,0,0.3)",
+        },
+        "icon": Object {
+          "focus": "#335B6D",
         },
         "name": "base",
         "shadows": Object {
@@ -170,16 +194,18 @@ exports[`SplitButton toggle button with mouse events mouse enter dropdown toggle
       }
     }
   >
-    <ForwardRef
+    <Button
       as="secondary"
       disabled={false}
+      iconPosition="before"
       key="0"
       size="medium"
+      subtext=""
       tabIndex={-1}
       theme="blue"
     >
       Second Button
-    </ForwardRef>
+    </Button>
   </styled.div>
 </styled.div>
 `;
