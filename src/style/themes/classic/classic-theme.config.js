@@ -11,7 +11,8 @@ export default (palette) => {
 
       // generic
       baseBlue: '#255BC7',
-      greyDarkBlue50: '#8099a4'
+      greyDarkBlue50: '#8099a4',
+      warning: palette.gold
     },
 
     disabled: {

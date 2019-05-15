@@ -13,13 +13,15 @@ const FormField = ({
   labelHelp,
   labelInline,
   labelWidth,
+  name,
   size
 }) => (
-  <FormFieldStyle>
+  <FormFieldStyle inline={ labelInline }>
     { label && (
       <Label
         align={ labelAlign }
         help={ labelHelp }
+        htmlFor={ name }
         inline={ labelInline }
         inputSize={ size }
         width={ labelWidth }
@@ -50,6 +52,7 @@ FormField.propTypes = {
   labelHelp: PropTypes.node,
   labelInline: PropTypes.bool,
   labelWidth: PropTypes.number,
+  name: PropTypes.string,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
 };
 

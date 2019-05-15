@@ -32,7 +32,7 @@ Feature: Content component
 
   @positive
   Scenario Outline: Change property in Content dialog
-    When I set as property to "<property>"
+    When I select as to "<property>"
     Then content as property is set to "<property>"
     Examples:
       | property   |

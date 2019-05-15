@@ -1,40 +1,157 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Select applies custom data-* attributes at the right level 1`] = `
+.c5 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -11px;
+  width: 40px;
+}
+
+.c4 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c4::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c4::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c4:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c4::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c4:invalid,
+.c4:required {
+  box-shadow: none;
+}
+
+.c2 {
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  background: #fff;
+  border: 1px solid #668491;
+  box-sizing: border-box;
+  cursor: text;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex: 0 0 70%;
+  -ms-flex: 0 0 70%;
+  flex: 0 0 70%;
+  margin: 0;
+  min-height: 40px;
+  padding-left: 11px;
+  padding-right: 11px;
+}
+
+.c2 .c3 {
+  height: calc(40px - 4px);
+}
+
+.c2 input::-ms-clear {
+  display: none;
+}
+
+.c2 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
+}
+
+.c6 .c3 {
+  height: calc(40px - 4px);
+}
+
+.c1 {
+  display: block;
+}
+
+.c1 + .c0 {
+  margin-top: 16px;
+}
+
 <Textbox
   autoComplete="off"
   data-element="input"
+  formattedValue=""
+  info={Array []}
   inputIcon="dropdown"
   inputRef={[Function]}
+  inputWidth={70}
+  labelWidth={30}
   leftChildren={false}
+  name="guid-12345"
   onBlur={[Function]}
   onChange={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
   onKeyDown={[Function]}
-  value=""
+  validations={Array []}
+  warnings={Array []}
 >
   <FormField
     autoComplete="off"
     data-element="input"
+    info={Array []}
     inputRef={[Function]}
+    inputWidth={70}
+    labelWidth={30}
+    name="guid-12345"
     onBlur={[Function]}
     onChange={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
     size="medium"
-    value=""
+    validations={Array []}
+    warnings={Array []}
   >
     <styled.div
       theme={
         Object {
           "colors": Object {
+            "base": "#00A376",
             "border": "#668491",
             "brand": "#00DC00",
+            "destructive": Object {
+              "hover": "#9F2C3F",
+            },
             "error": "#C7384F",
-            "focus": "#FFDA7F",
+            "focus": "#FFB500",
             "focusedIcon": "#335B6D",
+            "focusedLinkBackground": "#FFDA7F",
             "info": "#0073C2",
             "primary": "#26A826",
             "secondary": "#006300",
@@ -42,10 +159,13 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
             "tertiary": "#004400",
             "warning": "#E96400",
             "white": "#FFFFFF",
+            "whiteMix": "#E5F4E5",
           },
           "disabled": Object {
             "background": "#E5EAEC",
             "border": "#CCD6DA",
+            "button": "#E5EAEC",
+            "buttonText": "rgba(0,0,0,.2)",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
             "text": "rgba(0,0,0,0.3)",
@@ -90,13 +210,14 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
             "$$typeof": Symbol(react.forward_ref),
             "attrs": Array [],
             "componentStyle": ComponentStyle {
-              "componentId": "sc-EHOje",
+              "componentId": "c0",
               "isStatic": false,
-              "lastClassName": "fxZUgt",
+              "lastClassName": "c1",
               "rules": Array [
                 "
-  display: flex;
-  flex-wrap: wrap;
+  ",
+                [Function],
+                "
 
   & + & {
     margin-top: ",
@@ -109,11 +230,16 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
             "defaultProps": Object {
               "theme": Object {
                 "colors": Object {
+                  "base": "#00A376",
                   "border": "#668491",
                   "brand": "#00DC00",
+                  "destructive": Object {
+                    "hover": "#9F2C3F",
+                  },
                   "error": "#C7384F",
-                  "focus": "#FFDA7F",
+                  "focus": "#FFB500",
                   "focusedIcon": "#335B6D",
+                  "focusedLinkBackground": "#FFDA7F",
                   "info": "#0073C2",
                   "primary": "#26A826",
                   "secondary": "#006300",
@@ -121,10 +247,13 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                   "tertiary": "#004400",
                   "warning": "#E96400",
                   "white": "#FFFFFF",
+                  "whiteMix": "#E5F4E5",
                 },
                 "disabled": Object {
                   "background": "#E5EAEC",
                   "border": "#CCD6DA",
+                  "button": "#E5EAEC",
+                  "buttonText": "rgba(0,0,0,.2)",
                   "disabled": "rgba(0,0,0,0.55)",
                   "input": "#F2F4F5",
                   "text": "rgba(0,0,0,0.3)",
@@ -165,7 +294,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
             "displayName": "styled.div",
             "foldedComponentIds": Array [],
             "render": [Function],
-            "styledComponentId": "sc-EHOje",
+            "styledComponentId": "c0",
             "target": "div",
             "toString": [Function],
             "warnTooManyClasses": [Function],
@@ -176,11 +305,16 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
         theme={
           Object {
             "colors": Object {
+              "base": "#00A376",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
-              "focus": "#FFDA7F",
+              "focus": "#FFB500",
               "focusedIcon": "#335B6D",
+              "focusedLinkBackground": "#FFDA7F",
               "info": "#0073C2",
               "primary": "#26A826",
               "secondary": "#006300",
@@ -188,10 +322,13 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
               "tertiary": "#004400",
               "warning": "#E96400",
               "white": "#FFFFFF",
+              "whiteMix": "#E5F4E5",
             },
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
+              "button": "#E5EAEC",
+              "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
@@ -231,37 +368,52 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
         }
       >
         <div
-          className="sc-EHOje fxZUgt"
+          className="c0 c1"
         >
           <InputPresentation
             autoComplete="off"
             data-element="input"
+            info={Array []}
             inputRef={[Function]}
+            inputWidth={70}
+            labelWidth={30}
+            name="guid-12345"
             onBlur={[Function]}
             onChange={[Function]}
             onClick={[Function]}
             onFocus={[Function]}
             onKeyDown={[Function]}
             type="text"
-            value=""
+            validations={Array []}
+            warnings={Array []}
           >
             <styled.div
               autoComplete="off"
               data-element="input"
               hasFocus={false}
+              info={Array []}
               inputRef={[Function]}
-              inputWidth={100}
+              inputWidth={70}
+              labelWidth={30}
+              name="guid-12345"
               onMouseDown={[Function]}
+              onMouseOut={[Function]}
+              onMouseOver={[Function]}
               role="presentation"
               size="medium"
               theme={
                 Object {
                   "colors": Object {
+                    "base": "#00A376",
                     "border": "#668491",
                     "brand": "#00DC00",
+                    "destructive": Object {
+                      "hover": "#9F2C3F",
+                    },
                     "error": "#C7384F",
-                    "focus": "#FFDA7F",
+                    "focus": "#FFB500",
                     "focusedIcon": "#335B6D",
+                    "focusedLinkBackground": "#FFDA7F",
                     "info": "#0073C2",
                     "primary": "#26A826",
                     "secondary": "#006300",
@@ -269,10 +421,13 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                     "tertiary": "#004400",
                     "warning": "#E96400",
                     "white": "#FFFFFF",
+                    "whiteMix": "#E5F4E5",
                   },
                   "disabled": Object {
                     "background": "#E5EAEC",
                     "border": "#CCD6DA",
+                    "button": "#E5EAEC",
+                    "buttonText": "rgba(0,0,0,.2)",
                     "disabled": "rgba(0,0,0,0.55)",
                     "input": "#F2F4F5",
                     "text": "rgba(0,0,0,0.3)",
@@ -311,7 +466,8 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                 }
               }
               type="text"
-              value=""
+              validations={Array []}
+              warnings={Array []}
             >
               <StyledComponent
                 autoComplete="off"
@@ -321,13 +477,13 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                     "$$typeof": Symbol(react.forward_ref),
                     "attrs": Array [],
                     "componentStyle": ComponentStyle {
-                      "componentId": "sc-bxivhb",
+                      "componentId": "sc-ifAKCX",
                       "isStatic": false,
-                      "lastClassName": "igPrLp",
+                      "lastClassName": "c2",
                       "rules": Array [
                         "
-  align-items: center;
-  background: transparent;
+  align-items: stretch;
+  background: #fff;
   border: 1px solid ",
                         [Function],
                         ";
@@ -350,24 +506,26 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                         ";
 
   ",
+                        ".c3",
+                        " {
+    /* this is required for an IE11 fix: */
+    height: calc(",
                         [Function],
-                        "
-  ",
-                        [Function],
-                        "
-  ",
-                        [Function],
-                        "
-  ",
-                        [Function],
-                        "
-  ",
-                        [Function],
-                        "
-  ",
-                        [Function],
-                        "
+                        " - 4px);
+  }
 
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
+  ",
+                        [Function],
+                        "
   ",
                         [Function],
                         "
@@ -386,11 +544,16 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                       "size": "medium",
                       "theme": Object {
                         "colors": Object {
+                          "base": "#00A376",
                           "border": "#668491",
                           "brand": "#00DC00",
+                          "destructive": Object {
+                            "hover": "#9F2C3F",
+                          },
                           "error": "#C7384F",
-                          "focus": "#FFDA7F",
+                          "focus": "#FFB500",
                           "focusedIcon": "#335B6D",
+                          "focusedLinkBackground": "#FFDA7F",
                           "info": "#0073C2",
                           "primary": "#26A826",
                           "secondary": "#006300",
@@ -398,10 +561,13 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                           "tertiary": "#004400",
                           "warning": "#E96400",
                           "white": "#FFFFFF",
+                          "whiteMix": "#E5F4E5",
                         },
                         "disabled": Object {
                           "background": "#E5EAEC",
                           "border": "#CCD6DA",
+                          "button": "#E5EAEC",
+                          "buttonText": "rgba(0,0,0,.2)",
                           "disabled": "rgba(0,0,0,0.55)",
                           "input": "#F2F4F5",
                           "text": "rgba(0,0,0,0.3)",
@@ -443,15 +609,15 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                     "foldedComponentIds": Array [],
                     "propTypes": Object {
                       "disabled": [Function],
-                      "error": [Function],
+                      "errorMessage": [Function],
                       "hasFocus": [Function],
-                      "info": [Function],
+                      "infoMessage": [Function],
                       "readOnly": [Function],
                       "size": [Function],
-                      "warning": [Function],
+                      "warningMessage": [Function],
                     },
                     "render": [Function],
-                    "styledComponentId": "sc-bxivhb",
+                    "styledComponentId": "sc-ifAKCX",
                     "target": "div",
                     "toString": [Function],
                     "warnTooManyClasses": [Function],
@@ -460,25 +626,121 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                 }
                 forwardedRef={
                   Object {
-                    "current": <div
+                    "current": .c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -11px;
+  width: 40px;
+}
+
+.c2 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c2::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c2::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c2:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c2::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c2:invalid,
+.c2:required {
+  box-shadow: none;
+}
+
+.c0 {
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  background: #fff;
+  border: 1px solid #668491;
+  box-sizing: border-box;
+  cursor: text;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex: 0 0 70%;
+  -ms-flex: 0 0 70%;
+  flex: 0 0 70%;
+  margin: 0;
+  min-height: 40px;
+  padding-left: 11px;
+  padding-right: 11px;
+}
+
+.c0 .c1 {
+  height: calc(40px - 4px);
+}
+
+.c0 input::-ms-clear {
+  display: none;
+}
+
+.c0 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
+}
+
+.c4 .c1 {
+  height: calc(40px - 4px);
+}
+
+<div
                       autocomplete="off"
-                      class="sc-bxivhb igPrLp"
+                      class="c0"
                       data-element="input"
+                      name="guid-12345"
                       role="presentation"
                       type="text"
-                      value=""
                     >
                       <input
                         autocomplete="off"
-                        class="sc-ifAKCX iHTfyA"
+                        class="c1 c2"
                         data-element="input"
+                        id="guid-12345"
+                        name="guid-12345"
                         value=""
                       />
                       <span
                         autocomplete="off"
-                        class="sc-htpNat hmqeKz"
+                        class="c3"
                         data-element="input"
-                        value=""
+                        name="guid-12345"
+                        type="dropdown"
                       >
                         <span
                           class="carbon-icon icon-dropdown"
@@ -490,19 +752,29 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                   }
                 }
                 hasFocus={false}
+                info={Array []}
                 inputRef={[Function]}
-                inputWidth={100}
+                inputWidth={70}
+                labelWidth={30}
+                name="guid-12345"
                 onMouseDown={[Function]}
+                onMouseOut={[Function]}
+                onMouseOver={[Function]}
                 role="presentation"
                 size="medium"
                 theme={
                   Object {
                     "colors": Object {
+                      "base": "#00A376",
                       "border": "#668491",
                       "brand": "#00DC00",
+                      "destructive": Object {
+                        "hover": "#9F2C3F",
+                      },
                       "error": "#C7384F",
-                      "focus": "#FFDA7F",
+                      "focus": "#FFB500",
                       "focusedIcon": "#335B6D",
+                      "focusedLinkBackground": "#FFDA7F",
                       "info": "#0073C2",
                       "primary": "#26A826",
                       "secondary": "#006300",
@@ -510,10 +782,13 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                       "tertiary": "#004400",
                       "warning": "#E96400",
                       "white": "#FFFFFF",
+                      "whiteMix": "#E5F4E5",
                     },
                     "disabled": Object {
                       "background": "#E5EAEC",
                       "border": "#CCD6DA",
+                      "button": "#E5EAEC",
+                      "buttonText": "rgba(0,0,0,.2)",
                       "disabled": "rgba(0,0,0,0.55)",
                       "input": "#F2F4F5",
                       "text": "rgba(0,0,0,0.3)",
@@ -552,32 +827,46 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                   }
                 }
                 type="text"
-                value=""
+                validations={Array []}
+                warnings={Array []}
               >
                 <div
                   autoComplete="off"
-                  className="sc-bxivhb igPrLp"
+                  className="c2"
                   data-element="input"
+                  name="guid-12345"
                   onMouseDown={[Function]}
+                  onMouseOut={[Function]}
+                  onMouseOver={[Function]}
                   role="presentation"
                   size="medium"
                   type="text"
-                  value=""
                 >
                   <Input
                     autoComplete="off"
                     data-element="input"
+                    info={Array []}
                     inputRef={[Function]}
+                    inputWidth={70}
+                    labelWidth={30}
+                    name="guid-12345"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onClick={[Function]}
                     onFocus={[Function]}
                     onKeyDown={[Function]}
+                    validations={Array []}
                     value=""
+                    warnings={Array []}
                   >
                     <styled.input
                       autoComplete="off"
                       data-element="input"
+                      id="guid-12345"
+                      info={Array []}
+                      inputWidth={70}
+                      labelWidth={30}
+                      name="guid-12345"
                       onBlur={[Function]}
                       onChange={[Function]}
                       onClick={[Function]}
@@ -586,11 +875,16 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                       theme={
                         Object {
                           "colors": Object {
+                            "base": "#00A376",
                             "border": "#668491",
                             "brand": "#00DC00",
+                            "destructive": Object {
+                              "hover": "#9F2C3F",
+                            },
                             "error": "#C7384F",
-                            "focus": "#FFDA7F",
+                            "focus": "#FFB500",
                             "focusedIcon": "#335B6D",
+                            "focusedLinkBackground": "#FFDA7F",
                             "info": "#0073C2",
                             "primary": "#26A826",
                             "secondary": "#006300",
@@ -598,10 +892,13 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                             "tertiary": "#004400",
                             "warning": "#E96400",
                             "white": "#FFFFFF",
+                            "whiteMix": "#E5F4E5",
                           },
                           "disabled": Object {
                             "background": "#E5EAEC",
                             "border": "#CCD6DA",
+                            "button": "#E5EAEC",
+                            "buttonText": "rgba(0,0,0,.2)",
                             "disabled": "rgba(0,0,0,0.55)",
                             "input": "#F2F4F5",
                             "text": "rgba(0,0,0,0.3)",
@@ -639,7 +936,9 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                           },
                         }
                       }
+                      validations={Array []}
                       value=""
+                      warnings={Array []}
                     >
                       <StyledComponent
                         autoComplete="off"
@@ -649,9 +948,9 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                             "$$typeof": Symbol(react.forward_ref),
                             "attrs": Array [],
                             "componentStyle": ComponentStyle {
-                              "componentId": "sc-ifAKCX",
+                              "componentId": "c3",
                               "isStatic": false,
-                              "lastClassName": "iHTfyA",
+                              "lastClassName": "c4",
                               "rules": Array [
                                 "
   background: transparent;
@@ -679,17 +978,26 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
   ",
                                 [Function],
                                 "
+
+  &:invalid, &:required {
+    box-shadow: none;
+  }
 ",
                               ],
                             },
                             "defaultProps": Object {
                               "theme": Object {
                                 "colors": Object {
+                                  "base": "#00A376",
                                   "border": "#668491",
                                   "brand": "#00DC00",
+                                  "destructive": Object {
+                                    "hover": "#9F2C3F",
+                                  },
                                   "error": "#C7384F",
-                                  "focus": "#FFDA7F",
+                                  "focus": "#FFB500",
                                   "focusedIcon": "#335B6D",
+                                  "focusedLinkBackground": "#FFDA7F",
                                   "info": "#0073C2",
                                   "primary": "#26A826",
                                   "secondary": "#006300",
@@ -697,10 +1005,13 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                                   "tertiary": "#004400",
                                   "warning": "#E96400",
                                   "white": "#FFFFFF",
+                                  "whiteMix": "#E5F4E5",
                                 },
                                 "disabled": Object {
                                   "background": "#E5EAEC",
                                   "border": "#CCD6DA",
+                                  "button": "#E5EAEC",
+                                  "buttonText": "rgba(0,0,0,.2)",
                                   "disabled": "rgba(0,0,0,0.55)",
                                   "input": "#F2F4F5",
                                   "text": "rgba(0,0,0,0.3)",
@@ -744,7 +1055,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                               "disabled": [Function],
                             },
                             "render": [Function],
-                            "styledComponentId": "sc-ifAKCX",
+                            "styledComponentId": "c3",
                             "target": "input",
                             "toString": [Function],
                             "warnTooManyClasses": [Function],
@@ -755,12 +1066,19 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                           Object {
                             "current": <input
                               autocomplete="off"
-                              class="sc-ifAKCX iHTfyA"
+                              class="c3 c4"
                               data-element="input"
+                              id="guid-12345"
+                              name="guid-12345"
                               value=""
                             />,
                           }
                         }
+                        id="guid-12345"
+                        info={Array []}
+                        inputWidth={70}
+                        labelWidth={30}
+                        name="guid-12345"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onClick={[Function]}
@@ -769,11 +1087,16 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                         theme={
                           Object {
                             "colors": Object {
+                              "base": "#00A376",
                               "border": "#668491",
                               "brand": "#00DC00",
+                              "destructive": Object {
+                                "hover": "#9F2C3F",
+                              },
                               "error": "#C7384F",
-                              "focus": "#FFDA7F",
+                              "focus": "#FFB500",
                               "focusedIcon": "#335B6D",
+                              "focusedLinkBackground": "#FFDA7F",
                               "info": "#0073C2",
                               "primary": "#26A826",
                               "secondary": "#006300",
@@ -781,10 +1104,13 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                               "tertiary": "#004400",
                               "warning": "#E96400",
                               "white": "#FFFFFF",
+                              "whiteMix": "#E5F4E5",
                             },
                             "disabled": Object {
                               "background": "#E5EAEC",
                               "border": "#CCD6DA",
+                              "button": "#E5EAEC",
+                              "buttonText": "rgba(0,0,0,.2)",
                               "disabled": "rgba(0,0,0,0.55)",
                               "input": "#F2F4F5",
                               "text": "rgba(0,0,0,0.3)",
@@ -822,12 +1148,16 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                             },
                           }
                         }
+                        validations={Array []}
                         value=""
+                        warnings={Array []}
                       >
                         <input
                           autoComplete="off"
-                          className="sc-ifAKCX iHTfyA"
+                          className="c3 c4"
                           data-element="input"
+                          id="guid-12345"
+                          name="guid-12345"
                           onBlur={[Function]}
                           onChange={[Function]}
                           onClick={[Function]}
@@ -841,20 +1171,29 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                   <InputIconToggle
                     autoComplete="off"
                     data-element="input"
+                    info={Array []}
                     inputRef={[Function]}
+                    inputWidth={70}
+                    labelWidth={30}
+                    name="guid-12345"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onClick={[Function]}
                     onFocus={[Function]}
                     onKeyDown={[Function]}
                     type="dropdown"
-                    value=""
+                    validations={Array []}
+                    warnings={Array []}
                   >
                     <styled.span
                       autoComplete="off"
                       data-element="input"
+                      info={Array []}
                       inputRef={[Function]}
+                      inputWidth={70}
                       key="label-icon"
+                      labelWidth={30}
+                      name="guid-12345"
                       onBlur={[Function]}
                       onChange={[Function]}
                       onClick={[Function]}
@@ -864,11 +1203,16 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                       theme={
                         Object {
                           "colors": Object {
+                            "base": "#00A376",
                             "border": "#668491",
                             "brand": "#00DC00",
+                            "destructive": Object {
+                              "hover": "#9F2C3F",
+                            },
                             "error": "#C7384F",
-                            "focus": "#FFDA7F",
+                            "focus": "#FFB500",
                             "focusedIcon": "#335B6D",
+                            "focusedLinkBackground": "#FFDA7F",
                             "info": "#0073C2",
                             "primary": "#26A826",
                             "secondary": "#006300",
@@ -876,10 +1220,13 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                             "tertiary": "#004400",
                             "warning": "#E96400",
                             "white": "#FFFFFF",
+                            "whiteMix": "#E5F4E5",
                           },
                           "disabled": Object {
                             "background": "#E5EAEC",
                             "border": "#CCD6DA",
+                            "button": "#E5EAEC",
+                            "buttonText": "rgba(0,0,0,.2)",
                             "disabled": "rgba(0,0,0,0.55)",
                             "input": "#F2F4F5",
                             "text": "rgba(0,0,0,0.3)",
@@ -917,7 +1264,9 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                           },
                         }
                       }
-                      value=""
+                      type="dropdown"
+                      validations={Array []}
+                      warnings={Array []}
                     >
                       <StyledComponent
                         autoComplete="off"
@@ -929,13 +1278,12 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                             "componentStyle": ComponentStyle {
                               "componentId": "sc-htpNat",
                               "isStatic": false,
-                              "lastClassName": "hmqeKz",
+                              "lastClassName": "c5",
                               "rules": Array [
                                 "
   align-items: center;
   cursor: pointer;
   display: flex;
-  height: 100%;
   justify-content: center;
   margin-right: ",
                                 [Function],
@@ -964,11 +1312,16 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                               "size": "medium",
                               "theme": Object {
                                 "colors": Object {
+                                  "base": "#00A376",
                                   "border": "#668491",
                                   "brand": "#00DC00",
+                                  "destructive": Object {
+                                    "hover": "#9F2C3F",
+                                  },
                                   "error": "#C7384F",
-                                  "focus": "#FFDA7F",
+                                  "focus": "#FFB500",
                                   "focusedIcon": "#335B6D",
+                                  "focusedLinkBackground": "#FFDA7F",
                                   "info": "#0073C2",
                                   "primary": "#26A826",
                                   "secondary": "#006300",
@@ -976,10 +1329,13 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                                   "tertiary": "#004400",
                                   "warning": "#E96400",
                                   "white": "#FFFFFF",
+                                  "whiteMix": "#E5F4E5",
                                 },
                                 "disabled": Object {
                                   "background": "#E5EAEC",
                                   "border": "#CCD6DA",
+                                  "button": "#E5EAEC",
+                                  "buttonText": "rgba(0,0,0,.2)",
                                   "disabled": "rgba(0,0,0,0.55)",
                                   "input": "#F2F4F5",
                                   "text": "rgba(0,0,0,0.3)",
@@ -1020,10 +1376,10 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                             "displayName": "styled.span",
                             "foldedComponentIds": Array [],
                             "propTypes": Object {
-                              "error": [Function],
-                              "info": [Function],
+                              "errorMessage": [Function],
+                              "infoMessage": [Function],
                               "size": [Function],
-                              "warning": [Function],
+                              "warningMessage": [Function],
                             },
                             "render": [Function],
                             "styledComponentId": "sc-htpNat",
@@ -1034,7 +1390,11 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                           }
                         }
                         forwardedRef={null}
+                        info={Array []}
                         inputRef={[Function]}
+                        inputWidth={70}
+                        labelWidth={30}
+                        name="guid-12345"
                         onBlur={[Function]}
                         onChange={[Function]}
                         onClick={[Function]}
@@ -1044,11 +1404,16 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                         theme={
                           Object {
                             "colors": Object {
+                              "base": "#00A376",
                               "border": "#668491",
                               "brand": "#00DC00",
+                              "destructive": Object {
+                                "hover": "#9F2C3F",
+                              },
                               "error": "#C7384F",
-                              "focus": "#FFDA7F",
+                              "focus": "#FFB500",
                               "focusedIcon": "#335B6D",
+                              "focusedLinkBackground": "#FFDA7F",
                               "info": "#0073C2",
                               "primary": "#26A826",
                               "secondary": "#006300",
@@ -1056,10 +1421,13 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                               "tertiary": "#004400",
                               "warning": "#E96400",
                               "white": "#FFFFFF",
+                              "whiteMix": "#E5F4E5",
                             },
                             "disabled": Object {
                               "background": "#E5EAEC",
                               "border": "#CCD6DA",
+                              "button": "#E5EAEC",
+                              "buttonText": "rgba(0,0,0,.2)",
                               "disabled": "rgba(0,0,0,0.55)",
                               "input": "#F2F4F5",
                               "text": "rgba(0,0,0,0.3)",
@@ -1097,19 +1465,22 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                             },
                           }
                         }
-                        value=""
+                        type="dropdown"
+                        validations={Array []}
+                        warnings={Array []}
                       >
                         <span
                           autoComplete="off"
-                          className="sc-htpNat hmqeKz"
+                          className="c5"
                           data-element="input"
+                          name="guid-12345"
                           onBlur={[Function]}
                           onChange={[Function]}
                           onClick={[Function]}
                           onFocus={[Function]}
                           onKeyDown={[Function]}
                           size="medium"
-                          value=""
+                          type="dropdown"
                         >
                           <Icon
                             bgSize="small"
@@ -1212,18 +1583,118 @@ Object {
   "onMouseLeave": [Function],
   "onSelect": [Function],
   "open": true,
-  "target": <div
+  "target": .c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  margin-right: -11px;
+  width: 40px;
+}
+
+.c2 {
+  background: transparent;
+  border: none;
+  color: rgba(0,0,0,0.9);
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  font-size: 14px;
+  outline: none;
+  width: 30px;
+}
+
+.c2::-webkit-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c2::-moz-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c2:-ms-input-placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c2::placeholder {
+  color: rgba(0,0,0,0.3);
+}
+
+.c2:invalid,
+.c2:required {
+  box-shadow: none;
+}
+
+.c4 .c1 {
+  height: calc(40px - 4px);
+}
+
+.c0 {
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  background: #fff;
+  border: 1px solid #668491;
+  box-sizing: border-box;
+  cursor: text;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-flex: 0 0 70%;
+  -ms-flex: 0 0 70%;
+  flex: 0 0 70%;
+  margin: 0;
+  min-height: 40px;
+  padding-left: 11px;
+  padding-right: 11px;
+}
+
+.c0 .c1 {
+  height: calc(40px - 4px);
+}
+
+.c0.c0 {
+  outline: 3px solid #FFB500;
+  z-index: 2;
+}
+
+.c0 input::-ms-clear {
+  display: none;
+}
+
+.c0 input::-webkit-contacts-auto-fill-button {
+  display: none!important;
+}
+
+<div
     autocomplete="off"
-    class="sc-bxivhb hSnxuE"
+    class="c0"
     data-element="input"
+    name="guid-12345"
     role="presentation"
     type="text"
-    value=""
   >
     <input
       autocomplete="off"
-      class="sc-ifAKCX iHTfyA"
+      class="c1 c2"
       data-element="input"
+      id="guid-12345"
+      name="guid-12345"
       value=""
     />
     <span
@@ -1231,9 +1702,10 @@ Object {
     />
     <span
       autocomplete="off"
-      class="sc-htpNat hmqeKz"
+      class="c3"
       data-element="input"
-      value=""
+      name="guid-12345"
+      type="dropdown"
     >
       <span
         class="carbon-icon icon-dropdown"

@@ -217,7 +217,7 @@ exports[`Message when in classic mode when rendered should match the snapshot 8`
   -webkit-align-content: center;
   -ms-flex-line-pack: center;
   align-content: center;
-  border: 1px solid #E96400;
+  border: 1px solid #FFB500;
   background-color: #FFFFFF;
   border: none;
   background-color: #fff8f2;
@@ -242,11 +242,16 @@ exports[`Message when in small/medium/large theme should match the snapshot 1`] 
   theme={
     Object {
       "colors": Object {
+        "base": "#00A376",
         "border": "#668491",
         "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
         "error": "#C7384F",
-        "focus": "#FFDA7F",
+        "focus": "#FFB500",
         "focusedIcon": "#335B6D",
+        "focusedLinkBackground": "#FFDA7F",
         "info": "#0073C2",
         "primary": "#26A826",
         "secondary": "#006300",
@@ -254,10 +259,13 @@ exports[`Message when in small/medium/large theme should match the snapshot 1`] 
         "tertiary": "#004400",
         "warning": "#E96400",
         "white": "#FFFFFF",
+        "whiteMix": "#E5F4E5",
       },
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#CCD6DA",
+        "button": "#E5EAEC",
+        "buttonText": "rgba(0,0,0,.2)",
         "disabled": "rgba(0,0,0,0.55)",
         "input": "#F2F4F5",
         "text": "rgba(0,0,0,0.3)",

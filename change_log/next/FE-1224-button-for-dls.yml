@@ -1,0 +1,3 @@
+New Features: |
+  Adds config for applying styling to Button based on theme and props, to make the component compliant with
+  what is described in the DLS

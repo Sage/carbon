@@ -1,5 +1,5 @@
 import {
-  alignSelect, labelPreview, helpIcon, label, inputPrecisionSlider,
+  alignSelect, labelPreview, label, inputPrecisionSlider,
 } from '../../locators/decimal/index';
 import { setSlidebar } from '../helper';
 
@@ -29,10 +29,6 @@ Then('Decimal component is not readOnly', () => {
   labelPreview().should('not.have.attr', 'readonly');
 });
 
-When('I hover mouse onto help icon', () => {
-  helpIcon().trigger('mouseover');
-});
-
 When('label width on preview is {int}', (width) => {
   label().should('have.attr', 'width').should('contain', `${width}`);
 });
@@ -53,7 +49,7 @@ Then('Decimal labelInput is set to {string}', (labelInput) => {
   labelPreview().children().should('have.attr', 'value').should('contain', `${labelInput}`);
 });
 
-Then('Decimal labelInput is not set to {string}', (labelInput) => {
+Then('Decimal label is not set to {string}', (labelInput) => {
   labelPreview().children().should('have.attr', 'value').should('not.contain', `${labelInput}`);
 });
 

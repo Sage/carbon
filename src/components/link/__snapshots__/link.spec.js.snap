@@ -2,22 +2,18 @@
 
 exports[`Link renders as expected 1`] = `
 .c0 {
-  display: inline-block;
-}
-
-.c0 a {
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
   color: #26A826;
 }
 
-.c0 a:hover {
+.c0:hover {
   cursor: pointer;
   color: #006300;
 }
 
-.c0 a:focus {
+.c0:focus {
   color: rgba(0,0,0,0.9);
   cursor: default;
   background-color: #FFDA7F;
@@ -25,11 +21,12 @@ exports[`Link renders as expected 1`] = `
 }
 
 <div
-  className="c0"
+  className=""
   data-component="link"
   disabled={false}
 >
   <a
+    className="c0"
     data-component="link"
     onKeyDown={[Function]}
     tabIndex="0"
@@ -47,7 +44,6 @@ exports[`Link renders as expected 1`] = `
 
 exports[`Link should render as expected 1`] = `
 "
-  a{
     cursor: pointer;
     font-weight: bold;
     text-decoration: none;
@@ -57,40 +53,41 @@ exports[`Link should render as expected 1`] = `
       cursor: pointer;
       color: #004B87;
       text-decoration: underline;
-    }
-  }"
+    }"
 `;
 
 exports[`Link when component has classic theme should render correct style 1`] = `
 .c0 {
-  display: inline-block;
-}
-
-.c0 a {
   font-size: 14px;
   -webkit-text-decoration: underline;
   text-decoration: underline;
-  color: #26A826;
-}
-
-.c0 a:hover {
+  color: #00805D;
   cursor: pointer;
-  color: #006300;
+  font-weight: bold;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #255BC7;
 }
 
-.c0 a:focus {
-  color: rgba(0,0,0,0.9);
-  cursor: default;
-  background-color: #FFDA7F;
-  outline: none;
+.c0:hover {
+  cursor: pointer;
+  color: #006045;
+}
+
+.c0:hover {
+  cursor: pointer;
+  color: #004B87;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
 }
 
 <div
-  className="c0"
+  className=""
   data-component="link"
   disabled={false}
 >
   <a
+    className="c0"
     data-component="link"
     onKeyDown={[Function]}
     tabIndex="0"

@@ -4,7 +4,6 @@ import Icon from '../../../components/icon';
 import InputIconToggleStyle from './input-icon-toggle.style';
 
 const InputIconToggle = ({
-  type,
   children,
   disabled,
   readOnly,
@@ -14,7 +13,7 @@ const InputIconToggle = ({
 
   return (
     <InputIconToggleStyle key='label-icon' { ...props }>
-      { children || <Icon type={ type } /> }
+      { children || <Icon type={ props.type } /> }
     </InputIconToggleStyle>
   );
 };

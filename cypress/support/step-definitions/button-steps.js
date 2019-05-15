@@ -19,10 +19,6 @@ When('I set Button theme property to {string}', (theme) => {
   themeSelect().select(theme);
 });
 
-When('I type {string} to Button theme property', (theme) => {
-  themeSelect().type(theme);
-});
-
 Then('Button theme property on preview is {string}', (theme) => {
   commonButtonPreview().should('have.class', CARBON_BUTTON_PREFIX + theme);
 });

@@ -6,7 +6,7 @@ Feature: Flash component
 
   @positive
   Scenario Outline: Change as property
-    When I set as property to "<as>"
+    When I select as to "<as>"
       And I open component preview
     Then Flash as is set to "<as>" and icon is set to "<icon>"
     Examples:
@@ -22,21 +22,21 @@ Feature: Flash component
 
   @positive
   Scenario Outline: Change Flash message
-    When I set message property to "<message>"
+    When I set message to "<message>"
       And I open component preview
     Then Flash message is set to "<message>"
     Examples:
-      | message                  |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | message                 |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+      | <>                      |
 
   @positive
   Scenario Outline: Change timeout
-    When I set timeout property to <timeout>
+    When I set timeout to "<timeout>"
       And I open component preview
       And Flash is visible
       And I wait <timeout>
@@ -50,7 +50,7 @@ Feature: Flash component
 
   @negative
   Scenario Outline: Set timeout out of scope
-    When I set timeout property to <timeout>
+    When I set timeout to "<timeout>"
       And I open component preview
       And Flash is visible
       # wait max time

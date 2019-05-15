@@ -51,14 +51,18 @@ describe('Confirm', () => {
 
     describe('yes button', () => {
       it('triggers the onConfirm when the yes button is clicked', () => {
-        wrapper.find('[data-element="confirm"]').hostNodes().findWhere(n => n.type() === 'button').simulate('click');
+        const button = wrapper.find('[data-element="confirm"]').hostNodes();
+        expect(button.type()).toEqual('button');
+        button.simulate('click');
         expect(onConfirm).toHaveBeenCalled();
       });
     });
 
     describe('no button', () => {
       it('triggers the onCancel when the no button is clicked', () => {
-        wrapper.find('[data-element="cancel"]').hostNodes().findWhere(n => n.type() === 'button').simulate('click');
+        const button = wrapper.find('[data-element="cancel"]').hostNodes();
+        expect(button.type()).toEqual('button');
+        button.simulate('click');
         expect(onCancel).toHaveBeenCalled();
       });
     });
@@ -77,8 +81,11 @@ describe('Confirm', () => {
       });
 
       it('returns a custom labels', () => {
-        expect(wrapper.find('.carbon-button--primary').text()).toEqual('Delete');
-        expect(wrapper.find('.carbon-button--secondary').text()).toEqual('Cancel');
+        const deleteButton = wrapper.find('[data-element="confirm"]');
+        const cancelButton = wrapper.find('[data-element="cancel"]');
+
+        expect(deleteButton.hostNodes().text()).toEqual('Delete');
+        expect(cancelButton.hostNodes().text()).toEqual('Cancel');
       });
     });
   });
