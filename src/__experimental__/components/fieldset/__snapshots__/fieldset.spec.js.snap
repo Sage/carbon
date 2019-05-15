@@ -39,6 +39,21 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
         "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
         "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
       },
+      "table": Object {
+        "header": "#335B6D",
+        "hover": "#E5EAEC",
+        "primary": "#F2F4F5",
+        "secondary": "#CCD6DA",
+        "selected": "#D8E0E3",
+        "sizes": Object {
+          "compact": "24px",
+          "large": "48px",
+          "medium": "40px",
+          "small": "32px",
+        },
+        "tertiary": "#19475B",
+        "zebra": "#F9FAFB",
+      },
       "text": Object {
         "color": "rgba(0,0,0,0.9)",
         "placeholder": "rgba(0,0,0,0.3)",
@@ -116,6 +131,21 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
           "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
           "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
           "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+        },
+        "table": Object {
+          "header": "#335B6D",
+          "hover": "#E5EAEC",
+          "primary": "#F2F4F5",
+          "secondary": "#CCD6DA",
+          "selected": "#D8E0E3",
+          "sizes": Object {
+            "compact": "24px",
+            "large": "48px",
+            "medium": "40px",
+            "small": "32px",
+          },
+          "tertiary": "#19475B",
+          "zebra": "#F9FAFB",
         },
         "text": Object {
           "color": "rgba(0,0,0,0.9)",

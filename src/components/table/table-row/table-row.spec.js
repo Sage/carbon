@@ -7,7 +7,6 @@ import TableRow from './table-row.component';
 import TableHeader from '../table-header';
 import DraggableTableCell from '../draggable-table-cell';
 import StyledTable from '../table.style';
-import StyledTableCell from '../table-cell/table-cell.style';
 import Checkbox from '../../checkbox';
 import BaseTheme from '../../../style/themes/base';
 import ClassicTheme from '../../../style/themes/classic';
