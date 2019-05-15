@@ -406,7 +406,10 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
         },
         "displayName": "styled.table",
         "foldedComponentIds": Array [],
-        "propTyopes": Object {},
+        "propTypes": Object {
+          "isZebra": [Function],
+          "tableType": [Function],
+        },
         "render": [Function],
         "styledComponentId": "sc-bxivhb",
         "target": "table",

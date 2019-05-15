@@ -159,8 +159,6 @@ describe('Table', () => {
   });
 
   describe('selectRow', () => {
-    // row;
-
     beforeEach(() => {
       row = TestUtils.findRenderedComponentWithType(instance, TableRow);
       spyOn(row, 'setState');
@@ -190,8 +188,6 @@ describe('Table', () => {
     });
 
     describe('if multi select', () => {
-      // spy;
-
       beforeEach(() => {
         spy = jasmine.createSpy();
         instance = TestUtils.renderIntoDocument(<Table onSelect={ spy } selectable><TableRow uniqueID='foo' /></Table>);
@@ -319,8 +315,6 @@ describe('Table', () => {
   });
 
   describe('selectAll', () => {
-    // row;
-
     beforeEach(() => {
       row = TestUtils.findRenderedComponentWithType(instance, TableRow);
       instance.rows = {
@@ -972,7 +966,6 @@ describe('Table', () => {
     it('renders a table with correct classes', () => {
       const parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
       expect(parent).toBeDefined();
-      // expect(parent.className).toEqual('carbon-table foo carbon-table--primary');
     });
 
     it('renders a caption tag when a caption prop is given', () => {

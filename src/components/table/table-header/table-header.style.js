@@ -1,13 +1,14 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
+import { isClassic } from '../../../utils/helpers/style-helper';
 import { THEMES } from '../../../style/themes';
 
 const StyledTableHeader = styled.th`
   ${({
     align, sortable, theme, size
   }) => {
-    const { table, colors } = theme;
+    const { table, colors, name } = theme;
     return css`
       background-color: ${table.header};
       border-bottom: 1px solid ${table.secondary};
@@ -17,7 +18,7 @@ const StyledTableHeader = styled.th`
       box-sizing: border-box;
       color: ${colors.white};
       font-weight: 700;
-      height: ${isClassic(theme) ? table.sizes.medium : table.sizes[size]};
+      height: ${isClassic(theme) || name === THEMES.base ? table.sizes.medium : table.sizes[size]};
       outline: medium none;
       padding: 0 8px;
       position: relative;
@@ -64,10 +65,6 @@ function applySortableStyling(align, colors, table) {
       }    
     }
   `;
-}
-
-function isClassic({ name }) {
-  return name === THEMES.classic || name === THEMES.base || !name;
 }
 
 StyledTableHeader.propTypes = {

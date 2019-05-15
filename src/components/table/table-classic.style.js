@@ -43,6 +43,3 @@ export {
   applyClassicInternalStyling,
   applyClassicTableStyling
 };
-
-// what do the mainclasses do?
-// CSStansition component

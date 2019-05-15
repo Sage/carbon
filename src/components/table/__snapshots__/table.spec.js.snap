@@ -1244,7 +1244,10 @@ a {
                   },
                   "displayName": "styled.table",
                   "foldedComponentIds": Array [],
-                  "propTyopes": Object {},
+                  "propTypes": Object {
+                    "isZebra": [Function],
+                    "tableType": [Function],
+                  },
                   "render": [Function],
                   "styledComponentId": "sc-bxivhb",
                   "target": "table",

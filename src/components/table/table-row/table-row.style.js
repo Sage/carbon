@@ -1,21 +1,16 @@
 import { css } from 'styled-components';
-import PropTypes from 'prop-types';
 import StyledTableCell from '../table-cell/table-cell.style';
 import StyledTableHeader from '../table-header/table-header.style';
-import baseTheme from '../../../style/themes/base';
+import { isClassic } from '../../../utils/helpers/style-helper';
 import { THEMES } from '../../../style/themes';
 
 const StyledTableRow = css`
   .carbon-table-row {
-    ${addCommonStyling}
+    ${applyRowStyling}
   }
 `;
 
-function isClassic({ name }) {
-  return name === THEMES.classic || name === THEMES.base;
-}
-
-function addCommonStyling(props) {
+function applyRowStyling(props) {
   const { theme } = props;
   return css`
     .custom-drag-layer {
@@ -46,7 +41,7 @@ function addCommonStyling(props) {
       }
     }
 
-    ${isClassic(theme) ? applyClassicStyling : applyModernStyling}
+    ${isClassic(theme) || theme.name === THEMES.base ? applyClassicStyling : applyModernStyling}
     ${selectableRowStyling}
     ${selectedRowStyling}
     ${highlightRowStyling}
@@ -115,19 +110,19 @@ function selectableRowStyling() {
 }
 
 function selectedRowStyling ({ theme }) {
-  const { table, colors } = theme;
+  const { table, colors, name } = theme;
   return css`
     .carbon-table-row--selected,
     .carbon-table-row--selected:nth-child(odd),
     .carbon-table-row--selected:hover {
       ${StyledTableCell} {
-        background-color: ${isClassic(theme) ? '#1573E6' : table.selected};
-        border-bottom-color: ${isClassic(theme) ? '#255BC7' : table.selected};
-        color: ${isClassic(theme) ? colors.white : ''};
+        background-color: ${isClassic(theme) || name === THEMES.base ? '#1573E6' : table.selected};
+        border-bottom-color: ${isClassic(theme) || name === THEMES.base ? '#255BC7' : table.selected};
+        color: ${isClassic(theme) || name === THEMES.base ? colors.white : ''};
         position: relative;
     
         &:before {
-          background-color: ${isClassic(theme) ? '#255BC7' : ''};
+          background-color: ${isClassic(theme) || name === THEMES.base ? '#255BC7' : ''};
           content: "";
           height: 1px;
           left: 0;
@@ -141,7 +136,7 @@ function selectedRowStyling ({ theme }) {
 }
 
 function highlightRowStyling({ theme }) {
-  const { table } = theme;
+  const { table, name } = theme;
   return css`
     && .carbon-table-row--clickable {
       cursor: pointer;
@@ -149,12 +144,12 @@ function highlightRowStyling({ theme }) {
 
     && .carbon-table-row--highlighted {
       ${StyledTableCell} {
-        background-color: ${isClassic(theme) ? '#D0E3FA' : table.selected};
-        border-bottom-color: ${isClassic(theme) ? '#1573E6' : table.selected};
+        background-color: ${isClassic(theme) || name === THEMES.base ? '#D0E3FA' : table.selected};
+        border-bottom-color: ${isClassic(theme) || name === THEMES.base ? '#1573E6' : table.selected};
         position: relative;
   
         &:before {
-          background-color: ${isClassic(theme) ? '#1573E6' : ''};
+          background-color: ${isClassic(theme) || name === THEMES.base ? '#1573E6' : ''};
           content: "";
           height: 1px;
           left: 0;
@@ -166,7 +161,7 @@ function highlightRowStyling({ theme }) {
   
       &:hover {
         ${StyledTableCell} {
-          background-color: ${isClassic(theme) ? '#D0E3FA' : table.selected};
+          background-color: ${isClassic(theme) || name === THEMES.base ? '#D0E3FA' : table.selected};
         }
       }
     }
@@ -202,43 +197,4 @@ function dragRowStyling() {
     }
 `;
 }
-
-StyledTableRow.propTypes = {
-
-  /**
-   * Enables multi-selectable table rows.
-   */
-  selectable: PropTypes.bool,
-
-  /**
-   * Enables highlightable table rows.
-   */
-  highlightable: PropTypes.bool,
-
-  /**
-   * Allows developers to manually control selected state for the styled row component.
-   */
-  selected: PropTypes.bool,
-
-  /**
-   * Allows developers to manually control highlighted state for the styled row component.
-   */
-  highlighted: PropTypes.bool,
-
-  /**
-   * Allows developers to manually control isDragged state for the styled row component.
-   */
-  isDragged: PropTypes.bool,
-
-  /**
-   * Allows developers to manually control draggable state for the styled row component.
-   */
-  isDragging: PropTypes.func
-};
-
-StyledTableRow.defaultProps = {
-  theme: baseTheme,
-  selected: false
-};
-
 export default StyledTableRow;

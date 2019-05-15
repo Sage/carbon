@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import PropTypes from 'prop-types';
 import {
   applyClassicInternalStyling,
   applyClassicTableStyling
@@ -10,6 +11,7 @@ import {
 import tableRowStyling from './table-row/table-row.style';
 import StyledLink from '../link/link-classic.style';
 import baseTheme from '../../style/themes/base';
+import { isClassic } from '../../utils/helpers/style-helper';
 import { THEMES } from '../../style/themes';
 
 const StyledTable = styled.table`
@@ -22,7 +24,8 @@ const StyledTable = styled.table`
   word-break: break-all;
   
   ${(props) => {
-    return isClassic(props.theme) ? applyClassicTableStyling(props) : applyModernTableStyling(props);
+    if (isClassic(props.theme) || props.theme.name === THEMES.base) return applyClassicTableStyling(props);
+    return applyModernTableStyling(props);
   }}
 
   & caption {
@@ -40,10 +43,6 @@ const StyledTable = styled.table`
 
   ${tableRowStyling}
 `;
-
-function isClassic({ name }) {
-  return name === THEMES.classic || name === THEMES.base || !name;
-}
 
 function applyPaginationStyle() {
   return css`
@@ -97,11 +96,20 @@ export const StyledInternalTableWrapper = styled.div`
 `;
 
 function styleInternalWrapper(props) {
-  return isClassic(props.theme) ? applyClassicInternalStyling(props) : applyModernInternalStyling(props);
+  if (isClassic(props.theme) || props.theme.name === THEMES.base) return applyClassicInternalStyling(props);
+  return applyModernInternalStyling(props);
 }
 
-StyledTable.propTyopes = {
+StyledTable.propTypes = {
+  /**
+   * Toggles the type variations of the table
+   */
+  tableType: PropTypes.oneOf(['primary', 'dark', 'secondary', 'light', 'tertiary', 'transparent']),
 
+  /**
+   * Toggles the zebra striping for the table rows
+   */
+  isZebra: PropTypes.bool
 };
 
 StyledTable.defaultProps = {

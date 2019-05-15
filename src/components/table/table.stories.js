@@ -7,7 +7,7 @@ import countriesList from '../../../demo/data/countries';
 import Button from '../button';
 import MultiActionButton from '../multi-action-button';
 import {
-  Table, TableCell, TableHeader, TableRow, TableSubheader
+  Table, TableCell, TableHeader, TableRow
 } from '.';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
@@ -51,10 +51,6 @@ const buildRows = (pageSizeFromKnobs) => {
         Country
         </TableHeader>
         <TableHeader scope='col'>Code</TableHeader>
-        <TableSubheader
-          className='foo' align='right'
-          style={ { width: '50px' } }
-        />
       </TableRow>
       {rowsCountries.map(row => (
         <TableRow
