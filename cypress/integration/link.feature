@@ -18,7 +18,7 @@ Feature: Link component
       | <>                       |
 
   @positive
-  Scenario: enable Link component
+  Scenario: Enable Link component
     When I disable Link component
     Then Link is disabled
 
