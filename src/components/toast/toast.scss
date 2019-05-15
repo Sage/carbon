@@ -67,28 +67,28 @@ $toast-width: 300px !default;
   white-space: pre-wrap;
 }
 
-@mixin toast-theme($type, $color, $border, $background, $color-hover) {
-  .carbon-toast--#{$type} {
-    box-shadow: 0 15px 20px 0 rgba($grey-shadow, 0.2);
-    background-color: $background;
+// @mixin toast-theme($type, $color, $border, $background, $color-hover) {
+//   .carbon-toast--#{$type} {
+//     box-shadow: 0 15px 20px 0 rgba($grey-shadow, 0.2);
+//     background-color: $background;
 
-    .carbon-toast__type {
-      background-color: $color;
-    }
+//     .carbon-toast__type {
+//       background-color: $color;
+//     }
 
-    strong {
-      color: $color;
-    }
+//     strong {
+//       color: $color;
+//     }
 
-    .carbon-toast__close {
-      color: $color;
-    }
-  }
-}
+//     .carbon-toast__close {
+//       color: $color;
+//     }
+//   }
+// }
 
-@each $set in $colorIconSets {
-  @include toast-theme($set...);
-}
+// @each $set in $colorIconSets {
+//   @include toast-theme($set...);
+// }
 
 // toast animation:
 .toast-appear,

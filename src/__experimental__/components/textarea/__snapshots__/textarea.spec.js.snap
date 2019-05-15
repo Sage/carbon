@@ -113,8 +113,12 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
       theme={
         Object {
           "colors": Object {
+            "base": "#00A376",
             "border": "#668491",
             "brand": "#00DC00",
+            "destructive": Object {
+              "hover": "#9F2C3F",
+            },
             "error": "#C7384F",
             "focus": "#FFB500",
             "focusedIcon": "#335B6D",
@@ -126,10 +130,13 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
             "tertiary": "#004400",
             "warning": "#E96400",
             "white": "#FFFFFF",
+            "whiteMix": "#E5F4E5",
           },
           "disabled": Object {
             "background": "#E5EAEC",
             "border": "#CCD6DA",
+            "button": "#E5EAEC",
+            "buttonText": "rgba(0,0,0,.2)",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
             "text": "rgba(0,0,0,0.3)",
@@ -179,8 +186,12 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
             "defaultProps": Object {
               "theme": Object {
                 "colors": Object {
+                  "base": "#00A376",
                   "border": "#668491",
                   "brand": "#00DC00",
+                  "destructive": Object {
+                    "hover": "#9F2C3F",
+                  },
                   "error": "#C7384F",
                   "focus": "#FFB500",
                   "focusedIcon": "#335B6D",
@@ -192,10 +203,13 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                   "tertiary": "#004400",
                   "warning": "#E96400",
                   "white": "#FFFFFF",
+                  "whiteMix": "#E5F4E5",
                 },
                 "disabled": Object {
                   "background": "#E5EAEC",
                   "border": "#CCD6DA",
+                  "button": "#E5EAEC",
+                  "buttonText": "rgba(0,0,0,.2)",
                   "disabled": "rgba(0,0,0,0.55)",
                   "input": "#F2F4F5",
                   "text": "rgba(0,0,0,0.3)",
@@ -232,8 +246,12 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
         theme={
           Object {
             "colors": Object {
+              "base": "#00A376",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
               "focus": "#FFB500",
               "focusedIcon": "#335B6D",
@@ -245,10 +263,13 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
               "tertiary": "#004400",
               "warning": "#E96400",
               "white": "#FFFFFF",
+              "whiteMix": "#E5F4E5",
             },
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
+              "button": "#E5EAEC",
+              "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
@@ -295,8 +316,12 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
               theme={
                 Object {
                   "colors": Object {
+                    "base": "#00A376",
                     "border": "#668491",
                     "brand": "#00DC00",
+                    "destructive": Object {
+                      "hover": "#9F2C3F",
+                    },
                     "error": "#C7384F",
                     "focus": "#FFB500",
                     "focusedIcon": "#335B6D",
@@ -308,10 +333,13 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                     "tertiary": "#004400",
                     "warning": "#E96400",
                     "white": "#FFFFFF",
+                    "whiteMix": "#E5F4E5",
                   },
                   "disabled": Object {
                     "background": "#E5EAEC",
                     "border": "#CCD6DA",
+                    "button": "#E5EAEC",
+                    "buttonText": "rgba(0,0,0,.2)",
                     "disabled": "rgba(0,0,0,0.55)",
                     "input": "#F2F4F5",
                     "text": "rgba(0,0,0,0.3)",
@@ -413,8 +441,12 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                       "size": "medium",
                       "theme": Object {
                         "colors": Object {
+                          "base": "#00A376",
                           "border": "#668491",
                           "brand": "#00DC00",
+                          "destructive": Object {
+                            "hover": "#9F2C3F",
+                          },
                           "error": "#C7384F",
                           "focus": "#FFB500",
                           "focusedIcon": "#335B6D",
@@ -426,10 +458,13 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                           "tertiary": "#004400",
                           "warning": "#E96400",
                           "white": "#FFFFFF",
+                          "whiteMix": "#E5F4E5",
                         },
                         "disabled": Object {
                           "background": "#E5EAEC",
                           "border": "#CCD6DA",
+                          "button": "#E5EAEC",
+                          "buttonText": "rgba(0,0,0,.2)",
                           "disabled": "rgba(0,0,0,0.55)",
                           "input": "#F2F4F5",
                           "text": "rgba(0,0,0,0.3)",
@@ -573,8 +608,12 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                 theme={
                   Object {
                     "colors": Object {
+                      "base": "#00A376",
                       "border": "#668491",
                       "brand": "#00DC00",
+                      "destructive": Object {
+                        "hover": "#9F2C3F",
+                      },
                       "error": "#C7384F",
                       "focus": "#FFB500",
                       "focusedIcon": "#335B6D",
@@ -586,10 +625,13 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                       "tertiary": "#004400",
                       "warning": "#E96400",
                       "white": "#FFFFFF",
+                      "whiteMix": "#E5F4E5",
                     },
                     "disabled": Object {
                       "background": "#E5EAEC",
                       "border": "#CCD6DA",
+                      "button": "#E5EAEC",
+                      "buttonText": "rgba(0,0,0,.2)",
                       "disabled": "rgba(0,0,0,0.55)",
                       "input": "#F2F4F5",
                       "text": "rgba(0,0,0,0.3)",
@@ -648,8 +690,12 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                       theme={
                         Object {
                           "colors": Object {
+                            "base": "#00A376",
                             "border": "#668491",
                             "brand": "#00DC00",
+                            "destructive": Object {
+                              "hover": "#9F2C3F",
+                            },
                             "error": "#C7384F",
                             "focus": "#FFB500",
                             "focusedIcon": "#335B6D",
@@ -661,10 +707,13 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                             "tertiary": "#004400",
                             "warning": "#E96400",
                             "white": "#FFFFFF",
+                            "whiteMix": "#E5F4E5",
                           },
                           "disabled": Object {
                             "background": "#E5EAEC",
                             "border": "#CCD6DA",
+                            "button": "#E5EAEC",
+                            "buttonText": "rgba(0,0,0,.2)",
                             "disabled": "rgba(0,0,0,0.55)",
                             "input": "#F2F4F5",
                             "text": "rgba(0,0,0,0.3)",
@@ -745,8 +794,12 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                             "defaultProps": Object {
                               "theme": Object {
                                 "colors": Object {
+                                  "base": "#00A376",
                                   "border": "#668491",
                                   "brand": "#00DC00",
+                                  "destructive": Object {
+                                    "hover": "#9F2C3F",
+                                  },
                                   "error": "#C7384F",
                                   "focus": "#FFB500",
                                   "focusedIcon": "#335B6D",
@@ -758,10 +811,13 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                                   "tertiary": "#004400",
                                   "warning": "#E96400",
                                   "white": "#FFFFFF",
+                                  "whiteMix": "#E5F4E5",
                                 },
                                 "disabled": Object {
                                   "background": "#E5EAEC",
                                   "border": "#CCD6DA",
+                                  "button": "#E5EAEC",
+                                  "buttonText": "rgba(0,0,0,.2)",
                                   "disabled": "rgba(0,0,0,0.55)",
                                   "input": "#F2F4F5",
                                   "text": "rgba(0,0,0,0.3)",
@@ -817,8 +873,12 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                         theme={
                           Object {
                             "colors": Object {
+                              "base": "#00A376",
                               "border": "#668491",
                               "brand": "#00DC00",
+                              "destructive": Object {
+                                "hover": "#9F2C3F",
+                              },
                               "error": "#C7384F",
                               "focus": "#FFB500",
                               "focusedIcon": "#335B6D",
@@ -830,10 +890,13 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                               "tertiary": "#004400",
                               "warning": "#E96400",
                               "white": "#FFFFFF",
+                              "whiteMix": "#E5F4E5",
                             },
                             "disabled": Object {
                               "background": "#E5EAEC",
                               "border": "#CCD6DA",
+                              "button": "#E5EAEC",
+                              "buttonText": "rgba(0,0,0,.2)",
                               "disabled": "rgba(0,0,0,0.55)",
                               "input": "#F2F4F5",
                               "text": "rgba(0,0,0,0.3)",
@@ -893,8 +956,12 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
       theme={
         Object {
           "colors": Object {
+            "base": "#00A376",
             "border": "#668491",
             "brand": "#00DC00",
+            "destructive": Object {
+              "hover": "#9F2C3F",
+            },
             "error": "#C7384F",
             "focus": "#FFB500",
             "focusedIcon": "#335B6D",
@@ -906,10 +973,13 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
             "tertiary": "#004400",
             "warning": "#E96400",
             "white": "#FFFFFF",
+            "whiteMix": "#E5F4E5",
           },
           "disabled": Object {
             "background": "#E5EAEC",
             "border": "#CCD6DA",
+            "button": "#E5EAEC",
+            "buttonText": "rgba(0,0,0,.2)",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
             "text": "rgba(0,0,0,0.3)",
@@ -940,8 +1010,12 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
         theme={
           Object {
             "colors": Object {
+              "base": "#00A376",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
               "focus": "#FFB500",
               "focusedIcon": "#335B6D",
@@ -953,10 +1027,13 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
               "tertiary": "#004400",
               "warning": "#E96400",
               "white": "#FFFFFF",
+              "whiteMix": "#E5F4E5",
             },
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
+              "button": "#E5EAEC",
+              "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
@@ -1010,8 +1087,12 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
               "defaultProps": Object {
                 "theme": Object {
                   "colors": Object {
+                    "base": "#00A376",
                     "border": "#668491",
                     "brand": "#00DC00",
+                    "destructive": Object {
+                      "hover": "#9F2C3F",
+                    },
                     "error": "#C7384F",
                     "focus": "#FFB500",
                     "focusedIcon": "#335B6D",
@@ -1023,10 +1104,13 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                     "tertiary": "#004400",
                     "warning": "#E96400",
                     "white": "#FFFFFF",
+                    "whiteMix": "#E5F4E5",
                   },
                   "disabled": Object {
                     "background": "#E5EAEC",
                     "border": "#CCD6DA",
+                    "button": "#E5EAEC",
+                    "buttonText": "rgba(0,0,0,.2)",
                     "disabled": "rgba(0,0,0,0.55)",
                     "input": "#F2F4F5",
                     "text": "rgba(0,0,0,0.3)",
@@ -1064,8 +1148,12 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
           theme={
             Object {
               "colors": Object {
+                "base": "#00A376",
                 "border": "#668491",
                 "brand": "#00DC00",
+                "destructive": Object {
+                  "hover": "#9F2C3F",
+                },
                 "error": "#C7384F",
                 "focus": "#FFB500",
                 "focusedIcon": "#335B6D",
@@ -1077,10 +1165,13 @@ exports[`Textarea when rendered and when characterLimit prop is defined and when
                 "tertiary": "#004400",
                 "warning": "#E96400",
                 "white": "#FFFFFF",
+                "whiteMix": "#E5F4E5",
               },
               "disabled": Object {
                 "background": "#E5EAEC",
                 "border": "#CCD6DA",
+                "button": "#E5EAEC",
+                "buttonText": "rgba(0,0,0,.2)",
                 "disabled": "rgba(0,0,0,0.55)",
                 "input": "#F2F4F5",
                 "text": "rgba(0,0,0,0.3)",
@@ -1220,8 +1311,12 @@ exports[`Textarea when rendered should render default 1`] = `
       theme={
         Object {
           "colors": Object {
+            "base": "#00A376",
             "border": "#668491",
             "brand": "#00DC00",
+            "destructive": Object {
+              "hover": "#9F2C3F",
+            },
             "error": "#C7384F",
             "focus": "#FFB500",
             "focusedIcon": "#335B6D",
@@ -1233,10 +1328,13 @@ exports[`Textarea when rendered should render default 1`] = `
             "tertiary": "#004400",
             "warning": "#E96400",
             "white": "#FFFFFF",
+            "whiteMix": "#E5F4E5",
           },
           "disabled": Object {
             "background": "#E5EAEC",
             "border": "#CCD6DA",
+            "button": "#E5EAEC",
+            "buttonText": "rgba(0,0,0,.2)",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
             "text": "rgba(0,0,0,0.3)",
@@ -1286,8 +1384,12 @@ exports[`Textarea when rendered should render default 1`] = `
             "defaultProps": Object {
               "theme": Object {
                 "colors": Object {
+                  "base": "#00A376",
                   "border": "#668491",
                   "brand": "#00DC00",
+                  "destructive": Object {
+                    "hover": "#9F2C3F",
+                  },
                   "error": "#C7384F",
                   "focus": "#FFB500",
                   "focusedIcon": "#335B6D",
@@ -1299,10 +1401,13 @@ exports[`Textarea when rendered should render default 1`] = `
                   "tertiary": "#004400",
                   "warning": "#E96400",
                   "white": "#FFFFFF",
+                  "whiteMix": "#E5F4E5",
                 },
                 "disabled": Object {
                   "background": "#E5EAEC",
                   "border": "#CCD6DA",
+                  "button": "#E5EAEC",
+                  "buttonText": "rgba(0,0,0,.2)",
                   "disabled": "rgba(0,0,0,0.55)",
                   "input": "#F2F4F5",
                   "text": "rgba(0,0,0,0.3)",
@@ -1339,8 +1444,12 @@ exports[`Textarea when rendered should render default 1`] = `
         theme={
           Object {
             "colors": Object {
+              "base": "#00A376",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
               "focus": "#FFB500",
               "focusedIcon": "#335B6D",
@@ -1352,10 +1461,13 @@ exports[`Textarea when rendered should render default 1`] = `
               "tertiary": "#004400",
               "warning": "#E96400",
               "white": "#FFFFFF",
+              "whiteMix": "#E5F4E5",
             },
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
+              "button": "#E5EAEC",
+              "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
@@ -1401,8 +1513,12 @@ exports[`Textarea when rendered should render default 1`] = `
               theme={
                 Object {
                   "colors": Object {
+                    "base": "#00A376",
                     "border": "#668491",
                     "brand": "#00DC00",
+                    "destructive": Object {
+                      "hover": "#9F2C3F",
+                    },
                     "error": "#C7384F",
                     "focus": "#FFB500",
                     "focusedIcon": "#335B6D",
@@ -1414,10 +1530,13 @@ exports[`Textarea when rendered should render default 1`] = `
                     "tertiary": "#004400",
                     "warning": "#E96400",
                     "white": "#FFFFFF",
+                    "whiteMix": "#E5F4E5",
                   },
                   "disabled": Object {
                     "background": "#E5EAEC",
                     "border": "#CCD6DA",
+                    "button": "#E5EAEC",
+                    "buttonText": "rgba(0,0,0,.2)",
                     "disabled": "rgba(0,0,0,0.55)",
                     "input": "#F2F4F5",
                     "text": "rgba(0,0,0,0.3)",
@@ -1518,8 +1637,12 @@ exports[`Textarea when rendered should render default 1`] = `
                       "size": "medium",
                       "theme": Object {
                         "colors": Object {
+                          "base": "#00A376",
                           "border": "#668491",
                           "brand": "#00DC00",
+                          "destructive": Object {
+                            "hover": "#9F2C3F",
+                          },
                           "error": "#C7384F",
                           "focus": "#FFB500",
                           "focusedIcon": "#335B6D",
@@ -1531,10 +1654,13 @@ exports[`Textarea when rendered should render default 1`] = `
                           "tertiary": "#004400",
                           "warning": "#E96400",
                           "white": "#FFFFFF",
+                          "whiteMix": "#E5F4E5",
                         },
                         "disabled": Object {
                           "background": "#E5EAEC",
                           "border": "#CCD6DA",
+                          "button": "#E5EAEC",
+                          "buttonText": "rgba(0,0,0,.2)",
                           "disabled": "rgba(0,0,0,0.55)",
                           "input": "#F2F4F5",
                           "text": "rgba(0,0,0,0.3)",
@@ -1674,8 +1800,12 @@ exports[`Textarea when rendered should render default 1`] = `
                 theme={
                   Object {
                     "colors": Object {
+                      "base": "#00A376",
                       "border": "#668491",
                       "brand": "#00DC00",
+                      "destructive": Object {
+                        "hover": "#9F2C3F",
+                      },
                       "error": "#C7384F",
                       "focus": "#FFB500",
                       "focusedIcon": "#335B6D",
@@ -1687,10 +1817,13 @@ exports[`Textarea when rendered should render default 1`] = `
                       "tertiary": "#004400",
                       "warning": "#E96400",
                       "white": "#FFFFFF",
+                      "whiteMix": "#E5F4E5",
                     },
                     "disabled": Object {
                       "background": "#E5EAEC",
                       "border": "#CCD6DA",
+                      "button": "#E5EAEC",
+                      "buttonText": "rgba(0,0,0,.2)",
                       "disabled": "rgba(0,0,0,0.55)",
                       "input": "#F2F4F5",
                       "text": "rgba(0,0,0,0.3)",
@@ -1744,8 +1877,12 @@ exports[`Textarea when rendered should render default 1`] = `
                       theme={
                         Object {
                           "colors": Object {
+                            "base": "#00A376",
                             "border": "#668491",
                             "brand": "#00DC00",
+                            "destructive": Object {
+                              "hover": "#9F2C3F",
+                            },
                             "error": "#C7384F",
                             "focus": "#FFB500",
                             "focusedIcon": "#335B6D",
@@ -1757,10 +1894,13 @@ exports[`Textarea when rendered should render default 1`] = `
                             "tertiary": "#004400",
                             "warning": "#E96400",
                             "white": "#FFFFFF",
+                            "whiteMix": "#E5F4E5",
                           },
                           "disabled": Object {
                             "background": "#E5EAEC",
                             "border": "#CCD6DA",
+                            "button": "#E5EAEC",
+                            "buttonText": "rgba(0,0,0,.2)",
                             "disabled": "rgba(0,0,0,0.55)",
                             "input": "#F2F4F5",
                             "text": "rgba(0,0,0,0.3)",
@@ -1840,8 +1980,12 @@ exports[`Textarea when rendered should render default 1`] = `
                             "defaultProps": Object {
                               "theme": Object {
                                 "colors": Object {
+                                  "base": "#00A376",
                                   "border": "#668491",
                                   "brand": "#00DC00",
+                                  "destructive": Object {
+                                    "hover": "#9F2C3F",
+                                  },
                                   "error": "#C7384F",
                                   "focus": "#FFB500",
                                   "focusedIcon": "#335B6D",
@@ -1853,10 +1997,13 @@ exports[`Textarea when rendered should render default 1`] = `
                                   "tertiary": "#004400",
                                   "warning": "#E96400",
                                   "white": "#FFFFFF",
+                                  "whiteMix": "#E5F4E5",
                                 },
                                 "disabled": Object {
                                   "background": "#E5EAEC",
                                   "border": "#CCD6DA",
+                                  "button": "#E5EAEC",
+                                  "buttonText": "rgba(0,0,0,.2)",
                                   "disabled": "rgba(0,0,0,0.55)",
                                   "input": "#F2F4F5",
                                   "text": "rgba(0,0,0,0.3)",
@@ -1908,8 +2055,12 @@ exports[`Textarea when rendered should render default 1`] = `
                         theme={
                           Object {
                             "colors": Object {
+                              "base": "#00A376",
                               "border": "#668491",
                               "brand": "#00DC00",
+                              "destructive": Object {
+                                "hover": "#9F2C3F",
+                              },
                               "error": "#C7384F",
                               "focus": "#FFB500",
                               "focusedIcon": "#335B6D",
@@ -1921,10 +2072,13 @@ exports[`Textarea when rendered should render default 1`] = `
                               "tertiary": "#004400",
                               "warning": "#E96400",
                               "white": "#FFFFFF",
+                              "whiteMix": "#E5F4E5",
                             },
                             "disabled": Object {
                               "background": "#E5EAEC",
                               "border": "#CCD6DA",
+                              "button": "#E5EAEC",
+                              "buttonText": "rgba(0,0,0,.2)",
                               "disabled": "rgba(0,0,0,0.55)",
                               "input": "#F2F4F5",
                               "text": "rgba(0,0,0,0.3)",

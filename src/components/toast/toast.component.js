@@ -5,7 +5,8 @@ import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 import tagComponent from '../../utils/helpers/tags/tags';
 import Portal from '../portal/portal';
-import { ToastStyle } from './toast.style';
+import { ToastStyle, ToastTypeStyle } from './toast.style';
+import OptionsHelper from '../../utils/helpers/options-helper';
 import './toast.scss';
 
 class Toast extends React.Component {
@@ -14,7 +15,7 @@ class Toast extends React.Component {
     return classNames(
       // 'carbon-toast',
       this.props.className,
-      `carbon-toast--${this.props.as}`
+      // `carbon-toast--${this.props.as}`
     );
   }
 
@@ -37,10 +38,14 @@ class Toast extends React.Component {
   get toastContent() {
     if (this.props.open) {
       return (
-        <ToastStyle className={ this.componentClasses } { ...tagComponent('toast', this.props) }>
-          <div className='carbon-toast__type'>
-            <Icon className='carbon-toast__type-icon' type={ this.props.as } />
-          </div>
+        <ToastStyle
+          toastType={ this.props.toastType || this.props.as } className={ this.componentClasses }
+          { ...tagComponent('toast', this.props) }
+        >
+          {/* <div className='carbon-toast__type'> */}
+          <ToastTypeStyle>
+            <Icon className='carbon-toast__type-icon' type={ this.props.toastType || this.props.as } />
+          </ToastTypeStyle>
           <div className='carbon-toast__content'>
             { this.props.children }
           </div>
@@ -71,7 +76,8 @@ class Toast extends React.Component {
 }
 
 Toast.propTypes = {
-  /** Customizes the appearance through colour see the 'iconColorSets' for possible values) */
+  toastType: PropTypes.oneOf(OptionsHelper.colors),
+  /** Customizes the appearance in a legacy theme through colour see the 'iconColorSets' for possible values) */
   as: PropTypes.string,
   /** Custom className */
   className: PropTypes.string,

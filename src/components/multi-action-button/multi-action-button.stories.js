@@ -4,7 +4,7 @@ import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import MultiActionButton from './multi-action-button';
 import notes from './notes.md';
-import Button from '../button/button';
+import Button from '../button';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../.storybook/style/storybook-info.styles';
 
