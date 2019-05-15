@@ -324,8 +324,12 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                     theme={
                       Object {
                         "colors": Object {
+                          "base": "#00A376",
                           "border": "#668491",
                           "brand": "#00DC00",
+                          "destructive": Object {
+                            "hover": "#9F2C3F",
+                          },
                           "error": "#C7384F",
                           "focus": "#FFB500",
                           "focusedIcon": "#335B6D",
@@ -342,7 +346,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                         "disabled": Object {
                           "background": "#E5EAEC",
                           "border": "#CCD6DA",
-                          "button": "#e6ebed",
+                          "button": "#E5EAEC",
                           "buttonText": "rgba(0,0,0,.2)",
                           "disabled": "rgba(0,0,0,0.55)",
                           "input": "#F2F4F5",
@@ -398,8 +402,12 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                           "defaultProps": Object {
                             "theme": Object {
                               "colors": Object {
+                                "base": "#00A376",
                                 "border": "#668491",
                                 "brand": "#00DC00",
+                                "destructive": Object {
+                                  "hover": "#9F2C3F",
+                                },
                                 "error": "#C7384F",
                                 "focus": "#FFB500",
                                 "focusedIcon": "#335B6D",
@@ -416,7 +424,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                               "disabled": Object {
                                 "background": "#E5EAEC",
                                 "border": "#CCD6DA",
-                                "button": "#e6ebed",
+                                "button": "#E5EAEC",
                                 "buttonText": "rgba(0,0,0,.2)",
                                 "disabled": "rgba(0,0,0,0.55)",
                                 "input": "#F2F4F5",
@@ -454,8 +462,12 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                       theme={
                         Object {
                           "colors": Object {
+                            "base": "#00A376",
                             "border": "#668491",
                             "brand": "#00DC00",
+                            "destructive": Object {
+                              "hover": "#9F2C3F",
+                            },
                             "error": "#C7384F",
                             "focus": "#FFB500",
                             "focusedIcon": "#335B6D",
@@ -472,7 +484,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                           "disabled": Object {
                             "background": "#E5EAEC",
                             "border": "#CCD6DA",
-                            "button": "#e6ebed",
+                            "button": "#E5EAEC",
                             "buttonText": "rgba(0,0,0,.2)",
                             "disabled": "rgba(0,0,0,0.55)",
                             "input": "#F2F4F5",
@@ -507,8 +519,12 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                             theme={
                               Object {
                                 "colors": Object {
+                                  "base": "#00A376",
                                   "border": "#668491",
                                   "brand": "#00DC00",
+                                  "destructive": Object {
+                                    "hover": "#9F2C3F",
+                                  },
                                   "error": "#C7384F",
                                   "focus": "#FFB500",
                                   "focusedIcon": "#335B6D",
@@ -525,7 +541,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                 "disabled": Object {
                                   "background": "#E5EAEC",
                                   "border": "#CCD6DA",
-                                  "button": "#e6ebed",
+                                  "button": "#E5EAEC",
                                   "buttonText": "rgba(0,0,0,.2)",
                                   "disabled": "rgba(0,0,0,0.55)",
                                   "input": "#F2F4F5",
@@ -603,8 +619,12 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                   "defaultProps": Object {
                                     "theme": Object {
                                       "colors": Object {
+                                        "base": "#00A376",
                                         "border": "#668491",
                                         "brand": "#00DC00",
+                                        "destructive": Object {
+                                          "hover": "#9F2C3F",
+                                        },
                                         "error": "#C7384F",
                                         "focus": "#FFB500",
                                         "focusedIcon": "#335B6D",
@@ -621,7 +641,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                       "disabled": Object {
                                         "background": "#E5EAEC",
                                         "border": "#CCD6DA",
-                                        "button": "#e6ebed",
+                                        "button": "#E5EAEC",
                                         "buttonText": "rgba(0,0,0,.2)",
                                         "disabled": "rgba(0,0,0,0.55)",
                                         "input": "#F2F4F5",
@@ -702,8 +722,12 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                               theme={
                                 Object {
                                   "colors": Object {
+                                    "base": "#00A376",
                                     "border": "#668491",
                                     "brand": "#00DC00",
+                                    "destructive": Object {
+                                      "hover": "#9F2C3F",
+                                    },
                                     "error": "#C7384F",
                                     "focus": "#FFB500",
                                     "focusedIcon": "#335B6D",
@@ -720,7 +744,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                   "disabled": Object {
                                     "background": "#E5EAEC",
                                     "border": "#CCD6DA",
-                                    "button": "#e6ebed",
+                                    "button": "#E5EAEC",
                                     "buttonText": "rgba(0,0,0,.2)",
                                     "disabled": "rgba(0,0,0,0.55)",
                                     "input": "#F2F4F5",
@@ -760,8 +784,12 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                       theme={
                                         Object {
                                           "colors": Object {
+                                            "base": "#00A376",
                                             "border": "#668491",
                                             "brand": "#00DC00",
+                                            "destructive": Object {
+                                              "hover": "#9F2C3F",
+                                            },
                                             "error": "#C7384F",
                                             "focus": "#FFB500",
                                             "focusedIcon": "#335B6D",
@@ -778,7 +806,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                           "disabled": Object {
                                             "background": "#E5EAEC",
                                             "border": "#CCD6DA",
-                                            "button": "#e6ebed",
+                                            "button": "#E5EAEC",
                                             "buttonText": "rgba(0,0,0,.2)",
                                             "disabled": "rgba(0,0,0,0.55)",
                                             "input": "#F2F4F5",
@@ -849,8 +877,12 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                             "defaultProps": Object {
                                               "theme": Object {
                                                 "colors": Object {
+                                                  "base": "#00A376",
                                                   "border": "#668491",
                                                   "brand": "#00DC00",
+                                                  "destructive": Object {
+                                                    "hover": "#9F2C3F",
+                                                  },
                                                   "error": "#C7384F",
                                                   "focus": "#FFB500",
                                                   "focusedIcon": "#335B6D",
@@ -867,7 +899,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                                 "disabled": Object {
                                                   "background": "#E5EAEC",
                                                   "border": "#CCD6DA",
-                                                  "button": "#e6ebed",
+                                                  "button": "#E5EAEC",
                                                   "buttonText": "rgba(0,0,0,.2)",
                                                   "disabled": "rgba(0,0,0,0.55)",
                                                   "input": "#F2F4F5",
@@ -907,8 +939,12 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                         theme={
                                           Object {
                                             "colors": Object {
+                                              "base": "#00A376",
                                               "border": "#668491",
                                               "brand": "#00DC00",
+                                              "destructive": Object {
+                                                "hover": "#9F2C3F",
+                                              },
                                               "error": "#C7384F",
                                               "focus": "#FFB500",
                                               "focusedIcon": "#335B6D",
@@ -925,7 +961,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                             "disabled": Object {
                                               "background": "#E5EAEC",
                                               "border": "#CCD6DA",
-                                              "button": "#e6ebed",
+                                              "button": "#E5EAEC",
                                               "buttonText": "rgba(0,0,0,.2)",
                                               "disabled": "rgba(0,0,0,0.55)",
                                               "input": "#F2F4F5",
@@ -959,8 +995,12 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                           theme={
                                             Object {
                                               "colors": Object {
+                                                "base": "#00A376",
                                                 "border": "#668491",
                                                 "brand": "#00DC00",
+                                                "destructive": Object {
+                                                  "hover": "#9F2C3F",
+                                                },
                                                 "error": "#C7384F",
                                                 "focus": "#FFB500",
                                                 "focusedIcon": "#335B6D",
@@ -977,7 +1017,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                               "disabled": Object {
                                                 "background": "#E5EAEC",
                                                 "border": "#CCD6DA",
-                                                "button": "#e6ebed",
+                                                "button": "#E5EAEC",
                                                 "buttonText": "rgba(0,0,0,.2)",
                                                 "disabled": "rgba(0,0,0,0.55)",
                                                 "input": "#F2F4F5",
@@ -1012,8 +1052,12 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                             theme={
                                               Object {
                                                 "colors": Object {
+                                                  "base": "#00A376",
                                                   "border": "#668491",
                                                   "brand": "#00DC00",
+                                                  "destructive": Object {
+                                                    "hover": "#9F2C3F",
+                                                  },
                                                   "error": "#C7384F",
                                                   "focus": "#FFB500",
                                                   "focusedIcon": "#335B6D",
@@ -1030,7 +1074,7 @@ exports[`DialogFullScreen tags on component include correct component, elements 
                                                 "disabled": Object {
                                                   "background": "#E5EAEC",
                                                   "border": "#CCD6DA",
-                                                  "button": "#e6ebed",
+                                                  "button": "#E5EAEC",
                                                   "buttonText": "rgba(0,0,0,.2)",
                                                   "disabled": "rgba(0,0,0,0.55)",
                                                   "input": "#F2F4F5",
@@ -1231,6 +1275,9 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
         "baseBlue": "#255BC7",
         "border": "#668491",
         "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
         "error": "#C7384F",
         "focus": "#FFB500",
         "focusedIcon": "#335B6D",
@@ -1248,7 +1295,7 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#4d7080",
-        "button": "#e6ebed",
+        "button": "#E5EAEC",
         "buttonText": "rgba(0,0,0,.2)",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
@@ -1282,6 +1329,9 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
           "baseBlue": "#255BC7",
           "border": "#668491",
           "brand": "#00DC00",
+          "destructive": Object {
+            "hover": "#9F2C3F",
+          },
           "error": "#C7384F",
           "focus": "#FFB500",
           "focusedIcon": "#335B6D",
@@ -1299,7 +1349,7 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#4d7080",
-          "button": "#e6ebed",
+          "button": "#E5EAEC",
           "buttonText": "rgba(0,0,0,.2)",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
@@ -1377,8 +1427,12 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
           "defaultProps": Object {
             "theme": Object {
               "colors": Object {
+                "base": "#00A376",
                 "border": "#668491",
                 "brand": "#00DC00",
+                "destructive": Object {
+                  "hover": "#9F2C3F",
+                },
                 "error": "#C7384F",
                 "focus": "#FFB500",
                 "focusedIcon": "#335B6D",
@@ -1395,7 +1449,7 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
               "disabled": Object {
                 "background": "#E5EAEC",
                 "border": "#CCD6DA",
-                "button": "#e6ebed",
+                "button": "#E5EAEC",
                 "buttonText": "rgba(0,0,0,.2)",
                 "disabled": "rgba(0,0,0,0.55)",
                 "input": "#F2F4F5",
@@ -1437,6 +1491,9 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
             "baseBlue": "#255BC7",
             "border": "#668491",
             "brand": "#00DC00",
+            "destructive": Object {
+              "hover": "#9F2C3F",
+            },
             "error": "#C7384F",
             "focus": "#FFB500",
             "focusedIcon": "#335B6D",
@@ -1454,7 +1511,7 @@ exports[`Styled FullScreenHeading classic theme applies custom styling 1`] = `
           "disabled": Object {
             "background": "#E5EAEC",
             "border": "#4d7080",
-            "button": "#e6ebed",
+            "button": "#E5EAEC",
             "buttonText": "rgba(0,0,0,.2)",
             "disabled": "#b3c2c8",
             "input": "#1e499f",
@@ -1525,6 +1582,9 @@ exports[`Styled StyledContent classic theme applies custom styling 1`] = `
         "baseBlue": "#255BC7",
         "border": "#668491",
         "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
         "error": "#C7384F",
         "focus": "#FFB500",
         "focusedIcon": "#335B6D",
@@ -1542,7 +1602,7 @@ exports[`Styled StyledContent classic theme applies custom styling 1`] = `
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#4d7080",
-        "button": "#e6ebed",
+        "button": "#E5EAEC",
         "buttonText": "rgba(0,0,0,.2)",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
@@ -1617,6 +1677,9 @@ exports[`Styled StyledContent classic theme applies custom styling 1`] = `
           "baseBlue": "#255BC7",
           "border": "#668491",
           "brand": "#00DC00",
+          "destructive": Object {
+            "hover": "#9F2C3F",
+          },
           "error": "#C7384F",
           "focus": "#FFB500",
           "focusedIcon": "#335B6D",
@@ -1634,7 +1697,7 @@ exports[`Styled StyledContent classic theme applies custom styling 1`] = `
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#4d7080",
-          "button": "#e6ebed",
+          "button": "#E5EAEC",
           "buttonText": "rgba(0,0,0,.2)",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
@@ -1686,6 +1749,9 @@ exports[`Styled StyledDialogFullScreen classic theme applies custom styling 1`] 
         "baseBlue": "#255BC7",
         "border": "#668491",
         "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
         "error": "#C7384F",
         "focus": "#FFB500",
         "focusedIcon": "#335B6D",
@@ -1703,7 +1769,7 @@ exports[`Styled StyledDialogFullScreen classic theme applies custom styling 1`] 
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#4d7080",
-        "button": "#e6ebed",
+        "button": "#E5EAEC",
         "buttonText": "rgba(0,0,0,.2)",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
@@ -1758,8 +1824,12 @@ exports[`Styled StyledDialogFullScreen classic theme applies custom styling 1`] 
         "defaultProps": Object {
           "theme": Object {
             "colors": Object {
+              "base": "#00A376",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
               "focus": "#FFB500",
               "focusedIcon": "#335B6D",
@@ -1776,7 +1846,7 @@ exports[`Styled StyledDialogFullScreen classic theme applies custom styling 1`] 
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
-              "button": "#e6ebed",
+              "button": "#E5EAEC",
               "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
@@ -1818,6 +1888,9 @@ exports[`Styled StyledDialogFullScreen classic theme applies custom styling 1`] 
           "baseBlue": "#255BC7",
           "border": "#668491",
           "brand": "#00DC00",
+          "destructive": Object {
+            "hover": "#9F2C3F",
+          },
           "error": "#C7384F",
           "focus": "#FFB500",
           "focusedIcon": "#335B6D",
@@ -1835,7 +1908,7 @@ exports[`Styled StyledDialogFullScreen classic theme applies custom styling 1`] 
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#4d7080",
-          "button": "#e6ebed",
+          "button": "#E5EAEC",
           "buttonText": "rgba(0,0,0,.2)",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
@@ -1905,6 +1978,9 @@ exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
         "baseBlue": "#255BC7",
         "border": "#668491",
         "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
         "error": "#C7384F",
         "focus": "#FFB500",
         "focusedIcon": "#335B6D",
@@ -1922,7 +1998,7 @@ exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#4d7080",
-        "button": "#e6ebed",
+        "button": "#E5EAEC",
         "buttonText": "rgba(0,0,0,.2)",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
@@ -1991,8 +2067,12 @@ exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
         "defaultProps": Object {
           "theme": Object {
             "colors": Object {
+              "base": "#00A376",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
               "focus": "#FFB500",
               "focusedIcon": "#335B6D",
@@ -2009,7 +2089,7 @@ exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
-              "button": "#e6ebed",
+              "button": "#E5EAEC",
               "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
@@ -2052,6 +2132,9 @@ exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
           "baseBlue": "#255BC7",
           "border": "#668491",
           "brand": "#00DC00",
+          "destructive": Object {
+            "hover": "#9F2C3F",
+          },
           "error": "#C7384F",
           "focus": "#FFB500",
           "focusedIcon": "#335B6D",
@@ -2069,7 +2152,7 @@ exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#4d7080",
-          "button": "#e6ebed",
+          "button": "#E5EAEC",
           "buttonText": "rgba(0,0,0,.2)",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
@@ -2104,6 +2187,9 @@ exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
             "baseBlue": "#255BC7",
             "border": "#668491",
             "brand": "#00DC00",
+            "destructive": Object {
+              "hover": "#9F2C3F",
+            },
             "error": "#C7384F",
             "focus": "#FFB500",
             "focusedIcon": "#335B6D",
@@ -2121,7 +2207,7 @@ exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
           "disabled": Object {
             "background": "#E5EAEC",
             "border": "#4d7080",
-            "button": "#e6ebed",
+            "button": "#E5EAEC",
             "buttonText": "rgba(0,0,0,.2)",
             "disabled": "#b3c2c8",
             "input": "#1e499f",
@@ -2157,6 +2243,9 @@ exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
               "baseBlue": "#255BC7",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
               "focus": "#FFB500",
               "focusedIcon": "#335B6D",
@@ -2174,7 +2263,7 @@ exports[`Styled StyledIcon classic theme applies custom styling 1`] = `
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#4d7080",
-              "button": "#e6ebed",
+              "button": "#E5EAEC",
               "buttonText": "rgba(0,0,0,.2)",
               "disabled": "#b3c2c8",
               "input": "#1e499f",

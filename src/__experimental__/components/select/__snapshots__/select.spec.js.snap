@@ -142,8 +142,12 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
       theme={
         Object {
           "colors": Object {
+            "base": "#00A376",
             "border": "#668491",
             "brand": "#00DC00",
+            "destructive": Object {
+              "hover": "#9F2C3F",
+            },
             "error": "#C7384F",
             "focus": "#FFB500",
             "focusedIcon": "#335B6D",
@@ -160,7 +164,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
           "disabled": Object {
             "background": "#E5EAEC",
             "border": "#CCD6DA",
-            "button": "#e6ebed",
+            "button": "#E5EAEC",
             "buttonText": "rgba(0,0,0,.2)",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
@@ -211,8 +215,12 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
             "defaultProps": Object {
               "theme": Object {
                 "colors": Object {
+                  "base": "#00A376",
                   "border": "#668491",
                   "brand": "#00DC00",
+                  "destructive": Object {
+                    "hover": "#9F2C3F",
+                  },
                   "error": "#C7384F",
                   "focus": "#FFB500",
                   "focusedIcon": "#335B6D",
@@ -229,7 +237,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                 "disabled": Object {
                   "background": "#E5EAEC",
                   "border": "#CCD6DA",
-                  "button": "#e6ebed",
+                  "button": "#E5EAEC",
                   "buttonText": "rgba(0,0,0,.2)",
                   "disabled": "rgba(0,0,0,0.55)",
                   "input": "#F2F4F5",
@@ -267,8 +275,12 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
         theme={
           Object {
             "colors": Object {
+              "base": "#00A376",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
               "focus": "#FFB500",
               "focusedIcon": "#335B6D",
@@ -285,7 +297,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
-              "button": "#e6ebed",
+              "button": "#E5EAEC",
               "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
@@ -347,8 +359,12 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
               theme={
                 Object {
                   "colors": Object {
+                    "base": "#00A376",
                     "border": "#668491",
                     "brand": "#00DC00",
+                    "destructive": Object {
+                      "hover": "#9F2C3F",
+                    },
                     "error": "#C7384F",
                     "focus": "#FFB500",
                     "focusedIcon": "#335B6D",
@@ -365,7 +381,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                   "disabled": Object {
                     "background": "#E5EAEC",
                     "border": "#CCD6DA",
-                    "button": "#e6ebed",
+                    "button": "#E5EAEC",
                     "buttonText": "rgba(0,0,0,.2)",
                     "disabled": "rgba(0,0,0,0.55)",
                     "input": "#F2F4F5",
@@ -468,8 +484,12 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                       "size": "medium",
                       "theme": Object {
                         "colors": Object {
+                          "base": "#00A376",
                           "border": "#668491",
                           "brand": "#00DC00",
+                          "destructive": Object {
+                            "hover": "#9F2C3F",
+                          },
                           "error": "#C7384F",
                           "focus": "#FFB500",
                           "focusedIcon": "#335B6D",
@@ -486,7 +506,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                         "disabled": Object {
                           "background": "#E5EAEC",
                           "border": "#CCD6DA",
-                          "button": "#e6ebed",
+                          "button": "#E5EAEC",
                           "buttonText": "rgba(0,0,0,.2)",
                           "disabled": "rgba(0,0,0,0.55)",
                           "input": "#F2F4F5",
@@ -670,8 +690,12 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                 theme={
                   Object {
                     "colors": Object {
+                      "base": "#00A376",
                       "border": "#668491",
                       "brand": "#00DC00",
+                      "destructive": Object {
+                        "hover": "#9F2C3F",
+                      },
                       "error": "#C7384F",
                       "focus": "#FFB500",
                       "focusedIcon": "#335B6D",
@@ -688,7 +712,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                     "disabled": Object {
                       "background": "#E5EAEC",
                       "border": "#CCD6DA",
-                      "button": "#e6ebed",
+                      "button": "#E5EAEC",
                       "buttonText": "rgba(0,0,0,.2)",
                       "disabled": "rgba(0,0,0,0.55)",
                       "input": "#F2F4F5",
@@ -761,8 +785,12 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                       theme={
                         Object {
                           "colors": Object {
+                            "base": "#00A376",
                             "border": "#668491",
                             "brand": "#00DC00",
+                            "destructive": Object {
+                              "hover": "#9F2C3F",
+                            },
                             "error": "#C7384F",
                             "focus": "#FFB500",
                             "focusedIcon": "#335B6D",
@@ -779,7 +807,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                           "disabled": Object {
                             "background": "#E5EAEC",
                             "border": "#CCD6DA",
-                            "button": "#e6ebed",
+                            "button": "#E5EAEC",
                             "buttonText": "rgba(0,0,0,.2)",
                             "disabled": "rgba(0,0,0,0.55)",
                             "input": "#F2F4F5",
@@ -855,8 +883,12 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                             "defaultProps": Object {
                               "theme": Object {
                                 "colors": Object {
+                                  "base": "#00A376",
                                   "border": "#668491",
                                   "brand": "#00DC00",
+                                  "destructive": Object {
+                                    "hover": "#9F2C3F",
+                                  },
                                   "error": "#C7384F",
                                   "focus": "#FFB500",
                                   "focusedIcon": "#335B6D",
@@ -873,7 +905,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                                 "disabled": Object {
                                   "background": "#E5EAEC",
                                   "border": "#CCD6DA",
-                                  "button": "#e6ebed",
+                                  "button": "#E5EAEC",
                                   "buttonText": "rgba(0,0,0,.2)",
                                   "disabled": "rgba(0,0,0,0.55)",
                                   "input": "#F2F4F5",
@@ -935,8 +967,12 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                         theme={
                           Object {
                             "colors": Object {
+                              "base": "#00A376",
                               "border": "#668491",
                               "brand": "#00DC00",
+                              "destructive": Object {
+                                "hover": "#9F2C3F",
+                              },
                               "error": "#C7384F",
                               "focus": "#FFB500",
                               "focusedIcon": "#335B6D",
@@ -953,7 +989,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                             "disabled": Object {
                               "background": "#E5EAEC",
                               "border": "#CCD6DA",
-                              "button": "#e6ebed",
+                              "button": "#E5EAEC",
                               "buttonText": "rgba(0,0,0,.2)",
                               "disabled": "rgba(0,0,0,0.55)",
                               "input": "#F2F4F5",
@@ -1032,8 +1068,12 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                       theme={
                         Object {
                           "colors": Object {
+                            "base": "#00A376",
                             "border": "#668491",
                             "brand": "#00DC00",
+                            "destructive": Object {
+                              "hover": "#9F2C3F",
+                            },
                             "error": "#C7384F",
                             "focus": "#FFB500",
                             "focusedIcon": "#335B6D",
@@ -1050,7 +1090,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                           "disabled": Object {
                             "background": "#E5EAEC",
                             "border": "#CCD6DA",
-                            "button": "#e6ebed",
+                            "button": "#E5EAEC",
                             "buttonText": "rgba(0,0,0,.2)",
                             "disabled": "rgba(0,0,0,0.55)",
                             "input": "#F2F4F5",
@@ -1122,8 +1162,12 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                               "size": "medium",
                               "theme": Object {
                                 "colors": Object {
+                                  "base": "#00A376",
                                   "border": "#668491",
                                   "brand": "#00DC00",
+                                  "destructive": Object {
+                                    "hover": "#9F2C3F",
+                                  },
                                   "error": "#C7384F",
                                   "focus": "#FFB500",
                                   "focusedIcon": "#335B6D",
@@ -1140,7 +1184,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                                 "disabled": Object {
                                   "background": "#E5EAEC",
                                   "border": "#CCD6DA",
-                                  "button": "#e6ebed",
+                                  "button": "#E5EAEC",
                                   "buttonText": "rgba(0,0,0,.2)",
                                   "disabled": "rgba(0,0,0,0.55)",
                                   "input": "#F2F4F5",
@@ -1195,8 +1239,12 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                         theme={
                           Object {
                             "colors": Object {
+                              "base": "#00A376",
                               "border": "#668491",
                               "brand": "#00DC00",
+                              "destructive": Object {
+                                "hover": "#9F2C3F",
+                              },
                               "error": "#C7384F",
                               "focus": "#FFB500",
                               "focusedIcon": "#335B6D",
@@ -1213,7 +1261,7 @@ exports[`Select applies custom data-* attributes at the right level 1`] = `
                             "disabled": Object {
                               "background": "#E5EAEC",
                               "border": "#CCD6DA",
-                              "button": "#e6ebed",
+                              "button": "#E5EAEC",
                               "buttonText": "rgba(0,0,0,.2)",
                               "disabled": "rgba(0,0,0,0.55)",
                               "input": "#F2F4F5",

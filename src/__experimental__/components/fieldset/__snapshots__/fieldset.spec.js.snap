@@ -9,6 +9,9 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
         "baseBlue": "#255BC7",
         "border": "#668491",
         "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
         "error": "#C7384F",
         "focus": "#FFB500",
         "focusedIcon": "#335B6D",
@@ -26,7 +29,7 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#4d7080",
-        "button": "#e6ebed",
+        "button": "#E5EAEC",
         "buttonText": "rgba(0,0,0,.2)",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
@@ -91,6 +94,9 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
           "baseBlue": "#255BC7",
           "border": "#668491",
           "brand": "#00DC00",
+          "destructive": Object {
+            "hover": "#9F2C3F",
+          },
           "error": "#C7384F",
           "focus": "#FFB500",
           "focusedIcon": "#335B6D",
@@ -108,7 +114,7 @@ exports[`Fieldset Fieldset Legend applies classic theme styling 1`] = `
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#4d7080",
-          "button": "#e6ebed",
+          "button": "#E5EAEC",
           "buttonText": "rgba(0,0,0,.2)",
           "disabled": "#b3c2c8",
           "input": "#1e499f",

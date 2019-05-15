@@ -9,6 +9,8 @@ export default (palette) => {
 
     colors: {
       // main
+      base: palette.productGreen,
+
       primary: palette.genericGreenTint(15),
       secondary: palette.genericGreenShade(35),
       tertiary: palette.genericGreenShade(55),
@@ -28,7 +30,10 @@ export default (palette) => {
       focus: palette.gold,
       info: palette.productBlueShade(3),
       success: palette.brilliantGreenShade(20),
-      warning: palette.carrotOrange
+      warning: palette.carrotOrange,
+      destructive: {
+        hover: palette.errorRedShade(20)
+      }
     },
 
     text: {
@@ -39,10 +44,10 @@ export default (palette) => {
 
     disabled: {
       border: palette.slateTint(80),
+      button: palette.slateTint(90),
       disabled: blackWithOpacity(0.55),
       input: palette.slateTint(95),
       text: blackWithOpacity(0.3),
-      button: '#e6ebed',
       buttonText: 'rgba(0,0,0,.2)',
       background: palette.slateTint(90)
     },
