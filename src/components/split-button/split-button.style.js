@@ -119,7 +119,6 @@ function modernToggleStyle({ displayed, theme }) {
 StyledSplitButtonContainer.defaultProps = {
   theme: BaseTheme,
   medium: true,
-  renderAs: 'secondary',
   variant: 'blue'
 };
 

@@ -26,7 +26,7 @@ const getKnobs = (isClassic) => {
   if (isClassic) {
     as = select('as', OptionsHelper.themesBinary, Button.defaultProps.as);
   } else {
-    buttonType = select('buttonType', OptionsHelper.buttonTypes, Button.defaultProps.as);
+    buttonType = select('buttonType', OptionsHelper.themesBinary, Button.defaultProps.as);
   }
 
   return {

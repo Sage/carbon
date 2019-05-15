@@ -95,7 +95,7 @@ class SplitButton extends Component {
       displayed: this.state.showAdditionalButtons,
       onClick: (ev) => { ev.preventDefault(); },
       onFocus: this.showButtons,
-      renderAs: this.props.as,
+      buttonType: this.props.buttonType || this.props.as,
       size: this.props.size
     };
 
@@ -195,44 +195,23 @@ class SplitButton extends Component {
 }
 
 SplitButton.propTypes = {
-  /**
-   * Customizes the appearance, can be set to 'primary' or 'secondary'.
-   */
-  as: PropTypes.string,
-
-  /**
-   * The additional button to display.
-   */
+  /** Button type: "primary" | "secondary" */
+  buttonType: PropTypes.oneOf(OptionsHelper.themesBinary),
+  /** Button type: "primary" | "secondary" for legacy theme */
+  as: PropTypes.oneOf(OptionsHelper.themesBinary),
+  /** The additional button to display. */
   children: PropTypes.node.isRequired,
-
-  /**
-   * A custom value for the data-element attribute
-   */
+  /** A custom value for the data-element attribute */
   'data-element': PropTypes.string,
-
-  /**
-   * A custom value for the data-element attribute
-   */
+  /** A custom value for the data-role attribute */
   'data-role': PropTypes.string,
-
-  /**
-   * Gives the button a disabled state.
-   */
+  /** Gives the button a disabled state. */
   disabled: PropTypes.bool,
-
-  /**
-   * The size of the buttons in the SplitButton.
-   */
+  /** The size of the buttons in the SplitButton. */
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-
-  /**
-   * The text to be displayed in the SplitButton.
-   */
+  /** The text to be displayed in the SplitButton. */
   text: PropTypes.string.isRequired,
-
-  /**
-   * The business theme passed to the component from the theme provider
-   */
+  /** The business theme passed to the component from the theme provider */
   theme: PropTypes.object
 };
 
@@ -242,6 +221,6 @@ SplitButton.defaultProps = {
   size: 'medium'
 };
 
-SplitButton.safeProps = ['as', 'disabled', 'size'];
+SplitButton.safeProps = ['buttonType', 'as', 'disabled', 'size'];
 
 export default SplitButton;
