@@ -15,6 +15,7 @@ export default (palette) => {
       secondary: palette.genericGreenShade(35),
       tertiary: palette.genericGreenShade(55),
       brand: palette.brilliantGreen,
+      whiteMix: palette.genericGreenTint(90),
 
       // generic
       white: '#FFFFFF',
@@ -47,6 +48,7 @@ export default (palette) => {
       disabled: blackWithOpacity(0.55),
       input: palette.slateTint(95),
       text: blackWithOpacity(0.3),
+      buttonText: 'rgba(0,0,0,.2)',
       background: palette.slateTint(90)
     },
 
