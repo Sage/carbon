@@ -4,7 +4,7 @@ exports[` 1`] = `
 "
     border: 1px dashed #99adb6;
     background-color: transparent;
-    
+
     .carbon-icon::before {
         font-size:16px;
     }
