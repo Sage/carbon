@@ -4,11 +4,12 @@ import baseTheme from '../../../style/themes/base';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
+import StyledCheckboxSvgWrapper from './checkbox-svg-wrapper.style';
 import LabelStyle from '../label/label.style';
 import StyledHelp from '../help/help.style';
 import checkBoxClassicStyle from './checkbox-classic.style';
 
-const StyledCheckbox = styled.div`
+const CheckboxStyle = styled.div`
   ${({
     checked, disabled, error, fieldHelpInline, inputWidth, labelAlign, labelWidth, reverse, size, theme
   }) => css`
@@ -17,6 +18,8 @@ const StyledCheckbox = styled.div`
     ${StyledCheckableInput} {
       padding-top: 1px;
     }
+
+    ${StyledCheckboxSvgWrapper} { height: 16px; }
 
     svg {
       background-color: ${theme.colors.white};
@@ -38,8 +41,8 @@ const StyledCheckbox = styled.div`
     }
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
-      &:focus + svg,
-      &:hover + svg {
+      &:focus + ${StyledCheckboxSvgWrapper},
+      &:hover + ${StyledCheckboxSvgWrapper} {
         outline: solid 3px ${theme.colors.focus};
       }
     }
@@ -66,9 +69,11 @@ const StyledCheckbox = styled.div`
     }
 
     ${size === 'large' && css`
+      ${StyledCheckboxSvgWrapper} { height: 24px; }
+
       ${StyledCheckableInput},
       ${HiddenCheckableInputStyle},
-      ${HiddenCheckableInputStyle} + svg {
+      ${StyledCheckboxSvgWrapper} > svg {
         height: 24px;
         padding: 2px;
         width: 24px;
@@ -111,7 +116,7 @@ const StyledCheckbox = styled.div`
       svg path { fill: ${(checked ? theme.disabled.border : theme.disabled.input)}; }
 
       ${HiddenCheckableInputStyle},
-      svg,
+      ${StyledCheckboxSvgWrapper},
       ${LabelStyle} {
         &:hover, &:focus {
           outline: none;
@@ -165,12 +170,12 @@ const StyledCheckbox = styled.div`
   `}
 `;
 
-StyledCheckbox.defaultProps = {
+CheckboxStyle.defaultProps = {
   labelAlign: 'left',
   theme: baseTheme
 };
 
-StyledCheckbox.propTypes = {
+CheckboxStyle.propTypes = {
   disabled: PropTypes.bool,
   error: PropTypes.bool,
   fieldHelpInline: PropTypes.bool,
@@ -180,4 +185,4 @@ StyledCheckbox.propTypes = {
   size: PropTypes.string
 };
 
-export default StyledCheckbox;
+export default CheckboxStyle;

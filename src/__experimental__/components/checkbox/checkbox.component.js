@@ -3,23 +3,7 @@ import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import CheckboxStyle from './checkbox.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
-
-const checkboxSprite = () => {
-  return (
-    <svg
-      width='12' height='10'
-      viewBox='0 0 12 10'
-    >
-      <path
-        d={ 'M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, '
-          + '4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, '
-          + '0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z' }
-        fill='#FFFFFF'
-        fillRule='evenodd'
-      />
-    </svg>
-  );
-};
+import CheckboxSvg from './checkbox-svg.component';
 
 const Checkbox = (props) => {
   return (
@@ -31,7 +15,7 @@ const Checkbox = (props) => {
         type='checkbox'
         { ...props }
       >
-        {checkboxSprite()}
+        <CheckboxSvg />
       </CheckableInput>
     </CheckboxStyle>
   );

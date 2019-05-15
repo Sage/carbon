@@ -3,6 +3,7 @@ import { THEMES } from '../../../style/themes';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
+import StyledCheckboxSvgWrapper from './checkbox-svg-wrapper.style';
 import LabelStyle from '../label/label.style';
 import StyledHelp from '../help/help.style';
 
@@ -14,13 +15,14 @@ export default ({
   }
 
   ${HiddenCheckableInputStyle},
-  svg {
+  ${StyledCheckboxSvgWrapper} > svg {
     padding: 1px;
   }
 
   ${StyledCheckableInput},
   ${HiddenCheckableInputStyle},
-  ${HiddenCheckableInputStyle} + svg {
+  ${StyledCheckboxSvgWrapper},
+  ${StyledCheckboxSvgWrapper} > svg {
     height: 15px;
     width: 15px;
   }
@@ -51,8 +53,15 @@ export default ({
   }
 
   ${HiddenCheckableInputStyle}:not([disabled]) {
-    &:focus + svg,
-    &:hover + svg {
+    &:focus + ${StyledCheckboxSvgWrapper},
+    &:hover + ${StyledCheckboxSvgWrapper} {
+      outline: none;
+    }
+  }
+
+  ${HiddenCheckableInputStyle}:not([disabled]) {
+    &:focus + ${StyledCheckboxSvgWrapper} > svg,
+    &:hover + ${StyledCheckboxSvgWrapper} > svg {
       border: 1px solid #1963f6;
       outline: none;
     }
@@ -64,9 +73,7 @@ export default ({
 
   ${disabled && css`
     ${LabelStyle} {
-      &, & ${StyledHelp} {
-        color: ${theme.disabled.text};
-      }
+      color: ${theme.disabled.text};
     }
 
     svg {
