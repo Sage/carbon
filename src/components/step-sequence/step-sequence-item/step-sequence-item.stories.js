@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select } from '@storybook/addon-knobs';
-import StepSequenceItem from './step-sequence-item';
+import StepSequenceItem from './step-sequence-item.component';
 import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
 
 storiesOf('Step Sequence Item', module).add('default', () => {

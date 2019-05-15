@@ -3,8 +3,7 @@ import React from 'react';
 import StepSequenceItemStyle from './step-sequence-item.style';
 import StepSequenceItemContentStyle from './step-sequence-item-content.style';
 import StepSequenceItemIndicatorStyle from './step-sequence-item-indicator.style';
-
-import Icon from '../icon';
+import Icon from '../../icon';
 
 const StepSequenceItem = (props) => {
   const indicatorText = () => (

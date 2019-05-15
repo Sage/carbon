@@ -1,8 +1,8 @@
 
 import styled, { css } from 'styled-components';
 import StepSequenceClassicStyle from './step-sequence-classic.style';
-import StepSequenceItemVerticalStyle from './step-sequence-item-vertical.style';
-import StepSequenceItemVerticalClassicStyle from './step-sequence-item-vertical-classic.style';
+import StepSequenceItemVerticalStyle from './step-sequence-item/step-sequence-item-vertical.style';
+import StepSequenceItemVerticalClassicStyle from './step-sequence-item/step-sequence-item-vertical-classic.style';
 
 const StepSequenceStyle = styled.ol`
   display: flex;
