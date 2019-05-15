@@ -53,7 +53,7 @@ const classicToastStyle = ({ theme, toastType }) => theme.name === THEMES.classi
 
   ${toastType && `
     background-color: ${colors[toastType].backgroundColor}};
-
+    //TODO: Here is a problem, look at css in the chrome devtools
     ${classicToastTypeStyle}{
       background-color: ${colors[toastType].color};
     }
