@@ -70,6 +70,8 @@ const CheckboxStyle = styled.div`
     }
 
     ${size === 'large' && css`
+      ${StyledCheckboxSvgWrapper} { height: 24px; }
+
       ${StyledCheckableInput},
       ${HiddenCheckableInputStyle},
       ${StyledCheckboxSvgWrapper} > svg {
