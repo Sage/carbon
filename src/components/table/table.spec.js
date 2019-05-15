@@ -135,7 +135,9 @@ describe('Table', () => {
     });
 
     it('unselects all rows', () => {
+      /* eslint-disable no-unused-vars */
       row = { setState(value) {} };
+      /* eslint-enable no-unused-vars */
       spyOn(row, 'setState');
       instance.rows = { 0: row };
       instance.refresh();

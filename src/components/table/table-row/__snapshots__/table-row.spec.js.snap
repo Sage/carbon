@@ -248,9 +248,13 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
         "base": "#00A376",
         "border": "#668491",
         "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
         "error": "#C7384F",
-        "focus": "#FFDA7F",
+        "focus": "#FFB500",
         "focusedIcon": "#335B6D",
+        "focusedLinkBackground": "#FFDA7F",
         "info": "#0073C2",
         "primary": "#00805D",
         "secondary": "#006045",
@@ -258,10 +262,13 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
         "tertiary": "#003F2E",
         "warning": "#E96400",
         "white": "#FFFFFF",
+        "whiteMix": "#E5F5F1",
       },
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#CCD6DA",
+        "button": "#E5EAEC",
+        "buttonText": "rgba(0,0,0,.2)",
         "disabled": "rgba(0,0,0,0.55)",
         "input": "#F2F4F5",
         "text": "rgba(0,0,0,0.3)",
@@ -306,7 +313,7 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
         "$$typeof": Symbol(react.forward_ref),
         "attrs": Array [],
         "componentStyle": ComponentStyle {
-          "componentId": "sc-bxivhb",
+          "componentId": "sc-ifAKCX",
           "isStatic": false,
           "lastClassName": "c0",
           "rules": Array [
@@ -351,11 +358,16 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
         "defaultProps": Object {
           "theme": Object {
             "colors": Object {
+              "base": "#00A376",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
-              "focus": "#FFDA7F",
+              "focus": "#FFB500",
               "focusedIcon": "#335B6D",
+              "focusedLinkBackground": "#FFDA7F",
               "info": "#0073C2",
               "primary": "#26A826",
               "secondary": "#006300",
@@ -363,10 +375,13 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
               "tertiary": "#004400",
               "warning": "#E96400",
               "white": "#FFFFFF",
+              "whiteMix": "#E5F4E5",
             },
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
+              "button": "#E5EAEC",
+              "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
@@ -411,7 +426,7 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
           "tableType": [Function],
         },
         "render": [Function],
-        "styledComponentId": "sc-bxivhb",
+        "styledComponentId": "sc-ifAKCX",
         "target": "table",
         "toString": [Function],
         "warnTooManyClasses": [Function],
@@ -425,9 +440,13 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
           "base": "#00A376",
           "border": "#668491",
           "brand": "#00DC00",
+          "destructive": Object {
+            "hover": "#9F2C3F",
+          },
           "error": "#C7384F",
-          "focus": "#FFDA7F",
+          "focus": "#FFB500",
           "focusedIcon": "#335B6D",
+          "focusedLinkBackground": "#FFDA7F",
           "info": "#0073C2",
           "primary": "#00805D",
           "secondary": "#006045",
@@ -435,10 +454,13 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
           "tertiary": "#003F2E",
           "warning": "#E96400",
           "white": "#FFFFFF",
+          "whiteMix": "#E5F5F1",
         },
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#CCD6DA",
+          "button": "#E5EAEC",
+          "buttonText": "rgba(0,0,0,.2)",
           "disabled": "rgba(0,0,0,0.55)",
           "input": "#F2F4F5",
           "text": "rgba(0,0,0,0.3)",
@@ -494,11 +516,16 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
               theme={
                 Object {
                   "colors": Object {
+                    "base": "#00A376",
                     "border": "#668491",
                     "brand": "#00DC00",
+                    "destructive": Object {
+                      "hover": "#9F2C3F",
+                    },
                     "error": "#C7384F",
-                    "focus": "#FFDA7F",
+                    "focus": "#FFB500",
                     "focusedIcon": "#335B6D",
+                    "focusedLinkBackground": "#FFDA7F",
                     "info": "#0073C2",
                     "primary": "#26A826",
                     "secondary": "#006300",
@@ -506,10 +533,13 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
                     "tertiary": "#004400",
                     "warning": "#E96400",
                     "white": "#FFFFFF",
+                    "whiteMix": "#E5F4E5",
                   },
                   "disabled": Object {
                     "background": "#E5EAEC",
                     "border": "#CCD6DA",
+                    "button": "#E5EAEC",
+                    "buttonText": "rgba(0,0,0,.2)",
                     "disabled": "rgba(0,0,0,0.55)",
                     "input": "#F2F4F5",
                     "text": "rgba(0,0,0,0.3)",
@@ -570,11 +600,16 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
                     "defaultProps": Object {
                       "theme": Object {
                         "colors": Object {
+                          "base": "#00A376",
                           "border": "#668491",
                           "brand": "#00DC00",
+                          "destructive": Object {
+                            "hover": "#9F2C3F",
+                          },
                           "error": "#C7384F",
-                          "focus": "#FFDA7F",
+                          "focus": "#FFB500",
                           "focusedIcon": "#335B6D",
+                          "focusedLinkBackground": "#FFDA7F",
                           "info": "#0073C2",
                           "primary": "#26A826",
                           "secondary": "#006300",
@@ -582,10 +617,13 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
                           "tertiary": "#004400",
                           "warning": "#E96400",
                           "white": "#FFFFFF",
+                          "whiteMix": "#E5F4E5",
                         },
                         "disabled": Object {
                           "background": "#E5EAEC",
                           "border": "#CCD6DA",
+                          "button": "#E5EAEC",
+                          "buttonText": "rgba(0,0,0,.2)",
                           "disabled": "rgba(0,0,0,0.55)",
                           "input": "#F2F4F5",
                           "text": "rgba(0,0,0,0.3)",
@@ -641,11 +679,16 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
                 theme={
                   Object {
                     "colors": Object {
+                      "base": "#00A376",
                       "border": "#668491",
                       "brand": "#00DC00",
+                      "destructive": Object {
+                        "hover": "#9F2C3F",
+                      },
                       "error": "#C7384F",
-                      "focus": "#FFDA7F",
+                      "focus": "#FFB500",
                       "focusedIcon": "#335B6D",
+                      "focusedLinkBackground": "#FFDA7F",
                       "info": "#0073C2",
                       "primary": "#26A826",
                       "secondary": "#006300",
@@ -653,10 +696,13 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
                       "tertiary": "#004400",
                       "warning": "#E96400",
                       "white": "#FFFFFF",
+                      "whiteMix": "#E5F4E5",
                     },
                     "disabled": Object {
                       "background": "#E5EAEC",
                       "border": "#CCD6DA",
+                      "button": "#E5EAEC",
+                      "buttonText": "rgba(0,0,0,.2)",
                       "disabled": "rgba(0,0,0,0.55)",
                       "input": "#F2F4F5",
                       "text": "rgba(0,0,0,0.3)",
