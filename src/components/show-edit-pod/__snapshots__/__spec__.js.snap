@@ -241,7 +241,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                       "disabled": Object {
                                                         "background": "#E5EAEC",
                                                         "border": "#CCD6DA",
-                                                        "button": "#e6ebed",
+                                                        "button": "#E5EAEC",
                                                         "buttonText": "rgba(0,0,0,.2)",
                                                         "disabled": "rgba(0,0,0,0.55)",
                                                         "input": "#F2F4F5",
@@ -330,7 +330,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                             "disabled": Object {
                                                               "background": "#E5EAEC",
                                                               "border": "#CCD6DA",
-                                                              "button": "#e6ebed",
+                                                              "button": "#E5EAEC",
                                                               "buttonText": "rgba(0,0,0,.2)",
                                                               "disabled": "rgba(0,0,0,0.55)",
                                                               "input": "#F2F4F5",
@@ -407,7 +407,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                         "disabled": Object {
                                                           "background": "#E5EAEC",
                                                           "border": "#CCD6DA",
-                                                          "button": "#e6ebed",
+                                                          "button": "#E5EAEC",
                                                           "buttonText": "rgba(0,0,0,.2)",
                                                           "disabled": "rgba(0,0,0,0.55)",
                                                           "input": "#F2F4F5",
@@ -494,7 +494,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                               "disabled": Object {
                                                 "background": "#E5EAEC",
                                                 "border": "#CCD6DA",
-                                                "button": "#e6ebed",
+                                                "button": "#E5EAEC",
                                                 "buttonText": "rgba(0,0,0,.2)",
                                                 "disabled": "rgba(0,0,0,0.55)",
                                                 "input": "#F2F4F5",
@@ -564,7 +564,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                     "disabled": Object {
                                                       "background": "#E5EAEC",
                                                       "border": "#CCD6DA",
-                                                      "button": "#e6ebed",
+                                                      "button": "#E5EAEC",
                                                       "buttonText": "rgba(0,0,0,.2)",
                                                       "disabled": "rgba(0,0,0,0.55)",
                                                       "input": "#F2F4F5",
@@ -627,7 +627,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                 "disabled": Object {
                                                   "background": "#E5EAEC",
                                                   "border": "#CCD6DA",
-                                                  "button": "#e6ebed",
+                                                  "button": "#E5EAEC",
                                                   "buttonText": "rgba(0,0,0,.2)",
                                                   "disabled": "rgba(0,0,0,0.55)",
                                                   "input": "#F2F4F5",
@@ -689,7 +689,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                     "disabled": Object {
                                                       "background": "#E5EAEC",
                                                       "border": "#CCD6DA",
-                                                      "button": "#e6ebed",
+                                                      "button": "#E5EAEC",
                                                       "buttonText": "rgba(0,0,0,.2)",
                                                       "disabled": "rgba(0,0,0,0.55)",
                                                       "input": "#F2F4F5",
@@ -776,7 +776,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                           "disabled": Object {
                                                             "background": "#E5EAEC",
                                                             "border": "#CCD6DA",
-                                                            "button": "#e6ebed",
+                                                            "button": "#E5EAEC",
                                                             "buttonText": "rgba(0,0,0,.2)",
                                                             "disabled": "rgba(0,0,0,0.55)",
                                                             "input": "#F2F4F5",
@@ -839,7 +839,7 @@ exports[`ShowEditPod edit form props where onDelete is provided should get throu
                                                       "disabled": Object {
                                                         "background": "#E5EAEC",
                                                         "border": "#CCD6DA",
-                                                        "button": "#e6ebed",
+                                                        "button": "#E5EAEC",
                                                         "buttonText": "rgba(0,0,0,.2)",
                                                         "disabled": "rgba(0,0,0,0.55)",
                                                         "input": "#F2F4F5",

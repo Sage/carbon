@@ -41,7 +41,7 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#4d7080",
-        "button": "#e6ebed",
+        "button": "#E5EAEC",
         "buttonText": "rgba(0,0,0,.2)",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
@@ -97,7 +97,7 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#4d7080",
-          "button": "#e6ebed",
+          "button": "#E5EAEC",
           "buttonText": "rgba(0,0,0,.2)",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
@@ -153,7 +153,7 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
           "disabled": Object {
             "background": "#E5EAEC",
             "border": "#4d7080",
-            "button": "#e6ebed",
+            "button": "#E5EAEC",
             "buttonText": "rgba(0,0,0,.2)",
             "disabled": "#b3c2c8",
             "input": "#1e499f",
@@ -208,7 +208,7 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#4d7080",
-              "button": "#e6ebed",
+              "button": "#E5EAEC",
               "buttonText": "rgba(0,0,0,.2)",
               "disabled": "#b3c2c8",
               "input": "#1e499f",
@@ -298,7 +298,7 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
               "disabled": Object {
                 "background": "#E5EAEC",
                 "border": "#4d7080",
-                "button": "#e6ebed",
+                "button": "#E5EAEC",
                 "buttonText": "rgba(0,0,0,.2)",
                 "disabled": "#b3c2c8",
                 "input": "#1e499f",
@@ -385,7 +385,7 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#4d7080",
-        "button": "#e6ebed",
+        "button": "#E5EAEC",
         "buttonText": "rgba(0,0,0,.2)",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
@@ -441,7 +441,7 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#4d7080",
-          "button": "#e6ebed",
+          "button": "#E5EAEC",
           "buttonText": "rgba(0,0,0,.2)",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
@@ -497,7 +497,7 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
           "disabled": Object {
             "background": "#E5EAEC",
             "border": "#4d7080",
-            "button": "#e6ebed",
+            "button": "#E5EAEC",
             "buttonText": "rgba(0,0,0,.2)",
             "disabled": "#b3c2c8",
             "input": "#1e499f",
@@ -552,7 +552,7 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#4d7080",
-              "button": "#e6ebed",
+              "button": "#E5EAEC",
               "buttonText": "rgba(0,0,0,.2)",
               "disabled": "#b3c2c8",
               "input": "#1e499f",
@@ -642,7 +642,7 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
               "disabled": Object {
                 "background": "#E5EAEC",
                 "border": "#4d7080",
-                "button": "#e6ebed",
+                "button": "#E5EAEC",
                 "buttonText": "rgba(0,0,0,.2)",
                 "disabled": "#b3c2c8",
                 "input": "#1e499f",
@@ -730,7 +730,7 @@ exports[`CharacterCount when isOverLimit prop is true should be styled for warn 
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#CCD6DA",
-          "button": "#e6ebed",
+          "button": "#E5EAEC",
           "buttonText": "rgba(0,0,0,.2)",
           "disabled": "rgba(0,0,0,0.55)",
           "input": "#F2F4F5",
@@ -783,7 +783,7 @@ exports[`CharacterCount when isOverLimit prop is true should be styled for warn 
           "disabled": Object {
             "background": "#E5EAEC",
             "border": "#CCD6DA",
-            "button": "#e6ebed",
+            "button": "#E5EAEC",
             "buttonText": "rgba(0,0,0,.2)",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
@@ -859,7 +859,7 @@ exports[`CharacterCount when isOverLimit prop is true should be styled for warn 
                 "disabled": Object {
                   "background": "#E5EAEC",
                   "border": "#CCD6DA",
-                  "button": "#e6ebed",
+                  "button": "#E5EAEC",
                   "buttonText": "rgba(0,0,0,.2)",
                   "disabled": "rgba(0,0,0,0.55)",
                   "input": "#F2F4F5",
@@ -920,7 +920,7 @@ exports[`CharacterCount when isOverLimit prop is true should be styled for warn 
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
-              "button": "#e6ebed",
+              "button": "#E5EAEC",
               "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
@@ -1000,7 +1000,7 @@ exports[`CharacterCount when rendered should render default 1`] = `
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#CCD6DA",
-          "button": "#e6ebed",
+          "button": "#E5EAEC",
           "buttonText": "rgba(0,0,0,.2)",
           "disabled": "rgba(0,0,0,0.55)",
           "input": "#F2F4F5",
@@ -1053,7 +1053,7 @@ exports[`CharacterCount when rendered should render default 1`] = `
           "disabled": Object {
             "background": "#E5EAEC",
             "border": "#CCD6DA",
-            "button": "#e6ebed",
+            "button": "#E5EAEC",
             "buttonText": "rgba(0,0,0,.2)",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
@@ -1129,7 +1129,7 @@ exports[`CharacterCount when rendered should render default 1`] = `
                 "disabled": Object {
                   "background": "#E5EAEC",
                   "border": "#CCD6DA",
-                  "button": "#e6ebed",
+                  "button": "#E5EAEC",
                   "buttonText": "rgba(0,0,0,.2)",
                   "disabled": "rgba(0,0,0,0.55)",
                   "input": "#F2F4F5",
@@ -1190,7 +1190,7 @@ exports[`CharacterCount when rendered should render default 1`] = `
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
-              "button": "#e6ebed",
+              "button": "#E5EAEC",
               "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",

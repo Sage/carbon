@@ -66,7 +66,7 @@ exports[`Sidebar sidebarClasses returns a base sidebar 1`] = `
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
-              "button": "#e6ebed",
+              "button": "#E5EAEC",
               "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
@@ -117,7 +117,7 @@ exports[`Sidebar sidebarClasses returns a base sidebar 1`] = `
               "disabled": Object {
                 "background": "#E5EAEC",
                 "border": "#CCD6DA",
-                "button": "#e6ebed",
+                "button": "#E5EAEC",
                 "buttonText": "rgba(0,0,0,.2)",
                 "disabled": "rgba(0,0,0,0.55)",
                 "input": "#F2F4F5",
@@ -209,7 +209,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#4d7080",
-        "button": "#e6ebed",
+        "button": "#E5EAEC",
         "buttonText": "rgba(0,0,0,.2)",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
@@ -294,7 +294,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
-              "button": "#e6ebed",
+              "button": "#E5EAEC",
               "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
@@ -359,7 +359,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#4d7080",
-          "button": "#e6ebed",
+          "button": "#E5EAEC",
           "buttonText": "rgba(0,0,0,.2)",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
@@ -441,7 +441,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#4d7080",
-        "button": "#e6ebed",
+        "button": "#E5EAEC",
         "buttonText": "rgba(0,0,0,.2)",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
@@ -523,7 +523,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
-              "button": "#e6ebed",
+              "button": "#E5EAEC",
               "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
@@ -585,7 +585,7 @@ exports[`SidebarStyle When classic style is passed to the component should rende
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#4d7080",
-          "button": "#e6ebed",
+          "button": "#E5EAEC",
           "buttonText": "rgba(0,0,0,.2)",
           "disabled": "#b3c2c8",
           "input": "#1e499f",

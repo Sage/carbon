@@ -41,7 +41,7 @@ exports[`SidebarHeaderStyle should render base sidebar header 1`] = `
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#CCD6DA",
-        "button": "#e6ebed",
+        "button": "#E5EAEC",
         "buttonText": "rgba(0,0,0,.2)",
         "disabled": "rgba(0,0,0,0.55)",
         "input": "#F2F4F5",
@@ -125,7 +125,7 @@ exports[`SidebarHeaderStyle should render base sidebar header 1`] = `
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
-              "button": "#e6ebed",
+              "button": "#E5EAEC",
               "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
@@ -185,7 +185,7 @@ exports[`SidebarHeaderStyle should render base sidebar header 1`] = `
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#CCD6DA",
-          "button": "#e6ebed",
+          "button": "#E5EAEC",
           "buttonText": "rgba(0,0,0,.2)",
           "disabled": "rgba(0,0,0,0.55)",
           "input": "#F2F4F5",
@@ -258,7 +258,7 @@ exports[`SidebarHeaderStyle when classic theme is provided to the component shou
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#CCD6DA",
-        "button": "#e6ebed",
+        "button": "#E5EAEC",
         "buttonText": "rgba(0,0,0,.2)",
         "disabled": "rgba(0,0,0,0.55)",
         "input": "#F2F4F5",
@@ -342,7 +342,7 @@ exports[`SidebarHeaderStyle when classic theme is provided to the component shou
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
-              "button": "#e6ebed",
+              "button": "#E5EAEC",
               "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
@@ -402,7 +402,7 @@ exports[`SidebarHeaderStyle when classic theme is provided to the component shou
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#CCD6DA",
-          "button": "#e6ebed",
+          "button": "#E5EAEC",
           "buttonText": "rgba(0,0,0,.2)",
           "disabled": "rgba(0,0,0,0.55)",
           "input": "#F2F4F5",
