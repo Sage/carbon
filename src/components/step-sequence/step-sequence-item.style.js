@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import StepSequenceItemClassicStyle from './step-sequence-item-classic.style';
 
 const StepSequenceItemStyle = styled.li`
   display: flex;
@@ -46,6 +47,10 @@ const StepSequenceItemStyle = styled.li`
     &::before {
       background-color: ${theme.colors.base};
     }
+  `};
+
+  ${({ theme }) => theme.name === 'classic' && css`
+    ${StepSequenceItemClassicStyle}
   `};
 `;
 
