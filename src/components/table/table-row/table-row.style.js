@@ -1,32 +1,23 @@
-import styled, { css } from 'styled-components';
+import { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import StyledTableCell from '../table-cell/table-cell.style';
 import StyledTableHeader from '../table-header/table-header.style';
 import baseTheme from '../../../style/themes/base';
 import { THEMES } from '../../../style/themes';
 
-const StyledTableRow = styled.tr`
-  ${addCommonStyling}
+const StyledTableRow = css`
+  .carbon-table-row {
+    ${addCommonStyling}
+  }
 `;
 
 function isClassic(theme) {
-  return theme.name === THEMES.classic || !theme;
+  return theme.name === THEMES.classic || theme.name === THEMES.base || !theme;
 }
 
 function addCommonStyling(props) {
-  const { theme, highlighted } = props;
+  const { theme } = props;
   return css`
-    border-color: #E7F1FC;
-    &:hover .common-input__input {
-      border-color: #E7F1FC;
-    }
-
-    &:nth-child(2n+1) {
-      ${StyledTableCell} {
-        background-color: #ffffff;
-      }
-    }
-
     .custom-drag-layer {
       & {
         background-color: #002E41;
@@ -55,56 +46,62 @@ function addCommonStyling(props) {
       }
     }
 
+    ${isClassic(theme) ? applyClassicStyling : applyModernStyling}
+    ${selectableRowStyling}
+    ${selectedRowStyling}
+    ${highlightRowStyling}
+    ${dragRowStyling}
+  `;
+}
+
+function applyClassicStyling() {
+  return css`
+    border-color: #E7F1FC;
+    &:hover .common-input__input {
+      border-color: #E7F1FC;
+    }
+
+    &:nth-child(2n+1) {
+      ${StyledTableCell} {
+        background-color: #ffffff;
+      }
+    }
+
     &:hover {
       ${StyledTableCell} {
         background-color: #E7F1FC;
       }
     }
-
-    ${props.onClick && `
-      cursor: pointer;
-    `}
-
-    ${!isClassic(theme) && applyModernStyling}
-    ${selectedRowStyling}
-    ${highlighted && highlightRowStyling}
-    ${dragRowStyling}
   `;
 }
 
 function applyModernStyling({ theme }) {
   const { colors, table } = theme;
-  return !isClassic(theme) && `
+  return css`   
+    ${StyledTableCell} {
+      padding-top: 0px;
+      padding-bottom: 0px;
+      background-color: ${colors.white};
+    }
+    &:hover {
       ${StyledTableCell} {
-        padding-top: 0px;
-        padding-bottom: 0px;
-        background-color: ${colors.white};
-      }
-      &:hover {
-        ${StyledTableCell} {
-          background-color: ${table.primary};
-        }
+        background-color: ${table.primary};
       }
     }
   `;
 }
 
-function selectedRowStyling ({ theme, selectable, selected }) {
-  if (!selectable) {
-    return css`
-      ${StyledTableCell}:first-child,
-      ${StyledTableHeader}:first-child {
+function selectableRowStyling() {
+  return css`
+    ${StyledTableCell}:first-child,
+    ${StyledTableHeader}:first-child {
+      &:not(.carbon-table-cell--select) {
         padding-left: 15px;
       }
-    `;
-  }
+    }
 
-  const { table, colors } = theme;
-
-  return css`
-    ${selectable && `
-      ${StyledTableCell}:first-child,
-      ${StyledTableHeader}:first-child {
+    .carbon-table-cell--select:first-child,
+    carbon-table-cell--select:first-child {
         text-align: center;
         width: 18px;
       
@@ -113,90 +110,97 @@ function selectedRowStyling ({ theme, selectable, selected }) {
           padding-top: 0;
         }
       }
-    `}
+    }
+  `;
+}
 
-    ${selected && `
-      &:nth-child(n), &:hover {
-        && ${StyledTableCell} {
-          background-color: ${isClassic(theme) ? '#1573E6' : table.selected};
-          border-bottom-color: ${isClassic(theme) ? '#255BC7' : table.selected};
-          color: ${isClassic(theme) ? colors.white : ''};
-          position: relative;
-      
-          &:before {
-            background-color: #255BC7;
-            ${cellHoverStyling}
-          }
+function selectedRowStyling ({ theme }) {
+  const { table, colors } = theme;
+  return css`
+    .carbon-table-row--selected,
+    .carbon-table-row--selected:nth-child(odd),
+    .carbon-table-row--selected:hover {
+      ${StyledTableCell} {
+        background-color: ${isClassic(theme) ? '#1573E6' : table.selected};
+        border-bottom-color: ${isClassic(theme) ? '#255BC7' : table.selected};
+        color: ${isClassic(theme) ? colors.white : ''};
+        position: relative;
+    
+        &:before {
+          background-color: ${isClassic(theme) ? '#255BC7' : ''};
+          content: "";
+          height: 1px;
+          left: 0;
+          position: absolute;
+          top: -1px;
+          width: 100%;
         }
       }
-    `}
+    }
   `;
 }
 
 function highlightRowStyling({ theme }) {
   const { table } = theme;
   return css`
-    && ${StyledTableCell} {
-      background-color: ${isClassic(theme) ? '#D0E3FA' : table.selected};
-      border-bottom-color: ${isClassic(theme) ? '#1573E6' : table.selected};
-      position: relative;
-
-      &:before {
-        background-color: #1573E6;
-        ${cellHoverStyling}
-      }
+    && .carbon-table-row--clickable {
+      cursor: pointer;
     }
-    &:hover {
+
+    && .carbon-table-row--highlighted {
       ${StyledTableCell} {
         background-color: ${isClassic(theme) ? '#D0E3FA' : table.selected};
+        border-bottom-color: ${isClassic(theme) ? '#1573E6' : table.selected};
+        position: relative;
+  
+        &:before {
+          background-color: ${isClassic(theme) ? '#1573E6' : ''};
+          content: "";
+          height: 1px;
+          left: 0;
+          position: absolute;
+          top: -1px;
+          width: 100%;
+        }
+      }
+  
+      &:hover {
+        ${StyledTableCell} {
+          background-color: ${isClassic(theme) ? '#D0E3FA' : table.selected};
+        }
       }
     }
   `;
 }
 
-function cellHoverStyling() {
-  return `
-    content: "";
-    height: 1px;
-    left: 0;
-    position: absolute;
-    top: -1px;
-    width: 100%;
-  `;
-}
-
-
-function dragRowStyling ({ dragging, dragged }) {
+function dragRowStyling() {
   return css`
-    ${dragging && `
+    .carbon-table-row--dragging {
       user-select: none;
-    `}
+    }
 
-    ${dragged && `
+    .carbon-table-row--dragged {
       ${StyledTableCell} {
         visibility: hidden;
       }
 
-      + ${dragging && `
+      + .carbon-table-row--dragging {
         ${StyledTableCell} {
           border-top: 1px solid #000A0E;
         }
-      `}
-    `}
+      }
+    }
 
     .draggable-table-cell__icon {
       cursor: move;
       padding: 8.5px 14px;
-    
-      ${dragging && dragged && `
-        &,
-        .custom-drag-layer & {
-          cursor: grabbing;
-          cursor: -moz-grabbing;
-          cursor: -webkit-grabbing;
-        }
-      `}
-  `;
+  
+    &, .custom-drag-layer & {
+      cursor: grabbing;
+      cursor: -moz-grabbing;
+      cursor: -webkit-grabbing;
+    }
+`;
 }
 
 StyledTableRow.propTypes = {
@@ -212,22 +216,29 @@ StyledTableRow.propTypes = {
   highlightable: PropTypes.bool,
 
   /**
-   * Allows developers to manually control selected state for the row.
+   * Allows developers to manually control selected state for the styled row component.
    */
   selected: PropTypes.bool,
 
   /**
-   * Allows developers to manually control highlighted state for the row.
+   * Allows developers to manually control highlighted state for the styled row component.
    */
   highlighted: PropTypes.bool,
 
-  dragged: PropTypes.bool,
+  /**
+   * Allows developers to manually control isDragged state for the styled row component.
+   */
+  isDragged: PropTypes.bool,
 
-  dragging: PropTypes.func
+  /**
+   * Allows developers to manually control draggable state for the styled row component.
+   */
+  isDragging: PropTypes.func
 };
 
 StyledTableRow.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
+  selected: false
 };
 
 export default StyledTableRow;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import StyledTableRow from './table-row.style';
+import classNames from 'classnames';
 import TableCell from '../table-cell';
 import TableHeader from '../table-header';
 import Checkbox from '../../checkbox/checkbox';
@@ -154,8 +154,23 @@ class TableRow extends React.Component {
     }
   }
 
-  get isDraggged() {
-    return this.draggingIsOccurring() && this.context.dragAndDropActiveIndex === this.props.index;
+  /**
+   * Classes to be applied to the table row component
+   *
+   * @method mainClasses Main Class getter
+   */
+  get mainClasses() {
+    const isDragIndexMatch = this.context.dragAndDropActiveIndex === this.props.index;
+    return classNames(
+      'carbon-table-row',
+      this.props.className, {
+        'carbon-table-row--clickable': this.props.onClick || this.props.highlightable || this.context.highlightable,
+        'carbon-table-row--selected': this.state.selected,
+        'carbon-table-row--highlighted': (this.state.highlighted && !this.state.selected),
+        'carbon-table-row--dragged': (this.draggingIsOccurring() && isDragIndexMatch),
+        'carbon-table-row--dragging': (this.draggingIsOccurring())
+      }
+    );
   }
 
   /**
@@ -167,12 +182,11 @@ class TableRow extends React.Component {
   get rowProps() {
     const { ...props } = validProps(this);
 
+    props.className = this.mainClasses;
+
     if (this.context.highlightable || this.props.highlightable) {
       props.onClick = this.onRowClick;
-      props.highlighted = this.state.highlighted;
     }
-
-    props.selectable = this.context.selectable;
 
     return props;
   }
@@ -198,7 +212,7 @@ class TableRow extends React.Component {
     const cell = this.isHeader ? TableHeader : TableCell;
 
     return React.createElement(cell, {
-      key: 'select'
+      key: 'select', className: 'carbon-table-cell--select'
     }, this.multiSelect);
   }
 
@@ -321,18 +335,15 @@ class TableRow extends React.Component {
     }
 
     return this.renderDraggableRow(
-      <StyledTableRow
+      <tr
         { ...this.rowProps }
-        dragged={ this.isDraggged }
-        dragging={ this.draggingIsOccurring }
-        selected={ this.state.selected }
         { ...tagComponent('table-row', this.props) }
         ref={ (node) => { this._row = node; } }
       >
         { this.renderDraggableCell() }
 
         { content }
-      </StyledTableRow>
+      </tr>
     );
   }
 }
@@ -342,6 +353,14 @@ TableRow.propTypes = {
    * Children elements
    */
   children: PropTypes.node,
+
+  /**
+     * A custom class name for the component.
+     *
+     * @property className
+     * @type {String}
+     */
+  className: PropTypes.string,
 
   /**
    * Allows developers to specify a callback after the row is clicked.

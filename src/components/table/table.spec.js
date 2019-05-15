@@ -1074,34 +1074,30 @@ describe('Table', () => {
     describe.each(['primary', 'dark', 'secondary', 'light', 'tertiary', 'transparent'])(
       'when the table type is %s',
       (type) => {
-        it(`renders to match the expected style when the type is ${type}`, () => {
+        it('renders a table to match the expected style', () => {
           const wrapper = mount(
             <StyledTable
               isZebra
               theme={ SmallTheme }
               tableType={ type }
-            >
-              <StyledTableRow>
-                <StyledTableCell />
-              </StyledTableRow>
-            </StyledTable>
+            />
           );
 
           const table = wrapper.find('table').hostNodes();
-          // assertStyleMatch({
-          //   backgroundColor: type === 'tertiary' || type === 'transparent' ? 'transparent' : BaseTheme.colors.white
-          // }, table);
+          assertStyleMatch({
+            backgroundColor: type === 'tertiary' || type === 'transparent' ? 'transparent' : BaseTheme.colors.white
+          }, table);
 
           if (!['primary', 'dark'].includes(type)) {
-            // assertStyleMatch({
-            //   backgroundColor:
-            //     type === 'tertiary' || type === 'transparent' ? 'transparent' : BaseTheme.table.secondary,
-            //   color: BaseTheme.text.color
-            // }, table, { modifier: `${StyledTableHeader}` });
-
             assertStyleMatch({
-              backgroundColor: '#F2F4F5'
-            }, table, { modified: `${StyledTableRow}` });
+              backgroundColor:
+                type === 'tertiary' || type === 'transparent' ? 'transparent' : BaseTheme.table.secondary,
+              color: BaseTheme.text.color
+            }, table, { modifier: `${StyledTableHeader}` });
+
+          // assertStyleMatch({
+          //   backgroundColor: '#F2F4F5'
+          // }, table, { modified: `${StyledTableRow}` });
           }
         });
       }

@@ -7,6 +7,7 @@ import {
   applyModernTableStyling,
   applyModernInternalStyling
 } from './table-modern.style.js';
+import tableRowStyling from './table-row/table-row.style';
 import StyledLink from '../link/link-classic.style';
 import baseTheme from '../../style/themes/base';
 import { THEMES } from '../../style/themes';
@@ -41,10 +42,9 @@ const StyledTable = styled.table`
       `;
     }
     return css``;
-  }
+  }}
 
   ${tableRowStyling}
-}
 `;
 
 function isClassic({ name }) {
