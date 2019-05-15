@@ -229,7 +229,7 @@ const OptionsHelper = {
     'incomplete'
   ],
 
-  themesBinary: [
+  buttonTypes: [
     'primary',
     'secondary',
     'tertiary',
@@ -237,7 +237,7 @@ const OptionsHelper = {
     'darkBackground'
   ],
 
-  themesBinaryClassic: [
+  themesBinary: [
     'primary',
     'secondary'
   ],

@@ -26,12 +26,12 @@ const getKnobs = (isClassic) => {
   if (isClassic) {
     classicProps = {
       theme: select('theme', OptionsHelper.buttonColors, Button.defaultProps.theme),
-      as: select('as', OptionsHelper.themesBinaryClassic, Button.defaultProps.as),
+      as: select('as', OptionsHelper.themesBinary, Button.defaultProps.as),
       href: text('href'),
       to: text('to')
     };
   } else {
-    buttonType = select('buttonType', OptionsHelper.themesBinary, Button.defaultProps.as);
+    buttonType = select('buttonType', OptionsHelper.buttonTypes, Button.defaultProps.as);
   }
 
   return {
