@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { THEMES } from '../../style/themes';
+import { ToastTypeStyle } from './toast.style'
 
 const colors = {
   warning: { color: '#FF7D00', backgroundColor: '#FFF8F2' },
@@ -52,9 +53,9 @@ const classicToastStyle = ({ theme, toastType }) => theme.name === THEMES.classi
   box-shadow: 0 15px 20px 0 rgba(2,18,36, 0.2);
 
   ${toastType && `
-    background-color: ${colors[toastType].backgroundColor}};
-    //TODO: Here is a problem, look at css in the chrome devtools
-    ${classicToastTypeStyle}{
+    background-color: ${colors[toastType].backgroundColor};
+    
+    ${ToastTypeStyle}{
       background-color: ${colors[toastType].color};
     }
 
