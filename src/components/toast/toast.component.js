@@ -43,7 +43,7 @@ class Toast extends React.Component {
           { ...tagComponent('toast', this.props) }
         >
           {/* <div className='carbon-toast__type'> */}
-          <ToastTypeStyle>
+          <ToastTypeStyle toastType={ this.props.toastType || this.props.as }>
             <Icon className='carbon-toast__type-icon' type={ this.props.toastType || this.props.as } />
           </ToastTypeStyle>
           <ToastContentStyle>

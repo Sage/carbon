@@ -1,6 +1,5 @@
 import { css } from 'styled-components';
 import { THEMES } from '../../style/themes';
-import { ToastTypeStyle } from './toast.style';
 
 const colors = {
   warning: { color: '#FF7D00', backgroundColor: '#FFF8F2' },
@@ -13,16 +12,17 @@ const colors = {
   maintenance: { color: '#FF7D00', backgroundColor: '#FFF8F2' }
 };
 
-const classicToastTypeStyle = ({ theme }) => theme.name === THEMES.classic && css`
+const classicToastTypeStyle = ({ theme, toastType }) => theme.name === THEMES.classic && css`
   align-items: center;
   display: flex;
   height: 100%;
   justify-content: center;
   position: absolute;
   top: 0;
-
   left: -1px;
   width: 31px;
+
+  ${toastType && `background-color: ${colors[toastType].color};`}
 
   .carbon-toast__type-icon {
     &:before {
@@ -54,10 +54,6 @@ const classicToastStyle = ({ theme, toastType }) => theme.name === THEMES.classi
 
   ${toastType && `
     background-color: ${colors[toastType].backgroundColor};
-    
-    ${ToastTypeStyle}{
-      background-color: ${colors[toastType].color};
-    }
 
     strong {
       color: ${colors[toastType].color};
