@@ -5,14 +5,14 @@ Feature: Menu component
     Given I open "Menu" component page
 
   @positive
-  Scenario Outline: Change Menu title
-    When I set title to "<title>"
-    Then title on preview is "<title>"
+  Scenario Outline: Change Menu 'as' property
+    When I select as to "<as>"
+    Then Menu as property on preview is "<as>"
     Examples:
-      | children                 |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | as        |
+      | primary   |
+      | secondary |
+
+  @positive
+  Scenario: Check the persistance of Menu element
+    Then Menu elements are visible   
