@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ColorTypes } from '../../utils/helpers/options-helper/option-helper';
+import { ColorTypes } from '../../utils/helpers/options-helper/options-helper';
 
 export interface FlashProps {
   className?: string;
