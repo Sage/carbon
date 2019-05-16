@@ -18,12 +18,12 @@ Feature: Link component
       | <>                       |
 
   @positive
-  Scenario: disable Link component
+  Scenario: Disable Link component
     When I disable Link component
     Then Link is disabled
 
   @positive
-  Scenario: disable and enable Link component
+  Scenario: Disable and enable Link component
     When I disable Link component
       And I enable Link component
     Then Link is enabled

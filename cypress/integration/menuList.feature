@@ -44,25 +44,25 @@ Feature: Menulist component
 
   @ignore
   # @positive doesn't work on Carbon Demo site
-  Scenario: enable initially open
+  Scenario: Enable initially open
     When I check initiallyOpen checkbox
     Then MenuList component is expanded
 
   @ignore
   # @positive doesn't work on Carbon Demo site
-  Scenario: enable and disable innitially open
+  Scenario: Enable and disable innitially open
     When I check initiallyOpen checkbox
       And I uncheck initiallyOpen checkbox
     Then MenuList component is not expanded
 
   @positive
-  Scenario: disable fiter
+  Scenario: Disable fiter
     When I uncheck filter checkbox
       And I click into menu item second element
     Then filter is disabled
 
   @positive
-  Scenario: disable and enable filter
+  Scenario: Disable and enable filter
     When I uncheck filter checkbox
       And I check filter checkbox
       And I set title to "title"
@@ -70,7 +70,7 @@ Feature: Menulist component
     Then filter is enabled
 
   @positive
-  Scenario: disable collapsible
+  Scenario: Disable collapsible
     When I set title to "title"
       And I uncheck collapsible checkbox
       And I click into title
