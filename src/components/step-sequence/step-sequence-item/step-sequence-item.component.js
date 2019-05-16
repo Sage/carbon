@@ -13,7 +13,7 @@ const StepSequenceItem = (props) => {
   const icon = () => (props.status === 'complete' ? <Icon type='tick' /> : indicatorText());
 
   return (
-    <StepSequenceItemStyle { ...props }>
+    <StepSequenceItemStyle { ...props } key={ `step-seq-item-${props.indicator}` }>
       <StepSequenceItemContentStyle>{ icon() } { props.children }</StepSequenceItemContentStyle>
     </StepSequenceItemStyle>
   );
