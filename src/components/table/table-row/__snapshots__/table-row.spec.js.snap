@@ -26,12 +26,14 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   background-color: #002E41;
 }
 
-.c3 .carbon-table-row:nth-child(2n+1) .c1 {
-  background-color: #ffffff;
+.c3 .carbon-table-row .c1 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: #FFFFFF;
 }
 
 .c3 .carbon-table-row:hover .c1 {
-  background-color: #E7F1FC;
+  background-color: #F2F4F5;
 }
 
 .c3 .carbon-table-row .c1:first-child:not(.carbon-table-cell--select),
@@ -42,16 +44,14 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 .c3 .carbon-table-row--selected .c1,
 .c3 .carbon-table-row--selected:nth-child(odd) .c1,
 .c3 .carbon-table-row--selected:hover .c1 {
-  background-color: #1573E6;
-  border-bottom-color: #255BC7;
-  color: #FFFFFF;
+  background-color: #D8E0E3;
+  border-bottom-color: #D8E0E3;
   position: relative;
 }
 
 .c3 .carbon-table-row--selected .c1:before,
 .c3 .carbon-table-row--selected:nth-child(odd) .c1:before,
 .c3 .carbon-table-row--selected:hover .c1:before {
-  background-color: #255BC7;
   content: "";
   height: 1px;
   left: 0;
@@ -61,13 +61,12 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .c3.c3 .carbon-table-row--highlighted .c1 {
-  background-color: #D0E3FA;
-  border-bottom-color: #1573E6;
+  background-color: #D8E0E3;
+  border-bottom-color: #D8E0E3;
   position: relative;
 }
 
 .c3.c3 .carbon-table-row--highlighted .c1:before {
-  background-color: #1573E6;
   content: "";
   height: 1px;
   left: 0;
@@ -77,7 +76,7 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .c3.c3 .carbon-table-row--highlighted:hover .c1 {
-  background-color: #D0E3FA;
+  background-color: #D8E0E3;
 }
 
 .c3 .carbon-table-row--dragged .c1 {
@@ -241,516 +240,17 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   cursor: -webkit-grabbing;
 }
 
-<styled.table
-  theme={
-    Object {
-      "colors": Object {
-        "base": "#00A376",
-        "border": "#668491",
-        "brand": "#00DC00",
-        "destructive": Object {
-          "hover": "#9F2C3F",
-        },
-        "error": "#C7384F",
-        "focus": "#FFB500",
-        "focusedIcon": "#335B6D",
-        "focusedLinkBackground": "#FFDA7F",
-        "info": "#0073C2",
-        "primary": "#00805D",
-        "secondary": "#006045",
-        "success": "#00B000",
-        "tertiary": "#003F2E",
-        "warning": "#E96400",
-        "white": "#FFFFFF",
-        "whiteMix": "#E5F5F1",
-      },
-      "disabled": Object {
-        "background": "#E5EAEC",
-        "border": "#CCD6DA",
-        "button": "#E5EAEC",
-        "buttonText": "rgba(0,0,0,.2)",
-        "disabled": "rgba(0,0,0,0.55)",
-        "input": "#F2F4F5",
-        "text": "rgba(0,0,0,0.3)",
-      },
-      "icon": Object {
-        "focus": "#335B6D",
-      },
-      "name": "small",
-      "shadows": Object {
-        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
-        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-      },
-      "table": Object {
-        "header": "#335B6D",
-        "hover": "#E5EAEC",
-        "primary": "#F2F4F5",
-        "secondary": "#CCD6DA",
-        "selected": "#D8E0E3",
-        "sizes": Object {
-          "compact": "24px",
-          "large": "48px",
-          "medium": "40px",
-          "small": "32px",
-        },
-        "tertiary": "#19475B",
-        "zebra": "#F9FAFB",
-      },
-      "text": Object {
-        "color": "rgba(0,0,0,0.9)",
-        "placeholder": "rgba(0,0,0,0.3)",
-        "size": "14px",
-      },
-    }
-  }
+<table
+  className="c0"
 >
-  <StyledComponent
-    forwardedComponent={
-      Object {
-        "$$typeof": Symbol(react.forward_ref),
-        "attrs": Array [],
-        "componentStyle": ComponentStyle {
-          "componentId": "sc-ifAKCX",
-          "isStatic": false,
-          "lastClassName": "c0",
-          "rules": Array [
-            "
-  border-collapse: separate;
-  border-radius: 0px;
-  border-spacing: 0;
-  min-width: 100%;
-  table-layout: fixed;
-  width: auto;
-  word-break: break-all;
-  
-  ",
-            [Function],
-            "
-
-  & caption {
-    clip: rect(1px, 1px, 1px, 1px);
-    height: 1px;
-    overflow: hidden;
-    width: 1px;
-    position: absolute;
-    top: -99999px;
-  }
-
-  ",
-            [Function],
-            "
-
-  ",
-            "
-  .carbon-table-row {
-    ",
-            [Function],
-            "
-  }
-",
-            "
-",
-          ],
-        },
-        "defaultProps": Object {
-          "theme": Object {
-            "colors": Object {
-              "base": "#00A376",
-              "border": "#668491",
-              "brand": "#00DC00",
-              "destructive": Object {
-                "hover": "#9F2C3F",
-              },
-              "error": "#C7384F",
-              "focus": "#FFB500",
-              "focusedIcon": "#335B6D",
-              "focusedLinkBackground": "#FFDA7F",
-              "info": "#0073C2",
-              "primary": "#26A826",
-              "secondary": "#006300",
-              "success": "#00B000",
-              "tertiary": "#004400",
-              "warning": "#E96400",
-              "white": "#FFFFFF",
-              "whiteMix": "#E5F4E5",
-            },
-            "disabled": Object {
-              "background": "#E5EAEC",
-              "border": "#CCD6DA",
-              "button": "#E5EAEC",
-              "buttonText": "rgba(0,0,0,.2)",
-              "disabled": "rgba(0,0,0,0.55)",
-              "input": "#F2F4F5",
-              "text": "rgba(0,0,0,0.3)",
-            },
-            "icon": Object {
-              "focus": "#335B6D",
-            },
-            "name": "base",
-            "shadows": Object {
-              "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
-              "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-              "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-              "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-              "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-            },
-            "table": Object {
-              "header": "#335B6D",
-              "hover": "#E5EAEC",
-              "primary": "#F2F4F5",
-              "secondary": "#CCD6DA",
-              "selected": "#D8E0E3",
-              "sizes": Object {
-                "compact": "24px",
-                "large": "48px",
-                "medium": "40px",
-                "small": "32px",
-              },
-              "tertiary": "#19475B",
-              "zebra": "#F9FAFB",
-            },
-            "text": Object {
-              "color": "rgba(0,0,0,0.9)",
-              "placeholder": "rgba(0,0,0,0.3)",
-              "size": "14px",
-            },
-          },
-        },
-        "displayName": "styled.table",
-        "foldedComponentIds": Array [],
-        "propTypes": Object {
-          "isZebra": [Function],
-          "tableType": [Function],
-        },
-        "render": [Function],
-        "styledComponentId": "sc-ifAKCX",
-        "target": "table",
-        "toString": [Function],
-        "warnTooManyClasses": [Function],
-        "withComponent": [Function],
-      }
-    }
-    forwardedRef={null}
-    theme={
-      Object {
-        "colors": Object {
-          "base": "#00A376",
-          "border": "#668491",
-          "brand": "#00DC00",
-          "destructive": Object {
-            "hover": "#9F2C3F",
-          },
-          "error": "#C7384F",
-          "focus": "#FFB500",
-          "focusedIcon": "#335B6D",
-          "focusedLinkBackground": "#FFDA7F",
-          "info": "#0073C2",
-          "primary": "#00805D",
-          "secondary": "#006045",
-          "success": "#00B000",
-          "tertiary": "#003F2E",
-          "warning": "#E96400",
-          "white": "#FFFFFF",
-          "whiteMix": "#E5F5F1",
-        },
-        "disabled": Object {
-          "background": "#E5EAEC",
-          "border": "#CCD6DA",
-          "button": "#E5EAEC",
-          "buttonText": "rgba(0,0,0,.2)",
-          "disabled": "rgba(0,0,0,0.55)",
-          "input": "#F2F4F5",
-          "text": "rgba(0,0,0,0.3)",
-        },
-        "icon": Object {
-          "focus": "#335B6D",
-        },
-        "name": "small",
-        "shadows": Object {
-          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
-          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-        },
-        "table": Object {
-          "header": "#335B6D",
-          "hover": "#E5EAEC",
-          "primary": "#F2F4F5",
-          "secondary": "#CCD6DA",
-          "selected": "#D8E0E3",
-          "sizes": Object {
-            "compact": "24px",
-            "large": "48px",
-            "medium": "40px",
-            "small": "32px",
-          },
-          "tertiary": "#19475B",
-          "zebra": "#F9FAFB",
-        },
-        "text": Object {
-          "color": "rgba(0,0,0,0.9)",
-          "placeholder": "rgba(0,0,0,0.3)",
-          "size": "14px",
-        },
-      }
-    }
+  <tr
+    className="carbon-table-row"
+    data-component="table-row"
   >
-    <table
-      className="c0"
-    >
-      <TableRow>
-        <tr
-          className="carbon-table-row"
-          data-component="table-row"
-        >
-          <TableCell
-            align=""
-          >
-            <styled.td
-              align=""
-              data-component="table-cell"
-              theme={
-                Object {
-                  "colors": Object {
-                    "base": "#00A376",
-                    "border": "#668491",
-                    "brand": "#00DC00",
-                    "destructive": Object {
-                      "hover": "#9F2C3F",
-                    },
-                    "error": "#C7384F",
-                    "focus": "#FFB500",
-                    "focusedIcon": "#335B6D",
-                    "focusedLinkBackground": "#FFDA7F",
-                    "info": "#0073C2",
-                    "primary": "#26A826",
-                    "secondary": "#006300",
-                    "success": "#00B000",
-                    "tertiary": "#004400",
-                    "warning": "#E96400",
-                    "white": "#FFFFFF",
-                    "whiteMix": "#E5F4E5",
-                  },
-                  "disabled": Object {
-                    "background": "#E5EAEC",
-                    "border": "#CCD6DA",
-                    "button": "#E5EAEC",
-                    "buttonText": "rgba(0,0,0,.2)",
-                    "disabled": "rgba(0,0,0,0.55)",
-                    "input": "#F2F4F5",
-                    "text": "rgba(0,0,0,0.3)",
-                  },
-                  "icon": Object {
-                    "focus": "#335B6D",
-                  },
-                  "name": "base",
-                  "shadows": Object {
-                    "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
-                    "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-                    "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-                    "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-                    "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-                  },
-                  "table": Object {
-                    "header": "#335B6D",
-                    "hover": "#E5EAEC",
-                    "primary": "#F2F4F5",
-                    "secondary": "#CCD6DA",
-                    "selected": "#D8E0E3",
-                    "sizes": Object {
-                      "compact": "24px",
-                      "large": "48px",
-                      "medium": "40px",
-                      "small": "32px",
-                    },
-                    "tertiary": "#19475B",
-                    "zebra": "#F9FAFB",
-                  },
-                  "text": Object {
-                    "color": "rgba(0,0,0,0.9)",
-                    "placeholder": "rgba(0,0,0,0.3)",
-                    "size": "14px",
-                  },
-                }
-              }
-            >
-              <StyledComponent
-                align=""
-                data-component="table-cell"
-                forwardedComponent={
-                  Object {
-                    "$$typeof": Symbol(react.forward_ref),
-                    "attrs": Array [],
-                    "componentStyle": ComponentStyle {
-                      "componentId": "c1",
-                      "isStatic": false,
-                      "lastClassName": "c2",
-                      "rules": Array [
-                        "
-  ",
-                        [Function],
-                        "
-",
-                      ],
-                    },
-                    "defaultProps": Object {
-                      "theme": Object {
-                        "colors": Object {
-                          "base": "#00A376",
-                          "border": "#668491",
-                          "brand": "#00DC00",
-                          "destructive": Object {
-                            "hover": "#9F2C3F",
-                          },
-                          "error": "#C7384F",
-                          "focus": "#FFB500",
-                          "focusedIcon": "#335B6D",
-                          "focusedLinkBackground": "#FFDA7F",
-                          "info": "#0073C2",
-                          "primary": "#26A826",
-                          "secondary": "#006300",
-                          "success": "#00B000",
-                          "tertiary": "#004400",
-                          "warning": "#E96400",
-                          "white": "#FFFFFF",
-                          "whiteMix": "#E5F4E5",
-                        },
-                        "disabled": Object {
-                          "background": "#E5EAEC",
-                          "border": "#CCD6DA",
-                          "button": "#E5EAEC",
-                          "buttonText": "rgba(0,0,0,.2)",
-                          "disabled": "rgba(0,0,0,0.55)",
-                          "input": "#F2F4F5",
-                          "text": "rgba(0,0,0,0.3)",
-                        },
-                        "icon": Object {
-                          "focus": "#335B6D",
-                        },
-                        "name": "base",
-                        "shadows": Object {
-                          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
-                          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-                          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-                          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-                          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-                        },
-                        "table": Object {
-                          "header": "#335B6D",
-                          "hover": "#E5EAEC",
-                          "primary": "#F2F4F5",
-                          "secondary": "#CCD6DA",
-                          "selected": "#D8E0E3",
-                          "sizes": Object {
-                            "compact": "24px",
-                            "large": "48px",
-                            "medium": "40px",
-                            "small": "32px",
-                          },
-                          "tertiary": "#19475B",
-                          "zebra": "#F9FAFB",
-                        },
-                        "text": Object {
-                          "color": "rgba(0,0,0,0.9)",
-                          "placeholder": "rgba(0,0,0,0.3)",
-                          "size": "14px",
-                        },
-                      },
-                    },
-                    "displayName": "styled.td",
-                    "foldedComponentIds": Array [],
-                    "propTypes": Object {
-                      "action": [Function],
-                      "align": [Function],
-                    },
-                    "render": [Function],
-                    "styledComponentId": "c1",
-                    "target": "td",
-                    "toString": [Function],
-                    "warnTooManyClasses": [Function],
-                    "withComponent": [Function],
-                  }
-                }
-                forwardedRef={null}
-                theme={
-                  Object {
-                    "colors": Object {
-                      "base": "#00A376",
-                      "border": "#668491",
-                      "brand": "#00DC00",
-                      "destructive": Object {
-                        "hover": "#9F2C3F",
-                      },
-                      "error": "#C7384F",
-                      "focus": "#FFB500",
-                      "focusedIcon": "#335B6D",
-                      "focusedLinkBackground": "#FFDA7F",
-                      "info": "#0073C2",
-                      "primary": "#26A826",
-                      "secondary": "#006300",
-                      "success": "#00B000",
-                      "tertiary": "#004400",
-                      "warning": "#E96400",
-                      "white": "#FFFFFF",
-                      "whiteMix": "#E5F4E5",
-                    },
-                    "disabled": Object {
-                      "background": "#E5EAEC",
-                      "border": "#CCD6DA",
-                      "button": "#E5EAEC",
-                      "buttonText": "rgba(0,0,0,.2)",
-                      "disabled": "rgba(0,0,0,0.55)",
-                      "input": "#F2F4F5",
-                      "text": "rgba(0,0,0,0.3)",
-                    },
-                    "icon": Object {
-                      "focus": "#335B6D",
-                    },
-                    "name": "base",
-                    "shadows": Object {
-                      "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
-                      "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-                      "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-                      "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-                      "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-                    },
-                    "table": Object {
-                      "header": "#335B6D",
-                      "hover": "#E5EAEC",
-                      "primary": "#F2F4F5",
-                      "secondary": "#CCD6DA",
-                      "selected": "#D8E0E3",
-                      "sizes": Object {
-                        "compact": "24px",
-                        "large": "48px",
-                        "medium": "40px",
-                        "small": "32px",
-                      },
-                      "tertiary": "#19475B",
-                      "zebra": "#F9FAFB",
-                    },
-                    "text": Object {
-                      "color": "rgba(0,0,0,0.9)",
-                      "placeholder": "rgba(0,0,0,0.3)",
-                      "size": "14px",
-                    },
-                  }
-                }
-              >
-                <td
-                  className="c1 c2"
-                  data-component="table-cell"
-                />
-              </StyledComponent>
-            </styled.td>
-          </TableCell>
-        </tr>
-      </TableRow>
-    </table>
-  </StyledComponent>
-</styled.table>
+    <td
+      className="c1 c2"
+      data-component="table-cell"
+    />
+  </tr>
+</table>
 `;

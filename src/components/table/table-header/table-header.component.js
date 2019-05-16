@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import StyledTableHeader from './table-header.style';
 import Icon from '../../icon/icon';
 import { validProps } from '../../../utils/ether/ether';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 /**
  * A TableHeader widget.
@@ -198,7 +199,7 @@ TableHeader.propTypes = {
   /**
    * Aligns the content of the cell (can be "left", "center" or "right").
    */
-  align: PropTypes.oneOf(['left', 'center', 'right', '']),
+  align: PropTypes.oneOf(OptionsHelper.alignFull),
 
   /**
    * The body of the content component.
@@ -231,10 +232,10 @@ TableHeader.propTypes = {
 };
 
 TableHeader.defaultProps = {
-  align: '',
   children: null,
   name: '',
-  sortable: false
+  sortable: false,
+  align: 'left'
 };
 
 /**

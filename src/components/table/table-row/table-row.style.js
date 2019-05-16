@@ -2,8 +2,11 @@ import { css } from 'styled-components';
 import StyledTableCell from '../table-cell/table-cell.style';
 import StyledTableHeader from '../table-header/table-header.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
-import { THEMES } from '../../../style/themes';
 
+/**
+ * Current version of react-dnd used in DragAndDrop is incompatible
+ * with styled-components, this can be uodated once the issue is fixed
+ */
 const StyledTableRow = css`
   .carbon-table-row {
     ${applyRowStyling}
@@ -41,7 +44,7 @@ function applyRowStyling(props) {
       }
     }
 
-    ${isClassic(theme) || theme.name === THEMES.base ? applyClassicStyling : applyModernStyling}
+    ${isClassic(theme) ? applyClassicStyling : applyModernStyling}
     ${selectableRowStyling}
     ${selectedRowStyling}
     ${highlightRowStyling}
@@ -110,19 +113,15 @@ function selectableRowStyling() {
 }
 
 function selectedRowStyling ({ theme }) {
-  const { table, colors, name } = theme;
   return css`
     .carbon-table-row--selected,
     .carbon-table-row--selected:nth-child(odd),
     .carbon-table-row--selected:hover {
       ${StyledTableCell} {
-        background-color: ${isClassic(theme) || name === THEMES.base ? '#1573E6' : table.selected};
-        border-bottom-color: ${isClassic(theme) || name === THEMES.base ? '#255BC7' : table.selected};
-        color: ${isClassic(theme) || name === THEMES.base ? colors.white : ''};
+        ${isClassic(theme) ? classicSelectedStyling : modernSelectedStyling}
         position: relative;
     
         &:before {
-          background-color: ${isClassic(theme) || name === THEMES.base ? '#255BC7' : ''};
           content: "";
           height: 1px;
           left: 0;
@@ -135,8 +134,29 @@ function selectedRowStyling ({ theme }) {
   `;
 }
 
+function classicSelectedStyling({ theme }) {
+  const { colors } = theme;
+  return css`
+    background-color: #1573E6;
+    border-bottom-color: #255BC7;
+    color: ${colors.white};
+
+    &:before {
+      background-color: #255BC7;
+    }
+  `;
+}
+
+function modernSelectedStyling({ theme }) {
+  const { table } = theme;
+  return css`
+    background-color: ${table.selected};
+    border-bottom-color: ${table.selected};
+  `;
+}
+
 function highlightRowStyling({ theme }) {
-  const { table, name } = theme;
+  const { table } = theme;
   return css`
     && .carbon-table-row--clickable {
       cursor: pointer;
@@ -144,12 +164,10 @@ function highlightRowStyling({ theme }) {
 
     && .carbon-table-row--highlighted {
       ${StyledTableCell} {
-        background-color: ${isClassic(theme) || name === THEMES.base ? '#D0E3FA' : table.selected};
-        border-bottom-color: ${isClassic(theme) || name === THEMES.base ? '#1573E6' : table.selected};
+        ${isClassic(theme) ? classicHighlightStyling : modernHighlightStyling}
         position: relative;
   
         &:before {
-          background-color: ${isClassic(theme) || name === THEMES.base ? '#1573E6' : ''};
           content: "";
           height: 1px;
           left: 0;
@@ -161,10 +179,30 @@ function highlightRowStyling({ theme }) {
   
       &:hover {
         ${StyledTableCell} {
-          background-color: ${isClassic(theme) || name === THEMES.base ? '#D0E3FA' : table.selected};
+          background-color: ${isClassic(theme) ? '#D0E3FA' : table.selected};
         }
       }
     }
+  `;
+}
+
+function classicHighlightStyling() {
+  return css`
+    background-color: #D0E3FA;
+    border-bottom-color: #1573E6;
+    position: relative;
+
+    &:before {
+      background-color: #1573E6;
+    }
+  `;
+}
+
+function modernHighlightStyling({ theme }) {
+  const { table } = theme;
+  return css`
+    background-color: ${table.selected};
+    border-bottom-color: ${table.selected};
   `;
 }
 

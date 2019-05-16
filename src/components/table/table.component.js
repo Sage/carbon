@@ -950,6 +950,9 @@ Table.propTypes = {
    */
   size: PropTypes.oneOf(OptionsHelper.tableSizes.concat(['dark', 'light', 'transparent'])),
 
+  /**
+   * Toggles the zebra striping for the table rows
+   */
   isZebra: PropTypes.bool
 };
 

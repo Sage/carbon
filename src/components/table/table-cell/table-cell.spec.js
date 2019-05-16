@@ -54,7 +54,6 @@ describe('TableCell', () => {
     beforeEach(() => {
       wrapper = mount(
         <StyledTableCell
-          align=''
           theme={ ClassicTheme }
           action
         />

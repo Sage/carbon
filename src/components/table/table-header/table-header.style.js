@@ -2,13 +2,13 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 import { isClassic } from '../../../utils/helpers/style-helper';
-import { THEMES } from '../../../style/themes';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const StyledTableHeader = styled.th`
   ${({
     align, sortable, theme, size
   }) => {
-    const { table, colors, name } = theme;
+    const { table, colors } = theme;
     return css`
       background-color: ${table.header};
       border-bottom: 1px solid ${table.secondary};
@@ -18,11 +18,11 @@ const StyledTableHeader = styled.th`
       box-sizing: border-box;
       color: ${colors.white};
       font-weight: 700;
-      height: ${isClassic(theme) || name === THEMES.base ? table.sizes.medium : table.sizes[size]};
+      height: ${isClassic(theme) ? table.sizes.medium : table.sizes[size]};
       outline: medium none;
       padding: 0 8px;
       position: relative;
-      text-align: ${align !== '' ? align : 'left'};
+      text-align: ${align};
       text-overflow: ellipsis;
       user-select: none;
       vertical-align: middle;
@@ -68,11 +68,12 @@ function applySortableStyling(align, colors, table) {
 }
 
 StyledTableHeader.propTypes = {
-  align: PropTypes.oneOf(['left', 'center', 'right', ''])
+  align: PropTypes.oneOf(OptionsHelper.alignFull)
 };
 
 StyledTableHeader.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
+  align: 'left'
 };
 
 export default StyledTableHeader;

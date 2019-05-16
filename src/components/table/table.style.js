@@ -12,7 +12,7 @@ import tableRowStyling from './table-row/table-row.style';
 import StyledLink from '../link/link-classic.style';
 import baseTheme from '../../style/themes/base';
 import { isClassic } from '../../utils/helpers/style-helper';
-import { THEMES } from '../../style/themes';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 const StyledTable = styled.table`
   border-collapse: separate;
@@ -24,7 +24,7 @@ const StyledTable = styled.table`
   word-break: break-all;
   
   ${(props) => {
-    if (isClassic(props.theme) || props.theme.name === THEMES.base) return applyClassicTableStyling(props);
+    if (isClassic(props.theme)) return applyClassicTableStyling(props);
     return applyModernTableStyling(props);
   }}
 
@@ -96,7 +96,7 @@ export const StyledInternalTableWrapper = styled.div`
 `;
 
 function styleInternalWrapper(props) {
-  if (isClassic(props.theme) || props.theme.name === THEMES.base) return applyClassicInternalStyling(props);
+  if (isClassic(props.theme)) return applyClassicInternalStyling(props);
   return applyModernInternalStyling(props);
 }
 
@@ -104,7 +104,7 @@ StyledTable.propTypes = {
   /**
    * Toggles the type variations of the table
    */
-  tableType: PropTypes.oneOf(['primary', 'dark', 'secondary', 'light', 'tertiary', 'transparent']),
+  tableType: PropTypes.oneOf(OptionsHelper.tableThemes),
 
   /**
    * Toggles the zebra striping for the table rows

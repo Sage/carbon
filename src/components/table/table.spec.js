@@ -12,6 +12,7 @@ import ActionToolbar from '../action-toolbar';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import BaseTheme from '../../style/themes/base';
+import ClassicTheme from '../../style/themes/classic';
 import SmallTheme from '../../style/themes/small';
 
 describe('Table', () => {
@@ -135,9 +136,7 @@ describe('Table', () => {
     });
 
     it('unselects all rows', () => {
-      /* eslint-disable no-unused-vars */
-      row = { setState(value) {} };
-      /* eslint-enable no-unused-vars */
+      row = { setState() {} };
       spyOn(row, 'setState');
       instance.rows = { 0: row };
       instance.refresh();
@@ -1044,13 +1043,8 @@ describe('Table', () => {
   describe('theme', () => {
     it("renders to match the expected style for a 'secondary' table", () => {
       const wrapper = mount(
-        <Table theme='secondary' />
+        <StyledTable theme={ ClassicTheme } tableType='secondary' />
       );
-
-      assertStyleMatch({
-        backgroundColor: '#F2F4F5',
-        border: '1px solid #CCD6DA'
-      }, wrapper.find(Table));
 
       const table = wrapper.find('table').hostNodes();
 
@@ -1094,16 +1088,9 @@ describe('Table', () => {
   });
 
   describe('onConfigure', () => {
-    it('renders to match the extra elements to match the snapshot for a configurable table', () => {
-      const wrapper = mount(
-        <Table onConfigure />
-      );
-      expect(wrapper).toMatchSnapshot();
-    });
-
     it('renders to match the expected style for a classic themed configurable table', () => {
       const wrapper = mount(
-        <StyledInternalTableWrapper onConfigure />
+        <StyledInternalTableWrapper onConfigure theme={ ClassicTheme } />
       );
 
       assertStyleMatch({

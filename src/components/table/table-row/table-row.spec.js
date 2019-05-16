@@ -1,5 +1,6 @@
 import React from 'react';
 import 'jest-styled-components';
+import TestRenderer from 'react-test-renderer';
 import TestUtils from 'react-dom/test-utils';
 import { mount } from 'enzyme';
 import { Table, TableCell } from '../table.component';
@@ -494,7 +495,7 @@ describe('TableRow', () => {
 
     describe('if is not classic theme', () => {
       it('renders a row to match the snapshot', () => {
-        const wrapper = mount(
+        const wrapper = TestRenderer.create(
           <StyledTable theme={ SmallTheme }>
             <TableRow><TableCell /></TableRow>
           </StyledTable>

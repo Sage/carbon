@@ -2,7 +2,6 @@ import React from 'react';
 import 'jest-styled-components';
 import TestUtils from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-// import TestRenderer from 'react-test-renderer';
 import { Table, TableRow } from '../table.component';
 import TableHeader from './table-header.component';
 import StyledTableHeader from './table-header.style';
@@ -39,8 +38,6 @@ describe('TableHeader', () => {
 
     sortableColumn = TestUtils.findRenderedDOMComponentWithTag(instanceSortable, 'th');
     sortableHeader = TestUtils.scryRenderedComponentsWithType(instanceSortable, TableHeader)[0];
-    // sortableCustomColumn = TestUtils.findRenderedDOMComponentWithTag(instanceCustomSort, 'th');
-    // sortableCustomHeader = TestUtils.scryRenderedComponentsWithType(instanceCustomSort, TableHeader)[0];
   });
 
   describe('prop checking', () => {
