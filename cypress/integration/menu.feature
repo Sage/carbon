@@ -14,5 +14,6 @@ Feature: Menu component
       | secondary |
 
   @positive
-  Scenario: Check the persistance of Menu element
+  Scenario: Check the persistence of Menu element
+    # When I open "Menu" component page
     Then Menu elements are visible   

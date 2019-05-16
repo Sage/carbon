@@ -1,14 +1,14 @@
 import {
-  menuTitle, menuListPreview, menuListSearchInput,
+  menuTitle, menuListChildren, menuListSearchInput,
   menuSecondOption, menuList,
 } from '../../locators/menu-list';
 
 Then('title on preview is {string}', (title) => {
-  menuTitle().first().should('have.text', title);
+  menuTitle().should('have.text', title);
 });
 
 When('I click into title', () => {
-  menuTitle().first().click();
+  menuTitle().click();
 });
 
 When('I click into menu item second element', () => {
@@ -16,11 +16,11 @@ When('I click into menu item second element', () => {
 });
 
 Then('MenuList component is expanded', () => {
-  menuListPreview().children().should('have.length', 4);
+  menuListChildren().should('have.length', 4);
 });
 
 Then('MenuList component is not expanded', () => {
-  menuListPreview().children().should('have.length', 0);
+  menuListChildren().should('have.length', 0);
 });
 
 Then('filter is disabled', () => {
