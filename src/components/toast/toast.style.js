@@ -1,12 +1,16 @@
 import styled from 'styled-components';
-import { classicToastStyle, classicToastTypeStyle } from './toast-classic.style';
+import { classicToastStyle, classicToastTypeStyle, classicToastContentStyle } from './toast-classic.style';
 
 const ToastStyle = styled.div`
     ${classicToastStyle};
 `;
 
 const ToastTypeStyle = styled.div`
-    ${classicToastTypeStyle}
+    ${classicToastTypeStyle};
 `;
 
-export { ToastStyle, ToastTypeStyle };
+const ToastContentStyle = styled.div`
+    ${classicToastContentStyle};
+`;
+
+export { ToastStyle, ToastTypeStyle, ToastContentStyle };

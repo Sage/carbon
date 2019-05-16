@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 import { THEMES } from '../../style/themes';
-import { ToastTypeStyle } from './toast.style'
+import { ToastTypeStyle } from './toast.style';
 
 const colors = {
   warning: { color: '#FF7D00', backgroundColor: '#FFF8F2' },
@@ -69,5 +69,9 @@ const classicToastStyle = ({ theme, toastType }) => theme.name === THEMES.classi
   `}
 `;
 
+const classicToastContentStyle = ({ theme }) => theme.name === THEMES.classic && css`
+  padding: 15px 50px;
+  white-space: pre-wrap;
+`;
 
-export { classicToastStyle, classicToastTypeStyle };
+export { classicToastStyle, classicToastTypeStyle, classicToastContentStyle };

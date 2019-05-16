@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 import tagComponent from '../../utils/helpers/tags/tags';
 import Portal from '../portal/portal';
-import { ToastStyle, ToastTypeStyle } from './toast.style';
+import { ToastStyle, ToastTypeStyle, ToastContentStyle } from './toast.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import './toast.scss';
 
@@ -46,9 +46,9 @@ class Toast extends React.Component {
           <ToastTypeStyle>
             <Icon className='carbon-toast__type-icon' type={ this.props.toastType || this.props.as } />
           </ToastTypeStyle>
-          <div className='carbon-toast__content'>
+          <ToastContentStyle>
             { this.props.children }
-          </div>
+          </ToastContentStyle>
           { this.dismissIcon }
         </ToastStyle>
       );
