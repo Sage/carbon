@@ -7,7 +7,7 @@ import Icon from '../../icon';
 
 const StepSequenceItem = (props) => {
   const indicatorText = () => (
-    <StepSequenceItemIndicatorStyle>{props.indicator}</StepSequenceItemIndicatorStyle> || null
+    <StepSequenceItemIndicatorStyle>{props.indicator}</StepSequenceItemIndicatorStyle>
   );
 
   const icon = () => (props.status === 'complete' ? <Icon type='tick' /> : indicatorText());
