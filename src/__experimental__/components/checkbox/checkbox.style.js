@@ -35,6 +35,7 @@ const CheckboxStyle = styled.div`
 
     ${StyledCheckableInput},
     ${HiddenCheckableInputStyle},
+    ${StyledCheckboxSvgWrapper},
     svg {
       box-sizing: border-box;
       width: 16px;
@@ -69,13 +70,17 @@ const CheckboxStyle = styled.div`
     }
 
     ${size === 'large' && css`
-      ${StyledCheckboxSvgWrapper} { height: 24px; }
-
       ${StyledCheckableInput},
       ${HiddenCheckableInputStyle},
       ${StyledCheckboxSvgWrapper} > svg {
-        height: 24px;
         padding: 2px;
+      }
+
+      ${StyledCheckableInput},
+      ${HiddenCheckableInputStyle},
+      ${StyledCheckboxSvgWrapper},
+      ${StyledCheckboxSvgWrapper} > svg {
+        height: 24px;
         width: 24px;
       }
 
