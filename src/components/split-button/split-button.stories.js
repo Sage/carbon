@@ -4,10 +4,12 @@ import {
   text, boolean, select
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { ThemeProvider } from 'styled-components';
 import SplitButton from './split-button.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Button from '../button';
 import { notes, info } from './documentation';
+import classic from '../../style/themes/classic';
 
 const getIconKnobs = () => {
   const defaultPosition = Button.defaultProps.iconPosition;
@@ -20,13 +22,13 @@ const getIconKnobs = () => {
 };
 
 const getKnobs = (isClassic) => {
-  const size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
-  let as, buttonType;
+  let as, buttonType, size;
 
   if (isClassic) {
     as = select('as', OptionsHelper.themesBinary, Button.defaultProps.as);
   } else {
     buttonType = select('buttonType', OptionsHelper.themesBinary, Button.defaultProps.as);
+    size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
   }
 
   return {
@@ -37,24 +39,17 @@ const getKnobs = (isClassic) => {
     disabled: boolean('disabled', Button.defaultProps.disabled),
     onClick: ev => action('click')(ev),
     size,
-    textContent: text('children', 'Example Split Button'),
-    subtext: (size === OptionsHelper.sizesRestricted[2]) ? text('subtext', Button.defaultProps.subtext) : undefined,
-    ...getIconKnobs()
+    textContent: text('text', 'Example Split Button'),
+    subtext: (size === OptionsHelper.sizesRestricted[2]) ? text('subtext', Button.defaultProps.subtext) : undefined
   };
 };
 
 storiesOf('Split Button', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [Button]
-    }
-  })
   .add(
     'default',
     () => {
       const props = getKnobs();
       const {
-        as,
         dataElement,
         dataRole,
         disabled,
@@ -63,12 +58,12 @@ storiesOf('Split Button', module)
       } = props;
       return (
         <SplitButton
-          as={ as }
           data-element={ dataElement }
           data-role={ dataRole }
           disabled={ disabled }
           onClick={ onClick }
           text={ textContent }
+          { ...getIconKnobs() }
           { ...props }
         >
           <Button
@@ -93,4 +88,41 @@ storiesOf('Split Button', module)
       info: { text: info },
       notes: { markdown: notes }
     },
-  );
+  )
+  .add('classic', () => {
+    const props = getKnobs(true);
+    const {
+      as,
+      dataElement,
+      dataRole,
+      disabled,
+      onClick,
+      textContent
+    } = props;
+    return (
+      <ThemeProvider theme={ classic }>
+        <SplitButton
+          as={ as }
+          data-element={ dataElement }
+          data-role={ dataRole }
+          disabled={ disabled }
+          onClick={ onClick }
+          text={ textContent }
+          { ...props }
+        >
+          <Button>
+            Example Button
+          </Button>
+          <Button>
+            Example Button
+          </Button>
+          <Button>
+            Example Button
+          </Button>
+        </SplitButton>
+      </ThemeProvider>
+    );
+  }, {
+    info: { text: info, propTablesExclude: [OriginalButton, ThemeProvider] },
+    notes: { markdown: notes }
+  });
