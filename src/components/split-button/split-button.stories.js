@@ -7,7 +7,7 @@ import { action } from '@storybook/addon-actions';
 import { ThemeProvider } from 'styled-components';
 import SplitButton from './split-button.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import Button from '../button';
+import Button, { OriginalButton } from '../button';
 import { notes, info } from './documentation';
 import classic from '../../style/themes/classic';
 
@@ -66,26 +66,20 @@ storiesOf('Split Button', module)
           { ...getIconKnobs() }
           { ...props }
         >
-          <Button
-            onClick={ ev => action('click')(ev) }
-          >
+          <Button>
             Example Button
           </Button>
-          <Button
-            onClick={ ev => action('click')(ev) }
-          >
+          <Button>
             Example Button
           </Button>
-          <Button
-            onClick={ ev => action('click')(ev) }
-          >
+          <Button>
             Example Button
           </Button>
         </SplitButton>
       );
     },
     {
-      info: { text: info },
+      info: { text: info, propTablesExclude: [OriginalButton] },
       notes: { markdown: notes }
     },
   )
