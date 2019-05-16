@@ -12,7 +12,7 @@ const colors = {
   maintenance: { color: '#FF7D00', backgroundColor: '#FFF8F2' }
 };
 
-const classicToastTypeStyle = ({ theme, toastType }) => theme.name === THEMES.classic && css`
+const classicToastTypeStyle = ({ theme, messageType }) => theme.name === THEMES.classic && css`
   align-items: center;
   display: flex;
   height: 100%;
@@ -21,8 +21,7 @@ const classicToastTypeStyle = ({ theme, toastType }) => theme.name === THEMES.cl
   top: 0;
   left: -1px;
   width: 31px;
-
-  ${toastType && `background-color: ${colors[toastType].color};`}
+  background-color: ${colors[messageType].color};
 
   .carbon-toast__type-icon {
     &:before {
@@ -43,7 +42,7 @@ const classicToastTypeStyle = ({ theme, toastType }) => theme.name === THEMES.cl
   }
 `;
 
-const classicToastStyle = ({ theme, toastType }) => theme.name === THEMES.classic && css`
+const classicToastStyle = ({ theme, messageType }) => theme.name === THEMES.classic && css`
   margin-top: 30px;
   position: fixed;
   right: 30px;
@@ -51,18 +50,17 @@ const classicToastStyle = ({ theme, toastType }) => theme.name === THEMES.classi
   width: 300px;
   z-index: 2001;
   box-shadow: 0 15px 20px 0 rgba(2,18,36, 0.2);
+  border: none;
+  background-color: ${colors[messageType].backgroundColor};
 
-  ${toastType && `
-    background-color: ${colors[toastType].backgroundColor};
+  strong {
+    color: ${colors[messageType].color};
+  }
 
-    strong {
-      color: ${colors[toastType].color};
-    }
+  .carbon-toast__close {
+    color: ${colors[messageType].color};
+  }
 
-    .carbon-toast__close {
-      color: ${colors[toastType].color};
-    }
-  `}
 `;
 
 const classicToastContentStyle = ({ theme }) => theme.name === THEMES.classic && css`

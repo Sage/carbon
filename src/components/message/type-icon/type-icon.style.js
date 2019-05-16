@@ -9,7 +9,7 @@ const TypeIconStyle = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  width: 30px;
   background-color: ${({ theme, messageType }) => theme.colors[messageType]};
   span {
     &:before {

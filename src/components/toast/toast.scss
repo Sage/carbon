@@ -3,22 +3,9 @@
 
 $toast-anim-start: -100px !default;
 $toast-anim-end: 30px !default;
-$toast-border: 1px solid !default;
-$toast-top-position: 0 !default;
-$toast-width: 300px !default;
 
-// .carbon-toast {
-//   margin-top: $toast-anim-end;
-//   position: fixed;
-//   right: $toast-anim-end;
-//   top: $toast-top-position;
-//   width: $toast-width;
-//   z-index: $z-toast;
-// }
-
-.carbon-toast__close
-// .carbon-toast__type 
-{
+// Related to Icon component
+.carbon-toast__close {
   align-items: center;
   display: flex;
   height: 100%;
@@ -27,6 +14,7 @@ $toast-width: 300px !default;
   top: 0;
 }
 
+// Related to Icon component
 .carbon-toast__close {
   right: 0;
   width: 45px;
@@ -36,62 +24,12 @@ $toast-width: 300px !default;
   }
 }
 
-// .carbon-toast__type {
-//   left: -1px;
-//   width: 31px;
-
-//   .carbon-toast__type-icon {
-//     &:before {
-//       color: #FFF;
-//       display: block;
-//       font-size: 16px;
-//     }
-//   }
-
-//   .carbon-icon__svg {
-//     height: 24px;
-//     margin-top: -12px;
-//     width: 30px;
-
-//     .carbon-icon__svg-group {
-//       fill: $white;
-//     }
-//   }
-// }
-
+// Related to Icon component
 .carbon-toast__close {
   cursor: pointer;
 }
 
-// .carbon-toast__content {
-//   padding: 15px 50px;
-//   white-space: pre-wrap;
-// }
-
-// @mixin toast-theme($type, $color, $border, $background, $color-hover) {
-//   .carbon-toast--#{$type} {
-//     box-shadow: 0 15px 20px 0 rgba($grey-shadow, 0.2);
-//     background-color: $background;
-
-//     .carbon-toast__type {
-//       background-color: $color;
-//     }
-
-//     strong {
-//       color: $color;
-//     }
-
-//     .carbon-toast__close {
-//       color: $color;
-//     }
-//   }
-// }
-
-// @each $set in $colorIconSets {
-//   @include toast-theme($set...);
-// }
-
-// toast animation:
+//CSSTransitionGroup
 .toast-appear,
 .toast-enter {
   opacity: 0;

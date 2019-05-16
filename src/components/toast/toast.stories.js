@@ -2,9 +2,11 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select, text, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
+import { ThemeProvider } from 'styled-components';
 import Toast from '.';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { notes, info } from './documentation';
+import classic from '../../style/themes/classic';
 
 storiesOf('Toast', module)
   .addParameters({
@@ -13,7 +15,27 @@ storiesOf('Toast', module)
     info: { text: info }
   })
   .add('Classic', () => {
-    const as = select('as', OptionsHelper.colors, OptionsHelper.colors[2]);
+    const messageType = select('as', OptionsHelper.colors, OptionsHelper.colors[2]);
+    const children = text('children', 'Talkie\'s the name, toasting\'s the game. Anyone like any toast?');
+    const open = boolean('open', true);
+    const onDismiss = boolean('onDismiss', false);
+
+    const handleChange = () => {
+      action('clicked')();
+    };
+
+    return (
+      <ThemeProvider theme={ classic }>
+        <Toast
+          messageType={ messageType }
+          open={ open } onDismiss={ onDismiss ? handleChange : undefined }
+        >
+          {children}
+        </Toast>
+      </ThemeProvider>
+    );
+  }).add('Default', () => {
+    const messageType = select('messageType', OptionsHelper.toast, OptionsHelper.toast[0]);
     const children = text('children', 'Talkie\'s the name, toasting\'s the game. Anyone like any toast?');
     const open = boolean('open', true);
     const onDismiss = boolean('onDismiss', false);
@@ -24,7 +46,7 @@ storiesOf('Toast', module)
 
     return (
       <Toast
-        as={ as }
+        messageType={ messageType }
         open={ open } onDismiss={ onDismiss ? handleChange : undefined }
       >
         {children}

@@ -48,6 +48,11 @@ const OptionsHelper = {
     'warning'
   ],
 
+  toast: [
+    'success',
+    'error'
+  ],
+
   messages: [
     'error',
     'info',

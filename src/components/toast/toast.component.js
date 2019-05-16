@@ -13,9 +13,7 @@ class Toast extends React.Component {
   /** Classes to be applied to the component. */
   get componentClasses() {
     return classNames(
-      // 'carbon-toast',
       this.props.className,
-      // `carbon-toast--${this.props.as}`
     );
   }
 
@@ -35,18 +33,21 @@ class Toast extends React.Component {
   }
 
   /** Content rendered for the toast. */
-  get toastContent() {
+  toastContent() {
     if (this.props.open) {
       return (
         <ToastStyle
-          toastType={ this.props.toastType || this.props.as } className={ this.componentClasses }
+          messageType={ this.props.messageType || this.props.as }
+          className={ this.componentClasses }
           { ...tagComponent('toast', this.props) }
         >
-          {/* <div className='carbon-toast__type'> */}
-          <ToastTypeStyle toastType={ this.props.toastType || this.props.as }>
-            <Icon className='carbon-toast__type-icon' type={ this.props.toastType || this.props.as } />
+          <ToastTypeStyle messageType={ this.props.messageType || this.props.as }>
+            <Icon className='carbon-toast__type-icon' type={ this.props.messageType || this.props.as } />
           </ToastTypeStyle>
-          <ToastContentStyle>
+          <ToastContentStyle
+            messageType={ this.props.messageType || this.props.as }
+            isDismiss={ this.props.onDismiss }
+          >
             { this.props.children }
           </ToastContentStyle>
           { this.dismissIcon }
@@ -68,7 +69,7 @@ class Toast extends React.Component {
           transitionEnterTimeout={ 1500 }
           transitionLeaveTimeout={ 500 }
         >
-          { this.toastContent }
+          { this.toastContent() }
         </CSSTransitionGroup>
       </Portal>
     );
@@ -76,7 +77,7 @@ class Toast extends React.Component {
 }
 
 Toast.propTypes = {
-  toastType: PropTypes.oneOf(OptionsHelper.colors),
+  messageType: PropTypes.oneOf(OptionsHelper.colors),
   /** Customizes the appearance in a legacy theme through colour see the 'iconColorSets' for possible values) */
   as: PropTypes.string,
   /** Custom className */
