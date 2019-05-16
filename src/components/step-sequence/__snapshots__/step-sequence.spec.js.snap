@@ -61,16 +61,6 @@ exports[`StepSequence Classic theme renders correctly 1`] = `
   flex-grow: 0;
 }
 
-.c0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  margin: 0;
-  padding: 18px;
-  font-weight: bold;
-}
-
 .c5 .c1 {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
@@ -89,6 +79,17 @@ exports[`StepSequence Classic theme renders correctly 1`] = `
   width: 1px;
   height: 25px;
   margin: 12px 8px;
+}
+
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  padding: 18px;
+  font-weight: bold;
+  padding: 0;
 }
 
 .c4 {
@@ -172,7 +173,7 @@ exports[`StepSequence Classic theme renders correctly with vertical orientation 
   display: none;
 }
 
-.c3 {
+.c4 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -181,6 +182,26 @@ exports[`StepSequence Classic theme renders correctly with vertical orientation 
   -webkit-flex-grow: 0;
   -ms-flex-positive: 0;
   flex-grow: 0;
+}
+
+.c6 .c1 {
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+}
+
+.c6 .c1::before {
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  width: 1px;
+  height: 25px;
+  margin: 12px 8px;
 }
 
 .c0 {
@@ -194,6 +215,7 @@ exports[`StepSequence Classic theme renders correctly with vertical orientation 
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
+  padding: 0;
 }
 
 .c0 .c1 {
@@ -216,7 +238,21 @@ exports[`StepSequence Classic theme renders correctly with vertical orientation 
   margin: 12px 8px;
 }
 
-.c4 {
+.c0 .c1 {
+  height: auto;
+}
+
+.c0 .c1::before {
+  height: 32px;
+  margin: 0;
+  background-color: transparent;
+}
+
+.c0 .c3 {
+  height: 17px;
+}
+
+.c5 {
   display: block;
   width: 16px;
   height: 16px;
@@ -233,10 +269,10 @@ exports[`StepSequence Classic theme renders correctly with vertical orientation 
     className="c1 c2"
   >
     <span
-      className="c3"
+      className="c3 c4"
     >
       <span
-        className="c4"
+        className="c5"
       >
         2
       </span>
