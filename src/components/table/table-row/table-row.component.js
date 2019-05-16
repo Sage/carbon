@@ -19,35 +19,20 @@ import tagComponent from '../../../utils/helpers/tags/tags';
  *
  * If you add an onClick event to a Table Row, will display the cursor as a pointer
  * when hovering over the row.
- *
- * @class TableRow
- * @constructor
  */
 class TableRow extends React.Component {
   state = {
     /**
      * Internal state to track if the row is currently highlighted.
-     *
-     * @property highlighted
-     * @type {Boolean}
-     * @default false
      */
     highlighted: false,
 
     /**
      * Internal state to track if the row is currently selected.
-     *
-     * @property selected
-     * @type {Boolean}
-     * @default false
      */
     selected: false
   }
 
-  /**
-   * @method componentWillMount
-   * @return {Void}
-   */
   componentWillMount() {
     if (this.context.dragDropManager) {
       if (this.props.as !== 'header' && this.props.index === undefined) {
@@ -79,10 +64,6 @@ class TableRow extends React.Component {
     }
   }
 
-  /**
-   * @method componentWillReceiveProps
-   * @return {Void}
-   */
   componentWillReceiveProps(nextProps) {
     if (this.props.uniqueID !== nextProps.uniqueID) {
       // if unique id has changed, check if the table has the new id as selected or not
@@ -100,10 +81,6 @@ class TableRow extends React.Component {
     }
   }
 
-  /**
-   * @method componentWillUnmount
-   * @return {Void}
-   */
   componentWillUnmount() {
     if (this.context.detachFromTable) {
       this.context.detachFromTable(this.rowID);
@@ -112,9 +89,6 @@ class TableRow extends React.Component {
 
   /**
    * Call the selectAll callback.
-   *
-   * @method onSelectAll
-   * @return {Void}
    */
   onSelectAll = () => {
     this.context.selectAll(this);
@@ -122,9 +96,6 @@ class TableRow extends React.Component {
 
   /**
    * Call the selectRow callback and call any custom event the developer may have set.
-   *
-   * @method onRowClick
-   * @return {Void}
    */
   onRowClick = (...args) => {
     if (this.props.onHighlight) {
@@ -140,9 +111,6 @@ class TableRow extends React.Component {
 
   /**
    * Call the selectRow callback.
-   *
-   * @method onSelect
-   * @return {Void}
    */
   onSelect = (ev) => {
     if (this.props.onSelect) {
@@ -156,8 +124,6 @@ class TableRow extends React.Component {
 
   /**
    * Classes to be applied to the table row component
-   *
-   * @method mainClasses Main Class getter
    */
   get mainClasses() {
     const isDragIndexMatch = this.context.dragAndDropActiveIndex === this.props.index;
@@ -175,9 +141,6 @@ class TableRow extends React.Component {
 
   /**
    * Sets additional props to the row.
-   *
-   * @method rowProps
-   * @return {Object}
    */
   get rowProps() {
     const { ...props } = validProps(this);
@@ -193,9 +156,6 @@ class TableRow extends React.Component {
 
   /**
    * Determines if the developer has flagged this row as a header.
-   *
-   * @method isHeader
-   * @return {Boolean}
    */
   get isHeader() {
     return this.props.as === 'header';
@@ -203,9 +163,6 @@ class TableRow extends React.Component {
 
   /**
    * Determines what kind of cell to render for the checkbox.
-   *
-   * @method multiSelectCell
-   * @return {Object} JSX
    */
   get multiSelectCell() {
     // renders a TableHeader if row is flagged as a header.
@@ -218,9 +175,6 @@ class TableRow extends React.Component {
 
   /**
    * Returns the checkbox for the select action.
-   *
-   * @method multiSelect
-   * @return {Object} JSX
    */
   get multiSelect() {
     if (this.props.hideMultiSelect) { return null; }
@@ -239,9 +193,6 @@ class TableRow extends React.Component {
 
   /**
    * Determines if the row should have a multi select column.
-   *
-   * @method shouldHaveMultiSelectColumn
-   * @return {Boolean}
    */
   get shouldHaveMultiSelectColumn() {
     // if component specifically disables selectable, don't put the cell in
@@ -257,9 +208,6 @@ class TableRow extends React.Component {
 
   /**
    * Determines if the row requires a unique ID.
-   *
-   * @method requiresUniqueID
-   * @return {Boolean}
    */
   get requiresUniqueID() {
     const highlightable = this.props.highlightable !== false
@@ -271,9 +219,6 @@ class TableRow extends React.Component {
 
   /**
    * Determines if dragging is occurring within the current draggable context.
-   *
-   * @method draggingIsOccurring
-   * @return {Boolean}
    */
   draggingIsOccurring = () => {
     return typeof this.context.dragAndDropActiveIndex === 'number';
@@ -281,9 +226,6 @@ class TableRow extends React.Component {
 
   /**
    * Returns a draggable cell if required.
-   *
-   * @method renderDraggableCell
-   * @return {Object} JSX
    */
   renderDraggableCell = () => {
     if (!this.context.dragDropManager || this.isHeader) {
@@ -301,10 +243,6 @@ class TableRow extends React.Component {
 
   /**
    * Returns the row wrapped in draggable functionality if required.
-   *
-   * @method renderDraggableRow
-   * @param {Object} JSX
-   * @return {Object} JSX
    */
   renderDraggableRow = (row) => {
     if (!this.context.dragDropManager || this.isHeader) {
@@ -324,8 +262,6 @@ class TableRow extends React.Component {
 
   /**
    * Renders the component
-   *
-   * @method render
    */
   render() {
     const content = [this.props.children];
@@ -349,91 +285,58 @@ class TableRow extends React.Component {
 }
 
 TableRow.propTypes = {
-  /**
-   * Children elements
-   */
+  /**  Children elements */
   children: PropTypes.node,
 
-  /**
-     * A custom class name for the component.
-     *
-     * @property className
-     * @type {String}
-     */
+  /** A custom class name for the component. */
   className: PropTypes.string,
 
-  /**
-   * Allows developers to specify a callback after the row is clicked.
-   */
+  /** Allows developers to specify a callback after the row is clicked. */
   onClick: PropTypes.func,
 
-  /**
-   * Enables multi-selectable table rows.
-   */
+  /** Enables multi-selectable table rows. */
   selectable: PropTypes.bool,
 
-  /**
-   * Enables highlightable table rows.
-   */
+  /** Enables highlightable table rows. */
   highlightable: PropTypes.bool,
 
-  /**
-   * Allows developers to manually control selected state for the row.
-   */
+  /** Allows developers to manually control selected state for the row. */
   selected: PropTypes.bool,
 
-  /**
-   * Allows developers to manually control highlighted state for the row.
-   */
+  /** Allows developers to manually control highlighted state for the row. */
   highlighted: PropTypes.bool,
 
-  /**
-   * Define a unique ID so the table can track the row (useful for highlightable or selectable rows).
-   */
+  /** Define a unique ID so the table can track the row (useful for highlightable or selectable rows). */
   uniqueID: PropTypes.string,
 
-  /**
-   * What the row should be displayed as, set to 'header' to display as header
-   */
+  /** What the row should be displayed as, set to 'header' to display as header */
   as: PropTypes.string,
 
-  /**
-   * Whether to hide the multiSelect
-   */
+  /** Whether to hide the multiSelect */
   hideMultiSelect: PropTypes.bool,
 
-  /**
-   * Whether to select all
-   */
+  /** Whether to select all */
   selectAll: PropTypes.bool,
 
-  /**
-   * Callback for when a row is highlighted
-   */
+  /** Callback for when a row is highlighted */
   onHighlight: PropTypes.func,
 
-  /**
-   * Callback for when a row is selected
-   */
+  /** Callback for when a row is selected */
   onSelect: PropTypes.func,
 
-  /**
-   * Used if this row is within a draggable context
-   */
+  /** Used if this row is within a draggable context */
   index: PropTypes.number,
 
-  /**
-   * Optional to associate the drag and drag context.
-   */
+  /** Optional to associate the drag and drag context. */
   dragAndDropIdentifier: PropTypes.string,
 
-  /**
-   * Used to determine if line is empty or not
-   */
+  /** Used to determine if line is empty or not */
   hideDrag: PropTypes.bool,
 
+  /** Used to determine if line is dragged */
   dragged: PropTypes.bool,
 
+  /** Used to determine if line is empty is dragging */
   dragging: PropTypes.func
 };
 

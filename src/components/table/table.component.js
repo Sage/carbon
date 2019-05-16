@@ -23,9 +23,6 @@ class Table extends React.Component {
 
   /**
    * Returns table object to child components.
-   *
-   * @method getChildContext
-   * @return {void}
    */
   getChildContext = () => {
     return {
@@ -48,9 +45,6 @@ class Table extends React.Component {
   /**
    * Lifecycle for after mounting
    * Resize the table to set the correct height on pageload
-   *
-   * @method componentDidMount
-   * @return {Void}
    */
   componentDidMount() {
     this.resizeTable();
@@ -59,9 +53,6 @@ class Table extends React.Component {
   /**
    * Lifecycle for after a update has happened
    * If filter has changed then emit the on change event.
-   *
-   * @method componentWillReceiveProps
-   * @return {Void}
    */
   componentWillReceiveProps(nextProps) {
     // if filter has changed, update the data
@@ -87,9 +78,6 @@ class Table extends React.Component {
    * Lifecycle for after a update has happened
    * If pageSize has updated to a smaller value - reset table height
    * else resize table
-   *
-   * @method componentDidUpdate
-   * @return {Void}
    */
   componentDidUpdate(prevProps) {
     if (this.shouldResetTableHeight(prevProps)) {
@@ -101,10 +89,6 @@ class Table extends React.Component {
 
   /**
    * Handles what happens on sort.
-   *
-   * @method onSort
-   * @param {String} sortedColumn
-   * @param {String} sortOrder
    */
   onSort = (sortedColumn, sortOrder) => {
     const options = this.emitOptions();
@@ -117,11 +101,6 @@ class Table extends React.Component {
    * Handles when the pager emits a onChange event
    * Passes data to emitOnChangeCallback in the correct
    * format
-   *
-   * @method onPagination
-   * @param {String} currentPage
-   * @param {String} pageSize
-   * @return {Void}
    */
   onPagination = (currentPage, pageSize, element) => {
     if (this.props.onPageSizeChange && element === 'size') {
@@ -135,9 +114,6 @@ class Table extends React.Component {
 
   /**
    * Returns the currently sorted column.
-   *
-   * @method sortedColumn
-   * @return {String}
    */
   get sortedColumn() {
     return this.props.sortedColumn;
@@ -145,9 +121,6 @@ class Table extends React.Component {
 
   /**
    * Returns the current sort order.
-   *
-   * @method sortOrder
-   * @return {String}
    */
   get sortOrder() {
     return this.props.sortOrder;
@@ -155,9 +128,6 @@ class Table extends React.Component {
 
   /**
    * Get pageSize for table
-   *
-   * @method pageSize
-   * @return {String} table page size
    */
   get pageSize() {
     return this.props.pageSize;
@@ -166,11 +136,6 @@ class Table extends React.Component {
   /**
    * Emit onChange event with options
    * needed to fetch the new data
-   *
-   * @method emitOnChangeCallback
-   * @param {String} element changed element
-   * @param {Object} options base and updated options
-   * @return {Void}
    */
   emitOnChangeCallback = (element, options) => {
     if (this.selectAllComponent) {
@@ -184,9 +149,6 @@ class Table extends React.Component {
 
   /**
    * Attaches action toolbar to the table.
-   *
-   * @method attachActionToolbar
-   * @param {Object}
    */
   attachActionToolbar = (comp) => {
     this.actionToolbarComponent = comp;
@@ -194,9 +156,6 @@ class Table extends React.Component {
 
   /**
    * Detaches action toolbar to the table.
-   *
-   * @method detachActionToolbar
-   * @param {Object}
    */
   detachActionToolbar = () => {
     this.actionToolbarComponent = null;
@@ -204,11 +163,6 @@ class Table extends React.Component {
 
   /**
    * Attaches a row to the table.
-   *
-   * @method attachToTable
-   * @param {String} unique id
-   * @param {Object} the row
-   * @return {Void}
    */
   attachToTable = (id, row) => {
     this.rows[id] = row;
@@ -216,10 +170,6 @@ class Table extends React.Component {
 
   /**
    * Detaches a row from the table.
-   *
-   * @method detachFromTable
-   * @param {String} unique id
-   * @return {Void}
    */
   detachFromTable = (id) => {
     delete this.rows[id];
@@ -227,9 +177,6 @@ class Table extends React.Component {
 
   /**
    * Refreshes the grid and resets any selected rows.
-   *
-   * @method refresh
-   * @return {Void}
    */
   refresh = () => {
     this.resetHighlightedRow();
@@ -250,9 +197,6 @@ class Table extends React.Component {
 
   /**
    * Resets the highlighted row.
-   *
-   * @method resetHighlightedRow
-   * @return {Void}
    */
   resetHighlightedRow = () => {
     if (this.highlightedRow.row && this.rows[this.highlightedRow.row.rowID]) {
@@ -267,11 +211,6 @@ class Table extends React.Component {
 
   /**
    * Highlights the row in the table.
-   *
-   * @method highlightRow
-   * @param {String} unique id
-   * @param {Object} the row
-   * @return {Void}
    */
   highlightRow = (id, row) => {
     let state = true;
@@ -303,13 +242,6 @@ class Table extends React.Component {
 
   /**
    * Selects the row in the table.
-   *
-   * @method selectRow
-   * @param {String} unique id
-   * @param {Object} the row
-   * @param {Boolean} the new selected state
-   * @param {Boolean} should method skip the callback
-   * @return {Void}
    */
   selectRow = (id, row, state, skipCallback) => {
     const isSelected = this.selectedRows[id] !== undefined;
@@ -352,10 +284,6 @@ class Table extends React.Component {
 
   /**
    * Selects all the currently visible rows.
-   *
-   * @method selectAll
-   * @param {Object} the select all row (usually the header)
-   * @return {Void}
    */
   selectAll = (row) => {
     const selectState = !row.state.selected;
@@ -394,11 +322,6 @@ class Table extends React.Component {
   /**
    * Checks the rows status using the table's stored checked rows and updates
    * its status based on this.
-   *
-   * @method checkSelection
-   * @param {String} unique id
-   * @param {Object} the row
-   * @return {Void}
    */
   checkSelection = (id, row) => {
     const isSelected = this.selectedRows[id] !== undefined,
@@ -415,9 +338,6 @@ class Table extends React.Component {
 
   /**
    * Reset the minHeight and tableHeight of the table
-   *
-   * @method resetTableHeight
-   * @return {Void}
    */
   resetTableHeight() {
     this._wrapper.style.minHeight = '0';
@@ -430,9 +350,6 @@ class Table extends React.Component {
   /**
    * Increase the minheight of the table if the new height
    * is greater than the previous
-   *
-   * @method resizeTable
-   * @return {Void}
    */
   resizeTable() {
     if (!this._table) { return; }
@@ -446,10 +363,6 @@ class Table extends React.Component {
 
   /**
    * Test if the table height should be reset to 0
-   *
-   * @method shouldResetTableHeight
-   * @param prevProps - props before update
-   * @return {Boolean}
    */
   shouldResetTableHeight(prevProps) {
     return prevProps.pageSize > this.pageSize;
@@ -457,33 +370,21 @@ class Table extends React.Component {
 
   /**
    * Tracks the component used for select all.
-   *
-   * @property selectAllComponent
-   * @type {Object}
    */
   selectAllComponent = null;
 
   /**
    * Tracks the action toolbar component.
-   *
-   * @property actionToolbarComponent
-   * @type {Object}
    */
   actionToolbarComponent = null;
 
   /**
    * Tracks the rows which are currently selected.
-   *
-   * @property selectedRows
-   * @type {Object}
    */
   selectedRows = {};
 
   /**
    * Tracks the currently highlighted row.
-   *
-   * @property highlightedRow
-   * @type {String}
    */
   highlightedRow = {
     id: null,
@@ -492,25 +393,16 @@ class Table extends React.Component {
 
   /**
    * The rows currently attached to the table.
-   *
-   * @property rows
-   * @type {Object}
    */
   rows = {};
 
   /**
    * Maintains the height of the table
-   *
-   * @property tableHeight
-   * @type {Number}
    */
   tableHeight = 0;
 
   /**
    * Base Options to be emitted by onChange
-   *
-   * @method emitOptions
-   * @return {Object} options to emit
    */
   emitOptions = (props = this.props) => {
     let currentPage = props.currentPage || '';
@@ -531,9 +423,6 @@ class Table extends React.Component {
 
   /**
    * Props to pass to pager component
-   *
-   * @method pagerProps
-   * @return {Object} props
    */
   get pagerProps() {
     return {
@@ -548,9 +437,6 @@ class Table extends React.Component {
 
   /**
    * Page size for page load
-   *
-   * @method defaultPageSize
-   * @return {Void}
    */
   get defaultPageSize() {
     if (this.props.pageSize) {
@@ -564,9 +450,6 @@ class Table extends React.Component {
 
   /**
    * Returns the pager if paginate is true
-   *
-   * @method pager
-   * @return {JSX} pager
    */
   get pager() {
     if (this.props.paginate) {
@@ -577,9 +460,6 @@ class Table extends React.Component {
 
   /**
    * Returns thead content wrapped in <thead>
-   *
-   * @method thead
-   * @return {JSX}
    */
   get thead() {
     if (this.props.thead) {
@@ -594,9 +474,6 @@ class Table extends React.Component {
 
   /**
    * Returns the component for the action toolbar.
-   *
-   * @method actionToolbar
-   * @return {JSX}
    */
   get actionToolbar() {
     if (!this.props.selectable || !this.props.actions) { return null; }
@@ -625,9 +502,6 @@ class Table extends React.Component {
 
   /**
    * Returns a row to be used for loading.
-   *
-   * @method loadingRow
-   * @return {Object} JSX
    */
   get loadingRow() {
     return (
@@ -653,9 +527,6 @@ class Table extends React.Component {
 
   /**
    * Returns a row to be used for no data.
-   *
-   * @method emptyRow
-   * @return {Object} JSX
    */
   get emptyRow() {
     if (this.props.customEmptyRow) {
@@ -676,9 +547,6 @@ class Table extends React.Component {
 
   /**
    * Works out what content to display in the table.
-   *
-   * @method tableContent
-   * @return {Object} JSX
    */
   get tableContent() {
     let { children } = this.props,
@@ -710,9 +578,6 @@ class Table extends React.Component {
 
   /**
    * Returns the content, wrapped in a tbody.
-   *
-   * @method tbody
-   * @return {Object} JSX
    */
   get tbody() {
     if (this.props.tbody === false) {
@@ -751,9 +616,6 @@ class Table extends React.Component {
   /**
    * Returns the caption prop wrapped in a <caption> tag,
    * or null if no caption prop was given.
-   *
-   * @method caption
-   * @return {Object} JSX
    */
   get caption() {
     if (this.props.caption) {
@@ -765,8 +627,6 @@ class Table extends React.Component {
 
   /**
    * Renders the component.
-   *
-   * @method render
    */
   render() {
     const tableProps = {
@@ -801,158 +661,91 @@ class Table extends React.Component {
 }
 
 Table.propTypes = {
-  /**
-   * The actions to display in the toolbar
-   */
+  /**  The actions to display in the toolbar  */
   actions: PropTypes.object,
 
-  /**
-   * The extra actions to display in the toolbar
-   */
+  /** The extra actions to display in the toolbar */
   actionToolbarChildren: PropTypes.func,
 
-  /**
-   * Children elements
-   */
+  /** Children elements */
   children: PropTypes.node,
 
-  /**
-   * Custom className
-   */
+  /** Custom className */
   className: PropTypes.string,
 
-  /**
-   * Custom empty row
-   */
+  /**  Custom empty row */
   customEmptyRow: PropTypes.node,
 
-  /**
-   * Data used to filter the data
-   */
+  /** Data used to filter the data */
   filter: PropTypes.object,
 
-  /**
-   * Emitted when table component changes e.g.
-   * Pager, sorting, filter
-   */
+  /** Emitted when table component changes e.g. Pager, sorting, filter */
   onChange: PropTypes.func,
 
-  /**
-   * Enable configure icon that triggers this callback on click
-   */
+  /** Enable configure icon that triggers this callback on click */
   onConfigure: PropTypes.func,
 
-  /**
-   * Show the pagination footer
-   */
+  /** Show the pagination footer */
   paginate: PropTypes.bool,
 
-  /**
-   * Pagination
-   * Current Visible Page
-   */
+  /** Pagination Current Visible Page */
   currentPage: PropTypes.string,
 
-  /**
-   * Pagination
-   * Page Size of grid (number of visible records)
-   */
+  /** Pagination Page Size of grid (number of visible records) */
   pageSize: PropTypes.string,
 
-  /**
-   * Pagination
-   * Options for pageSize default - 10, 25, 50
-   */
+  /** Pagination Options for pageSize default - 10, 25, 50 */
   pageSizeSelectionOptions: PropTypes.object,
 
-  /**
-   * Pagination
-   * Is the page size dropdown visible
-   */
+  /** Pagination Is the page size dropdown visible  */
   showPageSizeSelection: PropTypes.bool,
 
-  /**
-   * Enables multi-selectable table rows.
-   */
+  /** Enables multi-selectable table rows. */
   selectable: PropTypes.bool,
 
-  /**
-   * Enables highlightable table rows.
-   */
+  /** Enables highlightable table rows. */
   highlightable: PropTypes.bool,
 
-  /**
-   * A callback for when a row is selected.
-   */
+  /** A callback for when a row is selected. */
   onSelect: PropTypes.func,
 
-  /**
-   * A callback for when a row is highlighted.
-   */
+  /** A callback for when a row is highlighted. */
   onHighlight: PropTypes.func,
 
-  /**
-   * A callback for when the page size changes.
-   */
+  /** A callback for when the page size changes. */
   onPageSizeChange: PropTypes.func,
 
-  /**
-   * Pagination
-   * Total number of records in the grid
-   */
+  /** Pagination Total number of records in the grid */
   totalRecords: PropTypes.string,
 
-  /**
-   * Allow table to shrink in size.
-   */
+  /** Allow table to shrink in size. */
   shrink: PropTypes.bool,
 
-  /**
-   * The currently sorted column.
-   */
+  /** The currently sorted column. */
   sortedColumn: PropTypes.string,
 
-  /**
-   * The current sort order applied.
-   */
+  /** The current sort order applied. */
   sortOrder: PropTypes.string,
 
-  /**
-   * TableRows to be wrapped in <thead>
-   */
+  /** TableRows to be wrapped in <thead> */
   thead: PropTypes.object,
 
-  /**
-   * Determines if you want the table to automatically render a tbody.
-   */
+  /** Determines if you want the table to automatically render a tbody. */
   tbody: PropTypes.bool,
 
-  /**
-   * A string to render as the table's caption
-   */
+  /** A string to render as the table's caption */
   caption: PropTypes.string,
 
-  /**
-   * The HTML id of the element that contains a description
-   * of this table.
-   */
+  /** The HTML id of the element that contains a description of this table. */
   'aria-describedby': PropTypes.string,
 
-  /**
-   * Renders as light or dark or transparent
-   * Uses common theme definition of 'primary' / 'dark', 'secondary' / 'light', 'tertiary' / 'transparent'
-   */
+  /** Renders as 'primary' / 'dark', 'secondary' / 'light', 'tertiary' / 'transparent' */
   theme: PropTypes.oneOf(OptionsHelper.tableThemes),
 
-  /**
-   * Used to define the tables size
-   * Renders as:  'compact', 'small', 'medium' and 'large'
-   */
+  /** Used to define the tables size Renders as:  'compact', 'small', 'medium' and 'large' */
   size: PropTypes.oneOf(OptionsHelper.tableSizes),
 
-  /**
-   * Toggles the zebra striping for the table rows
-   */
+  /** Toggles the zebra striping for the table rows */
   isZebra: PropTypes.bool
 };
 
@@ -960,9 +753,6 @@ Table.childContextTypes = {
   /**
    * Defines a context object for child components of the table component.
    * https://facebook.github.io/react/docs/context.html
-   *
-   * @property childContextTypes
-   * @type {Object}
    */
   attachActionToolbar: PropTypes.func, // tracks the action toolbar component
   detachActionToolbar: PropTypes.func, // tracks the action toolbar component
