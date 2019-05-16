@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import StepSequenceStyle from './step-sequence.style';
 
-const StepSequence = ({ children, orientation }) => (
-  <StepSequenceStyle orientation={ orientation }>
-    { children }
+const StepSequence = props => (
+  <StepSequenceStyle { ...props }>
+    { props.children }
   </StepSequenceStyle>
 );
 

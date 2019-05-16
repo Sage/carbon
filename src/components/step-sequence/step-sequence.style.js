@@ -1,5 +1,6 @@
 
 import styled, { css } from 'styled-components';
+import { THEMES } from '../../style/themes';
 import StepSequenceClassicStyle from './step-sequence-classic.style';
 import StepSequenceItemVerticalStyle from './step-sequence-item/step-sequence-item-vertical.style';
 import StepSequenceItemVerticalClassicStyle from './step-sequence-item/step-sequence-item-vertical-classic.style';
@@ -17,13 +18,11 @@ const StepSequenceStyle = styled.ol`
     ${StepSequenceItemVerticalStyle}
   `};
   
-  ${({ theme }) => theme.name === 'classic' && css`
+  ${({ theme, orientation }) => theme.name === THEMES.classic && css`
     ${StepSequenceClassicStyle}
     
-    ${({ orientation }) => orientation === 'vertical' && css`
-      /* Avoids passing orientation prop down to child items of StepSequence */
-      ${StepSequenceItemVerticalClassicStyle}
-    `};
+    /* Avoids passing orientation prop down to child items of StepSequence */
+    ${orientation === 'vertical' ? StepSequenceItemVerticalClassicStyle : null};
   `};
 `;
 
