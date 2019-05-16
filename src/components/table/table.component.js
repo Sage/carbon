@@ -948,8 +948,11 @@ Table.propTypes = {
    * Used to define the tables size
    * Renders as:  'compact', 'small', 'medium' and 'large'
    */
-  size: PropTypes.oneOf(OptionsHelper.tableSizes.concat(['dark', 'light', 'transparent'])),
+  size: PropTypes.oneOf(OptionsHelper.tableSizes),
 
+  /**
+   * Toggles the zebra striping for the table rows
+   */
   isZebra: PropTypes.bool
 };
 

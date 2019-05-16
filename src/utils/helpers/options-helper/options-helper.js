@@ -253,7 +253,10 @@ const OptionsHelper = {
   tableThemes: [
     'primary',
     'secondary',
-    'tertiary'
+    'tertiary',
+    'dark',
+    'light',
+    'transparent'
   ],
 
   tableSizes: [

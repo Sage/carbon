@@ -10,7 +10,6 @@ exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
   box-sizing: border-box;
   color: #FFFFFF;
   font-weight: 700;
-  height: 40px;
   outline: medium none;
   padding: 0 8px;
   position: relative;

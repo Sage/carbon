@@ -45,14 +45,14 @@ function applyModernTableStyling({
 
 function additionalThemeStyling(type, { text, table, colors }) {
   return css`
-    border-color: ${type === 'tertiary' ? 'transparent' : ''}
+    ${type === 'tertiary' ? 'border-color: transparent;' : ''}
     ${StyledTableCell} {
       background-color: ${colors.white};
     }
 
     ${StyledTableHeader} {
       background-color: ${type === 'secondary' ? table.secondary : 'transparent'};
-      border-left-color: ${type === 'tertiary' ? 'transparent' : ''};
+      ${type === 'tertiary' ? 'border-left-color: transparent;' : ''}
       color: ${text.color};
         
       a:link,

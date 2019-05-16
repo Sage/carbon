@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const StyledTableCell = styled.td`
   ${({ action, align, theme }) => {
@@ -14,7 +15,7 @@ const StyledTableCell = styled.td`
       font-size: 13px;
       overflow: visible;
       padding: 8px;
-      text-align: ${align !== '' ? align : 'left'};
+      text-align: ${align};
       vertical-align: middle;
       white-space: nowrap;
 
@@ -57,11 +58,12 @@ StyledTableCell.propTypes = {
   /**
    * Defines the alignment of the cell (eg "left", "center" or "right").
    */
-  align: PropTypes.oneOf(['left', 'center', 'right', ''])
+  align: PropTypes.oneOf(OptionsHelper.alignFull)
 };
 
 StyledTableCell.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
+  align: 'left'
 };
 
 export default StyledTableCell;

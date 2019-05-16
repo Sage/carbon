@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import StyledTableCell from './table-cell.style';
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 /**
  * A TableCell widget.
@@ -58,7 +59,7 @@ TableCell.propTypes = {
   /**
    * Defines the alignment of the cell (eg "left", "center" or "right").
    */
-  align: PropTypes.oneOf(['left', 'center', 'right', '']),
+  align: PropTypes.oneOf(OptionsHelper.alignFull),
 
   /**
    * Children elements
@@ -67,7 +68,7 @@ TableCell.propTypes = {
 };
 
 TableCell.defaultProps = {
-  align: ''
+  align: 'left'
 };
 
 export default TableCell;
