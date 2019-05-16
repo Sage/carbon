@@ -66,15 +66,9 @@ storiesOf('Split Button', module)
           { ...getIconKnobs() }
           { ...props }
         >
-          <Button>
-            Example Button
-          </Button>
-          <Button>
-            Example Button
-          </Button>
-          <Button>
-            Example Button
-          </Button>
+          <Button>Example Button</Button>
+          <Button>button with long text</Button>
+          <Button>short</Button>
         </SplitButton>
       );
     },
