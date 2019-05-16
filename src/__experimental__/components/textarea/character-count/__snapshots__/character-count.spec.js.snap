@@ -21,6 +21,9 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
         "baseBlue": "#255BC7",
         "border": "#668491",
         "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
         "error": "#C7384F",
         "focus": "#FFB500",
         "focusedIcon": "#335B6D",
@@ -33,10 +36,13 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
         "tertiary": "#003F2E",
         "warning": "#FFB500",
         "white": "#FFFFFF",
+        "whiteMix": "#E5F4E5",
       },
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#4d7080",
+        "button": "#E5EAEC",
+        "buttonText": "rgba(0,0,0,.2)",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
         "text": "#003349",
@@ -71,6 +77,9 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
           "baseBlue": "#255BC7",
           "border": "#668491",
           "brand": "#00DC00",
+          "destructive": Object {
+            "hover": "#9F2C3F",
+          },
           "error": "#C7384F",
           "focus": "#FFB500",
           "focusedIcon": "#335B6D",
@@ -83,10 +92,13 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
           "tertiary": "#003F2E",
           "warning": "#FFB500",
           "white": "#FFFFFF",
+          "whiteMix": "#E5F4E5",
         },
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#4d7080",
+          "button": "#E5EAEC",
+          "buttonText": "rgba(0,0,0,.2)",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
           "text": "#003349",
@@ -121,6 +133,9 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
             "baseBlue": "#255BC7",
             "border": "#668491",
             "brand": "#00DC00",
+            "destructive": Object {
+              "hover": "#9F2C3F",
+            },
             "error": "#C7384F",
             "focus": "#FFB500",
             "focusedIcon": "#335B6D",
@@ -133,10 +148,13 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
             "tertiary": "#003F2E",
             "warning": "#FFB500",
             "white": "#FFFFFF",
+            "whiteMix": "#E5F4E5",
           },
           "disabled": Object {
             "background": "#E5EAEC",
             "border": "#4d7080",
+            "button": "#E5EAEC",
+            "buttonText": "rgba(0,0,0,.2)",
             "disabled": "#b3c2c8",
             "input": "#1e499f",
             "text": "#003349",
@@ -170,6 +188,9 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
               "baseBlue": "#255BC7",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
               "focus": "#FFB500",
               "focusedIcon": "#335B6D",
@@ -182,10 +203,13 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
               "tertiary": "#003F2E",
               "warning": "#FFB500",
               "white": "#FFFFFF",
+              "whiteMix": "#E5F4E5",
             },
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#4d7080",
+              "button": "#E5EAEC",
+              "buttonText": "rgba(0,0,0,.2)",
               "disabled": "#b3c2c8",
               "input": "#1e499f",
               "text": "#003349",
@@ -254,6 +278,9 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
                 "baseBlue": "#255BC7",
                 "border": "#668491",
                 "brand": "#00DC00",
+                "destructive": Object {
+                  "hover": "#9F2C3F",
+                },
                 "error": "#C7384F",
                 "focus": "#FFB500",
                 "focusedIcon": "#335B6D",
@@ -266,10 +293,13 @@ exports[`CharacterCount when is classic theme should apply classic styling 1`] =
                 "tertiary": "#003F2E",
                 "warning": "#FFB500",
                 "white": "#FFFFFF",
+                "whiteMix": "#E5F4E5",
               },
               "disabled": Object {
                 "background": "#E5EAEC",
                 "border": "#4d7080",
+                "button": "#E5EAEC",
+                "buttonText": "rgba(0,0,0,.2)",
                 "disabled": "#b3c2c8",
                 "input": "#1e499f",
                 "text": "#003349",
@@ -335,6 +365,9 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
         "baseBlue": "#255BC7",
         "border": "#668491",
         "brand": "#00DC00",
+        "destructive": Object {
+          "hover": "#9F2C3F",
+        },
         "error": "#C7384F",
         "focus": "#FFB500",
         "focusedIcon": "#335B6D",
@@ -347,10 +380,13 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
         "tertiary": "#003F2E",
         "warning": "#FFB500",
         "white": "#FFFFFF",
+        "whiteMix": "#E5F4E5",
       },
       "disabled": Object {
         "background": "#E5EAEC",
         "border": "#4d7080",
+        "button": "#E5EAEC",
+        "buttonText": "rgba(0,0,0,.2)",
         "disabled": "#b3c2c8",
         "input": "#1e499f",
         "text": "#003349",
@@ -385,6 +421,9 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
           "baseBlue": "#255BC7",
           "border": "#668491",
           "brand": "#00DC00",
+          "destructive": Object {
+            "hover": "#9F2C3F",
+          },
           "error": "#C7384F",
           "focus": "#FFB500",
           "focusedIcon": "#335B6D",
@@ -397,10 +436,13 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
           "tertiary": "#003F2E",
           "warning": "#FFB500",
           "white": "#FFFFFF",
+          "whiteMix": "#E5F4E5",
         },
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#4d7080",
+          "button": "#E5EAEC",
+          "buttonText": "rgba(0,0,0,.2)",
           "disabled": "#b3c2c8",
           "input": "#1e499f",
           "text": "#003349",
@@ -435,6 +477,9 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
             "baseBlue": "#255BC7",
             "border": "#668491",
             "brand": "#00DC00",
+            "destructive": Object {
+              "hover": "#9F2C3F",
+            },
             "error": "#C7384F",
             "focus": "#FFB500",
             "focusedIcon": "#335B6D",
@@ -447,10 +492,13 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
             "tertiary": "#003F2E",
             "warning": "#FFB500",
             "white": "#FFFFFF",
+            "whiteMix": "#E5F4E5",
           },
           "disabled": Object {
             "background": "#E5EAEC",
             "border": "#4d7080",
+            "button": "#E5EAEC",
+            "buttonText": "rgba(0,0,0,.2)",
             "disabled": "#b3c2c8",
             "input": "#1e499f",
             "text": "#003349",
@@ -484,6 +532,9 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
               "baseBlue": "#255BC7",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
               "focus": "#FFB500",
               "focusedIcon": "#335B6D",
@@ -496,10 +547,13 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
               "tertiary": "#003F2E",
               "warning": "#FFB500",
               "white": "#FFFFFF",
+              "whiteMix": "#E5F4E5",
             },
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#4d7080",
+              "button": "#E5EAEC",
+              "buttonText": "rgba(0,0,0,.2)",
               "disabled": "#b3c2c8",
               "input": "#1e499f",
               "text": "#003349",
@@ -568,6 +622,9 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
                 "baseBlue": "#255BC7",
                 "border": "#668491",
                 "brand": "#00DC00",
+                "destructive": Object {
+                  "hover": "#9F2C3F",
+                },
                 "error": "#C7384F",
                 "focus": "#FFB500",
                 "focusedIcon": "#335B6D",
@@ -580,10 +637,13 @@ exports[`CharacterCount when is classic theme when isOverLimit prop is true shou
                 "tertiary": "#003F2E",
                 "warning": "#FFB500",
                 "white": "#FFFFFF",
+                "whiteMix": "#E5F4E5",
               },
               "disabled": Object {
                 "background": "#E5EAEC",
                 "border": "#4d7080",
+                "button": "#E5EAEC",
+                "buttonText": "rgba(0,0,0,.2)",
                 "disabled": "#b3c2c8",
                 "input": "#1e499f",
                 "text": "#003349",
@@ -648,8 +708,12 @@ exports[`CharacterCount when isOverLimit prop is true should be styled for warn 
     theme={
       Object {
         "colors": Object {
+          "base": "#00A376",
           "border": "#668491",
           "brand": "#00DC00",
+          "destructive": Object {
+            "hover": "#9F2C3F",
+          },
           "error": "#C7384F",
           "focus": "#FFB500",
           "focusedIcon": "#335B6D",
@@ -661,10 +725,13 @@ exports[`CharacterCount when isOverLimit prop is true should be styled for warn 
           "tertiary": "#004400",
           "warning": "#E96400",
           "white": "#FFFFFF",
+          "whiteMix": "#E5F4E5",
         },
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#CCD6DA",
+          "button": "#E5EAEC",
+          "buttonText": "rgba(0,0,0,.2)",
           "disabled": "rgba(0,0,0,0.55)",
           "input": "#F2F4F5",
           "text": "rgba(0,0,0,0.3)",
@@ -694,8 +761,12 @@ exports[`CharacterCount when isOverLimit prop is true should be styled for warn 
       theme={
         Object {
           "colors": Object {
+            "base": "#00A376",
             "border": "#668491",
             "brand": "#00DC00",
+            "destructive": Object {
+              "hover": "#9F2C3F",
+            },
             "error": "#C7384F",
             "focus": "#FFB500",
             "focusedIcon": "#335B6D",
@@ -707,10 +778,13 @@ exports[`CharacterCount when isOverLimit prop is true should be styled for warn 
             "tertiary": "#004400",
             "warning": "#E96400",
             "white": "#FFFFFF",
+            "whiteMix": "#E5F4E5",
           },
           "disabled": Object {
             "background": "#E5EAEC",
             "border": "#CCD6DA",
+            "button": "#E5EAEC",
+            "buttonText": "rgba(0,0,0,.2)",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
             "text": "rgba(0,0,0,0.3)",
@@ -763,8 +837,12 @@ exports[`CharacterCount when isOverLimit prop is true should be styled for warn 
             "defaultProps": Object {
               "theme": Object {
                 "colors": Object {
+                  "base": "#00A376",
                   "border": "#668491",
                   "brand": "#00DC00",
+                  "destructive": Object {
+                    "hover": "#9F2C3F",
+                  },
                   "error": "#C7384F",
                   "focus": "#FFB500",
                   "focusedIcon": "#335B6D",
@@ -776,10 +854,13 @@ exports[`CharacterCount when isOverLimit prop is true should be styled for warn 
                   "tertiary": "#004400",
                   "warning": "#E96400",
                   "white": "#FFFFFF",
+                  "whiteMix": "#E5F4E5",
                 },
                 "disabled": Object {
                   "background": "#E5EAEC",
                   "border": "#CCD6DA",
+                  "button": "#E5EAEC",
+                  "buttonText": "rgba(0,0,0,.2)",
                   "disabled": "rgba(0,0,0,0.55)",
                   "input": "#F2F4F5",
                   "text": "rgba(0,0,0,0.3)",
@@ -817,8 +898,12 @@ exports[`CharacterCount when isOverLimit prop is true should be styled for warn 
         theme={
           Object {
             "colors": Object {
+              "base": "#00A376",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
               "focus": "#FFB500",
               "focusedIcon": "#335B6D",
@@ -830,10 +915,13 @@ exports[`CharacterCount when isOverLimit prop is true should be styled for warn 
               "tertiary": "#004400",
               "warning": "#E96400",
               "white": "#FFFFFF",
+              "whiteMix": "#E5F4E5",
             },
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
+              "button": "#E5EAEC",
+              "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
@@ -890,8 +978,12 @@ exports[`CharacterCount when rendered should render default 1`] = `
     theme={
       Object {
         "colors": Object {
+          "base": "#00A376",
           "border": "#668491",
           "brand": "#00DC00",
+          "destructive": Object {
+            "hover": "#9F2C3F",
+          },
           "error": "#C7384F",
           "focus": "#FFB500",
           "focusedIcon": "#335B6D",
@@ -903,10 +995,13 @@ exports[`CharacterCount when rendered should render default 1`] = `
           "tertiary": "#004400",
           "warning": "#E96400",
           "white": "#FFFFFF",
+          "whiteMix": "#E5F4E5",
         },
         "disabled": Object {
           "background": "#E5EAEC",
           "border": "#CCD6DA",
+          "button": "#E5EAEC",
+          "buttonText": "rgba(0,0,0,.2)",
           "disabled": "rgba(0,0,0,0.55)",
           "input": "#F2F4F5",
           "text": "rgba(0,0,0,0.3)",
@@ -936,8 +1031,12 @@ exports[`CharacterCount when rendered should render default 1`] = `
       theme={
         Object {
           "colors": Object {
+            "base": "#00A376",
             "border": "#668491",
             "brand": "#00DC00",
+            "destructive": Object {
+              "hover": "#9F2C3F",
+            },
             "error": "#C7384F",
             "focus": "#FFB500",
             "focusedIcon": "#335B6D",
@@ -949,10 +1048,13 @@ exports[`CharacterCount when rendered should render default 1`] = `
             "tertiary": "#004400",
             "warning": "#E96400",
             "white": "#FFFFFF",
+            "whiteMix": "#E5F4E5",
           },
           "disabled": Object {
             "background": "#E5EAEC",
             "border": "#CCD6DA",
+            "button": "#E5EAEC",
+            "buttonText": "rgba(0,0,0,.2)",
             "disabled": "rgba(0,0,0,0.55)",
             "input": "#F2F4F5",
             "text": "rgba(0,0,0,0.3)",
@@ -1005,8 +1107,12 @@ exports[`CharacterCount when rendered should render default 1`] = `
             "defaultProps": Object {
               "theme": Object {
                 "colors": Object {
+                  "base": "#00A376",
                   "border": "#668491",
                   "brand": "#00DC00",
+                  "destructive": Object {
+                    "hover": "#9F2C3F",
+                  },
                   "error": "#C7384F",
                   "focus": "#FFB500",
                   "focusedIcon": "#335B6D",
@@ -1018,10 +1124,13 @@ exports[`CharacterCount when rendered should render default 1`] = `
                   "tertiary": "#004400",
                   "warning": "#E96400",
                   "white": "#FFFFFF",
+                  "whiteMix": "#E5F4E5",
                 },
                 "disabled": Object {
                   "background": "#E5EAEC",
                   "border": "#CCD6DA",
+                  "button": "#E5EAEC",
+                  "buttonText": "rgba(0,0,0,.2)",
                   "disabled": "rgba(0,0,0,0.55)",
                   "input": "#F2F4F5",
                   "text": "rgba(0,0,0,0.3)",
@@ -1059,8 +1168,12 @@ exports[`CharacterCount when rendered should render default 1`] = `
         theme={
           Object {
             "colors": Object {
+              "base": "#00A376",
               "border": "#668491",
               "brand": "#00DC00",
+              "destructive": Object {
+                "hover": "#9F2C3F",
+              },
               "error": "#C7384F",
               "focus": "#FFB500",
               "focusedIcon": "#335B6D",
@@ -1072,10 +1185,13 @@ exports[`CharacterCount when rendered should render default 1`] = `
               "tertiary": "#004400",
               "warning": "#E96400",
               "white": "#FFFFFF",
+              "whiteMix": "#E5F4E5",
             },
             "disabled": Object {
               "background": "#E5EAEC",
               "border": "#CCD6DA",
+              "button": "#E5EAEC",
+              "buttonText": "rgba(0,0,0,.2)",
               "disabled": "rgba(0,0,0,0.55)",
               "input": "#F2F4F5",
               "text": "rgba(0,0,0,0.3)",
