@@ -27,7 +27,11 @@ function applyModernTableStyling({
     background-color: ${type === 'tertiary' ? 'transparent' : theme.colors.white};
     && .carbon-table-row {
       height: ${table.sizes[size]};
-      
+        ${StyledTableCell}, ${StyledTableHeader} {
+        font-size: ${size === 'compact' ? '13px' : '14px'};
+        padding-left: ${size === 'compact' ? '8px' : '16px'};
+        padding-right: ${size === 'compact' ? '8px' : '16px'};
+      }
       ${isZebra && `
         ${StyledTableCell} {
           background-color: ${table.zebra};
