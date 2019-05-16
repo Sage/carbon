@@ -59,7 +59,7 @@ export const StyledInternalTableWrapper = styled.div`
 
   ${({ onConfigure, theme }) => onConfigure && css`
     ${StyledTable} {
-      border-radius: 0 0px 0px 0px;
+      border-radius: 0;
     }
     
     ${StyledLink} {

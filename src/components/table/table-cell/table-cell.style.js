@@ -8,10 +8,8 @@ const StyledTableCell = styled.td`
     const { colors, table } = theme;
     return css`
       background-color: ${table.primary};
+      border-width: 0;
       border-bottom: 1px solid ${table.secondary};
-      border-left: none;
-      border-right: none;
-      border-top: none;
       font-size: 13px;
       overflow: visible;
       padding: 8px;

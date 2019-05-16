@@ -1,6 +1,7 @@
 import React from 'react';
 import 'jest-styled-components';
 import TestUtils from 'react-dom/test-utils';
+import TestRenderer from 'react-test-renderer';
 import Immutable from 'immutable';
 import { shallow, mount } from 'enzyme';
 import {
@@ -1087,6 +1088,22 @@ describe('Table', () => {
     );
   });
 
+  describe.each(['compact', 'small'])(
+    'when the table size is %s',
+    (size) => {
+      it('renders a table to match the expected style', () => {
+        const wrapper = TestRenderer.create(
+          <StyledTable
+            isZebra
+            theme={ SmallTheme }
+            size={ size }
+          />
+        );
+        expect(wrapper).toMatchSnapshot();
+      });
+    }
+  );
+
   describe('onConfigure', () => {
     it('renders to match the expected style for a classic themed configurable table', () => {
       const wrapper = mount(
@@ -1101,7 +1118,7 @@ describe('Table', () => {
       }, wrapper);
 
       assertStyleMatch({
-        borderRadius: '0 0px 0px 0px'
+        borderRadius: '0'
       }, wrapper, { modifier: `${StyledTable}` });
     });
 

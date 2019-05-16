@@ -11,10 +11,9 @@ const StyledTableHeader = styled.th`
     const { table, colors } = theme;
     return css`
       background-color: ${table.header};
+      border-width: 0;
       border-bottom: 1px solid ${table.secondary};
       border-left: 1px solid ${colors.border};
-      border-right: none;
-      border-top: none;
       box-sizing: border-box;
       color: ${colors.white};
       font-weight: 700;
