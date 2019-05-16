@@ -127,5 +127,5 @@ Feature: Form component
   @positive
   Scenario: Check validation
     When I save form
-    Then input is validation field
+    Then input is validated
       And error message is "This field is required."

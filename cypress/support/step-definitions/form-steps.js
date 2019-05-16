@@ -22,7 +22,7 @@ Then('cancel button is not visible', () => {
 });
 
 Then('buttons are aligned to {string}', (direction) => {
-  buttons().should('have.class', ALIGN_PREFIX + direction);
+  buttons().should('have.class', `${ALIGN_PREFIX}${direction}`);
 });
 
 Then('save button is disabled', () => {
@@ -65,7 +65,7 @@ Then('I save form', () => {
   saveButton().click();
 });
 
-Then('input is validation field', () => {
+Then('input is validated', () => {
   inputValidation().should('be.visible');
   inputValidation().trigger('mouseover');
 });
