@@ -50,7 +50,9 @@ StepSequenceItem.propTypes = {
   ariaLabel: PropTypes.string,
   /** Status for the step */
   status: PropTypes.oneOf(['complete', 'current', 'incomplete']),
+  /** Hidden label to be displayed if item is complete */
   hiddenCompleteLabel: PropTypes.string,
+  /** Hidden label to be displayed if item is current */
   hiddenCurrentLabel: PropTypes.string
 };
 
