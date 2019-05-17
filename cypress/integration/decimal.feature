@@ -8,7 +8,7 @@ Feature: Decimal component
   @positive
   Scenario Outline: Change Decimal component fieldHelp
     When I set fieldHelp to "<fieldHelp>"
-    Then Field help on preview is set to "<fieldHelp>"
+    Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                    |
       | Sample text              |
@@ -83,8 +83,8 @@ Feature: Decimal component
     When I set label to "<label>"
       And I set labelHelp to "<label>"
       And I check labelInline checkbox
-      And I set input width slider to <width>
-    Then input width on preview is <width>
+      And I set inputWidth slider to <width>
+    Then inputWidth on preview is <width>
     Examples:
       | label                    | width |
       | Sample text              |  0    |
