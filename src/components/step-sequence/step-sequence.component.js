@@ -5,12 +5,11 @@ import StepSequenceStyle from './step-sequence.style';
 const StepSequence = (props) => {
   return (
     <StepSequenceStyle { ...props }>
-      {props.children.map(child => (
+      {React.Children.map(props.children, child => (
         React.cloneElement(
           child,
           {
             ...child.props,
-            key: `step-seq-item-${child.props.indicator}`,
             orientation: props.orientation
           },
           child.props.children

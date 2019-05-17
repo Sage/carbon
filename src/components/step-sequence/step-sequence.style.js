@@ -11,6 +11,7 @@ const StepSequenceStyle = styled.ol`
   
   ${({ orientation }) => orientation === 'vertical' && css`
     flex-direction: column;
+    padding: 0;
   `};
   
   ${({ theme }) => theme.name === THEMES.classic && css`

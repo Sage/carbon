@@ -1,6 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StepSequenceItem Classic theme renders correctly 1`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+}
+
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -50,17 +61,6 @@ exports[`StepSequenceItem Classic theme renders correctly 1`] = `
   display: none;
 }
 
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 0;
-  -webkit-flex-grow: 0;
-  -ms-flex-positive: 0;
-  flex-grow: 0;
-}
-
 .c2 {
   display: block;
   width: 16px;
@@ -87,6 +87,17 @@ exports[`StepSequenceItem Classic theme renders correctly 1`] = `
 `;
 
 exports[`StepSequenceItem renders correctly 1`] = `
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+}
+
 .c0 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -133,17 +144,6 @@ exports[`StepSequenceItem renders correctly 1`] = `
 
 .c0:first-child::before {
   display: none;
-}
-
-.c1 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-flex: 0;
-  -webkit-flex-grow: 0;
-  -ms-flex-positive: 0;
-  flex-grow: 0;
 }
 
 .c2 {
