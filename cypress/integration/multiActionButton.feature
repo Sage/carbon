@@ -47,3 +47,8 @@ Feature: Multi Action Button component
     When I check disabled checkbox
       And I uncheck disabled checkbox
     Then Multi Action Button is not disabled
+
+  @positive
+  Scenario: Invoking Multi Action Button component
+    When I invoke Multi Action Button component
+    Then Multi Action Button is expanded and contains three items
