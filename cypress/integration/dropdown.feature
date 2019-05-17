@@ -51,7 +51,7 @@ Feature: Dropdown component
 
   @positive
   Scenario Outline: Change Dropdown input width
-    When I set input width to "<width>"
+    When I set inputWidth to "<width>"
     Then Input width is set to "<width>"
     Examples:
       | width |
@@ -61,7 +61,7 @@ Feature: Dropdown component
 
   @negative
   Scenario Outline: Set out of scope characters to Dropdown input width
-    When I set input width to "<width>"
+    When I set inputWidth to "<width>"
     Then Input width is not set
     Examples:
       | width                   |

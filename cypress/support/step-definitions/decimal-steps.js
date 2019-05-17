@@ -1,7 +1,8 @@
 import {
-  alignSelect, labelPreview, label, inputPrecisionSlider,
+  alignSelect, labelPreview, inputPrecisionSlider,
 } from '../../locators/decimal/index';
 import { setSlidebar } from '../helper';
+import { label } from '../../locators';
 
 const TEXT_ALIGN = 'text-align';
 
