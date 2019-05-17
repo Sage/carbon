@@ -123,7 +123,7 @@ const buildRowsWithInputs = (pageSizeFromKnobs, input) => {
             key={ row.id }
             uniqueID={ row.id }
           >
-            <TableCell>{pickInput(input, { children: row.name })}</TableCell>
+            <TableCell>{pickInput(input, { value: row.name })}</TableCell>
             <TableCell>{row.value}</TableCell>
           </TableRow>
         );
