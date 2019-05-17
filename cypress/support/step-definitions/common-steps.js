@@ -1,4 +1,7 @@
-import { visitComponentUrl, setSlidebar, pressESCKey } from '../helper';
+import {
+  visitComponentUrl, setSlidebar, pressESCKey,
+  pressTABKey,
+} from '../helper';
 import {
   sizeSelect, commonButtonPreview, labelPreview, helpIcon, inputWidthSlider,
   fieldHelpPreview, labelWidthSlider, labelAlignSelect, alignSelect, backgroundUILocator,
@@ -136,4 +139,8 @@ When('I check {word} checkbox', (checkboxName) => {
 
 When('I uncheck {word} checkbox', (checkboxName) => {
   getKnobsInput(checkboxName).uncheck();
+});
+
+When('I hit Tab key', () => {
+  pressTABKey();
 });
