@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { DismissButtonStyle, LinkStyle } from './dismiss-button.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
-const DismissButton = ({ messageType, onDismiss, transparent }) => {
+const DismissButton = ({ variant, onDismiss, transparent }) => {
   return (
-    <DismissButtonStyle messageType={ messageType } transparent={ transparent }>
+    <DismissButtonStyle variant={ variant } transparent={ transparent }>
       <LinkStyle
         icon='close' data-element='dismsiss'
         onClick={ onDismiss }
@@ -15,12 +15,12 @@ const DismissButton = ({ messageType, onDismiss, transparent }) => {
 };
 
 DismissButton.defaultProps = {
-  messageType: 'info',
+  variant: 'info',
   transparent: false
 };
 
 DismissButton.propTypes = {
-  messageType: PropTypes.oneOf(OptionsHelper.colors),
+  variant: PropTypes.oneOf(OptionsHelper.colors),
   onDismiss: PropTypes.func,
   transparent: PropTypes.bool
 };

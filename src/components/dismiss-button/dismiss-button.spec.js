@@ -19,9 +19,9 @@ describe('DismissButton', () => {
   });
 
   describe('when render with no additional props', () => {
-    OptionsHelper.messages.forEach((messageType) => {
-      it(`should match snapshot for ${messageType}`, () => {
-        const wrapper = render({ messageType });
+    OptionsHelper.messages.forEach((variant) => {
+      it(`should match snapshot for ${variant}`, () => {
+        const wrapper = render({ variant });
         expect(wrapper).toMatchSnapshot();
       });
     });
@@ -29,10 +29,10 @@ describe('DismissButton', () => {
 });
 
 describe('when in classic mode', () => {
-  OptionsHelper.colors.forEach((messageType) => {
-    describe(`when rendered as ${messageType}`, () => {
+  OptionsHelper.colors.forEach((variant) => {
+    describe(`when rendered as ${variant}`, () => {
       it('should match the snapshot', () => {
-        const wrapper = render({ messageType, theme: classicTheme });
+        const wrapper = render({ variant, theme: classicTheme });
         expect(wrapper).toMatchSnapshot();
       });
 
@@ -41,7 +41,7 @@ describe('when in classic mode', () => {
           const wrapper = render({
             transparent: true,
             theme: classicTheme,
-            messageType
+            variant
           });
           expect(wrapper).toMatchSnapshot();
         });

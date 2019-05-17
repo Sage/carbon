@@ -27,7 +27,7 @@ class Toast extends React.Component {
           data-element='close'
           onClick={ this.props.onDismiss }
           // type='close'
-          messageType={ this.props.messageType || this.props.as }
+          variant={ this.props.variant || this.props.as }
         />
       );
     }
@@ -39,15 +39,15 @@ class Toast extends React.Component {
     if (this.props.open) {
       return (
         <ToastStyle
-          messageType={ this.props.messageType || this.props.as }
+          variant={ this.props.variant || this.props.as }
           className={ this.componentClasses }
           { ...tagComponent('toast', this.props) }
         >
-          <ToastTypeStyle messageType={ this.props.messageType || this.props.as }>
-            <Icon className='carbon-toast__type-icon' type={ this.props.messageType || this.props.as } />
+          <ToastTypeStyle variant={ this.props.variant || this.props.as }>
+            <Icon className='carbon-toast__type-icon' type={ this.props.variant || this.props.as } />
           </ToastTypeStyle>
           <ToastContentStyle
-            messageType={ this.props.messageType || this.props.as }
+            variant={ this.props.variant || this.props.as }
             isDismiss={ this.props.onDismiss }
           >
             { this.props.children }
@@ -79,7 +79,7 @@ class Toast extends React.Component {
 }
 
 Toast.propTypes = {
-  messageType: PropTypes.oneOf(OptionsHelper.colors),
+  variant: PropTypes.oneOf(OptionsHelper.colors),
   /** Customizes the appearance in a legacy theme through colour see the 'iconColorSets' for possible values) */
   as: PropTypes.string,
   /** Custom className */

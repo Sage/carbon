@@ -55,8 +55,8 @@ describe('Message', () => {
 
   describe('when transparent prop is not passed', () => {
     it('should render the message with border in a proper color and a white background', () => {
-      OptionsHelper.messages.forEach((messageType) => {
-        const wrapper = render({ messageType });
+      OptionsHelper.messages.forEach((variant) => {
+        const wrapper = render({ variant });
         expect(wrapper).toMatchSnapshot();
       });
     });
@@ -65,8 +65,8 @@ describe('Message', () => {
   describe('when in classic mode', () => {
     describe('when rendered', () => {
       it('should match the snapshot', () => {
-        OptionsHelper.colors.forEach((messageType) => {
-          const wrapper = render({ theme: classicTheme, messageType });
+        OptionsHelper.colors.forEach((variant) => {
+          const wrapper = render({ theme: classicTheme, variant });
           expect(wrapper).toMatchSnapshot();
         });
       });
@@ -77,7 +77,7 @@ describe('Message', () => {
         const wrapper = render({
           transparent: true,
           theme: classicTheme,
-          messageType: 'info'
+          variant: 'info'
         });
 
         assertStyleMatch(
@@ -95,7 +95,7 @@ describe('Message', () => {
         const wrapper = render({
           border: false,
           theme: classicTheme,
-          messageType: 'info'
+          variant: 'info'
         });
 
         assertStyleMatch(
@@ -112,7 +112,7 @@ describe('Message', () => {
         const wrapper = render({
           roundedCorners: false,
           theme: classicTheme,
-          messageType: 'info'
+          variant: 'info'
         });
 
         assertStyleMatch(

@@ -9,19 +9,19 @@ const TypeIconStyle = styled.div`
   display: flex;
   justify-content: center;
   text-align: center;
-  width: 30px;
-  background-color: ${({ theme, messageType }) => theme.colors[messageType]};
+  min-width: 30px;
+  background-color: ${({ theme, variant }) => theme.colors[variant]};
   span {
     &:before {
       color: ${({ theme }) => theme.colors.white};
     }
   }
 
-  ${({ theme, transparent, messageType }) => transparent && css`
+  ${({ theme, transparent, variant }) => transparent && css`
     background-color: ${theme.colors.white};
     span {
       &:before {
-        color: ${theme.colors[messageType]};
+        color: ${theme.colors[variant]};
       }
     }
   `}
@@ -30,14 +30,14 @@ const TypeIconStyle = styled.div`
 `;
 
 TypeIconStyle.defaultProps = {
-  messageType: 'info',
+  variant: 'info',
   roundedCorners: true,
   theme: BaseTheme,
   transparent: false
 };
 
 TypeIconStyle.propTypes = {
-  messageType: PropTypes.oneOf(OptionsHelper.messages),
+  variant: PropTypes.oneOf(OptionsHelper.messages),
   border: PropTypes.bool,
   roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool

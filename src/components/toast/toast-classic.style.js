@@ -12,7 +12,7 @@ const colors = {
   maintenance: { color: '#FF7D00', backgroundColor: '#FFF8F2' }
 };
 
-const classicToastTypeStyle = ({ theme, messageType }) => theme.name === THEMES.classic && css`
+const classicToastTypeStyle = ({ theme, variant }) => theme.name === THEMES.classic && css`
   align-items: center;
   display: flex;
   height: 100%;
@@ -21,7 +21,7 @@ const classicToastTypeStyle = ({ theme, messageType }) => theme.name === THEMES.
   top: 0;
   left: -1px;
   width: 31px;
-  background-color: ${colors[messageType].color};
+  background-color: ${colors[variant].color};
 
   .carbon-toast__type-icon {
     &:before {
@@ -42,7 +42,7 @@ const classicToastTypeStyle = ({ theme, messageType }) => theme.name === THEMES.
   }
 `;
 
-const classicToastStyle = ({ theme, messageType }) => theme.name === THEMES.classic && css`
+const classicToastStyle = ({ theme, variant }) => theme.name === THEMES.classic && css`
   margin-top: 30px;
   position: fixed;
   right: 30px;
@@ -51,20 +51,20 @@ const classicToastStyle = ({ theme, messageType }) => theme.name === THEMES.clas
   z-index: 2001;
   box-shadow: 0 15px 20px 0 rgba(2,18,36, 0.2);
   border: none;
-  background-color: ${colors[messageType].backgroundColor};
+  background-color: ${colors[variant].backgroundColor};
 
   strong {
-    color: ${colors[messageType].color};
+    color: ${colors[variant].color};
   }
 
   .carbon-toast__close {
-    color: ${colors[messageType].color};
+    color: ${colors[variant].color};
   }
 
 `;
 
 const classicToastContentStyle = ({ theme }) => theme.name === THEMES.classic && css`
-  padding: 15px 50px;
+  padding: 15px 20px 15px 50px;
   white-space: pre-wrap;
 `;
 

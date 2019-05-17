@@ -17,7 +17,7 @@ const DismissButtonStyle = styled.div`
 
   .icon-close {
     &:before {
-      color: ${({ messageType, theme }) => theme.colors[messageType]};
+      color: ${({ variant, theme }) => theme.colors[variant]};
     }
   }
 
@@ -49,14 +49,14 @@ const LinkStyle = styled(Link)`
 `;
 
 DismissButtonStyle.defaultProps = {
-  messageType: 'info',
+  variant: 'info',
   roundedCorners: true,
   theme: BaseTheme,
   transparent: false
 };
 
 DismissButtonStyle.propTypes = {
-  messageType: PropTypes.oneOf(OptionsHelper.messages),
+  variant: PropTypes.oneOf(OptionsHelper.messages),
   border: PropTypes.bool,
   roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool

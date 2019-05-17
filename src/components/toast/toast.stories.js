@@ -15,7 +15,7 @@ storiesOf('Toast', module)
     info: { text: info }
   })
   .add('Classic', () => {
-    const messageType = select('as', OptionsHelper.colors, OptionsHelper.colors[2]);
+    const variant = select('as', OptionsHelper.colors, OptionsHelper.colors[2]);
     const children = text('children', 'Talkie\'s the name, toasting\'s the game. Anyone like any toast?');
     const open = boolean('open', true);
     const onDismiss = boolean('onDismiss', false);
@@ -27,7 +27,7 @@ storiesOf('Toast', module)
     return (
       <ThemeProvider theme={ classic }>
         <Toast
-          messageType={ messageType }
+          variant={ variant }
           open={ open } onDismiss={ onDismiss ? handleChange : undefined }
         >
           {children}
@@ -35,7 +35,7 @@ storiesOf('Toast', module)
       </ThemeProvider>
     );
   }).add('Default', () => {
-    const messageType = select('messageType', OptionsHelper.toast, OptionsHelper.toast[0]);
+    const variant = select('variant', OptionsHelper.toast, OptionsHelper.toast[0]);
     const children = text('children', 'Talkie\'s the name, toasting\'s the game. Anyone like any toast?');
     const open = boolean('open', true);
     const onDismiss = boolean('onDismiss', false);
@@ -46,7 +46,7 @@ storiesOf('Toast', module)
 
     return (
       <Toast
-        messageType={ messageType }
+        variant={ variant }
         open={ open } onDismiss={ onDismiss ? handleChange : undefined }
       >
         {children}
