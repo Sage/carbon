@@ -1,7 +1,5 @@
 import styled, { css } from 'styled-components';
 import StepSequenceItemClassicStyle from './step-sequence-item-classic.style';
-import StepSequenceItemVerticalStyle from './step-sequence-item-vertical.style';
-import StepSequenceItemVerticalClassicStyle from './step-sequence-item-vertical-classic.style';
 
 const StepSequenceItemStyle = styled.li`
   display: flex;
@@ -52,13 +50,19 @@ const StepSequenceItemStyle = styled.li`
   `};
 
   ${({ orientation }) => orientation === 'vertical' && css`
-    ${StepSequenceItemVerticalStyle}
+    flex-direction: column;
+    align-items: flex-start;
+
+    &::before {
+      flex-grow: 0;
+      width: 1px;
+      height: 25px;
+      margin: 12px 8px;
+    }
   `};
 
-  ${({ theme, orientation }) => theme.name === 'classic' && css`
+  ${({ theme }) => theme.name === 'classic' && css`
     ${StepSequenceItemClassicStyle}
-
-    ${orientation === 'vertical' ? StepSequenceItemVerticalClassicStyle : null};
   `};
 `;
 
