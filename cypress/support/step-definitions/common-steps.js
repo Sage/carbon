@@ -69,11 +69,11 @@ Then('tooltipPreview on preview is set to {string}', (text) => {
   tooltipPreview().should('have.text', text);
 });
 
-When('I set input width slider to {int}', (width) => {
+When('I set inputWidth slider to {int}', (width) => {
   setSlidebar(inputWidthSlider(), width);
 });
 
-Then('Field help on preview is set to {string}', (text) => {
+Then('fieldHelp on preview is set to {string}', (text) => {
   fieldHelpPreview().should('have.text', text);
 });
 
@@ -138,10 +138,10 @@ When('I uncheck {word} checkbox', (checkboxName) => {
   getKnobsInput(checkboxName).uncheck();
 });
 
-Then('Input width is set to {string}', (width) => {
+Then('inputWidth is set to {string}', (width) => {
   inputWidthPreview().should('have.attr', 'style').should('contain', `width: ${width}%`);
 });
 
-Then('Input width is not set', () => {
+Then('inputWidth is not set', () => {
   inputWidthPreview().should('not.have.attr', 'style');
 });

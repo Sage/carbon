@@ -7,7 +7,7 @@ Feature: GroupedCharacter component
   @positive
   Scenario Outline: Set input width
     When I set inputWidth to "<inputWidth>"
-    Then Input width is set to "<inputWidth>"
+    Then inputWidth is set to "<inputWidth>"
     Examples:
       | inputWidth |
       | 0          |
@@ -18,7 +18,7 @@ Feature: GroupedCharacter component
   @negative
   Scenario Outline: Set input width out of scope
     When I set inputWidth to "<inputWidth>"
-    Then Input width is not set
+    Then inputWidth is not set
     Examples:
       | inputWidth              |
       | Sample text             |
@@ -69,19 +69,19 @@ Feature: GroupedCharacter component
   @positive
   Scenario: Enable label inline
     When I check labelInline checkbox
-    Then groupedCharacter labelInline is enabled
+    Then GroupedCharacter labelInline is enabled
 
   @positive
   Scenario: Disable label inline
     When I check labelInline checkbox
       And I uncheck labelInline checkbox
-    Then groupedCharacter labelInline is disabled
+    Then GroupedCharacter labelInline is disabled
 
   @positive
   Scenario Outline: Set label width
     When I check labelInline checkbox
       And I set labelWidth to "<labelWidth>"
-    Then groupedCharacter labelWidth is set to "<labelWidth>"
+    Then GroupedCharacter labelWidth is set to "<labelWidth>"
     Examples:
       | labelWidth |
       | 0          |
@@ -116,7 +116,7 @@ Feature: GroupedCharacter component
   @positive
   Scenario Outline: Change fieldHelp text
     When I set fieldHelp to "<fieldHelp>"
-    Then Field help on preview is set to "<fieldHelp>"
+    Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp               |
       | Sample text             |

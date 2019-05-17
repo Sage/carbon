@@ -34,7 +34,7 @@ When('label width on preview is {int}', (width) => {
   label().should('have.attr', 'width').should('contain', `${width}`);
 });
 
-When('input width on preview is {int}', (width) => {
+When('inputWidth on preview is {int}', (width) => {
   labelPreview().should('have.css', 'flex').should('contain', `${width}`);
 });
 

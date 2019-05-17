@@ -52,7 +52,7 @@ Feature: Dropdown component
   @positive
   Scenario Outline: Change Dropdown input width
     When I set inputWidth to "<width>"
-    Then Input width is set to "<width>"
+    Then inputWidth is set to "<width>"
     Examples:
       | width |
       | 1     |
@@ -62,7 +62,7 @@ Feature: Dropdown component
   @negative
   Scenario Outline: Set out of scope characters to Dropdown input width
     When I set inputWidth to "<width>"
-    Then Input width is not set
+    Then inputWidth is not set
     Examples:
       | width                   |
       | !@#$%^*()_+-=~[];:.,?{} |
@@ -72,7 +72,7 @@ Feature: Dropdown component
   @positive
   Scenario Outline: Change Dropdown component field help
     When I set fieldHelp to "<fieldHelp>"
-    Then Field help on preview is set to "<fieldHelp>"
+    Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                |
       | Sample text              |

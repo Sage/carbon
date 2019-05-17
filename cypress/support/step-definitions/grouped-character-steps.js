@@ -10,14 +10,14 @@ Then('example grouped character is {string}', (text) => {
   commonDataElementInputPreview().should('have.value', text);
 });
 
-Then('groupedCharacter labelInline is enabled', () => {
+Then('GroupedCharacter labelInline is enabled', () => {
   label().should('have.class', LABEL_INPUT_INLINE_CLASS);
 });
 
-Then('groupedCharacter labelInline is disabled', () => {
+Then('GroupedCharacter labelInline is disabled', () => {
   label().should('not.have.class', LABEL_INPUT_INLINE_CLASS);
 });
 
-Then('groupedCharacter labelWidth is set to {string}', (width) => {
+Then('GroupedCharacter labelWidth is set to {string}', (width) => {
   label().should('have.attr', 'style', `width: ${width}%;`);
 });
