@@ -1,5 +1,5 @@
 import { visitComponentUrl } from '../helper';
-import { asSelect, sizeSelect, backgroundUILocator } from '../../locators';
+import { sizeSelect, backgroundUILocator } from '../../locators';
 import {
   openButton, dialogTitle, dialogPreview, closeIconButton,
   dialogSubtitle, confirmButton, cancelButton,
@@ -7,10 +7,6 @@ import {
 
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
-});
-
-When('I type {string} to as property', (asProperty) => {
-  asSelect().type(asProperty);
 });
 
 When('I set component size to {string}', (size) => {

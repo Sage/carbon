@@ -1,4 +1,7 @@
-import { visitComponentUrl, setSlidebar, pressESCKey } from '../helper';
+import {
+  visitComponentUrl, setSlidebar, pressESCKey,
+  pressTABKey,
+} from '../helper';
 import {
   sizeSelect, commonButtonPreview, labelPreview, helpIcon, inputWidthSlider,
   fieldHelpPreview, labelWidthSlider, labelAlignSelect, alignSelect, backgroundUILocator,
@@ -121,6 +124,9 @@ Then('closeIcon is not visible', () => {
 When('I hit ESC key', () => {
   pressESCKey();
 });
+
+When('I hit Tab key', () => {
+  pressTABKey();
 
 When('I disable {word} component', () => {
   getKnobsInput('disabled').check();
