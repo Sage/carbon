@@ -5,6 +5,7 @@ import StepSequenceItemContentStyle from './step-sequence-item-content.style';
 import StepSequenceItemIndicatorStyle from './step-sequence-item-indicator.style';
 import StepSequenceItemHiddenLabelStyle from './step-sequence-item-hidden-label.style';
 import Icon from '../../icon';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const StepSequenceItem = (props) => {
   const indicatorText = () => (
@@ -49,7 +50,7 @@ StepSequenceItem.propTypes = {
   /** Aria label */
   ariaLabel: PropTypes.string,
   /** Status for the step */
-  status: PropTypes.oneOf(['complete', 'current', 'incomplete']),
+  status: PropTypes.oneOf(OptionsHelper.steps),
   /** Hidden label to be displayed if item is complete */
   hiddenCompleteLabel: PropTypes.string,
   /** Hidden label to be displayed if item is current */
