@@ -22,8 +22,7 @@ const StyledSplitButtonContainer = styled.div`
 
 StyledSplitButtonContainer.defaultProps = {
   theme: BaseTheme,
-  medium: true,
-  variant: 'blue'
+  legacyColorVariant: 'blue'
 };
 
 StyledSplitButtonContainer.propTypes = {

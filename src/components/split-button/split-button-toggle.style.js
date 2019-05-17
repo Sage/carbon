@@ -12,6 +12,7 @@ export const StyledSplitButtonToggle = styled(StyledButton)`
 
   ${StyledButton} + & {
     margin-left: 0;
+    border-left: none;
   }
 
   ${StyledButton} + & .carbon-icon {
@@ -28,11 +29,12 @@ function applyClassicStyling({ disabled, displayed }) {
       }
       background-color: #1e499f;
       border-color: #1e499f;
-      
+
       && .carbon-icon {
         color: #FFF;
       }
     ` : ''}
+
     && {
       padding: 0 5px;
     }
@@ -76,7 +78,7 @@ function applyModernStyling(props) {
 
 StyledSplitButtonToggle.defaultProps = {
   theme: BaseTheme,
-  variant: 'blue'
+  legacyColorVariant: 'blue'
 };
 
 export default StyledSplitButtonToggle;
