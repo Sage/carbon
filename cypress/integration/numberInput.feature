@@ -1,8 +1,8 @@
-Feature: GroupedCharacter component
-  I want to change Grouped character component properties
+Feature: Number Input component
+  I want to change Number Input component properties
 
-  Background: Open GroupedCharacter component page
-    Given I open "GroupedCharacter" component page
+  Background: Open Number Input component page
+    Given I open "Number Input" component page
 
   @positive
   Scenario Outline: Set input width
@@ -27,31 +27,37 @@ Feature: GroupedCharacter component
       | ÄÖÜßäöüß                |
       | <>                      |
 
-  @positive
-  Scenario Outline: Set separator
-    When I set separator to "<separator>"
-      And I put "<text>" example grouped character
-    Then example grouped character is "<result>"
-    Examples:
-      | separator | text   | result   |
-      | -         | 123456 | 12-34-56 |
-      | ?         | sage   | sa?ge    |
-      | #         | tests  | te#st#s  |
-      | @         | a      | a        |
-      | $         | ab     | ab       |
-      | %         | abc    | ab%c     |
-      | ^         | abcde  | ab^cd^e  |
-      | !         | abcdef | ab!cd!ef |
-      | *         | 123456 | 12*34*56 |
+  @ignore
+  # currently out of scope
+  Scenario: Time to disappear
+    When I set timeToDisappear to "<timeToDisappear>"
+    Then timeToDisappear is set
 
   @positive
-  Scenario Outline: Verify default separator
-    When I put "<text>" example grouped character
-    Then example grouped character is "<result>"
+  Scenario Outline: Change fieldHelp text
+    When I set fieldHelp to "<fieldHelp>"
+    Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
-      | text   | result   |
-      | 123456 | 12-34-56 |
-      | abcdef | ab-cd-ef |
+      | fieldHelp               |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+      | <>                      |
+
+  @ignore
+  # not working on storybook neither carbon demo site
+  Scenario: Enable field help inline
+    When I check fieldHelpInline checkbox
+    Then fieldHelpInline is enabled
+
+  @ignore
+  # not working on storybook neither carbon demo site
+  Scenario: Disable label inline
+    When I check fieldHelpInline checkbox
+      And I uncheck fieldHelpInline checkbox
+    Then fieldHelpInline is disabled
 
   @positive
   Scenario Outline: Set label
@@ -90,7 +96,7 @@ Feature: GroupedCharacter component
       | 100        |
 
   @positive
-  Scenario Outline: Set label align
+  Scenario Outline: Set label align to <labelAlign>
     When I check labelInline checkbox
       And I select labelAlign to "<labelAlign>"
     Then labelAlign on preview is "<labelAlign>"
@@ -99,7 +105,6 @@ Feature: GroupedCharacter component
       | right      |
       | left       |
 
-  @positive
   Scenario Outline: Change labelHelp text
     When I set labelHelp to "<labelHelp>"
       And I hover mouse onto help icon
@@ -112,29 +117,3 @@ Feature: GroupedCharacter component
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
       | <>                      |
-
-  @positive
-  Scenario Outline: Change fieldHelp text
-    When I set fieldHelp to "<fieldHelp>"
-    Then fieldHelp on preview is set to "<fieldHelp>"
-    Examples:
-      | fieldHelp               |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
-      | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      | <>                      |
-
-  @ignore
-  #not working on storybook neither carbon demo site
-  Scenario: Enable field help inline
-    When I check fieldHelpInline checkbox
-    Then fieldHelpInline is enabled
-
-  @ignore
-  #not working on storybook neither carbon demo site
-  Scenario: Disable label inline
-    When I check fieldHelpInline checkbox
-      And I uncheck fieldHelpInline checkbox
-    Then fieldHelpInline is disabled

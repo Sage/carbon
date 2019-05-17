@@ -78,7 +78,7 @@ Feature: Button Toggle Group component
   @positive
   Scenario Outline: Change Button Toggle Group label width
     When I check labelInline checkbox
-      And I set label width to "<width>"
+      And I set labelWidth to "<width>"
     Then Label width is set to "<width>"
     Examples:
       | width |
@@ -99,8 +99,8 @@ Feature: Button Toggle Group component
   @positive
   Scenario Outline: Change Toggle Button Group label align
     When I check labelInline checkbox
-      And I set label align "<direction>"
-    Then direction on preview is "<direction>"
+      And I select labelAlign to "<direction>"
+    Then labelAlign on preview is "<direction>"
     Examples:
       | direction |
       | left      |

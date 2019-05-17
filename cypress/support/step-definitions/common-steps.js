@@ -1,10 +1,9 @@
 import {
-  visitComponentUrl, setSlidebar, pressESCKey,
-  pressTABKey,
+  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey,
 } from '../helper';
 import {
   sizeSelect, commonButtonPreview, labelPreview, helpIcon, inputWidthSlider,
-  fieldHelpPreview, labelWidthSlider, labelAlignSelect, alignSelect, backgroundUILocator,
+  fieldHelpPreview, labelWidthSlider, alignSelect, backgroundUILocator,
   closeIconButton, tooltipPreview, getKnobsInput, icon, inputWidthPreview,
 } from '../../locators';
 
@@ -84,11 +83,7 @@ When('I set label width slider to {int}', (width) => {
   setSlidebar(labelWidthSlider(), width);
 });
 
-When('I set label align {string}', (direction) => {
-  labelAlignSelect().select(direction);
-});
-
-Then(`(labelAlign )direction on preview is {string}`, (direction) => {
+Then(`labelAlign on preview is {string}`, (direction) => {
   if (direction === 'left') {
     // left is default property that's why it's absent inside class
     labelPreview().should('not.have.class', `common-input__label--align-${direction}`);
@@ -127,6 +122,7 @@ When('I hit ESC key', () => {
 
 When('I hit Tab key', () => {
   pressTABKey();
+});
 
 When('I disable {word} component', () => {
   getKnobsInput('disabled').check();

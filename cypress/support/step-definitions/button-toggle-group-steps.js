@@ -13,10 +13,6 @@ Then('Button Toggle Group component do not have label-inline property', () => {
   fieldHelpPreview().should('not.have.class', 'common-input__help-text--inline');
 });
 
-When('I set label width to {string}', (width) => {
-  labelWidthInput().clear().type(width);
-});
-
 Then('Label width is set to {string}', (width) => {
   labelPreview().should('have.attr', 'style').should('contain', `width: ${width}%`);
 });

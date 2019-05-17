@@ -1,5 +1,5 @@
 import {
-  INPUT_WIDTH_SLIDER, LABEL_WIDTH_SLIDER, LABEL_ALIGN_SELECT, HELP_ICON_PREVIEW,
+  INPUT_WIDTH_SLIDER, LABEL_WIDTH_SLIDER, HELP_ICON_PREVIEW,
   FIELD_HELP_PREVIEW, TOOLTIP_PREVIEW, FORM, STORY_ROOT, STICKY_FORM_FOOTER, CLOSE_ICON_BUTTON,
   BACKGROUND_UI_LOCATOR, LINK, ICON, INPUT_WIDTH_PREVIEW, COMMMON_DATA_ELEMENT_INPUT, LABEL,
 } from './locators';
@@ -12,7 +12,6 @@ export const asSelect = () => cy.get(FORM).contains('as').find('select');
 export const alignSelect = () => cy.get(FORM).contains('align').find('select');
 export const inputWidthSlider = () => cy.get(INPUT_WIDTH_SLIDER);
 export const labelWidthSlider = () => cy.get(LABEL_WIDTH_SLIDER);
-export const labelAlignSelect = () => cy.get(LABEL_ALIGN_SELECT);
 export const stickyFormFooter = () => cy.get(STICKY_FORM_FOOTER);
 
 // component preview locators
