@@ -17,10 +17,6 @@ exports[`StepSequence Classic theme renders correctly 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 0;
-  -webkit-flex-grow: 0;
-  -ms-flex-positive: 0;
-  flex-grow: 0;
 }
 
 .c1 {
@@ -125,10 +121,6 @@ exports[`StepSequence Classic theme renders correctly with vertical orientation 
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 0;
-  -webkit-flex-grow: 0;
-  -ms-flex-positive: 0;
-  flex-grow: 0;
 }
 
 .c1 {
@@ -256,10 +248,6 @@ exports[`StepSequence renders correctly 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 0;
-  -webkit-flex-grow: 0;
-  -ms-flex-positive: 0;
-  flex-grow: 0;
 }
 
 .c1 {
@@ -362,10 +350,6 @@ exports[`StepSequence renders correctly with vertical orientation 1`] = `
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-flex: 0;
-  -webkit-flex-grow: 0;
-  -ms-flex-positive: 0;
-  flex-grow: 0;
 }
 
 .c1 {
