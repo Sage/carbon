@@ -1,20 +1,20 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
-import CloseIcon from './close-icon.component';
-import { CloseIconStyle, LinkStyle } from './close-icon.style';
+import DismissButton from './dismiss-button.component';
+import { DismissButtonStyle, LinkStyle } from './dismiss-button.style';
 import 'jest-styled-components';
-import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
-import classicTheme from '../../../style/themes/classic';
+import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
+import classicTheme from '../../style/themes/classic';
 
 function render(props) {
-  return TestRenderer.create(<CloseIconStyle { ...props } />);
+  return TestRenderer.create(<DismissButtonStyle { ...props } />);
 }
 
-describe('CloseIcon', () => {
+describe('DismissButton', () => {
   describe('when rendered', () => {
     it('should render correctly', () => {
-      expect(shallow(<CloseIcon />)).toHaveLength(1);
+      expect(shallow(<DismissButton />)).toHaveLength(1);
     });
   });
 

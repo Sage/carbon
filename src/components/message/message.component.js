@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MessageStyle from './message.style';
-import CloseIcon from './close-icon/close-icon.component';
+import DismissButton from '../dismiss-button';
 import TypeIcon from './type-icon/type-icon.component';
 import MessageContent from './message-content/message-content.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -34,7 +34,7 @@ const Message = (props) => {
           {children}
         </MessageContent>
         {onDismiss && (
-          <CloseIcon
+          <DismissButton
             messageType={ messageType } onDismiss={ onDismiss }
             transparent={ transparent }
           />

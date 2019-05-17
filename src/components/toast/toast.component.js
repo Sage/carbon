@@ -7,6 +7,7 @@ import tagComponent from '../../utils/helpers/tags/tags';
 import Portal from '../portal/portal';
 import { ToastStyle, ToastTypeStyle, ToastContentStyle } from './toast.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import DismissButton from '../dismiss-button';
 import './toast.scss';
 
 class Toast extends React.Component {
@@ -21,11 +22,12 @@ class Toast extends React.Component {
   get dismissIcon() {
     if (this.props.onDismiss) {
       return (
-        <Icon
+        <DismissButton
           className='carbon-toast__close'
           data-element='close'
           onClick={ this.props.onDismiss }
-          type='close'
+          // type='close'
+          messageType={ this.props.messageType || this.props.as }
         />
       );
     }

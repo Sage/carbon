@@ -1,12 +1,12 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import BaseTheme from '../../../style/themes/base';
-import OptionsHelper from '../../../utils/helpers/options-helper';
-import CloseIconClassicStyling from './close-icon-classic.style';
-import Link from '../../link';
-import { THEMES } from '../../../style/themes';
+import BaseTheme from '../../style/themes/base';
+import OptionsHelper from '../../utils/helpers/options-helper';
+import CloseIconClassicStyling from './dismiss-button-classic.style';
+import Link from '../link';
+import { THEMES } from '../../style/themes';
 
-const CloseIconStyle = styled.div`
+const DismissButtonStyle = styled.div`
   align-items: center;
   display: flex;
   margin-left: auto;
@@ -17,7 +17,7 @@ const CloseIconStyle = styled.div`
 
   .icon-close {
     &:before {
-      color: ${({ messageType, theme }) => theme.colors[messageType]}};
+      color: ${({ messageType, theme }) => theme.colors[messageType]};
     }
   }
 
@@ -48,18 +48,18 @@ const LinkStyle = styled(Link)`
   }
 `;
 
-CloseIconStyle.defaultProps = {
+DismissButtonStyle.defaultProps = {
   messageType: 'info',
   roundedCorners: true,
   theme: BaseTheme,
   transparent: false
 };
 
-CloseIconStyle.propTypes = {
+DismissButtonStyle.propTypes = {
   messageType: PropTypes.oneOf(OptionsHelper.messages),
   border: PropTypes.bool,
   roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool
 };
 
-export { CloseIconStyle, LinkStyle };
+export { DismissButtonStyle, LinkStyle };
