@@ -4,66 +4,66 @@ Feature: GroupedCharacter component
   Background: Open GroupedCharacter component page
     Given I open "GroupedCharacter" component page
 
-  # @positive
-  # Scenario Outline: Set input width
-  #   When I set inputWidth to "<inputWidth>"
-  #   Then Input width is set to "<inputWidth>"
-  #   Examples:
-  #     | inputWidth |
-  #     | 0          |
-  #     | 1          |
-  #     | 10         |
-  #     | 100        |
+  @positive
+  Scenario Outline: Set input width
+    When I set inputWidth to "<inputWidth>"
+    Then Input width is set to "<inputWidth>"
+    Examples:
+      | inputWidth |
+      | 0          |
+      | 1          |
+      | 10         |
+      | 100        |
 
-  # @negative
-  # Scenario Outline: Set input width out of scope
-  #   When I set inputWidth to "<inputWidth>"
-  #   Then Input width is not set
-  #   Examples:
-  #     | inputWidth              |
-  #     | Sample text             |
-  #     | áéíóú¿¡üñ               |
-  #     | !@#$%^*()_+-=~[];:.,?{} |
-  #     | ÄÖÜßäöüß                |
-  #     | <>                      |
+  @negative
+  Scenario Outline: Set input width out of scope
+    When I set inputWidth to "<inputWidth>"
+    Then Input width is not set
+    Examples:
+      | inputWidth              |
+      | Sample text             |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+      | <>                      |
 
-  # @positive
-  # Scenario Outline: Set separator
-  #   When I set separator to "<separator>"
-  #     And I put "<text>" example grouped character
-  #   Then example grouped character is "<result>"
-  #   Examples:
-  #     | separator | text   | result   |
-  #     | -         | 123456 | 12-34-56 |
-  #     | ?         | sage   | sa?ge    |
-  #     | #         | tests  | te#st#s  |
-  #     | @         | a      | a        |
-  #     | $         | ab     | ab       |
-  #     | %         | abc    | ab%c     |
-  #     | ^         | abcde  | ab^cd^e  |
-  #     | !         | abcdef | ab!cd!ef |
-  #     | *         | 123456 | 12*34*56 |
+  @positive
+  Scenario Outline: Set separator
+    When I set separator to "<separator>"
+      And I put "<text>" example grouped character
+    Then example grouped character is "<result>"
+    Examples:
+      | separator | text   | result   |
+      | -         | 123456 | 12-34-56 |
+      | ?         | sage   | sa?ge    |
+      | #         | tests  | te#st#s  |
+      | @         | a      | a        |
+      | $         | ab     | ab       |
+      | %         | abc    | ab%c     |
+      | ^         | abcde  | ab^cd^e  |
+      | !         | abcdef | ab!cd!ef |
+      | *         | 123456 | 12*34*56 |
 
-  # @positive
-  # Scenario Outline: Verify default separator
-  #   When I put "<text>" example grouped character
-  #   Then example grouped character is "<result>"
-  #   Examples:
-  #     | text   | result   |
-  #     | 123456 | 12-34-56 |
-  #     | abcdef | ab-cd-ef |
+  @positive
+  Scenario Outline: Verify default separator
+    When I put "<text>" example grouped character
+    Then example grouped character is "<result>"
+    Examples:
+      | text   | result   |
+      | 123456 | 12-34-56 |
+      | abcdef | ab-cd-ef |
 
-  # @positive
-  # Scenario Outline: Set label
-  #   When I set label to "<label>"
-  #   Then label on preview is "<label>"
-  #   Examples:
-  #     | label                   |
-  #     | Sample text             |
-  #     | 1234567890              |
-  #     | áéíóú¿¡üñ               |
-  #     | !@#$%^*()_+-=~[];:.,?{} |
-  #     | ÄÖÜßäöüß                |
+  @positive
+  Scenario Outline: Set label
+    When I set label to "<label>"
+    Then label on preview is "<label>"
+    Examples:
+      | label                   |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
       | <>                      |
 
   @positive
