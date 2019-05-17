@@ -3,6 +3,7 @@ import React from 'react';
 import StepSequenceItemStyle from './step-sequence-item.style';
 import StepSequenceItemContentStyle from './step-sequence-item-content.style';
 import StepSequenceItemIndicatorStyle from './step-sequence-item-indicator.style';
+import StepSequenceItemHiddenLabelStyle from './step-sequence-item-hidden-label.style';
 import Icon from '../../icon';
 
 const StepSequenceItem = (props) => {
@@ -12,8 +13,29 @@ const StepSequenceItem = (props) => {
 
   const icon = () => (props.status === 'complete' ? <Icon type='tick' /> : indicatorText());
 
+  const hiddenLabel = () => {
+    const {
+      status,
+      hiddenCompleteLabel,
+      hiddenCurrentLabel
+    } = props;
+
+    if (hiddenCompleteLabel && status === 'complete') {
+      return (
+        <StepSequenceItemHiddenLabelStyle>{hiddenCompleteLabel}</StepSequenceItemHiddenLabelStyle>
+      );
+    }
+    if (hiddenCurrentLabel && status === 'current') {
+      return (
+        <StepSequenceItemHiddenLabelStyle>{hiddenCurrentLabel}</StepSequenceItemHiddenLabelStyle>
+      );
+    }
+    return null;
+  };
+
   return (
     <StepSequenceItemStyle { ...props } key={ `step-seq-item-${props.indicator}` }>
+      {hiddenLabel()}
       <StepSequenceItemContentStyle>{ icon() } { props.children }</StepSequenceItemContentStyle>
     </StepSequenceItemStyle>
   );
