@@ -20,73 +20,6 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   margin-top: -4px;
 }
 
-.c3.c3 .carbon-table-row .c1,
-.c3.c3 .carbon-table-row .c4 {
-  font-size: 14px;
-  padding-left: 16px;
-  padding-right: 16px;
-}
-
-.c3 .carbon-table-row .custom-drag-layer .c1 {
-  background-color: #002E41;
-}
-
-.c3 .carbon-table-row .c1 {
-  padding-top: 0px;
-  padding-bottom: 0px;
-  background-color: #FFFFFF;
-}
-
-.c3 .carbon-table-row:hover .c1 {
-  background-color: #F2F4F5;
-}
-
-.c3 .carbon-table-row--selected .c1,
-.c3 .carbon-table-row--selected:nth-child(odd) .c1,
-.c3 .carbon-table-row--selected:hover .c1 {
-  background-color: #D8E0E3;
-  border-bottom-color: #D8E0E3;
-  position: relative;
-}
-
-.c3 .carbon-table-row--selected .c1:before,
-.c3 .carbon-table-row--selected:nth-child(odd) .c1:before,
-.c3 .carbon-table-row--selected:hover .c1:before {
-  content: "";
-  height: 1px;
-  left: 0;
-  position: absolute;
-  top: -1px;
-  width: 100%;
-}
-
-.c3.c3 .carbon-table-row--highlighted .c1 {
-  background-color: #D8E0E3;
-  border-bottom-color: #D8E0E3;
-  position: relative;
-}
-
-.c3.c3 .carbon-table-row--highlighted .c1:before {
-  content: "";
-  height: 1px;
-  left: 0;
-  position: absolute;
-  top: -1px;
-  width: 100%;
-}
-
-.c3.c3 .carbon-table-row--highlighted:hover .c1 {
-  background-color: #D8E0E3;
-}
-
-.c3 .carbon-table-row--dragged .c1 {
-  visibility: hidden;
-}
-
-.c3 .carbon-table-row--dragged + .carbon-table-row--dragging .c1 {
-  border-top: 1px solid #000A0E;
-}
-
 .c0 {
   border-collapse: separate;
   border-radius: 0px;
@@ -98,11 +31,15 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   background-color: #FFFFFF;
 }
 
+.c0.c0 .carbon-table-row {
+  height: 40px;
+}
+
 .c0.c0 .carbon-table-row .c1,
-.c0.c0 .carbon-table-row .c4 {
+.c0.c0 .carbon-table-row .c3 {
   font-size: 14px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 11px;
+  padding-right: 11px;
 }
 
 .c0 caption {
@@ -137,11 +74,11 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   visibility: visible;
 }
 
-.c0 .carbon-table-row:first-child .c4:first-child {
+.c0 .carbon-table-row:first-child .c3:first-child {
   border-radius: 0px 0 0 0;
 }
 
-.c0 .carbon-table-row:first-child .c4:last-child {
+.c0 .carbon-table-row:first-child .c3:last-child {
   border-radius: 0 0px 0 0;
 }
 
@@ -244,6 +181,7 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 
 <table
   className="c0"
+  size="medium"
 >
   <tr
     className="carbon-table-row"

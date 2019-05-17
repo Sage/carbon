@@ -61,10 +61,26 @@ export default (palette) => {
       selected: palette.slateTint(85),
       zebra: palette.slateTint(98),
       sizes: {
-        compact: '24px',
-        small: '32px',
-        medium: '40px',
-        large: '48px'
+        compact: {
+          height: '24px',
+          font: '13px',
+          padding: '8px'
+        },
+        small: {
+          height: '32px',
+          font: '14px',
+          padding: '8px'
+        },
+        medium: {
+          height: '40px',
+          font: '14px',
+          padding: '11px'
+        },
+        large: {
+          height: '48px',
+          font: '16px',
+          padding: '13px'
+        }
       }
     },
 

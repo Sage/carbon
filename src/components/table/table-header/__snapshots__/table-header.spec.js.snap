@@ -53,8 +53,8 @@ exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
 .c2.c2 .carbon-table-row .c3,
 .c2.c2 .carbon-table-row .c0 {
   font-size: 14px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 11px;
+  padding-right: 11px;
 }
 
 .c2 .carbon-table-row:first-child .c0:first-child {

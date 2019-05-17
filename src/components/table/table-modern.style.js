@@ -26,11 +26,11 @@ function applyModernTableStyling({
   return css`
     background-color: ${type === 'tertiary' ? 'transparent' : theme.colors.white};
     && .carbon-table-row {
-      height: ${table.sizes[size]};
+      height: ${table.sizes[size].height};
         ${StyledTableCell}, ${StyledTableHeader} {
-        font-size: ${size === 'compact' ? '13px' : '14px'};
-        padding-left: ${size === 'compact' ? '8px' : '16px'};
-        padding-right: ${size === 'compact' ? '8px' : '16px'};
+        font-size: ${table.sizes[size].font};
+        padding-left: ${table.sizes[size].padding};
+        padding-right: ${table.sizes[size].padding};
       }
       ${isZebra && `
         ${StyledTableCell} {

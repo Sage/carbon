@@ -113,7 +113,9 @@ StyledTable.propTypes = {
 };
 
 StyledTable.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
+
+  size: 'medium'
 };
 
 StyledInternalTableWrapper.defaultProps = {

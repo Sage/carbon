@@ -193,8 +193,8 @@ exports[`Table when the table size is small renders a table to match the expecte
 .c0.c0 .carbon-table-row .c1,
 .c0.c0 .carbon-table-row .c2 {
   font-size: 14px;
-  padding-left: 16px;
-  padding-right: 16px;
+  padding-left: 8px;
+  padding-right: 8px;
 }
 
 .c0.c0 .carbon-table-row .c1 {
