@@ -58,6 +58,8 @@ export type IconTypes =
 | 'duplicate'
 | 'edit'
 | 'edited'
+| 'ellipsis_horizontal'
+| 'ellipsis_vertical'
 | 'email'
 | 'error'
 | 'favourite'
