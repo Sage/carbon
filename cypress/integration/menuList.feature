@@ -36,11 +36,14 @@ Feature: Menulist component
     When I click into menu item second element
       And I change search parameter to "<parameter>"
     Then search result is "<result>"
+      And results count is <resultsCount>
     Examples:
-      | parameter | result          |
-      | Fir       | First Sub Item  |
-      | Sec       | Second Sub Item |
-      | Thi       | Third Sub Item  |
+      | parameter | result                                       | resultsCount |
+      | Fir       | First Sub Item                               | 1            |
+      | Sec       | Second Sub Item                              | 1            |
+      | Thi       | Third Sub Item                               | 1            |
+      | d         | Second Sub ItemThird Sub Item                | 2            |
+      | tem       | First Sub ItemSecond Sub ItemThird Sub Item  | 3            |
 
   @ignore
   # @positive doesn't work on Carbon Demo site

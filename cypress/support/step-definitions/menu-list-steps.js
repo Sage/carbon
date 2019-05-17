@@ -35,7 +35,10 @@ When('I change search parameter to {string}', (parameter) => {
   menuListSearchInput().clear().type(parameter);
 });
 
-Then('search result is {string}', (parameter) => {
-  menuList().parent().should('have.length', 2);
-  menuList().contains('.carbon-menu-list-item', parameter);
+Then('search result is {string}', (text) => {
+  menuList().invoke('text').should('contain', text);
+});
+
+Then('results count is {int}', (resultsCount) => {
+  menuList().children().should('have.length', `${resultsCount + 1}`);
 });
