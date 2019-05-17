@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import StepSequenceStyle from './step-sequence.style';
-import OptionsHelper from '../../../utils/helpers/options-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 const StepSequence = (props) => {
   return (
