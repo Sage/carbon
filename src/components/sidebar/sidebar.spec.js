@@ -5,7 +5,6 @@ import Sidebar from './sidebar.component';
 import Textbox from '../textbox/textbox';
 import { SidebarStyle, SidebarCloseStyle } from './sidebar.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
-import baseTheme from '../../style/themes/base';
 import classicTheme from '../../style/themes/classic';
 
 describe('Sidebar', () => {
