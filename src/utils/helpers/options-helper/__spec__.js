@@ -94,6 +94,8 @@ describe('OptionsHelper', () => {
       'edit',
       'edited',
       'email',
+      'ellipsis_horizontal',
+      'ellipsis_vertical',
       'error',
       'favourite',
       'favourite_lined',
