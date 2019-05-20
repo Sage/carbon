@@ -59,7 +59,7 @@ export const StyledInternalTableWrapper = styled.div`
 
   ${({ onConfigure, theme }) => onConfigure && css`
     ${StyledTable} {
-      border-radius: 0 0px 0px 0px;
+      border-radius: 0;
     }
     
     ${StyledLink} {
@@ -101,19 +101,17 @@ function styleInternalWrapper(props) {
 }
 
 StyledTable.propTypes = {
-  /**
-   * Toggles the type variations of the table
-   */
+  /** Toggles the type variations of the table */
   tableType: PropTypes.oneOf(OptionsHelper.tableThemes),
 
-  /**
-   * Toggles the zebra striping for the table rows
-   */
+  /**  Toggles the zebra striping for the table rows */
   isZebra: PropTypes.bool
 };
 
 StyledTable.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
+
+  size: 'medium'
 };
 
 StyledInternalTableWrapper.defaultProps = {

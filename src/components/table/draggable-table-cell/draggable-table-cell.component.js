@@ -16,7 +16,6 @@ const iconHTML = (
 /**
  * Creates a draggable table cell using WithDrag.
  *
- * @constructor
  */
 const DraggableTableCell = (props) => {
   const canDrag = props.canDrag !== false;
@@ -39,9 +38,14 @@ const DraggableTableCell = (props) => {
 };
 
 DraggableTableCell.propTypes = {
-  identifier: PropTypes.string, // used to associate WithDrags and WithDrops
-  draggableNode: PropTypes.func, // A function that returns the dom node used as the ghost layer when dragging
-  canDrag: PropTypes.bool // used to specify whether the dragging is currently allowed
+  /** used to associate WithDrags and WithDrops */
+  identifier: PropTypes.string,
+
+  /** A function that returns the dom node used as the ghost layer when dragging */
+  draggableNode: PropTypes.func,
+
+  /** used to specify whether the dragging is currently allowed */
+  canDrag: PropTypes.bool
 };
 
 export default DraggableTableCell;

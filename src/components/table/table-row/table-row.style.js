@@ -89,12 +89,12 @@ function applyModernStyling({ theme }) {
   `;
 }
 
-function selectableRowStyling() {
+function selectableRowStyling({ theme }) {
   return css`
     ${StyledTableCell}:first-child,
     ${StyledTableHeader}:first-child {
       &:not(.carbon-table-cell--select) {
-        padding-left: 15px;
+        ${isClassic(theme) ? 'padding-left: 15px' : ''};
       }
     }
 

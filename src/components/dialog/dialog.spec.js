@@ -406,7 +406,10 @@ describe('Dialog', () => {
       });
 
       it('has the correct content, tags, elements etc', () => {
-        expect(wrapper).toMatchSnapshot();
+        expect(wrapper.instance().props['data-element']).toEqual('bar');
+        expect(wrapper.instance().props['data-role']).toEqual('baz');
+        expect(wrapper.instance().props.showCloseIcon).toEqual(true);
+        expect(wrapper.instance().props.children.length).toEqual(2);
       });
 
       it('closes when the exit icon is click', () => {

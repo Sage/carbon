@@ -34,12 +34,13 @@ const handleChange = (e, tableOptions) => {
   action('change')(e, tableOptions);
 };
 
-const buildRows = (pageSizeFromKnobs) => {
-  const pageSize = pageSizeFromKnobs;
+const buildRows = (pageSize, totalRecords) => {
   const currentPage = store.get('currentPage');
+  const candidateIndex = pageSize * currentPage;
 
-  const endIndex = pageSize * currentPage;
-  const startIndex = endIndex - pageSize;
+  const endIndex = (candidateIndex <= totalRecords) ? candidateIndex : totalRecords;
+  const currentPageSize = (endIndex === totalRecords) ? (endIndex % pageSize) : pageSize;
+  const startIndex = endIndex - currentPageSize;
   const rowsCountries = countriesList.slice(startIndex, endIndex).toJS();
 
   if (store.get('sortOrder') === 'desc') {
@@ -151,15 +152,14 @@ storiesOf('Table', module)
       'theme',
       [
         OptionsHelper.tableThemes[0],
-        OptionsHelper.tableThemes[1],
-        OptionsHelper.tableThemes[2]
+        OptionsHelper.tableThemes[1]
       ],
       Table.defaultProps.theme
     );
 
     return (
       <ThemeProvider theme={ classic }>
-        <State store={ store } parseState={ state => ({ ...state, children: buildRows(pageSize) }) }>
+        <State store={ store } parseState={ state => ({ ...state, children: buildRows(pageSize, totalRecords) }) }>
 
           <Table
             actionToolbarChildren={ (context) => {
@@ -209,13 +209,20 @@ storiesOf('Table', module)
       const totalRecords = text('totalRecords', '50');
       const paginate = boolean('paginate', false);
       const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
-      const theme = select('theme', OptionsHelper.tableThemes, Table.defaultProps.theme);
+      const theme = select(
+        'theme',
+        [
+          OptionsHelper.tableThemes[0],
+          OptionsHelper.tableThemes[1],
+          OptionsHelper.tableThemes[2]
+        ],
+        Table.defaultProps.theme
+      );
       const size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
       const isZebra = boolean('zebra striping', false);
 
       return (
-        <State store={ store } parseState={ state => ({ ...state, children: buildRows(pageSize) }) }>
-
+        <State store={ store } parseState={ state => ({ ...state, children: buildRows(pageSize, totalRecords) }) }>
           <Table
             actionToolbarChildren={ (context) => {
               return [
@@ -283,7 +290,6 @@ storiesOf('Table', module)
           store={ store }
           parseState={ state => ({ ...state, children: buildRowsWithInputs(pageSize, inputType) }) }
         >
-
           <Table
             actionToolbarChildren={ (context) => {
               return [

@@ -26,9 +26,6 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
  *
  * See the Table documentation for more information on hooking up a change handler
  * to setup sort functionality in your app.
- *
- * @class TableHeader
- * @constructor
  */
 class TableHeader extends React.Component {
   /**
@@ -36,9 +33,6 @@ class TableHeader extends React.Component {
    * column sorting.
    *
    * Used to prevent the default action of the <a> tag.
-   *
-   * @method onSortableColumnClick
-   * @return {Void}
    */
   onSortableColumnClick(event) {
     event.preventDefault();
@@ -46,9 +40,6 @@ class TableHeader extends React.Component {
 
   /**
    * Returns props to be used on the TH element.
-   *
-   * @method tableHeaderProps
-   * @return {Object}
    */
   get tableHeaderProps() {
     const { ...props } = validProps(this);
@@ -65,9 +56,6 @@ class TableHeader extends React.Component {
 
   /**
    * Returns sort icon HTML if column is sortable and has been sorted.
-   *
-   * @method sortIconHTML
-   * @return {JSX} Icon JSX
    */
   get sortIconHTML() {
     if (this.sorted) {
@@ -79,9 +67,6 @@ class TableHeader extends React.Component {
 
   /**
    * Determines if this column is currently sorted.
-   *
-   * @method sorted
-   * @return {Boolean}
    */
   get sorted() {
     return this.props.sortable && this.context.sortedColumn === this.props.name;
@@ -93,10 +78,6 @@ class TableHeader extends React.Component {
    * direction it will sort in.
    *
    * NB If the current sortOrder is undefined, assume the next sort order
-   * will be descending.
-   *
-   * @method sortDescription
-   * @return {string}
    */
   get sortDescription() {
     if (!this.props.sortable) {
@@ -129,8 +110,6 @@ class TableHeader extends React.Component {
 
   /**
    * Emits sort event to parent context - table.
-   *
-   * @method emitSortEvent
    */
   emitSortEvent = () => {
     let sortOrder = this.context.sortOrder || 'desc';
@@ -157,8 +136,6 @@ class TableHeader extends React.Component {
 
   /**
    * Renders the component.
-   *
-   * @method render
    */
   render() {
     let contents = null;
@@ -196,19 +173,13 @@ class TableHeader extends React.Component {
 
 TableHeader.propTypes = {
 
-  /**
-   * Aligns the content of the cell (can be "left", "center" or "right").
-   */
+  /** Aligns the content of the cell (can be "left", "center" or "right"). */
   align: PropTypes.oneOf(OptionsHelper.alignFull),
 
-  /**
-   * The body of the content component.
-   */
+  /** The body of the content component. */
   children: PropTypes.node,
 
-  /**
-   * Name of the column to sort. Should correspond to name in database.
-   */
+  /** Name of the column to sort. Should correspond to name in database. */
   name(props, propName) {
     if (props.sortable) {
       if (!props[propName]) {
@@ -220,14 +191,10 @@ TableHeader.propTypes = {
     }
   },
 
-  /**
-   * Whether column is sortable.
-   */
+  /** Whether column is sortable. */
   sortable: PropTypes.bool,
 
-  /**
-   * Whether component is a subheader.
-   */
+  /** Whether component is a subheader. */
   styledComponent: PropTypes.node
 };
 
@@ -238,9 +205,7 @@ TableHeader.defaultProps = {
   align: 'left'
 };
 
-/**
- * Sort handler passed from table context
- */
+/** Sort handler passed from table context  */
 TableHeader.contextTypes = {
   onSort: PropTypes.func,
   sortedColumn: PropTypes.string,

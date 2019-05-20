@@ -8,10 +8,8 @@ const StyledTableCell = styled.td`
     const { colors, table } = theme;
     return css`
       background-color: ${table.primary};
+      border-width: 0;
       border-bottom: 1px solid ${table.secondary};
-      border-left: none;
-      border-right: none;
-      border-top: none;
       font-size: 13px;
       overflow: visible;
       padding: 8px;
@@ -50,14 +48,10 @@ function applyActionStyling(colors) {
 }
 
 StyledTableCell.propTypes = {
-  /**
-   * Defines the cell type to be an action - used for the delete cell.
-   */
+  /** Defines the cell type to be an action - used for the delete cell. */
   action: PropTypes.bool,
 
-  /**
-   * Defines the alignment of the cell (eg "left", "center" or "right").
-   */
+  /** * Defines the alignment of the cell (eg "left", "center" or "right"). */
   align: PropTypes.oneOf(OptionsHelper.alignFull)
 };
 

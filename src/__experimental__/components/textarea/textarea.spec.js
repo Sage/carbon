@@ -1,8 +1,11 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import CharacterCount from './character-count';
 import Textarea from '.';
+import baseTheme from '../../../style/themes/base';
 
 describe('Textarea', () => {
   let wrapper;
@@ -67,7 +70,7 @@ describe('Textarea', () => {
     });
 
     it('should render default', () => {
-      expect(wrapper).toMatchSnapshot();
+      expect(renderTextarea({}, TestRenderer.create)).toMatchSnapshot();
     });
 
     describe('and when characterLimit prop is defined', () => {
@@ -81,8 +84,10 @@ describe('Textarea', () => {
 
       describe('and when warnOverLimit prop is true and a limit is over', () => {
         it('should be styled for warn over limit', () => {
-          wrapper.setProps({ warnOverLimit: true, value: 'abcdefg' });
-          expect(wrapper).toMatchSnapshot();
+          wrapper.setProps({ warnOverLimit: true, value: 'abcdefg', onChange: jest.fn() });
+          assertStyleMatch({
+            color: baseTheme.colors.error
+          }, wrapper.find(CharacterCount));
         });
       });
     });
@@ -99,6 +104,7 @@ describe('Textarea', () => {
         expandableInstance._input = {
           scrollHeight: 100,
           value: 'foo',
+          onChange: jest.fn(),
           style: { height: 0 }
         };
         expandableInstance.expandTextarea();
@@ -111,6 +117,7 @@ describe('Textarea', () => {
         expandableInstance._input = {
           scrollHeight: 5,
           value: 'foo',
+          onChange: jest.fn(),
           style: { height: 0 }
         };
         expandableInstance.minHeight = 20;
@@ -130,6 +137,7 @@ describe('componentWillUnmount', () => {
     const tmpWrapper = mount(
       <Textarea
         value='foo'
+        onChange={ jest.fn() }
         label='Label'
         expandable
         cols={ 10 }
@@ -151,6 +159,7 @@ describe('componentWillUnmount', () => {
       <Textarea
         id='Dummy Area'
         value='foo'
+        onChange={ jest.fn() }
         label='Label'
         cols={ 10 }
         rows={ 10 }

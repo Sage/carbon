@@ -17,16 +17,10 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
  *
  * You can set a property of 'action' which should be a boolean. This will
  * set styling options for the cell used for action such as delete.
- *
- * @class TableCell
- * @constructor
  */
 class TableCell extends React.Component {
   /**
    * Returns props to be used on the TD element.
-   *
-   * @method tableCellProps
-   * @return {Object}
    */
   get tableCellProps() {
     const { ...props } = validProps(this);
@@ -38,8 +32,6 @@ class TableCell extends React.Component {
 
   /**
    * Renders the component.
-   *
-   * @method render
    */
   render() {
     return (
@@ -51,19 +43,13 @@ class TableCell extends React.Component {
 }
 
 TableCell.propTypes = {
-  /**
-   * Defines the cell type to be an action - used for the delete cell.
-   */
+  /** Defines the cell type to be an action - used for the delete cell. */
   action: PropTypes.bool,
 
-  /**
-   * Defines the alignment of the cell (eg "left", "center" or "right").
-   */
+  /** Defines the alignment of the cell (eg "left", "center" or "right"). */
   align: PropTypes.oneOf(OptionsHelper.alignFull),
 
-  /**
-   * Children elements
-   */
+  /** Children elements */
   children: PropTypes.node
 };
 

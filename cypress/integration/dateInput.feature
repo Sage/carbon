@@ -29,7 +29,7 @@ Feature: Date Input component
   @positive
   Scenario Outline: Change DateInput component field help
     When I set fieldHelp to "<fieldHelp>"
-    Then Field help on preview is set to "<fieldHelp>"
+    Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                |
       | Sample text              |

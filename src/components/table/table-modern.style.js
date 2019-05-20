@@ -26,8 +26,12 @@ function applyModernTableStyling({
   return css`
     background-color: ${type === 'tertiary' ? 'transparent' : theme.colors.white};
     && .carbon-table-row {
-      height: ${table.sizes[size]};
-      
+      height: ${table.sizes[size].height};
+        ${StyledTableCell}, ${StyledTableHeader} {
+        font-size: ${table.sizes[size].font};
+        padding-left: ${table.sizes[size].padding};
+        padding-right: ${table.sizes[size].padding};
+      }
       ${isZebra && `
         ${StyledTableCell} {
           background-color: ${table.zebra};

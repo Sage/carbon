@@ -6,19 +6,18 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const StyledTableHeader = styled.th`
   ${({
-    align, sortable, theme, size
+    align, sortable, theme
   }) => {
     const { table, colors } = theme;
     return css`
       background-color: ${table.header};
+      border-width: 0;
       border-bottom: 1px solid ${table.secondary};
       border-left: 1px solid ${colors.border};
-      border-right: none;
-      border-top: none;
       box-sizing: border-box;
       color: ${colors.white};
       font-weight: 700;
-      height: ${isClassic(theme) ? table.sizes.medium : table.sizes[size]};
+      ${isClassic(theme) ? `height: ${table.sizes.medium.height};` : ''}
       outline: medium none;
       padding: 0 8px;
       position: relative;
@@ -68,7 +67,11 @@ function applySortableStyling(align, colors, table) {
 }
 
 StyledTableHeader.propTypes = {
-  align: PropTypes.oneOf(OptionsHelper.alignFull)
+  /** Sets the alignment from the content */
+  align: PropTypes.oneOf(OptionsHelper.alignFull),
+
+  /** Toggles whether column is sortable */
+  sortable: PropTypes.bool
 };
 
 StyledTableHeader.defaultProps = {
