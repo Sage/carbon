@@ -3,7 +3,6 @@ export const INPUT_WIDTH_SLIDER = 'input[name="inputWidth"]';
 export const LABEL_WIDTH_SLIDER = 'input[name="labelWidth"]';
 export const FORM = '#storybook-panel-root';
 export const CLOSE_ICON_BUTTON = 'span[data-element="close"]';
-export const STICKY_FORM_FOOTER = '#stickyFormFooter';
 
 // component preview locators
 export const HELP_ICON_PREVIEW = 'a[data-component="help"]';

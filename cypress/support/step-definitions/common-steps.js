@@ -2,13 +2,11 @@ import {
   visitComponentUrl, setSlidebar, pressESCKey, pressTABKey,
 } from '../helper';
 import {
-  sizeSelect, commonButtonPreview, labelPreview, helpIcon, inputWidthSlider,
-  fieldHelpPreview, labelWidthSlider, alignSelect, backgroundUILocator,
-  closeIconButton, tooltipPreview, getKnobsInput, icon, inputWidthPreview, label,
+  commonButtonPreview, labelPreview, helpIcon, inputWidthSlider, fieldHelpPreview,
+  labelWidthSlider, backgroundUILocator, closeIconButton, tooltipPreview, getKnobsInput,
+  icon, inputWidthPreview, label,
 } from '../../locators';
-
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
-import { themeSelect } from '../../locators/button';
 
 const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 
@@ -34,14 +32,6 @@ When('I set {word} to empty', (propertyName) => {
 
 When('I select {word} to {string}', (propertyName, selection) => {
   getKnobsInput(propertyName).select(selection);
-});
-
-When('I set component size to {string}', (size) => {
-  sizeSelect().select(size);
-});
-
-When('I set component theme property to {string}', (theme) => {
-  themeSelect().select(theme);
 });
 
 When('I open component preview', () => {
@@ -92,10 +82,6 @@ Then('labelAlign on preview is {string}', (direction) => {
   } else {
     labelPreview().should('have.class', `common-input__label--align-${direction}`);
   }
-});
-
-When('I set align property to {string}', (asProperty) => {
-  alignSelect().select(asProperty);
 });
 
 Then('Background UI is enabled', () => {

@@ -1,18 +1,14 @@
 import {
-  INPUT_WIDTH_SLIDER, LABEL_WIDTH_SLIDER, HELP_ICON_PREVIEW,
-  FIELD_HELP_PREVIEW, TOOLTIP_PREVIEW, FORM, STORY_ROOT, STICKY_FORM_FOOTER, CLOSE_ICON_BUTTON,
-  BACKGROUND_UI_LOCATOR, LINK, ICON, INPUT_WIDTH_PREVIEW, COMMMON_DATA_ELEMENT_INPUT, LABEL,
+  INPUT_WIDTH_SLIDER, LABEL_WIDTH_SLIDER, HELP_ICON_PREVIEW, FIELD_HELP_PREVIEW, TOOLTIP_PREVIEW,
+  FORM, STORY_ROOT, CLOSE_ICON_BUTTON, BACKGROUND_UI_LOCATOR, LINK, ICON, INPUT_WIDTH_PREVIEW,
+  COMMMON_DATA_ELEMENT_INPUT, LABEL,
 } from './locators';
 
 // knobs locators
 export const getKnobsInput = propertyName => cy.get(`[name="${propertyName}"]`);
 export const knobsTab = () => cy.get(FORM).find('button').contains('Knobs');
-export const sizeSelect = () => cy.get(FORM).contains('size').find('select');
-export const asSelect = () => cy.get(FORM).contains('as').find('select');
-export const alignSelect = () => cy.get(FORM).contains('align').find('select');
 export const inputWidthSlider = () => cy.get(INPUT_WIDTH_SLIDER);
 export const labelWidthSlider = () => cy.get(LABEL_WIDTH_SLIDER);
-export const stickyFormFooter = () => cy.get(STICKY_FORM_FOOTER);
 
 // component preview locators
 export const commonButtonPreview = () => cy.iFrame(STORY_ROOT).find('button');

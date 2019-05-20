@@ -19,7 +19,7 @@ Feature: Button component
 
   @positive
   Scenario Outline: Change Button subtext
-    When I set component size to "large"
+    When I select size to "large"
       And I set subtext to "<subtext>"
     Then Button subtext on preview is "<subtext>"
     Examples:
@@ -33,14 +33,14 @@ Feature: Button component
 
   @negative
   Scenario: I set space character to Button subtext
-    When I set component size to "large"
+    When I select size to "large"
       # I use space character below
       And I set subtext to " "
     Then Button subtext on preview is " "
 
   @positive
   Scenario: I set component size to large but I leave Button subtext empty
-    When I set component size to "large"
+    When I select size to "large"
     # And I leave Button subtext empty
     Then Button subtext on preview is not visible
 
@@ -66,7 +66,7 @@ Feature: Button component
 
   @positive
   Scenario Outline: Set Button size to small, medium and large
-    When I set component size to "<size>"
+    When I select size to "<size>"
     Then Button size property on preview is "<size>"
     Examples:
       | size   |
@@ -76,7 +76,7 @@ Feature: Button component
 
   @positive
   Scenario Outline: Set theme to Button
-    When I set Button theme property to "<theme>"
+    When I select theme to "<theme>"
     Then Button theme property on preview is "<theme>"
     Examples:
       | theme        |

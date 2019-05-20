@@ -31,10 +31,10 @@ Feature: Number Input component
   # currently out of scope
   Scenario: Time to disappear
     When I set timeToDisappear to "<timeToDisappear>"
-    Then componet disappear after "<timeToDisappear>"
+    Then component disappears after "<timeToDisappear>"
 
   @positive
-  Scenario Outline: Change fieldHelp text
+  Scenario Outline: Change field help text
     When I set fieldHelp to "<fieldHelp>"
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
@@ -105,7 +105,7 @@ Feature: Number Input component
       | right      |
       | left       |
 
-  Scenario Outline: Change labelHelp text
+  Scenario Outline: Change label help text
     When I set labelHelp to "<labelHelp>"
       And I hover mouse onto help icon
     Then tooltipPreview on preview is set to "<labelHelp>"
