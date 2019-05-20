@@ -6,7 +6,6 @@ import colors from './split-button-colors.style';
 import { THEMES } from '../../style/themes';
 
 const StyledSplitButtonChildrenContainer = styled.div`
-  max-width: 100%;
   position: absolute;
   right: 0;
   ${styleChildrenContainer}
@@ -14,6 +13,7 @@ const StyledSplitButtonChildrenContainer = styled.div`
   ${StyledButton} {
     ${applyStylingToChildButtons}
     color: ${colors.white};
+    display: block;
     margin-left: 0;
     margin-top: 3px;
     margin-bottom: 3px;
@@ -30,6 +30,7 @@ const StyledSplitButtonChildrenContainer = styled.div`
 function styleChildrenContainer({ theme }) {
   if (theme.name === THEMES.classic) {
     return `
+      max-width: 100%;
       background-color: ${colors.classic.secondary};
       min-width: 100%;
       width: 100%;
@@ -39,7 +40,7 @@ function styleChildrenContainer({ theme }) {
     background-color: ${theme.colors.secondary};
     min-width: 75%;
     padding-top: 2px;
-    width: 75%;
+    white-space: nowrap;
   `;
 }
 
