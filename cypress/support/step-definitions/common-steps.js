@@ -83,7 +83,7 @@ When('I set label width slider to {int}', (width) => {
   setSlidebar(labelWidthSlider(), width);
 });
 
-Then(`labelAlign on preview is {string}`, (direction) => {
+Then('labelAlign on preview is {string}', (direction) => {
   if (direction === 'left') {
     // left is default property that's why it's absent inside class
     labelPreview().should('not.have.class', `common-input__label--align-${direction}`);
