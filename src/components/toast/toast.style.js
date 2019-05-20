@@ -5,14 +5,14 @@ import MessageContentStyle from '../message/message-content/message-content.styl
 import TypeIcon from '../message/type-icon/type-icon.style';
 
 const ToastStyle = styled(MessageStyle)`
-width: 300px;
-margin-top: 30px;
-position: fixed;
-right: 30px;
-top: 0;
+  width: 300px;
+  margin-top: 30px;
+  position: fixed;
+  right: 30px;
+  top: 0;
   box-shadow: 0 15px 20px 0 rgba(2,18,36, 0.2);
 
-${classicToastStyle}   
+  ${classicToastStyle}   
 
 `;
 

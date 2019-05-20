@@ -73,7 +73,7 @@ describe('Message', () => {
     });
 
     describe('when transparent prop is set to true', () => {
-      it('should render the message without the border and background color in white', () => {
+      it('should render the message without the border and with background transparent', () => {
         const wrapper = render({
           transparent: true,
           theme: classicTheme,
@@ -83,7 +83,7 @@ describe('Message', () => {
         assertStyleMatch(
           {
             border: 'none',
-            backgroundColor: '#FFFFFF'
+            backgroundColor: 'transparent'
           },
           wrapper.toJSON()
         );
