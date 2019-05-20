@@ -101,14 +101,10 @@ function styleInternalWrapper(props) {
 }
 
 StyledTable.propTypes = {
-  /**
-   * Toggles the type variations of the table
-   */
+  /** Toggles the type variations of the table */
   tableType: PropTypes.oneOf(OptionsHelper.tableThemes),
 
-  /**
-   * Toggles the zebra striping for the table rows
-   */
+  /**  Toggles the zebra striping for the table rows */
   isZebra: PropTypes.bool
 };
 

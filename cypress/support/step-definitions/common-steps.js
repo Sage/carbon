@@ -1,8 +1,11 @@
-import { visitComponentUrl, setSlidebar, pressESCKey } from '../helper';
+import {
+  visitComponentUrl, setSlidebar, pressESCKey,
+  pressTABKey,
+} from '../helper';
 import {
   sizeSelect, commonButtonPreview, labelPreview, helpIcon, inputWidthSlider,
   fieldHelpPreview, labelWidthSlider, labelAlignSelect, alignSelect, backgroundUILocator,
-  closeIconButton, tooltipPreview, getKnobsInput, icon,
+  closeIconButton, tooltipPreview, getKnobsInput, icon, inputWidthPreview,
 } from '../../locators';
 
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
@@ -69,11 +72,11 @@ Then('tooltipPreview on preview is set to {string}', (text) => {
   tooltipPreview().should('have.text', text);
 });
 
-When('I set input width slider to {int}', (width) => {
+When('I set inputWidth slider to {int}', (width) => {
   setSlidebar(inputWidthSlider(), width);
 });
 
-Then('Field help on preview is set to {string}', (text) => {
+Then('fieldHelp on preview is set to {string}', (text) => {
   fieldHelpPreview().should('have.text', text);
 });
 
@@ -85,7 +88,7 @@ When('I set label align {string}', (direction) => {
   labelAlignSelect().select(direction);
 });
 
-Then('direction on preview is {string}', (direction) => {
+Then(`(labelAlign )direction on preview is {string}`, (direction) => {
   if (direction === 'left') {
     // left is default property that's why it's absent inside class
     labelPreview().should('not.have.class', `common-input__label--align-${direction}`);
@@ -122,6 +125,9 @@ When('I hit ESC key', () => {
   pressESCKey();
 });
 
+When('I hit Tab key', () => {
+  pressTABKey();
+
 When('I disable {word} component', () => {
   getKnobsInput('disabled').check();
 });
@@ -136,4 +142,12 @@ When('I check {word} checkbox', (checkboxName) => {
 
 When('I uncheck {word} checkbox', (checkboxName) => {
   getKnobsInput(checkboxName).uncheck();
+});
+
+Then('inputWidth is set to {string}', (width) => {
+  inputWidthPreview().should('have.attr', 'style').should('contain', `width: ${width}%`);
+});
+
+Then('inputWidth is not set', () => {
+  inputWidthPreview().should('not.have.attr', 'style');
 });

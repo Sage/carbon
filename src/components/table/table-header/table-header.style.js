@@ -67,7 +67,10 @@ function applySortableStyling(align, colors, table) {
 }
 
 StyledTableHeader.propTypes = {
+  /** Sets the alignment from the content */
   align: PropTypes.oneOf(OptionsHelper.alignFull),
+
+  /** Toggles whether column is sortable */
   sortable: PropTypes.bool
 };
 

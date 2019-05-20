@@ -1,11 +1,15 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import MessageStyle from './message.style';
 import Message from './message.component';
+import baseTheme from '../../style/themes/base';
 import classicTheme from '../../style/themes/classic';
+import smallTheme from '../../style/themes/small';
+import mediumTheme from '../../style/themes/medium';
+import largeTheme from '../../style/themes/large';
 import CloseIcon from './close-icon/close-icon.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
@@ -14,28 +18,35 @@ function render(props) {
 }
 
 describe('Message', () => {
-  describe('when in small/medium/large theme', () => {
-    let wrapper;
-    beforeEach(() => {
-      wrapper = shallow(<Message>Message</Message>);
-    });
+  describe.each(['small', smallTheme], ['medium', mediumTheme], ['large', largeTheme])(
+    'rendered', (name, theme) => {
+      let wrapper;
+      beforeEach(() => {
+        wrapper = shallow(<Message theme={ theme }>Message</Message>);
+      });
 
-    it('should match the snapshot', () => {
-      expect(wrapper).toMatchSnapshot();
-    });
+      it(`should have the expected style for ${name}`, () => {
+        assertStyleMatch({
+          position: 'relative',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignContent: 'center'
+        }, mount(<Message theme={ theme }>Message</Message>));
+      });
 
-    it('does not render the close icon when onDismiss prop is not provided', () => {
-      const closeIcon = wrapper.find(CloseIcon);
-      expect(closeIcon.exists()).toEqual(false);
-    });
+      it('does not render the close icon when onDismiss prop is not provided', () => {
+        const closeIcon = wrapper.find(CloseIcon);
+        expect(closeIcon.exists()).toEqual(false);
+      });
 
-    it('renders the close icon when onDismiss function is provided', () => {
-      const onDismiss = jest.fn();
-      wrapper.setProps({ onDismiss });
-      const closeIcon = wrapper.find(CloseIcon);
-      expect(closeIcon.exists()).toEqual(true);
-    });
-  });
+      it('renders the close icon when onDismiss function is provided', () => {
+        const onDismiss = jest.fn();
+        wrapper.setProps({ onDismiss });
+        const closeIcon = wrapper.find(CloseIcon);
+        expect(closeIcon.exists()).toEqual(true);
+      });
+    }
+  );
 
   describe('when transparent prop is set to true', () => {
     it('should render the message without the border', () => {
@@ -56,8 +67,9 @@ describe('Message', () => {
   describe('when transparent prop is not passed', () => {
     it('should render the message with border in a proper color and a white background', () => {
       OptionsHelper.messages.forEach((messageType) => {
-        const wrapper = render({ messageType });
-        expect(wrapper).toMatchSnapshot();
+        assertStyleMatch({
+          border: `1px solid ${baseTheme.colors[messageType]}`
+        }, mount(<Message messageType={ messageType }>Message</Message>));
       });
     });
   });

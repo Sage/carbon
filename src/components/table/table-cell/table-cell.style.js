@@ -48,14 +48,10 @@ function applyActionStyling(colors) {
 }
 
 StyledTableCell.propTypes = {
-  /**
-   * Defines the cell type to be an action - used for the delete cell.
-   */
+  /** Defines the cell type to be an action - used for the delete cell. */
   action: PropTypes.bool,
 
-  /**
-   * Defines the alignment of the cell (eg "left", "center" or "right").
-   */
+  /** * Defines the alignment of the cell (eg "left", "center" or "right"). */
   align: PropTypes.oneOf(OptionsHelper.alignFull)
 };
 

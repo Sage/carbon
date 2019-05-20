@@ -73,7 +73,6 @@ describe('Select', () => {
     });
     expect(wrapper.find('div').first().prop('data-role')).toEqual('custom-role');
     expect(wrapper.find('div').first().prop('data-element')).toEqual('custom-element');
-    expect(wrapper.find('Textbox')).toMatchSnapshot();
   });
 
   it('triggers an onOpen callback if provided, but not if already open', () => {
