@@ -112,7 +112,7 @@ Feature: Alert component
 
   @positive
   Scenario Outline: Set Alert size to small, medium and large
-    When I set component size to "<sizeName>"
+    When I select size to "<sizeName>"
       And I open component preview
     Then Alert size property on preview is "<sizePropertyInPx>"
     Examples:

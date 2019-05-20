@@ -29,7 +29,7 @@ Feature: Button Toggle component
 
   @positive
   Scenario Outline: Set Button Toggle size to small, large
-    When I set component size to "<size>"
+    When I select size to "<size>"
     Then Button Toggle size on preview is "<size>"
     Examples:
       | size  |

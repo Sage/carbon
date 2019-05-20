@@ -1,6 +1,4 @@
-import {
-  contentBody, contentTitle, contentPreview, titleWidth,
-} from '../../locators/content';
+import { contentBody, contentTitle, contentPreview } from '../../locators/content';
 
 const CONTENT_AS_LABEL = 'carbon-content--';
 const CONTENT_ALIGN_LABEL = `${CONTENT_AS_LABEL}align-`;
@@ -41,8 +39,4 @@ Then('content preview has no inline parameter', () => {
 
 Then('content preview width is {string}', (width) => {
   contentTitle().should('have.attr', 'style').should('contain', `width: calc(${width}% - 30px);`);
-});
-
-When('I set titleWidth parameter to {string}', (width) => {
-  titleWidth().clear().type(width);
 });
