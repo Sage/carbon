@@ -1,6 +1,8 @@
 import { css } from 'styled-components';
 import StyledTableCell from '../table-cell/table-cell.style';
 import StyledTableHeader from '../table-header/table-header.style';
+import { applyClassicRowStyling, applyClassicSelectedStyling, applyClassicHighlightStyling } from './classic-row.style';
+import { applyModernRowStyling, applyModernSelectedStyling, applyModernHighlightStyling } from './modern-row.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
 /**
@@ -44,48 +46,11 @@ function applyRowStyling(props) {
       }
     }
 
-    ${isClassic(theme) ? applyClassicStyling : applyModernStyling}
+    ${isClassic(theme) ? applyClassicRowStyling() : applyModernRowStyling(theme)}
     ${selectableRowStyling}
     ${selectedRowStyling}
     ${highlightRowStyling}
     ${dragRowStyling}
-  `;
-}
-
-function applyClassicStyling() {
-  return css`
-    border-color: #E7F1FC;
-    &:hover .common-input__input {
-      border-color: #E7F1FC;
-    }
-
-    &:nth-child(2n+1) {
-      ${StyledTableCell} {
-        background-color: #ffffff;
-      }
-    }
-
-    &:hover {
-      ${StyledTableCell} {
-        background-color: #E7F1FC;
-      }
-    }
-  `;
-}
-
-function applyModernStyling({ theme }) {
-  const { colors, table } = theme;
-  return css`   
-    ${StyledTableCell} {
-      padding-top: 0px;
-      padding-bottom: 0px;
-      background-color: ${colors.white};
-    }
-    &:hover {
-      ${StyledTableCell} {
-        background-color: ${table.primary};
-      }
-    }
   `;
 }
 
@@ -118,7 +83,7 @@ function selectedRowStyling ({ theme }) {
     .carbon-table-row--selected:nth-child(odd),
     .carbon-table-row--selected:hover {
       ${StyledTableCell} {
-        ${isClassic(theme) ? classicSelectedStyling : modernSelectedStyling}
+        ${isClassic(theme) ? applyClassicSelectedStyling(theme) : applyModernSelectedStyling(theme)}
         position: relative;
     
         &:before {
@@ -134,27 +99,6 @@ function selectedRowStyling ({ theme }) {
   `;
 }
 
-function classicSelectedStyling({ theme }) {
-  const { colors } = theme;
-  return css`
-    background-color: #1573E6;
-    border-bottom-color: #255BC7;
-    color: ${colors.white};
-
-    &:before {
-      background-color: #255BC7;
-    }
-  `;
-}
-
-function modernSelectedStyling({ theme }) {
-  const { table } = theme;
-  return css`
-    background-color: ${table.selected};
-    border-bottom-color: ${table.selected};
-  `;
-}
-
 function highlightRowStyling({ theme }) {
   const { table } = theme;
   return css`
@@ -164,7 +108,7 @@ function highlightRowStyling({ theme }) {
 
     && .carbon-table-row--highlighted {
       ${StyledTableCell} {
-        ${isClassic(theme) ? classicHighlightStyling : modernHighlightStyling}
+        ${isClassic(theme) ? applyClassicHighlightStyling() : applyModernHighlightStyling(theme)}
         position: relative;
   
         &:before {
@@ -183,26 +127,6 @@ function highlightRowStyling({ theme }) {
         }
       }
     }
-  `;
-}
-
-function classicHighlightStyling() {
-  return css`
-    background-color: #D0E3FA;
-    border-bottom-color: #1573E6;
-    position: relative;
-
-    &:before {
-      background-color: #1573E6;
-    }
-  `;
-}
-
-function modernHighlightStyling({ theme }) {
-  const { table } = theme;
-  return css`
-    background-color: ${table.selected};
-    border-bottom-color: ${table.selected};
   `;
 }
 
