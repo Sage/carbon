@@ -142,11 +142,18 @@ class SplitButton extends Component {
         <StyledSplitButtonToggle
           { ...this.toggleButtonProps }
           data-element='open'
+          onKeyPress={ this.handleToggleButtonKeyUp }
         >
           <Icon type='dropdown' />
         </StyledSplitButtonToggle>
       </div>
     );
+  }
+
+  handleToggleButtonKeyUp = (ev) => {
+    if (Events.isEnterKey(ev) || Events.isSpaceKey) {
+      this.additionalButtons[0].focus();
+    }
   }
 
   /**
