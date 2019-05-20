@@ -4,11 +4,13 @@ import {
 import {
   sizeSelect, commonButtonPreview, labelPreview, helpIcon, inputWidthSlider,
   fieldHelpPreview, labelWidthSlider, alignSelect, backgroundUILocator,
-  closeIconButton, tooltipPreview, getKnobsInput, icon, inputWidthPreview,
+  closeIconButton, tooltipPreview, getKnobsInput, icon, inputWidthPreview, label,
 } from '../../locators';
 
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 import { themeSelect } from '../../locators/button';
+
+const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
@@ -54,8 +56,8 @@ Then('component subtitle on preview is {string}', (subtitle) => {
   dialogSubtitle().should('have.text', subtitle);
 });
 
-Then('label on preview is {string}', (label) => {
-  labelPreview().should('have.text', label);
+Then('label on preview is {string}', (text) => {
+  labelPreview().should('have.text', text);
 });
 
 When('I hover mouse onto help icon', () => {
@@ -146,4 +148,16 @@ Then('inputWidth is set to {string}', (width) => {
 
 Then('inputWidth is not set', () => {
   inputWidthPreview().should('not.have.attr', 'style');
+});
+
+Then('{word} labelInline is enabled', () => {
+  label().should('have.class', LABEL_INPUT_INLINE_CLASS);
+});
+
+Then('{word} labelInline is disabled', () => {
+  label().should('not.have.class', LABEL_INPUT_INLINE_CLASS);
+});
+
+Then('{word} labelWidth is set to {string}', (componentName, width) => {
+  label().should('have.attr', 'style', `width: ${width}%;`);
 });

@@ -4,20 +4,20 @@ Feature: Pager component
   Background: Open Pager component page
     Given I open "Pager" component page
 
-    @positive
-    Scenario Outline: Set totalRecords to <totalRecords>
-      When I set totalRecords to "<totalRecords>"
-      Then totalRecords is set to "<totalRecords>"
-        And I am on 1st of "<maxPages>" pages
-      Examples:
-        | totalRecords | maxPages |
-        | 0            | 1        |
-        | 1            | 1        |
-        | 10           | 1        |
-        | 100          | 10       |
-        | 111          | 12       |
-        | 1000         | 100      |
-        | 99999        | 10000    |
+  @positive
+  Scenario Outline: Set totalRecords to <totalRecords>
+    When I set totalRecords to "<totalRecords>"
+    Then totalRecords is set to "<totalRecords>"
+      And I am on 1st of "<maxPages>" pages
+    Examples:
+      | totalRecords | maxPages |
+      | 0            | 1        |
+      | 1            | 1        |
+      | 10           | 1        |
+      | 100          | 10       |
+      | 111          | 12       |
+      | 1000         | 100      |
+      | 99999        | 10000    |
 
   @negative
   Scenario Outline: Set totalRecords out of scope
@@ -63,7 +63,7 @@ Feature: Pager component
   @positive
   Scenario: Enable and disable showPageSizeSelection
     When I check showPageSizeSelection checkbox
-    And I uncheck showPageSizeSelection checkbox
+      And I uncheck showPageSizeSelection checkbox
     Then pageSize is not visible
 
   @positive
@@ -71,15 +71,15 @@ Feature: Pager component
     #  When I open "Pager" component page
     Then previous pagination arrow is disabled
 
-    @positive
+  @positive
   Scenario: Pagination next arrow is disabled
     When I paginate next 9 times
     Then next pagination arrow is disabled
 
-      @positive
+  @positive
   Scenario: Pagination previous arrow is disabled after previous paginate
     When I type "10" to input pagination
-    And I paginate previous 9 times
+      And I paginate previous 9 times
     Then previous pagination arrow is disabled
 
   @positive
@@ -89,4 +89,3 @@ Feature: Pager component
     Then previous pagination arrow is disabled
       And next pagination arrow is disabled
 
- 

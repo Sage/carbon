@@ -31,7 +31,7 @@ Feature: Number Input component
   # currently out of scope
   Scenario: Time to disappear
     When I set timeToDisappear to "<timeToDisappear>"
-    Then timeToDisappear is set
+    Then componet disappear after "<timeToDisappear>"
 
   @positive
   Scenario Outline: Change fieldHelp text
@@ -75,19 +75,19 @@ Feature: Number Input component
   @positive
   Scenario: Enable label inline
     When I check labelInline checkbox
-    Then GroupedCharacter labelInline is enabled
+    Then NumberInput labelInline is enabled
 
   @positive
   Scenario: Disable label inline
     When I check labelInline checkbox
       And I uncheck labelInline checkbox
-    Then GroupedCharacter labelInline is disabled
+    Then NumberInput labelInline is disabled
 
   @positive
   Scenario Outline: Set label width
     When I check labelInline checkbox
       And I set labelWidth to "<labelWidth>"
-    Then GroupedCharacter labelWidth is set to "<labelWidth>"
+    Then NumberInput labelWidth is set to "<labelWidth>"
     Examples:
       | labelWidth |
       | 0          |

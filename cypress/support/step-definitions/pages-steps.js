@@ -1,4 +1,6 @@
-import { dataComponentButtonByText, titleNoIframe } from '../../locators/pages';
+import { dataComponentButtonByText, titleNoIframe, closeDataElement } from '../../locators/pages';
+
+const OPEN_PREVIEW = 'Open Preview';
 
 Then('My {word} Page is visible', (word) => {
   titleNoIframe().should('have.text', `My ${word} Page`);
@@ -13,9 +15,9 @@ When('I go to {word} page', (word) => {
 });
 
 When('I open no iFrame component preview', () => {
-  dataComponentButtonByText('Open Preview').click();
+  dataComponentButtonByText(OPEN_PREVIEW).click();
 });
 
 When('I close page', () => {
-  cy.get('[data-element="close"]').click();
+  closeDataElement().click();
 });

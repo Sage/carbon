@@ -79,7 +79,7 @@ Feature: Button Toggle Group component
   Scenario Outline: Change Button Toggle Group label width
     When I check labelInline checkbox
       And I set labelWidth to "<width>"
-    Then Label width is set to "<width>"
+    Then label width is set to "<width>"
     Examples:
       | width |
       | 1     |
@@ -89,7 +89,7 @@ Feature: Button Toggle Group component
   @negative
   Scenario Outline: Set out of scope characters to Button Toggle Group input width
     When I set inputWidth to "<width>"
-    Then Label width is not set
+    Then label width is not set
     Examples:
       | width                   |
       | !@#$%^*()_+-=~[];:.,?{} |
