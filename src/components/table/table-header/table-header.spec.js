@@ -8,8 +8,8 @@ import StyledTableHeader from './table-header.style';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import BaseTheme from '../../../style/themes/base';
 import ClassicTheme from '../../../style/themes/classic';
-import SmallTheme from '../../../style/themes/small';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import tableSizes from '../table-sizes';
 
 describe('TableHeader', () => {
   let instance, instanceSortable, sortableColumn, sortableHeader, changeSpy;
@@ -320,30 +320,11 @@ describe('TableHeader', () => {
       const th = wrapper.find('th').hostNodes();
       it(`matches the expected style when the size is ${size}`, () => {
         assertStyleMatch({
-          height: BaseTheme.table.sizes.medium.height
+          height: tableSizes.medium.height
         }, th);
       });
     },
   );
-
-  // describe.each(['compact', 'small', 'medium', 'large'])(
-  //   'when the theme is not classic',
-  //   (size) => {
-  //     const wrapper = mount(
-  //       <StyledTableHeader
-  //         theme={ SmallTheme }
-  //         size={ size }
-  //       />
-  //     );
-  //     const th = wrapper.find('th').hostNodes();
-
-  //     it(`matches the expected style when the size is ${size}`, () => {
-  //       assertStyleMatch({
-  //         height: BaseTheme.table.sizes[size].height
-  //       }, th);
-  //     });
-  //   },
-  // );
 
   describe('render', () => {
     let wrapper, th;
