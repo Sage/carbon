@@ -56,7 +56,7 @@ DismissButtonStyle.defaultProps = {
 };
 
 DismissButtonStyle.propTypes = {
-  variant: PropTypes.oneOf(OptionsHelper.messages),
+  variant: PropTypes.oneOf(OptionsHelper.colors),
   border: PropTypes.bool,
   roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool

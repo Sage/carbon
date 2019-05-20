@@ -18,7 +18,7 @@ const TypeIconStyle = styled.div`
   }
 
   ${({ theme, transparent, variant }) => transparent && css`
-    background-color: ${theme.colors.white};
+    background-color: transparent;
     span {
       &:before {
         color: ${theme.colors[variant]};
@@ -37,7 +37,7 @@ TypeIconStyle.defaultProps = {
 };
 
 TypeIconStyle.propTypes = {
-  variant: PropTypes.oneOf(OptionsHelper.messages),
+  variant: PropTypes.oneOf(OptionsHelper.colors),
   border: PropTypes.bool,
   roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool

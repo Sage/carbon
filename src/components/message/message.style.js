@@ -13,6 +13,7 @@ const MessageStyle = styled.div`
 
   ${({ transparent }) => transparent && css`
       border: none;
+      background: transparent;
   `}
 
   ${messageClassicStyling}

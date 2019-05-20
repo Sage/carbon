@@ -1,11 +1,15 @@
 import { css } from 'styled-components';
 import { THEMES } from '../../style/themes';
-import classicThemeColors from '../message/message-classic-theme-colors';
+import dismissColors from './dismiss-button-variants';
 
 export default ({ theme, variant }) => theme.name === THEMES.classic && css`
-  background-color: ${classicThemeColors[variant].backgroundColor};
+  .icon-close {
+    &:before {
+      color: ${dismissColors[variant]};
+    }
+  }
 
   ${({ transparent }) => transparent && css`
-    background-color: ${classicThemeColors.transparent.backgroundColor};
+    background-color: transparent;
   `}
 `;
