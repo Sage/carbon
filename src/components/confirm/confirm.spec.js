@@ -77,18 +77,20 @@ describe('Confirm', () => {
       beforeEach(() => {
         wrapper = mount(
           <Confirm
-            open onCancel={ onCancel }
-            onConfirm={ onConfirm } confirmLabel='Confirm'
+            open
+            onCancel={ onCancel }
+            onConfirm={ onConfirm }
+            confirmLabel='Delete'
             cancelLabel='Cancel'
           />
         );
       });
 
       it('returns a custom labels', () => {
-        const confirmButton = wrapper.find('[data-element="confirm"]');
+        const deleteButton = wrapper.find('[data-element="confirm"]');
         const cancelButton = wrapper.find('[data-element="cancel"]');
 
-        expect(confirmButton.hostNodes().text()).toEqual('Confirm');
+        expect(deleteButton.hostNodes().text()).toEqual('Delete');
         expect(cancelButton.hostNodes().text()).toEqual('Cancel');
       });
     });
