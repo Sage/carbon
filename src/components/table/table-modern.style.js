@@ -1,7 +1,9 @@
 import { css } from 'styled-components';
 import StyledTableCell from './table-cell/table-cell.style';
 import StyledTableHeader from './table-header/table-header.style';
-import tableSizes from './table-sizes';
+import tableSizes from './table-sizes.style';
+import StyledInputPresentation from '../../__experimental__/components/input/input-presentation.style';
+import StyledInput from '../../__experimental__/components/input/input.style';
 
 function convertTableType(type) {
   if (['primary', 'secondary', 'tertiary'].includes(type)) return type;
@@ -23,16 +25,17 @@ function applyModernTableStyling({
 }) {
   const type = convertTableType(tableType);
   const { table, colors } = theme;
-
+  console.log(size);
   return css`
     background-color: ${type === 'tertiary' ? 'transparent' : theme.colors.white};
     && .carbon-table-row {
       height: ${tableSizes[size].height};
-        ${StyledTableCell}, ${StyledTableHeader} {
+      ${StyledTableCell}, ${StyledTableHeader} {
         font-size: ${tableSizes[size].font};
         padding-left: ${tableSizes[size].padding};
         padding-right: ${tableSizes[size].padding};
       }
+
       ${isZebra && `
         ${StyledTableCell} {
           background-color: ${table.zebra};
@@ -45,27 +48,49 @@ function applyModernTableStyling({
       `}
     }
     ${type !== 'primary' && additionalThemeStyling(type, theme)}
+    ${addInputStyling(size)}
   `;
 }
 
 function additionalThemeStyling(type, { text, table, colors }) {
   return css`
-    ${type === 'tertiary' ? 'border-color: transparent;' : ''}
-    ${StyledTableCell} {
-      background-color: ${colors.white};
+      ${type === 'tertiary' ? 'border-color: transparent;' : ''}
+      ${StyledTableCell} {
+        background-color: ${colors.white};
+      }
+  
+      ${StyledTableHeader} {
+        background-color: ${type === 'secondary' ? table.secondary : 'transparent'};
+        ${type === 'tertiary' ? 'border-left-color: transparent;' : ''}
+        color: ${text.color};
+          
+        a:link,
+        a:visited,
+        a:hover,
+        a:active {
+          color: ${text.color};
+        }
+      }
+    `;
+}
+
+function addInputStyling(size) {
+  return `
+    ${StyledInput} {
+      font-size: ${tableSizes[size].font};
+      height: ${tableSizes[size].inputHeight};
+      padding-left: ${tableSizes[size].padding};
+      padding-right: ${tableSizes[size].padding};
     }
 
-    ${StyledTableHeader} {
-      background-color: ${type === 'secondary' ? table.secondary : 'transparent'};
-      ${type === 'tertiary' ? 'border-left-color: transparent;' : ''}
-      color: ${text.color};
-        
-      a:link,
-      a:visited,
-      a:hover,
-      a:active {
-        color: ${text.color};
-      }
+    && ${StyledInputPresentation} {
+      height: ${tableSizes[size].inputHeight};
+      min-height: ${tableSizes[size].inputHeight};
+    }
+
+    && ${StyledTableCell} div {
+      height: ${tableSizes[size].inputHeight};
+      min-height: ${tableSizes[size].inputHeight};
     }
   `;
 }

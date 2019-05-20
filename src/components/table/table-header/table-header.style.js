@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 import { isClassic } from '../../../utils/helpers/style-helper';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import tableSizes from '../table-sizes';
+import tableSizes from '../table-sizes.style';
 
 const StyledTableHeader = styled.th`
   ${({

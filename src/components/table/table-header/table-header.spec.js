@@ -9,7 +9,7 @@ import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import BaseTheme from '../../../style/themes/base';
 import ClassicTheme from '../../../style/themes/classic';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import tableSizes from '../table-sizes';
+import tableSizes from '../table-sizes.style';
 
 describe('TableHeader', () => {
   let instance, instanceSortable, sortableColumn, sortableHeader, changeSpy;
