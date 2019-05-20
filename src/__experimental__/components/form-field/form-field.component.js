@@ -12,7 +12,6 @@ const FormField = ({
   fieldHelpInline,
   label,
   labelAlign,
-  labelFor,
   labelHelp,
   labelHelpIcon,
   labelInline,
@@ -31,7 +30,6 @@ const FormField = ({
         help={ labelHelp }
         htmlFor={ name }
         helpIcon={ labelHelpIcon }
-        htmlFor={ labelFor }
         inline={ labelInline }
         inputSize={ size }
         width={ labelWidth }
@@ -67,7 +65,6 @@ FormField.propTypes = {
   fieldHelpInline: PropTypes.bool,
   label: PropTypes.node,
   labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
-  labelFor: PropTypes.string,
   labelHelp: PropTypes.node,
   labelHelpIcon: PropTypes.string,
   labelInline: PropTypes.bool,
