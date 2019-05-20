@@ -26,7 +26,7 @@ class Toast extends React.Component {
           className='carbon-toast__close'
           data-element='close'
           onClick={ this.props.onDismiss }
-          // type='close'
+          type='close'
           variant={ this.props.variant || this.props.as }
         />
       );
