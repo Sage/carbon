@@ -25,7 +25,11 @@ describe('Confirm', () => {
 
   describe('default snapshot', () => {
     it('renders as expected', () => {
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper.instance().props.open).toBeTruthy();
+      expect(wrapper.instance().props.title).toEqual('Confirm title');
+      expect(wrapper.instance().props.subtitle).toEqual('Confirm Subtitle');
+      expect(wrapper.instance().props['data-element']).toEqual('bar');
+      expect(wrapper.instance().props['data-role']).toEqual('baz');
     });
   });
 
