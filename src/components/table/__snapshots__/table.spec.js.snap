@@ -31,6 +31,23 @@ exports[`Table when the table size is compact renders a table to match the expec
   background-color: #FFFFFF;
 }
 
+.c0 .c3 {
+  font-size: 13px;
+  height: 22px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.c0.c0 .c4 {
+  height: 22px;
+  min-height: 22px;
+}
+
+.c0.c0 .c1 div {
+  height: 22px;
+  min-height: 22px;
+}
+
 .c0 caption {
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
@@ -203,6 +220,23 @@ exports[`Table when the table size is small renders a table to match the expecte
 
 .c0.c0 .carbon-table-row:nth-child(2n+1) .c1 {
   background-color: #FFFFFF;
+}
+
+.c0 .c3 {
+  font-size: 14px;
+  height: 24px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.c0.c0 .c4 {
+  height: 24px;
+  min-height: 24px;
+}
+
+.c0.c0 .c1 div {
+  height: 24px;
+  min-height: 24px;
 }
 
 .c0 caption {
