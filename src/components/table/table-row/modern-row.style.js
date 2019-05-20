@@ -1,6 +1,6 @@
 import StyledTableCell from '../table-cell/table-cell.style';
 
-export const applyModernRowStyling = ({ colors, table }) => {
+function applyModernRowStyling({ colors, table }) {
   return `   
     ${StyledTableCell} {
       padding-top: 0px;
@@ -13,18 +13,24 @@ export const applyModernRowStyling = ({ colors, table }) => {
       }
     }
   `;
-};
+}
 
-export const applyModernSelectedStyling = ({ table }) => {
+function applyModernSelectedStyling({ table }) {
   return `
     background-color: ${table.selected};
     border-bottom-color: ${table.selected};
   `;
-};
+}
 
-export const applyModernHighlightStyling = ({ table }) => {
+function applyModernHighlightStyling({ table }) {
   return `
     background-color: ${table.selected};
     border-bottom-color: ${table.selected};
   `;
+}
+
+export {
+  applyModernRowStyling,
+  applyModernSelectedStyling,
+  applyModernHighlightStyling
 };
