@@ -25,7 +25,6 @@ function applyModernTableStyling({
 }) {
   const type = convertTableType(tableType);
   const { table, colors } = theme;
-  console.log(size);
   return css`
     background-color: ${type === 'tertiary' ? 'transparent' : theme.colors.white};
     && .carbon-table-row {
