@@ -8,7 +8,6 @@ import StyledTableHeader from './table-header.style';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import BaseTheme from '../../../style/themes/base';
 import ClassicTheme from '../../../style/themes/classic';
-import SmallTheme from '../../../style/themes/small';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import tableSizes from '../table-sizes';
 
