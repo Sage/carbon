@@ -1,8 +1,11 @@
-import { visitComponentUrl, setSlidebar, pressESCKey } from '../helper';
 import {
-  asSelect, sizeSelect, commonButtonPreview, labelPreview, helpIcon, inputWidthSlider,
+  visitComponentUrl, setSlidebar, pressESCKey,
+  pressTABKey,
+} from '../helper';
+import {
+  sizeSelect, commonButtonPreview, labelPreview, helpIcon, inputWidthSlider,
   fieldHelpPreview, labelWidthSlider, labelAlignSelect, alignSelect, backgroundUILocator,
-  closeIconButton, labelHelpPreview, getKnobsInput,
+  closeIconButton, tooltipPreview, getKnobsInput, icon, inputWidthPreview,
 } from '../../locators';
 
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
@@ -28,8 +31,8 @@ When('I set {word} to empty', (propertyName) => {
   getKnobsInput(propertyName).clear();
 });
 
-When('I set as property to {string}', (asProperty) => {
-  asSelect().select(asProperty);
+When('I select {word} to {string}', (propertyName, selection) => {
+  getKnobsInput(propertyName).select(selection);
 });
 
 When('I set component size to {string}', (size) => {
@@ -60,15 +63,20 @@ When('I hover mouse onto help icon', () => {
   helpIcon().trigger('mouseover');
 });
 
-Then('Label help on preview is set to {string}', (text) => {
-  labelHelpPreview().should('have.text', text);
+When('I hover mouse onto icon', () => {
+  cy.wait(100); // required becasue element might be reloaded
+  icon().trigger('mouseover');
 });
 
-When('I set input width slider to {int}', (width) => {
+Then('tooltipPreview on preview is set to {string}', (text) => {
+  tooltipPreview().should('have.text', text);
+});
+
+When('I set inputWidth slider to {int}', (width) => {
   setSlidebar(inputWidthSlider(), width);
 });
 
-Then('Field help on preview is set to {string}', (text) => {
+Then('fieldHelp on preview is set to {string}', (text) => {
   fieldHelpPreview().should('have.text', text);
 });
 
@@ -80,7 +88,7 @@ When('I set label align {string}', (direction) => {
   labelAlignSelect().select(direction);
 });
 
-Then('direction on preview is {string}', (direction) => {
+Then(`(labelAlign )direction on preview is {string}`, (direction) => {
   if (direction === 'left') {
     // left is default property that's why it's absent inside class
     labelPreview().should('not.have.class', `common-input__label--align-${direction}`);
@@ -117,6 +125,9 @@ When('I hit ESC key', () => {
   pressESCKey();
 });
 
+When('I hit Tab key', () => {
+  pressTABKey();
+
 When('I disable {word} component', () => {
   getKnobsInput('disabled').check();
 });
@@ -131,4 +142,12 @@ When('I check {word} checkbox', (checkboxName) => {
 
 When('I uncheck {word} checkbox', (checkboxName) => {
   getKnobsInput(checkboxName).uncheck();
+});
+
+Then('inputWidth is set to {string}', (width) => {
+  inputWidthPreview().should('have.attr', 'style').should('contain', `width: ${width}%`);
+});
+
+Then('inputWidth is not set', () => {
+  inputWidthPreview().should('not.have.attr', 'style');
 });

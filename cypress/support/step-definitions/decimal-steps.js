@@ -1,7 +1,8 @@
 import {
-  alignSelect, labelPreview, label, inputPrecisionSlider,
+  alignSelect, labelPreview, inputPrecisionSlider,
 } from '../../locators/decimal/index';
 import { setSlidebar } from '../helper';
+import { label } from '../../locators';
 
 const TEXT_ALIGN = 'text-align';
 
@@ -33,7 +34,7 @@ When('label width on preview is {int}', (width) => {
   label().should('have.attr', 'width').should('contain', `${width}`);
 });
 
-When('input width on preview is {int}', (width) => {
+When('inputWidth on preview is {int}', (width) => {
   labelPreview().should('have.css', 'flex').should('contain', `${width}`);
 });
 
@@ -49,7 +50,7 @@ Then('Decimal labelInput is set to {string}', (labelInput) => {
   labelPreview().children().should('have.attr', 'value').should('contain', `${labelInput}`);
 });
 
-Then('Decimal labelInput is not set to {string}', (labelInput) => {
+Then('Decimal label is not set to {string}', (labelInput) => {
   labelPreview().children().should('have.attr', 'value').should('not.contain', `${labelInput}`);
 });
 

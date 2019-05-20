@@ -14,11 +14,11 @@ Then('checkbox helpText property is not set to {string}', (property) => {
   checkboxHelpTextPreview().should('not.have.class', CHECKBOX_HELP_TEXT_CLASS_PREFIX + property);
 });
 
-Then('checkbox input width is set to {int}', (width) => {
+Then('checkbox inputWidth is set to {int}', (width) => {
   checkboxCommonInputField().should('have.attr', 'style').should('contain', `width: ${width}%`);
 });
 
-Then('Checkbox input width is not set', () => {
+Then('Checkbox inputWidth is not set', () => {
   checkboxCommonInputField().should('not.have.attr', 'style');
 });
 

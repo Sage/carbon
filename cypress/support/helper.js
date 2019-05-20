@@ -46,3 +46,8 @@ export function pressESCKey() {
   // using Shift+Esc - because of storybook shortcuts overeride
   cy.iFrame('body').type('{shift}{esc}');
 }
+
+export function pressTABKey() {
+  // cy.iFrame('body').tab(); uncomment when this function will be implemented by Cypress team
+  cy.iFrame('body').trigger('tab', { force: true });
+}

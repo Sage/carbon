@@ -157,7 +157,6 @@ class Select extends React.Component {
 
     newState.filter = undefined;
     this.setState(newState);
-    this.bridge.current._handleContentChange(); // temporary - resets validation on the old bridge component
 
     if (this.props.onChange) this.props.onChange({ target: { value } });
   }

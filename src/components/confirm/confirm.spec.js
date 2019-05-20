@@ -48,22 +48,18 @@ describe('Confirm', () => {
 
     describe('yes button', () => {
       it('triggers the onConfirm when the yes button is clicked', () => {
-        wrapper
-          .find('[data-element="confirm"]')
-          .hostNodes()
-          .findWhere(n => n.type() === 'button')
-          .simulate('click');
+        const button = wrapper.find('[data-element="confirm"]').hostNodes();
+        expect(button.type()).toEqual('button');
+        button.simulate('click');
         expect(onConfirm).toHaveBeenCalled();
       });
     });
 
     describe('no button', () => {
       it('triggers the onCancel when the no button is clicked', () => {
-        wrapper
-          .find('[data-element="cancel"]')
-          .hostNodes()
-          .findWhere(n => n.type() === 'button')
-          .simulate('click');
+        const button = wrapper.find('[data-element="cancel"]').hostNodes();
+        expect(button.type()).toEqual('button');
+        button.simulate('click');
         expect(onCancel).toHaveBeenCalled();
       });
     });
@@ -89,8 +85,11 @@ describe('Confirm', () => {
       });
 
       it('returns a custom labels', () => {
-        expect(wrapper.find("[data-element='cancel']").hostNodes().text()).toEqual('Cancel');
-        expect(wrapper.find("[data-element='confirm']").hostNodes().text()).toEqual('Confirm');
+        const confirmButton = wrapper.find('[data-element="confirm"]');
+        const cancelButton = wrapper.find('[data-element="cancel"]');
+
+        expect(confirmButton.hostNodes().text()).toEqual('Confirm');
+        expect(cancelButton.hostNodes().text()).toEqual('Cancel');
       });
     });
   });

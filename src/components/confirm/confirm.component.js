@@ -3,7 +3,8 @@ import I18n from 'i18n-js';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import Dialog from '../dialog/dialog.component';
-import { StyledConfirmButtons, StyledButton } from './confirm.style';
+import StyledConfirmButtons from './confirm.style';
+import Button from '../button/button.component';
 
 class Confirm extends Dialog {
   // ** Returns main classes for the component combined with dialog main classes. */
@@ -15,18 +16,18 @@ class Confirm extends Dialog {
   additionalContent() {
     return (
       <StyledConfirmButtons>
-        <StyledButton
+        <Button
           onClick={ this.props.onConfirm } data-element='confirm'
           buttonType='primary'
         >
           {this.props.confirmLabel || I18n.t('confirm.yes', { defaultValue: 'Yes' })}
-        </StyledButton>
-        <StyledButton
+        </Button>
+        <Button
           onClick={ this.props.onCancel } data-element='cancel'
           buttonType='secondary'
         >
           {this.props.cancelLabel || I18n.t('confirm.no', { defaultValue: 'No' })}
-        </StyledButton>
+        </Button>
       </StyledConfirmButtons>
     );
   }

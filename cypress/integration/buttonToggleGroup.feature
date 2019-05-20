@@ -21,7 +21,7 @@ Feature: Button Toggle Group component
   Scenario Outline: Change Button Toggle Group component label help
     When I set labelHelp to "<labelHelp>"
       And I hover mouse onto help icon
-    Then Label help on preview is set to "<labelHelp>"
+    Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp                |
       | Sample text              |
@@ -33,8 +33,8 @@ Feature: Button Toggle Group component
 
   @positive
   Scenario Outline: Change Button Toggle Group input width
-    When I set input width to "<width>"
-    Then Input width is set to "<width>"
+    When I set inputWidth to "<width>"
+    Then inputWidth is set to "<width>"
     Examples:
       | width |
       | 1     |
@@ -43,8 +43,8 @@ Feature: Button Toggle Group component
 
   @negative
   Scenario Outline: Set out of scope characters to Button Toggle Group input width
-    When I set input width to "<width>"
-    Then Input width is not set
+    When I set inputWidth to "<width>"
+    Then inputWidth is not set
     Examples:
       | width                   |
       | !@#$%^*()_+-=~[];:.,?{} |
@@ -54,7 +54,7 @@ Feature: Button Toggle Group component
   @positive
   Scenario Outline: Change Button Toggle Group component field help
     When I set fieldHelp to "<fieldHelp>"
-    Then Field help on preview is set to "<fieldHelp>"
+    Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                |
       | Sample text              |
@@ -88,7 +88,7 @@ Feature: Button Toggle Group component
 
   @negative
   Scenario Outline: Set out of scope characters to Button Toggle Group input width
-    When I set input width to "<width>"
+    When I set inputWidth to "<width>"
     Then Label width is not set
     Examples:
       | width                   |

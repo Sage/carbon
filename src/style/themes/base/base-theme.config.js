@@ -9,10 +9,13 @@ export default (palette) => {
 
     colors: {
       // main
+      base: palette.productGreen,
+
       primary: palette.genericGreenTint(15),
       secondary: palette.genericGreenShade(35),
       tertiary: palette.genericGreenShade(55),
       brand: palette.brilliantGreen,
+      whiteMix: palette.genericGreenTint(90),
 
       // generic
       white: '#FFFFFF',
@@ -20,13 +23,17 @@ export default (palette) => {
       // element
       border: palette.slateTint(40),
       focusedIcon: palette.slateTint(20),
+      focusedLinkBackground: palette.goldTint(50),
 
       // status
       error: palette.errorRed,
-      focus: palette.goldTint(50),
+      focus: palette.gold,
       info: palette.productBlueShade(3),
       success: palette.brilliantGreenShade(20),
-      warning: palette.carrotOrange
+      warning: palette.carrotOrange,
+      destructive: {
+        hover: palette.errorRedShade(20)
+      }
     },
 
     text: {
@@ -37,9 +44,11 @@ export default (palette) => {
 
     disabled: {
       border: palette.slateTint(80),
+      button: palette.slateTint(90),
       disabled: blackWithOpacity(0.55),
       input: palette.slateTint(95),
       text: blackWithOpacity(0.3),
+      buttonText: 'rgba(0,0,0,.2)',
       background: palette.slateTint(90)
     },
 

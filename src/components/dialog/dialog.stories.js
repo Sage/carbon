@@ -9,7 +9,7 @@ import notes from './documentation/notes.md';
 import Dialog from './dialog.component';
 import Form from '../form';
 import Textbox from '../textbox';
-import Button from '../button/button';
+import Button from '../button';
 import Modal from '../modal/modal';
 import DateInput from '../date';
 import Dropdown from '../dropdown/dropdown';
