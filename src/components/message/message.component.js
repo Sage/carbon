@@ -9,7 +9,7 @@ import tagComponent from '../../utils/helpers/tags';
 
 const Message = (props) => {
   const {
-    open, border, className, transparent, title, variant, roundedCorners, children, onDismiss
+    open, border, className, transparent, title, variant, roundedCorners, children, onDismiss, as
   } = props;
 
   return (
@@ -19,23 +19,23 @@ const Message = (props) => {
         border={ border }
         className={ className }
         transparent={ transparent }
-        variant={ variant }
+        variant={ variant || as }
         roundedCorners={ roundedCorners }
         role='status'
       >
         <TypeIcon
-          variant={ variant } roundedCorners={ roundedCorners }
+          variant={ variant || as } roundedCorners={ roundedCorners }
           transparent={ transparent }
         />
         <MessageContent
-          variant={ variant } transparent={ transparent }
+          variant={ variant || as } transparent={ transparent }
           title={ title }
         >
           {children}
         </MessageContent>
         {onDismiss && (
           <DismissButton
-            variant={ variant } onDismiss={ onDismiss }
+            variant={ variant || as } onDismiss={ onDismiss }
             transparent={ transparent }
           />
         )}
@@ -45,7 +45,7 @@ const Message = (props) => {
 };
 
 Message.defaultProps = {
-  variant: 'info',
+  as: 'info',
   border: true,
   open: true,
   roundedCorners: true,
@@ -54,6 +54,7 @@ Message.defaultProps = {
 
 Message.propTypes = {
   variant: PropTypes.oneOf(OptionsHelper.colors),
+  as: PropTypes.string,
   border: PropTypes.bool,
   children: PropTypes.node,
   className: PropTypes.string,
