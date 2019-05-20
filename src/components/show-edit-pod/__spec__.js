@@ -379,13 +379,9 @@ describe('ShowEditPod', () => {
           deleteText: 'Delete',
           onDelete
         });
-        expect(wrapper).toMatchSnapshot();
+        expect(wrapper.find(Link).exists()).toBeTruthy();
       });
     });
-
-    describe('when onDelete is not provided', () => {
-      expect(wrapper).toMatchSnapshot();
-    })
   });
 
   describe('tags', () => {

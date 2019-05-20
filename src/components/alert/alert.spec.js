@@ -2,8 +2,6 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Alert from '.';
 
-/* global jest */
-
 describe('Alert', () => {
   let wrapper;
   const onCancel = jasmine.createSpy('cancel');
@@ -22,7 +20,18 @@ describe('Alert', () => {
   });
 
   it('include correct component, element and role data tags', () => {
-    expect(wrapper).toMatchSnapshot();
+    wrapper = mount(
+      <Alert
+        open
+        onCancel={ onCancel }
+        title='Alert title'
+        subtitle='Alert Subtitle'
+        data-element='bar'
+        data-role='baz'
+      />
+    );
+    expect(wrapper.instance().props['data-element']).toEqual('bar');
+    expect(wrapper.instance().props['data-role']).toEqual('baz');
   });
 
   describe('keyboard focus', () => {
