@@ -8,10 +8,13 @@ import StyledSplitButtonChildrenContainer from './split-button-children.style';
 import { validProps } from '../../utils/ether/ether';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Events from '../../utils/helpers/events';
+import guid from '../../utils/helpers/guid';
 
 class SplitButton extends Component {
   constructor(props) {
     super(props);
+    this.buttonListId = guid();
+    this.buttonLabelId = guid();
     this.componentTags = this.componentTags.bind(this);
     this.showButtons = this.showButtons.bind(this);
     this.hideButtons = this.hideButtons.bind(this);
@@ -140,6 +143,9 @@ class SplitButton extends Component {
         </Button>
 
         <StyledSplitButtonToggle
+          aria-haspopup='true'
+          aria-expanded={ this.state.showAdditionalButtons }
+          aria-controls={ this.buttonListId }
           { ...this.toggleButtonProps }
           data-element='open'
           onKeyPress={ this.handleToggleButtonKeyUp }
@@ -178,9 +184,10 @@ class SplitButton extends Component {
    */
   get renderAdditionalButtons() {
     const children = this.childrenWithProps();
-    if (!this.state.showAdditionalButtons) return null;
+
     return (
       <StyledSplitButtonChildrenContainer
+        id={ this.buttonListId }
         displayButtons={ this.state.showAdditionalButtons }
         data-element='additional-buttons'
       >
@@ -192,6 +199,7 @@ class SplitButton extends Component {
   render() {
     return (
       <StyledSplitButtonContainer
+        aria-haspopup='true'
         onMouseLeave={ this.hideButtons }
         { ...this.componentTags() }
       >
