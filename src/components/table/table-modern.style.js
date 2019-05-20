@@ -1,6 +1,7 @@
 import { css } from 'styled-components';
 import StyledTableCell from './table-cell/table-cell.style';
 import StyledTableHeader from './table-header/table-header.style';
+import tableSizes from './table-sizes';
 
 function convertTableType(type) {
   if (['primary', 'secondary', 'tertiary'].includes(type)) return type;
@@ -26,11 +27,11 @@ function applyModernTableStyling({
   return css`
     background-color: ${type === 'tertiary' ? 'transparent' : theme.colors.white};
     && .carbon-table-row {
-      height: ${table.sizes[size].height};
+      height: ${tableSizes[size].height};
         ${StyledTableCell}, ${StyledTableHeader} {
-        font-size: ${table.sizes[size].font};
-        padding-left: ${table.sizes[size].padding};
-        padding-right: ${table.sizes[size].padding};
+        font-size: ${tableSizes[size].font};
+        padding-left: ${tableSizes[size].padding};
+        padding-right: ${tableSizes[size].padding};
       }
       ${isZebra && `
         ${StyledTableCell} {
