@@ -27,11 +27,13 @@ function applyClassicStyling({ disabled, displayed }) {
         background-color: #1963f6;
         border-color: #1963f6;
       }
-      background-color: #1e499f;
-      border-color: #1e499f;
-
-      && .carbon-icon {
-        color: #FFF;
+      && {
+        background-color: #1e499f;
+        border-color: #1e499f;
+        
+        .carbon-icon {
+          color: #FFF;
+        }
       }
     ` : ''}
 

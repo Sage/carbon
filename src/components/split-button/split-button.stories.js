@@ -67,8 +67,8 @@ storiesOf('Split Button', module)
           { ...props }
         >
           <Button>Example Button</Button>
-          <Button>button with long text</Button>
-          <Button>short</Button>
+          <Button>Example Button with long text</Button>
+          <Button>Short</Button>
         </SplitButton>
       );
     },
