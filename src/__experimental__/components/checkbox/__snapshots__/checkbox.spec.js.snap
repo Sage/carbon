@@ -60,6 +60,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
   outline: solid 3px #FFB500;
 }
 
+.c9 .c8 {
+  height: 24px;
+}
+
 .c9 .c4,
 .c9 .c6,
 .c9 .c8 > svg {
@@ -100,6 +104,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c10 .c6:not([disabled]):focus + .c8,
 .c10 .c6:not([disabled]):hover + .c8 {
   outline: solid 3px #FFB500;
+}
+
+.c10 .c8 {
+  height: 24px;
 }
 
 .c10 .c4,
