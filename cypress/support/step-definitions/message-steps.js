@@ -1,6 +1,8 @@
 import {
   messageTitle, messageType, messagePreview, messageChildren, messageDismissIcon,
 } from '../../locators/message';
+import { clickActionsTab, clickClear } from '../helper';
+import { eventInAction } from '../../locators';
 
 Then('Message title on preview is set to {string}', (text) => {
   messageTitle().should('have.text', text);
@@ -16,6 +18,15 @@ Then('Message component is visible', () => {
 
 Then('Message component is not visible', () => {
   messagePreview().should('not.exist');
+});
+
+Then('{word} function was called in Actions Tab', () => {
+  eventInAction('click');
+});
+
+When('clear all events in Actions Tab', () => {
+  clickActionsTab();
+  clickClear();
 });
 
 Then('Message component is transparent', () => {

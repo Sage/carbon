@@ -7,6 +7,9 @@ import {
 // knobs locators
 export const getKnobsInput = propertyName => cy.get(`[name="${propertyName}"]`);
 export const knobsTab = () => cy.get(FORM).find('button').contains('Knobs');
+export const actionsTab = () => cy.get(FORM).find('button').contains('Actions');
+export const clearButtonInActions = () => cy.get(FORM).find('button').contains('Clear');
+export const eventInAction = event => cy.get(FORM).find('span').contains(event);
 export const sizeSelect = () => cy.get(FORM).contains('size').find('select');
 export const asSelect = () => cy.get(FORM).contains('as').find('select');
 export const alignSelect = () => cy.get(FORM).contains('align').find('select');

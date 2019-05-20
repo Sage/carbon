@@ -67,9 +67,9 @@ Feature: Message component
   Scenario: Enable on dismiss state for a Message component
     When I check onDismiss checkbox
     Then Message has cross icon
-      # commented untill funtionality will be improved
-      # And I click dismiss icon
-      # And Message component is not visible
+      And clear all events in Actions Tab
+      And I click dismiss icon
+      And click function was called in Actions Tab
 
   @positive
   Scenario: Disable on dismiss state for a Message component
