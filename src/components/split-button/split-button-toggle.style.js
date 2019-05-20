@@ -9,10 +9,15 @@ export const StyledSplitButtonToggle = styled(StyledButton)`
 
     return (isClassicTheme) ? applyClassicStyling(props) : applyModernStyling(props);
   }}
-
+  
   ${StyledButton} + & {
     margin-left: 0;
     border-left: none;
+
+    &:focus {
+      margin-left: -2px;
+      padding-left: 12px;
+    }
   }
 
   ${StyledButton} + & .carbon-icon {
@@ -30,7 +35,7 @@ function applyClassicStyling({ disabled, displayed }) {
       && {
         background-color: #1e499f;
         border-color: #1e499f;
-        
+
         .carbon-icon {
           color: #FFF;
         }

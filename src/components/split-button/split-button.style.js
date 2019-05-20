@@ -7,6 +7,15 @@ import { THEMES } from '../../style/themes';
 const StyledSplitButtonContainer = styled.div`
   display: inline-block;
   position: relative;
+  
+  ${StyledButton} {
+    margin: 0;
+
+    &:focus {
+      outline-offset: -3px;
+    }
+  }
+
   ${({ theme }) => theme.name === THEMES.classic && css`
     ${StyledButton} {
       font-size: 14px;
