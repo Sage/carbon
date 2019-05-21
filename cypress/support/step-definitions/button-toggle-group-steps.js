@@ -1,19 +1,5 @@
 import { labelPreview, fieldHelpPreview } from '../../locators';
-import {
-  inputWidthInput, inputWidthPreview, buttonToggleGroupPreview, labelWidthInput,
-} from '../../locators/button-toggle-group';
-
-When('I set input width to {string}', (width) => {
-  inputWidthInput().clear().type(width);
-});
-
-Then('Input width is set to {string}', (width) => {
-  inputWidthPreview().should('have.attr', 'style').should('contain', `width: ${width}%`);
-});
-
-Then('Input width is not set', () => {
-  inputWidthPreview().should('not.have.attr', 'style');
-});
+import { buttonToggleGroupPreview } from '../../locators/button-toggle-group';
 
 Then('Button Toggle Group component has label-inline property', () => {
   buttonToggleGroupPreview().should('have.class', 'common-input--label-inline');
@@ -27,14 +13,10 @@ Then('Button Toggle Group component do not have label-inline property', () => {
   fieldHelpPreview().should('not.have.class', 'common-input__help-text--inline');
 });
 
-When('I set label width to {string}', (width) => {
-  labelWidthInput().clear().type(width);
-});
-
-Then('Label width is set to {string}', (width) => {
+Then('label width is set to {string}', (width) => {
   labelPreview().should('have.attr', 'style').should('contain', `width: ${width}%`);
 });
 
-Then('Label width is not set', () => {
+Then('label width is not set', () => {
   labelPreview().should('not.have.attr', 'style');
 });

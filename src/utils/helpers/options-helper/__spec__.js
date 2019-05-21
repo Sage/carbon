@@ -24,6 +24,12 @@ describe('OptionsHelper', () => {
       'white'
     ]);
   });
+  it('buttonIconPositions', () => {
+    expect(OptionsHelper.buttonIconPositions).toEqual([
+      'before',
+      'after'
+    ]);
+  });
   it('colors', () => {
     expect(OptionsHelper.colors).toEqual([
       'default',
@@ -88,6 +94,8 @@ describe('OptionsHelper', () => {
       'edit',
       'edited',
       'email',
+      'ellipsis_horizontal',
+      'ellipsis_vertical',
       'error',
       'favourite',
       'favourite_lined',
@@ -199,7 +207,10 @@ describe('OptionsHelper', () => {
   it('themesBinary', () => {
     expect(OptionsHelper.themesBinary).toEqual([
       'primary',
-      'secondary'
+      'secondary',
+      'tertiary',
+      'destructive',
+      'darkBackground'
     ]);
   });
   it('themesFull', () => {
