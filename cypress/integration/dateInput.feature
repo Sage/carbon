@@ -29,7 +29,7 @@ Feature: Date Input component
   @positive
   Scenario Outline: Change DateInput component field help
     When I set fieldHelp to "<fieldHelp>"
-    Then Field help on preview is set to "<fieldHelp>"
+    Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                |
       | Sample text              |
@@ -63,7 +63,7 @@ Feature: Date Input component
     When I set label to "<label>"
       And I set labelHelp to "<label>"
       And I check labelInline checkbox
-      And I set label align "<labelAlign>"
+      And I select labelAlign to "<labelAlign>"
     Then label align on preview is set to "<labelAlign>"
     Examples:
       | label        | labelAlign |

@@ -1,7 +1,5 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
-import TypeIcon from './type-icon.component';
 import TypeIconStyle from './type-icon.style';
 import 'jest-styled-components';
 import OptionsHelper from '../../../utils/helpers/options-helper';
@@ -14,11 +12,6 @@ function render(props) {
 
 describe('TypeIcon', () => {
   describe('when rendered', () => {
-    it('should match the snapshot', () => {
-      const wrapper = shallow(<TypeIcon />);
-      expect(wrapper).toMatchSnapshot();
-    });
-
     describe('with no additional props', () => {
       OptionsHelper.messages.forEach((variant) => {
         it(`should match the snapshot for ${variant}`, () => {

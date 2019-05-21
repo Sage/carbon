@@ -55,8 +55,8 @@ Feature: Checkbox component
 
   @positive
   Scenario Outline: Change Checkbox input width
-    When I set input width slider to <width>
-    Then checkbox input width is set to <width>
+    When I set inputWidth slider to <width>
+    Then checkbox inputWidth is set to <width>
     Examples:
       | width |
       | 1     |
@@ -65,8 +65,8 @@ Feature: Checkbox component
 
   @negative
   Scenario Outline: Set Checkbox input width out of scope
-    When I set input width slider to <width>
-    Then Checkbox input width is not set
+    When I set inputWidth slider to <width>
+    Then Checkbox inputWidth is not set
     Examples:
       | width |
       | -1    |
@@ -77,7 +77,7 @@ Feature: Checkbox component
   @positive
   Scenario Outline: Change Checkbox component field help
     When I set fieldHelp to "<fieldHelp>"
-    Then Field help on preview is set to "<fieldHelp>"
+    Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                |
       | Sample text              |
@@ -124,8 +124,8 @@ Feature: Checkbox component
   @positive
   Scenario Outline: Change Checkbox label align
     When I check labelInline checkbox
-      And I set label align "<direction>"
-    Then direction on preview is "<direction>"
+      And I select labelAlign to "<direction>"
+    Then labelAlign on preview is "<direction>"
     Examples:
       | direction |
       | left      |

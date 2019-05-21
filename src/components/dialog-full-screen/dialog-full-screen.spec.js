@@ -11,6 +11,7 @@ import Button from '../button';
 import guid from '../../utils/helpers/guid';
 import Icon from '../icon';
 import Heading from '../heading';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
 jest.mock('../../utils/helpers/guid');
 
@@ -144,7 +145,7 @@ describe('DialogFullScreen', () => {
   describe('tags', () => {
     describe('on component', () => {
       it('include correct component, elements and role data tags', () => {
-        wrapper = mount(
+        wrapper = shallow(
           <DialogFullScreen
             open
             onCancel={ () => {} }
@@ -154,7 +155,8 @@ describe('DialogFullScreen', () => {
             data-element='bar'
           />
         );
-        expect(wrapper).toMatchSnapshot();
+        expect(wrapper.instance().props['data-element']).toEqual('bar');
+        expect(wrapper.instance().props['data-role']).toEqual('baz');
       });
     });
   });
@@ -168,7 +170,9 @@ describe('Styled FullScreenHeading', () => {
           theme={ classicTheme }
         />
       );
-      expect(wrapper).toMatchSnapshot();
+      assertStyleMatch({
+        borderBottomColor: '#CCD6DA'
+      }, wrapper);
     });
   });
 });
@@ -181,7 +185,9 @@ describe('Styled StyledDialogFullScreen', () => {
           theme={ classicTheme }
         />
       );
-      expect(wrapper).toMatchSnapshot();
+      assertStyleMatch({
+        backgroundColor: '#e6ebed'
+      }, wrapper);
     });
   });
 });
@@ -194,7 +200,13 @@ describe('Styled StyledIcon', () => {
           theme={ classicTheme }
         />
       );
-      expect(wrapper).toMatchSnapshot();
+      assertStyleMatch({
+        color: '#4d7080'
+      }, wrapper);
+
+      assertStyleMatch({
+        color: '#255BC7'
+      }, wrapper, { modifier: ':hover' });
     });
   });
 });
@@ -207,7 +219,15 @@ describe('Styled StyledContent', () => {
           theme={ classicTheme }
         />
       );
-      expect(wrapper).toMatchSnapshot();
+      assertStyleMatch({
+        paddingTop: '30px',
+        paddingBottom: '30px'
+      }, wrapper);
+
+      assertStyleMatch({
+        maxWidth: '1600px',
+        padding: '0 40px'
+      }, wrapper, { modifier: '.carbon-app-wrapper' });
     });
   });
 });
