@@ -19,6 +19,7 @@ const ButtonToggle = (props) => {
         name={ props.name }
         disabled={ props.disabled }
         guid={ inputGuid }
+        value={ props.value }
       />
       <StyledButtonToggleLabel
         { ...props } htmlFor={ inputGuid }
@@ -48,7 +49,9 @@ ButtonToggle.propTypes = {
   /** Disable all user interaction. */
   disabled: PropTypes.bool,
   /** A required prop. This is the button text. */
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  /** Value for the input */
+  value: PropTypes.string
 };
 
 ButtonToggle.defaultProps = {
