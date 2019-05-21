@@ -1,7 +1,6 @@
 import {
   MESSAGE_TITLE, MESSAGE_TYPE, MESSAGE_PREVIEW,
-  MESSAGE_CHILDREN,
-  MESSAGE_DISMISS_ICON,
+  MESSAGE_CHILDREN, MESSAGE_DISMISS_ICON,
 } from './locators';
 
 // component preview locators

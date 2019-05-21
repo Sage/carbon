@@ -1,7 +1,7 @@
 import { multiActionButtonPreview, multiActionButtonList } from '../../locators/multi-action-button';
 
 const MULTI_ACTION_BUTTON_AS_PROPERTY = 'carbon-multi-action-button__toggle--';
-const MULTI_ACTION_BUTTON_ALIGN_RIGHT = 'carbon-multi-action-button--align-right';
+const MULTI_ACTION_BUTTON_ALIGN = 'carbon-multi-action-button--align-';
 const MULTI_ACTION_BUTTON_INNER_TEXT = 'Example Button 1Example Button 2Example Button 3';
 
 Then('Multi Action Button text on preview is set to {string}', (text) => {
@@ -28,14 +28,14 @@ Then('Multi Action Button as on preview is {string}', (asProperty) => {
     .should('have.class', `${MULTI_ACTION_BUTTON_AS_PROPERTY}${asProperty}`);
 });
 
-Then('Multi Action Button align on preview is left', () => {
-  multiActionButtonPreview()
-    .should('not.have.class', `${MULTI_ACTION_BUTTON_ALIGN_RIGHT}`);
-});
-
-Then('Multi Action Button align on preview is right', () => {
-  multiActionButtonPreview()
-    .should('have.class', `${MULTI_ACTION_BUTTON_ALIGN_RIGHT}`);
+Then('Multi Action Button align on preview is {string}', (align) => {
+  if (align === 'left') {
+    multiActionButtonPreview()
+      .should('not.have.class', `${MULTI_ACTION_BUTTON_ALIGN}${align}`);
+  } else {
+    multiActionButtonPreview()
+      .should('have.class', `${MULTI_ACTION_BUTTON_ALIGN}${align}`);
+  }
 });
 
 When('I invoke Multi Action Button component', () => {

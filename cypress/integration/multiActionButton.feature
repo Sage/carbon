@@ -28,24 +28,23 @@ Feature: Multi Action Button component
       | transparent |
 
 @positive
-  Scenario: Check left align property of Multi Action Button component
-    When I select align to "left"
-    Then Multi Action Button align on preview is left
-
-  @positive
-  Scenario: Check right align property of Multi Action Button component
-    When I select align to "right"
-    Then Multi Action Button align on preview is right
+  Scenario Outline: Check <align> property of Multi Action Button component
+    When I select align to "<align>"
+    Then Multi Action Button align on preview is "<align>"
+     Examples:
+      | align |
+      | left  |
+      | right |
 
   @positive
   Scenario: Check disabled state of Multi Action Button component
-    When I check disabled checkbox
+    When I disable disabled component
     Then Multi Action Button is disabled
 
   @positive
   Scenario: Uncheck disabled state of Multi Action Button component
-    When I check disabled checkbox
-      And I uncheck disabled checkbox
+    When  I disable disabled component
+      And I enable disabled component
     Then Multi Action Button is not disabled
 
   @positive
