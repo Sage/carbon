@@ -35,6 +35,11 @@ describe('TabTitle', () => {
     expect(wrapper.children().text()).toEqual('Tab Title 1');
   });
 
+  it('contains custom className if passed as a prop', () => {
+    wrapper = render({ className: 'class' });
+    expect(wrapper.find('.class').exists()).toEqual(true);
+  });
+
   describe('when clicked', () => {
     it('triggers onClick function', () => {
       const onClickFunction = jest.fn();
@@ -65,13 +70,59 @@ describe('TabTitle', () => {
 
     it('applies proper styling', () => {
       wrapper = renderStyles({ isTabSelected: true });
-      expect(wrapper.toJSON()).toMatchSnapshot();
+      assertStyleMatch(
+        {
+          color: baseTheme.text.color,
+          backgroundColor: 'transparent',
+          borderBottomColor: baseTheme.colors.primary
+        },
+        wrapper.toJSON()
+      );
+
+      assertStyleMatch(
+        {
+          background: 'transparent',
+          borderBottomColor: baseTheme.colors.primary,
+          color: baseTheme.text.color
+        },
+        wrapper.toJSON(),
+        { modifier: ':hover' }
+      );
     });
 
     describe('when position prop is set to left', () => {
       it('applies proper styling ', () => {
         wrapper = renderStyles({ position: 'left', isTabSelected: true });
-        expect(wrapper.toJSON).toMatchSnapshot();
+
+        assertStyleMatch(
+          {
+            backgroundColor: 'transparent',
+            borderBottom: '0px',
+            borderRight: `2px solid ${baseTheme.disabled.background}`,
+            display: 'block',
+            height: 'auto',
+            marginLeft: '0px',
+            marginTop: '2px'
+          },
+          wrapper.toJSON()
+        );
+
+        assertStyleMatch(
+          {
+            background: 'transparent',
+            borderRightColor: baseTheme.colors.primary
+          },
+          wrapper.toJSON(),
+          { modifier: ':hover' }
+        );
+
+        assertStyleMatch(
+          {
+            marginTop: '0'
+          },
+          wrapper.toJSON(),
+          { modifier: ':first-child' }
+        );
       });
     });
   });
@@ -88,11 +139,6 @@ describe('TabTitle', () => {
         expect(wrapper.toJSON()).toMatchSnapshot();
       });
     });
-  });
-
-  it('contains custom className if passed as a prop', () => {
-    wrapper = render({ className: 'class' });
-    expect(wrapper.find('.class').exists()).toEqual(true);
   });
 
   describe('when tab has warning', () => {
@@ -128,20 +174,69 @@ describe('TabTitle', () => {
     describe('when position prop is set to left', () => {
       it('applies proper styling', () => {
         wrapper = renderStyles({ theme: classicTheme, position: 'left' });
-        expect(wrapper.toJSON()).toMatchSnapshot();
+        assertStyleMatch(
+          {
+            backgroundColor: '#f5f6f7',
+            borderBottom: '0px',
+            borderRight: '2px solid #ccd6db'
+          },
+          wrapper.toJSON()
+        );
+
+        assertStyleMatch(
+          {
+            borderRightColor: '#004b87',
+            background: '#004b87'
+          },
+          wrapper.toJSON(),
+          { modifier: ':hover' }
+        );
       });
     });
 
     describe('when tab is selected', () => {
       it('applies proper styling', () => {
         wrapper = renderStyles({ theme: classicTheme, isTabSelected: true });
-        expect(wrapper.toJSON()).toMatchSnapshot();
+
+        assertStyleMatch(
+          {
+            backgroundColor: '#fff',
+            borderBottomColor: '#1963f6'
+          },
+          wrapper.toJSON()
+        );
+
+        assertStyleMatch(
+          {
+            background: '#fff',
+            borderBottomColor: '#1963f6',
+            color: '#003349'
+          },
+          wrapper.toJSON(),
+          { modifier: ':hover' }
+        );
       });
 
       describe('and the position prop is set to left', () => {
         it('applies proper styling', () => {
           wrapper = renderStyles({ theme: classicTheme, position: 'left', isTabSelected: true });
-          expect(wrapper.toJSON()).toMatchSnapshot();
+
+          assertStyleMatch(
+            {
+              borderRightColor: '#1963f6',
+              backgroundColor: '#fff'
+            },
+            wrapper.toJSON()
+          );
+
+          assertStyleMatch(
+            {
+              borderRightColor: '#1963f6',
+              backgroundColor: '#fff'
+            },
+            wrapper.toJSON(),
+            { modifier: ':hover' }
+          );
         });
       });
     });
