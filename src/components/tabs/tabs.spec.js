@@ -290,21 +290,21 @@ describe('Tabs', () => {
   describe('tabValidity', () => {
     describe('when tab has a warning', () => {
       it('adds a warning class to the header', () => {
-        // instance.setState({ tabWarning: Immutable.fromJS({ uniqueid2: true }) });
-        // const secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-        // expect(secondTab.className).toEqual(
-        //   'carbon-tabs__headers__header headerClass2 carbon-tabs__headers__header--warning'
-        // );
+        const wrapper = render();
+        wrapper.setState({ tabWarning: Immutable.fromJS({ uniqueid2: true }) });
+        const secondTab = wrapper.find({ id: 'uniqueid2-tab' });
+        expect(secondTab.props().tabHasWarning).toEqual(true);
       });
 
       describe('when tab has an error as well', () => {
         it('does not add a warning class', () => {
-          // instance.setState({
-          //   tabWarning: Immutable.fromJS({ uniqueid2: true }),
-          //   tabValidity: Immutable.fromJS({ uniqueid2: false })
-          // });
-          // const secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-          // expect(secondTab.classList.contains('carbon-tabs__headers__header--warning')).toBeFalsy();
+          const wrapper = render();
+          wrapper.setState({
+            tabWarning: Immutable.fromJS({ uniqueid2: true }),
+            tabValidity: Immutable.fromJS({ uniqueid2: false })
+          });
+          const secondTab = wrapper.find({ id: 'uniqueid2-tab' });
+          expect(secondTab.props().tabHasWarning).toEqual(false);
         });
       });
     });
