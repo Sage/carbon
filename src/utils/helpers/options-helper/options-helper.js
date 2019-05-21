@@ -34,6 +34,7 @@ const OptionsHelper = {
 
   colors: [
     'default',
+    'disabled',
     'error',
     'help',
     'info',
