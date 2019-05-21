@@ -124,10 +124,7 @@ const buildRowsWithInputs = (pageSizeFromKnobs, input) => {
             key={ row.id }
             uniqueID={ row.id }
           >
-            <TableCell>
-              {
-                pickInput(input)
-              }
+            <TableCell>{ pickInput(input)}
             </TableCell>
             <TableCell>{row.value}</TableCell>
           </TableRow>
@@ -278,7 +275,15 @@ storiesOf('Table', module)
       const totalRecords = text('totalRecords', '50');
       const paginate = boolean('paginate', false);
       const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
-      const theme = select('theme', OptionsHelper.tableThemes, Table.defaultProps.theme);
+      const theme = select(
+        'theme',
+        [
+          OptionsHelper.tableThemes[0],
+          OptionsHelper.tableThemes[1],
+          OptionsHelper.tableThemes[2]
+        ],
+        Table.defaultProps.theme
+      );
       const size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
       const isZebra = boolean('zebra striping', false);
       const inputType = select(

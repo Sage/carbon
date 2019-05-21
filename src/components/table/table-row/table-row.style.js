@@ -77,7 +77,7 @@ function selectableRowStyling({ theme }) {
   `;
 }
 
-function selectedRowStyling ({ theme }) {
+function selectedRowStyling({ theme }) {
   return css`
     .carbon-table-row--selected,
     .carbon-table-row--selected:nth-child(odd),
