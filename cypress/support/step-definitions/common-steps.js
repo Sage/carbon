@@ -1,15 +1,14 @@
 import {
-  visitComponentUrl, setSlidebar, pressESCKey,
-  pressTABKey,
+  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey,
 } from '../helper';
 import {
-  sizeSelect, commonButtonPreview, labelPreview, helpIcon, inputWidthSlider,
-  fieldHelpPreview, labelWidthSlider, labelAlignSelect, alignSelect, backgroundUILocator,
-  closeIconButton, tooltipPreview, getKnobsInput, icon, inputWidthPreview,
+  commonButtonPreview, labelPreview, helpIcon, inputWidthSlider, fieldHelpPreview,
+  labelWidthSlider, backgroundUILocator, closeIconButton, tooltipPreview, getKnobsInput,
+  icon, inputWidthPreview, label,
 } from '../../locators';
-
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
-import { themeSelect } from '../../locators/button';
+
+const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
@@ -35,14 +34,6 @@ When('I select {word} to {string}', (propertyName, selection) => {
   getKnobsInput(propertyName).select(selection);
 });
 
-When('I set component size to {string}', (size) => {
-  sizeSelect().select(size);
-});
-
-When('I set component theme property to {string}', (theme) => {
-  themeSelect().select(theme);
-});
-
 When('I open component preview', () => {
   commonButtonPreview().click();
 });
@@ -55,8 +46,8 @@ Then('component subtitle on preview is {string}', (subtitle) => {
   dialogSubtitle().should('have.text', subtitle);
 });
 
-Then('label on preview is {string}', (label) => {
-  labelPreview().should('have.text', label);
+Then('label on preview is {string}', (text) => {
+  labelPreview().should('have.text', text);
 });
 
 When('I hover mouse onto help icon', () => {
@@ -84,21 +75,13 @@ When('I set label width slider to {int}', (width) => {
   setSlidebar(labelWidthSlider(), width);
 });
 
-When('I set label align {string}', (direction) => {
-  labelAlignSelect().select(direction);
-});
-
-Then(`(labelAlign )direction on preview is {string}`, (direction) => {
+Then('labelAlign on preview is {string}', (direction) => {
   if (direction === 'left') {
     // left is default property that's why it's absent inside class
     labelPreview().should('not.have.class', `common-input__label--align-${direction}`);
   } else {
     labelPreview().should('have.class', `common-input__label--align-${direction}`);
   }
-});
-
-When('I set align property to {string}', (asProperty) => {
-  alignSelect().select(asProperty);
 });
 
 Then('Background UI is enabled', () => {
@@ -127,6 +110,7 @@ When('I hit ESC key', () => {
 
 When('I hit Tab key', () => {
   pressTABKey();
+});
 
 When('I disable {word} component', () => {
   getKnobsInput('disabled').check();
@@ -150,4 +134,16 @@ Then('inputWidth is set to {string}', (width) => {
 
 Then('inputWidth is not set', () => {
   inputWidthPreview().should('not.have.attr', 'style');
+});
+
+Then('{word} labelInline is enabled', () => {
+  label().should('have.class', LABEL_INPUT_INLINE_CLASS);
+});
+
+Then('{word} labelInline is disabled', () => {
+  label().should('not.have.class', LABEL_INPUT_INLINE_CLASS);
+});
+
+Then('{word} labelWidth is set to {string}', (componentName, width) => {
+  label().should('have.attr', 'style', `width: ${width}%;`);
 });
