@@ -97,7 +97,7 @@ Feature: Decimal component
     When I set label to "<label>"
       And I set labelHelp to "<label>"
       And I check labelInline checkbox
-      And I set label align "<labelAlign>"
+      And I select labelAlign to "<labelAlign>"
     Then label align on preview is set to "<labelAlign>"
     Examples:
       | label                    | labelAlign |
