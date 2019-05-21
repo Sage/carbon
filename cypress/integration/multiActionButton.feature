@@ -38,13 +38,13 @@ Feature: Multi Action Button component
 
   @positive
   Scenario: Check disabled state of Multi Action Button component
-    When I disable disabled component
+    When I disable MultiActionButton component
     Then Multi Action Button is disabled
 
   @positive
   Scenario: Uncheck disabled state of Multi Action Button component
-    When  I disable disabled component
-      And I enable disabled component
+    When  I disable MultiActionButton component
+      And I enable MultiActionButton component
     Then Multi Action Button is not disabled
 
   @positive

@@ -29,6 +29,7 @@ Then('Multi Action Button as on preview is {string}', (asProperty) => {
 });
 
 Then('Multi Action Button align on preview is {string}', (align) => {
+  // left is default align value -> that's why it's absent inside class
   if (align === 'left') {
     multiActionButtonPreview()
       .should('not.have.class', `${MULTI_ACTION_BUTTON_ALIGN}${align}`);
