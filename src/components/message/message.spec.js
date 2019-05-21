@@ -10,7 +10,7 @@ import classicTheme from '../../style/themes/classic';
 import smallTheme from '../../style/themes/small';
 import mediumTheme from '../../style/themes/medium';
 import largeTheme from '../../style/themes/large';
-import CloseIcon from './close-icon/close-icon.component';
+import CloseIcon from '../dismiss-button';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
 function render(props) {
@@ -69,7 +69,7 @@ describe('Message', () => {
       OptionsHelper.messages.forEach((messageType) => {
         assertStyleMatch({
           border: `1px solid ${baseTheme.colors[messageType]}`
-        }, mount(<Message messageType={ messageType }>Message</Message>));
+        }, mount(<Message variant={ messageType }>Message</Message>));
       });
     });
   });

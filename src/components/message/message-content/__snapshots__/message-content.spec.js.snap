@@ -106,8 +106,8 @@ exports[`MessageContent when in classic theme when the title prop is provided sh
 
 exports[`MessageContent when rendered should render correctly 1`] = `
 <styled.div
-  messageType="info"
   transparent={false}
+  variant="info"
 >
   <Content
     align="left"

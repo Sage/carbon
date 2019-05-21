@@ -1,9 +1,14 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
+import 'jest-styled-components';
 import { shallow, mount } from 'enzyme';
 import guid from '../../utils/helpers/guid/guid';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import Toast from './toast.component';
+import { ToastStyle, ToastTypeStyle, ToastContentStyle } from './toast.style';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import classicTheme from '../../style/themes/classic';
+import DismissButton from '../dismiss-button';
 
 jest.mock('../../utils/helpers/guid');
 
@@ -40,13 +45,8 @@ describe('Toast', () => {
     });
 
     it('renders the component with correct classes', () => {
-      const classes = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-toast').className;
-      expect(classes).toEqual('carbon-toast custom carbon-toast--info toast-appear');
-    });
-
-    it('renders type div', () => {
-      const icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-toast__type');
-      expect(icon.className).toEqual('carbon-toast__type');
+      const wrapper = shallow(<Toast open className='exampleClass' />);
+      expect(wrapper.find('.exampleClass')).toHaveLength(1);
     });
 
     it('renders type icon', () => {
@@ -55,19 +55,21 @@ describe('Toast', () => {
     });
 
     it('renders child content', () => {
-      const content = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-toast__content').textContent;
-      expect(content).toEqual('foobar');
+      const wrapper = shallow(<Toast>children</Toast>);
+      expect(wrapper.contains('children')).toBeTruthy();
     });
 
     it('renders close icon', () => {
-      const icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-toast__close');
-      expect(icon.className).toEqual('carbon-icon carbon-toast__close icon-close');
+      const wrapper = shallow(<Toast open onDismiss={ () => {} } />);
+      expect(wrapper.find(DismissButton).exists).toBeTruthy();
     });
 
     it('calls onDismiss method when clicking close', () => {
-      const icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-toast__close');
-      TestUtils.Simulate.click(icon);
-      expect(onDismissSpy).toHaveBeenCalled();
+      const spy = jest.fn();
+      const wrapper = shallow(<Toast open onDismiss={ spy } />);
+
+      wrapper.find(DismissButton).simulate('click');
+      expect(spy).toHaveBeenCalled();
     });
   });
 
@@ -91,13 +93,11 @@ describe('Toast', () => {
   });
 
   describe('tags', () => {
-    let wrapper;
-
     describe('on component', () => {
       const wrapper = shallow(<Toast data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper.find('.carbon-toast'), 'toast', 'bar', 'baz');
+        rootTagTest(wrapper.find('[data-component="toast"]'), 'toast', 'bar', 'baz');
       });
     });
 
@@ -105,5 +105,55 @@ describe('Toast', () => {
       const wrapper = shallow(<Toast open onDismiss={ () => {} } />);
       elementsTagTest(wrapper, ['close']);
     });
+  });
+});
+
+describe('ToastStyle', () => {
+  it('should render correct style based on classic theme', () => {
+    assertStyleMatch({
+      marginTop: '30px',
+      position: 'fixed',
+      right: '30px',
+      top: '0',
+      width: '300px',
+      zIndex: '2001',
+      boxShadow: '0 15px 20px 0 rgba(2,18,36,0.2)',
+      border: 'none',
+      backgroundColor: '#FFFBF2'
+    }, mount(<ToastStyle
+      theme={ classicTheme } variant='help'
+      open
+    />));
+  });
+});
+
+describe('ToastTypeStyle', () => {
+  it('should render correct style based on classic theme', () => {
+    assertStyleMatch({
+      alignItems: 'center',
+      display: 'flex',
+      height: '100%',
+      justifyContent: 'center',
+      position: 'absolute',
+      top: '0',
+      left: '-1px',
+      width: '31px',
+      backgroundColor: '#FFAB00'
+    }, mount(<ToastTypeStyle
+      theme={ classicTheme } variant='help'
+      open
+    />));
+  });
+});
+
+describe('TestContentStyle', () => {
+  it('should render cnrrect style based on classic theme', () => {
+    assertStyleMatch({
+      padding: '15px 20px 15px 50px',
+      whiteSpace: 'pre-wrap'
+    }, mount(<ToastContentStyle
+      theme={ classicTheme } variant='help'
+      open
+    />));
   });
 });

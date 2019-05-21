@@ -15,7 +15,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   border-radius: 3px 0 0 3px;
   background-color: #335c6d;
 }
@@ -44,7 +44,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   background-color: #C7384F;
   border-radius: 3px 0 0 3px;
   background-color: #c7384f;
@@ -74,7 +74,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   border-radius: 3px 0 0 3px;
   background-color: #ffab00;
 }
@@ -103,7 +103,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   background-color: #0073C2;
   border-radius: 3px 0 0 3px;
   background-color: #1573e6;
@@ -133,7 +133,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   border-radius: 3px 0 0 3px;
   background-color: #ff7d00;
 }
@@ -162,7 +162,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   border-radius: 3px 0 0 3px;
   background-color: #639;
 }
@@ -191,7 +191,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   background-color: #00B000;
   border-radius: 3px 0 0 3px;
   background-color: #50b848;
@@ -221,7 +221,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   background-color: #FFB500;
   border-radius: 3px 0 0 3px;
   background-color: #ff7d00;
@@ -251,11 +251,11 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
-  background-color: #FFFFFF;
+  min-width: 30px;
+  background-color: transparent;
   border-radius: 3px 0 0 3px;
   background-color: #335c6d;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .c0 span:before {
@@ -286,12 +286,12 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   background-color: #C7384F;
-  background-color: #FFFFFF;
+  background-color: transparent;
   border-radius: 3px 0 0 3px;
   background-color: #c7384f;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .c0 span:before {
@@ -326,11 +326,11 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
-  background-color: #FFFFFF;
+  min-width: 30px;
+  background-color: transparent;
   border-radius: 3px 0 0 3px;
   background-color: #ffab00;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .c0 span:before {
@@ -361,12 +361,12 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   background-color: #0073C2;
-  background-color: #FFFFFF;
+  background-color: transparent;
   border-radius: 3px 0 0 3px;
   background-color: #1573e6;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .c0 span:before {
@@ -401,11 +401,11 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
-  background-color: #FFFFFF;
+  min-width: 30px;
+  background-color: transparent;
   border-radius: 3px 0 0 3px;
   background-color: #ff7d00;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .c0 span:before {
@@ -436,11 +436,11 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
-  background-color: #FFFFFF;
+  min-width: 30px;
+  background-color: transparent;
   border-radius: 3px 0 0 3px;
   background-color: #639;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .c0 span:before {
@@ -471,12 +471,12 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   background-color: #00B000;
-  background-color: #FFFFFF;
+  background-color: transparent;
   border-radius: 3px 0 0 3px;
   background-color: #50b848;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .c0 span:before {
@@ -511,12 +511,12 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   background-color: #FFB500;
-  background-color: #FFFFFF;
+  background-color: transparent;
   border-radius: 3px 0 0 3px;
   background-color: #ff7d00;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .c0 span:before {
@@ -551,7 +551,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   background-color: #C7384F;
 }
 
@@ -579,7 +579,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   background-color: #0073C2;
 }
 
@@ -607,7 +607,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   background-color: #00B000;
 }
 
@@ -635,7 +635,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   background-color: #E96400;
 }
 
@@ -663,9 +663,9 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   background-color: #C7384F;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .c0 span:before {
@@ -696,9 +696,9 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   background-color: #0073C2;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .c0 span:before {
@@ -729,9 +729,9 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   background-color: #00B000;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .c0 span:before {
@@ -762,9 +762,9 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
-  padding: 0 7px;
+  min-width: 30px;
   background-color: #E96400;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .c0 span:before {

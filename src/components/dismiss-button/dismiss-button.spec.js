@@ -1,11 +1,12 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import DismissButton from './dismiss-button.component';
 import { DismissButtonStyle, LinkStyle } from './dismiss-button.style';
 import 'jest-styled-components';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import classicTheme from '../../style/themes/classic';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
 function render(props) {
   return TestRenderer.create(<DismissButtonStyle { ...props } />);
@@ -54,5 +55,13 @@ describe('LinkStyle', () => {
   it('applies peoper styling when focused', () => {
     const wrapper = TestRenderer.create(<LinkStyle />);
     expect(wrapper).toMatchSnapshot();
+  });
+});
+
+describe('DismissButtonStyle', () => {
+  it('should render correct style based on classic theme', () => {
+    assertStyleMatch({
+      backgroundColor: 'transparent'
+    }, mount(<DismissButtonStyle transparent theme={ classicTheme } />));
   });
 });

@@ -222,7 +222,10 @@ exports[`when in classic mode when rendered as default should match the snapshot
   justify-content: center;
   text-align: center;
   border: none;
-  background-color: #335c6d;
+}
+
+.c0 .icon-close:before {
+  color: #335c6d;
 }
 
 <div
@@ -248,8 +251,11 @@ exports[`when in classic mode when rendered as default when transparent prop is 
   justify-content: center;
   text-align: center;
   border: none;
-  background-color: #335c6d;
-  background-color: #FFFFFF;
+  background-color: transparent;
+}
+
+.c0 .icon-close:before {
+  color: #335c6d;
 }
 
 <div
@@ -275,11 +281,14 @@ exports[`when in classic mode when rendered as error should match the snapshot 1
   justify-content: center;
   text-align: center;
   border: none;
-  background-color: #fdf5f5;
 }
 
 .c0 .icon-close:before {
   color: #C7384F;
+}
+
+.c0 .icon-close:before {
+  color: #c7384f;
 }
 
 <div
@@ -305,12 +314,15 @@ exports[`when in classic mode when rendered as error when transparent prop is se
   justify-content: center;
   text-align: center;
   border: none;
-  background-color: #fdf5f5;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .c0 .icon-close:before {
   color: #C7384F;
+}
+
+.c0 .icon-close:before {
+  color: #c7384f;
 }
 
 <div
@@ -336,7 +348,10 @@ exports[`when in classic mode when rendered as help should match the snapshot 1`
   justify-content: center;
   text-align: center;
   border: none;
-  background-color: #fffbf2;
+}
+
+.c0 .icon-close:before {
+  color: #ffab00;
 }
 
 <div
@@ -362,8 +377,11 @@ exports[`when in classic mode when rendered as help when transparent prop is set
   justify-content: center;
   text-align: center;
   border: none;
-  background-color: #fffbf2;
-  background-color: #FFFFFF;
+  background-color: transparent;
+}
+
+.c0 .icon-close:before {
+  color: #ffab00;
 }
 
 <div
@@ -389,11 +407,14 @@ exports[`when in classic mode when rendered as info should match the snapshot 1`
   justify-content: center;
   text-align: center;
   border: none;
-  background-color: #f3f8fe;
 }
 
 .c0 .icon-close:before {
   color: #0073C2;
+}
+
+.c0 .icon-close:before {
+  color: #1573e6;
 }
 
 <div
@@ -419,12 +440,15 @@ exports[`when in classic mode when rendered as info when transparent prop is set
   justify-content: center;
   text-align: center;
   border: none;
-  background-color: #f3f8fe;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .c0 .icon-close:before {
   color: #0073C2;
+}
+
+.c0 .icon-close:before {
+  color: #1573e6;
 }
 
 <div
@@ -450,7 +474,10 @@ exports[`when in classic mode when rendered as maintenance should match the snap
   justify-content: center;
   text-align: center;
   border: none;
-  background-color: #fff8f2;
+}
+
+.c0 .icon-close:before {
+  color: #ff7d00;
 }
 
 <div
@@ -476,8 +503,11 @@ exports[`when in classic mode when rendered as maintenance when transparent prop
   justify-content: center;
   text-align: center;
   border: none;
-  background-color: #fff8f2;
-  background-color: #FFFFFF;
+  background-color: transparent;
+}
+
+.c0 .icon-close:before {
+  color: #ff7d00;
 }
 
 <div
@@ -503,7 +533,10 @@ exports[`when in classic mode when rendered as new should match the snapshot 1`]
   justify-content: center;
   text-align: center;
   border: none;
-  background-color: #f7f5fa;
+}
+
+.c0 .icon-close:before {
+  color: #639;
 }
 
 <div
@@ -529,8 +562,11 @@ exports[`when in classic mode when rendered as new when transparent prop is set 
   justify-content: center;
   text-align: center;
   border: none;
-  background-color: #f7f5fa;
-  background-color: #FFFFFF;
+  background-color: transparent;
+}
+
+.c0 .icon-close:before {
+  color: #639;
 }
 
 <div
@@ -556,11 +592,14 @@ exports[`when in classic mode when rendered as success should match the snapshot
   justify-content: center;
   text-align: center;
   border: none;
-  background-color: #f6fbf6;
 }
 
 .c0 .icon-close:before {
   color: #00B000;
+}
+
+.c0 .icon-close:before {
+  color: #50b848;
 }
 
 <div
@@ -586,12 +625,15 @@ exports[`when in classic mode when rendered as success when transparent prop is 
   justify-content: center;
   text-align: center;
   border: none;
-  background-color: #f6fbf6;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .c0 .icon-close:before {
   color: #00B000;
+}
+
+.c0 .icon-close:before {
+  color: #50b848;
 }
 
 <div
@@ -617,11 +659,14 @@ exports[`when in classic mode when rendered as warning should match the snapshot
   justify-content: center;
   text-align: center;
   border: none;
-  background-color: #fff8f2;
 }
 
 .c0 .icon-close:before {
   color: #FFB500;
+}
+
+.c0 .icon-close:before {
+  color: #ff7d00;
 }
 
 <div
@@ -647,12 +692,15 @@ exports[`when in classic mode when rendered as warning when transparent prop is 
   justify-content: center;
   text-align: center;
   border: none;
-  background-color: #fff8f2;
-  background-color: #FFFFFF;
+  background-color: transparent;
 }
 
 .c0 .icon-close:before {
   color: #FFB500;
+}
+
+.c0 .icon-close:before {
+  color: #ff7d00;
 }
 
 <div
