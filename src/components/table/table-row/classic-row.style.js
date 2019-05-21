@@ -1,6 +1,7 @@
 import StyledTableCell from '../table-cell/table-cell.style';
 
 function applyClassicRowStyling() {
+  console.log('fasfsf');
   return `
     border-color: #E7F1FC;
     &:hover .common-input__input {

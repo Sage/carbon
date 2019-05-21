@@ -110,7 +110,6 @@ StyledTable.propTypes = {
 
 StyledTable.defaultProps = {
   theme: baseTheme,
-
   size: 'medium'
 };
 
