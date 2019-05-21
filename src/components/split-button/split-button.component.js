@@ -226,9 +226,7 @@ SplitButton.propTypes = {
   /** The size of the buttons in the SplitButton. */
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** The text to be displayed in the SplitButton. */
-  text: PropTypes.string.isRequired,
-  /** The business theme passed to the component from the theme provider */
-  theme: PropTypes.object
+  text: PropTypes.string.isRequired
 };
 
 SplitButton.defaultProps = {

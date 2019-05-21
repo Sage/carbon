@@ -2,8 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import SplitButton from './split-button.component';
-import StyledSplitButton, { StyledToggleButton } from './split-button.style';
-import StyledSplitButtonChildContainer from './split-button-children.style';
+import StyledSplitButtonChildrenContainer from './split-button-children.style';
 import Icon from '../icon';
 import Button from '../button';
 import StyledButton from '../button/button.style';
@@ -17,6 +16,10 @@ import {
   keyboard
 } from '../../__spec_helper__/test-utils';
 import 'jest-styled-components';
+import guid from '../../utils/helpers/guid';
+
+jest.mock('../../utils/helpers/guid');
+guid.mockImplementation(() => 'guid-12345');
 
 const render = (mainProps, childButtons, renderer = shallow) => {
   return renderer(
@@ -201,9 +204,9 @@ describe('SplitButton', () => {
     (name, theme) => {
       it('has the expected style', () => {
         const themedWrapper = mount(
-          <StyledSplitButtonChildContainer theme={ theme }>
+          <StyledSplitButtonChildrenContainer theme={ theme }>
             <StyledButton>Foo</StyledButton>
-          </StyledSplitButtonChildContainer>
+          </StyledSplitButtonChildrenContainer>
         );
 
         const themeColors = {
@@ -215,16 +218,15 @@ describe('SplitButton', () => {
 
         assertStyleMatch({
           backgroundColor: themeColors[name],
-          border: `1px solid ${themeColors[name]}`,
-          display: name === 'classic' ? 'block' : undefined
+          border: `1px solid ${themeColors[name]}`
         }, themedWrapper, { modifier: `${StyledButton}` });
       });
 
       it('matches the expected style for the focused "additional button"', () => {
         const themedWrapper = mount(
-          <StyledSplitButtonChildContainer theme={ theme }>
+          <StyledSplitButtonChildrenContainer theme={ theme }>
             <StyledButton>Foo</StyledButton>
-          </StyledSplitButtonChildContainer>
+          </StyledSplitButtonChildrenContainer>
         );
 
         const themeColors = {
@@ -254,9 +256,9 @@ describe('SplitButton', () => {
             ];
 
             const themedWrapper = mount(
-              <StyledSplitButtonChildContainer theme={ theme }>
+              <StyledSplitButtonChildrenContainer theme={ theme }>
                 { children }
-              </StyledSplitButtonChildContainer>
+              </StyledSplitButtonChildrenContainer>
             );
 
             const expectedStyle = buildSizeConfig(name, size);
@@ -287,9 +289,9 @@ describe('SplitButton', () => {
         ];
 
         const themedWrapper = mount(
-          <StyledSplitButtonChildContainer theme={ ClassicTheme }>
+          <StyledSplitButtonChildrenContainer theme={ ClassicTheme }>
             { children }
-          </StyledSplitButtonChildContainer>
+          </StyledSplitButtonChildrenContainer>
         );
 
         for (let index = 0; index < children.length - 1; index++) {
@@ -432,9 +434,8 @@ describe('SplitButton', () => {
         )).toBeTruthy();
 
         mainButton.simulate('mouseenter');
-        expect(wrapper.containsMatchingElement(
-          <Button>Second Button</Button>
-        )).toBeFalsy();
+        wrapper.instance().forceUpdate();
+        expect(wrapper.find(StyledSplitButtonChildrenContainer).props().disabled).toBeFalsy();
       });
 
       afterEach(() => {

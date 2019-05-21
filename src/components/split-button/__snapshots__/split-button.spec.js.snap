@@ -2,12 +2,12 @@
 
 exports[`SplitButton toggle button with mouse events mouse enter dropdown toggle renders additional buttons to match snapshot 1`] = `
 <styled.div
+  aria-haspopup="true"
   data-component="split-button"
   data-element="bar"
   data-role="baz"
-  medium={true}
+  legacyColorVariant="blue"
   onMouseLeave={[Function]}
-  renderAs="secondary"
   theme={
     Object {
       "colors": Object {
@@ -57,7 +57,6 @@ exports[`SplitButton toggle button with mouse events mouse enter dropdown toggle
       },
     }
   }
-  variant="blue"
 >
   <div>
     <Button
@@ -74,16 +73,18 @@ exports[`SplitButton toggle button with mouse events mouse enter dropdown toggle
       mainButton
     </Button>
     <Styled(styled.button)
+      aria-controls="guid-12345"
+      aria-expanded={true}
+      aria-haspopup="true"
       buttonType="secondary"
       data-element="open"
       disabled={false}
       displayed={true}
       legacyColorVariant="blue"
-      medium={true}
       onClick={[Function]}
       onFocus={[Function]}
+      onKeyPress={[Function]}
       onMouseEnter={[Function]}
-      renderAs="secondary"
       size="medium"
       theme={
         Object {
@@ -144,6 +145,7 @@ exports[`SplitButton toggle button with mouse events mouse enter dropdown toggle
   <styled.div
     data-element="additional-buttons"
     displayButtons={true}
+    id="guid-12345"
     theme={
       Object {
         "colors": Object {

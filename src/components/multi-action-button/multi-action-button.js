@@ -1,12 +1,13 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from '../icon';
 import Button from '../button';
-// import SplitButton from '../split-button';
+import SplitButton from '../split-button/split-button';
 import './multi-action-button.scss';
+import StyledMultiActionButton from './multi-action-button.style';
 
-class MultiActionButton extends Component {
+class MultiActionButton extends SplitButton {
   /**
    * Returns classes for the component.
    * @override
@@ -72,6 +73,14 @@ class MultiActionButton extends Component {
       'data-element': this.props['data-element'],
       'data-role': this.props['data-role']
     };
+  }
+
+  render() {
+    return (
+      <StyledMultiActionButton buttonType={ this.props.buttonType || this.props.as }>
+        { super.render() }
+      </StyledMultiActionButton>
+    );
   }
 }
 
