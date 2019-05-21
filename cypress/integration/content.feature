@@ -41,7 +41,7 @@ Feature: Content component
 
   @positive
   Scenario Outline: Change alignProperty in Content dialog
-    When I set align property to "<alignProperty>"
+    When I select align to "<alignProperty>"
     Then content align property is set to "<alignProperty>"
     Examples:
       | alignProperty |
@@ -63,7 +63,7 @@ Feature: Content component
   @positive
   Scenario Outline: Inline enabled and change title width
     When I check inline checkbox
-      And I set titleWidth parameter to "<width>"
+      And I set titleWidth to "<width>"
     Then content preview has inline parameter enabled
       And content preview width is "<width>"
     Examples:
