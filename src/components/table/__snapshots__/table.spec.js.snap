@@ -23,12 +23,8 @@ exports[`Table when the table size is compact renders a table to match the expec
   padding-right: 8px;
 }
 
-.c0.c0 .carbon-table-row .c2 {
+.c0.c0 .carbon-table-row:nth-child(2n) .c2 {
   background-color: #F9FAFB;
-}
-
-.c0.c0 .carbon-table-row:nth-child(2n+1) .c2 {
-  background-color: #FFFFFF;
 }
 
 .c0 caption {
@@ -96,8 +92,8 @@ exports[`Table when the table size is compact renders a table to match the expec
 .c0 .carbon-table-row--selected .c2,
 .c0 .carbon-table-row--selected:nth-child(odd) .c2,
 .c0 .carbon-table-row--selected:hover .c2 {
-  background-color: #D8E0E3;
-  border-bottom-color: #D8E0E3;
+  background-color: #D8E0E3 !important;
+  border-bottom-color: #D8E0E3 !important;
   position: relative;
 }
 
@@ -117,8 +113,8 @@ exports[`Table when the table size is compact renders a table to match the expec
 }
 
 .c0.c0 .carbon-table-row--highlighted .c2 {
-  background-color: #D8E0E3;
-  border-bottom-color: #D8E0E3;
+  background-color: #D8E0E3 !important;
+  border-bottom-color: #D8E0E3 !important;
   position: relative;
 }
 
@@ -197,12 +193,8 @@ exports[`Table when the table size is small renders a table to match the expecte
   padding-right: 8px;
 }
 
-.c0.c0 .carbon-table-row .c2 {
+.c0.c0 .carbon-table-row:nth-child(2n) .c2 {
   background-color: #F9FAFB;
-}
-
-.c0.c0 .carbon-table-row:nth-child(2n+1) .c2 {
-  background-color: #FFFFFF;
 }
 
 .c0 caption {
@@ -270,8 +262,8 @@ exports[`Table when the table size is small renders a table to match the expecte
 .c0 .carbon-table-row--selected .c2,
 .c0 .carbon-table-row--selected:nth-child(odd) .c2,
 .c0 .carbon-table-row--selected:hover .c2 {
-  background-color: #D8E0E3;
-  border-bottom-color: #D8E0E3;
+  background-color: #D8E0E3 !important;
+  border-bottom-color: #D8E0E3 !important;
   position: relative;
 }
 
@@ -291,8 +283,8 @@ exports[`Table when the table size is small renders a table to match the expecte
 }
 
 .c0.c0 .carbon-table-row--highlighted .c2 {
-  background-color: #D8E0E3;
-  border-bottom-color: #D8E0E3;
+  background-color: #D8E0E3 !important;
+  border-bottom-color: #D8E0E3 !important;
   position: relative;
 }
 

@@ -22,7 +22,7 @@ function applyModernTableStyling({
   tableType, theme, isZebra, size
 }) {
   const type = convertTableType(tableType);
-  const { table, colors } = theme;
+  const { table } = theme;
 
   return css`
     background-color: ${type === 'tertiary' ? 'transparent' : theme.colors.white};
@@ -34,12 +34,9 @@ function applyModernTableStyling({
         padding-right: ${tableSizes[size].padding};
       }
       ${isZebra && `
-        ${StyledTableCell} {
-          background-color: ${table.zebra};
-        }
-        &:nth-child(2n+1) {
+        &:nth-child(2n) {
           ${StyledTableCell} {
-            background-color: ${colors.white};
+            background-color: ${table.zebra};
           }
         }
       `}
