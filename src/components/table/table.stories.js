@@ -75,20 +75,20 @@ const buildRows = (pageSize, totalRecords) => {
   );
 };
 
-const pickInput = (name, props) => {
+const pickInput = (name) => {
   switch (name) {
     case 'TextArea':
-      return <TextArea { ...props } />;
+      return <TextArea />;
     case 'DateInput':
       return <DateInput />;
     case 'NumberInput':
-      return <NumberInput { ...props } />;
+      return <NumberInput />;
     case 'Decimal':
-      return <Decimal { ...props } />;
+      return <Decimal />;
     case 'Select':
-      return <Select { ...props } />;
+      return <Select />;
     default:
-      return <TextBox { ...props } />;
+      return <TextBox />;
   }
 };
 const buildRowsWithInputs = (pageSizeFromKnobs, input) => {
@@ -124,7 +124,11 @@ const buildRowsWithInputs = (pageSizeFromKnobs, input) => {
             key={ row.id }
             uniqueID={ row.id }
           >
-            <TableCell>{pickInput(input, { value: row.name })}</TableCell>
+            <TableCell>
+              {
+                pickInput(input)
+              }
+            </TableCell>
             <TableCell>{row.value}</TableCell>
           </TableRow>
         );

@@ -53,24 +53,24 @@ function applyModernTableStyling({
 
 function additionalThemeStyling(type, { text, table, colors }) {
   return css`
-      ${type === 'tertiary' ? 'border-color: transparent;' : ''}
-      ${StyledTableCell} {
-        background-color: ${colors.white};
-      }
-  
-      ${StyledTableHeader} {
-        background-color: ${type === 'secondary' ? table.secondary : 'transparent'};
-        ${type === 'tertiary' ? 'border-left-color: transparent;' : ''}
+    ${type === 'tertiary' ? 'border-color: transparent;' : ''}
+    ${StyledTableCell} {
+      background-color: ${colors.white};
+    }
+
+    ${StyledTableHeader} {
+      background-color: ${type === 'secondary' ? table.secondary : 'transparent'};
+      ${type === 'tertiary' ? 'border-left-color: transparent;' : ''}
+      color: ${text.color};
+        
+      a:link,
+      a:visited,
+      a:hover,
+      a:active {
         color: ${text.color};
-          
-        a:link,
-        a:visited,
-        a:hover,
-        a:active {
-          color: ${text.color};
-        }
       }
-    `;
+    }
+  `;
 }
 
 function addInputStyling(size) {
@@ -78,20 +78,28 @@ function addInputStyling(size) {
     ${StyledInput} {
       font-size: ${tableSizes[size].font};
       height: ${tableSizes[size].inputHeight};
-      padding-left: ${tableSizes[size].padding};
-      padding-right: ${tableSizes[size].padding};
+      padding-top: 0;
+      padding-bottom: 0;
     }
 
     && ${StyledInputPresentation} {
       height: ${tableSizes[size].inputHeight};
       min-height: ${tableSizes[size].inputHeight};
-    }
-
-    && ${StyledTableCell} div {
-      height: ${tableSizes[size].inputHeight};
-      min-height: ${tableSizes[size].inputHeight};
+      padding-left: ${tableSizes[size].padding};
+      padding-right: ${tableSizes[size].padding};
     }
   `;
+
+  /*
+    background-color: #e6ebed;
+    border-left: 1px solid #bfccd2;
+    box-sizing: border-box;
+    color: #003349;
+    cursor: pointer;
+    height: 29px;
+    text-align: center;
+    width: 31px;
+    */
 }
 
 export {
