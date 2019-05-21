@@ -55,6 +55,7 @@ function applyStylingToChildButtons({ theme }) {
       letter-spacing: 0;
       padding: 0 18px;
       text-align: left;
+      
       &:focus {
         background-color: ${colors.classic.tertiary};
       }
