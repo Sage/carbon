@@ -1,6 +1,12 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
+import 'jest-styled-components';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import classicTheme from '../../style/themes/classic';
 import Confirm from './confirm.component';
+import StyledConfirmButtons from './confirm.style';
+
 
 describe('Confirm', () => {
   let wrapper, onCancel, onConfirm;
@@ -97,6 +103,15 @@ describe('Confirm', () => {
         expect(deleteButton.hostNodes().text()).toEqual('Delete');
         expect(cancelButton.hostNodes().text()).toEqual('Cancel');
       });
+    });
+  });
+
+  describe('when in classic theme', () => {
+    it('confirm buttons should match snapshot', () => {
+      wrapper = TestRenderer.create(<StyledConfirmButtons theme={ classicTheme } />);
+      assertStyleMatch({
+        marginTop: '20px'
+      }, wrapper.toJSON());
     });
   });
 });
