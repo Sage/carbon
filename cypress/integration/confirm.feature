@@ -77,7 +77,7 @@ Feature: Confirm component
 
   @positive
   Scenario Outline: Change the size of Confirm dialog
-    When I set component size to "<sizeName>"
+    When I select size to "<sizeName>"
       And I click on a openButton
     Then Confirm dialog size property on preview is "<sizePropertyInPx>"
     Examples:
