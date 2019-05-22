@@ -2,34 +2,34 @@ Feature: Button component
   I want to change Button label, theme, size and subtext properties
 
   Background: Open Button component page
-    Given I open "Button" component page
+    Given I open "Button" component page classic
 
   @positive
-  Scenario Outline: Change Button component label
+  Scenario Outline: Set Button component label to <label>
     When I set children to "<label>"
     Then Button label on preview is "<label>"
     Examples:
-      | label                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | label                   |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+      | <>                      |
 
   @positive
-  Scenario Outline: Change Button subtext
+  Scenario Outline: Set Button subtext to <subtext>
     When I select size to "large"
       And I set subtext to "<subtext>"
     Then Button subtext on preview is "<subtext>"
     Examples:
-      | subtext                  |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | subtext                 |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+      | <>                      |
 
   @negative
   Scenario: I set space character to Button subtext
@@ -42,16 +42,7 @@ Feature: Button component
   Scenario: I set component size to large but I leave Button subtext empty
     When I select size to "large"
     # And I leave Button subtext empty
-    Then Button subtext on preview is not visible
-
-  @positive
-  Scenario Outline: Change Button 'as' property
-    When I select as to "<as>"
-    Then Button as property on preview is "<as>"
-    Examples:
-      | as        |
-      | primary   |
-      | secondary |
+    Then Button subtext on preview is ""
 
   @positive
   Scenario: Disable Button
@@ -65,24 +56,41 @@ Feature: Button component
     Then Button is enabled
 
   @positive
-  Scenario Outline: Set Button size to small, medium and large
+  Scenario Outline: Set Button size to <size>
     When I select size to "<size>"
-    Then Button size property on preview is "<size>"
+    Then Button height is "<height>"
     Examples:
-      | size   |
-      | small  |
-      | medium |
-      | large  |
+      | size   | height |
+      | small  | 26px   |
+      | medium | 31px   |
+      | large  | 43px   |
 
   @positive
-  Scenario Outline: Set theme to Button
+  Scenario Outline: Set Button theme to <theme> and as to primary
     When I select theme to "<theme>"
-    Then Button theme property on preview is "<theme>"
+      And I select as to "primary"
+    Then Button background color is "<background-color>"
+      And Button font color is "<font-color>"
     Examples:
-      | theme        |
-      | blue         |
-      | grey         |
-      | magenta      |
-      | magenta-dull |
-      | red          |
-      | white        |
+      | theme        | background-color   | font-color         |
+      | blue         | rgb(37, 91, 199)   | rgb(255, 255, 255) |
+      | grey         | rgb(51, 92, 109)   | rgb(255, 255, 255) |
+      | magenta      | rgb(237, 28, 95)   | rgb(255, 255, 255) |
+      | magenta-dull | rgb(202, 42, 96)   | rgb(255, 255, 255) |
+      | red          | rgb(199, 56, 79)   | rgb(255, 255, 255) |
+      | white        | rgb(255, 255, 255) | rgb(0, 0, 0)       |
+
+  @positive
+  Scenario Outline: Set Button theme to <theme> and as to secondary
+    When I select theme to "<theme>"
+      And I select as to "secondary"
+    Then Button font color is "<font-color>"
+      And Button background color is "rgba(0, 0, 0, 0)"
+    Examples:
+      | theme        | font-color         |
+      | blue         | rgb(37, 91, 199)   |
+      | grey         | rgb(51, 92, 109)   |
+      | magenta      | rgb(237, 28, 95)   |
+      | magenta-dull | rgb(202, 42, 96)   |
+      | red          | rgb(199, 56, 79)   |
+      | white        | rgb(255, 255, 255) |
