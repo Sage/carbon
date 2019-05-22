@@ -7,7 +7,7 @@ import { State, Store } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
-import Confirm from './confirm.js';
+import Confirm from './confirm.component.js';
 
 const store = new Store({
   open: false
@@ -20,6 +20,10 @@ const handleOpen = () => {
   action('open')();
   store.set({ open: true });
 };
+const handleConfirm = () => {
+  action('confirm')();
+  store.set({ open: false });
+};
 
 storiesOf('Confirm', module)
   .addParameters({
@@ -29,6 +33,7 @@ storiesOf('Confirm', module)
   })
   .add('default', () => {
     button('open', handleOpen);
+    const children = text('children', 'This is an example of a confirm.');
     const title = text('title', 'Are you sure?');
     const enableBackgroundUI = boolean('enableBackgroundUI', false);
     const disableEscKey = boolean('disableEscKey', false);
@@ -58,14 +63,15 @@ storiesOf('Confirm', module)
           stickyFormFooter={ stickyFormFooter }
           confirmLabel={ confirmLabel }
           cancelLabel={ cancelLabel }
-          onConfirm={ action('confirm') }
+          onConfirm={ handleConfirm }
           onCancel={ handleCancel }
         >
-          <span data-element='confirm-children'>This is an example of a confirm.</span>
+          {children}
         </Confirm>
       </State>
     );
-  }, {
+  },
+  {
     info: { text: info },
     notes: { markdown: notes }
   });
