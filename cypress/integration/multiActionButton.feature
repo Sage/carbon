@@ -18,7 +18,6 @@ Feature: Multi Action Button component
       # @ignore because of FE-1447
       # | <>                       |
 
-
 @positive
   Scenario Outline: Change as property of Multi Action Button component to <asProperty>
     When I select as to "<asProperty>"
