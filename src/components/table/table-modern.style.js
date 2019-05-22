@@ -39,6 +39,9 @@ function applyModernTableStyling({
             background-color: ${table.zebra};
           }
         }
+        :hover ${StyledTableCell} {
+          background-color: ${table.primary};
+        }
       `}
     }
     ${type !== 'primary' && additionalThemeStyling(type, theme)}

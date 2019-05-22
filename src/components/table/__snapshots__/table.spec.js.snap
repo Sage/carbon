@@ -27,6 +27,10 @@ exports[`Table when the table size is compact renders a table to match the expec
   background-color: #F9FAFB;
 }
 
+.c0.c0 .carbon-table-row:hover .c2 {
+  background-color: #F2F4F5;
+}
+
 .c0 caption {
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
@@ -195,6 +199,10 @@ exports[`Table when the table size is small renders a table to match the expecte
 
 .c0.c0 .carbon-table-row:nth-child(2n) .c2 {
   background-color: #F9FAFB;
+}
+
+.c0.c0 .carbon-table-row:hover .c2 {
+  background-color: #F2F4F5;
 }
 
 .c0 caption {
