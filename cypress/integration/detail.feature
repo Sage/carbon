@@ -5,7 +5,7 @@ Feature: Detail component
     Given I open "Detail" component page
 
   @positive
-  Scenario Outline: Change Detail children
+  Scenario Outline: Change Detail children to <children>
     When I set children to "<children>"
     Then detail children on preview is "<children>"
     Examples:
@@ -15,20 +15,22 @@ Feature: Detail component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
-  Scenario Outline: Change Detail footnote
+  Scenario Outline: Change Detail footnote to <footnote>
     When I set footnote to "<footnote>"
-    Examples:
     Then detail footnote on preview is "<footnote>"
+    Examples:
       | footnote                 |
       | Sample text              |
       | 1234567890               |
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @negative
   Scenario: Change Detail icon to null
@@ -36,7 +38,7 @@ Feature: Detail component
     Then icon not exists on preview
 
   @positive
-  Scenario Outline: Change Detail icon
+  Scenario Outline: Change Detail icon to <iconName>
     When I set detail icon to "<iconName>"
     Then icon on preview is "<iconName>"
     Examples:
@@ -104,7 +106,6 @@ Feature: Detail component
       | gift              |
       | graph             |
       | grid              |
-      | help              |
       | home              |
       | image             |
       | in_progress       |

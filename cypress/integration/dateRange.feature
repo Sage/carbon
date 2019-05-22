@@ -5,7 +5,7 @@ Feature: Date Range component
     Given I open "Experimental Date Range" component page
 
   @positive
-  Scenario Outline: Change Date Range start label
+  Scenario Outline: Change Date Range start label to <label>
     When I set startLabel to "<label>"
     Then startLabel on preview is "<label>"
     Examples:
@@ -15,10 +15,11 @@ Feature: Date Range component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
-  Scenario Outline: Change Date Range end label
+  Scenario Outline: Change Date Range end label to <label>
     When I set endLabel to "<label>"
     Then endLabel on preview is "<label>"
     Examples:
@@ -28,7 +29,8 @@ Feature: Date Range component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
   Scenario Outline: Enable labels inline checkbox

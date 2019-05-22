@@ -1,5 +1,4 @@
 // knobs locators
-export const ALIGN_SELECT = 'select[name="align"]';
 export const INPUT_PRECISION_SLIDER = 'input[name="precision"][type="range"]';
 
 // component preview locators
