@@ -12,12 +12,11 @@ class CheckableInput extends React.Component {
     this.inputId = guid();
   }
 
-  formFieldProps = (props) => {
+  formFieldProps = () => {
     return {
-      ...validProps(this, 'fieldHelpInline'),
+      ...validProps(this, ['fieldHelpInline', 'reverse']),
       name: this.inputId,
-      labelHelpIcon: 'info',
-      reverse: !props.reverse
+      labelHelpIcon: 'info'
     };
   }
 
@@ -35,9 +34,9 @@ class CheckableInput extends React.Component {
   render() {
     return (
       <StyledCheckableInputWrapper>
-        <FormField {...this.formFieldProps(this.props)}>
+        <FormField { ...this.formFieldProps(this.props) }>
           <StyledCheckableInput>
-            <HiddenCheckableInput {...this.inputProps(this.props)} />
+            <HiddenCheckableInput { ...this.inputProps(this.props) } />
             {this.props.children}
           </StyledCheckableInput>
         </FormField>
