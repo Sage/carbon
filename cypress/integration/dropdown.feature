@@ -85,8 +85,8 @@ Feature: Dropdown component
   @positive
   Scenario Outline: Change Dropdown label align
     When I check labelInline checkbox
-      And I set label align "<direction>"
-    Then direction on preview is "<direction>"
+      And I select labelAlign to "<direction>"
+    Then labelAlign on preview is "<direction>"
     Examples:
       | direction |
       | left      |

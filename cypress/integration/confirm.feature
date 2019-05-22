@@ -77,7 +77,7 @@ Feature: Confirm component
 
   @positive
   Scenario Outline: Change the size of Confirm dialog
-    When I set component size to "<sizeName>"
+    When I select size to "<sizeName>"
       And I click on a openButton
     Then Confirm dialog size property on preview is "<sizePropertyInPx>"
     Examples:
@@ -119,14 +119,15 @@ Feature: Confirm component
 
   @positive
   Scenario: Close icon enabled
-    When I check closeIconCheckbox checkbox
+    When I check showCloseIcon checkbox
       And I click on a openButton
       And I click close icon
     Then Confirm dialog is not visible
 
   @negative
   Scenario: Close icon disabled
-    When I uncheck closeIconCheckbox checkbox
+    When I check showCloseIcon checkbox
+      And I uncheck showCloseIcon checkbox
       And I click on a openButton
     Then Close icon is not visible
 

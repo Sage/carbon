@@ -1,12 +1,6 @@
-import {
-  animatedMenuButtonPreview, animatedMenuButtonDirectionSelect, animatedMenuButtonLabel,
-} from '../../locators/animated-menu-button';
+import { animatedMenuButtonPreview, animatedMenuButtonLabel } from '../../locators/animated-menu-button';
 
 const CLASS_PREFIX = 'carbon-animated-menu-button--';
-
-When('I set direction to {string}', (direction) => {
-  animatedMenuButtonDirectionSelect().select(direction);
-});
 
 When('I trigger Animated Menu Button preview', () => {
   animatedMenuButtonPreview().trigger('mouseover');

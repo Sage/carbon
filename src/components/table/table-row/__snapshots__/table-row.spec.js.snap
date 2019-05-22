@@ -124,8 +124,8 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 .c0 .carbon-table-row--selected .c1,
 .c0 .carbon-table-row--selected:nth-child(odd) .c1,
 .c0 .carbon-table-row--selected:hover .c1 {
-  background-color: #D8E0E3;
-  border-bottom-color: #D8E0E3;
+  background-color: #D8E0E3 !important;
+  border-bottom-color: #D8E0E3 !important;
   position: relative;
 }
 
@@ -145,8 +145,8 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
 }
 
 .c0.c0 .carbon-table-row--highlighted .c1 {
-  background-color: #D8E0E3;
-  border-bottom-color: #D8E0E3;
+  background-color: #D8E0E3 !important;
+  border-bottom-color: #D8E0E3 !important;
   position: relative;
 }
 

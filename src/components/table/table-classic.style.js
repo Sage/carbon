@@ -1,5 +1,4 @@
 import { css } from 'styled-components';
-import StyledTableCell from './table-cell/table-cell.style';
 import StyledTableHeader from './table-header/table-header.style';
 
 function applyClassicInternalStyling() {
@@ -20,10 +19,6 @@ function applyClassicTableStyling(props) {
     }
 
     ${props.tableType === 'secondary' && `
-      ${StyledTableCell} {
-        background-color: #ffffff;
-      }
-
       ${StyledTableHeader} {
         background-color: #CCD6DA;
         color: #003349;

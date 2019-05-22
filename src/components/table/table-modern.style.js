@@ -15,7 +15,7 @@ function convertTableType(type) {
 function applyModernInternalStyling({ tableType, theme }) {
   const type = convertTableType(tableType);
   return css`
-    background-color: ${type === 'tertiary' ? 'transparent' : theme.table.primary};
+    background-color: transparent;
     border: 1px solid ${type === 'tertiary' ? 'transparent' : theme.table.primary};
   `;
 }
@@ -42,6 +42,9 @@ function applyModernTableStyling({
           }
         }
       `}
+      :hover ${StyledTableCell} {
+        background-color: ${table.primary};
+      }
     }
     ${type !== 'primary' && additionalThemeStyling(type, theme)}
     ${applyInputStyling(size)}
