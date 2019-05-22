@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 import Button from '../button';
-import StyledSplitButtonContainer from './split-button.style';
+import StyledSplitButton from './split-button.style';
 import { StyledSplitButtonToggle } from './split-button-toggle.style';
 import StyledSplitButtonChildrenContainer from './split-button-children.style';
 import { validProps } from '../../utils/ether/ether';
@@ -185,10 +185,11 @@ class SplitButton extends Component {
   get renderAdditionalButtons() {
     const children = this.childrenWithProps();
 
+    if (!this.state.showAdditionalButtons) return null;
+
     return (
       <StyledSplitButtonChildrenContainer
         id={ this.buttonListId }
-        displayButtons={ this.state.showAdditionalButtons }
         data-element='additional-buttons'
       >
         { children }
@@ -198,14 +199,14 @@ class SplitButton extends Component {
 
   render() {
     return (
-      <StyledSplitButtonContainer
+      <StyledSplitButton
         aria-haspopup='true'
         onMouseLeave={ this.hideButtons }
         { ...this.componentTags() }
       >
         { this.renderMainButton }
         { this.renderAdditionalButtons }
-      </StyledSplitButtonContainer>
+      </StyledSplitButton>
     );
   }
 }
