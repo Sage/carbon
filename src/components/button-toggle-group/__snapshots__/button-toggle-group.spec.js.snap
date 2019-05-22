@@ -90,6 +90,8 @@ input:focus ~ .c4 {
 >
   <div
     className=""
+    onBlur={[Function]}
+    onChange={[Function]}
   >
     <div
       className="c2"
@@ -103,6 +105,7 @@ input:focus ~ .c4 {
         id="guid-12345"
         name="button-toggle-group"
         type="radio"
+        value="foo"
       />
       <label
         className="c4"
@@ -131,6 +134,7 @@ input:focus ~ .c4 {
         id="guid-12345"
         name="button-toggle-group"
         type="radio"
+        value="bar"
       />
       <label
         className="c4"
@@ -221,6 +225,8 @@ input:focus ~ .c4 {
 >
   <div
     className=""
+    onBlur={[Function]}
+    onChange={[Function]}
   >
     <div
       className="c2"
@@ -234,6 +240,7 @@ input:focus ~ .c4 {
         id="guid-12345"
         name="button-toggle-group"
         type="radio"
+        value="foo"
       />
       <label
         className="c4"
@@ -262,6 +269,7 @@ input:focus ~ .c4 {
         id="guid-12345"
         name="button-toggle-group"
         type="radio"
+        value="bar"
       />
       <label
         className="c4"
