@@ -6,34 +6,45 @@ import FormField from '../form-field';
 import HiddenCheckableInput from './hidden-checkable-input.component';
 import guid from '../../../utils/helpers/guid';
 
-const CheckableInput = (props) => {
-  const inputId = guid();
+class CheckableInput extends React.Component {
+  constructor(props) {
+    super(props);
+    this.inputId = guid();
+  }
 
-  const formFieldProps = {
-    ...validProps({ propTypes: CheckableInput.propTypes, safeProps: ['fieldHelpInline'], props }),
-    labelFor: inputId,
-    labelHelpIcon: 'info',
-    reverse: !props.reverse
+  formFieldProps = (props) => {
+    return {
+      ...validProps(this, 'fieldHelpInline'),
+      name: this.inputId,
+      labelHelpIcon: 'info',
+      reverse: !props.reverse
+    };
+  }
+
+  inputProps = () => {
+    const {
+      children, fieldHelp, labelHelp, ...inputProps
+    } = {
+      ...validProps(this, ['disabled', 'onChange', 'type']),
+      id: this.inputId
+    };
+
+    return inputProps;
   };
 
-  const {
-    children, fieldHelp, labelHelp, ...inputProps
-  } = {
-    ...validProps({ propTypes: CheckableInput.propTypes, safeProps: ['disabled', 'onChange', 'type'], props }),
-    id: inputId
-  };
-
-  return (
-    <StyledCheckableInputWrapper>
-      <FormField { ...formFieldProps }>
-        <StyledCheckableInput>
-          <HiddenCheckableInput { ...inputProps } />
-          {props.children}
-        </StyledCheckableInput>
-      </FormField>
-    </StyledCheckableInputWrapper>
-  );
-};
+  render() {
+    return (
+      <StyledCheckableInputWrapper>
+        <FormField { ...this.formFieldProps(this.props) }>
+          <StyledCheckableInput>
+            <HiddenCheckableInput { ...this.inputProps(this.props) } />
+            {this.props.children}
+          </StyledCheckableInput>
+        </FormField>
+      </StyledCheckableInputWrapper>
+    );
+  }
+}
 
 CheckableInput.propTypes = {
   /** Set the value of the CheckableInput */
