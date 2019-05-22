@@ -38,7 +38,7 @@ describe('when in classic mode', () => {
       });
 
       describe('when transparent prop is set to true', () => {
-        it('should apply white color background', () => {
+        it('should apply transparent background', () => {
           const wrapper = render({
             transparent: true,
             theme: classicTheme,

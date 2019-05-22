@@ -23,7 +23,6 @@ class Toast extends React.Component {
     if (this.props.onDismiss) {
       return (
         <DismissButton
-          className='carbon-toast__close'
           data-element='close'
           onClick={ this.props.onDismiss }
           type='close'
@@ -94,7 +93,6 @@ Toast.propTypes = {
 
 Toast.defaultProps = {
   as: 'warning',
-  className: '',
   onDismiss: null,
   open: true
 };

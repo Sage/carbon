@@ -4,31 +4,6 @@
 $toast-anim-start: -100px !default;
 $toast-anim-end: 30px !default;
 
-// Related to Icon component
-.carbon-toast__close {
-  align-items: center;
-  display: flex;
-  height: 100%;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-}
-
-// Related to Icon component
-.carbon-toast__close {
-  right: 0;
-  width: 45px;
-
-  &:before {
-    font-size: 16px;
-  }
-}
-
-// Related to Icon component
-.carbon-toast__close {
-  cursor: pointer;
-}
-
 //CSSTransitionGroup
 .toast-appear,
 .toast-enter {
