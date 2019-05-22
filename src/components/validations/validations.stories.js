@@ -193,6 +193,9 @@ storiesOf('Validations', module)
       <Form>
         <State store={ buttonToggleGroupStore }>
           <ButtonToggleGroup
+            label='ButtonToggle Validation'
+            labelHelp='Returns error unless any value selected'
+            fieldHelp='Click save to run validation'
             validations={ test }
           >
             <ButtonToggle
