@@ -1,213 +1,777 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`SplitButton toggle button with mouse events mouse enter dropdown toggle renders additional buttons to match snapshot 1`] = `
-<styled.div
+exports[`StyledSplitButton for business themes renders styles correctly 1`] = `
+.c2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  font-weight: 600;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background: transparent;
+  border-color: #26A826;
+  color: #26A826;
+  font-size: 14px;
+  height: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.c2:focus {
+  outline: solid 3px #FFB500;
+}
+
+.c2 + .c1 {
+  margin-left: 16px;
+}
+
+.c2:hover {
+  background: #006300;
+  border-color: #006300;
+  color: #FFFFFF;
+}
+
+.c2 .carbon-icon {
+  margin-left: 0px;
+  margin-right: 8px;
+}
+
+.c5 + .c1 {
+  margin-left: 16px;
+}
+
+.c6 + .c1 {
+  margin-left: 16px;
+}
+
+.c7 + .c1 {
+  margin-left: 16px;
+}
+
+.c8 + .c1 {
+  margin-left: 16px;
+}
+
+.c9 + .c1 {
+  margin-left: 16px;
+}
+
+.c0 {
+  display: inline-block;
+  position: relative;
+}
+
+.c0 .c1 {
+  margin: 0;
+}
+
+.c0 .c1:focus {
+  outline-offset: -3px;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  font-weight: 600;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background: transparent;
+  border-color: #26A826;
+  color: #26A826;
+  font-size: 14px;
+  height: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
+  border-left: none;
+  padding: 0 10px;
+}
+
+.c4:focus {
+  outline: solid 3px #FFB500;
+}
+
+.c4 + .c3 {
+  margin-left: 16px;
+}
+
+.c4:hover {
+  background: #006300;
+  border-color: #006300;
+  color: #FFFFFF;
+}
+
+.c4 .carbon-icon {
+  margin-left: 8px;
+  margin-right: 0px;
+}
+
+.c1 + .c4 {
+  margin-left: 0;
+  border-left: none;
+}
+
+.c1 + .c4:focus {
+  margin-left: -2px;
+  padding-left: 12px;
+}
+
+.c1 + .c4 .carbon-icon {
+  margin-left: 0;
+}
+
+.c10 + .c3 {
+  margin-left: 16px;
+}
+
+.c1 + .c10 {
+  margin-left: 0;
+  border-left: none;
+}
+
+.c1 + .c10:focus {
+  margin-left: -2px;
+  padding-left: 12px;
+}
+
+.c1 + .c10 .carbon-icon {
+  margin-left: 0;
+}
+
+.c11 + .c3 {
+  margin-left: 16px;
+}
+
+.c1 + .c11 {
+  margin-left: 0;
+  border-left: none;
+}
+
+.c1 + .c11:focus {
+  margin-left: -2px;
+  padding-left: 12px;
+}
+
+.c1 + .c11 .carbon-icon {
+  margin-left: 0;
+}
+
+.c12 .c1 {
+  background-color: #006300;
+  border: 1px solid #006300;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  z-index: 10;
+}
+
+.c12 .c1:focus {
+  background-color: #004400;
+}
+
+.c12 .c1:hover {
+  background-color: #004400;
+}
+
+.c12 .c1 + .c17 .c1 {
+  margin-top: 3px;
+}
+
+.c13 .c1 {
+  background-color: #006045;
+  border: 1px solid #006045;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  z-index: 10;
+}
+
+.c13 .c1:focus {
+  background-color: #003F2E;
+}
+
+.c13 .c1:hover {
+  background-color: #003F2E;
+}
+
+.c13 .c1 + .c17 .c1 {
+  margin-top: 3px;
+}
+
+.c13 .c1 {
+  background-color: #1e499f;
+  border: 1px solid #1e499f;
+  color: #FFF;
+  font-size: 14px;
+  height: 31px;
+  -webkit-letter-spacing: 0;
+  -moz-letter-spacing: 0;
+  -ms-letter-spacing: 0;
+  letter-spacing: 0;
+  padding: 0 18px;
+  text-align: left;
+}
+
+.c13 .c1:focus {
+  background-color: #163777;
+}
+
+.c13 .c1:hover {
+  background-color: #163777;
+}
+
+.c14 .c1 {
+  background-color: #006045;
+  border: 1px solid #006045;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  z-index: 10;
+}
+
+.c14 .c1:focus {
+  background-color: #003F2E;
+}
+
+.c14 .c1:hover {
+  background-color: #003F2E;
+}
+
+.c14 .c1 + .c17 .c1 {
+  margin-top: 3px;
+}
+
+.c15 .c1 {
+  background-color: #005B9A;
+  border: 1px solid #005B9A;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  z-index: 10;
+}
+
+.c15 .c1:focus {
+  background-color: #004372;
+}
+
+.c15 .c1:hover {
+  background-color: #004372;
+}
+
+.c15 .c1 + .c17 .c1 {
+  margin-top: 3px;
+}
+
+.c16 .c1 {
+  background-color: #4F2775;
+  border: 1px solid #4F2775;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  z-index: 10;
+}
+
+.c16 .c1:focus {
+  background-color: #3D1E5B;
+}
+
+.c16 .c1:hover {
+  background-color: #3D1E5B;
+}
+
+.c16 .c1 + .c17 .c1 {
+  margin-top: 3px;
+}
+
+<div
   aria-haspopup="true"
+  className="c0"
   data-component="split-button"
-  data-element="bar"
-  data-role="baz"
-  legacyColorVariant="blue"
   onMouseLeave={[Function]}
-  theme={
-    Object {
-      "colors": Object {
-        "base": "#00A376",
-        "border": "#668491",
-        "brand": "#00DC00",
-        "destructive": Object {
-          "hover": "#9F2C3F",
-        },
-        "error": "#C7384F",
-        "focus": "#FFB500",
-        "focusedIcon": "#335B6D",
-        "focusedLinkBackground": "#FFDA7F",
-        "info": "#0073C2",
-        "primary": "#26A826",
-        "secondary": "#006300",
-        "success": "#00B000",
-        "tertiary": "#004400",
-        "warning": "#E96400",
-        "white": "#FFFFFF",
-        "whiteMix": "#E5F4E5",
-      },
-      "disabled": Object {
-        "background": "#E5EAEC",
-        "border": "#CCD6DA",
-        "button": "#E5EAEC",
-        "buttonText": "rgba(0,0,0,.2)",
-        "disabled": "rgba(0,0,0,0.55)",
-        "input": "#F2F4F5",
-        "text": "rgba(0,0,0,0.3)",
-      },
-      "icon": Object {
-        "focus": "#335B6D",
-      },
-      "name": "base",
-      "shadows": Object {
-        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
-        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-      },
-      "text": Object {
-        "color": "rgba(0,0,0,0.9)",
-        "placeholder": "rgba(0,0,0,0.3)",
-        "size": "14px",
-      },
-    }
-  }
 >
   <div>
-    <Button
-      as="secondary"
+    <button
+      className="c1 c2"
+      data-component="button"
       data-element="main-button"
       disabled={false}
-      iconPosition="before"
       onFocus={[Function]}
       onMouseEnter={[Function]}
+      role="button"
       size="medium"
-      subtext=""
-      theme="blue"
     >
-      mainButton
-    </Button>
-    <Styled(styled.button)
+      <span>
+        <span
+          data-element="main-text"
+        >
+          Mock text
+        </span>
+      </span>
+    </button>
+    <button
       aria-controls="guid-12345"
-      aria-expanded={true}
+      aria-expanded={false}
       aria-haspopup="true"
-      buttonType="secondary"
+      className="c1 c3 c4"
       data-element="open"
       disabled={false}
-      displayed={true}
-      legacyColorVariant="blue"
       onClick={[Function]}
       onFocus={[Function]}
       onKeyPress={[Function]}
       onMouseEnter={[Function]}
       size="medium"
-      theme={
-        Object {
-          "colors": Object {
-            "base": "#00A376",
-            "border": "#668491",
-            "brand": "#00DC00",
-            "destructive": Object {
-              "hover": "#9F2C3F",
-            },
-            "error": "#C7384F",
-            "focus": "#FFB500",
-            "focusedIcon": "#335B6D",
-            "focusedLinkBackground": "#FFDA7F",
-            "info": "#0073C2",
-            "primary": "#26A826",
-            "secondary": "#006300",
-            "success": "#00B000",
-            "tertiary": "#004400",
-            "warning": "#E96400",
-            "white": "#FFFFFF",
-            "whiteMix": "#E5F4E5",
-          },
-          "disabled": Object {
-            "background": "#E5EAEC",
-            "border": "#CCD6DA",
-            "button": "#E5EAEC",
-            "buttonText": "rgba(0,0,0,.2)",
-            "disabled": "rgba(0,0,0,0.55)",
-            "input": "#F2F4F5",
-            "text": "rgba(0,0,0,0.3)",
-          },
-          "icon": Object {
-            "focus": "#335B6D",
-          },
-          "name": "base",
-          "shadows": Object {
-            "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
-            "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-            "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-            "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-            "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-          },
-          "text": Object {
-            "color": "rgba(0,0,0,0.9)",
-            "placeholder": "rgba(0,0,0,0.3)",
-            "size": "14px",
-          },
-        }
-      }
     >
-      <Icon
-        bgSize="small"
-        type="dropdown"
+      <span
+        className="carbon-icon icon-dropdown"
+        data-component="icon"
+        data-element="dropdown"
       />
-    </Styled(styled.button)>
+    </button>
   </div>
-  <styled.div
-    data-element="additional-buttons"
-    displayButtons={true}
-    id="guid-12345"
-    theme={
-      Object {
-        "colors": Object {
-          "base": "#00A376",
-          "border": "#668491",
-          "brand": "#00DC00",
-          "destructive": Object {
-            "hover": "#9F2C3F",
-          },
-          "error": "#C7384F",
-          "focus": "#FFB500",
-          "focusedIcon": "#335B6D",
-          "focusedLinkBackground": "#FFDA7F",
-          "info": "#0073C2",
-          "primary": "#26A826",
-          "secondary": "#006300",
-          "success": "#00B000",
-          "tertiary": "#004400",
-          "warning": "#E96400",
-          "white": "#FFFFFF",
-          "whiteMix": "#E5F4E5",
-        },
-        "disabled": Object {
-          "background": "#E5EAEC",
-          "border": "#CCD6DA",
-          "button": "#E5EAEC",
-          "buttonText": "rgba(0,0,0,.2)",
-          "disabled": "rgba(0,0,0,0.55)",
-          "input": "#F2F4F5",
-          "text": "rgba(0,0,0,0.3)",
-        },
-        "icon": Object {
-          "focus": "#335B6D",
-        },
-        "name": "base",
-        "shadows": Object {
-          "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
-          "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
-          "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
-          "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
-          "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
-        },
-        "text": Object {
-          "color": "rgba(0,0,0,0.9)",
-          "placeholder": "rgba(0,0,0,0.3)",
-          "size": "14px",
-        },
-      }
-    }
-  >
-    <Button
-      as="secondary"
+</div>
+`;
+
+exports[`StyledSplitButton for the classic theme renders styles correctly 1`] = `
+.c2 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  font-weight: 600;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background: transparent;
+  border-color: #26A826;
+  color: #26A826;
+  font-size: 14px;
+  height: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.c2:focus {
+  outline: solid 3px #FFB500;
+}
+
+.c2 + .c1 {
+  margin-left: 16px;
+}
+
+.c2:hover {
+  background: #006300;
+  border-color: #006300;
+  color: #FFFFFF;
+}
+
+.c2 .carbon-icon {
+  margin-left: 0px;
+  margin-right: 8px;
+}
+
+.c5 + .c1 {
+  margin-left: 16px;
+}
+
+.c6 + .c1 {
+  margin-left: 16px;
+}
+
+.c7 + .c1 {
+  margin-left: 16px;
+}
+
+.c8 + .c1 {
+  margin-left: 16px;
+}
+
+.c9 + .c1 {
+  margin-left: 16px;
+}
+
+.c0 {
+  display: inline-block;
+  position: relative;
+}
+
+.c0 .c1 {
+  margin: 0;
+}
+
+.c0 .c1:focus {
+  outline-offset: -3px;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  font-weight: 600;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background: transparent;
+  border-color: #26A826;
+  color: #26A826;
+  font-size: 14px;
+  height: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
+  border-left: none;
+  padding: 0 10px;
+}
+
+.c4:focus {
+  outline: solid 3px #FFB500;
+}
+
+.c4 + .c3 {
+  margin-left: 16px;
+}
+
+.c4:hover {
+  background: #006300;
+  border-color: #006300;
+  color: #FFFFFF;
+}
+
+.c4 .carbon-icon {
+  margin-left: 8px;
+  margin-right: 0px;
+}
+
+.c1 + .c4 {
+  margin-left: 0;
+  border-left: none;
+}
+
+.c1 + .c4:focus {
+  margin-left: -2px;
+  padding-left: 12px;
+}
+
+.c1 + .c4 .carbon-icon {
+  margin-left: 0;
+}
+
+.c10 + .c3 {
+  margin-left: 16px;
+}
+
+.c1 + .c10 {
+  margin-left: 0;
+  border-left: none;
+}
+
+.c1 + .c10:focus {
+  margin-left: -2px;
+  padding-left: 12px;
+}
+
+.c1 + .c10 .carbon-icon {
+  margin-left: 0;
+}
+
+.c11 + .c3 {
+  margin-left: 16px;
+}
+
+.c1 + .c11 {
+  margin-left: 0;
+  border-left: none;
+}
+
+.c1 + .c11:focus {
+  margin-left: -2px;
+  padding-left: 12px;
+}
+
+.c1 + .c11 .carbon-icon {
+  margin-left: 0;
+}
+
+.c12 .c1 {
+  background-color: #006300;
+  border: 1px solid #006300;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  z-index: 10;
+}
+
+.c12 .c1:focus {
+  background-color: #004400;
+}
+
+.c12 .c1:hover {
+  background-color: #004400;
+}
+
+.c12 .c1 + .c17 .c1 {
+  margin-top: 3px;
+}
+
+.c13 .c1 {
+  background-color: #006045;
+  border: 1px solid #006045;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  z-index: 10;
+}
+
+.c13 .c1:focus {
+  background-color: #003F2E;
+}
+
+.c13 .c1:hover {
+  background-color: #003F2E;
+}
+
+.c13 .c1 + .c17 .c1 {
+  margin-top: 3px;
+}
+
+.c13 .c1 {
+  background-color: #1e499f;
+  border: 1px solid #1e499f;
+  color: #FFF;
+  font-size: 14px;
+  height: 31px;
+  -webkit-letter-spacing: 0;
+  -moz-letter-spacing: 0;
+  -ms-letter-spacing: 0;
+  letter-spacing: 0;
+  padding: 0 18px;
+  text-align: left;
+}
+
+.c13 .c1:focus {
+  background-color: #163777;
+}
+
+.c13 .c1:hover {
+  background-color: #163777;
+}
+
+.c14 .c1 {
+  background-color: #006045;
+  border: 1px solid #006045;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  z-index: 10;
+}
+
+.c14 .c1:focus {
+  background-color: #003F2E;
+}
+
+.c14 .c1:hover {
+  background-color: #003F2E;
+}
+
+.c14 .c1 + .c17 .c1 {
+  margin-top: 3px;
+}
+
+.c15 .c1 {
+  background-color: #005B9A;
+  border: 1px solid #005B9A;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  z-index: 10;
+}
+
+.c15 .c1:focus {
+  background-color: #004372;
+}
+
+.c15 .c1:hover {
+  background-color: #004372;
+}
+
+.c15 .c1 + .c17 .c1 {
+  margin-top: 3px;
+}
+
+.c16 .c1 {
+  background-color: #4F2775;
+  border: 1px solid #4F2775;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  z-index: 10;
+}
+
+.c16 .c1:focus {
+  background-color: #3D1E5B;
+}
+
+.c16 .c1:hover {
+  background-color: #3D1E5B;
+}
+
+.c16 .c1 + .c17 .c1 {
+  margin-top: 3px;
+}
+
+<div
+  aria-haspopup="true"
+  className="c0"
+  data-component="split-button"
+  onMouseLeave={[Function]}
+>
+  <div>
+    <button
+      className="c1 c2"
+      data-component="button"
+      data-element="main-button"
       disabled={false}
-      iconPosition="before"
-      key="0"
+      onFocus={[Function]}
+      onMouseEnter={[Function]}
+      role="button"
       size="medium"
-      subtext=""
-      tabIndex={-1}
-      theme="blue"
     >
-      Second Button
-    </Button>
-  </styled.div>
-</styled.div>
+      <span>
+        <span
+          data-element="main-text"
+        >
+          Mock text
+        </span>
+      </span>
+    </button>
+    <button
+      aria-controls="guid-12345"
+      aria-expanded={false}
+      aria-haspopup="true"
+      className="c1 c3 c4"
+      data-element="open"
+      disabled={false}
+      onClick={[Function]}
+      onFocus={[Function]}
+      onKeyPress={[Function]}
+      onMouseEnter={[Function]}
+      size="medium"
+    >
+      <span
+        className="carbon-icon icon-dropdown"
+        data-component="icon"
+        data-element="dropdown"
+      />
+    </button>
+  </div>
+</div>
 `;

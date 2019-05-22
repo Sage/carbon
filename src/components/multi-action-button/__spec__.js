@@ -6,7 +6,7 @@ import Icon from './../icon';
 import Button from './../button';
 import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import StyledSplitButtonContainer from '../split-button/split-button.style';
+import StyledSplitButton from '../split-button/split-button.style';
 import SplitButton from '../split-button/split-button';
 
 describe('MultiActionButton', () => {
