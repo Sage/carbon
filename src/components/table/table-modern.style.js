@@ -41,6 +41,9 @@ function applyModernTableStyling({
             background-color: ${table.zebra};
           }
         }
+        :hover ${StyledTableCell} {
+          background-color: ${table.primary};
+        }
       `}
       :hover ${StyledTableCell} {
         background-color: ${table.primary};
