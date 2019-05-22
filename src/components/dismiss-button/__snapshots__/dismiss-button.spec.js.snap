@@ -233,7 +233,7 @@ exports[`when in classic mode when rendered as default should match the snapshot
 />
 `;
 
-exports[`when in classic mode when rendered as default when transparent prop is set to true should apply white color background 1`] = `
+exports[`when in classic mode when rendered as default when transparent prop is set to true should apply transparent background 1`] = `
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -296,7 +296,7 @@ exports[`when in classic mode when rendered as error should match the snapshot 1
 />
 `;
 
-exports[`when in classic mode when rendered as error when transparent prop is set to true should apply white color background 1`] = `
+exports[`when in classic mode when rendered as error when transparent prop is set to true should apply transparent background 1`] = `
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -359,7 +359,7 @@ exports[`when in classic mode when rendered as help should match the snapshot 1`
 />
 `;
 
-exports[`when in classic mode when rendered as help when transparent prop is set to true should apply white color background 1`] = `
+exports[`when in classic mode when rendered as help when transparent prop is set to true should apply transparent background 1`] = `
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -422,7 +422,7 @@ exports[`when in classic mode when rendered as info should match the snapshot 1`
 />
 `;
 
-exports[`when in classic mode when rendered as info when transparent prop is set to true should apply white color background 1`] = `
+exports[`when in classic mode when rendered as info when transparent prop is set to true should apply transparent background 1`] = `
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -485,7 +485,7 @@ exports[`when in classic mode when rendered as maintenance should match the snap
 />
 `;
 
-exports[`when in classic mode when rendered as maintenance when transparent prop is set to true should apply white color background 1`] = `
+exports[`when in classic mode when rendered as maintenance when transparent prop is set to true should apply transparent background 1`] = `
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -544,7 +544,7 @@ exports[`when in classic mode when rendered as new should match the snapshot 1`]
 />
 `;
 
-exports[`when in classic mode when rendered as new when transparent prop is set to true should apply white color background 1`] = `
+exports[`when in classic mode when rendered as new when transparent prop is set to true should apply transparent background 1`] = `
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -607,7 +607,7 @@ exports[`when in classic mode when rendered as success should match the snapshot
 />
 `;
 
-exports[`when in classic mode when rendered as success when transparent prop is set to true should apply white color background 1`] = `
+exports[`when in classic mode when rendered as success when transparent prop is set to true should apply transparent background 1`] = `
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -674,7 +674,7 @@ exports[`when in classic mode when rendered as warning should match the snapshot
 />
 `;
 
-exports[`when in classic mode when rendered as warning when transparent prop is set to true should apply white color background 1`] = `
+exports[`when in classic mode when rendered as warning when transparent prop is set to true should apply transparent background 1`] = `
 .c0 {
   -webkit-align-items: center;
   -webkit-box-align: center;
