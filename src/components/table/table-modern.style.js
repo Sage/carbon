@@ -24,7 +24,7 @@ function applyModernTableStyling({
   tableType, theme, isZebra, size
 }) {
   const type = convertTableType(tableType);
-  const { table, colors } = theme;
+  const { table } = theme;
   return css`
     background-color: ${type === 'tertiary' ? 'transparent' : theme.colors.white};
     && .carbon-table-row {
@@ -36,18 +36,15 @@ function applyModernTableStyling({
       }
 
       ${isZebra && `
-        ${StyledTableCell} {
-          background-color: ${table.zebra};
-        }
-        &:nth-child(2n+1) {
+        &:nth-child(2n) {
           ${StyledTableCell} {
-            background-color: ${colors.white};
+            background-color: ${table.zebra};
           }
         }
       `}
     }
     ${type !== 'primary' && additionalThemeStyling(type, theme)}
-    ${addInputStyling(size)}
+    ${applyInputStyling(size)}
   `;
 }
 
@@ -73,7 +70,7 @@ function additionalThemeStyling(type, { text, table, colors }) {
   `;
 }
 
-function addInputStyling(size) {
+function applyInputStyling(size) {
   return `
     ${StyledInput} {
       font-size: ${tableSizes[size].font};
@@ -87,9 +84,9 @@ function addInputStyling(size) {
       min-height: ${tableSizes[size].inputHeight};
       padding-left: ${tableSizes[size].padding};
       padding-right: ${tableSizes[size].padding};
+      overflow: auto;
     }
   `;
-
   /*
     background-color: #e6ebed;
     border-left: 1px solid #bfccd2;

@@ -17,20 +17,12 @@ function applyModernRowStyling({ colors, table }) {
 
 function applyModernSelectedStyling({ table }) {
   return `
-    background-color: ${table.selected};
-    border-bottom-color: ${table.selected};
-  `;
-}
-
-function applyModernHighlightStyling({ table }) {
-  return `
-    background-color: ${table.selected};
-    border-bottom-color: ${table.selected};
+    background-color: ${table.selected} !important;
+    border-bottom-color: ${table.selected} !important;
   `;
 }
 
 export {
   applyModernRowStyling,
-  applyModernSelectedStyling,
-  applyModernHighlightStyling
+  applyModernSelectedStyling
 };

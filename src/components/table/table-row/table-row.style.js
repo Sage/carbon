@@ -1,8 +1,12 @@
 import { css } from 'styled-components';
 import StyledTableCell from '../table-cell/table-cell.style';
 import StyledTableHeader from '../table-header/table-header.style';
-import { applyClassicRowStyling, applyClassicSelectedStyling, applyClassicHighlightStyling } from './classic-row.style';
-import { applyModernRowStyling, applyModernSelectedStyling, applyModernHighlightStyling } from './modern-row.style';
+import {
+  applyClassicRowStyling,
+  applyClassicSelectedStyling,
+  applyClassicHighlightStyling
+} from './table-row-classic.style';
+import { applyModernRowStyling, applyModernSelectedStyling } from './table-row-modern.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
 /**
@@ -108,7 +112,7 @@ function highlightRowStyling({ theme }) {
 
     && .carbon-table-row--highlighted {
       ${StyledTableCell} {
-        ${isClassic(theme) ? applyClassicHighlightStyling() : applyModernHighlightStyling(theme)}
+        ${isClassic(theme) ? applyClassicHighlightStyling() : applyModernSelectedStyling(theme)}
         position: relative;
   
         &:before {

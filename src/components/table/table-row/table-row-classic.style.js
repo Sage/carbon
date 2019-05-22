@@ -19,12 +19,11 @@ function applyClassicRowStyling() {
   `;
 }
 
-function applyClassicSelectedStyling(theme) {
-  const { colors } = theme;
+function applyClassicSelectedStyling() {
   return `
     background-color: #1573E6;
     border-bottom-color: #255BC7;
-    color: ${colors.white};
+    color: #ffffff;
     &:before {
       background-color: #255BC7;
     }
