@@ -40,6 +40,9 @@ function applyModernTableStyling({
           }
         }
       `}
+      :hover ${StyledTableCell} {
+        background-color: ${table.primary};
+      }
     }
     ${type !== 'primary' && additionalThemeStyling(type, theme)}
   `;
