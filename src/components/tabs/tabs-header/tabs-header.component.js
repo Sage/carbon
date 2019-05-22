@@ -6,7 +6,8 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 const TabsHeader = ({ align, children, position }) => {
   return (
     <StyledTabsHeader
-      align={ align } position={ position }
+      align={ align }
+      position={ position }
       role='tablist'
     >
       {children}

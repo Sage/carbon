@@ -21,16 +21,25 @@ function render(props) {
 }
 
 function renderStyles(props) {
-  return TestRenderer.create(<StyledTab
-    title='Tab Title 1' dataTabId='uniqueid1'
-    { ...props }
-  />);
+  return TestRenderer.create(
+    <StyledTab
+      title='Tab Title 1'
+      dataTabId='uniqueid1'
+      { ...props }
+    />
+  );
 }
 
 describe('Tab', () => {
   let wrapper;
-  it('renders as expected', () => {
-    expect(renderStyles().toJSON()).toMatchSnapshot();
+  it('has display property equals to none', () => {
+    wrapper = renderStyles();
+    assertStyleMatch(
+      {
+        display: 'none'
+      },
+      wrapper.toJSON()
+    );
   });
 
   it('renders its children correctly', () => {

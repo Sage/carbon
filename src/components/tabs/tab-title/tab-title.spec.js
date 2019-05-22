@@ -9,17 +9,23 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import baseTheme from '../../../style/themes/base';
 
 function render(props) {
-  return shallow(<TabTitle
-    title='Tab Title 1' dataTabId='uniqueid1'
-    { ...props }
-  />);
+  return shallow(
+    <TabTitle
+      title='Tab Title 1'
+      dataTabId='uniqueid1'
+      { ...props }
+    />
+  );
 }
 
 function renderStyles(props) {
-  return TestRenderer.create(<StyledTabTitle
-    title='Tab Title 1' dataTabId='uniqueid1'
-    { ...props }
-  />);
+  return TestRenderer.create(
+    <StyledTabTitle
+      title='Tab Title 1'
+      dataTabId='uniqueid1'
+      { ...props }
+    />
+  );
 }
 
 describe('TabTitle', () => {
@@ -62,6 +68,40 @@ describe('TabTitle', () => {
     });
   });
 
+  describe('when position prop is set to left', () => {
+    it('applies proper styles', () => {
+      wrapper = renderStyles({ position: 'left' });
+      assertStyleMatch(
+        {
+          backgroundColor: 'transparent',
+          borderRight: `2px solid ${baseTheme.disabled.background}`,
+          display: 'block',
+          height: 'auto',
+          marginLeft: '0px',
+          marginTop: '2px'
+        },
+        wrapper.toJSON()
+      );
+
+      assertStyleMatch(
+        {
+          background: 'transparent',
+          borderRightColor: baseTheme.colors.secondary
+        },
+        wrapper.toJSON(),
+        { modifier: ':hover' }
+      );
+
+      assertStyleMatch(
+        {
+          marginTop: '0'
+        },
+        wrapper.toJSON(),
+        { modifier: ':first-child' }
+      );
+    });
+  });
+
   describe('when tab is selected', () => {
     it('has aria-selected attribute set to true', () => {
       wrapper = render({ isTabSelected: true });
@@ -96,13 +136,8 @@ describe('TabTitle', () => {
 
         assertStyleMatch(
           {
-            backgroundColor: 'transparent',
-            borderBottom: '0px',
-            borderRight: `2px solid ${baseTheme.disabled.background}`,
-            display: 'block',
-            height: 'auto',
-            marginLeft: '0px',
-            marginTop: '2px'
+            borderRightColor: baseTheme.colors.primary,
+            backgroundColor: 'transparent'
           },
           wrapper.toJSON()
         );
@@ -115,14 +150,6 @@ describe('TabTitle', () => {
           wrapper.toJSON(),
           { modifier: ':hover' }
         );
-
-        assertStyleMatch(
-          {
-            marginTop: '0'
-          },
-          wrapper.toJSON(),
-          { modifier: ':first-child' }
-        );
       });
     });
   });
@@ -131,13 +158,6 @@ describe('TabTitle', () => {
     it('has aria-selected attribute set to false', () => {
       wrapper = render({ isTabSelected: false });
       expect(wrapper.find('[aria-selected=false]').exists()).toEqual(true);
-    });
-
-    describe('when position prop is set to left', () => {
-      it('applies proper styles', () => {
-        wrapper = renderStyles({ position: 'left', isTabSelected: false });
-        expect(wrapper.toJSON()).toMatchSnapshot();
-      });
     });
   });
 
