@@ -9,6 +9,8 @@ import I18n from 'i18n-js';
 import Form from '../form';
 import Textbox from '../../__experimental__/components/textbox';
 import TextboxLegacy from '../textbox';
+import ButtonToggleGroup from '../button-toggle-group';
+import ButtonToggle from '../button-toggle';
 import { Select, Option } from '../../__experimental__/components/select';
 import PresenceValidator from '../../utils/validations/presence';
 import { Row, Column } from '../row';
@@ -26,6 +28,7 @@ const legacyStore = new Store({ value: '' });
 const warningStore = new Store({ value: '' });
 const infoStore = new Store({ value: '' });
 const allStore = new Store({ value: '' });
+const buttonToggleGroupStore = new Store({ value: '' });
 
 const promiseValidator = value => new Promise((resolve, reject) => {
   if (value) {
@@ -177,6 +180,53 @@ storiesOf('Validations', module)
             </State>
           </Column>
         </Row>
+      </Form>
+    );
+  })
+  .add('ButtonToggleGroup', () => {
+    const test = value => new Promise((resolve, reject) => {
+      if (value === 'baz') return resolve(true);
+      return reject(Error('this value is required!'));
+    });
+
+    return (
+      <Form>
+        <State store={ buttonToggleGroupStore }>
+          <ButtonToggleGroup
+            validations={ test }
+          >
+            <ButtonToggle
+              name='button-toggle-group'
+              id='foo'
+              value='foo'
+              onChange={ (ev) => {
+                buttonToggleGroupStore.set({ value: ev.target.value });
+              } }
+            >
+              Foo
+            </ButtonToggle>
+            <ButtonToggle
+              name='button-toggle-group'
+              id='bar'
+              value='bar'
+              onChange={ (ev) => {
+                buttonToggleGroupStore.set({ value: ev.target.value });
+              } }
+            >
+              Bar
+            </ButtonToggle>
+            <ButtonToggle
+              name='button-toggle-group'
+              id='baz'
+              value='baz'
+              onChange={ (ev) => {
+                buttonToggleGroupStore.set({ value: ev.target.value });
+              } }
+            >
+              Baz
+            </ButtonToggle>
+          </ButtonToggleGroup>
+        </State>
       </Form>
     );
   });
