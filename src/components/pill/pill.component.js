@@ -23,7 +23,6 @@ class Pill extends React.Component {
   }
 
   render() {
-    // debugger;
     return (
       <StyledPill
         { ...validProps(this) }
@@ -34,7 +33,7 @@ class Pill extends React.Component {
         { ...tagComponent('pill', this.props) }
       >
         {this.props.children}
-        {this.renderCloseIcon()}
+        {this.props.onDelete && this.renderCloseIcon()}
       </StyledPill>
     );
   }

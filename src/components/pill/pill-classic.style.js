@@ -88,7 +88,7 @@ export default (props) => {
       color: #FFFFFF;
 
       .carbon-icon.icon-cross {
-        color: #FFFFFF
+        color: #FFFFFF;
       }
     `}
 
@@ -118,7 +118,7 @@ export default (props) => {
 
         ${!props.inFill && `
           background-color: transparent;
-          color: ${colourSet.color}
+          color: ${colourSet.color};
         `}
 
           &:hover {
@@ -134,8 +134,9 @@ export default (props) => {
           }
 
           ${props.inFill && `
-          .carbon-icon {
-            color: ${colourSet.color}
+            .carbon-icon {
+              color: ${colourSet.color};
+            }
           `}
 
           &:hover,
