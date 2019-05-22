@@ -1,7 +1,12 @@
 import React from 'react';
-import Portal from './../portal';
-import Confirm from './confirm';
 import { mount, shallow } from 'enzyme';
+import TestRenderer from 'react-test-renderer';
+import 'jest-styled-components';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import classicTheme from '../../style/themes/classic';
+import Confirm from './confirm.component';
+import StyledConfirmButtons from './confirm.style';
+
 
 describe('Confirm', () => {
   let wrapper, onCancel, onConfirm;
@@ -15,7 +20,7 @@ describe('Confirm', () => {
         open
         onCancel={ onCancel }
         onConfirm={ onConfirm }
-        title="Confirm title"
+        title='Confirm title'
         subtitle='Confirm Subtitle'
         data-element='bar'
         data-role='baz'
@@ -34,8 +39,6 @@ describe('Confirm', () => {
   });
 
   describe('confirmButtons', () => {
-    let wrapper;
-
     beforeEach(() => {
       onCancel = jasmine.createSpy('cancel');
       onConfirm = jasmine.createSpy('confirm');
@@ -45,7 +48,7 @@ describe('Confirm', () => {
           open
           onCancel={ onCancel }
           onConfirm={ onConfirm }
-          title="Confirm title"
+          title='Confirm title'
           subtitle='Confirm Subtitle'
           data-element='bar'
           data-role='baz'
@@ -71,6 +74,15 @@ describe('Confirm', () => {
       });
     });
 
+    describe('when custom labels are not defined', () => {
+      wrapper = mount(<Confirm />);
+
+      it('returns default values', () => {
+        expect(wrapper.find("[data-element='cancel']").hostNodes().text()).toEqual('No');
+        expect(wrapper.find("[data-element='confirm']").hostNodes().text()).toEqual('Yes');
+      });
+    });
+
     describe('when custom labels are defined', () => {
       beforeEach(() => {
         wrapper = mount(
@@ -91,6 +103,15 @@ describe('Confirm', () => {
         expect(deleteButton.hostNodes().text()).toEqual('Delete');
         expect(cancelButton.hostNodes().text()).toEqual('Cancel');
       });
+    });
+  });
+
+  describe('when in classic theme', () => {
+    it('confirm buttons should match snapshot', () => {
+      wrapper = TestRenderer.create(<StyledConfirmButtons theme={ classicTheme } />);
+      assertStyleMatch({
+        marginTop: '20px'
+      }, wrapper.toJSON());
     });
   });
 });
