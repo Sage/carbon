@@ -5,7 +5,7 @@ Feature: Multi Action Button component
     Given I open "Multi Action Button" component page
 
   @positive
-  Scenario Outline: Change Multi Action Button text
+  Scenario Outline: Change Multi Action Button text to <text>
     When I set text to "<text>"
     Then Multi Action Button text on preview is set to "<text>"
     Examples:
@@ -15,10 +15,12 @@ Feature: Multi Action Button component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      | <>                      |
+      # @ignore because of FE-1447
+      # | <>                       |
+
 
 @positive
-  Scenario Outline: Change as property of Multi Action Button component
+  Scenario Outline: Change as property of Multi Action Button component to <asProperty>
     When I select as to "<asProperty>"
     Then Multi Action Button as on preview is "<asProperty>"
     Examples:
@@ -39,13 +41,13 @@ Feature: Multi Action Button component
   @positive
   Scenario: Check disabled state of Multi Action Button component
     When I disable MultiActionButton component
-    Then Multi Action Button is disabled
+    Then Multi Action Button state is disabled
 
   @positive
   Scenario: Uncheck disabled state of Multi Action Button component
     When  I disable MultiActionButton component
       And I enable MultiActionButton component
-    Then Multi Action Button is not disabled
+    Then Multi Action Button state is not disabled
 
   @positive
   Scenario: Invoking Multi Action Button component
