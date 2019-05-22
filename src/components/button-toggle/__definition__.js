@@ -1,4 +1,4 @@
-import ButtonToggle from './';
+import ButtonToggle from './button-toggle.component';
 import Definition from './../../../demo/utils/definition';
 import OptionsHelper from 'utils/helpers/options-helper';
 

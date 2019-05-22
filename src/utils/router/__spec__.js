@@ -37,7 +37,13 @@ describe('startRouter', () => {
       expect(window.screenY).toEqual(0);
     });
 
-    it('sets the router onUpdate to track analytics', () => {
+    it('does not track analytics when unavailable', () => {
+      let gaSpy = jasmine.createSpy('ga');
+      router.props.onUpdate();
+      expect(gaSpy).not.toHaveBeenCalled();
+    });
+
+    it('sets the router onUpdate to track analytics when available', () => {
       let gaSpy = jasmine.createSpy('ga');
       global.ga = gaSpy;
 

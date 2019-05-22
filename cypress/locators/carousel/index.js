@@ -1,14 +1,10 @@
 import {
-  SLIDE_INDEX_SELECT, ENABLE_SLIDE_SELECTOR_CHECKBOX, ENABLE_PREVIOUS_BUTTON_CHECKBOX,
-  ENABLE_NEXT_BUTTON_CHECKBOX, TRANSITION_SELECT, SLIDE, CAROUSEL, PREVIOUS_ARROW_BUTTON,
+  SLIDE_INDEX_SELECT, TRANSITION_SELECT, SLIDE, CAROUSEL, PREVIOUS_ARROW_BUTTON,
   NEXT_ARROW_BUTTON, CAROUSEL_SLIDE_SELECTOR,
 } from './locators';
 
 // knobs locators
 export const slideIndexSelect = () => cy.get(SLIDE_INDEX_SELECT);
-export const enableSlideSelectorCheckbox = () => cy.get(ENABLE_SLIDE_SELECTOR_CHECKBOX);
-export const enablePreviousButtonCheckbox = () => cy.get(ENABLE_PREVIOUS_BUTTON_CHECKBOX);
-export const enableNextButtonCheckbox = () => cy.get(ENABLE_NEXT_BUTTON_CHECKBOX);
 export const transitionSelect = () => cy.get(TRANSITION_SELECT);
 
 // component preview locators

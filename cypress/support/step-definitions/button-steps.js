@@ -1,4 +1,4 @@
-import { themeSelect, buttonSubtextPreview } from '../../locators/button';
+import { buttonSubtextPreview } from '../../locators/button';
 import { commonButtonPreview } from '../../locators';
 
 const CARBON_BUTTON_PREFIX = 'carbon-button--';
@@ -13,14 +13,6 @@ Then('Button is disabled', () => {
 
 Then('Button is enabled', () => {
   commonButtonPreview().should('be.enabled');
-});
-
-When('I set Button theme property to {string}', (theme) => {
-  themeSelect().select(theme);
-});
-
-When('I type {string} to Button theme property', (theme) => {
-  themeSelect().type(theme);
 });
 
 Then('Button theme property on preview is {string}', (theme) => {

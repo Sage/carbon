@@ -1,12 +1,4 @@
-import {
-  INLINE, BODY_FULL_WIDTH, TITLE_WIDTH, CONTENT_PREVIEW,
-  CONTENT_TITLE, CONTENT_BODY,
-} from './locators';
-
-// knobs locators
-export const inlineCheckbox = () => cy.get(INLINE);
-export const bodyFullWidthCheckbox = () => cy.get(BODY_FULL_WIDTH);
-export const titleWidth = () => cy.get(TITLE_WIDTH);
+import { CONTENT_PREVIEW, CONTENT_TITLE, CONTENT_BODY } from './locators';
 
 // component preview locators
 export const contentPreview = () => cy.iFrame(CONTENT_PREVIEW);

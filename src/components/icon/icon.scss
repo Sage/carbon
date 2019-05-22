@@ -110,7 +110,7 @@ $iconSizes: (
 @include icon(messages,       "\e922");
 @include icon(email,          "\e922");
 @include icon(edit,           "\e93a");
-@include icon(print,          "\e942", none);
+@include icon(print,          "\e942");
 @include icon(clock,          "\e919");
 @include icon(euro,           t);
 @include icon(home,           "\e929");
@@ -139,8 +139,6 @@ $iconSizes: (
 @include icon(create,         "\e940");
 @include icon(piggy_bank,     "\e926");
 @include icon(entry,          "\e92c");
-
-// New
 @include icon(edited,         "\e938");
 @include icon(refresh,        "\e945");
 @include icon(sync,           "\e944");
@@ -151,6 +149,7 @@ $iconSizes: (
 @include icon(chat,           "\e914");
 @include icon(duplicate,      "\e921", none);
 @include icon(call,           "\e93d");
+@include icon(phone,          "\e93d");
 @include icon(favourite,      "\e94f");
 @include icon(favourite_lined,"\e94e");
 @include icon(sort_up,        "\e949");
@@ -210,7 +209,6 @@ $iconSizes: (
 @include icon(lightbulb_on,   "\e95d");
 @include icon(lightbulb_off,  "\e95c");
 
-
 @include icon(accounts,       1);
 @include icon(accounts_extra, 1);
 @include icon(cashbook,       1);
@@ -219,3 +217,9 @@ $iconSizes: (
 @include icon(book,           D);
 @include icon(bank,           G);
 @include icon(new,            k);
+
+// New
+@include icon(video,          "\e95e");
+@include icon(play,           "\e95f");
+@include icon(ellipsis_horizontal,  "\e960");
+@include icon(ellipsis_vertical,    "\e961");

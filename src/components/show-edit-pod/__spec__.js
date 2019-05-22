@@ -379,13 +379,9 @@ describe('ShowEditPod', () => {
           deleteText: 'Delete',
           onDelete
         });
-        expect(wrapper).toMatchSnapshot();
+        expect(wrapper.find(Link).exists()).toBeTruthy();
       });
     });
-
-    describe('when onDelete is not provided', () => {
-      expect(wrapper).toMatchSnapshot();
-    })
   });
 
   describe('tags', () => {
@@ -399,8 +395,11 @@ describe('ShowEditPod', () => {
 
     describe('on internal elements', () => {
       const wrapper = mount(<ShowEditPod editing onEdit={ () => {} } />);
-
-      elementsTagTest(wrapper.findWhere(n => n.type() === 'form'), ['edit-form']);
+      const form = wrapper.find('.carbon-form');
+      expect(form.type()).toEqual('form');
+      elementsTagTest(form, [
+        'edit-form'
+      ]);
     });
   });
 });

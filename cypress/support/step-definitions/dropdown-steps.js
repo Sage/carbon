@@ -1,21 +1,12 @@
-import {
-  dropdownInputPreview, readOnlyCheckbox, dropdownComponentPreview, dropdownLabelPreview,
-} from '../../locators/dropdown';
+import { dropdownComponentPreview, dropdownLabelPreview } from '../../locators/dropdown';
+import { commonDataElementInputPreview } from '../../locators';
 
 Then('Dropdown is disabled', () => {
-  dropdownInputPreview().should('be.disabled');
+  commonDataElementInputPreview().should('be.disabled');
 });
 
 Then('Dropdown is enabled', () => {
-  dropdownInputPreview().should('not.be.disabled');
-});
-
-When('I check readOnly', () => {
-  readOnlyCheckbox().check();
-});
-
-When('I uncheck readOnly', () => {
-  readOnlyCheckbox().uncheck();
+  commonDataElementInputPreview().should('not.be.disabled');
 });
 
 Then('Dropdown is readOnly', () => {

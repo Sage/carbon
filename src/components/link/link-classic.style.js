@@ -5,7 +5,6 @@ export default ({
   theme
 }) => (
   theme.name === THEMES.classic && css`
-  a{
     cursor: pointer;
     font-weight: bold;
     text-decoration: none;
@@ -15,6 +14,5 @@ export default ({
       cursor: pointer;
       color: #004B87;
       text-decoration: underline;
-    }
-  }`
+    }`
 );

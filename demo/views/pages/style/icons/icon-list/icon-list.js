@@ -59,7 +59,11 @@ export default [
     { name: 'view', type: 'view' },
     { name: 'bullet_list', type: 'bullet_list' },
     { name: 'lightbulb_off', type: 'lightbulb_off' },
-    { name: 'lightbulb_on', type: 'lightbulb_on' }
+    { name: 'lightbulb_on', type: 'lightbulb_on' },
+    { name: 'video', type: 'video' },
+    { name: 'play', type: 'play' },
+    { name: 'ellipsis_horizontal', type: 'ellipsis_horizontal' },
+    { name: 'ellipsis_vertical', type: 'ellipsis_vertical' }
   ] },
   { name: 'Batch Actions', children: [
     { name: 'cart', type: 'cart' },

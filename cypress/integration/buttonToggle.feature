@@ -29,7 +29,7 @@ Feature: Button Toggle component
 
   @positive
   Scenario Outline: Set Button Toggle size to small, large
-    When I set component size to "<size>"
+    When I select size to "<size>"
     Then Button Toggle size on preview is "<size>"
     Examples:
       | size  |
@@ -49,11 +49,11 @@ Feature: Button Toggle component
 
   @positive
   Scenario: Enable Button Toggle grouped property
-    When I check grouped
+    When I check grouped checkbox
     Then Button Toggle is grouped
 
   @positive
   Scenario: Enable and disable Button Toggle grouped property
-    When I disable Button component
+    When I uncheck grouped checkbox
       And I enable Button component
     Then Button Toggle is not grouped

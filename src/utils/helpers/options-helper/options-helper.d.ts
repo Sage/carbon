@@ -1,3 +1,13 @@
+export type ColorTypes =
+| 'default'
+| 'error'
+| 'help'
+| 'info'
+| 'maintenance'
+| 'new'
+| 'success'
+| 'warning';
+
 export type IconTypes =
 | 'add'
 | 'alert'
@@ -49,6 +59,8 @@ export type IconTypes =
 | 'edit'
 | 'edited'
 | 'email'
+| 'ellipsis_horizontal'
+| 'ellipsis_vertical'
 | 'error'
 | 'favourite'
 | 'favourite_lined'
@@ -84,6 +96,7 @@ export type IconTypes =
 | 'people'
 | 'person'
 | 'phone'
+| 'play'
 | 'plus'
 | 'print'
 | 'progressed'
@@ -104,6 +117,9 @@ export type IconTypes =
 | 'unlocked'
 | 'upload'
 | 'uploaded'
+| 'video'
 | 'view'
 | 'warning'
 | 'white-tick';
+
+export type AlignBinaryType = 'left' | 'right';

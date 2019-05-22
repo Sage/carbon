@@ -16,12 +16,12 @@ Feature: Dropdown component
     Then Dropdown is enabled
 
   Scenario: Dropdown is readOnly
-    When I check readOnly
+    When I check readOnly checkbox
     Then Dropdown is readOnly
 
   Scenario: Dropdown is not readOnly
-    When I check readOnly
-      And I uncheck readOnly
+    When I check readOnly checkbox
+      And I uncheck readOnly checkbox
     Then Dropdown is not readOnly
 
   Scenario Outline: Set Dropdown label
@@ -37,9 +37,9 @@ Feature: Dropdown component
       | <>                       |
 
   Scenario Outline: Set Dropdown label help
-    When I set label help to "<label>"
-      And I hover mouse on help icon
-    Then Label help on preview is set to "<label>"
+    When I set labelHelp to "<label>"
+      And I hover mouse onto help icon
+    Then tooltipPreview on preview is set to "<label>"
     Examples:
       | label                    |
       | Sample text              |
@@ -51,8 +51,8 @@ Feature: Dropdown component
 
   @positive
   Scenario Outline: Change Dropdown input width
-    When I set input width to "<width>"
-    Then Input width is set to "<width>"
+    When I set inputWidth to "<width>"
+    Then inputWidth is set to "<width>"
     Examples:
       | width |
       | 1     |
@@ -61,8 +61,8 @@ Feature: Dropdown component
 
   @negative
   Scenario Outline: Set out of scope characters to Dropdown input width
-    When I set input width to "<width>"
-    Then Input width is not set
+    When I set inputWidth to "<width>"
+    Then inputWidth is not set
     Examples:
       | width                   |
       | !@#$%^*()_+-=~[];:.,?{} |
@@ -71,8 +71,8 @@ Feature: Dropdown component
 
   @positive
   Scenario Outline: Change Dropdown component field help
-    When I set field help to "<fieldHelp>"
-    Then Field help on preview is set to "<fieldHelp>"
+    When I set fieldHelp to "<fieldHelp>"
+    Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                |
       | Sample text              |
@@ -84,9 +84,9 @@ Feature: Dropdown component
 
   @positive
   Scenario Outline: Change Dropdown label align
-    When I check label inline checkbox
-      And I set label align "<direction>"
-    Then direction on preview is "<direction>"
+    When I check labelInline checkbox
+      And I select labelAlign to "<direction>"
+    Then labelAlign on preview is "<direction>"
     Examples:
       | direction |
       | left      |

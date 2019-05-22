@@ -8,6 +8,7 @@ import { shallow } from 'enzyme';
 class BasicClass extends React.Component {
   componentWillUpdate() {}
   componentDidUpdate() {}
+  componentDidMount() {}
   componentWillReceiveProps() {}
   onBlur = () => {}
   onFocus = () => {}
@@ -35,6 +36,7 @@ class BasicClass extends React.Component {
 class StrippedClass extends React.Component {
   componentWillUpdate() {}
   componentDidUpdate() {}
+  componentDidMount() {}
   componentWillReceiveProps() {}
   onBlur = () => {}
   onFocus = () => {}
@@ -87,6 +89,21 @@ describe('tooltip-decorator', () => {
         topTooltip.componentWillReceiveProps();
         expect(topTooltip.setState).not.toHaveBeenCalled();
       });
+    });
+  });
+
+  describe('componentDidMount', () => {
+    it('positions the tooltip if visible', () => {
+      const visibleTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipVisible />);
+      spyOn(visibleTooltip, 'positionTooltip');
+      visibleTooltip.componentDidMount();
+      expect(visibleTooltip.positionTooltip).toHaveBeenCalled();
+    });
+    
+    it('does not position the tooltip if not visible', () => {
+      spyOn(topTooltip, 'positionTooltip');
+      topTooltip.componentDidMount();
+      expect(topTooltip.positionTooltip).not.toHaveBeenCalled();
     });
   });
 
@@ -197,7 +214,6 @@ describe('tooltip-decorator', () => {
       }
     });
 
-
     describe('when positioned above the target', () => {
       beforeEach(()  => {
         topTooltip = shallow(<DecoratedClassOne tooltipMessage='Hello' />).instance();
@@ -227,6 +243,20 @@ describe('tooltip-decorator', () => {
         topTooltip.positionTooltip(tooltip, target);
         expect(tooltip.style.left).toEqual('65px');
         expect(tooltip.style.top).toEqual('42.5px');
+      });
+
+      describe('when the tooltip is offscreen', () => {
+        it('realigns to the right', () => {
+          topTooltip.onShow();
+          jest.runTimersToTime(100);
+          const tooltip = topTooltip.getTooltip();
+          const target = topTooltip.getTarget();
+          const innerWidth = window.innerWidth;
+          window.innerWidth = 0;
+          topTooltip.positionTooltip(tooltip, target);
+          expect(topTooltip.state.tooltipAlign).toEqual('right');
+          window.innerWidth = innerWidth;
+        });
       });
 
       describe('when the pointer is aligned to the right', () => {
@@ -623,7 +653,7 @@ describe('tooltip-decorator', () => {
   describe('tooltipHTML', () => {
     describe('when a tooltipMessage is defined', () => {
       it('returns a Tooltip', () => {
-        expect(topTooltip.tooltipHTML).toBeDefined();
+        expect(topTooltip.getTooltip()).toBeDefined();
       });
     });
   });

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { InputProps } from '../input-definition';
-import { AlignBinaryType } from '../../utils/helpers/options-helper/option-helper';
+import { AlignBinaryType } from '../../utils/helpers/options-helper/options-helper';
 
 export interface DecimalProps extends InputProps {
     value?: number;

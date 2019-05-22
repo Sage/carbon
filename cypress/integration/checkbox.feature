@@ -6,24 +6,24 @@ Feature: Checkbox component
 
   @positive
   Scenario: Enable reverse checkbox
-    When I enable reverse checkbox
+    When I check reverse checkbox
     Then checkbox helpText property is set to "reverse"
 
   @positive
   Scenario: Enable and disable reverse checkbox
-    When I enable reverse checkbox
-      And I disable reverse checkbox
+    When I check reverse checkbox
+      And I uncheck reverse checkbox
     Then checkbox helpText property is not set to "reverse"
 
   @positive
   Scenario: Enable fieldHelpInline
-    When I enable fieldHelpInline
+    When I check fieldHelpInline checkbox
     Then checkbox helpText property is set to "fieldHelpInline"
 
   @positive
   Scenario: Enable and disable fieldHelpInline
-    When I enable fieldHelpInline
-      And I disable fieldHelpInline
+    When I check fieldHelpInline checkbox
+      And I uncheck fieldHelpInline checkbox
     Then checkbox helpText property is not set to "fieldHelpInline"
 
   @positive
@@ -41,9 +41,9 @@ Feature: Checkbox component
 
   @positive
   Scenario Outline: Change Checkbox component label help
-    When I set label help to "<labelHelp>"
-      And I hover mouse on help icon
-    Then Label help on preview is set to "<labelHelp>"
+    When I set labelHelp to "<labelHelp>"
+      And I hover mouse onto help icon
+    Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp                |
       | Sample text              |
@@ -55,8 +55,8 @@ Feature: Checkbox component
 
   @positive
   Scenario Outline: Change Checkbox input width
-    When I set input width slider to <width>
-    Then checkbox input width is set to <width>
+    When I set inputWidth slider to <width>
+    Then checkbox inputWidth is set to <width>
     Examples:
       | width |
       | 1     |
@@ -65,8 +65,8 @@ Feature: Checkbox component
 
   @negative
   Scenario Outline: Set Checkbox input width out of scope
-    When I set input width slider to <width>
-    Then Checkbox input width is not set
+    When I set inputWidth slider to <width>
+    Then Checkbox inputWidth is not set
     Examples:
       | width |
       | -1    |
@@ -76,8 +76,8 @@ Feature: Checkbox component
 
   @positive
   Scenario Outline: Change Checkbox component field help
-    When I set field help to "<fieldHelp>"
-    Then Field help on preview is set to "<fieldHelp>"
+    When I set fieldHelp to "<fieldHelp>"
+    Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
       | fieldHelp                |
       | Sample text              |
@@ -89,18 +89,18 @@ Feature: Checkbox component
 
   @positive
   Scenario: Enable label inline checkbox
-    When I check label inline checkbox
+    When I check labelInline checkbox
     Then Checkbox label property is set to "inline"
 
   @positive
   Scenario: Enable and disable label inline checkbox
-    When I check label inline checkbox
-      And I uncheck label inline checkbox
+    When I check labelInline checkbox
+      And I uncheck labelInline checkbox
     Then Checkbox label property is not set to "inline"
 
   @positive
   Scenario Outline: Change Checkbox label width
-    When I check label inline checkbox
+    When I check labelInline checkbox
       And I set label width slider to <width>
     Then Checkbox label width is set to <width>
     Examples:
@@ -111,7 +111,7 @@ Feature: Checkbox component
 
   @negative
   Scenario Outline: Set Checkbox input width out of scope
-    When I check label inline checkbox
+    When I check labelInline checkbox
       And I set label width slider to <width>
     Then Checkbox label width is not set
     Examples:
@@ -123,9 +123,9 @@ Feature: Checkbox component
 
   @positive
   Scenario Outline: Change Checkbox label align
-    When I check label inline checkbox
-      And I set label align "<direction>"
-    Then direction on preview is "<direction>"
+    When I check labelInline checkbox
+      And I select labelAlign to "<direction>"
+    Then labelAlign on preview is "<direction>"
     Examples:
       | direction |
       | left      |

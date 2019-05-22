@@ -5,7 +5,9 @@ import { shallow, mount } from 'enzyme';
 import InputValidation from './input-validation';
 import InputLabel from './../input-label';
 import Dialog from './../../../components/dialog';
+import Form from './../../../components/form';
 import Browser from './../../helpers/browser';
+import { ValidationsContext } from '../../../components/validations';
 
 /* global jest */
 
@@ -80,14 +82,7 @@ const infoTwo = {
 };
 
 const form = {
-  attachToForm: function() {},
-  decrementErrorCount: function() {},
-  decrementWarningCount: function() {},
-  detachFromForm: function() {},
   getActiveInput: function() {},
-  incrementErrorCount: function() {},
-  incrementWarningCount: function() {},
-  inputs: { "123": {} },
   model: 'model_2',
   setActiveInput: function() {}
 };
@@ -102,10 +97,6 @@ class DummyInput extends DummyInputWithoutLifecycleMethods {
   _guid = "123"
 
   componentDidUpdate() {
-  }
-
-  componentWillMount() {
-    this.count++;
   }
 
   componentWillUnmount() {
@@ -395,7 +386,7 @@ describe('InputValidation', () => {
             };
             spyOn(instance, 'setState');
             instance.positionMessage();
-            const messageClasses = instance.validationHTML[1].props.children.props.children.props.className;
+            const messageClasses = instance.validationHTML[2].props.children.props.children.props.className;
             expect(messageClasses).not.toMatch('common-input__message--flipped');
             expect(instance.validationMessage.style.left).toEqual('710px');
             expect(instance.validationMessage.style.top).toEqual('50px');
@@ -467,39 +458,25 @@ describe('InputValidation', () => {
   });
 
   describe('componentWillMount', () => {
-    describe('when the component does not have a componentWillMount method', () => {
-      it('still works', () => {
-        const simpleInstance = TestUtils.renderIntoDocument(React.createElement(SimpleComponent));
-        expect(simpleInstance.componentWillMount()).toBe(undefined);
-      });
-    });
-
-    describe('when the component has a componentWillMount method', () => {
-      it('uses the components method', () => {
-        instance.count = 1;
-        instance.componentWillMount();
-        expect(instance.count).toEqual(2);
-      });
-    });
-
     describe('When validations are present on the input', () => {
       it('attaches the input to the form', () => {
-        instance = TestUtils.renderIntoDocument(React.createElement(Component, {
-          validations: [validationOne]
-        }));
-        instance.context.form = form;
-        spyOn(instance.context.form, 'attachToForm');
-        instance.componentWillMount();
-        expect(instance.context.form.attachToForm).toHaveBeenCalledWith(instance);
+        instance = TestUtils.renderIntoDocument(
+          <Form>
+            <Component validations={ [validationOne] } />
+          </Form>
+        );
+        expect(instance.inputs[123]).toBeDefined();
       });
     });
 
     describe('When no validations are present on the input', () => {
       it('does not attach the input to the form', () => {
-        instance.context.form = form;
-        spyOn(instance.context.form, 'attachToForm');
-        instance.componentWillMount();
-        expect(instance.context.form.attachToForm).not.toHaveBeenCalled();
+        instance = TestUtils.renderIntoDocument(
+          <Form>
+            <Component />
+          </Form>
+        );
+        expect(instance.inputs[123]).not.toBeDefined();
       });
     });
   });
@@ -555,24 +532,21 @@ describe('InputValidation', () => {
       });
 
       describe('when the input is in a form', () => {
-        beforeEach(() => {
-          instance.context.form = form;
-        });
-
         it('detaches the input from the form', () => {
-          spyOn(instance.context.form, 'detachFromForm');
+          const removeInput = jest.fn();
+          instance.newContextIntegration = { removeInput };
           instance.componentWillUnmount();
-          expect(instance.context.form.detachFromForm).toHaveBeenCalledWith(instance);
+          expect(removeInput).toHaveBeenCalledWith(instance._guid);
         });
       });
     });
 
     describe('When no validations are present on the input', () => {
       it('does not detach the input from the form', () => {
-        instance.context.form = form;
-        spyOn(instance.context.form, 'detachFromForm');
+        const removeInput = jest.fn();
+        instance.newContextIntegration = { removeInput };
         instance.componentWillUnmount();
-        expect(instance.context.form.detachFromForm).not.toHaveBeenCalled();
+        expect(removeInput).not.toHaveBeenCalled();
       });
     });
   });
@@ -623,9 +597,10 @@ describe('InputValidation', () => {
         describe('when the inputs state is currently valid', () => {
           describe('when the input has a form', () => {
             it('calls incrementErrorCount', () => {
-              spyOn(instance.context.form, 'incrementErrorCount');
+              const adjustCount = jest.fn();
+              instance.newContextIntegration = { adjustCount };
               instance.validate();
-              expect(instance.context.form.incrementErrorCount).toHaveBeenCalled();
+              expect(adjustCount).toHaveBeenCalledWith('error', true);
             });
           });
 
@@ -867,9 +842,10 @@ describe('InputValidation', () => {
         describe('when the inputs state is currently no warning', () => {
           describe('when the input has a form', () => {
             it('calls incrementWarningCount', () => {
-              spyOn(instance.context.form, 'incrementWarningCount');
+              const adjustCount = jest.fn();
+              instance.newContextIntegration = { adjustCount };
               instance.warning();
-              expect(instance.context.form.incrementWarningCount).toHaveBeenCalled();
+              expect(adjustCount).toHaveBeenCalledWith('warning', true);
             });
           });
 
@@ -1091,21 +1067,21 @@ describe('InputValidation', () => {
 
     describe('when the input has a form', () => {
       it('should call decrementErrorCount', () => {
+        const adjustCount = jest.fn();
+        instance.newContextIntegration = { adjustCount };
         instance.setState({ valid: false });
-        instance.context.form = form;
-        spyOn(instance.context.form, 'decrementErrorCount');
         instance._handleContentChange();
 
-        expect(instance.context.form.decrementErrorCount).toHaveBeenCalled();
+        expect(adjustCount).toHaveBeenCalledWith('error', false);
       });
 
       it('should call decrementWarningCount', () => {
+        const adjustCount = jest.fn();
+        instance.newContextIntegration = { adjustCount };
         instance.setState({ warning: true });
-        instance.context.form = form;
-        spyOn(instance.context.form, 'decrementWarningCount');
         instance._handleContentChange();
 
-        expect(instance.context.form.decrementWarningCount).toHaveBeenCalled();
+        expect(adjustCount).toHaveBeenCalledWith('warning', false);
       });
     });
 
@@ -1151,7 +1127,7 @@ describe('InputValidation', () => {
     describe('the field is valid', () => {
       it('returns null', () => {
         instance.setState({ valid: true, warning: false, info: false});
-        expect(instance.validationHTML).toBe(null);
+        expect(instance.validationHTML.type).toEqual(ValidationsContext.Consumer);
       });
     });
 
@@ -1167,12 +1143,12 @@ describe('InputValidation', () => {
       });
 
       it('returns an error icon', () => {
-        expect(instance.validationHTML[0].props.type).toEqual('error');
-        expect(instance.validationHTML[0].props.className).toEqual('common-input__icon common-input__icon--error');
+        expect(instance.validationHTML[1].props.type).toEqual('error');
+        expect(instance.validationHTML[1].props.className).toEqual('common-input__icon common-input__icon--error');
       });
 
       it('returns a div for the error message', () => {
-        const portalChildren = instance.validationHTML[1].props.children.props;
+        const portalChildren = instance.validationHTML[2].props.children.props;
         expect(portalChildren.className).toEqual('common-input__message-wrapper');
 
         expect(portalChildren.children.props.className).toEqual('common-input__message common-input__message--error common-input__message--shown');
@@ -1224,12 +1200,12 @@ describe('InputValidation', () => {
       });
 
       it('returns an warning icon', () => {
-        expect(instance.validationHTML[0].props.type).toEqual('warning');
-        expect(instance.validationHTML[0].props.className).toEqual('common-input__icon common-input__icon--warning');
+        expect(instance.validationHTML[1].props.type).toEqual('warning');
+        expect(instance.validationHTML[1].props.className).toEqual('common-input__icon common-input__icon--warning');
       });
 
       it('returns a div for the warning message', () => {
-        const portalElement = instance.validationHTML[1].props.children.props;
+        const portalElement = instance.validationHTML[2].props.children.props;
         expect(portalElement.className).toEqual('common-input__message-wrapper');
 
         expect(portalElement.children.props.className).toEqual('common-input__message common-input__message--warning common-input__message--shown');
@@ -1251,15 +1227,15 @@ describe('InputValidation', () => {
       });
 
       it('returns an info icon', () => {
-        expect(instance.validationHTML[0].props.type).toEqual('info');
-        expect(instance.validationHTML[0].props.className).toEqual('common-input__icon common-input__icon--info');
+        expect(instance.validationHTML[1].props.type).toEqual('info');
+        expect(instance.validationHTML[1].props.className).toEqual('common-input__icon common-input__icon--info');
       });
 
       it('returns a div for the info message', () => {
-        const portalElement = instance.validationHTML[1].props.children.props;
+        const portalElement = instance.validationHTML[2].props.children.props;
         expect(portalElement.className).toEqual('common-input__message-wrapper');
         expect(portalElement.children.props.children).toEqual('foo');
-        expect(instance.validationHTML[0].props.className).toEqual('common-input__icon common-input__icon--info');
+        expect(instance.validationHTML[1].props.className).toEqual('common-input__icon common-input__icon--info');
       });
 
       describe('when the message is locked', () => {
@@ -1354,25 +1330,14 @@ describe('InputValidation', () => {
   describe('isAttachedToForm', () => {
     describe('if no form', () => {
       it('returns false', () => {
-        instance.context.form = null;
-        expect(instance.isAttachedToForm).toBeFalsy();
-      });
-    });
-
-    describe('if input is not attached to form', () => {
-      it('returns false', () => {
-        instance.context.form = {
-          inputs: {}
-        };
+        instance.newContextIntegration = undefined;
         expect(instance.isAttachedToForm).toBeFalsy();
       });
     });
 
     describe('if input is attached to form', () => {
       it('returns true', () => {
-        instance.context.form = {
-          inputs: { "123": {} }
-        };
+        instance.newContextIntegration = {};
         expect(instance.isAttachedToForm).toBeTruthy();
       });
     });

@@ -48,27 +48,27 @@ Feature: Alert component
 
   @positive
   Scenario: Enable background UI
-    When I check enableBackgroundUI
+    When I check enableBackgroundUI checkbox
       And I open component preview
     Then Background UI is enabled
 
   @negative
   Scenario: Disable background UI
-    When I check enableBackgroundUI
-      And I uncheck enableBackgroundUI
+    When I check enableBackgroundUI checkbox
+      And I uncheck enableBackgroundUI checkbox
       And I open component preview
     Then Background UI is disabled
 
   @positive
   Scenario: Disable escape key
-    When I check disableEscKey
+    When I check disableEscKey checkbox
       And I open component preview
       And I hit ESC key
     Then Alert is visible
 
   @negative
   Scenario: Enable escape key
-    When I uncheck disableEscKey
+    When I uncheck disableEscKey checkbox
       And I open component preview
       And I hit ESC key
     Then Alert is not visible
@@ -98,7 +98,7 @@ Feature: Alert component
 
   @positive
   Scenario: ShowCloseIcon can close Alert
-    When I enable showCloseIcon
+    When I check showCloseIcon checkbox
       And I open component preview
     Then closeIcon is visible
       And I click closeIcon
@@ -106,13 +106,13 @@ Feature: Alert component
 
   @negative
   Scenario: ShowCloseIcon is disabled
-    When I disable showCloseIcon
+    When I uncheck showCloseIcon checkbox
       And I open component preview
     Then closeIcon is not visible
 
   @positive
   Scenario Outline: Set Alert size to small, medium and large
-    When I set component size to "<sizeName>"
+    When I select size to "<sizeName>"
       And I open component preview
     Then Alert size property on preview is "<sizePropertyInPx>"
     Examples:

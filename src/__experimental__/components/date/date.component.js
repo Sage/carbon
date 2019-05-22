@@ -107,8 +107,14 @@ class Date extends React.Component {
   closeDatePicker = () => {
     document.removeEventListener('click', this.closeDatePicker);
     this.setState((prevState) => {
+      let newVisibleValue = prevState.visibleValue;
+
+      if (prevState.selectedDate) {
+        newVisibleValue = formatVisibleValue(prevState.selectedDate);
+      }
+
       return {
-        visibleValue: formatVisibleValue(prevState.selectedDate),
+        visibleValue: newVisibleValue,
         isDatePickerOpen: false
       };
     });
@@ -125,7 +131,10 @@ class Date extends React.Component {
 
   updateVisibleValue = (date) => {
     const visibleValue = formatVisibleValue(date);
-    this.setState({ visibleValue });
+    this.setState({
+      selectedDate: date,
+      visibleValue
+    });
   };
 
   handleVisibleInputChange = (ev) => {
@@ -222,4 +231,5 @@ function convertToIsoDate(dateString) {
   return isoDate;
 }
 
+export { defaultDateFormat };
 export default Date;
