@@ -18,7 +18,7 @@ Feature: Checkbox component
   @positive
   Scenario: Enable fieldHelpInline
     When I check fieldHelpInline checkbox
-    Then checkbox helpText property is set to "fieldHelpInline"
+    Then checkbox helpText property is set to "inline"
 
   @positive
   Scenario: Enable and disable fieldHelpInline

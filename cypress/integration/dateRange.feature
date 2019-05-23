@@ -1,6 +1,7 @@
 Feature: Date Range component
   I want to change Confirm component properties
 
+# Added Experimental untill the component will be merged with master
   Background: Open Date Range component page
     Given I open "Experimental Date Range" component page
 
