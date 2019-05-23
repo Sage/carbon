@@ -17,6 +17,10 @@ Then('Button height is {string}', (height) => {
   commonButtonPreview().should('have.css', 'height', height);
 });
 
+Then('Button width is {string}', (width) => {
+  commonButtonPreview().should('have.css', 'width', width);
+});
+
 Then('Button subtext on preview is {string}', (subtext) => {
   buttonSubtextPreview().should('have.text', subtext);
 });

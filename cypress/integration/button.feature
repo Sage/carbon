@@ -59,11 +59,12 @@ Feature: Button component
   Scenario Outline: Set Button size to <size>
     When I select size to "<size>"
     Then Button height is "<height>"
+      And Button width is "<width>"
     Examples:
-      | size   | height |
-      | small  | 26px   |
-      | medium | 31px   |
-      | large  | 43px   |
+      | size   | height | width |
+      | small  | 26px   | 108px |
+      | medium | 31px   | 138px |
+      | large  | 43px   | 142px |
 
   @positive
   Scenario Outline: Set Button theme to <theme> and as to primary
