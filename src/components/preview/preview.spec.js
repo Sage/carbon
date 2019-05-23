@@ -1,12 +1,14 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import Preview from './preview';
+import TestRenderer from 'react-test-renderer';
+import 'jest-styled-components';
+import Preview from './preview.component';
 
 const renderShallow = (children, props) => {
-  return shallow(
+  return TestRenderer.create(
     <Preview { ...props }>
       {children}
-    </Preview>);
+    </Preview>
+  );
 };
 
 describe('Preview', () => {
