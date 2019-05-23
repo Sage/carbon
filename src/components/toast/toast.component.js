@@ -78,9 +78,10 @@ class Toast extends React.Component {
 }
 
 Toast.propTypes = {
+  /** Customizes the appearance in the DLS theme */
   variant: PropTypes.oneOf(OptionsHelper.colors),
   /** Customizes the appearance in a legacy theme through colour see the 'iconColorSets' for possible values) */
-  as: PropTypes.string,
+  as: PropTypes.oneOf(OptionsHelper.colors),
   /** Custom className */
   className: PropTypes.string,
   /** The rendered children of the component. */
