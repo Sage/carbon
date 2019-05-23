@@ -11,7 +11,6 @@ const ToastStyle = styled(MessageStyle)`
   right: 30px;
   top: 0;
   box-shadow: 0 15px 20px 0 rgba(2,18,36, 0.2);
-
   ${classicToastStyle}   
 
 `;
@@ -21,6 +20,7 @@ const ToastTypeStyle = styled(TypeIcon)`
 `;
 
 const ToastContentStyle = styled(MessageContentStyle)`
+padding: 10px 20px 11px 20px;
     ${classicToastContentStyle};
 `;
 
