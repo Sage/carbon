@@ -43,7 +43,7 @@ class Toast extends React.Component {
           { ...tagComponent('toast', this.props) }
         >
           <ToastTypeStyle variant={ this.props.variant || this.props.as }>
-            <Icon className='carbon-toast__type-icon' type={ this.props.variant || this.props.as } />
+            <Icon type={ this.props.variant || this.props.as } />
           </ToastTypeStyle>
           <ToastContentStyle
             variant={ this.props.variant || this.props.as }

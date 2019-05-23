@@ -49,11 +49,6 @@ describe('Toast', () => {
       expect(wrapper.find('.exampleClass')).toHaveLength(1);
     });
 
-    it('renders type icon', () => {
-      const icon = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-toast__type-icon');
-      expect(icon.className).toEqual('carbon-icon carbon-toast__type-icon icon-info');
-    });
-
     it('renders child content', () => {
       const wrapper = shallow(<Toast>children</Toast>);
       expect(wrapper.contains('children')).toBeTruthy();

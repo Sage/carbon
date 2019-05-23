@@ -22,15 +22,7 @@ const classicToastTypeStyle = ({ theme, variant }) => theme.name === THEMES.clas
   left: -1px;
   width: 31px;
   background-color: ${colors[variant].color};
-
-  .carbon-toast__type-icon {
-    &:before {
-      color: #FFF;
-      display: block;
-      font-size: 16px;
-    }
-  }
-
+  
   .carbon-icon__svg {
     height: 24px;
     margin-top: -12px;
