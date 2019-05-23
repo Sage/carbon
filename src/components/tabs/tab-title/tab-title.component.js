@@ -7,36 +7,18 @@ import tagComponent from '../../../utils/helpers/tags';
 class TabTitle extends React.Component {
   render() {
     const {
-      isTabSelected,
-      className,
-      dataTabId,
-      id,
-      onClick,
-      onKeyDown,
-      tabIndex,
-      position,
-      title,
-      tabHasError,
-      tabHasWarning,
-      ...props
+      isTabSelected, dataTabId, title, ...tabTitleProps
     } = this.props;
 
     return (
       <StyledTabTitle
         aria-selected={ isTabSelected }
-        className={ className }
         data-element='select-tab'
         data-tabid={ dataTabId }
-        id={ id }
-        onClick={ onClick }
-        onKeyDown={ onKeyDown }
         role='tab'
-        tabIndex={ tabIndex }
-        position={ position }
         isTabSelected={ isTabSelected }
-        tabHasError={ tabHasError }
-        tabHasWarning={ tabHasWarning }
-        { ...tagComponent('tab-header', props) }
+        { ...tabTitleProps }
+        { ...tagComponent('tab-header', this.props) }
       >
         {title}
       </StyledTabTitle>
