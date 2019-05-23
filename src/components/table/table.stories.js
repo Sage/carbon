@@ -46,6 +46,7 @@ const buildRows = (pageSize, totalRecords) => {
       <TableRow
         key='header'
         as='header'
+        uniqueID='header'
       >
         <TableHeader
           sortable name='name'
