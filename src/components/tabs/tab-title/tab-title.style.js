@@ -17,7 +17,8 @@ const StyledTabTitle = styled.li`
     margin-left: 0;
   }
 
-  &:focus,
+  // TODO: zamienic klase
+  &:focus:not(.carbon-tabs__headers__header--selected),
   &:hover {
     background: transparent;
     border-bottom-color: ${({ theme }) => theme.colors.secondary};

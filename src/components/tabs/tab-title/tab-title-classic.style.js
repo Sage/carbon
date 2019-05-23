@@ -9,10 +9,11 @@ export default ({
   position
 }) => theme.name === THEMES.classic && css`
   background-color: #f5f6f7;
-  border-bottom: 2px solid #ccd6db;
+  border-bottom: 2px solid #ccd6da;
   color: #003349;
 
-  &:focus,
+  // TODO: wywalic te klase
+  &:focus:not(.carbon-tabs__headers__header--selected),
   &:hover {
     background: #004b87;
     border-bottom-color: #004b87;
@@ -20,22 +21,22 @@ export default ({
     outline: none;
   }
 
-  &:focus {
-    outline: none;
-    box-shadow: 0 0 6px rgba(37, 91, 199, 0.6);
-  }
-
   ${tabHasWarning && css`
-    border-bottom: 2px solid #d63f40;
+    border-bottom: 2px solid #FF7D00;
   `}
 
   ${tabHasError && css`
-    border-bottom: 2px solid #ff7d00;
+    border-bottom: 2px solid #D63F40;
   `}
 
   ${isTabSelected && css`
     background-color: #fff;
     border-bottom-color: #1963f6;
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 6px rgba(37, 91, 199, 0.6);
+    }
 
     &:hover {
       background: #fff;
@@ -45,12 +46,13 @@ export default ({
   `}
 
   ${position === 'left' && css`
+  // TODO: nie ma tego background color
     background-color: #f5f6f7;
     border-bottom: 0px;
-    border-right: 2px solid #ccd6db;
+    border-right: 2px solid #ccd6da;
 
     &:hover {
-      border-right-color: #004b87;
+      border-right-color: #1963f6;
       background: #004b87;
     }
 
@@ -59,7 +61,6 @@ export default ({
       background-color: #fff;
 
       &:hover {
-        border-right-color: #1963f6;
         background-color: #fff;
       }
     `}
