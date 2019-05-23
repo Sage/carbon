@@ -36,9 +36,14 @@ const getSplitButtonChildrenClassicStyles = ({ theme }) => (theme.name === THEME
   }
 ` : '');
 
-const getSplitButtonToggleClassicStyles = ({ theme, disabled, displayed }) => (theme.name === THEMES.classic ? css`
+const getSplitButtonToggleClassicStyles = ({
+  theme,
+  disabled,
+  displayed,
+  buttonType
+}) => (theme.name === THEMES.classic ? css`
   z-index: 20;
-  
+
   ${!disabled && displayed ? css`
     &:active {
       background-color: #1963f6;
@@ -53,6 +58,10 @@ const getSplitButtonToggleClassicStyles = ({ theme, disabled, displayed }) => (t
         color: #FFF;
       }
     }
+  ` : ''}
+
+  ${buttonType === 'primary' ? css`
+    border-left: 1px solid #1e499f;
   ` : ''}
 
   &&,

@@ -40,7 +40,6 @@ const StyledSplitButtonToggle = styled(StyledButton)`
   
   ${StyledButton} + & {
     margin-left: 0;
-    border-left: none;
 
     &:focus {
       margin-left: -2px;
