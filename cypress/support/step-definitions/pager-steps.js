@@ -28,7 +28,8 @@ Then('{word} pagination arrow is disabled', (direction) => {
 
 Then('I paginate {word} {int} times', (direction, count) => {
   for (let i = 0; i < count; i++) {
-    pagerNavigation(direction).click({ force: true }); //click force true because element is overlapping
+    // click force true because element is overlapping
+    pagerNavigation(direction).click({ force: true });
   }
 });
 

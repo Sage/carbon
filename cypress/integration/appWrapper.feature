@@ -13,4 +13,5 @@ Feature: App Wrapper component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |

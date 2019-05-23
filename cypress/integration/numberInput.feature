@@ -34,7 +34,7 @@ Feature: Number Input component
     Then component disappears after "<timeToDisappear>"
 
   @positive
-  Scenario Outline: Change field help text
+  Scenario Outline: Change field help text to <fieldHelp>
     When I set fieldHelp to "<fieldHelp>"
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
@@ -44,7 +44,8 @@ Feature: Number Input component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      | <>                      |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @ignore
   # not working on storybook neither carbon demo site
@@ -60,7 +61,7 @@ Feature: Number Input component
     Then fieldHelpInline is disabled
 
   @positive
-  Scenario Outline: Set label
+  Scenario Outline: Set label to <label>
     When I set label to "<label>"
     Then label on preview is "<label>"
     Examples:
@@ -70,7 +71,8 @@ Feature: Number Input component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      | <>                      |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
   Scenario: Enable label inline
@@ -105,7 +107,7 @@ Feature: Number Input component
       | right      |
       | left       |
 
-  Scenario Outline: Change label help text
+  Scenario Outline: Change label help text to <labelHelp>
     When I set labelHelp to "<labelHelp>"
       And I hover mouse onto help icon
     Then tooltipPreview on preview is set to "<labelHelp>"
@@ -116,4 +118,5 @@ Feature: Number Input component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      | <>                      |
+      # @ignore because of FE-1447
+      # | <>                       |

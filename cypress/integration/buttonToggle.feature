@@ -5,36 +5,59 @@ Feature: Button Toggle component
     Given I open "Button Toggle" component page
 
   @positive
-  Scenario Outline: Change Button Toggle childen
+  Scenario Outline: Set Button Toggle childen to <label>
     When I set children to "<label>"
     Then Button Toggle label on preview is "<label>"
     Examples:
-      | label                    |
-      | Sample text              |
-      | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | label                   |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+  # @ignore because of FE-1447
+  # | <> |
 
   @positive
-  Scenario Outline: Change button icon size property
-    When I set button icon to "arrow_left"
-      And I set button icon size to "<size>"
-    Then Button icon size on preview is "<size>"
+  Scenario Outline: Set button icon size to <size>
+    When I select buttonIcon to "arrow_left"
+      And I select buttonIconSize to "<size>"
+    Then Button icon height is "<height>" and width is "<width>"
     Examples:
-      | size  |
-      | small |
-      | large |
+      | size  | height | width |
+      | small | 18px   | 16px  |
+      | large | 60px   | 60px  |
 
   @positive
-  Scenario Outline: Set Button Toggle size to small, large
+  Scenario Outline: Set Button Toggle size to <size>
     When I select size to "<size>"
-    Then Button Toggle size on preview is "<size>"
+    Then Button Toggle height is "<height>" and width is "<width>"
     Examples:
-      | size  |
-      | small |
-      | large |
+      | size  | height | width |
+      | small | 26px   | 56px  |
+      | large | 49px   | 97px  |
+
+  @positive
+  Scenario Outline: Set Button Toggle size to <size> with small icon
+    When I select buttonIcon to "arrow_left"
+      And I select buttonIconSize to "small"
+      And I select size to "<size>"
+    Then Button Toggle height is "<height>" and width is "<width>"
+    Examples:
+      | size  | height | width |
+      | small | 29px   | 75px  |
+      | large | 49px   | 97px  |
+
+  @positive
+  Scenario Outline: Set Button Toggle size to <size> with large icon
+    When I select buttonIcon to "arrow_left"
+      And I select buttonIconSize to "large"
+      And I select size to "<size>"
+    Then Button Toggle height is "<height>" and width is "<width>"
+    Examples:
+      | size  | height | width |
+      | small | 86px   | 81px  |
+      | large | 49px   | 97px  |
 
   @positive
   Scenario: Disable Button
