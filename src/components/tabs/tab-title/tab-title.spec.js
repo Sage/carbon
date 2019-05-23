@@ -36,23 +36,15 @@ describe('TabTitle', () => {
   });
 
   it('renders a title as its child with a text passed as a prop', () => {
+    const firstTabTitle = 'Tab Title 1';
     wrapper = render();
     expect(wrapper.children()).toHaveLength(1);
-    expect(wrapper.children().text()).toEqual('Tab Title 1');
+    expect(wrapper.children().text()).toEqual(firstTabTitle);
   });
 
   it('contains custom className if passed as a prop', () => {
     wrapper = render({ className: 'class' });
     expect(wrapper.find('.class').exists()).toEqual(true);
-  });
-
-  describe('when clicked', () => {
-    it('triggers onClick function', () => {
-      const onClickFunction = jest.fn();
-      wrapper = render({ onClick: onClickFunction });
-      wrapper.simulate('click');
-      expect(onClickFunction).toHaveBeenCalled();
-    });
   });
 
   describe('attributes', () => {

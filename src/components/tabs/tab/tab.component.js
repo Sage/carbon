@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledTab from './tab.style';
-import tagComponent from '../../../utils/helpers/tags/tags';
+import tagComponent from '../../../utils/helpers/tags';
 
 class Tab extends React.Component {
   static contextTypes = {

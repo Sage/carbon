@@ -4,15 +4,13 @@ import propTypes from 'prop-types';
 const StyledTab = styled.div`
   display: none;
 
-  ${({ isTabSelected }) => isTabSelected
-    && css`
-      display: block;
-    `}
-  ${({ isTabSelected, position }) => isTabSelected
-    && position === 'left'
-    && css`
+  ${({ isTabSelected, position }) => isTabSelected && css`
+    display: block;
+
+    ${position === 'left' && css`
       width: 80%;
     `}
+  `}
 `;
 
 StyledTab.defaultProps = {

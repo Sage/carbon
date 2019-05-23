@@ -4,43 +4,40 @@ import BaseTheme from '../../../style/themes/base';
 import TabTitleClassicStyle from './tab-title-classic.style';
 
 const StyledTabTitle = styled.li`
-background-color: transparent;
-border-bottom: 2px solid ${({ theme }) => theme.disabled.background};
-color: ${({ theme }) => theme.disabled.disabled};
-display: inline-block;
-font-weight: bold;
-height: 100%;
-margin-left: 2px;
-padding: 11px 15px 10px;
+  background-color: transparent;
+  border-bottom: 2px solid ${({ theme }) => theme.disabled.background};
+  color: ${({ theme }) => theme.disabled.disabled};
+  display: inline-block;
+  font-weight: bold;
+  height: 100%;
+  margin-left: 2px;
+  padding: 11px 15px 10px;
 
-&:first-child {
-  margin-left: 0;
-}
+  &:first-child {
+    margin-left: 0;
+  }
 
-&:focus,
-&:hover {
-  background: transparent;
-  border-bottom-color: ${({ theme }) => theme.colors.secondary};
-  color: ${({ theme }) => theme.text.color};
-  outline: none;
-}
+  &:focus,
+  &:hover {
+    background: transparent;
+    border-bottom-color: ${({ theme }) => theme.colors.secondary};
+    color: ${({ theme }) => theme.text.color};
+    outline: none;
+  }
 
-&:focus {
-  outline: none;
-}
+  &:focus {
+    outline: none;
+  }
 
-${({ tabHasWarning }) => tabHasWarning
-  && css`
+  ${({ tabHasWarning }) => tabHasWarning && css`
     border-bottom: 2px solid ${({ theme }) => theme.colors.warning};
   `}
 
-${({ tabHasError }) => tabHasError
-  && css`
+  ${({ tabHasError }) => tabHasError && css`
     border-bottom: 2px solid ${({ theme }) => theme.colors.error};
   `}
 
-${({ isTabSelected }) => isTabSelected
-  && css`
+  ${({ isTabSelected }) => isTabSelected && css`
     color: ${({ theme }) => theme.text.color};
     background-color: transparent;
     border-bottom-color: ${({ theme }) => theme.colors.primary};
@@ -52,36 +49,35 @@ ${({ isTabSelected }) => isTabSelected
     }
   `}
 
-  ${({ position }) => position === 'left'
-    && css`
-      background-color: transparent;
-      border-bottom: 0px;
-      border-right: 2px solid ${({ theme }) => theme.disabled.background};
-      display: block;
-      height: auto;
-      margin-left: 0px;
-      margin-top: 2px;
+  ${({ position }) => position === 'left' && css`
+    background-color: transparent;
+    border-bottom: 0px;
+    border-right: 2px solid ${({ theme }) => theme.disabled.background};
+    display: block;
+    height: auto;
+    margin-left: 0px;
+    margin-top: 2px;
 
-      &:first-child {
-        margin-top: 0;
-      }
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:hover {
+      background: transparent;
+      border-right-color: ${({ theme }) => theme.colors.secondary};
+    }
+
+    ${({ isTabSelected }) => isTabSelected && css`
+      border-right-color: ${({ theme }) => theme.colors.primary};
+      background-color: transparent;
 
       &:hover {
-        background: transparent;
-        border-right-color: ${({ theme }) => theme.colors.secondary};
+        border-right-color: ${({ theme }) => theme.colors.primary};
+        background-color: transparent;
       }
-
-      ${({ isTabSelected }) => isTabSelected
-        && css`
-          border-right-color: ${({ theme }) => theme.colors.primary};
-          background-color: transparent;
-
-          &:hover {
-            border-right-color: ${({ theme }) => theme.colors.primary};
-            background-color: transparent;
-          }
-        `}
     `}
+  `}
+
   ${TabTitleClassicStyle}
 `;
 

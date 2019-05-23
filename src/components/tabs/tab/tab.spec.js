@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 import 'jest-styled-components';
 import Tab from './tab.component';
 import StyledTab from './tab.style';
-import Textbox from '../../textbox/textbox';
+import Textbox from '../../textbox';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 
 function render(props) {

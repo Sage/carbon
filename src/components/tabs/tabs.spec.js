@@ -373,7 +373,8 @@ describe('Tabs', () => {
       assertStyleMatch(
         {
           display: 'flex',
-          width: '100%'
+          width: '100%',
+          marginTop: '0'
         },
         wrapper.toJSON()
       );

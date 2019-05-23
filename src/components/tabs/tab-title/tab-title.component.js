@@ -2,7 +2,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledTabTitle from './tab-title.style';
-import tagComponent from '../../../utils/helpers/tags/tags';
+import tagComponent from '../../../utils/helpers/tags';
 
 class TabTitle extends React.Component {
   render() {
