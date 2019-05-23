@@ -17,8 +17,8 @@ Then('label width is set to {string}', (width) => {
   buttonToggleGroupPreview().should('have.attr', 'width', `${width}`);
 });
 
-Then('label width is not set', () => {
-  buttonToggleGroupPreview().should('have.attr', 'width');
+Then('label width is not set {string}', (width) => {
+  buttonToggleGroupPreview($element => expect($element).to.not.have.css('width', `${width}px`));
 });
 
 Then('input width is set to {string}', (width) => {

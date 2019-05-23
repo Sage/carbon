@@ -24,7 +24,7 @@ Feature: Checkbox component
   Scenario: Enable and disable fieldHelpInline
     When I check fieldHelpInline checkbox
       And I uncheck fieldHelpInline checkbox
-    Then checkbox helpText property is not set to "fieldHelpInline"
+    Then checkbox helpText property is not set to "inline"
 
   @positive
   Scenario Outline: Change Checkbox component label to <label>
