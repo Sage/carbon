@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
-import { ThemeProvider } from 'emotion-theming';
+import { ThemeProvider } from 'styled-components';
 import SplitButton from './split-button.component';
 import StyledSplitButtonChildrenContainer from './split-button-children.style';
 import Icon from '../icon';
@@ -18,9 +18,23 @@ import {
 } from '../../__spec_helper__/test-utils';
 import 'jest-styled-components';
 import guid from '../../utils/helpers/guid';
+import StyledSplitButtonToggle from './split-button-toggle.style';
 
 jest.mock('../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
+
+const sizes = ['small', 'medium', 'large'];
+
+const businessThemes = [
+  ['small', SmallTheme],
+  ['medium', MediumTheme],
+  ['large', LargeTheme]
+];
+
+const themes = [
+  ['classic', ClassicTheme],
+  ...businessThemes
+];
 
 const render = (mainProps, childButtons, renderer = shallow) => {
   return renderer(
@@ -39,6 +53,7 @@ const renderWithTheme = (mainProps, childButtons, renderer = shallow) => {
     <ThemeProvider theme={ mainProps.carbonTheme }>
       <SplitButton
         { ...mainProps }
+        text='Split button'
         data-element='bar'
         data-role='baz'
       >
@@ -63,15 +78,6 @@ const buildSizeConfig = (name, size) => {
   }
   return sizeObj;
 };
-
-const sizes = ['small', 'medium', 'large'];
-
-const themes = [
-  ['classic', ClassicTheme],
-  ['small', SmallTheme],
-  ['medium', MediumTheme],
-  ['large', LargeTheme]
-];
 
 describe('SplitButton', () => {
   let wrapper, toggle;
@@ -259,6 +265,54 @@ describe('SplitButton', () => {
     }
   );
 
+  describe('for business themes', () => {  
+    it('renders styles correctly', () => {
+      wrapper = TestRenderer.create(<SplitButton text='Mock text'><Button /></SplitButton>);
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    describe.each(businessThemes)(
+      'when the theme is set to "%s"',
+      (name, theme) => {
+        const mockProps = { carbonTheme: theme, buttonType: 'primary' };
+
+        it('has expected left border color', () => {
+          wrapper = renderWithTheme(mockProps, (<Button />), mount);
+          assertStyleMatch({
+            borderLeftColor: theme.colors.secondary
+          }, wrapper.find(StyledSplitButtonToggle));
+        });
+      }
+    );
+  });
+
+  describe('for the classic theme', () => {
+    it('renders styles correctly', () => {
+      wrapper = renderWithTheme({ carbonTheme: ClassicTheme }, [<Button />], TestRenderer.create);
+      expect(wrapper).toMatchSnapshot();
+    });
+
+    it('renders left border correctly', () => {
+      const mockProps = { carbonTheme: ClassicTheme, buttonType: 'primary' };
+
+      wrapper = renderWithTheme(mockProps, (<Button />), mount);
+
+      assertStyleMatch({
+        borderLeft: '1px solid #1e499f'
+      }, wrapper.find(StyledSplitButtonToggle));
+    });
+
+    it('renders left border correctly for other themes', () => {
+      const mockProps = { carbonTheme: ClassicTheme, buttonType: 'primary' };
+
+      wrapper = renderWithTheme(mockProps, (<Button />), mount);
+
+      assertStyleMatch({
+        borderLeft: '1px solid #1e499f'
+      }, wrapper.find(StyledSplitButtonToggle));
+    });
+  });
+
   describe.each(sizes)(
     'when the "%s" size prop is passed',
     (size) => {
@@ -367,11 +421,6 @@ describe('SplitButton', () => {
         toggle.simulate('mouseenter');
         expect(wrapper.state().showAdditionalButtons).toEqual(true);
       });
-
-      // it('renders additional buttons to match snapshot', () => {
-      //   toggle.simulate('mouseenter');
-      //   expect(wrapper).toMatchSnapshot();
-      // });
 
       it('when disabled it does not change the state', () => {
         wrapper = render(
@@ -525,30 +574,6 @@ describe('SplitButton', () => {
         'main-button',
         'open'
       ]);
-    });
-  });
-});
-
-describe('StyledSplitButton', () => {
-  let wrapper;
-
-  describe('for business themes', () => {
-    it('renders styles correctly', () => {
-      wrapper = TestRenderer.create(<SplitButton text='Mock text'><Button /></SplitButton>);
-      expect(wrapper).toMatchSnapshot();
-    });
-  });
-
-  describe('for the classic theme', () => {
-    it('renders styles correctly', () => {
-      wrapper = TestRenderer.create(
-        <ThemeProvider theme={ ClassicTheme }>
-          <SplitButton text='Mock text'>
-            <Button />
-          </SplitButton>
-        </ThemeProvider>
-      );
-      expect(wrapper).toMatchSnapshot();
     });
   });
 });
