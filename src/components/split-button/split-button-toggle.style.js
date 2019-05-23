@@ -8,7 +8,7 @@ const horizontalPaddingSizes = {
   large: '14px'
 };
 
-export const StyledSplitButtonToggle = styled(StyledButton)`
+const StyledSplitButtonToggle = styled(StyledButton)`
   ${({
     buttonType,
     disabled,

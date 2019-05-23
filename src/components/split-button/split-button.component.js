@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 import Button from '../button';
 import StyledSplitButton from './split-button.style';
-import { StyledSplitButtonToggle } from './split-button-toggle.style';
+import StyledSplitButtonToggle from './split-button-toggle.style';
 import StyledSplitButtonChildrenContainer from './split-button-children.style';
 import { validProps } from '../../utils/ether/ether';
 import OptionsHelper from '../../utils/helpers/options-helper';
