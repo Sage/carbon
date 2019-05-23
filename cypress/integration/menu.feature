@@ -16,4 +16,14 @@ Feature: Menu component
   @positive
   Scenario: Check the persistence of Menu element
     # When I open "Menu" component page
-    Then Menu elements are visible   
+    Then Menu elements are visible
+
+  @positive
+  Scenario: Check the persistence of Menu element
+    When I invoke first expandable Menu component
+    Then Menu first expandable element has 2 items
+
+  @positive
+  Scenario: Check the persistence of Menu element
+    When I invoke second expandable Menu component
+    Then Menu second expandable element has 1 link item and 3 list items
