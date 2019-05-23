@@ -10,7 +10,6 @@ class Pill extends React.Component {
   static safeProps = ['onClick']
 
   renderCloseIcon() {
-    if (!this.props.onDelete) return null;
     return (
       <button
         type='button'
@@ -29,7 +28,6 @@ class Pill extends React.Component {
         inFill={ this.props.fill }
         styledAs={ this.props.as }
         isDeletable={ this.props.onDelete }
-        className={ this.props.className }
         { ...tagComponent('pill', this.props) }
       >
         {this.props.children}

@@ -63,6 +63,7 @@ export default (props) => {
     display: inline-block;
     font-size: 12px;
     font-weight: 700;
+    line-height: 15px;
     letter-spacing: 0.7px;
     position: relative;
     text-align: center;
@@ -72,7 +73,7 @@ export default (props) => {
       line-height: 13px;
     }
    
-    border:1px solid ${colourSet.bgColor};
+    border: 1px solid ${colourSet.bgColor};
     color: ${colourSet.color};
 
     ${props.styledAs !== 'disabled' && `
@@ -83,7 +84,7 @@ export default (props) => {
           }
       }
     `}
-    ${props.inFill && `
+    ${props.inFill && css`
       background-color: ${colourSet.bgColor};
       color: #FFFFFF;
 
@@ -92,11 +93,11 @@ export default (props) => {
       }
     `}
 
-    ${!props.isDeletable && `
+    ${!props.isDeletable && css`
       padding: 2px 7px;
     `}
 
-    ${props.isDeletable && `
+    ${props.isDeletable && css`
       padding: 2px 19px 2px 7px;
 
       button {
@@ -112,11 +113,11 @@ export default (props) => {
         top: 0;
         width: 17px;
 
-        ${props.inFill && `
+        ${props.inFill && css`
           background-color: ${colourSet.color};
         `}
 
-        ${!props.inFill && `
+        ${!props.inFill && css`
           background-color: transparent;
           color: ${colourSet.color};
         `}
@@ -133,7 +134,7 @@ export default (props) => {
             font-size: 9px;
           }
 
-          ${props.inFill && `
+          ${props.inFill && css`
             .carbon-icon {
               color: ${colourSet.color};
             }
