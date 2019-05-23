@@ -1,14 +1,8 @@
-import {
-  alignSelect, labelPreview, inputPrecisionSlider,
-} from '../../locators/decimal/index';
+import { labelPreview, inputPrecisionSlider } from '../../locators/decimal/index';
 import { setSlidebar } from '../helper';
 import { label } from '../../locators';
 
 const TEXT_ALIGN = 'text-align';
-
-When('I set input align {string}', (direction) => {
-  alignSelect().select(direction);
-});
 
 Then('input direction is {string}', (direction) => {
   labelPreview().children('input').should('have.css', TEXT_ALIGN, `${direction}`);
@@ -42,7 +36,7 @@ Then('label align on preview is set to {string}', (labelAlign) => {
   label().should('have.css', TEXT_ALIGN, `${labelAlign}`);
 });
 
-When('I set labelInput to {string}', (labelInput) => {
+When('I set label Input to {string}', (labelInput) => {
   labelPreview().children().clear().type(labelInput);
 });
 
