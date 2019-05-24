@@ -56,7 +56,7 @@ export const StyledInternalTableWrapper = styled.div`
   border-radius: 0px;
   overflow: visible;
   position: relative;
-
+  
   ${({ onConfigure, theme }) => onConfigure && css`
     ${StyledTable} {
       border-radius: 0;
@@ -113,8 +113,17 @@ StyledTable.defaultProps = {
   size: 'medium'
 };
 
+StyledInternalTableWrapper.propTypes = {
+  /** Total number of rows in the table */
+  rowTotal: PropTypes.string,
+
+  /** Height of the rows in the table */
+  rowHeight: PropTypes.oneOf(OptionsHelper.tableSizes)
+};
+
 StyledInternalTableWrapper.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
+  size: 'medium'
 };
 
 export default StyledTable;
