@@ -13,6 +13,14 @@ const colors = {
 };
 
 export default ({ theme, variant }) => theme.name === THEMES.classic && css`
+  align-items: center;
+  display: flex;
+  margin-left: auto;
+  margin-right: 15px;
+  justify-content: center;
+  text-align: center;
+  position: static;
+
   .icon-close {
     &:before {
       color: ${colors[variant]};

@@ -7,12 +7,9 @@ import Link from '../link';
 import { THEMES } from '../../style/themes';
 
 const DismissButtonStyle = styled.div`
-  align-items: center;
-  display: flex;
-  margin-left: auto;
-  margin-right: 15px;
-  justify-content: center;
-  text-align: center;
+  position: absolute;
+  top: 15px;
+  right: 15px;
   border: none;
 
   .icon-close {
@@ -21,25 +18,23 @@ const DismissButtonStyle = styled.div`
     }
   }
 
-  ${({ theme }) => theme.name !== THEMES.classic && css`
-    .message__close-icon {
-      &:focus {
-        outline: none;
-        background-color: ${theme.colors.white};
-        span span {
-          &:before {
-            outline: 2px solid ${theme.colors.focus};
-            outline-offset: 3px;
-          }
-        }
-      }
-    }
-  `}
-
   ${CloseIconClassicStyling}
 `;
 
 const LinkStyle = styled(Link)`
+  ${({ theme }) => theme.name !== THEMES.classic && css`
+    &:focus {
+      outline: none;
+      background-color: transparent;
+      span span {
+        &:before {
+          outline: 2px solid ${theme.colors.focus};
+          outline-offset: 3px;
+        }
+      }
+    }
+`}
+
   .carbon-link__content {
     display: none;
   }
