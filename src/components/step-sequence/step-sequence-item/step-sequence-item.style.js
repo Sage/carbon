@@ -56,7 +56,7 @@ const StepSequenceItemStyle = styled.li`
     &::before {
       flex-grow: 0;
       width: 1px;
-      height: 25px;
+      height: 24px;
       margin: 12px 8px;
     }
   `};
