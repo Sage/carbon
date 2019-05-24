@@ -10,6 +10,7 @@ const MessageStyle = styled.div`
   align-content: center;
   border: 1px solid ${({ theme, variant }) => theme.colors[variant]};
   background-color: ${({ theme }) => theme.colors.white};
+  min-height: 38px;
 
   ${({ transparent }) => transparent && css`
       border: none;

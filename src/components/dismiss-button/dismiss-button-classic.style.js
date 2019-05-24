@@ -20,10 +20,12 @@ export default ({ theme, variant }) => theme.name === THEMES.classic && css`
   justify-content: center;
   text-align: center;
   position: static;
-
+  
   .icon-close {
     &:before {
       color: ${colors[variant]};
+      font-size:16px;
+
     }
   }
 

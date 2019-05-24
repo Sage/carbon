@@ -8,13 +8,14 @@ import { THEMES } from '../../style/themes';
 
 const DismissButtonStyle = styled.div`
   position: absolute;
-  top: 15px;
-  right: 15px;
+  top: 12px;
+  right: 12px;
   border: none;
 
   .icon-close {
     &:before {
       color: ${({ variant, theme }) => theme.colors[variant]};
+      font-size: 12px;
     }
   }
 
