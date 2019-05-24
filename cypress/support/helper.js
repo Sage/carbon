@@ -1,4 +1,4 @@
-import { knobsTab } from '../locators';
+import { knobsTab, actionsTab, clearButtonInActions } from '../locators';
 import { DEBUG_FLAG } from '.';
 
 function prepareUrl(component, suffix, iFrameOnly) {
@@ -11,6 +11,14 @@ function prepareUrl(component, suffix, iFrameOnly) {
 export function visitComponentUrl(component, suffix = 'default', iFrameOnly = false) {
   cy.visit(prepareUrl(component, suffix, iFrameOnly));
   if (!iFrameOnly) knobsTab().click();
+}
+
+export function clickActionsTab(iFrameOnly = false) {
+  if (!iFrameOnly) actionsTab().click();
+}
+
+export function clickClear() {
+  clearButtonInActions().click();
 }
 
 export function dragAndDrop(draggableElement, destinationPosition, startFromHight) {
@@ -45,4 +53,9 @@ export function setSlidebar(selector, value) {
 export function pressESCKey() {
   // using Shift+Esc - because of storybook shortcuts overeride
   cy.iFrame('body').type('{shift}{esc}');
+}
+
+export function pressTABKey() {
+  // cy.iFrame('body').tab(); uncomment when this function will be implemented by Cypress team
+  cy.iFrame('body').trigger('tab', { force: true });
 }

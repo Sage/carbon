@@ -6,7 +6,7 @@ Feature: Filter Component
 
   @positive
   Scenario Outline: Change label align
-    When I set label align "<align>"
+    When I select labelAlign to "<align>"
     Then Filter label align property is set to "<align>"
     Examples:
       | align |
