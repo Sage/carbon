@@ -643,7 +643,11 @@ class Table extends React.Component {
     return (
       <div { ...this.componentTags(this.props) }>
         { this.actionToolbar }
-        <StyledInternalTableWrapper ref={ (wrapper) => { this._wrapper = wrapper; } }>
+        <StyledInternalTableWrapper
+          rowTotal={ this.props.pageSize }
+          rowHeight={ this.props.size }
+          ref={ (wrapper) => { this._wrapper = wrapper; } }
+        >
           { this.configureLink(this.props.onConfigure) }
           <StyledTable
             ref={ (table) => { this._table = table; } }

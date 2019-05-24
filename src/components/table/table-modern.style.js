@@ -10,11 +10,14 @@ function convertTableType(type) {
   return 'primary';
 }
 
-function applyModernInternalStyling({ tableType, theme }) {
+function applyModernInternalStyling({
+  tableType, theme, rowTotal, rowHeight
+}) {
   const type = convertTableType(tableType);
   return css`
     background-color: transparent;
     border: 1px solid ${type === 'tertiary' ? 'transparent' : theme.table.primary};
+    min-height: ${tableSizes.wrapper(rowTotal)[rowHeight]} !important;
   `;
 }
 
