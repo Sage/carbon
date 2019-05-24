@@ -56,12 +56,19 @@ const buildRows = (pageSize, totalRecords) => {
         uniqueID='header'
       >
         <TableHeader
-          sortable name='name'
+          sortable
+          name='name'
           scope='col'
         >
         Country
         </TableHeader>
-        <TableHeader scope='col' name='code'>Code</TableHeader>
+        <TableHeader
+          sortable
+          scope='col'
+          name='code'
+        >
+        Code
+        </TableHeader>
       </TableRow>
       {rowsCountries.map(row => (
         <TableRow
