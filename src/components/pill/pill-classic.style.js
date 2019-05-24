@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-const styleConfig = {
+export const styleConfig = {
   disabled: {
     color: '#CCD6DA',
     bgColor: '#CCD6DA'
