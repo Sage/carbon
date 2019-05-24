@@ -148,7 +148,7 @@ class SplitButton extends Component {
           aria-controls={ this.buttonListId }
           { ...this.toggleButtonProps }
           data-element='open'
-          onKeyPress={ this.handleToggleButtonKeyUp }
+          onKeyDown={ this.handleToggleButtonKeyDown }
         >
           <Icon type='dropdown' />
         </StyledSplitButtonToggle>
@@ -156,8 +156,8 @@ class SplitButton extends Component {
     );
   }
 
-  handleToggleButtonKeyUp = (ev) => {
-    if (Events.isEnterKey(ev) || Events.isSpaceKey) {
+  handleToggleButtonKeyDown = (ev) => {
+    if (Events.isEnterKey(ev) || Events.isSpaceKey(ev)) {
       this.additionalButtons[0].focus();
     }
   }

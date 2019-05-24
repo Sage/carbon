@@ -36,10 +36,18 @@ const themes = [
   ...businessThemes
 ];
 
-const render = (mainProps, childButtons, renderer = shallow) => {
+const singleButton = <Button key='testKey'>Single Button</Button>;
+const multipleButtons = [
+  <Button key='testKey1'>Extra Button</Button>,
+  <Button key='testKey2'>Extra Button</Button>,
+  <Button key='testKey3'>Extra Button</Button>
+];
+
+const render = (mainProps = {}, childButtons = singleButton, renderer = shallow) => {
   return renderer(
     <SplitButton
       { ...mainProps }
+      text='Split button'
       data-element='bar'
       data-role='baz'
     >
@@ -48,7 +56,7 @@ const render = (mainProps, childButtons, renderer = shallow) => {
   );
 };
 
-const renderWithTheme = (mainProps, childButtons, renderer = shallow) => {
+const renderWithTheme = (mainProps = {}, childButtons = singleButton, renderer = shallow) => {
   return renderer(
     <ThemeProvider theme={ mainProps.carbonTheme }>
       <SplitButton
@@ -84,16 +92,7 @@ describe('SplitButton', () => {
 
   describe('render with custom className', () => {
     beforeEach(() => {
-      wrapper = render(
-        {
-          text: 'mainButton'
-        },
-        [
-          <Button>
-            Second Button
-          </Button>
-        ]
-      );
+      wrapper = render();
       toggle = wrapper.find('[data-element="open"]');
     });
 
@@ -116,16 +115,7 @@ describe('SplitButton', () => {
 
   describe('mouse click dropdown toggle', () => {
     beforeEach(() => {
-      wrapper = render(
-        {
-          text: 'mainButton'
-        },
-        [
-          <Button>
-            Second Button
-          </Button>
-        ]
-      );
+      wrapper = render();
       toggle = wrapper.find('[data-element="open"]');
     });
 
@@ -145,16 +135,7 @@ describe('SplitButton', () => {
       'when "up" key is pressed and the theme is set to "%s"',
       (name, theme) => {
         it('matches the expected style for the button indexed', () => {
-          const wrapper2 = renderWithTheme({
-            text: 'mainButton',
-            carbonTheme: theme
-          },
-          [
-            <Button>Extra Button</Button>,
-            <Button>Extra Button</Button>,
-            <Button>Extra Button</Button>
-          ],
-          mount).find(SplitButton);
+          const wrapper2 = renderWithTheme({ carbonTheme: theme }, multipleButtons, mount).find(SplitButton);
 
           wrapper2.instance().showButtons();
           const { additionalButtons } = wrapper2.instance();
@@ -173,16 +154,7 @@ describe('SplitButton', () => {
       'when "down" key is pressed and the theme is set to "%s"',
       (_, theme) => {
         it('matches the expected style for the button indexed', () => {
-          const wrapper3 = renderWithTheme({
-            text: 'mainButton',
-            carbonTheme: theme
-          },
-          [
-            <Button>Extra Button</Button>,
-            <Button>Extra Button</Button>,
-            <Button>Extra Button</Button>
-          ],
-          mount).find(SplitButton);
+          const wrapper3 = renderWithTheme({ carbonTheme: theme }, multipleButtons, mount).find(SplitButton);
           wrapper3.instance().showButtons();
           const { additionalButtons } = wrapper3.instance();
 
@@ -200,16 +172,7 @@ describe('SplitButton', () => {
       'when "tab" key is pressed and the theme is set to "%s"',
       (_, theme) => {
         it('it calls the "hideButtons" function', () => {
-          const wrapper4 = renderWithTheme({
-            text: 'mainButton',
-            carbonTheme: theme
-          },
-          [
-            <Button>Extra Button</Button>,
-            <Button>Extra Button</Button>,
-            <Button>Extra Button</Button>
-          ],
-          mount).find(SplitButton);
+          const wrapper4 = renderWithTheme({ carbonTheme: theme }, multipleButtons, mount).find(SplitButton);
           wrapper4.instance().showButtons();
           const spy = spyOn(wrapper4.instance(), 'hideButtons');
           keyboard.pressTab();
@@ -265,9 +228,9 @@ describe('SplitButton', () => {
     }
   );
 
-  describe('for business themes', () => {  
+  describe('for business themes', () => {
     it('renders styles correctly', () => {
-      wrapper = TestRenderer.create(<SplitButton text='Mock text'><Button /></SplitButton>);
+      wrapper = render({}, singleButton, TestRenderer.create);
       expect(wrapper).toMatchSnapshot();
     });
 
@@ -276,8 +239,8 @@ describe('SplitButton', () => {
       (name, theme) => {
         const mockProps = { carbonTheme: theme, buttonType: 'primary' };
 
-        it('has expected left border color', () => {
-          wrapper = renderWithTheme(mockProps, (<Button />), mount);
+        it('renders Toggle Button left border as expected', () => {
+          wrapper = renderWithTheme(mockProps, singleButton, mount);
           assertStyleMatch({
             borderLeftColor: theme.colors.secondary
           }, wrapper.find(StyledSplitButtonToggle));
@@ -288,24 +251,14 @@ describe('SplitButton', () => {
 
   describe('for the classic theme', () => {
     it('renders styles correctly', () => {
-      wrapper = renderWithTheme({ carbonTheme: ClassicTheme }, [<Button />], TestRenderer.create);
+      wrapper = renderWithTheme({ carbonTheme: ClassicTheme }, singleButton, TestRenderer.create);
       expect(wrapper).toMatchSnapshot();
     });
 
-    it('renders left border correctly', () => {
+    it('renders Toggle Button left border as expected', () => {
       const mockProps = { carbonTheme: ClassicTheme, buttonType: 'primary' };
 
-      wrapper = renderWithTheme(mockProps, (<Button />), mount);
-
-      assertStyleMatch({
-        borderLeft: '1px solid #1e499f'
-      }, wrapper.find(StyledSplitButtonToggle));
-    });
-
-    it('renders left border correctly for other themes', () => {
-      const mockProps = { carbonTheme: ClassicTheme, buttonType: 'primary' };
-
-      wrapper = renderWithTheme(mockProps, (<Button />), mount);
+      wrapper = renderWithTheme(mockProps, singleButton, mount);
 
       assertStyleMatch({
         borderLeft: '1px solid #1e499f'
@@ -316,12 +269,12 @@ describe('SplitButton', () => {
   describe.each(sizes)(
     'when the "%s" size prop is passed',
     (size) => {
-      describe.each([themes[1], themes[2], themes[3]])(
+      describe.each(businessThemes)(
         'with the "%s" business theme',
         (name, theme) => {
           it('has the expected styling', () => {
             const children = [
-              <StyledButton size={ size }>Foo</StyledButton>
+              <StyledButton size={ size } key={ name }>Foo</StyledButton>
             ];
 
             const themedWrapper = mount(
@@ -354,7 +307,7 @@ describe('SplitButton', () => {
     (size) => {
       it('matches the expected styling for a "medium" button', () => {
         const children = [
-          <StyledButton size={ size }>Foo</StyledButton>
+          <StyledButton size={ size } key={ size }>Foo</StyledButton>
         ];
 
         const themedWrapper = mount(
@@ -382,11 +335,7 @@ describe('SplitButton', () => {
         text: 'mainButton',
         'data-element': 'bar',
         'data-role': 'baz'
-      },
-      [
-        <Button>Extra Button</Button>,
-        <Button>Extra Button</Button>
-      ],
+      }, multipleButtons,
       mount);
     });
 
@@ -394,7 +343,7 @@ describe('SplitButton', () => {
       toggle = wrapper4.find('[data-element="open"]').hostNodes();
       toggle.prop('onFocus')();
       const { additionalButtons } = wrapper4.instance();
-      expect(additionalButtons.length).toEqual(2);
+      expect(additionalButtons.length).toEqual(multipleButtons.length);
       additionalButtons.forEach(btn => expect(btn).not.toEqual(null));
     });
 
@@ -423,31 +372,14 @@ describe('SplitButton', () => {
       });
 
       it('when disabled it does not change the state', () => {
-        wrapper = render(
-          {
-            text: 'mainButton',
-            disabled: true
-          },
-          <Button>
-              Second Button
-          </Button>
-        );
+        wrapper = render({ disabled: true });
         toggle = wrapper.find('[data-element="open"]');
         toggle.simulate('mouseenter');
         expect(wrapper.state().showAdditionalButtons).toEqual(false);
       });
 
       it('when disabled it has the expected styling', () => {
-        wrapper = render(
-          {
-            text: 'mainButton',
-            disabled: true
-          },
-          <Button>
-              Second Button
-          </Button>,
-          mount
-        );
+        wrapper = render({ disabled: true }, singleButton, mount);
 
         toggle = wrapper.find('[data-element="open"]').hostNodes();
         assertStyleMatch({
@@ -465,16 +397,7 @@ describe('SplitButton', () => {
     describe('mouse leave split-button', () => {
       let mainButton;
       beforeEach(() => {
-        wrapper = render(
-          {
-            text: 'mainButton'
-          },
-          [
-            <Button>
-              Second Button
-            </Button>
-          ]
-        );
+        wrapper = render();
         mainButton = wrapper.find('[data-element="main-button"]');
         toggle = wrapper.find('[data-element="open"]');
       });
@@ -493,9 +416,7 @@ describe('SplitButton', () => {
 
       it('hides additional buttons', () => {
         toggle.simulate('mouseenter');
-        expect(wrapper.containsMatchingElement(
-          <Button>Second Button</Button>
-        )).toBeTruthy();
+        expect(wrapper.containsMatchingElement(singleButton)).toBeTruthy();
 
         mainButton.simulate('mouseenter');
         wrapper.instance().forceUpdate();
@@ -513,11 +434,10 @@ describe('SplitButton', () => {
       beforeEach(() => {
         wrapper = render(
           {
-            text: 'mainButton',
             onClick: handleMainButton
           },
           [
-            <Button onClick={ handleSecondButton }>
+            <Button onClick={ handleSecondButton } key='testKey'>
               Second Button
             </Button>
           ]
@@ -542,16 +462,7 @@ describe('SplitButton', () => {
   describe('tags', () => {
     describe('on component', () => {
       beforeEach(() => {
-        wrapper = render(
-          {
-            text: 'mainButton'
-          },
-          [
-            <Button>
-              Second Button
-            </Button>
-          ]
-        );
+        wrapper = render();
         toggle = wrapper.find('[data-element="open"]');
       });
 
@@ -561,12 +472,7 @@ describe('SplitButton', () => {
     });
 
     describe('on internal elements', () => {
-      const wrapper5 = shallow(
-        <SplitButton text='Test'>
-          <Button>Test1</Button>
-          <Button>Test2</Button>
-        </SplitButton>
-      );
+      const wrapper5 = render({}, multipleButtons);
       wrapper5.setState({ showAdditionalButtons: true });
 
       elementsTagTest(wrapper5, [
@@ -574,6 +480,34 @@ describe('SplitButton', () => {
         'main-button',
         'open'
       ]);
+    });
+  });
+
+  describe('when focused on the toggle button', () => {
+    beforeEach(() => {
+      wrapper = render({}, multipleButtons, mount);
+      toggle = wrapper.find(StyledSplitButtonToggle);
+      toggle.simulate('focus');
+    });
+
+    describe.each([['enter', 13], ['space', 32]])('the %$ key is pressed', (name, keyCode) => {
+      it('then the first additional button should be focused', () => {
+        toggle.simulate('keydown', { which: keyCode });
+        const firstButton = wrapper.find(StyledSplitButtonChildrenContainer).find('button').at(0);
+
+        expect(firstButton.instance()).toBe(document.activeElement);
+      });
+    });
+
+    describe('the tab key is pressed', () => {
+      const tabKeyCode = 9;
+
+      it('then the first additional button should not be focused', () => {
+        toggle.simulate('keydown', { which: tabKeyCode });
+        const firstButton = wrapper.find(StyledSplitButtonChildrenContainer).find('button').at(0);
+
+        expect(firstButton.instance()).not.toBe(document.activeElement);
+      });
     });
   });
 });
