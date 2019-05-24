@@ -5,7 +5,7 @@ Feature: InlineInputs component
     Given I open "InlineInputs" component page
 
   @positive
-  Scenario Outline: Change InlineInputs label
+  Scenario Outline: Change InlineInputs label to <label>
     When I set label to "<label>"
     Then label on preview is "<label>"
     Examples:
@@ -18,7 +18,7 @@ Feature: InlineInputs component
       | <>                       |
 
   @positive
-  Scenario Outline: Change first inline input
+  Scenario Outline: Change first inline input to <label>
     When I set first inline input to "<label>"
     Then first inline input on preview is "<label>"
     Examples:
@@ -31,7 +31,7 @@ Feature: InlineInputs component
       | <>                       |
 
   @positive
-  Scenario Outline: Change second inline input
+  Scenario Outline: Change second inline input to <label>
     When I set second inline input to "<label>"
     Then second inline input on preview is "<label>"
     Examples:
