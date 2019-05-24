@@ -289,3 +289,174 @@ input:focus ~ .c4 {
   </div>
 </div>
 `;
+
+exports[`ButtonToggleGroup Style props renders ButtonToggle correctly with validation errors 1`] = `
+.c1 {
+  display: block;
+}
+
+.c1 + .c0 {
+  margin-top: 16px;
+}
+
+.c9 + .c0 {
+  margin-top: 16px;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.c6 {
+  display: inline-block;
+  height: 38px;
+  padding: 0 24px;
+  font-weight: 600;
+  border: 1px solid #668491;
+  font-size: 14px;
+  background-color: #FFFFFF;
+}
+
+input:checked ~ .c6 {
+  color: #FFFFFF;
+  background-color: #003F2E;
+}
+
+input:focus ~ .c6 {
+  outline: 3px solid #FFB500;
+}
+
+.c6:hover {
+  background-color: #E5F5F1;
+  border-color: #003F2E;
+}
+
+.c3 {
+  display: inline-block;
+}
+
+.c3:not(:first-of-type) {
+  margin-left: 10px;
+}
+
+.c4 {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.c2 .c5 {
+  border-color: #C7384F;
+}
+
+.c8 {
+  color: #C7384F;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+<div
+  className="c0 c1"
+>
+  <div
+    className="c2"
+    onBlur={[Function]}
+    onChange={[Function]}
+  >
+    <div
+      className="c3"
+      id="foo"
+      name="button-toggle-group"
+      size="large"
+      value="foo"
+    >
+      <input
+        className="c4"
+        id="guid-12345"
+        name="button-toggle-group"
+        type="radio"
+        value="foo"
+      />
+      <label
+        className="c5 c6"
+        htmlFor="guid-12345"
+        id="foo"
+        name="button-toggle-group"
+        size="large"
+        value="foo"
+      >
+        <div
+          className="c7"
+        >
+          Foo
+        </div>
+      </label>
+    </div>
+    <div
+      className="c3"
+      id="bar"
+      name="button-toggle-group"
+      size="large"
+      value="bar"
+    >
+      <input
+        className="c4"
+        id="guid-12345"
+        name="button-toggle-group"
+        type="radio"
+        value="bar"
+      />
+      <label
+        className="c5 c6"
+        htmlFor="guid-12345"
+        id="bar"
+        name="button-toggle-group"
+        size="large"
+        value="bar"
+      >
+        <div
+          className="c7"
+        >
+          Bar
+        </div>
+      </label>
+    </div>
+    <div
+      className="c8"
+      type="error"
+    >
+      <span
+        className="carbon-icon icon-error"
+        data-component="icon"
+        data-element="error"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchEnd={[Function]}
+        tooltipType="error"
+      />
+    </div>
+  </div>
+</div>
+`;
