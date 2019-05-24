@@ -22,5 +22,11 @@ export default {
     font: '16px',
     padding: '13px',
     inputHeight: '32px'
+  },
+  wrapper: {
+    compact: '24',
+    small: '32',
+    medium: '40',
+    large: '48'
   }
 };
