@@ -20,9 +20,16 @@ import classic from '../../style/themes/classic';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 
+const getSortKnobs = () => {
+  return {
+    sortOrder: select('sortOrder', ['', 'asc', 'desc'], ''),
+    sortColumn: select('sortColumn', ['', 'name', 'code'], '')
+  };
+};
+
 const store = new Store({
-  sortOrder: 'asc',
-  sortedColumn: '',
+  sortOrder: getSortKnobs().sortOrder,
+  sortedColumn: getSortKnobs().sortedColumn,
   currentPage: '1',
   children: undefined
 });
@@ -52,6 +59,7 @@ const buildRows = (pageSize, totalRecords) => {
       <TableRow
         key='header'
         as='header'
+        uniqueID='header'
       >
         <TableHeader
           sortable
@@ -60,7 +68,13 @@ const buildRows = (pageSize, totalRecords) => {
         >
         Country
         </TableHeader>
-        <TableHeader scope='col'>Code</TableHeader>
+        <TableHeader
+          sortable
+          scope='col'
+          name='code'
+        >
+        Code
+        </TableHeader>
       </TableRow>
       {rowsCountries.map(row => (
         <TableRow
@@ -141,6 +155,7 @@ storiesOf('Table', module)
     }
   })
   .add('classic', () => {
+    const props = getSortKnobs();
     const pageSize = text('pageSize', '5');
     const selectable = boolean('selectable', false);
     const highlightable = boolean('highlightable', false);
@@ -157,6 +172,9 @@ storiesOf('Table', module)
       ],
       Table.defaultProps.theme
     );
+
+    store.set({ sortOrder: props.sortOrder });
+    store.set({ sortedColumn: props.sortColumn });
 
     return (
       <ThemeProvider theme={ classic }>
@@ -190,6 +208,8 @@ storiesOf('Table', module)
             showPageSizeSelection={ showPageSizeSelection }
             onChange={ handleChange }
             theme={ theme }
+            sortOrder={ store.sortOrder }
+            sortedColumn={ store.sortedColumn }
           />
 
         </State>
@@ -202,6 +222,7 @@ storiesOf('Table', module)
   .add(
     'default',
     () => {
+      const props = getSortKnobs();
       const pageSize = text('pageSize', '5');
       const selectable = boolean('selectable', false);
       const highlightable = boolean('highlightable', false);
@@ -221,6 +242,9 @@ storiesOf('Table', module)
       );
       const size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
       const isZebra = boolean('zebra striping', false);
+
+      store.set({ sortOrder: props.sortOrder });
+      store.set({ sortedColumn: props.sortColumn });
 
       return (
         <State store={ store } parseState={ state => ({ ...state, children: buildRows(pageSize, totalRecords) }) }>

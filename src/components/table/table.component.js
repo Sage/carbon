@@ -4,7 +4,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Immutable from 'immutable';
 import I18n from 'i18n-js';
 import ActionToolbar from '../action-toolbar/action-toolbar';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 import Link from '../link';
 import StyledTable, { StyledInternalTableWrapper } from './table.style';
 import TableRow from './table-row';
@@ -464,7 +464,7 @@ class Table extends React.Component {
   get thead() {
     if (this.props.thead) {
       return (
-        <thead className='carbon-table__header'>
+        <thead>
           { this.props.thead }
         </thead>
       );
@@ -643,7 +643,11 @@ class Table extends React.Component {
     return (
       <div { ...this.componentTags(this.props) }>
         { this.actionToolbar }
-        <StyledInternalTableWrapper ref={ (wrapper) => { this._wrapper = wrapper; } }>
+        <StyledInternalTableWrapper
+          rowTotal={ this.props.pageSize }
+          rowHeight={ this.props.size }
+          ref={ (wrapper) => { this._wrapper = wrapper; } }
+        >
           { this.configureLink(this.props.onConfigure) }
           <StyledTable
             ref={ (table) => { this._table = table; } }

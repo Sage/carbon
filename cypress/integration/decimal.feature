@@ -6,11 +6,11 @@ Feature: Decimal component
     Given I open "Experimental-Decimal" component page
 
   @positive
-  Scenario Outline: Change Decimal component fieldHelp
+  Scenario Outline: Change Decimal component fieldHelp to <fieldHelp>
     When I set fieldHelp to "<fieldHelp>"
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
-      | fieldHelp                    |
+      | fieldHelp                |
       | Sample text              |
       | 1234567890               |
       | áéíóú¿¡üñ                |
@@ -19,7 +19,7 @@ Feature: Decimal component
       | <>                       |
 
   @positive
-  Scenario Outline: Change Decimal component label
+  Scenario Outline: Change Decimal component label to <label>
     When I set label to "<label>"
     Then label on preview is "<label>"
     Examples:
@@ -32,8 +32,8 @@ Feature: Decimal component
       | <>                       |    
 
   @positive
-  Scenario Outline: Change Decimal input align
-    When I set input align "<direction>"
+  Scenario Outline: Change Decimal input align to the <direction>
+    When I select align to "<direction>"
     Then input direction is "<direction>"
     Examples:
       | direction |
@@ -41,7 +41,7 @@ Feature: Decimal component
       | right     |
 
   @positive
-  Scenario Outline: Change Decimal component label help
+  Scenario Outline: Change Decimal component label help to <label>
     When I set label to "<label>"
       And I set labelHelp to "<label>"
       And I hover mouse onto help icon
@@ -107,7 +107,7 @@ Feature: Decimal component
   @positive
   Scenario Outline: Check Decimal component input field with different precision
     When I set input precision slider to <precision>
-      And I set labelInput to "<labelInput>"
+      And I set label Input to "<labelInput>"
     Then input precision slider is set to <precision>
       And Decimal labelInput is set to "<fieldHelpOutput>"
     Examples:
@@ -147,7 +147,7 @@ Feature: Decimal component
       | 9.5175678911113981|  15       | 9.517567891111398 |
 
   @negative
-  Scenario Outline: Check Decimal component input field will not accept characters except numbers
+  Scenario Outline: Check Decimal component input field will not accept characters except numbers to <label>
     When I set label to "<label>"
     Then Decimal label is not set to "<label>"
     Examples:

@@ -28,7 +28,7 @@ Feature: Dialog component
       | 1!@#$%^*()_+-=~[];:.,?{} |
 
   @positive
-  Scenario Outline: Change Dialog component title
+  Scenario Outline: Change Dialog component title to <title>
     When I set title to "<title>"
       And I open component preview
     Then component title on preview is "<title>"
@@ -42,7 +42,7 @@ Feature: Dialog component
       | <>                       |
 
   @positive
-  Scenario Outline: Change Dialog subtitle
+  Scenario Outline: Change Dialog subtitle to <subtitle>
     When I set subtitle to "<subtitle>"
       And I open component preview
     Then component subtitle on preview is "<subtitle>"

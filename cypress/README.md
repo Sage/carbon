@@ -8,6 +8,9 @@
 5. Open new terminal at the same path
 6. Run cypress `npm run test-cypress`
 7. If you would like to run cypress in command line (headless browser for continous integration) use `npm run test:ci`
+7.1 If you would like to run specific cypress tests in command line (headless browser for continous integration) use:
+  - for Windows `npm run test:ci --spec 'cypress/integration/featureFileName.feature'`
+  - for MacOS `npm run test:ci -- --spec 'cypress/integration/featureFileName.feature'`
 
 ## Coding standards
 1. Use ESlint plugin to Visual Studio Code to make sure code format is preserved

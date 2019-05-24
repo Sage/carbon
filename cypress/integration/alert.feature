@@ -16,7 +16,8 @@ Feature: Alert component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
   Scenario Outline: Change Alert subtitle
@@ -30,7 +31,8 @@ Feature: Alert component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
   Scenario Outline: Change Alert children
@@ -44,7 +46,8 @@ Feature: Alert component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
   Scenario: Enable background UI

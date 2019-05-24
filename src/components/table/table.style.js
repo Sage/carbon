@@ -9,7 +9,7 @@ import {
   applyModernInternalStyling
 } from './table-modern.style.js';
 import tableRowStyling from './table-row/table-row.style';
-import StyledLink from '../link/link-classic.style';
+import { LinkStyle as StyledLink, LinkStyleAnchor as StyledLinkAnchor } from '../link/link.style';
 import baseTheme from '../../style/themes/base';
 import { isClassic } from '../../utils/helpers/style-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -56,7 +56,7 @@ export const StyledInternalTableWrapper = styled.div`
   border-radius: 0px;
   overflow: visible;
   position: relative;
-
+  
   ${({ onConfigure, theme }) => onConfigure && css`
     ${StyledTable} {
       border-radius: 0;
@@ -68,7 +68,7 @@ export const StyledInternalTableWrapper = styled.div`
       top: -1px;
       width: 25px;
 
-      a {
+      ${StyledLinkAnchor} {
         align-items: center;
         background-color: ${theme.table.header};
         border: 1px solid ${theme.table.secondary};
@@ -104,7 +104,7 @@ StyledTable.propTypes = {
   /** Toggles the type variations of the table */
   tableType: PropTypes.oneOf(OptionsHelper.tableThemes),
 
-  /**  Toggles the zebra striping for the table rows */
+  /** Toggles the zebra striping for the table rows */
   isZebra: PropTypes.bool
 };
 
@@ -113,8 +113,17 @@ StyledTable.defaultProps = {
   size: 'medium'
 };
 
+StyledInternalTableWrapper.propTypes = {
+  /** Total number of rows in the table */
+  rowTotal: PropTypes.string,
+
+  /** Height of the rows in the table */
+  rowHeight: PropTypes.oneOf(OptionsHelper.tableSizes)
+};
+
 StyledInternalTableWrapper.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
+  size: 'medium'
 };
 
 export default StyledTable;
