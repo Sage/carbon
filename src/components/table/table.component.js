@@ -4,7 +4,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Immutable from 'immutable';
 import I18n from 'i18n-js';
 import ActionToolbar from '../action-toolbar/action-toolbar';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 import Link from '../link';
 import StyledTable, { StyledInternalTableWrapper } from './table.style';
 import TableRow from './table-row';
