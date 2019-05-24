@@ -1,4 +1,2 @@
-import StepSequence from './step-sequence.component';
-import StepSequenceItem from './step-sequence-item';
-
-export { StepSequence, StepSequenceItem };
+export { default as StepSequence } from './step-sequence.component';
+export { default as StepSequenceItem } from './step-sequence-item';
