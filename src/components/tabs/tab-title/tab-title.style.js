@@ -17,18 +17,21 @@ const StyledTabTitle = styled.li`
     margin-left: 0;
   }
 
-  // TODO: zamienic klase
-  &:focus:not(.carbon-tabs__headers__header--selected),
   &:hover {
     background: transparent;
-    border-bottom-color: ${({ theme }) => theme.colors.secondary};
+    border-bottom-color: ${({ theme }) => theme.colors.hoveredTabKeyline};
     color: ${({ theme }) => theme.text.color};
     outline: none;
   }
 
-  &:focus {
-    outline: none;
-  }
+  ${({ isTabSelected }) => !isTabSelected && css`
+    &:focus {
+      background: transparent;
+      border-bottom-color: ${({ theme }) => theme.colors.hoveredTabKeyline};
+      color: ${({ theme }) => theme.text.color};
+      outline: none;
+    }
+  `}
 
   ${({ tabHasWarning }) => tabHasWarning && css`
     border-bottom: 2px solid ${({ theme }) => theme.colors.warning};

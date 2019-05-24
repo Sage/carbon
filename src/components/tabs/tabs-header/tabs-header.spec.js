@@ -73,7 +73,7 @@ describe('TabsHeader', () => {
       wrapper = renderStyles({ theme: classicTheme });
       assertStyleMatch(
         {
-          boxShadow: 'inset 0px -2px 0px 0px #ccd6db'
+          boxShadow: 'inset 0px -2px 0px 0px #ccd6da'
         },
         wrapper.toJSON()
       );

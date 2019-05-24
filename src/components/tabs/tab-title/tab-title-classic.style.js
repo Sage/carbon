@@ -12,14 +12,21 @@ export default ({
   border-bottom: 2px solid #ccd6da;
   color: #003349;
 
-  // TODO: wywalic te klase
-  &:focus:not(.carbon-tabs__headers__header--selected),
   &:hover {
     background: #004b87;
     border-bottom-color: #004b87;
     color: #fff;
     outline: none;
   }
+
+  ${!isTabSelected && css`
+    &:focus {
+      background: #004b87;
+      border-bottom-color: #004b87;
+      color: #fff;
+      outline: none;
+    }
+  `}
 
   ${tabHasWarning && css`
     border-bottom: 2px solid #FF7D00;
@@ -46,7 +53,6 @@ export default ({
   `}
 
   ${position === 'left' && css`
-  // TODO: nie ma tego background color
     background-color: #f5f6f7;
     border-bottom: 0px;
     border-right: 2px solid #ccd6da;

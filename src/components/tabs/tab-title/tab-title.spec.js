@@ -190,14 +190,14 @@ describe('TabTitle', () => {
           {
             backgroundColor: '#f5f6f7',
             borderBottom: '0px',
-            borderRight: '2px solid #ccd6db'
+            borderRight: '2px solid #ccd6da'
           },
           wrapper.toJSON()
         );
 
         assertStyleMatch(
           {
-            borderRightColor: '#004b87',
+            borderRightColor: '#1963f6',
             background: '#004b87'
           },
           wrapper.toJSON(),
@@ -258,7 +258,7 @@ describe('TabTitle', () => {
         wrapper = renderStyles({ theme: classicTheme, tabHasError: true });
         assertStyleMatch(
           {
-            borderBottom: '2px solid #ff7d00'
+            borderBottom: '2px solid #D63F40'
           },
           wrapper.toJSON()
         );
@@ -270,7 +270,7 @@ describe('TabTitle', () => {
         wrapper = renderStyles({ theme: classicTheme, tabHasWarning: true });
         assertStyleMatch(
           {
-            borderBottom: '2px solid #d63f40'
+            borderBottom: '2px solid #FF7D00'
           },
           wrapper.toJSON()
         );

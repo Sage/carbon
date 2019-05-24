@@ -16,15 +16,17 @@ exports[`TabTitle renders as expected 1`] = `
   margin-left: 0;
 }
 
-.c0:focus,
 .c0:hover {
   background: transparent;
-  border-bottom-color: #006300;
+  border-bottom-color: #4CB74C;
   color: rgba(0,0,0,0.9);
   outline: none;
 }
 
 .c0:focus {
+  background: transparent;
+  border-bottom-color: #4CB74C;
+  color: rgba(0,0,0,0.9);
   outline: none;
 }
 
@@ -45,7 +47,7 @@ exports[`TabTitle when in classic theme renders as expected 1`] = `
   margin-left: 2px;
   padding: 11px 15px 10px;
   background-color: #f5f6f7;
-  border-bottom: 2px solid #ccd6db;
+  border-bottom: 2px solid #ccd6da;
   color: #003349;
 }
 
@@ -53,19 +55,20 @@ exports[`TabTitle when in classic theme renders as expected 1`] = `
   margin-left: 0;
 }
 
-.c0:focus,
 .c0:hover {
   background: transparent;
-  border-bottom-color: #006045;
+  border-bottom-color: #4CB74C;
   color: rgba(0,0,0,0.9);
   outline: none;
 }
 
 .c0:focus {
+  background: transparent;
+  border-bottom-color: #4CB74C;
+  color: rgba(0,0,0,0.9);
   outline: none;
 }
 
-.c0:focus,
 .c0:hover {
   background: #004b87;
   border-bottom-color: #004b87;
@@ -74,8 +77,10 @@ exports[`TabTitle when in classic theme renders as expected 1`] = `
 }
 
 .c0:focus {
+  background: #004b87;
+  border-bottom-color: #004b87;
+  color: #fff;
   outline: none;
-  box-shadow: 0 0 6px rgba(37,91,199,0.6);
 }
 
 <li
