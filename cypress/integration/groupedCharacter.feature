@@ -93,7 +93,7 @@ Feature: GroupedCharacter component
   Scenario Outline: Set label align
     When I check labelInline checkbox
       And I select labelAlign to "<labelAlign>"
-    Then labelAlign direction on preview is "<labelAlign>"
+    Then labelAlign on preview is "<labelAlign>"
     Examples:
       | labelAlign |
       | right      |

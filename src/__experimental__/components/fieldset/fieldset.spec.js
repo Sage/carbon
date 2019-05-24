@@ -1,8 +1,10 @@
 import React from 'react';
+import 'jest-styled-components';
 import { shallow, mount } from 'enzyme';
 import Fieldset from './fieldset.component';
 import Textbox from '../textbox';
 import { LegendStyle } from './fieldset.style';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import classicTheme from '../../../style/themes/classic';
 
 function render(props) {
@@ -31,7 +33,14 @@ describe('Fieldset', () => {
     });
 
     it('applies classic theme styling', () => {
-      expect(mount(<LegendStyle theme={ classicTheme } />)).toMatchSnapshot();
+      assertStyleMatch({
+        color: '#003349',
+        fontSize: '14px',
+        fontWeight: 'bold',
+        lineHeight: '14px',
+        margin: '0 0 8px 0',
+        padding: '0 6px'
+      }, mount(<LegendStyle theme={ classicTheme } />));
     });
   });
 });
