@@ -5,7 +5,7 @@ Feature: Icon component
     Given I open "Icon" component page
 
   @positive
-  Scenario Outline: Change type
+  Scenario Outline: Change type to <type>
     When I select type to "<type>"
     Then icon on preview is "<type>"
     Examples:

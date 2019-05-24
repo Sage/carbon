@@ -5,7 +5,7 @@ Feature: Confirm component
     Given I open "Confirm" component page
 
   @positive
-  Scenario Outline: Change cancelLabel in inner context in Confirm dialog
+  Scenario Outline: Change cancelLabel in inner context in Confirm dialog to <cancelLabel>
     When I set cancelLabel to "<cancelLabel>"
       And I click on a openButton
     Then cancel button content on preview is "<cancelLabel>"
@@ -16,10 +16,11 @@ Feature: Confirm component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
-  Scenario Outline: Change confirmLabel in inner context in Confirm dialog
+  Scenario Outline: Change confirmLabel in inner context in Confirm dialog to <confirmLabel>
     When I set confirmLabel to "<confirmLabel>"
       And I click on a openButton
     Then confirm button content on preview is "<confirmLabel>"
@@ -30,10 +31,11 @@ Feature: Confirm component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
       
   @positive
-  Scenario Outline: Change title in Confirm dialog
+  Scenario Outline: Change title in Confirm dialog to <title>
     When I set title to "<title>"
       And I click on a openButton
     Then dialog title context on preview is "<title>"
@@ -44,10 +46,11 @@ Feature: Confirm component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
-  Scenario Outline: Change subtitle in Confirm dialog
+  Scenario Outline: Change subtitle in Confirm dialog to <subtitle>
     When I set subtitle to "<subtitle>"
       And I click on a openButton
     Then dialog subtitle context is "<subtitle>"
@@ -58,7 +61,8 @@ Feature: Confirm component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
   Scenario Outline: Change the height of Confirm dialog
