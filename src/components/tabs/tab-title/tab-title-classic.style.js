@@ -47,7 +47,8 @@ export default ({
 
     &:hover {
       background: #fff;
-      border-bottom-color: #1963f6;
+      border-bottom-color: #004b87;
+      
       color: #003349;
     }
   `}

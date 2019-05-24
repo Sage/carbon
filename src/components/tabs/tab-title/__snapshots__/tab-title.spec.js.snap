@@ -16,13 +16,7 @@ exports[`TabTitle renders as expected 1`] = `
   margin-left: 0;
 }
 
-.c0:hover {
-  background: transparent;
-  border-bottom-color: #4CB74C;
-  color: rgba(0,0,0,0.9);
-  outline: none;
-}
-
+.c0:hover,
 .c0:focus {
   background: transparent;
   border-bottom-color: #4CB74C;
@@ -55,13 +49,7 @@ exports[`TabTitle when in classic theme renders as expected 1`] = `
   margin-left: 0;
 }
 
-.c0:hover {
-  background: transparent;
-  border-bottom-color: #4CB74C;
-  color: rgba(0,0,0,0.9);
-  outline: none;
-}
-
+.c0:hover,
 .c0:focus {
   background: transparent;
   border-bottom-color: #4CB74C;

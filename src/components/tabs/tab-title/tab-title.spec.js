@@ -221,7 +221,7 @@ describe('TabTitle', () => {
         assertStyleMatch(
           {
             background: '#fff',
-            borderBottomColor: '#1963f6',
+            borderBottomColor: '#004b87',
             color: '#003349'
           },
           wrapper.toJSON(),

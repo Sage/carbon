@@ -17,14 +17,8 @@ const StyledTabTitle = styled.li`
     margin-left: 0;
   }
 
-  &:hover {
-    background: transparent;
-    border-bottom-color: ${({ theme }) => theme.colors.hoveredTabKeyline};
-    color: ${({ theme }) => theme.text.color};
-    outline: none;
-  }
-
   ${({ isTabSelected }) => !isTabSelected && css`
+    &:hover,
     &:focus {
       background: transparent;
       border-bottom-color: ${({ theme }) => theme.colors.hoveredTabKeyline};
@@ -45,6 +39,11 @@ const StyledTabTitle = styled.li`
     color: ${({ theme }) => theme.text.color};
     background-color: transparent;
     border-bottom-color: ${({ theme }) => theme.colors.primary};
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 6px ${({ theme }) => theme.colors.focus};        
+    }
 
     &:hover {
       background: transparent;
