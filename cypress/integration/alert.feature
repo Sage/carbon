@@ -16,7 +16,8 @@ Feature: Alert component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
   Scenario Outline: Change Alert subtitle
@@ -30,7 +31,8 @@ Feature: Alert component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
   Scenario Outline: Change Alert children
@@ -44,7 +46,8 @@ Feature: Alert component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
   Scenario: Enable background UI
@@ -112,7 +115,7 @@ Feature: Alert component
 
   @positive
   Scenario Outline: Set Alert size to small, medium and large
-    When I set component size to "<sizeName>"
+    When I select size to "<sizeName>"
       And I open component preview
     Then Alert size property on preview is "<sizePropertyInPx>"
     Examples:

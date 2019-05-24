@@ -5,7 +5,7 @@ Feature: Link component
     Given I open "Link" component page
 
   @positive
-  Scenario Outline: Change Link children
+  Scenario Outline: Change Link children to <children>
     When I set children to "<children>"
     Then children on preview is "<children>"
     Examples:
@@ -29,7 +29,7 @@ Feature: Link component
     Then Link is enabled
 
   @positive
-  Scenario Outline: Change Link href
+  Scenario Outline: Change Link href to <href>
     When I set href to "<href>"
     Then Link on preview href is set to "<href>"
     Examples:

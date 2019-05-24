@@ -16,11 +16,12 @@ Feature: Animated Menu Button component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
   Scenario Outline: Change Animated Menu Button direction
-    When I set direction to "<direction>"
+    When I select direction to "<direction>"
     Then Animated Menu Button direction on preview is "<direction>"
     Examples:
       | direction |
@@ -29,7 +30,7 @@ Feature: Animated Menu Button component
 
   @positive
   Scenario Outline: Change Animated Menu Button size
-    When I set component size to "<size>"
+    When I select size to "<size>"
     Then Animated Menu Button size property on preview is "<size>"
     Examples:
       | size         |

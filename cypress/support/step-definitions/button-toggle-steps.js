@@ -1,58 +1,40 @@
-import {
-  buttonToggleLabelPreview, buttonIconSelect, buttonToggleIconNamePreview,
-  buttonIconSizeSelect, buttonToggleIconPreview, buttonTogglePreview,
-} from '../../locators/button-toggle';
-
-const BUTTON_TOGGLE_ICON_CLASS = 'carbon-button-toggle__button-icon--';
-const BUTTON_TOGGLE_CLASS = 'carbon-button-toggle--';
+import { buttonToggleLabelPreview, buttonTogglePreview } from '../../locators/button-toggle';
+import { icon } from '../../locators';
 
 Then('Button Toggle label on preview is {string}', (label) => {
   buttonToggleLabelPreview().should('have.text', label);
 });
 
-When('I set button icon to {string}', (iconName) => {
-  buttonIconSelect().select(iconName);
-});
-
 Then('Button icon on preview is {string}', (iconName) => {
-  buttonToggleIconNamePreview().should('have.attr', 'data-element', iconName);
+  icon().should('have.attr', 'data-element', iconName);
 });
 
-When('I set button icon size to {string}', (size) => {
-  buttonIconSizeSelect().select(size);
-});
-
-Then('Button icon size on preview is {string}', (size) => {
-  if (size === 'small') {
-    // small is default property that's why it's absent inside class
-    buttonToggleIconPreview().should('not.have.class', BUTTON_TOGGLE_ICON_CLASS + size);
-  } else {
-    buttonToggleIconPreview().should('have.class', BUTTON_TOGGLE_ICON_CLASS + size);
-  }
+Then('Button icon height is {string} and width is {string}', (height, width) => {
+  icon().should('have.css', 'height', height);
+  icon().should('have.css', 'width', width);
 });
 
 Then('Button icon not exists on preview', () => {
-  buttonToggleIconNamePreview().should('not.exist');
+  icon().should('not.exist');
 });
 
-Then('Button Toggle size on preview is {string}', (size) => {
-  buttonTogglePreview().should('have.class', BUTTON_TOGGLE_CLASS + size);
+Then('Button Toggle height is {string} and width is {string}', (height, width) => {
+  buttonTogglePreview().should('have.css', 'height', height);
+  buttonTogglePreview().should('have.css', 'width', width);
 });
 
 Then('Button Toggle is disabled', () => {
-  buttonTogglePreview().should('have.class', 'common-input--disabled');
-  buttonToggleLabelPreview().should('have.class', 'carbon-button-toggle__label--disabled');
+  buttonTogglePreview().should('have.attr', 'disabled');
 });
 
 Then('Button Toggle is enabled', () => {
-  buttonTogglePreview().should('not.have.class', 'common-input--disabled');
-  buttonToggleLabelPreview().should('not.have.class', 'carbon-button-toggle__label--disabled');
+  buttonTogglePreview().should('not.have.attr', 'disabled');
 });
 
 Then('Button Toggle is grouped', () => {
-  buttonTogglePreview().should('have.class', `${BUTTON_TOGGLE_CLASS}grouped`);
+  buttonTogglePreview().should('have.css', 'margin-left', '0px');
 });
 
 Then('Button Toggle is not grouped', () => {
-  buttonTogglePreview().should('not.have.class', `${BUTTON_TOGGLE_CLASS}grouped`);
+  buttonTogglePreview().should('have.css', 'margin-left', '10px');
 });

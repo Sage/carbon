@@ -5,7 +5,7 @@ Feature: Link component
     Given I open "Link" component page
 
   @positive
-  Scenario Outline: Change type of icon for a Link component
+  Scenario Outline: Change type of icon for a Link component to <icon>
     When I select icon to "<icon>"
     Then icon on link componenent preview is "<icon>"
     Examples:
