@@ -6,12 +6,12 @@ Feature: Button Toggle component - set all possible icon and verify
 
 @negative
   Scenario: Change Button Toggle icon to null
-    When I set button icon to "null"
+    When I select buttonIcon to "null"
     Then Button icon not exists on preview
 
   @positive
-  Scenario Outline: Change Button Toggle icon
-    When I set button icon to "<iconName>"
+  Scenario Outline: Change Button Toggle icon to <iconName>
+    When I select buttonIcon to "<iconName>"
     Then Button icon on preview is "<iconName>"
     Examples:
       | iconName          |
@@ -78,7 +78,6 @@ Feature: Button Toggle component - set all possible icon and verify
       | gift              |
       | graph             |
       | grid              |
-      | help              |
       | home              |
       | image             |
       | in_progress       |
