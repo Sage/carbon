@@ -37,7 +37,7 @@ const StepSequenceItemStyle = styled.li`
     color: ${theme.text.color};
 
     &::before {
-      background-color: ${theme.colors.base};
+      background-color: ${theme.colors.withOpacity};
     }
   `};
 
