@@ -23,10 +23,12 @@ export default {
     padding: '13px',
     inputHeight: '32px'
   },
-  wrapper: {
-    compact: '24',
-    small: '32',
-    medium: '40',
-    large: '48'
+  wrapper: (total) => {
+    return {
+      compact: `${24 * total}px`,
+      small: `${32 * total}px`,
+      medium: `${40 * total}px`,
+      large: `${48 * total}px`
+    };
   }
 };
