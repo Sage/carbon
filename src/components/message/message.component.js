@@ -53,7 +53,7 @@ Message.defaultProps = {
 };
 
 Message.propTypes = {
-  /** set type of message. This is based on new DLS standard */
+  /** set type of message based on new DLS standard */
   variant: PropTypes.oneOf(OptionsHelper.colors),
   /** set type of message. This is legacy property */
   as: PropTypes.string,
