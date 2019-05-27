@@ -4,7 +4,7 @@ import { THEMES } from '../../style/themes';
 const colors = {
   warning: { color: '#FF7D00', backgroundColor: '#FFF8F2' },
   default: { color: '#335B6D', backgroundColor: '#335B6D' },
-  error: { color: '#D63F40', backgroundColor: '#FDF5F5' },
+  error: { color: '#c7384f', backgroundColor: '#FDF5F5' },
   info: { color: '#1573E6', backgroundColor: '#F3F8FE' },
   new: { color: '#663399', backgroundColor: '#F7F5FA' },
   success: { color: '#50B848', backgroundColor: '#F6FBF6' },
@@ -22,6 +22,7 @@ const classicToastTypeStyle = ({ theme, variant }) => theme.name === THEMES.clas
   left: -1px;
   width: 31px;
   background-color: ${colors[variant].color};
+  border-radius: 0;
   
   .carbon-icon__svg {
     height: 24px;
@@ -43,6 +44,7 @@ const classicToastStyle = ({ theme, variant }) => theme.name === THEMES.classic 
   z-index: 2001;
   box-shadow: 0 15px 20px 0 rgba(2,18,36, 0.2);
   border: none;
+  border-radius: 0px;
   background-color: ${colors[variant].backgroundColor};
 
   strong {
