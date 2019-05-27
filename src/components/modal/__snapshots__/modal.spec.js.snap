@@ -18,8 +18,8 @@ exports[`Modal backgroundHTML when enableBackgroundUI is false renders children 
       transitionLeaveTimeout={500}
       transitionName="modal-background"
     >
-      <div
-        className="carbon-modal__background"
+      <styled.div
+        data-element="modal-background"
       />
     </CSSTransitionGroup>
     <CSSTransitionGroup
