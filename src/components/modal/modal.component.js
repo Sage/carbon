@@ -5,7 +5,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Events from '../../utils/helpers/events';
 import Browser from '../../utils/helpers/browser';
 import Portal from '../portal';
-import './modal.scss';
+import StyledModal from './modal.style';
 
 const TIMEOUT = 500;
 /**
@@ -203,9 +203,7 @@ class Modal extends React.Component {
   get backgroundHTML() {
     if (!this.props.enableBackgroundUI) {
       return (
-        <div
-          className='carbon-modal__background'
-        />
+        <StyledModal data-element='modal-background' />
       );
     }
     return null;

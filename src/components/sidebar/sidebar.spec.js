@@ -48,7 +48,7 @@ describe('Sidebar', () => {
             onCancel={ spy }
           />
         );
-        expect(wrapper.find('.carbon-modal__background').length).toEqual(0);
+        expect(wrapper.find('[data-element="modal-background"]').length).toEqual(0);
       });
     });
 
