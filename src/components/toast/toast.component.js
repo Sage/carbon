@@ -8,7 +8,6 @@ import Portal from '../portal/portal';
 import { ToastStyle, ToastTypeStyle, ToastContentStyle } from './toast.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import DismissButton from '../dismiss-button';
-import './toast.scss';
 
 class Toast extends React.Component {
   /** Classes to be applied to the component. */

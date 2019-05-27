@@ -53,15 +53,25 @@ Message.defaultProps = {
 };
 
 Message.propTypes = {
+  /** set type of message. This is based on new DLS standard */
   variant: PropTypes.oneOf(OptionsHelper.colors),
+  /** set type of message. This is legacy property */
   as: PropTypes.string,
+  /** set border to component */
   border: PropTypes.bool,
+  /** set content to component */
   children: PropTypes.node,
+  /** set custom class to component */
   className: PropTypes.string,
+  /** show message component */
   open: PropTypes.bool,
+  /** function runs when user click dismiss button */
   onDismiss: PropTypes.func,
+  /** set corners to be rounded or sharp */
   roundedCorners: PropTypes.bool,
+  /** set message title */
   title: PropTypes.node,
+  /** set background to be invisible */
   transparent: PropTypes.bool
 };
 

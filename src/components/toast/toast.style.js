@@ -10,7 +10,6 @@ import TypeIcon from '../message/type-icon/type-icon.style';
 import { THEMES } from '../../style/themes';
 
 const animationName = '.toast';
-
 const ToastStyle = styled(MessageStyle)`
   width: 300px;
   margin-top: 30px;
@@ -39,7 +38,7 @@ const ToastStyle = styled(MessageStyle)`
       transition: all 300ms cubic-bezier(0.960, -0.335, 0.750, 0.750);
     }
   `}
-
+  
   ${classicToastStyle}
 `;
 
