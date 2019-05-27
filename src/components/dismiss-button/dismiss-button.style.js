@@ -14,8 +14,11 @@ const DismissButtonStyle = styled.div`
 
   .icon-close {
     &:before {
-      color: ${({ variant, theme }) => theme.colors[variant]};
+      color: ${({ theme }) => theme.colors.border};
       font-size: 12px;
+    }
+    &:hover:before{
+      color: ${({ theme }) => theme.colors.focusedIcon};
     }
   }
 
@@ -56,6 +59,10 @@ DismissButtonStyle.propTypes = {
   border: PropTypes.bool,
   roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool
+};
+
+LinkStyle.defaultProps = {
+  theme: BaseTheme
 };
 
 export { DismissButtonStyle, LinkStyle };

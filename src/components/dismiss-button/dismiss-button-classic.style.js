@@ -25,7 +25,9 @@ export default ({ theme, variant }) => theme.name === THEMES.classic && css`
     &:before {
       color: ${colors[variant]};
       font-size:16px;
-
+    }
+    &:hover:before{
+      color: ${colors[variant]};
     }
   }
 
