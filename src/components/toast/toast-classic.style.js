@@ -47,6 +47,25 @@ const classicToastStyle = ({ theme, variant }) => theme.name === THEMES.classic 
   border-radius: 0px;
   background-color: ${colors[variant].backgroundColor};
 
+  &.toast-appear,
+  &.toast-enter {
+    opacity: 0;
+    margin-top: -100px;
+  }
+
+  &.toast-appear.toast-appear-active,
+  &.toast-enter.toast-enter-active {
+    opacity: 1;
+    margin-top: 30px;
+    transition: all 300ms 1000ms cubic-bezier(0.250, 0.250, 0.000, 1.500);
+  }
+
+  &.toast-leave.toast-leave-active {
+    opacity: 0;
+    right: -360px;
+    transition: all 300ms cubic-bezier(0.960, -0.335, 0.750, 0.750);
+  }
+
   strong {
     color: ${colors[variant].color};
   }
