@@ -25,11 +25,8 @@ const getSplitButtonChildrenClassicStyles = ({ theme }) => (theme.name === THEME
     letter-spacing: 0;
     padding: 0 18px;
     text-align: left;
-    
-    &:focus {
-      background-color: ${classicColors.tertiary};
-    }
 
+    &:focus,
     &:hover {
       background-color: ${classicColors.tertiary};
     }

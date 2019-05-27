@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import PropTypes from 'prop-types';
 import BaseTheme from '../../style/themes/base';
 import StyledButton from '../button/button.style';
 import { getSplitButtonChildrenClassicStyles } from './split-button-classic.style';
@@ -23,10 +22,7 @@ const StyledSplitButtonChildrenContainer = styled.div`
       min-width: 100%;
       z-index: 10;
 
-      &:focus {
-        background-color: ${theme.colors.tertiary};
-      }
-
+      &:focus,
       &:hover {
         background-color: ${theme.colors.tertiary};
       }
@@ -40,12 +36,7 @@ const StyledSplitButtonChildrenContainer = styled.div`
   ${getSplitButtonChildrenClassicStyles}
 `;
 
-StyledSplitButtonChildrenContainer.propTypes = {
-  displayButtons: PropTypes.bool
-};
-
 StyledSplitButtonChildrenContainer.defaultProps = {
-  displayButtons: false,
   theme: BaseTheme
 };
 

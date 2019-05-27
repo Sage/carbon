@@ -321,10 +321,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   z-index: 10;
 }
 
-.c18 .c1:focus {
-  background-color: #003F2E;
-}
-
+.c18 .c1:focus,
 .c18 .c1:hover {
   background-color: #003F2E;
 }
@@ -347,10 +344,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   text-align: left;
 }
 
-.c18 .c1:focus {
-  background-color: #163777;
-}
-
+.c18 .c1:focus,
 .c18 .c1:hover {
   background-color: #163777;
 }
@@ -367,10 +361,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   z-index: 10;
 }
 
-.c19 .c1:focus {
-  background-color: #003F2E;
-}
-
+.c19 .c1:focus,
 .c19 .c1:hover {
   background-color: #003F2E;
 }
@@ -391,10 +382,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   z-index: 10;
 }
 
-.c20 .c1:focus {
-  background-color: #004372;
-}
-
+.c20 .c1:focus,
 .c20 .c1:hover {
   background-color: #004372;
 }
@@ -415,10 +403,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   z-index: 10;
 }
 
-.c21 .c1:focus {
-  background-color: #3D1E5B;
-}
-
+.c21 .c1:focus,
 .c21 .c1:hover {
   background-color: #3D1E5B;
 }
@@ -827,11 +812,6 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin-left: 0;
 }
 
-.c1 + .c21:focus {
-  margin-left: -2px;
-  padding-left: 12px;
-}
-
 .c1 + .c21 .carbon-icon {
   margin-left: 0;
 }
@@ -844,11 +824,6 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin-left: 0;
 }
 
-.c1 + .c22:focus {
-  margin-left: -2px;
-  padding-left: 12px;
-}
-
 .c1 + .c22 .carbon-icon {
   margin-left: 0;
 }
@@ -859,11 +834,6 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 
 .c1 + .c23 {
   margin-left: 0;
-}
-
-.c1 + .c23:focus {
-  margin-left: -2px;
-  padding-left: 12px;
 }
 
 .c1 + .c23 .carbon-icon {
@@ -882,10 +852,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   z-index: 10;
 }
 
-.c24 .c1:focus {
-  background-color: #003F2E;
-}
-
+.c24 .c1:focus,
 .c24 .c1:hover {
   background-color: #003F2E;
 }
@@ -908,10 +875,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   text-align: left;
 }
 
-.c24 .c1:focus {
-  background-color: #163777;
-}
-
+.c24 .c1:focus,
 .c24 .c1:hover {
   background-color: #163777;
 }
@@ -928,10 +892,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   z-index: 10;
 }
 
-.c25 .c1:focus {
-  background-color: #003F2E;
-}
-
+.c25 .c1:focus,
 .c25 .c1:hover {
   background-color: #003F2E;
 }
@@ -952,10 +913,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   z-index: 10;
 }
 
-.c26 .c1:focus {
-  background-color: #004372;
-}
-
+.c26 .c1:focus,
 .c26 .c1:hover {
   background-color: #004372;
 }
@@ -976,10 +934,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   z-index: 10;
 }
 
-.c27 .c1:focus {
-  background-color: #3D1E5B;
-}
-
+.c27 .c1:focus,
 .c27 .c1:hover {
   background-color: #3D1E5B;
 }

@@ -3,9 +3,9 @@ import StyledButton from '../button/button.style';
 import { getSplitButtonToggleClassicStyles } from './split-button-classic.style';
 
 const horizontalPaddingSizes = {
-  small: '5px',
-  medium: '10px',
-  large: '14px'
+  small: 5,
+  medium: 10,
+  large: 14
 };
 
 const StyledSplitButtonToggle = styled(StyledButton)`
@@ -35,21 +35,23 @@ const StyledSplitButtonToggle = styled(StyledButton)`
     ` : ''}
 
     ${buttonType === 'primary' ? `border-left-color: ${theme.colors.secondary};` : 'border-left: none;'}
-    padding 0 ${horizontalPaddingSizes[size]};
-  `}
+    padding: 0 ${horizontalPaddingSizes[size]}px;
   
-  ${StyledButton} + & {
-    margin-left: 0;
+    ${StyledButton} + & {
+      margin-left: 0;
 
-    &:focus {
-      margin-left: -2px;
-      padding-left: 12px;
+      ${buttonType === 'secondary' ? css`
+        &:focus {
+          margin-left: -2px;
+          padding-left: ${horizontalPaddingSizes[size] + 2}px;
+        }
+      ` : ''}
     }
-  }
 
-  ${StyledButton} + & .carbon-icon {
-    margin-left: 0;
-  }
+    ${StyledButton} + & .carbon-icon {
+      margin-left: 0;
+    }
+  `}
 
   ${getSplitButtonToggleClassicStyles}
 `;
