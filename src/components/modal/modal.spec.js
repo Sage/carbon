@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Modal from './modal';
-import Events from './../../utils/helpers/events';
-import Browser from './../../utils/helpers/browser';
+import Modal from './modal.component';
+import Events from '../../utils/helpers/events';
+import Browser from '../../utils/helpers/browser';
 
 describe('Modal', () => {
   let wrapper, onCancel, mockWindow;
