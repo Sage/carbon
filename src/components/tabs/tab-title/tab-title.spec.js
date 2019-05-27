@@ -78,7 +78,7 @@ describe('TabTitle', () => {
       assertStyleMatch(
         {
           background: 'transparent',
-          borderRightColor: baseTheme.colors.secondary
+          borderRightColor: baseTheme.colors.hoveredTabKeyline
         },
         wrapper.toJSON(),
         { modifier: ':hover' }
@@ -158,7 +158,7 @@ describe('TabTitle', () => {
       wrapper = renderStyles({ tabHasWarning: true });
       assertStyleMatch(
         {
-          borderBottom: `2px solid ${baseTheme.colors.warning}`
+          borderBottomColor: baseTheme.colors.warning
         },
         wrapper.toJSON()
       );
@@ -170,7 +170,7 @@ describe('TabTitle', () => {
       wrapper = renderStyles({ tabHasError: true });
       assertStyleMatch(
         {
-          borderBottom: `2px solid ${baseTheme.colors.error}`
+          borderBottomColor: baseTheme.colors.error
         },
         wrapper.toJSON()
       );
@@ -258,7 +258,7 @@ describe('TabTitle', () => {
         wrapper = renderStyles({ theme: classicTheme, tabHasError: true });
         assertStyleMatch(
           {
-            borderBottom: '2px solid #D63F40'
+            borderBottomColor: '#D63F40'
           },
           wrapper.toJSON()
         );
@@ -270,7 +270,7 @@ describe('TabTitle', () => {
         wrapper = renderStyles({ theme: classicTheme, tabHasWarning: true });
         assertStyleMatch(
           {
-            borderBottom: '2px solid #FF7D00'
+            borderBottomColor: '#FF7D00'
           },
           wrapper.toJSON()
         );

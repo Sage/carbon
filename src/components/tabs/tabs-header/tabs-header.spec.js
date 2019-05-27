@@ -34,9 +34,9 @@ describe('TabsHeader', () => {
     expect(wrapper.children()).toHaveLength(2);
   });
 
-  it('has the role of tablist', () => {
-    wrapper = render();
-    expect(wrapper.find("[role='tablist']").exists()).toEqual(true);
+  it('has the role of a role prop value', () => {
+    wrapper = render({ role: 'tablist' });
+    expect(wrapper.props().role).toEqual('tablist');
   });
 
   describe('when position prop is set to left', () => {

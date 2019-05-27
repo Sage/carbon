@@ -27,14 +27,6 @@ const StyledTabTitle = styled.li`
     }
   `}
 
-  ${({ tabHasWarning }) => tabHasWarning && css`
-    border-bottom: 2px solid ${({ theme }) => theme.colors.warning};
-  `}
-
-  ${({ tabHasError }) => tabHasError && css`
-    border-bottom: 2px solid ${({ theme }) => theme.colors.error};
-  `}
-
   ${({ isTabSelected }) => isTabSelected && css`
     color: ${({ theme }) => theme.text.color};
     background-color: transparent;
@@ -67,7 +59,7 @@ const StyledTabTitle = styled.li`
 
     &:hover {
       background: transparent;
-      border-right-color: ${({ theme }) => theme.colors.secondary};
+      border-right-color: ${({ theme }) => theme.colors.hoveredTabKeyline};
     }
 
     ${({ isTabSelected }) => isTabSelected && css`
@@ -79,6 +71,14 @@ const StyledTabTitle = styled.li`
         background-color: transparent;
       }
     `}
+  `}
+
+  ${({ tabHasWarning }) => tabHasWarning && css`
+    border-bottom-color: ${({ theme }) => theme.colors.warning};
+  `}
+
+  ${({ tabHasError }) => tabHasError && css`
+    border-bottom-color: ${({ theme }) => theme.colors.error};
   `}
 
   ${TabTitleClassicStyle}

@@ -28,14 +28,6 @@ export default ({
     }
   `}
 
-  ${tabHasWarning && css`
-    border-bottom: 2px solid #FF7D00;
-  `}
-
-  ${tabHasError && css`
-    border-bottom: 2px solid #D63F40;
-  `}
-
   ${isTabSelected && css`
     background-color: #fff;
     border-bottom-color: #1963f6;
@@ -71,5 +63,13 @@ export default ({
         background-color: #fff;
       }
     `}
+  `}
+
+  ${tabHasWarning && css`
+    border-bottom-color: #FF7D00;
+  `}
+
+  ${tabHasError && css`
+    border-bottom-color: #D63F40;
   `}
 `;

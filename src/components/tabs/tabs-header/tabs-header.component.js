@@ -3,12 +3,14 @@ import PropTypes from 'prop-types';
 import StyledTabsHeader from './tabs-header.style';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
-const TabsHeader = ({ align, children, position }) => {
+const TabsHeader = ({
+  align, children, position, role
+}) => {
   return (
     <StyledTabsHeader
       align={ align }
       position={ position }
-      role='tablist'
+      role={ role }
     >
       {children}
     </StyledTabsHeader>
@@ -23,7 +25,8 @@ TabsHeader.defaultProps = {
 TabsHeader.propTypes = {
   align: PropTypes.oneOf(OptionsHelper.alignBinary),
   children: PropTypes.node.isRequired,
-  position: PropTypes.oneOf(['top', 'left'])
+  position: PropTypes.oneOf(['top', 'left']),
+  role: PropTypes.string
 };
 
 export default TabsHeader;
