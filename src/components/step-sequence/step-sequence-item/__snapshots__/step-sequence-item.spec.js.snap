@@ -25,6 +25,7 @@ exports[`StepSequenceItem Classic theme renders correctly 1`] = `
   list-style-type: none;
   color: #b3c2c8;
   height: 24px;
+  color: rgba(0,0,0,0.55);
 }
 
 .c0::before {
@@ -57,9 +58,13 @@ exports[`StepSequenceItem Classic theme renders correctly 1`] = `
   display: none;
 }
 
+.c0::before {
+  background-color: rgba(0,0,0,0.55);
+}
+
 .c2 {
   display: block;
-  width: 16px;
+  min-width: 16px;
   height: 16px;
   margin-right: 8px;
   text-align: center;
@@ -140,7 +145,7 @@ exports[`StepSequenceItem renders correctly 1`] = `
 
 .c2 {
   display: block;
-  width: 16px;
+  min-width: 16px;
   height: 16px;
   margin-right: 8px;
   text-align: center;
