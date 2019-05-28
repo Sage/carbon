@@ -23,7 +23,7 @@ class Toast extends React.Component {
       return (
         <DismissButton
           data-element='close'
-          onClick={ this.props.onDismiss }
+          onDismiss={ this.props.onDismiss }
           type='close'
           variant={ this.props.variant || this.props.as }
         />
