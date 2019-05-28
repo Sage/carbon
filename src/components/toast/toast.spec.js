@@ -61,9 +61,12 @@ describe('Toast', () => {
 
     it('calls onDismiss method when clicking close', () => {
       const spy = jest.fn();
-      const wrapper = shallow(<Toast open onDismiss={ spy } />);
+      const wrapper = mount(<Toast
+        open
+        onDismiss={ spy }
+      />);
 
-      wrapper.find(DismissButton).simulate('click');
+      wrapper.find('a').simulate('click');
       expect(spy).toHaveBeenCalled();
     });
   });

@@ -16,7 +16,7 @@ exports[`MessageContent when in classic theme when the title prop is provided sh
 }
 
 .c0 .carbon-content__title {
-  color: #c7384f;
+  color: #1573e6;
 }
 
 <div
@@ -43,7 +43,7 @@ exports[`MessageContent when in classic theme when the title prop is provided sh
 }
 
 .c0 .carbon-content__title {
-  color: #1573e6;
+  color: #c7384f;
 }
 
 <div

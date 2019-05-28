@@ -664,7 +664,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   justify-content: center;
   text-align: center;
   min-width: 30px;
-  background-color: #C7384F;
+  background-color: #0073C2;
   background-color: transparent;
 }
 
@@ -673,7 +673,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
 }
 
 .c0 span:before {
-  color: #C7384F;
+  color: #0073C2;
 }
 
 <div
@@ -697,7 +697,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   justify-content: center;
   text-align: center;
   min-width: 30px;
-  background-color: #0073C2;
+  background-color: #C7384F;
   background-color: transparent;
 }
 
@@ -706,7 +706,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
 }
 
 .c0 span:before {
-  color: #0073C2;
+  color: #C7384F;
 }
 
 <div

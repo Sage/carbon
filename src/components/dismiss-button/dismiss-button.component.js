@@ -7,7 +7,7 @@ const DismissButton = ({ variant, onDismiss, transparent }) => {
   return (
     <DismissButtonStyle variant={ variant } transparent={ transparent }>
       <LinkStyle
-        icon='close' data-element='dismsiss'
+        icon='close' data-element='dismiss'
         onClick={ onDismiss }
       />
     </DismissButtonStyle>
