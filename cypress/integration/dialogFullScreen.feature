@@ -5,7 +5,7 @@ Feature: Dialog Full Screen component
     Given I open "Dialog Full Screen" component page
 
   @positive
-  Scenario Outline: Change Dialog Full Screen component title
+  Scenario Outline: Change Dialog Full Screen component title to <title>
     When I set title to "<title>"
       And I open component preview
     Then component title on preview is "<title>"
@@ -19,7 +19,7 @@ Feature: Dialog Full Screen component
       | <>                       |
 
   @positive
-  Scenario Outline: Change Dialog Full Screen subtitle
+  Scenario Outline: Change Dialog Full Screen subtitle to <subtitle>
     When I set subtitle to "<subtitle>"
       And I open component preview
     Then component subtitle on preview is "<subtitle>"
@@ -33,7 +33,7 @@ Feature: Dialog Full Screen component
       | <>                       |
 
   @positive
-  Scenario Outline: Change Dialog Full Screen children
+  Scenario Outline: Change Dialog Full Screen children to <children>
     When I set children to "<children>"
       And I open component preview
     Then Dialog Full Screen children on preview is "<children>"

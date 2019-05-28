@@ -10,13 +10,13 @@ Then('Multi Action Button text on preview is set to {string}', (text) => {
     .should('have.text', text);
 });
 
-Then('Multi Action Button is disabled', () => {
+Then('Multi Action Button state is disabled', () => {
   multiActionButtonPreview()
     .children()
     .should('have.attr', 'disabled');
 });
 
-Then('Multi Action Button is not disabled', () => {
+Then('Multi Action Button state is not disabled', () => {
   multiActionButtonPreview()
     .children()
     .should('not.have.attr', 'disabled');

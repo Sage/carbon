@@ -14,6 +14,10 @@ Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
 });
 
+Given('I open {string} component page classic', (component) => {
+  visitComponentUrl(component, 'classic');
+});
+
 Given('I open {string} component page with button', (component) => {
   visitComponentUrl(component, 'with_button');
 });
