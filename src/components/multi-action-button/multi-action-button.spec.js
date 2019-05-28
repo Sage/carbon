@@ -1,26 +1,22 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
-import MultiActionButton from './multi-action-button.component';
-import Icon from './../icon';
-import Button from './../button';
 import { shallow } from 'enzyme';
+import MultiActionButton from './multi-action-button.component';
+import Button from '../button';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import StyledSplitButton from '../split-button/split-button.style';
-import SplitButton from '../split-button/split-button';
 
 describe('MultiActionButton', () => {
-  let instance,
-      handleSecondButton = jasmine.createSpy("second"),
-      handleFirstButton= jasmine.createSpy("first");
+  let instance;
+  const handleSecondButton = jasmine.createSpy('second');
+  const handleFirstButton = jasmine.createSpy('first');
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <MultiActionButton className='test' text="Main Button">
-        <Button className='first-button' onClick={handleFirstButton}>First Button</Button>
-        <Button className='second-button' onClick={handleSecondButton}>Second Button</Button>
+      <MultiActionButton className='test' text='Main Button'>
+        <Button className='first-button' onClick={ handleFirstButton }>First Button</Button>
+        <Button className='second-button' onClick={ handleSecondButton }>Second Button</Button>
       </MultiActionButton>
-    )
+    );
   });
 
   describe('mainClasses', () => {
@@ -58,7 +54,7 @@ describe('MultiActionButton', () => {
     });
 
     it('adds right aligned class', () => {
-      instance = TestUtils.renderIntoDocument(<MultiActionButton align="right" text="Main Button" />);
+      instance = TestUtils.renderIntoDocument(<MultiActionButton align='right' text='Main Button' />);
       expect(TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-multi-action-button--align-right').length).toEqual(1);
     });
   });
@@ -73,11 +69,15 @@ describe('MultiActionButton', () => {
     });
   });
 
-  describe("tags", () => {
-    describe("on component", () => {
+  describe('tags', () => {
+    describe('on component', () => {
       const multiActionButtonSelector = '[data-component="multi-action-button"]';
-      let wrapper = shallow(
-        <MultiActionButton data-element='bar' data-role='baz' text='Test'>
+      const wrapper = shallow(
+        <MultiActionButton
+          data-element='bar'
+          data-role='baz'
+          text='Test'
+        >
           <Button>Test</Button>
         </MultiActionButton>
       );
@@ -87,13 +87,13 @@ describe('MultiActionButton', () => {
       });
     });
 
-    describe("on internal elements", () => {
-      let wrapper = shallow(
+    describe('on internal elements', () => {
+      const wrapper = shallow(
         <MultiActionButton text='Test'>
           <Button>Test</Button>
         </MultiActionButton>
       );
-      wrapper.setState({ showAdditionalButtons: true })
+      wrapper.setState({ showAdditionalButtons: true });
 
       elementsTagTest(wrapper, [
         'additional-buttons',
