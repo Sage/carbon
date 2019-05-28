@@ -241,7 +241,7 @@ describe('Checkbox', () => {
 
         it('renders the correct CheckableInput styles', () => {
           assertStyleMatch({
-            paddingLeft: '6px'
+            marginRight: '8px'
           }, wrapper, { modifier: css`${StyledCheckableInput}` });
         });
       });
@@ -409,35 +409,15 @@ describe('Checkbox', () => {
     });
 
     describe('when fieldHelpInline=true', () => {
-      describe('default', () => {
-        it('applies the appropriate FieldHelp style', () => {
-          const wrapper = render({ fieldHelpInline: true, ...opts }).toJSON();
+      it('applies the appropriate FieldHelp style', () => {
+        const wrapper = render({ fieldHelpInline: true, ...opts }).toJSON();
 
-          assertStyleMatch({
-            marginLeft: '0',
-            paddingBottom: '0',
-            paddingTop: '0'
-          }, wrapper, { modifier: css`${FieldHelpStyle}` });
-        });
+        assertStyleMatch({
+          marginLeft: '0',
+          paddingBottom: '0',
+          paddingTop: '0'
+        }, wrapper, { modifier: css`${FieldHelpStyle}` });
       });
-
-      describe('when fieldHelpInline=true and reverse=true', () => {
-        it('applies the appropriate CheckableInput style', () => {
-          const wrapper = render({ fieldHelpInline: true, reverse: true, ...opts }).toJSON();
-
-          assertStyleMatch({
-            paddingLeft: '6px'
-          }, wrapper, { modifier: css`${StyledCheckableInput}` });
-        });
-      });
-    });
-
-    describe('when fieldHelpInline=true and reverse=true', () => {
-      const wrapper = render({ fieldHelpInline: true, reverse: true, ...opts }).toJSON();
-
-      assertStyleMatch({
-        paddingLeft: '6px'
-      }, wrapper, { modifier: css`${StyledCheckableInput}` });
     });
 
     describe('Small theme', () => {

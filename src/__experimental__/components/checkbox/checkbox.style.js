@@ -168,7 +168,7 @@ const CheckboxStyle = styled.div`
     `}
 
     ${reverse && fieldHelpInline && `
-      ${StyledCheckableInput} { padding-left: 6px; }
+      ${StyledCheckableInput} { margin-right: 8px; }
     `}
 
     ${checkBoxClassicStyle}

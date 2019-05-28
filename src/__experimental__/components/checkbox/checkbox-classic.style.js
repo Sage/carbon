@@ -41,7 +41,6 @@ export default ({
     content: '\\E943';
   }
 
-  ${FieldHelpStyle},
   ${LabelStyle} {
     padding-left: 6px;
   }
@@ -87,12 +86,6 @@ export default ({
   ${(fieldHelpInline || reverse) && `
     ${FieldHelpStyle} {
       margin-left: 0;
-    }
-  `}
-
-  ${fieldHelpInline && reverse && `
-    ${StyledCheckableInput} {
-      padding-left: 6px;
     }
   `}
 `;

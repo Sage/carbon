@@ -146,10 +146,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
 
 .c11 .c6:hover,
 .c11 .c8:hover,
-.c11 .c21:hover,
+.c11 .c20:hover,
 .c11 .c6:focus,
 .c11 .c8:focus,
-.c11 .c21:focus {
+.c11 .c20:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -184,10 +184,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
 
 .c12 .c6:hover,
 .c12 .c8:hover,
-.c12 .c21:hover,
+.c12 .c20:hover,
 .c12 .c6:focus,
 .c12 .c8:focus,
-.c12 .c21:focus {
+.c12 .c20:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -281,7 +281,7 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c15 .c4 {
-  padding-left: 6px;
+  margin-right: 8px;
 }
 
 .c16 .c4 {
@@ -370,10 +370,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
 
 .c17 .c6:hover,
 .c17 .c8:hover,
-.c17 .c21:hover,
+.c17 .c20:hover,
 .c17 .c6:focus,
 .c17 .c8:focus,
-.c17 .c21:focus {
+.c17 .c20:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -436,10 +436,10 @@ exports[`Checkbox base theme renders as expected 1`] = `
 
 .c18 .c6:hover,
 .c18 .c8:hover,
-.c18 .c21:hover,
+.c18 .c20:hover,
 .c18 .c6:focus,
 .c18 .c8:focus,
-.c18 .c21:focus {
+.c18 .c20:focus {
   outline: none;
   cursor: not-allowed;
 }
@@ -470,70 +470,6 @@ exports[`Checkbox base theme renders as expected 1`] = `
 .c18 .c6:not([disabled]):hover + .c8 > svg {
   border: 1px solid #1963f6;
   outline: none;
-}
-
-.c19 .c4 {
-  padding-top: 1px;
-}
-
-.c19 .c8 {
-  height: 16px;
-}
-
-.c19 .c6,
-.c19 svg {
-  height: 16px;
-  position: absolute;
-  padding: 1px;
-}
-
-.c19 .c4,
-.c19 .c6,
-.c19 .c8,
-.c19 svg {
-  box-sizing: border-box;
-  width: 16px;
-}
-
-.c19 .c6:not([disabled]):focus + .c8,
-.c19 .c6:not([disabled]):hover + .c8 {
-  outline: solid 3px #FFB500;
-}
-
-.c19 .c4 {
-  padding-left: 6px;
-}
-
-.c19 .c4 {
-  padding: 1px 0 0 0;
-}
-
-.c19 .c6,
-.c19 .c8 > svg {
-  padding: 1px;
-}
-
-.c19 .c4,
-.c19 .c6,
-.c19 .c8,
-.c19 .c8 > svg {
-  height: 15px;
-  width: 15px;
-}
-
-.c19 .c6:not([disabled]):focus + .c8,
-.c19 .c6:not([disabled]):hover + .c8 {
-  outline: none;
-}
-
-.c19 .c6:not([disabled]):focus + .c8 > svg,
-.c19 .c6:not([disabled]):hover + .c8 > svg {
-  border: 1px solid #1963f6;
-  outline: none;
-}
-
-.c19 .c4 {
-  padding-left: 6px;
 }
 
 .c0 {
@@ -573,23 +509,23 @@ exports[`Checkbox base theme renders as expected 1`] = `
   outline: solid 3px #FFB500;
 }
 
-.c0 .c21 {
+.c0 .c20 {
   padding: 0 6px;
   text-align: left;
   width: auto;
 }
 
-.c0 .c21 .c22 {
+.c0 .c20 .c21 {
   color: rgba(0,0,0,0.65);
   vertical-align: bottom;
 }
 
-.c0 .c21 .c22:hover,
-.c0 .c21 .c22:focus {
+.c0 .c20 .c21:hover,
+.c0 .c20 .c21:focus {
   color: rgba(0,0,0,0.9);
 }
 
-.c0 .c20 {
+.c0 .c19 {
   margin-left: 16px;
   margin-top: 0;
   padding-left: 6px;
