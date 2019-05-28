@@ -14,7 +14,8 @@ export default (palette) => {
         secondary: palette.amethystShade(10),
         tertiary: palette.amethystShade(30),
         whiteMix: palette.amethystTint(90),
-        withOpacity: baseWithOpacity(0.55)
+        withOpacity: baseWithOpacity(0.55),
+        hoveredTabKeyline: palette.amethystTint(30)
       }
     }
   );

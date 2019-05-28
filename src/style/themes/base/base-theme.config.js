@@ -26,6 +26,7 @@ export default (palette) => {
       border: palette.slateTint(40),
       focusedIcon: palette.slateTint(20),
       focusedLinkBackground: palette.goldTint(50),
+      hoveredTabKeyline: palette.genericGreenTint(30),
 
       // status
       error: palette.errorRed,
