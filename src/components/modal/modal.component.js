@@ -5,7 +5,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Events from '../../utils/helpers/events';
 import Browser from '../../utils/helpers/browser';
 import Portal from '../portal';
-import StyledModal from './modal.style';
+import { StyledModal, StyledModalBackground } from './modal.style';
 
 const TIMEOUT = 500;
 /**
@@ -203,7 +203,7 @@ class Modal extends React.Component {
   get backgroundHTML() {
     if (!this.props.enableBackgroundUI) {
       return (
-        <StyledModal data-element='modal-background' />
+        <StyledModalBackground data-element='modal-background' />
       );
     }
     return null;
@@ -247,7 +247,7 @@ class Modal extends React.Component {
 
     return (
       <Portal key='1'>
-        <div
+        <StyledModal
           className={ this.mainClasses }
           { ...this.componentTags(this.props) }
           data-state={ this.state.state }
@@ -272,7 +272,7 @@ class Modal extends React.Component {
           >
             { modalHTML }
           </CSSTransitionGroup>
-        </div>
+        </StyledModal>
       </Portal>
     );
   }

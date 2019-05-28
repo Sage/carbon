@@ -7,7 +7,7 @@ const animationLength = '300ms';
 const backgroundTransitionName = 'modal-background';
 const modalTransitionName = 'modal';
 
-const StyledModal = styled.div`
+const StyledModalBackground = styled.div`
   background-color: #F2F5F6;
   bottom: 0;
   left: 0;
@@ -35,7 +35,9 @@ const StyledModal = styled.div`
     opacity: 0;
     transition: opacity ${backgroundAnimationLength} 100ms ease-out;
   }
+`;
 
+const StyledModal = styled.div`
   .${modalTransitionName}-enter,
   .${modalTransitionName}-appear {
     opacity: 0;
@@ -61,4 +63,4 @@ const StyledModal = styled.div`
   }
 `;
 
-export default StyledModal;
+export { StyledModal, StyledModalBackground };

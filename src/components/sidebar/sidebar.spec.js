@@ -33,7 +33,7 @@ describe('Sidebar', () => {
     describe('when sidebar is closed', () => {
       it('sets all the correct classes', () => {
         wrapper = mount(<Sidebar onCancel={ spy } />);
-        expect(wrapper.find('.carbon-sidebar').text()).toEqual('');
+        expect(wrapper.find('div[data-component="sidebar"]').text()).toEqual('');
       });
     });
 
