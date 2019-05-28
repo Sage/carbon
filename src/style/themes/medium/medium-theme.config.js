@@ -10,7 +10,8 @@ export default (palette) => {
         primary: palette.productBlueShade(3),
         secondary: palette.productBlueShade(23),
         tertiary: palette.productBlueShade(43),
-        whiteMix: palette.productBlueTint(90)
+        whiteMix: palette.productBlueTint(90),
+        hoveredTabKeyline: palette.productBlueTint(30)
       }
     }
   );
