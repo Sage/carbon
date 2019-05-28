@@ -71,6 +71,14 @@ const StyledTabTitle = styled.li`
         background-color: transparent;
       }
     `}
+
+    ${({ tabHasWarning }) => tabHasWarning && css`
+      border-right-color: ${({ theme }) => theme.colors.warning};
+    `}
+
+    ${({ tabHasError }) => tabHasError && css`
+      border-right-color: ${({ theme }) => theme.colors.error};
+    `}
   `}
 
   ${({ tabHasWarning }) => tabHasWarning && css`

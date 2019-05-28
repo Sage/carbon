@@ -63,6 +63,14 @@ export default ({
         background-color: #fff;
       }
     `}
+
+    ${tabHasWarning && css`
+    border-right-color: #FF7D00;
+    `}
+
+    ${tabHasError && css`
+      border-right-color: #D63F40;
+    `}
   `}
 
   ${tabHasWarning && css`

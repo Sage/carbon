@@ -250,6 +250,30 @@ describe('TabTitle', () => {
             { modifier: ':hover' }
           );
         });
+
+        describe('when tab has en error', () => {
+          it('applies proper border-bottom color', () => {
+            wrapper = renderStyles({ theme: classicTheme, position: 'left', tabHasError: true });
+            assertStyleMatch(
+              {
+                borderRightColor: '#D63F40'
+              },
+              wrapper.toJSON()
+            );
+          });
+        });
+
+        describe('when tab has warning', () => {
+          it('applies proper border-bottom color', () => {
+            wrapper = renderStyles({ theme: classicTheme, position: 'left', tabHasWarning: true });
+            assertStyleMatch(
+              {
+                borderBottomColor: '#FF7D00'
+              },
+              wrapper.toJSON()
+            );
+          });
+        });
       });
     });
 
