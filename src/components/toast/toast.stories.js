@@ -26,7 +26,7 @@ storiesOf('Toast', module)
     const variant = select('as', OptionsHelper.colors, OptionsHelper.colors[2]);
     const children = text('children', 'Talkie\'s the name, toasting\'s the game. Anyone like any toast?');
     const open = boolean('open', true);
-    const onDismiss = boolean('onDismiss', false);
+    const onDismiss = boolean('onDismiss', true);
 
     const handleChange = () => {
       action('clicked')();
@@ -46,16 +46,13 @@ storiesOf('Toast', module)
     const variant = select('variant', OptionsHelper.toast, OptionsHelper.toast[0]);
     const children = text('children', 'Talkie\'s the name, toasting\'s the game. Anyone like any toast?');
     const open = boolean('open', true);
-    const onDismiss = boolean('onDismiss', false);
-
-    const handleChange = () => {
-      action('clicked')();
-    };
+    const onDismiss = boolean('onDismiss', true);
+    const onDismissClick = onDismiss ? (evt) => { action('click')(evt); } : undefined;
 
     return (
       <StyledToastStory
         variant={ variant }
-        open={ open } onDismiss={ onDismiss ? handleChange : undefined }
+        open={ open } onDismiss={ onDismissClick }
       >
         {children}
       </StyledToastStory>
