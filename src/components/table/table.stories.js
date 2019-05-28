@@ -36,10 +36,11 @@ const handleChange = (e, tableOptions) => {
 };
 
 const recordsForActivePage = (start, end) => {
+  let records = countriesList;
   if (store.get('sortOrder') === 'desc' && store.get('sortedColumn').length) {
-    return countriesList.reverse().slice(start, end).toJS();
+    records = records.reverse();
   }
-  return countriesList.slice(start, end).toJS();
+  return records.slice(start, end).toJS();
 };
 
 const buildRows = (pageSize, totalRecords) => {
