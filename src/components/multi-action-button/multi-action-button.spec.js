@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
-import MultiActionButton from './multi-action-button';
+import MultiActionButton from './multi-action-button.component';
 import Icon from './../icon';
 import Button from './../button';
 import { shallow } from 'enzyme';
