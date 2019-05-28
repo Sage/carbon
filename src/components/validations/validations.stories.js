@@ -186,48 +186,33 @@ storiesOf('Validations', module)
   .add('ButtonToggleGroup', () => {
     const test = value => new Promise((resolve, reject) => {
       if (value === 'baz') return resolve(true);
-      return reject(Error('this value is required!'));
+      return reject(Error('Baz is required!'));
     });
 
     return (
-      <Form>
+      <Form
+        onSubmit={ (ev) => { ev.preventDefault(); } }
+      >
         <State store={ buttonToggleGroupStore }>
           <ButtonToggleGroup
             label='ButtonToggle Validation'
-            labelHelp='Returns error unless any value selected'
+            labelHelp='Returns error unless "Baz" value selected'
             fieldHelp='Click save to run validation'
             validations={ test }
           >
-            <ButtonToggle
-              name='button-toggle-group'
-              id='foo'
-              value='foo'
-              onChange={ (ev) => {
-                buttonToggleGroupStore.set({ value: ev.target.value });
-              } }
-            >
-              Foo
-            </ButtonToggle>
-            <ButtonToggle
-              name='button-toggle-group'
-              id='bar'
-              value='bar'
-              onChange={ (ev) => {
-                buttonToggleGroupStore.set({ value: ev.target.value });
-              } }
-            >
-              Bar
-            </ButtonToggle>
-            <ButtonToggle
-              name='button-toggle-group'
-              id='baz'
-              value='baz'
-              onChange={ (ev) => {
-                buttonToggleGroupStore.set({ value: ev.target.value });
-              } }
-            >
-              Baz
-            </ButtonToggle>
+            {['foo', 'bar', 'baz'].map(value => (
+              <ButtonToggle
+                name='button-toggle-group'
+                id={ value }
+                value={ value }
+                onChange={ (ev) => {
+                  buttonToggleGroupStore.set({ value: ev.target.value });
+                } }
+                key={ `button-toggle-validation-${value}` }
+              >
+                {value}
+              </ButtonToggle>
+            ))}
           </ButtonToggleGroup>
         </State>
       </Form>
