@@ -9,7 +9,7 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
   margin-top: 16px;
 }
 
-.c5 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -26,7 +26,7 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
   height: 100%;
 }
 
-.c4 {
+.c5 {
   display: inline-block;
   height: 38px;
   padding: 0 24px;
@@ -41,74 +41,80 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
   border: 1px solid #ccd6db;
 }
 
-input:checked ~ .c4 {
+input:checked ~ .c5 {
   color: #FFFFFF;
   background-color: #003F2E;
 }
 
-input:focus ~ .c4 {
+input:focus ~ .c5 {
   outline: 3px solid #FFB500;
 }
 
-.c4:hover {
+.c5:hover {
   background-color: #E5F4E5;
   border-color: #003F2E;
 }
 
-input:checked ~ .c4 {
+input:checked ~ .c5 {
   color: #FFFFFF;
   background-color: #1573e6;
 }
 
-input:focus ~ .c4 {
+input:focus ~ .c5 {
   outline: 0;
 }
 
-.c4:hover {
+.c5:hover {
   border-color: #1e499f;
   color: #FFFFFF;
   background-color: #1e499f;
 }
 
-.c2 {
+.c3 {
   display: inline-block;
 }
 
-.c2:not(:first-of-type) {
+.c3:not(:first-of-type) {
   margin-left: 10px;
 }
 
-.c3 {
+.c4 {
   position: absolute;
   width: 0;
   height: 0;
   opacity: 0;
 }
 
+.c2 .c7 {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: top;
+}
+
 <div
   className="c0 c1"
 >
   <div
-    className=""
+    className="c2"
     onBlur={[Function]}
     onChange={[Function]}
   >
     <div
-      className="c2"
+      className="c3"
       id="foo"
       name="button-toggle-group"
       size="large"
       value="foo"
     >
       <input
-        className="c3"
+        className="c4"
         id="guid-12345"
         name="button-toggle-group"
         type="radio"
         value="foo"
       />
       <label
-        className="c4"
+        className="c5"
         htmlFor="guid-12345"
         id="foo"
         name="button-toggle-group"
@@ -116,28 +122,28 @@ input:focus ~ .c4 {
         value="foo"
       >
         <div
-          className="c5"
+          className="c6"
         >
           Foo
         </div>
       </label>
     </div>
     <div
-      className="c2"
+      className="c3"
       id="bar"
       name="button-toggle-group"
       size="large"
       value="bar"
     >
       <input
-        className="c3"
+        className="c4"
         id="guid-12345"
         name="button-toggle-group"
         type="radio"
         value="bar"
       />
       <label
-        className="c4"
+        className="c5"
         htmlFor="guid-12345"
         id="bar"
         name="button-toggle-group"
@@ -145,7 +151,7 @@ input:focus ~ .c4 {
         value="bar"
       >
         <div
-          className="c5"
+          className="c6"
         >
           Bar
         </div>
@@ -164,7 +170,7 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
   margin-top: 16px;
 }
 
-.c5 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -181,7 +187,7 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
   height: 100%;
 }
 
-.c4 {
+.c5 {
   display: inline-block;
   height: 38px;
   padding: 0 24px;
@@ -191,59 +197,65 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
   background-color: #FFFFFF;
 }
 
-input:checked ~ .c4 {
+input:checked ~ .c5 {
   color: #FFFFFF;
   background-color: #003F2E;
 }
 
-input:focus ~ .c4 {
+input:focus ~ .c5 {
   outline: 3px solid #FFB500;
 }
 
-.c4:hover {
+.c5:hover {
   background-color: #E5F5F1;
   border-color: #003F2E;
 }
 
-.c2 {
+.c3 {
   display: inline-block;
 }
 
-.c2:not(:first-of-type) {
+.c3:not(:first-of-type) {
   margin-left: 10px;
 }
 
-.c3 {
+.c4 {
   position: absolute;
   width: 0;
   height: 0;
   opacity: 0;
 }
 
+.c2 .c7 {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: top;
+}
+
 <div
   className="c0 c1"
 >
   <div
-    className=""
+    className="c2"
     onBlur={[Function]}
     onChange={[Function]}
   >
     <div
-      className="c2"
+      className="c3"
       id="foo"
       name="button-toggle-group"
       size="large"
       value="foo"
     >
       <input
-        className="c3"
+        className="c4"
         id="guid-12345"
         name="button-toggle-group"
         type="radio"
         value="foo"
       />
       <label
-        className="c4"
+        className="c5"
         htmlFor="guid-12345"
         id="foo"
         name="button-toggle-group"
@@ -251,28 +263,28 @@ input:focus ~ .c4 {
         value="foo"
       >
         <div
-          className="c5"
+          className="c6"
         >
           Foo
         </div>
       </label>
     </div>
     <div
-      className="c2"
+      className="c3"
       id="bar"
       name="button-toggle-group"
       size="large"
       value="bar"
     >
       <input
-        className="c3"
+        className="c4"
         id="guid-12345"
         name="button-toggle-group"
         type="radio"
         value="bar"
       />
       <label
-        className="c4"
+        className="c5"
         htmlFor="guid-12345"
         id="bar"
         name="button-toggle-group"
@@ -280,7 +292,7 @@ input:focus ~ .c4 {
         value="bar"
       >
         <div
-          className="c5"
+          className="c6"
         >
           Bar
         </div>
@@ -290,7 +302,7 @@ input:focus ~ .c4 {
 </div>
 `;
 
-exports[`ButtonToggleGroup Style props renders ButtonToggle correctly with validation errors 1`] = `
+exports[`ButtonToggleGroup When validating renders ButtonToggle errors correctly 1`] = `
 .c1 {
   display: block;
 }
@@ -299,7 +311,7 @@ exports[`ButtonToggleGroup Style props renders ButtonToggle correctly with valid
   margin-top: 16px;
 }
 
-.c9 + .c0 {
+.c10 + .c0 {
   margin-top: 16px;
 }
 
@@ -359,11 +371,7 @@ input:focus ~ .c6 {
   opacity: 0;
 }
 
-.c2 .c5 {
-  border-color: #C7384F;
-}
-
-.c8 {
+.c9 {
   color: #C7384F;
   display: -webkit-box;
   display: -webkit-flex;
@@ -373,6 +381,28 @@ input:focus ~ .c6 {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+}
+
+.c11 .c8 {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: top;
+}
+
+.c12 .c8 {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: top;
+}
+
+.c2 .c5 {
+  border-color: #C7384F;
+}
+
+.c2 .c8 {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: top;
 }
 
 <div
@@ -442,7 +472,7 @@ input:focus ~ .c6 {
       </label>
     </div>
     <div
-      className="c8"
+      className="c8 c9"
       type="error"
     >
       <span
