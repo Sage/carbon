@@ -1,4 +1,4 @@
-import Tab from './';
+import Tab from './tab.component';
 import Definition from './../../../../demo/utils/definition';
 
 let definition = new Definition('tab', Tab, {
