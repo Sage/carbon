@@ -54,8 +54,8 @@ const OptionsHelper = {
   ],
 
   messages: [
-    'error',
     'info',
+    'error',
     'success',
     'warning'
   ],
