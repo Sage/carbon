@@ -1,26 +1,26 @@
 export default {
   compact: {
     height: '24px',
-    font: '13px',
-    padding: '8px',
+    fontSize: '13px',
+    paddingSize: '8px',
     inputHeight: '22px'
   },
   small: {
     height: '32px',
-    font: '14px',
-    padding: '8px',
+    fontSize: '14px',
+    paddingSize: '8px',
     inputHeight: '24px'
   },
   medium: {
     height: '40px',
-    font: '14px',
-    padding: '11px',
+    fontSize: '14px',
+    paddingSize: '11px',
     inputHeight: '32px'
   },
   large: {
     height: '48px',
-    font: '16px',
-    padding: '13px',
+    fontSize: '16px',
+    paddingSize: '13px',
     inputHeight: '32px'
   },
   wrapper: (total) => {

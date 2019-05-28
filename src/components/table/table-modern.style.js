@@ -12,14 +12,11 @@ function convertTableType(type) {
   return 'primary';
 }
 
-function applyModernInternalStyling({
-  tableType, theme, rowTotal, rowHeight
-}) {
+function applyModernInternalStyling({ tableType, theme }) {
   const type = convertTableType(tableType);
   return css`
     background-color: transparent;
     border: 1px solid ${type === 'tertiary' ? 'transparent' : theme.table.primary};
-    min-height: ${tableSizes.wrapper(rowTotal)[rowHeight]} !important;
   `;
 }
 
@@ -28,14 +25,15 @@ function applyModernTableStyling({
 }) {
   const type = convertTableType(tableType);
   const { table } = theme;
+  const { height, fontSize, paddingSize } = tableSizes[size];
   return css`
     background-color: ${type === 'tertiary' ? 'transparent' : theme.colors.white};
     && .carbon-table-row {
-      height: ${tableSizes[size].height};
+      height: ${height};
       ${StyledTableCell}, ${StyledTableHeader} {
-        font-size: ${tableSizes[size].font};
-        padding-left: ${tableSizes[size].padding};
-        padding-right: ${tableSizes[size].padding};
+        font-size: ${fontSize};
+        padding-left: ${paddingSize};
+        padding-right: ${paddingSize};
       }
 
       ${isZebra && `
@@ -80,32 +78,31 @@ function additionalThemeStyling(type, { text, table, colors }) {
 }
 
 function applyInputStyling(size) {
+  const { inputHeight, fontSize, paddingSize } = tableSizes[size];
   return `
     ${StyledInput} {
-      font-size: ${tableSizes[size].font};
-      height: ${tableSizes[size].inputHeight};
+      font-size: ${fontSize};
+      height: ${inputHeight};
       padding-top: 0;
       padding-bottom: 0;
     }
 
     && ${StyledInputPresentation} {
-      height: ${tableSizes[size].inputHeight};
-      min-height: ${tableSizes[size].inputHeight};
-      padding-left: ${tableSizes[size].padding};
-      padding-right: ${tableSizes[size].padding};
+      height: ${inputHeight};
+      min-height: ${inputHeight};
+      padding-left: ${paddingSize};
+      padding-right: ${paddingSize};
+    }
+
+    && textarea {
       overflow: auto;
+      padding-top: 5px;
+      padding-bottom: 5px;
+      resize: none;
+      flex-grow: 1;
+      min-height: ${inputHeight};
     }
   `;
-  /*
-    background-color: #e6ebed;
-    border-left: 1px solid #bfccd2;
-    box-sizing: border-box;
-    color: #003349;
-    cursor: pointer;
-    height: 29px;
-    text-align: center;
-    width: 31px;
-    */
 }
 
 export {

@@ -90,21 +90,23 @@ const buildRows = (pageSize, totalRecords) => {
 };
 
 const pickInput = (name) => {
+  const { inputTypes } = OptionsHelper;
   switch (name) {
-    case 'TextArea':
+    case inputTypes[1]:
       return <TextArea />;
-    case 'DateInput':
+    case inputTypes[2]:
       return <DateInput />;
-    case 'NumberInput':
+    case inputTypes[3]:
       return <NumberInput />;
-    case 'Decimal':
+    case inputTypes[4]:
       return <Decimal />;
-    case 'Select':
+    case inputTypes[5]:
       return <Select />;
     default:
       return <TextBox />;
   }
 };
+
 const buildRowsWithInputs = (pageSizeFromKnobs, input) => {
   const pageSize = pageSizeFromKnobs;
   const currentPage = store.get('currentPage');
@@ -122,6 +124,7 @@ const buildRowsWithInputs = (pageSizeFromKnobs, input) => {
       <TableRow
         key='header'
         as='header'
+        uniqueID='header'
       >
         <TableHeader
           sortable
@@ -130,7 +133,13 @@ const buildRowsWithInputs = (pageSizeFromKnobs, input) => {
         >
         Country
         </TableHeader>
-        <TableHeader scope='col'>Code</TableHeader>
+        <TableHeader
+          sortable
+          scope='col'
+          name='code'
+        >
+        Code
+        </TableHeader>
       </TableRow>
       {rowsCountries.map((row) => {
         return (
@@ -291,6 +300,7 @@ storiesOf('Table', module)
   .add(
     'with inputs',
     () => {
+      const props = getSortKnobs();
       const pageSize = text('pageSize', '5');
       const selectable = boolean('selectable', false);
       const highlightable = boolean('highlightable', false);
@@ -310,13 +320,11 @@ storiesOf('Table', module)
       );
       const size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
       const isZebra = boolean('zebra striping', false);
-      const inputType = select(
-        'input type',
-        [
-          'TextBox', 'TextArea', 'DateInput', 'NumberInput', 'Decimal', 'Select'
-        ],
-        'TextBox'
-      );
+      const inputType = select('input type', OptionsHelper.inputTypes, OptionsHelper.inputTypes[0]);
+
+      store.set({ sortOrder: props.sortOrder });
+      store.set({ sortedColumn: props.sortColumn });
+
 
       return (
         <State
