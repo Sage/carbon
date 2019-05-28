@@ -7,6 +7,7 @@ exports[`Modal backgroundHTML when enableBackgroundUI is false renders children 
   <styled.div
     className={null}
     data-state="open"
+    transitionName="modal"
   >
     <CSSTransitionGroup
       component="div"
@@ -20,6 +21,7 @@ exports[`Modal backgroundHTML when enableBackgroundUI is false renders children 
     >
       <styled.div
         data-element="modal-background"
+        transitionName="modal-background"
       />
     </CSSTransitionGroup>
     <CSSTransitionGroup
@@ -43,6 +45,7 @@ exports[`Modal backgroundHTML when enableBackgroundUI is true renders children 1
   <styled.div
     className={null}
     data-state="open"
+    transitionName="modal"
   >
     <CSSTransitionGroup
       component="div"

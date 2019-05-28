@@ -101,7 +101,10 @@ class Modal extends React.Component {
   get backgroundHTML() {
     if (!this.props.enableBackgroundUI) {
       return (
-        <StyledModalBackground data-element='modal-background' />
+        <StyledModalBackground
+          data-element='modal-background'
+          transitionName={ this.backgroundTransitionName }
+        />
       );
     }
     return null;
@@ -136,6 +139,7 @@ class Modal extends React.Component {
           className={ this.mainClasses }
           { ...this.componentTags(this.props) }
           data-state={ this.state.state }
+          transitionName={ this.transitionName }
         >
           <CSSTransitionGroup
             component='div'
