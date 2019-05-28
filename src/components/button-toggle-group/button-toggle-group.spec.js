@@ -56,7 +56,9 @@ describe('ButtonToggleGroup', () => {
         width: '48%'
       }, wrapper.find(ButtonToggleGroupStyle));
     });
-    it('renders ButtonToggle correctly with validation errors', () => {
+  });
+  describe('When validating', () => {
+    it('renders ButtonToggle errors correctly', () => {
       const wrapper = render({ theme: smallTheme, errorMessage: 'error' }, TestRenderer.create).toJSON();
       expect(wrapper).toMatchSnapshot();
     });
