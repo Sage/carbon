@@ -1,2 +1,2 @@
 // component preview locators
-export const BUTTON_SUBTEXT_PREVIEW = '.carbon-button__subtext';
+export const BUTTON_SUBTEXT_PREVIEW = '[data-element="subtext"]';
