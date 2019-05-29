@@ -510,5 +510,22 @@ describe('SplitButton', () => {
         expect(firstButton.instance()).not.toBe(document.activeElement);
       });
     });
+
+    describe('and mouse leaves the Split Button', () => {
+      it('then the additional buttons menu should remain open', () => {
+        wrapper.simulate('mouseLeave');
+
+        expect(wrapper.find(StyledSplitButtonChildrenContainer).exists()).toBe(true);
+      });
+    });
+
+    describe('and mouse leaves the Split Button after focus is out of toggle', () => {
+      it('then the additional buttons menu should be closed', () => {
+        toggle.simulate('blur');
+        wrapper.simulate('mouseLeave');
+
+        expect(wrapper.find(StyledSplitButtonChildrenContainer).exists()).toBe(false);
+      });
+    });
   });
 });

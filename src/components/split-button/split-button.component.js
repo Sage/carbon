@@ -20,10 +20,16 @@ class SplitButton extends Component {
     this.hideButtons = this.hideButtons.bind(this);
     this.additionalButtons = [];
     this.listening = false;
+    this.isToggleButtonFocused = false;
   }
 
   state = {
     showAdditionalButtons: false
+  }
+
+  focusToggleButton = () => {
+    this.isToggleButtonFocused = true;
+    this.showButtons();
   }
 
   showButtons() {
@@ -35,6 +41,8 @@ class SplitButton extends Component {
   }
 
   hideButtons() {
+    if (this.isToggleButtonFocused) return;
+
     this.setState({ showAdditionalButtons: false });
     if (this.listening) {
       document.removeEventListener('keydown', this.handleKeyDown);
@@ -78,7 +86,8 @@ class SplitButton extends Component {
       disabled: this.props.disabled,
       displayed: this.state.showAdditionalButtons,
       onClick: (ev) => { ev.preventDefault(); },
-      onFocus: this.showButtons,
+      onFocus: this.focusToggleButton,
+      onBlur: () => { this.isToggleButtonFocused = false; },
       buttonType: this.props.buttonType || this.props.as,
       size: this.props.size
     };
