@@ -26,9 +26,6 @@ const StyledSplitButtonToggle = styled(StyledButton)`
 
       &:focus {
         border-left-color: ${theme.colors.secondary};
-      }
-
-      &:active {
         background-color: ${theme.colors.tertiary};
         border-color: ${theme.colors.tertiary};
       }
