@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MessageStyle from './message.style';
-import CloseIcon from './close-icon/close-icon.component';
+import DismissButton from '../dismiss-button';
 import TypeIcon from './type-icon/type-icon.component';
 import MessageContent from './message-content/message-content.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -9,7 +9,7 @@ import tagComponent from '../../utils/helpers/tags';
 
 const Message = (props) => {
   const {
-    open, border, className, transparent, title, messageType, roundedCorners, children, onDismiss
+    open, border, className, transparent, title, variant, roundedCorners, children, onDismiss, as
   } = props;
 
   return (
@@ -19,23 +19,23 @@ const Message = (props) => {
         border={ border }
         className={ className }
         transparent={ transparent }
-        messageType={ messageType }
+        variant={ variant || as }
         roundedCorners={ roundedCorners }
         role='status'
       >
         <TypeIcon
-          messageType={ messageType } roundedCorners={ roundedCorners }
+          variant={ variant || as } roundedCorners={ roundedCorners }
           transparent={ transparent }
         />
         <MessageContent
-          messageType={ messageType } transparent={ transparent }
+          variant={ variant || as } transparent={ transparent }
           title={ title }
         >
           {children}
         </MessageContent>
         {onDismiss && (
-          <CloseIcon
-            messageType={ messageType } onDismiss={ onDismiss }
+          <DismissButton
+            variant={ variant || as } onDismiss={ onDismiss }
             transparent={ transparent }
           />
         )}
@@ -45,7 +45,7 @@ const Message = (props) => {
 };
 
 Message.defaultProps = {
-  messageType: 'info',
+  as: 'info',
   border: true,
   open: true,
   roundedCorners: true,
@@ -53,14 +53,25 @@ Message.defaultProps = {
 };
 
 Message.propTypes = {
-  messageType: PropTypes.oneOf(OptionsHelper.colors),
+  /** set type of message based on new DLS standard */
+  variant: PropTypes.oneOf(OptionsHelper.colors),
+  /** set type of message. This is legacy property */
+  as: PropTypes.string,
+  /** set border to component */
   border: PropTypes.bool,
+  /** set content to component */
   children: PropTypes.node,
+  /** set custom class to component */
   className: PropTypes.string,
+  /** show message component */
   open: PropTypes.bool,
+  /** function runs when user click dismiss button */
   onDismiss: PropTypes.func,
+  /** set corners to be rounded or sharp */
   roundedCorners: PropTypes.bool,
+  /** set message title */
   title: PropTypes.node,
+  /** set background to be invisible */
   transparent: PropTypes.bool
 };
 
