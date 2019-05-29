@@ -20,6 +20,7 @@ export default ({ theme, variant }) => theme.name === THEMES.classic && css`
   justify-content: center;
   text-align: center;
   position: static;
+  min-width: 15px;
   
   .icon-close {
     &:before {
