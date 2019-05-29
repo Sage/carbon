@@ -41,6 +41,14 @@ const handleChange = (e, tableOptions) => {
   action('change')(e, tableOptions);
 };
 
+const recordsForActivePage = (start, end) => {
+  let records = countriesList;
+  if (store.get('sortOrder') === 'desc' && store.get('sortedColumn').length) {
+    records = records.reverse();
+  }
+  return records.slice(start, end).toJS();
+};
+
 const buildRows = (pageSize, totalRecords) => {
   const currentPage = store.get('currentPage');
   const candidateIndex = pageSize * currentPage;
@@ -48,11 +56,7 @@ const buildRows = (pageSize, totalRecords) => {
   const endIndex = (candidateIndex <= totalRecords) ? candidateIndex : totalRecords;
   const currentPageSize = (endIndex === totalRecords) ? (endIndex % pageSize) : pageSize;
   const startIndex = endIndex - currentPageSize;
-  const rowsCountries = countriesList.slice(startIndex, endIndex).toJS();
-
-  if (store.get('sortOrder') === 'desc') {
-    rowsCountries.reverse();
-  }
+  const rowsCountries = recordsForActivePage(startIndex, endIndex);
 
   return (
     <>

@@ -646,6 +646,7 @@ class Table extends React.Component {
         <StyledInternalTableWrapper
           rowTotal={ this.props.pageSize }
           rowHeight={ this.props.size }
+          shrink={ this.props.shrink }
           ref={ (wrapper) => { this._wrapper = wrapper; } }
         >
           { this.configureLink(this.props.onConfigure) }
