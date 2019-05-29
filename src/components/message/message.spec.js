@@ -10,7 +10,7 @@ import classicTheme from '../../style/themes/classic';
 import smallTheme from '../../style/themes/small';
 import mediumTheme from '../../style/themes/medium';
 import largeTheme from '../../style/themes/large';
-import CloseIcon from './close-icon/close-icon.component';
+import CloseIcon from '../dismiss-button';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
 function render(props) {
@@ -69,7 +69,7 @@ describe('Message', () => {
       OptionsHelper.messages.forEach((messageType) => {
         assertStyleMatch({
           border: `1px solid ${baseTheme.colors[messageType]}`
-        }, mount(<Message messageType={ messageType }>Message</Message>));
+        }, mount(<Message variant={ messageType }>Message</Message>));
       });
     });
   });
@@ -77,25 +77,25 @@ describe('Message', () => {
   describe('when in classic mode', () => {
     describe('when rendered', () => {
       it('should match the snapshot', () => {
-        OptionsHelper.colors.forEach((messageType) => {
-          const wrapper = render({ theme: classicTheme, messageType });
+        OptionsHelper.colors.forEach((variant) => {
+          const wrapper = render({ theme: classicTheme, variant });
           expect(wrapper).toMatchSnapshot();
         });
       });
     });
 
     describe('when transparent prop is set to true', () => {
-      it('should render the message without the border and background color in white', () => {
+      it('should render the message without the border and with background transparent', () => {
         const wrapper = render({
           transparent: true,
           theme: classicTheme,
-          messageType: 'info'
+          variant: 'info'
         });
 
         assertStyleMatch(
           {
             border: 'none',
-            backgroundColor: '#FFFFFF'
+            backgroundColor: 'transparent'
           },
           wrapper.toJSON()
         );
@@ -107,7 +107,7 @@ describe('Message', () => {
         const wrapper = render({
           border: false,
           theme: classicTheme,
-          messageType: 'info'
+          variant: 'info'
         });
 
         assertStyleMatch(
@@ -124,7 +124,7 @@ describe('Message', () => {
         const wrapper = render({
           roundedCorners: false,
           theme: classicTheme,
-          messageType: 'info'
+          variant: 'info'
         });
 
         assertStyleMatch(
