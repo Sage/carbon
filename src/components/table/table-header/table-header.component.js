@@ -161,7 +161,7 @@ class TableHeader extends React.Component {
       sortable: this.props.sortable
     };
 
-    if (/^\d+$/.test(this.props.width)) headerProps.width = this.props.width;
+    if (!Number.isNaN(Number(this.props.width))) headerProps.width = this.props.width;
 
     return (
       React.createElement(
