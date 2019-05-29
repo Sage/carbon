@@ -2,7 +2,12 @@ import { preview } from '../../locators/preview';
 import { STORY_ROOT } from '../../locators/locators';
 
 Then('Preview component is loading', () => {
-  preview().should('be.visible');
+  preview().should('be.visible')
+    .and('have.css', 'animation', 'shimmer 2s ease 0s infinite normal none running')
+    .and('have.css', 'background', 'rgb(191, 204, 210) none repeat scroll 0% 0% / auto padding-box border-box')
+    .and('have.css', 'display', 'block')
+    .and('have.css', 'height', '15px')
+    .and('have.css', 'width', '981px');
 });
 
 Then('Preview component is not loading', () => {
@@ -14,11 +19,7 @@ Then('Preview children is set to {string}', (text) => {
 });
 
 Then('Preview {word} is set to {string}', (parameter, text) => {
-  if (text === '0') {
-    preview().should('have.attr', 'style', `${parameter}: ${text}px;`);
-  } else {
-    preview().should('not.have.attr', 'style');
-  }
+  preview().should('have.attr', 'style', `${parameter}: ${text};`);
 });
 
 Then('Preview has {string} lines', (value) => {

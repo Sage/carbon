@@ -37,10 +37,10 @@ Feature: Preview component
     Then Preview width is set to "<width>"
     Examples:
       | width |
-      | 0     |
-      | 1     |
-      | 10    |
-      | 100   |
+      | 0px   |
+      | 1px   |
+      | 10px  |
+      | 100px |
 
   @positive
   Scenario Outline: Set height to <height>
@@ -49,10 +49,10 @@ Feature: Preview component
     Then Preview height is set to "<height>"
     Examples:
       | height |
-      | 0      |
-      | 1      |
-      | 10     |
-      | 100    |
+      | 0px    |
+      | 1px    |
+      | 10px   |
+      | 100px  |
 
   @positive
   Scenario Outline: Set lines to <lines>
