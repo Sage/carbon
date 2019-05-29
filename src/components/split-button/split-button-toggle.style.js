@@ -34,7 +34,7 @@ const StyledSplitButtonToggle = styled(StyledButton)`
       }
     ` : ''}
 
-    ${buttonType === 'primary' ? `border-left-color: ${theme.colors.secondary};` : 'border-left: none;'}
+    ${(!disabled && buttonType === 'primary') ? `border-left-color: ${theme.colors.secondary};` : 'border-left: none;'}
     padding: 0 ${horizontalPaddingSizes[size]}px;
   
     ${StyledButton} + & {

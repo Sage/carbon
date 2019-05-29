@@ -56,7 +56,7 @@ const getSplitButtonToggleClassicStyles = ({
     }
   ` : ''}
 
-  ${buttonType === 'primary' ? css`
+  ${(!disabled && buttonType === 'primary') ? css`
     border-left: 1px solid #1e499f;
   ` : ''}
 
