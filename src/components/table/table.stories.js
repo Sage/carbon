@@ -17,19 +17,39 @@ import Decimal from '../../__experimental__/components/decimal';
 import DateInput from '../../__experimental__/components/date';
 import { Select } from '../../__experimental__/components/select';
 import classic from '../../style/themes/classic';
+import small from '../../style/themes/small';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 
-const getSortKnobs = () => {
+const getCommonKnobs = () => {
+  const paginate = boolean('paginate', false);
+
   return {
     sortOrder: select('sortOrder', ['', 'asc', 'desc'], ''),
-    sortColumn: select('sortColumn', ['', 'name', 'code'], '')
+    sortColumn: select('sortColumn', ['', 'name', 'code'], ''),
+    pageSize: text('pageSize', '5'),
+    selectable: boolean('selectable', false),
+    highlightable: boolean('highlightable', false),
+    shrink: boolean('shrink', false),
+    caption: text('caption', 'Country and Country Codes'),
+    totalRecords: text('totalRecords', '50'),
+    paginate,
+    showPageSizeSelection: paginate && boolean('showPageSizeSelection', false),
+    theme: select(
+      'theme',
+      [
+        OptionsHelper.tableThemes[0],
+        OptionsHelper.tableThemes[1],
+        OptionsHelper.tableThemes[2]
+      ],
+      Table.defaultProps.theme
+    )
   };
 };
 
 const store = new Store({
-  sortOrder: getSortKnobs().sortOrder,
-  sortedColumn: getSortKnobs().sortedColumn,
+  sortOrder: getCommonKnobs().sortOrder,
+  sortedColumn: getCommonKnobs().sortedColumn,
   currentPage: '1',
   children: undefined
 });
@@ -49,7 +69,7 @@ const recordsForActivePage = (start, end) => {
   return records.slice(start, end).toJS();
 };
 
-const buildRows = (pageSize, totalRecords) => {
+const buildRows = ({ pageSize, totalRecords }) => {
   const currentPage = store.get('currentPage');
   const candidateIndex = pageSize * currentPage;
 
@@ -111,17 +131,14 @@ const pickInput = (name) => {
   }
 };
 
-const buildRowsWithInputs = (pageSizeFromKnobs, input) => {
-  const pageSize = pageSizeFromKnobs;
+const buildRowsWithInputs = ({ pageSize, totalRecords, inputType }) => {
   const currentPage = store.get('currentPage');
+  const candidateIndex = pageSize * currentPage;
 
-  const endIndex = pageSize * currentPage;
-  const startIndex = endIndex - pageSize;
-  const rowsCountries = countriesList.slice(startIndex, endIndex).toJS();
-
-  if (store.get('sortOrder') === 'desc') {
-    rowsCountries.reverse();
-  }
+  const endIndex = (candidateIndex <= totalRecords) ? candidateIndex : totalRecords;
+  const currentPageSize = (endIndex === totalRecords) ? (endIndex % pageSize) : pageSize;
+  const startIndex = endIndex - currentPageSize;
+  const rowsCountries = recordsForActivePage(startIndex, endIndex);
 
   return (
     <>
@@ -151,7 +168,7 @@ const buildRowsWithInputs = (pageSizeFromKnobs, input) => {
             key={ row.id }
             uniqueID={ row.id }
           >
-            <TableCell>{ pickInput(input)}
+            <TableCell>{ pickInput(inputType)}
             </TableCell>
             <TableCell>{row.value}</TableCell>
           </TableRow>
@@ -168,15 +185,7 @@ storiesOf('Table', module)
     }
   })
   .add('classic', () => {
-    const props = getSortKnobs();
-    const pageSize = text('pageSize', '5');
-    const selectable = boolean('selectable', false);
-    const highlightable = boolean('highlightable', false);
-    const shrink = boolean('shrink', false);
-    const caption = text('Caption', 'Country and Country Codes');
-    const totalRecords = text('totalRecords', '50');
-    const paginate = boolean('paginate', false);
-    const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
+    const props = getCommonKnobs();
     const theme = select(
       'theme',
       [
@@ -191,149 +200,9 @@ storiesOf('Table', module)
 
     return (
       <ThemeProvider theme={ classic }>
-        <State store={ store } parseState={ state => ({ ...state, children: buildRows(pageSize, totalRecords) }) }>
-
-          <Table
-            actionToolbarChildren={ (context) => {
-              return [
-                <Button disabled={ context.disabled } key='single-action'>
-                    Test Action
-                </Button>,
-                <MultiActionButton
-                  text='Actions' disabled={ context.disabled }
-                  key='multi-actions'
-                >
-                  <Button>foo</Button>
-                  <Button>bar</Button>
-                  <Button>qux</Button>
-                </MultiActionButton>
-              ];
-            } }
-            path='/countries'
-            caption={ caption }
-            shrink={ shrink }
-            highlightable={ highlightable }
-            pageSize={ pageSize }
-            selectable={ selectable }
-            paginate={ paginate }
-            actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
-            totalRecords={ totalRecords }
-            showPageSizeSelection={ showPageSizeSelection }
-            onChange={ handleChange }
-            theme={ theme }
-            sortOrder={ store.sortOrder }
-            sortedColumn={ store.sortedColumn }
-          />
-
-        </State>
-      </ThemeProvider>
-    );
-  }, {
-    info: { text: info },
-    notes: { markdown: notes }
-  })
-  .add(
-    'default',
-    () => {
-      const props = getSortKnobs();
-      const pageSize = text('pageSize', '5');
-      const selectable = boolean('selectable', false);
-      const highlightable = boolean('highlightable', false);
-      const shrink = boolean('shrink', false);
-      const caption = text('Caption', 'Country and Country Codes');
-      const totalRecords = text('totalRecords', '50');
-      const paginate = boolean('paginate', false);
-      const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
-      const theme = select(
-        'theme',
-        [
-          OptionsHelper.tableThemes[0],
-          OptionsHelper.tableThemes[1],
-          OptionsHelper.tableThemes[2]
-        ],
-        Table.defaultProps.theme
-      );
-      const size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
-      const isZebra = boolean('zebra striping', false);
-
-      store.set({ sortOrder: props.sortOrder });
-      store.set({ sortedColumn: props.sortColumn });
-
-      return (
-        <State store={ store } parseState={ state => ({ ...state, children: buildRows(pageSize, totalRecords) }) }>
-          <Table
-            actionToolbarChildren={ (context) => {
-              return [
-                <Button disabled={ context.disabled } key='single-action'>
-                    Test Action
-                </Button>,
-                <MultiActionButton
-                  text='Actions' disabled={ context.disabled }
-                  key='multi-actions'
-                >
-                  <Button>foo</Button>
-                  <Button>bar</Button>
-                  <Button>qux</Button>
-                </MultiActionButton>
-              ];
-            } }
-            path='/countries'
-            caption={ caption }
-            shrink={ shrink }
-            highlightable={ highlightable }
-            pageSize={ pageSize }
-            selectable={ selectable }
-            paginate={ paginate }
-            actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
-            totalRecords={ totalRecords }
-            showPageSizeSelection={ showPageSizeSelection }
-            onChange={ handleChange }
-            theme={ theme }
-            size={ size }
-            isZebra={ isZebra }
-          />
-
-        </State>
-      );
-    },
-    {
-      info: { text: info },
-      notes: { markdown: notes }
-    },
-  )
-  .add(
-    'with inputs',
-    () => {
-      const props = getSortKnobs();
-      const pageSize = text('pageSize', '5');
-      const selectable = boolean('selectable', false);
-      const highlightable = boolean('highlightable', false);
-      const shrink = boolean('shrink', false);
-      const caption = text('Caption', 'Country and Country Codes');
-      const totalRecords = text('totalRecords', '50');
-      const paginate = boolean('paginate', false);
-      const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
-      const theme = select(
-        'theme',
-        [
-          OptionsHelper.tableThemes[0],
-          OptionsHelper.tableThemes[1],
-          OptionsHelper.tableThemes[2]
-        ],
-        Table.defaultProps.theme
-      );
-      const size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
-      const isZebra = boolean('zebra striping', false);
-      const inputType = select('input type', OptionsHelper.inputTypes, OptionsHelper.inputTypes[0]);
-
-      store.set({ sortOrder: props.sortOrder });
-      store.set({ sortedColumn: props.sortColumn });
-
-
-      return (
         <State
           store={ store }
-          parseState={ state => ({ ...state, children: buildRowsWithInputs(pageSize, inputType) }) }
+          parseState={ state => ({ ...state, children: buildRows(props) }) }
         >
           <Table
             actionToolbarChildren={ (context) => {
@@ -352,21 +221,106 @@ storiesOf('Table', module)
               ];
             } }
             path='/countries'
-            caption={ caption }
-            shrink={ shrink }
-            highlightable={ highlightable }
-            pageSize={ pageSize }
-            selectable={ selectable }
-            paginate={ paginate }
             actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
-            totalRecords={ totalRecords }
-            showPageSizeSelection={ showPageSizeSelection }
+            { ...props }
             onChange={ handleChange }
             theme={ theme }
-            size={ size }
-            isZebra={ isZebra }
+            sortOrder={ store.sortOrder }
+            sortedColumn={ store.sortedColumn }
           />
+        </State>
+      </ThemeProvider>
+    );
+  }, {
+    info: { text: info },
+    notes: { markdown: notes }
+  })
+  .add(
+    'default',
+    () => {
+      const props = getCommonKnobs();
+      props.size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
+      props.isZebra = boolean('zebra striping', false);
 
+      store.set({ sortOrder: props.sortOrder });
+      store.set({ sortedColumn: props.sortColumn });
+
+      return (
+        <ThemeProvider theme={ small }>
+          <State
+            store={ store }
+            parseState={ state => ({ ...state, children: buildRows(props) }) }
+          >
+            <Table
+              actionToolbarChildren={ (context) => {
+                return [
+                  <Button disabled={ context.disabled } key='single-action'>
+                    Test Action
+                  </Button>,
+                  <MultiActionButton
+                    text='Actions' disabled={ context.disabled }
+                    key='multi-actions'
+                  >
+                    <Button>foo</Button>
+                    <Button>bar</Button>
+                    <Button>qux</Button>
+                  </MultiActionButton>
+                ];
+              } }
+              path='/countries'
+              actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
+              onChange={ handleChange }
+              { ...props }
+            />
+          </State>
+        </ThemeProvider>
+      );
+    },
+    {
+      info: { text: info },
+      notes: { markdown: notes }
+    },
+  )
+  .add(
+    'with inputs',
+    () => {
+      const props = getCommonKnobs();
+      props.size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
+      props.isZebra = boolean('zebra striping', false);
+      props.inputType = select('input type', OptionsHelper.inputTypes, OptionsHelper.inputTypes[0]);
+
+      store.set({ sortOrder: props.sortOrder });
+      store.set({ sortedColumn: props.sortColumn });
+
+
+      return (
+        <State
+          store={ store }
+          parseState={
+            state => ({ ...state, children: buildRowsWithInputs(props) })
+          }
+        >
+          <Table
+            actionToolbarChildren={ (context) => {
+              return [
+                <Button disabled={ context.disabled } key='single-action'>
+                    Test Action
+                </Button>,
+                <MultiActionButton
+                  text='Actions' disabled={ context.disabled }
+                  key='multi-actions'
+                >
+                  <Button>foo</Button>
+                  <Button>bar</Button>
+                  <Button>qux</Button>
+                </MultiActionButton>
+              ];
+            } }
+            path='/countries'
+            actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
+            onChange={ handleChange }
+            { ...props }
+          />
         </State>
       );
     },

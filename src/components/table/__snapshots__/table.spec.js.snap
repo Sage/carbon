@@ -31,6 +31,36 @@ exports[`Table when the table size is compact renders a table to match the expec
   background-color: #F2F4F5;
 }
 
+.c1.c1 .carbon-table-row:hover .c8 {
+  background-color: #F2F4F5;
+}
+
+.c1 .c9 {
+  font-size: 13px;
+  height: 22px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.c1.c1 .c10 {
+  height: 22px;
+  min-height: 22px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.c1.c1 textarea {
+  overflow: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  resize: none;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-height: 22px;
+}
+
 .c1 caption {
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
@@ -223,6 +253,36 @@ exports[`Table when the table size is small renders a table to match the expecte
 
 .c1.c1 .carbon-table-row:hover .c8 {
   background-color: #F2F4F5;
+}
+
+.c1.c1 .carbon-table-row:hover .c8 {
+  background-color: #F2F4F5;
+}
+
+.c1 .c9 {
+  font-size: 14px;
+  height: 24px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.c1.c1 .c10 {
+  height: 24px;
+  min-height: 24px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.c1.c1 textarea {
+  overflow: auto;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  resize: none;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  min-height: 24px;
 }
 
 .c1 caption {

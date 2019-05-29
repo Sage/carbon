@@ -58,9 +58,12 @@ export const StyledInternalTableWrapper = styled.div`
   overflow: visible;
   position: relative;
   
-  ${({ rowTotal, rowHeight, shrink }) => (
-    !shrink && css`min-height: ${tableSizes.wrapper(rowTotal)[rowHeight]} !important;`
-  )}
+  ${({
+    rowTotal, rowHeight, shrink, theme
+  }) => {
+    if (isClassic(theme)) return !shrink && css`min-height: ${tableSizes.wrapper(rowTotal).medium} !important;`;
+    return !shrink && css`min-height: ${tableSizes.wrapper(rowTotal)[rowHeight]} !important;`;
+  }}
 
   ${({ onConfigure, theme }) => onConfigure && css`
     ${StyledTable} {
