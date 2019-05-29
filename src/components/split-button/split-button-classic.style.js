@@ -24,7 +24,6 @@ const getSplitButtonChildrenClassicStyles = ({ theme }) => (theme.name === THEME
     height: 31px;
     letter-spacing: 0;
     padding: 0 18px;
-    text-align: left;
 
     &:focus,
     &:hover {

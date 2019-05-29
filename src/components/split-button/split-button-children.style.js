@@ -20,6 +20,7 @@ const StyledSplitButtonChildrenContainer = styled.div`
       margin-top: 3px;
       margin-bottom: 3px;
       min-width: 100%;
+      text-align: left;
       z-index: 10;
 
       &:focus,
