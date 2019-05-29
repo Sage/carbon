@@ -66,9 +66,9 @@ storiesOf('Split Button', module)
           { ...getIconKnobs() }
           { ...props }
         >
-          <Button>Example Button</Button>
-          <Button>Example Button with long text</Button>
-          <Button>Short</Button>
+          <Button onClick={ onClick }>Example Button</Button>
+          <Button onClick={ onClick }>Example Button with long text</Button>
+          <Button onClick={ onClick }>Short</Button>
         </SplitButton>
       );
     },
@@ -98,13 +98,13 @@ storiesOf('Split Button', module)
           text={ textContent }
           { ...props }
         >
-          <Button>
+          <Button onClick={ onClick }>
             Example Button
           </Button>
-          <Button>
+          <Button onClick={ onClick }>
             Example Button
           </Button>
-          <Button>
+          <Button onClick={ onClick }>
             Example Button
           </Button>
         </SplitButton>
