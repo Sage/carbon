@@ -2,7 +2,8 @@ import { THEMES } from '..';
 
 export default (palette) => {
   const { atOpacity } = palette,
-      blackWithOpacity = atOpacity('#000000');
+      blackWithOpacity = atOpacity('#000000'),
+      baseWithOpacity = atOpacity(palette.productGreen);
 
   return {
     name: THEMES.base,
@@ -16,6 +17,7 @@ export default (palette) => {
       tertiary: palette.genericGreenShade(55),
       brand: palette.brilliantGreen,
       whiteMix: palette.genericGreenTint(90),
+      withOpacity: baseWithOpacity(0.55),
 
       // generic
       white: '#FFFFFF',
