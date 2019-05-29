@@ -175,9 +175,10 @@ describe('SplitButton', () => {
           const wrapper4 = renderWithTheme({ carbonTheme: theme }, multipleButtons, mount).find(SplitButton);
           wrapper4.instance().showButtons();
           const spy = spyOn(wrapper4.instance(), 'hideButtons');
+          jest.useFakeTimers();
           keyboard.pressTab();
+          jest.runAllTimers();
           expect(spy).toHaveBeenCalled();
-          wrapper4.instance().hideButtons();
         });
       }
     );

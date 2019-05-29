@@ -72,7 +72,8 @@ class SplitButton extends Component {
       nextIndex = currentIndex < children.length - 1 ? currentIndex + 1 : 0;
       ev.preventDefault();
     } else if (Events.isTabKey(ev)) {
-      this.hideButtons();
+      // timeout enforces thet the "hideButtons" method will be run after browser focuses on the next element
+      setTimeout(this.hideButtons, 0);
     }
 
     if (nextIndex > -1) {
