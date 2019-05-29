@@ -846,7 +846,7 @@ describe('Table', () => {
         const parent = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'thead')[0];
         expect(parent).toBeDefined();
         expect(instance.thead).toEqual(
-          <thead className='carbon-table__header'>
+          <thead>
             {header}
           </thead>
         );

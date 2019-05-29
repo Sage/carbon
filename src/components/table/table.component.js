@@ -464,7 +464,7 @@ class Table extends React.Component {
   get thead() {
     if (this.props.thead) {
       return (
-        <thead className='carbon-table__header'>
+        <thead>
           { this.props.thead }
         </thead>
       );

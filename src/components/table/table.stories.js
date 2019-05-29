@@ -70,6 +70,7 @@ const buildRows = (pageSize, totalRecords) => {
           sortable
           scope='col'
           name='code'
+          width='200'
         >
         Code
         </TableHeader>

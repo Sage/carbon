@@ -7,7 +7,7 @@ import tableSizes from '../table-sizes.style';
 
 const StyledTableHeader = styled.th`
   ${({
-    align, sortable, theme
+    align, sortable, theme, width
   }) => {
     const { table, colors } = theme;
     return css`
@@ -31,6 +31,8 @@ const StyledTableHeader = styled.th`
       &:first-child {
         border-left: none;
       }
+
+      ${width ? `width: ${width}px;` : ''}
 
       ${sortable && applySortableStyling(align, colors, table)}
     `;
@@ -72,7 +74,10 @@ StyledTableHeader.propTypes = {
   align: PropTypes.oneOf(OptionsHelper.alignFull),
 
   /** Toggles whether column is sortable */
-  sortable: PropTypes.bool
+  sortable: PropTypes.bool,
+
+  /** Width to set column to. */
+  width: PropTypes.string
 };
 
 StyledTableHeader.defaultProps = {
