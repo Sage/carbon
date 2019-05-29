@@ -335,7 +335,6 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   background-color: #1e499f;
   border: 1px solid #1e499f;
   color: #FFF;
-  font-size: 14px;
   height: 31px;
   -webkit-letter-spacing: 0;
   -moz-letter-spacing: 0;
@@ -870,7 +869,6 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   background-color: #1e499f;
   border: 1px solid #1e499f;
   color: #FFF;
-  font-size: 14px;
   height: 31px;
   -webkit-letter-spacing: 0;
   -moz-letter-spacing: 0;

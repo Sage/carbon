@@ -20,7 +20,6 @@ const getSplitButtonChildrenClassicStyles = ({ theme }) => (theme.name === THEME
     background-color: ${classicColors.secondary};
     border: 1px solid ${classicColors.secondary};
     color: #FFF;
-    font-size: 14px;
     height: 31px;
     letter-spacing: 0;
     padding: 0 18px;

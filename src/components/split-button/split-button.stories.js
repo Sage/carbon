@@ -50,25 +50,26 @@ storiesOf('Split Button', module)
     () => {
       const props = getKnobs();
       const {
+        buttonType,
         dataElement,
         dataRole,
-        disabled,
-        onClick,
-        textContent
+        textContent,
+        subtext,
+        ...menuButtonProps
       } = props;
       return (
         <SplitButton
+          buttonType={ buttonType }
           data-element={ dataElement }
           data-role={ dataRole }
-          disabled={ disabled }
-          onClick={ onClick }
           text={ textContent }
+          subtext={ subtext }
           { ...getIconKnobs() }
-          { ...props }
+          { ...menuButtonProps }
         >
-          <Button onClick={ onClick }>Example Button</Button>
-          <Button onClick={ onClick }>Example Button with long text</Button>
-          <Button onClick={ onClick }>Short</Button>
+          <Button { ...menuButtonProps }>Example Button</Button>
+          <Button { ...menuButtonProps }>Example Button with long text</Button>
+          <Button { ...menuButtonProps }>Short</Button>
         </SplitButton>
       );
     },
