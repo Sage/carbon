@@ -156,12 +156,12 @@ class TableHeader extends React.Component {
       contents = this.props.children;
     }
 
-    const headerProps = {
+    const additionalProps = {
       align: this.props.align,
       sortable: this.props.sortable
     };
 
-    if (!Number.isNaN(Number(this.props.width))) headerProps.width = this.props.width;
+    if (/^\d+$/.test(this.props.width)) additionalProps.width = this.props.width;
 
     return (
       React.createElement(
@@ -170,7 +170,7 @@ class TableHeader extends React.Component {
           ...this.componentTags(this.props),
           ...this.tableHeaderProps,
           ...this.ariaAttributes(),
-          ...headerProps
+          ...additionalProps
         },
         contents
       )
@@ -204,7 +204,7 @@ TableHeader.propTypes = {
   /** Whether component is a subheader. */
   styledComponent: PropTypes.node,
 
-  /** A width value to constrain a column eg '250'. */
+  /** A width value to constrain a column eg 250. */
   width: PropTypes.string
 };
 
