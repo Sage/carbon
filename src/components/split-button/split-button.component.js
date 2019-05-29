@@ -23,15 +23,9 @@ class SplitButton extends Component {
   }
 
   state = {
-    /**
-     * Tracks whether the additional buttons should be visible.
-     */
     showAdditionalButtons: false
   }
 
-  /**
-   * Shows the additional buttons.
-   */
   showButtons() {
     this.setState({ showAdditionalButtons: true });
     if (!this.listening) {
@@ -40,9 +34,6 @@ class SplitButton extends Component {
     }
   }
 
-  /**
-   * Hides additional buttons.
-   */
   hideButtons() {
     this.setState({ showAdditionalButtons: false });
     if (this.listening) {
@@ -51,16 +42,10 @@ class SplitButton extends Component {
     }
   }
 
-  /**
-   * Checks if node is active element.
-   */
   isActiveElement(node) {
     return node === document.activeElement;
   }
 
-  /**
-   * Handles up/down key navigation
-   */
   handleKeyDown = (ev) => {
     const { children } = this.props;
     const currentIndex = this.additionalButtons.findIndex(this.isActiveElement);
@@ -81,9 +66,6 @@ class SplitButton extends Component {
     }
   }
 
-  /**
-   * Returns props for the main button.
-   */
   get mainButtonProps() {
     const { ...props } = validProps(this);
     props.onMouseEnter = this.hideButtons;
@@ -91,9 +73,6 @@ class SplitButton extends Component {
     return props;
   }
 
-  /**
-   * Returns props for the toggle.
-   */
   get toggleButtonProps() {
     const opts = {
       disabled: this.props.disabled,
@@ -111,9 +90,6 @@ class SplitButton extends Component {
     return opts;
   }
 
-  /**
-   * Returns the data tags for the component.
-   */
   componentTags() {
     return {
       'data-component': 'split-button',
@@ -122,17 +98,11 @@ class SplitButton extends Component {
     };
   }
 
-  /**
-   * Instantiates the additional button refs
-   */
   addRef(ref, index) {
     if (!ref) return;
     this.additionalButtons[index] = ref;
   }
 
-  /**
-   * Returns the HTML for the main button.
-   */
   get renderMainButton() {
     return (
       <div>
@@ -163,9 +133,6 @@ class SplitButton extends Component {
     }
   }
 
-  /**
-   * Passes in additional button props
-   */
   childrenWithProps() {
     const { children } = this.props;
     const childArray = Array.isArray(children) ? children : [children];
@@ -180,9 +147,6 @@ class SplitButton extends Component {
     });
   }
 
-  /**
-   * Returns the HTML for the additional buttons.
-   */
   get renderAdditionalButtons() {
     const children = this.childrenWithProps();
 
