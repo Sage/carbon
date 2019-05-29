@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import MultiActionButton from './multi-action-button';
+import MultiActionButton from './multi-action-button.component';
 import notes from './notes.md';
 import Button from '../button';
 import OptionsHelper from '../../utils/helpers/options-helper';

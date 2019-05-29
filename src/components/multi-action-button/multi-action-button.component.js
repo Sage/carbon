@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import Icon from '../icon';
 import Button from '../button';
 import SplitButton from '../split-button/split-button';
-import './multi-action-button.scss';
 import StyledMultiActionButton from './multi-action-button.style';
 
 class MultiActionButton extends SplitButton {
@@ -17,8 +16,7 @@ class MultiActionButton extends SplitButton {
    */
   get mainClasses() {
     return classNames(
-      super.mainClasses,
-      'carbon-multi-action-button', {
+      super.mainClasses, {
         'carbon-multi-action-button--open': this.state.showAdditionalButtons,
         'carbon-multi-action-button--align-right': this.props.align === 'right'
       }
