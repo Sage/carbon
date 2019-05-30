@@ -23,11 +23,14 @@ const StyledSplitButtonToggle = styled(StyledButton)`
       && .carbon-icon {
         color: ${theme.colors.white};
       }
+      
+      &:hover {
+        background-color: ${theme.colors.tertiary};
+        border-color: ${theme.colors.tertiary};
+      }
 
       &:focus {
         border-left-color: ${theme.colors.secondary};
-        background-color: ${theme.colors.tertiary};
-        border-color: ${theme.colors.tertiary};
       }
     ` : ''}
 
@@ -37,12 +40,11 @@ const StyledSplitButtonToggle = styled(StyledButton)`
     ${StyledButton} + & {
       margin-left: 0;
 
-      ${buttonType === 'secondary' ? css`
+      ${buttonType === 'secondary' && css`
         &:focus {
-          margin-left: -2px;
-          padding-left: ${horizontalPaddingSizes[size] + 2}px;
+          margin-left: -3px;
         }
-      ` : ''}
+      `}
     }
 
     ${StyledButton} + & .carbon-icon {

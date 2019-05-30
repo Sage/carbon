@@ -32,8 +32,9 @@ const getSplitButtonChildrenClassicStyles = ({ theme }) => (theme.name === THEME
 ` : '');
 
 const getMainSplitButtonClassicStyles = ({ theme }) => (theme.name === THEMES.classic ? css`
-  ${StyledButton}:focus {
+  & > ${StyledButton}:focus {
     border: 1px solid #1e499f;
+    margin: 0;
   }
 ` : '');
 
