@@ -10,7 +10,7 @@ import Icon from '../icon/icon';
 import Alert from '../alert';
 import Link from '../link';
 import tagComponent from '../../utils/helpers/tags/tags';
-import { FlashStyle } from './flash.style';
+import { FlashStyle, FlashSliderStyle } from './flash.style';
 import './flash.scss';
 
 class Flash extends React.Component {
@@ -248,7 +248,7 @@ class Flash extends React.Component {
   /** Returns the computed HTML for the slider. */
   get sliderHTML() {
     return (
-      <div className='carbon-flash__slider' key='slider' />
+      <FlashSliderStyle key='slider' />
     );
   }
 

@@ -17,6 +17,43 @@ const requireWhiteTextColor = [
   'info'
 ];
 
+const flashAnimation = `
+  .carbon-flash__slider-appear,
+  .carbon-flash__slider-enter {
+    left: 50%;
+    opacity: 0;
+    right: 50%;
+  }
+
+  .carbon-flash__slider-appear-active,
+  .carbon-flash__slider-enter-active {
+    left: 0%;
+    opacity: 1;
+    right: 0%;
+    transition: 500ms ease 100ms;
+  }
+
+  .carbon-flash__slider-leave {
+    opacity: 1;
+  }
+
+  .carbon-flash__slider-leave-active  {
+    opacity: 0;
+    transition: 500ms ease 100ms;
+  }
+`;
+
+const FlashSliderStyle = styled.div`
+  content: 'h';
+  display: inline-block;
+  font-size: 13px;
+  height: 100%;
+  left: 0;
+  line-height: 18px;
+  position: absolute;
+  right: 0;
+`;
+
 const FlashStyle = styled.div`
   bottom: 0px;
   overflow: hidden;
@@ -32,7 +69,7 @@ const FlashStyle = styled.div`
   };
 
     ${({ variant }) => variant && css`
-        .carbon-flash__slider {
+        ${FlashSliderStyle} {
           background: ${colors[variant]};
         };
 
@@ -46,8 +83,10 @@ const FlashStyle = styled.div`
 
         `}
     `};
+    ${flashAnimation}
 `;
 
 export {
-  FlashStyle
+  FlashStyle,
+  FlashSliderStyle
 };
