@@ -114,11 +114,8 @@ StyledTable.defaultProps = {
 };
 
 StyledInternalTableWrapper.propTypes = {
-  /** Total number of rows in the table */
-  rowTotal: PropTypes.string,
-
-  /** Height of the rows in the table */
-  rowHeight: PropTypes.oneOf(OptionsHelper.tableSizes)
+  /** The height for the Table Wrapper */
+  minHeight: PropTypes.string
 };
 
 StyledInternalTableWrapper.defaultProps = {
