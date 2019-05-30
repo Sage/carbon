@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Help correctly renders different icon types 1`] = `
+.c0 {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  margin-left: 8px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  top: -1px;
+}
+
+.c0:hover {
+  color: '#255BC7';
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+<a
+  className="c0"
+  data-component="help"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <span
+    className="carbon-icon icon-info"
+    data-component="icon"
+    data-element="info"
+  />
+</a>
+`;
+
+exports[`Help renders as expected 1`] = `
+.c0 {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  margin-left: 8px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  top: -1px;
+}
+
+.c0:hover {
+  color: '#255BC7';
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+<a
+  className="c0"
+  data-component="help"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <span
+    className="carbon-icon icon-question"
+    data-component="icon"
+    data-element="question"
+  />
+</a>
+`;
