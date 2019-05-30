@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import Spinner from './spinner';
+import Spinner from './spinner.component';
 import { notes, info } from './documentation';
 
 storiesOf('Spinner', module).add(
@@ -16,5 +16,5 @@ storiesOf('Spinner', module).add(
   {
     info: { text: info },
     notes: { markdown: notes }
-  },
+  }
 );
