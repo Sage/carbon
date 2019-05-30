@@ -113,27 +113,26 @@ class SplitButton extends Component {
   }
 
   get renderMainButton() {
-    return (
-      <div>
-        <Button
-          { ...this.mainButtonProps }
-          data-element='main-button'
-        >
-          { this.props.text}
-        </Button>
-
-        <StyledSplitButtonToggle
-          aria-haspopup='true'
-          aria-expanded={ this.state.showAdditionalButtons }
-          aria-controls={ this.buttonListId }
-          { ...this.toggleButtonProps }
-          data-element='open'
-          onKeyDown={ this.handleToggleButtonKeyDown }
-        >
-          <Icon type='dropdown' />
-        </StyledSplitButtonToggle>
-      </div>
-    );
+    return [
+      <Button
+        { ...this.mainButtonProps }
+        data-element='main-button'
+        key='main-button'
+      >
+        { this.props.text}
+      </Button>,
+      <StyledSplitButtonToggle
+        aria-haspopup='true'
+        aria-expanded={ this.state.showAdditionalButtons }
+        aria-controls={ this.buttonListId }
+        { ...this.toggleButtonProps }
+        data-element='open'
+        onKeyDown={ this.handleToggleButtonKeyDown }
+        key='toggle-button'
+      >
+        <Icon type='dropdown' />
+      </StyledSplitButtonToggle>
+    ];
   }
 
   handleToggleButtonKeyDown = (ev) => {

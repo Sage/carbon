@@ -77,40 +77,31 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-right: 8px;
 }
 
+.c10 > .c1 {
+  margin: 0;
+}
+
+.c10 > .c1:focus {
+  border: 3px solid #FFB500;
+  outline: none;
+}
+
+.c10 .c1:focus {
+  border: 1px solid #1e499f;
+}
+
 .c0 {
   display: inline-block;
   position: relative;
 }
 
-.c0 .c1 {
+.c0 > .c1 {
   margin: 0;
 }
 
-.c0 .c1:focus {
-  outline-offset: -3px;
-}
-
-.c10 + .c3 {
-  margin-left: 15px;
-}
-
-.c1 + .c10 {
-  margin-left: 0;
-}
-
-.c1 + .c10:focus {
-  margin-left: -2px;
-  padding-left: 12px;
-}
-
-.c1 + .c10 .carbon-icon {
-  margin-left: 0;
-}
-
-.c10.c10,
-.c1 + .c10:focus {
-  margin-left: 0;
-  padding: 0 5px;
+.c0 > .c1:focus {
+  border: 3px solid #FFB500;
+  outline: none;
 }
 
 .c11 + .c3 {
@@ -137,7 +128,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 }
 
 .c12 + .c3 {
-  margin-left: 16px;
+  margin-left: 15px;
 }
 
 .c1 + .c12 {
@@ -151,6 +142,12 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 
 .c1 + .c12 .carbon-icon {
   margin-left: 0;
+}
+
+.c12.c12,
+.c1 + .c12:focus {
+  margin-left: 0;
+  padding: 0 5px;
 }
 
 .c13 + .c3 {
@@ -238,6 +235,23 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-left: 0;
 }
 
+.c18 + .c3 {
+  margin-left: 16px;
+}
+
+.c1 + .c18 {
+  margin-left: 0;
+}
+
+.c1 + .c18:focus {
+  margin-left: -2px;
+  padding-left: 12px;
+}
+
+.c1 + .c18 .carbon-icon {
+  margin-left: 0;
+}
+
 .c4 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -309,45 +323,6 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-left: 0;
 }
 
-.c18 .c1 {
-  background-color: #006045;
-  border: 1px solid #006045;
-  color: #FFFFFF;
-  display: block;
-  margin-left: 0;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  min-width: 100%;
-  text-align: left;
-  z-index: 10;
-}
-
-.c18 .c1:focus,
-.c18 .c1:hover {
-  background-color: #003F2E;
-}
-
-.c18 .c1 + .c22 .c1 {
-  margin-top: 3px;
-}
-
-.c18 .c1 {
-  background-color: #1e499f;
-  border: 1px solid #1e499f;
-  color: #FFF;
-  height: 31px;
-  -webkit-letter-spacing: 0;
-  -moz-letter-spacing: 0;
-  -ms-letter-spacing: 0;
-  letter-spacing: 0;
-  padding: 0 18px;
-}
-
-.c18 .c1:focus,
-.c18 .c1:hover {
-  background-color: #163777;
-}
-
 .c19 .c1 {
   background-color: #006045;
   border: 1px solid #006045;
@@ -366,13 +341,30 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   background-color: #003F2E;
 }
 
-.c19 .c1 + .c22 .c1 {
+.c19 .c1 + .c23 .c1 {
   margin-top: 3px;
 }
 
+.c19 .c1 {
+  background-color: #1e499f;
+  border: 1px solid #1e499f;
+  color: #FFF;
+  height: 31px;
+  -webkit-letter-spacing: 0;
+  -moz-letter-spacing: 0;
+  -ms-letter-spacing: 0;
+  letter-spacing: 0;
+  padding: 0 18px;
+}
+
+.c19 .c1:focus,
+.c19 .c1:hover {
+  background-color: #163777;
+}
+
 .c20 .c1 {
-  background-color: #005B9A;
-  border: 1px solid #005B9A;
+  background-color: #006045;
+  border: 1px solid #006045;
   color: #FFFFFF;
   display: block;
   margin-left: 0;
@@ -385,16 +377,16 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 
 .c20 .c1:focus,
 .c20 .c1:hover {
-  background-color: #004372;
+  background-color: #003F2E;
 }
 
-.c20 .c1 + .c22 .c1 {
+.c20 .c1 + .c23 .c1 {
   margin-top: 3px;
 }
 
 .c21 .c1 {
-  background-color: #4F2775;
-  border: 1px solid #4F2775;
+  background-color: #005B9A;
+  border: 1px solid #005B9A;
   color: #FFFFFF;
   display: block;
   margin-left: 0;
@@ -407,10 +399,32 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 
 .c21 .c1:focus,
 .c21 .c1:hover {
+  background-color: #004372;
+}
+
+.c21 .c1 + .c23 .c1 {
+  margin-top: 3px;
+}
+
+.c22 .c1 {
+  background-color: #4F2775;
+  border: 1px solid #4F2775;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  text-align: left;
+  z-index: 10;
+}
+
+.c22 .c1:focus,
+.c22 .c1:hover {
   background-color: #3D1E5B;
 }
 
-.c21 .c1 + .c22 .c1 {
+.c22 .c1 + .c23 .c1 {
   margin-top: 3px;
 }
 
@@ -422,46 +436,44 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   data-role="baz"
   onMouseLeave={[Function]}
 >
-  <div>
-    <button
-      className="c1 c2"
-      data-component="button"
-      data-element="main-button"
-      disabled={false}
-      onFocus={[Function]}
-      onMouseEnter={[Function]}
-      role="button"
-      size="medium"
-    >
-      <span>
-        <span
-          data-element="main-text"
-        >
-          Split button
-        </span>
-      </span>
-    </button>
-    <button
-      aria-controls="guid-12345"
-      aria-expanded={false}
-      aria-haspopup="true"
-      className="c1 c3 c4"
-      data-element="open"
-      disabled={false}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onMouseEnter={[Function]}
-      size="medium"
-    >
+  <button
+    className="c1 c2"
+    data-component="button"
+    data-element="main-button"
+    disabled={false}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    role="button"
+    size="medium"
+  >
+    <span>
       <span
-        className="carbon-icon icon-dropdown"
-        data-component="icon"
-        data-element="dropdown"
-      />
-    </button>
-  </div>
+        data-element="main-text"
+      >
+        Split button
+      </span>
+    </span>
+  </button>
+  <button
+    aria-controls="guid-12345"
+    aria-expanded={false}
+    aria-haspopup="true"
+    className="c1 c3 c4"
+    data-element="open"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onMouseEnter={[Function]}
+    size="medium"
+  >
+    <span
+      className="carbon-icon icon-dropdown"
+      data-component="icon"
+      data-element="dropdown"
+    />
+  </button>
 </div>
 `;
 
@@ -569,12 +581,26 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   position: relative;
 }
 
-.c0 .c1 {
+.c0 > .c1 {
   margin: 0;
 }
 
+.c0 > .c1:focus {
+  border: 3px solid #FFB500;
+  outline: none;
+}
+
 .c0 .c1:focus {
-  outline-offset: -3px;
+  border: 1px solid #1e499f;
+}
+
+.c13 > .c1 {
+  margin: 0;
+}
+
+.c13 > .c1:focus {
+  border: 3px solid #FFB500;
+  outline: none;
 }
 
 .c4 {
@@ -665,31 +691,8 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   padding: 0 5px;
 }
 
-.c13 + .c3 {
-  margin-left: 15px;
-}
-
-.c1 + .c13 {
-  margin-left: 0;
-}
-
-.c1 + .c13:focus {
-  margin-left: -2px;
-  padding-left: 12px;
-}
-
-.c1 + .c13 .carbon-icon {
-  margin-left: 0;
-}
-
-.c13.c13,
-.c1 + .c13:focus {
-  margin-left: 0;
-  padding: 0 5px;
-}
-
 .c14 + .c3 {
-  margin-left: 16px;
+  margin-left: 15px;
 }
 
 .c1 + .c14 {
@@ -703,6 +706,12 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 
 .c1 + .c14 .carbon-icon {
   margin-left: 0;
+}
+
+.c14.c14,
+.c1 + .c14:focus {
+  margin-left: 0;
+  padding: 0 5px;
 }
 
 .c15 + .c3 {
@@ -815,6 +824,11 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin-left: 0;
 }
 
+.c1 + .c21:focus {
+  margin-left: -2px;
+  padding-left: 12px;
+}
+
 .c1 + .c21 .carbon-icon {
   margin-left: 0;
 }
@@ -843,43 +857,16 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin-left: 0;
 }
 
-.c24 .c1 {
-  background-color: #006045;
-  border: 1px solid #006045;
-  color: #FFFFFF;
-  display: block;
+.c24 + .c3 {
+  margin-left: 16px;
+}
+
+.c1 + .c24 {
   margin-left: 0;
-  margin-top: 3px;
-  margin-bottom: 3px;
-  min-width: 100%;
-  text-align: left;
-  z-index: 10;
 }
 
-.c24 .c1:focus,
-.c24 .c1:hover {
-  background-color: #003F2E;
-}
-
-.c24 .c1 + .c28 .c1 {
-  margin-top: 3px;
-}
-
-.c24 .c1 {
-  background-color: #1e499f;
-  border: 1px solid #1e499f;
-  color: #FFF;
-  height: 31px;
-  -webkit-letter-spacing: 0;
-  -moz-letter-spacing: 0;
-  -ms-letter-spacing: 0;
-  letter-spacing: 0;
-  padding: 0 18px;
-}
-
-.c24 .c1:focus,
-.c24 .c1:hover {
-  background-color: #163777;
+.c1 + .c24 .carbon-icon {
+  margin-left: 0;
 }
 
 .c25 .c1 {
@@ -900,13 +887,30 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   background-color: #003F2E;
 }
 
-.c25 .c1 + .c28 .c1 {
+.c25 .c1 + .c29 .c1 {
   margin-top: 3px;
 }
 
+.c25 .c1 {
+  background-color: #1e499f;
+  border: 1px solid #1e499f;
+  color: #FFF;
+  height: 31px;
+  -webkit-letter-spacing: 0;
+  -moz-letter-spacing: 0;
+  -ms-letter-spacing: 0;
+  letter-spacing: 0;
+  padding: 0 18px;
+}
+
+.c25 .c1:focus,
+.c25 .c1:hover {
+  background-color: #163777;
+}
+
 .c26 .c1 {
-  background-color: #005B9A;
-  border: 1px solid #005B9A;
+  background-color: #006045;
+  border: 1px solid #006045;
   color: #FFFFFF;
   display: block;
   margin-left: 0;
@@ -919,16 +923,16 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 
 .c26 .c1:focus,
 .c26 .c1:hover {
-  background-color: #004372;
+  background-color: #003F2E;
 }
 
-.c26 .c1 + .c28 .c1 {
+.c26 .c1 + .c29 .c1 {
   margin-top: 3px;
 }
 
 .c27 .c1 {
-  background-color: #4F2775;
-  border: 1px solid #4F2775;
+  background-color: #005B9A;
+  border: 1px solid #005B9A;
   color: #FFFFFF;
   display: block;
   margin-left: 0;
@@ -941,10 +945,32 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 
 .c27 .c1:focus,
 .c27 .c1:hover {
+  background-color: #004372;
+}
+
+.c27 .c1 + .c29 .c1 {
+  margin-top: 3px;
+}
+
+.c28 .c1 {
+  background-color: #4F2775;
+  border: 1px solid #4F2775;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  text-align: left;
+  z-index: 10;
+}
+
+.c28 .c1:focus,
+.c28 .c1:hover {
   background-color: #3D1E5B;
 }
 
-.c27 .c1 + .c28 .c1 {
+.c28 .c1 + .c29 .c1 {
   margin-top: 3px;
 }
 
@@ -956,45 +982,43 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   data-role="baz"
   onMouseLeave={[Function]}
 >
-  <div>
-    <button
-      className="c1 c2"
-      data-component="button"
-      data-element="main-button"
-      disabled={false}
-      onFocus={[Function]}
-      onMouseEnter={[Function]}
-      role="button"
-      size="medium"
-    >
-      <span>
-        <span
-          data-element="main-text"
-        >
-          Split button
-        </span>
-      </span>
-    </button>
-    <button
-      aria-controls="guid-12345"
-      aria-expanded={false}
-      aria-haspopup="true"
-      className="c1 c3 c4"
-      data-element="open"
-      disabled={false}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      onKeyDown={[Function]}
-      onMouseEnter={[Function]}
-      size="medium"
-    >
+  <button
+    className="c1 c2"
+    data-component="button"
+    data-element="main-button"
+    disabled={false}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    role="button"
+    size="medium"
+  >
+    <span>
       <span
-        className="carbon-icon icon-dropdown"
-        data-component="icon"
-        data-element="dropdown"
-      />
-    </button>
-  </div>
+        data-element="main-text"
+      >
+        Split button
+      </span>
+    </span>
+  </button>
+  <button
+    aria-controls="guid-12345"
+    aria-expanded={false}
+    aria-haspopup="true"
+    className="c1 c3 c4"
+    data-element="open"
+    disabled={false}
+    onBlur={[Function]}
+    onClick={[Function]}
+    onFocus={[Function]}
+    onKeyDown={[Function]}
+    onMouseEnter={[Function]}
+    size="medium"
+  >
+    <span
+      className="carbon-icon icon-dropdown"
+      data-component="icon"
+      data-element="dropdown"
+    />
+  </button>
 </div>
 `;

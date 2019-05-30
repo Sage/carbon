@@ -31,6 +31,12 @@ const getSplitButtonChildrenClassicStyles = ({ theme }) => (theme.name === THEME
   }
 ` : '');
 
+const getMainSplitButtonClassicStyles = ({ theme }) => (theme.name === THEMES.classic ? css`
+  ${StyledButton}:focus {
+    border: 1px solid #1e499f;
+  }
+` : '');
+
 const getSplitButtonToggleClassicStyles = ({
   theme,
   disabled,
@@ -67,4 +73,8 @@ const getSplitButtonToggleClassicStyles = ({
 ` : '');
 
 
-export { getSplitButtonChildrenClassicStyles, getSplitButtonToggleClassicStyles };
+export {
+  getSplitButtonChildrenClassicStyles,
+  getSplitButtonToggleClassicStyles,
+  getMainSplitButtonClassicStyles
+};
