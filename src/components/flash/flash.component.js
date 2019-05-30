@@ -255,9 +255,7 @@ class Flash extends React.Component {
   /** Returns the classes for the component. */
   get classes() {
     return classNames(
-      // 'carbon-flash',
       this.props.className,
-      `carbon-flash--${this.props.as}`
     );
   }
 

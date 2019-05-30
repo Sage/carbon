@@ -156,12 +156,12 @@
 }
 
 // overrides as some messages require white color
-.carbon-flash {
-  &--error, &--new, &--info {
-    .carbon-flash__message,
-    .carbon-flash__close,
-    .carbon-flash__icon:before {
-      color: white;
-    }
-  }
-}
+// .carbon-flash {
+//   &--error, &--new, &--info {
+//     .carbon-flash__message,
+//     .carbon-flash__close,
+//     .carbon-flash__icon:before {
+//       color: white;
+//     }
+//   }
+// }

@@ -11,6 +11,12 @@ const colors = {
   maintenance: '#FF7D00'
 };
 
+const requireWhiteTextColor = [
+  'error',
+  'new',
+  'info'
+];
+
 const FlashStyle = styled.div`
   bottom: 0px;
   overflow: hidden;
@@ -26,9 +32,20 @@ const FlashStyle = styled.div`
   };
 
     ${({ variant }) => variant && css`
-        background: ${colors[variant]};
-    `};
+        .carbon-flash__slider {
+          background: ${colors[variant]};
+        };
 
+        ${requireWhiteTextColor.includes(variant) && `
+        
+          .carbon-flash__message,
+          .carbon-flash__close,
+          .carbon-flash__icon:before {
+            color: white;
+          };
+
+        `}
+    `};
 `;
 
 export {
