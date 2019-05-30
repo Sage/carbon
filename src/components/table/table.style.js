@@ -13,7 +13,6 @@ import { LinkStyle as StyledLink, LinkStyleAnchor as StyledLinkAnchor } from '..
 import baseTheme from '../../style/themes/base';
 import { isClassic } from '../../utils/helpers/style-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import tableSizes from './table-sizes.style';
 
 const StyledTable = styled.table`
   border-collapse: separate;
@@ -58,12 +57,7 @@ export const StyledInternalTableWrapper = styled.div`
   overflow: visible;
   position: relative;
   
-  ${({
-    rowTotal, rowHeight, shrink, theme
-  }) => {
-    if (isClassic(theme)) return !shrink && css`min-height: ${tableSizes.wrapper(rowTotal).medium} !important;`;
-    return !shrink && css`min-height: ${tableSizes.wrapper(rowTotal)[rowHeight]} !important;`;
-  }}
+  ${({ minHeight }) => (minHeight && css`min-height: ${minHeight};`)}
 
   ${({ onConfigure, theme }) => onConfigure && css`
     ${StyledTable} {

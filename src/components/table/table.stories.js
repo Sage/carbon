@@ -12,10 +12,10 @@ import {
   Table, TableCell, TableHeader, TableRow
 } from '.';
 import TextBox from '../../__experimental__/components/textbox';
-import NumberInput from '../../__experimental__/components/number';
 import Decimal from '../../__experimental__/components/decimal';
 import DateInput from '../../__experimental__/components/date';
-import { Select } from '../../__experimental__/components/select';
+import { Select, Option } from '../../__experimental__/components/select';
+import getTextboxStoryProps from '../../__experimental__/components/textbox/textbox.stories';
 import classic from '../../style/themes/classic';
 import small from '../../style/themes/small';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -54,6 +54,11 @@ const store = new Store({
   children: undefined
 });
 
+const inputStore = new Store({
+  selectValue: undefined,
+  decimalValue: Decimal.defaultProps.value
+});
+
 const handleChange = (e, tableOptions) => {
   const { sortOrder, sortedColumn, currentPage } = tableOptions;
 
@@ -69,14 +74,19 @@ const recordsForActivePage = (start, end) => {
   return records.slice(start, end).toJS();
 };
 
-const buildRows = ({ pageSize, totalRecords }) => {
+const getActiveRows = (pageSize, totalRecords) => {
   const currentPage = store.get('currentPage');
   const candidateIndex = pageSize * currentPage;
 
   const endIndex = (candidateIndex <= totalRecords) ? candidateIndex : totalRecords;
   const currentPageSize = (endIndex === totalRecords) ? (endIndex % pageSize) : pageSize;
   const startIndex = endIndex - currentPageSize;
-  const rowsCountries = recordsForActivePage(startIndex, endIndex);
+
+  return recordsForActivePage(startIndex, endIndex);
+};
+
+const buildRows = ({ pageSize, totalRecords }) => {
+  const rowsCountries = getActiveRows(pageSize, totalRecords);
 
   return (
     <>
@@ -117,28 +127,40 @@ const pickInput = (name) => {
   const { inputTypes } = OptionsHelper;
   switch (name) {
     case inputTypes[1]:
-      return <TextArea />;
+      return <TextArea { ...getTextboxStoryProps } />;
     case inputTypes[2]:
-      return <DateInput />;
+      return <DateInput { ...getTextboxStoryProps } />;
     case inputTypes[3]:
-      return <NumberInput />;
+      return (
+        <Decimal
+          { ...getTextboxStoryProps }
+          value={ inputStore.get('decimalValue') }
+          onChange={ (ev) => { inputStore.set({ decimalValue: ev.target.value }); } }
+        />
+      );
     case inputTypes[4]:
-      return <Decimal />;
-    case inputTypes[5]:
-      return <Select />;
+      return (
+        <State store={ inputStore }>
+          <Select
+            { ...getTextboxStoryProps }
+            onChange={ (ev) => { inputStore.set({ selectValue: ev.target.value }); } }
+          >
+            <Option text='Amber' value='1' />
+            <Option text='Black' value='2' />
+            <Option text='Blue' value='3' />
+            <Option text='Brown' value='4' />
+          </Select>
+        </State>
+      );
     default:
-      return <TextBox />;
+      return <TextBox { ...getTextboxStoryProps } />;
   }
 };
 
-const buildRowsWithInputs = ({ pageSize, totalRecords, inputType }) => {
-  const currentPage = store.get('currentPage');
-  const candidateIndex = pageSize * currentPage;
-
-  const endIndex = (candidateIndex <= totalRecords) ? candidateIndex : totalRecords;
-  const currentPageSize = (endIndex === totalRecords) ? (endIndex % pageSize) : pageSize;
-  const startIndex = endIndex - currentPageSize;
-  const rowsCountries = recordsForActivePage(startIndex, endIndex);
+const buildRowsWithInputs = ({
+  pageSize, totalRecords, inputType
+}) => {
+  const rowsCountries = getActiveRows(pageSize, totalRecords);
 
   return (
     <>
@@ -168,7 +190,8 @@ const buildRowsWithInputs = ({ pageSize, totalRecords, inputType }) => {
             key={ row.id }
             uniqueID={ row.id }
           >
-            <TableCell>{ pickInput(inputType)}
+            <TableCell>
+              { pickInput(inputType)}
             </TableCell>
             <TableCell>{row.value}</TableCell>
           </TableRow>

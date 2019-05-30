@@ -80,27 +80,26 @@ function additionalThemeStyling(type, { text, table, colors }) {
 function applyInputStyling(size) {
   const { inputHeight, fontSize, paddingSize } = tableSizes[size];
   return `
-    ${StyledInput} {
-      font-size: ${fontSize};
-      height: ${inputHeight};
-      padding-top: 0;
-      padding-bottom: 0;
-    }
-
-    && ${StyledInputPresentation} {
-      height: ${inputHeight};
+    ${StyledInputPresentation} {
       min-height: ${inputHeight};
       padding-left: ${paddingSize};
       padding-right: ${paddingSize};
+      position: relative;
     }
 
-    && textarea {
+    ${StyledInput} {
+      font-size: ${fontSize};
+      height: ${inputHeight};
+    }
+
+    textarea {
       overflow: auto;
       padding-top: 5px;
       padding-bottom: 5px;
       resize: none;
       flex-grow: 1;
-      min-height: ${inputHeight};
+      height: auto;
+      min-height: ${inputHeight * 3};
     }
   `;
 }

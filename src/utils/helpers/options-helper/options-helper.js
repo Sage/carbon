@@ -272,7 +272,6 @@ const OptionsHelper = {
     'textbox',
     'textarea',
     'date',
-    'number',
     'decimal',
     'select'
   ]
