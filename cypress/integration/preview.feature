@@ -64,3 +64,42 @@ Feature: Preview component
       | 1     |
       | 10    |
       | 100   |
+
+  @positive
+  Scenario Outline: Set width to out of scope to <width>
+    When I set width to "<width>"
+    Then Preview width is not set to "<width>"
+    Examples:
+      | width                   |
+      | Sample text             |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+      # @ignore because of FE-1447
+      # | <>                       |
+
+  @positive
+  Scenario Outline: Set height to out of scope to <height>
+    When I set height to "<height>"
+    Then Preview height is not set to "<height>"
+    Examples:
+      | height                  |
+      | Sample text             |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+      # @ignore because of FE-1447
+      # | <>                       |
+
+  @positive
+  Scenario Outline: Set lines to out of scope to <lines>
+    When I set lines to "<lines>"
+    Then Preview lines is not set to "<lines>"
+    Examples:
+      | lines                   |
+      | Sample text             |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+      # @ignore because of FE-1447
+      # | <>                       |  

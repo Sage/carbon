@@ -20,7 +20,7 @@ Feature: Pod component
     When I set children to "<children>"
     Then Pod children on preview is set to "<children>"
     Examples:
-      | children               |
+      | children                |
       | Sample text             |
       | 1234567890              |
       | áéíóú¿¡üñ               |

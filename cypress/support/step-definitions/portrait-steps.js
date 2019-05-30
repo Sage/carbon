@@ -64,6 +64,3 @@ Then('Portrait {word} value is set to {string}', (word, property) => {
       throw new Error('Not a Portrait component property');
   }
 });
-
-
-// Portrait shape on preview is
