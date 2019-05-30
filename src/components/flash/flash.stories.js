@@ -10,7 +10,7 @@ import { State, Store } from '@sambego/storybook-state';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
-import Flash from './flash';
+import Flash from './flash.component';
 import Button from '../button';
 
 const store = new Store({

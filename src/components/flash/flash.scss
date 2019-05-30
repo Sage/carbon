@@ -2,21 +2,21 @@
 @import "./../../style-config/general";
 @import "./../../style-config/z-index";
 
-.carbon-flash {
-  bottom: 0px;
-  overflow: hidden;
-  position: fixed;
-  right: 0;
-  text-align: center;
-  width: 100%;
+// .carbon-flash {
+//   bottom: 0px;
+//   overflow: hidden;
+//   position: fixed;
+//   right: 0;
+//   text-align: center;
+//   width: 100%;
 
-  // tag added by CSSTransitionGroup
-  > div {
-    display: inline-block;
-    height: 100%;
-    width: 100%;
-  }
-}
+//   // tag added by CSSTransitionGroup
+//   > div {
+//     display: inline-block;
+//     height: 100%;
+//     width: 100%;
+//   }
+// }
 
 .carbon-flash__link {
   color: $white;
@@ -36,15 +36,15 @@
   position: absolute;
   right: 0;
 
-  @mixin flash-theme($type, $color, $border, $background, $color-hover) {
-    .carbon-flash--#{$type} & {
-      background-color: $color;
-    }
-  }
+  // @mixin flash-theme($type, $color, $border, $background, $color-hover) {
+  //   .carbon-flash--#{$type} & {
+  //     background-color: $color;
+  //   }
+  // }
 
-  @each $set in $colorIconSets {
-    @include flash-theme($set...);
-  }
+  // @each $set in $colorIconSets {
+  //   @include flash-theme($set...);
+  // }
 }
 
 .carbon-flash__content {

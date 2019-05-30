@@ -10,6 +10,7 @@ import Icon from '../icon/icon';
 import Alert from '../alert';
 import Link from '../link';
 import tagComponent from '../../utils/helpers/tags/tags';
+import { FlashStyle } from './flash.style';
 import './flash.scss';
 
 class Flash extends React.Component {
@@ -220,42 +221,28 @@ class Flash extends React.Component {
 
   /** Returns the computed HTML for the flash. */
   get flashHTML() {
-    const contents = [];
-
-    // add icon
-    contents.push(<Icon
-      className='carbon-flash__icon' type={ this.iconType }
-      key='icon'
-    />);
-
-    // add message content
-    contents.push(
-      <div
-        className='carbon-flash__message' key='message'
-        data-element='message'
-      >
-        { this.formatDescription(this.description) }
-      </div>
-    );
-
-    // if auto-dismiss is not enabled, add a close icon
-    if (!this.props.timeout) {
-      contents.push(
-        <Icon
-          className='carbon-flash__close'
-          data-element='close'
-          key='close'
-          onClick={ this.props.onDismiss }
-          type='close'
-        />
-      );
-    }
-
     return (
       <div className='carbon-flash__content'>
-        { contents }
-      </div>
-    );
+        <Icon
+          className='carbon-flash__icon' type={ this.iconType }
+          key='icon'
+        />
+        <div
+          className='carbon-flash__message' key='message'
+          data-element='message'
+        >
+          { this.formatDescription(this.description) }
+        </div>
+        {!this.props.timeout && (
+          <Icon
+            className='carbon-flash__close'
+            data-element='close'
+            key='close'
+            onClick={ this.props.onDismiss }
+            type='close'
+          />
+        )}
+      </div>);
   }
 
   /** Returns the computed HTML for the slider. */
@@ -268,7 +255,7 @@ class Flash extends React.Component {
   /** Returns the classes for the component. */
   get classes() {
     return classNames(
-      'carbon-flash',
+      // 'carbon-flash',
       this.props.className,
       `carbon-flash--${this.props.as}`
     );
@@ -281,7 +268,7 @@ class Flash extends React.Component {
       this.state.open && (
         <Portal>
           <div { ...tagComponent('flash', this.props) }>
-            <div className={ this.classes }>
+            <FlashStyle variant={ this.props.as } className={ this.classes }>
               <CSSTransitionGroup
                 component='div'
                 transitionAppear
@@ -302,7 +289,7 @@ class Flash extends React.Component {
                   { flashHTML }
                 </CSSTransitionGroup>
               </CSSTransitionGroup>
-            </div>
+            </FlashStyle>
             { this.dialogs }
           </div>
         </Portal>
