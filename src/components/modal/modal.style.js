@@ -6,7 +6,7 @@ const initialPosition = '50px';
 const animationLength = '300ms';
 
 const StyledModalBackground = styled.div`
-  background-color: #F2F5F6;
+  background-color: rgba(0, 20, 29, 0.6);
   bottom: 0;
   left: 0;
   opacity: ${backgroundOpacity};
