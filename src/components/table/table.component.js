@@ -357,7 +357,7 @@ class Table extends React.Component {
 
     if (shrink || this._table.offsetHeight > this.tableHeight) {
       this.tableHeight = this._table.offsetHeight;
-      this._wrapper.style.minHeight = `${this.tableHeight}px`;
+      this._wrapper.style.minHeight = `${this.tableHeight - 1}px`;
     }
   }
 
@@ -365,7 +365,7 @@ class Table extends React.Component {
    * Test if the table height should be reset to 0
    */
   shouldResetTableHeight(prevProps) {
-    return prevProps.pageSize > this.pageSize;
+    return prevProps.size !== this.props.size || prevProps.pageSize > this.pageSize;
   }
 
   /**
@@ -644,9 +644,6 @@ class Table extends React.Component {
       <div { ...this.componentTags(this.props) }>
         { this.actionToolbar }
         <StyledInternalTableWrapper
-          rowTotal={ this.props.pageSize }
-          rowHeight={ this.props.size }
-          shrink={ this.props.shrink }
           ref={ (wrapper) => { this._wrapper = wrapper; } }
         >
           { this.configureLink(this.props.onConfigure) }
