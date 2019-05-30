@@ -1,8 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import tagComponent from '../../utils/helpers/tags';
-import './preview.scss';
+import PreviewStyle from './preview.style';
 
 const Preview = (props) => {
   if (isLoading(props.loading, props.children)) {
@@ -17,29 +16,15 @@ const Preview = (props) => {
 };
 
 Preview.propTypes = {
-  /**
-   * Children content to render in the component.
-   */
+  /** Children content to render in the component. */
   children: PropTypes.node,
-  /**
-   * Classes to be applied to the component.
-   */
-  className: PropTypes.string,
-  /**
-   * A custom height.
-   */
+  /** Classes to be applied to the component. */
   height: PropTypes.string,
-  /**
-   * The number of lines to render.
-   */
+  /** The number of lines to render. */
   lines: PropTypes.number,
-  /**
-   * Provides more control over when in a loading state.
-   */
+  /* Provides more control over when in a loading state. */
   loading: PropTypes.bool,
-  /**
-   * A custom width
-   */
+  /** A custom width */
   width: PropTypes.string
 };
 
@@ -56,7 +41,7 @@ function isLoading(loading, children) {
 }
 
 function createPreview(allProps, index) {
-  const { className, height, lines } = allProps;
+  const { height, lines } = allProps;
   let { width } = allProps;
 
   if (!width && lines > 1 && lines === index) {
@@ -64,9 +49,8 @@ function createPreview(allProps, index) {
   }
 
   return (
-    <span
+    <PreviewStyle
       key={ index }
-      className={ classNames('carbon-preview', className) }
       style={ { height, width } }
       { ...tagComponent('preview', allProps) }
     />
