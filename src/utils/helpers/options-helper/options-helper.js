@@ -49,6 +49,13 @@ const OptionsHelper = {
     'warning'
   ],
 
+  pillColours: [
+    'neutral',
+    'negative',
+    'warning',
+    'positive'
+  ],
+
   messages: [
     'error',
     'info',

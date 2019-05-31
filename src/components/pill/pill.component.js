@@ -5,7 +5,6 @@ import { validProps } from '../../utils/ether/ether';
 import tagComponent from '../../utils/helpers/tags/tags';
 import StyledPill from './pill.style';
 
-
 class Pill extends React.Component {
   static safeProps = ['onClick']
 

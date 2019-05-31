@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-export const styleConfig = {
+export const classicStyleConfig = {
   disabled: {
     color: '#CCD6DA',
     bgColor: '#CCD6DA'
@@ -56,7 +56,7 @@ export const styleConfig = {
 };
 
 export default (props) => {
-  const colourSet = styleConfig[props.styledAs];
+  const colourSet = classicStyleConfig[props.styledAs];
 
   return css`
     border-radius: 10px; 
