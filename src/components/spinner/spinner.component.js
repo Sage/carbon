@@ -5,11 +5,10 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import StyledSpinner from './spinner.style';
 
 const Spinner = (props) => {
+  const { as, ...spinnerProps } = props;
   return (
     <StyledSpinner
-      type={ props.as } 
-      size={ props.size }
-      className={ props.className } 
+      type={ as } { ...spinnerProps }
       { ...tagComponent('spinner', props) }
     />
   );
@@ -21,11 +20,8 @@ Spinner.defaultProps = {
 };
 
 Spinner.propTypes = {
-  /** Sets the theme for the component. */
   as: PropTypes.oneOf(OptionsHelper.colors),
-  /** Custom className */
   className: PropTypes.string,
-  /** Size of the spinner */
   size: PropTypes.oneOf(OptionsHelper.sizesFull)
 };
 
