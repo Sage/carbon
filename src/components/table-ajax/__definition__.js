@@ -24,14 +24,16 @@ const definition = new Definition('table-ajax', TableAjax, {
     formatRequest: 'Function',
     onAjaxError: 'Function',
     path: 'String',
-    postAction: 'Boolean'
+    postAction: 'Boolean',
+    withCredentials: 'Boolean'
   },
   propDescriptions: {
     formatResponse: 'Callback function for formatting the data received via Ajax requests into the format required by the table',
     formatRequest: 'Callback function for formatting the query data to be sent via Ajax to the defined path',
     onAjaxError: 'Callback function to handle XHR request errors',
     path: 'The path to make XHR requests to.',
-    postAction: 'This provides an option to override the default get request with post.'
+    postAction: 'This provides an option to override the default get request with post.',
+    withCredentials: 'Makes your browser include cookies and authentication headers in your XHR request.'
   },
   requiredProps: ['path'],
   hiddenProps: [

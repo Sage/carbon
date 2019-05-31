@@ -5,7 +5,7 @@ Feature: Content component
     Given I open "Content" component page
 
   @positive
-  Scenario Outline: Change children in Content dialog
+  Scenario Outline: Change children in Content dialog to <children>
     When I set children to "<children>"
     Then content children on preview is "<children>"
     Examples:
@@ -15,10 +15,11 @@ Feature: Content component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
-  Scenario Outline: Change title in Content dialog
+  Scenario Outline: Change title in Content dialog to <title>
     When I set title to "<title>"
     Then content title context children on preview is "<title>"
     Examples:
@@ -28,7 +29,8 @@ Feature: Content component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
   Scenario Outline: Change property in Content dialog
