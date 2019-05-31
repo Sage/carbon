@@ -5,7 +5,7 @@ Feature: Menulist component
     Given I open "MenuList" component page
 
   @positive
-  Scenario Outline: Change MenuList title
+  Scenario Outline: Change MenuList title to <title>
     When I set title to "<title>"
     Then title on preview is "<title>"
     Examples:
@@ -19,7 +19,7 @@ Feature: Menulist component
 
   @ignore
   # @positive doesn't work on Carbon Demo site
-  Scenario Outline: Change MenuList filterPlaceholder
+  Scenario Outline: Change MenuList filterPlaceholder to <text>
     When I set filterPlaceholder to "<text>"
     Then filterPlaceholder on preview is "<text>"
     Examples:

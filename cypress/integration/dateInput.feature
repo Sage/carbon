@@ -1,6 +1,7 @@
 Feature: Date Input component
   I want to change Date Input component properties
 
+# Added Experimental untill the component will be merged with master
   Background: Open Date Input component page
     Given I open "Experimental Date Input" component page
 
@@ -37,7 +38,8 @@ Feature: Date Input component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
   Scenario Outline: Change DateInput label
@@ -50,7 +52,8 @@ Feature: Date Input component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
   Scenario: Enable label inline checkbox for Date Input component

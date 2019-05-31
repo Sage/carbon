@@ -5,7 +5,7 @@ Feature: Fieldset component
     Given I open "Fieldset" component page
 
   @positive
-  Scenario Outline: Change legend in Fieldset
+  Scenario Outline: Change legend in Fieldset to <legend>
     When I set legend to "<legend>"
     Then legend on preview is "<legend>"
     Examples:
