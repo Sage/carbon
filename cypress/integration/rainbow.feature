@@ -7,7 +7,7 @@ Feature: Rainbow component
   @positive
   Scenario Outline: Set title to <title>
     When I set title to "<title>"
-    Then rainbow title is "<title>"
+    Then Rainbow title is "<title>"
     Examples:
       | title                   |
       | Sample text             |

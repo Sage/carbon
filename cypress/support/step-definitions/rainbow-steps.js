@@ -9,7 +9,7 @@ When('I put {string} json to {string} input field', (json, inputFieldName) => {
       .then($selector => $selector.val(JSON.stringify($json))).type(' ');
   });
 });
-Then('rainbow title is {string}', (title) => {
+Then('Rainbow title is {string}', (title) => {
   cy.wait(500); // required because element exists before change
   titlePreview().should('have.text', title);
 });
