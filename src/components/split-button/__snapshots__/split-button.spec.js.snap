@@ -435,6 +435,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
     data-component="button"
     data-element="main-button"
     disabled={false}
+    id="guid-12345"
     onFocus={[Function]}
     onMouseEnter={[Function]}
     role="button"
@@ -449,9 +450,9 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
     </span>
   </button>
   <button
-    aria-controls="guid-12345"
     aria-expanded={false}
     aria-haspopup="true"
+    aria-label="Show more"
     className="c1 c3 c4"
     data-element="open"
     disabled={false}
@@ -975,6 +976,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
     data-component="button"
     data-element="main-button"
     disabled={false}
+    id="guid-12345"
     onFocus={[Function]}
     onMouseEnter={[Function]}
     role="button"
@@ -989,9 +991,9 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
     </span>
   </button>
   <button
-    aria-controls="guid-12345"
     aria-expanded={false}
     aria-haspopup="true"
+    aria-label="Show more"
     className="c1 c3 c4"
     data-element="open"
     disabled={false}

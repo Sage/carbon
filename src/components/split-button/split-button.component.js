@@ -13,7 +13,6 @@ import guid from '../../utils/helpers/guid';
 class SplitButton extends Component {
   constructor(props) {
     super(props);
-    this.buttonListId = guid();
     this.buttonLabelId = guid();
     this.componentTags = this.componentTags.bind(this);
     this.showButtons = this.showButtons.bind(this);
@@ -118,13 +117,14 @@ class SplitButton extends Component {
         { ...this.mainButtonProps }
         data-element='main-button'
         key='main-button'
+        id={ this.buttonLabelId }
       >
         { this.props.text}
       </Button>,
       <StyledSplitButtonToggle
         aria-haspopup='true'
         aria-expanded={ this.state.showAdditionalButtons }
-        aria-controls={ this.buttonListId }
+        aria-label='Show more'
         { ...this.toggleButtonProps }
         data-element='open'
         onKeyDown={ this.handleToggleButtonKeyDown }
@@ -148,6 +148,7 @@ class SplitButton extends Component {
     return childArray.map((child, index) => {
       const props = {
         key: index.toString(),
+        role: 'menu-item',
         ref: button => this.addRef(button, index),
         tabIndex: -1
       };
@@ -162,7 +163,8 @@ class SplitButton extends Component {
 
     return (
       <StyledSplitButtonChildrenContainer
-        id={ this.buttonListId }
+        role='menu'
+        aria-labelledby={ this.buttonLabelId }
         data-element='additional-buttons'
       >
         { children }
