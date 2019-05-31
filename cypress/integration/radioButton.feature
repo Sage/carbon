@@ -98,7 +98,7 @@ Feature: Radio Button component
   Scenario Outline: Set labelWidth to <labelWidth>
     When I check labelInline checkbox
       And I set labelWidth to "<labelWidth>"
-    Then radioButton labelWidth is set to "<labelWidth>"
+    Then RadioButton labelWidth is set to "<labelWidth>"
     Examples:
       | labelWidth |
       | 0          |
