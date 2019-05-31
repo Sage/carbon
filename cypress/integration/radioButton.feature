@@ -11,6 +11,7 @@ Feature: Radio Button component
     Examples:
       | fieldHelp               |
       | Sample text             |
+      | 1234567890              |
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
@@ -35,6 +36,7 @@ Feature: Radio Button component
     Examples:
       | label                   |
       | Sample text             |
+      | 1234567890              |
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
@@ -44,13 +46,13 @@ Feature: Radio Button component
   @positive
   Scenario Outline: Check labelInline checkbox
     When I check labelInline checkbox
-    Then radioButton labelInline is enabled
+    Then RadioButton labelInline is enabled
 
   @positive
   Scenario Outline: Uncheck labelInline checkbox
     When I check labelInline checkbox
       And I uncheck labelInline checkbox
-    Then radioButton labelInline is disabled
+    Then RadioButton labelInline is disabled
 
   @positive
   Scenario Outline: Set labelHelp to <labelHelp>
@@ -60,6 +62,7 @@ Feature: Radio Button component
     Examples:
       | labelHelp               |
       | Sample text             |
+      | 1234567890              |
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |

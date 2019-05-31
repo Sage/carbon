@@ -6,11 +6,12 @@ Feature: Rainbow component
 
   @positive
   Scenario Outline: Set title to <title>
-  When I set title to "<title>"
+    When I set title to "<title>"
     Then rainbow title is "<title>"
     Examples:
       | title                   |
       | Sample text             |
+      | 1234567890              |
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
