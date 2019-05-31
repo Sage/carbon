@@ -7,9 +7,9 @@ const classicSpinnerColors = {
   },
   info: {
     borderTop: '#1573e6',
-    borderBottom: 'rgba(21, 115, 230, 0.5)',
-    borderRight: 'rgba(21, 115, 230, 0.3)',
-    borderLeft: 'rgba(21, 115, 230, 0.7)'
+    borderBottom: 'rgba(21,115,230,0.5)',
+    borderRight: 'rgba(21,115,230,0.3)',
+    borderLeft: 'rgba(21,115,230,0.7)'
   },
   error: {
     borderTop: '#c7384f',

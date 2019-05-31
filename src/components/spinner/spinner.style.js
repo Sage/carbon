@@ -1,4 +1,6 @@
 import styled, { keyframes } from 'styled-components';
+import PropTypes from 'prop-types';
+import OptionsHelper from '../../utils/helpers/options-helper';
 import { classicSpinnerColors, classicSpinnerSizes } from './classicSpinnerValues';
 
 const spinnerAnimation = keyframes`
@@ -20,5 +22,16 @@ const StyledSpinner = styled.div`
   height: ${({ size }) => classicSpinnerSizes[size].height};
   border-width: ${({ size }) => classicSpinnerSizes[size].borderWidth};
 `;
+
+StyledSpinner.defaultProps = {
+  type: 'info',
+  size: 'medium'
+};
+
+StyledSpinner.propTypes = {
+  as: PropTypes.oneOf(OptionsHelper.colors),
+  className: PropTypes.string,
+  size: PropTypes.oneOf(OptionsHelper.sizesFull)
+};
 
 export default StyledSpinner;
