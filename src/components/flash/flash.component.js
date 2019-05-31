@@ -10,7 +10,9 @@ import Icon from '../icon/icon';
 import Alert from '../alert';
 import Link from '../link';
 import tagComponent from '../../utils/helpers/tags/tags';
-import { FlashStyle, FlashSliderStyle, FlashContentStyle } from './flash.style';
+import {
+  FlashStyle, FlashSliderStyle, FlashContentStyle, FlashMessageStyle
+} from './flash.style';
 import './flash.scss';
 
 class Flash extends React.Component {
@@ -227,12 +229,12 @@ class Flash extends React.Component {
           className='carbon-flash__icon' type={ this.iconType }
           key='icon'
         />
-        <div
-          className='carbon-flash__message' key='message'
+        <FlashMessageStyle
+          key='message'
           data-element='message'
         >
           { this.formatDescription(this.description) }
-        </div>
+        </FlashMessageStyle>
         {!this.props.timeout && (
           <Icon
             className='carbon-flash__close'

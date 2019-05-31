@@ -65,6 +65,15 @@ const contentAnimation = `
   }
 `;
 
+const FlashMessageStyle = styled.div`
+  color: rgba(0,0,0,0.85);
+  font-size: 14px;
+  font-weight: 700;
+  margin: 20px 70px;
+  position: relative;
+  text-align: left;
+`;
+
 const FlashContentStyle = styled.div`
   background-color: transparent ;
   margin: 0 auto;
@@ -92,6 +101,7 @@ const FlashStyle = styled.div`
   text-align: center;
   width: 100%;
 
+  // tag added by CSSTransitionGroup
     > div {
     display: inline-block;
     height: 100%;
@@ -105,7 +115,7 @@ const FlashStyle = styled.div`
 
         ${requireWhiteTextColor.includes(variant) && `
         
-          .carbon-flash__message,
+          ${FlashMessageStyle},
           .carbon-flash__close,
           .carbon-flash__icon:before {
             color: white;
@@ -121,5 +131,6 @@ const FlashStyle = styled.div`
 export {
   FlashStyle,
   FlashSliderStyle,
-  FlashContentStyle
+  FlashContentStyle,
+  FlashMessageStyle
 };
