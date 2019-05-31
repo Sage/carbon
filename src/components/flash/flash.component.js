@@ -4,6 +4,7 @@ import I18n from 'i18n-js';
 import classNames from 'classnames';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { isObject, isArray, forEach } from 'lodash';
+import { withTheme } from 'styled-components';
 import shouldComponentUpdate from '../../utils/helpers/should-component-update/should-component-update';
 import Portal from '../portal/portal';
 import Icon from '../icon/icon';
@@ -11,13 +12,20 @@ import Alert from '../alert';
 import Link from '../link';
 import tagComponent from '../../utils/helpers/tags/tags';
 import {
-  FlashStyle, FlashSliderStyle, FlashContentStyle, FlashMessageStyle
+  FlashStyle,
+  FlashSliderStyle,
+  FlashContentStyle,
+  FlashMessageStyle,
+  CenterToastStyle
 } from './flash.style';
 import './flash.scss';
+import { THEMES } from '../../style/themes';
+import Toast from '../toast';
 
 class Flash extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
       /** Keeps track of the open state of each dialog */
       dialogs: {},
@@ -28,7 +36,9 @@ class Flash extends React.Component {
 
   /** Resets the dialog open states if flash is opened/closed. */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.open === this.props.open) { return; }
+    if (nextProps.open === this.props.open) {
+      return;
+    }
 
     if (this.removePortalTimeout) {
       clearTimeout(this.removePortalTimeout);
@@ -58,10 +68,10 @@ class Flash extends React.Component {
   }
 
   /** Keeps track of additional dialogs to render for "more info" links */
-  dialogs = []
+  dialogs = [];
 
   /** A timeout for when a flash should auto-dismiss */
-  timeout = null
+  timeout = null;
 
   /** Starts the timer to auto dismiss flash messages. */
   startTimeout = () => {
@@ -72,11 +82,13 @@ class Flash extends React.Component {
         this.props.onDismiss();
       }, this.props.timeout);
     }
-  }
+  };
 
   /** Determines if the timeout should be started. */
   shouldStartTimeout = () => {
-    if (!this.props.timeout || !this.props.open) { return false; }
+    if (!this.props.timeout || !this.props.open) {
+      return false;
+    }
 
     let shouldStartTimeout = true;
 
@@ -87,32 +99,32 @@ class Flash extends React.Component {
     }
 
     return shouldStartTimeout;
-  }
+  };
 
   /** Stops the timer to auto dismiss flash messages. */
   stopTimeout = () => {
     clearTimeout(this.timeout);
-  }
+  };
 
   /** Opens/closes the dialog for the given key. */
   toggleDialog = (key) => {
-    return (
-      (ev) => {
-        if (ev) { ev.preventDefault(); }
-
-        const state = this.state.dialogs[key];
-        // open/close the dialog
-        this.setState({ dialogs: { [key]: !state } });
-
-        // start/stop the timer if the dialog opens or closes
-        if (state) {
-          this.startTimeout();
-        } else {
-          this.stopTimeout();
-        }
+    return (ev) => {
+      if (ev) {
+        ev.preventDefault();
       }
-    );
-  }
+
+      const state = this.state.dialogs[key];
+      // open/close the dialog
+      this.setState({ dialogs: { [key]: !state } });
+
+      // start/stop the timer if the dialog opens or closes
+      if (state) {
+        this.startTimeout();
+      } else {
+        this.stopTimeout();
+      }
+    };
+  };
 
   /** Given a description, format it accordingly. */
   formatDescription = (description) => {
@@ -133,26 +145,32 @@ class Flash extends React.Component {
 
         if (!array && !/(^base|\.base)$/.test(key)) {
           // if object, apply key to each item
-          itemValue = <span>{ key }: { text }</span>;
+          itemValue = (
+            <span>
+              {key}: {text}
+            </span>
+          );
         } else {
           // otherwise just set value
           itemValue = text;
         }
 
         // add item to list
-        items.push(<li key={ key }>{ itemValue }</li>);
+        items.push(<li key={ key }>{itemValue}</li>);
       });
 
-      return <ul>{ items }</ul>;
+      return <ul>{items}</ul>;
     }
     // if just a string, pass it through the find more parser
     return this.findMore(description);
-  }
+  };
 
   /** Splits the string and sets additional content inside a dialog. */
   findMore = (text) => {
     let value = text;
-    if (typeof text !== 'string') { return value; }
+    if (typeof text !== 'string') {
+      return value;
+    }
 
     // detect any instances of "::more::" in the text
     const parts = text.split('::more::');
@@ -160,7 +178,9 @@ class Flash extends React.Component {
     if (parts.length > 1) {
       const title = parts[0].trim(),
           desc = parts[1].trim(),
-          info = I18n.t('notifications.more_info', { defaultValue: 'More Information' });
+          info = I18n.t('notifications.more_info', {
+            defaultValue: 'More Information'
+          });
 
       // create dialog for additional content
       this.dialogs.push(
@@ -171,27 +191,27 @@ class Flash extends React.Component {
           open={ this.state.dialogs[title] || false }
           onCancel={ this.toggleDialog(title) }
         >
-          { desc }
+          {desc}
         </Alert>
       );
 
       // create text for item
       value = (
         <span>
-          { title }&nbsp;
+          {title}&nbsp;
           <Link
             onClick={ this.toggleDialog(title) }
             className='carbon-flash__link'
             data-element='more-info'
           >
-            { info }
+            {info}
           </Link>
         </span>
       );
     }
 
     return value;
-  }
+  };
 
   /** Returns the icon to display depending on type */
   get iconType() {
@@ -229,11 +249,8 @@ class Flash extends React.Component {
           className='carbon-flash__icon' type={ this.iconType }
           key='icon'
         />
-        <FlashMessageStyle
-          key='message'
-          data-element='message'
-        >
-          { this.formatDescription(this.description) }
+        <FlashMessageStyle key='message' data-element='message'>
+          {this.formatDescription(this.description)}
         </FlashMessageStyle>
         {!this.props.timeout && (
           <Icon
@@ -244,57 +261,74 @@ class Flash extends React.Component {
             type='close'
           />
         )}
-      </FlashContentStyle>);
+      </FlashContentStyle>
+    );
   }
 
   /** Returns the computed HTML for the slider. */
   get sliderHTML() {
-    return (
-      <FlashSliderStyle key='slider' />
-    );
+    return <FlashSliderStyle key='slider' />;
   }
 
   /** Returns the classes for the component. */
   get classes() {
-    return classNames(
-      this.props.className,
+    return classNames(this.props.className);
+  }
+
+  getComponentByTeamProvided() {
+    const sliderHTML = this.props.open && this.sliderHTML;
+    const flashHTML = this.props.open && this.flashHTML;
+
+    if (this.props.theme.name === THEMES.classic) {
+      return (
+        this.state.open && (
+          <Portal>
+            <div { ...tagComponent('flash', this.props) }>
+              <FlashStyle
+                variant={ this.props.as || this.props.variant }
+                className={ this.classes }
+              >
+                <CSSTransitionGroup
+                  component='div'
+                  transitionAppear
+                  transitionAppearTimeout={ 500 }
+                  transitionName='carbon-flash__slider'
+                  transitionEnterTimeout={ 600 }
+                  transitionLeave
+                  transitionLeaveTimeout={ 600 }
+                >
+                  {sliderHTML}
+                  <CSSTransitionGroup
+                    component='div'
+                    transitionName='carbon-flash__content'
+                    transitionEnterTimeout={ 200 }
+                    transitionLeave
+                    transitionLeaveTimeout={ 600 }
+                  >
+                    {flashHTML}
+                  </CSSTransitionGroup>
+                </CSSTransitionGroup>
+              </FlashStyle>
+              {this.dialogs}
+            </div>
+          </Portal>
+        )
+      );
+    }
+
+    return (
+      <CenterToastStyle
+        as={ Toast }
+        variant={ this.props.as || this.props.variant }
+        onDismiss={ this.props.onDismiss }
+      >
+        {this.props.message}
+      </CenterToastStyle>
     );
   }
 
   render() {
-    const sliderHTML = this.props.open && this.sliderHTML;
-    const flashHTML = this.props.open && this.flashHTML;
-    return (
-      this.state.open && (
-        <Portal>
-          <div { ...tagComponent('flash', this.props) }>
-            <FlashStyle variant={ this.props.as } className={ this.classes }>
-              <CSSTransitionGroup
-                component='div'
-                transitionAppear
-                transitionAppearTimeout={ 500 }
-                transitionName='carbon-flash__slider'
-                transitionEnterTimeout={ 600 }
-                transitionLeave
-                transitionLeaveTimeout={ 600 }
-              >
-                { sliderHTML }
-                <CSSTransitionGroup
-                  component='div'
-                  transitionName='carbon-flash__content'
-                  transitionEnterTimeout={ 200 }
-                  transitionLeave
-                  transitionLeaveTimeout={ 600 }
-                >
-                  { flashHTML }
-                </CSSTransitionGroup>
-              </CSSTransitionGroup>
-            </FlashStyle>
-            { this.dialogs }
-          </div>
-        </Portal>
-      )
-    );
+    return this.getComponentByTeamProvided();
   }
 }
 
@@ -305,8 +339,10 @@ Flash.propTypes = {
   onDismiss: PropTypes.func.isRequired,
   /** Sets the open state of the flash. */
   open: PropTypes.bool.isRequired,
-  /** Type of notification. (see the 'iconColorSets' for possible values) */
+  /** Type of notification. Legacy standard (see the 'iconColorSets' for possible values) */
   as: PropTypes.string,
+  /** Type of notification with new DLS standard */
+  variant: PropTypes.string,
   /** Contents of message. */
   message: PropTypes.oneOfType([
     PropTypes.string,
@@ -314,10 +350,9 @@ Flash.propTypes = {
     PropTypes.array
   ]).isRequired,
   /** Time for flash to remain on screen */
-  timeout: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number
-  ])
+  timeout: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  /** supporting legacy components. Theme help us pick up a right component */
+  theme: PropTypes.string
 };
 
 Flash.defaultProps = {
@@ -326,4 +361,4 @@ Flash.defaultProps = {
   timeout: 0
 };
 
-export default Flash;
+export default withTheme(Flash);

@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { ToastStyle } from '../toast/toast.style';
 
 const colors = {
   warning: '#FF7D00',
@@ -128,9 +129,15 @@ const FlashStyle = styled.div`
     ${contentAnimation};
 `;
 
+const CenterToastStyle = styled(ToastStyle)`
+    right: 50%;
+    transform: translateX(50%);
+`;
+
 export {
   FlashStyle,
   FlashSliderStyle,
   FlashContentStyle,
-  FlashMessageStyle
+  FlashMessageStyle,
+  CenterToastStyle
 };
