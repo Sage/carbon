@@ -39,7 +39,7 @@ storiesOf('Loader', module)
     }
   )
   .add(
-    'spinner (legacy)',
+    'legacy spinner',
     () => {
       const type = select('as', OptionsHelper.colors, Spinner.defaultProps.as);
       const size = select('size', OptionsHelper.sizesFull, Spinner.defaultProps.size);

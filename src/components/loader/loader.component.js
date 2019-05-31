@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../utils/helpers/tags/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { StyledLoader, LoaderSquare } from './loader.style';
+import StyledLoader from './loader.style';
+import StyledLoaderSquare from './loader-square.style';
 
 const Loader = (props) => {
   return (
@@ -12,9 +13,9 @@ const Loader = (props) => {
       isInsideButton={ props.isInsideButton }
       { ...tagComponent('loader', props) }
     >
-      <LoaderSquare isInsideButton={ props.isInsideButton } size={ props.size } />
-      <LoaderSquare isInsideButton={ props.isInsideButton } size={ props.size } />
-      <LoaderSquare isInsideButton={ props.isInsideButton } size={ props.size } />
+      <StyledLoaderSquare isInsideButton={ props.isInsideButton } size={ props.size } />
+      <StyledLoaderSquare isInsideButton={ props.isInsideButton } size={ props.size } />
+      <StyledLoaderSquare isInsideButton={ props.isInsideButton } size={ props.size } />
     </StyledLoader>
   );
 };
@@ -25,9 +26,7 @@ Loader.defaultProps = {
 };
 
 Loader.propTypes = {
-  /** Custom className */
   className: PropTypes.string,
-  /** Size of the spinner */
   size: PropTypes.oneOf(OptionsHelper.sizesBinary),
   isInsideButton: PropTypes.bool
 };
