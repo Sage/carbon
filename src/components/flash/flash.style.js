@@ -17,7 +17,7 @@ const requireWhiteTextColor = [
   'info'
 ];
 
-const flashAnimation = `
+const sliderAnimation = `
   .carbon-flash__slider-appear,
   .carbon-flash__slider-enter {
     left: 50%;
@@ -41,6 +41,36 @@ const flashAnimation = `
     opacity: 0;
     transition: 500ms ease 100ms;
   }
+`;
+
+const contentAnimation = `
+  .carbon-flash__content-appear,
+  .carbon-flash__content-enter {
+    opacity: 0;
+  }
+
+  .carbon-flash__content-appear-active,
+  .carbon-flash__content-enter-active {
+    opacity: 1;
+    transition: 400ms ease 400ms;
+  }
+
+  .carbon-flash__content-leave {
+    opacity: 1;
+  }
+
+  .carbon-flash__content-leave-active  {
+    opacity: 0;
+    transition: 400ms ease-out 100ms;
+  }
+`;
+
+const FlashContentStyle = styled.div`
+  background-color: transparent ;
+  margin: 0 auto;
+  max-width: 1600px;
+  min-width: 958px;
+  position: relative;
 `;
 
 const FlashSliderStyle = styled.div`
@@ -83,10 +113,13 @@ const FlashStyle = styled.div`
 
         `}
     `};
-    ${flashAnimation}
+
+    ${sliderAnimation};
+    ${contentAnimation};
 `;
 
 export {
   FlashStyle,
-  FlashSliderStyle
+  FlashSliderStyle,
+  FlashContentStyle
 };

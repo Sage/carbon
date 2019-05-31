@@ -47,13 +47,13 @@
   // }
 // }
 
-.carbon-flash__content {
-  background-color: transparent ;
-  margin: 0 auto;
-  max-width: $app-max-width;
-  min-width: $app-width;
-  position: relative;
-}
+// .carbon-flash__content {
+//   background-color: transparent ;
+//   margin: 0 auto;
+//   max-width: $app-max-width;
+//   min-width: $app-width;
+//   position: relative;
+// }
 
 .carbon-flash__message {
   color: $onyx;
@@ -135,25 +135,25 @@
 /**
  * Animation for content inside slider
  */
-.carbon-flash__content-appear,
-.carbon-flash__content-enter {
-  opacity: 0;
-}
+// .carbon-flash__content-appear,
+// .carbon-flash__content-enter {
+//   opacity: 0;
+// }
 
-.carbon-flash__content-appear-active,
-.carbon-flash__content-enter-active {
-  opacity: 1;
-  transition: 400ms ease 400ms;
-}
+// .carbon-flash__content-appear-active,
+// .carbon-flash__content-enter-active {
+//   opacity: 1;
+//   transition: 400ms ease 400ms;
+// }
 
-.carbon-flash__content-leave {
-  opacity: 1;
-}
+// .carbon-flash__content-leave {
+//   opacity: 1;
+// }
 
-.carbon-flash__content-leave-active  {
-  opacity: 0;
-  transition: 400ms ease-out 100ms;
-}
+// .carbon-flash__content-leave-active  {
+//   opacity: 0;
+//   transition: 400ms ease-out 100ms;
+// }
 
 // overrides as some messages require white color
 // .carbon-flash {
