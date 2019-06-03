@@ -1,6 +1,7 @@
 import styled, { css, keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../style/themes/base';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 const loaderAnimation = keyframes`
   0%, 80%, 100% {
@@ -38,11 +39,15 @@ const StyledLoaderSquare = styled.div`
 `;
 
 StyledLoaderSquare.defaultProps = {
-  theme: baseTheme
+  theme: baseTheme,
+  size: 'small',
+  isInsideButton: false
 };
 
 StyledLoaderSquare.propTypes = {
-  theme: PropTypes.object
+  theme: PropTypes.object,
+  size: PropTypes.oneOf(OptionsHelper.sizesBinary),
+  isInsideButton: PropTypes.bool
 };
 
 export default StyledLoaderSquare;
