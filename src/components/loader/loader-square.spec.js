@@ -37,7 +37,7 @@ describe('Loader square', () => {
   });
 
   describe('when size is set to large', () => {
-    it('applies proper width, height and border-width', () => {
+    it('applies proper width, height and margin', () => {
       wrapper = render({ size: 'large' });
       assertStyleMatch(
         {

@@ -16,8 +16,8 @@ const info = (
     </p>
 
     <p>
-      You can set <StoryCode> {'isInsideButton'} </StoryCode> property to true to apply white color and use it inside a
-      button.
+      You can set <StoryCode> {'isInsideButton'} </StoryCode> property to <StoryCode padded> {'true'} </StoryCode> to
+      apply white color and use it inside a button.
     </p>
 
     <p>The default is small.</p>

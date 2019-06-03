@@ -13,7 +13,7 @@ storiesOf('Loader', module)
     'default',
     () => {
       const size = select('size', OptionsHelper.sizesBinary, Loader.defaultProps.size);
-      const isInsideButton = boolean('white', Loader.defaultProps.isInsideButton);
+      const isInsideButton = boolean('isInsideButton', Loader.defaultProps.isInsideButton);
 
       return <Loader size={ size } isInsideButton={ isInsideButton } />;
     },
@@ -26,7 +26,7 @@ storiesOf('Loader', module)
     'inside a button',
     () => {
       const size = select('size', OptionsHelper.sizesBinary, Loader.defaultProps.size);
-      const isInsideButton = boolean('white', true);
+      const isInsideButton = boolean('isInsideButton', true);
 
       return (
         <Button buttonType='primary'>
