@@ -1,8 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Modal from './modal';
-import Events from './../../utils/helpers/events';
-import Browser from './../../utils/helpers/browser';
+import Modal from './modal.component';
+import Events from '../../utils/helpers/events';
+import Browser from '../../utils/helpers/browser';
 
 describe('Modal', () => {
   let wrapper, onCancel, mockWindow;
@@ -24,9 +24,9 @@ describe('Modal', () => {
     it('does not bind if component is not open on mount', () => {
       wrapper = shallow(<Modal open={ false } onCancel={ onCancel } />);
       expect(mockWindow.addEventListener).not.toHaveBeenCalled();
-    })
+    });
   });
-  
+
   describe('componentWillUnmount', () => {
     beforeEach(() => {
       mockWindow = {
@@ -159,7 +159,11 @@ describe('Modal', () => {
     describe('when disableEscKey is true', () => {
       onCancel = jasmine.createSpy('cancel');
       wrapper = shallow(
-        <Modal disableEscKey open onCancel={ onCancel } />
+        <Modal
+          disableEscKey
+          open
+          onCancel={ onCancel }
+        />
       );
 
       it('does not call onCancel', () => {
