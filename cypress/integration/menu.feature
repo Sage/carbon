@@ -19,11 +19,11 @@ Feature: Menu component
     Then Menu elements are visible
 
   @positive
-  Scenario: Check the persistence of Menu element
+  Scenario: Check the size of the first expandable element of Menu
     When I invoke first expandable Menu component
     Then Menu first expandable element has 2 items
 
   @positive
-  Scenario: Check the persistence of Menu element
+  Scenario: Check the size of the second expandable element of Menu
     When I invoke second expandable Menu component
     Then Menu second expandable element has 1 link item and 3 list items

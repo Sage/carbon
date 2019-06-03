@@ -16,6 +16,7 @@ exports[`Message when in classic mode when rendered should match the snapshot 1`
   align-content: center;
   border: 1px solid;
   background-color: #FFFFFF;
+  min-height: 38px;
   border: none;
   background-color: #335c6d;
   border-radius: 3px;
@@ -45,6 +46,7 @@ exports[`Message when in classic mode when rendered should match the snapshot 2`
   align-content: center;
   border: 1px solid #C7384F;
   background-color: #FFFFFF;
+  min-height: 38px;
   border: none;
   background-color: #fdf5f5;
   border-radius: 3px;
@@ -74,6 +76,7 @@ exports[`Message when in classic mode when rendered should match the snapshot 3`
   align-content: center;
   border: 1px solid;
   background-color: #FFFFFF;
+  min-height: 38px;
   border: none;
   background-color: #fffbf2;
   border-radius: 3px;
@@ -103,6 +106,7 @@ exports[`Message when in classic mode when rendered should match the snapshot 4`
   align-content: center;
   border: 1px solid #0073C2;
   background-color: #FFFFFF;
+  min-height: 38px;
   border: none;
   background-color: #f3f8fe;
   border-radius: 3px;
@@ -132,6 +136,7 @@ exports[`Message when in classic mode when rendered should match the snapshot 5`
   align-content: center;
   border: 1px solid;
   background-color: #FFFFFF;
+  min-height: 38px;
   border: none;
   background-color: #fff8f2;
   border-radius: 3px;
@@ -161,6 +166,7 @@ exports[`Message when in classic mode when rendered should match the snapshot 6`
   align-content: center;
   border: 1px solid;
   background-color: #FFFFFF;
+  min-height: 38px;
   border: none;
   background-color: #f7f5fa;
   border-radius: 3px;
@@ -190,6 +196,7 @@ exports[`Message when in classic mode when rendered should match the snapshot 7`
   align-content: center;
   border: 1px solid #00B000;
   background-color: #FFFFFF;
+  min-height: 38px;
   border: none;
   background-color: #f6fbf6;
   border-radius: 3px;
@@ -219,6 +226,7 @@ exports[`Message when in classic mode when rendered should match the snapshot 8`
   align-content: center;
   border: 1px solid #FFB500;
   background-color: #FFFFFF;
+  min-height: 38px;
   border: none;
   background-color: #fff8f2;
   border-radius: 3px;
