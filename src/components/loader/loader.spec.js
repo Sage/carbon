@@ -19,7 +19,6 @@ describe('Loader', () => {
   it('renders as expected', () => {
     assertStyleMatch(
       {
-        padding: '0 3px 3px 0',
         textAlign: 'center'
       },
       renderStyles().toJSON()
