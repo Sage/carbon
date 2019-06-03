@@ -6,16 +6,15 @@ import StyledLoader from './loader.style';
 import StyledLoaderSquare from './loader-square.style';
 
 const Loader = (props) => {
+  const { isInsideButton, size, ...loaderProps } = props;
   return (
     <StyledLoader
-      size={ props.size }
-      className={ props.className }
-      isInsideButton={ props.isInsideButton }
-      { ...tagComponent('loader', props) }
+      size={ size } isInsideButton={ isInsideButton }
+      { ...loaderProps } { ...tagComponent('loader', props) }
     >
-      <StyledLoaderSquare isInsideButton={ props.isInsideButton } size={ props.size } />
-      <StyledLoaderSquare isInsideButton={ props.isInsideButton } size={ props.size } />
-      <StyledLoaderSquare isInsideButton={ props.isInsideButton } size={ props.size } />
+      <StyledLoaderSquare isInsideButton={ isInsideButton } size={ size } />
+      <StyledLoaderSquare isInsideButton={ isInsideButton } size={ size } />
+      <StyledLoaderSquare isInsideButton={ isInsideButton } size={ size } />
     </StyledLoader>
   );
 };

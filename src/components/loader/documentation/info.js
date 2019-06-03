@@ -3,23 +3,24 @@ import { StoryHeader, StoryCode } from '../../../../.storybook/style/storybook-i
 
 const info = (
   <div>
-    <p>Spinner component.</p>
+    <p>Loader component.</p>
 
     <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
 
-    <StoryCode padded>i{'mport Spinner from "carbon-react/lib/components/spinner"'}</StoryCode>
+    <StoryCode padded>i{'mport Loader from "carbon-react/lib/components/loader"'}</StoryCode>
 
     <p>
-      You can pass a <StoryCode> {'size'} </StoryCode> property to adjust the size of the spinner
+      You can pass a <StoryCode> {'size'} </StoryCode> property to adjust the size of the loader.
     </p>
 
-    <p>The default is medium</p>
+    <p>
+      You can set <StoryCode> {'isInsideButton'} </StoryCode> property to true to apply white color and use it inside a
+      button.
+    </p>
 
-    <StoryCode padded>
-      {'options: extra-small, small, medium-small, medium, medium-large, large and extra-large'}
-    </StoryCode>
+    <p>The default is small.</p>
   </div>
 );
 

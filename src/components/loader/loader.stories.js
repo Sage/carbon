@@ -6,13 +6,14 @@ import Loader from './loader.component';
 import Spinner from '../spinner/spinner.component';
 import Button from '../button/button.component';
 import { notes, info } from './documentation';
+import { notesSpinner, infoSpinner } from '../spinner/documentation';
 
 storiesOf('Loader', module)
   .add(
     'default',
     () => {
       const size = select('size', OptionsHelper.sizesBinary, Loader.defaultProps.size);
-      const isInsideButton = boolean('isInsideButton', Loader.defaultProps.isInsideButton);
+      const isInsideButton = boolean('white', Loader.defaultProps.isInsideButton);
 
       return <Loader size={ size } isInsideButton={ isInsideButton } />;
     },
@@ -25,7 +26,7 @@ storiesOf('Loader', module)
     'inside a button',
     () => {
       const size = select('size', OptionsHelper.sizesBinary, Loader.defaultProps.size);
-      const isInsideButton = boolean('isInsideButton', true);
+      const isInsideButton = boolean('white', true);
 
       return (
         <Button buttonType='primary'>
@@ -47,7 +48,7 @@ storiesOf('Loader', module)
       return <Spinner as={ type } size={ size } />;
     },
     {
-      info: { text: info },
-      notes: { markdown: notes }
+      info: { text: infoSpinner },
+      notes: { markdown: notesSpinner }
     }
   );
