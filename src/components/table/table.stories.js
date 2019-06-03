@@ -7,15 +7,9 @@ import { State, Store } from '@sambego/storybook-state';
 import countriesList from '../../../demo/data/countries';
 import Button from '../button';
 import MultiActionButton from '../multi-action-button';
-import TextArea from '../../__experimental__/components/textarea';
 import {
   Table, TableCell, TableHeader, TableRow
 } from '.';
-import TextBox from '../../__experimental__/components/textbox';
-import Decimal from '../../__experimental__/components/decimal';
-import DateInput from '../../__experimental__/components/date';
-import { Select, Option } from '../../__experimental__/components/select';
-import getTextboxStoryProps from '../../__experimental__/components/textbox/textbox.stories';
 import classic from '../../style/themes/classic';
 import small from '../../style/themes/small';
 import OptionsHelper from '../../utils/helpers/options-helper';
