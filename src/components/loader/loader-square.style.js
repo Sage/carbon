@@ -15,13 +15,19 @@ const loaderAnimation = keyframes`
 `;
 
 const StyledLoaderSquare = styled.div`
-  ${({ theme, size, isInsideButton }) => css`
+  ${({
+    theme, size, isInsideButton, state
+  }) => css`
     animation: ${loaderAnimation} 1s infinite ease-in-out both;
-    background-color: ${isInsideButton ? theme.colors.white : theme.colors.primary};
+    background-color: ${theme.colors.primary};
     display: inline-block;
     height: ${size === 'large' ? '16px' : '8px'};
     width: ${size === 'large' ? '16px' : '8px'};
     margin-right: ${size === 'large' ? '10px' : '6px'};
+
+    ${isInsideButton && css`
+      background-color: ${state === 'off' ? theme.colors.border : theme.colors.white};
+    `}
 
     &:nth-of-type(1) {
       animation-delay: 0s;

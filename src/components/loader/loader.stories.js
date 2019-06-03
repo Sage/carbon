@@ -13,9 +13,8 @@ storiesOf('Loader', module)
     'default',
     () => {
       const size = select('size', OptionsHelper.sizesBinary, Loader.defaultProps.size);
-      const isInsideButton = boolean('isInsideButton', Loader.defaultProps.isInsideButton);
 
-      return <Loader size={ size } isInsideButton={ isInsideButton } />;
+      return <Loader size={ size } />;
     },
     {
       info: { text: info },
@@ -27,10 +26,14 @@ storiesOf('Loader', module)
     () => {
       const size = select('size', OptionsHelper.sizesBinary, Loader.defaultProps.size);
       const isInsideButton = boolean('isInsideButton', true);
+      const state = isInsideButton ? select('state', ['on', 'off'], Loader.defaultProps.state) : undefined;
 
       return (
-        <Button buttonType='primary'>
-          <Loader size={ size } isInsideButton={ isInsideButton } />
+        <Button buttonType='primary' disabled={ state === 'off' }>
+          <Loader
+            size={ size } isInsideButton={ isInsideButton }
+            state={ state }
+          />
         </Button>
       );
     },

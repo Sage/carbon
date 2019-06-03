@@ -6,28 +6,44 @@ import StyledLoader from './loader.style';
 import StyledLoaderSquare from './loader-square.style';
 
 const Loader = (props) => {
-  const { isInsideButton, size, ...loaderProps } = props;
+  const {
+    isInsideButton, size, state, ...loaderProps
+  } = props;
   return (
     <StyledLoader
-      size={ size } isInsideButton={ isInsideButton }
-      { ...loaderProps } { ...tagComponent('loader', props) }
+      size={ size }
+      isInsideButton={ isInsideButton }
+      state={ state }
+      { ...loaderProps }
+      { ...tagComponent('loader', props) }
     >
-      <StyledLoaderSquare isInsideButton={ isInsideButton } size={ size } />
-      <StyledLoaderSquare isInsideButton={ isInsideButton } size={ size } />
-      <StyledLoaderSquare isInsideButton={ isInsideButton } size={ size } />
+      <StyledLoaderSquare
+        isInsideButton={ isInsideButton } size={ size }
+        state={ state }
+      />
+      <StyledLoaderSquare
+        isInsideButton={ isInsideButton } size={ size }
+        state={ state }
+      />
+      <StyledLoaderSquare
+        isInsideButton={ isInsideButton } size={ size }
+        state={ state }
+      />
     </StyledLoader>
   );
 };
 
 Loader.defaultProps = {
   size: 'small',
-  isInsideButton: false
+  isInsideButton: false,
+  state: 'on'
 };
 
 Loader.propTypes = {
   className: PropTypes.string,
   size: PropTypes.oneOf(OptionsHelper.sizesBinary),
-  isInsideButton: PropTypes.bool
+  isInsideButton: PropTypes.bool,
+  state: PropTypes.oneOf(['on', 'off'])
 };
 
 export default Loader;

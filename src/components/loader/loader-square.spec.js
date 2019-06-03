@@ -34,6 +34,18 @@ describe('Loader square', () => {
         wrapper.toJSON()
       );
     });
+
+    describe('when loading state is set to off', () => {
+      it('applies slate background', () => {
+        wrapper = render({ isInsideButton: true, state: 'off' });
+        assertStyleMatch(
+          {
+            backgroundColor: baseTheme.colors.border
+          },
+          wrapper.toJSON()
+        );
+      });
+    });
   });
 
   describe('when size is set to large', () => {
