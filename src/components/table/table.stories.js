@@ -7,23 +7,49 @@ import { State, Store } from '@sambego/storybook-state';
 import countriesList from '../../../demo/data/countries';
 import Button from '../button';
 import MultiActionButton from '../multi-action-button';
+import TextArea from '../../__experimental__/components/textarea';
 import {
   Table, TableCell, TableHeader, TableRow
 } from '.';
+import TextBox from '../../__experimental__/components/textbox';
+import Decimal from '../../__experimental__/components/decimal';
+import DateInput from '../../__experimental__/components/date';
+import { Select, Option } from '../../__experimental__/components/select';
+import getTextboxStoryProps from '../../__experimental__/components/textbox/textbox.stories';
 import classic from '../../style/themes/classic';
+import small from '../../style/themes/small';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 
-const getSortKnobs = () => {
+const getCommonKnobs = () => {
+  const paginate = boolean('paginate', false);
+
   return {
     sortOrder: select('sortOrder', ['', 'asc', 'desc'], ''),
-    sortColumn: select('sortColumn', ['', 'name', 'code'], '')
+    sortColumn: select('sortColumn', ['', 'name', 'code'], ''),
+    pageSize: text('pageSize', '5'),
+    selectable: boolean('selectable', false),
+    highlightable: boolean('highlightable', false),
+    shrink: boolean('shrink', false),
+    caption: text('caption', 'Country and Country Codes'),
+    totalRecords: text('totalRecords', '50'),
+    paginate,
+    showPageSizeSelection: paginate && boolean('showPageSizeSelection', false),
+    theme: select(
+      'theme',
+      [
+        OptionsHelper.tableThemes[0],
+        OptionsHelper.tableThemes[1],
+        OptionsHelper.tableThemes[2]
+      ],
+      Table.defaultProps.theme
+    )
   };
 };
 
 const store = new Store({
-  sortOrder: getSortKnobs().sortOrder,
-  sortedColumn: getSortKnobs().sortedColumn,
+  sortOrder: getCommonKnobs().sortOrder,
+  sortedColumn: getCommonKnobs().sortedColumn,
   currentPage: '1',
   children: undefined
 });
@@ -43,54 +69,18 @@ const recordsForActivePage = (start, end) => {
   return records.slice(start, end).toJS();
 };
 
-const buildRows = (pageSize, totalRecords) => {
+const getActiveRows = (pageSize, totalRecords) => {
   const currentPage = store.get('currentPage');
   const candidateIndex = pageSize * currentPage;
 
   const endIndex = (candidateIndex <= totalRecords) ? candidateIndex : totalRecords;
   const currentPageSize = (endIndex === totalRecords) ? (endIndex % pageSize) : pageSize;
   const startIndex = endIndex - currentPageSize;
-  const rowsCountries = recordsForActivePage(startIndex, endIndex);
 
-  return (
-    <>
-      <TableRow
-        key='header'
-        as='header'
-        uniqueID='header'
-      >
-        <TableHeader
-          sortable
-          name='name'
-          scope='col'
-        >
-        Country
-        </TableHeader>
-        <TableHeader
-          sortable
-          scope='col'
-          name='code'
-          width='200'
-        >
-        Code
-        </TableHeader>
-      </TableRow>
-      {rowsCountries.map(row => (
-        <TableRow
-          key={ row.id }
-          uniqueID={ row.id }
-        >
-          <TableCell>{row.name}</TableCell>
-          <TableCell>{row.value}</TableCell>
-        </TableRow>
-      ))}
-  </>
-  );
+  return recordsForActivePage(startIndex, endIndex);
 };
 
-const buildRowsWithInputs = ({
-  pageSize, totalRecords, inputType
-}) => {
+const buildRows = ({ pageSize, totalRecords }) => {
   const rowsCountries = getActiveRows(pageSize, totalRecords);
 
   return (
@@ -115,25 +105,22 @@ const buildRowsWithInputs = ({
         Code
         </TableHeader>
       </TableRow>
-      {rowsCountries.map((row) => {
-        return (
-          <TableRow
-            key={ row.id }
-            uniqueID={ row.id }
-          >
-            <TableCell>
-              { pickInput(inputType)}
-            </TableCell>
-            <TableCell>{row.value}</TableCell>
-          </TableRow>
-        );
-      })}
+      {rowsCountries.map(row => (
+        <TableRow
+          key={ row.id }
+          uniqueID={ row.id }
+        >
+          <TableCell>{row.name}</TableCell>
+          <TableCell>{row.value}</TableCell>
+        </TableRow>
+      ))}
   </>
   );
 };
 
-const setCurrentPage = (records, size) => {
-  return (store.get('currentPage') > (records / size)) ? '1' : store.get('currentPage');
+const setCurrentPage = ({ totalRecords, pageSize }) => {
+  if (totalRecords % pageSize !== 0) return store.get('currentPage');
+  return (store.get('currentPage') > (totalRecords / pageSize)) ? '1' : store.get('currentPage');
 };
 
 storiesOf('Table', module)
@@ -144,7 +131,7 @@ storiesOf('Table', module)
   })
   .add('classic', () => {
     const props = getCommonKnobs();
-    store.set({ currentPage: setCurrentPage(props.totalRecords, props.pageSize) });
+    store.set({ currentPage: setCurrentPage(props) });
     const theme = select(
       'theme',
       [
@@ -159,8 +146,10 @@ storiesOf('Table', module)
 
     return (
       <ThemeProvider theme={ classic }>
-        <State store={ store } parseState={ state => ({ ...state, children: buildRows(pageSize, totalRecords) }) }>
-
+        <State
+          store={ store }
+          parseState={ state => ({ ...state, children: buildRows(props) }) }
+        >
           <Table
             actionToolbarChildren={ (context) => {
               return [
@@ -178,21 +167,13 @@ storiesOf('Table', module)
               ];
             } }
             path='/countries'
-            caption={ caption }
-            shrink={ shrink }
-            highlightable={ highlightable }
-            pageSize={ pageSize }
-            selectable={ selectable }
-            paginate={ paginate }
             actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
-            totalRecords={ totalRecords }
-            showPageSizeSelection={ showPageSizeSelection }
+            { ...props }
             onChange={ handleChange }
             theme={ theme }
             sortOrder={ store.sortOrder }
             sortedColumn={ store.sortedColumn }
           />
-
         </State>
       </ThemeProvider>
     );
@@ -204,7 +185,7 @@ storiesOf('Table', module)
     'default',
     () => {
       const props = getCommonKnobs();
-      store.set({ currentPage: setCurrentPage(props.totalRecords, props.pageSize) });
+      store.set({ currentPage: setCurrentPage(props) });
       props.size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
       props.isZebra = boolean('zebra striping', false);
 
