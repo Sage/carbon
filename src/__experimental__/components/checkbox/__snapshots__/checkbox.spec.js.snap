@@ -1,0 +1,572 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Checkbox base theme renders as expected 1`] = `
+.c3 {
+  display: block;
+}
+
+.c3 + .c2 {
+  margin-top: 16px;
+}
+
+.c5 {
+  display: inline-block;
+  padding-top: 1px;
+  position: relative;
+}
+
+.c1 .c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.c7 {
+  cursor: pointer;
+  opacity: 0;
+  margin: 0;
+  z-index: 999;
+}
+
+.c9 .c4 {
+  padding-top: 1px;
+}
+
+.c9 .c8 {
+  height: 16px;
+}
+
+.c9 .c6,
+.c9 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c9 .c4,
+.c9 .c6,
+.c9 .c8,
+.c9 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c9 .c6:not([disabled]):focus + .c8,
+.c9 .c6:not([disabled]):hover + .c8 {
+  outline: solid 3px #FFB500;
+}
+
+.c9 .c4,
+.c9 .c6,
+.c9 .c8 > svg {
+  padding: 2px;
+}
+
+.c9 .c4,
+.c9 .c6,
+.c9 .c8,
+.c9 .c8 > svg {
+  height: 24px;
+  width: 24px;
+}
+
+.c10 .c4 {
+  padding-top: 1px;
+}
+
+.c10 .c8 {
+  height: 16px;
+}
+
+.c10 .c6,
+.c10 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c10 .c4,
+.c10 .c6,
+.c10 .c8,
+.c10 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c10 .c6:not([disabled]):focus + .c8,
+.c10 .c6:not([disabled]):hover + .c8 {
+  outline: solid 3px #FFB500;
+}
+
+.c10 .c4,
+.c10 .c6,
+.c10 .c8 > svg {
+  padding: 2px;
+}
+
+.c10 .c4,
+.c10 .c6,
+.c10 .c8,
+.c10 .c8 > svg {
+  height: 24px;
+  width: 24px;
+}
+
+.c11 .c4 {
+  padding-top: 1px;
+}
+
+.c11 .c8 {
+  height: 16px;
+}
+
+.c11 .c6,
+.c11 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c11 .c4,
+.c11 .c6,
+.c11 .c8,
+.c11 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c11 .c6:not([disabled]):focus + .c8,
+.c11 .c6:not([disabled]):hover + .c8 {
+  outline: solid 3px #FFB500;
+}
+
+.c11 .c6:hover,
+.c11 .c8:hover,
+.c11 .c20:hover,
+.c11 .c6:focus,
+.c11 .c8:focus,
+.c11 .c20:focus {
+  outline: none;
+  cursor: not-allowed;
+}
+
+.c12 .c4 {
+  padding-top: 1px;
+}
+
+.c12 .c8 {
+  height: 16px;
+}
+
+.c12 .c6,
+.c12 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c12 .c4,
+.c12 .c6,
+.c12 .c8,
+.c12 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c12 .c6:not([disabled]):focus + .c8,
+.c12 .c6:not([disabled]):hover + .c8 {
+  outline: solid 3px #FFB500;
+}
+
+.c12 .c6:hover,
+.c12 .c8:hover,
+.c12 .c20:hover,
+.c12 .c6:focus,
+.c12 .c8:focus,
+.c12 .c20:focus {
+  outline: none;
+  cursor: not-allowed;
+}
+
+.c13 .c4 {
+  padding-top: 1px;
+}
+
+.c13 .c8 {
+  height: 16px;
+}
+
+.c13 .c6,
+.c13 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c13 .c4,
+.c13 .c6,
+.c13 .c8,
+.c13 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c13 .c6:not([disabled]):focus + .c8,
+.c13 .c6:not([disabled]):hover + .c8 {
+  outline: solid 3px #FFB500;
+}
+
+.c13 .c4 {
+  width: 50%;
+}
+
+.c14 .c4 {
+  padding-top: 1px;
+}
+
+.c14 .c8 {
+  height: 16px;
+}
+
+.c14 .c6,
+.c14 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c14 .c4,
+.c14 .c6,
+.c14 .c8,
+.c14 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c14 .c6:not([disabled]):focus + .c8,
+.c14 .c6:not([disabled]):hover + .c8 {
+  outline: solid 3px #FFB500;
+}
+
+.c15 .c4 {
+  padding-top: 1px;
+}
+
+.c15 .c8 {
+  height: 16px;
+}
+
+.c15 .c6,
+.c15 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c15 .c4,
+.c15 .c6,
+.c15 .c8,
+.c15 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c15 .c6:not([disabled]):focus + .c8,
+.c15 .c6:not([disabled]):hover + .c8 {
+  outline: solid 3px #FFB500;
+}
+
+.c15 .c4 {
+  margin-right: 8px;
+}
+
+.c16 .c4 {
+  padding-top: 1px;
+}
+
+.c16 .c8 {
+  height: 16px;
+}
+
+.c16 .c6,
+.c16 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c16 .c4,
+.c16 .c6,
+.c16 .c8,
+.c16 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c16 .c6:not([disabled]):focus + .c8,
+.c16 .c6:not([disabled]):hover + .c8 {
+  outline: solid 3px #FFB500;
+}
+
+.c16 .c4 {
+  padding: 1px 0 0 0;
+}
+
+.c16 .c6,
+.c16 .c8 > svg {
+  padding: 1px;
+}
+
+.c16 .c4,
+.c16 .c6,
+.c16 .c8,
+.c16 .c8 > svg {
+  height: 15px;
+  width: 15px;
+}
+
+.c16 .c6:not([disabled]):focus + .c8,
+.c16 .c6:not([disabled]):hover + .c8 {
+  outline: none;
+}
+
+.c16 .c6:not([disabled]):focus + .c8 > svg,
+.c16 .c6:not([disabled]):hover + .c8 > svg {
+  border: 1px solid #1963f6;
+  outline: none;
+}
+
+.c17 .c4 {
+  padding-top: 1px;
+}
+
+.c17 .c8 {
+  height: 16px;
+}
+
+.c17 .c6,
+.c17 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c17 .c4,
+.c17 .c6,
+.c17 .c8,
+.c17 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c17 .c6:not([disabled]):focus + .c8,
+.c17 .c6:not([disabled]):hover + .c8 {
+  outline: solid 3px #FFB500;
+}
+
+.c17 .c6:hover,
+.c17 .c8:hover,
+.c17 .c20:hover,
+.c17 .c6:focus,
+.c17 .c8:focus,
+.c17 .c20:focus {
+  outline: none;
+  cursor: not-allowed;
+}
+
+.c17 .c4 {
+  padding: 1px 0 0 0;
+}
+
+.c17 .c6,
+.c17 .c8 > svg {
+  padding: 1px;
+}
+
+.c17 .c4,
+.c17 .c6,
+.c17 .c8,
+.c17 .c8 > svg {
+  height: 15px;
+  width: 15px;
+}
+
+.c17 .c6:not([disabled]):focus + .c8,
+.c17 .c6:not([disabled]):hover + .c8 {
+  outline: none;
+}
+
+.c17 .c6:not([disabled]):focus + .c8 > svg,
+.c17 .c6:not([disabled]):hover + .c8 > svg {
+  border: 1px solid #1963f6;
+  outline: none;
+}
+
+.c18 .c4 {
+  padding-top: 1px;
+}
+
+.c18 .c8 {
+  height: 16px;
+}
+
+.c18 .c6,
+.c18 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c18 .c4,
+.c18 .c6,
+.c18 .c8,
+.c18 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c18 .c6:not([disabled]):focus + .c8,
+.c18 .c6:not([disabled]):hover + .c8 {
+  outline: solid 3px #FFB500;
+}
+
+.c18 .c6:hover,
+.c18 .c8:hover,
+.c18 .c20:hover,
+.c18 .c6:focus,
+.c18 .c8:focus,
+.c18 .c20:focus {
+  outline: none;
+  cursor: not-allowed;
+}
+
+.c18 .c4 {
+  padding: 1px 0 0 0;
+}
+
+.c18 .c6,
+.c18 .c8 > svg {
+  padding: 1px;
+}
+
+.c18 .c4,
+.c18 .c6,
+.c18 .c8,
+.c18 .c8 > svg {
+  height: 15px;
+  width: 15px;
+}
+
+.c18 .c6:not([disabled]):focus + .c8,
+.c18 .c6:not([disabled]):hover + .c8 {
+  outline: none;
+}
+
+.c18 .c6:not([disabled]):focus + .c8 > svg,
+.c18 .c6:not([disabled]):hover + .c8 > svg {
+  border: 1px solid #1963f6;
+  outline: none;
+}
+
+.c0 {
+  padding-top: 8px;
+}
+
+.c0 .c4 {
+  padding-top: 1px;
+}
+
+.c0 .c8 {
+  height: 16px;
+}
+
+.c0 svg {
+  background-color: #FFFFFF;
+  border: solid 1px #668491;
+}
+
+.c0 .c6,
+.c0 svg {
+  height: 16px;
+  position: absolute;
+  padding: 1px;
+}
+
+.c0 .c4,
+.c0 .c6,
+.c0 .c8,
+.c0 svg {
+  box-sizing: border-box;
+  width: 16px;
+}
+
+.c0 .c6:not([disabled]):focus + .c8,
+.c0 .c6:not([disabled]):hover + .c8 {
+  outline: solid 3px #FFB500;
+}
+
+.c0 .c20 {
+  padding: 0 6px;
+  text-align: left;
+  width: auto;
+}
+
+.c0 .c20 .c21 {
+  color: rgba(0,0,0,0.65);
+  vertical-align: bottom;
+}
+
+.c0 .c20 .c21:hover,
+.c0 .c20 .c21:focus {
+  color: rgba(0,0,0,0.9);
+}
+
+.c0 .c19 {
+  margin-left: 16px;
+  margin-top: 0;
+  padding-left: 6px;
+}
+
+<div
+  className="c0"
+  data-component="checkbox"
+>
+  <div
+    className="c1"
+  >
+    <div
+      className="c2 c3"
+    >
+      <div
+        className="c4 c5"
+      >
+        <input
+          className="c6 c7"
+          id="guid-12345"
+          role="checkbox"
+          type="checkbox"
+        />
+        <div
+          className="c8 "
+        >
+          <svg
+            height="10"
+            viewBox="0 0 12 10"
+            width="12"
+          >
+            <path
+              d="M.237 6.477A.752.752 0 0 1 .155 5.47l.851-1.092a.63.63 0 0 1 .934-.088l2.697 1.964, 4.674-6a.63.63 0 0 1 .933-.088l1.015.917c.28.254.317.703.081 1.005L6.353 8.492a.725.725, 0 0 1-.095.16l-.85 1.093a.637.637 0 0 1-.626.244.638.638 0 0 1-.335-.16L.237 6.476z"
+              fill="#FFFFFF"
+              fillRule="evenodd"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
