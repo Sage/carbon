@@ -46,7 +46,7 @@ Feature: Simple Color Picker component
     Then Simple Color Picker "<position>" element was selected
       And select function was called in Actions Tab
     Examples:
-    | position |
-    | first    |
-    | second   |
-    | third    |
+      | position |
+      | first    |
+      | second   |
+      | third    |
