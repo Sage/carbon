@@ -15,7 +15,7 @@ const getKnobs = (theme) => {
   // eslint-disable multiline-ternary
   const styledAs = (theme === THEMES.classic)
     ? select('as', OptionsHelper.colors, Pill.defaultProps.as)
-    : select('as', OptionsHelper.pillColours, OptionsHelper.pillColours[0]);
+    : select('as', [...OptionsHelper.pillColours, OptionsHelper.colors[8]], OptionsHelper.pillColours[0]);
 
   return {
     children: text('children', 'Pill'),

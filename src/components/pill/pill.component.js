@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import StyledPill from './pill.style';
 import Icon from '../icon/icon';
 import { validProps } from '../../utils/ether/ether';
 import tagComponent from '../../utils/helpers/tags/tags';
-import StyledPill from './pill.style';
 
 class Pill extends React.Component {
   static safeProps = ['onClick']
