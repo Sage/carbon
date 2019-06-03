@@ -8,11 +8,13 @@ const MessageStyle = styled.div`
   display: flex;
   justify-content: flex-start;
   align-content: center;
-  border: 1px solid ${({ theme, messageType }) => theme.colors[messageType]};
+  border: 1px solid ${({ theme, variant }) => theme.colors[variant]};
   background-color: ${({ theme }) => theme.colors.white};
+  min-height: 38px;
 
   ${({ transparent }) => transparent && css`
       border: none;
+      background: transparent;
   `}
 
   ${messageClassicStyling}
@@ -20,14 +22,14 @@ const MessageStyle = styled.div`
 
 MessageStyle.defaultProps = {
   border: true,
-  messageType: 'info',
+  variant: 'info',
   roundedCorners: true,
   theme: BaseTheme,
   transparent: false
 };
 
 MessageStyle.propTypes = {
-  messageType: PropTypes.string,
+  variant: PropTypes.string,
   border: PropTypes.bool,
   roundedCorners: PropTypes.bool,
   transparent: PropTypes.bool
