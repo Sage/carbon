@@ -26,26 +26,38 @@ class SplitButton extends Component {
     showAdditionalButtons: false
   }
 
+  splitButtonNode = React.createRef();
+
   focusToggleButton = () => {
     this.isToggleButtonFocused = true;
     this.showButtons();
   }
 
-  showButtons() {
+  showButtons = () => {
+    document.addEventListener('click', this.handleClickOutside);
     this.setState({ showAdditionalButtons: true });
+
     if (!this.listening) {
       document.addEventListener('keydown', this.handleKeyDown);
       this.listening = true;
     }
   }
 
-  hideButtons() {
+  hideButtons = () => {
     if (this.isToggleButtonFocused) return;
 
     this.setState({ showAdditionalButtons: false });
+    document.removeEventListener('click', this.handleClickOutside);
+
     if (this.listening) {
       document.removeEventListener('keydown', this.handleKeyDown);
       this.listening = false;
+    }
+  }
+
+  handleClickOutside = (ev) => {
+    if (!this.splitButtonNode.current.contains(ev.target)) {
+      this.hideButtons();
     }
   }
 
@@ -84,7 +96,6 @@ class SplitButton extends Component {
     const opts = {
       disabled: this.props.disabled,
       displayed: this.state.showAdditionalButtons,
-      onClick: (ev) => { ev.preventDefault(); },
       onFocus: this.focusToggleButton,
       onBlur: () => { this.isToggleButtonFocused = false; },
       buttonType: this.props.buttonType || this.props.as,
@@ -125,10 +136,10 @@ class SplitButton extends Component {
         aria-haspopup='true'
         aria-expanded={ this.state.showAdditionalButtons }
         aria-label='Show more'
-        { ...this.toggleButtonProps }
-        data-element='open'
-        onKeyDown={ this.handleToggleButtonKeyDown }
+        data-element='toggle-button'
         key='toggle-button'
+        onKeyDown={ this.handleToggleButtonKeyDown }
+        { ...this.toggleButtonProps }
       >
         <Icon type='dropdown' />
       </StyledSplitButtonToggle>
@@ -172,11 +183,16 @@ class SplitButton extends Component {
     );
   }
 
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutside);
+  }
+
   render() {
     return (
       <StyledSplitButton
         aria-haspopup='true'
         onMouseLeave={ this.hideButtons }
+        ref={ this.splitButtonNode }
         { ...this.componentTags() }
       >
         { this.renderMainButton }
