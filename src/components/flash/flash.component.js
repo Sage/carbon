@@ -15,8 +15,7 @@ import {
   FlashStyle,
   FlashSliderStyle,
   FlashContentStyle,
-  FlashMessageStyle,
-  CenterToastStyle
+  FlashMessageStyle
 } from './flash.style';
 import './flash.scss';
 import { THEMES } from '../../style/themes';
@@ -281,54 +280,52 @@ class Flash extends React.Component {
 
     if (this.props.theme.name === THEMES.classic) {
       return (
-        this.state.open && (
-          <Portal>
-            <div { ...tagComponent('flash', this.props) }>
-              <FlashStyle
-                variant={ this.props.as || this.props.variant }
-                className={ this.classes }
+        <Portal>
+          <div { ...tagComponent('flash', this.props) }>
+            <FlashStyle
+              variant={ this.props.as || this.props.variant }
+              className={ this.classes }
+            >
+              <CSSTransitionGroup
+                component='div'
+                transitionAppear
+                transitionAppearTimeout={ 500 }
+                transitionName='carbon-flash__slider'
+                transitionEnterTimeout={ 600 }
+                transitionLeave
+                transitionLeaveTimeout={ 600 }
               >
+                {sliderHTML}
                 <CSSTransitionGroup
                   component='div'
-                  transitionAppear
-                  transitionAppearTimeout={ 500 }
-                  transitionName='carbon-flash__slider'
-                  transitionEnterTimeout={ 600 }
+                  transitionName='carbon-flash__content'
+                  transitionEnterTimeout={ 200 }
                   transitionLeave
                   transitionLeaveTimeout={ 600 }
                 >
-                  {sliderHTML}
-                  <CSSTransitionGroup
-                    component='div'
-                    transitionName='carbon-flash__content'
-                    transitionEnterTimeout={ 200 }
-                    transitionLeave
-                    transitionLeaveTimeout={ 600 }
-                  >
-                    {flashHTML}
-                  </CSSTransitionGroup>
+                  {flashHTML}
                 </CSSTransitionGroup>
-              </FlashStyle>
-              {this.dialogs}
-            </div>
-          </Portal>
-        )
+              </CSSTransitionGroup>
+            </FlashStyle>
+            {this.dialogs}
+          </div>
+        </Portal>
       );
     }
 
     return (
-      <CenterToastStyle
-        as={ Toast }
+      <Toast
+        isCenter={ this.props.isCenter }
         variant={ this.props.as || this.props.variant }
         onDismiss={ this.props.onDismiss }
       >
         {this.props.message}
-      </CenterToastStyle>
+      </Toast>
     );
   }
 
   render() {
-    return this.getComponentByTeamProvided();
+    return this.state.open && this.getComponentByTeamProvided();
   }
 }
 
@@ -352,13 +349,16 @@ Flash.propTypes = {
   /** Time for flash to remain on screen */
   timeout: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** supporting legacy components. Theme help us pick up a right component */
-  theme: PropTypes.string
+  theme: PropTypes.string,
+  /** allow to center keep flash component centered */
+  isCenter: PropTypes.bool
 };
 
 Flash.defaultProps = {
   as: 'success',
   className: '',
-  timeout: 0
+  timeout: 0,
+  isCenter: true
 };
 
 export default withTheme(Flash);

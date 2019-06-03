@@ -7,11 +7,13 @@ import {
 } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
+import { ThemeProvider } from 'styled-components';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import Flash from './flash.component';
 import Button from '../button';
+import classicTheme from '../../style/themes/classic';
 
 const store = new Store({
   open: false
@@ -32,9 +34,30 @@ storiesOf('Flash', module)
     info: {
       propTablesExclude: [Button, State]
     }
+  }).add('classic', () => {
+    const as = select('as', OptionsHelper.colors, OptionsHelper.colors[0]);
+    const message = text('message', 'This is a flash message');
+    const timeout = number('timeout', 0);
+    return (
+
+      <ThemeProvider theme={ classicTheme }>
+        <>
+          <Button onClick={ openHandler }>Open Flash</Button>
+          <State store={ store }>
+            <Flash
+              open={ store.get('open') }
+              as={ as }
+              message={ message }
+              timeout={ timeout >= 0 ? timeout : undefined }
+              onDismiss={ dismissHandler }
+            />
+          </State>
+        </>
+      </ThemeProvider>
+    );
   })
   .add('default', () => {
-    const as = select('as', OptionsHelper.colors, OptionsHelper.colors[0]);
+    const as = select('as', OptionsHelper.toast, OptionsHelper.toast[0]);
     const message = text('message', 'This is a flash message');
     const timeout = number('timeout', 0);
 

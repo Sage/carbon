@@ -37,6 +37,7 @@ class Toast extends React.Component {
     if (this.props.open) {
       return (
         <ToastStyle
+          isCenter={ this.props.isCenter }
           variant={ this.props.variant || this.props.as }
           className={ this.componentClasses }
           { ...tagComponent('toast', this.props) }
@@ -88,13 +89,16 @@ Toast.propTypes = {
   /** Determines if the toast is open. */
   open: PropTypes.bool,
   /** Callback for when dismissed. */
-  onDismiss: PropTypes.func
+  onDismiss: PropTypes.func,
+  /** props used with flash component. Allow to center a component */
+  isCenter: PropTypes.bool
 };
 
 Toast.defaultProps = {
   as: 'warning',
   onDismiss: null,
-  open: true
+  open: true,
+  isCenter: false
 };
 
 export default Toast;

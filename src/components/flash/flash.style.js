@@ -129,15 +129,9 @@ const FlashStyle = styled.div`
     ${contentAnimation};
 `;
 
-const CenterToastStyle = styled(ToastStyle)`
-    right: 50%;
-    transform: translateX(50%);
-`;
-
 export {
   FlashStyle,
   FlashSliderStyle,
   FlashContentStyle,
-  FlashMessageStyle,
-  CenterToastStyle
+  FlashMessageStyle
 };

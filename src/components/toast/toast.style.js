@@ -14,21 +14,22 @@ const ToastStyle = styled(MessageStyle)`
   width: 300px;
   margin-top: 30px;
   position: fixed;
-  right: 30px;
+  right: ${({ isCenter }) => (isCenter ? '50%' : '30px')};
   top: 0;
   box-shadow: 0 15px 20px 0 rgba(2, 18, 36, 0.2);
+  transform:  ${({ isCenter }) => (isCenter ? 'translateX(50%)' : '')}; 
 
   ${({ theme }) => theme.name !== THEMES.classic && css`
     &${animationName}-appear,
     &${animationName}-enter {
       opacity: 0;
-      transform: scale(0);
+      transform: ${({ isCenter }) => (isCenter ? 'translateX(50%) scale(0) ' : 'scale(0)')};
     }
 
     &${animationName}-appear.toast-appear-active,
     &${animationName}-enter.toast-enter-active {
       opacity: 1;
-      transform: scale(1);
+      transform: ${({ isCenter }) => (isCenter ? 'translateX(50%) scale(1)' : 'scale(1)')};
       transition: all 300ms 1000ms cubic-bezier(0.250, 0.250, 0.000, 1.500);
     }
 
@@ -48,7 +49,7 @@ const ToastTypeStyle = styled(TypeIcon)`
 
 const ToastContentStyle = styled(MessageContentStyle)`
   padding: 10px 20px 10px 20px;
-
+  
   ${({ isDismiss }) => isDismiss
     && css`
       padding-right: 50px;
