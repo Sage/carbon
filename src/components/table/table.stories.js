@@ -112,9 +112,12 @@ const buildRows = ({ pageSize, totalRecords }) => {
   );
 };
 
-const setCurrentPage = ({ totalRecords, pageSize }) => {
-  if (totalRecords % pageSize !== 0) return store.get('currentPage');
-  return (store.get('currentPage') > (totalRecords / pageSize)) ? '1' : store.get('currentPage');
+const setCurrentPage = ({ totalRecords, pageSize, paginate }) => {
+  const maxValidPage = Math.round(totalRecords / pageSize) + (totalRecords % pageSize);
+  const revisedPage = paginate ? maxValidPage : '1';
+  const isCurrentPageValid = store.get('currentPage') <= (totalRecords / pageSize);
+
+  return isCurrentPageValid ? store.get('currentPage') : revisedPage;
 };
 
 storiesOf('Table', module)
