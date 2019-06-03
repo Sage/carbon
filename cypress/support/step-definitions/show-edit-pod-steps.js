@@ -127,12 +127,10 @@ Then('Show Edit Pod component has proper content inside itself', () => {
     .should('have.text', 'First Name');
   showEditPodCollapsibleInnerContent(FIRST_DIV, INNER_CONTENT_BODY)
     .should('have.text', 'Alan');
-
   showEditPodCollapsibleInnerContent(SECOND_DIV, INNER_CONTENT_TITLE)
     .should('have.text', 'Last Name');
   showEditPodCollapsibleInnerContent(SECOND_DIV, INNER_CONTENT_BODY)
     .should('have.text', 'Smith');
-
   showEditPodCollapsibleInnerContent(THIRD_DIV, INNER_CONTENT_TITLE)
     .should('have.text', 'Telephone');
   showEditPodCollapsibleInnerContent(THIRD_DIV, INNER_CONTENT_BODY)
