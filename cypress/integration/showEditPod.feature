@@ -4,6 +4,11 @@ Feature: Show Edit Pod component
   Background: Open Show Edit Pod component page
     Given I open "ShowEditPod" component page
 
+ @positive
+  Scenario: Check the content of the component 
+    # When I open "ShowEditPod" component page
+    Then Show Edit Pod component has proper content inside itself
+
   @positive
   Scenario Outline: Change Show Edit Pod cancelText to <cancelText>
     When I set cancelText to "<cancelText>"

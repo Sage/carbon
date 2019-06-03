@@ -20,10 +20,6 @@ Then('Message component is not visible', () => {
   messagePreview().should('not.exist');
 });
 
-Then('{word} function was called in Actions Tab', (event) => {
-  eventInAction(event);
-});
-
 When('clear all events in Actions Tab', () => {
   clickActionsTab();
   clickClear();

@@ -1,12 +1,19 @@
 import {
   showEditPodEdit, showEditPodCancelButton, showEditPodSaveButton, showEditPodDeleteButton,
   showEditPodTitle, showEditPodPreview, showEditPodSecondaryBlock, showEditPodSecondaryWrapper,
+  showEditPodCollapsibleInnerContent,
 } from '../../locators/show-edit-pod';
 
-export const SHOW_EDIT_POD_BLOCK_CONTENT = 'carbon-pod__block--';
-export const SHOW_EDIT_POD_CONTENT = 'carbon-pod__content--';
-export const SHOW_EDIT_POD_NO_BORDER_CONTENT = 'carbon-pod--no-border';
-export const SHOW_EDIT_POD_WRAPPER = 'carbon-form__buttons--';
+const SHOW_EDIT_POD_BLOCK_CONTENT = 'carbon-pod__block--';
+const SHOW_EDIT_POD_CONTENT = 'carbon-pod__content--';
+const SHOW_EDIT_POD_NO_BORDER_CONTENT = 'carbon-pod--no-border';
+const SHOW_EDIT_POD_WRAPPER = 'carbon-form__buttons--';
+const FIRST_DIV = 1;
+const SECOND_DIV = 2;
+const THIRD_DIV = 3;
+const INNER_CONTENT_TITLE = 'title';
+const INNER_CONTENT_BODY = 'body';
+
 
 Then('Show Edit Pod {word} on preview is set to {string}', (parameter, text) => {
   switch (parameter) {
@@ -111,4 +118,23 @@ When('I click delete button', () => {
 
 When('I click cancel button', () => {
   showEditPodCancelButton().click();
+});
+
+Then('Show Edit Pod component has proper content inside itself', () => {
+  showEditPodTitle()
+    .should('have.text', 'Person');
+  showEditPodCollapsibleInnerContent(FIRST_DIV, INNER_CONTENT_TITLE)
+    .should('have.text', 'First Name');
+  showEditPodCollapsibleInnerContent(FIRST_DIV, INNER_CONTENT_BODY)
+    .should('have.text', 'Alan');
+
+  showEditPodCollapsibleInnerContent(SECOND_DIV, INNER_CONTENT_TITLE)
+    .should('have.text', 'Last Name');
+  showEditPodCollapsibleInnerContent(SECOND_DIV, INNER_CONTENT_BODY)
+    .should('have.text', 'Smith');
+
+  showEditPodCollapsibleInnerContent(THIRD_DIV, INNER_CONTENT_TITLE)
+    .should('have.text', 'Telephone');
+  showEditPodCollapsibleInnerContent(THIRD_DIV, INNER_CONTENT_BODY)
+    .should('have.text', '000 000 0000');
 });
