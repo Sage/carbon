@@ -22,13 +22,5 @@ export default {
     font: '16px',
     padding: '13px',
     inputHeight: '32px'
-  },
-  wrapper: (total) => {
-    return {
-      compact: `${24 * total}px`,
-      small: `${32 * total}px`,
-      medium: `${40 * total}px`,
-      large: `${48 * total}px`
-    };
   }
 };

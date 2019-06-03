@@ -10,15 +10,11 @@ function convertTableType(type) {
   return 'primary';
 }
 
-function applyModernInternalStyling({
-  tableType, theme, rowTotal, rowHeight, shrink
-}) {
+function applyModernInternalStyling({ tableType, theme }) {
   const type = convertTableType(tableType);
   return css`
     background-color: transparent;
-    border: 1px solid ${type === 'tertiary' ? 'transparent' : theme.table.primary};
-    ${!shrink ? `min-height: ${tableSizes.wrapper(rowTotal)[rowHeight]} !important;` : ''}
-  `;
+    border: 1px solid ${type === 'tertiary' ? 'transparent' : theme.table.primary};  `;
 }
 
 function applyModernTableStyling({

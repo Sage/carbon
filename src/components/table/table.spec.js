@@ -10,13 +10,11 @@ import {
 import StyledTable, { StyledInternalTableWrapper } from './table.style';
 import StyledTableHeader from './table-header/table-header.style';
 import ActionToolbar from '../action-toolbar';
-import tableSizes from './table-sizes.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import BaseTheme from '../../style/themes/base';
 import ClassicTheme from '../../style/themes/classic';
 import SmallTheme from '../../style/themes/small';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 
 describe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy, row;
@@ -529,7 +527,7 @@ describe('Table', () => {
       instance.resetTableHeight();
       jest.runTimersToTime(0);
 
-      expect(instance._wrapper.style.minHeight).toEqual('50px');
+      expect(instance._wrapper.style.minHeight).toEqual('49px');
       expect(instance.tableHeight).toEqual('50');
     });
   });
@@ -543,7 +541,7 @@ describe('Table', () => {
 
         instance.resizeTable();
 
-        expect(instance._wrapper.style.minHeight).toEqual('50px');
+        expect(instance._wrapper.style.minHeight).toEqual('49px');
         expect(instance.tableHeight).toEqual('50');
       });
     });
@@ -589,7 +587,7 @@ describe('Table', () => {
 
           instance.resizeTable();
 
-          expect(instance._wrapper.style.minHeight).toEqual('10px');
+          expect(instance._wrapper.style.minHeight).toEqual('9px');
           expect(instance.tableHeight).toEqual('10');
         });
       });
@@ -1027,41 +1025,6 @@ describe('Table', () => {
       });
     });
   });
-
-  describe.each(OptionsHelper.tableSizes)(
-    'the table wrapper',
-    (size) => {
-      it('does not set the min-height of the wrapper when the shrink props is true', () => {
-        const wrapper = mount(
-          <StyledInternalTableWrapper
-            onConfigure
-            theme={ SmallTheme }
-            rowTotal={ 10 }
-            rowHeight={ size }
-            shrink
-          />
-        );
-        assertStyleMatch({
-          minHeight: undefined
-        }, wrapper);
-      });
-
-      it(`renders a wrapper to match the expected style for a ${size} table and shrink is false`, () => {
-        const wrapper = mount(
-          <StyledInternalTableWrapper
-            onConfigure
-            theme={ SmallTheme }
-            rowTotal={ 10 }
-            rowHeight={ size }
-          />
-        );
-        assertStyleMatch({
-          minHeight: `${tableSizes.wrapper(10)[size]} !important`
-        }, wrapper);
-      });
-    }
-  );
-
 
   describe('tags on component', () => {
     it('include correct component, element and role data tags', () => {
