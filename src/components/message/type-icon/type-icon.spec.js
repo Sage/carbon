@@ -32,8 +32,18 @@ describe('TypeIcon', () => {
   });
 
   describe('when in classic theme', () => {
+    const colors = [
+      'default',
+      'error',
+      'help',
+      'info',
+      'maintenance',
+      'new',
+      'success',
+      'warning'
+    ];
     describe('when rendered', () => {
-      OptionsHelper.colors.forEach((variant) => {
+      colors.forEach((variant) => {
         it(`should match the snapshot for ${variant}`, () => {
           const wrapper = render({ variant, theme: classicTheme });
           expect(wrapper).toMatchSnapshot();
@@ -59,7 +69,7 @@ describe('TypeIcon', () => {
     });
 
     describe('when transparent prop is set to true', () => {
-      OptionsHelper.colors.forEach((variant) => {
+      colors.forEach((variant) => {
         it(`applies white background and the type icon with the proper style applied for ${variant}`, () => {
           const wrapper = render({ transparent: true, variant, theme: classicTheme });
           expect(wrapper).toMatchSnapshot();
