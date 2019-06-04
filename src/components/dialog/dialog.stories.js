@@ -10,7 +10,7 @@ import Dialog from './dialog.component';
 import Form from '../form';
 import Textbox from '../textbox';
 import Button from '../button';
-import Modal from '../modal/modal';
+import Modal from '../modal';
 import DateInput from '../date';
 import Dropdown from '../dropdown/dropdown';
 import Checkbox from '../checkbox/checkbox';

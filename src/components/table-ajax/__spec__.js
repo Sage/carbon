@@ -314,6 +314,7 @@ describe('TableAjax', () => {
         it('calls resetTableHeight on successful response', () => {
           instance.resetTableHeight = jest.fn();
           options = { currentPage: '1', pageSize: '5' }
+          Request.withCredentials = jest.fn();
           Request.__setMockResponse({
             status() {
               return 200;
@@ -331,7 +332,46 @@ describe('TableAjax', () => {
           expect(Request.post).toHaveBeenLastCalledWith('/test');
           expect(Request.send).toHaveBeenLastCalledWith({ page: '1', rows: '5' });
           expect(instance.resetTableHeight).toBeCalled();
+          expect(Request.withCredentials).not.toHaveBeenCalled();
         });
+      });
+    });
+
+    describe('when withCredentials is true', () => {
+      beforeEach(() => {
+        spy = jasmine.createSpy('onChange spy');
+        wrapper = mount(
+          <TableAjax
+            withCredentials
+            onAjaxError={ () => {} }
+            className="foo"
+            path='/test'
+            onChange={ spy }
+          >
+            <TableRow />
+          </TableAjax>
+        );
+        instance = wrapper.instance();
+      });
+
+      it('calls withCredentials', () => {
+        options = { currentPage: '1', pageSize: '5' }
+        Request.withCredentials = jest.fn();
+        Request.__setMockResponse({
+          status() {
+            return 200;
+          },
+          ok() {
+            return true;
+          },
+          body: {
+            data: 'foo'
+          }
+        });
+
+        instance.emitOnChangeCallback('data', options);
+        jest.runTimersToTime(251);
+        expect(Request.withCredentials).toHaveBeenCalled();
       });
     });
   });

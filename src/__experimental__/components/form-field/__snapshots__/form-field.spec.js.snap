@@ -81,7 +81,19 @@ Array [
 ]
 `;
 
-exports[`FormField with fieldHelp renders the FieldHelp component below the childen 1`] = `
+exports[`FormField with fieldHelp and fieldHelpInline=true renders the FieldHelp component below the childen 1`] = `
+Array [
+  <FieldHelp
+    labelInline={true}
+    labelWidth={20}
+  >
+    Help me!
+  </FieldHelp>,
+  <input />,
+]
+`;
+
+exports[`FormField with fieldHelp default renders the FieldHelp component below the childen 1`] = `
 Array [
   <input />,
   <FieldHelp

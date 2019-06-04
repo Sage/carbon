@@ -13,54 +13,58 @@ import guid from '../../utils/helpers/guid';
 class SplitButton extends Component {
   constructor(props) {
     super(props);
-    this.buttonListId = guid();
     this.buttonLabelId = guid();
     this.componentTags = this.componentTags.bind(this);
     this.showButtons = this.showButtons.bind(this);
     this.hideButtons = this.hideButtons.bind(this);
     this.additionalButtons = [];
     this.listening = false;
+    this.isToggleButtonFocused = false;
   }
 
   state = {
-    /**
-     * Tracks whether the additional buttons should be visible.
-     */
     showAdditionalButtons: false
   }
 
-  /**
-   * Shows the additional buttons.
-   */
-  showButtons() {
+  splitButtonNode = React.createRef();
+
+  focusToggleButton = () => {
+    this.isToggleButtonFocused = true;
+    this.showButtons();
+  }
+
+  showButtons = () => {
+    document.addEventListener('click', this.handleClickOutside);
     this.setState({ showAdditionalButtons: true });
+
     if (!this.listening) {
       document.addEventListener('keydown', this.handleKeyDown);
       this.listening = true;
     }
   }
 
-  /**
-   * Hides additional buttons.
-   */
-  hideButtons() {
+  hideButtons = () => {
+    if (this.isToggleButtonFocused) return;
+
     this.setState({ showAdditionalButtons: false });
+    document.removeEventListener('click', this.handleClickOutside);
+
     if (this.listening) {
       document.removeEventListener('keydown', this.handleKeyDown);
       this.listening = false;
     }
   }
 
-  /**
-   * Checks if node is active element.
-   */
+  handleClickOutside = (ev) => {
+    if (!this.splitButtonNode.current.contains(ev.target)) {
+      this.hideButtons();
+    }
+  }
+
   isActiveElement(node) {
     return node === document.activeElement;
   }
 
-  /**
-   * Handles up/down key navigation
-   */
   handleKeyDown = (ev) => {
     const { children } = this.props;
     const currentIndex = this.additionalButtons.findIndex(this.isActiveElement);
@@ -72,7 +76,8 @@ class SplitButton extends Component {
       nextIndex = currentIndex < children.length - 1 ? currentIndex + 1 : 0;
       ev.preventDefault();
     } else if (Events.isTabKey(ev)) {
-      this.hideButtons();
+      // timeout enforces thet the "hideButtons" method will be run after browser focuses on the next element
+      setTimeout(this.hideButtons, 0);
     }
 
     if (nextIndex > -1) {
@@ -80,9 +85,6 @@ class SplitButton extends Component {
     }
   }
 
-  /**
-   * Returns props for the main button.
-   */
   get mainButtonProps() {
     const { ...props } = validProps(this);
     props.onMouseEnter = this.hideButtons;
@@ -90,15 +92,12 @@ class SplitButton extends Component {
     return props;
   }
 
-  /**
-   * Returns props for the toggle.
-   */
   get toggleButtonProps() {
     const opts = {
       disabled: this.props.disabled,
       displayed: this.state.showAdditionalButtons,
-      onClick: (ev) => { ev.preventDefault(); },
-      onFocus: this.showButtons,
+      onFocus: this.focusToggleButton,
+      onBlur: () => { this.isToggleButtonFocused = false; },
       buttonType: this.props.buttonType || this.props.as,
       size: this.props.size
     };
@@ -110,9 +109,6 @@ class SplitButton extends Component {
     return opts;
   }
 
-  /**
-   * Returns the data tags for the component.
-   */
   componentTags() {
     return {
       'data-component': 'split-button',
@@ -121,39 +117,33 @@ class SplitButton extends Component {
     };
   }
 
-  /**
-   * Instantiates the additional button refs
-   */
   addRef(ref, index) {
     if (!ref) return;
     this.additionalButtons[index] = ref;
   }
 
-  /**
-   * Returns the HTML for the main button.
-   */
   get renderMainButton() {
-    return (
-      <div>
-        <Button
-          { ...this.mainButtonProps }
-          data-element='main-button'
-        >
-          { this.props.text}
-        </Button>
-
-        <StyledSplitButtonToggle
-          aria-haspopup='true'
-          aria-expanded={ this.state.showAdditionalButtons }
-          aria-controls={ this.buttonListId }
-          { ...this.toggleButtonProps }
-          data-element='open'
-          onKeyDown={ this.handleToggleButtonKeyDown }
-        >
-          <Icon type='dropdown' />
-        </StyledSplitButtonToggle>
-      </div>
-    );
+    return [
+      <Button
+        { ...this.mainButtonProps }
+        data-element='main-button'
+        key='main-button'
+        id={ this.buttonLabelId }
+      >
+        { this.props.text}
+      </Button>,
+      <StyledSplitButtonToggle
+        aria-haspopup='true'
+        aria-expanded={ this.state.showAdditionalButtons }
+        aria-label='Show more'
+        data-element='toggle-button'
+        key='toggle-button'
+        onKeyDown={ this.handleToggleButtonKeyDown }
+        { ...this.toggleButtonProps }
+      >
+        <Icon type='dropdown' />
+      </StyledSplitButtonToggle>
+    ];
   }
 
   handleToggleButtonKeyDown = (ev) => {
@@ -162,9 +152,6 @@ class SplitButton extends Component {
     }
   }
 
-  /**
-   * Passes in additional button props
-   */
   childrenWithProps() {
     const { children } = this.props;
     const childArray = Array.isArray(children) ? children : [children];
@@ -172,6 +159,7 @@ class SplitButton extends Component {
     return childArray.map((child, index) => {
       const props = {
         key: index.toString(),
+        role: 'menu-item',
         ref: button => this.addRef(button, index),
         tabIndex: -1
       };
@@ -179,9 +167,6 @@ class SplitButton extends Component {
     });
   }
 
-  /**
-   * Returns the HTML for the additional buttons.
-   */
   get renderAdditionalButtons() {
     const children = this.childrenWithProps();
 
@@ -189,7 +174,8 @@ class SplitButton extends Component {
 
     return (
       <StyledSplitButtonChildrenContainer
-        id={ this.buttonListId }
+        role='menu'
+        aria-labelledby={ this.buttonLabelId }
         data-element='additional-buttons'
       >
         { children }
@@ -197,11 +183,16 @@ class SplitButton extends Component {
     );
   }
 
+  componentWillUnmount() {
+    document.removeEventListener('click', this.handleClickOutside);
+  }
+
   render() {
     return (
       <StyledSplitButton
         aria-haspopup='true'
         onMouseLeave={ this.hideButtons }
+        ref={ this.splitButtonNode }
         { ...this.componentTags() }
       >
         { this.renderMainButton }

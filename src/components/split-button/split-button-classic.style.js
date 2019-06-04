@@ -20,16 +20,21 @@ const getSplitButtonChildrenClassicStyles = ({ theme }) => (theme.name === THEME
     background-color: ${classicColors.secondary};
     border: 1px solid ${classicColors.secondary};
     color: #FFF;
-    font-size: 14px;
     height: 31px;
     letter-spacing: 0;
     padding: 0 18px;
-    text-align: left;
 
     &:focus,
     &:hover {
       background-color: ${classicColors.tertiary};
     }
+  }
+` : '');
+
+const getMainSplitButtonClassicStyles = ({ theme }) => (theme.name === THEMES.classic ? css`
+  & > ${StyledButton}:focus {
+    border: 1px solid #1e499f;
+    margin: 0;
   }
 ` : '');
 
@@ -57,7 +62,7 @@ const getSplitButtonToggleClassicStyles = ({
     }
   ` : ''}
 
-  ${buttonType === 'primary' ? css`
+  ${(!disabled && buttonType === 'primary') ? css`
     border-left: 1px solid #1e499f;
   ` : ''}
 
@@ -69,4 +74,8 @@ const getSplitButtonToggleClassicStyles = ({
 ` : '');
 
 
-export { getSplitButtonChildrenClassicStyles, getSplitButtonToggleClassicStyles };
+export {
+  getSplitButtonChildrenClassicStyles,
+  getSplitButtonToggleClassicStyles,
+  getMainSplitButtonClassicStyles
+};
