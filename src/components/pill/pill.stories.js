@@ -61,7 +61,7 @@ storiesOf('Pill', module)
         fill={ fill }
         onDelete={ onDelete ? action('delete') : null }
       >
-        {children}
+        { children }
       </Pill>
     );
   }, {

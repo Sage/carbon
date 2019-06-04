@@ -58,18 +58,18 @@ class AppLayout extends React.Component {
       <StyledContainer>
         <div>
           <SelectionContainer>
-            <StyledSelect value={activeTheme} onChange={this.handleSelectChange}>
-              <option value={THEMES.classic}>Classic</option>
-              <option value={THEMES.small}>Small</option>
-              <option value={THEMES.medium}>Medium</option>
-              <option value={THEMES.large}>Large</option>
+            <StyledSelect value={ activeTheme } onChange={ this.handleSelectChange }>
+              <option value={ THEMES.classic }>Classic</option>
+              <option value={ THEMES.small }>Small</option>
+              <option value={ THEMES.medium }>Medium</option>
+              <option value={ THEMES.large }>Large</option>
               <option value=''>None</option>
             </StyledSelect>
           </SelectionContainer>
         </div>
 
         <div>
-          {activeTheme ? (<ThemeProvider theme={themes[activeTheme]}>{children}</ThemeProvider>) : children};
+          { activeTheme ? (<ThemeProvider theme={ themes[activeTheme] }>{children}</ThemeProvider>) : children };
         </div>
       </StyledContainer>
     );

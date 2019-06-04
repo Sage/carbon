@@ -193,7 +193,7 @@ class Select extends React.Component {
             onDelete={ canDelete ? () => this.removeItem(index) : undefined }
             title={ value.text }
           >
-            {value.text}
+            { value.text }
           </Pill>
         </div>
       ))
@@ -252,7 +252,7 @@ class Select extends React.Component {
           leftChildren={ this.isMultiValue(value) && this.renderMultiValues(value) }
           { ...events }
         >
-          {this.state.open && (
+          { this.state.open && (
             <SelectList
               alwaysHighlight={ !!this.state.filter } // only always ensure something is highlighted if filter
               customFilter={ customFilter }
@@ -264,9 +264,9 @@ class Select extends React.Component {
               open={ this.state.open }
               target={ this.input.current && this.input.current.parentElement }
             >
-              {children}
+              { children }
             </SelectList>
-          )}
+          ) }
         </InputDecoratorBridge>
       </>
     );
