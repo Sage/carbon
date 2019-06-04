@@ -28,8 +28,8 @@ describe('Spinner', () => {
     expect(wrapper.find('.class').exists()).toEqual(true);
   });
 
-  it('applies color reflecting type if passed', () => {
-    OptionsHelper.colors.map((type) => {
+  OptionsHelper.colors.forEach((type) => {
+    it('applies color reflecting type if passed', () => {
       wrapper = renderStyles({ type });
       assertStyleMatch(
         {
@@ -43,8 +43,8 @@ describe('Spinner', () => {
     });
   });
 
-  it('applies width, height and border-width dependent on the passed size', () => {
-    OptionsHelper.sizesFull.map((size) => {
+  OptionsHelper.sizesFull.forEach((size) => {
+    it('applies width, height and border-width dependent on the passed size', () => {
       wrapper = renderStyles({ size });
       assertStyleMatch(
         {
