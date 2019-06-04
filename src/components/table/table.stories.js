@@ -255,15 +255,8 @@ storiesOf('Table', module)
       const props = getCommonKnobs();
       props.size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
       props.isZebra = boolean('zebra striping', false);
-      props.theme = select(
-        'theme',
-        [
-          OptionsHelper.tableThemes[0],
-          OptionsHelper.tableThemes[1],
-          OptionsHelper.tableThemes[2]
-        ],
-        Table.defaultProps.theme
-      );
+      props.theme = select('theme', OptionsHelper.tableThemes, Table.defaultProps.theme);
+
       store.set({ sortOrder: props.sortOrder });
       store.set({ sortedColumn: props.sortColumn });
 
@@ -310,15 +303,7 @@ storiesOf('Table', module)
       props.size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
       props.isZebra = boolean('zebra striping', false);
       props.inputType = select('input type', OptionsHelper.inputTypes, OptionsHelper.inputTypes[0]);
-      props.theme = select(
-        'theme',
-        [
-          OptionsHelper.tableThemes[0],
-          OptionsHelper.tableThemes[1],
-          OptionsHelper.tableThemes[2]
-        ],
-        Table.defaultProps.theme
-      );
+      props.theme = select('theme', OptionsHelper.tableThemes, Table.defaultProps.theme);
 
       store.set({ sortOrder: props.sortOrder });
       store.set({ sortedColumn: props.sortColumn });

@@ -67,29 +67,7 @@ export default (palette) => {
       header: palette.slateTint(20),
       hover: palette.slateTint(90),
       selected: palette.slateTint(85),
-      zebra: palette.slateTint(98),
-      sizes: {
-        compact: {
-          height: '24px',
-          font: '13px',
-          padding: '8px'
-        },
-        small: {
-          height: '32px',
-          font: '14px',
-          padding: '8px'
-        },
-        medium: {
-          height: '40px',
-          font: '14px',
-          padding: '11px'
-        },
-        large: {
-          height: '48px',
-          font: '16px',
-          padding: '13px'
-        }
-      }
+      zebra: palette.slateTint(98)
     },
 
     icon: {
