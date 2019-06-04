@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, text, number } from '@storybook/addon-knobs';
-import Preview from './preview';
+import Preview from './preview.component';
 import info from './documentation';
 
 storiesOf('Preview', module).add(

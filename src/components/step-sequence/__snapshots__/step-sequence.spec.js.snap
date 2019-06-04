@@ -1,11 +1,460 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<StepSequence /> basic render 1`] = `
+exports[`StepSequence Classic theme renders correctly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  padding: 18px;
+  font-weight: bold;
+  padding: 0;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  text-align: right;
+  list-style-type: none;
+  color: #b3c2c8;
+  height: 24px;
+  color: rgba(0,0,0,0.55);
+}
+
+.c1::before {
+  content: '';
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  display: block;
+  height: 1px;
+  margin: 0 16px;
+  background-color: #b3c2c8;
+}
+
+.c1 .carbon-icon {
+  position: relative;
+  top: -2px;
+  margin-right: 8px;
+  color: #00A376;
+}
+
+.c1:first-child {
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+}
+
+.c1:first-child::before {
+  display: none;
+}
+
+.c1::before {
+  background-color: rgba(0,0,0,0.55);
+}
+
+.c3 {
+  display: block;
+  min-width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  text-align: center;
+}
+
 <ol
-  className="carbon-step-sequence carbon-step-sequence--horizontal"
+  className="c0"
+  orientation="horizontal"
 >
-  <div>
-    Children
-  </div>
+  <li
+    aria-label="Step 1 of 5"
+    className="c1"
+    orientation="horizontal"
+  >
+    <span
+      className="c2"
+    >
+      <span
+        className="c3"
+      >
+        2
+      </span>
+       
+      Item
+    </span>
+  </li>
+</ol>
+`;
+
+exports[`StepSequence Classic theme renders correctly with vertical orientation 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  padding: 18px;
+  font-weight: bold;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 0;
+  padding: 0;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  text-align: right;
+  list-style-type: none;
+  color: #b3c2c8;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  height: 24px;
+  color: rgba(0,0,0,0.55);
+  height: auto;
+}
+
+.c1::before {
+  content: '';
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  display: block;
+  height: 1px;
+  margin: 0 16px;
+  background-color: #b3c2c8;
+}
+
+.c1 .carbon-icon {
+  position: relative;
+  top: -2px;
+  margin-right: 8px;
+  color: #00A376;
+}
+
+.c1:first-child {
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+}
+
+.c1:first-child::before {
+  display: none;
+}
+
+.c1::before {
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  width: 1px;
+  height: 24px;
+  margin: 12px 8px;
+}
+
+.c1::before {
+  background-color: rgba(0,0,0,0.55);
+}
+
+.c1::before {
+  height: 32px;
+  margin: 0;
+  background-color: transparent;
+}
+
+.c1 .c2 {
+  height: 17px;
+}
+
+.c4 {
+  display: block;
+  min-width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  text-align: center;
+}
+
+<ol
+  className="c0"
+  orientation="vertical"
+>
+  <li
+    aria-label="Step 1 of 5"
+    className="c1"
+    orientation="vertical"
+  >
+    <span
+      className="c2 c3"
+    >
+      <span
+        className="c4"
+      >
+        2
+      </span>
+       
+      Item
+    </span>
+  </li>
+</ol>
+`;
+
+exports[`StepSequence renders correctly 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  padding: 18px;
+  font-weight: bold;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  text-align: right;
+  list-style-type: none;
+  color: rgba(0,0,0,0.55);
+}
+
+.c1::before {
+  content: '';
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  display: block;
+  height: 1px;
+  margin: 0 16px;
+  background-color: rgba(0,0,0,0.55);
+}
+
+.c1 .carbon-icon {
+  position: relative;
+  top: -2px;
+  margin-right: 8px;
+  color: #00A376;
+}
+
+.c1:first-child {
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+}
+
+.c1:first-child::before {
+  display: none;
+}
+
+.c3 {
+  display: block;
+  min-width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  text-align: center;
+}
+
+<ol
+  className="c0"
+  orientation="horizontal"
+>
+  <li
+    aria-label="Step 1 of 5"
+    className="c1"
+    orientation="horizontal"
+  >
+    <span
+      className="c2"
+    >
+      <span
+        className="c3"
+      >
+        2
+      </span>
+       
+      Item
+    </span>
+  </li>
+</ol>
+`;
+
+exports[`StepSequence renders correctly with vertical orientation 1`] = `
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  margin: 0;
+  padding: 18px;
+  font-weight: bold;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding: 0;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  text-align: right;
+  list-style-type: none;
+  color: rgba(0,0,0,0.55);
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+}
+
+.c1::before {
+  content: '';
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  display: block;
+  height: 1px;
+  margin: 0 16px;
+  background-color: rgba(0,0,0,0.55);
+}
+
+.c1 .carbon-icon {
+  position: relative;
+  top: -2px;
+  margin-right: 8px;
+  color: #00A376;
+}
+
+.c1:first-child {
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+}
+
+.c1:first-child::before {
+  display: none;
+}
+
+.c1::before {
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  width: 1px;
+  height: 24px;
+  margin: 12px 8px;
+}
+
+.c3 {
+  display: block;
+  min-width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  text-align: center;
+}
+
+<ol
+  className="c0"
+  orientation="vertical"
+>
+  <li
+    aria-label="Step 1 of 5"
+    className="c1"
+    orientation="vertical"
+  >
+    <span
+      className="c2"
+    >
+      <span
+        className="c3"
+      >
+        2
+      </span>
+       
+      Item
+    </span>
+  </li>
 </ol>
 `;

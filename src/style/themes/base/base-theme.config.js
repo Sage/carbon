@@ -2,7 +2,8 @@ import { THEMES } from '..';
 
 export default (palette) => {
   const { atOpacity } = palette,
-      blackWithOpacity = atOpacity('#000000');
+      blackWithOpacity = atOpacity('#000000'),
+      baseWithOpacity = atOpacity(palette.productGreen);
 
   return {
     name: THEMES.base,
@@ -16,6 +17,7 @@ export default (palette) => {
       tertiary: palette.genericGreenShade(55),
       brand: palette.brilliantGreen,
       whiteMix: palette.genericGreenTint(90),
+      withOpacity: baseWithOpacity(0.55),
 
       // generic
       white: '#FFFFFF',
@@ -24,6 +26,7 @@ export default (palette) => {
       border: palette.slateTint(40),
       focusedIcon: palette.slateTint(20),
       focusedLinkBackground: palette.goldTint(50),
+      previewBackground: palette.slateTint(75),
       hoveredTabKeyline: palette.genericGreenTint(30),
 
       // status
@@ -35,6 +38,10 @@ export default (palette) => {
       destructive: {
         hover: palette.errorRedShade(20)
       }
+    },
+
+    help: {
+      color: blackWithOpacity(0.65)
     },
 
     text: {
