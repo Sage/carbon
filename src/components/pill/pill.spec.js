@@ -63,7 +63,6 @@ describe('Pill', () => {
   });
 
   describe('when the component is deletable', () => {
-    
     describe('onDelete adds "close" icon to component', () => {
       let wrapper, icon;
       const spy = jest.fn();
@@ -100,7 +99,7 @@ describe('Pill', () => {
         expect(icon.length).toEqual(0);
       });
     });
-    
+
     it('adds adds a click handler to the component', () => {
       const spy = jest.fn();
       const instance = render({
@@ -131,7 +130,6 @@ describe('Pill', () => {
   });
 
   describe('modern themes', () => {
-    
     describe.each(modernThemes)('when the pill is rendered',
       (name, theme) => {
         describe(`${name} theme`, () => {
@@ -154,7 +152,6 @@ describe('Pill', () => {
           });
 
           describe('when the component is deletable', () => {
-            
             it('matches the expected styles for a deletable pill', () => {
               const wrapper = render({
                 children: 'My Text',
@@ -165,7 +162,7 @@ describe('Pill', () => {
                 padding: '2px 27px 2px 8px'
               }, wrapper);
             });
-            
+
             describe('when the component is in a filled state', () => {
               const style = 'neutral';
               const fillWrapper = render({
@@ -175,7 +172,7 @@ describe('Pill', () => {
                 fill: true,
                 theme
               });
-              
+
               it(`matches the expected filled styling for ${style}`, () => {
                 assertStyleMatch({
                   backgroundColor: styleSet.colors[style]
@@ -187,7 +184,6 @@ describe('Pill', () => {
           describe.each(modernStyleTypes)(
             'when the pill style is set as "%s"',
             (style) => {
-              
               describe('when storybook supplies the correct theme', () => {
                 const wrapper = render({
                   children: 'My Text',
@@ -201,7 +197,7 @@ describe('Pill', () => {
                   }, wrapper);
                 });
               });
-              
+
               describe('when the component is in a filled state', () => {
                 const fillWrapper = render({
                   children: 'My Text',
@@ -209,7 +205,7 @@ describe('Pill', () => {
                   fill: true,
                   theme
                 });
-                
+
                 it(`matches the expected filled styling for ${style}`, () => {
                   assertStyleMatch({
                     backgroundColor: styleSet.colors[style]
@@ -230,7 +226,7 @@ describe('Pill', () => {
         </ThemeProvider>
       );
     };
-    
+
     it('matches the expected styles for a default pill', () => {
       const wrapper = renderClassic({ children: 'My Text', theme: classicTheme }, TestRenderer.create).toJSON();
       assertStyleMatch({
@@ -247,7 +243,6 @@ describe('Pill', () => {
     });
 
     describe('when the component is deletable', () => {
-      
       it('matches the expected styles for a deletable pill', () => {
         const wrapper = renderClassic({
           children: 'My Text',
@@ -258,7 +253,7 @@ describe('Pill', () => {
           padding: '2px 19px 2px 7px'
         }, wrapper);
       });
-      
+
       describe('when the component is in a filled state', () => {
         const fillWrapper = render({
           children: 'My Text',
@@ -266,7 +261,7 @@ describe('Pill', () => {
           fill: true,
           theme: classicTheme
         });
-        
+
         it('matches the expected filled styling', () => {
           const style = 'default';
           const colourSet = classicStyleConfig[style];
@@ -302,7 +297,7 @@ describe('Pill', () => {
             fill: true,
             theme: classicTheme
           });
-          
+
           it(`matches the expected filled styling for ${style}`, () => {
             assertStyleMatch({
               backgroundColor: colourSet.color
@@ -321,7 +316,7 @@ describe('Pill', () => {
         </ThemeProvider>
       );
     };
-    
+
     it('switches to use the modern small theme', () => {
       const wrapper = renderBase({
         children: 'My Text',
@@ -338,7 +333,7 @@ describe('Pill', () => {
       }, wrapper);
     });
   });
-  
+
   describe('when storybook supplies classic theme with a modern colour variant', () => {
     const renderBase = (props, renderer = mount) => {
       return renderer(
@@ -347,7 +342,7 @@ describe('Pill', () => {
         </ThemeProvider>
       );
     };
-    
+
     it('switches to use the modern small theme', () => {
       const wrapper = renderBase({
         children: 'My Text',
