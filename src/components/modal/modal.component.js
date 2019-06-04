@@ -5,65 +5,25 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import Events from '../../utils/helpers/events';
 import Browser from '../../utils/helpers/browser';
 import Portal from '../portal';
-import './modal.scss';
+import { StyledModal, StyledModalBackground } from './modal.style';
 
 const TIMEOUT = 500;
 /**
  * A Modal Component
  *
  * Abstract base class for all modals
- *
- * == How to use a Modal in a component
- *
- * In your file
- *
- *   import Modal from 'carbon-react/lib/components/modal'
- *
- * Extends from the modal
- *
- *   class MyModal extends Modal
- *
- * Override several methods
- *
- * get onOpening() // Called by componentDidUpdate when dialog opens
- * get onClosing() // Called by componentDidUpdate when dialog closes
- * get mainClasses() // Classes to apply to parent div
- * get modalHTML() // JSX displayed when open
- * get transitionName() // Transisition name for CSSTransitionGroup
- *
- * Optional Override
- * get backgroundTransitionName() // Transisition name for background fade
- *
- *
- * @class Modal
- * @constructor
  */
 class Modal extends React.Component {
   static propTypes = {
-    /**
-     * A custom close event handler
-     */
+    /** A custom close event handler */
     onCancel: PropTypes.func,
-
-    /**
-     * Sets the open state of the modal
-     */
+    /** Sets the open state of the modal */
     open: PropTypes.bool.isRequired,
-
-    /**
-     * Determines if the background is disabled
-     * when the modal is open
-     */
+    /** Determines if the background is disabled when the modal is open */
     enableBackgroundUI: PropTypes.bool,
-
-    /**
-     * Determines if the Esc Key closes the modal
-     */
+    /** Determines if the Esc Key closes the modal */
     disableEscKey: PropTypes.bool,
-
-    /**
-     * The ARIA role to be applied to the modal
-     */
+    /** The ARIA role to be applied to the modal */
     ariaRole: PropTypes.string // eslint-disable-line react/no-unused-prop-types
   }
 
@@ -74,44 +34,19 @@ class Modal extends React.Component {
   }
 
   static childContextTypes = {
-    /**
-     * Defines a context object for child components of the modal component.
-     * https://facebook.github.io/react/docs/context.html
-     *
-     * @property modal
-     * @type {Object}
-     */
     modal: PropTypes.object
   }
 
   constructor(props) {
     super(props);
 
-    /**
-     * Tracks if event listeners are on for modal
-     *
-     * @property listening
-     * @type {Boolean}
-     */
     this.listening = false;
 
     this.state = {
-      /**
-       * Sets the initial data-state of the modal
-       * @property state
-       * @type {String}
-       */
       state: this.props.open ? 'open' : 'closed'
     };
   }
 
-  /**
-   * Updates the value used for the css data-state. This uses a timeout to match the length of any transition to ensure
-   * UI automation is able to target elements once they are visually ready.
-   * @method updateDataState
-   * @return {void}
-   *
-   */
   updateDataState = () => {
     clearTimeout(this.openTimeout);
     this.openTimeout = setTimeout(() => {
@@ -119,12 +54,6 @@ class Modal extends React.Component {
     }, TIMEOUT);
   }
 
-  /**
-   * Returns modal object to child components. Used to override form cancel button functionality.
-   *
-   * @method getChildContext
-   * @return {void}
-   */
   getChildContext() {
     return {
       modal: {
@@ -133,32 +62,14 @@ class Modal extends React.Component {
     };
   }
 
-  /**
-   * A lifecycle method to update the component after it is mounted
-   *
-   * @method componentDidMount
-   * @return {void}
-   */
   componentDidMount() {
     if (this.props.open) this.handleOpen();
   }
 
-  /**
-   * A lifecycle method to update the component when it is unmounted
-   *
-   * @method componentWillUnmount
-   * @return {void}
-   */
   componentWillUnmount() {
     if (this.listening) this.handleClose();
   }
 
-  /**
-   * A lifecycle method to update the component after it is re-rendered
-   *
-   * @method componentDidUpdate
-   * @return {void}
-   */
   componentDidUpdate() {
     if (this.props.open && !this.listening) {
       this.handleOpen();
@@ -181,63 +92,38 @@ class Modal extends React.Component {
     Browser.getWindow().removeEventListener('keyup', this.closeModal);
   }
 
-  /**
-   * Triggers the custom close event handler on Esc
-   *
-   * @method closeModal
-   * @param {Object} ev event
-   * @return {void}
-   */
   closeModal = (ev) => {
     if (this.props.open && this.props.onCancel && !this.props.disableEscKey && Events.isEscKey(ev)) {
       this.props.onCancel();
     }
   }
 
-  /**
-   * Returns HTML for the background.
-   *
-   * @method backgroundHTML
-   * @return {Object} JSX
-   */
   get backgroundHTML() {
     if (!this.props.enableBackgroundUI) {
       return (
-        <div
-          className='carbon-modal__background'
+        <StyledModalBackground
+          data-element='modal-background'
+          transitionName={ this.backgroundTransitionName }
         />
       );
     }
     return null;
   }
 
-  // Called after the modal opens
   get onOpening() { return null; }
 
-  // Called after the modal closes
   get onClosing() { return null; }
 
-  // Classes for parent div
   get mainClasses() { return null; }
 
-  // Modal HTML shown when open
   get modalHTML() { return null; }
 
-  // Modal transistion name
   get transitionName() { return 'modal'; }
 
-  // modal background transisiton name
   get backgroundTransitionName() { return 'modal-background'; }
 
-  // stubbed method for component tags
   componentTags() { return null; }
 
-  /**
-   * Renders the component.
-   *
-   * @method render
-   * @return {Object} JSX
-   */
   render() {
     let backgroundHTML,
         modalHTML;
@@ -249,10 +135,11 @@ class Modal extends React.Component {
 
     return (
       <Portal key='1'>
-        <div
+        <StyledModal
           className={ this.mainClasses }
           { ...this.componentTags(this.props) }
           data-state={ this.state.state }
+          transitionName={ this.transitionName }
         >
           <CSSTransitionGroup
             component='div'
@@ -274,7 +161,7 @@ class Modal extends React.Component {
           >
             { modalHTML }
           </CSSTransitionGroup>
-        </div>
+        </StyledModal>
       </Portal>
     );
   }

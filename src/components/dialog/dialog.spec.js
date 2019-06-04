@@ -424,8 +424,8 @@ describe('Dialog', () => {
           <Dialog open={ false } onCancel={ onCancel } />
         );
 
-        expect(wrapper.find('div.carbon-dialog').length).toEqual(1);
-        expect(wrapper.find('div.carbon-dialog__dialog').length).toEqual(0);
+        expect(wrapper.find('.carbon-dialog').length).toEqual(1);
+        expect(wrapper.find('.carbon-dialog__dialog').length).toEqual(0);
       });
     });
   });
