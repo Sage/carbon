@@ -28,16 +28,7 @@ const getCommonKnobs = () => {
     caption: text('caption', 'Country and Country Codes'),
     totalRecords: text('totalRecords', '50'),
     paginate,
-    showPageSizeSelection: paginate && boolean('showPageSizeSelection', false),
-    theme: select(
-      'theme',
-      [
-        OptionsHelper.tableThemes[0],
-        OptionsHelper.tableThemes[1],
-        OptionsHelper.tableThemes[2]
-      ],
-      Table.defaultProps.theme
-    )
+    showPageSizeSelection: paginate && boolean('showPageSizeSelection', false)
   };
 };
 
@@ -112,17 +103,11 @@ const buildRows = ({ pageSize, totalRecords }) => {
   );
 };
 
-const roundPageValue = (value) => {
-  const roundedValue = Math.round(value);
-  if (!value || roundedValue < 1) return '1';
-  return roundedValue;
-};
-
 const setCurrentPage = ({ totalRecords, pageSize, paginate }) => {
-  const roundedValue = roundPageValue(totalRecords / pageSize);
-  const maxValidPage = roundedValue < totalRecords / pageSize ? roundedValue + 1 : roundedValue;
+  const pages = totalRecords / pageSize;
+  const maxValidPage = pageSize ? Math.max(Math.ceil(pages), 1) : '1';
   const revisedPage = paginate ? maxValidPage : '1';
-  const isCurrentPageValid = store.get('currentPage') <= (totalRecords / pageSize);
+  const isCurrentPageValid = store.get('currentPage') <= pages;
 
   return isCurrentPageValid ? store.get('currentPage') : revisedPage;
 };
@@ -136,7 +121,7 @@ storiesOf('Table', module)
   .add('classic', () => {
     const props = getCommonKnobs();
     store.set({ currentPage: setCurrentPage(props) });
-    const theme = select(
+    props.theme = select(
       'theme',
       [
         OptionsHelper.tableThemes[0],
@@ -174,7 +159,6 @@ storiesOf('Table', module)
             actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
             { ...props }
             onChange={ handleChange }
-            theme={ theme }
             sortOrder={ store.sortOrder }
             sortedColumn={ store.sortedColumn }
           />
@@ -192,7 +176,15 @@ storiesOf('Table', module)
       store.set({ currentPage: setCurrentPage(props) });
       props.size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
       props.isZebra = boolean('zebra striping', false);
-
+      props.theme = select(
+        'theme',
+        [
+          OptionsHelper.tableThemes[0],
+          OptionsHelper.tableThemes[1],
+          OptionsHelper.tableThemes[2]
+        ],
+        Table.defaultProps.theme
+      );
       store.set({ sortOrder: props.sortOrder });
       store.set({ sortedColumn: props.sortColumn });
 
