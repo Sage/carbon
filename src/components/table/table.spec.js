@@ -10,13 +10,11 @@ import {
 import StyledTable, { StyledInternalTableWrapper } from './table.style';
 import StyledTableHeader from './table-header/table-header.style';
 import ActionToolbar from '../action-toolbar';
-import tableSizes from './table-sizes.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import BaseTheme from '../../style/themes/base';
 import ClassicTheme from '../../style/themes/classic';
 import SmallTheme from '../../style/themes/small';
-import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 
 describe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy, row;

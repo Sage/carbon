@@ -1,13 +1,20 @@
 import React from 'react';
 import 'jest-styled-components';
 import { shallow, mount } from 'enzyme';
+import { ThemeProvider } from 'styled-components';
 import TableCell from './table-cell.component';
 import { Table, TableRow } from '../table.component';
 import StyledTableCell from './table-cell.style';
+import StyledInputPresentation from '../../../__experimental__/components/input/input-presentation.style';
+import StyledInput from '../../../__experimental__/components/input/input.style';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import BaseTheme from '../../../style/themes/base';
 import ClassicTheme from '../../../style/themes/classic';
+import SmallTheme from '../../../style/themes/small';
+import TextArea from '../../../__experimental__/components/textarea';
+import TextBox from '../../../__experimental__/components/textbox';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import tableSizes from '../table-sizes.style.js';
 
 describe('TableCell', () => {
   let wrapper, td;
@@ -83,5 +90,69 @@ describe('TableCell', () => {
     it('include correct component, element and role data tags', () => {
       rootTagTest(wrapper2, 'table-cell', 'bar', 'baz');
     });
+  });
+
+  describe('DLS themed TableCell with inputs', () => {
+    describe.each(['compact', 'small', 'medium', 'large'])(
+      'when the table size is %s', (size) => {
+        it('renders an input that matches the expected style', () => {
+          wrapper = mount(
+            <ThemeProvider theme={ SmallTheme }>
+              <TableCell size={ size }>
+                <TextBox />
+              </TableCell>
+            </ThemeProvider>
+          );
+
+          assertStyleMatch({
+            minHeight: `${tableSizes[size].inputHeight}px`,
+            height: `${tableSizes[size].inputHeight}px`,
+            paddingLeft: tableSizes[size].paddingSize,
+            paddingRight: tableSizes[size].paddingSize,
+            position: 'relative'
+          }, wrapper, { modifier: `&& ${StyledInputPresentation}` });
+
+          assertStyleMatch({
+            fontSize: tableSizes[size].fontSize,
+            height: `${tableSizes[size].inputHeight}px`,
+            paddingTop: '0px',
+            paddingBottom: '0px'
+          }, wrapper,
+          { modifier: `&& ${StyledInput}` });
+        });
+
+        it('renders a textarea that matches the expected style', () => {
+          wrapper = mount(
+            <ThemeProvider theme={ SmallTheme }>
+              <TableCell size={ size }>
+                <TextArea />
+                <TextBox />
+              </TableCell>
+            </ThemeProvider>
+          );
+
+          assertStyleMatch({
+            minHeight: `${tableSizes[size].inputHeight}px`,
+            height: `${tableSizes[size].inputHeight * 3}px`,
+            paddingLeft: tableSizes[size].paddingSize,
+            paddingRight: tableSizes[size].paddingSize,
+            position: 'relative',
+            marginTop: '4px',
+            marginBottom: '4px'
+          }, wrapper, { modifier: `&& ${StyledInputPresentation}` });
+
+          assertStyleMatch({
+            fontSize: tableSizes[size].fontSize,
+            overflow: 'auto',
+            resize: 'none',
+            flexGrow: '1',
+            height: 'auto !important',
+            minHeight: `${tableSizes[size].inputHeight * 3}px`,
+            paddingTop: '5px',
+            paddingBottom: '5px'
+          }, wrapper, { modifier: 'textarea' });
+        });
+      }
+    );
   });
 });

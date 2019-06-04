@@ -58,24 +58,33 @@ function applyActionStyling(colors) {
 function applyModernPresentationStyling(size, isTextArea) {
   const { inputHeight, fontSize, paddingSize } = tableSizes[size];
   return `
-    ${StyledInputPresentation} {
+    && ${StyledInputPresentation} {
       min-height: ${inputHeight}px;
-      ${!isTextArea ? `height: ${inputHeight}px;` : ''};
       padding-left: ${paddingSize};
       padding-right: ${paddingSize};
       position: relative;
-      ${applyModernInputStyling(isTextArea, inputHeight, fontSize)}
+      ${additionalPresentationStyling(isTextArea, inputHeight)}
     }
+    ${applyModernInputStyling(isTextArea, inputHeight, fontSize)}
+  `;
+}
+
+function additionalPresentationStyling(isTextArea, inputHeight) {
+  if (isTextArea) {
+    return `
+      height: ${inputHeight * 3}px;
+      margin-top: 4px;
+      margin-bottom: 4px; 
+    `;
+  }
+  return `
+    height: ${inputHeight}px;
   `;
 }
 
 function applyModernInputStyling(isTextArea, inputHeight, fontSize) {
   if (isTextArea) {
     return `
-      height: ${inputHeight * 3}px;
-      margin-top: 4px;
-      margin-bottom: 4px; 
-
       textarea {
         font-size: ${fontSize};
         overflow: auto;
@@ -89,8 +98,7 @@ function applyModernInputStyling(isTextArea, inputHeight, fontSize) {
     `;
   }
   return `
-    height: ${inputHeight}px;
-    ${StyledInput} {
+    && ${StyledInput} {
       font-size: ${fontSize};
       height: ${inputHeight}px;
       padding-top: 0px;

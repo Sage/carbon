@@ -34,16 +34,7 @@ const getCommonKnobs = () => {
     caption: text('caption', 'Country and Country Codes'),
     totalRecords: text('totalRecords', '50'),
     paginate,
-    showPageSizeSelection: paginate && boolean('showPageSizeSelection', false),
-    theme: select(
-      'theme',
-      [
-        OptionsHelper.tableThemes[0],
-        OptionsHelper.tableThemes[1],
-        OptionsHelper.tableThemes[2]
-      ],
-      Table.defaultProps.theme
-    )
+    showPageSizeSelection: paginate && boolean('showPageSizeSelection', false)
   };
 };
 
@@ -190,8 +181,8 @@ const buildRowsWithInputs = ({
             key={ row.id }
             uniqueID={ row.id }
           >
-            <TableCell size={ size } isTextArea={ inputType === OptionsHelper.inputTypes[1] }>
-              { pickInput(inputType)}
+            <TableCell size={ size }>
+              { pickInput(inputType) }
             </TableCell>
             <TableCell>{row.value}</TableCell>
           </TableRow>
@@ -209,7 +200,7 @@ storiesOf('Table', module)
   })
   .add('classic', () => {
     const props = getCommonKnobs();
-    const theme = select(
+    props.theme = select(
       'theme',
       [
         OptionsHelper.tableThemes[0],
@@ -247,7 +238,6 @@ storiesOf('Table', module)
             actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
             { ...props }
             onChange={ handleChange }
-            theme={ theme }
             sortOrder={ store.sortOrder }
             sortedColumn={ store.sortedColumn }
           />
@@ -264,7 +254,15 @@ storiesOf('Table', module)
       const props = getCommonKnobs();
       props.size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
       props.isZebra = boolean('zebra striping', false);
-
+      props.theme = select(
+        'theme',
+        [
+          OptionsHelper.tableThemes[0],
+          OptionsHelper.tableThemes[1],
+          OptionsHelper.tableThemes[2]
+        ],
+        Table.defaultProps.theme
+      );
       store.set({ sortOrder: props.sortOrder });
       store.set({ sortedColumn: props.sortColumn });
 
@@ -311,6 +309,15 @@ storiesOf('Table', module)
       props.size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
       props.isZebra = boolean('zebra striping', false);
       props.inputType = select('input type', OptionsHelper.inputTypes, OptionsHelper.inputTypes[0]);
+      props.theme = select(
+        'theme',
+        [
+          OptionsHelper.tableThemes[0],
+          OptionsHelper.tableThemes[1],
+          OptionsHelper.tableThemes[2]
+        ],
+        Table.defaultProps.theme
+      );
 
       store.set({ sortOrder: props.sortOrder });
       store.set({ sortedColumn: props.sortColumn });

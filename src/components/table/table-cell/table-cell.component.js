@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledTableCell from './table-cell.style';
+import TextArea from '../../../__experimental__/components/textarea';
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
 import OptionsHelper from '../../../utils/helpers/options-helper';
@@ -20,15 +21,40 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
  */
 class TableCell extends React.Component {
   /**
+   * Returns if child element has type property.
+   */
+  childHasType(child) {
+    return child && child.type;
+  }
+
+  /**
+   * Returns if child element is Textarea.
+   */
+  childrenHasTextArea() {
+    const { children } = this.props;
+
+    if (!Array.isArray(children)) {
+      return this.childHasType(children) && children.type.name === TextArea.name;
+    }
+
+    let result = false;
+    children.forEach((child) => {
+      if (this.childHasType(child) && child.type.name === TextArea.name) {
+        result = true;
+      }
+    });
+    return result;
+  }
+
+  /**
    * Returns props to be used on the TD element.
    */
   get tableCellProps() {
     const { ...props } = validProps(this);
-
     delete props.children;
     props.align = this.props.align;
     props.size = this.props.size;
-    props.isTextArea = this.props.isTextArea;
+    props.isTextArea = this.childrenHasTextArea();
     return props;
   }
 
@@ -55,10 +81,7 @@ TableCell.propTypes = {
   children: PropTypes.node,
 
   /** Defines the height of a cell used to size an input for example */
-  size: PropTypes.oneOf(OptionsHelper.tableSizes),
-
-  /** Used to toggle the input wrapper height. */
-  isTextArea: PropTypes.bool
+  size: PropTypes.oneOf(OptionsHelper.tableSizes)
 };
 
 TableCell.defaultProps = {
