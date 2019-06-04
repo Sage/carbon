@@ -14,7 +14,8 @@ function applyModernInternalStyling({ tableType, theme }) {
   const type = convertTableType(tableType);
   return css`
     background-color: transparent;
-    border: 1px solid ${type === 'tertiary' ? 'transparent' : theme.table.primary};  `;
+    border: 1px solid ${type === 'tertiary' ? 'transparent' : theme.table.secondary};  
+  `;
 }
 
 function applyModernTableStyling({
