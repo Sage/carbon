@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
+`;
+
+exports[`Flash sliderHTML returns a div with the slider class names 1`] = `
+<ContextConsumer>
+  <Component />
+</ContextConsumer>
+`;

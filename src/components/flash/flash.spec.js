@@ -1,11 +1,17 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-import Flash from './flash';
+import Flash from './flash.component';
 import Portal from '../portal/portal';
 import guid from '../../utils/helpers/guid/guid';
+import 'jest-styled-components';
+import classic from '../../style/themes/classic';
 
 jest.mock('../../utils/helpers/guid');
+
+const render = (props, renderType = shallow) => {
+  return renderType(<Flash { ...props } />);
+};
 
 describe('Flash', () => {
   let defaultInstance, successInstance, errorInstance, warningInstance, timeoutInstance,
@@ -486,6 +492,7 @@ it('adds a click handler that closes the flash', () => {
       flashInfo = mount(
         <Flash
           message='This is some flash info'
+          theme={ classic }
           onDismiss={ () => {
             flashInfo.setProps({ open: false });
           } }
@@ -508,7 +515,7 @@ it('adds a click handler that closes the flash', () => {
         expect(outerSlider.className).toMatch('carbon-flash__slider');
       });
 
-      it('renders an inner flash element', () => {
+      fit('renders an inner flash element', () => {
         const innerFlash = flashInstance.firstChild.children[1].firstChild;
         expect(innerFlash.className).toMatch('carbon-flash__content');
       });

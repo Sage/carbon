@@ -11,6 +11,7 @@ import Icon from '../icon/icon';
 import Alert from '../alert';
 import Link from '../link';
 import tagComponent from '../../utils/helpers/tags/tags';
+import classicTheme from '../../style/themes/classic';
 import {
   FlashStyle,
   FlashSliderStyle,
@@ -359,7 +360,8 @@ Flash.defaultProps = {
   as: 'success',
   className: '',
   timeout: 0,
-  isCenter: true
+  isCenter: true,
+  theme: classicTheme
 };
 export { Flash as FlashWithoutHOC };
 export default withTheme(Flash);
