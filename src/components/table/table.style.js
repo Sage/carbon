@@ -57,8 +57,6 @@ export const StyledInternalTableWrapper = styled.div`
   overflow: visible;
   position: relative;
   
-  ${({ minHeight }) => (minHeight && css`min-height: ${minHeight};`)}
-
   ${({ onConfigure, theme }) => onConfigure && css`
     ${StyledTable} {
       border-radius: 0;

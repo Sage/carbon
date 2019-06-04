@@ -27,6 +27,8 @@ class TableCell extends React.Component {
 
     delete props.children;
     props.align = this.props.align;
+    props.size = this.props.size;
+    props.isTextArea = this.props.isTextArea;
     return props;
   }
 
@@ -50,7 +52,13 @@ TableCell.propTypes = {
   align: PropTypes.oneOf(OptionsHelper.alignFull),
 
   /** Children elements */
-  children: PropTypes.node
+  children: PropTypes.node,
+
+  /** Defines the height of a cell used to size an input for example */
+  size: PropTypes.oneOf(OptionsHelper.tableSizes),
+
+  /** Used to toggle the input wrapper height. */
+  isTextArea: PropTypes.bool
 };
 
 TableCell.defaultProps = {

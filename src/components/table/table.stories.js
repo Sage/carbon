@@ -158,7 +158,7 @@ const pickInput = (name) => {
 };
 
 const buildRowsWithInputs = ({
-  pageSize, totalRecords, inputType
+  pageSize, totalRecords, inputType, size
 }) => {
   const rowsCountries = getActiveRows(pageSize, totalRecords);
 
@@ -190,7 +190,7 @@ const buildRowsWithInputs = ({
             key={ row.id }
             uniqueID={ row.id }
           >
-            <TableCell>
+            <TableCell size={ size } isTextArea={ inputType === OptionsHelper.inputTypes[1] }>
               { pickInput(inputType)}
             </TableCell>
             <TableCell>{row.value}</TableCell>

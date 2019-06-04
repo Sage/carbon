@@ -1028,41 +1028,6 @@ describe('Table', () => {
     });
   });
 
-  describe.each(OptionsHelper.tableSizes)(
-    'the table wrapper',
-    (size) => {
-      it('does not set the min-height of the wrapper when the shrink props is true', () => {
-        const wrapper = mount(
-          <StyledInternalTableWrapper
-            onConfigure
-            theme={ SmallTheme }
-            rowTotal={ 10 }
-            rowHeight={ size }
-            shrink
-          />
-        );
-        assertStyleMatch({
-          minHeight: undefined
-        }, wrapper);
-      });
-
-      it(`renders a wrapper to match the expected style for a ${size} table and shrink is false`, () => {
-        const wrapper = mount(
-          <StyledInternalTableWrapper
-            onConfigure
-            theme={ SmallTheme }
-            rowTotal={ 10 }
-            rowHeight={ size }
-          />
-        );
-        assertStyleMatch({
-          minHeight: `${tableSizes.wrapper(10)[size]} !important`
-        }, wrapper);
-      });
-    }
-  );
-
-
   describe('tags on component', () => {
     it('include correct component, element and role data tags', () => {
       const wrapper = shallow(

@@ -46,32 +46,6 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   background-color: #F2F4F5;
 }
 
-.c0 .c4 {
-  font-size: 14px;
-  height: 32px;
-  padding-top: 0;
-  padding-bottom: 0;
-}
-
-.c0.c0 .c5 {
-  height: 32px;
-  min-height: 32px;
-  padding-left: 11px;
-  padding-right: 11px;
-}
-
-.c0.c0 textarea {
-  overflow: auto;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  resize: none;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  min-height: 32px;
-}
-
 .c0 caption {
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);

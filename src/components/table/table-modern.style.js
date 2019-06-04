@@ -2,8 +2,6 @@ import { css } from 'styled-components';
 import StyledTableCell from './table-cell/table-cell.style';
 import StyledTableHeader from './table-header/table-header.style';
 import tableSizes from './table-sizes.style';
-import StyledInputPresentation from '../../__experimental__/components/input/input-presentation.style';
-import StyledInput from '../../__experimental__/components/input/input.style';
 
 function convertTableType(type) {
   if (['primary', 'secondary', 'tertiary'].includes(type)) return type;
@@ -51,7 +49,6 @@ function applyModernTableStyling({
       }
     }
     ${type !== 'primary' && additionalThemeStyling(type, theme)}
-    ${applyInputStyling(size)}
   `;
 }
 
@@ -77,32 +74,32 @@ function additionalThemeStyling(type, { text, table, colors }) {
   `;
 }
 
-function applyInputStyling(size) {
-  const { inputHeight, fontSize, paddingSize } = tableSizes[size];
-  return `
-    ${StyledInputPresentation} {
-      min-height: ${inputHeight};
-      padding-left: ${paddingSize};
-      padding-right: ${paddingSize};
-      position: relative;
-    }
+// function applyInputStyling(size) {
+//   const { inputHeight, fontSize, paddingSize } = tableSizes[size];
+//   return `
+//     ${StyledInputPresentation} {
+//       min-height: ${inputHeight}px;
+//       padding-left: ${paddingSize};
+//       padding-right: ${paddingSize};
+//       position: relative;
+//     }
 
-    ${StyledInput} {
-      font-size: ${fontSize};
-      height: ${inputHeight};
-    }
+//     ${StyledInput} {
+//       font-size: ${fontSize};
+//       height: ${inputHeight}px;
+//     }
 
-    textarea {
-      overflow: auto;
-      padding-top: 5px;
-      padding-bottom: 5px;
-      resize: none;
-      flex-grow: 1;
-      height: auto;
-      min-height: ${inputHeight * 3};
-    }
-  `;
-}
+//     textarea {
+//       overflow: auto;
+//       padding-top: 5px;
+//       padding-bottom: 5px;
+//       resize: none;
+//       flex-grow: 1;
+//       height: auto !important;
+//       min-height: ${inputHeight * 3}px;
+//     }
+//   `;
+// }
 
 export {
   applyModernTableStyling,
