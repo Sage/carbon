@@ -318,7 +318,7 @@ class Flash extends React.Component {
         isCenter={ this.props.isCenter }
         open={ this.props.open }
         variant={ this.props.as || this.props.variant }
-        onDismiss={ this.props.onDismiss }
+        onDismiss={ this.props.timeout ? null : this.props.onDismiss }
       >
         {this.props.message}
       </Toast>
@@ -333,8 +333,8 @@ class Flash extends React.Component {
 Flash.propTypes = {
   /** Custom className */
   className: PropTypes.string,
-  /** A custom close event handler */
-  onDismiss: PropTypes.func.isRequired,
+  /** A custom close event handler. If the `onDismiss` is false then dismiss button isn't visible */
+  onDismiss: PropTypes.oneOfType([PropTypes.func, PropTypes.bool]).isRequired,
   /** Sets the open state of the flash. */
   open: PropTypes.bool.isRequired,
   /** Type of notification. Legacy standard (see the 'iconColorSets' for possible values) */
@@ -350,7 +350,7 @@ Flash.propTypes = {
   /** Time for flash to remain on screen */
   timeout: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   /** supporting legacy components. Theme help us pick up a right component */
-  theme: PropTypes.string,
+  theme: PropTypes.object,
   /** allow to center keep flash component centered */
   isCenter: PropTypes.bool
 };
@@ -361,5 +361,5 @@ Flash.defaultProps = {
   timeout: 0,
   isCenter: true
 };
-
+export { Flash as FlashWithoutHOC };
 export default withTheme(Flash);

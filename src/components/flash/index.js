@@ -1,1 +1,1 @@
-export { default } from './flash.component';
+export { default, FlashWithoutHOC } from './flash.component';

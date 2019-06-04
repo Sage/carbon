@@ -11,9 +11,10 @@ import { ThemeProvider } from 'styled-components';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
-import Flash from './flash.component';
-import Button from '../button';
+import Flash, { FlashWithoutHOC } from './flash.component';
+import Button, { OriginalButton } from '../button/button.component';
 import classicTheme from '../../style/themes/classic';
+
 
 const store = new Store({
   open: false
@@ -31,8 +32,12 @@ const openHandler = () => {
 
 storiesOf('Flash', module)
   .addParameters({
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false },
     info: {
-      propTablesExclude: [Button, State]
+      text: Info,
+      propTables: [FlashWithoutHOC],
+      propTablesExclude: [OriginalButton, State]
     }
   }).add('classic', () => {
     const message = text('message', 'This is a flash message');
@@ -75,8 +80,4 @@ storiesOf('Flash', module)
         </State>
       </div>
     );
-  }, {
-    info: { text: Info },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
   });
