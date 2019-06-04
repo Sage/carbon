@@ -29,18 +29,16 @@ const openHandler = () => {
   action('open')();
 };
 
-const message = text('message', 'This is a flash message');
-const timeout = number('timeout', 0);
-const dismissClick = timeout > 0 ? false : handleClick;
-const { colors, toast } = OptionsHelper;
-const as = isClassic => (isClassic ? select('as', colors, colors[0]) : select('as', toast, toast[0]));
-
 storiesOf('Flash', module)
   .addParameters({
     info: {
       propTablesExclude: [Button, State]
     }
   }).add('classic', () => {
+    const message = text('message', 'This is a flash message');
+    const timeout = number('timeout', 0);
+    const as = select('as', OptionsHelper.colors, OptionsHelper.colors[0]);
+
     return (
       <ThemeProvider theme={ classicTheme }>
         <>
@@ -48,10 +46,10 @@ storiesOf('Flash', module)
           <State store={ store }>
             <Flash
               open={ store.get('open') }
-              as={ as() }
+              as={ as }
               message={ message }
               timeout={ timeout >= 0 ? timeout : undefined }
-              onDismiss={ dismissClick }
+              onDismiss={ handleClick }
             />
           </State>
         </>
@@ -59,16 +57,20 @@ storiesOf('Flash', module)
     );
   })
   .add('default', () => {
+    const message = text('message', 'This is a flash message');
+    const timeout = number('timeout', 0);
+    const as = select('as', OptionsHelper.toast, OptionsHelper.toast[0]);
+
     return (
       <div>
         <Button onClick={ openHandler }>Open Flash</Button>
         <State store={ store }>
           <Flash
             open={ store.get('open') }
-            as={ as(false) }
+            as={ as }
             message={ message }
             timeout={ timeout >= 0 ? timeout : undefined }
-            onDismiss={ dismissClick }
+            onDismiss={ handleClick }
           />
         </State>
       </div>
