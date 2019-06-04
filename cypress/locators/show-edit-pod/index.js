@@ -5,7 +5,7 @@ import {
 } from './locators';
 
 // component preview locators
-export const showEditPodPreview = () => cy.iFrame(SHOW_EDIT_POD_PREVIEW);
+export const showEditPodPreview = () => cy.iFrame(SHOW_EDIT_POD_PREVIEW).children();
 export const showEditPodTitle = () => cy.iFrame(SHOW_EDIT_POD_TITLE);
 export const showEditPodSaveButton = () => cy.iFrame(SHOW_EDIT_SAVE_BUTTON);
 export const showEditPodCancelButton = () => cy.iFrame(SHOW_EDIT_CANCEL_BUTTON);

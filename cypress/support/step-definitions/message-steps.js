@@ -20,7 +20,7 @@ Then('Message component is not visible', () => {
   messagePreview().should('not.exist');
 });
 
-When('clear all events in Actions Tab', () => {
+When('clear all actions in Actions Tab', () => {
   clickActionsTab();
   clickClear();
 });

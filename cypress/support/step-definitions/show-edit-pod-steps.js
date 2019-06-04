@@ -15,42 +15,39 @@ const INNER_CONTENT_TITLE = 'title';
 const INNER_CONTENT_BODY = 'body';
 
 
-Then('Show Edit Pod {word} on preview is set to {string}', (parameter, text) => {
-  switch (parameter) {
-    case 'saveText':
-      showEditPodSaveButton().should('have.text', text);
-      break;
-    case 'cancelText':
-      showEditPodCancelButton().should('have.text', text);
-      break;
-    case 'deleteText':
-      showEditPodDeleteButton().should('have.text', text);
-      break;
-    case 'title':
-      showEditPodTitle().should('have.text', text);
-      break;
-    default:
-      throw new Error('Not a Show Edit Pod component property');
-  }
+Then('Show Edit Pod saveText on preview is set to {string}', (text) => {
+  showEditPodSaveButton().should('have.text', text);
 });
 
-When('I click onto edit button', () => {
+Then('Show Edit Pod cancelText on preview is set to {string}', (text) => {
+  showEditPodCancelButton().should('have.text', text);
+});
+
+Then('Show Edit Pod deleteText on preview is set to {string}', (text) => {
+  showEditPodDeleteButton().should('have.text', text);
+});
+
+Then('Show Edit Pod title on preview is set to {string}', (text) => {
+  showEditPodTitle().should('have.text', text);
+});
+
+When('I edit component', () => {
   showEditPodEdit().click();
 });
 
 Then('Show Edit Pod component has border property', () => {
-  showEditPodPreview().children()
+  showEditPodPreview()
     .should('not.have.class', `${SHOW_EDIT_POD_BLOCK_CONTENT}no-border`)
     .and('have.css', 'border', '1px solid rgb(204, 214, 219)');
-  showEditPodPreview().children().children()
+  showEditPodPreview().children()
     .should('not.have.class', SHOW_EDIT_POD_NO_BORDER_CONTENT);
 });
 
 Then('Show Edit Pod component has no border property', () => {
-  showEditPodPreview().children()
+  showEditPodPreview()
     .should('have.class', `${SHOW_EDIT_POD_BLOCK_CONTENT}no-border`)
     .and('have.css', 'border', '0px none rgba(0, 0, 0, 0.85)');
-  showEditPodPreview().children().children()
+  showEditPodPreview().children()
     .should('have.class', SHOW_EDIT_POD_NO_BORDER_CONTENT);
 });
 
@@ -95,21 +92,16 @@ Then('Show Edit Pod component has no saving property and should be saved manualy
     .and('have.css', 'border-color', 'rgba(0, 0, 0, 0)');
 });
 
-Then('Show Edit Pod {word} value is set to {string}', (word, property) => {
-  switch (word) {
-    case 'as':
-      showEditPodPreview().children()
-        .should('have.class', `${SHOW_EDIT_POD_BLOCK_CONTENT}${property}`);
-      showEditPodPreview().children().children()
-        .should('have.class', `${SHOW_EDIT_POD_CONTENT}${property}`);
-      break;
-    case 'buttonAlign':
-      showEditPodSecondaryWrapper()
-        .should('have.class', `${SHOW_EDIT_POD_WRAPPER}${property}`);
-      break;
-    default:
-      throw new Error('Not a Show Edit Pod component selectable property');
-  }
+Then('Show Edit Pod as value is set to {string}', (property) => {
+  showEditPodPreview()
+    .should('have.class', `${SHOW_EDIT_POD_BLOCK_CONTENT}${property}`);
+  showEditPodPreview().children()
+    .should('have.class', `${SHOW_EDIT_POD_CONTENT}${property}`);
+});
+
+Then('Show Edit Pod buttonAlign value is set to {string}', (property) => {
+  showEditPodSecondaryWrapper()
+    .should('have.class', `${SHOW_EDIT_POD_WRAPPER}${property}`);
 });
 
 When('I click delete button', () => {

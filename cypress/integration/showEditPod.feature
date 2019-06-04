@@ -5,14 +5,14 @@ Feature: Show Edit Pod component
     Given I open "ShowEditPod" component page
 
  @positive
-  Scenario: Check the content of the component 
+  Scenario: Verify the inner content of the component
     # When I open "ShowEditPod" component page
     Then Show Edit Pod component has proper content inside itself
 
   @positive
   Scenario Outline: Change Show Edit Pod cancelText to <cancelText>
     When I set cancelText to "<cancelText>"
-      And I click onto edit button
+      And I edit component
     Then Show Edit Pod cancelText on preview is set to "<cancelText>"
     Examples:
       | cancelText              |
@@ -27,7 +27,7 @@ Feature: Show Edit Pod component
   @positive
   Scenario Outline: Change Show Edit Pod deleteText to <deleteText>
     When I set deleteText to "<deleteText>"
-      And I click onto edit button
+      And I edit component
     Then Show Edit Pod deleteText on preview is set to "<deleteText>"
     Examples:
       | deleteText              |
@@ -42,7 +42,7 @@ Feature: Show Edit Pod component
   @positive
   Scenario Outline: Change Show Edit Pod saveText to <saveText>
     When I set saveText to "<saveText>"
-      And I click onto edit button
+      And I edit component
     Then Show Edit Pod saveText on preview is set to "<saveText>"
     Examples:
       | saveText                |
@@ -52,7 +52,7 @@ Feature: Show Edit Pod component
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
       # @ignore because of FE-1447
-      # | <>                       |       
+      # | <>                       |
 
   @positive
   Scenario Outline: Change Show Edit Pod title to <title>
@@ -72,7 +72,7 @@ Feature: Show Edit Pod component
   Scenario: Enable border checkbox for a Show Edit Pod component
     When I check border checkbox
     Then Show Edit Pod component has border property
-  
+
   @positive
   Scenario: Enable and disable border checkbox for a Show Edit Pod component
     When I check border checkbox
@@ -82,40 +82,40 @@ Feature: Show Edit Pod component
   @positive
   Scenario: Enable border checkbox on a secondary block for a Show Edit Pod component
     When I check border checkbox
-      And I click onto edit button
+      And I edit component
     Then Show Edit Pod component has border property
-  
+
   @positive
   Scenario: Enable and disable border checkbox on a secondary block for a Show Edit Pod component
     When I check border checkbox
       And I uncheck border checkbox
-      And I click onto edit button
+      And I edit component
     Then Show Edit Pod component has no border property
 
   @positive
   Scenario: Enable cancel checkbox for a Show Edit Pod component
     When I check cancel checkbox
-      And I click onto edit button
+      And I edit component
     Then Show Edit Pod component has a cancel button
-  
+
   @positive
   Scenario: Enable and disable cancel checkbox for a Show Edit Pod component
     When I check cancel checkbox
       And I uncheck cancel checkbox
-      And I click onto edit button
+      And I edit component
     Then Show Edit Pod component hasn't a cancel button
 
   @positive
   Scenario: Enable saving checkbox for a Show Edit Pod component
     When I check saving checkbox
-      And I click onto edit button
+      And I edit component
     Then Show Edit Pod component has saving property
-  
+
   @positive
   Scenario: Enable and disable saving checkbox for a Show Edit Pod component
     When I check saving checkbox
       And I uncheck saving checkbox
-      And I click onto edit button
+      And I edit component
     Then Show Edit Pod component has no saving property and should be saved manualy
 
   @positive
@@ -133,23 +133,23 @@ Feature: Show Edit Pod component
   @positive
   Scenario Outline: Set Show Edit Pod buttonAlign to <buttonAlign>
     When I select buttonAlign to "<buttonAlign>"
-      And I click onto edit button
+      And I edit component
     Then Show Edit Pod buttonAlign value is set to "<buttonAlign>"
     Examples:
       | buttonAlign |
       | right       |
-      | left        |    
+      | left        |
 
   @positive
-  Scenario: Check the delete click event
-    When I click onto edit button
-      And clear all events in Actions Tab
+  Scenario: Delete action was called
+    When I edit component
+      And clear all actions in Actions Tab
       And I click delete button
-    Then delete function was called in Actions Tab
+    Then delete action was called in Actions Tab
 
   @positive
-  Scenario: Check the cancel click event
-    When I click onto edit button
-      And clear all events in Actions Tab
+  Scenario: Cancel action was called
+    When I edit component
+      And clear all actions in Actions Tab
       And I click cancel button
-    Then cancel function was called in Actions Tab
+    Then cancel action was called in Actions Tab

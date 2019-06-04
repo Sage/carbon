@@ -30,7 +30,7 @@ Feature: Settings Row component
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
       # @ignore because of FE-1447
-      # | <>                       |   
+      # | <>                       |
 
   @positive
   Scenario Outline: Change Settings Row description to <description>
@@ -44,13 +44,13 @@ Feature: Settings Row component
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
       # @ignore because of FE-1447
-      # | <>                       |         
+      # | <>                       |
 
   @positive
   Scenario: Enable divider checkbox for a Settings Row component
     When I check divider checkbox
     Then Settings Row component has divider property
-  
+
   @positive
   Scenario: Enable and disable fill checkbox for a Settings Row component
     When I check divider checkbox

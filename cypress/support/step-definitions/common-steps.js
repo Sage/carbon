@@ -152,10 +152,10 @@ Then('{word} labelWidth is set to {string}', (componentName, width) => {
   label().should('have.attr', 'style', `width: ${width}%;`);
 });
 
-Then('{word} function was called in Actions Tab', (event) => {
+Then('{word} action was called in Actions Tab', (event) => {
   eventInAction(event);
 });
 
-When('I click onto cross icon', () => {
+When('I close Sidebar', () => {
   closeIconButton().click();
 });

@@ -5,23 +5,19 @@ import {
 
 const DIVIDER_CLASS = 'carbon-settings-row--has-divider';
 
-Then('Settings Row {word} on preview is set to {string}', (parameter, text) => {
-  switch (parameter) {
-    case 'title':
-      settingsRowTitle()
-        .should('have.text', `${text}`);
-      break;
-    case 'children':
-      settingsRowChildren()
-        .should('have.text', `${text}`);
-      break;
-    case 'description':
-      settingsRowDescription()
-        .should('have.text', `${text}`);
-      break;
-    default:
-      throw new Error('Not a Settings Row component input property');
-  }
+Then('Settings Row title on preview is set to {string}', (text) => {
+  settingsRowTitle()
+    .should('have.text', `${text}`);
+});
+
+Then('Settings Row children on preview is set to {string}', (text) => {
+  settingsRowChildren()
+    .should('have.text', `${text}`);
+});
+
+Then('Settings Row description on preview is set to {string}', (text) => {
+  settingsRowDescription()
+    .should('have.text', `${text}`);
 });
 
 Then('Settings Row component has divider property', () => {
