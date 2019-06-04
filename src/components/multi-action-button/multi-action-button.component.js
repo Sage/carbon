@@ -1,54 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import Icon from '../icon';
 import Button from '../button';
-import SplitButton from '../split-button/split-button';
+import SplitButton from '../split-button';
 import StyledMultiActionButton from './multi-action-button.style';
 
 class MultiActionButton extends SplitButton {
-  /**
-   * Returns classes for the component.
-   * @override
-   *
-   * @method mainClasses
-   * @return {String} Main className
-   */
-  get mainClasses() {
-    return classNames(
-      super.mainClasses, {
-        'carbon-multi-action-button--open': this.state.showAdditionalButtons,
-        'carbon-multi-action-button--align-right': this.props.align === 'right'
-      }
-    );
-  }
-
-  /**
-   * Returns classes for the additional actions.
-   * @override
-   *
-   * @method mainClasses
-   * @return {String} Main className
-   */
-  get additionalButtonsClasses() {
-    return `${super.additionalButtonsClasses
-    } carbon-multi-action-button__additional-buttons`
-      + ` carbon-multi-action-button__additional-buttons--${this.props.as}`;
-  }
-
-  /**
-   * Returns classes for the main button.
-   * @override
-   *
-   * @method mainClasses
-   * @return {String} Main className
-   */
-  get toggleButtonClasses() {
-    return `${super.toggleButtonClasses
-    } carbon-multi-action-button__toggle`
-      + ` carbon-multi-action-button__toggle--${this.props.as}`;
-  }
-
   /**
    * Returns the HTML for the main button.
    * @override
@@ -58,7 +15,15 @@ class MultiActionButton extends SplitButton {
    */
   get renderMainButton() {
     return (
-      <Button { ...this.toggleButtonProps } data-element='main-button'>
+      <Button
+        aria-haspopup='true'
+        aria-expanded={ this.state.showAdditionalButtons }
+        aria-label='Show more'
+        data-element='toggle-button'
+        key='toggle-button'
+        onKeyDown={ this.handleToggleButtonKeyDown }
+        { ...this.toggleButtonProps }
+      >
         { this.props.text}
         <Icon type='dropdown' />
       </Button>
@@ -75,7 +40,11 @@ class MultiActionButton extends SplitButton {
 
   render() {
     return (
-      <StyledMultiActionButton buttonType={ this.props.buttonType || this.props.as }>
+      <StyledMultiActionButton
+        buttonType={ this.props.buttonType || this.props.as }
+        displayed={ this.state.showAdditionalButtons }
+        align={ this.props.align }
+      >
         { super.render() }
       </StyledMultiActionButton>
     );
