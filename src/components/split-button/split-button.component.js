@@ -20,6 +20,7 @@ class SplitButton extends Component {
     this.additionalButtons = [];
     this.listening = false;
     this.isToggleButtonFocused = false;
+    this.userInputType = ('ontouchstart' in document.documentElement) ? 'touchstart' : 'click';
   }
 
   state = {
@@ -34,7 +35,7 @@ class SplitButton extends Component {
   }
 
   showButtons = () => {
-    document.addEventListener('click', this.handleClickOutside);
+    document.addEventListener(this.userInputType, this.handleClickOutside);
     this.setState({ showAdditionalButtons: true });
 
     if (!this.listening) {
@@ -47,7 +48,7 @@ class SplitButton extends Component {
     if (this.isToggleButtonFocused) return;
 
     this.setState({ showAdditionalButtons: false });
-    document.removeEventListener('click', this.handleClickOutside);
+    document.removeEventListener(this.userInputType, this.handleClickOutside);
 
     if (this.listening) {
       document.removeEventListener('keydown', this.handleKeyDown);
@@ -184,7 +185,7 @@ class SplitButton extends Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.handleClickOutside);
+    document.removeEventListener(this.userInputType, this.handleClickOutside);
   }
 
   render() {
