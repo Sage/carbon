@@ -112,8 +112,15 @@ const buildRows = ({ pageSize, totalRecords }) => {
   );
 };
 
+const roundPageValue = (value) => {
+  const roundedValue = Math.round(value);
+  if (!value || roundedValue < 1) return '1';
+  return roundedValue;
+};
+
 const setCurrentPage = ({ totalRecords, pageSize, paginate }) => {
-  const maxValidPage = Math.round(totalRecords / pageSize) + (totalRecords % pageSize);
+  const roundedValue = roundPageValue(totalRecords / pageSize);
+  const maxValidPage = roundedValue < totalRecords / pageSize ? roundedValue + 1 : roundedValue;
   const revisedPage = paginate ? maxValidPage : '1';
   const isCurrentPageValid = store.get('currentPage') <= (totalRecords / pageSize);
 
