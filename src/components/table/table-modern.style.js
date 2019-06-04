@@ -74,33 +74,6 @@ function additionalThemeStyling(type, { text, table, colors }) {
   `;
 }
 
-// function applyInputStyling(size) {
-//   const { inputHeight, fontSize, paddingSize } = tableSizes[size];
-//   return `
-//     ${StyledInputPresentation} {
-//       min-height: ${inputHeight}px;
-//       padding-left: ${paddingSize};
-//       padding-right: ${paddingSize};
-//       position: relative;
-//     }
-
-//     ${StyledInput} {
-//       font-size: ${fontSize};
-//       height: ${inputHeight}px;
-//     }
-
-//     textarea {
-//       overflow: auto;
-//       padding-top: 5px;
-//       padding-bottom: 5px;
-//       resize: none;
-//       flex-grow: 1;
-//       height: auto !important;
-//       min-height: ${inputHeight * 3}px;
-//     }
-//   `;
-// }
-
 export {
   applyModernTableStyling,
   applyModernInternalStyling

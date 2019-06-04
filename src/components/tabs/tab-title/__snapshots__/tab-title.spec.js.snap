@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TabTitle renders as expected 1`] = `
+.c0 {
+  background-color: transparent;
+  border-bottom: 2px solid #E5EAEC;
+  color: rgba(0,0,0,0.55);
+  display: inline-block;
+  font-weight: bold;
+  height: 100%;
+  margin-left: 2px;
+  padding: 11px 15px 10px;
+}
+
+.c0:first-child {
+  margin-left: 0;
+}
+
+.c0:hover,
+.c0:focus {
+  background: transparent;
+  border-bottom-color: #4CB74C;
+  color: rgba(0,0,0,0.9);
+  outline: none;
+}
+
+<li
+  className="c0"
+  title="Tab Title 1"
+/>
+`;
+
+exports[`TabTitle when in classic theme renders as expected 1`] = `
+.c0 {
+  background-color: transparent;
+  border-bottom: 2px solid #E5EAEC;
+  color: #b3c2c8;
+  display: inline-block;
+  font-weight: bold;
+  height: 100%;
+  margin-left: 2px;
+  padding: 11px 15px 10px;
+  background-color: #f5f6f7;
+  border-bottom: 2px solid #ccd6da;
+  color: #003349;
+}
+
+.c0:first-child {
+  margin-left: 0;
+}
+
+.c0:hover,
+.c0:focus {
+  background: transparent;
+  border-bottom-color: #4CB74C;
+  color: rgba(0,0,0,0.9);
+  outline: none;
+}
+
+.c0:hover {
+  background: #004b87;
+  border-bottom-color: #004b87;
+  color: #fff;
+  outline: none;
+}
+
+.c0:focus {
+  background: #004b87;
+  border-bottom-color: #004b87;
+  color: #fff;
+  outline: none;
+}
+
+<li
+  className="c0"
+  title="Tab Title 1"
+/>
+`;

@@ -103,7 +103,15 @@ class TableAjax extends Table {
      * @type {Boolean}
 
      */
-    postAction: PropTypes.bool
+    postAction: PropTypes.bool,
+
+    /**
+     * Enable the ability to send cookies from the origin.
+     *
+     * @property withCredentials
+     * @type: {Boolean}
+     */
+    withCredentials: PropTypes.bool
   }
 
   static defaultProps = {
@@ -336,22 +344,20 @@ class TableAjax extends Table {
       if (this.props.postAction) {
         this._request = Request.post(this.props.path)
           .set(this.getHeaders())
-          .send(this.queryParams(element, options))
-          .end((err, response) => {
-            this._hasRetreivedData = true;
-            this.handleResponse(err, response);
-            if (resetHeight) { this.resetTableHeight(); }
-          });
+          .send(this.queryParams(element, options));
       } else {
         this._request = Request.get(this.props.path)
           .set(this.getHeaders())
-          .query(this.queryParams(element, options))
-          .end((err, response) => {
-            this._hasRetreivedData = true;
-            this.handleResponse(err, response);
-            if (resetHeight) { this.resetTableHeight(); }
-          });
+          .query(this.queryParams(element, options));
       }
+
+      if (this.props.withCredentials) this._request.withCredentials();
+
+      this._request.end((err, response) => {
+        this._hasRetreivedData = true;
+        this.handleResponse(err, response);
+        if (resetHeight) { this.resetTableHeight(); }
+      });
     }, timeout);
   }
 

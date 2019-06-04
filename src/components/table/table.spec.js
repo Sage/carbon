@@ -527,7 +527,7 @@ describe('Table', () => {
       instance.resetTableHeight();
       jest.runTimersToTime(0);
 
-      expect(instance._wrapper.style.minHeight).toEqual('50px');
+      expect(instance._wrapper.style.minHeight).toEqual('49px');
       expect(instance.tableHeight).toEqual('50');
     });
   });
@@ -541,7 +541,7 @@ describe('Table', () => {
 
         instance.resizeTable();
 
-        expect(instance._wrapper.style.minHeight).toEqual('50px');
+        expect(instance._wrapper.style.minHeight).toEqual('49px');
         expect(instance.tableHeight).toEqual('50');
       });
     });
@@ -587,7 +587,7 @@ describe('Table', () => {
 
           instance.resizeTable();
 
-          expect(instance._wrapper.style.minHeight).toEqual('10px');
+          expect(instance._wrapper.style.minHeight).toEqual('9px');
           expect(instance.tableHeight).toEqual('10');
         });
       });

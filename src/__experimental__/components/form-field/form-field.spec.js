@@ -33,12 +33,25 @@ describe('FormField', () => {
   });
 
   describe('with fieldHelp', () => {
-    it('renders the FieldHelp component below the childen', () => {
-      expect(render({
-        fieldHelp: 'Help me!',
-        labelInline: true,
-        labelWidth: 20
-      }).children()).toMatchSnapshot();
+    describe('default', () => {
+      it('renders the FieldHelp component below the childen', () => {
+        expect(render({
+          fieldHelp: 'Help me!',
+          labelInline: true,
+          labelWidth: 20
+        }).children()).toMatchSnapshot();
+      });
+    });
+
+    describe('and fieldHelpInline=true', () => {
+      it('renders the FieldHelp component below the childen', () => {
+        expect(render({
+          fieldHelp: 'Help me!',
+          fieldHelpInline: true,
+          labelInline: true,
+          labelWidth: 20
+        }).children()).toMatchSnapshot();
+      });
     });
   });
 

@@ -371,6 +371,25 @@ describe('TableHeader', () => {
       th = wrapper.find('th').hostNodes();
       expect(th).toMatchSnapshot();
     });
+
+    it('renders a th to match the expected default style when a width is provided', () => {
+      wrapper = mount(
+        <Table>
+          <TableRow>
+            <TableHeader
+              align='right'
+              sortable
+              width='200'
+            />
+          </TableRow>
+        </Table>
+      );
+      th = wrapper.find('th').hostNodes();
+
+      assertStyleMatch({
+        width: '200px'
+      }, th);
+    });
   });
 
   describe('tags on component', () => {
