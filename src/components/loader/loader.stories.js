@@ -26,13 +26,13 @@ storiesOf('Loader', module)
     () => {
       const size = select('size', OptionsHelper.sizesBinary, Loader.defaultProps.size);
       const isInsideButton = boolean('isInsideButton', true);
-      const state = isInsideButton ? select('state', ['on', 'off'], Loader.defaultProps.state) : undefined;
+      const loading = isInsideButton ? select('state', OptionsHelper.loading, Loader.defaultProps.state) : undefined;
 
       return (
-        <Button buttonType='primary' disabled={ state === 'off' }>
+        <Button buttonType='primary' disabled={ loading === 'off' }>
           <Loader
             size={ size } isInsideButton={ isInsideButton }
-            state={ state }
+            loading={ loading }
           />
         </Button>
       );

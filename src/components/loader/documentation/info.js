@@ -9,7 +9,9 @@ const info = (
 
     <p>Import the component:</p>
 
-    <StoryCode padded>i{'mport Loader from "carbon-react/lib/components/loader"'}</StoryCode>
+    <StoryCode padded>
+      {'import Loader from "carbon-react/lib/components/loader"'}
+    </StoryCode>
 
     <p>
       You can pass a <StoryCode> {'size'} </StoryCode> property to adjust the size of the loader.
