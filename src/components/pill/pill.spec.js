@@ -10,6 +10,7 @@ import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import smallTheme from '../../style/themes/small';
 import classicTheme from '../../style/themes/classic';
+import baseTheme from '../../style/themes/base';
 
 const classicStyleTypes = [
   'default',
@@ -157,23 +158,39 @@ describe('Pill', () => {
                 padding: '2px 27px 2px 8px'
               }, wrapper);
             });
+            describe('when the component is in a filled state', () => {
+              const style = 'neutral';
+              const fillWrapper = render({
+                children: 'My Text',
+                onDelete: jest.fn(),
+                as: style,
+                fill: true,
+                theme
+              });
+              it(`matches the expected filled styling for ${style}`, () => {
+                assertStyleMatch({
+                  backgroundColor: styleSet.colors[style]
+                }, fillWrapper);
+              });
+            });
           });
 
           describe.each(modernStyleTypes)(
             'when the pill style is set as "%s"',
             (style) => {
-              const wrapper = render({
-                children: 'My Text',
-                as: style,
-                theme
-              });
+              describe('when storybook supplies the correct theme', () => {
+                const wrapper = render({
+                  children: 'My Text',
+                  as: style,
+                  theme
+                });
 
-              it(`matches the expected styling for ${style}`, () => {
-                assertStyleMatch({
-                  border: `2px solid ${styleSet.colors[style]}`
-                }, wrapper);
+                it(`matches the expected styling for ${style}`, () => {
+                  assertStyleMatch({
+                    border: `2px solid ${styleSet.colors[style]}`
+                  }, wrapper);
+                });
               });
-
               describe('when the component is in a filled state', () => {
                 const fillWrapper = render({
                   children: 'My Text',
@@ -201,7 +218,6 @@ describe('Pill', () => {
         </ThemeProvider>
       );
     };
-
     it('matches the expected styles for a default pill', () => {
       const wrapper = renderClassic({ children: 'My Text', theme: classicTheme }, TestRenderer.create).toJSON();
       assertStyleMatch({
@@ -227,6 +243,21 @@ describe('Pill', () => {
         assertStyleMatch({
           padding: '2px 19px 2px 7px'
         }, wrapper);
+      });
+      describe('when the component is in a filled state', () => {
+        const fillWrapper = render({
+          children: 'My Text',
+          onDelete: jest.fn(),
+          fill: true,
+          theme: classicTheme
+        });
+        it('matches the expected filled styling', () => {
+          const style = 'default';
+          const colourSet = classicStyleConfig[style];
+          assertStyleMatch({
+            backgroundColor: colourSet.color
+          }, fillWrapper);
+        });
       });
     });
 
@@ -263,5 +294,55 @@ describe('Pill', () => {
         });
       }
     );
+  });
+
+  describe('base theme', () => {
+    const renderBase = (props, renderer = mount) => {
+      return renderer(
+        <ThemeProvider theme={ baseTheme }>
+          <Pill { ...props } />
+        </ThemeProvider>
+      );
+    };
+    it('switches to use the modern small theme', () => {
+      const wrapper = renderBase({
+        children: 'My Text',
+        theme: baseTheme
+      }, TestRenderer.create).toJSON();
+      assertStyleMatch({
+        borderRadius: '12px',
+        fontSize: '14px',
+        fontWeight: '600',
+        position: 'relative',
+        top: '-1px',
+        padding: '2px 8px 2px 8px',
+        margin: '0px 8px 16px 0px'
+      }, wrapper);
+    });
+  });
+  describe('when storybook supplies classic theme with a modern colour variant', () => {
+    const renderBase = (props, renderer = mount) => {
+      return renderer(
+        <ThemeProvider theme={ classicTheme }>
+          <Pill { ...props } />
+        </ThemeProvider>
+      );
+    };
+    it('switches to use the modern small theme', () => {
+      const wrapper = renderBase({
+        children: 'My Text',
+        as: 'neutral',
+        theme: classicTheme
+      }, TestRenderer.create).toJSON();
+      assertStyleMatch({
+        borderRadius: '12px',
+        fontSize: '14px',
+        fontWeight: '600',
+        position: 'relative',
+        top: '-1px',
+        padding: '2px 8px 2px 8px',
+        margin: '0px 8px 16px 0px'
+      }, wrapper);
+    });
   });
 });
