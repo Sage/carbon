@@ -412,7 +412,7 @@ class Table extends React.Component {
     }
 
     return {
-      // What if paginate if false - think about when next change functionality is added
+      // What if paginate is false - think about when next change functionality is added
       currentPage,
       filter: props.filter ? props.filter.toJS() : {},
       pageSize: props.pageSize || '',

@@ -172,6 +172,7 @@ const buildRowsWithInputs = ({
           sortable
           scope='col'
           name='code'
+          width='200'
         >
         Code
         </TableHeader>
@@ -193,6 +194,14 @@ const buildRowsWithInputs = ({
   );
 };
 
+const setCurrentPage = ({ totalRecords, pageSize, paginate }) => {
+  const pages = totalRecords / pageSize;
+  const maxValidPage = (pageSize && paginate) ? Math.max(Math.ceil(pages), 1) : '1';
+  const isCurrentPageValid = store.get('currentPage') <= pages;
+
+  return isCurrentPageValid ? store.get('currentPage') : maxValidPage;
+};
+
 storiesOf('Table', module)
   .addParameters({
     info: {
@@ -201,6 +210,7 @@ storiesOf('Table', module)
   })
   .add('classic', () => {
     const props = getCommonKnobs();
+    store.set({ currentPage: setCurrentPage(props) });
     props.theme = select(
       'theme',
       [
@@ -253,9 +263,18 @@ storiesOf('Table', module)
     'default',
     () => {
       const props = getCommonKnobs();
+      store.set({ currentPage: setCurrentPage(props) });
       props.size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
       props.isZebra = boolean('zebra striping', false);
-      props.theme = select('theme', OptionsHelper.tableThemes, Table.defaultProps.theme);
+      props.theme = select(
+        'theme',
+        [
+          OptionsHelper.tableThemes[0],
+          OptionsHelper.tableThemes[1],
+          OptionsHelper.tableThemes[2]
+        ],
+        Table.defaultProps.theme
+      );
 
       store.set({ sortOrder: props.sortOrder });
       store.set({ sortedColumn: props.sortColumn });
@@ -300,10 +319,19 @@ storiesOf('Table', module)
     'with inputs',
     () => {
       const props = getCommonKnobs();
+      store.set({ currentPage: setCurrentPage(props) });
       props.size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
       props.isZebra = boolean('zebra striping', false);
       props.inputType = select('input type', OptionsHelper.inputTypes, OptionsHelper.inputTypes[0]);
-      props.theme = select('theme', OptionsHelper.tableThemes, Table.defaultProps.theme);
+      props.theme = select(
+        'theme',
+        [
+          OptionsHelper.tableThemes[0],
+          OptionsHelper.tableThemes[1],
+          OptionsHelper.tableThemes[2]
+        ],
+        Table.defaultProps.theme
+      );
 
       store.set({ sortOrder: props.sortOrder });
       store.set({ sortedColumn: props.sortColumn });
