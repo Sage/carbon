@@ -176,15 +176,8 @@ storiesOf('Table', module)
       store.set({ currentPage: setCurrentPage(props) });
       props.size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
       props.isZebra = boolean('zebra striping', false);
-      props.theme = select(
-        'theme',
-        [
-          OptionsHelper.tableThemes[0],
-          OptionsHelper.tableThemes[1],
-          OptionsHelper.tableThemes[2]
-        ],
-        Table.defaultProps.theme
-      );
+      props.theme = select('theme', OptionsHelper.tableThemes, Table.defaultProps.theme);
+
       store.set({ sortOrder: props.sortOrder });
       store.set({ sortedColumn: props.sortColumn });
 
