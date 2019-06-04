@@ -11,19 +11,39 @@ import {
   Table, TableCell, TableHeader, TableRow
 } from '.';
 import classic from '../../style/themes/classic';
+import small from '../../style/themes/small';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 
-const getSortKnobs = () => {
+const getCommonKnobs = () => {
+  const paginate = boolean('paginate', false);
+
   return {
     sortOrder: select('sortOrder', ['', 'asc', 'desc'], ''),
-    sortColumn: select('sortColumn', ['', 'name', 'code'], '')
+    sortColumn: select('sortColumn', ['', 'name', 'code'], ''),
+    pageSize: text('pageSize', '5'),
+    selectable: boolean('selectable', false),
+    highlightable: boolean('highlightable', false),
+    shrink: boolean('shrink', false),
+    caption: text('caption', 'Country and Country Codes'),
+    totalRecords: text('totalRecords', '50'),
+    paginate,
+    showPageSizeSelection: paginate && boolean('showPageSizeSelection', false),
+    theme: select(
+      'theme',
+      [
+        OptionsHelper.tableThemes[0],
+        OptionsHelper.tableThemes[1],
+        OptionsHelper.tableThemes[2]
+      ],
+      Table.defaultProps.theme
+    )
   };
 };
 
 const store = new Store({
-  sortOrder: getSortKnobs().sortOrder,
-  sortedColumn: getSortKnobs().sortedColumn,
+  sortOrder: getCommonKnobs().sortOrder,
+  sortedColumn: getCommonKnobs().sortedColumn,
   currentPage: '1',
   children: undefined
 });
@@ -43,14 +63,19 @@ const recordsForActivePage = (start, end) => {
   return records.slice(start, end).toJS();
 };
 
-const buildRows = (pageSize, totalRecords) => {
+const getActiveRows = (pageSize, totalRecords) => {
   const currentPage = store.get('currentPage');
   const candidateIndex = pageSize * currentPage;
 
   const endIndex = (candidateIndex <= totalRecords) ? candidateIndex : totalRecords;
   const currentPageSize = (endIndex === totalRecords) ? (endIndex % pageSize) : pageSize;
   const startIndex = endIndex - currentPageSize;
-  const rowsCountries = recordsForActivePage(startIndex, endIndex);
+
+  return recordsForActivePage(startIndex, endIndex);
+};
+
+const buildRows = ({ pageSize, totalRecords }) => {
+  const rowsCountries = getActiveRows(pageSize, totalRecords);
 
   return (
     <>
@@ -70,7 +95,6 @@ const buildRows = (pageSize, totalRecords) => {
           sortable
           scope='col'
           name='code'
-          width='200'
         >
         Code
         </TableHeader>
@@ -88,6 +112,14 @@ const buildRows = (pageSize, totalRecords) => {
   );
 };
 
+const setCurrentPage = ({ totalRecords, pageSize, paginate }) => {
+  const maxValidPage = Math.round(totalRecords / pageSize) + (totalRecords % pageSize);
+  const revisedPage = paginate ? maxValidPage : '1';
+  const isCurrentPageValid = store.get('currentPage') <= (totalRecords / pageSize);
+
+  return isCurrentPageValid ? store.get('currentPage') : revisedPage;
+};
+
 storiesOf('Table', module)
   .addParameters({
     info: {
@@ -95,15 +127,8 @@ storiesOf('Table', module)
     }
   })
   .add('classic', () => {
-    const props = getSortKnobs();
-    const pageSize = text('pageSize', '5');
-    const selectable = boolean('selectable', false);
-    const highlightable = boolean('highlightable', false);
-    const shrink = boolean('shrink', false);
-    const caption = text('Caption', 'Country and Country Codes');
-    const totalRecords = text('totalRecords', '50');
-    const paginate = boolean('paginate', false);
-    const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
+    const props = getCommonKnobs();
+    store.set({ currentPage: setCurrentPage(props) });
     const theme = select(
       'theme',
       [
@@ -118,8 +143,10 @@ storiesOf('Table', module)
 
     return (
       <ThemeProvider theme={ classic }>
-        <State store={ store } parseState={ state => ({ ...state, children: buildRows(pageSize, totalRecords) }) }>
-
+        <State
+          store={ store }
+          parseState={ state => ({ ...state, children: buildRows(props) }) }
+        >
           <Table
             actionToolbarChildren={ (context) => {
               return [
@@ -137,21 +164,13 @@ storiesOf('Table', module)
               ];
             } }
             path='/countries'
-            caption={ caption }
-            shrink={ shrink }
-            highlightable={ highlightable }
-            pageSize={ pageSize }
-            selectable={ selectable }
-            paginate={ paginate }
             actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
-            totalRecords={ totalRecords }
-            showPageSizeSelection={ showPageSizeSelection }
+            { ...props }
             onChange={ handleChange }
             theme={ theme }
             sortOrder={ store.sortOrder }
             sortedColumn={ store.sortedColumn }
           />
-
         </State>
       </ThemeProvider>
     );
@@ -162,66 +181,43 @@ storiesOf('Table', module)
   .add(
     'default',
     () => {
-      const props = getSortKnobs();
-      const pageSize = text('pageSize', '5');
-      const selectable = boolean('selectable', false);
-      const highlightable = boolean('highlightable', false);
-      const shrink = boolean('shrink', false);
-      const caption = text('Caption', 'Country and Country Codes');
-      const totalRecords = text('totalRecords', '50');
-      const paginate = boolean('paginate', false);
-      const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
-      const theme = select(
-        'theme',
-        [
-          OptionsHelper.tableThemes[0],
-          OptionsHelper.tableThemes[1],
-          OptionsHelper.tableThemes[2]
-        ],
-        Table.defaultProps.theme
-      );
-      const size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
-      const isZebra = boolean('zebra striping', false);
+      const props = getCommonKnobs();
+      store.set({ currentPage: setCurrentPage(props) });
+      props.size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
+      props.isZebra = boolean('zebra striping', false);
 
       store.set({ sortOrder: props.sortOrder });
       store.set({ sortedColumn: props.sortColumn });
 
       return (
-        <State store={ store } parseState={ state => ({ ...state, children: buildRows(pageSize, totalRecords) }) }>
-
-          <Table
-            actionToolbarChildren={ (context) => {
-              return [
-                <Button disabled={ context.disabled } key='single-action'>
+        <ThemeProvider theme={ small }>
+          <State
+            store={ store }
+            parseState={ state => ({ ...state, children: buildRows(props) }) }
+          >
+            <Table
+              actionToolbarChildren={ (context) => {
+                return [
+                  <Button disabled={ context.disabled } key='single-action'>
                     Test Action
-                </Button>,
-                <MultiActionButton
-                  text='Actions' disabled={ context.disabled }
-                  key='multi-actions'
-                >
-                  <Button>foo</Button>
-                  <Button>bar</Button>
-                  <Button>qux</Button>
-                </MultiActionButton>
-              ];
-            } }
-            path='/countries'
-            caption={ caption }
-            shrink={ shrink }
-            highlightable={ highlightable }
-            pageSize={ pageSize }
-            selectable={ selectable }
-            paginate={ paginate }
-            actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
-            totalRecords={ totalRecords }
-            showPageSizeSelection={ showPageSizeSelection }
-            onChange={ handleChange }
-            theme={ theme }
-            size={ size }
-            isZebra={ isZebra }
-          />
-
-        </State>
+                  </Button>,
+                  <MultiActionButton
+                    text='Actions' disabled={ context.disabled }
+                    key='multi-actions'
+                  >
+                    <Button>foo</Button>
+                    <Button>bar</Button>
+                    <Button>qux</Button>
+                  </MultiActionButton>
+                ];
+              } }
+              path='/countries'
+              actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
+              onChange={ handleChange }
+              { ...props }
+            />
+          </State>
+        </ThemeProvider>
       );
     },
     {
