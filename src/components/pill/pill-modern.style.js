@@ -2,7 +2,9 @@ import { css } from 'styled-components';
 import modernConfig from './pill-modern.config';
 import { THEMES } from '../../style/themes';
 
-export default ({ styledAs, theme,  inFill, isDeletable }) => {
+export default ({
+  styledAs, theme, inFill, isDeletable
+}) => {
   // default theme to small where no theme provided
   theme.name = (theme.name === THEMES.base) ? THEMES.small : theme.name;
   const styleSet = modernConfig[theme.name];
