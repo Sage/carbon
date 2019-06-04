@@ -19,7 +19,7 @@ const store = new Store({
   open: false
 });
 
-const dismissHandler = () => {
+const handleClick = () => {
   store.set({ open: false });
   action('cancel')();
 };
@@ -29,27 +29,29 @@ const openHandler = () => {
   action('open')();
 };
 
+const message = text('message', 'This is a flash message');
+const timeout = number('timeout', 0);
+const dismissClick = timeout > 0 ? false : handleClick;
+const { colors, toast } = OptionsHelper;
+const as = isClassic => (isClassic ? select('as', colors, colors[0]) : select('as', toast, toast[0]));
+
 storiesOf('Flash', module)
   .addParameters({
     info: {
       propTablesExclude: [Button, State]
     }
   }).add('classic', () => {
-    const as = select('as', OptionsHelper.colors, OptionsHelper.colors[0]);
-    const message = text('message', 'This is a flash message');
-    const timeout = number('timeout', 0);
     return (
-
       <ThemeProvider theme={ classicTheme }>
         <>
           <Button onClick={ openHandler }>Open Flash</Button>
           <State store={ store }>
             <Flash
               open={ store.get('open') }
-              as={ as }
+              as={ as() }
               message={ message }
               timeout={ timeout >= 0 ? timeout : undefined }
-              onDismiss={ dismissHandler }
+              onDismiss={ dismissClick }
             />
           </State>
         </>
@@ -57,20 +59,16 @@ storiesOf('Flash', module)
     );
   })
   .add('default', () => {
-    const as = select('as', OptionsHelper.toast, OptionsHelper.toast[0]);
-    const message = text('message', 'This is a flash message');
-    const timeout = number('timeout', 0);
-
     return (
       <div>
         <Button onClick={ openHandler }>Open Flash</Button>
         <State store={ store }>
           <Flash
             open={ store.get('open') }
-            as={ as }
+            as={ as(false) }
             message={ message }
             timeout={ timeout >= 0 ? timeout : undefined }
-            onDismiss={ dismissHandler }
+            onDismiss={ dismissClick }
           />
         </State>
       </div>

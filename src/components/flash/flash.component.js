@@ -316,6 +316,7 @@ class Flash extends React.Component {
     return (
       <Toast
         isCenter={ this.props.isCenter }
+        open={ this.props.open }
         variant={ this.props.as || this.props.variant }
         onDismiss={ this.props.onDismiss }
       >
