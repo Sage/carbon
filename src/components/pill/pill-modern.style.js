@@ -2,8 +2,7 @@ import { css } from 'styled-components';
 import modernConfig from './pill-modern.config';
 import { THEMES } from '../../style/themes';
 
-export default (props) => {
-  const { theme, styledAs } = props;
+export default ({ styledAs, theme,  inFill, isDeletable }) => {
   // default theme to small where no theme provided
   theme.name = (theme.name === THEMES.base) ? THEMES.small : theme.name;
   const styleSet = modernConfig[theme.name];
@@ -18,7 +17,7 @@ export default (props) => {
       top: -1px;
       margin: 0px 8px 16px 0px;
     
-      ${props.inFill && css`
+      ${inFill && css`
       background-color: ${styleSet.colors[styledAs]};
       color: #FFFFFF;
 
@@ -27,11 +26,11 @@ export default (props) => {
       }
     `}
 
-      ${!props.isDeletable && css`
+      ${!isDeletable && css`
         padding: 2px 8px 2px 8px;
       `}
 
-      ${props.isDeletable && css`
+      ${isDeletable && css`
       padding: 2px 27px 2px 8px;
 
         button {
@@ -47,11 +46,11 @@ export default (props) => {
           top: 0;
           width: 17px;
   
-          ${props.inFill && css`
+          ${inFill && css`
             background-color: ${styleSet.colors[styledAs]};
           `}
   
-          ${!props.inFill && css`
+          ${!inFill && css`
             background-color: transparent;
           `}
   
@@ -68,7 +67,7 @@ export default (props) => {
               font-size: 12px;
             }
   
-            ${props.inFill && css`
+            ${inFill && css`
               .carbon-icon {
                 color: ${styleSet.colors[styledAs]};
               }

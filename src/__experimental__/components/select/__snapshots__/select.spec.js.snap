@@ -221,7 +221,6 @@ Array [
   >
     <Pill
       as="default"
-      className=""
       fill={false}
       onClick={null}
       onDelete={[Function]}
@@ -235,7 +234,6 @@ Array [
   >
     <Pill
       as="default"
-      className=""
       fill={false}
       onClick={null}
       onDelete={[Function]}
@@ -249,7 +247,6 @@ Array [
   >
     <Pill
       as="default"
-      className=""
       fill={false}
       onClick={null}
       onDelete={[Function]}

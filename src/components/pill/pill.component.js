@@ -49,11 +49,6 @@ Pill.propTypes = {
   children: PropTypes.string.isRequired,
 
   /**
-   * A custom class name for the component.
-   */
-  className: PropTypes.string,
-
-  /**
    * Fills the pill background with colour. When fill is false only the border is coloured.
    */
   fill: PropTypes.bool,
@@ -72,7 +67,6 @@ Pill.propTypes = {
 Pill.defaultProps = {
   as: 'default',
   fill: false,
-  className: '',
   onClick: null,
   onDelete: null
 };

@@ -2,61 +2,52 @@ import { css } from 'styled-components';
 
 export const classicStyleConfig = {
   disabled: {
-    color: '#CCD6DA',
-    bgColor: '#CCD6DA'
+    color: '#CCD6DA'
   },
   default: {
     color: '#335B6D',
-    bgColor: '#335B6D',
-    hoverBgColor: '#004b87',
+    hoverBackgroundColor: '#004b87',
     hoverColor: '#FFFFFF'
   },
   error: {
     color: '#C7384F',
-    bgColor: '#C7384F',
-    hoverBgColor: '#C11E20',
+    hoverBackgroundColor: '#C11E20',
     hoverColor: '#FFFFFF'
   },
   help: {
     color: '#FFAB00',
-    bgColor: '#FFAB00',
-    hoverBgColor: '#FFDA7F',
+    hoverBackgroundColor: '#FFDA7F',
     hoverColor: '#FFFFFF'
   },
   info: {
     color: '#1573E6',
-    bgColor: '#1573E6',
-    hoverBgColor: '#1573E6',
+    hoverBackgroundColor: '#1573E6',
     hoverColor: '#FFFFFF'
   },
   maintenance: {
     color: '#FF7D00',
-    bgColor: '#FF7D00',
-    hoverBgColor: '#FF5400',
+    hoverBackgroundColor: '#FF5400',
     hoverColor: '#FFFFFF'
   },
   warning: {
     color: '#FF7D00',
-    bgColor: '#FF7D00',
-    hoverBgColor: '#FF5400',
+    hoverBackgroundColor: '#FF5400',
     hoverColor: '#FFFFFF'
   },
   new: {
     color: '#663399',
-    bgColor: '#663399',
-    hoverBgColor: '#E0D6EB',
+    hoverBackgroundColor: '#E0D6EB',
     hoverColor: '#FFFFFF'
   },
   success: {
     color: '#50B848',
-    bgColor: '#50B848',
-    hoverBgColor: '#4782F7',
+    hoverBackgroundColor: '#4782F7',
     hoverColor: '#FFFFFF'
   }
 };
 
-export default (props) => {
-  const colourSet = classicStyleConfig[props.styledAs];
+export default ({ styledAs, inFill, isDeletable }) => {
+  const colourSet = classicStyleConfig[styledAs];
 
   return css`
     border-radius: 10px; 
@@ -73,10 +64,10 @@ export default (props) => {
       line-height: 13px;
     }
    
-    border: 1px solid ${colourSet.bgColor};
+    border: 1px solid ${colourSet.color};
     color: ${colourSet.color};
 
-    ${props.styledAs !== 'disabled' && `
+    ${styledAs !== 'disabled' && `
       .carbon-icon{
         &:hover,
           &:focus {
@@ -84,8 +75,8 @@ export default (props) => {
           }
       }
     `}
-    ${props.inFill && css`
-      background-color: ${colourSet.bgColor};
+    ${inFill && css`
+      background-color: ${colourSet.color};
       color: #FFFFFF;
 
       .carbon-icon.icon-cross {
@@ -93,11 +84,11 @@ export default (props) => {
       }
     `}
 
-    ${!props.isDeletable && css`
+    ${!isDeletable && css`
       padding: 2px 7px;
     `}
 
-    ${props.isDeletable && css`
+    ${isDeletable && css`
       padding: 2px 19px 2px 7px;
 
       button {
@@ -113,17 +104,17 @@ export default (props) => {
         top: 0;
         width: 17px;
 
-        ${props.inFill && css`
+        ${inFill && css`
           background-color: ${colourSet.color};
         `}
 
-        ${!props.inFill && css`
+        ${!inFill && css`
           background-color: transparent;
           color: ${colourSet.color};
         `}
 
           &:hover {
-            background-color: ${colourSet.hoverBgColor};
+            background-color: ${colourSet.hoverBackgroundColor};
             color: ${colourSet.hoverColor};
           }
         .carbon-icon {
@@ -134,7 +125,7 @@ export default (props) => {
             font-size: 9px;
           }
 
-          ${props.inFill && css`
+          ${inFill && css`
             .carbon-icon {
               color: ${colourSet.color};
             }
