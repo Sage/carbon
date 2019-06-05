@@ -32,6 +32,11 @@ const OptionsHelper = {
     'white'
   ],
 
+  buttonIconPositions: [
+    'before',
+    'after'
+  ],
+
   colors: [
     'default',
     'error',
@@ -43,9 +48,14 @@ const OptionsHelper = {
     'warning'
   ],
 
+  toast: [
+    'success',
+    'error'
+  ],
+
   messages: [
-    'error',
     'info',
+    'error',
     'success',
     'warning'
   ],
@@ -101,6 +111,8 @@ const OptionsHelper = {
     'edit',
     'edited',
     'email',
+    'ellipsis_horizontal',
+    'ellipsis_vertical',
     'error',
     'favourite',
     'favourite_lined',
@@ -225,6 +237,14 @@ const OptionsHelper = {
   ],
 
   themesBinary: [
+    'primary',
+    'secondary',
+    'tertiary',
+    'destructive',
+    'darkBackground'
+  ],
+
+  themesBinaryClassic: [
     'primary',
     'secondary'
   ],

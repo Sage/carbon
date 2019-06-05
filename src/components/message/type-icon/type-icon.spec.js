@@ -1,7 +1,5 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
-import { shallow } from 'enzyme';
-import TypeIcon from './type-icon.component';
 import TypeIconStyle from './type-icon.style';
 import 'jest-styled-components';
 import OptionsHelper from '../../../utils/helpers/options-helper';
@@ -14,15 +12,10 @@ function render(props) {
 
 describe('TypeIcon', () => {
   describe('when rendered', () => {
-    it('should match the snapshot', () => {
-      const wrapper = shallow(<TypeIcon />);
-      expect(wrapper).toMatchSnapshot();
-    });
-
     describe('with no additional props', () => {
-      OptionsHelper.messages.forEach((messageType) => {
-        it(`should match the snapshot for ${messageType}`, () => {
-          const wrapper = render({ messageType });
+      OptionsHelper.messages.forEach((variant) => {
+        it(`should match the snapshot for ${variant}`, () => {
+          const wrapper = render({ variant });
           expect(wrapper).toMatchSnapshot();
         });
       });
@@ -31,8 +24,8 @@ describe('TypeIcon', () => {
 
   describe('when transparent prop is set to true', () => {
     it('applies white background and the type icon with the proper style applied', () => {
-      OptionsHelper.messages.forEach((messageType) => {
-        const wrapper = render({ transparent: true, messageType });
+      OptionsHelper.messages.forEach((variant) => {
+        const wrapper = render({ transparent: true, variant });
         expect(wrapper).toMatchSnapshot();
       });
     });
@@ -40,9 +33,9 @@ describe('TypeIcon', () => {
 
   describe('when in classic theme', () => {
     describe('when rendered', () => {
-      OptionsHelper.colors.forEach((messageType) => {
-        it(`should match the snapshot for ${messageType}`, () => {
-          const wrapper = render({ messageType, theme: classicTheme });
+      OptionsHelper.colors.forEach((variant) => {
+        it(`should match the snapshot for ${variant}`, () => {
+          const wrapper = render({ variant, theme: classicTheme });
           expect(wrapper).toMatchSnapshot();
         });
       });
@@ -66,9 +59,9 @@ describe('TypeIcon', () => {
     });
 
     describe('when transparent prop is set to true', () => {
-      OptionsHelper.colors.forEach((messageType) => {
-        it(`applies white background and the type icon with the proper style applied for ${messageType}`, () => {
-          const wrapper = render({ transparent: true, messageType, theme: classicTheme });
+      OptionsHelper.colors.forEach((variant) => {
+        it(`applies white background and the type icon with the proper style applied for ${variant}`, () => {
+          const wrapper = render({ transparent: true, variant, theme: classicTheme });
           expect(wrapper).toMatchSnapshot();
         });
       });

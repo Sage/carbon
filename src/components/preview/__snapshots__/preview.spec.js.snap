@@ -1,0 +1,163 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Preview when given a width and height renders with the given width and height 1`] = `
+.c1 {
+  -webkit-animation: blNbyL 2s ease infinite;
+  animation: blNbyL 2s ease infinite;
+  background: #BFCCD1;
+  display: block;
+  height: 15px;
+  opacity: 0.6;
+  width: 100%;
+}
+
+.c1 + .c0 {
+  margin-top: 3px;
+}
+
+<span
+  className="c0 c1"
+  data-component="preview"
+  style={
+    Object {
+      "height": "20px",
+      "width": "10px",
+    }
+  }
+/>
+`;
+
+exports[`Preview when given children but a truthy loading prop will render the placeholder 1`] = `
+.c1 {
+  -webkit-animation: blNbyL 2s ease infinite;
+  animation: blNbyL 2s ease infinite;
+  background: #BFCCD1;
+  display: block;
+  height: 15px;
+  opacity: 0.6;
+  width: 100%;
+}
+
+.c1 + .c0 {
+  margin-top: 3px;
+}
+
+<span
+  className="c0 c1"
+  data-component="preview"
+  style={
+    Object {
+      "height": undefined,
+      "width": undefined,
+    }
+  }
+/>
+`;
+
+exports[`Preview when given children will render the children 1`] = `"This is some text"`;
+
+exports[`Preview when given no children and a falsy loading prop will render nothing 1`] = `null`;
+
+exports[`Preview when given no children will render the placeholder 1`] = `
+.c1 {
+  -webkit-animation: blNbyL 2s ease infinite;
+  animation: blNbyL 2s ease infinite;
+  background: #BFCCD1;
+  display: block;
+  height: 15px;
+  opacity: 0.6;
+  width: 100%;
+}
+
+.c1 + .c0 {
+  margin-top: 3px;
+}
+
+<span
+  className="c0 c1"
+  data-component="preview"
+  style={
+    Object {
+      "height": undefined,
+      "width": undefined,
+    }
+  }
+/>
+`;
+
+exports[`Preview when multi line renders multi previews, the last being 80% width 1`] = `
+Array [
+  .c1 {
+  -webkit-animation: blNbyL 2s ease infinite;
+  animation: blNbyL 2s ease infinite;
+  background: #BFCCD1;
+  display: block;
+  height: 15px;
+  opacity: 0.6;
+  width: 100%;
+}
+
+.c1 + .c0 {
+  margin-top: 3px;
+}
+
+<span
+    className="c0 c1"
+    data-component="preview"
+    style={
+      Object {
+        "height": undefined,
+        "width": undefined,
+      }
+    }
+  />,
+  .c1 {
+  -webkit-animation: blNbyL 2s ease infinite;
+  animation: blNbyL 2s ease infinite;
+  background: #BFCCD1;
+  display: block;
+  height: 15px;
+  opacity: 0.6;
+  width: 100%;
+}
+
+.c1 + .c0 {
+  margin-top: 3px;
+}
+
+<span
+    className="c0 c1"
+    data-component="preview"
+    style={
+      Object {
+        "height": undefined,
+        "width": undefined,
+      }
+    }
+  />,
+  .c1 {
+  -webkit-animation: blNbyL 2s ease infinite;
+  animation: blNbyL 2s ease infinite;
+  background: #BFCCD1;
+  display: block;
+  height: 15px;
+  opacity: 0.6;
+  width: 100%;
+}
+
+.c1 + .c0 {
+  margin-top: 3px;
+}
+
+<span
+    className="c0 c1"
+    data-component="preview"
+    style={
+      Object {
+        "height": undefined,
+        "width": "80%",
+      }
+    }
+  />,
+]
+`;

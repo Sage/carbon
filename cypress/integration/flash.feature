@@ -6,7 +6,7 @@ Feature: Flash component
 
   @positive
   Scenario Outline: Change as property
-    When I set as property to "<as>"
+    When I select as to "<as>"
       And I open component preview
     Then Flash as is set to "<as>" and icon is set to "<icon>"
     Examples:

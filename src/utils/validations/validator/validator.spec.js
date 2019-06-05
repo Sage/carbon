@@ -110,12 +110,12 @@ describe('validator', () => {
 
     it('handles legacy validations in an array and returns an error message when the promise rejects', async () => {
       const validate = await runValidation([presVal, isNotZero], '');
-      expect(validate).toEqual(legacyErr.message);
+      expect(validate.message).toEqual(legacyErr.message);
     });
 
     it('handles a single legacy validation and returns the error message when the promise rejects', async () => {
       const validate = await runValidation(presVal, '');
-      expect(validate).toEqual(legacyErr.message);
+      expect(validate.message).toEqual(legacyErr.message);
     });
   });
 });

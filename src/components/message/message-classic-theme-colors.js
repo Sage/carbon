@@ -40,6 +40,6 @@ export default {
     main: '#639'
   },
   transparent: {
-    backgroundColor: '#FFFFFF'
+    backgroundColor: 'transparent'
   }
 };

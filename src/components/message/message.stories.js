@@ -9,7 +9,7 @@ import Message from './message.component';
 storiesOf('Message', module).add(
   'default',
   () => {
-    const messageType = select('type', OptionsHelper.messages, Message.defaultProps.messageType);
+    const variant = select('type', OptionsHelper.messages, Message.defaultProps.variant);
     const open = boolean('open', Message.defaultProps.open);
     const title = text('title');
     const transparent = boolean('transparent', Message.defaultProps.transparent);
@@ -21,7 +21,7 @@ storiesOf('Message', module).add(
 
     return (
       <Message
-        messageType={ messageType } open={ open }
+        variant={ variant } open={ open }
         title={ title } transparent={ transparent }
         onDismiss={ testOnDismiss }
       >

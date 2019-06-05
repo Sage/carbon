@@ -15,7 +15,7 @@ install:
 script:
   - npm run lint ./src && npm test -- --maxWorkers=2
 
-before_deploy: if [ "$TRAVIS_BRANCH" == "release" ]; then npm run build; fi
+before_deploy: if [ "$TRAVIS_BRANCH" == "release" ]; then ASSETS_PREFIX=https://carbon.sage.com npm run build; fi
 
 deploy:
   - provider: s3

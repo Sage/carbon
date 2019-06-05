@@ -1,12 +1,16 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import MessageStyle from './message.style';
 import Message from './message.component';
+import baseTheme from '../../style/themes/base';
 import classicTheme from '../../style/themes/classic';
-import CloseIcon from './close-icon/close-icon.component';
+import smallTheme from '../../style/themes/small';
+import mediumTheme from '../../style/themes/medium';
+import largeTheme from '../../style/themes/large';
+import CloseIcon from '../dismiss-button';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
 function render(props) {
@@ -14,28 +18,35 @@ function render(props) {
 }
 
 describe('Message', () => {
-  describe('when in small/medium/large theme', () => {
-    let wrapper;
-    beforeEach(() => {
-      wrapper = shallow(<Message>Message</Message>);
-    });
+  describe.each(['small', smallTheme], ['medium', mediumTheme], ['large', largeTheme])(
+    'rendered', (name, theme) => {
+      let wrapper;
+      beforeEach(() => {
+        wrapper = shallow(<Message theme={ theme }>Message</Message>);
+      });
 
-    it('should match the snapshot', () => {
-      expect(wrapper).toMatchSnapshot();
-    });
+      it(`should have the expected style for ${name}`, () => {
+        assertStyleMatch({
+          position: 'relative',
+          display: 'flex',
+          justifyContent: 'flex-start',
+          alignContent: 'center'
+        }, mount(<Message theme={ theme }>Message</Message>));
+      });
 
-    it('does not render the close icon when onDismiss prop is not provided', () => {
-      const closeIcon = wrapper.find(CloseIcon);
-      expect(closeIcon.exists()).toEqual(false);
-    });
+      it('does not render the close icon when onDismiss prop is not provided', () => {
+        const closeIcon = wrapper.find(CloseIcon);
+        expect(closeIcon.exists()).toEqual(false);
+      });
 
-    it('renders the close icon when onDismiss function is provided', () => {
-      const onDismiss = jest.fn();
-      wrapper.setProps({ onDismiss });
-      const closeIcon = wrapper.find(CloseIcon);
-      expect(closeIcon.exists()).toEqual(true);
-    });
-  });
+      it('renders the close icon when onDismiss function is provided', () => {
+        const onDismiss = jest.fn();
+        wrapper.setProps({ onDismiss });
+        const closeIcon = wrapper.find(CloseIcon);
+        expect(closeIcon.exists()).toEqual(true);
+      });
+    }
+  );
 
   describe('when transparent prop is set to true', () => {
     it('should render the message without the border', () => {
@@ -56,8 +67,9 @@ describe('Message', () => {
   describe('when transparent prop is not passed', () => {
     it('should render the message with border in a proper color and a white background', () => {
       OptionsHelper.messages.forEach((messageType) => {
-        const wrapper = render({ messageType });
-        expect(wrapper).toMatchSnapshot();
+        assertStyleMatch({
+          border: `1px solid ${baseTheme.colors[messageType]}`
+        }, mount(<Message variant={ messageType }>Message</Message>));
       });
     });
   });
@@ -65,25 +77,25 @@ describe('Message', () => {
   describe('when in classic mode', () => {
     describe('when rendered', () => {
       it('should match the snapshot', () => {
-        OptionsHelper.colors.forEach((messageType) => {
-          const wrapper = render({ theme: classicTheme, messageType });
+        OptionsHelper.colors.forEach((variant) => {
+          const wrapper = render({ theme: classicTheme, variant });
           expect(wrapper).toMatchSnapshot();
         });
       });
     });
 
     describe('when transparent prop is set to true', () => {
-      it('should render the message without the border and background color in white', () => {
+      it('should render the message without the border and with background transparent', () => {
         const wrapper = render({
           transparent: true,
           theme: classicTheme,
-          messageType: 'info'
+          variant: 'info'
         });
 
         assertStyleMatch(
           {
             border: 'none',
-            backgroundColor: '#FFFFFF'
+            backgroundColor: 'transparent'
           },
           wrapper.toJSON()
         );
@@ -95,7 +107,7 @@ describe('Message', () => {
         const wrapper = render({
           border: false,
           theme: classicTheme,
-          messageType: 'info'
+          variant: 'info'
         });
 
         assertStyleMatch(
@@ -112,7 +124,7 @@ describe('Message', () => {
         const wrapper = render({
           roundedCorners: false,
           theme: classicTheme,
-          messageType: 'info'
+          variant: 'info'
         });
 
         assertStyleMatch(

@@ -1,6 +1,4 @@
-import {
-  ALERT_DIALOG, ALERT_HEIGHT,
-} from './locators';
+import { ALERT_DIALOG, ALERT_HEIGHT } from './locators';
 
 // component preview locators
 export const alertDialogPreview = () => cy.iFrame(ALERT_DIALOG);

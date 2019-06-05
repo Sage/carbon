@@ -101,8 +101,12 @@ class Tooltip extends React.Component {
      * @property onMouseLeave
      * @type {Function}
      */
-    onMouseLeave: PropTypes.func
+    onMouseLeave: PropTypes.func,
 
+    /**
+     * Defines the message type
+     */
+    type: PropTypes.string
   };
 
   static defaultProps = {
@@ -123,6 +127,7 @@ class Tooltip extends React.Component {
       'carbon-tooltip',
       `carbon-tooltip--position-${this.props.position}`,
       `carbon-tooltip--pointer-align-${this.props.align}`,
+      `carbon-tooltip--type-${this.props.type}`,
       this.props.className
     );
   }

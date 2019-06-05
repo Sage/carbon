@@ -5,7 +5,7 @@ Feature: Content component
     Given I open "Content" component page
 
   @positive
-  Scenario Outline: Change children in Content dialog
+  Scenario Outline: Change children in Content dialog to <children>
     When I set children to "<children>"
     Then content children on preview is "<children>"
     Examples:
@@ -15,10 +15,11 @@ Feature: Content component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
-  Scenario Outline: Change title in Content dialog
+  Scenario Outline: Change title in Content dialog to <title>
     When I set title to "<title>"
     Then content title context children on preview is "<title>"
     Examples:
@@ -28,11 +29,12 @@ Feature: Content component
       | áéíóú¿¡üñ                |
       | !@#$%^*()_+-=~[];:.,?{}  |
       | ÄÖÜßäöüß                 |
-      | <>                       |
+      # @ignore because of FE-1447
+      # | <>                       |
 
   @positive
   Scenario Outline: Change property in Content dialog
-    When I set as property to "<property>"
+    When I select as to "<property>"
     Then content as property is set to "<property>"
     Examples:
       | property   |
@@ -41,7 +43,7 @@ Feature: Content component
 
   @positive
   Scenario Outline: Change alignProperty in Content dialog
-    When I set align property to "<alignProperty>"
+    When I select align to "<alignProperty>"
     Then content align property is set to "<alignProperty>"
     Examples:
       | alignProperty |
@@ -63,7 +65,7 @@ Feature: Content component
   @positive
   Scenario Outline: Inline enabled and change title width
     When I check inline checkbox
-      And I set titleWidth parameter to "<width>"
+      And I set titleWidth to "<width>"
     Then content preview has inline parameter enabled
       And content preview width is "<width>"
     Examples:

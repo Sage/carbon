@@ -1,7 +1,9 @@
 import React from 'react';
 import { mount } from 'enzyme';
 import 'jest-styled-components';
+import { assertStyleMatch } from '../../../../__spec_helper__/test-utils';
 import classicTheme from '../../../../style/themes/classic';
+import baseTheme from '../../../../style/themes/base';
 import CharacterCount from '.';
 
 describe('CharacterCount', () => {
@@ -13,14 +15,23 @@ describe('CharacterCount', () => {
 
   describe('when rendered', () => {
     it('should render default', () => {
-      expect(wrapper).toMatchSnapshot();
+      assertStyleMatch({
+        textAlign: 'right',
+        fontSize: '12px',
+        marginTop: '4px',
+        marginBottom: '4px',
+        color: baseTheme.disabled.disabled
+      }, wrapper);
     });
   });
 
   describe('when isOverLimit prop is true', () => {
     it('should be styled for warn over limit', () => {
       wrapper.setProps({ isOverLimit: true });
-      expect(wrapper).toMatchSnapshot();
+      assertStyleMatch({
+        fontWeight: '700',
+        color: baseTheme.colors.error
+      }, wrapper);
     });
   });
 
@@ -30,13 +41,19 @@ describe('CharacterCount', () => {
     });
 
     it('should apply classic styling', () => {
-      expect(wrapper).toMatchSnapshot();
+      assertStyleMatch({
+        textAlign: 'right',
+        marginTop: '4px',
+        marginBottom: '4px'
+      }, wrapper);
     });
 
     describe('when isOverLimit prop is true', () => {
       it('should be styled for warn over limit', () => {
         wrapper.setProps({ isOverLimit: true });
-        expect(wrapper).toMatchSnapshot();
+        assertStyleMatch({
+          color: baseTheme.colors.error
+        }, wrapper);
       });
     });
   });

@@ -1,15 +1,21 @@
-import { visitComponentUrl, setSlidebar, pressESCKey } from '../helper';
 import {
-  asSelect, sizeSelect, commonButtonPreview, labelPreview, helpIcon, inputWidthSlider,
-  fieldHelpPreview, labelWidthSlider, labelAlignSelect, alignSelect, backgroundUILocator,
-  closeIconButton, labelHelpPreview, getKnobsInput,
+  visitComponentUrl, setSlidebar, pressESCKey, pressTABKey,
+} from '../helper';
+import {
+  commonButtonPreview, labelPreview, helpIcon, inputWidthSlider, fieldHelpPreview,
+  labelWidthSlider, backgroundUILocator, closeIconButton, tooltipPreview, getKnobsInput,
+  icon, inputWidthPreview, label,
 } from '../../locators';
-
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
-import { themeSelect } from '../../locators/button';
+
+const LABEL_INPUT_INLINE_CLASS = 'common-input__label--inline';
 
 Given('I open {string} component page', (component) => {
   visitComponentUrl(component);
+});
+
+Given('I open {string} component page classic', (component) => {
+  visitComponentUrl(component, 'classic');
 });
 
 Given('I open {string} component page with button', (component) => {
@@ -28,16 +34,8 @@ When('I set {word} to empty', (propertyName) => {
   getKnobsInput(propertyName).clear();
 });
 
-When('I set as property to {string}', (asProperty) => {
-  asSelect().select(asProperty);
-});
-
-When('I set component size to {string}', (size) => {
-  sizeSelect().select(size);
-});
-
-When('I set component theme property to {string}', (theme) => {
-  themeSelect().select(theme);
+When('I select {word} to {string}', (propertyName, selection) => {
+  getKnobsInput(propertyName).select(selection);
 });
 
 When('I open component preview', () => {
@@ -52,23 +50,28 @@ Then('component subtitle on preview is {string}', (subtitle) => {
   dialogSubtitle().should('have.text', subtitle);
 });
 
-Then('label on preview is {string}', (label) => {
-  labelPreview().should('have.text', label);
+Then('label on preview is {string}', (text) => {
+  labelPreview().should('have.text', text);
 });
 
 When('I hover mouse onto help icon', () => {
   helpIcon().trigger('mouseover');
 });
 
-Then('Label help on preview is set to {string}', (text) => {
-  labelHelpPreview().should('have.text', text);
+When('I hover mouse onto icon', () => {
+  cy.wait(100); // required becasue element might be reloaded
+  icon().trigger('mouseover');
 });
 
-When('I set input width slider to {int}', (width) => {
+Then('tooltipPreview on preview is set to {string}', (text) => {
+  tooltipPreview().should('have.text', text);
+});
+
+When('I set inputWidth slider to {int}', (width) => {
   setSlidebar(inputWidthSlider(), width);
 });
 
-Then('Field help on preview is set to {string}', (text) => {
+Then('fieldHelp on preview is set to {string}', (text) => {
   fieldHelpPreview().should('have.text', text);
 });
 
@@ -76,21 +79,13 @@ When('I set label width slider to {int}', (width) => {
   setSlidebar(labelWidthSlider(), width);
 });
 
-When('I set label align {string}', (direction) => {
-  labelAlignSelect().select(direction);
-});
-
-Then('direction on preview is {string}', (direction) => {
+Then('labelAlign on preview is {string}', (direction) => {
   if (direction === 'left') {
     // left is default property that's why it's absent inside class
     labelPreview().should('not.have.class', `common-input__label--align-${direction}`);
   } else {
     labelPreview().should('have.class', `common-input__label--align-${direction}`);
   }
-});
-
-When('I set align property to {string}', (asProperty) => {
-  alignSelect().select(asProperty);
 });
 
 Then('Background UI is enabled', () => {
@@ -117,6 +112,10 @@ When('I hit ESC key', () => {
   pressESCKey();
 });
 
+When('I hit Tab key', () => {
+  pressTABKey();
+});
+
 When('I disable {word} component', () => {
   getKnobsInput('disabled').check();
 });
@@ -131,4 +130,24 @@ When('I check {word} checkbox', (checkboxName) => {
 
 When('I uncheck {word} checkbox', (checkboxName) => {
   getKnobsInput(checkboxName).uncheck();
+});
+
+Then('inputWidth is set to {string}', (width) => {
+  inputWidthPreview().should('have.attr', 'style').should('contain', `width: ${width}%`);
+});
+
+Then('inputWidth is not set', () => {
+  inputWidthPreview().should('not.have.attr', 'style');
+});
+
+Then('{word} labelInline is enabled', () => {
+  label().should('have.class', LABEL_INPUT_INLINE_CLASS);
+});
+
+Then('{word} labelInline is disabled', () => {
+  label().should('not.have.class', LABEL_INPUT_INLINE_CLASS);
+});
+
+Then('{word} labelWidth is set to {string}', (componentName, width) => {
+  label().should('have.attr', 'style', `width: ${width}%;`);
 });
