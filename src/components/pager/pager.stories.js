@@ -4,8 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { number, boolean } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
 import Pager from './pager.component';
-import notes from './documentation';
-import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
+import { Info, notes } from './documentation';
 
 const store = new Store({
   currentPage: '1',
@@ -89,25 +88,7 @@ storiesOf('Pager', module)
     info: {
       propTablesExclude: [State],
       TableComponent,
-      text: (
-        <div>
-          <p>A Pager widget.</p>
-
-          <StoryHeader>Implementation</StoryHeader>
-
-          <p>In your file</p>
-
-          <StoryCode padded>
-            {'import Pager from "carbon-react/lib/components/pager";'}
-          </StoryCode>
-
-          <p>To render a Pager:</p>
-
-          <StoryCode padded>
-            {'<Pager currentPage="1" totalRecords="100" onPagination={ function(){} } />'}
-          </StoryCode>
-        </div>
-      )
+      text: Info
     },
     notes: { markdown: notes }
   });
