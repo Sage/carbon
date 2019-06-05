@@ -1,19 +1,15 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-import Flash from './flash.component';
+import FlashLegacy from './flash-legacy.component';
 import Portal from '../portal/portal';
 import guid from '../../utils/helpers/guid/guid';
 import 'jest-styled-components';
-import classic from '../../style/themes/classic';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 jest.mock('../../utils/helpers/guid');
 
-const render = (props, renderType = shallow) => {
-  return renderType(<Flash { ...props } />);
-};
-
-describe('Flash', () => {
+describe('FlashLegacy', () => {
   let defaultInstance, successInstance, errorInstance, warningInstance, timeoutInstance,
       customIconInstance, dismissHandler;
 
@@ -21,14 +17,14 @@ describe('Flash', () => {
     dismissHandler = jasmine.createSpy('dismiss');
 
     defaultInstance = TestUtils.renderIntoDocument(
-      <Flash
+      <FlashLegacy
         open onDismiss={ dismissHandler }
         message='Danger Will Robinson!'
       />
     );
 
     successInstance = TestUtils.renderIntoDocument(
-      <Flash
+      <FlashLegacy
         open onDismiss={ dismissHandler }
         message='Danger Will Robinson!'
         className='lost-in-space' as='success'
@@ -36,7 +32,7 @@ describe('Flash', () => {
     );
 
     errorInstance = TestUtils.renderIntoDocument(
-      <Flash
+      <FlashLegacy
         open onDismiss={ dismissHandler }
         message='Danger Will Robinson!'
         as='error'
@@ -44,7 +40,7 @@ describe('Flash', () => {
     );
 
     warningInstance = TestUtils.renderIntoDocument(
-      <Flash
+      <FlashLegacy
         open onDismiss={ dismissHandler }
         message='Danger Will Robinson!'
         as='warning'
@@ -52,7 +48,7 @@ describe('Flash', () => {
     );
 
     timeoutInstance = TestUtils.renderIntoDocument(
-      <Flash
+      <FlashLegacy
         open={ false } onDismiss={ dismissHandler }
         message='Danger Will Robinson!'
         as='warning' timeout={ 2000 }
@@ -60,7 +56,7 @@ describe('Flash', () => {
     );
 
     customIconInstance = TestUtils.renderIntoDocument(
-      <Flash
+      <FlashLegacy
         open onDismiss={ dismissHandler }
         message='Danger Will Robinson!'
         as='special'
@@ -76,7 +72,7 @@ describe('Flash', () => {
     describe('when this.props.open is true', () => {
       it('sets this.state.open to true', () => {
         const wrapper = shallow(
-          <Flash
+          <FlashLegacy
             open
             { ...commonProps }
           />
@@ -88,7 +84,7 @@ describe('Flash', () => {
     describe('when this.props.open is false', () => {
       it('sets this.state.open to false', () => {
         const wrapper = shallow(
-          <Flash
+          <FlashLegacy
             open={ false }
             { ...commonProps }
           />
@@ -146,7 +142,7 @@ describe('Flash', () => {
     describe('when the flash is open and a timeout was passed', () => {
       it('calls the dismissHandler after a timeout', () => {
         timeoutInstance = TestUtils.renderIntoDocument(
-          <Flash
+          <FlashLegacy
             open onDismiss={ dismissHandler }
             message='Danger Will Robinson!'
             as='warning' timeout={ 2000 }
@@ -169,7 +165,7 @@ describe('Flash', () => {
     describe('when a dialog is open', () => {
       it('does not update state or call the dismissHandler', () => {
         timeoutInstance = TestUtils.renderIntoDocument(
-          <Flash
+          <FlashLegacy
             open onDismiss={ dismissHandler }
             message='Danger Will Robinson!'
             as='warning' timeout={ 2000 }
@@ -187,7 +183,7 @@ describe('Flash', () => {
 
       beforeEach(() => {
         closedInstance = TestUtils.renderIntoDocument(
-          <Flash
+          <FlashLegacy
             open={ false } onDismiss={ dismissHandler }
             message='Danger Will Robinson!'
           />
@@ -316,7 +312,7 @@ describe('Flash', () => {
     describe('when not an object', () => {
       it('returns itself', () => {
         const instance = TestUtils.renderIntoDocument(
-          <Flash
+          <FlashLegacy
             open onDismiss={ dismissHandler }
             message='Danger Will Robinson!'
           />
@@ -329,7 +325,7 @@ describe('Flash', () => {
       describe('with no description', () => {
         it('returns itself', () => {
           const instance = TestUtils.renderIntoDocument(
-            <Flash
+            <FlashLegacy
               open onDismiss={ dismissHandler }
               message={ { other: 'Danger Will Robinson!' } }
             />
@@ -341,7 +337,7 @@ describe('Flash', () => {
       describe('with a description', () => {
         it('returns the description', () => {
           const instance = TestUtils.renderIntoDocument(
-            <Flash
+            <FlashLegacy
               open onDismiss={ dismissHandler }
               message={ { description: 'Danger Will Robinson!' } }
             />
@@ -357,7 +353,7 @@ describe('Flash', () => {
     beforeEach(() => {
       jest.useFakeTimers();
       flashInfo = mount(
-        <Flash
+        <FlashLegacy
           message='This is some flash info'
           onDismiss={ () => {
             flashInfo.setProps({ open: false });
@@ -394,52 +390,27 @@ describe('Flash', () => {
       expect(flashInfo.instance().removePortalTimeout).toBe(null);
     });
 
-    it('should be success by default', () => {
-      flashInfo.setProps({ open: true });
-      jest.runTimersToTime(0);
-      expect(flashInfo.find(Portal).find('.carbon-flash--success').length).toEqual(1);
-      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-tick').length).toEqual(1);
-    });
+    describe('When component rendered', () => {
+      const iconVariant = {
+        default: 'default',
+        success: 'tick',
+        maintenance: 'settings',
+        info: 'info',
+        help: 'question',
+        error: 'error',
+        new: 'gift',
+        warning: 'warning'
+      };
 
-    it('should be maintenance', () => {
-      flashInfo.setProps({ open: true, as: 'maintenance' });
-      jest.runTimersToTime(0);
-      expect(flashInfo.find(Portal).find('.carbon-flash--maintenance').length).toEqual(1);
-      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-settings').length).toEqual(1);
-    });
-
-    it('should be help', () => {
-      flashInfo.setProps({ open: true, as: 'help' });
-      jest.runTimersToTime(0);
-      expect(flashInfo.find(Portal).find('.carbon-flash--help').length).toEqual(1);
-      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-question').length).toEqual(1);
-    });
-
-    it('should be error', () => {
-      flashInfo.setProps({ open: true, as: 'error' });
-      jest.runTimersToTime(0);
-      expect(flashInfo.find(Portal).find('.carbon-flash--error').length).toEqual(1);
-      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-error').length).toEqual(1);
-    });
-
-    it('should be new', () => {
-      flashInfo.setProps({ open: true, as: 'new' });
-      jest.runTimersToTime(0);
-      expect(flashInfo.find(Portal).find('.carbon-flash--new').length).toEqual(1);
-      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-gift').length).toEqual(1);
-    });
-
-    it('should be warning', () => {
-      flashInfo.setProps({ open: true, as: 'warning' });
-      jest.runTimersToTime(0);
-      expect(flashInfo.find(Portal).find('.carbon-flash--warning').length).toEqual(1);
-      expect(flashInfo.find(Portal).find('.carbon-flash__icon.icon-warning').length).toEqual(1);
-    });
-
-    it('adds the message', () => {
-      flashInfo.setProps({ open: true, as: 'warning' });
-      jest.runTimersToTime(0);
-      expect(flashInfo.find(Portal).find('.carbon-flash--warning').length).toEqual(1);
+      describe.each(OptionsHelper.colors)(
+        'when %s is passed to component',
+        (variant) => {
+          it(`should render ${variant} variant of the FlashLegacy component`, () => {
+            flashInfo.setProps({ open: true, as: variant });
+            expect(flashInfo.find(`.carbon-flash__icon.icon-${iconVariant[variant]}`).length).toEqual(1);
+          });
+        }
+      );
     });
 
     describe('when no timeout is passed', () => {
@@ -461,17 +432,11 @@ it('adds a click handler that closes the flash', () => {
         expect(flashInfo.find(Portal).find('.carbon-flash__close.icon-close').length).toEqual(0);
       });
     });
-
-    it('returns a div with the flash class names', () => {
-      flashInfo.setProps({ open: true });
-      const contentHTML = flashInfo.find('.carbon-flash__content');
-      expect(contentHTML.length).toEqual(1);
-    });
   });
 
   describe('sliderHTML', () => {
     const wrapper = shallow(
-      <Flash
+      <FlashLegacy
         open
         onDismiss={ dismissHandler }
         message='Danger Will Robinson!'
@@ -490,9 +455,8 @@ it('adds a click handler that closes the flash', () => {
     beforeEach(() => {
       jest.useFakeTimers();
       flashInfo = mount(
-        <Flash
+        <FlashLegacy
           message='This is some flash info'
-          theme={ classic }
           onDismiss={ () => {
             flashInfo.setProps({ open: false });
           } }
@@ -502,22 +466,18 @@ it('adds a click handler that closes the flash', () => {
       );
       flashInfo.setProps({ open: true });
       jest.runTimersToTime(0);
-      flashInstance = flashInfo.find(Portal).find('.carbon-flash').instance();
+      flashInstance = flashInfo.find(Portal).find('div[data-element="flash"]');
     });
 
     describe('when the flash is open', () => {
-      it('renders a parent div with default mainClasses attached', () => {
-        expect(flashInstance.className).toMatch('carbon-flash carbon-flash--success');
-      });
-
       it('renders an outer slider element', () => {
-        const outerSlider = flashInstance.firstChild.children[0];
-        expect(outerSlider.className).toMatch('carbon-flash__slider');
+        const outerSlider = flashInstance.find('div[data-element="flash-slider"]');
+        expect(outerSlider).toBeTruthy();
       });
 
-      fit('renders an inner flash element', () => {
-        const innerFlash = flashInstance.firstChild.children[1].firstChild;
-        expect(innerFlash.className).toMatch('carbon-flash__content');
+      it('renders an inner flash element', () => {
+        const innerFlash = flashInfo.find('div[data-element="flash-content"]');
+        expect(innerFlash).toBeTruthy();
       });
     });
   });
@@ -527,7 +487,7 @@ it('adds a click handler that closes the flash', () => {
 
     jest.useFakeTimers();
     const flashInfo = shallow(
-      <Flash
+      <FlashLegacy
         data-element='bar'
         message='bun::more::dy'
         onDismiss={ () => {} }
