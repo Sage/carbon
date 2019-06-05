@@ -14,7 +14,7 @@ Feature: Pod component
     When I check border checkbox
       And I uncheck border checkbox
     Then Pod component has no border
-  
+
   @positive
   Scenario Outline: Change Pod children to <children>
     When I set children to "<children>"
@@ -28,7 +28,7 @@ Feature: Pod component
       | ÄÖÜßäöüß                |
       # @ignore because of FE-1447
       # | <>                       |
-  
+
   @positive
   Scenario Outline: Set Pod padding to <padding>
     When I select padding to "<padding>"
@@ -40,7 +40,7 @@ Feature: Pod component
       | medium      |
       | large       |
       | extra-large |
-  
+
   @positive
   Scenario Outline: Set Pod as align to <as>
     When I select as to "<as>"
@@ -52,7 +52,7 @@ Feature: Pod component
       | tertiary    |
       | tile        |
       | transparent |
-  
+
   @positive
   Scenario Outline: Change Pod title to <title>
     When I set title to "<title>"
@@ -80,7 +80,7 @@ Feature: Pod component
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
       # @ignore because of FE-1447
-      # | <>                       |    
+      # | <>                       |
 
   @positive
   Scenario Outline: Change Pod alignTitle to <alignTitle>
@@ -93,7 +93,7 @@ Feature: Pod component
       | alignTitle |
       | center     |
       | right      |
-      | left       | 
+      | left       |
 
   @positive
   Scenario Outline: Change Pod description to <description>
@@ -107,7 +107,7 @@ Feature: Pod component
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
       # @ignore because of FE-1447
-      # | <>                       |    
+      # | <>                       |
 
   @positive
   Scenario Outline: Change Pod footer to <footer>
@@ -121,7 +121,7 @@ Feature: Pod component
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
       # @ignore because of FE-1447
-      # | <>                       |      
+      # | <>                       |
 
   @positive
   Scenario: Enable and disable onEdit checkbox for a Pod component
@@ -137,9 +137,9 @@ Feature: Pod component
   @positive
   Scenario: Enable onEdit checkbox and check the edit event
     When I check onEdit checkbox
-      And clear all events in Actions Tab
+      And clear all actions in Actions Tab
       And I click onEdit icon
-    Then edit function was called in Actions Tab
+    Then edit action was called in Actions Tab
 
   @positive
   Scenario: Enable onEdit checkbox and check the editContentFullWidth checkbox
@@ -160,7 +160,7 @@ Feature: Pod component
     When I check onEdit checkbox
       And I check triggerEditOnContent checkbox
     Then Pod component has triggerEditOnContent property
-  
+
   @positive
   Scenario: Enable onEdit checkbox and check the internalEditButton checkbox
     When I check onEdit checkbox
