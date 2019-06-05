@@ -2,7 +2,6 @@ import {
   podPreview, podPreviewBorder, podChildren,
   podTitle, podSubTitle, podDescription, podFooter, podEdit,
 } from '../../locators/pod';
-import { pressTABKey } from '../helper';
 
 const POD_BLOCK_PROPERTY = 'carbon-pod__block';
 const POD_DIV_PROPERTY = 'carbon-pod';
