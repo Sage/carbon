@@ -4,9 +4,10 @@ exports[`Modal backgroundHTML when enableBackgroundUI is false renders children 
 <Portal
   key="1"
 >
-  <div
+  <styled.div
     className={null}
     data-state="open"
+    transitionName="modal"
   >
     <CSSTransitionGroup
       component="div"
@@ -18,8 +19,9 @@ exports[`Modal backgroundHTML when enableBackgroundUI is false renders children 
       transitionLeaveTimeout={500}
       transitionName="modal-background"
     >
-      <div
-        className="carbon-modal__background"
+      <styled.div
+        data-element="modal-background"
+        transitionName="modal-background"
       />
     </CSSTransitionGroup>
     <CSSTransitionGroup
@@ -32,7 +34,7 @@ exports[`Modal backgroundHTML when enableBackgroundUI is false renders children 
       transitionLeaveTimeout={500}
       transitionName="modal"
     />
-  </div>
+  </styled.div>
 </Portal>
 `;
 
@@ -40,9 +42,10 @@ exports[`Modal backgroundHTML when enableBackgroundUI is true renders children 1
 <Portal
   key="1"
 >
-  <div
+  <styled.div
     className={null}
     data-state="open"
+    transitionName="modal"
   >
     <CSSTransitionGroup
       component="div"
@@ -64,6 +67,6 @@ exports[`Modal backgroundHTML when enableBackgroundUI is true renders children 1
       transitionLeaveTimeout={500}
       transitionName="modal"
     />
-  </div>
+  </styled.div>
 </Portal>
 `;
