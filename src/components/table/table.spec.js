@@ -1137,7 +1137,7 @@ describe('Table', () => {
           assertStyleMatch({
             backgroundColor: 'transparent',
             border:
-            `1px solid ${type === 'tertiary' || type === 'transparent' ? 'transparent' : BaseTheme.table.primary}`
+            `1px solid ${type === 'tertiary' || type === 'transparent' ? 'transparent' : BaseTheme.table.secondary}`
           }, wrapper);
         });
       }
