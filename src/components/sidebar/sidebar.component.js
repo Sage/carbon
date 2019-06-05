@@ -46,7 +46,7 @@ class Sidebar extends Modal {
       <SidebarStyle
         position={ this.props.position }
         size={ this.props.size }
-        { ...this.componentTags(this.props) }
+        data-element='sidebar'
       >
         { this.closeButton }
         { this.props.children }
