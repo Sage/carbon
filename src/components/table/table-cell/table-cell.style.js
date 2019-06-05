@@ -91,7 +91,6 @@ function applyModernInputStyling(isTextArea, inputHeight, fontSize) {
         resize: none;
         flex-grow: 1;
         height: auto !important;
-        min-height: ${inputHeight * 3}px;
         padding-top: 5px;
         padding-bottom: 5px;
       }

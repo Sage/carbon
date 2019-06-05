@@ -21,10 +21,10 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
  */
 class TableCell extends React.Component {
   /**
-   * Returns if child element has type property.
+   * Returns the child's name if there is one.
    */
-  childHasType(child) {
-    return child && child.type;
+  childName(child) {
+    return (child && child.type) ? child.type.name : null;
   }
 
   /**
@@ -34,12 +34,12 @@ class TableCell extends React.Component {
     const { children } = this.props;
 
     if (!Array.isArray(children)) {
-      return this.childHasType(children) && children.type.name === TextArea.name;
+      return this.childName(children) === TextArea.name;
     }
 
     let result = false;
     children.forEach((child) => {
-      if (this.childHasType(child) && child.type.name === TextArea.name) {
+      if (this.childName(child) === TextArea.name) {
         result = true;
       }
     });
@@ -50,10 +50,7 @@ class TableCell extends React.Component {
    * Returns props to be used on the TD element.
    */
   get tableCellProps() {
-    const { ...props } = validProps(this);
-    delete props.children;
-    props.align = this.props.align;
-    props.size = this.props.size;
+    const { children, ...props } = validProps(this, ['align', 'size']);
     props.isTextArea = this.childrenHasTextArea();
     return props;
   }

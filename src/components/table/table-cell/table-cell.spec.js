@@ -147,7 +147,6 @@ describe('TableCell', () => {
             resize: 'none',
             flexGrow: '1',
             height: 'auto !important',
-            minHeight: `${tableSizes[size].inputHeight * 3}px`,
             paddingTop: '5px',
             paddingBottom: '5px'
           }, wrapper, { modifier: 'textarea' });
