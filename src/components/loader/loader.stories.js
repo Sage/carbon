@@ -4,7 +4,7 @@ import { select, boolean } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Loader from './loader.component';
 import Spinner from '../spinner/spinner.component';
-import Button from '../button/button.component';
+import { OriginalButton } from '../button/button.component';
 import { notes, info } from './documentation';
 import { notesSpinner, infoSpinner } from '../spinner/documentation';
 
@@ -26,19 +26,22 @@ storiesOf('Loader', module)
     () => {
       const size = select('size', OptionsHelper.sizesBinary, Loader.defaultProps.size);
       const isInsideButton = boolean('isInsideButton', true);
-      const loading = isInsideButton ? select('state', OptionsHelper.loading, Loader.defaultProps.state) : undefined;
+      const isActive = isInsideButton ? boolean('isActive', Loader.defaultProps.isActive) : undefined;
 
       return (
-        <Button buttonType='primary' disabled={ loading === 'off' }>
+        <OriginalButton buttonType='primary' disabled={ !isActive }>
           <Loader
             size={ size } isInsideButton={ isInsideButton }
-            loading={ loading }
+            isActive={ isActive }
           />
-        </Button>
+        </OriginalButton>
       );
     },
     {
-      info: { text: info },
+      info: {
+        text: info,
+        propTablesExclude: [OriginalButton]
+      },
       notes: { markdown: notes }
     }
   )

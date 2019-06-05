@@ -20,8 +20,11 @@ Spinner.defaultProps = {
 };
 
 Spinner.propTypes = {
+  /** Sets the theme for the component. */
   as: PropTypes.oneOf(OptionsHelper.colors),
+  /** Custom className */
   className: PropTypes.string,
+  /** Size of the spinner */
   size: PropTypes.oneOf(OptionsHelper.sizesFull)
 };
 

@@ -18,13 +18,16 @@ const Loader = (props) => {
 Loader.defaultProps = {
   size: 'small',
   isInsideButton: false,
-  loading: 'on'
+  isActive: true
 };
 
 Loader.propTypes = {
+  /** Size of the spinner */
   size: PropTypes.oneOf(OptionsHelper.sizesBinary),
+  /** Applies white color */
   isInsideButton: PropTypes.bool,
-  loading: PropTypes.oneOf(OptionsHelper.loading)
+  /** Applies slate color. Available when isInsideButton is set to true. */
+  isActive: PropTypes.bool
 };
 
 export default Loader;

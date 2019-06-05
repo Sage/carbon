@@ -35,9 +35,9 @@ describe('Loader square', () => {
       );
     });
 
-    describe('when loading state is set to off', () => {
+    describe('when is not active', () => {
       it('applies slate background', () => {
-        wrapper = render({ isInsideButton: true, loading: 'off' });
+        wrapper = render({ isInsideButton: true, isActive: false });
         assertStyleMatch(
           {
             backgroundColor: baseTheme.colors.border
