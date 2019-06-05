@@ -31,7 +31,7 @@ Then('Show Edit Pod title on preview is set to {string}', (text) => {
   showEditPodTitle().should('have.text', text);
 });
 
-When('I edit component', () => {
+When('I edit Show Edit Pod component', () => {
   showEditPodEdit().click();
 });
 

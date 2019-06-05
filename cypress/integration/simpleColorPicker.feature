@@ -43,8 +43,8 @@ Feature: Simple Color Picker component
   @positive
   Scenario Outline: Check the Simple Color Picker <position> element was selected
     When clear all actions in Actions Tab
-      And I click onto <position> of element
-    Then Simple Color Picker "<position>" element was selected
+      And I pick <position> color
+    Then Simple Color Picker <position> element was picked up
       And select action was called in Actions Tab
     Examples:
       | position |

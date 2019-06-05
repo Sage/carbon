@@ -30,20 +30,20 @@ Then('Simple Color Picker availableColors on preview is set to {string}', (value
     .should('have.length', `${value}`);
 });
 
-Then('Simple Color Picker {string} element was selected', (index) => {
-  if (index === '1') {
-    simpleColorPickerInput(SECOND_ELEMENT).click();
-    simpleColorPickerInput(FIRST_ELEMENT).click();
-  }
-  for (let i = 1; i < index; i++) {
-    simpleColorPickerDiv(i).children()
+Then('Simple Color Picker {int} element was picked up', (index) => {
+  for (let i = 1; i < index; ++i) {
+    simpleColorPickerDiv(i + 1).children()
       .should('have.attr', 'data-element', 'tick')
       .should('have.class', 'icon-tick');
   }
 });
 
-When('I click onto {int} of element', (index) => {
-  for (let i = 1; i < index + 1; ++i) {
-    simpleColorPickerInput(i).click();
+When('I pick {int} color', (index) => {
+  if (index === 1) {
+    simpleColorPickerInput(SECOND_ELEMENT).click();
+    simpleColorPickerInput(FIRST_ELEMENT).click();
+  }
+  for (let i = 0; i < index; ++i) {
+    simpleColorPickerInput(i + 1).click();
   }
 });

@@ -12,7 +12,7 @@ Feature: Show Edit Pod component
   @positive
   Scenario Outline: Change Show Edit Pod cancelText to <cancelText>
     When I set cancelText to "<cancelText>"
-      And I edit component
+      And I edit Show Edit Pod component
     Then Show Edit Pod cancelText on preview is set to "<cancelText>"
     Examples:
       | cancelText              |
@@ -27,7 +27,7 @@ Feature: Show Edit Pod component
   @positive
   Scenario Outline: Change Show Edit Pod deleteText to <deleteText>
     When I set deleteText to "<deleteText>"
-      And I edit component
+      And I edit Show Edit Pod component
     Then Show Edit Pod deleteText on preview is set to "<deleteText>"
     Examples:
       | deleteText              |
@@ -42,7 +42,7 @@ Feature: Show Edit Pod component
   @positive
   Scenario Outline: Change Show Edit Pod saveText to <saveText>
     When I set saveText to "<saveText>"
-      And I edit component
+      And I edit Show Edit Pod component
     Then Show Edit Pod saveText on preview is set to "<saveText>"
     Examples:
       | saveText                |
@@ -82,40 +82,40 @@ Feature: Show Edit Pod component
   @positive
   Scenario: Enable border checkbox on a secondary block for a Show Edit Pod component
     When I check border checkbox
-      And I edit component
+      And I edit Show Edit Pod component
     Then Show Edit Pod component has border property
 
   @positive
   Scenario: Enable and disable border checkbox on a secondary block for a Show Edit Pod component
     When I check border checkbox
       And I uncheck border checkbox
-      And I edit component
+      And I edit Show Edit Pod component
     Then Show Edit Pod component has no border property
 
   @positive
   Scenario: Enable cancel checkbox for a Show Edit Pod component
     When I check cancel checkbox
-      And I edit component
+      And I edit Show Edit Pod component
     Then Show Edit Pod component has a cancel button
 
   @positive
   Scenario: Enable and disable cancel checkbox for a Show Edit Pod component
     When I check cancel checkbox
       And I uncheck cancel checkbox
-      And I edit component
+      And I edit Show Edit Pod component
     Then Show Edit Pod component hasn't a cancel button
 
   @positive
   Scenario: Enable saving checkbox for a Show Edit Pod component
     When I check saving checkbox
-      And I edit component
+      And I edit Show Edit Pod component
     Then Show Edit Pod component has saving property
 
   @positive
   Scenario: Enable and disable saving checkbox for a Show Edit Pod component
     When I check saving checkbox
       And I uncheck saving checkbox
-      And I edit component
+      And I edit Show Edit Pod component
     Then Show Edit Pod component has no saving property and should be saved manualy
 
   @positive
@@ -133,7 +133,7 @@ Feature: Show Edit Pod component
   @positive
   Scenario Outline: Set Show Edit Pod buttonAlign to <buttonAlign>
     When I select buttonAlign to "<buttonAlign>"
-      And I edit component
+      And I edit Show Edit Pod component
     Then Show Edit Pod buttonAlign value is set to "<buttonAlign>"
     Examples:
       | buttonAlign |
@@ -142,14 +142,14 @@ Feature: Show Edit Pod component
 
   @positive
   Scenario: Delete action was called
-    When I edit component
+    When I edit Show Edit Pod component
       And clear all actions in Actions Tab
       And I click delete button
     Then delete action was called in Actions Tab
 
   @positive
   Scenario: Cancel action was called
-    When I edit component
+    When I edit Show Edit Pod component
       And clear all actions in Actions Tab
       And I click cancel button
     Then cancel action was called in Actions Tab

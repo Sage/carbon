@@ -51,7 +51,6 @@ Feature: Sidebar component
 
   @positive
   Scenario: Check the cancel click event
-    # When I check open checkbox
-      And clear all actions in Actions Tab
+    When clear all actions in Actions Tab
       And I close Sidebar
     Then cancel action was called in Actions Tab
