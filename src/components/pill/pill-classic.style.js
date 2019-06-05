@@ -46,7 +46,7 @@ export const classicStyleConfig = {
   }
 };
 
-export default ({ styledAs, inFill, isDeletable }) => {
+export default (styledAs, inFill, isDeletable) => {
   const colourSet = classicStyleConfig[styledAs];
 
   return css`
@@ -70,11 +70,12 @@ export default ({ styledAs, inFill, isDeletable }) => {
     ${styledAs !== 'disabled' && `
       .carbon-icon{
         &:hover,
-          &:focus {
-            cursor: pointer;
-          }
+        &:focus {
+          cursor: pointer;
+        }
       }
     `}
+
     ${inFill && css`
       background-color: ${colourSet.color};
       color: #FFFFFF;
@@ -113,23 +114,22 @@ export default ({ styledAs, inFill, isDeletable }) => {
           color: ${colourSet.color};
         `}
 
-          &:hover {
-            background-color: ${colourSet.hoverBackgroundColor};
-            color: ${colourSet.hoverColor};
-          }
+        &:hover {
+          background-color: ${colourSet.hoverBackgroundColor};
+          color: ${colourSet.hoverColor};
+        }
+        
         .carbon-icon {
           font-size: 14px;
           margin-left: -1px;
 
+          ${inFill && css`
+            color: ${colourSet.color};
+          `}
+
           &:before {
             font-size: 9px;
           }
-
-          ${inFill && css`
-            .carbon-icon {
-              color: ${colourSet.color};
-            }
-          `}
 
           &:hover,
           &:focus {

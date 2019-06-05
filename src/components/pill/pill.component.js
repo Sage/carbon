@@ -9,10 +9,11 @@ class Pill extends React.Component {
   static safeProps = ['onClick']
 
   renderCloseIcon() {
+    const { onDelete } = this.props;
     return (
       <button
         type='button'
-        onClick={ this.props.onDelete }
+        onClick={ onDelete }
         data-element='close'
       >
         <Icon type='cross' bgSize='small' />
@@ -21,16 +22,23 @@ class Pill extends React.Component {
   }
 
   render() {
+    const {
+      fill,
+      as,
+      onDelete,
+      colourVariant,
+      children
+    } = this.props;
     return (
       <StyledPill
         { ...validProps(this) }
-        inFill={ this.props.fill }
-        styledAs={ this.props.as }
-        isDeletable={ this.props.onDelete }
+        inFill={ fill }
+        styledAs={ colourVariant || as }
+        isDeletable={ onDelete }
         { ...tagComponent('pill', this.props) }
       >
-        {this.props.children}
-        {this.props.onDelete && this.renderCloseIcon()}
+        { children }
+        { onDelete && this.renderCloseIcon() }
       </StyledPill>
     );
   }
@@ -38,29 +46,22 @@ class Pill extends React.Component {
 
 Pill.propTypes = {
 
-  /**
-   * Sets the theme of the notification.
-   */
+  // Sets the theme of the notification [legacy].
   as: PropTypes.string,
 
-  /**
-   * This component supports children.
-   */
+  // Sets the theme of the notification.
+  colourVariant: PropTypes.string,
+
+  // This component supports children.
   children: PropTypes.string.isRequired,
 
-  /**
-   * Fills the pill background with colour. When fill is false only the border is coloured.
-   */
+  // Fills the pill background with colour. When fill is false only the border is coloured.
   fill: PropTypes.bool,
 
-  /**
-   * Callback function for when the pill is clicked.
-   */
+  // Callback function for when the pill is clicked.
   onClick: PropTypes.func,
 
-  /**
-   * Callback function to delete the component, when the added Icon is clicked.
-   */
+  // Callback function to delete the component, when the added Icon is clicked.
   onDelete: PropTypes.func
 };
 

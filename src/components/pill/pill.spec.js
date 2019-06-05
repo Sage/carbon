@@ -4,13 +4,14 @@ import TestRenderer from 'react-test-renderer';
 import { ThemeProvider } from 'styled-components';
 import { shallow, mount } from 'enzyme';
 import Pill from './pill.component';
-import modernConfig from './pill-modern.config';
+import styleConfig from './pill.style.config';
 import { classicStyleConfig } from './pill-classic.style';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import smallTheme from '../../style/themes/small';
 import classicTheme from '../../style/themes/classic';
 import baseTheme from '../../style/themes/base';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 const classicStyleTypes = [
   'default',
@@ -24,12 +25,7 @@ const classicStyleTypes = [
   'warning'
 ];
 
-const modernStyleTypes = [
-  'neutral',
-  'negative',
-  'warning',
-  'positive'
-];
+const modernStyleTypes = [...OptionsHelper.pillColours, 'warning'];
 
 const modernThemes = [
   ['small', smallTheme]
@@ -133,7 +129,7 @@ describe('Pill', () => {
     describe.each(modernThemes)('when the pill is rendered',
       (name, theme) => {
         describe(`${name} theme`, () => {
-          const styleSet = modernConfig[name];
+          const styleSet = styleConfig[name];
 
           it(`matches the expected styles for a default ${name} pill`, () => {
             const wrapper = render({
@@ -168,7 +164,7 @@ describe('Pill', () => {
               const fillWrapper = render({
                 children: 'My Text',
                 onDelete: jest.fn(),
-                as: style,
+                colourVariant: style,
                 fill: true,
                 theme
               });
@@ -187,7 +183,7 @@ describe('Pill', () => {
               describe('when storybook supplies the correct theme', () => {
                 const wrapper = render({
                   children: 'My Text',
-                  as: style,
+                  colourVariant: style,
                   theme
                 });
 
@@ -201,7 +197,7 @@ describe('Pill', () => {
               describe('when the component is in a filled state', () => {
                 const fillWrapper = render({
                   children: 'My Text',
-                  as: style,
+                  colourVariant: style,
                   fill: true,
                   theme
                 });
@@ -346,7 +342,7 @@ describe('Pill', () => {
     it('switches to use the modern small theme', () => {
       const wrapper = renderBase({
         children: 'My Text',
-        as: 'neutral',
+        colourVariant: 'neutral',
         theme: classicTheme
       }, TestRenderer.create).toJSON();
       assertStyleMatch({
