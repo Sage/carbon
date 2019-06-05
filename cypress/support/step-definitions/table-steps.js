@@ -6,7 +6,6 @@ const THEME_PREFIX = 'carbon-table--';
 const CLICKABLE = 'carbon-table-row--clickable';
 const HIGHLIGHTED = 'carbon-table-row--highlighted';
 
-
 Then('I see {int} records', (records) => {
   rows().should('have.length', records);
 });
