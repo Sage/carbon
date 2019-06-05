@@ -859,7 +859,7 @@ class Table extends React.Component {
             transitionAppearTimeout={ 300 }
             transitionAppear
           >
-            <Spinner size='small' className='table__spinner'/>
+            <Spinner size='small' className='table__spinner' />
           </CSSTransitionGroup>
         </TableCell>
       </TableRow>
