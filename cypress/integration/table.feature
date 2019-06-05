@@ -76,6 +76,7 @@ Feature: Table component
 
   @ignore
   @positive
+  #ignored because it is not working correctly during development
   Scenario: Disable shrink property
     When I check shrink checkbox
       And I uncheck shrink checkbox
@@ -136,13 +137,13 @@ Feature: Table component
       | darkBackground |
 
   @positive
-  Scenario: I check showPageSizeSelection
+  Scenario: I enable showPageSizeSelection
     When I check paginate checkbox
       And I check showPageSizeSelection checkbox
     Then pageSize is visible
 
   @positive
-  Scenario: I uncheck showPageSizeSelection
+  Scenario: I disable showPageSizeSelection
     When I check paginate checkbox
       And I check showPageSizeSelection checkbox
       And I uncheck showPageSizeSelection checkbox

@@ -1,5 +1,5 @@
 Feature: Table Ajax component
-  I want to change Table component properties
+  I want to change Table Ajax component properties
 
   Background: Open Table Ajax component page
     Given I open "Table Ajax" component page
