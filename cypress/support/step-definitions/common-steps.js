@@ -4,7 +4,7 @@ import {
 import {
   commonButtonPreview, labelPreview, helpIcon, inputWidthSlider, fieldHelpPreview,
   labelWidthSlider, backgroundUILocator, closeIconButton, tooltipPreview, getKnobsInput,
-  icon, inputWidthPreview, label,
+  icon, inputWidthPreview, label, eventInAction,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 
@@ -150,4 +150,12 @@ Then('{word} labelInline is disabled', () => {
 
 Then('{word} labelWidth is set to {string}', (componentName, width) => {
   label().should('have.attr', 'style', `width: ${width}%;`);
+});
+
+Then('{word} action was called in Actions Tab', (event) => {
+  eventInAction(event);
+});
+
+When('I close Sidebar', () => {
+  closeIconButton().click();
 });
