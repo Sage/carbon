@@ -443,9 +443,15 @@ describe('SplitButton', () => {
     });
   });
 
-  describe('when the "click" event is triggered with menu open', () => {
-    const nativeClickEvent = new Event('click', { bubbles: true, cancelable: true });
+  describe.each(['click', 'touchstart'])('when the "%s" event is triggered with menu open', (eventType) => {
+    const nativeInputEvent = new Event(eventType, { bubbles: true, cancelable: true });
     let domWrapper;
+
+    beforeAll(() => {
+      if (eventType === 'touchstart') {
+        document.documentElement.ontouchstart = () => {};
+      }
+    });
 
     beforeEach(() => {
       domWrapper = document.createElement('div');
@@ -462,7 +468,7 @@ describe('SplitButton', () => {
     describe('on the Menu element', () => {
       it('then the Menu should not be closed', () => {
         expect(wrapper.find(StyledSplitButtonChildrenContainer).exists()).toBe(true);
-        wrapper.find(StyledSplitButtonChildrenContainer).find(Button).getDOMNode().dispatchEvent(nativeClickEvent);
+        wrapper.find(StyledSplitButtonChildrenContainer).find(Button).getDOMNode().dispatchEvent(nativeInputEvent);
         expect(wrapper.find(StyledSplitButtonChildrenContainer).exists()).toBe(true);
       });
     });
@@ -471,7 +477,7 @@ describe('SplitButton', () => {
       describe('and focus is still on the toggle button', () => {
         it('then the Menu should not be closed', () => {
           expect(wrapper.find(StyledSplitButtonChildrenContainer).exists()).toBe(true);
-          domWrapper.dispatchEvent(nativeClickEvent);
+          domWrapper.dispatchEvent(nativeInputEvent);
           expect(wrapper.find(StyledSplitButtonChildrenContainer).exists()).toBe(true);
         });
       });
@@ -480,7 +486,8 @@ describe('SplitButton', () => {
         it('then the Menu should be closed', () => {
           expect(wrapper.find(StyledSplitButtonChildrenContainer).exists()).toBe(true);
           simulateBlurOnToggle(wrapper);
-          domWrapper.dispatchEvent(nativeClickEvent);
+          domWrapper.dispatchEvent(nativeInputEvent);
+          console.log(eventType, wrapper.instance().state);
           expect(wrapper.update().find(StyledSplitButtonChildrenContainer).exists()).toBe(false);
         });
       });
@@ -489,6 +496,12 @@ describe('SplitButton', () => {
     afterEach(() => {
       wrapper.detach();
       document.body.removeChild(domWrapper);
+    });
+
+    afterAll(() => {
+      if (eventType === 'touchstart') {
+        document.documentElement.ontouchstart = undefined;
+      }
     });
   });
 

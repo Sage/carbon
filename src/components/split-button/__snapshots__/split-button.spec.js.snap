@@ -438,6 +438,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
     id="guid-12345"
     onFocus={[Function]}
     onMouseEnter={[Function]}
+    onTouchStart={[Function]}
     role="button"
     size="medium"
   >
@@ -460,6 +461,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
     onFocus={[Function]}
     onKeyDown={[Function]}
     onMouseEnter={[Function]}
+    onTouchStart={[Function]}
     size="medium"
   >
     <span
@@ -978,6 +980,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
     id="guid-12345"
     onFocus={[Function]}
     onMouseEnter={[Function]}
+    onTouchStart={[Function]}
     role="button"
     size="medium"
   >
@@ -1000,6 +1003,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
     onFocus={[Function]}
     onKeyDown={[Function]}
     onMouseEnter={[Function]}
+    onTouchStart={[Function]}
     size="medium"
   >
     <span

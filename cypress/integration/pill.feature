@@ -58,6 +58,6 @@ Feature: Pill component
   @positive
   Scenario: Enable onDelete checkbox and check the delete click event
     When I check onDelete checkbox
-      And clear all events in Actions Tab
+      And clear all actions in Actions Tab
       And I click cross icon
-    Then delete function was called in Actions Tab
+    Then delete action was called in Actions Tab

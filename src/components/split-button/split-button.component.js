@@ -14,12 +14,10 @@ class SplitButton extends Component {
   constructor(props) {
     super(props);
     this.buttonLabelId = guid();
-    this.componentTags = this.componentTags.bind(this);
-    this.showButtons = this.showButtons.bind(this);
-    this.hideButtons = this.hideButtons.bind(this);
     this.additionalButtons = [];
     this.listening = false;
     this.isToggleButtonFocused = false;
+    this.userInputType = ('ontouchstart' in document.documentElement) ? 'touchstart' : 'click';
   }
 
   state = {
@@ -34,7 +32,7 @@ class SplitButton extends Component {
   }
 
   showButtons = () => {
-    document.addEventListener('click', this.handleClickOutside);
+    document.addEventListener(this.userInputType, this.handleClickOutside);
     this.setState({ showAdditionalButtons: true });
 
     if (!this.listening) {
@@ -47,7 +45,7 @@ class SplitButton extends Component {
     if (this.isToggleButtonFocused) return;
 
     this.setState({ showAdditionalButtons: false });
-    document.removeEventListener('click', this.handleClickOutside);
+    document.removeEventListener(this.userInputType, this.handleClickOutside);
 
     if (this.listening) {
       document.removeEventListener('keydown', this.handleKeyDown);
@@ -89,6 +87,8 @@ class SplitButton extends Component {
     const { ...props } = validProps(this);
     props.onMouseEnter = this.hideButtons;
     props.onFocus = this.hideButtons;
+    props.onTouchStart = this.hideButtons;
+
     return props;
   }
 
@@ -96,8 +96,10 @@ class SplitButton extends Component {
     const opts = {
       disabled: this.props.disabled,
       displayed: this.state.showAdditionalButtons,
+      onTouchStart: this.showButtons,
       onFocus: this.focusToggleButton,
       onBlur: () => { this.isToggleButtonFocused = false; },
+      onKeyDown: this.handleToggleButtonKeyDown,
       buttonType: this.props.buttonType || this.props.as,
       size: this.props.size
     };
@@ -109,7 +111,7 @@ class SplitButton extends Component {
     return opts;
   }
 
-  componentTags() {
+  componentTags = () => {
     return {
       'data-component': 'split-button',
       'data-element': this.props['data-element'],
@@ -125,10 +127,10 @@ class SplitButton extends Component {
   get renderMainButton() {
     return [
       <Button
-        { ...this.mainButtonProps }
         data-element='main-button'
         key='main-button'
         id={ this.buttonLabelId }
+        { ...this.mainButtonProps }
       >
         { this.props.text}
       </Button>,
@@ -138,7 +140,6 @@ class SplitButton extends Component {
         aria-label='Show more'
         data-element='toggle-button'
         key='toggle-button'
-        onKeyDown={ this.handleToggleButtonKeyDown }
         { ...this.toggleButtonProps }
       >
         <Icon type='dropdown' />
@@ -184,7 +185,7 @@ class SplitButton extends Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('click', this.handleClickOutside);
+    document.removeEventListener(this.userInputType, this.handleClickOutside);
   }
 
   render() {
