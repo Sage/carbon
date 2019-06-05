@@ -33,7 +33,6 @@ describe('OptionsHelper', () => {
   it('colors', () => {
     expect(OptionsHelper.colors).toEqual([
       'default',
-      'disabled',
       'error',
       'help',
       'info',
@@ -48,6 +47,11 @@ describe('OptionsHelper', () => {
       'neutral',
       'negative',
       'positive'
+    ]);
+  });
+  it('pillStates', () => {
+    expect(OptionsHelper.pillStates).toEqual([
+      'disabled'
     ]);
   });
   it('icons', () => {

@@ -77,18 +77,7 @@ describe('Message', () => {
   describe('when in classic mode', () => {
     describe('when rendered', () => {
       it('should match the snapshot', () => {
-        const colors = [
-          'default',
-          'error',
-          'help',
-          'info',
-          'maintenance',
-          'new',
-          'success',
-          'warning'
-        ];
-
-        colors.forEach((variant) => {
+        OptionsHelper.colors.forEach((variant) => {
           const wrapper = render({ theme: classicTheme, variant });
           expect(wrapper).toMatchSnapshot();
         });

@@ -39,7 +39,6 @@ const OptionsHelper = {
 
   colors: [
     'default',
-    'disabled',
     'error',
     'help',
     'info',
@@ -55,6 +54,10 @@ const OptionsHelper = {
     'positive'
   ],
 
+  pillStates: [
+    'disabled'
+  ],
+  
   toast: [
     'success',
     'error'
