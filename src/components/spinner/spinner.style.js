@@ -29,7 +29,7 @@ StyledSpinner.defaultProps = {
 };
 
 StyledSpinner.propTypes = {
-  as: PropTypes.oneOf(OptionsHelper.colors),
+  type: PropTypes.oneOf(OptionsHelper.colors),
   size: PropTypes.oneOf(OptionsHelper.sizesFull)
 };
 

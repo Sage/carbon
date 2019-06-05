@@ -52,7 +52,6 @@ StyledLoaderSquare.defaultProps = {
 };
 
 StyledLoaderSquare.propTypes = {
-  theme: PropTypes.object,
   size: PropTypes.oneOf(OptionsHelper.sizesBinary),
   isInsideButton: PropTypes.bool,
   isActive: PropTypes.bool
