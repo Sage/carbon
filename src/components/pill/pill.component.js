@@ -47,22 +47,22 @@ class Pill extends React.Component {
 
 Pill.propTypes = {
 
-  // Sets the theme of the notification [legacy].
+  /** Sets the theme of the notification [legacy]. */
   as: PropTypes.oneOf([...OptionsHelper.colors, 'disabled']),
 
-  // Sets the theme of the notification.
+  /** Sets the theme of the notification. */
   colourVariant: PropTypes.oneOf([...OptionsHelper.pillColours]),
 
-  // This component supports children.
+  /** This component supports children.  */
   children: PropTypes.string.isRequired,
 
-  // Fills the pill background with colour. When fill is false only the border is coloured.
+  /** Fills the pill background with colour. When fill is false only the border is coloured. */
   fill: PropTypes.bool,
 
-  // Callback function for when the pill is clicked.
+  /** Callback function for when the pill is clicked. */
   onClick: PropTypes.func,
 
-  // Callback function to delete the component, when the added Icon is clicked.
+  /** Callback function to delete the component, when the added Icon is clicked. */
   onDelete: PropTypes.func
 };
 
