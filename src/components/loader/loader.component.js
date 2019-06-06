@@ -22,11 +22,11 @@ Loader.defaultProps = {
 };
 
 Loader.propTypes = {
-  /** Size of the spinner */
+  /** Size of the loader. */
   size: PropTypes.oneOf(OptionsHelper.sizesBinary),
-  /** Applies white color */
+  /** Applies white color. */
   isInsideButton: PropTypes.bool,
-  /** Applies slate color. Available when isInsideButton is set to true. */
+  /** Applies slate color. Available only when isInsideButton is true. */
   isActive: PropTypes.bool
 };
 

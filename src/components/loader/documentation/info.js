@@ -15,14 +15,13 @@ const info = (
 
     <p>
       You can pass a <StoryCode> {'size'} </StoryCode> property to adjust the size of the loader.
+      Small is the default value.
     </p>
 
     <p>
-      You can set <StoryCode> {'isInsideButton'} </StoryCode> property to <StoryCode padded> {'true'} </StoryCode> to
-      apply white color and use it inside a button.
+      You can set <StoryCode> {'isInsideButton'} </StoryCode> property to <StoryCode> {'true'} </StoryCode> to
+      apply white color and use the component inside a button.
     </p>
-
-    <p>The default is small.</p>
   </div>
 );
 
