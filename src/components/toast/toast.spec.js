@@ -44,6 +44,19 @@ describe('Toast', () => {
       );
     });
 
+    describe('with prop isCenter', () => {
+      it('should render Toast in the center of the document', () => {
+        assertStyleMatch({
+          right: '50%',
+          transform: 'translateX(50%)'
+        }, mount(<Toast
+          variant='help'
+          isCenter
+          open
+        />));
+      });
+    });
+
     it('renders the component with correct classes', () => {
       const wrapper = shallow(<Toast open className='exampleClass' />);
       expect(wrapper.find('.exampleClass')).toHaveLength(1);
