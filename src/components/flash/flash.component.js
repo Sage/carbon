@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'styled-components';
 import classicTheme from '../../style/themes/classic';
-import './flash.scss';
 import { THEMES } from '../../style/themes';
 import Toast from '../toast';
 import FlashLegacy from './flash-legacy.component';
 
 const Flash = (props) => {
+  let timer = null;
+
+  const stopTimeout = () => {
+    clearTimeout(timer);
+  };
+
+  useEffect(() => {
+    stopTimeout();
+
+    if (!props.timeout || !props.open) {
+      return;
+    }
+
+    timer = setTimeout(() => props.onDismiss(), props.timeout);
+  }, timer);
+
+
   if (props.theme.name === THEMES.classic) {
     return (
       <FlashLegacy { ...props } />
