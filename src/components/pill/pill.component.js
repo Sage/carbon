@@ -48,10 +48,10 @@ class Pill extends React.Component {
 Pill.propTypes = {
 
   // Sets the theme of the notification [legacy].
-  as: PropTypes.oneOf(...OptionsHelper.colors, 'disabled'),
+  as: PropTypes.oneOf([...OptionsHelper.colors, 'disabled']),
 
   // Sets the theme of the notification.
-  colourVariant: PropTypes.oneOf(...OptionsHelper.pillColours),
+  colourVariant: PropTypes.oneOf([...OptionsHelper.pillColours]),
 
   // This component supports children.
   children: PropTypes.string.isRequired,

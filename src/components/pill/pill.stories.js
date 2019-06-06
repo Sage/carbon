@@ -11,18 +11,20 @@ import { THEMES } from '../../style/themes';
 import { notes, Info } from './documentation';
 
 const getKnobs = (theme) => {
-  // eslint-disable multiline-ternary
-  const styledAs = (theme === THEMES.classic)
-    ? select('as', [...OptionsHelper.colors, 'disabled'], Pill.defaultProps.as)
-    : select('colourVariant', [...OptionsHelper.pillColours, OptionsHelper.colors[7]], OptionsHelper.pillColours[0]);
-
-  return {
+  const knobs = {
     children: text('children', 'Pill'),
-    as: styledAs,
     fill: boolean('fill', Pill.defaultProps.fill),
     onDelete: boolean('onDelete', false),
     theme
   };
+  if (theme === THEMES.classic) {
+    knobs.as = select('as', [...OptionsHelper.colors, 'disabled'], Pill.defaultProps.as);
+  } else {
+    knobs.colourVariant = select('colourVariant',
+      [...OptionsHelper.pillColours, OptionsHelper.colors[7]], OptionsHelper.pillColours[0]);
+  }
+
+  return knobs;
 };
 
 storiesOf('Pill', module)
@@ -51,13 +53,13 @@ storiesOf('Pill', module)
   }).add('default', () => {
     const {
       children,
-      as,
+      colourVariant,
       fill,
       onDelete
     } = getKnobs();
     return (
       <Pill
-        as={ as }
+        colourVariant={ colourVariant }
         fill={ fill }
         onDelete={ onDelete ? action('delete') : null }
       >
