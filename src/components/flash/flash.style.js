@@ -1,5 +1,4 @@
 import styled, { css } from 'styled-components';
-import { ToastStyle } from '../toast/toast.style';
 
 const colors = {
   warning: '#FF7D00',
