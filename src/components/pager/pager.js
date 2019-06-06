@@ -22,7 +22,7 @@ class Pager extends React.Component {
     /**
      * Total number of records
      */
-    totalRecords: PropTypes.number.isRequired,
+    totalRecords: PropTypes.string.isRequired,
 
     /**
      * Function called when any pager changes take place

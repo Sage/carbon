@@ -17,18 +17,18 @@ import { notes, info } from './documentation';
 
 const getCommonKnobs = () => {
   const paginate = boolean('paginate', false);
+  const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
 
   return {
     sortOrder: select('sortOrder', ['', 'asc', 'desc'], ''),
     sortColumn: select('sortColumn', ['', 'name', 'code'], ''),
-    pageSize: text('pageSize', '5'),
     selectable: boolean('selectable', false),
     highlightable: boolean('highlightable', false),
     shrink: boolean('shrink', false),
     caption: text('caption', 'Country and Country Codes'),
     totalRecords: text('totalRecords', '50'),
     paginate,
-    showPageSizeSelection: paginate && boolean('showPageSizeSelection', false)
+    showPageSizeSelection
   };
 };
 
@@ -113,6 +113,7 @@ const setCurrentPage = ({ totalRecords, pageSize, paginate }) => {
   return isCurrentPageValid ? store.get('currentPage') : revisedPage;
 };
 
+
 storiesOf('Table', module)
   .addParameters({
     info: {
@@ -120,52 +121,73 @@ storiesOf('Table', module)
     }
   })
   .add('classic', () => {
-    const props = getCommonKnobs();
-    store.set({ currentPage: setCurrentPage(props) });
-    props.theme = select(
-      'theme',
-      [
-        OptionsHelper.tableThemes[0],
-        OptionsHelper.tableThemes[1]
-      ],
-      Table.defaultProps.theme
-    );
+    class StoryWrapper extends React.Component {
+      constructor(props) {
+        super(props);
 
-    store.set({ sortOrder: props.sortOrder });
-    store.set({ sortedColumn: props.sortColumn });
+        this.state = {
+          pageSize: '10'
+        };
+      }
 
-    return (
-      <ThemeProvider theme={ classic }>
-        <State
-          store={ store }
-          parseState={ state => ({ ...state, children: buildRows(props) }) }
-        >
-          <Table
-            actionToolbarChildren={ (context) => {
-              return [
-                <Button disabled={ context.disabled } key='single-action'>
-                    Test Action
-                </Button>,
-                <MultiActionButton
-                  text='Actions' disabled={ context.disabled }
-                  key='multi-actions'
-                >
-                  <Button>foo</Button>
-                  <Button>bar</Button>
-                  <Button>qux</Button>
-                </MultiActionButton>
-              ];
-            } }
-            path='/countries'
-            actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
-            { ...props }
-            onChange={ handleChange }
-            sortOrder={ store.sortOrder }
-            sortedColumn={ store.sortedColumn }
-          />
-        </State>
-      </ThemeProvider>
-    );
+      handlePagination = (pageSize) => {
+        this.setState({ pageSize });
+      };
+
+      render() {
+        const props = getCommonKnobs();
+        store.set({ currentPage: setCurrentPage(props) });
+        props.theme = select(
+          'theme',
+          [
+            OptionsHelper.tableThemes[0],
+            OptionsHelper.tableThemes[1]
+          ],
+          Table.defaultProps.theme
+        );
+
+        props.pageSize = props.showPageSizeSelection ? this.state.pageSize : text('pageSize', '5');
+
+        store.set({ sortOrder: props.sortOrder });
+        store.set({ sortedColumn: props.sortColumn });
+
+        return (
+          <ThemeProvider theme={ classic }>
+            <State
+              store={ store }
+              parseState={ state => ({ ...state, children: buildRows(props) }) }
+            >
+              <Table
+                actionToolbarChildren={ (context) => {
+                  return [
+                    <Button disabled={ context.disabled } key='single-action'>
+                        Test Action
+                    </Button>,
+                    <MultiActionButton
+                      text='Actions'
+                      disabled={ context.disabled }
+                      key='multi-actions'
+                    >
+                      <Button>foo</Button>
+                      <Button>bar</Button>
+                      <Button>qux</Button>
+                    </MultiActionButton>
+                  ];
+                } }
+                path='/countries'
+                actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
+                { ...props }
+                onChange={ handleChange }
+                sortOrder={ store.sortOrder }
+                sortedColumn={ store.sortedColumn }
+                onPageSizeChange={ this.handlePagination }
+              />
+            </State>
+          </ThemeProvider>
+        );
+      }
+    }
+    return (<StoryWrapper />);
   }, {
     info: { text: info },
     notes: { markdown: notes }
