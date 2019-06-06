@@ -13,29 +13,20 @@ storiesOf('Loader', module)
     'default',
     () => {
       const size = select('size', OptionsHelper.sizesBinary, Loader.defaultProps.size);
-
-      return <Loader size={ size } />;
-    },
-    {
-      info: { text: info },
-      notes: { markdown: notes }
-    }
-  )
-  .add(
-    'inside a button',
-    () => {
-      const size = select('size', OptionsHelper.sizesBinary, Loader.defaultProps.size);
-      const isInsideButton = boolean('isInsideButton', true);
+      const isInsideButton = boolean('isInsideButton', false);
       const isActive = isInsideButton ? boolean('isActive', Loader.defaultProps.isActive) : undefined;
 
-      return (
-        <OriginalButton buttonType='primary' disabled={ !isActive }>
-          <Loader
-            size={ size } isInsideButton={ isInsideButton }
-            isActive={ isActive }
-          />
-        </OriginalButton>
-      );
+      if (isInsideButton) {
+        return (
+          <OriginalButton buttonType='primary' disabled={ !isActive }>
+            <Loader
+              size={ size } isInsideButton={ isInsideButton }
+              isActive={ isActive }
+            />
+          </OriginalButton>
+        );
+      }
+      return <Loader size={ size } />;
     },
     {
       info: {
