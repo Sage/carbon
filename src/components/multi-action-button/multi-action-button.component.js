@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon';
-import Button from '../button';
 import SplitButton from '../split-button';
 import StyledMultiActionButton from './multi-action-button.style';
+import StyledSplitButtonToggle from '../split-button/split-button-toggle.style';
 
 class MultiActionButton extends SplitButton {
   /**
@@ -15,7 +15,7 @@ class MultiActionButton extends SplitButton {
    */
   get renderMainButton() {
     return (
-      <Button
+      <StyledSplitButtonToggle
         aria-haspopup='true'
         aria-expanded={ this.state.showAdditionalButtons }
         aria-label='Show more'
@@ -26,7 +26,7 @@ class MultiActionButton extends SplitButton {
       >
         { this.props.text}
         <Icon type='dropdown' />
-      </Button>
+      </StyledSplitButtonToggle>
     );
   }
 
