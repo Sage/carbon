@@ -36,3 +36,11 @@ Then('I paginate {word} {int} times', (direction, count) => {
 When('I type {string} to input pagination', (pageNumber) => {
   pageInput().clear().type(`${pageNumber}{enter}`);
 });
+
+Then('pagination is visible', () => {
+  pageInput().should('be.visible');
+});
+
+Then('pagination is not visible', () => {
+  pageInput().should('not.exist');
+});

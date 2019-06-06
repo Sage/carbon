@@ -56,7 +56,7 @@ Feature: Dialog component
       | <>                       |
 
   @positive
-  Scenario Outline: Set Dialog size to small, medium and large
+  Scenario Outline: Set Dialog size to <sizeName>
     When I select size to "<sizeName>"
       And I open component preview
     Then Dialog size property on preview is "<sizePropertyInPx>"
