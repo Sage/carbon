@@ -8,14 +8,14 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 
 const PillStyle = styled.span`
  ${({
-    styledAs, theme, inFill, isDeletable
+    colourVariant, theme, inFill, isDeletable
   }) => {
     const { colors } = baseTheme;
     const themeName = (theme.name === THEMES.classic || theme.name === THEMES.base) ? THEMES.small : theme.name;
     const styleSet = styleConfig[themeName];
 
     return css`
-      border: 2px solid ${styleSet.colors[styledAs]};
+      border: 2px solid ${styleSet.colors[colourVariant]};
       border-radius: 12px;
       font-size: 14px;
       padding: 2px 7px;
@@ -25,7 +25,7 @@ const PillStyle = styled.span`
       margin: 0px 8px 16px 0px;
     
       ${inFill && css`
-        background-color: ${styleSet.colors[styledAs]};
+        background-color: ${styleSet.colors[colourVariant]};
         color: ${colors.white};
 
         .carbon-icon.icon-cross {
@@ -33,11 +33,11 @@ const PillStyle = styled.span`
         }
       `}
 
-      ${!isClassic(theme, styledAs) && !isDeletable && css`
+      ${!isClassic(theme, colourVariant) && !isDeletable && css`
         padding: 2px 8px 2px 8px;
       `}
 
-      ${!isClassic(theme, styledAs) && isDeletable && css`
+      ${!isClassic(theme, colourVariant) && isDeletable && css`
         padding: 2px 27px 2px 8px;
 
         button {
@@ -54,7 +54,7 @@ const PillStyle = styled.span`
           width: 17px;
 
           ${inFill && css`
-            background-color: ${styleSet.colors[styledAs]};
+            background-color: ${styleSet.colors[colourVariant]};
           `}
 
           ${!inFill && css`
@@ -62,7 +62,7 @@ const PillStyle = styled.span`
           `}
 
           &:hover {
-            background-color: ${styleSet.colors[styledAs]};
+            background-color: ${styleSet.colors[colourVariant]};
             color: ${styleSet.hoverColor};
           }
 
@@ -81,21 +81,21 @@ const PillStyle = styled.span`
 
             ${inFill && css`
               .carbon-icon {
-                color: ${styleSet.colors[styledAs]};
+                color: ${styleSet.colors[colourVariant]};
               }
             `}
           }
       `}
 
-      ${isClassic(theme, styledAs) && classicThemeForPill(styledAs, inFill, isDeletable)}
+      ${isClassic(theme, colourVariant) && classicThemeForPill(colourVariant, inFill, isDeletable)}
     `;
   }
 }
 `;
 
-function isClassic(theme, styledAs) {
+function isClassic(theme, colourVariant) {
   // handles incorrect default activeTheme in StoryBook AppWrapper
-  if (OptionsHelper.pillColours.includes(styledAs)) {
+  if (OptionsHelper.pillColours.includes(colourVariant)) {
     return false;
   }
   return theme.name === THEMES.classic;
@@ -103,14 +103,14 @@ function isClassic(theme, styledAs) {
 
 PillStyle.defaultProps = {
   inFill: false,
-  styledAs: 'default',
+  colourVariant: 'default',
   isDeletable: false,
   theme: baseTheme
 };
 
 PillStyle.propTypes = {
   inFill: PropTypes.bool,
-  styledAs: PropTypes.string,
+  colourVariant: PropTypes.string,
   isDeletable: PropTypes.func
 };
 

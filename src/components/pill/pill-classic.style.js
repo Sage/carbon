@@ -46,8 +46,8 @@ export const classicStyleConfig = {
   }
 };
 
-export default (styledAs, inFill, isDeletable) => {
-  const colourSet = classicStyleConfig[styledAs];
+export default (colourVariant, inFill, isDeletable) => {
+  const colourSet = classicStyleConfig[colourVariant];
 
   return css`
     border-radius: 10px; 
@@ -67,7 +67,7 @@ export default (styledAs, inFill, isDeletable) => {
     border: 1px solid ${colourSet.color};
     color: ${colourSet.color};
 
-    ${styledAs !== 'disabled' && `
+    ${colourVariant !== 'disabled' && `
       .carbon-icon{
         &:hover,
         &:focus {

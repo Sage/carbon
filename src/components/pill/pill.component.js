@@ -34,7 +34,7 @@ class Pill extends React.Component {
       <StyledPill
         { ...validProps(this) }
         inFill={ fill }
-        styledAs={ colourVariant || as }
+        colourVariant={ colourVariant || as }
         isDeletable={ onDelete }
         { ...tagComponent('pill', this.props) }
       >
