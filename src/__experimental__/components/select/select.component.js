@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import SelectList from './select-list.component';
 import InputDecoratorBridge from '../input-decorator-bridge';
-import Pill from '../../../components/pill/pill.component';
+import Pill from '../../../components/pill';
 import Events from '../../../utils/helpers/events';
 import './select.style.scss';
 

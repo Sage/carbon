@@ -4,6 +4,7 @@ import StyledPill from './pill.style';
 import Icon from '../icon/icon';
 import { validProps } from '../../utils/ether/ether';
 import tagComponent from '../../utils/helpers/tags/tags';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 class Pill extends React.Component {
   static safeProps = ['onClick']
@@ -47,10 +48,10 @@ class Pill extends React.Component {
 Pill.propTypes = {
 
   // Sets the theme of the notification [legacy].
-  as: PropTypes.string,
+  as: PropTypes.oneOf(...OptionsHelper.colors, 'disabled'),
 
   // Sets the theme of the notification.
-  colourVariant: PropTypes.string,
+  colourVariant: PropTypes.oneOf(...OptionsHelper.pillColours),
 
   // This component supports children.
   children: PropTypes.string.isRequired,

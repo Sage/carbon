@@ -49,11 +49,6 @@ describe('OptionsHelper', () => {
       'positive'
     ]);
   });
-  it('pillStates', () => {
-    expect(OptionsHelper.pillStates).toEqual([
-      'disabled'
-    ]);
-  });
   it('icons', () => {
     expect(OptionsHelper.icons).toEqual([
       'add',

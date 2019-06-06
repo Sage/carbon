@@ -13,8 +13,8 @@ import { notes, Info } from './documentation';
 const getKnobs = (theme) => {
   // eslint-disable multiline-ternary
   const styledAs = (theme === THEMES.classic)
-    ? select('as', [...OptionsHelper.colors, OptionsHelper.pillStates[0]], Pill.defaultProps.as)
-    : select('as', [...OptionsHelper.pillColours, OptionsHelper.colors[7]], OptionsHelper.pillColours[0]);
+    ? select('as', [...OptionsHelper.colors, 'disabled'], Pill.defaultProps.as)
+    : select('colourVariant', [...OptionsHelper.pillColours, OptionsHelper.colors[7]], OptionsHelper.pillColours[0]);
 
   return {
     children: text('children', 'Pill'),

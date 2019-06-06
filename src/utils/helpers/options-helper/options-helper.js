@@ -54,10 +54,6 @@ const OptionsHelper = {
     'positive'
   ],
 
-  pillStates: [
-    'disabled'
-  ],
-
   toast: [
     'success',
     'error'
