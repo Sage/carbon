@@ -1,12 +1,18 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'styled-components';
-import classicTheme from '../../style/themes/classic';
 import { THEMES } from '../../style/themes';
 import Toast from '../toast';
 import FlashLegacy from './flash-legacy.component';
+import baseTheme from '../../style/themes/base';
 
 const Flash = (props) => {
+  if (props.theme.name === THEMES.classic) {
+    return (
+      <FlashLegacy { ...props } />
+    );
+  }
+
   let timer = null;
 
   const stopTimeout = () => {
@@ -23,18 +29,11 @@ const Flash = (props) => {
     timer = setTimeout(() => props.onDismiss(), props.timeout);
   }, timer);
 
-
-  if (props.theme.name === THEMES.classic) {
-    return (
-      <FlashLegacy { ...props } />
-    );
-  }
-
   return (
     <Toast
       isCenter={ props.isCenter }
       open={ props.open }
-      variant={ props.as || props.variant }
+      variant={ props.variant || props.as }
       onDismiss={ props.timeout ? null : props.onDismiss }
     >
       {props.message}
@@ -69,7 +68,7 @@ Flash.defaultProps = {
   as: 'success',
   timeout: 0,
   isCenter: true,
-  theme: classicTheme
+  theme: baseTheme
 };
 export { Flash as FlashWithoutHOC };
 export default withTheme(Flash);
