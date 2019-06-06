@@ -5,6 +5,7 @@ import {
   boolean,
   select
 } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import I18n from 'i18n-js';
 import Form from '../form';
 import Textbox from '../../__experimental__/components/textbox';
@@ -191,7 +192,7 @@ storiesOf('Validations', module)
 
     return (
       <Form
-        onSubmit={ (ev) => { ev.preventDefault(); } }
+        onSubmit={ handleSubmit }
       >
         <State store={ buttonToggleGroupStore }>
           <ButtonToggleGroup
@@ -205,9 +206,7 @@ storiesOf('Validations', module)
                 name='button-toggle-group'
                 id={ value }
                 value={ value }
-                onChange={ (ev) => {
-                  buttonToggleGroupStore.set({ value: ev.target.value });
-                } }
+                onChange={ handleChange }
                 key={ `button-toggle-validation-${value}` }
               >
                 {value}
@@ -218,3 +217,13 @@ storiesOf('Validations', module)
       </Form>
     );
   });
+
+function handleSubmit(ev) {
+  ev.preventDefault();
+  action('submit')();
+}
+
+function handleChange(ev) {
+  action('change')();
+  buttonToggleGroupStore.set({ value: ev.target.value });
+}
