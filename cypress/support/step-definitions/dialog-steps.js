@@ -1,17 +1,17 @@
-import { backgroundBlocker, dialogPreview, dialogStickyFormFooter } from '../../locators/dialog/index';
+import { dialogPreview, dialogStickyFormFooter } from '../../locators/dialog/index';
 import { STORY_ROOT } from '../../locators/locators';
-import { closeIconButton } from '../../locators/index';
+import { closeIconButton, backgroundUILocator } from '../../locators/index';
 
 When('I click close icon', () => {
   closeIconButton().click();
 });
 
 Then('background UI is enabled', () => {
-  backgroundBlocker().should('not.exist');
+  backgroundUILocator().should('not.exist');
 });
 
 Then('background UI is disabled', () => {
-  backgroundBlocker().should('exist');
+  backgroundUILocator().should('exist');
 });
 
 Then('Dialog height is set to {string}', (height) => {
@@ -47,5 +47,5 @@ When('I click on {string} outside dialog', (position) => {
 });
 
 When('I click on background {string} outside dialog', (position) => {
-  backgroundBlocker().click(position, { force: true });
+  backgroundUILocator().click(position, { force: true });
 });
