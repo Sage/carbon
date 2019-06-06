@@ -8,6 +8,10 @@ import { OriginalButton } from '../button/button.component';
 import { notes, info } from './documentation';
 import { notesSpinner, infoSpinner } from '../spinner/documentation';
 
+const styles = {
+  textAlign: 'left'
+};
+
 storiesOf('Loader', module)
   .add(
     'default',
@@ -26,7 +30,7 @@ storiesOf('Loader', module)
           </OriginalButton>
         );
       }
-      return <Loader size={ size } />;
+      return <Loader size={ size } style={ styles } />;
     },
     {
       info: {
