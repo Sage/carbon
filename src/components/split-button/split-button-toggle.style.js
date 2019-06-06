@@ -23,11 +23,6 @@ const StyledSplitButtonToggle = styled(StyledButton)`
       && .carbon-icon {
         color: ${theme.colors.white};
       }
-      
-      &:hover {
-        background-color: ${theme.colors.tertiary};
-        border-color: ${theme.colors.tertiary};
-      }
 
       &:focus {
         border-left-color: ${theme.colors.secondary};
