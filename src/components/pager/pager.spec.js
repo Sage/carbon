@@ -4,11 +4,16 @@ import Immutable from 'immutable';
 import 'jest-styled-components';
 import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
+import guid from '../../utils/helpers/guid';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
 import smallTheme from '../../style/themes/small';
+import baseTheme from '../../style/themes/base';
 import Pager from './pager.component';
 import Dropdown from '../dropdown';
+
+jest.mock('../../utils/helpers/guid');
+guid.mockImplementation(() => 'guid-12345');
 
 const pageSizeSelectionOptions = Immutable.fromJS([
   { id: '10', name: 10 },
@@ -35,11 +40,17 @@ describe('Pager', () => {
   };
 
   it('renders the Pager correctly with the classic theme', () => {
-    const wrapper = render({ ...props, onPagination: () => true, theme: classicTheme });
+    const wrapper = render(
+      { ...props, onPagination: () => true, theme: classicTheme },
+      TestRenderer.create
+    );
     expect(wrapper).toMatchSnapshot();
   });
   it('renders the Pager correctly with the small theme', () => {
-    const wrapper = render({ ...props, onPagination: () => true, theme: smallTheme });
+    const wrapper = render(
+      { ...props, onPagination: () => true, theme: smallTheme },
+      TestRenderer.create
+    );
     expect(wrapper).toMatchSnapshot();
   });
 
@@ -54,21 +65,46 @@ describe('Pager', () => {
     });
   });
 
-  describe('Size Selector', () => {
-    it('navigates correctly on page size update', () => {
-      const onPagination = jest.fn();
-      const wrapper = render(
-        {
-          ...props,
-          currentPage: '4',
-          onPagination,
-          theme: smallTheme
-        },
-        mount
-      );
-      const dropdown = wrapper.find(Dropdown);
-      dropdown.instance().selectValue('25', '25');
-      expect(onPagination).toHaveBeenCalledWith('1', '25', 'size');
+  describe('DLS theme', () => {
+    describe('Pager styling', () => {
+      it('matches the expected style', () => {
+        const wrapper = render(
+          {
+            ...props,
+            theme: smallTheme
+          },
+          mount
+        );
+
+        assertStyleMatch({
+          padding: '9px 24px',
+          fontSize: '13px',
+          border: `1px solid ${baseTheme.table.selected}`,
+          backgroundColor: baseTheme.table.zebra,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          borderTopWidth: '0'
+        }, wrapper);
+      });
+    });
+
+    describe('Size Selector', () => {
+      it('navigates correctly on page size update', () => {
+        const onPagination = jest.fn();
+        const wrapper = render(
+          {
+            ...props,
+            currentPage: '4',
+            onPagination,
+            theme: smallTheme
+          },
+          mount
+        );
+        const dropdown = wrapper.find(Dropdown);
+        dropdown.instance().selectValue('25', '25');
+        expect(onPagination).toHaveBeenCalledWith('1', '25', 'size');
+      });
     });
   });
 });

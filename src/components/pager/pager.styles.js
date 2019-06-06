@@ -9,13 +9,16 @@ const PagerContainerStyles = styled.div`
   justify-content: space-between;
   padding: 9px 24px;
   align-items: center;
-  /** TODO: Update hardcoded colour after Table component complete */
-  border: 1px solid #d8dfe3;
   border-top-width: 0;
-  font-size: 13px;
-  /** TODO: Update hardcoded colour after Table component complete */
-  background-color: #FAFBFB;
-  
+  font-size: 13px;  
+  ${({ theme }) => {
+    return theme.table && css`
+      border: 1px solid ${theme.table.selected};
+      background-color: ${theme.table.zebra};
+    `;
+  }}
+  border-top: none;
+
   ${PagerContainerClassicStyles}
 `;
 

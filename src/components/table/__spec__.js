@@ -1,11 +1,15 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
+import { ThemeProvider } from 'styled-components';
 import Immutable from 'immutable';
 import { Table, TableHeader, TableRow, TableCell } from './table';
 import ActionToolbar from './../action-toolbar';
 import Link from './../link';
 import { shallow, mount } from 'enzyme';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import classicTheme from '../../style/themes/classic';
+import smallTheme from '../../style/themes/small';
+import baseTheme from '../../style/themes/base';
 
 describe('Table', () => {
   let instance, instancePager, instanceSortable, instanceCustomSort, spy, row;
@@ -27,17 +31,19 @@ describe('Table', () => {
       </Table>
     );
 
-    instancePager = TestUtils.renderIntoDocument(
-      <Table
-        className="foo"
-        paginate={ true }
-        currentPage='1'
-        pageSize='10'
-        totalRecords={ 100 }
-        onChange={ spy }
-      >
-        <TableRow />
-      </Table>
+    instancePager = mount(
+      <ThemeProvider theme={ classicTheme }>
+        <Table
+          className="foo"
+          paginate={ true }
+          currentPage='1'
+          pageSize='10'
+          totalRecords={ 100 }
+          onChange={ spy }
+        >
+          <TableRow />
+        </Table>
+      </ThemeProvider>
     );
 
     instanceSortable = TestUtils.renderIntoDocument(
@@ -589,9 +595,10 @@ describe('Table', () => {
 
   describe('shouldResetTableHeight', () => {
     describe('when new page size is smaller than previous', () => {
-      it('returns true', () => {
+      fit('returns true', () => {
         const prevProps = { pageSize: '1' }
-        expect(instancePager.shouldResetTableHeight(prevProps, {}));
+        console.log(instancePager.instance());
+        expect(instancePager.instance().shouldResetTableHeight(prevProps, {}));
       });
     });
 
@@ -863,7 +870,7 @@ describe('Table', () => {
   describe('pager', () => {
     describe('when paginate is true', () => {
       it('returns the pager', () => {
-        expect(instancePager.pager).toBeTruthy();
+        expect(instancePager.find('Pager').exists).toBeTruthy();
       });
     });
 
