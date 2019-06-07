@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
-import FlashLegacy from './flash-legacy.component';
+import Flash from './flash-legacy.component';
 import Portal from '../portal/portal';
 import guid from '../../utils/helpers/guid/guid';
 import 'jest-styled-components';
@@ -9,7 +9,7 @@ import { FlashIconStyle, FlashCloseStyle, FlashLink } from './flash-legacy.style
 
 jest.mock('../../utils/helpers/guid');
 
-describe('FlashLegacy', () => {
+describe('Flash', () => {
   let defaultInstance, successInstance, errorInstance, warningInstance, timeoutInstance,
       customIconInstance, dismissHandler;
 
@@ -17,14 +17,14 @@ describe('FlashLegacy', () => {
     dismissHandler = jasmine.createSpy('dismiss');
 
     defaultInstance = TestUtils.renderIntoDocument(
-      <FlashLegacy
+      <Flash
         open onDismiss={ dismissHandler }
         message='Danger Will Robinson!'
       />
     );
 
     successInstance = TestUtils.renderIntoDocument(
-      <FlashLegacy
+      <Flash
         open onDismiss={ dismissHandler }
         message='Danger Will Robinson!'
         className='lost-in-space' as='success'
@@ -32,7 +32,7 @@ describe('FlashLegacy', () => {
     );
 
     errorInstance = TestUtils.renderIntoDocument(
-      <FlashLegacy
+      <Flash
         open onDismiss={ dismissHandler }
         message='Danger Will Robinson!'
         as='error'
@@ -40,7 +40,7 @@ describe('FlashLegacy', () => {
     );
 
     warningInstance = TestUtils.renderIntoDocument(
-      <FlashLegacy
+      <Flash
         open onDismiss={ dismissHandler }
         message='Danger Will Robinson!'
         as='warning'
@@ -48,7 +48,7 @@ describe('FlashLegacy', () => {
     );
 
     timeoutInstance = TestUtils.renderIntoDocument(
-      <FlashLegacy
+      <Flash
         open={ false } onDismiss={ dismissHandler }
         message='Danger Will Robinson!'
         as='warning' timeout={ 2000 }
@@ -56,7 +56,7 @@ describe('FlashLegacy', () => {
     );
 
     customIconInstance = TestUtils.renderIntoDocument(
-      <FlashLegacy
+      <Flash
         open onDismiss={ dismissHandler }
         message='Danger Will Robinson!'
         as='special'
@@ -72,7 +72,7 @@ describe('FlashLegacy', () => {
     describe('when this.props.open is true', () => {
       it('sets this.state.open to true', () => {
         const wrapper = shallow(
-          <FlashLegacy
+          <Flash
             open
             { ...commonProps }
           />
@@ -84,7 +84,7 @@ describe('FlashLegacy', () => {
     describe('when this.props.open is false', () => {
       it('sets this.state.open to false', () => {
         const wrapper = shallow(
-          <FlashLegacy
+          <Flash
             open={ false }
             { ...commonProps }
           />
@@ -142,7 +142,7 @@ describe('FlashLegacy', () => {
     describe('when the flash is open and a timeout was passed', () => {
       it('calls the dismissHandler after a timeout', () => {
         timeoutInstance = TestUtils.renderIntoDocument(
-          <FlashLegacy
+          <Flash
             open onDismiss={ dismissHandler }
             message='Danger Will Robinson!'
             as='warning' timeout={ 2000 }
@@ -165,7 +165,7 @@ describe('FlashLegacy', () => {
     describe('when a dialog is open', () => {
       it('does not update state or call the dismissHandler', () => {
         timeoutInstance = TestUtils.renderIntoDocument(
-          <FlashLegacy
+          <Flash
             open onDismiss={ dismissHandler }
             message='Danger Will Robinson!'
             as='warning' timeout={ 2000 }
@@ -183,7 +183,7 @@ describe('FlashLegacy', () => {
 
       beforeEach(() => {
         closedInstance = TestUtils.renderIntoDocument(
-          <FlashLegacy
+          <Flash
             open={ false } onDismiss={ dismissHandler }
             message='Danger Will Robinson!'
           />
@@ -312,7 +312,7 @@ describe('FlashLegacy', () => {
     describe('when not an object', () => {
       it('returns itself', () => {
         const instance = TestUtils.renderIntoDocument(
-          <FlashLegacy
+          <Flash
             open onDismiss={ dismissHandler }
             message='Danger Will Robinson!'
           />
@@ -325,7 +325,7 @@ describe('FlashLegacy', () => {
       describe('with no description', () => {
         it('returns itself', () => {
           const instance = TestUtils.renderIntoDocument(
-            <FlashLegacy
+            <Flash
               open onDismiss={ dismissHandler }
               message={ { other: 'Danger Will Robinson!' } }
             />
@@ -337,7 +337,7 @@ describe('FlashLegacy', () => {
       describe('with a description', () => {
         it('returns the description', () => {
           const instance = TestUtils.renderIntoDocument(
-            <FlashLegacy
+            <Flash
               open onDismiss={ dismissHandler }
               message={ { description: 'Danger Will Robinson!' } }
             />
@@ -353,7 +353,7 @@ describe('FlashLegacy', () => {
     beforeEach(() => {
       jest.useFakeTimers();
       flashInfo = mount(
-        <FlashLegacy
+        <Flash
           message='This is some flash info'
           onDismiss={ () => {
             flashInfo.setProps({ open: false });
@@ -405,7 +405,7 @@ describe('FlashLegacy', () => {
       describe.each(iconVariant)(
         'when %s is passed to component',
         (option, variant) => {
-          it(`should render ${variant} variant of the FlashLegacy component`, () => {
+          it(`should render ${variant} variant of the Flash component`, () => {
             flashInfo.setProps({ open: true, as: option });
             expect(flashInfo.find(FlashIconStyle).props({ type: variant })).toBeTruthy();
           });
@@ -437,7 +437,7 @@ describe('FlashLegacy', () => {
 
   describe('sliderHTML', () => {
     const wrapper = shallow(
-      <FlashLegacy
+      <Flash
         open
         onDismiss={ dismissHandler }
         message='Danger Will Robinson!'
@@ -456,7 +456,7 @@ describe('FlashLegacy', () => {
     beforeEach(() => {
       jest.useFakeTimers();
       flashInfo = mount(
-        <FlashLegacy
+        <Flash
           message='This is some flash info'
           onDismiss={ () => {
             flashInfo.setProps({ open: false });
@@ -488,7 +488,7 @@ describe('FlashLegacy', () => {
 
     jest.useFakeTimers();
     const flashInfo = shallow(
-      <FlashLegacy
+      <Flash
         data-element='bar'
         message='bun::more::dy'
         onDismiss={ () => {} }

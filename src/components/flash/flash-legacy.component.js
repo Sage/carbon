@@ -12,7 +12,7 @@ import {
   FlashStyle, FlashSliderStyle, FlashContentStyle, FlashMessageStyle, FlashLink, FlashIconStyle, FlashCloseStyle
 } from './flash-legacy.style';
 
-class FlashLegacy extends React.Component {
+class Flash extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -293,7 +293,7 @@ class FlashLegacy extends React.Component {
   }
 }
 
-FlashLegacy.propTypes = {
+Flash.propTypes = {
   /** Custom className */
   className: PropTypes.string,
   /** A custom close event handler */
@@ -315,10 +315,10 @@ FlashLegacy.propTypes = {
   ])
 };
 
-FlashLegacy.defaultProps = {
+Flash.defaultProps = {
   as: 'success',
   className: '',
   timeout: 0
 };
 
-export default FlashLegacy;
+export default Flash;
