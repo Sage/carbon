@@ -67,6 +67,24 @@ const contentAnimation = `
   }
 `;
 
+const FlashCloseStyle = styled(Icon)`
+    &.carbon-icon{
+      color: rgba(0, 0, 0, 0.85);
+      cursor: pointer;
+      display: flex;
+      outline: none;
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 70px;
+    }
+
+    &:before {
+      font-size: 16px;
+      margin: auto;
+  }
+`;
+
 const FlashIconStyle = styled(Icon)`
   &.carbon-icon {
     display: flex;
@@ -152,7 +170,7 @@ const FlashStyle = styled.div`
         ${requireWhiteTextColor.includes(variant) && `
         
           ${FlashMessageStyle},
-          .carbon-flash__close,
+          ${FlashCloseStyle},
           ${FlashIconStyle}:before {
             color: white;
           };
@@ -170,5 +188,6 @@ export {
   FlashContentStyle,
   FlashMessageStyle,
   FlashLink,
-  FlashIconStyle
+  FlashIconStyle,
+  FlashCloseStyle
 };

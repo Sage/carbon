@@ -6,13 +6,11 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { isObject, isArray, forEach } from 'lodash';
 import shouldComponentUpdate from '../../utils/helpers/should-component-update/should-component-update';
 import Portal from '../portal/portal';
-import Icon from '../icon/icon';
 import Alert from '../alert';
 import tagComponent from '../../utils/helpers/tags/tags';
 import {
-  FlashStyle, FlashSliderStyle, FlashContentStyle, FlashMessageStyle, FlashLink, FlashIconStyle
+  FlashStyle, FlashSliderStyle, FlashContentStyle, FlashMessageStyle, FlashLink, FlashIconStyle, FlashCloseStyle
 } from './flash-legacy.style';
-import './flash.scss';
 
 class FlashLegacy extends React.Component {
   constructor(props) {
@@ -234,8 +232,7 @@ class FlashLegacy extends React.Component {
           { this.formatDescription(this.description) }
         </FlashMessageStyle>
         {!this.props.timeout && (
-          <Icon
-            className='carbon-flash__close'
+          <FlashCloseStyle
             data-element='close'
             key='close'
             onClick={ this.props.onDismiss }
