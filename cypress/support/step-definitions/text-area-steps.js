@@ -1,8 +1,8 @@
 import {
-  textarea, textareaChildren, colsSlider, rowsSlider, characterLimit, textareaLabel,
+  textarea, textareaChildren, colsSlider, rowsSlider, characterLimit,
 } from '../../locators/textarea';
 import { setSlidebar } from '../helper';
-import { fieldHelpPreview } from '../../locators';
+import { fieldHelpPreview, label } from '../../locators';
 
 const TEXT_ALIGN = 'text-align';
 
@@ -82,19 +82,19 @@ Then('Textarea inputWidth is set to {string}', (width) => {
 });
 
 Then('label is set to {string}', (text) => {
-  textareaLabel().should('have.text', text);
+  label().should('have.text', text);
 });
 
 Then('label is set to {string}', (text) => {
-  textareaLabel().should('have.text', text);
+  label().should('have.text', text);
 });
 
 Then('Textarea component is labelInline', () => {
-  textareaLabel().should('have.css', TEXT_ALIGN, 'left');
+  label().should('have.css', TEXT_ALIGN, 'left');
 });
 
 Then('Textarea component is not labelInline', () => {
-  textareaLabel().should('not.have.css', TEXT_ALIGN, 'left');
+  label().should('not.have.css', TEXT_ALIGN, 'left');
 });
 
 When('I input {string} into Textarea', (text) => {
