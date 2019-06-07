@@ -1,2 +1,2 @@
-export { default as notes } from './notes.md';
-export { default as info } from './info';
+export { default as notesSpinner } from './notes.md';
+export { default as infoSpinner } from './info';
