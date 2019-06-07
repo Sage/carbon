@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
 import Link from '../link';
+import Icon from '../icon/icon';
 
 const colors = {
   warning: '#FF7D00',
@@ -66,6 +67,32 @@ const contentAnimation = `
   }
 `;
 
+const FlashIconStyle = styled(Icon)`
+  &.carbon-icon {
+    display: flex;
+    left: 0;
+    position: absolute;
+    width: 70px;
+  }
+
+  &:before {
+    color: rgba(0, 0, 0, 0.85);
+    font-size: 16px;
+    margin: auto;
+  }
+
+    .carbon-icon__svg {
+    height: 16px;
+    margin: auto;
+    width: 16px;
+  }
+
+  .carbon-icon__svg-group {
+    fill: rgba(0, 0, 0, 0.85);
+  }
+  
+`;
+
 const FlashLink = styled(Link)`
   color: #fff;
 
@@ -126,7 +153,7 @@ const FlashStyle = styled.div`
         
           ${FlashMessageStyle},
           .carbon-flash__close,
-          .carbon-flash__icon:before {
+          ${FlashIconStyle}:before {
             color: white;
           };
 
@@ -142,5 +169,6 @@ export {
   FlashSliderStyle,
   FlashContentStyle,
   FlashMessageStyle,
-  FlashLink
+  FlashLink,
+  FlashIconStyle
 };

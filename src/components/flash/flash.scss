@@ -2,32 +2,6 @@
 @import "./../../style-config/general";
 @import "./../../style-config/z-index";
 
-// REQUIRE ICON COMPONENT
-.carbon-flash__icon {
-  display: flex;
-  left: 0;
-  position: absolute;
-  width: 70px;
-
-  &:before {
-    color: $onyx;
-    font-size: 16px;
-    margin: auto;
-  }
-}
-
-.carbon-flash__icon {
-  .carbon-icon__svg {
-    height: 16px;
-    margin: auto;
-    width: 16px;
-  }
-
-  .carbon-icon__svg-group {
-    fill: $onyx;
-  }
-}
-
 .carbon-flash__close {
   color: $onyx;
   cursor: pointer;

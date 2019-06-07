@@ -8,10 +8,9 @@ import shouldComponentUpdate from '../../utils/helpers/should-component-update/s
 import Portal from '../portal/portal';
 import Icon from '../icon/icon';
 import Alert from '../alert';
-import Link from '../link';
 import tagComponent from '../../utils/helpers/tags/tags';
 import {
-  FlashStyle, FlashSliderStyle, FlashContentStyle, FlashMessageStyle, FlashLink
+  FlashStyle, FlashSliderStyle, FlashContentStyle, FlashMessageStyle, FlashLink, FlashIconStyle
 } from './flash-legacy.style';
 import './flash.scss';
 
@@ -224,8 +223,8 @@ class FlashLegacy extends React.Component {
   get flashHTML() {
     return (
       <FlashContentStyle>
-        <Icon
-          className='carbon-flash__icon' type={ this.iconType }
+        <FlashIconStyle
+          type={ this.iconType }
           key='icon'
         />
         <FlashMessageStyle
