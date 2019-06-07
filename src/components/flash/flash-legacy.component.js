@@ -317,7 +317,6 @@ Flash.propTypes = {
 
 Flash.defaultProps = {
   as: 'success',
-  className: '',
   timeout: 0
 };
 

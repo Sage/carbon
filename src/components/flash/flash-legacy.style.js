@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import Link from '../link';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 
 const colors = {
   warning: '#FF7D00',
