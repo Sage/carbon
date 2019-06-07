@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import Link from '../link';
 
 const colors = {
   warning: '#FF7D00',
@@ -62,6 +63,14 @@ const contentAnimation = `
   .carbon-flash__content-leave-active  {
     opacity: 0;
     transition: 400ms ease-out 100ms;
+  }
+`;
+
+const FlashLink = styled(Link)`
+  color: #fff;
+
+  &:hover{
+    color: #fff
   }
 `;
 
@@ -132,5 +141,6 @@ export {
   FlashStyle,
   FlashSliderStyle,
   FlashContentStyle,
-  FlashMessageStyle
+  FlashMessageStyle,
+  FlashLink
 };

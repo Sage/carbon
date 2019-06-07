@@ -11,8 +11,8 @@ import Alert from '../alert';
 import Link from '../link';
 import tagComponent from '../../utils/helpers/tags/tags';
 import {
-  FlashStyle, FlashSliderStyle, FlashContentStyle, FlashMessageStyle
-} from './flash.style';
+  FlashStyle, FlashSliderStyle, FlashContentStyle, FlashMessageStyle, FlashLink
+} from './flash-legacy.style';
 import './flash.scss';
 
 class FlashLegacy extends React.Component {
@@ -179,13 +179,12 @@ class FlashLegacy extends React.Component {
       value = (
         <span>
           { title }&nbsp;
-          <Link
+          <FlashLink
             onClick={ this.toggleDialog(title) }
-            className='carbon-flash__link'
             data-element='more-info'
           >
             { info }
-          </Link>
+          </FlashLink>
         </span>
       );
     }

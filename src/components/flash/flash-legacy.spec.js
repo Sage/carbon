@@ -391,23 +391,23 @@ describe('FlashLegacy', () => {
     });
 
     describe('When component rendered', () => {
-      const iconVariant = {
-        default: 'default',
-        success: 'tick',
-        maintenance: 'settings',
-        info: 'info',
-        help: 'question',
-        error: 'error',
-        new: 'gift',
-        warning: 'warning'
-      };
+      const iconVariant = [
+        ['default', 'default'],
+        ['success', 'tick'],
+        ['maintenance', 'settings'],
+        ['info', 'info'],
+        ['help', 'question'],
+        ['error', 'error'],
+        ['new', 'gift'],
+        ['warning', 'warning']
+      ];
 
-      describe.each(OptionsHelper.colors)(
+      describe.each(iconVariant)(
         'when %s is passed to component',
-        (variant) => {
+        (option, variant) => {
           it(`should render ${variant} variant of the FlashLegacy component`, () => {
-            flashInfo.setProps({ open: true, as: variant });
-            expect(flashInfo.find(`.carbon-flash__icon.icon-${iconVariant[variant]}`).length).toEqual(1);
+            flashInfo.setProps({ open: true, as: option });
+            expect(flashInfo.find('.carbon-flash__icon').at(0).props({ type: variant })).toBeTruthy();
           });
         }
       );
