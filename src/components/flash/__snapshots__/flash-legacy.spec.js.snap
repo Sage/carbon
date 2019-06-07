@@ -81,7 +81,7 @@ exports[` 1`] = `
 </Portal>
 `;
 
-exports[`FlashLegacy sliderHTML returns a div with the slider class names 1`] = `
+exports[`Flash sliderHTML returns a div with the slider class names 1`] = `
 <Portal>
   <div
     data-component="flash"
