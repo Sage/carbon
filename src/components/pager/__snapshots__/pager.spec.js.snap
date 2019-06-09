@@ -1,13 +1,531 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Pager renders the Pager correctly with the classic theme 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 9px 24px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-top-width: 0;
+  font-size: 13px;
+  border: 1px solid #D8E0E3;
+  background-color: #F9FAFB;
+  border-top: none;
+  padding: 3px 16px;
+  font-size: 14px;
+  background-color: #F2F4F5;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 30%;
+  -ms-flex: 1 1 30%;
+  flex: 1 1 30%;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+
+.c1 .carbon-dropdown {
+  width: 55px;
+  margin: 0 4px;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c3 .carbon-number__input {
+  width: 34px;
+  height: 24px;
+  padding: 0;
+  margin: 0 4px;
+  line-height: 24px;
+  text-align: center;
+}
+
+.c3 .carbon-number__input {
+  width: 35px;
+  height: 31px;
+}
+
+.c4 {
+  display: inline-block;
+  -webkit-transform: rotate(90deg) scale(1.4);
+  -ms-transform: rotate(90deg) scale(1.4);
+  transform: rotate(90deg) scale(1.4);
+  cursor: pointer;
+  margin-right: 8px;
+  opacity: 0.3;
+  cursor: default;
+}
+
+.c6 {
+  display: inline-block;
+  -webkit-transform: rotate(90deg) scale(1.4);
+  -ms-transform: rotate(90deg) scale(1.4);
+  transform: rotate(90deg) scale(1.4);
+  cursor: pointer;
+  margin-right: 8px;
+  -webkit-transform: rotate(-90deg) scale(1.4);
+  -ms-transform: rotate(-90deg) scale(1.4);
+  transform: rotate(-90deg) scale(1.4);
+  margin-right: 0;
+  margin-left: 8px;
+}
+
+.c5 {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 30%;
+  -ms-flex: 1 1 30%;
+  flex: 1 1 30%;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <div
+      className="c2"
+    >
+      Show 
+      <div
+        className="carbon-dropdown common-input--with-icon common-input"
+        data-component="dropdown"
+        data-element="page-select"
+      >
+        <div
+          className="common-input__field"
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
+        >
+          <input
+            autoComplete="off"
+            className="carbon-dropdown__input common-input__input"
+            data-element="input"
+            id="guid-12345"
+            name={null}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            readOnly={true}
+            value={10}
+          />
+          <label
+            htmlFor="guid-12345"
+          >
+            <span
+              className="carbon-icon carbon-input-icon icon-dropdown"
+              data-component="icon"
+              data-element="dropdown"
+            />
+          </label>
+        </div>
+        <input
+          data-element="hidden-input"
+          readOnly={true}
+          type="hidden"
+          value="10"
+        />
+      </div>
+       
+       records
+    </div>
+  </div>
+  <div
+    className="c3"
+  >
+    <div
+      className="c4"
+      disabled={true}
+    >
+      <span
+        className="carbon-icon icon-dropdown"
+        data-component="icon"
+        data-element="dropdown"
+        onClick={[Function]}
+      />
+    </div>
+    <span
+      className="c5"
+    >
+      Page 
+    </span>
+    <div
+      className="carbon-number carbon-pager__current-page carbon-pager__current-page common-input"
+      data-component="number"
+      data-element="current-page"
+    >
+      <div
+        className="common-input__field"
+        onMouseOut={[Function]}
+        onMouseOver={[Function]}
+      >
+        <input
+          autoComplete="off"
+          className="carbon-number__input common-input__input"
+          data-element="input"
+          id="guid-12345"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          onKeyDown={[Function]}
+          onKeyUp={[Function]}
+          value="1"
+        />
+      </div>
+    </div>
+    <span
+      className="c5"
+    >
+       of 
+      10
+    </span>
+    <div
+      className="c6"
+      disabled={false}
+    >
+      <span
+        className="carbon-icon icon-dropdown"
+        data-component="icon"
+        data-element="dropdown"
+        onClick={[Function]}
+      />
+    </div>
+  </div>
+  <div
+    className="c7"
+  >
+    100
+     
+     records
+  </div>
+</div>
 `;
 
 exports[`Pager renders the Pager correctly with the small theme 1`] = `
-<ContextConsumer>
-  <Component />
-</ContextConsumer>
+.c0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 9px 24px;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  border-top-width: 0;
+  font-size: 13px;
+  border: 1px solid #D8E0E3;
+  background-color: #F9FAFB;
+  border-top: none;
+}
+
+.c1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 30%;
+  -ms-flex: 1 1 30%;
+  flex: 1 1 30%;
+  -webkit-box-pack: start;
+  -webkit-justify-content: flex-start;
+  -ms-flex-pack: start;
+  justify-content: flex-start;
+}
+
+.c1 .carbon-dropdown {
+  width: 55px;
+  margin: 0 4px;
+}
+
+.c2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 auto;
+  -ms-flex: 1 1 auto;
+  flex: 1 1 auto;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c3 .carbon-number__input {
+  width: 34px;
+  height: 24px;
+  padding: 0;
+  margin: 0 4px;
+  line-height: 24px;
+  text-align: center;
+}
+
+.c5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 0 12px;
+}
+
+.c4 {
+  padding: 0 12px;
+  font-size: 13px;
+  border-width: 0;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  background-color: transparent;
+  cursor: pointer;
+  color: rgba(0,0,0,0.3);
+}
+
+.c4:focus {
+  outline: none;
+}
+
+.c7 {
+  padding: 0 12px;
+  font-size: 13px;
+  border-width: 0;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.c7:focus {
+  outline: none;
+}
+
+.c6 {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex: 1 1 30%;
+  -ms-flex: 1 1 30%;
+  flex: 1 1 30%;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+}
+
+<div
+  className="c0"
+>
+  <div
+    className="c1"
+  >
+    <div
+      className="c2"
+    >
+      Show 
+      <div
+        className="carbon-dropdown common-input--with-icon common-input"
+        data-component="dropdown"
+        data-element="page-select"
+      >
+        <div
+          className="common-input__field"
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
+        >
+          <input
+            autoComplete="off"
+            className="carbon-dropdown__input common-input__input"
+            data-element="input"
+            id="guid-12345"
+            name={null}
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            readOnly={true}
+            value={10}
+          />
+          <label
+            htmlFor="guid-12345"
+          >
+            <span
+              className="carbon-icon carbon-input-icon icon-dropdown"
+              data-component="icon"
+              data-element="dropdown"
+            />
+          </label>
+        </div>
+        <input
+          data-element="hidden-input"
+          readOnly={true}
+          type="hidden"
+          value="10"
+        />
+      </div>
+       
+       items
+    </div>
+  </div>
+  <div
+    className="c3"
+  >
+    <button
+      className="c4"
+      onClick={[Function]}
+    >
+      First
+    </button>
+    <button
+      className="c4"
+      onClick={[Function]}
+    >
+      Back
+    </button>
+    <div
+      className="c5"
+    >
+      <span
+        className="c6"
+      >
+        Page 
+      </span>
+      <div
+        className="carbon-number carbon-pager__current-page carbon-pager__current-page common-input"
+        data-component="number"
+        data-element="current-page"
+      >
+        <div
+          className="common-input__field"
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
+        >
+          <input
+            autoComplete="off"
+            className="carbon-number__input common-input__input"
+            data-element="input"
+            id="guid-12345"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            value="1"
+          />
+        </div>
+      </div>
+      <span
+        className="c6"
+      >
+         of 
+        10
+      </span>
+    </div>
+    <button
+      className="c7"
+      onClick={[Function]}
+    >
+      Next
+    </button>
+    <button
+      className="c7"
+      onClick={[Function]}
+    >
+      Last
+    </button>
+  </div>
+  <div
+    className="c8"
+  >
+    100
+     
+     items
+  </div>
+</div>
 `;

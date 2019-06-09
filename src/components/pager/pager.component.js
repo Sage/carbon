@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import Immutable from 'immutable';
+import { withTheme } from 'styled-components';
 import PagerNavigation from './pager-navigation.component';
 import {
   PagerContainerStyles,
@@ -10,6 +11,7 @@ import {
   PagerSizeOptionsInnerStyles
 } from './pager.styles';
 import Dropdown from '../dropdown';
+import { THEMES } from '../../style/themes';
 
 const Pager = (props) => {
   const [currentPage, setCurrentPage] = useState(props.currentPage);
@@ -18,10 +20,14 @@ const Pager = (props) => {
     setCurrentPage(props.currentPage);
   }, [props.currentPage]);
 
+  const { theme } = props;
   /** Term used to describe table data */
   const descriptor = I18n.t(
     'pager.records',
-    { count: Number(props.totalRecords), defaultValue: ' records' }
+    {
+      count: Number(props.totalRecords),
+      defaultValue: (theme && theme.name === THEMES.classic) ? ' records' : ' items'
+    }
   );
 
   function sizeSelector() {
@@ -68,7 +74,9 @@ Pager.propTypes = {
   /** Should the page size selection dropdown be shown */
   showPageSizeSelection: PropTypes.bool,
   /** Set of page size options */
-  pageSizeSelectionOptions: PropTypes.object
+  pageSizeSelectionOptions: PropTypes.object,
+  /** Current theme */
+  theme: PropTypes.object
 };
 
 Pager.defaultProps = {
@@ -81,4 +89,6 @@ Pager.defaultProps = {
   ])
 };
 
-export default Pager;
+export const PagerWithoutTheme = Pager;
+
+export default withTheme(Pager);

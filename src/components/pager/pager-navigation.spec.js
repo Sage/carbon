@@ -8,6 +8,7 @@ import smallTheme from '../../style/themes/small';
 import Icon from '../icon';
 import PagerNavigation from './pager-navigation.component';
 import { PagerLinkStyles } from './pager.styles';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
 const pageSizeSelectionOptions = Immutable.fromJS([
   { id: '10', name: 10 },
@@ -35,12 +36,55 @@ describe('Pager Navigation', () => {
   };
 
   it('renders the Pager Navigation correctly with the classic theme', () => {
-    const wrapper = render({ ...props, onPagination: () => true, theme: classicTheme });
-    expect(wrapper).toMatchSnapshot();
+    const wrapper = render(
+      {
+        ...props,
+        onPagination: () => true,
+        theme: classicTheme
+      },
+      mount
+    );
+
+    assertStyleMatch({
+      display: 'flex',
+      flex: '1 1 auto',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }, wrapper.find(PagerNavigation));
+
+    assertStyleMatch({
+      width: '35px',
+      height: '31px'
+    }, wrapper.find(PagerNavigation),
+    {
+      modifier: '.carbon-number__input'
+    });
   });
+
   it('renders the Pager Navigation correctly with the small theme', () => {
-    const wrapper = render({ ...props, onPagination: () => true, theme: smallTheme });
-    expect(wrapper).toMatchSnapshot();
+    const wrapper = render(
+      {
+        ...props,
+        onPagination: () => true,
+        theme: smallTheme
+      },
+      mount
+    );
+
+    assertStyleMatch({
+      display: 'flex',
+      flex: '1 1 auto',
+      justifyContent: 'center',
+      alignItems: 'center'
+    }, wrapper.find(PagerNavigation));
+
+    assertStyleMatch({
+      width: '34px',
+      height: '24px'
+    }, wrapper.find(PagerNavigation),
+    {
+      modifier: '.carbon-number__input'
+    });
   });
 
   describe('Current Page Input', () => {
@@ -60,6 +104,7 @@ describe('Pager Navigation', () => {
       input.simulate('change', { target: { value: '2' } });
       expect(setCurrentPage).toHaveBeenCalledWith('2');
     });
+
     it('updates correctly on keypress (enter)', () => {
       const onPagination = jest.fn();
       const wrapper = render(
@@ -77,6 +122,7 @@ describe('Pager Navigation', () => {
       input.simulate('keyup', { which: 13, target: { value: '6' } });
       expect(onPagination).toHaveBeenCalledWith('6', '10', 'input');
     });
+
     it('does not update correctly on keypress (not enter)', () => {
       const onPagination = jest.fn();
       const wrapper = render(
@@ -94,6 +140,7 @@ describe('Pager Navigation', () => {
       input.simulate('keyup', { which: 2, target: { value: '6' } });
       expect(onPagination).not.toHaveBeenCalled();
     });
+
     it('updates correctly if new value is NaN', () => {
       const onPagination = jest.fn();
       const wrapper = render(
@@ -111,6 +158,7 @@ describe('Pager Navigation', () => {
       input.simulate('keyup', { which: 13, target: { value: 'asdfghjk' } });
       expect(onPagination).toHaveBeenCalledWith('1', '10', 'input');
     });
+
     it('updates correctly if new value is higher than max pages', () => {
       const onPagination = jest.fn();
       const wrapper = render(
@@ -148,6 +196,7 @@ describe('Pager Navigation', () => {
       last.simulate('click');
       expect(onPagination).not.toHaveBeenCalled();
     });
+
     it('changes the current page on clicking link', () => {
       const onPagination = jest.fn();
       const wrapper = render(
@@ -184,6 +233,7 @@ describe('Pager Navigation', () => {
       prev.simulate('click');
       expect(onPagination).not.toHaveBeenCalled();
     });
+
     it('changes page correctly on next', () => {
       const onPagination = jest.fn();
       const wrapper = render(
@@ -200,6 +250,7 @@ describe('Pager Navigation', () => {
       next.simulate('click');
       expect(onPagination).toHaveBeenCalledWith('3', '10', 'next');
     });
+
     it('changes page correctly on prev', () => {
       const onPagination = jest.fn();
       const wrapper = render(

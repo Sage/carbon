@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import { number, boolean } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
-import Pager from './pager.component';
+import Pager, { PagerWithoutTheme } from './pager.component';
 import { Info, notes } from './documentation';
 
 const store = new Store({
   currentPage: '1',
-  pageSize: Pager.defaultProps.pageSize
+  pageSize: PagerWithoutTheme.defaultProps.pageSize
 });
 
 const handlePagination = (newPage, pageSize, type) => {
@@ -72,8 +72,12 @@ TableComponent.propTypes = {
 storiesOf('Pager', module)
   .add('default', () => {
     const totalRecords = number('totalRecords', 100);
-    const showPageSizeSelection = boolean('showPageSizeSelection', Pager.defaultProps.showPageSizeSelection);
+    const showPageSizeSelection = boolean(
+      'showPageSizeSelection',
+      PagerWithoutTheme.defaultProps.showPageSizeSelection
+    );
 
+    // console.log(Pager);
     return (
       <State store={ store }>
         <Pager
