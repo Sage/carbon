@@ -3,7 +3,6 @@ Feature: Toast component
 
   Background: Open Toast component component page
     Given I open "Toast" component page classic
-      And I check open checkbox
 
   @positive
   Scenario Outline: Change Toast as <as> property
@@ -35,7 +34,8 @@ Feature: Toast component
 
 @positive
   Scenario: Enable open checkbox for a Toast component
-    # When I check open checkbox
+    When I uncheck open checkbox
+      And I check open checkbox
     Then Toast component is visible
 
   @positive
@@ -45,8 +45,8 @@ Feature: Toast component
 
   @positive
   Scenario: Enable onDismiss checkbox for a Toast component
-    # Is enabled by default
-    # When I check onDismiss checkbox
+    When I uncheck onDismiss checkbox
+      And I check onDismiss checkbox
     Then Toast component has a close icon
 
   @positive

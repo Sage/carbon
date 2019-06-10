@@ -1,7 +1,8 @@
 import {
-  textarea, textareaChildren, colsSlider, rowsSlider, characterLimit,
+  textarea, textareaChildren, colsSlider, rowsSlider,
+  characterLimit, textareaInput,
 } from '../../locators/textarea';
-import { setSlidebar } from '../helper';
+import { setSlidebar, countCharacters } from '../helper';
 import { fieldHelpPreview, label } from '../../locators';
 
 const TEXT_ALIGN = 'text-align';
@@ -101,32 +102,36 @@ When('I input {string} into Textarea', (text) => {
   textareaChildren().clear().type(text);
 });
 
-Then('Textarea component has warnOverLimit and used characters {int} of 5', (overCharacterLimit) => {
+Then('Textarea component has warnOverLimit and used characters {int} of {int}', (overCharacterLimit, limit) => {
   characterLimit().parent()
-    .should('have.text', `You have used ${overCharacterLimit} of 5 characters`)
+    .should('have.text', `You have used ${overCharacterLimit} of ${limit} characters`)
     .and('have.css', 'color', 'rgb(199, 56, 79)');
 });
 
-Then('Textarea component has warnOverLimit and used characters {int} of 5', (overCharacterLimit) => {
+Then('Textarea component has no warnOverLimit and used characters {int} of {int}', (charactersUsed, limit) => {
   characterLimit().parent()
-    .should('have.text', `You have used ${overCharacterLimit} of 5 characters`)
-    .and('have.css', 'color', 'rgb(199, 56, 79)');
-});
-
-Then('Textarea component has no warnOverLimit and used characters {int} of 5', (charactersUsed) => {
-  characterLimit().parent()
-    .should('have.text', `You have used ${charactersUsed} of 5 characters`)
+    .should('have.text', `You have used ${charactersUsed} of ${limit} characters`)
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.85)');
 });
 
-Then('Textarea component has enforceCharacterLimit enabled and used characters {int} are equal to limit 5', (charactersUsed) => {
+Then('Textarea component has enforceCharacterLimit enabled and used characters {int} are equal to limit {int}', (charactersUsed, limit) => {
   characterLimit().parent()
-    .should('have.text', `You have used ${charactersUsed} of 5 characters`)
+    .should('have.text', `You have used ${charactersUsed} of ${limit} characters`)
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.85)');
 });
 
-Then('Textarea component has enforceCharacterLimit disabled and used characters {int} are more than limit 5', (charactersUsed) => {
+Then('Textarea component has enforceCharacterLimit disabled and used characters {int} are more than limit {int}', (charactersUsed, limit) => {
   characterLimit().parent()
-    .should('have.text', `You have used ${charactersUsed} of 5 characters`)
+    .should('have.text', `You have used ${charactersUsed} of ${limit} characters`)
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.85)');
+});
+
+When('I input {string} into Textarea', (text) => {
+  textareaInput().children().clear().type(text);
+});
+
+Then('Textarea input on preview is set to {string}', () => {
+  textarea().children().invoke('text').then(((text) => {
+    expect(text.trim()).to.eq(text);
+  }));
 });

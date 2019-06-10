@@ -1,5 +1,5 @@
 import {
-  TEXTAREA, COLS_SLIDER, ROWS_SLIDER, CHARACTER_LIMIT,
+  TEXTAREA, COLS_SLIDER, ROWS_SLIDER, CHARACTER_LIMIT, TEXTAREA_INPUT,
 } from './locators';
 
 // Knobs locators
@@ -12,3 +12,4 @@ export const textareaChildren = () => cy.iFrame(TEXTAREA)
   .find('textarea');
 export const characterLimit = () => cy.iFrame(CHARACTER_LIMIT)
   .find('span:nth-child(2)');
+export const textareaInput = () => cy.iFrame(TEXTAREA_INPUT);

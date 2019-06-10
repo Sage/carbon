@@ -196,42 +196,70 @@ Feature: Textarea component
 
   @positive
   Scenario Outline: Enable warnOverLimit checkbox for a Textarea component and check the warning
-    When I set characterLimit to "5"
+    When I set characterLimit to "<limit>"
       And I check warnOverLimit checkbox
       And I uncheck enforceCharacterLimit checkbox
       And I input "<text>" into Textarea
-    Then Textarea component has warnOverLimit and used characters <characters> of 5
+    Then Textarea component has warnOverLimit and used characters <characters> of <limit>
     Examples:
-      | text      | characters |
-      | testText  | 8          |
+      | text             | characters | limit |
+      | !                | 1          | -1    |
+      | 12345            | 5          | 0     |
+      | áéíóú¿¡üñ        | 9          | 5     |
+      | testTestTextTest | 16         | 10    |
 
   @positive
-  Scenario Outline: Enable and disable warnOverLimit checkbox for a Textarea component and allow to input more characters than allowed
-    When I set characterLimit to "5"
+  Scenario Outline: Disable warnOverLimit checkbox for a Textarea component and allow to input more characters than allowed
+    When I set characterLimit to "<limit>"
       And I check warnOverLimit checkbox
       And I uncheck enforceCharacterLimit checkbox
       And I uncheck warnOverLimit checkbox
       And I input "<text>" into Textarea
-    Then Textarea component has no warnOverLimit and used characters <characters> of 5
-    Examples:
-      | text      | characters |
-      | testText  | 8          |
+    Then Textarea component has no warnOverLimit and used characters <characters> of <limit>
+      Examples:
+        | text             | characters | limit |
+        | !                | 1          | -1    |
+        | 12345            | 5          | 0     |
+        | áéíóú¿¡üñ        | 9          | 5     |
+        | testTestTextTest | 16         | 10    |
 
   @positive
   Scenario Outline: Enable enforceCharacterLimit checkbox for a Textarea component and check the warning
-    When I set characterLimit to "5"
+    When I set characterLimit to "<limit>"
       And I input "<text>" into Textarea
-    Then Textarea component has enforceCharacterLimit enabled and used characters <characters> are equal to limit 5
+    Then Textarea component has enforceCharacterLimit enabled and used characters <characters> are equal to limit <limit>
     Examples:
-      | text      | characters |
-      | testText  | 5          |
+      | text             | characters | limit |
+      | ?                | 1          | -1    |
+      | !!!              | 2          | 2     |
+      | testText         | 5          | 5     |
+      | áéíóú¿¡üñ        | 7          | 7     |
+      | testTestTextTest | 10         | 10    |
 
   @positive
-  Scenario Outline: Enable and disable enforceCharacterLimit checkbox for a Textarea component and allow to input more characters than allowed
-    When I set characterLimit to "5"
+  Scenario Outline: Disable enforceCharacterLimit checkbox for a Textarea component and allow to input more characters than allowed
+    When I set characterLimit to "<limit>"
       And I uncheck enforceCharacterLimit checkbox
       And I input "<text>" into Textarea
-    Then Textarea component has enforceCharacterLimit disabled and used characters <characters> are more than limit 5
+    Then Textarea component has enforceCharacterLimit disabled and used characters <characters> are more than limit <limit>
     Examples:
-      | text      | characters |
-      | testText  | 8          |
+      | text             | characters | limit |
+      | testText         | 8          | -1    |
+      | !                | 1          | 0     |
+      | 12345            | 5          | 3     |
+      | áéíóú¿¡üñ        | 9          | 5     |
+      | testTestTextTest | 16         | 10    |
+
+  @positive
+  Scenario Outline: Verify input of Textarea component
+    When I input "<input>" into Textarea
+    Then Textarea input on preview is set to "<input>"
+    Examples:
+      | input                   |
+      | Sample text             |
+      | 1234567890              |
+      | áéíóú¿¡üñ               |
+      | !@#$%^*()_+-=~[];:.,?{} |
+      | ÄÖÜßäöüß                |
+      # @ignore because of FE-1447
+      # | <>                     |
