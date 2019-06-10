@@ -1,4 +1,4 @@
-import Spinner from './';
+import Spinner from './spinner.component';
 import OptionsHelper from './../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
 

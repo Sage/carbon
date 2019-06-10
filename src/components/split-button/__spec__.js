@@ -1,3 +1,5 @@
+// File to be removed after MultiActionButton refactor.
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
