@@ -22,6 +22,10 @@ Given('I open {string} component page with button', (component) => {
   visitComponentUrl(component, 'with_button');
 });
 
+Given('I open {string} component page legacy spinner', (component) => {
+  visitComponentUrl(component, 'legacy_spinner');
+});
+
 Given('I open {string} component iframe', (component) => {
   visitComponentUrl(component, 'default', true);
 });

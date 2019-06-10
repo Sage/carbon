@@ -1,4 +1,4 @@
-import { TOGGLE_BUTTON } from './locators';
+import { SPLIT_TOGGLE_BUTTON } from './locators';
 
 // component preview locators
-export const toggleButton = () => cy.iFrame(TOGGLE_BUTTON);
+export const splitToggleButton = () => cy.iFrame(SPLIT_TOGGLE_BUTTON);
