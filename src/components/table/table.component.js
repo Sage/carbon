@@ -365,7 +365,7 @@ class Table extends React.Component {
    * Test if the table height should be reset to 0
    */
   shouldResetTableHeight(prevProps) {
-    return prevProps.size !== this.props.size || prevProps.pageSize > this.pageSize;
+    return prevProps.size !== this.props.size || prevProps.pageSize >= this.pageSize;
   }
 
   /**

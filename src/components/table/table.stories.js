@@ -12,16 +12,14 @@ import {
   Table, TableCell, TableHeader, TableRow
 } from '.';
 import TextBox from '../../__experimental__/components/textbox';
-import Decimal from '../../__experimental__/components/decimal';
 import DateInput from '../../__experimental__/components/date';
-import { Select, Option } from '../../__experimental__/components/select';
 import getTextboxStoryProps from '../../__experimental__/components/textbox/textbox.stories';
 import classic from '../../style/themes/classic';
 import small from '../../style/themes/small';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 
-const getCommonKnobs = () => {
+const commonKnobs = () => {
   const paginate = boolean('paginate', false);
 
   return {
@@ -38,16 +36,40 @@ const getCommonKnobs = () => {
   };
 };
 
+const classicKnobs = () => {
+  return {
+    theme: select(
+      'theme',
+      [
+        OptionsHelper.tableThemes[0],
+        OptionsHelper.tableThemes[1]
+      ],
+      Table.defaultProps.theme
+    )
+  };
+};
+
+const dlsKnobs = () => {
+  return {
+    theme: select(
+      'theme',
+      [
+        OptionsHelper.tableThemes[0],
+        OptionsHelper.tableThemes[1],
+        OptionsHelper.tableThemes[2]
+      ],
+      Table.defaultProps.theme
+    ),
+    size: select('size', OptionsHelper.tableSizes, Table.defaultProps.size),
+    isZebra: boolean('zebra striping', false)
+  };
+};
+
 const store = new Store({
-  sortOrder: getCommonKnobs().sortOrder,
-  sortedColumn: getCommonKnobs().sortedColumn,
+  sortOrder: commonKnobs().sortOrder,
+  sortedColumn: commonKnobs().sortedColumn,
   currentPage: '1',
   children: undefined
-});
-
-const inputStore = new Store({
-  selectValue: undefined,
-  decimalValue: Decimal.defaultProps.value
 });
 
 const handleChange = (e, tableOptions) => {
@@ -115,6 +137,20 @@ const buildRows = ({ pageSize, totalRecords }) => {
   );
 };
 
+const inputKnobs = () => {
+  return {
+    inputType: select(
+      'input type',
+      [
+        OptionsHelper.inputTypes[0],
+        OptionsHelper.inputTypes[1],
+        OptionsHelper.inputTypes[2]
+      ],
+      OptionsHelper.inputTypes[0]
+    )
+  };
+};
+
 const pickInput = (name) => {
   const { inputTypes } = OptionsHelper;
   switch (name) {
@@ -122,28 +158,6 @@ const pickInput = (name) => {
       return <TextArea { ...getTextboxStoryProps } />;
     case inputTypes[2]:
       return <DateInput { ...getTextboxStoryProps } />;
-    case inputTypes[3]:
-      return (
-        <Decimal
-          { ...getTextboxStoryProps }
-          value={ inputStore.get('decimalValue') }
-          onChange={ (ev) => { inputStore.set({ decimalValue: ev.target.value }); } }
-        />
-      );
-    case inputTypes[4]:
-      return (
-        <State store={ inputStore }>
-          <Select
-            { ...getTextboxStoryProps }
-            onChange={ (ev) => { inputStore.set({ selectValue: ev.target.value }); } }
-          >
-            <Option text='Amber' value='1' />
-            <Option text='Black' value='2' />
-            <Option text='Blue' value='3' />
-            <Option text='Brown' value='4' />
-          </Select>
-        </State>
-      );
     default:
       return <TextBox { ...getTextboxStoryProps } />;
   }
@@ -209,25 +223,17 @@ storiesOf('Table', module)
     }
   })
   .add('classic', () => {
-    const props = getCommonKnobs();
-    store.set({ currentPage: setCurrentPage(props) });
-    props.theme = select(
-      'theme',
-      [
-        OptionsHelper.tableThemes[0],
-        OptionsHelper.tableThemes[1]
-      ],
-      Table.defaultProps.theme
-    );
+    const tableProps = { ...commonKnobs(), ...classicKnobs() };
 
-    store.set({ sortOrder: props.sortOrder });
-    store.set({ sortedColumn: props.sortColumn });
+    store.set({ currentPage: setCurrentPage(tableProps) });
+    store.set({ sortOrder: tableProps.sortOrder });
+    store.set({ sortedColumn: tableProps.sortColumn });
 
     return (
       <ThemeProvider theme={ classic }>
         <State
           store={ store }
-          parseState={ state => ({ ...state, children: buildRows(props) }) }
+          parseState={ state => ({ ...state, children: buildRows(tableProps) }) }
         >
           <Table
             actionToolbarChildren={ (context) => {
@@ -247,7 +253,7 @@ storiesOf('Table', module)
             } }
             path='/countries'
             actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
-            { ...props }
+            { ...tableProps }
             onChange={ handleChange }
             sortOrder={ store.sortOrder }
             sortedColumn={ store.sortedColumn }
@@ -262,28 +268,17 @@ storiesOf('Table', module)
   .add(
     'default',
     () => {
-      const props = getCommonKnobs();
-      store.set({ currentPage: setCurrentPage(props) });
-      props.size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
-      props.isZebra = boolean('zebra striping', false);
-      props.theme = select(
-        'theme',
-        [
-          OptionsHelper.tableThemes[0],
-          OptionsHelper.tableThemes[1],
-          OptionsHelper.tableThemes[2]
-        ],
-        Table.defaultProps.theme
-      );
+      const tableProps = { ...commonKnobs(), ...dlsKnobs() };
 
-      store.set({ sortOrder: props.sortOrder });
-      store.set({ sortedColumn: props.sortColumn });
+      store.set({ currentPage: setCurrentPage(tableProps) });
+      store.set({ sortOrder: tableProps.sortOrder });
+      store.set({ sortedColumn: tableProps.sortColumn });
 
       return (
         <ThemeProvider theme={ small }>
           <State
             store={ store }
-            parseState={ state => ({ ...state, children: buildRows(props) }) }
+            parseState={ state => ({ ...state, children: buildRows(tableProps) }) }
           >
             <Table
               actionToolbarChildren={ (context) => {
@@ -304,7 +299,7 @@ storiesOf('Table', module)
               path='/countries'
               actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
               onChange={ handleChange }
-              { ...props }
+              { ...tableProps }
             />
           </State>
         </ThemeProvider>
@@ -316,56 +311,93 @@ storiesOf('Table', module)
     },
   )
   .add(
-    'with inputs',
+    'classic with inputs',
     () => {
-      const props = getCommonKnobs();
-      store.set({ currentPage: setCurrentPage(props) });
-      props.size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
-      props.isZebra = boolean('zebra striping', false);
-      props.inputType = select('input type', OptionsHelper.inputTypes, OptionsHelper.inputTypes[0]);
-      props.theme = select(
-        'theme',
-        [
-          OptionsHelper.tableThemes[0],
-          OptionsHelper.tableThemes[1],
-          OptionsHelper.tableThemes[2]
-        ],
-        Table.defaultProps.theme
-      );
+      const tableProps = { ...commonKnobs(), ...classicKnobs(), ...inputKnobs() };
 
-      store.set({ sortOrder: props.sortOrder });
-      store.set({ sortedColumn: props.sortColumn });
+      store.set({ currentPage: setCurrentPage(tableProps) });
+      store.set({ sortOrder: tableProps.sortOrder });
+      store.set({ sortedColumn: tableProps.sortColumn });
+
+      return (
+        <ThemeProvider theme={ classic }>
+          <State
+            store={ store }
+            parseState={
+              state => ({ ...state, children: buildRowsWithInputs(tableProps) })
+            }
+          >
+            <Table
+              actionToolbarChildren={ (context) => {
+                return [
+                  <Button disabled={ context.disabled } key='single-action'>
+                    Test Action
+                  </Button>,
+                  <MultiActionButton
+                    text='Actions' disabled={ context.disabled }
+                    key='multi-actions'
+                  >
+                    <Button>foo</Button>
+                    <Button>bar</Button>
+                    <Button>qux</Button>
+                  </MultiActionButton>
+                ];
+              } }
+              path='/countries'
+              actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
+              onChange={ handleChange }
+              { ...tableProps }
+            />
+          </State>
+        </ThemeProvider>
+      );
+    },
+    {
+      info: { text: info },
+      notes: { markdown: notes }
+    },
+  )
+  .add(
+    'default with inputs',
+    () => {
+      const tableProps = { ...commonKnobs(), ...dlsKnobs(), ...inputKnobs() };
+
+      store.set({ currentPage: setCurrentPage(tableProps) });
+      store.set({ sortOrder: tableProps.sortOrder });
+      store.set({ sortedColumn: tableProps.sortColumn });
 
 
       return (
-        <State
-          store={ store }
-          parseState={
-            state => ({ ...state, children: buildRowsWithInputs(props) })
-          }
-        >
-          <Table
-            actionToolbarChildren={ (context) => {
-              return [
-                <Button disabled={ context.disabled } key='single-action'>
+        <ThemeProvider theme={ small }>
+          <State
+            store={ store }
+            parseState={
+              state => ({ ...state, children: buildRowsWithInputs(tableProps) })
+            }
+          >
+            <Table
+              actionToolbarChildren={ (context) => {
+                return [
+                  <Button disabled={ context.disabled } key='single-action'>
                     Test Action
-                </Button>,
-                <MultiActionButton
-                  text='Actions' disabled={ context.disabled }
-                  key='multi-actions'
-                >
-                  <Button>foo</Button>
-                  <Button>bar</Button>
-                  <Button>qux</Button>
-                </MultiActionButton>
-              ];
-            } }
-            path='/countries'
-            actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
-            onChange={ handleChange }
-            { ...props }
-          />
-        </State>
+                  </Button>,
+                  <MultiActionButton
+                    text='Actions' disabled={ context.disabled }
+                    key='multi-actions'
+                  >
+                    <Button>foo</Button>
+                    <Button>bar</Button>
+                    <Button>qux</Button>
+                  </MultiActionButton>
+                ];
+              } }
+              path='/countries'
+              actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
+              onChange={ handleChange }
+              { ...tableProps }
+            />
+          </State>
+        </ThemeProvider>
       );
     },
     {
