@@ -113,6 +113,10 @@ Feature: Textarea component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
+      # @ignore
+      # | -1                      |
+      # | -0,112                  |
+      # | 0.1112333               |
 
   @positive
   Scenario Outline: Set inputWidth to <inputWidth>
@@ -203,7 +207,6 @@ Feature: Textarea component
     Then Textarea component has warnOverLimit and used characters <characters> of <limit>
     Examples:
       | text             | characters | limit |
-      | !                | 1          | -1    |
       | 12345            | 5          | 0     |
       | áéíóú¿¡üñ        | 9          | 5     |
       | testTestTextTest | 16         | 10    |
