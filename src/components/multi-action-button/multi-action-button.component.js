@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Icon from '../icon';
 import SplitButton from '../split-button';
 import StyledMultiActionButton from './multi-action-button.style';
-import StyledSplitButtonToggle from '../split-button/split-button-toggle.style';
+import Button from '../button';
 
 class MultiActionButton extends SplitButton {
   /**
@@ -15,18 +15,20 @@ class MultiActionButton extends SplitButton {
    */
   get renderMainButton() {
     return (
-      <StyledSplitButtonToggle
+      <Button
         aria-haspopup='true'
         aria-expanded={ this.state.showAdditionalButtons }
         aria-label='Show more'
         data-element='toggle-button'
         key='toggle-button'
         onKeyDown={ this.handleToggleButtonKeyDown }
+        iconType={ this.props.iconType }
+        iconPosition={ this.props.iconPosition }
         { ...this.toggleButtonProps }
       >
         { this.props.text}
         <Icon type='dropdown' />
-      </StyledSplitButtonToggle>
+      </Button>
     );
   }
 

@@ -89,4 +89,4 @@ function renderWithTheme(props = {}, renderer = shallow) {
       </MultiActionButton>
     </ThemeProvider>
   );
-};
+}
