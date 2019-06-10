@@ -50,13 +50,6 @@ describe('MultiActionButton', () => {
       wrapper = render({ align: 'right' }, mount);
     });
 
-    it('menu should be right positioned relative the Toggle Button', () => {
-      assertStyleMatch({
-        left: 'auto',
-        right: '0'
-      }, wrapper, { modifier: `${StyledSplitButtonChildrenContainer}` });
-    });
-
     it('text inside child buttons should be aligned right', () => {
       assertStyleMatch({
         textAlign: 'right'

@@ -17,13 +17,9 @@ const StyledMultiActionButton = styled.div`
   }
 
   ${StyledSplitButtonChildrenContainer} {
-    left: 0;
-    right: auto;
+    width: 100%;
 
     ${({ align }) => align === 'right' && css`
-      left: auto;
-      right: 0;
-
       ${StyledButton} {
         text-align: right;
       }
@@ -63,7 +59,6 @@ const StyledMultiActionButton = styled.div`
         min-width: 100%;
         padding-bottom: 5px;
         padding-top: 5px;
-        text-align: left;
 
         &:hover {
           background-color: #163777;
@@ -76,7 +71,7 @@ const StyledMultiActionButton = styled.div`
         margin-right: 0;
       }
     }
-    
+
     ${({ buttonType }) => buttonType === 'transparent' && css`
       background-color: white;
       box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
