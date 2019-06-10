@@ -26,3 +26,5 @@ export const link = () => cy.iFrame(LINK);
 export const icon = () => cy.iFrame(ICON);
 export const inputWidthPreview = () => cy.iFrame(INPUT_WIDTH_PREVIEW);
 export const commonDataElementInputPreview = () => cy.iFrame(COMMMON_DATA_ELEMENT_INPUT);
+export const getDataElementByValue = element => cy.iFrame(`[data-element="${element}"]`);
+export const getDataElementByNameAndValue = (name, value) => cy.iFrame(`[data-${name}="${value}"]`);
