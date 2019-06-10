@@ -4,10 +4,12 @@ import StyledSplitButtonChildrenContainer from '../split-button/split-button-chi
 import { THEMES } from '../../style/themes';
 import StyledSplitButtonToggle from '../split-button/split-button-toggle.style';
 import baseTheme from '../../style/themes/base';
+import buttonSizes from '../button/button-sizes.style';
 
 const StyledMultiActionButton = styled.div`
   ${StyledSplitButtonToggle} {
     border-left-width: 2px;
+    ${({ theme, size }) => buttonSizes(theme)[size]}
   }
 
   ${StyledSplitButtonToggle}:focus {
@@ -23,8 +25,6 @@ const StyledMultiActionButton = styled.div`
       right: 0;
 
       ${StyledButton} {
-        padding-left: 25px;
-        padding-right: 25px;
         text-align: right;
       }
     `}
@@ -32,7 +32,7 @@ const StyledMultiActionButton = styled.div`
 
   .carbon-icon {
     &.icon-dropdown {
-      margin-right: 0;
+      margin-right: -4px;
       top: 0px;
     }
   }
@@ -45,6 +45,7 @@ const StyledMultiActionButton = styled.div`
     ${StyledSplitButtonToggle},
     ${StyledSplitButtonToggle}:focus {
       margin: 0;
+      height: 31px;
       padding: 7px 10px 7px 18px;
     }
 
@@ -70,6 +71,12 @@ const StyledMultiActionButton = styled.div`
       }
     }
 
+    .carbon-icon {
+    &.icon-dropdown {
+        margin-right: 0;
+      }
+    }
+    
     ${({ buttonType }) => buttonType === 'transparent' && css`
       background-color: white;
       box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
@@ -96,6 +103,7 @@ const StyledMultiActionButton = styled.div`
 
 StyledMultiActionButton.defaultProps = {
   theme: baseTheme,
+  size: 'medium',
   legacyColorVariant: 'blue'
 };
 

@@ -30,7 +30,7 @@ class MultiActionButton extends SplitButton {
     );
   }
 
-  componentTags() {
+  componentTags = () => {
     return {
       'data-component': 'multi-action-button',
       'data-element': this.props['data-element'],
