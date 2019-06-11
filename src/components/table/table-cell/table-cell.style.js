@@ -105,8 +105,8 @@ function applyModernInputStyling(isTextArea, inputHeight, fontSize) {
       padding-bottom: 0px;
     }
     
-    .carbon-icon {
-      font-size: 13px !important;
+    && .carbon-icon {
+      font-size: 13px;
     }
   `;
 }
