@@ -4,7 +4,7 @@ import {
 import {
   commonButtonPreview, labelPreview, helpIcon, inputWidthSlider, fieldHelpPreview,
   labelWidthSlider, backgroundUILocator, closeIconButton, tooltipPreview, getKnobsInput,
-  icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue,
+  icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 
@@ -170,4 +170,8 @@ When('I close Sidebar', () => {
 
 Then('data-{word} {string} is present', (element, value) => {
   getDataElementByNameAndValue(element, value).should('be.visible');
+});
+
+Then('text {string} color is set to {string}', (text, color) => {
+  storyRoot().contains(text).should('have.css', 'color', color);
 });
