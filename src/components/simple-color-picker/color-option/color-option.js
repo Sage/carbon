@@ -74,7 +74,10 @@ const ColorOption = Input(
     }
 
     get mainClasses() {
-      return classNames('carbon-color-option', this.props.className);
+      return classNames(
+        'carbon-color-option',
+        this.props.className
+      );
     }
 
     get _colorSampleClasses() {

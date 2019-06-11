@@ -33,7 +33,8 @@ storiesOf('SimpleColorPicker', module)
       return (
         <State store={ store }>
           <SimpleColorPicker
-            availableColors={ availableColors } name={ name }
+            availableColors={ availableColors }
+            name={ name }
             onChange={ onChange }
           />
         </State>
