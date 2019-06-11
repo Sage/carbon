@@ -50,6 +50,10 @@ export default (palette) => {
       size: '14px'
     },
 
+    tooltip: {
+      background: palette.slateShade(60)
+    },
+
     disabled: {
       border: palette.slateTint(80),
       button: palette.slateTint(90),

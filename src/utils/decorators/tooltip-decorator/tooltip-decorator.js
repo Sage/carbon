@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { startCase, assign } from 'lodash';
-import Tooltip from '../../../components/tooltip';
+import Tooltip from '../../../__experimental__/components/tooltip';
 import Portal from '../../../components/portal';
 import chainFunctions from '../../helpers/chain-functions';
 import { styleElement, append } from '../../ether';
@@ -145,8 +145,8 @@ const TooltipDecorator = (ComposedComponent) => {
       if (super.componentWillUpdate) { super.componentWillUpdate(nextProps, nextState); }
 
       if (nextProps.tooltipMessage !== this.props.tooltipMessage
-          || nextProps.tooltipPosition !== this.props.tooltipPosition
-          || nextProps.tooltipAlign !== this.props.tooltipAlign) {
+        || nextProps.tooltipPosition !== this.props.tooltipPosition
+        || nextProps.tooltipAlign !== this.props.tooltipAlign) {
         this._memoizedShifts = null;
       }
     }
@@ -388,7 +388,7 @@ const TooltipDecorator = (ComposedComponent) => {
               ref={ (comp) => { this._tooltip = comp; } }
               type={ this.props.tooltipType }
             >
-              { this.props.tooltipMessage }
+              {this.props.tooltipMessage}
             </Tooltip>
           </Portal>
         )
