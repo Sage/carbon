@@ -8,9 +8,7 @@
   margin-bottom: 1px;
   list-style: none;
 
-  & + .carbon-color-option {
-    margin-top: 0;
-  }
+  & + .carbon-color-option { margin-top: 0; }
 }
 
 .carbon-color-option__color-sample {
@@ -24,9 +22,7 @@
 
 .carbon-color-option__radio-button-input {
   &:checked + .carbon-color-option__color-sample {
-    .carbon-color-option__tick {
-      display: block;
-    }
+    .carbon-color-option__tick { display: block; }
   }
 
   &:hover {
@@ -47,15 +43,12 @@
   $icon-size: 22px;
   height: $icon-size;
   width: $icon-size;
-  &:before {
-    font-size: $icon-size;
-  }
+  &:before { font-size: $icon-size; }
 
   display: none;
   pointer-events: none;
 }
 
-.carbon-color-option__color-sample--transparent,
-.carbon-color-option__color-sample--none {
+.carbon-color-option__color-sample--transparent, .carbon-color-option__color-sample--none {
   border-color: $grey-dark-blue-30;
 }
