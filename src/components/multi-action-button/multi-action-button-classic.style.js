@@ -7,28 +7,28 @@ import StyledSplitButtonChildrenContainer from '../split-button/split-button-chi
 const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (theme.name === THEMES.classic ? css`
   ${StyledSplitButton} > ${StyledButton},
   ${StyledSplitButton} > ${StyledButton}:focus {
-      margin: 0;
-      height: 31px;
-      padding: 7px 10px 7px 18px;
+    margin: 0;
+    height: 31px;
+    padding: 7px 10px 7px 18px;
   }
 
   ${StyledSplitButton} > ${StyledButton}:focus {
-      border-color: #1e499f;
+    border-color: #1e499f;
   }
 
   ${(!disabled && displayed) && css`
-      ${StyledSplitButton} > ${StyledButton} {
+    ${StyledSplitButton} > ${StyledButton} {
       background-color: #1e499f;
       border-color: #1e499f;
-      }
+    }
   `}
 
   ${StyledSplitButtonChildrenContainer} {
-      padding-top: 5px;
-      top: 29px;
-      z-index: 12;
+    padding-top: 5px;
+    top: 29px;
+    z-index: 12;
 
-      ${StyledButton} {
+    ${StyledButton} {
       border: none;
       border-radius: 0;
       color: #fff;
@@ -41,11 +41,11 @@ const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (t
       &:hover {
           background-color: #163777;
       }
-      }
+    }
   }
 
   ${({ buttonType }) => buttonType === 'transparent' && css`
-      ${StyledSplitButton} > ${StyledButton} {
+    ${StyledSplitButton} > ${StyledButton} {
       background-color: transparent;
       box-shadow: none;
       border: 1px solid transparent;
@@ -54,39 +54,39 @@ const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (t
       &:hover,
       &:active,
       &:focus {
-          background-color: transparent;
-          box-shadow: none;
-          border-color: transparent;
-          color: #335c6d;
+        background-color: transparent;
+        box-shadow: none;
+        border-color: transparent;
+        color: #335c6d;
       }
 
       .carbon-icon {
-          color: #335c6d;
+        color: #335c6d;
       }
-      }
+    }
 
-      ${StyledSplitButtonChildrenContainer} {
+    ${StyledSplitButtonChildrenContainer} {
       background-color: #FFF;
       box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.2);
 
       ${StyledButton} {
-          color: #335c6d;
-          background: #FFF;
+        color: #335c6d;
+        background: #FFF;
 
-          &:focus {
+        &:focus {
           background-color: #FFF;
           color: #335c6d;
           box-shadow: none;
           outline: 0;
-          }
+        }
 
-          &:hover,
-          &:active {
+        &:hover,
+        &:active {
           background-color: #e6ebed;
           color: #4782F7;
-          }
+        }
       }
-      }
+    }
   `}
 ` : '');
 
