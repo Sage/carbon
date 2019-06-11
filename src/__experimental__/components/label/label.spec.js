@@ -7,6 +7,7 @@ import Help from '../help/help.component';
 import Label from './label.component';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import classicTheme from '../../../style/themes/classic';
+import baseTheme from '../../../style/themes/base';
 
 function render(props, renderer = shallow) {
   return renderer(
@@ -43,6 +44,14 @@ describe('Label', () => {
       assertStyleMatch({
         width: '30%'
       }, render({ inline: true, width: 0 }, TestRenderer.create).toJSON());
+    });
+  });
+
+  describe('when disabled', () => {
+    it('applies disabled color', () => {
+      assertStyleMatch({
+        color: baseTheme.disabled.disabled
+      }, render({ disabled: true }, TestRenderer.create).toJSON());
     });
   });
 
