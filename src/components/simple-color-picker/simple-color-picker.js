@@ -81,7 +81,7 @@ class SimpleColorPicker extends React.Component {
     return (
       <div className='carbon-simple-color-picker' { ...tagComponent('simple-color-picker', this.props) }>
         <ul className='carbon-simple-color-picker__color-options'>
-          {this._colorOptions}
+          { this._colorOptions }
         </ul>
       </div>
     );
