@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Icon from '../../icon/icon';
+import Icon from '../../../../components/icon/icon';
 
 const StyledTickIcon = styled(Icon)`
   height: 22px;

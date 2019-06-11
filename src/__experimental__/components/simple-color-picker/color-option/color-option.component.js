@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { trim, startsWith } from 'lodash';
 
-import Input from '../../../utils/decorators/input';
-import tagComponent from '../../../utils/helpers/tags';
+import Input from '../../../../utils/decorators/input';
+import tagComponent from '../../../../utils/helpers/tags';
 import StyledColorOption from './color-option.style';
 import StyledColorSampleBox from './color-sample-box.style';
 import StyledTickIcon from './tick-icon.style';
