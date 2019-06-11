@@ -9,8 +9,7 @@ const ProfileNameStyle = styled.span`
 
 const ProfileStyle = styled.div`
     white-space: nowrap;
-      color: ${({ theme }) => theme.text.color};
-    ${classicProfileStyle}
+    color: ${({ theme }) => theme.text.color};
 
     ${({ large }) => large && css`
         ${ProfileNameStyle} {
@@ -19,6 +18,7 @@ const ProfileStyle = styled.div`
             line-height: 21px;
         }
     `}
+    ${classicProfileStyle}
 `;
 
 const ProfileDetailsStyle = styled.div`

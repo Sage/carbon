@@ -1,0 +1,74 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PortraitContainer render classes renders the large class if applied 1`] = `
+.c4 {
+  font-weight: bold;
+}
+
+.c0 {
+  white-space: nowrap;
+  color: rgba(0,0,0,0.9);
+}
+
+.c0 .c3 {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 21px;
+}
+
+.c2 {
+  margin-left: 14px;
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 16px;
+}
+
+.c1 {
+  display: inline-block;
+}
+
+<div
+  className="c0"
+  data-component="profile"
+>
+  <div
+    className="carbon-portrait carbon-portrait--image carbon-portrait--medium-small carbon-portrait--standard c1"
+    data-component="portrait"
+  >
+    <img
+      alt=""
+      className="carbon-portrait__img carbon-portrait__initials"
+      data-element="initials"
+      src="data:image/png"
+    />
+    <img
+      alt=""
+      className="carbon-portrait__img carbon-portrait__avatar"
+      data-element="user-image"
+      src="https://www.gravatar.com/avatar/f3ada405ce890b6f8204094deb12d8a8?s=40&d=blank"
+    />
+  </div>
+  <div
+    className="c2"
+  >
+    <span
+      className="c3 c4"
+      data-element="name"
+    >
+      Foo
+    </span>
+    <br />
+    <span
+      data-element="email"
+    >
+      foo@bar.com
+    </span>
+  </div>
+</div>
+`;
+
+exports[`ProfileClassicStyle should render correct version if clssic is provided 1`] = `
+"
+    color: rgba(0, 0, 0, 0.85);
+"
+`;
