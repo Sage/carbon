@@ -1,51 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ColorOption from './color-option';
-import tagComponent from '../../utils/helpers/tags';
+import ColorOption from './color-option/color-option.component.js';
+import tagComponent from '../../utils/helpers/tags/tags';
 import './simple-color-picker.scss';
 
 class SimpleColorPicker extends React.Component {
   static propTypes = {
-    /**
-     * An array of color choices to display.
-     */
+    /** An array of color choices to display. */
     availableColors: PropTypes.array,
 
-    /**
-     * The currently selected color.
-     */
+    /** The currently selected color. */
     selectedColor: PropTypes.string,
 
-    /**
-     * The name to apply to the input.
-     */
+    /** The name to apply to the input. */
     name: PropTypes.string,
 
-    /**
-     * A callback triggered when a color is selected.
-     */
+    /** A callback triggered when a color is selected. */
     onChange: PropTypes.func
   };
 
-  /**
-   * Returns true if the color passed as argument is currently
-   * checked.
-   *
-   * @method isOptionChecked
-   * @private
-   * @return {Boolean}
-   */
+  /** Returns true if the color passed as argument is currently checked. */
   _isOptionChecked(color) {
     return this.props.selectedColor === color;
   }
 
-  /**
-   * Returns a ColorOption component for a given color
-   *
-   * @method colorOption
-   * @private
-   * @return {Object} JSX
-   */
+  /** Returns a ColorOption component for a given color */
   _colorOption(color) {
     const isChecked = this._isOptionChecked(color);
 
@@ -60,23 +39,12 @@ class SimpleColorPicker extends React.Component {
     );
   }
 
-  /**
-   * Returns ColorOption components for all available colors.
-   *
-   * @method colorOptions
-   * @private
-   * @return {Object} JSX
-   */
+  /** Returns ColorOption components for all available colors. */
   get _colorOptions() {
     return this.props.availableColors.map(color => this._colorOption(color));
   }
 
-  /**
-   * Renders the component.
-   *
-   * @method render
-   * @return {Object} JSX
-   */
+  /** Renders the component. */
   render() {
     return (
       <div className='carbon-simple-color-picker' { ...tagComponent('simple-color-picker', this.props) }>

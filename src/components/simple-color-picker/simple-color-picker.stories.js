@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text, array } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import SimpleColorPicker from './simple-color-picker';
+import SimpleColorPicker from '.';
 import { notes, info } from './documentation';
 
 const store = new Store({
