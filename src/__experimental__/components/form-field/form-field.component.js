@@ -7,6 +7,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const FormField = ({
   children,
+  disabled,
   fieldHelp,
   fieldHelpInline,
   label,
@@ -25,6 +26,7 @@ const FormField = ({
     {label && (
       <Label
         align={ labelAlign }
+        disabled={ disabled }
         help={ labelHelp }
         htmlFor={ name }
         helpIcon={ labelHelpIcon }
@@ -58,6 +60,7 @@ FormField.defaultProps = {
 
 FormField.propTypes = {
   children: PropTypes.node,
+  disabled: PropTypes.bool,
   fieldHelp: PropTypes.node,
   fieldHelpInline: PropTypes.bool,
   label: PropTypes.node,
