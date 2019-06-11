@@ -484,7 +484,6 @@ input:focus ~ .c6 {
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
         onTouchEnd={[Function]}
-        tooltipType="error"
       />
     </div>
   </div>
