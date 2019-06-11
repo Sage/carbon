@@ -5,7 +5,7 @@ import DocumentStore from './../../../stores/document';
 import DocumentActions from './../../../actions/document';
 import marked from 'marked';
 import InformationStyles from '../../common/information-styles';
-import Spinner from 'components/spinner';
+import Spinner from 'components/spinner/spinner.component';
 import Row from 'components/row';
 import Highlight from 'react-highlight';
 import classNames from 'classnames';
@@ -51,7 +51,7 @@ class Document extends React.Component {
         </div>
       );
     } else {
-      spinner = <Row gutter="none"><Spinner columnAlign="center" size="small" /></Row>;
+      spinner = <Row gutter="none"><Spinner columnAlign="center" size="small" className="demo-document__spinner"/></Row>;
     }
 
     return (

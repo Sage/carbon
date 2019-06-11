@@ -55,7 +55,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   border-color: #26A826;
   color: #26A826;
   font-size: 14px;
-  max-height: 40px;
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
@@ -139,7 +138,6 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   border-color: #26A826;
   color: #26A826;
   font-size: 14px;
-  max-height: 40px;
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;

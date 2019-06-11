@@ -1,10 +1,11 @@
-import { flashPreview, getIconPreview, messagePreview } from '../../locators/flash';
+import { flashPreview, messagePreview } from '../../locators/flash';
+import { getDataElementByValue } from '../../locators';
 
 const FLASH_PREFIX = 'carbon-flash--';
 
 Then('Flash as is set to {string} and icon is set to {string}', (as, icon) => {
   flashPreview().should('have.class', `${FLASH_PREFIX}${as}`);
-  getIconPreview(icon).should('exist');
+  getDataElementByValue(icon).should('exist');
 });
 
 Then('Flash message is set to {string}', (message) => {

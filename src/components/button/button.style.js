@@ -64,7 +64,7 @@ function stylingForType({
 
 function isClassicButton({ theme, buttonType }) {
   const isClassicTheme = (theme.name === THEMES.classic);
-  const isClassicButtonType = OptionsHelper.themesBinaryClassic.includes(buttonType);
+  const isClassicButtonType = OptionsHelper.themesBinary.includes(buttonType);
 
   return isClassicTheme && isClassicButtonType;
 }
@@ -78,7 +78,7 @@ StyledButton.defaultProps = {
 
 StyledButton.propTypes = {
   /** Button types for new business themes */
-  buttonType: PropTypes.oneOf(OptionsHelper.themesBinary),
+  buttonType: PropTypes.oneOf(OptionsHelper.buttonTypes),
   /** The text the button displays */
   children: PropTypes.node.isRequired,
   /** Apply disabled state to the button */
