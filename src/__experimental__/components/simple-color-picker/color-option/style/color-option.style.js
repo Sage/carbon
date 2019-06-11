@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import StyledColorSampleBox from './color-sample-box.style';
+import StyledTickIcon from './tick-icon.style';
 
 const StyledColorOption = styled.li`
   float: left;
@@ -13,7 +14,7 @@ const StyledColorOption = styled.li`
 
   .carbon-color-option__radio-button-input {
     &:checked + ${StyledColorSampleBox} {
-      .carbon-icon {
+      ${StyledTickIcon} {
         display: block;
       }
     }

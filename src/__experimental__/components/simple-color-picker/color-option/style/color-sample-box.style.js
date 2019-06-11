@@ -8,11 +8,11 @@ const StyledColorSampleBox = styled.div`
   align-items: center;
   justify-content: center;
   border: solid 1px transparent;
+  background-color: ${({ color }) => color};
 
-  ${({ color }) => (color === 'transparent' || color === 'none')
-    && css`
-      border-color: #b3c2c8;
-    `}
+  ${({ color }) => (color === 'transparent' || color === 'none') && css`
+    border-color: #b3c2c8;
+  `}
 `;
 
 StyledColorSampleBox.propTypes = {

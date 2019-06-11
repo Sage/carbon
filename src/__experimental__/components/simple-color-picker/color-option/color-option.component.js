@@ -1,13 +1,11 @@
-import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React from 'react';
-import { trim, startsWith } from 'lodash';
 
 import Input from '../../../../utils/decorators/input';
 import tagComponent from '../../../../utils/helpers/tags';
-import StyledColorOption from './color-option.style';
-import StyledColorSampleBox from './color-sample-box.style';
-import StyledTickIcon from './tick-icon.style';
+import StyledColorOption from './style/color-option.style';
+import StyledColorSampleBox from './style/color-sample-box.style';
+import StyledTickIcon from './style/tick-icon.style';
 
 /** A single square with a color, implemented as a radio button. */
 const ColorOption = Input(
@@ -55,45 +53,19 @@ const ColorOption = Input(
       return 'carbon-color-option__radio-button-input';
     }
 
-    get mainClasses() {
-      return classNames(
-        // DONE
-        // 'carbon-color-option',
-        this.props.className
-      );
-    }
-
-    get _colorSampleClasses() {
-      const color = trim(this.props.color, '#'); // z loadasha - obcina ze stringa wskazany znak
-      return classNames(
-        // 'carbon-color-option__color-sample',
-        `carbon-color-option__color-sample--${color}`
-      );
-    }
-
-    get _tickedIcon() {
-      return <StyledTickIcon type='tick' />;
-    }
-
-    get _colorSampleStyle() {
-      return startsWith(this.props.color, '#') ? { backgroundColor: this.props.color } : {}; // sprawdza czy sie string zaczyna # i jak tak to ustawia kolor tła
-    }
-
     get colorSampleBox() {
       return (
         <StyledColorSampleBox
           color={ this.props.color }
-          className={ this._colorSampleClasses }
-          style={ this._colorSampleStyle }
         >
-          {this._tickedIcon}
+          <StyledTickIcon type='tick' />
         </StyledColorSampleBox>
       );
     }
 
     render() {
       return (
-        <StyledColorOption className={ this.mainClasses } { ...tagComponent('color-option', this.props) }>
+        <StyledColorOption className={ this.props.className } { ...tagComponent('color-option', this.props) }>
           {this.inputHTML}
         </StyledColorOption>
       );
