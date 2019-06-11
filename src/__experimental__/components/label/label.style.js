@@ -24,6 +24,10 @@ const LabelStyle = styled.label`
     text-align: ${align};
     width: ${width === 0 ? LabelStyle.defaultProps.width : width}%;
   `}
+
+  ${({ disabled, theme }) => disabled && css`
+    color: ${theme.disabled.disabled};
+  `}  
   
   ${({ inline, theme }) => theme.name === THEMES.classic && css`
     color: #003349;
