@@ -17,7 +17,8 @@ const ButtonToggleGroupStyle = styled.div`
   ${ValidationIconStyle} {
     display: inline-block;
     margin-left: 10px;
-    vertical-align: top;
+    margin-top: -4px;
+    vertical-align: middle;
   }
 `;
 

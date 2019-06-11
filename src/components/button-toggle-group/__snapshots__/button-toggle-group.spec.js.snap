@@ -88,7 +88,8 @@ input:focus ~ .c5 {
 .c2 .c7 {
   display: inline-block;
   margin-left: 10px;
-  vertical-align: top;
+  margin-top: -4px;
+  vertical-align: middle;
 }
 
 <div
@@ -229,7 +230,8 @@ input:focus ~ .c5 {
 .c2 .c7 {
   display: inline-block;
   margin-left: 10px;
-  vertical-align: top;
+  margin-top: -4px;
+  vertical-align: middle;
 }
 
 <div
@@ -386,13 +388,15 @@ input:focus ~ .c6 {
 .c11 .c8 {
   display: inline-block;
   margin-left: 10px;
-  vertical-align: top;
+  margin-top: -4px;
+  vertical-align: middle;
 }
 
 .c12 .c8 {
   display: inline-block;
   margin-left: 10px;
-  vertical-align: top;
+  margin-top: -4px;
+  vertical-align: middle;
 }
 
 .c2 .c5 {
@@ -402,7 +406,8 @@ input:focus ~ .c6 {
 .c2 .c8 {
   display: inline-block;
   margin-left: 10px;
-  vertical-align: top;
+  margin-top: -4px;
+  vertical-align: middle;
 }
 
 <div
