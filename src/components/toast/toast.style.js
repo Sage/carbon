@@ -23,20 +23,20 @@ const ToastStyle = styled(MessageStyle)`
     &${animationName}-appear,
     &${animationName}-enter {
       opacity: 0;
-      transform: ${({ isCenter }) => (isCenter ? 'translateX(50%) scale(0) ' : 'scale(0)')};
+      transform: ${({ isCenter }) => (isCenter ? 'translateX(50%) scale(0.5) ' : 'scale(0.5)')};
     }
 
     &${animationName}-appear.toast-appear-active,
     &${animationName}-enter.toast-enter-active {
       opacity: 1;
       transform: ${({ isCenter }) => (isCenter ? 'translateX(50%) scale(1)' : 'scale(1)')};
-      transition: all 300ms 1000ms cubic-bezier(0.250, 0.250, 0.000, 1.500);
+      transition: all 325ms cubic-bezier(0.250, 0.250, 0.000, 1.500);
     }
 
     &${animationName}-leave.toast-leave-active {
       opacity: 0;
       margin-top: -30px;
-      transition: all 300ms cubic-bezier(0.960, -0.335, 0.750, 0.750);
+      transition: all 325ms cubic-bezier(0.960, -0.335, 0.750, 0.750);
     }
   `}
   
