@@ -5,7 +5,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Portrait from './portrait';
 import { notes, info } from './documentation';
 
-storiesOf('Portait', module).add(
+storiesOf('Portrait', module).add(
   'default',
   () => {
     const alt = text('alt', Portrait.defaultProps.alt);
