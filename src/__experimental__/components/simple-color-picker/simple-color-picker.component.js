@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ColorOption from './color-option/color-option.component.js';
 import tagComponent from '../../../utils/helpers/tags/tags';
-import './simple-color-picker.scss';
+import { StyledSimpleColorPicker, StyledColorOptions } from './simple-color-picker.style';
 
 class SimpleColorPicker extends React.Component {
   static propTypes = {
@@ -47,9 +47,9 @@ class SimpleColorPicker extends React.Component {
   /** Renders the component. */
   render() {
     return (
-      <div className='carbon-simple-color-picker' { ...tagComponent('simple-color-picker', this.props) }>
-        <ul className='carbon-simple-color-picker__color-options'>{this._colorOptions}</ul>
-      </div>
+      <StyledSimpleColorPicker { ...tagComponent('simple-color-picker', this.props) }>
+        <StyledColorOptions>{this._colorOptions}</StyledColorOptions>
+      </StyledSimpleColorPicker>
     );
   }
 }
