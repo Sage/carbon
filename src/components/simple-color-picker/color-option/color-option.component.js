@@ -8,35 +8,23 @@ import Input from '../../../utils/decorators/input';
 import tagComponent from '../../../utils/helpers/tags';
 import './color-option.scss';
 
-/**
- * A single square with a color, implemented as a radio button.
- */
+/** A single square with a color, implemented as a radio button. */
 const ColorOption = Input(
   class ColorOption extends React.Component {
     static propTypes = {
-      /**
-       * the value of the color that is represented by this ColorOption
-       */
+      /** the value of the color that is represented by this ColorOption */
       color: PropTypes.string,
 
-      /**
-       * the input name
-       */
+      /** the input name */
       name: PropTypes.string,
 
-      /**
-       * called when the user selects or deselects this color option
-       */
+      /** called when the user selects or deselects this color option */
       onChange: PropTypes.func,
 
-      /**
-       * determines if this color option is selected or unselected
-       */
+      /** determines if this color option is selected or unselected */
       checked: PropTypes.bool,
 
-      /**
-       * Custom className
-       */
+      /** Custom className */
       className: PropTypes.string
     };
 
@@ -45,9 +33,7 @@ const ColorOption = Input(
       onChange: null
     };
 
-    /**
-     * The props used by the Input decorator when creating the input element.
-     */
+    /** The props used by the Input decorator when creating the input element. */
     get inputProps() {
       return {
         className: this.inputClasses,
@@ -63,12 +49,7 @@ const ColorOption = Input(
       return this.colorSampleBox;
     }
 
-    /**
-     * Uses the inputClasses method provided by the decorator to add additional classes.
-     *
-     * @method inputClasses
-     * @return {String} input className
-     */
+    /** Uses the inputClasses method provided by the decorator to add additional classes. */
     get inputClasses() {
       return 'carbon-color-option__radio-button-input';
     }
