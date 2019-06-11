@@ -7,7 +7,7 @@ Feature: Step Sequence Item component
   @positive
   Scenario Outline: I set indicator to <indicator>
     When I set indicator to "<indicator>"
-    Then indicator "<indicator>" is set
+    Then indicator is set to "<indicator>"
     Examples:
       | indicator               |
       | -100                    |
@@ -36,7 +36,7 @@ Feature: Step Sequence Item component
   Scenario Outline: I set hiddenCompleteLabel to <hiddenCompleteLabel>
     When I set hiddenCompleteLabel to "<hiddenCompleteLabel>"
       And I select status to "complete"
-    Then hidden label "<hiddenCompleteLabel>" is set
+    Then hidden label is set to "<hiddenCompleteLabel>"
     Examples:
       | hiddenCompleteLabel |
       | Sample text         |
@@ -48,7 +48,7 @@ Feature: Step Sequence Item component
   Scenario Outline: I set hiddenCurrentLabel to <hiddenCurrentLabel>
     When I set hiddenCurrentLabel to "<hiddenCurrentLabel>"
       And I select status to "current"
-    Then hidden label "<hiddenCurrentLabel>" is set
+    Then hidden label is set to "<hiddenCurrentLabel>"
     Examples:
       | hiddenCurrentLabel |
       | Sample text        |
@@ -59,7 +59,7 @@ Feature: Step Sequence Item component
   @positive
   Scenario Outline: I set ariaLabel to <ariaLabel>
     When I set ariaLabel to "<ariaLabel>"
-    Then ariaLabel "<ariaLabel>" is set
+    Then ariaLabel is set to "<ariaLabel>"
     Examples:
       | ariaLabel   |
       | Sample text |
@@ -70,7 +70,7 @@ Feature: Step Sequence Item component
   @positive
   Scenario Outline: I set children to <children>
     When I set children to "<children>"
-    Then children "1 <children>" is set
+    Then children is set "<children>"
     Examples:
       | children                |
       | Sample text             |
