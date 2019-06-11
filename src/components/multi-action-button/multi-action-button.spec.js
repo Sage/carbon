@@ -10,6 +10,8 @@ import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import StyledSplitButtonChildrenContainer from '../split-button/split-button-children.style';
 import StyledButton from '../button/button.style';
 import classicTheme from '../../style/themes/classic';
+import StyledSplitButton from '../split-button/split-button.style';
+import baseTheme from '../../style/themes/base';
 
 describe('MultiActionButton', () => {
   let wrapper;
@@ -43,6 +45,34 @@ describe('MultiActionButton', () => {
     it('should match the snapshot', () => {
       expect(render({}, TestRenderer.create)).toMatchSnapshot();
     });
+
+    describe('with the Menu open', () => {
+      beforeEach(() => {
+        wrapper = render({}, mount);
+        const toggleButton = wrapper.find('button[data-element="toggle-button"]');
+        toggleButton.simulate('focus');
+      });
+
+      it('should have expected colors for the Toggle Button', () => {
+        assertStyleMatch({
+          backgroundColor: baseTheme.colors.secondary,
+          borderColor: baseTheme.colors.secondary
+        }, wrapper, { modifier: `${StyledSplitButton} > ${StyledButton}` });
+      });
+
+      it('should have expected border color and margin for the Toggle Button when focused', () => {
+        assertStyleMatch({
+          borderColor: baseTheme.colors.focus,
+          margin: '0 -1px'
+        }, wrapper, { modifier: `${StyledSplitButton} > ${StyledButton}:focus` });
+      });
+
+      it('should have expected colors for the Button Icon', () => {
+        assertStyleMatch({
+          color: baseTheme.colors.white
+        }, wrapper, { modifier: `${StyledSplitButton} > ${StyledButton} .carbon-icon` });
+      });
+    });
   });
 
   describe('with align prop set to "right"', () => {
@@ -58,17 +88,34 @@ describe('MultiActionButton', () => {
   });
 
   describe('when rendered with "classic" theme', () => {
-    it('should match the snapshot', () => {
-      expect(renderWithTheme({
-        carbonTheme: classicTheme
-      }, TestRenderer.create)).toMatchSnapshot();
-    });
+    let classicWrapper;
 
     it('should match the snapshot', () => {
-      expect(renderWithTheme({
+      classicWrapper = renderWithTheme({
+        carbonTheme: classicTheme
+      }, TestRenderer.create);
+
+      expect(classicWrapper).toMatchSnapshot();
+    });
+
+    it('should match the snapshot for the transparent type', () => {
+      classicWrapper = renderWithTheme({
         carbonTheme: classicTheme,
         as: 'transparent'
-      }, TestRenderer.create)).toMatchSnapshot();
+      }, TestRenderer.create);
+
+      expect(classicWrapper).toMatchSnapshot();
+    });
+
+    it('should have expected colors', () => {
+      classicWrapper = renderWithTheme({ carbonTheme: classicTheme }, mount);
+      const toggleButton = classicWrapper.find('button[data-element="toggle-button"]');
+      toggleButton.simulate('focus');
+
+      assertStyleMatch({
+        backgroundColor: '#1e499f',
+        borderColor: '#1e499f'
+      }, classicWrapper, { modifier: `${StyledSplitButton} > ${StyledButton}` });
     });
   });
 });
