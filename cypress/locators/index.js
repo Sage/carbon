@@ -14,8 +14,9 @@ export const inputWidthSlider = () => cy.get(INPUT_WIDTH_SLIDER);
 export const labelWidthSlider = () => cy.get(LABEL_WIDTH_SLIDER);
 
 // component preview locators
-export const commonButtonPreview = () => cy.iFrame(STORY_ROOT).find('button');
-export const labelPreview = () => cy.iFrame(STORY_ROOT).find('label').first();
+export const storyRoot = () => cy.iFrame(STORY_ROOT);
+export const commonButtonPreview = () => storyRoot().find('button');
+export const labelPreview = () => storyRoot().find('label').first();
 export const label = () => cy.iFrame(LABEL);
 export const helpIcon = () => cy.iFrame(HELP_ICON_PREVIEW).first();
 export const tooltipPreview = () => cy.iFrame(TOOLTIP_PREVIEW);
