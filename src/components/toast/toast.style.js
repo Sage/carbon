@@ -31,7 +31,7 @@ const ToastStyle = styled(MessageStyle)`
     &${animationName}-enter.toast-enter-active {
       opacity: 1;
       transform: ${({ isCenter }) => (isCenter ? 'translateX(50%) scale(1) translateY(0)' : 'scale(1)')};
-      transition: all 325ms cubic-bezier(0.250, 0.250, 0.000, 1.500);
+      transition: all 300ms cubic-bezier(0.250, 0.250, 0.000, 1.500);
     }
 
     &${animationName}-leave.toast-leave-active {
