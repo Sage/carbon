@@ -38,6 +38,7 @@ describe('TableCell', () => {
           <TableCell
             align='right'
             action
+            isLastRow
           />
         </TableRow>
       </Table>

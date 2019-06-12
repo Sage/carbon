@@ -23,10 +23,7 @@ class TableCell extends React.Component {
    * Returns props to be used on the TD element.
    */
   get tableCellProps() {
-    const { ...props } = validProps(this);
-
-    delete props.children;
-    props.align = this.props.align;
+    const { children, ...props } = validProps(this, ['align']);
     return props;
   }
 

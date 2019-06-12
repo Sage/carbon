@@ -52,6 +52,10 @@ exports[`TableRow render if is not classic theme renders a row to match the snap
   top: -99999px;
 }
 
+.c0 .carbon-table-row:last-child .c1 {
+  border-bottom-color: transparent;
+}
+
 .c0 .carbon-table-row .custom-drag-layer {
   background-color: #002E41;
   cursor: -webkit-grabbing;
