@@ -36,7 +36,7 @@ const ToastStyle = styled(MessageStyle)`
 
     &${animationName}-leave.toast-leave-active {
       opacity: 0;
-      transform: translateY(-20px) translateX(50%);
+      transform: ${({ isCenter }) => (isCenter ? 'translateY(-20px) translateX(50%)' : 'translateY(-20px)')} ;
       transition: all 150ms ease-out;
     }
   `}
