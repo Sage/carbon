@@ -3,7 +3,7 @@ import TestUtils from 'react-dom/test-utils';
 import classNames from 'classnames';
 import { Row, Column } from './../row';
 import Textbox from './../textbox';
-import InlineInputs from './inline-inputs';
+import InlineInputs from './inline-inputs.component';
 import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
