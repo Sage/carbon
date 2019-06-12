@@ -26,7 +26,7 @@ let definition = new Definition('button', OriginalButton, {
 * Choosing one option from a highly visible range? [Try Button Toggle](/components/button-toggle).
  `,
   propOptions: {
-    as: OptionsHelper.themesBinaryClassic,
+    as: OptionsHelper.themesBinary,
     theme: OptionsHelper.buttonColors,
     size: OptionsHelper.sizesRestricted
   },

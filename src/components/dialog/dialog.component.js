@@ -215,7 +215,7 @@ class Dialog extends Modal {
       <DialogStyle
         ref={ (dialog) => { this._dialog = dialog; } }
         { ...dialogProps }
-        { ...this.componentTags(this.props) }
+        data-element='dialog'
         onBlur={ this.onDialogBlur }
       >
         { this.dialogTitle }
