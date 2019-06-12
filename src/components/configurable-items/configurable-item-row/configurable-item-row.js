@@ -8,56 +8,6 @@ import Icon from '../../icon';
 import './configurable-item-row.scss';
 
 class ConfigurableItemRow extends React.Component {
-  static propTypes = {
-    /**
-     * A custom class name for the component.
-     *
-     * @property className
-     * @type {String}
-     */
-    className: PropTypes.string,
-
-    /**
-     * The checked value for the checkbox.
-     *
-     * @property enabled
-     * @type {Boolean}
-     */
-    enabled: PropTypes.bool,
-
-    /**
-     * The disabled value for the checkbox.
-     *
-     * @property locked
-     * @type {Boolean}
-     */
-    locked: PropTypes.bool,
-
-    /**
-     * The label for the row.
-     *
-     * @property name
-     * @type {String}
-     */
-    name: PropTypes.string,
-
-    /**
-     * Callback triggered when the checkbox checked value is updated.
-     *
-     * @property onChange
-     * @type {Function}
-     */
-    onChange: PropTypes.func,
-
-    /**
-     * The unique index for the row.
-     *
-     * @property rowIndex
-     * @type {Number}
-     */
-    rowIndex: PropTypes.number
-  };
-
   static contextTypes = {
     dragDropManager: PropTypes.object, // the React DND DragDropManager
     dragAndDropActiveIndex: PropTypes.number // tracks the currently active index
@@ -106,22 +56,12 @@ class ConfigurableItemRow extends React.Component {
     );
   }
 
-  /**
-   * Determines if the item has been dragged.
-   *
-   * @method dragged
-   * @return {Boolean}
-   */
+  /** Determines if the item has been dragged. */
   dragged(dragAndDropActiveIndex, index) {
     return (this.draggingIsOccurring(dragAndDropActiveIndex) && dragAndDropActiveIndex === index);
   }
 
-  /**
-   * Determines if dragging is occurring within the current draggable context.
-   *
-   * @method draggingIsOccurring
-   * @return {Boolean}
-   */
+  /** Determines if dragging is occurring within the current draggable context. */
   draggingIsOccurring(dragAndDropActiveIndex) {
     return typeof (dragAndDropActiveIndex) === 'number';
   }
@@ -151,5 +91,20 @@ class ConfigurableItemRow extends React.Component {
     );
   }
 }
+
+ConfigurableItemRow.propTypes = {
+  /** A custom class name for the component. */
+  className: PropTypes.string,
+  /** The checked value for the checkbox. */
+  enabled: PropTypes.bool,
+  /** The disabled value for the checkbox. */
+  locked: PropTypes.bool,
+  /** The label for the row. */
+  name: PropTypes.string,
+  /** Callback triggered when the checkbox checked value is updated. */
+  onChange: PropTypes.func,
+  /** The unique index for the row. */
+  rowIndex: PropTypes.number
+};
 
 export default ConfigurableItemRow;
