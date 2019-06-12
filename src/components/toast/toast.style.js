@@ -11,32 +11,33 @@ import { THEMES } from '../../style/themes';
 
 const animationName = '.toast';
 const ToastStyle = styled(MessageStyle)`
-  width: 300px;
+  box-shadow: 0 10px 30px 0 rgba(0,20,29,.1), 0 30px 60px 0 rgba(0,20,29,.1);
+  line-height: 21px;
   margin-top: 30px;
+  max-width: 300px;
   position: fixed;
   right: ${({ isCenter }) => (isCenter ? '50%' : '30px')};
   top: 0;
-  box-shadow: 0 15px 20px 0 rgba(2, 18, 36, 0.2);
   transform:  ${({ isCenter }) => (isCenter ? 'translateX(50%)' : '')}; 
 
   ${({ theme }) => theme.name !== THEMES.classic && css`
     &${animationName}-appear,
     &${animationName}-enter {
       opacity: 0;
-      transform: ${({ isCenter }) => (isCenter ? 'translateX(50%) scale(0.5) ' : 'scale(0.5)')};
+      transform: ${({ isCenter }) => (isCenter ? 'translateX(50%) scale(0.5)' : 'scale(0.5)')};
     }
 
     &${animationName}-appear.toast-appear-active,
     &${animationName}-enter.toast-enter-active {
       opacity: 1;
-      transform: ${({ isCenter }) => (isCenter ? 'translateX(50%) scale(1)' : 'scale(1)')};
+      transform: ${({ isCenter }) => (isCenter ? 'translateX(50%) scale(1) translateY(0)' : 'scale(1)')};
       transition: all 325ms cubic-bezier(0.250, 0.250, 0.000, 1.500);
     }
 
     &${animationName}-leave.toast-leave-active {
       opacity: 0;
-      margin-top: -30px;
-      transition: all 325ms cubic-bezier(0.960, -0.335, 0.750, 0.750);
+      transform: translateY(-20px) translateX(50%);
+      transition: all 150ms ease-out;
     }
   `}
   
@@ -48,11 +49,11 @@ const ToastTypeStyle = styled(TypeIcon)`
 `;
 
 const ToastContentStyle = styled(MessageContentStyle)`
-  padding: 10px 20px 10px 20px;
+  padding: 8px 16px 8px 16px;
   
   ${({ isDismiss }) => isDismiss
     && css`
-      padding-right: 50px;
+      padding-right: 48px;
     `}
 
   ${classicToastContentStyle};
