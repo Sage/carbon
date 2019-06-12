@@ -6,12 +6,28 @@ import styleConfig from './pill.style.config';
 import { THEMES } from '../../style/themes';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
+// all DLS themes currently default to Small, as others are introduced this
+// function should be updated to correctly allow them.
+// eventually we can remove it altogether.
+const setTheme = (theme) => {
+  switch (theme.name) {
+    case THEMES.classic:
+    case THEMES.medium:
+    case THEMES.large:
+    case THEMES.base:
+      return THEMES.small;
+
+    default:
+      return theme.name;
+  }
+};
+
 const PillStyle = styled.span`
  ${({
     colourVariant, theme, inFill, isDeletable
   }) => {
     const { colors } = baseTheme;
-    const themeName = (theme.name === THEMES.classic || theme.name === THEMES.base) ? THEMES.small : theme.name;
+    const themeName = setTheme(theme);
     const styleSet = styleConfig[themeName];
 
     return css`
@@ -23,7 +39,7 @@ const PillStyle = styled.span`
       position: relative;
       top: -1px;
       margin: 0px 8px 16px 0px;
-    
+
       ${inFill && css`
         background-color: ${styleSet.colors[colourVariant]};
         color: ${colors.white};
@@ -39,6 +55,11 @@ const PillStyle = styled.span`
 
       ${!isClassic(theme, colourVariant) && isDeletable && css`
         padding: 2px 27px 2px 8px;
+
+        &:hover,
+        &:focus {
+          box-shadow: 0 0 0 3px ${styleSet.boxShadow};
+        }
 
         button {
           -webkit-appearance: none;
@@ -65,7 +86,7 @@ const PillStyle = styled.span`
             background-color: ${styleSet.colors[colourVariant]};
             color: ${styleSet.hoverColor};
           }
-
+ 
           .carbon-icon {
             font-size: 12px;
             padding: 0 4px;

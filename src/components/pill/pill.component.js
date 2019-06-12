@@ -51,7 +51,7 @@ Pill.propTypes = {
   as: PropTypes.oneOf([...OptionsHelper.colors, 'disabled']),
 
   /** Sets the theme of the notification. */
-  colourVariant: PropTypes.oneOf([...OptionsHelper.pillColours]),
+  colourVariant: PropTypes.oneOf([...OptionsHelper.pillColours, 'warning']),
 
   /** This component supports children.  */
   children: PropTypes.string.isRequired,

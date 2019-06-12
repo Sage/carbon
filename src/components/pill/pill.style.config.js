@@ -10,6 +10,7 @@ export default {
       warning: colors.warning,
       positive: colors.secondary
     },
-    hoverColor: colors.white
+    hoverColor: colors.white,
+    boxShadow: colors.focus
   }
 };
