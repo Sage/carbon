@@ -55,9 +55,7 @@ const ColorOption = Input(
 
     get colorSampleBox() {
       return (
-        <StyledColorSampleBox
-          color={ this.props.color }
-        >
+        <StyledColorSampleBox color={ this.props.color }>
           <StyledTickIcon type='tick' />
         </StyledColorSampleBox>
       );
@@ -65,7 +63,12 @@ const ColorOption = Input(
 
     render() {
       return (
-        <StyledColorOption className={ this.props.className } { ...tagComponent('color-option', this.props) }>
+        <StyledColorOption
+          color={ this.props.color }
+          checked={ this.props.checked }
+          className={ this.props.className }
+          { ...tagComponent('color-option', this.props) }
+        >
           {this.inputHTML}
         </StyledColorOption>
       );

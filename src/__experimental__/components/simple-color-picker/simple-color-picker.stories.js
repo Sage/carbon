@@ -7,7 +7,7 @@ import SimpleColorPicker from '.';
 import { notes, info } from './documentation';
 
 const store = new Store({
-  selectedColor: '#00DC00'
+  selectedColor: '#E96400'
 });
 
 const onChange = (e) => {
@@ -28,7 +28,19 @@ storiesOf('Experimental/SimpleColorPicker', module)
     'default',
     () => {
       const name = text('name', 'basicPicker');
-      const availableColors = array('availableColors', ['#00DC00', '#255BC7', '#ED1C5F']);
+      const demoColors = [
+        '#00A376',
+        '#0073C1',
+        '#582C83',
+        '#E96400',
+        '#99ADB6',
+        '#C7384F',
+        '#004500',
+        '#FFB500',
+        '#335C6D',
+        '#00DC00'
+      ];
+      const availableColors = array('availableColors', demoColors);
 
       return (
         <State store={ store }>
