@@ -6,7 +6,7 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
 }
 
 .c1 + .c0 {
-  margin-top: 16px;
+  margin-top: 10px;
 }
 
 .c6 {
@@ -97,15 +97,10 @@ input:focus ~ .c5 {
 >
   <div
     className="c2"
-    onBlur={[Function]}
-    onChange={[Function]}
+    role="group"
   >
     <div
       className="c3"
-      id="foo"
-      name="button-toggle-group"
-      size="large"
-      value="foo"
     >
       <input
         className="c4"
@@ -117,10 +112,7 @@ input:focus ~ .c5 {
       <label
         className="c5"
         htmlFor="guid-12345"
-        id="foo"
-        name="button-toggle-group"
         size="large"
-        value="foo"
       >
         <div
           className="c6"
@@ -131,10 +123,6 @@ input:focus ~ .c5 {
     </div>
     <div
       className="c3"
-      id="bar"
-      name="button-toggle-group"
-      size="large"
-      value="bar"
     >
       <input
         className="c4"
@@ -146,10 +134,7 @@ input:focus ~ .c5 {
       <label
         className="c5"
         htmlFor="guid-12345"
-        id="bar"
-        name="button-toggle-group"
         size="large"
-        value="bar"
       >
         <div
           className="c6"
@@ -163,6 +148,10 @@ input:focus ~ .c5 {
 `;
 
 exports[`ButtonToggleGroup Modern theme renders correctly with default settings 1`] = `
+.c7 + .c0 {
+  margin-top: 10px;
+}
+
 .c1 {
   display: block;
 }
@@ -227,7 +216,7 @@ input:focus ~ .c5 {
   opacity: 0;
 }
 
-.c2 .c7 {
+.c2 .c8 {
   display: inline-block;
   margin-left: 10px;
   margin-top: -4px;
@@ -239,15 +228,10 @@ input:focus ~ .c5 {
 >
   <div
     className="c2"
-    onBlur={[Function]}
-    onChange={[Function]}
+    role="group"
   >
     <div
       className="c3"
-      id="foo"
-      name="button-toggle-group"
-      size="large"
-      value="foo"
     >
       <input
         className="c4"
@@ -259,10 +243,7 @@ input:focus ~ .c5 {
       <label
         className="c5"
         htmlFor="guid-12345"
-        id="foo"
-        name="button-toggle-group"
         size="large"
-        value="foo"
       >
         <div
           className="c6"
@@ -273,10 +254,6 @@ input:focus ~ .c5 {
     </div>
     <div
       className="c3"
-      id="bar"
-      name="button-toggle-group"
-      size="large"
-      value="bar"
     >
       <input
         className="c4"
@@ -288,10 +265,7 @@ input:focus ~ .c5 {
       <label
         className="c5"
         htmlFor="guid-12345"
-        id="bar"
-        name="button-toggle-group"
         size="large"
-        value="bar"
       >
         <div
           className="c6"
@@ -305,6 +279,10 @@ input:focus ~ .c5 {
 `;
 
 exports[`ButtonToggleGroup When validating renders ButtonToggle errors correctly 1`] = `
+.c10 + .c0 {
+  margin-top: 10px;
+}
+
 .c1 {
   display: block;
 }
@@ -313,8 +291,8 @@ exports[`ButtonToggleGroup When validating renders ButtonToggle errors correctly
   margin-top: 16px;
 }
 
-.c10 + .c0 {
-  margin-top: 16px;
+.c11 + .c0 {
+  margin-top: 10px;
 }
 
 .c7 {
@@ -385,14 +363,14 @@ input:focus ~ .c6 {
   align-items: center;
 }
 
-.c11 .c8 {
+.c12 .c8 {
   display: inline-block;
   margin-left: 10px;
   margin-top: -4px;
   vertical-align: middle;
 }
 
-.c12 .c8 {
+.c13 .c8 {
   display: inline-block;
   margin-left: 10px;
   margin-top: -4px;
@@ -415,15 +393,10 @@ input:focus ~ .c6 {
 >
   <div
     className="c2"
-    onBlur={[Function]}
-    onChange={[Function]}
+    role="group"
   >
     <div
       className="c3"
-      id="foo"
-      name="button-toggle-group"
-      size="large"
-      value="foo"
     >
       <input
         className="c4"
@@ -435,10 +408,7 @@ input:focus ~ .c6 {
       <label
         className="c5 c6"
         htmlFor="guid-12345"
-        id="foo"
-        name="button-toggle-group"
         size="large"
-        value="foo"
       >
         <div
           className="c7"
@@ -449,10 +419,6 @@ input:focus ~ .c6 {
     </div>
     <div
       className="c3"
-      id="bar"
-      name="button-toggle-group"
-      size="large"
-      value="bar"
     >
       <input
         className="c4"
@@ -464,10 +430,7 @@ input:focus ~ .c6 {
       <label
         className="c5 c6"
         htmlFor="guid-12345"
-        id="bar"
-        name="button-toggle-group"
         size="large"
-        value="bar"
       >
         <div
           className="c7"

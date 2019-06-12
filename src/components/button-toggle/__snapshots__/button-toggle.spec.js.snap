@@ -79,7 +79,6 @@ input:focus ~ .c2 {
 
 <div
   className="c0"
-  size="large"
 >
   <input
     className="c1"
@@ -200,7 +199,6 @@ input:focus ~ .c3 {
 <div>
   <div
     className="c0"
-    size="large"
   >
     <input
       className="c1"
@@ -221,7 +219,6 @@ input:focus ~ .c3 {
   </div>
   <div
     className="c0"
-    size="large"
   >
     <input
       className="c1"
@@ -308,7 +305,6 @@ input:focus ~ .c2 {
 
 <div
   className="c0"
-  size="large"
 >
   <input
     className="c1"
