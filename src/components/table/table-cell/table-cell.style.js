@@ -63,6 +63,7 @@ function applyModernPresentationStyling(size, isTextArea) {
       padding-left: ${paddingSize};
       padding-right: ${paddingSize};
       position: relative;
+      ${size === 'large' ? 'width: 150px;' : ''}
       ${additionalPresentationStyling(isTextArea, inputHeight)}
     }
     ${applyModernInputStyling(isTextArea, inputHeight, fontSize)}
@@ -102,6 +103,10 @@ function applyModernInputStyling(isTextArea, inputHeight, fontSize) {
       height: ${inputHeight}px;
       padding-top: 0px;
       padding-bottom: 0px;
+    }
+    
+    && .carbon-icon {
+      font-size: 13px;
     }
   `;
 }
