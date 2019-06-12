@@ -10,19 +10,36 @@ import ButtonToggleIcon from './button-toggle-icon.component';
 import ButtonToggleInput from './button-toggle-input.component';
 
 const ButtonToggle = (props) => {
+  const {
+    name,
+    grouped,
+    disabled,
+    buttonIcon,
+    buttonIconSize,
+    onChange,
+    size
+  } = props;
   const inputGuid = guid();
-  const icon = props.buttonIcon ? <ButtonToggleIcon { ...props } /> : null;
+  let icon;
+
+  if (props.buttonIcon) {
+    icon = <ButtonToggleIcon buttonIcon={ buttonIcon } buttonIconSize={ buttonIconSize } />;
+  }
 
   return (
-    <StyledButtonToggle { ...props }>
+    <StyledButtonToggle grouped={ grouped } onChange={ onChange }>
       <ButtonToggleInput
-        name={ props.name }
+        name={ name }
         disabled={ props.disabled }
         guid={ inputGuid }
         value={ props.value }
       />
       <StyledButtonToggleLabel
-        { ...props } htmlFor={ inputGuid }
+        buttonIcon={ buttonIcon }
+        buttonIconSize={ buttonIconSize }
+        disabled={ disabled }
+        htmlFor={ inputGuid }
+        size={ size }
       >
         <StyledButtonToggleContentWrapper>
           { icon }
