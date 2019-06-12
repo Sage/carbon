@@ -1,6 +1,13 @@
 import styled from 'styled-components';
 import StyledColorSampleBox from './color-sample-box.style';
 import colorOptionClassicStyles from './color-option-classic.style';
+import baseTheme from '../../../../../style/themes/base';
+import generatePalette from '../../../../../style/palette';
+
+const generateHoverColor = (color) => {
+  const palette = generatePalette({ color });
+  return palette.colorShade(20);
+};
 
 const StyledColorOption = styled.li`
   width: 56px;
@@ -29,7 +36,7 @@ const StyledColorOption = styled.li`
     cursor: pointer;
 
     ${StyledColorSampleBox} {
-      // 20% wiecej czarnego
+      background-color: ${({ color }) => generateHoverColor(color)};
     }
   }
 
@@ -52,5 +59,9 @@ const StyledColorOption = styled.li`
 
   ${colorOptionClassicStyles}
 `;
+
+StyledColorOption.defaultProps = {
+  theme: baseTheme
+};
 
 export default StyledColorOption;
