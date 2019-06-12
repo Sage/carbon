@@ -81,7 +81,7 @@ function renderChildren(props) {
 
 Button.propTypes = {
   /** Color variants for new business themes: "primary" | "secondary" | "tertiary" | "destructive" | "darkBackground" */
-  buttonType: PropTypes.oneOf(OptionsHelper.themesBinary),
+  buttonType: PropTypes.oneOf(OptionsHelper.buttonTypes),
   /** The text the button displays */
   children: PropTypes.node.isRequired,
   /** Apply disabled state to the button */
@@ -97,7 +97,7 @@ Button.propTypes = {
   /** Ref to be forwarded */
   forwardRef: PropTypes.func,
   /** Button types for legacy theme: "primary" | "secondary" */
-  as: PropTypes.oneOf(OptionsHelper.themesBinaryClassic),
+  as: PropTypes.oneOf(OptionsHelper.themesBinary),
   /** Set this prop to pass in legacy theme color variants */
   theme: PropTypes.oneOf(OptionsHelper.buttonColors),
   checkTheme: PropTypes.func,
