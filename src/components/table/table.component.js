@@ -645,6 +645,7 @@ class Table extends React.Component {
         { this.actionToolbar }
         <StyledInternalTableWrapper
           ref={ (wrapper) => { this._wrapper = wrapper; } }
+          paginate={ this.props.paginate }
         >
           { this.configureLink(this.props.onConfigure) }
           <StyledTable
