@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { withTheme } from 'styled-components';
+import baseTheme from '../../../../style/themes/base';
+import { THEMES } from '../../../../style/themes';
 
 import Input from '../../../../utils/decorators/input';
 import tagComponent from '../../../../utils/helpers/tags';
@@ -24,12 +27,15 @@ const ColorOption = Input(
       checked: PropTypes.bool,
 
       /** Custom className */
-      className: PropTypes.string
+      className: PropTypes.string,
+
+      theme: PropTypes.object
     };
 
     static defaultProps = {
       checked: false,
-      onChange: null
+      onChange: null,
+      theme: baseTheme
     };
 
     /** The props used by the Input decorator when creating the input element. */
@@ -53,12 +59,12 @@ const ColorOption = Input(
       return 'carbon-color-option__radio-button-input';
     }
 
+    get _tickedIcon() {
+      return this.props.theme.name === THEMES.classic ? <StyledTickIcon type='tick' /> : null;
+    }
+
     get colorSampleBox() {
-      return (
-        <StyledColorSampleBox color={ this.props.color }>
-          <StyledTickIcon type='tick' />
-        </StyledColorSampleBox>
-      );
+      return <StyledColorSampleBox color={ this.props.color }>{this._tickedIcon}</StyledColorSampleBox>;
     }
 
     render() {
@@ -76,4 +82,5 @@ const ColorOption = Input(
   }
 );
 
-export default ColorOption;
+export default withTheme(ColorOption);
+export { ColorOption };

@@ -8,7 +8,14 @@ export default ({ theme }) => theme.name === THEMES.classic
     margin-right: 1px;
     margin-bottom: 1px;
 
-    // wywalic ikone z komponentu
+    &:hover {
+      cursor: pointer;
+
+      ${StyledColorSampleBox} {
+        background-color: ${({ color }) => color};
+      }
+    }
+
     .carbon-color-option__radio-button-input {
       &:checked + ${StyledColorSampleBox} {
         box-shadow: none;
