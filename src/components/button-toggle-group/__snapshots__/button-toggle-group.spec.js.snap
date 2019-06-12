@@ -72,6 +72,7 @@ input:focus ~ .c5 {
 
 .c3 {
   display: inline-block;
+  vertical-align: middle;
 }
 
 .c3:not(:first-of-type) {
@@ -203,6 +204,7 @@ input:focus ~ .c5 {
 
 .c3 {
   display: inline-block;
+  vertical-align: middle;
 }
 
 .c3:not(:first-of-type) {
@@ -338,6 +340,7 @@ input:focus ~ .c6 {
 
 .c3 {
   display: inline-block;
+  vertical-align: middle;
 }
 
 .c3:not(:first-of-type) {
