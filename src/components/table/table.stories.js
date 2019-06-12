@@ -12,9 +12,7 @@ import {
   Table, TableCell, TableHeader, TableRow
 } from '.';
 import TextBox from '../../__experimental__/components/textbox';
-import Decimal from '../../__experimental__/components/decimal';
 import DateInput from '../../__experimental__/components/date';
-import { Select, Option } from '../../__experimental__/components/select';
 import getTextboxStoryProps from '../../__experimental__/components/textbox/textbox.stories';
 import classic from '../../style/themes/classic';
 import small from '../../style/themes/small';
@@ -141,14 +139,17 @@ const buildRows = ({ pageSize, totalRecords }) => {
 
 const inputKnobs = () => {
   return {
-    inputType: select('input type', OptionsHelper.inputTypes, OptionsHelper.inputTypes[0])
+    inputType: select(
+      'input type',
+      [
+        OptionsHelper.inputTypes[0],
+        OptionsHelper.inputTypes[1],
+        OptionsHelper.inputTypes[2]
+      ],
+      OptionsHelper.inputTypes[0]
+    )
   };
 };
-
-const inputStore = new Store({
-  selectValue: undefined,
-  decimalValue: Decimal.defaultProps.value
-});
 
 const pickInput = (name) => {
   const { inputTypes } = OptionsHelper;
@@ -157,29 +158,6 @@ const pickInput = (name) => {
       return <TextArea { ...getTextboxStoryProps } />;
     case inputTypes[2]:
       return <DateInput { ...getTextboxStoryProps } />;
-    case inputTypes[3]:
-      return (
-        <Decimal
-          { ...getTextboxStoryProps }
-          value={ inputStore.get('decimalValue') }
-          onChange={ (ev) => { inputStore.set({ decimalValue: ev.target.value }); } }
-        />
-      );
-    case inputTypes[4]:
-      return (
-        <State store={ inputStore }>
-          <Select
-            { ...getTextboxStoryProps }
-            value={ inputStore.get('selectValue') }
-            onChange={ (ev) => { inputStore.set({ selectValue: ev.target.value }); } }
-          >
-            <Option text='Amber' value='1' />
-            <Option text='Black' value='2' />
-            <Option text='Blue' value='3' />
-            <Option text='Brown' value='4' />
-          </Select>
-        </State>
-      );
     default:
       return <TextBox { ...getTextboxStoryProps } />;
   }
@@ -250,7 +228,6 @@ storiesOf('Table', module)
     store.set({ currentPage: setCurrentPage(tableProps) });
     store.set({ sortOrder: tableProps.sortOrder });
     store.set({ sortedColumn: tableProps.sortColumn });
-
 
     return (
       <ThemeProvider theme={ classic }>
