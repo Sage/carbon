@@ -1,18 +1,18 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import PropTypes from 'prop-types';
+import colorSampleBoxClassicStyle from './color-sample-box-classic.style';
 
 const StyledColorSampleBox = styled.div`
-  height: 56px;
-  width: 56px;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: solid 1px transparent;
+  border: 2px solid transparent;
   background-color: ${({ color }) => color};
 
-  ${({ color }) => (color === 'transparent' || color === 'none') && css`
-    border-color: #b3c2c8;
-  `}
+  ${colorSampleBoxClassicStyle}
 `;
 
 StyledColorSampleBox.propTypes = {
