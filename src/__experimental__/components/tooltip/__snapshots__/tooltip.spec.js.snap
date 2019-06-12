@@ -3,7 +3,6 @@
 exports[`Tooltip default props matches snapshot 1`] = `
 <Tooltip
   align="center"
-  className=""
   isVisible={false}
   position="top"
 />

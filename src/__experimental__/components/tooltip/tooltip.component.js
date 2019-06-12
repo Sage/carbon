@@ -10,8 +10,6 @@ class Tooltip extends React.Component {
      * Options: top, bottom, center, right, left
      */
     align: PropTypes.string,
-    /** Custom className */
-    className: PropTypes.string,
     /** Children elements */
     children: PropTypes.node,
     /** The id attribute to use for the tooltip */
@@ -34,17 +32,11 @@ class Tooltip extends React.Component {
   static defaultProps = {
     align: 'center',
     position: 'top',
-    className: '',
     isVisible: false
   };
 
   get tooltipHTML() {
     const { children, ...tooltipProps } = this.props;
-
-    const contents = [
-      children,
-      <StyledTooltipPointer key='pointer' { ...tooltipProps } />
-    ];
 
     return (
       <StyledTooltipWrapper
@@ -53,7 +45,10 @@ class Tooltip extends React.Component {
         { ...tagComponent('tooltip', this.props) }
       >
         <StyledTooltipInner { ...tooltipProps }>
-          {contents}
+          <>
+            { children }
+            <StyledTooltipPointer key='pointer' { ...tooltipProps } />
+          </>
         </StyledTooltipInner>
       </StyledTooltipWrapper>
     );
