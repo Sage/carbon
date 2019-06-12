@@ -106,6 +106,7 @@ const StyledButtonToggleIcon = styled.div`
 
 const StyledButtonToggle = styled.div`
   display: inline-block;
+  vertical-align: middle;
 
   &:not(:first-of-type) {
     margin-left: 10px;
