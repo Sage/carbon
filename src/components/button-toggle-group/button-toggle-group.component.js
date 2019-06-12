@@ -4,13 +4,22 @@ import FormField from '../../__experimental__/components/form-field';
 import ButtonToggleGroupStyle from './button-toggle-group.style';
 import withValidations from '../validations/with-validation.hoc';
 
-const ButtonToggleGroup = withValidations(props => (
-  <FormField { ...props }>
-    <ButtonToggleGroupStyle { ...props }>
-      {props.children}
-    </ButtonToggleGroupStyle>
-  </FormField>
-));
+const ButtonToggleGroup = withValidations((props) => {
+  const { inputWidth, errorMessage } = props;
+
+  return (
+    <FormField { ...props }>
+      <ButtonToggleGroupStyle
+        aria-label={ props.label }
+        role='group'
+        inputWidth={ inputWidth }
+        errorMessage={ errorMessage }
+      >
+        {props.children}
+      </ButtonToggleGroupStyle>
+    </FormField>
+  );
+});
 
 ButtonToggleGroup.propTypes = {
   /** Children to be rendered (ButtonToggle). */

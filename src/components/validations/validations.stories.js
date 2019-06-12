@@ -204,7 +204,6 @@ storiesOf('Validations', module)
             {['foo', 'bar', 'baz'].map(value => (
               <ButtonToggle
                 name='button-toggle-group'
-                id={ value }
                 value={ value }
                 onChange={ handleChange }
                 key={ `button-toggle-validation-${value}` }
