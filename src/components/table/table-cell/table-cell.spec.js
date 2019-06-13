@@ -123,7 +123,7 @@ describe('TableCell', () => {
         });
 
         it('renders a textarea that matches the expected style', () => {
-          const wrapper1 = mount(
+          wrapper = mount(
             <ThemeProvider theme={ SmallTheme }>
               <TableCell size={ size }>
                 <TextArea />
@@ -131,7 +131,29 @@ describe('TableCell', () => {
             </ThemeProvider>
           );
 
-          const wrapper2 = mount(
+          assertStyleMatch({
+            minHeight: `${tableSizes[size].inputHeight}px`,
+            height: `${tableSizes[size].inputHeight * 3}px`,
+            paddingLeft: tableSizes[size].paddingSize,
+            paddingRight: tableSizes[size].paddingSize,
+            position: 'relative',
+            marginTop: '4px',
+            marginBottom: '4px'
+          }, wrapper, { modifier: `&& ${StyledInputPresentation}` });
+
+          assertStyleMatch({
+            fontSize: tableSizes[size].fontSize,
+            overflow: 'auto',
+            resize: 'none',
+            flexGrow: '1',
+            height: 'auto !important',
+            paddingTop: '5px',
+            paddingBottom: '5px'
+          }, wrapper, { modifier: 'textarea' });
+        });
+
+        it('renders to match the expected style for multiple textarea inputs', () => {
+          wrapper = mount(
             <ThemeProvider theme={ SmallTheme }>
               <TableCell size={ size }>
                 <TextArea />
@@ -148,7 +170,7 @@ describe('TableCell', () => {
             position: 'relative',
             marginTop: '4px',
             marginBottom: '4px'
-          }, wrapper1, { modifier: `&& ${StyledInputPresentation}` });
+          }, wrapper, { modifier: `&& ${StyledInputPresentation}` });
 
           assertStyleMatch({
             fontSize: tableSizes[size].fontSize,
@@ -158,31 +180,11 @@ describe('TableCell', () => {
             height: 'auto !important',
             paddingTop: '5px',
             paddingBottom: '5px'
-          }, wrapper1, { modifier: 'textarea' });
-
-          assertStyleMatch({
-            minHeight: `${tableSizes[size].inputHeight}px`,
-            height: `${tableSizes[size].inputHeight * 3}px`,
-            paddingLeft: tableSizes[size].paddingSize,
-            paddingRight: tableSizes[size].paddingSize,
-            position: 'relative',
-            marginTop: '4px',
-            marginBottom: '4px'
-          }, wrapper2, { modifier: `&& ${StyledInputPresentation}` });
-
-          assertStyleMatch({
-            fontSize: tableSizes[size].fontSize,
-            overflow: 'auto',
-            resize: 'none',
-            flexGrow: '1',
-            height: 'auto !important',
-            paddingTop: '5px',
-            paddingBottom: '5px'
-          }, wrapper2, { modifier: 'textarea' });
+          }, wrapper, { modifier: 'textarea' });
         });
 
         it('renders a Date input that matches the expected style', () => {
-          const wrapper1 = mount(
+          wrapper = mount(
             <ThemeProvider theme={ SmallTheme }>
               <TableCell size={ size }>
                 <Date />
@@ -190,7 +192,18 @@ describe('TableCell', () => {
             </ThemeProvider>
           );
 
-          const wrapper2 = mount(
+          assertStyleMatch({
+            minHeight: `${tableSizes[size].inputHeight}px`,
+            height: `${tableSizes[size].inputHeight}px`,
+            paddingLeft: tableSizes[size].paddingSize,
+            paddingRight: tableSizes[size].paddingSize,
+            position: 'relative',
+            width: size === 'large' ? '150px' : undefined
+          }, wrapper, { modifier: `&& ${StyledInputPresentation}` });
+        });
+
+        it('renders to match the expected style for multiple Date inputs', () => {
+          wrapper = mount(
             <ThemeProvider theme={ SmallTheme }>
               <TableCell size={ size }>
                 <Date />
@@ -206,16 +219,7 @@ describe('TableCell', () => {
             paddingRight: tableSizes[size].paddingSize,
             position: 'relative',
             width: size === 'large' ? '150px' : undefined
-          }, wrapper1, { modifier: `&& ${StyledInputPresentation}` });
-
-          assertStyleMatch({
-            minHeight: `${tableSizes[size].inputHeight}px`,
-            height: `${tableSizes[size].inputHeight}px`,
-            paddingLeft: tableSizes[size].paddingSize,
-            paddingRight: tableSizes[size].paddingSize,
-            position: 'relative',
-            width: size === 'large' ? '150px' : undefined
-          }, wrapper2, { modifier: `&& ${StyledInputPresentation}` });
+          }, wrapper, { modifier: `&& ${StyledInputPresentation}` });
         });
       }
     );

@@ -33,13 +33,14 @@ class TableCell extends React.Component {
    */
   get checkChildrenInputType() {
     const { children } = this.props;
+    const TYPES = { isTextArea: 'isTextArea', isDate: 'isDate' };
 
     if (!Array.isArray(children)) {
       if (this.childName(children) === TextArea.name) {
-        return 'isTextArea';
+        return TYPES.isTextArea;
       }
       if (this.childName(children) === Date.name) {
-        return 'isDate';
+        return TYPES.isDate;
       }
       return null;
     }
@@ -47,10 +48,10 @@ class TableCell extends React.Component {
     let result = null;
     children.forEach((child) => {
       if (this.childName(child) === Date.name) {
-        result = result !== 'isTextArea' ? 'isDate' : result;
+        result = result !== TYPES.isTextArea ? TYPES.isDate : result;
       }
       if (this.childName(child) === TextArea.name) {
-        result = 'isTextArea';
+        result = TYPES.isTextArea;
       }
     });
     return result;
