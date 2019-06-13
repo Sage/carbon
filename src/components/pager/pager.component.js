@@ -16,8 +16,20 @@ import { THEMES } from '../../style/themes';
 const Pager = (props) => {
   const [currentPage, setCurrentPage] = useState(props.currentPage);
 
+  const calculateAdjustedPage = () => {
+    if (Number.isNaN(props.currentPage)) return props.currentPage;
+
+    if (Number(props.currentPage) < 1) return '1';
+    if (Number(props.currentPage) > Math.ceil(props.totalRecords / props.pageSize)) {
+      return Math.ceil(props.totalRecords / props.pageSize);
+    }
+
+    return props.currentPage;
+  };
+
   useEffect(() => {
-    setCurrentPage(props.currentPage);
+    const value = calculateAdjustedPage();
+    setCurrentPage(value);
   }, [props.currentPage]);
 
   const { theme } = props;

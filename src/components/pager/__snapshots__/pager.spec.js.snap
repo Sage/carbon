@@ -25,6 +25,24 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
   background-color: #F2F4F5;
 }
 
+.c0 .common-input__input:active,
+.c0 .common-input__input:hover {
+  border-color: #CCD6DA;
+}
+
+.c0 .common-input__input:focus {
+  border-color: #FFB500;
+}
+
+.c0 .common-input__input:active {
+  border-color: #265BC7;
+}
+
+.c0 .common-input__input:hover,
+.c0 .common-input__input:focus {
+  border-color: #99adb6;
+}
+
 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -280,6 +298,15 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   border-top: none;
 }
 
+.c0 .common-input__input:active,
+.c0 .common-input__input:hover {
+  border-color: #CCD6DA;
+}
+
+.c0 .common-input__input:focus {
+  border-color: #FFB500;
+}
+
 .c1 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -357,7 +384,8 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   text-decoration: underline;
   background-color: transparent;
   cursor: pointer;
-  color: rgba(0,0,0,0.3);
+  color: rgba(0,0,0,0.90);
+  color: rgba(0,0,0,0.55);
 }
 
 .c4:focus {
@@ -372,6 +400,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   text-decoration: underline;
   background-color: transparent;
   cursor: pointer;
+  color: rgba(0,0,0,0.90);
 }
 
 .c7:focus {
@@ -466,7 +495,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
       className="c4"
       onClick={[Function]}
     >
-      Back
+      Previous
     </button>
     <div
       className="c5"
