@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select, text, boolean } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import Portrait from './portrait';
+import Portrait from './portrait.component';
 import { notes, info } from './documentation';
 
 storiesOf('Portrait', module).add(
