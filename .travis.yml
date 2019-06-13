@@ -12,12 +12,12 @@ install:
   - npm install -g gulp
   - npm ci
 
-stage: run storybook
+- stage: run storybook
   script:
   #  - npm run lint ./src && npm test -- --maxWorkers=2
     - npm run storybook-ci
 
-stage: run cypress
+- stage: run cypress
   script:
   - npm run test-cypress-build
 
