@@ -1,14 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import MD5 from 'crypto-js/md5';
 import tagComponent from '../../utils/helpers/tags';
 import Browser from '../../utils/helpers/browser';
-
-import Icon from '../icon';
-import './portrait.scss';
+import StyledPortrait, { StyledInitialsImage, StyledAvatarImage, StyledIcon } from './portrait.style';
 
 class Portrait extends React.Component {
+  /**
+   * Maps size to width/height value.
+   */
+  static numericSizes = {
+    'extra-small':  '25',
+    'small':        '30',
+    'medium-small': '40',
+    'medium':       '60',
+    'medium-large': '70',
+    'large':        '100',
+    'extra-large':  '120'
+  }
+
+  /**
+   * List of valid shapes.
+   */
+  static shapes = ['standard', 'circle', 'leaf']
+
   static propTypes = {
     /**
      * A custom class name for the component.
@@ -18,7 +33,7 @@ class Portrait extends React.Component {
     /**
      * Defines the size of the Portrait.
      */
-    size: PropTypes.string,
+    size: PropTypes.oneOf(Object.keys(Portrait.numericSizes)),
 
     /**
      * Define an image source.
@@ -45,7 +60,7 @@ class Portrait extends React.Component {
     /**
      * Defines the shape of the Portrait.
      */
-    shape: PropTypes.string,
+    shape: PropTypes.oneOf(Portrait.shapes),
 
     /**
      * Define some initials to render in the Portrait.
@@ -86,26 +101,15 @@ class Portrait extends React.Component {
   memoizeInitials = null;
 
   /**
-   * Props for the HTML Img
-   *
-   * @method imgSrc
-   * @return {String}
-   */
-  get imgSrc() {
-    if (this.props.gravatar) { return this.gravatarSrc; }
-    return this.props.src;
-  }
-
-  /**
    * Gets src url based on passed gravatar email
    *
    * @method gravatarSrc
    * @return {String}
    */
-  get gravatarSrc() {
+  gravatarSrc() {
     const base = 'https://www.gravatar.com/avatar/';
     const hash = MD5(this.props.gravatar.toLowerCase());
-    const size = this.numericSizes[this.props.size];
+    const size = Portrait.numericSizes[this.props.size];
 
     return `${base}${hash}?s=${size}&d=blank`;
   }
@@ -116,12 +120,12 @@ class Portrait extends React.Component {
    * @method generateInitials
    * @return {String}
    */
-  get generateInitials() {
+  generateInitials() {
     if (this.memoizeInitials) {
       return this.memoizeInitials;
     }
 
-    const size = this.numericSizes[this.props.size];
+    const size = Portrait.numericSizes[this.props.size];
     let canvas = Browser.getDocument().createElement('canvas');
     let context = canvas.getContext('2d');
 
@@ -180,96 +184,6 @@ class Portrait extends React.Component {
   }
 
   /**
-   * Maps size to width/height value
-   *
-   * @method numericSizes
-   * @return {Object}
-   */
-  get numericSizes() {
-    return {
-      'extra-small': '25',
-      small: '30',
-      'medium-small': '40',
-      medium: '60',
-      'medium-large': '70',
-      large: '100',
-      'extra-large': '120'
-    };
-  }
-
-  /**
-   * Main Class getter
-   *
-   * @method mainClasses
-   * @return {String} Main className
-   */
-  get mainClasses() {
-    return classNames(
-      'carbon-portrait',
-      'carbon-portrait--image',
-      `carbon-portrait--${this.props.size}`,
-      `carbon-portrait--${this.props.shape}`,
-      this.props.className, {
-        'carbon-portrait--dark-background': this.props.darkBackground
-      }
-    );
-  }
-
-  /**
-   * Return the html for the initials image.
-   *
-   * @method initialsImage
-   * @return {Object}
-   */
-  get initialsImage() {
-    // if not using src, generate initials for potential fallback
-    if (this.props.src) { return null; }
-    if (!this.props.initials) { return this.sansInitialsImage; }
-
-    return (
-      <img
-        data-element='initials'
-        className='carbon-portrait__img carbon-portrait__initials'
-        src={ this.generateInitials }
-        alt={ this.props.alt }
-      />
-    );
-  }
-
-  /**
-   * Return the html for the avatar image.
-   *
-   * @method avatarImage
-   * @return {Object}
-   */
-  get avatarImage() {
-    return (
-      <img
-        data-element='user-image'
-        className='carbon-portrait__img carbon-portrait__avatar'
-        src={ this.imgSrc }
-        alt={ this.props.alt }
-      />
-    );
-  }
-
-  /**
-   *
-   * Return the html for the Icon displayed in the event that both the image and initials are missing
-   *
-   * @method sansInitialsImage
-   * @return {Object}
-   */
-  get sansInitialsImage() {
-    return (
-      <Icon
-        className='carbon-portrait__img carbon-portrait__sans-initials'
-        type='individual'
-      />
-    );
-  }
-
-  /**
    * Renders the component.
    *
    * @method render
@@ -277,10 +191,38 @@ class Portrait extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses } { ...tagComponent('portrait', this.props) }>
-        { this.initialsImage }
-        { this.avatarImage }
-      </div>
+      <StyledPortrait size={this.props.size}
+                      shape={this.props.shape}
+                      className={this.props.className}
+                      {...tagComponent('portrait', this.props)}>
+
+        {!this.props.src && !this.props.initials &&
+          <StyledIcon type='individual'
+                      size={this.props.size}
+                      darkBackground={this.props.darkBackground} />
+        }
+
+        {!this.props.src && this.props.initials &&
+          <StyledInitialsImage src={this.generateInitials()}
+                               alt={this.props.alt}
+                               data-element='initials' />
+        }
+
+        {this.props.gravatar &&
+          <StyledAvatarImage src={this.gravatarSrc()}
+                             alt={this.props.alt}
+                             size={this.props.size}
+                             data-element='user-image' />
+        }
+
+        {!this.props.gravatar && this.props.src &&
+          <StyledAvatarImage src={this.props.src}
+                             alt={this.props.alt}
+                             size={this.props.size}
+                             data-element='user-image' />
+        }
+
+      </StyledPortrait>
     );
   }
 }
