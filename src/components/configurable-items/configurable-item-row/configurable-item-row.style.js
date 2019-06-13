@@ -5,6 +5,11 @@ import baseTheme from '../../../style/themes/base';
 
 const ConfigurableItemRowIconStyle = styled(Icon)`
   cursor: move;
+  padding-right: 10px;
+
+  ${({ theme }) => theme.name === THEMES.classic && css`
+      padding-right: 0;
+  `}
 `;
 
 const ConfigurableItemRowContentWrapperStyle = styled.div`
@@ -38,6 +43,10 @@ const ConfigurableItemRowStyle = styled.li`
 `;
 
 ConfigurableItemRowStyle.defaultProps = {
+  theme: baseTheme
+};
+
+ConfigurableItemRowIconStyle.defaultProps = {
   theme: baseTheme
 };
 

@@ -8,7 +8,7 @@ import Button from '../button';
 import ConfigurableItemRow from './configurable-item-row';
 import { ConfigurableItemsStyle, ConfigurableItemsWrapper } from './configurable-items.style';
 import Form from '../form/form';
-import './configurable-items.scss';
+
 
 class ConfigurableItems extends React.Component {
   onReset = (event) => {

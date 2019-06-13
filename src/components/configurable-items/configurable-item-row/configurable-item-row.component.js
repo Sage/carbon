@@ -9,7 +9,6 @@ import {
   ConfigurableItemRowContentWrapperStyle,
   ConfigurableItemRowIconStyle
 } from './configurable-item-row.style';
-import './configurable-item-row.scss';
 
 class ConfigurableItemRow extends React.Component {
   static contextTypes = {
