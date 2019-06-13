@@ -5,6 +5,7 @@ import { mount } from 'enzyme';
 import Tooltip from '.';
 import { StyledTooltipInner, StyledTooltipPointer, StyledTooltipWrapper } from './tooltip.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 function render(props, renderer = TestRenderer.create) {
   return renderer(<Tooltip { ...props }>Content</Tooltip>);
@@ -77,46 +78,24 @@ describe('Tooltip', () => {
         );
       });
 
-      it('position === "bottom"', () => {
-        assertStyleMatch(
-          { textAlign: 'center' },
-          renderWrapper({ position: 'bottom' })
-        );
+      OptionsHelper.positions.forEach((position) => {
+        it(`position === ${position}`, () => {
+          const align = ['top', 'bottom'].includes(position) ? 'center' : position;
+
+          assertStyleMatch(
+            { textAlign: align },
+            renderWrapper({ position })
+          );
+        });
       });
 
-      it('position === "top"', () => {
-        assertStyleMatch(
-          { textAlign: 'center' },
-          renderWrapper({ position: 'top' })
-        );
-      });
-
-      it('position === "left"', () => {
-        assertStyleMatch(
-          { textAlign: 'left' },
-          renderWrapper({ position: 'left' })
-        );
-      });
-
-      it('position === "right"', () => {
-        assertStyleMatch(
-          { textAlign: 'right' },
-          renderWrapper({ position: 'right' })
-        );
-      });
-
-      it('align === "left"', () => {
-        assertStyleMatch(
-          { textAlign: 'left' },
-          renderWrapper({ align: 'left' })
-        );
-      });
-
-      it('align === "right"', () => {
-        assertStyleMatch(
-          { textAlign: 'right' },
-          renderWrapper({ align: 'right' })
-        );
+      OptionsHelper.alignBinary.forEach((align) => {
+        it(`align === "${align}"`, () => {
+          assertStyleMatch(
+            { textAlign: align },
+            renderWrapper({ align })
+          );
+        });
       });
     });
 

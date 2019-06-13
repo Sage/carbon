@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyledTooltipInner, StyledTooltipWrapper, StyledTooltipPointer } from './tooltip.style';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 import tagComponent from '../../../utils/helpers/tags';
 
 class Tooltip extends React.Component {
@@ -9,7 +10,7 @@ class Tooltip extends React.Component {
      * Sets alignment of pointer on tooltip
      * Options: top, bottom, center, right, left
      */
-    align: PropTypes.string,
+    align: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
     /** Children elements */
     children: PropTypes.node,
     /** The id attribute to use for the tooltip */
@@ -20,7 +21,7 @@ class Tooltip extends React.Component {
      * Sets position of the tooltip
      * Options: top, bottom, right, left
      */
-    position: PropTypes.string,
+    position: PropTypes.oneOf(OptionsHelper.positions),
     /** Sets a onMouseEnter function */
     onMouseEnter: PropTypes.func,
     /** Sets a onMouseLeave function */
@@ -46,7 +47,7 @@ class Tooltip extends React.Component {
       >
         <StyledTooltipInner { ...tooltipProps }>
           <>
-            { children }
+            {children}
             <StyledTooltipPointer key='pointer' { ...tooltipProps } />
           </>
         </StyledTooltipInner>

@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const StyledTooltipInner = styled.div`
   ${({ theme, type }) => css`
@@ -35,23 +36,23 @@ const StyledTooltipWrapper = styled.div`
     width: 300px;
     z-index: 1003;
 
-    ${(position === 'bottom' || position === 'top') && `
+    ${['top', 'bottom'].includes(position) && `
       text-align: center;
     `}
 
-    ${(position === 'left' || position === 'right') && `
+    ${['left', 'right'].includes(position) && `
       text-align: ${position};
     `}
 
-    ${(align === 'left' || align === 'right') && `
+    ${['left', 'right'].includes(align) && `
       text-align: ${align};
     `}
   `}
 `;
 
 StyledTooltipWrapper.propTypes = {
-  align: PropTypes.string,
-  position: PropTypes.string
+  align: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
+  position: PropTypes.oneOf(OptionsHelper.positions)
 };
 
 const StyledTooltipPointer = styled.span`
@@ -115,23 +116,23 @@ const StyledTooltipPointer = styled.span`
     `}
 
     ${align === 'center' && css`
-      ${(position === 'bottom' || position === 'top') && css`left: calc(50% - 7px);`}
-      ${(position === 'left' || position === 'right') && css`top: calc(50% - 7px);`}
+      ${['top', 'bottom'].includes(position) && css`left: calc(50% - 7px);`}
+      ${['left', 'right'].includes(position) && css`top: calc(50% - 7px);`}
     `}
 
-    ${align === 'left' && (position === 'bottom' || position === 'top') && css`
+    ${align === 'left' && ['top', 'bottom'].includes(position) && css`
       left: 10px;
     `}
 
-    ${align === 'right' && (position === 'bottom' || position === 'top') && css`
+    ${align === 'right' && ['top', 'bottom'].includes(position) && css`
       right: 25px;
     `}
 
-    ${align === 'top' && (position === 'left' || position === 'right') && css`
+    ${align === 'top' && ['left', 'right'].includes(position) && css`
       top: 10px;
     `}
 
-    ${align === 'bottom' && (position === 'left' || position === 'right') && css`
+    ${align === 'bottom' && ['left', 'right'].includes(position) && css`
       bottom: 25px;
     `}
   `}
@@ -142,8 +143,8 @@ StyledTooltipPointer.defaultProps = {
 };
 
 StyledTooltipPointer.propTypes = {
-  align: PropTypes.string,
-  position: PropTypes.string,
+  align: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
+  position: PropTypes.oneOf(OptionsHelper.positions),
   theme: PropTypes.object,
   type: PropTypes.string
 };
@@ -170,11 +171,11 @@ function arrow(arrowDirection, size, color) {
 }
 
 function isVerticallyAligned(align) {
-  return ['top', 'bottom', 'center'].indexOf(align) !== -1;
+  return ['top', 'bottom', 'center'].includes(align);
 }
 
 function isHorizontallyAligned(align) {
-  return ['left', 'right', 'center'].indexOf(align) !== -1;
+  return ['left', 'right', 'center'].includes(align);
 }
 
 export { StyledTooltipInner, StyledTooltipWrapper, StyledTooltipPointer };
