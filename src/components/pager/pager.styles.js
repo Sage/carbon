@@ -12,9 +12,18 @@ const PagerContainerStyles = styled.div`
   border-top-width: 0;
   font-size: 13px;  
   ${({ theme }) => {
-    return theme.table && css`
+    return theme.table && theme.colors && css`
       border: 1px solid ${theme.table.selected};
       background-color: ${theme.table.zebra};
+      
+      .common-input__input {
+        &:active, :hover {
+          border-color: ${theme.table.secondary};
+        }
+        &:focus {
+          border-color: ${theme.colors.focus};
+        }
+      }
     `;
   }}
   border-top: none;
@@ -90,10 +99,11 @@ const PagerLinkStyles = styled.button`
   &:focus {
     outline: none;
   }
+  color: rgba(0,0,0,0.90);
 
   ${({ isDisabled }) => isDisabled && css`
-    color: rgba(0,0,0,0.3);
-  `};
+    color: rgba(0,0,0,0.55);
+  `}
 `;
 
 const PagerNoSelectStyles = styled.span`

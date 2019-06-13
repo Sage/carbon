@@ -79,7 +79,7 @@ const PagerNavigation = (props) => {
         destination: String(currentPage + 1)
       },
       back: {
-        text: 'Back',
+        text: 'Previous',
         destination: String(currentPage - 1)
       }
     };
