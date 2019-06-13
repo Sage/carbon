@@ -10,11 +10,11 @@ node_js:
 install:
   - npm install -g npm@6.1.0
   - npm install -g gulp
-  - npm install
-  - npm ci && npm run storybook
+  - npm ci
 
 script:
   - npm run lint ./src && npm test -- --maxWorkers=2
+  - npm run storybook
   - npm run test-cypress-build
 
 before_deploy: if [ "$TRAVIS_BRANCH" == "release" ]; then ASSETS_PREFIX=https://carbon.sage.com npm run build; fi
