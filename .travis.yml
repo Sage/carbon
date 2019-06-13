@@ -13,11 +13,12 @@ install:
   - npm ci
 
 stage: run storybook
-script:
-#  - npm run lint ./src && npm test -- --maxWorkers=2
-  - npm run storybook-ci
+  script:
+  #  - npm run lint ./src && npm test -- --maxWorkers=2
+    - npm run storybook-ci
 
 stage: run cypress
+  script:
   - npm run test-cypress-build
 
 before_deploy: if [ "$TRAVIS_BRANCH" == "release" ]; then ASSETS_PREFIX=https://carbon.sage.com npm run build; fi
