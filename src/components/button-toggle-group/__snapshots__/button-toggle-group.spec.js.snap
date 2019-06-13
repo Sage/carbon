@@ -98,6 +98,7 @@ input:focus ~ .c5 {
 >
   <div
     className="c2"
+    onChange={[Function]}
     role="group"
   >
     <div
@@ -230,6 +231,7 @@ input:focus ~ .c5 {
 >
   <div
     className="c2"
+    onChange={[Function]}
     role="group"
   >
     <div
@@ -396,6 +398,7 @@ input:focus ~ .c6 {
 >
   <div
     className="c2"
+    onChange={[Function]}
     role="group"
   >
     <div
