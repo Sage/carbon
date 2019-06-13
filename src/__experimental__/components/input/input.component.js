@@ -18,8 +18,9 @@ class Input extends React.Component {
     name: PropTypes.string,
     onBlur: PropTypes.func,
     onClick: PropTypes.func,
-    onFocus: PropTypes.func
-  }
+    onFocus: PropTypes.func,
+    type: PropTypes.string
+  };
 
   static contextType = InputPresentationContext
 
@@ -64,6 +65,10 @@ class Input extends React.Component {
     );
   }
 }
+
+Input.defaultProps = {
+  type: 'text'
+};
 
 function selectTextOnFocus(input) {
   // setTimeout is required so the dom has a chance to place the cursor in the input

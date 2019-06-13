@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+// eslint-disable-next-line import/no-named-as-default
 import ColorOption from './color-option/color-option.component.js';
 import tagComponent from '../../../utils/helpers/tags/tags';
 import { StyledSimpleColorPicker, StyledColorOptions } from './simple-color-picker.style';
