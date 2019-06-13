@@ -24,6 +24,8 @@ Use scenario tags:
 3. `@ignore` for temporary ignored scenarios
 4. `@[bug-number]` for example `@FE-1234` - use this tag after `@ignore` to explain why test is ignored.
 5. `@ignore` and `@[bug-number]` should be removed after bug fix
+6. `@build` for pipeline - each build is veirfied by this tests
+7. `@sanity` tests verifies accessibility violations
 
 ## Files structure
 ```
@@ -31,6 +33,8 @@ Use scenario tags:
 ├── cypress
 │ ├── fixture
 │ ├── features
+│ │   ├── build
+│ │   ├── sanity
 │ │   └── regression
 │ ├── locators
 │ │   └── [component-name]
