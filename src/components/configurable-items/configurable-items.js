@@ -10,38 +10,6 @@ import Form from '../form';
 import './configurable-items.scss';
 
 class ConfigurableItems extends React.Component {
-  static propTypes = {
-    /**
-     * Children elements.
-     */
-    children: PropTypes.node,
-
-    /**
-     * A custom class name for the component.
-     */
-    className: PropTypes.string,
-
-    /**
-     * Callback triggered when the form is canceled.
-     */
-    onCancel: PropTypes.func.isRequired,
-
-    /**
-     * Callback triggered when an item is dragged.
-     */
-    onDrag: PropTypes.func.isRequired,
-
-    /**
-     * Callback triggered when when the reset button is pressed.
-     */
-    onReset: PropTypes.func,
-
-    /**
-     * Callback triggered when the form is saved.
-     */
-    onSave: PropTypes.func.isRequired
-  }
-
   onReset = (event) => {
     event.preventDefault();
     this.props.onReset();
@@ -89,6 +57,21 @@ class ConfigurableItems extends React.Component {
     );
   }
 }
+
+ConfigurableItems.propTypes = {
+  /** Children elements. */
+  children: PropTypes.node,
+  /** A custom class name for the component. */
+  className: PropTypes.string,
+  /** Callback triggered when the form is canceled. */
+  onCancel: PropTypes.func.isRequired,
+  /** Callback triggered when an item is dragged. */
+  onDrag: PropTypes.func.isRequired,
+  /** Callback triggered when when the reset button is pressed. */
+  onReset: PropTypes.func,
+  /** Callback triggered when the form is saved. */
+  onSave: PropTypes.func.isRequired
+};
 
 export {
   ConfigurableItems,
