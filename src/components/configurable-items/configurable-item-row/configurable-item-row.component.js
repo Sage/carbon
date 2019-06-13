@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import tagComponent from '../../../utils/helpers/tags';
-import { WithDrag, WithDrop } from '../../drag-and-drop';
-import Checkbox from '../../checkbox';
-import Icon from '../../icon';
+import tagComponent from '../../../utils/helpers/tags/tags';
+import { WithDrag, WithDrop } from '../../drag-and-drop/drag-and-drop';
+import Checkbox from '../../checkbox/checkbox';
+import Icon from '../../icon/icon';
+import { ConfigurableItemRowStyle } from './configurable-item-row.style';
 import './configurable-item-row.scss';
 
 class ConfigurableItemRow extends React.Component {
@@ -70,16 +71,20 @@ class ConfigurableItemRow extends React.Component {
     const {
       rowIndex, enabled, locked, name, onChange
     } = this.props;
+
     return (
-      <li
-        className={ this.classes(this.context.dragAndDropActiveIndex, rowIndex) }
-        ref={ (node) => { this._listItem = node; } }
-      >
-        <div className='configurable-item-row__content-wrapper'>
-          { this.icon() }
-          { this.checkbox(enabled, locked, name, onChange) }
-        </div>
-      </li>
+      <div>
+        <ConfigurableItemRowStyle
+          testProp={ this.context }
+          className={ this.classes(this.context.dragAndDropActiveIndex, rowIndex) }
+          ref={ (node) => { this._listItem = node; } }
+        >
+          <div className='configurable-item-row__content-wrapper'>
+            { this.icon() }
+            { this.checkbox(enabled, locked, name, onChange) }
+          </div>
+        </ConfigurableItemRowStyle>
+      </div>
     );
   }
 

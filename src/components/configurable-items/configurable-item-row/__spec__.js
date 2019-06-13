@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow, mount } from 'enzyme';
-import ConfigurableItemRow from './configurable-item-row';
+import ConfigurableItemRow from './configurable-item-row.component';
 import Checkbox from './../../checkbox';
 import Icon from './../../icon';
 import { WithDrag, WithDrop } from './../../drag-and-drop';
