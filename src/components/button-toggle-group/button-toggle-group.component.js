@@ -5,7 +5,7 @@ import ButtonToggleGroupStyle from './button-toggle-group.style';
 import withValidations from '../validations/with-validation.hoc';
 
 const ButtonToggleGroup = withValidations((props) => {
-  const { inputWidth, errorMessage } = props;
+  const { inputWidth, errorMessage, onChange } = props;
 
   return (
     <FormField { ...props }>
@@ -14,6 +14,7 @@ const ButtonToggleGroup = withValidations((props) => {
         role='group'
         inputWidth={ inputWidth }
         errorMessage={ errorMessage }
+        onChange={ onChange }
       >
         {props.children}
       </ButtonToggleGroupStyle>
