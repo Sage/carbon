@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 import {
-  ConfigurableItemRowContentWrapper,
-  ConfigurableItemRowIcon,
+  ConfigurableItemRowContentWrapperStyle,
+  ConfigurableItemRowIconStyle,
   ConfigurableItemRowStyle
 } from './configurable-item-row/configurable-item-row.style';
+import baseTheme from '../../style/themes/base';
 
 const ConfigurableItemsWrapper = styled.ol`
   list-style: none;
@@ -14,24 +15,27 @@ const ConfigurableItemsWrapper = styled.ol`
 const ConfigurableItemsStyle = styled.div`
   .custom-drag-layer {
     ${ConfigurableItemRowStyle} {
-      // classic color background
-      background-color: #E6EBED;
+      background-color: ${({ theme }) => theme.disabled.button};
       border: none;
       cursor: grabbing;
       cursor: -moz-grabbing;
       cursor: -webkit-grabbing;
 
-      ${ConfigurableItemRowIcon} {
+      ${ConfigurableItemRowIconStyle} {
         cursor: grabbing;
         cursor: -moz-grabbing;
         cursor: -webkit-grabbing;
       }
 
-      ${ConfigurableItemRowContentWrapper} {
+      ${ConfigurableItemRowContentWrapperStyle} {
         visibility: visible;
       }
     }
   }
 `;
+
+ConfigurableItemsStyle.defaultProps = {
+  theme: baseTheme
+};
 
 export { ConfigurableItemsWrapper, ConfigurableItemsStyle };

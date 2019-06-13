@@ -6,8 +6,8 @@ import { WithDrag, WithDrop } from '../../drag-and-drop/drag-and-drop';
 import Checkbox from '../../checkbox/checkbox';
 import {
   ConfigurableItemRowStyle,
-  ConfigurableItemRowContentWrapper,
-  ConfigurableItemRowIcon
+  ConfigurableItemRowContentWrapperStyle,
+  ConfigurableItemRowIconStyle
 } from './configurable-item-row.style';
 import './configurable-item-row.scss';
 
@@ -31,7 +31,7 @@ class ConfigurableItemRow extends React.Component {
   iconHTML() {
     return (
       <div>
-        <ConfigurableItemRowIcon type='drag_vertical' />
+        <ConfigurableItemRowIconStyle type='drag_vertical' />
       </div>
     );
   }
@@ -73,7 +73,7 @@ class ConfigurableItemRow extends React.Component {
     return (
       <div>
         <ConfigurableItemRowStyle
-          data-element='test123123123123123123123123123123'
+          data-element='configurable-item-row'
           isDragged={ this.dragged(
             this.context.dragAndDropActiveIndex,
             rowIndex
@@ -86,10 +86,10 @@ class ConfigurableItemRow extends React.Component {
             this._listItem = node;
           } }
         >
-          <ConfigurableItemRowContentWrapper>
+          <ConfigurableItemRowContentWrapperStyle data-element='configurable-item-row-content-wrapper'>
             {this.icon()}
             {this.checkbox(enabled, locked, name, onChange)}
-          </ConfigurableItemRowContentWrapper>
+          </ConfigurableItemRowContentWrapperStyle>
         </ConfigurableItemRowStyle>
       </div>
     );
