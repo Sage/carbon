@@ -73,6 +73,7 @@ class ConfigurableItemRow extends React.Component {
     return (
       <div>
         <ConfigurableItemRowStyle
+          data-element='test123123123123123123123123123123'
           isDragged={ this.dragged(
             this.context.dragAndDropActiveIndex,
             rowIndex

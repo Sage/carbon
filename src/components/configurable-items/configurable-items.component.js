@@ -2,11 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
-import tagComponent from '../../utils/helpers/tags';
-import { DraggableContext } from '../drag-and-drop';
+import tagComponent from '../../utils/helpers/tags/tags';
+import { DraggableContext } from '../drag-and-drop/drag-and-drop';
 import Button from '../button';
 import ConfigurableItemRow from './configurable-item-row';
-import Form from '../form';
+import { ConfigurableItemsStyle, ConfigurableItemsWrapper } from './configurable-items.style';
+import Form from '../form/form';
 import './configurable-items.scss';
 
 class ConfigurableItems extends React.Component {
@@ -16,9 +17,9 @@ class ConfigurableItems extends React.Component {
   }
 
   additionalActions = () => {
-    if (!this.props.onReset) { return null; }
+    if (!this.props.onReset) return null;
     return (
-      <Button onClick={ this.onReset } className='carbon-button--reset'>
+      <Button onClick={ this.onReset }>
         { I18n.t('actions.reset', { defaultValue: 'Reset' }) }
       </Button>
     );
@@ -26,16 +27,15 @@ class ConfigurableItems extends React.Component {
 
   rows = () => {
     return (
-      <ol className='carbon-configurable-items__items-wrapper'>
+      <ConfigurableItemsWrapper data-element='configurable-items-wrapper'>
         { this.props.children }
-      </ol>
+      </ConfigurableItemsWrapper>
     );
   }
 
   get classes() {
     return (
       classNames(
-        'carbon-configurable-items',
         this.props.className
       )
     );
@@ -43,7 +43,7 @@ class ConfigurableItems extends React.Component {
 
   render() {
     return (
-      <div className={ this.classes } { ...tagComponent('configurable-items', this.props) }>
+      <ConfigurableItemsStyle className={ this.classes } { ...tagComponent('configurable-items', this.props) }>
         <DraggableContext onDrag={ this.props.onDrag }>
           <Form
             leftAlignedActions={ this.additionalActions() }
@@ -53,7 +53,7 @@ class ConfigurableItems extends React.Component {
             { this.rows() }
           </Form>
         </DraggableContext>
-      </div>
+      </ConfigurableItemsStyle>
     );
   }
 }

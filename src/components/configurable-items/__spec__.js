@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { ConfigurableItems } from './configurable-items';
+import { ConfigurableItems } from './configurable-items.component';
 import Button from './../button';
 import { DraggableContext } from './../drag-and-drop';
 import Form from './../form';
