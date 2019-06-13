@@ -13,7 +13,7 @@ install:
   - npm ci
 
 script:
-  - npm run lint ./src && npm test -- --maxWorkers=2
+#  - npm run lint ./src && npm test -- --maxWorkers=2
   - npm run storybook
   - npm run test-cypress-build
 
