@@ -1,0 +1,794 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Portrait snapshots renders gravatar correctly 1`] = `
+<Portrait
+  alt=""
+  darkBackground={false}
+  gravatar="example@example.com"
+  shape="standard"
+  size="medium"
+>
+  <styled.div
+    data-component="portrait"
+    shape="standard"
+    size="medium"
+  >
+    <StyledComponent
+      data-component="portrait"
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bxivhb",
+            "isStatic": false,
+            "lastClassName": "fIjqwS",
+            "rules": Array [
+              "
+  display:        inline-block;
+  position:       relative;
+  vertical-align: middle;
+  overflow:       hidden;
+  ",
+              [Function],
+              "
+  ",
+              [Function],
+              "
+",
+            ],
+          },
+          "defaultProps": Object {
+            "shape": "standard",
+            "size": "medium",
+          },
+          "displayName": "styled.div",
+          "foldedComponentIds": Array [],
+          "propTypes": Object {
+            "shape": [Function],
+            "size": [Function],
+          },
+          "render": [Function],
+          "styledComponentId": "sc-bxivhb",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+      shape="standard"
+      size="medium"
+    >
+      <div
+        className="sc-bxivhb fIjqwS"
+        data-component="portrait"
+        shape="standard"
+        size="medium"
+      >
+        <Styled(Component)
+          darkBackground={false}
+          size="medium"
+          theme={
+            Object {
+              "colors": Object {
+                "base": "#00A376",
+                "border": "#668491",
+                "brand": "#00DC00",
+                "destructive": Object {
+                  "hover": "#9F2C3F",
+                },
+                "error": "#C7384F",
+                "focus": "#FFB500",
+                "focusedIcon": "#335B6D",
+                "focusedLinkBackground": "#FFDA7F",
+                "hoveredTabKeyline": "#4CB74C",
+                "info": "#0073C2",
+                "previewBackground": "#BFCCD1",
+                "primary": "#26A826",
+                "secondary": "#006300",
+                "success": "#00B000",
+                "tertiary": "#004400",
+                "warning": "#E96400",
+                "white": "#FFFFFF",
+                "whiteMix": "#E5F4E5",
+                "withOpacity": "rgba(0,163,118,0.55)",
+              },
+              "disabled": Object {
+                "background": "#E5EAEC",
+                "border": "#CCD6DA",
+                "button": "#E5EAEC",
+                "buttonText": "rgba(0,0,0,.2)",
+                "disabled": "rgba(0,0,0,0.55)",
+                "input": "#F2F4F5",
+                "text": "rgba(0,0,0,0.3)",
+              },
+              "help": Object {
+                "color": "rgba(0,0,0,0.65)",
+              },
+              "icon": Object {
+                "focus": "#335B6D",
+              },
+              "name": "base",
+              "shadows": Object {
+                "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+              },
+              "text": Object {
+                "color": "rgba(0,0,0,0.9)",
+                "placeholder": "rgba(0,0,0,0.3)",
+                "size": "14px",
+              },
+            }
+          }
+          type="individual"
+        >
+          <StyledComponent
+            darkBackground={false}
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-htpNat",
+                  "isStatic": false,
+                  "lastClassName": "hIsfqx",
+                  "rules": Array [
+                    "
+  position:    absolute;
+  box-sizing:  border-box;
+  line-height: 14px;
+  ",
+                    [Function],
+                    "
+",
+                  ],
+                },
+                "defaultProps": Object {
+                  "darkBackground": false,
+                  "size": "medium",
+                  "theme": Object {
+                    "colors": Object {
+                      "base": "#00A376",
+                      "border": "#668491",
+                      "brand": "#00DC00",
+                      "destructive": Object {
+                        "hover": "#9F2C3F",
+                      },
+                      "error": "#C7384F",
+                      "focus": "#FFB500",
+                      "focusedIcon": "#335B6D",
+                      "focusedLinkBackground": "#FFDA7F",
+                      "hoveredTabKeyline": "#4CB74C",
+                      "info": "#0073C2",
+                      "previewBackground": "#BFCCD1",
+                      "primary": "#26A826",
+                      "secondary": "#006300",
+                      "success": "#00B000",
+                      "tertiary": "#004400",
+                      "warning": "#E96400",
+                      "white": "#FFFFFF",
+                      "whiteMix": "#E5F4E5",
+                      "withOpacity": "rgba(0,163,118,0.55)",
+                    },
+                    "disabled": Object {
+                      "background": "#E5EAEC",
+                      "border": "#CCD6DA",
+                      "button": "#E5EAEC",
+                      "buttonText": "rgba(0,0,0,.2)",
+                      "disabled": "rgba(0,0,0,0.55)",
+                      "input": "#F2F4F5",
+                      "text": "rgba(0,0,0,0.3)",
+                    },
+                    "help": Object {
+                      "color": "rgba(0,0,0,0.65)",
+                    },
+                    "icon": Object {
+                      "focus": "#335B6D",
+                    },
+                    "name": "base",
+                    "shadows": Object {
+                      "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                      "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                      "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                      "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                      "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                    },
+                    "text": Object {
+                      "color": "rgba(0,0,0,0.9)",
+                      "placeholder": "rgba(0,0,0,0.3)",
+                      "size": "14px",
+                    },
+                  },
+                },
+                "displayName": "Styled(Component)",
+                "foldedComponentIds": Array [],
+                "propTypes": Object {
+                  "darkBackground": [Function],
+                  "size": [Function],
+                  "theme": [Function],
+                  "type": [Function],
+                },
+                "render": [Function],
+                "styledComponentId": "sc-htpNat",
+                "target": [Function],
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+                Symbol(Symbol.hasInstance): [Function],
+              }
+            }
+            forwardedRef={null}
+            size="medium"
+            theme={
+              Object {
+                "colors": Object {
+                  "base": "#00A376",
+                  "border": "#668491",
+                  "brand": "#00DC00",
+                  "destructive": Object {
+                    "hover": "#9F2C3F",
+                  },
+                  "error": "#C7384F",
+                  "focus": "#FFB500",
+                  "focusedIcon": "#335B6D",
+                  "focusedLinkBackground": "#FFDA7F",
+                  "hoveredTabKeyline": "#4CB74C",
+                  "info": "#0073C2",
+                  "previewBackground": "#BFCCD1",
+                  "primary": "#26A826",
+                  "secondary": "#006300",
+                  "success": "#00B000",
+                  "tertiary": "#004400",
+                  "warning": "#E96400",
+                  "white": "#FFFFFF",
+                  "whiteMix": "#E5F4E5",
+                  "withOpacity": "rgba(0,163,118,0.55)",
+                },
+                "disabled": Object {
+                  "background": "#E5EAEC",
+                  "border": "#CCD6DA",
+                  "button": "#E5EAEC",
+                  "buttonText": "rgba(0,0,0,.2)",
+                  "disabled": "rgba(0,0,0,0.55)",
+                  "input": "#F2F4F5",
+                  "text": "rgba(0,0,0,0.3)",
+                },
+                "help": Object {
+                  "color": "rgba(0,0,0,0.65)",
+                },
+                "icon": Object {
+                  "focus": "#335B6D",
+                },
+                "name": "base",
+                "shadows": Object {
+                  "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                  "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                  "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                  "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                  "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                },
+                "text": Object {
+                  "color": "rgba(0,0,0,0.9)",
+                  "placeholder": "rgba(0,0,0,0.3)",
+                  "size": "14px",
+                },
+              }
+            }
+            type="individual"
+          >
+            <Component
+              className="sc-htpNat hIsfqx"
+              darkBackground={false}
+              size="medium"
+              theme={
+                Object {
+                  "colors": Object {
+                    "base": "#00A376",
+                    "border": "#668491",
+                    "brand": "#00DC00",
+                    "destructive": Object {
+                      "hover": "#9F2C3F",
+                    },
+                    "error": "#C7384F",
+                    "focus": "#FFB500",
+                    "focusedIcon": "#335B6D",
+                    "focusedLinkBackground": "#FFDA7F",
+                    "hoveredTabKeyline": "#4CB74C",
+                    "info": "#0073C2",
+                    "previewBackground": "#BFCCD1",
+                    "primary": "#26A826",
+                    "secondary": "#006300",
+                    "success": "#00B000",
+                    "tertiary": "#004400",
+                    "warning": "#E96400",
+                    "white": "#FFFFFF",
+                    "whiteMix": "#E5F4E5",
+                    "withOpacity": "rgba(0,163,118,0.55)",
+                  },
+                  "disabled": Object {
+                    "background": "#E5EAEC",
+                    "border": "#CCD6DA",
+                    "button": "#E5EAEC",
+                    "buttonText": "rgba(0,0,0,.2)",
+                    "disabled": "rgba(0,0,0,0.55)",
+                    "input": "#F2F4F5",
+                    "text": "rgba(0,0,0,0.3)",
+                  },
+                  "help": Object {
+                    "color": "rgba(0,0,0,0.65)",
+                  },
+                  "icon": Object {
+                    "focus": "#335B6D",
+                  },
+                  "name": "base",
+                  "shadows": Object {
+                    "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                    "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                    "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                    "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                    "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                  },
+                  "text": Object {
+                    "color": "rgba(0,0,0,0.9)",
+                    "placeholder": "rgba(0,0,0,0.3)",
+                    "size": "14px",
+                  },
+                }
+              }
+              type="individual"
+            >
+              <Icon
+                bgSize="small"
+                className="sc-htpNat hIsfqx"
+                size="medium"
+                theme={
+                  Object {
+                    "colors": Object {
+                      "base": "#00A376",
+                      "border": "#668491",
+                      "brand": "#00DC00",
+                      "destructive": Object {
+                        "hover": "#9F2C3F",
+                      },
+                      "error": "#C7384F",
+                      "focus": "#FFB500",
+                      "focusedIcon": "#335B6D",
+                      "focusedLinkBackground": "#FFDA7F",
+                      "hoveredTabKeyline": "#4CB74C",
+                      "info": "#0073C2",
+                      "previewBackground": "#BFCCD1",
+                      "primary": "#26A826",
+                      "secondary": "#006300",
+                      "success": "#00B000",
+                      "tertiary": "#004400",
+                      "warning": "#E96400",
+                      "white": "#FFFFFF",
+                      "whiteMix": "#E5F4E5",
+                      "withOpacity": "rgba(0,163,118,0.55)",
+                    },
+                    "disabled": Object {
+                      "background": "#E5EAEC",
+                      "border": "#CCD6DA",
+                      "button": "#E5EAEC",
+                      "buttonText": "rgba(0,0,0,.2)",
+                      "disabled": "rgba(0,0,0,0.55)",
+                      "input": "#F2F4F5",
+                      "text": "rgba(0,0,0,0.3)",
+                    },
+                    "help": Object {
+                      "color": "rgba(0,0,0,0.65)",
+                    },
+                    "icon": Object {
+                      "focus": "#335B6D",
+                    },
+                    "name": "base",
+                    "shadows": Object {
+                      "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                      "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                      "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                      "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                      "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                    },
+                    "text": Object {
+                      "color": "rgba(0,0,0,0.9)",
+                      "placeholder": "rgba(0,0,0,0.3)",
+                      "size": "14px",
+                    },
+                  }
+                }
+                type="individual"
+              >
+                <span
+                  className="carbon-icon sc-htpNat hIsfqx"
+                  data-component="icon"
+                  data-element="individual"
+                  key="icon"
+                  size="medium"
+                  theme={
+                    Object {
+                      "colors": Object {
+                        "base": "#00A376",
+                        "border": "#668491",
+                        "brand": "#00DC00",
+                        "destructive": Object {
+                          "hover": "#9F2C3F",
+                        },
+                        "error": "#C7384F",
+                        "focus": "#FFB500",
+                        "focusedIcon": "#335B6D",
+                        "focusedLinkBackground": "#FFDA7F",
+                        "hoveredTabKeyline": "#4CB74C",
+                        "info": "#0073C2",
+                        "previewBackground": "#BFCCD1",
+                        "primary": "#26A826",
+                        "secondary": "#006300",
+                        "success": "#00B000",
+                        "tertiary": "#004400",
+                        "warning": "#E96400",
+                        "white": "#FFFFFF",
+                        "whiteMix": "#E5F4E5",
+                        "withOpacity": "rgba(0,163,118,0.55)",
+                      },
+                      "disabled": Object {
+                        "background": "#E5EAEC",
+                        "border": "#CCD6DA",
+                        "button": "#E5EAEC",
+                        "buttonText": "rgba(0,0,0,.2)",
+                        "disabled": "rgba(0,0,0,0.55)",
+                        "input": "#F2F4F5",
+                        "text": "rgba(0,0,0,0.3)",
+                      },
+                      "help": Object {
+                        "color": "rgba(0,0,0,0.65)",
+                      },
+                      "icon": Object {
+                        "focus": "#335B6D",
+                      },
+                      "name": "base",
+                      "shadows": Object {
+                        "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                        "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                        "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                        "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                        "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                      },
+                      "text": Object {
+                        "color": "rgba(0,0,0,0.9)",
+                        "placeholder": "rgba(0,0,0,0.3)",
+                        "size": "14px",
+                      },
+                    }
+                  }
+                >
+                  <span
+                    className="carbon-icon__svg-icon"
+                    dangerouslySetInnerHTML={
+                      Object {
+                        "__html": "<svg class=\\"carbon-icon__svg carbon-icon__svg--individual\\" width=\\"16\\" height=\\"16\\" viewbox=\\"0 0 16 16\\"><path fill=\\"currentColor\\" fill-rule=\\"evenodd\\" d=\\"M15.986 12.256c.007-.05.012-.1.014-.15-.083-1.704-3.886-4.195-8.03-4.195-4.143 0-7.946 2.493-7.97 4.35 0 .078.01.153.022.228l-.016 2.51C.003 15.558.448 16 1 16h14c.555 0 1-.45 1-1.003v-2.74h-.014zM8 6c1.657 0 3-1.343 3-3S9.657 0 8 0 5 1.343 5 3s1.343 3 3 3z\\"/></svg>",
+                      }
+                    }
+                  />
+                </span>
+              </Icon>
+            </Component>
+          </StyledComponent>
+        </Styled(Component)>
+        <styled.img
+          alt=""
+          data-element="user-image"
+          size="medium"
+          src="https://www.gravatar.com/avatar/23463b99b62a72f26ed677cc556c44e8?s=60&d=blank"
+        >
+          <StyledComponent
+            alt=""
+            data-element="user-image"
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-bwzfXH",
+                  "isStatic": false,
+                  "lastClassName": "covwoE",
+                  "rules": Array [
+                    "
+  display:  inline-block;
+  position: absolute;
+  ",
+                    [Function],
+                    "
+",
+                  ],
+                },
+                "defaultProps": Object {
+                  "size": "medium",
+                },
+                "displayName": "styled.img",
+                "foldedComponentIds": Array [],
+                "propTypes": Object {
+                  "alt": [Function],
+                  "size": [Function],
+                  "src": [Function],
+                },
+                "render": [Function],
+                "styledComponentId": "sc-bwzfXH",
+                "target": "img",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            size="medium"
+            src="https://www.gravatar.com/avatar/23463b99b62a72f26ed677cc556c44e8?s=60&d=blank"
+          >
+            <img
+              alt=""
+              className="sc-bwzfXH covwoE"
+              data-element="user-image"
+              size="medium"
+              src="https://www.gravatar.com/avatar/23463b99b62a72f26ed677cc556c44e8?s=60&d=blank"
+            />
+          </StyledComponent>
+        </styled.img>
+      </div>
+    </StyledComponent>
+  </styled.div>
+</Portrait>
+`;
+
+exports[`Portrait snapshots renders initials correctly 1`] = `
+<Portrait
+  alt=""
+  darkBackground={false}
+  initials="AB"
+  shape="standard"
+  size="medium"
+>
+  <styled.div
+    data-component="portrait"
+    shape="standard"
+    size="medium"
+  >
+    <StyledComponent
+      data-component="portrait"
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bxivhb",
+            "isStatic": false,
+            "lastClassName": "fIjqwS",
+            "rules": Array [
+              "
+  display:        inline-block;
+  position:       relative;
+  vertical-align: middle;
+  overflow:       hidden;
+  ",
+              [Function],
+              "
+  ",
+              [Function],
+              "
+",
+            ],
+          },
+          "defaultProps": Object {
+            "shape": "standard",
+            "size": "medium",
+          },
+          "displayName": "styled.div",
+          "foldedComponentIds": Array [],
+          "propTypes": Object {
+            "shape": [Function],
+            "size": [Function],
+          },
+          "render": [Function],
+          "styledComponentId": "sc-bxivhb",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+      shape="standard"
+      size="medium"
+    >
+      <div
+        className="sc-bxivhb fIjqwS"
+        data-component="portrait"
+        shape="standard"
+        size="medium"
+      >
+        <styled.img
+          alt=""
+          data-element="initials"
+          src="data:image/png"
+        >
+          <StyledComponent
+            alt=""
+            data-element="initials"
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-bdVaJa",
+                  "isStatic": false,
+                  "lastClassName": "kReGDk",
+                  "rules": Array [
+                    "
+  position: absolute;
+  ",
+                    [Function],
+                    "
+",
+                  ],
+                },
+                "displayName": "styled.img",
+                "foldedComponentIds": Array [],
+                "propTypes": Object {
+                  "alt": [Function],
+                  "src": [Function],
+                },
+                "render": [Function],
+                "styledComponentId": "sc-bdVaJa",
+                "target": "img",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            src="data:image/png"
+          >
+            <img
+              alt=""
+              className="sc-bdVaJa kReGDk"
+              data-element="initials"
+              src="data:image/png"
+            />
+          </StyledComponent>
+        </styled.img>
+      </div>
+    </StyledComponent>
+  </styled.div>
+</Portrait>
+`;
+
+exports[`Portrait snapshots renders src correctly 1`] = `
+<Portrait
+  alt=""
+  darkBackground={false}
+  shape="standard"
+  size="medium"
+  src="https://example.com/example.jpg"
+>
+  <styled.div
+    data-component="portrait"
+    shape="standard"
+    size="medium"
+  >
+    <StyledComponent
+      data-component="portrait"
+      forwardedComponent={
+        Object {
+          "$$typeof": Symbol(react.forward_ref),
+          "attrs": Array [],
+          "componentStyle": ComponentStyle {
+            "componentId": "sc-bxivhb",
+            "isStatic": false,
+            "lastClassName": "fIjqwS",
+            "rules": Array [
+              "
+  display:        inline-block;
+  position:       relative;
+  vertical-align: middle;
+  overflow:       hidden;
+  ",
+              [Function],
+              "
+  ",
+              [Function],
+              "
+",
+            ],
+          },
+          "defaultProps": Object {
+            "shape": "standard",
+            "size": "medium",
+          },
+          "displayName": "styled.div",
+          "foldedComponentIds": Array [],
+          "propTypes": Object {
+            "shape": [Function],
+            "size": [Function],
+          },
+          "render": [Function],
+          "styledComponentId": "sc-bxivhb",
+          "target": "div",
+          "toString": [Function],
+          "warnTooManyClasses": [Function],
+          "withComponent": [Function],
+        }
+      }
+      forwardedRef={null}
+      shape="standard"
+      size="medium"
+    >
+      <div
+        className="sc-bxivhb fIjqwS"
+        data-component="portrait"
+        shape="standard"
+        size="medium"
+      >
+        <styled.img
+          alt=""
+          data-element="user-image"
+          size="medium"
+          src="https://example.com/example.jpg"
+        >
+          <StyledComponent
+            alt=""
+            data-element="user-image"
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-bwzfXH",
+                  "isStatic": false,
+                  "lastClassName": "covwoE",
+                  "rules": Array [
+                    "
+  display:  inline-block;
+  position: absolute;
+  ",
+                    [Function],
+                    "
+",
+                  ],
+                },
+                "defaultProps": Object {
+                  "size": "medium",
+                },
+                "displayName": "styled.img",
+                "foldedComponentIds": Array [],
+                "propTypes": Object {
+                  "alt": [Function],
+                  "size": [Function],
+                  "src": [Function],
+                },
+                "render": [Function],
+                "styledComponentId": "sc-bwzfXH",
+                "target": "img",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            size="medium"
+            src="https://example.com/example.jpg"
+          >
+            <img
+              alt=""
+              className="sc-bwzfXH covwoE"
+              data-element="user-image"
+              size="medium"
+              src="https://example.com/example.jpg"
+            />
+          </StyledComponent>
+        </styled.img>
+      </div>
+    </StyledComponent>
+  </styled.div>
+</Portrait>
+`;
