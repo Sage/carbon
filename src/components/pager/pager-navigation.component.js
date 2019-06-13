@@ -19,6 +19,7 @@ const PagerNavigation = (props) => {
 
     if (Number(newPage) === 0 || Number.isNaN(newPage)) newPage = '1';
     else if (newPage > maxPages()) newPage = String(maxPages());
+
     props.onPagination(String(newPage), props.pageSize, 'input');
   };
 
