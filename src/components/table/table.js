@@ -13,7 +13,7 @@ import TableHeader from './table-header';
 import TableSubheader from './table-subheader';
 import DraggableTableCell from './draggable-table-cell';
 import Pager from '../pager';
-import Spinner from '../spinner';
+import Spinner from '../spinner/spinner.component';
 
 import './table.scss';
 import './table--secondary-theme.scss';
@@ -859,7 +859,7 @@ class Table extends React.Component {
             transitionAppearTimeout={ 300 }
             transitionAppear
           >
-            <Spinner size='small' />
+            <Spinner size='small' className='table__spinner' />
           </CSSTransitionGroup>
         </TableCell>
       </TableRow>
