@@ -1,413 +1,356 @@
-import React from 'react';
-import TestUtils from 'react-dom/test-utils';
-import MD5 from 'crypto-js/md5';
-import { shallow } from 'enzyme';
-import Portrait from './portrait';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import React              from 'react';
+import ReactTestUtils     from 'react-dom/test-utils';
+import TestRenderer       from 'react-test-renderer';
+import { mount, shallow } from 'enzyme';
+import MD5                from 'crypto-js/md5';
+
 import Browser from '../../utils/helpers/browser';
+import Portrait from './portrait.component';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { StyledIcon, StyledInitialsImage, StyledAvatarImage } from './portrait.style';
+
+function render(props, renderer = TestRenderer.create) {
+  return renderer(<Portrait { ...props } />);
+}
+
+const mockCanvasDataURL = 'data:image/png';
+
+const mockDocumentWithCanvas = {
+  createElement: (canvasElementType) => ({
+    width:      10,
+    height:     10,
+    toDataURL:  () => mockCanvasDataURL,
+    getContext: (contextType) => {
+      return {
+        font:      null,
+        textAlign: null,
+        fillStyle: null,
+        fillRect:  jasmine.createSpy('fillRect'),
+        fillText:  jasmine.createSpy('fillText')
+      };
+    }
+  })
+};
 
 describe('Portrait', () => {
-  let instance, gravatarInstance, wrapper;
 
   beforeEach(() => {
-    spyOn(Browser, 'getDocument').and.returnValue({
-      createElement: (element) => {
-        return {
-          getContext: (context) => {
-            return {
-              font: null,
-              textAlign: null,
-              fillStyle: null,
-              fillRect: jasmine.createSpy('fillRect'),
-              fillText: jasmine.createSpy('fillText')
-            };
-          },
-          width: 10,
-          height: 10,
-          toDataURL: () => {
-            return 'data:image/png';
-          }
-        }
-      }
+    spyOn(Browser, 'getDocument').and.returnValue(mockDocumentWithCanvas);
+  });
+
+  describe('snapshots', () => {
+    it('renders initials correctly', () => {
+      const wrapper = render({ initials: 'AB' }, mount);
+      expect(wrapper).toMatchSnapshot();
     });
 
-    instance = TestUtils.renderIntoDocument(
-      <Portrait
-        src='foo'
-        alt='bla'
-        className='custom-class'
-      />
-    );
+    it('renders src correctly', () => {
+      const wrapper = render({ src: 'https://example.com/example.jpg' }, mount);
+      expect(wrapper).toMatchSnapshot();
+    });
 
-    gravatarInstance = TestUtils.renderIntoDocument(
-      <Portrait
-        gravatar='foo'
-      />
-    );
-
-    wrapper = shallow(
-      <Portrait
-        gravatar='foo'
-        initials='foo'
-        size='small'
-      />
-    );
+    it('renders gravatar correctly', () => {
+      const wrapper = render({ gravatar: 'example@example.com' }, mount);
+      expect(wrapper).toMatchSnapshot();
+    });
   });
 
   describe('componentWillReceiveProps', () => {
-    let props;
+    const memoizedInitials = 'foobar';
+    let   props, instance;
 
     beforeEach(() => {
-      wrapper.instance().memoizeInitials = 'foobar';
-      props = {
-        initials: 'foo',
-        size: 'small'
-      };
+      const originalProps = { initials: 'foo', size: 'small' };
+      const wrapper       = shallow(<Portrait gravatar='foo' {...originalProps} />);
+      props    = { ...originalProps };
+      instance = wrapper.instance();
+      instance.memoizeInitials = memoizedInitials;
     });
 
-    describe('if initials are different', () => {
-      it('nulls the cache', () => {
-        const instance = wrapper.instance();
-        props.initials = 'bar';
-        instance.componentWillReceiveProps(props);
-        expect(instance.memoizeInitials).toEqual(null);
+    it('clears the cached initials if initials change', () => {
+      props.initials = 'bar';
+      instance.componentWillReceiveProps(props);
+      expect(instance.memoizeInitials).toEqual(null);
+    });
+
+    it('clears the cached initials if size changes', () => {
+      props.size = 'medium';
+      instance.componentWillReceiveProps(props);
+      expect(instance.memoizeInitials).toEqual(null);
+    });
+
+    it('keeps the cached initials if nothing changes', () => {
+      instance.componentWillReceiveProps(props);
+      expect(instance.memoizeInitials).toEqual(memoizedInitials);
+    });
+  });
+
+  describe('props validation', () => {
+    beforeEach(() => {
+      spyOn(console, 'error');
+    });
+
+    describe('size', () => {
+      it('accepts a valid size', () => {
+        ReactTestUtils.renderIntoDocument(<Portrait src='foo' size='small' />);
+        expect(console.error).toHaveBeenCalledTimes(0);
+      });
+
+      it('rejects an invalid size', () => {
+        ReactTestUtils.renderIntoDocument(<Portrait src='foo' size='bar' />);
+        expect(console.error).toHaveBeenCalledTimes(1);
+        expect(console.error.calls.argsFor(0).length).toBe(1);
+        const expected = 'Warning: Failed prop type: Invalid prop `size`';
+        const actual   = console.error.calls.argsFor(0)[0]; // eslint-disable-line no-console
+        expect(actual).toEqual(expect.stringContaining(expected));
       });
     });
 
-    describe('if size is different', () => {
-      it('nulls the cache', () => {
-        props.size = 'medium';
-        wrapper.instance().componentWillReceiveProps(props);
-        expect(wrapper.instance().memoizeInitials).toEqual(null);
+    describe('shape', () => {
+      it('accepts a valid shape', () => {
+        ReactTestUtils.renderIntoDocument(<Portrait src='foo' shape='circle' />);
+        expect(console.error).toHaveBeenCalledTimes(0);
+      });
+
+      it('rejects an invalid shape', () => {
+        ReactTestUtils.renderIntoDocument(<Portrait src='foo' shape='bar' />);
+        expect(console.error).toHaveBeenCalledTimes(1);
+        expect(console.error.calls.argsFor(0).length).toBe(1);
+        const expected = 'Warning: Failed prop type: Invalid prop `shape`';
+        const actual   = console.error.calls.argsFor(0)[0]; // eslint-disable-line no-console
+        expect(actual).toEqual(expect.stringContaining(expected));
       });
     });
 
-    describe('if nothing changes', () => {
-      it('keeps the cache', () => {
-        wrapper.instance().componentWillReceiveProps(props);
-        expect(wrapper.instance().memoizeInitials).toEqual('foobar');
+    describe('gravatar and src', () => {
+      it('throws an error when neither gravatar or src is passed', () => {
+        ReactTestUtils.renderIntoDocument(<Portrait />);
+        expect(console.error).toHaveBeenCalledTimes(1);
+        expect(console.error.calls.argsFor(0).length).toBe(1);
+        const expected =
+          'Warning: Failed prop type: Portrait requires a prop of "src", "gravatar" or "initials';
+        const actual = console.error.calls.argsFor(0)[0]; // eslint-disable-line no-console
+        expect(actual).toMatch(expected);
+      });
+
+      it('throws an error when both gravatar and src are passed', () => {
+        ReactTestUtils.renderIntoDocument(<Portrait gravatar='example@example.com' src='foo' />);
+        expect(console.error).toHaveBeenCalledTimes(1);
+        expect(console.error.calls.argsFor(0).length).toBe(1);
+        const expected =
+          'Warning: Failed prop type: Portrait requires a prop of "src" or "gravatar" but not both';
+        const actual = console.error.calls.argsFor(0)[0]; // eslint-disable-line no-console
+        expect(actual).toMatch(expected);
       });
     });
   });
 
-  describe('custom props function', () => {
-    describe('src and gravatar', () => {
-      beforeEach(() => {
-        spyOn(console, 'error');
-      });
+  describe('generateInitials caching', () => {
+    let instance;
 
-      describe('when neither gravatar or src is passed', () => {
-        it('throws a error', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Portrait />
-          );
+    beforeEach(() => {
+      instance = ReactTestUtils.renderIntoDocument(<Portrait gravatar='example@example.com' />);
+    });
 
-          const expected =
-            'Warning: Failed prop type: Portrait requires a prop of "src", "gravatar" or "initials';
-          const actual = console.error.calls.argsFor(0)[0]; // eslint-disable-line no-console
+    it('returns the cached result if cached', () => {
+      instance.memoizeInitials = 'foo';
+      expect(instance.generateInitials()).toEqual('foo');
+    });
 
-          expect(actual).toMatch(expected);
-        });
-      });
-
-      describe('when both gravatar and src are passed', () => {
-        it('throws a error', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Portrait
-              gravatar='foo'
-              src='foo'
-            />
-          );
-
-          const expected =
-            'Warning: Failed prop type: Portrait requires a prop of "src" or "gravatar" but not both';
-          const actual = console.error.calls.argsFor(0)[0]; // eslint-disable-line no-console
-          expect(actual).toMatch(expected);
-        });
-      });
+    it('returns new image if not cached', () => {
+      expect(instance.generateInitials()).toMatch(mockCanvasDataURL);
     });
   });
 
-  describe('generateInitials', () => {
-    describe('if cached', () => {
-      it('returns the cached result', () => {
-        gravatarInstance.memoizeInitials = 'foo';
-        expect(gravatarInstance.generateInitials).toEqual('foo');
-      });
+  describe('generateInitials content', () => {
+    let context;
+
+    beforeEach(() => {
+      context = { fillStyle: null, fillRect: () => {}, fillText: () => {} };
     });
 
-    describe('if not cached', () => {
-      it('returns new image', () => {
-        expect(gravatarInstance.generateInitials).toMatch('data:image/png');
-      });
+    it('returns first 3 initials uppercased if more than 3 are supplied', () => {
+      spyOn(context, 'fillText');
+      const instance = ReactTestUtils.renderIntoDocument(<Portrait initials='abcde' src='foo' />);
+      instance.applyText(context, 30);
+      expect(context.fillText).toHaveBeenCalledWith('ABC', 15, 20);
     });
 
-    describe('more than three initials are passed', () => {
-      it('returns the first three initials in uppercase', () => {
-        const context = { fillText: () => {} };
-        spyOn(context, 'fillText');
-        instance = TestUtils.renderIntoDocument(
-          <Portrait
-            initials='abcde'
-            src='foo'
-          />
-        );
-        instance.applyText(context, 30);
-        expect(context.fillText).toHaveBeenCalledWith('ABC', 15, 20);
-      });
+    it('uses light BG colour and dark text colour if darkBackground is false', () => {
+      const instance = ReactTestUtils.renderIntoDocument(<Portrait src='foo' darkBackground={false} />);
+      instance.applyBackground(context);
+      expect(context.fillStyle).toEqual('#D8D9DC');
+      instance.applyText(context);
+      expect(context.fillStyle).toEqual('#636872');
     });
 
-    describe('if darkBackground is false', () => {
-      it('uses a light background colour and dark text colour', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Portrait
-            src='foo'
-            darkBackground={ false }
-          />
-          );
-        const context = { fillRect: () => {}, fillText: () => {} };
-        instance.applyBackground(context);
-        expect(context.fillStyle).toEqual('#D8D9DC');
-        instance.applyText(context);
-        expect(context.fillStyle).toEqual('#636872');
-      });
-    });
-
-    describe('darkBackground', () => {
-      it('uses a dark background color and light text colour', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Portrait
-            src='foo'
-            darkBackground={ true }
-          />
-        );
-        const context = { fillRect: () => {}, fillText: () => {} };
-        instance.applyBackground(context);
-        expect(context.fillStyle).toEqual('#8A8E95');
-        instance.applyText(context);
-        expect(context.fillStyle).toEqual('#FFFFFF');
-      });
+    it('uses dark BG color and light text colour if darkBackground is true', () => {
+      const instance = ReactTestUtils.renderIntoDocument(<Portrait src='foo' darkBackground={true} />);
+      instance.applyBackground(context);
+      expect(context.fillStyle).toEqual('#8A8E95');
+      instance.applyText(context);
+      expect(context.fillStyle).toEqual('#FFFFFF');
     });
   });
 
-  describe('imgProps', () => {
-    describe('when a gravatar is passed', () => {
-      it('returns gravatar src', () => {
-        const src = gravatarInstance.imgSrc;
-        const base = 'https://www.gravatar.com/avatar/';
-        const hash = MD5('foo');
-        const size = '60';
-
-        expect(src).toEqual(`${base}${hash}?s=${size}&d=blank`);
-      });
-    });
-
-    describe('when a src is passed', () => {
-      it('returns the passed src as the image source', () => {
-        const src = instance.imgSrc;
-        expect(src).toEqual('foo');
-      });
+  describe('gravatarSrc', () => {
+    it('returns the correct Gravatar URL', () => {
+      const email    = 'example@example.com';
+      const instance = ReactTestUtils.renderIntoDocument(<Portrait gravatar={email} size='medium' />);
+      const src      = instance.gravatarSrc();
+      const base     = 'https://www.gravatar.com/avatar/';
+      const hash     = MD5(email);
+      const size     = '60';
+      expect(src).toEqual(`${base}${hash}?s=${size}&d=blank`);
     });
   });
 
   describe('numericSizes', () => {
-    it('returns a object mapping size to numeric value', () => {
-      expect(instance.numericSizes.small).toEqual('30');
+    it('is an object mapping size to numeric value', () => {
+      expect(Portrait.numericSizes.small).toEqual('30');
     });
   });
 
-  describe('mainClasses', () => {
-    it('adds a carbon-portrait classes', () => {
-      expect(gravatarInstance.mainClasses).toEqual('carbon-portrait carbon-portrait--image carbon-portrait--medium carbon-portrait--standard');
-    });
-
-    it('appends additional passed classNames', () => {
-      expect(instance.mainClasses).toEqual('carbon-portrait carbon-portrait--image carbon-portrait--medium carbon-portrait--standard custom-class');
+  describe('shapes', () => {
+    it('is an array of valid shapes', () => {
+      expect(Portrait.shapes).toEqual(['standard', 'circle', 'leaf']);
     });
   });
 
-  describe('render', () => {
-    it('renders a html img', () => {
-      expect(TestUtils.findRenderedDOMComponentWithTag(instance, 'img')).toBeTruthy();
+  describe('render icon', () => {
+    const styledIcon = <StyledIcon type='individual' size='medium' darkBackground={false} />;
+
+    it('renders icon when supplied with Gravatar but no src or initials', () => {
+      const wrapper = shallow(
+        <Portrait gravatar='example@example.com' size='medium' darkBackground={false} />
+      );
+      expect(wrapper.contains(styledIcon)).toEqual(true);
     });
 
-    describe('initialsImage', () => {
-      describe('when src is passed', () => {
-        it('is not rendered', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Portrait
-              src='foo'
-            />
-          );
-
-          const initials = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-portrait__initials');
-          expect(initials.length).toEqual(0);
-        });
-      });
-
-      describe('when initials are empty', () => {
-        it('is not rendered', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Portrait
-              gravatar='foo'
-              initials=''
-            />
-          );
-
-          const initials = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-portrait__initials');
-          expect(initials.length).toEqual(0);
-        });
-      });
-
-      describe('when src is not passed and initials are not empty', () => {
-        it('is rendered', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Portrait
-              gravatar='foo'
-              initials='foo'
-            />
-          );
-
-          const initials = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-portrait__initials');
-          expect(initials.length).toEqual(1);
-        });
-      });
+    it('renders icon when supplied with Gravatar and empty initials but no src', () => {
+      const wrapper = shallow(
+        <Portrait gravatar='example@example.com' initials='' size='medium' darkBackground={false} />
+      );
+      expect(wrapper.contains(styledIcon)).toEqual(true);
     });
 
-    describe('avatarImage', () => {
-      it('returns an image', () => {
-        instance = TestUtils.renderIntoDocument(
-          <Portrait
-            src='foo'
-          />
-        );
-
-        const avatar = TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-portrait__avatar');
-        expect(avatar).toBeDefined();
-      });
+    it("doesn't render icon when supplied with src", () => {
+      const wrapper = shallow(
+        <Portrait src='https://example.com/example.jpg' />
+      );
+      expect(wrapper.contains(styledIcon)).toEqual(false);
     });
 
-    describe('sansInitialsImage', () => {
-      describe('when src is passed', () => {
-        it('is not rendered', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Portrait
-              src='foo'
-              initials=''
-            />
-          );
-
-          const pendingUser = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-portrait__sans-initials');
-          expect(pendingUser.length).toEqual(0);
-        });
-      });
-
-      describe('when initials are empty and src is not passed', () => {
-        it('is rendered', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Portrait
-              gravatar='foo'
-              initials=''
-            />
-          );
-
-          const pendingUser = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-portrait__sans-initials');
-          expect(pendingUser.length).toEqual(1);
-        });
-      });
-
-      describe('when initials are not defined and src is not passed', () => {
-        it('is rendered', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Portrait
-              gravatar='foo'
-            />
-          );
-
-          const pendingUser = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-portrait__sans-initials');
-          expect(pendingUser.length).toEqual(1);
-        });
-      });
-
-      describe('when initials are not empty and src is not passed', () => {
-        it('is not rendered', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Portrait
-              gravatar='foo'
-              initials='foo'
-            />
-          );
-
-          const pendingUser = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-portrait__sans-initials');
-          expect(pendingUser.length).toEqual(0);
-        });
-      });
-
-      describe('when src is passed and initials are not empty', () => {
-        it('is rendered', () => {
-          instance = TestUtils.renderIntoDocument(
-            <Portrait
-              src='foo'
-              initials='foo'
-            />
-          );
-
-          const pendingUser = TestUtils.scryRenderedDOMComponentsWithClass(instance, 'carbon-portrait__sans-initials');
-          expect(pendingUser.length).toEqual(0);
-        });
-      });
+    it("doesn't render icon when supplied with initials", () => {
+      const wrapper = shallow(
+        <Portrait initials='AB' />
+      );
+      expect(wrapper.contains(styledIcon)).toEqual(false);
     });
 
-    describe('when alt is an empty string', () => {
-      it('renders avatar alt attribute with an empty string', () => {
-        wrapper = shallow(<Portrait initials='FF' src='test' alt='' />);
-        expect(wrapper.find('.carbon-portrait__avatar[alt=""]').exists()).toEqual(true);
-      });
-
-      describe('when rendering the initials image', () => {
-        it('renders the alt attribute with an empty string', () => {
-          wrapper = shallow(<Portrait initials='FF' alt='' />);
-          expect(wrapper.find('.carbon-portrait__initials[alt=""]').exists()).toEqual(true);
-        });
-      });
+    it("doesn't render icon when supplied with src and initials", () => {
+      const wrapper = shallow(
+        <Portrait src='https://example.com/example.jpg' initials='AB' />
+      );
+      expect(wrapper.contains(styledIcon)).toEqual(false);
     });
 
-    describe('when the alt prop is not given', () => {
-      it('renders the avatar image with an empty alt attribute', () => {
-        wrapper = shallow(<Portrait src='test' />);
-        expect(wrapper.find('.carbon-portrait__avatar[alt=""]').exists()).toEqual(true);
-      });
+    it("doesn't render icon when supplied with Gravatar and initials", () => {
+      const wrapper = shallow(
+        <Portrait gravatar='example@example.com' initials='AB' />
+      );
+      expect(wrapper.contains(styledIcon)).toEqual(false);
+    });
+  });
 
-      it('renders the initials image with an empty alt attribute', () => {
-        wrapper = shallow(<Portrait initials='FF' />);
-        expect(wrapper.find('.carbon-portrait__initials[alt=""]').exists()).toEqual(true);
-      });
+  describe('render initials', () => {
+    const styledInitialsImage =
+      <StyledInitialsImage src={mockCanvasDataURL} alt='' data-element='initials' />;
+
+    it('renders initials when supplied with Gravatar and initials but no src', () => {
+      const wrapper = shallow(<Portrait gravatar='example@example.com' initials='AB' />);
+      expect(wrapper.contains(styledInitialsImage)).toEqual(true);
+    });
+
+    it('renders empty alt attribute when alt prop is empty', () => {
+      const wrapper = shallow(<Portrait initials='AB' alt='' />);
+      expect(wrapper.contains(styledInitialsImage)).toEqual(true);
+    });
+
+    it('renders empty alt attribute when alt prop is not supplied', () => {
+      const wrapper = shallow(<Portrait initials='AB' />);
+      expect(wrapper.contains(styledInitialsImage)).toEqual(true);
+    });
+
+    it("doesn't render initials when supplied with src", () => {
+      const wrapper = shallow(<Portrait src='https://example.com/example.jpg' />);
+      expect(wrapper.contains(styledInitialsImage)).toEqual(false);
+    });
+
+    it("doesn't render initials when supplied with Gravatar and empty initials but no src", () => {
+      const wrapper = shallow(<Portrait gravatar='example@example.com' initials='' />);
+      expect(wrapper.contains(styledInitialsImage)).toEqual(false);
+    });
+  });
+
+  describe('render avatar', () => {
+    const imageUrl = 'https://example.com/example.jpg';
+
+    it('renders avatar when supplied with Gravatar', () => {
+      const gravatarUrl = 'https://www.gravatar.com/avatar/23463b99b62a72f26ed677cc556c44e8?s=60&d=blank';
+      const styledAvatarImage =
+        <StyledAvatarImage src={gravatarUrl} alt='foo' data-element='user-image' />;
+      const wrapper = shallow(
+        <Portrait gravatar='example@example.com' alt='foo' />
+      );
+      expect(wrapper.contains(styledAvatarImage)).toEqual(true);
+    });
+
+    it('renders avatar when supplied with src but no Gravatar', () => {
+      const styledAvatarImage =
+        <StyledAvatarImage src={imageUrl} alt='foo' data-element='user-image' />;
+      const wrapper = shallow(
+        <Portrait src={imageUrl} alt='foo' />
+      );
+      expect(wrapper.contains(styledAvatarImage)).toEqual(true);
+    });
+
+    it('renders empty alt attribute when alt prop is empty', () => {
+      const styledAvatarImage =
+        <StyledAvatarImage src={imageUrl} alt='' data-element='user-image' />;
+      const wrapper = shallow(
+        <Portrait src={imageUrl} alt='' />
+      );
+      expect(wrapper.contains(styledAvatarImage)).toEqual(true);
+    });
+
+    it('renders empty alt attribute when alt prop is not supplied', () => {
+      const styledAvatarImage =
+        <StyledAvatarImage src={imageUrl} alt='' data-element='user-image' />;
+      const wrapper = shallow(
+        <Portrait src={imageUrl} />
+      );
+      expect(wrapper.contains(styledAvatarImage)).toEqual(true);
     });
   });
 
   describe('tags', () => {
-    describe('on component', () => {
-      const wrapper = shallow(<Portrait data-element='bar' data-role='baz' src='test' />);
+    const imageUrl = 'https://example.com/example.jpg';
 
-      it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper, 'portrait', 'bar', 'baz');
-      });
+    it('includes data tags for component, element and role on Portrait component', () => {
+      const wrapper = shallow(<Portrait src={imageUrl} data-element='bar' data-role='baz' />);
+      rootTagTest(wrapper, 'portrait', 'bar', 'baz');
     });
 
-    describe('on internal elements when there is an image', () => {
-      const wrapper = shallow(<Portrait src='test' />);
-
-      elementsTagTest(wrapper, [
-        'user-image'
-      ]);
+    describe('includes user-image tag on internal elements when there is an image', () => {
+      const wrapper = shallow(<Portrait src={imageUrl} />);
+      elementsTagTest(wrapper, ['user-image']);
     });
 
-    describe('on internal elements when there are initials', () => {
-      it(`include 'data-element="initials"'`, () => {
-        // Moved out of function due to needing beforeEach to spy
-        const wrapper = shallow(<Portrait gravatar='test' initials='TS' />);
-        expect(wrapper.find({ 'data-element': 'initials' }).length).toEqual(1);
-      });
+    it(`includes 'data-element="initials"' on internal elements when there are initials`, () => {
+      const wrapper = shallow(<Portrait gravatar='test' initials='TS' />);
+      expect(wrapper.find({ 'data-element': 'initials' }).length).toEqual(1);
     });
   });
+
 });
