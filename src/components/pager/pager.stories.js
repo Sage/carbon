@@ -81,6 +81,7 @@ storiesOf('Pager', module)
 
     store.set({ pageSize });
 
+    // console.log(Pager);
     return (
       <State store={ store }>
         <Pager
