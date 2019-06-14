@@ -80,7 +80,6 @@ storiesOf('Multi Action Button', module)
           as={ as }
           text={ textContent }
           { ...menuButtonProps }
-          { ...getIconKnobs() }
         >
           <Button { ...menuButtonProps }>Example Button</Button>
           <Button { ...menuButtonProps }>Example Button with long text</Button>
