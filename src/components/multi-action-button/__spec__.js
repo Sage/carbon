@@ -6,6 +6,8 @@ import Icon from './../icon';
 import Button from './../button';
 import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import StyledSplitButton from '../split-button/split-button.style';
+import SplitButton from '../split-button/split-button';
 
 describe('MultiActionButton', () => {
   let instance,
@@ -22,26 +24,26 @@ describe('MultiActionButton', () => {
   });
 
   describe('mainClasses', () => {
-    let mainDiv;
+    let wrapper;
+    const multiActionButtonSelector = '[data-component="multi-action-button"]';
 
     beforeEach(() => {
-      mainDiv = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
+      wrapper = shallow(<MultiActionButton />);
     });
 
     it('adds all super classes', () => {
-      expect(mainDiv.classList).toContain('carbon-split-button');
+      expect(wrapper.find(multiActionButtonSelector).hasClass('carbon-split-button')).toBe(true);
     });
 
     it('adds multi action button classes', () => {
-      expect(mainDiv.classList).toContain('carbon-multi-action-button');
+      expect(wrapper.find(multiActionButtonSelector).hasClass('carbon-multi-action-button')).toBe(true);
     });
 
     describe('when additional buttons are open', () => {
-      it('adds a open class', () => {
-        instance.setState({ showAdditionalButtons: true });
-        mainDiv = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[0];
-        expect(mainDiv.classList).toContain('carbon-multi-action-button--open');
-        expect(mainDiv.classList).toContain('carbon-split-button--open');
+      it('adds an open class', () => {
+        wrapper.setState({ showAdditionalButtons: true });
+        expect(wrapper.find(multiActionButtonSelector).hasClass('carbon-multi-action-button--open')).toBe(true);
+        expect(wrapper.find(multiActionButtonSelector).hasClass('carbon-split-button--open')).toBe(true);
       });
     });
   });
@@ -73,6 +75,7 @@ describe('MultiActionButton', () => {
 
   describe("tags", () => {
     describe("on component", () => {
+      const multiActionButtonSelector = '[data-component="multi-action-button"]';
       let wrapper = shallow(
         <MultiActionButton data-element='bar' data-role='baz' text='Test'>
           <Button>Test</Button>
@@ -80,7 +83,7 @@ describe('MultiActionButton', () => {
       );
 
       it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper, 'multi-action-button', 'bar', 'baz');
+        rootTagTest(wrapper.find(multiActionButtonSelector), 'multi-action-button', 'bar', 'baz');
       });
     });
 
