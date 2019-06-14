@@ -12,14 +12,14 @@ install:
   - npm install -g gulp
   - npm ci
 
-  jobs:
+jobs:
   include:
-    - stage: "Lint"
+    - stage: lint
       name: "Lint tests"
       # script: npm run lint ./src && npm test -- --maxWorkers=2
       script: echo "">>> lint"
-    - stage: "Cypress tests"                # naming the Tests stage
-      name: "Cypress tests"            # names the first Tests stage job
+    - stage: cypress
+      name: "Cypress tests"           
       script: npm run storybook-ci
       script: wait-on http://localhost:9001 && npm run test-cypress-build
       
