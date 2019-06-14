@@ -187,6 +187,7 @@ Object {
       data-element="input"
       id="guid-12345"
       name="guid-12345"
+      type="text"
       value=""
     />
     <span

@@ -104,6 +104,7 @@ exports[`Textarea when rendered should render default 1`] = `
       onClick={[Function]}
       onFocus={[Function]}
       readOnly={false}
+      type="text"
     />
   </div>
 </div>

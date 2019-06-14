@@ -9,7 +9,6 @@ import StyledColorSampleBox from './style/color-sample-box.style';
 import StyledTickIcon from './style/tick-icon.style';
 import StyledColorOptionInput from './style/color-option-input.style';
 
-/** A single square with a color, implemented as a radio button. */
 // eslint-disable-next-line react/prefer-stateless-function
 class ColorOption extends React.Component {
   render() {
@@ -19,6 +18,7 @@ class ColorOption extends React.Component {
         color={ this.props.color }
         checked={ this.props.checked }
         className={ this.props.className }
+        { ...this.props }
         { ...tagComponent('color-option', this.props) }
       >
         <StyledColorOptionInput
