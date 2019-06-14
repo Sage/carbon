@@ -1,10 +1,11 @@
 import React from 'react';
 import { mount } from 'enzyme';
+import { ThemeProvider } from 'styled-components';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import guid from '../../utils/helpers/guid';
-import classicTheme from '../../style/themes/classic';
-import smallTheme from '../../style/themes/small';
+import ClassicTheme from '../../style/themes/classic';
+import SmallTheme from '../../style/themes/small';
 import ButtonToggle from './button-toggle.component';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { StyledButtonToggleIcon } from './button-toggle.style';
@@ -12,23 +13,15 @@ import { StyledButtonToggleIcon } from './button-toggle.style';
 jest.mock('../../utils/helpers/guid');
 guid.mockImplementation(() => 'guid-12345');
 
-const testRender = (props) => {
-  return TestRenderer.create(<ButtonToggle { ...props }>Button</ButtonToggle>);
-};
-
-const render = (props) => {
-  return mount(<ButtonToggle { ...props }>Button</ButtonToggle>);
-};
-
 describe('ButtonToggle', () => {
   describe('Classic theme', () => {
     it('renders correctly with default settings', () => {
-      const wrapper = testRender({ theme: classicTheme });
+      const wrapper = renderWithTheme({ theme: ClassicTheme }, TestRenderer.create);
       expect(wrapper).toMatchSnapshot();
     });
     it('renders correctly with large buttonIcon and large size', () => {
-      const wrapper = render({
-        theme: classicTheme,
+      const wrapper = renderWithTheme({
+        theme: ClassicTheme,
         buttonIcon: 'add',
         buttonIconSize: 'large',
         size: 'large'
@@ -40,8 +33,8 @@ describe('ButtonToggle', () => {
       }, wrapper.find('label'));
     });
     it('renders correctly with small size', () => {
-      const wrapper = render({
-        theme: classicTheme,
+      const wrapper = renderWithTheme({
+        theme: ClassicTheme,
         size: 'small'
       });
       assertStyleMatch({
@@ -54,14 +47,14 @@ describe('ButtonToggle', () => {
   });
   describe('Modern themes', () => {
     it('renders correctly with small theme', () => {
-      const wrapper = testRender({
-        theme: smallTheme
-      });
+      const wrapper = renderWithTheme({
+        theme: SmallTheme
+      }, TestRenderer.create);
       expect(wrapper).toMatchSnapshot();
     });
     it('renders correctly with a large icon', () => {
-      const wrapper = render({
-        theme: smallTheme,
+      const wrapper = renderWithTheme({
+        theme: SmallTheme,
         buttonIcon: 'add',
         buttonIconSize: 'large'
       });
@@ -74,8 +67,8 @@ describe('ButtonToggle', () => {
   });
   describe('General styling', () => {
     it('renders correctly when disabled', () => {
-      const wrapper = render({
-        theme: classicTheme,
+      const wrapper = renderWithTheme({
+        theme: ClassicTheme,
         disabled: true
       });
       assertStyleMatch({
@@ -85,8 +78,8 @@ describe('ButtonToggle', () => {
       }, wrapper.find('label'));
     });
     it('renders correctly with small icon', () => {
-      const wrapper = render({
-        theme: classicTheme,
+      const wrapper = renderWithTheme({
+        theme: ClassicTheme,
         buttonIcon: 'add',
         buttonIconSize: 'small'
       });
@@ -96,18 +89,29 @@ describe('ButtonToggle', () => {
     });
     it('renders correctly when grouped', () => {
       const props = {
-        theme: classicTheme,
         grouped: true,
         children: 'Text'
       };
       const wrapper = TestRenderer.create(
-        <div>
-          <ButtonToggle { ...props } />
-          <ButtonToggle { ...props } />
-        </div>
+        <ThemeProvider theme={ ClassicTheme }>
+          <div>
+            <ButtonToggle { ...props } />
+            <ButtonToggle { ...props } />
+          </div>
+        </ThemeProvider>
       );
       // Uses snapshot as jest/enzyme doesnt support :first-of-type
       expect(wrapper).toMatchSnapshot();
     });
   });
 });
+
+function renderWithTheme(props = {}, renderer = mount) {
+  const { theme, ...componentProps } = props;
+
+  return renderer(
+    <ThemeProvider theme={ theme }>
+      <ButtonToggle { ...componentProps }>Button</ButtonToggle>
+    </ThemeProvider>
+  );
+}

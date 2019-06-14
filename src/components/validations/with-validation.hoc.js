@@ -88,8 +88,8 @@ const withValidation = (WrappedComponent) => {
       return hasValidations;
     }
 
-    validate = (types = Object.keys(VALIDATION_TYPES)) => {
-      if (this.blockValidation) return new Promise(resolve => resolve(true));
+    validate = (types = Object.keys(VALIDATION_TYPES), isOnSubmit) => {
+      if (!isOnSubmit && this.blockValidation) return new Promise(resolve => resolve(true));
 
       const validationPromises = [];
       types.forEach((type) => {
