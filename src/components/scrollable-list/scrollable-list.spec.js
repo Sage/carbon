@@ -6,12 +6,12 @@ import {
   selectedItemOf,
   childrenFrom,
   listFrom,
-  renderListItems,
   keyboard,
   assertKeyboardTraversal,
   assertHoverTraversal,
   click
-} from './test-utils';
+} from '../../__spec_helper__/test-utils';
+import renderListItems from './test-utils';
 import 'jest-styled-components';
 
 describe('ScrollableList', () => {

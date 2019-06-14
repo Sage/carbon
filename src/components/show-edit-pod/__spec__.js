@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
+import 'jest-styled-components';
 import ReactDOM from 'react-dom';
 import ShowEditPod from './show-edit-pod';
 import Form from '../form';
