@@ -4,9 +4,9 @@ import 'jest-styled-components';
 import { css } from 'styled-components';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import Icon from '../../../components/icon';
+import Loader from '../../../components/loader/loader.component';
 import SwitchSlider from './switch-slider.component';
 import SwitchSliderPanel from './switch-slider-panel.style';
-import SwitchSpinner from './switch-spinner.component';
 import baseTheme from '../../../style/themes/base';
 import classicTheme from '../../../style/themes/classic';
 import smallTheme from '../../../style/themes/small';
@@ -51,8 +51,8 @@ describe('SwitchSlider', () => {
       describe('when loading=true', () => {
         const panels = render({ loading: true }).root.findAllByType(SwitchSliderPanel);
 
-        it('renders a SwitchSpinner in the first panel', () => {
-          expect(panels[0].props.children.type).toBe(SwitchSpinner);
+        it('renders a Loader in the first panel', () => {
+          expect(panels[0].props.children.type).toBe(Loader);
         });
 
         it('renders only one panel', () => {
@@ -166,8 +166,8 @@ describe('SwitchSlider', () => {
       describe('when loading=true', () => {
         const panels = render({ loading: true, ...opts }).root.findAllByType(SwitchSliderPanel);
 
-        it('renders a SwitchSpinner in the panel', () => {
-          expect(panels[0].props.children.type).toBe(SwitchSpinner);
+        it('renders a Loader in the panel', () => {
+          expect(panels[0].props.children.type).toBe(Loader);
         });
 
         it('renders only one panel', () => {
