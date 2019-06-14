@@ -14,7 +14,7 @@ storiesOf('Experimental/GroupedCharacter', module)
   .addParameters({
     info: { propTablesExclude: [State] }
   })
-  .add('Basic',
+  .add('default',
     () => {
       const groups = object('groups', [2, 2, 4]);
       const separator = text('separator', '-');
