@@ -12,13 +12,14 @@ import {
 import Icon from '../icon';
 import NumberComponent from '../number';
 import Events from '../../utils/helpers/events';
+import baseTheme from '../../style/themes/base';
 
 const PagerNavigation = (props) => {
   const updatePageFromInput = (ev) => {
     let newPage = Math.abs(Number(ev.target.value));
 
-    if (Number.isNaN(newPage)) { newPage = '1'; }
-    if (newPage > maxPages()) { newPage = String(maxPages()); }
+    if (Number(newPage) === 0 || Number.isNaN(newPage)) newPage = '1';
+    else if (newPage > maxPages()) newPage = String(maxPages());
 
     props.onPagination(String(newPage), props.pageSize, 'input');
   };
@@ -79,7 +80,7 @@ const PagerNavigation = (props) => {
         destination: String(currentPage + 1)
       },
       back: {
-        text: 'Back',
+        text: 'Previous',
         destination: String(currentPage - 1)
       }
     };
@@ -180,5 +181,10 @@ PagerNavigation.propTypes = {
   /** Current theme */
   theme: PropTypes.object
 };
+
+PagerNavigation.defaultProps = {
+  theme: baseTheme
+};
+
 
 export default withTheme(PagerNavigation);
