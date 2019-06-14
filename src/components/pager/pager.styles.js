@@ -99,10 +99,12 @@ const PagerLinkStyles = styled.button`
   &:focus {
     outline: none;
   }
-  color: rgba(0,0,0,0.90);
-
-  ${({ isDisabled }) => isDisabled && css`
-    color: rgba(0,0,0,0.55);
+  ${({ theme }) => theme.pager && css`
+    color: ${theme.pager.active};
+  `}
+ 
+  ${({ isDisabled, theme }) => isDisabled && theme.pager && css`
+    color: ${theme.pager.disabled};
   `}
 `;
 

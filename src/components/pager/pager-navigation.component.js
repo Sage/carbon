@@ -12,6 +12,7 @@ import {
 import Icon from '../icon';
 import NumberComponent from '../number';
 import Events from '../../utils/helpers/events';
+import baseTheme from '../../style/themes/base';
 
 const PagerNavigation = (props) => {
   const updatePageFromInput = (ev) => {
@@ -180,5 +181,10 @@ PagerNavigation.propTypes = {
   /** Current theme */
   theme: PropTypes.object
 };
+
+PagerNavigation.defaultProps = {
+  theme: baseTheme
+};
+
 
 export default withTheme(PagerNavigation);
