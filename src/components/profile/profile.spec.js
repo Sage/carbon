@@ -80,12 +80,6 @@ describe('Profile', () => {
       });
     });
 
-    describe('avatar', () => {
-      it('returns the portrait component', () => {
-        expect(ProfileAvatarStyle).toBeTruthy();
-      });
-    });
-
     describe('text', () => {
       it('renders the name', () => {
         instance.setProps({ name: 'test name' });
