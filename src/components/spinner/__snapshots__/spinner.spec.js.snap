@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Spinner renders as expected 1`] = `
+<styled.div
+  data-component="spinner"
+  size="medium"
+  type="info"
+/>
+`;

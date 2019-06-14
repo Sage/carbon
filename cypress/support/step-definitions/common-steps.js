@@ -4,7 +4,7 @@ import {
 import {
   commonButtonPreview, labelPreview, helpIcon, inputWidthSlider, fieldHelpPreview,
   labelWidthSlider, backgroundUILocator, closeIconButton, tooltipPreview, getKnobsInput,
-  icon, inputWidthPreview, label, eventInAction,
+  icon, inputWidthPreview, label, eventInAction, getDataElementByNameAndValue, storyRoot,
 } from '../../locators';
 import { dialogTitle, dialogSubtitle } from '../../locators/dialog';
 
@@ -18,8 +18,16 @@ Given('I open {string} component page classic', (component) => {
   visitComponentUrl(component, 'classic');
 });
 
+Given('I open {string} component page basic', (component) => {
+  visitComponentUrl(component, 'basic');
+});
+
 Given('I open {string} component page with button', (component) => {
   visitComponentUrl(component, 'with_button');
+});
+
+Given('I open {string} component page legacy spinner', (component) => {
+  visitComponentUrl(component, 'legacy_spinner');
 });
 
 Given('I open {string} component iframe', (component) => {
@@ -28,6 +36,10 @@ Given('I open {string} component iframe', (component) => {
 
 When('I set {word} to {string}', (propertyName, text) => {
   getKnobsInput(propertyName).clear().type(text);
+});
+
+When('I set {word}-{word} to {string}', (word1, word2, text) => {
+  getKnobsInput(`${word1}-${word2}`).clear().type(text);
 });
 
 When('I set {word} to empty', (propertyName) => {
@@ -158,4 +170,12 @@ Then('{word} action was called in Actions Tab', (event) => {
 
 When('I close Sidebar', () => {
   closeIconButton().click();
+});
+
+Then('data-{word} {string} is present', (element, value) => {
+  getDataElementByNameAndValue(element, value).should('be.visible');
+});
+
+Then('text {string} color is set to {string}', (text, color) => {
+  storyRoot().contains(text).should('have.css', 'color', color);
 });

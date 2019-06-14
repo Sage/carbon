@@ -9,10 +9,14 @@ import {
   applyModernInternalStyling
 } from './table-modern.style.js';
 import tableRowStyling from './table-row/table-row.style';
-import { LinkStyle as StyledLink, LinkStyleAnchor as StyledLinkAnchor } from '../link/link.style';
+import {
+  LinkStyle as StyledLink,
+  LinkStyleAnchor as StyledLinkAnchor
+} from '../link/link.style';
 import baseTheme from '../../style/themes/base';
 import { isClassic } from '../../utils/helpers/style-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import StyledTableCell from './table-cell/table-cell.style.js';
 
 const StyledTable = styled.table`
   border-collapse: separate;
@@ -35,6 +39,10 @@ const StyledTable = styled.table`
     width: 1px;
     position: absolute;
     top: -99999px;
+  }
+
+  .carbon-table-row:last-child ${StyledTableCell} {
+    border-bottom-color: transparent;
   }
 
   ${({ paginate }) => {
@@ -96,7 +104,7 @@ export const StyledInternalTableWrapper = styled.div`
 `;
 
 function styleInternalWrapper(props) {
-  if (isClassic(props.theme)) return applyClassicInternalStyling(props);
+  if (isClassic(props.theme)) return applyClassicInternalStyling();
   return applyModernInternalStyling(props);
 }
 

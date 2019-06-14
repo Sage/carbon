@@ -236,7 +236,7 @@ const OptionsHelper = {
     'incomplete'
   ],
 
-  themesBinary: [
+  buttonTypes: [
     'primary',
     'secondary',
     'tertiary',
@@ -244,7 +244,7 @@ const OptionsHelper = {
     'darkBackground'
   ],
 
-  themesBinaryClassic: [
+  themesBinary: [
     'primary',
     'secondary'
   ],
@@ -271,6 +271,14 @@ const OptionsHelper = {
     'small',
     'medium',
     'large'
+  ],
+
+  inputTypes: [
+    'textbox',
+    'textarea',
+    'date',
+    'decimal',
+    'select'
   ]
 };
 

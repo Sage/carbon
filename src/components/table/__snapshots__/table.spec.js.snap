@@ -31,6 +31,10 @@ exports[`Table when the table size is compact renders a table to match the expec
   background-color: #F2F4F5;
 }
 
+.c0.c0 .carbon-table-row:hover .c2 {
+  background-color: #F2F4F5;
+}
+
 .c0 caption {
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
@@ -39,6 +43,10 @@ exports[`Table when the table size is compact renders a table to match the expec
   width: 1px;
   position: absolute;
   top: -99999px;
+}
+
+.c0 .carbon-table-row:last-child .c2 {
+  border-bottom-color: transparent;
 }
 
 .c0 .carbon-table-row .custom-drag-layer {
@@ -205,6 +213,10 @@ exports[`Table when the table size is small renders a table to match the expecte
   background-color: #F2F4F5;
 }
 
+.c0.c0 .carbon-table-row:hover .c2 {
+  background-color: #F2F4F5;
+}
+
 .c0 caption {
   -webkit-clip: rect(1px,1px,1px,1px);
   clip: rect(1px,1px,1px,1px);
@@ -213,6 +225,10 @@ exports[`Table when the table size is small renders a table to match the expecte
   width: 1px;
   position: absolute;
   top: -99999px;
+}
+
+.c0 .carbon-table-row:last-child .c2 {
+  border-bottom-color: transparent;
 }
 
 .c0 .carbon-table-row .custom-drag-layer {

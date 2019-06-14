@@ -15,7 +15,7 @@ import small from '../../style/themes/small';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 
-const getCommonKnobs = () => {
+const commonKnobs = () => {
   const paginate = boolean('paginate', false);
   const showPageSizeSelection = paginate && boolean('showPageSizeSelection', false);
 
@@ -32,9 +32,38 @@ const getCommonKnobs = () => {
   };
 };
 
+const classicKnobs = () => {
+  return {
+    theme: select(
+      'theme',
+      [
+        OptionsHelper.tableThemes[0],
+        OptionsHelper.tableThemes[1]
+      ],
+      Table.defaultProps.theme
+    )
+  };
+};
+
+const dlsKnobs = () => {
+  return {
+    theme: select(
+      'theme',
+      [
+        OptionsHelper.tableThemes[0],
+        OptionsHelper.tableThemes[1],
+        OptionsHelper.tableThemes[2]
+      ],
+      Table.defaultProps.theme
+    ),
+    size: select('size', OptionsHelper.tableSizes, Table.defaultProps.size),
+    isZebra: boolean('zebra striping', false)
+  };
+};
+
 const store = new Store({
-  sortOrder: getCommonKnobs().sortOrder,
-  sortedColumn: getCommonKnobs().sortedColumn,
+  sortOrder: commonKnobs().sortOrder,
+  sortedColumn: commonKnobs().sortedColumn,
   currentPage: '1',
   children: undefined
 });
@@ -106,11 +135,10 @@ const buildRows = ({ pageSize, totalRecords }) => {
 
 const setCurrentPage = ({ totalRecords, pageSize, paginate }) => {
   const pages = totalRecords / pageSize;
-  const maxValidPage = pageSize ? Math.max(Math.ceil(pages), 1) : '1';
-  const revisedPage = paginate ? maxValidPage : '1';
+  const maxValidPage = (pageSize && paginate) ? Math.max(Math.ceil(pages), 1) : '1';
   const isCurrentPageValid = store.get('currentPage') <= pages;
 
-  return isCurrentPageValid ? store.get('currentPage') : revisedPage;
+  return isCurrentPageValid ? store.get('currentPage') : maxValidPage;
 };
 
 
@@ -128,19 +156,11 @@ storiesOf('Table', module)
         setPageSize(size);
       };
 
-      const tableProps = getCommonKnobs();
-      store.set({ currentPage: setCurrentPage(tableProps) });
+      const tableProps = { ...commonKnobs(), ...classicKnobs() };
       tableProps.pageSize = tableProps.showPageSizeSelection ? pageSize : text('pageSize', '5');
       tableProps.onPageSizeChange = handlePagination;
 
-      tableProps.theme = select(
-        'theme',
-        [
-          OptionsHelper.tableThemes[0],
-          OptionsHelper.tableThemes[1]
-        ],
-        Table.defaultProps.theme
-      );
+      store.set({ currentPage: setCurrentPage(tableProps) });
       store.set({ sortOrder: tableProps.sortOrder });
       store.set({ sortedColumn: tableProps.sortColumn });
 
@@ -189,26 +209,17 @@ storiesOf('Table', module)
       const Wrapper = () => {
         const [pageSize, setPageSize] = useState('10');
 
-        const tableProps = getCommonKnobs();
-        store.set({ currentPage: setCurrentPage(tableProps) });
-        tableProps.size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
-        tableProps.isZebra = boolean('zebra striping', false);
-        tableProps.pageSize = tableProps.showPageSizeSelection ? pageSize : text('pageSize', '5');
-        tableProps.theme = select(
-          'theme',
-          [
-            OptionsHelper.tableThemes[0],
-            OptionsHelper.tableThemes[1],
-            OptionsHelper.tableThemes[2]
-          ],
-          Table.defaultProps.theme
-        );
-        store.set({ sortOrder: tableProps.sortOrder });
-        store.set({ sortedColumn: tableProps.sortColumn });
-
         const handlePagination = (size) => {
           setPageSize(size);
         };
+
+        const tableProps = { ...commonKnobs(), ...dlsKnobs() };
+        tableProps.pageSize = tableProps.showPageSizeSelection ? pageSize : text('pageSize', '5');
+        tableProps.onPageSizeChange = handlePagination;
+
+        store.set({ currentPage: setCurrentPage(tableProps) });
+        store.set({ sortOrder: tableProps.sortOrder });
+        store.set({ sortedColumn: tableProps.sortColumn });
 
         return (
           <ThemeProvider theme={ small }>

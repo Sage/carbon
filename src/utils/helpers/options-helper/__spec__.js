@@ -204,13 +204,19 @@ describe('OptionsHelper', () => {
       'large'
     ]);
   });
-  it('themesBinary', () => {
-    expect(OptionsHelper.themesBinary).toEqual([
+  it('buttonTypes', () => {
+    expect(OptionsHelper.buttonTypes).toEqual([
       'primary',
       'secondary',
       'tertiary',
       'destructive',
       'darkBackground'
+    ]);
+  });
+  it('themesBinary', () => {
+    expect(OptionsHelper.themesBinary).toEqual([
+      'primary',
+      'secondary',
     ]);
   });
   it('themesFull', () => {

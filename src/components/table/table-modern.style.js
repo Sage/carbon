@@ -23,16 +23,17 @@ function applyModernTableStyling({
 }) {
   const type = convertTableType(tableType);
   const { table } = theme;
-
+  const { height, fontSize, paddingSize } = tableSizes[size];
   return css`
     background-color: ${type === 'tertiary' ? 'transparent' : theme.colors.white};
     && .carbon-table-row {
-      height: ${tableSizes[size].height};
-        ${StyledTableCell}, ${StyledTableHeader} {
-        font-size: ${tableSizes[size].font};
-        padding-left: ${tableSizes[size].padding};
-        padding-right: ${tableSizes[size].padding};
+      height: ${height};
+      ${StyledTableCell}, ${StyledTableHeader} {
+        font-size: ${fontSize};
+        padding-left: ${paddingSize};
+        padding-right: ${paddingSize};
       }
+
       ${isZebra && `
         &:nth-child(2n) {
           ${StyledTableCell} {
@@ -43,6 +44,9 @@ function applyModernTableStyling({
           background-color: ${table.primary};
         }
       `}
+      :hover ${StyledTableCell} {
+        background-color: ${table.primary};
+      }
     }
     ${type !== 'primary' && additionalThemeStyling(type, theme)}
   `;
