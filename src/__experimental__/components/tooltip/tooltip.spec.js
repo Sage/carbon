@@ -42,46 +42,52 @@ describe('Tooltip', () => {
 
   describe('styles', () => {
     describe('TooltipInner', () => {
-      it('default', () => {
-        assertStyleMatch(
-          {
-            backgroundColor: '#00141D',
-            color: '#FFFFFF',
-            display: 'inline-block',
-            fontWeight: '700',
-            padding: '10px 15px',
-            textAlign: 'center',
-            maxWidth: '300px',
-            wordBreak: 'normal',
-            whiteSpace: 'pre-wrap'
-          },
-          renderInner()
-        );
+      describe('default', () => {
+        it('sets the default styles', () => {
+          assertStyleMatch(
+            {
+              backgroundColor: '#00141D',
+              color: '#FFFFFF',
+              display: 'inline-block',
+              fontWeight: '700',
+              padding: '10px 15px',
+              textAlign: 'center',
+              maxWidth: '300px',
+              wordBreak: 'normal',
+              whiteSpace: 'pre-wrap'
+            },
+            renderInner()
+          );
+        });
       });
 
-      it('type="error"', () => {
-        assertStyleMatch(
-          { backgroundColor: '#C7384F' }, renderInner({ type: 'error' })
-        );
+      describe('type="error"', () => {
+        it('applies the error backgroundColor', () => {
+          assertStyleMatch(
+            { backgroundColor: '#C7384F' }, renderInner({ type: 'error' })
+          );
+        });
       });
     });
 
     describe('TooltipWrapper', () => {
-      it('default', () => {
-        assertStyleMatch(
-          {
-            position: 'absolute',
-            width: '300px',
-            zIndex: '1003'
-          },
-          renderWrapper(),
-        );
+      describe('default', () => {
+        it('applies the default styles', () => {
+          assertStyleMatch(
+            {
+              position: 'absolute',
+              width: '300px',
+              zIndex: '1003'
+            },
+            renderWrapper(),
+          );
+        });
       });
 
-      OptionsHelper.positions.forEach((position) => {
-        it(`position === ${position}`, () => {
-          const align = ['top', 'bottom'].includes(position) ? 'center' : position;
+      describe.each(OptionsHelper.positions)('position === "%s"', (position) => {
+        const align = ['top', 'bottom'].includes(position) ? 'center' : position;
 
+        it(`sets textAlign to "${align}"`, () => {
           assertStyleMatch(
             { textAlign: align },
             renderWrapper({ position })
@@ -89,8 +95,8 @@ describe('Tooltip', () => {
         });
       });
 
-      OptionsHelper.alignBinary.forEach((align) => {
-        it(`align === "${align}"`, () => {
+      describe.each(OptionsHelper.alignBinary)('align === "%s"', (align) => {
+        it(`sets textAlign to "${align}"`, () => {
           assertStyleMatch(
             { textAlign: align },
             renderWrapper({ align })
@@ -106,33 +112,39 @@ describe('Tooltip', () => {
       const horizontalPositions = ['left', 'right'];
 
       describe('default', () => {
-        it('base', () => {
-          assertStyleMatch(
-            { position: 'absolute' },
-            renderPointer()
-          );
+        describe('root', () => {
+          it('applies the correct root styles', () => {
+            assertStyleMatch(
+              { position: 'absolute' },
+              renderPointer()
+            );
+          });
         });
 
-        it('&:before', () => {
-          assertStyleMatch(
-            { position: 'absolute' },
-            renderPointer(),
-            { modifier: '&:before' }
-          );
+        describe('&:before', () => {
+          it('applies the correct &:before styles', () => {
+            assertStyleMatch(
+              { position: 'absolute' },
+              renderPointer(),
+              { modifier: '&:before' }
+            );
+          });
         });
       });
 
       describe('position === "bottom"', () => {
-        horizontalAlignments.forEach((alignment) => {
-          it('base', () => {
-            assertStyleMatch(
-              { top: '-7.5px' },
-              renderPointer({ align: alignment, position: 'bottom' })
-            );
+        describe.each(horizontalAlignments)('and align === "%s"', (alignment) => {
+          describe('root', () => {
+            it('applies the correct root styles', () => {
+              assertStyleMatch(
+                { top: '-7.5px' },
+                renderPointer({ align: alignment, position: 'bottom' })
+              );
+            });
           });
 
           describe('&:before', () => {
-            it('default', () => {
+            it('applies the correct default &:before styles', () => {
               assertStyleMatch(
                 {
                   borderTop: 'none',
@@ -148,28 +160,32 @@ describe('Tooltip', () => {
               );
             });
 
-            it('type === "error', () => {
-              assertStyleMatch(
-                { borderBottomColor: '#C7384F' },
-                renderPointer({ align: alignment, position: 'bottom', type: 'error' }),
-                { modifier: '&:before' }
-              );
+            describe('when type === "error', () => {
+              it('applies the correct error &:before styles', () => {
+                assertStyleMatch(
+                  { borderBottomColor: '#C7384F' },
+                  renderPointer({ align: alignment, position: 'bottom', type: 'error' }),
+                  { modifier: '&:before' }
+                );
+              });
             });
           });
         });
       });
 
       describe('position === "left"', () => {
-        verticalAlignments.forEach((alignment) => {
-          it('base', () => {
-            assertStyleMatch(
-              { right: '0px' },
-              renderPointer({ align: alignment, position: 'left' })
-            );
+        describe.each(verticalAlignments)('and align === "%s"', (alignment) => {
+          describe('root', () => {
+            it('applies the correct root styles', () => {
+              assertStyleMatch(
+                { right: '0px' },
+                renderPointer({ align: alignment, position: 'left' })
+              );
+            });
           });
 
           describe('&:before', () => {
-            it('default', () => {
+            it('applies the correct default &:before styles', () => {
               assertStyleMatch(
                 {
                   borderTop: '7px solid transparent',
@@ -185,28 +201,32 @@ describe('Tooltip', () => {
               );
             });
 
-            it('type === "error', () => {
-              assertStyleMatch(
-                { borderLeftColor: '#C7384F' },
-                renderPointer({ align: alignment, position: 'left', type: 'error' }),
-                { modifier: '&:before' }
-              );
+            describe('when type === "error', () => {
+              it('applies the correct error &:before styles', () => {
+                assertStyleMatch(
+                  { borderLeftColor: '#C7384F' },
+                  renderPointer({ align: alignment, position: 'left', type: 'error' }),
+                  { modifier: '&:before' }
+                );
+              });
             });
           });
         });
       });
 
       describe('position === "right"', () => {
-        verticalAlignments.forEach((alignment) => {
-          it('base', () => {
-            assertStyleMatch(
-              { left: '-7.5px' },
-              renderPointer({ align: alignment, position: 'right' })
-            );
+        describe.each(verticalAlignments)('and align === "%s"', (alignment) => {
+          describe('root', () => {
+            it('applies the correct root styles', () => {
+              assertStyleMatch(
+                { left: '-7.5px' },
+                renderPointer({ align: alignment, position: 'right' })
+              );
+            });
           });
 
           describe('&:before', () => {
-            it('default', () => {
+            it('applies the correct default &:before styles', () => {
               assertStyleMatch(
                 {
                   borderTop: '7px solid transparent',
@@ -222,28 +242,32 @@ describe('Tooltip', () => {
               );
             });
 
-            it('type === "error', () => {
-              assertStyleMatch(
-                { borderRightColor: '#C7384F' },
-                renderPointer({ align: alignment, position: 'right', type: 'error' }),
-                { modifier: '&:before' }
-              );
+            describe('when type === "error', () => {
+              it('applies the correct error &:before styles', () => {
+                assertStyleMatch(
+                  { borderRightColor: '#C7384F' },
+                  renderPointer({ align: alignment, position: 'right', type: 'error' }),
+                  { modifier: '&:before' }
+                );
+              });
             });
           });
         });
       });
 
       describe('position === "top"', () => {
-        horizontalAlignments.forEach((alignment) => {
-          it('base', () => {
-            assertStyleMatch(
-              { bottom: '0px' },
-              renderPointer({ align: alignment, position: 'top' })
-            );
+        describe.each(horizontalAlignments)('and align === "%s"', (alignment) => {
+          describe('root', () => {
+            it('applies the correct root styles', () => {
+              assertStyleMatch(
+                { bottom: '0px' },
+                renderPointer({ align: alignment, position: 'top' })
+              );
+            });
           });
 
           describe('&:before', () => {
-            it('default', () => {
+            it('applies the correct default &:before styles', () => {
               assertStyleMatch(
                 {
                   borderTop: '8px solid #00141D',
@@ -259,20 +283,22 @@ describe('Tooltip', () => {
               );
             });
 
-            it('type === "error', () => {
-              assertStyleMatch(
-                { borderTopColor: '#C7384F' },
-                renderPointer({ align: alignment, position: 'top', type: 'error' }),
-                { modifier: '&:before' }
-              );
+            describe('when type === "error', () => {
+              it('applies the correct error &:before styles', () => {
+                assertStyleMatch(
+                  { borderTopColor: '#C7384F' },
+                  renderPointer({ align: alignment, position: 'top', type: 'error' }),
+                  { modifier: '&:before' }
+                );
+              });
             });
           });
         });
       });
 
       describe('align === "center"', () => {
-        it('vertical positions', () => {
-          verticalPositions.forEach((pos) => {
+        describe.each(verticalPositions)('and position = "%s"', (pos) => {
+          it('applies the correct styles', () => {
             assertStyleMatch(
               { left: 'calc(50% - 7px)' },
               renderPointer({ align: 'center', position: pos })
@@ -280,8 +306,8 @@ describe('Tooltip', () => {
           });
         });
 
-        it('horizontal positions', () => {
-          horizontalPositions.forEach((pos) => {
+        describe.each(horizontalPositions)('and position = "%s"', (pos) => {
+          it('applies the correct styles', () => {
             assertStyleMatch(
               { top: 'calc(50% - 7px)' },
               renderPointer({ align: 'center', position: pos })
@@ -291,8 +317,8 @@ describe('Tooltip', () => {
       });
 
       describe('align === "left"', () => {
-        it('vertical positions', () => {
-          verticalPositions.forEach((pos) => {
+        describe.each(verticalPositions)('and position = "%s"', (pos) => {
+          it('applies the correct styles', () => {
             assertStyleMatch(
               { left: '10px' },
               renderPointer({ align: 'left', position: pos })
@@ -302,8 +328,8 @@ describe('Tooltip', () => {
       });
 
       describe('align === "right"', () => {
-        it('vertical positions', () => {
-          verticalPositions.forEach((pos) => {
+        describe.each(verticalPositions)('and position = "%s"', (pos) => {
+          it('applies the correct styles', () => {
             assertStyleMatch(
               { right: '25px' },
               renderPointer({ align: 'right', position: pos })
@@ -313,8 +339,8 @@ describe('Tooltip', () => {
       });
 
       describe('align === "top"', () => {
-        it('horizontalPositions', () => {
-          horizontalPositions.forEach((pos) => {
+        describe.each(horizontalPositions)('and position = "%s"', (pos) => {
+          it('applies the correct styles', () => {
             assertStyleMatch(
               { top: '10px' },
               renderPointer({ align: 'top', position: pos })
@@ -324,8 +350,8 @@ describe('Tooltip', () => {
       });
 
       describe('align === "bottom"', () => {
-        it('horizontalPositions', () => {
-          horizontalPositions.forEach((pos) => {
+        describe.each(horizontalPositions)('and position = "%s"', (pos) => {
+          it('applies the correct styles', () => {
             assertStyleMatch(
               { bottom: '25px' },
               renderPointer({ align: 'bottom', position: pos })

@@ -8,7 +8,6 @@ class Tooltip extends React.Component {
   static propTypes = {
     /**
      * Sets alignment of pointer on tooltip
-     * Options: top, bottom, center, right, left
      */
     align: PropTypes.oneOf(OptionsHelper.alignAroundEdges),
     /** Children elements */
@@ -19,7 +18,6 @@ class Tooltip extends React.Component {
     isVisible: PropTypes.bool,
     /**
      * Sets position of the tooltip
-     * Options: top, bottom, right, left
      */
     position: PropTypes.oneOf(OptionsHelper.positions),
     /** Sets a onMouseEnter function */
