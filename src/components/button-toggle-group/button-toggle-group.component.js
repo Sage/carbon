@@ -5,18 +5,24 @@ import ButtonToggleGroupStyle from './button-toggle-group.style';
 import withValidations from '../validations/with-validation.hoc';
 
 const ButtonToggleGroup = withValidations((props) => {
-  const { inputWidth, errorMessage, onChange } = props;
+  const {
+    inputWidth,
+    errorMessage,
+    label,
+    onChange,
+    children
+  } = props;
 
   return (
     <FormField { ...props }>
       <ButtonToggleGroupStyle
-        aria-label={ props.label }
+        aria-label={ label }
         role='group'
         inputWidth={ inputWidth }
         errorMessage={ errorMessage }
         onChange={ onChange }
       >
-        {props.children}
+        {children}
       </ButtonToggleGroupStyle>
     </FormField>
   );
