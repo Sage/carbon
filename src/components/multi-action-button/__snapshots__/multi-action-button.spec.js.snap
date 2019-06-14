@@ -292,6 +292,10 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   border-color: #1e499f;
 }
 
+.c0 .carbon-icon.icon-dropdown {
+  margin-right: 0;
+}
+
 .c0 .c10 {
   max-width: none;
   width: auto;
@@ -532,6 +536,10 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 
 .c0 .c1 > .c3:focus {
   border-color: #1e499f;
+}
+
+.c0 .carbon-icon.icon-dropdown {
+  margin-right: 0;
 }
 
 .c0 .c12 {
