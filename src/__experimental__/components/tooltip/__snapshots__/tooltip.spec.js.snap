@@ -10,10 +10,10 @@ exports[`Tooltip default props matches snapshot 1`] = `
 
 exports[`Tooltip visible matches snapshot 1`] = `
 .c1 {
-  background-color: #00141D;
+  background-color: #000000;
   color: #FFFFFF;
   display: inline-block;
-  font-weight: 700;
+  font-weight: normal;
   padding: 10px 15px;
   text-align: center;
   max-width: 300px;
@@ -42,7 +42,7 @@ exports[`Tooltip visible matches snapshot 1`] = `
   content: "";
   width: 0;
   height: 0;
-  border-top: 8px solid #00141D;
+  border-top: 8px solid #000000;
   border-right: 7px solid transparent;
   border-bottom: 7px solid transparent;
   border-left: 7px solid transparent;

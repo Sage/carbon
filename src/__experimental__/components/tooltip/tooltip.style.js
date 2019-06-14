@@ -2,13 +2,14 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import { THEMES } from '../../../style/themes';
 
 const StyledTooltipInner = styled.div`
   ${({ theme, type }) => css`
-    background-color: ${theme.tooltip.background};
+    background-color: ${theme.colors.black};
     color: ${theme.colors.white};
     display: inline-block;
-    font-weight: 700;
+    font-weight: normal;
     padding: 10px 15px;
     text-align: center;
     max-width: 300px;
@@ -17,6 +18,10 @@ const StyledTooltipInner = styled.div`
 
     ${type === 'error' && css`
       background-color: ${theme.colors.error};
+    `}
+
+    ${theme.name === THEMES.classic && css`
+      font-weight: 700;
     `}
   `}
 `;
@@ -67,7 +72,7 @@ const StyledTooltipPointer = styled.span`
       top: -7.5px;
 
       &:before {
-        ${arrow('up', 7, theme.tooltip.background)}
+        ${arrow('up', 7, theme.colors.black)}
         border-top: none;
 
         ${type === 'error' && css`
@@ -80,7 +85,7 @@ const StyledTooltipPointer = styled.span`
       right: 0px;
 
       &:before {
-        ${arrow('right', 7, theme.tooltip.background)}
+        ${arrow('right', 7, theme.colors.black)}
         border-right: none;
 
         ${type === 'error' && css`
@@ -93,7 +98,7 @@ const StyledTooltipPointer = styled.span`
       left: -7.5px;
 
       &:before {
-        ${arrow('left', 7, theme.tooltip.background)}
+        ${arrow('left', 7, theme.colors.black)}
         border-left: none;
 
         ${type === 'error' && css`
@@ -106,7 +111,7 @@ const StyledTooltipPointer = styled.span`
       bottom: 0px;
 
       &:before {
-        ${arrow('down', 7, theme.tooltip.background)}
+        ${arrow('down', 7, theme.colors.black)}
         border-bottom: none;
 
         ${type === 'error' && css`

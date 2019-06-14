@@ -6,6 +6,7 @@ import Tooltip from '.';
 import { StyledTooltipInner, StyledTooltipPointer, StyledTooltipWrapper } from './tooltip.style';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import classicTheme from '../../../style/themes/classic';
 
 function render(props, renderer = TestRenderer.create) {
   return renderer(<Tooltip { ...props }>Content</Tooltip>);
@@ -46,10 +47,10 @@ describe('Tooltip', () => {
         it('sets the default styles', () => {
           assertStyleMatch(
             {
-              backgroundColor: '#00141D',
+              backgroundColor: '#000000',
               color: '#FFFFFF',
               display: 'inline-block',
-              fontWeight: '700',
+              fontWeight: 'normal',
               padding: '10px 15px',
               textAlign: 'center',
               maxWidth: '300px',
@@ -65,6 +66,14 @@ describe('Tooltip', () => {
         it('applies the error backgroundColor', () => {
           assertStyleMatch(
             { backgroundColor: '#C7384F' }, renderInner({ type: 'error' })
+          );
+        });
+      });
+
+      describe('Classic theme', () => {
+        it('sets the font-weight to 700', () => {
+          assertStyleMatch(
+            { fontWeight: '700' }, renderInner({ theme: classicTheme })
           );
         });
       });
@@ -149,7 +158,7 @@ describe('Tooltip', () => {
                 {
                   borderTop: 'none',
                   borderRight: '7px solid transparent',
-                  borderBottom: '8px solid #00141D',
+                  borderBottom: '8px solid #000000',
                   borderLeft: '7px solid transparent',
                   content: '""',
                   height: '0',
@@ -191,7 +200,7 @@ describe('Tooltip', () => {
                   borderTop: '7px solid transparent',
                   borderRight: 'none',
                   borderBottom: '7px solid transparent',
-                  borderLeft: '8px solid #00141D',
+                  borderLeft: '8px solid #000000',
                   content: '""',
                   height: '0',
                   width: '0'
@@ -230,7 +239,7 @@ describe('Tooltip', () => {
               assertStyleMatch(
                 {
                   borderTop: '7px solid transparent',
-                  borderRight: '8px solid #00141D',
+                  borderRight: '8px solid #000000',
                   borderBottom: '7px solid transparent',
                   borderLeft: 'none',
                   content: '""',
@@ -270,7 +279,7 @@ describe('Tooltip', () => {
             it('applies the correct default &:before styles', () => {
               assertStyleMatch(
                 {
-                  borderTop: '8px solid #00141D',
+                  borderTop: '8px solid #000000',
                   borderRight: '7px solid transparent',
                   borderBottom: 'none',
                   borderLeft: '7px solid transparent',
