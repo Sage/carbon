@@ -14,10 +14,10 @@ install:
 
 jobs:
   include:
-    - stage: lint
-      name: "Lint tests"
+    # - stage: lint
+    #   name: "Lint tests"
       # script: npm run lint ./src && npm test -- --maxWorkers=2
-      script: echo >>> lint
+      # script: echo >>> lint
     - stage: cypress
       name: "Cypress tests"           
       script: npm run storybook-ci
