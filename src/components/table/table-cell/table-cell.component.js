@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledTableCell from './table-cell.style';
+import Date from '../../../__experimental__/components/date';
 import TextArea from '../../../__experimental__/components/textarea';
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
@@ -30,17 +31,27 @@ class TableCell extends React.Component {
   /**
    * Returns if child element is Textarea.
    */
-  childrenHasTextArea() {
+  get checkChildrenInputType() {
     const { children } = this.props;
+    const TYPES = { isTextArea: 'isTextArea', isDate: 'isDate' };
 
     if (!Array.isArray(children)) {
-      return this.childName(children) === TextArea.name;
+      if (this.childName(children) === TextArea.name) {
+        return TYPES.isTextArea;
+      }
+      if (this.childName(children) === Date.name) {
+        return TYPES.isDate;
+      }
+      return null;
     }
 
-    let result = false;
+    let result = null;
     children.forEach((child) => {
+      if (this.childName(child) === Date.name) {
+        result = result !== TYPES.isTextArea ? TYPES.isDate : result;
+      }
       if (this.childName(child) === TextArea.name) {
-        result = true;
+        result = TYPES.isTextArea;
       }
     });
     return result;
@@ -51,7 +62,10 @@ class TableCell extends React.Component {
    */
   get tableCellProps() {
     const { children, ...props } = validProps(this, ['align', 'size']);
-    props.isTextArea = this.childrenHasTextArea();
+    const inputType = this.checkChildrenInputType;
+
+    if (inputType) props[inputType] = true;
+
     return props;
   }
 

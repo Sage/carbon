@@ -11,6 +11,7 @@ import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import BaseTheme from '../../../style/themes/base';
 import ClassicTheme from '../../../style/themes/classic';
 import SmallTheme from '../../../style/themes/small';
+import Date from '../../../__experimental__/components/date';
 import TextArea from '../../../__experimental__/components/textarea';
 import TextBox from '../../../__experimental__/components/textbox';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
@@ -126,7 +127,6 @@ describe('TableCell', () => {
             <ThemeProvider theme={ SmallTheme }>
               <TableCell size={ size }>
                 <TextArea />
-                <TextBox />
               </TableCell>
             </ThemeProvider>
           );
@@ -150,6 +150,76 @@ describe('TableCell', () => {
             paddingTop: '5px',
             paddingBottom: '5px'
           }, wrapper, { modifier: 'textarea' });
+        });
+
+        it('renders to match the expected style for multiple textarea inputs', () => {
+          wrapper = mount(
+            <ThemeProvider theme={ SmallTheme }>
+              <TableCell size={ size }>
+                <TextArea />
+                <Date />
+              </TableCell>
+            </ThemeProvider>
+          );
+
+          assertStyleMatch({
+            minHeight: `${tableSizes[size].inputHeight}px`,
+            height: `${tableSizes[size].inputHeight * 3}px`,
+            paddingLeft: tableSizes[size].paddingSize,
+            paddingRight: tableSizes[size].paddingSize,
+            position: 'relative',
+            marginTop: '4px',
+            marginBottom: '4px'
+          }, wrapper, { modifier: `&& ${StyledInputPresentation}` });
+
+          assertStyleMatch({
+            fontSize: tableSizes[size].fontSize,
+            overflow: 'auto',
+            resize: 'none',
+            flexGrow: '1',
+            height: 'auto !important',
+            paddingTop: '5px',
+            paddingBottom: '5px'
+          }, wrapper, { modifier: 'textarea' });
+        });
+
+        it('renders a Date input that matches the expected style', () => {
+          wrapper = mount(
+            <ThemeProvider theme={ SmallTheme }>
+              <TableCell size={ size }>
+                <Date />
+              </TableCell>
+            </ThemeProvider>
+          );
+
+          assertStyleMatch({
+            minHeight: `${tableSizes[size].inputHeight}px`,
+            height: `${tableSizes[size].inputHeight}px`,
+            paddingLeft: tableSizes[size].paddingSize,
+            paddingRight: tableSizes[size].paddingSize,
+            position: 'relative',
+            width: size === 'large' ? '150px' : undefined
+          }, wrapper, { modifier: `&& ${StyledInputPresentation}` });
+        });
+
+        it('renders to match the expected style for multiple Date inputs', () => {
+          wrapper = mount(
+            <ThemeProvider theme={ SmallTheme }>
+              <TableCell size={ size }>
+                <Date />
+                <Date />
+              </TableCell>
+            </ThemeProvider>
+          );
+
+          assertStyleMatch({
+            minHeight: `${tableSizes[size].inputHeight}px`,
+            height: `${tableSizes[size].inputHeight}px`,
+            paddingLeft: tableSizes[size].paddingSize,
+            paddingRight: tableSizes[size].paddingSize,
+            position: 'relative',
+            width: size === 'large' ? '150px' : undefined
+          }, wrapper, { modifier: `&& ${StyledInputPresentation}` });
         });
       }
     );

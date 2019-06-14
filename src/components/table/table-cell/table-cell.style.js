@@ -9,7 +9,7 @@ import { isClassic } from '../../../utils/helpers/style-helper';
 
 const StyledTableCell = styled.td`
   ${({
-    action, align, theme, size, isTextArea
+    action, align, theme, size, isTextArea, isDate
   }) => {
     const { colors, table } = theme;
     return css`
@@ -32,7 +32,7 @@ const StyledTableCell = styled.td`
       
       ${action && applyActionStyling(colors)}
 
-      ${!isClassic(theme) && size ? applyModernPresentationStyling(size, isTextArea) : ''}
+      ${!isClassic(theme) && size ? applyModernPresentationStyling(size, isTextArea, isDate) : ''}
     `;
   }}
 `;
@@ -55,7 +55,7 @@ function applyActionStyling(colors) {
   `;
 }
 
-function applyModernPresentationStyling(size, isTextArea) {
+function applyModernPresentationStyling(size, isTextArea, isDate) {
   const { inputHeight, fontSize, paddingSize } = tableSizes[size];
   return `
     && ${StyledInputPresentation} {
@@ -63,7 +63,7 @@ function applyModernPresentationStyling(size, isTextArea) {
       padding-left: ${paddingSize};
       padding-right: ${paddingSize};
       position: relative;
-      ${size === 'large' ? 'width: 150px;' : ''}
+      ${size === 'large' && isDate ? 'width: 150px;' : ''}
       ${additionalPresentationStyling(isTextArea, inputHeight)}
     }
     ${applyModernInputStyling(isTextArea, inputHeight, fontSize)}
