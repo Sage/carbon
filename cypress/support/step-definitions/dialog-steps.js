@@ -1,4 +1,4 @@
-import { dialogPreview, dialogStickyFormFooter } from '../../locators/dialog/index';
+import { alertDialogPreview as dialogPreview, dialogStickyFormFooter } from '../../locators/dialog/index';
 import { STORY_ROOT } from '../../locators/locators';
 import { closeIconButton, backgroundUILocator } from '../../locators/index';
 

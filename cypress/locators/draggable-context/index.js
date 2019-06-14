@@ -1,3 +1,5 @@
+import { CELL, CELL_ICON, TBODY } from './locators';
+
 // component preview locators
-export const draggableRecordByText = text => cy.get('.carbon-table-cell').contains(text).parent().find('.draggable-table-cell__icon');
-export const draggableRecordByPosition = position => cy.get('tbody').find(`:nth-child(${position}) > td`);
+export const draggableRecordByText = text => cy.get(CELL).contains(text).parent().find(CELL_ICON);
+export const draggableRecordByPosition = position => cy.get(TBODY).find(`:nth-child(${position}) > td`);

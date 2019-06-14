@@ -17,7 +17,6 @@ import { THEMES } from '../../style/themes';
 const Pager = (props) => {
   const [currentPage, setCurrentPage] = useState(props.currentPage);
 
-
   useEffect(() => {
     setCurrentPage(props.currentPage);
   }, [props.currentPage]);
