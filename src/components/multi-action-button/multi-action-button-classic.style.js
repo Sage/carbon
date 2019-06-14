@@ -24,6 +24,8 @@ const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (t
   `}
 
   ${StyledSplitButtonChildrenContainer} {
+    max-width: none;
+    width: auto;
     padding-top: 5px;
     top: 29px;
     z-index: 12;
