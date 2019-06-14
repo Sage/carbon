@@ -7,7 +7,8 @@ import Portrait from '../portrait';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Browser from '../../utils/helpers/browser';
 import classicTheme from '../../style/themes/classic';
-import { ProfileNameStyle, ProfileAvatarStyle, ProfileStyle } from './profile.style';
+import { ProfileNameStyle, ProfileStyle } from './profile.style';
+
 import 'jest-styled-components';
 
 
