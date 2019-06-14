@@ -1,5 +1,5 @@
 import { toastPreview } from '../../locators/toast';
-import { getIconPreview } from '../../locators/flash';
+import { getDataElementByValue } from '../../locators';
 
 const TOAST_PREFIX = 'icon-';
 
@@ -11,7 +11,7 @@ Then('Toast as is set to {string} and icon is set to {string}', (as, icon) => {
     toastPreview().children().should('have.class', `${TOAST_PREFIX}${icon}`);
     toastPreview().children().should('have.attr', 'data-element', `${icon}`);
   }
-  getIconPreview(icon).should('exist');
+  getDataElementByValue(icon).should('exist');
 });
 
 Then('Toast children is set to {string}', (text) => {
@@ -27,9 +27,9 @@ Then('Toast component is not visible', () => {
 });
 
 Then('Toast component has a close icon', () => {
-  getIconPreview('close').should('be.visible');
+  getDataElementByValue('close').should('be.visible');
 });
 
 Then('Toast component has no close icon', () => {
-  getIconPreview('close').should('not.exist');
+  getDataElementByValue('close').should('not.exist');
 });
