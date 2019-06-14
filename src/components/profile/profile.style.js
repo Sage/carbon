@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
-import classicProfileStyle from './profile-classic.style';
 import Portrait from '../portrait/portrait';
 import baseTheme from '../../style/themes/base';
+import { THEMES } from '../../style/themes';
 
 const ProfileNameStyle = styled.span`
     font-weight: bold;
@@ -18,7 +18,10 @@ const ProfileStyle = styled.div`
             line-height: 21px;
         }
     `}
-    ${classicProfileStyle}
+
+    ${({ theme }) => theme.name === THEMES.classic && css`
+      color: rgba(0, 0, 0, 0.85);
+    `};
 `;
 
 const ProfileDetailsStyle = styled.div`

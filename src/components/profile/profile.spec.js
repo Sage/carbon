@@ -7,9 +7,9 @@ import Portrait from '../portrait';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Browser from '../../utils/helpers/browser';
 import classicTheme from '../../style/themes/classic';
-import { ProfileNameStyle, ProfileAvatarStyle } from './profile.style';
+import { ProfileNameStyle, ProfileAvatarStyle, ProfileStyle } from './profile.style';
 import 'jest-styled-components';
-import ProfileClassicStyle from './profile-classic.style';
+
 
 describe('Profile', () => {
   let instance;
@@ -135,7 +135,7 @@ describe('Profile', () => {
 
 describe('ProfileClassicStyle', () => {
   it('should render correct version if clssic is provided', () => {
-    const wrapper = TestRenderer.create(<ProfileClassicStyle
+    const wrapper = TestRenderer.create(<ProfileStyle
       theme={ classicTheme }
     />);
     expect(wrapper).toMatchSnapshot();

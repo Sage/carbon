@@ -68,7 +68,13 @@ exports[`PortraitContainer render classes renders the large class if applied 1`]
 `;
 
 exports[`ProfileClassicStyle should render correct version if clssic is provided 1`] = `
-"
-    color: rgba(0, 0, 0, 0.85);
-"
+.c0 {
+  white-space: nowrap;
+  color: rgba(0,0,0,0.9);
+  color: rgba(0,0,0,0.85);
+}
+
+<div
+  className="c0"
+/>
 `;
