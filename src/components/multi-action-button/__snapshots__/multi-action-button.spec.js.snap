@@ -73,7 +73,10 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 }
 
 .c0 .c4 {
-  width: 100%;
+  min-width: 100%;
+  white-space: nowrap;
+  left: 0;
+  right: auto;
 }
 
 .c0 .carbon-icon.icon-dropdown {
@@ -267,7 +270,10 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 }
 
 .c0 .c10 {
-  width: 100%;
+  min-width: 100%;
+  white-space: nowrap;
+  left: 0;
+  right: auto;
 }
 
 .c0 .carbon-icon.icon-dropdown {
@@ -287,6 +293,8 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 }
 
 .c0 .c10 {
+  max-width: none;
+  width: auto;
   padding-top: 5px;
   top: 29px;
   z-index: 12;
@@ -504,7 +512,10 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 }
 
 .c0 .c12 {
-  width: 100%;
+  min-width: 100%;
+  white-space: nowrap;
+  left: 0;
+  right: auto;
 }
 
 .c0 .carbon-icon.icon-dropdown {
@@ -524,6 +535,8 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 }
 
 .c0 .c12 {
+  max-width: none;
+  width: auto;
   padding-top: 5px;
   top: 29px;
   z-index: 12;

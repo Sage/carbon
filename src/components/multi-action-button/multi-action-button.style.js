@@ -24,9 +24,15 @@ const StyledMultiActionButton = styled.div`
   `}
   
   ${StyledSplitButtonChildrenContainer} {
-    width: 100%;
+    min-width: 100%;
+    white-space: nowrap;
+    left: 0;
+    right: auto;
 
     ${({ align }) => align === 'right' && css`
+      left: auto;
+      right: 0;
+
       ${StyledButton} {
         text-align: right;
       }

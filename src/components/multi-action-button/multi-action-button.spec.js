@@ -80,6 +80,13 @@ describe('MultiActionButton', () => {
       wrapper = render({ align: 'right' }, mount);
     });
 
+    it('child buttons container should be aligned right', () => {
+      assertStyleMatch({
+        left: 'auto',
+        right: '0'
+      }, wrapper, { modifier: `${StyledSplitButtonChildrenContainer}` });
+    });
+
     it('text inside child buttons should be aligned right', () => {
       assertStyleMatch({
         textAlign: 'right'
