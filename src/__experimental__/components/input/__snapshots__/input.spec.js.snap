@@ -40,5 +40,6 @@ exports[`Input renders with an input 1`] = `
   onBlur={[Function]}
   onClick={[Function]}
   onFocus={[Function]}
+  type="text"
 />
 `;
