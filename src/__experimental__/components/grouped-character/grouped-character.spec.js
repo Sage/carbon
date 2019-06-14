@@ -10,6 +10,7 @@ const setCursorOn = (node, setSelectionRange) => (
 const assertSelectionRangeCalled = selectionFn => (
   position => expect(selectionFn).toHaveBeenCalledWith(position, position)
 );
+const BACKSPACE_KEY_CODE = 8;
 
 describe('GroupedCharacter', () => {
   jest.useFakeTimers();
@@ -83,8 +84,7 @@ describe('GroupedCharacter', () => {
     });
 
     it('pressing backspace after a separating character adjusts the cursor position backwards', () => {
-      // backspace
-      input.simulate('keydown', { which: 8 });
+      input.simulate('keydown', { which: BACKSPACE_KEY_CODE });
 
       setInputCursorTo(3);
       jest.runAllTimers();
