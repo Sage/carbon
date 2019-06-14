@@ -23,6 +23,12 @@ const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (t
     }
   `}
 
+  .carbon-icon {
+    &.icon-dropdown {
+      margin-right: 0;
+    }
+  }
+
   ${StyledSplitButtonChildrenContainer} {
     max-width: none;
     width: auto;
