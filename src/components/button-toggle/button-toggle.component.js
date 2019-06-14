@@ -13,16 +13,18 @@ const ButtonToggle = (props) => {
   const {
     name,
     grouped,
+    children,
     disabled,
     buttonIcon,
     buttonIconSize,
     onChange,
+    value,
     size
   } = props;
   const inputGuid = guid();
   let icon;
 
-  if (props.buttonIcon) {
+  if (buttonIcon) {
     icon = <ButtonToggleIcon buttonIcon={ buttonIcon } buttonIconSize={ buttonIconSize } />;
   }
 
@@ -30,9 +32,9 @@ const ButtonToggle = (props) => {
     <StyledButtonToggle grouped={ grouped } onChange={ onChange }>
       <ButtonToggleInput
         name={ name }
-        disabled={ props.disabled }
+        disabled={ disabled }
         guid={ inputGuid }
-        value={ props.value }
+        value={ value }
       />
       <StyledButtonToggleLabel
         buttonIcon={ buttonIcon }
@@ -43,7 +45,7 @@ const ButtonToggle = (props) => {
       >
         <StyledButtonToggleContentWrapper>
           { icon }
-          {props.children}
+          { children }
         </StyledButtonToggleContentWrapper>
       </StyledButtonToggleLabel>
     </StyledButtonToggle>

@@ -36,6 +36,7 @@ storiesOf('Button Toggle Group', module)
           <ButtonToggle
             name='button-toggle-group'
             id={ name.toLowerCase() }
+            key={ name }
             value={ name }
           >
             { name }
