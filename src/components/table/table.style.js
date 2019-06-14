@@ -64,6 +64,7 @@ export const StyledInternalTableWrapper = styled.div`
   border-radius: 0px;
   overflow: visible;
   position: relative;
+  ${({ paginate }) => (!paginate ? 'border-bottom: none;' : '')}
   
   ${({ onConfigure, theme }) => onConfigure && css`
     ${StyledTable} {
@@ -104,7 +105,7 @@ export const StyledInternalTableWrapper = styled.div`
 `;
 
 function styleInternalWrapper(props) {
-  if (isClassic(props.theme)) return applyClassicInternalStyling(props);
+  if (isClassic(props.theme)) return applyClassicInternalStyling();
   return applyModernInternalStyling(props);
 }
 

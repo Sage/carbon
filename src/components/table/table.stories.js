@@ -7,15 +7,19 @@ import { State, Store } from '@sambego/storybook-state';
 import countriesList from '../../../demo/data/countries';
 import Button from '../button';
 import MultiActionButton from '../multi-action-button';
+import TextArea from '../../__experimental__/components/textarea';
 import {
   Table, TableCell, TableHeader, TableRow
 } from '.';
+import TextBox from '../../__experimental__/components/textbox';
+import DateInput from '../../__experimental__/components/date';
+import getTextboxStoryProps from '../../__experimental__/components/textbox/textbox.stories';
 import classic from '../../style/themes/classic';
 import small from '../../style/themes/small';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 
-const getCommonKnobs = () => {
+const commonKnobs = () => {
   const paginate = boolean('paginate', false);
 
   return {
@@ -32,9 +36,38 @@ const getCommonKnobs = () => {
   };
 };
 
+const classicKnobs = () => {
+  return {
+    theme: select(
+      'theme',
+      [
+        OptionsHelper.tableThemes[0],
+        OptionsHelper.tableThemes[1]
+      ],
+      Table.defaultProps.theme
+    )
+  };
+};
+
+const dlsKnobs = () => {
+  return {
+    theme: select(
+      'theme',
+      [
+        OptionsHelper.tableThemes[0],
+        OptionsHelper.tableThemes[1],
+        OptionsHelper.tableThemes[2]
+      ],
+      Table.defaultProps.theme
+    ),
+    size: select('size', OptionsHelper.tableSizes, Table.defaultProps.size),
+    isZebra: boolean('zebra striping', false)
+  };
+};
+
 const store = new Store({
-  sortOrder: getCommonKnobs().sortOrder,
-  sortedColumn: getCommonKnobs().sortedColumn,
+  sortOrder: commonKnobs().sortOrder,
+  sortedColumn: commonKnobs().sortedColumn,
   currentPage: '1',
   children: undefined
 });
@@ -104,13 +137,83 @@ const buildRows = ({ pageSize, totalRecords }) => {
   );
 };
 
+const inputKnobs = () => {
+  return {
+    inputType: select(
+      'input type',
+      [
+        OptionsHelper.inputTypes[0],
+        OptionsHelper.inputTypes[1],
+        OptionsHelper.inputTypes[2]
+      ],
+      OptionsHelper.inputTypes[0]
+    )
+  };
+};
+
+const pickInput = (name) => {
+  const { inputTypes } = OptionsHelper;
+  switch (name) {
+    case inputTypes[1]:
+      return <TextArea { ...getTextboxStoryProps } />;
+    case inputTypes[2]:
+      return <DateInput { ...getTextboxStoryProps } />;
+    default:
+      return <TextBox { ...getTextboxStoryProps } />;
+  }
+};
+
+const buildRowsWithInputs = ({
+  pageSize, totalRecords, inputType, size
+}) => {
+  const rowsCountries = getActiveRows(pageSize, totalRecords);
+
+  return (
+    <>
+      <TableRow
+        key='header'
+        as='header'
+        uniqueID='header'
+      >
+        <TableHeader
+          sortable
+          name='name'
+          scope='col'
+        >
+        Country
+        </TableHeader>
+        <TableHeader
+          sortable
+          scope='col'
+          name='code'
+          width='200'
+        >
+        Code
+        </TableHeader>
+      </TableRow>
+      {rowsCountries.map((row) => {
+        return (
+          <TableRow
+            key={ row.id }
+            uniqueID={ row.id }
+          >
+            <TableCell size={ size }>
+              { pickInput(inputType) }
+            </TableCell>
+            <TableCell>{row.value}</TableCell>
+          </TableRow>
+        );
+      })}
+  </>
+  );
+};
+
 const setCurrentPage = ({ totalRecords, pageSize, paginate }) => {
   const pages = totalRecords / pageSize;
-  const maxValidPage = pageSize ? Math.max(Math.ceil(pages), 1) : '1';
-  const revisedPage = paginate ? maxValidPage : '1';
+  const maxValidPage = (pageSize && paginate) ? Math.max(Math.ceil(pages), 1) : '1';
   const isCurrentPageValid = store.get('currentPage') <= pages;
 
-  return isCurrentPageValid ? store.get('currentPage') : revisedPage;
+  return isCurrentPageValid ? store.get('currentPage') : maxValidPage;
 };
 
 storiesOf('Table', module)
@@ -120,25 +223,17 @@ storiesOf('Table', module)
     }
   })
   .add('classic', () => {
-    const props = getCommonKnobs();
-    store.set({ currentPage: setCurrentPage(props) });
-    props.theme = select(
-      'theme',
-      [
-        OptionsHelper.tableThemes[0],
-        OptionsHelper.tableThemes[1]
-      ],
-      Table.defaultProps.theme
-    );
+    const tableProps = { ...commonKnobs(), ...classicKnobs() };
 
-    store.set({ sortOrder: props.sortOrder });
-    store.set({ sortedColumn: props.sortColumn });
+    store.set({ currentPage: setCurrentPage(tableProps) });
+    store.set({ sortOrder: tableProps.sortOrder });
+    store.set({ sortedColumn: tableProps.sortColumn });
 
     return (
       <ThemeProvider theme={ classic }>
         <State
           store={ store }
-          parseState={ state => ({ ...state, children: buildRows(props) }) }
+          parseState={ state => ({ ...state, children: buildRows(tableProps) }) }
         >
           <Table
             actionToolbarChildren={ (context) => {
@@ -158,7 +253,7 @@ storiesOf('Table', module)
             } }
             path='/countries'
             actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
-            { ...props }
+            { ...tableProps }
             onChange={ handleChange }
             sortOrder={ store.sortOrder }
             sortedColumn={ store.sortedColumn }
@@ -173,27 +268,17 @@ storiesOf('Table', module)
   .add(
     'default',
     () => {
-      const props = getCommonKnobs();
-      store.set({ currentPage: setCurrentPage(props) });
-      props.size = select('size', OptionsHelper.tableSizes, Table.defaultProps.size);
-      props.isZebra = boolean('zebra striping', false);
-      props.theme = select(
-        'theme',
-        [
-          OptionsHelper.tableThemes[0],
-          OptionsHelper.tableThemes[1],
-          OptionsHelper.tableThemes[2]
-        ],
-        Table.defaultProps.theme
-      );
-      store.set({ sortOrder: props.sortOrder });
-      store.set({ sortedColumn: props.sortColumn });
+      const tableProps = { ...commonKnobs(), ...dlsKnobs() };
+
+      store.set({ currentPage: setCurrentPage(tableProps) });
+      store.set({ sortOrder: tableProps.sortOrder });
+      store.set({ sortedColumn: tableProps.sortColumn });
 
       return (
         <ThemeProvider theme={ small }>
           <State
             store={ store }
-            parseState={ state => ({ ...state, children: buildRows(props) }) }
+            parseState={ state => ({ ...state, children: buildRows(tableProps) }) }
           >
             <Table
               actionToolbarChildren={ (context) => {
@@ -214,7 +299,102 @@ storiesOf('Table', module)
               path='/countries'
               actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
               onChange={ handleChange }
-              { ...props }
+              { ...tableProps }
+            />
+          </State>
+        </ThemeProvider>
+      );
+    },
+    {
+      info: { text: info },
+      notes: { markdown: notes }
+    },
+  )
+  .add(
+    'classic with inputs',
+    () => {
+      const tableProps = { ...commonKnobs(), ...classicKnobs(), ...inputKnobs() };
+
+      store.set({ currentPage: setCurrentPage(tableProps) });
+      store.set({ sortOrder: tableProps.sortOrder });
+      store.set({ sortedColumn: tableProps.sortColumn });
+
+      return (
+        <ThemeProvider theme={ classic }>
+          <State
+            store={ store }
+            parseState={
+              state => ({ ...state, children: buildRowsWithInputs(tableProps) })
+            }
+          >
+            <Table
+              actionToolbarChildren={ (context) => {
+                return [
+                  <Button disabled={ context.disabled } key='single-action'>
+                    Test Action
+                  </Button>,
+                  <MultiActionButton
+                    text='Actions' disabled={ context.disabled }
+                    key='multi-actions'
+                  >
+                    <Button>foo</Button>
+                    <Button>bar</Button>
+                    <Button>qux</Button>
+                  </MultiActionButton>
+                ];
+              } }
+              path='/countries'
+              actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
+              onChange={ handleChange }
+              { ...tableProps }
+            />
+          </State>
+        </ThemeProvider>
+      );
+    },
+    {
+      info: { text: info },
+      notes: { markdown: notes }
+    },
+  )
+  .add(
+    'default with inputs',
+    () => {
+      const tableProps = { ...commonKnobs(), ...dlsKnobs(), ...inputKnobs() };
+
+      store.set({ currentPage: setCurrentPage(tableProps) });
+      store.set({ sortOrder: tableProps.sortOrder });
+      store.set({ sortedColumn: tableProps.sortColumn });
+
+
+      return (
+        <ThemeProvider theme={ small }>
+          <State
+            store={ store }
+            parseState={
+              state => ({ ...state, children: buildRowsWithInputs(tableProps) })
+            }
+          >
+            <Table
+              actionToolbarChildren={ (context) => {
+                return [
+                  <Button disabled={ context.disabled } key='single-action'>
+                    Test Action
+                  </Button>,
+                  <MultiActionButton
+                    text='Actions' disabled={ context.disabled }
+                    key='multi-actions'
+                  >
+                    <Button>foo</Button>
+                    <Button>bar</Button>
+                    <Button>qux</Button>
+                  </MultiActionButton>
+                ];
+              } }
+              path='/countries'
+              actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
+              onChange={ handleChange }
+              { ...tableProps }
             />
           </State>
         </ThemeProvider>

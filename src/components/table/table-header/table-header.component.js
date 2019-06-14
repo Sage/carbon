@@ -42,9 +42,7 @@ class TableHeader extends React.Component {
    * Returns props to be used on the TH element.
    */
   get tableHeaderProps() {
-    const { ...props } = validProps(this);
-
-    delete props.children;
+    const { children, ...props } = validProps(this);
 
     if (this.props.sortable) props.onClick = this.emitSortEvent;
     return props;

@@ -271,6 +271,14 @@ const OptionsHelper = {
     'small',
     'medium',
     'large'
+  ],
+
+  inputTypes: [
+    'textbox',
+    'textarea',
+    'date',
+    'decimal',
+    'select'
   ]
 };
 
