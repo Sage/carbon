@@ -12,18 +12,10 @@ install:
   - npm install -g gulp
   - npm ci
 
-jobs:
-  include:
-    # - stage: lint
-    #   name: "Lint tests"
-      # script: npm run lint ./src && npm test -- --maxWorkers=2
-      # script: echo >>> lint
-    - stage: cypress
-      name: "Cypress tests"           
-      script: npm run storybook-ci
-    -
-      script: wait-on http://localhost:9001 && npm run test-cypress-build
-      
+script:
+  #  - npm run lint ./src && npm test -- --maxWorkers=2
+  - npm run storybook-cypress
+
 before_deploy: if [ "$TRAVIS_BRANCH" == "release" ]; then ASSETS_PREFIX=https://carbon.sage.com npm run build; fi
 
 deploy:
