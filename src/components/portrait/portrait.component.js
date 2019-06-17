@@ -10,13 +10,13 @@ class Portrait extends React.Component {
    * Maps size to width/height value.
    */
   static numericSizes = {
-    'extra-small':  '25',
-    'small':        '30',
+    'extra-small': '25',
+    small: '30',
     'medium-small': '40',
-    'medium':       '60',
+    medium: '60',
     'medium-large': '70',
-    'large':        '100',
-    'extra-large':  '120'
+    large: '100',
+    'extra-large': '120'
   }
 
   /**
@@ -191,35 +191,56 @@ class Portrait extends React.Component {
    */
   render() {
     return (
-      <StyledPortrait size={this.props.size}
-                      shape={this.props.shape}
-                      className={this.props.className}
-                      {...tagComponent('portrait', this.props)}>
+      <StyledPortrait
+        size={ this.props.size }
+        shape={ this.props.shape }
+        className={ this.props.className }
+        { ...tagComponent('portrait', this.props) }
+      >
 
-        {!this.props.src && !this.props.initials &&
-          <StyledIcon type='individual'
-                      size={this.props.size}
-                      darkBackground={this.props.darkBackground} />
+        {!this.props.src
+          && !this.props.initials
+          && (
+            <StyledIcon
+              type='individual'
+              size={ this.props.size }
+              darkBackground={ this.props.darkBackground }
+            />
+          )
         }
 
-        {!this.props.src && this.props.initials &&
-          <StyledInitialsImage src={this.generateInitials()}
-                               alt={this.props.alt}
-                               data-element='initials' />
+        {!this.props.src
+          && this.props.initials
+          && (
+            <StyledInitialsImage
+              src={ this.generateInitials() }
+              alt={ this.props.alt }
+              data-element='initials'
+            />
+          )
         }
 
-        {this.props.gravatar &&
-          <StyledAvatarImage src={this.gravatarSrc()}
-                             alt={this.props.alt}
-                             size={this.props.size}
-                             data-element='user-image' />
+        {this.props.gravatar
+          && (
+            <StyledAvatarImage
+              src={ this.gravatarSrc() }
+              alt={ this.props.alt }
+              size={ this.props.size }
+              data-element='user-image'
+            />
+          )
         }
 
-        {!this.props.gravatar && this.props.src &&
-          <StyledAvatarImage src={this.props.src}
-                             alt={this.props.alt}
-                             size={this.props.size}
-                             data-element='user-image' />
+        {!this.props.gravatar
+          && this.props.src
+          && (
+            <StyledAvatarImage
+              src={ this.props.src }
+              alt={ this.props.alt }
+              size={ this.props.size }
+              data-element='user-image'
+            />
+          )
         }
 
       </StyledPortrait>

@@ -1,22 +1,21 @@
-import React           from 'react';
+import React from 'react';
 import styled, { css } from 'styled-components';
-import PropTypes       from 'prop-types';
+import PropTypes from 'prop-types';
 
 import BaseTheme from '../../style/themes/base';
-import Icon      from '../icon';
+import Icon from '../icon';
 
 const sizeParams = {
-  'extra-small':  { dimensions:  25, iconPadding:  4, iconDimensions: null },
-  'small':        { dimensions:  30, iconPadding:  6, iconDimensions: null },
-  'medium-small': { dimensions:  40, iconPadding: 12, iconDimensions: 24   },
-  'medium':       { dimensions:  60, iconPadding: 14, iconDimensions: 32   },
-  'medium-large': { dimensions:  70, iconPadding: 18, iconDimensions: 32   },
-  'large':        { dimensions: 100, iconPadding: 25, iconDimensions: 48   },
-  'extra-large':  { dimensions: 120, iconPadding: 27, iconDimensions: 64   }
+  'extra-small': { dimensions: 25, iconPadding: 4, iconDimensions: null },
+  small: { dimensions: 30, iconPadding: 6, iconDimensions: null },
+  'medium-small': { dimensions: 40, iconPadding: 12, iconDimensions: 24 },
+  medium: { dimensions: 60, iconPadding: 14, iconDimensions: 32 },
+  'medium-large': { dimensions: 70, iconPadding: 18, iconDimensions: 32 },
+  large: { dimensions: 100, iconPadding: 25, iconDimensions: 48 },
+  'extra-large': { dimensions: 120, iconPadding: 27, iconDimensions: 64 }
 };
 
 function stylingForSize({ size }) {
-
   const params = sizeParams[size];
 
   if (!params) {
@@ -27,22 +26,18 @@ function stylingForSize({ size }) {
     width:  ${params.dimensions}px;
     height: ${params.dimensions}px;
   `;
-
 }
 
 function stylingForShape({ shape }) {
-
   switch (shape) {
-    case 'standard':  return css`border-radius: 0px;`;
-    case 'circle':    return css`border-radius: 50%;`;
-    case 'leaf':      return css`border-radius: 10% 40% 10%;`;
-    default:          return css``;
+    case 'standard': return css`border-radius: 0px;`;
+    case 'circle': return css`border-radius: 50%;`;
+    case 'leaf': return css`border-radius: 10% 40% 10%;`;
+    default: return css``;
   }
-
 }
 
 function stylingForIcon({ size, theme, darkBackground }) {
-
   const params = sizeParams[size];
 
   if (!params) {
@@ -65,7 +60,6 @@ function stylingForIcon({ size, theme, darkBackground }) {
       color:            ${theme.colors.white};
     `}
   `;
-
 }
 
 
@@ -87,8 +81,8 @@ export const StyledAvatarImage = styled.img`
 `;
 
 StyledAvatarImage.propTypes = {
-  src:  PropTypes.string.isRequired,
-  alt:  PropTypes.string,
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string,
   size: PropTypes.string
 };
 
@@ -98,7 +92,7 @@ StyledAvatarImage.defaultProps = {
 
 
 export const StyledIcon = styled(
-  ({ darkBackground, ...rest }) => <Icon {...rest} />
+  ({ darkBackground, ...rest }) => <Icon { ...rest } />
 )`
   position:    absolute;
   box-sizing:  border-box;
@@ -108,15 +102,15 @@ export const StyledIcon = styled(
 
 StyledIcon.propTypes = {
   darkBackground: PropTypes.bool,
-  size:           PropTypes.string,
-  theme:          PropTypes.object,
-  type:           PropTypes.string.isRequired
+  size: PropTypes.string,
+  theme: PropTypes.object,
+  type: PropTypes.string.isRequired
 };
 
 StyledIcon.defaultProps = {
   darkBackground: false,
-  size:           'medium',
-  theme:          BaseTheme
+  size: 'medium',
+  theme: BaseTheme
 };
 
 
@@ -130,12 +124,12 @@ const StyledPortrait = styled.div`
 `;
 
 StyledPortrait.propTypes = {
-  size:  PropTypes.string,
+  size: PropTypes.string,
   shape: PropTypes.string
 };
 
 StyledPortrait.defaultProps = {
-  size:  'medium',
+  size: 'medium',
   shape: 'standard'
 };
 
