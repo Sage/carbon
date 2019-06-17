@@ -23,7 +23,7 @@ const ToastStyle = styled(MessageStyle)`
     &${animationName}-appear,
     &${animationName}-enter {
       opacity: 0;
-      transform: ${({ isCenter }) => (isCenter ? ' scale(0.5)' : 'scale(0.5)')};
+      transform: scale(0.5)};
     }
 
     &${animationName}-appear.toast-appear-active,
@@ -35,7 +35,7 @@ const ToastStyle = styled(MessageStyle)`
 
     &${animationName}-leave.toast-leave-active {
       opacity: 0;
-      transform: ${({ isCenter }) => (isCenter ? 'translateY(-20px) ' : 'translateY(-20px)')} ;
+      transform: translateY(-20px);
       transition: all 150ms ease-out;
     }
   `}
