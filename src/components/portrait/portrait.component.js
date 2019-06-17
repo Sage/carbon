@@ -190,54 +190,58 @@ class Portrait extends React.Component {
    * @return {Object} JSX
    */
   render() {
+    const {
+      alt, className, darkBackground, gravatar, initials, shape, size, src
+    } = this.props;
+
     return (
       <StyledPortrait
-        size={ this.props.size }
-        shape={ this.props.shape }
-        className={ this.props.className }
+        size={ size }
+        shape={ shape }
+        className={ className }
         { ...tagComponent('portrait', this.props) }
       >
 
-        {!this.props.src
-          && !this.props.initials
+        {!src
+          && !initials
           && (
             <StyledIcon
               type='individual'
-              size={ this.props.size }
-              darkBackground={ this.props.darkBackground }
+              size={ size }
+              darkBackground={ darkBackground }
             />
           )
         }
 
-        {!this.props.src
-          && this.props.initials
+        {!src
+          && initials
           && (
             <StyledInitialsImage
               src={ this.generateInitials() }
-              alt={ this.props.alt }
+              alt={ alt }
               data-element='initials'
             />
           )
         }
 
-        {this.props.gravatar
+        {gravatar
           && (
             <StyledAvatarImage
               src={ this.gravatarSrc() }
-              alt={ this.props.alt }
-              size={ this.props.size }
+              alt={ alt }
+              size={ size }
               data-element='user-image'
             />
           )
         }
 
-        {!this.props.gravatar
-          && this.props.src
+        {!gravatar
+          && src
           && (
             <StyledAvatarImage
-              src={ this.props.src }
-              alt={ this.props.alt }
-              size={ this.props.size }
+              src={ src }
+              alt={ alt }
+              size={ size }
               data-element='user-image'
             />
           )
