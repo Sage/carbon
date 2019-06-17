@@ -4,7 +4,7 @@ import { State } from '@sambego/storybook-state';
 import classic from '../../style/themes/classic';
 import small from '../../style/themes/small';
 import { notes, info } from './documentation';
-import TableWrapper from './table-story-helpers/table-story-wrapper.componentn';
+import TableWrapper from './table-story-helpers/table-story-wrapper.component';
 import {
   commonKnobs, classicKnobs, dlsKnobs
 } from './table-story-helpers/table-story-knobs';
