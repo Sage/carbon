@@ -9,7 +9,7 @@ const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (t
   ${StyledSplitButton} > ${StyledButton}:focus {
     margin: 0;
     height: 31px;
-    padding: 7px 10px 7px 18px;
+    padding: 7px 14px 7px 18px;
   }
 
   ${StyledSplitButton} > ${StyledButton}:focus {
