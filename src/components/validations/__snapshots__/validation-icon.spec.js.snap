@@ -28,7 +28,6 @@ exports[`ValidationIcon renders with an icon for the given type 1`] = `
       data-component="icon"
       data-element="error"
       key="icon"
-      tooltipType="error"
     />
   </Icon>
 </div>
