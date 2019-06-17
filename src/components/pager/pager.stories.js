@@ -12,15 +12,8 @@ const store = new Store({
   pageSize: Pager.defaultProps.pageSize
 });
 
-const handlePagination = (newPage, pageSize, type) => {
-  if (type === 'size') {
-    store.set({
-      pageSize,
-      currentPage: newPage
-    });
-  } else {
-    store.set({ currentPage: newPage });
-  }
+const handlePagination = (ev) => {
+  store.set({ currentPage: ev });
 };
 
 const TableComponent = ({ propDefinitions }) => {
