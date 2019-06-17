@@ -72,6 +72,7 @@ exports[`StepSequenceItem Classic theme renders correctly 1`] = `
 
 <li
   className="c0"
+  data-component="step-sequence-item"
 >
   <span
     className="c1"
@@ -153,6 +154,7 @@ exports[`StepSequenceItem renders correctly 1`] = `
 
 <li
   className="c0"
+  data-component="step-sequence-item"
 >
   <span
     className="c1"
