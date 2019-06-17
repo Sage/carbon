@@ -1,17 +1,12 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
-import TestRenderer from 'react-test-renderer';
-import { mount, shallow } from 'enzyme';
+import { shallow } from 'enzyme';
 import MD5 from 'crypto-js/md5';
 
 import Browser from '../../utils/helpers/browser';
 import Portrait from './portrait.component';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import { StyledIcon, StyledInitialsImage, StyledAvatarImage } from './portrait.style';
-
-function render(props, renderer = TestRenderer.create) {
-  return renderer(<Portrait { ...props } />);
-}
 
 const mockCanvasDataURL = 'data:image/png';
 
@@ -33,23 +28,6 @@ const mockDocumentWithCanvas = {
 describe('Portrait', () => {
   beforeEach(() => {
     spyOn(Browser, 'getDocument').and.returnValue(mockDocumentWithCanvas);
-  });
-
-  describe('snapshots', () => {
-    it('renders initials correctly', () => {
-      const wrapper = render({ initials: 'AB' }, mount);
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('renders src correctly', () => {
-      const wrapper = render({ src: 'https://example.com/example.jpg' }, mount);
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('renders gravatar correctly', () => {
-      const wrapper = render({ gravatar: 'example@example.com' }, mount);
-      expect(wrapper).toMatchSnapshot();
-    });
   });
 
   describe('componentWillReceiveProps', () => {
