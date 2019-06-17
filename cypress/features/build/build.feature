@@ -4,6 +4,8 @@ Feature: Build tests
   @build
   Scenario Outline: Component <component> page with button
     When I open "<component>" component page with button
+      # wait 3000 because first test on travis waits longer for focus
+      And I wait 3000
       And I open component preview
     Then "<component>" component is visible
     Examples:
