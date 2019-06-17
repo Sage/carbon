@@ -84,8 +84,10 @@ describe('Portrait', () => {
     });
 
     describe('shape', () => {
-      it('accepts a valid shape', () => {
+      it('accepts valid shapes', () => {
+        ReactTestUtils.renderIntoDocument(<Portrait src='foo' shape='standard' />);
         ReactTestUtils.renderIntoDocument(<Portrait src='foo' shape='circle' />);
+        ReactTestUtils.renderIntoDocument(<Portrait src='foo' shape='leaf' />);
         expect(console.error).toHaveBeenCalledTimes(0);
       });
 
