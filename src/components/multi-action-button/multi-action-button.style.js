@@ -1,58 +1,58 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import StyledButton from '../button/button.style';
+import StyledSplitButtonChildrenContainer from '../split-button/split-button-children.style';
+import baseTheme from '../../style/themes/base';
+import StyledSplitButton from '../split-button/split-button.style';
+import getMultiActionButtonClassicStyles from './multi-action-button-classic.style';
 
 const StyledMultiActionButton = styled.div`
-  .carbon-multi-action-button--align-right {
-    .carbon-multi-action-button__additional-buttons {
-      ${StyledButton} {
-        padding-left: 25px;
-        padding-right: 25px;
-        text-align: right;
+  ${({ disabled, displayed, theme }) => (!disabled && displayed) && css`
+    ${StyledSplitButton} > ${StyledButton} {
+      background-color: ${theme.colors.secondary};
+      border-color: ${theme.colors.secondary};
+
+      &,
+      .carbon-icon {
+        color: ${theme.colors.white};
       }
-    }
-  }
-
-  .carbon-multi-action-button .carbon-split-button__toggle.carbon-multi-action-button__toggle--secondary{
-    background-color: transparent;
-    color: #255bc7;
-  }
-
-  .carbon-multi-action-button__additional-buttons {
-    ${StyledButton} {
-      border: none;
-      border-radius: 0;
-      color: #fff;
-      display: block;
-      margin-left: 0;
-      min-width: 100%;
-      padding-bottom: 5px;
-      padding-top: 5px;
-      text-align: left;
-
-      &:hover {
-        background-color: #163777;
-      }
-    }
-  }
-
-  .carbon-multi-action-button__additional-buttons--transparent {
-    ${StyledButton} {
-      color: #335B6D;
 
       &:focus {
-        background-color: #fff;
-        color: #335B6D;
-        box-shadow: none;
-        outline: 0;
-      }
-
-      &:hover,
-      &:active {
-        background-color: #E6EBED;
-        color: #4782F7;
+        border-color: ${theme.colors.focus};
+        margin: 0 -1px;
       }
     }
+  `}
+  
+  ${StyledSplitButtonChildrenContainer} {
+    min-width: 100%;
+    white-space: nowrap;
+    left: 0;
+    right: auto;
+
+    ${({ align }) => align === 'right' && css`
+      left: auto;
+      right: 0;
+
+      ${StyledButton} {
+        text-align: right;
+      }
+    `}
   }
+
+  .carbon-icon {
+    &.icon-dropdown {
+      margin-right: -4px;
+      top: 0px;
+    }
+  }
+
+  ${getMultiActionButtonClassicStyles}
 `;
+
+StyledMultiActionButton.defaultProps = {
+  theme: baseTheme,
+  size: 'medium',
+  legacyColorVariant: 'blue'
+};
 
 export default StyledMultiActionButton;

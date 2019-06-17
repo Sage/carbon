@@ -1,0 +1,652 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MultiActionButton when rendered should match the snapshot 1`] = `
+.c3 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  font-weight: 600;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background: transparent;
+  border-color: #26A826;
+  color: #26A826;
+  font-size: 14px;
+  height: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.c3:focus {
+  outline: solid 3px #FFB500;
+}
+
+.c3 + .c2 {
+  margin-left: 16px;
+}
+
+.c3:hover {
+  background: #006300;
+  border-color: #006300;
+  color: #FFFFFF;
+}
+
+.c3 .carbon-icon {
+  margin-left: 0px;
+  margin-right: 8px;
+}
+
+.c1 {
+  display: inline-block;
+  position: relative;
+}
+
+.c1 > .c2 {
+  margin: 0;
+}
+
+.c1 > .c2:focus {
+  border: 3px solid #FFB500;
+  outline: none;
+  margin: -1px;
+}
+
+.c0 .c4 {
+  min-width: 100%;
+  white-space: nowrap;
+  left: 0;
+  right: auto;
+}
+
+.c0 .carbon-icon.icon-dropdown {
+  margin-right: -4px;
+  top: 0px;
+}
+
+<div
+  className="c0"
+  size="medium"
+>
+  <div
+    aria-haspopup="true"
+    className="c1"
+    data-component="multi-action-button"
+    onMouseLeave={[Function]}
+  >
+    <button
+      aria-expanded={false}
+      aria-haspopup="true"
+      aria-label="Show more"
+      className="c2 c3"
+      data-component="button"
+      data-element="toggle-button"
+      disabled={false}
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onMouseEnter={[Function]}
+      onTouchStart={[Function]}
+      role="button"
+      size="medium"
+    >
+      <span>
+        <span
+          data-element="main-text"
+        >
+          Test
+          <span
+            className="carbon-icon icon-dropdown"
+            data-component="icon"
+            data-element="dropdown"
+          />
+        </span>
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`MultiActionButton when rendered with "classic" theme should match the snapshot 1`] = `
+.c5 + .c3 {
+  margin-left: 16px;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  box-sizing: border-box;
+  font-weight: 700;
+  background: transparent;
+  border: 1px solid #255bc7;
+  color: #255bc7;
+  border-radius: 0;
+  font-size: 14px;
+  height: 31px;
+  line-height: 16px;
+  margin-left: 0;
+  margin-right: 0;
+  padding: 0 18px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c4:active {
+  background-color: #1963f6;
+  border-color: #1963f6;
+  color: #ffffff;
+}
+
+.c4:hover {
+  background: #1e499f;
+  border-color: #1e499f;
+  color: #ffffff;
+}
+
+.c4:focus {
+  box-shadow: 0 0 6px rgba(25,99,246,.6);
+  outline: none;
+  background: #1e499f;
+  border-color: #1e499f;
+  color: #ffffff;
+}
+
+.c4 + .c3 {
+  margin-left: 15px;
+}
+
+.c4 .carbon-icon {
+  margin-left: 0px;
+  margin-right: 8px;
+}
+
+.c6 > .c3 {
+  margin: 0;
+}
+
+.c6 > .c3:focus {
+  border: 3px solid #FFB500;
+  outline: none;
+  margin: -1px;
+}
+
+.c2 {
+  display: inline-block;
+  position: relative;
+}
+
+.c2 > .c3 {
+  margin: 0;
+}
+
+.c2 > .c3:focus {
+  border: 3px solid #FFB500;
+  outline: none;
+  margin: -1px;
+}
+
+.c2 > .c3:focus {
+  border: 1px solid #1e499f;
+  margin: 0;
+}
+
+.c7 .c3 {
+  background-color: #006300;
+  border: 1px solid #006300;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  text-align: left;
+  z-index: 10;
+}
+
+.c7 .c3:focus,
+.c7 .c3:hover {
+  background-color: #004400;
+}
+
+.c7 .c3 + .c10 .c3 {
+  margin-top: 3px;
+}
+
+.c8 .c1 > .c3 {
+  background-color: #006300;
+  border-color: #006300;
+}
+
+.c8 .c1 > .c3,
+.c8 .c1 > .c3 .carbon-icon {
+  color: #FFFFFF;
+}
+
+.c8 .c1 > .c3:focus {
+  border-color: #FFB500;
+  margin: 0 -1px;
+}
+
+.c9 .c10 .c3 {
+  text-align: right;
+}
+
+.c0 .c10 {
+  min-width: 100%;
+  white-space: nowrap;
+  left: 0;
+  right: auto;
+}
+
+.c0 .carbon-icon.icon-dropdown {
+  margin-right: -4px;
+  top: 0px;
+}
+
+.c0 .c1 > .c3,
+.c0 .c1 > .c3:focus {
+  margin: 0;
+  height: 31px;
+  padding: 7px 14px 7px 18px;
+}
+
+.c0 .c1 > .c3:focus {
+  border-color: #1e499f;
+}
+
+.c0 .carbon-icon.icon-dropdown {
+  margin-right: 0;
+}
+
+.c0 .c10 {
+  max-width: none;
+  width: auto;
+  padding-top: 5px;
+  top: 29px;
+  z-index: 12;
+}
+
+.c0 .c10 .c3 {
+  border: none;
+  border-radius: 0;
+  color: #fff;
+  display: block;
+  margin-left: 0;
+  min-width: 100%;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.c0 .c10 .c3:hover {
+  background-color: #163777;
+}
+
+<div
+  className="c0"
+  size="medium"
+>
+  <div
+    aria-haspopup="true"
+    className="c1 c2"
+    data-component="multi-action-button"
+    onMouseLeave={[Function]}
+  >
+    <button
+      aria-expanded={false}
+      aria-haspopup="true"
+      aria-label="Show more"
+      className="c3 c4"
+      data-component="button"
+      data-element="toggle-button"
+      disabled={false}
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onMouseEnter={[Function]}
+      onTouchStart={[Function]}
+      role="button"
+      size="medium"
+    >
+      <span>
+        <span
+          data-element="main-text"
+        >
+          Test
+          <span
+            className="carbon-icon icon-dropdown"
+            data-component="icon"
+            data-element="dropdown"
+          />
+        </span>
+      </span>
+    </button>
+  </div>
+</div>
+`;
+
+exports[`MultiActionButton when rendered with "classic" theme should match the snapshot for the transparent type 1`] = `
+.c5 + .c3 {
+  margin-left: 16px;
+}
+
+.c6 + .c3 {
+  margin-left: 15px;
+}
+
+.c4 {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex-flow: wrap;
+  -ms-flex-flow: wrap;
+  flex-flow: wrap;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  border: 2px solid transparent;
+  box-sizing: border-box;
+  font-weight: 600;
+  padding-top: 1px;
+  padding-bottom: 1px;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 14px;
+  height: 40px;
+  padding-left: 24px;
+  padding-right: 24px;
+}
+
+.c4:focus {
+  outline: solid 3px #FFB500;
+}
+
+.c4 + .c3 {
+  margin-left: 16px;
+}
+
+.c4 .carbon-icon {
+  margin-left: 0px;
+  margin-right: 8px;
+}
+
+.c7 > .c3 {
+  margin: 0;
+}
+
+.c7 > .c3:focus {
+  border: 3px solid #FFB500;
+  outline: none;
+  margin: -1px;
+}
+
+.c2 {
+  display: inline-block;
+  position: relative;
+}
+
+.c2 > .c3 {
+  margin: 0;
+}
+
+.c2 > .c3:focus {
+  border: 3px solid #FFB500;
+  outline: none;
+  margin: -1px;
+}
+
+.c2 > .c3:focus {
+  border: 1px solid #1e499f;
+  margin: 0;
+}
+
+.c8 .c3 {
+  background-color: #006300;
+  border: 1px solid #006300;
+  color: #FFFFFF;
+  display: block;
+  margin-left: 0;
+  margin-top: 3px;
+  margin-bottom: 3px;
+  min-width: 100%;
+  text-align: left;
+  z-index: 10;
+}
+
+.c8 .c3:focus,
+.c8 .c3:hover {
+  background-color: #004400;
+}
+
+.c8 .c3 + .c12 .c3 {
+  margin-top: 3px;
+}
+
+.c9 .c1 > .c3 {
+  background-color: #006300;
+  border-color: #006300;
+}
+
+.c9 .c1 > .c3,
+.c9 .c1 > .c3 .carbon-icon {
+  color: #FFFFFF;
+}
+
+.c9 .c1 > .c3:focus {
+  border-color: #FFB500;
+  margin: 0 -1px;
+}
+
+.c10 .c12 .c3 {
+  text-align: right;
+}
+
+.c11 .c1 > .c3,
+.c11 .c1 > .c3:focus {
+  margin: 0;
+  height: 31px;
+  padding: 7px 14px 7px 18px;
+}
+
+.c11 .c1 > .c3:focus {
+  border-color: #1e499f;
+}
+
+.c11 .c12 .c3 {
+  border: none;
+  border-radius: 0;
+  color: #fff;
+  display: block;
+  margin-left: 0;
+  min-width: 100%;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.c11 .c12 .c3:hover {
+  background-color: #163777;
+}
+
+.c0 .c12 {
+  min-width: 100%;
+  white-space: nowrap;
+  left: 0;
+  right: auto;
+}
+
+.c0 .carbon-icon.icon-dropdown {
+  margin-right: -4px;
+  top: 0px;
+}
+
+.c0 .c1 > .c3,
+.c0 .c1 > .c3:focus {
+  margin: 0;
+  height: 31px;
+  padding: 7px 14px 7px 18px;
+}
+
+.c0 .c1 > .c3:focus {
+  border-color: #1e499f;
+}
+
+.c0 .carbon-icon.icon-dropdown {
+  margin-right: 0;
+}
+
+.c0 .c12 {
+  max-width: none;
+  width: auto;
+  padding-top: 5px;
+  top: 29px;
+  z-index: 12;
+}
+
+.c0 .c12 .c3 {
+  border: none;
+  border-radius: 0;
+  color: #fff;
+  display: block;
+  margin-left: 0;
+  min-width: 100%;
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.c0 .c12 .c3:hover {
+  background-color: #163777;
+}
+
+.c0 .c1 > .c3 {
+  background-color: transparent;
+  box-shadow: none;
+  border: 1px solid transparent;
+  color: #335c6d;
+}
+
+.c0 .c1 > .c3:hover,
+.c0 .c1 > .c3:active,
+.c0 .c1 > .c3:focus {
+  background-color: transparent;
+  box-shadow: none;
+  border-color: transparent;
+  color: #335c6d;
+}
+
+.c0 .c1 > .c3 .carbon-icon {
+  color: #335c6d;
+}
+
+.c0 .c12 {
+  background-color: #FFF;
+  box-shadow: 0 3px 10px 0 rgba(0,0,0,0.2);
+}
+
+.c0 .c12 .c3 {
+  color: #335c6d;
+  background: #FFF;
+}
+
+.c0 .c12 .c3:focus {
+  background-color: #FFF;
+  color: #335c6d;
+  box-shadow: none;
+  outline: 0;
+}
+
+.c0 .c12 .c3:hover,
+.c0 .c12 .c3:active {
+  background-color: #e6ebed;
+  color: #4782F7;
+}
+
+<div
+  className="c0"
+  size="medium"
+>
+  <div
+    aria-haspopup="true"
+    className="c1 c2"
+    data-component="multi-action-button"
+    onMouseLeave={[Function]}
+  >
+    <button
+      aria-expanded={false}
+      aria-haspopup="true"
+      aria-label="Show more"
+      className="c3 c4"
+      data-component="button"
+      data-element="toggle-button"
+      disabled={false}
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onMouseEnter={[Function]}
+      onTouchStart={[Function]}
+      role="button"
+      size="medium"
+    >
+      <span>
+        <span
+          data-element="main-text"
+        >
+          Test
+          <span
+            className="carbon-icon icon-dropdown"
+            data-component="icon"
+            data-element="dropdown"
+          />
+        </span>
+      </span>
+    </button>
+  </div>
+</div>
+`;

@@ -2,60 +2,92 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
-import MultiActionButton from './multi-action-button';
-import notes from './notes.md';
-import Button from '../button';
+import { ThemeProvider } from 'styled-components';
+import MultiActionButton from './multi-action-button.component';
+import Button, { OriginalButton } from '../button';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../.storybook/style/storybook-info.styles';
+import { notes, info } from './documentation';
+import classic from '../../style/themes/classic';
+
+const getIconKnobs = () => {
+  const defaultPosition = Button.defaultProps.iconPosition;
+  const hasIcon = boolean('has icon', false);
+
+  return {
+    iconType: hasIcon ? select('iconType', [...OptionsHelper.icons, ''], '') : undefined,
+    iconPosition: hasIcon ? select('iconPosition', [...OptionsHelper.buttonIconPositions], defaultPosition) : undefined
+  };
+};
+
+const getKnobs = (isClassic) => {
+  let as, buttonType, size, subtext;
+
+  if (isClassic) {
+    as = select('as', [...OptionsHelper.themesBinary, 'transparent'], Button.defaultProps.as);
+  } else {
+    buttonType = select('buttonType', OptionsHelper.themesBinary, Button.defaultProps.as);
+    size = select('size', OptionsHelper.sizesRestricted, Button.defaultProps.size);
+    subtext = (size === OptionsHelper.sizesRestricted[2]) ? text('subtext', Button.defaultProps.subtext) : undefined;
+  }
+
+  return {
+    align: select('align', OptionsHelper.alignBinary, OptionsHelper.alignBinary[0]),
+    as,
+    buttonType,
+    disabled: boolean('disabled', Button.defaultProps.disabled),
+    onClick: ev => action('click')(ev),
+    size,
+    subtext,
+    textContent: text('text', 'Example Multi Action Button')
+  };
+};
 
 storiesOf('Multi Action Button', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [Button]
-    }
-  })
   .add('default', () => {
-    const disabled = boolean('disabled', false);
-    const label = text('text', 'Example Multi Action Button');
-    const as = label ? select('as', ['primary', 'secondary', 'transparent'], 'secondary') : undefined;
-    const align = select('align', OptionsHelper.alignBinary, OptionsHelper.alignBinary[0]);
+    const props = getKnobs();
+    const {
+      buttonType,
+      textContent,
+      subtext,
+      ...menuButtonProps
+    } = props;
 
     return (
       <MultiActionButton
-        as={ as }
-        disabled={ disabled }
-        text={ label }
-        align={ align }
+        buttonType={ buttonType }
+        text={ textContent }
+        subtext={ subtext }
+        { ...menuButtonProps }
+        { ...getIconKnobs() }
       >
-        <Button onClick={ action('Click button 1') }>Example Button 1</Button>
-        <Button onClick={ action('Click button 2') }>Example Button 2</Button>
-        <Button onClick={ action('Click button 3') }>Example Button 3</Button>
+        <Button { ...menuButtonProps }>Example Button</Button>
+        <Button { ...menuButtonProps }>Example Button with long text</Button>
+        <Button { ...menuButtonProps }>Short</Button>
       </MultiActionButton>
     );
+  })
+  .add('classic', () => {
+    const props = getKnobs(true);
+    const {
+      as,
+      textContent,
+      ...menuButtonProps
+    } = props;
+
+    return (
+      <ThemeProvider theme={ classic }>
+        <MultiActionButton
+          as={ as }
+          text={ textContent }
+          { ...menuButtonProps }
+        >
+          <Button { ...menuButtonProps }>Example Button</Button>
+          <Button { ...menuButtonProps }>Example Button with long text</Button>
+          <Button { ...menuButtonProps }>Short</Button>
+        </MultiActionButton>
+      </ThemeProvider>
+    );
   }, {
-    info: {
-      text: (
-        <div>
-          <p>A MultiActionButton widget.</p>
-
-          <StoryHeader>Implementation</StoryHeader>
-
-          <p>In your file:</p>
-
-          <StoryCode padded>
-            {'import MultiActionButton from "carbon-react/lib/components/multi-action-button";'}
-          </StoryCode>
-
-          <p>To render a MultiActionButton (developer can add any buttons to dropdown):</p>
-
-          <StoryCodeBlock>
-            {'<MultiActionButton text="Main Text">'}
-            {'  <Button onClick="buttonClickHandler1">Button name 1</Button>'}
-            {'  <Button onClick="buttonClickHandler2">Button name 2</Button>'}
-            {'</MultiActionButton>'}
-          </StoryCodeBlock>
-        </div>
-      )
-    },
+    info: { text: info, propTablesExclude: [OriginalButton, ThemeProvider] },
     notes: { markdown: notes }
   });
