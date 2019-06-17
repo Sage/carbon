@@ -719,7 +719,7 @@ Table.propTypes = {
   onPageSizeChange: PropTypes.func,
 
   /** Pagination Total number of records in the grid */
-  totalRecords: PropTypes.string,
+  totalRecords: PropTypes.number,
 
   /** Allow table to shrink in size. */
   shrink: PropTypes.bool,

@@ -67,7 +67,7 @@ describe('Table', () => {
         sortedColumn='name'
         currentPage='10'
         pageSize='25'
-        totalRecords='2500'
+        totalRecords={ 2500 }
       >
         <TableRow>
           <TableHeader sortable name='name' />

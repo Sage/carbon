@@ -64,7 +64,6 @@ export const StyledInternalTableWrapper = styled.div`
   border-radius: 0px;
   overflow: visible;
   position: relative;
-  ${({ paginate }) => (!paginate ? 'border-bottom: none;' : '')}
   
   ${({ onConfigure, theme }) => onConfigure && css`
     ${StyledTable} {
