@@ -10,22 +10,42 @@ import ButtonToggleIcon from './button-toggle-icon.component';
 import ButtonToggleInput from './button-toggle-input.component';
 
 const ButtonToggle = (props) => {
+  const {
+    name,
+    grouped,
+    children,
+    disabled,
+    buttonIcon,
+    buttonIconSize,
+    onChange,
+    value,
+    size
+  } = props;
   const inputGuid = guid();
-  const icon = props.buttonIcon ? <ButtonToggleIcon { ...props } /> : null;
+  let icon;
+
+  if (buttonIcon) {
+    icon = <ButtonToggleIcon buttonIcon={ buttonIcon } buttonIconSize={ buttonIconSize } />;
+  }
 
   return (
-    <StyledButtonToggle { ...props }>
+    <StyledButtonToggle grouped={ grouped } onChange={ onChange }>
       <ButtonToggleInput
-        name={ props.name }
-        disabled={ props.disabled }
+        name={ name }
+        disabled={ disabled }
         guid={ inputGuid }
+        value={ value }
       />
       <StyledButtonToggleLabel
-        { ...props } htmlFor={ inputGuid }
+        buttonIcon={ buttonIcon }
+        buttonIconSize={ buttonIconSize }
+        disabled={ disabled }
+        htmlFor={ inputGuid }
+        size={ size }
       >
         <StyledButtonToggleContentWrapper>
           { icon }
-          {props.children}
+          { children }
         </StyledButtonToggleContentWrapper>
       </StyledButtonToggleLabel>
     </StyledButtonToggle>
@@ -48,7 +68,9 @@ ButtonToggle.propTypes = {
   /** Disable all user interaction. */
   disabled: PropTypes.bool,
   /** A required prop. This is the button text. */
-  children: PropTypes.node.isRequired
+  children: PropTypes.node.isRequired,
+  /** Value for the input */
+  value: PropTypes.string
 };
 
 ButtonToggle.defaultProps = {
