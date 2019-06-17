@@ -3,10 +3,8 @@ Feature: Build tests
 
   @build
   Scenario Outline: Component <component> page with button
-    When I open "<component>" component page with button
-    # wait 3000 because first test on travis always fails
-      And I wait 3000
-      And I open component preview
+    When I open "<component>" component with button page in iframe
+      And I open component preview no iFrame
     Then "<component>" component is visible
     Examples:
       | component |
@@ -15,8 +13,8 @@ Feature: Build tests
 
   @build
   Scenario Outline: Component <component> page and open preview
-    When I open "<component>" component page
-      And I open component preview
+    When I open "<component>" component iframe
+      And I open component preview no iFrame
     Then "<data-component>" component is visible
     Examples:
       | component          | data-component     |
@@ -27,7 +25,7 @@ Feature: Build tests
 
   @build
   Scenario Outline: Component <component> page and open button
-    When I open "<component>" component page
+    When I open "<component>" component iframe
       And I click on a openButton
     Then "<component>" component is visible
     Examples:
@@ -37,7 +35,7 @@ Feature: Build tests
 
   @build
   Scenario Outline: Component <component> without activation button
-    When I open "<component>" component page
+    When I open "<component>" component iframe
     Then "<data-component>" component is visible
     Examples:
       | component            | data-component       |
