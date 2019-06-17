@@ -60,7 +60,6 @@ class Toast extends React.Component {
     return null;
   }
 
-  /** Renders the component. */
   render() {
     return (
       <Portal>
@@ -73,9 +72,7 @@ class Toast extends React.Component {
             transitionEnterTimeout={ 1500 }
             transitionLeaveTimeout={ 500 }
           >
-
             { this.toastContent() }
-
           </CSSTransitionGroup>
         </ToastWrapper>
       </Portal>
