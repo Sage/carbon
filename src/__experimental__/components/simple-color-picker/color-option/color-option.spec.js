@@ -1,12 +1,10 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 import 'jest-styled-components';
 import TestRenderer from 'react-test-renderer';
-import { ColorOption } from './color-option.component';
+import ColorOption from './color-option.component';
 import StyledColorOption from './style/color-option.style';
-import StyledColorSampleBox from './style/color-sample-box.style';
-import Icon from '../../../../components/icon/icon';
-
+import StyledColorSampleBox from '../color-sample-box/style/color-sample-box.style';
 import { assertStyleMatch } from '../../../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../../../utils/helpers/tags/tags-specs/tags-specs';
 import classicTheme from '../../../../style/themes/classic';
@@ -32,7 +30,6 @@ describe('ColorOption', () => {
     it('contains input and color sample box', () => {
       wrapper = render();
       expect(wrapper.children()).toHaveLength(2);
-      // dodac ze input + div
     });
   });
 
@@ -45,25 +42,6 @@ describe('ColorOption', () => {
       wrapper.toJSON(),
       { modifier: `:hover ${StyledColorSampleBox}` }
     );
-  });
-
-  describe('when checked', () => {
-    it('does not render the icon', () => {
-      wrapper = render({ checked: true }, mount);
-      expect(wrapper.find(Icon).exists()).toBeFalsy();
-    });
-
-    it('applies border and does not apply box shadow ', () => {
-      wrapper = renderStyles({ checked: true });
-      // dodac tutaj
-      // assertStyleMatch(
-      //   {
-      //     boxShadow: 'none'
-      //   },
-      //   wrapper,
-      //   { modifier: `${StyledColorSampleBox}` }
-      // );
-    });
   });
 
   describe('tags on component', () => {
@@ -83,27 +61,6 @@ describe('ColorOption', () => {
         wrapper.toJSON(),
         { modifier: `:hover ${StyledColorSampleBox}` }
       );
-    });
-
-    it('contains a tick icon when checked', () => {
-      wrapper = render({ theme: classicTheme }, mount);
-      const icon = wrapper.find(Icon);
-      expect(icon.prop('type')).toEqual('tick');
-    });
-
-    describe('when color is set to transparent or none', () => {
-      const colors = ['transparent', 'none'];
-      it('applies border around the tile', () => {
-        colors.forEach((color) => {
-          wrapper = TestRenderer.create(<StyledColorSampleBox theme={ classicTheme } color={ color } />);
-        });
-        assertStyleMatch(
-          {
-            borderColor: '#b3c2c8'
-          },
-          wrapper.toJSON()
-        );
-      });
     });
   });
 });
