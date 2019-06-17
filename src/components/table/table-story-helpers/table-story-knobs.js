@@ -53,8 +53,23 @@ const dlsKnobs = () => {
   };
 };
 
+const inputKnobs = () => {
+  return {
+    inputType: select(
+      'input type',
+      [
+        OptionsHelper.inputTypes[0],
+        OptionsHelper.inputTypes[1],
+        OptionsHelper.inputTypes[2]
+      ],
+      OptionsHelper.inputTypes[0]
+    )
+  };
+};
+
 export {
   commonKnobs,
   classicKnobs,
-  dlsKnobs
+  dlsKnobs,
+  inputKnobs
 };

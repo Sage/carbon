@@ -8,8 +8,16 @@ import countriesList from '../../../../demo/data/countries';
 import Button from '../../button';
 import MultiActionButton from '../../multi-action-button/multi-action-button';
 import {
-  Table, TableCell, TableHeader, TableRow
+  Table,
+  TableCell,
+  TableHeader,
+  TableRow
 } from '..';
+import TextArea from '../../../__experimental__/components/textarea';
+import TextBox from '../../../__experimental__/components/textbox';
+import DateInput from '../../../__experimental__/components/date';
+import getTextboxStoryProps from '../../../__experimental__/components/textbox/textbox.stories';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const store = new Store({
   sortOrder: commonKnobs().sortOrder,
@@ -44,7 +52,21 @@ const getActiveRows = (pageSize, totalRecords) => {
   return recordsForActivePage(startIndex, endIndex);
 };
 
-const buildRows = ({ pageSize, totalRecords }) => {
+const pickInput = (name) => {
+  const { inputTypes } = OptionsHelper;
+  switch (name) {
+    case inputTypes[1]:
+      return <TextArea { ...getTextboxStoryProps } />;
+    case inputTypes[2]:
+      return <DateInput { ...getTextboxStoryProps } />;
+    default:
+      return <TextBox { ...getTextboxStoryProps } />;
+  }
+};
+
+const buildRows = ({
+  pageSize, totalRecords, inputType, size
+}) => {
   const rowsCountries = getActiveRows(pageSize, totalRecords);
 
   return (
@@ -70,15 +92,25 @@ const buildRows = ({ pageSize, totalRecords }) => {
         Code
         </TableHeader>
       </TableRow>
-      {rowsCountries.map(row => (
-        <TableRow
-          key={ row.id }
-          uniqueID={ row.id }
-        >
-          <TableCell>{row.name}</TableCell>
-          <TableCell>{row.value}</TableCell>
-        </TableRow>
-      ))}
+      {rowsCountries.map((row) => {
+        let cellContent = (<TableCell>{ row.name }</TableCell>);
+        if (inputType) {
+          cellContent = (
+            <TableCell size={ size }>
+              { pickInput(inputType) }
+            </TableCell>
+          );
+        }
+        return (
+          <TableRow
+            key={ row.id }
+            uniqueID={ row.id }
+          >
+            { cellContent }
+            <TableCell>{ row.value }</TableCell>
+          </TableRow>
+        );
+      })}
   </>
   );
 };
