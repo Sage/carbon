@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 import tagComponent from '../../utils/helpers/tags/tags';
 import Portal from '../portal/portal';
-import { ToastStyle, ToastTypeStyle, ToastContentStyle } from './toast.style';
+import {
+  ToastStyle, ToastTypeStyle, ToastContentStyle, ToastWrapper
+} from './toast.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import DismissButton from '../dismiss-button';
 
@@ -62,10 +64,7 @@ class Toast extends React.Component {
   render() {
     return (
       <Portal>
-        <div style={ {
-          position: 'fixed', width: '100%', height: '0', justifyContent: 'center', display: 'flex '
-        } }
-        >
+        <ToastWrapper isCenter={ this.props.isCenter }>
           <CSSTransitionGroup
             component='div'
             transitionAppear
@@ -78,7 +77,7 @@ class Toast extends React.Component {
             { this.toastContent() }
 
           </CSSTransitionGroup>
-        </div>
+        </ToastWrapper>
       </Portal>
     );
   }

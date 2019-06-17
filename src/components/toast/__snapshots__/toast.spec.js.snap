@@ -18,34 +18,77 @@ exports[`Toast when toast is closed renders null 1`] = `
             class="carbon-portal"
             data-portal-exit="guid-12345"
           >
-            <div />
+            <div
+              class=""
+            >
+              <div />
+            </div>
           </div>
         }
       >
-        <CSSTransitionGroup
-          component="div"
-          transitionAppear={true}
-          transitionAppearTimeout={1600}
-          transitionEnter={true}
-          transitionEnterTimeout={1500}
-          transitionLeave={true}
-          transitionLeaveTimeout={500}
-          transitionName="toast"
+        <styled.div
+          isCenter={false}
         >
-          <TransitionGroup
-            childFactory={[Function]}
-            component="div"
-            transitionAppear={true}
-            transitionAppearTimeout={1600}
-            transitionEnter={true}
-            transitionEnterTimeout={1500}
-            transitionLeave={true}
-            transitionLeaveTimeout={500}
-            transitionName="toast"
+          <StyledComponent
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-bZQynM",
+                  "isStatic": false,
+                  "lastClassName": "boMXtV",
+                  "rules": Array [
+                    "
+  ",
+                    [Function],
+                    "
+",
+                  ],
+                },
+                "displayName": "styled.div",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "sc-bZQynM",
+                "target": "div",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={null}
+            isCenter={false}
           >
-            <div />
-          </TransitionGroup>
-        </CSSTransitionGroup>
+            <div
+              className=""
+            >
+              <CSSTransitionGroup
+                component="div"
+                transitionAppear={true}
+                transitionAppearTimeout={1600}
+                transitionEnter={true}
+                transitionEnterTimeout={1500}
+                transitionLeave={true}
+                transitionLeaveTimeout={500}
+                transitionName="toast"
+              >
+                <TransitionGroup
+                  childFactory={[Function]}
+                  component="div"
+                  transitionAppear={true}
+                  transitionAppearTimeout={1600}
+                  transitionEnter={true}
+                  transitionEnterTimeout={1500}
+                  transitionLeave={true}
+                  transitionLeaveTimeout={500}
+                  transitionName="toast"
+                >
+                  <div />
+                </TransitionGroup>
+              </CSSTransitionGroup>
+            </div>
+          </StyledComponent>
+        </styled.div>
       </Portal>
     </span>
   </Portal>

@@ -5,7 +5,9 @@ import { shallow, mount } from 'enzyme';
 import guid from '../../utils/helpers/guid/guid';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import Toast from './toast.component';
-import { ToastStyle, ToastTypeStyle, ToastContentStyle } from './toast.style';
+import {
+  ToastStyle, ToastTypeStyle, ToastContentStyle, ToastWrapper
+} from './toast.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
 import DismissButton from '../dismiss-button';
@@ -47,13 +49,14 @@ describe('Toast', () => {
     describe('with prop isCenter', () => {
       it('should render Toast in the center of the document', () => {
         assertStyleMatch({
-          right: '50%',
-          transform: 'translateX(50%)'
-        }, mount(<Toast
-          variant='help'
-          isCenter
-          open
-        />));
+          position: 'fixed',
+          width: '100%',
+          height: '0',
+          justifyContent: 'center',
+          display: 'flex'
+        }, mount(
+          <ToastWrapper isCenter />
+        ));
       });
     });
 

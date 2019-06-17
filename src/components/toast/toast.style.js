@@ -15,10 +15,9 @@ const ToastStyle = styled(MessageStyle)`
   line-height: 22px;
   margin-top: 30px;
   max-width: 300px;
-  /* position: fixed; */
+  position: ${({ isCenter }) => (isCenter ? '' : 'fixed')};
   right: ${({ isCenter }) => (isCenter ? '0px' : '30px')};
   top: 0;
-  transform:  ${({ isCenter }) => (isCenter ? '' : '')}; 
 
   ${({ theme }) => theme.name !== THEMES.classic && css`
     &${animationName}-appear,
@@ -59,4 +58,15 @@ const ToastContentStyle = styled(MessageContentStyle)`
   ${classicToastContentStyle};
 `;
 
-export { ToastStyle, ToastTypeStyle, ToastContentStyle };
+const ToastWrapper = styled.div`
+  ${({ isCenter }) => isCenter && css`
+      position: fixed;
+      width: 100%; 
+      height: 0;
+      justify-content: center;
+      display: flex;
+  `}
+`;
+export {
+  ToastStyle, ToastTypeStyle, ToastContentStyle, ToastWrapper
+};
