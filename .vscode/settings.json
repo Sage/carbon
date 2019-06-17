@@ -3,7 +3,7 @@
     "**/.git": true,
     "**/coverage": true
   },
-  "cucumberautocomplete.syncfeatures": "cypress/integration/**/*.feature",
+  "cucumberautocomplete.syncfeatures": "cypress/features/**/*.feature",
   "cucumberautocomplete.steps": ["cypress/support/step-definitions/*.js"],
   "cucumberautocomplete.strictGherkinCompletion": true,
   "cucumberautocomplete.smartSnippets": true,
