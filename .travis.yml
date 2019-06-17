@@ -10,8 +10,7 @@ node_js:
 install:
   - npm install -g npm@6.1.0
   - npm install -g gulp
-  - npm install
-  # - npm ci
+  - npm ci
 
 script:
   - npm run lint ./src && npm test -- --maxWorkers=2
