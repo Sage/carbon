@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import MD5 from 'crypto-js/md5';
 import tagComponent from '../../utils/helpers/tags';
 import Browser from '../../utils/helpers/browser';
+import OptionsHelper from '../../utils/helpers/options-helper';
 import StyledPortrait, { StyledInitialsImage, StyledAvatarImage, StyledIcon } from './portrait.style';
 
 class Portrait extends React.Component {
@@ -33,7 +34,7 @@ class Portrait extends React.Component {
     /**
      * Defines the size of the Portrait.
      */
-    size: PropTypes.oneOf(Object.keys(Portrait.numericSizes)),
+    size: PropTypes.oneOf(OptionsHelper.sizesFull),
 
     /**
      * Define an image source.
