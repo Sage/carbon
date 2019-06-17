@@ -12,7 +12,7 @@ import { THEMES } from '../../style/themes';
 const animationName = '.toast';
 const ToastStyle = styled(MessageStyle)`
   box-shadow: 0 10px 30px 0 rgba(0,20,29,.1), 0 30px 60px 0 rgba(0,20,29,.1);
-  line-height: 21px;
+  line-height: 22px;
   margin-top: 30px;
   max-width: 300px;
   position: fixed;
