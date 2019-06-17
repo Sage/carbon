@@ -2,6 +2,7 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import classNames from 'classnames';
 import { Row, Column } from './../row';
+import Label from '../../__experimental__/components/label';
 import Textbox from './../textbox';
 import InlineInputs from './inline-inputs.component';
 import { shallow } from 'enzyme';
@@ -18,7 +19,7 @@ describe('Inline Inputs', () => {
       >
         <Textbox />
         <Textbox />
-      </ InlineInputs>
+      </InlineInputs>
     );
   });
 
@@ -28,8 +29,8 @@ describe('Inline Inputs', () => {
 
   describe('when a label prop is passed in', () => {
     it('contains a label', () => {
-      let label = wrapper.find('.carbon-inline-inputs__label');
-      expect(label.text()).toEqual('My Test Label');
+      const label = wrapper.find(Label);
+      expect(label.props().children).toEqual('My Test Label');
     });
   });
 
@@ -41,13 +42,14 @@ describe('Inline Inputs', () => {
         >
           <Textbox />
           <Textbox />
-        </ InlineInputs>
+        </InlineInputs>
       );
     });
 
     it('does not contain a label', () => {
-      let label = wrapper.find('.carbon-inline-inputs__label');
-      expect(label.length).toEqual(0);
+      const label = wrapper.find(Label);
+      console.log(wrapper.debug());
+      expect(label.exists()).toBe(false);
     });
   });
 
