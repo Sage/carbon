@@ -285,7 +285,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 .c0 .c1 > .c3:focus {
   margin: 0;
   height: 31px;
-  padding: 7px 10px 7px 18px;
+  padding: 7px 14px 7px 18px;
 }
 
 .c0 .c1 > .c3:focus {
@@ -493,7 +493,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 .c11 .c1 > .c3:focus {
   margin: 0;
   height: 31px;
-  padding: 7px 10px 7px 18px;
+  padding: 7px 14px 7px 18px;
 }
 
 .c11 .c1 > .c3:focus {
@@ -531,7 +531,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 .c0 .c1 > .c3:focus {
   margin: 0;
   height: 31px;
-  padding: 7px 10px 7px 18px;
+  padding: 7px 14px 7px 18px;
 }
 
 .c0 .c1 > .c3:focus {
