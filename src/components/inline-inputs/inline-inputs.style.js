@@ -7,7 +7,6 @@ const StyledInlineInputs = styled.div`
 
   ${LabelStyle} {
     font-weight: bold;
-    width: auto;
   }
 
   input {

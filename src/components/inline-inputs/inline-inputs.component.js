@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { Row, Column } from '../row';
 import Label from '../../__experimental__/components/label';
 import StyledInlineInputs from './inline-inputs.style';
@@ -34,7 +33,7 @@ const InlineInputs = (props) => {
   function renderLabel() {
     if (!label) return null;
 
-    return <Label htmlFor={ htmlFor }>{ label }</Label>;
+    return <Label inline htmlFor={ htmlFor }>{ label }</Label>;
   }
 
   return (

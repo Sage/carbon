@@ -1,12 +1,9 @@
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
-import classNames from 'classnames';
-import { Row, Column } from './../row';
-import Label from '../../__experimental__/components/label';
-import Textbox from './../textbox';
-import InlineInputs from './inline-inputs.component';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { Row, Column } from '../row';
+import Label from '../../__experimental__/components/label';
+import Textbox from '../../__experimental__/components/textbox';
+import InlineInputs from './inline-inputs.component';
 
 describe('Inline Inputs', () => {
   let wrapper;
@@ -24,7 +21,7 @@ describe('Inline Inputs', () => {
   });
 
   it('renders with main class', () => {
-    expect(['carbon-inline-inputs', 'my-custom-class'].every(c => wrapper.hasClass(c))).toBeTruthy();
+    expect(['my-custom-class'].every(c => wrapper.hasClass(c))).toBeTruthy();
   });
 
   describe('when a label prop is passed in', () => {
@@ -48,14 +45,14 @@ describe('Inline Inputs', () => {
 
     it('does not contain a label', () => {
       const label = wrapper.find(Label);
-      console.log(wrapper.debug());
+
       expect(label.exists()).toBe(false);
     });
   });
 
   it('contains a row', () => {
-    let row = wrapper.find('.carbon-inline-inputs__inputs');
-    expect(row.length).toEqual(1);
+    const row = wrapper.find(Row);
+    expect(row.exists()).toBe(true);
   });
 
   describe('children', () => {
