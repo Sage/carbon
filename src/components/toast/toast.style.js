@@ -15,28 +15,28 @@ const ToastStyle = styled(MessageStyle)`
   line-height: 22px;
   margin-top: 30px;
   max-width: 300px;
-  position: fixed;
-  right: ${({ isCenter }) => (isCenter ? '50%' : '30px')};
+  /* position: fixed; */
+  right: ${({ isCenter }) => (isCenter ? '0px' : '30px')};
   top: 0;
-  transform:  ${({ isCenter }) => (isCenter ? 'translateX(50%)' : '')}; 
+  transform:  ${({ isCenter }) => (isCenter ? '' : '')}; 
 
   ${({ theme }) => theme.name !== THEMES.classic && css`
     &${animationName}-appear,
     &${animationName}-enter {
       opacity: 0;
-      transform: ${({ isCenter }) => (isCenter ? 'translateX(50%) scale(0.5)' : 'scale(0.5)')};
+      transform: ${({ isCenter }) => (isCenter ? ' scale(0.5)' : 'scale(0.5)')};
     }
 
     &${animationName}-appear.toast-appear-active,
     &${animationName}-enter.toast-enter-active {
       opacity: 1;
-      transform: ${({ isCenter }) => (isCenter ? 'translateX(50%) scale(1) translateY(0)' : 'scale(1)')};
+      transform: ${({ isCenter }) => (isCenter ? ' scale(1) translateY(0)' : 'scale(1)')};
       transition: all 300ms cubic-bezier(0.250, 0.250, 0.000, 1.500);
     }
 
     &${animationName}-leave.toast-leave-active {
       opacity: 0;
-      transform: ${({ isCenter }) => (isCenter ? 'translateY(-20px) translateX(50%)' : 'translateY(-20px)')} ;
+      transform: ${({ isCenter }) => (isCenter ? 'translateY(-20px) ' : 'translateY(-20px)')} ;
       transition: all 150ms ease-out;
     }
   `}

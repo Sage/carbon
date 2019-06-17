@@ -62,16 +62,23 @@ class Toast extends React.Component {
   render() {
     return (
       <Portal>
-        <CSSTransitionGroup
-          component='div'
-          transitionAppear
-          transitionName='toast'
-          transitionAppearTimeout={ 1600 }
-          transitionEnterTimeout={ 1500 }
-          transitionLeaveTimeout={ 500 }
+        <div style={ {
+          position: 'fixed', width: '100%', height: '0', justifyContent: 'center', display: 'flex '
+        } }
         >
-          { this.toastContent() }
-        </CSSTransitionGroup>
+          <CSSTransitionGroup
+            component='div'
+            transitionAppear
+            transitionName='toast'
+            transitionAppearTimeout={ 1600 }
+            transitionEnterTimeout={ 1500 }
+            transitionLeaveTimeout={ 500 }
+          >
+
+            { this.toastContent() }
+
+          </CSSTransitionGroup>
+        </div>
       </Portal>
     );
   }
