@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import Immutable from 'immutable';
-import { withTheme } from 'styled-components';
 import PagerNavigation from './pager-navigation.component';
 import {
   PagerContainerStyles,
@@ -16,18 +15,18 @@ import { THEMES } from '../../style/themes';
 
 const Pager = (props) => {
   const [currentPage, setCurrentPage] = useState(props.currentPage);
+  const [currentTheme, setCurrentTheme] = useState('classic');
 
   useEffect(() => {
     setCurrentPage(props.currentPage);
   }, [props.currentPage]);
 
-  const { theme } = props;
   /** Term used to describe table data */
   const descriptor = I18n.t(
     'pager.records',
     {
       count: Number(props.totalRecords),
-      defaultValue: (theme && theme.name === THEMES.classic) ? ' records' : ' items'
+      defaultValue: currentTheme === THEMES.classic ? ' records' : ' items'
     }
   );
 
@@ -57,6 +56,7 @@ const Pager = (props) => {
         { ...props }
         currentPage={ currentPage }
         setCurrentPage={ setCurrentPage }
+        currentTheme={ setCurrentTheme }
       />
       <PagerSummaryStyles>{props.totalRecords} {descriptor}</PagerSummaryStyles>
     </PagerContainerStyles>
@@ -91,6 +91,4 @@ Pager.defaultProps = {
   theme: baseTheme
 };
 
-export const PagerWithoutTheme = Pager;
-
-export default withTheme(Pager);
+export default Pager;

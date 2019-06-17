@@ -79,7 +79,7 @@ const PagerButtonWrapperStyles = styled.div`
 
   ${({ disabled }) => disabled && css`
     opacity: 0.3;
-    cursor: default;
+    cursor: not-allowed;
   `};
 
   ${({ next }) => next && css`
