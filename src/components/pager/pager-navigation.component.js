@@ -15,8 +15,8 @@ import Events from '../../utils/helpers/events';
 import baseTheme from '../../style/themes/base';
 
 const PagerNavigation = (props) => {
-  const { theme } = props;
-  props.currentTheme(theme.name);
+  const { theme, setCurrentThemeName } = props;
+  setCurrentThemeName(theme.name);
 
   const updatePageFromInput = (ev) => {
     let newPage = Math.abs(Number(ev.target.value));
@@ -187,7 +187,7 @@ PagerNavigation.propTypes = {
   /** Current theme */
   theme: PropTypes.object,
   /** Callback for the current theme name */
-  currentTheme: PropTypes.func
+  setCurrentThemeName: PropTypes.func
 };
 
 PagerNavigation.defaultProps = {

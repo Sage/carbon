@@ -15,7 +15,7 @@ import { THEMES } from '../../style/themes';
 
 const Pager = (props) => {
   const [currentPage, setCurrentPage] = useState(props.currentPage);
-  const [currentTheme, setCurrentTheme] = useState('classic');
+  const [currentTheme, setCurrentTheme] = useState(THEMES.classic);
 
   useEffect(() => {
     setCurrentPage(props.currentPage);
@@ -56,7 +56,7 @@ const Pager = (props) => {
         { ...props }
         currentPage={ currentPage }
         setCurrentPage={ setCurrentPage }
-        currentTheme={ setCurrentTheme }
+        setCurrentThemeName={ setCurrentTheme }
       />
       <PagerSummaryStyles>{props.totalRecords} {descriptor}</PagerSummaryStyles>
     </PagerContainerStyles>

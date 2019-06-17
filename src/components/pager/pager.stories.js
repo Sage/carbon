@@ -67,7 +67,7 @@ const TableComponent = ({ propDefinitions }) => {
 };
 
 TableComponent.propTypes = {
-  propDefinitions: PropTypes.func
+  propDefinitions: PropTypes.array
 };
 
 storiesOf('Pager', module)

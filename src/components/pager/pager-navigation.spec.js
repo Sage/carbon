@@ -18,7 +18,7 @@ const pageSizeSelectionOptions = Immutable.fromJS([
 
 function render(props, renderType = shallow) {
   const theme = props.theme ? props.theme : smallTheme;
-  props.currentTheme = () => {};
+  props.setCurrentThemeName = () => {};
   return renderType(
     <ThemeProvider theme={ theme }>
       <PagerNavigation { ...props } />
