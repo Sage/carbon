@@ -210,12 +210,6 @@ describe('Portrait', () => {
     });
   });
 
-  describe('shapes', () => {
-    it('is an array of valid shapes', () => {
-      expect(Portrait.shapes).toEqual(['standard', 'circle', 'leaf']);
-    });
-  });
-
   describe('render icon', () => {
     const styledIcon = (
       <StyledIcon

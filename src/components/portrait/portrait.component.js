@@ -20,11 +20,6 @@ class Portrait extends React.Component {
     'extra-large': '120'
   }
 
-  /**
-   * List of valid shapes.
-   */
-  static shapes = ['standard', 'circle', 'leaf']
-
   static propTypes = {
     /**
      * A custom class name for the component.
@@ -61,7 +56,7 @@ class Portrait extends React.Component {
     /**
      * Defines the shape of the Portrait.
      */
-    shape: PropTypes.oneOf(Portrait.shapes),
+    shape: PropTypes.oneOf(OptionsHelper.shapesVaried),
 
     /**
      * Define some initials to render in the Portrait.
