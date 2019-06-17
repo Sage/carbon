@@ -1,20 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import { assign } from 'lodash';
 import { Row, Column } from '../row';
+import Label from '../../__experimental__/components/label';
 import './inline-inputs.scss';
-
-/* eslint-disable react/prop-types */
-
-const Label = (props) => {
-  if (!props.label) { return null; }
-  return (
-    <label htmlFor={ props.htmlFor } className='carbon-inline-inputs__label'>
-      { props.label }
-    </label>
-  );
-};
 
 const columnWrapper = (children) => {
   let inputs = children;
@@ -35,51 +24,40 @@ const columnWrapper = (children) => {
 };
 
 const InlineInputs = (props) => {
+  const {
+    label,
+    htmlFor,
+    children,
+    className
+  } = props;
+
+  function renderLabel() {
+    if (!label) return null;
+
+    return <Label htmlFor={ htmlFor }>{ label }</Label>;
+  }
+
   return (
-    <div data-component='inline-inputs' className={ classNames('carbon-inline-inputs', props.className) }>
-      { Label(props) }
+    <div className={ classNames('carbon-inline-inputs', className) }>
+      { renderLabel() }
       <Row gutter='none' className='carbon-inline-inputs__inputs'>
-        { columnWrapper(props.children) }
+        { columnWrapper(children) }
       </Row>
     </div>
   );
 };
 
-Label.propTypes = {
-  /**
-   * Defines the label text for the heading.
-   *
-   * @property label
-   * @type {String}
-   */
+// Assign props over for demo site
+InlineInputs.propTypes = {
+  /** Children elements */
+  children: PropTypes.node,
+  /** [Legacy prop] A custom class name for the component. */
+  className: PropTypes.string,
+  /** Defines the label text for the heading. */
   label: PropTypes.string,
-
-  /**
-   * The id of the corresponding input control for the label
-   *
-   * @property label
-   * @type {String}
-   */
+  /** The id of the corresponding input control for the label */
   htmlFor: PropTypes.string
 };
-
-Label.defaultProps = {
-  label: '',
-  htmlFor: null
-};
-
-// Assign props over for demo site
-InlineInputs.propTypes = assign({}, {
-  /**
-   * Children elements
-   */
-  children: PropTypes.node,
-
-  /**
-   * A custom class name for the component.
-   */
-  className: PropTypes.string
-}, Label.propTypes);
 
 InlineInputs.defaultProps = {
   children: null,
