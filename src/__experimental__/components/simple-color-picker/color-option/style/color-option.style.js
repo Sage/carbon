@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import StyledColorSampleBox from './color-sample-box.style';
+import StyledColorSampleBox from '../../color-sample-box/style/color-sample-box.style';
 import colorOptionClassicStyles from './color-option-classic.style';
 import baseTheme from '../../../../../style/themes/base';
 import generatePalette from '../../../../../style/palette';
