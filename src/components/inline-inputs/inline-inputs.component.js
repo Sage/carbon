@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { Row, Column } from '../row';
 import Label from '../../__experimental__/components/label';
-import './inline-inputs.scss';
+import StyledInlineInputs from './inline-inputs.style';
 
 const columnWrapper = (children) => {
   let inputs = children;
@@ -38,12 +38,12 @@ const InlineInputs = (props) => {
   }
 
   return (
-    <div className={ classNames('carbon-inline-inputs', className) }>
+    <StyledInlineInputs className={ className }>
       { renderLabel() }
-      <Row gutter='none' className='carbon-inline-inputs__inputs'>
+      <Row gutter='none'>
         { columnWrapper(children) }
       </Row>
-    </div>
+    </StyledInlineInputs>
   );
 };
 
