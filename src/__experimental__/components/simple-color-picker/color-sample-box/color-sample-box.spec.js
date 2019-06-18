@@ -6,7 +6,7 @@ import { ColorSampleBox } from './color-sample-box.component';
 import StyledColorSampleBox from './style/color-sample-box.style';
 import classicTheme from '../../../../style/themes/classic';
 import { assertStyleMatch } from '../../../../__spec_helper__/test-utils';
-import StyledTickIcon from './tick-icon/tick-icon.style';
+import StyledTickIcon from '../tick-icon/tick-icon.style';
 
 function render(props) {
   return shallow(<ColorSampleBox color='#0073C2' { ...props } />);

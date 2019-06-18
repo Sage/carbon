@@ -11,6 +11,10 @@ const StyledColorOptionInput = styled(Input)`
   width: 56px;
   margin: 0;
 
+  &:hover {
+    cursor: pointer;
+  }
+
   &:checked + ${StyledColorSampleBox}, &:focus + ${StyledColorSampleBox} {
     box-shadow: inset 0px 0px 0px 3px ${({ theme }) => theme.colors.white};
     border: 2px solid ${({ theme }) => theme.colors.primary};

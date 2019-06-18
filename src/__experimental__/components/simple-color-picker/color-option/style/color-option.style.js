@@ -17,6 +17,7 @@ const StyledColorOption = styled.li`
   list-style: none;
 
   &:hover {
+    cursor: pointer;
     ${StyledColorSampleBox} {
       background-color: ${({ color }) => generateHoverColor(color)};
     }

@@ -1,11 +1,11 @@
 import React from 'react';
 import 'jest-styled-components';
 import TestRenderer from 'react-test-renderer';
-import classicTheme from '../../../../style/themes/classic';
 import { assertStyleMatch } from '../../../../__spec_helper__/test-utils';
 import StyledColorOptionInput from './style/color-option-input.style';
 import StyledColorSampleBox from '../color-sample-box/style/color-sample-box.style';
 import baseTheme from '../../../../style/themes/base';
+import classicTheme from '../../../../style/themes/classic';
 
 function render(props) {
   return TestRenderer.create(<StyledColorOptionInput { ...props } />);

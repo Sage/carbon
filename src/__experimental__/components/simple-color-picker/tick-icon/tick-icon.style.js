@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import Icon from '../../../../../components/icon';
+import Icon from '../../../../components/icon';
 
 const StyledTickIcon = styled(Icon)`
   &.carbon-icon {
