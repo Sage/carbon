@@ -3,6 +3,9 @@ import {
   PagerContainerClassicStyles,
   PagerNavigationClassicStyles
 } from './pager-classic.styles';
+import { LinkStyle } from '../link/link.style';
+import StyledInput from '../../__experimental__/components/input/input.style';
+import StyledInputPresentation from '../../__experimental__/components/input/input-presentation.style';
 import smallTheme from '../../style/themes/small';
 
 const PagerContainerStyles = styled.div`
@@ -20,9 +23,6 @@ const PagerContainerStyles = styled.div`
       .common-input__input {
         &:active, :hover {
           border-color: ${theme.table.secondary};
-        }
-        &:focus {
-          outline: 2px solid ${theme.colors.focus};
         }
       }
     `;
@@ -54,13 +54,16 @@ const PagerNavigationStyles = styled.div`
   justify-content: center;
   align-items: center;
 
-  .carbon-number__input {
-    width: 34px;
-    height: 24px;
+  && ${StyledInputPresentation} {
     padding: 0;
     margin: 0 4px;
     line-height: 24px;
+    min-height: 24px;
+  }
+
+  && ${StyledInput} {
     text-align: center;
+    height: 24px;
   }
 
   ${PagerNavigationClassicStyles}
@@ -90,7 +93,7 @@ const PagerButtonWrapperStyles = styled.div`
   `};
 `;
 
-const PagerLinkStyles = styled.button`
+const PagerLinkStyles = styled(LinkStyle)`
   padding: 0 12px;
   font-size: 13px;
   border-width: 0;

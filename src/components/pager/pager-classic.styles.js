@@ -19,6 +19,10 @@ const PagerNavigationClassicStyles = ({ theme }) => theme.name === THEMES.classi
   .carbon-number__input {
     width: 35px;
     height: 31px;
+    padding: 0;
+    margin: 0 4px;
+    line-height: 24px;
+    text-align: center;
   }
 `;
 

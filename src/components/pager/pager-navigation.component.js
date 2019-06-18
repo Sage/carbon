@@ -11,8 +11,10 @@ import {
 } from './pager.styles';
 import Icon from '../icon';
 import NumberComponent from '../number';
+import NumberInput from '../../__experimental__/components/number';
 import Events from '../../utils/helpers/events';
 import baseTheme from '../../style/themes/base';
+import { THEMES } from '../../style/themes';
 
 const PagerNavigation = (props) => {
   const { theme, setCurrentThemeName } = props;
@@ -132,14 +134,25 @@ const PagerNavigation = (props) => {
       }
     };
 
+    if (isClassic(theme)) {
+      return (
+        <label>
+          <NumberComponent { ...currentPageInputProps } />
+        </label>
+      );
+    }
     return (
       <label>
-        <NumberComponent { ...currentPageInputProps } />
+        <NumberInput { ...currentPageInputProps } />
       </label>
     );
   }
 
-  if (theme && theme.name === 'classic') {
+  function isClassic(currentTheme) {
+    return currentTheme && currentTheme.name === THEMES.classic;
+  }
+
+  if (isClassic(theme)) {
     return (
       <PagerNavigationStyles>
         { navArrow(-1) }

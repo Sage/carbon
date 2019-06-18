@@ -9,6 +9,8 @@ import Icon from '../icon';
 import PagerNavigation from './pager-navigation.component';
 import { PagerLinkStyles } from './pager.styles';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import StyledInputPresentation from '../../__experimental__/components/input/input-presentation.style';
+import StyledInput from '../../__experimental__/components/input/input.style';
 
 const pageSizeSelectionOptions = Immutable.fromJS([
   { id: '10', name: 10 },
@@ -80,11 +82,21 @@ describe('Pager Navigation', () => {
     }, wrapper.find(PagerNavigation));
 
     assertStyleMatch({
-      width: '34px',
+      padding: '0',
+      margin: '0 4px',
+      lineHeight: '24px',
+      minHeight: '24px'
+    }, wrapper.find(PagerNavigation),
+    {
+      modifier: `&& ${StyledInputPresentation}`
+    });
+
+    assertStyleMatch({
+      textAlign: 'center',
       height: '24px'
     }, wrapper.find(PagerNavigation),
     {
-      modifier: '.carbon-number__input'
+      modifier: `&& ${StyledInput}`
     });
   });
 
