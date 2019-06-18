@@ -22,15 +22,7 @@ Feature: Build tests
       | dialog             | dialog             |
       | flash              | flash              |
       | pages              | page               |
-
-  @build
-  Scenario Outline: Component <component> page and open button
-    When I open "<component>" component iframe
-      And I click on a openButton
-    Then "<component>" component is visible
-    Examples:
-      | component |
-      | confirm   |
+      | confirm            | confirm            |
 
   @build
   Scenario Outline: Component <component> without activation button
