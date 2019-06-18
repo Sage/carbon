@@ -8,8 +8,6 @@ export default ({ theme }) => theme.name === THEMES.classic
     margin-bottom: 1px;
 
     &:hover {
-      cursor: pointer;
-
       ${StyledColorSampleBox} {
         background-color: ${({ color }) => color};
       }

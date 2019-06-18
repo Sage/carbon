@@ -4,7 +4,7 @@ import baseTheme from '../../../../style/themes/base';
 import tagComponent from '../../../../utils/helpers/tags';
 import StyledColorOption from './style/color-option.style';
 import ColorSampleBox from '../color-sample-box';
-import StyledColorOptionInput from './style/color-option-input.style';
+import StyledColorOptionInput from '../color-option-input/style/color-option-input.style';
 
 const ColorOption = (props) => {
   return (
