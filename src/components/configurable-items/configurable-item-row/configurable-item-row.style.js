@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import Icon from '../../icon/icon';
 import { THEMES } from '../../../style/themes';
 import baseTheme from '../../../style/themes/base';
+import LabelStyle from '../../../__experimental__/components/label/label.style';
 
 const ConfigurableItemRowIconStyle = styled(Icon)`
   cursor: move;
@@ -22,6 +23,10 @@ const ConfigurableItemRowStyle = styled.li`
   border-bottom: 1px solid ${({ theme }) => theme.disabled.input};
   font-weight: bold;
   padding: 5px 0.5em;
+
+  ${LabelStyle}{
+    padding: 0px 6px 6px 6px;
+  }
 
   ${({ theme }) => theme.name === THEMES.classic && css`
     border-bottom: 1px solid #CCD6DA;
