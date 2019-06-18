@@ -27,7 +27,7 @@ class MountInApp extends React.Component {
 
   get contentHtml() {
     return (
-      <div className='carbon-mount-in-app'>
+      <div data-component='mount-in-app' className='carbon-mount-in-app'>
         { this.props.children }
       </div>
     );

@@ -29,7 +29,10 @@ const ButtonToggle = (props) => {
   }
 
   return (
-    <StyledButtonToggle grouped={ grouped } onChange={ onChange }>
+    <StyledButtonToggle
+      data-component='button-toggle' grouped={ grouped }
+      onChange={ onChange }
+    >
       <ButtonToggleInput
         name={ name }
         disabled={ disabled }
