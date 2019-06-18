@@ -11,13 +11,13 @@ class Portrait extends React.Component {
    * Maps size to width/height value.
    */
   static numericSizes = {
-    'extra-small': '25',
-    small: '30',
+    'extra-small': '24',
+    small: '32',
     'medium-small': '40',
-    medium: '60',
-    'medium-large': '70',
-    large: '100',
-    'extra-large': '120'
+    medium: '56',
+    'medium-large': '72',
+    large: '104',
+    'extra-large': '128'
   }
 
   static propTypes = {

@@ -6,13 +6,13 @@ import BaseTheme from '../../style/themes/base';
 import Icon from '../icon';
 
 const sizeParams = {
-  'extra-small': { dimensions: 25, iconPadding: 4, iconDimensions: null },
-  small: { dimensions: 30, iconPadding: 6, iconDimensions: null },
-  'medium-small': { dimensions: 40, iconPadding: 12, iconDimensions: 24 },
-  medium: { dimensions: 60, iconPadding: 14, iconDimensions: 32 },
-  'medium-large': { dimensions: 70, iconPadding: 18, iconDimensions: 32 },
-  large: { dimensions: 100, iconPadding: 25, iconDimensions: 48 },
-  'extra-large': { dimensions: 120, iconPadding: 27, iconDimensions: 64 }
+  'extra-small': { dimensions: 24, iconDimensions: 16 },
+  small: { dimensions: 32, iconDimensions: 16 },
+  'medium-small': { dimensions: 40, iconDimensions: 24 },
+  medium: { dimensions: 56, iconDimensions: 32 },
+  'medium-large': { dimensions: 72, iconDimensions: 32 },
+  large: { dimensions: 104, iconDimensions: 48 },
+  'extra-large': { dimensions: 128, iconDimensions: 64 }
 };
 
 function stylingForSize({ size }) {

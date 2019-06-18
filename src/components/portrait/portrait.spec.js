@@ -179,14 +179,14 @@ describe('Portrait', () => {
       const src = instance.gravatarSrc();
       const base = 'https://www.gravatar.com/avatar/';
       const hash = MD5(email);
-      const size = '60';
+      const size = '56';
       expect(src).toEqual(`${base}${hash}?s=${size}&d=blank`);
     });
   });
 
   describe('numericSizes', () => {
     it('is an object mapping size to numeric value', () => {
-      expect(Portrait.numericSizes.small).toEqual('30');
+      expect(Portrait.numericSizes.small).toEqual('32');
     });
   });
 
@@ -290,7 +290,7 @@ describe('Portrait', () => {
     const imageUrl = 'https://example.com/example.jpg';
 
     it('renders avatar when supplied with Gravatar', () => {
-      const gravatarUrl = 'https://www.gravatar.com/avatar/23463b99b62a72f26ed677cc556c44e8?s=60&d=blank';
+      const gravatarUrl = 'https://www.gravatar.com/avatar/23463b99b62a72f26ed677cc556c44e8?s=56&d=blank';
       const styledAvatarImage = (
         <StyledAvatarImage
           src={ gravatarUrl }
