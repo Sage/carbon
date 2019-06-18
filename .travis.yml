@@ -13,8 +13,8 @@ install:
   - npm ci
 
 script:
-  - npm run lint ./src && npm test -- --maxWorkers=2
   - npm run storybook-ci </dev/null &>/dev/null &
+  - npm run lint ./src && npm test -- --maxWorkers=2
   - wait-on http://localhost:9001
   - npm run test-cypress-build-sanity
 
