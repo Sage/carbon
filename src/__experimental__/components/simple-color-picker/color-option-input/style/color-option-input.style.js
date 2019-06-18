@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import baseTheme from '../../../../../style/themes/base';
 import Input from '../../../input/input.component';
-import ColorOptionInputClassicStyle from './color-option-input-classic.style';
 import StyledColorSampleBox from '../../color-sample-box/style/color-sample-box.style';
+import ColorOptionInputClassicStyle from './color-option-input-classic.style';
 
 const StyledColorOptionInput = styled(Input)`
   position: absolute;
@@ -15,7 +15,8 @@ const StyledColorOptionInput = styled(Input)`
     cursor: pointer;
   }
 
-  &:checked + ${StyledColorSampleBox}, &:focus + ${StyledColorSampleBox} {
+  &:checked + ${StyledColorSampleBox}, 
+  &:focus + ${StyledColorSampleBox} {
     box-shadow: inset 0px 0px 0px 3px ${({ theme }) => theme.colors.white};
     border: 2px solid ${({ theme }) => theme.colors.primary};
   }

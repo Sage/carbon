@@ -12,12 +12,11 @@ const StyledTickIcon = styled(Icon)`
       font-size: 22px;
     }
 
-    ${({ checked }) => checked
-      && css`
-         {
-          display: block;
-        }
-      `}
+    ${({ checked }) => checked && css`
+      {
+        display: block;
+      }
+    `}
   }
 `;
 

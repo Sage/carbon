@@ -1,6 +1,5 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-import { findIndex } from 'lodash';
 import ColorOption from './color-option';
 import SimpleColorPicker from '.';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
@@ -27,15 +26,10 @@ describe('SimpleColorPicker', () => {
     const colorOptions = wrapper.find(ColorOption);
     expect(colorOptions.length).toEqual(3);
 
-    const selectedColorIdx = findIndex(props.availableColors, color => color === props.selectedColor);
-
     colorOptions.forEach((option, idx) => {
       expect(option.prop('name')).toEqual(props.name);
       expect(option.prop('onChange')).toEqual(props.onChange);
       expect(option.prop('color')).toEqual(props.availableColors[idx]);
-
-      const isChecked = idx === selectedColorIdx;
-      expect(option.prop('checked')).toEqual(isChecked);
     });
   });
 

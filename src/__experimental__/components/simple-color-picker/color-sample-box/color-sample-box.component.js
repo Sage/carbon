@@ -4,9 +4,10 @@ import { withTheme } from 'styled-components';
 import StyledColorSampleBox from './style/color-sample-box.style';
 import baseTheme from '../../../../style/themes/base';
 import StyledTickIcon from '../tick-icon/tick-icon.style';
+import { THEMES } from '../../../../style/themes';
 
 const ColorSampleBox = ({ theme, color, checked }) => {
-  const tickIcon = checked && theme.name === 'classic' ? <StyledTickIcon checked type='tick' /> : null;
+  const tickIcon = checked && theme.name === THEMES.classic ? <StyledTickIcon checked type='tick' /> : null;
   return <StyledColorSampleBox color={ color }>{tickIcon}</StyledColorSampleBox>;
 };
 

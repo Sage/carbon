@@ -9,28 +9,32 @@ import { assertStyleMatch } from '../../../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../../../utils/helpers/tags/tags-specs/tags-specs';
 import classicTheme from '../../../../style/themes/classic';
 
-function render(props, renderer = shallow) {
-  return renderer(<ColorOption
-    name='color-picker' color='#0073C2'
-    { ...props }
-  />);
+function render(props) {
+  return shallow(
+    <ColorOption
+      name='color-picker'
+      color='#0073C2'
+      { ...props }
+    />
+  );
 }
 
 function renderStyles(props) {
-  return TestRenderer.create(<StyledColorOption
-    name='color-picker' color='#0073C2'
-    { ...props }
-  />);
+  return TestRenderer.create(
+    <StyledColorOption
+      name='color-picker'
+      color='#0073C2'
+      { ...props }
+    />
+  );
 }
 
 describe('ColorOption', () => {
   let wrapper;
 
-  describe('unchecked option', () => {
-    it('contains input and color sample box', () => {
-      wrapper = render();
-      expect(wrapper.children()).toHaveLength(2);
-    });
+  it('contains input and color sample box', () => {
+    wrapper = render();
+    expect(wrapper.children()).toHaveLength(2);
   });
 
   it('applies color mixed with 20% of black on hover', () => {
