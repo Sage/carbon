@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 import BaseTheme from '../../style/themes/base';
 import Icon from '../icon';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 const sizeParams = {
   'extra-small': { dimensions: 24, iconDimensions: 16 },
@@ -134,8 +135,8 @@ const StyledPortrait = styled.div`
 `;
 
 StyledPortrait.propTypes = {
-  size: PropTypes.string,
-  shape: PropTypes.string,
+  size: PropTypes.oneOf(OptionsHelper.sizesFull),
+  shape: PropTypes.oneOf(OptionsHelper.shapesVaried),
   showBorder: PropTypes.bool,
   theme: PropTypes.object
 };

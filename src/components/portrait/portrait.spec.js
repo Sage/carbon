@@ -75,7 +75,7 @@ describe('Portrait', () => {
 
       it('rejects an invalid size', () => {
         ReactTestUtils.renderIntoDocument(<Portrait src='foo' size='bar' />);
-        expect(console.error).toHaveBeenCalledTimes(1);
+        expect(console.error).toHaveBeenCalled();
         expect(console.error.calls.argsFor(0).length).toBe(1);
         const expected = 'Warning: Failed prop type: Invalid prop `size`';
         const actual = console.error.calls.argsFor(0)[0]; // eslint-disable-line no-console
@@ -93,7 +93,7 @@ describe('Portrait', () => {
 
       it('rejects an invalid shape', () => {
         ReactTestUtils.renderIntoDocument(<Portrait src='foo' shape='bar' />);
-        expect(console.error).toHaveBeenCalledTimes(1);
+        expect(console.error).toHaveBeenCalled();
         expect(console.error.calls.argsFor(0).length).toBe(1);
         const expected = 'Warning: Failed prop type: Invalid prop `shape`';
         const actual = console.error.calls.argsFor(0)[0]; // eslint-disable-line no-console
