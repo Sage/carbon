@@ -98,11 +98,13 @@ input:focus ~ .c5 {
 >
   <div
     className="c2"
+    data-component="button-toggle-group"
     onChange={[Function]}
     role="group"
   >
     <div
       className="c3"
+      data-component="button-toggle"
     >
       <input
         className="c4"
@@ -125,6 +127,7 @@ input:focus ~ .c5 {
     </div>
     <div
       className="c3"
+      data-component="button-toggle"
     >
       <input
         className="c4"
@@ -231,11 +234,13 @@ input:focus ~ .c5 {
 >
   <div
     className="c2"
+    data-component="button-toggle-group"
     onChange={[Function]}
     role="group"
   >
     <div
       className="c3"
+      data-component="button-toggle"
     >
       <input
         className="c4"
@@ -258,6 +263,7 @@ input:focus ~ .c5 {
     </div>
     <div
       className="c3"
+      data-component="button-toggle"
     >
       <input
         className="c4"
@@ -398,11 +404,13 @@ input:focus ~ .c6 {
 >
   <div
     className="c2"
+    data-component="button-toggle-group"
     onChange={[Function]}
     role="group"
   >
     <div
       className="c3"
+      data-component="button-toggle"
     >
       <input
         className="c4"
@@ -425,6 +433,7 @@ input:focus ~ .c6 {
     </div>
     <div
       className="c3"
+      data-component="button-toggle"
     >
       <input
         className="c4"
