@@ -7,10 +7,20 @@ const StyledInlineInputs = styled.div`
 
   ${LabelStyle} {
     font-weight: bold;
+    margin-right: 15px;
+    width: auto;
   }
 
   input {
     width: 100%;
+  }
+
+  [data-component="carbon-select"] input {
+    width: 30px;
+  }
+
+  .carbon-row {
+    flex-grow: 1;
   }
 `;
 
