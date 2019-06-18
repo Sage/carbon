@@ -20,15 +20,7 @@ Feature: Sanity tests
       | dialog              | dialog             |
       | flash               | flash              |
       | pages               | page               |
-
-  @sanity
-  Scenario Outline: Component <component> page and open button
-    When I open "<component>" component page
-    Then "<component>" component has no violations in Accessibility section
-    Examples:
-      | component         |
-      | confirm           |
-
+      | confirm             | confirm            |
 
   @sanity
   Scenario Outline: Component <component> without activation button

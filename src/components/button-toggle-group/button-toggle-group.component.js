@@ -16,6 +16,7 @@ const ButtonToggleGroup = withValidations((props) => {
   return (
     <FormField { ...props }>
       <ButtonToggleGroupStyle
+        data-component='button-toggle-group'
         aria-label={ label }
         role='group'
         inputWidth={ inputWidth }

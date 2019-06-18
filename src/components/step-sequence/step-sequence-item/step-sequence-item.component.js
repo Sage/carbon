@@ -35,7 +35,11 @@ const StepSequenceItem = (props) => {
   };
 
   return (
-    <StepSequenceItemStyle { ...props } key={ `step-seq-item-${props.indicator}` }>
+    <StepSequenceItemStyle
+      data-component='step-sequence-item'
+      { ...props }
+      key={ `step-seq-item-${props.indicator}` }
+    >
       {hiddenLabel()}
       <StepSequenceItemContentStyle>{ icon() } { props.children }</StepSequenceItemContentStyle>
     </StepSequenceItemStyle>
