@@ -105,6 +105,7 @@ const PagerLinkStyles = styled.button`
  
   ${({ isDisabled, theme }) => isDisabled && theme.pager && css`
     color: ${theme.pager.disabled};
+    cursor: not-allowed;
   `}
 `;
 
