@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import baseTheme from '../../../../../style/themes/base';
-import Input from '../../../input';
+import Input from '../../../input/input.component';
 import ColorOptionInputClassicStyle from './color-option-input-classic.style';
 import StyledColorSampleBox from '../../color-sample-box/style/color-sample-box.style';
 

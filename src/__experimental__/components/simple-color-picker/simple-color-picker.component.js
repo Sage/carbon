@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// eslint-disable-next-line import/no-named-as-default
 import ColorOption from './color-option/color-option.component.js';
 import tagComponent from '../../../utils/helpers/tags/tags';
 import { StyledSimpleColorPicker, StyledColorOptions } from './simple-color-picker.style';
+import guid from '../../../utils/helpers/guid';
 
 class SimpleColorPicker extends React.Component {
   static propTypes = {
@@ -28,6 +28,7 @@ class SimpleColorPicker extends React.Component {
   /** Returns a ColorOption component for a given color */
   _colorOption(color) {
     const isChecked = this._isOptionChecked(color);
+    const optionId = guid();
 
     return (
       <ColorOption
@@ -35,7 +36,8 @@ class SimpleColorPicker extends React.Component {
         onChange={ this.props.onChange }
         color={ color }
         checked={ isChecked }
-        key={ color }
+        key={ optionId }
+        optionId={ optionId }
       />
     );
   }
@@ -49,7 +51,9 @@ class SimpleColorPicker extends React.Component {
   render() {
     return (
       <StyledSimpleColorPicker { ...tagComponent('simple-color-picker', this.props) }>
-        <StyledColorOptions>{this._colorOptions}</StyledColorOptions>
+        <StyledColorOptions aria-label={ this.props.name } role='radiogroup'>
+          {this._colorOptions}
+        </StyledColorOptions>
       </StyledSimpleColorPicker>
     );
   }
