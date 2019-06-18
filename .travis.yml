@@ -16,8 +16,7 @@ script:
   - npm run lint ./src && npm test -- --maxWorkers=2
   - npm run storybook-ci </dev/null &>/dev/null &
   - wait-on http://localhost:9001
-  - npm run test-cypress-build
-  - npm run test-cypress-sanity
+  - npm run test-cypress-build-sanity
 
 before_deploy: if [ "$TRAVIS_BRANCH" == "release" ]; then ASSETS_PREFIX=https://carbon.sage.com npm run build; fi
 

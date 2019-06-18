@@ -17,6 +17,7 @@
     "test-cypress": "cypress open",
     "test-cypress-build": "cypress run --spec ./cypress/features/build/build.feature --env TAGS=@build",
     "test-cypress-sanity": "cypress run --spec ./cypress/features/sanity/sanity.feature --env TAGS=@sanity",
+    "test-cypress-build-sanity": "cypress run --spec ./cypress/features/build/build.feature,./cypress/features/sanity/sanity.feature",
     "test-cypress-regression": "cypress run --spec ./cypress/features/regression/*.feature",
     "debug": "node --inspect ./node_modules/jest-cli/bin/jest --watch --config=./jest.conf.json",
     "lint": "./node_modules/.bin/eslint",
