@@ -11,7 +11,7 @@ import {
   TableHeader,
   TableRow,
   TableCell
-} from '../table/table.component';
+} from '../table';
 
 const store = new Store({
   dndData: [{

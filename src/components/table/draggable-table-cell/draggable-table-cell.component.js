@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import WithDrag from '../../drag-and-drop/with-drag/with-drag';
+import WithDrag from '../../drag-and-drop/with-drag';
 import Icon from '../../icon';
 import TableCell from '../table-cell';
 

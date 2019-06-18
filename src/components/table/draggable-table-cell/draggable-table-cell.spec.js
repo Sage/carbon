@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import DraggableTableCell from './draggable-table-cell.component';
+import DraggableTableCell from '.';
 import TableCell from '../table-cell';
 import WithDrag from '../../drag-and-drop/with-drag';
 import Icon from '../../icon';

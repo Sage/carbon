@@ -6,7 +6,7 @@ import Immutable from 'immutable';
 import { shallow, mount } from 'enzyme';
 import {
   Table, TableHeader, TableRow, TableCell
-} from './table.component';
+} from '.';
 import StyledTable, { StyledInternalTableWrapper } from './table.style';
 import StyledTableHeader from './table-header/table-header.style';
 import ActionToolbar from '../action-toolbar';

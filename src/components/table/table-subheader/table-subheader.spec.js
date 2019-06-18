@@ -1,7 +1,7 @@
 import React from 'react';
 import 'jest-styled-components';
 import { shallow, mount } from 'enzyme';
-import { Table, TableRow } from '../table.component';
+import { Table, TableRow } from '..';
 import TableSubheader from '.';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';

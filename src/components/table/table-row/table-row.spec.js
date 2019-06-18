@@ -3,7 +3,7 @@ import 'jest-styled-components';
 import TestRenderer from 'react-test-renderer';
 import TestUtils from 'react-dom/test-utils';
 import { mount } from 'enzyme';
-import { Table, TableCell } from '../table.component';
+import { Table, TableCell } from '..';
 import TableRow from './table-row.component';
 import TableHeader from '../table-header';
 import DraggableTableCell from '../draggable-table-cell';
