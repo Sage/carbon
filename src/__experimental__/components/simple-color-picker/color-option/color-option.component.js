@@ -12,6 +12,8 @@ const ColorOption = (props) => {
       color={ props.color }
       checked={ props.checked }
       className={ props.className }
+      aria-checked={ props.checked }
+      role='radio'
       { ...props }
       { ...tagComponent('color-option', props) }
     >
@@ -22,6 +24,8 @@ const ColorOption = (props) => {
         name={ props.name }
         type='radio'
         value={ props.color }
+        id={ props.optionId }
+        aria-label={ props.name }
       />
       <ColorSampleBox color={ props.color } checked={ props.checked } />
     </StyledColorOption>
@@ -45,7 +49,9 @@ ColorOption.propTypes = {
   checked: PropTypes.bool,
   /** Custom className */
   className: PropTypes.string,
-  theme: PropTypes.object
+  theme: PropTypes.object,
+  optionId: PropTypes.string,
+  label: PropTypes.string
 };
 
 export default ColorOption;
