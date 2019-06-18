@@ -5,7 +5,7 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 
 const StepSequence = (props) => {
   return (
-    <StepSequenceStyle { ...props }>
+    <StepSequenceStyle data-component='step-sequence' { ...props }>
       {React.Children.map(props.children, child => (
         React.cloneElement(
           child,
