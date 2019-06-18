@@ -1,14 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { withTheme } from 'styled-components';
 import tagComponent from '../../../utils/helpers/tags/tags';
 import { WithDrag, WithDrop } from '../../drag-and-drop/drag-and-drop';
-import Checkbox from '../../checkbox/checkbox';
+import CheckboxLegacy from '../../checkbox/checkbox';
+import Checkbox from '../../../__experimental__/components/checkbox';
 import {
   ConfigurableItemRowStyle,
   ConfigurableItemRowContentWrapperStyle,
   ConfigurableItemRowIconStyle
 } from './configurable-item-row.style';
+import { THEMES } from '../../../style/themes';
+import baseTheme from '../../../style/themes/base';
 
 class ConfigurableItemRow extends React.Component {
   static contextTypes = {
@@ -17,9 +21,19 @@ class ConfigurableItemRow extends React.Component {
   };
 
   checkbox(enabled, locked, name, onChange) {
+    if (this.props.theme.name === THEMES.classic) {
+      return (
+        <CheckboxLegacy
+          value={ enabled }
+          disabled={ locked }
+          label={ name }
+          onChange={ onChange }
+        />
+      );
+    }
     return (
       <Checkbox
-        value={ enabled }
+        checked={ enabled }
         disabled={ locked }
         label={ name }
         onChange={ onChange }
@@ -118,7 +132,13 @@ ConfigurableItemRow.propTypes = {
   /** Callback triggered when the checkbox checked value is updated. */
   onChange: PropTypes.func,
   /** The unique index for the row. */
-  rowIndex: PropTypes.number
+  rowIndex: PropTypes.number,
+  /** An internal prop. Helpful to detect which component should be rendered */
+  theme: PropTypes.object
 };
 
-export default ConfigurableItemRow;
+ConfigurableItemRow.defaultProps = {
+  theme: baseTheme
+};
+
+export default withTheme(ConfigurableItemRow);

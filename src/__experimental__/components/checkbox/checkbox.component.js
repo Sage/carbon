@@ -6,14 +6,16 @@ import CheckableInput from '../checkable-input/checkable-input.component';
 import CheckboxSvg from './checkbox-svg.component';
 
 const Checkbox = (props) => {
+  const { onChange, ...rest } = props;
   return (
     <CheckboxStyle
       { ...tagComponent('checkbox', props) }
-      { ...props }
+      { ...rest }
     >
       <CheckableInput
         type='checkbox'
-        { ...props }
+        { ...rest }
+        onChange={ props.onChange }
       >
         <CheckboxSvg />
       </CheckableInput>
