@@ -173,7 +173,7 @@ class Portrait extends React.Component {
   applyText = (context, size) => {
     const letters = this.props.initials ? this.props.initials.slice(0, 3) : '';
 
-    context.fillStyle = this.props.darkBackground ? '#FFFFFF' : '#636872';
+    context.fillStyle = this.props.darkBackground ? '#FFFFFF' : '#595959';
     context.fillText(letters.toUpperCase(), size / 2, size / 1.5);
 
     return context;

@@ -160,7 +160,7 @@ describe('Portrait', () => {
       instance.applyBackground(context);
       expect(context.fillStyle).toEqual('#D8D9DC');
       instance.applyText(context);
-      expect(context.fillStyle).toEqual('#636872');
+      expect(context.fillStyle).toEqual('#595959');
     });
 
     it('uses dark BG color and light text colour if darkBackground is true', () => {

@@ -49,8 +49,8 @@ function stylingForIcon({ size, theme, darkBackground }) {
 
   return css`
     padding:          ${iconPadding}px;
-    background-color: ${theme.colors.previewBackground};
-    color:            ${theme.colors.focusedIcon};
+    background-color: ${theme.portrait.background};
+    color:            ${theme.portrait.border};
 
     ${params.iconDimensions && css`
       svg {
@@ -60,8 +60,8 @@ function stylingForIcon({ size, theme, darkBackground }) {
     `}
 
     ${darkBackground && css`
-      background-color: ${theme.colors.border};
-      color:            ${theme.colors.white};
+      background-color: ${theme.portrait.border};
+      color:            ${theme.portrait.background};
     `}
   `;
 }
@@ -130,7 +130,7 @@ const StyledPortrait = styled.div`
   ${stylingForSize}
   ${stylingForShape}
   ${({ showBorder, theme }) => (showBorder && css`
-    border: 1px dashed ${theme.colors.border};
+    border: 1px dashed ${theme.portrait.border};
   `)}
 `;
 
