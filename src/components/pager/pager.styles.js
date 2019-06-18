@@ -3,6 +3,7 @@ import {
   PagerContainerClassicStyles,
   PagerNavigationClassicStyles
 } from './pager-classic.styles';
+import smallTheme from '../../style/themes/small';
 
 const PagerContainerStyles = styled.div`
   display: flex;
@@ -21,7 +22,7 @@ const PagerContainerStyles = styled.div`
           border-color: ${theme.table.secondary};
         }
         &:focus {
-          border-color: ${theme.colors.focus};
+          outline: 2px solid ${theme.colors.focus};
         }
       }
     `;
@@ -103,7 +104,7 @@ const PagerLinkStyles = styled.button`
     color: ${theme.pager.active};
   `}
  
-  ${({ isDisabled, theme }) => isDisabled && theme.pager && css`
+  ${({ isDisabled, theme }) => isDisabled && css`
     color: ${theme.pager.disabled};
     cursor: not-allowed;
   `}
@@ -118,6 +119,38 @@ const PagerSummaryStyles = styled.div`
   flex: 1 1 30%;
   justify-content: flex-end;
 `;
+
+PagerContainerStyles.defaultProps = {
+  theme: smallTheme
+};
+
+PagerSizeOptionsStyles.defaultProps = {
+  theme: smallTheme
+};
+
+PagerSizeOptionsInnerStyles.defaultProps = {
+  theme: smallTheme
+};
+
+PagerNavigationStyles.defaultProps = {
+  theme: smallTheme
+};
+
+PagerNavInnerStyles.defaultProps = {
+  theme: smallTheme
+};
+
+PagerLinkStyles.defaultProps = {
+  theme: smallTheme
+};
+
+PagerButtonWrapperStyles.defaultProps = {
+  theme: smallTheme
+};
+
+PagerSummaryStyles.defaultProps = {
+  theme: smallTheme
+};
 
 export {
   PagerContainerStyles,

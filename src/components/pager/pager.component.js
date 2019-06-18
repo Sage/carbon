@@ -10,7 +10,6 @@ import {
   PagerSizeOptionsInnerStyles
 } from './pager.styles';
 import Dropdown from '../dropdown';
-import baseTheme from '../../style/themes/base';
 import { THEMES } from '../../style/themes';
 
 const Pager = (props) => {
@@ -87,8 +86,7 @@ Pager.defaultProps = {
     { id: '10', name: 10 },
     { id: '25', name: 25 },
     { id: '50', name: 50 }
-  ]),
-  theme: baseTheme
+  ])
 };
 
 export default Pager;

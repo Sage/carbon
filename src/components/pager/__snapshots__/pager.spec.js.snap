@@ -31,7 +31,7 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
 }
 
 .c0 .common-input__input:focus {
-  border-color: #FFB500;
+  outline: 2px solid #FFB500;
 }
 
 .c0 .common-input__input:active {
@@ -306,7 +306,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
 }
 
 .c0 .common-input__input:focus {
-  border-color: #FFB500;
+  outline: 2px solid #FFB500;
 }
 
 .c1 {
@@ -388,6 +388,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   cursor: pointer;
   color: rgba(0,0,0,0.90);
   color: rgba(0,0,0,0.55);
+  cursor: not-allowed;
 }
 
 .c4:focus {
