@@ -113,7 +113,7 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
   cursor: pointer;
   margin-right: 8px;
   opacity: 0.3;
-  cursor: default;
+  cursor: not-allowed;
 }
 
 .c6 {
@@ -224,30 +224,32 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
     >
       Page 
     </span>
-    <div
-      className="carbon-number carbon-pager__current-page carbon-pager__current-page common-input"
-      data-component="number"
-      data-element="current-page"
-    >
+    <label>
       <div
-        className="common-input__field"
-        onMouseOut={[Function]}
-        onMouseOver={[Function]}
+        className="carbon-number carbon-pager__current-page carbon-pager__current-page common-input"
+        data-component="number"
+        data-element="current-page"
       >
-        <input
-          autoComplete="off"
-          className="carbon-number__input common-input__input"
-          data-element="input"
-          id="guid-12345"
-          onBlur={[Function]}
-          onChange={[Function]}
-          onFocus={[Function]}
-          onKeyDown={[Function]}
-          onKeyUp={[Function]}
-          value="1"
-        />
+        <div
+          className="common-input__field"
+          onMouseOut={[Function]}
+          onMouseOver={[Function]}
+        >
+          <input
+            autoComplete="off"
+            className="carbon-number__input common-input__input"
+            data-element="input"
+            id="guid-12345"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            onKeyUp={[Function]}
+            value="1"
+          />
+        </div>
       </div>
-    </div>
+    </label>
     <span
       className="c5"
     >
@@ -505,30 +507,32 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
       >
         Page 
       </span>
-      <div
-        className="carbon-number carbon-pager__current-page carbon-pager__current-page common-input"
-        data-component="number"
-        data-element="current-page"
-      >
+      <label>
         <div
-          className="common-input__field"
-          onMouseOut={[Function]}
-          onMouseOver={[Function]}
+          className="carbon-number carbon-pager__current-page carbon-pager__current-page common-input"
+          data-component="number"
+          data-element="current-page"
         >
-          <input
-            autoComplete="off"
-            className="carbon-number__input common-input__input"
-            data-element="input"
-            id="guid-12345"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            onKeyUp={[Function]}
-            value="1"
-          />
+          <div
+            className="common-input__field"
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+          >
+            <input
+              autoComplete="off"
+              className="carbon-number__input common-input__input"
+              data-element="input"
+              id="guid-12345"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              value="1"
+            />
+          </div>
         </div>
-      </div>
+      </label>
       <span
         className="c6"
       >

@@ -3,24 +3,17 @@ import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
 import { number, boolean, select } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
-import Pager, { PagerWithoutTheme } from './pager.component';
+import Pager from './pager.component';
 import { Info, notes } from './documentation';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 
 const store = new Store({
   currentPage: '1',
-  pageSize: PagerWithoutTheme.defaultProps.pageSize
+  pageSize: Pager.defaultProps.pageSize
 });
 
-const handlePagination = (newPage, pageSize, type) => {
-  if (type === 'size') {
-    store.set({
-      pageSize,
-      currentPage: newPage
-    });
-  } else {
-    store.set({ currentPage: newPage });
-  }
+const handlePagination = (ev) => {
+  store.set({ currentPage: ev });
 };
 
 const TableComponent = ({ propDefinitions }) => {
@@ -73,10 +66,10 @@ TableComponent.propTypes = {
 storiesOf('Pager', module)
   .add('default', () => {
     const totalRecords = number('totalRecords', 100);
-    const pageSize = select('pageSize', OptionsHelper.pageSizes, PagerWithoutTheme.defaultProps.pageSize);
+    const pageSize = select('pageSize', OptionsHelper.pageSizes, Pager.defaultProps.pageSize);
     const showPageSizeSelection = boolean(
       'showPageSizeSelection',
-      PagerWithoutTheme.defaultProps.showPageSizeSelection
+      Pager.defaultProps.showPageSizeSelection
     );
 
     store.set({ pageSize });
@@ -94,6 +87,7 @@ storiesOf('Pager', module)
     );
   }, {
     info: {
+      propTables: [Pager],
       propTablesExclude: [State],
       TableComponent,
       text: Info
