@@ -8,7 +8,7 @@ exports[`Tooltip default props matches snapshot 1`] = `
 />
 `;
 
-exports[`Tooltip visible matches snapshot 1`] = `
+exports[`Tooltip visible and has children matches snapshot 1`] = `
 .c1 {
   background-color: #000000;
   color: #FFFFFF;

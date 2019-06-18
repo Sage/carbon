@@ -54,7 +54,7 @@ class Tooltip extends React.Component {
   }
 
   render() {
-    return this.props.isVisible ? this.tooltipHTML : null;
+    return (this.props.isVisible && this.props.children) ? this.tooltipHTML : null;
   }
 }
 

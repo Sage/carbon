@@ -9,7 +9,7 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import classicTheme from '../../../style/themes/classic';
 
 function render(props, renderer = TestRenderer.create) {
-  return renderer(<Tooltip { ...props }>Content</Tooltip>);
+  return renderer(<Tooltip { ...props } />);
 }
 
 function renderInner(props) {
@@ -27,17 +27,33 @@ function renderWrapper(props) {
 describe('Tooltip', () => {
   describe('default props', () => {
     it('matches snapshot', () => {
-      const wrapper = render({}, mount);
+      const wrapper = render({ children: 'Content' }, mount);
 
       expect(wrapper).toMatchSnapshot();
     });
   });
 
-  describe('visible', () => {
+  describe('visible and has children', () => {
     it('matches snapshot', () => {
-      const wrapper = render({ isVisible: true }).toJSON();
+      const wrapper = render({ children: 'Content', isVisible: true }).toJSON();
 
       expect(wrapper).toMatchSnapshot();
+    });
+  });
+
+  describe('not visible', () => {
+    it('returns null', () => {
+      const wrapper = render({ children: 'Content', isVisible: false }).toJSON();
+
+      expect(wrapper).toBe(null);
+    });
+  });
+
+  describe('no children', () => {
+    it('returns null', () => {
+      const wrapper = render({ isVisible: true }).toJSON();
+
+      expect(wrapper).toBe(null);
     });
   });
 
