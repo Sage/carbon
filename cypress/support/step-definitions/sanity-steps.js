@@ -1,4 +1,3 @@
-
 import { clickAccessebilityTab, reRunAccesibilityTests } from '../helper';
 import { violations } from '../../locators/sanity';
 

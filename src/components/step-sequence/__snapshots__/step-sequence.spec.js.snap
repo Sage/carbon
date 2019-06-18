@@ -83,11 +83,13 @@ exports[`StepSequence Classic theme renders correctly 1`] = `
 
 <ol
   className="c0"
+  data-component="step-sequence"
   orientation="horizontal"
 >
   <li
     aria-label="Step 1 of 5"
     className="c1"
+    data-component="step-sequence-item"
     orientation="horizontal"
   >
     <span
@@ -220,11 +222,13 @@ exports[`StepSequence Classic theme renders correctly with vertical orientation 
 
 <ol
   className="c0"
+  data-component="step-sequence"
   orientation="vertical"
 >
   <li
     aria-label="Step 1 of 5"
     className="c1"
+    data-component="step-sequence-item"
     orientation="vertical"
   >
     <span
@@ -318,11 +322,13 @@ exports[`StepSequence renders correctly 1`] = `
 
 <ol
   className="c0"
+  data-component="step-sequence"
   orientation="horizontal"
 >
   <li
     aria-label="Step 1 of 5"
     className="c1"
+    data-component="step-sequence-item"
     orientation="horizontal"
   >
     <span
@@ -437,11 +443,13 @@ exports[`StepSequence renders correctly with vertical orientation 1`] = `
 
 <ol
   className="c0"
+  data-component="step-sequence"
   orientation="vertical"
 >
   <li
     aria-label="Step 1 of 5"
     className="c1"
+    data-component="step-sequence-item"
     orientation="vertical"
   >
     <span
