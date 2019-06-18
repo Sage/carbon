@@ -282,7 +282,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   height: 40px;
   padding-left: 24px;
   padding-right: 24px;
-  border-left: none;
+  border-left-width: 0;
   padding: 0 10px;
 }
 
@@ -637,7 +637,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   padding: 0 18px;
   -webkit-text-decoration: none;
   text-decoration: none;
-  border-left: none;
+  border-left-width: 0;
   padding: 0 10px;
   z-index: 20;
 }

@@ -32,7 +32,6 @@ Feature: Build tests
       | component |
       | confirm   |
 
-
   @build
   Scenario Outline: Component <component> without activation button
     When I open "<component>" component iframe

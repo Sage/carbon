@@ -487,7 +487,6 @@ describe('SplitButton', () => {
           expect(wrapper.find(StyledSplitButtonChildrenContainer).exists()).toBe(true);
           simulateBlurOnToggle(wrapper);
           domWrapper.dispatchEvent(nativeInputEvent);
-          console.log(eventType, wrapper.instance().state);
           expect(wrapper.update().find(StyledSplitButtonChildrenContainer).exists()).toBe(false);
         });
       });
