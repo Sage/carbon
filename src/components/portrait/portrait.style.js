@@ -110,7 +110,7 @@ export const StyledIcon = styled(
 
 StyledIcon.propTypes = {
   darkBackground: PropTypes.bool,
-  size: PropTypes.string,
+  size: PropTypes.oneOf(OptionsHelper.sizesFull),
   theme: PropTypes.object,
   type: PropTypes.string.isRequired
 };

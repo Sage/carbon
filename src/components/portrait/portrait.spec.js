@@ -78,7 +78,7 @@ describe('Portrait', () => {
         expect(console.error).toHaveBeenCalled();
         expect(console.error.calls.argsFor(0).length).toBe(1);
         const expected = 'Warning: Failed prop type: Invalid prop `size`';
-        const actual = console.error.calls.argsFor(0)[0]; // eslint-disable-line no-console
+        const actual = console.error.calls.argsFor(0)[0];
         expect(actual).toEqual(expect.stringContaining(expected));
       });
     });
@@ -96,7 +96,7 @@ describe('Portrait', () => {
         expect(console.error).toHaveBeenCalled();
         expect(console.error.calls.argsFor(0).length).toBe(1);
         const expected = 'Warning: Failed prop type: Invalid prop `shape`';
-        const actual = console.error.calls.argsFor(0)[0]; // eslint-disable-line no-console
+        const actual = console.error.calls.argsFor(0)[0];
         expect(actual).toEqual(expect.stringContaining(expected));
       });
     });
@@ -107,7 +107,7 @@ describe('Portrait', () => {
         expect(console.error).toHaveBeenCalledTimes(1);
         expect(console.error.calls.argsFor(0).length).toBe(1);
         const expected = 'Warning: Failed prop type: Portrait requires a prop of "src", "gravatar" or "initials';
-        const actual = console.error.calls.argsFor(0)[0]; // eslint-disable-line no-console
+        const actual = console.error.calls.argsFor(0)[0];
         expect(actual).toMatch(expected);
       });
 
@@ -116,7 +116,7 @@ describe('Portrait', () => {
         expect(console.error).toHaveBeenCalledTimes(1);
         expect(console.error.calls.argsFor(0).length).toBe(1);
         const expected = 'Warning: Failed prop type: Portrait requires a prop of "src" or "gravatar" but not both';
-        const actual = console.error.calls.argsFor(0)[0]; // eslint-disable-line no-console
+        const actual = console.error.calls.argsFor(0)[0];
         expect(actual).toMatch(expected);
       });
     });
@@ -248,6 +248,38 @@ describe('Portrait', () => {
         <Portrait gravatar='example@example.com' initials='AB' />
       );
       expect(wrapper.contains(styledIcon)).toEqual(false);
+    });
+
+    describe('sizes', () => {
+      beforeEach(() => {
+        spyOn(console, 'error');
+      });
+
+      /* eslint-disable no-console */
+
+      it('accepts a valid size', () => {
+        ReactTestUtils.renderIntoDocument(<StyledIcon
+          type='individual'
+          size='small'
+          darkBackground
+        />);
+        expect(console.error).toHaveBeenCalledTimes(0);
+      });
+
+      it('rejects an invalid size', () => {
+        ReactTestUtils.renderIntoDocument(<StyledIcon
+          type='individual'
+          size='foo'
+          darkBackground
+        />);
+        expect(console.error).toHaveBeenCalled();
+        expect(console.error.calls.argsFor(0).length).toBe(1);
+        const expected = 'Warning: Failed prop type: Invalid prop `size`';
+        const actual = console.error.calls.argsFor(0)[0];
+        expect(actual).toEqual(expect.stringContaining(expected));
+      });
+
+      /* eslint-enable no-console */
     });
   });
 
