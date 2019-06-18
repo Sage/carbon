@@ -65,7 +65,7 @@ Feature: Confirm component
       # | <>                       |
 
   @positive
-  Scenario Outline: Change the height of Confirm dialog
+  Scenario Outline: Change the height of Confirm dialog to <height>
     When I set height to "<height>"
       And I open component preview
     Then Confirm dialog input height is "<height>"
@@ -80,7 +80,7 @@ Feature: Confirm component
       | 999    |
 
   @positive
-  Scenario Outline: Change the size of Confirm dialog
+  Scenario Outline: Change the size of Confirm dialog to <sizeName>
     When I select size to "<sizeName>"
       And I open component preview
     Then Confirm dialog size property on preview is "<sizePropertyInPx>"

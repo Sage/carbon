@@ -33,7 +33,7 @@ Feature: Content component
       # | <>                       |
 
   @positive
-  Scenario Outline: Change property in Content dialog
+  Scenario Outline: Change property in Content dialog to <property>
     When I select as to "<property>"
     Then content as property is set to "<property>"
     Examples:
@@ -42,7 +42,7 @@ Feature: Content component
       | secondary  |
 
   @positive
-  Scenario Outline: Change alignProperty in Content dialog
+  Scenario Outline: Change alignProperty in Content dialog to <alignProperty>
     When I select align to "<alignProperty>"
     Then content align property is set to "<alignProperty>"
     Examples:
@@ -63,7 +63,7 @@ Feature: Content component
     Then content preview has no bodyFullWidth parameter
 
   @positive
-  Scenario Outline: Inline enabled and change title width
+  Scenario Outline: Inline enabled and change title width to <width>
     When I check inline checkbox
       And I set titleWidth to "<width>"
     Then content preview has inline parameter enabled
