@@ -190,16 +190,18 @@ class Portrait extends React.Component {
       alt, className, darkBackground, gravatar, initials, shape, size, src
     } = this.props;
 
+    const showIcon = (!src && !initials);
+
     return (
       <StyledPortrait
         size={ size }
         shape={ shape }
         className={ className }
+        showBorder={ showIcon && !darkBackground }
         { ...tagComponent('portrait', this.props) }
       >
 
-        {!src
-          && !initials
+        {showIcon
           && (
             <StyledIcon
               type='individual'

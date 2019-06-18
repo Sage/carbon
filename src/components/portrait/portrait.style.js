@@ -44,15 +44,18 @@ function stylingForIcon({ size, theme, darkBackground }) {
     return css``;
   }
 
+  const iconPadding = (params.dimensions - params.iconDimensions) / 2;
+
   return css`
-    padding:          ${params.iconPadding}px;
-    border: solid 1px ${theme.colors.border};
+    padding:          ${iconPadding}px;
     background-color: ${theme.colors.previewBackground};
     color:            ${theme.colors.focusedIcon};
 
     ${params.iconDimensions && css`
-      width:  ${params.iconDimensions}px;
-      height: ${params.iconDimensions}px;
+      svg {
+        width:  ${params.iconDimensions}px;
+        height: ${params.iconDimensions}px;
+      }
     `}
 
     ${darkBackground && css`
@@ -91,13 +94,17 @@ StyledAvatarImage.defaultProps = {
 };
 
 
+// && is used here to increase the specificity
 export const StyledIcon = styled(
   ({ darkBackground, ...rest }) => <Icon { ...rest } />
 )`
-  position:    absolute;
-  box-sizing:  border-box;
-  line-height: 14px;
-  ${stylingForIcon}
+  && {
+    position:    absolute;
+    box-sizing:  border-box;
+    line-height: 14px;
+    ${stylingForSize}
+    ${stylingForIcon}
+  }
 `;
 
 StyledIcon.propTypes = {
@@ -121,16 +128,23 @@ const StyledPortrait = styled.div`
   overflow:       hidden;
   ${stylingForSize}
   ${stylingForShape}
+  ${({ showBorder, theme }) => (showBorder && css`
+    border: 1px dashed ${theme.colors.border};
+  `)}
 `;
 
 StyledPortrait.propTypes = {
   size: PropTypes.string,
-  shape: PropTypes.string
+  shape: PropTypes.string,
+  showBorder: PropTypes.bool,
+  theme: PropTypes.object
 };
 
 StyledPortrait.defaultProps = {
   size: 'medium',
-  shape: 'standard'
+  shape: 'standard',
+  showBorder: false,
+  theme: BaseTheme
 };
 
 export default StyledPortrait;
