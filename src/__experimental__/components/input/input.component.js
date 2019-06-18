@@ -22,9 +22,9 @@ class Input extends React.Component {
     type: PropTypes.string
   };
 
-  static contextType = InputPresentationContext
+  static contextType = InputPresentationContext;
 
-  input = React.createRef()
+  input = React.createRef();
 
   componentDidMount() {
     if (this.props.inputRef) this.props.inputRef(this.input);
