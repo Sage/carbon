@@ -1,5 +1,9 @@
-import { getComponent } from '../../locators/build';
+import { commonButtonPreviewNoIFrame, getComponentNoIframe } from '../../locators/build';
 
 Then('{string} component is visible', (component) => {
-  getComponent(component).should('exist');
+  getComponentNoIframe(component).should('exist');
+});
+
+When('I open component preview no iFrame', () => {
+  commonButtonPreviewNoIFrame().click();
 });

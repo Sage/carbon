@@ -20,15 +20,7 @@ Feature: Sanity tests
       | dialog              | dialog             |
       | flash               | flash              |
       | pages               | page               |
-
-  @sanity
-  Scenario Outline: Component <component> page and open button
-    When I open "<component>" component page
-    Then "<component>" component has no violations in Accessibility section
-    Examples:
-      | component         |
-      | confirm           |
-
+      | confirm             | confirm            |
 
   @sanity
   Scenario Outline: Component <component> without activation button
@@ -38,8 +30,8 @@ Feature: Sanity tests
       | component            | data-component       |
       | animated menu button | animated-menu-button |
       | app wrapper          | app-wrapper          |
-      # | button toggle group  | button-toggle-group  |  data-component
-      # | button toggle        | button-toggle        |  data-component
+      | button toggle group  | button-toggle-group  |
+      | button toggle        | button-toggle        |
       | button               | button               |
       | carousel             | carousel             |
       | checkbox             | checkbox             |
@@ -62,18 +54,18 @@ Feature: Sanity tests
       | help                 | help                 |
       | i18ncomponent        | i18n                 |
       | icon                 | icon                 |
-      # | inlineInputs         | inline-inputs        |  data-component
+      | inlineInputs         | inline-inputs        |
       | link                 | link                 |
       | loader               | loader               |
       | menulist             | menu-list            |
       | menu                 | menu                 |
       | message              | Message              |
-      # | mount-in-app         | carbon-mount-in-app  | data-component
+      | mount-in-app         | mount-in-app         |
       | multi-action-button  | multi-action-button  |
       | navigation-bar       | navigation-bar       |
       | number-input         | number               |
-      # | pager                | pager                | data-component
-      # | pill                 | pill                 | data-component
+      | pager                | pager                |
+      | pill                 | pill                 |
       | pod                  | pod                  |
       # portrait component name should be fixed
       | portait              | portrait             |
@@ -81,12 +73,12 @@ Feature: Sanity tests
       | profile              | profile              |
       | radio-button         | radio-button         |
       | rainbow              | rainbow              |
-      # | row                  | row                  | data-component
-      # | settingsrow          | settings-row         | data-component
+      | row                  | row                  |
+      | settingsrow          | settings-row         |
       | simplecolorpicker    | simple-color-picker  |
-      # | split-button         | split-button         | data-component
-      # | step-sequence-item   | step-sequence-item   | data-component
-      # | step-sequence        | step-sequence        | data-component
+      | split-button         | split-button         |
+      | step-sequence-item   | step-sequence-item   |
+      | step-sequence        | step-sequence        |
       | switch               | checkbox             |
       | table-ajax           | table-ajax           |
       | table                | table                |

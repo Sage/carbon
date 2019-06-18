@@ -87,7 +87,7 @@ class Row extends React.Component {
    */
   render() {
     return (
-      <div className={ this.mainClasses }>
+      <div data-component='row' className={ this.mainClasses }>
         { this.buildColumns() }
       </div>
     );
