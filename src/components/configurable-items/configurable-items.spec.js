@@ -1,27 +1,24 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import { ConfigurableItems } from './configurable-items.component';
-import Button from './../button';
-import { DraggableContext } from './../drag-and-drop';
-import Form from './../form';
-import Heading from './../heading';
-import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { mount } from 'enzyme';
+import { ConfigurableItems } from '.';
+import { DraggableContext } from '../drag-and-drop';
+import Form from '../form';
 
 describe('ConfigurableItems', () => {
-  let wrapper
-  const onCancel = () => { }
-  const onClick = () => { }
-  const onDrag = () => { }
-  const onSave = () => { }
+  let wrapper;
+  const onCancel = () => { };
+  const onClick = () => { };
+  const onDrag = () => { };
+  const onSave = () => { };
 
   describe('children', () => {
     beforeEach(() => {
-      wrapper = shallow(
+      wrapper = mount(
         <ConfigurableItems
-          onCancel={onCancel}
-          onClick={onClick}
-          onDrag={onDrag}
-          onSave={onSave}
+          onCancel={ onCancel }
+          onClick={ onClick }
+          onDrag={ onDrag }
+          onSave={ onSave }
         >
           <p className='child-node'>Foo</p>
         </ConfigurableItems>
@@ -35,12 +32,12 @@ describe('ConfigurableItems', () => {
 
   describe('onCancel', () => {
     beforeEach(() => {
-      wrapper = shallow(
+      wrapper = mount(
         <ConfigurableItems
-          onCancel={onCancel}
-          onClick={onClick}
-          onDrag={onDrag}
-          onSave={onSave}
+          onCancel={ onCancel }
+          onClick={ onClick }
+          onDrag={ onDrag }
+          onSave={ onSave }
         />
       );
     });
@@ -51,12 +48,12 @@ describe('ConfigurableItems', () => {
 
   describe('onDrag', () => {
     beforeEach(() => {
-      wrapper = shallow(
+      wrapper = mount(
         <ConfigurableItems
-          onCancel={onCancel}
-          onClick={onClick}
-          onDrag={onDrag}
-          onSave={onSave}
+          onCancel={ onCancel }
+          onClick={ onClick }
+          onDrag={ onDrag }
+          onSave={ onSave }
         />
       );
     });
@@ -67,12 +64,12 @@ describe('ConfigurableItems', () => {
 
   describe('onSave', () => {
     beforeEach(() => {
-      wrapper = shallow(
+      wrapper = mount(
         <ConfigurableItems
-          onCancel={onCancel}
-          onClick={onClick}
-          onDrag={onDrag}
-          onSave={onSave}
+          onCancel={ onCancel }
+          onClick={ onClick }
+          onDrag={ onDrag }
+          onSave={ onSave }
         />
       );
     });
@@ -82,40 +79,39 @@ describe('ConfigurableItems', () => {
   });
 
   describe('onReset', () => {
-    let form, resetButton
-    let onResetSpy = jasmine.createSpy('onResetSpy')
-    let onReset = () => { onResetSpy() }
+    let form, resetButton;
+    const onResetSpy = jasmine.createSpy('onResetSpy');
+    const onReset = () => { onResetSpy(); };
 
     describe('when the onReset prop is provided', () => {
       beforeEach(() => {
-        wrapper = shallow(
+        wrapper = mount(
           <ConfigurableItems
-            onCancel={onCancel}
-            onClick={onClick}
-            onDrag={onDrag}
-            onReset={onReset}
-            onSave={onSave}
+            onCancel={ onCancel }
+            onClick={ onClick }
+            onDrag={ onDrag }
+            onReset={ onReset }
+            onSave={ onSave }
           />
         );
-        form = wrapper.find(Form);
       });
 
       it('passes a reset button, with an onClick prop, as leftAlignedActions to the form', () => {
-        resetButton = shallow(form.props().leftAlignedActions).find('.carbon-button--reset')
+        resetButton = wrapper.find('button[data-element="configurable-items-reset-button"]');
         expect(resetButton.length).toEqual(1);
-        resetButton.simulate('click', { preventDefault: () => {} })
+        resetButton.simulate('click', { preventDefault: () => {} });
         expect(onResetSpy).toHaveBeenCalled();
       });
     });
 
     describe('when the onReset prop is not provided', () => {
       beforeEach(() => {
-        wrapper = shallow(
+        wrapper = mount(
           <ConfigurableItems
-            onCancel={onCancel}
-            onClick={onClick}
-            onDrag={onDrag}
-            onSave={onSave}
+            onCancel={ onCancel }
+            onClick={ onClick }
+            onDrag={ onDrag }
+            onSave={ onSave }
           />
         );
         form = wrapper.find(Form);
@@ -124,24 +120,26 @@ describe('ConfigurableItems', () => {
       it('does not pass leftAlignedActions to the form', () => {
         expect(form.props().leftAlignedActions).toBeNull();
       });
-    })
+    });
   });
 
-  describe("tags", () => {
-    describe("on component", () => {
-      let wrapper = shallow(
+  describe('tags', () => {
+    describe('on component', () => {
+      const wrapper = mount(
         <ConfigurableItems
           data-element='bar'
           data-role='baz'
-          onCancel={onCancel}
-          onClick={onClick}
-          onDrag={onDrag}
-          onSave={onSave}
+          onCancel={ onCancel }
+          onClick={ onClick }
+          onDrag={ onDrag }
+          onSave={ onSave }
         />
       );
 
       it('includes the correct component, element and role data tags', () => {
-        rootTagTest(wrapper, 'configurable-items', 'bar', 'baz');
+        expect(wrapper.find('div[data-component="configurable-items"]')).toBeTruthy();
+        expect(wrapper.find('div[data-element="bar"]')).toBeTruthy();
+        expect(wrapper.find('div[data-role="baz"]')).toBeTruthy();
       });
     });
   });

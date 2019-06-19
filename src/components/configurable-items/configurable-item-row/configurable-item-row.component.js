@@ -140,5 +140,5 @@ ConfigurableItemRow.propTypes = {
 ConfigurableItemRow.defaultProps = {
   theme: baseTheme
 };
-
+export { ConfigurableItemRow as ConfigurableItemRowWithoutHOC };
 export default withTheme(ConfigurableItemRow);

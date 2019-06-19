@@ -26,7 +26,10 @@ class ConfigurableItems extends React.Component {
     if (!this.props.onReset) return null;
     if (this.props.theme.name === THEMES.classic) {
       return (
-        <Button buttonType='secondary' onClick={ this.onReset }>
+        <Button
+          data-element='configurable-items-reset-button' buttonType='secondary'
+          onClick={ this.onReset }
+        >
           { I18n.t('actions.reset', { defaultValue: 'Reset' }) }
         </Button>
       );
@@ -34,6 +37,7 @@ class ConfigurableItems extends React.Component {
 
     return (
       <ConfigurableItemsButtonReset
+        data-element='configurable-items-reset-button'
         as={ Button } buttonType='tertiary'
         onClick={ this.onReset }
       >
