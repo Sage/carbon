@@ -14,10 +14,10 @@ install:
 
 jobs:
   include:
-    - stage: stage 1
-      script: npm run test-storybook-smoke
     -
-      script: npm run lint ./src && npm test -- --maxWorkers=2
+      script:
+        npm run test-storybook-smoke
+        npm run lint ./src && npm test -- --maxWorkers=2
     - 
       script:
         npm run storybook-ci </dev/null &>/dev/null &
