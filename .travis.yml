@@ -15,15 +15,14 @@ install:
 jobs:
   include:
     - stage: storybook smoke test
-      script:
-      - npm run test-storybook-smoke
+      script: npm run test-storybook-smoke
     - stage: lint, jest, cypress tests
-      script: lint, jest
-      - npm run lint ./src && npm test -- --maxWorkers=2
+      script:
+        - npm run lint ./src && npm test -- --maxWorkers=2
       script: cypress
-      - npm run storybook-ci </dev/null &>/dev/null &
-      - wait-on http://localhost:9001
-      - npm run test-cypress-build
+        - npm run storybook-ci </dev/null &>/dev/null &
+        - wait-on http://localhost:9001
+        - npm run test-cypress-build
 
 
 before_deploy: if [ "$TRAVIS_BRANCH" == "release" ]; then ASSETS_PREFIX=https://carbon.sage.com npm run build; fi
