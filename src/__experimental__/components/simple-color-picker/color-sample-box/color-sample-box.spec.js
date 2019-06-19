@@ -21,6 +21,7 @@ function renderStyles(props) {
 
 describe('ColorSampleBox', () => {
   let wrapper;
+  const businessThemes = [SmallTheme, MediumTheme, LargeTheme];
 
   it('applies passed color to the background-color', () => {
     wrapper = renderStyles({ color: '#0073C2' });
@@ -32,15 +33,14 @@ describe('ColorSampleBox', () => {
     );
   });
 
-  describe('when checked', () => {
-    it('renders no children', () => {
-      const businessThemes = [SmallTheme, MediumTheme, LargeTheme];
-      businessThemes.forEach((theme) => {
+  describe.each(businessThemes)(
+    'when checked', (theme) => {
+      it('renders no children', () => {
         wrapper = render({ theme, checked: true });
         expect(wrapper.children().exists()).toBeFalsy();
       });
-    });
-  });
+    }
+  );
 
   describe('when in classic theme', () => {
     describe('when color is set to transparent or none', () => {
