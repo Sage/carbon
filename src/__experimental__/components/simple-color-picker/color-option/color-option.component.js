@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import baseTheme from '../../../../style/themes/base';
 import tagComponent from '../../../../utils/helpers/tags';
 import StyledColorOption from './style/color-option.style';
 import ColorSampleBox from '../color-sample-box';
@@ -34,8 +33,7 @@ const ColorOption = (props) => {
 
 ColorOption.defaultProps = {
   checked: false,
-  onChange: null,
-  theme: baseTheme
+  onChange: null
 };
 
 ColorOption.propTypes = {
@@ -47,9 +45,8 @@ ColorOption.propTypes = {
   onChange: PropTypes.func,
   /** determines if this color option is selected or unselected */
   checked: PropTypes.bool,
-  /** Custom className */
+  /** [Legacy] Custom classname */
   className: PropTypes.string,
-  theme: PropTypes.object,
   optionId: PropTypes.string,
   label: PropTypes.string
 };

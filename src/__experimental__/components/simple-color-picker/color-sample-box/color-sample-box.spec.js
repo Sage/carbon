@@ -7,6 +7,9 @@ import StyledColorSampleBox from './style/color-sample-box.style';
 import classicTheme from '../../../../style/themes/classic';
 import { assertStyleMatch } from '../../../../__spec_helper__/test-utils';
 import StyledTickIcon from '../tick-icon/tick-icon.style';
+import SmallTheme from '../../../../style/themes/small';
+import MediumTheme from '../../../../style/themes/medium';
+import LargeTheme from '../../../../style/themes/large';
 
 function render(props) {
   return shallow(<ColorSampleBox color='#0073C2' { ...props } />);
@@ -27,6 +30,16 @@ describe('ColorSampleBox', () => {
       },
       wrapper.toJSON()
     );
+  });
+
+  describe('when checked', () => {
+    it('renders no children', () => {
+      const businessThemes = [SmallTheme, MediumTheme, LargeTheme];
+      businessThemes.forEach((theme) => {
+        wrapper = render({ theme, checked: true });
+        expect(wrapper.children().exists()).toBeFalsy();
+      });
+    });
   });
 
   describe('when in classic theme', () => {
