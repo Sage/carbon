@@ -187,17 +187,21 @@ class Portrait extends React.Component {
    */
   render() {
     const {
-      alt, className, darkBackground, gravatar, initials, shape, size, src
+      alt, darkBackground, gravatar, initials, shape, size, src
     } = this.props;
 
-    const showIcon = (!src && !initials);
+    const showIcon = Boolean(!src && !initials);
+    const showInitials = Boolean(!src && initials);
+    const showGravatar = Boolean(gravatar);
+    const showCustomImg = Boolean(!gravatar && src);
 
     return (
       <StyledPortrait
-        size={ size }
-        shape={ shape }
-        className={ className }
-        showBorder={ showIcon && !darkBackground }
+        showIcon={ showIcon }
+        showInitials={ showInitials }
+        showGravatar={ showGravatar }
+        showCustomImg={ showCustomImg }
+        { ...this.props }
         { ...tagComponent('portrait', this.props) }
       >
 
@@ -206,13 +210,13 @@ class Portrait extends React.Component {
             <StyledIcon
               type='individual'
               size={ size }
+              shape={ shape }
               darkBackground={ darkBackground }
             />
           )
         }
 
-        {!src
-          && initials
+        {showInitials
           && (
             <StyledInitialsImage
               src={ this.generateInitials() }
@@ -222,7 +226,7 @@ class Portrait extends React.Component {
           )
         }
 
-        {gravatar
+        {showGravatar
           && (
             <StyledAvatarImage
               src={ this.gravatarSrc() }
@@ -233,8 +237,7 @@ class Portrait extends React.Component {
           )
         }
 
-        {!gravatar
-          && src
+        {showCustomImg
           && (
             <StyledAvatarImage
               src={ src }

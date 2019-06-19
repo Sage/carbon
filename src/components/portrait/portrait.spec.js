@@ -195,6 +195,7 @@ describe('Portrait', () => {
       <StyledIcon
         type='individual'
         size='medium'
+        shape='standard'
         darkBackground={ false }
       />
     );
@@ -204,6 +205,7 @@ describe('Portrait', () => {
         <Portrait
           gravatar='example@example.com'
           size='medium'
+          shape='standard'
           darkBackground={ false }
         />
       );
@@ -216,6 +218,7 @@ describe('Portrait', () => {
           gravatar='example@example.com'
           initials=''
           size='medium'
+          shape='standard'
           darkBackground={ false }
         />
       );
