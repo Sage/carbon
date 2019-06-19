@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
-import InlineInputs from './inline-inputs.component';
+import InlineInputs from '.';
 import Textbox from '../../__experimental__/components/textbox';
 import Decimal from '../../__experimental__/components/decimal';
 import { Select, Option } from '../../__experimental__/components/select';
