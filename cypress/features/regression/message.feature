@@ -30,13 +30,12 @@ Feature: Message component
 
   @positive
   Scenario: Enable open state of Message component
-    When I check open checkbox
+    # When I check open checkbox
     Then Message component is visible
 
   @positive
   Scenario: Disable open state of Message component
-    When I check open checkbox
-      And I uncheck open checkbox
+    When I uncheck open checkbox
     Then Message component is not visible
 
   @positive
@@ -46,8 +45,8 @@ Feature: Message component
 
   @positive
   Scenario: Disable transparent state for a Message component
-    When I check open checkbox
-      And I uncheck open checkbox
+    When I check transparent checkbox
+      And I uncheck transparent checkbox
     Then Message component is not transparent
 
   @positive
@@ -65,7 +64,7 @@ Feature: Message component
 
   @positive
   Scenario: Enable on dismiss state for a Message component
-    When I check onDismiss checkbox
+    # When I check onDismiss checkbox
     Then Message has cross icon
       And clear all actions in Actions Tab
       And I click dismiss icon
@@ -73,6 +72,5 @@ Feature: Message component
 
   @positive
   Scenario: Disable on dismiss state for a Message component
-    When I check onDismiss checkbox
-      And I uncheck onDismiss checkbox
+    When I uncheck onDismiss checkbox
     Then Message has no cross icon

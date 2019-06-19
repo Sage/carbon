@@ -4,7 +4,9 @@ Feature: Draggable Context component
   Background: Open Draggable Context component page
     Given I open "DraggableContext" component iframe
 
-  @positive
+  # @positive
+  @ignore
+  # ignored untill task will be implemented FE-1327
   Scenario Outline: Drag record inside Draggable Context
     When I drag Draggable Context "<record>" to <destinationId>
     Then Draggable Context "<record>" is dragged to <destinationId>
