@@ -5,10 +5,13 @@ import {
   boolean,
   select
 } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import I18n from 'i18n-js';
 import Form from '../form';
 import Textbox from '../../__experimental__/components/textbox';
 import TextboxLegacy from '../textbox';
+import ButtonToggleGroup from '../button-toggle-group';
+import ButtonToggle from '../button-toggle';
 import { Select, Option } from '../../__experimental__/components/select';
 import PresenceValidator from '../../utils/validations/presence';
 import { Row, Column } from '../row';
@@ -26,6 +29,7 @@ const legacyStore = new Store({ value: '' });
 const warningStore = new Store({ value: '' });
 const infoStore = new Store({ value: '' });
 const allStore = new Store({ value: '' });
+const buttonToggleGroupStore = new Store({ value: '' });
 
 const promiseValidator = value => new Promise((resolve, reject) => {
   if (value) {
@@ -179,4 +183,46 @@ storiesOf('Validations', module)
         </Row>
       </Form>
     );
+  })
+  .add('ButtonToggleGroup', () => {
+    const test = value => new Promise((resolve, reject) => {
+      if (value === 'baz') return resolve(true);
+      return reject(Error('Baz is required!'));
+    });
+
+    return (
+      <Form
+        onSubmit={ handleSubmit }
+      >
+        <State store={ buttonToggleGroupStore }>
+          <ButtonToggleGroup
+            label='ButtonToggle Validation'
+            labelHelp='Returns error unless "Baz" value selected'
+            fieldHelp='Click save to run validation'
+            validations={ test }
+          >
+            {['foo', 'bar', 'baz'].map(value => (
+              <ButtonToggle
+                name='button-toggle-group'
+                value={ value }
+                onChange={ handleChange }
+                key={ `button-toggle-validation-${value}` }
+              >
+                {value}
+              </ButtonToggle>
+            ))}
+          </ButtonToggleGroup>
+        </State>
+      </Form>
+    );
   });
+
+function handleSubmit(ev) {
+  ev.preventDefault();
+  action('submit')();
+}
+
+function handleChange(ev) {
+  action('change')();
+  buttonToggleGroupStore.set({ value: ev.target.value });
+}

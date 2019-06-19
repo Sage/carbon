@@ -18,6 +18,10 @@ Given('I open {string} component page classic', (component) => {
   visitComponentUrl(component, 'classic');
 });
 
+Given('I open {string} component page basic', (component) => {
+  visitComponentUrl(component, 'basic');
+});
+
 Given('I open {string} component page with button', (component) => {
   visitComponentUrl(component, 'with_button');
 });
@@ -28,6 +32,10 @@ Given('I open {string} component page legacy spinner', (component) => {
 
 Given('I open {string} component iframe', (component) => {
   visitComponentUrl(component, 'default', true);
+});
+
+Given('I open {string} component with button page in iframe', (component) => {
+  visitComponentUrl(component, 'with_button', true);
 });
 
 When('I set {word} to {string}', (propertyName, text) => {
