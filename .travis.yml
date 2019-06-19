@@ -13,9 +13,9 @@ install:
   - npm ci
 
 script:
+  - npm run test-storybook-smoke </dev/null &>/dev/null &
   - npm run storybook-ci </dev/null &>/dev/null &
   - npm run lint ./src && npm test -- --maxWorkers=2
-  - npm run test-storybook-smoke
   - wait-on http://localhost:9001
   - npm run test-cypress-build
 
