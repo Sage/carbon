@@ -2,12 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
+import { withTheme } from 'styled-components';
 import tagComponent from '../../utils/helpers/tags/tags';
 import { DraggableContext } from '../drag-and-drop/drag-and-drop';
 import Button from '../button';
-import ConfigurableItemRow from './configurable-item-row';
-import { ConfigurableItemsStyle, ConfigurableItemsWrapper } from './configurable-items.style';
+import {
+  ConfigurableItemsStyle,
+  ConfigurableItemsWrapper,
+  ConfigurableItemsButtonReset
+} from './configurable-items.style';
 import Form from '../form/form';
+import { THEMES } from '../../style/themes';
+import baseTheme from '../../style/themes/base';
 
 
 class ConfigurableItems extends React.Component {
@@ -18,10 +24,21 @@ class ConfigurableItems extends React.Component {
 
   additionalActions = () => {
     if (!this.props.onReset) return null;
+    if (this.props.theme.name === THEMES.classic) {
+      return (
+        <Button buttonType='secondary' onClick={ this.onReset }>
+          { I18n.t('actions.reset', { defaultValue: 'Reset' }) }
+        </Button>
+      );
+    }
+
     return (
-      <Button onClick={ this.onReset }>
-        { I18n.t('actions.reset', { defaultValue: 'Reset' }) }
-      </Button>
+      <ConfigurableItemsButtonReset
+        as={ Button } buttonType='tertiary'
+        onClick={ this.onReset }
+      >
+        { I18n.t('actions.reset', { defaultValue: 'Reset Columns' }) }
+      </ConfigurableItemsButtonReset>
     );
   }
 
@@ -42,6 +59,7 @@ class ConfigurableItems extends React.Component {
   }
 
   render() {
+    const saveText = this.props.theme.name === THEMES.classic ? 'Save' : 'Done';
     return (
       <ConfigurableItemsStyle className={ this.classes } { ...tagComponent('configurable-items', this.props) }>
         <DraggableContext onDrag={ this.props.onDrag }>
@@ -49,6 +67,7 @@ class ConfigurableItems extends React.Component {
             leftAlignedActions={ this.additionalActions() }
             onSubmit={ this.props.onSave }
             onCancel={ this.props.onCancel }
+            saveText={ saveText }
           >
             { this.rows() }
           </Form>
@@ -70,10 +89,13 @@ ConfigurableItems.propTypes = {
   /** Callback triggered when when the reset button is pressed. */
   onReset: PropTypes.func,
   /** Callback triggered when the form is saved. */
-  onSave: PropTypes.func.isRequired
+  onSave: PropTypes.func.isRequired,
+  /** An internal prop. Helpful to detect which component should be rendered */
+  theme: PropTypes.object
 };
 
-export {
-  ConfigurableItems,
-  ConfigurableItemRow
+ConfigurableItems.defaultProps = {
+  theme: baseTheme
 };
+
+export default withTheme(ConfigurableItems);
