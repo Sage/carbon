@@ -5,7 +5,7 @@ Feature: Message component
     Given I open "Message" component page
 
   @positive
-  Scenario Outline: Change Message title
+  Scenario Outline: Change Message title to <title>
     When I set title to "<title>"
     Then Message title on preview is set to "<title>"
     Examples:
@@ -18,7 +18,7 @@ Feature: Message component
       | <>                      |
 
 @positive
-  Scenario Outline: Change type of Message component
+  Scenario Outline: Change type of Message component to <type>
     When I select type to "<type>"
     Then Message type on preview is "<typeResult>"
     Examples:
@@ -51,7 +51,7 @@ Feature: Message component
     Then Message component is not transparent
 
   @positive
-  Scenario Outline: Change Message children
+  Scenario Outline: Change Message children to <children>
     When I set children to "<children>"
     Then Message children on preview is set to "<children>"
     Examples:

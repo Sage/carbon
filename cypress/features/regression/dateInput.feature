@@ -87,26 +87,20 @@ Feature: Date Input component
       | Sample text |  100  |
 
   @positive
-  Scenario Outline: Change Date Input component minDate
-    When I set minDate to yesterday
+  Scenario: Change Date Input component minDate
+    When I set minDate to today
       And I click dateInput
       And I choose date yesterday via DayPicker
       And I click dateInput
     Then the date before minDate is not available
-    Examples:
-      | minDate     | day             |
-      | 20190505    | Sat May 4, 2019 |
 
   @positive
-  Scenario Outline: Change Date Input component maxDate
-    When I set maxDate to tomorrow
+  Scenario: Change Date Input component maxDate
+    When I set maxDate to today
       And I click dateInput
       And I choose date tomorrow via DayPicker
       And I click dateInput
     Then the date after maxDate is not available
-    Examples:
-      | maxDate     | day              |
-      | 20190509    | Fri May 10, 2019 |
 
   @positive
   Scenario Outline: Change Date Input component label width with slider to <width>
