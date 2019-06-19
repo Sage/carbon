@@ -6,7 +6,7 @@ import { State, Store } from '@sambego/storybook-state';
 import { commonKnobs } from './table-story-knobs';
 import countriesList from '../../../../demo/data/countries';
 import Button from '../../button';
-import MultiActionButton from '../../multi-action-button/multi-action-button';
+import MultiActionButton from '../../multi-action-button';
 import {
   Table,
   TableCell,
