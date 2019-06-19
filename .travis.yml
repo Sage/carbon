@@ -16,7 +16,7 @@ jobs:
   include:
     -
       script:
-        npm run test-storybook-smoke
+        npm run test-storybook-smoke </dev/null &>/dev/null &
         npm run lint ./src && npm test -- --maxWorkers=2
     - 
       script:
