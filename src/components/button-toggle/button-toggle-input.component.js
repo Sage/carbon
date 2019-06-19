@@ -11,6 +11,7 @@ function ButtonToggleInput(props) {
       name={ props.name }
       id={ props.guid }
       disabled={ props.disabled }
+      value={ props.value }
     />
   );
 }
@@ -21,7 +22,9 @@ ButtonToggleInput.propTypes = {
   /** Disable all user interaction. */
   disabled: PropTypes.bool,
   /** Unique ID attribute for input */
-  guid: PropTypes.string
+  guid: PropTypes.string,
+  /** Value for the input */
+  value: PropTypes.string
 };
 
 export default ButtonToggleInput;

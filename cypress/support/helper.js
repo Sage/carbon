@@ -1,4 +1,7 @@
-import { knobsTab, actionsTab, clearButtonInActions } from '../locators';
+import {
+  knobsTab, actionsTab, clearButtonInActions, accessibilityTab,
+  reRunTestsButtonInAccessibility,
+} from '../locators';
 import { DEBUG_FLAG } from '.';
 
 function prepareUrl(component, suffix, iFrameOnly) {
@@ -15,6 +18,14 @@ export function visitComponentUrl(component, suffix = 'default', iFrameOnly = fa
 
 export function clickActionsTab(iFrameOnly = false) {
   if (!iFrameOnly) actionsTab().click();
+}
+
+export function clickAccessebilityTab(iFrameOnly = false) {
+  if (!iFrameOnly) accessibilityTab().click();
+}
+
+export function reRunAccesibilityTests() {
+  reRunTestsButtonInAccessibility().click();
 }
 
 export function clickClear() {

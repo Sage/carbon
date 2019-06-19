@@ -219,13 +219,16 @@ SplitButton.propTypes = {
   /** The size of the buttons in the SplitButton. */
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   /** The text to be displayed in the SplitButton. */
-  text: PropTypes.string.isRequired
+  text: PropTypes.string.isRequired,
+  /** Defines an Icon position within the button: "before" | "after" */
+  iconPosition: PropTypes.oneOf(OptionsHelper.buttonIconPositions)
 };
 
 SplitButton.defaultProps = {
   as: 'secondary',
   disabled: false,
-  size: 'medium'
+  size: 'medium',
+  iconPosition: 'before'
 };
 
 SplitButton.safeProps = ['buttonType', 'as', 'disabled', 'size'];
