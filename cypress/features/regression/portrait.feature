@@ -2,8 +2,7 @@ Feature: Portrait component
   I want to test Portrait component
 
   Background: Open Portrait component page
-  # typo in the word Portrait due to the typo in component name
-    Given I open "Portait" component page
+    Given I open "Portrait" component page
 
   @positive
   Scenario Outline: Change Portrait alt to <alt>

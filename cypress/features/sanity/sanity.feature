@@ -67,8 +67,7 @@ Feature: Sanity tests
       | pager                | pager                |
       | pill                 | pill                 |
       | pod                  | pod                  |
-      # portrait component name should be fixed
-      | portait              | portrait             |
+      | portrait             | portrait             |
       | preview              | preview              |
       | profile              | profile              |
       | radio-button         | radio-button         |
