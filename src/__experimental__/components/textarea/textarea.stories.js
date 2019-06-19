@@ -7,6 +7,7 @@ import { State, Store } from '@sambego/storybook-state';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Textarea from '.';
 import { notes, info } from './documentation';
+import { OriginalTextarea } from './textarea.component';
 
 const store = new Store({
   value: ''
@@ -60,6 +61,7 @@ storiesOf('Experimental/Textarea', module)
       return (
         <State store={ store }>
           <Textarea
+            name='textarea'
             onChange={ handleChange }
             warnOverLimit={ warnOverLimit }
             expandable={ expandable }
@@ -82,7 +84,7 @@ storiesOf('Experimental/Textarea', module)
       );
     },
     {
-      info: { text: info },
+      info: { text: info, propTables: [OriginalTextarea], propTablesExclude: [Textarea] },
       notes: { markdown: notes }
     },
   );

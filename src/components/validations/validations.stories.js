@@ -16,6 +16,7 @@ import { Select, Option } from '../../__experimental__/components/select';
 import PresenceValidator from '../../utils/validations/presence';
 import { Row, Column } from '../row';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import Textarea from '../../__experimental__/components/textarea';
 
 I18n.translations.en.errors = {
   messages: {
@@ -30,6 +31,7 @@ const warningStore = new Store({ value: '' });
 const infoStore = new Store({ value: '' });
 const allStore = new Store({ value: '' });
 const buttonToggleGroupStore = new Store({ value: '' });
+const textareaStore = new Store({ value: '' });
 
 const promiseValidator = value => new Promise((resolve, reject) => {
   if (value) {
@@ -68,7 +70,7 @@ const asyncValidator = value => new Promise((resolve, reject) => {
 storiesOf('Validations', module)
   .addParameters({
     info: {
-      propTablesExclude: [Column, Row, Form, Textbox, State]
+      propTablesExclude: [ButtonToggle, ButtonToggleGroup, Column, Row, Form, Textbox, State, Textarea]
     }
   })
   .add('Basic', () => {
@@ -212,6 +214,30 @@ storiesOf('Validations', module)
               </ButtonToggle>
             ))}
           </ButtonToggleGroup>
+        </State>
+      </Form>
+    );
+  })
+  .add('TextArea', () => {
+    const notEmpty = value => new Promise((resolve, reject) => {
+      if (value !== '') return resolve(true);
+      return reject(Error('Must not be empty!'));
+    });
+
+    return (
+      <Form
+        onSubmit={ handleSubmit }
+      >
+        <State store={ textareaStore }>
+          <Textarea
+            name='textarea'
+            label='Textarea Validation'
+            labelHelp='Returns error when the field is empty'
+            fieldHelp='Click save to run validation'
+            onChange={ ev => textareaStore.set({ value: ev.target.value }) }
+            warnings={ warningValidator }
+            validations={ notEmpty }
+          />
         </State>
       </Form>
     );
