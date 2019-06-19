@@ -3,7 +3,7 @@ import largeTheme from '.';
 
 
 describe('largeTheme', () => {
-  fit('contains the base theme', () => {
+  it('contains the base theme', () => {
     assertIsSubset(baseThemeConfig, largeTheme);
   });
 
