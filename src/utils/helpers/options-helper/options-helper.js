@@ -255,6 +255,30 @@ const OptionsHelper = {
     'tertiary',
     'tile',
     'transparent'
+  ],
+
+  tableThemes: [
+    'primary',
+    'secondary',
+    'tertiary',
+    'dark',
+    'light',
+    'transparent'
+  ],
+
+  tableSizes: [
+    'compact',
+    'small',
+    'medium',
+    'large'
+  ],
+
+  inputTypes: [
+    'textbox',
+    'textarea',
+    'date',
+    'decimal',
+    'select'
   ]
 };
 
