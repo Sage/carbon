@@ -3,6 +3,7 @@ import { mount } from 'enzyme';
 import { ConfigurableItems } from '.';
 import { DraggableContext } from '../drag-and-drop';
 import Form from '../form';
+import classic from '../../style/themes/classic';
 
 describe('ConfigurableItems', () => {
   let wrapper;
@@ -101,6 +102,11 @@ describe('ConfigurableItems', () => {
         expect(resetButton.length).toEqual(1);
         resetButton.simulate('click', { preventDefault: () => {} });
         expect(onResetSpy).toHaveBeenCalled();
+      });
+
+      it('render button secodary is classTheme provided', () => {
+        wrapper.setProps({ theme: classic });
+        expect(wrapper.find('[buttonType="secondary"]'));
       });
     });
 

@@ -2,13 +2,16 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { ConfigurableItemRowWithoutHOC } from './configurable-item-row.component';
 import Checkbox from '../../../__experimental__/components/checkbox';
+import CheckboxLegacy from '../../checkbox';
 import 'jest-styled-components';
 import Icon from '../../icon';
 import { WithDrag, WithDrop } from '../../drag-and-drop';
 import DraggableContext from '../../drag-and-drop/draggable-context';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
-import { ConfigurableItemRowStyle } from './configurable-item-row.style';
+import { ConfigurableItemRowStyle, ConfigurableItemRowIconStyle } from './configurable-item-row.style';
 import classicTheme from '../../../style/themes/classic';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+
 
 describe('ConfigurableItemRow', () => {
   let wrapper;
@@ -70,6 +73,11 @@ describe('ConfigurableItemRow', () => {
     });
     it('passes the onChange prop through to the Checkbox onChange prop', () => {
       expect(wrapper.find(Checkbox).props().onChange).toEqual(onChange);
+    });
+
+    it('if classicTheme provided, render legacy checkbox component', () => {
+      wrapper.setProps({ theme: classicTheme });
+      expect(wrapper.find(CheckboxLegacy).props().onChange).toEqual(onChange);
     });
   });
 
