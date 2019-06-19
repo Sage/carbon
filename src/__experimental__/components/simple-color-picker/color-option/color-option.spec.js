@@ -5,6 +5,8 @@ import TestRenderer from 'react-test-renderer';
 import ColorOption from './color-option.component';
 import StyledColorOption from './style/color-option.style';
 import StyledColorSampleBox from '../color-sample-box/style/color-sample-box.style';
+import StyledColorOptionInput from '../color-option-input/style/color-option-input.style';
+import ColorSampleBox from '../color-sample-box';
 import { assertStyleMatch } from '../../../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../../../utils/helpers/tags/tags-specs/tags-specs';
 import classicTheme from '../../../../style/themes/classic';
@@ -35,6 +37,8 @@ describe('ColorOption', () => {
   it('contains input and color sample box', () => {
     wrapper = render();
     expect(wrapper.children()).toHaveLength(2);
+    expect(wrapper.find(StyledColorOptionInput).exists()).toBeTruthy();
+    expect(wrapper.find(ColorSampleBox).exists()).toBeTruthy();
   });
 
   it('applies color mixed with 20% of black on hover', () => {
