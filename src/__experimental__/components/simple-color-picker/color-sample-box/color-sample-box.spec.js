@@ -43,20 +43,20 @@ describe('ColorSampleBox', () => {
   );
 
   describe('when in classic theme', () => {
-    describe('when color is set to transparent or none', () => {
-      const colors = ['transparent', 'none'];
-      it('applies border around the tile', () => {
-        colors.forEach((color) => {
+    const noColors = ['transparent', 'none'];
+    describe.each(noColors)(
+      'when color is set to transparent or none', (color) => {
+        it('applies border around the tile', () => {
           wrapper = renderStyles({ theme: classicTheme, color });
+          assertStyleMatch(
+            {
+              borderColor: '#b3c2c8'
+            },
+            wrapper.toJSON()
+          );
         });
-        assertStyleMatch(
-          {
-            borderColor: '#b3c2c8'
-          },
-          wrapper.toJSON()
-        );
-      });
-    });
+      }
+    );
 
     describe('when checked', () => {
       it('renders the tick icon', () => {
