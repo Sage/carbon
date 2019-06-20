@@ -405,11 +405,10 @@ describe('Flash', () => {
         expect(flashInfo.find(Portal).find('.carbon-flash__close.icon-close').length).toEqual(1);
       });
 
-      it('adds a click handler that closes the flash', () => {
+it('adds a click handler that closes the flash', () => {
         flashInfo.setProps({ open: true });
         flashInfo.find(Portal).find('.carbon-flash__close.icon-close').simulate('click');
-        jest.runTimersToTime(2000);
-        expect(flashInfo.html()).toEqual(null);
+        expect(flashInfo.props().open).toEqual(false);
       });
     });
 
