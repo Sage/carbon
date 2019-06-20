@@ -49,7 +49,7 @@ const Pager = (props) => {
   }
 
   return (
-    <PagerContainerStyles>
+    <PagerContainerStyles data-component='pager'>
       <PagerSizeOptionsStyles>{pageSizeOptions()}</PagerSizeOptionsStyles>
       <PagerNavigation
         { ...props }

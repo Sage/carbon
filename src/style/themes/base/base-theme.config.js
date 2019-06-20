@@ -71,8 +71,9 @@ export default (palette) => {
     },
 
     pager: {
+      active: 'rgba(0,0,0,0.74)',
       disabled: 'rgba(0,0,0,0.55)',
-      active: 'rgba(0,0,0,0.90)'
+      hover: 'rgba(0,0,0,0.90)'
     },
 
     icon: {
