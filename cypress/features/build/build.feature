@@ -3,8 +3,8 @@ Feature: Build tests
 
   @build
   Scenario Outline: Component <component> page with button
-    When I open "<component>" component page with button
-      And I open component preview
+    When I open "<component>" component with button page in iframe
+      And I open component preview no iFrame
     Then "<component>" component is visible
     Examples:
       | component           |
@@ -13,8 +13,8 @@ Feature: Build tests
 
   @build
   Scenario Outline: Component <component> page and open preview
-    When I open "<component>" component page
-      And I open component preview
+    When I open "<component>" component iframe
+      And I open component preview no iFrame
     Then "<data-component>" component is visible
     Examples:
       | component           | data-component     |
@@ -22,27 +22,18 @@ Feature: Build tests
       | dialog              | dialog             |
       | flash               | flash              |
       | pages               | page               |
-
-  @build
-  Scenario Outline: Component <component> page and open button
-    When I open "<component>" component page
-      And I click on a openButton
-    Then "<component>" component is visible
-    Examples:
-      | component         |
-      | confirm           |
-
+      | confirm             | confirm            |
 
   @build
   Scenario Outline: Component <component> without activation button
-    When I open "<component>" component page
+    When I open "<component>" component iframe
     Then "<data-component>" component is visible
     Examples:
       | component            | data-component       |
       | animated menu button | animated-menu-button |
       | app wrapper          | app-wrapper          |
-      # | button toggle group  | button-toggle-group  |  data-component
-      # | button toggle        | button-toggle        |  data-component
+      | button toggle group  | button-toggle-group  |
+      | button toggle        | button-toggle        |
       | button               | button               |
       | carousel             | carousel             |
       | checkbox             | checkbox             |
@@ -65,18 +56,18 @@ Feature: Build tests
       | help                 | help                 |
       | i18ncomponent        | i18n                 |
       | icon                 | icon                 |
-      # | inlineInputs         | inline-inputs        |  data-component
+      | inlineInputs         | inline-inputs        |
       | link                 | link                 |
       | loader               | loader               |
       | menulist             | menu-list            |
       | menu                 | menu                 |
       | message              | Message              |
-      # | mount-in-app         | carbon-mount-in-app  | data-component
+      | mount-in-app         | mount-in-app         |
       | multi-action-button  | multi-action-button  |
       | navigation-bar       | navigation-bar       |
       | number-input         | number               |
-      # | pager                | pager                | data-component
-      # | pill                 | pill                 | data-component
+      | pager                | pager                |
+      | pill                 | pill                 |
       | pod                  | pod                  |
       # portrait component name should be fixed
       | portait              | portrait             |
@@ -84,12 +75,12 @@ Feature: Build tests
       | profile              | profile              |
       | radio-button         | radio-button         |
       | rainbow              | rainbow              |
-      # | row                  | row                  | data-component
-      # | settingsrow          | settings-row         | data-component
+      | row                  | row                  |
+      | settingsrow          | settings-row         |
       | simplecolorpicker    | simple-color-picker  |
-      # | split-button         | split-button         | data-component
-      # | step-sequence-item   | step-sequence-item   | data-component
-      # | step-sequence        | step-sequence        | data-component
+      | split-button         | split-button         |
+      | step-sequence-item   | step-sequence-item   |
+      | step-sequence        | step-sequence        |
       | switch               | checkbox             |
       | table-ajax           | table-ajax           |
       | table                | table                |

@@ -6,10 +6,10 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
 }
 
 .c1 + .c0 {
-  margin-top: 16px;
+  margin-top: 10px;
 }
 
-.c5 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -26,7 +26,7 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
   height: 100%;
 }
 
-.c4 {
+.c5 {
   display: inline-block;
   height: 38px;
   padding: 0 24px;
@@ -41,107 +41,108 @@ exports[`ButtonToggleGroup Classic theme renders correctly with default settings
   border: 1px solid #ccd6db;
 }
 
-input:checked ~ .c4 {
+input:checked ~ .c5 {
   color: #FFFFFF;
   background-color: #003F2E;
 }
 
-input:focus ~ .c4 {
+input:focus ~ .c5 {
   outline: 3px solid #FFB500;
 }
 
-.c4:hover {
+.c5:hover {
   background-color: #E5F4E5;
   border-color: #003F2E;
 }
 
-input:checked ~ .c4 {
+input:checked ~ .c5 {
   color: #FFFFFF;
   background-color: #1573e6;
 }
 
-input:focus ~ .c4 {
+input:focus ~ .c5 {
   outline: 0;
 }
 
-.c4:hover {
+.c5:hover {
   border-color: #1e499f;
   color: #FFFFFF;
   background-color: #1e499f;
 }
 
-.c2 {
+.c3 {
   display: inline-block;
+  vertical-align: middle;
 }
 
-.c2:not(:first-of-type) {
+.c3:not(:first-of-type) {
   margin-left: 10px;
 }
 
-.c3 {
+.c4 {
   position: absolute;
   width: 0;
   height: 0;
   opacity: 0;
 }
 
+.c2 .c7 {
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: -4px;
+  vertical-align: middle;
+}
+
 <div
   className="c0 c1"
 >
   <div
-    className=""
+    className="c2"
+    data-component="button-toggle-group"
+    onChange={[Function]}
+    role="group"
   >
     <div
-      className="c2"
-      id="foo"
-      name="button-toggle-group"
-      size="large"
-      value="foo"
+      className="c3"
+      data-component="button-toggle"
     >
       <input
-        className="c3"
+        className="c4"
         id="guid-12345"
         name="button-toggle-group"
         type="radio"
+        value="foo"
       />
       <label
-        className="c4"
+        className="c5"
         htmlFor="guid-12345"
-        id="foo"
-        name="button-toggle-group"
         size="large"
-        value="foo"
       >
         <div
-          className="c5"
+          className="c6"
         >
           Foo
         </div>
       </label>
     </div>
     <div
-      className="c2"
-      id="bar"
-      name="button-toggle-group"
-      size="large"
-      value="bar"
+      className="c3"
+      data-component="button-toggle"
     >
       <input
-        className="c3"
+        className="c4"
         id="guid-12345"
         name="button-toggle-group"
         type="radio"
+        value="bar"
       />
       <label
-        className="c4"
+        className="c5"
         htmlFor="guid-12345"
-        id="bar"
-        name="button-toggle-group"
         size="large"
-        value="bar"
       >
         <div
-          className="c5"
+          className="c6"
         >
           Bar
         </div>
@@ -152,6 +153,10 @@ input:focus ~ .c4 {
 `;
 
 exports[`ButtonToggleGroup Modern theme renders correctly with default settings 1`] = `
+.c7 + .c0 {
+  margin-top: 10px;
+}
+
 .c1 {
   display: block;
 }
@@ -160,7 +165,7 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
   margin-top: 16px;
 }
 
-.c5 {
+.c6 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -177,7 +182,7 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
   height: 100%;
 }
 
-.c4 {
+.c5 {
   display: inline-block;
   height: 38px;
   padding: 0 24px;
@@ -187,96 +192,282 @@ exports[`ButtonToggleGroup Modern theme renders correctly with default settings 
   background-color: #FFFFFF;
 }
 
-input:checked ~ .c4 {
+input:checked ~ .c5 {
   color: #FFFFFF;
   background-color: #003F2E;
 }
 
-input:focus ~ .c4 {
+input:focus ~ .c5 {
   outline: 3px solid #FFB500;
 }
 
-.c4:hover {
+.c5:hover {
   background-color: #E5F5F1;
   border-color: #003F2E;
 }
 
-.c2 {
+.c3 {
   display: inline-block;
+  vertical-align: middle;
 }
 
-.c2:not(:first-of-type) {
+.c3:not(:first-of-type) {
   margin-left: 10px;
 }
 
-.c3 {
+.c4 {
   position: absolute;
   width: 0;
   height: 0;
   opacity: 0;
 }
 
+.c2 .c8 {
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: -4px;
+  vertical-align: middle;
+}
+
 <div
   className="c0 c1"
 >
   <div
-    className=""
+    className="c2"
+    data-component="button-toggle-group"
+    onChange={[Function]}
+    role="group"
   >
     <div
-      className="c2"
-      id="foo"
-      name="button-toggle-group"
-      size="large"
-      value="foo"
+      className="c3"
+      data-component="button-toggle"
     >
       <input
-        className="c3"
+        className="c4"
         id="guid-12345"
         name="button-toggle-group"
         type="radio"
+        value="foo"
       />
       <label
-        className="c4"
+        className="c5"
         htmlFor="guid-12345"
-        id="foo"
-        name="button-toggle-group"
         size="large"
-        value="foo"
       >
         <div
-          className="c5"
+          className="c6"
         >
           Foo
         </div>
       </label>
     </div>
     <div
-      className="c2"
-      id="bar"
-      name="button-toggle-group"
-      size="large"
-      value="bar"
+      className="c3"
+      data-component="button-toggle"
     >
       <input
-        className="c3"
+        className="c4"
         id="guid-12345"
         name="button-toggle-group"
         type="radio"
+        value="bar"
       />
       <label
-        className="c4"
+        className="c5"
         htmlFor="guid-12345"
-        id="bar"
-        name="button-toggle-group"
         size="large"
-        value="bar"
       >
         <div
-          className="c5"
+          className="c6"
         >
           Bar
         </div>
       </label>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`ButtonToggleGroup When validating renders ButtonToggle errors correctly 1`] = `
+.c10 + .c0 {
+  margin-top: 10px;
+}
+
+.c1 {
+  display: block;
+}
+
+.c1 + .c0 {
+  margin-top: 16px;
+}
+
+.c11 + .c0 {
+  margin-top: 10px;
+}
+
+.c7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+.c6 {
+  display: inline-block;
+  height: 38px;
+  padding: 0 24px;
+  font-weight: 600;
+  border: 1px solid #668491;
+  font-size: 14px;
+  background-color: #FFFFFF;
+}
+
+input:checked ~ .c6 {
+  color: #FFFFFF;
+  background-color: #003F2E;
+}
+
+input:focus ~ .c6 {
+  outline: 3px solid #FFB500;
+}
+
+.c6:hover {
+  background-color: #E5F5F1;
+  border-color: #003F2E;
+}
+
+.c3 {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.c3:not(:first-of-type) {
+  margin-left: 10px;
+}
+
+.c4 {
+  position: absolute;
+  width: 0;
+  height: 0;
+  opacity: 0;
+}
+
+.c9 {
+  color: #C7384F;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.c12 .c8 {
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: -4px;
+  vertical-align: middle;
+}
+
+.c13 .c8 {
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: -4px;
+  vertical-align: middle;
+}
+
+.c2 .c5 {
+  border-color: #C7384F;
+}
+
+.c2 .c8 {
+  display: inline-block;
+  margin-left: 10px;
+  margin-top: -4px;
+  vertical-align: middle;
+}
+
+<div
+  className="c0 c1"
+>
+  <div
+    className="c2"
+    data-component="button-toggle-group"
+    onChange={[Function]}
+    role="group"
+  >
+    <div
+      className="c3"
+      data-component="button-toggle"
+    >
+      <input
+        className="c4"
+        id="guid-12345"
+        name="button-toggle-group"
+        type="radio"
+        value="foo"
+      />
+      <label
+        className="c5 c6"
+        htmlFor="guid-12345"
+        size="large"
+      >
+        <div
+          className="c7"
+        >
+          Foo
+        </div>
+      </label>
+    </div>
+    <div
+      className="c3"
+      data-component="button-toggle"
+    >
+      <input
+        className="c4"
+        id="guid-12345"
+        name="button-toggle-group"
+        type="radio"
+        value="bar"
+      />
+      <label
+        className="c5 c6"
+        htmlFor="guid-12345"
+        size="large"
+      >
+        <div
+          className="c7"
+        >
+          Bar
+        </div>
+      </label>
+    </div>
+    <div
+      className="c8 c9"
+      type="error"
+    >
+      <span
+        className="carbon-icon icon-error"
+        data-component="icon"
+        data-element="error"
+        onBlur={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+        onTouchEnd={[Function]}
+      />
     </div>
   </div>
 </div>

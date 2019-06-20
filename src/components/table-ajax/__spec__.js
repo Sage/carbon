@@ -252,7 +252,7 @@ describe('TableAjax', () => {
 
       expect(pager.props().totalRecords).toEqual('1');
 
-      const table = wrapper.find('.carbon-table')
+      const table = wrapper.find('table')
       expect(table.length).toEqual(1);
       expect(wrapper.find('[data-state="loaded"]').length).toEqual(1);
       expect(table.props().ariaBusy).toBeFalsy();
@@ -577,7 +577,7 @@ describe('TableAjax', () => {
         expect(onError).toBeCalledWith(error, response);
 
         expect(wrapper.instance().dataState()).toEqual('errored');
-        const table = wrapper.find('.carbon-table');
+        const table = wrapper.find('table');
         expect(table.prop('aria-busy')).toBeFalsy();
       });
     });
@@ -594,7 +594,7 @@ describe('TableAjax', () => {
         expect(console.warn).toBeCalled();
 
         expect(wrapper.instance().dataState()).toEqual('errored');
-        const table = wrapper.find('.carbon-table');
+        const table = wrapper.find('table');
         expect(table.prop('aria-busy')).toBeFalsy();
       });
     });

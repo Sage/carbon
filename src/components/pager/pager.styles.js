@@ -3,7 +3,6 @@ import {
   PagerContainerClassicStyles,
   PagerNavigationClassicStyles
 } from './pager-classic.styles';
-import { LinkStyle } from '../link/link.style';
 import StyledInput from '../../__experimental__/components/input/input.style';
 import StyledInputPresentation from '../../__experimental__/components/input/input-presentation.style';
 import smallTheme from '../../style/themes/small';

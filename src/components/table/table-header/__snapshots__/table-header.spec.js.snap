@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableHeader render renders the sort icon to match the snapshot 1`] = `
+.c1 {
+  background-color: #335B6D;
+  border-width: 0;
+  border-bottom: 1px solid #CCD6DA;
+  border-left: 1px solid #668491;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  font-weight: 700;
+  outline: medium none;
+  padding: 0 8px;
+  position: relative;
+  text-align: right;
+  text-overflow: ellipsis;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.c1:first-child {
+  border-left: none;
+}
+
+.c1:hover {
+  background-color: #19475B;
+}
+
+.c1 a:link,
+.c1 a:visited,
+.c1 a:hover,
+.c1 a:active {
+  color: #FFFFFF;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.c1 a span {
+  float: left;
+}
+
+.c1 a span .carbon-icon__svg--sort-down,
+.c1 a span .carbon-icon__svg--sort-up {
+  height: 11px;
+  width: 10px;
+}
+
+.c2.c2 .carbon-table-row .c3,
+.c2.c2 .carbon-table-row .c0 {
+  font-size: 14px;
+  padding-left: 11px;
+  padding-right: 11px;
+}
+
+.c2 .carbon-table-row:first-child .c0:first-child {
+  border-radius: 0px 0 0 0;
+}
+
+.c2 .carbon-table-row:first-child .c0:last-child {
+  border-radius: 0 0px 0 0;
+}
+
+<th
+  className="c0 c1"
+  data-component="table-header"
+  onClick={[Function]}
+>
+  <a
+    aria-label="Sortable column, activate to sort column descending"
+    href="#sort-asc"
+    onClick={[Function]}
+  />
+</th>
+`;
