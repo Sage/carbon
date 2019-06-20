@@ -101,7 +101,7 @@ describe('Tooltip', () => {
           assertStyleMatch(
             {
               position: 'absolute',
-              width: '300px',
+              maxWidth: '300px',
               zIndex: '1003'
             },
             renderWrapper(),
