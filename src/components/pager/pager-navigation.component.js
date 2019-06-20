@@ -14,11 +14,11 @@ import NumberComponent from '../number';
 import NumberInput from '../../__experimental__/components/number';
 import Events from '../../utils/helpers/events';
 import baseTheme from '../../style/themes/base';
-import { THEMES } from '../../style/themes';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const PagerNavigation = (props) => {
   const { theme, setCurrentThemeName } = props;
-  setCurrentThemeName(theme.name);
+  setCurrentThemeName(theme);
 
   const updatePageFromInput = (ev) => {
     let newPage = Math.abs(Number(ev.target.value));
@@ -90,6 +90,10 @@ const PagerNavigation = (props) => {
       }
     };
 
+    const { destination, text } = navLinkConfig[type];
+
+    const clickHandler = () => props.onPagination(destination, props.pageSize, type);
+
     function disabled() {
       if (currentPage === 1) {
         return type === 'back' || type === 'first';
@@ -102,15 +106,10 @@ const PagerNavigation = (props) => {
 
     return (
       <PagerLinkStyles
-        isDisabled={ disabled() }
-        onClick={ () => {
-          if (disabled()) {
-            return false;
-          }
-          return props.onPagination(navLinkConfig[type].destination, props.pageSize, type);
-        } }
+        disabled={ disabled() }
+        onClick={ !disabled() ? clickHandler : undefined }
       >
-        {navLinkConfig[type].text}
+        { text }
       </PagerLinkStyles>
     );
   }
@@ -146,10 +145,6 @@ const PagerNavigation = (props) => {
         <NumberInput { ...currentPageInputProps } />
       </label>
     );
-  }
-
-  function isClassic(currentTheme) {
-    return currentTheme && currentTheme.name === THEMES.classic;
   }
 
   if (isClassic(theme)) {
@@ -206,6 +201,5 @@ PagerNavigation.propTypes = {
 PagerNavigation.defaultProps = {
   theme: baseTheme
 };
-
 
 export default withTheme(PagerNavigation);

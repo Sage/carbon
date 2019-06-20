@@ -93,7 +93,7 @@ const PagerButtonWrapperStyles = styled.div`
 `;
 
 const PagerLinkStyles = styled.button`
-  padding: 0 12px;
+  padding: 0 4px;
   font-size: 13px;
   border-width: 0;
   text-decoration: underline;
@@ -102,20 +102,21 @@ const PagerLinkStyles = styled.button`
 
   ${({ theme }) => theme.pager && css`
     color: ${theme.pager.active};
-    
-    &:focus {
-      outline: none;
-      background-color: ${theme.colors.focusedLinkBackground};
-    }
 
-    ${({ isDisabled }) => !isDisabled && css`
+    ${({ disabled }) => !disabled && css`
       &:hover {
+        color: ${theme.pager.hover};
+      }
+
+      &:focus {
+        outline: none;
+        background-color: ${theme.colors.focusedLinkBackground};
         color: ${theme.pager.hover};
       }
     `}
   `}
  
-  ${({ isDisabled, theme }) => isDisabled && css`
+  ${({ disabled, theme }) => disabled && css`
     color: ${theme.pager.disabled};
     cursor: not-allowed;
   `}
