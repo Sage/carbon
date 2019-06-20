@@ -14,7 +14,7 @@ import NumberComponent from '../number';
 import NumberInput from '../../__experimental__/components/number';
 import Events from '../../utils/helpers/events';
 import baseTheme from '../../style/themes/base';
-import { THEMES } from '../../style/themes';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const PagerNavigation = (props) => {
   const { theme, setCurrentThemeName } = props;
@@ -100,15 +100,21 @@ const PagerNavigation = (props) => {
       return false;
     }
 
+    const pagerLinkProps = {
+      isDisabled: disabled()
+    };
+
+    if (pagerLinkProps.isDisabled) {
+      pagerLinkProps.disabled = true;
+    } else {
+      pagerLinkProps.onClick = () => {
+        return props.onPagination(navLinkConfig[type].destination, props.pageSize, type);
+      };
+    }
+
     return (
       <PagerLinkStyles
-        isDisabled={ disabled() }
-        onClick={ () => {
-          if (disabled()) {
-            return false;
-          }
-          return props.onPagination(navLinkConfig[type].destination, props.pageSize, type);
-        } }
+        { ...pagerLinkProps }
       >
         {navLinkConfig[type].text}
       </PagerLinkStyles>
@@ -146,10 +152,6 @@ const PagerNavigation = (props) => {
         <NumberInput { ...currentPageInputProps } />
       </label>
     );
-  }
-
-  function isClassic(currentTheme) {
-    return currentTheme && currentTheme.name === THEMES.classic;
   }
 
   if (isClassic(theme)) {

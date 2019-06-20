@@ -465,7 +465,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
 }
 
 .c4 {
-  padding: 0 12px;
+  padding: 0 4px;
   font-size: 13px;
   border-width: 0;
   -webkit-text-decoration: underline;
@@ -477,13 +477,8 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   cursor: not-allowed;
 }
 
-.c4:focus {
-  outline: none;
-  background-color: #FFDA7F;
-}
-
 .c13 {
-  padding: 0 12px;
+  padding: 0 4px;
   font-size: 13px;
   border-width: 0;
   -webkit-text-decoration: underline;
@@ -493,12 +488,13 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   color: rgba(0,0,0,0.74);
 }
 
+.c13:hover {
+  color: rgba(0,0,0,0.90);
+}
+
 .c13:focus {
   outline: none;
   background-color: #FFDA7F;
-}
-
-.c13:hover {
   color: rgba(0,0,0,0.90);
 }
 
@@ -591,13 +587,13 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   >
     <button
       className="c4"
-      onClick={[Function]}
+      disabled={true}
     >
       First
     </button>
     <button
       className="c4"
-      onClick={[Function]}
+      disabled={true}
     >
       Previous
     </button>
