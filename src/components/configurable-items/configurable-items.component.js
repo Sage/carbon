@@ -71,6 +71,7 @@ class ConfigurableItems extends React.Component {
             leftAlignedActions={ this.additionalActions() }
             onSubmit={ this.props.onSave }
             onCancel={ this.props.onCancel }
+            cancel={ this.props.theme.name === THEMES.classic }
             saveText={ saveText }
           >
             { this.rows() }
