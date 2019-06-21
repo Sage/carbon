@@ -11,31 +11,32 @@ import { THEMES } from '../../style/themes';
 
 const animationName = '.toast';
 const ToastStyle = styled(MessageStyle)`
-  width: 300px;
+  box-shadow: 0 10px 30px 0 rgba(0,20,29,.1), 0 30px 60px 0 rgba(0,20,29,.1);
+  line-height: 22px;
   margin-top: 30px;
-  position: fixed;
-  right: 30px;
+  max-width: 300px;
+  position: ${({ isCenter }) => (isCenter ? '' : 'fixed')};
+  right: ${({ isCenter }) => (isCenter ? '0px' : '30px')};
   top: 0;
-  box-shadow: 0 15px 20px 0 rgba(2, 18, 36, 0.2);
 
   ${({ theme }) => theme.name !== THEMES.classic && css`
     &${animationName}-appear,
     &${animationName}-enter {
       opacity: 0;
-      transform: scale(0);
+      transform: scale(0.5)};
     }
 
     &${animationName}-appear.toast-appear-active,
     &${animationName}-enter.toast-enter-active {
       opacity: 1;
-      transform: scale(1);
-      transition: all 300ms 1000ms cubic-bezier(0.250, 0.250, 0.000, 1.500);
+      transform: ${({ isCenter }) => (isCenter ? ' scale(1) translateY(0)' : 'scale(1)')};
+      transition: all 300ms cubic-bezier(0.250, 0.250, 0.000, 1.500);
     }
 
     &${animationName}-leave.toast-leave-active {
       opacity: 0;
-      margin-top: -30px;
-      transition: all 300ms cubic-bezier(0.960, -0.335, 0.750, 0.750);
+      transform: translateY(-20px);
+      transition: all 150ms ease-out;
     }
   `}
   
@@ -47,14 +48,25 @@ const ToastTypeStyle = styled(TypeIcon)`
 `;
 
 const ToastContentStyle = styled(MessageContentStyle)`
-  padding: 10px 20px 10px 20px;
-
+  padding: 8px 16px 8px 16px;
+  
   ${({ isDismiss }) => isDismiss
     && css`
-      padding-right: 50px;
+      padding-right: 48px;
     `}
 
   ${classicToastContentStyle};
 `;
 
-export { ToastStyle, ToastTypeStyle, ToastContentStyle };
+const ToastWrapper = styled.div`
+  ${({ isCenter }) => isCenter && css`
+      position: fixed;
+      width: 100%; 
+      height: 0;
+      justify-content: center;
+      display: flex;
+  `}
+`;
+export {
+  ToastStyle, ToastTypeStyle, ToastContentStyle, ToastWrapper
+};
