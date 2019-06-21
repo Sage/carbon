@@ -20,7 +20,7 @@ describe('Toast', () => {
   let instance, onDismissSpy;
 
   describe('when toast is closed', () => {
-    it('renders null', () => {
+    it('should exists anyway', () => {
       const wrapper = mount(
         <Toast
           open={ false } as='info'
@@ -29,7 +29,8 @@ describe('Toast', () => {
         foobar
         </Toast>
       );
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper).toBeTruthy();
+      expect(wrapper.prop('open')).toEqual(false);
     });
   });
 
