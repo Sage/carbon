@@ -22,7 +22,7 @@ const ConfigurableItemRowContentWrapperStyle = styled.div`
 const ConfigurableItemRowStyle = styled.li`
   border-bottom: 1px solid ${({ theme }) => theme.disabled.input};
   font-weight: bold;
-  padding: 5px 0.5em;
+  padding: 5px 0.5em 5px 0px;
 
   ${LabelStyle}{
     padding: 0px 6px 6px 6px;

@@ -189,3 +189,40 @@ describe('ConfigurableItemRow', () => {
     });
   });
 });
+
+describe('ConfigurableItemRowIconStyle', () => {
+  describe('when classic theme is provided to the component', () => {
+    it('should render correct styles', () => {
+      assertStyleMatch({
+        paddingRight: '0'
+      }, mount(<ConfigurableItemRowIconStyle type='drag_vertical' theme={ classicTheme } />));
+    });
+  });
+});
+
+describe('ConfigurableItemRowStyle', () => {
+  describe('when classic theme is provided to the component', () => {
+    it('should render correct styles', () => {
+      assertStyleMatch({
+        borderBottom: '1px solid #CCD6DA',
+        padding: '0.5em 0.5em 0.7em'
+      }, mount(<ConfigurableItemRowStyle theme={ classicTheme } />));
+    });
+  });
+
+  describe('when isDragged is provided to the component', () => {
+    it('should render correct styles', () => {
+      assertStyleMatch({
+        cursor: '-webkit-grabbing'
+      }, mount(<ConfigurableItemRowStyle theme={ classicTheme } isDragged />));
+    });
+  });
+
+  describe('when isDragging is provided to the component', () => {
+    it('should render correct styles', () => {
+      assertStyleMatch({
+        cursor: '-webkit-grabbing'
+      }, mount(<ConfigurableItemRowStyle theme={ classicTheme } isDragging />));
+    });
+  });
+});
