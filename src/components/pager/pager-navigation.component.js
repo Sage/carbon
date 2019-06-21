@@ -17,7 +17,10 @@ import baseTheme from '../../style/themes/base';
 import { isClassic } from '../../utils/helpers/style-helper';
 
 const PagerNavigation = (props) => {
-  const { theme, setCurrentThemeName } = props;
+  const {
+    theme, setCurrentThemeName, setCurrentPage, onPagination
+  } = props;
+
   setCurrentThemeName(theme);
 
   const updatePageFromInput = (ev) => {
@@ -26,7 +29,8 @@ const PagerNavigation = (props) => {
     if (Number(newPage) === 0 || Number.isNaN(newPage)) newPage = '1';
     else if (newPage > maxPages()) newPage = String(maxPages());
 
-    props.onPagination(String(newPage), props.pageSize, 'input');
+    onPagination(String(newPage), props.pageSize, 'input');
+    setCurrentPage(String(newPage));
   };
 
   function maxPages() {
@@ -41,7 +45,7 @@ const PagerNavigation = (props) => {
   function navArrowChange(step) {
     const newPage = String(Number(props.currentPage) + step);
     const desc = step === 1 ? 'next' : 'previous';
-    props.onPagination(newPage, props.pageSize, desc);
+    onPagination(newPage, props.pageSize, desc);
   }
 
   function navArrow(step) {
@@ -92,7 +96,9 @@ const PagerNavigation = (props) => {
 
     const { destination, text } = navLinkConfig[type];
 
-    const clickHandler = () => props.onPagination(destination, props.pageSize, type);
+    const clickHandler = () => {
+      onPagination(destination, props.pageSize, type);
+    };
 
     function disabled() {
       if (currentPage === 1) {
@@ -115,7 +121,7 @@ const PagerNavigation = (props) => {
   }
 
   function handlePageInputChange(ev) {
-    props.setCurrentPage(ev.target.value);
+    setCurrentPage(ev.target.value);
   }
 
   function currentPageInput() {
