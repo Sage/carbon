@@ -5,7 +5,7 @@ import FlashLegacy from './flash-legacy.component';
 import Portal from '../portal/portal';
 import guid from '../../utils/helpers/guid/guid';
 import 'jest-styled-components';
-import OptionsHelper from '../../utils/helpers/options-helper';
+import { FlashIconStyle, FlashCloseStyle, FlashLink } from './flash-legacy.style';
 
 jest.mock('../../utils/helpers/guid');
 
@@ -282,7 +282,7 @@ describe('FlashLegacy', () => {
         spyOn(defaultInstance, 'toggleDialog').and.returnValue(toggleDialogSpy);
         const markup = defaultInstance.findMore('yep ::more:: with dialog');
         expect(markup.props.children[0]).toEqual('yep');
-        expect(markup.props.children[2].props.className).toEqual('carbon-flash__link');
+        expect(FlashLink).toBeTruthy();
         markup.props.children[2].props.onClick();
         expect(defaultInstance.toggleDialog).toHaveBeenCalledWith('yep');
         expect(toggleDialogSpy).toHaveBeenCalled();
@@ -407,7 +407,7 @@ describe('FlashLegacy', () => {
         (option, variant) => {
           it(`should render ${variant} variant of the FlashLegacy component`, () => {
             flashInfo.setProps({ open: true, as: option });
-            expect(flashInfo.find('.carbon-flash__icon').at(0).props({ type: variant })).toBeTruthy();
+            expect(flashInfo.find(FlashIconStyle).props({ type: variant })).toBeTruthy();
           });
         }
       );
@@ -416,12 +416,13 @@ describe('FlashLegacy', () => {
     describe('when no timeout is passed', () => {
       it('adds a close icon', () => {
         flashInfo.setProps({ open: true, as: 'warning' });
-        expect(flashInfo.find(Portal).find('.carbon-flash__close.icon-close').length).toEqual(1);
+        expect(flashInfo.find(Portal).find(FlashCloseStyle).length).toEqual(1);
       });
 
-it('adds a click handler that closes the flash', () => {
+      it('adds a click handler that closes the flash', () => {
         flashInfo.setProps({ open: true });
-        flashInfo.find(Portal).find('.carbon-flash__close.icon-close').simulate('click');
+        flashInfo.find(Portal).find(FlashCloseStyle).simulate('click');
+        jest.runTimersToTime(2000);
         expect(flashInfo.props().open).toEqual(false);
       });
     });
@@ -429,7 +430,7 @@ it('adds a click handler that closes the flash', () => {
     describe('when a timeout is passed', () => {
       it('does not add a close icon', () => {
         flashInfo.setProps({ open: true, as: 'warning', timeout: 1000 });
-        expect(flashInfo.find(Portal).find('.carbon-flash__close.icon-close').length).toEqual(0);
+        expect(flashInfo.find(Portal).find(FlashCloseStyle).length).toEqual(0);
       });
     });
   });

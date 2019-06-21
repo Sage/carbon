@@ -34,9 +34,7 @@ exports[` 1`] = `
           transitionName="carbon-flash__content"
         >
           <styled.div>
-            <Icon
-              bgSize="small"
-              className="carbon-flash__icon"
+            <Styled(Icon)
               key="icon"
               type="tick"
             />
@@ -47,20 +45,15 @@ exports[` 1`] = `
               <span>
                 bun
                  
-                <Link
-                  className="carbon-flash__link"
+                <Styled(Link)
                   data-element="more-info"
-                  iconAlign="left"
                   onClick={[Function]}
-                  tabbable={true}
                 >
                   More Information
-                </Link>
+                </Styled(Link)>
               </span>
             </styled.div>
-            <Icon
-              bgSize="small"
-              className="carbon-flash__close"
+            <Styled(Icon)
               data-element="close"
               key="close"
               onClick={[Function]}
@@ -120,9 +113,7 @@ exports[`FlashLegacy sliderHTML returns a div with the slider class names 1`] = 
           transitionName="carbon-flash__content"
         >
           <styled.div>
-            <Icon
-              bgSize="small"
-              className="carbon-flash__icon"
+            <Styled(Icon)
               key="icon"
               type="tick"
             />
@@ -132,9 +123,7 @@ exports[`FlashLegacy sliderHTML returns a div with the slider class names 1`] = 
             >
               Danger Will Robinson!
             </styled.div>
-            <Icon
-              bgSize="small"
-              className="carbon-flash__close"
+            <Styled(Icon)
               data-element="close"
               key="close"
               type="close"
