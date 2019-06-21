@@ -6,13 +6,12 @@ Feature: Row component
 
   @positive
   Scenario: I check columnDivide
-    When I check columnDivide checkbox
+    # When I check columnDivide checkbox
     Then columnDivide is set
 
   @positive
   Scenario: I uncheck columnDivide
-    When I check columnDivide checkbox
-      And I uncheck columnDivide checkbox
+    When I uncheck columnDivide checkbox
     Then columnDivide is not set
 
   @positive

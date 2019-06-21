@@ -6,13 +6,12 @@ Feature: Preview component
 
   @positive
   Scenario: Enable loading checkbox for a Preview component
-    When I check loading checkbox
+    # When I check loading checkbox
     Then Preview component is loading
 
   @positive
   Scenario: Enable and disable loading checkbox for a Preview component
-    When I check loading checkbox
-      And I uncheck loading checkbox
+    When I uncheck loading checkbox
     Then Preview component is not loading
   
   @positive
