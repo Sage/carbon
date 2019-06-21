@@ -6,6 +6,7 @@ import { THEMES } from '../../style/themes';
 import BaseTheme from '../../style/themes/base';
 import Icon from '../icon';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 /* eslint-disable key-spacing, no-multi-spaces */
 
@@ -31,12 +32,8 @@ const sizeParamsClassic = {
 
 /* eslint-enable key-spacing, no-multi-spaces */
 
-function isThemeClassic(theme) {
-  return (theme.name === THEMES.classic);
-}
-
 function stylingForBorder(props) {
-  if (isThemeClassic(props.theme) || props.darkBackground || props.showGravatar || props.showCustomImg) {
+  if (isClassic(props.theme) || props.darkBackground || props.showGravatar || props.showCustomImg) {
     return css``;
   }
 
@@ -52,7 +49,7 @@ function stylingForBorder(props) {
 }
 
 function stylingForSize({ size, theme }) {
-  const params = (isThemeClassic(theme) ? sizeParamsClassic[size] : sizeParams[size]);
+  const params = (isClassic(theme) ? sizeParamsClassic[size] : sizeParams[size]);
 
   if (!params) {
     return css``;
@@ -74,8 +71,8 @@ function stylingForShape({ shape }) {
 }
 
 function stylingForIcon({ size, theme, darkBackground }) {
-  const isClassic = isThemeClassic(theme);
-  const params = (isClassic ? sizeParamsClassic[size] : sizeParams[size]);
+  const isThemeClassic = isClassic(theme);
+  const params = (isThemeClassic ? sizeParamsClassic[size] : sizeParams[size]);
 
   if (!params) {
     return css``;
@@ -90,7 +87,7 @@ function stylingForIcon({ size, theme, darkBackground }) {
     backgroundColor = theme.portrait.border;
   }
 
-  if (isClassic) {
+  if (isThemeClassic) {
     color = (darkBackground ? '#ffffff' : '#335c6d');
     backgroundColor = (darkBackground ? '#668592' : '#ccd6db');
     iconPadding = params.iconPadding;
@@ -108,7 +105,7 @@ function stylingForIcon({ size, theme, darkBackground }) {
       }
     `}
 
-    ${isClassic && css`
+    ${isThemeClassic && css`
       border: 1px solid #8099a4;
     `}
   `;
