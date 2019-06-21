@@ -1,10 +1,11 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, withTheme } from 'styled-components';
 import PropTypes from 'prop-types';
 
-import { THEMES } from '../../style/themes';
 import BaseTheme from '../../style/themes/base';
 import Icon from '../icon';
+import PortraitGravatar from './portrait-gravatar.component';
+import PortraitInitials from './portrait-initials.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { isClassic } from '../../utils/helpers/style-helper';
 
@@ -112,31 +113,68 @@ function stylingForIcon({ size, theme, darkBackground }) {
 }
 
 
-export const StyledInitialsImage = styled.img`
+export const StyledPortraitInitials = styled(withTheme(
+  ({
+    className, theme, initials, size, darkBackground
+  }) => {
+    const params = (isClassic(theme) ? sizeParamsClassic[size] : sizeParams[size]);
+    return (
+      <PortraitInitials
+        className={ className }
+        initials={ initials }
+        dimensions={ params.dimensions }
+        darkBackground={ darkBackground }
+      />
+    );
+  }
+))`
   position: absolute;
   ${stylingForSize}
 `;
 
-StyledInitialsImage.propTypes = {
-  src: PropTypes.string.isRequired,
+StyledPortraitInitials.propTypes = {
+  size: PropTypes.oneOf(OptionsHelper.sizesFull).isRequired,
+  initials: PropTypes.string.isRequired,
+  darkBackground: PropTypes.bool,
   alt: PropTypes.string
 };
 
 
-export const StyledAvatarImage = styled.img`
+export const StyledPortraitGravatar = styled(withTheme(
+  ({
+    className, theme, gravatarEmail, size
+  }) => {
+    const params = (isClassic(theme) ? sizeParamsClassic[size] : sizeParams[size]);
+    return (
+      <PortraitGravatar
+        className={ className }
+        gravatarEmail={ gravatarEmail }
+        dimensions={ params.dimensions }
+      />
+    );
+  }
+))`
   display:  inline-block;
   position: absolute;
   ${stylingForSize}
 `;
 
-StyledAvatarImage.propTypes = {
-  src: PropTypes.string.isRequired,
-  alt: PropTypes.string,
-  size: PropTypes.string
+StyledPortraitGravatar.propTypes = {
+  gravatarEmail: PropTypes.string.isRequired,
+  size: PropTypes.oneOf(OptionsHelper.sizesFull).isRequired
 };
 
-StyledAvatarImage.defaultProps = {
-  size: 'medium'
+
+export const StyledCustomImg = styled.img`
+  display:  inline-block;
+  position: absolute;
+  ${stylingForSize}
+`;
+
+StyledCustomImg.propTypes = {
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string,
+  size: PropTypes.oneOf(OptionsHelper.sizesFull).isRequired
 };
 
 
