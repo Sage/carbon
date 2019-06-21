@@ -131,7 +131,7 @@ describe('ConfigurableItems', () => {
 
   describe('tags', () => {
     describe('on component', () => {
-      const wrapper = mount(
+      wrapper = mount(
         <ConfigurableItems
           data-element='bar'
           data-role='baz'
