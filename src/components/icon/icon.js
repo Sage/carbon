@@ -63,6 +63,8 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
     delete props.bgSize;
     delete props.bgShape;
     delete props.bgTheme;
+    delete props.tooltipType;
+    delete props.tooltipVisible;
 
     return props;
   }

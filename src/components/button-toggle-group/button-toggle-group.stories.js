@@ -28,6 +28,23 @@ storiesOf('Button Toggle Group', module)
     const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
     const fieldHelpInline = boolean('fieldHelpInline', false);
 
+    function renderButtons() {
+      const buttonNames = ['Foo', 'Bar', 'Baz'];
+
+      return buttonNames.map((name) => {
+        return (
+          <ButtonToggle
+            name='button-toggle-group'
+            id={ name.toLowerCase() }
+            key={ name }
+            value={ name }
+          >
+            { name }
+          </ButtonToggle>
+        );
+      });
+    }
+
     return (
       <ButtonToggleGroup
         label={ label }
@@ -39,27 +56,7 @@ storiesOf('Button Toggle Group', module)
         fieldHelp={ fieldHelp }
         fieldHelpInline={ fieldHelpInline }
       >
-        <ButtonToggle
-          name='button-toggle-group'
-          id='foo'
-          value='foo'
-        >
-            Foo
-        </ButtonToggle>
-        <ButtonToggle
-          name='button-toggle-group'
-          id='bar'
-          value='bar'
-        >
-            Bar
-        </ButtonToggle>
-        <ButtonToggle
-          name='button-toggle-group'
-          id='baz'
-          value='baz'
-        >
-            Baz
-        </ButtonToggle>
+        { renderButtons() }
       </ButtonToggleGroup>
     );
   }, {
