@@ -656,12 +656,14 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
     </div>
     <button
       className="c13"
+      disabled={false}
       onClick={[Function]}
     >
       Next
     </button>
     <button
       className="c13"
+      disabled={false}
       onClick={[Function]}
     >
       Last

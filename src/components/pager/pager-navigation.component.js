@@ -18,7 +18,7 @@ import { isClassic } from '../../utils/helpers/style-helper';
 
 const PagerNavigation = (props) => {
   const { theme, setCurrentThemeName } = props;
-  setCurrentThemeName(theme.name);
+  setCurrentThemeName(theme);
 
   const updatePageFromInput = (ev) => {
     let newPage = Math.abs(Number(ev.target.value));
@@ -90,6 +90,10 @@ const PagerNavigation = (props) => {
       }
     };
 
+    const { destination, text } = navLinkConfig[type];
+
+    const clickHandler = () => props.onPagination(destination, props.pageSize, type);
+
     function disabled() {
       if (currentPage === 1) {
         return type === 'back' || type === 'first';
@@ -100,23 +104,12 @@ const PagerNavigation = (props) => {
       return false;
     }
 
-    const pagerLinkProps = {
-      isDisabled: disabled()
-    };
-
-    if (pagerLinkProps.isDisabled) {
-      pagerLinkProps.disabled = true;
-    } else {
-      pagerLinkProps.onClick = () => {
-        return props.onPagination(navLinkConfig[type].destination, props.pageSize, type);
-      };
-    }
-
     return (
       <PagerLinkStyles
-        { ...pagerLinkProps }
+        disabled={ disabled() }
+        onClick={ !disabled() ? clickHandler : undefined }
       >
-        {navLinkConfig[type].text}
+        { text }
       </PagerLinkStyles>
     );
   }
@@ -208,6 +201,5 @@ PagerNavigation.propTypes = {
 PagerNavigation.defaultProps = {
   theme: baseTheme
 };
-
 
 export default withTheme(PagerNavigation);

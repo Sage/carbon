@@ -11,6 +11,7 @@ import {
 } from './pager.styles';
 import Dropdown from '../dropdown';
 import { THEMES } from '../../style/themes';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const Pager = (props) => {
   const [currentPage, setCurrentPage] = useState(props.currentPage);
@@ -25,7 +26,7 @@ const Pager = (props) => {
     'pager.records',
     {
       count: Number(props.totalRecords),
-      defaultValue: currentTheme === THEMES.classic ? ' records' : ' items'
+      defaultValue: isClassic(currentTheme) ? ' records' : ' items'
     }
   );
 
