@@ -63,6 +63,4 @@ InlineInputs.defaultProps = {
   className: ''
 };
 
-/* eslint-enable react/prop-types */
-
 export default InlineInputs;
