@@ -66,16 +66,12 @@ Feature: Message component
   Scenario: Enable on dismiss state for a Message component
     # When I check onDismiss checkbox
     Then Message has cross icon
-      And clear all actions in Actions Tab
-      And I click dismiss icon
-      And click action was called in Actions Tab
 
   @positive
   Scenario: Verify the click function for a Message component
-    # When I check onDismiss checkbox
-    Then clear all actions in Actions Tab
+    When clear all actions in Actions Tab
       And I click dismiss icon
-      And click action was called in Actions Tab
+    Then click action was called in Actions Tab
 
   @positive
   Scenario: Disable on dismiss state for a Message component

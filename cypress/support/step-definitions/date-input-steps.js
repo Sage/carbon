@@ -1,4 +1,3 @@
-// import moment from 'moment';
 import {
   dateInput, dayPickerDay, minDate, maxDate,
 } from '../../locators/date-input/index';
