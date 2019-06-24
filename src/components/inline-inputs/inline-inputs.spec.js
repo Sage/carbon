@@ -1,46 +1,50 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import 'jest-styled-components';
+import { ThemeProvider } from 'styled-components';
+import { shallow, mount } from 'enzyme';
 import { Row, Column } from '../row';
 import Label from '../../__experimental__/components/label';
 import Textbox from '../../__experimental__/components/textbox';
 import InlineInputs from './inline-inputs.component';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import LabelStyle from '../../__experimental__/components/label/label.style';
+import classicTheme from '../../style/themes/classic';
 
 describe('Inline Inputs', () => {
   let wrapper;
 
-  beforeEach(() => {
-    wrapper = shallow(
-      <InlineInputs
-        label='My Test Label'
-        className='my-custom-class'
-      >
-        <Textbox />
-        <Textbox />
-      </InlineInputs>
-    );
-  });
-
-  it('renders with main class', () => {
-    expect(['my-custom-class'].every(c => wrapper.hasClass(c))).toBeTruthy();
+  describe('when a className prop is passed in', () => {
+    it('renders with main class', () => {
+      const customClass = 'my-custom-class';
+      wrapper = render({ className: customClass });
+      expect([customClass].every(c => wrapper.hasClass(c))).toBeTruthy();
+    });
   });
 
   describe('when a label prop is passed in', () => {
-    it('contains a label', () => {
+    const labelText = 'Test Label';
+
+    beforeEach(() => {
+      wrapper = render({ label: labelText }, mount);
+    });
+
+    it('contains a label with a text specified in that prop', () => {
       const label = wrapper.find(Label);
-      expect(label.props().children).toEqual('My Test Label');
+      expect(label.props().children).toEqual(labelText);
+    });
+
+    it('then the label should have specific styles', () => {
+      assertStyleMatch({
+        fontWeight: 'bold',
+        marginRight: '15px',
+        width: 'auto'
+      }, wrapper, { modifier: `${LabelStyle}` });
     });
   });
 
   describe('when a label prop is not passed in', () => {
     beforeEach(() => {
-      wrapper = shallow(
-        <InlineInputs
-          className='my-custom-class'
-        >
-          <Textbox />
-          <Textbox />
-        </InlineInputs>
-      );
+      wrapper = render();
     });
 
     it('does not contain a label', () => {
@@ -50,12 +54,51 @@ describe('Inline Inputs', () => {
     });
   });
 
+  describe('when the default theme is set', () => {
+    const labelText = 'Test Label';
+
+    beforeEach(() => {
+      wrapper = render({ label: labelText }, mount);
+    });
+
+    it('then the carbon-row CSS class styled elements should have flex-grow set to 1', () => {
+      assertStyleMatch({
+        flexGrow: '1'
+      }, wrapper, { modifier: '.carbon-row' });
+    });
+
+    it('then all inputs should have 100% width', () => {
+      assertStyleMatch({
+        width: '100%'
+      }, wrapper, { modifier: 'input' });
+    });
+  });
+
+  describe('when the Classic Theme is set', () => {
+    const labelText = 'Test Label';
+
+    beforeEach(() => {
+      wrapper = renderWithTheme({ carbonTheme: classicTheme, label: labelText });
+    });
+
+    it('then the carbon-row CSS class styled elements should have flex-grow set to 0', () => {
+      assertStyleMatch({
+        flexGrow: '0'
+      }, wrapper, { modifier: '.carbon-row' });
+    });
+  });
+
   it('contains a row', () => {
+    wrapper = render();
     const row = wrapper.find(Row);
     expect(row.exists()).toBe(true);
   });
 
   describe('children', () => {
+    beforeEach(() => {
+      wrapper = render();
+    });
+
     describe('when their are multiple children', () => {
       it('renders its children', () => {
         expect(wrapper.find(Textbox).length).toEqual(2);
@@ -81,3 +124,23 @@ describe('Inline Inputs', () => {
     });
   });
 });
+
+function render(props = {}, renderer = shallow) {
+  return renderer(
+    <InlineInputs { ...props }>
+      <Textbox />
+      <Textbox />
+    </InlineInputs>
+  );
+}
+
+function renderWithTheme(props = {}, renderer = mount) {
+  return renderer(
+    <ThemeProvider theme={ props.carbonTheme }>
+      <InlineInputs { ...props }>
+        <Textbox />
+        <Textbox />
+      </InlineInputs>
+    </ThemeProvider>
+  );
+}
