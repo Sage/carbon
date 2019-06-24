@@ -1,4 +1,7 @@
-import { knobsTab, actionsTab, clearButtonInActions } from '../locators';
+import {
+  knobsTab, actionsTab, clearButtonInActions, accessibilityTab,
+  reRunTestsButtonInAccessibility,
+} from '../locators';
 import { DEBUG_FLAG } from '.';
 
 function prepareUrl(component, suffix, iFrameOnly) {

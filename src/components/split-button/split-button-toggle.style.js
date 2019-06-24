@@ -20,7 +20,8 @@ const StyledSplitButtonToggle = styled(StyledButton)`
       background-color: ${theme.colors.secondary};
       border-color: ${theme.colors.secondary};
 
-      && .carbon-icon {
+      &,
+      .carbon-icon {
         color: ${theme.colors.white};
       }
 
@@ -28,8 +29,8 @@ const StyledSplitButtonToggle = styled(StyledButton)`
         border-left-color: ${theme.colors.secondary};
       }
     ` : ''}
-
-    ${(!disabled && buttonType === 'primary') ? `border-left-color: ${theme.colors.secondary};` : 'border-left: none;'}
+    ${(!disabled && buttonType === 'primary') && `border-left-color: ${theme.colors.secondary};`}
+    ${buttonType === 'secondary' && 'border-left-width: 0;'}
     padding: 0 ${horizontalPaddingSizes[size]}px;
   
     ${StyledButton} + & {

@@ -27,7 +27,7 @@ Feature: Form component
     Then cancel button is not visible
 
   @positive
-  Scenario Outline: Align buttons to left/right
+  Scenario Outline: Align buttons to <direction>
     When I select buttonAlign to "<direction>"
     Then buttons are aligned to "<direction>"
     Examples:
@@ -47,7 +47,7 @@ Feature: Form component
     Then save button is not disabled
 
   @positive
-  Scenario Outline: Change cancel button text
+  Scenario Outline: Change cancel button text to <text>
     When I set cancelText to "<cancelText>"
     Then cancel button text is set to "<cancelText>"
     Examples:
@@ -60,7 +60,7 @@ Feature: Form component
       | <>                      |
 
   @positive
-  Scenario Outline: Change save button text
+  Scenario Outline: Change save button text to <saveText>
     When I set saveText to "<saveText>"
     Then save button text is set to "<saveText>"
     Examples:
@@ -73,7 +73,7 @@ Feature: Form component
       | <>                      |
 
   @positive
-  Scenario Outline: Change additional actions text
+  Scenario Outline: Change additional actions text to <additionalActions>
     When I set additionalActions to "<additionalActions>"
     Then additional actions text is set to "<additionalActions>"
     Examples:
@@ -86,7 +86,7 @@ Feature: Form component
       | <>                      |
 
   @positive
-  Scenario Outline: Change left aligned actions text
+  Scenario Outline: Change left aligned actions text to <leftAlignedActions>
     When I set leftAlignedActions to "<leftAlignedActions>"
     Then left aligned actions text is set to "<leftAlignedActions>"
     Examples:
@@ -99,7 +99,7 @@ Feature: Form component
       | <>                      |
 
   @positive
-  Scenario Outline: Change right aligned actions text
+  Scenario Outline: Change right aligned actions text to <rightAlignedActions>
     When I set rightAlignedActions to "<rightAlignedActions>"
     Then right aligned actions text is set to "<rightAlignedActions>"
     Examples:

@@ -14,8 +14,9 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
+  text-align: center;
   border-radius: 3px 0 0 3px;
   background-color: #335c6d;
 }
@@ -35,6 +36,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #C7384F;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -43,9 +45,9 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: #C7384F;
+  text-align: center;
   border-radius: 3px 0 0 3px;
   background-color: #c7384f;
 }
@@ -73,8 +75,9 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
+  text-align: center;
   border-radius: 3px 0 0 3px;
   background-color: #ffab00;
 }
@@ -94,6 +97,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #0073C2;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -102,9 +106,9 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: #0073C2;
+  text-align: center;
   border-radius: 3px 0 0 3px;
   background-color: #1573e6;
 }
@@ -132,8 +136,9 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
+  text-align: center;
   border-radius: 3px 0 0 3px;
   background-color: #ff7d00;
 }
@@ -161,8 +166,9 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
+  text-align: center;
   border-radius: 3px 0 0 3px;
   background-color: #639;
 }
@@ -182,6 +188,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #00B000;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -190,9 +197,9 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: #00B000;
+  text-align: center;
   border-radius: 3px 0 0 3px;
   background-color: #50b848;
 }
@@ -212,6 +219,7 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #FFB500;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -220,9 +228,9 @@ exports[`TypeIcon when in classic theme when rendered should match the snapshot 
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: #FFB500;
+  text-align: center;
   border-radius: 3px 0 0 3px;
   background-color: #ff7d00;
 }
@@ -250,8 +258,9 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
+  text-align: center;
   background-color: transparent;
   border-radius: 3px 0 0 3px;
   background-color: #335c6d;
@@ -277,6 +286,7 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #C7384F;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -285,9 +295,9 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: #C7384F;
+  text-align: center;
   background-color: transparent;
   border-radius: 3px 0 0 3px;
   background-color: #c7384f;
@@ -325,8 +335,9 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
+  text-align: center;
   background-color: transparent;
   border-radius: 3px 0 0 3px;
   background-color: #ffab00;
@@ -352,6 +363,7 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #0073C2;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -360,9 +372,9 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: #0073C2;
+  text-align: center;
   background-color: transparent;
   border-radius: 3px 0 0 3px;
   background-color: #1573e6;
@@ -400,8 +412,9 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
+  text-align: center;
   background-color: transparent;
   border-radius: 3px 0 0 3px;
   background-color: #ff7d00;
@@ -435,8 +448,9 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
+  text-align: center;
   background-color: transparent;
   border-radius: 3px 0 0 3px;
   background-color: #639;
@@ -462,6 +476,7 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #00B000;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -470,9 +485,9 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: #00B000;
+  text-align: center;
   background-color: transparent;
   border-radius: 3px 0 0 3px;
   background-color: #50b848;
@@ -502,6 +517,7 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #FFB500;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -510,9 +526,9 @@ exports[`TypeIcon when in classic theme when transparent prop is set to true app
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: #FFB500;
+  text-align: center;
   background-color: transparent;
   border-radius: 3px 0 0 3px;
   background-color: #ff7d00;
@@ -542,6 +558,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #C7384F;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -550,9 +567,9 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: #C7384F;
+  text-align: center;
 }
 
 .c0 span:before {
@@ -570,6 +587,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #0073C2;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -578,9 +596,9 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: #0073C2;
+  text-align: center;
 }
 
 .c0 span:before {
@@ -598,6 +616,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #00B000;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -606,9 +625,9 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: #00B000;
+  text-align: center;
 }
 
 .c0 span:before {
@@ -626,6 +645,7 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #E96400;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -634,9 +654,9 @@ exports[`TypeIcon when rendered with no additional props should match the snapsh
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: #E96400;
+  text-align: center;
 }
 
 .c0 span:before {
@@ -654,6 +674,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #0073C2;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -662,9 +683,9 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: #0073C2;
+  text-align: center;
   background-color: transparent;
 }
 
@@ -687,6 +708,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #C7384F;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -695,9 +717,9 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: #C7384F;
+  text-align: center;
   background-color: transparent;
 }
 
@@ -720,6 +742,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #00B000;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -728,9 +751,9 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: #00B000;
+  text-align: center;
   background-color: transparent;
 }
 
@@ -753,6 +776,7 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  background-color: #E96400;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -761,9 +785,9 @@ exports[`TypeIcon when transparent prop is set to true applies white background 
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: #E96400;
+  text-align: center;
   background-color: transparent;
 }
 

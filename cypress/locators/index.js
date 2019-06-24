@@ -8,7 +8,7 @@ import {
 export const getKnobsInput = propertyName => cy.get(`[name="${propertyName}"]`);
 export const knobsTab = () => cy.get(FORM).find('button').contains('Knobs');
 export const actionsTab = () => cy.get(FORM).find('button').contains('Actions');
-export const clearButtonInActions = () => cy.get(FORM).find('button').contains('Clear');
+export const accessibilityTab = () => cy.get(FORM).find('button').contains('Accessibility');
 export const eventInAction = event => cy.get(FORM).find('span').contains(event);
 export const inputWidthSlider = () => cy.get(INPUT_WIDTH_SLIDER);
 export const labelWidthSlider = () => cy.get(LABEL_WIDTH_SLIDER);

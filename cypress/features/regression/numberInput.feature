@@ -5,7 +5,7 @@ Feature: Number Input component
     Given I open "Number Input" component page
 
   @positive
-  Scenario Outline: Set input width
+  Scenario Outline: Set input width to <inputWidth>
     When I set inputWidth to "<inputWidth>"
     Then inputWidth is set to "<inputWidth>"
     Examples:
@@ -16,7 +16,7 @@ Feature: Number Input component
       | 100        |
 
   @negative
-  Scenario Outline: Set input width out of scope
+  Scenario Outline: Set input width out of scope to <inputWidth>
     When I set inputWidth to "<inputWidth>"
     Then inputWidth is not set
     Examples:
@@ -86,7 +86,7 @@ Feature: Number Input component
     Then NumberInput labelInline is disabled
 
   @positive
-  Scenario Outline: Set label width
+  Scenario Outline: Set label width to <labelWidth>
     When I check labelInline checkbox
       And I set labelWidth to "<labelWidth>"
     Then NumberInput labelWidth is set to "<labelWidth>"
