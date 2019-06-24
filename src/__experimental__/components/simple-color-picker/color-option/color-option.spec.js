@@ -41,17 +41,6 @@ describe('ColorOption', () => {
     expect(wrapper.find(ColorSampleBox).exists()).toBeTruthy();
   });
 
-  it('applies color mixed with 20% of black on hover', () => {
-    wrapper = renderStyles();
-    assertStyleMatch(
-      {
-        backgroundColor: '#005C9B'
-      },
-      wrapper.toJSON(),
-      { modifier: `:hover ${StyledColorSampleBox}` }
-    );
-  });
-
   describe('tags on component', () => {
     it('include correct component, element and role data tags', () => {
       wrapper = shallow(<ColorOption data-element='bar' data-role='baz' />);
