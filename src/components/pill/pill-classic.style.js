@@ -47,7 +47,7 @@ export const classicStyleConfig = {
 };
 
 export default (colorVariant, inFill, isDeletable) => {
-  const colourSet = classicStyleConfig[colorVariant];
+  const colorSet = classicStyleConfig[colorVariant];
 
   return css`
     border-radius: 10px; 
@@ -64,8 +64,8 @@ export default (colorVariant, inFill, isDeletable) => {
       line-height: 13px;
     }
    
-    border: 1px solid ${colourSet.color};
-    color: ${colourSet.color};
+    border: 1px solid ${colorSet.color};
+    color: ${colorSet.color};
 
     ${colorVariant !== 'disabled' && `
       .carbon-icon{
@@ -77,7 +77,7 @@ export default (colorVariant, inFill, isDeletable) => {
     `}
 
     ${inFill && css`
-      background-color: ${colourSet.color};
+      background-color: ${colorSet.color};
       color: #FFFFFF;
 
       .carbon-icon.icon-cross {
@@ -106,17 +106,17 @@ export default (colorVariant, inFill, isDeletable) => {
         width: 17px;
 
         ${inFill && css`
-          background-color: ${colourSet.color};
+          background-color: ${colorSet.color};
         `}
 
         ${!inFill && css`
           background-color: transparent;
-          color: ${colourSet.color};
+          color: ${colorSet.color};
         `}
 
         &:hover {
-          background-color: ${colourSet.hoverBackgroundColor};
-          color: ${colourSet.hoverColor};
+          background-color: ${colorSet.hoverBackgroundColor};
+          color: ${colorSet.hoverColor};
         }
         
         .carbon-icon {
@@ -124,7 +124,7 @@ export default (colorVariant, inFill, isDeletable) => {
           margin-left: -1px;
 
           ${inFill && css`
-            color: ${colourSet.color};
+            color: ${colorSet.color};
           `}
 
           &:before {
@@ -133,7 +133,7 @@ export default (colorVariant, inFill, isDeletable) => {
 
           &:hover,
           &:focus {
-            color: ${colourSet.hoverColor};
+            color: ${colorSet.hoverColor};
           }
         }
       }

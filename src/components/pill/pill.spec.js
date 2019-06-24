@@ -280,9 +280,9 @@ describe('Pill', () => {
 
         it('matches the expected filled styling', () => {
           const style = 'default';
-          const colourSet = classicStyleConfig[style];
+          const colorSet = classicStyleConfig[style];
           assertStyleMatch({
-            backgroundColor: colourSet.color
+            backgroundColor: colorSet.color
           }, fillWrapper);
         });
       });
@@ -297,12 +297,12 @@ describe('Pill', () => {
           theme: classicTheme
         });
 
-        const colourSet = classicStyleConfig[style];
+        const colorSet = classicStyleConfig[style];
 
         it(`matches the expected styling for ${style}`, () => {
           assertStyleMatch({
-            border: `1px solid ${colourSet.color}`,
-            color: colourSet.color
+            border: `1px solid ${colorSet.color}`,
+            color: colorSet.color
           }, wrapper);
         });
 
@@ -316,7 +316,7 @@ describe('Pill', () => {
 
           it(`matches the expected filled styling for ${style}`, () => {
             assertStyleMatch({
-              backgroundColor: colourSet.color
+              backgroundColor: colorSet.color
             }, fillWrapper);
           });
         });
