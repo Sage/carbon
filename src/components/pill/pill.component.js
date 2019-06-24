@@ -27,17 +27,17 @@ class Pill extends React.Component {
       fill,
       as,
       onDelete,
-      colourVariant,
-      role,
+      colorVariant,
+      pillRole,
       children
     } = this.props;
     return (
       <StyledPill
         { ...validProps(this) }
         inFill={ fill }
-        colourVariant={ colourVariant || as }
+        colorVariant={ colorVariant || as }
         isDeletable={ onDelete }
-        role={ role }
+        pillRole={ pillRole }
         { ...tagComponent('pill', this.props) }
       >
         { children }
@@ -53,7 +53,7 @@ Pill.propTypes = {
   as: PropTypes.oneOf([...OptionsHelper.colors, 'disabled']),
 
   /** Sets the theme of the notification. */
-  colourVariant: PropTypes.oneOf([...OptionsHelper.pillColours, 'warning']),
+  colorVariant: PropTypes.oneOf([...OptionsHelper.pillColours, 'warning']),
 
   /** This component supports children.  */
   children: PropTypes.string.isRequired,
@@ -62,7 +62,7 @@ Pill.propTypes = {
   fill: PropTypes.bool,
 
   /** Sets the type of pill in use. */
-  role: PropTypes.oneOf([...OptionsHelper.pillRoles]),
+  pillRole: PropTypes.oneOf([...OptionsHelper.pillRoles]),
 
   /** Callback function for when the pill is clicked. */
   onClick: PropTypes.func,
@@ -76,7 +76,7 @@ Pill.defaultProps = {
   fill: false,
   onClick: null,
   onDelete: null,
-  role: 'tag'
+  pillRole: 'tag'
 };
 
 export default Pill;

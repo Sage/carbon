@@ -11,11 +11,11 @@ import { THEMES } from '../../style/themes';
 import { notes, Info } from './documentation';
 
 const getStatusKnobs = () => {
-  const role = select('role', [...OptionsHelper.pillRoles], 'tag');
+  const pillRole = select('pillRole', [...OptionsHelper.pillRoles], 'tag');
 
   return {
-    role,
-    colourVariant: (role === 'status') ? select('colourVariant',
+    pillRole,
+    colorVariant: (pillRole === 'status') ? select('colorVariant',
       [...OptionsHelper.pillColours, OptionsHelper.colors[7]], OptionsHelper.pillColours[0]) : null
   };
 };
@@ -61,17 +61,17 @@ storiesOf('Pill', module)
   }).add('default', () => {
     const {
       children,
-      colourVariant,
+      colorVariant,
       fill,
       onDelete,
-      role
+      pillRole
     } = getKnobs();
     return (
       <Pill
-        colourVariant={ colourVariant }
+        colorVariant={ colorVariant }
         fill={ fill }
         onDelete={ onDelete ? action('delete') : null }
-        role={ role }
+        pillRole={ pillRole }
       >
         { children }
       </Pill>

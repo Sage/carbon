@@ -23,15 +23,15 @@ const setTheme = (theme) => {
 
 const PillStyle = styled.span`
  ${({
-    colourVariant, theme, inFill, isDeletable, role
+    colorVariant, theme, inFill, isDeletable, pillRole
   }) => {
     const { colors } = baseTheme;
     const correctedTheme = setTheme(theme);
-    const styleSet = styleConfig(correctedTheme)[role];
-    const colour = (role === 'status') ? colourVariant : 'primary';
+    const styleSet = styleConfig(correctedTheme)[pillRole];
+    const color = (pillRole === 'status') ? colorVariant : 'primary';
 
     return css`
-      border: 2px solid ${styleSet[colour]};
+      border: 2px solid ${styleSet[color]};
       border-radius: 12px;
       font-size: 14px;
       padding: 2px 7px;
@@ -41,7 +41,7 @@ const PillStyle = styled.span`
       margin: 0px 8px 16px 0px;
 
       ${inFill && css`
-        background-color: ${styleSet[colour]};
+        background-color: ${styleSet[color]};
         color: ${colors.white};
 
         .carbon-icon.icon-cross {
@@ -49,11 +49,11 @@ const PillStyle = styled.span`
         }
       `}
 
-      ${!isClassic(theme, colourVariant) && !isDeletable && css`
+      ${!isClassic(theme, colorVariant) && !isDeletable && css`
         padding: 2px 8px 2px 8px;
       `}
 
-      ${!isClassic(theme, colourVariant) && isDeletable && css`
+      ${!isClassic(theme, colorVariant) && isDeletable && css`
         padding: 2px 27px 2px 8px;
 
         &:hover,
@@ -75,7 +75,7 @@ const PillStyle = styled.span`
           width: 17px;
 
           ${inFill && css`
-            background-color: ${styleSet[colour]};
+            background-color: ${styleSet[color]};
           `}
 
           ${!inFill && css`
@@ -83,7 +83,7 @@ const PillStyle = styled.span`
           `}
 
           &:hover {
-            background-color: ${styleSet[colour]};
+            background-color: ${styleSet[color]};
             color: ${styleSet.hoverColor};
           }
  
@@ -102,21 +102,21 @@ const PillStyle = styled.span`
 
             ${inFill && css`
               .carbon-icon {
-                color: ${styleSet[colour]};
+                color: ${styleSet[color]};
               }
             `}
           }
       `}
 
-      ${isClassic(theme, colourVariant) && classicThemeForPill(colourVariant, inFill, isDeletable)}
+      ${isClassic(theme, colorVariant) && classicThemeForPill(colorVariant, inFill, isDeletable)}
     `;
   }
 }
 `;
 
-function isClassic(theme, colourVariant) {
+function isClassic(theme, colorVariant) {
   // handles incorrect default activeTheme in StoryBook AppWrapper
-  if (OptionsHelper.pillColours.includes(colourVariant)) {
+  if (OptionsHelper.pillColours.includes(colorVariant)) {
     return false;
   }
   return theme.name === THEMES.classic;
@@ -124,14 +124,14 @@ function isClassic(theme, colourVariant) {
 
 PillStyle.defaultProps = {
   inFill: false,
-  colourVariant: 'default',
+  colorVariant: 'default',
   isDeletable: false,
   theme: baseTheme
 };
 
 PillStyle.propTypes = {
   inFill: PropTypes.bool,
-  colourVariant: PropTypes.string,
+  colorVariant: PropTypes.string,
   isDeletable: PropTypes.func
 };
 

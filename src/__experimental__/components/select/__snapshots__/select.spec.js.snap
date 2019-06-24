@@ -224,7 +224,7 @@ Array [
       fill={false}
       onClick={null}
       onDelete={[Function]}
-      role="tag"
+      pillRole="tag"
       title="Orange"
     >
       Orange
@@ -238,7 +238,7 @@ Array [
       fill={false}
       onClick={null}
       onDelete={[Function]}
-      role="tag"
+      pillRole="tag"
       title="Blue"
     >
       Blue
@@ -252,7 +252,7 @@ Array [
       fill={false}
       onClick={null}
       onDelete={[Function]}
-      role="tag"
+      pillRole="tag"
       title="Red"
     >
       Red

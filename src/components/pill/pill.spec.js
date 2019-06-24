@@ -121,9 +121,9 @@ describe('Pill', () => {
     describe.each(modernThemes)('when the pill is rendered',
       (name, theme) => {
         describe(`${name} theme`, () => {
-          describe('when role is status', () => {
-            const role = 'status';
-            const styleSet = styleConfig(theme)[role];
+          describe('when pillRole is status', () => {
+            const pillRole = 'status';
+            const styleSet = styleConfig(theme)[pillRole];
             it(`matches the expected styles for a default ${name} pill`, () => {
               const wrapper = render({
                 children: 'My Text',
@@ -157,8 +157,8 @@ describe('Pill', () => {
                 const fillWrapper = render({
                   children: 'My Text',
                   onDelete: jest.fn(),
-                  colourVariant: style,
-                  role,
+                  colorVariant: style,
+                  pillRole,
                   fill: true,
                   theme
                 });
@@ -177,9 +177,9 @@ describe('Pill', () => {
                 describe('when storybook supplies the correct theme', () => {
                   const wrapper = render({
                     children: 'My Text',
-                    colourVariant: style,
+                    colorVariant: style,
                     theme,
-                    role
+                    pillRole
                   });
 
                   it(`matches the expected styling for ${style}`, () => {
@@ -192,10 +192,10 @@ describe('Pill', () => {
                 describe('when the component is in a filled state', () => {
                   const fillWrapper = render({
                     children: 'My Text',
-                    colourVariant: style,
+                    colorVariant: style,
                     fill: true,
                     theme,
-                    role
+                    pillRole
                   });
 
                   it(`matches the expected filled styling for ${style}`, () => {
@@ -207,9 +207,9 @@ describe('Pill', () => {
               }
             );
           });
-          describe('when role is tag', () => {
-            const role = 'tag';
-            const styleSet = styleConfig(theme)[role];
+          describe('when pillRole is tag', () => {
+            const pillRole = 'tag';
+            const styleSet = styleConfig(theme)[pillRole];
 
             describe('when the component is deletable', () => {
               describe('when the component is in a filled state', () => {
@@ -217,7 +217,7 @@ describe('Pill', () => {
                 const fillWrapper = render({
                   children: 'My Text',
                   onDelete: jest.fn(),
-                  role,
+                  pillRole,
                   fill: true,
                   theme
                 });
@@ -362,7 +362,7 @@ describe('Pill', () => {
     it('switches to use the modern small theme', () => {
       const wrapper = renderBase({
         children: 'My Text',
-        colourVariant: 'neutral',
+        colorVariant: 'neutral',
         theme: classicTheme
       }, TestRenderer.create).toJSON();
       assertStyleMatch({
