@@ -2,15 +2,15 @@
 
 exports[`DismissButton when render with no additional props should match snapshot for error 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
 }
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -24,15 +24,15 @@ exports[`DismissButton when render with no additional props should match snapsho
 
 exports[`DismissButton when render with no additional props should match snapshot for info 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
 }
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -46,15 +46,15 @@ exports[`DismissButton when render with no additional props should match snapsho
 
 exports[`DismissButton when render with no additional props should match snapshot for success 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
 }
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -68,15 +68,15 @@ exports[`DismissButton when render with no additional props should match snapsho
 
 exports[`DismissButton when render with no additional props should match snapshot for warning 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
 }
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -148,10 +148,11 @@ exports[`LinkStyle applies peoper styling when focused 1`] = `
 
 exports[`when in classic mode when rendered as default should match the snapshot 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -173,7 +174,6 @@ exports[`when in classic mode when rendered as default should match the snapshot
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -196,10 +196,11 @@ exports[`when in classic mode when rendered as default should match the snapshot
 
 exports[`when in classic mode when rendered as default when transparent prop is set to true should apply transparent background 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -222,7 +223,6 @@ exports[`when in classic mode when rendered as default when transparent prop is 
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -245,10 +245,11 @@ exports[`when in classic mode when rendered as default when transparent prop is 
 
 exports[`when in classic mode when rendered as error should match the snapshot 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -270,7 +271,6 @@ exports[`when in classic mode when rendered as error should match the snapshot 1
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -293,10 +293,11 @@ exports[`when in classic mode when rendered as error should match the snapshot 1
 
 exports[`when in classic mode when rendered as error when transparent prop is set to true should apply transparent background 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -319,7 +320,6 @@ exports[`when in classic mode when rendered as error when transparent prop is se
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -342,10 +342,11 @@ exports[`when in classic mode when rendered as error when transparent prop is se
 
 exports[`when in classic mode when rendered as help should match the snapshot 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -367,7 +368,6 @@ exports[`when in classic mode when rendered as help should match the snapshot 1`
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -390,10 +390,11 @@ exports[`when in classic mode when rendered as help should match the snapshot 1`
 
 exports[`when in classic mode when rendered as help when transparent prop is set to true should apply transparent background 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -416,7 +417,6 @@ exports[`when in classic mode when rendered as help when transparent prop is set
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -439,10 +439,11 @@ exports[`when in classic mode when rendered as help when transparent prop is set
 
 exports[`when in classic mode when rendered as info should match the snapshot 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -464,7 +465,6 @@ exports[`when in classic mode when rendered as info should match the snapshot 1`
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -487,10 +487,11 @@ exports[`when in classic mode when rendered as info should match the snapshot 1`
 
 exports[`when in classic mode when rendered as info when transparent prop is set to true should apply transparent background 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -513,7 +514,6 @@ exports[`when in classic mode when rendered as info when transparent prop is set
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -536,10 +536,11 @@ exports[`when in classic mode when rendered as info when transparent prop is set
 
 exports[`when in classic mode when rendered as maintenance should match the snapshot 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -561,7 +562,6 @@ exports[`when in classic mode when rendered as maintenance should match the snap
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -584,10 +584,11 @@ exports[`when in classic mode when rendered as maintenance should match the snap
 
 exports[`when in classic mode when rendered as maintenance when transparent prop is set to true should apply transparent background 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -610,7 +611,6 @@ exports[`when in classic mode when rendered as maintenance when transparent prop
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -633,10 +633,11 @@ exports[`when in classic mode when rendered as maintenance when transparent prop
 
 exports[`when in classic mode when rendered as new should match the snapshot 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -658,7 +659,6 @@ exports[`when in classic mode when rendered as new should match the snapshot 1`]
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -681,10 +681,11 @@ exports[`when in classic mode when rendered as new should match the snapshot 1`]
 
 exports[`when in classic mode when rendered as new when transparent prop is set to true should apply transparent background 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -707,7 +708,6 @@ exports[`when in classic mode when rendered as new when transparent prop is set 
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -730,10 +730,11 @@ exports[`when in classic mode when rendered as new when transparent prop is set 
 
 exports[`when in classic mode when rendered as success should match the snapshot 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -755,7 +756,6 @@ exports[`when in classic mode when rendered as success should match the snapshot
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -778,10 +778,11 @@ exports[`when in classic mode when rendered as success should match the snapshot
 
 exports[`when in classic mode when rendered as success when transparent prop is set to true should apply transparent background 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -804,7 +805,6 @@ exports[`when in classic mode when rendered as success when transparent prop is 
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -827,10 +827,11 @@ exports[`when in classic mode when rendered as success when transparent prop is 
 
 exports[`when in classic mode when rendered as warning should match the snapshot 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -852,7 +853,6 @@ exports[`when in classic mode when rendered as warning should match the snapshot
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {
@@ -875,10 +875,11 @@ exports[`when in classic mode when rendered as warning should match the snapshot
 
 exports[`when in classic mode when rendered as warning when transparent prop is set to true should apply transparent background 1`] = `
 .c0 {
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -901,7 +902,6 @@ exports[`when in classic mode when rendered as warning when transparent prop is 
 
 .c0 .icon-close:before {
   color: #668491;
-  font-size: 12px;
 }
 
 .c0 .icon-close:hover:before {

@@ -5,7 +5,7 @@ Feature: Dialog component
     Given I open "Dialog" component page
 
   @positive
-  Scenario Outline: Set height for Dialog dialog
+  Scenario Outline: Set height for Dialog to <height>
     When I set height to "<height>"
       And I open component preview
     Then Dialog height is set to "<height>"
@@ -17,7 +17,7 @@ Feature: Dialog component
       | 100    |
 
   @negative
-  Scenario Outline: Set out of scope characters to height
+  Scenario Outline: Set out of scope characters to <height>
     When I set height to "<height>"
       And I open component preview
     Then Dialog height is not set to "<height>"

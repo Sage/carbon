@@ -5,7 +5,7 @@ Feature: Menu component
     Given I open "Menu" component page
 
   @positive
-  Scenario Outline: Change Menu 'as' property
+  Scenario Outline: Change Menu 'as' property to <as>
     When I select as to "<as>"
     Then Menu as property on preview is "<as>"
     Examples:

@@ -7,16 +7,17 @@ import Link from '../link';
 import { THEMES } from '../../style/themes';
 
 const DismissButtonStyle = styled.div`
-  position: absolute;
-  top: 12px;
-  right: 12px;
   border: none;
+  margin-top: -10px;
+  position: absolute;
+  right: 16px;
+  top: 50%;
 
   .icon-close {
     &:before {
       color: ${({ theme }) => theme.colors.border};
-      font-size: 12px;
     }
+
     &:hover:before{
       color: ${({ theme }) => theme.colors.focusedIcon};
     }
@@ -42,6 +43,7 @@ const LinkStyle = styled(Link)`
   .carbon-link__content {
     display: none;
   }
+
   .carbon-link__icon {
     margin-right: 0;
   }

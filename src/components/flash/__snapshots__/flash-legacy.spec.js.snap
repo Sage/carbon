@@ -7,8 +7,9 @@ exports[` 1`] = `
     data-element="bar"
     data-role="baz"
   >
-    <div
-      className="carbon-flash carbon-flash--success"
+    <styled.div
+      className=""
+      variant="success"
     >
       <CSSTransitionGroup
         component="div"
@@ -20,8 +21,7 @@ exports[` 1`] = `
         transitionLeaveTimeout={600}
         transitionName="carbon-flash__slider"
       >
-        <div
-          className="carbon-flash__slider"
+        <styled.div
           key="slider"
         />
         <CSSTransitionGroup
@@ -33,46 +33,36 @@ exports[` 1`] = `
           transitionLeaveTimeout={600}
           transitionName="carbon-flash__content"
         >
-          <div
-            className="carbon-flash__content"
-          >
-            <Icon
-              bgSize="small"
-              className="carbon-flash__icon"
+          <styled.div>
+            <Styled(Icon)
               key="icon"
               type="tick"
             />
-            <div
-              className="carbon-flash__message"
+            <styled.div
               data-element="message"
               key="message"
             >
               <span>
                 bun
                  
-                <Link
-                  className="carbon-flash__link"
+                <Styled(Link)
                   data-element="more-info"
-                  iconAlign="left"
                   onClick={[Function]}
-                  tabbable={true}
                 >
                   More Information
-                </Link>
+                </Styled(Link)>
               </span>
-            </div>
-            <Icon
-              bgSize="small"
-              className="carbon-flash__close"
+            </styled.div>
+            <Styled(Icon)
               data-element="close"
               key="close"
               onClick={[Function]}
               type="close"
             />
-          </div>
+          </styled.div>
         </CSSTransitionGroup>
       </CSSTransitionGroup>
-    </div>
+    </styled.div>
     <Alert
       ariaRole="dialog"
       autoFocus={true}
@@ -96,8 +86,9 @@ exports[`Flash sliderHTML returns a div with the slider class names 1`] = `
   <div
     data-component="flash"
   >
-    <div
-      className="carbon-flash carbon-flash--success"
+    <styled.div
+      className=""
+      variant="success"
     >
       <CSSTransitionGroup
         component="div"
@@ -109,8 +100,7 @@ exports[`Flash sliderHTML returns a div with the slider class names 1`] = `
         transitionLeaveTimeout={600}
         transitionName="carbon-flash__slider"
       >
-        <div
-          className="carbon-flash__slider"
+        <styled.div
           key="slider"
         />
         <CSSTransitionGroup
@@ -122,33 +112,26 @@ exports[`Flash sliderHTML returns a div with the slider class names 1`] = `
           transitionLeaveTimeout={600}
           transitionName="carbon-flash__content"
         >
-          <div
-            className="carbon-flash__content"
-          >
-            <Icon
-              bgSize="small"
-              className="carbon-flash__icon"
+          <styled.div>
+            <Styled(Icon)
               key="icon"
               type="tick"
             />
-            <div
-              className="carbon-flash__message"
+            <styled.div
               data-element="message"
               key="message"
             >
               Danger Will Robinson!
-            </div>
-            <Icon
-              bgSize="small"
-              className="carbon-flash__close"
+            </styled.div>
+            <Styled(Icon)
               data-element="close"
               key="close"
               type="close"
             />
-          </div>
+          </styled.div>
         </CSSTransitionGroup>
       </CSSTransitionGroup>
-    </div>
+    </styled.div>
   </div>
 </Portal>
 `;
