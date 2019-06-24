@@ -5,29 +5,19 @@ import Browser from '../../utils/helpers/browser';
 
 class PortraitInitials extends React.Component {
   static propTypes = {
-    /**
-     * A custom class name for the component.
-     */
+    /** A custom CSS class for the component. */
     className: PropTypes.string,
 
-    /**
-     * The user's initials to render.
-     */
+    /** The user's initials to render. */
     initials: PropTypes.string.isRequired,
 
-    /**
-     * The dimensions (size) of the canvas, in pixels.
-     */
+    /** The dimensions (size) of the canvas, in pixels. */
     dimensions: PropTypes.number.isRequired,
 
-    /**
-     * Use a dark background.
-     */
+    /** Use a dark background. */
     darkBackground: PropTypes.bool,
 
-    /**
-     * Defines the alt HTML string.
-     */
+    /** The `alt` HTML string. */
     alt: PropTypes.string
   }
 
@@ -35,19 +25,10 @@ class PortraitInitials extends React.Component {
     darkBackground: false
   }
 
-  /**
-   * Cache the initials graphic.
-   *
-   * @param cachedImageDataUrl
-   * @type {String}
-   */
+  /** Cache of the initials graphic. */
   cachedImageDataUrl = null;
 
-  /**
-   * @method componentWillReceiveProps
-   * @param {Object}
-   * @return {Void}
-   */
+  /** Invoked before a mounted component receives new props. */
   componentWillReceiveProps(nextProps) {
     const shouldClearCache = (
       this.props.initials !== nextProps.initials
@@ -60,12 +41,7 @@ class PortraitInitials extends React.Component {
     }
   }
 
-  /**
-   * Generates a graphic with initials.
-   *
-   * @method generateDataUrl
-   * @return {String}
-   */
+  /** Generates a graphic with initials. */
   generateDataUrl() {
     if (this.cachedImageDataUrl) {
       return this.cachedImageDataUrl;
@@ -98,12 +74,7 @@ class PortraitInitials extends React.Component {
     return this.cachedImageDataUrl;
   }
 
-  /**
-   * Applies background to canvas.
-   *
-   * @method applyBackground
-   * @return {Object}
-   */
+  /** Applies the background colour to the canvas. */
   applyBackground(canvasContext) {
     const color = this.props.darkBackground ? '#8A8E95' : '#D8D9DC';
 
@@ -113,12 +84,7 @@ class PortraitInitials extends React.Component {
     return canvasContext;
   }
 
-  /**
-   * Applies text to canvas.
-   *
-   * @method applyText
-   * @return {Object}
-   */
+  /** Applies the initials text to the canvas. */
   applyText(canvasContext) {
     const letters = this.props.initials.slice(0, 3);
 
@@ -128,12 +94,7 @@ class PortraitInitials extends React.Component {
     return canvasContext;
   }
 
-  /**
-   * Renders the component.
-   *
-   * @method render
-   * @return {Object} JSX
-   */
+  /** Renders the component. */
   render() {
     return (
       <img

@@ -4,33 +4,20 @@ import MD5 from 'crypto-js/md5';
 
 class PortraitGravatar extends React.Component {
   static propTypes = {
-    /**
-     * A custom class name for the component.
-     */
+    /** A custom CSS class for the component. */
     className: PropTypes.string,
 
-    /**
-     * The user's email address for the Gravatar.
-     */
+    /** The user's email address for the Gravatar. */
     gravatarEmail: PropTypes.string.isRequired,
 
-    /**
-     * The dimensions (size) to render the Gravatar, in pixels.
-     */
+    /** The dimensions (size) to render the Gravatar, in pixels. */
     dimensions: PropTypes.number.isRequired,
 
-    /**
-     * Defines the alt HTML string.
-     */
+    /** The `alt` HTML string. */
     alt: PropTypes.string
   }
 
-  /**
-   * Gets src url based on passed gravatar email
-   *
-   * @method gravatarSrc
-   * @return {String}
-   */
+  /** Generates the Gravatar URL for the specified email address and dimensions. */
   gravatarSrc() {
     const { gravatarEmail, dimensions } = this.props;
 
@@ -40,12 +27,7 @@ class PortraitGravatar extends React.Component {
     return `${base}${hash}?s=${dimensions}&d=blank`;
   }
 
-  /**
-   * Renders the component.
-   *
-   * @method render
-   * @return {Object} JSX
-   */
+  /** Renders the component. */
   render() {
     return (
       <img

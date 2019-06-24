@@ -75,20 +75,13 @@ function Portrait(props) {
 }
 
 Portrait.propTypes = {
-  /**
-   * A custom class name for the component.
-   */
+  /** A custom CSS class for the component. */
   className: PropTypes.string,
 
-  /**
-   * Defines the size of the Portrait.
-   */
+  /** The size of the Portrait. */
   size: PropTypes.oneOf(OptionsHelper.sizesFull),
 
-  /**
-   * Define an image source.
-   *
-   */
+  /** A custom image URL. */
   src: (props) => {
     if (!props.gravatar && !props.src && !props.initials) {
       throw new Error('Portrait requires a prop of "src", "gravatar" or "initials"');
@@ -97,29 +90,19 @@ Portrait.propTypes = {
     }
   },
 
-  /**
-   * Define an email address registered with gravatar.
-   */
+  /** An email address registered with Gravatar. */
   gravatar: PropTypes.string,
 
-  /**
-   * Defines the alt HTML string.
-   */
+  /** The `alt` HTML string. */
   alt: PropTypes.string,
 
-  /**
-   * Defines the shape of the Portrait.
-   */
+  /** The shape of the Portrait. */
   shape: PropTypes.oneOf(OptionsHelper.shapesVaried),
 
-  /**
-   * Define some initials to render in the Portrait.
-   */
+  /** The initials to render in the Portrait. */
   initials: PropTypes.string,
 
-  /**
-   * Switch to a dark background (requires a hard re-render).
-   */
+  /** Use a dark background. */
   darkBackground: PropTypes.bool
 };
 
