@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import ColorOption from './color-option/color-option.component.js';
 import tagComponent from '../../../utils/helpers/tags/tags';
 import { StyledSimpleColorPicker, StyledColorOptions } from './simple-color-picker.style';
-import guid from '../../../utils/helpers/guid';
 
 class SimpleColorPicker extends React.Component {
   isOptionChecked(color) {
@@ -12,7 +11,6 @@ class SimpleColorPicker extends React.Component {
 
   getSingleOption(color) {
     const isChecked = this.isOptionChecked(color);
-    const optionId = guid();
 
     return (
       <ColorOption
@@ -20,8 +18,7 @@ class SimpleColorPicker extends React.Component {
         onChange={ this.props.onChange }
         color={ color }
         checked={ isChecked }
-        key={ optionId }
-        optionId={ optionId }
+        key={ color }
       />
     );
   }

@@ -23,7 +23,7 @@ const ColorOption = (props) => {
         name={ props.name }
         type='radio'
         value={ props.color }
-        id={ props.optionId }
+        id={ props.color }
         aria-label={ props.name }
       />
       <ColorSampleBox color={ props.color } checked={ props.checked } />
@@ -46,9 +46,7 @@ ColorOption.propTypes = {
   /** determines if this color option is selected or unselected */
   checked: PropTypes.bool,
   /** [Legacy] Custom classname */
-  className: PropTypes.string,
-  optionId: PropTypes.string,
-  label: PropTypes.string
+  className: PropTypes.string
 };
 
 export default ColorOption;
