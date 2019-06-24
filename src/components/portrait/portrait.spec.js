@@ -264,11 +264,26 @@ describe('PortraitComponent', () => {
       const wrapper = shallowDLS(<Portrait gravatar='example@example.com' initials='' />);
       expect(wrapper.contains(styledPortraitInitials)).toEqual(false);
     });
+
+    it('can render the Classic theme', () => {
+      spyOn(console, 'error');
+      renderClassic(
+        <StyledPortraitInitials
+          size='medium'
+          initials='AB'
+          darkBackground={ false }
+          alt=''
+          theme={ classicTheme }
+        />
+      );
+      expect(console.error).toHaveBeenCalledTimes(0); // eslint-disable-line no-console
+    });
   });
 
   describe('render Gravatar', () => {
+    const gravatarEmail = 'example@example.com';
+
     it('renders the Gravatar for the specified email address', () => {
-      const gravatarEmail = 'example@example.com';
       const styledPortraitGravatar = (
         <StyledPortraitGravatar
           gravatarEmail={ gravatarEmail }
@@ -280,6 +295,19 @@ describe('PortraitComponent', () => {
         <Portrait gravatar={ gravatarEmail } alt='foo' />
       );
       expect(wrapper.contains(styledPortraitGravatar)).toEqual(true);
+    });
+
+    it('can render the Classic theme', () => {
+      spyOn(console, 'error');
+      renderClassic(
+        <StyledPortraitGravatar
+          gravatarEmail={ gravatarEmail }
+          size='medium'
+          alt='foo'
+          theme={ classicTheme }
+        />
+      );
+      expect(console.error).toHaveBeenCalledTimes(0); // eslint-disable-line no-console
     });
   });
 
