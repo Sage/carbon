@@ -42,11 +42,8 @@ function stylingForBorder(props) {
     return css`border: 1px dashed ${props.theme.portrait.border};`;
   }
 
-  if (props.showInitials) {
-    return css`border: 1px solid ${props.theme.portrait.border};`;
-  }
-
-  return css``;
+  // Border for initials
+  return css`border: 1px solid ${props.theme.portrait.border};`;
 }
 
 function stylingForSize({ size, theme }) {

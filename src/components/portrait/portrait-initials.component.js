@@ -120,7 +120,7 @@ class PortraitInitials extends React.Component {
    * @return {Object}
    */
   applyText(canvasContext) {
-    const letters = this.props.initials ? this.props.initials.slice(0, 3) : '';
+    const letters = this.props.initials.slice(0, 3);
 
     canvasContext.fillStyle = this.props.darkBackground ? '#FFFFFF' : '#595959';
     canvasContext.fillText(letters.toUpperCase(), this.props.dimensions / 2, this.props.dimensions / 1.5);
