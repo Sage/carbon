@@ -7,7 +7,11 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import Tooltip from '.';
 import { notes, info } from './documentation';
 
-const defaultProps = () => {
+function validTooltip({ children, isVisible }) {
+  return (children && isVisible);
+}
+
+const props = () => {
   return {
     isVisible: boolean('isVisible', true),
     children: text('children', "I'm a helpful tooltip that can display more information to a user."),
@@ -22,9 +26,9 @@ storiesOf('Tooltip', module)
     knobs: { escapeHTML: false }
   })
   .add('default', () => {
-    return (
-      <Tooltip { ...defaultProps() } />
-    );
+    if (validTooltip(props())) return <Tooltip { ...props() } />;
+
+    return <div />;
   },
   {
     info: { text: info },
