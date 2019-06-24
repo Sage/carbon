@@ -5,7 +5,7 @@ Feature: Heading component
     Given I open "Heading" component page
 
   @positive
-  Scenario Outline: Change heading title
+  Scenario Outline: Change heading title to <title>
     When I set title to "<title>"
     Then heading title is set to "<title>"
     Examples:
@@ -18,7 +18,7 @@ Feature: Heading component
       | <>                      |
 
   @positive
-  Scenario Outline: Change children
+  Scenario Outline: Change children to <children>
     When I set children to "<children>"
     Then heading children on preview is "<children>"
     Examples:
@@ -30,7 +30,7 @@ Feature: Heading component
       | <>          |
 
   @positive
-  Scenario Outline: Change subheader
+  Scenario Outline: Change subheader to <subheader>
     When I set subheader to "<subheader>"
     Then subheader on preview is "<subheader>"
     Examples:
@@ -43,7 +43,7 @@ Feature: Heading component
       | <>                      |
 
   @positive
-  Scenario Outline: Change help
+  Scenario Outline: Change help to <help>
     When I set help to "<help>"
       And I hover mouse onto help icon
     Then tooltipPreview on preview is set to "<help>"
@@ -57,7 +57,7 @@ Feature: Heading component
       | <>                      |
 
   @positive
-  Scenario Outline: Change helpLink
+  Scenario Outline: Change helpLink to <helpLink>
     When I set helpLink to "<helpLink>"
     Then link on preview is "<helpLink>"
     Examples:
@@ -70,7 +70,7 @@ Feature: Heading component
       | <>                      |
 
   @positive
-  Scenario Outline: Change backLink
+  Scenario Outline: Change backLink to <backLink>
     When I set backLink to "<backLink>"
     Then backLink on preview is "<backLink>"
     Examples:

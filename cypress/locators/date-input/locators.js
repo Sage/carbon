@@ -3,7 +3,7 @@ export const MIN_DATE = 'textarea[name="minDate"]';
 export const MAX_DATE = 'textarea[name="maxDate"]';
 
 // component preview locators
-export const DATE_INPUT = 'div[role="presentation"][type="text"][data-component="date"]';
+export const DATE_INPUT = '[data-component="date"][value]';
 export const DATE_ICON = 'span[data-component="icon"][data-element="calendar"]';
 export const DAY_PICKER_WRAPPER = 'div[class="DayPicker-wrapper"]';
 export const DAY_PICKER_LEFT_ARROW = 'span[data-element="chevron_left"]';

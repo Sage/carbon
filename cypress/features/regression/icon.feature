@@ -5,7 +5,7 @@ Feature: Icon component
     Given I open "Icon" component page
 
   @positive
-  Scenario Outline: Change background theme
+  Scenario Outline: Change background theme to <bgTheme>
     When I select bgTheme to "<bgTheme>"
     Then bgTheme is set to "<bgTheme>"
     Examples:
@@ -20,7 +20,7 @@ Feature: Icon component
       | default     |
 
   @positive
-  Scenario Outline: Change background shape
+  Scenario Outline: Change background shape to <bgShape>
     When I select bgShape to "<bgShape>"
     Then bgShape is set to "<bgShape>"
     Examples:
@@ -30,7 +30,7 @@ Feature: Icon component
       | square       |
 
   @positive
-  Scenario Outline: Change tooltip message
+  Scenario Outline: Change tooltip message to <tooltipMessage>
     When I set tooltipMessage to "<tooltipMessage>"
       And I hover mouse onto icon
     Then tooltipPreview on preview is set to "<tooltipMessage>"
@@ -44,7 +44,7 @@ Feature: Icon component
       | <>                      |
 
   @positive
-  Scenario Outline: Change tooltip position
+  Scenario Outline: Change tooltip position to <tooltipPosition>
     When I set tooltipMessage to "sample message"
       And I select tooltipPosition to "<tooltipPosition>"
       And I hover mouse onto icon
@@ -57,7 +57,7 @@ Feature: Icon component
       | bottom          |
 
   @positive
-  Scenario Outline: Change tooltip align
+  Scenario Outline: Change tooltip align to <tooltipAlign>
     When I set tooltipMessage to "sample message"
       And I select tooltipAlign to "<tooltipAlign>"
       And I hover mouse onto icon
