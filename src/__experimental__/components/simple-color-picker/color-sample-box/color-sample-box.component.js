@@ -4,6 +4,7 @@ import { withTheme } from 'styled-components';
 import StyledColorSampleBox from './style/color-sample-box.style';
 import StyledTickIcon from '../tick-icon/tick-icon.style';
 import { THEMES } from '../../../../style/themes';
+import baseTheme from '../../../../style/themes/base';
 
 const ColorSampleBox = ({ theme, color, checked }) => {
   const tickIcon = checked && theme.name === THEMES.classic ? <StyledTickIcon checked type='tick' /> : null;
@@ -14,6 +15,10 @@ ColorSampleBox.propTypes = {
   theme: PropTypes.object,
   color: PropTypes.string,
   checked: PropTypes.bool
+};
+
+ColorSampleBox.defaultProps = {
+  theme: baseTheme
 };
 
 export default withTheme(ColorSampleBox);
