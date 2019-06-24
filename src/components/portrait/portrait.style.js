@@ -136,6 +136,10 @@ StyledPortraitInitials.propTypes = {
   alt: PropTypes.string
 };
 
+StyledPortraitInitials.defaultProps = {
+  theme: BaseTheme
+};
+
 
 export const StyledPortraitGravatar = styled(withTheme(
   ({
@@ -159,6 +163,10 @@ export const StyledPortraitGravatar = styled(withTheme(
 StyledPortraitGravatar.propTypes = {
   gravatarEmail: PropTypes.string.isRequired,
   size: PropTypes.oneOf(OptionsHelper.sizesFull).isRequired
+};
+
+StyledPortraitGravatar.defaultProps = {
+  theme: BaseTheme
 };
 
 
