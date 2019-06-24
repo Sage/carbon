@@ -2,6 +2,8 @@ import { portraitPreview, portraitInitials, portraitUserImage } from '../../loca
 
 const PORTRAIT_CLASS = 'carbon-portrait--';
 const DARK_BACKGROUND = 'dark-background';
+const INITIALS_FOLDER = 'initials/';
+const DATA_IMAGE_PREFIX = 'data:image/png;base64,';
 
 Then('Portrait alt on preview is set to {string}', (text) => {
   portraitInitials()
@@ -47,8 +49,10 @@ Then('Portrait {word} value is set to {string}', (word, property) => {
     case 'initials':
       portraitInitials()
         .should('be.visible');
-      portraitInitials()
-        .should('have.attr', 'src', `${property}`);
+      cy.fixture(`${INITIALS_FOLDER}${property}`).then(($property) => {
+        portraitInitials()
+          .should('have.attr', 'src', `${DATA_IMAGE_PREFIX}${$property}`);
+      });
       portraitUserImage()
         .should('not.have.attr', 'src');
       break;

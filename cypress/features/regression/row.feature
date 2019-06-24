@@ -5,14 +5,14 @@ Feature: Row component
     Given I open "Row" component page
 
   @positive
-  Scenario: I check columnDivide
-    When I check columnDivide checkbox
+  Scenario: Enable columnDivide
+    When I uncheck columnDivide checkbox
+      And I check columnDivide checkbox
     Then columnDivide is set
 
   @positive
-  Scenario: I uncheck columnDivide
-    When I check columnDivide checkbox
-      And I uncheck columnDivide checkbox
+  Scenario: Disable columnDivide
+    When I uncheck columnDivide checkbox
     Then columnDivide is not set
 
   @positive
@@ -39,7 +39,7 @@ Feature: Row component
       | right     |
 
   @positive
-  Scenario Outline: Set columnOffset
+  Scenario Outline: Set columnOffset to <columnOffset>
     When I set columnOffset to "<columnOffset>"
     Then columnOffset on preview is "<columnOffset>"
     Examples:
@@ -53,7 +53,7 @@ Feature: Row component
       | 100          |
 
   @negative
-  Scenario Outline: Set columnOffset out of scope
+  Scenario Outline: Set columnOffset out of scope to <columnOffset>
     When I set columnOffset to "<columnOffset>"
     Then columnOffset on preview is "<columnOffset>"
     Examples:
@@ -66,7 +66,7 @@ Feature: Row component
   # | <> |
 
   @positive
-  Scenario Outline: Set columnSpan
+  Scenario Outline: Set columnSpan to <columnSpan>
     When I set columnSpan to "<columnSpan>"
     Then columnSpan on preview is "<columnSpan>"
     Examples:
@@ -80,7 +80,7 @@ Feature: Row component
       | 100        |
 
   @positive
-  Scenario Outline: Set columnSpan out of scope
+  Scenario Outline: Set columnSpan out of scope to <columnSpan>
     When I set columnSpan to "<columnSpan>"
     Then columnSpan on preview is "<columnSpan>"
     Examples:
@@ -89,8 +89,8 @@ Feature: Row component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <> |
+      # @ignore because of FE-1447
+      # | <> |
 
 
   @positive
@@ -103,5 +103,5 @@ Feature: Row component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-# @ignore because of FE-1447
-# | <> |
+      # @ignore because of FE-1447
+      # | <> |
