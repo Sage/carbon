@@ -30,36 +30,6 @@ describe('Portrait', () => {
     spyOn(Browser, 'getDocument').and.returnValue(mockDocumentWithCanvas);
   });
 
-  describe('componentWillReceiveProps', () => {
-    const memoizedInitials = 'foobar';
-    let props, instance;
-
-    beforeEach(() => {
-      const originalProps = { initials: 'foo', size: 'small' };
-      const wrapper = shallow(<Portrait gravatar='foo' { ...originalProps } />);
-      props = { ...originalProps };
-      instance = wrapper.instance();
-      instance.memoizeInitials = memoizedInitials;
-    });
-
-    it('clears the cached initials if initials change', () => {
-      props.initials = 'bar';
-      instance.componentWillReceiveProps(props);
-      expect(instance.memoizeInitials).toEqual(null);
-    });
-
-    it('clears the cached initials if size changes', () => {
-      props.size = 'medium';
-      instance.componentWillReceiveProps(props);
-      expect(instance.memoizeInitials).toEqual(null);
-    });
-
-    it('keeps the cached initials if nothing changes', () => {
-      instance.componentWillReceiveProps(props);
-      expect(instance.memoizeInitials).toEqual(memoizedInitials);
-    });
-  });
-
   describe('props validation', () => {
     beforeEach(() => {
       spyOn(console, 'error');
@@ -122,72 +92,6 @@ describe('Portrait', () => {
     });
 
     /* eslint-enable no-console */
-  });
-
-  describe('generateInitials caching', () => {
-    let instance;
-
-    beforeEach(() => {
-      instance = ReactTestUtils.renderIntoDocument(<Portrait gravatar='example@example.com' />);
-    });
-
-    it('returns the cached result if cached', () => {
-      instance.memoizeInitials = 'foo';
-      expect(instance.generateInitials()).toEqual('foo');
-    });
-
-    it('returns new image if not cached', () => {
-      expect(instance.generateInitials()).toMatch(mockCanvasDataURL);
-    });
-  });
-
-  describe('generateInitials content', () => {
-    let context;
-
-    beforeEach(() => {
-      context = { fillStyle: null, fillRect: () => {}, fillText: () => {} };
-    });
-
-    it('returns first 3 initials uppercased if more than 3 are supplied', () => {
-      spyOn(context, 'fillText');
-      const instance = ReactTestUtils.renderIntoDocument(<Portrait initials='abcde' src='foo' />);
-      instance.applyText(context, 30);
-      expect(context.fillText).toHaveBeenCalledWith('ABC', 15, 20);
-    });
-
-    it('uses light BG colour and dark text colour if darkBackground is false', () => {
-      const instance = ReactTestUtils.renderIntoDocument(<Portrait src='foo' darkBackground={ false } />);
-      instance.applyBackground(context);
-      expect(context.fillStyle).toEqual('#D8D9DC');
-      instance.applyText(context);
-      expect(context.fillStyle).toEqual('#595959');
-    });
-
-    it('uses dark BG color and light text colour if darkBackground is true', () => {
-      const instance = ReactTestUtils.renderIntoDocument(<Portrait src='foo' darkBackground />);
-      instance.applyBackground(context);
-      expect(context.fillStyle).toEqual('#8A8E95');
-      instance.applyText(context);
-      expect(context.fillStyle).toEqual('#FFFFFF');
-    });
-  });
-
-  describe('gravatarSrc', () => {
-    it('returns the correct Gravatar URL', () => {
-      const email = 'example@example.com';
-      const instance = ReactTestUtils.renderIntoDocument(<Portrait gravatar={ email } size='medium' />);
-      const src = instance.gravatarSrc();
-      const base = 'https://www.gravatar.com/avatar/';
-      const hash = MD5(email);
-      const size = '56';
-      expect(src).toEqual(`${base}${hash}?s=${size}&d=blank`);
-    });
-  });
-
-  describe('numericSizes', () => {
-    it('is an object mapping size to numeric value', () => {
-      expect(Portrait.numericSizes.small).toEqual('32');
-    });
   });
 
   describe('render icon', () => {
