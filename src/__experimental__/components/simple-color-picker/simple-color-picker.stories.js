@@ -7,7 +7,7 @@ import SimpleColorPicker from '.';
 import { notes, info } from './documentation';
 
 const store = new Store({
-  selectedColor: '#E96400'
+  selectedColor: null
 });
 
 const onChange = (e) => {
@@ -17,7 +17,7 @@ const onChange = (e) => {
   action('select')();
 };
 
-storiesOf('Experimental/SimpleColorPicker', module)
+storiesOf('Experimental/Simple Color Picker', module)
   .addParameters({
     info: {
       propTablesExclude: [State]
@@ -40,12 +40,13 @@ storiesOf('Experimental/SimpleColorPicker', module)
         '#335C6D',
         '#00DC00'
       ];
-      const availableColors = array('availableColors', demoColors);
+      const availableColors = array('availableColors', demoColors, '/');
 
       return (
         <State store={ store }>
           <SimpleColorPicker
-            availableColors={ availableColors } name={ name }
+            availableColors={ availableColors }
+            name={ name }
             onChange={ onChange }
           />
         </State>
