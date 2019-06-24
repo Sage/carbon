@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../style/themes/base';
 import classicThemeForPill from './pill-classic.style';
+import smallTheme from '../../style/themes/small';
 import styleConfig from './pill.style.config';
 import { THEMES } from '../../style/themes';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -12,26 +13,25 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 const setTheme = (theme) => {
   switch (theme.name) {
     case THEMES.classic:
-    case THEMES.medium:
-    case THEMES.large:
     case THEMES.base:
-      return THEMES.small;
+      return smallTheme;
 
     default:
-      return theme.name;
+      return theme;
   }
 };
 
 const PillStyle = styled.span`
  ${({
-    colourVariant, theme, inFill, isDeletable
+    colourVariant, theme, inFill, isDeletable, role
   }) => {
     const { colors } = baseTheme;
-    const themeName = setTheme(theme);
-    const styleSet = styleConfig[themeName];
+    const correctedTheme = setTheme(theme);
+    const styleSet = styleConfig(correctedTheme)[role];
+    const colour = (role === 'status') ? colourVariant : 'primary';
 
     return css`
-      border: 2px solid ${styleSet.colors[colourVariant]};
+      border: 2px solid ${styleSet[colour]};
       border-radius: 12px;
       font-size: 14px;
       padding: 2px 7px;
@@ -41,7 +41,7 @@ const PillStyle = styled.span`
       margin: 0px 8px 16px 0px;
 
       ${inFill && css`
-        background-color: ${styleSet.colors[colourVariant]};
+        background-color: ${styleSet[colour]};
         color: ${colors.white};
 
         .carbon-icon.icon-cross {
@@ -75,7 +75,7 @@ const PillStyle = styled.span`
           width: 17px;
 
           ${inFill && css`
-            background-color: ${styleSet.colors[colourVariant]};
+            background-color: ${styleSet[colour]};
           `}
 
           ${!inFill && css`
@@ -83,7 +83,7 @@ const PillStyle = styled.span`
           `}
 
           &:hover {
-            background-color: ${styleSet.colors[colourVariant]};
+            background-color: ${styleSet[colour]};
             color: ${styleSet.hoverColor};
           }
  
@@ -102,7 +102,7 @@ const PillStyle = styled.span`
 
             ${inFill && css`
               .carbon-icon {
-                color: ${styleSet.colors[colourVariant]};
+                color: ${styleSet[colour]};
               }
             `}
           }

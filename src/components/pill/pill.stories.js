@@ -10,6 +10,16 @@ import classic from '../../style/themes/classic';
 import { THEMES } from '../../style/themes';
 import { notes, Info } from './documentation';
 
+const getStatusKnobs = () => {
+  const role = select('role', [...OptionsHelper.pillRoles], 'tag');
+
+  return {
+    role,
+    colourVariant: (role === 'status') ? select('colourVariant',
+      [...OptionsHelper.pillColours, OptionsHelper.colors[7]], OptionsHelper.pillColours[0]) : null
+  };
+};
+
 const getKnobs = (theme) => {
   const knobs = {
     children: text('children', 'Pill'),
@@ -20,10 +30,8 @@ const getKnobs = (theme) => {
   if (theme === THEMES.classic) {
     knobs.as = select('as', [...OptionsHelper.colors, 'disabled'], Pill.defaultProps.as);
   } else {
-    knobs.colourVariant = select('colourVariant',
-      [...OptionsHelper.pillColours, OptionsHelper.colors[7]], OptionsHelper.pillColours[0]);
+    Object.assign(knobs, getStatusKnobs());
   }
-
   return knobs;
 };
 
@@ -55,13 +63,15 @@ storiesOf('Pill', module)
       children,
       colourVariant,
       fill,
-      onDelete
+      onDelete,
+      role
     } = getKnobs();
     return (
       <Pill
         colourVariant={ colourVariant }
         fill={ fill }
         onDelete={ onDelete ? action('delete') : null }
+        role={ role }
       >
         { children }
       </Pill>

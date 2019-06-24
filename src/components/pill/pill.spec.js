@@ -9,14 +9,19 @@ import { classicStyleConfig } from './pill-classic.style';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import smallTheme from '../../style/themes/small';
+import mediumTheme from '../../style/themes/medium';
+import largeTheme from '../../style/themes/large';
 import classicTheme from '../../style/themes/classic';
 import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 const classicStyleTypes = [...OptionsHelper.colors, 'disabled'];
 const modernStyleTypes = [...OptionsHelper.pillColours, 'warning'];
+// const modernRoles = [...OptionsHelper.pillRoles];
 const modernThemes = [
-  ['small', smallTheme]
+  ['small', smallTheme],
+  ['medium', mediumTheme],
+  ['large', largeTheme]
 ];
 
 describe('Pill', () => {
@@ -117,87 +122,115 @@ describe('Pill', () => {
     describe.each(modernThemes)('when the pill is rendered',
       (name, theme) => {
         describe(`${name} theme`, () => {
-          const styleSet = styleConfig[name];
-
-          it(`matches the expected styles for a default ${name} pill`, () => {
-            const wrapper = render({
-              children: 'My Text',
-              theme
-            }, TestRenderer.create).toJSON();
-            assertStyleMatch({
-              borderRadius: '12px',
-              fontSize: '14px',
-              fontWeight: '600',
-              position: 'relative',
-              top: '-1px',
-              padding: '2px 8px 2px 8px',
-              margin: '0px 8px 16px 0px'
-            }, wrapper);
-          });
-
-          describe('when the component is deletable', () => {
-            it('matches the expected styles for a deletable pill', () => {
+          describe('when role is status', () => {
+            const role = 'status';
+            const styleSet = styleConfig(theme)[role];
+            it(`matches the expected styles for a default ${name} pill`, () => {
               const wrapper = render({
                 children: 'My Text',
-                onDelete: jest.fn(),
                 theme
               }, TestRenderer.create).toJSON();
               assertStyleMatch({
-                padding: '2px 27px 2px 8px'
+                borderRadius: '12px',
+                fontSize: '14px',
+                fontWeight: '600',
+                position: 'relative',
+                top: '-1px',
+                padding: '2px 8px 2px 8px',
+                margin: '0px 8px 16px 0px'
               }, wrapper);
             });
 
-            describe('when the component is in a filled state', () => {
-              const style = 'neutral';
-              const fillWrapper = render({
-                children: 'My Text',
-                onDelete: jest.fn(),
-                colourVariant: style,
-                fill: true,
-                theme
-              });
-
-              it(`matches the expected filled styling for ${style}`, () => {
-                assertStyleMatch({
-                  backgroundColor: styleSet.colors[style]
-                }, fillWrapper);
-              });
-            });
-          });
-
-          describe.each(modernStyleTypes)(
-            'when the pill style is set as "%s"',
-            (style) => {
-              describe('when storybook supplies the correct theme', () => {
+            describe('when the component is deletable', () => {
+              it('matches the expected styles for a deletable pill', () => {
                 const wrapper = render({
                   children: 'My Text',
-                  colourVariant: style,
+                  onDelete: jest.fn(),
                   theme
-                });
-
-                it(`matches the expected styling for ${style}`, () => {
-                  assertStyleMatch({
-                    border: `2px solid ${styleSet.colors[style]}`
-                  }, wrapper);
-                });
+                }, TestRenderer.create).toJSON();
+                assertStyleMatch({
+                  padding: '2px 27px 2px 8px'
+                }, wrapper);
               });
 
               describe('when the component is in a filled state', () => {
+                const style = 'neutral';
                 const fillWrapper = render({
                   children: 'My Text',
+                  onDelete: jest.fn(),
                   colourVariant: style,
+                  role,
                   fill: true,
                   theme
                 });
 
                 it(`matches the expected filled styling for ${style}`, () => {
                   assertStyleMatch({
-                    backgroundColor: styleSet.colors[style]
+                    backgroundColor: styleSet[style]
                   }, fillWrapper);
                 });
               });
-            }
-          );
+            });
+
+            describe.each(modernStyleTypes)(
+              'when the pill style is set as "%s"',
+              (style) => {
+                describe('when storybook supplies the correct theme', () => {
+                  const wrapper = render({
+                    children: 'My Text',
+                    colourVariant: style,
+                    theme,
+                    role
+                  });
+
+                  it(`matches the expected styling for ${style}`, () => {
+                    assertStyleMatch({
+                      border: `2px solid ${styleSet[style]}`
+                    }, wrapper);
+                  });
+                });
+
+                describe('when the component is in a filled state', () => {
+                  const fillWrapper = render({
+                    children: 'My Text',
+                    colourVariant: style,
+                    fill: true,
+                    theme,
+                    role
+                  });
+
+                  it(`matches the expected filled styling for ${style}`, () => {
+                    assertStyleMatch({
+                      backgroundColor: styleSet[style]
+                    }, fillWrapper);
+                  });
+                });
+              }
+            );
+          });
+          describe('when role is tag', () => {
+            const role = 'tag';
+            const styleSet = styleConfig(theme)[role];
+
+            describe('when the component is deletable', () => {
+              describe('when the component is in a filled state', () => {
+                const style = 'primary';
+                const fillWrapper = render({
+                  children: 'My Text',
+                  onDelete: jest.fn(),
+                  role,
+                  fill: true,
+                  theme
+                });
+
+                it(`matches the expected filled styling for ${style}`, () => {
+                  assertStyleMatch({
+                    backgroundColor: styleSet[style]
+                  }, fillWrapper);
+                });
+              });
+            });
+          });
         });
       });
   });

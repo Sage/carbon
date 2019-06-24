@@ -28,6 +28,7 @@ class Pill extends React.Component {
       as,
       onDelete,
       colourVariant,
+      role,
       children
     } = this.props;
     return (
@@ -36,6 +37,7 @@ class Pill extends React.Component {
         inFill={ fill }
         colourVariant={ colourVariant || as }
         isDeletable={ onDelete }
+        role={ role }
         { ...tagComponent('pill', this.props) }
       >
         { children }
@@ -59,6 +61,9 @@ Pill.propTypes = {
   /** Fills the pill background with colour. When fill is false only the border is coloured. */
   fill: PropTypes.bool,
 
+  /** Sets the type of pill in use. */
+  role: PropTypes.oneOf([...OptionsHelper.pillRoles]),
+
   /** Callback function for when the pill is clicked. */
   onClick: PropTypes.func,
 
@@ -70,7 +75,8 @@ Pill.defaultProps = {
   as: 'default',
   fill: false,
   onClick: null,
-  onDelete: null
+  onDelete: null,
+  role: 'tag'
 };
 
 export default Pill;

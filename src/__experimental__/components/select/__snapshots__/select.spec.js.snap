@@ -224,6 +224,7 @@ Array [
       fill={false}
       onClick={null}
       onDelete={[Function]}
+      role="tag"
       title="Orange"
     >
       Orange
@@ -237,6 +238,7 @@ Array [
       fill={false}
       onClick={null}
       onDelete={[Function]}
+      role="tag"
       title="Blue"
     >
       Blue
@@ -250,6 +252,7 @@ Array [
       fill={false}
       onClick={null}
       onDelete={[Function]}
+      role="tag"
       title="Red"
     >
       Red
