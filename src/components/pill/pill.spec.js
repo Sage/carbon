@@ -17,7 +17,6 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 
 const classicStyleTypes = [...OptionsHelper.colors, 'disabled'];
 const modernStyleTypes = [...OptionsHelper.pillColours, 'warning'];
-// const modernRoles = [...OptionsHelper.pillRoles];
 const modernThemes = [
   ['small', smallTheme],
   ['medium', mediumTheme],
