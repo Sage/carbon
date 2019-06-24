@@ -42,8 +42,8 @@ describe('OptionsHelper', () => {
       'warning'
     ]);
   });
-  it('pillColours', () => {
-    expect(OptionsHelper.pillColours).toEqual([
+  it('pillColors', () => {
+    expect(OptionsHelper.pillColors).toEqual([
       'neutral',
       'negative',
       'positive'

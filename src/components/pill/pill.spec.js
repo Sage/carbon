@@ -16,7 +16,7 @@ import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 const classicStyleTypes = [...OptionsHelper.colors, 'disabled'];
-const modernStyleTypes = [...OptionsHelper.pillColours, 'warning'];
+const modernStyleTypes = [...OptionsHelper.pillColors, 'warning'];
 const modernThemes = [
   ['small', smallTheme],
   ['medium', mediumTheme],

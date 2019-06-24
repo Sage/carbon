@@ -116,7 +116,7 @@ const PillStyle = styled.span`
 
 function isClassic(theme, colorVariant) {
   // handles incorrect default activeTheme in StoryBook AppWrapper
-  if (OptionsHelper.pillColours.includes(colorVariant)) {
+  if (OptionsHelper.pillColors.includes(colorVariant)) {
     return false;
   }
   return theme.name === THEMES.classic;

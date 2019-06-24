@@ -16,7 +16,7 @@ const getStatusKnobs = () => {
   return {
     pillRole,
     colorVariant: (pillRole === 'status') ? select('colorVariant',
-      [...OptionsHelper.pillColours, OptionsHelper.colors[7]], OptionsHelper.pillColours[0]) : null
+      [...OptionsHelper.pillColors, OptionsHelper.colors[7]], OptionsHelper.pillColors[0]) : null
   };
 };
 
