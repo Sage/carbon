@@ -6,7 +6,8 @@ Feature: Pod component
 
   @positive
   Scenario: Enable border checkbox for a Pod component
-    # When I check border checkbox
+    When I uncheck border checkbox
+      And I check border checkbox
     Then Pod component has border
 
   @positive

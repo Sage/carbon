@@ -1,4 +1,4 @@
-import moment from 'moment';
+// import moment from 'moment';
 import {
   dateInput, dayPickerDay, minDate, maxDate,
 } from '../../locators/date-input/index';
@@ -7,8 +7,8 @@ import { labelPreview } from '../../locators';
 const TEXT_ALIGN = 'text-align';
 const DAY = 'DayPicker-Day--';
 const TODAY_DAY = Cypress.moment().format('ddd MMM D, YYYY');
-const YESTERDAY_DAY = moment().subtract(1, 'days').format('ddd MMM D, YYYY');
-const TOMORROW_DAY = moment().add(1, 'days').format('ddd MMM D, YYYY');
+const YESTERDAY_DAY = Cypress.moment().subtract(1, 'days').format('ddd MMM D, YYYY');
+const TOMORROW_DAY = Cypress.moment().add(1, 'days').format('ddd MMM D, YYYY');
 
 Then('Date input is disabled', () => {
   dateInput().should('have.attr', 'disabled');

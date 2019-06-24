@@ -5,12 +5,13 @@ Feature: Row component
     Given I open "Row" component page
 
   @positive
-  Scenario: I check columnDivide
-    # When I check columnDivide checkbox
+  Scenario: Enable columnDivide
+    When I uncheck columnDivide checkbox
+      And I check columnDivide checkbox
     Then columnDivide is set
 
   @positive
-  Scenario: I uncheck columnDivide
+  Scenario: Disable columnDivide
     When I uncheck columnDivide checkbox
     Then columnDivide is not set
 
@@ -88,8 +89,8 @@ Feature: Row component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-  # @ignore because of FE-1447
-  # | <> |
+      # @ignore because of FE-1447
+      # | <> |
 
 
   @positive
@@ -102,5 +103,5 @@ Feature: Row component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-# @ignore because of FE-1447
-# | <> |
+      # @ignore because of FE-1447
+      # | <> |

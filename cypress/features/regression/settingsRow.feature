@@ -48,7 +48,8 @@ Feature: Settings Row component
 
   @positive
   Scenario: Enable divider checkbox for a Settings Row component
-    # When I check divider checkbox
+    When I uncheck divider checkbox
+      And I check divider checkbox
     Then Settings Row component has divider property
 
   @positive

@@ -25,15 +25,16 @@ Then('Multi Action Button as on preview is {string}', (asProperty) => {
   switch (asProperty) {
     case 'primary':
       multiActionButtonPreview().children()
-        .should('have.css', 'background-color', 'rgb(30, 73, 159)');
+        .should('have.css', 'background-color', 'rgb(37, 91, 199)')
+        .and('have.css', 'border-bottom-color', 'rgba(0, 0, 0, 0)');
       break;
     case 'secondary':
       multiActionButtonPreview().children()
-        .should('have.css', 'background-color', 'rgb(30, 73, 159)')
-        .and('have.css', 'border-bottom-color', 'rgb(30, 73, 159)')
-        .and('have.css', 'border-top-color', 'rgb(30, 73, 159)')
-        .and('have.css', 'border-right-color', 'rgb(30, 73, 159)')
-        .and('have.css', 'border-left-color', 'rgb(30, 73, 159)');
+        .should('have.css', 'background-color', 'rgba(0, 0, 0, 0)')
+        .and('have.css', 'border-bottom-color', 'rgb(37, 91, 199)')
+        .and('have.css', 'border-top-color', 'rgb(37, 91, 199)')
+        .and('have.css', 'border-right-color', 'rgb(37, 91, 199)')
+        .and('have.css', 'border-left-color', 'rgb(37, 91, 199)');
       break;
     case 'transparent':
       multiActionButtonPreview().children()

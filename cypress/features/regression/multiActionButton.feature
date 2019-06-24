@@ -18,10 +18,9 @@ Feature: Multi Action Button component
       # @ignore because of FE-1447
       # | <>                       |
 
-@positive
+  @positive
   Scenario Outline: Change as property of Multi Action Button component to <asProperty>
     When I select as to "<asProperty>"
-      And I invoke Multi Action Button component
     Then Multi Action Button as on preview is "<asProperty>"
     Examples:
       | asProperty  |
@@ -29,7 +28,7 @@ Feature: Multi Action Button component
       | secondary   |
       | transparent |
 
-@positive
+  @positive
   Scenario Outline: Check <align> property of Multi Action Button component
     When I select align to "<align>"
       And I invoke Multi Action Button component
