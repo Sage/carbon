@@ -90,7 +90,7 @@ describe('ConfigurableItemRow', () => {
       });
 
       it('sets the Checkbox value to true', () => {
-        expect(wrapper.find(Checkbox).props().checked).toBeTruthy();
+        expect(wrapper.find(Checkbox).props().checked).toBe(true);
       });
     });
 
@@ -102,7 +102,7 @@ describe('ConfigurableItemRow', () => {
       });
 
       it('sets the Checkbox value to false', () => {
-        expect(wrapper.find(Checkbox).props().value).toBeFalsy();
+        expect(wrapper.find(Checkbox).props().checked).toBe(false);
       });
     });
   });
