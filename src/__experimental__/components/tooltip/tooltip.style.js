@@ -37,7 +37,7 @@ StyledTooltipInner.propTypes = {
 
 const StyledTooltipWrapper = styled.div`
   ${({ align, position }) => css`
-    position: absolute;
+    position: relative;
     max-width: 300px;
     z-index: 1003;
 

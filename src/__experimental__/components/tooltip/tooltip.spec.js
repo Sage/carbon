@@ -100,7 +100,7 @@ describe('Tooltip', () => {
         it('applies the default styles', () => {
           assertStyleMatch(
             {
-              position: 'absolute',
+              position: 'relative',
               maxWidth: '300px',
               zIndex: '1003'
             },

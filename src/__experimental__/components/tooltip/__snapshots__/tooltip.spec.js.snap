@@ -22,7 +22,7 @@ exports[`Tooltip visible and has children matches snapshot 1`] = `
 }
 
 .c0 {
-  position: absolute;
+  position: relative;
   max-width: 300px;
   z-index: 1003;
   text-align: center;
