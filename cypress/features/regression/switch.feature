@@ -67,18 +67,17 @@ Feature: Switch component
 
   @positive
   Scenario: Enable reverse property
-    When I check reverse checkbox
+    When I uncheck reverse checkbox
+      And I check reverse checkbox
     Then Switch component is reversed
 
   @positive
   Scenario: Disable reverse property
-    When I check reverse checkbox
-      And I uncheck reverse checkbox
+    When I uncheck reverse checkbox
     Then Switch component is not reversed
 
   @positive
   Scenario: Enable loading property
-    # It's checked by default
     When I check loading checkbox
     Then Switch component is loading
 

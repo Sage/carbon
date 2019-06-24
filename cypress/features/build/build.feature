@@ -4,7 +4,7 @@ Feature: Build tests
   @build
   Scenario Outline: Component <component> page with button
     When I open "<component>" component with button page in iframe
-      And I open component preview no iFrame
+      And I open component preview no iframe
     Then "<component>" component is visible
     Examples:
       | component           |
@@ -14,7 +14,7 @@ Feature: Build tests
   @build
   Scenario Outline: Component <component> page and open preview
     When I open "<component>" component iframe
-      And I open component preview no iFrame
+      And I open component preview no iframe
     Then "<data-component>" component is visible
     Examples:
       | component           | data-component     |

@@ -24,7 +24,7 @@ Then('Button Toggle height is {string} and width is {string}', (height, width) =
 });
 
 Then('Button Toggle is disabled', () => {
-  buttonTogglePreview().should('have.attr', 'disabled');
+  buttonTogglePreview().children().should('have.attr', 'disabled');
 });
 
 Then('Button Toggle is enabled', () => {

@@ -1,4 +1,4 @@
-import Flash from './';
+import Flash from './flash-legacy.component';
 import Definition from './../../../demo/utils/definition';
 import OptionsHelper from './../../utils/helpers/options-helper';
 
