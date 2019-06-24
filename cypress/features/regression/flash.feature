@@ -5,7 +5,7 @@ Feature: Flash component
     Given I open "Flash" component page
 
   @positive
-  Scenario Outline: Change as property
+  Scenario Outline: Change as property to <as>
     When I select as to "<as>"
       And I open component preview
     Then Flash as is set to "<as>" and icon is set to "<icon>"
@@ -21,7 +21,7 @@ Feature: Flash component
       | default     | default  |
 
   @positive
-  Scenario Outline: Change Flash message
+  Scenario Outline: Change Flash message to <message>
     When I set message to "<message>"
       And I open component preview
     Then Flash message is set to "<message>"
@@ -35,7 +35,7 @@ Feature: Flash component
       | <>                      |
 
   @positive
-  Scenario Outline: Change timeout
+  Scenario Outline: Change timeout to <timeout>
     When I set timeout to "<timeout>"
       And I open component preview
       And Flash is visible
@@ -49,7 +49,7 @@ Feature: Flash component
       | 1000    |
 
   @negative
-  Scenario Outline: Set timeout out of scope
+  Scenario Outline: Set timeout out of scope to <timeout>
     When I set timeout to "<timeout>"
       And I open component preview
       And Flash is visible

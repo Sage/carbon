@@ -5,7 +5,7 @@ Feature: Alert component
     Given I open "Alert" component page with button
 
   @positive
-  Scenario Outline: Change Alert component title
+  Scenario Outline: Change Alert component title to <title>
     When I set title to "<title>"
       And I open component preview
     Then component title on preview is "<title>"
@@ -20,7 +20,7 @@ Feature: Alert component
       # | <>                       |
 
   @positive
-  Scenario Outline: Change Alert subtitle
+  Scenario Outline: Change Alert subtitle to <subtitle>
     When I set subtitle to "<subtitle>"
       And I open component preview
     Then component subtitle on preview is "<subtitle>"
@@ -35,7 +35,7 @@ Feature: Alert component
       # | <>                       |
 
   @positive
-  Scenario Outline: Change Alert children
+  Scenario Outline: Change Alert children to <children>
     When I set children to "<children>"
       And I open component preview
     Then Alert children on preview is "<children>"
@@ -77,7 +77,7 @@ Feature: Alert component
     Then Alert is not visible
 
   @positive
-  Scenario Outline: Set height for Alert dialog
+  Scenario Outline: Set height for Alert dialog to <height>
     When I set height to "<height>"
       And I open component preview
     Then Alert height is set to "<height>"
@@ -114,7 +114,7 @@ Feature: Alert component
     Then closeIcon is not visible
 
   @positive
-  Scenario Outline: Set Alert size to small, medium and large
+  Scenario Outline: Set Alert size to <sizeName>
     When I select size to "<sizeName>"
       And I open component preview
     Then Alert size property on preview is "<sizePropertyInPx>"

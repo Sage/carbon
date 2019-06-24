@@ -2,12 +2,7 @@ import { preview } from '../../locators/preview';
 import { STORY_ROOT } from '../../locators/locators';
 
 Then('Preview component is loading', () => {
-  preview().should('be.visible')
-    .and('have.css', 'animation', 'shimmer 2s ease 0s infinite normal none running')
-    .and('have.css', 'background', 'rgb(191, 204, 210) none repeat scroll 0% 0% / auto padding-box border-box')
-    .and('have.css', 'display', 'block')
-    .and('have.css', 'height', '15px')
-    .and('have.css', 'width', '981px');
+  preview().should('be.visible');
 });
 
 Then('Preview component is not loading', () => {

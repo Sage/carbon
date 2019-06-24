@@ -10,7 +10,7 @@ Feature: Carousel component
     Then slide title is "Slide One"
 
   @positive
-  Scenario Outline: Set slide index from 1 to 4
+  Scenario Outline: Set slide index to <index>
     When I set slide index to <index>
     And slide title is "<title>"
     Examples:
@@ -64,7 +64,7 @@ Feature: Carousel component
       | fade       | right     |
 
   @positive
-  Scenario Outline: Move Carousel left
+  Scenario Outline: Move Carousel left to <index>
     When I set slide index to <index>
       And I move carousel "left"
     Then slide title is "<title>"
@@ -77,7 +77,7 @@ Feature: Carousel component
       | 0     | Slide Five  |
 
   @positive
-  Scenario Outline: Move Carousel right
+  Scenario Outline: Move Carousel right to <index>
     When I set slide index to <index>
       And I move carousel "right"
     Then slide title is "<title>"

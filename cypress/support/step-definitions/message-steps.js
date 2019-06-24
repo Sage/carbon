@@ -26,11 +26,11 @@ When('clear all actions in Actions Tab', () => {
 });
 
 Then('Message component is transparent', () => {
-  messagePreview().should('have.css', 'background-color', 'rgb(255, 255, 255)');
+  messagePreview().should('have.css', 'background-color', 'rgba(0, 0, 0, 0)');
 });
 
 Then('Message component is not transparent', () => {
-  messagePreview().should('not.have.css', 'background-color', 'rgb(255, 255, 255)');
+  messagePreview().should('not.have.css', 'background-color', 'rgba(0, 0, 0, 0)');
 });
 
 Then('Message children on preview is set to {string}', (text) => {
