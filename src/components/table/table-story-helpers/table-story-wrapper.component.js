@@ -44,9 +44,9 @@ const recordsForActivePage = (start, end) => {
 const getActiveRows = (pageSize, totalRecords) => {
   const currentPage = store.get('currentPage');
   const candidateIndex = pageSize * currentPage;
-
   const endIndex = (candidateIndex <= totalRecords) ? candidateIndex : totalRecords;
-  const currentPageSize = (endIndex === totalRecords) ? (endIndex % pageSize) : pageSize;
+  const remainder = endIndex % pageSize;
+  const currentPageSize = (endIndex === totalRecords && remainder !== 0) ? (endIndex % pageSize) : pageSize;
   const startIndex = endIndex - currentPageSize;
 
   return recordsForActivePage(startIndex, endIndex);
