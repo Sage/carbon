@@ -7,7 +7,7 @@ const getIconColor = (color, theme) => {
   if (color[0] === '#') rgbValues = getRgbValues(color);
   const [r, g, b] = rgbValues;
   const contrast = (Math.round(r * 299) + Math.round(g * 587) + Math.round(b * 114)) / 1000;
-  return contrast >= 128 ? theme.colors.black : theme.colors.white;
+  return contrast >= 128 ? theme.text.color : theme.colors.white;
 };
 
 const StyledTickIcon = styled(Icon)`
@@ -22,12 +22,11 @@ const StyledTickIcon = styled(Icon)`
       color: ${({ bgColor, theme }) => getIconColor(bgColor, theme)};
     }
 
-    ${({ checked }) => checked
-      && css`
-         {
-          display: block;
-        }
-      `}
+    ${({ checked }) => checked && css`
+      {
+        display: block;
+      }
+    `}
   }
 `;
 
