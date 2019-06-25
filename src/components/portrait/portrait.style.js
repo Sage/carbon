@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { css, withTheme } from 'styled-components';
+import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 
 import BaseTheme from '../../style/themes/base';
@@ -110,7 +110,7 @@ function stylingForIcon({ size, theme, darkBackground }) {
 }
 
 
-export const StyledPortraitInitials = styled(withTheme(
+export const StyledPortraitInitials = styled(
   ({
     className, theme, initials, size, darkBackground
   }) => {
@@ -124,7 +124,7 @@ export const StyledPortraitInitials = styled(withTheme(
       />
     );
   }
-))`
+)`
   position: absolute;
   ${stylingForSize}
 `;
@@ -141,7 +141,7 @@ StyledPortraitInitials.defaultProps = {
 };
 
 
-export const StyledPortraitGravatar = styled(withTheme(
+export const StyledPortraitGravatar = styled(
   ({
     className, theme, gravatarEmail, size
   }) => {
@@ -154,7 +154,7 @@ export const StyledPortraitGravatar = styled(withTheme(
       />
     );
   }
-))`
+)`
   display: inline-block;
   position: absolute;
   ${stylingForSize}
