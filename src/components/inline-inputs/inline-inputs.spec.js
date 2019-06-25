@@ -72,6 +72,12 @@ describe('Inline Inputs', () => {
         width: '100%'
       }, wrapper, { modifier: 'input' });
     });
+
+    it('then columns should have negative margin to create 1px borders between inputs', () => {
+      assertStyleMatch({
+        marginLeft: '-1px'
+      }, wrapper, { modifier: '.carbon-column + .carbon-column' });
+    });
   });
 
   describe('when the Classic Theme is set', () => {
