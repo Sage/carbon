@@ -48,8 +48,7 @@ const handleChange = (rowIndex) => {
   action('changed')();
 };
 const handleSave = (event) => {
-  event.preventDefault();
-  event.stopPropagation();
+  event.persist();
 
   action('saved')();
 };
