@@ -5,7 +5,9 @@ import { shallow, mount } from 'enzyme';
 import guid from '../../utils/helpers/guid/guid';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 import Toast from './toast.component';
-import { ToastStyle, ToastTypeStyle, ToastContentStyle } from './toast.style';
+import {
+  ToastStyle, ToastTypeStyle, ToastContentStyle, ToastWrapper
+} from './toast.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
 import DismissButton from '../dismiss-button';
@@ -18,7 +20,7 @@ describe('Toast', () => {
   let instance, onDismissSpy;
 
   describe('when toast is closed', () => {
-    it('renders null', () => {
+    it('should exists anyway', () => {
       const wrapper = mount(
         <Toast
           open={ false } as='info'
@@ -27,7 +29,8 @@ describe('Toast', () => {
         foobar
         </Toast>
       );
-      expect(wrapper).toMatchSnapshot();
+      expect(wrapper).toBeTruthy();
+      expect(wrapper.prop('open')).toEqual(false);
     });
   });
 
@@ -42,6 +45,20 @@ describe('Toast', () => {
           foobar
         </Toast>
       );
+    });
+
+    describe('with prop isCenter', () => {
+      it('should render Toast in the center of the document', () => {
+        assertStyleMatch({
+          position: 'fixed',
+          width: '100%',
+          height: '0',
+          justifyContent: 'center',
+          display: 'flex'
+        }, mount(
+          <ToastWrapper isCenter />
+        ));
+      });
     });
 
     it('renders the component with correct classes', () => {

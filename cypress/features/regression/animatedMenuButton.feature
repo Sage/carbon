@@ -5,7 +5,7 @@ Feature: Animated Menu Button component
     Given I open "Animated Menu Button" component page
 
   @positive
-  Scenario Outline: Change Animated Menu Button label
+  Scenario Outline: Change Animated Menu Button label to <label>
     When I set label to "<label>"
       And I trigger Animated Menu Button preview
     Then Animated Menu Button label on preview is "<label>"
@@ -20,7 +20,7 @@ Feature: Animated Menu Button component
       # | <>                       |
 
   @positive
-  Scenario Outline: Change Animated Menu Button direction
+  Scenario Outline: Change Animated Menu Button direction to <direction>
     When I select direction to "<direction>"
     Then Animated Menu Button direction on preview is "<direction>"
     Examples:
@@ -29,7 +29,7 @@ Feature: Animated Menu Button component
       | right     |
 
   @positive
-  Scenario Outline: Change Animated Menu Button size
+  Scenario Outline: Change Animated Menu Button size to <size>
     When I select size to "<size>"
     Then Animated Menu Button size property on preview is "<size>"
     Examples:
