@@ -59,8 +59,8 @@ exports[`Textarea when rendered should render default 1`] = `
   width: 30px;
   resize: none;
   min-height: 40px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .c4::-webkit-input-placeholder {
