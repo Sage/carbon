@@ -75,8 +75,6 @@ function Portrait(props) {
 }
 
 Portrait.propTypes = {
-  /** A custom CSS class for the component. */
-  className: PropTypes.string,
   /** The size of the Portrait. */
   size: PropTypes.oneOf(OptionsHelper.sizesFull),
   /** A custom image URL. */
