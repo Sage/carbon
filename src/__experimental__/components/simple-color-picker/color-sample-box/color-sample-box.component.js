@@ -4,14 +4,17 @@ import StyledColorSampleBox from './style/color-sample-box.style';
 import StyledTickIcon from '../tick-icon/tick-icon.style';
 
 const ColorSampleBox = ({ color, checked }) => {
-  const tickIcon = checked ? (
-    <StyledTickIcon
-      bgColor={ color } checked
-      type='tick'
-    />
-  ) : null;
-
-  return <StyledColorSampleBox color={ color }>{tickIcon}</StyledColorSampleBox>;
+  return (
+    <StyledColorSampleBox color={ color }>
+      {checked && (
+        <StyledTickIcon
+          bgColor={ color }
+          checked
+          type='tick'
+        />
+      )}
+    </StyledColorSampleBox>
+  );
 };
 
 ColorSampleBox.propTypes = {
