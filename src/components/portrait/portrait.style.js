@@ -92,9 +92,9 @@ function stylingForIcon({ size, theme, darkBackground }) {
   }
 
   return css`
-    padding:          ${iconPadding}px;
+    padding: ${iconPadding}px;
     background-color: ${backgroundColor};
-    color:            ${color};
+    color: ${color};
 
     ${params.iconDimensions && css`
       svg {
@@ -155,7 +155,7 @@ export const StyledPortraitGravatar = styled(withTheme(
     );
   }
 ))`
-  display:  inline-block;
+  display: inline-block;
   position: absolute;
   ${stylingForSize}
 `;
@@ -171,7 +171,7 @@ StyledPortraitGravatar.defaultProps = {
 
 
 export const StyledCustomImg = styled.img`
-  display:  inline-block;
+  display: inline-block;
   position: absolute;
   ${stylingForSize}
 `;
@@ -188,8 +188,8 @@ export const StyledIcon = styled(
   ({ darkBackground, ...rest }) => <Icon { ...rest } />
 )`
   && {
-    position:    absolute;
-    box-sizing:  border-box;
+    position: absolute;
+    box-sizing: border-box;
     line-height: 14px;
     ${stylingForSize}
     ${stylingForIcon}
@@ -212,10 +212,10 @@ StyledIcon.defaultProps = {
 
 
 const StyledPortrait = styled.div`
-  display:        inline-block;
-  position:       relative;
+  display: inline-block;
+  position: relative;
   vertical-align: middle;
-  overflow:       hidden;
+  overflow: hidden;
   ${stylingForBorder}
   ${stylingForSize}
   ${stylingForShape}
