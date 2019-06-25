@@ -8,10 +8,10 @@ Then('{string} component has no violations in Accessibility section', () => {
   });
 });
 
-When('click into Accessibility Tab', () => {
+When('I open Accessibility Tab', () => {
   clickAccessebilityTab();
 });
 
-When('click reRun tests button', () => {
+When('I re-run violations tests', () => {
   reRunAccesibilityTests();
 });
