@@ -25,6 +25,10 @@ const StyledInlineInputs = styled.div`
     flex-grow: 1;
   }
 
+  .carbon-column + .carbon-column {
+    margin-left: -1px;
+  }
+
   ${({ theme }) => theme.name === THEMES.classic && css`
     ${LabelStyle} {
       padding-right: 0;
