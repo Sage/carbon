@@ -21,14 +21,14 @@ const props = () => {
   };
 };
 
+const content = () => { return validTooltip(props()) ? <Tooltip { ...props() } /> : null; };
+
 storiesOf('Tooltip', module)
   .addParameters({
     knobs: { escapeHTML: false }
   })
   .add('default', () => {
-    if (validTooltip(props())) return <Tooltip { ...props() } />;
-
-    return <div />;
+    return <div style={ { position: 'absolute' } }>{content()}</div>;
   },
   {
     info: { text: info },
