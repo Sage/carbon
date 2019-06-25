@@ -21,7 +21,7 @@ const props = () => {
   };
 };
 
-const content = () => { return validTooltip(props()) ? <Tooltip { ...props() } /> : null; };
+const content = () => (validTooltip(props()) ? <Tooltip { ...props() } /> : null);
 
 storiesOf('Tooltip', module)
   .addParameters({
