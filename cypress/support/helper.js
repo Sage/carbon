@@ -20,6 +20,14 @@ export function clickActionsTab(iFrameOnly = false) {
   if (!iFrameOnly) actionsTab().click();
 }
 
+export function clickAccessebilityTab(iFrameOnly = false) {
+  if (!iFrameOnly) accessibilityTab().click();
+}
+
+export function reRunAccesibilityTests() {
+  reRunTestsButtonInAccessibility().click();
+}
+
 export function clickClear() {
   clearButtonInActions().click();
 }

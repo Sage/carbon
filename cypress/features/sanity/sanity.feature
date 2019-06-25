@@ -4,6 +4,8 @@ Feature: Sanity tests
   @sanity
   Scenario Outline: Component <component> page with button
     When I open "<component>" component page with button
+      And click into Accessibility Tab
+      And click reRun tests button
     Then "<component>" component has no violations in Accessibility section
     Examples:
       | component           |
@@ -13,6 +15,8 @@ Feature: Sanity tests
   @sanity
   Scenario Outline: Component <component> page and open preview
     When I open "<component>" component page
+      And click into Accessibility Tab
+      And click reRun tests button
     Then "<component>" component has no violations in Accessibility section
     Examples:
       | component           | data-component     |
@@ -25,6 +29,8 @@ Feature: Sanity tests
   @sanity
   Scenario Outline: Component <component> without activation button
     When I open "<component>" component page
+      And click into Accessibility Tab
+      And click reRun tests button
     Then "<component>" component has no violations in Accessibility section
     Examples:
       | component            | data-component       |
