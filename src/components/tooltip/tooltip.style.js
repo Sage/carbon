@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-import baseTheme from '../../../style/themes/base';
-import OptionsHelper from '../../../utils/helpers/options-helper';
-import { THEMES } from '../../../style/themes';
+import baseTheme from '../../style/themes/base';
+import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
+import { THEMES } from '../../style/themes';
 
 const StyledTooltipInner = styled.div`
   ${({ theme, type }) => css`

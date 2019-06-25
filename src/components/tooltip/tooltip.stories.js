@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import {
   boolean, text, select
 } from '@storybook/addon-knobs';
-import OptionsHelper from '../../../utils/helpers/options-helper';
+import OptionsHelper from '../../utils/helpers/options-helper';
 import Tooltip from '.';
 import { notes, info } from './documentation';
 

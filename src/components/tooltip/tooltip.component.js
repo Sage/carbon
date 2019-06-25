@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { StyledTooltipInner, StyledTooltipWrapper, StyledTooltipPointer } from './tooltip.style';
-import OptionsHelper from '../../../utils/helpers/options-helper';
-import tagComponent from '../../../utils/helpers/tags';
+import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
+import tagComponent from '../../utils/helpers/tags/tags';
 
 class Tooltip extends React.Component {
   static propTypes = {
