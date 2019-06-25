@@ -35,22 +35,19 @@ Then('Textbox component is not readOnly', () => {
 
 Then('errorMessage is displayed properly with proper icon', () => {
   tooltipPreview().should('have.css', 'background-color', 'rgb(199, 56, 79)');
-  icon().should('have.attr', 'tooltiptype', 'error')
-    .and('have.attr', 'data-element', 'error')
+  icon().should('have.attr', 'data-element', 'error')
     .and('have.css', 'color', 'rgb(199, 56, 79)');
 });
 
 Then('infoMessage is displayed properly with proper icon', () => {
   tooltipPreview().should('have.css', 'background-color', 'rgb(27, 29, 33)');
-  icon().should('have.attr', 'tooltiptype', 'info')
-    .and('have.attr', 'data-element', 'info')
+  icon().should('have.attr', 'data-element', 'info')
     .and('have.css', 'color', 'rgb(0, 115, 194)');
 });
 
 Then('warningMessage is displayed properly with proper icon', () => {
   tooltipPreview().should('have.css', 'background-color', 'rgb(27, 29, 33)');
-  icon().should('have.attr', 'tooltiptype', 'warning')
-    .and('have.attr', 'data-element', 'warning')
+  icon().should('have.attr', 'data-element', 'warning')
     .and('have.css', 'color', 'rgb(255, 181, 0)');
 });
 

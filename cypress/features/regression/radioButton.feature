@@ -110,7 +110,7 @@ Feature: Radio Button component
   Scenario Outline: Set labelWidth out of scope to <labelWidth>
     When I check labelInline checkbox
       And I set labelWidth to "<labelWidth>"
-    Then label width is not set
+    Then label width is not set "<labelWidth>"
     Examples:
       | labelWidth              |
       | Sample text             |
