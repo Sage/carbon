@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import 'jest-styled-components';
 import TestRenderer from 'react-test-renderer';
-import { ColorSampleBox } from './color-sample-box.component';
+import ColorSampleBox from './color-sample-box.component';
 import StyledColorSampleBox from './style/color-sample-box.style';
 import classicTheme from '../../../../style/themes/classic';
 import { assertStyleMatch } from '../../../../__spec_helper__/test-utils';
