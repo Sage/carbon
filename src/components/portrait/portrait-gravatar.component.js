@@ -6,13 +6,10 @@ class PortraitGravatar extends React.Component {
   static propTypes = {
     /** A custom CSS class for the component. */
     className: PropTypes.string,
-
     /** The user's email address for the Gravatar. */
     gravatarEmail: PropTypes.string.isRequired,
-
     /** The dimensions (size) to render the Gravatar, in pixels. */
     dimensions: PropTypes.number.isRequired,
-
     /** The `alt` HTML string. */
     alt: PropTypes.string
   }

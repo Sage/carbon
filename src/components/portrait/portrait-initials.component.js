@@ -7,16 +7,12 @@ class PortraitInitials extends React.Component {
   static propTypes = {
     /** A custom CSS class for the component. */
     className: PropTypes.string,
-
     /** The user's initials to render. */
     initials: PropTypes.string.isRequired,
-
     /** The dimensions (size) of the canvas, in pixels. */
     dimensions: PropTypes.number.isRequired,
-
     /** Use a dark background. */
     darkBackground: PropTypes.bool,
-
     /** The `alt` HTML string. */
     alt: PropTypes.string
   }
