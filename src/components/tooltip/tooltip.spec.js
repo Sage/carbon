@@ -4,9 +4,9 @@ import 'jest-styled-components';
 import { mount } from 'enzyme';
 import Tooltip from '.';
 import { StyledTooltipInner, StyledTooltipPointer, StyledTooltipWrapper } from './tooltip.style';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import OptionsHelper from '../../../utils/helpers/options-helper';
-import classicTheme from '../../../style/themes/classic';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
+import classicTheme from '../../style/themes/classic';
 
 function render(props, renderer = TestRenderer.create) {
   return renderer(<Tooltip { ...props } />);

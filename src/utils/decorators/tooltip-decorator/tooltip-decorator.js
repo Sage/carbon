@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { startCase, assign } from 'lodash';
-import Tooltip from '../../../__experimental__/components/tooltip';
+import Tooltip from '../../../components/tooltip';
 import Portal from '../../../components/portal';
 import chainFunctions from '../../helpers/chain-functions';
 import { styleElement, append } from '../../ether';
