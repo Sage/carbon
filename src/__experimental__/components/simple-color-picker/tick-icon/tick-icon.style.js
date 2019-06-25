@@ -10,13 +10,15 @@ const StyledTickIcon = styled(Icon)`
 
     &::before {
       font-size: 22px;
+      color: ${({ iconColor }) => iconColor};
     }
 
-    ${({ checked }) => checked && css`
-      {
-        display: block;
-      }
-    `}
+    ${({ checked }) => checked
+      && css`
+         {
+          display: block;
+        }
+      `}
   }
 `;
 
