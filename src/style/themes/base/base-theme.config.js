@@ -71,6 +71,12 @@ export default (palette) => {
       zebra: palette.slateTint(98)
     },
 
+    pager: {
+      active: 'rgba(0,0,0,0.74)',
+      disabled: 'rgba(0,0,0,0.55)',
+      hover: 'rgba(0,0,0,0.90)'
+    },
+
     icon: {
       focus: palette.slateTint(20)
     },

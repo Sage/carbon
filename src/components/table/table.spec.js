@@ -1,17 +1,19 @@
 import React from 'react';
 import 'jest-styled-components';
 import TestUtils from 'react-dom/test-utils';
-import TestRenderer from 'react-test-renderer';
+import { ThemeProvider } from 'styled-components';
 import Immutable from 'immutable';
+import TestRenderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
+import ActionToolbar from '../action-toolbar';
 import {
   Table, TableHeader, TableRow, TableCell
 } from '.';
 import StyledTable, { StyledInternalTableWrapper } from './table.style';
 import StyledTableHeader from './table-header/table-header.style';
-import ActionToolbar from '../action-toolbar';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import Pager from '../pager';
 import BaseTheme from '../../style/themes/base';
 import ClassicTheme from '../../style/themes/classic';
 import SmallTheme from '../../style/themes/small';
@@ -36,18 +38,20 @@ describe('Table', () => {
       </Table>
     );
 
-    instancePager = TestUtils.renderIntoDocument(
-      <Table
-        className='foo'
-        paginate
-        currentPage='1'
-        pageSize='10'
-        totalRecords={ 100 }
-        onChange={ spy }
-      >
-        <TableRow />
-      </Table>
-    );
+    instancePager = mount(
+      <ThemeProvider theme={ ClassicTheme }>
+        <Table
+          className='foo'
+          paginate
+          currentPage='1'
+          pageSize='10'
+          totalRecords={ 100 }
+          onChange={ spy }
+        >
+          <TableRow />
+        </Table>
+      </ThemeProvider>
+    ).find(Table).instance();
 
     instanceSortable = TestUtils.renderIntoDocument(
       <Table className='bar' onChange={ spy }>
@@ -597,22 +601,22 @@ describe('Table', () => {
   describe('shouldResetTableHeight', () => {
     describe('when new page size is smaller than previous', () => {
       it('returns true', () => {
-        const prevProps = { pageSize: '1' };
-        expect(instancePager.shouldResetTableHeight(prevProps, {}));
+        const prevProps = { pageSize: '100' };
+        expect(instancePager.shouldResetTableHeight(prevProps, {})).toEqual(true);
       });
     });
 
     describe('when new page size is larger or equal to the previous', () => {
       it('returns false', () => {
-        const prevProps = { pageSize: '100' };
-        expect(instancePager.shouldResetTableHeight(prevProps, {}));
+        const prevProps = { pageSize: '1', size: 'medium' };
+        expect(instancePager.shouldResetTableHeight(prevProps, {})).toEqual(false);
       });
     });
   });
 
   describe('pageSize', () => {
     it('gets the current pageSize', () => {
-      expect(instancePager.pageSize).toEqual('10');
+      expect(instancePager.props.pageSize).toEqual('10');
     });
   });
 
@@ -868,7 +872,22 @@ describe('Table', () => {
   describe('pager', () => {
     describe('when paginate is true', () => {
       it('returns the pager', () => {
-        expect(instancePager.pager).toBeTruthy();
+        expect(
+          mount(
+            <ThemeProvider theme={ ClassicTheme }>
+              <Table
+                className='foo'
+                paginate
+                currentPage='1'
+                pageSize='10'
+                totalRecords={ 100 }
+                onChange={ spy }
+              >
+                <TableRow />
+              </Table>
+            </ThemeProvider>
+          ).find(Pager).exists
+        ).toBeTruthy();
       });
     });
 
