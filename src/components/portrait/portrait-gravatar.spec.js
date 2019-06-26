@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import MD5 from 'crypto-js/md5';
-
 import PortraitGravatar from './portrait-gravatar.component';
 
 describe('PortraitGravatar', () => {

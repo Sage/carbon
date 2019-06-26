@@ -1,7 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import ReactTestUtils from 'react-dom/test-utils';
-
 import Browser from '../../utils/helpers/browser';
 import PortraitInitials from './portrait-initials.component';
 

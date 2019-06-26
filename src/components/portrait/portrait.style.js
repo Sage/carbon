@@ -1,7 +1,6 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
-
 import BaseTheme from '../../style/themes/base';
 import Icon from '../icon';
 import PortraitGravatar from './portrait-gravatar.component';

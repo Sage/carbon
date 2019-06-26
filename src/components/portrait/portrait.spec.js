@@ -2,7 +2,6 @@ import React from 'react';
 import ReactTestUtils from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
-
 import classicTheme from '../../style/themes/classic';
 import mediumTheme from '../../style/themes/medium';
 import Browser from '../../utils/helpers/browser';

@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import Browser from '../../utils/helpers/browser';
 
 class PortraitInitials extends React.Component {
