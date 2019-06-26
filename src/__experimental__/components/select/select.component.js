@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
+// import classNames from 'classnames';
 import SelectList from './select-list.component';
-import InputDecoratorBridge from '../input-decorator-bridge';
+import Textbox from '../textbox';
 import Pill from '../../../components/pill';
 import Events from '../../../utils/helpers/events';
-import './select.style.scss';
+import tagComponent from '../../../utils/helpers/tags';
+import StyledSelectPillContainer from './select.style';
 
 /**
  * Basic example:
@@ -25,35 +26,7 @@ import './select.style.scss';
  *   </Select>
  */
 
-const optionShape = PropTypes.shape({
-  value: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired
-});
-
 class Select extends React.Component {
-  static propTypes = {
-    children: PropTypes.node,
-    className: PropTypes.string,
-    customFilter: PropTypes.func,
-    disabled: PropTypes.bool,
-    label: PropTypes.string,
-    onBlur: PropTypes.func,
-    onChange: PropTypes.func,
-    onFocus: PropTypes.func,
-    onOpen: PropTypes.func,
-    onLazyLoad: PropTypes.func,
-    onFilter: PropTypes.func,
-    placeholder: PropTypes.string,
-    readOnly: PropTypes.bool,
-    value: PropTypes.oneOfType([
-      optionShape,
-      PropTypes.arrayOf(optionShape)
-    ])
-  }
-
-  // we don't have any default props, but we set an empty object for better storybook source code examples
-  static defaultProps = {}
-
   state = {
     filter: undefined,
     open: false
@@ -188,21 +161,21 @@ class Select extends React.Component {
 
     return (
       values.map((value, index) => (
-        <div key={ value.value } className='carbon-select__pill'>
+        <StyledSelectPillContainer key={ value.value }>
           <Pill
             onDelete={ canDelete ? () => this.removeItem(index) : undefined }
             title={ value.text }
           >
             { value.text }
           </Pill>
-        </div>
+        </StyledSelectPillContainer>
       ))
     );
   }
 
   isMultiValue(value) { return Array.isArray(value); }
 
-  className(className) { return classNames('carbon-select', className); }
+  // className(className) { return classNames('carbon-select', className); }
 
   placeholder(placeholder, value) {
     if (this.isMultiValue(value)) {
@@ -212,10 +185,14 @@ class Select extends React.Component {
     return placeholder;
   }
 
+  // data attributes used for automation
+  dataAttributes() {
+    return tagComponent(this.props['data-component'], this.props);
+  }
+
   render() {
     const {
       children,
-      className,
       customFilter,
       placeholder,
       value,
@@ -239,10 +216,10 @@ class Select extends React.Component {
 
     return (
       <>
-        <InputDecoratorBridge
+        <Textbox
           { ...props } // this needs to send all of the original props
+          { ...this.dataAttributes() }
           data-component='carbon-select'
-          className={ this.className(className) }
           formattedValue={ this.formattedValue(this.state.filter, value) }
           inputIcon={ this.isMultiValue(value) ? undefined : 'dropdown' }
           inputRef={ this.assignInput }
@@ -267,9 +244,40 @@ class Select extends React.Component {
               { children }
             </SelectList>
           ) }
-        </InputDecoratorBridge>
+        </Textbox>
       </>
     );
   }
 }
+
+const optionShape = PropTypes.shape({
+  value: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired
+});
+
+Select.propTypes = {
+  children: PropTypes.node,
+  className: PropTypes.string,
+  customFilter: PropTypes.func,
+  disabled: PropTypes.bool,
+  label: PropTypes.string,
+  onBlur: PropTypes.func,
+  onChange: PropTypes.func,
+  onFocus: PropTypes.func,
+  onOpen: PropTypes.func,
+  onLazyLoad: PropTypes.func,
+  onFilter: PropTypes.func,
+  placeholder: PropTypes.string,
+  readOnly: PropTypes.bool,
+  value: PropTypes.oneOfType([
+    optionShape,
+    PropTypes.arrayOf(optionShape)
+  ]),
+  'data-component': PropTypes.string
+};
+
+Select.defaultProps = {
+  placeholder: 'Please Select...'
+};
+
 export default Select;

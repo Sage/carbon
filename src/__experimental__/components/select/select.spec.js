@@ -39,7 +39,7 @@ describe('Select', () => {
 
   // utility functions to fetch various elements from the wrapper
   const listOf = wrapper => wrapper.find('SelectList');
-  const textboxOf = wrapper => wrapper.find('InputDecoratorBridge');
+  const textboxOf = wrapper => wrapper.find('Textbox');
   const pillsOf = wrapper => wrapper.find('Pill');
 
   // open the list for the select component and returns the wrapper
@@ -71,8 +71,8 @@ describe('Select', () => {
     const wrapper = renderWrapper({
       props: { 'data-role': 'custom-role', 'data-element': 'custom-element' }
     });
-    expect(wrapper.find('div').first().prop('data-role')).toEqual('custom-role');
-    expect(wrapper.find('div').first().prop('data-element')).toEqual('custom-element');
+    expect(wrapper.find('Textbox').first().prop('data-role')).toEqual('custom-role');
+    expect(wrapper.find('Textbox').first().prop('data-element')).toEqual('custom-element');
   });
 
   it('triggers an onOpen callback if provided, but not if already open', () => {
