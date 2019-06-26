@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
@@ -9,8 +9,8 @@ const StyledTooltipInner = styled.div`
     background-color: ${theme.colors.black};
     color: ${theme.colors.white};
     display: inline-block;
-    font-weight: normal;
-    padding: 10px 15px;
+    font-weight: 700;
+    padding: 12px 16px;
     text-align: center;
     max-width: 300px;
     word-break: normal;
@@ -21,7 +21,7 @@ const StyledTooltipInner = styled.div`
     `}
 
     ${theme.name === THEMES.classic && css`
-      font-weight: 700;
+      padding: 10px 15px;
     `}
   `}
 `;
@@ -35,10 +35,21 @@ StyledTooltipInner.propTypes = {
   type: PropTypes.string
 };
 
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+`;
+
 const StyledTooltipWrapper = styled.div`
   ${({ align, position }) => css`
-    position: relative;
     max-width: 300px;
+    position: relative;
+    animation: ${fadeIn} 0.2s linear;
     z-index: 1003;
 
     ${['top', 'bottom'].includes(position) && `

@@ -66,8 +66,8 @@ describe('Tooltip', () => {
               backgroundColor: '#000000',
               color: '#FFFFFF',
               display: 'inline-block',
-              fontWeight: 'normal',
-              padding: '10px 15px',
+              fontWeight: '700',
+              padding: '12px 16px',
               textAlign: 'center',
               maxWidth: '300px',
               wordBreak: 'normal',
@@ -87,9 +87,9 @@ describe('Tooltip', () => {
       });
 
       describe('Classic theme', () => {
-        it('sets the font-weight to 700', () => {
+        it('sets the padding to 10px 15px', () => {
           assertStyleMatch(
-            { fontWeight: '700' }, renderInner({ theme: classicTheme })
+            { padding: '10px 15px' }, renderInner({ theme: classicTheme })
           );
         });
       });
