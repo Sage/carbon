@@ -65,7 +65,7 @@ Feature: Decimal component
       | Sample text              |
 
   @positive
-  Scenario Outline: Change Decimal component label width
+  Scenario Outline: Change Decimal component label width to <width>
     When I set label to "<label>"
       And I set labelHelp to "<label>"
       And I check labelInline checkbox
@@ -79,7 +79,7 @@ Feature: Decimal component
       | Sample text |  100  |
 
   @positive
-  Scenario Outline: Change Decimal component input width
+  Scenario Outline: Change Decimal component input width to <width>
     When I set label to "<label>"
       And I set labelHelp to "<label>"
       And I check labelInline checkbox
@@ -93,7 +93,7 @@ Feature: Decimal component
       | !@#$%^*()_+-=~[];:.,?{}  |  100  |
 
   @positive
-  Scenario Outline: Change Decimal component label align
+  Scenario Outline: Change Decimal component label align to <labelAlign>
     When I set label to "<label>"
       And I set labelHelp to "<label>"
       And I check labelInline checkbox
@@ -105,7 +105,7 @@ Feature: Decimal component
       | 1234567890               |  right     |
 
   @positive
-  Scenario Outline: Check Decimal component input field with different precision
+  Scenario Outline: Check Decimal component input field with precision <precision> and input <labelInput>
     When I set input precision slider to <precision>
       And I set label Input to "<labelInput>"
     Then input precision slider is set to <precision>

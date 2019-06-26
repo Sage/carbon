@@ -28,7 +28,7 @@ Feature: Date Input component
     Then Date input component is not readOnly
 
   @positive
-  Scenario Outline: Change DateInput component field help
+  Scenario Outline: Change DateInput component field help to <fieldHelp>
     When I set fieldHelp to "<fieldHelp>"
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:
@@ -42,7 +42,7 @@ Feature: Date Input component
       # | <>                       |
 
   @positive
-  Scenario Outline: Change DateInput label
+  Scenario Outline: Change DateInput label to <label>
     When I set label to "<label>"
     Then label on preview is "<label>"
     Examples:
@@ -62,7 +62,7 @@ Feature: Date Input component
     Then label is set to inline
 
   @positive
-  Scenario Outline: Change Date Input component label align
+  Scenario Outline: Change Date Input component label align to <labelAlign>
     When I set label to "<label>"
       And I set labelHelp to "<label>"
       And I check labelInline checkbox
@@ -74,7 +74,7 @@ Feature: Date Input component
       | Sample text  |  right     |
 
   @positive
-  Scenario Outline: Change Date Input component label width
+  Scenario Outline: Change Date Input component label width to <width>
     When I set label to "<label>"
       And I check labelInline checkbox
       And I set label width slider to <width>
@@ -87,29 +87,23 @@ Feature: Date Input component
       | Sample text |  100  |
 
   @positive
-  Scenario Outline: Change Date Input component minDate
-    When I set minDate to "<minDate>"
+  Scenario: Change Date Input component minDate
+    When I set minDate to today
       And I click dateInput
-      And I choose date "<day>" via DayPicker
+      And I choose date yesterday via DayPicker
       And I click dateInput
-    Then the date "<day>" before minDate is not available
-    Examples:
-      | minDate     | day             |
-      | 20190505    | Sat May 4, 2019 |
+    Then the date before minDate is not available
 
   @positive
-  Scenario Outline: Change Date Input component maxDate
-    When I set maxDate to "<maxDate>"
+  Scenario: Change Date Input component maxDate
+    When I set maxDate to today
       And I click dateInput
-      And I choose date "<day>" via DayPicker
+      And I choose date tomorrow via DayPicker
       And I click dateInput
-    Then the date "<day>" after maxDate is not available
-    Examples:
-      | maxDate     | day              |
-      | 20190509    | Fri May 10, 2019 |
+    Then the date after maxDate is not available
 
-  @positive 
-  Scenario Outline: Change Date Input component label width with slider
+  @positive
+  Scenario Outline: Change Date Input component label width with slider to <width>
     When I set label to "Sample text"
       And I check labelInline checkbox
       And I set label width slider to <width>
@@ -119,9 +113,9 @@ Feature: Date Input component
       |  0    |
       |  10   |
       |  50   |
-      |  100  |      
+      |  100  |
 
-  @positive 
+  @positive
   Scenario: Check Date Input today date
     When I click dateInput
     Then the date is set to today

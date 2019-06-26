@@ -1,7 +1,7 @@
 import { visitComponentUrl } from '../helper';
 import { backgroundUILocator } from '../../locators';
 import {
-  openButton, dialogTitle, dialogPreview, closeIconButton,
+  dialogTitle, dialogPreview, closeIconButton,
   dialogSubtitle, confirmButton, cancelButton,
 } from '../../locators/confirm';
 
@@ -11,10 +11,6 @@ Given('I open {string} component page', (component) => {
 
 Then('component subtitle on preview is {string}', (subtitle) => {
   dialogSubtitle().should('have.text', subtitle);
-});
-
-When('I click on a openButton', () => {
-  openButton().click();
 });
 
 When('I click on a cancelButton', () => {

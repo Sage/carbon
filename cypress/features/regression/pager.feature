@@ -20,7 +20,7 @@ Feature: Pager component
       | 99999        | 10000    |
 
   @negative
-  Scenario Outline: Set totalRecords out of scope
+  Scenario Outline: Set totalRecords out of scope to <totalRecords>
     When I set totalRecords to "<totalRecords>"
     Then totalRecords is set to "0"
       And I am on 1st of "1" pages
@@ -31,7 +31,7 @@ Feature: Pager component
       | -100         |
 
   @negative
-  Scenario Outline: Set totalRecords out of scope
+  Scenario Outline: Set totalRecords out of scope to <totalRecords>
     When I set totalRecords to "<totalRecords>"
     Then totalRecords is set to ""
       And I am on 1st of "1" pages

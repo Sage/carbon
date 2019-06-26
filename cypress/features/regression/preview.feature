@@ -6,15 +6,15 @@ Feature: Preview component
 
   @positive
   Scenario: Enable loading checkbox for a Preview component
-    When I check loading checkbox
+    When I uncheck loading checkbox
+      And I check loading checkbox
     Then Preview component is loading
 
   @positive
   Scenario: Enable and disable loading checkbox for a Preview component
-    When I check loading checkbox
-      And I uncheck loading checkbox
+    When I uncheck loading checkbox
     Then Preview component is not loading
-  
+
   @positive
   Scenario Outline: Change Preview children to <children>
     When I set children to "<children>"
@@ -33,7 +33,7 @@ Feature: Preview component
   @positive
   Scenario Outline: Set width to <width>
     When I set width to "<width>"
-      And I check loading checkbox 
+      And I check loading checkbox
     Then Preview width is set to "<width>"
     Examples:
       | width |
@@ -102,4 +102,4 @@ Feature: Preview component
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
       # @ignore because of FE-1447
-      # | <>                       |  
+      # | <>                       |

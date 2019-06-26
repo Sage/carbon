@@ -4,88 +4,26 @@ import I18n from 'i18n-js';
 import classNames from 'classnames';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { isObject, isArray, forEach } from 'lodash';
-import shouldComponentUpdate from '../../utils/helpers/should-component-update';
-import Portal from '../portal';
-import Icon from '../icon';
+import shouldComponentUpdate from '../../utils/helpers/should-component-update/should-component-update';
+import Portal from '../portal/portal';
 import Alert from '../alert';
-import Link from '../link';
-import tagComponent from '../../utils/helpers/tags';
-import './flash.scss';
+import tagComponent from '../../utils/helpers/tags/tags';
+import {
+  FlashStyle, FlashSliderStyle, FlashContentStyle, FlashMessageStyle, FlashLink, FlashIconStyle, FlashCloseStyle
+} from './flash-legacy.style';
 
 class Flash extends React.Component {
-  static propTypes = {
-
-    /**
-     * Custom className
-     */
-    className: PropTypes.string,
-
-    /**
-     * A custom close event handler
-     */
-    onDismiss: PropTypes.func.isRequired,
-
-    /**
-     * Sets the open state of the flash.
-     */
-    open: PropTypes.bool.isRequired,
-
-    /**
-     * Type of notification.
-     * (see the 'iconColorSets' for possible values)
-     */
-    as: PropTypes.string,
-
-    /**
-     * Contents of message.
-     */
-    message: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.object,
-      PropTypes.array
-    ]).isRequired,
-
-    /**
-     * Time for flash to remain on screen
-     */
-    timeout: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.number
-    ])
-  }
-
-  static defaultProps = {
-    as: 'success',
-    className: '',
-    timeout: 0
-  }
-
   constructor(props) {
     super(props);
     this.state = {
-      /**
-       * Keeps track of the open state of each dialog
-       *
-       * @property dialogs
-       * @type {Object}
-       */
+      /** Keeps track of the open state of each dialog */
       dialogs: {},
-      /**
-       * Keeps track of the open state of the Flash Component
-       *
-       * @property open
-       * @type {Boolean}
-       */
+      /** Keeps track of the open state of the Flash Component */
       open: this.props.open || false
     };
   }
 
-  /**
-   * Resets the dialog open states if flash is opened/closed.
-   *
-   * @method componentWillReceiveProps
-   * @return(Void)
-   */
+  /** Resets the dialog open states if flash is opened/closed. */
   componentWillReceiveProps(nextProps) {
     if (nextProps.open === this.props.open) { return; }
 
@@ -103,51 +41,26 @@ class Flash extends React.Component {
     }
   }
 
-  /**
-   * Determines if the component should be updated or not. Required for this component
-   * as it determines if the timeout should be reset or not.
-   *
-   * @method shouldComponentUpdate
-   * @return {Boolean}
-   */
+  /** Determines if the component should be updated or not. Required for this component
+   * as it determines if the timeout should be reset or not. */
   shouldComponentUpdate(nextProps, nextState) {
     return shouldComponentUpdate(this, nextProps, nextState);
   }
 
-  /**
-   * Conditionally triggers close action after flash displayed.
-   *
-   * @method componentDidUpdate
-   * @return(Void)
-   */
+  /** Conditionally triggers close action after flash displayed. */
   componentDidUpdate() {
     // reset dialogs to render
     this.dialogs = [];
     this.startTimeout();
   }
 
-  /**
-   * Keeps track of additional dialogs to render for "more info" links
-   *
-   * @property dialogs
-   * @type {Array}
-   */
+  /** Keeps track of additional dialogs to render for "more info" links */
   dialogs = []
 
-  /**
-   * A timeout for when a flash should auto-dismiss
-   *
-   * @property timeout
-   * @type {Timer}
-   */
+  /** A timeout for when a flash should auto-dismiss */
   timeout = null
 
-  /**
-   * Starts the timer to auto dismiss flash messages.
-   *
-   * @method startTimeout
-   * @return(Void)
-   */
+  /** Starts the timer to auto dismiss flash messages. */
   startTimeout = () => {
     this.stopTimeout();
 
@@ -158,12 +71,7 @@ class Flash extends React.Component {
     }
   }
 
-  /**
-   * Determines if the timeout should be started.
-   *
-   * @method shouldStartTimeout
-   * @return {Boolean}
-   */
+  /** Determines if the timeout should be started. */
   shouldStartTimeout = () => {
     if (!this.props.timeout || !this.props.open) { return false; }
 
@@ -178,24 +86,12 @@ class Flash extends React.Component {
     return shouldStartTimeout;
   }
 
-  /**
-   * Stops the timer to auto dismiss flash messages.
-   *
-   * @method stopTimeout
-   * @return(Void)
-   */
+  /** Stops the timer to auto dismiss flash messages. */
   stopTimeout = () => {
     clearTimeout(this.timeout);
   }
 
-  /**
-   * Opens/closes the dialog for the given key.
-   *
-   * @method toggleDialog
-   * @param {String} key
-   * @param {Object} ev
-   * @return(Void)
-   */
+  /** Opens/closes the dialog for the given key. */
   toggleDialog = (key) => {
     return (
       (ev) => {
@@ -215,13 +111,7 @@ class Flash extends React.Component {
     );
   }
 
-  /**
-   * Given a description, format it accordingly.
-   *
-   * @method toggleDialog
-   * @param {String} description
-   * @return {HTML}
-   */
+  /** Given a description, format it accordingly. */
   formatDescription = (description) => {
     const object = isObject(description),
         array = isArray(description);
@@ -256,13 +146,7 @@ class Flash extends React.Component {
     return this.findMore(description);
   }
 
-  /**
-   * Splits the string and sets additional content inside a dialog.
-   *
-   * @method findMore
-   * @param {String} text
-   * @return {HTML}
-   */
+  /** Splits the string and sets additional content inside a dialog. */
   findMore = (text) => {
     let value = text;
     if (typeof text !== 'string') { return value; }
@@ -292,13 +176,12 @@ class Flash extends React.Component {
       value = (
         <span>
           { title }&nbsp;
-          <Link
+          <FlashLink
             onClick={ this.toggleDialog(title) }
-            className='carbon-flash__link'
             data-element='more-info'
           >
             { info }
-          </Link>
+          </FlashLink>
         </span>
       );
     }
@@ -306,12 +189,7 @@ class Flash extends React.Component {
     return value;
   }
 
-  /**
-   * Returns the icon to display depending on type
-   *
-   * @method iconType
-   * @return {String}
-   */
+  /** Returns the icon to display depending on type */
   get iconType() {
     let icon;
 
@@ -326,12 +204,7 @@ class Flash extends React.Component {
     return icon;
   }
 
-  /**
-   * Parses the message object to get the appropriate description
-   *
-   * @method description
-   * @return {String}
-   */
+  /** Parses the message object to get the appropriate description */
   get description() {
     const { message } = this.props;
 
@@ -344,81 +217,45 @@ class Flash extends React.Component {
     return message;
   }
 
-  /**
-   * Returns the computed HTML for the flash.
-   *
-   * @method flashHTML
-   * @return {Object} JSX for flash
-   */
+  /** Returns the computed HTML for the flash. */
   get flashHTML() {
-    const contents = [];
-
-    // add icon
-    contents.push(<Icon
-      className='carbon-flash__icon' type={ this.iconType }
-      key='icon'
-    />);
-
-    // add message content
-    contents.push(
-      <div
-        className='carbon-flash__message' key='message'
-        data-element='message'
-      >
-        { this.formatDescription(this.description) }
-      </div>
-    );
-
-    // if auto-dismiss is not enabled, add a close icon
-    if (!this.props.timeout) {
-      contents.push(
-        <Icon
-          className='carbon-flash__close'
-          data-element='close'
-          key='close'
-          onClick={ this.props.onDismiss }
-          type='close'
-        />
-      );
-    }
-
     return (
-      <div className='carbon-flash__content'>
-        { contents }
-      </div>
-    );
+      <FlashContentStyle>
+        <FlashIconStyle
+          type={ this.iconType }
+          key='icon'
+        />
+        <FlashMessageStyle
+          key='message'
+          data-element='message'
+        >
+          { this.formatDescription(this.description) }
+        </FlashMessageStyle>
+        {!this.props.timeout && (
+          <FlashCloseStyle
+            data-element='close'
+            key='close'
+            onClick={ this.props.onDismiss }
+            type='close'
+          />
+        )}
+      </FlashContentStyle>);
   }
 
-  /**
-   * Returns the computed HTML for the slider.
-   *
-   * @method flashHTML
-   * @return {Object} JSX for flash
-   */
+  /** Returns the computed HTML for the slider. */
   get sliderHTML() {
     return (
-      <div className='carbon-flash__slider' key='slider' />
+      <FlashSliderStyle key='slider' />
     );
   }
 
-  /**
-   * Returns the classes for the component.
-   *
-   * @method classes
-   * @return {String}
-   */
+  /** Returns the classes for the component. */
   get classes() {
     return classNames(
-      'carbon-flash',
       this.props.className,
-      `carbon-flash--${this.props.as}`
     );
   }
 
-  /**
-   * @method render
-   * @return {Object} JSX
-   */
   render() {
     const sliderHTML = this.props.open && this.sliderHTML;
     const flashHTML = this.props.open && this.flashHTML;
@@ -426,7 +263,7 @@ class Flash extends React.Component {
       this.state.open && (
         <Portal>
           <div { ...tagComponent('flash', this.props) }>
-            <div className={ this.classes }>
+            <FlashStyle variant={ this.props.as } className={ this.classes }>
               <CSSTransitionGroup
                 component='div'
                 transitionAppear
@@ -447,7 +284,7 @@ class Flash extends React.Component {
                   { flashHTML }
                 </CSSTransitionGroup>
               </CSSTransitionGroup>
-            </div>
+            </FlashStyle>
             { this.dialogs }
           </div>
         </Portal>
@@ -455,5 +292,32 @@ class Flash extends React.Component {
     );
   }
 }
+
+Flash.propTypes = {
+  /** Custom className */
+  className: PropTypes.string,
+  /** A custom close event handler */
+  onDismiss: PropTypes.func.isRequired,
+  /** Sets the open state of the flash. */
+  open: PropTypes.bool.isRequired,
+  /** Type of notification. (see the 'iconColorSets' for possible values) */
+  as: PropTypes.string,
+  /** Contents of message. */
+  message: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
+    PropTypes.array
+  ]).isRequired,
+  /** Time for flash to remain on screen */
+  timeout: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number
+  ])
+};
+
+Flash.defaultProps = {
+  as: 'success',
+  timeout: 0
+};
 
 export default Flash;
