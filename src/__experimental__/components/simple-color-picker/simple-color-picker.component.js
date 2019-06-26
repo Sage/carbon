@@ -40,7 +40,7 @@ class SimpleColorPicker extends React.Component {
 
 SimpleColorPicker.propTypes = {
   /** An array of color choices to display. */
-  availableColors: PropTypes.array,
+  availableColors: PropTypes.arrayOf(PropTypes.string),
   /** The currently selected color. */
   selectedColor: PropTypes.string,
   /** The name to apply to the input. */

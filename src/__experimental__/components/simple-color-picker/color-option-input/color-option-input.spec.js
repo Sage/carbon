@@ -14,22 +14,22 @@ function render(props) {
 describe('ColorOptionInput', () => {
   let wrapper;
 
-  describe('when checked', () => {
-    it('applies white box shadow and primary accent color border', () => {
+  describe('when focused', () => {
+    it('applies white box shadow and gold color border', () => {
       wrapper = render();
       assertStyleMatch(
         {
-          border: `2px solid ${baseTheme.colors.primary}`,
+          border: `2px solid ${baseTheme.colors.focus}`,
           boxShadow: `inset 0px 0px 0px 3px ${baseTheme.colors.white}`
         },
         wrapper.toJSON(),
-        { modifier: `:checked + ${StyledColorSampleBox}` }
+        { modifier: `:focus + ${StyledColorSampleBox}` }
       );
     });
   });
 
   describe('when in classic theme', () => {
-    describe('when checked and focused', () => {
+    describe('when checked', () => {
       it('applies border and no box shadow', () => {
         wrapper = render({ theme: classicTheme });
         assertStyleMatch(
@@ -39,6 +39,20 @@ describe('ColorOptionInput', () => {
           },
           wrapper.toJSON(),
           { modifier: `:checked + ${StyledColorSampleBox}` }
+        );
+      });
+    });
+
+    describe('when focused', () => {
+      it('applies border and no box shadow', () => {
+        wrapper = render({ theme: classicTheme });
+        assertStyleMatch(
+          {
+            border: '1px solid #003349',
+            boxShadow: 'none'
+          },
+          wrapper.toJSON(),
+          { modifier: `:focus + ${StyledColorSampleBox}` }
         );
       });
     });

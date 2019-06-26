@@ -4,7 +4,6 @@ import 'jest-styled-components';
 import TestRenderer from 'react-test-renderer';
 import ColorOption from './color-option.component';
 import StyledColorOption from './style/color-option.style';
-import StyledColorSampleBox from '../color-sample-box/style/color-sample-box.style';
 import StyledColorOptionInput from '../color-option-input/style/color-option-input.style';
 import ColorSampleBox from '../color-sample-box';
 import { assertStyleMatch } from '../../../../__spec_helper__/test-utils';
@@ -49,14 +48,14 @@ describe('ColorOption', () => {
   });
 
   describe('in classic theme', () => {
-    it('does not change the background color on hover', () => {
+    it('applies 1px margin right and 1px margin bottom', () => {
       wrapper = renderStyles({ theme: classicTheme });
       assertStyleMatch(
         {
-          backgroundColor: '#0073C2'
+          marginRight: '1px',
+          marginBottom: '1px'
         },
-        wrapper.toJSON(),
-        { modifier: `:hover ${StyledColorSampleBox}` }
+        wrapper.toJSON()
       );
     });
   });

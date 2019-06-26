@@ -8,8 +8,7 @@ const ColorSampleBox = ({ color, checked }) => {
     <StyledColorSampleBox color={ color }>
       {checked && (
         <StyledTickIcon
-          color={ color }
-          checked
+          color={ color } checked
           type='tick'
         />
       )}
@@ -18,8 +17,15 @@ const ColorSampleBox = ({ color, checked }) => {
 };
 
 ColorSampleBox.propTypes = {
-  color: PropTypes.string,
-  checked: PropTypes.bool
+  checked: PropTypes.bool,
+  color: (props, propName) => {
+    let error;
+    const prop = props[propName];
+    if (!prop.match(/\b[0-9A-Fa-f]{6}\b/g)) {
+      error = new Error('Provide color in a hex format.');
+    }
+    return error;
+  }
 };
 
 export default ColorSampleBox;
