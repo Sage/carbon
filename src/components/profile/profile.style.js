@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import Portrait from '../portrait/portrait';
+import Portrait from '../portrait';
 import baseTheme from '../../style/themes/base';
 import { THEMES } from '../../style/themes';
 
