@@ -20,6 +20,7 @@ export default (palette) => {
       withOpacity: baseWithOpacity(0.55),
 
       // generic
+      black: '#000000',
       white: '#FFFFFF',
 
       // element
