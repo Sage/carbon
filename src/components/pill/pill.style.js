@@ -28,6 +28,11 @@ const PillStyle = styled.span`
     const { colors } = baseTheme;
     const correctedTheme = setTheme(theme);
     const styleSet = styleConfig(correctedTheme)[pillRole];
+    const { boxShadow, hoverColor } = styleConfig(correctedTheme);
+    Object.assign(styleSet, {
+      boxShadow,
+      hoverColor
+    });
     const color = (pillRole === 'status') ? colorVariant : 'primary';
 
     return css`
@@ -39,6 +44,7 @@ const PillStyle = styled.span`
       position: relative;
       top: -1px;
       margin: 0px 8px 16px 0px;
+      min-height: 15px;
 
       ${inFill && css`
         background-color: ${styleSet[color]};
@@ -68,7 +74,7 @@ const PillStyle = styled.span`
           bottom: 0;
           font-size: 100%;
           margin: 0;
-          padding: 0 23px 0 0;
+          padding: 0 23px 1px 0;
           position: absolute;
           right: 0;
           top: 0;
