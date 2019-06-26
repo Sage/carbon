@@ -9,7 +9,7 @@ import { assertStyleMatch } from '../../../../__spec_helper__/test-utils';
 import StyledTickIcon from '../tick-icon/tick-icon.style';
 
 function render(props) {
-  return shallow(<ColorSampleBox color='#0073C2' { ...props } />);
+  return shallow(<ColorSampleBox { ...props } />);
 }
 
 function renderStyles(props) {
@@ -31,7 +31,7 @@ describe('ColorSampleBox', () => {
 
   describe('when checked', () => {
     it('renders the tick icon', () => {
-      wrapper = render({ checked: true });
+      wrapper = render({ checked: true, color: '#676767' });
       const icon = wrapper.find(StyledTickIcon);
       expect(icon.exists()).toBeTruthy();
       expect(icon.props().type).toEqual('tick');
@@ -40,23 +40,21 @@ describe('ColorSampleBox', () => {
 
   describe('when in classic theme', () => {
     const noColors = ['transparent', 'none'];
-    describe.each(noColors)(
-      'when color is set to transparent or none', (color) => {
-        it('applies border around the tile', () => {
-          wrapper = renderStyles({ theme: classicTheme, color });
-          assertStyleMatch(
-            {
-              borderColor: '#b3c2c8'
-            },
-            wrapper.toJSON()
-          );
-        });
-      }
-    );
+    describe.each(noColors)('when color is set to transparent or none', (color) => {
+      it('applies border around the tile', () => {
+        wrapper = renderStyles({ theme: classicTheme, color });
+        assertStyleMatch(
+          {
+            borderColor: '#b3c2c8'
+          },
+          wrapper.toJSON()
+        );
+      });
+    });
 
     describe('when checked', () => {
       it('renders the tick icon', () => {
-        wrapper = render({ theme: classicTheme, checked: true });
+        wrapper = render({ theme: classicTheme, checked: true, color: '#676767' });
         const icon = wrapper.find(StyledTickIcon);
         expect(icon.exists()).toBeTruthy();
         expect(icon.props().type).toEqual('tick');

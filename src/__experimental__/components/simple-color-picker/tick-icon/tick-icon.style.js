@@ -4,13 +4,10 @@ import getRgbValues from '../../../../style/utils/get-rgb-values';
 import baseTheme from '../../../../style/themes/base';
 
 const getIconColor = (color, theme) => {
-  let rgbValues;
-  if (color[0] === '#') {
-    rgbValues = getRgbValues(color);
-    const [r, g, b] = rgbValues;
-    const contrast = (Math.round(r * 299) + Math.round(g * 587) + Math.round(b * 114)) / 1000;
-    if (contrast < 128) return theme.colors.white;
-  }
+  const rgbValues = getRgbValues(color);
+  const [r, g, b] = rgbValues;
+  const contrast = (Math.round(r * 299) + Math.round(g * 587) + Math.round(b * 114)) / 1000;
+  if (contrast < 128) return theme.colors.white;
   return theme.text.color;
 };
 
