@@ -118,8 +118,8 @@ function colorsForInitials(theme, darkBackground) {
   }
 
   return {
-    textColor: (darkBackground ? theme.portrait.background : theme.portrait.border),
-    bgColor: (darkBackground ? theme.portrait.border : theme.portrait.background)
+    textColor: (darkBackground ? theme.portrait.background : theme.portrait.initials),
+    bgColor: (darkBackground ? theme.portrait.initials : theme.portrait.background)
   };
 }
 

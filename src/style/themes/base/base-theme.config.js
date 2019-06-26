@@ -82,7 +82,8 @@ export default (palette) => {
 
     portrait: {
       border: palette.slateTint(50),
-      background: palette.slateTint(95)
+      background: palette.slateTint(95),
+      initials: 'rgba(0,0,0,0.65)'
     },
 
     shadows: {
