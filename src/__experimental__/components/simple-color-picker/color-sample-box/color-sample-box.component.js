@@ -8,7 +8,7 @@ const ColorSampleBox = ({ color, checked }) => {
     <StyledColorSampleBox color={ color }>
       {checked && (
         <StyledTickIcon
-          bgColor={ color }
+          color={ color }
           checked
           type='tick'
         />

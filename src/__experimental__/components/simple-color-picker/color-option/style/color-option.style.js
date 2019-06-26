@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import colorOptionClassicStyles from './color-option-classic.style';
-import baseTheme from '../../../../../style/themes/base';
 
 const StyledColorOption = styled.li`
   width: 56px;
@@ -11,14 +10,9 @@ const StyledColorOption = styled.li`
 
   &:hover {
     cursor: pointer;
-
   }
 
   ${colorOptionClassicStyles}
 `;
-
-StyledColorOption.defaultProps = {
-  theme: baseTheme
-};
 
 export default StyledColorOption;
