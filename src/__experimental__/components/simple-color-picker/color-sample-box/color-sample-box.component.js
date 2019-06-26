@@ -16,17 +16,17 @@ const ColorSampleBox = ({ color, checked }) => {
   );
 };
 
-const sampleBoxColorCheck = (props, propName) => {
+export const colorSampleBoxCheck = (props, propName, component) => {
   const color = props[propName];
   if (!color.match(/\b[0-9A-Fa-f]{6}\b/g)) {
-    return new Error('Provide color in a hex format.');
+    return new Error(`Provide color in a six-digit hex format in ${component}.`);
   }
   return null;
 };
 
 ColorSampleBox.propTypes = {
   checked: PropTypes.bool,
-  color: sampleBoxColorCheck
+  color: colorSampleBoxCheck
 };
 
 export default ColorSampleBox;
