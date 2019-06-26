@@ -109,18 +109,34 @@ function stylingForIcon({ size, theme, darkBackground }) {
   `;
 }
 
+function colorsForInitials(theme, darkBackground) {
+  if (isClassic(theme)) {
+    return {
+      textColor: (darkBackground ? '#FFFFFF' : '#636872'),
+      bgColor: (darkBackground ? '#8A8E95' : '#D8D9DC')
+    };
+  }
+
+  return {
+    textColor: (darkBackground ? theme.portrait.background : theme.portrait.border),
+    bgColor: (darkBackground ? theme.portrait.border : theme.portrait.background)
+  };
+}
+
 
 export const StyledPortraitInitials = styled(
   ({
     className, theme, initials, size, darkBackground
   }) => {
     const params = (isClassic(theme) ? sizeParamsClassic[size] : sizeParams[size]);
+    const { textColor, bgColor } = colorsForInitials(theme, darkBackground);
     return (
       <PortraitInitials
         className={ className }
         initials={ initials }
         dimensions={ params.dimensions }
-        darkBackground={ darkBackground }
+        textColor={ textColor }
+        bgColor={ bgColor }
       />
     );
   }

@@ -11,14 +11,12 @@ class PortraitInitials extends React.Component {
     initials: PropTypes.string.isRequired,
     /** The dimensions (size) of the canvas, in pixels. */
     dimensions: PropTypes.number.isRequired,
-    /** Use a dark background. */
-    darkBackground: PropTypes.bool,
+    /** Color of the text. */
+    textColor: PropTypes.string.isRequired,
+    /** Color of the background. */
+    bgColor: PropTypes.string.isRequired,
     /** The `alt` HTML string. */
     alt: PropTypes.string
-  }
-
-  static defaultProps = {
-    darkBackground: false
   }
 
   /** Cache of the initials graphic. */
@@ -29,7 +27,8 @@ class PortraitInitials extends React.Component {
     const shouldClearCache = (
       this.props.initials !== nextProps.initials
       || this.props.dimensions !== nextProps.dimensions
-      || this.props.darkBackground !== nextProps.darkBackground
+      || this.props.textColor !== nextProps.textColor
+      || this.props.bgColor !== nextProps.bgColor
     );
 
     if (shouldClearCache) {
@@ -72,9 +71,7 @@ class PortraitInitials extends React.Component {
 
   /** Applies the background colour to the canvas. */
   applyBackground(canvasContext) {
-    const color = this.props.darkBackground ? '#8A8E95' : '#D8D9DC';
-
-    canvasContext.fillStyle = color;
+    canvasContext.fillStyle = this.props.bgColor;
     canvasContext.fillRect(0, 0, this.props.dimensions, this.props.dimensions);
 
     return canvasContext;
@@ -84,7 +81,7 @@ class PortraitInitials extends React.Component {
   applyText(canvasContext) {
     const letters = this.props.initials.slice(0, 3);
 
-    canvasContext.fillStyle = this.props.darkBackground ? '#FFFFFF' : '#595959';
+    canvasContext.fillStyle = this.props.textColor;
     canvasContext.fillText(letters.toUpperCase(), this.props.dimensions / 2, this.props.dimensions / 1.5);
 
     return canvasContext;

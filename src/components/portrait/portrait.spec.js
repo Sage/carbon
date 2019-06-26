@@ -265,17 +265,25 @@ describe('PortraitComponent', () => {
       expect(wrapper.contains(styledPortraitInitials)).toEqual(false);
     });
 
+    it('can render the DLS theme', () => {
+      spyOn(console, 'error');
+      const props = {
+        size: 'medium', initials: 'AB', darkBackground: false, theme: mediumTheme
+      };
+      renderDLS(<StyledPortraitInitials { ...props } />);
+      props.darkBackground = true;
+      renderDLS(<StyledPortraitInitials { ...props } />);
+      expect(console.error).toHaveBeenCalledTimes(0); // eslint-disable-line no-console
+    });
+
     it('can render the Classic theme', () => {
       spyOn(console, 'error');
-      renderClassic(
-        <StyledPortraitInitials
-          size='medium'
-          initials='AB'
-          darkBackground={ false }
-          alt=''
-          theme={ classicTheme }
-        />
-      );
+      const props = {
+        size: 'medium', initials: 'AB', darkBackground: false, theme: classicTheme
+      };
+      renderClassic(<StyledPortraitInitials { ...props } />);
+      props.darkBackground = true;
+      renderClassic(<StyledPortraitInitials { ...props } />);
       expect(console.error).toHaveBeenCalledTimes(0); // eslint-disable-line no-console
     });
   });

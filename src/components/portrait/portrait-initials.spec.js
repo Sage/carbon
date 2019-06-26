@@ -29,7 +29,9 @@ describe('PortraitInitials', () => {
   });
 
   describe('componentWillReceiveProps', () => {
-    const originalProps = { initials: 'foo', dimensions: 30, darkBackground: false };
+    const originalProps = {
+      initials: 'foo', dimensions: 30, textColor: '#ffffff', bgColor: '#000000'
+    };
     const cachedImageDataUrl = 'foobar';
     let props, wrapper, instance;
 
@@ -55,8 +57,14 @@ describe('PortraitInitials', () => {
       expect(instance.cachedImageDataUrl).toEqual(null);
     });
 
-    it('clears the cached initials if darkBackground changes', () => {
-      props.darkBackground = true;
+    it('clears the cached initials if textColor changes', () => {
+      props.textColor = '#aaaaaa';
+      instance.componentWillReceiveProps(props);
+      expect(instance.cachedImageDataUrl).toEqual(null);
+    });
+
+    it('clears the cached initials if bgColor changes', () => {
+      props.bgColor = '#444444';
       instance.componentWillReceiveProps(props);
       expect(instance.cachedImageDataUrl).toEqual(null);
     });
@@ -71,7 +79,14 @@ describe('PortraitInitials', () => {
     let instance;
 
     beforeEach(() => {
-      instance = ReactTestUtils.renderIntoDocument(<PortraitInitials initials='abc' dimensions={ 30 } />);
+      instance = ReactTestUtils.renderIntoDocument(
+        <PortraitInitials
+          initials='abc'
+          dimensions={ 30 }
+          textColor='#ffffff'
+          bgColor='#000000'
+        />
+      );
     });
 
     it('returns the cached result if cached', () => {
@@ -93,37 +108,33 @@ describe('PortraitInitials', () => {
 
     it('returns first 3 initials uppercased if more than 3 are supplied', () => {
       spyOn(canvasContext, 'fillText');
-      const instance = ReactTestUtils.renderIntoDocument(<PortraitInitials initials='abcde' dimensions={ 30 } />);
+      const instance = ReactTestUtils.renderIntoDocument(
+        <PortraitInitials
+          initials='abcde'
+          dimensions={ 30 }
+          textColor='#ffffff'
+          bgColor='#000000'
+        />
+      );
       instance.applyText(canvasContext, 30);
       expect(canvasContext.fillText).toHaveBeenCalledWith('ABC', 15, 20);
     });
 
-    it('uses light BG colour and dark text colour if darkBackground is false', () => {
+    it('uses the specified text color and background color', () => {
+      const textColor = '#111111';
+      const bgColor = '#222222';
       const instance = ReactTestUtils.renderIntoDocument(
         <PortraitInitials
           initials='abc'
           dimensions={ 30 }
-          darkBackground={ false }
+          textColor={ textColor }
+          bgColor={ bgColor }
         />
       );
       instance.applyBackground(canvasContext);
-      expect(canvasContext.fillStyle).toEqual('#D8D9DC');
+      expect(canvasContext.fillStyle).toEqual(bgColor);
       instance.applyText(canvasContext);
-      expect(canvasContext.fillStyle).toEqual('#595959');
-    });
-
-    it('uses dark BG color and light text colour if darkBackground is true', () => {
-      const instance = ReactTestUtils.renderIntoDocument(
-        <PortraitInitials
-          initials='abc'
-          dimensions={ 30 }
-          darkBackground
-        />
-      );
-      instance.applyBackground(canvasContext);
-      expect(canvasContext.fillStyle).toEqual('#8A8E95');
-      instance.applyText(canvasContext);
-      expect(canvasContext.fillStyle).toEqual('#FFFFFF');
+      expect(canvasContext.fillStyle).toEqual(textColor);
     });
   });
 });
