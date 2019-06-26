@@ -6,6 +6,7 @@ import sizes from './input-sizes.style';
 import inputClassicStyling from './input-presentation-classic.style';
 import VALIDATION_TYPES from '../../../components/validations/validation-types.config';
 import StyledInput from './input.style';
+import StyledInlineInputs from '../../../components/inline-inputs/inline-inputs.style';
 
 const InputPresentationStyle = styled.div`
   align-items: stretch;
@@ -39,6 +40,10 @@ const InputPresentationStyle = styled.div`
     && { 
       outline: 3px solid ${theme.colors.focus};
       z-index: 2;
+    }
+
+    ${StyledInlineInputs} && {
+      position: relative;
     }
   `}
   ${stylingForValidations}
