@@ -34,7 +34,7 @@ Feature: Button Toggle component
     Then Button Toggle height is "<height>" and width is "<width>"
     Examples:
       | size  | height | width |
-      | small | 26px   | 56px  |
+      | small | 27px   | 56px  |
       | large | 49px   | 97px  |
 
   @positive
@@ -56,7 +56,7 @@ Feature: Button Toggle component
     Then Button Toggle height is "<height>" and width is "<width>"
     Examples:
       | size  | height | width |
-      | small | 86px   | 81px  |
+      | small | 87px   | 81px  |
       | large | 49px   | 97px  |
 
   @positive

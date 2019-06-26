@@ -2,7 +2,7 @@ Feature: Multi Action Button component
   I want to change Multi Action Button component properties
 
   Background: Open Multi Action Button component page
-    Given I open "Multi Action Button" component page
+    Given I open "Multi Action Button" component page classic
 
   @positive
   Scenario Outline: Change Multi Action Button text to <text>
@@ -18,7 +18,7 @@ Feature: Multi Action Button component
       # @ignore because of FE-1447
       # | <>                       |
 
-@positive
+  @positive
   Scenario Outline: Change as property of Multi Action Button component to <asProperty>
     When I select as to "<asProperty>"
     Then Multi Action Button as on preview is "<asProperty>"
@@ -28,9 +28,10 @@ Feature: Multi Action Button component
       | secondary   |
       | transparent |
 
-@positive
+  @positive
   Scenario Outline: Check <align> property of Multi Action Button component
     When I select align to "<align>"
+      And I invoke Multi Action Button component
     Then Multi Action Button align on preview is "<align>"
      Examples:
       | align |

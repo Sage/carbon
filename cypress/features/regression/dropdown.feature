@@ -56,7 +56,7 @@ Feature: Dropdown component
       | <>                       |
 
   @positive
-  Scenario Outline: Change Dropdown input width
+  Scenario Outline: Change Dropdown input width to <width>
     When I set inputWidth to "<width>"
     Then inputWidth is set to "<width>"
     Examples:
@@ -66,7 +66,7 @@ Feature: Dropdown component
       | 100   |
 
   @negative
-  Scenario Outline: Set out of scope characters to Dropdown input width
+  Scenario Outline: Set out of scope characters to Dropdown input width to <width>
     When I set inputWidth to "<width>"
     Then inputWidth is not set
     Examples:
@@ -89,7 +89,7 @@ Feature: Dropdown component
       | <>                       |
 
   @positive
-  Scenario Outline: Change Dropdown label align
+  Scenario Outline: Change Dropdown label align to <direction>
     When I check labelInline checkbox
       And I select labelAlign to "<direction>"
     Then labelAlign on preview is "<direction>"
