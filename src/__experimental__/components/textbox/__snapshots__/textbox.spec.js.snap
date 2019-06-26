@@ -1,11 +1,41 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Textbox renders with InputPresentation and Input and all props passed to Input 1`] = `
-<InputPresentation>
-  southpaw children
-  <Input
-    value="foobar"
-  />
-  normal children
-</InputPresentation>
+<FormField
+  info={Array []}
+  inputWidth={70}
+  labelWidth={30}
+  name="mocked-guid"
+  onBlur={[Function]}
+  onChange={[Function]}
+  size="medium"
+  validations={Array []}
+  warnings={Array []}
+>
+  <InputPresentation
+    info={Array []}
+    inputWidth={70}
+    labelWidth={30}
+    name="mocked-guid"
+    onBlur={[Function]}
+    onChange={[Function]}
+    type="text"
+    validations={Array []}
+    warnings={Array []}
+  >
+    southpaw children
+    <Input
+      info={Array []}
+      inputWidth={70}
+      labelWidth={30}
+      name="mocked-guid"
+      onBlur={[Function]}
+      onChange={[Function]}
+      validations={Array []}
+      value="foobar"
+      warnings={Array []}
+    />
+    normal children
+  </InputPresentation>
+</FormField>
 `;

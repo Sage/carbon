@@ -10,87 +10,40 @@ import MenuListItem from './menu-list-item';
 import tagComponent from '../../utils/helpers/tags';
 import './menu-list.scss';
 
-/**
-
- *
- * == How to use a MenuList in a component:
- *
- * In your file:
- *
- *   import { MenuList, MenuListItem } from 'carbon-react/lib/components/menu-list';
- *
- * To render the Link:
- *
- *  <MenuList href='foo'>
- *    <MenuListItem>foo</MenuListItem>
- *    <MenuListItem>bar</MenuListItem>
- *    <MenuListItem>
- *      <MenuList>
- *        I'm nestable
- *      </MenuList>
- *    </MenuListItem>
- *  </MenuList>
- *
- * For additional properties specific to this component, see propTypes.
- *
- * @class MenuList
- * @constructor
- */
 class MenuList extends React.Component {
   static propTypes = {
     /**
      * Children elements
-     *
-     * @property children
-     * @type {Node}
      */
     children: PropTypes.node.isRequired,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Allow the menu to be collapsed
-     *
-     * @property collapsible
-     * @type {Boolean}
      */
     collapsible: PropTypes.bool,
 
     /**
      * Allow the menu to be filtered
-     *
-     * @property filter
-     * @type {Boolean}
      */
     filter: PropTypes.bool,
 
     /**
      * Placeholder text for the filter
-     *
-     * @property filterPlaceholder
-     * @type {String}
      */
     filterPlaceholder: PropTypes.string,
 
     /**
      * Set the menu open on mount
-     *
-     * @property initiallyOpen
-     * @type {Boolean}
      */
     initiallyOpen: PropTypes.bool,
 
     /**
      * The menu title
-     *
-     * @property title
-     * @type {String}
      */
     title: PropTypes.string
   };

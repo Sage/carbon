@@ -12,58 +12,26 @@ import Portal from '../portal';
 import './dropdown.scss';
 
 const window = Browser.getWindow();
-/**
- * A dropdown widget.
- *
- * == How to use a dropdown in a component:
- *
- * In your file
- *
- *   import Dropdown from 'carbon-react/lib/components/dropdown';
- *
- * To render a Dropdown:
- *
- *   <Dropdown name="foo" options={ foo } onChange={ myChangeHandler } />
- *
- * The developer should pass data to the store as JSON. e.g.
- *
- *   foo: [{ id: 1, name: "Foo" }, { id: 2, name: "Bar" }]
- *
- * @class Dropdown
- * @constructor
- * @decorators {List,Input,InputIcon,InputLabel,InputValidation}
- */
+
 const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown extends React.Component {
   static propTypes = {
     /**
      * Automatically focus the input.
-     *
-     * @property autoFocus
-     * @type {boolean}
      */
     autoFocus: PropTypes.bool,
 
     /**
      * Determines if the visibleValue will be cached or not.
-     *
-     * @property cacheVisibleValue
-     * @type {boolean}
      */
     cacheVisibleValue: PropTypes.bool,
 
     /**
      * Disable all user interaction.
-     *
-     * @property disabled
-     * @type {boolean}
      */
     disabled: PropTypes.bool,
 
     /**
     * A custom onBlur handler.
-    *
-    * @property onBlur
-    * @type {function}
     */
     onBlur: PropTypes.func,
 
@@ -71,33 +39,21 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
      * The options to be displayed in the dropdown. Should be set in the store and passed from the parent component.
      *
      * This should be an Immutable object.
-     *
-     * @property options
-     * @type {object}
      */
     options: PropTypes.object.isRequired,
 
     /**
      * Set the name of the corresponding hidden input.
-     *
-     * @property name
-     * @type {string}
      */
     name: PropTypes.string,
 
     /**
      * Display the currently selected value without displaying the dropdown.
-     *
-     * @property readOnly
-     * @type {boolean}
      */
     readOnly: PropTypes.bool,
 
     /**
      * The ID value for the component
-     *
-     * @property value
-     * @type {String}
      */
     value: PropTypes.oneOfType([
       PropTypes.string,
@@ -106,9 +62,6 @@ const Dropdown = Input(InputIcon(InputLabel(InputValidation(class Dropdown exten
 
     /**
      * An optional function to be passed that will render each of the dropdown's items.
-     *
-     * @property renderItem
-     * @type {Function}
      */
     renderItem: PropTypes.func
   }

@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Weekday classic theme applies custom styling 1`] = `
+.c0,
+.c0.DayPicker-Weekday {
+  border: none;
+  min-width: 40px;
+  font-weight: 800;
+  color: #668491;
+  text-transform: uppercase;
+  font-size: 12px;
+  text-align: center;
+  padding: 20px 0 5px;
+  background-color: #FFFFFF;
+  color: rgba(0,0,0,.6);
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: capitalize;
+  border-color: #FFFFFF;
+  border-style: solid;
+  border-width: 0 3px 3px 3px;
+  min-width: auto;
+  padding: 10px 12px;
+}
+
+.c1 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+<div
+  className="c0"
+  role="columnheader"
+>
+  <abbr
+    className="c1"
+  >
+    sample children
+  </abbr>
+</div>
+`;
+
+exports[`Weekday renders presentational div and context provider for its children 1`] = `
+.c0,
+.c0.DayPicker-Weekday {
+  border: none;
+  min-width: 40px;
+  font-weight: 800;
+  color: #668491;
+  text-transform: uppercase;
+  font-size: 12px;
+  text-align: center;
+  padding: 20px 0 5px;
+}
+
+.c1 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+<div
+  className="c0"
+  role="columnheader"
+>
+  <abbr
+    className="c1"
+    title="tile"
+  >
+    sample children
+  </abbr>
+</div>
+`;

@@ -4,62 +4,28 @@ import ColorOption from './color-option';
 import tagComponent from '../../utils/helpers/tags';
 import './simple-color-picker.scss';
 
-/**
- * A component that displays squares with color samples that
- * you can choose from.
- *
- * == How to use a SimpleColorPicker in a component:
- *
- *   import SimpleColorPicker from 'carbon-react/lib/components/simple-color-picker';
- *
- *   <SimpleColorPicker
- *     availableColors={ ['transparent', '#ff0102', '#34ff01'] }
- *     selectedColor='#34ff01'
- *     name='settings[color_of_something]'
- *   />
- *
- */
 class SimpleColorPicker extends React.Component {
   static propTypes = {
     /**
-     * an array with all available colors that will be shown it the color picker.
-     *
-     * @property availableColors
-     * @type {Array}
+     * An array of color choices to display.
      */
     availableColors: PropTypes.array,
 
     /**
-     * the value of the currently selected color.
-     *
-     * @property selectedColor
-     * @type {String}
+     * The currently selected color.
      */
     selectedColor: PropTypes.string,
 
     /**
-     * the name of the input element.
-     *
-     * @property name
-     * @type {String}
+     * The name to apply to the input.
      */
     name: PropTypes.string,
 
     /**
-     * a callback when the user changes the selected color.
-     *
-     * @property onChange
-     * @type {Function}
+     * A callback triggered when a color is selected.
      */
     onChange: PropTypes.func
-  }
-
-  static defaultProps = {
-    availableColors: [],
-    selectedColor: '',
-    name: '',
-    onChange: null
-  }
+  };
 
   /**
    * Returns true if the color passed as argument is currently
@@ -74,7 +40,7 @@ class SimpleColorPicker extends React.Component {
   }
 
   /**
-   * Returns a ColorOption component for a given color.
+   * Returns a ColorOption component for a given color
    *
    * @method colorOption
    * @private

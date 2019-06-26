@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+"
+    border: 1px dashed #99adb6;
+    background-color: transparent;
+    
+    .carbon-icon::before {
+        font-size:16px;
+    }
+
+    :hover{
+        background: #fff;
+    }
+
+    :focus {
+        color: #255BC7;
+        border: 1px dashed #99adb6;
+        outline: -webkit-focus-ring-color auto 5px;
+    }
+"
+`;

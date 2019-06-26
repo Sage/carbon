@@ -6,31 +6,37 @@ import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import './pill.scss';
 
-/**
-* A Pill widget.
-*
-* == How to use a Pill in a component:
-*
-* In your file:
-*
-*   import Pill from 'carbon-react/lib/components/pill'
-*
-* To render the Pill:
-*
-*   <Pill as='warning'>My warning text</Pill>
-*
-* Additionally you can pass optional props to the Pill component
-*
-*   as: Customizes the appearence of the pill changing the colour.
-*       (see the 'iconColorSets' for possible values).
-*/
 class Pill extends React.Component {
   static propTypes = {
-    as: PropTypes.string, // this is used to apply supported themes (eg. warning, error, etc)
+
+    /**
+     * Sets the theme of the notification.
+     */
+    as: PropTypes.string,
+
+    /**
+     * This component supports children.
+     */
     children: PropTypes.string.isRequired,
+
+    /**
+     * A custom class name for the component.
+     */
     className: PropTypes.string,
+
+    /**
+     * Fills the pill background with colour. When fill is false only the border is coloured.
+     */
     fill: PropTypes.bool,
+
+    /**
+     * Callback function for when the pill is clicked.
+     */
     onClick: PropTypes.func,
+
+    /**
+     * Callback function to delete the component, when the added Icon is clicked.
+     */
     onDelete: PropTypes.func
   }
 

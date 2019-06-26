@@ -9,69 +9,33 @@ import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import './pod.scss';
 
-/**
- * A Pod widget.
- *
- * This widget is a provides a wrapper in which to render other widgets.
- *
- * == How to use a Pod in a component:
- *
- * In your file:
- *
- *   import Pod from 'carbon-react/lib/components/pod';
- *
- * In the render the Pod:
- *
- *   <Pod />
- *
- * @class Pod
- * @constructor
- */
 class Pod extends React.Component {
   static propTypes = {
 
     /**
      * Enables/disables the border around the pod.
-     *
-     * @property border
-     * @type {Boolean}
-     * @default true
      */
     border: PropTypes.bool,
 
     /**
      * Children elements
-     *
-     * @property children
-     * @type {Node}
      */
     children: PropTypes.node,
 
     /**
      * Custom className
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Determines the padding around the pod.
      * Values: 'none', 'small', 'medium' or 'large'.
-     *
-     * @property padding
-     * @type {String}
-     * @default medium
      */
     padding: PropTypes.string,
 
     /**
      * Applies a theme to the Pod.
      * Value: primary, secondary, tile
-     *
-     * @property as
-     * @type {String}
-     * @default primary
      */
     as: PropTypes.string,
 
@@ -81,18 +45,12 @@ class Pod extends React.Component {
      * undefined - Pod is not collapsible
      * true - Pod is closed
      * false - Pod is open
-     *
-     * @property collapsed
-     * @type {Boolean}
      */
     collapsed: PropTypes.bool,
 
     /**
      * Title for the pod h4 element
      * always shown
-     *
-     * @property title
-     * @type {String}
      */
     title: PropTypes.oneOfType([
       PropTypes.string,
@@ -101,35 +59,22 @@ class Pod extends React.Component {
 
     /**
      * Optional subtitle for the pod
-     *
-     * @property subtitle
-     * @type {String}
      */
     subtitle: PropTypes.string,
 
     /**
      * Aligns the title to left, right or center
-     *
-     * @property alignTitle
-     * @type {String}
-     * @default left
      */
     alignTitle: PropTypes.string,
 
     /**
      * Description for the pod
      * Not shown if collapsed
-     *
-     * @property title
-     * @type {String}
      */
     description: PropTypes.string,
 
     /**
      * A component to render as a Pod footer.
-     *
-     * @property footer
-     * @type {String | Object}
      */
     footer: PropTypes.oneOfType([
       PropTypes.string,
@@ -138,9 +83,6 @@ class Pod extends React.Component {
 
     /**
      * Supplies an edit action to the pod.
-     *
-     * @property onEdit
-     * @type {String|Function|Object}
      */
     onEdit: PropTypes.oneOfType([
       PropTypes.string,
@@ -150,34 +92,22 @@ class Pod extends React.Component {
 
     /**
      * Determines if the editable pod content should be full width.
-     *
-     * @property editContentFullWidth
-     * @type {Boolean}
      */
     editContentFullWidth: PropTypes.bool,
 
     /**
      * Determines if the edit button should be hidden until the user
      * hovers over the content.
-     *
-     * @property displayEditButtonOnHover
-     * @type {Boolean}
      */
     displayEditButtonOnHover: PropTypes.bool,
 
     /**
      * Determines if clicking the pod content calls the onEdit action
-     *
-     * @property triggerEditOnContent
-     * @type {Boolean}
      */
     triggerEditOnContent: PropTypes.bool,
 
     /**
      * Resets edit button styles to an older version
-     *
-     * @property internalEditButton
-     * @type {Boolean}
      */
     internalEditButton: PropTypes.bool
   }

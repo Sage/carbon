@@ -23,9 +23,9 @@ describe('Rainbow', () => {
 
   function render(props={}) {
     wrapper = mount(
-      <Rainbow title="My Title" data={ data } { ...props } />
+    <Rainbow title='My Title' data={ data } { ...props } />
     );
-  };
+  }
 
   beforeEach(() => {
     data = Immutable.fromJS([
@@ -62,7 +62,7 @@ describe('Rainbow', () => {
 
     describe('when data changes', () => {
       it("calls setData", () => {
-        const newData = Immutable.fromJS({ foo: "bar" });
+        const newData = Immutable.fromJS({ foo: 'bar' });
         wrapper.setProps({ title: wrapper.props().title, data: newData });
         expect(chart.series[0].setData).toHaveBeenCalledWith(newData.toJS());
       });
@@ -94,10 +94,10 @@ describe('Rainbow', () => {
   describe("tags on component", () => {
     let wrapper = shallow(
       <Rainbow
-        data-element='bar'
+        data-element='bar' 
         data-role='baz'
         data={ Immutable.fromJS({}) }/>
-      );
+    );
 
     it('include correct component, element and role data tags', () => {
       rootTagTest(wrapper, 'rainbow', 'bar', 'baz');

@@ -1,0 +1,365 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Table when the table size is compact renders a table to match the expected style 1`] = `
+.c0 {
+  border-collapse: separate;
+  border-radius: 0px;
+  border-spacing: 0;
+  min-width: 100%;
+  table-layout: fixed;
+  width: auto;
+  word-break: break-all;
+  background-color: #FFFFFF;
+}
+
+.c0.c0 .carbon-table-row {
+  height: 24px;
+}
+
+.c0.c0 .carbon-table-row .c2,
+.c0.c0 .carbon-table-row .c1 {
+  font-size: 13px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.c0.c0 .carbon-table-row:nth-child(2n) .c2 {
+  background-color: #F9FAFB;
+}
+
+.c0.c0 .carbon-table-row:hover .c2 {
+  background-color: #F2F4F5;
+}
+
+.c0.c0 .carbon-table-row:hover .c2 {
+  background-color: #F2F4F5;
+}
+
+.c0 caption {
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  height: 1px;
+  overflow: hidden;
+  width: 1px;
+  position: absolute;
+  top: -99999px;
+}
+
+.c0 .carbon-table-row:last-child .c2 {
+  border-bottom-color: transparent;
+}
+
+.c0 .carbon-table-row .custom-drag-layer {
+  background-color: #002E41;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: grabbing;
+  cursor: -webkit--moz-grabbing;
+  cursor: -moz--moz-grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit--webkit-grabbing;
+  cursor: -moz--webkit-grabbing;
+  cursor: -webkit-grabbing;
+  display: block;
+}
+
+.c0 .carbon-table-row .custom-drag-layer .c2 {
+  background-color: #002E41;
+}
+
+.c0 .carbon-table-row .custom-drag-layer .configurable-item-row__content-wrapper {
+  visibility: visible;
+}
+
+.c0 .carbon-table-row:first-child .c1:first-child {
+  border-radius: 0px 0 0 0;
+}
+
+.c0 .carbon-table-row:first-child .c1:last-child {
+  border-radius: 0 0px 0 0;
+}
+
+.c0 .carbon-table-row .c2 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: #FFFFFF;
+}
+
+.c0 .carbon-table-row:hover .c2 {
+  background-color: #F2F4F5;
+}
+
+.c0 .carbon-table-row .carbon-table-cell--select:first-child,
+.c0 .carbon-table-row carbon-table-cell--select:first-child {
+  text-align: center;
+  width: 18px;
+}
+
+.c0 .carbon-table-row .carbon-table-cell--select:first-child .carbon-checkbox,
+.c0 .carbon-table-row carbon-table-cell--select:first-child .carbon-checkbox {
+  height: 15px;
+  padding-top: 0;
+}
+
+.c0 .carbon-table-row--selected .c2,
+.c0 .carbon-table-row--selected:nth-child(odd) .c2,
+.c0 .carbon-table-row--selected:hover .c2 {
+  background-color: #D8E0E3 !important;
+  border-bottom-color: #D8E0E3 !important;
+  position: relative;
+}
+
+.c0 .carbon-table-row--selected .c2:before,
+.c0 .carbon-table-row--selected:nth-child(odd) .c2:before,
+.c0 .carbon-table-row--selected:hover .c2:before {
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: -1px;
+  width: 100%;
+}
+
+.c0.c0 .carbon-table-row--clickable {
+  cursor: pointer;
+}
+
+.c0.c0 .carbon-table-row--highlighted .c2 {
+  background-color: #D8E0E3 !important;
+  border-bottom-color: #D8E0E3 !important;
+  position: relative;
+}
+
+.c0.c0 .carbon-table-row--highlighted .c2:before {
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: -1px;
+  width: 100%;
+}
+
+.c0.c0 .carbon-table-row--highlighted:hover .c2 {
+  background-color: #D8E0E3;
+}
+
+.c0 .carbon-table-row--dragging {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c0 .carbon-table-row--dragged .c2 {
+  visibility: hidden;
+}
+
+.c0 .carbon-table-row--dragged + .carbon-table-row--dragging .c2 {
+  border-top: 1px solid #000A0E;
+}
+
+.c0 .draggable-table-cell__icon {
+  cursor: move;
+  padding: 8.5px 14px;
+}
+
+.c0 .draggable-table-cell__icon,
+.custom-drag-layer .c0 .draggable-table-cell__icon {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: grabbing;
+  cursor: -webkit--moz-grabbing;
+  cursor: -moz--moz-grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit--webkit-grabbing;
+  cursor: -moz--webkit-grabbing;
+  cursor: -webkit-grabbing;
+}
+
+<table
+  className="c0"
+  size="compact"
+/>
+`;
+
+exports[`Table when the table size is small renders a table to match the expected style 1`] = `
+.c0 {
+  border-collapse: separate;
+  border-radius: 0px;
+  border-spacing: 0;
+  min-width: 100%;
+  table-layout: fixed;
+  width: auto;
+  word-break: break-all;
+  background-color: #FFFFFF;
+}
+
+.c0.c0 .carbon-table-row {
+  height: 32px;
+}
+
+.c0.c0 .carbon-table-row .c2,
+.c0.c0 .carbon-table-row .c1 {
+  font-size: 14px;
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+.c0.c0 .carbon-table-row:nth-child(2n) .c2 {
+  background-color: #F9FAFB;
+}
+
+.c0.c0 .carbon-table-row:hover .c2 {
+  background-color: #F2F4F5;
+}
+
+.c0.c0 .carbon-table-row:hover .c2 {
+  background-color: #F2F4F5;
+}
+
+.c0 caption {
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  height: 1px;
+  overflow: hidden;
+  width: 1px;
+  position: absolute;
+  top: -99999px;
+}
+
+.c0 .carbon-table-row:last-child .c2 {
+  border-bottom-color: transparent;
+}
+
+.c0 .carbon-table-row .custom-drag-layer {
+  background-color: #002E41;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: grabbing;
+  cursor: -webkit--moz-grabbing;
+  cursor: -moz--moz-grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit--webkit-grabbing;
+  cursor: -moz--webkit-grabbing;
+  cursor: -webkit-grabbing;
+  display: block;
+}
+
+.c0 .carbon-table-row .custom-drag-layer .c2 {
+  background-color: #002E41;
+}
+
+.c0 .carbon-table-row .custom-drag-layer .configurable-item-row__content-wrapper {
+  visibility: visible;
+}
+
+.c0 .carbon-table-row:first-child .c1:first-child {
+  border-radius: 0px 0 0 0;
+}
+
+.c0 .carbon-table-row:first-child .c1:last-child {
+  border-radius: 0 0px 0 0;
+}
+
+.c0 .carbon-table-row .c2 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: #FFFFFF;
+}
+
+.c0 .carbon-table-row:hover .c2 {
+  background-color: #F2F4F5;
+}
+
+.c0 .carbon-table-row .carbon-table-cell--select:first-child,
+.c0 .carbon-table-row carbon-table-cell--select:first-child {
+  text-align: center;
+  width: 18px;
+}
+
+.c0 .carbon-table-row .carbon-table-cell--select:first-child .carbon-checkbox,
+.c0 .carbon-table-row carbon-table-cell--select:first-child .carbon-checkbox {
+  height: 15px;
+  padding-top: 0;
+}
+
+.c0 .carbon-table-row--selected .c2,
+.c0 .carbon-table-row--selected:nth-child(odd) .c2,
+.c0 .carbon-table-row--selected:hover .c2 {
+  background-color: #D8E0E3 !important;
+  border-bottom-color: #D8E0E3 !important;
+  position: relative;
+}
+
+.c0 .carbon-table-row--selected .c2:before,
+.c0 .carbon-table-row--selected:nth-child(odd) .c2:before,
+.c0 .carbon-table-row--selected:hover .c2:before {
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: -1px;
+  width: 100%;
+}
+
+.c0.c0 .carbon-table-row--clickable {
+  cursor: pointer;
+}
+
+.c0.c0 .carbon-table-row--highlighted .c2 {
+  background-color: #D8E0E3 !important;
+  border-bottom-color: #D8E0E3 !important;
+  position: relative;
+}
+
+.c0.c0 .carbon-table-row--highlighted .c2:before {
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: -1px;
+  width: 100%;
+}
+
+.c0.c0 .carbon-table-row--highlighted:hover .c2 {
+  background-color: #D8E0E3;
+}
+
+.c0 .carbon-table-row--dragging {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c0 .carbon-table-row--dragged .c2 {
+  visibility: hidden;
+}
+
+.c0 .carbon-table-row--dragged + .carbon-table-row--dragging .c2 {
+  border-top: 1px solid #000A0E;
+}
+
+.c0 .draggable-table-cell__icon {
+  cursor: move;
+  padding: 8.5px 14px;
+}
+
+.c0 .draggable-table-cell__icon,
+.custom-drag-layer .c0 .draggable-table-cell__icon {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: grabbing;
+  cursor: -webkit--moz-grabbing;
+  cursor: -moz--moz-grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit--webkit-grabbing;
+  cursor: -moz--webkit-grabbing;
+  cursor: -webkit-grabbing;
+}
+
+<table
+  className="c0"
+  size="small"
+/>
+`;

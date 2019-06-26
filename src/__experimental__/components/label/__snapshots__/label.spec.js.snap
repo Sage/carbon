@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Label renders the label 1`] = `
+.c0 {
+  color: rgba(0,0,0,0.9);
+  cursor: pointer;
+  display: block;
+  font-weight: 600;
+  padding-bottom: 8px;
+  width: 100%;
+}
+
+<label
+  className="c0"
+  data-element="label"
+  width={30}
+>
+  Name:
+</label>
+`;

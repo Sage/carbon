@@ -8,23 +8,6 @@ import tagComponent from '../../utils/helpers/tags';
 import { validProps } from '../../utils/ether';
 import './checkbox.scss';
 
-/**
- * A Checkbox widget.
- *
- * == How to use a Checkbox in a component:
- *
- * In your file:
- *
- *   import Checkbox from 'carbon-react/lib/components/checkbox';
- *
- * To render the Checkbox:
- *
- *   <Checkbox name='myCheckbox' />
- *
- * @class Checkbox
- * @constructor
- * @decorators {Input,InputLabel,InputValidation}
- */
 const Checkbox = Input(InputLabel(InputValidation(class Checkbox extends React.Component {
   static propTypes = {
     /**

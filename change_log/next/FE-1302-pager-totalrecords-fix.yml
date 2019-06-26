@@ -1,0 +1,1 @@
+Bug Fixes: "Fixes bugs in the Pager component, whereby the totalRecords prop would allow non-numeric input, and could display negative values."

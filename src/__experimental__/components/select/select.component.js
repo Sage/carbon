@@ -51,6 +51,9 @@ class Select extends React.Component {
     ])
   }
 
+  // we don't have any default props, but we set an empty object for better storybook source code examples
+  static defaultProps = {}
+
   state = {
     filter: undefined,
     open: false
@@ -154,7 +157,6 @@ class Select extends React.Component {
 
     newState.filter = undefined;
     this.setState(newState);
-    this.bridge.current._handleContentChange(); // temporary - resets validation on the old bridge component
 
     if (this.props.onChange) this.props.onChange({ target: { value } });
   }

@@ -25,11 +25,22 @@ const Page = props => (
 );
 
 Page.propTypes = {
+  /**
+   * A custom class name for the component.
+   */
   className: PropTypes.string, // eslint-disable-line react/no-unused-prop-types
+
+  /**
+   * The title for the page, normally a Heading component.
+   */
   title: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object
   ]),
+
+  /**
+   * This component supports children.
+   */
   children: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object

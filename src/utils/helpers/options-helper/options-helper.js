@@ -32,6 +32,11 @@ const OptionsHelper = {
     'white'
   ],
 
+  buttonIconPositions: [
+    'before',
+    'after'
+  ],
+
   colors: [
     'default',
     'error',
@@ -39,6 +44,18 @@ const OptionsHelper = {
     'info',
     'maintenance',
     'new',
+    'success',
+    'warning'
+  ],
+
+  toast: [
+    'success',
+    'error'
+  ],
+
+  messages: [
+    'info',
+    'error',
     'success',
     'warning'
   ],
@@ -219,6 +236,14 @@ const OptionsHelper = {
     'incomplete'
   ],
 
+  buttonTypes: [
+    'primary',
+    'secondary',
+    'tertiary',
+    'destructive',
+    'darkBackground'
+  ],
+
   themesBinary: [
     'primary',
     'secondary'
@@ -230,6 +255,30 @@ const OptionsHelper = {
     'tertiary',
     'tile',
     'transparent'
+  ],
+
+  tableThemes: [
+    'primary',
+    'secondary',
+    'tertiary',
+    'dark',
+    'light',
+    'transparent'
+  ],
+
+  tableSizes: [
+    'compact',
+    'small',
+    'medium',
+    'large'
+  ],
+
+  inputTypes: [
+    'textbox',
+    'textarea',
+    'date',
+    'decimal',
+    'select'
   ]
 };
 

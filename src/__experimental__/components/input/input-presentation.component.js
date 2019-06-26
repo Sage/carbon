@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
-import './input-presentation.style.scss';
+import { filterOutInputEvents } from '../../../utils/ether/ether';
+import InputPresentationStyle from './input-presentation.style';
 
 const InputPresentationContext = React.createContext();
 
@@ -15,12 +15,12 @@ const InputPresentationContext = React.createContext();
 
 class InputPresentation extends React.Component {
   static propTypes = {
-    children: PropTypes.node,
-    className: PropTypes.string
+    children: PropTypes.node
   }
 
   state = {
-    hasFocus: false
+    hasFocus: false,
+    hasMouseOver: false
   }
 
   input = {}
@@ -36,16 +36,11 @@ class InputPresentation extends React.Component {
   contextForInput() {
     return {
       hasFocus: this.state.hasFocus,
+      hasMouseOver: this.state.hasMouseOver,
       onFocus: this.onFocus,
       onBlur: this.onBlur,
       inputRef: this.assignInput
     };
-  }
-
-  classNames() {
-    return classNames('carbon-input-presentation', this.props.className, {
-      'carbon-input-presentation--has-focus': this.state.hasFocus
-    });
   }
 
   // use mouse down rather than click to accomodate click and drag events too
@@ -54,21 +49,29 @@ class InputPresentation extends React.Component {
     setTimeout(() => this.input.current.focus());
   }
 
+  handleMouseOver = () => this.setState({ hasMouseOver: true });
+
+  handleMouseOut = () => this.setState({ hasMouseOver: false });
+
   render() {
     const { children, ...props } = this.props;
+    const filteredProps = filterOutInputEvents(props);
 
     return (
-      <div
-        { ...props }
+      // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
+      <InputPresentationStyle
+        hasFocus={ this.state.hasFocus }
         role='presentation'
-        className={ this.classNames() }
         ref={ this.container }
         onMouseDown={ this.handleMouseDown }
+        onMouseOver={ this.handleMouseOver }
+        onMouseOut={ this.handleMouseOut }
+        { ...filteredProps }
       >
         <InputPresentationContext.Provider value={ this.contextForInput() }>
           { children }
         </InputPresentationContext.Provider>
-      </div>
+      </InputPresentationStyle>
     );
   }
 }

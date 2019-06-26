@@ -1,5 +1,6 @@
 import React from 'react';
 import { mount, shallow } from 'enzyme';
+import 'jest-styled-components';
 import Select from './select.component';
 import guid from '../../../utils/helpers/guid';
 import Events from '../../../utils/helpers/events';
@@ -72,7 +73,6 @@ describe('Select', () => {
     });
     expect(wrapper.find('div').first().prop('data-role')).toEqual('custom-role');
     expect(wrapper.find('div').first().prop('data-element')).toEqual('custom-element');
-    expect(wrapper.find('Textbox')).toMatchSnapshot();
   });
 
   it('triggers an onOpen callback if provided, but not if already open', () => {

@@ -15,102 +15,111 @@ import './show-edit-pod.scss';
 class ShowEditPod extends React.Component {
   static propTypes = {
     /**
-     * A theme for the pod.
-     *
-     * @property as
-     * @type {String}
+     * A theme for the Pod.
      */
     as: PropTypes.string,
 
     /**
-     * Enables the border of the pod.
-     *
-     * @property border
-     * @type {Boolean}
+     * Enable/disable the border on the Pod.
      */
     border: PropTypes.bool,
 
     /**
-     * Children elements
-     *
-     * @property children
-     * @type {Node}
+     * This component supports children.
      */
     children: PropTypes.node,
 
     /**
-     * Custom className
-     *
-     * @property className
-     * @type {String}
+     * Classes to apply to the component.
      */
     className: PropTypes.string,
 
     /**
-     * Determines the editing state of the show edit pod
-     * Must be set to true/false onMount if you want to control
-     * the pod externally via props
-     *
-     * @property editing
-     * @type {Boolean}
+     * Allows developers to control the editing state manually.
      */
     editing: PropTypes.bool,
 
     /**
-     * Callback when edit button is clicked
-     *
-     * @property onEdit
-     * @type {Function}
+     * Callback when edit button is clicked.
      */
-    onEdit: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.bool
-    ]),
+    onEdit: PropTypes.func,
 
     /**
-     * Shows delete button when provided
-     * Called when delete button is clicked
-     *
-     * @property onDelete
-     * @type {Function}
+     * A callback triggered when the delete action is clicked.
      */
     onDelete: PropTypes.func,
 
     /**
-     * JSX of fields to appear when in edit mode
-     *
-     * @property editFields
-     * @type {JSX}
+     * Define fields to be rendered in the edit state
      */
     editFields: PropTypes.node,
 
     /**
-     * Transition Name, Override for custom state transition
-     *
-     * @property transitionName
-     * @type {String}
-     * @default 'carbon-show-edit-pod__transition'
+     * Define a custom transition between show and edit states
      */
     transitionName: PropTypes.string,
 
     // Props passed to Form
+    /**
+     * A callback triggered after the validation has been ran on the form
+     */
     afterFormValidation: PropTypes.func,
+
+    /**
+     * A callback triggered before the validation has been ran on the form
+     */
     beforeFormValidation: PropTypes.func,
+
+    /**
+     * Controls which direction the form buttons align
+     */
     buttonAlign: PropTypes.string,
+
+    /**
+     * Set to false to hide the cancel button
+     */
     cancel: PropTypes.bool,
+
+    /**
+     * Supply custom text for the cancel button
+     */
     cancelText: PropTypes.string,
+
+    /**
+     * A callback triggered when the form is cancelled
+     */
     onCancel: PropTypes.func,
+
+    /**
+     * Supply custom text for the save button
+     */
     saveText: PropTypes.string,
+
+    /**
+     * Supply custom text for the delete button
+     */
     deleteText: PropTypes.string,
+
+    /**
+     * Can inform if the form is in a saving state (disables the save button)
+     */
     saving: PropTypes.bool,
+
+    /**
+     * Determines if validation should be ran on mount of the component
+     */
     validateOnMount: PropTypes.bool
-  }
+  };
 
   static defaultProps = {
     as: 'transparent',
     border: false,
-    transitionName: 'carbon-show-edit-pod__transition'
-  }
+    buttonAlign: 'right',
+    transitionName: 'carbon-show-edit-pod__transition',
+    cancel: true,
+    saving: false,
+    validateOnMount: false
+  };
 
   state = {
     /**

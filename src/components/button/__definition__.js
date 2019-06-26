@@ -1,8 +1,16 @@
-import Button from './';
+import { OriginalButton } from './button.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Definition from './../../../demo/utils/definition';
+import PropTypes from 'prop-types';
 
-let definition = new Definition('button', Button, {
+// Removing Carbon DLS specific props from the legacy demo
+delete OriginalButton.propTypes.checkTheme;
+delete OriginalButton.propTypes.forwardRef;
+delete OriginalButton.propTypes.buttonType;
+delete OriginalButton.propTypes.iconPosition;
+delete OriginalButton.propTypes.iconType;
+
+let definition = new Definition('button', OriginalButton, {
   description: `Performs an action.`,
   designerNotes: `
 * Avoid using buttons for navigation (taking the user somewhere else) - use them for performing an action or command.

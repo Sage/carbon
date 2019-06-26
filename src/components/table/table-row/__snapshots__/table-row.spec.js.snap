@@ -1,0 +1,204 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableRow render if is not classic theme renders a row to match the snapshot 1`] = `
+.c2 {
+  background-color: #F2F4F5;
+  border-width: 0;
+  border-bottom: 1px solid #CCD6DA;
+  font-size: 13px;
+  overflow: visible;
+  padding: 8px;
+  text-align: left;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.c2 > .common-input {
+  margin-bottom: -4px;
+  margin-left: -6px;
+  margin-right: -6px;
+  margin-top: -4px;
+}
+
+.c0 {
+  border-collapse: separate;
+  border-radius: 0px;
+  border-spacing: 0;
+  min-width: 100%;
+  table-layout: fixed;
+  width: auto;
+  word-break: break-all;
+  background-color: #FFFFFF;
+}
+
+.c0.c0 .carbon-table-row {
+  height: 40px;
+}
+
+.c0.c0 .carbon-table-row .c1,
+.c0.c0 .carbon-table-row .c3 {
+  font-size: 14px;
+  padding-left: 11px;
+  padding-right: 11px;
+}
+
+.c0.c0 .carbon-table-row:hover .c1 {
+  background-color: #F2F4F5;
+}
+
+.c0 caption {
+  -webkit-clip: rect(1px,1px,1px,1px);
+  clip: rect(1px,1px,1px,1px);
+  height: 1px;
+  overflow: hidden;
+  width: 1px;
+  position: absolute;
+  top: -99999px;
+}
+
+.c0 .carbon-table-row:last-child .c1 {
+  border-bottom-color: transparent;
+}
+
+.c0 .carbon-table-row .custom-drag-layer {
+  background-color: #002E41;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: grabbing;
+  cursor: -webkit--moz-grabbing;
+  cursor: -moz--moz-grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit--webkit-grabbing;
+  cursor: -moz--webkit-grabbing;
+  cursor: -webkit-grabbing;
+  display: block;
+}
+
+.c0 .carbon-table-row .custom-drag-layer .c1 {
+  background-color: #002E41;
+}
+
+.c0 .carbon-table-row .custom-drag-layer .configurable-item-row__content-wrapper {
+  visibility: visible;
+}
+
+.c0 .carbon-table-row:first-child .c3:first-child {
+  border-radius: 0px 0 0 0;
+}
+
+.c0 .carbon-table-row:first-child .c3:last-child {
+  border-radius: 0 0px 0 0;
+}
+
+.c0 .carbon-table-row .c1 {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background-color: #FFFFFF;
+}
+
+.c0 .carbon-table-row:hover .c1 {
+  background-color: #F2F4F5;
+}
+
+.c0 .carbon-table-row .carbon-table-cell--select:first-child,
+.c0 .carbon-table-row carbon-table-cell--select:first-child {
+  text-align: center;
+  width: 18px;
+}
+
+.c0 .carbon-table-row .carbon-table-cell--select:first-child .carbon-checkbox,
+.c0 .carbon-table-row carbon-table-cell--select:first-child .carbon-checkbox {
+  height: 15px;
+  padding-top: 0;
+}
+
+.c0 .carbon-table-row--selected .c1,
+.c0 .carbon-table-row--selected:nth-child(odd) .c1,
+.c0 .carbon-table-row--selected:hover .c1 {
+  background-color: #D8E0E3 !important;
+  border-bottom-color: #D8E0E3 !important;
+  position: relative;
+}
+
+.c0 .carbon-table-row--selected .c1:before,
+.c0 .carbon-table-row--selected:nth-child(odd) .c1:before,
+.c0 .carbon-table-row--selected:hover .c1:before {
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: -1px;
+  width: 100%;
+}
+
+.c0.c0 .carbon-table-row--clickable {
+  cursor: pointer;
+}
+
+.c0.c0 .carbon-table-row--highlighted .c1 {
+  background-color: #D8E0E3 !important;
+  border-bottom-color: #D8E0E3 !important;
+  position: relative;
+}
+
+.c0.c0 .carbon-table-row--highlighted .c1:before {
+  content: "";
+  height: 1px;
+  left: 0;
+  position: absolute;
+  top: -1px;
+  width: 100%;
+}
+
+.c0.c0 .carbon-table-row--highlighted:hover .c1 {
+  background-color: #D8E0E3;
+}
+
+.c0 .carbon-table-row--dragging {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.c0 .carbon-table-row--dragged .c1 {
+  visibility: hidden;
+}
+
+.c0 .carbon-table-row--dragged + .carbon-table-row--dragging .c1 {
+  border-top: 1px solid #000A0E;
+}
+
+.c0 .draggable-table-cell__icon {
+  cursor: move;
+  padding: 8.5px 14px;
+}
+
+.c0 .draggable-table-cell__icon,
+.custom-drag-layer .c0 .draggable-table-cell__icon {
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: grabbing;
+  cursor: -webkit--moz-grabbing;
+  cursor: -moz--moz-grabbing;
+  cursor: -moz-grabbing;
+  cursor: -webkit--webkit-grabbing;
+  cursor: -moz--webkit-grabbing;
+  cursor: -webkit-grabbing;
+}
+
+<table
+  className="c0"
+  size="medium"
+>
+  <tr
+    className="carbon-table-row"
+    data-component="table-row"
+  >
+    <td
+      className="c1 c2"
+      data-component="table-cell"
+    />
+  </tr>
+</table>
+`;

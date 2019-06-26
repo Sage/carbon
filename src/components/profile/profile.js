@@ -6,53 +6,37 @@ import { acronymize } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import './profile.scss';
 
-/**
- * Renders a user profile, with avatar.
- */
 class Profile extends React.Component {
   static propTypes = {
-
     /**
      * A custom class name for the component.
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
-     * The user's name.
-     *
-     * @property name
-     * @type {String}
+     * Define the name to display.
      */
     name: PropTypes.string.isRequired,
 
     /**
-     * The user's email.
-     *
-     * @property email
-     * @type {String}
+     * Define the email to use (will check Gravatar for image).
      */
     email: PropTypes.string.isRequired,
 
     /**
-     * The user's initials.
-     *
-     * @property initials
-     * @type {String}
+     * Define initials to display if there is no Gravatar image.
      */
     initials: PropTypes.string,
 
     /**
-     * Outputs a large name version.
-     *
-     * @property large
-     * @type {Boolean}
+     * Enable a larger theme for the name.
      */
     large: PropTypes.bool
-  }
+  };
 
+  static defaultProps = {
+    large: false
+  };
 
   /**
    * Returns the classes for the component.

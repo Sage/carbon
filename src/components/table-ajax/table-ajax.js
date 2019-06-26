@@ -6,25 +6,6 @@ import {
 } from '../table';
 import Logger from '../../utils/logger';
 
-/**
- * A Table Ajax Widget
- *
- * == How to use a Table Ajax in a component
- *
- * In your file
- *
- *   import Table from 'carbon-react/lib/components/table-ajax';
- *   import { TableRow, TableCell, TableHeader } from 'carbon-react/lib/components/table';
- *
- * To render a Table please see the Table Component
- *
- * TableAjax requires a path to be provided
- *
- * <TableAjax
- *    path='./path'
- * >
- *
- */
 class TableAjax extends Table {
   /**
    * Timeout for firing ajax request

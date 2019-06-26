@@ -42,10 +42,6 @@ import './input-label.scss';
  *  is displayed inline.
  *  * `inputWidth` - pass a percentage to define the width of the input when it
  *  is displayed inline.
- *
- * @method InputLabel
- * @param {Class} ComposedComponent class to decorate
- * @return {Object} Decorated Component
  */
 const InputLabel = (ComposedComponent) => {
   class Component extends ComposedComponent {
@@ -57,27 +53,17 @@ const InputLabel = (ComposedComponent) => {
 
       /**
        * Either a string or false to turn the label off
-       *
-       * @property
-       * @type {String|Boolean}
        */
       label: PropTypes.node,
 
       /**
        * Pass true to format the input/label inline
-       *
-       * @property
-       * @default top
-       * @type {Boolean}
        */
       labelInline: PropTypes.bool,
 
       /**
        * Pass a percentage to define the width of the label when it
        *  is displayed inline.
-       *
-       * @property
-       * @type {Number}
        */
       labelWidth: PropTypes.oneOfType([
         PropTypes.string,
@@ -87,26 +73,17 @@ const InputLabel = (ComposedComponent) => {
 
       /**
        * Aligns label content to the right if set
-       *
-       * @property
-       * @type {String}
        */
       labelAlign: PropTypes.string,
 
       /**
        * Text applied to tooptip of help icon
-       *
-       * @property
-       * @type {String}
        */
       labelHelp: PropTypes.string,
 
       /**
        * Pass a percentage to define the width of the label when it
        *  is displayed inline
-       *
-       * @property
-       * @type {Number}
        */
       inputWidth: PropTypes.oneOfType([
         PropTypes.string,
@@ -115,17 +92,11 @@ const InputLabel = (ComposedComponent) => {
 
       /**
        * A string representing a help message
-       *
-       * @property
-       * @type {Node}
        */
       fieldHelp: PropTypes.node,
 
       /**
        * Boolean to determine whether the help message should be inline
-       *
-       * @property
-       * @type {Boolean}
        */
       fieldHelpInline: PropTypes.bool
     });

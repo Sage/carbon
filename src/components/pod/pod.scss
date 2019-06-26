@@ -249,6 +249,28 @@
     border: none;
   }
 
+  &.carbon-pod--right {
+    .carbon-pod__content--padding {
+      &-extra-small {
+        .carbon-pod__header.carbon-pod__header--right {
+          margin-right: 20px;
+        }
+      }
+
+      &-small {
+        .carbon-pod__header.carbon-pod__header--right {
+          margin-right: 25px;
+        }
+      }
+
+      &-medium, &-large, &-extra-large {
+        .carbon-pod__header.carbon-pod__header--right {
+          margin-right: 30px;
+        }
+      }
+    }
+  }
+
   &.carbon-pod--is-hovered.carbon-pod--is-hovered {
     color: $grey-dark-blue;
 

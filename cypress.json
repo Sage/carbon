@@ -1,0 +1,11 @@
+{
+  "baseUrl": "https://carbon.sage.com/",
+  "blacklistHosts": ["www.google-analytics.com", "sockjs*", "countries*"],
+  "env": { "TAGS": "not @ignore" },
+  "failOnStatusCode": false,
+  "ignoreTestFiles": ["**/examples/*", "**/!(*.spec).js"],
+  "integrationFolder": "cypress/features",
+  "video": false,
+  "viewportWidth": 1366,
+  "viewportHeight": 768
+}

@@ -14,236 +14,160 @@ import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import Browser from '../../utils/helpers/browser';
 
+import { withValidations } from '../validations';
 import ElementResize from '../../utils/helpers/element-resize';
 import './form.scss';
 
-/**
- * A Form widget.
- *
- * == How to use a Form in a component:
- *
- * In your file
- *
- *   import Form from 'carbon-react/lib/components/form';
- *
- * To render a Form:
- *
- *   <Form>
- *     <Textbox />
- *     <Textbox />
- *     <Date />
- *   </Form>
- *
- * Form provides the ability to hook into the form handle submission method.
- * By passing afterFormValidation or beforeFormValidation you can add custom
- * validation logic and prevent the form submission using ev.preventDefault()
- *
- * @class Form
- * @constructor
- */
-class Form extends React.Component {
+class FormWithoutValidations extends React.Component {
   static propTypes = {
 
     /**
      * Warning popup shown when trying to navigate away from an edited
      * form if true
-     *
-     * @property unsavedWarning
-     * @type {Boolean}
-     * @default true
      */
     unsavedWarning: PropTypes.bool,
 
     /**
      * Cancel button is shown if true
-     *
-     * @property cancel
-     * @type {Boolean}
-     * @default true
      */
     cancel: PropTypes.bool,
 
     /**
      * Custom function that is called immediately
      * after the form validates
-     *
-     * @property afterFormValidation
-     * @type {Function}
      */
     afterFormValidation: PropTypes.func,
 
     /**
      * Custom function that is called immediately
      * before the form validates
-     *
-     * @property beforeFormValidation
-     * @type {Function}
      */
     beforeFormValidation: PropTypes.func,
 
     /**
      * Alignment of submit button
-     * @ property
-     * @type {String}
      */
     buttonAlign: PropTypes.string,
 
     /**
      * Determines if the form is in a saving state
-     *
-     * @property saving
-     * @type {Boolean}
-     * @default false
      */
     saving: PropTypes.bool,
 
     /**
      * Enables the sticky footer.
-     *
-     * @property stickyFooter
-     * @type {Boolean}
      */
     stickyFooter: PropTypes.bool,
 
     /**
      * Applies additional padding to the sticky footer, useful to align buttons.
-     *
-     * @property stickyFooterPadding
-     * @type {String}
      */
     stickyFooterPadding: PropTypes.string,
 
     /**
      * If true, will validate the form on mount
-     *
-     * @property validateOnMount
-     * @type {Boolean}
-     * @default false
      */
     validateOnMount: PropTypes.bool,
 
     /**
      * If true, will disable the savebutton when clicked
-     *
-     * @property autoDisable
-     * @type {Boolean}
-     * @default false
      */
     autoDisable: PropTypes.bool,
 
     /**
      * Text for the cancel button
-     *
-     * @property cancelText
-     * @type {String}
-     * @default "Cancel"
      */
     cancelText: PropTypes.string,
 
     /**
      * Properties for the cancel button
-     *
-     * @property cancelButtonProps
-     * @type {Object}
      */
     cancelButtonProps: PropTypes.object,
 
     /**
      * Text for the save button
-     *
-     * @property saveText
-     * @type {String}
-     * @default "Save"
      */
     saveText: PropTypes.string,
 
     /**
      * Properties for the save button
-     *
-     * @property saveButtonProps
-     * @type {Object}
      */
     saveButtonProps: PropTypes.object,
 
     /**
      * Custom function for Cancel button onClick
-     *
-     * @property onCancel
-     * @type {Function}
      */
     onCancel: PropTypes.func,
 
     /**
      * Hide or show the save button
-     *
-     * @property saveFalse
-     * @type {Boolean}
      */
     save: PropTypes.bool,
 
     /**
      * Additional actions rendered next to the save and cancel buttons
-     *
-     * @property additionalActions
-     * @type {String|JSX}
      */
     additionalActions: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * Additional actions rendered and aligned left to the save and cancel buttons
-     *
-     * @property additionalActions
-     * @type {String|JSX}
      */
     leftAlignedActions: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * Additional actions rendered and aligned right to the save and cancel buttons
-     *
-     * @property additionalActions
-     * @type {String|JSX}
      */
     rightAlignedActions: PropTypes.node, // eslint-disable-line react/no-unused-prop-types
 
     /**
      * Custom callback for when form will submit
-     *
-     * @property onSubmit
-     * @type {Function}
      */
     onSubmit: PropTypes.func,
 
     /**
      * Override Save Button
-     *
-     * @property customSaveButton
-     * @type {Node}
      */
     customSaveButton: PropTypes.node,
 
     /**
      * A custom class name for the component.
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
-     * Children elements
-     *
-     * @property children
-     * @type {Node}
+     * Child elements
      */
     children: PropTypes.node,
 
     /**
      * Hide or show the summary
-     *
-     * @property showSummary
-     * @type {Boolean}
      */
-    showSummary: PropTypes.bool
+    showSummary: PropTypes.bool,
+
+    /**
+     * A function used to handle form validation
+     */
+    validate: PropTypes.func,
+
+    /**
+     * Determines if the form is a validating state and should be disabled from submiting
+     */
+    isValidating: PropTypes.bool,
+
+    /**
+     * The total number of errors present in the form
+     */
+    errorCount: PropTypes.number,
+
+    /**
+     * The total number of warnings present in the form
+     */
+    warningCount: PropTypes.number,
+
+    /**
+     * The total number of infos present in the form
+     */
+    infoCount: PropTypes.number
   }
 
   static defaultProps = {
@@ -274,22 +198,6 @@ class Form extends React.Component {
 
   state = {
     /**
-     * Tracks the number of errors in the form
-     *
-     * @property errorCount
-     * @type {Number}
-     */
-    errorCount: 0,
-
-    /**
-     * Tracks the number of warnings in the form
-     *
-     * @property warningCount
-     * @type {Number}
-     */
-    warningCount: 0,
-
-    /**
      * Tracks if the form is clean or dirty, used by unsavedWarning
      *
      * @property isDirty
@@ -316,18 +224,10 @@ class Form extends React.Component {
   getChildContext = () => {
     return {
       form: {
-        attachToForm: this.attachToForm,
-        detachFromForm: this.detachFromForm,
         getActiveInput: this.getActiveInput,
-        incrementErrorCount: this.incrementErrorCount,
-        decrementErrorCount: this.decrementErrorCount,
-        incrementWarningCount: this.incrementWarningCount,
-        decrementWarningCount: this.decrementWarningCount,
         setIsDirty: this.setIsDirty,
         resetIsDirty: this.resetIsDirty,
-        inputs: this.inputs,
-        setActiveInput: this.setActiveInput,
-        validate: this.validate
+        setActiveInput: this.setActiveInput
       }
     };
   }
@@ -344,7 +244,7 @@ class Form extends React.Component {
     }
 
     if (this.props.validateOnMount) {
-      this.validate();
+      this.props.validate();
     }
 
     if (this.props.unsavedWarning) {
@@ -499,105 +399,15 @@ class Form extends React.Component {
   _window = Browser.getWindow();
 
   /**
-   * Stores references to the inputs in the form
-   *
-   * @property inputs
-   * @type {Object}
-   */
-  inputs = {};
-
-  /**
-   * Tracks current errorCount
-   * Need to track separately from state due to async nature of setState
-   *
-   * @property errorCount
-   * @type {Number}
-   */
-  errorCount = 0;
-
-  /**
-   * Tracks current warningCount
-   * Need to track separately from state due to async nature of setState
-   *
-   * @property errorCount
-   * @type {Number}
-   */
-  warningCount = 0;
-
-  /**
-   * Increase current error count in state by 1.
-   *
-   * @method incrementErrorCount
-   * @return {void}
-   */
-  incrementErrorCount = () => {
-    this.errorCount += 1;
-    this.setState({ errorCount: this.errorCount });
-  }
-
-  /**
-   * Decreases the current error count in state by 1.
-   *
-   * @method decrementErrorCount
-   * @return {void}
-   */
-  decrementErrorCount = () => {
-    this.errorCount -= 1;
-    this.setState({ errorCount: this.errorCount });
-  }
-
-  /**
-   * Increase current warning count in state by 1.
-   *
-   * @method incrementWarningCount
-   * @return {void}
-   */
-  incrementWarningCount = () => {
-    this.warningCount += 1;
-    this.setState({ warningCount: this.warningCount });
-  }
-
-  /**
-   * Decreases the current warning count in state by 1.
-   *
-   * @method decrementWarningCount
-   * @return {void}
-   */
-  decrementWarningCount = () => {
-    this.warningCount -= 1;
-    this.setState({ warningCount: this.warningCount });
-  }
-
-  /**
-   * Attaches child component to form.
-   *
-   * @method attachToForm
-   * @param {Object} component Component to attach
-   * @return {void}
-   */
-  attachToForm = (component) => {
-    this.inputs[component._guid] = component;
-  }
-
-  /**
-   * Detaches child component from form.
-   *
-   * @method detachFromFormToForm
-   * @param {Object} component Component to detach
-   * @return {void}
-   */
-  detachFromForm = (component) => {
-    delete this.inputs[component._guid];
-  }
-
-  /**
    * Handles submit and runs validation.
    *
    * @method handleOnSubmit
    * @param {Object} ev event
    * @return {void}
    */
-  handleOnSubmit = (ev) => {
+  handleOnSubmit = async (ev) => {
+    ev.preventDefault();
+
     if (this.props.autoDisable) {
       this.setState({ submitted: true });
     }
@@ -606,21 +416,25 @@ class Form extends React.Component {
       this.props.beforeFormValidation(ev);
     }
 
-    const valid = this.validate();
-
-    if (valid) {
-      this.resetIsDirty();
-    } else {
-      this.setState({ submitted: false });
-      ev.preventDefault();
-    }
+    const valid = await this.props.validate();
 
     if (this.props.afterFormValidation) {
       this.props.afterFormValidation(ev, valid, this.enableForm);
     }
 
-    if (valid && this.props.onSubmit) {
+    if (valid) {
+      this.resetIsDirty();
+      this.triggerSubmit(ev, valid);
+    } else {
+      this.setState({ submitted: false });
+    }
+  }
+
+  triggerSubmit(ev, valid) {
+    if (this.props.onSubmit) {
       this.props.onSubmit(ev, valid, this.enableForm);
+    } else {
+      this._form.submit();
     }
   }
 
@@ -632,30 +446,6 @@ class Form extends React.Component {
    */
   enableForm = () => {
     this.setState({ submitted: false });
-  }
-
-  /**
-   * Validates any inputs in the form which have validations.
-   *
-   * @method validate
-   * @return {Boolean} valid status
-   */
-  validate = () => {
-    let valid = true,
-        errors = 0;
-
-    for (const key in this.inputs) {
-      const input = this.inputs[key];
-
-      if (!input.props.disabled && !input.validate()) {
-        valid = false;
-        errors += 1;
-      }
-    }
-
-    if (!valid) { this.setState({ errorCount: errors }); }
-
-    return valid;
   }
 
   /**
@@ -753,7 +543,7 @@ class Form extends React.Component {
       <SaveButton
         saveButtonProps={ this.props.saveButtonProps }
         saveText={ this.props.saveText }
-        saving={ this.props.saving || this.state.submitted }
+        saving={ this.props.isValidating || this.props.saving || this.state.submitted }
       />
     );
   }
@@ -781,8 +571,8 @@ class Form extends React.Component {
     return (
       <FormSummary
         className='carbon-form__summary'
-        errors={ this.state.errorCount }
-        warnings={ this.state.warningCount }
+        errors={ this.props.errorCount }
+        warnings={ this.props.warningCount }
       >
         { this.saveButton() }
       </FormSummary>
@@ -891,4 +681,7 @@ function generateCSRFToken(doc) {
   );
 }
 
+const Form = withValidations(FormWithoutValidations);
+
+export { FormWithoutValidations }; // export version without hoc if required
 export default Form;

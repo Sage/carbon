@@ -6,7 +6,7 @@ import notes from './notes.md';
 import AnimatedMenuButton from './animated-menu-button';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { Row } from '../row/row';
-import Link from '../link/link';
+import Link from '../link';
 
 const Container = styled.div`
   display: flex;

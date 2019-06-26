@@ -1,4 +1,4 @@
-import { append, styleElement, acronymize, validProps, insertAt } from './ether.js';
+import { append, styleElement, acronymize, validProps, insertAt, filterOutInputEvents } from './ether.js';
 import React from 'react';
 import PropTypes from 'prop-types';
 import TestUtils from 'react-dom/test-utils';
@@ -49,27 +49,30 @@ describe('Ether', () => {
 
   describe('validProps', () => {
 
-    class Foo {
-
-      constructor() {
-        this.props = { foo: 'foo', bar: 'bar', quux: 'quux'};
-      }
-
+    class Foo extends React.Component {
       static propTypes = {
         foo: PropTypes.bool,
         bar: PropTypes.bool
       };
-
+      
       static safeProps = ['foo'];
+      
+      render() {
+        return <div />;
+      }
     }
 
+    const instance = new Foo({
+      foo: 'foo',
+      bar: 'bar',
+      quux: 'quux'
+    });
+
     it('creates valid props', () => {
-      const instance = new Foo();
       expect(validProps(instance)).toEqual({ foo: 'foo', quux: 'quux' });
     });
 
     it('creates valid props with explicit safeProps', () => {
-      const instance = new Foo();
       expect(validProps(instance, ['bar'])).toEqual({ bar: 'bar', quux: 'quux' });
     });
   });
@@ -91,6 +94,33 @@ describe('Ether', () => {
       it('ignores the invalid index', () => {
         expect(insertAt('1234567890', {insertionIndices: [3, 7, 15], separator:'/'})).toEqual('123/456/7890');
       });
+    });
+  });
+
+  describe('filterOutInputEvents', () => {
+    const props = {
+      value: 'foo',
+      otherProp: 'bar',
+      children: <div />,
+      onFocus: () => {},
+      onBlur: () => {},
+      onChange: () => {},
+      onMouseDown: () => {},
+      onMouseUp: () => {},
+      onClick: () => {},
+      onKeyDown: () => {},
+      onKeyUp: () => {},
+      onKeyPress: () => {},
+    };
+
+    const filteredProps = {
+      value: props.value,
+      otherProp: props.otherProp,
+      children: props.children
+    };
+
+    it('returns properly filtered props', () => {
+      expect(filterOutInputEvents(props)).toEqual(filteredProps);
     });
   });
 });

@@ -6,23 +6,6 @@ import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import './textbox.scss';
 
-/**
- * A textbox widget.
- *
- * == How to use a Textbox in a component:
- *
- * In your file
- *
- *   import Textbox from 'carbon-react/lib/components/textbox';
- *
- * To render a Textbox:
- *
- *   <Textbox name="myTextbox" />
- *
- * @class Textbox
- * @constructor
- * @decorators {Input,InputLabel,InputValidation}
- */
 const Textbox = Input(InputLabel(InputValidation(class Textbox extends React.Component {
   /**
    * Main Class getter

@@ -1,9 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, number, boolean } from '@storybook/addon-knobs';
-import notes from './notes.md';
-import ButtonToggle from '../button-toggle/button-toggle';
-import ButtonToggleGroup from './button-toggle-group';
+import {
+  text, number, boolean, select, percentageRange
+} from '@storybook/addon-knobs';
+import OptionsHelper from '../../utils/helpers/options-helper';
+import notes from './documentation';
+import ButtonToggle from '../button-toggle/button-toggle.component';
+import ButtonToggleGroup from './button-toggle-group.component';
 
 storiesOf('Button Toggle Group', module)
   .addParameters({
@@ -12,19 +15,38 @@ storiesOf('Button Toggle Group', module)
       propTables: [ButtonToggleGroup]
     }
   }).add('default', () => {
-    const timeToDisappear = number('timeToDisappear', 0);
     const label = text('label', 'Example ButtonToggleGroup');
+    const labelInline = boolean('labelInline', false);
+    const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
+    const labelAlign = labelInline ? select(
+      'labelAlign',
+      OptionsHelper.alignBinary,
+      OptionsHelper.alignBinary[0]
+    ) : undefined;
     const labelHelp = text('labelHelp', 'This text provides more information for the label.');
-    const inputWidth = text('inputWidth', '');
+    const inputWidth = labelInline ? number('inputWidth', 70, percentageRange) : undefined;
     const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
     const fieldHelpInline = boolean('fieldHelpInline', false);
-    const labelInline = boolean('labelInline', false);
-    const labelWidth = labelInline ? text('labelWidth', '') : undefined;
-    const labelAlign = labelInline ? text('labelAlign', '') : undefined;
+
+    function renderButtons() {
+      const buttonNames = ['Foo', 'Bar', 'Baz'];
+
+      return buttonNames.map((name) => {
+        return (
+          <ButtonToggle
+            name='button-toggle-group'
+            id={ name.toLowerCase() }
+            key={ name }
+            value={ name }
+          >
+            { name }
+          </ButtonToggle>
+        );
+      });
+    }
 
     return (
       <ButtonToggleGroup
-        timeToDisappear={ timeToDisappear }
         label={ label }
         labelInline={ labelInline }
         labelWidth={ labelWidth }
@@ -34,27 +56,7 @@ storiesOf('Button Toggle Group', module)
         fieldHelp={ fieldHelp }
         fieldHelpInline={ fieldHelpInline }
       >
-        <ButtonToggle
-          name='grouped'
-          id='foo'
-          value='foo'
-        >
-            Foo
-        </ButtonToggle>
-        <ButtonToggle
-          name='grouped'
-          id='bar'
-          value='bar'
-        >
-            Bar
-        </ButtonToggle>
-        <ButtonToggle
-          name='grouped'
-          id='baz'
-          value='baz'
-        >
-            Baz
-        </ButtonToggle>
+        { renderButtons() }
       </ButtonToggleGroup>
     );
   }, {

@@ -1,0 +1,5 @@
+New Components: |
+  Adds a Validation component that allows a parent (Form) to pass context down to its children to register themselves
+  with the function they will run to validate themself.
+  The parent iterates over the registered childrren and blocks unless they all pass
+

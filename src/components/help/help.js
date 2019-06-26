@@ -5,66 +5,31 @@ import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
 import './help.scss';
 
-/**
- * A Help widget.
- *
- * == How to use a Help in a component:
- *
- * In your file
- *
- *   import Help from 'carbon-react/lib/components/help';
- *
- * To render a help component:
- *
- *   <Help>{ this.props.helpMessage }</Help>
- *
- *  You can also pass additional props of tooltipPosition and tooltipAlign.
- *
- * @class Help
- * @constructor
- */
 class Help extends React.Component {
   static propTypes = {
 
     /**
      * A custom class name for the component.
-     *
-     * @property className
-     * @type {String}
      */
     className: PropTypes.string,
 
     /**
      * Message to display in tooltip
-     *
-     * @property children
-     * @type {String}
      */
     children: PropTypes.string,
 
     /**
      * Position of tooltip relative to target
-     *
-     * @property tooltipPosition
-     * @type {String} Options: { top, bottom, right, left }
-     * @default top
      */
     tooltipPosition: PropTypes.string,
 
     /**
      * Aligment of pointer
-     *
-     * @property tooltipAlign
-     * @type {String} Options: { top, bottom, right, left, center }
-     * @default center
      */
     tooltipAlign: PropTypes.string,
 
     /**
      * A path for the anchor
-     *
-     * @property href
-     * @type {String}
      */
     href: PropTypes.string
   };

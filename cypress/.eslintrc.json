@@ -1,0 +1,18 @@
+{
+  "extends": "airbnb-base",
+  "plugins": [
+    "cypress"
+  ],
+  "env": {
+    "cypress/globals": true
+  },
+  "rules": {
+    "import/prefer-default-export": false,
+    "no-unused-vars": ["error", { "vars": "all", "args": "after-used", "ignoreRestSiblings": false }]
+  },
+  "globals": {
+    "Given": true,
+    "When": true,
+    "Then": true
+  }
+}

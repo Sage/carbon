@@ -9,83 +9,42 @@ import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import './textarea.scss';
 
-/**
- * A textarea widget.
- *
- * == How to use a Textarea in a component:
- *
- * In your file:
- *
- *   import Textarea from 'carbon-react/lib/components/textarea';
- *
- * To render a Textarea:
- *
- *   <Textarea name='myTextarea' />
- *
- * @class Textarea
- * @constructor
- * @decorators {Input,InputLabel,InputValidation}
- */
 const Textarea = Input(InputLabel(InputValidation(
   class Textarea extends React.Component {
   static propTypes = {
     /**
      * Character limit of the textarea
-     *
-     * @property characterLimit
-     * @type {String}
      */
     characterLimit: PropTypes.string,
 
     /**
      * The visible width of the text control, in average character widths.
-     *
-     * @property cols
-     * @type {Integer}
      */
     cols: PropTypes.number,
 
     /**
      * Stop the user typing over the characterLimit
-     *
-     * @property enforceCharacterLimit
-     * @type {Boolean}
-     * @default true
      */
     enforceCharacterLimit: PropTypes.bool,
 
     /**
      * Allows the Textareas Height to change based on user input
      * Width of the textarea will remain static
-     *
-     * @property expandable
-     * @type {Boolean}
-     * @default false
      */
     expandable: PropTypes.bool,
 
     /**
      * The number of visible text lines for the control.
-     *
-     * @property rows
-     * @type {Integer}
      */
     rows: PropTypes.number,
 
     /**
      * The value of the Textarea
-     *
-     * @property value
-     * @type {String}
      */
     value: PropTypes.string,
 
     /**
      * Whether to display the character count message in red
-     *
-     * @property warnOverLimit
-     * @type {Boolean}
-     * @default false
      */
     warnOverLimit: PropTypes.bool
   }
@@ -102,9 +61,6 @@ const Textarea = Input(InputLabel(InputValidation(
   /**
    * A lifecycle method that is called after initial render.
    * Allows access to refs and DOM to set expandable variables
-   *
-   * @method componentDidMount
-   * @return {void}
    */
   componentDidMount() {
     if (this.props.expandable) {
@@ -121,9 +77,6 @@ const Textarea = Input(InputLabel(InputValidation(
   /**
    * A lifecycle method that is called before the component is
    * unmounted from the DOM
-   *
-   * @method componentWillUnmount
-   * @return {void}
    */
   componentWillUnmount() {
     if (this.props.expandable) {
@@ -134,9 +87,6 @@ const Textarea = Input(InputLabel(InputValidation(
   /**
    * A lifecycle method to update the component after it is re-rendered
    * Resizes the textarea based on update if it can expand
-   *
-   * @method componentDidUpdate
-   * @return {void}
    */
   componentDidUpdate() {
     if (this.props.expandable) {
@@ -148,9 +98,6 @@ const Textarea = Input(InputLabel(InputValidation(
    * Expands the textarea based on the current input
    * so that width is fixed but height changes to show
    * all content.
-   *
-   * @method expandTextarea
-   * @return {void}
    */
   expandTextarea = () => {
     const textarea = this._input;
@@ -165,9 +112,6 @@ const Textarea = Input(InputLabel(InputValidation(
 
   /**
    * Uses the mainClasses method provided by the decorator to add additional classes
-   *
-   * @method mainClasses
-   * @return {String} main className
    */
   get mainClasses() {
     return 'carbon-textarea';
@@ -175,9 +119,6 @@ const Textarea = Input(InputLabel(InputValidation(
 
   /**
    * Uses the inputClasses method provided by the decorator to add additional classes.
-   *
-   * @method inputClasses
-   * @return {String} input className
    */
   get inputClasses() {
     return classNames(
@@ -188,9 +129,6 @@ const Textarea = Input(InputLabel(InputValidation(
 
   /**
    * Uses the textAreaClasses method to add additional classes.
-   *
-   * @method textAreaClasses
-   * @return {String} textarea className
    */
   get textAreaClasses() {
     return classNames(
@@ -201,9 +139,6 @@ const Textarea = Input(InputLabel(InputValidation(
 
   /**
    * Returns if the character count exceeds the max
-   *
-   * @method overLimit
-   * @return {Boolean}
    */
   get overLimit() {
     const value = this.props.value || '';
@@ -213,9 +148,6 @@ const Textarea = Input(InputLabel(InputValidation(
   /**
    * A getter that combines props passed down from the input decorator with
    * textbox specific props.
-   *
-   * @method inputProps
-   * @return {Object} props for the input
    */
   get inputProps() {
     const { ...props } = validProps(this);
@@ -232,9 +164,6 @@ const Textarea = Input(InputLabel(InputValidation(
 
   /**
    * I18n options for character count number
-   *
-   * @method i18nNumberOpts
-   * @return {Object}
    */
   get i18nNumberOpts() {
     return { precision: 0 };
@@ -242,9 +171,6 @@ const Textarea = Input(InputLabel(InputValidation(
 
   /**
    * Defines a custom input type for this component.
-   *
-   * @method inputType
-   * @return {String} the input type
    */
   get inputType() {
     return 'textarea';
@@ -252,9 +178,6 @@ const Textarea = Input(InputLabel(InputValidation(
 
   /**
    * Returns character count jsx if limit is set
-   *
-   * @method characterCount
-   * @return {JSX}
    */
   get characterCount() {
     const value = this.props.value || '';
@@ -278,9 +201,6 @@ const Textarea = Input(InputLabel(InputValidation(
 
   /**
    * Renders the component.
-   *
-   * @method render
-   * @return {Object} JSX
    */
   render() {
     return (
