@@ -6,7 +6,12 @@ import baseTheme from '../../../../style/themes/base';
 const getIconColor = (color, theme) => {
   const rgbValues = getRgbValues(color);
   const [r, g, b] = rgbValues;
-  const contrast = (Math.round(r * 299) + Math.round(g * 587) + Math.round(b * 114)) / 1000;
+  // color contrast calculating formula as per W3 suggestions
+  const redMultiplier = 299, greenMultiplier = 587, blueMultiplier = 114;
+  const contrast = (
+    Math.round(r * redMultiplier)
+    + Math.round(g * greenMultiplier)
+    + Math.round(b * blueMultiplier)) / 1000;
   if (contrast < 128) return theme.colors.white;
   return theme.text.color;
 };
