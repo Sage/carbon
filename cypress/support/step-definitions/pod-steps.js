@@ -89,8 +89,6 @@ Then('I click onEdit icon', () => {
 Then('Pod component has editContentFullWidth property', () => {
   podPreview().children()
     .should('have.class', `${POD_BLOCK_PROPERTY}--full-width`);
-  podPreview().children()
-    .should('have.css', 'max-width', 'calc(-51px + 100%)');
 });
 
 Then('Pod component has displayEditButtonOnHover property', () => {

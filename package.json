@@ -1,6 +1,6 @@
 {
   "name": "carbon-react",
-  "version": "7.4.1",
+  "version": "7.4.2",
   "description": "A library of reusable React components and an interface for easily building user interfaces based on Flux.",
   "engineStrict": true,
   "engines": {
@@ -15,8 +15,8 @@
     "test": "jest --config=./jest.conf.json",
     "test-update": "jest --config=./jest.conf.json --updateSnapshot",
     "test-cypress": "cypress open",
-    "test-cypress-build": "cypress run --spec ./cypress/features/build/build.feature --env TAGS=@build",
-    "test-cypress-sanity": "cypress run --spec ./cypress/features/sanity/sanity.feature --env TAGS=@sanity",
+    "test-cypress-build": "cypress run --spec ./cypress/features/build/build.feature",
+    "test-cypress-accessibility": "cypress run --spec ./cypress/features/accessibility/accessibility.feature",
     "test-cypress-regression": "cypress run --spec ./cypress/features/regression/*.feature",
     "test-storybook-smoke": "./node_modules/.bin/start-storybook -p 9009 -c .storybook --ci --smoke-test",
     "debug": "node --inspect ./node_modules/jest-cli/bin/jest --watch --config=./jest.conf.json",

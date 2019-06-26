@@ -5,7 +5,7 @@ Feature: Filter Component
     Given I open "Filter Component" component page
 
   @positive
-  Scenario Outline: Change label align
+  Scenario Outline: Change label align to <align>
     When I select labelAlign to "<align>"
     Then Filter label align property is set to "<align>"
     Examples:

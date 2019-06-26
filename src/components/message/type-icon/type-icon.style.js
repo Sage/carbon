@@ -6,11 +6,12 @@ import typeIconClassicStyle from './type-icon-classic.style';
 
 const TypeIconStyle = styled.div`
   align-items: center;
+  background-color: ${({ theme, variant }) => theme.colors[variant]};
   display: flex;
   justify-content: center;
-  text-align: center;
+  line-height: 100%;
   min-width: 30px;
-  background-color: ${({ theme, variant }) => theme.colors[variant]};
+  text-align: center;
   span {
     &:before {
       color: ${({ theme }) => theme.colors.white};

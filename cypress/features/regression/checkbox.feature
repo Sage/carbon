@@ -56,7 +56,7 @@ Feature: Checkbox component
       # | <>                       |
 
   @positive
-  Scenario Outline: Change Checkbox input width
+  Scenario Outline: Change Checkbox input width to <width>
     When I set inputWidth slider to <width>
     Then checkbox inputWidth is set to <width>
     Examples:
@@ -102,7 +102,7 @@ Feature: Checkbox component
     Then Checkbox label property is not set to "inline"
 
   @positive
-  Scenario Outline: Change Checkbox label width
+  Scenario Outline: Change Checkbox label width to <width>
     When I check labelInline checkbox
       And I set label width slider to <width>
     Then Checkbox label width is set to <width>
@@ -125,7 +125,7 @@ Feature: Checkbox component
       | 1000  |
 
   @positive
-  Scenario Outline: Change Checkbox label align
+  Scenario Outline: Change Checkbox label align to <direction>
     When I check labelInline checkbox
       And I select labelAlign to "<direction>"
     Then labelAlign on preview is "<direction>"

@@ -84,7 +84,7 @@ Feature: Table component
 
   @positive
   Scenario Outline: Set caption to <caption>
-    When I set Caption to "<caption>"
+    When I set caption to "<caption>"
     Then caption is set to "<caption>"
     Examples:
       | caption                 |
