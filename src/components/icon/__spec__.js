@@ -36,7 +36,7 @@ describe('Icon', () => {
   describe('renderIcon', () => {
     icons.forEach((icon) => {
       it(`calls the render ${icon} icon method`, () => {
-        instance = TestUtils.renderIntoDocument(<Icon type={icon} />);
+        instance = TestUtils.renderIntoDocument(<Icon type={ icon } />);
         instance.renderIcon;
         span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
         svg = span.children[0];
@@ -46,14 +46,14 @@ describe('Icon', () => {
   });
 
   describe("mis matched pairs of props and icons retrieved", () => {
-    let mismatchedPairs = [{ prop: 'help', rendersAs: 'question' },
-    { prop: 'maintenance', rendersAs: 'settings' },
-    { prop: 'new', rendersAs: 'gift' },
-    { prop: 'success', rendersAs: 'tick' }];
+    let mismatchedPairs = [ { prop: 'help',        rendersAs: 'question' },
+                            { prop: 'maintenance', rendersAs: 'settings' },
+                            { prop: 'new',         rendersAs: 'gift' },
+                            { prop: 'success',     rendersAs: 'tick' } ];
 
     mismatchedPairs.forEach((mismatchedPair) => {
       it(`renders ${mismatchedPair.prop} as ${mismatchedPair.rendersAs}`, () => {
-        instance = TestUtils.renderIntoDocument(<Icon type={mismatchedPair.prop} />);
+        instance = TestUtils.renderIntoDocument(<Icon type={ mismatchedPair.prop } />);
         span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
         expect(span.className).toEqual(`carbon-icon icon-${mismatchedPair.rendersAs}`);
       });
@@ -88,7 +88,7 @@ describe('Icon', () => {
         it('renders with no size class', () => {
           let size = 'medium';
 
-          instance = TestUtils.renderIntoDocument(<Icon type='foo' bgSize={size} />);
+          instance = TestUtils.renderIntoDocument(<Icon type='foo' bgSize={ size } />);
           span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
           expect(span.className).not.toContain(`carbon-icon--${size}`);
         });
@@ -98,7 +98,7 @@ describe('Icon', () => {
         it('renders background span with size class', () => {
           let size = 'medium';
 
-          instance = TestUtils.renderIntoDocument(<Icon type='foo' bgSize={size} bgShape='circle' />);
+          instance = TestUtils.renderIntoDocument(<Icon type='foo' bgSize={ size } bgShape='circle' />);
           span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
           expect(span.className).toContain(`carbon-icon--${size}`);
         });
@@ -108,7 +108,7 @@ describe('Icon', () => {
         it('renders background span with size class', () => {
           let size = 'medium';
 
-          instance = TestUtils.renderIntoDocument(<Icon type='foo' bgSize={size} bgTheme='error' />);
+          instance = TestUtils.renderIntoDocument(<Icon type='foo' bgSize={ size } bgTheme='error' />);
           span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
           expect(span.className).toContain(`carbon-icon--${size}`);
         });
@@ -119,7 +119,7 @@ describe('Icon', () => {
       it('renders with shape classes', () => {
         let shape = 'circle';
 
-        instance = TestUtils.renderIntoDocument(<Icon type='foo' bgShape={shape} />);
+        instance = TestUtils.renderIntoDocument(<Icon type='foo' bgShape={ shape } />);
         span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
         expect(span.className).toContain('carbon-icon--shape');
         expect(span.className).toContain(`carbon-icon--${shape}`);
@@ -130,7 +130,7 @@ describe('Icon', () => {
       it('renders background span with color classes', () => {
         let color = 'success';
 
-        instance = TestUtils.renderIntoDocument(<Icon type='foo' bgTheme={color} />);
+        instance = TestUtils.renderIntoDocument(<Icon type='foo' bgTheme={ color } />);
         span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
         expect(span.className).toContain('carbon-icon--shape');
         expect(span.className).toContain(`carbon-icon--${color}`);
@@ -140,7 +140,7 @@ describe('Icon', () => {
 
   describe('when passed a tooltipMessage', () => {
     it('renders a tooltip', () => {
-      const wrapper = mount(<Icon type='info' tooltipMessage='Helpful content' />);
+      const wrapper = mount(<Icon type='info' tooltipMessage='Helpful content'/>);
       wrapper.setState({ isVisible: true });
       const tooltip = wrapper.find(Tooltip);
       expect(tooltip.length).toEqual(1);
@@ -149,7 +149,7 @@ describe('Icon', () => {
 
   describe("tags", () => {
     describe("on component", () => {
-      let wrapper = mount(<Icon data-role='baz' type='tick' />);
+      let wrapper = mount(<Icon data-role='baz' type='tick'/>);
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapper.find('.carbon-icon'), 'icon', 'tick', 'baz');
       });
@@ -172,3 +172,4 @@ describe('Icon', () => {
     });
   });
 });
+
