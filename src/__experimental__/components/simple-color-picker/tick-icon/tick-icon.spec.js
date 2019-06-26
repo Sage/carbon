@@ -25,7 +25,7 @@ describe('StyledTickIcon', () => {
     });
 
     it('applies white icon on the dark background', () => {
-      wrapper = render({ checked: true, color: '#000' });
+      wrapper = render({ checked: true, color: '#000000' });
       assertStyleMatch(
         {
           color: baseTheme.colors.white
@@ -36,7 +36,7 @@ describe('StyledTickIcon', () => {
     });
 
     it('applies black icon on the light background', () => {
-      wrapper = render({ checked: true, color: '#fff' });
+      wrapper = render({ checked: true, color: '#ffffff' });
       assertStyleMatch(
         {
           color: baseTheme.text.color
