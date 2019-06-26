@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import { commonKnobs } from './table-story-knobs';
 import countriesList from '../../../../demo/data/countries';
 import Button from '../../button';
 import MultiActionButton from '../../multi-action-button';
@@ -17,11 +16,11 @@ import TextArea from '../../../__experimental__/components/textarea';
 import TextBox from '../../../__experimental__/components/textbox';
 import DateInput from '../../../__experimental__/components/date';
 import getTextboxStoryProps from '../../../__experimental__/components/textbox/textbox.stories';
-import OptionsHelper from '../../../utils/helpers/options-helper';
+import OptionsHelper from '../../../utils/helpers/options-helper/options-helper';
 
 const store = new Store({
-  sortOrder: commonKnobs().sortOrder,
-  sortedColumn: commonKnobs().sortedColumn,
+  sortOrder: 'asc',
+  sortedColumn: 'name',
   currentPage: '1',
   children: undefined
 });
