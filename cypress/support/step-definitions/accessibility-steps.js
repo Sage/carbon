@@ -1,4 +1,4 @@
-import { violations } from '../../locators/sanity';
+import { violations } from '../../locators/accessibility';
 import { clickAccessebilityTab, reRunAccesibilityTests } from '../helper';
 
 Then('{string} component has no violations in Accessibility section', () => {
