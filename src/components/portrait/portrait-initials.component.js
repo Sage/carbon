@@ -4,21 +4,6 @@ import PropTypes from 'prop-types';
 import Browser from '../../utils/helpers/browser';
 
 class PortraitInitials extends React.Component {
-  static propTypes = {
-    /** A custom CSS class for the component. */
-    className: PropTypes.string,
-    /** The user's initials to render. */
-    initials: PropTypes.string.isRequired,
-    /** The dimensions (size) of the canvas, in pixels. */
-    dimensions: PropTypes.number.isRequired,
-    /** Color of the text. */
-    textColor: PropTypes.string.isRequired,
-    /** Color of the background. */
-    bgColor: PropTypes.string.isRequired,
-    /** The `alt` HTML string. */
-    alt: PropTypes.string
-  }
-
   /** Cache of the initials graphic. */
   cachedImageDataUrl = null;
 
@@ -99,5 +84,20 @@ class PortraitInitials extends React.Component {
     );
   }
 }
+
+PortraitInitials.propTypes = {
+  /** A custom CSS class for the component. */
+  className: PropTypes.string,
+  /** The user's initials to render. */
+  initials: PropTypes.string.isRequired,
+  /** The dimensions (size) of the canvas, in pixels. */
+  dimensions: PropTypes.number.isRequired,
+  /** Color of the text. */
+  textColor: PropTypes.string.isRequired,
+  /** Color of the background. */
+  bgColor: PropTypes.string.isRequired,
+  /** The `alt` HTML string. */
+  alt: PropTypes.string
+};
 
 export default PortraitInitials;
