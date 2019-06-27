@@ -7,7 +7,8 @@ import {
   ProfileStyle,
   ProfileNameStyle,
   ProfileDetailsStyle,
-  ProfileAvatarStyle
+  ProfileAvatarStyle,
+  ProfileEmailStyle
 } from './profile.style';
 
 class Profile extends React.Component {
@@ -20,7 +21,7 @@ class Profile extends React.Component {
 
   /** Returns the initials for the name. */
   get initials() {
-    if (this.props.initials) { return this.props.initials; }
+    if (this.props.initials) return this.props.initials;
     return acronymize(this.props.name);
   }
 
@@ -30,7 +31,7 @@ class Profile extends React.Component {
       <ProfileAvatarStyle
         initials={ this.initials }
         gravatar={ this.props.email }
-        size='medium-small'
+        size={ this.props.size || 'medium-small' }
       />
     );
   }
@@ -38,13 +39,13 @@ class Profile extends React.Component {
   /** Returns the text portion of the profile. */
   get text() {
     return (
-      <ProfileDetailsStyle>
-        <ProfileNameStyle data-element='name'>
+      <ProfileDetailsStyle size={ this.props.size }>
+        <ProfileNameStyle size={ this.props.size } data-element='name'>
           { this.props.name }
         </ProfileNameStyle><br />
-        <span data-element='email'>
+        <ProfileEmailStyle size={ this.props.size } data-element='email'>
           { this.props.email }
-        </span>
+        </ProfileEmailStyle>
       </ProfileDetailsStyle>
     );
   }
@@ -71,8 +72,10 @@ Profile.propTypes = {
   email: PropTypes.string.isRequired,
   /** Define initials to display if there is no Gravatar image. */
   initials: PropTypes.string,
-  /** Enable a larger theme for the name. */
-  large: PropTypes.bool
+  /** [Legacy] Enable a larger theme for the name. */
+  large: PropTypes.bool,
+  /** Allow to setup size for the component */
+  size: PropTypes.string
 };
 
 Profile.defaultProps = {
