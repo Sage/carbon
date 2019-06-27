@@ -26,9 +26,9 @@ const PillStyle = styled.span`
     colorVariant, theme, inFill, isDeletable, pillRole
   }) => {
     const { colors } = baseTheme;
-    const correctedTheme = setTheme(theme);
-    const styleSet = styleConfig(correctedTheme)[pillRole];
-    const { boxShadow, hoverColor } = styleConfig(correctedTheme);
+    const correctedThemeConfig = styleConfig(setTheme(theme));
+    const styleSet = correctedThemeConfig[pillRole];
+    const { boxShadow, hoverColor } = correctedThemeConfig;
     Object.assign(styleSet, {
       boxShadow,
       hoverColor
