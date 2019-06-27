@@ -82,7 +82,8 @@ export default (palette) => {
     },
 
     pill: {
-      neutral: palette.slateTint(30)
+      neutral: palette.slateTint(30),
+      warning: '#ED8333'
     },
 
     shadows: {

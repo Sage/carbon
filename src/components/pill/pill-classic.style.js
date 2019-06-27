@@ -11,37 +11,37 @@ export const classicStyleConfig = {
   },
   error: {
     color: '#C7384F',
-    hoverBackgroundColor: '#C11E20',
+    hoverBackgroundColor: '#004b87',
     hoverColor: '#FFFFFF'
   },
   help: {
     color: '#FFAB00',
-    hoverBackgroundColor: '#FFDA7F',
+    hoverBackgroundColor: '#004b87',
     hoverColor: '#FFFFFF'
   },
   info: {
     color: '#1573E6',
-    hoverBackgroundColor: '#1573E6',
+    hoverBackgroundColor: '#004b87',
     hoverColor: '#FFFFFF'
   },
   maintenance: {
     color: '#FF7D00',
-    hoverBackgroundColor: '#FF5400',
+    hoverBackgroundColor: '#004b87',
     hoverColor: '#FFFFFF'
   },
   warning: {
     color: '#FF7D00',
-    hoverBackgroundColor: '#FF5400',
+    hoverBackgroundColor: '#004b87',
     hoverColor: '#FFFFFF'
   },
   new: {
     color: '#663399',
-    hoverBackgroundColor: '#E0D6EB',
+    hoverBackgroundColor: '#004b87',
     hoverColor: '#FFFFFF'
   },
   success: {
     color: '#50B848',
-    hoverBackgroundColor: '#4782F7',
+    hoverBackgroundColor: '#004b87',
     hoverColor: '#FFFFFF'
   }
 };

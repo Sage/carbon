@@ -48,10 +48,10 @@ const PillStyle = styled.span`
 
       ${inFill && css`
         background-color: ${styleSet[color]};
-        color: ${colors.white};
+        color: ${(color === 'warning') ? colors.black : colors.white};
 
         .carbon-icon.icon-cross {
-          color: ${colors.white};
+          color: ${(color === 'warning') ? colors.black : colors.white};
         }
       `}
 
@@ -103,12 +103,12 @@ const PillStyle = styled.span`
 
             &:hover,
             &:focus {
-              color: ${styleSet.hoverColor};
+              color: ${(color === 'warning') ? colors.black : styleSet.hoverColor};
             }
 
             ${inFill && css`
               .carbon-icon {
-                color: ${styleSet[color]};
+                color: ${(color === 'warning') ? colors.black : styleSet.hoverColor};
               }
             `}
           }
