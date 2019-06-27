@@ -83,7 +83,10 @@ export default (palette) => {
 
     pill: {
       neutral: palette.slateTint(30),
-      warning: '#ED8333'
+      warning: palette.carrotOrangeTint(20),
+      neutralBackgroundFocus: palette.slateTint(10),
+      warningButtonFocus: palette.carrotOrange,
+      errorButtonFocus: palette.errorRedShade(20)
     },
 
     shadows: {

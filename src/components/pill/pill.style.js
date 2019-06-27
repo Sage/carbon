@@ -33,10 +33,10 @@ const PillStyle = styled.span`
       boxShadow,
       hoverColor
     });
-    const color = (pillRole === 'status') ? colorVariant : 'primary';
+    const variety = (pillRole === 'status') ? colorVariant : 'primary';
 
     return css`
-      border: 2px solid ${styleSet[color]};
+      border: 2px solid ${styleSet[variety].color};
       border-radius: 12px;
       font-size: 14px;
       padding: 2px 7px;
@@ -47,11 +47,11 @@ const PillStyle = styled.span`
       min-height: 15px;
 
       ${inFill && css`
-        background-color: ${styleSet[color]};
-        color: ${(color === 'warning') ? colors.black : colors.white};
+        background-color: ${styleSet[variety].color};
+        color: ${(variety === 'warning') ? colors.black : colors.white};
 
         .carbon-icon.icon-cross {
-          color: ${(color === 'warning') ? colors.black : colors.white};
+          color: ${(variety === 'warning') ? colors.black : colors.white};
         }
       `}
 
@@ -76,7 +76,7 @@ const PillStyle = styled.span`
           width: 17px;
 
           ${inFill && css`
-            background-color: ${styleSet[color]};
+            background-color: ${styleSet[variety].color};
           `}
 
           ${!inFill && css`
@@ -86,12 +86,12 @@ const PillStyle = styled.span`
           &:focus {
             outline: none;
             box-shadow: 0 0 0 3px ${styleSet.boxShadow};
-            background-color: ${styleSet[color]};
-            color: ${(color === 'warning') ? colors.black : styleSet.hoverColor};
+            background-color: ${styleSet[variety].buttonFocus};
+            color: ${(variety === 'warning') ? colors.black : styleSet.hoverColor};
           }
 
           &:hover {
-            background-color: ${styleSet[color]};
+            background-color: ${styleSet[variety]};
             color: ${styleSet.hoverColor};
           }
  
@@ -105,12 +105,12 @@ const PillStyle = styled.span`
 
             &:hover,
             &:focus {
-              color: ${(color === 'warning') ? colors.black : styleSet.hoverColor};
+              color: ${(variety === 'warning') ? colors.black : styleSet.hoverColor};
             }
 
             ${inFill && css`
               .carbon-icon {
-                color: ${(color === 'warning') ? colors.black : styleSet.hoverColor};
+                color: ${(variety === 'warning') ? colors.black : styleSet.hoverColor};
               }
             `}
           }

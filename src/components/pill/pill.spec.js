@@ -153,21 +153,44 @@ describe('Pill', () => {
               });
 
               describe('when the component is in a filled state', () => {
-                const style = 'neutral';
-                const fillWrapper = render({
-                  children: 'My Text',
-                  onDelete: jest.fn(),
-                  colorVariant: style,
-                  pillRole,
-                  fill: true,
-                  theme
+                describe('when the style is not warning', () => {
+                  const style = 'neutral';
+                  const fillWrapper = render({
+                    children: 'My Text',
+                    onDelete: jest.fn(),
+                    colorVariant: style,
+                    pillRole,
+                    fill: true,
+                    theme
+                  });
+  
+                  it(`matches the expected filled styling for ${style}`, () => {
+                    assertStyleMatch({
+                      backgroundColor: styleSet[style].color,
+                      color: theme.colors.white
+                    }, fillWrapper);
+                  });
                 });
 
-                it(`matches the expected filled styling for ${style}`, () => {
-                  assertStyleMatch({
-                    backgroundColor: styleSet[style]
-                  }, fillWrapper);
+                describe('when the style is warning', () => {
+                  const style = 'warning';
+                  const fillWrapper = render({
+                    children: 'My Text',
+                    onDelete: jest.fn(),
+                    colorVariant: style,
+                    pillRole,
+                    fill: true,
+                    theme
+                  });
+  
+                  it(`matches the expected filled styling for ${style}`, () => {
+                    assertStyleMatch({
+                      backgroundColor: styleSet[style].color,
+                      color: theme.colors.black
+                    }, fillWrapper);
+                  });
                 });
+                
               });
             });
 
@@ -184,7 +207,7 @@ describe('Pill', () => {
 
                   it(`matches the expected styling for ${style}`, () => {
                     assertStyleMatch({
-                      border: `2px solid ${styleSet[style]}`
+                      border: `2px solid ${styleSet[style].color}`
                     }, wrapper);
                   });
                 });
@@ -200,7 +223,7 @@ describe('Pill', () => {
 
                   it(`matches the expected filled styling for ${style}`, () => {
                     assertStyleMatch({
-                      backgroundColor: styleSet[style]
+                      backgroundColor: styleSet[style].color
                     }, fillWrapper);
                   });
                 });
@@ -224,7 +247,7 @@ describe('Pill', () => {
 
                 it(`matches the expected filled styling for ${style}`, () => {
                   assertStyleMatch({
-                    backgroundColor: styleSet[style]
+                    backgroundColor: styleSet[style].color
                   }, fillWrapper);
                 });
               });
