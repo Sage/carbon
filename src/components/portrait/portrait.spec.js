@@ -7,9 +7,9 @@ import mediumTheme from '../../style/themes/medium';
 import Browser from '../../utils/helpers/browser';
 import Portrait from './portrait.component';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
-import {
-  StyledIcon, StyledPortraitInitials, StyledPortraitGravatar, StyledCustomImg
-} from './portrait.style';
+import { StyledIcon, StyledCustomImg } from './portrait.style';
+import PortraitInitials from './portrait-initials.component';
+import PortraitGravatar from './portrait-gravatar.component';
 
 const mockCanvasDataURL = 'data:image/png';
 
@@ -228,8 +228,8 @@ describe('PortraitComponent', () => {
   });
 
   describe('render initials', () => {
-    const styledPortraitInitials = (
-      <StyledPortraitInitials
+    const portraitInitials = (
+      <PortraitInitials
         size='medium'
         initials='AB'
         darkBackground={ false }
@@ -240,28 +240,28 @@ describe('PortraitComponent', () => {
     it('renders initials when supplied with Gravatar and initials but no src', () => {
       renderClassic(<Portrait gravatar='example@example.com' initials='AB' />);
       const wrapper = shallowDLS(<Portrait gravatar='example@example.com' initials='AB' />);
-      expect(wrapper.contains(styledPortraitInitials)).toEqual(true);
+      expect(wrapper.contains(portraitInitials)).toEqual(true);
     });
 
     it('renders empty alt attribute when alt prop is empty', () => {
       const wrapper = shallowDLS(<Portrait initials='AB' alt='' />);
-      expect(wrapper.contains(styledPortraitInitials)).toEqual(true);
+      expect(wrapper.contains(portraitInitials)).toEqual(true);
     });
 
     it('renders empty alt attribute when alt prop is not supplied', () => {
       renderDLS(<Portrait initials='AB' />);
       const wrapper = shallowDLS(<Portrait initials='AB' />);
-      expect(wrapper.contains(styledPortraitInitials)).toEqual(true);
+      expect(wrapper.contains(portraitInitials)).toEqual(true);
     });
 
     it("doesn't render initials when supplied with src", () => {
       const wrapper = shallowDLS(<Portrait src='https://example.com/example.jpg' />);
-      expect(wrapper.contains(styledPortraitInitials)).toEqual(false);
+      expect(wrapper.contains(portraitInitials)).toEqual(false);
     });
 
     it("doesn't render initials when supplied with Gravatar and empty initials but no src", () => {
       const wrapper = shallowDLS(<Portrait gravatar='example@example.com' initials='' />);
-      expect(wrapper.contains(styledPortraitInitials)).toEqual(false);
+      expect(wrapper.contains(portraitInitials)).toEqual(false);
     });
 
     it('can render the DLS theme', () => {
@@ -269,9 +269,9 @@ describe('PortraitComponent', () => {
       const props = {
         size: 'medium', initials: 'AB', darkBackground: false, theme: mediumTheme
       };
-      renderDLS(<StyledPortraitInitials { ...props } />);
+      renderDLS(<PortraitInitials { ...props } />);
       props.darkBackground = true;
-      renderDLS(<StyledPortraitInitials { ...props } />);
+      renderDLS(<PortraitInitials { ...props } />);
       expect(console.error).toHaveBeenCalledTimes(0); // eslint-disable-line no-console
     });
 
@@ -280,9 +280,9 @@ describe('PortraitComponent', () => {
       const props = {
         size: 'medium', initials: 'AB', darkBackground: false, theme: classicTheme
       };
-      renderClassic(<StyledPortraitInitials { ...props } />);
+      renderClassic(<PortraitInitials { ...props } />);
       props.darkBackground = true;
-      renderClassic(<StyledPortraitInitials { ...props } />);
+      renderClassic(<PortraitInitials { ...props } />);
       expect(console.error).toHaveBeenCalledTimes(0); // eslint-disable-line no-console
     });
   });
@@ -291,8 +291,8 @@ describe('PortraitComponent', () => {
     const gravatarEmail = 'example@example.com';
 
     it('renders the Gravatar for the specified email address', () => {
-      const styledPortraitGravatar = (
-        <StyledPortraitGravatar
+      const portraitGravatar = (
+        <PortraitGravatar
           gravatarEmail={ gravatarEmail }
           size='medium'
           alt='foo'
@@ -301,13 +301,13 @@ describe('PortraitComponent', () => {
       const wrapper = shallowDLS(
         <Portrait gravatar={ gravatarEmail } alt='foo' />
       );
-      expect(wrapper.contains(styledPortraitGravatar)).toEqual(true);
+      expect(wrapper.contains(portraitGravatar)).toEqual(true);
     });
 
     it('can render the Classic theme', () => {
       spyOn(console, 'error');
       renderClassic(
-        <StyledPortraitGravatar
+        <PortraitGravatar
           gravatarEmail={ gravatarEmail }
           size='medium'
           alt='foo'

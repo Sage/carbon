@@ -1,8 +1,9 @@
 import React from 'react';
-import { shallow } from 'enzyme';
-import ReactTestUtils from 'react-dom/test-utils';
+import TestRenderer from 'react-test-renderer';
 import Browser from '../../utils/helpers/browser';
 import PortraitInitials from './portrait-initials.component';
+import smallTheme from '../../style/themes/small';
+import mediumTheme from '../../style/themes/medium';
 
 const mockCanvasDataURL = 'data:image/png';
 
@@ -21,6 +22,9 @@ const mockDocumentWithCanvas = {
   })
 };
 
+function render(component) {
+  return TestRenderer.create(component).toTree().instance;
+}
 
 describe('PortraitInitials', () => {
   beforeAll(() => {
@@ -29,19 +33,24 @@ describe('PortraitInitials', () => {
 
   describe('componentWillReceiveProps', () => {
     const originalProps = {
-      initials: 'foo', dimensions: 30, textColor: '#ffffff', bgColor: '#000000'
+      initials: 'foo', size: 'medium', darkBackground: false, theme: mediumTheme
     };
     const cachedImageDataUrl = 'foobar';
-    let props, wrapper, instance;
+    let props, instance;
 
     beforeAll(() => {
-      wrapper = shallow(<PortraitInitials { ...originalProps } />);
-      instance = wrapper.instance();
+      instance = render(<PortraitInitials { ...originalProps } />);
     });
 
     beforeEach(() => {
       props = { ...originalProps };
       instance.cachedImageDataUrl = cachedImageDataUrl;
+    });
+
+    it('clears the cached initials if theme changes', () => {
+      props.theme = smallTheme;
+      instance.componentWillReceiveProps(props);
+      expect(instance.cachedImageDataUrl).toEqual(null);
     });
 
     it('clears the cached initials if initials change', () => {
@@ -50,20 +59,14 @@ describe('PortraitInitials', () => {
       expect(instance.cachedImageDataUrl).toEqual(null);
     });
 
-    it('clears the cached initials if dimensions change', () => {
-      props.dimensions = 40;
+    it('clears the cached initials if size changes', () => {
+      props.size = 'large';
       instance.componentWillReceiveProps(props);
       expect(instance.cachedImageDataUrl).toEqual(null);
     });
 
-    it('clears the cached initials if textColor changes', () => {
-      props.textColor = '#aaaaaa';
-      instance.componentWillReceiveProps(props);
-      expect(instance.cachedImageDataUrl).toEqual(null);
-    });
-
-    it('clears the cached initials if bgColor changes', () => {
-      props.bgColor = '#444444';
+    it('clears the cached initials if darkBackground changes', () => {
+      props.darkBackground = true;
       instance.componentWillReceiveProps(props);
       expect(instance.cachedImageDataUrl).toEqual(null);
     });
@@ -78,12 +81,11 @@ describe('PortraitInitials', () => {
     let instance;
 
     beforeEach(() => {
-      instance = ReactTestUtils.renderIntoDocument(
+      instance = render(
         <PortraitInitials
+          theme={ mediumTheme }
           initials='abc'
-          dimensions={ 30 }
-          textColor='#ffffff'
-          bgColor='#000000'
+          size='medium'
         />
       );
     });
@@ -107,12 +109,11 @@ describe('PortraitInitials', () => {
 
     it('returns first 3 initials uppercased if more than 3 are supplied', () => {
       spyOn(canvasContext, 'fillText');
-      const instance = ReactTestUtils.renderIntoDocument(
+      const instance = render(
         <PortraitInitials
+          theme={ mediumTheme }
           initials='abcde'
-          dimensions={ 30 }
-          textColor='#ffffff'
-          bgColor='#000000'
+          size='medium'
         />
       );
       instance.applyText(canvasContext, 30);
@@ -122,17 +123,16 @@ describe('PortraitInitials', () => {
     it('uses the specified text color and background color', () => {
       const textColor = '#111111';
       const bgColor = '#222222';
-      const instance = ReactTestUtils.renderIntoDocument(
+      const instance = render(
         <PortraitInitials
+          theme={ mediumTheme }
           initials='abc'
-          dimensions={ 30 }
-          textColor={ textColor }
-          bgColor={ bgColor }
+          size='medium'
         />
       );
-      instance.applyBackground(canvasContext);
+      instance.applyBackground(canvasContext, 30, bgColor);
       expect(canvasContext.fillStyle).toEqual(bgColor);
-      instance.applyText(canvasContext);
+      instance.applyText(canvasContext, 30, textColor);
       expect(canvasContext.fillStyle).toEqual(textColor);
     });
   });
