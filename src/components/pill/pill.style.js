@@ -93,6 +93,7 @@ const PillStyle = styled.span`
           &:hover {
             background-color: ${styleSet[variety].buttonFocus};
             color: ${styleSet.hoverColor};
+            cursor: pointer;
           }
  
           .carbon-icon {
