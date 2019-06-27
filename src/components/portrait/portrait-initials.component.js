@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'styled-components';
+import BaseTheme from '../../style/themes/base';
 import Browser from '../../utils/helpers/browser';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { StyledPortraitInitials, getSizeParams, getColorsForInitials } from './portrait.style';
@@ -101,6 +102,10 @@ PortraitInitials.propTypes = {
   darkBackground: PropTypes.bool,
   /** The `alt` HTML string. */
   alt: PropTypes.string
+};
+
+PortraitInitials.defaultProps = {
+  theme: BaseTheme
 };
 
 export default withTheme(PortraitInitials);

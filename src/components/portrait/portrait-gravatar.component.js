@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MD5 from 'crypto-js/md5';
 import { withTheme } from 'styled-components';
+import BaseTheme from '../../style/themes/base';
 import { StyledPortraitGravatar, getSizeParams } from './portrait.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
@@ -37,6 +38,10 @@ PortraitGravatar.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesFull).isRequired,
   /** The `alt` HTML string. */
   alt: PropTypes.string
+};
+
+PortraitGravatar.defaultProps = {
+  theme: BaseTheme
 };
 
 export default withTheme(PortraitGravatar);
