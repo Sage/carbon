@@ -36,18 +36,14 @@ class Select extends React.Component {
 
   input = {} // this will store a reference to the input html element
 
-  bridge = React.createRef() // this is a reference to the input decorator bridge component
-
   assignInput = (input) => { this.input = input; }
 
   blockBlur() {
     this.blurBlocked = true;
-    this.bridge.current.blockBlur = true; // this is to support the legacy behaviour in the bridge
   }
 
   unblockBlur() {
     this.blurBlocked = false;
-    this.bridge.current.blockBlur = false; // this is to support the legacy behaviour in the bridge
   }
 
   handleBlur = (ev) => {
@@ -115,8 +111,13 @@ class Select extends React.Component {
     }
   }
 
+  openWhenTypeAhead(typeAhead, value) {
+    return typeAhead && value && value.length >= 3;
+  }
+
   openList() {
     if (this.state.open) return;
+
     this.setState({ open: true });
     if (this.props.onOpen) this.props.onOpen();
   }
@@ -151,6 +152,7 @@ class Select extends React.Component {
   }
 
   // returns the correct value to feed into the textbox component
+  // CAN REMOVE PROBS!!!
   value(value) {
     if (this.isMultiValue(value)) return value; // if multi value the returns the full array
     if (value) return value.value; // if single value then returns the id/value
@@ -177,7 +179,9 @@ class Select extends React.Component {
   isMultiValue(value) { return Array.isArray(value); }
 
   placeholder(placeholder, value) {
-    const displayedPlaceHolder = this.props.typeAhead ? 'Type to Search...' : 'Please Select...';
+    let displayedPlaceHolder = this.props.typeAhead ? 'Type to Search...' : 'Please Select...';
+
+    if (placeholder) displayedPlaceHolder = placeholder;
     if (this.isMultiValue(value)) {
       // if multi-value then only show placeholder if nothing is currently selected
       return value.length ? null : displayedPlaceHolder;
@@ -190,6 +194,19 @@ class Select extends React.Component {
     return tagComponent(this.props['data-component'], this.props);
   }
 
+  inputIcon(typeAhead, value) {
+    if (this.openWhenTypeAhead(typeAhead, this.state.filter)) return 'cross';
+    if (typeAhead) return 'search';
+    return this.isMultiValue(value) ? undefined : 'dropdown';
+  }
+
+  get filterProps() {
+    return {
+      filterable: this.props.filterable,
+      typeAhead: this.props.filterable && this.props.typeAhead
+    };
+  }
+
   render() {
     const {
       children,
@@ -200,20 +217,25 @@ class Select extends React.Component {
       onFilter,
       onOpen,
       typeAhead,
+      filterable,
       ...props
     } = this.props;
+
+    const { filter, open } = this.state;
 
     let events = {};
 
     if (!this.props.disabled && !this.props.readOnly) {
       events = {
         onBlur: this.handleBlur,
-        onChange: this.handleFilter,
         onFocus: this.handleFocus,
         onKeyDown: this.handleKeyDown,
         onClick: this.handleClick
       };
+      if (filterable) events.onChange = this.handleFilter;
     }
+
+    const displayList = (this.openWhenTypeAhead((typeAhead), filter) || !typeAhead) ? open : false;
 
     return (
       <>
@@ -221,27 +243,26 @@ class Select extends React.Component {
           { ...props } // this needs to send all of the original props
           { ...this.dataAttributes() }
           data-component='carbon-select'
-          formattedValue={ this.formattedValue(this.state.filter, value) }
-          inputIcon={ this.isMultiValue(value) ? undefined : 'dropdown' }
+          formattedValue={ this.formattedValue(filter, value) }
+          inputIcon={ this.inputIcon(typeAhead, value) }
           inputRef={ this.assignInput }
           placeholder={ this.placeholder(placeholder, value) }
-          ref={ this.bridge }
           value={ this.value(value) }
           leftChildren={ this.isMultiValue(value) && this.renderMultiValues(value) }
           { ...events }
         >
-          { this.state.open && (
+          { displayList && (
             <SelectList
-              alwaysHighlight={ !!this.state.filter } // only always ensure something is highlighted if filter
+              alwaysHighlight={ !!filter } // always ensure something is highlighted only if there's a filter
               customFilter={ customFilter }
-              filterValue={ this.state.filter }
+              filterValue={ filter }
               onLazyLoad={ onLazyLoad }
               onMouseEnter={ this.handleMouseEnter }
               onMouseLeave={ this.handleMouseLeave }
               onSelect={ this.handleChange }
-              open={ this.state.open }
+              open={ open }
               target={ this.input.current && this.input.current.parentElement }
-              typeAhead={ typeAhead }
+              { ...this.filterProps }
             >
               { children }
             </SelectList>
@@ -276,10 +297,12 @@ Select.propTypes = {
     PropTypes.arrayOf(optionShape)
   ]),
   'data-component': PropTypes.string,
-  typeAhead: PropTypes.bool
+  typeAhead: PropTypes.bool,
+  filterable: PropTypes.bool
 };
 
 Select.defaultProps = {
+  filterable: true,
   typeAhead: false
 };
 

@@ -90,7 +90,7 @@ class SelectList extends React.Component {
     // build JSX object
     const newValue = [
       <span key='beginning'>{ beginning }</span>,
-      <strong key='middle'><u>{ middle }</u></strong>,
+      <strong key='middle'>{ middle }</strong>,
       <span key='end'>{ end }</span>
     ];
 

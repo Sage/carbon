@@ -14,6 +14,8 @@ const multiSelectStore = new Store({
 });
 
 const commonKnobs = (store) => {
+  const filterable = boolean('filterable', Select.defaultProps.filterable);
+
   return {
     disabled: boolean('disabled'),
     errorMessage: text('errorMessage'),
@@ -26,7 +28,8 @@ const commonKnobs = (store) => {
     readOnly: boolean('readOnly'),
     size: select('size', OptionsHelper.sizesRestricted),
     warningMessage: text('warningMessage'),
-    typeAhead: boolean('typeAhead')
+    filterable,
+    typeAhead: filterable && boolean('typeAhead', Select.defaultProps.typeAhead)
   };
 };
 

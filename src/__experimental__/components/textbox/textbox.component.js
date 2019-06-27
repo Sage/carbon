@@ -46,7 +46,7 @@ Textbox.propTypes = {
   formattedValue: PropTypes.string,
   value: PropTypes.oneOfType([
     PropTypes.string,
-    PropTypes.array // Allows the textbox to be used in the Multi-Select componetn
+    PropTypes.array // Allows the textbox to be used in the Multi-Select component
   ]),
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
