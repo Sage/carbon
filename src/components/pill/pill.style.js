@@ -62,11 +62,6 @@ const PillStyle = styled.span`
       ${!isClassic(theme, colorVariant) && isDeletable && css`
         padding: 2px 27px 2px 8px;
 
-        &:hover,
-        &:focus {
-          box-shadow: 0 0 0 3px ${styleSet.boxShadow};
-        }
-
         button {
           -webkit-appearance: none;
           border-radius: 0 9px 9px 0;
@@ -87,6 +82,11 @@ const PillStyle = styled.span`
           ${!inFill && css`
             background-color: transparent;
           `}
+
+          &:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px ${styleSet.boxShadow};
+          }
 
           &:hover {
             background-color: ${styleSet[color]};
