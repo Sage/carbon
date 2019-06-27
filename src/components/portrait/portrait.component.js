@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import tagComponent from '../../utils/helpers/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import StyledPortrait, {
-  StyledPortraitInitials, StyledPortraitGravatar, StyledCustomImg, StyledIcon
-} from './portrait.style';
+import PortraitGravatar from './portrait-gravatar.component';
+import PortraitInitials from './portrait-initials.component';
+import StyledPortrait, { StyledCustomImg, StyledIcon } from './portrait.style';
 
 function Portrait(props) {
   const {
@@ -39,7 +39,7 @@ function Portrait(props) {
 
       {showInitials
         && (
-          <StyledPortraitInitials
+          <PortraitInitials
             size={ size }
             initials={ initials }
             darkBackground={ darkBackground }
@@ -50,7 +50,7 @@ function Portrait(props) {
 
       {showGravatar
         && (
-          <StyledPortraitGravatar
+          <PortraitGravatar
             gravatarEmail={ gravatar }
             size={ size }
             alt={ alt }
