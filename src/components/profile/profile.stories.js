@@ -11,7 +11,7 @@ storiesOf('Profile', module)
   .add('default', () => {
     const email = text('email', 'johnsmith@sage.com');
     const initials = text('initials', 'JS');
-    const size = select('size', OptionsHelper.sizesFull);
+    const size = select('size', OptionsHelper.sizesFull, OptionsHelper.sizesFull[0]);
     const name = text('name', 'John Smith');
 
     return (
