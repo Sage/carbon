@@ -1,8 +1,37 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`PortraitContainer render classes renders the large class if applied 1`] = `
+.c3 {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}
+
 .c4 {
+  display: inline-block;
+  position: absolute;
+  width: 40px;
+  height: 40px;
+}
+
+.c2 {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  overflow: hidden;
+  width: 40px;
+  height: 40px;
+  border-radius: 0px;
+}
+
+.c6 {
   font-weight: bold;
+  display: inline-block;
+  font-size: 14px;
+}
+
+.c7 {
+  font-size: 14px;
 }
 
 .c0 {
@@ -10,17 +39,11 @@ exports[`PortraitContainer render classes renders the large class if applied 1`]
   color: rgba(0,0,0,0.9);
 }
 
-.c0 .c3 {
-  font-size: 20px;
-  font-weight: 400;
-  line-height: 21px;
-}
-
-.c2 {
-  margin-left: 14px;
+.c5 {
   vertical-align: middle;
   display: inline-block;
   line-height: 16px;
+  margin-left: 16px;
 }
 
 .c1 {
@@ -32,34 +55,39 @@ exports[`PortraitContainer render classes renders the large class if applied 1`]
   data-component="profile"
 >
   <div
-    className="carbon-portrait carbon-portrait--image carbon-portrait--medium-small carbon-portrait--standard c1"
+    alt=""
+    className="c1 c2"
     data-component="portrait"
+    shape="standard"
+    size="medium-small"
   >
     <img
-      alt=""
-      className="carbon-portrait__img carbon-portrait__initials"
+      className="c3"
       data-element="initials"
       src="data:image/png"
     />
     <img
-      alt=""
-      className="carbon-portrait__img carbon-portrait__avatar"
+      className="c4"
       data-element="user-image"
       src="https://www.gravatar.com/avatar/f3ada405ce890b6f8204094deb12d8a8?s=40&d=blank"
     />
   </div>
   <div
-    className="c2"
+    className="c5"
+    size="medium-small"
   >
     <span
-      className="c3 c4"
+      className="c6"
       data-element="name"
+      size="medium-small"
     >
       Foo
     </span>
     <br />
     <span
+      className="c7"
       data-element="email"
+      size="medium-small"
     >
       foo@bar.com
     </span>
@@ -67,7 +95,7 @@ exports[`PortraitContainer render classes renders the large class if applied 1`]
 </div>
 `;
 
-exports[`ProfileClassicStyle should render correct version if clssic is provided 1`] = `
+exports[`ProfileClassicStyle should render correct version if clssic theme is provided 1`] = `
 .c0 {
   white-space: nowrap;
   color: rgba(0,0,0,0.9);
