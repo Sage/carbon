@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { withTheme } from 'styled-components';
 import Browser from '../../utils/helpers/browser';
+import OptionsHelper from '../../utils/helpers/options-helper';
+import { StyledPortraitInitials, getSizeParams, getColorsForInitials } from './portrait.style';
 
 class PortraitInitials extends React.Component {
   /** Cache of the initials graphic. */
@@ -9,10 +12,10 @@ class PortraitInitials extends React.Component {
   /** Invoked before a mounted component receives new props. */
   componentWillReceiveProps(nextProps) {
     const shouldClearCache = (
-      this.props.initials !== nextProps.initials
-      || this.props.dimensions !== nextProps.dimensions
-      || this.props.textColor !== nextProps.textColor
-      || this.props.bgColor !== nextProps.bgColor
+      this.props.theme !== nextProps.theme
+      || this.props.initials !== nextProps.initials
+      || this.props.size !== nextProps.size
+      || this.props.darkBackground !== nextProps.darkBackground
     );
 
     if (shouldClearCache) {
@@ -26,12 +29,16 @@ class PortraitInitials extends React.Component {
       return this.cachedImageDataUrl;
     }
 
+    const { theme, size, darkBackground } = this.props;
+    const { dimensions } = getSizeParams(theme, size);
+    const { textColor, bgColor } = getColorsForInitials(theme, darkBackground);
+
     let canvas = Browser.getDocument().createElement('canvas');
     let context = canvas.getContext('2d');
 
     // Set canvas with & height
-    canvas.width = this.props.dimensions;
-    canvas.height = this.props.dimensions;
+    canvas.width = dimensions;
+    canvas.height = dimensions;
 
     // Select a font family to support different language characters
     // like Arial
@@ -39,8 +46,8 @@ class PortraitInitials extends React.Component {
     context.textAlign = 'center';
 
     // Setup background and front color
-    context = this.applyBackground(context);
-    context = this.applyText(context);
+    context = this.applyBackground(context, dimensions, bgColor);
+    context = this.applyText(context, dimensions, textColor);
 
     // Set image representation in default format (png)
     const dataURI = canvas.toDataURL();
@@ -54,19 +61,19 @@ class PortraitInitials extends React.Component {
   }
 
   /** Applies the background colour to the canvas. */
-  applyBackground(canvasContext) {
-    canvasContext.fillStyle = this.props.bgColor;
-    canvasContext.fillRect(0, 0, this.props.dimensions, this.props.dimensions);
+  applyBackground(canvasContext, dimensions, bgColor) {
+    canvasContext.fillStyle = bgColor;
+    canvasContext.fillRect(0, 0, dimensions, dimensions);
 
     return canvasContext;
   }
 
   /** Applies the initials text to the canvas. */
-  applyText(canvasContext) {
+  applyText(canvasContext, dimensions, textColor) {
     const letters = this.props.initials.slice(0, 3);
 
-    canvasContext.fillStyle = this.props.textColor;
-    canvasContext.fillText(letters.toUpperCase(), this.props.dimensions / 2, this.props.dimensions / 1.5);
+    canvasContext.fillStyle = textColor;
+    canvasContext.fillText(letters.toUpperCase(), dimensions / 2, dimensions / 1.5);
 
     return canvasContext;
   }
@@ -74,10 +81,9 @@ class PortraitInitials extends React.Component {
   /** Renders the component. */
   render() {
     return (
-      <img
+      <StyledPortraitInitials
         src={ this.generateDataUrl() }
         alt={ this.props.alt }
-        className={ this.props.className }
         data-element='initials'
       />
     );
@@ -85,18 +91,16 @@ class PortraitInitials extends React.Component {
 }
 
 PortraitInitials.propTypes = {
-  /** A custom CSS class for the component. */
-  className: PropTypes.string,
+  /** The theme to use. */
+  theme: PropTypes.object,
   /** The user's initials to render. */
   initials: PropTypes.string.isRequired,
-  /** The dimensions (size) of the canvas, in pixels. */
-  dimensions: PropTypes.number.isRequired,
-  /** Color of the text. */
-  textColor: PropTypes.string.isRequired,
-  /** Color of the background. */
-  bgColor: PropTypes.string.isRequired,
+  /** The size of the initials image. */
+  size: PropTypes.oneOf(OptionsHelper.sizesFull).isRequired,
+  /** Use a dark background. */
+  darkBackground: PropTypes.bool,
   /** The `alt` HTML string. */
   alt: PropTypes.string
 };
 
-export default PortraitInitials;
+export default withTheme(PortraitInitials);

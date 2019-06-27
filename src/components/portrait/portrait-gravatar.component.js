@@ -1,12 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import MD5 from 'crypto-js/md5';
+import { withTheme } from 'styled-components';
+import { StyledPortraitGravatar, getSizeParams } from './portrait.style';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 class PortraitGravatar extends React.Component {
   /** Generates the Gravatar URL for the specified email address and dimensions. */
   gravatarSrc() {
-    const { gravatarEmail, dimensions } = this.props;
-
+    const { theme, gravatarEmail, size } = this.props;
+    const { dimensions } = getSizeParams(theme, size);
     const base = 'https://www.gravatar.com/avatar/';
     const hash = MD5(gravatarEmail.toLowerCase());
 
@@ -16,10 +19,9 @@ class PortraitGravatar extends React.Component {
   /** Renders the component. */
   render() {
     return (
-      <img
+      <StyledPortraitGravatar
         src={ this.gravatarSrc() }
         alt={ this.props.alt }
-        className={ this.props.className }
         data-element='user-image'
       />
     );
@@ -27,14 +29,14 @@ class PortraitGravatar extends React.Component {
 }
 
 PortraitGravatar.propTypes = {
-  /** A custom CSS class for the component. */
-  className: PropTypes.string,
+  /** The theme to use. */
+  theme: PropTypes.object,
   /** The user's email address for the Gravatar. */
   gravatarEmail: PropTypes.string.isRequired,
-  /** The dimensions (size) to render the Gravatar, in pixels. */
-  dimensions: PropTypes.number.isRequired,
+  /** The size of the Gravatar. */
+  size: PropTypes.oneOf(OptionsHelper.sizesFull).isRequired,
   /** The `alt` HTML string. */
   alt: PropTypes.string
 };
 
-export default PortraitGravatar;
+export default withTheme(PortraitGravatar);
