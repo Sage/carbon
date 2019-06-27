@@ -91,7 +91,7 @@ const PillStyle = styled.span`
           }
 
           &:hover {
-            background-color: ${styleSet[variety]};
+            background-color: ${styleSet[variety].buttonFocus};
             color: ${styleSet.hoverColor};
           }
  
