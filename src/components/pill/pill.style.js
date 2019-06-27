@@ -86,6 +86,8 @@ const PillStyle = styled.span`
           &:focus {
             outline: none;
             box-shadow: 0 0 0 3px ${styleSet.boxShadow};
+            background-color: ${styleSet[color]};
+            color: ${(color === 'warning') ? colors.black : styleSet.hoverColor};
           }
 
           &:hover {
