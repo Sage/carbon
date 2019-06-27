@@ -163,7 +163,7 @@ describe('Pill', () => {
                     fill: true,
                     theme
                   });
-  
+
                   it(`matches the expected filled styling for ${style}`, () => {
                     assertStyleMatch({
                       backgroundColor: styleSet[style].color,
@@ -182,7 +182,7 @@ describe('Pill', () => {
                     fill: true,
                     theme
                   });
-  
+
                   it(`matches the expected filled styling for ${style}`, () => {
                     assertStyleMatch({
                       backgroundColor: styleSet[style].color,
@@ -190,7 +190,6 @@ describe('Pill', () => {
                     }, fillWrapper);
                   });
                 });
-                
               });
             });
 
