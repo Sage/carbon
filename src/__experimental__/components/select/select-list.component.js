@@ -6,20 +6,6 @@ import filterChildren from '../../../utils/filter-children';
 import { ScrollableList, ScrollableListItem } from '../../../components/scrollable-list';
 
 class SelectList extends React.Component {
-  static propTypes = {
-    alwaysHighlight: PropTypes.bool,
-    children: PropTypes.node,
-    customFilter: PropTypes.func,
-    filterValue: PropTypes.string,
-    onLazyLoad: PropTypes.func,
-    onMouseDown: PropTypes.func,
-    onMouseEnter: PropTypes.func,
-    onMouseLeave: PropTypes.func,
-    onSelect: PropTypes.func,
-    target: PropTypes.object,
-    typeAhead: PropTypes.bool
-  }
-
   list = React.createRef();
 
   componentDidUpdate() {
@@ -69,7 +55,7 @@ class SelectList extends React.Component {
    * Find and highlights search terms in text
    */
   highlightMatches = (optionText, value) => {
-    if (!value.length) { return optionText; }
+    if (!value.length) return optionText;
 
     const parsedOptionText = optionText.toLowerCase();
     const valIndex = parsedOptionText.indexOf(value);
@@ -107,8 +93,7 @@ class SelectList extends React.Component {
       onMouseDown,
       onMouseEnter,
       onMouseLeave,
-      onSelect,
-      typeAhead
+      onSelect
     } = this.props;
 
     const filter = this.filter(filterValue, customFilter);
@@ -129,13 +114,21 @@ class SelectList extends React.Component {
           >
             {
               filter(children, (child) => {
-                const formattedChild = typeAhead ? this.highlightMatches(child.props.text, String(filterValue)) : child;
                 return (
                   <ScrollableListItem
                     id={ this.itemId(child.props) }
                     isSelectable={ child.props.isSelectable }
                   >
-                    { formattedChild }
+                    {
+                      React.cloneElement(
+                        child,
+                        {
+                          children: this.highlightMatches(child.props.text, String(filterValue)),
+                          text: child.props.text,
+                          ...child.props
+                        }
+                      )
+                    }
                   </ScrollableListItem>
                 );
               })
@@ -146,5 +139,18 @@ class SelectList extends React.Component {
     );
   }
 }
+
+SelectList.propTypes = {
+  alwaysHighlight: PropTypes.bool,
+  children: PropTypes.node,
+  customFilter: PropTypes.func,
+  filterValue: PropTypes.string,
+  onLazyLoad: PropTypes.func,
+  onMouseDown: PropTypes.func,
+  onMouseEnter: PropTypes.func,
+  onMouseLeave: PropTypes.func,
+  onSelect: PropTypes.func,
+  target: PropTypes.object
+};
 
 export default SelectList;

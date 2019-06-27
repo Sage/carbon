@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// import classNames from 'classnames';
 import SelectList from './select-list.component';
 import Textbox from '../textbox';
 import Pill from '../../../components/pill';
@@ -200,13 +199,6 @@ class Select extends React.Component {
     return this.isMultiValue(value) ? undefined : 'dropdown';
   }
 
-  get filterProps() {
-    return {
-      filterable: this.props.filterable,
-      typeAhead: this.props.filterable && this.props.typeAhead
-    };
-  }
-
   render() {
     const {
       children,
@@ -262,7 +254,6 @@ class Select extends React.Component {
               onSelect={ this.handleChange }
               open={ open }
               target={ this.input.current && this.input.current.parentElement }
-              { ...this.filterProps }
             >
               { children }
             </SelectList>

@@ -29,7 +29,9 @@ exports[`SelectList renders a ScrollableList inside of a Portal 1`] = `
           }
           text="Orange"
           value="1"
-        />
+        >
+          Orange
+        </div>
       </styled.li>
       <styled.li
         id={
@@ -50,7 +52,9 @@ exports[`SelectList renders a ScrollableList inside of a Portal 1`] = `
           }
           text="Blue"
           value="2"
-        />
+        >
+          Blue
+        </div>
       </styled.li>
       <styled.li
         id={
@@ -71,7 +75,9 @@ exports[`SelectList renders a ScrollableList inside of a Portal 1`] = `
           }
           text="Red"
           value="3"
-        />
+        >
+          Red
+        </div>
       </styled.li>
     </ScrollableList>
   </div>

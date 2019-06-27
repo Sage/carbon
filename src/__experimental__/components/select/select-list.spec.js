@@ -81,4 +81,26 @@ describe('SelectList', () => {
     const style = 'left: 500px; top: 300px; width: 400px; position: absolute;';
     expect(wrapper.find('div').first().instance().getAttribute('style')).toEqual(style);
   });
+
+  describe('highlightMatches', () => {
+    it('alters the markup when matches are found', () => {
+      const wrapper = renderWrapper();
+      const markup = wrapper.instance().highlightMatches('foobarfooqux', 'foo');
+      expect(markup[0].type).toEqual('span');
+      expect(markup[0].props.children).toEqual('');
+      expect(markup[1].type).toEqual('strong');
+      expect(markup[1].props.children).toEqual('foo');
+      expect(markup[2].type).toEqual('span');
+      expect(markup[2].props.children.length).toEqual(3);
+    });
+
+
+    describe('without a value', () => {
+      it('alters the markup when matches are found', () => {
+        const wrapper = renderWrapper();
+        const result = wrapper.instance().highlightMatches('foo', '');
+        expect(result).toEqual('foo');
+      });
+    });
+  });
 });
