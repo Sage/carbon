@@ -1,20 +1,20 @@
-import { inlineInputs } from '../../locators/inline-inputs';
+import { inlineInput } from '../../locators/inline-inputs';
 
-const INPUT_INDEX_1 = 0;
-const INPUT_INDEX_2 = 1;
+const TEXT_INPUT_INDEX = 1;
+const NUMBER_INPUT_INDEX = 2;
 
 Then('first inline input on preview is {string}', (text) => {
-  inlineInputs(INPUT_INDEX_1).should('have.value', text);
+  inlineInput(TEXT_INPUT_INDEX).first().should('have.value', text);
 });
 
 Then('second inline input on preview is {string}', (text) => {
-  inlineInputs(INPUT_INDEX_2).should('have.value', text);
+  inlineInput(NUMBER_INPUT_INDEX).should('have.value', text);
 });
 
 When('I set first inline input to {string}', (text) => {
-  inlineInputs(INPUT_INDEX_1).clear().type(text);
+  inlineInput(TEXT_INPUT_INDEX).first().clear().type(text);
 });
 
 When('I set second inline input to {string}', (text) => {
-  inlineInputs(INPUT_INDEX_2).clear().type(text);
+  inlineInput(NUMBER_INPUT_INDEX).clear().type(text);
 });

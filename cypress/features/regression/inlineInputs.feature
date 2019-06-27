@@ -31,14 +31,11 @@ Feature: InlineInputs component
       | <>                       |
 
   @positive
-  Scenario Outline: Change second inline input to <label>
-    When I set second inline input to "<label>"
-    Then second inline input on preview is "<label>"
+  Scenario Outline: Change second inline input to <input>
+    When I set second inline input to "<input>"
+    Then second inline input on preview is "<input>"
     Examples:
-      | label                    |
-      | Sample text              |
+      | input                    |
+      | 99999                    |
       | 1234567890               |
-      | áéíóú¿¡üñ                |
-      | !@#$%^*()_+-=~[];:.,?{}  |
-      | ÄÖÜßäöüß                 |
-      | <>                       |
+      | 0                        |

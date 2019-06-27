@@ -50,39 +50,28 @@ Feature: Link component
       | iconAlign |
       | left      |
       | right     |
-     
+
   @positive
-  Scenario Outline: Change tooltip align to <tooltipAlign>
+  Scenario Outline: Change tooltip align to <tooltipAlign> and tooltipPosition to <tooltipPosition>
     When I select icon to "add"
       And I set tooltipMessage to "sample message"
       And I select tooltipAlign to "<tooltipAlign>"
-      And I hover mouse onto icon
-    Then tooltipAlign is set to "<tooltipAlign>"
-    Examples:
-      | tooltipAlign |
-      | left         |
-      | right        |
-      | top          |
-      | bottom       |
-      | center       |
-
-  @positive
-  Scenario Outline: Change tooltip position to <tooltipPosition>
-    When I select icon to "add"
-      And I set tooltipMessage to "sample message"
       And I select tooltipPosition to "<tooltipPosition>"
       And I hover mouse onto icon
-    Then tooltipPosition is set to "<tooltipPosition>"
+    Then tooltipAlign is set to "<tooltipAlign>"
+      And tooltipPosition is set to "<tooltipPosition>"
     Examples:
-      | tooltipPosition |
-      | left            |
-      | right           |
-      | top             |
-      | bottom          |
+      | tooltipAlign | tooltipPosition |
+      | left         | right           |
+      | right        | left            |
+      | top          | bottom          |
+      | bottom       | top             |
+      | center       | right           |
 
   @positive
   Scenario: Check tabbable and focus the link componenent
-    When I check tabbable checkbox
+    When I uncheck tabbable checkbox
+      And I check tabbable checkbox
     Then Link is tabbable
       And I hit Tab key
       And I hit Tab key
@@ -90,8 +79,7 @@ Feature: Link component
 
   @positive
   Scenario: Uncheck tabbable
-    When I check tabbable checkbox
-      And I uncheck tabbable checkbox
+    When I uncheck tabbable checkbox
     Then Link is not tabbable
       And I hit Tab key
       And I hit Tab key
