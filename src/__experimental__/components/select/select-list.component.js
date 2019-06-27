@@ -16,7 +16,8 @@ class SelectList extends React.Component {
     onMouseEnter: PropTypes.func,
     onMouseLeave: PropTypes.func,
     onSelect: PropTypes.func,
-    target: PropTypes.object
+    target: PropTypes.object,
+    typeAhead: PropTypes.bool
   }
 
   list = React.createRef();
@@ -64,6 +65,38 @@ class SelectList extends React.Component {
     });
   }
 
+  /**
+   * Find and highlights search terms in text
+   */
+  highlightMatches = (optionText, value) => {
+    if (!value.length) { return optionText; }
+
+    const parsedOptionText = optionText.toLowerCase();
+    const valIndex = parsedOptionText.indexOf(value);
+
+    if (valIndex === -1) {
+      return optionText;
+    }
+
+    const beginning = optionText.substr(0, valIndex);
+    const middle = optionText.substr(valIndex, value.length);
+    let end = optionText.substr(valIndex + value.length, optionText.length);
+
+    // find end of string recursively
+    if (end.indexOf(value) !== -1) {
+      end = this.highlightMatches(end, value);
+    }
+
+    // build JSX object
+    const newValue = [
+      <span key='beginning'>{ beginning }</span>,
+      <strong key='middle'><u>{ middle }</u></strong>,
+      <span key='end'>{ end }</span>
+    ];
+
+    return newValue;
+  }
+
   render() {
     const {
       alwaysHighlight,
@@ -74,11 +107,11 @@ class SelectList extends React.Component {
       onMouseDown,
       onMouseEnter,
       onMouseLeave,
-      onSelect
+      onSelect,
+      typeAhead
     } = this.props;
 
     const filter = this.filter(filterValue, customFilter);
-
     return (
       <Portal onReposition={ this.positionList }>
         <div
@@ -95,14 +128,17 @@ class SelectList extends React.Component {
             keyNavigation
           >
             {
-              filter(children, child => (
-                <ScrollableListItem
-                  id={ this.itemId(child.props) }
-                  isSelectable={ child.props.isSelectable }
-                >
-                  { child }
-                </ScrollableListItem>
-              ))
+              filter(children, (child) => {
+                const formattedChild = typeAhead ? this.highlightMatches(child.props.text, String(filterValue)) : child;
+                return (
+                  <ScrollableListItem
+                    id={ this.itemId(child.props) }
+                    isSelectable={ child.props.isSelectable }
+                  >
+                    { formattedChild }
+                  </ScrollableListItem>
+                );
+              })
             }
           </ScrollableList>
         </div>

@@ -85,6 +85,7 @@ class Select extends React.Component {
   handleFilter = (ev) => {
     const { value: filter } = ev.target;
     this.setState({ filter });
+    // check type ahead here
     if (this.props.onFilter) this.props.onFilter(filter);
   }
 
@@ -175,14 +176,13 @@ class Select extends React.Component {
 
   isMultiValue(value) { return Array.isArray(value); }
 
-  // className(className) { return classNames('carbon-select', className); }
-
   placeholder(placeholder, value) {
+    const displayedPlaceHolder = this.props.typeAhead ? 'Type to Search...' : 'Please Select...';
     if (this.isMultiValue(value)) {
       // if multi-value then only show placeholder if nothing is currently selected
-      return value.length ? null : placeholder;
+      return value.length ? null : displayedPlaceHolder;
     }
-    return placeholder;
+    return displayedPlaceHolder;
   }
 
   // data attributes used for automation
@@ -199,6 +199,7 @@ class Select extends React.Component {
       onLazyLoad,
       onFilter,
       onOpen,
+      typeAhead,
       ...props
     } = this.props;
 
@@ -240,6 +241,7 @@ class Select extends React.Component {
               onSelect={ this.handleChange }
               open={ this.state.open }
               target={ this.input.current && this.input.current.parentElement }
+              typeAhead={ typeAhead }
             >
               { children }
             </SelectList>
@@ -273,11 +275,12 @@ Select.propTypes = {
     optionShape,
     PropTypes.arrayOf(optionShape)
   ]),
-  'data-component': PropTypes.string
+  'data-component': PropTypes.string,
+  typeAhead: PropTypes.bool
 };
 
 Select.defaultProps = {
-  placeholder: 'Please Select...'
+  typeAhead: false
 };
 
 export default Select;

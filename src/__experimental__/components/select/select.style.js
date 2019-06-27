@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import baseTheme from '../../../style/themes/base';
-// import { isClassic } from '../../../utils/helpers/style-helper';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
 const StyledSelectPillContainer = styled.div`
   display: flex;
@@ -14,6 +14,12 @@ const StyledSelectPillContainer = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+
+    ${({ theme }) => !isClassic(theme) && css`
+      .carbon-icon {
+        height: 0px;
+      }
+    `}
   }
 `;
 

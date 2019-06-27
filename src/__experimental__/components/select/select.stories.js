@@ -13,34 +13,87 @@ const multiSelectStore = new Store({
   value: []
 });
 
+const commonKnobs = (store) => {
+  return {
+    disabled: boolean('disabled'),
+    errorMessage: text('errorMessage'),
+    infoMessage: text('infoMessage'),
+    label: text('label'),
+    labelAlign: select('labelAlign', OptionsHelper.alignBinary),
+    labelInline: boolean('labelInline'),
+    onChange: (ev) => { store.set({ value: ev.target.value }); },
+    placeholder: text('placeholder'),
+    readOnly: boolean('readOnly'),
+    size: select('size', OptionsHelper.sizesRestricted),
+    warningMessage: text('warningMessage'),
+    typeAhead: boolean('typeAhead')
+  };
+};
+
+const selectOptions = [
+  <Option
+    key='0'
+    text='Amber'
+    value='1'
+  />,
+  <Option
+    key='1'
+    text='Black'
+    value='2'
+  />,
+  <Option
+    key='2'
+    text='Blue'
+    value='3'
+  />,
+  <Option
+    key='3'
+    text='Brown'
+    value='4'
+  />,
+  <Option
+    key='4'
+    text='Green'
+    value='5'
+  />,
+  <Option
+    key='5'
+    text='Orange'
+    value='6'
+  />,
+  <Option
+    key='6'
+    text='Pink'
+    value='7'
+  />,
+  <Option
+    key='7'
+    text='Purple'
+    value='8'
+  />,
+  <Option
+    key='8'
+    text='Red'
+    value='9'
+  />,
+  <Option
+    key='9'
+    text='White'
+    value='10'
+  />,
+  <Option
+    key='10'
+    text='Yellow'
+    value='11'
+  />
+];
+
 storiesOf('Experimental/Select', module)
   .add('Single Select', () => {
     return (
       <State store={ singleSelectStore }>
-        <Select
-          disabled={ boolean('disabled') }
-          errorMessage={ text('errorMessage') }
-          infoMessage={ text('infoMessage') }
-          label={ text('label') }
-          labelAlign={ select('labelAlign', OptionsHelper.alignBinary) }
-          labelInline={ boolean('labelInline') }
-          onChange={ (ev) => { singleSelectStore.set({ value: ev.target.value }); } }
-          placeholder={ text('placeholder') }
-          readOnly={ boolean('readOnly') }
-          size={ select('size', OptionsHelper.sizesRestricted) }
-          warningMessage={ text('warningMessage') }
-        >
-          <Option text='Amber' value='1' />
-          <Option text='Black' value='2' />
-          <Option text='Blue' value='3' />
-          <Option text='Brown' value='4' />
-          <Option text='Green' value='5' />
-          <Option text='Orange' value='6' />
-          <Option text='Pink' value='7' />
-          <Option text='Purple' value='8' />
-          <Option text='Red' value='9' />
-          <Option text='White' value='10' />
-          <Option text='Yellow' value='11' />
+        <Select { ...commonKnobs(singleSelectStore) }>
+          { selectOptions }
         </Select>
       </State>
     );
@@ -49,30 +102,8 @@ storiesOf('Experimental/Select', module)
   .add('Multi Select', () => {
     return (
       <State store={ multiSelectStore }>
-        <Select
-          disabled={ boolean('disabled') }
-          errorMessage={ text('errorMessage') }
-          infoMessage={ text('infoMessage') }
-          label={ text('label') }
-          labelAlign={ select('labelAlign', OptionsHelper.alignBinary) }
-          labelInline={ boolean('labelInline') }
-          onChange={ (ev) => { multiSelectStore.set({ value: ev.target.value }); } }
-          placeholder={ text('placeholder') }
-          readOnly={ boolean('readOnly') }
-          size={ select('size', OptionsHelper.sizesRestricted) }
-          warningMessage={ text('warningMessage') }
-        >
-          <Option text='Amber' value='1' />
-          <Option text='Black' value='2' />
-          <Option text='Blue' value='3' />
-          <Option text='Brown' value='4' />
-          <Option text='Green' value='5' />
-          <Option text='Orange' value='6' />
-          <Option text='Pink' value='7' />
-          <Option text='Purple' value='8' />
-          <Option text='Red' value='9' />
-          <Option text='White' value='10' />
-          <Option text='Yellow' value='11' />
+        <Select { ...commonKnobs(multiSelectStore) }>
+          { selectOptions }
         </Select>
       </State>
     );
