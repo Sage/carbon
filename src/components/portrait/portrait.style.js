@@ -3,8 +3,6 @@ import styled, { css } from 'styled-components';
 import PropTypes from 'prop-types';
 import BaseTheme from '../../style/themes/base';
 import Icon from '../icon';
-import PortraitGravatar from './portrait-gravatar.component';
-import PortraitInitials from './portrait-initials.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { isClassic } from '../../utils/helpers/style-helper';
 
@@ -108,7 +106,7 @@ function stylingForIcon({ size, theme, darkBackground }) {
   `;
 }
 
-function colorsForInitials(theme, darkBackground) {
+export function getColorsForInitials(theme, darkBackground) {
   if (isClassic(theme)) {
     return {
       textColor: (darkBackground ? '#FFFFFF' : '#636872'),
@@ -122,66 +120,31 @@ function colorsForInitials(theme, darkBackground) {
   };
 }
 
+export function getSizeParams(theme, size) {
+  return (isClassic(theme) ? sizeParamsClassic[size] : sizeParams[size]);
+}
 
-export const StyledPortraitInitials = styled(
-  ({
-    className, theme, initials, size, darkBackground
-  }) => {
-    const params = (isClassic(theme) ? sizeParamsClassic[size] : sizeParams[size]);
-    const { textColor, bgColor } = colorsForInitials(theme, darkBackground);
-    return (
-      <PortraitInitials
-        className={ className }
-        initials={ initials }
-        dimensions={ params.dimensions }
-        textColor={ textColor }
-        bgColor={ bgColor }
-      />
-    );
-  }
-)`
+
+export const StyledPortraitInitials = styled.img`
   position: absolute;
   ${stylingForSize}
 `;
 
 StyledPortraitInitials.propTypes = {
-  size: PropTypes.oneOf(OptionsHelper.sizesFull).isRequired,
-  initials: PropTypes.string.isRequired,
-  darkBackground: PropTypes.bool,
+  src: PropTypes.string.isRequired,
   alt: PropTypes.string
 };
 
-StyledPortraitInitials.defaultProps = {
-  theme: BaseTheme
-};
 
-
-export const StyledPortraitGravatar = styled(
-  ({
-    className, theme, gravatarEmail, size
-  }) => {
-    const params = (isClassic(theme) ? sizeParamsClassic[size] : sizeParams[size]);
-    return (
-      <PortraitGravatar
-        className={ className }
-        gravatarEmail={ gravatarEmail }
-        dimensions={ params.dimensions }
-      />
-    );
-  }
-)`
+export const StyledPortraitGravatar = styled.img`
   display: inline-block;
   position: absolute;
   ${stylingForSize}
 `;
 
 StyledPortraitGravatar.propTypes = {
-  gravatarEmail: PropTypes.string.isRequired,
-  size: PropTypes.oneOf(OptionsHelper.sizesFull).isRequired
-};
-
-StyledPortraitGravatar.defaultProps = {
-  theme: BaseTheme
+  src: PropTypes.string.isRequired,
+  alt: PropTypes.string
 };
 
 
