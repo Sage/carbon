@@ -30,7 +30,7 @@ const portraitSizes = {
     nameSize: '14px',
     emailSize: '14px',
     lineHeight: '20px',
-    marginLEft: '24px'
+    marginLeft: '24px'
   },
   'medium-large': {
     dimensions: 72,
@@ -59,37 +59,48 @@ const ProfileNameStyle = styled.span`
     font-weight: bold;
     display: inline-block;
     font-size: ${props => portraitSizes[props.size].nameSize};
+
+    ${({ theme }) => theme.name === THEMES.classic && css`
+      display: inline;
+    `};
 `;
 
 const ProfileEmailStyle = styled.span`
     font-size: ${({ size }) => portraitSizes[size].emailSize};
+
+    ${({ theme }) => theme.name === THEMES.classic && css`
+      font-size: 14px;
+    `};
 `;
 
 const ProfileStyle = styled.div`
     white-space: nowrap;
     color: ${({ theme }) => theme.text.color};
 
-    ${({ large }) => large && css`
+    ${({ theme }) => theme.name === THEMES.classic && css`
+      color: rgba(0, 0, 0, 0.85);
+
+      ${({ large }) => large && css`
         ${ProfileNameStyle} {
             font-size: 20px;
             font-weight: 400;
             line-height: 21px;
         }
-    `}
+      `}
 
-    ${({ theme }) => theme.name === THEMES.classic && css`
-      color: rgba(0, 0, 0, 0.85);
     `};
 `;
 
 const ProfileDetailsStyle = styled.div`
-  margin-left: 14px;
   vertical-align: middle;
   display: inline-block;
-  line-height: 16px;
-
   line-height: ${({ size }) => portraitSizes[size].lineHeight};
   margin-left: ${({ size }) => portraitSizes[size].marginLeft};
+
+  ${({ theme }) => theme.name === THEMES.classic && css`
+      line-height: 16px;
+      margin-left: 14px;
+    `};
 `;
 
 const ProfileAvatarStyle = styled(Portrait)`
@@ -101,15 +112,18 @@ ProfileStyle.defaultProps = {
 };
 
 ProfileNameStyle.defaultProps = {
-  size: 'medium-small'
+  size: 'medium-small',
+  theme: baseTheme
 };
 
 ProfileEmailStyle.defaultProps = {
-  size: 'medium-small'
+  size: 'medium-small',
+  theme: baseTheme
 };
 
 ProfileDetailsStyle.defaultProps = {
-  size: 'medium-small'
+  size: 'medium-small',
+  theme: baseTheme
 };
 
 export {
