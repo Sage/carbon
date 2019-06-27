@@ -6,6 +6,7 @@ import ColorSampleBox from '../color-sample-box';
 import StyledColorOptionInput from '../color-option-input/style/color-option-input.style';
 
 const ColorOption = (props) => {
+  const { onChange, ...rest } = props;
   return (
     <StyledColorOption
       color={ props.color }
@@ -13,12 +14,12 @@ const ColorOption = (props) => {
       className={ props.className }
       aria-checked={ props.checked }
       role='radio'
-      { ...props }
+      { ...rest }
       { ...tagComponent('color-option', props) }
     >
       <StyledColorOptionInput
         className={ props.className }
-        onChange={ props.onChange }
+        onChange={ onChange }
         checked={ props.checked }
         name={ props.name }
         type='radio'
