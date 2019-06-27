@@ -1,16 +1,17 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import { OriginalProfile as Profile } from './profile';
 import Portrait from '../portrait';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Browser from '../../utils/helpers/browser';
-import classicTheme from '../../style/themes/classic';
-import { ProfileNameStyle, ProfileStyle } from './profile.style';
-
+import {
+  ProfileNameStyle, ProfileStyle, ProfileEmailStyle, ProfileDetailsStyle
+} from './profile.style';
 import 'jest-styled-components';
-
+import classicTheme from '../../style/themes/classic';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 
 describe('Profile', () => {
   let instance;
@@ -89,7 +90,7 @@ describe('Profile', () => {
 
       it('renders the email', () => {
         instance.setProps({ email: 'john@doe.com' });
-        expect(instance.find('span[data-element="email"]').text()).toEqual('john@doe.com');
+        expect(instance.find(ProfileEmailStyle).text()).toEqual('john@doe.com');
       });
     });
   });
@@ -129,10 +130,45 @@ describe('Profile', () => {
 });
 
 describe('ProfileClassicStyle', () => {
-  it('should render correct version if clssic is provided', () => {
+  it('should render correct version if clssic theme is provided', () => {
     const wrapper = TestRenderer.create(<ProfileStyle
       theme={ classicTheme }
     />);
     expect(wrapper).toMatchSnapshot();
+  });
+});
+
+describe('ProfileNameStyle', () => {
+  it('should render correct style if classic theme is provided', () => {
+    assertStyleMatch({
+      display: 'inline'
+    }, mount(<ProfileNameStyle theme={ classicTheme } />));
+  });
+});
+
+describe('ProfileEmailStyle', () => {
+  it('should render correct style if classic theme is provided', () => {
+    assertStyleMatch({
+      fontSize: '14px'
+    }, mount(<ProfileEmailStyle theme={ classicTheme } />));
+  });
+});
+
+describe('ProfileStyle', () => {
+  it('should render correct style if classic theme and large prop are provided', () => {
+    assertStyleMatch({
+      fontSize: '20px',
+      fontWeight: '400',
+      lineHeight: '21px'
+    }, mount(<ProfileStyle theme={ classicTheme } large />), { modifier: `${ProfileNameStyle}` });
+  });
+});
+
+describe('ProfileDetailStyle', () => {
+  it('should render correct style if classic theme is provided', () => {
+    assertStyleMatch({
+      lineHeight: '16px',
+      marginLeft: '14px'
+    }, mount(<ProfileDetailsStyle theme={ classicTheme } />));
   });
 });
