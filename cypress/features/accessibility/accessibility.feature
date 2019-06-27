@@ -1,7 +1,7 @@
-Feature: Sanity tests
+Feature: Accessibility tests
   I want to check all components have no violations
 
-  @sanity
+  @accessibility
   Scenario Outline: Component <component> page with button
     When I open "<component>" component page with button
       And I open Accessibility Tab
@@ -12,7 +12,7 @@ Feature: Sanity tests
       | alert               |
       | sidebar             |
 
-  @sanity
+  @accessibility
   Scenario Outline: Component <component> page and open preview
     When I open "<component>" component page
       And I open Accessibility Tab
@@ -26,7 +26,7 @@ Feature: Sanity tests
       | pages               | page               |
       | confirm             | confirm            |
 
-  @sanity
+  @accessibility
   Scenario Outline: Component <component> without activation button
     When I open "<component>" component page
       And I open Accessibility Tab
