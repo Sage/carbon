@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withTheme } from 'styled-components';
 import BaseTheme from '../../style/themes/base';
 import Browser from '../../utils/helpers/browser';
+import { isClassic } from '../../utils/helpers/style-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { StyledPortraitInitials, getSizeParams, getColorsForInitials } from './portrait.style';
 
@@ -31,11 +32,17 @@ class PortraitInitials extends React.Component {
     }
 
     const { theme, size, darkBackground } = this.props;
-    const { dimensions } = getSizeParams(theme, size);
     const { textColor, bgColor } = getColorsForInitials(theme, darkBackground);
 
     let canvas = Browser.getDocument().createElement('canvas');
     let context = canvas.getContext('2d');
+    let { dimensions } = getSizeParams(theme, size);
+
+    if (!isClassic(theme)) {
+      // For non-Classic themes, reduce the size by 2 pixels to
+      // allow for the CSS border around the canvas <img> element.
+      dimensions -= 2;
+    }
 
     // Set canvas with & height
     canvas.width = dimensions;

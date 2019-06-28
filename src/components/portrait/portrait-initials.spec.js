@@ -1,5 +1,6 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
+import { ThemeProvider } from 'styled-components';
 import Browser from '../../utils/helpers/browser';
 import PortraitInitials from './portrait-initials.component';
 import smallTheme from '../../style/themes/small';
@@ -23,7 +24,12 @@ const mockDocumentWithCanvas = {
 };
 
 function render(component) {
-  return TestRenderer.create(component).toTree().instance;
+  const rendered = TestRenderer.create(
+    <ThemeProvider theme={ mediumTheme }>
+      {component}
+    </ThemeProvider>
+  );
+  return rendered.root.find(el => (el.type.name === 'PortraitInitials')).instance;
 }
 
 describe('PortraitInitials', () => {
@@ -81,13 +87,7 @@ describe('PortraitInitials', () => {
     let instance;
 
     beforeEach(() => {
-      instance = render(
-        <PortraitInitials
-          theme={ mediumTheme }
-          initials='abc'
-          size='medium'
-        />
-      );
+      instance = render(<PortraitInitials initials='abc' size='medium' />);
     });
 
     it('returns the cached result if cached', () => {
@@ -109,13 +109,7 @@ describe('PortraitInitials', () => {
 
     it('returns first 3 initials uppercased if more than 3 are supplied', () => {
       spyOn(canvasContext, 'fillText');
-      const instance = render(
-        <PortraitInitials
-          theme={ mediumTheme }
-          initials='abcde'
-          size='medium'
-        />
-      );
+      const instance = render(<PortraitInitials initials='abcde' size='medium' />);
       instance.applyText(canvasContext, 30);
       expect(canvasContext.fillText).toHaveBeenCalledWith('ABC', 15, 20);
     });
@@ -123,13 +117,7 @@ describe('PortraitInitials', () => {
     it('uses the specified text color and background color', () => {
       const textColor = '#111111';
       const bgColor = '#222222';
-      const instance = render(
-        <PortraitInitials
-          theme={ mediumTheme }
-          initials='abc'
-          size='medium'
-        />
-      );
+      const instance = render(<PortraitInitials initials='abc' size='medium' />);
       instance.applyBackground(canvasContext, 30, bgColor);
       expect(canvasContext.fillStyle).toEqual(bgColor);
       instance.applyText(canvasContext, 30, textColor);

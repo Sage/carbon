@@ -30,21 +30,12 @@ const sizeParamsClassic = {
 
 /* eslint-enable key-spacing, no-multi-spaces */
 
-function stylingForBorder(props) {
-  if (isClassic(props.theme) || props.darkBackground || props.showGravatar || props.showCustomImg) {
-    return css``;
-  }
-
-  if (props.showIcon) {
-    return css`border: 1px dashed ${props.theme.portrait.border};`;
-  }
-
-  // Border for initials
-  return css`border: 1px solid ${props.theme.portrait.border};`;
+export function getSizeParams(theme, size) {
+  return (isClassic(theme) ? sizeParamsClassic[size] : sizeParams[size]);
 }
 
 function stylingForSize({ size, theme }) {
-  const params = (isClassic(theme) ? sizeParamsClassic[size] : sizeParams[size]);
+  const params = getSizeParams(theme, size);
 
   if (!params) {
     return css``;
@@ -75,7 +66,7 @@ function stylingForIcon({ size, theme, darkBackground }) {
 
   let color = theme.portrait.border;
   let backgroundColor = theme.portrait.background;
-  let iconPadding = (params.dimensions - params.iconDimensions) / 2;
+  let iconPadding = ((params.dimensions - params.iconDimensions) / 2) - 1;
 
   if (darkBackground) {
     color = theme.portrait.background;
@@ -120,14 +111,10 @@ export function getColorsForInitials(theme, darkBackground) {
   };
 }
 
-export function getSizeParams(theme, size) {
-  return (isClassic(theme) ? sizeParamsClassic[size] : sizeParams[size]);
-}
-
 
 export const StyledPortraitInitials = styled.img`
   position: absolute;
-  ${stylingForSize}
+  ${({ theme }) => !isClassic(theme) && css`border: 1px solid ${theme.portrait.border};`}
 `;
 
 StyledPortraitInitials.propTypes = {
@@ -172,6 +159,7 @@ export const StyledIcon = styled(
     ${stylingForSize}
     ${stylingForIcon}
     ${stylingForShape}
+    ${({ theme }) => !isClassic(theme) && css`border: 1px dashed ${theme.portrait.border};`}
   }
 `;
 
@@ -194,7 +182,6 @@ const StyledPortrait = styled.div`
   position: relative;
   vertical-align: middle;
   overflow: hidden;
-  ${stylingForBorder}
   ${stylingForSize}
   ${stylingForShape}
 `;
