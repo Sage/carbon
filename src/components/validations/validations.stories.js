@@ -24,7 +24,6 @@ const warningStore = new Store({ value: '' });
 const infoStore = new Store({ value: '' });
 const allStore = new Store({ value: '' });
 const buttonToggleGroupStore = new Store({ value: '' });
-const textareaStore = new Store({ value: '' });
 
 const promiseValidator = value => new Promise((resolve, reject) => {
   if (value) {
@@ -207,30 +206,6 @@ storiesOf('Validations', module)
               </ButtonToggle>
             ))}
           </ButtonToggleGroup>
-        </State>
-      </Form>
-    );
-  })
-  .add('TextArea', () => {
-    const notEmpty = value => new Promise((resolve, reject) => {
-      if (value !== '') return resolve(true);
-      return reject(Error('Must not be empty!'));
-    });
-
-    return (
-      <Form
-        onSubmit={ handleSubmit }
-      >
-        <State store={ textareaStore }>
-          <Textarea
-            name='textarea'
-            label='Textarea Validation'
-            labelHelp='Returns error when the field is empty'
-            fieldHelp='Click save to run validation'
-            onChange={ ev => textareaStore.set({ value: ev.target.value }) }
-            warnings={ warningValidator }
-            validations={ notEmpty }
-          />
         </State>
       </Form>
     );
