@@ -118,10 +118,14 @@ export const StyledPortraitInitials = styled.img`
 `;
 
 StyledPortraitInitials.propTypes = {
+  theme: PropTypes.object,
   src: PropTypes.string.isRequired,
   alt: PropTypes.string
 };
 
+StyledPortraitInitials.defaultProps = {
+  theme: BaseTheme
+};
 
 export const StyledPortraitGravatar = styled.img`
   display: inline-block;
