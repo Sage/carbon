@@ -2,6 +2,9 @@
 
 exports[`when the withValidations HOC wraps a component matches the snapshot when the HOC is passed an anonymous component with no name or display name 1`] = `
 <Component
+  hasError={false}
+  hasInfo={false}
+  hasWarning={false}
   info={Array []}
   name="foo"
   onBlur={[Function]}
@@ -13,6 +16,9 @@ exports[`when the withValidations HOC wraps a component matches the snapshot whe
 
 exports[`when the withValidations HOC wraps a component matches the snapshot with the input component wrapped in the HOC with default props 1`] = `
 <MockComponent
+  hasError={false}
+  hasInfo={false}
+  hasWarning={false}
   info={Array []}
   name="foo "
   onBlur={[Function]}
@@ -24,14 +30,14 @@ exports[`when the withValidations HOC wraps a component matches the snapshot wit
 
 exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns an Icon with error type when the state has failed validations 1`] = `
 <MockComponent
-  errorMessage={true}
+  hasError={true}
+  hasInfo={true}
+  hasWarning={true}
   info={Array []}
-  infoMessage={true}
   name="foo"
   onBlur={[Function]}
   onChange={[Function]}
   validations={Array []}
-  warningMessage={true}
   warnings={Array []}
 >
   <ValidationIcon
@@ -43,8 +49,10 @@ exports[`when the withValidations HOC wraps a component when the component rende
 
 exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns an Icon with info type when the state has info and no warning or validations 1`] = `
 <MockComponent
+  hasError={false}
+  hasInfo={true}
+  hasWarning={false}
   info={Array []}
-  infoMessage={true}
   name="foo"
   onBlur={[Function]}
   onChange={[Function]}
@@ -60,13 +68,14 @@ exports[`when the withValidations HOC wraps a component when the component rende
 
 exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns an Icon with warning type when the state has warning and no validations 1`] = `
 <MockComponent
+  hasError={false}
+  hasInfo={true}
+  hasWarning={true}
   info={Array []}
-  infoMessage={true}
   name="foo"
   onBlur={[Function]}
   onChange={[Function]}
   validations={Array []}
-  warningMessage={true}
   warnings={Array []}
 >
   <ValidationIcon
@@ -78,14 +87,14 @@ exports[`when the withValidations HOC wraps a component when the component rende
 
 exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns the Icon when the component has an array of children 1`] = `
 <MockComponent
-  errorMessage={true}
+  hasError={true}
+  hasInfo={true}
+  hasWarning={true}
   info={Array []}
-  infoMessage={true}
   name="foo"
   onBlur={[Function]}
   onChange={[Function]}
   validations={Array []}
-  warningMessage={true}
   warnings={Array []}
 >
   <div />
@@ -100,6 +109,9 @@ exports[`when the withValidations HOC wraps a component when the component rende
 
 exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns the children if no type has been set 1`] = `
 <MockComponent
+  hasError={false}
+  hasInfo={false}
+  hasWarning={false}
   info={Array []}
   name="foo"
   onBlur={[Function]}

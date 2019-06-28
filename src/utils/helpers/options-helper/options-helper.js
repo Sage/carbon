@@ -273,6 +273,12 @@ const OptionsHelper = {
     'large'
   ],
 
+  validationTypes: [
+    'error',
+    'warning',
+    'info'
+  ],
+
   inputTypes: [
     'textbox',
     'textarea',
