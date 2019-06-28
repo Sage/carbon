@@ -107,6 +107,9 @@ const withValidation = (WrappedComponent) => {
     updateValidationStatus(type, message) {
       const { adjustCount } = this.context;
       const stateProp = `${type}Message`;
+      const isErrorType = type === 'error';
+
+      if (!isErrorType && this.state.errorMessage) return; // display only error message
 
       if (message && !this.state[stateProp]) {
         adjustCount(type, true);
