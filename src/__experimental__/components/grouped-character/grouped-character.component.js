@@ -7,8 +7,9 @@ import Events from '../../../utils/helpers/events/events';
 const GroupedCharacter = (props) => {
   const [pressedKey, updatePressedKey] = useState(null);
 
-  const { separator, groups, value } = props;
+  const { groups, value } = props;
   const stepIndices = groups.reduce(toIndexSteps, []);
+  const separator = props.separator.substring(0, 1); // Ensure max length is 1
   stepIndices.pop();
 
   const handleChange = (ev) => {
@@ -49,7 +50,12 @@ const GroupedCharacter = (props) => {
 
 GroupedCharacter.propTypes = {
   /** character to be used as separator */
-  separator: PropTypes.string,
+  separator: ((props, propName, componentName) => {
+    if (typeof props[propName] !== 'string' || props[propName].length > 1) {
+      return new Error(`Invalid prop ${propName} supplied to ${componentName}. Must be string of length 1.`);
+    }
+    return null;
+  }),
   /** pattern by which input value should be grouped */
   groups: PropTypes.array,
   /** input value */

@@ -39,6 +39,19 @@ describe('GroupedCharacter', () => {
       expect(onChange).toHaveBeenCalledWith({ target: { value: '123456' } });
     });
 
+    it('does not allow a separator string containing multiple characters', () => {
+      spyOn(console, 'error');
+      instance = mountComponent({
+        separator: '-=', groups: basicGroupConfig, value: valueString, onChange
+      });
+      const expected = 'Warning: Failed prop type: Invalid prop separator supplied '
+        + 'to GroupedCharacter. Must be string of length 1.';
+      const actual = console.error.calls.argsFor(0)[0];
+      expect(actual).toMatch(expected);
+      input = instance.find('input');
+      expect(input.props().value).toEqual('12-34-5678');
+    });
+
     it('does not allow values of length greater than that allowed by the group config', () => {
       instance = mountComponent({
         separator, groups: basicGroupConfig, value: '1234567890', onChange
