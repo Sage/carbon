@@ -99,7 +99,7 @@ storiesOf('Experimental/Textarea', module)
           <Textarea
             name='textarea'
             label='Textarea Validation'
-            labelHelp='Returns error when the field is empty'
+            labelHelp='Returns an error when the field is empty'
             fieldHelp='Validates on blur'
             onChange={ ev => store.set({ value: ev.target.value }) }
             warnings={ warningValidator }
@@ -109,6 +109,9 @@ storiesOf('Experimental/Textarea', module)
         </State>
       </Form>
     );
+  },
+  {
+    info: { source: false, propTablesExclude: [Form, Textarea] }
   });
 
 function errorValidator(value) {
