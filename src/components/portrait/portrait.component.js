@@ -6,11 +6,57 @@ import PortraitGravatar from './portrait-gravatar.component';
 import PortraitInitials from './portrait-initials.component';
 import StyledPortrait, { StyledCustomImg, StyledIcon } from './portrait.style';
 
-function Portrait(props) {
-  const {
-    alt, darkBackground, gravatar, initials, shape, size, src
-  } = props;
+function Icon(iconProps) {
+  const { darkBackground, shape, size } = iconProps;
+  return (
+    <StyledIcon
+      type='individual'
+      size={ size }
+      shape={ shape }
+      darkBackground={ darkBackground }
+    />
+  );
+}
 
+function Initials(initialsProps) {
+  const {
+    alt, darkBackground, initials, size
+  } = initialsProps;
+  return (
+    <PortraitInitials
+      size={ size }
+      initials={ initials }
+      darkBackground={ darkBackground }
+      alt={ alt }
+    />
+  );
+}
+
+function Gravatar(gravatarProps) {
+  const { alt, gravatar, size } = gravatarProps;
+  return (
+    <PortraitGravatar
+      gravatarEmail={ gravatar }
+      size={ size }
+      alt={ alt }
+    />
+  );
+}
+
+function CustomImg(customimgProps) {
+  const { alt, size, src } = customimgProps;
+  return (
+    <StyledCustomImg
+      src={ src }
+      alt={ alt }
+      size={ size }
+      data-element='user-image'
+    />
+  );
+}
+
+function Portrait(props) {
+  const { gravatar, initials, src } = props;
   const showIcon = Boolean(!src && !initials);
   const showInitials = Boolean(!src && initials);
   const showGravatar = Boolean(gravatar);
@@ -25,50 +71,10 @@ function Portrait(props) {
       { ...props }
       { ...tagComponent('portrait', props) }
     >
-
-      {showIcon
-        && (
-          <StyledIcon
-            type='individual'
-            size={ size }
-            shape={ shape }
-            darkBackground={ darkBackground }
-          />
-        )
-      }
-
-      {showInitials
-        && (
-          <PortraitInitials
-            size={ size }
-            initials={ initials }
-            darkBackground={ darkBackground }
-            alt={ alt }
-          />
-        )
-      }
-
-      {showGravatar
-        && (
-          <PortraitGravatar
-            gravatarEmail={ gravatar }
-            size={ size }
-            alt={ alt }
-          />
-        )
-      }
-
-      {showCustomImg
-        && (
-          <StyledCustomImg
-            src={ src }
-            alt={ alt }
-            size={ size }
-            data-element='user-image'
-          />
-        )
-      }
-
+      {showIcon && <Icon { ...props } />}
+      {showInitials && <Initials { ...props } />}
+      {showGravatar && <Gravatar { ...props } />}
+      {showCustomImg && <CustomImg { ...props } />}
     </StyledPortrait>
   );
 }

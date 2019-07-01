@@ -1,12 +1,12 @@
 import React from 'react';
-import ReactTestUtils from 'react-dom/test-utils';
+import TestRenderer from 'react-test-renderer';
 import { shallow } from 'enzyme';
 import { ThemeProvider } from 'styled-components';
 import classicTheme from '../../style/themes/classic';
 import mediumTheme from '../../style/themes/medium';
 import Browser from '../../utils/helpers/browser';
 import Portrait from './portrait.component';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import { StyledIcon, StyledCustomImg } from './portrait.style';
 import PortraitInitials from './portrait-initials.component';
 import PortraitGravatar from './portrait-gravatar.component';
@@ -29,7 +29,7 @@ const mockDocumentWithCanvas = {
 };
 
 function renderDLS(element) {
-  ReactTestUtils.renderIntoDocument(
+  return TestRenderer.create(
     <ThemeProvider theme={ mediumTheme }>
       {element}
     </ThemeProvider>
@@ -37,15 +37,19 @@ function renderDLS(element) {
 }
 
 function renderClassic(element) {
-  ReactTestUtils.renderIntoDocument(
+  return TestRenderer.create(
     <ThemeProvider theme={ classicTheme }>
       {element}
     </ThemeProvider>
   );
 }
 
-function shallowDLS(element) {
-  return shallow(element, { context: { theme: { mediumTheme } } });
+function renderFindTypeSuccess(element, type, expectedProps) {
+  expect(renderDLS(element).root.findByType(type).props).toMatchObject(expectedProps);
+}
+
+function renderFindTypeFail(element, type) {
+  expect(renderDLS(element).root.findAllByType(type)).toHaveLength(0);
 }
 
 
@@ -119,17 +123,15 @@ describe('PortraitComponent', () => {
   });
 
   describe('render icon', () => {
-    const styledIcon = (
-      <StyledIcon
-        type='individual'
-        size='medium'
-        shape='standard'
-        darkBackground={ false }
-      />
-    );
+    const expectedProps = {
+      type: 'individual', size: 'medium', shape: 'standard', darkBackground: false
+    };
+
+    const testSuccess = element => renderFindTypeSuccess(element, StyledIcon, expectedProps);
+    const testFail = element => renderFindTypeFail(element, StyledIcon);
 
     it('renders icon when supplied with Gravatar but no src or initials', () => {
-      const wrapper = shallowDLS(
+      testSuccess(
         <Portrait
           gravatar='example@example.com'
           size='medium'
@@ -137,11 +139,10 @@ describe('PortraitComponent', () => {
           darkBackground={ false }
         />
       );
-      expect(wrapper.contains(styledIcon)).toEqual(true);
     });
 
     it('renders icon when supplied with Gravatar and empty initials but no src', () => {
-      const wrapper = shallowDLS(
+      testSuccess(
         <Portrait
           gravatar='example@example.com'
           initials=''
@@ -150,35 +151,22 @@ describe('PortraitComponent', () => {
           darkBackground={ false }
         />
       );
-      expect(wrapper.contains(styledIcon)).toEqual(true);
     });
 
     it("doesn't render icon when supplied with src", () => {
-      const wrapper = shallowDLS(
-        <Portrait src='https://example.com/example.jpg' />
-      );
-      expect(wrapper.contains(styledIcon)).toEqual(false);
+      testFail(<Portrait src='https://example.com/example.jpg' />);
     });
 
     it("doesn't render icon when supplied with initials", () => {
-      const wrapper = shallowDLS(
-        <Portrait initials='AB' />
-      );
-      expect(wrapper.contains(styledIcon)).toEqual(false);
+      testFail(<Portrait initials='AB' />);
     });
 
     it("doesn't render icon when supplied with src and initials", () => {
-      const wrapper = shallowDLS(
-        <Portrait src='https://example.com/example.jpg' initials='AB' />
-      );
-      expect(wrapper.contains(styledIcon)).toEqual(false);
+      testFail(<Portrait src='https://example.com/example.jpg' initials='AB' />);
     });
 
     it("doesn't render icon when supplied with Gravatar and initials", () => {
-      const wrapper = shallowDLS(
-        <Portrait gravatar='example@example.com' initials='AB' />
-      );
-      expect(wrapper.contains(styledIcon)).toEqual(false);
+      testFail(<Portrait gravatar='example@example.com' initials='AB' />);
     });
 
     describe('sizes', () => {
@@ -228,40 +216,33 @@ describe('PortraitComponent', () => {
   });
 
   describe('render initials', () => {
-    const portraitInitials = (
-      <PortraitInitials
-        size='medium'
-        initials='AB'
-        darkBackground={ false }
-        alt=''
-      />
-    );
+    const expectedProps = {
+      initials: 'AB', size: 'medium', alt: '', darkBackground: false
+    };
+
+    const testSuccess = element => renderFindTypeSuccess(element, PortraitInitials, expectedProps);
+    const testFail = element => renderFindTypeFail(element, PortraitInitials);
 
     it('renders initials when supplied with Gravatar and initials but no src', () => {
       renderClassic(<Portrait gravatar='example@example.com' initials='AB' />);
-      const wrapper = shallowDLS(<Portrait gravatar='example@example.com' initials='AB' />);
-      expect(wrapper.contains(portraitInitials)).toEqual(true);
+      testSuccess(<Portrait gravatar='example@example.com' initials='AB' />);
     });
 
     it('renders empty alt attribute when alt prop is empty', () => {
-      const wrapper = shallowDLS(<Portrait initials='AB' alt='' />);
-      expect(wrapper.contains(portraitInitials)).toEqual(true);
+      testSuccess(<Portrait initials='AB' alt='' />);
     });
 
     it('renders empty alt attribute when alt prop is not supplied', () => {
       renderDLS(<Portrait initials='AB' />);
-      const wrapper = shallowDLS(<Portrait initials='AB' />);
-      expect(wrapper.contains(portraitInitials)).toEqual(true);
+      testSuccess(<Portrait initials='AB' />);
     });
 
     it("doesn't render initials when supplied with src", () => {
-      const wrapper = shallowDLS(<Portrait src='https://example.com/example.jpg' />);
-      expect(wrapper.contains(portraitInitials)).toEqual(false);
+      testFail(<Portrait src='https://example.com/example.jpg' />);
     });
 
     it("doesn't render initials when supplied with Gravatar and empty initials but no src", () => {
-      const wrapper = shallowDLS(<Portrait gravatar='example@example.com' initials='' />);
-      expect(wrapper.contains(portraitInitials)).toEqual(false);
+      testFail(<Portrait gravatar='example@example.com' initials='' />);
     });
 
     it('can render the DLS theme', () => {
@@ -290,18 +271,16 @@ describe('PortraitComponent', () => {
   describe('render Gravatar', () => {
     const gravatarEmail = 'example@example.com';
 
+    const expectedProps = {
+      gravatarEmail, size: 'medium', alt: 'foo'
+    };
+
+    const testSuccess = element => renderFindTypeSuccess(element, PortraitGravatar, expectedProps);
+
     it('renders the Gravatar for the specified email address', () => {
-      const portraitGravatar = (
-        <PortraitGravatar
-          gravatarEmail={ gravatarEmail }
-          size='medium'
-          alt='foo'
-        />
-      );
-      const wrapper = shallowDLS(
+      testSuccess(
         <Portrait gravatar={ gravatarEmail } alt='foo' />
       );
-      expect(wrapper.contains(portraitGravatar)).toEqual(true);
     });
 
     it('can render the Classic theme', () => {
@@ -321,49 +300,33 @@ describe('PortraitComponent', () => {
   describe('render custom image', () => {
     const imageUrl = 'https://example.com/example.jpg';
 
+    const testSuccess = (element, expectedProps) => renderFindTypeSuccess(element, StyledCustomImg, expectedProps);
+
     it('renders avatar when supplied with src but no Gravatar', () => {
-      const styledCustomImg = (
-        <StyledCustomImg
-          src={ imageUrl }
-          alt='foo'
-          size='medium'
-          data-element='user-image'
-        />
+      testSuccess(
+        <Portrait src={ imageUrl } alt='foo' />,
+        {
+          src: imageUrl, alt: 'foo', size: 'medium', 'data-element': 'user-image'
+        }
       );
-      const wrapper = shallowDLS(
-        <Portrait src={ imageUrl } alt='foo' />
-      );
-      expect(wrapper.contains(styledCustomImg)).toEqual(true);
     });
 
     it('renders empty alt attribute when alt prop is empty', () => {
-      const styledCustomImg = (
-        <StyledCustomImg
-          src={ imageUrl }
-          alt=''
-          size='medium'
-          data-element='user-image'
-        />
+      testSuccess(
+        <Portrait src={ imageUrl } alt='' />,
+        {
+          src: imageUrl, alt: '', size: 'medium', 'data-element': 'user-image'
+        }
       );
-      const wrapper = shallowDLS(
-        <Portrait src={ imageUrl } alt='' />
-      );
-      expect(wrapper.contains(styledCustomImg)).toEqual(true);
     });
 
     it('renders empty alt attribute when alt prop is not supplied', () => {
-      const styledCustomImg = (
-        <StyledCustomImg
-          src={ imageUrl }
-          alt=''
-          size='medium'
-          data-element='user-image'
-        />
+      testSuccess(
+        <Portrait src={ imageUrl } />,
+        {
+          src: imageUrl, alt: '', size: 'medium', 'data-element': 'user-image'
+        }
       );
-      const wrapper = shallowDLS(
-        <Portrait src={ imageUrl } />
-      );
-      expect(wrapper.contains(styledCustomImg)).toEqual(true);
     });
   });
 
@@ -371,19 +334,20 @@ describe('PortraitComponent', () => {
     const imageUrl = 'https://example.com/example.jpg';
 
     it('includes data tags for component, element and role on Portrait component', () => {
-      const wrapper = shallowDLS(
+      const wrapper = shallow(
         <Portrait
           src={ imageUrl }
           data-element='bar'
           data-role='baz'
-        />
+        />,
+        { context: { theme: { mediumTheme } } }
       );
       rootTagTest(wrapper, 'portrait', 'bar', 'baz');
     });
 
     describe('includes user-image tag on internal elements when there is an image', () => {
-      const wrapper = shallowDLS(<Portrait src={ imageUrl } />);
-      elementsTagTest(wrapper, ['user-image']);
+      const rendered = renderDLS(<Portrait src={ imageUrl } />);
+      expect(rendered.root.findAllByProps({ 'data-element': 'user-image' }).length).toBeGreaterThan(0);
     });
   });
 });
