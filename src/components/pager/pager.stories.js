@@ -1,22 +1,31 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { storiesOf } from '@storybook/react';
-import { number, select, boolean } from '@storybook/addon-knobs';
+import { number, boolean, select } from '@storybook/addon-knobs';
 import { State, Store } from '@sambego/storybook-state';
-import Pager from './pager';
-import notes from './notes.md';
+import Pager from './pager.component';
+import { Info, notes } from './documentation';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
-import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
 
 const store = new Store({
-  currentPage: '1'
+  currentPage: '1',
+  pageSize: Pager.defaultProps.pageSize
 });
 
-const handlePagination = (ev) => {
-  store.set({ currentPage: ev });
+const handlePagination = (newPage, pageSize, type) => {
+  if (type === 'size') {
+    store.set({
+      pageSize,
+      currentPage: newPage
+    });
+  } else {
+    store.set({ currentPage: newPage });
+  }
 };
 
 const TableComponent = ({ propDefinitions }) => {
+  // Custom TableComponent for displaying pageSizeSelectionOptions correctly
+  // Can remove when no longer using Immutable
   const props = propDefinitions.map(
     ({
       property,
@@ -58,25 +67,25 @@ const TableComponent = ({ propDefinitions }) => {
 };
 
 TableComponent.propTypes = {
-  propDefinitions: PropTypes.object
+  propDefinitions: PropTypes.array
 };
 
 storiesOf('Pager', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [State]
-    }
-  })
   .add('default', () => {
     const totalRecords = number('totalRecords', 100);
     const pageSize = select('pageSize', OptionsHelper.pageSizes, Pager.defaultProps.pageSize);
-    const showPageSizeSelection = boolean('showPageSizeSelection', Pager.defaultProps.showPageSizeSelection);
+    const showPageSizeSelection = boolean(
+      'showPageSizeSelection',
+      Pager.defaultProps.showPageSizeSelection
+    );
+
+    store.set({ pageSize });
 
     return (
       <State store={ store }>
         <Pager
           currentPage={ store.get('currentPage') }
-          pageSize={ pageSize }
+          pageSize={ store.get('pageSize') }
           showPageSizeSelection={ showPageSizeSelection }
           totalRecords={ totalRecords }
           onPagination={ handlePagination }
@@ -85,26 +94,10 @@ storiesOf('Pager', module)
     );
   }, {
     info: {
+      propTables: [Pager],
+      propTablesExclude: [State],
       TableComponent,
-      text: (
-        <div>
-          <p>A Pager widget.</p>
-
-          <StoryHeader>Implementation</StoryHeader>
-
-          <p>In your file</p>
-
-          <StoryCode padded>
-            {'import Pager from "carbon-react/lib/components/pager";'}
-          </StoryCode>
-
-          <p>To render a Pager:</p>
-
-          <StoryCode padded>
-            {'<Pager currentPage="1" totalRecords="100" onPagination={ function(){} } />'}
-          </StoryCode>
-        </div>
-      )
+      text: Info
     },
     notes: { markdown: notes }
   });

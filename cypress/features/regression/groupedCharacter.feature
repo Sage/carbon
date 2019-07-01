@@ -5,7 +5,7 @@ Feature: GroupedCharacter component
     Given I open "GroupedCharacter" component page
 
   @positive
-  Scenario Outline: Set input width
+  Scenario Outline: Set input width to <inputWidth>
     When I set inputWidth to "<inputWidth>"
     Then inputWidth is set to "<inputWidth>"
     Examples:
@@ -16,7 +16,7 @@ Feature: GroupedCharacter component
       | 100        |
 
   @negative
-  Scenario Outline: Set input width out of scope
+  Scenario Outline: Set input width out of scope to <inputWidth>
     When I set inputWidth to "<inputWidth>"
     Then inputWidth is not set
     Examples:
@@ -28,7 +28,7 @@ Feature: GroupedCharacter component
       | <>                      |
 
   @positive
-  Scenario Outline: Set separator
+  Scenario Outline: Set separator to <separator>
     When I set separator to "<separator>"
       And I put "<text>" example grouped character
     Then example grouped character is "<result>"
@@ -45,7 +45,7 @@ Feature: GroupedCharacter component
       | *         | 123456 | 12*34*56 |
 
   @positive
-  Scenario Outline: Verify default separator
+  Scenario Outline: Verify default separator while <text> the separator should be <result>
     When I put "<text>" example grouped character
     Then example grouped character is "<result>"
     Examples:
@@ -54,7 +54,7 @@ Feature: GroupedCharacter component
       | abcdef | ab-cd-ef |
 
   @positive
-  Scenario Outline: Set label
+  Scenario Outline: Set label to <label>
     When I set label to "<label>"
     Then label on preview is "<label>"
     Examples:
@@ -78,7 +78,7 @@ Feature: GroupedCharacter component
     Then GroupedCharacter labelInline is disabled
 
   @positive
-  Scenario Outline: Set label width
+  Scenario Outline: Set label width <labelWidth>
     When I check labelInline checkbox
       And I set labelWidth to "<labelWidth>"
     Then GroupedCharacter labelWidth is set to "<labelWidth>"
@@ -90,7 +90,7 @@ Feature: GroupedCharacter component
       | 100        |
 
   @positive
-  Scenario Outline: Set label align
+  Scenario Outline: Set label align to <labelAlign>
     When I check labelInline checkbox
       And I select labelAlign to "<labelAlign>"
     Then labelAlign on preview is "<labelAlign>"
@@ -100,7 +100,7 @@ Feature: GroupedCharacter component
       | left       |
 
   @positive
-  Scenario Outline: Change labelHelp text
+  Scenario Outline: Change labelHelp text to <labelHelp>
     When I set labelHelp to "<labelHelp>"
       And I hover mouse onto help icon
     Then tooltipPreview on preview is set to "<labelHelp>"
@@ -114,7 +114,7 @@ Feature: GroupedCharacter component
       | <>                      |
 
   @positive
-  Scenario Outline: Change fieldHelp text
+  Scenario Outline: Change fieldHelp text to <fieldHelp>
     When I set fieldHelp to "<fieldHelp>"
     Then fieldHelp on preview is set to "<fieldHelp>"
     Examples:

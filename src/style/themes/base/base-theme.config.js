@@ -20,6 +20,7 @@ export default (palette) => {
       withOpacity: baseWithOpacity(0.55),
 
       // generic
+      black: '#000000',
       slate: '#003349',
       white: '#FFFFFF',
 
@@ -60,6 +61,22 @@ export default (palette) => {
       buttonText: 'rgba(0,0,0,.2)',
       background: palette.slateTint(90),
       switch: palette.slateTint(89.5)
+    },
+
+    table: {
+      primary: palette.slateTint(95),
+      secondary: palette.slateTint(80),
+      tertiary: palette.slateTint(10),
+      header: palette.slateTint(20),
+      hover: palette.slateTint(90),
+      selected: palette.slateTint(85),
+      zebra: palette.slateTint(98)
+    },
+
+    pager: {
+      active: 'rgba(0,0,0,0.74)',
+      disabled: 'rgba(0,0,0,0.55)',
+      hover: 'rgba(0,0,0,0.90)'
     },
 
     icon: {

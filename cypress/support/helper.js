@@ -24,7 +24,7 @@ export function clickAccessebilityTab(iFrameOnly = false) {
   if (!iFrameOnly) accessibilityTab().click();
 }
 
-export function reRunTests() {
+export function reRunAccesibilityTests() {
   reRunTestsButtonInAccessibility().click();
 }
 

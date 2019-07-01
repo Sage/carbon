@@ -11,14 +11,17 @@ const Checkbox = (props) => {
     reverse: !props.reverse
   };
 
+  const { onChange, ...rest } = checkboxProps;
+
   return (
     <CheckboxStyle
       { ...tagComponent('checkbox', props) }
-      { ...props }
+      { ...rest }
     >
       <CheckableInput
         type='checkbox'
-        { ...checkboxProps }
+        { ...rest }
+        onChange={ props.onChange }
       >
         <CheckboxSvg />
       </CheckableInput>

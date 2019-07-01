@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 import Icon from '../icon/icon';
 import tagComponent from '../../utils/helpers/tags/tags';
 import Portal from '../portal/portal';
-import { ToastStyle, ToastTypeStyle, ToastContentStyle } from './toast.style';
+import {
+  ToastStyle, ToastTypeStyle, ToastContentStyle, ToastWrapper
+} from './toast.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import DismissButton from '../dismiss-button';
 
@@ -37,6 +39,7 @@ class Toast extends React.Component {
     if (this.props.open) {
       return (
         <ToastStyle
+          isCenter={ this.props.isCenter }
           variant={ this.props.variant || this.props.as }
           className={ this.componentClasses }
           { ...tagComponent('toast', this.props) }
@@ -57,20 +60,21 @@ class Toast extends React.Component {
     return null;
   }
 
-  /** Renders the component. */
   render() {
     return (
       <Portal>
-        <CSSTransitionGroup
-          component='div'
-          transitionAppear
-          transitionName='toast'
-          transitionAppearTimeout={ 1600 }
-          transitionEnterTimeout={ 1500 }
-          transitionLeaveTimeout={ 500 }
-        >
-          { this.toastContent() }
-        </CSSTransitionGroup>
+        <ToastWrapper isCenter={ this.props.isCenter }>
+          <CSSTransitionGroup
+            component='div'
+            transitionAppear
+            transitionName='toast'
+            transitionAppearTimeout={ 1600 }
+            transitionEnterTimeout={ 1500 }
+            transitionLeaveTimeout={ 500 }
+          >
+            { this.toastContent() }
+          </CSSTransitionGroup>
+        </ToastWrapper>
       </Portal>
     );
   }
@@ -88,13 +92,16 @@ Toast.propTypes = {
   /** Determines if the toast is open. */
   open: PropTypes.bool,
   /** Callback for when dismissed. */
-  onDismiss: PropTypes.func
+  onDismiss: PropTypes.func,
+  /** props used with flash component. Allow to center a component */
+  isCenter: PropTypes.bool
 };
 
 Toast.defaultProps = {
   as: 'warning',
   onDismiss: null,
-  open: true
+  open: true,
+  isCenter: false
 };
 
 export default Toast;

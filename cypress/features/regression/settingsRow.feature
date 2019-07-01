@@ -48,11 +48,11 @@ Feature: Settings Row component
 
   @positive
   Scenario: Enable divider checkbox for a Settings Row component
-    When I check divider checkbox
+    When I uncheck divider checkbox
+      And I check divider checkbox
     Then Settings Row component has divider property
 
   @positive
   Scenario: Enable and disable fill checkbox for a Settings Row component
-    When I check divider checkbox
-      And I uncheck divider checkbox
+    When I uncheck divider checkbox
     Then Settings Row component has no divider property

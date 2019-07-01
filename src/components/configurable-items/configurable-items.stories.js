@@ -4,7 +4,7 @@ import { State, Store } from '@sambego/storybook-state';
 import { action } from '@storybook/addon-actions';
 import { cloneDeep } from 'lodash';
 import notes from './documentation';
-import { ConfigurableItems, ConfigurableItemRow } from './configurable-items.js';
+import { ConfigurableItems, ConfigurableItemRow } from '.';
 
 const defaultConfigurableItemsData = [
   {
@@ -43,15 +43,12 @@ const handleDrag = (draggedIndex, hoveredIndex) => {
 };
 const handleChange = (rowIndex) => {
   const configurableItemsData = store.get('configurableItemsData');
-
   configurableItemsData[rowIndex].enabled = !configurableItemsData[rowIndex].enabled;
-
   store.set({ configurableItemsData });
   action('changed')();
 };
 const handleSave = (event) => {
-  event.preventDefault();
-  event.stopPropagation();
+  event.persist();
 
   action('saved')();
 };

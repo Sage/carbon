@@ -5,7 +5,7 @@ Feature: Help component
     Given I open "Help" component page
 
   @positive
-  Scenario Outline: Change children
+  Scenario Outline: Change children to <children>
     When I set children to "<children>"
       And I hover mouse onto help icon
     Then  tooltipPreview on preview is set to "<children>"
@@ -19,7 +19,7 @@ Feature: Help component
       | <>                      |
 
   @positive
-  Scenario Outline: Change tooltip position
+  Scenario Outline: Change tooltip position to <tooltipPosition>
     When I select tooltipPosition to "<tooltipPosition>"
       And I hover mouse onto help icon
     Then tooltipPosition is set to "<tooltipPosition>"
@@ -31,7 +31,7 @@ Feature: Help component
       | bottom          |
 
   @positive
-  Scenario Outline: Change tooltipAlign
+  Scenario Outline: Change tooltipAlign to <tooltipAlign>
     When I select tooltipAlign to "<tooltipAlign>"
       And I hover mouse onto help icon
     Then tooltipAlign is set to "<tooltipAlign>"
@@ -44,7 +44,7 @@ Feature: Help component
       | center       |
 
   @positive
-  Scenario Outline: Change href
+  Scenario Outline: Change href to <href>
     When I set href to "<href>"
     Then link on preview is "<href>"
     Examples:

@@ -165,6 +165,10 @@ Object {
   z-index: 2;
 }
 
+.c5 .c0.c0 {
+  position: relative;
+}
+
 .c0 input::-ms-clear {
   display: none;
 }
