@@ -18,12 +18,13 @@ class Input extends React.Component {
     name: PropTypes.string,
     onBlur: PropTypes.func,
     onClick: PropTypes.func,
-    onFocus: PropTypes.func
-  }
+    onFocus: PropTypes.func,
+    type: PropTypes.string
+  };
 
-  static contextType = InputPresentationContext
+  static contextType = InputPresentationContext;
 
-  input = React.createRef()
+  input = React.createRef();
 
   componentDidMount() {
     if (this.props.inputRef) this.props.inputRef(this.input);
@@ -33,12 +34,12 @@ class Input extends React.Component {
   handleClick = (ev) => {
     if (this.props.onClick) this.props.onClick(ev);
     this.input.current.focus();
-  }
+  };
 
   handleFocus = (ev) => {
     if (this.props.onFocus) this.props.onFocus(ev);
     if (this.context && this.context.onFocus) this.context.onFocus(ev);
-    selectTextOnFocus(this.input);
+    if (this.props.type === 'text') selectTextOnFocus(this.input);
   };
 
   handleBlur = (ev) => {
@@ -64,6 +65,10 @@ class Input extends React.Component {
     );
   }
 }
+
+Input.defaultProps = {
+  type: 'text'
+};
 
 function selectTextOnFocus(input) {
   // setTimeout is required so the dom has a chance to place the cursor in the input

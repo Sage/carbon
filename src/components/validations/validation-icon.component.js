@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon';
 import ValidationIconStyle from './validation-icon.style';
-import VALIDATION_TYPES from './validation-types.config';
 import { InputPresentationContext } from '../../__experimental__/components/input';
+import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 
 const ValidationIcon = ({ type, message }) => (
   <InputPresentationContext.Consumer>
@@ -24,7 +24,7 @@ const ValidationIcon = ({ type, message }) => (
 );
 
 ValidationIcon.propTypes = {
-  type: PropTypes.oneOf(Object.keys(VALIDATION_TYPES)),
+  type: PropTypes.oneOf(OptionsHelper.validationTypes),
   message: PropTypes.string
 };
 
