@@ -8,8 +8,10 @@ import {
 } from '@storybook/addon-knobs';
 import DateInput from './date.component';
 import Textbox from '../textbox';
+import Form from '../../../components/form';
 import getCommonTextboxStoryProps from '../textbox/textbox.stories';
 import { notes, info } from './documentation';
+import DateValidator from '../../../utils/validations/date/date';
 
 const store = new Store(
   {
@@ -47,4 +49,29 @@ storiesOf('Experimental/Date Input', module)
       excludedPropTypes: ['children', 'leftChildren', 'inputIcon', 'placeholder', 'inputWidth']
     },
     notes: { markdown: notes }
+  })
+  .add('validation', () => {
+    const notEmpty = value => new Promise((resolve, reject) => {
+      if (value !== '') return resolve(true);
+      return reject(Error('Must not be empty!'));
+    });
+
+    return (
+      <Form
+        onSubmit={ handleSubmit }
+      >
+        <State store={ store }>
+          <DateInput
+            name='dateinput'
+            validations={ [new DateValidator()] }
+            placeholder={ text('placeholder') }
+          />
+        </State>
+      </Form>
+    );
   });
+
+function handleSubmit(ev) {
+  ev.preventDefault();
+  action('submit')();
+}
