@@ -1,5 +1,5 @@
 import React from 'react';
-import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../../../.storybook/style/storybook-info.styles';
+import { StoryHeader, StoryCode } from '../../../../../.storybook/style/storybook-info.styles';
 
 const code = `
 <SimpleColorPicker
@@ -17,10 +17,12 @@ const info = (
     <StoryHeader>Implementation</StoryHeader>
 
     <p>Import the component:</p>
-    <StoryCode padded>import SimpleColorPicker from {'"carbon-react/lib/components/simple-color-picker"'}</StoryCode>
+    <StoryCode>
+      import SimpleColorPicker from {'"carbon-react/lib/components/simple-color-picker"'}
+    </StoryCode>
 
     <p>To render the SimpleColorPicker:</p>
-    <StoryCodeBlock>{code}</StoryCodeBlock>
+    <StoryCode>{code}</StoryCode>
   </div>
 );
 
