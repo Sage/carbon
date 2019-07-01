@@ -9,9 +9,8 @@ import DatePicker from './date-picker.component';
 import StyledDateInput from './date.style';
 import Textbox from '../textbox';
 
-const isoDateFormat = 'YYYY-MM-DD';
 const defaultDateFormat = 'DD/MM/YYYY';
-const today = DateHelper.todayFormatted(isoDateFormat);
+const today = DateHelper.todayFormatted();
 
 class Date extends React.Component {
   static propTypes = {
@@ -30,7 +29,7 @@ class Date extends React.Component {
     onChange: PropTypes.func,
     /** Specify a callback triggered on focus */
     onFocus: PropTypes.func,
-    /** The current date */
+    /** The current date YYYY-MM-DD */
     value: PropTypes.string
   };
 
@@ -41,10 +40,14 @@ class Date extends React.Component {
 
   isBlurBlocked = false; // stops the blur callback from triggering (closing the list) when we don't want it to
 
+  isInputTyped = false;
+
   state = {
     isDatePickerOpen: false,
-    selectedDate: null,
-    visibleValue: formatVisibleValue(this.props.value)
+    /** Date object to pass to the Daypicker */
+    selectedDate: DateHelper.stringToDate(this.props.value),
+    /** Displayed value, format dependent on a region */
+    visibleValue: formatDateToCurrentLocale(this.props.value)
   };
 
   componentDidMount() {
@@ -75,6 +78,8 @@ class Date extends React.Component {
     if (disabled || readOnly || this.isBlurBlocked) return;
 
     if (this.props.onBlur) this.props.onBlur(ev);
+
+    this.reformatVisibleDate();
   }
 
   handleFocus = (ev) => {
@@ -91,7 +96,7 @@ class Date extends React.Component {
     if (this.props.onFocus) this.props.onFocus(ev);
   };
 
-  handleKeyDown = (ev) => {
+  handleTabKeyDown = (ev) => {
     if (Events.isTabKey(ev)) {
       this.closeDatePicker();
     }
@@ -99,38 +104,39 @@ class Date extends React.Component {
 
   openDatePicker = () => {
     this.isBlurBlocked = true;
+    this.isInputTyped = false;
     document.addEventListener('click', this.closeDatePicker);
     this.updateDatePickerValue(this.state.visibleValue);
     this.setState({ isDatePickerOpen: true });
   };
 
+  reformatVisibleDate = () => {
+    const { visibleValue } = this.state;
+
+    if (DateHelper.isValidDate(visibleValue)) {
+      this.setState({ visibleValue: formatDateToCurrentLocale(visibleValue) });
+    }
+  }
+
   closeDatePicker = () => {
     document.removeEventListener('click', this.closeDatePicker);
-    this.setState((prevState) => {
-      let newVisibleValue = prevState.visibleValue;
-
-      if (prevState.selectedDate) {
-        newVisibleValue = formatVisibleValue(prevState.selectedDate);
-      }
-
-      return {
-        visibleValue: newVisibleValue,
-        isDatePickerOpen: false
-      };
-    });
+    this.setState({ isDatePickerOpen: false });
   };
 
   handleDateSelect = (selectedDate) => {
-    const stringDateIso = DateHelper.formatDateString(selectedDate, isoDateFormat);
+    const stringDateIso = DateHelper.formatDateString(selectedDate);
 
     this.isBlurBlocked = true;
     this.closeDatePicker();
-    this.updateVisibleValue(selectedDate);
+    this.updateVisibleValue(stringDateIso);
     this.emitOnChangeCallback(stringDateIso);
   };
 
   updateVisibleValue = (date) => {
-    const visibleValue = formatVisibleValue(date);
+    const visibleValue = formatDateToCurrentLocale(date);
+
+    if (this.isInputTyped) return;
+
     this.setState({
       selectedDate: date,
       visibleValue
@@ -141,9 +147,11 @@ class Date extends React.Component {
     const { disabled, readOnly } = this.props;
     const dateWithSlashes = DateHelper.sanitizeDateInput(ev.target.value);
     const isValidDate = DateHelper.isValidDate(dateWithSlashes);
-    const isoDateString = DateHelper.formatDateString(dateWithSlashes, isoDateFormat);
+    const isoDateString = DateHelper.formatDateString(dateWithSlashes);
 
     if (disabled || readOnly) return;
+
+    this.isInputTyped = false;
 
     // Updates the hidden value after first formatting to default hidden format
     if (isValidDate) {
@@ -155,9 +163,13 @@ class Date extends React.Component {
   };
 
   updateDatePickerValue = (newValue) => {
-    const isoDate = convertToIsoDate(newValue);
+    const isoDate = DateHelper.stringToDate(newValue);
 
-    this.setState({ selectedDate: isoDate });
+    if (isoDate.getDate()) {
+      this.setState({ selectedDate: isoDate });
+    } else {
+      this.setState({ selectedDate: DateHelper.stringToDate(today) });
+    }
   };
 
   emitOnChangeCallback = (stringDate) => {
@@ -182,11 +194,14 @@ class Date extends React.Component {
     let events = {};
     delete inputProps.autoFocus;
 
+    if (!inputProps.validations) inputProps.validations = [];
+    // inputProps.validations = inputProps.validations.concat(...inputProps.internalValidations);
+
     events = {
       onBlur: this.handleBlur,
       onChange: this.handleVisibleInputChange,
       onFocus: this.handleFocus,
-      onKeyDown: this.handleKeyDown
+      onKeyDown: this.handleTabKeyDown
     };
 
     return (
@@ -208,27 +223,14 @@ class Date extends React.Component {
   }
 }
 
-function formatVisibleValue(value) {
-  // Don't sanitize so it accepts the hidden format (with dash separators)
-  return DateHelper.formatValue(value || today, getVisibleFormat(), {
-    formats: isoDateFormat,
-    sanitize: false
-  });
-}
+function formatDateToCurrentLocale(value) {
+  const visibleFormat = I18n.t('date.formats.javascript', { defaultValue: defaultDateFormat }).toUpperCase();
 
-function getVisibleFormat() {
-  return I18n.t('date.formats.javascript', { defaultValue: defaultDateFormat }).toUpperCase();
+  return DateHelper.formatValue(value || today, visibleFormat);
 }
 
 function stopClickPropagation(ev) {
   ev.nativeEvent.stopImmediatePropagation();
-}
-
-function convertToIsoDate(dateString) {
-  const isoFormattedValue = DateHelper.formatValue(dateString, isoDateFormat);
-  const isoDate = DateHelper.stringToDate(isoFormattedValue);
-
-  return isoDate;
 }
 
 export { defaultDateFormat };
