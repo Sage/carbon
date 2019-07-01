@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import MD5 from 'crypto-js/md5';
 import { withTheme } from 'styled-components';
 import BaseTheme from '../../style/themes/base';
-import { StyledPortraitGravatar, getSizeParams } from './portrait.style';
+import { StyledPortraitGravatar } from './portrait.style';
+import getSizeParams from './portrait-size.config';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 class PortraitGravatar extends React.Component {

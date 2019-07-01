@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'styled-components';
+import getSizeParams from './portrait-size.config';
 import BaseTheme from '../../style/themes/base';
 import Browser from '../../utils/helpers/browser';
 import { isClassic } from '../../utils/helpers/style-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { StyledPortraitInitials, getSizeParams, getColorsForInitials } from './portrait.style';
+import { StyledPortraitInitials, getColorsForInitials } from './portrait.style';
 
 class PortraitInitials extends React.Component {
   /** Cache of the initials graphic. */
