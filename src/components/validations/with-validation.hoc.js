@@ -11,7 +11,7 @@ const validationShape = PropTypes.shape({
   message: PropTypes.func,
   validate: PropTypes.func
 });
-const validationsPropType = PropTypes.oneOfType([
+const validationsPropTypes = PropTypes.oneOfType([
   PropTypes.func,
   PropTypes.arrayOf(validationShape),
   PropTypes.arrayOf(PropTypes.func)
@@ -27,9 +27,9 @@ const withValidation = (WrappedComponent) => {
       value: PropTypes.string, // The current value of the component
       onBlur: PropTypes.func, // Custom function to be called when the component blurs
       onChange: PropTypes.func, // Custom function called when component value changes
-      validations: validationsPropType,
-      warnings: validationsPropType,
-      info: validationsPropType
+      validations: validationsPropTypes,
+      warnings: validationsPropTypes,
+      info: validationsPropTypes
     };
 
     static defaultProps = {
@@ -233,5 +233,5 @@ const withValidation = (WrappedComponent) => {
   return WithValidation;
 };
 
-export { validationsPropType };
+export { validationsPropTypes };
 export default withValidation;
