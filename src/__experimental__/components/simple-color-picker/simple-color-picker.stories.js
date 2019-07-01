@@ -20,7 +20,8 @@ const onChange = (e) => {
 storiesOf('Experimental/Simple Color Picker', module)
   .addParameters({
     info: {
-      propTablesExclude: [State]
+      propTablesExclude: [State],
+      text: info
     }
   })
 
@@ -53,7 +54,6 @@ storiesOf('Experimental/Simple Color Picker', module)
       );
     },
     {
-      notes: { markdown: notes },
-      info: { text: info }
+      notes: { markdown: notes }
     }
   );
