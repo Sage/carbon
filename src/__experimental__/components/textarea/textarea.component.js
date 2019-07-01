@@ -6,6 +6,7 @@ import { InputPresentation } from '../input';
 import FormField from '../form-field';
 import CharacterCount from './character-count';
 import TextareaInput from './textarea-input.component';
+import withValidations from '../../../components/validations/with-validation.hoc';
 
 const i18nNumberOpts = { precision: 0 };
 
@@ -142,6 +143,7 @@ Textarea.propTypes = {
   /** Allows the Textareas Height to change based on user input */
   expandable: PropTypes.bool,
   label: PropTypes.string,
+  name: PropTypes.string,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
   /** Adds readOnly property */
@@ -164,4 +166,5 @@ Textarea.defaultProps = {
   warnOverLimit: false
 };
 
-export default Textarea;
+export { Textarea as OriginalTextarea };
+export default withValidations(Textarea);

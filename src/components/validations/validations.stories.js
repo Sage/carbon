@@ -16,6 +16,7 @@ import { Select, Option } from '../../__experimental__/components/select';
 import PresenceValidator from '../../utils/validations/presence';
 import { Row, Column } from '../row';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import Textarea from '../../__experimental__/components/textarea';
 
 I18n.translations.en.errors = {
   messages: {
@@ -68,7 +69,7 @@ const asyncValidator = value => new Promise((resolve, reject) => {
 storiesOf('Validations', module)
   .addParameters({
     info: {
-      propTablesExclude: [Column, Row, Form, Textbox, State]
+      propTablesExclude: [ButtonToggle, ButtonToggleGroup, Column, Row, Form, Textbox, State, Textarea]
     }
   })
   .add('Basic', () => {
