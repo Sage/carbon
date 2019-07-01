@@ -6,17 +6,17 @@ import CheckableInput from '../checkable-input/checkable-input.component';
 import CheckboxSvg from './checkbox-svg.component';
 
 const Checkbox = (props) => {
-  const checkboxProps = {
+  const inputProps = {
     ...props,
     reverse: !props.reverse
   };
 
-  const { onChange, ...rest } = checkboxProps;
+  const { onChange, ...rest } = inputProps;
 
   return (
     <CheckboxStyle
       { ...tagComponent('checkbox', props) }
-      { ...rest }
+      { ...props }
     >
       <CheckableInput
         type='checkbox'

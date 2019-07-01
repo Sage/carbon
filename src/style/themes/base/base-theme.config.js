@@ -16,6 +16,7 @@ export default (palette) => {
       secondary: palette.genericGreenShade(35),
       tertiary: palette.genericGreenShade(55),
       brand: palette.brilliantGreen,
+      disabled: palette.genericGreenTint(40),
       whiteMix: palette.genericGreenTint(90),
       withOpacity: baseWithOpacity(0.55),
 
