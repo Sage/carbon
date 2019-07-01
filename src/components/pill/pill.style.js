@@ -69,7 +69,7 @@ const PillStyle = styled.span`
           bottom: 0;
           font-size: 100%;
           margin: 0;
-          padding: 0 23px 1px 0;
+          padding: 0 22px 2px 0;
           position: absolute;
           right: 0;
           top: 0;
@@ -87,12 +87,12 @@ const PillStyle = styled.span`
             outline: none;
             box-shadow: 0 0 0 3px ${styleSet.boxShadow};
             background-color: ${styleSet[variety].buttonFocus};
-            color: ${(variety === 'warning') ? colors.black : styleSet.hoverColor};
+            color: ${(variety === 'warning') ? colors.black : styleSet.hoverColor} !important;
           }
 
           &:hover {
             background-color: ${styleSet[variety].buttonFocus};
-            color: ${styleSet.hoverColor};
+            color: ${(variety === 'warning') ? colors.black : styleSet.hoverColor};
             cursor: pointer;
           }
  
