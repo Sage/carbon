@@ -2,6 +2,8 @@ import I18n from 'i18n-js';
 import moment from 'moment';
 import { merge } from 'lodash';
 
+const isoDateFormat = 'YYYY-MM-DD';
+
 /**
  * DateHelper used to encapsulate the date parsing library into a single helper
  */
@@ -64,7 +66,7 @@ const DateHelper = {
    * @param {String} formatTo Desired format e.g. YYYY-MM-DD
    * @return {String} formatted date
    */
-  formatDateString: (value, formatTo) => {
+  formatDateString: (value, formatTo = isoDateFormat) => {
     return (
       moment(new Date(value).getTime()).format(formatTo)
     );
@@ -76,7 +78,7 @@ const DateHelper = {
    * @param {String} format - format of date
    * @return {Moment}
    */
-  todayFormatted: (format) => {
+  todayFormatted: (format = isoDateFormat) => {
     return moment().format(format);
   },
 
