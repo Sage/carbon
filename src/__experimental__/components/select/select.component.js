@@ -270,6 +270,9 @@ class Select extends React.Component {
           { ...this.dataAttributes() }
           { ...this.textboxProps() }
           { ...this.eventProps() }
+          role='combobox'
+          aria-haspopup='listbox'
+          aria-expanded={ open }
         >
           { this.listDisplayable(allowTypeAhead, filter, open) && (
             <SelectList
@@ -282,6 +285,7 @@ class Select extends React.Component {
               onSelect={ this.handleChange }
               open={ open }
               target={ this.input.current && this.input.current.parentElement }
+              role='listbox'
             >
               { children }
             </SelectList>
