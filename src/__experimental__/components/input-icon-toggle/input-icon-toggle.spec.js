@@ -39,16 +39,6 @@ describe('InputIconToggle', () => {
     });
   });
 
-  describe('validations', () => {
-    ['info', 'warning', 'error'].forEach((validation) => {
-      it(`updates the color for ${validation}`, () => {
-        assertStyleMatch({
-          color: BaseTheme.colors[validation]
-        }, render({ [`${validation}Message`]: 'validation!' }, TestRenderer.create).toJSON());
-      });
-    });
-  });
-
   describe('sizes', () => {
     [['small', '32px'], ['medium', '40px'], ['large', '48px']].forEach((size) => {
       it(`updates the width for ${size[0]}`, () => {
