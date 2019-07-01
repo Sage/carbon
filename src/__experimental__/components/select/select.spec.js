@@ -52,7 +52,7 @@ describe('Select', () => {
    * Begin tests
    */
 
-  it('renders only the InputDecoratorBridge when closed', () => {
+  it('renders only the Textbox when closed', () => {
     expect(renderWrapper({ type: shallow })).toMatchSnapshot();
   });
 
@@ -105,11 +105,19 @@ describe('Select', () => {
         * placeholder is disabled`, () => {
       const props = { value: multiValue, placeholder: 'placeholder' };
       const textbox = textboxOf(renderWrapper({ props }));
-      expect(textbox.props().formattedValue).toEqual('');
-      expect(textbox.props().value).toEqual(multiValue);
-      expect(textbox.props().leftChildren).toMatchSnapshot();
-      expect(textbox.props().inputIcon).toEqual(undefined);
-      expect(textbox.props().placeholder).toEqual(null);
+      const {
+        formattedValue,
+        value, inputIcon,
+        leftChildren,
+        placeholder
+      } = textbox.props();
+
+      expect(formattedValue).toEqual('');
+      expect(value).toEqual(multiValue);
+      expect(leftChildren.length).toEqual(3);
+      expect(leftChildren[0].props.children.props.title).toEqual('Orange');
+      expect(inputIcon).toEqual(undefined);
+      expect(placeholder).toEqual(null);
     });
 
     it('triggers onChange with the item added when choosing an item', () => {
@@ -283,6 +291,24 @@ describe('Select', () => {
       textboxOf(wrapper).find('input').simulate('keydown');
       expect(listOf(wrapper).exists()).toEqual(false);
     });
+
+    it('allows key inputs when the component is filterable', () => {
+      const props = { filterable: true };
+      const wrapper = renderWrapper({ props });
+      const mockEvent = { which: 67, preventDefault: jest.fn() };
+      openList(wrapper);
+      textboxOf(wrapper).find('input').simulate('keydown', mockEvent);
+      expect(mockEvent.preventDefault).not.toHaveBeenCalled();
+    });
+
+    it('prevents key inputs when the component is not filterable', () => {
+      const props = { filterable: false };
+      const wrapper = renderWrapper({ props });
+      const mockEvent = { which: 67, preventDefault: jest.fn() };
+      openList(wrapper);
+      textboxOf(wrapper).find('input').simulate('keydown', mockEvent);
+      expect(mockEvent.preventDefault).toHaveBeenCalled();
+    });
   });
 
   describe('filter', () => {
@@ -298,6 +324,18 @@ describe('Select', () => {
       const wrapper = renderWrapper({ props });
       textboxOf(wrapper).find('input').simulate('change', { target: { value: 'x' } });
       expect(props.onFilter).toHaveBeenCalledWith('x');
+    });
+  });
+
+  describe('typeAhead', () => {
+    it('only renders the select list when there is a search term greater or equal to three characters', () => {
+      const props = { typeAhead: true };
+      const wrapper = openList(renderWrapper({ props }));
+      expect(listOf(wrapper).length).toEqual(0);
+      textboxOf(wrapper).find('input').simulate('change', { target: { value: 'x' } });
+      expect(listOf(wrapper).length).toEqual(0);
+      textboxOf(wrapper).find('input').simulate('change', { target: { value: 'xxx' } });
+      expect(listOf(wrapper).length).toEqual(1);
     });
   });
 });

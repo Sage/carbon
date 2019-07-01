@@ -3,7 +3,6 @@
 exports[`Select does not apply any events if disabled or readonly 1`] = `
 <Fragment>
   <WithUniqueName(WithValidation(Textbox))
-    className="carbon-select"
     data-component="carbon-select"
     formattedValue=""
     inputIcon="dropdown"
@@ -14,6 +13,7 @@ exports[`Select does not apply any events if disabled or readonly 1`] = `
     onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
+    placeholder="Please Select..."
   />
 </Fragment>
 `;
@@ -21,7 +21,6 @@ exports[`Select does not apply any events if disabled or readonly 1`] = `
 exports[`Select does not apply any events if disabled or readonly 2`] = `
 <Fragment>
   <WithUniqueName(WithValidation(Textbox))
-    className="carbon-select"
     data-component="carbon-select"
     formattedValue=""
     inputIcon="dropdown"
@@ -32,14 +31,14 @@ exports[`Select does not apply any events if disabled or readonly 2`] = `
     onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
+    placeholder="Please Select..."
   />
 </Fragment>
 `;
 
-exports[`Select renders only the InputDecoratorBridge when closed 1`] = `
+exports[`Select renders only the Textbox when closed 1`] = `
 <Fragment>
   <WithUniqueName(WithValidation(Textbox))
-    className="carbon-select"
     data-component="carbon-select"
     formattedValue=""
     inputIcon="dropdown"
@@ -50,6 +49,7 @@ exports[`Select renders only the InputDecoratorBridge when closed 1`] = `
     onClick={[Function]}
     onFocus={[Function]}
     onKeyDown={[Function]}
+    placeholder="Please Select..."
   />
 </Fragment>
 `;
@@ -178,26 +178,29 @@ Object {
 }
 
 <div
-    class="carbon-select c0"
+    class="c0"
     data-component="carbon-select"
     name="guid-12345"
+    placeholder="Please Select..."
     role="presentation"
     type="text"
   >
     <input
-      class="carbon-select c1 c2"
+      class="c1 c2"
       data-component="carbon-select"
       id="guid-12345"
       name="guid-12345"
+      placeholder="Please Select..."
       value=""
     />
     <span
       data-portal-entrance="guid-12345"
     />
     <span
-      class="carbon-select c3"
+      class="c3"
       data-component="carbon-select"
       name="guid-12345"
+      placeholder="Please Select..."
       type="dropdown"
     >
       <span
@@ -208,56 +211,4 @@ Object {
     </span>
   </div>,
 }
-`;
-
-exports[`Select when multi-value renders the the textbox with the following:
-        * formattedValue is empty
-        * value contains the array of values
-        * leftChildren contains the pills
-        * inputIcon is disabled
-        * placeholder is disabled 1`] = `
-Array [
-  <div
-    className="carbon-select__pill"
-  >
-    <Pill
-      as="default"
-      className=""
-      fill={false}
-      onClick={null}
-      onDelete={[Function]}
-      title="Orange"
-    >
-      Orange
-    </Pill>
-  </div>,
-  <div
-    className="carbon-select__pill"
-  >
-    <Pill
-      as="default"
-      className=""
-      fill={false}
-      onClick={null}
-      onDelete={[Function]}
-      title="Blue"
-    >
-      Blue
-    </Pill>
-  </div>,
-  <div
-    className="carbon-select__pill"
-  >
-    <Pill
-      as="default"
-      className=""
-      fill={false}
-      onClick={null}
-      onDelete={[Function]}
-      title="Red"
-    >
-      Red
-    </Pill>
-  </div>,
-]
 `;

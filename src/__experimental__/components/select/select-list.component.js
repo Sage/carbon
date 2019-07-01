@@ -55,7 +55,7 @@ class SelectList extends React.Component {
    * Find and highlights search terms in text
    */
   highlightMatches = (optionText, value) => {
-    if (!value.length) return optionText;
+    if (!value.length || !optionText) return optionText;
 
     const parsedOptionText = optionText.toLowerCase();
     const valIndex = parsedOptionText.indexOf(value);
@@ -114,6 +114,7 @@ class SelectList extends React.Component {
           >
             {
               filter(children, (child) => {
+                const { text, ...props } = child.props;
                 return (
                   <ScrollableListItem
                     id={ this.itemId(child.props) }
@@ -123,9 +124,9 @@ class SelectList extends React.Component {
                       React.cloneElement(
                         child,
                         {
-                          children: this.highlightMatches(child.props.text, String(filterValue)),
-                          text: child.props.text,
-                          ...child.props
+                          children: this.highlightMatches(text, String(filterValue)),
+                          text,
+                          ...props
                         }
                       )
                     }

@@ -15,21 +15,22 @@ const multiSelectStore = new Store({
 
 const commonKnobs = (store) => {
   const filterable = boolean('filterable', Select.defaultProps.filterable);
+  const typeAhead = filterable && boolean('typeAhead', Select.defaultProps.typeAhead);
 
   return {
-    disabled: boolean('disabled'),
+    disabled: boolean('disabled', false),
     errorMessage: text('errorMessage'),
     infoMessage: text('infoMessage'),
     label: text('label'),
     labelAlign: select('labelAlign', OptionsHelper.alignBinary),
-    labelInline: boolean('labelInline'),
+    labelInline: boolean('labelInline', false),
     onChange: (ev) => { store.set({ value: ev.target.value }); },
     placeholder: text('placeholder'),
-    readOnly: boolean('readOnly'),
+    readOnly: boolean('readOnly', false),
     size: select('size', OptionsHelper.sizesRestricted),
     warningMessage: text('warningMessage'),
     filterable,
-    typeAhead: filterable && boolean('typeAhead', Select.defaultProps.typeAhead)
+    typeAhead
   };
 };
 

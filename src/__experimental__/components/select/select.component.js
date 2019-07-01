@@ -80,7 +80,7 @@ class Select extends React.Component {
   handleFilter = (ev) => {
     const { value: filter } = ev.target;
     this.setState({ filter });
-    // check type ahead here
+
     if (this.props.onFilter) this.props.onFilter(filter);
   }
 
@@ -108,9 +108,13 @@ class Select extends React.Component {
       if (!this.isMultiValue(this.props.value) || this.state.filter || !this.props.value.length) return;
       this.removeItem(this.props.value.length - 1);
     }
+
+    if (!this.props.filterable) ev.preventDefault();
   }
 
   openWhenTypeAhead(typeAhead, value) {
+    if (!this.props.filterable) return false;
+
     return typeAhead && value && value.length >= 3;
   }
 
@@ -151,10 +155,13 @@ class Select extends React.Component {
   }
 
   // returns the correct value to feed into the textbox component
-  // CAN REMOVE PROBS!!!
   value(value) {
-    if (this.isMultiValue(value)) return value; // if multi value the returns the full array
+    if (!this.props.filterable) return undefined;
+    if (this.isMultiValue(value)) {
+      return value; // if multi value the returns the full array
+    }
     if (value) return value.value; // if single value then returns the id/value
+
     return undefined; // otherwise return undefined
   }
 
@@ -199,6 +206,46 @@ class Select extends React.Component {
     return this.isMultiValue(value) ? undefined : 'dropdown';
   }
 
+  eventProps() {
+    let events = {};
+
+    if (!this.props.disabled && !this.props.readOnly) {
+      events = {
+        onBlur: this.handleBlur,
+        onFocus: this.handleFocus,
+        onKeyDown: this.handleKeyDown,
+        onClick: this.handleClick,
+        onChange: this.handleFilter
+      };
+    }
+    return events;
+  }
+
+  textboxProps() {
+    const {
+      typeAhead,
+      value,
+      placeholder
+    } = this.props;
+
+    const props = {
+      'data-component': 'carbon-select',
+      inputIcon: this.inputIcon(typeAhead, value),
+      inputRef: this.assignInput,
+      placeholder: this.placeholder(placeholder, value),
+      leftChildren: this.isMultiValue(value) && this.renderMultiValues(value),
+      value: this.value(value),
+      formattedValue: this.formattedValue(this.state.filter, value)
+    };
+
+    return props;
+  }
+
+  listDisplayable(isTypeAhead) {
+    const { filter, open } = this.state;
+    return (this.openWhenTypeAhead((isTypeAhead), filter) || !isTypeAhead) ? open : false;
+  }
+
   render() {
     const {
       children,
@@ -215,35 +262,16 @@ class Select extends React.Component {
 
     const { filter, open } = this.state;
 
-    let events = {};
-
-    if (!this.props.disabled && !this.props.readOnly) {
-      events = {
-        onBlur: this.handleBlur,
-        onFocus: this.handleFocus,
-        onKeyDown: this.handleKeyDown,
-        onClick: this.handleClick
-      };
-      if (filterable) events.onChange = this.handleFilter;
-    }
-
-    const displayList = (this.openWhenTypeAhead((typeAhead), filter) || !typeAhead) ? open : false;
-
+    const allowTypeAhead = filterable ? typeAhead : false;
     return (
       <>
         <Textbox
           { ...props } // this needs to send all of the original props
           { ...this.dataAttributes() }
-          data-component='carbon-select'
-          formattedValue={ this.formattedValue(filter, value) }
-          inputIcon={ this.inputIcon(typeAhead, value) }
-          inputRef={ this.assignInput }
-          placeholder={ this.placeholder(placeholder, value) }
-          value={ this.value(value) }
-          leftChildren={ this.isMultiValue(value) && this.renderMultiValues(value) }
-          { ...events }
+          { ...this.textboxProps() }
+          { ...this.eventProps() }
         >
-          { displayList && (
+          { this.listDisplayable(allowTypeAhead, filter, open) && (
             <SelectList
               alwaysHighlight={ !!filter } // always ensure something is highlighted only if there's a filter
               customFilter={ customFilter }
