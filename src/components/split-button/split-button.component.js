@@ -224,7 +224,7 @@ SplitButton.propTypes = {
   /** Defines an Icon position within the button: "before" | "after" */
   iconPosition: PropTypes.oneOf(OptionsHelper.buttonIconPositions),
   /** Set align of the rendered content */
-  align: PropTypes.string
+  align: PropTypes.oneOf(OptionsHelper.alignBinary)
 };
 
 SplitButton.defaultProps = {
@@ -232,7 +232,7 @@ SplitButton.defaultProps = {
   disabled: false,
   size: 'medium',
   iconPosition: 'before',
-  align: 'right'
+  align: 'left'
 };
 
 SplitButton.safeProps = ['buttonType', 'as', 'disabled', 'size'];
