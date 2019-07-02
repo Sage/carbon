@@ -43,7 +43,7 @@ const DateHelper = {
    * @param {Object} options Override Moment JS options
    * @return {String} formatted date
    */
-  formatValue: (value, formatTo, options = {}) => {
+  formatValue: (value, formatTo = isoDateFormat, options = {}) => {
     const date = DateHelper._parseDate(value, options);
     return date.isValid() ? date.format(formatTo) : value;
   },
