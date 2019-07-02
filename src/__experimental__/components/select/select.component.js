@@ -315,7 +315,6 @@ const optionShape = PropTypes.shape({
 
 Select.propTypes = {
   children: PropTypes.node,
-  className: PropTypes.string,
   customFilter: PropTypes.func,
   disabled: PropTypes.bool,
   label: PropTypes.string,
