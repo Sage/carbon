@@ -264,15 +264,16 @@ class Select extends React.Component {
 
     const allowTypeAhead = filterable ? typeAhead : false;
     return (
-      <>
+      <div
+        role='combobox'
+        aria-haspopup='listbox'
+        aria-expanded={ open }
+      >
         <Textbox
           { ...props } // this needs to send all of the original props
           { ...this.dataAttributes() }
           { ...this.textboxProps() }
           { ...this.eventProps() }
-          role='combobox'
-          aria-haspopup='listbox'
-          aria-expanded={ open }
         >
           { this.listDisplayable(allowTypeAhead, filter, open) && (
             <SelectList
@@ -291,7 +292,7 @@ class Select extends React.Component {
             </SelectList>
           ) }
         </Textbox>
-      </>
+      </div>
     );
   }
 }
