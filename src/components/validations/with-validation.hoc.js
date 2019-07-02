@@ -104,19 +104,46 @@ const withValidation = (WrappedComponent) => {
       });
     }
 
-    updateValidationStatus(type, message) {
-      const { adjustCount } = this.context;
-      const stateProp = `${type}Message`;
-      const isErrorType = type === 'error';
+    updateValidationStatus(type, newMessage = '') {
+      if (type === 'error') this.updateErrorStatus(newMessage);
+      if (type === 'warning') this.updateWarningStatus(newMessage);
+      if (type === 'info') this.updateInfoStatus(newMessage);
+    }
 
-      if (!isErrorType && this.state.errorMessage) return; // display only error message
+    updateErrorStatus(newMessage) {
+      const hasErrorMessage = this.state.errorMessage !== '';
 
-      if (message && !this.state[stateProp]) {
-        adjustCount(type, true);
-        this.setState({ [stateProp]: message });
-      } else if (!message && this.state[stateProp]) {
-        adjustCount(type);
-        this.setState({ [stateProp]: '' });
+      this.adjustFormValidationCount('error', newMessage, hasErrorMessage);
+      this.setState({ errorMessage: newMessage });
+    }
+
+    updateWarningStatus(newMessage) {
+      const hasWarningMessage = this.state.warningMessage !== '';
+      const hasErrorMessage = this.state.errorMessage !== '';
+
+      if (hasErrorMessage) return;
+
+      this.adjustFormValidationCount('warning', newMessage, hasWarningMessage);
+      this.setState({ warningMessage: newMessage });
+    }
+
+    updateInfoStatus(newMessage) {
+      const hasinfoMessage = this.state.infoMessage !== '';
+      const hasErrorMessage = this.state.errorMessage !== '';
+
+      if (hasErrorMessage) return;
+
+      this.adjustFormValidationCount('info', newMessage, hasinfoMessage);
+      this.setState({ infoMessage: newMessage });
+    }
+
+    adjustFormValidationCount(type, newMessage, hasExistingMessage) {
+      const hasNewMessage = newMessage !== '';
+
+      if (hasNewMessage && !hasExistingMessage) {
+        this.context.adjustCount(type, true);
+      } else if (!hasNewMessage && hasExistingMessage) {
+        this.context.adjustCount(type);
       }
     }
 
@@ -183,7 +210,14 @@ const withValidation = (WrappedComponent) => {
 
     handleChange = (ev) => {
       this.blockValidation = true;
+      this.resetValidation();
 
+      if (this.props.onChange) {
+        this.props.onChange(ev);
+      }
+    }
+
+    resetValidation() {
       if (this.state.errorMessage) {
         this.updateValidationStatus('error');
         this.setState({ errorMessage: '' });
@@ -197,10 +231,6 @@ const withValidation = (WrappedComponent) => {
       if (this.state.infoMessage) {
         this.updateValidationStatus('info');
         this.setState({ infoMessage: '' });
-      }
-
-      if (this.props.onChange) {
-        this.props.onChange(ev);
       }
     }
 
