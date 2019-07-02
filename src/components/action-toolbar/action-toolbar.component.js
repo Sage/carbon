@@ -60,7 +60,6 @@ class ActionToolbar extends React.Component {
 
     this.actions = this.actions.bind(this);
     this.isActive = this.isActive.bind(this);
-    this.mainClasses = this.mainClasses.bind(this);
     this.buildAction = this.buildAction.bind(this);
   }
 
