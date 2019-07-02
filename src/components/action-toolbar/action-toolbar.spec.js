@@ -1,7 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
-import ActionToolbar from './action-toolbar.component.js';
+import ActionToolbar from '.';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 
 describe('action toolbar', () => {
