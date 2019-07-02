@@ -228,11 +228,14 @@ class Select extends React.Component {
       placeholder
     } = this.props;
 
+    const placeholderText = this.placeholder(placeholder, value);
+
     const props = {
       'data-component': 'carbon-select',
       inputIcon: this.inputIcon(typeAhead, value),
       inputRef: this.assignInput,
-      placeholder: this.placeholder(placeholder, value),
+      placeholder: placeholderText,
+      'aria-label': placeholderText,
       leftChildren: this.isMultiValue(value) && this.renderMultiValues(value),
       value: this.value(value),
       formattedValue: this.formattedValue(this.state.filter, value)
