@@ -44,7 +44,7 @@ class Date extends React.Component {
 
   state = {
     isDatePickerOpen: false,
-    /** Date object to pass to the Daypicker */
+    /** Date object to pass to the DatePicker */
     selectedDate: DateHelper.stringToDate(this.props.value),
     /** Displayed value, format dependent on a region */
     visibleValue: formatDateToCurrentLocale(this.props.value)
@@ -106,7 +106,7 @@ class Date extends React.Component {
     this.isBlurBlocked = true;
     this.isInputTyped = false;
     document.addEventListener('click', this.closeDatePicker);
-    this.updateDatePickerValue(this.state.visibleValue);
+    this.updateSelectedDate(this.props.value);
     this.setState({ isDatePickerOpen: true });
   };
 
@@ -147,22 +147,23 @@ class Date extends React.Component {
     const { disabled, readOnly } = this.props;
     const dateWithSlashes = DateHelper.sanitizeDateInput(ev.target.value);
     const isValidDate = DateHelper.isValidDate(dateWithSlashes);
-    const isoDateString = DateHelper.formatDateString(dateWithSlashes);
+    let isoDateString;
 
     if (disabled || readOnly) return;
 
     this.isInputTyped = false;
+    this.isBlurBlocked = false;
 
-    // Updates the hidden value after first formatting to default hidden format
     if (isValidDate) {
-      this.updateDatePickerValue(dateWithSlashes);
+      isoDateString = DateHelper.formatValue(dateWithSlashes);
+      this.updateSelectedDate(isoDateString);
       this.emitOnChangeCallback(isoDateString);
     }
 
     this.setState({ visibleValue: ev.target.value });
   };
 
-  updateDatePickerValue = (newValue) => {
+  updateSelectedDate = (newValue) => {
     const isoDate = DateHelper.stringToDate(newValue);
 
     if (isoDate.getDate()) {
@@ -195,7 +196,8 @@ class Date extends React.Component {
     delete inputProps.autoFocus;
 
     if (!inputProps.validations) inputProps.validations = [];
-    // inputProps.validations = inputProps.validations.concat(...inputProps.internalValidations);
+
+    inputProps.validations = inputProps.validations.concat(...inputProps.internalValidations);
 
     events = {
       onBlur: this.handleBlur,

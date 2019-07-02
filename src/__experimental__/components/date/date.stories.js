@@ -11,7 +11,6 @@ import Textbox from '../textbox';
 import Form from '../../../components/form';
 import getCommonTextboxStoryProps from '../textbox/textbox.stories';
 import { notes, info } from './documentation';
-import DateValidator from '../../../utils/validations/date/date';
 
 const store = new Store(
   {
@@ -51,11 +50,6 @@ storiesOf('Experimental/Date Input', module)
     notes: { markdown: notes }
   })
   .add('validation', () => {
-    const notEmpty = value => new Promise((resolve, reject) => {
-      if (value !== '') return resolve(true);
-      return reject(Error('Must not be empty!'));
-    });
-
     return (
       <Form
         onSubmit={ handleSubmit }
@@ -63,8 +57,8 @@ storiesOf('Experimental/Date Input', module)
         <State store={ store }>
           <DateInput
             name='dateinput'
-            validations={ [new DateValidator()] }
             placeholder={ text('placeholder') }
+            onChange={ setValue }
           />
         </State>
       </Form>
