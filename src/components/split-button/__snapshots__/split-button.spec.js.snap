@@ -326,7 +326,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: right;
+  text-align: left;
   z-index: 10;
 }
 
@@ -365,7 +365,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: right;
+  text-align: left;
   z-index: 10;
 }
 
@@ -387,7 +387,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: right;
+  text-align: left;
   z-index: 10;
 }
 
@@ -409,7 +409,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: right;
+  text-align: left;
   z-index: 10;
 }
 
@@ -431,7 +431,6 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: left;
   z-index: 10;
 }
 
@@ -470,7 +469,6 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: left;
   z-index: 10;
 }
 
@@ -492,7 +490,6 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: left;
   z-index: 10;
 }
 
@@ -514,7 +511,6 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: left;
   z-index: 10;
 }
 
@@ -973,7 +969,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: right;
+  text-align: left;
   z-index: 10;
 }
 
@@ -1012,7 +1008,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: right;
+  text-align: left;
   z-index: 10;
 }
 
@@ -1034,7 +1030,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: right;
+  text-align: left;
   z-index: 10;
 }
 
@@ -1056,7 +1052,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: right;
+  text-align: left;
   z-index: 10;
 }
 
@@ -1078,7 +1074,6 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: left;
   z-index: 10;
 }
 
@@ -1117,7 +1112,6 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: left;
   z-index: 10;
 }
 
@@ -1139,7 +1133,6 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: left;
   z-index: 10;
 }
 
@@ -1161,7 +1154,6 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: left;
   z-index: 10;
 }
 
