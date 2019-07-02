@@ -255,6 +255,16 @@ describe('when the withValidations HOC wraps a component', () => {
       expect(validate).toEqual(true);
       expect(spy).toHaveBeenCalledWith('error');
     });
+
+    it('validates properly without context passed', async () => {
+      const NoContextComponent = withValidation(MockComponent);
+      const noContextWrapper = shallow(<NoContextComponent name='foo' validations={ presence } />, { context: null });
+      const validateEmpty = await noContextWrapper.instance().runValidation('error');
+      expect(validateEmpty).toEqual(false);
+      noContextWrapper.setProps({ value: 'bar' });
+      const validateFilled = await noContextWrapper.instance().runValidation(types[0]);
+      expect(validateFilled).toEqual(true);
+    });
   });
 
   describe('when the validate function is called', () => {

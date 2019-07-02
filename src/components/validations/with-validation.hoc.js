@@ -140,6 +140,8 @@ const withValidation = (WrappedComponent) => {
     adjustFormValidationCount(type, newMessage, hasExistingMessage) {
       const hasNewMessage = newMessage !== '';
 
+      if (!this.context || !this.context.adjustCount) return;
+
       if (hasNewMessage && !hasExistingMessage) {
         this.context.adjustCount(type, true);
       } else if (!hasNewMessage && hasExistingMessage) {
