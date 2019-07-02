@@ -84,8 +84,10 @@ Portrait.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesFull),
   /** A custom image URL. */
   src: (props) => {
-    if (!props.gravatar && !props.src && !props.initials) {
-      throw new Error('Portrait requires a prop of "src", "gravatar" or "initials"');
+    if (props.src && typeof props.src !== 'string') {
+      throw new Error(
+        `Invalid prop \`src\` of type \`${typeof props.src}\` supplied to \`Portrait\`, expected \`string\`.`
+      );
     } else if (props.gravatar && props.src) {
       throw new Error('Portrait requires a prop of "src" or "gravatar" but not both');
     }

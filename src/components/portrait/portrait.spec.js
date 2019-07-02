@@ -99,16 +99,23 @@ describe('PortraitComponent', () => {
       });
     });
 
-    describe('gravatar and src', () => {
-      it('throws an error when neither gravatar or src is passed', () => {
-        renderDLS(<Portrait />);
-        expect(console.error).toHaveBeenCalledTimes(1);
+    describe('src', () => {
+      it('accepts a valid src', () => {
+        renderDLS(<Portrait src='https://example.com/example.png' size='small' />);
+        expect(console.error).toHaveBeenCalledTimes(0);
+      });
+
+      it('rejects an invalid src', () => {
+        renderDLS(<Portrait src={ 42 } size='small' />);
+        expect(console.error).toHaveBeenCalled();
         expect(console.error.calls.argsFor(0).length).toBe(1);
-        const expected = 'Warning: Failed prop type: Portrait requires a prop of "src", "gravatar" or "initials';
+        const expected = 'Invalid prop `src` of type `number` supplied to `Portrait`, expected `string`.';
         const actual = console.error.calls.argsFor(0)[0];
         expect(actual).toMatch(expected);
       });
+    });
 
+    describe('gravatar and src', () => {
       it('throws an error when both gravatar and src are passed', () => {
         renderDLS(<Portrait gravatar='example@example.com' src='foo' />);
         expect(console.error).toHaveBeenCalledTimes(1);
