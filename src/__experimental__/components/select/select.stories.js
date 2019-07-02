@@ -34,63 +34,17 @@ const commonKnobs = (store) => {
   };
 };
 
-const selectOptions = [
-  <Option
-    key='0'
-    text='Amber'
-    value='1'
-  />,
-  <Option
-    key='1'
-    text='Black'
-    value='2'
-  />,
-  <Option
-    key='2'
-    text='Blue'
-    value='3'
-  />,
-  <Option
-    key='3'
-    text='Brown'
-    value='4'
-  />,
-  <Option
-    key='4'
-    text='Green'
-    value='5'
-  />,
-  <Option
-    key='5'
-    text='Orange'
-    value='6'
-  />,
-  <Option
-    key='6'
-    text='Pink'
-    value='7'
-  />,
-  <Option
-    key='7'
-    text='Purple'
-    value='8'
-  />,
-  <Option
-    key='8'
-    text='Red'
-    value='9'
-  />,
-  <Option
-    key='9'
-    text='White'
-    value='10'
-  />,
-  <Option
-    key='10'
-    text='Yellow'
-    value='11'
-  />
+const selectOptionsLabels = [
+  'Amber', 'Black', 'Blue', 'Brown', 'Green', 'Orange', 'Pink', 'Purple', 'Red', 'White', 'Yellow'
 ];
+
+const selectOptions = selectOptionsLabels.map((label, index) => (
+  <Option
+    key={ label }
+    text={ label }
+    value={ index + 1 }
+  />
+));
 
 storiesOf('Experimental/Select', module)
   .add('Single Select', () => {
