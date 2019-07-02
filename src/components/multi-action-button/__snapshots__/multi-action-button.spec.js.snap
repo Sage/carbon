@@ -77,6 +77,12 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   white-space: nowrap;
   left: 0;
   right: auto;
+  left: auto;
+  right: 0;
+}
+
+.c0 .c4 .c2 {
+  text-align: right;
 }
 
 .c0 .carbon-icon.icon-dropdown {
@@ -237,7 +243,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: left;
+  text-align: right;
   z-index: 10;
 }
 
@@ -250,17 +256,21 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   margin-top: 3px;
 }
 
-.c8 .c1 > .c3 {
+.c8 .c10 .c3 {
+  text-align: right;
+}
+
+.c9 .c1 > .c3 {
   background-color: #006300;
   border-color: #006300;
 }
 
-.c8 .c1 > .c3,
-.c8 .c1 > .c3 .carbon-icon {
+.c9 .c1 > .c3,
+.c9 .c1 > .c3 .carbon-icon {
   color: #FFFFFF;
 }
 
-.c8 .c1 > .c3:focus {
+.c9 .c1 > .c3:focus {
   border-color: #FFB500;
   margin: 0 -1px;
 }
@@ -274,6 +284,12 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   white-space: nowrap;
   left: 0;
   right: auto;
+  left: auto;
+  right: 0;
+}
+
+.c0 .c10 .c3 {
+  text-align: right;
 }
 
 .c0 .carbon-icon.icon-dropdown {
@@ -457,7 +473,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   margin-top: 3px;
   margin-bottom: 3px;
   min-width: 100%;
-  text-align: left;
+  text-align: right;
   z-index: 10;
 }
 
@@ -470,22 +486,30 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   margin-top: 3px;
 }
 
-.c9 .c1 > .c3 {
+.c9 .c12 .c3 {
+  text-align: right;
+}
+
+.c10 .c1 > .c3 {
   background-color: #006300;
   border-color: #006300;
 }
 
-.c9 .c1 > .c3,
-.c9 .c1 > .c3 .carbon-icon {
+.c10 .c1 > .c3,
+.c10 .c1 > .c3 .carbon-icon {
   color: #FFFFFF;
 }
 
-.c9 .c1 > .c3:focus {
+.c10 .c1 > .c3:focus {
   border-color: #FFB500;
   margin: 0 -1px;
 }
 
 .c10 .c12 .c3 {
+  text-align: right;
+}
+
+.c11 .c12 .c3 {
   text-align: right;
 }
 
@@ -520,6 +544,12 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   white-space: nowrap;
   left: 0;
   right: auto;
+  left: auto;
+  right: 0;
+}
+
+.c0 .c12 .c3 {
+  text-align: right;
 }
 
 .c0 .carbon-icon.icon-dropdown {
