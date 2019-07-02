@@ -85,6 +85,7 @@ class SelectList extends React.Component {
 
   render() {
     const {
+      id,
       alwaysHighlight,
       children,
       customFilter,
@@ -100,6 +101,7 @@ class SelectList extends React.Component {
     return (
       <Portal onReposition={ this.positionList }>
         <div
+          id={ id }
           role='presentation'
           onMouseLeave={ onMouseLeave }
           onMouseEnter={ onMouseEnter }
@@ -142,6 +144,7 @@ class SelectList extends React.Component {
 }
 
 SelectList.propTypes = {
+  id: PropTypes.string,
   alwaysHighlight: PropTypes.bool,
   children: PropTypes.node,
   customFilter: PropTypes.func,

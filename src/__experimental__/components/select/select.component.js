@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { uniqueId } from 'lodash';
 import SelectList from './select-list.component';
 import Textbox from '../textbox';
 import Pill from '../../../components/pill';
@@ -26,6 +27,11 @@ import StyledSelectPillContainer from './select.style';
  */
 
 class Select extends React.Component {
+  constructor(props) {
+    super(props);
+    this.listboxId = uniqueId('listbox-');
+  }
+
   state = {
     filter: undefined,
     open: false
@@ -271,6 +277,7 @@ class Select extends React.Component {
         role='combobox'
         aria-haspopup='listbox'
         aria-expanded={ open }
+        aria-controls={ open ? this.listboxId : '' }
       >
         <Textbox
           { ...props } // this needs to send all of the original props
@@ -290,6 +297,7 @@ class Select extends React.Component {
               open={ open }
               target={ this.input.current && this.input.current.parentElement }
               role='listbox'
+              id={ this.listboxId }
             >
               { children }
             </SelectList>
