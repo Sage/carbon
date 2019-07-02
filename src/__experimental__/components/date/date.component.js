@@ -180,14 +180,16 @@ class Date extends React.Component {
   };
 
   renderDatePicker = (dateRangeProps) => {
-    const datePickerProps = {
-      inputElement: this.input && this.input.parentElement,
-      selectedDate: this.state.selectedDate,
-      handleDateSelect: this.handleDateSelect,
-      ...dateRangeProps
-    };
+    if (!this.state.isDatePickerOpen) return null;
 
-    return <DatePicker { ...datePickerProps } />;
+    return (
+      <DatePicker
+        inputElement={ this.input && this.input.parentElement }
+        selectedDate={ this.state.selectedDate }
+        handleDateSelect={ this.handleDateSelect }
+        { ...dateRangeProps }
+      />
+    );
   }
 
   render() {
@@ -219,7 +221,7 @@ class Date extends React.Component {
           { ...tagComponent('date', this.props) }
           { ...events }
         />
-        {this.state.isDatePickerOpen && this.renderDatePicker({ minDate, maxDate }) }
+        {this.renderDatePicker({ minDate, maxDate }) }
       </StyledDateInput>
     );
   }
