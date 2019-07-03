@@ -1,20 +1,11 @@
 import { inlineInput } from '../../locators/inline-inputs';
+import { pressTABKey } from '../helper';
 
-const TEXT_INPUT_INDEX = 1;
-const NUMBER_INPUT_INDEX = 2;
-
-Then('first inline input on preview is {string}', (text) => {
-  inlineInput(TEXT_INPUT_INDEX).first().should('have.value', text);
+Then('{int}{word} inline input on preview is {string}', (number, word, text) => {
+  inlineInput(number).should('have.value', text);
 });
 
-Then('second inline input on preview is {string}', (text) => {
-  inlineInput(NUMBER_INPUT_INDEX).should('have.value', text);
-});
-
-When('I set first inline input to {string}', (text) => {
-  inlineInput(TEXT_INPUT_INDEX).first().clear().type(text);
-});
-
-When('I set second inline input to {string}', (text) => {
-  inlineInput(NUMBER_INPUT_INDEX).clear().type(text);
+When('I set {int}{word} inline input to {string}', (number, word, text) => {
+  inlineInput(number).first().clear().type(text);
+  pressTABKey(1);
 });

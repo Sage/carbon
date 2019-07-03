@@ -73,14 +73,12 @@ Feature: Link component
     When I uncheck tabbable checkbox
       And I check tabbable checkbox
     Then Link is tabbable
-      And I hit Tab key
-      And I hit Tab key
+      And I hit Tab key 2 times
       And Link component is focused
 
   @positive
   Scenario: Uncheck tabbable
     When I uncheck tabbable checkbox
     Then Link is not tabbable
-      And I hit Tab key
-      And I hit Tab key
+      And I hit Tab key 2 times
       And Link component is not focused
