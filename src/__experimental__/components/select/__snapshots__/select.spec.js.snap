@@ -1,8 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Select does not apply any events if disabled or readonly 1`] = `
-<Fragment>
+<div
+  aria-controls=""
+  aria-expanded={false}
+  aria-haspopup="listbox"
+  role="combobox"
+>
   <WithUniqueName(WithValidation(Textbox))
+    aria-label="Please Select..."
     data-component="carbon-select"
     formattedValue=""
     inputIcon="dropdown"
@@ -15,12 +21,18 @@ exports[`Select does not apply any events if disabled or readonly 1`] = `
     onKeyDown={[Function]}
     placeholder="Please Select..."
   />
-</Fragment>
+</div>
 `;
 
 exports[`Select does not apply any events if disabled or readonly 2`] = `
-<Fragment>
+<div
+  aria-controls=""
+  aria-expanded={false}
+  aria-haspopup="listbox"
+  role="combobox"
+>
   <WithUniqueName(WithValidation(Textbox))
+    aria-label="Please Select..."
     data-component="carbon-select"
     formattedValue=""
     inputIcon="dropdown"
@@ -33,12 +45,18 @@ exports[`Select does not apply any events if disabled or readonly 2`] = `
     onKeyDown={[Function]}
     placeholder="Please Select..."
   />
-</Fragment>
+</div>
 `;
 
 exports[`Select renders only the Textbox when closed 1`] = `
-<Fragment>
+<div
+  aria-controls=""
+  aria-expanded={false}
+  aria-haspopup="listbox"
+  role="combobox"
+>
   <WithUniqueName(WithValidation(Textbox))
+    aria-label="Please Select..."
     data-component="carbon-select"
     formattedValue=""
     inputIcon="dropdown"
@@ -51,7 +69,7 @@ exports[`Select renders only the Textbox when closed 1`] = `
     onKeyDown={[Function]}
     placeholder="Please Select..."
   />
-</Fragment>
+</div>
 `;
 
 exports[`Select renders the SelectList with any given children when in an open state 1`] = `
@@ -70,11 +88,13 @@ Object {
   ],
   "customFilter": undefined,
   "filterValue": undefined,
+  "id": "listbox-2",
   "onLazyLoad": undefined,
   "onMouseEnter": [Function],
   "onMouseLeave": [Function],
   "onSelect": [Function],
   "open": true,
+  "role": "listbox",
   "target": .c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -178,6 +198,7 @@ Object {
 }
 
 <div
+    aria-label="Please Select..."
     class="c0"
     data-component="carbon-select"
     name="guid-12345"
@@ -186,6 +207,7 @@ Object {
     type="text"
   >
     <input
+      aria-label="Please Select..."
       class="c1 c2"
       data-component="carbon-select"
       id="guid-12345"
@@ -197,6 +219,7 @@ Object {
       data-portal-entrance="guid-12345"
     />
     <span
+      aria-label="Please Select..."
       class="c3"
       data-component="carbon-select"
       name="guid-12345"
