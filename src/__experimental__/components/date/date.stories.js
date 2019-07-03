@@ -8,7 +8,6 @@ import {
 } from '@storybook/addon-knobs';
 import DateInput from './date.component';
 import Textbox from '../textbox';
-import Form from '../../../components/form';
 import getCommonTextboxStoryProps from '../textbox/textbox.stories';
 import { notes, info } from './documentation';
 
@@ -51,21 +50,23 @@ storiesOf('Experimental/Date Input', module)
   })
   .add('validation', () => {
     return (
-      <Form
-        onSubmit={ handleSubmit }
-      >
-        <State store={ store }>
-          <DateInput
-            name='dateinput'
-            placeholder={ text('placeholder') }
-            onChange={ setValue }
-          />
-        </State>
-      </Form>
+      <State store={ store }>
+        <DateInput
+          name='dateinput'
+          placeholder={ text('placeholder') }
+          validations={ [isNotFirstApr] }
+          onChange={ setValue }
+        />
+      </State>
     );
   });
 
-function handleSubmit(ev) {
-  ev.preventDefault();
-  action('submit')();
+function isNotFirstApr(value) {
+  return new Promise((resolve, reject) => {
+    if (value !== '01/04/2019') {
+      resolve();
+    } else {
+      reject(new Error('first of april cannot be selected!'));
+    }
+  });
 }
