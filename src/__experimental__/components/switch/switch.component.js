@@ -4,18 +4,26 @@ import tagComponent from '../../../utils/helpers/tags';
 import SwitchStyle from './switch.style';
 import CheckableInput from '../checkable-input';
 import SwitchSlider from './switch-slider.component';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
 const Switch = (props) => {
+  const classicDisabled = props.theme && isClassic(props.theme) && props.loading;
+
+  const switchProps = {
+    disabled: props.disabled || classicDisabled,
+    ...props
+  };
+
   return (
     <SwitchStyle
-      { ...tagComponent('Switch', props) }
-      { ...props }
+      { ...tagComponent('Switch', switchProps) }
+      { ...switchProps }
     >
       <CheckableInput
         type='checkbox'
-        { ...props }
+        { ...switchProps }
       >
-        <SwitchSlider { ...props } />
+        <SwitchSlider { ...switchProps } />
       </CheckableInput>
     </SwitchStyle>
   );
@@ -48,7 +56,8 @@ Switch.propTypes = {
    * Set the size of the Switch to 'small' (16x16 - default) or 'large' (24x24).
    * No effect when using Classic theme.
    */
-  size: PropTypes.string
+  size: PropTypes.string,
+  theme: PropTypes.object
 };
 
 Switch.defaultProps = {

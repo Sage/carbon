@@ -8,7 +8,7 @@ import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledSwitchSlider from './switch-slider.style';
 
 export default ({
-  fieldHelpInline, labelInline, reverse, size, theme
+  disabled, fieldHelpInline, labelInline, reverse, size, theme
 }) => theme.name === THEMES.classic && css`
   ${StyledCheckableInput}, ${HiddenCheckableInputStyle} {
     border-radius: 24px;
@@ -49,6 +49,10 @@ export default ({
         margin-left: 66px;
       }
     `}
+  `}
+
+  ${disabled && `
+    ${LabelStyle} { color: ${theme.text.color} }
   `}
 
   ${size === 'large' && css`

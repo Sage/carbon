@@ -264,6 +264,16 @@ describe('Switch', () => {
       });
     });
 
+    describe('and disabled=true', () => {
+      it('applies the correct Label color', () => {
+        const wrapper = render({ disabled: true, ...opts }).toJSON();
+
+        assertStyleMatch(
+          { color: baseTheme.text.color }, wrapper, { modifier: css`${LabelStyle}` }
+        );
+      });
+    });
+
     describe('and labelInline=true', () => {
       describe('default', () => {
         const wrapper = render({ labelInline: true, ...opts }).toJSON();

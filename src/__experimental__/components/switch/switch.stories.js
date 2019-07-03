@@ -7,27 +7,50 @@ import { action } from '@storybook/addon-actions';
 import { Store, State } from '@sambego/storybook-state';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Switch from '.';
-import { info, notes } from './documentation';
+import { info, legacyInfo, notes } from './documentation';
+import classic from '../../../style/themes/classic';
 
 const formStore = new Store({
   checked: false
 });
 
+const SwitchWrapper = (props) => {
+  return (
+    <State store={ formStore }>
+      <Switch
+        onChange={ handleChange }
+        { ...props }
+      />
+    </State>
+  );
+};
+
 storiesOf('Experimental/Switch', module)
-  .add('default', () => {
-    return (
-      <State store={ formStore }>
-        <Switch
-          onChange={ handleChange }
-          { ...defaultKnobs() }
-        />
-      </State>
-    );
-  }, {
+  .add('Legacy', () => (
+    <SwitchWrapper
+      { ...commonKnobs() }
+      theme={ classic }
+    />
+  ), {
+    info: {
+      text: legacyInfo,
+      propTables: [Switch],
+      propTablesExclude: [State, SwitchWrapper],
+      excludedPropTypes: ['children', 'disabled', 'theme']
+    },
+    notes: { markdown: notes }
+  })
+  .add('DLS', () => (
+    <SwitchWrapper
+      { ...commonKnobs() }
+      { ...dlsKnobs() }
+    />
+  ), {
     info: {
       text: info,
-      propTablesExclude: [State],
-      excludedPropTypes: ['children']
+      propTables: [Switch],
+      propTablesExclude: [State, SwitchWrapper],
+      excludedPropTypes: ['children', 'theme']
     },
     notes: { markdown: notes }
   });
@@ -37,9 +60,8 @@ function handleChange(ev) {
   action('checked')(ev.target.checked);
 }
 
-function defaultKnobs() {
+function commonKnobs() {
   return ({
-    disabled: boolean('disabled', false),
     fieldHelp: text('fieldHelp', 'This text provides help for the input.'),
     fieldHelpInline: boolean('fieldHelpInline', false),
     label: text('label', 'Switch on this component?'),
@@ -66,4 +88,10 @@ function defaultKnobs() {
     reverse: boolean('reverse', Switch.defaultProps.reverse),
     size: select('size', OptionsHelper.sizesBinary, 'small')
   });
+}
+
+function dlsKnobs() {
+  return {
+    disabled: boolean('disabled', false)
+  };
 }

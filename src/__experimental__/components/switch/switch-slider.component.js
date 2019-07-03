@@ -1,18 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'styled-components';
-import { THEMES } from '../../../style/themes';
 import baseTheme from '../../../style/themes/base';
 import Icon from '../../../components/icon';
 import Loader from '../../../components/loader/loader.component';
 import StyledSwitchSlider from './switch-slider.style';
 import SwitchSliderPanel from './switch-slider-panel.style';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
 const SwitchSlider = (props) => {
-  const { theme, checked, loading } = props;
-  const on = theme.name === THEMES.classic ? <Icon type='tick' /> : 'ON';
-  const off = theme.name === THEMES.classic ? <Icon type='cross' /> : 'OFF';
+  const {
+    theme, checked, loading
+  } = props;
+  const on = isClassic(theme) ? <Icon type='tick' /> : 'ON';
+  const off = isClassic(theme) ? <Icon type='cross' /> : 'OFF';
   const panelContent = checked ? on : off;
+
   const loaderProps = {
     isInsideButton: true,
     isActive: props.checked,
@@ -34,6 +37,7 @@ const SwitchSlider = (props) => {
 
 SwitchSlider.propTypes = {
   checked: PropTypes.bool,
+  disabled: PropTypes.bool,
   loading: PropTypes.bool,
   theme: PropTypes.object
 };
