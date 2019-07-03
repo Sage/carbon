@@ -26,7 +26,7 @@ const SwitchWrapper = (props) => {
 };
 
 storiesOf('Experimental/Switch', module)
-  .add('Legacy', () => (
+  .add('classic', () => (
     <SwitchWrapper
       { ...commonKnobs() }
       theme={ classic }
@@ -40,7 +40,7 @@ storiesOf('Experimental/Switch', module)
     },
     notes: { markdown: notes }
   })
-  .add('DLS', () => (
+  .add('default', () => (
     <SwitchWrapper
       { ...commonKnobs() }
       { ...dlsKnobs() }
