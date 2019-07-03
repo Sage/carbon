@@ -48,17 +48,19 @@ describe('InputPresentation', () => {
       });
     });
 
-    describe('validations', () => {
-      ['infoMessage', 'warningMessage', 'errorMessage'].forEach((message) => {
-        const validation = message.replace('Message', '');
-        it(`has the right style for ${validation} validations`, () => {
-          const boxShadow = `inset 1px 1px 0 ${baseTheme.colors[validation]}, `
-          + `inset -1px -1px 0 ${baseTheme.colors[validation]}`;
-          assertStyleMatch({
-            borderColor: `${baseTheme.colors[validation]} !important`,
-            boxShadow
-          }, mountRender({ [message]: 'validation!' }));
-        });
+    describe.each([
+      ['hasError', 'error'],
+      ['hasWarning', 'warning'],
+      ['hasInfo', 'info']
+    ])('when %s prop is set to true', (validationProp, expectedColor) => {
+      it('has the right style', () => {
+        const boxShadow = `inset 1px 1px 0 ${baseTheme.colors[expectedColor]}, `
+                        + `inset -1px -1px 0 ${baseTheme.colors[expectedColor]}`;
+
+        assertStyleMatch({
+          borderColor: `${baseTheme.colors[expectedColor]} !important`,
+          boxShadow
+        }, mountRender({ [validationProp]: true }));
       });
     });
 
