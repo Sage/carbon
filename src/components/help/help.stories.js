@@ -4,7 +4,6 @@ import { text, select } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
 import Help from './help';
-import './help.stories.scss';
 
 storiesOf('Help', module)
   .add('default', () => {

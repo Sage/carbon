@@ -8,6 +8,21 @@ import setupI18n from '../demo/i18n/config';
 import '../demo/i18n/en';
 import './style/story-root.scss';
 
+import { addParameters } from '@storybook/react';
+import { themes } from '@storybook/theming';
+import sageTheme from './sageTheme';
+
+// Option defaults.
+addParameters({
+  options: {
+    theme: sageTheme,
+    isFullscreen: false,
+    showNav: true,
+    showPanel: true,
+    panelPosition: 'bottom'
+  },
+});
+
 setupI18n();
 
 const req = require.context('../src', true, /\.stories\.js$/);

@@ -8,17 +8,19 @@ import classic from '../../../../src/style/themes/classic';
 import { THEMES } from '../../../../src/style/themes';
 
 const StyledSelect = styled.select`
-  padding: 5px 15px;
+  background: transparent;
+  border-radius: 0;
+  padding: 8px 16px;
   appearance: none;
   max-width: 150px;
 `;
 const StyledContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 25px;
+  padding: 0 40px;
 `;
 const SelectionContainer = styled.div`
-  margin: 15px 0;
+  margin: 32px 0;
   display: flex;
   justify-content: flex-end;
 `;

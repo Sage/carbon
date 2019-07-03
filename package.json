@@ -25,7 +25,7 @@
     "precompile": "npm run clean-lib && npm run copy-files && npm run babel",
     "prepublishOnly": "node check-version.js && npm install && npm run precompile",
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
-    "storybook": "./node_modules/.bin/start-storybook -p 9001 -c .storybook",
+    "storybook": "./node_modules/.bin/start-storybook -p 9001 -s .assets -c .storybook",
     "storybook-ci": "./node_modules/.bin/start-storybook -p 9001 -c .storybook --ci",
     "storybook-cypress": "concurrently -k 'npm run storybook-ci' 'wait-on http://localhost:9001 && npm run test-cypress-build'",
     "storybook-test": "npm run storybook-ci && wait-on http://localhost:9001 && npm run test-cypress-build </dev/null &>/dev/null",
