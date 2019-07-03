@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { merge } from 'lodash';
 import tagComponent from '../../utils/helpers/tags/tags';
 import { RainbowStyle } from './rainbow.style';
-// import './rainbow.scss';
 
 class Rainbow extends React.Component {
   /** Renders the initial chart, and stores it on the ref so it can be updated later */
