@@ -5,7 +5,7 @@ import { ThemeProvider } from 'styled-components';
 import Immutable from 'immutable';
 import TestRenderer from 'react-test-renderer';
 import { shallow, mount } from 'enzyme';
-import ActionToolbar from '../action-toolbar/action-toolbar.component';
+import ActionToolbar from '../action-toolbar';
 import {
   Table, TableHeader, TableRow, TableCell
 } from '.';
