@@ -316,7 +316,35 @@ describe('Date', () => {
       });
     });
   });
+
+  describe('when additional validations are provided with the "validations" prop', () => {
+    describe('as a function', () => {
+      it('then these validations should be passed with internal validations to the Textbox Component', () => {
+        wrapper = render({ validations: isNotFirstApr });
+        const { internalValidations } = wrapper.instance().props;
+        expect(wrapper.find(Textbox).props().validations).toEqual([isNotFirstApr, ...internalValidations]);
+      });
+    });
+
+    describe('as an array', () => {
+      it('then these validations should be passed with internal validations to the Textbox Component', () => {
+        wrapper = render({ validations: [isNotFirstApr] });
+        const { internalValidations } = wrapper.instance().props;
+        expect(wrapper.find(Textbox).props().validations).toEqual([isNotFirstApr, ...internalValidations]);
 });
+    });
+  });
+});
+
+function isNotFirstApr(value) {
+  return new Promise((resolve, reject) => {
+    if (value !== '1 apr') {
+      resolve();
+    } else {
+      reject(new Error('its first apr!'));
+    }
+  });
+}
 
 function render(props, renderer = mount) {
   return renderer(<Date { ...props } />);
