@@ -1,5 +1,6 @@
 import styled, { css } from 'styled-components';
-import { LinkStyle } from '../link/link.style';
+import { LinkStyleAnchor } from '../link/link.style';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledActionToolbar = styled.div`
   display: inline-block;
@@ -23,11 +24,13 @@ const StyledActionToolbarActions = styled.div`
     align-items: center;
   }
 
-  ${({ disabled }) => disabled && css`
-    ${LinkStyle} a {
+  ${({ theme, disabled }) => isClassic(theme)
+    && disabled
+    && css`
+      ${LinkStyleAnchor} {
         color: #b3c2c8;
-    }
-  `}
+      }
+    `}
 `;
 
 export { StyledActionToolbar, StyledActionToolbarTotal, StyledActionToolbarActions };
