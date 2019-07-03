@@ -1,4 +1,5 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { LinkStyle } from '../link/link.style';
 
 const StyledActionToolbar = styled.div`
   display: inline-block;
@@ -22,9 +23,11 @@ const StyledActionToolbarActions = styled.div`
     align-items: center;
   }
 
-  &.carbon-link__anchor--disabled {
-    color: '##b3c2c8';
-  }
+  ${({ disabled }) => disabled && css`
+    ${LinkStyle} a {
+        color: #b3c2c8;
+    }
+  `}
 `;
 
 export { StyledActionToolbar, StyledActionToolbarTotal, StyledActionToolbarActions };

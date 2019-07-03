@@ -5,7 +5,7 @@ import ActionToolbar from '.';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 
 describe('action toolbar', () => {
-  let instance;
+  let instance, spy;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(<ActionToolbar actions={ { foo: {}, bar: {} } } className='foo' />);
@@ -14,7 +14,7 @@ describe('action toolbar', () => {
   describe('componentWillMount', () => {
     describe('if attachActionToolbar exists', () => {
       it('calls attachActionToolbar', () => {
-        const spy = jasmine.createSpy();
+        spy = jasmine.createSpy();
         instance.context = {
           attachActionToolbar: spy
         };
@@ -33,7 +33,7 @@ describe('action toolbar', () => {
   describe('componentWillUnmount', () => {
     describe('if detachActionToolbar exists', () => {
       it('calls detachActionToolbar', () => {
-        const spy = jasmine.createSpy();
+        spy = jasmine.createSpy();
         instance.context = {
           detachActionToolbar: spy
         };
@@ -51,19 +51,14 @@ describe('action toolbar', () => {
 
   describe('buildAction', () => {
     it('returns a link with props', () => {
-      const spy = jasmine.createSpy('onClick');
+      spy = jasmine.createSpy('onClick');
       const event = jasmine.createSpy('event');
       instance.setState({ selected: true });
-      const action = instance.buildAction(
-        {
-          onClick: (event, selected) => {
-            spy(selected, event);
-          },
-          text: 'foo',
-          className: 'bar'
-        },
-        1
-      );
+      const action = instance.buildAction({
+        onClick: (event, selected) => { spy(selected, event); },
+        text: 'foo',
+        className: 'bar'
+      }, 1);
       expect(action.props.className).toEqual('bar');
       expect(action.props.children).toEqual('foo');
       action.props.onClick(event);
@@ -107,11 +102,13 @@ describe('action toolbar', () => {
 
   describe('tags', () => {
     describe('on component', () => {
-      const wrapper = shallow(<ActionToolbar
-        actions={ {} } data-element='bar'
-        data-role='baz'
-      />);
-
+      const wrapper = shallow(
+        <ActionToolbar
+          actions={ {} }
+          data-element='bar'
+          data-role='baz'
+        />
+      );
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapper, 'action-toolbar', 'bar', 'baz');
       });
