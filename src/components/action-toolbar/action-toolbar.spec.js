@@ -58,7 +58,7 @@ describe('action toolbar', () => {
   describe('buildAction', () => {
     it('returns a link with props', () => {
       spy = jasmine.createSpy('onClick');
-      const event = jasmine.createSpy('event');
+      const actionEvent = jasmine.createSpy('event');
       instance.setState({ selected: true });
       const action = instance.buildAction({
         onClick: (event, selected) => { spy(selected, event); },
@@ -67,8 +67,8 @@ describe('action toolbar', () => {
       }, 1);
       expect(action.props.className).toEqual('bar');
       expect(action.props.children).toEqual('foo');
-      action.props.onClick(event);
-      expect(spy).toHaveBeenCalledWith(event, instance.state.selected);
+      action.props.onClick(actionEvent);
+      expect(spy).toHaveBeenCalledWith(actionEvent, instance.state.selected);
     });
   });
 
@@ -122,14 +122,14 @@ describe('action toolbar', () => {
 
   describe('tags', () => {
     describe('on component', () => {
-      wrapper = shallow(
-        <ActionToolbar
-          actions={ {} }
-          data-element='bar'
-          data-role='baz'
-        />
-      );
       it('include correct component, element and role data tags', () => {
+        wrapper = shallow(
+          <ActionToolbar
+            actions={ {} }
+            data-element='bar'
+            data-role='baz'
+          />
+        );
         rootTagTest(wrapper, 'action-toolbar', 'bar', 'baz');
       });
     });
