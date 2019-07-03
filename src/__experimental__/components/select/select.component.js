@@ -314,24 +314,40 @@ const optionShape = PropTypes.shape({
 });
 
 Select.propTypes = {
+  /** Child components (such as <Option>) for the <SelectList> */
   children: PropTypes.node,
+  /** A custom function to filter the child components. Its interface is (text, value) => boolean */
   customFilter: PropTypes.func,
+  /** Is the component disabled? */
   disabled: PropTypes.bool,
+  /** Label text for the <Textbox> */
   label: PropTypes.string,
+  /** A custom callback for the <Textbox>'s Blur event */
   onBlur: PropTypes.func,
+  /** A custom callback for when changes occur */
   onChange: PropTypes.func,
+  /** A custom callback for the <Textbox>'s Focus event */
   onFocus: PropTypes.func,
+  /** A custom callback for when the dropdown menu opens */
   onOpen: PropTypes.func,
+  /** A custom callback for when more data needs to be lazy-loaded when the user scrolls the dropdown menu list */
   onLazyLoad: PropTypes.func,
+  /** A custom callback for the <Textbox>'s Change event */
   onFilter: PropTypes.func,
+  /** Placeholder text for the <Textbox> */
   placeholder: PropTypes.string,
+  /** Is the component read-only? */
   readOnly: PropTypes.bool,
+  /** The current value */
   value: PropTypes.oneOfType([
     optionShape,
     PropTypes.arrayOf(optionShape)
   ]),
+  /** Name of the component */
   'data-component': PropTypes.string,
+  /** Are >=3 characters required to trigger the dropdown menu? */
   typeAhead: PropTypes.bool,
+  /** Can the user type a value in the <Textbox> to filter the dropdown menu options? */
   filterable: PropTypes.bool
 };
 
