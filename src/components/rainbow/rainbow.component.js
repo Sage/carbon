@@ -2,35 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { merge } from 'lodash';
-import tagComponent from '../../utils/helpers/tags';
-import './rainbow.scss';
+import tagComponent from '../../utils/helpers/tags/tags';
+import { RainbowStyle } from './rainbow.style';
+// import './rainbow.scss';
 
 class Rainbow extends React.Component {
-  static propTypes = {
-    /**
-     * Supply a custom title for the chart.
-     */
-    title: PropTypes.string,
-
-    /**
-     * Supply data for the chart.
-     */
-    data: PropTypes.object.isRequired,
-
-    /**
-     * Supply a custom config object to the Highcharts.
-     */
-    config: PropTypes.object,
-
-    /**
-     * Classes to apply to the component.
-     */
-    className: PropTypes.string
-  };
-
-  /**
-   * Renders the initial chart, and stores it on the ref so it can be updated later
-   */
+  /** Renders the initial chart, and stores it on the ref so it can be updated later */
   componentDidMount() {
     const config = generateConfig(this.props.data, this.props.title);
     merge(config, this.props.config);
@@ -40,10 +17,6 @@ class Rainbow extends React.Component {
   /**
    * Always returns false, but uses the Highcharts API to update the charts
    * data or title if they have been updated.
-   *
-   * @method shouldComponentUpdate
-   * @param {Object} nextProps new props passed to the component
-   * @return {void}
    */
   shouldComponentUpdate(nextProps) {
     // use the highchart api to update its title
@@ -60,44 +33,25 @@ class Rainbow extends React.Component {
     return false;
   }
 
-  /**
-   * Main Class getter
-   *
-   * @method mainClasses
-   * @return {String} Main className
-   */
+  /** Main Class getter */
   get mainClasses() {
     return classNames(
-      'carbon-rainbow',
       this.props.className
     );
   }
 
-  /**
-   * Renders the component.
-   *
-   * @method render
-   * @return {Object} JSX
-   */
+  /** Renders the component. */
   render() {
     return (
-      <div className={ this.mainClasses } { ...tagComponent('rainbow', this.props) }>
+      <RainbowStyle className={ this.mainClasses } { ...tagComponent('rainbow', this.props) }>
         <div ref={ (chart) => { this._chart = chart; } } />
-      </div>
+      </RainbowStyle>
     );
   }
 }
 
 /* istanbul ignore next */
-/**
- * Generates the config for the Highchart.
- *
- * @method generateConfig
- * @param {Object} immutableData data for highchart
- * @param {String} title title for highchart
- * @private
- * @return {Object} config for highchart
- */
+/** Generates the config for the Highchart. */
 function generateConfig(immutableData, title) {
   const data = immutableData.toJS();
 
@@ -193,5 +147,16 @@ function generateConfig(immutableData, title) {
     }]
   };
 }
+
+Rainbow.propTypes = {
+/** Supply a custom title for the chart. */
+  title: PropTypes.string,
+  /** Supply data for the chart. */
+  data: PropTypes.object.isRequired,
+  /** Supply a custom config object to the Highcharts. */
+  config: PropTypes.object,
+  /** Classes to apply to the component. */
+  className: PropTypes.string
+};
 
 export default Rainbow;

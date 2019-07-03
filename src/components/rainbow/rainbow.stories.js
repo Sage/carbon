@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text, object } from '@storybook/addon-knobs';
 import Immutable from 'immutable';
 import Highcharts from 'highcharts';
-import Rainbow from './rainbow';
+import Rainbow from './rainbow.component';
 import { notes, info } from './documentation';
 
 global.Highcharts = Highcharts;
