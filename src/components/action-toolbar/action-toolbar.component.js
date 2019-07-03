@@ -92,9 +92,7 @@ class ActionToolbar extends React.Component {
   }
 
   handleOnClick = (onClick, selected) => {
-    if (!onClick) {
-      return null;
-    }
+    if (!onClick) { return null; }
     return event => onClick(selected, event);
   };
 

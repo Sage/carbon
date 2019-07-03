@@ -1,8 +1,14 @@
 import React from 'react';
+import TestRenderer from 'react-test-renderer';
+import 'jest-styled-components';
 import TestUtils from 'react-dom/test-utils';
 import { shallow } from 'enzyme';
 import ActionToolbar from '.';
+import { StyledActionToolbarActions } from './action-toolbar.style';
+import { LinkStyleAnchor } from '../link/link.style';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import classicTheme from '../../style/themes/classic';
 
 describe('action toolbar', () => {
   let instance, spy;
@@ -97,6 +103,20 @@ describe('action toolbar', () => {
         selected: {},
         total: 0
       });
+    });
+  });
+
+  describe('when in classic theme', () => {
+    it('applies proper color for the disabled link icon', () => {
+      const wrapper = TestRenderer.create(
+        <StyledActionToolbarActions
+          disabled
+          theme={ classicTheme }
+        />
+      );
+      assertStyleMatch({
+        color: '#b3c2c8'
+      }, wrapper.toJSON(), { modifier: `${LinkStyleAnchor}` });
     });
   });
 
