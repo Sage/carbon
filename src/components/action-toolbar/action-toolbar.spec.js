@@ -11,7 +11,7 @@ import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import classicTheme from '../../style/themes/classic';
 
 describe('action toolbar', () => {
-  let instance, spy;
+  let instance, spy, wrapper;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(<ActionToolbar actions={ { foo: {}, bar: {} } } className='foo' />);
@@ -108,7 +108,7 @@ describe('action toolbar', () => {
 
   describe('when in classic theme', () => {
     it('applies proper color for the disabled link icon', () => {
-      const wrapper = TestRenderer.create(
+      wrapper = TestRenderer.create(
         <StyledActionToolbarActions
           disabled
           theme={ classicTheme }
@@ -122,7 +122,7 @@ describe('action toolbar', () => {
 
   describe('tags', () => {
     describe('on component', () => {
-      const wrapper = shallow(
+      wrapper = shallow(
         <ActionToolbar
           actions={ {} }
           data-element='bar'
@@ -135,7 +135,7 @@ describe('action toolbar', () => {
     });
 
     describe('on internal elements', () => {
-      const wrapper = shallow(<ActionToolbar actions={ { foo: 'bar' } } />);
+      wrapper = shallow(<ActionToolbar actions={ { foo: 'bar' } } />);
 
       elementsTagTest(wrapper, ['action', 'total']);
     });
