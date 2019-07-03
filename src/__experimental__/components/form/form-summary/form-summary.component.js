@@ -2,9 +2,9 @@ import React from 'react';
 import I18n from 'i18n-js';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
-import tagComponent from '../../../utils/helpers/tags';
+import tagComponent from '../../../../utils/helpers/tags';
 
-import Icon from '../../icon';
+import Icon from '../../../../components/icon';
 import './form-summary.scss';
 /**
  * Adds an 's' to pluralise (keys will always be error or warning)
