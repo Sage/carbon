@@ -2,6 +2,9 @@
 
 exports[`Textbox renders with InputPresentation and Input and all props passed to Input 1`] = `
 <FormField
+  hasError={false}
+  hasInfo={false}
+  hasWarning={false}
   info={Array []}
   inputWidth={70}
   labelWidth={30}
@@ -13,6 +16,9 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
   warnings={Array []}
 >
   <InputPresentation
+    hasError={false}
+    hasInfo={false}
+    hasWarning={false}
     info={Array []}
     inputWidth={70}
     labelWidth={30}
@@ -25,12 +31,16 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
   >
     southpaw children
     <Input
+      hasError={false}
+      hasInfo={false}
+      hasWarning={false}
       info={Array []}
       inputWidth={70}
       labelWidth={30}
       name="mocked-guid"
       onBlur={[Function]}
       onChange={[Function]}
+      type="text"
       validations={Array []}
       value="foobar"
       warnings={Array []}

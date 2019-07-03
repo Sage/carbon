@@ -10,57 +10,60 @@ import baseTheme from '../../../style/themes/base';
 describe('Textarea', () => {
   let wrapper;
 
-  beforeEach(() => {
-    wrapper = renderTextarea();
-  });
+  describe('when textarea is rendered with default props', () => {
+    let textarea;
 
-  describe('componentDidMount', () => {
-    describe('when textarea can be expanded', () => {
-      let expandableInstance;
-
-      beforeEach(() => {
-        expandableInstance = wrapper.setProps({ expandable: true }).instance();
-      });
-
-      it('adds a event listener to the window', () => {
-        spyOn(window, 'addEventListener');
-        expandableInstance.componentDidMount();
-        expect(window.addEventListener).toHaveBeenCalledWith(
-          'resize', expandableInstance.expandTextarea
-        );
-      });
-
-      it('sets the minHeight to the rendered client height', () => {
-        expect(expandableInstance.minHeight).toEqual(
-          expandableInstance._input.clientHeight
-        );
-      });
-
-      it('calls expandTextarea', () => {
-        spyOn(expandableInstance, 'expandTextarea');
-        expandableInstance.componentDidMount();
-        expect(expandableInstance.expandTextarea).toHaveBeenCalled();
-      });
+    beforeAll(() => {
+      wrapper = renderTextarea();
+      textarea = wrapper.find('textarea').instance();
     });
 
-    describe('when textarea cannot be expanded', () => {
-      let unexpandableInstance;
+    it('the height of the textarea should remain unchanged', () => {
+      const expectedScrollHeight = 500;
+      const originalHeight = '50px';
 
-      beforeEach(() => {
-        unexpandableInstance = wrapper.setProps({ expandable: false }).instance();
-      });
+      textarea.style.height = originalHeight;
+      jest.spyOn(textarea, 'scrollHeight', 'get').mockImplementation(() => expectedScrollHeight);
+      window.dispatchEvent(new Event('resize'));
+      expect(textarea.style.height).toEqual(originalHeight);
+    });
 
-      it('does not setup the textarea for expanding', () => {
-        spyOn(window, 'addEventListener');
-        spyOn(unexpandableInstance, 'expandTextarea');
-        unexpandableInstance.componentDidMount();
-        expect(window.addEventListener).not.toHaveBeenCalled();
-        expect(unexpandableInstance.expandTextarea).not.toHaveBeenCalled();
-      });
+    afterAll(() => {
+      wrapper.unmount();
+    });
+  });
+
+  describe('when the "expandable" prop is set to "true"', () => {
+    let textarea, textareaInstance;
+
+    beforeEach(() => {
+      wrapper = renderTextarea({ expandable: true });
+      textarea = wrapper.find('textarea');
+      textareaInstance = textarea.instance();
+    });
+
+    it('then on window resize the height of the textarea should be the same as it\'s scrollHeight', () => {
+      const expectedScrollHeight = 500;
+
+      jest.spyOn(textareaInstance, 'scrollHeight', 'get').mockImplementation(() => expectedScrollHeight);
+      window.dispatchEvent(new Event('resize'));
+      expect(textareaInstance.style.height).toEqual(`${expectedScrollHeight}px`);
+    });
+
+    it('then on component update the height of the textarea should be the same as it\'s scrollHeight', () => {
+      const expectedScrollHeight = 500;
+
+      jest.spyOn(textareaInstance, 'scrollHeight', 'get').mockImplementation(() => expectedScrollHeight);
+      wrapper.setProps({ value: 'abc' });
+      expect(textareaInstance.style.height).toEqual(`${expectedScrollHeight}px`);
     });
   });
 
   describe('when rendered', () => {
+    beforeEach(() => {
+      wrapper = renderTextarea();
+    });
+
     it('should have a textarea element as it\'s child', () => {
       expect(wrapper.find('textarea').exists()).toBe(true);
     });
@@ -89,40 +92,6 @@ describe('Textarea', () => {
             color: baseTheme.colors.error
           }, wrapper.find(CharacterCount));
         });
-      });
-    });
-  });
-
-  describe('expandTextarea', () => {
-    let expandableInstance;
-    beforeEach(() => {
-      expandableInstance = wrapper.setProps({ expandable: true }).instance();
-    });
-
-    describe('when scrollHeight is greater than the min height', () => {
-      it('sets the textareas height to fit the content', () => {
-        expandableInstance._input = {
-          scrollHeight: 100,
-          value: 'foo',
-          onChange: jest.fn(),
-          style: { height: 0 }
-        };
-        expandableInstance.expandTextarea();
-        expect(expandableInstance._input.style.height).toEqual('100px');
-      });
-    });
-
-    describe('when the scrollHeight is less than the minHeight', () => {
-      it('does not update the textarea', () => {
-        expandableInstance._input = {
-          scrollHeight: 5,
-          value: 'foo',
-          onChange: jest.fn(),
-          style: { height: 0 }
-        };
-        expandableInstance.minHeight = 20;
-        expandableInstance.expandTextarea();
-        expect(expandableInstance._input.style.height).toEqual(0);
       });
     });
   });
@@ -158,6 +127,7 @@ describe('componentWillUnmount', () => {
     const tmpWrapper = shallow(
       <Textarea
         id='Dummy Area'
+        name='textarea'
         value='foo'
         onChange={ jest.fn() }
         label='Label'
@@ -174,5 +144,5 @@ describe('componentWillUnmount', () => {
 });
 
 function renderTextarea(props, renderer = mount) {
-  return renderer(<Textarea { ...props } />);
+  return renderer(<Textarea name='textarea' { ...props } />);
 }
