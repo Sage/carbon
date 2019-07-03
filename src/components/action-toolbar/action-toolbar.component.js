@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import I18n from 'i18n-js';
 import Link from '../link';
-import tagComponent from '../../utils/helpers/tags/tags';
+import tagComponent from '../../utils/helpers/tags';
 import { StyledActionToolbar, StyledActionToolbarTotal, StyledActionToolbarActions } from './action-toolbar.style';
 
 /**
@@ -140,7 +140,7 @@ class ActionToolbar extends React.Component {
           <strong data-element='total'>{this.state.total}</strong>
           &nbsp;{I18n.t('action_toolbar.selected', { defaultValue: 'Selected' })}
         </StyledActionToolbarTotal>
-        <StyledActionToolbarActions>
+        <StyledActionToolbarActions disabled={ !this.isActive() }>
           {this.actions()}
           {this.props.children && this.props.children(this.propsForChildren())}
         </StyledActionToolbarActions>
