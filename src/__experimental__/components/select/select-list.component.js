@@ -144,16 +144,27 @@ class SelectList extends React.Component {
 }
 
 SelectList.propTypes = {
+  /** The ID for the parent <div> */
   id: PropTypes.string,
+  /** Ensure that there's always a highlighted option? */
   alwaysHighlight: PropTypes.bool,
+  /** Child components (such as <Option>) for the <ScrollableList> */
   children: PropTypes.node,
+  /** A custom function to filter the children. Its interface is (text, value) => boolean */
   customFilter: PropTypes.func,
+  /** The value to filter the children by */
   filterValue: PropTypes.string,
+  /** A custom callback for when more data needs to be lazy-loaded when the user scrolls the dropdown menu list */
   onLazyLoad: PropTypes.func,
+  /** A custom callback for the parent <div>'s MouseDown event */
   onMouseDown: PropTypes.func,
+  /** A custom callback for the parent <div>'s MouseEnter event */
   onMouseEnter: PropTypes.func,
+  /** A custom callback for the parent <div>'s MouseLeave event */
   onMouseLeave: PropTypes.func,
+  /** A callback for when a child is selected */
   onSelect: PropTypes.func,
+  /** Target DOM element to position the dropdown menu list relative to */
   target: PropTypes.object
 };
 
