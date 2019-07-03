@@ -197,9 +197,7 @@ class Date extends React.Component {
     let events = {};
     delete inputProps.autoFocus;
 
-    if (!inputProps.validations) inputProps.validations = [];
-
-    inputProps.validations = inputProps.validations.concat(...inputProps.internalValidations);
+    inputProps.validations = concatAllValidations(inputProps);
 
     events = {
       onBlur: this.handleBlur,
@@ -225,6 +223,13 @@ class Date extends React.Component {
       </StyledDateInput>
     );
   }
+}
+
+function concatAllValidations(props) {
+  if (!props.validations) props.validations = [];
+  if (typeof props.validations === 'function') props.validations = [props.validations];
+
+  return [...props.validations, ...props.internalValidations];
 }
 
 function formatDateToCurrentLocale(value) {

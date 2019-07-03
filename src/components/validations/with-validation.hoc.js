@@ -13,8 +13,7 @@ const validationShape = PropTypes.shape({
 });
 const validationsPropTypes = PropTypes.oneOfType([
   PropTypes.func,
-  PropTypes.arrayOf(validationShape),
-  PropTypes.arrayOf(PropTypes.func)
+  PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, validationShape]))
 ]);
 
 const withValidation = (WrappedComponent) => {
@@ -68,7 +67,6 @@ const withValidation = (WrappedComponent) => {
       let updated = false;
 
       if (this.props.validations !== prevProps.validations) updated = true;
-
 
       return updated;
     }
