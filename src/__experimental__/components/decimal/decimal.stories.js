@@ -9,7 +9,7 @@ import Decimal from './decimal.component';
 import Textbox, { OriginalTextbox } from '../textbox';
 import getTextboxStoryProps from '../textbox/textbox.stories';
 import OptionsHelper from '../../../utils/helpers/options-helper';
-import notes from './documentation';
+import { info, notes } from './documentation';
 
 const store = new Store({
   value: Decimal.defaultProps.value
@@ -23,6 +23,7 @@ const setValue = (ev) => {
 storiesOf('Experimental/Decimal', module)
   .addParameters({
     info: {
+      text: info,
       propTablesExclude: [State, Textbox],
       propTables: [OriginalTextbox]
     }

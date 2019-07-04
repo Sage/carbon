@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
-import notes from './documentation';
+import { notes, info } from './documentation';
 import DateRange from './date-range.component';
 
 const store = new Store({
@@ -38,6 +38,8 @@ storiesOf('Experimental/Date Range', module)
   }, {
     notes: { markdown: notes },
     info: {
-      propTablesExclude: [State]
+      text: info,
+      propTablesExclude: [State],
+      notes: { markdown: notes }
     }
   });
