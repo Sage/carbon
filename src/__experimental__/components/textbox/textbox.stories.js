@@ -6,6 +6,7 @@ import {
   select,
   number
 } from '@storybook/addon-knobs';
+import { notes, info } from './documentation';
 import Textbox, { OriginalTextbox } from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
@@ -17,6 +18,14 @@ const defaultStoryPropsConfig = {
 };
 
 storiesOf('Experimental/Textbox', module)
+  .addParameters({
+    info: {
+      text: info,
+      propTables: [OriginalTextbox],
+      propTablesExclude: [Textbox],
+      notes: { markdown: notes }
+    }
+  })
   .add('Basic', () => {
     return (
       <Textbox
@@ -24,11 +33,6 @@ storiesOf('Experimental/Textbox', module)
         { ...getCommonTextboxStoryProps() }
       />
     );
-  }, {
-    info: {
-      propTables: [OriginalTextbox],
-      propTablesExclude: [Textbox]
-    }
   })
   .add('Multiple', () => {
     return ([
@@ -44,11 +48,6 @@ storiesOf('Experimental/Textbox', module)
         { ...getCommonTextboxStoryProps() }
       />
     ]);
-  }, {
-    info: {
-      propTables: [OriginalTextbox],
-      propTablesExclude: [Textbox]
-    }
   });
 
 
