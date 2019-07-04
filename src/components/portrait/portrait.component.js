@@ -10,75 +10,64 @@ function Portrait(props) {
   const {
     alt, darkBackground, gravatar, initials, shape, size, src
   } = props;
-  const showIcon = Boolean(!src && !initials);
-  const showInitials = Boolean(!src && initials);
-  const showGravatar = Boolean(gravatar);
-  const showCustomImg = Boolean(!gravatar && src);
 
   function renderIcon() {
-    if (!showIcon) {
-      return null;
+    if (!src && !initials) {
+      return (
+        <StyledIcon
+          type='individual'
+          size={ size }
+          shape={ shape }
+          darkBackground={ darkBackground }
+        />
+      );
     }
-    return (
-      <StyledIcon
-        type='individual'
-        size={ size }
-        shape={ shape }
-        darkBackground={ darkBackground }
-      />
-    );
+    return null;
   }
 
   function renderInitials() {
-    if (!showInitials) {
-      return null;
+    if (!src && initials) {
+      return (
+        <PortraitInitials
+          size={ size }
+          initials={ initials }
+          darkBackground={ darkBackground }
+          alt={ alt }
+        />
+      );
     }
-    return (
-      <PortraitInitials
-        size={ size }
-        initials={ initials }
-        darkBackground={ darkBackground }
-        alt={ alt }
-      />
-    );
+    return null;
   }
 
   function renderGravatar() {
-    if (!showGravatar) {
-      return null;
+    if (gravatar) {
+      return (
+        <PortraitGravatar
+          gravatarEmail={ gravatar }
+          size={ size }
+          alt={ alt }
+        />
+      );
     }
-    return (
-      <PortraitGravatar
-        gravatarEmail={ gravatar }
-        size={ size }
-        alt={ alt }
-      />
-    );
+    return null;
   }
 
   function renderCustomImg() {
-    if (!showCustomImg) {
-      return null;
+    if (!gravatar && src) {
+      return (
+        <StyledCustomImg
+          src={ src }
+          alt={ alt }
+          size={ size }
+          data-element='user-image'
+        />
+      );
     }
-    return (
-      <StyledCustomImg
-        src={ src }
-        alt={ alt }
-        size={ size }
-        data-element='user-image'
-      />
-    );
+    return null;
   }
 
   return (
-    <StyledPortrait
-      showIcon={ showIcon }
-      showInitials={ showInitials }
-      showGravatar={ showGravatar }
-      showCustomImg={ showCustomImg }
-      { ...props }
-      { ...tagComponent('portrait', props) }
-    >
+    <StyledPortrait { ...props } { ...tagComponent('portrait', props) }>
       {renderIcon()}
       {renderInitials()}
       {renderGravatar()}

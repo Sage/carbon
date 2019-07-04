@@ -166,10 +166,6 @@ const StyledPortrait = styled.div`
 StyledPortrait.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesFull),
   shape: PropTypes.oneOf(OptionsHelper.shapesVaried),
-  showIcon: PropTypes.bool,
-  showInitials: PropTypes.bool,
-  showGravatar: PropTypes.bool,
-  showCustomImg: PropTypes.bool,
   darkBackground: PropTypes.bool,
   theme: PropTypes.object
 };
@@ -177,10 +173,6 @@ StyledPortrait.propTypes = {
 StyledPortrait.defaultProps = {
   size: 'medium',
   shape: 'standard',
-  showIcon: false,
-  showInitials: false,
-  showGravatar: false,
-  showCustomImg: false,
   darkBackground: false,
   theme: BaseTheme
 };
