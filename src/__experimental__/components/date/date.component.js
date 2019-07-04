@@ -10,7 +10,6 @@ import StyledDateInput from './date.style';
 import Textbox from '../textbox';
 
 const defaultDateFormat = 'DD/MM/YYYY';
-const today = DateHelper.todayFormatted();
 
 class DateInput extends React.Component {
   static propTypes = {
@@ -34,13 +33,11 @@ class DateInput extends React.Component {
   };
 
   static defaultProps = {
-    value: today,
+    value: DateHelper.todayFormatted(),
     internalValidations: [new DateValidator()]
   };
 
   isBlurBlocked = false; // stops the blur callback from triggering (closing the list) when we don't want it to
-
-  isInputTyped = false;
 
   state = {
     isDatePickerOpen: false,
@@ -104,7 +101,6 @@ class DateInput extends React.Component {
 
   openDatePicker = () => {
     this.isBlurBlocked = true;
-    this.isInputTyped = false;
     document.addEventListener('click', this.closeDatePicker);
     this.updateSelectedDate(this.props.value);
     this.setState({ isDatePickerOpen: true });
@@ -135,8 +131,6 @@ class DateInput extends React.Component {
   updateVisibleValue = (date) => {
     const visibleValue = formatDateToCurrentLocale(date);
 
-    if (this.isInputTyped) return;
-
     this.setState({
       selectedDate: date,
       visibleValue
@@ -151,7 +145,6 @@ class DateInput extends React.Component {
 
     if (disabled || readOnly) return;
 
-    this.isInputTyped = false;
     this.isBlurBlocked = false;
 
     if (isValidDate) {
@@ -164,13 +157,14 @@ class DateInput extends React.Component {
   };
 
   updateSelectedDate = (newValue) => {
-    const isoDate = DateHelper.stringToDate(newValue);
+    let newDate = DateHelper.stringToDate(newValue);
+    const isNewDateInvalid = !newDate.getDate();
 
-    if (isoDate.getDate()) {
-      this.setState({ selectedDate: isoDate });
-    } else {
-      this.setState({ selectedDate: DateHelper.stringToDate(today) });
+    if (isNewDateInvalid) {
+      newDate = DateHelper.stringToDate(DateHelper.todayFormatted());
     }
+
+    this.setState({ selectedDate: newDate });
   };
 
   emitOnChangeCallback = (stringDate) => {
@@ -235,7 +229,7 @@ function concatAllValidations(props) {
 function formatDateToCurrentLocale(value) {
   const visibleFormat = I18n.t('date.formats.javascript', { defaultValue: defaultDateFormat }).toUpperCase();
 
-  return DateHelper.formatValue(value || today, visibleFormat);
+  return DateHelper.formatValue(value || DateHelper.todayFormatted(), visibleFormat);
 }
 
 function stopClickPropagation(ev) {
