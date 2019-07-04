@@ -1,5 +1,7 @@
-import { INLINE_INPUTS } from './locators';
+import { INLINE_INPUT } from './locators';
 
 // component preview locators
-export const inlineInputs = index => cy.iFrame(INLINE_INPUTS)
-  .eq(`${index}`);
+export const inlineInput = index => cy.iFrame(INLINE_INPUT)
+  .find(`div:nth-child(${index})`)
+  .find('div > div')
+  .find('input');

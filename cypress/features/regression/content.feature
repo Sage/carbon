@@ -59,7 +59,8 @@ Feature: Content component
 
   @positive
   Scenario: BodyFullWidth disabled
-    When I uncheck bodyFullWidth checkbox
+    When I check bodyFullWidth checkbox
+      And I uncheck bodyFullWidth checkbox
     Then content preview has no bodyFullWidth parameter
 
   @positive
@@ -76,5 +77,6 @@ Feature: Content component
 
   @positive
   Scenario: Inline disabled
-    When I uncheck inline checkbox
+    When I check inline checkbox
+      And I uncheck inline checkbox
     Then content preview has no inline parameter

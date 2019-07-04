@@ -66,7 +66,9 @@ export function pressESCKey() {
   cy.iFrame('body').type('{shift}{esc}');
 }
 
-export function pressTABKey() {
+export function pressTABKey(count) {
   // cy.iFrame('body').tab(); uncomment when this function will be implemented by Cypress team
-  cy.iFrame('body').trigger('tab', { force: true });
+  for (let i = 0; i < count; i++) {
+    cy.iFrame('body').trigger('tab', { force: true });
+  }
 }
