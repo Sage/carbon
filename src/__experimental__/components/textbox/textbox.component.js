@@ -70,8 +70,11 @@ Textbox.propTypes = {
   children: PropTypes.node,
   inputIcon: PropTypes.string,
   leftChildren: PropTypes.node,
+  /** List of error validation functions */
   validations: validationsPropTypes,
+  /** List of warning validation functions */
   warnings: validationsPropTypes,
+  /** List of info validation functions */
   info: validationsPropTypes
 };
 
@@ -80,4 +83,5 @@ Textbox.defaultProps = {
   inputWidth: 70
 };
 
+export { Textbox as OriginalTextbox };
 export default withUniqueName(withValidation(Textbox));

@@ -6,7 +6,7 @@ import {
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import Decimal from './decimal.component';
-import Textbox from '../textbox';
+import Textbox, { OriginalTextbox } from '../textbox';
 import getTextboxStoryProps from '../textbox/textbox.stories';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import notes from './documentation';
@@ -23,8 +23,8 @@ const setValue = (ev) => {
 storiesOf('Experimental/Decimal', module)
   .addParameters({
     info: {
-      propTablesExclude: [State],
-      propTables: [Textbox]
+      propTablesExclude: [State, Textbox],
+      propTables: [OriginalTextbox]
     }
   }).add('default', () => {
     const precisionRange = {
