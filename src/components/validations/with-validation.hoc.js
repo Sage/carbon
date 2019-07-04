@@ -7,34 +7,6 @@ import ValidationIcon from './validation-icon.component';
 
 const withValidation = (WrappedComponent) => {
   class WithValidation extends React.Component {
-    static contextType = ValidationsContext;
-
-    static propTypes = {
-      children: PropTypes.node, // Children elements
-      name: PropTypes.string.isRequired, // Name to uniquely identify the component
-      value: PropTypes.string, // The current value of the component
-      onBlur: PropTypes.func, // Custom function to be called when the component blurs
-      onChange: PropTypes.func, // Custom function called when component value changes
-      ...Object.values(VALIDATION_TYPES).reduce((acc, type) => ({
-        ...acc,
-        [type]: PropTypes.oneOfType([ // The info validations that should be run against the value
-          PropTypes.func,
-          PropTypes.arrayOf(
-            PropTypes.shape({
-              message: PropTypes.func,
-              validate: PropTypes.func
-            })
-          ),
-          PropTypes.arrayOf(PropTypes.func)
-        ])
-      }), {})
-    };
-
-    static defaultProps = Object.values(VALIDATION_TYPES).reduce((acc, type) => ({
-      ...acc,
-      [type]: []
-    }), {});
-
     state = Object.keys(VALIDATION_TYPES).reduce((acc, type) => ({
       ...acc,
       [`${type}Message`]: undefined
@@ -42,17 +14,19 @@ const withValidation = (WrappedComponent) => {
 
     componentDidMount() {
       if (this.checkValidations()) {
-        this.context.addInput(this.props.name, this.validate);
+        const value = this.props.value || this.state.value;
+        this.context.addInput(this.props.name, this.validate, value);
       }
     }
 
     componentWillUnmount() {
-      if (this.context && this.context.removeInput) this.context.removeInput(this.props.name);
+      if (this.checkContext('removeInput')) this.context.removeInput(this.props.name);
     }
 
     componentDidUpdate(prevProps) {
       if (this.isUpdatedValidationProps(prevProps) && this.checkValidations()) {
-        this.context.addInput(this.props.name, this.validate);
+        const value = this.props.value || this.state.value;
+        this.context.addInput(this.props.name, this.validate, value);
       }
 
       if (prevProps.value !== this.props.value) {
@@ -70,7 +44,7 @@ const withValidation = (WrappedComponent) => {
     }
 
     checkValidations() {
-      if (!this.context || !this.context.addInput) return false;
+      if (!this.checkContext('addInput')) return false;
 
       const types = Object.keys(VALIDATION_TYPES);
       let hasValidations = false;
@@ -88,6 +62,12 @@ const withValidation = (WrappedComponent) => {
       return hasValidations;
     }
 
+    checkContext(prop) {
+      if (!this.context || !this.context[prop]) return false;
+
+      return true;
+    }
+
     validate = (types = Object.keys(VALIDATION_TYPES), isOnSubmit) => {
       if (!isOnSubmit && this.blockValidation) return new Promise(resolve => resolve(true));
 
@@ -102,14 +82,13 @@ const withValidation = (WrappedComponent) => {
     }
 
     updateValidationStatus(type, message) {
-      const { adjustCount } = this.context;
       const stateProp = `${type}Message`;
 
       if (message && !this.state[stateProp]) {
-        adjustCount(type, true);
+        if (this.checkContext('adjustCount')) this.context.adjustCount(type, true);
         this.setState({ [stateProp]: message });
       } else if (!message && this.state[stateProp]) {
-        adjustCount(type);
+        if (this.checkContext('adjustCount')) this.context.adjustCount(type);
         this.setState({ [stateProp]: undefined });
       }
     }
@@ -119,9 +98,11 @@ const withValidation = (WrappedComponent) => {
       if (typeof this.props[type] === 'undefined') return null;
       if (Array.isArray(this.props[type]) && this.props[type].length === 0) return null;
 
+      const value = this.props.value || this.state.value;
+
       return new Promise((resolve) => {
         setTimeout(() => {
-          validator(this.props[type])(this.props.value, this.props)
+          validator(this.props[type])(value, this.props)
             .then(() => {
               this.updateValidationStatus(validationType);
               return resolve(true);
@@ -160,12 +141,22 @@ const withValidation = (WrappedComponent) => {
       Object.keys(VALIDATION_TYPES).forEach((type) => {
         if (this.state[`${type}Message`]) {
           this.updateValidationStatus(type);
-          this.setState({ [`${type}Message`]: false });
+          this.setState({ [`${type}Message`]: undefined });
         }
       });
 
+      if (!this.props.value) this.setState({ value: ev.target.value });
+
       if (this.props.onChange) {
         this.props.onChange(ev);
+      }
+
+      this.updateInput(ev.target.value);
+    }
+
+    updateInput(value) {
+      if (this.checkValidations()) {
+        this.context.addInput(this.props.name, this.validate, value);
       }
     }
 
@@ -184,6 +175,7 @@ const withValidation = (WrappedComponent) => {
           { ...this.props }
           onBlur={ this.handleBlur }
           onChange={ this.handleChange }
+          value={ this.props.value || this.state.value }
         >
           { this.props.children }
           { this.renderValidationMarkup() }
@@ -191,6 +183,34 @@ const withValidation = (WrappedComponent) => {
       );
     }
   }
+
+  WithValidation.contextType = ValidationsContext;
+
+  WithValidation.propTypes = {
+    children: PropTypes.node, // Children elements
+    name: PropTypes.string.isRequired, // Name to uniquely identify the component
+    value: PropTypes.string, // The current value of the component
+    onBlur: PropTypes.func, // Custom function to be called when the component blurs
+    onChange: PropTypes.func, // Custom function called when component value changes
+    ...Object.values(VALIDATION_TYPES).reduce((acc, type) => ({
+      ...acc,
+      [type]: PropTypes.oneOfType([ // The info validations that should be run against the value
+        PropTypes.func,
+        PropTypes.arrayOf(
+          PropTypes.shape({
+            message: PropTypes.func,
+            validate: PropTypes.func
+          })
+        ),
+        PropTypes.arrayOf(PropTypes.func)
+      ])
+    }), {})
+  };
+
+  WithValidation.defaultProps = Object.values(VALIDATION_TYPES).reduce((acc, type) => ({
+    ...acc,
+    [type]: []
+  }), {});
 
   const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
   WithValidation.displayName = `WithValidation(${displayName})`;

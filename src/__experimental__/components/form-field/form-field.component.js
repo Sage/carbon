@@ -17,42 +17,48 @@ const FormField = ({
   labelInline,
   labelWidth,
   name,
+  value,
+  addInputToFormStore,
   reverse,
   size
-}) => (
-  <FormFieldStyle inline={ labelInline }>
-    {reverse && children}
+}) => {
+  if (addInputToFormStore) addInputToFormStore(name, value);
 
-    {label && (
-      <Label
-        align={ labelAlign }
-        disabled={ disabled }
-        help={ labelHelp }
-        htmlFor={ name }
-        helpIcon={ labelHelpIcon }
-        inline={ labelInline }
-        inputSize={ size }
-        width={ labelWidth }
-      >
-        {label}
-      </Label>
-    )}
+  return (
+    <FormFieldStyle inline={ labelInline }>
+      {reverse && children}
 
-    {fieldHelp && fieldHelpInline && (
-      <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
-        {fieldHelp}
-      </FieldHelp>
-    )}
+      {label && (
+        <Label
+          align={ labelAlign }
+          disabled={ disabled }
+          help={ labelHelp }
+          htmlFor={ name }
+          helpIcon={ labelHelpIcon }
+          inline={ labelInline }
+          inputSize={ size }
+          width={ labelWidth }
+        >
+          {label}
+        </Label>
+      )}
 
-    {!reverse && children}
+      {fieldHelp && fieldHelpInline && (
+        <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
+          {fieldHelp}
+        </FieldHelp>
+      )}
 
-    {fieldHelp && !fieldHelpInline && (
-      <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
-        {fieldHelp}
-      </FieldHelp>
-    )}
-  </FormFieldStyle>
-);
+      {!reverse && children}
+
+      {fieldHelp && !fieldHelpInline && (
+        <FieldHelp labelInline={ labelInline } labelWidth={ labelWidth }>
+          {fieldHelp}
+        </FieldHelp>
+      )}
+    </FormFieldStyle>
+  );
+};
 
 FormField.defaultProps = {
   size: 'medium'
@@ -71,7 +77,9 @@ FormField.propTypes = {
   labelWidth: PropTypes.number,
   name: PropTypes.string,
   reverse: PropTypes.bool,
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  addInputToFormStore: PropTypes.func,
+  value: PropTypes.string
 };
 
 export default FormField;

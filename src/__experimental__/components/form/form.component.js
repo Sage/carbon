@@ -8,17 +8,26 @@ import { kebabCase } from 'lodash';
 import CancelButton from './cancel-button';
 import FormSummary from './form-summary';
 import SaveButton from './save-button';
-import AppWrapper from '../app-wrapper';
+import AppWrapper from '../../../components/app-wrapper';
 
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
-import Browser from '../../utils/helpers/browser';
+import Browser from '../../../utils/helpers/browser';
 
 import { withValidations } from '../../../components/validations';
 import ElementResize from '../../../utils/helpers/element-resize';
 import './form.scss';
 
 class FormWithoutValidations extends React.Component {
+  state = {
+    /** Tracks if the form is clean or dirty, used by unsavedWarning */
+    isDirty: false,
+    /** Tracks if the saveButton should be disabled */
+    submitted: false
+  }
+
+  formInputs = {}
+
   /**
    * Returns form object to child components.
    */
@@ -41,7 +50,8 @@ class FormWithoutValidations extends React.Component {
       this.addStickyFooterListeners();
     }
 
-    if (this.props.validateOnMount) {
+    if (this.props.validateOnMount && this.props.validate) {
+      console.log('what');
       this.props.validate();
     }
 
@@ -166,14 +176,12 @@ class FormWithoutValidations extends React.Component {
   /* eslint-enable consistent-return */
 
   /**
-   * stores the document - allows us to override it different contexts, such as
-   * when running tests.
+   * stores the document - allows us to override it different contexts, such as  when running tests.
    */
   _document = Browser.getDocument();
 
   /**
-   * stores the window - allows us to override it different contexts, such as
-   * when running tests.
+   * stores the window - allows us to override it different contexts, such as when running tests.
    */
   _window = Browser.getWindow();
 
@@ -191,7 +199,7 @@ class FormWithoutValidations extends React.Component {
       this.props.beforeFormValidation(ev);
     }
 
-    const valid = await this.props.validate();
+    const valid = this.props.validate ? await this.props.validate() : true;
 
     if (this.props.afterFormValidation) {
       this.props.afterFormValidation(ev, valid, this.enableForm);
@@ -208,8 +216,21 @@ class FormWithoutValidations extends React.Component {
   triggerSubmit(ev, valid) {
     if (this.props.onSubmit) {
       this.props.onSubmit(ev, valid, this.enableForm);
-    } else {
+    } else if (!this.props.formInputs && !this.formInputs) {
+      // const store = this.props.formInputs ? this.props.formInputs : this.formInputs;
+      // console.log('called', this.formInputs);
       this._form.submit();
+      // ev.preventDefault();
+
+      // const form = ev.currentTarget;
+      // const inputValue = form.elements;
+      // Object.keys(store).forEach((name) => { alert(this._form.elements[name].value); });
+      // this._form.submit(); // need to prevent it firing html submit if input is controlled
+    } else {
+      console.log('called', this.props.formInputs);
+      const store = this.props.formInputs ? this.props.formInputs : this.formInputs;
+      Object.keys(store).forEach((name) => { this._form.elements[name].value = ''; });
+      ev.persist();
     }
   }
 
@@ -234,8 +255,7 @@ class FormWithoutValidations extends React.Component {
    *
    */
   htmlProps = () => {
-    const { ...props } = validProps(this);
-    delete props.onSubmit;
+    const { onSubmit, formInputs, ...props } = validProps(this);
     props.className = this.mainClasses;
     return props;
   }
@@ -374,6 +394,21 @@ class FormWithoutValidations extends React.Component {
     );
   }
 
+  addInputDataToStore = (name, value) => {
+    this.formInputs[name] = value;
+  }
+
+  renderChildren() {
+    const { children, formInputs } = this.props;
+    if (formInputs) return children;
+
+    const childrenArray = Array.isArray(children) ? children : [children];
+
+    return childrenArray.map((child) => {
+      return React.cloneElement(child, { ...children.props, addInputToFormStore: this.addInputDataToStore });
+    });
+  }
+
   /**
    * Renders the component.
    */
@@ -387,7 +422,7 @@ class FormWithoutValidations extends React.Component {
       >
         { generateCSRFToken(this._document) }
 
-        { this.props.children }
+        { this.renderChildren() }
 
         { this.formFooter() }
       </form>
@@ -502,7 +537,13 @@ FormWithoutValidations.propTypes = {
   warningCount: PropTypes.number,
 
   /** The total number of infos present in the form */
-  infoCount: PropTypes.number
+  infoCount: PropTypes.number,
+
+  formInputs: PropTypes.shape({
+    value: PropTypes.string,
+    name: PropTypes.string,
+    validations: PropTypes.func
+  })
 };
 
 FormWithoutValidations.defaultProps = {

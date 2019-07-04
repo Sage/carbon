@@ -11,14 +11,13 @@ const withValidations = (WrappedComponent) => {
       formIsValidating: false
     }
 
-    static propTypes = {
-      children: PropTypes.node // Children elements
-    }
-
     inputs = {};
 
-    addInput = (name, validate) => {
-      this.inputs[name] = validate;
+    addInput = (name, validate, value) => {
+      this.inputs[name] = {
+        validation: validate,
+        value
+      };
     }
 
     removeInput = (name) => {
@@ -51,7 +50,7 @@ const withValidations = (WrappedComponent) => {
 
       let promises = [];
       Object.keys(this.inputs).forEach((name) => {
-        const validate = this.inputs[name];
+        const validate = this.inputs[name].validation;
         promises = promises.concat(validate(['error'], true)); // only validate errors on form submit
       });
       return Promise.all(promises).then((isValid) => {
@@ -71,6 +70,7 @@ const withValidations = (WrappedComponent) => {
               [`${type}Count`]: this.state[`${type}Count`]
             }), {}) }
             { ...this.props }
+            formInputs={ this.inputs }
           >
             { this.props.children }
           </WrappedComponent>
@@ -78,6 +78,10 @@ const withValidations = (WrappedComponent) => {
       );
     }
   }
+
+  WithValidations.propTypes = {
+    children: PropTypes.node // Children elements
+  };
 
   const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
   WithValidations.displayName = `WithValidations(${displayName})`;

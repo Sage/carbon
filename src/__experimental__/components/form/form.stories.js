@@ -1,17 +1,18 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
-import OptionsHelper from '../../utils/helpers/options-helper';
-import PresenceValidation from '../../utils/validations/presence';
+import OptionsHelper from '../../../utils/helpers/options-helper';
+import PresenceValidation from '../../../utils/validations/presence';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import Form, { FormWithoutValidations } from '.';
 import Textbox from '../textbox';
 
-storiesOf('Form', module)
+storiesOf('Experimental/Form', module)
   .addParameters({
     info: {
-      propTablesExclude: [Textbox]
+      propTablesExclude: [Textbox],
+      includePropTables: [FormWithoutValidations]
     }
   })
   .add('default', () => {
@@ -53,6 +54,12 @@ storiesOf('Form', module)
       >
         <Textbox
           label='Full Name'
+          labelInline
+          labelAlign='right'
+          validations={ [new PresenceValidation()] }
+        />
+        <Textbox
+          label='Role'
           labelInline
           labelAlign='right'
           validations={ [new PresenceValidation()] }
