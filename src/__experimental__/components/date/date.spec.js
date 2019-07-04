@@ -3,7 +3,7 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { mount } from 'enzyme';
-import Date, { defaultDateFormat } from './date.component';
+import DateInput, { defaultDateFormat } from './date.component';
 import DatePicker from './date-picker.component';
 import Textbox from '../textbox';
 import StyledDateInput from './date.style';
@@ -290,10 +290,10 @@ describe('Date', () => {
       let domNode;
 
       it('then the Datepicker should be closed', () => {
-        wrapper = mount(<div><Date /><span id='external' /></div>);
+        wrapper = mount(<div><DateInput /><span id='external' /></div>);
         domNode = wrapper.getDOMNode();
         document.body.appendChild(domNode);
-        simulateFocusOnInput(wrapper.find(Date));
+        simulateFocusOnInput(wrapper.find(DateInput));
         expect(wrapper.find(DatePicker).exists()).toBe(true);
         wrapper.find('#external').getDOMNode().dispatchEvent(nativeClickEvent);
         expect(wrapper.update().find(DatePicker).exists()).toBe(false);
@@ -308,7 +308,7 @@ describe('Date', () => {
     describe('when the "closeDatePicker" method has been called', () => {
       it('then the visible value should not change', () => {
         const mockDate = getFormattedDate(moment('2012-02-01'));
-        wrapper = mount(<Date value={ mockDate } />);
+        wrapper = mount(<DateInput value={ mockDate } />);
         wrapper.instance().closeDatePicker();
         const input = wrapper.find('input');
 
@@ -347,7 +347,7 @@ function isNotFirstApr(value) {
 }
 
 function render(props, renderer = mount) {
-  return renderer(<Date { ...props } />);
+  return renderer(<DateInput { ...props } />);
 }
 
 function getFormattedDate(date) {
