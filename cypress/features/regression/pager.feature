@@ -22,7 +22,7 @@ Feature: Pager component
   @negative
   Scenario Outline: Set totalRecords out of scope to <totalRecords>
     When I set totalRecords to "<totalRecords>"
-    Then totalRecords is set to "0"
+    Then totalRecords is set to "<totalRecords>"
       And I am on 1st of "1" pages
     Examples:
       | totalRecords |
@@ -36,6 +36,7 @@ Feature: Pager component
     Then totalRecords is set to ""
       And I am on 1st of "1" pages
     Examples:
+      | totalRecords            |
       | Sample text             |
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
@@ -88,4 +89,3 @@ Feature: Pager component
       And I select pageSize to "10"
     Then previous pagination arrow is disabled
       And next pagination arrow is disabled
-
