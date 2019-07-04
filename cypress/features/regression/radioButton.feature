@@ -58,7 +58,7 @@ Feature: Radio Button component
   Scenario Outline: Set labelHelp to <labelHelp>
     When I set labelHelp to "<labelHelp>"
       And I hover mouse onto help icon
-    Then tooltipPreview on preview is set to "<labelHelp>"
+    Then RadioButton tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
       | Sample text             |
@@ -122,7 +122,7 @@ Feature: Radio Button component
       | -10                     |
 
   @positive
-  Scenario Outline: Set labelAlign to <labelAlign>
+  Scenario Outline: Set labelAlign to <direction>
     When I check labelInline checkbox
       And I select labelAlign to "<direction>"
     Then labelAlign on preview is "<direction>"
