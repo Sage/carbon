@@ -59,9 +59,6 @@ function getCommonTextboxStoryProps(config = defaultStoryPropsConfig) {
   const labelWidth = labelInline ? number('labelWidth', 30, percentageRange) : undefined;
   const inputWidth = labelInline && config.inputWidthEnabled ? number('inputWidth', 70, percentageRange) : undefined;
   const labelAlign = labelInline ? select('labelAlign', OptionsHelper.alignBinary) : undefined;
-  const errorMessage = text('errorMessage');
-  const infoMessage = text('infoMessage');
-  const warningMessage = text('warningMessage');
   const size = select('size', OptionsHelper.sizesRestricted);
 
   return {
@@ -74,9 +71,6 @@ function getCommonTextboxStoryProps(config = defaultStoryPropsConfig) {
     labelInline,
     labelWidth,
     labelAlign,
-    errorMessage,
-    infoMessage,
-    warningMessage,
     size
   };
 }
