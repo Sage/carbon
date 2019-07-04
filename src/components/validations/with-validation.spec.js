@@ -204,7 +204,7 @@ describe('when the withValidations HOC wraps a component', () => {
       const spy2 = spyOn(wrapper2.instance().context, 'adjustCount');
       await wrapper2.instance().runValidation(types[0]);
       expect(spy1).toHaveBeenCalledWith({
-        errorMessage: undefined
+        errorMessage: ''
       });
       expect(spy2).toHaveBeenCalledWith('error');
     });
@@ -218,7 +218,7 @@ describe('when the withValidations HOC wraps a component', () => {
       const spy2 = spyOn(wrapper2.instance().context, 'adjustCount');
       await wrapper2.instance().runValidation(types[1]);
       expect(spy1).toHaveBeenCalledWith({
-        warningMessage: undefined
+        warningMessage: ''
       });
       expect(spy2).toHaveBeenCalledWith('warning');
     });
@@ -232,7 +232,7 @@ describe('when the withValidations HOC wraps a component', () => {
       const spy2 = spyOn(wrapper2.instance().context, 'adjustCount');
       await wrapper2.instance().runValidation(types[2]);
       expect(spy1).toHaveBeenCalledWith({
-        infoMessage: undefined
+        infoMessage: ''
       });
       expect(spy2).toHaveBeenCalledWith('info');
     });
@@ -297,23 +297,23 @@ describe('when the withValidations HOC wraps a component', () => {
 
     it('resolves promises to true when all validation props are valid', async () => {
       expect(allValidationsPass).toEqual(true);
-      expect(passWrapper.state().errorMessage).toEqual(undefined);
-      expect(passWrapper.state().warningMessage).toEqual(undefined);
-      expect(passWrapper.state().infoMessage).toEqual(undefined);
+      expect(passWrapper.state().errorMessage).toEqual('');
+      expect(passWrapper.state().warningMessage).toEqual('');
+      expect(passWrapper.state().infoMessage).toEqual('');
     });
 
     it('resolves true a validation prop is valid and false when it fails validation', async () => {
       expect(mixValidations).toEqual(false);
-      expect(mixWrapper.state().errorMessage).toEqual(undefined);
+      expect(mixWrapper.state().errorMessage).toEqual('');
       expect(mixWrapper.state().warningMessage).toEqual(failErr.message);
-      expect(mixWrapper.state().infoMessage).toEqual(undefined);
+      expect(mixWrapper.state().infoMessage).toEqual('');
     });
 
     it('sets the state for each of the failed validations subsets when they fail', async () => {
       expect(allValidationsFail).toEqual(false);
       expect(failWrapper.state().errorMessage).toEqual(failErr.message);
-      expect(failWrapper.state().warningMessage).toEqual(failErr.message);
-      expect(failWrapper.state().infoMessage).toEqual(failErr.message);
+      expect(failWrapper.state().warningMessage).toEqual('');
+      expect(failWrapper.state().infoMessage).toEqual('');
     });
   });
 
@@ -358,18 +358,18 @@ describe('when the withValidations HOC wraps a component', () => {
       wrapper.setState({ infoMessage: presErr, warningMessage: presErr, errorMessage: presErr });
       wrapper.setProps({ onChange: ev => ev.target.value });
       wrapper.instance().handleChange(mockEvent);
-      expect(wrapper.instance().state.infoMessage).toEqual(false);
-      expect(wrapper.instance().state.warningMessage).toEqual(false);
-      expect(wrapper.instance().state.errorMessage).toEqual(false);
+      expect(wrapper.instance().state.infoMessage).toEqual('');
+      expect(wrapper.instance().state.warningMessage).toEqual('');
+      expect(wrapper.instance().state.errorMessage).toEqual('');
     });
 
-    it('does nothing when the validation status is already false', () => {
-      wrapper.setState({ infoMessage: false, warningMessage: false, errorMessage: false });
+    it('does nothing when the validation status is already empty', () => {
+      wrapper.setState({ infoMessage: '', warningMessage: '', errorMessage: '' });
       const spy = spyOn(wrapper.instance(), 'updateValidationStatus');
       wrapper.instance().handleChange(mockEvent);
-      expect(wrapper.instance().state.infoMessage).toEqual(false);
-      expect(wrapper.instance().state.warningMessage).toEqual(false);
-      expect(wrapper.instance().state.errorMessage).toEqual(false);
+      expect(wrapper.instance().state.infoMessage).toEqual('');
+      expect(wrapper.instance().state.warningMessage).toEqual('');
+      expect(wrapper.instance().state.errorMessage).toEqual('');
       expect(spy).not.toHaveBeenCalled();
     });
   });

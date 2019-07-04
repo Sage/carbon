@@ -11,6 +11,7 @@ class TextareaInput extends Input {
   render() {
     const {
       inputRef,
+      onBlur,
       ...props
     } = this.props;
 

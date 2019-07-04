@@ -72,7 +72,8 @@ Feature: Dialog component
 
   @positive
   Scenario: ShowCloseIcon can close Dialog
-    When I check showCloseIcon checkbox
+    When I uncheck showCloseIcon checkbox
+      And I check showCloseIcon checkbox
       And I open component preview
     Then closeIcon is visible
       And I click closeIcon
@@ -119,14 +120,16 @@ Feature: Dialog component
 
   @positive
   Scenario: Enable escape key
-    When I uncheck disableEscKey checkbox
+    When I check disableEscKey checkbox
+      And I uncheck disableEscKey checkbox
       And I open component preview
       And I hit ESC key
     Then Dialog is not visible
 
   @positive
   Scenario Outline: Click outside Dialog without background and Dialog remains open
-    When I uncheck enableBackgroundUI checkbox
+    When I check enableBackgroundUI checkbox
+      And I uncheck enableBackgroundUI checkbox
       And I open component preview
       And I click on "<position>" outside dialog
     Then Dialog is visible

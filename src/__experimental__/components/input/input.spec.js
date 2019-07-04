@@ -66,7 +66,7 @@ describe('Input', () => {
     const focusWith = (value, leftPos, rightPos) => {
       jest.useFakeTimers();
       const wrapper = renderMount({ value });
-      const inputComponent = wrapper.find('input');
+      const inputComponent = wrapper.find('input[type="text"]');
       const inputElement = inputComponent.instance();
       spyOn(inputElement, 'setSelectionRange');
       inputElement.selectionStart = leftPos;
@@ -88,6 +88,24 @@ describe('Input', () => {
 
     it('does not select the text if focus is applied inside of the value', () => {
       const inputElement = focusWith('hello', 4, 4);
+      expect(inputElement.setSelectionRange).not.toHaveBeenCalled();
+    });
+  });
+
+  describe('when input type is different than text', () => {
+    const focus = () => {
+      jest.useFakeTimers();
+      const wrapper = renderMount({ type: 'radio' });
+      const inputComponent = wrapper.find('input[type="radio"]');
+      const inputElement = inputComponent.instance();
+      spyOn(inputElement, 'setSelectionRange');
+      inputComponent.simulate('focus');
+      jest.runAllTimers();
+      return inputElement;
+    };
+
+    it('does not trigger text selection function', () => {
+      const inputElement = focus();
       expect(inputElement.setSelectionRange).not.toHaveBeenCalled();
     });
   });

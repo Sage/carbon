@@ -178,6 +178,7 @@ class SplitButton extends Component {
         role='menu'
         aria-labelledby={ this.buttonLabelId }
         data-element='additional-buttons'
+        align={ this.props.align }
       >
         { children }
       </StyledSplitButtonChildrenContainer>
@@ -221,14 +222,17 @@ SplitButton.propTypes = {
   /** The text to be displayed in the SplitButton. */
   text: PropTypes.string.isRequired,
   /** Defines an Icon position within the button: "before" | "after" */
-  iconPosition: PropTypes.oneOf(OptionsHelper.buttonIconPositions)
+  iconPosition: PropTypes.oneOf(OptionsHelper.buttonIconPositions),
+  /** Set align of the rendered content */
+  align: PropTypes.oneOf(OptionsHelper.alignBinary)
 };
 
 SplitButton.defaultProps = {
   as: 'secondary',
   disabled: false,
   size: 'medium',
-  iconPosition: 'before'
+  iconPosition: 'before',
+  align: 'left'
 };
 
 SplitButton.safeProps = ['buttonType', 'as', 'disabled', 'size'];

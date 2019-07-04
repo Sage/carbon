@@ -2,7 +2,7 @@ Feature: Flash component
   I want to change Flash component properties
 
   Background: Open Flash component component page
-    Given I open "Flash" component page
+    Given I open "Flash" component page classic
 
   @positive
   Scenario Outline: Change as property to <as>
