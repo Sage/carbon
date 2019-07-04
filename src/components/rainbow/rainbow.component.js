@@ -148,7 +148,7 @@ function generateConfig(immutableData, title) {
 }
 
 Rainbow.propTypes = {
-/** Supply a custom title for the chart. */
+  /** Supply a custom title for the chart. */
   title: PropTypes.string,
   /** Supply data for the chart. */
   data: PropTypes.object.isRequired,
