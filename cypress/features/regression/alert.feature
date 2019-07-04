@@ -71,7 +71,8 @@ Feature: Alert component
 
   @negative
   Scenario: Enable escape key
-    When I uncheck disableEscKey checkbox
+    When I check disableEscKey checkbox
+      And I uncheck disableEscKey checkbox
       And I open component preview
       And I hit ESC key
     Then Alert is not visible
@@ -101,8 +102,7 @@ Feature: Alert component
 
   @positive
   Scenario: ShowCloseIcon can close Alert
-    When I check showCloseIcon checkbox
-      And I open component preview
+    When I open component preview
     Then closeIcon is visible
       And I click closeIcon
       And Alert is not visible
