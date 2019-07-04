@@ -12,7 +12,7 @@ import Textbox from '../textbox';
 const defaultDateFormat = 'DD/MM/YYYY';
 const today = DateHelper.todayFormatted();
 
-class Date extends React.Component {
+class DateInput extends React.Component {
   static propTypes = {
     ...Textbox.propTypes,
     /** Automatically focus on component mount */
@@ -243,4 +243,4 @@ function stopClickPropagation(ev) {
 }
 
 export { defaultDateFormat };
-export default Date;
+export default DateInput;
