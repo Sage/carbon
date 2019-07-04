@@ -32,6 +32,10 @@ const handleChange = (e, tableOptions) => {
   action('change')(e, tableOptions);
 };
 
+const handleToolbarAction = () => {
+  action('toolbar action')();
+};
+
 const recordsForActivePage = (start, end) => {
   let records = countriesList;
   if (store.get('sortOrder') === 'desc' && store.get('sortedColumn').length) {
@@ -141,22 +145,35 @@ const Wrapper = (props) => {
         <Table
           actionToolbarChildren={ (context) => {
             return [
-              <Button disabled={ context.disabled } key='single-action'>
-                    Test Action
+              <Button
+                disabled={ context.disabled }
+                key='single-action'
+                onClick={ handleToolbarAction }
+              >
+                Test Action
               </Button>,
               <MultiActionButton
                 text='Actions'
                 disabled={ context.disabled }
                 key='multi-actions'
               >
-                <Button>foo</Button>
-                <Button>bar</Button>
-                <Button>qux</Button>
+                <Button onClick={ handleToolbarAction }>foo</Button>
+                <Button onClick={ handleToolbarAction }>bar</Button>
+                <Button onClick={ handleToolbarAction }>qux</Button>
               </MultiActionButton>
             ];
           } }
           path='/countries'
-          actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
+          actions={ {
+            delete: {
+              icon: 'bin',
+              onClick: handleToolbarAction
+            },
+            settings: {
+              icon: 'settings',
+              onClick: handleToolbarAction
+            }
+          } }
           { ...tableProps }
           onChange={ handleChange }
           sortOrder={ store.sortOrder }
