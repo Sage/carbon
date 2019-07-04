@@ -39,19 +39,10 @@ class ActionToolbar extends React.Component {
   // TODO This component needs to be freestanding - we need to provide an api that allows it be used independently.
   // https://github.com/Sage/carbon/issues/1070
 
-  static propTypes = {
-    /** The actions to display in the toolbar */
-    actions: PropTypes.object.isRequired,
-    /** A custom class name for the component. */
-    className: PropTypes.string,
-    /** A function to return child components for the action toolbar. */
-    children: PropTypes.func
-  }
-
   static contextTypes = {
     attachActionToolbar: PropTypes.func, // tracks the action toolbar component
     detachActionToolbar: PropTypes.func // tracks the action toolbar component
-  }
+  };
 
   constructor(...args) {
     super(...args);
