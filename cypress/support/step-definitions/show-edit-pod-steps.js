@@ -84,12 +84,9 @@ Then('Show Edit Pod component has saving property', () => {
     .and('have.css', 'color', 'rgba(0, 0, 0, 0.2)');
 });
 
-Then('Show Edit Pod component has no saving property and should be saved manualy', () => {
+Then('Show Edit Pod component has no saving property', () => {
   showEditPodSaveButton()
     .should('not.have.attr', 'disabled');
-  showEditPodSaveButton()
-    .should('have.css', 'background', 'rgb(37, 91, 199) none repeat scroll 0% 0% / auto padding-box border-box')
-    .and('have.css', 'border-color', 'rgba(0, 0, 0, 0)');
 });
 
 Then('Show Edit Pod as value is set to {string}', (property) => {
