@@ -57,7 +57,8 @@ storiesOf('Pill', module)
     );
   }, {
     info: { Pill, text: Info },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   }).add('default', () => {
     const {
       children,
@@ -78,5 +79,6 @@ storiesOf('Pill', module)
     );
   }, {
     info: { Pill, text: Info },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   });
