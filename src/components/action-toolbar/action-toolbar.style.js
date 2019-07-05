@@ -5,12 +5,6 @@ import { isClassic } from '../../utils/helpers/style-helper';
 const StyledActionToolbar = styled.div`
   display: inline-block;
   padding: 15px 0;
-
-  * {
-    &:focus {
-      border: 1px solid red;
-    }
-  }
 `;
 
 const StyledActionToolbarTotal = styled.div`
