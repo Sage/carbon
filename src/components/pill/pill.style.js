@@ -45,14 +45,11 @@ const PillStyle = styled.span`
       top: -1px;
       margin: 0px 8px 16px 0px;
       min-height: 15px;
+      display: inline-block;
 
       ${inFill && css`
         background-color: ${styleSet[variety].color};
         color: ${(variety === 'warning') ? colors.black : colors.white};
-
-        .carbon-icon.icon-cross {
-          color: ${(variety === 'warning') ? colors.black : colors.white};
-        }
       `}
 
       ${!isClassic(theme, colorVariant) && !isDeletable && css`
@@ -101,10 +98,6 @@ const PillStyle = styled.span`
           .carbon-icon {
             font-size: 12px;
             padding: 0 4px;
-
-            @supports (-ms-ime-align: auto) {
-              color: ${colors.black};
-            }
 
             &:hover, 
             &:focus {
