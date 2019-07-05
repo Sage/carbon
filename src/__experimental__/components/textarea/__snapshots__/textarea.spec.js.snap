@@ -59,8 +59,8 @@ exports[`Textarea when rendered should render default 1`] = `
   width: 30px;
   resize: none;
   min-height: 40px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .c4::-webkit-input-placeholder {
@@ -90,6 +90,7 @@ exports[`Textarea when rendered should render default 1`] = `
   <div
     className="c2"
     disabled={false}
+    name="textarea"
     onMouseDown={[Function]}
     onMouseOut={[Function]}
     onMouseOver={[Function]}
@@ -100,10 +101,13 @@ exports[`Textarea when rendered should render default 1`] = `
     <textarea
       className="c3 c4"
       disabled={false}
+      name="textarea"
       onBlur={[Function]}
+      onChange={[Function]}
       onClick={[Function]}
       onFocus={[Function]}
       readOnly={false}
+      type="text"
     />
   </div>
 </div>

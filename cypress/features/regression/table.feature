@@ -2,7 +2,7 @@ Feature: Table component
   I want to change Table component properties
 
   Background: Open Table component page
-    Given I open "Table" component page
+    Given I open "Table" component page classic
 
   @positive
   Scenario Outline: Page size records is set to <pageSizeRecords>
@@ -108,16 +108,16 @@ Feature: Table component
       | 10           |
       | 100          |
       | 99999999     |
+      | -1           |
+      | -10          |
 
   @positive
   Scenario Outline: TotalRecords is set out of scope to <totalRecords>
     When I set totalRecords to "<totalRecords>"
       And I check paginate checkbox
-    Then totalRecords is set to "0"
+    Then totalRecords is set to ""
     Examples:
       | totalRecords            |
-      | -1                      |
-      | -10                     |
       | Sample text             |
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
@@ -132,9 +132,7 @@ Feature: Table component
       | theme          |
       | primary        |
       | secondary      |
-      | tertiary       |
-      | destructive    |
-      | darkBackground |
+      # | tertiary       | will be only on default themes
 
   @positive
   Scenario: I enable showPageSizeSelection

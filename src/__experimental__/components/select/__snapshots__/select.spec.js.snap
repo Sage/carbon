@@ -213,6 +213,7 @@ Object {
       id="guid-12345"
       name="guid-12345"
       placeholder="Please Select..."
+      type="text"
       value=""
     />
     <span

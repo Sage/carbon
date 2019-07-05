@@ -1,13 +1,8 @@
-import { visitComponentUrl } from '../helper';
 import { backgroundUILocator } from '../../locators';
 import {
   dialogTitle, dialogPreview, closeIconButton,
   dialogSubtitle, confirmButton, cancelButton,
 } from '../../locators/confirm';
-
-Given('I open {string} component page', (component) => {
-  visitComponentUrl(component);
-});
 
 Then('component subtitle on preview is {string}', (subtitle) => {
   dialogSubtitle().should('have.text', subtitle);
