@@ -9,7 +9,7 @@ import {
 import DateInput from './date.component';
 import Textbox from '../textbox';
 import getCommonTextboxStoryProps from '../textbox/textbox.stories';
-import { notes, info } from './documentation';
+import { notes, info, infoValidations } from './documentation';
 
 const store = new Store(
   {
@@ -43,22 +43,30 @@ storiesOf('Experimental/Date Input', module)
     info: {
       text: info,
       propTables: [Textbox],
-      propTablesExclude: [Number, State],
+      propTablesExclude: [State],
       excludedPropTypes: ['children', 'leftChildren', 'inputIcon', 'placeholder', 'inputWidth']
     },
     notes: { markdown: notes }
   })
-  .add('validation', () => {
+  .add('validations', () => {
     return (
       <State store={ store }>
         <DateInput
           name='dateinput'
           placeholder={ text('placeholder') }
           validations={ [isNotFirstApr] }
+          warnings={ [isNotSecondApr] }
+          info={ [isNotThirdApr] }
           onChange={ setValue }
         />
       </State>
     );
+  }, {
+    info: {
+      source: false,
+      text: infoValidations,
+      propTablesExclude: [DateInput, State]
+    }
   });
 
 function isNotFirstApr(value) {
@@ -66,7 +74,27 @@ function isNotFirstApr(value) {
     if (value !== '01/04/2019') {
       resolve();
     } else {
-      reject(new Error('first of april cannot be selected!'));
+      reject(new Error('April 1st 2019 cannot be selected!'));
+    }
+  });
+}
+
+function isNotSecondApr(value) {
+  return new Promise((resolve, reject) => {
+    if (value !== '02/04/2019') {
+      resolve();
+    } else {
+      reject(new Error('Selecting April 2nd 2019 is not recommended'));
+    }
+  });
+}
+
+function isNotThirdApr(value) {
+  return new Promise((resolve, reject) => {
+    if (value !== '03/04/2019') {
+      resolve();
+    } else {
+      reject(new Error('You have selected April 3rd 2019'));
     }
   });
 }
