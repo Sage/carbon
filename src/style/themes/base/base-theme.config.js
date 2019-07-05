@@ -77,6 +77,10 @@ export default (palette) => {
       hover: 'rgba(0,0,0,0.90)'
     },
 
+    rainbow: {
+      textColor: '#003349'
+    },
+
     icon: {
       focus: palette.slateTint(20)
     },

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import baseTheme from '../../style/themes/base';
 
 const RainbowStyle = styled.div`
     text-align: center;
@@ -19,7 +20,7 @@ const RainbowStyle = styled.div`
     }
 
     .highcharts-title {
-        color: #003349;
+        color: ${({ theme }) => theme.rainbow.textColor};
         font-family: 'Lato', 'Helvetica Neue', Arial, sans-serif;
         font-size: 25px;
         font-weight: bold;
@@ -37,6 +38,10 @@ const RainbowStyle = styled.div`
         text-align: center;
     }
 `;
+
+RainbowStyle.defaultProps = {
+  theme: baseTheme
+};
 
 // eslint-disable-next-line import/prefer-default-export
 export { RainbowStyle };
