@@ -20,6 +20,11 @@ const StyledActionToolbarActions = styled.div`
 
   .carbon-link__icon {
     margin-right: 0;
+
+    .carbon-icon__svg-icon {
+      position: relative;
+      bottom: 1px;
+    }
   }
 
   .carbon-link__content {
