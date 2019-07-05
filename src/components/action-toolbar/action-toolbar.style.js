@@ -18,6 +18,14 @@ const StyledActionToolbarActions = styled.div`
   display: inline-flex;
   margin: 0 10px;
 
+  .carbon-link__icon {
+    margin-right: 0;
+  }
+
+  .carbon-link__content {
+    margin-left: 5px;
+  }
+
   & > * {
     margin-left: 10px;
     display: flex;

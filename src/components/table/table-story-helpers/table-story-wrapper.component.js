@@ -170,7 +170,7 @@ const Wrapper = (props) => {
               onClick: handleToolbarAction
             },
             settings: {
-              icon: 'settings',
+              icon: 'share',
               onClick: handleToolbarAction
             }
           } }
