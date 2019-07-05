@@ -116,7 +116,8 @@ Feature: Confirm component
 
   @negative
   Scenario: Enable escape key
-    When I uncheck disableEscKey checkbox
+    When I check disableEscKey checkbox
+      And I uncheck disableEscKey checkbox
       And I open component preview
       And I hit ESC key
     Then Confirm dialog is not visible

@@ -4,7 +4,7 @@ import StyledButton from '../button/button.style';
 import { getSplitButtonChildrenClassicStyles } from './split-button-classic.style';
 
 const StyledSplitButtonChildrenContainer = styled.div`
-  ${({ theme }) => css`
+  ${({ theme, align }) => css`
     position: absolute;
     right: 0;
     background-color: ${theme.colors.secondary};
@@ -20,7 +20,7 @@ const StyledSplitButtonChildrenContainer = styled.div`
       margin-top: 3px;
       margin-bottom: 3px;
       min-width: 100%;
-      text-align: left;
+      text-align: ${align};
       z-index: 10;
 
       &:focus,
