@@ -1,12 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { text, select, boolean } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info, InfoClassic } from './documentation';
-import Button from '.';
+import Button, { OriginalButton } from '.';
 import classic from '../../style/themes/classic';
 
 const getIconKnobs = () => {
@@ -46,62 +45,19 @@ const getKnobs = (isClassic) => {
   };
 };
 
-const TableComponent = ({ propDefinitions }) => {
-  const props = propDefinitions.map(
-    ({
-      property,
-      propType,
-      required,
-      description,
-      defaultValue
-    }) => {
-      return (
-        <tr key={ property }>
-          <td>{ property }</td>
-          <td>{ propType.name }</td>
-          <td>{ required ? 'yes' : '-' }</td>
-          <td style={ { color: 'rgb(34, 34, 170)' } }>
-            { defaultValue || '-' }
-          </td>
-          <td>{ description }</td>
-        </tr>
-      );
-    }
-  );
-
-  return (
-    <table>
-      <thead>
-        <tr style={ { textAlign: 'left' } }>
-          <th>property</th>
-          <th>propType</th>
-          <th>required</th>
-          <th>default</th>
-          <th>description</th>
-        </tr>
-      </thead>
-      <tbody>{props}</tbody>
-    </table>
-  );
-};
-
-TableComponent.propTypes = {
-  propDefinitions: PropTypes.array
-};
-
 storiesOf('Button', module)
   .add('default', () => {
     const props = getKnobs();
     const { children } = props;
     return (
-      <Button
+      <OriginalButton
         { ...props }
       >
         { children }
-      </Button>
+      </OriginalButton>
     );
   }, {
-    info: { TableComponent, text: Info },
+    info: { text: Info },
     notes: { markdown: notes },
     knobs: {
       escapeHTML: false
@@ -112,15 +68,15 @@ storiesOf('Button', module)
     const { children } = props;
     return (
       <ThemeProvider theme={ classic }>
-        <Button
+        <OriginalButton
           { ...props }
         >
           { children }
-        </Button>
+        </OriginalButton>
       </ThemeProvider>
     );
   }, {
-    info: { TableComponent, text: InfoClassic },
+    info: { text: InfoClassic },
     notes: { markdown: notes },
     knobs: {
       escapeHTML: false
@@ -131,17 +87,17 @@ storiesOf('Button', module)
     const { children } = props;
     return (
       <div>
-        <Button
+        <OriginalButton
           { ...props }
         >
           { children }
-        </Button>
+        </OriginalButton>
 
-        <Button
+        <OriginalButton
           { ...props }
         >
           { children }
-        </Button>
+        </OriginalButton>
       </div>
     );
   });
