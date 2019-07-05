@@ -1,6 +1,7 @@
 // component preview locators
-export const PAGER_SUMMARY = '.carbon-pager__summary';
+export const PAGER_SUMMARY = 'div[data-component="pager"]';
 export const PAGE_SELECT = '[data-element="page-select"] > div > [data-element="input"]';
-export const MAX_PAGES = '#story-root > div > div.carbon-pager__navigation > span:nth-child(4)';
-export const PAGER_NAVIGATION = '.carbon-pager__';
+export const MAX_PAGES = 'div[data-component="pager"] > div:nth-child(2) > span:nth-child(4)';
 export const PAGE_INPUT = '[data-element="current-page"] > div > input';
+export const PAGER_PREVIOUS_ARROW = 'div[data-component="pager"] > div:nth-child(2) > div:nth-child(1) > span';
+export const PAGER_NEXT_ARROW = 'div[data-component="pager"] > div:nth-child(2) > div:nth-child(5) > span';

@@ -11,7 +11,7 @@ Then('orientation is set to {string}', (orientation) => {
 });
 
 Then('indicator is set to {string}', (indicator) => {
-  cy.wait(100); // required because iframe content is changed
+  cy.wait(500); // required because iframe content is changed
   stepSequenceItemIndicator().should('have.text', indicator);
 });
 
