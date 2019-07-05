@@ -77,6 +77,7 @@ Feature: Button Toggle component
 
   @positive
   Scenario: Enable and disable Button Toggle grouped property
-    When I uncheck grouped checkbox
+    When I check grouped checkbox
+      And I uncheck grouped checkbox
       And I enable Button component
     Then Button Toggle is not grouped

@@ -18,7 +18,7 @@ Feature: I18n component
   @positive
   Scenario:  Disable inline
     When I uncheck inline checkbox
-    Then preview text is "My example translation." with "h1" tag and "my-example-translation-" id
+    Then preview text is "My example translation." with "h1" tag and "my-example-translation" id
 
   @positive
   Scenario: Disable and enable inline
