@@ -203,6 +203,7 @@ Feature: Textarea component
   Scenario Outline: Enable warnOverLimit checkbox for a Textarea component and check the warning
     When I set characterLimit to "<limit>"
       And I check warnOverLimit checkbox
+      And I check enforceCharacterLimit checkbox
       And I uncheck enforceCharacterLimit checkbox
       And I input "<text>" into Textarea
     Then Textarea component has warnOverLimit and used characters <characters> of <limit>
@@ -243,6 +244,7 @@ Feature: Textarea component
   @positive
   Scenario Outline: Disable enforceCharacterLimit checkbox for a Textarea component and allow to input more characters than allowed
     When I set characterLimit to "<limit>"
+      And I check enforceCharacterLimit checkbox
       And I uncheck enforceCharacterLimit checkbox
       And I input "<text>" into Textarea
     Then Textarea component has enforceCharacterLimit disabled and used characters <characters> are more than limit <limit>
