@@ -47,6 +47,11 @@ const selectOptions = selectOptionsLabels.map((label, index) => (
 ));
 
 storiesOf('Experimental/Select', module)
+  .addParameters({
+    info: {
+      propTablesExclude: [State]
+    }
+  })
   .add('Single Select', () => {
     return (
       <State store={ singleSelectStore }>
