@@ -31,6 +31,7 @@ storiesOf('Portrait', module).add(
   },
   {
     info: { text: info },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   }
 );
