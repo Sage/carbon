@@ -289,7 +289,7 @@ input:focus ~ .c5 {
 `;
 
 exports[`ButtonToggleGroup When validating renders ButtonToggle errors correctly 1`] = `
-.c10 + .c0 {
+.c8 + .c0 {
   margin-top: 10px;
 }
 
@@ -301,7 +301,7 @@ exports[`ButtonToggleGroup When validating renders ButtonToggle errors correctly
   margin-top: 16px;
 }
 
-.c11 + .c0 {
+.c9 + .c0 {
   margin-top: 10px;
 }
 
@@ -362,37 +362,11 @@ input:focus ~ .c6 {
   opacity: 0;
 }
 
-.c9 {
-  color: #C7384F;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-}
-
-.c12 .c8 {
-  display: inline-block;
-  margin-left: 10px;
-  margin-top: -4px;
-  vertical-align: middle;
-}
-
-.c13 .c8 {
-  display: inline-block;
-  margin-left: 10px;
-  margin-top: -4px;
-  vertical-align: middle;
-}
-
 .c2 .c5 {
   border-color: #C7384F;
 }
 
-.c2 .c8 {
+.c2 .c10 {
   display: inline-block;
   margin-left: 10px;
   margin-top: -4px;
@@ -453,21 +427,6 @@ input:focus ~ .c6 {
           Bar
         </div>
       </label>
-    </div>
-    <div
-      className="c8 c9"
-      type="error"
-    >
-      <span
-        className="carbon-icon icon-error"
-        data-component="icon"
-        data-element="error"
-        onBlur={[Function]}
-        onFocus={[Function]}
-        onMouseEnter={[Function]}
-        onMouseLeave={[Function]}
-        onTouchEnd={[Function]}
-      />
     </div>
   </div>
 </div>

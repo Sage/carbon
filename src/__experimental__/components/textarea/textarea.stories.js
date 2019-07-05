@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import {
   boolean, number, text, select
 } from '@storybook/addon-knobs';
@@ -7,6 +8,8 @@ import { State, Store } from '@sambego/storybook-state';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import Textarea from '.';
 import { notes, info } from './documentation';
+import { OriginalTextarea } from './textarea.component';
+import Form from '../../../components/form';
 
 const store = new Store({
   value: ''
@@ -60,6 +63,7 @@ storiesOf('Experimental/Textarea', module)
       return (
         <State store={ store }>
           <Textarea
+            name='textarea'
             onChange={ handleChange }
             warnOverLimit={ warnOverLimit }
             expandable={ expandable }
@@ -82,7 +86,62 @@ storiesOf('Experimental/Textarea', module)
       );
     },
     {
-      info: { text: info },
+      info: { text: info, propTables: [OriginalTextarea], propTablesExclude: [Textarea] },
       notes: { markdown: notes }
     },
-  );
+  )
+  .add('validations', () => {
+    return (
+      <Form
+        onSubmit={ handleSubmit }
+      >
+        <State store={ store }>
+          <Textarea
+            name='textarea'
+            label='Textarea Validation'
+            labelHelp='Returns an error when the field is empty'
+            fieldHelp='Validates on blur'
+            onChange={ ev => store.set({ value: ev.target.value }) }
+            warnings={ warningValidator }
+            validations={ errorValidator }
+            info={ lengthValidator }
+          />
+        </State>
+      </Form>
+    );
+  },
+  {
+    info: { source: false, propTablesExclude: [Form, Textarea] }
+  });
+
+function errorValidator(value) {
+  return new Promise((resolve, reject) => {
+    if (value.includes('error')) {
+      resolve();
+    } else {
+      reject(new Error('This value must not include the word "error"!'));
+    }
+  });
+}
+
+function warningValidator(value) {
+  return new Promise((resolve, reject) => {
+    if (value.includes('warning')) {
+      resolve();
+    } else {
+      reject(new Error('This value must include the word "warning"!'));
+    }
+  });
+}
+
+function lengthValidator(value) {
+  return new Promise((resolve, reject) => {
+    if (value.length > 12) return resolve(true);
+    return reject(Error('Message should be longer than 12 characters'));
+  });
+}
+
+function handleSubmit(ev) {
+  ev.preventDefault();
+  action('submit')();
+}

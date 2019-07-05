@@ -1,0 +1,68 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tooltip default props matches snapshot 1`] = `
+<Tooltip
+  align="center"
+  isVisible={false}
+  position="top"
+/>
+`;
+
+exports[`Tooltip visible and has children matches snapshot 1`] = `
+.c1 {
+  background-color: #000000;
+  color: #FFFFFF;
+  display: inline-block;
+  font-weight: 700;
+  padding: 12px 16px;
+  text-align: center;
+  max-width: 300px;
+  word-break: normal;
+  white-space: pre-wrap;
+}
+
+.c0 {
+  max-width: 300px;
+  position: relative;
+  -webkit-animation: bcCCNc 0.2s linear;
+  animation: bcCCNc 0.2s linear;
+  z-index: 1003;
+  text-align: center;
+}
+
+.c2 {
+  position: absolute;
+  bottom: 0px;
+  left: calc(50% - 7px);
+}
+
+.c2:before {
+  position: absolute;
+}
+
+.c2:before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 8px solid #000000;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 7px solid transparent;
+  border-bottom: none;
+}
+
+<div
+  className="c0"
+  data-component="tooltip"
+  role="tooltip"
+>
+  <div
+    className="c1"
+  >
+    Content
+    <span
+      className="c2"
+    />
+  </div>
+</div>
+`;

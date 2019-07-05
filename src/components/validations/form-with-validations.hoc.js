@@ -7,8 +7,10 @@ const ValidationsContext = React.createContext();
 const withValidations = (WrappedComponent) => {
   class WithValidations extends React.Component {
     state = {
-      ...buildInitialValidationState(),
-      formIsValidating: false
+      formIsValidating: false,
+      errorCount: 0,
+      warningCount: 0,
+      infoCount: 0
     }
 
     static propTypes = {
@@ -66,10 +68,9 @@ const withValidations = (WrappedComponent) => {
           <WrappedComponent
             validate={ this.validateRegisteredInputs }
             isValidating={ this.state.formIsValidating }
-            { ...Object.keys(VALIDATION_TYPES).reduce((acc, type) => ({
-              ...acc,
-              [`${type}Count`]: this.state[`${type}Count`]
-            }), {}) }
+            errorCount={ this.state.errorCount }
+            warningCount={ this.state.warningCount }
+            infoCount={ this.state.infoCount }
             { ...this.props }
           >
             { this.props.children }
@@ -84,12 +85,5 @@ const withValidations = (WrappedComponent) => {
 
   return WithValidations;
 };
-
-function buildInitialValidationState() {
-  return Object.keys(VALIDATION_TYPES).reduce((acc, type) => ({
-    ...acc,
-    [`${type}Count`]: 0
-  }), {});
-}
 
 export { ValidationsContext, withValidations };

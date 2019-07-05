@@ -20,6 +20,7 @@ export default (palette) => {
       withOpacity: baseWithOpacity(0.55),
 
       // generic
+      black: '#000000',
       white: '#FFFFFF',
 
       // element
@@ -68,6 +69,12 @@ export default (palette) => {
       hover: palette.slateTint(90),
       selected: palette.slateTint(85),
       zebra: palette.slateTint(98)
+    },
+
+    pager: {
+      active: 'rgba(0,0,0,0.74)',
+      disabled: 'rgba(0,0,0,0.55)',
+      hover: 'rgba(0,0,0,0.90)'
     },
 
     icon: {

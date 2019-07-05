@@ -4,8 +4,8 @@ import baseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import sizes from './input-sizes.style';
 import inputClassicStyling from './input-presentation-classic.style';
-import VALIDATION_TYPES from '../../../components/validations/validation-types.config';
 import StyledInput from './input.style';
+import StyledInlineInputs from '../../../components/inline-inputs/inline-inputs.style';
 
 const InputPresentationStyle = styled.div`
   align-items: stretch;
@@ -35,10 +35,15 @@ const InputPresentationStyle = styled.div`
     background: transparent !important;
     border-color: transparent !important;
   `}
+
   ${({ hasFocus, theme }) => hasFocus && css`
     && { 
       outline: 3px solid ${theme.colors.focus};
       z-index: 2;
+    }
+
+    ${StyledInlineInputs} && {
+      position: relative;
     }
   `}
   ${stylingForValidations}
@@ -52,18 +57,29 @@ const InputPresentationStyle = styled.div`
   }
 `;
 
-function stylingForValidations({ theme, ...props }) {
-  let styling = '';
-  Object.keys(VALIDATION_TYPES).reverse().forEach((type) => {
-    if (props[`${type}Message`]) {
-      styling += `
-        border-color: ${theme.colors[type]} !important;
-        box-shadow: inset 1px 1px 0 ${theme.colors[type]},
-                    inset -1px -1px 0 ${theme.colors[type]};
-      `;
-    }
-  });
-  return styling;
+function stylingForValidations({
+  theme,
+  hasError,
+  hasWarning,
+  hasInfo
+}) {
+  let validationColor;
+
+  if (hasError) {
+    validationColor = theme.colors.error;
+  } else if (hasWarning) {
+    validationColor = theme.colors.warning;
+  } else if (hasInfo) {
+    validationColor = theme.colors.info;
+  } else {
+    return '';
+  }
+
+  return `
+    border-color: ${validationColor} !important;
+    box-shadow: inset 1px 1px 0 ${validationColor},
+                inset -1px -1px 0 ${validationColor};
+  `;
 }
 
 InputPresentationStyle.defaultProps = {
@@ -77,10 +93,9 @@ InputPresentationStyle.propTypes = {
   hasFocus: PropTypes.bool,
   readOnly: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
-  ...Object.keys(VALIDATION_TYPES).reduce((acc, type) => ({
-    ...acc,
-    [`${type}Message`]: PropTypes.string
-  }), {})
+  hasError: PropTypes.bool,
+  hasWarning: PropTypes.bool,
+  hasInfo: PropTypes.bool
 };
 
 export default InputPresentationStyle;
