@@ -20,7 +20,7 @@ const setValue = (ev) => {
   store.set({ value: ev.target.value });
 };
 
-storiesOf('Experimental/Decimal', module)
+storiesOf('Experimental/Decimal Input', module)
   .addParameters({
     info: {
       text: info,

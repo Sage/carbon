@@ -6,7 +6,8 @@ import {
   select,
   number
 } from '@storybook/addon-knobs';
-import { notes, info } from './documentation';
+import { Store, State } from '@sambego/storybook-state';
+import { notes, info, infoValidations } from './documentation';
 import Textbox, { OriginalTextbox } from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
@@ -17,24 +18,33 @@ const defaultStoryPropsConfig = {
   inputWidthEnabled: true
 };
 
+const store = new Store(
+  {
+    value: ''
+  }
+);
+
+const setValue = (ev) => {
+  store.set({ value: ev.target.value });
+};
+
 storiesOf('Experimental/Textbox', module)
-  .addParameters({
-    info: {
-      text: info,
-      propTables: [OriginalTextbox],
-      propTablesExclude: [Textbox],
-      notes: { markdown: notes }
-    }
-  })
-  .add('Basic', () => {
+  .add('default', () => {
     return (
       <Textbox
         placeholder={ text('placeholder') }
         { ...getCommonTextboxStoryProps() }
       />
     );
+  }, {
+    info: {
+      text: info,
+      propTables: [OriginalTextbox],
+      propTablesExclude: [State, Textbox],
+      notes: { markdown: notes }
+    }
   })
-  .add('Multiple', () => {
+  .add('multiple', () => {
     return ([
 
       <Textbox
@@ -48,6 +58,33 @@ storiesOf('Experimental/Textbox', module)
         { ...getCommonTextboxStoryProps() }
       />
     ]);
+  }, {
+    info: {
+      text: info,
+      propTables: [OriginalTextbox],
+      propTablesExclude: [State, Textbox],
+      notes: { markdown: notes }
+    }
+  })
+  .add('validations', () => {
+    return (
+      <State store={ store }>
+        <Textbox
+          placeholder={ text('placeholder') }
+          name='textbox'
+          warnings={ [warningValidator] }
+          validations={ [errorValidator] }
+          info={ [lengthValidator] }
+          onChange={ setValue }
+        />
+      </State>
+    );
+  }, {
+    info: {
+      source: false,
+      text: infoValidations,
+      propTablesExclude: [State, Textbox]
+    }
   });
 
 
@@ -81,6 +118,33 @@ function getCommonTextboxStoryProps(config = defaultStoryPropsConfig) {
     labelAlign,
     size
   };
+}
+
+function errorValidator(value) {
+  return new Promise((resolve, reject) => {
+    if (!value.includes('error')) {
+      resolve();
+    } else {
+      reject(new Error('This value must not include the word "error"!'));
+    }
+  });
+}
+
+function warningValidator(value) {
+  return new Promise((resolve, reject) => {
+    if (!value.includes('warning')) {
+      resolve();
+    } else {
+      reject(new Error('This value must not include the word "warning"!'));
+    }
+  });
+}
+
+function lengthValidator(value) {
+  return new Promise((resolve, reject) => {
+    if (value.length > 12) return resolve(true);
+    return reject(Error('This value should be longer than 12 characters'));
+  });
 }
 
 export default getCommonTextboxStoryProps;
