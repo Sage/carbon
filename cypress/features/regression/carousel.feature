@@ -23,7 +23,8 @@ Feature: Carousel component
 
   @positive
   Scenario: Enable slide selector
-    When I check enableSlideSelector checkbox
+    When I uncheck enableSlideSelector checkbox
+      And I check enableSlideSelector checkbox
     Then slide selector is visible
 
   @positive
@@ -33,7 +34,8 @@ Feature: Carousel component
 
   @positive
   Scenario: Enable previous button
-    When I check enablePreviousButton checkbox
+    When I uncheck enablePreviousButton checkbox
+      And I check enablePreviousButton checkbox
     Then previous button is visible
 
   @positive
@@ -43,7 +45,8 @@ Feature: Carousel component
 
   @positive
   Scenario: Enable next button
-    When I check enableNextButton checkbox
+    When I uncheck enableNextButton checkbox
+      And I check enableNextButton checkbox
     Then next button is visible
 
   @positive

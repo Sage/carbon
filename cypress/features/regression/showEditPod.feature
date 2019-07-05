@@ -116,7 +116,7 @@ Feature: Show Edit Pod component
     When I check saving checkbox
       And I uncheck saving checkbox
       And I edit Show Edit Pod component
-    Then Show Edit Pod component has no saving property and should be saved manualy
+    Then Show Edit Pod component has no saving property
 
   @positive
   Scenario Outline: Set Show Edit Pod as to <as>
