@@ -166,11 +166,11 @@ const Wrapper = (props) => {
           path='/countries'
           actions={ {
             delete: {
-              icon: 'bin',
+              icon: 'calendar',
               onClick: handleToolbarAction
             },
             settings: {
-              icon: 'share',
+              icon: 'download',
               onClick: handleToolbarAction
             }
           } }
