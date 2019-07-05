@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 import 'jest-styled-components';
 import Icon from 'components/icon';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import BaseTheme from '../../../style/themes/base';
 
 import InputIconToggle from './input-icon-toggle.component';
 
