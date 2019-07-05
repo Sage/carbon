@@ -1,9 +1,8 @@
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
 import Immutable from 'immutable';
 import { shallow, mount } from 'enzyme';
 import Rainbow from './rainbow.component';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 
 /* global jest */
 
@@ -91,7 +90,7 @@ describe('Rainbow', () => {
   });
 
   describe('tags on component', () => {
-    const wrapper = shallow(
+    const wrapperWithTags = shallow(
       <Rainbow
         data-element='bar'
         data-role='baz'
@@ -100,7 +99,7 @@ describe('Rainbow', () => {
     );
 
     it('include correct component, element and role data tags', () => {
-      rootTagTest(wrapper, 'rainbow', 'bar', 'baz');
+      rootTagTest(wrapperWithTags, 'rainbow', 'bar', 'baz');
     });
   });
 });
