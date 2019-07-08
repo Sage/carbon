@@ -226,10 +226,10 @@ Array [
   >
     <Pill
       as="default"
-      className=""
       fill={false}
       onClick={null}
       onDelete={[Function]}
+      pillRole="tag"
       title="Orange"
     >
       Orange
@@ -240,10 +240,10 @@ Array [
   >
     <Pill
       as="default"
-      className=""
       fill={false}
       onClick={null}
       onDelete={[Function]}
+      pillRole="tag"
       title="Blue"
     >
       Blue
@@ -254,10 +254,10 @@ Array [
   >
     <Pill
       as="default"
-      className=""
       fill={false}
       onClick={null}
       onDelete={[Function]}
+      pillRole="tag"
       title="Red"
     >
       Red
