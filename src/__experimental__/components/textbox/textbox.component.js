@@ -17,7 +17,6 @@ const Textbox = ({
   leftChildren,
   formattedValue,
   value,
-  resetInput,
   ...props
 }) => {
   return (
@@ -26,7 +25,7 @@ const Textbox = ({
         { leftChildren }
         <Input
           { ...props }
-          value={ visibleValue(value, formattedValue, resetInput) }
+          value={ visibleValue(value, formattedValue) }
         />
         { children }
         { inputIcon && <InputIconToggle { ...props } type={ inputIcon } /> }
@@ -36,7 +35,6 @@ const Textbox = ({
 };
 
 function visibleValue(value, formattedValue) {
-  // const adjustedValue = resetInput ? '' : formattedValue;
   return (typeof formattedValue === 'string') ? formattedValue : value;
 }
 

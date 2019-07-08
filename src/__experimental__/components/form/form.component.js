@@ -28,8 +28,6 @@ class FormWithoutValidations extends React.Component {
     formInputs: {}
   }
 
-  resetInputs = false;
-
   /**
    * Returns form object to child components.
    */
@@ -59,6 +57,8 @@ class FormWithoutValidations extends React.Component {
     if (this.props.unsavedWarning) {
       this.addUnsavedWarningListener();
     }
+
+    if (this.props.redirectUrl) this.redirectUrl = this.props.redirectUrl;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -187,6 +187,11 @@ class FormWithoutValidations extends React.Component {
   _window = Browser.getWindow();
 
   /**
+   * Sets the page to load on submit of form.
+   */
+  redirectUrl = this._window.location.href;
+
+  /**
    * Handles submit and runs validation.
    */
   handleOnSubmit = async (ev) => {
@@ -200,7 +205,7 @@ class FormWithoutValidations extends React.Component {
       this.props.beforeFormValidation(ev);
     }
 
-    // if no validations are applied allow form to be submitted as default
+    // if no validations are applied allows form to be submitted as default
     const valid = this.props.validate ? await this.props.validate() : true;
 
     if (this.props.afterFormValidation) {
@@ -258,11 +263,8 @@ class FormWithoutValidations extends React.Component {
   }
 
   clearFormData() {
-    // Object.keys(this._form.elements).forEach((id) => {
-    //   this._form.elements[id].defaultValue = '';
-    // });
-    // this.setState({ formInputs: {} });
-    // this.resetInputs = true;
+    this._window.location.href = this.redirectUrl;
+    this.setState({ formInputs: {}, submitted: true });
   }
 
   /**
@@ -437,6 +439,10 @@ class FormWithoutValidations extends React.Component {
     }));
   }
 
+  resetInput() {
+    this.resetStatus = false;
+  }
+
   /**
    * Clone the children, pass in callback to allow form to store controlled data
    */
@@ -445,14 +451,11 @@ class FormWithoutValidations extends React.Component {
 
     const childrenArray = Array.isArray(children) ? children : [children];
 
-    const formChildren = childrenArray.map((child) => {
-      return React.cloneElement(child, { ...child.props, addInputToFormState: this.addInputDataToState, resetInput: this.resetInputs });
+    return childrenArray.map((child) => {
+      const props = { ...child.props, addInputToFormState: this.addInputDataToState };
+      // if (this.resetStatus) props.resetInput = this.resetInput.bind(this);
+      return React.cloneElement(child, { ...props });
     });
-
-    if (this.resetInputs && Object.entries(this.state.formInputs).length === 0) this.resetInputs = false;
-    // console.log('formInputs', this.state.formInputs, this.resetInputs);
-
-    return formChildren;
   }
 
   /**
@@ -596,7 +599,9 @@ FormWithoutValidations.propTypes = {
     if ((!props.onSubmit && (props[propName] === undefined || typeof (props[propName]) !== 'string'))) {
       throw new Error('A form action is required if no onSubmit prop is passed');
     }
-  }
+  },
+
+  redirectUrl: PropTypes.string
 };
 
 FormWithoutValidations.defaultProps = {

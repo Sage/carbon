@@ -27,8 +27,7 @@ const withValidation = (WrappedComponent) => {
     };
 
     componentDidMount() {
-      const value = this.props.value || this.state.value;
-      this.updateFormState(value);
+      this.updateFormState(this.props.value || this.state.value);
 
       if (this.checkValidations()) {
         this.context.addInput(this.props.name, this.validate);
@@ -42,8 +41,7 @@ const withValidation = (WrappedComponent) => {
     componentDidUpdate(prevProps) {
       if (this.isUpdatedValidationProps(prevProps) && this.checkValidations()) {
         this.context.addInput(this.props.name, this.validate);
-        const value = this.props.value || this.state.value;
-        this.updateFormState(value);
+        this.updateFormState(this.props.value || this.state.value);
       }
 
       if (prevProps.value !== this.props.value) {
@@ -110,11 +108,9 @@ const withValidation = (WrappedComponent) => {
       if (typeof this.props[type] === 'undefined') return null;
       if (Array.isArray(this.props[type]) && this.props[type].length === 0) return null;
 
-      const value = this.props.value || this.state.value;
-
       return new Promise((resolve) => {
         setTimeout(() => {
-          validator(this.props[type])(value, this.props)
+          validator(this.props[type])(this.props.value || this.state.value, this.props)
             .then(() => {
               this.updateValidationStatus(validationType);
               return resolve(true);
@@ -209,21 +205,6 @@ const withValidation = (WrappedComponent) => {
         hasInfo: !!this.state.infoMessage
       };
     }
-
-    // get wrappedProps() {
-    //   // const { resetInput, value, ...props } = this;
-
-    //   if (!this.props.resetInput) {
-    //     return this.props;
-    //   }
-    //   const wrappedProps = {};
-    //   Object.keys(this.props).forEach((item) => {
-    //     console.log(item);
-    //     wrappedProps[item] = this.props[item];
-    //   });
-    //   wrappedProps.value = '';
-    //   return wrappedProps;
-    // }
 
     render() {
       return (
