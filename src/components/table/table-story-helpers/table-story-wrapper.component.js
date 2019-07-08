@@ -149,6 +149,7 @@ const Wrapper = (props) => {
                 disabled={ context.disabled }
                 key='single-action'
                 onClick={ handleToolbarAction }
+                size='small'
               >
                 Test Action
               </Button>,
@@ -156,6 +157,7 @@ const Wrapper = (props) => {
                 text='Actions'
                 disabled={ context.disabled }
                 key='multi-actions'
+                size='small'
               >
                 <Button onClick={ handleToolbarAction }>foo</Button>
                 <Button onClick={ handleToolbarAction }>bar</Button>
