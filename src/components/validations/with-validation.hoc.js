@@ -28,7 +28,8 @@ const withValidation = (WrappedComponent) => {
       onChange: PropTypes.func, // Custom function called when component value changes
       validations: validationsPropTypes,
       warnings: validationsPropTypes,
-      info: validationsPropTypes
+      info: validationsPropTypes,
+      forceUpdateTriggerToggle: PropTypes.bool // triggers validation when it's boolean value changes
     };
 
     static defaultProps = {
@@ -54,11 +55,13 @@ const withValidation = (WrappedComponent) => {
     }
 
     componentDidUpdate(prevProps) {
+      const isUpdateForced = prevProps.forceUpdateTriggerToggle !== this.props.forceUpdateTriggerToggle;
+
       if (this.isUpdatedValidationProps(prevProps) && this.checkValidations()) {
         this.context.addInput(this.props.name, this.validate);
       }
 
-      if (prevProps.value !== this.props.value) {
+      if (isUpdateForced || prevProps.value !== this.props.value) {
         this.validate();
       }
     }
