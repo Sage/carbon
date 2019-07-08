@@ -1,6 +1,6 @@
 import {
-  knobsTab, actionsTab, clearButtonInActions, accessibilityTab,
-  reRunTestsButtonInAccessibility,
+  knobsTab, actionsTab, clearButton, accessibilityTab,
+  reRunTestsButton, testsCompleteButton,
 } from '../locators';
 import { DEBUG_FLAG } from '.';
 
@@ -25,11 +25,12 @@ export function clickAccessebilityTab(iFrameOnly = false) {
 }
 
 export function reRunAccesibilityTests() {
-  reRunTestsButtonInAccessibility().click();
+  reRunTestsButton().click();
+  testsCompleteButton().should('exist');
 }
 
 export function clickClear() {
-  clearButtonInActions().click();
+  clearButton().click();
 }
 
 export function dragAndDrop(draggableElement, destinationPosition, startFromHight) {
