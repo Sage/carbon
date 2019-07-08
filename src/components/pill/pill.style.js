@@ -87,6 +87,9 @@ const PillStyle = styled.span`
             box-shadow: 0 0 0 3px ${styleSet.boxShadow};
             background-color: ${styleSet[variety].buttonFocus};
             color: ${(variety === 'warning') ? colors.black : styleSet.hoverColor} !important;
+            ::-moz-focus-inner {
+              border: 0;
+            }
           }
 
           &:hover {
