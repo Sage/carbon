@@ -39,7 +39,6 @@ storiesOf('Experimental/Date Range', module)
     notes: { markdown: notes },
     info: {
       text: info,
-      propTablesExclude: [State],
-      notes: { markdown: notes }
+      propTablesExclude: [State]
     }
   });
