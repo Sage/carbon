@@ -29,7 +29,9 @@ class DateInput extends React.Component {
     /** Specify a callback triggered on focus */
     onFocus: PropTypes.func,
     /** The current date YYYY-MM-DD */
-    value: PropTypes.string
+    value: PropTypes.string,
+    /** Triggers textbox validation when it's boolean value changes */
+    forceUpdateTriggerToggle: PropTypes.bool
   };
 
   static defaultProps = {
@@ -208,7 +210,7 @@ class DateInput extends React.Component {
         <Textbox
           { ...inputProps }
           inputIcon='calendar'
-          value={ this.state.visibleValue }
+          formattedValue={ this.state.visibleValue }
           inputRef={ this.assignInput }
           { ...tagComponent('date', this.props) }
           { ...events }
