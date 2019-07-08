@@ -34,6 +34,7 @@ storiesOf('Experimental/Form', module)
     const leftAlignedActions = text('leftAlignedActions', '');
     const rightAlignedActions = text('rightAlignedActions', '');
     const showSummary = boolean('showSummary', false);
+    const formAction = text('formAction', 'https://jsonplaceholder.typicode.com/posts');
 
     return (
       <Form
@@ -51,14 +52,17 @@ storiesOf('Experimental/Form', module)
         leftAlignedActions={ leftAlignedActions }
         rightAlignedActions={ rightAlignedActions }
         showSummary={ showSummary }
+        formAction={ formAction }
       >
         <Textbox
+          key='0'
           label='Full Name'
           labelInline
           labelAlign='right'
           validations={ [new PresenceValidation()] }
         />
         <Textbox
+          key='1'
           label='Role'
           labelInline
           labelAlign='right'

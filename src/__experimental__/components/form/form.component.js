@@ -23,10 +23,12 @@ class FormWithoutValidations extends React.Component {
     /** Tracks if the form is clean or dirty, used by unsavedWarning */
     isDirty: false,
     /** Tracks if the saveButton should be disabled */
-    submitted: false
+    submitted: false,
+    /** Stores state of form data */
+    formInputs: {}
   }
 
-  formInputs = {}
+  resetInputs = false;
 
   /**
    * Returns form object to child components.
@@ -51,7 +53,6 @@ class FormWithoutValidations extends React.Component {
     }
 
     if (this.props.validateOnMount && this.props.validate) {
-      console.log('what');
       this.props.validate();
     }
 
@@ -199,6 +200,7 @@ class FormWithoutValidations extends React.Component {
       this.props.beforeFormValidation(ev);
     }
 
+    // if no validations are applied allow form to be submitted as default
     const valid = this.props.validate ? await this.props.validate() : true;
 
     if (this.props.afterFormValidation) {
@@ -216,22 +218,51 @@ class FormWithoutValidations extends React.Component {
   triggerSubmit(ev, valid) {
     if (this.props.onSubmit) {
       this.props.onSubmit(ev, valid, this.enableForm);
-    } else if (!this.props.formInputs && !this.formInputs) {
-      // const store = this.props.formInputs ? this.props.formInputs : this.formInputs;
-      // console.log('called', this.formInputs);
-      this._form.submit();
-      // ev.preventDefault();
-
-      // const form = ev.currentTarget;
-      // const inputValue = form.elements;
-      // Object.keys(store).forEach((name) => { alert(this._form.elements[name].value); });
-      // this._form.submit(); // need to prevent it firing html submit if input is controlled
+    } else if (this.state.formInputs) {
+      this.addOtherInputsToState();
     } else {
-      console.log('called', this.props.formInputs);
-      const store = this.props.formInputs ? this.props.formInputs : this.formInputs;
-      Object.keys(store).forEach((name) => { this._form.elements[name].value = ''; });
-      ev.persist();
+      this._form.submit();
     }
+  }
+
+  /**
+   * Add all inputs to state so that all are submitted.
+   */
+  addOtherInputsToState() {
+    Object.keys(this._form.elements).forEach((id) => {
+      const { name, value, type } = this._form.elements[id];
+      const inputName = type === 'hidden' && id === '0' ? 'csrf-token' : name;
+
+      if (!this.state.formInputs[inputName] && !['button', 'submit'].includes(type)) {
+        this.addInputDataToState(inputName, value);
+      }
+    });
+    this.submitForm();
+  }
+
+  submitForm() {
+    fetch(this.props.formAction, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify(this.state.formInputs)
+    }).then((response) => {
+      if (![200, 201, 202].includes(response.status)) {
+        throw new Error(response.statusText);
+      }
+      return response.json();
+    }).then(() => this.clearFormData())
+      .catch(error => Promise.reject(error));
+  }
+
+  clearFormData() {
+    // Object.keys(this._form.elements).forEach((id) => {
+    //   this._form.elements[id].defaultValue = '';
+    // });
+    // this.setState({ formInputs: {} });
+    // this.resetInputs = true;
   }
 
   /**
@@ -255,7 +286,7 @@ class FormWithoutValidations extends React.Component {
    *
    */
   htmlProps = () => {
-    const { onSubmit, formInputs, ...props } = validProps(this);
+    const { onSubmit, ...props } = validProps(this);
     props.className = this.mainClasses;
     return props;
   }
@@ -394,19 +425,34 @@ class FormWithoutValidations extends React.Component {
     );
   }
 
-  addInputDataToStore = (name, value) => {
-    this.formInputs[name] = value;
+  /**
+   * Store children controlled data in state
+   */
+  addInputDataToState = (name, value) => {
+    this.setState(prevState => ({
+      formInputs: {
+        ...prevState.formInputs,
+        [name]: value
+      }
+    }));
   }
 
+  /**
+   * Clone the children, pass in callback to allow form to store controlled data
+   */
   renderChildren() {
-    const { children, formInputs } = this.props;
-    if (formInputs) return children;
+    const { children } = this.props;
 
     const childrenArray = Array.isArray(children) ? children : [children];
 
-    return childrenArray.map((child) => {
-      return React.cloneElement(child, { ...children.props, addInputToFormStore: this.addInputDataToStore });
+    const formChildren = childrenArray.map((child) => {
+      return React.cloneElement(child, { ...child.props, addInputToFormState: this.addInputDataToState, resetInput: this.resetInputs });
     });
+
+    if (this.resetInputs && Object.entries(this.state.formInputs).length === 0) this.resetInputs = false;
+    // console.log('formInputs', this.state.formInputs, this.resetInputs);
+
+    return formChildren;
   }
 
   /**
@@ -539,11 +585,18 @@ FormWithoutValidations.propTypes = {
   /** The total number of infos present in the form */
   infoCount: PropTypes.number,
 
+  /** Strores the state of controlled inputs */
   formInputs: PropTypes.shape({
     value: PropTypes.string,
-    name: PropTypes.string,
-    validations: PropTypes.func
-  })
+    name: PropTypes.string
+  }),
+
+  /** The action for the default form submission of controlled inputs */
+  formAction(props, propName) {
+    if ((!props.onSubmit && (props[propName] === undefined || typeof (props[propName]) !== 'string'))) {
+      throw new Error('A form action is required if no onSubmit prop is passed');
+    }
+  }
 };
 
 FormWithoutValidations.defaultProps = {

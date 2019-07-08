@@ -22,13 +22,16 @@ const withValidation = (WrappedComponent) => {
     state = {
       errorMessage: '',
       warningMessage: '',
-      infoMessage: ''
+      infoMessage: '',
+      value: ''
     };
 
     componentDidMount() {
+      const value = this.props.value || this.state.value;
+      this.updateFormState(value);
+
       if (this.checkValidations()) {
-        const value = this.props.value || this.state.value;
-        this.context.addInput(this.props.name, this.validate, value);
+        this.context.addInput(this.props.name, this.validate);
       }
     }
 
@@ -38,8 +41,9 @@ const withValidation = (WrappedComponent) => {
 
     componentDidUpdate(prevProps) {
       if (this.isUpdatedValidationProps(prevProps) && this.checkValidations()) {
+        this.context.addInput(this.props.name, this.validate);
         const value = this.props.value || this.state.value;
-        this.context.addInput(this.props.name, this.validate, value);
+        this.updateFormState(value);
       }
 
       if (prevProps.value !== this.props.value) {
@@ -48,12 +52,7 @@ const withValidation = (WrappedComponent) => {
     }
 
     isUpdatedValidationProps(prevProps) {
-      let updated = false;
-
-      if (this.props.validations !== prevProps.validations) updated = true;
-
-
-      return updated;
+      return this.props.validations !== prevProps.validations;
     }
 
     checkValidations() {
@@ -75,9 +74,7 @@ const withValidation = (WrappedComponent) => {
     }
 
     checkContext(prop) {
-      if (!this.context || !this.context[prop]) return false;
-
-      return true;
+      return !this.context || !this.context[prop];
     }
 
     validate = (types = Object.keys(VALIDATION_TYPES), isOnSubmit) => {
@@ -189,18 +186,19 @@ const withValidation = (WrappedComponent) => {
         this.setState({ infoMessage: '' });
       }
 
-      if (!this.props.value) this.setState({ value: ev.target.value });
+      this.setState(
+        { value: ev.target.value },
+        () => this.updateFormState()
+      );
 
       if (this.props.onChange) {
         this.props.onChange(ev);
       }
-
-      this.updateInput(ev.target.value);
     }
 
-    updateInput(value) {
-      if (this.checkValidations()) {
-        this.context.addInput(this.props.name, this.validate, value);
+    updateFormState(value = this.state.value) {
+      if (this.props.addInputToFormState) {
+        this.props.addInputToFormState(this.props.name, value);
       }
     }
 
@@ -212,6 +210,21 @@ const withValidation = (WrappedComponent) => {
       };
     }
 
+    // get wrappedProps() {
+    //   // const { resetInput, value, ...props } = this;
+
+    //   if (!this.props.resetInput) {
+    //     return this.props;
+    //   }
+    //   const wrappedProps = {};
+    //   Object.keys(this.props).forEach((item) => {
+    //     console.log(item);
+    //     wrappedProps[item] = this.props[item];
+    //   });
+    //   wrappedProps.value = '';
+    //   return wrappedProps;
+    // }
+
     render() {
       return (
         <WrappedComponent
@@ -219,7 +232,6 @@ const withValidation = (WrappedComponent) => {
           { ...this.props }
           onBlur={ this.handleBlur }
           onChange={ this.handleChange }
-          value={ this.props.value || this.state.value }
         >
           { this.props.children }
           { this.renderValidationMarkup() }

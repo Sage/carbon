@@ -373,4 +373,10 @@ describe('when the withValidations HOC wraps a component', () => {
       expect(spy).not.toHaveBeenCalled();
     });
   });
+
+  describe('form state', () => {
+    it('updates the form state', () => {
+      expect(spyOn(wrapper.instance()));
+    });
+  });
 });
