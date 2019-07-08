@@ -9,6 +9,10 @@ services:
       cypress_localhost: http://storybook:9001/
     depends_on:
       - storybook
+    # Reason for the below `ipc: host` line:
+    # https://github.com/cypress-io/cypress/issues/350
+    # https://docs.cypress.io/guides/references/error-messages.html#The-Chromium-Renderer-process-just-crashed
+    ipc: host
     # volumes:
     #   - './cypress/screenshots/:/usr/src/app/cypress/screenshots/'
 
