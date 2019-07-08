@@ -30,6 +30,7 @@ function Portrait(props) {
       return (
         <PortraitInitials
           size={ size }
+          shape={ shape }
           initials={ initials }
           darkBackground={ darkBackground }
           alt={ alt }
@@ -44,6 +45,7 @@ function Portrait(props) {
       return (
         <PortraitGravatar
           gravatarEmail={ gravatar }
+          shape={ shape }
           size={ size }
           alt={ alt }
         />
@@ -59,6 +61,7 @@ function Portrait(props) {
           src={ src }
           alt={ alt }
           size={ size }
+          shape={ shape }
           data-element='user-image'
         />
       );

@@ -6,7 +6,7 @@ import BaseTheme from '../../style/themes/base';
 import Browser from '../../utils/helpers/browser';
 import { isClassic } from '../../utils/helpers/style-helper';
 import OptionsHelper from '../../utils/helpers/options-helper';
-import { StyledPortraitInitials, getColorsForInitials } from './portrait.style';
+import { StyledPortraitInitials, StyledPortraitInitialsImg, getColorsForInitials } from './portrait.style';
 
 class PortraitInitials extends React.Component {
   /** Cache of the initials graphic. */
@@ -89,12 +89,15 @@ class PortraitInitials extends React.Component {
 
   /** Renders the component. */
   render() {
+    const { shape, theme } = this.props;
     return (
       <StyledPortraitInitials
-        src={ this.generateDataUrl() }
-        alt={ this.props.alt }
         data-element='initials'
-      />
+        shape={ shape }
+        theme={ theme }
+      >
+        <StyledPortraitInitialsImg src={ this.generateDataUrl() } alt={ this.props.alt } />
+      </StyledPortraitInitials>
     );
   }
 }
@@ -108,6 +111,8 @@ PortraitInitials.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesFull).isRequired,
   /** Use a dark background. */
   darkBackground: PropTypes.bool,
+  /** The shape of the Portrait. */
+  shape: PropTypes.oneOf(OptionsHelper.shapesVaried),
   /** The `alt` HTML string. */
   alt: PropTypes.string
 };

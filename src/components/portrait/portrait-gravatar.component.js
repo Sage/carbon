@@ -20,10 +20,13 @@ class PortraitGravatar extends React.Component {
 
   /** Renders the component. */
   render() {
+    const { alt, size, shape } = this.props;
     return (
       <StyledPortraitGravatar
         src={ this.gravatarSrc() }
-        alt={ this.props.alt }
+        alt={ alt }
+        size={ size }
+        shape={ shape }
         data-element='user-image'
       />
     );
@@ -37,6 +40,8 @@ PortraitGravatar.propTypes = {
   gravatarEmail: PropTypes.string.isRequired,
   /** The size of the Gravatar. */
   size: PropTypes.oneOf(OptionsHelper.sizesFull).isRequired,
+  /** The shape of the Gravatar. */
+  shape: PropTypes.oneOf(OptionsHelper.shapesVaried),
   /** The `alt` HTML string. */
   alt: PropTypes.string
 };

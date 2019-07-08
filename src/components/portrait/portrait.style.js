@@ -21,12 +21,16 @@ function stylingForSize({ size, theme }) {
 }
 
 function stylingForShape({ shape }) {
-  switch (shape) {
-    case 'standard': return css`border-radius: 0px;`;
-    case 'circle': return css`border-radius: 50%;`;
-    case 'leaf': return css`border-radius: 10% 40% 10%;`;
-    default: return css``;
-  }
+  let cssString = `
+    position: absolute;
+    overflow: hidden;
+  `;
+
+  if (shape === 'standard') cssString += 'border-radius: 0px;';
+  if (shape === 'circle') cssString += 'border-radius: 50%;';
+  if (shape === 'leaf') cssString += 'border-radius: 10% 40% 10%;';
+
+  return css`${cssString}`;
 }
 
 function stylingForIcon({ size, theme, darkBackground }) {
@@ -85,28 +89,41 @@ export function getColorsForInitials(theme, darkBackground) {
 }
 
 
-export const StyledPortraitInitials = styled.img`
-  position: absolute;
+export const StyledPortraitInitials = styled.div`
+  ${stylingForShape}
   ${({ theme }) => !isClassic(theme) && css`border: 1px solid ${theme.portrait.border};`}
 `;
 
 StyledPortraitInitials.propTypes = {
   theme: PropTypes.object,
+  shape: PropTypes.oneOf(OptionsHelper.shapesVaried)
+};
+
+StyledPortraitInitials.defaultProps = {
+  theme: BaseTheme,
+  shape: 'standard'
+};
+
+
+export const StyledPortraitInitialsImg = styled.img`
+  display: block;
+`;
+
+StyledPortraitInitialsImg.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string
 };
 
-StyledPortraitInitials.defaultProps = {
-  theme: BaseTheme
-};
 
 export const StyledPortraitGravatar = styled.img`
   display: inline-block;
-  position: absolute;
   ${stylingForSize}
+  ${stylingForShape}
 `;
 
 StyledPortraitGravatar.propTypes = {
+  shape: PropTypes.oneOf(OptionsHelper.shapesVaried),
+  size: PropTypes.oneOf(OptionsHelper.sizesFull).isRequired,
   src: PropTypes.string.isRequired,
   alt: PropTypes.string
 };
@@ -114,13 +131,14 @@ StyledPortraitGravatar.propTypes = {
 
 export const StyledCustomImg = styled.img`
   display: inline-block;
-  position: absolute;
   ${stylingForSize}
+  ${stylingForShape}
 `;
 
 StyledCustomImg.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string,
+  shape: PropTypes.oneOf(OptionsHelper.shapesVaried),
   size: PropTypes.oneOf(OptionsHelper.sizesFull).isRequired
 };
 
@@ -130,7 +148,6 @@ export const StyledIcon = styled(
   ({ darkBackground, ...rest }) => <Icon { ...rest } />
 )`
   && {
-    position: absolute;
     box-sizing: border-box;
     line-height: 14px;
     ${stylingForSize}
@@ -143,6 +160,7 @@ export const StyledIcon = styled(
 StyledIcon.propTypes = {
   darkBackground: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesFull),
+  shape: PropTypes.oneOf(OptionsHelper.shapesVaried),
   theme: PropTypes.object,
   type: PropTypes.string.isRequired
 };
@@ -150,6 +168,7 @@ StyledIcon.propTypes = {
 StyledIcon.defaultProps = {
   darkBackground: false,
   size: 'medium',
+  shape: 'standard',
   theme: BaseTheme
 };
 
@@ -158,21 +177,17 @@ const StyledPortrait = styled.div`
   display: inline-block;
   position: relative;
   vertical-align: middle;
-  overflow: hidden;
   ${stylingForSize}
-  ${stylingForShape}
 `;
 
 StyledPortrait.propTypes = {
   size: PropTypes.oneOf(OptionsHelper.sizesFull),
-  shape: PropTypes.oneOf(OptionsHelper.shapesVaried),
   darkBackground: PropTypes.bool,
   theme: PropTypes.object
 };
 
 StyledPortrait.defaultProps = {
   size: 'medium',
-  shape: 'standard',
   darkBackground: false,
   theme: BaseTheme
 };
