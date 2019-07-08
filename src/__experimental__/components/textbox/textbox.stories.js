@@ -40,9 +40,10 @@ storiesOf('Experimental/Textbox', module)
     info: {
       text: info,
       propTables: [OriginalTextbox],
-      propTablesExclude: [State, Textbox],
-      notes: { markdown: notes }
-    }
+      propTablesExclude: [State, Textbox]
+    },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   })
   .add('multiple', () => {
     return ([
@@ -62,9 +63,10 @@ storiesOf('Experimental/Textbox', module)
     info: {
       text: info,
       propTables: [OriginalTextbox],
-      propTablesExclude: [State, Textbox],
-      notes: { markdown: notes }
-    }
+      propTablesExclude: [State, Textbox]
+    },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   })
   .add('validations', () => {
     return (

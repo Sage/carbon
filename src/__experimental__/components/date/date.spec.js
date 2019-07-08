@@ -359,33 +359,25 @@ describe('Date', () => {
   });
 
   describe('when additional validations are provided with the "validations" prop', () => {
+    const mockValidationFunction = () => {};
+
     describe('as a function', () => {
       it('then these validations should be passed with internal validations to the Textbox Component', () => {
-        wrapper = render({ validations: isNotFirstApr });
+        wrapper = render({ validations: mockValidationFunction });
         const { internalValidations } = wrapper.instance().props;
-        expect(wrapper.find(Textbox).props().validations).toEqual([isNotFirstApr, ...internalValidations]);
+        expect(wrapper.find(Textbox).props().validations).toEqual([mockValidationFunction, ...internalValidations]);
       });
     });
 
     describe('as an array', () => {
       it('then these validations should be passed with internal validations to the Textbox Component', () => {
-        wrapper = render({ validations: [isNotFirstApr] });
+        wrapper = render({ validations: [mockValidationFunction] });
         const { internalValidations } = wrapper.instance().props;
-        expect(wrapper.find(Textbox).props().validations).toEqual([isNotFirstApr, ...internalValidations]);
+        expect(wrapper.find(Textbox).props().validations).toEqual([mockValidationFunction, ...internalValidations]);
       });
     });
   });
 });
-
-function isNotFirstApr(value) {
-  return new Promise((resolve, reject) => {
-    if (value !== '1 apr') {
-      resolve();
-    } else {
-      reject(new Error('its first apr!'));
-    }
-  });
-}
 
 function render(props, renderer = mount) {
   return renderer(<DateInput { ...props } />);
