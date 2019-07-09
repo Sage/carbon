@@ -58,7 +58,7 @@ Feature: Radio Button component
   Scenario Outline: Set labelHelp to <labelHelp>
     When I set labelHelp to "<labelHelp>"
       And I hover mouse onto help icon
-    Then RadioButton tooltipPreview on preview is set to "<labelHelp>"
+    Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
       | labelHelp               |
       | Sample text             |

@@ -5,12 +5,9 @@ import i18n from 'i18n-js';
 import { notes, Info } from './documentation';
 import I18nComponent from './i18n';
 
-i18n.translations = {
-  en: {
-    my: {
-      example: '# My __example__ translation.'
-    }
-  }
+// eslint-disable-next-line dot-notation
+i18n.translations.en['my'] = {
+  example: '# My __example__ translation.'
 };
 
 storiesOf('I18nComponent', module)

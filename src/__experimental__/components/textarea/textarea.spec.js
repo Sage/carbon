@@ -106,6 +106,7 @@ describe('componentWillUnmount', () => {
     const tmpWrapper = mount(
       <Textarea
         value='foo'
+        name='textarea'
         onChange={ jest.fn() }
         label='Label'
         expandable

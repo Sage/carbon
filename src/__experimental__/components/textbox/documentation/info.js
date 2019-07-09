@@ -3,15 +3,15 @@ import { StoryHeader, StoryCode } from '../../../../../.storybook/style/storyboo
 
 const info = (
   <div>
-    <StoryHeader>Textarea Component</StoryHeader>
-    <p>Captures more than one line of text.</p>
+    <StoryHeader>Textbox Component</StoryHeader>
+    <p>Captures a single line of text.</p>
 
     <StoryHeader>Implementation</StoryHeader>
 
-    <StoryCode padded>import Textarea from {'carbon-react/lib/components/textarea'}</StoryCode>
+    <StoryCode padded>import Textbox from {'carbon-react/lib/components/textbox'}</StoryCode>
 
     <p>To render a Textarea:</p>
-    <StoryCode padded>{'<Textarea name="myTextarea" />'}</StoryCode>
+    <StoryCode padded>{'<Textbox name="myTexbox" />'}</StoryCode>
   </div>
 );
 
