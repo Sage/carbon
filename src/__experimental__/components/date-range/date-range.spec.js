@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import TestUtils from 'react-dom/test-utils';
@@ -38,19 +38,35 @@ describe('DateRange', () => {
       });
     });
 
-    describe.each([['startDate'], ['endDate']])('when changed to an invalid date', (date) => {
-      it('does not call handleBlur on both date fields', () => {
-        instance._onChange(date, { target: { value: 'foo' } });
-        expect(instance._startDate.handleBlur).not.toHaveBeenCalled();
-        expect(instance._endDate.handleBlur).not.toHaveBeenCalled();
+    describe.each([['start-date'], ['end-date']])('when changed to an invalid date', (date) => {
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = renderDateRange({}, mount);
+      });
+
+      it('then the "forceUpdateTriggerToggle" prop should remain the same', () => {
+        expect(checkForceUpdateProp(wrapper, 0)).toBe(false);
+        expect(checkForceUpdateProp(wrapper, 1)).toBe(false);
+        wrapper.find(`[data-element="${date}"]`).find('input').simulate('change', { target: { value: 'foo' } });
+        expect(checkForceUpdateProp(wrapper, 0)).toBe(false);
+        expect(checkForceUpdateProp(wrapper, 1)).toBe(false);
       });
     });
 
-    describe.each([['startDate'], ['endDate']])('when changed to a valid date', (date) => {
-      it('calls handleBlur on both date fields', () => {
-        instance._onChange(date, { target: { value: '2016-10-15' } });
-        expect(instance._startDate.handleBlur).toHaveBeenCalled();
-        expect(instance._endDate.handleBlur).toHaveBeenCalled();
+    describe.each([['start-date'], ['end-date']])('when changed to a valid date', (date) => {
+      let wrapper;
+
+      beforeEach(() => {
+        wrapper = renderDateRange({}, mount);
+      });
+
+      it('then the "forceUpdateTriggerToggle" prop should be flipped', () => {
+        expect(checkForceUpdateProp(wrapper, 0)).toBe(false);
+        expect(checkForceUpdateProp(wrapper, 1)).toBe(false);
+        wrapper.find(`[data-element="${date}"]`).find('input').simulate('change', { target: { value: '2016-10-15' } });
+        expect(checkForceUpdateProp(wrapper, 0)).toBe(true);
+        expect(checkForceUpdateProp(wrapper, 1)).toBe(true);
       });
     });
   });
@@ -283,30 +299,27 @@ describe('DateRange', () => {
     });
 
     it('validations can be added to dates by passing startDateProps and endDateProps to DateRange', () => {
+      const mockValidationFunction = () => {};
       const labelInstance = TestUtils.renderIntoDocument(
         <DateRange
           onChange={ customOnChange }
           value={ ['2016-10-10', '2016-11-11'] }
-          startDateProps={ { validations: ['custom validation'] } }
+          startDateProps={ { validations: [mockValidationFunction] } }
         />
       );
       const dates = TestUtils.scryRenderedComponentsWithType(labelInstance, Date);
       expect(dates[0].props.validations.length).toEqual(2);
-      expect(dates[0].props.validations[1]).toEqual('custom validation');
+      expect(dates[0].props.validations[1]).toEqual(mockValidationFunction);
       expect(dates[1].props.validations.length).toEqual(1);
     });
   });
 
   describe('tags', () => {
     describe('on component', () => {
-      const wrapper = shallow(
-        <DateRange
-          data-element='bar'
-          onChange={ () => {} }
-          data-role='baz'
-          value={ ['2016-10-10', '2016-11-11'] }
-        />
-      );
+      const wrapper = renderDateRange({
+        'data-element': 'bar',
+        'data-role': 'baz'
+      });
 
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapper, 'date-range', 'bar', 'baz');
@@ -314,7 +327,7 @@ describe('DateRange', () => {
     });
 
     describe('on internal elements', () => {
-      const wrapper = shallow(<DateRange onChange={ () => {} } value={ ['2016-10-10', '2016-11-11'] } />);
+      const wrapper = renderDateRange({});
 
       elementsTagTest(wrapper, [
         'start-date',
@@ -335,3 +348,17 @@ describe('StyledDateRange', () => {
     expect(wrapper).toMatchSnapshot();
   });
 });
+
+function renderDateRange(props, renderer = shallow) {
+  return renderer(
+    <DateRange
+      onChange={ () => {} }
+      value={ ['2016-10-10', '2016-11-11'] }
+      { ...props }
+    />
+  );
+}
+
+function checkForceUpdateProp(wrapper, dateInputNum) {
+  return wrapper.find(Date).at(dateInputNum).props().forceUpdateTriggerToggle;
+}
