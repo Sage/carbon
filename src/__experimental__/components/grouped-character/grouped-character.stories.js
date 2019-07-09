@@ -5,6 +5,7 @@ import { text, object } from '@storybook/addon-knobs';
 import GroupedCharacter from './grouped-character.component';
 import getCommonTextboxStoryProps from '../textbox/textbox.stories';
 import { OriginalTextbox } from '../textbox';
+import { info } from './documentation';
 
 const groupedCharacterStore = new Store({
   value: ''
@@ -14,7 +15,7 @@ const onChange = (ev) => { groupedCharacterStore.set({ value: ev.target.value })
 
 storiesOf('Experimental/GroupedCharacter', module)
   .addParameters({
-    info: { propTables: [OriginalTextbox], propTablesExclude: [State] }
+    info: { text: info, propTables: [OriginalTextbox], propTablesExclude: [State] }
   })
   .add('default',
     () => {
