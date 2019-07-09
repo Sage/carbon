@@ -2,7 +2,7 @@ import React from 'react';
 import Immutable from 'immutable';
 import { shallow, mount } from 'enzyme';
 import Rainbow from './rainbow.component';
-import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 /* global jest */
 
