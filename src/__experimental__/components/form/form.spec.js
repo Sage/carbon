@@ -2,17 +2,17 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
 import { mount, shallow } from 'enzyme';
-import FormWithValidations, { FormWithoutValidations as Form } from './form';
+import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
 import Textbox from '../textbox';
-import Validation from '../../utils/validations/presence';
-import Dialog from '../dialog';
+import Validation from '../../../utils/validations/presence';
+import Dialog from '../../../components/dialog';
 import CancelButton from './cancel-button';
 import SaveButton from './save-button';
 import FormSummary from './form-summary';
-import Button from '../button';
-import ElementResize from '../../utils/helpers/element-resize';
+import Button from '../../../components/button';
+import ElementResize from '../../../utils/helpers/element-resize';
 
-import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 /* global jest */
 
@@ -30,7 +30,6 @@ describe('Form', () => {
     describe('when stickyFooter is enabled', () => {
       it('adds the listeners', () => {
         wrapper = shallow(<Form />);
-
         spyOn(wrapper.instance(), 'addStickyFooterListeners');
         wrapper.setProps({ stickyFooter: true });
         expect(wrapper.instance().addStickyFooterListeners).toHaveBeenCalled();
@@ -748,10 +747,10 @@ describe('Form', () => {
 
   describe('tags', () => {
     describe('on component', () => {
-      wrapper = shallow(<Form data-element='bar' data-role='baz' />);
+      const wrapper2 = shallow(<Form data-element='bar' data-role='baz' />);
 
       it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper, 'form', 'bar', 'baz');
+        rootTagTest(wrapper2, 'form', 'bar', 'baz');
       });
     });
   });

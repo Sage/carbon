@@ -205,8 +205,7 @@ class FormWithoutValidations extends React.Component {
       this.props.beforeFormValidation(ev);
     }
 
-    // if no validations are applied allows form to be submitted as default
-    const valid = this.props.validate ? await this.props.validate() : true;
+    const valid = await this.props.validate();
 
     if (this.props.afterFormValidation) {
       this.props.afterFormValidation(ev, valid, this.enableForm);
@@ -439,22 +438,18 @@ class FormWithoutValidations extends React.Component {
     }));
   }
 
-  resetInput() {
-    this.resetStatus = false;
-  }
-
   /**
    * Clone the children, pass in callback to allow form to store controlled data
    */
   renderChildren() {
     const { children } = this.props;
 
+    if (!children) return null;
+
     const childrenArray = Array.isArray(children) ? children : [children];
 
     return childrenArray.map((child) => {
-      const props = { ...child.props, addInputToFormState: this.addInputDataToState };
-      // if (this.resetStatus) props.resetInput = this.resetInput.bind(this);
-      return React.cloneElement(child, { ...props });
+      return React.cloneElement(child, { ...child.props, addInputToFormState: this.addInputDataToState });
     });
   }
 

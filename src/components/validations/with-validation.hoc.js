@@ -29,7 +29,7 @@ const withValidation = (WrappedComponent) => {
     componentDidMount() {
       this.updateFormState(this.props.value || this.state.value);
 
-      if (this.checkValidations()) {
+      if (this.checkValidations() && this.checkContext('addInput')) {
         this.context.addInput(this.props.name, this.validate);
       }
     }
@@ -71,8 +71,8 @@ const withValidation = (WrappedComponent) => {
       return hasValidations;
     }
 
-    checkContext(prop) {
-      return !this.context || !this.context[prop];
+    checkContext(contextProp) {
+      return this.context && this.context[contextProp];
     }
 
     validate = (types = Object.keys(VALIDATION_TYPES), isOnSubmit) => {
