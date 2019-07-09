@@ -3,6 +3,7 @@
 exports[`ValidationIcon renders with an icon for the given type 1`] = `
 .c0 {
   color: #C7384F;
+  cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -36,6 +37,7 @@ exports[`ValidationIcon renders with an icon for the given type 1`] = `
 exports[`ValidationIcon renders with an icon with classic styling 1`] = `
 .c0 {
   color: #C7384F;
+  cursor: pointer;
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;

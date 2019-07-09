@@ -4,7 +4,6 @@ import I18n from 'i18n-js';
 import { assign } from 'lodash';
 import Date from '../date';
 import DateRangeValidator from '../../../utils/validations/date-range';
-import DateHelper from '../../../utils/helpers/date';
 import tagComponent from '../../../utils/helpers/tags';
 import StyledDateRange from './date-range.style';
 
@@ -36,6 +35,10 @@ class DateRange extends React.Component {
     endDateProps: PropTypes.shape({ ...Date.propTypes, value: PropTypes.string })
   };
 
+  state = {
+    forceUpdateTriggerToggle: false
+  }
+
   /** onChange function -triggers validations on both fields and updates opposing field when one changed. */
   _onChange = (changedDate, ev) => {
     const newValue = ev.target.value;
@@ -48,11 +51,9 @@ class DateRange extends React.Component {
       this.props.onChange([this.startDate, newValue]);
     }
 
-    // Triggers validations on both fields
-    if (DateHelper.isValidDate(newValue)) {
-      this._startDate.handleBlur();
-      this._endDate.handleBlur();
-    }
+    this.setState(prevState => ({
+      forceUpdateTriggerToggle: !prevState.forceUpdateTriggerToggle
+    }));
   }
 
   /** The startDate value */
@@ -124,6 +125,7 @@ class DateRange extends React.Component {
     }, dateProps);
 
     props.className = dateProps.className;
+    props.forceUpdateTriggerToggle = this.state.forceUpdateTriggerToggle;
     props.validations = defaultValidations.concat(dateProps.validations || []);
 
     return props;

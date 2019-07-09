@@ -12,7 +12,7 @@ function applyClassicTableStyling(props) {
   return css`
     background-color: #ffffff;
 
-    .carbon-spinner {
+    .table__spinner {
       height: 8px;
       width: 8px;
       margin-bottom: -4px;

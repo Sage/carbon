@@ -7,7 +7,7 @@ import {
   number
 } from '@storybook/addon-knobs';
 import Number from './number.component';
-import Textbox from '../textbox';
+import Textbox, { OriginalTextbox } from '../textbox';
 import getCommonTextboxStoryProps from '../textbox/textbox.stories';
 import notes from './documentation/notes.md';
 import info from './documentation/info';
@@ -43,8 +43,8 @@ storiesOf('Experimental/Number Input', module)
   }, {
     info: {
       text: info,
-      propTables: [Textbox],
-      propTablesExclude: [Number, State],
+      propTables: [OriginalTextbox],
+      propTablesExclude: [Number, State, Textbox],
       excludedPropTypes: ['children', 'leftChildren', 'inputIcon']
     },
     notes: { markdown: notes }
