@@ -18,6 +18,7 @@ const StyledSwitchSlider = styled.span`
     position: absolute;
     top: 0;
     width: 60px;
+    z-index: 2;
 
     &::before {
       background-color: ${theme.colors.white};
@@ -29,6 +30,7 @@ const StyledSwitchSlider = styled.span`
       left: 2px;
       transition: transform .4s;
       width: 20px;
+      z-index: 1;
     }
 
     ${checked && `
