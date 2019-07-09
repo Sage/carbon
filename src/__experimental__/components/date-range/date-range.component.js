@@ -52,12 +52,9 @@ class DateRange extends React.Component {
       this.props.onChange([this.startDate, newValue]);
     }
 
-    // Triggers validations on both fields
-    if (DateHelper.isValidDate(newValue)) {
-      this.setState(prevState => ({
-        forceUpdateTriggerToggle: !prevState.forceUpdateTriggerToggle
-      }));
-    }
+    this.setState(prevState => ({
+      forceUpdateTriggerToggle: !prevState.forceUpdateTriggerToggle
+    }));
   }
 
   /** The startDate value */
