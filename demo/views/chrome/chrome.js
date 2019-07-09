@@ -1,5 +1,7 @@
 import classNames from 'classnames';
 import React from 'react';
+import { ThemeProvider } from 'styled-components';
+import classic from '../../../src/style/themes/classic';
 
 // Flux
 import { connect } from 'carbon-state-management/lib/flux';
@@ -20,15 +22,17 @@ class Chrome extends React.Component {
     var page_class_name = page_url[page_url.length -1]
 
     return (
-      <div className={ `page-${page_class_name} chrome` }>
-        <Menu
-          isTablet={ this._isSmallScreen() }
-          menuOpen={ this.state.appStore.get('menuOpen') }
-        />
-        <Header />
-        { this.props.children }
-        <Footer />
-      </div>
+      <ThemeProvider theme={ classic }>
+        <div className={ `page-${page_class_name} chrome` }>
+          <Menu
+            isTablet={ this._isSmallScreen() }
+            menuOpen={ this.state.appStore.get('menuOpen') }
+          />
+          <Header />
+          { this.props.children }
+          <Footer />
+        </div>
+      </ThemeProvider>
     );
   }
 
