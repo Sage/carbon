@@ -19,29 +19,19 @@ Feature: Help component
       | <>                      |
 
   @positive
-  Scenario Outline: Change tooltip position to <tooltipPosition>
+  Scenario Outline: Change tooltip position to <tooltipPosition> and align to <tooltipAlign>
     When I select tooltipPosition to "<tooltipPosition>"
+      And I select tooltipAlign to "<tooltipAlign>"
       And I hover mouse onto help icon
     Then tooltipPosition is set to "<tooltipPosition>"
+      And tooltipAlign is set to "<tooltipAlign>"
     Examples:
-      | tooltipPosition |
-      | left            |
-      | right           |
-      | top             |
-      | bottom          |
-
-  @positive
-  Scenario Outline: Change tooltipAlign to <tooltipAlign>
-    When I select tooltipAlign to "<tooltipAlign>"
-      And I hover mouse onto help icon
-    Then tooltipAlign is set to "<tooltipAlign>"
-    Examples:
-      | tooltipAlign |
-      | left         |
-      | right        |
-      | top          |
-      | bottom       |
-      | center       |
+      | tooltipPosition | tooltipAlign |
+      | left            | center       |
+      | right           | bottom       |
+      | top             | left         |
+      | bottom          | right        |
+      | right           | top          |
 
   @positive
   Scenario Outline: Change href to <href>
