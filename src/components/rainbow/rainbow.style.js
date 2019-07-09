@@ -13,9 +13,11 @@ const RainbowStyle = styled.div`
         transform: scale(1);
         transition: transform 0.2s;
         visibility: visible;
+        opacity: 1;
 
         &:hover {
         transform: scale(1.25);
+        opacity: 1;
         }
     }
 

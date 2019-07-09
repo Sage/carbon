@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { merge } from 'lodash';
-import tagComponent from '../../utils/helpers/tags/tags';
+import tagComponent from '../../utils/helpers/tags';
 import { RainbowStyle } from './rainbow.style';
 
 class Rainbow extends React.Component {
@@ -154,7 +154,7 @@ Rainbow.propTypes = {
   data: PropTypes.object.isRequired,
   /** Supply a custom config object to the Highcharts. */
   config: PropTypes.object,
-  /** Classes to apply to the component. */
+  /** [legacy] Classes to apply to the component. */
   className: PropTypes.string
 };
 
