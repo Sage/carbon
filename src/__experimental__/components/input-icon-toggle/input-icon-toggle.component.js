@@ -9,7 +9,7 @@ const InputIconToggle = ({
   readOnly,
   ...props
 }) => {
-  if (disabled || readOnly) return null;
+  if (disabled || readOnly || hasFailedValidation(props)) return null;
 
   return (
     <InputIconToggleStyle key='label-icon' { ...props }>
@@ -17,6 +17,10 @@ const InputIconToggle = ({
     </InputIconToggleStyle>
   );
 };
+
+function hasFailedValidation({ hasError, hasWarning, hasInfo }) {
+  return hasError || hasWarning || hasInfo;
+}
 
 InputIconToggle.propTypes = {
   children: PropTypes.node, // can override the icon

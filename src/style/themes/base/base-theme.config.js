@@ -84,6 +84,14 @@ export default (palette) => {
       focus: palette.slateTint(20)
     },
 
+    pill: {
+      neutral: palette.slateTint(30),
+      warning: palette.carrotOrangeTint(20),
+      neutralBackgroundFocus: palette.slateTint(10),
+      warningButtonFocus: palette.carrotOrange,
+      errorButtonFocus: palette.errorRedShade(20)
+    },
+
     shadows: {
       depth1: '0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)',
       depth2: '0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)',
