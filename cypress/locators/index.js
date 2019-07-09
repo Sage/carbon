@@ -9,7 +9,6 @@ export const clearButton = () => cy.get(FORM).find('button').contains('Clear');
 
 // accessibility locators
 export const reRunTestsButton = () => cy.get(FORM).find('button').contains('Rerun tests');
-export const testsCompleteButton = () => cy.get(FORM).find('button').contains('Tests completed');
 
 // knobs locators
 export const getKnobsInput = propertyName => cy.get(`[name="${propertyName}"]`);
