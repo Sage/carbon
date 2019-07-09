@@ -199,6 +199,7 @@ Feature: Textarea component
       | left       |
       | right      |
 
+  #double checking / unchecking warnOverLimit/enforceCharacterLimit should be fixed in FE-1778 and should be deleted
   @positive
   Scenario Outline: Enable warnOverLimit checkbox for a Textarea component and check the warning
     When I set characterLimit to "<limit>"
@@ -213,6 +214,7 @@ Feature: Textarea component
       | áéíóú¿¡üñ        | 9          | 5     |
       | testTestTextTest | 16         | 10    |
 
+  #double checking / unchecking warnOverLimit/enforceCharacterLimit should be fixed in FE-1778 and should be deleted
   @positive
   Scenario Outline: Disable warnOverLimit checkbox for a Textarea component and allow to input more characters than allowed
     When I set characterLimit to "<limit>"
@@ -242,6 +244,7 @@ Feature: Textarea component
       | áéíóú¿¡üñ        | 7          | 7     |
       | testTestTextTest | 10         | 10    |
 
+  #double checking / unchecking warnOverLimit/enforceCharacterLimit should be fixed in FE-1778 and should be deleted
   @positive
   Scenario Outline: Disable enforceCharacterLimit checkbox for a Textarea component and allow to input more characters than allowed
     When I set characterLimit to "<limit>"
