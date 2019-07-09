@@ -4,7 +4,6 @@ import I18n from 'i18n-js';
 import { assign } from 'lodash';
 import Date from '../date';
 import DateRangeValidator from '../../../utils/validations/date-range';
-import DateHelper from '../../../utils/helpers/date';
 import tagComponent from '../../../utils/helpers/tags';
 import StyledDateRange from './date-range.style';
 
