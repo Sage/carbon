@@ -83,21 +83,20 @@
   .carbon-modal__background {
     z-index: 11;
   }
-
-  &__buttons {
-    .carbon-button {
-      padding-left: 0;
-      padding-right: 0;
-      text-align: center;
-      width: 100%;
-
-      &:first-child {
-        margin-bottom: 10px;
-      }
-    }
-  }
 }
 
 .demo-menu__buttons {
   padding-top: 30px;
+
+  .carbon-button {
+    margin-left: 0;
+    padding-left: 0;
+    padding-right: 0;
+    text-align: center;
+    width: 100%;
+
+    &:first-child {
+      margin-bottom: 10px;
+    }
+  };
 }
