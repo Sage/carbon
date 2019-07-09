@@ -36,7 +36,7 @@ storiesOf('Experimental/Switch', module)
       text: legacyInfo,
       propTables: [Switch],
       propTablesExclude: [State, SwitchWrapper],
-      excludedPropTypes: ['children', 'disabled', 'theme']
+      excludedPropTypes: ['children', 'disabled', 'size', 'theme']
     },
     notes: { markdown: notes }
   })
@@ -85,13 +85,13 @@ function commonKnobs() {
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ),
-    reverse: boolean('reverse', Switch.defaultProps.reverse),
-    size: select('size', OptionsHelper.sizesBinary, 'small')
+    reverse: boolean('reverse', Switch.defaultProps.reverse)
   });
 }
 
 function dlsKnobs() {
   return {
-    disabled: boolean('disabled', false)
+    disabled: boolean('disabled', false),
+    size: select('size', OptionsHelper.sizesBinary, 'small')
   };
 }
