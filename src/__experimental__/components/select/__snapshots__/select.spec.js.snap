@@ -188,6 +188,7 @@ Object {
     <input
       autocomplete="off"
       class="c1 c2"
+      data-component="input"
       data-element="input"
       id="guid-12345"
       name="guid-12345"
