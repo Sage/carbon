@@ -7,8 +7,6 @@ import {
   select,
   number
 } from '@storybook/addon-knobs';
-import classic from '../../style/themes/classic';
-import small from '../../style/themes/small';
 import { notes, info } from './documentation';
 import TableWrapper from './table-story-helpers/table-story-wrapper.component';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
@@ -83,8 +81,7 @@ storiesOf('Table', module)
   .add('classic', () => {
     const tableProps = {
       ...commonKnobs(),
-      ...classicKnobs(),
-      contextTheme: classic
+      ...classicKnobs()
     };
 
     return (
@@ -99,8 +96,7 @@ storiesOf('Table', module)
     () => {
       const tableProps = {
         ...commonKnobs(),
-        ...dlsKnobs(),
-        contextTheme: small
+        ...dlsKnobs()
       };
 
       return (
@@ -118,8 +114,7 @@ storiesOf('Table', module)
       const tableProps = {
         ...commonKnobs(),
         ...classicKnobs(),
-        ...inputKnobs(),
-        contextTheme: classic
+        ...inputKnobs()
       };
 
       return (
@@ -137,8 +132,7 @@ storiesOf('Table', module)
       const tableProps = {
         ...commonKnobs(),
         ...dlsKnobs(),
-        ...inputKnobs(),
-        contextTheme: small
+        ...inputKnobs()
       };
 
       return (

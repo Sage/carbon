@@ -77,6 +77,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   white-space: nowrap;
   left: 0;
   right: auto;
+  z-index: 12;
 }
 
 .c0 .carbon-icon.icon-dropdown {
@@ -274,6 +275,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   white-space: nowrap;
   left: 0;
   right: auto;
+  z-index: 12;
 }
 
 .c0 .carbon-icon.icon-dropdown {
@@ -520,6 +522,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   white-space: nowrap;
   left: 0;
   right: auto;
+  z-index: 12;
 }
 
 .c0 .carbon-icon.icon-dropdown {
