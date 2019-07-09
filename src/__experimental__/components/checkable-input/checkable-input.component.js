@@ -33,7 +33,7 @@ class CheckableInput extends React.Component {
 
   render() {
     return (
-      <StyledCheckableInputWrapper>
+      <StyledCheckableInputWrapper { ...this.props }>
         <FormField { ...this.formFieldProps(this.props) }>
           <StyledCheckableInput>
             <HiddenCheckableInput { ...this.inputProps(this.props) } />

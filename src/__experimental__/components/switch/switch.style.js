@@ -6,13 +6,12 @@ import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input
 import LabelStyle from '../label/label.style';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import StyledSwitchSlider from './switch-slider.style';
-import StyledHelp from '../help/help.style';
 
 import ClassicSwitchStyles from './switch-classic.style';
 
 const StyledSwitch = styled.div`
   ${({
-    disabled, fieldHelpInline, labelInline, reverse, size, theme
+    fieldHelpInline, labelInline, labelWidth, reverse, size, theme
   }) => css`
     ${StyledCheckableInput}, ${HiddenCheckableInputStyle} {
       border: none;
@@ -36,33 +35,12 @@ const StyledSwitch = styled.div`
     ${LabelStyle} {
       padding: 0;
       margin-bottom: 8px;
-      text-align: ${({ labelAlign }) => labelAlign};
+      margin-right: 100%;
 
-      & ${StyledHelp} {
-        color: ${theme.help.color};
-        vertical-align: bottom;
-
-        &:hover, &:focus {
-          color: ${theme.text.color};
-        }
-      }
+      ${labelWidth && `
+        margin-right: ${100 - labelWidth}%;
+      `}
     }
-
-    ${disabled && `
-      ${LabelStyle} {
-        &, & ${StyledHelp} {
-          color: ${theme.disabled.disabled};
-        }
-      }
-
-      ${HiddenCheckableInputStyle},
-      ${LabelStyle} {
-        &:hover, &:focus {
-          outline: none;
-          cursor: not-allowed;
-        }
-      }
-    `}
 
     ${reverse && `
       ${LabelStyle} {
@@ -72,10 +50,7 @@ const StyledSwitch = styled.div`
 
     ${fieldHelpInline && `
       ${FieldHelpStyle} {
-        display: inline;
         margin-right: 32px;
-        padding-left: 0;
-        width: auto;
       }
     `}
 

@@ -7,7 +7,6 @@ import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
-import StyledHelp from '../help/help.style';
 import StyledSwitchSlider from './switch-slider.style';
 import guid from '../../../utils/helpers/guid';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
@@ -28,45 +27,6 @@ describe('Switch', () => {
   describe('base theme', () => {
     it('renders as expected', () => {
       expect(render()).toMatchSnapshot();
-    });
-
-    describe('when disabled=true', () => {
-      const wrapper = render({ disabled: true }).toJSON();
-
-      it('applies the correct Label styles', () => {
-        assertStyleMatch({
-          color: baseTheme.disabled.disabled
-        }, wrapper, { modifier: css`${LabelStyle}` });
-      });
-
-      it('applies the correct Help styles', () => {
-        assertStyleMatch({
-          color: baseTheme.disabled.disabled
-        }, wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}`}` });
-      });
-
-      describe('and hover / focus is applied', () => {
-        const hoverFocusStyles = {
-          outline: 'none',
-          cursor: 'not-allowed'
-        };
-
-        it('applies the correct HiddenCheckableInput styles', () => {
-          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${HiddenCheckableInputStyle}:hover`}` });
-        });
-
-        it('applies the correct HiddenCheckableInput styles', () => {
-          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${HiddenCheckableInputStyle}:focus`}` });
-        });
-
-        it('applies the correct Label styles', () => {
-          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${LabelStyle}:hover`}` });
-        });
-
-        it('applies the correct Label styles', () => {
-          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${LabelStyle}:focus`}` });
-        });
-      });
     });
 
     describe('when reverse=true', () => {
@@ -105,12 +65,7 @@ describe('Switch', () => {
       const wrapper = render({ fieldHelpInline: true }).toJSON();
 
       it('applies the correct FieldHelp styles', () => {
-        assertStyleMatch({
-          display: 'inline',
-          marginRight: '32px',
-          paddingLeft: '0',
-          width: 'auto'
-        }, wrapper, { modifier: css`${FieldHelpStyle}` });
+        assertStyleMatch({ marginRight: '32px' }, wrapper, { modifier: css`${FieldHelpStyle}` });
       });
     });
 
@@ -146,6 +101,16 @@ describe('Switch', () => {
           marginTop: '0',
           padding: '3px 0'
         }, wrapper, { modifier: css`${FieldHelpStyle}` });
+      });
+    });
+
+    describe('when setting a custom labelWidth', () => {
+      it('renders the correct Label styles', () => {
+        const wrapper = render({ labelWidth: 60 }).toJSON();
+
+        assertStyleMatch({
+          marginRight: '40%'
+        }, wrapper, { modifier: css`${LabelStyle}` });
       });
     });
 
@@ -201,10 +166,6 @@ describe('Switch', () => {
             }, wrapper, { modifier: css`${FieldHelpStyle}` });
           });
         });
-      });
-
-      describe('when setting a custom labelWidth', () => {
-
       });
     });
   });
@@ -372,44 +333,6 @@ describe('Switch', () => {
           );
         });
       });
-
-      describe('Help styles', () => {
-        it('applies the correct base Help styles', () => {
-          assertStyleMatch({
-            color: smallTheme.help.color
-          }, wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}`}` });
-        });
-
-        describe('hover / focus styles', () => {
-          it('applies the correct focus styles', () => {
-            assertStyleMatch({
-              color: smallTheme.text.color
-            }, wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}:focus`}` });
-          });
-
-          it('applies the correct hover styles', () => {
-            assertStyleMatch({
-              color: smallTheme.text.color
-            }, wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}:hover`}` });
-          });
-        });
-      });
-    });
-
-    describe('when disabled=true', () => {
-      const wrapper = render({ disabled: true }).toJSON();
-
-      it('applies the correct Label styles', () => {
-        assertStyleMatch({
-          color: smallTheme.disabled.disabled
-        }, wrapper, { modifier: css`${LabelStyle}` });
-      });
-
-      it('applies the correct Help styles', () => {
-        assertStyleMatch({
-          color: smallTheme.disabled.disabled
-        }, wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}`}` });
-      });
     });
   });
 
@@ -436,44 +359,6 @@ describe('Switch', () => {
           );
         });
       });
-
-      describe('Help styles', () => {
-        it('applies the correct base Help styles', () => {
-          assertStyleMatch({
-            color: mediumTheme.help.color
-          }, wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}`}` });
-        });
-
-        describe('hover / focus styles', () => {
-          it('applies the correct focus styles', () => {
-            assertStyleMatch({
-              color: mediumTheme.text.color
-            }, wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}:focus`}` });
-          });
-
-          it('applies the correct hover styles', () => {
-            assertStyleMatch({
-              color: mediumTheme.text.color
-            }, wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}:hover`}` });
-          });
-        });
-      });
-    });
-
-    describe('when disabled=true', () => {
-      const wrapper = render({ disabled: true }).toJSON();
-
-      it('applies the correct Label styles', () => {
-        assertStyleMatch({
-          color: mediumTheme.disabled.disabled
-        }, wrapper, { modifier: css`${LabelStyle}` });
-      });
-
-      it('applies the correct Help styles', () => {
-        assertStyleMatch({
-          color: mediumTheme.disabled.disabled
-        }, wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}`}` });
-      });
     });
   });
 
@@ -499,44 +384,6 @@ describe('Switch', () => {
             { modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):hover + ${StyledSwitchSlider}`}` }
           );
         });
-      });
-
-      describe('Help styles', () => {
-        it('applies the correct base Help styles', () => {
-          assertStyleMatch({
-            color: largeTheme.help.color
-          }, wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}`}` });
-        });
-
-        describe('hover / focus styles', () => {
-          it('applies the correct focus styles', () => {
-            assertStyleMatch({
-              color: largeTheme.text.color
-            }, wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}:focus`}` });
-          });
-
-          it('applies the correct hover styles', () => {
-            assertStyleMatch({
-              color: largeTheme.text.color
-            }, wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}:hover`}` });
-          });
-        });
-      });
-    });
-
-    describe('when disabled=true', () => {
-      const wrapper = render({ disabled: true }).toJSON();
-
-      it('applies the correct Label styles', () => {
-        assertStyleMatch({
-          color: largeTheme.disabled.disabled
-        }, wrapper, { modifier: css`${LabelStyle}` });
-      });
-
-      it('applies the correct Help styles', () => {
-        assertStyleMatch({
-          color: largeTheme.disabled.disabled
-        }, wrapper, { modifier: css`${`${LabelStyle} ${StyledHelp}`}` });
       });
     });
   });
