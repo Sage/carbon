@@ -22,14 +22,14 @@ describe('Form', () => {
   beforeEach(() => {
     validate = jest.fn().mockImplementation(() => true);
     instance = TestUtils.renderIntoDocument(
-      <Form validate={ validate } />
+      <Form formAction='foo' validate={ validate } />
     );
   });
 
   describe('componentWillReceiveProps', () => {
     describe('when stickyFooter is enabled', () => {
       it('adds the listeners', () => {
-        wrapper = shallow(<Form />);
+        wrapper = shallow(<Form formAction='foo' />);
         spyOn(wrapper.instance(), 'addStickyFooterListeners');
         wrapper.setProps({ stickyFooter: true });
         expect(wrapper.instance().addStickyFooterListeners).toHaveBeenCalled();
@@ -38,7 +38,7 @@ describe('Form', () => {
 
     describe('when stickyFooter is disabled', () => {
       it('removes the listeners', () => {
-        wrapper = shallow(<Form stickyFooter />);
+        wrapper = shallow(<Form formAction='foo' stickyFooter />);
         spyOn(wrapper.instance(), 'removeStickyFooterListeners');
         wrapper.setProps({ stickyFooter: false });
         expect(wrapper.instance().removeStickyFooterListeners).toHaveBeenCalled();
@@ -47,7 +47,7 @@ describe('Form', () => {
 
     describe('when unsavedWarning is enabled', () => {
       it('adds the listeners', () => {
-        wrapper = shallow(<Form unsavedWarning={ false } />);
+        wrapper = shallow(<Form formAction='foo' unsavedWarning={ false } />);
         spyOn(wrapper.instance(), 'addUnsavedWarningListener');
         wrapper.setProps({ unsavedWarning: true });
         expect(wrapper.instance().addUnsavedWarningListener).toHaveBeenCalled();
@@ -56,7 +56,7 @@ describe('Form', () => {
 
     describe('when unsavedWarning is disabled', () => {
       it('removes the listeners', () => {
-        wrapper = shallow(<Form unsavedWarning />);
+        wrapper = shallow(<Form formAction='foo' unsavedWarning />);
         spyOn(wrapper.instance(), 'removeUnsavedWarningListener');
         wrapper.setProps({ unsavedWarning: false });
         expect(wrapper.instance().removeUnsavedWarningListener).toHaveBeenCalled();
@@ -66,19 +66,25 @@ describe('Form', () => {
 
   describe('componentDidMount', () => {
     it('does not validate by default', () => {
-      instance = TestUtils.renderIntoDocument(<Form validate={ validate } />);
+      instance = TestUtils.renderIntoDocument(<Form formAction='foo' validate={ validate } />);
       expect(validate).not.toHaveBeenCalled();
     });
 
     describe('when validateOnMount is set to true', () => {
       it('validates the form', () => {
-        instance = TestUtils.renderIntoDocument(<Form validateOnMount validate={ validate } />);
+        instance = TestUtils.renderIntoDocument(
+          <Form
+            formAction='foo'
+            validateOnMount
+            validate={ validate }
+          />
+        );
         expect(validate).toHaveBeenCalled();
       });
     });
 
     it('adds sticky footer listeners is enabled', () => {
-      wrapper = shallow(<Form stickyFooter />);
+      wrapper = shallow(<Form formAction='foo' stickyFooter />);
       spyOn(wrapper.instance(), 'addStickyFooterListeners');
       wrapper.instance().componentDidMount();
       expect(wrapper.instance().addStickyFooterListeners).toHaveBeenCalled();
@@ -87,28 +93,28 @@ describe('Form', () => {
 
   describe('componentWillUnmount', () => {
     it('does not remove sticky footer listeners if not enabled', () => {
-      wrapper = shallow(<Form />);
+      wrapper = shallow(<Form formAction='foo' />);
       spyOn(wrapper.instance(), 'removeStickyFooterListeners');
       wrapper.instance().componentWillUnmount();
       expect(wrapper.instance().removeStickyFooterListeners).not.toHaveBeenCalled();
     });
 
     it('removes sticky footer listeners if enabled', () => {
-      wrapper = shallow(<Form stickyFooter />);
+      wrapper = shallow(<Form formAction='foo' stickyFooter />);
       spyOn(wrapper.instance(), 'removeStickyFooterListeners');
       wrapper.instance().componentWillUnmount();
       expect(wrapper.instance().removeStickyFooterListeners).toHaveBeenCalled();
     });
 
     it('does not remove unsaved warning listeners if not enabled', () => {
-      wrapper = shallow(<Form unsavedWarning={ false } />);
+      wrapper = shallow(<Form formAction='foo' unsavedWarning={ false } />);
       spyOn(wrapper.instance(), 'removeUnsavedWarningListener');
       wrapper.instance().componentWillUnmount();
       expect(wrapper.instance().removeUnsavedWarningListener).not.toHaveBeenCalled();
     });
 
     it('removes unsaved warning listeners if enabled', () => {
-      wrapper = shallow(<Form unsavedWarning />);
+      wrapper = shallow(<Form formAction='foo' unsavedWarning />);
       spyOn(wrapper.instance(), 'removeUnsavedWarningListener');
       wrapper.instance().componentWillUnmount();
       expect(wrapper.instance().removeUnsavedWarningListener).toHaveBeenCalled();
@@ -117,7 +123,7 @@ describe('Form', () => {
 
   describe('addStickyFooterListeners', () => {
     beforeEach(() => {
-      wrapper = shallow(<Form />);
+      wrapper = shallow(<Form formAction='foo' />);
       instance = wrapper.instance();
       instance._form = {};
       spyOn(instance, 'checkStickyFooter');
@@ -140,7 +146,7 @@ describe('Form', () => {
 
   describe('removeStickyFooterListeners', () => {
     beforeEach(() => {
-      wrapper = shallow(<Form />);
+      wrapper = shallow(<Form formAction='foo' />);
       instance = wrapper.instance();
       instance._form = {};
       spyOn(ElementResize, 'removeListener');
@@ -157,7 +163,7 @@ describe('Form', () => {
 
   describe('checkStickyFooter', () => {
     beforeEach(() => {
-      wrapper = shallow(<Form />);
+      wrapper = shallow(<Form formAction='foo' />);
     });
 
     it('sets stickyFooter state to true if form is bigger than window', () => {
@@ -281,9 +287,13 @@ describe('Form', () => {
       it('calls the beforeFormValidation', () => {
         const spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
-          <Form beforeFormValidation={ spy }>
+          <Form formAction='foo' beforeFormValidation={ spy }>
             <Textbox
-              validations={ [new Validation()] } name='test'
+              validations={ [new Validation()] } name='test1'
+              value='Valid'
+            />
+            <Textbox
+              validations={ [new Validation()] } name='test2'
               value='Valid'
             />
           </Form>
@@ -298,7 +308,11 @@ describe('Form', () => {
       it('calls the afterFormValidation', (done) => {
         const spy = jest.fn();
         instance = TestUtils.renderIntoDocument(
-          <Form afterFormValidation={ spy } validate={ () => true }>
+          <Form
+            formAction='foo'
+            afterFormValidation={ spy }
+            validate={ () => true }
+          >
             <Textbox
               validations={ [new Validation()] } name='test'
               value='Valid'
@@ -318,7 +332,11 @@ describe('Form', () => {
       it('state.submitted should be true after form has been submitted', () => {
         const spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
-          <Form autoDisable onSubmit={ spy }>
+          <Form
+            autoDisable
+            onSubmit={ spy }
+            validate={ () => true }
+          >
             <Textbox
               validations={ [new Validation()] } name='test'
               value='Valid'
@@ -334,7 +352,8 @@ describe('Form', () => {
         const spy = jest.fn();
         instance = TestUtils.renderIntoDocument(
           <Form
-            autoDisable onSubmit={ spy }
+            autoDisable
+            onSubmit={ spy }
             validate={ () => true }
           >
             <Textbox
@@ -359,7 +378,8 @@ describe('Form', () => {
         const spy = jest.fn();
         instance = TestUtils.renderIntoDocument(
           <Form
-            autoDisable onSubmit={ spy }
+            autoDisable
+            onSubmit={ spy }
             validate={ () => false }
           >
             <Textbox
@@ -379,9 +399,10 @@ describe('Form', () => {
     describe('when autoDisabled prop is NOT passed,', () => {
       it('after submit', () => {
         instance = TestUtils.renderIntoDocument(
-          <Form>
+          <Form formAction='foo'>
             <Textbox
-              validations={ [new Validation()] } name='test'
+              validations={ [new Validation()] }
+              name='test'
               value='Valid'
             />
           </Form>
@@ -435,7 +456,7 @@ describe('Form', () => {
   describe('serialize', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
-        <Form>
+        <Form formAction='foo'>
           <Textbox name='model[test]' value='foo' />
         </Form>
       );
@@ -485,7 +506,7 @@ describe('Form', () => {
             onCancel={ spy }
           >
 
-            <Form>
+            <Form formAction='foo'>
               <Textbox
                 name='name'
                 onChange={ jest.fn() }
@@ -505,7 +526,7 @@ describe('Form', () => {
       it('calls onCancel', () => {
         const spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
-          <Form onCancel={ spy }>
+          <Form formAction='foo' onCancel={ spy }>
             <Textbox />
           </Form>
         );
@@ -524,7 +545,7 @@ describe('Form', () => {
 
   describe('stickyFooterPadding', () => {
     it('adds padding if defined', () => {
-      wrapper = shallow(<Form stickyFooterPadding='500' />);
+      wrapper = shallow(<Form formAction='foo' stickyFooterPadding='500' />);
       const footer = wrapper.find('.carbon-form__buttons');
       expect(footer.props().style.borderWidth).toEqual('500px');
     });
@@ -533,7 +554,7 @@ describe('Form', () => {
   describe('saveText', () => {
     describe('if prop is passed', () => {
       it('returns the prop value', () => {
-        instance = TestUtils.renderIntoDocument(<Form saveText='custom' />);
+        instance = TestUtils.renderIntoDocument(<Form formAction='foo' saveText='custom' />);
         const save = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
         expect(save.textContent).toEqual('custom');
       });
@@ -541,7 +562,7 @@ describe('Form', () => {
 
     describe('if no prop is passed', () => {
       it('returns i18n value', () => {
-        instance = TestUtils.renderIntoDocument(<Form />);
+        instance = TestUtils.renderIntoDocument(<Form formAction='foo' />);
         const save = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
         expect(save.textContent).toEqual('Save');
       });
@@ -571,7 +592,7 @@ describe('Form', () => {
           .mockReturnValueOnce(fakeMeta1)
           .mockReturnValue(fakeMeta2);
 
-        instance = TestUtils.renderIntoDocument(<Form />);
+        instance = TestUtils.renderIntoDocument(<Form formAction='foo' />);
 
         csrf = TestUtils.findRenderedDOMComponentWithTag(instance, 'input');
       });
@@ -596,7 +617,7 @@ describe('Form', () => {
 
     describe('buttons', () => {
       beforeEach(() => {
-        wrapper = mount(<Form />);
+        wrapper = mount(<Form formAction='foo' />);
       });
 
       describe('the save button', () => {
@@ -610,6 +631,7 @@ describe('Form', () => {
           beforeEach(() => {
             wrapper = shallow(
               <Form
+                formAction='foo'
                 cancelText='Some custom text'
                 saveText='Some custom save text'
                 saving={ false }
@@ -644,6 +666,7 @@ describe('Form', () => {
             const customButton = (<Button className='my-custom-class'>Save</Button>);
             wrapper = shallow(
               <Form
+                formAction='foo'
                 cancelText='Some custom text'
                 saveText='Some custom save text'
                 saving={ false }
@@ -666,14 +689,14 @@ describe('Form', () => {
     describe('Cancel Button', () => {
       describe('when cancel prop is false', () => {
         it('does not show a cancel button', () => {
-          wrapper = shallow(<Form cancel={ false } />);
+          wrapper = shallow(<Form formAction='foo' cancel={ false } />);
           expect(wrapper.find(CancelButton).length).toEqual(0);
         });
       });
 
       describe('when cancel props is true (default)', () => {
         it('does show a cancel button', () => {
-          wrapper = shallow(<Form />);
+          wrapper = shallow(<Form formAction='foo' />);
           expect(wrapper.find(CancelButton).length).toEqual(1);
         });
       });
@@ -682,14 +705,14 @@ describe('Form', () => {
     describe('Summary', () => {
       describe('when showSummary prop is false', () => {
         it('does not show a form summary', () => {
-          wrapper = shallow(<Form showSummary={ false } />);
+          wrapper = shallow(<Form formAction='foo' showSummary={ false } />);
           expect(wrapper.find(FormSummary).length).toEqual(0);
         });
       });
 
       describe('when showSummary prop is true (default)', () => {
         it('does show a form summary', () => {
-          wrapper = shallow(<Form />);
+          wrapper = shallow(<Form formAction='foo' />);
           expect(wrapper.find(FormSummary).length).toEqual(1);
         });
       });
@@ -698,14 +721,14 @@ describe('Form', () => {
     describe('Save Button', () => {
       describe('when save prop is false', () => {
         it('does not show a save button', () => {
-          wrapper = shallow(<Form save={ false } />);
+          wrapper = shallow(<Form formAction='foo' save={ false } />);
           expect(wrapper.find(SaveButton).length).toEqual(0);
         });
       });
 
       describe('when save props is true (default)', () => {
         it('does show a save button', () => {
-          wrapper = shallow(<Form />);
+          wrapper = shallow(<Form formAction='foo' />);
           expect(wrapper.find(SaveButton).length).toEqual(1);
         });
       });
@@ -714,14 +737,14 @@ describe('Form', () => {
     describe('additionalActions', () => {
       describe('if none defined', () => {
         it('returns null', () => {
-          instance = TestUtils.renderIntoDocument(<Form />);
+          instance = TestUtils.renderIntoDocument(<Form formAction='foo' />);
           expect(instance.additionalActions('additionalActions')).toBe(null);
         });
       });
 
       describe('if defined', () => {
         it('returns the action', () => {
-          instance = TestUtils.renderIntoDocument(<Form additionalActions={ <span /> } />);
+          instance = TestUtils.renderIntoDocument(<Form formAction='foo' additionalActions={ <span /> } />);
           expect(instance.additionalActions('additionalActions').props.className)
             .toEqual('carbon-form__additional-actions');
         });
@@ -729,7 +752,7 @@ describe('Form', () => {
 
       describe('leftAlignedActions', () => {
         it('returns the action', () => {
-          instance = TestUtils.renderIntoDocument(<Form leftAlignedActions={ <span /> } />);
+          instance = TestUtils.renderIntoDocument(<Form formAction='foo' leftAlignedActions={ <span /> } />);
           expect(instance.additionalActions('leftAlignedActions').props.className)
             .toEqual('carbon-form__left-aligned-actions');
         });
@@ -737,9 +760,72 @@ describe('Form', () => {
 
       describe('rightAlignedActions', () => {
         it('returns the action', () => {
-          instance = TestUtils.renderIntoDocument(<Form rightAlignedActions={ <span /> } />);
+          instance = TestUtils.renderIntoDocument(<Form formAction='foo' rightAlignedActions={ <span /> } />);
           expect(instance.additionalActions('rightAlignedActions').props.className)
             .toEqual('carbon-form__right-aligned-actions');
+        });
+      });
+    });
+
+    describe('setting the form redirect path', () => {
+      it('defaults to the windows current href path if no prop is passed', () => {
+        wrapper = shallow(<Form formAction='foo' />).instance();
+        expect(wrapper.redirectPath).toEqual(wrapper._window.location.href);
+      });
+
+      it('sets it to the value of the redirectPath prop if one is passed', () => {
+        wrapper = shallow(<Form formAction='foo' redirectPath='/foo/bar' />).instance();
+        expect(wrapper.redirectPath).toEqual('/foo/bar');
+      });
+    });
+
+    describe('Submitting form with uncontrolled input', () => {
+      it('calls the default form submit() function', () => {
+        instance = TestUtils.renderIntoDocument(
+          <Form formAction='foo' validate={ () => true } />
+        );
+        const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        const spy = spyOn(instance, 'addOtherInputsToState');
+        TestUtils.Simulate.submit(form);
+        expect(spy).not.toHaveBeenCalled();
+      });
+    });
+
+    describe('Submitting form with uncontrolled input', () => {
+      it('makes a default fetch request when no onSubmit prop is passed', (done) => {
+        const mockSuccess = { foo: 'bar' };
+        const mockJson = Promise.resolve(mockSuccess);
+        const mockFetch = Promise.resolve({
+          json: () => mockJson
+        });
+        const action = 'foo';
+        global.fetch = jest.fn().mockImplementation(() => mockFetch);
+
+        wrapper = mount(
+          <Form validate={ () => true } formAction={ action }>
+            <Textbox
+              validations={ [new Validation()] }
+              name='foo'
+              value='foo'
+            />
+          </Form>
+        );
+
+        expect(wrapper.instance().submitControlledForm(action)).resolves.toEqual(mockSuccess);
+        expect(global.fetch).toHaveBeenCalledTimes(1);
+
+        process.nextTick(() => {
+          expect(wrapper.state()).toEqual({
+            submitted: false,
+            formInputs: {
+              foo: 'foo'
+            },
+            isDirty: false
+          });
+
+          global.fetch.mockClear();
+          delete global.fetch;
+          done();
         });
       });
     });
@@ -747,7 +833,13 @@ describe('Form', () => {
 
   describe('tags', () => {
     describe('on component', () => {
-      const wrapper2 = shallow(<Form data-element='bar' data-role='baz' />);
+      const wrapper2 = shallow(
+        <Form
+          formAction='foo'
+          data-element='bar'
+          data-role='baz'
+        />
+      );
 
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapper2, 'form', 'bar', 'baz');

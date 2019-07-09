@@ -10,7 +10,7 @@ const Info = (
     <p>In your file</p>
 
     <StoryCode padded>
-      {'import Form from "carbon-react/lib/components/form";'}
+      {'import Form from "carbon-react/lib/__experimental__/components/form";'}
     </StoryCode>
 
     <p>To render a Form:</p>

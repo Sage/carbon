@@ -23,9 +23,7 @@ class FormWithoutValidations extends React.Component {
     /** Tracks if the form is clean or dirty, used by unsavedWarning */
     isDirty: false,
     /** Tracks if the saveButton should be disabled */
-    submitted: false,
-    /** Stores state of form data */
-    formInputs: {}
+    submitted: false
   }
 
   /**
@@ -58,7 +56,7 @@ class FormWithoutValidations extends React.Component {
       this.addUnsavedWarningListener();
     }
 
-    if (this.props.redirectUrl) this.redirectUrl = this.props.redirectUrl;
+    if (this.props.redirectPath) this.redirectPath = this.props.redirectPath;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -189,7 +187,7 @@ class FormWithoutValidations extends React.Component {
   /**
    * Sets the page to load on submit of form.
    */
-  redirectUrl = this._window.location.href;
+  redirectPath = this._window.location.href;
 
   /**
    * Handles submit and runs validation.
@@ -205,7 +203,7 @@ class FormWithoutValidations extends React.Component {
       this.props.beforeFormValidation(ev);
     }
 
-    const valid = await this.props.validate();
+    const valid = this.props.validate ? await this.props.validate() : false;
 
     if (this.props.afterFormValidation) {
       this.props.afterFormValidation(ev, valid, this.enableForm);
@@ -241,29 +239,30 @@ class FormWithoutValidations extends React.Component {
         this.addInputDataToState(inputName, value);
       }
     });
-    this.submitForm();
+    this.submitControlledForm();
   }
 
-  submitForm() {
-    fetch(this.props.formAction, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json'
-      },
-      method: 'post',
-      body: JSON.stringify(this.state.formInputs)
-    }).then((response) => {
-      if (![200, 201, 202].includes(response.status)) {
-        throw new Error(response.statusText);
-      }
-      return response.json();
-    }).then(() => this.clearFormData())
-      .catch(error => Promise.reject(error));
+  async submitControlledForm() {
+    try {
+      const response = await fetch(
+        this.props.formAction, {
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json'
+          },
+          method: 'post',
+          body: JSON.stringify(this.state.formInputs)
+        }
+      );
+      return this.clearFormData(await response.json);
+    } catch (error) {
+      return Promise.reject(error);
+    }
   }
 
-  clearFormData() {
-    this._window.location.href = this.redirectUrl;
-    this.setState({ formInputs: {}, submitted: true });
+  clearFormData(json) {
+    this._window.location.href = this.redirectPath;
+    return json();
   }
 
   /**
@@ -596,7 +595,7 @@ FormWithoutValidations.propTypes = {
     }
   },
 
-  redirectUrl: PropTypes.string
+  redirectPath: PropTypes.string
 };
 
 FormWithoutValidations.defaultProps = {
