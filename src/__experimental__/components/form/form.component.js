@@ -4,16 +4,13 @@ import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import Serialize from 'form-serialize';
 import { kebabCase } from 'lodash';
-
 import CancelButton from './cancel-button';
 import FormSummary from './form-summary';
 import SaveButton from './save-button';
 import AppWrapper from '../../../components/app-wrapper';
-
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
 import Browser from '../../../utils/helpers/browser';
-
 import { withValidations } from '../../../components/validations';
 import ElementResize from '../../../utils/helpers/element-resize';
 import './form.scss';
@@ -26,9 +23,7 @@ class FormWithoutValidations extends React.Component {
     submitted: false
   }
 
-  /**
-   * Returns form object to child components.
-   */
+  /* Returns form object to child components. */
   getChildContext = () => {
     return {
       form: {
@@ -40,9 +35,7 @@ class FormWithoutValidations extends React.Component {
     };
   }
 
-  /**
-   * Runs once the component has mounted.
-   */
+  /* Runs once the component has mounted. */
   componentDidMount() {
     if (this.props.stickyFooter) {
       this.addStickyFooterListeners();
@@ -87,9 +80,7 @@ class FormWithoutValidations extends React.Component {
     }
   }
 
-  /**
-   * Gets the current active input.
-   */
+  /* Gets the current active input. */
   getActiveInput = () => {
     return this.activeInput;
   }
@@ -102,18 +93,14 @@ class FormWithoutValidations extends React.Component {
     this.activeInput = input;
   }
 
-  /**
-   * Sets the form to Dirty
-   */
+  /* Sets the form to Dirty */
   setIsDirty = () => {
     if (!this.state.isDirty) {
       this.setState({ isDirty: true });
     }
   }
 
-  /**
-   * Sets the form to Clean
-   */
+  /* Sets the form to Clean */
   resetIsDirty = () => {
     if (this.state.isDirty) {
       this.setState({ isDirty: false });
@@ -174,24 +161,16 @@ class FormWithoutValidations extends React.Component {
   }
   /* eslint-enable consistent-return */
 
-  /**
-   * stores the document - allows us to override it different contexts, such as  when running tests.
-   */
+  /* stores the document - allows us to override it different contexts, such as  when running tests. */
   _document = Browser.getDocument();
 
-  /**
-   * stores the window - allows us to override it different contexts, such as when running tests.
-   */
+  /* stores the window - allows us to override it different contexts, such as when running tests. */
   _window = Browser.getWindow();
 
-  /**
-   * Sets the page to load on submit of form.
-   */
+  /* Sets the page to load on submit of form. */
   redirectPath = this._window.location.href;
 
-  /**
-   * Handles submit and runs validation.
-   */
+  /* Handles submit and runs validation. */
   handleOnSubmit = async (ev) => {
     ev.preventDefault();
 
@@ -227,9 +206,7 @@ class FormWithoutValidations extends React.Component {
     }
   }
 
-  /**
-   * Add all inputs to state so that all are submitted.
-   */
+  /* Add all inputs to state so that all are submitted. */
   addOtherInputsToState() {
     Object.keys(this._form.elements).forEach((id) => {
       const { name, value, type } = this._form.elements[id];
@@ -265,9 +242,7 @@ class FormWithoutValidations extends React.Component {
     return json();
   }
 
-  /**
-   * enables a form which has been disabled after being submitted.
-   */
+  /* enables a form which has been disabled after being submitted. */
   enableForm = () => {
     this.setState({ submitted: false });
   }
@@ -275,25 +250,19 @@ class FormWithoutValidations extends React.Component {
   /**
    * Serializes the inputs in the form ready for submission via AJAX
    * https://www.npmjs.com/package/form-serialize
-   *
    */
   serialize = (opts) => {
     return Serialize(this._form, opts);
   }
 
-  /**
-   * Separates and returns HTML specific props
-   *
-   */
+  /** Separates and returns HTML specific props */
   htmlProps = () => {
     const { onSubmit, ...props } = validProps(this);
     props.className = this.mainClasses;
     return props;
   }
 
-  /**
-   * Redirects to the previous page; uses React Router history, or uses modalcancel handler.
-   */
+  /** Redirects to the previous page; uses React Router history, or uses modalcancel handler. */
   cancelForm = () => {
     if (this.props.onCancel) {
       this.props.onCancel();
@@ -308,9 +277,7 @@ class FormWithoutValidations extends React.Component {
     }
   }
 
-  /**
-   * Gets the cancel button for the form
-   */
+  /** Gets the cancel button for the form */
   cancelButton = () => {
     if (!this.props.cancel) { return null; }
 
@@ -328,9 +295,7 @@ class FormWithoutValidations extends React.Component {
     );
   }
 
-  /**
-   * Gets any additional actions passed into the form
-   */
+  /** Gets any additional actions passed into the form */
   additionalActions = (type) => {
     if (!this.props[type]) { return null; }
 
@@ -341,9 +306,7 @@ class FormWithoutValidations extends React.Component {
     );
   }
 
-  /**
-   * The default Save button for the form
-   */
+  /** The default Save button for the form */
   defaultSaveButton = () => {
     return (
       <SaveButton
@@ -354,19 +317,14 @@ class FormWithoutValidations extends React.Component {
     );
   }
 
-  /**
-   * Returns a custom save button if passed in
-   * the default if not
-   */
+  /** Returns a custom save button if passed in the default if not */
   saveButton = () => {
     if (!this.props.save) { return null; }
 
     return this.props.customSaveButton ? this.props.customSaveButton : this.defaultSaveButton();
   }
 
-  /**
-   * Returns a form summary
-   */
+  /** Returns a form summary */
   saveButtonWithSummary = () => {
     return (
       <FormSummary
@@ -379,9 +337,7 @@ class FormWithoutValidations extends React.Component {
     );
   }
 
-  /**
-   * Returns the footer for the form
-   */
+  /** Returns the footer for the form  */
   formFooter = () => {
     const save = this.props.showSummary ? this.saveButtonWithSummary() : this.saveButton();
     let padding = this.props.stickyFooterPadding;
@@ -403,9 +359,7 @@ class FormWithoutValidations extends React.Component {
     );
   }
 
-  /**
-   * Main class getter
-   */
+  /** Main class getter */
   get mainClasses() {
     return classNames(
       'carbon-form',
@@ -415,9 +369,7 @@ class FormWithoutValidations extends React.Component {
     );
   }
 
-  /**
-   * Button class getter
-   */
+  /** Button class getter */
   get footerClasses() {
     return classNames(
       'carbon-form__buttons',
@@ -425,9 +377,7 @@ class FormWithoutValidations extends React.Component {
     );
   }
 
-  /**
-   * Store children controlled data in state
-   */
+  /** Store children controlled data in state */
   addInputDataToState = (name, value) => {
     this.setState(prevState => ({
       formInputs: {
@@ -437,9 +387,7 @@ class FormWithoutValidations extends React.Component {
     }));
   }
 
-  /**
-   * Clone the children, pass in callback to allow form to store controlled data
-   */
+  /** Clone the children, pass in callback to allow form to store controlled data */
   renderChildren() {
     const { children } = this.props;
 
@@ -452,9 +400,7 @@ class FormWithoutValidations extends React.Component {
     });
   }
 
-  /**
-   * Renders the component.
-   */
+  /** Renders the component. */
   render() {
     return (
       <form
@@ -473,9 +419,7 @@ class FormWithoutValidations extends React.Component {
   }
 }
 
-/**
- * Creates and returns CSRF token for input field
- */
+/** Creates and returns CSRF token for input field */
 function generateCSRFToken(doc) {
   const csrfParam = doc.querySelector('meta[name="csrf-param"]');
   const csrfToken = doc.querySelector('meta[name="csrf-token"]');
@@ -499,12 +443,10 @@ FormWithoutValidations.propTypes = {
   /** Cancel button is shown if true */
   cancel: PropTypes.bool,
 
-  /** Custom function that is called immediately
-   * after the form validates */
+  /** Custom function that is called immediately after the form validates */
   afterFormValidation: PropTypes.func,
 
-  /** Custom function that is called immediately
-   * before the form validates */
+  /** Custom function that is called immediately before the form validates */
   beforeFormValidation: PropTypes.func,
 
   /** Alignment of submit button */
@@ -613,9 +555,6 @@ FormWithoutValidations.childContextTypes = {
   /**
    * Defines a context object for child components of the form component.
    * https://facebook.github.io/react/docs/context.html
-   *
-   * @property form
-   * @type {Object}
    */
   form: PropTypes.object
 };

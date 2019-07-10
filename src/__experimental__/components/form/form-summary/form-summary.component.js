@@ -3,48 +3,25 @@ import I18n from 'i18n-js';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../../utils/helpers/tags';
-
 import Icon from '../../../../components/icon';
 import './form-summary.scss';
-/**
- * Adds an 's' to pluralise (keys will always be error or warning)
- *
- * @param {string} key
- * @return {string} pluralized key
- */
+
+/** Adds an 's' to pluralise (keys will always be error or warning) */
 const pluralize = (key) => {
   return `${key}s`;
 };
 
-/**
- * decides whether the warning message should be appended to the sentence or output as a sentence on it's own
- *
- * @param {object} props
- * @param {string} key
- * @return {boolean} true if the warning message needs to be appended
- */
+/** decides whether the warning message should be appended to the sentence or output as a sentence on it's own */
 const warningAppend = (props, key) => {
   return props.errors > 0 && props.warnings > 0 && key === 'warning';
 };
 
-/**
- * finds the correct translation key
- *
- * @param {object} props
- * @param {string} key
- * @return {string} correct key
- */
+/** finds the correct translation key */
 const translationKey = (props, key) => {
   return warningAppend(props, key) ? 'errors_and_warnings' : pluralize(key);
 };
 
-/**
- * Returns the default translation set
- *
- * @param {number} errorCount
- * @param {number} warningCount
- * @return {object} default translations
- */
+/** Returns the default translation set */
 const defaultTranslations = (errorCount, warningCount) => {
   return {
     errors: {
@@ -71,13 +48,7 @@ const defaultTranslations = (errorCount, warningCount) => {
   };
 };
 
-/**
- * gets the correct translation
- *
- * @param {object} props
- * @param {string} key
- * @return {string} correct translation
- */
+/** gets the correct translation */
 const translation = (props, key) => {
   const parsedKey = translationKey(props, key);
 
@@ -87,13 +58,7 @@ const translation = (props, key) => {
   return I18n.t(location, defaultTranslation);
 };
 
-/**
- * builds a summary in JSX
- *
- * @param {object} props
- * @param {string} key
- * @return {JSX}
- */
+/** builds a summary in JSX */
 const summary = (props, key) => {
   if (props[pluralize(key)] > 0) {
     return (
@@ -135,6 +100,5 @@ FormSummary.propTypes = {
     PropTypes.number
   ])
 };
-
 
 export default FormSummary;

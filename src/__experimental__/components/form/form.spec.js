@@ -11,7 +11,6 @@ import SaveButton from './save-button';
 import FormSummary from './form-summary';
 import Button from '../../../components/button';
 import ElementResize from '../../../utils/helpers/element-resize';
-
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 /* global jest */
