@@ -15,19 +15,27 @@
     display: none;
   }
 
-  &__menu-toggle {
+  .demo-header-button {
     height: 36px;
     width: 102px;
+
+
+      [data-element='main-text'] {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+      }
   }
 
   // uses floats to fix firefox
-  &__menu-icon {
+  .demo-header__menu-icon {
     display: flex;
     float: left;
     width: 16px;
   }
 
-  &__menu-label {
+  .demo-header__menu-label {
     float: right;
     margin-left: 10px;
     width: 35px;
