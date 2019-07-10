@@ -112,7 +112,7 @@ PortraitInitials.propTypes = {
   /** Use a dark background. */
   darkBackground: PropTypes.bool,
   /** The shape of the Portrait. */
-  shape: PropTypes.oneOf(OptionsHelper.shapesVaried),
+  shape: PropTypes.oneOf([...OptionsHelper.shapesVaried, ...OptionsHelper.shapesPortrait]),
   /** The `alt` HTML string. */
   alt: PropTypes.string
 };

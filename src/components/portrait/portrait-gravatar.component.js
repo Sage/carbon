@@ -41,7 +41,7 @@ PortraitGravatar.propTypes = {
   /** The size of the Gravatar. */
   size: PropTypes.oneOf(OptionsHelper.sizesFull).isRequired,
   /** The shape of the Gravatar. */
-  shape: PropTypes.oneOf(OptionsHelper.shapesVaried),
+  shape: PropTypes.oneOf([...OptionsHelper.shapesVaried, ...OptionsHelper.shapesPortrait]),
   /** The `alt` HTML string. */
   alt: PropTypes.string
 };
