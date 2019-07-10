@@ -3,11 +3,14 @@ import React from 'react';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { mount } from 'enzyme';
-import Date, { defaultDateFormat } from './date.component';
+import DateInput, { defaultDateFormat } from './date.component';
 import DatePicker from './date-picker.component';
 import Textbox from '../textbox';
 import StyledDateInput from './date.style';
 import { THEMES } from '../../../style/themes';
+import DateHelper from '../../../utils/helpers/date/date';
+
+moment.suppressDeprecationWarnings = true;
 
 describe('StyledDateInput', () => {
   it('renders correctly for default theme', () => {
@@ -213,18 +216,45 @@ describe('Date', () => {
 
   describe('when the input value is changed', () => {
     let onChangeFn;
+    const mockTodayDate = '2019-04-11';
 
     beforeEach(() => {
+      jest.spyOn(DateHelper, 'todayFormatted').mockImplementation(() => mockTodayDate);
       onChangeFn = jest.fn();
       wrapper = render({ onChange: onChangeFn });
     });
 
     describe('to a valid date', () => {
       const validDate = '1 apr 2019';
+      const isoDate = '2019-04-01';
+      const visibleDate = '01/04/2019';
+      const jsDateObject = new Date(isoDate);
+      let mockedStringToDate;
 
-      it('then the "onChange" prop should have been called', () => {
+      beforeAll(() => {
+        mockedStringToDate = jest.spyOn(DateHelper, 'stringToDate').mockImplementation(() => jsDateObject);
+      });
+
+      it('then the "onChange" prop should have been called with ISO formatted date in payload value', () => {
         simulateChangeOnInput(wrapper, validDate);
-        expect(onChangeFn).toHaveBeenCalled();
+        expect(onChangeFn).toHaveBeenCalledWith({ target: { value: isoDate } });
+      });
+
+      it('then the "selectedDate" prop with proper Date Object should be passed to the DatePicker component', () => {
+        simulateFocusOnInput(wrapper);
+        simulateChangeOnInput(wrapper, validDate);
+        expect(wrapper.find(DatePicker).props().selectedDate).toBe(jsDateObject);
+      });
+
+      it("then the value of it's input should be changed to a locally formatted date", () => {
+        simulateChangeOnInput(wrapper, validDate);
+        simulateBlurOnInput(wrapper);
+        wrapper.update();
+        expect(wrapper.find('input').props().value).toBe(visibleDate);
+      });
+
+      afterAll(() => {
+        mockedStringToDate.mockRestore();
       });
     });
 
@@ -234,6 +264,19 @@ describe('Date', () => {
       it('then the "onChange" prop should not have been called', () => {
         simulateChangeOnInput(wrapper, invalidDate);
         expect(onChangeFn).not.toHaveBeenCalled();
+      });
+
+      it('then the "selectedDate" prop with JS Date set to today should be passed to the DatePicker component', () => {
+        wrapper.setProps({ value: invalidDate });
+        simulateFocusOnInput(wrapper);
+        expect(wrapper.find(DatePicker).props().selectedDate).toEqual(DateHelper.stringToDate(mockTodayDate));
+      });
+
+      it("then the value of it's input should not be changed", () => {
+        simulateChangeOnInput(wrapper, invalidDate);
+        simulateBlurOnInput(wrapper);
+        wrapper.update();
+        expect(wrapper.find('input').props().value).toBe(invalidDate);
       });
     });
   });
@@ -248,14 +291,12 @@ describe('Date', () => {
       onChangeFn = jest.fn();
       onFocusFn = jest.fn();
       onBlurFn = jest.fn();
-      wrapper = render(
-        {
-          [prop]: true,
-          onChange: onChangeFn,
-          onFocus: onFocusFn,
-          onBlur: onBlurFn
-        }
-      );
+      wrapper = render({
+        [prop]: true,
+        onChange: onChangeFn,
+        onFocus: onFocusFn,
+        onBlur: onBlurFn
+      });
     });
 
     it('then onBlur prop should not have been called', () => {
@@ -290,10 +331,10 @@ describe('Date', () => {
       let domNode;
 
       it('then the Datepicker should be closed', () => {
-        wrapper = mount(<div><Date /><span id='external' /></div>);
+        wrapper = mount(<div><DateInput /><span id='external' /></div>);
         domNode = wrapper.getDOMNode();
         document.body.appendChild(domNode);
-        simulateFocusOnInput(wrapper.find(Date));
+        simulateFocusOnInput(wrapper.find(DateInput));
         expect(wrapper.find(DatePicker).exists()).toBe(true);
         wrapper.find('#external').getDOMNode().dispatchEvent(nativeClickEvent);
         expect(wrapper.update().find(DatePicker).exists()).toBe(false);
@@ -308,7 +349,7 @@ describe('Date', () => {
     describe('when the "closeDatePicker" method has been called', () => {
       it('then the visible value should not change', () => {
         const mockDate = getFormattedDate(moment('2012-02-01'));
-        wrapper = mount(<Date value={ mockDate } />);
+        wrapper = mount(<DateInput value={ mockDate } />);
         wrapper.instance().closeDatePicker();
         const input = wrapper.find('input');
 
@@ -316,10 +357,30 @@ describe('Date', () => {
       });
     });
   });
+
+  describe('when additional validations are provided with the "validations" prop', () => {
+    const mockValidationFunction = () => {};
+
+    describe('as a function', () => {
+      it('then these validations should be passed with internal validations to the Textbox Component', () => {
+        wrapper = render({ validations: mockValidationFunction });
+        const { internalValidations } = wrapper.instance().props;
+        expect(wrapper.find(Textbox).props().validations).toEqual([mockValidationFunction, ...internalValidations]);
+      });
+    });
+
+    describe('as an array', () => {
+      it('then these validations should be passed with internal validations to the Textbox Component', () => {
+        wrapper = render({ validations: [mockValidationFunction] });
+        const { internalValidations } = wrapper.instance().props;
+        expect(wrapper.find(Textbox).props().validations).toEqual([mockValidationFunction, ...internalValidations]);
+      });
+    });
+  });
 });
 
 function render(props, renderer = mount) {
-  return renderer(<Date { ...props } />);
+  return renderer(<DateInput { ...props } />);
 }
 
 function getFormattedDate(date) {
