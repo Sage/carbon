@@ -39,7 +39,7 @@ describe('PortraitInitials', () => {
 
   describe('componentWillReceiveProps', () => {
     const originalProps = {
-      initials: 'foo', size: 'medium', darkBackground: false, theme: mediumTheme
+      initials: 'foo', size: 'XXL', darkBackground: false, theme: mediumTheme
     };
     const cachedImageDataUrl = 'foobar';
     let props, instance;
@@ -66,7 +66,7 @@ describe('PortraitInitials', () => {
     });
 
     it('clears the cached initials if size changes', () => {
-      props.size = 'large';
+      props.size = 'S';
       instance.componentWillReceiveProps(props);
       expect(instance.cachedImageDataUrl).toEqual(null);
     });
@@ -87,7 +87,7 @@ describe('PortraitInitials', () => {
     let instance;
 
     beforeEach(() => {
-      instance = render(<PortraitInitials initials='abc' size='medium' />);
+      instance = render(<PortraitInitials initials='abc' size='XXL' />);
     });
 
     it('returns the cached result if cached', () => {
@@ -109,7 +109,7 @@ describe('PortraitInitials', () => {
 
     it('returns first 3 initials uppercased if more than 3 are supplied', () => {
       spyOn(canvasContext, 'fillText');
-      const instance = render(<PortraitInitials initials='abcde' size='medium' />);
+      const instance = render(<PortraitInitials initials='abcde' size='XXL' />);
       instance.applyText(canvasContext, 30);
       expect(canvasContext.fillText).toHaveBeenCalledWith('ABC', 15, 20);
     });
@@ -117,7 +117,7 @@ describe('PortraitInitials', () => {
     it('uses the specified text color and background color', () => {
       const textColor = '#111111';
       const bgColor = '#222222';
-      const instance = render(<PortraitInitials initials='abc' size='medium' />);
+      const instance = render(<PortraitInitials initials='abc' size='XXL' />);
       instance.applyBackground(canvasContext, 30, bgColor);
       expect(canvasContext.fillStyle).toEqual(bgColor);
       instance.applyText(canvasContext, 30, textColor);

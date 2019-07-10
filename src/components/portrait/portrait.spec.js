@@ -67,7 +67,7 @@ describe('PortraitComponent', () => {
 
     describe('size', () => {
       it('accepts a valid size', () => {
-        renderDLS(<Portrait src='foo' size='small' />);
+        renderDLS(<Portrait src='foo' size='XXL' />);
         expect(console.error).toHaveBeenCalledTimes(0);
       });
 
@@ -107,12 +107,12 @@ describe('PortraitComponent', () => {
 
     describe('src', () => {
       it('accepts a valid src', () => {
-        renderDLS(<Portrait src='https://example.com/example.png' size='small' />);
+        renderDLS(<Portrait src='https://example.com/example.png' size='XXL' />);
         expect(console.error).toHaveBeenCalledTimes(0);
       });
 
       it('rejects an invalid src', () => {
-        renderDLS(<Portrait src={ 42 } size='small' />);
+        renderDLS(<Portrait src={ 42 } size='XXL' />);
         expect(console.error).toHaveBeenCalled();
         expect(console.error.calls.argsFor(0).length).toBe(1);
         const expected = 'Invalid prop `src` of type `number` supplied to `Portrait`, expected `string`.';
@@ -137,7 +137,7 @@ describe('PortraitComponent', () => {
 
   describe('render icon', () => {
     const expectedProps = {
-      type: 'individual', size: 'medium', shape: 'square', darkBackground: false
+      type: 'individual', size: 'XXL', shape: 'square', darkBackground: false
     };
 
     const testSuccess = element => renderFindTypeSuccess(element, StyledIcon, expectedProps);
@@ -147,7 +147,7 @@ describe('PortraitComponent', () => {
       testSuccess(
         <Portrait
           gravatar='example@example.com'
-          size='medium'
+          size='XXL'
           shape='square'
           darkBackground={ false }
         />
@@ -159,7 +159,7 @@ describe('PortraitComponent', () => {
         <Portrait
           gravatar='example@example.com'
           initials=''
-          size='medium'
+          size='XXL'
           shape='square'
           darkBackground={ false }
         />
@@ -230,7 +230,7 @@ describe('PortraitComponent', () => {
 
   describe('render initials', () => {
     const expectedProps = {
-      initials: 'AB', size: 'medium', alt: '', darkBackground: false
+      initials: 'AB', size: 'M', alt: '', darkBackground: false
     };
 
     const testSuccess = element => renderFindTypeSuccess(element, PortraitInitials, expectedProps);
@@ -261,7 +261,7 @@ describe('PortraitComponent', () => {
     it('can render the DLS theme', () => {
       spyOn(console, 'error');
       const props = {
-        size: 'medium', initials: 'AB', darkBackground: false, theme: mediumTheme
+        size: 'XXL', initials: 'AB', darkBackground: false, theme: mediumTheme
       };
       renderDLS(<PortraitInitials { ...props } />);
       props.darkBackground = true;
@@ -285,7 +285,7 @@ describe('PortraitComponent', () => {
     const gravatarEmail = 'example@example.com';
 
     const expectedProps = {
-      gravatarEmail, size: 'medium', alt: 'foo'
+      gravatarEmail, size: 'M', alt: 'foo'
     };
 
     const testSuccess = element => renderFindTypeSuccess(element, PortraitGravatar, expectedProps);
@@ -319,7 +319,7 @@ describe('PortraitComponent', () => {
       testSuccess(
         <Portrait src={ imageUrl } alt='foo' />,
         {
-          src: imageUrl, alt: 'foo', size: 'medium', 'data-element': 'user-image'
+          src: imageUrl, alt: 'foo', size: 'M', 'data-element': 'user-image'
         }
       );
     });
@@ -328,7 +328,7 @@ describe('PortraitComponent', () => {
       testSuccess(
         <Portrait src={ imageUrl } alt='' />,
         {
-          src: imageUrl, alt: '', size: 'medium', 'data-element': 'user-image'
+          src: imageUrl, alt: '', size: 'M', 'data-element': 'user-image'
         }
       );
     });
@@ -337,7 +337,7 @@ describe('PortraitComponent', () => {
       testSuccess(
         <Portrait src={ imageUrl } />,
         {
-          src: imageUrl, alt: '', size: 'medium', 'data-element': 'user-image'
+          src: imageUrl, alt: '', size: 'M', 'data-element': 'user-image'
         }
       );
     });

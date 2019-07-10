@@ -12,7 +12,7 @@ describe('PortraitGravatar', () => {
         <PortraitGravatar
           theme={ mediumTheme }
           gravatarEmail={ email }
-          size='medium'
+          size='ML'
         />
       );
       const src = rendered.toTree().instance.gravatarSrc();
