@@ -118,6 +118,7 @@ PortraitInitials.propTypes = {
 };
 
 PortraitInitials.defaultProps = {
+  shape: 'square',
   theme: BaseTheme
 };
 

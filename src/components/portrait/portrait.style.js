@@ -101,7 +101,7 @@ StyledPortraitInitials.propTypes = {
 
 StyledPortraitInitials.defaultProps = {
   theme: BaseTheme,
-  shape: 'standard'
+  shape: 'square'
 };
 
 
@@ -168,7 +168,7 @@ StyledIcon.propTypes = {
 StyledIcon.defaultProps = {
   darkBackground: false,
   size: 'medium',
-  shape: 'standard',
+  shape: 'square',
   theme: BaseTheme
 };
 

@@ -106,7 +106,7 @@ Portrait.propTypes = {
 
 Portrait.defaultProps = {
   size: 'medium',
-  shape: 'standard',
+  shape: 'square',
   darkBackground: false,
   alt: ''
 };

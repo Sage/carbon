@@ -47,6 +47,7 @@ PortraitGravatar.propTypes = {
 };
 
 PortraitGravatar.defaultProps = {
+  shape: 'square',
   theme: BaseTheme
 };
 
