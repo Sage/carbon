@@ -6,6 +6,11 @@ exports[`Select does not apply any events if disabled or readonly 1`] = `
   aria-expanded={false}
   aria-haspopup="listbox"
   role="combobox"
+  style={
+    Object {
+      "minWidth": 75,
+    }
+  }
 >
   <WithUniqueName(WithValidation(Textbox))
     aria-label="Please Select..."
@@ -30,6 +35,11 @@ exports[`Select does not apply any events if disabled or readonly 2`] = `
   aria-expanded={false}
   aria-haspopup="listbox"
   role="combobox"
+  style={
+    Object {
+      "minWidth": 75,
+    }
+  }
 >
   <WithUniqueName(WithValidation(Textbox))
     aria-label="Please Select..."
@@ -54,6 +64,11 @@ exports[`Select renders only the Textbox when closed 1`] = `
   aria-expanded={false}
   aria-haspopup="listbox"
   role="combobox"
+  style={
+    Object {
+      "minWidth": 75,
+    }
+  }
 >
   <WithUniqueName(WithValidation(Textbox))
     aria-label="Please Select..."

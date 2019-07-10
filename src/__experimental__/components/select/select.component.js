@@ -275,6 +275,8 @@ class Select extends React.Component {
     return (
       <div
         role='combobox'
+        // move this to textbox style in DLS phase 2
+        style={ { minWidth: 75 } }
         aria-haspopup='listbox'
         aria-expanded={ open }
         aria-controls={ open ? this.listboxId : '' }
