@@ -16,13 +16,21 @@ import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 /* global jest */
 
 describe('Form', () => {
-  let instance, wrapper, validate;
+  let instance, wrapper, validate, mockSuccess, mockJson, mockFetch, action;
 
   beforeEach(() => {
     validate = jest.fn().mockImplementation(() => true);
     instance = TestUtils.renderIntoDocument(
       <Form formAction='foo' validate={ validate } />
     );
+
+    mockSuccess = { foo: 'bar' };
+    mockJson = Promise.resolve(mockSuccess);
+    mockFetch = Promise.resolve({
+      json: () => mockJson
+    });
+    action = 'foo';
+    global.fetch = jest.fn().mockImplementation(() => mockFetch);
   });
 
   describe('componentWillReceiveProps', () => {
@@ -789,45 +797,39 @@ describe('Form', () => {
         expect(spy).not.toHaveBeenCalled();
       });
     });
+  });
 
-    describe('Submitting form with uncontrolled input', () => {
-      it('makes a default fetch request when no onSubmit prop is passed', (done) => {
-        const mockSuccess = { foo: 'bar' };
-        const mockJson = Promise.resolve(mockSuccess);
-        const mockFetch = Promise.resolve({
-          json: () => mockJson
+  describe('Submitting form with controlled input', () => {
+    it('makes a default fetch request when no onSubmit prop is passed', (done) => {
+      wrapper = mount(
+        <Form validate={ () => true } formAction={ action }>
+          <Textbox
+            validations={ [new Validation()] }
+            name='foo'
+            value='foo'
+          />
+        </Form>
+      );
+
+      expect(wrapper.instance().submitControlledForm(action)).resolves.toEqual(mockSuccess);
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+
+      process.nextTick(() => {
+        expect(wrapper.state()).toEqual({
+          submitted: false,
+          formInputs: {
+            foo: 'foo'
+          },
+          isDirty: false
         });
-        const action = 'foo';
-        global.fetch = jest.fn().mockImplementation(() => mockFetch);
-
-        wrapper = mount(
-          <Form validate={ () => true } formAction={ action }>
-            <Textbox
-              validations={ [new Validation()] }
-              name='foo'
-              value='foo'
-            />
-          </Form>
-        );
-
-        expect(wrapper.instance().submitControlledForm(action)).resolves.toEqual(mockSuccess);
-        expect(global.fetch).toHaveBeenCalledTimes(1);
-
-        process.nextTick(() => {
-          expect(wrapper.state()).toEqual({
-            submitted: false,
-            formInputs: {
-              foo: 'foo'
-            },
-            isDirty: false
-          });
-
-          global.fetch.mockClear();
-          delete global.fetch;
-          done();
-        });
+        done();
       });
     });
+  });
+
+  afterEach(() => {
+    global.fetch.mockClear();
+    delete global.fetch;
   });
 
   describe('tags', () => {

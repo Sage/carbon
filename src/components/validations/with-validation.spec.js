@@ -405,8 +405,7 @@ describe('when the withValidations HOC wraps a component', () => {
 
   describe('Using passed context during update of validation status', () => {
     it('does not call adjust count when no context is provided but there is state', async () => {
-      const mockFunction = jest.fn();
-      wrapper = shallow(<InputComponent addInputToFormState={ mockFunction } name='foo' />, {});
+      wrapper = shallow(<InputComponent name='foo' />, {});
       wrapper.setState({ errorMessage: true, infoMessage: true, warningMessage: true });
 
       wrapper.setProps({

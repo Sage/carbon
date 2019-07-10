@@ -220,21 +220,17 @@ class FormWithoutValidations extends React.Component {
   }
 
   async submitControlledForm() {
-    try {
-      const response = await fetch(
-        this.props.formAction, {
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          method: 'post',
-          body: JSON.stringify(this.state.formInputs)
-        }
-      );
-      return this.clearFormData(await response.json());
-    } catch (error) {
-      return Promise.reject(error);
-    }
+    const response = await fetch(
+      this.props.formAction, {
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json'
+        },
+        method: 'post',
+        body: JSON.stringify(this.state.formInputs)
+      }
+    );
+    return this.clearFormData(await response.json());
   }
 
   clearFormData(json) {

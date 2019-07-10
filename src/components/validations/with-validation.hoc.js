@@ -152,11 +152,9 @@ const withValidation = (WrappedComponent) => {
       if (!this.context || !this.context.adjustCount) return;
 
       if (hasNewMessage && !hasExistingMessage) {
-        if (this.checkContext('adjustCount')) this.context.adjustCount(type, true);
-        // this.setState({ [stateProp]: message });
+        this.context.adjustCount(type, true);
       } else if (!hasNewMessage && hasExistingMessage) {
-        if (this.checkContext('adjustCount')) this.context.adjustCount(type);
-        // this.setState({ [stateProp]: '' });
+        this.context.adjustCount(type);
       }
     }
 
