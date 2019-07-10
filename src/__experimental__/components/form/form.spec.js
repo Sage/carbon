@@ -835,7 +835,6 @@ describe('Form', () => {
     describe('on component', () => {
       const wrapper2 = shallow(
         <Form
-          formAction='foo'
           data-element='bar'
           data-role='baz'
         />
