@@ -29,13 +29,13 @@
   }
 
   // uses floats to fix firefox
-  .demo-header__menu-icon {
+  &__menu-icon {
     display: flex;
     float: left;
     width: 16px;
   }
 
-  .demo-header__menu-label {
+  &__menu-label {
     float: right;
     margin-left: 10px;
     width: 35px;
