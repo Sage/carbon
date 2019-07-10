@@ -11,7 +11,8 @@ export default (palette) => {
         secondary: palette.productGreenShade(41),
         tertiary: palette.productGreenShade(61),
         whiteMix: palette.productGreenTint(90),
-        hoveredTabKeyline: palette.productGreenTint(30)
+        hoveredTabKeyline: palette.productGreenTint(30),
+        disabled: palette.productGreenTint(40)
       }
     }
   );
