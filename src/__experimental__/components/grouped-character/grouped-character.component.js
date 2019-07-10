@@ -31,17 +31,23 @@ const GroupedCharacter = (props) => {
     setTimeout(() => eventRef.setSelectionRange(newCursorPos, newCursorPos));
   };
 
+  const handleKeyPress = (ev) => {
+    const { selectionStart, selectionEnd } = ev.target;
+    const expectedLength = groups.reduce(toSum);
+    const hasSelection = selectionEnd - selectionStart > 0;
+
+    if (expectedLength === value.length && !hasSelection) {
+      ev.preventDefault();
+    }
+  };
+
   return (
     <Textbox
       { ...props }
       value={ generateGroups(groups, value).join(separator) }
       onChange={ handleChange }
       onKeyDown={ ({ which }) => updatePressedKey(which) }
-      onKeyPress={ (ev) => {
-        if (groups.reduce(toSum) === value.length) {
-          ev.preventDefault();
-        }
-      } }
+      onKeyPress={ handleKeyPress }
     />
   );
 };
