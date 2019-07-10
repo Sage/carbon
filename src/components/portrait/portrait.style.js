@@ -27,6 +27,7 @@ function stylingForShape({ shape }) {
   `;
 
   if (shape === 'standard') cssString += 'border-radius: 0px;';
+  if (shape === 'square') cssString += 'border-radius: 0px;';
   if (shape === 'circle') cssString += 'border-radius: 50%;';
   if (shape === 'leaf') cssString += 'border-radius: 10% 40% 10%;';
 
