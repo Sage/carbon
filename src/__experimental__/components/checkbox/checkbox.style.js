@@ -6,12 +6,11 @@ import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import StyledCheckboxSvgWrapper from './checkbox-svg-wrapper.style';
 import LabelStyle from '../label/label.style';
-import StyledHelp from '../help/help.style';
 import checkBoxClassicStyle from './checkbox-classic.style';
 
 const CheckboxStyle = styled.div`
   ${({
-    checked, disabled, error, fieldHelpInline, inputWidth, labelAlign, labelWidth, reverse, size, theme
+    checked, disabled, error, fieldHelpInline, inputWidth, reverse, size, theme
   }) => css`
     padding-top: 8px;
 
@@ -50,17 +49,7 @@ const CheckboxStyle = styled.div`
 
     ${LabelStyle} {
       padding: 0 6px;
-      text-align: ${labelAlign};
       width: auto;
-
-      & ${StyledHelp} {
-        color: ${theme.help.color};
-        vertical-align: bottom;
-
-        &:hover, &:focus {
-          color: ${theme.text.color};
-        }
-      }
     }
 
     ${FieldHelpStyle} {
@@ -70,6 +59,8 @@ const CheckboxStyle = styled.div`
     }
 
     ${size === 'large' && css`
+      ${StyledCheckboxSvgWrapper} { height: 24px; }
+
       ${StyledCheckableInput},
       ${HiddenCheckableInputStyle},
       ${StyledCheckboxSvgWrapper} > svg {
@@ -107,12 +98,6 @@ const CheckboxStyle = styled.div`
     `}
 
     ${disabled && `
-      ${LabelStyle} {
-        &, & ${StyledHelp} {
-          color: ${theme.disabled.disabled};
-        }
-      }
-
       svg {
         background-color: ${theme.disabled.input};
         border: 1px solid ${theme.disabled.border};
@@ -120,9 +105,7 @@ const CheckboxStyle = styled.div`
 
       svg path { fill: ${(checked ? theme.disabled.border : theme.disabled.input)}; }
 
-      ${HiddenCheckableInputStyle},
-      ${StyledCheckboxSvgWrapper},
-      ${LabelStyle} {
+      ${StyledCheckboxSvgWrapper} {
         &:hover, &:focus {
           outline: none;
           cursor: not-allowed;
@@ -138,26 +121,13 @@ const CheckboxStyle = styled.div`
 
     ${fieldHelpInline && `
       ${FieldHelpStyle} {
-        display: inline;
         margin: 0;
-        padding-left: 0;
-        width: auto;
       }
     `}
 
     ${inputWidth !== undefined && inputWidth !== 0 && `
-      ${StyledCheckableInput} {
-        width: ${inputWidth}%;
-      }
-
       ${FieldHelpStyle} {
-        ${reverse ? 'margin-right' : 'margin-left'}: ${inputWidth}%;
-      }
-    `}
-
-    ${labelWidth !== undefined && labelWidth !== 0 && `
-      ${LabelStyle} {
-        width: ${labelWidth}%;
+        ${reverse ? 'margin-right' : 'margin-left'}: ${inputWidth}% !important;
       }
     `}
 
@@ -185,7 +155,7 @@ CheckboxStyle.propTypes = {
   error: PropTypes.bool,
   fieldHelpInline: PropTypes.bool,
   inputWidth: PropTypes.number,
-  labeLAlign: PropTypes.string,
+  labelAlign: PropTypes.string,
   labelWidth: PropTypes.number,
   size: PropTypes.string
 };

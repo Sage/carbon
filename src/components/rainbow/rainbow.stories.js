@@ -3,23 +3,31 @@ import { storiesOf } from '@storybook/react';
 import { text, object } from '@storybook/addon-knobs';
 import Immutable from 'immutable';
 import Highcharts from 'highcharts';
-import Rainbow from './rainbow';
+import Rainbow from './rainbow.component';
 import { notes, info } from './documentation';
 
 global.Highcharts = Highcharts;
 const myImmutableData = Immutable.fromJS([
   {
-    y: 30,
+    y: 33,
     name: 'First Bit',
     label: 'label for first bit',
     tooltip: 'more info about this bit',
-    color: '#000'
+    color: '#00A376'
   },
   {
-    y: 70,
+    y: 33,
     name: 'Second Bit',
     label: 'label for second bit',
-    tooltip: 'more info about this bit'
+    tooltip: 'more info about this bit',
+    color: '#0077C8'
+  },
+  {
+    y: 33,
+    name: 'Third Bit',
+    label: 'label for third bit',
+    tooltip: 'more info about this bit',
+    color: '#582C83'
   }
 ]);
 

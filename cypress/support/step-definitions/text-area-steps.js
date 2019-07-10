@@ -2,14 +2,14 @@ import {
   textarea, textareaChildren, colsSlider, rowsSlider,
   characterLimit, textareaInput,
 } from '../../locators/textarea';
-import { setSlidebar, countCharacters } from '../helper';
+import { setSlidebar } from '../helper';
 import { fieldHelpPreview, label } from '../../locators';
 
 const TEXT_ALIGN = 'text-align';
 
 Then('Textarea component is expandable', () => {
   textareaChildren()
-    .should('have.attr', 'style', 'height: 50px;');
+    .should('have.attr', 'style', 'height: 44px;');
 });
 
 Then('Textarea component is not expandable', () => {
