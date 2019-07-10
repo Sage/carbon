@@ -3,13 +3,13 @@ import { isClassic } from '../../utils/helpers/style-helper';
 /* eslint-disable key-spacing, no-multi-spaces */
 
 const sizeParams = {
-  'extra-small':  { dimensions: 24,  iconDimensions: 16 },
-  small:          { dimensions: 32,  iconDimensions: 16 },
-  'medium-small': { dimensions: 40,  iconDimensions: 24 },
-  medium:         { dimensions: 56,  iconDimensions: 32 },
-  'medium-large': { dimensions: 72,  iconDimensions: 32 },
-  large:          { dimensions: 104, iconDimensions: 48 },
-  'extra-large':  { dimensions: 128, iconDimensions: 64 }
+  XS:  { dimensions: 24,  iconDimensions: 16 },
+  S:   { dimensions: 32,  iconDimensions: 16 },
+  M:   { dimensions: 40,  iconDimensions: 24 },
+  ML:  { dimensions: 56,  iconDimensions: 32 },
+  L:   { dimensions: 72,  iconDimensions: 32 },
+  XL:  { dimensions: 104, iconDimensions: 48 },
+  XXL: { dimensions: 128, iconDimensions: 64 }
 };
 
 const sizeParamsClassic = {
