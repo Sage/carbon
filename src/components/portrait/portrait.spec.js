@@ -39,7 +39,7 @@ function renderDLS(element) {
 function renderClassic(element) {
   return TestRenderer.create(
     <ThemeProvider theme={ classicTheme }>
-      {element}
+      {React.cloneElement(element, { theme: classicTheme })}
     </ThemeProvider>
   );
 }
@@ -189,7 +189,7 @@ describe('PortraitComponent', () => {
 
       /* eslint-disable no-console */
 
-      it('accepts a valid size', () => {
+      it('accepts a valid Classic size', () => {
         const styledIconDark = (
           <StyledIcon
             type='individual'
@@ -204,10 +204,28 @@ describe('PortraitComponent', () => {
             darkBackground={ false }
           />
         );
-        renderDLS(styledIconDark);
-        renderDLS(styledIconLight);
         renderClassic(styledIconDark);
         renderClassic(styledIconLight);
+        expect(console.error).toHaveBeenCalledTimes(0);
+      });
+
+      it('accepts a valid DLS size', () => {
+        const styledIconDark = (
+          <StyledIcon
+            type='individual'
+            size='XXL'
+            darkBackground
+          />
+        );
+        const styledIconLight = (
+          <StyledIcon
+            type='individual'
+            size='XXL'
+            darkBackground={ false }
+          />
+        );
+        renderDLS(styledIconDark);
+        renderDLS(styledIconLight);
         expect(console.error).toHaveBeenCalledTimes(0);
       });
 
@@ -237,7 +255,13 @@ describe('PortraitComponent', () => {
     const testFail = element => renderFindTypeFail(element, PortraitInitials);
 
     it('renders initials when supplied with Gravatar and initials but no src', () => {
-      renderClassic(<Portrait gravatar='example@example.com' initials='AB' />);
+      renderClassic(
+        <Portrait
+          gravatar='example@example.com'
+          initials='AB'
+          size='medium'
+        />
+      );
       testSuccess(<Portrait gravatar='example@example.com' initials='AB' />);
     });
 
