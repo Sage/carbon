@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Store, State } from '@sambego/storybook-state';
 import { text, object } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import GroupedCharacter from './grouped-character.component';
 import getCommonTextboxStoryProps from '../textbox/textbox.stories';
 import { OriginalTextbox } from '../textbox';
@@ -11,7 +12,10 @@ const groupedCharacterStore = new Store({
   value: ''
 });
 
-const onChange = (ev) => { groupedCharacterStore.set({ value: ev.target.value }); };
+const onChange = (ev) => {
+  groupedCharacterStore.set({ value: ev.target.value });
+  action('change')(ev);
+};
 
 storiesOf('Experimental/GroupedCharacter', module)
   .addParameters({

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Textbox from '../textbox';
 import { generateGroups, toSum, toIndexSteps } from './grouped-character.utils';
-import Events from '../../../utils/helpers/events/events';
+import Events from '../../../utils/helpers/events';
 
 const GroupedCharacter = (props) => {
   const [pressedKey, updatePressedKey] = useState(null);
@@ -44,7 +44,7 @@ const GroupedCharacter = (props) => {
   return (
     <Textbox
       { ...props }
-      value={ generateGroups(groups, value).join(separator) }
+      formattedValue={ generateGroups(groups, value).join(separator) }
       onChange={ handleChange }
       onKeyDown={ ({ which }) => updatePressedKey(which) }
       onKeyPress={ handleKeyPress }
