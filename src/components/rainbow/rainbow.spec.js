@@ -80,12 +80,10 @@ describe('Rainbow', () => {
     });
   });
 
-  describe('mainClasses', () => {
-    describe('when a custom class is passed', () => {
-      it('returns base and custom class', () => {
-        render({ className: 'customClass' });
-        expect(wrapper.props().className).toEqual('customClass');
-      });
+  describe('when custom class is provided', () => {
+    it('returns custom class', () => {
+      render({ className: 'customClass' });
+      expect(wrapper.props().className).toEqual('customClass');
     });
   });
 
