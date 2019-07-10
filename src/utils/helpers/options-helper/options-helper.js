@@ -206,6 +206,16 @@ const OptionsHelper = {
     'square'
   ],
 
+  sizesPortrait: [
+    'XS',
+    'S',
+    'M',
+    'ML',
+    'L',
+    'XL',
+    'XXL'
+  ],
+
   sizesFull: [
     'extra-small',
     'small',

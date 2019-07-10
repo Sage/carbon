@@ -81,7 +81,7 @@ function Portrait(props) {
 
 Portrait.propTypes = {
   /** The size of the Portrait. */
-  size: PropTypes.oneOf(OptionsHelper.sizesFull),
+  size: PropTypes.oneOf([...OptionsHelper.sizesFull, ...OptionsHelper.sizesPortrait]),
   /** A custom image URL. */
   src: (props) => {
     if (props.src && typeof props.src !== 'string') {

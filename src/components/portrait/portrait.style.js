@@ -124,7 +124,7 @@ export const StyledPortraitGravatar = styled.img`
 
 StyledPortraitGravatar.propTypes = {
   shape: PropTypes.oneOf([...OptionsHelper.shapesVaried, ...OptionsHelper.shapesPortrait]),
-  size: PropTypes.oneOf(OptionsHelper.sizesFull).isRequired,
+  size: PropTypes.oneOf([...OptionsHelper.sizesFull, ...OptionsHelper.sizesPortrait]).isRequired,
   src: PropTypes.string.isRequired,
   alt: PropTypes.string
 };
@@ -140,7 +140,7 @@ StyledCustomImg.propTypes = {
   src: PropTypes.string.isRequired,
   alt: PropTypes.string,
   shape: PropTypes.oneOf([...OptionsHelper.shapesVaried, ...OptionsHelper.shapesPortrait]),
-  size: PropTypes.oneOf(OptionsHelper.sizesFull).isRequired
+  size: PropTypes.oneOf([...OptionsHelper.sizesFull, ...OptionsHelper.sizesPortrait]).isRequired
 };
 
 
@@ -160,7 +160,7 @@ export const StyledIcon = styled(
 
 StyledIcon.propTypes = {
   darkBackground: PropTypes.bool,
-  size: PropTypes.oneOf(OptionsHelper.sizesFull),
+  size: PropTypes.oneOf([...OptionsHelper.sizesFull, ...OptionsHelper.sizesPortrait]),
   shape: PropTypes.oneOf([...OptionsHelper.shapesVaried, ...OptionsHelper.shapesPortrait]),
   theme: PropTypes.object,
   type: PropTypes.string.isRequired
@@ -182,7 +182,7 @@ const StyledPortrait = styled.div`
 `;
 
 StyledPortrait.propTypes = {
-  size: PropTypes.oneOf(OptionsHelper.sizesFull),
+  size: PropTypes.oneOf([...OptionsHelper.sizesFull, ...OptionsHelper.sizesPortrait]),
   darkBackground: PropTypes.bool,
   theme: PropTypes.object
 };
