@@ -82,10 +82,16 @@ describe('PortraitComponent', () => {
     });
 
     describe('shape', () => {
-      it('accepts valid shapes', () => {
-        renderDLS(<Portrait src='foo' shape='standard' />);
+      it('accepts valid Classic shapes', () => {
+        renderClassic(<Portrait src='foo' shape='standard' />);
+        renderClassic(<Portrait src='foo' shape='circle' />);
+        renderClassic(<Portrait src='foo' shape='leaf' />);
+        expect(console.error).toHaveBeenCalledTimes(0);
+      });
+
+      it('accepts valid DLS shapes', () => {
+        renderDLS(<Portrait src='foo' shape='square' />);
         renderDLS(<Portrait src='foo' shape='circle' />);
-        renderDLS(<Portrait src='foo' shape='leaf' />);
         expect(console.error).toHaveBeenCalledTimes(0);
       });
 
@@ -131,7 +137,7 @@ describe('PortraitComponent', () => {
 
   describe('render icon', () => {
     const expectedProps = {
-      type: 'individual', size: 'medium', shape: 'standard', darkBackground: false
+      type: 'individual', size: 'medium', shape: 'square', darkBackground: false
     };
 
     const testSuccess = element => renderFindTypeSuccess(element, StyledIcon, expectedProps);
@@ -142,7 +148,7 @@ describe('PortraitComponent', () => {
         <Portrait
           gravatar='example@example.com'
           size='medium'
-          shape='standard'
+          shape='square'
           darkBackground={ false }
         />
       );
@@ -154,7 +160,7 @@ describe('PortraitComponent', () => {
           gravatar='example@example.com'
           initials=''
           size='medium'
-          shape='standard'
+          shape='square'
           darkBackground={ false }
         />
       );
