@@ -111,7 +111,8 @@ function numberErrorValidator(value) {
 
 function numberWarningValidator(value) {
   return new Promise((resolve, reject) => {
-    if (value !== '12') {
+    // eslint-disable-next-line
+    if (value != 12) {
       resolve();
     } else {
       reject(new Error('The number cannot be 12!'));
@@ -121,7 +122,8 @@ function numberWarningValidator(value) {
 
 function numberInfoValidator(value) {
   return new Promise((resolve, reject) => {
-    if (value !== '13') {
+    // eslint-disable-next-line
+    if (value != 13) {
       resolve();
     } else {
       reject(new Error('Number "13" is not recommended'));
