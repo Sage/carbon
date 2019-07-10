@@ -160,7 +160,7 @@ describe('Checkbox', () => {
 
         it('renders the correct FieldHelp styles', () => {
           assertStyleMatch({
-            marginLeft: '50%'
+            marginLeft: '50% !important'
           }, wrapper, { modifier: css`${FieldHelpStyle}` });
         });
       });
@@ -170,7 +170,7 @@ describe('Checkbox', () => {
           const wrapper = render({ inputWidth: 50, reverse: true }).toJSON();
 
           assertStyleMatch({
-            marginRight: '50%'
+            marginRight: '50% !important'
           }, wrapper, { modifier: css`${FieldHelpStyle}` });
         });
       });

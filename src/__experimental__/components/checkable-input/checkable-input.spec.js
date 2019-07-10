@@ -119,7 +119,7 @@ describe('StyledCheckableInputWrapper', () => {
 
       it('renders the correct CheckableInput styles', () => {
         assertStyleMatch({
-          width: '50%'
+          width: '50% !important'
         }, wrapper, { modifier: css`${StyledCheckableInput}` });
       });
     });
@@ -130,7 +130,7 @@ describe('StyledCheckableInputWrapper', () => {
       const wrapper = render({ labelWidth: 50 }).toJSON();
 
       assertStyleMatch({
-        width: '50%'
+        width: '50% !important'
       }, wrapper, { modifier: css`${LabelStyle}` });
     });
   });

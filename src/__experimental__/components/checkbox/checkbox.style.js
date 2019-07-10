@@ -127,7 +127,7 @@ const CheckboxStyle = styled.div`
 
     ${inputWidth !== undefined && inputWidth !== 0 && `
       ${FieldHelpStyle} {
-        ${reverse ? 'margin-right' : 'margin-left'}: ${inputWidth}%;
+        ${reverse ? 'margin-right' : 'margin-left'}: ${inputWidth}% !important;
       }
     `}
 

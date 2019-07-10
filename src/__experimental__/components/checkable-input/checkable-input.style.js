@@ -62,13 +62,13 @@ const StyledCheckableInputWrapper = styled.div`
 
     ${inputWidth !== undefined && inputWidth !== 0 && css`
       ${StyledCheckableInput} {
-        width: ${inputWidth}%;
+        width: ${inputWidth}% !important;
       }
     `}
 
     ${labelWidth !== undefined && labelWidth !== 0 && `
       ${LabelStyle} {
-        width: ${labelWidth}%;
+        width: ${labelWidth}% !important;
       }
     `}
   `}
