@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { merge } from 'lodash';
 import tagComponent from '../../utils/helpers/tags';
 import { RainbowStyle } from './rainbow.style';
