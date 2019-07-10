@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SwitchSliderPanel base theme renders as expected 1`] = `
+.c0 {
+  border: 0;
+  color: #FFFFFF;
+  margin: auto;
+  margin-top: 5px;
+}
+
+.c0[type='on'] {
+  margin-left: 9px;
+}
+
+.c0[type='off'] {
+  color: rgba(0,0,0,0.9);
+  margin-right: 6px;
+}
+
+<div
+  className="c0"
+/>
+`;
