@@ -231,7 +231,7 @@ class FormWithoutValidations extends React.Component {
           body: JSON.stringify(this.state.formInputs)
         }
       );
-      return this.clearFormData(await response.json);
+      return this.clearFormData(await response.json());
     } catch (error) {
       return Promise.reject(error);
     }
@@ -239,7 +239,7 @@ class FormWithoutValidations extends React.Component {
 
   clearFormData(json) {
     this._window.location.href = this.redirectPath;
-    return json();
+    return json;
   }
 
   /* enables a form which has been disabled after being submitted. */

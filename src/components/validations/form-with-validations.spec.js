@@ -92,7 +92,8 @@ describe('when the formWithValidations HOC is wraps a component', () => {
       const { inputs } = wrapper.instance();
       await children.forEach((child) => {
         mockRegisterChild(context, child.props.name, child.props.validations);
-        return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'error', true));
+        return inputs[child.props.name]
+          .validation(child.props.value).catch(() => mockCountCall(context, 'error', true));
       });
       expect(wrapper.instance().state.errorCount).toEqual(1);
     });
@@ -102,7 +103,8 @@ describe('when the formWithValidations HOC is wraps a component', () => {
       const { inputs } = wrapper.instance();
       await children.forEach((child) => {
         mockRegisterChild(context, child.props.name, child.props.warnings);
-        return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'warning', true));
+        return inputs[child.props.name]
+          .validation(child.props.value).catch(() => mockCountCall(context, 'warning', true));
       });
       expect(wrapper.instance().state.warningCount).toEqual(1);
     });
@@ -112,7 +114,7 @@ describe('when the formWithValidations HOC is wraps a component', () => {
       const { inputs } = wrapper.instance();
       await children.forEach((child) => {
         mockRegisterChild(context, child.props.name, child.props.info);
-        return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'info', true));
+        return inputs[child.props.name].validation(child.props.value).catch(() => mockCountCall(context, 'info', true));
       });
       expect(wrapper.instance().state.infoCount).toEqual(1);
     });
@@ -122,7 +124,7 @@ describe('when the formWithValidations HOC is wraps a component', () => {
       const { inputs } = wrapper.instance();
       await children.forEach((child) => {
         mockRegisterChild(context, child.props.name, child.props.info);
-        return inputs[child.props.name](child.props.value).catch(() => mockCountCall(context, 'foo', true));
+        return inputs[child.props.name].validation(child.props.value).catch(() => mockCountCall(context, 'foo', true));
       });
       expect(wrapper.instance().state.errorCount).toEqual(0);
       expect(wrapper.instance().state.warningCount).toEqual(0);
@@ -135,7 +137,7 @@ describe('when the formWithValidations HOC is wraps a component', () => {
       wrapper.setState({ errorCount: 3, warningCount: 2, infoCount: 1 });
       await children.forEach((child) => {
         mockRegisterChild(context, child.props.name, child.props.info);
-        return inputs[child.props.name](child.props.value).catch(() => {
+        return inputs[child.props.name].validation(child.props.value).catch(() => {
           mockCountCall(context, 'error');
           mockCountCall(context, 'warning');
           mockCountCall(context, 'info');

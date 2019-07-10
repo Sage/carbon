@@ -29,7 +29,7 @@ const withValidation = (WrappedComponent) => {
     componentDidMount() {
       this.updateFormState(this.props.value || this.state.value);
 
-      if (this.checkValidations() && this.checkContext('addInput')) {
+      if (this.checkValidations()) {
         this.context.addInput(this.props.name, this.validate);
       }
     }
@@ -99,7 +99,7 @@ const withValidation = (WrappedComponent) => {
         this.setState({ [stateProp]: message });
       } else if (!message && this.state[stateProp]) {
         if (this.checkContext('adjustCount')) this.context.adjustCount(type);
-        this.setState({ [stateProp]: undefined });
+        this.setState({ [stateProp]: '' });
       }
     }
 

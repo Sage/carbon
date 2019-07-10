@@ -1,10 +1,8 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
-
-import Icon from '../../icon';
-
-import FormSummary from './form-summary';
+import { elementsTagTest, rootTagTest } from '../../../../utils/helpers/tags/tags-specs';
+import Icon from '../../../../components/icon';
+import FormSummary from './form-summary.component';
 
 describe('<FormSummary />', () => {
   const block = '.carbon-form-summary';
@@ -76,9 +74,8 @@ describe('<FormSummary />', () => {
 
   describe('tags', () => {
     describe('on component', () => {
-      wrapper = shallow(<FormSummary data-element='bar' data-role='baz' />);
-
       it('include correct component, element and role data tags', () => {
+        wrapper = shallow(<FormSummary data-element='bar' data-role='baz' />);
         rootTagTest(wrapper, 'form-summary', 'bar', 'baz');
       });
     });

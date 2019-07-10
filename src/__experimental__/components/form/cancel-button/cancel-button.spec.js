@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
-import CancelButton from './cancel-button';
+import { rootTagTest } from '../../../../utils/helpers/tags/tags-specs';
+import CancelButton from './cancel-button.component';
 
 describe('CancelButton', () => {
   let wrapper, clickFunction;
@@ -21,7 +21,7 @@ describe('CancelButton', () => {
       />
     );
     expect(wrapper.find('.my-custom-button-class').exists()).toEqual(true);
-    expect(wrapper.find('.carbon-form-cancel__button')).toEqual(false);
+    expect(wrapper.find('.carbon-form-cancel__button').exists()).toEqual(false);
   });
 
   it('renders the default text', () => {
@@ -54,9 +54,8 @@ describe('CancelButton', () => {
 
   describe('tags', () => {
     describe('on component', () => {
-      wrapper = shallow(<CancelButton data-element='bar' data-role='baz' />);
-
       it('include correct component, element and role data tags', () => {
+        wrapper = shallow(<CancelButton data-element='bar' data-role='baz' />);
         rootTagTest(wrapper, 'cancel', 'bar', 'baz');
       });
     });

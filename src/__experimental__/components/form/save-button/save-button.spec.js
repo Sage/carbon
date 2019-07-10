@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
+import { rootTagTest } from '../../../../utils/helpers/tags/tags-specs';
 import SaveButton from './save-button.component';
 
 describe('SaveButton', () => {
@@ -27,7 +27,7 @@ describe('SaveButton', () => {
     );
 
     expect(wrapper.find('.my-custom-button-class').exists()).toEqual(true);
-    expect(wrapper.find('.carbon-form-save__button')).toEqua(false);
+    expect(wrapper.find('.carbon-form-save__button').exists()).toEqual(false);
   });
 
   it('renders the default text', () => {
@@ -70,9 +70,8 @@ describe('SaveButton', () => {
 
   describe('tags', () => {
     describe('on component', () => {
-      wrapper = shallow(<SaveButton data-element='bar' data-role='baz' />);
-
       it('include correct component, element and role data tags', () => {
+        wrapper = shallow(<SaveButton data-element='bar' data-role='baz' />);
         rootTagTest(wrapper, 'save', 'bar', 'baz');
       });
     });
