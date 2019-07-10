@@ -5,7 +5,8 @@ import { ThemeProvider } from 'styled-components';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Portrait from './portrait.component';
 import { notes, info } from './documentation';
-import classic from '../../style/themes/classic';
+import classicTheme from '../../style/themes/classic';
+import mediumTheme from '../../style/themes/medium';
 
 function commonKnobs() {
   const source = select('source', ['src', 'gravatar'], 'src');
@@ -15,26 +16,27 @@ function commonKnobs() {
     darkBackground: boolean('darkBackground', Portrait.defaultProps.darkBackground),
     gravatar: source === 'gravatar' ? text('gravatar') : undefined,
     src: source === 'src' ? text('src') : undefined,
-    initials: text('initials', 'AZ'),
-    size: select('size', OptionsHelper.sizesFull, Portrait.defaultProps.size)
+    initials: text('initials', 'AZ')
   });
 }
 
 function classicKnobs() {
   return {
+    size: select('size', OptionsHelper.sizesFull, 'medium'),
     shape: select('shape', OptionsHelper.shapesVaried, 'standard')
   };
 }
 
 function dlsKnobs() {
   return {
+    size: select('size', OptionsHelper.sizesPortrait, 'M'),
     shape: select('shape', OptionsHelper.shapesPortrait, 'square')
   };
 }
 
 storiesOf('Portrait', module)
   .add('classic', () => (
-    <ThemeProvider theme={ classic }>
+    <ThemeProvider theme={ classicTheme }>
       <Portrait
         { ...commonKnobs() }
         { ...classicKnobs() }
@@ -47,10 +49,12 @@ storiesOf('Portrait', module)
     knobs: { escapeHTML: false }
   })
   .add('default', () => (
-    <Portrait
-      { ...commonKnobs() }
-      { ...dlsKnobs() }
-    />
+    <ThemeProvider theme={ mediumTheme }>
+      <Portrait
+        { ...commonKnobs() }
+        { ...dlsKnobs() }
+      />
+    </ThemeProvider>
   ),
   {
     info: { text: info },
