@@ -6,9 +6,9 @@ import FormWithValidations, { FormWithoutValidations as Form } from './form.comp
 import Textbox from '../textbox';
 import Validation from '../../../utils/validations/presence';
 import Dialog from '../../../components/dialog';
-import CancelButton from './cancel-button';
-import SaveButton from './save-button';
-import FormSummary from './form-summary';
+import CancelButton from '../../../components/form/cancel-button';
+import SaveButton from '../../../components/form/save-button';
+import FormSummary from '../../../components/form/form-summary';
 import Button from '../../../components/button';
 import ElementResize from '../../../utils/helpers/element-resize';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';

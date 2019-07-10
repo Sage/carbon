@@ -19,7 +19,7 @@ const Textbox = ({
   ...props
 }) => {
   return (
-    <FormField value={ value } { ...props }>
+    <FormField { ...props }>
       <InputPresentation type='text' { ...props }>
         { leftChildren }
         <Input

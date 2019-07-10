@@ -4,9 +4,9 @@ import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import Serialize from 'form-serialize';
 import { kebabCase } from 'lodash';
-import CancelButton from './cancel-button';
-import FormSummary from './form-summary';
-import SaveButton from './save-button';
+import CancelButton from '../../../components/form/cancel-button';
+import FormSummary from '../../../components/form/form-summary';
+import SaveButton from '../../../components/form/save-button';
 import AppWrapper from '../../../components/app-wrapper';
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
@@ -234,6 +234,7 @@ class FormWithoutValidations extends React.Component {
   }
 
   clearFormData(json) {
+    // stop gap solution to prevent double submission for the time being
     this._window.location.href = this.redirectPath;
     return json;
   }

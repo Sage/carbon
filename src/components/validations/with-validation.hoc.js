@@ -100,7 +100,7 @@ const withValidation = (WrappedComponent) => {
       return this.context && this.context[contextProp];
     }
 
-    validate = (types = Object.keys(VALIDATION_TYPES), isOnSubmit) => {
+    validate = (types = validationTypes, isOnSubmit) => {
       if (!isOnSubmit && this.blockValidation) return new Promise(resolve => resolve(true));
 
       const validationPromises = [];
@@ -302,10 +302,11 @@ const withValidation = (WrappedComponent) => {
     }), {})
   };
 
-  WithValidation.defaultProps = Object.values(VALIDATION_TYPES).reduce((acc, type) => ({
-    ...acc,
-    [type]: []
-  }), {});
+  WithValidation.defaultProps = {
+    validations: [],
+    warnings: [],
+    info: []
+  };
 
   const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
   WithValidation.displayName = `WithValidation(${displayName})`;

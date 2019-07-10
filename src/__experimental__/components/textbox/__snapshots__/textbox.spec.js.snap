@@ -13,7 +13,6 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
   onChange={[Function]}
   size="medium"
   validations={Array []}
-  value="foobar"
   warnings={Array []}
 >
   <InputPresentation
