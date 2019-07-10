@@ -32,17 +32,10 @@ class Rainbow extends React.Component {
     return false;
   }
 
-  /** Main Class getter */
-  get mainClasses() {
-    return classNames(
-      this.props.className
-    );
-  }
-
   /** Renders the component. */
   render() {
     return (
-      <RainbowStyle className={ this.mainClasses } { ...tagComponent('rainbow', this.props) }>
+      <RainbowStyle className={ this.props.className } { ...tagComponent('rainbow', this.props) }>
         <div ref={ (chart) => { this._chart = chart; } } />
       </RainbowStyle>
     );
