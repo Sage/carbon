@@ -11,14 +11,33 @@ const validationShape = PropTypes.shape({
   message: PropTypes.func,
   validate: PropTypes.func
 });
-const validationsPropType = PropTypes.oneOfType([
+const validationsPropTypes = PropTypes.oneOfType([
   PropTypes.func,
-  PropTypes.arrayOf(validationShape),
-  PropTypes.arrayOf(PropTypes.func)
+  PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.func, validationShape]))
 ]);
 
 const withValidation = (WrappedComponent) => {
   class WithValidation extends React.Component {
+    static contextType = ValidationsContext;
+
+    static propTypes = {
+      children: PropTypes.node, // Children elements
+      name: PropTypes.string.isRequired, // Name to uniquely identify the component
+      value: PropTypes.string, // The current value of the component
+      onBlur: PropTypes.func, // Custom function to be called when the component blurs
+      onChange: PropTypes.func, // Custom function called when component value changes
+      validations: validationsPropTypes,
+      warnings: validationsPropTypes,
+      info: validationsPropTypes,
+      forceUpdateTriggerToggle: PropTypes.bool // triggers validation when it's boolean value changes
+    };
+
+    static defaultProps = {
+      validations: [],
+      warnings: [],
+      info: []
+    }
+
     state = {
       errorMessage: '',
       warningMessage: '',
@@ -39,18 +58,24 @@ const withValidation = (WrappedComponent) => {
     }
 
     componentDidUpdate(prevProps) {
+      const isUpdateForced = prevProps.forceUpdateTriggerToggle !== this.props.forceUpdateTriggerToggle;
+
       if (this.isUpdatedValidationProps(prevProps) && this.checkValidations()) {
         this.context.addInput(this.props.name, this.validate);
         this.updateFormState(this.props.value || this.state.value);
       }
 
-      if (prevProps.value !== this.props.value) {
+      if (isUpdateForced || prevProps.value !== this.props.value) {
         this.validate();
       }
     }
 
     isUpdatedValidationProps(prevProps) {
-      return this.props.validations !== prevProps.validations;
+      let updated = false;
+
+      if (this.props.validations !== prevProps.validations) updated = true;
+
+      return updated;
     }
 
     checkValidations() {
@@ -88,18 +113,50 @@ const withValidation = (WrappedComponent) => {
       });
     }
 
-    updateValidationStatus(type, message) {
-      const stateProp = `${type}Message`;
-      const isErrorType = type === 'error';
+    updateValidationStatus(type, newMessage = '') {
+      if (type === 'error') this.updateErrorStatus(newMessage);
+      if (type === 'warning') this.updateWarningStatus(newMessage);
+      if (type === 'info') this.updateInfoStatus(newMessage);
+    }
 
-      if (!isErrorType && this.state.errorMessage) return; // display only error message
+    updateErrorStatus(newMessage) {
+      const hasErrorMessage = this.state.errorMessage !== '';
 
-      if (message && !this.state[stateProp]) {
+      this.adjustFormValidationCount('error', newMessage, hasErrorMessage);
+      this.setState({ errorMessage: newMessage });
+    }
+
+    updateWarningStatus(newMessage) {
+      const hasWarningMessage = this.state.warningMessage !== '';
+      const hasErrorMessage = this.state.errorMessage !== '';
+
+      if (hasErrorMessage) return;
+
+      this.adjustFormValidationCount('warning', newMessage, hasWarningMessage);
+      this.setState({ warningMessage: newMessage });
+    }
+
+    updateInfoStatus(newMessage) {
+      const hasinfoMessage = this.state.infoMessage !== '';
+      const hasErrorMessage = this.state.errorMessage !== '';
+
+      if (hasErrorMessage) return;
+
+      this.adjustFormValidationCount('info', newMessage, hasinfoMessage);
+      this.setState({ infoMessage: newMessage });
+    }
+
+    adjustFormValidationCount(type, newMessage, hasExistingMessage) {
+      const hasNewMessage = newMessage !== '';
+
+      if (!this.context || !this.context.adjustCount) return;
+
+      if (hasNewMessage && !hasExistingMessage) {
         if (this.checkContext('adjustCount')) this.context.adjustCount(type, true);
-        this.setState({ [stateProp]: message });
-      } else if (!message && this.state[stateProp]) {
+        // this.setState({ [stateProp]: message });
+      } else if (!hasNewMessage && hasExistingMessage) {
         if (this.checkContext('adjustCount')) this.context.adjustCount(type);
-        this.setState({ [stateProp]: '' });
+        // this.setState({ [stateProp]: '' });
       }
     }
 
@@ -166,7 +223,19 @@ const withValidation = (WrappedComponent) => {
 
     handleChange = (ev) => {
       this.blockValidation = true;
+      this.resetValidation();
 
+      this.setState(
+        { value: ev.target.value },
+        () => this.updateFormState()
+      );
+
+      if (this.props.onChange) {
+        this.props.onChange(ev);
+      }
+    }
+
+    resetValidation() {
       if (this.state.errorMessage) {
         this.updateValidationStatus('error');
         this.setState({ errorMessage: '' });
@@ -180,15 +249,6 @@ const withValidation = (WrappedComponent) => {
       if (this.state.infoMessage) {
         this.updateValidationStatus('info');
         this.setState({ infoMessage: '' });
-      }
-
-      this.setState(
-        { value: ev.target.value },
-        () => this.updateFormState()
-      );
-
-      if (this.props.onChange) {
-        this.props.onChange(ev);
       }
     }
 
@@ -255,5 +315,5 @@ const withValidation = (WrappedComponent) => {
   return WithValidation;
 };
 
-export { validationsPropType };
+export { validationsPropTypes };
 export default withValidation;

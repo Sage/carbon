@@ -10,6 +10,7 @@ const presErr = new Error('this value is required!');
 const notZeroErr = new Error('this is zero!');
 const asyncErr = new Error('not foo!');
 const failErr = new Error("It's foo!");
+const mockMessage = 'mock message';
 
 const presence = value => new Promise((resolve, reject) => {
   if (value) {
@@ -92,19 +93,19 @@ describe('when the withValidations HOC wraps a component', () => {
 
   describe('when the component renders the validation icon', () => {
     it('returns an Icon with info type when the state has info and no warning or validations', () => {
-      wrapper.setState({ infoMessage: true });
+      wrapper.setState({ infoMessage: mockMessage });
       wrapper.instance().renderValidationMarkup();
       expect(wrapper).toMatchSnapshot();
     });
 
     it('returns an Icon with warning type when the state has warning and no validations', () => {
-      wrapper.setState({ infoMessage: true, warningMessage: true });
+      wrapper.setState({ infoMessage: mockMessage, warningMessage: mockMessage });
       wrapper.instance().renderValidationMarkup();
       expect(wrapper).toMatchSnapshot();
     });
 
     it('returns an Icon with error type when the state has failed validations', () => {
-      wrapper.setState({ infoMessage: true, warningMessage: true, errorMessage: true });
+      wrapper.setState({ infoMessage: mockMessage, warningMessage: mockMessage, errorMessage: mockMessage });
       wrapper.instance().renderValidationMarkup();
       expect(wrapper).toMatchSnapshot();
     });
@@ -117,8 +118,8 @@ describe('when the withValidations HOC wraps a component', () => {
     });
 
     it('returns the Icon when the component has an array of children', () => {
-      wrapper.setState({ infoMessage: true, warningMessage: true, errorMessage: true });
-      wrapper.setProps({ children: [<div />, 'foo', <div />] });
+      wrapper.setState({ infoMessage: mockMessage, warningMessage: mockMessage, errorMessage: mockMessage });
+      wrapper.setProps({ children: [<div key='div1' />, 'foo', <div key='div2' />] });
       wrapper.instance().renderValidationMarkup();
       expect(wrapper).toMatchSnapshot();
     });
@@ -248,12 +249,22 @@ describe('when the withValidations HOC wraps a component', () => {
     it('removes errors when the inputs validation passes', async () => {
       wrapper2 = shallowRenderWithContext({ validations: presence, value: 'foo' });
       wrapper2.setState({
-        errorMessage: failErr
+        errorMessage: failErr.message
       });
       const spy = spyOn(wrapper2.instance().context, 'adjustCount');
       const validate = await wrapper2.instance().runValidation(types[0]);
       expect(validate).toEqual(true);
       expect(spy).toHaveBeenCalledWith('error');
+    });
+
+    it('validates properly without context passed', async () => {
+      const NoContextComponent = withValidation(MockComponent);
+      const noContextWrapper = shallow(<NoContextComponent name='foo' validations={ presence } />, { context: null });
+      const validateEmpty = await noContextWrapper.instance().runValidation('error');
+      expect(validateEmpty).toEqual(false);
+      noContextWrapper.setProps({ value: 'bar' });
+      const validateFilled = await noContextWrapper.instance().runValidation(types[0]);
+      expect(validateFilled).toEqual(true);
     });
   });
 
@@ -355,7 +366,11 @@ describe('when the withValidations HOC wraps a component', () => {
   describe('when the component value changes', () => {
     const mockEvent = { target: { value: 'foo' } };
     it('resets the validation status when it is not already false', () => {
-      wrapper.setState({ infoMessage: presErr, warningMessage: presErr, errorMessage: presErr });
+      wrapper.setState({
+        infoMessage: presErr.message,
+        warningMessage: presErr.message,
+        errorMessage: presErr.message
+      });
       wrapper.setProps({ onChange: ev => ev.target.value });
       wrapper.instance().handleChange(mockEvent);
       expect(wrapper.instance().state.infoMessage).toEqual('');

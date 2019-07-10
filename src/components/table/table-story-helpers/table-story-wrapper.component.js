@@ -1,6 +1,5 @@
 import { text } from '@storybook/addon-knobs';
 import React, { useState } from 'react';
-import { ThemeProvider } from 'styled-components';
 import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import countriesList from '../../../../demo/data/countries';
@@ -30,6 +29,10 @@ const handleChange = (e, tableOptions) => {
 
   store.set({ sortOrder, sortedColumn, currentPage });
   action('change')(e, tableOptions);
+};
+
+const handleToolbarAction = () => {
+  action('toolbar action')();
 };
 
 const recordsForActivePage = (start, end) => {
@@ -80,7 +83,7 @@ const buildRows = ({
           name='name'
           scope='col'
         >
-        Country
+          Country
         </TableHeader>
         <TableHeader
           sortable
@@ -88,7 +91,7 @@ const buildRows = ({
           name='code'
           width='200'
         >
-        Code
+          Code
         </TableHeader>
       </TableRow>
       {rowsCountries.map((row) => {
@@ -110,7 +113,7 @@ const buildRows = ({
           </TableRow>
         );
       })}
-  </>
+    </>
   );
 };
 
@@ -133,38 +136,49 @@ const Wrapper = (props) => {
   store.set({ sortedColumn: tableProps.sortColumn });
 
   return (
-    <ThemeProvider theme={ tableProps.contextTheme }>
-      <State
-        store={ store }
-        parseState={ state => ({ ...state, children: buildRows(tableProps) }) }
-      >
-        <Table
-          actionToolbarChildren={ (context) => {
-            return [
-              <Button disabled={ context.disabled } key='single-action'>
-                    Test Action
-              </Button>,
-              <MultiActionButton
-                text='Actions'
-                disabled={ context.disabled }
-                key='multi-actions'
-              >
-                <Button>foo</Button>
-                <Button>bar</Button>
-                <Button>qux</Button>
-              </MultiActionButton>
-            ];
-          } }
-          path='/countries'
-          actions={ { delete: { icon: 'bin' }, settings: { icon: 'settings' } } }
-          { ...tableProps }
-          onChange={ handleChange }
-          sortOrder={ store.sortOrder }
-          sortedColumn={ store.sortedColumn }
-          onPageSizeChange={ size => setPageSize(size) }
-        />
-      </State>
-    </ThemeProvider>
+    <State
+      store={ store }
+      parseState={ state => ({ ...state, children: buildRows(tableProps) }) }
+    >
+      <Table
+        actionToolbarChildren={ (context) => {
+          return [
+            <Button
+              disabled={ context.disabled }
+              key='single-action'
+              onClick={ handleToolbarAction }
+            >
+              Test Action
+            </Button>,
+            <MultiActionButton
+              text='Actions'
+              disabled={ context.disabled }
+              key='multi-actions'
+            >
+              <Button onClick={ handleToolbarAction }>foo</Button>
+              <Button onClick={ handleToolbarAction }>bar</Button>
+              <Button onClick={ handleToolbarAction }>qux</Button>
+            </MultiActionButton>
+          ];
+        } }
+        path='/countries'
+        actions={ {
+          delete: {
+            icon: 'bin',
+            onClick: handleToolbarAction
+          },
+          settings: {
+            icon: 'settings',
+            onClick: handleToolbarAction
+          }
+        } }
+        { ...tableProps }
+        onChange={ handleChange }
+        sortOrder={ store.sortOrder }
+        sortedColumn={ store.sortedColumn }
+        onPageSizeChange={ size => setPageSize(size) }
+      />
+    </State>
   );
 };
 

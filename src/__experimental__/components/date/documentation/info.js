@@ -3,7 +3,8 @@ import { StoryHeader, StoryCode } from '../../../../../.storybook/style/storyboo
 
 const info = (
   <div>
-    <p>Date Input</p>
+    <StoryHeader>Date Input Component</StoryHeader>
+    <p>Captures a single date.</p>
     <StoryHeader>Implementation</StoryHeader>
     <StoryCode>
       {'import DateInput from \'carbon-react/lib/components/Date\';'}

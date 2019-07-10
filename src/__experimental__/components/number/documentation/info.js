@@ -3,9 +3,9 @@ import { StoryHeader, StoryCode } from '../../../../../.storybook/style/storyboo
 
 const Info = (
   <div>
-    <p>A number widget.</p>
+    <StoryHeader>Number Input</StoryHeader>
 
-    <p>It only allows entering of a whole number with an optional minus sign.</p>
+    <p>Capture whole numbers - without a decimal point.</p>
 
     <p>All propTypes are inherited from the Textbox component.</p>
 
