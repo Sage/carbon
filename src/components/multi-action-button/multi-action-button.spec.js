@@ -12,6 +12,7 @@ import StyledButton from '../button/button.style';
 import classicTheme from '../../style/themes/classic';
 import StyledSplitButton from '../split-button/split-button.style';
 import baseTheme from '../../style/themes/base';
+import StyledMultiActionButton from './multi-action-button.style';
 
 describe('MultiActionButton', () => {
   let wrapper;
@@ -105,15 +106,6 @@ describe('MultiActionButton', () => {
       expect(classicWrapper).toMatchSnapshot();
     });
 
-    it('should match the snapshot for the transparent type', () => {
-      classicWrapper = renderWithTheme({
-        carbonTheme: classicTheme,
-        as: 'transparent'
-      }, TestRenderer.create);
-
-      expect(classicWrapper).toMatchSnapshot();
-    });
-
     it('should have expected colors', () => {
       classicWrapper = renderWithTheme({ carbonTheme: classicTheme }, mount);
       const toggleButton = classicWrapper.find('button[data-element="toggle-button"]');
@@ -123,6 +115,21 @@ describe('MultiActionButton', () => {
         backgroundColor: '#1e499f',
         borderColor: '#1e499f'
       }, classicWrapper, { modifier: `${StyledSplitButton} > ${StyledButton}` });
+    });
+  });
+});
+
+describe('StyledMultiActionButton', () => {
+  describe('when rendered with "classic" theme', () => {
+    it('should match the snapshot for the legacy transparent type', () => {
+      const classicWrapper = TestRenderer.create(
+        <StyledMultiActionButton
+          text='Test'
+          buttonType='transparent'
+          theme={ classicTheme }
+        />
+      );
+      expect(classicWrapper).toMatchSnapshot();
     });
   });
 });
