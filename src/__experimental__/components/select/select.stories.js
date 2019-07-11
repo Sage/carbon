@@ -1,6 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { boolean, text, select } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import { Store, State } from '@sambego/storybook-state';
 import { Select, Option } from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
@@ -24,7 +25,10 @@ const commonKnobs = (store) => {
     label: text('label'),
     labelAlign: select('labelAlign', OptionsHelper.alignBinary),
     labelInline: boolean('labelInline', false),
-    onChange: (ev) => { store.set({ value: ev.target.value }); },
+    onChange: (ev) => {
+      store.set({ value: ev.target.value });
+      action('change')(ev);
+    },
     placeholder: text('placeholder'),
     readOnly: boolean('readOnly', false),
     size: select('size', OptionsHelper.sizesRestricted),
