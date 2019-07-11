@@ -20,7 +20,7 @@ const InputIconToggleStyle = styled.span`
     background-color: #e6ebed;
     border-left: 1px solid #bfccd2;
     margin-left: 6px;
-    margin-right: -7px;
+    margin-right: -6px;
     
     &:hover {
       color: #fff;
