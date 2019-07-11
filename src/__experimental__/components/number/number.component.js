@@ -6,7 +6,7 @@ class Number extends React.Component {
     return (
       <Textbox
         { ...this.props }
-        onChange={ this.onChange }
+        onChange={ this.handleOnChange }
         onKeyDown={ this.handleKeyDown }
       />
     );
