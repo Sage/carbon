@@ -147,10 +147,10 @@ describe('Select', () => {
       });
     });
 
-    describe('when backspace is pressed', () => {
+    describe('when backspace is pressed and is single select', () => {
       const setupTest = (additionalSetup) => {
         spyOn(Events, 'isBackspaceKey').and.returnValue(true);
-        const props = { value: multiValue, onChange: jest.fn() };
+        const props = { value: singleValue, onChange: jest.fn() };
         const wrapper = renderWrapper({ props });
         const textbox = textboxOf(openList(wrapper));
         if (additionalSetup) additionalSetup(wrapper);
@@ -160,9 +160,7 @@ describe('Select', () => {
 
       it('triggers onChange with the item removed when typing backspace in the filter', () => {
         const { props } = setupTest();
-        expect(props.onChange).toHaveBeenCalledWith({
-          target: { value: [multiValue[0], multiValue[1]] }
-        });
+        expect(props.onChange).toHaveBeenCalled();
       });
 
       it('does not trigger onChange if there is a filter in effect', () => {
@@ -182,6 +180,35 @@ describe('Select', () => {
         const pill = pillsOf(renderWrapper({ props })).first();
         expect(pill.props().onDelete).toEqual(null);
       });
+    });
+  });
+
+  describe('when backspace is pressed and is multi select', () => {
+    const setupTest = (additionalSetup) => {
+      spyOn(Events, 'isBackspaceKey').and.returnValue(true);
+      const props = { value: multiValue, onChange: jest.fn() };
+      const wrapper = renderWrapper({ props });
+      const textbox = textboxOf(openList(wrapper));
+      if (additionalSetup) additionalSetup(wrapper);
+      textbox.find('input').simulate('keydown');
+      return { props, wrapper };
+    };
+
+    it('triggers onChange with the item removed when typing backspace in the filter', () => {
+      const { props } = setupTest();
+      expect(props.onChange).toHaveBeenCalledWith({
+        target: { value: [multiValue[0], multiValue[1]] }
+      });
+    });
+
+    it('does not trigger onChange if there is a filter in effect', () => {
+      const { props } = setupTest(wrapper => wrapper.setState({ filter: 'x' }));
+      expect(props.onChange).not.toHaveBeenCalled();
+    });
+
+    it('does not trigger onChange if there is no values left to delete', () => {
+      const { props } = setupTest(wrapper => wrapper.setProps({ value: [] }));
+      expect(props.onChange).not.toHaveBeenCalled();
     });
   });
 
