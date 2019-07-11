@@ -111,8 +111,8 @@ class Select extends React.Component {
     }
     // if backspace key and multi value and no filter, remove the last item in the array
     if (Events.isBackspaceKey(ev)) {
-      if (!this.isMultiValue(this.props.value) || this.state.filter || !this.props.value.length) return;
-      this.removeItem(this.props.value.length - 1);
+      if (this.isMultiValue(this.props.value)) this.removeMultiItem(this.props.value.length - 1);
+      else this.removeSingleItem();
     }
 
     if (!this.props.filterable) ev.preventDefault();
@@ -145,10 +145,16 @@ class Select extends React.Component {
     if (this.props.onChange) this.props.onChange({ target: { value } });
   }
 
-  removeItem(index) {
+  removeMultiItem(index) {
+    if (this.state.filter || !this.props.value.length) return;
     const newValue = this.props.value.slice(); // copies the array first to not mutate original value
     newValue.splice(index, 1);
     this.triggerChange(newValue);
+  }
+
+  removeSingleItem() {
+    if (this.state.filter) return;
+    this.triggerChange('');
   }
 
   // returns the human readable value for the user
@@ -178,7 +184,7 @@ class Select extends React.Component {
       values.map((value, index) => (
         <StyledSelectPillContainer key={ value.value }>
           <Pill
-            onDelete={ canDelete ? () => this.removeItem(index) : undefined }
+            onDelete={ canDelete ? () => this.removeMultiItem(index) : undefined }
             title={ value.text }
           >
             { value.text }
