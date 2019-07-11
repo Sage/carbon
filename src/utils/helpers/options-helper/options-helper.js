@@ -212,6 +212,21 @@ const OptionsHelper = {
     'leaf'
   ],
 
+  shapesPortrait: [
+    'circle',
+    'square'
+  ],
+
+  sizesPortrait: [
+    'XS',
+    'S',
+    'M',
+    'ML',
+    'L',
+    'XL',
+    'XXL'
+  ],
+
   sizesFull: [
     'extra-small',
     'small',
