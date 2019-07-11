@@ -4,7 +4,7 @@ import baseTheme from '../../../style/themes/base';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
-import StyledCheckboxSvgWrapper from './checkbox-svg-wrapper.style';
+import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import LabelStyle from '../label/label.style';
 import checkBoxClassicStyle from './checkbox-classic.style';
 
@@ -18,7 +18,7 @@ const CheckboxStyle = styled.div`
       padding-top: 1px;
     }
 
-    ${StyledCheckboxSvgWrapper} { height: 16px; }
+    ${StyledCheckableInputSvgWrapper} { height: 16px; }
 
     svg {
       background-color: ${theme.colors.white};
@@ -34,16 +34,16 @@ const CheckboxStyle = styled.div`
 
     ${StyledCheckableInput},
     ${HiddenCheckableInputStyle},
-    ${StyledCheckboxSvgWrapper},
+    ${StyledCheckableInputSvgWrapper},
     svg {
       box-sizing: border-box;
       width: 16px;
     }
 
     ${HiddenCheckableInputStyle}:not([disabled]) {
-      &:focus + ${StyledCheckboxSvgWrapper},
-      &:hover + ${StyledCheckboxSvgWrapper} {
-        outline: solid 3px ${theme.colors.focus};
+      &:focus + ${StyledCheckableInputSvgWrapper},
+      &:hover + ${StyledCheckableInputSvgWrapper} {
+        box-shadow: 0 0 0 3px ${theme.colors.focus};
       }
     }
 
@@ -59,18 +59,18 @@ const CheckboxStyle = styled.div`
     }
 
     ${size === 'large' && css`
-      ${StyledCheckboxSvgWrapper} { height: 24px; }
+      ${StyledCheckableInputSvgWrapper} { height: 24px; }
 
       ${StyledCheckableInput},
       ${HiddenCheckableInputStyle},
-      ${StyledCheckboxSvgWrapper} > svg {
+      ${StyledCheckableInputSvgWrapper} > svg {
         padding: 2px;
       }
 
       ${StyledCheckableInput},
       ${HiddenCheckableInputStyle},
-      ${StyledCheckboxSvgWrapper},
-      ${StyledCheckboxSvgWrapper} > svg {
+      ${StyledCheckableInputSvgWrapper},
+      ${StyledCheckableInputSvgWrapper} > svg {
         height: 24px;
         width: 24px;
       }
@@ -105,7 +105,7 @@ const CheckboxStyle = styled.div`
 
       svg path { fill: ${(checked ? theme.disabled.border : theme.disabled.input)}; }
 
-      ${StyledCheckboxSvgWrapper} {
+      ${StyledCheckableInputSvgWrapper} {
         &:hover, &:focus {
           outline: none;
           cursor: not-allowed;

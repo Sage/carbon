@@ -9,14 +9,14 @@ import guid from '../../../utils/helpers/guid';
 class CheckableInput extends React.Component {
   constructor(props) {
     super(props);
-    this.inputId = guid();
+    this.inputId = props.inputId || guid();
   }
 
   formFieldProps = () => {
     return {
       ...validProps(this, ['fieldHelpInline', 'reverse']),
-      name: this.inputId,
-      labelHelpIcon: 'info'
+      labelHelpIcon: 'info',
+      name: this.inputId
     };
   }
 
@@ -24,7 +24,7 @@ class CheckableInput extends React.Component {
     const {
       children, fieldHelp, labelHelp, ...inputProps
     } = {
-      ...validProps(this, ['disabled', 'onChange', 'type']),
+      ...validProps(this, ['checked', 'disabled', 'onChange', 'tab-index', 'type']),
       id: this.inputId
     };
 
@@ -56,6 +56,8 @@ CheckableInput.propTypes = {
   error: PropTypes.bool,
   /** Displays fieldHelp inline with the CheckableInput */
   fieldHelpInline: PropTypes.bool,
+  /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
+  inputId: PropTypes.string,
   /** Sets percentage-based input width */
   inputWidth: PropTypes.number,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */

@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
 
 const HiddenCheckableInput = ({
-  checked, role, type, ...props
+  role, type, ...props
 }) => {
   return (
     <HiddenCheckableInputStyle
-      aria-checked={ checked }
+      aria-checked={ props.checked }
       role={ role || type }
       type={ type }
       { ...props }
