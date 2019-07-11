@@ -15,12 +15,9 @@ const withValidations = (WrappedComponent) => {
 
     inputs = {};
 
-    addInput = (name, validate, value) => {
-      this.inputs[name] = {
-        validation: validate,
-        value
-      };
-    }
+    addInput = (name, validate) => {
+      this.inputs[name] = validate;
+    };
 
     removeInput = (name) => {
       delete this.inputs[name];
@@ -52,7 +49,7 @@ const withValidations = (WrappedComponent) => {
 
       let promises = [];
       Object.keys(this.inputs).forEach((name) => {
-        const validate = this.inputs[name].validation;
+        const validate = this.inputs[name];
         promises = promises.concat(validate(['error'], true)); // only validate errors on form submit
       });
       return Promise.all(promises).then((isValid) => {

@@ -18,26 +18,6 @@ const validationsPropTypes = PropTypes.oneOfType([
 
 const withValidation = (WrappedComponent) => {
   class WithValidation extends React.Component {
-    static contextType = ValidationsContext;
-
-    static propTypes = {
-      children: PropTypes.node, // Children elements
-      name: PropTypes.string.isRequired, // Name to uniquely identify the component
-      value: PropTypes.string, // The current value of the component
-      onBlur: PropTypes.func, // Custom function to be called when the component blurs
-      onChange: PropTypes.func, // Custom function called when component value changes
-      validations: validationsPropTypes,
-      warnings: validationsPropTypes,
-      info: validationsPropTypes,
-      forceUpdateTriggerToggle: PropTypes.bool // triggers validation when it's boolean value changes
-    };
-
-    static defaultProps = {
-      validations: [],
-      warnings: [],
-      info: []
-    }
-
     state = {
       errorMessage: '',
       warningMessage: '',
@@ -287,19 +267,11 @@ const withValidation = (WrappedComponent) => {
     value: PropTypes.string, // The current value of the component
     onBlur: PropTypes.func, // Custom function to be called when the component blurs
     onChange: PropTypes.func, // Custom function called when component value changes
-    ...Object.values(VALIDATION_TYPES).reduce((acc, type) => ({
-      ...acc,
-      [type]: PropTypes.oneOfType([ // The info validations that should be run against the value
-        PropTypes.func,
-        PropTypes.arrayOf(
-          PropTypes.shape({
-            message: PropTypes.func,
-            validate: PropTypes.func
-          })
-        ),
-        PropTypes.arrayOf(PropTypes.func)
-      ])
-    }), {})
+    validations: validationsPropTypes,
+    warnings: validationsPropTypes,
+    info: validationsPropTypes,
+    forceUpdateTriggerToggle: PropTypes.bool, // triggers validation when it's boolean value changes
+    addInputToFormState: PropTypes.func
   };
 
   WithValidation.defaultProps = {
