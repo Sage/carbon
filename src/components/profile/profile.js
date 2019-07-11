@@ -76,7 +76,7 @@ class Profile extends React.Component {
         initials={ this.initials }
         gravatar={ this.props.email }
         className='carbon-profile__avatar'
-        size='M'
+        size='medium-small'
       />
     );
   }
