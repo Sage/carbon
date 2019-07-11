@@ -46,7 +46,7 @@ const selectOptions = selectOptionsLabels.map((label, index) => (
   <Option
     key={ label }
     text={ label }
-    value={ index + 1 }
+    value={ String(index + 1) }
   />
 ));
 

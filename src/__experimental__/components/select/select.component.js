@@ -276,8 +276,8 @@ class Select extends React.Component {
     } = this.props;
 
     const { filter, open } = this.state;
-
     const allowTypeAhead = filterable ? typeAhead : false;
+
     return (
       <div
         role='combobox'
