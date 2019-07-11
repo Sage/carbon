@@ -7,6 +7,7 @@ import Pill from '../../../components/pill';
 import Events from '../../../utils/helpers/events';
 import tagComponent from '../../../utils/helpers/tags';
 import StyledSelectPillContainer from './select.style';
+import baseTheme from '../../../style/themes/base';
 
 /**
  * Basic example:
@@ -270,13 +271,14 @@ class Select extends React.Component {
     } = this.props;
 
     const { filter, open } = this.state;
+    const { select } = baseTheme;
 
     const allowTypeAhead = filterable ? typeAhead : false;
     return (
       <div
         role='combobox'
         // move this to textbox style in DLS phase 2
-        style={ { minWidth: 75 } }
+        style={ { minWidth: 75, borderRight: `1px solid ${select.border}` } }
         aria-haspopup='listbox'
         aria-expanded={ open }
         aria-controls={ open ? this.listboxId : '' }
