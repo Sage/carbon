@@ -1,15 +1,16 @@
 import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
+import { THEMES } from '../../style/themes';
 
 const StyledHelp = styled.span`
-  color: $grey-dark-blue-50;
+  color: ${({ theme }) => theme.help.color};
   cursor: default;
   display: inline-block;
   position: relative;
   margin-left: 8px;
   top: -1px;
 
-  ${({ hasLink }) => hasLink && css`
+  ${({ href }) => href && css`
     cursor: pointer;
     text-decoration: none;
 
@@ -17,6 +18,10 @@ const StyledHelp = styled.span`
       color: $blue;
       text-decoration: underline;
     }
+  `}
+
+  ${({ theme }) => theme.name === THEMES.classic && css`
+    color: rgba(0, 0, 0, 0.85)
   `}
 `;
 
