@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
-import './help.scss';
+import StyledHelp from './help.style';
 
 class Help extends React.Component {
   static propTypes = {
@@ -61,8 +61,9 @@ class Help extends React.Component {
    */
   render() {
     return (
-      <a
-        className={ this.mainClasses }
+      <StyledHelp
+        className={ this.props.className }
+        as={ this.props.href ? 'a' : null }
         href={ this.props.href }
         target='_blank'
         rel='noopener noreferrer'
@@ -74,7 +75,7 @@ class Help extends React.Component {
           tooltipPosition={ this.props.tooltipPosition }
           tooltipAlign={ this.props.tooltipAlign }
         />
-      </a>
+      </StyledHelp>
     );
   }
 }
