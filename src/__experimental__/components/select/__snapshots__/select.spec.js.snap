@@ -227,7 +227,7 @@ Object {
     <input
       aria-label="Please Select..."
       class="c1 c2"
-      data-component="carbon-select"
+      data-component="input"
       id="guid-12345"
       name="guid-12345"
       placeholder="Please Select..."
