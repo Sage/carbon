@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text, select } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
-import Help from './help';
+import Help from './help.component';
 import './help.stories.scss';
 
 storiesOf('Help', module)
