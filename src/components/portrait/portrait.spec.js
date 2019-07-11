@@ -39,7 +39,7 @@ function renderDLS(element) {
 function renderClassic(element) {
   return TestRenderer.create(
     <ThemeProvider theme={ classicTheme }>
-      {React.cloneElement(element, { theme: classicTheme })}
+      {element}
     </ThemeProvider>
   );
 }
