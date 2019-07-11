@@ -19,7 +19,8 @@ const onChange = (ev) => {
 
 storiesOf('Experimental/GroupedCharacter', module)
   .addParameters({
-    info: { text: info, propTables: [OriginalTextbox], propTablesExclude: [State] }
+    info: { text: info, propTables: [OriginalTextbox], propTablesExclude: [State] },
+    knobs: { escapeHTML: false }
   })
   .add('default',
     () => {
