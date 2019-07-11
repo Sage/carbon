@@ -8,6 +8,7 @@ exports[`Select does not apply any events if disabled or readonly 1`] = `
   role="combobox"
   style={
     Object {
+      "borderRight": "1px solid #bfccd2",
       "minWidth": 75,
     }
   }
@@ -37,6 +38,7 @@ exports[`Select does not apply any events if disabled or readonly 2`] = `
   role="combobox"
   style={
     Object {
+      "borderRight": "1px solid #bfccd2",
       "minWidth": 75,
     }
   }
@@ -66,6 +68,7 @@ exports[`Select renders only the Textbox when closed 1`] = `
   role="combobox"
   style={
     Object {
+      "borderRight": "1px solid #bfccd2",
       "minWidth": 75,
     }
   }
