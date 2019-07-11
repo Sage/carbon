@@ -401,7 +401,7 @@ describe('Input', () => {
     });
 
     it('returns a div with a icon', () => {
-      expect(inputHelp.props().className).toEqual('carbon-help common-input__input-help');
+      expect(inputHelp.props().className).toEqual('common-input__input-help');
       let help = inputHelp.props().children;
       expect(help.props.tooltipMessage).toEqual('Here is some help');
       expect(help.props.tooltipPosition).toEqual('top');

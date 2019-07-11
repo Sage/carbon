@@ -1,93 +1,81 @@
 import React from 'react';
-import TestUtils from 'react-dom/test-utils';
-import Help from './help.component';
+import 'jest-styled-components';
+import { shallow, mount } from 'enzyme';
 import Icon from 'components/icon';
-import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import Help from './help.component';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import classicTheme from '../../style/themes/classic';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import StyledHelp from './help.style';
 
 describe('Help', () => {
-  let basicInstance, positionedInstance, alignedInstance, customStyleInstance, linkInstance;
+  let wrapper;
 
-  beforeEach(() => {
-    basicInstance = TestUtils.renderIntoDocument(
-      <Help>Helpful Content</Help>
-    );
-
-    positionedInstance = TestUtils.renderIntoDocument(
-      <Help tooltipPosition='right'>Helpful Content</Help>
-    );
-
-    alignedInstance = TestUtils.renderIntoDocument(
-      <Help pointerAlign='left'>Helpful Content</Help>
-    );
-
-    customStyleInstance = TestUtils.renderIntoDocument(
-      <Help className='fancy-pants'>Helpful Content</Help>
-    );
-
-    linkInstance = TestUtils.renderIntoDocument(
-      <Help href='www.foo.com'>Helpful Content</Help>
-    );
-  });
-
-  describe('mainClasses', () => {
-    describe('default classes', () => {
-      it('returns the default classes', () => {
-        expect(basicInstance.mainClasses).toEqual('carbon-help');
-      });
-
-      describe('when an href is passed', () => {
-        it('adds the relevant class', () => {
-          expect(linkInstance.mainClasses).toEqual('carbon-help carbon-help__href');
-        });
-      });
-    });
-
-    describe('when custom classes are passed', () => {
-      it('adds the custom classes', () => {
-        expect(customStyleInstance.mainClasses).toEqual('carbon-help fancy-pants');
-      });
+  describe('when custom classes are passed', () => {
+    it('adds the custom classes', () => {
+      wrapper = renderHelp({ className: 'fancy-pants' });
+      expect(wrapper.hasClass('fancy-pants')).toBe(true);
     });
   });
 
   describe('render', () => {
-      let icon, positionedIcon, alignedIcon, hrefAnchor;
+    let icon;
 
-    beforeEach(() => {
-      icon = TestUtils.findRenderedComponentWithType(basicInstance, Icon);
-      positionedIcon = TestUtils.findRenderedComponentWithType(positionedInstance, Icon);
-      alignedIcon = TestUtils.findRenderedComponentWithType(alignedInstance, Icon);
-      hrefAnchor = TestUtils.findRenderedDOMComponentWithTag(linkInstance, 'a');
-    });
-
-    it('renders an icon', () => {
-      expect(icon.props.type).toEqual('help');
+    it('renders an icon with "help" type', () => {
+      wrapper = renderHelp();
+      icon = wrapper.find(Icon);
+      expect(icon.props().type).toBe('help');
     });
 
     it('passes the children as a prop', () => {
-      expect(icon.props.tooltipMessage).toEqual('Helpful Content');
+      const mockMessage = 'Help Message';
+      wrapper = shallow(<Help>{ mockMessage }</Help>);
+      icon = wrapper.find(Icon);
+      expect(icon.props().tooltipMessage).toBe(mockMessage);
     });
 
     it('passes the tooltipPosition if provided', () => {
-      expect(positionedIcon.props.tooltipPosition).toEqual('right');
+      const mockPosition = 'right';
+      wrapper = renderHelp({ tooltipPosition: mockPosition });
+      icon = wrapper.find(Icon);
+      expect(icon.props().tooltipPosition).toBe(mockPosition);
     });
 
     it('passes the pointerAlign if provided', () => {
-      expect(alignedInstance.props.pointerAlign).toEqual('left');
+      const mockAlignment = 'left';
+      wrapper = renderHelp({ tooltipAlign: mockAlignment });
+      icon = wrapper.find(Icon);
+      expect(icon.props().tooltipAlign).toBe(mockAlignment);
     });
 
-    it('passes the href if provided', () => {
-      expect(hrefAnchor.attributes.href.value).toEqual('www.foo.com');
+    it('renders a link when the href if provided', () => {
+      const mockHref = 'href';
+      wrapper = renderHelp({ href: mockHref }, mount);
+      expect(wrapper.find('a').exists()).toBe(true);
     });
   });
 
-  describe("tags", () => {
-    describe("on component", () => {
-      let wrapper = shallow(<Help data-element='bar' data-role='baz' />);
+  describe('tags on component', () => {
+    const tagsWrapper = renderHelp({ 'data-element': 'bar', 'data-role': 'baz' });
 
-      it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper, 'help', 'bar', 'baz');
-      });
+    it('include correct component, element and role data tags', () => {
+      rootTagTest(tagsWrapper, 'help', 'bar', 'baz');
     });
   });
 });
+
+describe('StyledHelp', () => {
+  describe('when the Classic Theme is selected', () => {
+    it('renders proper icon color', () => {
+      const wrapper = mount(<StyledHelp theme={ classicTheme } />);
+
+      assertStyleMatch({
+        color: 'rgba(0,0,0,0.85)'
+      }, wrapper);
+    });
+  });
+});
+
+function renderHelp(props, renderer = shallow) {
+  return renderer(<Help { ...props }>Helpful Content</Help>);
+}
