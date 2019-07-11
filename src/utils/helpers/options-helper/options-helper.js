@@ -48,6 +48,17 @@ const OptionsHelper = {
     'warning'
   ],
 
+  pillColors: [
+    'neutral',
+    'negative',
+    'positive'
+  ],
+
+  pillRoles: [
+    'tag',
+    'status'
+  ],
+
   toast: [
     'success',
     'error'

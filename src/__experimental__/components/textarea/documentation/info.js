@@ -3,7 +3,8 @@ import { StoryHeader, StoryCode } from '../../../../../.storybook/style/storyboo
 
 const info = (
   <div>
-    <p>Textarea component</p>
+    <StoryHeader>Textarea Component</StoryHeader>
+    <p>Captures more than one line of text.</p>
 
     <StoryHeader>Implementation</StoryHeader>
 

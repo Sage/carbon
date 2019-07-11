@@ -4,7 +4,6 @@ import { shallow } from 'enzyme';
 import 'jest-styled-components';
 import Icon from 'components/icon';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import BaseTheme from '../../../style/themes/base';
 
 import InputIconToggle from './input-icon-toggle.component';
 
@@ -36,16 +35,6 @@ describe('InputIconToggle', () => {
   describe('when initiated with children', () => {
     it('renders as expected', () => {
       expect(render({ children: 'mock content' }, TestRenderer.create)).toMatchSnapshot();
-    });
-  });
-
-  describe('validations', () => {
-    ['info', 'warning', 'error'].forEach((validation) => {
-      it(`updates the color for ${validation}`, () => {
-        assertStyleMatch({
-          color: BaseTheme.colors[validation]
-        }, render({ [`${validation}Message`]: 'validation!' }, TestRenderer.create).toJSON());
-      });
     });
   });
 
