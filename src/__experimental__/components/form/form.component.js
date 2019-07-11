@@ -210,7 +210,8 @@ class FormWithoutValidations extends React.Component {
   addOtherInputsToState() {
     Object.keys(this._form.elements).forEach((id) => {
       const { name, value, type } = this._form.elements[id];
-      const inputName = type === 'hidden' && id === '0' ? 'csrf-token' : name;
+      const isCsrfToken = (type === 'hidden' && id === '0');
+      const inputName = isCsrfToken ? 'csrf-token' : name;
 
       if (!this.state.formInputs[inputName] && !['button', 'submit'].includes(type)) {
         this.addInputDataToState(inputName, value);
@@ -529,7 +530,10 @@ FormWithoutValidations.propTypes = {
 
   /** The action for the default form submission of controlled inputs */
   formAction(props, propName) {
-    if ((!props.onSubmit && (props[propName] === undefined || typeof (props[propName]) !== 'string'))) {
+    const propConditions = (
+      !props.onSubmit && (props[propName] === undefined || typeof (props[propName]) !== 'string')
+    );
+    if (propConditions) {
       throw new Error('A form action is required if no onSubmit prop is passed');
     }
   },
