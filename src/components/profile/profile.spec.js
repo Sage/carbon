@@ -140,7 +140,7 @@ describe('ProfileAvatarStyle', () => {
 });
 
 describe('ProfileClassicStyle', () => {
-  it('should render correct version if clssic theme is provided', () => {
+  it('should render correct version if classic theme is provided', () => {
     const wrapper = TestRenderer.create(<ProfileStyle
       theme={ classicTheme }
     />);
