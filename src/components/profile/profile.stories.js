@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { text, boolean, select } from '@storybook/addon-knobs';
 import { ThemeProvider } from 'styled-components';
-import Profile from './profile';
+import Profile, { OriginalProfile } from './profile.component';
 import { info, notes } from './documentation';
 import classicTheme from '../../style/themes/classic';
 import OptionsHelper from '../../utils/helpers/options-helper';
@@ -11,7 +11,7 @@ storiesOf('Profile', module)
   .add('default', () => {
     const email = text('email', 'johnsmith@sage.com');
     const initials = text('initials', 'JS');
-    const size = select('size', OptionsHelper.sizesFull, OptionsHelper.sizesFull[0]);
+    const size = select('size', OptionsHelper.sizesPortrait, OptionsHelper.sizesPortrait[0]);
     const name = text('name', 'John Smith');
 
     return (
@@ -26,7 +26,7 @@ storiesOf('Profile', module)
   .add('classic', () => {
     const email = text('email', 'johnsmith@sage.com');
     const initials = text('initials', 'JS');
-    const large = boolean('large', Profile.defaultProps.large);
+    const large = boolean('large', OriginalProfile.defaultProps.large);
     const name = text('name', 'John Smith');
 
     return (
