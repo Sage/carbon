@@ -56,7 +56,7 @@ storiesOf('Experimental/Select', module)
       propTablesExclude: [State]
     }
   })
-  .add('Single Select', () => {
+  .add('default', () => {
     return (
       <State store={ singleSelectStore }>
         <Select { ...commonKnobs(singleSelectStore) }>
@@ -66,7 +66,7 @@ storiesOf('Experimental/Select', module)
     );
   })
 
-  .add('Multi Select', () => {
+  .add('multiple', () => {
     return (
       <State store={ multiSelectStore }>
         <Select { ...commonKnobs(multiSelectStore) }>
