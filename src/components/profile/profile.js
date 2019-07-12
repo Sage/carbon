@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { withTheme } from 'styled-components';
 import Portrait from '../portrait';
 import { acronymize } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import './profile.scss';
+import { THEMES } from '../../style/themes';
+import baseTheme from '../../style/themes/base';
 
 class Profile extends React.Component {
   static propTypes = {
@@ -31,11 +34,13 @@ class Profile extends React.Component {
     /**
      * Enable a larger theme for the name.
      */
-    large: PropTypes.bool
+    large: PropTypes.bool,
+    theme: PropTypes.object
   };
 
   static defaultProps = {
-    large: false
+    large: false,
+    theme: baseTheme
   };
 
   /**
@@ -76,7 +81,7 @@ class Profile extends React.Component {
         initials={ this.initials }
         gravatar={ this.props.email }
         className='carbon-profile__avatar'
-        size='medium-small'
+        size={ this.props.theme.name !== THEMES.classic ? 'M' : 'medium-small' }
       />
     );
   }
@@ -113,4 +118,5 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export { Profile as OriginalProfile };
+export default withTheme(Profile);

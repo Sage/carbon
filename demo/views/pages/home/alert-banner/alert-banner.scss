@@ -9,8 +9,14 @@
   width: 100%;
 
   .alert-banner__text {
-    + .carbon-link__anchor {
+    + a {
       margin-left: 10px;
+      text-decoration: none;
+
+      button {
+        border-radius: 3px;
+        line-height: 16px;
+      }
     }
   }
 }
