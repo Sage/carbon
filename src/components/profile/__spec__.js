@@ -1,10 +1,11 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import Profile from './profile';
+import {OriginalProfile as Profile} from './profile';
 import Portrait from './../portrait';
 import { shallow } from 'enzyme';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Browser from './../../utils/helpers/browser';
+import classicTheme from '../../style/themes/classic'
 
 describe('PortraitContainer', () => {
   let instance;
@@ -117,4 +118,12 @@ describe('PortraitContainer', () => {
       ]);
     });
   });
+
+  describe('when classic theme provided', () => {
+    const wrapper = shallow(<Profile initials="RR" email="john@joe.com" name="john" theme={classicTheme} />)
+
+    it('shouold render correct props', () => {
+      expect(wrapper.find(Portrait).props().size).toEqual('medium-small')
+    })
+  })
 });
