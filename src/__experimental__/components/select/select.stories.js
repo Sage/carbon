@@ -31,7 +31,7 @@ const commonKnobs = (store) => {
     },
     placeholder: text('placeholder'),
     readOnly: boolean('readOnly', false),
-    size: select('size', OptionsHelper.sizesRestricted),
+    size: select('size', OptionsHelper.sizesRestricted, OptionsHelper.sizesRestricted[1]),
     warningMessage: text('warningMessage'),
     filterable,
     typeAhead
