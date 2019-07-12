@@ -7,6 +7,7 @@ const ValidationIconStyle = styled.div`
   cursor: pointer;
   display: flex;
   align-items: center;
+  margin-left: 5px;
 
   ${({ theme }) => {
     if (theme.name === THEMES.classic) {
