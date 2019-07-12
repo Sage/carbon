@@ -348,6 +348,7 @@ Select.propTypes = {
   readOnly: PropTypes.bool,
   /** The current value */
   value: PropTypes.oneOfType([
+    PropTypes.string,
     optionShape,
     PropTypes.arrayOf(optionShape)
   ]),
