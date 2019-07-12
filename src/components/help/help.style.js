@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
-import { THEMES } from '../../style/themes';
+import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledHelp = styled.span`
   color: ${({ theme }) => theme.help.color};
@@ -20,7 +20,7 @@ const StyledHelp = styled.span`
     }
   `}
 
-  ${({ theme }) => theme.name === THEMES.classic && css`
+  ${({ theme }) => isClassic(theme) && css`
     color: rgba(0, 0, 0, 0.85)
   `}
 `;
