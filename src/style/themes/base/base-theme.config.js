@@ -88,6 +88,12 @@ export default (palette) => {
       focus: palette.slateTint(20)
     },
 
+    portrait: {
+      border: palette.slateTint(50),
+      background: palette.slateTint(95),
+      initials: 'rgba(0,0,0,0.65)'
+    },
+
     pill: {
       neutral: palette.slateTint(30),
       warning: palette.carrotOrangeTint(20),

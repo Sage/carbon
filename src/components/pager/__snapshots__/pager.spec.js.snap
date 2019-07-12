@@ -631,6 +631,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
                 <input
                   autoComplete="off"
                   className="c11 c12"
+                  data-component="input"
                   data-element="input"
                   id="guid-12345"
                   name="guid-12345"
