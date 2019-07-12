@@ -1,0 +1,15 @@
+FROM cypress/included:3.3.0
+
+ENV APP_HOME /usr/src/app
+RUN mkdir -p $APP_HOME
+WORKDIR $APP_HOME
+
+COPY . $APP_HOME
+
+EXPOSE 9001
+
+# Override default entrypoint from cypress/included
+ENTRYPOINT []
+
+RUN npm install -g wait-on --silent
+RUN npm install --silent
