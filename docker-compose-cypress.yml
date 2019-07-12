@@ -1,0 +1,22 @@
+version: '2.1'
+
+services:
+  cypress:
+    image: carbon_cypress
+    container_name: cypress
+    command: bash -c 'cypress run'
+    environment:
+      cypress_localhost: http://storybook:9001/
+    depends_on:
+      - storybook
+    # Reason for the below `ipc: host` line:
+    # https://github.com/cypress-io/cypress/issues/350
+    # https://docs.cypress.io/guides/references/error-messages.html#The-Chromium-Renderer-process-just-crashed
+    ipc: host
+    # volumes:
+    #   - './cypress/screenshots/:/usr/src/app/cypress/screenshots/'
+
+  storybook:
+    image: carbon_cypress
+    container_name: storybook
+    command: bash -c "npm run storybook-ci"
