@@ -3,34 +3,39 @@
 exports[`PortraitContainer render classes renders the large class if applied 1`] = `
 .c3 {
   position: absolute;
-  width: 40px;
-  height: 40px;
+  overflow: hidden;
+  border-radius: 0px;
+  border: 1px solid #7F99A4;
 }
 
 .c4 {
+  display: block;
+}
+
+.c5 {
   display: inline-block;
-  position: absolute;
   width: 40px;
   height: 40px;
+  position: absolute;
+  overflow: hidden;
+  border-radius: 0px;
 }
 
 .c2 {
   display: inline-block;
   position: relative;
   vertical-align: middle;
-  overflow: hidden;
   width: 40px;
   height: 40px;
-  border-radius: 0px;
 }
 
-.c6 {
+.c7 {
   font-weight: bold;
   display: inline-block;
   font-size: 14px;
 }
 
-.c7 {
+.c8 {
   font-size: 14px;
 }
 
@@ -39,7 +44,7 @@ exports[`PortraitContainer render classes renders the large class if applied 1`]
   color: rgba(0,0,0,0.9);
 }
 
-.c5 {
+.c6 {
   vertical-align: middle;
   display: inline-block;
   line-height: 16px;
@@ -58,36 +63,45 @@ exports[`PortraitContainer render classes renders the large class if applied 1`]
     alt=""
     className="c1 c2"
     data-component="portrait"
-    shape="standard"
-    size="medium-small"
+    shape="square"
+    size="M"
   >
-    <img
+    <div
       className="c3"
       data-element="initials"
-      src="data:image/png"
-    />
+      shape="square"
+    >
+      <img
+        alt=""
+        className="c4"
+        src="data:image/png"
+      />
+    </div>
     <img
-      className="c4"
+      alt=""
+      className="c5"
       data-element="user-image"
+      shape="square"
+      size="M"
       src="https://www.gravatar.com/avatar/f3ada405ce890b6f8204094deb12d8a8?s=40&d=blank"
     />
   </div>
   <div
-    className="c5"
-    size="medium-small"
+    className="c6"
+    size="M"
   >
     <span
-      className="c6"
+      className="c7"
       data-element="name"
-      size="medium-small"
+      size="M"
     >
       Foo
     </span>
     <br />
     <span
-      className="c7"
+      className="c8"
       data-element="email"
-      size="medium-small"
+      size="M"
     >
       foo@bar.com
     </span>

@@ -7,7 +7,7 @@ import Portrait from '../portrait';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Browser from '../../utils/helpers/browser';
 import {
-  ProfileNameStyle, ProfileStyle, ProfileEmailStyle, ProfileDetailsStyle
+  ProfileNameStyle, ProfileStyle, ProfileEmailStyle, ProfileDetailsStyle, ProfileAvatarStyle
 } from './profile.style';
 import 'jest-styled-components';
 import classicTheme from '../../style/themes/classic';
@@ -109,7 +109,6 @@ describe('Profile', () => {
 
     describe('on internal elements', () => {
       const wrapper = shallow(<Profile email='bun' name='dy' />);
-
       elementsTagTest(wrapper, [
         'email',
         'name'
@@ -126,6 +125,17 @@ describe('Profile', () => {
     it('shouold render correct props', () => {
       expect(wrapper.find(Portrait).props().size).toEqual('medium-small');
     });
+  });
+});
+
+describe('ProfileAvatarStyle', () => {
+  it('should render correct style when classic theme is provided', () => {
+    const wrapper = shallow(<Profile
+      initials='AS'
+      theme={ classicTheme }
+    />);
+
+    expect(wrapper.find(ProfileAvatarStyle).props().size).toEqual('medium-small');
   });
 });
 
