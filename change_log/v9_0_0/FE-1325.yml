@@ -1,0 +1,1 @@
+Component Update: Update toast component to use style-components and new styling. Create new standlone component dismiss-button. Update message component and toast component to use dismiss-button.
