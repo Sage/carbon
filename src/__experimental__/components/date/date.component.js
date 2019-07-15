@@ -57,13 +57,13 @@ class DateInput extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.isBlurBlocked && this.hasDatePickerValueChanged(prevProps)) {
+    if (this.isBlurBlocked && this.hasValueChanged(prevProps)) {
       this.isBlurBlocked = false;
       this.handleBlur();
     }
   }
 
-  hasDatePickerValueChanged = (prevProps) => {
+  hasValueChanged = (prevProps) => {
     return this.props.value && prevProps.value !== this.props.value;
   };
 
@@ -210,7 +210,7 @@ class DateInput extends React.Component {
         <Textbox
           { ...inputProps }
           inputIcon='calendar'
-          formattedValue={ this.state.visibleValue }
+          value={ this.state.visibleValue }
           inputRef={ this.assignInput }
           { ...tagComponent('date', this.props) }
           { ...events }
