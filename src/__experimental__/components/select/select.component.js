@@ -200,7 +200,6 @@ class Select extends React.Component {
     let displayedPlaceHolder = this.props.typeAhead ? 'Type to Search...' : 'Please Select...';
 
     if (placeholder) displayedPlaceHolder = placeholder;
-
     if (this.isMultiValue(value)) {
       // if multi-value then only show placeholder if nothing is currently selected
       return value.length ? null : displayedPlaceHolder;
