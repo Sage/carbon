@@ -224,6 +224,18 @@ describe('Date', () => {
 
       expect(instance.setState).toHaveBeenCalledWith({ visibleValue: today });
     });
+
+    it('if value is empty, visible value too', () => {
+
+      instance = TestUtils.renderIntoDocument(
+        <Date name='date' label='Date' value='' />
+      );
+
+      spyOn(instance, 'setState');
+      instance.updateVisibleValue();
+
+      expect(instance.setState).toHaveBeenCalledWith({ visibleValue: '' });
+    });
   });
 
   describe('handleVisibleInputChange', () => {

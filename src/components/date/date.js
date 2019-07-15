@@ -647,6 +647,10 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
    * @return {String} formatted visible value
    */
   formatVisibleValue(value) {
+    if (value === '') {
+      return '';
+    }
+
     // Don't sanitize so it accepts the hidden format (with dash separators)
     return DateHelper.formatValue(
       value || today,
