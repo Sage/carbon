@@ -2,8 +2,7 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import { shallow, mount } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
-import { OriginalProfile as Profile } from './profile';
-import Portrait from '../portrait';
+import { OriginalProfile as Profile } from './profile.component';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import Browser from '../../utils/helpers/browser';
 import {
@@ -12,6 +11,7 @@ import {
 import 'jest-styled-components';
 import classicTheme from '../../style/themes/classic';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+
 
 describe('Profile', () => {
   let instance;
@@ -113,17 +113,6 @@ describe('Profile', () => {
         'email',
         'name'
       ]);
-    });
-  });
-
-  describe('when classic theme provided', () => {
-    const wrapper = shallow(<Profile
-      initials='RR' email='john@joe.com'
-      name='john' theme={ classicTheme }
-    />);
-
-    it('shouold render correct props', () => {
-      expect(wrapper.find(Portrait).props().size).toEqual('medium-small');
     });
   });
 });
