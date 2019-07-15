@@ -24,8 +24,8 @@ const commonKnobs = (store) => {
     errorMessage: text('errorMessage', ''),
     infoMessage: text('infoMessage', ''),
     label,
-    labelAlign: label && select('labelAlign', OptionsHelper.alignBinary),
-    labelInline: label && boolean('labelInline', false),
+    labelAlign: label !== '' ? select('labelAlign', OptionsHelper.alignBinary) : undefined,
+    labelInline: label !== '' ? boolean('labelInline', false) : undefined,
     onChange: (ev) => {
       store.set({ value: ev.target.value });
       action('change')(ev);
