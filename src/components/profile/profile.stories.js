@@ -8,6 +8,11 @@ import classicTheme from '../../style/themes/classic';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 storiesOf('Profile', module)
+  .addParameters({
+    info: { text: info },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
+  })
   .add('default', () => {
     const email = text('email', 'johnsmith@sage.com');
     const initials = text('initials', 'JS');
@@ -39,7 +44,4 @@ storiesOf('Profile', module)
         />
       </ThemeProvider>
     );
-  }, {
-    info: { text: info },
-    notes: { markdown: notes }
   });

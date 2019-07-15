@@ -44,8 +44,8 @@ export default {
   },
   XXL: {
     dimensions: 128,
-    nameSize: '24px',
-    emailSize: '20px',
+    nameSize: '32px',
+    emailSize: '24px',
     lineHeight: '30px',
     marginLeft: '40px'
   }
