@@ -46,7 +46,11 @@ class Tooltip extends React.Component {
         <StyledTooltipInner { ...tooltipProps }>
           <>
             {children}
-            <StyledTooltipPointer key='pointer' { ...tooltipProps } />
+            <StyledTooltipPointer
+              data-element='tooltip-pointer'
+              key='pointer'
+              { ...tooltipProps }
+            />
           </>
         </StyledTooltipInner>
       </StyledTooltipWrapper>
