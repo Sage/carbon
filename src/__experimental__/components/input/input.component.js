@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { InputPresentationContext } from './input-presentation.component';
-import tagComponent from '../../../utils/helpers/tags';
 import StyledInput from './input.style';
 
 // This is a component in progress to incrementally remove the reliance
@@ -62,7 +61,7 @@ class Input extends React.Component {
         onFocus={ this.handleFocus }
         onBlur={ this.handleBlur }
         onClick={ this.handleClick }
-        { ...tagComponent('input', props) }
+        data-element='input'
       />
     );
   }

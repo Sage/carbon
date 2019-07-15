@@ -1,11 +1,10 @@
 import React from 'react';
-import InputDecoratorBridge from '../input-decorator-bridge';
 import Textbox from '../textbox';
 
 class Number extends React.Component {
   render() {
     return (
-      <InputDecoratorBridge
+      <Textbox
         { ...this.props }
         onChange={ this.handleOnChange }
         onKeyDown={ this.handleKeyDown }

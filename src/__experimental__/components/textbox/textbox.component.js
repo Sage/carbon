@@ -18,6 +18,8 @@ const Textbox = ({
   value,
   ...props
 }) => {
+  removeParentProps(props);
+
   return (
     <FormField { ...props }>
       <InputPresentation type='text' { ...props }>
@@ -32,6 +34,13 @@ const Textbox = ({
     </FormField>
   );
 };
+
+function removeParentProps(props) {
+  delete props['data-element'];
+  delete props['data-component'];
+  delete props['data-role'];
+  delete props.className;
+}
 
 function visibleValue(value, formattedValue) {
   return (typeof formattedValue === 'string') ? formattedValue : value;
