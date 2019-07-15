@@ -20,7 +20,8 @@ let definition = new Definition('date-input', DateInput, {
     maxDate: "String",
     onBlur: "Function",
     readOnly: "Boolean",
-    value: "String"
+    value: "String",
+    showTodayIfEmpty: "Boolean"
   },
   propDescriptions: {
     autoFocus: "Automatically focus on component mount.",
@@ -29,6 +30,7 @@ let definition = new Definition('date-input', DateInput, {
     maxDate: "Set a maximum value for date.",
     onBlur: "Specify a callback triggered on blur.",
     readOnly: "Display the currently selected value without displaying the input.",
+    showTodayIfEmpty: "Display the date of today if the value is empty.",
     value: "The selected date."
   }
 });

@@ -109,7 +109,15 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
      * @property value
      * @type {String}
      */
-    value: PropTypes.string
+    value: PropTypes.string,
+
+    /**
+     * Display the date of today if the value is empty
+     *
+     * @property readOnly
+     * @type {Boolean}
+     */
+    showTodayIfEmpty: PropTypes.bool
   };
 
   static defaultProps = {
@@ -129,7 +137,16 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     * @type {Array}
     * @default DateValidator
     */
-    internalValidations: [new DateValidator()]
+    internalValidations: [new DateValidator()],
+
+    /**
+     * Display the date of today if the value is empty
+     *
+     * @property showTodayIfEmpty
+     * @type {Boolean}
+     * @default true
+     */
+    showTodayIfEmpty: true
   }
 
   /**
@@ -647,7 +664,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
    * @return {String} formatted visible value
    */
   formatVisibleValue(value) {
-    if (value === '') {
+    if (!this.props.showTodayIfEmpty && value === '') {
       return '';
     }
 
