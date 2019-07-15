@@ -38,7 +38,7 @@ const Help = (props) => {
 };
 
 Help.propTypes = {
-  /** A custom class name for the component. */
+  /** [Legacy] A custom class name for the component. */
   className: PropTypes.string,
   /** Message to display in tooltip */
   children: PropTypes.string,
