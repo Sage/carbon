@@ -30,16 +30,16 @@ describe('Tabs', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Tabs>
-        <Tab title='Tab Title 1' tabId='uniqueid1' setLocation className='class1' headerClassName='headerClass1'>
+      <Tabs setLocation>
+        <Tab title='Tab Title 1' tabId='uniqueid1' className='class1' headerClassName='headerClass1'>
           <Textbox name='foo'/>
           <Textbox name='bar'/>
         </Tab>
-        <Tab title='Tab Title 2' tabId='uniqueid2' setLocation className='class2' headerClassName='headerClass2'>
+        <Tab title='Tab Title 2' tabId='uniqueid2' className='class2' headerClassName='headerClass2'>
           <Textbox name='baz'/>
           <Textbox name='bax'/>
         </Tab>
-        <Tab title='Tab Title 3' tabId='uniqueid3' setLocation className='class3 class4' headerClassName='headerClass3 headerClass4'>
+        <Tab title='Tab Title 3' tabId='uniqueid3' className='class3 class4' headerClassName='headerClass3 headerClass4'>
           <Textbox name='bar'/>
           <Textbox name='bap'/>
         </Tab>
@@ -264,14 +264,7 @@ describe('Tabs', () => {
 
     it('sets the location', () => {
       let replaceSpy = jasmine.createSpy('replaceState');
-      
-      let instance = TestUtils.renderIntoDocument(
-        <Tabs setLocation>
-          <Tab title='Tab Title 1' tabId='foo'>
-            <Textbox name='foo'/>
-          </Tab>
-        </Tabs>
-      );
+
 
       instance._window = {
         history: {
