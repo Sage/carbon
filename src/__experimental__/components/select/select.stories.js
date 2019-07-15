@@ -30,7 +30,7 @@ const commonKnobs = (store) => {
       store.set({ value: ev.target.value });
       action('change')(ev);
     },
-    placeholder: text('placeholder'),
+    placeholder: text('placeholder', ''),
     readOnly: boolean('readOnly', false),
     size: select('size', OptionsHelper.sizesRestricted, OptionsHelper.sizesRestricted[1]),
     warningMessage: text('warningMessage', ''),

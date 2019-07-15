@@ -197,10 +197,9 @@ class Select extends React.Component {
   isMultiValue(value) { return Array.isArray(value); }
 
   placeholder(placeholder, value) {
-    let displayedPlaceHolder;
+    let displayedPlaceHolder = this.props.typeAhead ? 'Type to Search...' : 'Please Select...';
 
     if (placeholder) displayedPlaceHolder = placeholder;
-    displayedPlaceHolder = this.props.typeAhead ? 'Type to Search...' : 'Please Select...';
 
     if (this.isMultiValue(value)) {
       // if multi-value then only show placeholder if nothing is currently selected
