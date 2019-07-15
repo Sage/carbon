@@ -31,15 +31,15 @@ describe('Tabs', () => {
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
       <Tabs>
-        <Tab title='Tab Title 1' tabId='uniqueid1' className='class1' headerClassName='headerClass1'>
+        <Tab title='Tab Title 1' tabId='uniqueid1' setLocation className='class1' headerClassName='headerClass1'>
           <Textbox name='foo'/>
           <Textbox name='bar'/>
         </Tab>
-        <Tab title='Tab Title 2' tabId='uniqueid2' className='class2' headerClassName='headerClass2'>
+        <Tab title='Tab Title 2' tabId='uniqueid2' setLocation className='class2' headerClassName='headerClass2'>
           <Textbox name='baz'/>
           <Textbox name='bax'/>
         </Tab>
-        <Tab title='Tab Title 3' tabId='uniqueid3' className='class3 class4' headerClassName='headerClass3 headerClass4'>
+        <Tab title='Tab Title 3' tabId='uniqueid3' setLocation className='class3 class4' headerClassName='headerClass3 headerClass4'>
           <Textbox name='bar'/>
           <Textbox name='bap'/>
         </Tab>
@@ -132,9 +132,6 @@ describe('Tabs', () => {
       });
     });
   });
-
-
-
 
   describe('Change in tab prop', () => {
     let instance, tabs, unique1Tab, unique2Tab;
@@ -267,6 +264,15 @@ describe('Tabs', () => {
 
     it('sets the location', () => {
       let replaceSpy = jasmine.createSpy('replaceState');
+      
+      let instance = TestUtils.renderIntoDocument(
+        <Tabs setLocation>
+          <Tab title='Tab Title 1' tabId='foo'>
+            <Textbox name='foo'/>
+          </Tab>
+        </Tabs>
+      );
+
       instance._window = {
         history: {
           replaceState: replaceSpy
@@ -276,8 +282,34 @@ describe('Tabs', () => {
           pathname: 'bar'
         }
       };
+
       instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
       expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#foo');
+    });
+
+    it('does not set the location', () => {
+      let replaceSpy = jasmine.createSpy('replaceState');
+
+      let instance = TestUtils.renderIntoDocument(
+        <Tabs setLocation={false}>
+          <Tab title='Tab Title 1' tabId='foo'>
+            <Textbox name='foo'/>
+          </Tab>
+        </Tabs>
+      );
+
+      instance._window = {
+        history: {
+          replaceState: replaceSpy
+        },
+        location: {
+          origin: 'foo',
+          pathname: 'bar'
+        }
+      };
+
+      instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
+      expect(replaceSpy).not.toHaveBeenCalledWith(null, 'change-tab', 'foobar#foo');
     });
 
     describe('when a onTabChange prop is passed', () => {
@@ -595,7 +627,7 @@ describe('Tabs', () => {
     describe('when the orientation is horizontal', () => {
       beforeEach(() => {
         wrapper = mount(
-          <Tabs>
+          <Tabs setLocation>
             <Tab tabId='tab1' title='Test 1' />
             <Tab tabId='tab2' title='Test 2' />
             <Tab tabId='tab3' title='Test 3' />
@@ -680,7 +712,7 @@ describe('Tabs', () => {
     describe('when the orientation is vertical', () => {
       beforeEach(() => {
         wrapper = mount(
-          <Tabs position='left'>
+          <Tabs position='left' setLocation>
             <Tab tabId='tab1' title='Test 1' />
             <Tab tabId='tab2' title='Test 2' />
             <Tab tabId='tab3' title='Test 3' />
