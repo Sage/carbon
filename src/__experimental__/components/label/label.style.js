@@ -28,7 +28,7 @@ const LabelStyle = styled.label`
   ${({ disabled, theme }) => disabled && css`
     color: ${theme.disabled.disabled};
   `}  
-  
+
   ${({ inline, theme }) => theme.name === THEMES.classic && css`
     color: #003349;
     padding-left: 6px;
@@ -44,6 +44,10 @@ const LabelStyle = styled.label`
       border-color: #1e499f;
     }
   `}
+  
+  ${({ hasError, theme }) => hasError && css`
+    color: ${theme.colors.error};
+  `} 
 `;
 
 LabelStyle.defaultProps = {
