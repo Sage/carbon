@@ -14,14 +14,14 @@ let definition = new Definition('date-input', DateInput, {
  `,
   type: 'form',
   propTypes: {
+    allowEmptyValue: "Boolean",
     autoFocus: "Boolean",
     disabled: "Boolean",
     minDate: "String",
     maxDate: "String",
     onBlur: "Function",
     readOnly: "Boolean",
-    value: "String",
-    allowEmptyValue: "Boolean"
+    value: "String"
   },
   propDescriptions: {
     allowEmptyValue: "Display an empty input if the value is empty.",
