@@ -34,7 +34,6 @@ storiesOf('Experimental/Form', module)
     const leftAlignedActions = text('leftAlignedActions', '');
     const rightAlignedActions = text('rightAlignedActions', '');
     const showSummary = boolean('showSummary', false);
-    const formAction = text('formAction', 'https://jsonplaceholder.typicode.com/posts');
 
     return (
       <Form
@@ -52,7 +51,9 @@ storiesOf('Experimental/Form', module)
         leftAlignedActions={ leftAlignedActions }
         rightAlignedActions={ rightAlignedActions }
         showSummary={ showSummary }
-        formAction={ formAction }
+        onSubmit={ () => {
+          window.location.href = window.location.href;
+        } }
       >
         <Textbox
           key='0'

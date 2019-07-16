@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
+import axios from 'axios';
 import { mount, shallow } from 'enzyme';
 import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
 import Textbox from '../textbox';
@@ -14,9 +15,10 @@ import ElementResize from '../../../utils/helpers/element-resize';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 
 /* global jest */
+jest.mock('axios');
 
 describe('Form', () => {
-  let instance, wrapper, validate, mockSuccess, mockJson, mockFetch, action;
+  let instance, wrapper, validate, mockSuccess, mockJson, action;
 
   beforeEach(() => {
     validate = jest.fn().mockImplementation(() => true);
@@ -24,13 +26,10 @@ describe('Form', () => {
       <Form formAction='foo' validate={ validate } />
     );
 
-    mockSuccess = { foo: 'bar' };
+    mockSuccess = { data: { foo: 'bar' } };
     mockJson = Promise.resolve(mockSuccess);
-    mockFetch = Promise.resolve({
-      json: () => mockJson
-    });
     action = 'foo';
-    global.fetch = jest.fn().mockImplementation(() => mockFetch);
+    axios.post = axios.post.mockResolvedValue(mockJson);
   });
 
   describe('componentWillReceiveProps', () => {
@@ -800,7 +799,7 @@ describe('Form', () => {
   });
 
   describe('Submitting form with controlled input', () => {
-    it('makes a default fetch request when no onSubmit prop is passed', (done) => {
+    it('makes a default axios request when no onSubmit prop is passed', (done) => {
       wrapper = mount(
         <Form validate={ () => true } formAction={ action }>
           <Textbox
@@ -811,25 +810,14 @@ describe('Form', () => {
         </Form>
       );
 
-      expect(wrapper.instance().submitControlledForm(action)).resolves.toEqual(mockSuccess);
-      expect(global.fetch).toHaveBeenCalledTimes(1);
-
-      process.nextTick(() => {
-        expect(wrapper.state()).toEqual({
-          submitted: false,
-          formInputs: {
-            foo: 'foo'
-          },
-          isDirty: false
-        });
-        done();
-      });
+      expect(wrapper.instance().submitControlledForm(action)).resolves.toEqual(mockSuccess.data);
+      expect(axios.post).toHaveBeenCalledTimes(1);
+      done();
     });
   });
 
   afterEach(() => {
-    global.fetch.mockClear();
-    delete global.fetch;
+    axios.post.mockClear();
   });
 
   describe('tags', () => {
