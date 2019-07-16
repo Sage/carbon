@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select, boolean } from '@storybook/addon-knobs';
 import notes from './documentation';
-import { Carousel, Slide } from './carousel.js';
+import { Carousel, Slide } from './carousel.component';
 
 storiesOf('Carousel', module)
   .addParameters({
