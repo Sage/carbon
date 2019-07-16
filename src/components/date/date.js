@@ -117,7 +117,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
      * @property readOnly
      * @type {Boolean}
      */
-    showTodayIfEmpty: PropTypes.bool
+    allowEmptyValue: PropTypes.bool
   };
 
   static defaultProps = {
@@ -137,16 +137,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     * @type {Array}
     * @default DateValidator
     */
-    internalValidations: [new DateValidator()],
-
-    /**
-     * Display the date of today if the value is empty
-     *
-     * @property showTodayIfEmpty
-     * @type {Boolean}
-     * @default true
-     */
-    showTodayIfEmpty: true
+    internalValidations: [new DateValidator()]
   }
 
   /**

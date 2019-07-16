@@ -227,7 +227,7 @@ describe('Date', () => {
 
     it('if value is empty, visible value too', () => {
       instance = TestUtils.renderIntoDocument(
-        <Date name='date' label='Date' value='' showTodayIfEmpty={false}/>
+        <Date name='date' label='Date' value='' allowEmptyValue/>
       );
 
       spyOn(instance, 'setState');
