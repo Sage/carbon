@@ -35,21 +35,28 @@ class Tooltip extends React.Component {
   };
 
   get tooltipHTML() {
-    const { children, ...tooltipProps } = this.props;
+    const {
+      children,
+      onMouseEnter,
+      onMouseLeave,
+      ...commonProps
+    } = this.props;
 
     return (
       <StyledTooltipWrapper
         role='tooltip'
-        { ...tooltipProps }
+        onMouseEnter={ onMouseEnter }
+        onMouseLeave={ onMouseLeave }
+        { ...commonProps }
         { ...tagComponent('tooltip', this.props) }
       >
-        <StyledTooltipInner { ...tooltipProps }>
+        <StyledTooltipInner { ...commonProps }>
           <>
             {children}
             <StyledTooltipPointer
-              data-element='tooltip-pointer'
               key='pointer'
-              { ...tooltipProps }
+              { ...commonProps }
+              data-element='tooltip-pointer'
             />
           </>
         </StyledTooltipInner>
