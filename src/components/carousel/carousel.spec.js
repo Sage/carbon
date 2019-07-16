@@ -2,8 +2,8 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { shallow } from 'enzyme';
-import { Carousel, Slide } from './carousel';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import { Carousel, Slide } from './carousel.component';
+import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
 
 /* global jest */
 
@@ -72,7 +72,7 @@ describe('Carousel', () => {
             <Slide />
             <Slide />
           </Carousel>
-    );
+        );
 
     beforeEach(() => {
       wrapper.instance().enableButtonsAfterTimeout = enableButtonsAfterTimeoutSpy;
@@ -165,7 +165,7 @@ describe('Carousel', () => {
             <Slide />
             <Slide />
           </Carousel>
-    );
+        );
 
     beforeEach(() => {
       wrapper.instance().enableButtonsAfterTimeout = enableButtonsAfterTimeoutSpy;
@@ -217,7 +217,7 @@ describe('Carousel', () => {
             <Slide />
             <Slide />
           </Carousel>
-    );
+        );
 
     beforeEach(() => {
       wrapper.instance().enableButtonsAfterTimeout = enableButtonsAfterTimeoutSpy;
@@ -269,7 +269,7 @@ describe('Carousel', () => {
             <Slide />
             <Slide />
           </Carousel>
-    );
+        );
 
     beforeEach(() => {
       wrapper.instance().enableButtonsAfterTimeout = enableButtonsAfterTimeoutSpy;
@@ -403,7 +403,7 @@ describe('Carousel', () => {
 
     beforeEach(() => {
       wrapper = shallow(
-        <Carousel >
+        <Carousel>
           <Slide />
         </Carousel>
       );
@@ -538,7 +538,10 @@ describe('Carousel', () => {
   describe('tags', () => {
     describe('on component', () => {
       const wrapper = shallow(
-        <Carousel data-element='bar' data-role='baz' initialSlideIndex={ 0 }>
+        <Carousel
+data-element='bar' data-role='baz'
+                    initialSlideIndex={ 0 }
+        >
           <Slide />
         </Carousel>
       );
