@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import React from 'react';
+import axios from 'axios';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import Serialize from 'form-serialize';
@@ -221,23 +222,20 @@ class FormWithoutValidations extends React.Component {
   }
 
   async submitControlledForm() {
-    const response = await fetch(
-      this.props.formAction, {
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json'
-        },
-        method: 'post',
-        body: JSON.stringify(this.state.formInputs)
-      }
-    );
-    return this.clearFormData(await response.json());
+    const response = await axios.post(this.props.formAction, {
+      ...this.state.formInputs
+    }, {
+      Accept: 'application/json',
+      'Content-Type': 'application/json'
+    });
+    const { data } = await response;
+    return this.clearFormData(data);
   }
 
-  clearFormData(json) {
+  clearFormData(data) {
     // stop gap solution to prevent double submission for the time being
     this._window.location.href = this.redirectPath;
-    return json;
+    return data;
   }
 
   /* enables a form which has been disabled after being submitted. */
