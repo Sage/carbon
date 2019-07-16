@@ -1,6 +1,7 @@
 @import "./../../style-config/colors";
 @import "./../../style-config/mixins";
 
+// Related to Pages Component, used in pages.scss
 .carbon-carousel__content {
   overflow: hidden;
   position: relative;
@@ -15,12 +16,12 @@
   z-index: 15;
 }
 
-.carbon-carousel__navigation {
-  margin-top: -22.5px;
-  position: absolute;
-  top: 50%;
-  z-index: 20;
-}
+// .carbon-carousel__navigation {
+//   margin-top: -22.5px;
+//   position: absolute;
+//   top: 50%;
+//   z-index: 20;
+// }
 
 .carbon-carousel__previous-button {
   border-top-right-radius: 0px;
@@ -49,9 +50,9 @@
   padding: 0 60px;
 }
 
-.carbon-carousel__next {
-  right: 0;
-}
+// .carbon-carousel__next {
+//   right: 0;
+// }
 
 .carbon-carousel__next-button {
   border-top-left-radius: 0px;
