@@ -112,7 +112,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     value: PropTypes.string,
 
     /**
-     * Display the date of today if the value is empty
+     * Display an empty input if the value is empty
      *
      * @property readOnly
      * @type {Boolean}
@@ -655,7 +655,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
    * @return {String} formatted visible value
    */
   formatVisibleValue(value) {
-    if (!this.props.showTodayIfEmpty && value === '') {
+    if (!this.props.allowEmptyValue && !value.length) {
       return '';
     }
 

@@ -21,16 +21,16 @@ let definition = new Definition('date-input', DateInput, {
     onBlur: "Function",
     readOnly: "Boolean",
     value: "String",
-    showTodayIfEmpty: "Boolean"
+    allowEmptyValue: "Boolean"
   },
   propDescriptions: {
+    allowEmptyValue: "Display an empty input if the value is empty.",
     autoFocus: "Automatically focus on component mount.",
     disabled: "Disable all user interaction.",
     minDate: "Set a minimum value for date.",
     maxDate: "Set a maximum value for date.",
     onBlur: "Specify a callback triggered on blur.",
     readOnly: "Display the currently selected value without displaying the input.",
-    showTodayIfEmpty: "Display the date of today if the value is empty.",
     value: "The selected date."
   }
 });
