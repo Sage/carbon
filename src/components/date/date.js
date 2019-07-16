@@ -655,7 +655,7 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
    * @return {String} formatted visible value
    */
   formatVisibleValue(value) {
-    if (!this.props.allowEmptyValue && !value.length) {
+    if (this.props.allowEmptyValue && !value.length) {
       return '';
     }
 
