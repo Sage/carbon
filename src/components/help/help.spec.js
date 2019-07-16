@@ -1,4 +1,5 @@
 import React from 'react';
+import { act } from 'react-dom/test-utils';
 import 'jest-styled-components';
 import { shallow, mount } from 'enzyme';
 import Icon from 'components/icon';
@@ -7,6 +8,7 @@ import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 import classicTheme from '../../style/themes/classic';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import StyledHelp from './help.style';
+import Tooltip from '../tooltip';
 
 describe('Help', () => {
   let wrapper;
@@ -52,6 +54,7 @@ describe('Help', () => {
       const mockHref = 'href';
       wrapper = renderHelp({ href: mockHref }, mount);
       expect(wrapper.find('a').exists()).toBe(true);
+      wrapper.unmount();
     });
   });
 
@@ -60,6 +63,68 @@ describe('Help', () => {
 
     it('include correct component, element and role data tags', () => {
       rootTagTest(tagsWrapper, 'help', 'bar', 'baz');
+    });
+  });
+
+  describe('when the Help component is focused', () => {
+    beforeEach(() => {
+      wrapper = renderHelp({}, mount);
+      wrapper.find(StyledHelp).simulate('focus');
+    });
+
+    it('the tooltip should be rendered', () => {
+      expect(wrapper.update().find(Tooltip).exists()).toBe(true);
+    });
+
+    describe('and then the Help component is blurred', () => {
+      it('the tooltip should not be rendered', () => {
+        expect(wrapper.update().find(Tooltip).exists()).toBe(true);
+        wrapper.find(StyledHelp).simulate('blur');
+        expect(wrapper.update().find(Tooltip).exists()).toBe(false);
+      });
+    });
+
+    afterEach(() => {
+      wrapper.unmount();
+    });
+  });
+
+  describe('when a key is pressed when the tooltip is open', () => {
+    const escapeKeyDownEvent = new KeyboardEvent('keydown', { which: 27, bubbles: true });
+    const enterKeyDownEvent = new KeyboardEvent('keydown', { which: 13, bubbles: true });
+    let domNode;
+
+    beforeEach(() => {
+      act(() => {
+        wrapper = mount(<div><Help>mock message</Help></div>);
+      });
+      domNode = wrapper.getDOMNode();
+      document.body.appendChild(domNode);
+      wrapper.find(StyledHelp).simulate('focus');
+    });
+
+    describe("and it's the Esc key", () => {
+      it('the tooltip should not be rendered', () => {
+        expect(wrapper.update().find(Tooltip).exists()).toBe(true);
+        act(() => {
+          domNode.dispatchEvent(escapeKeyDownEvent);
+        });
+        expect(wrapper.update().find(Tooltip).exists()).toBe(false);
+      });
+    });
+
+    describe("and it's a key other than the Esc", () => {
+      it('the tooltip should be rendered', () => {
+        expect(wrapper.update().find(Tooltip).exists()).toBe(true);
+        act(() => {
+          domNode.dispatchEvent(enterKeyDownEvent);
+        });
+        expect(wrapper.update().find(Tooltip).exists()).toBe(true);
+      });
+    });
+
+    afterEach(() => {
+      document.body.removeChild(domNode);
     });
   });
 });

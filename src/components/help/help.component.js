@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import Icon from '../icon';
 import tagComponent from '../../utils/helpers/tags';
 import StyledHelp from './help.style';
+import Events from '../../utils/helpers/events/events';
 
 const Help = (props) => {
+  const helpElement = useRef(null);
+  const [isTooltipVisible, updateTooltipVisible] = useState(false);
   const {
     className,
     href,
@@ -14,8 +17,23 @@ const Help = (props) => {
   } = props;
   let tagType;
 
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+
+    return function cleanup() {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  });
+
   if (href) {
     tagType = 'a';
+  }
+
+  function handleKeyPress(ev) {
+    if (Events.isEscKey(ev)) {
+      helpElement.current.blur();
+      updateTooltipVisible(false);
+    }
   }
 
   return (
@@ -25,6 +43,9 @@ const Help = (props) => {
       href={ href }
       target='_blank'
       rel='noopener noreferrer'
+      ref={ helpElement }
+      onFocus={ () => updateTooltipVisible(true) }
+      onBlur={ () => updateTooltipVisible(false) }
       { ...tagComponent('help', props) }
     >
       <Icon
@@ -32,6 +53,7 @@ const Help = (props) => {
         tooltipMessage={ children }
         tooltipPosition={ tooltipPosition }
         tooltipAlign={ tooltipAlign }
+        tooltipVisible={ isTooltipVisible }
       />
     </StyledHelp>
   );
