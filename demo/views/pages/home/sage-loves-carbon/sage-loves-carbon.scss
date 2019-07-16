@@ -15,7 +15,7 @@
     }
   }
 
-  .carbon-link__anchor {
+  [data-component='link'] {
     color: $grey-dark-blue;
     font-size: 18px;
     font-weight: bold;

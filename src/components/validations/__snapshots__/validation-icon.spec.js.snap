@@ -12,6 +12,7 @@ exports[`ValidationIcon renders with an icon for the given type 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  margin-left: 5px;
 }
 
 <div
@@ -46,6 +47,7 @@ exports[`ValidationIcon renders with an icon with classic styling 1`] = `
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  margin-left: 5px;
   margin-right: -2px;
   margin-top: -1px;
 }
