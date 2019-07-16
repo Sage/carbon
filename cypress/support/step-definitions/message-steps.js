@@ -2,7 +2,6 @@ import {
   messageTitle, messageType, messagePreview, messageChildren, messageDismissIcon,
 } from '../../locators/message';
 import { clickActionsTab, clickClear } from '../helper';
-import { eventInAction } from '../../locators';
 
 Then('Message title on preview is set to {string}', (text) => {
   messageTitle().should('have.text', text);
