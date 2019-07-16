@@ -2,9 +2,11 @@ import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
 import { isClassic } from '../../utils/helpers/style-helper';
 
-const StyledHelp = styled.span`
+const StyledHelp = styled.button`
   color: ${({ theme }) => theme.help.color};
   cursor: default;
+  border: none;
+  outline: none;
   display: inline-block;
   position: relative;
   margin-left: 8px;
