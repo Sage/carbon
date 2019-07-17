@@ -51,22 +51,37 @@ Feature: Link component
       | left      |
       | right     |
 
-  @positive
-  Scenario Outline: Change tooltip align to <tooltipAlign> and tooltipPosition to <tooltipPosition>
+  @ignore
+  Scenario Outline: Change tooltip align to <tooltipAlign>
     When I select icon to "add"
       And I set tooltipMessage to "sample message"
       And I select tooltipAlign to "<tooltipAlign>"
-      And I select tooltipPosition to "<tooltipPosition>"
+      And I select tooltipPosition to "bottom"
       And I hover mouse onto icon
     Then tooltipAlign is set to "<tooltipAlign>"
-      And tooltipPosition is set to "<tooltipPosition>"
     Examples:
-      | tooltipAlign | tooltipPosition |
-      | left         | right           |
-      | right        | left            |
-      | top          | bottom          |
-      | bottom       | top             |
-      | center       | right           |
+      | tooltipAlign |
+      | left         |
+      | right        |
+      | top          |
+      | bottom       |
+      | center       |
+
+  @ignore
+  Scenario Outline: Change tooltip tooltipPosition to <tooltipPosition>
+    When I select icon to "add"
+      And I set tooltipMessage to "sample message"
+      And I select tooltipAlign to "center"
+      And I select tooltipPosition to "<tooltipPosition>"
+      And I hover mouse onto icon
+    Then tooltipPosition is set to "<tooltipPosition>"
+    Examples:
+      | tooltipPosition |
+      | right           |
+      | left            |
+      | bottom          |
+      | top             |
+      | right           |
 
   @positive
   Scenario: Check tabbable and focus the link componenent
