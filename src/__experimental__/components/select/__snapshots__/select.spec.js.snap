@@ -215,7 +215,6 @@ Object {
 <div
     aria-label="Please Select..."
     class="c0"
-    data-component="carbon-select"
     name="guid-12345"
     placeholder="Please Select..."
     role="presentation"
@@ -224,7 +223,7 @@ Object {
     <input
       aria-label="Please Select..."
       class="c1 c2"
-      data-component="input"
+      data-element="input"
       id="guid-12345"
       name="guid-12345"
       placeholder="Please Select..."
@@ -237,7 +236,6 @@ Object {
     <span
       aria-label="Please Select..."
       class="c3"
-      data-component="carbon-select"
       name="guid-12345"
       placeholder="Please Select..."
       type="dropdown"
