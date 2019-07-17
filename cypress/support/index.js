@@ -40,7 +40,7 @@ Cypress.Commands.overwrite(
 );
 
 function getItem(selector, counter) {
-  cy.wait(50, { log: DEBUG_FLAG })
+  cy.wait(100, { log: DEBUG_FLAG })
     .get('#storybook-preview-iframe', { log: DEBUG_FLAG })
     .then(($iframe) => {
       if (!$iframe.contents().find(selector).length && counter > 0) {
