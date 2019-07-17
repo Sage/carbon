@@ -135,7 +135,7 @@ describe('StyledHelp', () => {
       const wrapper = mount(<StyledHelp theme={ classicTheme } />);
 
       assertStyleMatch({
-        color: 'rgba(0,0,0,0.85)'
+        color: 'rgb(128,153,164)'
       }, wrapper);
     });
   });
