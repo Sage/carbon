@@ -29,6 +29,13 @@ export default ({
     margin-right: 6px;
   }
 
+  ${HiddenCheckableInputStyle}:not([disabled]) {
+    &:focus + ${StyledCheckableInputSvgWrapper} > svg {
+      box-shadow: 0 0 6px rgba(25, 99, 246, 0.6);
+      transition: box-shadow 0.1s linear;
+    }
+  }
+
   ${checked && `
     circle { fill: rgba(0, 0, 0, 0.85); }
   `}
