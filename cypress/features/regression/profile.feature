@@ -36,7 +36,7 @@ Feature: Profile component
   # @ignore because of FE-1447
   # | <> |
 
-  @positive
+  @ignore
   Scenario Outline: Set initials to <initials>
     When I set initials to "<initials>"
     Then initials is set to "<initials>"

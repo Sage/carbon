@@ -3,7 +3,7 @@ Feature: Decimal component
 
   # Added Experimental untill the component will be merged with master
   Background: Open Decimal component page
-    Given I open "Experimental-Decimal" component page
+    Given I open "Experimental-Decimal-Input" component page
 
  @positive
   Scenario Outline: Check Decimal component input field with precision <precision> and input <labelInput>
