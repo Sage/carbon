@@ -12,5 +12,23 @@ const CarouselNextButtonWrapperStyle = styled(CarouselNavigationStyle)`
   right: 0;
 `;
 
+const CarouselButtonStyle = styled.button`
+  border: none;
+  width: 45px;
+  height: 45px;
+  background-color: #CCD6DA;
 
-export { CarouselNavigationStyle, CarouselNextButtonWrapperStyle, CarouselPreviousButtonWrapperStyle };
+  &:hover {
+    color: #255BC7;
+    background-color: #99ADB6;
+  }
+
+  &:focus {
+    outline: none;
+  }
+`;
+
+
+export {
+  CarouselNavigationStyle, CarouselNextButtonWrapperStyle, CarouselPreviousButtonWrapperStyle, CarouselButtonStyle
+};
