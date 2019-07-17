@@ -6,11 +6,14 @@ import { compact, assign } from 'lodash';
 import classNames from 'classnames';
 import tagComponent from '../../utils/helpers/tags/tags';
 
-import Icon from '../icon/icon';
 import Slide from './slide/slide';
 import './carousel.scss';
 import {
-  CarouselPreviousButtonWrapperStyle, CarouselNextButtonWrapperStyle, CarouselButtonStyle
+  CarouselPreviousButtonWrapperStyle,
+  CarouselNextButtonWrapperStyle,
+  CarouselButtonStyle,
+  CarouselStyledIconRight,
+  CarouselStyledIconLeft
 } from './carousel.style';
 
 const NEXT = 'next';
@@ -228,7 +231,7 @@ class Carousel extends React.Component {
           data-element='previous'
           type='button'
         >
-          <Icon className='carbon-carousel__previous-arrow' type='dropdown' />
+          <CarouselStyledIconLeft type='dropdown' />
         </CarouselButtonStyle>
       </CarouselPreviousButtonWrapperStyle>
     );
@@ -245,7 +248,7 @@ class Carousel extends React.Component {
           data-element='next'
           type='button'
         >
-          <Icon className='carbon-carousel__next-arrow' type='dropdown' />
+          <CarouselStyledIconRight type='dropdown' />
         </CarouselButtonStyle>
       </CarouselNextButtonWrapperStyle>
     );
@@ -264,7 +267,7 @@ class Carousel extends React.Component {
   render() {
     return (
       <div className={ this.props.className } { ...tagComponent('carousel', this.props) }>
-
+        {/** carbon-carousel__content is related to pages.scss */}
         <div className='carbon-carousel__content'>
           { this.previousButton() }
 
