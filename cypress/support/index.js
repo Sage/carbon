@@ -50,4 +50,4 @@ function getItem(selector, counter) {
     });
 }
 
-Cypress.Commands.add('iFrame', (selector) => { getItem(selector, 20); });
+Cypress.Commands.add('iFrame', (selector) => { getItem(selector, 40); });
