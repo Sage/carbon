@@ -20,15 +20,21 @@ const StyledHelp = styled.button`
   ${({ href }) => href && css`
     cursor: pointer;
     text-decoration: none;
-
-    &:hover {
-      color: $blue;
-      text-decoration: underline;
-    }
   `}
 
+  &:focus,
+  &:hover {
+    color: ${({ theme }) => theme.help.hover};
+    text-decoration: underline;
+  }
+
   ${({ theme }) => isClassic(theme) && css`
-    color: rgba(0, 0, 0, 0.85)
+    color: rgb(128, 153, 164);
+
+    &:focus,
+    &:hover {
+      color: rgb(128, 153, 164);
+    }
   `}
 `;
 
