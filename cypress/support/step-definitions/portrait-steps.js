@@ -10,20 +10,6 @@ Then('Portrait alt on preview is set to {string}', (text) => {
     .should('have.attr', 'alt', `${text}`);
 });
 
-// Then('Portrait component has darkBackground property {string}', (property) => {
-//   cy.fixture(`${INITIALS_FOLDER}${property}`, 'base64').then(($property) => {
-//     portraitInitials().children()
-//       .should('have.attr', 'src', `${DATA_IMAGE_PREFIX}${$property}`);
-//   });
-// });
-
-// Then('Portrait component has no darkBackground property {string}', (property) => {
-//   cy.fixture(`${INITIALS_FOLDER}${property}`, 'base64').then(($property) => {
-//     portraitInitials().children()
-//       .should('have.attr', 'src', `${DATA_IMAGE_PREFIX}${$property}`);
-//   });
-// });
-
 Then('Portrait source is set to {string}', (sourceProperty) => {
   if (sourceProperty === 'src') {
     portraitUserImage()
@@ -57,7 +43,7 @@ Then('Portrait {word} value is set to {string}', (word, property) => {
     case 'initials':
       portraitInitials()
         .should('be.visible');
-      cy.fixture(`${INITIALS_FOLDER}${property}`).then(($property) => {
+      cy.fixture(`${INITIALS_FOLDER}${property}`, 'base64').then(($property) => {
         portraitInitials().children()
           .should('have.attr', 'src', `${DATA_IMAGE_PREFIX}${$property}`);
       });
