@@ -11,4 +11,5 @@ EXPOSE 9001
 # Override default entrypoint from cypress/included
 ENTRYPOINT []
 
-RUN npm ci --silent
+RUN npm install -g wait-on --silent
+RUN npm install --silent
