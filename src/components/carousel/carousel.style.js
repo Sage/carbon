@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import Icon from '../icon/icon';
 
 const CarouselNavigationStyle = styled.div`
   margin-top: -22.5px;
@@ -28,7 +29,30 @@ const CarouselButtonStyle = styled.button`
   }
 `;
 
+const CarouselStyledIcon = styled(Icon)`
+  cursor: pointer;
+  display: inline-block;
+
+  &&::before {
+    font-size: 25px;
+  }
+`;
+
+const CarouselStyledIconLeft = styled(CarouselStyledIcon)`
+  transform: rotate(90deg);
+`;
+
+const CarouselStyledIconRight = styled(CarouselStyledIcon)`
+  transform: rotate(-90deg)
+`;
+
 
 export {
-  CarouselNavigationStyle, CarouselNextButtonWrapperStyle, CarouselPreviousButtonWrapperStyle, CarouselButtonStyle
+  CarouselNavigationStyle,
+  CarouselNextButtonWrapperStyle,
+  CarouselPreviousButtonWrapperStyle,
+  CarouselButtonStyle,
+  CarouselStyledIcon,
+  CarouselStyledIconLeft,
+  CarouselStyledIconRight
 };

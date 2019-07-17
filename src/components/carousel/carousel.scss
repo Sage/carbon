@@ -16,29 +16,6 @@
   z-index: 15;
 }
 
-// .carbon-carousel__navigation {
-//   margin-top: -22.5px;
-//   position: absolute;
-//   top: 50%;
-//   z-index: 20;
-// }
-
-.carbon-carousel__previous-button {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-
-.carbon-carousel__previous-arrow {
-  @include transform(rotate(90deg))
-
-  cursor: pointer;
-  display: inline-block;
-
-  &::before {
-    font-size: 25px;
-  }
-}
-
 .carbon-slide {
   box-sizing: border-box;
   display: inline-block;
@@ -48,25 +25,6 @@
 
 .carbon-slide--padded {
   padding: 0 60px;
-}
-
-// .carbon-carousel__next {
-//   right: 0;
-// }
-
-.carbon-carousel__next-button {
-  border-top-left-radius: 0px;
-  border-bottom-left-radius: 0px;
-}
-
-.carbon-carousel__next-arrow {
-  @include transform(rotate(-90deg))
-  display: inline-block;
-  cursor: pointer;
-
-  &::before {
-    font-size: 25px;
-  }
 }
 
 .carbon-carousel__buttons {
