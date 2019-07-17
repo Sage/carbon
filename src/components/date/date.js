@@ -114,10 +114,18 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     /**
      * Display an empty input if the value is empty
      *
-     * @property readOnly
+     * @property allowEmptyValue
      * @type {Boolean}
      */
-    allowEmptyValue: PropTypes.bool
+    allowEmptyValue: PropTypes.bool,
+
+    /**
+     * Display the date picker component on top of the input
+     *
+     * @property showPickerOnTop
+     * @type {Boolean}
+     */
+    showPickerOnTop: PropTypes.bool
   };
 
   static defaultProps = {
@@ -562,6 +570,12 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
   get containerStyle() {
     const inputRect = this.getInputBoundingRect();
     const offsetY = window.pageYOffset;
+    if (this.props.showPickerOnTop) {
+      return {
+          left: inputRect.left,
+          bottom: 2 - inputRect.top + offsetY
+      };
+    }
     return {
       left: inputRect.left,
       top: inputRect.bottom + offsetY

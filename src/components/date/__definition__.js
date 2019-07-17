@@ -21,6 +21,7 @@ let definition = new Definition('date-input', DateInput, {
     maxDate: "String",
     onBlur: "Function",
     readOnly: "Boolean",
+    showPickerOnTop: "Boolean",
     value: "String"
   },
   propDescriptions: {
@@ -31,6 +32,7 @@ let definition = new Definition('date-input', DateInput, {
     maxDate: "Set a maximum value for date.",
     onBlur: "Specify a callback triggered on blur.",
     readOnly: "Display the currently selected value without displaying the input.",
+    showPickerOnTop: "Display the date picker component on top of the input",
     value: "The selected date."
   }
 });
