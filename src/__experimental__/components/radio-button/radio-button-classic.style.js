@@ -38,5 +38,9 @@ export default ({
       margin-left: 0;
       margin-right: 6px;
     }
+
+    ${StyledCheckableInput} {
+      margin-left: 6px;
+    }
   `}
 `;
