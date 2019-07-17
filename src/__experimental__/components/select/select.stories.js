@@ -19,15 +19,10 @@ const commonKnobs = (store) => {
   const typeAhead = filterable && boolean('typeAhead', Select.defaultProps.typeAhead);
   const label = text('label', '');
 
-  return {
+  const knobs = {
     disabled: boolean('disabled', false),
     errorMessage: text('errorMessage', ''),
     infoMessage: text('infoMessage', ''),
-    label,
-    labelAlign: (
-      label.length ? select('labelAlign', OptionsHelper.alignBinary, OptionsHelper.alignBinary[0]) : undefined
-    ),
-    labelInline: label.length ? boolean('labelInline', false) : undefined,
     onChange: (ev) => {
       store.set({ value: ev.target.value });
       action('change')(ev);
@@ -37,8 +32,16 @@ const commonKnobs = (store) => {
     size: select('size', OptionsHelper.sizesRestricted, OptionsHelper.sizesRestricted[1]),
     warningMessage: text('warningMessage', ''),
     filterable,
-    typeAhead
+    typeAhead,
+    label
   };
+
+  if (label.length) {
+    knobs.labelAlign = select('labelAlign', OptionsHelper.alignBinary, OptionsHelper.alignBinary[0]);
+    knobs.labelInline = boolean('labelInline', false);
+  }
+
+  return knobs;
 };
 
 const selectOptionsLabels = [
