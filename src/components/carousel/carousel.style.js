@@ -43,9 +43,48 @@ const CarouselStyledIconLeft = styled(CarouselStyledIcon)`
 `;
 
 const CarouselStyledIconRight = styled(CarouselStyledIcon)`
-  transform: rotate(-90deg)
+  transform: rotate(-90deg);
 `;
 
+const CarouselSelectorInputStyle = styled.input`
+  display: none;
+`;
+
+const CarouselSelectorLabelStyle = styled.label`
+  border: 1px solid #4C6F7F;
+  display: inline-block;
+  height: 8px;
+  margin: 0px 5px;
+  width: 8px;
+
+  &:hover {
+    cursor: pointer;
+  }
+`;
+
+const CarouselSelectorWrapperStyle = styled.div`
+  height: 20px;
+  margin-top: 5px;
+  text-align: center;
+
+    ${CarouselSelectorInputStyle}:checked {
+    + ${CarouselSelectorLabelStyle} {
+      background: #255BC7;
+      border-color: transparent;
+      height: 10px;
+      position: relative;
+      top: 1px;
+      width: 10px;
+    }
+  }
+`;
+
+const CarouselSelectorInputWrapperStyle = styled.span`
+  display: inline-block;
+  line-height: 20px;
+  vertical-align: middle;
+  width: 22px;
+`;
 
 export {
   CarouselNavigationStyle,
@@ -54,5 +93,9 @@ export {
   CarouselButtonStyle,
   CarouselStyledIcon,
   CarouselStyledIconLeft,
-  CarouselStyledIconRight
+  CarouselStyledIconRight,
+  CarouselSelectorWrapperStyle,
+  CarouselSelectorInputWrapperStyle,
+  CarouselSelectorInputStyle,
+  CarouselSelectorLabelStyle
 };

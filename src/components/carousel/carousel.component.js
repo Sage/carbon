@@ -13,7 +13,11 @@ import {
   CarouselNextButtonWrapperStyle,
   CarouselButtonStyle,
   CarouselStyledIconRight,
-  CarouselStyledIconLeft
+  CarouselStyledIconLeft,
+  CarouselSelectorWrapperStyle,
+  CarouselSelectorInputWrapperStyle,
+  CarouselSelectorInputStyle,
+  CarouselSelectorLabelStyle
 } from './carousel.style';
 
 const NEXT = 'next';
@@ -27,7 +31,6 @@ class Carousel extends React.Component {
     /** Direction of animation */
     this.transitionDirection = NEXT;
 
-    // this.mainClasses = this.mainClasses.bind(this);
     this.onPreviousClick = this.onPreviousClick.bind(this);
     this.onNextClick = this.onNextClick.bind(this);
     this.onSlideSelection = this.onSlideSelection.bind(this);
@@ -37,7 +40,6 @@ class Carousel extends React.Component {
     this.numOfSlides = this.numOfSlides.bind(this);
     this.visibleSlide = this.visibleSlide.bind(this);
     this.slideSelector = this.slideSelector.bind(this);
-    this.slideSelectorClasses = this.slideSelectorClasses.bind(this);
     this.transitionName = this.transitionName.bind(this);
   }
 
@@ -122,11 +124,6 @@ class Carousel extends React.Component {
     }
   }
 
-  /** Gets the slide selector footer classes */
-  slideSelectorClasses() {
-    return classNames('carbon-carousel__selector');
-  }
-
   /** Re-enables the next and previous buttons after timeout */
   enableButtonsAfterTimeout() {
     setTimeout(() => {
@@ -190,13 +187,12 @@ class Carousel extends React.Component {
 
     for (let i = 0; i < this.numOfSlides(); i++) {
       buttons.push(
-        <span
-          className='carbon-carousel__selector-inputs' key={ i }
+        <CarouselSelectorInputWrapperStyle
+          key={ i }
           data-element='selector-inputs'
         >
-          <input
+          <CarouselSelectorInputStyle
             disabled={ this.state.disabled }
-            className='carbon-carousel__selector-input'
             data-element='selector-input'
             name='carousel-slide'
             id={ `carousel-slide-${i}` }
@@ -204,19 +200,18 @@ class Carousel extends React.Component {
             onChange={ this.onSlideSelection }
             checked={ this.state.selectedSlideIndex === i }
           />
-          <label
-            className='carbon-carousel__selector-label'
+          <CarouselSelectorLabelStyle
             data-element='selector-label'
             htmlFor={ `carousel-slide-${i}` }
           />
-        </span>
+        </CarouselSelectorInputWrapperStyle>
       );
     }
 
     return (
-      <div className={ this.slideSelectorClasses() }>
+      <CarouselSelectorWrapperStyle>
         { buttons }
-      </div>
+      </CarouselSelectorWrapperStyle>
     );
   }
 
