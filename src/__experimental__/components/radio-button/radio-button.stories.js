@@ -10,22 +10,25 @@ import { RadioButton, RadioButtonGroup } from '.';
 storiesOf('Experimental/RadioButton', module)
   .add('default', () => {
     return (
-      <RadioButtonGroup groupName='example'>
+      <RadioButtonGroup
+        groupName='example'
+        label={ text('groupLabel', 'Select an option from the radio buttons below') }
+      >
         <RadioButton
           id={ text('radioOneId', 'input-1') }
-          label={ text('radioOneLabel', 'Example Radio Button 1') }
+          label={ text('radioOneLabel', 'Example radio button 1') }
           value={ text('radioOneValue', 'test-1') }
           { ...defaultKnobs() }
         />
         <RadioButton
           id={ text('radioTwoId', 'input-2') }
-          label={ text('radioTwoLabel', 'Example Radio Button 2') }
+          label={ text('radioTwoLabel', 'Example radio button 2') }
           value={ text('radioTwoValue', 'test-2') }
           { ...defaultKnobs() }
         />
         <RadioButton
           id={ text('radioThreeId', 'input-3') }
-          label={ text('radioThreeLabel', 'Example Radio Button 3') }
+          label={ text('radioThreeLabel', 'Example radio button 3') }
           value={ text('radioThreeValue', 'test-3') }
           { ...defaultKnobs() }
         />

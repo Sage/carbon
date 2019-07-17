@@ -63,14 +63,14 @@ const CheckboxStyle = styled.div`
 
       ${StyledCheckableInput},
       ${HiddenCheckableInputStyle},
-      ${StyledCheckableInputSvgWrapper} > svg {
+      svg {
         padding: 2px;
       }
 
       ${StyledCheckableInput},
       ${HiddenCheckableInputStyle},
       ${StyledCheckableInputSvgWrapper},
-      ${StyledCheckableInputSvgWrapper} > svg {
+      svg {
         height: 24px;
         width: 24px;
       }

@@ -15,14 +15,14 @@ export default ({
   }
 
   ${HiddenCheckableInputStyle},
-  ${StyledCheckableInputSvgWrapper} > svg {
+  svg {
     padding: 1px;
   }
 
   ${StyledCheckableInput},
   ${HiddenCheckableInputStyle},
   ${StyledCheckableInputSvgWrapper},
-  ${StyledCheckableInputSvgWrapper} > svg {
+  svg {
     height: 15px;
     width: 15px;
   }
@@ -54,7 +54,7 @@ export default ({
   ${HiddenCheckableInputStyle}:not([disabled]) {
     &:focus + ${StyledCheckableInputSvgWrapper},
     &:hover + ${StyledCheckableInputSvgWrapper} {
-      outline: none;
+      box-shadow: none;
     }
   }
 

@@ -5,18 +5,18 @@ import { RadioButtonStyle } from './radio-button.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
 import RadioButtonSvg from './radio-button-svg.component';
 
-const RadioButton = (props) => {
+const RadioButton = ({ id, ...props }) => {
   const inputProps = {
     ...props,
     reverse: !props.reverse
   };
 
-  const { id, onChange, ...rest } = inputProps;
+  const { onChange, ...rest } = inputProps;
 
   return (
     <RadioButtonStyle
       { ...tagComponent('radio', props) }
-      { ...rest }
+      { ...props }
     >
       <CheckableInput
         type='radio'
