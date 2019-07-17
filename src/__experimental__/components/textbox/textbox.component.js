@@ -3,9 +3,8 @@ import PropTypes from 'prop-types';
 import { Input, InputPresentation } from '../input';
 import InputIconToggle from '../input-icon-toggle';
 import FormField from '../form-field';
-import { withValidation } from '../../../components/validations';
+import { withValidation, validationsPropTypes } from '../../../components/validations';
 import withUniqueName from '../../../utils/helpers/with-unique-name';
-import VALIDATION_TYPES from '../../../components/validations/validation-types.config';
 
 // This component is a working example of what a Textbox might look like
 // using only the new input componentry. It is still under development with
@@ -19,6 +18,8 @@ const Textbox = ({
   value,
   ...props
 }) => {
+  removeParentProps(props);
+
   return (
     <FormField { ...props }>
       <InputPresentation type='text' { ...props }>
@@ -33,6 +34,13 @@ const Textbox = ({
     </FormField>
   );
 };
+
+function removeParentProps(props) {
+  delete props['data-element'];
+  delete props['data-component'];
+  delete props['data-role'];
+  delete props.className;
+}
 
 function visibleValue(value, formattedValue) {
   return (typeof formattedValue === 'string') ? formattedValue : value;
@@ -71,12 +79,12 @@ Textbox.propTypes = {
   children: PropTypes.node,
   inputIcon: PropTypes.string,
   leftChildren: PropTypes.node,
-  ...Object.values(VALIDATION_TYPES).reduce((acc, type) => ({
-    [type]: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.func
-    ])
-  }), {})
+  /** List of error validation functions */
+  validations: validationsPropTypes,
+  /** List of warning validation functions */
+  warnings: validationsPropTypes,
+  /** List of info validation functions */
+  info: validationsPropTypes
 };
 
 Textbox.defaultProps = {
@@ -84,4 +92,5 @@ Textbox.defaultProps = {
   inputWidth: 70
 };
 
+export { Textbox as OriginalTextbox };
 export default withUniqueName(withValidation(Textbox));

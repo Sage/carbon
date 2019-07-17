@@ -8,7 +8,7 @@ import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
 import StyledCheckboxSvgWrapper from './checkbox-svg-wrapper.style';
-import StyledHelp from '../help/help.style';
+import StyledHelp from '../../../components/help/help.style';
 import guid from '../../../utils/helpers/guid';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import classicTheme from '../../../style/themes/classic';
@@ -107,18 +107,6 @@ describe('Checkbox', () => {
     describe('when disabled=true', () => {
       const wrapper = render({ disabled: true }).toJSON();
 
-      it('applies the appropriate Label styles', () => {
-        assertStyleMatch({
-          color: baseTheme.disabled.disabled
-        }, wrapper, { modifier: css`${LabelStyle}` });
-      });
-
-      it('applies the appropriate Help styles', () => {
-        assertStyleMatch({
-          color: baseTheme.disabled.disabled
-        }, wrapper, { modifier: css`${LabelStyle} ${StyledHelp}` });
-      });
-
       it('applies the appropriate svg wrapper styles', () => {
         assertStyleMatch({
           backgroundColor: baseTheme.disabled.input,
@@ -138,28 +126,12 @@ describe('Checkbox', () => {
           cursor: 'not-allowed'
         };
 
-        it('applies the appropriate hidden input hover styles', () => {
-          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${HiddenCheckableInputStyle}:hover`}` });
-        });
-
-        it('applies the appropriate hidden input focus styles', () => {
-          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${HiddenCheckableInputStyle}:focus`}` });
-        });
-
         it('applies the appropriate svg hover styles', () => {
           assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${StyledCheckboxSvgWrapper}:hover`}` });
         });
 
         it('applies the appropriate svg focus styles', () => {
           assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${StyledCheckboxSvgWrapper}:focus`}` });
-        });
-
-        it('applies the appropriate label hover styles', () => {
-          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${LabelStyle}:hover`}` });
-        });
-
-        it('applies the appropriate label focus styles', () => {
-          assertStyleMatch(hoverFocusStyles, wrapper, { modifier: css`${`${LabelStyle}:focus`}` });
         });
       });
     });
@@ -178,12 +150,7 @@ describe('Checkbox', () => {
       it('renders the correct FieldHelp styles', () => {
         const wrapper = render({ fieldHelpInline: true }).toJSON();
 
-        assertStyleMatch({
-          display: 'inline',
-          margin: '0',
-          paddingLeft: '0',
-          width: 'auto'
-        }, wrapper, { modifier: css`${FieldHelpStyle}` });
+        assertStyleMatch({ margin: '0' }, wrapper, { modifier: css`${FieldHelpStyle}` });
       });
     });
 
@@ -191,15 +158,9 @@ describe('Checkbox', () => {
       describe('default', () => {
         const wrapper = render({ inputWidth: 50 }).toJSON();
 
-        it('renders the correct CheckableInput styles', () => {
-          assertStyleMatch({
-            width: '50%'
-          }, wrapper, { modifier: css`${StyledCheckableInput}` });
-        });
-
         it('renders the correct FieldHelp styles', () => {
           assertStyleMatch({
-            marginLeft: '50%'
+            marginLeft: '50% !important'
           }, wrapper, { modifier: css`${FieldHelpStyle}` });
         });
       });
@@ -209,19 +170,9 @@ describe('Checkbox', () => {
           const wrapper = render({ inputWidth: 50, reverse: true }).toJSON();
 
           assertStyleMatch({
-            marginRight: '50%'
+            marginRight: '50% !important'
           }, wrapper, { modifier: css`${FieldHelpStyle}` });
         });
-      });
-    });
-
-    describe('when setting a custom labelWidth', () => {
-      it('renders the correct Label styles', () => {
-        const wrapper = render({ labelWidth: 50 }).toJSON();
-
-        assertStyleMatch({
-          width: '50%'
-        }, wrapper, { modifier: css`${LabelStyle}` });
       });
     });
 

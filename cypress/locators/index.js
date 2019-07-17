@@ -1,16 +1,20 @@
 import {
   INPUT_WIDTH_SLIDER, LABEL_WIDTH_SLIDER, HELP_ICON_PREVIEW, FIELD_HELP_PREVIEW, TOOLTIP_PREVIEW,
   FORM, STORY_ROOT, CLOSE_ICON_BUTTON, BACKGROUND_UI_LOCATOR, LINK, ICON, INPUT_WIDTH_PREVIEW,
-  COMMMON_DATA_ELEMENT_INPUT, LABEL,
+  COMMMON_DATA_ELEMENT_INPUT, LABEL, RERUN_TESTS_BUTTON,
 } from './locators';
+
+// actions locators
+export const clearButton = () => cy.get(FORM).find('button').contains('Clear');
+
+// accessibility locators
+export const reRunTestsButton = () => cy.get(RERUN_TESTS_BUTTON);
 
 // knobs locators
 export const getKnobsInput = propertyName => cy.get(`[name="${propertyName}"]`);
 export const knobsTab = () => cy.get(FORM).find('button').contains('Knobs');
 export const actionsTab = () => cy.get(FORM).find('button').contains('Actions');
 export const accessibilityTab = () => cy.get(FORM).find('button').contains('Accessibility');
-export const clearButtonInActions = () => cy.get(FORM).find('button').contains('Clear');
-export const reRunTestsButtonInAccessibility = () => cy.get(FORM).find('button').contains('Rerun tests');
 export const eventInAction = event => cy.get(FORM).find('span').contains(event);
 export const inputWidthSlider = () => cy.get(INPUT_WIDTH_SLIDER);
 export const labelWidthSlider = () => cy.get(LABEL_WIDTH_SLIDER);

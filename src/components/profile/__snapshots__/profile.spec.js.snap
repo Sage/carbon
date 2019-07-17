@@ -1,0 +1,122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Profile render classes renders the large class if applied 1`] = `
+.c3 {
+  position: absolute;
+  overflow: hidden;
+  border-radius: 0px;
+  border: 1px solid #7F99A4;
+}
+
+.c4 {
+  display: block;
+}
+
+.c5 {
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+  position: absolute;
+  overflow: hidden;
+  border-radius: 0px;
+}
+
+.c2 {
+  display: inline-block;
+  position: relative;
+  vertical-align: middle;
+  width: 40px;
+  height: 40px;
+}
+
+.c7 {
+  font-weight: bold;
+  display: inline-block;
+  font-size: 14px;
+}
+
+.c8 {
+  font-size: 14px;
+}
+
+.c0 {
+  white-space: nowrap;
+  color: rgba(0,0,0,0.9);
+}
+
+.c6 {
+  vertical-align: middle;
+  display: inline-block;
+  line-height: 16px;
+  margin-left: 16px;
+}
+
+.c1 {
+  display: inline-block;
+}
+
+<div
+  className="c0"
+  data-component="profile"
+>
+  <div
+    alt=""
+    className="c1 c2"
+    data-component="portrait"
+    shape="square"
+    size="M"
+  >
+    <div
+      className="c3"
+      data-element="initials"
+      shape="square"
+    >
+      <img
+        alt=""
+        className="c4"
+        src="data:image/png"
+      />
+    </div>
+    <img
+      alt=""
+      className="c5"
+      data-element="user-image"
+      shape="square"
+      size="M"
+      src="https://www.gravatar.com/avatar/f3ada405ce890b6f8204094deb12d8a8?s=40&d=blank"
+    />
+  </div>
+  <div
+    className="c6"
+    size="M"
+  >
+    <span
+      className="c7"
+      data-element="name"
+      size="M"
+    >
+      Foo
+    </span>
+    <br />
+    <span
+      className="c8"
+      data-element="email"
+      size="M"
+    >
+      foo@bar.com
+    </span>
+  </div>
+</div>
+`;
+
+exports[`ProfileClassicStyle should render correct version if classic theme is provided 1`] = `
+.c0 {
+  white-space: nowrap;
+  color: rgba(0,0,0,0.9);
+  color: rgba(0,0,0,0.85);
+}
+
+<div
+  className="c0"
+/>
+`;

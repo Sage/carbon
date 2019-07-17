@@ -122,7 +122,7 @@ Feature: Radio Button component
       | -10                     |
 
   @positive
-  Scenario Outline: Set labelAlign to <labelAlign>
+  Scenario Outline: Set labelAlign to <direction>
     When I check labelInline checkbox
       And I select labelAlign to "<direction>"
     Then labelAlign on preview is "<direction>"

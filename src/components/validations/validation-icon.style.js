@@ -4,8 +4,10 @@ import { THEMES } from '../../style/themes';
 
 const ValidationIconStyle = styled.div`
   color: ${({ type, theme }) => theme.colors[type]};
+  cursor: pointer;
   display: flex;
   align-items: center;
+  margin-left: 5px;
 
   ${({ theme }) => {
     if (theme.name === THEMES.classic) {

@@ -128,8 +128,8 @@ When('I hit ESC key', () => {
   pressESCKey();
 });
 
-When('I hit Tab key', () => {
-  pressTABKey();
+When('I hit Tab key {int} time(s)', (times) => {
+  pressTABKey(times);
 });
 
 When('I disable {word} component', () => {
