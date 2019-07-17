@@ -9,7 +9,6 @@ const StyledTooltipInner = styled.div`
     background-color: ${theme.colors.black};
     color: ${theme.colors.white};
     display: inline-block;
-    font-weight: 700;
     padding: 12px 16px;
     text-align: center;
     max-width: 300px;
@@ -21,6 +20,7 @@ const StyledTooltipInner = styled.div`
     `}
 
     ${theme.name === THEMES.classic && css`
+      font-weight: 700;
       padding: 10px 15px;
     `}
   `}
