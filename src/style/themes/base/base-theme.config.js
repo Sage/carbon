@@ -103,7 +103,8 @@ export default (palette) => {
     },
 
     select: {
-      border: '#bfccd2'
+      border: '#bfccd2',
+      selected: palette.slateTint(95)
     },
 
     shadows: {
