@@ -150,7 +150,8 @@ class Tabs extends React.Component {
   static defaultProps = {
     renderHiddenTabs: true,
     align: 'left',
-    position: 'top'
+    position: 'top',
+    setLocation: true
   }
 
   static childContextTypes = {
