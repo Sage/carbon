@@ -10,7 +10,7 @@ import Icon from '../icon/icon';
 import Slide from './slide/slide';
 import './carousel.scss';
 import {
-  CarouselPreviousButtonWrapperStyle, CarouselNextButtonWrapperStyle
+  CarouselPreviousButtonWrapperStyle, CarouselNextButtonWrapperStyle, CarouselButtonStyle
 } from './carousel.style';
 
 const NEXT = 'next';
@@ -34,10 +34,6 @@ class Carousel extends React.Component {
     this.numOfSlides = this.numOfSlides.bind(this);
     this.visibleSlide = this.visibleSlide.bind(this);
     this.slideSelector = this.slideSelector.bind(this);
-    // this.nextClasses = this.nextClasses.bind(this);
-    // this.previousClasses = this.previousClasses.bind(this);
-    this.previousButtonClasses = this.previousButtonClasses.bind(this);
-    this.nextButtonClasses = this.nextButtonClasses.bind(this);
     this.slideSelectorClasses = this.slideSelectorClasses.bind(this);
     this.transitionName = this.transitionName.bind(this);
   }
@@ -123,38 +119,6 @@ class Carousel extends React.Component {
     }
   }
 
-  /** Gets the next div classes */
-  // nextClasses() {
-  //   return classNames(
-  //     'carbon-carousel__navigation',
-  //     'carbon-carousel__next'
-  //   );
-  // }
-
-  /** Gets the previous div classes */
-  // previousClasses() {
-  //   return classNames(
-  //     'carbon-carousel__navigation',
-  //     'carbon-carousel__previous'
-  //   );
-  // }
-
-  /** Gets the previous button classes */
-  previousButtonClasses() {
-    return classNames(
-      'carbon-carousel__buttons',
-      'carbon-carousel__previous-button'
-    );
-  }
-
-  /** Gets the next button classes */
-  nextButtonClasses() {
-    return classNames(
-      'carbon-carousel__buttons',
-      'carbon-carousel__next-button'
-    );
-  }
-
   /** Gets the slide selector footer classes */
   slideSelectorClasses() {
     return classNames('carbon-carousel__selector');
@@ -169,9 +133,7 @@ class Carousel extends React.Component {
 
   /** Gets the props for the previous button */
   previousButtonProps() {
-    const props = {
-      className: this.previousButtonClasses()
-    };
+    const props = {};
 
     if (!this.state.disabled) {
       props.onClick = this.onPreviousClick;
@@ -182,9 +144,7 @@ class Carousel extends React.Component {
 
   /** Gets the props for the next button */
   nextButtonProps() {
-    const props = {
-      className: this.nextButtonClasses()
-    };
+    const props = {};
 
     if (!this.state.disabled) {
       props.onClick = this.onNextClick;
@@ -263,13 +223,13 @@ class Carousel extends React.Component {
 
     return (
       <CarouselPreviousButtonWrapperStyle>
-        <button
+        <CarouselButtonStyle
           { ...this.previousButtonProps() }
           data-element='previous'
           type='button'
         >
           <Icon className='carbon-carousel__previous-arrow' type='dropdown' />
-        </button>
+        </CarouselButtonStyle>
       </CarouselPreviousButtonWrapperStyle>
     );
   }
@@ -280,13 +240,13 @@ class Carousel extends React.Component {
 
     return (
       <CarouselNextButtonWrapperStyle>
-        <button
+        <CarouselButtonStyle
           { ...this.nextButtonProps() }
           data-element='next'
           type='button'
         >
           <Icon className='carbon-carousel__next-arrow' type='dropdown' />
-        </button>
+        </CarouselButtonStyle>
       </CarouselNextButtonWrapperStyle>
     );
   }
