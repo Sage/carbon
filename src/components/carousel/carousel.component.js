@@ -161,12 +161,13 @@ class Carousel extends React.Component {
   /** Gets the currently visible slide */
   visibleSlide() {
     let index = this.state.selectedSlideIndex;
-    const visibleSlide = compact(React.Children.toArray(this.props.children))[index],
-        slideClassNames = classNames(
-          'carbon-slide carbon-slide--active',
-          visibleSlide.props.className,
-          { 'carbon-slide--padded': this.props.enablePreviousButton || this.props.enableNextButton }
-        );
+
+    const visibleSlide = compact(React.Children.toArray(this.props.children))[index];
+    const slideClassNames = classNames(
+      'carbon-slide carbon-slide--active',
+      visibleSlide.props.className,
+      { 'carbon-slide--padded': this.props.enablePreviousButton || this.props.enableNextButton }
+    );
 
     index = visibleSlide.props.id || index;
 
