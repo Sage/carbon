@@ -1,5 +1,5 @@
 import { textbox } from '../../locators/textbox';
-import { tooltipPreview, icon, label } from '../../locators';
+import { label } from '../../locators';
 
 const TEXT_ALIGN = 'text-align';
 
@@ -31,24 +31,6 @@ Then('Textbox component is not readOnly', () => {
   textbox().should('not.have.css', 'background', 'rgba(0, 0, 0, 0) none repeat scroll 0% 0% / auto padding-box border-box')
     .and('not.have.css', 'border-color', 'rgba(0, 0, 0, 0)')
     .and('have.css', 'background', 'rgb(255, 255, 255) none repeat scroll 0% 0% / auto padding-box border-box');
-});
-
-Then('errorMessage is displayed properly with proper icon', () => {
-  tooltipPreview().should('have.css', 'background-color', 'rgb(199, 56, 79)');
-  icon().should('have.attr', 'data-element', 'error')
-    .and('have.css', 'color', 'rgb(199, 56, 79)');
-});
-
-Then('infoMessage is displayed properly with proper icon', () => {
-  tooltipPreview().should('have.css', 'background-color', 'rgb(27, 29, 33)');
-  icon().should('have.attr', 'data-element', 'info')
-    .and('have.css', 'color', 'rgb(0, 115, 194)');
-});
-
-Then('warningMessage is displayed properly with proper icon', () => {
-  tooltipPreview().should('have.css', 'background-color', 'rgb(27, 29, 33)');
-  icon().should('have.attr', 'data-element', 'warning')
-    .and('have.css', 'color', 'rgb(255, 181, 0)');
 });
 
 Then('Textbox component is labelInline', () => {

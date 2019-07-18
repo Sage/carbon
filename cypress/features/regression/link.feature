@@ -43,8 +43,8 @@ Feature: Link component
 
 @positive
   Scenario Outline: Change link component icon align position to <iconAlign>
-    When I select icon to "add"
-      And I select iconAlign to "<iconAlign>"
+    Given I select icon to "add"
+    When I select iconAlign to "<iconAlign>"
     Then icon align is set to "<iconAlign>"
     Examples:
       | iconAlign |
@@ -52,21 +52,36 @@ Feature: Link component
       | right     |
 
   @positive
-  Scenario Outline: Change tooltip align to <tooltipAlign> and tooltipPosition to <tooltipPosition>
-    When I select icon to "add"
+  Scenario Outline: Change tooltip align to <tooltipAlign>
+    Given I select icon to "add"
       And I set tooltipMessage to "sample message"
-      And I select tooltipAlign to "<tooltipAlign>"
-      And I select tooltipPosition to "<tooltipPosition>"
+    When I select tooltipAlign to "<tooltipAlign>"
+      And I select tooltipPosition to "bottom"
       And I hover mouse onto icon
     Then tooltipAlign is set to "<tooltipAlign>"
-      And tooltipPosition is set to "<tooltipPosition>"
     Examples:
-      | tooltipAlign | tooltipPosition |
-      | left         | right           |
-      | right        | left            |
-      | top          | bottom          |
-      | bottom       | top             |
-      | center       | right           |
+      | tooltipAlign |
+      | left         |
+      | right        |
+      | top          |
+      | bottom       |
+      | center       |
+
+  @positive
+  Scenario Outline: Change tooltip tooltipPosition to <tooltipPosition>
+    Given I select icon to "add"
+      And I set tooltipMessage to "sample message"
+    When I select tooltipPosition to "<tooltipPosition>"
+      And I select tooltipAlign to "center"
+      And I hover mouse onto icon
+    Then tooltipPosition is set to "<tooltipPosition>"
+    Examples:
+      | tooltipPosition |
+      | right           |
+      | left            |
+      | bottom          |
+      | top             |
+      | right           |
 
   @positive
   Scenario: Check tabbable and focus the link componenent
