@@ -1,6 +1,6 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import Heading from './heading';
 import Help from './../help';
 import Link from './../link';
@@ -35,9 +35,11 @@ describe('Heading', () => {
   });
 
   it('renders a help component', () => {
-    const help = TestUtils.findRenderedComponentWithType(instance, Help);
-    expect(help.props.className).toEqual('carbon-heading__help');
-    expect(help.props.href).toEqual('/bar');
+    const wrapper = mount(<Heading title='Test' help='bar' helpLink='/bar' />);
+    const help = wrapper.find(Help);
+
+    expect(help.props().className).toEqual('carbon-heading__help');
+    expect(help.props().href).toEqual('/bar');
   });
 
   it('renders a back link', () => {
@@ -89,12 +91,11 @@ describe('Heading', () => {
 
   describe('no help text but a help link', () => {
     it('still renders the help icon', () => {
-      instance = TestUtils.renderIntoDocument(
-        <Heading title='foo' helpLink='/bar' />
-      );
-      const help = TestUtils.findRenderedComponentWithType(instance, Help);
-      expect(help.props.className).toEqual('carbon-heading__help');
-      expect(help.props.href).toEqual('/bar');
+      const wrapper = mount(<Heading title='Test' helpLink='/bar' />);
+      const help = wrapper.find(Help);
+  
+      expect(help.props().className).toEqual('carbon-heading__help');
+      expect(help.props().href).toEqual('/bar');
     });
   });
 

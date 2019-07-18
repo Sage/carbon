@@ -3,7 +3,7 @@ import { shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 
-import Help from '../help/help.component';
+import Help from '../../../components/help';
 import Label from './label.component';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import classicTheme from '../../../style/themes/classic';

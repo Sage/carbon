@@ -1,6 +1,5 @@
 import {
   knobsTab, actionsTab, clearButton, accessibilityTab,
-  reRunTestsButton,
 } from '../locators';
 import { DEBUG_FLAG } from '.';
 
@@ -22,11 +21,6 @@ export function clickActionsTab(iFrameOnly = false) {
 
 export function clickAccessebilityTab(iFrameOnly = false) {
   if (!iFrameOnly) accessibilityTab().click();
-}
-
-export function reRunAccesibilityTests() {
-  reRunTestsButton().click();
-  reRunTestsButton().should('exist');
 }
 
 export function clickClear() {
