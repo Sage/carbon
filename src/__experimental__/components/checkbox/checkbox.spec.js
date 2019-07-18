@@ -44,7 +44,7 @@ describe('Checkbox', () => {
 
         assertStyleMatch(styles, wrapper, { modifier: css`${HiddenCheckableInputStyle}` });
 
-        assertStyleMatch(styles, wrapper, { modifier: css`${`${StyledCheckableInputSvgWrapper} > svg`}` });
+        assertStyleMatch(styles, wrapper, { modifier: 'svg' });
 
         assertStyleMatch({
           height: '24px'
@@ -225,7 +225,7 @@ describe('Checkbox', () => {
         assertStyleMatch({
           height: '15px',
           width: '15px'
-        }, wrapper, { modifier: css`${`${StyledCheckableInputSvgWrapper} > svg`}` });
+        }, wrapper, { modifier: 'svg' });
       });
 
       it('applies appropriate FieldHelp styles', () => {
@@ -272,7 +272,7 @@ describe('Checkbox', () => {
       describe('when hover / focus is applied', () => {
         it('applies the appropriate hidden input svg wrapper hover styles', () => {
           assertStyleMatch(
-            { outline: 'none' },
+            { boxShadow: 'none' },
             wrapper,
             {
               modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):focus + ${StyledCheckableInputSvgWrapper}`}`
@@ -282,7 +282,7 @@ describe('Checkbox', () => {
 
         it('applies the appropriate hidden input svg wrapper focus styles', () => {
           assertStyleMatch(
-            { outline: 'none' },
+            { boxShadow: 'none' },
             wrapper,
             {
               modifier: css`${`${HiddenCheckableInputStyle}:not([disabled]):hover + ${StyledCheckableInputSvgWrapper}`}`

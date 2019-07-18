@@ -142,14 +142,14 @@ exports[`Checkbox base theme renders as expected 1`] = `
 
 .c13 .c4,
 .c13 .c6,
-.c13 .c8 > svg {
+.c13 svg {
   padding: 2px;
 }
 
 .c13 .c4,
 .c13 .c6,
 .c13 .c8,
-.c13 .c8 > svg {
+.c13 svg {
   height: 24px;
   width: 24px;
 }
@@ -188,14 +188,14 @@ exports[`Checkbox base theme renders as expected 1`] = `
 
 .c14 .c4,
 .c14 .c6,
-.c14 .c8 > svg {
+.c14 svg {
   padding: 2px;
 }
 
 .c14 .c4,
 .c14 .c6,
 .c14 .c8,
-.c14 .c8 > svg {
+.c14 svg {
   height: 24px;
   width: 24px;
 }
@@ -389,21 +389,21 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c20 .c6,
-.c20 .c8 > svg {
+.c20 svg {
   padding: 1px;
 }
 
 .c20 .c4,
 .c20 .c6,
 .c20 .c8,
-.c20 .c8 > svg {
+.c20 svg {
   height: 15px;
   width: 15px;
 }
 
 .c20 .c6:not([disabled]):focus + .c8,
 .c20 .c6:not([disabled]):hover + .c8 {
-  outline: none;
+  box-shadow: none;
 }
 
 .c20 .c6:not([disabled]):focus + .c8 > svg,
@@ -451,21 +451,21 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c21 .c6,
-.c21 .c8 > svg {
+.c21 svg {
   padding: 1px;
 }
 
 .c21 .c4,
 .c21 .c6,
 .c21 .c8,
-.c21 .c8 > svg {
+.c21 svg {
   height: 15px;
   width: 15px;
 }
 
 .c21 .c6:not([disabled]):focus + .c8,
 .c21 .c6:not([disabled]):hover + .c8 {
-  outline: none;
+  box-shadow: none;
 }
 
 .c21 .c6:not([disabled]):focus + .c8 > svg,
@@ -513,21 +513,21 @@ exports[`Checkbox base theme renders as expected 1`] = `
 }
 
 .c22 .c6,
-.c22 .c8 > svg {
+.c22 svg {
   padding: 1px;
 }
 
 .c22 .c4,
 .c22 .c6,
 .c22 .c8,
-.c22 .c8 > svg {
+.c22 svg {
   height: 15px;
   width: 15px;
 }
 
 .c22 .c6:not([disabled]):focus + .c8,
 .c22 .c6:not([disabled]):hover + .c8 {
-  outline: none;
+  box-shadow: none;
 }
 
 .c22 .c6:not([disabled]):focus + .c8 > svg,

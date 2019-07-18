@@ -8,11 +8,7 @@ const RadioButtonGroup = (props) => {
   const { children, groupName, label } = props;
   const [selected, setSelected] = useState(null);
 
-  function handleChange(ev) {
-    setSelected(ev.target.value);
-  }
-
-  const buttons = () => React.Children.map(children, (child) => {
+  const buttons = React.Children.map(children, (child) => {
     const key = child.props.value;
 
     return React.cloneElement(
@@ -21,7 +17,7 @@ const RadioButtonGroup = (props) => {
         checked: selected === key,
         key,
         name: groupName,
-        onChange: handleChange
+        onChange: ev => setSelected(ev.target.value)
       }
     );
   });
@@ -37,7 +33,7 @@ const RadioButtonGroup = (props) => {
       <Label id={ labelId }>
         {label}
       </Label>
-      {buttons()}
+      {buttons}
     </StyledRadioButtonGroup>
   );
 };
