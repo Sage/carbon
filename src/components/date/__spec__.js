@@ -184,7 +184,7 @@ describe('Date', () => {
       });
 
       describe('when date invalid', () => {
-        it('does call setState', () => {
+        it('does not call setState', () => {
           instance = TestUtils.renderIntoDocument(
             <Date name='date' value='x' label='Date' />
           );
