@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import React from 'react';
-import axios from 'axios';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import Serialize from 'form-serialize';
 import { kebabCase } from 'lodash';
+import Service from '../../../utils/service';
 import CancelButton from '../../../components/form/cancel-button';
 import FormSummary from '../../../components/form/form-summary';
 import SaveButton from '../../../components/form/save-button';
@@ -23,6 +23,8 @@ class FormWithoutValidations extends React.Component {
     /** Tracks if the saveButton should be disabled */
     submitted: false
   }
+
+  csrfToken = null;
 
   /* Returns form object to child components. */
   getChildContext = () => {
@@ -218,21 +220,19 @@ class FormWithoutValidations extends React.Component {
         this.addInputDataToState(inputName, value);
       }
     });
-    this.submitControlledForm();
+    Service.configure({ csrfToken: this.csrfToken });
+    this.submitControlledForm(new Service());
   }
 
-  async submitControlledForm() {
-    const response = await axios.post(this.props.formAction, {
-      ...this.state.formInputs
-    }, {
-      Accept: 'application/json',
-      'Content-Type': 'application/json'
-    });
-    const { data } = await response;
-    return this.clearFormData(data);
+  async submitControlledForm(service) {
+    service.setURL(this.props.formAction);
+    await service.post(
+      JSON.stringify(this.state.formInputs),
+      { onSuccess: this.clearFormData }
+    );
   }
 
-  clearFormData(data) {
+  clearFormData = (data) => {
     // stop gap solution to prevent double submission for the time being
     this._window.location.href = this.redirectPath;
     return data;
@@ -383,6 +383,10 @@ class FormWithoutValidations extends React.Component {
     }));
   }
 
+  setCsrfToken = (token) => {
+    if (token) this.csrfToken = token;
+  }
+
   /** Clone the children, pass in callback to allow form to store controlled data */
   renderChildren() {
     const { children } = this.props;
@@ -405,7 +409,7 @@ class FormWithoutValidations extends React.Component {
         ref={ (form) => { this._form = form; } }
         { ...tagComponent('form', this.props) }
       >
-        { generateCSRFToken(this._document) }
+        { generateCSRFToken(this._document, this.setCsrfToken) }
 
         { this.renderChildren() }
 
@@ -416,13 +420,14 @@ class FormWithoutValidations extends React.Component {
 }
 
 /** Creates and returns CSRF token for input field */
-function generateCSRFToken(doc) {
+function generateCSRFToken(doc, setCsrfToken) {
   const csrfParam = doc.querySelector('meta[name="csrf-param"]');
   const csrfToken = doc.querySelector('meta[name="csrf-token"]');
 
   const csrfAttr = csrfParam ? csrfParam.getAttribute('content') : '';
   const csrfValue = csrfToken ? csrfToken.getAttribute('content') : '';
 
+  setCsrfToken(csrfValue);
   return (
     <input
       type='hidden' name={ csrfAttr }

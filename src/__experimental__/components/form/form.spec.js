@@ -1,8 +1,8 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
-import axios from 'axios';
 import { mount, shallow } from 'enzyme';
+import moxios from 'moxios';
 import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
 import Textbox from '../textbox';
 import Validation from '../../../utils/validations/presence';
@@ -13,23 +13,21 @@ import FormSummary from '../../../components/form/form-summary';
 import Button from '../../../components/button';
 import ElementResize from '../../../utils/helpers/element-resize';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
+import Service from '../../../utils/service';
 
 /* global jest */
-jest.mock('axios');
+jest.mock('../../../utils/service');
 
 describe('Form', () => {
-  let instance, wrapper, validate, mockSuccess, mockJson, action;
+  let instance, wrapper, validate, action;
 
   beforeEach(() => {
     validate = jest.fn().mockImplementation(() => true);
     instance = TestUtils.renderIntoDocument(
       <Form formAction='foo' validate={ validate } />
     );
-
-    mockSuccess = { data: { foo: 'bar' } };
-    mockJson = Promise.resolve(mockSuccess);
     action = 'foo';
-    axios.post = axios.post.mockResolvedValue(mockJson);
+    Service.setURL = jest.fn();
   });
 
   describe('componentWillReceiveProps', () => {
@@ -799,7 +797,7 @@ describe('Form', () => {
   });
 
   describe('Submitting form with controlled input', () => {
-    it('makes a default axios request when no onSubmit prop is passed', (done) => {
+    it('makes a default axios request when no onSubmit prop is passed', async () => {
       wrapper = mount(
         <Form validate={ () => true } formAction={ action }>
           <Textbox
@@ -810,14 +808,12 @@ describe('Form', () => {
         </Form>
       );
 
-      expect(wrapper.instance().submitControlledForm(action)).resolves.toEqual(mockSuccess.data);
-      expect(axios.post).toHaveBeenCalledTimes(1);
-      done();
-    });
-  });
+      const service = Service;
+      service.post = jest.fn().mockImplementation((_, { onSuccess: success }) => success());
 
-  afterEach(() => {
-    axios.post.mockClear();
+      await wrapper.instance().submitControlledForm(service);
+      expect(Service.mock.instances[0].post).toHaveBeenCalledTimes(1);
+    });
   });
 
   describe('tags', () => {
