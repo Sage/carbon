@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import Icon from '../icon/icon';
+import { slideAnimation, fadeAnimation } from './slide.config';
 
 const CarouselNavigationStyle = styled.div`
   margin-top: -22.5px;
@@ -86,6 +87,16 @@ const CarouselSelectorInputWrapperStyle = styled.span`
   width: 22px;
 `;
 
+const CarouselWrapperStyle = styled.div`
+  .carbon-carousel__content {
+    overflow: hidden;
+    position: relative;
+}
+
+  ${slideAnimation};
+  ${fadeAnimation};
+`;
+
 export {
   CarouselNavigationStyle,
   CarouselNextButtonWrapperStyle,
@@ -97,5 +108,6 @@ export {
   CarouselSelectorWrapperStyle,
   CarouselSelectorInputWrapperStyle,
   CarouselSelectorInputStyle,
-  CarouselSelectorLabelStyle
+  CarouselSelectorLabelStyle,
+  CarouselWrapperStyle
 };

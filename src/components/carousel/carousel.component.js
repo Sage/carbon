@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import { compact, assign } from 'lodash';
-import classNames from 'classnames';
 import tagComponent from '../../utils/helpers/tags/tags';
 
 import Slide from './slide/slide';
-import './carousel.scss';
 import {
   CarouselPreviousButtonWrapperStyle,
   CarouselNextButtonWrapperStyle,
@@ -17,7 +15,8 @@ import {
   CarouselSelectorWrapperStyle,
   CarouselSelectorInputWrapperStyle,
   CarouselSelectorInputStyle,
-  CarouselSelectorLabelStyle
+  CarouselSelectorLabelStyle,
+  CarouselWrapperStyle
 } from './carousel.style';
 
 const NEXT = 'next';
@@ -163,16 +162,12 @@ class Carousel extends React.Component {
     let index = this.state.selectedSlideIndex;
 
     const visibleSlide = compact(React.Children.toArray(this.props.children))[index];
-    const slideClassNames = classNames(
-      'carbon-slide carbon-slide--active',
-      visibleSlide.props.className,
-      { 'carbon-slide--padded': this.props.enablePreviousButton || this.props.enableNextButton }
-    );
 
     index = visibleSlide.props.id || index;
 
     const additionalProps = {
-      className: slideClassNames,
+      className: visibleSlide.props.className,
+      isPadded: this.props.enablePreviousButton || this.props.enableNextButton,
       'data-element': 'visible-slide',
       key: `carbon-slide-${index}`
     };
@@ -262,7 +257,7 @@ class Carousel extends React.Component {
   /** Renders the Slide Component */
   render() {
     return (
-      <div className={ this.props.className } { ...tagComponent('carousel', this.props) }>
+      <CarouselWrapperStyle className={ this.props.className } { ...tagComponent('carousel', this.props) }>
         {/** carbon-carousel__content is related to pages.scss */}
         <div className='carbon-carousel__content'>
           { this.previousButton() }
@@ -282,7 +277,7 @@ class Carousel extends React.Component {
 
         { this.slideSelector() }
 
-      </div>
+      </CarouselWrapperStyle>
     );
   }
 }
