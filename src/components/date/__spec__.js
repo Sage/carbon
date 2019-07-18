@@ -400,6 +400,24 @@ describe('Date', () => {
       expect(style.left).toEqual(5);
       expect(style.top).toEqual(10);
     });
+
+    describe('showPickerOnTop is true', () => {
+      it('positions the date picker above the input', () => {
+        wrapper = mount(
+          <Date name='date' label='Date' showPickerOnTop />
+        )
+        wrapper.instance().getInputBoundingRect = jest.fn( () => ({left: 5, top: 10}) );
+
+        wrapper.setState({open: true})
+        wrapper.update();
+        portalContent = wrapper.find(Date);
+        instance = wrapper.instance();
+
+        const style = portalContent.find('.DayPicker').props().style;
+        expect(style.left).toEqual(5);
+        expect(style.bottom).toEqual(-8);
+      });
+    });
   });
 
   describe('handleBlur', () => {
