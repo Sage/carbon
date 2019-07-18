@@ -65,7 +65,7 @@ storiesOf('Experimental/Select', module)
   .add('default', () => {
     return (
       <State store={ singleSelectStore }>
-        <Select { ...commonKnobs(singleSelectStore) }>
+        <Select ariaLabel='singleSelect' { ...commonKnobs(singleSelectStore) }>
           { selectOptions }
         </Select>
       </State>
@@ -75,7 +75,7 @@ storiesOf('Experimental/Select', module)
   .add('multiple', () => {
     return (
       <State store={ multiSelectStore }>
-        <Select { ...commonKnobs(multiSelectStore) }>
+        <Select ariaLabel='multiSelect' { ...commonKnobs(multiSelectStore) }>
           { selectOptions }
         </Select>
       </State>

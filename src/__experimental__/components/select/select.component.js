@@ -263,8 +263,10 @@ class Select extends React.Component {
 
   render() {
     const {
+      ariaLabel,
       children,
       customFilter,
+      label,
       placeholder,
       value,
       onLazyLoad,
@@ -286,6 +288,7 @@ class Select extends React.Component {
         aria-haspopup='listbox'
         aria-expanded={ open }
         aria-controls={ open ? this.listboxId : '' }
+        aria-label={ label || ariaLabel }
       >
         <Textbox
           { ...props } // this needs to send all of the original props
@@ -322,6 +325,7 @@ const optionShape = PropTypes.shape({
 });
 
 Select.propTypes = {
+  ariaLabel: PropTypes.string,
   /** Child components (such as <Option>) for the <SelectList> */
   children: PropTypes.node,
   /** A custom function to filter the child components. Its interface is (text, value) => boolean */
