@@ -22,13 +22,16 @@ class PortraitGravatar extends React.Component {
 
   /** Renders the component. */
   render() {
-    const { alt, size, shape } = this.props;
+    const {
+      alt, size, shape, errorCallback
+    } = this.props;
     return (
       <StyledPortraitGravatar
         src={ this.gravatarSrc() }
         alt={ alt }
         size={ size }
         shape={ shape }
+        onError={ errorCallback }
         data-element='user-image'
       />
     );
@@ -45,7 +48,9 @@ PortraitGravatar.propTypes = {
   /** The shape of the Gravatar. */
   shape: PropTypes.oneOf([...OptionsHelper.shapesVaried, ...OptionsHelper.shapesPortrait]),
   /** The `alt` HTML string. */
-  alt: PropTypes.string
+  alt: PropTypes.string,
+  /** A callback to execute if the Gravatar image fails to load. */
+  errorCallback: PropTypes.func
 };
 
 PortraitGravatar.defaultProps = {
