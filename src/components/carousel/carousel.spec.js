@@ -4,6 +4,8 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { shallow } from 'enzyme';
 import { Carousel, Slide } from './carousel.component';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
+import { CarouselStyledIconLeft, CarouselSelectorInputStyle, CarouselStyledIconRight } from './carousel.style';
+import { SlideStyle } from './slide/slide.style';
 
 /* global jest */
 
@@ -318,51 +320,7 @@ describe('Carousel', () => {
     });
   });
 
-  describe('mainClasses', () => {
-    it('returns the carousel base class', () => {
-      TestUtils.findRenderedDOMComponentWithClass(instance, 'carbon-carousel');
-    });
-
-    it('returns any passed prop names', () => {
-      TestUtils.findRenderedDOMComponentWithClass(instance, 'foobar');
-    });
-  });
-
-  describe('nextClasses', () => {
-    it('returns the class for the next button area', () => {
-      expect(instance.nextClasses()).toEqual('carbon-carousel__navigation carbon-carousel__next');
-    });
-  });
-
-  describe('previousClasses', () => {
-    it('returns the class for the previous button area', () => {
-      expect(instance.previousClasses()).toEqual('carbon-carousel__navigation carbon-carousel__previous');
-    });
-  });
-
-  describe('previousButtonClasses', () => {
-    it('returns the class for the previous button', () => {
-      expect(instance.previousButtonClasses()).toEqual('carbon-carousel__buttons carbon-carousel__previous-button');
-    });
-  });
-
-  describe('nextButtonClasses', () => {
-    it('returns the class for the next button', () => {
-      expect(instance.nextButtonClasses()).toEqual('carbon-carousel__buttons carbon-carousel__next-button');
-    });
-  });
-
-  describe('slideSelectorClassses', () => {
-    it('returns the class for the slide selector', () => {
-      expect(instance.slideSelectorClasses()).toEqual('carbon-carousel__selector');
-    });
-  });
-
   describe('previousButtonProps', () => {
-    it('adds the previous button classNames', () => {
-      expect(instance.previousButtonProps().className).toEqual(instance.previousButtonClasses());
-    });
-
     describe('when buttons are disabled', () => {
       it('does not add a onClick', () => {
         instance.setState({ disabled: true });
@@ -416,33 +374,22 @@ describe('Carousel', () => {
     });
 
     it('adds an active and a padded classes', () => {
-      expect(slide.props.className).toEqual('carbon-slide carbon-slide--active carbon-slide--padded');
+      expect(wrapper.find(Slide).props().isPadded).toBe(true);
     });
 
     describe('when the previous button is disabled', () => {
-      it('adds an active and a padded classes', () => {
+      it('adds a padded classes', () => {
         wrapper.setProps({ enablePreviousButton: false });
-        slide = wrapper.instance().visibleSlide();
 
-        expect(slide.props.className).toEqual('carbon-slide carbon-slide--active carbon-slide--padded');
+        expect(wrapper.find(Slide).props().isPadded).toBe(true);
       });
     });
 
     describe('when the next button is disabled', () => {
-      it('adds an active and a padded classes', () => {
+      it('adds a padded classes', () => {
         wrapper.setProps({ enableNextButton: false });
-        slide = wrapper.instance().visibleSlide();
 
-        expect(slide.props.className).toEqual('carbon-slide carbon-slide--active carbon-slide--padded');
-      });
-    });
-
-    describe('when both buttons are disabled', () => {
-      it('adds an active class', () => {
-        wrapper.setProps({ enablePreviousButton: false, enableNextButton: false });
-        slide = wrapper.instance().visibleSlide();
-
-        expect(slide.props.className).toEqual('carbon-slide carbon-slide--active');
+        expect(wrapper.find(Slide).props().isPadded).toBe(true);
       });
     });
   });
@@ -458,7 +405,7 @@ describe('Carousel', () => {
       );
 
       it('renders a button for each slide', () => {
-        const buttons = wrapper.find('.carbon-carousel__selector-input');
+        const buttons = wrapper.find(CarouselSelectorInputStyle);
 
         expect(buttons.exists()).toBeTruthy();
         expect(buttons.length).toEqual(3);
@@ -473,7 +420,7 @@ describe('Carousel', () => {
       );
 
       it('does not render the slide selector', () => {
-        const buttons = wrapper.find('.carbon-carousel__selector-input');
+        const buttons = wrapper.find(CarouselSelectorInputStyle);
         expect(buttons.exists()).toBeFalsy();
       });
     });
@@ -488,7 +435,7 @@ describe('Carousel', () => {
       );
 
       it('renders a previous button', () => {
-        const arrow = wrapper.find('.carbon-carousel__previous-arrow');
+        const arrow = wrapper.find(CarouselStyledIconLeft);
         expect(arrow.exists()).toBeTruthy();
       });
     });
@@ -516,7 +463,7 @@ describe('Carousel', () => {
       );
 
       it('renders a next button', () => {
-        const arrow = wrapper.find('.carbon-carousel__next-arrow');
+        const arrow = wrapper.find(CarouselStyledIconRight);
         expect(arrow.exists()).toBeTruthy();
       });
     });
@@ -529,7 +476,7 @@ describe('Carousel', () => {
       );
 
       it('does not render a next button', () => {
-        const arrow = wrapper.find('.carbon-carousel__next-arrow');
+        const arrow = wrapper.find(CarouselStyledIconRight);
         expect(arrow.exists()).toBeFalsy();
       });
     });
@@ -539,8 +486,8 @@ describe('Carousel', () => {
     describe('on component', () => {
       const wrapper = shallow(
         <Carousel
-data-element='bar' data-role='baz'
-                    initialSlideIndex={ 0 }
+          data-element='bar' data-role='baz'
+          initialSlideIndex={ 0 }
         >
           <Slide />
         </Carousel>
