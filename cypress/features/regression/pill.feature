@@ -19,7 +19,7 @@ Feature: Pill component
       # | <>                       |
 
   @positive
-  Scenario Outline: Set Pill as align to <as>
+  Scenario Outline: Set Pill as align to <as> and check the proper color as <color>
     When I select as to "<as>"
     Then Pill as on preview is "<as>" and has "<color>"
     Examples:

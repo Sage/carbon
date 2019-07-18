@@ -43,18 +43,18 @@ Feature: Link component
 
 @positive
   Scenario Outline: Change link component icon align position to <iconAlign>
-    When I select icon to "add"
-      And I select iconAlign to "<iconAlign>"
+    Given I select icon to "add"
+    When I select iconAlign to "<iconAlign>"
     Then icon align is set to "<iconAlign>"
     Examples:
       | iconAlign |
       | left      |
       | right     |
 
-  @ignore
+  @positive
   Scenario Outline: Change tooltip align to <tooltipAlign>
-    When I select icon to "add"
-      And I set tooltipMessage to "sample message"
+    Given I select icon to "add"
+    When I set tooltipMessage to "sample message"
       And I select tooltipAlign to "<tooltipAlign>"
       And I select tooltipPosition to "bottom"
       And I hover mouse onto icon
@@ -67,10 +67,10 @@ Feature: Link component
       | bottom       |
       | center       |
 
-  @ignore
+  @positive
   Scenario Outline: Change tooltip tooltipPosition to <tooltipPosition>
-    When I select icon to "add"
-      And I set tooltipMessage to "sample message"
+    Given I select icon to "add"
+    When I set tooltipMessage to "sample message"
       And I select tooltipAlign to "center"
       And I select tooltipPosition to "<tooltipPosition>"
       And I hover mouse onto icon

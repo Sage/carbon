@@ -43,7 +43,7 @@ Feature: Icon component
       | ÄÖÜßäöüß                |
       | <>                      |
 
-  @ignore
+  @positive
   Scenario Outline: Change tooltip position to <tooltipPosition>
     When I set tooltipMessage to "sample message"
       And I select tooltipPosition to "<tooltipPosition>"
@@ -57,7 +57,7 @@ Feature: Icon component
       | top             |
       | bottom          |
 
-  @ignore
+  @position
   Scenario Outline: Change tooltip align to <tooltipAlign>
     When I set tooltipMessage to "sample message"
       And I select tooltipAlign to "<tooltipAlign>"
