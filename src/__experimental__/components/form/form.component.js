@@ -24,7 +24,6 @@ class FormWithoutValidations extends React.Component {
     submitted: false
   }
 
-  csrfToken = null;
 
   /* Returns form object to child components. */
   getChildContext = () => {
@@ -173,6 +172,12 @@ class FormWithoutValidations extends React.Component {
   /* Sets the page to load on submit of form. */
   redirectPath = this._window.location.href;
 
+  /* CSRF values for request */
+  csrfValues = { ...calculateCsrfValues(this._document) };
+
+  /* Service instacne to make post request */
+  _service = new Service();
+
   /* Handles submit and runs validation. */
   handleOnSubmit = async (ev) => {
     ev.preventDefault();
@@ -220,13 +225,14 @@ class FormWithoutValidations extends React.Component {
         this.addInputDataToState(inputName, value);
       }
     });
-    Service.configure({ csrfToken: this.csrfToken });
-    this.submitControlledForm(new Service());
+    this.submitControlledForm();
   }
 
-  async submitControlledForm(service) {
-    service.setURL(this.props.formAction);
-    await service.post(
+  async submitControlledForm() {
+    const { csrFValue } = this.csrfValues;
+    Service.configure({ csrfToken: csrFValue });
+    this._service.setURL(this.props.formAction);
+    await this._service.post(
       JSON.stringify(this.state.formInputs),
       { onSuccess: this.clearFormData }
     );
@@ -383,10 +389,6 @@ class FormWithoutValidations extends React.Component {
     }));
   }
 
-  setCsrfToken = (token) => {
-    if (token) this.csrfToken = token;
-  }
-
   /** Clone the children, pass in callback to allow form to store controlled data */
   renderChildren() {
     const { children } = this.props;
@@ -409,7 +411,7 @@ class FormWithoutValidations extends React.Component {
         ref={ (form) => { this._form = form; } }
         { ...tagComponent('form', this.props) }
       >
-        { generateCSRFToken(this._document, this.setCsrfToken) }
+        { generateCSRFTokenInput(this.csrfValues) }
 
         { this.renderChildren() }
 
@@ -419,21 +421,28 @@ class FormWithoutValidations extends React.Component {
   }
 }
 
-/** Creates and returns CSRF token for input field */
-function generateCSRFToken(doc, setCsrfToken) {
+/** Creates hidden CSRF input field */
+// eslint-disable-next-line react/prop-types
+function generateCSRFTokenInput({ csrfAttr, csrfValue }) {
+  return (
+    <input
+      type='hidden'
+      name={ csrfAttr }
+      value={ csrfValue }
+      readOnly
+    />
+  );
+}
+
+/** Calculates a CSRF token for document */
+function calculateCsrfValues(doc) {
   const csrfParam = doc.querySelector('meta[name="csrf-param"]');
   const csrfToken = doc.querySelector('meta[name="csrf-token"]');
 
   const csrfAttr = csrfParam ? csrfParam.getAttribute('content') : '';
   const csrfValue = csrfToken ? csrfToken.getAttribute('content') : '';
 
-  setCsrfToken(csrfValue);
-  return (
-    <input
-      type='hidden' name={ csrfAttr }
-      value={ csrfValue } readOnly
-    />
-  );
+  return { csrfAttr, csrfValue };
 }
 
 FormWithoutValidations.propTypes = {

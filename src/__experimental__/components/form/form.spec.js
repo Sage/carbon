@@ -18,15 +18,13 @@ import Service from '../../../utils/service';
 jest.mock('../../../utils/service');
 
 describe('Form', () => {
-  let instance, wrapper, validate, action;
+  let instance, wrapper, validate;
 
   beforeEach(() => {
     validate = jest.fn().mockImplementation(() => true);
     instance = TestUtils.renderIntoDocument(
       <Form formAction='foo' validate={ validate } />
     );
-    action = 'foo';
-    Service.setURL = jest.fn();
   });
 
   describe('componentWillReceiveProps', () => {
@@ -798,7 +796,7 @@ describe('Form', () => {
   describe('Submitting form with controlled input', () => {
     it('makes a default axios request when no onSubmit prop is passed', async () => {
       wrapper = mount(
-        <Form validate={ () => true } formAction={ action }>
+        <Form validate={ () => true } formAction='foo'>
           <Textbox
             validations={ [new Validation()] }
             name='foo'
@@ -807,11 +805,12 @@ describe('Form', () => {
         </Form>
       );
 
-      const service = Service;
+      const service = new Service();
+      service.setURL = jest.fn();
       service.post = jest.fn().mockImplementation((_, { onSuccess: success }) => success());
-
-      await wrapper.instance().submitControlledForm(service);
-      expect(Service.mock.instances[0].post).toHaveBeenCalledTimes(1);
+      wrapper.instance()._service = service;
+      await wrapper.instance().submitControlledForm();
+      expect(wrapper.instance()._service.post).toHaveBeenCalledTimes(1);
     });
   });
 
