@@ -60,7 +60,8 @@ storiesOf('Experimental/Select', module)
   .addParameters({
     info: {
       propTablesExclude: [State]
-    }
+    },
+    knobs: { escapeHTML: false }
   })
   .add('default', () => {
     return (
