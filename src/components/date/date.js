@@ -271,6 +271,10 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
       this.setState({
         datePickerValue: DateHelper.stringToDate(this.props.value)
       });
+    } else if (this.props.allowEmptyValue) {
+      this.setState({
+        datePickerValue: DateHelper.stringToDate(today)
+      });
     }
   }
 

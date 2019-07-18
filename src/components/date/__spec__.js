@@ -184,13 +184,24 @@ describe('Date', () => {
       });
 
       describe('when date invalid', () => {
-        it('does not call setState', () => {
+        it('does call setState', () => {
           instance = TestUtils.renderIntoDocument(
             <Date name='date' value='x' label='Date' />
           );
           spyOn(instance, 'setState');
           instance.openDatePicker();
           expect(instance.setState).not.toHaveBeenCalledWith({ datePickerValue: 'x' });
+        });
+      });
+
+      describe('when date invalid with allowEmptyValue true', () => {
+        it('calls set state setting the datePickerValue to be the date of today', () => {
+          instance = TestUtils.renderIntoDocument(
+            <Date name='date' value='' label='Date' allowEmptyValue />
+          );
+          spyOn(instance, 'setState');
+          instance.openDatePicker();
+          expect(instance.setState).toHaveBeenCalledWith({ datePickerValue: DateHelper.stringToDate(hiddenToday) });
         });
       });
     });
