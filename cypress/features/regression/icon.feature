@@ -57,7 +57,7 @@ Feature: Icon component
       | top             |
       | bottom          |
 
-  @position
+  @positive
   Scenario Outline: Change tooltip align to <tooltipAlign>
     Given I set tooltipMessage to "sample message"
     When I select tooltipAlign to "<tooltipAlign>"
