@@ -48,7 +48,7 @@ Feature: Help component
   @positive
   Scenario Outline: Change href to <href>
     When I set href to "<href>"
-    Then link on preview is "<href>"
+    Then Help href on preview is set to "<href>"
     Examples:
       | href                    |
       | Sample text             |
