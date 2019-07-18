@@ -266,7 +266,6 @@ class Select extends React.Component {
       ariaLabel,
       children,
       customFilter,
-      label,
       placeholder,
       value,
       onLazyLoad,
@@ -288,7 +287,7 @@ class Select extends React.Component {
         aria-haspopup='listbox'
         aria-expanded={ open }
         aria-controls={ open ? this.listboxId : '' }
-        aria-label={ label || ariaLabel }
+        aria-label={ ariaLabel }
       >
         <Textbox
           { ...props } // this needs to send all of the original props
