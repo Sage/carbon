@@ -20,7 +20,7 @@ Then('Portrait source is set to {string}', (sourceProperty) => {
   }
 });
 
-Then('Portrait size is set to {string} and has {string}', (word, property) => {
+Then('Portrait size has {string}', (property) => {
   portraitPreview()
     .should('have.css', 'width', `${property}px`)
     .and('have.css', 'height', `${property}px`);
