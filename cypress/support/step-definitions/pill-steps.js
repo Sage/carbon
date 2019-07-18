@@ -1,8 +1,5 @@
 import { pillPreview, pillCloseIcon } from '../../locators/pill';
 
-const PILL_AS_PROPERTY = 'carbon-pill--';
-const PILL_EMPTY_PROPERTY = '--empty';
-const PILL_FILL_PROPERTY = 'default--fill';
 const PILL_ON_DELETE_PROPERTY = 'carbon-pill--is-deletable';
 const BORDER_SOLID_VALUE = '1px solid ';
 
@@ -10,7 +7,7 @@ Then('Pill children on preview is set to {string}', (text) => {
   pillPreview().should('have.text', text);
 });
 
-Then('Pill as on preview is {string} and has {string}', (asProperty, pillColor) => {
+Then('Pill on preview has {string}', (pillColor) => {
   pillPreview().should('have.css', 'border', `${BORDER_SOLID_VALUE}${pillColor}`)
     .and('have.css', 'color', `${pillColor}`);
 });

@@ -54,8 +54,8 @@ Feature: Link component
   @positive
   Scenario Outline: Change tooltip align to <tooltipAlign>
     Given I select icon to "add"
-    When I set tooltipMessage to "sample message"
-      And I select tooltipAlign to "<tooltipAlign>"
+      And I set tooltipMessage to "sample message"
+    When I select tooltipAlign to "<tooltipAlign>"
       And I select tooltipPosition to "bottom"
       And I hover mouse onto icon
     Then tooltipAlign is set to "<tooltipAlign>"
@@ -70,9 +70,9 @@ Feature: Link component
   @positive
   Scenario Outline: Change tooltip tooltipPosition to <tooltipPosition>
     Given I select icon to "add"
-    When I set tooltipMessage to "sample message"
+      And I set tooltipMessage to "sample message"
+    When I select tooltipPosition to "<tooltipPosition>"
       And I select tooltipAlign to "center"
-      And I select tooltipPosition to "<tooltipPosition>"
       And I hover mouse onto icon
     Then tooltipPosition is set to "<tooltipPosition>"
     Examples:

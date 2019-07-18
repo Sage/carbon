@@ -21,7 +21,7 @@ Feature: Pill component
   @positive
   Scenario Outline: Set Pill as align to <as> and check the proper color as <color>
     When I select as to "<as>"
-    Then Pill as on preview is "<as>" and has "<color>"
+    Then Pill on preview has "<color>"
     Examples:
       | as          | color             |
       | default     | rgb(51, 91, 109)  |

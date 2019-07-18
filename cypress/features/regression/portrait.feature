@@ -89,7 +89,7 @@ Feature: Portrait component
   @positive
   Scenario Outline: Set Portrait size to <size>
     When I select size to "<size>"
-    Then Portrait size is set to "<size>" and has "<sizeInPx>"
+    Then Portrait size has "<sizeInPx>"
     Examples:
       | size        | sizeInPx |
       | extra-small | 25       |
