@@ -14,8 +14,10 @@ class PortraitGravatar extends React.Component {
     const { dimensions } = getSizeParams(theme, size);
     const base = 'https://www.gravatar.com/avatar/';
     const hash = MD5(gravatarEmail.toLowerCase());
+    const fallbackOption = '404'; // "Return an HTTP 404 File Not Found response"
 
-    return `${base}${hash}?s=${dimensions}&d=blank`;
+    /** @see https://en.gravatar.com/site/implement/images/#default-image */
+    return `${base}${hash}?s=${dimensions}&d=${fallbackOption}`;
   }
 
   /** Renders the component. */
