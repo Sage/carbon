@@ -1,9 +1,10 @@
 import React from 'react';
 import tagComponent from '../../../utils/helpers/tags';
+import { SlideStyle } from './slide.style';
 
 const Slide = (props) => {
   return (
-    <div { ...props } { ...tagComponent('slide', props) } />
+    <SlideStyle { ...props } { ...tagComponent('slide', props) } />
   );
 };
 
