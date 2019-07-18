@@ -576,8 +576,8 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     const offsetY = window.pageYOffset;
     if (this.props.showPickerOnTop) {
       return {
-          left: inputRect.left,
-          bottom: 2 - inputRect.top + offsetY
+        left: inputRect.left,
+        bottom: 2 - inputRect.top + offsetY
       };
     }
     return {
