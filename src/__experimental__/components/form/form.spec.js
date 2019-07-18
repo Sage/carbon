@@ -2,7 +2,6 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
 import { mount, shallow } from 'enzyme';
-import moxios from 'moxios';
 import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
 import Textbox from '../textbox';
 import Validation from '../../../utils/validations/presence';
