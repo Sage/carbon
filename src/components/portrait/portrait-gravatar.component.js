@@ -23,7 +23,7 @@ class PortraitGravatar extends React.Component {
   /** Renders the component. */
   render() {
     const {
-      alt, size, shape, errorCallback
+      alt, size, shape, errorCallback, ...otherProps
     } = this.props;
     return (
       <StyledPortraitGravatar
@@ -33,6 +33,7 @@ class PortraitGravatar extends React.Component {
         shape={ shape }
         onError={ errorCallback }
         data-element='user-image'
+        { ...otherProps }
       />
     );
   }

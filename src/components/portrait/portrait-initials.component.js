@@ -89,13 +89,16 @@ class PortraitInitials extends React.Component {
 
   /** Renders the component. */
   render() {
-    const { size, shape, theme } = this.props;
+    const {
+      size, shape, theme, ...otherProps
+    } = this.props;
     return (
       <StyledPortraitInitials
         data-element='initials'
         size={ size }
         shape={ shape }
         theme={ theme }
+        { ...otherProps }
       >
         <StyledPortraitInitialsImg src={ this.generateDataUrl() } alt={ this.props.alt } />
       </StyledPortraitInitials>

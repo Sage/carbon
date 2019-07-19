@@ -38,6 +38,7 @@ exports[`Profile render classes renders the large class if applied 1`] = `
   <img
     alt=""
     className="c1"
+    data-component="portrait"
     data-element="user-image"
     onError={[Function]}
     shape="square"
