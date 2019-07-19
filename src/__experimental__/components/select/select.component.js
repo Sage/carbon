@@ -6,7 +6,7 @@ import Textbox from '../textbox';
 import Pill from '../../../components/pill';
 import Events from '../../../utils/helpers/events';
 import tagComponent from '../../../utils/helpers/tags';
-import StyledSelectPillContainer from './select.style';
+import { StyledSelect, StyledSelectPillContainer } from './select.style';
 
 /**
  * Basic example:
@@ -196,14 +196,11 @@ class Select extends React.Component {
 
   isMultiValue(value) { return Array.isArray(value); }
 
-  placeholder(placeholder, value) {
+  placeholder(placeholder) {
     let displayedPlaceHolder = this.props.typeAhead ? 'Type to Search...' : 'Please Select...';
 
     if (placeholder) displayedPlaceHolder = placeholder;
-    if (this.isMultiValue(value)) {
-      // if multi-value then only show placeholder if nothing is currently selected
-      return value.length ? null : displayedPlaceHolder;
-    }
+
     return displayedPlaceHolder;
   }
 
@@ -280,7 +277,7 @@ class Select extends React.Component {
     const allowTypeAhead = filterable ? typeAhead : false;
 
     return (
-      <div
+      <StyledSelect
         role='combobox'
         // move this to textbox style in DLS phase 2
         style={ { minWidth: 75 } }
@@ -288,6 +285,7 @@ class Select extends React.Component {
         aria-expanded={ open }
         aria-controls={ open ? this.listboxId : '' }
         aria-label={ ariaLabel }
+        isAnyValueSelected={ this.isMultiValue(value) && (value.length >= 1) }
       >
         <Textbox
           { ...props } // this needs to send all of the original props
@@ -313,7 +311,7 @@ class Select extends React.Component {
             </SelectList>
           ) }
         </Textbox>
-      </div>
+      </StyledSelect>
     );
   }
 }
@@ -360,7 +358,8 @@ Select.propTypes = {
   /** Are >=3 characters required to trigger the dropdown menu? */
   typeAhead: PropTypes.bool,
   /** Can the user type a value in the <Textbox> to filter the dropdown menu options? */
-  filterable: PropTypes.bool
+  filterable: PropTypes.bool,
+  isAnyValueSelected: PropTypes.bool
 };
 
 Select.defaultProps = {
