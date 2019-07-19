@@ -5,7 +5,7 @@ services:
     image: carbon_cypress
     container_name: cypress
     command: bash -c 'cypress run'
-    environment:
+    config:
       cypress_baseUrl: http://storybook:9001/
     depends_on:
       - storybook
