@@ -1,10 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Select does not apply any events if disabled or readonly 1`] = `
-<div
+<styled.div
   aria-controls=""
   aria-expanded={false}
   aria-haspopup="listbox"
+  isAnyValueSelected={false}
   role="combobox"
   style={
     Object {
@@ -26,14 +27,15 @@ exports[`Select does not apply any events if disabled or readonly 1`] = `
     onKeyDown={[Function]}
     placeholder="Please Select..."
   />
-</div>
+</styled.div>
 `;
 
 exports[`Select does not apply any events if disabled or readonly 2`] = `
-<div
+<styled.div
   aria-controls=""
   aria-expanded={false}
   aria-haspopup="listbox"
+  isAnyValueSelected={false}
   role="combobox"
   style={
     Object {
@@ -55,14 +57,15 @@ exports[`Select does not apply any events if disabled or readonly 2`] = `
     onKeyDown={[Function]}
     placeholder="Please Select..."
   />
-</div>
+</styled.div>
 `;
 
 exports[`Select renders only the Textbox when closed 1`] = `
-<div
+<styled.div
   aria-controls=""
   aria-expanded={false}
   aria-haspopup="listbox"
+  isAnyValueSelected={false}
   role="combobox"
   style={
     Object {
@@ -84,7 +87,7 @@ exports[`Select renders only the Textbox when closed 1`] = `
     onKeyDown={[Function]}
     placeholder="Please Select..."
   />
-</div>
+</styled.div>
 `;
 
 exports[`Select renders the SelectList with any given children when in an open state 1`] = `
