@@ -5,6 +5,7 @@ exports[`Select does not apply any events if disabled or readonly 1`] = `
   aria-controls=""
   aria-expanded={false}
   aria-haspopup="listbox"
+  data-component="carbon-select"
   isAnyValueSelected={false}
   role="combobox"
   style={
@@ -15,7 +16,6 @@ exports[`Select does not apply any events if disabled or readonly 1`] = `
 >
   <WithUniqueName(WithValidation(Textbox))
     aria-label="Please Select..."
-    data-component="carbon-select"
     formattedValue=""
     inputIcon="dropdown"
     inputRef={[Function]}
@@ -35,6 +35,7 @@ exports[`Select does not apply any events if disabled or readonly 2`] = `
   aria-controls=""
   aria-expanded={false}
   aria-haspopup="listbox"
+  data-component="carbon-select"
   isAnyValueSelected={false}
   role="combobox"
   style={
@@ -45,7 +46,6 @@ exports[`Select does not apply any events if disabled or readonly 2`] = `
 >
   <WithUniqueName(WithValidation(Textbox))
     aria-label="Please Select..."
-    data-component="carbon-select"
     formattedValue=""
     inputIcon="dropdown"
     inputRef={[Function]}
@@ -65,6 +65,7 @@ exports[`Select renders only the Textbox when closed 1`] = `
   aria-controls=""
   aria-expanded={false}
   aria-haspopup="listbox"
+  data-component="carbon-select"
   isAnyValueSelected={false}
   role="combobox"
   style={
@@ -75,7 +76,6 @@ exports[`Select renders only the Textbox when closed 1`] = `
 >
   <WithUniqueName(WithValidation(Textbox))
     aria-label="Please Select..."
-    data-component="carbon-select"
     formattedValue=""
     inputIcon="dropdown"
     inputRef={[Function]}
