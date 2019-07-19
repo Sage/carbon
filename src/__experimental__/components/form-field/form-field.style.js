@@ -8,7 +8,6 @@ const FormFieldStyle = styled.div`
       return `
         align-items: baseline;
         display: flex;
-        flex-wrap: wrap;
       `;
     }
 

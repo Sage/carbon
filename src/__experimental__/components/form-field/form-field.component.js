@@ -10,6 +10,7 @@ const FormField = ({
   disabled,
   fieldHelp,
   fieldHelpInline,
+  hasError,
   label,
   labelAlign,
   labelHelp,
@@ -27,6 +28,7 @@ const FormField = ({
       <Label
         align={ labelAlign }
         disabled={ disabled }
+        hasError={ hasError }
         help={ labelHelp }
         htmlFor={ name }
         helpIcon={ labelHelpIcon }
@@ -63,6 +65,7 @@ FormField.propTypes = {
   disabled: PropTypes.bool,
   fieldHelp: PropTypes.node,
   fieldHelpInline: PropTypes.bool,
+  hasError: PropTypes.bool,
   label: PropTypes.node,
   labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
   labelHelp: PropTypes.node,

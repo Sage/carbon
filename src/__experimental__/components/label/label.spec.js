@@ -55,6 +55,14 @@ describe('Label', () => {
     });
   });
 
+  describe('when error', () => {
+    it('applies error color', () => {
+      assertStyleMatch({
+        color: baseTheme.colors.error
+      }, render({ hasError: true }, TestRenderer.create).toJSON());
+    });
+  });
+
   describe('classic theme', () => {
     it('renders with custom padding', () => {
       assertStyleMatch({
