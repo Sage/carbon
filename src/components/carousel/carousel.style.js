@@ -1,12 +1,18 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import Icon from '../icon/icon';
 import { slideAnimation, fadeAnimation } from './slide.config';
+import { isClassic } from '../../utils/helpers/style-helper';
+import baseTheme from '../../style/themes/base';
 
 const CarouselNavigationStyle = styled.div`
-  margin-top: -22.5px;
+  margin-top: -32.5px;
   position: absolute;
   top: 50%;
   z-index: 20;
+
+  ${({ theme }) => isClassic(theme) && css`
+    margin-top: -22.5px;
+  `}
 `;
 
 const CarouselPreviousButtonWrapperStyle = CarouselNavigationStyle;
@@ -16,18 +22,42 @@ const CarouselNextButtonWrapperStyle = styled(CarouselNavigationStyle)`
 
 const CarouselButtonStyle = styled.button`
   border: none;
-  width: 45px;
-  height: 45px;
-  background-color: #CCD6DA;
+  width: 40px;
+  height: 64px;
+  background: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.white};
 
   &:hover {
-    color: #255BC7;
-    background-color: #99ADB6;
+    background-color: ${({ theme }) => theme.colors.secondary};
+    cursor: pointer;
+  }
+
+  &:active {
+    border: none;
   }
 
   &:focus {
     outline: none;
+    border: 2px solid ${({ theme }) => theme.colors.focus};
   }
+
+  ${({ theme }) => isClassic(theme) && css`
+    width: 45px; 
+    height: 45px;
+    background-color: #CCD6DA;
+    color: rgba(0,0,0, 0.85);
+
+    :hover{
+      background-color: #99ADB6;
+      color: #255BC7;
+      cursor: default;
+    }
+
+      &:focus {
+        outline: none;
+        border: none;
+      }
+  `}
 `;
 
 const CarouselStyledIcon = styled(Icon)`
@@ -35,8 +65,14 @@ const CarouselStyledIcon = styled(Icon)`
   display: inline-block;
 
   &&::before {
-    font-size: 25px;
+    font-size: 16px;
   }
+
+  ${({ theme }) => isClassic(theme) && css`
+    &&::before {
+      font-size: 25px;
+    } 
+  `}
 `;
 
 const CarouselStyledIconLeft = styled(CarouselStyledIcon)`
@@ -96,6 +132,18 @@ const CarouselWrapperStyle = styled.div`
   ${slideAnimation};
   ${fadeAnimation};
 `;
+
+CarouselNavigationStyle.defaultProps = {
+  theme: baseTheme
+};
+
+CarouselButtonStyle.defaultProps = {
+  theme: baseTheme
+};
+
+CarouselStyledIcon.defaultProps = {
+  theme: baseTheme
+};
 
 export {
   CarouselNavigationStyle,

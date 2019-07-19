@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { select, boolean } from '@storybook/addon-knobs';
 import notes from './documentation';
-import { Carousel, Slide } from './carousel.component';
+import CarouselWithoutHOC, { Carousel, Slide } from './carousel.component';
 
 storiesOf('Carousel', module)
   .addParameters({
@@ -14,15 +14,15 @@ storiesOf('Carousel', module)
     const indexConfig = [0, 1, 2, 3, 4];
     const transitionConfig = ['slide', 'fade'];
 
-    const initialSlideIndex = select('initialSlideIndex', indexConfig, Carousel.defaultProps.initialSlideIndex);
+    const initialSlideIndex = select('initialSlideIndex', indexConfig, CarouselWithoutHOC.defaultProps.initialSlideIndex);
     const slideIndex = select('slideIndex', indexConfig, indexConfig[0]);
-    const enableSlideSelector = boolean('enableSlideSelector', Carousel.defaultProps.enableSlideSelector);
-    const enablePreviousButton = boolean('enablePreviousButton', Carousel.defaultProps.enablePreviousButton);
-    const enableNextButton = boolean('enableNextButton', Carousel.defaultProps.enableNextButton);
+    const enableSlideSelector = boolean('enableSlideSelector', CarouselWithoutHOC.defaultProps.enableSlideSelector);
+    const enablePreviousButton = boolean('enablePreviousButton', CarouselWithoutHOC.defaultProps.enablePreviousButton);
+    const enableNextButton = boolean('enableNextButton', CarouselWithoutHOC.defaultProps.enableNextButton);
     const transition = select(
       'transition',
       transitionConfig,
-      Carousel.defaultProps.transition
+      CarouselWithoutHOC.defaultProps.transition
     );
 
     return (

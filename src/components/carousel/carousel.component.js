@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import { compact, assign } from 'lodash';
+import { withTheme } from 'styled-components';
 import tagComponent from '../../utils/helpers/tags/tags';
 
 import Slide from './slide/slide';
@@ -18,6 +19,8 @@ import {
   CarouselSelectorLabelStyle,
   CarouselWrapperStyle
 } from './carousel.style';
+import { isClassic } from '../../utils/helpers/style-helper';
+import baseTheme from '../../style/themes/base';
 
 const NEXT = 'next';
 const PREVIOUS = 'previous';
@@ -211,6 +214,7 @@ class Carousel extends React.Component {
     );
   }
 
+
   /** Renders the previous button */
   previousButton() {
     if (!this.props.enablePreviousButton) { return null; }
@@ -222,7 +226,7 @@ class Carousel extends React.Component {
           data-element='previous'
           type='button'
         >
-          <CarouselStyledIconLeft type='dropdown' />
+          <CarouselStyledIconLeft type={ isClassic(this.props.theme) ? 'dropdown' : 'chevron_down' } />
         </CarouselButtonStyle>
       </CarouselPreviousButtonWrapperStyle>
     );
@@ -239,7 +243,7 @@ class Carousel extends React.Component {
           data-element='next'
           type='button'
         >
-          <CarouselStyledIconRight type='dropdown' />
+          <CarouselStyledIconRight type={ isClassic(this.props.theme) ? 'dropdown' : 'chevron_down' } />
         </CarouselButtonStyle>
       </CarouselNextButtonWrapperStyle>
     );
@@ -283,7 +287,7 @@ class Carousel extends React.Component {
 }
 
 Carousel.propTypes = {
-  /** Custom className */
+  /** [legacy] Custom className */
   className: PropTypes.string,
   /** The selected tab on page load */
   initialSlideIndex: PropTypes.oneOfType([
@@ -309,7 +313,9 @@ Carousel.propTypes = {
   /** Action to be called on slide change */
   onSlideChange: PropTypes.func,
   /** Controls which transition to use. */
-  transition: PropTypes.string
+  transition: PropTypes.string,
+  /** theme is used only to support legacy code */
+  theme: PropTypes.object
 };
 
 Carousel.defaultProps = {
@@ -317,7 +323,12 @@ Carousel.defaultProps = {
   enableSlideSelector: true,
   enablePreviousButton: true,
   enableNextButton: true,
-  transition: 'slide'
+  transition: 'slide',
+  theme: baseTheme
 };
 
-export { Carousel, Slide };
+const CarouselWithHOC = withTheme(Carousel);
+
+export default Carousel;
+
+export { CarouselWithHOC as Carousel, Slide };
