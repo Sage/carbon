@@ -47,7 +47,7 @@ const RadioButtonStyle = styled(CheckboxStyle)`
     }
 
     circle {
-      r: ${size === 'large' ? 3.75 : 5};
+      r: 5;
     }
 
     ${checked && css`
@@ -80,6 +80,10 @@ const RadioButtonStyle = styled(CheckboxStyle)`
       svg {
         height: 24px;
         width: 24px;
+      }
+
+      circle {
+        r: 3.75;
       }
 
       ${reverse && css`

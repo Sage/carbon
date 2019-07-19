@@ -7,7 +7,7 @@ import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-s
 import LabelStyle from '../label/label.style';
 
 export default ({
-  checked, fieldHelpInline, reverse, theme
+  disabled, checked, fieldHelpInline, reverse, theme
 }) => theme.name === THEMES.classic && css`
   ${StyledCheckableInput},
   ${HiddenCheckableInputStyle},
@@ -38,6 +38,10 @@ export default ({
 
   ${checked && `
     circle { fill: rgba(0, 0, 0, 0.85); }
+  `}
+
+  ${disabled && css`
+    circle { fill: #${checked ? '8099a4' : 'e6ebed'}; }
   `}
 
   ${(fieldHelpInline || reverse) && `

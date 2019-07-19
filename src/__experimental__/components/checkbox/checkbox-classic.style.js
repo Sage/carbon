@@ -76,11 +76,11 @@ export default ({
     }
 
     svg {
-      background-color: ${theme.disabled.disabled};
-      border: 1px solid ${theme.disabled.border};
+      background-color: #e6ebed;
+      border-color: #bfccd2;
     }
 
-    svg path { fill: ${checked ? theme.disabled.border : theme.disabled.disabled}; }
+    svg path { fill: #${checked ? '8099a4' : 'e6ebed'}; }
   `}
 
   ${(fieldHelpInline || reverse) && `

@@ -332,7 +332,7 @@ describe('Checkbox', () => {
 
         it('renders the correct check colour', () => {
           assertStyleMatch({
-            fill: classicTheme.disabled.border
+            fill: '#8099a4'
           }, wrapper, { modifier: 'svg path' });
         });
       });
@@ -355,14 +355,14 @@ describe('Checkbox', () => {
 
       it('applies the appropriate svg wrapper styles', () => {
         assertStyleMatch({
-          backgroundColor: classicTheme.disabled.disabled,
+          backgroundColor: '#e6ebed',
           border: `1px solid ${classicTheme.disabled.border}`
         }, wrapper, { modifier: 'svg' });
       });
 
       it('applies the appropriate check styles', () => {
         assertStyleMatch({
-          fill: classicTheme.disabled.disabled
+          fill: '#e6ebed'
         }, wrapper, { modifier: 'svg path' });
       });
     });
