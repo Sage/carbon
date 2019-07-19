@@ -51,3 +51,7 @@ function getItem(selector, counter) {
 }
 
 Cypress.Commands.add('iFrame', (selector) => { getItem(selector, 40); });
+
+before(() => {
+  cy.wait(1000, { log: DEBUG_FLAG });
+});
