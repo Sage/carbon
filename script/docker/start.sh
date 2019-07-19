@@ -6,4 +6,4 @@ export DOCKER_CLIENT_TIMEOUT=720
 export COMPOSE_HTTP_TIMEOUT=720
 
 echo 'Starting docker compose'
-docker-compose up -d --memory="512m"
+docker-compose up -d --memory="1024m"
