@@ -21,10 +21,7 @@ function stylingForSize({ size, theme }) {
 }
 
 function stylingForShape({ shape }) {
-  let cssString = `
-    position: absolute;
-    overflow: hidden;
-  `;
+  let cssString = 'overflow: hidden;';
 
   if (shape === 'standard') cssString += 'border-radius: 0px;';
   if (shape === 'square') cssString += 'border-radius: 0px;';
@@ -91,12 +88,15 @@ export function getColorsForInitials(theme, darkBackground) {
 
 
 export const StyledPortraitInitials = styled.div`
+  box-sizing: border-box;
+  ${stylingForSize}
   ${stylingForShape}
   ${({ theme }) => !isClassic(theme) && css`border: 1px solid ${theme.portrait.border};`}
 `;
 
 StyledPortraitInitials.propTypes = {
   theme: PropTypes.object,
+  size: PropTypes.oneOf([...OptionsHelper.sizesFull, ...OptionsHelper.sizesPortrait]).isRequired,
   shape: PropTypes.oneOf([...OptionsHelper.shapesVaried, ...OptionsHelper.shapesPortrait])
 };
 
@@ -117,7 +117,7 @@ StyledPortraitInitialsImg.propTypes = {
 
 
 export const StyledPortraitGravatar = styled.img`
-  display: inline-block;
+  display: block;
   ${stylingForSize}
   ${stylingForShape}
 `;
@@ -131,7 +131,7 @@ StyledPortraitGravatar.propTypes = {
 
 
 export const StyledCustomImg = styled.img`
-  display: inline-block;
+  display: block;
   ${stylingForSize}
   ${stylingForShape}
 `;
@@ -172,25 +172,3 @@ StyledIcon.defaultProps = {
   shape: 'square',
   theme: BaseTheme
 };
-
-
-const StyledPortrait = styled.div`
-  display: inline-block;
-  position: relative;
-  vertical-align: middle;
-  ${stylingForSize}
-`;
-
-StyledPortrait.propTypes = {
-  size: PropTypes.oneOf([...OptionsHelper.sizesFull, ...OptionsHelper.sizesPortrait]),
-  darkBackground: PropTypes.bool,
-  theme: PropTypes.object
-};
-
-StyledPortrait.defaultProps = {
-  size: 'M',
-  darkBackground: false,
-  theme: BaseTheme
-};
-
-export default StyledPortrait;
