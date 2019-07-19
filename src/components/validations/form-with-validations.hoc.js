@@ -13,15 +13,11 @@ const withValidations = (WrappedComponent) => {
       infoCount: 0
     }
 
-    static propTypes = {
-      children: PropTypes.node // Children elements
-    }
-
     inputs = {};
 
     addInput = (name, validate) => {
       this.inputs[name] = validate;
-    }
+    };
 
     removeInput = (name) => {
       delete this.inputs[name];
@@ -79,6 +75,10 @@ const withValidations = (WrappedComponent) => {
       );
     }
   }
+
+  WithValidations.propTypes = {
+    children: PropTypes.node // Children elements
+  };
 
   const displayName = WrappedComponent.displayName || WrappedComponent.name || 'Component';
   WithValidations.displayName = `WithValidations(${displayName})`;
