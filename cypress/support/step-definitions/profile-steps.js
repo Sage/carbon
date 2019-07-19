@@ -17,8 +17,9 @@ Then('avatar is taken from {string}', (avatarUrl) => {
 Then('initials is set to {string}', (initials) => {
   // eslint-disable-next-line no-param-reassign
   initials = initials.substring(0, 3);
-  cy.fixture(`${INITIALS_FOLDER}${initials}`).then(($initials) => {
-    initialsPreview().should('have.attr', 'src', `${DATA_IMAGE_PREFIX}${$initials}`);
+  cy.fixture(`${INITIALS_FOLDER}${initials}`, 'base64').then(($initials) => {
+    initialsPreview().children()
+      .should('have.attr', 'src', `${DATA_IMAGE_PREFIX}${$initials}`);
   });
 });
 

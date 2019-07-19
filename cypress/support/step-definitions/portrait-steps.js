@@ -1,25 +1,13 @@
 import { portraitPreview, portraitInitials, portraitUserImage } from '../../locators/portrait';
 
-const PORTRAIT_CLASS = 'carbon-portrait--';
-const DARK_BACKGROUND = 'dark-background';
 const INITIALS_FOLDER = 'initials/';
 const DATA_IMAGE_PREFIX = 'data:image/png;base64,';
 
 Then('Portrait alt on preview is set to {string}', (text) => {
-  portraitInitials()
-    .should('have.attr', 'alt', `${text}`);
-  portraitUserImage()
-    .should('have.attr', 'alt', `${text}`);
-});
-
-Then('Portrait component has darkBackground property', () => {
   portraitPreview()
-    .should('have.class', `${PORTRAIT_CLASS}${DARK_BACKGROUND}`);
-});
-
-Then('Portrait component has no darkBackground property', () => {
-  portraitPreview()
-    .should('not.have.class', `${PORTRAIT_CLASS}${DARK_BACKGROUND}`);
+    .should('have.attr', 'alt', `${text}`);
+  portraitInitials().children()
+    .should('have.attr', 'alt', `${text}`);
 });
 
 Then('Portrait source is set to {string}', (sourceProperty) => {
@@ -30,6 +18,12 @@ Then('Portrait source is set to {string}', (sourceProperty) => {
     portraitUserImage()
       .should('have.attr', 'src', `${sourceProperty}`);
   }
+});
+
+Then('Portrait size has {string}', (property) => {
+  portraitPreview()
+    .should('have.css', 'width', `${property}px`)
+    .and('have.css', 'height', `${property}px`);
 });
 
 Then('Portrait {word} value is set to {string}', (word, property) => {
@@ -49,8 +43,8 @@ Then('Portrait {word} value is set to {string}', (word, property) => {
     case 'initials':
       portraitInitials()
         .should('be.visible');
-      cy.fixture(`${INITIALS_FOLDER}${property}`).then(($property) => {
-        portraitInitials()
+      cy.fixture(`${INITIALS_FOLDER}${property}`, 'base64').then(($property) => {
+        portraitInitials().children()
           .should('have.attr', 'src', `${DATA_IMAGE_PREFIX}${$property}`);
       });
       portraitUserImage()
@@ -58,11 +52,7 @@ Then('Portrait {word} value is set to {string}', (word, property) => {
       break;
     case 'shape':
       portraitPreview()
-        .should('have.class', `${PORTRAIT_CLASS}${property}`);
-      break;
-    case 'size':
-      portraitPreview()
-        .should('have.class', `${PORTRAIT_CLASS}${property}`);
+        .should('have.attr', 'shape', `${property}`);
       break;
     default:
       throw new Error('Not a Portrait component property');
