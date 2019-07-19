@@ -9,6 +9,7 @@ import { THEMES } from '../../../../src/style/themes';
 
 const StyledSelect = styled.select`
   background: transparent;
+  border-color: #CCD6DB;
   border-radius: 0;
   padding: 8px 16px;
   appearance: none;
