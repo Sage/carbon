@@ -45,8 +45,9 @@ Feature: Icon component
 
   @positive
   Scenario Outline: Change tooltip position to <tooltipPosition>
-    When I set tooltipMessage to "sample message"
-      And I select tooltipPosition to "<tooltipPosition>"
+    Given I set tooltipMessage to "sample message"
+    When I select tooltipPosition to "<tooltipPosition>"
+      And I select tooltipAlign to "center"
       And I hover mouse onto icon
     Then tooltipPosition is set to "<tooltipPosition>"
     Examples:
@@ -58,8 +59,9 @@ Feature: Icon component
 
   @positive
   Scenario Outline: Change tooltip align to <tooltipAlign>
-    When I set tooltipMessage to "sample message"
-      And I select tooltipAlign to "<tooltipAlign>"
+    Given I set tooltipMessage to "sample message"
+    When I select tooltipAlign to "<tooltipAlign>"
+      And I select tooltipPosition to "bottom"
       And I hover mouse onto icon
     Then tooltipAlign is set to "<tooltipAlign>"
     Examples:

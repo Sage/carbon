@@ -5,7 +5,7 @@ import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import StyledCheckboxSvgWrapper from './checkbox-svg-wrapper.style';
 import LabelStyle from '../label/label.style';
-import StyledHelp from '../help/help.style';
+import StyledHelp from '../../../components/help/help.style';
 
 export default ({
   checked, disabled, fieldHelpInline, reverse, theme

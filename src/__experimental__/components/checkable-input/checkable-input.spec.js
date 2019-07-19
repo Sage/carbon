@@ -8,7 +8,7 @@ import FormFieldStyle from '../form-field/form-field.style';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
 import { StyledCheckableInput, StyledCheckableInputWrapper } from './checkable-input.style';
-import StyledHelp from '../help/help.style';
+import StyledHelp from '../../../components/help/help.style';
 import baseTheme from '../../../style/themes/base';
 
 function render(props) {
