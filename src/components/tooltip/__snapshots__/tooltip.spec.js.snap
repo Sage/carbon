@@ -31,23 +31,22 @@ exports[`Tooltip visible and has children matches snapshot 1`] = `
 
 .c2 {
   position: absolute;
-  bottom: 0px;
   left: calc(50% - 7px);
+  bottom: 0;
 }
 
 .c2:before {
   position: absolute;
-}
-
-.c2:before {
   content: "";
   width: 0;
   height: 0;
+}
+
+.c2:before {
   border-top: 8px solid #000000;
   border-right: 7px solid transparent;
-  border-bottom: 7px solid transparent;
-  border-left: 7px solid transparent;
   border-bottom: none;
+  border-left: 7px solid transparent;
 }
 
 <div
