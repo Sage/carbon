@@ -3,7 +3,8 @@ import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { mount } from 'enzyme';
 import Tooltip from '.';
-import { StyledTooltipInner, StyledTooltipPointer, StyledTooltipWrapper } from './tooltip.style';
+import { StyledTooltipInner, StyledTooltipWrapper } from './tooltip.style';
+import StyledTooltipPointer from './tooltip-pointer.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import classicTheme from '../../style/themes/classic';
@@ -205,7 +206,7 @@ describe('Tooltip', () => {
           describe('root', () => {
             it('applies the correct root styles', () => {
               assertStyleMatch(
-                { right: '0px' },
+                { right: '0' },
                 renderPointer({ align: alignment, position: 'left' })
               );
             });
@@ -287,7 +288,7 @@ describe('Tooltip', () => {
           describe('root', () => {
             it('applies the correct root styles', () => {
               assertStyleMatch(
-                { bottom: '0px' },
+                { bottom: '0' },
                 renderPointer({ align: alignment, position: 'top' })
               );
             });
@@ -347,7 +348,7 @@ describe('Tooltip', () => {
         describe.each(verticalPositions)('and position = "%s"', (pos) => {
           it('applies the correct styles', () => {
             assertStyleMatch(
-              { left: '10px' },
+              { left: '8px' },
               renderPointer({ align: 'left', position: pos })
             );
           });
