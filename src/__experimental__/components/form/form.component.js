@@ -24,7 +24,6 @@ class FormWithoutValidations extends React.Component {
     submitted: false
   }
 
-
   /* Returns form object to child components. */
   getChildContext = () => {
     return {
