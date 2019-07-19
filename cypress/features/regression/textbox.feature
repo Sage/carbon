@@ -3,7 +3,7 @@ Feature: Textbox component
 
 # Added Experimental untill the component will be merged with master
   Background: Open Textbox component page
-    Given I open "Experimental Textbox" component page basic
+    Given I open "Experimental Textbox" component page
 
   @positive
   Scenario Outline: Set placeholder to <placeholder>
@@ -61,54 +61,6 @@ Feature: Textbox component
     Then label is set to "<label>"
     Examples:
       | label                   |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
-      | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                    |
-
-  @positive
-  Scenario Outline: Set errorMessage to <errorMessage>
-    When I set errorMessage to "<errorMessage>"
-      And I hover mouse onto icon
-    Then tooltipPreview on preview is set to "<errorMessage>"
-      And errorMessage is displayed properly with proper icon
-    Examples:
-      | errorMessage            |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
-      | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                    |
-
-  @positive
-  Scenario Outline: Set infoMessage to <infoMessage>
-    When I set infoMessage to "<infoMessage>"
-      And I hover mouse onto icon
-    Then tooltipPreview on preview is set to "<infoMessage>"
-      And infoMessage is displayed properly with proper icon
-    Examples:
-      | infoMessage             |
-      | Sample text             |
-      | 1234567890              |
-      | áéíóú¿¡üñ               |
-      | !@#$%^*()_+-=~[];:.,?{} |
-      | ÄÖÜßäöüß                |
-      # @ignore because of FE-1447
-      # | <>                    |
-
-  @positive
-  Scenario Outline: Set warningMessage to <warningMessage>
-    When I set warningMessage to "<warningMessage>"
-      And I hover mouse onto icon
-    Then tooltipPreview on preview is set to "<warningMessage>"
-      And warningMessage is displayed properly with proper icon
-    Examples:
-      | warningMessage          |
       | Sample text             |
       | 1234567890              |
       | áéíóú¿¡üñ               |
