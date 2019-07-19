@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Help from '../help/help.component';
+import Help from '../../../components/help';
 import LabelStyle from './label.style';
 
 const Label = ({

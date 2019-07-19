@@ -607,44 +607,32 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
       </span>
       <label>
         <div
-          className="carbon-pager__current-page common-input"
-          data-element="current-page"
+          className="c7 c8"
         >
           <div
-            className="common-input__field"
+            className="c9 c10"
+            name="guid-12345"
+            onMouseDown={[Function]}
+            onMouseOut={[Function]}
+            onMouseOver={[Function]}
+            role="presentation"
+            size="medium"
+            type="text"
           >
-            <div
-              className="c7 c8"
-            >
-              <div
-                autoComplete="off"
-                className="c9 c10"
-                data-element="input"
-                name="guid-12345"
-                onMouseDown={[Function]}
-                onMouseOut={[Function]}
-                onMouseOver={[Function]}
-                role="presentation"
-                size="medium"
-                type="text"
-              >
-                <input
-                  autoComplete="off"
-                  className="c11 c12"
-                  data-element="input"
-                  id="guid-12345"
-                  name="guid-12345"
-                  onBlur={[Function]}
-                  onChange={[Function]}
-                  onClick={[Function]}
-                  onFocus={[Function]}
-                  onKeyDown={[Function]}
-                  onKeyUp={[Function]}
-                  type="text"
-                  value="1"
-                />
-              </div>
-            </div>
+            <input
+              className="c11 c12"
+              data-element="input"
+              id="guid-12345"
+              name="guid-12345"
+              onBlur={[Function]}
+              onChange={[Function]}
+              onClick={[Function]}
+              onFocus={[Function]}
+              onKeyDown={[Function]}
+              onKeyUp={[Function]}
+              type="text"
+              value="1"
+            />
           </div>
         </div>
       </label>

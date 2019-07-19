@@ -180,7 +180,6 @@ Object {
 <div
     autocomplete="off"
     class="c0"
-    data-element="input"
     name="guid-12345"
     role="presentation"
     type="text"
@@ -200,7 +199,6 @@ Object {
     <span
       autocomplete="off"
       class="c3"
-      data-element="input"
       name="guid-12345"
       type="dropdown"
     >

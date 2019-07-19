@@ -15,6 +15,7 @@ class Header extends React.Component {
           className='demo-header__menu-toggle'
           onClick={ DemoActions.toggleMenu }
           theme='grey'
+          className='demo-header__button'
         >
           <Icon
             className='demo-header__menu-icon'

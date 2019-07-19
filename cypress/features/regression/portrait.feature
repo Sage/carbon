@@ -2,8 +2,7 @@ Feature: Portrait component
   I want to test Portrait component
 
   Background: Open Portrait component page
-  # typo in the word Portrait due to the typo in component name
-    Given I open "Portait" component page
+    Given I open "Portrait" component page classic
 
   @positive
   Scenario Outline: Change Portrait alt to <alt>
@@ -22,13 +21,13 @@ Feature: Portrait component
   @positive
   Scenario: Enable darkBackground checkbox for a Portrait component
     When I check darkBackground checkbox
-    Then Portrait component has darkBackground property
+    Then Portrait initials value is set to "AZ_DARK"
 
   @positive
   Scenario: Enable and disable darkBackground checkbox for a Portrait component
     When I check darkBackground checkbox
       And I uncheck darkBackground checkbox
-    Then Portrait component has no darkBackground property
+    Then Portrait initials value is set to "AZ"
 
   @positive
   Scenario: Set Portrait source to src
@@ -39,7 +38,7 @@ Feature: Portrait component
   Scenario: Set Portrait source to gravatar
     When I select source to "gravatar"
       And I set gravatar to "ABC"
-    Then Portrait source is set to "https://www.gravatar.com/avatar/900150983cd24fb0d6963f7d28e17f72?s=60&d=blank"  
+    Then Portrait source is set to "https://www.gravatar.com/avatar/900150983cd24fb0d6963f7d28e17f72?s=60&d=blank"
 
   @positive
   Scenario Outline: Set Portrait src to <source>
@@ -54,7 +53,7 @@ Feature: Portrait component
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
       # @ignore because of FE-1447
-      # | <>                       | 
+      # | <>                       |
 
   @positive
   Scenario Outline: Change Portrait initials to <initials>
@@ -65,7 +64,6 @@ Feature: Portrait component
       | A        |
       | BC       |
       | DEF      |
-
 
   @positive
   Scenario Outline: Set Portrait gravatar to <gravatar>
@@ -91,13 +89,13 @@ Feature: Portrait component
   @positive
   Scenario Outline: Set Portrait size to <size>
     When I select size to "<size>"
-    Then Portrait size value is set to "<size>"
+    Then Portrait size has "<sizeInPx>"
     Examples:
-      | size        |
-      | extra-small |
-      | small       |
-      | medium-small|
-      | medium      |
-      | medium-large|
-      | large       |
-      | extra-large |  
+      | size        | sizeInPx |
+      | extra-small | 25       |
+      | small       | 30       |
+      | medium-small| 40       |
+      | medium      | 60       |
+      | medium-large| 70       |
+      | large       | 100      |
+      | extra-large | 120      |

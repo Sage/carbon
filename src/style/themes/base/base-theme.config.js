@@ -44,7 +44,8 @@ export default (palette) => {
     },
 
     help: {
-      color: blackWithOpacity(0.65)
+      color: blackWithOpacity(0.65),
+      hover: blackWithOpacity(0.9)
     },
 
     text: {
@@ -80,8 +81,18 @@ export default (palette) => {
       hover: 'rgba(0,0,0,0.90)'
     },
 
+    rainbow: {
+      textColor: '#003349'
+    },
+
     icon: {
       focus: palette.slateTint(20)
+    },
+
+    portrait: {
+      border: palette.slateTint(50),
+      background: palette.slateTint(95),
+      initials: 'rgba(0,0,0,0.65)'
     },
 
     pill: {

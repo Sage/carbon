@@ -61,6 +61,7 @@ class Input extends React.Component {
         onFocus={ this.handleFocus }
         onBlur={ this.handleBlur }
         onClick={ this.handleClick }
+        data-element='input'
       />
     );
   }
