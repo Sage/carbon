@@ -15,11 +15,11 @@ import sageTheme from './sageTheme';
 // Option defaults.
 addParameters({
   options: {
-    theme: sageTheme,
     isFullscreen: false,
+    panelPosition: 'bottom',
     showNav: true,
     showPanel: true,
-    panelPosition: 'bottom'
+    theme: sageTheme
   },
 });
 
