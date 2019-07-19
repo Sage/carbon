@@ -16,7 +16,7 @@ class Pill extends React.Component {
         type='button'
         onClick={ onDelete }
         data-element='close'
-        aria-label='close-icon'
+        aria-label='close'
       >
         <Icon type='cross' bgSize='small' />
       </button>
