@@ -1,4 +1,4 @@
-import RadioButton from './';
+import { RadioButton } from '../../__experimental__/components/radio-button';
 import Definition from './../../../demo/utils/definition';
 
 let definition = new Definition('radio-button', RadioButton, {

@@ -15,7 +15,7 @@ const RadioButton = ({ id, ...props }) => {
 
   return (
     <RadioButtonStyle
-      { ...tagComponent('radio', props) }
+      { ...tagComponent('radio-button', props) }
       { ...props }
     >
       <CheckableInput

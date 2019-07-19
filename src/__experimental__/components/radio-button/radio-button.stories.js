@@ -5,7 +5,7 @@ import {
 } from '@storybook/addon-knobs';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { RadioButton, RadioButtonGroup } from '.';
-// import { info, notes } from './documentation';
+import { info, notes } from './documentation';
 
 storiesOf('Experimental/RadioButton', module)
   .add('default', () => {
@@ -36,10 +36,10 @@ storiesOf('Experimental/RadioButton', module)
     );
   }, {
     info: {
-      // text: info,
+      text: info,
       excludedPropTypes: ['children']
-    }// ,
-    // notes: { markdown: notes }
+    },
+    notes: { markdown: notes }
   });
 
 function defaultKnobs() {
