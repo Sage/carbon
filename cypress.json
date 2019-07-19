@@ -1,5 +1,5 @@
 {
-  "baseUrl": "https://carbon.sage.com/",
+  "baseUrl": "http://localhost:9001/",
   "blacklistHosts": ["www.google-analytics.com", "sockjs*", "countries*"],
   "env": { "TAGS": "not @ignore" },
   "failOnStatusCode": false,
