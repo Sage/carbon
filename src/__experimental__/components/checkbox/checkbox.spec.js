@@ -8,7 +8,7 @@ import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
-import StyledHelp from '../help/help.style';
+import StyledHelp from '../../../components/help/help.style';
 import guid from '../../../utils/helpers/guid';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import classicTheme from '../../../style/themes/classic';
