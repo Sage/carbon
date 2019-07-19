@@ -2,7 +2,7 @@ Feature: Pill component
   I want to test Pill component
 
   Background: Open Pill component page
-    Given I open "Pill" component page
+    Given I open "Pill" component page classic
 
   @positive
   Scenario Outline: Change Pill children to <children>
@@ -19,19 +19,20 @@ Feature: Pill component
       # | <>                       |
 
   @positive
-  Scenario Outline: Set Pill as align to <as>
+  Scenario Outline: Set Pill as align to <as> and check the proper color as <color>
     When I select as to "<as>"
-    Then Pill as on preview is "<as>"
+    Then Pill on preview has "<color>"
     Examples:
-      | as          |
-      | default     |
-      | error       |
-      | help        |
-      | info        |
-      | maintenance |
-      | new         |
-      | success     |
-      | warning     |
+      | as          | color             |
+      | default     | rgb(51, 91, 109)  |
+      | error       | rgb(199, 56, 79)  |
+      | help        | rgb(255, 171, 0)  |
+      | info        | rgb(21, 115, 230) |
+      | maintenance | rgb(255, 125, 0)  |
+      | new         | rgb(102, 51, 153) |
+      | success     | rgb(80, 184, 72)  |
+      | warning     | rgb(255, 125, 0)  |
+      | disabled    | rgb(204, 214, 218)|
 
   @positive
   Scenario: Enable and disable fill checkbox for a Pill component
