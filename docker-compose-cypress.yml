@@ -5,8 +5,8 @@ services:
     image: carbon_cypress
     container_name: cypress
     command: bash -c 'cypress run'
-    config:
-      cypress_baseUrl: http://storybook:9001/
+    environment:
+      CYPRESS_baseUrl: http://storybook:9001/
     depends_on:
       - storybook
     # Reason for the below `ipc: host` line:
