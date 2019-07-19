@@ -101,15 +101,13 @@ describe('Select', () => {
         * formattedValue is empty
         * value contains the array of values
         * leftChildren contains the pills
-        * inputIcon is disabled
-        * placeholder is disabled`, () => {
+        * inputIcon is disabled`, () => {
       const props = { value: multiValue, placeholder: 'placeholder' };
       const textbox = textboxOf(renderWrapper({ props }));
       const {
         formattedValue,
         value, inputIcon,
-        leftChildren,
-        placeholder
+        leftChildren
       } = textbox.props();
 
       expect(formattedValue).toEqual('');
@@ -117,7 +115,6 @@ describe('Select', () => {
       expect(leftChildren.length).toEqual(3);
       expect(leftChildren[0].props.children.props.title).toEqual('Orange');
       expect(inputIcon).toEqual(undefined);
-      expect(placeholder).toEqual(null);
     });
 
     it('triggers onChange with the item added when choosing an item', () => {
