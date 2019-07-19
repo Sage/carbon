@@ -240,7 +240,6 @@ class Select extends React.Component {
     const placeholderText = this.placeholder(placeholder, value);
 
     const props = {
-      'data-component': 'carbon-select',
       inputIcon: this.inputIcon(typeAhead, value),
       inputRef: this.assignInput,
       placeholder: placeholderText,
@@ -279,6 +278,7 @@ class Select extends React.Component {
     return (
       <StyledSelect
         role='combobox'
+        data-component='carbon-select'
         // move this to textbox style in DLS phase 2
         style={ { minWidth: 75 } }
         aria-haspopup='listbox'
