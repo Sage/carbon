@@ -16,7 +16,8 @@ Feature: Pages component
     Then My First Page is not visible
       And My Second Page is not visible
 
-  @positive
+  @ignore
+  # ignored because of FE-1761
   Scenario: Open next page
     When I open no iFrame component preview
       And I go to next page
@@ -30,7 +31,8 @@ Feature: Pages component
     Then My First Page is not visible
       And My Second Page is not visible
 
-  @positive
+  @ignore
+  # ignored because of FE-1761
   Scenario: Go back to first page
     When I open no iFrame component preview
       And I go to next page

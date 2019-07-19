@@ -2,7 +2,7 @@ Feature: Profile component
   I want to change Profile component properties
 
   Background: Open Profile component page
-    Given I open "Profile" component page
+    Given I open "Profile" component page classic
 
   @positive
   Scenario Outline: Set email to <email>
@@ -42,9 +42,8 @@ Feature: Profile component
     Then initials is set to "<initials>"
     Examples:
       | initials |
-      | A        |
-      | BC       |
-      | DEF      |
+      | OW       |
+      | TJH      |
 
   @negative
   Scenario Outline: Set out of scope initials to <initials>
@@ -54,7 +53,7 @@ Feature: Profile component
       | initials |
       | 1234     |
       | 12345    |
-      | DEFGHIJ  |
+      | TJHGHIJ  |
 
   @positive
   Scenario Outline: Get initials from name <name>
@@ -63,7 +62,6 @@ Feature: Profile component
     Then initials is set to "<result>"
     Examples:
       | name                 | result |
-      | Adam                 | A      |
       | Oscar Wilde          | OW     |
       | Thomas Jeffrey Hanks | TJH    |
 

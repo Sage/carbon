@@ -4,7 +4,7 @@ import FieldHelpStyle from '../field-help/field-help.style';
 import FormFieldStyle from '../form-field/form-field.style';
 import HiddenCheckableInputStyle from './hidden-checkable-input.style';
 import LabelStyle from '../label/label.style';
-import StyledHelp from '../help/help.style';
+import StyledHelp from '../../../components/help/help.style';
 import baseTheme from '../../../style/themes/base';
 
 const StyledCheckableInput = styled.div`

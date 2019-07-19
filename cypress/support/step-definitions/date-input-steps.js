@@ -10,19 +10,23 @@ const YESTERDAY_DAY = Cypress.moment().subtract(1, 'days').format('ddd MMM D, YY
 const TOMORROW_DAY = Cypress.moment().add(1, 'days').format('ddd MMM D, YYYY');
 
 Then('Date input is disabled', () => {
-  dateInput().should('have.attr', 'disabled');
+  dateInput().parent()
+    .should('have.attr', 'disabled');
 });
 
 Then('Date input is enabled', () => {
-  dateInput().should('not.have.attr', 'disabled');
+  dateInput().parent()
+    .should('not.have.attr', 'disabled');
 });
 
 Then('Date input component is readOnly', () => {
-  dateInput().should('have.attr', 'readonly');
+  dateInput().parent()
+    .should('have.attr', 'readonly');
 });
 
 Then('Date input component is not readOnly', () => {
-  dateInput().should('not.have.attr', 'readonly');
+  dateInput().parent()
+    .should('not.have.attr', 'readonly');
 });
 
 Then('label is set to inline', () => {

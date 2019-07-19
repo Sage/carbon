@@ -108,7 +108,7 @@ Feature: Number Input component
       | left       |
 
   Scenario Outline: Change label help text to <labelHelp>
-    When I set labelHelp to "<labelHelp>"
+    When I set LabelHelp to "<labelHelp>"
       And I hover mouse onto help icon
     Then tooltipPreview on preview is set to "<labelHelp>"
     Examples:
