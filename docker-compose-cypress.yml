@@ -1,6 +1,7 @@
 version: '2.1'
 
 services:
+  mem_limit: 512m
   cypress:
     image: carbon_cypress
     container_name: cypress
