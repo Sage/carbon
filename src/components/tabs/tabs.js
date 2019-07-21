@@ -412,7 +412,8 @@ class Tabs extends React.Component {
         'carbon-tabs__headers__header--error': tabHasError,
         'carbon-tabs__headers__header--warning': tabHasWarning,
         'carbon-tabs__headers__header--selected': this.isTabSelected(tab.props.tabId)
-      }
+      },
+      tab.props.className
     );
   }
 
