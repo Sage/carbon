@@ -415,7 +415,7 @@ describe('Tabs', () => {
       it('adds a error class to the header', () => {
         instance.setState({ tabValidity: Immutable.fromJS({ 'uniqueid2': false })});
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-        expect(secondTab.className).toEqual('carbon-tabs__headers__header headerClass2 carbon-tabs__headers__header--error');
+        expect(secondTab.className).toEqual('carbon-tabs__headers__header headerClass2 carbon-tabs__headers__header--error class2');
       });
     });
 
@@ -423,7 +423,7 @@ describe('Tabs', () => {
       it('adds a warning class to the header', () => {
         instance.setState({ tabWarning: Immutable.fromJS({ 'uniqueid2': true })});
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-        expect(secondTab.className).toEqual('carbon-tabs__headers__header headerClass2 carbon-tabs__headers__header--warning');
+        expect(secondTab.className).toEqual('carbon-tabs__headers__header headerClass2 carbon-tabs__headers__header--warning class2');
       });
 
       describe('when tab has an error as well', () => {
