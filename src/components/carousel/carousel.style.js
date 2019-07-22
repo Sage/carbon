@@ -88,15 +88,23 @@ const CarouselSelectorInputStyle = styled.input`
 `;
 
 const CarouselSelectorLabelStyle = styled.label`
-  border: 1px solid #4C6F7F;
   display: inline-block;
-  height: 8px;
-  margin: 0px 5px;
-  width: 8px;
+  width: 10px;
+  height: 10px;
+  background: ${({ theme }) => theme.carousel.inactiveSelectorBackground};
+  margin: 0px 4px;
 
   &:hover {
     cursor: pointer;
   }
+
+  ${({ theme }) => isClassic(theme) && css`
+    border: 1px solid #4C6F7F;
+    background: transparent;
+    width: 8px;
+    height: 8px;
+    margin: 0px 5px;
+  `}
 `;
 
 const CarouselSelectorWrapperStyle = styled.div`
@@ -106,12 +114,16 @@ const CarouselSelectorWrapperStyle = styled.div`
 
     ${CarouselSelectorInputStyle}:checked {
     + ${CarouselSelectorLabelStyle} {
-      background: #255BC7;
+      background: ${({ theme }) => theme.carousel.activeSelectorBackground};
       border-color: transparent;
       height: 10px;
       position: relative;
-      top: 1px;
       width: 10px;
+
+      ${({ theme }) => isClassic(theme) && css`
+        background: #255BC7;
+        top: 1px;
+      `}
     }
   }
 `;
@@ -120,7 +132,10 @@ const CarouselSelectorInputWrapperStyle = styled.span`
   display: inline-block;
   line-height: 20px;
   vertical-align: middle;
-  width: 22px;
+
+  ${({ theme }) => isClassic(theme) && css`
+    width: 22px;
+  `}
 `;
 
 const CarouselWrapperStyle = styled.div`
@@ -142,6 +157,14 @@ CarouselButtonStyle.defaultProps = {
 };
 
 CarouselStyledIcon.defaultProps = {
+  theme: baseTheme
+};
+
+CarouselSelectorWrapperStyle.defaultProps = {
+  theme: baseTheme
+};
+
+CarouselSelectorLabelStyle.defaultProps = {
   theme: baseTheme
 };
 
