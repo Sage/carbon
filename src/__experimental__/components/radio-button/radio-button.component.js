@@ -4,6 +4,7 @@ import tagComponent from '../../../utils/helpers/tags';
 import { RadioButtonStyle } from './radio-button.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
 import RadioButtonSvg from './radio-button-svg.component';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const RadioButton = ({ id, ...props }) => {
   const inputProps = {
@@ -45,7 +46,7 @@ RadioButton.propTypes = {
   /** Sets percentage-based input width */
   inputWidth: PropTypes.number,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
-  labelAlign: PropTypes.string,
+  labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
   /** Sets percentage-based label width */
   labelWidth: PropTypes.number,
   /**
@@ -61,7 +62,7 @@ RadioButton.propTypes = {
    * Set the size of the checkbox to 'small' (16x16 - default) or 'large' (24x24).
    * No effect when using Classic theme.
    */
-  size: PropTypes.string,
+  size: PropTypes.oneOf(OptionsHelper.sizesBinary),
   /** the value of the Radio Button, passed on form submit */
   value: PropTypes.string.isRequired
 };

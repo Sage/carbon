@@ -11,25 +11,25 @@ storiesOf('Experimental/RadioButton', module)
   .add('default', () => {
     return (
       <RadioButtonGroup
-        groupName='example'
-        label={ text('groupLabel', 'Select an option from the radio buttons below') }
+        groupName='frequenct'
+        label={ text('groupLabel', 'Please select a frequency from the options below') }
       >
         <RadioButton
           id={ text('radioOneId', 'input-1') }
-          label={ text('radioOneLabel', 'Example radio button 1') }
-          value={ text('radioOneValue', 'test-1') }
+          label={ text('radioOneLabel', 'Example Weekly Radio Button') }
+          value={ text('radioOneValue', 'weekly') }
           { ...defaultKnobs() }
         />
         <RadioButton
           id={ text('radioTwoId', 'input-2') }
-          label={ text('radioTwoLabel', 'Example radio button 2') }
-          value={ text('radioTwoValue', 'test-2') }
+          label={ text('radioTwoLabel', 'Example Monthly Radio Button') }
+          value={ text('radioTwoValue', 'monthly') }
           { ...defaultKnobs() }
         />
         <RadioButton
           id={ text('radioThreeId', 'input-3') }
-          label={ text('radioThreeLabel', 'Example radio button 3') }
-          value={ text('radioThreeValue', 'test-3') }
+          label={ text('radioThreeLabel', 'Example Annual Radio Button') }
+          value={ text('radioThreeValue', 'annually') }
           { ...defaultKnobs() }
         />
       </RadioButtonGroup>

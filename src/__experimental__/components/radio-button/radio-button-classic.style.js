@@ -1,14 +1,14 @@
 import { css } from 'styled-components';
-import { THEMES } from '../../../style/themes';
 import { StyledCheckableInput } from '../checkable-input/checkable-input.style';
 import FieldHelpStyle from '../field-help/field-help.style';
 import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input.style';
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import LabelStyle from '../label/label.style';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
 export default ({
   disabled, checked, fieldHelpInline, reverse, theme
-}) => theme.name === THEMES.classic && css`
+}) => isClassic(theme) && css`
   ${StyledCheckableInput},
   ${HiddenCheckableInputStyle},
   ${StyledCheckableInputSvgWrapper},
