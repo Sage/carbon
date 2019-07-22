@@ -5,7 +5,7 @@ const oppositeDirections = {
   bottom: 'top'
 };
 
-function hasTheSameDirection(tooltipPosition, pointerAlign) {
+function hasTheSameLine(tooltipPosition, pointerAlign) {
   const isPositionVertical = isVertical(tooltipPosition);
   const isAlignHorizontal = isHorizontal(pointerAlign);
   const isAlignVertical = isVertical(pointerAlign);
@@ -28,7 +28,7 @@ function getOppositeDirection(currentDirection) {
 }
 
 export {
-  hasTheSameDirection,
+  hasTheSameLine,
   isVertical,
   isHorizontal,
   getOppositeDirection
