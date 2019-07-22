@@ -9,28 +9,30 @@ import { info, notes } from './documentation';
 
 storiesOf('Experimental/RadioButton', module)
   .add('default', () => {
+    const knobs = defaultKnobs();
+
     return (
       <RadioButtonGroup
-        groupName='frequenct'
+        groupName='frequency'
         label={ text('groupLabel', 'Please select a frequency from the options below') }
       >
         <RadioButton
           id={ text('radioOneId', 'input-1') }
           label={ text('radioOneLabel', 'Example Weekly Radio Button') }
           value={ text('radioOneValue', 'weekly') }
-          { ...defaultKnobs() }
+          { ...knobs }
         />
         <RadioButton
           id={ text('radioTwoId', 'input-2') }
           label={ text('radioTwoLabel', 'Example Monthly Radio Button') }
           value={ text('radioTwoValue', 'monthly') }
-          { ...defaultKnobs() }
+          { ...knobs }
         />
         <RadioButton
           id={ text('radioThreeId', 'input-3') }
           label={ text('radioThreeLabel', 'Example Annual Radio Button') }
           value={ text('radioThreeValue', 'annually') }
-          { ...defaultKnobs() }
+          { ...knobs }
         />
       </RadioButtonGroup>
     );

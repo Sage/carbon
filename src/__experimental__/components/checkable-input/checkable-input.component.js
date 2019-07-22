@@ -24,7 +24,7 @@ class CheckableInput extends React.Component {
     const {
       children, fieldHelp, labelHelp, ...inputProps
     } = {
-      ...validProps(this, ['checked', 'disabled', 'onChange', 'tab-index', 'type']),
+      ...validProps(this, ['checked', 'disabled', 'onChange', 'tabindex', 'type']),
       id: this.inputId
     };
 

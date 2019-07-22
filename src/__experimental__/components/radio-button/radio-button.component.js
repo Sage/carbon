@@ -9,6 +9,11 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 const RadioButton = ({ id, ...props }) => {
   const inputProps = {
     ...props,
+    /**
+     * Invert the reverse prop, to ensure the FormField component renders the components
+     * in the desired order (other elements which use FormField render their sub-components the
+     * opposite way around by default)
+    */
     reverse: !props.reverse
   };
 
@@ -33,13 +38,13 @@ const RadioButton = ({ id, ...props }) => {
 };
 
 RadioButton.propTypes = {
-  /** Set the value of the checkbox */
+  /** Set the value of the radio button */
   checked: PropTypes.bool,
   /** Toggles disabling of input */
   disabled: PropTypes.bool,
   /** Toggles error styles */
   error: PropTypes.bool,
-  /** Displays fieldHelp inline with the checkbox */
+  /** Displays fieldHelp inline with the radio button */
   fieldHelpInline: PropTypes.bool,
   /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
   id: PropTypes.string,
@@ -56,10 +61,10 @@ RadioButton.propTypes = {
   name: PropTypes.string,
   /** Accepts a callback function which can be used to update parent state on change */
   onChange: PropTypes.func,
-  /** Reverses label and checkbox display */
+  /** Reverses label and radio button display */
   reverse: PropTypes.bool,
   /**
-   * Set the size of the checkbox to 'small' (16x16 - default) or 'large' (24x24).
+   * Set the size of the radio button to 'small' (16x16 - default) or 'large' (24x24).
    * No effect when using Classic theme.
    */
   size: PropTypes.oneOf(OptionsHelper.sizesBinary),
