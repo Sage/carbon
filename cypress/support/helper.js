@@ -4,7 +4,7 @@ import {
 import { DEBUG_FLAG } from '.';
 
 function prepareUrl(component, suffix, iFrameOnly) {
-  let url = Cypress.env('localhost');
+  let url = Cypress.config().baseUrl;
   // eslint-disable-next-line no-unused-expressions
   iFrameOnly ? url += Cypress.env('iframe') : url += Cypress.env('story');
   return url + component.toLowerCase().replace(/ /g, '-') + Cypress.env(suffix);
