@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import sizes from '../input/input-sizes.style';
-import { THEMES } from '../../../style/themes';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
 const InputIconToggleStyle = styled.span`
   align-items: center;
@@ -16,7 +16,7 @@ const InputIconToggleStyle = styled.span`
     width: ${getWidth(size)};
   `}
 
-  ${({ type, theme }) => theme.name === THEMES.classic && css`
+  ${({ type, theme }) => isClassic(theme) && css`
     background-color: #e6ebed;
     border-left: 1px solid #bfccd2;
     margin-left: 6px;
