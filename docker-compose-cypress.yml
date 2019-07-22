@@ -6,7 +6,7 @@ services:
     container_name: cypress
     command: bash -c 'cypress run'
     environment:
-      cypress_localhost: http://storybook:9001/
+      CYPRESS_baseUrl: http://storybook:9001/
     depends_on:
       - storybook
     # Reason for the below `ipc: host` line:
@@ -15,7 +15,6 @@ services:
     ipc: host
     # volumes:
     #   - './cypress/screenshots/:/usr/src/app/cypress/screenshots/'
-
   storybook:
     image: carbon_cypress
     container_name: storybook

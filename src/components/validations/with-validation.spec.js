@@ -388,4 +388,46 @@ describe('when the withValidations HOC wraps a component', () => {
       expect(spy).not.toHaveBeenCalled();
     });
   });
+
+  describe('form state', () => {
+    it('passes state value to form when no value prop is passed', async () => {
+      const mockFunction = jest.fn();
+      wrapper = shallow(<InputComponent addInputToFormState={ mockFunction } name='foo' />, { context });
+
+      wrapper.setProps({
+        validations: [failValidation],
+        warnings: [failValidation],
+        info: failValidation
+      });
+      expect(mockFunction).toHaveBeenCalled();
+    });
+  });
+
+  describe('Using passed context during update of validation status', () => {
+    it('does not call adjust count when no context is provided but there is state', async () => {
+      wrapper = shallow(<InputComponent name='foo' />, {});
+      wrapper.setState({ errorMessage: true, infoMessage: true, warningMessage: true });
+
+      wrapper.setProps({
+        validations: [presence],
+        warnings: [presence],
+        info: presence,
+        value: 'foo'
+      });
+      const validate = await wrapper.instance().runValidation(types[0]);
+      expect(validate).toEqual(true);
+    });
+
+    it('does not call adjust count when no context is provided and there is no state', async () => {
+      wrapper = shallow(
+        <InputComponent
+          info={ presence } value=''
+          name='foo'
+        />,
+        {}
+      );
+      const validate = await wrapper.instance().runValidation(types[2]);
+      expect(validate).toEqual(false);
+    });
+  });
 });
