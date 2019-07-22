@@ -6,4 +6,4 @@ export DOCKER_CLIENT_TIMEOUT=720
 export COMPOSE_HTTP_TIMEOUT=720
 
 echo 'Starting docker compose'
-docker-compose up -d
+docker-compose up -d -m=2g
