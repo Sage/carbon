@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import {
-  hasTheSameDirection,
+  hasTheSameLine,
   isVertical,
   isHorizontal,
   getOppositeDirection
@@ -37,7 +37,9 @@ const StyledTooltipPointer = styled.span`
       height: 0;
     }
 
-    ${!hasTheSameDirection(position, pointerAlign) && css`
+    ${!hasTheSameLine(position, pointerAlign) && css`
+      ${getPointerPosition(position, pointerAlign)}
+
       &:before {
         ${getPointerBorderStyles(position, theme)}
 
@@ -47,16 +49,11 @@ const StyledTooltipPointer = styled.span`
       }
     `}
 
-    ${getPointerPosition(position, pointerAlign)}
     ${pointerOffsets[position]}
   `}
 `;
 
 function getPointerPosition(tooltipPosition, pointerAlign) {
-  if (hasTheSameDirection(tooltipPosition, pointerAlign)) {
-    return '';
-  }
-
   if (isVertical(tooltipPosition) && pointerAlign === 'center') {
     return pointerPositions.horizontalCenter;
   }
@@ -69,7 +66,7 @@ function getPointerPosition(tooltipPosition, pointerAlign) {
 }
 
 function getPointerBorderStyles(position, theme) {
-  const oppositeDirection = getOppositeDirection[position];
+  const oppositeDirection = getOppositeDirection(position);
   const defaultStyle = '7px solid transparent';
   const oppositeDirectionStyle = 'none';
   const currentDirectionStyle = `8px solid ${theme.colors.black}`;
