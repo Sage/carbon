@@ -103,6 +103,11 @@ export default (palette) => {
       errorButtonFocus: palette.errorRedShade(20)
     },
 
+    select: {
+      border: '#bfccd2',
+      selected: palette.slateTint(95)
+    },
+
     shadows: {
       depth1: '0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)',
       depth2: '0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)',
