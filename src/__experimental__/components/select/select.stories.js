@@ -22,8 +22,6 @@ const commonKnobs = (store) => {
 
   const knobs = {
     disabled: boolean('disabled', false),
-    errorMessage: text('errorMessage', ''),
-    infoMessage: text('infoMessage', ''),
     onChange: (ev) => {
       store.set({ value: ev.target.value });
       action('change')(ev);
@@ -31,7 +29,6 @@ const commonKnobs = (store) => {
     placeholder: text('placeholder', ''),
     readOnly: boolean('readOnly', false),
     size: select('size', OptionsHelper.sizesRestricted, OptionsHelper.sizesRestricted[1]),
-    warningMessage: text('warningMessage', ''),
     filterable,
     typeAhead,
     label
