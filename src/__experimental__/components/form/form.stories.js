@@ -58,14 +58,14 @@ storiesOf('Experimental/Form', module)
         <Textbox
           key='0'
           label='Full Name'
-          labelInline
+
           labelAlign='right'
           validations={ [new PresenceValidation()] }
         />
         <Textbox
           key='1'
           label='Role'
-          labelInline
+
           labelAlign='right'
           validations={ [new PresenceValidation()] }
         />

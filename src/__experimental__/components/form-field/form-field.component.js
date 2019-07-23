@@ -19,7 +19,8 @@ const FormField = ({
   labelWidth,
   name,
   reverse,
-  size
+  size,
+  childOfForm
 }) => (
   <FormFieldStyle inline={ labelInline }>
     {reverse && children}
@@ -35,6 +36,7 @@ const FormField = ({
         inline={ labelInline }
         inputSize={ size }
         width={ labelWidth }
+        childOfForm={ childOfForm }
       >
         {label}
       </Label>
@@ -62,6 +64,7 @@ FormField.defaultProps = {
 
 FormField.propTypes = {
   children: PropTypes.node,
+  childOfForm: PropTypes.bool,
   disabled: PropTypes.bool,
   fieldHelp: PropTypes.node,
   fieldHelpInline: PropTypes.bool,
