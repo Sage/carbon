@@ -96,4 +96,5 @@ StyledButton.propTypes = {
   /** Used to transfrom button into anchor */
   to: PropTypes.string
 };
+
 export default StyledButton;

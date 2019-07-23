@@ -23,7 +23,7 @@ const setTheme = (theme) => {
 
 const PillStyle = styled.span`
  ${({
-    colorVariant, theme, inFill, isDeletable, pillRole
+    colorVariant, theme, inFill, isDeletable, pillRole, size
   }) => {
     const { colors } = baseTheme;
     const correctedThemeConfig = styleConfig(setTheme(theme));
@@ -38,14 +38,16 @@ const PillStyle = styled.span`
     return css`
       border: 2px solid ${styleSet[variety].color};
       border-radius: 12px;
-      font-size: 14px;
+      font-size: 10px;
       padding: 2px 7px;
       font-weight: 600;
       position: relative;
       top: -1px;
       margin: 0px 8px 16px 0px;
       min-height: 15px;
+      min-width: 24px;
       display: inline-block;
+      text-align: center;
 
       ${inFill && css`
         background-color: ${styleSet[variety].color};
@@ -53,12 +55,10 @@ const PillStyle = styled.span`
       `}
 
       ${!isClassic(theme, colorVariant) && !isDeletable && css`
-        padding: 2px 8px 2px 8px;
+        padding: 4px 8px 2px 8px;
       `}
 
       ${!isClassic(theme, colorVariant) && isDeletable && css`
-        padding: 2px 27px 2px 8px;
-
         button {
           -webkit-appearance: none;
           border-radius: 0 9px 9px 0;
@@ -99,20 +99,200 @@ const PillStyle = styled.span`
           }
  
           .carbon-icon {
-            font-size: 12px;
             padding: 0 4px;
 
             &:hover, 
             &:focus {
               color: ${(variety === 'warning') ? colors.black : styleSet.hoverColor};
             }
-            &:before {
-              font-size: 12px;
+          }
+        }
+
+        ${size === 'small' && css`
+        
+        min-width: 38px;
+        padding: 4px 7px 2px 2px;
+
+          button {
+            padding: 0px 7px 2px 2px;
+
+            .carbon-icon {
+              padding: 3px 2px;
+
+              &:before {
+                font-size: 8px;
+              }
             }
           }
+        `}
+
+        ${size === 'medium' && css`
+          min-width: 42px;
+          padding: 4px 10px 4px 2px;
+          font-size: 12px;
+
+            button {
+              padding: 2px 2px 2px 0px;
+
+              .carbon-icon {
+                padding: 0px 3px;
+
+                &:before {
+                  font-size: 10px;
+                }
+              }
+            }
+        `}
+
+        ${size === 'large' && css`
+          min-width: 48px;
+          padding: 4px 10px 4px 2px;
+          font-size: 14px;
+
+            button {
+              width: 19px;
+              padding: 2px 2px 2px 0px;
+
+              .carbon-icon {
+
+                &:before {
+                  font-size: 11px;
+                }
+              }
+            }
+        `}
+      `}
+
+      ${!isClassic(theme, colorVariant) && !isDeletable && css`
+        ${size === 'small' && css`
+        font-size: 10px;
+        min-width: 38px;
+        padding: 4px 7px 3px 7px;
+
+          button {
+            padding: 0px 7px 2px 2px;
+
+            .carbon-icon {
+              padding: 3px 2px;
+
+              &:before {
+                font-size: 8px;
+              }
+            }
+          }
+        `}
+
+        ${size === 'medium' && css`
+          min-width: 42px;
+          padding: 4px 8px;
+          font-size: 12px;
+
+            button {
+              padding: 2px 2px 2px 0px;
+
+              .carbon-icon {
+                padding: 0px 3px;
+
+                &:before {
+                  font-size: 10px;
+                }
+              }
+            }
+        `}
+
+        ${size === 'large' && css`
+          min-width: 48px;
+          padding: 4px 10px;
+          font-size: 14px;
+
+            button {
+              width: 19px;
+              padding: 2px 2px 2px 0px;
+
+              .carbon-icon {
+
+                &:before {
+                  font-size: 11px;
+                }
+              }
+            }
+        `}
       `}
 
       ${isClassic(theme, colorVariant) && classicThemeForPill(colorVariant, inFill, isDeletable)}
+      
+      ${isClassic(theme, colorVariant) && !isDeletable && css`
+        ${size === 'small' && css`
+          font-size: 10px;
+
+          button {
+            .carbon-icon {
+              &:before {
+                font-size: 8px;
+              }
+            }
+          }
+        `}
+
+        ${size === 'medium' && css`
+          font-size: 12px;
+          min-width: 38px;
+          padding: 4px 8px 4px 8px;
+        `}
+
+        ${size === 'large' && css`
+          font-size: 14px;
+          min-width: 46px;
+          padding: 4px 8px 4px 8px;
+        `}
+      `};
+
+      ${isClassic(theme, colorVariant) && isDeletable && css`
+        ${size === 'small' && css`
+          font-size: 10px;
+          padding: 2px 16px 2px 8px;
+
+          button {
+            .carbon-icon {
+              font-size: 13px;
+
+              &:before {
+                font-size: 8px;
+              }
+            }
+          }
+        `}
+
+        ${size === 'medium' && css`
+          font-size: 12px;
+          min-width: 38px;
+          padding: 4px 10px 4px 4px;
+
+          button {
+            .carbon-icon {
+              font-size: 13px;
+              
+              &:before {
+                font-size: 10px;
+              }
+            }
+          }
+        `}
+
+        ${size === 'large' && css`
+          font-size: 14px;
+          min-width: 46px;
+          padding: 4px 8px 4px 2px;
+
+          button {
+            .carbon-icon {
+              &:before {
+                font-size: 11px;
+              }
+            }
+          }
+        `}
+      `};
     `;
   }
 }
@@ -136,7 +316,10 @@ PillStyle.defaultProps = {
 PillStyle.propTypes = {
   inFill: PropTypes.bool,
   colorVariant: PropTypes.string,
-  isDeletable: PropTypes.func
+  isDeletable: PropTypes.func,
+
+  /** Assigns a size to the pill */
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
 };
 
 export default PillStyle;

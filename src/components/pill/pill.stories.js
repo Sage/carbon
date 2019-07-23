@@ -25,8 +25,10 @@ const getKnobs = (theme) => {
     children: text('children', 'Pill'),
     fill: boolean('fill', Pill.defaultProps.fill),
     onDelete: boolean('onDelete', false),
-    theme
+    theme,
+    size: select('size', OptionsHelper.sizesRestricted, Pill.defaultProps.size)
   };
+
   if (theme === THEMES.classic) {
     knobs.as = select('as', [...OptionsHelper.colors, 'disabled'], Pill.defaultProps.as);
   } else {
@@ -41,7 +43,8 @@ storiesOf('Pill', module)
       children,
       as,
       fill,
-      onDelete
+      onDelete,
+      size
     } = getKnobs(THEMES.classic);
 
     return (
@@ -50,6 +53,7 @@ storiesOf('Pill', module)
           as={ as }
           fill={ fill }
           onDelete={ onDelete ? action('delete') : null }
+          size={ size }
         >
           {children}
         </Pill>
@@ -65,7 +69,8 @@ storiesOf('Pill', module)
       colorVariant,
       fill,
       onDelete,
-      pillRole
+      pillRole,
+      size
     } = getKnobs();
     return (
       <Pill
@@ -73,6 +78,7 @@ storiesOf('Pill', module)
         fill={ fill }
         onDelete={ onDelete ? action('delete') : null }
         pillRole={ pillRole }
+        size={ size }
       >
         { children }
       </Pill>

@@ -30,7 +30,8 @@ class Pill extends React.Component {
       onDelete,
       colorVariant,
       pillRole,
-      children
+      children,
+      size
     } = this.props;
     return (
       <StyledPill
@@ -39,6 +40,7 @@ class Pill extends React.Component {
         colorVariant={ colorVariant || as }
         isDeletable={ onDelete }
         pillRole={ pillRole }
+        size={ size }
         { ...tagComponent('pill', this.props) }
       >
         { children }
@@ -69,7 +71,10 @@ Pill.propTypes = {
   onClick: PropTypes.func,
 
   /** Callback function to delete the component, when the added Icon is clicked. */
-  onDelete: PropTypes.func
+  onDelete: PropTypes.func,
+
+  /** Assigns a size to the button: "small" | "medium" | "large" */
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
 };
 
 Pill.defaultProps = {
@@ -77,7 +82,8 @@ Pill.defaultProps = {
   fill: false,
   onClick: null,
   onDelete: null,
-  pillRole: 'tag'
+  pillRole: 'tag',
+  size: 'medium'
 };
 
 export default Pill;
