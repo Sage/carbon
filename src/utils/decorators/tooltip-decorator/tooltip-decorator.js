@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { startCase, assign } from 'lodash';
+import { assign } from 'lodash';
 import Tooltip from '../../../components/tooltip';
 import Portal from '../../../components/portal';
 import chainFunctions from '../../helpers/chain-functions';
-import { styleElement, append } from '../../ether';
+import { styleElement } from '../../ether';
+import { pointerSize, pointerSideMargin } from '../../../components/tooltip/tooltip-pointer.style';
 
 /**
  * TooltipDecorator.
@@ -254,9 +255,6 @@ const TooltipDecorator = (ComposedComponent) => {
 
       const tooltipWidth = tooltip.offsetWidth,
           tooltipHeight = tooltip.offsetHeight,
-          pointerDimension = 15,
-          // hardcode height & width since span has no dimensions
-          pointerOffset = 11,
           targetWidth = target.offsetWidth,
           targetHeight = target.offsetHeight,
           targetRect = target.getBoundingClientRect(),
@@ -264,24 +262,30 @@ const TooltipDecorator = (ComposedComponent) => {
           targetTop = targetRect.top + offsetY,
           targetBottom = targetRect.bottom + offsetY,
           targetLeft = targetRect.left,
-          targetRight = targetRect.right;
+          targetRight = targetRect.right,
+          targetXCenter = targetWidth / 2,
+          targetYCenter = targetHeight / 2;
 
-      const shifts = {
-        verticalY: targetTop - tooltipHeight - (pointerDimension * 0.5),
-        verticalBottomY: targetBottom + (pointerDimension * 0.5),
-        verticalCenter: (targetLeft - (tooltipWidth * 0.5)) + (targetWidth * 0.5),
-        verticalRight: (targetLeft + pointerDimension + pointerOffset) - tooltipWidth,
-        verticalLeft: targetLeft - (pointerDimension * 0.5),
-        rightHorizontal: targetRight + (0.5 * pointerDimension),
-        leftHorizontal: targetLeft - (pointerDimension * 0.5) - tooltipWidth,
-        sideTop: targetTop - pointerOffset,
-        sideBottom: (targetTop - tooltipHeight) + targetHeight + pointerOffset,
-        sideCenter: (targetTop + (targetHeight * 0.5)) - (tooltipHeight * 0.5)
+      const tooltipDistances = {
+        top: targetTop - tooltipHeight - pointerSize,
+        bottom: targetBottom + pointerSize,
+        left: targetLeft - tooltipWidth - pointerSize,
+        right: targetRight + pointerSize
       };
 
-      this.realignOffscreenTooltip(shifts, tooltipWidth);
+      const vertical = {
+        left: targetLeft - pointerSize,
+        center: targetLeft + targetXCenter - (tooltipWidth / 2),
+        right: (targetLeft - tooltipWidth) + targetXCenter + pointerSize + pointerSideMargin
+      };
 
-      return shifts;
+      const horizontal = {
+        top: (targetTop + targetYCenter) - pointerSize - pointerSideMargin,
+        center: targetTop + targetYCenter - (tooltipHeight / 2),
+        bottom: (targetTop + targetYCenter - tooltipHeight) + pointerSize + pointerSideMargin
+      };
+
+      return { tooltipDistances, vertical, horizontal };
     };
 
     realignOffscreenTooltip = (shifts, tooltipWidth) => {
@@ -291,7 +295,7 @@ const TooltipDecorator = (ComposedComponent) => {
       const alignment = this.props.tooltipAlign || 'center';
 
       if (position === 'top' || position === 'bottom') {
-        const horizontalPosition = shifts[`vertical${startCase(alignment)}`];
+        const horizontalPosition = shifts.vertical[alignment];
         if (window.innerWidth < (horizontalPosition + tooltipWidth)) {
           this.setState({ tooltipAlign: 'right' });
         }
@@ -320,31 +324,23 @@ const TooltipDecorator = (ComposedComponent) => {
             position = this.props.tooltipPosition || 'top',
             shifts = this.calculatePosition(tooltip, target);
 
+        this.realignOffscreenTooltip(shifts, tooltip.offsetWidth);
+
+        styleElement(tooltip, 'bottom', 'auto');
+        styleElement(tooltip, 'right', 'auto');
+
         switch (position) {
           case 'top':
-            styleElement(tooltip, 'top', append(shifts.verticalY, 'px'));
-            styleElement(tooltip, 'right', 'auto');
-            styleElement(tooltip, 'bottom', 'auto');
-            styleElement(tooltip, 'left', append(shifts[`vertical${startCase(alignment)}`], 'px'));
-            break;
-
           case 'bottom':
-            styleElement(tooltip, 'top', append(shifts.verticalBottomY, 'px'));
-            styleElement(tooltip, 'bottom', 'auto');
-            styleElement(tooltip, 'left', append(shifts[`vertical${startCase(alignment)}`], 'px'));
+            styleElement(tooltip, 'top', `${shifts.tooltipDistances[position]}px`);
+            styleElement(tooltip, 'left', `${shifts.vertical[alignment]}px`);
             break;
 
           case 'left':
-            styleElement(tooltip, 'top', append(shifts[`side${startCase(alignment)}`], 'px'));
-            styleElement(tooltip, 'bottom', 'auto');
-            styleElement(tooltip, 'left', append(shifts[`${position}Horizontal`], 'px'));
-            break;
-
           case 'right':
           default:
-            styleElement(tooltip, 'top', append(shifts[`side${startCase(alignment)}`], 'px'));
-            styleElement(tooltip, 'bottom', 'auto');
-            styleElement(tooltip, 'left', append(shifts[`${position}Horizontal`], 'px'));
+            styleElement(tooltip, 'top', `${shifts.horizontal[alignment]}px`);
+            styleElement(tooltip, 'left', `${shifts.tooltipDistances[position]}px`);
         }
       }
     };

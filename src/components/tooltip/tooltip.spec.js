@@ -4,7 +4,7 @@ import 'jest-styled-components';
 import { mount } from 'enzyme';
 import Tooltip from '.';
 import { StyledTooltipInner, StyledTooltipWrapper } from './tooltip.style';
-import StyledTooltipPointer from './tooltip-pointer.style';
+import StyledTooltipPointer, { pointerSize, pointerSideMargin } from './tooltip-pointer.style';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import classicTheme from '../../style/themes/classic';
@@ -176,9 +176,9 @@ describe('Tooltip', () => {
               assertStyleMatch(
                 {
                   borderTop: 'none',
-                  borderRight: '7px solid transparent',
-                  borderBottom: '8px solid #000000',
-                  borderLeft: '7px solid transparent',
+                  borderRight: `${pointerSize}px solid transparent`,
+                  borderBottom: `${pointerSize + 1}px solid #000000`,
+                  borderLeft: `${pointerSize}px solid transparent`,
                   content: '""',
                   height: '0',
                   width: '0'
@@ -216,10 +216,10 @@ describe('Tooltip', () => {
             it('applies the correct default &:before styles', () => {
               assertStyleMatch(
                 {
-                  borderTop: '7px solid transparent',
+                  borderTop: `${pointerSize}px solid transparent`,
                   borderRight: 'none',
-                  borderBottom: '7px solid transparent',
-                  borderLeft: '8px solid #000000',
+                  borderBottom: `${pointerSize}px solid transparent`,
+                  borderLeft: `${pointerSize + 1}px solid #000000`,
                   content: '""',
                   height: '0',
                   width: '0'
@@ -257,9 +257,9 @@ describe('Tooltip', () => {
             it('applies the correct default &:before styles', () => {
               assertStyleMatch(
                 {
-                  borderTop: '7px solid transparent',
-                  borderRight: '8px solid #000000',
-                  borderBottom: '7px solid transparent',
+                  borderTop: `${pointerSize}px solid transparent`,
+                  borderRight: `${pointerSize + 1}px solid #000000`,
+                  borderBottom: `${pointerSize}px solid transparent`,
                   borderLeft: 'none',
                   content: '""',
                   height: '0',
@@ -298,10 +298,10 @@ describe('Tooltip', () => {
             it('applies the correct default &:before styles', () => {
               assertStyleMatch(
                 {
-                  borderTop: '8px solid #000000',
-                  borderRight: '7px solid transparent',
+                  borderTop: `${pointerSize + 1}px solid #000000`,
+                  borderRight: `${pointerSize}px solid transparent`,
                   borderBottom: 'none',
-                  borderLeft: '7px solid transparent',
+                  borderLeft: `${pointerSize}px solid transparent`,
                   content: '""',
                   height: '0',
                   width: '0'
@@ -328,7 +328,7 @@ describe('Tooltip', () => {
         describe.each(verticalPositions)('and position = "%s"', (pos) => {
           it('applies the correct styles', () => {
             assertStyleMatch(
-              { left: 'calc(50% - 7px)' },
+              { left: `calc(50% - ${pointerSize}px)` },
               renderPointer({ align: 'center', position: pos })
             );
           });
@@ -337,7 +337,7 @@ describe('Tooltip', () => {
         describe.each(horizontalPositions)('and position = "%s"', (pos) => {
           it('applies the correct styles', () => {
             assertStyleMatch(
-              { top: 'calc(50% - 7px)' },
+              { top: `calc(50% - ${pointerSize}px)` },
               renderPointer({ align: 'center', position: pos })
             );
           });
@@ -348,7 +348,7 @@ describe('Tooltip', () => {
         describe.each(verticalPositions)('and position = "%s"', (pos) => {
           it('applies the correct styles', () => {
             assertStyleMatch(
-              { left: '8px' },
+              { left: `${pointerSideMargin}px` },
               renderPointer({ align: 'left', position: pos })
             );
           });
@@ -359,7 +359,7 @@ describe('Tooltip', () => {
         describe.each(verticalPositions)('and position = "%s"', (pos) => {
           it('applies the correct styles', () => {
             assertStyleMatch(
-              { right: '25px' },
+              { right: `${2 * pointerSize + pointerSideMargin}px` },
               renderPointer({ align: 'right', position: pos })
             );
           });
@@ -370,7 +370,7 @@ describe('Tooltip', () => {
         describe.each(horizontalPositions)('and position = "%s"', (pos) => {
           it('applies the correct styles', () => {
             assertStyleMatch(
-              { top: '10px' },
+              { top: `${pointerSideMargin}px` },
               renderPointer({ align: 'top', position: pos })
             );
           });
@@ -381,7 +381,7 @@ describe('Tooltip', () => {
         describe.each(horizontalPositions)('and position = "%s"', (pos) => {
           it('applies the correct styles', () => {
             assertStyleMatch(
-              { bottom: '25px' },
+              { bottom: `${2 * pointerSize + pointerSideMargin}px` },
               renderPointer({ align: 'bottom', position: pos })
             );
           });

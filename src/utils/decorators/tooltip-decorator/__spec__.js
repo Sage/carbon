@@ -242,7 +242,7 @@ describe('tooltip-decorator', () => {
         let target = topTooltip.getTarget();
         topTooltip.positionTooltip(tooltip, target);
         expect(tooltip.style.left).toEqual('65px');
-        expect(tooltip.style.top).toEqual('42.5px');
+        expect(tooltip.style.top).toEqual('43px');
       });
 
       describe('when the tooltip is offscreen', () => {
@@ -292,8 +292,8 @@ describe('tooltip-decorator', () => {
           let alignedTooltip = rightTopTooltip.getTooltip();
           let target = rightTopTooltip.getTarget();
           rightTopTooltip.positionTooltip(alignedTooltip, target);
-          expect(alignedTooltip.style.left).toEqual('26px');
-          expect(alignedTooltip.style.top).toEqual('42.5px');
+          expect(alignedTooltip.style.left).toEqual('30px');
+          expect(alignedTooltip.style.top).toEqual('43px');
         });
       });
 
@@ -330,8 +330,8 @@ describe('tooltip-decorator', () => {
           let alignedTooltip = leftTopTooltip.getTooltip();
           let target = leftTopTooltip.getTarget();
           leftTopTooltip.positionTooltip(alignedTooltip, target);
-          expect(alignedTooltip.style.left).toEqual('92.5px');
-          expect(alignedTooltip.style.top).toEqual('42.5px');
+          expect(alignedTooltip.style.left).toEqual('93px');
+          expect(alignedTooltip.style.top).toEqual('43px');
         });
       });
     });
@@ -401,7 +401,7 @@ describe('tooltip-decorator', () => {
         let tooltip = rightTooltip.getTooltip();
         let target = rightTooltip.getTarget();
         rightTooltip.positionTooltip(tooltip, target);
-        expect(tooltip.style.left).toEqual('107.5px');
+        expect(tooltip.style.left).toEqual('107px');
         expect(tooltip.style.top).toEqual('90px');
       });
 
@@ -438,8 +438,8 @@ describe('tooltip-decorator', () => {
           let alignedTooltip = topRightTooltip.getTooltip();
           let target = topRightTooltip.getTarget();
           topRightTooltip.positionTooltip(alignedTooltip, target);
-          expect(alignedTooltip.style.left).toEqual('107.5px');
-          expect(alignedTooltip.style.top).toEqual('89px');
+          expect(alignedTooltip.style.left).toEqual('107px');
+          expect(alignedTooltip.style.top).toEqual('100px');
         });
       });
 
@@ -476,8 +476,8 @@ describe('tooltip-decorator', () => {
           let alignedTooltip = bottomRightTooltip.getTooltip();
           let target = bottomRightTooltip.getTarget();
           bottomRightTooltip.positionTooltip(alignedTooltip, target);
-          expect(alignedTooltip.style.left).toEqual('107.5px');
-          expect(alignedTooltip.style.top).toEqual('91px');
+          expect(alignedTooltip.style.left).toEqual('107px');
+          expect(alignedTooltip.style.top).toEqual('80px');
         });
       });
      });
@@ -512,7 +512,7 @@ describe('tooltip-decorator', () => {
         let tooltip = leftTooltip.getTooltip();
         let target = leftTooltip.getTarget();
         leftTooltip.positionTooltip(tooltip, target);
-        expect(tooltip.style.left).toEqual('-7.5px');
+        expect(tooltip.style.left).toEqual('-7px');
         expect(tooltip.style.top).toEqual('90px');
       });
     });
