@@ -41,7 +41,8 @@ storiesOf('Experimental/RadioButton', module)
       text: info,
       excludedPropTypes: ['children']
     },
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   });
 
 function defaultKnobs() {
