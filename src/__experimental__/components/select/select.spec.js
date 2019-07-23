@@ -39,7 +39,7 @@ describe('Select', () => {
 
   // utility functions to fetch various elements from the wrapper
   const listOf = wrapper => wrapper.find('SelectList');
-  const textboxOf = wrapper => wrapper.find('InputDecoratorBridge');
+  const textboxOf = wrapper => wrapper.find('Textbox');
   const pillsOf = wrapper => wrapper.find('Pill');
 
   // open the list for the select component and returns the wrapper
@@ -52,7 +52,7 @@ describe('Select', () => {
    * Begin tests
    */
 
-  it('renders only the InputDecoratorBridge when closed', () => {
+  it('renders only the Textbox when closed', () => {
     expect(renderWrapper({ type: shallow })).toMatchSnapshot();
   });
 
@@ -71,8 +71,8 @@ describe('Select', () => {
     const wrapper = renderWrapper({
       props: { 'data-role': 'custom-role', 'data-element': 'custom-element' }
     });
-    expect(wrapper.find('div').first().prop('data-role')).toEqual('custom-role');
-    expect(wrapper.find('div').first().prop('data-element')).toEqual('custom-element');
+    expect(wrapper.find('Textbox').first().prop('data-role')).toEqual('custom-role');
+    expect(wrapper.find('Textbox').first().prop('data-element')).toEqual('custom-element');
   });
 
   it('triggers an onOpen callback if provided, but not if already open', () => {
@@ -101,15 +101,20 @@ describe('Select', () => {
         * formattedValue is empty
         * value contains the array of values
         * leftChildren contains the pills
-        * inputIcon is disabled
-        * placeholder is disabled`, () => {
+        * inputIcon is disabled`, () => {
       const props = { value: multiValue, placeholder: 'placeholder' };
       const textbox = textboxOf(renderWrapper({ props }));
-      expect(textbox.props().formattedValue).toEqual('');
-      expect(textbox.props().value).toEqual(multiValue);
-      expect(textbox.props().leftChildren).toMatchSnapshot();
-      expect(textbox.props().inputIcon).toEqual(undefined);
-      expect(textbox.props().placeholder).toEqual(null);
+      const {
+        formattedValue,
+        value, inputIcon,
+        leftChildren
+      } = textbox.props();
+
+      expect(formattedValue).toEqual('');
+      expect(value).toEqual(multiValue);
+      expect(leftChildren.length).toEqual(3);
+      expect(leftChildren[0].props.children.props.title).toEqual('Orange');
+      expect(inputIcon).toEqual(undefined);
     });
 
     it('triggers onChange with the item added when choosing an item', () => {
@@ -139,10 +144,10 @@ describe('Select', () => {
       });
     });
 
-    describe('when backspace is pressed', () => {
+    describe('when backspace is pressed and is single select', () => {
       const setupTest = (additionalSetup) => {
         spyOn(Events, 'isBackspaceKey').and.returnValue(true);
-        const props = { value: multiValue, onChange: jest.fn() };
+        const props = { value: singleValue, onChange: jest.fn() };
         const wrapper = renderWrapper({ props });
         const textbox = textboxOf(openList(wrapper));
         if (additionalSetup) additionalSetup(wrapper);
@@ -152,9 +157,7 @@ describe('Select', () => {
 
       it('triggers onChange with the item removed when typing backspace in the filter', () => {
         const { props } = setupTest();
-        expect(props.onChange).toHaveBeenCalledWith({
-          target: { value: [multiValue[0], multiValue[1]] }
-        });
+        expect(props.onChange).toHaveBeenCalled();
       });
 
       it('does not trigger onChange if there is a filter in effect', () => {
@@ -174,6 +177,35 @@ describe('Select', () => {
         const pill = pillsOf(renderWrapper({ props })).first();
         expect(pill.props().onDelete).toEqual(null);
       });
+    });
+  });
+
+  describe('when backspace is pressed and is multi select', () => {
+    const setupTest = (additionalSetup) => {
+      spyOn(Events, 'isBackspaceKey').and.returnValue(true);
+      const props = { value: multiValue, onChange: jest.fn() };
+      const wrapper = renderWrapper({ props });
+      const textbox = textboxOf(openList(wrapper));
+      if (additionalSetup) additionalSetup(wrapper);
+      textbox.find('input').simulate('keydown');
+      return { props, wrapper };
+    };
+
+    it('triggers onChange with the item removed when typing backspace in the filter', () => {
+      const { props } = setupTest();
+      expect(props.onChange).toHaveBeenCalledWith({
+        target: { value: [multiValue[0], multiValue[1]] }
+      });
+    });
+
+    it('does not trigger onChange if there is a filter in effect', () => {
+      const { props } = setupTest(wrapper => wrapper.setState({ filter: 'x' }));
+      expect(props.onChange).not.toHaveBeenCalled();
+    });
+
+    it('does not trigger onChange if there is no values left to delete', () => {
+      const { props } = setupTest(wrapper => wrapper.setProps({ value: [] }));
+      expect(props.onChange).not.toHaveBeenCalled();
     });
   });
 
@@ -283,6 +315,24 @@ describe('Select', () => {
       textboxOf(wrapper).find('input').simulate('keydown');
       expect(listOf(wrapper).exists()).toEqual(false);
     });
+
+    it('allows key inputs when the component is filterable', () => {
+      const props = { filterable: true };
+      const wrapper = renderWrapper({ props });
+      const mockEvent = { which: 67, preventDefault: jest.fn() };
+      openList(wrapper);
+      textboxOf(wrapper).find('input').simulate('keydown', mockEvent);
+      expect(mockEvent.preventDefault).not.toHaveBeenCalled();
+    });
+
+    it('prevents key inputs when the component is not filterable', () => {
+      const props = { filterable: false };
+      const wrapper = renderWrapper({ props });
+      const mockEvent = { which: 67, preventDefault: jest.fn() };
+      openList(wrapper);
+      textboxOf(wrapper).find('input').simulate('keydown', mockEvent);
+      expect(mockEvent.preventDefault).toHaveBeenCalled();
+    });
   });
 
   describe('filter', () => {
@@ -298,6 +348,18 @@ describe('Select', () => {
       const wrapper = renderWrapper({ props });
       textboxOf(wrapper).find('input').simulate('change', { target: { value: 'x' } });
       expect(props.onFilter).toHaveBeenCalledWith('x');
+    });
+  });
+
+  describe('typeAhead', () => {
+    it('only renders the select list when there is a search term greater or equal to three characters', () => {
+      const props = { typeAhead: true };
+      const wrapper = openList(renderWrapper({ props }));
+      expect(listOf(wrapper).length).toEqual(0);
+      textboxOf(wrapper).find('input').simulate('change', { target: { value: 'x' } });
+      expect(listOf(wrapper).length).toEqual(0);
+      textboxOf(wrapper).find('input').simulate('change', { target: { value: 'xxx' } });
+      expect(listOf(wrapper).length).toEqual(1);
     });
   });
 });
