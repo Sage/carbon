@@ -5,15 +5,15 @@ import I18n from 'i18n-js';
 import Serialize from 'form-serialize';
 import { kebabCase } from 'lodash';
 import Service from '../../../utils/service';
-import CancelButton from '../../../components/form/cancel-button';
+import FormButton from './form-button';
 import FormSummary from '../../../components/form/form-summary';
-import SaveButton from '../../../components/form/save-button';
 import AppWrapper from '../../../components/app-wrapper';
 import { validProps } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
 import Browser from '../../../utils/helpers/browser';
 import { withValidations } from '../../../components/validations';
 import ElementResize from '../../../utils/helpers/element-resize';
+import StyledForm, { StyledFormFooter } from './form.style';
 import './form.scss';
 
 class FormWithoutValidations extends React.Component {
@@ -289,7 +289,8 @@ class FormWithoutValidations extends React.Component {
     };
 
     return (
-      <CancelButton
+      <FormButton
+        formButtonName='cancel'
         data-element='cancel'
         { ...cancelProps }
       />
@@ -310,7 +311,8 @@ class FormWithoutValidations extends React.Component {
   /** The default Save button for the form */
   defaultSaveButton = () => {
     return (
-      <SaveButton
+      <FormButton
+        formButtonName='save'
         saveButtonProps={ this.props.saveButtonProps }
         saveText={ this.props.saveText }
         saving={ this.props.isValidating || this.props.saving || this.state.submitted }
@@ -348,7 +350,7 @@ class FormWithoutValidations extends React.Component {
     }
 
     return (
-      <div className='carbon-form__footer-wrapper'>
+      <StyledFormFooter>
         <AppWrapper className={ this.footerClasses } style={ { borderWidth: padding } }>
           { this.additionalActions('leftAlignedActions') }
           { this.additionalActions('rightAlignedActions') }
@@ -356,7 +358,7 @@ class FormWithoutValidations extends React.Component {
           { this.cancelButton() }
           { this.additionalActions('additionalActions') }
         </AppWrapper>
-      </div>
+      </StyledFormFooter>
     );
   }
 
@@ -397,14 +399,18 @@ class FormWithoutValidations extends React.Component {
     const childrenArray = Array.isArray(children) ? children : [children];
 
     return childrenArray.map((child) => {
-      return React.cloneElement(child, { ...child.props, addInputToFormState: this.addInputDataToState });
+      return React.cloneElement(child, {
+        ...child.props,
+        childOfForm: true,
+        addInputToFormState: this.addInputDataToState
+      });
     });
   }
 
   /** Renders the component. */
   render() {
     return (
-      <form
+      <StyledForm
         onSubmit={ this.handleOnSubmit }
         { ...this.htmlProps() }
         ref={ (form) => { this._form = form; } }
@@ -415,7 +421,7 @@ class FormWithoutValidations extends React.Component {
         { this.renderChildren() }
 
         { this.formFooter() }
-      </form>
+      </StyledForm>
     );
   }
 }

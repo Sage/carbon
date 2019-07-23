@@ -47,7 +47,11 @@ const LabelStyle = styled.label`
   
   ${({ hasError, theme }) => hasError && css`
     color: ${theme.colors.error};
-  `} 
+  `}
+
+  ${({ inline, childOfForm }) => !inline && childOfForm && css`
+    margin-bottom: 12px;
+  `}
 `;
 
 LabelStyle.defaultProps = {
