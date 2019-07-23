@@ -6,6 +6,7 @@ import Icons from './icons';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import './icon.scss';
+import StyledIcon from './icon.style';
 
 const Icon = TooltipDecorator(class Icon extends React.Component {
   static propTypes = {
@@ -47,17 +48,16 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   /** Return component classes */
   get mainClasses() {
     const icon = this.renderIcon;
-    const hasShape = this.props.bgShape || this.props.bgTheme;
-
+    // const hasShape = this.props.bgShape || this.props.bgTheme;
     const classes = classNames(
       'carbon-icon',
       this.props.className, {
         [`icon-${this.type}`]: !icon
       }, {
-        'carbon-icon--shape': hasShape,
-        [`carbon-icon--${this.props.bgSize}`]: hasShape,
-        [`carbon-icon--${this.props.bgShape}`]: this.props.bgShape,
-        [`carbon-icon--${this.props.bgTheme}`]: this.props.bgTheme
+        // 'carbon-icon--shape': hasShape,
+        // [`carbon-icon--${this.props.bgSize}`]: hasShape,
+        // [`carbon-icon--${this.props.bgShape}`]: this.props.bgShape,
+        // [`carbon-icon--${this.props.bgTheme}`]: this.props.bgTheme
       }
     );
     return classes;
@@ -78,7 +78,13 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
   /** Renders the component. */
   render() {
     return [
-      <span
+      <StyledIcon
+        hasShape={ this.props.bgShape || this.props.bgTheme }
+        bgSize={ this.props.bgSize }
+        bgShape={ this.props.bgShape }
+        bgTheme={ this.props.bgTheme }
+        isFont={ !this.renderIcon }
+        type={ this.type }
         key='icon'
         className={ this.mainClasses }
         { ...this.componentProps }
@@ -87,7 +93,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
         data-element={ this.type }
       >
         { this.iconSvgHTML() }
-      </span>,
+      </StyledIcon>,
       this.tooltipHTML
     ];
   }
