@@ -9,19 +9,21 @@ import {
   getOppositeDirection
 } from './tooltip.utils';
 
-const pointerOffsets = {
-  right: 'left: -7.5px;',
+const pointerSize = 7;
+const pointerSideMargin = 8;
+const pointerDistances = {
+  right: `left: -${pointerSize + 0.5}px;`,
   left: 'right: 0;',
-  bottom: 'top: -7.5px;',
+  bottom: `top: -${pointerSize + 0.5}px;`,
   top: 'bottom: 0;'
 };
-const pointerPositions = {
-  horizontalCenter: 'left: calc(50% - 7px);',
-  verticalCenter: 'top: calc(50% - 7px);',
-  left: 'left: 8px;',
-  right: 'right: 25px;',
-  top: 'top: 10px;',
-  bottom: 'bottom: 25px;'
+const pointerAlignments = {
+  horizontalCenter: `left: calc(50% - ${pointerSize}px);`,
+  verticalCenter: `top: calc(50% - ${pointerSize}px);`,
+  left: `left: ${pointerSideMargin}px;`,
+  right: `right: ${2 * pointerSize + pointerSideMargin}px;`,
+  top: `top: ${pointerSideMargin}px`,
+  bottom: `bottom: ${2 * pointerSize + pointerSideMargin}px;`
 };
 
 const StyledTooltipPointer = styled.span`
@@ -49,27 +51,27 @@ const StyledTooltipPointer = styled.span`
       }
     `}
 
-    ${pointerOffsets[position]}
+    ${pointerDistances[position]}
   `}
 `;
 
 function getPointerPosition(tooltipPosition, pointerAlign) {
   if (isVertical(tooltipPosition) && pointerAlign === 'center') {
-    return pointerPositions.horizontalCenter;
+    return pointerAlignments.horizontalCenter;
   }
 
   if (isHorizontal(tooltipPosition) && pointerAlign === 'center') {
-    return pointerPositions.verticalCenter;
+    return pointerAlignments.verticalCenter;
   }
 
-  return pointerPositions[pointerAlign];
+  return pointerAlignments[pointerAlign];
 }
 
 function getPointerBorderStyles(position, theme) {
   const oppositeDirection = getOppositeDirection(position);
-  const defaultStyle = '7px solid transparent';
+  const defaultStyle = `${pointerSize}px solid transparent`;
   const oppositeDirectionStyle = 'none';
-  const currentDirectionStyle = `8px solid ${theme.colors.black}`;
+  const currentDirectionStyle = `${pointerSize + 1}px solid ${theme.colors.black}`;
   const borderStyles = {
     top: defaultStyle,
     right: defaultStyle,
@@ -99,4 +101,5 @@ StyledTooltipPointer.propTypes = {
   type: PropTypes.string
 };
 
+export { pointerSize, pointerSideMargin };
 export default StyledTooltipPointer;
