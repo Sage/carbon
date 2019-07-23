@@ -70,7 +70,7 @@ storiesOf('Pages', module)
                 </Page>
 
                 <Page title={ <Heading title='My Second Page' backLink={ handleSlide } /> }>
-                  <Button onClick={ handleSlide } name='0'>
+                  <Button onClick={ handleSlide } name='2'>
                     Go to previous page.
                   </Button>
                 </Page>
