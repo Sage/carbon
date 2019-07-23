@@ -138,14 +138,22 @@ const CarouselSelectorInputWrapperStyle = styled.span`
   `}
 `;
 
+const CarouselSliderWrapper = styled.div`
+${props => console.log(props)}
+transition: .5s;
+display: flex;
+position: relative;
+left: -${({ elementIndex }) => (elementIndex * 680)}px; 
+`;
+
 const CarouselWrapperStyle = styled.div`
   .carbon-carousel__content {
     overflow: hidden;
     position: relative;
 }
 
-  ${slideAnimation};
-  ${fadeAnimation};
+  /* ${slideAnimation}; */
+  /* ${fadeAnimation}; */
 `;
 
 CarouselNavigationStyle.defaultProps = {
@@ -180,5 +188,6 @@ export {
   CarouselSelectorInputWrapperStyle,
   CarouselSelectorInputStyle,
   CarouselSelectorLabelStyle,
-  CarouselWrapperStyle
+  CarouselWrapperStyle,
+  CarouselSliderWrapper
 };

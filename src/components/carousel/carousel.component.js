@@ -17,7 +17,8 @@ import {
   CarouselSelectorInputWrapperStyle,
   CarouselSelectorInputStyle,
   CarouselSelectorLabelStyle,
-  CarouselWrapperStyle
+  CarouselWrapperStyle,
+  CarouselSliderWrapper
 } from './carousel.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
@@ -165,7 +166,7 @@ class Carousel extends React.Component {
     let index = this.state.selectedSlideIndex;
 
     const visibleSlide = compact(React.Children.toArray(this.props.children))[index];
-
+    console.log(index);
     index = visibleSlide.props.id || index;
 
     const additionalProps = {
@@ -176,6 +177,14 @@ class Carousel extends React.Component {
     };
 
     return React.cloneElement(visibleSlide, assign({}, visibleSlide.props, additionalProps));
+  }
+
+  visibleSlides() {
+    const index = this.state.selectedSlideIndex;
+    console.log(index);
+    const visibleSlide = React.Children.toArray(this.props.children);
+    console.log(visibleSlide);
+    return visibleSlide;
   }
 
   /** Renders the slideSelector footer */
@@ -273,7 +282,10 @@ class Carousel extends React.Component {
             transitionEnterTimeout={ TRANSITION_TIME }
             transitionLeaveTimeout={ TRANSITION_TIME }
           >
-            { this.visibleSlide() }
+            {/* { this.visibleSlide() } */}
+            <CarouselSliderWrapper key='animation-slider-1' elementIndex={ this.state.selectedSlideIndex }>
+              {this.visibleSlides()}
+            </CarouselSliderWrapper>
           </CSSTransitionGroup>
 
           { this.nextButton() }
