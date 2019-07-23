@@ -9,29 +9,15 @@ import './icon.scss';
 
 const Icon = TooltipDecorator(class Icon extends React.Component {
   static propTypes = {
-    /**
-     * Add classes to this component
-     */
+    /** Add classes to this component */
     className: PropTypes.string,
-
-    /**
-     * Icon type
-     */
+    /** Icon type */
     type: PropTypes.string.isRequired,
-
-    /**
-     * Background size
-     */
+    /** Background size */
     bgSize: PropTypes.oneOf(['small', 'medium', 'large']),
-
-    /**
-     * Background shape
-     */
+    /** Background shape */
     bgShape: PropTypes.oneOf(['square', 'rounded-rect', 'circle']),
-
-    /**
-     * Background color theme
-     */
+    /** Background color theme */
     bgTheme: PropTypes.string
   };
 
@@ -39,23 +25,12 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
     bgSize: 'small'
   };
 
-  /**
-   * Checks if we have an SVG available, otherwise will fall back
-   * to using the icon font.
-   *
-   * @method renderIcon
-   * @return {HTML}
-   */
+  /** Checks if we have an SVG available, otherwise will fall back to using the icon font. */
   get renderIcon() {
     return Icons[this.type];
   }
 
-  /**
-   * Return component props
-   *
-   * @method componentProps
-   * @return {Object} props
-   */
+  /** Return component props */
   get componentProps() {
     const { ...props } = validProps(this);
 
@@ -69,12 +44,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
     return props;
   }
 
-  /**
-   * Return component classes
-   *
-   * @method mainClasses
-   * @return {String} classes
-   */
+  /** Return component classes */
   get mainClasses() {
     const icon = this.renderIcon;
     const hasShape = this.props.bgShape || this.props.bgTheme;
@@ -93,12 +63,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
     return classes;
   }
 
-  /**
-   * Return Icon type with overrides
-   *
-   * @method type
-   * @return {String} icon type
-   */
+  /** Return Icon type with overrides */
   get type() {
     // switch tweaks icon names for actual icons in the set
     switch (this.props.type) {
@@ -110,12 +75,7 @@ const Icon = TooltipDecorator(class Icon extends React.Component {
     }
   }
 
-  /**
-   * Renders the component.
-   *
-   * @method render
-   * @return {Object} JSX
-   */
+  /** Renders the component. */
   render() {
     return [
       <span
