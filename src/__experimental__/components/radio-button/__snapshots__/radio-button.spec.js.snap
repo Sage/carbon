@@ -884,6 +884,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
           className="c6 c7"
           id="guid-12345"
           role="radio"
+          tabIndex={-1}
           type="radio"
           value="test"
         />

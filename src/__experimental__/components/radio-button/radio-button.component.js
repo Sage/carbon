@@ -6,6 +6,18 @@ import CheckableInput from '../checkable-input/checkable-input.component';
 import RadioButtonSvg from './radio-button-svg.component';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
+function setTabIndex({ tabindex, checked }) {
+  let tabindexOverride;
+
+  if (tabindex !== undefined) {
+    tabindexOverride = tabindex;
+  } else {
+    tabindexOverride = checked ? 0 : -1;
+  }
+
+  return tabindexOverride;
+}
+
 const RadioButton = ({ id, ...props }) => {
   const inputProps = {
     ...props,
@@ -29,7 +41,7 @@ const RadioButton = ({ id, ...props }) => {
         { ...rest }
         inputId={ id }
         onChange={ onChange }
-        tabindex={ rest.checked ? 0 : -1 }
+        tabindex={ setTabIndex(rest) }
       >
         <RadioButtonSvg />
       </CheckableInput>
