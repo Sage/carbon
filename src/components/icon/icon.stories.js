@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { text, select } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info } from './documentation';
-import Icon from './icon';
+import Icon from '.';
 
 storiesOf('Icon', module)
   .add('default', () => {

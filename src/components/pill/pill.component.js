@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import StyledPill from './pill.style';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 import { validProps } from '../../utils/ether/ether';
 import tagComponent from '../../utils/helpers/tags/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';

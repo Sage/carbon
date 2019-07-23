@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import Icon from '../icon/icon';
+import Icon from '../icon';
 import Button from '../button';
 import StyledSplitButton from './split-button.style';
 import StyledSplitButtonToggle from './split-button-toggle.style';
