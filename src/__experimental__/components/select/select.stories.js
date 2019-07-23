@@ -4,6 +4,7 @@ import { boolean, text, select } from '@storybook/addon-knobs';
 import { action } from '@storybook/addon-actions';
 import { Store, State } from '@sambego/storybook-state';
 import { Select, Option } from '.';
+import infoValidations from './documentation';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const singleSelectStore = new Store({
@@ -56,6 +57,20 @@ const selectOptions = selectOptionsLabels.map((label, index) => (
   />
 ));
 
+function validator(value, errorValue, errorMessage) {
+  return new Promise((resolve, reject) => {
+    if (value === errorValue) {
+      reject(new Error(errorMessage));
+    } else {
+      resolve();
+    }
+  });
+}
+
+const selectValidation = value => validator(value, '2', '"Black" cannot be selected!');
+const selectWarning = value => validator(value, '3', 'Selecting "Blue" is not recommended');
+const selectInfo = value => validator(value, '4', 'You have selected "Brown"');
+
 storiesOf('Experimental/Select', module)
   .addParameters({
     info: {
@@ -81,4 +96,26 @@ storiesOf('Experimental/Select', module)
         </Select>
       </State>
     );
+  })
+
+  .add('validations', () => {
+    return (
+      <State store={ singleSelectStore }>
+        <Select
+          ariaLabel='singleSelect'
+          { ...commonKnobs(singleSelectStore) }
+          validations={ [selectValidation] }
+          warnings={ [selectWarning] }
+          info={ [selectInfo] }
+        >
+          { selectOptions }
+        </Select>
+      </State>
+    );
+  }, {
+    info: {
+      text: infoValidations,
+      source: false,
+      propTablesExclude: [Select, Option]
+    }
   });
