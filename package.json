@@ -27,8 +27,6 @@
     "watch": "npm run clean-lib && npm run copy-files -- --watch & npm run babel -- --watch",
     "storybook": "./node_modules/.bin/start-storybook -p 9001 -c .storybook",
     "storybook-ci": "./node_modules/.bin/start-storybook -p 9001 -c .storybook --ci",
-    "storybook-cypress": "concurrently -k 'npm run storybook-ci' 'wait-on http://localhost:9001 && npm run test-cypress-build'",
-    "storybook-test": "npm run storybook-ci && wait-on http://localhost:9001 && npm run test-cypress-build </dev/null &>/dev/null",
     "babel": "cross-env NODE_ENV=production babel --stage 0 ./src --config-file ./babel.config.js --out-dir ./lib --ignore '**/*/__spec__.js','**/*.spec.js','**/__definition__.js' --quiet",
     "clean-lib": "rimraf ./lib",
     "copy-files": "cpx \"src/**/!(*.js|*.md|*.snap)\" lib",
