@@ -30,7 +30,7 @@ describe('Tabs', () => {
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Tabs>
+      <Tabs setLocation>
         <Tab title='Tab Title 1' tabId='uniqueid1' className='class1' headerClassName='headerClass1'>
           <Textbox name='foo'/>
           <Textbox name='bar'/>
@@ -132,9 +132,6 @@ describe('Tabs', () => {
       });
     });
   });
-
-
-
 
   describe('Change in tab prop', () => {
     let instance, tabs, unique1Tab, unique2Tab;
@@ -267,6 +264,8 @@ describe('Tabs', () => {
 
     it('sets the location', () => {
       let replaceSpy = jasmine.createSpy('replaceState');
+
+
       instance._window = {
         history: {
           replaceState: replaceSpy
@@ -276,8 +275,34 @@ describe('Tabs', () => {
           pathname: 'bar'
         }
       };
+
       instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
       expect(replaceSpy).toHaveBeenCalledWith(null, 'change-tab', 'foobar#foo');
+    });
+
+    it('does not set the location', () => {
+      let replaceSpy = jasmine.createSpy('replaceState');
+
+      let instance = TestUtils.renderIntoDocument(
+        <Tabs setLocation={false}>
+          <Tab title='Tab Title 1' tabId='foo'>
+            <Textbox name='foo'/>
+          </Tab>
+        </Tabs>
+      );
+
+      instance._window = {
+        history: {
+          replaceState: replaceSpy
+        },
+        location: {
+          origin: 'foo',
+          pathname: 'bar'
+        }
+      };
+
+      instance.handleTabClick({ target: { dataset: { tabid: 'foo' }}});
+      expect(replaceSpy).not.toHaveBeenCalledWith(null, 'change-tab', 'foobar#foo');
     });
 
     describe('when a onTabChange prop is passed', () => {
@@ -390,7 +415,7 @@ describe('Tabs', () => {
       it('adds a error class to the header', () => {
         instance.setState({ tabValidity: Immutable.fromJS({ 'uniqueid2': false })});
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-        expect(secondTab.className).toEqual('carbon-tabs__headers__header headerClass2 carbon-tabs__headers__header--error');
+        expect(secondTab.className).toEqual('carbon-tabs__headers__header headerClass2 carbon-tabs__headers__header--error class2');
       });
     });
 
@@ -398,7 +423,7 @@ describe('Tabs', () => {
       it('adds a warning class to the header', () => {
         instance.setState({ tabWarning: Immutable.fromJS({ 'uniqueid2': true })});
         let secondTab = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'li')[1];
-        expect(secondTab.className).toEqual('carbon-tabs__headers__header headerClass2 carbon-tabs__headers__header--warning');
+        expect(secondTab.className).toEqual('carbon-tabs__headers__header headerClass2 carbon-tabs__headers__header--warning class2');
       });
 
       describe('when tab has an error as well', () => {
@@ -595,7 +620,7 @@ describe('Tabs', () => {
     describe('when the orientation is horizontal', () => {
       beforeEach(() => {
         wrapper = mount(
-          <Tabs>
+          <Tabs setLocation>
             <Tab tabId='tab1' title='Test 1' />
             <Tab tabId='tab2' title='Test 2' />
             <Tab tabId='tab3' title='Test 3' />
@@ -680,7 +705,7 @@ describe('Tabs', () => {
     describe('when the orientation is vertical', () => {
       beforeEach(() => {
         wrapper = mount(
-          <Tabs position='left'>
+          <Tabs position='left' setLocation>
             <Tab tabId='tab1' title='Test 1' />
             <Tab tabId='tab2' title='Test 2' />
             <Tab tabId='tab3' title='Test 3' />
