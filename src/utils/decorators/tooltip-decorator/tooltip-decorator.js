@@ -84,52 +84,17 @@ import { pointerSize, pointerSideMargin } from '../../../components/tooltip/tool
 const TooltipDecorator = (ComposedComponent) => {
   class Component extends ComposedComponent {
     static propTypes = assign({}, ComposedComponent.propTypes, {
-
-      /**
-       * The message for this tooltip
-       *
-       * @property
-       * @type {Node}
-       */
       tooltipMessage: PropTypes.node,
-
-      /**
-       * The position of this tooltip: top, bottom, left or right
-       *
-       * @property
-       * @default top
-       * @type {String}
-       */
       tooltipPosition: PropTypes.string,
-
-      /**
-       * The alignment of this tooltip: left, right or center
-       *
-       * @property
-       * @default center
-       * @type {String}
-       */
       tooltipAlign: PropTypes.string
     });
 
-    /**
-     * Timeout for firing ajax request for showing the tooltip
-     *
-     * @property _showTooltipTimeout
-     */
     _showTooltipTimeout = null;
 
-    /**
-     * Timeout for firing ajax request for hiding the tooltip
-     *
-     * @property _hideTooltipTimeout
-     */
     _hideTooltipTimeout = null;
 
     /**
      * Cache the shifts calculations (used for positioning)
-     *
-     * @property _memoizedShifts
      */
     _memoizedShifts = null;
 
@@ -138,10 +103,6 @@ const TooltipDecorator = (ComposedComponent) => {
       if (this.props.tooltipVisible) this.positionTooltip();
     }
 
-    /**
-     * @method componentWillUpdate
-     * @return {Void}
-     */
     componentWillUpdate(nextProps, nextState) {
       if (super.componentWillUpdate) { super.componentWillUpdate(nextProps, nextState); }
 
@@ -152,10 +113,6 @@ const TooltipDecorator = (ComposedComponent) => {
       }
     }
 
-    /**
-     * @method componentDidUpdate
-     * @return {Void}
-     */
     componentDidUpdate(prevProps) {
       if (super.componentDidUpdate) { super.componentDidUpdate(prevProps); }
 
@@ -164,12 +121,6 @@ const TooltipDecorator = (ComposedComponent) => {
       }
     }
 
-    /**
-     * A lifecycle called immediatly before new props cause a re-render
-     * Resets the hover state if active
-     *
-     * @method componentWillReceiveProps
-     */
     componentWillReceiveProps(nextProps) {
       if (super.componentWillReceiveProps) { super.componentWillReceiveProps(nextProps); }
 
@@ -179,13 +130,6 @@ const TooltipDecorator = (ComposedComponent) => {
     }
 
     state = {
-      /**
-       * Whether tooltip currently showing
-       *
-       * @property isVisible
-       * @type {Boolean}
-       * @default false
-       */
       isVisible: false
     };
 
@@ -193,12 +137,6 @@ const TooltipDecorator = (ComposedComponent) => {
       return this.state.isVisible || this.props.tooltipVisible;
     }
 
-    /**
-     * Shows tooltip
-     *
-     * @method onShow
-     * @return {void}
-     */
     onShow = () => {
       clearTimeout(this._hideTooltipTimeout);
 
@@ -208,12 +146,6 @@ const TooltipDecorator = (ComposedComponent) => {
       }, 100);
     };
 
-    /**
-     * Hides tooltip
-     *
-     * @method onHide
-     * @return {void}
-     */
     onHide = () => {
       clearTimeout(this._showTooltipTimeout);
 
@@ -222,34 +154,14 @@ const TooltipDecorator = (ComposedComponent) => {
       }, 100);
     };
 
-    /**
-     * Returns the DOM node of the target.
-     *
-     * @method getTarget
-     * @return {DOM node}
-     */
     getTarget = () => {
       return ReactDOM.findDOMNode(this._target); // eslint-disable-line react/no-find-dom-node
     }
 
-    /**
-     * Returns the DOM node of the tooltip.
-     *
-     * @method getTooltip
-     * @return {DOM node}
-     */
     getTooltip = () => {
       return ReactDOM.findDOMNode(this._tooltip); // eslint-disable-line react/no-find-dom-node
     }
 
-    /**
-     * Calculates position for tooltip, first result cached.
-     *
-     * @method calculatePosition
-     * @param {Object} tooltip
-     * @param {Object} target
-     * @return {Object} shifts calculated
-     */
     calculatePosition = (tooltip, target) => {
       if (this._memoizedShifts) { return this._memoizedShifts; }
 
@@ -302,14 +214,6 @@ const TooltipDecorator = (ComposedComponent) => {
       }
     }
 
-    /**
-     * Positions tooltip relative to target
-     *
-     * @method positionTooltip
-     * @param {Object} tooltip
-     * @param {Object} target
-     * @return {Void}
-     */
     positionTooltip = () => {
       if (this.isVisible()) {
         const tooltip = this.getTooltip(),
@@ -345,12 +249,6 @@ const TooltipDecorator = (ComposedComponent) => {
       }
     };
 
-    /**
-     * Additional Props for decorated component
-     *
-     * @method componentProps
-     * @return {Object} props
-     */
     get componentProps() {
       const props = super.componentProps || {};
 
@@ -364,12 +262,6 @@ const TooltipDecorator = (ComposedComponent) => {
       return props;
     }
 
-    /**
-     * Supplies the HTML for tooltip
-     *
-     * @method tooltipHTML
-     * @return {Object} JSX for tooltip
-     */
     get tooltipHTML() {
       return (
         (this.props.tooltipMessage && this.isVisible()) && (
