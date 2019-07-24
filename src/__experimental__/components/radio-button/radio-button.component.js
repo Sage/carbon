@@ -19,8 +19,10 @@ function setTabIndex({ tabindex, checked }) {
 }
 
 const RadioButton = ({ id, ...props }) => {
+  const { onChange, ...rest } = props;
+
   const inputProps = {
-    ...props,
+    ...rest,
     /**
      * Invert the reverse prop, to ensure the FormField component renders the components
      * in the desired order (other elements which use FormField render their sub-components the
@@ -29,19 +31,17 @@ const RadioButton = ({ id, ...props }) => {
     reverse: !props.reverse
   };
 
-  const { onChange, ...rest } = inputProps;
-
   return (
     <RadioButtonStyle
       { ...tagComponent('radio-button', props) }
-      { ...props }
+      { ...rest }
     >
       <CheckableInput
         type='radio'
-        { ...rest }
+        { ...inputProps }
         inputId={ id }
         onChange={ onChange }
-        tabindex={ setTabIndex(rest) }
+        tabindex={ setTabIndex(inputProps) }
       >
         <RadioButtonSvg />
       </CheckableInput>
@@ -85,6 +85,7 @@ RadioButton.propTypes = {
 };
 
 RadioButton.defaultProps = {
+  onChange: () => { },
   reverse: false
 };
 

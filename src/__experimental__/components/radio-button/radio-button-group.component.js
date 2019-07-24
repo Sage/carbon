@@ -21,13 +21,18 @@ const RadioButtonGroup = (props) => {
     const checked = selected === key;
     const tabindex = selected ? checkedTabIndex(checked) : initialTabIndex(index);
 
+    const handleChange = (ev) => {
+      child.props.onChange(ev);
+      setSelected(ev.target.value);
+    };
+
     return React.cloneElement(
       child,
       {
         checked: selected === key,
         key,
         name: groupName,
-        onChange: ev => setSelected(ev.target.value),
+        onChange: handleChange,
         tabindex
       }
     );

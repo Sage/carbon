@@ -29,8 +29,8 @@ function getButtons(wrapper) {
   return wrapper.find(RadioButton);
 }
 
-function getInputInstance(button) {
-  return button.find('input').instance();
+function getInputWrapper(button) {
+  return button.find('input');
 }
 
 describe('RadioButtonGroup', () => {
@@ -76,9 +76,10 @@ describe('RadioButtonGroup', () => {
         const otherIndex = index ? 0 : 1;
         let buttonWrapper = buttons.at(index);
         let otherButtonWrapper = buttons.at(otherIndex);
-        const target = getInputInstance(buttonWrapper);
+        const inputWrapper = getInputWrapper(buttonWrapper);
+        const target = inputWrapper.instance();
 
-        buttonWrapper.simulate('change', { target });
+        inputWrapper.simulate('change', { target });
         wrapper.update();
 
         buttonWrapper = getButtons(wrapper).at(index);
@@ -90,9 +91,10 @@ describe('RadioButtonGroup', () => {
         });
 
         it('sets checked === false when the other button is selected', () => {
-          const otherTarget = getInputInstance(otherButtonWrapper);
+          const otherInputWrapper = getInputWrapper(otherButtonWrapper);
+          const otherTarget = otherInputWrapper.instance();
 
-          otherButtonWrapper.simulate('change', { target: otherTarget });
+          otherInputWrapper.simulate('change', { target: otherTarget });
           wrapper.update();
 
           buttonWrapper = getButtons(wrapper).at(index);

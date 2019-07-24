@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import {
   boolean, text, number, select
 } from '@storybook/addon-knobs';
+import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import { RadioButton, RadioButtonGroup } from '.';
 import { info, notes } from './documentation';
@@ -44,6 +45,11 @@ storiesOf('Experimental/RadioButton', module)
     knobs: { escapeHTML: false }
   });
 
+function handleChange(event) {
+  const { value } = event.target;
+  action(`Selected - ${value}`)(event);
+}
+
 function defaultKnobs() {
   return ({
     disabled: boolean('disabled', false),
@@ -69,6 +75,7 @@ function defaultKnobs() {
       OptionsHelper.alignBinary,
       OptionsHelper.alignBinary[0]
     ),
-    size: select('size', OptionsHelper.sizesBinary, 'small')
+    size: select('size', OptionsHelper.sizesBinary, 'small'),
+    onChange: handleChange
   });
 }
