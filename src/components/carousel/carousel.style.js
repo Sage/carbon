@@ -144,6 +144,7 @@ transition: .5s;
 display: flex;
 position: relative;
 left: -${({ elementIndex }) => (elementIndex * 680)}px; 
+left: ${({ elementIndex }) => 10 - (80 * elementIndex)}%
 `;
 
 const CarouselWrapperStyle = styled.div`
