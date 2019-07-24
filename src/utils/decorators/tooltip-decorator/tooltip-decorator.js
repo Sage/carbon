@@ -7,6 +7,7 @@ import Portal from '../../../components/portal';
 import chainFunctions from '../../helpers/chain-functions';
 import { styleElement } from '../../ether';
 import { pointerSize, pointerSideMargin } from '../../../components/tooltip/tooltip-pointer.style';
+import OptionsHelper from '../../helpers/options-helper';
 
 /**
  * TooltipDecorator.
@@ -85,8 +86,8 @@ const TooltipDecorator = (ComposedComponent) => {
   class Component extends ComposedComponent {
     static propTypes = assign({}, ComposedComponent.propTypes, {
       tooltipMessage: PropTypes.node,
-      tooltipPosition: PropTypes.string,
-      tooltipAlign: PropTypes.string
+      tooltipPosition: PropTypes.oneOf(OptionsHelper.positions),
+      tooltipAlign: PropTypes.oneOf(OptionsHelper.alignAroundEdges)
     });
 
     _showTooltipTimeout = null;
