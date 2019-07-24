@@ -18,6 +18,7 @@ const RadioButtonSvg = () => {
             fill='#FFFFFF'
             cx='7.5'
             cy='7.5'
+            r='5'
           />
         </g>
       </svg>
