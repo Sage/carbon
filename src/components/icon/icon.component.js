@@ -5,7 +5,7 @@ import Icons from './icons';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
 import './icon.scss';
-import StyledIcon from './icon.style';
+import { StyledIcon, StyledSvgIcon } from './icon.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 const Icon = TooltipDecorator(
@@ -92,7 +92,7 @@ const Icon = TooltipDecorator(
       const icon = this.renderIcon;
       if (icon) {
         /* eslint-disable react/no-danger */
-        return <span className='carbon-icon__svg-icon' dangerouslySetInnerHTML={ icon } />;
+        return <StyledSvgIcon dangerouslySetInnerHTML={ icon } />;
         /* eslint-enable react/no-danger */
       }
 

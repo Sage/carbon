@@ -172,19 +172,8 @@ const StyledIcon = styled.span`
       && css`
         background-color: ${iconBackgroundColors[bgTheme]};
       `}
-    
-    ${({ isFont }) => !isFont && css`
-        .carbon-icon__svg-icon {
-            display: inline-block;
-        }
 
-        .carbon-icon__svg {
-            fill: currentColor;
-        }
-    `}
-
-    ${({ isFont, type }) => isFont
-      && css`
+    ${({ isFont, type }) => isFont && css`
         &::before {
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
@@ -199,7 +188,16 @@ const StyledIcon = styled.span`
           line-height: 16px;
           vertical-align: middle;
         }
-      `}
+    `}
 `;
 
-export default StyledIcon;
+const StyledSvgIcon = styled.span`
+  display: inline-block;
+
+  .carbon-icon__svg {
+    fill: currentColor;
+  }
+`;
+
+
+export { StyledIcon, StyledSvgIcon };
