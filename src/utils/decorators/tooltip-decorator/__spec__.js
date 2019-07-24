@@ -369,6 +369,20 @@ describe('tooltip-decorator', () => {
         expect(tooltip.style.left).toEqual('65px');
         expect(tooltip.style.bottom).toEqual('auto');
       });
+
+      describe('when the tooltip is offscreen', () => {
+        it('realigns to the right', () => {
+          bottomTooltip.onShow();
+          jest.runTimersToTime(100);
+          const tooltip = bottomTooltip.getTooltip();
+          const target = bottomTooltip.getTarget();
+          const innerWidth = window.innerWidth;
+          window.innerWidth = 0;
+          bottomTooltip.positionTooltip(tooltip, target);
+          expect(bottomTooltip.state.tooltipAlign).toEqual('right');
+          window.innerWidth = innerWidth;
+        });
+      });
     });
 
     describe('when positioned right of the target', () => {
@@ -403,6 +417,21 @@ describe('tooltip-decorator', () => {
         rightTooltip.positionTooltip(tooltip, target);
         expect(tooltip.style.left).toEqual('107px');
         expect(tooltip.style.top).toEqual('90px');
+      });
+
+      describe('when the tooltip is offscreen', () => {
+        it('changes the toooltip position to "top" and alignment to "right"', () => {
+          rightTooltip.onShow();
+          jest.runTimersToTime(100);
+          const tooltip = rightTooltip.getTooltip();
+          const target = rightTooltip.getTarget();
+          const innerWidth = window.innerWidth;
+          window.innerWidth = 0;
+          rightTooltip.positionTooltip(tooltip, target);
+          expect(rightTooltip.state.tooltipPosition).toEqual('top');
+          expect(rightTooltip.state.tooltipAlign).toEqual('right');
+          window.innerWidth = innerWidth;
+        });
       });
 
       describe('when the pointer is aligned to the top', () => {

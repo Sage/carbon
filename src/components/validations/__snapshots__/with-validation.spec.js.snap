@@ -40,7 +40,7 @@ exports[`when the withValidations HOC wraps a component when the component rende
   validations={Array []}
   warnings={Array []}
 >
-  <ValidationIcon
+  <WithTheme(ValidationIcon)
     message="mock message"
     type="error"
   />
@@ -59,7 +59,7 @@ exports[`when the withValidations HOC wraps a component when the component rende
   validations={Array []}
   warnings={Array []}
 >
-  <ValidationIcon
+  <WithTheme(ValidationIcon)
     message="mock message"
     type="info"
   />
@@ -78,7 +78,7 @@ exports[`when the withValidations HOC wraps a component when the component rende
   validations={Array []}
   warnings={Array []}
 >
-  <ValidationIcon
+  <WithTheme(ValidationIcon)
     message="mock message"
     type="warning"
   />
@@ -104,7 +104,7 @@ exports[`when the withValidations HOC wraps a component when the component rende
   <div
     key="div2"
   />
-  <ValidationIcon
+  <WithTheme(ValidationIcon)
     message="mock message"
     type="error"
   />
