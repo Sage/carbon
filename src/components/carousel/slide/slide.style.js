@@ -7,8 +7,7 @@ const SlideStyle = styled.div`
   z-index: 10;
   //DLS
   min-width: 80%;
-  height: 400px;
-  box-shadow:0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1);
+  /* box-shadow:0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1); */
   transform: scale(.9);
 
 

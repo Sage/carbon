@@ -35,19 +35,19 @@ storiesOf('Carousel', module)
         transition={ transition }
       >
         <Slide>
-          <h1 style={ { textAlign: 'center' } }>Slide One</h1>
+          <div style={ { boxShadow: '0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)' } }>
+            <h1 style={ { textAlign: 'center' } }>Slide One</h1>
+          </div>
         </Slide>
         <Slide>
-          <h1 style={ { textAlign: 'center' } }>Slide Two</h1>
+          <div style={ { boxShadow: '0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)' } }>
+            <h1 style={ { textAlign: 'center' } }>Slide Two</h1>
+          </div>
         </Slide>
         <Slide>
-          <h1 style={ { textAlign: 'center' } }>Slide Three</h1>
-        </Slide>
-        <Slide>
-          <h1 style={ { textAlign: 'center' } }>Slide Four</h1>
-        </Slide>
-        <Slide>
-          <h1 style={ { textAlign: 'center' } }>Slide Five</h1>
+          <div style={ { boxShadow: '0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)' } }>
+            <h1 style={ { textAlign: 'center' } }>Slide Three</h1>
+          </div>
         </Slide>
       </Carousel>
     );

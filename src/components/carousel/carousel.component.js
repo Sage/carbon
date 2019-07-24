@@ -166,7 +166,6 @@ class Carousel extends React.Component {
     let index = this.state.selectedSlideIndex;
 
     const visibleSlide = compact(React.Children.toArray(this.props.children))[index];
-    console.log(index);
     index = visibleSlide.props.id || index;
 
     const additionalProps = {
@@ -179,12 +178,11 @@ class Carousel extends React.Component {
     return React.cloneElement(visibleSlide, assign({}, visibleSlide.props, additionalProps));
   }
 
-  visibleSlides() {
+  visibleSlides(props) {
     const index = this.state.selectedSlideIndex;
-    console.log(index);
     const visibleSlide = React.Children.toArray(this.props.children);
-    console.log(visibleSlide);
-    return visibleSlide;
+    console.log(props);
+    return <CarouselSliderWrapper>{visibleSlide[index]}</CarouselSliderWrapper>;
   }
 
   /** Renders the slideSelector footer */
@@ -283,9 +281,8 @@ class Carousel extends React.Component {
             transitionLeaveTimeout={ TRANSITION_TIME }
           >
             {/* { this.visibleSlide() } */}
-            <CarouselSliderWrapper key='animation-slider-1' elementIndex={ this.state.selectedSlideIndex }>
-              {this.visibleSlides()}
-            </CarouselSliderWrapper>
+            {/* {CarouselSliderWrapper and this.visibleSlides() dls} */}
+            {this.visibleSlides()}
           </CSSTransitionGroup>
 
           { this.nextButton() }
