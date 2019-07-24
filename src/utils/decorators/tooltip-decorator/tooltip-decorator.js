@@ -123,11 +123,19 @@ const TooltipDecorator = (ComposedComponent) => {
     }
 
     componentWillReceiveProps(nextProps) {
+      let newState = {};
+
       if (super.componentWillReceiveProps) { super.componentWillReceiveProps(nextProps); }
 
-      if (this.isVisible()) {
-        this.setState({ isVisible: false });
+      if (nextProps.tooltipPosition !== this.props.tooltipPosition) {
+        newState = { tooltipPosition: '', tooltipAlign: '' };
       }
+
+      if (this.isVisible()) {
+        newState = { ...newState, isVisible: false };
+      }
+
+      this.setState(newState);
     }
 
     state = {

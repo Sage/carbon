@@ -60,7 +60,7 @@ describe('tooltip-decorator', () => {
     DecoratedClassOne = TooltipDecorator(BasicClass);
     DecoratedClassTwo = TooltipDecorator(StrippedClass);
 
-    topTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' />);
+    topTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='top' />);
     bottomTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='bottom' />);
     rightTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='right' />);
     leftTooltip = TestUtils.renderIntoDocument(<DecoratedClassOne tooltipMessage='Hello' tooltipPosition='left' />);
@@ -73,12 +73,27 @@ describe('tooltip-decorator', () => {
 
   describe('componentWillReceiveProps', () => {
     describe('if currently visible', () => {
-      it('calls setState to reset the hover', () => {
-        topTooltip.state.isVisible = true;
-        spyOn(topTooltip, 'setState');
-        topTooltip.componentWillReceiveProps();
-        expect(topTooltip.setState).toHaveBeenCalledWith({
-          isVisible: false
+      describe('with the same tooltipPosition', () => {
+        it('calls setState to reset the hover', () => {
+          topTooltip.state.isVisible = true;
+          spyOn(topTooltip, 'setState');
+          topTooltip.componentWillReceiveProps({ tooltipPosition: 'top' });
+          expect(topTooltip.setState).toHaveBeenCalledWith({
+            isVisible: false
+          });
+        });
+      });
+
+      describe('with different tooltipPosition', () => {
+        it('calls setState to reset the the "hover", "tooltipPosition" and "tooltipAlign" states', () => {
+          topTooltip.state.isVisible = true;
+          spyOn(topTooltip, 'setState');
+          topTooltip.componentWillReceiveProps({ tooltipPosition: 'bottom' });
+          expect(topTooltip.setState).toHaveBeenCalledWith({
+            tooltipPosition: '',
+            tooltipAlign: '',
+            isVisible: false
+          });
         });
       });
     });
@@ -86,8 +101,8 @@ describe('tooltip-decorator', () => {
     describe('if not visible', () => {
       it('does not call setState', () => {
         spyOn(topTooltip, 'setState');
-        topTooltip.componentWillReceiveProps();
-        expect(topTooltip.setState).not.toHaveBeenCalled();
+        topTooltip.componentWillReceiveProps({ tooltipPosition: 'top' });
+        expect(topTooltip.setState).toHaveBeenCalledWith({});
       });
     });
   });
