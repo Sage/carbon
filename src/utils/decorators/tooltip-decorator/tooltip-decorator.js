@@ -131,7 +131,9 @@ const TooltipDecorator = (ComposedComponent) => {
     }
 
     state = {
-      isVisible: false
+      isVisible: false,
+      tooltipAlign: '',
+      tooltipPosition: ''
     };
 
     isVisible = () => {
@@ -202,51 +204,54 @@ const TooltipDecorator = (ComposedComponent) => {
     };
 
     realignOffscreenTooltip = (shifts, tooltipWidth) => {
-      if (this.props.tooltipAlign === 'right' || this.state.tooltipAlign === 'right') return;
+      const { tooltipPosition, tooltipAlign } = this.props;
+      const position = this.state.tooltipPosition || tooltipPosition || 'top';
+      const alignment = this.state.tooltipAlign || tooltipAlign || 'center';
+      const isTooltipOffScreen = window.innerWidth < shifts.vertical[alignment] + tooltipWidth;
 
-      const position = this.props.tooltipPosition || 'top';
-      const alignment = this.props.tooltipAlign || 'center';
+      if (alignment === 'right' || position === 'left' || !isTooltipOffScreen) return;
 
-      if (position === 'top' || position === 'bottom') {
-        const horizontalPosition = shifts.vertical[alignment];
-        if (window.innerWidth < (horizontalPosition + tooltipWidth)) {
-          this.setState({ tooltipAlign: 'right' });
-        }
+      if (position === 'right') {
+        this.setState({ tooltipPosition: 'top', tooltipAlign: 'right' });
+      } else {
+        this.setState({ tooltipAlign: 'right' });
       }
     }
 
     positionTooltip = () => {
-      if (this.isVisible()) {
-        const tooltip = this.getTooltip(),
-            target = this.getTarget();
-        if (!tooltip || !target) {
-          // Can't find the tooltip or target so hide
-          if (this.state.isVisible) this.setState({ isVisible: false });
-          return;
-        }
+      if (!this.isVisible()) {
+        return;
+      }
 
-        const alignment = this.state.tooltipAlign || this.props.tooltipAlign || 'center',
-            position = this.props.tooltipPosition || 'top',
-            shifts = this.calculatePosition(tooltip, target);
+      const tooltip = this.getTooltip(),
+          target = this.getTarget();
 
-        this.realignOffscreenTooltip(shifts, tooltip.offsetWidth);
+      if (!tooltip || !target) {
+        if (this.state.isVisible) this.setState({ isVisible: false });
+        return;
+      }
 
-        styleElement(tooltip, 'bottom', 'auto');
-        styleElement(tooltip, 'right', 'auto');
+      const alignment = this.state.tooltipAlign || this.props.tooltipAlign || 'center',
+          position = this.state.tooltipPosition || this.props.tooltipPosition || 'top',
+          shifts = this.calculatePosition(tooltip, target);
 
-        switch (position) {
-          case 'top':
-          case 'bottom':
-            styleElement(tooltip, 'top', `${shifts.tooltipDistances[position]}px`);
-            styleElement(tooltip, 'left', `${shifts.vertical[alignment]}px`);
-            break;
+      this.realignOffscreenTooltip(shifts, tooltip.offsetWidth);
 
-          case 'left':
-          case 'right':
-          default:
-            styleElement(tooltip, 'top', `${shifts.horizontal[alignment]}px`);
-            styleElement(tooltip, 'left', `${shifts.tooltipDistances[position]}px`);
-        }
+      styleElement(tooltip, 'bottom', 'auto');
+      styleElement(tooltip, 'right', 'auto');
+
+      switch (position) {
+        case 'top':
+        case 'bottom':
+          styleElement(tooltip, 'top', `${shifts.tooltipDistances[position]}px`);
+          styleElement(tooltip, 'left', `${shifts.vertical[alignment]}px`);
+          break;
+
+        case 'left':
+        case 'right':
+        default:
+          styleElement(tooltip, 'top', `${shifts.horizontal[alignment]}px`);
+          styleElement(tooltip, 'left', `${shifts.tooltipDistances[position]}px`);
       }
     };
 
@@ -273,7 +278,7 @@ const TooltipDecorator = (ComposedComponent) => {
               isVisible={ this.isVisible() }
               onMouseEnter={ this.onShow }
               onMouseLeave={ this.onHide }
-              position={ this.props.tooltipPosition }
+              position={ this.state.tooltipPosition || this.props.tooltipPosition }
               ref={ (comp) => { this._tooltip = comp; } }
               type={ this.props.tooltipType }
             >

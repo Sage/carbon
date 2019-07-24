@@ -22,6 +22,8 @@ exports[`ValidationIcon renders with an icon for the given type 1`] = `
   <Icon
     bgSize="small"
     key="error-icon"
+    tooltipAlign="center"
+    tooltipPosition="right"
     tooltipType="error"
     type="error"
   >
