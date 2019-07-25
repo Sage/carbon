@@ -68,6 +68,7 @@ Feature: Accessibility tests
       | radio-button         |
       | rainbow              |
       | row                  |
+      # | select               | Commented until select will be merged-out from experimental
       | settingsrow          |
       | simplecolorpicker    |
       | split-button         |
