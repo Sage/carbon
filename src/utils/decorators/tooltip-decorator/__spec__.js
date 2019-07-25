@@ -78,9 +78,7 @@ describe('tooltip-decorator', () => {
           topTooltip.state.isVisible = true;
           spyOn(topTooltip, 'setState');
           topTooltip.componentWillReceiveProps({ tooltipPosition: 'top' });
-          expect(topTooltip.setState).toHaveBeenCalledWith({
-            isVisible: false
-          });
+          expect(topTooltip.setState).not.toHaveBeenCalled();
         });
       });
 
@@ -91,8 +89,7 @@ describe('tooltip-decorator', () => {
           topTooltip.componentWillReceiveProps({ tooltipPosition: 'bottom' });
           expect(topTooltip.setState).toHaveBeenCalledWith({
             tooltipPosition: '',
-            tooltipAlign: '',
-            isVisible: false
+            tooltipAlign: ''
           });
         });
       });
@@ -102,7 +99,7 @@ describe('tooltip-decorator', () => {
       it('does not call setState', () => {
         spyOn(topTooltip, 'setState');
         topTooltip.componentWillReceiveProps({ tooltipPosition: 'top' });
-        expect(topTooltip.setState).toHaveBeenCalledWith({});
+        expect(topTooltip.setState).not.toHaveBeenCalled();
       });
     });
   });
@@ -179,6 +176,7 @@ describe('tooltip-decorator', () => {
     });
 
     it('clears the timeout', () => {
+      topTooltip.state.isVisible = true;
       spyOn(window, 'clearTimeout');
 
       topTooltip.onShow();
@@ -195,6 +193,7 @@ describe('tooltip-decorator', () => {
 
   describe('on hide', () => {
     it('hides the tooltip after a timeout', () => {
+      topTooltip.state.isVisible = true;
       spyOn(topTooltip, 'setState');
       topTooltip.onHide();
       jest.runTimersToTime(300);

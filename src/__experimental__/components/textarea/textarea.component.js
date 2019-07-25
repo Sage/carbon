@@ -155,7 +155,13 @@ Textarea.propTypes = {
   /** The value of the Textarea */
   value: PropTypes.string,
   /** Whether to display the character count message in red */
-  warnOverLimit: PropTypes.bool
+  warnOverLimit: PropTypes.bool,
+  /** Status of error validations */
+  hasError: PropTypes.bool,
+  /** Status of warnings */
+  hasWarning: PropTypes.bool,
+  /** Status of info */
+  hasInfo: PropTypes.bool
 };
 
 Textarea.defaultProps = {
