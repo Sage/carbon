@@ -1,14 +1,22 @@
 import styled, { css } from 'styled-components';
 
 const SlideStyle = styled.div`
+${props => console.log(props)}
   box-sizing: border-box;
   display: inline-block;
+  
   /* width: 100%; //legacy */
   z-index: 10;
   //DLS
+  transition: .5s;
   min-width: 80%;
-  /* box-shadow:0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1); */
   transform: scale(.9);
+  opacity: 0.3;
+  margin: 30px 0;
+  ${({ id, selectedIndex }) => id === selectedIndex && css`
+    transform: scale(1);
+    opacity: 1;
+  `}
 
 
   ${({ isPadded }) => isPadded && css`

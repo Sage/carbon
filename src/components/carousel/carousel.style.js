@@ -142,7 +142,7 @@ const CarouselSliderWrapper = styled.div`
 transition: .5s;
 display: flex;
 position: relative;
-left: ${({ elementIndex }) => 10 - (80 * elementIndex)}%
+left: ${({ elementIndex }) => 10 - (80 * elementIndex)}%;
 `;
 
 const CarouselWrapperStyle = styled.div`

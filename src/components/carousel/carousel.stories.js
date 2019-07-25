@@ -25,6 +25,23 @@ storiesOf('Carousel', module)
       CarouselWithoutHOC.defaultProps.transition
     );
 
+    const styleElement = {
+      height: '400px',
+      backgroundColor: '#69418f',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      boxShadow: '0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)'
+    };
+
+    const ExampleCustomElement = ({ children, style }) => {
+      return (
+        <div style={ { ...styleElement } } { ...style }>
+          {children}
+        </div>
+      );
+    };
+
     return (
       <Carousel
         initialSlideIndex={ initialSlideIndex }
@@ -35,19 +52,19 @@ storiesOf('Carousel', module)
         transition={ transition }
       >
         <Slide>
-          <div style={ { boxShadow: '0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)' } }>
+          <ExampleCustomElement style={ { backgorundColor: 'red' } }>
             <h1 style={ { textAlign: 'center' } }>Slide One</h1>
-          </div>
+          </ExampleCustomElement>
         </Slide>
         <Slide>
-          <div style={ { boxShadow: '0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)' } }>
+          <ExampleCustomElement>
             <h1 style={ { textAlign: 'center' } }>Slide Two</h1>
-          </div>
+          </ExampleCustomElement>
         </Slide>
         <Slide>
-          <div style={ { boxShadow: '0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)' } }>
-            <h1 style={ { textAlign: 'center' } }>Slide Three</h1>
-          </div>
+          <ExampleCustomElement>
+            <h1 style={ { color: '#fff' } }>Slide Three</h1>
+          </ExampleCustomElement>
         </Slide>
       </Carousel>
     );
