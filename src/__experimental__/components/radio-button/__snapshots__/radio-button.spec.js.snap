@@ -906,6 +906,7 @@ exports[`RadioButton styles base renders as expected 1`] = `
                 cx="7.5"
                 cy="7.5"
                 fill="#FFFFFF"
+                r="5"
               />
             </g>
           </svg>
