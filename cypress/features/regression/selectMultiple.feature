@@ -97,3 +97,8 @@ Feature: Select component
       And Select multiple input 2 element and has "Black" value
       And Select multiple input 3 element and has "Green" value
    
+ @positive
+  Scenario: Check the change function call for Select Multiple component
+    Given clear all actions in Actions Tab
+    When Type "Black" text into input and select the value
+    Then change action was called in Actions Tab
