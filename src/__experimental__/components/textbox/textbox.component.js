@@ -32,6 +32,7 @@ const Textbox = ({
         { leftChildren }
         <Input
           { ...props }
+          aria-invalid={ props.hasError }
           value={ visibleValue(value, formattedValue) }
         />
         { children }

@@ -31,6 +31,7 @@ exports[`Textbox renders with InputPresentation and Input and all props passed t
   >
     southpaw children
     <Input
+      aria-invalid={false}
       hasError={false}
       hasInfo={false}
       hasWarning={false}

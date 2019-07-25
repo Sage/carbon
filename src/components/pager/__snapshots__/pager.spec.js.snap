@@ -620,6 +620,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
             type="text"
           >
             <input
+              aria-invalid={false}
               className="c11 c12"
               data-element="input"
               id="guid-12345"
