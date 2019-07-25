@@ -18,8 +18,8 @@ Then('Select input has {string} value', (text) => {
   selectInput().should('have.attr', 'value', text);
 });
 
-Then('Select multiple input has {string} value', (text) => {
-  selectPill().should('have.attr', 'value', text); // STILL IN PROGRESS
+Then('Select multiple input {int} element and has {string} value', (index, text) => {
+  selectPill(index).should('have.attr', 'title', text);
 });
 
 Then('Select placeholder on preview is set to {string}', (text) => {
