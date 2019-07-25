@@ -23,6 +23,11 @@ const OptionsHelper = {
     'top'
   ],
 
+  actionOptions: [
+    'Button',
+    'Link'
+  ],
+
   buttonColors: [
     'blue',
     'grey',

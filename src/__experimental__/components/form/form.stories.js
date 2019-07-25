@@ -7,6 +7,15 @@ import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import Form, { FormWithoutValidations } from '.';
 import Textbox from '../textbox';
+import Button from '../../../components/button';
+import Link from '../../../components/link';
+
+const additoinalFormActions = (innerText) => {
+  return {
+    Button: <Button>{ innerText }</Button>,
+    Link: <Link href='./?path=/story/experimental-form--default'>{ innerText }</Link>
+  };
+};
 
 storiesOf('Experimental/Form', module)
   .addParameters({
@@ -16,6 +25,7 @@ storiesOf('Experimental/Form', module)
     }
   })
   .add('default', () => {
+    const formActionOptions = ['', ...OptionsHelper.actionOptions];
     const unsavedWarning = boolean('unsavedWarning', false);
     const save = boolean('save', true);
     const cancel = boolean('cancel', true);
@@ -30,10 +40,12 @@ storiesOf('Experimental/Form', module)
     const stickyFooterPadding = text('stickyFooterPadding', '');
     const autoDisable = boolean('autoDisable', false);
     const saveText = text('saveText', '');
-    const additionalActions = text('additionalActions', '');
-    const leftAlignedActions = text('leftAlignedActions', '');
-    const rightAlignedActions = text('rightAlignedActions', '');
+    const additionalActions = select('additionalActions', formActionOptions, formActionOptions[0]);
+    const leftAlignedActions = select('leftAlignedActions', formActionOptions, formActionOptions[0]);
+    const rightAlignedActions = select('rightAlignedActions', formActionOptions, formActionOptions[0]);
     const showSummary = boolean('showSummary', false);
+    const isLabelRightAligned = boolean('isLabelRightAligned', false);
+    const inLineLabels = boolean('inLineLabels', false);
 
     return (
       <Form
@@ -47,25 +59,26 @@ storiesOf('Experimental/Form', module)
         cancelText={ cancelText }
         saveText={ saveText }
         save={ save }
-        additionalActions={ additionalActions }
-        leftAlignedActions={ leftAlignedActions }
-        rightAlignedActions={ rightAlignedActions }
+        additionalActions={ additoinalFormActions('Additional Action')[additionalActions] }
+        leftAlignedActions={ additoinalFormActions('Left Action')[leftAlignedActions] }
+        rightAlignedActions={ additoinalFormActions('Right Action')[rightAlignedActions] }
         showSummary={ showSummary }
         onSubmit={ () => {
           window.location.href = window.location.href;
         } }
+        isLabelRightAligned={ isLabelRightAligned }
       >
         <Textbox
           key='0'
           label='Full Name'
-
+          labelInline={ inLineLabels }
           labelAlign='right'
           validations={ [new PresenceValidation()] }
         />
         <Textbox
           key='1'
           label='Role'
-
+          labelInline={ inLineLabels }
           labelAlign='right'
           validations={ [new PresenceValidation()] }
         />
