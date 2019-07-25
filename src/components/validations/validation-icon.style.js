@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 import BaseTheme from '../../style/themes/base';
 import { THEMES } from '../../style/themes';
+import { StyledIcon } from '../icon/icon.style';
 
 const ValidationIconStyle = styled.div`
   color: ${({ type, theme }) => theme.colors[type]};
@@ -15,7 +16,7 @@ const ValidationIconStyle = styled.div`
         margin-right: -2px;
         margin-top: -1px;
 
-        .carbon-icon:before {
+        ${StyledIcon}:before {
           font-size: 20px;
         }
       `;

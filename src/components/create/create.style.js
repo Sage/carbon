@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import Link from '../link';
 import baseTheme from '../../style/themes/base';
 import createClassicStyle from './create-classic.style';
+import { StyledIcon } from '../icon/icon.style';
 
 const CreateStyle = styled(Link)`
   background-color: ${({ theme }) => theme.disabled.input};
@@ -23,7 +24,7 @@ const CreateStyle = styled(Link)`
     outline: 3px solid ${({ theme }) => theme.colors.focus};
   }
 
-  .carbon-icon::before {
+  ${StyledIcon}::before {
     font-size: 12px;
   }
 

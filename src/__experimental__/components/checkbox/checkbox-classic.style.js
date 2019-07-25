@@ -6,6 +6,7 @@ import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input
 import StyledCheckboxSvgWrapper from './checkbox-svg-wrapper.style';
 import LabelStyle from '../label/label.style';
 import StyledHelp from '../../../components/help/help.style';
+import { StyledIcon } from '../../../components/icon/icon.style';
 
 export default ({
   checked, disabled, fieldHelpInline, reverse, theme
@@ -37,7 +38,7 @@ export default ({
     }
   }
 
-  ${LabelStyle} .carbon-icon::before {
+  ${LabelStyle} ${StyledIcon}::before {
     content: '\\E943';
   }
 

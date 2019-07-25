@@ -1,6 +1,7 @@
 import { css } from 'styled-components';
 import { THEMES } from '../../style/themes';
 import StyledButton from '../button/button.style';
+import { StyledIcon } from '../icon/icon.style';
 
 const classicColors = {
   active: '#1963f6',
@@ -56,7 +57,7 @@ const getSplitButtonToggleClassicStyles = ({
       background-color: #1e499f;
       border-color: #1e499f;
 
-      .carbon-icon {
+      ${StyledIcon} {
         color: #FFF;
       }
     }
