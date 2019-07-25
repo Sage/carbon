@@ -178,11 +178,13 @@ class Carousel extends React.Component {
     return React.cloneElement(visibleSlide, assign({}, visibleSlide.props, additionalProps));
   }
 
-  visibleSlides(props) {
+  visibleSlides() {
     const index = this.state.selectedSlideIndex;
-    const visibleSlide = React.Children.toArray(this.props.children);
-    console.log(props);
-    return <CarouselSliderWrapper>{visibleSlide[index]}</CarouselSliderWrapper>;
+    const arrayWithKeys = this.props.children.map((element, key) => {
+      return React.cloneElement(element, { id: key, selectedIndex: this.state.selectedSlideIndex });
+    });
+    console.log(arrayWithKeys);
+    return arrayWithKeys;
   }
 
   /** Renders the slideSelector footer */
@@ -272,18 +274,20 @@ class Carousel extends React.Component {
         {/** carbon-carousel__content is related to pages.scss */}
         <div className='carbon-carousel__content'>
           { this.previousButton() }
-
-          <CSSTransitionGroup
+          {/* CSS TransitionGroup no more needed in DLS version */}
+          {/* <CSSTransitionGroup
             component='div'
             className='carbon-carousel__transition'
             transitionName={ this.transitionName() }
             transitionEnterTimeout={ TRANSITION_TIME }
             transitionLeaveTimeout={ TRANSITION_TIME }
-          >
-            {/* { this.visibleSlide() } */}
-            {/* {CarouselSliderWrapper and this.visibleSlides() dls} */}
+          > */}
+          {/* { this.visibleSlide() } */}
+          {/* {CarouselSliderWrapper and this.visibleSlides() dls} */}
+          <CarouselSliderWrapper elementIndex={ this.state.selectedSlideIndex }>
             {this.visibleSlides()}
-          </CSSTransitionGroup>
+          </CarouselSliderWrapper>
+          {/* </CSSTransitionGroup> */}
 
           { this.nextButton() }
         </div>
