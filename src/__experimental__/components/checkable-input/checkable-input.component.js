@@ -61,11 +61,11 @@ CheckableInput.propTypes = {
   /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
   inputId: PropTypes.string,
   /** Sets percentage-based input width */
-  inputWidth: PropTypes.number,
+  inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.string,
   /** Sets percentage-based label width */
-  labelWidth: PropTypes.number,
+  labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Accepts a callback function which can be used to update parent state on change */
   onChange: PropTypes.func,
   /** Reverses label and CheckableInput display */

@@ -39,13 +39,13 @@ Switch.propTypes = {
   /** Displays fieldHelp inline with the checkbox */
   fieldHelpInline: PropTypes.bool,
   /** Sets percentage-based input width */
-  inputWidth: PropTypes.number,
+  inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.string,
   /** Displays label inline with the Switch */
   labelInline: PropTypes.bool,
   /** Sets percentage-based label width */
-  labelWidth: PropTypes.number,
+  labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Triggers loading animation */
   loading: PropTypes.bool,
   /** Accepts a callback function which can be used to update parent state on change */

@@ -29,6 +29,7 @@ storiesOf('Radio Button', module).add(
         labelInline={ labelInline }
         labelWidth={ labelWidth }
         name='radio-buttons-example'
+        value='button-one'
       />,
       <RadioButton
         key='second-button'
@@ -41,6 +42,7 @@ storiesOf('Radio Button', module).add(
         labelInline={ labelInline }
         labelWidth={ labelWidth }
         name='radio-buttons-example'
+        value='button-two'
       />
     ];
   },

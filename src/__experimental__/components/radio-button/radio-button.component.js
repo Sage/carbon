@@ -61,11 +61,11 @@ RadioButton.propTypes = {
   /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
   id: PropTypes.string,
   /** Sets percentage-based input width */
-  inputWidth: PropTypes.number,
+  inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
   /** Sets percentage-based label width */
-  labelWidth: PropTypes.number,
+  labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /**
    * The name of the group containing the RadioButton (can also be set via
    * the 'groupName' prop of the RadioButtonGroup component)

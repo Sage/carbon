@@ -154,9 +154,9 @@ CheckboxStyle.propTypes = {
   disabled: PropTypes.bool,
   error: PropTypes.bool,
   fieldHelpInline: PropTypes.bool,
-  inputWidth: PropTypes.number,
+  inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   labelAlign: PropTypes.string,
-  labelWidth: PropTypes.number,
+  labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   size: PropTypes.string
 };
 

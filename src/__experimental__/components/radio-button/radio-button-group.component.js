@@ -17,8 +17,8 @@ const RadioButtonGroup = (props) => {
   const [selected, setSelected] = useState(undefined);
 
   const buttons = React.Children.map(children, (child, index) => {
-    const key = child.props.value;
-    const checked = selected === key;
+    const key = child.props.key || child.props.value;
+    const checked = selected === child.props.value;
     const tabindex = selected ? checkedTabIndex(checked) : initialTabIndex(index);
 
     const handleChange = (ev) => {
@@ -29,7 +29,7 @@ const RadioButtonGroup = (props) => {
     return React.cloneElement(
       child,
       {
-        checked: selected === key,
+        checked,
         key,
         name: groupName,
         onChange: handleChange,

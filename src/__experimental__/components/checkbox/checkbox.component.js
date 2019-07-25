@@ -39,11 +39,11 @@ Checkbox.propTypes = {
   /** Displays fieldHelp inline with the checkbox */
   fieldHelpInline: PropTypes.bool,
   /** Sets percentage-based input width */
-  inputWidth: PropTypes.number,
+  inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.string,
   /** Sets percentage-based label width */
-  labelWidth: PropTypes.number,
+  labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Accepts a callback function which can be used to update parent state on change */
   onChange: PropTypes.func,
   /** Reverses label and checkbox display */
