@@ -139,7 +139,7 @@ const CarouselSelectorInputWrapperStyle = styled.span`
 `;
 
 const CarouselSliderWrapper = styled.div`
-transition: .5s;
+transition: .4s;
 display: flex;
 position: relative;
 left: ${({ elementIndex }) => 10 - (80 * elementIndex)}%;

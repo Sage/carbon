@@ -180,10 +180,11 @@ class Carousel extends React.Component {
 
   visibleSlides() {
     const index = this.state.selectedSlideIndex;
+
     const arrayWithKeys = this.props.children.map((element, key) => {
-      return React.cloneElement(element, { id: key, selectedIndex: this.state.selectedSlideIndex });
+      return React.cloneElement(element, { id: key, selectedIndex: this.state.selectedSlideIndex, ...element.props });
     });
-    console.log(arrayWithKeys);
+
     return arrayWithKeys;
   }
 
@@ -269,31 +270,42 @@ class Carousel extends React.Component {
 
   /** Renders the Slide Component */
   render() {
+    if (isClassic(this.props.theme)) {
+      return (
+        <CarouselWrapperStyle className={ this.props.className } { ...tagComponent('carousel', this.props) }>
+          {/** carbon-carousel__content is related to pages.scss */}
+          <div className='carbon-carousel__content'>
+            { this.previousButton() }
+
+            <CSSTransitionGroup
+              component='div'
+              className='carbon-carousel__transition'
+              transitionName={ this.transitionName() }
+              transitionEnterTimeout={ TRANSITION_TIME }
+              transitionLeaveTimeout={ TRANSITION_TIME }
+            >
+              { this.visibleSlide() }
+
+            </CSSTransitionGroup>
+
+            { this.nextButton() }
+          </div>
+
+          { this.slideSelector() }
+        </CarouselWrapperStyle>
+      );
+    }
+
     return (
       <CarouselWrapperStyle className={ this.props.className } { ...tagComponent('carousel', this.props) }>
-        {/** carbon-carousel__content is related to pages.scss */}
         <div className='carbon-carousel__content'>
           { this.previousButton() }
-          {/* CSS TransitionGroup no more needed in DLS version */}
-          {/* <CSSTransitionGroup
-            component='div'
-            className='carbon-carousel__transition'
-            transitionName={ this.transitionName() }
-            transitionEnterTimeout={ TRANSITION_TIME }
-            transitionLeaveTimeout={ TRANSITION_TIME }
-          > */}
-          {/* { this.visibleSlide() } */}
-          {/* {CarouselSliderWrapper and this.visibleSlides() dls} */}
           <CarouselSliderWrapper elementIndex={ this.state.selectedSlideIndex }>
             {this.visibleSlides()}
           </CarouselSliderWrapper>
-          {/* </CSSTransitionGroup> */}
-
           { this.nextButton() }
         </div>
-
         { this.slideSelector() }
-
       </CarouselWrapperStyle>
     );
   }

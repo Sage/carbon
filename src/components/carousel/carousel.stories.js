@@ -27,17 +27,17 @@ storiesOf('Carousel', module)
 
     const styleElement = {
       height: '400px',
-      backgroundColor: '#69418f',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      boxShadow: '0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)'
+      boxShadow: '0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)',
+      margin: '0 auto'
     };
 
-    const ExampleCustomElement = ({ children, style }) => {
+    const ExampleCustomElement = (props) => {
       return (
-        <div style={ { ...styleElement } } { ...style }>
-          {children}
+        <div style={ { ...styleElement, ...props.style } }>
+          {props.children}
         </div>
       );
     };
@@ -51,19 +51,29 @@ storiesOf('Carousel', module)
         enableNextButton={ enableNextButton }
         transition={ transition }
       >
-        <Slide>
-          <ExampleCustomElement style={ { backgorundColor: 'red' } }>
-            <h1 style={ { textAlign: 'center' } }>Slide One</h1>
+        <Slide style={ { textAlign: 'center', width: '300px' } }>
+          <ExampleCustomElement style={ { backgroundColor: '#003349' } }>
+            <h1 style={ { textAlign: 'center', color: '#090' } }>Slide 1</h1>
+          </ExampleCustomElement>
+        </Slide>
+        <Slide onClick={ () => console.log('test') }>
+          <ExampleCustomElement>
+            <h1 style={ { textAlign: 'center', color: '#000' } }>Full clickable slide</h1>
           </ExampleCustomElement>
         </Slide>
         <Slide>
-          <ExampleCustomElement>
-            <h1 style={ { textAlign: 'center' } }>Slide Two</h1>
+          <ExampleCustomElement style={ { backgroundColor: '#69418f' } }>
+            <h1 style={ { color: '#fff' } }>Slide 3</h1>
           </ExampleCustomElement>
         </Slide>
         <Slide>
-          <ExampleCustomElement>
-            <h1 style={ { color: '#fff' } }>Slide Three</h1>
+          <ExampleCustomElement style={ { backgroundColor: '#fcba03' } }>
+            <h1 style={ { color: '#fff' } }>Slide 4</h1>
+          </ExampleCustomElement>
+        </Slide>
+        <Slide>
+          <ExampleCustomElement style={ { backgroundColor: '#02d1c0' } }>
+            <h1 style={ { color: '#fff' } }>Slide 5</h1>
           </ExampleCustomElement>
         </Slide>
       </Carousel>
