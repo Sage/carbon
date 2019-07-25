@@ -97,3 +97,9 @@ Feature: Select component
       | Amb  | Amber  |
       | Bla  | Black  |
       | Gre  | Green  |
+
+ @positive
+  Scenario: Check the change function call for Select component
+    Given clear all actions in Actions Tab
+    When Type "Black" text into input and select the value
+    Then change action was called in Actions Tab
