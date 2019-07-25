@@ -180,6 +180,22 @@ class Dialog extends Modal {
     return null;
   }
 
+  /** Clone the children, pass in value of appliedFixedBottom to toggle style if child is form */
+  renderChildren() {
+    const { children } = this.props;
+
+    if (!children) return null;
+
+    const childrenArray = Array.isArray(children) ? children : [children];
+
+    return childrenArray.map((child) => {
+      return React.cloneElement(child, {
+        ...child.props,
+        fixedBottom: this.appliedFixedBottom
+      });
+    });
+  }
+
   get modalHTML() {
     let { height } = this.props;
 
@@ -229,7 +245,7 @@ class Dialog extends Modal {
             ref={ (innerContent) => { this._innerContent = innerContent; } }
             height={ this.props.height }
           >
-            { this.props.children }
+            { this.renderChildren }
             { this.additionalContent() }
           </DialogInnerContentStyle>
         </DialogContentStyle>

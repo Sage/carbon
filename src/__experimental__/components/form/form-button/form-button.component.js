@@ -40,9 +40,8 @@ const addButtonProps = (props) => {
 };
 
 const FormButton = (props) => {
-  const name = props.formButtonName ? props.formButtonName : 'custom-action';
   return (
-    <StyledFormButtonWrapper { ...tagComponent(name, props) }>
+    <StyledFormButtonWrapper { ...tagComponent(props.formButtonName, props) }>
       <Button { ...addButtonProps(props) }>
         { text(props) }
       </Button>
