@@ -6,6 +6,7 @@ import smallTheme from '../../style/themes/small';
 import styleConfig from './pill.style.config';
 import { THEMES } from '../../style/themes';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import { StyledIcon } from '../icon/icon.style';
 
 // all DLS themes currently default to Small, as others are introduced this
 // function should be updated to correctly allow them.
@@ -98,7 +99,7 @@ const PillStyle = styled.span`
             cursor: pointer;
           }
  
-          .carbon-icon {
+          ${StyledIcon} {
             font-size: 12px;
             padding: 0 4px;
 

@@ -26,7 +26,7 @@
 // NB, below this line are hacks
 // to cover Icon being both font and SVG currently
 .demo-icon-panel {
-  .carbon-icon {
+  [data-component='icon'] {
     min-height: 32px;
     &__svg {
       height: 32px;
