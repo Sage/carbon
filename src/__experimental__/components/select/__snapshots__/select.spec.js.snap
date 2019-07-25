@@ -224,6 +224,7 @@ Object {
     type="text"
   >
     <input
+      aria-invalid="false"
       aria-label="Please Select..."
       class="c1 c2"
       data-element="input"
