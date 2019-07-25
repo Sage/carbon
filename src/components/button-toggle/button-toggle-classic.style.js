@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 import { THEMES } from '../../style/themes';
+import { StyledIcon } from '../icon/icon.style';
 
 const StyledButtonToggleClassicLabel = ({ theme }) => theme.name === THEMES.classic && css`
   height: auto;
@@ -47,7 +48,7 @@ const StyledButtonToggleClassicIcon = ({ theme }) => theme.name === THEMES.class
   ${({ buttonIconSize }) => buttonIconSize === 'large' && css`
     display: block;
 
-    .carbon-icon {
+    ${StyledIcon} {
       margin-bottom: 0;
     }
   `};

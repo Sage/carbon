@@ -6,6 +6,7 @@ import buttonSizes from './button-sizes.style';
 import buttonClasicStyle from './button-classic.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { THEMES } from '../../style/themes';
+import { StyledIcon } from '../icon/icon.style';
 
 const StyledButton = styled.button`
   align-items: center;
@@ -18,7 +19,7 @@ const StyledButton = styled.button`
   ${addButtonStyle}
 
   ${({ iconPosition }) => css`
-    .carbon-icon {
+    ${StyledIcon} {
       margin-left: ${iconPosition === 'before' ? '0px' : '8px'};
       margin-right: ${iconPosition === 'before' ? '8px' : '0px'};
     }

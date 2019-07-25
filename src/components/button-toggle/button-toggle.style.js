@@ -6,6 +6,7 @@ import {
   StyledButtonToggleClassicLabel,
   StyledButtonToggleClassicIcon
 } from './button-toggle-classic.style';
+import { StyledIcon } from '../icon/icon.style';
 
 const StyledButtonToggleContentWrapper = styled.div`
   display: flex;
@@ -74,19 +75,19 @@ const iconFontSizes = {
 const StyledButtonToggleIcon = styled.div`
   margin-right: 8px;
   
-  .carbon-icon {
+  ${StyledIcon} {
     top: -2px;
   }
 
   ${({ buttonIconSize }) => buttonIconSize === 'large' && css`
     margin-right: 0;
     
-    .carbon-icon {
+    ${StyledIcon} {
       margin-right: 0;
       margin-bottom: 8px;
     }
 
-    .carbon-icon::before {
+    ${StyledIcon}::before {
       font-size: ${`${iconFontSizes.modern[`${buttonIconSize}Icon`]}px`};
       line-height: ${`${iconFontSizes.modern[`${buttonIconSize}Icon`]}px`};
     }
@@ -95,7 +96,7 @@ const StyledButtonToggleIcon = styled.div`
   ${({ theme, buttonIconSize }) => theme.name === THEMES.classic && css`
     margin-right: ${buttonIconSize === 'large' ? '0' : '3px'};
   
-    .carbon-icon::before {
+    ${StyledIcon}::before {
       font-size: ${`${iconFontSizes.classic[`${buttonIconSize}Icon`]}px`};
       line-height: ${`${iconFontSizes.classic[`${buttonIconSize}Icon`]}px`};
     }

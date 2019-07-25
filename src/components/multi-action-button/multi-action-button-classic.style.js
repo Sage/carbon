@@ -3,6 +3,7 @@ import { THEMES } from '../../style/themes';
 import StyledSplitButton from '../split-button/split-button.style';
 import StyledButton from '../button/button.style';
 import StyledSplitButtonChildrenContainer from '../split-button/split-button-children.style';
+import { StyledIcon } from '../icon/icon.style';
 
 const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (theme.name === THEMES.classic ? css`
   ${StyledSplitButton} > ${StyledButton},
@@ -23,10 +24,8 @@ const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (t
     }
   `}
 
-  .carbon-icon {
-    &.icon-dropdown {
-      margin-right: 0;
-    }
+  ${StyledIcon} {
+    margin-right: 0;
   }
 
   ${StyledSplitButtonChildrenContainer} {
@@ -68,7 +67,7 @@ const getMultiActionButtonClassicStyles = ({ disabled, displayed, theme }) => (t
         color: #335c6d;
       }
 
-      .carbon-icon {
+      ${StyledIcon} {
         color: #335c6d;
       }
     }
