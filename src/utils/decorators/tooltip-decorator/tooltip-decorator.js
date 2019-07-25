@@ -123,19 +123,11 @@ const TooltipDecorator = (ComposedComponent) => {
     }
 
     componentWillReceiveProps(nextProps) {
-      let newState = {};
-
       if (super.componentWillReceiveProps) { super.componentWillReceiveProps(nextProps); }
 
       if (nextProps.tooltipPosition !== this.props.tooltipPosition) {
-        newState = { tooltipPosition: '', tooltipAlign: '' };
+        this.setState({ tooltipPosition: '', tooltipAlign: '' });
       }
-
-      if (this.isVisible()) {
-        newState = { ...newState, isVisible: false };
-      }
-
-      this.setState(newState);
     }
 
     state = {
@@ -149,7 +141,10 @@ const TooltipDecorator = (ComposedComponent) => {
     }
 
     onShow = () => {
+      clearTimeout(this._showTooltipTimeout);
       clearTimeout(this._hideTooltipTimeout);
+
+      if (this.state.isVisible) return;
 
       this._showTooltipTimeout = setTimeout(() => {
         this.setState({ isVisible: true });
@@ -159,6 +154,9 @@ const TooltipDecorator = (ComposedComponent) => {
 
     onHide = () => {
       clearTimeout(this._showTooltipTimeout);
+      clearTimeout(this._hideTooltipTimeout);
+
+      if (!this.state.isVisible) return;
 
       this._hideTooltipTimeout = setTimeout(() => {
         this.setState({ isVisible: false });

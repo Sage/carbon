@@ -97,7 +97,13 @@ Textbox.propTypes = {
 
   childOfForm: PropTypes.bool,
 
-  isOptional: PropTypes.bool
+  isOptional: PropTypes.bool,
+  /** Status of error validations */
+  hasError: PropTypes.bool,
+  /** Status of warnings */
+  hasWarning: PropTypes.bool,
+  /** Status of info */
+  hasInfo: PropTypes.bool
 };
 
 Textbox.defaultProps = {
