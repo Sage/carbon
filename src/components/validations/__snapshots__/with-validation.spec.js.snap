@@ -34,17 +34,14 @@ exports[`when the withValidations HOC wraps a component when the component rende
   hasInfo={true}
   hasWarning={true}
   info={Array []}
+  inputIcon="error"
   name="foo"
   onBlur={[Function]}
   onChange={[Function]}
+  tooltipMessage="mock message"
   validations={Array []}
   warnings={Array []}
->
-  <WithTheme(ValidationIcon)
-    message="mock message"
-    type="error"
-  />
-</MockComponent>
+/>
 `;
 
 exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns an Icon with info type when the state has info and no warning or validations 1`] = `
@@ -53,17 +50,14 @@ exports[`when the withValidations HOC wraps a component when the component rende
   hasInfo={true}
   hasWarning={false}
   info={Array []}
+  inputIcon="info"
   name="foo"
   onBlur={[Function]}
   onChange={[Function]}
+  tooltipMessage="mock message"
   validations={Array []}
   warnings={Array []}
->
-  <WithTheme(ValidationIcon)
-    message="mock message"
-    type="info"
-  />
-</MockComponent>
+/>
 `;
 
 exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns an Icon with warning type when the state has warning and no validations 1`] = `
@@ -72,17 +66,14 @@ exports[`when the withValidations HOC wraps a component when the component rende
   hasInfo={true}
   hasWarning={true}
   info={Array []}
+  inputIcon="warning"
   name="foo"
   onBlur={[Function]}
   onChange={[Function]}
+  tooltipMessage="mock message"
   validations={Array []}
   warnings={Array []}
->
-  <WithTheme(ValidationIcon)
-    message="mock message"
-    type="warning"
-  />
-</MockComponent>
+/>
 `;
 
 exports[`when the withValidations HOC wraps a component when the component renders the validation icon returns the Icon when the component has an array of children 1`] = `
@@ -91,9 +82,11 @@ exports[`when the withValidations HOC wraps a component when the component rende
   hasInfo={true}
   hasWarning={true}
   info={Array []}
+  inputIcon="error"
   name="foo"
   onBlur={[Function]}
   onChange={[Function]}
+  tooltipMessage="mock message"
   validations={Array []}
   warnings={Array []}
 >
@@ -103,10 +96,6 @@ exports[`when the withValidations HOC wraps a component when the component rende
   foo
   <div
     key="div2"
-  />
-  <WithTheme(ValidationIcon)
-    message="mock message"
-    type="error"
   />
 </MockComponent>
 `;

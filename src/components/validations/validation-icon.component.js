@@ -8,7 +8,7 @@ import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
 
-const ValidationIcon = ({ theme, type, message }) => {
+const ValidationIcon = ({ theme, type, tooltipMessage }) => {
   let tooltipPositionProps = {
     tooltipPosition: 'right',
     tooltipAlign: 'center'
@@ -26,7 +26,7 @@ const ValidationIcon = ({ theme, type, message }) => {
             <Icon
               key={ `${type}-icon` }
               tooltipType={ type }
-              tooltipMessage={ message }
+              tooltipMessage={ tooltipMessage }
               tooltipVisible={ context && (context.hasFocus || context.hasMouseOver) }
               type={ type }
               { ...tooltipPositionProps }
@@ -40,7 +40,7 @@ const ValidationIcon = ({ theme, type, message }) => {
 
 ValidationIcon.propTypes = {
   type: PropTypes.oneOf(OptionsHelper.validationTypes),
-  message: PropTypes.string,
+  tooltipMessage: PropTypes.string,
   theme: PropTypes.object
 };
 
