@@ -1,13 +1,11 @@
 import { select, selectInput, selectPill } from '../../locators/select';
 
 Then('Select typeAhead is disabled', () => {
-  select()
-    .should('have.attr', 'placeholder', 'Please Select...');
+  select().should('have.attr', 'placeholder', 'Please Select...');
 });
 
 Then('Select typeAhead is enabled', () => {
-  select()
-    .should('have.attr', 'placeholder', 'Type to Search...');
+  select().should('have.attr', 'placeholder', 'Type to Search...');
 });
 
 When('Type {string} text into input', (text) => {
@@ -23,8 +21,7 @@ Then('Select multiple input {int} element and has {string} value', (index, text)
 });
 
 Then('Select placeholder on preview is set to {string}', (text) => {
-  select()
-    .should('have.attr', 'placeholder', text);
+  select().should('have.attr', 'placeholder', text);
 });
 
 Then('Select size on preview is set to {string}', (size) => {
@@ -53,9 +50,7 @@ Then('Select is disabled', () => {
 });
 
 Then('Select is enabled', () => {
-  select()
-    .should('not.be.disabled')
-    .and('not.have.attr', 'disabled');
+  select().should('not.be.disabled').and('not.have.attr', 'disabled');
 });
 
 Then('Select is readOnly', () => {
