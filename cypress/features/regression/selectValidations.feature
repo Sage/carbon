@@ -5,26 +5,14 @@ Feature: Select validations component
     Given I open "Experimental Select" component page validations
 
   @positive
-  Scenario: Verify the info validation of Select component
-    Given Type "Brown" text into input and select the value
+  Scenario Outline: Verify the <state> validation of Select component
+    Given Type "<keyWord>" text into input and select the value
       And I click outside of the component
     When I hover mouse onto icon
-    Then tooltipPreview on preview is set to 'You have selected "Brown"'
-      And icon on preview is "info"
-      
-
-  @positive
-  Scenario: Verify the warning validation of Select component
-    Given Type "Blue" text into input and select the value
-      And I click outside of the component
-    When I hover mouse onto icon
-    Then tooltipPreview on preview is set to 'Selecting "Blue" is not recommended'
-      And icon on preview is "warning"
-
-  @positive
-  Scenario: Verify the error validation of Select component
-    Given Type "Black" text into input and select the value
-      And I click outside of the component
-    When I hover mouse onto icon
-    Then tooltipPreview on preview is set to '"Black" cannot be selected!'
-      And icon on preview is "error"
+    Then tooltipPreview on preview is set to '<text>'
+      And icon on preview is "<state>"
+      Examples:
+      | state    | keyWord | text                                 |
+      | info     | Brown   | You have selected "Brown"            |
+      | warning  | Blue    | Selecting "Blue" is not recommended  |
+      | error    | Black   | "Black" cannot be selected!          |
