@@ -6,6 +6,7 @@ import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import CharacterCount from './character-count';
 import Textarea from '.';
 import baseTheme from '../../../style/themes/base';
+import ValidationIcon from '../../../components/validations/validation-icon.component';
 
 describe('Textarea', () => {
   let wrapper;
@@ -30,6 +31,14 @@ describe('Textarea', () => {
 
     afterAll(() => {
       wrapper.unmount();
+    });
+  });
+
+  describe.each(['hasError', 'hasWarning', 'hasInfo'])('when %s validation prop is true', (validationProp) => {
+    it('renders a validation icon', () => {
+      wrapper = renderTextarea({ children: 'mock content', [validationProp]: true });
+      const validationIcon = wrapper.find(ValidationIcon);
+      expect(validationIcon.exists()).toBe(true);
     });
   });
 

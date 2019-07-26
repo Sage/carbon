@@ -38,6 +38,18 @@ exports[`Textarea when rendered should render default 1`] = `
   display: none!important;
 }
 
+.c5 .c3 {
+  height: calc(40px - 4px);
+}
+
+.c6 .c3 {
+  height: calc(40px - 4px);
+}
+
+.c7 .c3 {
+  height: calc(40px - 4px);
+}
+
 .c1 {
   display: block;
 }

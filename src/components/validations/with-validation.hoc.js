@@ -174,18 +174,18 @@ const withValidation = (WrappedComponent) => {
 
       if (errorMessage) {
         validationIconProps = {
-          type: 'error',
-          message: errorMessage
+          inputIcon: 'error',
+          tooltipMessage: errorMessage
         };
       } else if (warningMessage) {
         validationIconProps = {
-          type: 'warning',
-          message: warningMessage
+          inputIcon: 'warning',
+          tooltipMessage: warningMessage
         };
       } else if (infoMessage) {
         validationIconProps = {
-          type: 'info',
-          message: infoMessage
+          inputIcon: 'info',
+          tooltipMessage: infoMessage
         };
       }
 
@@ -251,9 +251,9 @@ const withValidation = (WrappedComponent) => {
           { ...this.props }
           onBlur={ this.handleBlur }
           onChange={ this.handleChange }
+          { ...this.getValidationIconProps() }
         >
           { this.props.children }
-          { this.renderValidationMarkup() }
         </WrappedComponent>
       );
     }

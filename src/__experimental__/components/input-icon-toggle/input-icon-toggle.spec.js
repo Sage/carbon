@@ -4,7 +4,7 @@ import { shallow } from 'enzyme';
 import 'jest-styled-components';
 import Icon from 'components/icon';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-
+import ValidationIcon from '../../../components/validations/validation-icon.component';
 import InputIconToggle from './input-icon-toggle.component';
 
 function render(props, renderer = shallow) {
@@ -35,6 +35,14 @@ describe('InputIconToggle', () => {
   describe('when initiated with children', () => {
     it('renders as expected', () => {
       expect(render({ children: 'mock content' }, TestRenderer.create)).toMatchSnapshot();
+    });
+  });
+
+  describe.each(['hasError', 'hasWarning', 'hasInfo'])('when %s validation prop is true', (validationProp) => {
+    it('renders a validation icon', () => {
+      const wrapper = render({ children: 'mock content', [validationProp]: true });
+      const validationIcon = wrapper.find(ValidationIcon);
+      expect(validationIcon.exists()).toBe(true);
     });
   });
 
