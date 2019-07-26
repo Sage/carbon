@@ -3,13 +3,14 @@ import '../../style/fonts/fonts.css';
 import classicConfig from './icon-classic-config';
 import iconUnicodes from './icon-unicodes';
 import classicIconStyles from './icon-classic.style';
+import baseTheme from '../../style/themes/base';
 
 const StyledIcon = styled.span`
   display: inline-block;
   position: relative;
   color: ${({ theme }) => theme.colors.primary};
 
-    ${({ hasShape, bgSize }) => hasShape
+    ${({ bgTheme, bgSize }) => (bgSize || bgTheme)
       && css`
         align-items: center;
         display: inline-flex;
@@ -48,6 +49,10 @@ const StyledIcon = styled.span`
 
     ${classicIconStyles}
 `;
+
+StyledIcon.defaultProps = {
+  theme: baseTheme
+};
 
 const StyledSvgIcon = styled.span`
   display: inline-block;

@@ -67,14 +67,13 @@ const Icon = TooltipDecorator(
     render() {
       return [
         <StyledIcon
-          hasShape={ this.props.bgShape || this.props.bgTheme }
           bgSize={ this.props.bgSize }
           bgShape={ this.props.bgShape }
           bgTheme={ this.props.bgTheme }
           isFont={ !this.renderIcon }
           type={ this.type }
           key='icon'
-          className={ this.props.className ? `${this.props.className} carbon-icon` : 'carbon-icon' }
+          className={ this.props.className || null }
           { ...this.componentProps }
           { ...tagComponent('icon', this.props) }
           ref={ (comp) => {

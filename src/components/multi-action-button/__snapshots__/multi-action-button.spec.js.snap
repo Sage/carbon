@@ -4,6 +4,21 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 .c5 {
   display: inline-block;
   position: relative;
+  color: #26A826;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
 }
 
 .c5::before {
@@ -134,7 +149,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
         >
           Test
           <span
-            className="carbon-icon c4 c5"
+            className="c4 c5"
             data-component="icon"
             data-element="dropdown"
             type="dropdown"
@@ -150,6 +165,22 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 .c6 {
   display: inline-block;
   position: relative;
+  color: #00805D;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+  color: rgba(0,0,0,.85);
 }
 
 .c6::before {
@@ -408,7 +439,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
         >
           Test
           <span
-            className="carbon-icon c5 c6"
+            className="c5 c6"
             data-component="icon"
             data-element="dropdown"
             type="dropdown"

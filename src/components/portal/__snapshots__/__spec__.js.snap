@@ -14,7 +14,7 @@ exports[`Portal when using default node to match snapshot  1`] = `
           data-portal-exit="guid-12345"
         >
           <span
-            class="carbon-icon sc-bxivhb gOupLA"
+            class="sc-bxivhb giNwGU"
             data-component="icon"
             data-element="tick"
             type="tick"
@@ -31,7 +31,7 @@ exports[`Portal when using default node to match snapshot  1`] = `
       >
         <styled.span
           bgSize="small"
-          className="carbon-icon"
+          className={null}
           data-component="icon"
           data-element="tick"
           isFont={true}
@@ -41,25 +41,216 @@ exports[`Portal when using default node to match snapshot  1`] = `
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           onTouchEnd={[Function]}
+          theme={
+            Object {
+              "colors": Object {
+                "base": "#00A376",
+                "black": "#000000",
+                "border": "#668491",
+                "brand": "#00DC00",
+                "destructive": Object {
+                  "hover": "#9F2C3F",
+                },
+                "disabled": "#66C166",
+                "error": "#C7384F",
+                "focus": "#FFB500",
+                "focusedIcon": "#335B6D",
+                "focusedLinkBackground": "#FFDA7F",
+                "hoveredTabKeyline": "#4CB74C",
+                "info": "#0073C2",
+                "previewBackground": "#BFCCD1",
+                "primary": "#26A826",
+                "secondary": "#006300",
+                "slate": "#003349",
+                "success": "#00B000",
+                "tertiary": "#004400",
+                "warning": "#E96400",
+                "white": "#FFFFFF",
+                "whiteMix": "#E5F4E5",
+                "withOpacity": "rgba(0,163,118,0.55)",
+              },
+              "disabled": Object {
+                "background": "#E5EAEC",
+                "border": "#CCD6DA",
+                "button": "#E5EAEC",
+                "buttonText": "rgba(0,0,0,.2)",
+                "disabled": "rgba(0,0,0,0.55)",
+                "input": "#F2F4F5",
+                "switch": "#E4E9EB",
+                "text": "rgba(0,0,0,0.3)",
+              },
+              "help": Object {
+                "color": "rgba(0,0,0,0.65)",
+                "hover": "rgba(0,0,0,0.9)",
+              },
+              "icon": Object {
+                "focus": "#335B6D",
+              },
+              "name": "base",
+              "pager": Object {
+                "active": "rgba(0,0,0,0.74)",
+                "disabled": "rgba(0,0,0,0.55)",
+                "hover": "rgba(0,0,0,0.90)",
+              },
+              "pill": Object {
+                "errorButtonFocus": "#9F2C3F",
+                "neutral": "#4C707F",
+                "neutralBackgroundFocus": "#19475B",
+                "warning": "#ED8333",
+                "warningButtonFocus": "#E96400",
+              },
+              "portrait": Object {
+                "background": "#F2F4F5",
+                "border": "#7F99A4",
+                "initials": "rgba(0,0,0,0.65)",
+              },
+              "rainbow": Object {
+                "textColor": "#003349",
+              },
+              "shadows": Object {
+                "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+              },
+              "switch": Object {
+                "off": "#CCD6DB",
+              },
+              "table": Object {
+                "header": "#335B6D",
+                "hover": "#E5EAEC",
+                "primary": "#F2F4F5",
+                "secondary": "#CCD6DA",
+                "selected": "#D8E0E3",
+                "tertiary": "#19475B",
+                "zebra": "#F9FAFB",
+              },
+              "text": Object {
+                "color": "rgba(0,0,0,0.9)",
+                "placeholder": "rgba(0,0,0,0.3)",
+                "size": "14px",
+              },
+            }
+          }
           type="tick"
         >
           <StyledComponent
             bgSize="small"
-            className="carbon-icon"
+            className={null}
             data-component="icon"
             data-element="tick"
             forwardedComponent={
               Object {
                 "$$typeof": Symbol(react.forward_ref),
+                "_foldedDefaultProps": Object {
+                  "theme": Object {
+                    "colors": Object {
+                      "base": "#00A376",
+                      "black": "#000000",
+                      "border": "#668491",
+                      "brand": "#00DC00",
+                      "destructive": Object {
+                        "hover": "#9F2C3F",
+                      },
+                      "disabled": "#66C166",
+                      "error": "#C7384F",
+                      "focus": "#FFB500",
+                      "focusedIcon": "#335B6D",
+                      "focusedLinkBackground": "#FFDA7F",
+                      "hoveredTabKeyline": "#4CB74C",
+                      "info": "#0073C2",
+                      "previewBackground": "#BFCCD1",
+                      "primary": "#26A826",
+                      "secondary": "#006300",
+                      "slate": "#003349",
+                      "success": "#00B000",
+                      "tertiary": "#004400",
+                      "warning": "#E96400",
+                      "white": "#FFFFFF",
+                      "whiteMix": "#E5F4E5",
+                      "withOpacity": "rgba(0,163,118,0.55)",
+                    },
+                    "disabled": Object {
+                      "background": "#E5EAEC",
+                      "border": "#CCD6DA",
+                      "button": "#E5EAEC",
+                      "buttonText": "rgba(0,0,0,.2)",
+                      "disabled": "rgba(0,0,0,0.55)",
+                      "input": "#F2F4F5",
+                      "switch": "#E4E9EB",
+                      "text": "rgba(0,0,0,0.3)",
+                    },
+                    "help": Object {
+                      "color": "rgba(0,0,0,0.65)",
+                      "hover": "rgba(0,0,0,0.9)",
+                    },
+                    "icon": Object {
+                      "focus": "#335B6D",
+                    },
+                    "name": "base",
+                    "pager": Object {
+                      "active": "rgba(0,0,0,0.74)",
+                      "disabled": "rgba(0,0,0,0.55)",
+                      "hover": "rgba(0,0,0,0.90)",
+                    },
+                    "pill": Object {
+                      "errorButtonFocus": "#9F2C3F",
+                      "neutral": "#4C707F",
+                      "neutralBackgroundFocus": "#19475B",
+                      "warning": "#ED8333",
+                      "warningButtonFocus": "#E96400",
+                    },
+                    "portrait": Object {
+                      "background": "#F2F4F5",
+                      "border": "#7F99A4",
+                      "initials": "rgba(0,0,0,0.65)",
+                    },
+                    "rainbow": Object {
+                      "textColor": "#003349",
+                    },
+                    "shadows": Object {
+                      "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                      "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                      "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                      "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                      "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                    },
+                    "switch": Object {
+                      "off": "#CCD6DB",
+                    },
+                    "table": Object {
+                      "header": "#335B6D",
+                      "hover": "#E5EAEC",
+                      "primary": "#F2F4F5",
+                      "secondary": "#CCD6DA",
+                      "selected": "#D8E0E3",
+                      "tertiary": "#19475B",
+                      "zebra": "#F9FAFB",
+                    },
+                    "text": Object {
+                      "color": "rgba(0,0,0,0.9)",
+                      "placeholder": "rgba(0,0,0,0.3)",
+                      "size": "14px",
+                    },
+                  },
+                },
                 "attrs": Array [],
                 "componentStyle": ComponentStyle {
                   "componentId": "sc-bxivhb",
                   "isStatic": false,
-                  "lastClassName": "gOupLA",
+                  "lastClassName": "giNwGU",
                   "rules": Array [
                     "
   display: inline-block;
   position: relative;
+  color: ",
+                    [Function],
+                    ";
+
+    ",
+                    [Function],
+                    "
 
     ",
                     [Function],
@@ -96,10 +287,102 @@ exports[`Portal when using default node to match snapshot  1`] = `
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             onTouchEnd={[Function]}
+            theme={
+              Object {
+                "colors": Object {
+                  "base": "#00A376",
+                  "black": "#000000",
+                  "border": "#668491",
+                  "brand": "#00DC00",
+                  "destructive": Object {
+                    "hover": "#9F2C3F",
+                  },
+                  "disabled": "#66C166",
+                  "error": "#C7384F",
+                  "focus": "#FFB500",
+                  "focusedIcon": "#335B6D",
+                  "focusedLinkBackground": "#FFDA7F",
+                  "hoveredTabKeyline": "#4CB74C",
+                  "info": "#0073C2",
+                  "previewBackground": "#BFCCD1",
+                  "primary": "#26A826",
+                  "secondary": "#006300",
+                  "slate": "#003349",
+                  "success": "#00B000",
+                  "tertiary": "#004400",
+                  "warning": "#E96400",
+                  "white": "#FFFFFF",
+                  "whiteMix": "#E5F4E5",
+                  "withOpacity": "rgba(0,163,118,0.55)",
+                },
+                "disabled": Object {
+                  "background": "#E5EAEC",
+                  "border": "#CCD6DA",
+                  "button": "#E5EAEC",
+                  "buttonText": "rgba(0,0,0,.2)",
+                  "disabled": "rgba(0,0,0,0.55)",
+                  "input": "#F2F4F5",
+                  "switch": "#E4E9EB",
+                  "text": "rgba(0,0,0,0.3)",
+                },
+                "help": Object {
+                  "color": "rgba(0,0,0,0.65)",
+                  "hover": "rgba(0,0,0,0.9)",
+                },
+                "icon": Object {
+                  "focus": "#335B6D",
+                },
+                "name": "base",
+                "pager": Object {
+                  "active": "rgba(0,0,0,0.74)",
+                  "disabled": "rgba(0,0,0,0.55)",
+                  "hover": "rgba(0,0,0,0.90)",
+                },
+                "pill": Object {
+                  "errorButtonFocus": "#9F2C3F",
+                  "neutral": "#4C707F",
+                  "neutralBackgroundFocus": "#19475B",
+                  "warning": "#ED8333",
+                  "warningButtonFocus": "#E96400",
+                },
+                "portrait": Object {
+                  "background": "#F2F4F5",
+                  "border": "#7F99A4",
+                  "initials": "rgba(0,0,0,0.65)",
+                },
+                "rainbow": Object {
+                  "textColor": "#003349",
+                },
+                "shadows": Object {
+                  "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
+                  "depth1": "0 5px 5px 0 rgba(0,20,29,0.2), 0 10px 10px 0 rgba(0,20,29,0.1)",
+                  "depth2": "0 10px 20px 0 rgba(0,20,29,0.2), 0 20px 40px 0 rgba(0,20,29,0.1)",
+                  "depth3": "0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)",
+                  "depth4": "0 10px 40px 0 rgba(0,20,29,0.04), 0 50px 80px 0 rgba(0,20,29,0.1)",
+                },
+                "switch": Object {
+                  "off": "#CCD6DB",
+                },
+                "table": Object {
+                  "header": "#335B6D",
+                  "hover": "#E5EAEC",
+                  "primary": "#F2F4F5",
+                  "secondary": "#CCD6DA",
+                  "selected": "#D8E0E3",
+                  "tertiary": "#19475B",
+                  "zebra": "#F9FAFB",
+                },
+                "text": Object {
+                  "color": "rgba(0,0,0,0.9)",
+                  "placeholder": "rgba(0,0,0,0.3)",
+                  "size": "14px",
+                },
+              }
+            }
             type="tick"
           >
             <span
-              className="carbon-icon sc-bxivhb gOupLA"
+              className="sc-bxivhb giNwGU"
               data-component="icon"
               data-element="tick"
               onBlur={[Function]}
@@ -117,4 +400,4 @@ exports[`Portal when using default node to match snapshot  1`] = `
 </Portal>
 `;
 
-exports[`Portal when using default node will mount correctly on document 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><span type=\\"tick\\" class=\\"carbon-icon sc-bxivhb gOupLA\\" data-component=\\"icon\\" data-element=\\"tick\\"></span></div>"`;
+exports[`Portal when using default node will mount correctly on document 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><span type=\\"tick\\" class=\\"sc-bxivhb giNwGU\\" data-component=\\"icon\\" data-element=\\"tick\\"></span></div>"`;

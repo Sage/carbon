@@ -4,6 +4,21 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c6 {
   display: inline-block;
   position: relative;
+  color: #26A826;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
 }
 
 .c6::before {
@@ -672,7 +687,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
     size="medium"
   >
     <span
-      className="carbon-icon c5 c6"
+      className="c5 c6"
       data-component="icon"
       data-element="dropdown"
       type="dropdown"
@@ -685,6 +700,22 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c6 {
   display: inline-block;
   position: relative;
+  color: #00805D;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 24px;
+  width: 24px;
+  color: rgba(0,0,0,.85);
 }
 
 .c6::before {
@@ -1452,7 +1483,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
     size="medium"
   >
     <span
-      className="carbon-icon c5 c6"
+      className="c5 c6"
       data-component="icon"
       data-element="dropdown"
       type="dropdown"
