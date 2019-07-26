@@ -2,10 +2,12 @@ import styled, { css } from 'styled-components';
 import '../../style/fonts/fonts.css';
 import classicConfig from './icon-classic-config';
 import iconUnicodes from './icon-unicodes';
+import classicIconStyles from './icon-classic.style';
 
 const StyledIcon = styled.span`
   display: inline-block;
   position: relative;
+  color: ${({ theme }) => theme.colors.primary};
 
     ${({ hasShape, bgSize }) => hasShape
       && css`
@@ -43,6 +45,8 @@ const StyledIcon = styled.span`
           vertical-align: middle;
         }
     `}
+
+    ${classicIconStyles}
 `;
 
 const StyledSvgIcon = styled.span`
