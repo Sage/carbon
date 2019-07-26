@@ -8,7 +8,7 @@ import Icon from '.';
 storiesOf('Icon', module)
   .add('default', () => {
     const type = select('type', OptionsHelper.icons, 'add');
-    const bgTheme = select('bgTheme', OptionsHelper.colors, 'default');
+    const bgTheme = select('bgTheme', [...OptionsHelper.colors, 'none'], 'none');
     const bgSize = select(
       'bgSize',
       OptionsHelper.sizesRestricted,
