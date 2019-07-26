@@ -20,46 +20,6 @@ const CarouselNextButtonWrapperStyle = styled(CarouselNavigationStyle)`
   right: 0;
 `;
 
-const CarouselButtonStyle = styled.button`
-  border: none;
-  width: 40px;
-  height: 64px;
-  background: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.white};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.secondary};
-    cursor: pointer;
-  }
-
-  &:active {
-    border: none;
-  }
-
-  &:focus {
-    outline: none;
-    border: 2px solid ${({ theme }) => theme.colors.focus};
-  }
-
-  ${({ theme }) => isClassic(theme) && css`
-    width: 45px; 
-    height: 45px;
-    background-color: #CCD6DA;
-    color: rgba(0,0,0, 0.85);
-
-    :hover{
-      background-color: #99ADB6;
-      color: #255BC7;
-      cursor: default;
-    }
-
-      &:focus {
-        outline: none;
-        border: none;
-      }
-  `}
-`;
-
 const CarouselStyledIcon = styled(Icon)`
   cursor: pointer;
   display: inline-block;
@@ -81,6 +41,66 @@ const CarouselStyledIconLeft = styled(CarouselStyledIcon)`
 
 const CarouselStyledIconRight = styled(CarouselStyledIcon)`
   transform: rotate(-90deg);
+`;
+
+const CarouselButtonStyle = styled.button`
+  border: none;
+  width: 40px;
+  height: 64px;
+  background: ${({ theme }) => theme.colors.primary};
+  color: ${({ theme }) => theme.colors.white};
+  opacity: ${({ disabled }) => (disabled ? '0.1' : '1')};
+
+  &:hover {
+    background-color: ${({ theme }) => theme.colors.secondary};
+    cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
+
+
+
+    ${({ disabled }) => disabled && css`
+      background-color: ${({ theme }) => theme.colors.primary};
+      cursor: default;
+
+      ${CarouselStyledIcon}{
+        cursor: default;
+      }
+    `}
+  }
+
+  &:active {
+    border: none;
+  }
+
+  &:focus {
+    outline: none;
+    border: 2px solid ${({ theme }) => theme.colors.focus};
+      
+    ::-moz-focus-inner{
+      border: 0;
+    }
+
+    ${({ disabled }) => disabled && css`
+      border: none;
+    `}
+  }
+
+  ${({ theme }) => isClassic(theme) && css`
+    width: 45px; 
+    height: 45px;
+    background-color: #CCD6DA;
+    color: rgba(0,0,0, 0.85);
+
+    :hover{
+      background-color: #99ADB6;
+      color: #255BC7;
+      cursor: default;
+    }
+
+      &:focus {
+        outline: none;
+        border: none;
+      }
+  `}
 `;
 
 const CarouselSelectorInputStyle = styled.input`
@@ -109,7 +129,7 @@ const CarouselSelectorLabelStyle = styled.label`
 
 const CarouselSelectorWrapperStyle = styled.div`
   height: 20px;
-  margin-top: 5px;
+  margin-top: ${({ theme }) => (isClassic(theme) ? '5px' : '25px')};
   text-align: center;
 
     ${CarouselSelectorInputStyle}:checked {
@@ -138,12 +158,14 @@ const CarouselSelectorInputWrapperStyle = styled.span`
   `}
 `;
 
+// ---------- <DLS> ------------
 const CarouselSliderWrapper = styled.div`
 transition: .4s;
 display: flex;
 position: relative;
 left: ${({ elementIndex }) => 10 - (80 * elementIndex)}%;
 `;
+// --------- </DLS> -----------
 
 const CarouselWrapperStyle = styled.div`
   .carbon-carousel__content {
@@ -151,8 +173,8 @@ const CarouselWrapperStyle = styled.div`
     position: relative;
 }
 
-  /* ${slideAnimation}; */
-  /* ${fadeAnimation}; */
+  ${slideAnimation};
+  ${fadeAnimation};
 `;
 
 CarouselNavigationStyle.defaultProps = {
