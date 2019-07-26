@@ -173,7 +173,8 @@ const StyledIcon = styled.span`
         background-color: ${iconBackgroundColors[bgTheme]};
       `}
 
-    ${({ isFont, type }) => isFont && css`
+    ${({ isFont, type }) => isFont
+      && css`
         &::before {
           -webkit-font-smoothing: antialiased;
           -moz-osx-font-smoothing: grayscale;
@@ -198,6 +199,5 @@ const StyledSvgIcon = styled.span`
     fill: currentColor;
   }
 `;
-
 
 export { StyledIcon, StyledSvgIcon };
