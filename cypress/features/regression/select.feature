@@ -41,7 +41,6 @@ Feature: Select component
       | ÄÖÜßäöüß                 |
       | <>                       |
   
-
   @positive
   Scenario: Disable Select
     When I check disabled checkbox
@@ -61,7 +60,7 @@ Feature: Select component
   @positive
   Scenario: Select is not readOnly
     Given I check readOnly checkbox
-      And I uncheck readOnly checkbox
+    When I uncheck readOnly checkbox
     Then Select is not readOnly
 
   @positive
