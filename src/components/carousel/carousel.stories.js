@@ -51,14 +51,14 @@ storiesOf('Carousel', module)
         enableNextButton={ enableNextButton }
         transition={ transition }
       >
-        <Slide style={ { textAlign: 'center', width: '300px' } }>
+        <Slide style={ { textAlign: 'center' } }>
           <ExampleCustomElement style={ { backgroundColor: '#003349' } }>
             <h1 style={ { textAlign: 'center', color: '#090' } }>Slide 1</h1>
           </ExampleCustomElement>
         </Slide>
         <Slide onClick={ () => console.log('test') }>
-          <ExampleCustomElement>
-            <h1 style={ { textAlign: 'center', color: '#000' } }>Full clickable slide</h1>
+          <ExampleCustomElement style={ { backgroundColor: '#a85a00' } }>
+            <h1 style={ { textAlign: 'center', color: '#fff' } }>Full clickable slide</h1>
           </ExampleCustomElement>
         </Slide>
         <Slide>

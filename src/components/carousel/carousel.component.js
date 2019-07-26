@@ -119,7 +119,12 @@ class Carousel extends React.Component {
 
   /** Handle the slide change to the newIndex */
   handleSlideChange(newIndex) {
-    this.setState({ disabled: true, selectedSlideIndex: newIndex });
+    if (isClassic(this.props.theme)) {
+      this.setState({ disabled: true, selectedSlideIndex: newIndex });
+    } else {
+      this.setState({ selectedSlideIndex: newIndex });
+    }
+
     this.enableButtonsAfterTimeout();
 
     if (this.props.onSlideChange) {
@@ -129,9 +134,11 @@ class Carousel extends React.Component {
 
   /** Re-enables the next and previous buttons after timeout */
   enableButtonsAfterTimeout() {
-    setTimeout(() => {
-      this.setState({ disabled: false });
-    }, TRANSITION_TIME);
+    if (isClassic(this.props.theme)) {
+      setTimeout(() => {
+        this.setState({ disabled: false });
+      }, TRANSITION_TIME);
+    }
   }
 
   /** Gets the props for the previous button */
@@ -179,10 +186,10 @@ class Carousel extends React.Component {
   }
 
   visibleSlides() {
-    const index = this.state.selectedSlideIndex;
-
     const arrayWithKeys = this.props.children.map((element, key) => {
-      return React.cloneElement(element, { id: key, selectedIndex: this.state.selectedSlideIndex, ...element.props });
+      return React.cloneElement(element, {
+        key: `slide-${key}`, id: key, selectedIndex: this.state.selectedSlideIndex, ...element.props
+      });
     });
 
     return arrayWithKeys;
@@ -228,6 +235,7 @@ class Carousel extends React.Component {
   /** Renders the previous button */
   previousButton() {
     if (!this.props.enablePreviousButton) { return null; }
+    const isDisabled = this.state.selectedSlideIndex === 0;
 
     return (
       <CarouselPreviousButtonWrapperStyle>
@@ -235,6 +243,7 @@ class Carousel extends React.Component {
           { ...this.previousButtonProps() }
           data-element='previous'
           type='button'
+          disabled={ isClassic(this.props.theme) ? null : isDisabled }
         >
           <CarouselStyledIconLeft type={ isClassic(this.props.theme) ? 'dropdown' : 'chevron_down' } />
         </CarouselButtonStyle>
@@ -245,6 +254,8 @@ class Carousel extends React.Component {
   /** Renders the next button */
   nextButton() {
     if (!this.props.enableNextButton) { return null; }
+    const numberOfChildren = this.props.children.length;
+    const isDisabled = numberOfChildren === this.state.selectedSlideIndex + 1;
 
     return (
       <CarouselNextButtonWrapperStyle>
@@ -252,6 +263,7 @@ class Carousel extends React.Component {
           { ...this.nextButtonProps() }
           data-element='next'
           type='button'
+          disabled={ isClassic(this.props.theme) ? null : isDisabled }
         >
           <CarouselStyledIconRight type={ isClassic(this.props.theme) ? 'dropdown' : 'chevron_down' } />
         </CarouselButtonStyle>
