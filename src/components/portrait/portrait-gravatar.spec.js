@@ -19,7 +19,7 @@ describe('PortraitGravatar', () => {
       const base = 'https://www.gravatar.com/avatar/';
       const hash = MD5(email);
       const dimensions = 56;
-      expect(src).toEqual(`${base}${hash}?s=${dimensions}&d=blank`);
+      expect(src).toEqual(`${base}${hash}?s=${dimensions}&d=404`);
     });
   });
 });
