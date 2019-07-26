@@ -10,7 +10,7 @@ import 'jest-styled-components';
 describe('ValidationIcon', () => {
   it('renders with an icon for the given type', () => {
     const wrapper = mount(<ValidationIcon type='error' />).find('div');
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.props().type).toEqual('error');
   });
 
   it('renders with an icon with classic styling', () => {
