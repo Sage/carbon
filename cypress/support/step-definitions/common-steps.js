@@ -38,6 +38,10 @@ Given('I open {string} component with button page in iframe', (component) => {
   visitComponentUrl(component, 'with_button', true);
 });
 
+Given('I open {string} component page multiple', (component) => {
+  visitComponentUrl(component, 'multiple');
+});
+
 When('I set {word} to {string}', (propertyName, text) => {
   getKnobsInput(propertyName).clear().type(text);
 });
