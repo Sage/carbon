@@ -1,7 +1,7 @@
-Feature: Select component
-  I want to change Select component properties
+Feature: Select multiple component
+  I want to change Select multiple component properties
 
-  Background: Open Select component page
+  Background: Open Select multiple component page
     Given I open "Experimental Select" component page multiple
 
   @positive
