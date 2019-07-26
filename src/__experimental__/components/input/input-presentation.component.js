@@ -49,9 +49,9 @@ class InputPresentation extends React.Component {
     setTimeout(() => this.input.current.focus());
   }
 
-  handleMouseOver = () => this.setState({ hasMouseOver: true });
+  handleMouseEnter = () => this.setState({ hasMouseOver: true });
 
-  handleMouseOut = () => this.setState({ hasMouseOver: false });
+  handleMouseLeave = () => this.setState({ hasMouseOver: false });
 
   render() {
     const { children, ...props } = this.props;
@@ -64,8 +64,8 @@ class InputPresentation extends React.Component {
         role='presentation'
         ref={ this.container }
         onMouseDown={ this.handleMouseDown }
-        onMouseOver={ this.handleMouseOver }
-        onMouseOut={ this.handleMouseOut }
+        onMouseEnter={ this.handleMouseEnter }
+        onMouseLeave={ this.handleMouseLeave }
         { ...filteredProps }
       >
         <InputPresentationContext.Provider value={ this.contextForInput() }>

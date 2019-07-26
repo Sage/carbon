@@ -129,16 +129,16 @@ describe('InputPresentation', () => {
       expect(context.hasMouseOver).toEqual(false);
     });
 
-    it('enables hasMouseOver on mouse over', () => {
+    it('enables hasMouseOver on mouse enter', () => {
       expect(context.hasMouseOver).toEqual(false);
-      wrapper.find(InputPresentationStyle).simulate('mouseover');
+      wrapper.find(InputPresentationStyle).simulate('mouseenter');
       context = getContext(wrapper);
       expect(context.hasMouseOver).toEqual(true);
     });
 
-    it('disables hasMouseOver on mouse out', () => {
+    it('disables hasMouseOver on mouse leave', () => {
       expect(context.hasMouseOver).toEqual(true);
-      wrapper.find(InputPresentationStyle).simulate('mouseout');
+      wrapper.find(InputPresentationStyle).simulate('mouseleave');
       context = getContext(wrapper);
       expect(context.hasMouseOver).toEqual(false);
     });
