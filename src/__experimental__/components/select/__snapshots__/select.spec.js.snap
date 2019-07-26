@@ -75,7 +75,24 @@ Object {
   "onMouseLeave": [Function],
   "onSelect": [Function],
   "open": true,
-  "target": .c3 {
+  "target": .c4 {
+  display: inline-block;
+  position: relative;
+}
+
+.c4::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e910";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+}
+
+.c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -127,7 +144,7 @@ Object {
   box-shadow: none;
 }
 
-.c4 .c1 {
+.c5 .c1 {
   height: calc(40px - 4px);
 }
 
@@ -165,7 +182,7 @@ Object {
   z-index: 2;
 }
 
-.c5 .c0.c0 {
+.c6 .c0.c0 {
   position: relative;
 }
 
@@ -203,9 +220,10 @@ Object {
       type="dropdown"
     >
       <span
-        class="carbon-icon icon-dropdown"
+        class="carbon-icon c4"
         data-component="icon"
         data-element="dropdown"
+        type="dropdown"
       />
     </span>
   </div>,

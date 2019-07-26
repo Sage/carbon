@@ -14,9 +14,10 @@ exports[`Portal when using default node to match snapshot  1`] = `
           data-portal-exit="guid-12345"
         >
           <span
-            class="carbon-icon icon-tick"
+            class="carbon-icon sc-bxivhb gOupLA"
             data-component="icon"
             data-element="tick"
+            type="tick"
           />
         </div>
       }
@@ -28,21 +29,92 @@ exports[`Portal when using default node to match snapshot  1`] = `
         tooltipPosition="top"
         type="tick"
       >
-        <span
-          className="carbon-icon icon-tick"
+        <styled.span
+          bgSize="small"
+          className="carbon-icon"
           data-component="icon"
           data-element="tick"
+          isFont={true}
           key="icon"
           onBlur={[Function]}
           onFocus={[Function]}
           onMouseEnter={[Function]}
           onMouseLeave={[Function]}
           onTouchEnd={[Function]}
-        />
+          type="tick"
+        >
+          <StyledComponent
+            bgSize="small"
+            className="carbon-icon"
+            data-component="icon"
+            data-element="tick"
+            forwardedComponent={
+              Object {
+                "$$typeof": Symbol(react.forward_ref),
+                "attrs": Array [],
+                "componentStyle": ComponentStyle {
+                  "componentId": "sc-bxivhb",
+                  "isStatic": false,
+                  "lastClassName": "gOupLA",
+                  "rules": Array [
+                    "
+  display: inline-block;
+  position: relative;
+
+    ",
+                    [Function],
+                    "
+
+    ",
+                    [Function],
+                    "
+
+    ",
+                    [Function],
+                    "
+
+    ",
+                    [Function],
+                    "
+",
+                  ],
+                },
+                "displayName": "styled.span",
+                "foldedComponentIds": Array [],
+                "render": [Function],
+                "styledComponentId": "sc-bxivhb",
+                "target": "span",
+                "toString": [Function],
+                "warnTooManyClasses": [Function],
+                "withComponent": [Function],
+              }
+            }
+            forwardedRef={[Function]}
+            isFont={true}
+            onBlur={[Function]}
+            onFocus={[Function]}
+            onMouseEnter={[Function]}
+            onMouseLeave={[Function]}
+            onTouchEnd={[Function]}
+            type="tick"
+          >
+            <span
+              className="carbon-icon sc-bxivhb gOupLA"
+              data-component="icon"
+              data-element="tick"
+              onBlur={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseLeave={[Function]}
+              onTouchEnd={[Function]}
+              type="tick"
+            />
+          </StyledComponent>
+        </styled.span>
       </Icon>
     </Portal>
   </span>
 </Portal>
 `;
 
-exports[`Portal when using default node will mount correctly on document 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><span class=\\"carbon-icon icon-tick\\" data-component=\\"icon\\" data-element=\\"tick\\"></span></div>"`;
+exports[`Portal when using default node will mount correctly on document 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><span type=\\"tick\\" class=\\"carbon-icon sc-bxivhb gOupLA\\" data-component=\\"icon\\" data-element=\\"tick\\"></span></div>"`;

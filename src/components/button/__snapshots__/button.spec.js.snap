@@ -15,12 +15,39 @@ exports[`Button when no props other than children are passed into the component 
 `;
 
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon after children 1`] = `
-.c2 + .c0 {
+.c3 {
+  display: inline-block;
+  position: relative;
+}
+
+.c3::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e928";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+}
+
+.c4 + .c0 {
   margin-left: 15px;
 }
 
-.c3 + .c0 {
+.c4 .c2 {
+  margin-left: 8px;
+  margin-right: 0px;
+}
+
+.c5 + .c0 {
   margin-left: 16px;
+}
+
+.c5 .c2 {
+  margin-left: 0px;
+  margin-right: 8px;
 }
 
 .c1 {
@@ -74,7 +101,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   color: #FFFFFF;
 }
 
-.c1 .carbon-icon {
+.c1 .c2 {
   margin-left: 8px;
   margin-right: 0px;
 }
@@ -94,16 +121,39 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
     </span>
   </span>
   <span
-    className="carbon-icon icon-filter"
+    className="carbon-icon c2 c3"
     data-component="icon"
     data-element="filter"
+    type="filter"
   />
 </button>
 `;
 
 exports[`Button when only the "iconPosition" and "iconType" props are passed into the component renders the default props and children to match the snapshot with the Icon before children 1`] = `
-.c2 + .c0 {
+.c3 {
+  display: inline-block;
+  position: relative;
+}
+
+.c3::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e928";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+}
+
+.c4 + .c0 {
   margin-left: 15px;
+}
+
+.c4 .c2 {
+  margin-left: 8px;
+  margin-right: 0px;
 }
 
 .c1 {
@@ -157,7 +207,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   color: #FFFFFF;
 }
 
-.c1 .carbon-icon {
+.c1 .c2 {
   margin-left: 0px;
   margin-right: 8px;
 }
@@ -170,9 +220,10 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   size="medium"
 >
   <span
-    className="carbon-icon icon-filter"
+    className="carbon-icon c2 c3"
     data-component="icon"
     data-element="filter"
+    type="filter"
   />
   <span>
     <span
@@ -239,7 +290,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
-.c1 .carbon-icon {
+.c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
 }
@@ -374,7 +425,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
-.c1 .carbon-icon {
+.c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
 }
@@ -509,7 +560,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
-.c1 .carbon-icon {
+.c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
 }
@@ -644,7 +695,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
-.c1 .carbon-icon {
+.c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
 }
@@ -779,7 +830,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
-.c1 .carbon-icon {
+.c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
 }
@@ -914,7 +965,7 @@ exports[`Button when the classic theme is applied setting the color variant to "
   margin-left: 15px;
 }
 
-.c1 .carbon-icon {
+.c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
 }
@@ -1049,7 +1100,7 @@ exports[`Button when the color variant is set to "blue" matches the snapshot wit
   margin-left: 15px;
 }
 
-.c1 .carbon-icon {
+.c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
 }
@@ -1184,7 +1235,7 @@ exports[`Button when the color variant is set to "grey" matches the snapshot wit
   margin-left: 15px;
 }
 
-.c1 .carbon-icon {
+.c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
 }
@@ -1319,7 +1370,7 @@ exports[`Button when the color variant is set to "magenta" matches the snapshot 
   margin-left: 15px;
 }
 
-.c1 .carbon-icon {
+.c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
 }
@@ -1454,7 +1505,7 @@ exports[`Button when the color variant is set to "magenta-dull" matches the snap
   margin-left: 15px;
 }
 
-.c1 .carbon-icon {
+.c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
 }
@@ -1589,7 +1640,7 @@ exports[`Button when the color variant is set to "red" matches the snapshot with
   margin-left: 15px;
 }
 
-.c1 .carbon-icon {
+.c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
 }
@@ -1724,7 +1775,7 @@ exports[`Button when the color variant is set to "white" matches the snapshot wi
   margin-left: 15px;
 }
 
-.c1 .carbon-icon {
+.c1 .c19 {
   margin-left: 8px;
   margin-right: 0px;
 }

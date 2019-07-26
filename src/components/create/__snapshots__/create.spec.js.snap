@@ -1,11 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[` 1`] = `
-"
+Array [
+  "
     border: 1px dashed #99adb6;
     background-color: transparent;
     
-    .carbon-icon::before {
+    ",
+  ".sc-bxivhb",
+  "::before {
         font-size:16px;
     }
 
@@ -18,5 +21,6 @@ exports[` 1`] = `
         border: 1px dashed #99adb6;
         outline: -webkit-focus-ring-color auto 5px;
     }
-"
+",
+]
 `;

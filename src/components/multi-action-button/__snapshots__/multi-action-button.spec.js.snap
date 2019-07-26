@@ -1,6 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`MultiActionButton when rendered should match the snapshot 1`] = `
+.c5 {
+  display: inline-block;
+  position: relative;
+}
+
+.c5::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e910";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+}
+
 .c3 {
   -webkit-align-items: center;
   -webkit-box-align: center;
@@ -52,7 +69,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   color: #FFFFFF;
 }
 
-.c3 .carbon-icon {
+.c3 .c4 {
   margin-left: 0px;
   margin-right: 8px;
 }
@@ -72,7 +89,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   margin: -1px;
 }
 
-.c0 .c4 {
+.c0 .c6 {
   min-width: 100%;
   white-space: nowrap;
   left: 0;
@@ -80,7 +97,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   z-index: 12;
 }
 
-.c0 .carbon-icon.icon-dropdown {
+.c0 .c4 {
   margin-right: -4px;
   top: 0px;
 }
@@ -117,9 +134,10 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
         >
           Test
           <span
-            className="carbon-icon icon-dropdown"
+            className="carbon-icon c4 c5"
             data-component="icon"
             data-element="dropdown"
+            type="dropdown"
           />
         </span>
       </span>
@@ -129,8 +147,30 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 `;
 
 exports[`MultiActionButton when rendered with "classic" theme should match the snapshot 1`] = `
-.c5 + .c3 {
+.c6 {
+  display: inline-block;
+  position: relative;
+}
+
+.c6::before {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: CarbonIcons;
+  content: "\\e910";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+}
+
+.c7 + .c3 {
   margin-left: 16px;
+}
+
+.c7 .c5 {
+  margin-left: 0px;
+  margin-right: 8px;
 }
 
 .c4 {
@@ -194,16 +234,16 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   margin-left: 15px;
 }
 
-.c4 .carbon-icon {
+.c4 .c5 {
   margin-left: 0px;
   margin-right: 8px;
 }
 
-.c6 > .c3 {
+.c8 > .c3 {
   margin: 0;
 }
 
-.c6 > .c3:focus {
+.c8 > .c3:focus {
   border: 3px solid #FFB500;
   outline: none;
   margin: -1px;
@@ -229,7 +269,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   margin: 0;
 }
 
-.c7 .c3 {
+.c9 .c3 {
   background-color: #006300;
   border: 1px solid #006300;
   color: #FFFFFF;
@@ -242,35 +282,50 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   z-index: 10;
 }
 
-.c7 .c3:focus,
-.c7 .c3:hover {
+.c9 .c3:focus,
+.c9 .c3:hover {
   background-color: #004400;
 }
 
-.c7 .c3 + .c10 .c3 {
+.c9 .c3 + .c13 .c3 {
   margin-top: 3px;
 }
 
-.c8 .c1 > .c3 {
+.c10 .c5 {
+  margin-right: -4px;
+  top: 0px;
+}
+
+.c11 .c1 > .c3 {
   background-color: #006300;
   border-color: #006300;
 }
 
-.c8 .c1 > .c3,
-.c8 .c1 > .c3 .carbon-icon {
+.c11 .c1 > .c3,
+.c11 .c1 > .c3 .c5 {
   color: #FFFFFF;
 }
 
-.c8 .c1 > .c3:focus {
+.c11 .c1 > .c3:focus {
   border-color: #FFB500;
   margin: 0 -1px;
 }
 
-.c9 .c10 .c3 {
+.c11 .c5 {
+  margin-right: -4px;
+  top: 0px;
+}
+
+.c12 .c13 .c3 {
   text-align: right;
 }
 
-.c0 .c10 {
+.c12 .c5 {
+  margin-right: -4px;
+  top: 0px;
+}
+
+.c0 .c13 {
   min-width: 100%;
   white-space: nowrap;
   left: 0;
@@ -278,7 +333,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   z-index: 12;
 }
 
-.c0 .carbon-icon.icon-dropdown {
+.c0 .c5 {
   margin-right: -4px;
   top: 0px;
 }
@@ -294,11 +349,11 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   border-color: #1e499f;
 }
 
-.c0 .carbon-icon.icon-dropdown {
+.c0 .c5 {
   margin-right: 0;
 }
 
-.c0 .c10 {
+.c0 .c13 {
   max-width: none;
   width: auto;
   padding-top: 5px;
@@ -306,7 +361,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   z-index: 12;
 }
 
-.c0 .c10 .c3 {
+.c0 .c13 .c3 {
   border: none;
   border-radius: 0;
   color: #fff;
@@ -317,7 +372,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   padding-top: 5px;
 }
 
-.c0 .c10 .c3:hover {
+.c0 .c13 .c3:hover {
   background-color: #163777;
 }
 
@@ -353,9 +408,10 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
         >
           Test
           <span
-            className="carbon-icon icon-dropdown"
+            className="carbon-icon c5 c6"
             data-component="icon"
             data-element="dropdown"
+            type="dropdown"
           />
         </span>
       </span>
@@ -365,7 +421,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 `;
 
 exports[`StyledMultiActionButton when rendered with "classic" theme should match the snapshot for the legacy transparent type 1`] = `
-.c0 .c3 {
+.c0 .c4 {
   min-width: 100%;
   white-space: nowrap;
   left: 0;
@@ -373,27 +429,27 @@ exports[`StyledMultiActionButton when rendered with "classic" theme should match
   z-index: 12;
 }
 
-.c0 .carbon-icon.icon-dropdown {
+.c0 .c1 {
   margin-right: -4px;
   top: 0px;
 }
 
-.c0 .c2 > .c1,
-.c0 .c2 > .c1:focus {
+.c0 .c3 > .c2,
+.c0 .c3 > .c2:focus {
   margin: 0;
   height: 31px;
   padding: 7px 14px 7px 18px;
 }
 
-.c0 .c2 > .c1:focus {
+.c0 .c3 > .c2:focus {
   border-color: #1e499f;
 }
 
-.c0 .carbon-icon.icon-dropdown {
+.c0 .c1 {
   margin-right: 0;
 }
 
-.c0 .c3 {
+.c0 .c4 {
   max-width: none;
   width: auto;
   padding-top: 5px;
@@ -401,7 +457,7 @@ exports[`StyledMultiActionButton when rendered with "classic" theme should match
   z-index: 12;
 }
 
-.c0 .c3 .c1 {
+.c0 .c4 .c2 {
   border: none;
   border-radius: 0;
   color: #fff;
@@ -412,49 +468,49 @@ exports[`StyledMultiActionButton when rendered with "classic" theme should match
   padding-top: 5px;
 }
 
-.c0 .c3 .c1:hover {
+.c0 .c4 .c2:hover {
   background-color: #163777;
 }
 
-.c0 .c2 > .c1 {
+.c0 .c3 > .c2 {
   background-color: transparent;
   box-shadow: none;
   border: 1px solid transparent;
   color: #335c6d;
 }
 
-.c0 .c2 > .c1:hover,
-.c0 .c2 > .c1:active,
-.c0 .c2 > .c1:focus {
+.c0 .c3 > .c2:hover,
+.c0 .c3 > .c2:active,
+.c0 .c3 > .c2:focus {
   background-color: transparent;
   box-shadow: none;
   border-color: transparent;
   color: #335c6d;
 }
 
-.c0 .c2 > .c1 .carbon-icon {
+.c0 .c3 > .c2 .c1 {
   color: #335c6d;
 }
 
-.c0 .c3 {
+.c0 .c4 {
   background-color: #FFF;
   box-shadow: 0 3px 10px 0 rgba(0,0,0,0.2);
 }
 
-.c0 .c3 .c1 {
+.c0 .c4 .c2 {
   color: #335c6d;
   background: #FFF;
 }
 
-.c0 .c3 .c1:focus {
+.c0 .c4 .c2:focus {
   background-color: #FFF;
   color: #335c6d;
   box-shadow: none;
   outline: 0;
 }
 
-.c0 .c3 .c1:hover,
-.c0 .c3 .c1:active {
+.c0 .c4 .c2:hover,
+.c0 .c4 .c2:active {
   background-color: #e6ebed;
   color: #4782F7;
 }
