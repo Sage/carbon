@@ -46,10 +46,6 @@ exports[`Dialog when fixedBottom and stickyFormFooter are passed to the DialogSt
   color: #255BC7;
 }
 
-.c0 .carbon-dialog__close.carbon-icon {
-  position: absolute;
-}
-
 <div
   className="c0"
   open={true}
