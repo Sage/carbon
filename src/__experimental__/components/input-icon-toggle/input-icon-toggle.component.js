@@ -13,12 +13,12 @@ const InputIconToggle = ({
   if (disabled || readOnly) return null;
 
   if (hasFailedValidation(props)) {
-    return <ValidationIcon type={ props.type } tooltipMessage={ props.tooltipMessage } />;
+    return <ValidationIcon type={ props.inputIcon } tooltipMessage={ props.tooltipMessage } />;
   }
 
   return (
     <InputIconToggleStyle key='label-icon' { ...props }>
-      { children || <Icon type={ props.type } /> }
+      { children || <Icon type={ props.inputIcon } /> }
     </InputIconToggleStyle>
   );
 };
@@ -31,7 +31,7 @@ InputIconToggle.propTypes = {
   children: PropTypes.node, // can override the icon
   disabled: PropTypes.bool,
   readOnly: PropTypes.bool,
-  type: PropTypes.string,
+  inputIcon: PropTypes.string,
   tooltipMessage: PropTypes.string
 };
 

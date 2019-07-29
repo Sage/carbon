@@ -36,7 +36,7 @@ const Textbox = ({
           value={ visibleValue(value, formattedValue) }
         />
         { children }
-        { inputIcon && <InputIconToggle { ...props } type={ inputIcon } /> }
+        { inputIcon && <InputIconToggle { ...props } inputIcon={ inputIcon } /> }
       </InputPresentation>
     </FormField>
   );
