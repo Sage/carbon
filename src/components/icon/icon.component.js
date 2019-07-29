@@ -20,11 +20,14 @@ const Icon = TooltipDecorator(
       /** Background shape */
       bgShape: PropTypes.oneOf(OptionsHelper.shapes),
       /** Background color theme */
-      bgTheme: PropTypes.string
+      bgTheme: PropTypes.oneOf(...new Set([...OptionsHelper.colors, ...OptionsHelper.iconBackgrounds])),
+      /** Icon font size */
+      fontSize: PropTypes.oneOf(OptionsHelper.sizesBinary)
     };
 
     static defaultProps = {
-      bgSize: 'small'
+      bgSize: 'small',
+      fontSize: 'small'
     };
 
     /** Checks if we have an SVG available, otherwise will fall back to using the icon font. */
@@ -71,6 +74,7 @@ const Icon = TooltipDecorator(
           bgShape={ this.props.bgShape }
           bgTheme={ this.props.bgTheme }
           isFont={ !this.renderIcon }
+          fontSize={ this.props.fontSize }
           type={ this.type }
           key='icon'
           className={ this.props.className || null }

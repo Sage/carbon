@@ -17,7 +17,8 @@ const classicConfig = {
     maintenance: '#FF7D00',
     new: '#663399',
     success: '#50B848',
-    warning: '#FF7D00'
+    warning: '#FF7D00',
+    none: 'transparent'
   }
 };
 
