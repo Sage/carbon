@@ -4,7 +4,7 @@ import StyledButton from '../button/button.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 
 export const StyledAdditionalFormAction = styled.div`
-  ${({ type, theme }) => type && css`
+  ${({ type }) => type && css`
     ${type === 'leftAlignedActions' && css`
       flex-grow: 1;
     `}
@@ -19,9 +19,6 @@ export const StyledAdditionalFormAction = styled.div`
         margin-left: 0;
       }
     }
-    
-    ${isClassic(theme) && css`margin-left: 15px;`}
-    ${!isClassic(theme) && css`margin-left: 16px;`}
   `}
 `;
 
@@ -31,13 +28,6 @@ const FormButtonAnimation = keyframes`
 `;
 
 export const StyledFormFooter = styled.div`
-  ${({ theme }) => css`
-    && ${StyledButton} {
-      ${isClassic(theme) && css`margin-left: 15px;`}
-      ${!isClassic(theme) && css`margin-left: 16px;`}
-    }
-  `}
-
   ${({ theme, stickyFooter }) => !isClassic(theme) && !stickyFooter && css`
     margin-top: 48px;
   `}
@@ -50,6 +40,11 @@ export const StyledFormFooter = styled.div`
 `;
 
 const StyledForm = styled.form`
+  && ${StyledButton} {
+    margin-left: 16px;
+    ${({ theme }) => !isClassic(theme) && css`margin-left: 15px;`}
+  }
+
   ${({ theme }) => !isClassic(theme) && css`
     && ${StyledFormField} {
       margin-bottom: 32px;

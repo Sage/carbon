@@ -1,26 +1,12 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
-import { ThemeProvider } from 'styled-components';
 import 'jest-styled-components';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs/tags-specs';
 import FormButton from './form-button.component';
 import Button from '../../button';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import Classic from '../../../style/themes/classic';
-import Small from '../../../style/themes/small';
-import { isClassic } from '../../../utils/helpers/style-helper';
 import StyledButton from '../../button/button.style';
-
-const renderFormButtonWithTheme = (props, render = shallow, theme = Classic) => {
-  return render(
-    <ThemeProvider theme={ theme }>
-      <FormButton
-        { ...props }
-      />
-    </ThemeProvider>
-  );
-};
 
 const renderFormButton = (props, render = shallow) => {
   return render(
@@ -33,22 +19,18 @@ const renderFormButton = (props, render = shallow) => {
 describe('FormButton', () => {
   let wrapper, clickFunction, button;
 
-  describe.each([Classic, Small])(
-    'the Form Buttons match the expected styling',
-    (theme) => {
-      it(`when the theme is set to ${theme.name}`, () => {
-        wrapper = renderFormButtonWithTheme({
-          formButtonName: 'cancel'
-        }, TestRenderer.create, theme);
+  describe('the Form Buttons match the expected styling', () => {
+    it('renders a form button to match the expected style', () => {
+      wrapper = renderFormButton({
+        formButtonName: 'cancel'
+      }, TestRenderer.create);
 
-        assertStyleMatch({
-          alignItems: 'center',
-          display: 'flex',
-          marginLeft: isClassic(theme) ? '15px' : '16px'
-        }, wrapper.toJSON(), { modifier: `${StyledButton}` });
-      });
-    }
-  );
+      assertStyleMatch({
+        alignItems: 'center',
+        display: 'flex'
+      }, wrapper.toJSON(), { modifier: `${StyledButton}` });
+    });
+  });
 
   describe.each(['save', 'cancel'])(
     'the primary action buttons',

@@ -2,7 +2,9 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
 import { mount, shallow } from 'enzyme';
-import { StyledAdditionalFormAction } from '../../../components/form/form.style';
+import TestRenderer from 'react-test-renderer';
+import 'jest-styled-components';
+import { StyledAdditionalFormAction, StyledFormFooter } from '../../../components/form/form.style';
 import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
 import Textbox from '../textbox';
 import Validation from '../../../utils/validations/presence';
@@ -13,6 +15,11 @@ import ElementResize from '../../../utils/helpers/element-resize';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import Service from '../../../utils/service';
 import AppWrapper from '../../../components/app-wrapper';
+import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
+import { isClassic } from '../../../utils/helpers/style-helper';
+import StyledButton from '../../../components/button/button.style';
+import Classic from '../../../style/themes/classic';
+import Small from '../../../style/themes/small';
 
 /* global jest */
 jest.mock('../../../utils/service');
@@ -790,6 +797,58 @@ describe('Form', () => {
       wrapper.instance()._service = service;
       await wrapper.instance().submitControlledForm();
       expect(wrapper.instance()._service.post).toHaveBeenCalledTimes(1);
+    });
+  });
+
+  describe('styling of form', () => {
+    describe.each([Classic, Small])(
+      'when the theme is %s',
+      (theme) => {
+        const props = {
+          formAction: 'foo', theme
+        };
+        const styledWrapper = TestRenderer.create(
+          <Form
+            { ...props }
+          />
+        );
+
+        it('has the expected style', () => {
+          assertStyleMatch({ marginLeft: isClassic(theme) ? '16px' : '15px' },
+            styledWrapper.toJSON(), { modifier: `&& ${StyledButton}` });
+        });
+      }
+    );
+
+    describe('when the stickyfooter is set true', () => {
+      const props = {
+        formAction: 'foo', stickyFooter: true, theme: Classic, fixedBottom: true
+      };
+      const styledWrapper = mount(
+        <Form
+          { ...props }
+        />
+      );
+      styledWrapper.setState({ stickyFooter: true });
+
+      it('applies the expected styling', () => {
+        assertStyleMatch({
+          backgroundColor: '#FFFFFF',
+          bottom: '0',
+          boxShadow: '0 -4px 12px 0 rgba(0,0,0,0.05)',
+          boxSizing: 'content-box',
+          left: '0',
+          paddingBottom: '13px',
+          paddingTop: '15px',
+          position: 'fixed',
+          width: '100%',
+          zIndex: '1000'
+        }, styledWrapper, { modifier: `${StyledFormFooter}` });
+
+        assertStyleMatch({
+          paddingBottom: '80px'
+        }, styledWrapper);
+      });
     });
   });
 
