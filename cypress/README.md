@@ -24,24 +24,24 @@
   * THAN - the then section describes the changes you expect due to the specified behavior. Regular assertion
   * AND - each of the section could have own and state. You can use and to avoid using duplication of the keywords (Given / When / Than)
   * Scenarion outline - tests that are using parameters from given Examples under the test and will run as much as there are examples
-  * Scenario - tests that are run once.
+  * Scenario - tests that are run once
 5. Step definitions for BDD:
-  * Step definitions are created per component as `component-steps.js`. And should be used in exactly `component.feature`.
-  * Common steps (`common-steps.js`) are used to use steps written inside for all common actions.
+  * Step definitions are created per component as `component-steps.js`. And should be used in exactly `component.feature`
+  * Common steps (`common-steps.js`) are used to use steps written inside for all common actions
 6. Common test steps:
   * I set `<knobs field>` to `<parameter>`
   * I select `<knobs field>` to `<parameter>`
   * I check / uncheck `<knobs filed>` checkbox
   * I open `<name>` component page
     * To open different stories on storybook
-      * I open `<name>` component page `classic` / `basic` / `with button` / `legacy spinner` / `iframe` / `with button page in iframe` / `multiple` /`validations`.
+      * I open `<name>` component page `classic` / `basic` / `with button` / `legacy spinner` / `iframe` / `with button page in iframe` / `multiple` /`validations`
 
 ## Scenario tags
 Use scenario tags:
 1. `@positive` for happy path
 2. `@negative` for negative scenario
 3. `@ignore` for temporary ignored scenarios
-4. `@[bug-number]` for example `@FE-1234` - use this tag after `@ignore` to explain why test is ignored.
+4. `@[bug-number]` for example `@FE-1234` - use this tag after `@ignore` to explain why test is ignored
 5. `@ignore` and `@[bug-number]` should be removed after bug fix
 6. `@build` for pipeline - each build is verified by those tests
 7. `@accessibility` tests verifies accessibility violations
@@ -75,8 +75,8 @@ Always use unique selectors to locate elements with order below:
 2. `#id`
 3. `.class-name`
 ### How to use locators
-1. Locators are used, the same as step-definitions, per component.
-2. Common locators should be used when the components / elements are common for all stories.
+1. Locators are used, the same as step-definitions, per component
+2. Common locators should be used when the components / elements are common for all stories
 3. Locators should be named:
-  * Component on preview - `componentPreview`.
-  * Knobs - `componentsKnobs`.
+  * Component on preview - `componentPreview`
+  * Knobs - `componentsKnobs`
