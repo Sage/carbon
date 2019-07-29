@@ -242,6 +242,7 @@ class Carousel extends React.Component {
         <CarouselButtonStyle
           { ...this.previousButtonProps() }
           data-element='previous'
+          aria-label='previous'
           type='button'
           disabled={ isClassic(this.props.theme) ? null : isDisabled }
         >
@@ -262,6 +263,7 @@ class Carousel extends React.Component {
         <CarouselButtonStyle
           { ...this.nextButtonProps() }
           data-element='next'
+          aria-label='next'
           type='button'
           disabled={ isClassic(this.props.theme) ? null : isDisabled }
         >
