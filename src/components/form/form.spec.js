@@ -1,22 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import TestUtils from 'react-dom/test-utils';
-import FormWithValidations, { FormWithoutValidations as Form } from './form';
-import Textbox from './../textbox';
-import Portal from './../portal';
-import Validation from './../../utils/validations/presence';
-import ImmutableHelper from './../../utils/helpers/immutable';
-import Dialog from './../dialog';
-import I18n from "i18n-js";
-import CancelButton from './cancel-button';
-import SaveButton from './save-button';
-import FormSummary from './form-summary';
-import Button from './../button';
-import MultiActionButton from './../multi-action-button';
-import ElementResize from './../../utils/helpers/element-resize';
-
+import I18n from 'i18n-js';
 import { mount, shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs';
+import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
+import { StyledAdditionalFormAction } from './form.style';
+import Textbox from '../textbox';
+import Validation from '../../utils/validations/presence';
+import Dialog from '../dialog';
+import FormSummary from './form-summary';
+import Button from '../button';
+import ElementResize from '../../utils/helpers/element-resize';
+import AppWrapper from '../app-wrapper';
+
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 /* global jest */
 
@@ -61,7 +57,7 @@ describe('Form', () => {
 
     describe('when unsavedWarning is disabled', () => {
       it('removes the listeners', () => {
-        wrapper = shallow(<Form unsavedWarning={ true } />);
+        wrapper = shallow(<Form unsavedWarning />);
         spyOn(wrapper.instance(), 'removeUnsavedWarningListener');
         wrapper.setProps({ unsavedWarning: false });
         expect(wrapper.instance().removeUnsavedWarningListener).toHaveBeenCalled();
@@ -106,7 +102,7 @@ describe('Form', () => {
     });
 
     it('does not remove unsaved warning listeners if not enabled', () => {
-      wrapper = shallow(<Form unsavedWarning= { false } />);
+      wrapper = shallow(<Form unsavedWarning={ false } />);
       spyOn(wrapper.instance(), 'removeUnsavedWarningListener');
       wrapper.instance().componentWillUnmount();
       expect(wrapper.instance().removeUnsavedWarningListener).not.toHaveBeenCalled();
@@ -234,14 +230,14 @@ describe('Form', () => {
 
   describe('getActiveInput', () => {
     it('returns the currently active input', () => {
-      let activeInput = "my input";
+      const activeInput = 'my input';
       instance.setActiveInput(activeInput);
       expect(instance.getActiveInput()).toEqual(activeInput);
     });
   });
 
-  describe("setIsDirty", () => {
-    it("sets the form to be classed as dirty if clean", () => {
+  describe('setIsDirty', () => {
+    it('sets the form to be classed as dirty if clean', () => {
       expect(instance.state.isDirty).toEqual(false);
       instance.setIsDirty();
       expect(instance.state.isDirty).toEqual(true);
@@ -250,8 +246,8 @@ describe('Form', () => {
     });
   });
 
-  describe("resetIsDirty", () => {
-    it("resets the form to be classed as clean if dirty", () => {
+  describe('resetIsDirty', () => {
+    it('resets the form to be classed as clean if dirty', () => {
       instance.setIsDirty();
       expect(instance.state.isDirty).toEqual(true);
       instance.resetIsDirty();
@@ -261,13 +257,16 @@ describe('Form', () => {
     });
   });
 
-  describe("checkIsFormDirty", () => {
-    it("if form is dirty, return a message and trigger a popup", () => {
+  describe('checkIsFormDirty', () => {
+    it('if form is dirty, return a message and trigger a popup', () => {
       instance.setIsDirty();
-      expect(instance.checkIsFormDirty(Event)).toEqual(I18n.t('form.save_prompt', { defaultValue: 'Do you want to leave this page? Changes that you made may not be saved.' }));
+      expect(
+        instance.checkIsFormDirty(Event)
+      ).toEqual(I18n.t('form.save_prompt',
+        { defaultValue: 'Do you want to leave this page? Changes that you made may not be saved.' }));
     });
 
-    it("if form is clean, return an empty string", () => {
+    it('if form is clean, return an empty string', () => {
       instance.resetIsDirty();
       expect(instance.checkIsFormDirty(Event)).toBeUndefined();
     });
@@ -275,20 +274,23 @@ describe('Form', () => {
 
   describe('handleOnSubmit', () => {
     it('calls the validate method', () => {
-      let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+      const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
       TestUtils.Simulate.submit(form);
       expect(validate).toHaveBeenCalled();
     });
 
     describe('when a beforeFormValidation prop is passed', () => {
       it('calls the beforeFormValidation', () => {
-        let spy = jasmine.createSpy('spy');
+        const spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
           <Form beforeFormValidation={ spy }>
-            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+            <Textbox
+              validations={ [new Validation()] } name='test'
+              value='Valid'
+            />
           </Form>
         );
-        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
         expect(spy).toHaveBeenCalled();
       });
@@ -296,17 +298,20 @@ describe('Form', () => {
 
     describe('when a afterFormValidation prop is passed', () => {
       it('calls the afterFormValidation', (done) => {
-        let spy = jest.fn();
+        const spy = jest.fn();
         instance = TestUtils.renderIntoDocument(
           <Form afterFormValidation={ spy } validate={ () => true }>
-            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+            <Textbox
+              validations={ [new Validation()] } name='test'
+              value='Valid'
+            />
           </Form>
         );
         spy.mockImplementation(() => {
           expect(spy).toHaveBeenCalled();
           done();
-        })
-        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        });
+        const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
       });
     });
@@ -316,7 +321,10 @@ describe('Form', () => {
         const spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
           <Form autoDisable onSubmit={ spy }>
-            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+            <Textbox
+              validations={ [new Validation()] } name='test'
+              value='Valid'
+            />
           </Form>
         );
         const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
@@ -327,14 +335,20 @@ describe('Form', () => {
       it('form has been submitted and enableFormFunc called, state.submitted to be false ', (done) => {
         const spy = jest.fn();
         instance = TestUtils.renderIntoDocument(
-          <Form autoDisable onSubmit={ spy } validate={ () => true }>
-            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+          <Form
+            autoDisable onSubmit={ spy }
+            validate={ () => true }
+          >
+            <Textbox
+              validations={ [new Validation()] } name='test'
+              value='Valid'
+            />
           </Form>
         );
         spy.mockImplementation(() => {
           const enableFormFunc = spy.mock.calls[0][2];
           expect(enableFormFunc).toBe(instance.enableForm);
-  
+
           enableFormFunc();
           expect(instance.state.submitted).toBe(false);
           done();
@@ -346,13 +360,18 @@ describe('Form', () => {
       it('state.submitted should be false if form is invalid', () => {
         const spy = jest.fn();
         instance = TestUtils.renderIntoDocument(
-          <Form autoDisable onSubmit={ spy } validate={ () => false }>
-            <Textbox validations={ [new Validation()] } name='test' value='invalid' />
+          <Form
+            autoDisable onSubmit={ spy }
+            validate={ () => false }
+          >
+            <Textbox
+              validations={ [new Validation()] } name='test'
+              value='invalid'
+            />
           </Form>
         );
         spy.mockImplementation(() => {
           expect(instance.state.submitted).toBe(false);
-          done();
         });
         const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
@@ -361,13 +380,15 @@ describe('Form', () => {
 
     describe('when autoDisabled prop is NOT passed,', () => {
       it('after submit', () => {
-        const spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
-          <Form >
-            <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+          <Form>
+            <Textbox
+              validations={ [new Validation()] } name='test'
+              value='Valid'
+            />
           </Form>
         );
-        let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+        const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
         TestUtils.Simulate.submit(form);
         expect(instance.state.submitted).toBe(false);
       });
@@ -378,12 +399,14 @@ describe('Form', () => {
         it('calls the onSubmit prop', () => {
           const spy = jest.fn().mockImplementation(() => {
             expect(spy).toHaveBeenCalledWith(jasmine.any(Object), true, jasmine.any(Function));
-            done();
-          })
+          });
 
           instance = TestUtils.renderIntoDocument(
             <FormWithValidations onSubmit={ spy }>
-              <Textbox validations={ [new Validation()] } name='test' value='Valid' />
+              <Textbox
+                validations={ [new Validation()] } name='test'
+                value='Valid'
+              />
             </FormWithValidations>
           );
 
@@ -394,13 +417,16 @@ describe('Form', () => {
 
       describe('and the form is invalid', () => {
         it('does not call the onSubmit prop', () => {
-          let spy = jasmine.createSpy('spy');
+          const spy = jasmine.createSpy('spy');
           instance = TestUtils.renderIntoDocument(
             <Form onSubmit={ spy }>
-              <Textbox validations={ [new Validation()] } name='test' value='' />
+              <Textbox
+                validations={ [new Validation()] } name='test'
+                value=''
+              />
             </Form>
           );
-          let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
+          const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
           TestUtils.Simulate.submit(form);
           expect(spy).not.toHaveBeenCalled();
         });
@@ -426,17 +452,11 @@ describe('Form', () => {
     });
   });
 
-  describe('htmlProps', () => {
-    it('sets the className', () => {
-      expect(instance.htmlProps().className).toEqual('carbon-form');
-    });
-  });
-
   describe('cancelForm', () => {
     describe('when window history is availiable', () => {
       it('redirects to the previous page', () => {
-        spyOn(instance._window.history, 'back')
-        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
+        spyOn(instance._window.history, 'back');
+        const cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
         TestUtils.Simulate.click(cancel);
         expect(instance._window.history.back).toHaveBeenCalled();
       });
@@ -445,30 +465,31 @@ describe('Form', () => {
     describe('when window history is not availiable', () => {
       it('throws an error', () => {
         instance._window = {};
-        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
-        expect(function() { TestUtils.Simulate.click(cancel) }).toThrowError('History is not defined. This is normally configured by the react router');
+        const cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
+        expect(() => { TestUtils.Simulate.click(cancel); })
+          .toThrowError('History is not defined. This is normally configured by the react router');
       });
     });
 
     describe('when the form is inside a dialog', () => {
       it('uses the dialogs cancel handler instead', () => {
-        let spy = jasmine.createSpy('onCancel');
-        let nestedInstance = mount(
+        const spy = jasmine.createSpy('onCancel');
+        const nestedInstance = mount(
           <Dialog
-            title="test"
-            open={ true }
-            onCancel={ spy }>
-
-            <Form>
+            title='test'
+            open
+            onCancel={ spy }
+          >
+            <Form formAction='foo'>
               <Textbox
-                name="name"
-                onChange={ function() {} }
-                value={ 'foo' } />
+                name='name'
+                onChange={ jest.fn() }
+                value='foo'
+              />
             </Form>
           </Dialog>
-        )
-
-        let cancel = nestedInstance.find('button').last();
+        );
+        const cancel = nestedInstance.find('[data-element="cancel"]').hostNodes().last();
         cancel.simulate('click');
         expect(spy).toHaveBeenCalled();
       });
@@ -476,29 +497,23 @@ describe('Form', () => {
 
     describe('when an onCancel prop is passed', () => {
       it('calls onCancel', () => {
-        let spy = jasmine.createSpy('spy');
+        const spy = jasmine.createSpy('spy');
         instance = TestUtils.renderIntoDocument(
-          <Form onCancel={ spy }>
+          <Form formAction='foo' onCancel={ spy }>
             <Textbox />
           </Form>
         );
-        let cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
+        const cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
         TestUtils.Simulate.click(cancel);
         expect(spy).toHaveBeenCalled();
       });
     });
   });
 
-  describe('mainClasses', () => {
-    it('returns the carbon-form class', () => {
-      expect(instance.mainClasses).toEqual('carbon-form');
-    });
-  });
-
   describe('stickyFooterPadding', () => {
     it('adds padding if defined', () => {
-      wrapper = shallow(<Form stickyFooterPadding="500" />);
-      const footer = wrapper.find('.carbon-form__buttons');
+      wrapper = shallow(<Form formAction='foo' stickyFooterPadding='500' />);
+      const footer = wrapper.find(AppWrapper);
       expect(footer.props().style.borderWidth).toEqual('500px');
     });
   });
@@ -506,27 +521,22 @@ describe('Form', () => {
   describe('saveText', () => {
     describe('if prop is passed', () => {
       it('returns the prop value', () => {
-        instance = TestUtils.renderIntoDocument(<Form saveText="custom" />)
-        let save = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
+        instance = TestUtils.renderIntoDocument(<Form formAction='foo' saveText='custom' />);
+        const save = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
         expect(save.textContent).toEqual('custom');
       });
     });
 
     describe('if no prop is passed', () => {
       it('returns i18n value', () => {
-        instance = TestUtils.renderIntoDocument(<Form />)
-        let save = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
+        instance = TestUtils.renderIntoDocument(<Form formAction='foo' />);
+        const save = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
         expect(save.textContent).toEqual('Save');
       });
     });
   });
 
   describe('render', () => {
-    it('renders a parent form', () => {
-      let form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form')
-      expect(form.className).toEqual('carbon-form');
-    });
-
     describe('CSRF', () => {
       let csrf;
 
@@ -568,24 +578,22 @@ describe('Form', () => {
     });
 
     describe('buttons', () => {
-
       beforeEach(() => {
-        wrapper = mount(<Form />)
+        wrapper = mount(<Form />);
       });
 
       describe('the save button', () => {
         it('by default it renders a save button', () => {
-          expect(wrapper.find('.carbon-form-save').exists()).toBeTruthy();
+          expect(wrapper.find('[data-element="save"]').exists()).toBeTruthy();
         });
       });
 
       describe('the buttons', () => {
-        let wrapper;
-
         describe('when no additional buttons are passed in', () => {
           beforeEach(() => {
             wrapper = shallow(
               <Form
+                formAction='foo'
                 cancelText='Some custom text'
                 saveText='Some custom save text'
                 saving={ false }
@@ -593,31 +601,31 @@ describe('Form', () => {
                 errorCount={ 2 }
                 warningCount={ 3 }
               />
-            )
+            );
           });
 
           it('renders a cancel button with expected props', () => {
-            let cancelButton = wrapper.find(CancelButton);
-            expect(cancelButton.prop('cancelText')).toEqual('Some custom text')
+            const cancelButton = wrapper.find('[data-element="cancel"]');
+            expect(cancelButton.prop('cancelText')).toEqual('Some custom text');
           });
 
           it('renders a save button with expected props', () => {
-            let saveButton = wrapper.find(SaveButton);
+            const saveButton = wrapper.find('[data-element="save"]');
             expect(saveButton.prop('saveText')).toEqual('Some custom save text');
             expect(saveButton.prop('saving')).toBeFalsy();
-            expect(saveButton.prop('saveButtonProps')).toEqual({ theme: 'red' })
+            expect(saveButton.prop('saveButtonProps')).toEqual({ theme: 'red' });
           });
 
           it('renders a form summary with expected props', () => {
-            let summary = wrapper.find(FormSummary);
-            expect(summary.prop('errors')).toEqual(2)
-            expect(summary.prop('warnings')).toEqual(3)
+            const summary = wrapper.find(FormSummary);
+            expect(summary.prop('errors')).toEqual(2);
+            expect(summary.prop('warnings')).toEqual(3);
           });
         });
 
         describe('when an additional save button is passed in', () => {
           beforeEach(() => {
-            let customButton = (<Button className='my-custom-class'>Save</Button>)
+            const customButton = (<Button className='my-custom-class'>Save</Button>);
             wrapper = shallow(
               <Form
                 cancelText='Some custom text'
@@ -625,11 +633,11 @@ describe('Form', () => {
                 saving={ false }
                 customSaveButton={ customButton }
               />
-            )
+            );
           });
 
           it('does not render the standard SaveButton', () => {
-            expect(wrapper.find(SaveButton).exists()).toBeFalsy();
+            expect(wrapper.find('[data-element="save"]').exists()).toBeFalsy();
           });
 
           it('renders a custom save button with expected props', () => {
@@ -642,15 +650,15 @@ describe('Form', () => {
     describe('Cancel Button', () => {
       describe('when cancel prop is false', () => {
         it('does not show a cancel button', () => {
-          let wrapper = shallow(<Form cancel={ false } />);
-          expect(wrapper.find(CancelButton).length).toEqual(0);
+          wrapper = shallow(<Form cancel={ false } />);
+          expect(wrapper.find('[data-element="cancel"]').length).toEqual(0);
         });
       });
 
       describe('when cancel props is true (default)', () => {
         it('does show a cancel button', () => {
-          let wrapper = shallow(<Form />);
-          expect(wrapper.find(CancelButton).length).toEqual(1);
+          wrapper = shallow(<Form />);
+          expect(wrapper.find('[data-element="cancel"]').length).toEqual(1);
         });
       });
     });
@@ -658,14 +666,14 @@ describe('Form', () => {
     describe('Summary', () => {
       describe('when showSummary prop is false', () => {
         it('does not show a form summary', () => {
-          let wrapper = shallow(<Form showSummary={ false } />);
+          wrapper = shallow(<Form showSummary={ false } />);
           expect(wrapper.find(FormSummary).length).toEqual(0);
         });
       });
 
       describe('when showSummary prop is true (default)', () => {
         it('does show a form summary', () => {
-          let wrapper = shallow(<Form />);
+          wrapper = shallow(<Form />);
           expect(wrapper.find(FormSummary).length).toEqual(1);
         });
       });
@@ -674,15 +682,15 @@ describe('Form', () => {
     describe('Save Button', () => {
       describe('when save prop is false', () => {
         it('does not show a save button', () => {
-          let wrapper = shallow(<Form save={ false } />);
-          expect(wrapper.find(SaveButton).length).toEqual(0);
+          wrapper = shallow(<Form save={ false } />);
+          expect(wrapper.find('[data-element="save"]').length).toEqual(0);
         });
       });
 
       describe('when save props is true (default)', () => {
         it('does show a save button', () => {
-          let wrapper = shallow(<Form />);
-          expect(wrapper.find(SaveButton).length).toEqual(1);
+          wrapper = shallow(<Form />);
+          expect(wrapper.find('[data-element="save"]').length).toEqual(1);
         });
       });
     });
@@ -690,40 +698,47 @@ describe('Form', () => {
     describe('additionalActions', () => {
       describe('if none defined', () => {
         it('returns null', () => {
-          let instance = TestUtils.renderIntoDocument(<Form />);
-          expect(instance.additionalActions('additionalActions')).toBe(null);
+          wrapper = mount(<Form formAction='foo' />);
+          const additionalAction = wrapper.find(StyledAdditionalFormAction);
+          expect(additionalAction.exists()).toEqual(false);
         });
       });
 
-      describe('if defined', () => {
-        it('returns the action', () => {
-          let instance = TestUtils.renderIntoDocument(<Form additionalActions={ <span /> } />);
-          expect(instance.additionalActions('additionalActions').props.className).toEqual("carbon-form__additional-actions");
-        });
-      });
-
-      describe('leftAlignedActions', () => {
-        it('returns the action', () => {
-          let instance = TestUtils.renderIntoDocument(<Form leftAlignedActions={ <span /> } />);
-          expect(instance.additionalActions('leftAlignedActions').props.className).toEqual("carbon-form__left-aligned-actions");
-        });
-      });
-
-      describe('rightAlignedActions', () => {
-        it('returns the action', () => {
-          let instance = TestUtils.renderIntoDocument(<Form rightAlignedActions={ <span /> } />);
-          expect(instance.additionalActions('rightAlignedActions').props.className).toEqual("carbon-form__right-aligned-actions");
-        });
-      });
+      describe.each(['additionalActions', 'leftAlignedActions', 'rightAlignedActions'])(
+        'when an action is defined',
+        (action) => {
+          const props = { [action]: <span /> };
+          it(`returns the ${action}`, () => {
+            wrapper = mount(
+              <Form
+                formAction='foo' { ...props }
+                buttonAlign='left'
+                isLabelRightAligned
+              >
+                <Textbox />
+                <Textbox />
+              </Form>
+            );
+            const additionalAction = wrapper.find(StyledAdditionalFormAction);
+            expect(additionalAction.exists()).toEqual(true);
+            expect(additionalAction.contains(<span />)).toBeTruthy();
+          });
+        }
+      );
     });
   });
 
-  describe("tags", () => {
-    describe("on component", () => {
-      let wrapper = shallow(<Form data-element='bar' data-role='baz' />);
+  describe('tags', () => {
+    describe('on component', () => {
+      const wrapper2 = shallow(
+        <Form
+          data-element='bar'
+          data-role='baz'
+        />
+      );
 
       it('include correct component, element and role data tags', () => {
-        rootTagTest(wrapper, 'form', 'bar', 'baz');
+        rootTagTest(wrapper2, 'form', 'bar', 'baz');
       });
     });
   });
