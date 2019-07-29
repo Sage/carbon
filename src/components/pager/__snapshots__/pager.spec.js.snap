@@ -611,13 +611,11 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
         >
           <div
             className="c9 c10"
-            name="guid-12345"
             onMouseDown={[Function]}
             onMouseEnter={[Function]}
             onMouseLeave={[Function]}
             role="presentation"
             size="medium"
-            type="text"
           >
             <input
               aria-invalid={false}

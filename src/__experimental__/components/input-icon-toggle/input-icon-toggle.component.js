@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Icon from '../../../components/icon';
 import InputIconToggleStyle from './input-icon-toggle.style';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
+import extractProps from '../../../utils/helpers/extract-props';
 
 const InputIconToggle = ({
   children,
@@ -10,6 +11,8 @@ const InputIconToggle = ({
   readOnly,
   ...props
 }) => {
+  const styleProps = extractProps(props, InputIconToggleStyle);
+
   if (disabled || readOnly) return null;
 
   if (hasFailedValidation(props)) {
@@ -17,7 +20,7 @@ const InputIconToggle = ({
   }
 
   return (
-    <InputIconToggleStyle key='label-icon' { ...props }>
+    <InputIconToggleStyle key='label-icon' { ...styleProps }>
       { children || <Icon type={ props.inputIcon } /> }
     </InputIconToggleStyle>
   );

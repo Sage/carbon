@@ -91,6 +91,7 @@ InputPresentationStyle.defaultProps = {
 InputPresentationStyle.propTypes = {
   disabled: PropTypes.bool,
   hasFocus: PropTypes.bool,
+  inputWidth: PropTypes.number,
   readOnly: PropTypes.bool,
   size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
   hasError: PropTypes.bool,

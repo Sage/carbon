@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { filterOutInputEvents } from '../../../utils/ether/ether';
 import InputPresentationStyle from './input-presentation.style';
+import extractProps from '../../../utils/helpers/extract-props';
 
 const InputPresentationContext = React.createContext();
 
@@ -55,7 +55,7 @@ class InputPresentation extends React.Component {
 
   render() {
     const { children, ...props } = this.props;
-    const filteredProps = filterOutInputEvents(props);
+    const styleProps = extractProps(props, InputPresentationStyle);
 
     return (
       // eslint-disable-next-line jsx-a11y/mouse-events-have-key-events
@@ -66,7 +66,7 @@ class InputPresentation extends React.Component {
         onMouseDown={ this.handleMouseDown }
         onMouseEnter={ this.handleMouseEnter }
         onMouseLeave={ this.handleMouseLeave }
-        { ...filteredProps }
+        { ...styleProps }
       >
         <InputPresentationContext.Provider value={ this.contextForInput() }>
           { children }

@@ -216,12 +216,8 @@ Object {
 }
 
 <div
-    aria-label="Please Select..."
     class="c0"
-    name="guid-12345"
-    placeholder="Please Select..."
     role="presentation"
-    type="text"
   >
     <input
       aria-invalid="false"
@@ -238,11 +234,7 @@ Object {
       data-portal-entrance="guid-12345"
     />
     <span
-      aria-label="Please Select..."
       class="c3"
-      name="guid-12345"
-      placeholder="Please Select..."
-      type="dropdown"
     >
       <span
         class="carbon-icon icon-dropdown"
