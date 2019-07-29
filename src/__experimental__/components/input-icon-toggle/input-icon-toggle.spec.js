@@ -9,7 +9,7 @@ import InputIconToggle from './input-icon-toggle.component';
 
 function render(props, renderer = shallow) {
   return renderer(
-    <InputIconToggle type='settings' { ...props } />
+    <InputIconToggle inputIcon='settings' { ...props } />
   );
 }
 
@@ -28,7 +28,7 @@ describe('InputIconToggle', () => {
 
   describe('when initiated without children', () => {
     it('renders an Icon component with an icon type that was specified in the props', () => {
-      expect(render({ type: 'settings' }).contains(<Icon type='settings' />)).toBeTruthy();
+      expect(render({ inputIcon: 'settings' }).contains(<Icon type='settings' />)).toBeTruthy();
     });
   });
 
