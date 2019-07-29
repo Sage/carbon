@@ -61,6 +61,7 @@ const StyledForm = styled.form`
   `}
 
   ${({ stickyFooter, theme }) => stickyFooter && css`
+    padding-bottom: 80px;
     ${StyledFormFooter} {
       animation: ${FormButtonAnimation} 0.25s ease-out;  
       background-color: ${theme.colors.white};
