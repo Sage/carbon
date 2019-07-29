@@ -17,21 +17,23 @@ function commonKnobs() {
 }
 
 function classicKnobs() {
-  const bgTheme = select('bgTheme', [...OptionsHelper.colors, 'none'], OptionsHelper.colors[3]);
+  const bgTheme = select('bgTheme', [...OptionsHelper.colors, ''], '');
   return {
     bgTheme,
-    bgSize: bgTheme ? select('bgSize', OptionsHelper.sizesRestricted, Icon.defaultProps.bgSize) : undefined,
-    bgShape: bgTheme ? select('bgShape', OptionsHelper.shapes, OptionsHelper.shapes[0]) : undefined
+    bgSize: bgTheme !== '' ? select('bgSize', OptionsHelper.sizesRestricted, Icon.defaultProps.bgSize) : undefined,
+    bgShape: bgTheme !== '' ? select('bgShape', OptionsHelper.shapes, OptionsHelper.shapes[0]) : undefined
   };
 }
 
 function dlsKnobs() {
-  const bgTheme = select('bgTheme', [...OptionsHelper.iconBackgrounds, 'none'], OptionsHelper.iconBackgrounds[3]);
+  const bgTheme = select('bgTheme', [...OptionsHelper.iconBackgrounds], 'none');
   return {
     bgTheme,
-    bgSize: bgTheme ? select('bgSize', OptionsHelper.sizesRestricted, Icon.defaultProps.bgSize) : undefined,
-    bgShape: bgTheme ? select('bgShape', OptionsHelper.shapes, OptionsHelper.shapes[0]) : undefined,
-    fontSize: select('fontSize', OptionsHelper.sizesBinary, Icon.defaultProps.fontSize)
+    bgSize: bgTheme !== 'none' ? select('bgSize', OptionsHelper.sizesRestricted, Icon.defaultProps.bgSize) : undefined,
+    bgShape: bgTheme !== 'none' ? select('bgShape', OptionsHelper.shapes, OptionsHelper.shapes[0]) : undefined,
+    fontSize: select('fontSize', OptionsHelper.sizesBinary, Icon.defaultProps.fontSize),
+    iconColor:
+      bgTheme === 'none' ? select('iconColor', [...OptionsHelper.iconColors], OptionsHelper.iconColors[0]) : undefined
   };
 }
 
@@ -49,14 +51,8 @@ storiesOf('Icon', module)
       knobs: { escapeHTML: false }
     }
   )
-  .add(
-    'default',
-    () => (
-      <Icon { ...commonKnobs() } { ...dlsKnobs() } />
-    ),
-    {
-      info: { text: Info },
-      notes: { markdown: notes },
-      knobs: { escapeHTML: false }
-    }
-  );
+  .add('default', () => <Icon { ...commonKnobs() } { ...dlsKnobs() } />, {
+    info: { text: Info },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
+  });

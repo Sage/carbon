@@ -6,63 +6,53 @@ import classicIconStyles from './icon-classic.style';
 import baseTheme from '../../style/themes/base';
 
 const getBackgroundColor = (theme, bgTheme) => {
-  switch (bgTheme) {
-    case 'info':
-      return theme.colors.info;
-    case 'error':
-      return theme.colors.error;
-    case 'success':
-      return theme.colors.success;
-    case 'warning':
-      return theme.colors.warning;
-    case 'business':
+  const statuses = ['info', 'error', 'success', 'warning'];
+  if (statuses.includes(bgTheme)) return theme.colors[bgTheme];
+  if (bgTheme === 'business') return theme.colors.primary;
+  return 'transparent';
+};
+
+const getIconColor = (bgTheme, theme, iconColor) => {
+  if (bgTheme !== 'none') {
+    const whiteIconBackgrounds = ['error', 'info', 'business'];
+    const darkIconBackgrounds = ['success', 'warning'];
+
+    if (whiteIconBackgrounds.includes(bgTheme)) return theme.colors.white;
+    if (darkIconBackgrounds.includes(bgTheme)) return theme.icon.default;
+  }
+
+  switch (iconColor) {
+    case 'on-dark-background':
+      return theme.colors.white;
+    case 'on-light-background':
+      return theme.icon.onLightBackground;
+    case 'business-color':
       return theme.colors.primary;
     default:
-      return 'none';
+      return theme.icon.default;
   }
-};
-
-const getFontSize = (fontSize) => {
-  switch (fontSize) {
-    case 'small':
-      return '16px';
-    case 'large':
-      return '24px';
-    default:
-      return '16px';
-  }
-};
-
-const getIconColor = (bgTheme, theme) => {
-  if (bgTheme === 'success' || bgTheme === 'warning') return theme.colors.black;
-  return theme.colors.white;
 };
 
 const StyledIcon = styled.span`
+  ${({
+    bgTheme, theme, iconColor, bgSize, bgShape, isFont, type, fontSize
+  }) => css`
   display: inline-block;
   position: relative;
-  color: ${({ theme, bgTheme }) => getIconColor(bgTheme, theme)};
+  color: ${getIconColor(bgTheme, theme, iconColor)};
 
-    ${({ bgTheme, bgSize }) => (bgSize || bgTheme)
+    ${bgTheme !== 'none'
       && css`
         align-items: center;
         display: inline-flex;
         justify-content: center;
         height: ${classicConfig.sizes[bgSize]};
         width: ${classicConfig.sizes[bgSize]};
-    `}
-
-    ${({ bgShape }) => bgShape
-      && css`
+        background-color: ${getBackgroundColor(theme, bgTheme)};
         border-radius: ${classicConfig.shapes[bgShape]};
       `}
 
-    ${({ bgTheme, theme }) => bgTheme
-      && css`
-        background-color: ${getBackgroundColor(theme, bgTheme)};
-      `}
-
-    ${({ isFont, type, fontSize }) => isFont
+    ${isFont
       && css`
         &::before {
           -webkit-font-smoothing: antialiased;
@@ -70,15 +60,15 @@ const StyledIcon = styled.span`
 
           font-family: CarbonIcons;
           content: "${iconUnicodes[type]}";
-          font-size: ${getFontSize(fontSize)};
+          font-size: ${fontSize === 'large' ? '24px' : '16px'};
           font-style: normal;
           font-weight: normal;
-          line-height: getFontSize
+          line-height: ${fontSize === 'large' ? '24px' : '16px'};
           vertical-align: middle;
         }
     `}
-
-    ${classicIconStyles}
+    ${classicIconStyles};
+  `}
 `;
 
 StyledIcon.defaultProps = {

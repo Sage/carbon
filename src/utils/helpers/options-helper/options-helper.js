@@ -80,6 +80,13 @@ const OptionsHelper = {
     'none'
   ],
 
+  iconColors: [
+    'default',
+    'on-light-background',
+    'on-dark-background',
+    'business-color'
+  ],
+
   icons: [
     'add',
     'alert',

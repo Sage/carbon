@@ -20,9 +20,11 @@ const Icon = TooltipDecorator(
       /** Background shape */
       bgShape: PropTypes.oneOf(OptionsHelper.shapes),
       /** Background color theme */
-      bgTheme: PropTypes.oneOf(...new Set([...OptionsHelper.colors, ...OptionsHelper.iconBackgrounds])),
+      bgTheme: PropTypes.oneOf([...OptionsHelper.colors, ...OptionsHelper.iconBackgrounds, '']),
       /** Icon font size */
-      fontSize: PropTypes.oneOf(OptionsHelper.sizesBinary)
+      fontSize: PropTypes.oneOf(OptionsHelper.sizesBinary),
+      /** Icon color */
+      iconColor: PropTypes.oneOf(OptionsHelper.iconColors)
     };
 
     static defaultProps = {
@@ -75,6 +77,7 @@ const Icon = TooltipDecorator(
           bgTheme={ this.props.bgTheme }
           isFont={ !this.renderIcon }
           fontSize={ this.props.fontSize }
+          iconColor={ this.props.iconColor }
           type={ this.type }
           key='icon'
           className={ this.props.className || null }

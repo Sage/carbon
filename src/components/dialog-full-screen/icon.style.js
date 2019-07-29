@@ -18,7 +18,7 @@ const StyledIcon = styled(Icon)`
   }
   
   &:hover {
-    color: ${({ theme }) => theme.icon.focus};
+    color: ${({ theme }) => theme.icon.onLightBackgroundHover};
   }
 
   ${classicIconStyle}
