@@ -79,4 +79,4 @@ Always use unique selectors to locate elements with order below:
 2. Common locators should be used when the components / elements are common for all stories
 3. Locators should be named:
   * Component on preview - `componentPreview`
-  * Knobs - `componentsKnobs`
+  * Knobs - `componentKnobs`
