@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import Serialize from 'form-serialize';
 import Service from '../../../utils/service';
-import FormButton from './form-button';
+import FormButton from '../../../components/form/form-button';
 import FormSummary from '../../../components/form/form-summary';
 import AppWrapper from '../../../components/app-wrapper';
 import { validProps } from '../../../utils/ether';
@@ -11,7 +11,7 @@ import tagComponent from '../../../utils/helpers/tags';
 import Browser from '../../../utils/helpers/browser';
 import { withValidations } from '../../../components/validations';
 import ElementResize from '../../../utils/helpers/element-resize';
-import StyledForm, { StyledFormFooter, StyledAdditionalFormAction } from './form.style';
+import StyledForm, { StyledFormFooter, StyledAdditionalFormAction } from '../../../components/form/form.style';
 
 class FormWithoutValidations extends React.Component {
   state = {
@@ -256,7 +256,6 @@ class FormWithoutValidations extends React.Component {
   /** Separates and returns HTML specific props */
   htmlProps = () => {
     const { onSubmit, fixdBottom, ...props } = validProps(this);
-    props.className = this.mainClasses;
     return props;
   }
 
@@ -504,9 +503,6 @@ FormWithoutValidations.propTypes = {
 
   /** Override Save Button */
   customSaveButton: PropTypes.node,
-
-  /** A custom class name for the component. */
-  className: PropTypes.string,
 
   /** Child elements */
   children: PropTypes.node,
