@@ -1,24 +1,29 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import { shallow } from 'enzyme';
-import { Carousel, Slide } from './carousel.component';
+import { shallow, mount, render } from 'enzyme';
+import CarouselWithoutHOC, { Carousel, Slide } from './carousel.component';
 import { elementsTagTest, rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
-import { CarouselStyledIconLeft, CarouselSelectorInputStyle, CarouselStyledIconRight } from './carousel.style';
+import {
+  CarouselStyledIconLeft, CarouselSelectorInputStyle, CarouselStyledIconRight, CarouselPreviousButtonWrapperStyle, CarouselStyledIcon, CarouselButtonStyle
+} from './carousel.style';
 import { SlideStyle } from './slide/slide.style';
-
+import classicTheme from '../../style/themes/classic';
+import baseTheme from '../../style/themes/base';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import 'jest-styled-components';
 /* global jest */
 
-describe('Carousel', () => {
+describe('CarouselWithoutHOC', () => {
   let instance;
 
   beforeEach(() => {
     instance = TestUtils.renderIntoDocument(
-      <Carousel className='foobar'>
+      <CarouselWithoutHOC theme={ classicTheme } className='foobar'>
         <Slide />
         <Slide />
         <Slide />
-      </Carousel>
+      </CarouselWithoutHOC>
     );
   });
 
@@ -26,11 +31,11 @@ describe('Carousel', () => {
     describe('when slideIndex is passed', () => {
       it('sets the intial slide to the prop', () => {
         const wrapper = shallow(
-          <Carousel slideIndex={ 1 }>
+          <CarouselWithoutHOC slideIndex={ 1 }>
             <Slide />
             <Slide />
             <Slide />
-          </Carousel>
+          </CarouselWithoutHOC>
         );
 
         expect(wrapper.state('selectedSlideIndex')).toEqual(1);
@@ -40,11 +45,11 @@ describe('Carousel', () => {
     describe('when initialSlideIndex is passed', () => {
       it('sets the intial slide to the prop', () => {
         const wrapper = shallow(
-          <Carousel initialSlideIndex={ 2 }>
+          <CarouselWithoutHOC initialSlideIndex={ 2 }>
             <Slide />
             <Slide />
             <Slide />
-          </Carousel>
+          </CarouselWithoutHOC>
         );
 
         expect(wrapper.state('selectedSlideIndex')).toEqual(2);
@@ -54,11 +59,11 @@ describe('Carousel', () => {
     describe('when initialSelectedId is not passed', () => {
       it('defaults the initial slide to slide 0', () => {
         const wrapper = shallow(
-          <Carousel>
+          <CarouselWithoutHOC theme={ classicTheme }>
             <Slide />
             <Slide />
             <Slide />
-          </Carousel>
+          </CarouselWithoutHOC>
         );
 
         expect(wrapper.state('selectedSlideIndex')).toEqual(0);
@@ -69,11 +74,11 @@ describe('Carousel', () => {
   describe('componentWillReceiveProps', () => {
     const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
         wrapper = shallow(
-          <Carousel initialSlideIndex={ 0 }>
+          <CarouselWithoutHOC theme={ classicTheme } initialSlideIndex={ 0 }>
             <Slide />
             <Slide />
             <Slide />
-          </Carousel>
+          </CarouselWithoutHOC>
         );
 
     beforeEach(() => {
@@ -154,7 +159,6 @@ describe('Carousel', () => {
       instance.setState({ disabled: true });
       instance.enableButtonsAfterTimeout();
       jest.runTimersToTime(750);
-
       expect(instance.state.disabled).toBeFalsy();
     });
   });
@@ -162,11 +166,11 @@ describe('Carousel', () => {
   describe('onPreviousClick', () => {
     const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
         wrapper = shallow(
-          <Carousel initialSlideIndex={ 0 }>
+          <CarouselWithoutHOC theme={ classicTheme } initialSlideIndex={ 0 }>
             <Slide />
             <Slide />
             <Slide />
-          </Carousel>
+          </CarouselWithoutHOC>
         );
 
     beforeEach(() => {
@@ -214,11 +218,11 @@ describe('Carousel', () => {
   describe('onNextClick', () => {
     const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
         wrapper = shallow(
-          <Carousel initialSlideIndex={ 0 }>
+          <CarouselWithoutHOC theme={ classicTheme } initialSlideIndex={ 0 }>
             <Slide />
             <Slide />
             <Slide />
-          </Carousel>
+          </CarouselWithoutHOC>
         );
 
     beforeEach(() => {
@@ -266,11 +270,11 @@ describe('Carousel', () => {
   describe('onSlideSelection', () => {
     const enableButtonsAfterTimeoutSpy = jasmine.createSpy(),
         wrapper = shallow(
-          <Carousel initialSlideIndex={ 0 }>
+          <CarouselWithoutHOC theme={ classicTheme } initialSlideIndex={ 0 }>
             <Slide />
             <Slide />
             <Slide />
-          </Carousel>
+          </CarouselWithoutHOC>
         );
 
     beforeEach(() => {
@@ -340,9 +344,9 @@ describe('Carousel', () => {
     describe('when one child', () => {
       it('returns 1', () => {
         instance = TestUtils.renderIntoDocument(
-          <Carousel className='foobar'>
+          <CarouselWithoutHOC theme={ classicTheme } className='foobar'>
             <Slide />
-          </Carousel>
+          </CarouselWithoutHOC>
         );
 
         expect(instance.numOfSlides()).toEqual(1);
@@ -361,9 +365,9 @@ describe('Carousel', () => {
 
     beforeEach(() => {
       wrapper = shallow(
-        <Carousel>
+        <CarouselWithoutHOC theme={ classicTheme }>
           <Slide />
-        </Carousel>
+        </CarouselWithoutHOC>
       );
 
       slide = wrapper.instance().visibleSlide();
@@ -397,11 +401,11 @@ describe('Carousel', () => {
   describe('slideSelector', () => {
     describe('when enableSlideSelector is set to true', () => {
       const wrapper = shallow(
-        <Carousel initialSlideIndex={ 0 }>
+        <CarouselWithoutHOC theme={ classicTheme } initialSlideIndex={ 0 }>
           <Slide />
           <Slide />
           <Slide />
-        </Carousel>
+        </CarouselWithoutHOC>
       );
 
       it('renders a button for each slide', () => {
@@ -414,9 +418,12 @@ describe('Carousel', () => {
 
     describe('when enableSlideSelector is set to false', () => {
       const wrapper = shallow(
-        <Carousel initialSlideIndex={ 0 } enableSlideSelector={ false }>
+        <CarouselWithoutHOC
+          theme={ classicTheme } initialSlideIndex={ 0 }
+          enableSlideSelector={ false }
+        >
           <Slide />
-        </Carousel>
+        </CarouselWithoutHOC>
       );
 
       it('does not render the slide selector', () => {
@@ -429,9 +436,9 @@ describe('Carousel', () => {
   describe('previousButton', () => {
     describe('when enablePreviousButton is set to true', () => {
       const wrapper = shallow(
-        <Carousel initialSlideIndex={ 0 }>
+        <CarouselWithoutHOC theme={ classicTheme } initialSlideIndex={ 0 }>
           <Slide />
-        </Carousel>
+        </CarouselWithoutHOC>
       );
 
       it('renders a previous button', () => {
@@ -442,9 +449,12 @@ describe('Carousel', () => {
 
     describe('when enablePreviousButton is set to false', () => {
       const wrapper = shallow(
-        <Carousel initialSlideIndex={ 0 } enablePreviousButton={ false }>
+        <CarouselWithoutHOC
+          theme={ classicTheme } initialSlideIndex={ 0 }
+          enablePreviousButton={ false }
+        >
           <Slide />
-        </Carousel>
+        </CarouselWithoutHOC>
       );
 
       it('does not render a previous button', () => {
@@ -457,9 +467,9 @@ describe('Carousel', () => {
   describe('nextButton', () => {
     describe('when enableNextButton is set to true', () => {
       const wrapper = shallow(
-        <Carousel initialSlideIndex={ 0 }>
+        <CarouselWithoutHOC theme={ classicTheme } initialSlideIndex={ 0 }>
           <Slide />
-        </Carousel>
+        </CarouselWithoutHOC>
       );
 
       it('renders a next button', () => {
@@ -470,9 +480,12 @@ describe('Carousel', () => {
 
     describe('when enableNextButton is set to false', () => {
       const wrapper = shallow(
-        <Carousel initialSlideIndex={ 0 } enableNextButton={ false }>
+        <CarouselWithoutHOC
+          theme={ classicTheme } initialSlideIndex={ 0 }
+          enableNextButton={ false }
+        >
           <Slide />
-        </Carousel>
+        </CarouselWithoutHOC>
       );
 
       it('does not render a next button', () => {
@@ -485,12 +498,13 @@ describe('Carousel', () => {
   describe('tags', () => {
     describe('on component', () => {
       const wrapper = shallow(
-        <Carousel
+        <CarouselWithoutHOC
+          theme={ classicTheme }
           data-element='bar' data-role='baz'
           initialSlideIndex={ 0 }
         >
           <Slide />
-        </Carousel>
+        </CarouselWithoutHOC>
       );
 
       it('include correct component, element and role data tags', () => {
@@ -499,32 +513,68 @@ describe('Carousel', () => {
     });
 
     describe('on internal elements', () => {
-      const wrapper = shallow(
-        <Carousel initialSlideIndex={ 0 }>
+      const wrapper = mount(
+        <CarouselWithoutHOC theme={ classicTheme } initialSlideIndex={ 0 }>
           <Slide data-element='slide' />
-        </Carousel>
+        </CarouselWithoutHOC>
       );
 
-      elementsTagTest(wrapper, [
-        'next',
-        'previous',
-        'selector-input',
-        'selector-label',
-        'visible-slide'
-      ]);
+      it('should has expected data elements', () => {
+        wrapper.find('[data-element="slide"]').exists();
+        wrapper.find('[data-element="visible-slide"]').exists();
+      });
     });
   });
 
   describe('transitionName', () => {
     it('uses a custom name if supplied', () => {
       const wrapper = shallow(
-        <Carousel transition='foo'>
+        <CarouselWithoutHOC theme={ classicTheme } transition='foo'>
           <Slide />
-        </Carousel>
+        </CarouselWithoutHOC>
       );
 
       const transitionGroup = wrapper.find(CSSTransitionGroup);
       expect(transitionGroup.props().transitionName).toEqual('carousel-transition-foo');
     });
+  });
+});
+
+describe('CarouselPreviousButtonWrapperStyle', () => {
+  const wrapper = mount(<CarouselPreviousButtonWrapperStyle theme={ classicTheme } />);
+  it('should render matched style', () => {
+    assertStyleMatch({
+      marginTop: '-22.5px'
+    }, wrapper);
+  });
+});
+
+describe('CarouselStyledIcon', () => {
+  const wrapper = mount(<CarouselStyledIcon theme={ classicTheme } />);
+  it('should render matched style', () => {
+    assertStyleMatch({
+      fontSize: '25px'
+    }, wrapper, { modifier: '&&::before' });
+  });
+});
+
+describe('CarouselButtonStyle', () => {
+  let wrapper;
+
+  it('should render matched style when it is disabled', () => {
+    wrapper = mount(<CarouselButtonStyle disabled />);
+    assertStyleMatch({
+      opacity: '0.1'
+    }, wrapper);
+  });
+
+  it('should render matched style', () => {
+    wrapper = mount(<CarouselButtonStyle theme={ classicTheme } />);
+    assertStyleMatch({
+      width: '45px',
+      height: '45px',
+      backgroundColor: '#CCD6DA',
+      color: 'rgba(0,0,0,0.85)'
+    }, wrapper);
   });
 });
