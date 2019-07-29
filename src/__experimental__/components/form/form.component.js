@@ -1,9 +1,7 @@
-import classNames from 'classnames';
 import React from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
 import Serialize from 'form-serialize';
-import { kebabCase } from 'lodash';
 import Service from '../../../utils/service';
 import FormButton from './form-button';
 import FormSummary from '../../../components/form/form-summary';
@@ -13,8 +11,7 @@ import tagComponent from '../../../utils/helpers/tags';
 import Browser from '../../../utils/helpers/browser';
 import { withValidations } from '../../../components/validations';
 import ElementResize from '../../../utils/helpers/element-resize';
-import StyledForm, { StyledFormFooter } from './form.style';
-import './form.scss';
+import StyledForm, { StyledFormFooter, StyledAdditionalFormAction } from './form.style';
 
 class FormWithoutValidations extends React.Component {
   state = {
@@ -258,7 +255,7 @@ class FormWithoutValidations extends React.Component {
 
   /** Separates and returns HTML specific props */
   htmlProps = () => {
-    const { onSubmit, ...props } = validProps(this);
+    const { onSubmit, fixdBottom, ...props } = validProps(this);
     props.className = this.mainClasses;
     return props;
   }
@@ -290,6 +287,7 @@ class FormWithoutValidations extends React.Component {
 
     return (
       <FormButton
+        key='cancel'
         formButtonName='cancel'
         data-element='cancel'
         { ...cancelProps }
@@ -302,9 +300,9 @@ class FormWithoutValidations extends React.Component {
     if (!this.props[type]) { return null; }
 
     return (
-      <div className={ `carbon-form__${kebabCase(type)}` }>
+      <StyledAdditionalFormAction type={ type }>
         { this.props[type] }
-      </div>
+      </StyledAdditionalFormAction>
     );
   }
 
@@ -312,6 +310,7 @@ class FormWithoutValidations extends React.Component {
   defaultSaveButton = () => {
     return (
       <FormButton
+        key='save'
         formButtonName='save'
         saveButtonProps={ this.props.saveButtonProps }
         saveText={ this.props.saveText }
@@ -331,7 +330,7 @@ class FormWithoutValidations extends React.Component {
   saveButtonWithSummary = () => {
     return (
       <FormSummary
-        className='carbon-form__summary'
+        key='save'
         errors={ this.props.errorCount }
         warnings={ this.props.warningCount }
       >
@@ -342,7 +341,6 @@ class FormWithoutValidations extends React.Component {
 
   /** Returns the footer for the form  */
   formFooter = () => {
-    const save = this.props.showSummary ? this.saveButtonWithSummary() : this.saveButton();
     let padding = this.props.stickyFooterPadding;
 
     if (padding && !padding.match(/px$/)) {
@@ -350,34 +348,22 @@ class FormWithoutValidations extends React.Component {
     }
 
     return (
-      <StyledFormFooter>
-        <AppWrapper className={ this.footerClasses } style={ { borderWidth: padding } }>
+      <StyledFormFooter buttonAlign={ this.props.buttonAlign }>
+        <AppWrapper style={ { borderWidth: padding } }>
           { this.additionalActions('leftAlignedActions') }
           { this.additionalActions('rightAlignedActions') }
-          { save }
-          { this.cancelButton() }
+          { this.orderFormButtons() }
           { this.additionalActions('additionalActions') }
         </AppWrapper>
       </StyledFormFooter>
     );
   }
 
-  /** Main class getter */
-  get mainClasses() {
-    return classNames(
-      'carbon-form',
-      this.props.className, {
-        'carbon-form--sticky-footer': this.state.stickyFooter
-      }
-    );
-  }
+  /** Orders the Save and Cancel Buttons based on alignment prop  */
+  orderFormButtons() {
+    const save = this.props.showSummary ? this.saveButtonWithSummary() : this.saveButton();
 
-  /** Button class getter */
-  get footerClasses() {
-    return classNames(
-      'carbon-form__buttons',
-      `carbon-form__buttons--${this.props.buttonAlign}`
-    );
+    return this.props.buttonAlign === 'right' ? [this.cancelButton(), save] : [save, this.cancelButton()];
   }
 
   /** Store children controlled data in state */
@@ -392,7 +378,7 @@ class FormWithoutValidations extends React.Component {
 
   /** Clone the children, pass in callback to allow form to store controlled data */
   renderChildren() {
-    const { children } = this.props;
+    const { children, isLabelRightAligned } = this.props;
 
     if (!children) return null;
 
@@ -402,16 +388,20 @@ class FormWithoutValidations extends React.Component {
       return React.cloneElement(child, {
         ...child.props,
         childOfForm: true,
-        addInputToFormState: this.addInputDataToState
+        addInputToFormState: this.addInputDataToState,
+        labelAlign: isLabelRightAligned ? 'right' : 'left'
       });
     });
   }
 
   /** Renders the component. */
   render() {
+    const stickyFooter = !this.props.stickyFooter ? false : this.state.stickyFooter;
     return (
       <StyledForm
+        stickyFooter={ stickyFooter }
         onSubmit={ this.handleOnSubmit }
+        fixedBottom={ this.props.fixedBottom }
         { ...this.htmlProps() }
         ref={ (form) => { this._form = form; } }
         { ...tagComponent('form', this.props) }
@@ -555,7 +545,14 @@ FormWithoutValidations.propTypes = {
     }
   },
 
-  redirectPath: PropTypes.string
+  /** Path to redirect after submit */
+  redirectPath: PropTypes.string,
+
+  /** Passed down when Form parent is dialog */
+  fixedBottom: PropTypes.bool,
+
+  /** Sets children's label alignment */
+  isLabelRightAligned: PropTypes.bool
 };
 
 FormWithoutValidations.defaultProps = {
