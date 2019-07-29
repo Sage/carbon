@@ -1,17 +1,13 @@
 import React from 'react';
 import TestRenderer from 'react-test-renderer';
+import { ThemeProvider } from 'styled-components';
 import { shallow } from 'enzyme';
 import 'jest-styled-components';
 import Icon from 'components/icon';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import ValidationIcon from '../../../components/validations/validation-icon.component';
 import InputIconToggle from './input-icon-toggle.component';
-
-function render(props, renderer = shallow) {
-  return renderer(
-    <InputIconToggle inputIcon='settings' { ...props } />
-  );
-}
+import classicTheme from '../../../style/themes/classic';
 
 describe('InputIconToggle', () => {
   describe('when initiated with the disabled prop set to true', () => {
@@ -60,13 +56,27 @@ describe('InputIconToggle', () => {
     it('when active', () => {
       assertStyleMatch({
         backgroundColor: '#e6ebed'
-      }, render({ theme: { name: 'classic' } }, TestRenderer.create).toJSON());
+      }, renderWithTheme({ type: 'dropdown' }, classicTheme).toJSON());
     });
 
-    it('renders a narrow button when a dropdown', () => {
+    it('renders a narrow button when in a dropdown', () => {
       assertStyleMatch({
         width: '20px'
-      }, render({ type: 'dropdown', theme: { name: 'classic' } }, TestRenderer.create).toJSON());
+      }, renderWithTheme({ type: 'dropdown' }, classicTheme).toJSON());
     });
   });
 });
+
+function render(props, renderer = shallow) {
+  return renderer(
+    <InputIconToggle inputIcon='settings' { ...props } />
+  );
+}
+
+function renderWithTheme(props, theme, renderer = TestRenderer.create) {
+  return renderer(
+    <ThemeProvider theme={ theme }>
+      <InputIconToggle inputIcon='settings' { ...props } />
+    </ThemeProvider>
+  );
+}

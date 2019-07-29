@@ -49,7 +49,8 @@ InputIconToggleStyle.defaultProps = {
 };
 
 InputIconToggleStyle.propTypes = {
-  size: PropTypes.oneOf(OptionsHelper.sizesRestricted)
+  size: PropTypes.oneOf(OptionsHelper.sizesRestricted),
+  type: PropTypes.string
 };
 
 export default InputIconToggleStyle;
