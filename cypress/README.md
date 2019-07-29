@@ -7,8 +7,7 @@
 4. Run storybook `npm run storybook`
 5. Open new terminal at the same path
 6. Run cypress `npm run test-cypress`
-7. If you would like to run cypress in command line (headless browser for continous integration) use `npm run test-cypress`
-  * If you would like to run specific cypress tests in command line (headless browser for continous integration) use: `npm run test-cypress --spec 'cypress/features/[tests-type]/[featureFileName].feature'`
+7. If you would like to run specific cypress tests in command line (headless browser for continous integration) use: `npm run test-cypress --spec 'cypress/features/[tests-type]/[featureFileName].feature'`
 8. We have 3 test suites:
   * Only build suite tests, which are running on Travis after every change/commit/push in repository. To run use:`npm run test-cypress-build`
   * Only accessibility suite tests, which are running on TeamCity nightly and verifying do the components have the accessibility vulnerabilities. To run use:`npm run test-cypress-accessibility`
@@ -21,8 +20,8 @@
 4. Use BDD keywords:
   * GIVEN - the given part describes the state of the world before you begin the behavior you are specifying in this scenario. You can think of it as the pre-conditions to the test
   * WHEN - the when section is that behavior that you are specifying. All action you need to perform before making an assertion
-  * THAN - the then section describes the changes you expect due to the specified behavior. Regular assertion
-  * AND - each of the section could have own and state. You can use and to avoid using duplication of the keywords (Given / When / Than)
+  * THEN - the then section describes the changes you expect due to the specified behavior. Regular assertion
+  * AND - each of the section could have own and state. You can use and to avoid using duplication of the keywords (Given / When / Then)
   * Scenarion outline - tests that are using parameters from given Examples under the test and will run as much as there are examples
   * Scenario - tests that are run once
 5. Step definitions for BDD:
@@ -80,3 +79,12 @@ Always use unique selectors to locate elements with order below:
 3. Locators should be named:
   * Component on preview - `componentPreview`
   * Knobs - `componentKnobs`
+
+## Continuous Integration (CI)
+### Travis
+Every commit / pull request in repository initializing cypress `@build` tests and runs:
+1. `npm run storybook-ci </dev/null &>/dev/null &` - runs storybook
+2. `npm run lint ./src && npm test -- --maxWorkers=2` - runs lint test and after that runs jest tests
+3. `npm run test-storybook-smoke` - runs `--smoke-test` and `--ci` - exit after successful start and don't open the browser
+4. `wait-on http://localhost:9001` - waits until apllication will be ready to run tests
+5. `npm run test-cypress-build` - run `@build` tests suite
