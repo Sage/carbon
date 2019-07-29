@@ -14,20 +14,26 @@ class PortraitGravatar extends React.Component {
     const { dimensions } = getSizeParams(theme, size);
     const base = 'https://www.gravatar.com/avatar/';
     const hash = MD5(gravatarEmail.toLowerCase());
+    const fallbackOption = '404'; // "Return an HTTP 404 File Not Found response"
 
-    return `${base}${hash}?s=${dimensions}&d=blank`;
+    /** @see https://en.gravatar.com/site/implement/images/#default-image */
+    return `${base}${hash}?s=${dimensions}&d=${fallbackOption}`;
   }
 
   /** Renders the component. */
   render() {
-    const { alt, size, shape } = this.props;
+    const {
+      alt, size, shape, errorCallback, ...otherProps
+    } = this.props;
     return (
       <StyledPortraitGravatar
         src={ this.gravatarSrc() }
         alt={ alt }
         size={ size }
         shape={ shape }
+        onError={ errorCallback }
         data-element='user-image'
+        { ...otherProps }
       />
     );
   }
@@ -43,7 +49,9 @@ PortraitGravatar.propTypes = {
   /** The shape of the Gravatar. */
   shape: PropTypes.oneOf([...OptionsHelper.shapesVaried, ...OptionsHelper.shapesPortrait]),
   /** The `alt` HTML string. */
-  alt: PropTypes.string
+  alt: PropTypes.string,
+  /** A callback to execute if the Gravatar image fails to load. */
+  errorCallback: PropTypes.func
 };
 
 PortraitGravatar.defaultProps = {
