@@ -52,6 +52,7 @@ const LabelStyle = styled.label`
   ${({ inline, childOfForm }) => !inline && childOfForm && css`
     margin-bottom: 12px;
   `}
+  
   ${({ inline, childOfForm, align }) => inline && childOfForm && align === 'right' && css`
     margin-left: 12px;
   `}
