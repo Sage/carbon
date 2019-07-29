@@ -28,9 +28,6 @@ const propsForButton = (props) => {
 
 const addButtonProps = (props) => {
   const { formButtonName } = props;
-  const isDefaultAction = formButtonName === 'save' || formButtonName === 'cancel';
-
-  if (!isDefaultAction) return props;
 
   return {
     ...propsForButton(props)[formButtonName],

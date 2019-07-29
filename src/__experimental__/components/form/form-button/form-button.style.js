@@ -8,8 +8,8 @@ const StyledFormButtonWrapper = styled.div`
   ${StyledButton} {
     align-items: center;
     display: flex;
-    ${({ theme }) => !isClassic(theme) && css`margin-left: 15px;`}
-    ${({ theme }) => isClassic(theme) && css`margin-left: 16px;`}
+    margin-left: 16px;
+    ${({ theme }) => isClassic(theme) && css`margin-left: 15px;`}
   }
 `;
 
