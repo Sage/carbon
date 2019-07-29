@@ -11,12 +11,10 @@ const StyledFormSummary = styled.div`
   padding: 8px;
   border-radius: 4px;
  
-  ${({ isInvalid, theme }) => {
-    return isInvalid && css`
-      background-color: ${theme.form.invalid};
-      margin-left: 15px;
-    `;
-  }}
+  ${({ isInvalid, theme }) => isInvalid && css`
+    background-color: ${theme.form.invalid};
+    margin-left: 15px;
+  `}
 `;
 
 export const StyledInternalSummary = styled.span`
@@ -27,21 +25,13 @@ export const StyledInternalSummary = styled.span`
     position: relative;
     top: -2px;
   }
-
-  ${({ type }) => {
-    if (!['error', 'warning'].includes(type)) return css``;
-    if (type === 'error') return css`color: #D63F40;`;
-
-    return css`color: #FF7D00;`;
-  }}
+  ${({ type }) => type === 'warning' && css`color: #FF7D00;`}
+  ${({ type }) => type === 'error' && css`color: #D63F40;`}
 `;
 
 export const StyledSummaryText = styled.span`
   padding: 0 3px;
-
-  ${({ type }) => {
-    return type === 'warning' && css`color: #c33e00;`;
-  }}
+  ${({ type }) => type === 'warning' && css`color: #c33e00;`}
 `;
 
 StyledFormSummary.defaultProps = {

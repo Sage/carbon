@@ -187,7 +187,6 @@ class Dialog extends Modal {
     if (!children) return null;
 
     const childrenArray = Array.isArray(children) ? children : [children];
-
     return childrenArray.map((child) => {
       return React.cloneElement(child, {
         ...child.props,
@@ -245,7 +244,7 @@ class Dialog extends Modal {
             ref={ (innerContent) => { this._innerContent = innerContent; } }
             height={ this.props.height }
           >
-            { this.renderChildren }
+            { this.renderChildren() }
             { this.additionalContent() }
           </DialogInnerContentStyle>
         </DialogContentStyle>

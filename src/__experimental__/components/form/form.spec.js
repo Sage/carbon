@@ -2,17 +2,17 @@ import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
 import { mount, shallow } from 'enzyme';
+import { StyledAdditionalFormAction } from '../../../components/form/form.style';
 import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
 import Textbox from '../textbox';
 import Validation from '../../../utils/validations/presence';
 import Dialog from '../../../components/dialog';
-import CancelButton from '../../../components/form/cancel-button';
-import SaveButton from '../../../components/form/save-button';
 import FormSummary from '../../../components/form/form-summary';
 import Button from '../../../components/button';
 import ElementResize from '../../../utils/helpers/element-resize';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import Service from '../../../utils/service';
+import AppWrapper from '../../../components/app-wrapper';
 
 /* global jest */
 jest.mock('../../../utils/service');
@@ -472,17 +472,11 @@ describe('Form', () => {
     });
   });
 
-  describe('htmlProps', () => {
-    it('sets the className', () => {
-      expect(instance.htmlProps().className).toEqual('carbon-form');
-    });
-  });
-
   describe('cancelForm', () => {
     describe('when window history is availiable', () => {
       it('redirects to the previous page', () => {
         spyOn(instance._window.history, 'back');
-        const cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
+        const cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
         TestUtils.Simulate.click(cancel);
         expect(instance._window.history.back).toHaveBeenCalled();
       });
@@ -491,7 +485,7 @@ describe('Form', () => {
     describe('when window history is not availiable', () => {
       it('throws an error', () => {
         instance._window = {};
-        const cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
+        const cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
         expect(() => { TestUtils.Simulate.click(cancel); })
           .toThrowError('History is not defined. This is normally configured by the react router');
       });
@@ -506,7 +500,6 @@ describe('Form', () => {
             open
             onCancel={ spy }
           >
-
             <Form formAction='foo'>
               <Textbox
                 name='name'
@@ -516,8 +509,7 @@ describe('Form', () => {
             </Form>
           </Dialog>
         );
-
-        const cancel = nestedInstance.find('button').last();
+        const cancel = nestedInstance.find('[data-element="cancel"]').hostNodes().last();
         cancel.simulate('click');
         expect(spy).toHaveBeenCalled();
       });
@@ -531,23 +523,17 @@ describe('Form', () => {
             <Textbox />
           </Form>
         );
-        const cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
+        const cancel = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
         TestUtils.Simulate.click(cancel);
         expect(spy).toHaveBeenCalled();
       });
     });
   });
 
-  describe('mainClasses', () => {
-    it('returns the carbon-form class', () => {
-      expect(instance.mainClasses).toEqual('carbon-form');
-    });
-  });
-
   describe('stickyFooterPadding', () => {
     it('adds padding if defined', () => {
       wrapper = shallow(<Form formAction='foo' stickyFooterPadding='500' />);
-      const footer = wrapper.find('.carbon-form__buttons');
+      const footer = wrapper.find(AppWrapper);
       expect(footer.props().style.borderWidth).toEqual('500px');
     });
   });
@@ -556,7 +542,7 @@ describe('Form', () => {
     describe('if prop is passed', () => {
       it('returns the prop value', () => {
         instance = TestUtils.renderIntoDocument(<Form formAction='foo' saveText='custom' />);
-        const save = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
+        const save = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
         expect(save.textContent).toEqual('custom');
       });
     });
@@ -564,18 +550,13 @@ describe('Form', () => {
     describe('if no prop is passed', () => {
       it('returns i18n value', () => {
         instance = TestUtils.renderIntoDocument(<Form formAction='foo' />);
-        const save = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[0];
+        const save = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'button')[1];
         expect(save.textContent).toEqual('Save');
       });
     });
   });
 
   describe('render', () => {
-    it('renders a parent form', () => {
-      const form = TestUtils.findRenderedDOMComponentWithTag(instance, 'form');
-      expect(form.className).toEqual('carbon-form');
-    });
-
     describe('CSRF', () => {
       let csrf;
 
@@ -623,7 +604,7 @@ describe('Form', () => {
 
       describe('the save button', () => {
         it('by default it renders a save button', () => {
-          expect(wrapper.find('.carbon-form-save').exists()).toBeTruthy();
+          expect(wrapper.find('[data-element="save"]').exists()).toBeTruthy();
         });
       });
 
@@ -644,12 +625,12 @@ describe('Form', () => {
           });
 
           it('renders a cancel button with expected props', () => {
-            const cancelButton = wrapper.find(CancelButton);
+            const cancelButton = wrapper.find('[data-element="cancel"]');
             expect(cancelButton.prop('cancelText')).toEqual('Some custom text');
           });
 
           it('renders a save button with expected props', () => {
-            const saveButton = wrapper.find(SaveButton);
+            const saveButton = wrapper.find('[data-element="save"]');
             expect(saveButton.prop('saveText')).toEqual('Some custom save text');
             expect(saveButton.prop('saving')).toBeFalsy();
             expect(saveButton.prop('saveButtonProps')).toEqual({ theme: 'red' });
@@ -677,7 +658,7 @@ describe('Form', () => {
           });
 
           it('does not render the standard SaveButton', () => {
-            expect(wrapper.find(SaveButton).exists()).toBeFalsy();
+            expect(wrapper.find('[data-element="save"]').exists()).toBeFalsy();
           });
 
           it('renders a custom save button with expected props', () => {
@@ -691,14 +672,14 @@ describe('Form', () => {
       describe('when cancel prop is false', () => {
         it('does not show a cancel button', () => {
           wrapper = shallow(<Form formAction='foo' cancel={ false } />);
-          expect(wrapper.find(CancelButton).length).toEqual(0);
+          expect(wrapper.find('[data-element="cancel"]').length).toEqual(0);
         });
       });
 
       describe('when cancel props is true (default)', () => {
         it('does show a cancel button', () => {
           wrapper = shallow(<Form formAction='foo' />);
-          expect(wrapper.find(CancelButton).length).toEqual(1);
+          expect(wrapper.find('[data-element="cancel"]').length).toEqual(1);
         });
       });
     });
@@ -723,14 +704,14 @@ describe('Form', () => {
       describe('when save prop is false', () => {
         it('does not show a save button', () => {
           wrapper = shallow(<Form formAction='foo' save={ false } />);
-          expect(wrapper.find(SaveButton).length).toEqual(0);
+          expect(wrapper.find('[data-element="save"]').length).toEqual(0);
         });
       });
 
       describe('when save props is true (default)', () => {
         it('does show a save button', () => {
           wrapper = shallow(<Form formAction='foo' />);
-          expect(wrapper.find(SaveButton).length).toEqual(1);
+          expect(wrapper.find('[data-element="save"]').length).toEqual(1);
         });
       });
     });
@@ -738,34 +719,32 @@ describe('Form', () => {
     describe('additionalActions', () => {
       describe('if none defined', () => {
         it('returns null', () => {
-          instance = TestUtils.renderIntoDocument(<Form formAction='foo' />);
-          expect(instance.additionalActions('additionalActions')).toBe(null);
+          wrapper = mount(<Form formAction='foo' />);
+          const additionalAction = wrapper.find(StyledAdditionalFormAction);
+          expect(additionalAction.exists()).toEqual(false);
         });
       });
 
-      describe('if defined', () => {
-        it('returns the action', () => {
-          instance = TestUtils.renderIntoDocument(<Form formAction='foo' additionalActions={ <span /> } />);
-          expect(instance.additionalActions('additionalActions').props.className)
-            .toEqual('carbon-form__additional-actions');
-        });
-      });
-
-      describe('leftAlignedActions', () => {
-        it('returns the action', () => {
-          instance = TestUtils.renderIntoDocument(<Form formAction='foo' leftAlignedActions={ <span /> } />);
-          expect(instance.additionalActions('leftAlignedActions').props.className)
-            .toEqual('carbon-form__left-aligned-actions');
-        });
-      });
-
-      describe('rightAlignedActions', () => {
-        it('returns the action', () => {
-          instance = TestUtils.renderIntoDocument(<Form formAction='foo' rightAlignedActions={ <span /> } />);
-          expect(instance.additionalActions('rightAlignedActions').props.className)
-            .toEqual('carbon-form__right-aligned-actions');
-        });
-      });
+      describe.each(['additionalActions', 'leftAlignedActions', 'rightAlignedActions'])(
+        'when an action is defined',
+        (action) => {
+          const props = { [action]: <span /> };
+          it(`returns the ${action}`, () => {
+            wrapper = mount(
+              <Form
+                formAction='foo' { ...props }
+                buttonAlign='left'
+                isLabelRightAligned
+              >
+                <Textbox />
+              </Form>
+            );
+            const additionalAction = wrapper.find(StyledAdditionalFormAction);
+            expect(additionalAction.exists()).toEqual(true);
+            expect(additionalAction.contains(<span />)).toBeTruthy();
+          });
+        }
+      );
     });
 
     describe('setting the form redirect path', () => {

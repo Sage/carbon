@@ -311,6 +311,7 @@ class FormWithoutValidations extends React.Component {
       <FormButton
         key='save'
         formButtonName='save'
+        data-element='save'
         saveButtonProps={ this.props.saveButtonProps }
         saveText={ this.props.saveText }
         saving={ this.props.isValidating || this.props.saving || this.state.submitted }

@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs';
-import Icon from './../../icon';
+import { elementsTagTest, rootTagTest } from '../../../utils/helpers/tags/tags-specs/tags-specs';
+import Icon from '../../icon/icon';
 import FormSummary from './form-summary';
 
 describe('<FormSummary />', () => {
