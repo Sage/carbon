@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-
 import { compact, assign } from 'lodash';
 import { withTheme } from 'styled-components';
 import tagComponent from '../../utils/helpers/tags/tags';
-
 import Slide from './slide/slide';
 import {
   CarouselPreviousButtonWrapperStyle,
