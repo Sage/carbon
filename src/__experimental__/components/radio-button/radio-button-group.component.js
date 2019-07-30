@@ -16,6 +16,8 @@ const RadioButtonGroup = (props) => {
   const { children, groupName, label } = props;
   const [selectedValue, setSelectedValue] = useState(null);
 
+  const groupLabelId = `${groupName}-label`;
+
   const buttons = React.Children.map(children, (child, index) => {
     const key = child.props.key || child.props.value;
     const checked = selectedValue === child.props.value;
@@ -30,23 +32,22 @@ const RadioButtonGroup = (props) => {
       child,
       {
         checked,
+        inputName: groupName,
         key,
-        name: groupName,
         onChange: handleChange,
         tabindex
       }
     );
   });
 
-  const labelId = `${groupName}-label`;
 
   return (
     <StyledRadioButtonGroup
-      aria-labelledby={ labelId }
+      aria-labelledby={ groupLabelId }
       role='radiogroup'
       { ...tagComponent('radiogroup', props) }
     >
-      <Label id={ labelId }>
+      <Label id={ groupLabelId }>
         {label}
       </Label>
       {buttons}

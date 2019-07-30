@@ -12,34 +12,33 @@ class CheckableInput extends React.Component {
     this.inputId = props.inputId || guid();
   }
 
-  formFieldProps = () => {
-    return {
-      ...validProps(this, ['fieldHelpInline', 'reverse']),
-      labelHelpIcon: 'info',
-      name: this.inputId
-    };
-  }
-
-  inputProps = () => {
-    const {
-      children, fieldHelp, labelHelp, ...inputProps
-    } = {
-      ...validProps(this, ['checked', 'disabled', 'onChange', 'tabindex', 'type']),
-      id: this.inputId
-    };
-
-    return inputProps;
-  };
-
   render() {
-    const { onChange, ...rest } = this.props;
+    const { children, onChange, ...rest } = this.props;
+    const helpId = rest.labelHelp ? `${this.inputId}-help` : undefined;
+    const id = this.inputId;
+
+    const formFieldProps = {
+      ...validProps(this, ['fieldHelpInline', 'helpTabIndex', 'labelHelp', 'helpTag', 'reverse']),
+      helpId,
+      label: rest.inputLabel,
+      labelHelpIcon: 'info',
+      name: id
+    };
+
+    const {
+      fieldHelp, labelHelp, ...inputProps
+    } = {
+      ...validProps(this, ['checked', 'disabled', 'groupLabelId', 'inputName', 'inputType', 'onChange', 'tabindex']),
+      helpId,
+      id
+    };
 
     return (
       <StyledCheckableInputWrapper { ...rest }>
-        <FormField { ...this.formFieldProps() }>
+        <FormField { ...formFieldProps }>
           <StyledCheckableInput>
-            <HiddenCheckableInput { ...this.inputProps() } />
-            {this.props.children}
+            <HiddenCheckableInput { ...inputProps } />
+            {children}
           </StyledCheckableInput>
         </FormField>
       </StyledCheckableInputWrapper>
@@ -60,10 +59,14 @@ CheckableInput.propTypes = {
   fieldHelpInline: PropTypes.bool,
   /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
   inputId: PropTypes.string,
+  /** The content for the Label to apply to the input */
+  inputLabel: PropTypes.node,
   /** Sets percentage-based input width */
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.string,
+  /** The content for the help tooltip, to appear next to the Label */
+  labelHelp: PropTypes.node,
   /** Sets percentage-based label width */
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   /** Accepts a callback function which can be used to update parent state on change */
@@ -71,7 +74,7 @@ CheckableInput.propTypes = {
   /** Reverses label and CheckableInput display */
   reverse: PropTypes.bool,
   /** Specifies input type, 'checkbox' or 'switch' */
-  type: PropTypes.string.isRequired
+  inputType: PropTypes.string.isRequired
 };
 
 CheckableInput.defaultProps = {

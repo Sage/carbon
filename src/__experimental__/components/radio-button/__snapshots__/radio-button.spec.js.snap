@@ -867,12 +867,9 @@ exports[`RadioButton styles base renders as expected 1`] = `
 <div
   className="c0"
   data-component="radio-button"
-  value="test"
 >
   <div
     className="c1"
-    type="radio"
-    value="test"
   >
     <div
       className="c2 c3"
