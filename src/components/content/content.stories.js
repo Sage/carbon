@@ -4,6 +4,12 @@ import { text, select, boolean } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
 import Content from './content.js';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Content.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /content/
+);
 
 storiesOf('Content', module)
   .add('default', () => {

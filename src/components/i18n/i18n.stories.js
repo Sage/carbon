@@ -4,6 +4,12 @@ import { text, boolean } from '@storybook/addon-knobs';
 import i18n from 'i18n-js';
 import { notes, Info } from './documentation';
 import I18nComponent from './i18n';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+I18nComponent.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /i18n\.js/
+);
 
 // eslint-disable-next-line dot-notation
 i18n.translations.en['my'] = {

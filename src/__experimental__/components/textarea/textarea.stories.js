@@ -8,6 +8,12 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import Textarea from '.';
 import { notes, info, infoValidations } from './documentation';
 import { OriginalTextarea } from './textarea.component';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
+OriginalTextarea.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /textarea\.component/
+);
 
 const store = new Store({
   value: ''

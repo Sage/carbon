@@ -7,6 +7,12 @@ import Spinner from '../spinner/spinner.component';
 import { OriginalButton } from '../button/button.component';
 import { notes, info } from './documentation';
 import { notesSpinner, infoSpinner } from '../spinner/documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Loader.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /loader\.component/
+);
 
 const styles = {
   textAlign: 'left'

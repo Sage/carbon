@@ -5,6 +5,12 @@ import { action } from '@storybook/addon-actions';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info } from './documentation';
 import Link from './link.component';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Link.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /link\.component/
+);
 
 storiesOf('Link', module)
   .add('default', () => {

@@ -10,6 +10,12 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Button, { OriginalButton } from '../button';
 import { notes, info } from './documentation';
 import classic from '../../style/themes/classic';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+SplitButton.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /split-button\.component/
+);
 
 const getIconKnobs = () => {
   const defaultPosition = Button.defaultProps.iconPosition;

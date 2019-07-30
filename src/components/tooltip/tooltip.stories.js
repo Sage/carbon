@@ -6,6 +6,12 @@ import {
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Tooltip from '.';
 import { notes, info } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Tooltip.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /tooltip\.component/
+);
 
 function validTooltip({ children, isVisible }) {
   return (children && isVisible);

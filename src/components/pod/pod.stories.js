@@ -6,6 +6,12 @@ import Pod from './pod';
 import notes from './notes.md';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { StoryHeader, StoryCode } from '../../../.storybook/style/storybook-info.styles';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Pod.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /pod\.js/
+);
 
 storiesOf('Pod', module)
   .add('default', () => {

@@ -8,6 +8,12 @@ import Button, { OriginalButton } from '../button';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 import classic from '../../style/themes/classic';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+MultiActionButton.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /multi-action-button\.component/
+);
 
 const getIconKnobs = () => {
   const defaultPosition = Button.defaultProps.iconPosition;

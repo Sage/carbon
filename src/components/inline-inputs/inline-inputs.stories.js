@@ -6,6 +6,12 @@ import InlineInputs from '.';
 import Textbox from '../../__experimental__/components/textbox';
 import Decimal from '../../__experimental__/components/decimal';
 import { Select, Option } from '../../__experimental__/components/select';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+InlineInputs.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /inline-inputs\.component/
+);
 
 const singleSelectStore = new Store({
   decimalValue: '0.00',

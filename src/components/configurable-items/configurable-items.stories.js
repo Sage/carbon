@@ -5,6 +5,17 @@ import { action } from '@storybook/addon-actions';
 import { cloneDeep } from 'lodash';
 import notes from './documentation';
 import { ConfigurableItems, ConfigurableItemRow } from '.';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+ConfigurableItems.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /configurable-items\.component/
+);
+
+ConfigurableItemRow.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /configurable-item-row\.component/
+);
 
 const defaultConfigurableItemsData = [
   {

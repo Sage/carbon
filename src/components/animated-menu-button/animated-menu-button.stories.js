@@ -7,6 +7,12 @@ import AnimatedMenuButton from './animated-menu-button';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { Row } from '../row/row';
 import Link from '../link';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+AnimatedMenuButton.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /animated-menu-button/
+);
 
 const Container = styled.div`
   display: flex;

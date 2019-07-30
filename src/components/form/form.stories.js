@@ -7,6 +7,12 @@ import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import Form, { FormWithoutValidations } from '.';
 import Textbox from '../textbox';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Form.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /form\.js/
+);
 
 storiesOf('Form', module)
   .addParameters({

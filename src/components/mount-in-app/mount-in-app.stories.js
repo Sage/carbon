@@ -3,6 +3,12 @@ import { storiesOf } from '@storybook/react';
 import MountInApp from './mount-in-app';
 import notes from './notes.md';
 import { StoryHeader, StoryCode, StoryCodeBlock } from '../../../.storybook/style/storybook-info.styles';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+MountInApp.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /mount-in-app.js/
+);
 
 storiesOf('Mount In App', module)
   .add('default', () => {

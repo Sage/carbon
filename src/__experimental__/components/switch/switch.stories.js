@@ -9,6 +9,12 @@ import OptionsHelper from '../../../utils/helpers/options-helper';
 import Switch from '.';
 import { info, legacyInfo, notes } from './documentation';
 import classic from '../../../style/themes/classic';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
+Switch.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /switch\.component/
+);
 
 const formStore = new Store({
   checked: false

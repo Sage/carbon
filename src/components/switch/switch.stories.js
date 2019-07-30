@@ -8,6 +8,12 @@ import { action } from '@storybook/addon-actions';
 import Switch from './switch';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { notes, info } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Switch.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /switch\.js/
+);
 
 const store = new Store({
   value: false

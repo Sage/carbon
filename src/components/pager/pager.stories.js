@@ -6,6 +6,12 @@ import { State, Store } from '@sambego/storybook-state';
 import Pager from './pager.component';
 import { Info, notes } from './documentation';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Pager.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /pager-navigation\.component/
+);
 
 const store = new Store({
   currentPage: '1',

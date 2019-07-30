@@ -5,6 +5,12 @@ import Immutable from 'immutable';
 import Highcharts from 'highcharts';
 import Rainbow from './rainbow.component';
 import { notes, info } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Rainbow.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /rainbow\.component/
+);
 
 global.Highcharts = Highcharts;
 const myImmutableData = Immutable.fromJS([

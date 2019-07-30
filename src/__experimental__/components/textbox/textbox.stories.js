@@ -10,6 +10,12 @@ import { Store, State } from '@sambego/storybook-state';
 import { notes, info, infoValidations } from './documentation';
 import Textbox, { OriginalTextbox } from '.';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
+OriginalTextbox.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /textbox\.component/
+);
 
 // set the display name so the story source makes sense
 Textbox.displayName = 'Textbox';

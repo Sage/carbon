@@ -4,6 +4,17 @@ import { select } from '@storybook/addon-knobs';
 import StepSequence from './step-sequence.component';
 import StepSequenceItem from './step-sequence-item/step-sequence-item.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+StepSequence.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /step-sequence\.component/
+);
+
+StepSequenceItem.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /step-sequence-item\.component/
+);
 
 storiesOf('Step Sequence', module).add('default', () => {
   const orientation = select('orientation', OptionsHelper.orientation, StepSequence.defaultProps.orientation);

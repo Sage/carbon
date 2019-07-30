@@ -6,6 +6,13 @@ import { State, Store } from '@sambego/storybook-state';
 import { notes, info } from './documentation';
 import DateRange from './date-range.component';
 
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
+DateRange.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /date-range\.component/
+);
+
 const store = new Store({
   value: ['2016-10-01', '2016-10-30']
 });

@@ -14,6 +14,12 @@ import Info from './documentation/Info';
 import Flash, { FlashWithoutHOC } from './flash.component';
 import Button, { OriginalButton } from '../button/button.component';
 import classicTheme from '../../style/themes/classic';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+FlashWithoutHOC.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /flash-legacy\.component/
+);
 
 
 const store = new Store({

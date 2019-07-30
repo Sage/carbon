@@ -7,6 +7,12 @@ import GroupedCharacter from './grouped-character.component';
 import getCommonTextboxStoryProps from '../textbox/textbox.stories';
 import { OriginalTextbox } from '../textbox';
 import { info } from './documentation';
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
+GroupedCharacter.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /grouped-character\.component/
+);
 
 const groupedCharacterStore = new Store({
   value: ''

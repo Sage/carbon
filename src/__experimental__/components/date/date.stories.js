@@ -11,6 +11,13 @@ import Textbox from '../textbox';
 import getCommonTextboxStoryProps from '../textbox/textbox.stories';
 import { notes, info, infoValidations } from './documentation';
 
+import getDocGenInfo from '../../../utils/helpers/docgen-info';
+
+DateInput.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /date\.component/
+);
+
 const store = new Store(
   {
     value: ''

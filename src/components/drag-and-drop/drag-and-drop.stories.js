@@ -12,6 +12,12 @@ import {
   TableRow,
   TableCell
 } from '../table';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+DraggableContext.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /drag-and-drop/
+);
 
 const store = new Store({
   dndData: [{

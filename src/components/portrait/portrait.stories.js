@@ -7,6 +7,12 @@ import Portrait from './portrait.component';
 import { notes, info } from './documentation';
 import classicTheme from '../../style/themes/classic';
 import mediumTheme from '../../style/themes/medium';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Portrait.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /portrait\.component/
+);
 
 function commonKnobs() {
   const source = select('source', ['src', 'gravatar'], 'src');

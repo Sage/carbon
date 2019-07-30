@@ -7,6 +7,12 @@ import Toast from '.';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { notes, info } from './documentation';
 import classic from '../../style/themes/classic';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Toast.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /toast\.component/
+);
 
 // This is for storybook example only
 const StyledToastStory = styled(Toast)`

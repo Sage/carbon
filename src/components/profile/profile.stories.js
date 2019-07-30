@@ -6,6 +6,12 @@ import Profile, { OriginalProfile } from './profile.component';
 import { info, notes } from './documentation';
 import classicTheme from '../../style/themes/classic';
 import OptionsHelper from '../../utils/helpers/options-helper';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Profile.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /profile\.component/
+);
 
 storiesOf('Profile', module)
   .addParameters({

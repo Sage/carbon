@@ -5,6 +5,12 @@ import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import SimpleColorPicker from './simple-color-picker';
 import { notes, info } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+SimpleColorPicker.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /simple-color-picker\.js/
+);
 
 const store = new Store({
   selectedColor: '#00DC00'
