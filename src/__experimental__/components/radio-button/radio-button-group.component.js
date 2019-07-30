@@ -4,8 +4,8 @@ import tagComponent from '../../../utils/helpers/tags';
 import Label from '../label';
 import { StyledRadioButtonGroup } from './radio-button.style';
 
-function initialTabIndex(index) {
-  return index ? -1 : 0;
+function initialTabIndex(childIndex) {
+  return (childIndex > 0) ? -1 : 0;
 }
 
 function checkedTabIndex(checked) {
@@ -14,16 +14,16 @@ function checkedTabIndex(checked) {
 
 const RadioButtonGroup = (props) => {
   const { children, groupName, label } = props;
-  const [selected, setSelected] = useState(undefined);
+  const [selectedValue, setSelectedValue] = useState(null);
 
   const buttons = React.Children.map(children, (child, index) => {
     const key = child.props.key || child.props.value;
-    const checked = selected === child.props.value;
-    const tabindex = selected ? checkedTabIndex(checked) : initialTabIndex(index);
+    const checked = selectedValue === child.props.value;
+    const tabindex = selectedValue ? checkedTabIndex(checked) : initialTabIndex(index);
 
     const handleChange = (ev) => {
       child.props.onChange(ev);
-      setSelected(ev.target.value);
+      setSelectedValue(ev.target.value);
     };
 
     return React.cloneElement(

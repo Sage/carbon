@@ -36,6 +36,10 @@ export default ({
     }
   }
 
+  svg {
+    border-color: rgb(175, 175, 175);
+  }
+
   ${checked && `
     circle { fill: rgba(0, 0, 0, 0.85); }
   `}
