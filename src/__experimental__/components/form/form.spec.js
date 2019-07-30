@@ -461,6 +461,14 @@ describe('Form', () => {
     });
   });
 
+  describe('class Names', () => {
+    it('allows custom classes to be added to the Form', () => {
+      wrapper = shallow(<Form formAction='foo' className='foo' />);
+
+      expect(wrapper.hasClass('foo')).toBeTruthy();
+    });
+  });
+
   describe('serialize', () => {
     beforeEach(() => {
       instance = TestUtils.renderIntoDocument(
@@ -802,7 +810,7 @@ describe('Form', () => {
 
   describe('styling of form', () => {
     describe.each([Classic, Small])(
-      'when the theme is %s',
+      'when the theme is passed',
       (theme) => {
         const props = {
           formAction: 'foo', theme
@@ -813,9 +821,13 @@ describe('Form', () => {
           />
         );
 
-        it('has the expected style', () => {
-          assertStyleMatch({ marginLeft: isClassic(theme) ? '16px' : '15px' },
-            styledWrapper.toJSON(), { modifier: `&& ${StyledButton}` });
+        it(`matches the expected style for ${theme.name}`, () => {
+          assertStyleMatch({
+            alignItems: 'center',
+            display: 'flex',
+            marginLeft: !isClassic(theme) ? '16px' : '15px'
+          },
+          styledWrapper.toJSON(), { modifier: `&& ${StyledButton}` });
         });
       }
     );

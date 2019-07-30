@@ -111,7 +111,7 @@ const summary = (props, key) => {
 
 const FormSummary = props => (
   <StyledFormSummary
-    isInvalid={ props.errors || props.warnings }
+    isInvalid={ props.errors > 0 || props.warnings > 0 }
     { ...tagComponent('form-summary', props) }
   >
     { summary(props, 'error') }

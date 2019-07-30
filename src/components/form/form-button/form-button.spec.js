@@ -1,12 +1,9 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs/tags-specs';
 import FormButton from './form-button.component';
 import Button from '../../button';
-import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
-import StyledButton from '../../button/button.style';
 
 const renderFormButton = (props, render = shallow) => {
   return render(
@@ -19,29 +16,13 @@ const renderFormButton = (props, render = shallow) => {
 describe('FormButton', () => {
   let wrapper, clickFunction, button;
 
-  describe('the Form Buttons match the expected styling', () => {
-    it('renders a form button to match the expected style', () => {
-      wrapper = renderFormButton({
-        formButtonName: 'cancel'
-      }, TestRenderer.create);
-
-      assertStyleMatch({
-        alignItems: 'center',
-        display: 'flex'
-      }, wrapper.toJSON(), { modifier: `${StyledButton}` });
-    });
-  });
-
   describe.each(['save', 'cancel'])(
     'the primary action buttons',
     (name) => {
-      let id;
-
       beforeEach(() => {
-        id = name === 'save' ? 'saveButtonProps' : 'cancelButtonProps';
         wrapper = renderFormButton({
           formButtonName: name,
-          [id]: { className: 'my-custom-button-class' }
+          [`${name}ButtonProps`]: { className: 'my-custom-button-class' }
         });
       });
 
@@ -56,10 +37,9 @@ describe('FormButton', () => {
       });
 
       it('renders custom text when provided', () => {
-        id = name === 'save' ? 'saveText' : 'cancelText';
         wrapper = renderFormButton({
           formButtonName: name,
-          [id]: `This is a ${name} button`
+          [`${name}Text`]: `This is a ${name} button`
         }, shallow);
 
         button = wrapper.find(Button);

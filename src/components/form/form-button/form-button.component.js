@@ -1,7 +1,6 @@
 import React from 'react';
 import I18n from 'i18n-js';
 import PropTypes from 'prop-types';
-import StyledFormButtonWrapper from './form-button.style';
 import tagComponent from '../../../utils/helpers/tags/tags';
 import Button from '../../button';
 
@@ -38,11 +37,11 @@ const addButtonProps = (props) => {
 
 const FormButton = (props) => {
   return (
-    <StyledFormButtonWrapper { ...tagComponent(props.formButtonName, props) }>
+    <div { ...tagComponent(props.formButtonName, props) }>
       <Button { ...addButtonProps(props) }>
         { text(props) }
       </Button>
-    </StyledFormButtonWrapper>
+    </div>
   );
 };
 
