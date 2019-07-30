@@ -15,3 +15,4 @@ lib
 src/style-config/assets.scss
 cypress/fixtures/example*
 cypress/screenshots
+.vscode/
