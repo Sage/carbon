@@ -7,6 +7,7 @@ import HiddenCheckableInputStyle from '../checkable-input/hidden-checkable-input
 import StyledCheckableInputSvgWrapper from '../checkable-input/checkable-input-svg-wrapper.style';
 import LabelStyle from '../label/label.style';
 import checkBoxClassicStyle from './checkbox-classic.style';
+import ValidationIconStyle from '../../../components/validations/validation-icon.style';
 
 const CheckboxStyle = styled.div`
   ${({
@@ -143,6 +144,17 @@ const CheckboxStyle = styled.div`
 
     ${checkBoxClassicStyle}
   `}
+
+  ${ValidationIconStyle} {
+    display: inline-block;
+    margin-left: 10px;
+    margin-top: -4px;
+    vertical-align: middle;
+  }
+
+  svg {
+    ${stylingForValidations}
+  }
 `;
 
 CheckboxStyle.defaultProps = {
@@ -159,5 +171,28 @@ CheckboxStyle.propTypes = {
   labelWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   size: PropTypes.string
 };
+
+function stylingForValidations({
+  theme,
+  hasError,
+  hasWarning,
+  hasInfo
+}) {
+  let validationColor;
+
+  if (hasError) {
+    validationColor = theme.colors.error;
+  } else if (hasWarning) {
+    validationColor = theme.colors.warning;
+  } else if (hasInfo) {
+    validationColor = theme.colors.info;
+  } else {
+    return '';
+  }
+
+  return `
+    border-color: ${validationColor} !important;
+  `;
+}
 
 export default CheckboxStyle;

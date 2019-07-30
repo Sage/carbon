@@ -3,7 +3,8 @@ import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags';
 import CheckboxStyle from './checkbox.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
-import CheckboxSvg from './checkbox-svg.component';
+import CheckboxSvg from './checkbox-svg.component'
+import withValidations from '../../../components/validations/with-validation.hoc';
 
 const Checkbox = ({
   id, label, onChange, value, ...props
@@ -23,6 +24,7 @@ const Checkbox = ({
       { ...props }
     >
       <CheckableInput
+        type='checkbox'
         { ...inputProps }
         onChange={ onChange }
       >
@@ -68,4 +70,5 @@ Checkbox.defaultProps = {
   reverse: false
 };
 
-export default Checkbox;
+export { Checkbox as OriginalCheckbox };
+export default withValidations(Checkbox);
