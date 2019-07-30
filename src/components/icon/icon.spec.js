@@ -53,7 +53,7 @@ describe('Icon', () => {
         instance.renderIcon;
         span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
         svg = span.children[0];
-        expect(svg.getAttribute('class')).toEqual(`carbon-icon__svg carbon-icon__svg--${icon}`);
+        expect(svg.getAttribute('class')).toEqual(`carbon-icon__svg--${icon}`);
       });
     });
   });

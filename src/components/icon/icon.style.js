@@ -98,7 +98,7 @@ StyledIcon.defaultProps = {
 const StyledSvgIconWrapper = styled.span`
   display: inline-block;
 
-  .carbon-icon__svg {
+  svg {
     fill: currentColor;
   }
 `;

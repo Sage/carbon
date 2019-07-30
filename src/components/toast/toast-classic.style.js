@@ -24,7 +24,7 @@ const classicToastTypeStyle = ({ theme, variant }) => theme.name === THEMES.clas
   background-color: ${colors[variant].color};
   border-radius: 0;
   
-  .carbon-icon__svg {
+  .svg {
     height: 24px;
     margin-top: -12px;
     width: 30px;

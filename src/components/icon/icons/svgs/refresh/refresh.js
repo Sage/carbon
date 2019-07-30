@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 export default {
   __html:
-    '<svg class="carbon-icon__svg carbon-icon__svg--refresh" width="13px" height="16px" viewBox="0 0 13 16">'
+    '<svg class="carbon-icon__svg--refresh" width="13px" height="16px" viewBox="0 0 13 16">'
         + '<g class="carbon-icon__svg-group" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">'
             + '<g transform="translate(-1029.000000, -227.000000)" fill="currentColor">'
                 + '<g id="Tags" transform="translate(505.000000, 227.000000)">'

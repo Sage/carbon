@@ -146,11 +146,10 @@
       line-height: unset;
     }
 
-    // should be StyledSvgIcon
     .span {
       vertical-align: middle;
 
-      .carbon-icon__svg {
+      svg {
         height: 16px;
         width: 16px;
       }

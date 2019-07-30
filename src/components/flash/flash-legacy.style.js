@@ -95,10 +95,10 @@ const FlashIconStyle = styled(Icon)`
     margin: auto;
   }
 
-  .carbon-icon__svg {
-  height: 16px;
-  margin: auto;
-  width: 16px;
+  svg {
+    height: 16px;
+    margin: auto;
+    width: 16px;
   }
 
   .carbon-icon__svg-group {
