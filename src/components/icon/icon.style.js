@@ -1,18 +1,20 @@
 import styled, { css } from 'styled-components';
 import '../../style/fonts/fonts.css';
-import classicConfig from './icon-classic-config';
 import iconUnicodes from './icon-unicodes';
 import classicIconStyles from './icon-classic.style';
 import baseTheme from '../../style/themes/base';
 
-const getBackgroundColor = (theme, bgTheme) => {
+const getBackgroundColor = (theme, bgTheme, disabled) => {
+  if (disabled) return theme.icon.disabled;
   const statuses = ['info', 'error', 'success', 'warning'];
   if (statuses.includes(bgTheme)) return theme.colors[bgTheme];
   if (bgTheme === 'business') return theme.colors.primary;
   return 'transparent';
 };
 
-const getIconColor = (bgTheme, theme, iconColor) => {
+const getIconColor = (bgTheme, theme, iconColor, disabled) => {
+  if (disabled) return theme.icon.disabled;
+
   if (bgTheme !== 'none') {
     const whiteIconBackgrounds = ['error', 'info', 'business'];
     const darkIconBackgrounds = ['success', 'warning'];
@@ -33,40 +35,51 @@ const getIconColor = (bgTheme, theme, iconColor) => {
   }
 };
 
+const backgroundSize = {
+  small: '24px',
+  medium: '32px',
+  large: '40px'
+};
+
+const backgroundShapes = {
+  square: '0%',
+  'rounded-rect': '20%',
+  circle: '50%'
+};
+
 const StyledIcon = styled.span`
   ${({
-    bgTheme, theme, iconColor, bgSize, bgShape, isFont, type, fontSize
+    bgTheme, theme, iconColor, bgSize, bgShape, isFont, type, fontSize, disabled
   }) => css`
-  display: inline-block;
-  position: relative;
-  color: ${getIconColor(bgTheme, theme, iconColor)};
+    display: inline-block;
+    position: relative;
+    color: ${getIconColor(bgTheme, theme, iconColor, disabled)};
 
-    ${bgTheme !== 'none'
-      && css`
-        align-items: center;
-        display: inline-flex;
-        justify-content: center;
-        height: ${classicConfig.sizes[bgSize]};
-        width: ${classicConfig.sizes[bgSize]};
-        background-color: ${getBackgroundColor(theme, bgTheme)};
-        border-radius: ${classicConfig.shapes[bgShape]};
-      `}
-
-    ${isFont
-      && css`
-        &::before {
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-
-          font-family: CarbonIcons;
-          content: "${iconUnicodes[type]}";
-          font-size: ${fontSize === 'large' ? '24px' : '16px'};
-          font-style: normal;
-          font-weight: normal;
-          line-height: ${fontSize === 'large' ? '24px' : '16px'};
-          vertical-align: middle;
-        }
+    ${bgTheme !== 'none' && css`
+      align-items: center;
+      display: inline-flex;
+      justify-content: center;
+      height: ${backgroundSize[bgSize]};
+      width: ${backgroundSize[bgSize]};
+      background-color: ${getBackgroundColor(theme, bgTheme, disabled)};
+      border-radius: ${backgroundShapes[bgShape]};
     `}
+
+    ${isFont && css`
+      &::before {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+
+        font-family: CarbonIcons;
+        content: "${iconUnicodes[type]}";
+        font-size: ${fontSize === 'large' ? '24px' : '16px'};
+        font-style: normal;
+        font-weight: normal;
+        line-height: ${fontSize === 'large' ? '24px' : '16px'};
+        vertical-align: middle;
+      }
+    `}
+
     ${classicIconStyles};
   `}
 `;

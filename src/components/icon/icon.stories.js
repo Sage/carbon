@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { text, select } from '@storybook/addon-knobs';
+import { text, select, boolean } from '@storybook/addon-knobs';
 import { ThemeProvider } from 'styled-components';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, Info } from './documentation';
@@ -33,7 +33,8 @@ function dlsKnobs() {
     bgShape: bgTheme !== 'none' ? select('bgShape', OptionsHelper.shapes, OptionsHelper.shapes[0]) : undefined,
     fontSize: select('fontSize', OptionsHelper.sizesBinary, Icon.defaultProps.fontSize),
     iconColor:
-      bgTheme === 'none' ? select('iconColor', [...OptionsHelper.iconColors], OptionsHelper.iconColors[0]) : undefined
+      bgTheme === 'none' ? select('iconColor', [...OptionsHelper.iconColors], OptionsHelper.iconColors[0]) : undefined,
+    disabled: boolean('disabled', Icon.defaultProps.disabled)
   };
 }
 

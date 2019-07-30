@@ -4,7 +4,6 @@ import TooltipDecorator from '../../utils/decorators/tooltip-decorator';
 import Icons from './icons';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
-import './icon.scss';
 import { StyledIcon, StyledSvgIcon } from './icon.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
@@ -24,12 +23,15 @@ const Icon = TooltipDecorator(
       /** Icon font size */
       fontSize: PropTypes.oneOf(OptionsHelper.sizesBinary),
       /** Icon color */
-      iconColor: PropTypes.oneOf(OptionsHelper.iconColors)
+      iconColor: PropTypes.oneOf(OptionsHelper.iconColors),
+      /** Sets the icon in the disabled state */
+      disabled: PropTypes.bool
     };
 
     static defaultProps = {
       bgSize: 'small',
-      fontSize: 'small'
+      fontSize: 'small',
+      disabled: false
     };
 
     /** Checks if we have an SVG available, otherwise will fall back to using the icon font. */
@@ -78,6 +80,7 @@ const Icon = TooltipDecorator(
           isFont={ !this.renderIcon }
           fontSize={ this.props.fontSize }
           iconColor={ this.props.iconColor }
+          disabled={ this.props.disabled }
           type={ this.type }
           key='icon'
           className={ this.props.className || null }
