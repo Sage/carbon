@@ -113,11 +113,9 @@ Feature: Textarea component
       | áéíóú¿¡üñ               |
       | !@#$%^*()_+-=~[];:.,?{} |
       | ÄÖÜßäöüß                |
-      # @ignore - the characterLimit field accepts all as a string
-      # @FE-1561 - added a comment to fix this issue
-      # | -1                      |
-      # | -0,112                  |
-      # | 0.1112333               |
+      | -1                      |
+      | -0,112                  |
+      | 0.1112333               |
 
   @positive
   Scenario Outline: Set inputWidth to <inputWidth>

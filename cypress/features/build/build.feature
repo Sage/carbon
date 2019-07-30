@@ -75,6 +75,7 @@ Feature: Build tests
       | radio-button         | radio-button         |
       | rainbow              | rainbow              |
       | row                  | row                  |
+      # | select               | select               | Commented until select will be merged-out from experimental
       | settingsrow          | settings-row         |
       | simplecolorpicker    | simple-color-picker  |
       | split-button         | split-button         |
