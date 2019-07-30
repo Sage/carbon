@@ -4,7 +4,7 @@ import TooltipDecorator from '../../utils/decorators/tooltip-decorator';
 import Icons from './icons';
 import { validProps } from '../../utils/ether';
 import tagComponent from '../../utils/helpers/tags';
-import { StyledIcon, StyledSvgIcon } from './icon.style';
+import { StyledIcon, StyledSvgIconWrapper } from './icon.style';
 import OptionsHelper from '../../utils/helpers/options-helper';
 
 const Icon = TooltipDecorator(
@@ -100,8 +100,7 @@ const Icon = TooltipDecorator(
     iconSvgHTML = () => {
       const icon = this.renderIcon;
       if (icon) {
-        /* eslint-disable react/no-danger */
-        return <StyledSvgIcon dangerouslySetInnerHTML={ icon } />;
+        return <StyledSvgIconWrapper dangerouslySetInnerHTML={ icon } />;
         /* eslint-enable react/no-danger */
       }
 

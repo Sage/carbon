@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import { LinkStyleAnchor } from '../link/link.style';
-import { StyledSvgIcon } from '../icon/icon.style';
+import { StyledSvgIconWrapper } from '../icon/icon.style';
 import { isClassic } from '../../utils/helpers/style-helper';
 
 const StyledActionToolbar = styled.div`
@@ -19,10 +19,14 @@ const StyledActionToolbarActions = styled.div`
   display: inline-flex;
   margin: 0 10px;
 
+  ${LinkStyleAnchor} {
+    text-decoration: none;
+  }
+
   .carbon-link__icon {
     margin-right: 0;
 
-    ${StyledSvgIcon} {
+    ${StyledSvgIconWrapper} {
       position: relative;
       bottom: 1px;
     }

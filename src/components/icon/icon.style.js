@@ -47,6 +47,11 @@ const backgroundShapes = {
   circle: '50%'
 };
 
+const iconSize = {
+  small: '16px',
+  large: '24px'
+};
+
 const StyledIcon = styled.span`
   ${({
     bgTheme, theme, iconColor, bgSize, bgShape, isFont, type, fontSize, disabled
@@ -55,27 +60,29 @@ const StyledIcon = styled.span`
     position: relative;
     color: ${getIconColor(bgTheme, theme, iconColor, disabled)};
 
-    ${bgTheme !== 'none' && css`
-      align-items: center;
-      display: inline-flex;
-      justify-content: center;
-      height: ${backgroundSize[bgSize]};
-      width: ${backgroundSize[bgSize]};
-      background-color: ${getBackgroundColor(theme, bgTheme, disabled)};
-      border-radius: ${backgroundShapes[bgShape]};
-    `}
+    ${bgTheme !== 'none'
+      && css`
+        align-items: center;
+        display: inline-flex;
+        justify-content: center;
+        height: ${backgroundSize[bgSize]};
+        width: ${backgroundSize[bgSize]};
+        background-color: ${getBackgroundColor(theme, bgTheme, disabled)};
+        border-radius: ${backgroundShapes[bgShape]};
+      `}
 
-    ${isFont && css`
+    ${isFont
+      && css`
       &::before {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
 
         font-family: CarbonIcons;
         content: "${iconUnicodes[type]}";
-        font-size: ${fontSize === 'large' ? '24px' : '16px'};
+        font-size: ${iconSize[fontSize]};
         font-style: normal;
         font-weight: normal;
-        line-height: ${fontSize === 'large' ? '24px' : '16px'};
+        line-height: ${iconSize[fontSize]};
         vertical-align: middle;
       }
     `}
@@ -88,7 +95,7 @@ StyledIcon.defaultProps = {
   theme: baseTheme
 };
 
-const StyledSvgIcon = styled.span`
+const StyledSvgIconWrapper = styled.span`
   display: inline-block;
 
   .carbon-icon__svg {
@@ -96,4 +103,4 @@ const StyledSvgIcon = styled.span`
   }
 `;
 
-export { StyledIcon, StyledSvgIcon };
+export { StyledIcon, StyledSvgIconWrapper };
