@@ -217,12 +217,11 @@ class FormWithoutValidations extends React.Component {
     return Serialize(this._form, opts);
   }
 
-  /** Separates and returns HTML specific props */
-  htmlProps = () => {
-    const { ...props } = validProps(this);
-    delete props.onSubmit;
-    return props;
-  }
+ /** Separates and returns HTML specific props */
+ htmlProps = () => {
+   const { onSubmit, fixedBottom, ...props } = validProps(this);
+   return props;
+ }
 
   /** Redirects to the previous page; uses React Router history, or uses modalcancel handler. */
   cancelForm = () => {

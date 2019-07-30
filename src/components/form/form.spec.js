@@ -11,7 +11,6 @@ import FormSummary from './form-summary';
 import Button from '../button';
 import ElementResize from '../../utils/helpers/element-resize';
 import AppWrapper from '../app-wrapper';
-
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 /* global jest */

@@ -10,7 +10,7 @@ import Textbox from '../textbox';
 import Button from '../../../components/button';
 import Link from '../../../components/link';
 
-const additoinalFormActions = (innerText) => {
+const additionalFormActions = (innerText) => {
   return {
     Button: <Button>{ innerText }</Button>,
     Link: <Link href='./?path=/story/experimental-form--default'>{ innerText }</Link>
@@ -59,9 +59,9 @@ storiesOf('Experimental/Form', module)
         cancelText={ cancelText }
         saveText={ saveText }
         save={ save }
-        additionalActions={ additoinalFormActions('Additional Action')[additionalActions] }
-        leftAlignedActions={ additoinalFormActions('Left Action')[leftAlignedActions] }
-        rightAlignedActions={ additoinalFormActions('Right Action')[rightAlignedActions] }
+        additionalActions={ additionalFormActions('Additional Action')[additionalActions] }
+        leftAlignedActions={ additionalFormActions('Left Action')[leftAlignedActions] }
+        rightAlignedActions={ additionalFormActions('Right Action')[rightAlignedActions] }
         showSummary={ showSummary }
         onSubmit={ () => {
           window.location.href = window.location.href;

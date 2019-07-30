@@ -41,8 +41,10 @@ export const StyledFormFooter = styled.div`
 
 const StyledForm = styled.form`
   && ${StyledButton} {
+    align-items: center;
+    display: flex;
     margin-left: 16px;
-    ${({ theme }) => !isClassic(theme) && css`margin-left: 15px;`}
+    ${({ theme }) => isClassic(theme) && css`margin-left: 15px;`}
   }
 
   ${({ theme }) => !isClassic(theme) && css`

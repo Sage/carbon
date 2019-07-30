@@ -34,7 +34,7 @@ const Textbox = Input(InputLabel(InputValidation(class Textbox extends React.Com
    * @return {Object} props for the input
    */
   get inputProps() {
-    const { ...props } = validProps(this);
+    const { childOfForm, ...props } = validProps(this);
     props.className = this.inputClasses;
     return props;
   }
