@@ -1,0 +1,314 @@
+{
+  "src/components/carousel/carousel.js": [
+    {
+      "description": "",
+      "displayName": "Carousel",
+      "methods": [
+        {
+          "name": "onPreviousClick",
+          "docblock": "Handles clicking on the previous button\n\n@method onPreviousClick",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Handles clicking on the previous button"
+        },
+        {
+          "name": "onNextClick",
+          "docblock": "Handles clicking on the next button\n\n@method onNextClick",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Handles clicking on the next button"
+        },
+        {
+          "name": "onSlideSelection",
+          "docblock": "Handles clicking slide selector\n\n@method onSlideSelection",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "ev"
+            }
+          ],
+          "returns": null,
+          "description": "Handles clicking slide selector"
+        },
+        {
+          "name": "verifyNewIndex",
+          "docblock": "Verifies the new index and corrects it if necessary\n\n@method verifyNewIndex\n@param newIndex {Integer}\n@return {Integer}",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "newIndex",
+              "description": "{Integer}",
+              "type": null,
+              "optional": false
+            }
+          ],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "Integer"
+            }
+          },
+          "description": "Verifies the new index and corrects it if necessary"
+        },
+        {
+          "name": "handleSlideChange",
+          "docblock": "Handle the slide change to the newIndex\n\n@method handleSlideChange\n@param newIndex {Integer}",
+          "modifiers": [],
+          "params": [
+            {
+              "name": "newIndex",
+              "description": "{Integer}",
+              "type": null,
+              "optional": false
+            }
+          ],
+          "returns": null,
+          "description": "Handle the slide change to the newIndex"
+        },
+        {
+          "name": "nextClasses",
+          "docblock": "Gets the next div classes\n\n@method nextClasses",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets the next div classes"
+        },
+        {
+          "name": "previousClasses",
+          "docblock": "Gets the previous div classes\n\n@method previousClasses",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets the previous div classes"
+        },
+        {
+          "name": "previousButtonClasses",
+          "docblock": "Gets the previous button classes\n\n@method previousButtonClasses",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets the previous button classes"
+        },
+        {
+          "name": "nextButtonClasses",
+          "docblock": "Gets the next button classes\n\n@method nextButtonClasses",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets the next button classes"
+        },
+        {
+          "name": "slideSelectorClasses",
+          "docblock": "Gets the slide selector footer classes\n\n@method nextButtonClasses",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets the slide selector footer classes"
+        },
+        {
+          "name": "enableButtonsAfterTimeout",
+          "docblock": "Re-enables the next and previous buttons after timeout\n\n@method enableButtonsAfterTimeout\n@return {Void}",
+          "modifiers": [],
+          "params": [],
+          "returns": {
+            "description": null,
+            "type": {
+              "name": "Void"
+            }
+          },
+          "description": "Re-enables the next and previous buttons after timeout"
+        },
+        {
+          "name": "mainClasses",
+          "docblock": "Gets the main classes\n\n@method mainClasses",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets the main classes"
+        },
+        {
+          "name": "previousButtonProps",
+          "docblock": "Gets the props for the previous button\n\n@method previousButtonProps",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets the props for the previous button"
+        },
+        {
+          "name": "nextButtonProps",
+          "docblock": "Gets the props for the next button\n\n@method nextButtonProps",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets the props for the next button"
+        },
+        {
+          "name": "numOfSlides",
+          "docblock": "Gets the number of slides\n\n@method numOfSlides",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets the number of slides"
+        },
+        {
+          "name": "visibleSlide",
+          "docblock": "Gets the currently visible slide\n\n@method visibleSlide",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Gets the currently visible slide"
+        },
+        {
+          "name": "slideSelector",
+          "docblock": "Renders the slideSelector footer\n\n@method slideSelector",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Renders the slideSelector footer"
+        },
+        {
+          "name": "previousButton",
+          "docblock": "Renders the previous button\n\n@method previousButton",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Renders the previous button"
+        },
+        {
+          "name": "nextButton",
+          "docblock": "Renders the next button\n\n@method nextButton",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Renders the next button"
+        },
+        {
+          "name": "transitionName",
+          "docblock": "Returns the current transition name\n\n@method transitionName",
+          "modifiers": [],
+          "params": [],
+          "returns": null,
+          "description": "Returns the current transition name"
+        }
+      ],
+      "props": {
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Custom className"
+        },
+        "initialSlideIndex": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "number"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "The selected tab on page load",
+          "defaultValue": {
+            "value": "0",
+            "computed": false
+          }
+        },
+        "slideIndex": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "number"
+              },
+              {
+                "name": "string"
+              }
+            ]
+          },
+          "required": false,
+          "description": "The selected slide"
+        },
+        "children": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "array"
+              },
+              {
+                "name": "object"
+              }
+            ]
+          },
+          "required": false,
+          "description": "Individual tabs"
+        },
+        "enableSlideSelector": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Enables the slide selector",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "enablePreviousButton": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Enables the previous button",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "enableNextButton": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Enables the next button",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "onSlideChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Action to be called on slide change"
+        },
+        "transition": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Controls which transition to use.",
+          "defaultValue": {
+            "value": "'slide'",
+            "computed": false
+          }
+        }
+      }
+    }
+  ],
+  "src/components/carousel/slide/slide.js": [
+    {
+      "description": "",
+      "displayName": "Slide",
+      "methods": []
+    }
+  ]
+}

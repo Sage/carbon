@@ -1,0 +1,17 @@
+{
+  "src/components/dialog-full-screen/full-screen-heading/full-screen-heading.component.js": [
+    {
+      "description": "",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ]
+}

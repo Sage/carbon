@@ -1,0 +1,194 @@
+{
+  "src/components/message/message-content/message-content.component.js": [
+    {
+      "description": "",
+      "displayName": "MessageContent",
+      "methods": [],
+      "props": {
+        "variant": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.colors"
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "'info'",
+            "computed": false
+          }
+        },
+        "title": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
+        "transparent": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ],
+  "src/components/message/message.component.js": [
+    {
+      "description": "",
+      "displayName": "Message",
+      "methods": [],
+      "props": {
+        "variant": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.colors"
+          },
+          "required": false,
+          "description": "set type of message based on new DLS standard"
+        },
+        "as": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "set type of message. This is legacy property",
+          "defaultValue": {
+            "value": "'info'",
+            "computed": false
+          }
+        },
+        "border": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "set border to component",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "set content to component"
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "set custom class to component"
+        },
+        "open": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "show message component",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "onDismiss": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "function runs when user click dismiss button"
+        },
+        "roundedCorners": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "set corners to be rounded or sharp",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "title": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "set message title"
+        },
+        "transparent": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "set background to be invisible",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        }
+      }
+    }
+  ],
+  "src/components/message/type-icon/type-icon.component.js": [
+    {
+      "description": "",
+      "displayName": "TypeIcon",
+      "methods": [],
+      "props": {
+        "variant": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.colors"
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "'info'",
+            "computed": false
+          }
+        },
+        "roundedCorners": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          }
+        },
+        "transparent": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "",
+          "defaultValue": {
+            "value": "false",
+            "computed": false
+          }
+        }
+      }
+    }
+  ]
+}

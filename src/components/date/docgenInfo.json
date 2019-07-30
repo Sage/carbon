@@ -1,0 +1,55 @@
+{
+  "src/components/date/navbar/navbar.component.js": [
+    {
+      "description": "",
+      "displayName": "Navbar",
+      "methods": [],
+      "props": {
+        "onPreviousClick": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": ""
+        },
+        "onNextClick": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ],
+  "src/components/date/weekday/weekday.component.js": [
+    {
+      "description": "",
+      "displayName": "Weekday",
+      "methods": [],
+      "props": {
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
+        "title": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ]
+}

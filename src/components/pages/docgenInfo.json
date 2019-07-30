@@ -1,0 +1,87 @@
+{
+  "src/components/pages/page/page.js": [
+    {
+      "description": "",
+      "displayName": "Page",
+      "methods": [],
+      "props": {
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A custom class name for the component."
+        },
+        "title": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "object"
+              }
+            ]
+          },
+          "required": false,
+          "description": "The title for the page, normally a Heading component."
+        },
+        "children": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "object"
+              }
+            ]
+          },
+          "required": false,
+          "description": "This component supports children."
+        }
+      }
+    }
+  ],
+  "src/components/pages/pages.js": [
+    {
+      "description": "",
+      "displayName": "Pages",
+      "methods": [],
+      "props": {
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A custom class name for the component."
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "This component supports children."
+        }
+      }
+    }
+  ],
+  "src/components/pages/pages.stories.js": [
+    {
+      "description": "",
+      "displayName": "CustomState",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ]
+}

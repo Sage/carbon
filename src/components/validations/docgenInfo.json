@@ -1,0 +1,41 @@
+{
+  "src/components/validations/form-with-validations.spec.js": [
+    {
+      "description": "",
+      "displayName": "MockComponent",
+      "methods": []
+    }
+  ],
+  "src/components/validations/validation-icon.component.js": [
+    {
+      "description": "",
+      "displayName": "ValidationIcon",
+      "methods": [],
+      "props": {
+        "type": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.validationTypes"
+          },
+          "required": false,
+          "description": ""
+        },
+        "message": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        }
+      }
+    }
+  ],
+  "src/components/validations/with-validation.spec.js": [
+    {
+      "description": "",
+      "displayName": "MockComponent",
+      "methods": []
+    }
+  ]
+}

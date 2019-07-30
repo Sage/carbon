@@ -1,0 +1,33 @@
+{
+  "src/components/switch/switch.js": [
+    {
+      "description": "",
+      "displayName": "Switch",
+      "methods": [],
+      "props": {
+        "loading": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
+        },
+        "reverse": {
+          "defaultValue": {
+            "value": "true",
+            "computed": false
+          },
+          "required": false
+        }
+      },
+      "composes": [
+        "../checkbox"
+      ]
+    },
+    {
+      "description": "",
+      "displayName": "renderIcon",
+      "methods": []
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "src/__experimental__/components/textbox/textbox.component.js": [
+    {
+      "description": "",
+      "displayName": "Textbox",
+      "methods": [],
+      "props": {
+        "formattedValue": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "An optional alternative for props.value, this is useful if the\nreal value is an ID but you want to show a human-readable version."
+        },
+        "value": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "array"
+              }
+            ]
+          },
+          "required": false,
+          "description": ""
+        },
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
+        },
+        "readOnly": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": ""
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Event handler for the change event"
+        },
+        "onKeyDown": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Event handler for the keyDown event"
+        },
+        "onChangeDeferred": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Defered callback called after the onChange event"
+        },
+        "deferTimeout": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Integer to determine timeout for defered callback"
+        },
+        "label": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Label"
+        },
+        "labelHelp": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Text applied to label help tooltip"
+        },
+        "labelInline": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "When true, label is placed in line an input"
+        },
+        "labelWidth": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Width of a label in percentage. Works only when labelInline is true",
+          "defaultValue": {
+            "value": "30",
+            "computed": false
+          }
+        },
+        "inputWidth": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Width of an input in percentage. Works only when labelInline is true",
+          "defaultValue": {
+            "value": "70",
+            "computed": false
+          }
+        },
+        "fieldHelp": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Help content to be displayed under an input"
+        },
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "Type of the icon that will be rendered next to the input"
+        },
+        "inputIcon": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
+        "leftChildren": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": ""
+        },
+        "validations": {
+          "type": {
+            "name": "custom",
+            "raw": "validationsPropTypes"
+          },
+          "required": false,
+          "description": "List of error validation functions"
+        },
+        "warnings": {
+          "type": {
+            "name": "custom",
+            "raw": "validationsPropTypes"
+          },
+          "required": false,
+          "description": "List of warning validation functions"
+        },
+        "info": {
+          "type": {
+            "name": "custom",
+            "raw": "validationsPropTypes"
+          },
+          "required": false,
+          "description": "List of info validation functions"
+        }
+      }
+    }
+  ]
+}

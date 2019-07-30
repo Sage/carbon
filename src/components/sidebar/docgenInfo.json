@@ -1,0 +1,25 @@
+{
+  "src/components/sidebar/sidebar-header/sidebar-header.component.js": [
+    {
+      "description": "",
+      "displayName": "SidebarHeader",
+      "methods": [],
+      "props": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "This component supports children."
+        },
+        "className": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "A custom class name."
+        }
+      }
+    }
+  ]
+}
