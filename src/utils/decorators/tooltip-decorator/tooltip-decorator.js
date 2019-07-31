@@ -94,11 +94,6 @@ const TooltipDecorator = (ComposedComponent) => {
 
     _hideTooltipTimeout = null;
 
-    /**
-     * Cache the shifts calculations (used for positioning)
-     */
-    _memoizedShifts = null;
-
     componentDidMount() {
       if (super.componentDidMount) super.componentDidMount();
       if (this.props.tooltipVisible) this.positionTooltip();
@@ -106,18 +101,12 @@ const TooltipDecorator = (ComposedComponent) => {
 
     componentWillUpdate(nextProps, nextState) {
       if (super.componentWillUpdate) { super.componentWillUpdate(nextProps, nextState); }
-
-      if (nextProps.tooltipMessage !== this.props.tooltipMessage
-          || nextProps.tooltipPosition !== this.props.tooltipPosition
-          || nextProps.tooltipAlign !== this.props.tooltipAlign) {
-        this._memoizedShifts = null;
       }
-    }
 
     componentDidUpdate(prevProps) {
       if (super.componentDidUpdate) { super.componentDidUpdate(prevProps); }
 
-      if (this.props.tooltipMessage && !this._memoizedShifts && this.isVisible()) {
+      if (this.props.tooltipMessage && this.isVisible()) {
         this.positionTooltip();
       }
     }
@@ -172,8 +161,6 @@ const TooltipDecorator = (ComposedComponent) => {
     }
 
     calculatePosition = (tooltip, target) => {
-      if (this._memoizedShifts) { return this._memoizedShifts; }
-
       const tooltipWidth = tooltip.offsetWidth,
           tooltipHeight = tooltip.offsetHeight,
           targetWidth = target.offsetWidth,

@@ -119,50 +119,6 @@ describe('tooltip-decorator', () => {
     });
   });
 
-  describe('componentWillUpdate', () => {
-    let props;
-
-    beforeEach(() => {
-      props = {
-        tooltipMessage: topTooltip.props.tooltipMessage,
-        tooltipPosition: topTooltip.props.tooltipPosition,
-        tooltipAlign: topTooltip.props.tooltipAlign
-      };
-      topTooltip._memoizedShifts = 'foo';
-    });
-
-    describe('if message has changed', () => {
-      it('nulls the memoized shifts', () => {
-        props.tooltipMessage = 'new';
-        topTooltip.componentWillUpdate(props);
-        expect(topTooltip._memoizedShifts).toEqual(null);
-      });
-    });
-
-    describe('if position has changed', () => {
-      it('nulls the memoized shifts', () => {
-        props.tooltipPosition = 'new';
-        topTooltip.componentWillUpdate(props);
-        expect(topTooltip._memoizedShifts).toEqual(null);
-      });
-    });
-
-    describe('if align has changed', () => {
-      it('nulls the memoized shifts', () => {
-        props.tooltipAlign = 'new';
-        topTooltip.componentWillUpdate(props);
-        expect(topTooltip._memoizedShifts).toEqual(null);
-      });
-    });
-
-    describe('if nothing has changed', () => {
-      it('keeps memoized shifts', () => {
-        topTooltip.componentWillUpdate(props);
-        expect(topTooltip._memoizedShifts).toEqual('foo');
-      });
-    });
-  });
-
   describe('on show', () => {
     beforeEach(() => {
       spyOn(topTooltip, 'positionTooltip');
@@ -205,15 +161,6 @@ describe('tooltip-decorator', () => {
       topTooltip.onHide();
       jest.runTimersToTime(300);
       expect(window.clearTimeout).toHaveBeenCalledWith(topTooltip._showTooltipTimeout);
-    });
-  });
-
-  describe('calculatePosition', () => {
-    describe('if memoized', () => {
-      it('returns memoized shifts', () => {
-        topTooltip._memoizedShifts = 'foo';
-        expect(topTooltip.calculatePosition(0, 0)).toEqual('foo');
-      });
     });
   });
 
