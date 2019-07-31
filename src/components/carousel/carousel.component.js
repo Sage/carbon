@@ -4,7 +4,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import { compact, assign } from 'lodash';
 import { withTheme } from 'styled-components';
 import tagComponent from '../../utils/helpers/tags/tags';
-import Slide from './slide/slide';
+import Slide from './slide/slide.component';
 import {
   CarouselPreviousButtonWrapperStyle,
   CarouselNextButtonWrapperStyle,
@@ -195,7 +195,7 @@ class Carousel extends React.Component {
 
   /** Renders the slideSelector footer */
   slideSelector() {
-    if (!this.props.enableSlideSelector) { return null; }
+    if (!this.props.enableSlideSelector) return null;
 
     const buttons = [];
 
@@ -232,7 +232,7 @@ class Carousel extends React.Component {
 
   /** Renders the previous button */
   previousButton() {
-    if (!this.props.enablePreviousButton) { return null; }
+    if (!this.props.enablePreviousButton) return null;
     const isDisabled = this.state.selectedSlideIndex === 0;
 
     return (
@@ -252,7 +252,7 @@ class Carousel extends React.Component {
 
   /** Renders the next button */
   nextButton() {
-    if (!this.props.enableNextButton) { return null; }
+    if (!this.props.enableNextButton) return null;
     const numberOfChildren = this.props.children.length;
     const isDisabled = numberOfChildren === this.state.selectedSlideIndex + 1;
 
