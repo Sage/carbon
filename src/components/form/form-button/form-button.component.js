@@ -3,6 +3,7 @@ import I18n from 'i18n-js';
 import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags/tags';
 import Button from '../../button';
+import OptionsHelper from '../../../utils/helpers/options-helper';
 
 const text = (props) => {
   const { formButtonName } = props;
@@ -46,7 +47,7 @@ const FormButton = (props) => {
 };
 
 FormButton.propTypes = {
-  formButtonName: PropTypes.string,
+  formButtonName: PropTypes.oneOf(OptionsHelper.formButtonOptions),
   errors: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number
