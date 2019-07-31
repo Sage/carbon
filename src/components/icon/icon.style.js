@@ -3,6 +3,18 @@ import '../../style/fonts/fonts.css';
 import iconUnicodes from './icon-unicodes';
 import classicIconStyles from './icon-classic.style';
 import baseTheme from '../../style/themes/base';
+import generatePalette from '../../style/palette';
+import dlsConfig from './icon-config';
+
+const getHoverBackgroundColor = (theme, bgTheme, disabled) => {
+  if (disabled) return theme.icon.disabled;
+
+  const palette = generatePalette({ statusColor: theme.colors[bgTheme], businessColor: theme.colors.primary });
+  const statuses = ['info', 'error', 'success', 'warning'];
+  if (statuses.includes(bgTheme)) return palette.statusColorShade(20);
+  if (bgTheme === 'business') return palette.businessColorShade(20);
+  return 'transparent';
+};
 
 const getBackgroundColor = (theme, bgTheme, disabled) => {
   if (disabled) return theme.icon.disabled;
@@ -12,7 +24,8 @@ const getBackgroundColor = (theme, bgTheme, disabled) => {
   return 'transparent';
 };
 
-const getIconColor = (bgTheme, theme, iconColor, disabled) => {
+const getIconColor = (bgTheme, theme, iconColor, disabled, isHover) => {
+  const palette = generatePalette({ businessColor: theme.colors.primary });
   if (disabled) return theme.icon.disabled;
 
   if (bgTheme !== 'none') {
@@ -20,36 +33,20 @@ const getIconColor = (bgTheme, theme, iconColor, disabled) => {
     const darkIconBackgrounds = ['success', 'warning'];
 
     if (whiteIconBackgrounds.includes(bgTheme)) return theme.colors.white;
-    if (darkIconBackgrounds.includes(bgTheme)) return theme.icon.default;
+    if (darkIconBackgrounds.includes(bgTheme) && isHover) return theme.icon.defaultHover;
+    if (darkIconBackgrounds.includes(bgTheme) && !isHover) return theme.icon.default;
   }
 
   switch (iconColor) {
     case 'on-dark-background':
       return theme.colors.white;
     case 'on-light-background':
-      return theme.icon.onLightBackground;
+      return isHover ? theme.icon.onLightBackgroundHover : theme.icon.onLightBackground;
     case 'business-color':
-      return theme.colors.primary;
+      return isHover ? palette.businessColorShade(20) : theme.colors.primary;
     default:
-      return theme.icon.default;
+      return isHover ? theme.icon.defaultHover : theme.icon.default;
   }
-};
-
-const backgroundSize = {
-  small: '24px',
-  medium: '32px',
-  large: '40px'
-};
-
-const backgroundShapes = {
-  square: '0%',
-  'rounded-rect': '20%',
-  circle: '50%'
-};
-
-const iconSize = {
-  small: '16px',
-  large: '24px'
 };
 
 const StyledIcon = styled.span`
@@ -58,17 +55,25 @@ const StyledIcon = styled.span`
   }) => css`
     display: inline-block;
     position: relative;
-    color: ${getIconColor(bgTheme, theme, iconColor, disabled)};
+    color: ${getIconColor(bgTheme, theme, iconColor, disabled, false)};
+
+    &:hover {
+      color: ${getIconColor(bgTheme, theme, iconColor, disabled, true)};
+    }
 
     ${bgTheme !== 'none'
       && css`
         align-items: center;
         display: inline-flex;
         justify-content: center;
-        height: ${backgroundSize[bgSize]};
-        width: ${backgroundSize[bgSize]};
+        height: ${dlsConfig.backgroundSize[bgSize]};
+        width: ${dlsConfig.backgroundSize[bgSize]};
         background-color: ${getBackgroundColor(theme, bgTheme, disabled)};
-        border-radius: ${backgroundShapes[bgShape]};
+        border-radius: ${dlsConfig.backgroundShape[bgShape]};
+
+        &:hover {
+          background-color: ${getHoverBackgroundColor(theme, bgTheme, disabled)};
+        }
       `}
 
     ${isFont
@@ -79,10 +84,10 @@ const StyledIcon = styled.span`
 
         font-family: CarbonIcons;
         content: "${iconUnicodes[type]}";
-        font-size: ${iconSize[fontSize]};
+        font-size: ${dlsConfig.iconSize[fontSize]};
         font-style: normal;
         font-weight: normal;
-        line-height: ${iconSize[fontSize]};
+        line-height: ${dlsConfig.iconSize[fontSize]};
         vertical-align: middle;
       }
     `}
@@ -96,11 +101,15 @@ StyledIcon.defaultProps = {
 };
 
 const StyledSvgIconWrapper = styled.span`
-  display: inline-block;
+  ${({ fontSize }) => css`
+    display: inline-block;
 
-  svg {
-    fill: currentColor;
-  }
+    svg {
+      fill: currentColor;
+      width: ${dlsConfig.iconSize[fontSize]};
+      height: ${dlsConfig.iconSize[fontSize]};
+    }
+  `}
 `;
 
 export { StyledIcon, StyledSvgIconWrapper };

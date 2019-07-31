@@ -100,7 +100,7 @@ const Icon = TooltipDecorator(
     iconSvgHTML = () => {
       const icon = this.renderIcon;
       if (icon) {
-        return <StyledSvgIconWrapper dangerouslySetInnerHTML={ icon } />;
+        return <StyledSvgIconWrapper dangerouslySetInnerHTML={ icon } fontSize={ this.props.fontSize } />;
         /* eslint-enable react/no-danger */
       }
 
