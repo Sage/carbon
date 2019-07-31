@@ -91,40 +91,6 @@ describe('when the withValidations HOC wraps a component', () => {
     expect(spy).toHaveBeenCalled();
   });
 
-  describe('when the component renders the validation icon', () => {
-    it('returns an Icon with info type when the state has info and no warning or validations', () => {
-      wrapper.setState({ infoMessage: mockMessage });
-      wrapper.instance().renderValidationMarkup();
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('returns an Icon with warning type when the state has warning and no validations', () => {
-      wrapper.setState({ infoMessage: mockMessage, warningMessage: mockMessage });
-      wrapper.instance().renderValidationMarkup();
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('returns an Icon with error type when the state has failed validations', () => {
-      wrapper.setState({ infoMessage: mockMessage, warningMessage: mockMessage, errorMessage: mockMessage });
-      wrapper.instance().renderValidationMarkup();
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('returns the children if no type has been set', () => {
-      wrapper.setProps({ children: <div /> });
-      const markup = wrapper.instance().renderValidationMarkup();
-      expect(markup).toEqual(null);
-      expect(wrapper).toMatchSnapshot();
-    });
-
-    it('returns the Icon when the component has an array of children', () => {
-      wrapper.setState({ infoMessage: mockMessage, warningMessage: mockMessage, errorMessage: mockMessage });
-      wrapper.setProps({ children: [<div key='div1' />, 'foo', <div key='div2' />] });
-      wrapper.instance().renderValidationMarkup();
-      expect(wrapper).toMatchSnapshot();
-    });
-  });
-
   describe('when it validates a subset of validations', () => {
     it('returns null when the array for a given validation type is empty', () => {
       types.forEach((type) => {

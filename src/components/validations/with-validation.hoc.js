@@ -158,16 +158,6 @@ const withValidation = (WrappedComponent) => {
       });
     }
 
-    renderValidationMarkup() {
-      const validationIconProps = this.getValidationIconProps();
-
-      if (!validationIconProps) return null;
-
-      return (
-        <ValidationIcon { ...validationIconProps } />
-      );
-    }
-
     getValidationIconProps() {
       const { errorMessage, warningMessage, infoMessage } = this.state;
       let validationIconProps;
