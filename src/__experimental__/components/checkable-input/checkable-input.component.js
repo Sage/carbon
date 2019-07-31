@@ -18,7 +18,7 @@ class CheckableInput extends React.Component {
     const id = this.inputId;
 
     const formFieldProps = {
-      ...validProps(this, ['fieldHelpInline', 'helpTabIndex', 'labelHelp', 'helpTag', 'reverse']),
+      ...validProps(this, ['fieldHelpInline', 'labelHelp', 'reverse']),
       helpId,
       label: rest.inputLabel,
       labelHelpIcon: 'info',
@@ -28,7 +28,7 @@ class CheckableInput extends React.Component {
     const {
       fieldHelp, labelHelp, ...inputProps
     } = {
-      ...validProps(this, ['checked', 'disabled', 'groupLabelId', 'inputName', 'inputType', 'onChange', 'tabindex']),
+      ...validProps(this, ['checked', 'disabled', 'inputType', 'onChange', 'tabindex']),
       helpId,
       id
     };
@@ -55,6 +55,8 @@ CheckableInput.propTypes = {
   disabled: PropTypes.bool,
   /** Toggles error styles */
   error: PropTypes.bool,
+  /** The fieldHelp content to display for the input */
+  fieldHelp: PropTypes.node,
   /** Displays fieldHelp inline with the CheckableInput */
   fieldHelpInline: PropTypes.bool,
   /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
