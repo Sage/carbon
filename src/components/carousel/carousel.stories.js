@@ -71,7 +71,6 @@ storiesOf('Carousel', module)
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
-      boxShadow: '0 10px 30px 0 rgba(0,20,29,0.1), 0 30px 60px 0 rgba(0,20,29,0.1)',
       margin: '0 auto'
     };
 
@@ -94,8 +93,8 @@ storiesOf('Carousel', module)
           </ExampleCustomElement>
         </Slide>
         <Slide onClick={ handleClick }>
-          <ExampleCustomElement style={ { backgroundColor: '#a85a00' } }>
-            <h1 style={ { textAlign: 'center', color: '#fff' } }>Full clickable slide</h1>
+          <ExampleCustomElement>
+            <h1 style={ { textAlign: 'center' } }>Full clickable slide</h1>
           </ExampleCustomElement>
         </Slide>
         <Slide>
