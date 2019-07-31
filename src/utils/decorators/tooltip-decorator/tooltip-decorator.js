@@ -6,8 +6,8 @@ import Tooltip from '../../../components/tooltip';
 import Portal from '../../../components/portal';
 import chainFunctions from '../../helpers/chain-functions';
 import { styleElement } from '../../ether';
-import { pointerSize, pointerSideMargin } from '../../../components/tooltip/tooltip-pointer.style';
 import OptionsHelper from '../../helpers/options-helper';
+import calculatePosition from './calculate-position';
 
 /**
  * TooltipDecorator.
@@ -101,7 +101,7 @@ const TooltipDecorator = (ComposedComponent) => {
 
     componentWillUpdate(nextProps, nextState) {
       if (super.componentWillUpdate) { super.componentWillUpdate(nextProps, nextState); }
-      }
+    }
 
     componentDidUpdate(prevProps) {
       if (super.componentDidUpdate) { super.componentDidUpdate(prevProps); }
@@ -160,42 +160,6 @@ const TooltipDecorator = (ComposedComponent) => {
       return ReactDOM.findDOMNode(this._tooltip); // eslint-disable-line react/no-find-dom-node
     }
 
-    calculatePosition = (tooltip, target) => {
-      const tooltipWidth = tooltip.offsetWidth,
-          tooltipHeight = tooltip.offsetHeight,
-          targetWidth = target.offsetWidth,
-          targetHeight = target.offsetHeight,
-          targetRect = target.getBoundingClientRect(),
-          offsetY = window.pageYOffset,
-          targetTop = targetRect.top + offsetY,
-          targetBottom = targetRect.bottom + offsetY,
-          targetLeft = targetRect.left,
-          targetRight = targetRect.right,
-          targetXCenter = targetWidth / 2,
-          targetYCenter = targetHeight / 2;
-
-      const tooltipDistances = {
-        top: targetTop - tooltipHeight - pointerSize,
-        bottom: targetBottom + pointerSize,
-        left: targetLeft - tooltipWidth - pointerSize,
-        right: targetRight + pointerSize
-      };
-
-      const vertical = {
-        left: targetLeft - pointerSize,
-        center: targetLeft + targetXCenter - (tooltipWidth / 2),
-        right: (targetLeft - tooltipWidth) + targetXCenter + pointerSize + pointerSideMargin
-      };
-
-      const horizontal = {
-        top: (targetTop + targetYCenter) - pointerSize - pointerSideMargin,
-        center: targetTop + targetYCenter - (tooltipHeight / 2),
-        bottom: (targetTop + targetYCenter - tooltipHeight) + pointerSize + pointerSideMargin
-      };
-
-      return { tooltipDistances, vertical, horizontal };
-    };
-
     realignOffscreenTooltip = (shifts, tooltipWidth) => {
       const { tooltipPosition, tooltipAlign } = this.props;
       const position = this.state.tooltipPosition || tooltipPosition || 'top';
@@ -226,7 +190,7 @@ const TooltipDecorator = (ComposedComponent) => {
 
       const alignment = this.state.tooltipAlign || this.props.tooltipAlign || 'center',
           position = this.state.tooltipPosition || this.props.tooltipPosition || 'top',
-          shifts = this.calculatePosition(tooltip, target);
+          shifts = calculatePosition(tooltip, target);
 
       this.realignOffscreenTooltip(shifts, tooltip.offsetWidth);
 
