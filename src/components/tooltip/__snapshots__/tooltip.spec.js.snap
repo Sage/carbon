@@ -21,6 +21,8 @@ exports[`Tooltip visible and has children matches snapshot 1`] = `
 }
 
 .c0 {
+  bottom: auto;
+  right: auto;
   max-width: 300px;
   position: relative;
   -webkit-animation: bcCCNc 0.2s linear;

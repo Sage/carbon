@@ -179,37 +179,31 @@ const TooltipDecorator = (ComposedComponent) => {
       if (!this.isVisible()) {
         return;
       }
-
-      const tooltip = this.getTooltip(),
-          target = this.getTarget();
+      let topPosition, leftPosition;
+      const tooltip = this.getTooltip();
+      const target = this.getTarget();
 
       if (!tooltip || !target) {
         if (this.state.isVisible) this.setState({ isVisible: false });
         return;
       }
 
-      const alignment = this.state.tooltipAlign || this.props.tooltipAlign || 'center',
-          position = this.state.tooltipPosition || this.props.tooltipPosition || 'top',
-          shifts = calculatePosition(tooltip, target);
+      const alignment = this.state.tooltipAlign || this.props.tooltipAlign || 'center';
+      const position = this.state.tooltipPosition || this.props.tooltipPosition || 'top';
+      const shifts = calculatePosition(tooltip, target);
 
       this.realignOffscreenTooltip(shifts, tooltip.offsetWidth);
 
-      styleElement(tooltip, 'bottom', 'auto');
-      styleElement(tooltip, 'right', 'auto');
-
-      switch (position) {
-        case 'top':
-        case 'bottom':
-          styleElement(tooltip, 'top', `${shifts.tooltipDistances[position]}px`);
-          styleElement(tooltip, 'left', `${shifts.vertical[alignment]}px`);
-          break;
-
-        case 'left':
-        case 'right':
-        default:
-          styleElement(tooltip, 'top', `${shifts.horizontal[alignment]}px`);
-          styleElement(tooltip, 'left', `${shifts.tooltipDistances[position]}px`);
+      if (position === 'top' || position === 'bottom') {
+        topPosition = shifts.tooltipDistances[position];
+        leftPosition = shifts.vertical[alignment];
+      } else {
+        topPosition = shifts.horizontal[alignment];
+        leftPosition = shifts.tooltipDistances[position];
       }
+
+      styleElement(tooltip, 'top', `${topPosition}px`);
+      styleElement(tooltip, 'left', `${leftPosition}px`);
     };
 
     get componentProps() {

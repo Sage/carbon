@@ -46,6 +46,8 @@ const fadeIn = keyframes`
 `;
 
 const StyledTooltipWrapper = styled.div`
+  bottom: auto;
+  right: auto;
   max-width: 300px;
   position: relative;
   animation: ${fadeIn} 0.2s linear;

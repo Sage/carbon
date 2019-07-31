@@ -328,7 +328,6 @@ describe('tooltip-decorator', () => {
         let target = bottomTooltip.getTarget();
         bottomTooltip.positionTooltip(tooltip, target);
         expect(tooltip.style.left).toEqual('65px');
-        expect(tooltip.style.bottom).toEqual('auto');
       });
 
       describe('when the tooltip is offscreen', () => {
