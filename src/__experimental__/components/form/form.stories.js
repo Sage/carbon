@@ -80,7 +80,7 @@ storiesOf('Experimental/Form', module)
           label='Role'
           labelInline={ inLineLabels }
           labelAlign='right'
-          validations={ [new PresenceValidation()] }
+          isOptional
         />
       </Form>
     );

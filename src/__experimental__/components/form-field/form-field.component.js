@@ -20,7 +20,8 @@ const FormField = ({
   name,
   reverse,
   size,
-  childOfForm
+  childOfForm,
+  isOptional
 }) => (
   <FormFieldStyle inline={ labelInline }>
     {reverse && children}
@@ -37,6 +38,7 @@ const FormField = ({
         inputSize={ size }
         width={ labelWidth }
         childOfForm={ childOfForm }
+        optional={ isOptional }
       >
         {label}
       </Label>
@@ -69,6 +71,7 @@ FormField.propTypes = {
   fieldHelp: PropTypes.node,
   fieldHelpInline: PropTypes.bool,
   hasError: PropTypes.bool,
+  isOptional: PropTypes.bool,
   label: PropTypes.node,
   labelAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
   labelHelp: PropTypes.node,

@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import BaseTheme from '../../../style/themes/base';
 import OptionsHelper from '../../../utils/helpers/options-helper';
 import sizes from '../input/input-sizes.style';
-import { THEMES } from '../../../style/themes';
 import InputIconToggleStyle from '../input-icon-toggle/input-icon-toggle.style';
+import { isClassic } from '../../../utils/helpers/style-helper';
 
 const LabelStyle = styled.label`
   color: ${({ theme }) => theme.text.color};
@@ -29,7 +29,7 @@ const LabelStyle = styled.label`
     color: ${theme.disabled.disabled};
   `}  
 
-  ${({ inline, theme }) => theme.name === THEMES.classic && css`
+  ${({ inline, theme }) => isClassic(theme) && css`
     color: #003349;
     padding-left: 6px;
     padding-right: 6px;
@@ -49,12 +49,28 @@ const LabelStyle = styled.label`
     color: ${theme.colors.error};
   `}
 
-  ${({ inline, childOfForm }) => !inline && childOfForm && css`
-    margin-bottom: 12px;
-  `}
-  
-  ${({ inline, childOfForm, align }) => inline && childOfForm && align === 'right' && css`
-    margin-left: 12px;
+  ${({
+    childOfForm,
+    inline,
+    align,
+    optional,
+    theme
+  }) => childOfForm && !isClassic(theme) && css`  
+    ${!inline && css`
+      margin-bottom: 12px;
+    `}
+
+    ${inline && align === 'right' && css`
+      margin-left: 12px;
+    `}
+
+    ${optional && css`
+      ::after {
+        content: '(optional)';
+        font-weight: 350;
+        margin-left: 4px;
+      }
+    `}
   `}
 `;
 

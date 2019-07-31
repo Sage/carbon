@@ -2,12 +2,12 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
-
 import Help from '../../../components/help';
 import Label from './label.component';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import classicTheme from '../../../style/themes/classic';
 import baseTheme from '../../../style/themes/base';
+import smallTheme from '../../../style/themes/small';
 
 function render(props, renderer = shallow) {
   return renderer(
@@ -44,6 +44,20 @@ describe('Label', () => {
       assertStyleMatch({
         width: '30%'
       }, render({ inline: true, width: 0 }, TestRenderer.create).toJSON());
+    });
+
+    it('applies styling for an inline "optional" label', () => {
+      assertStyleMatch({
+        content: "'(optional)'",
+        fontWeight: '350',
+        marginLeft: '4px'
+      }, render({
+        inline: true,
+        childOfForm: true,
+        optional: true,
+        theme: smallTheme
+      }, TestRenderer.create).toJSON(),
+      { modifier: '::after' });
     });
   });
 
