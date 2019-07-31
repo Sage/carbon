@@ -3,6 +3,7 @@ import Icon from '../icon/icon';
 import { slideAnimation, fadeAnimation } from './slide.config';
 import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
+import { CarouselButtonStyleClassic, CarouselSelectorLabelStyleClassic } from './carousel-classic.style';
 
 const CarouselNavigationStyle = styled.div`
   margin-top: -32.5px;
@@ -44,62 +45,46 @@ const CarouselStyledIconRight = styled(CarouselStyledIcon)`
 `;
 
 const CarouselButtonStyle = styled.button`
-  border: none;
-  width: 40px;
-  height: 64px;
-  background: ${({ theme }) => theme.colors.primary};
-  color: ${({ theme }) => theme.colors.white};
-  opacity: ${({ disabled }) => (disabled ? '0.1' : '1')};
-
-  &:hover {
-    background-color: ${({ theme }) => theme.colors.secondary};
-    cursor: ${({ disabled }) => (disabled ? 'default' : 'pointer')};
-
-
-
-    ${({ disabled }) => disabled && css`
-      background-color: ${({ theme }) => theme.colors.primary};
-      cursor: default;
-
-      ${CarouselStyledIcon}{
-        cursor: default;
-      }
-    `}
-  }
-
-  &:active {
+  ${({ theme, disabled }) => css`
     border: none;
-  }
+    width: 40px;
+    height: 64px;
+    background: ${theme.colors.primary};
+    color: ${theme.colors.white};
+    opacity: ${disabled ? '0.1' : '1'};
 
-  &:focus {
+    &:hover {
+      background-color: ${theme.colors.secondary};
+      cursor: ${disabled ? 'default' : 'pointer'};
+
+      ${disabled && css`
+        background-color: ${theme.colors.primary};
+        cursor: default;
+
+        ${CarouselStyledIcon}{
+          cursor: default;
+        }
+      `}
+    }
+
+    &:active {
+      border: none;
+    }
+
+    &:focus {
     outline: none;
-    border: 2px solid ${({ theme }) => theme.colors.focus};
+    border: 2px solid ${theme.colors.focus};
       
     ::-moz-focus-inner{
       border: 0;
     }
 
-    ${({ disabled }) => disabled && css`
+    ${disabled && css`
       border: none;
     `}
-  }
-
-  ${({ theme }) => isClassic(theme) && css`
-    width: 45px; 
-    height: 45px;
-    background-color: #CCD6DA;
-    color: rgba(0,0,0, 0.85);
-
-    :hover{
-      background-color: #99ADB6;
-      color: #255BC7;
-      cursor: default;
     }
 
-      &:focus {
-        outline: none;
-        border: none;
-      }
+    ${CarouselButtonStyleClassic}
   `}
 `;
 
@@ -118,34 +103,30 @@ const CarouselSelectorLabelStyle = styled.label`
     cursor: pointer;
   }
 
-  ${({ theme }) => isClassic(theme) && css`
-    border: 1px solid #4C6F7F;
-    background: transparent;
-    width: 8px;
-    height: 8px;
-    margin: 0px 5px;
-  `}
+  ${CarouselSelectorLabelStyleClassic};
 `;
 
 const CarouselSelectorWrapperStyle = styled.div`
-  height: 20px;
-  margin-top: ${({ theme }) => (isClassic(theme) ? '5px' : '25px')};
-  text-align: center;
+  ${({ theme }) => css`
+    height: 20px;
+    margin-top: ${isClassic(theme) ? '5px' : '25px'};
+    text-align: center;
 
     ${CarouselSelectorInputStyle}:checked {
-    + ${CarouselSelectorLabelStyle} {
-      background: ${({ theme }) => theme.carousel.activeSelectorBackground};
-      border-color: transparent;
-      height: 10px;
-      position: relative;
-      width: 10px;
+      + ${CarouselSelectorLabelStyle} {
+        background: ${theme.carousel.activeSelectorBackground};
+        border-color: transparent;
+        height: 10px;
+        position: relative;
+        width: 10px;
 
-      ${({ theme }) => isClassic(theme) && css`
-        background: #255BC7;
-        top: 1px;
-      `}
+        ${isClassic(theme) && css`
+          background: #255BC7;
+          top: 1px;
+        `}
+      }
     }
-  }
+  `}
 `;
 
 const CarouselSelectorInputWrapperStyle = styled.span`
@@ -158,14 +139,12 @@ const CarouselSelectorInputWrapperStyle = styled.span`
   `}
 `;
 
-// ---------- <DLS> ------------
 const CarouselSliderWrapper = styled.div`
 transition: .4s;
 display: flex;
 position: relative;
 left: ${({ elementIndex }) => 10 - (80 * elementIndex)}%;
 `;
-// --------- </DLS> -----------
 
 const CarouselWrapperStyle = styled.div`
   .carbon-carousel__content {
