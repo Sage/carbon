@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { ValidationsContext } from './form-with-validations.hoc';
 import validator from '../../utils/validations/validator';
 import VALIDATION_TYPES from './validation-types.config';
-import ValidationIcon from './validation-icon.component';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 
 const { validationTypes } = OptionsHelper;

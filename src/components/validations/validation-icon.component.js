@@ -9,13 +9,14 @@ import { isClassic } from '../../utils/helpers/style-helper';
 import baseTheme from '../../style/themes/base';
 
 const ValidationIcon = ({ theme, type, tooltipMessage }) => {
-  let tooltipPositionProps = {
-    tooltipPosition: 'right',
-    tooltipAlign: 'center'
-  };
+  let tooltipPositionProps = {};
 
-  if (isClassic(theme)) {
-    tooltipPositionProps = {};
+  if (!isClassic(theme)) {
+    // overrides default positioning for non legacy themes
+    tooltipPositionProps = {
+      tooltipPosition: 'right',
+      tooltipAlign: 'center'
+    };
   }
 
   return (

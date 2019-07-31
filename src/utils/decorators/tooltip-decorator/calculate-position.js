@@ -11,8 +11,8 @@ export default function calculatePosition(tooltip, target) {
       targetBottom = targetRect.bottom + offsetY,
       targetLeft = targetRect.left,
       targetRight = targetRect.right,
-      targetXCenter = targetWidth / 2,
-      targetYCenter = targetHeight / 2;
+      targetHalfWidth = targetWidth / 2,
+      targetHalfHeight = targetHeight / 2;
 
   const tooltipDistances = {
     top: targetTop - tooltipHeight - pointerSize,
@@ -23,14 +23,14 @@ export default function calculatePosition(tooltip, target) {
 
   const vertical = {
     left: targetLeft - pointerSize,
-    center: targetLeft + targetXCenter - (tooltipWidth / 2),
-    right: (targetLeft - tooltipWidth) + targetXCenter + pointerSize + pointerSideMargin
+    center: targetLeft + targetHalfWidth - (tooltipWidth / 2),
+    right: (targetLeft - tooltipWidth) + targetHalfWidth + pointerSize + pointerSideMargin
   };
 
   const horizontal = {
-    top: (targetTop + targetYCenter) - pointerSize - pointerSideMargin,
-    center: targetTop + targetYCenter - (tooltipHeight / 2),
-    bottom: (targetTop + targetYCenter - tooltipHeight) + pointerSize + pointerSideMargin
+    top: (targetTop + targetHalfHeight) - pointerSize - pointerSideMargin,
+    center: targetTop + targetHalfHeight - (tooltipHeight / 2),
+    bottom: (targetTop + targetHalfHeight - tooltipHeight) + pointerSize + pointerSideMargin
   };
 
   return { tooltipDistances, vertical, horizontal };

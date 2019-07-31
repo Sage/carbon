@@ -10,7 +10,6 @@ const presErr = new Error('this value is required!');
 const notZeroErr = new Error('this is zero!');
 const asyncErr = new Error('not foo!');
 const failErr = new Error("It's foo!");
-const mockMessage = 'mock message';
 
 const presence = value => new Promise((resolve, reject) => {
   if (value) {

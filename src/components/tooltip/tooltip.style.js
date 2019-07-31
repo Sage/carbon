@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { THEMES } from '../../style/themes';
+import { isHorizontal } from './tooltip.utils';
 
 const StyledTooltipInner = styled.div`
   ${({ theme, type }) => css`
@@ -72,10 +73,6 @@ function getTextAlignment(position, align) {
   }
 
   return textAlignment;
-}
-
-function isHorizontal(property) {
-  return ['left', 'right'].includes(property);
 }
 
 export { StyledTooltipInner, StyledTooltipWrapper };

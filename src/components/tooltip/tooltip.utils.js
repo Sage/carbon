@@ -10,6 +10,7 @@ function hasTheSameLine(tooltipPosition, pointerAlign) {
   const isAlignHorizontal = isHorizontal(pointerAlign);
   const isAlignVertical = isVertical(pointerAlign);
   const areBothVertical = isPositionVertical && isAlignVertical;
+  // position nas no "center" value, so there is no need to check for horizontal
   const areBothHorizontal = !isPositionVertical && isAlignHorizontal;
 
   return areBothVertical || areBothHorizontal;
