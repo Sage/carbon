@@ -1,7 +1,6 @@
 import { css } from 'styled-components';
 import { isClassic } from '../../utils/helpers/style-helper';
 
-
 const CarouselButtonStyleClassic = (({ theme }) => isClassic(theme) && css`
   width: 45px; 
   height: 45px;
