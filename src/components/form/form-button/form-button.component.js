@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import tagComponent from '../../../utils/helpers/tags/tags';
 import Button from '../../button';
 import OptionsHelper from '../../../utils/helpers/options-helper';
+import Text from '../../../utils/helpers/text';
 
 const text = (props) => {
   const { formButtonName } = props;
-  const defaultValue = formButtonName.charAt(0).toUpperCase() + formButtonName.slice(1);
+  const defaultValue = Text.titleCase(formButtonName);
   return props[`${formButtonName}Text`] || I18n.t(`actions.${formButtonName}`, { defaultValue });
 };
 

@@ -1,17 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import I18n from 'i18n-js';
-import Serialize from 'form-serialize';
 import Service from '../../../utils/service';
 import FormButton from '../../../components/form/form-button';
 import FormSummary from '../../../components/form/form-summary';
 import AppWrapper from '../../../components/app-wrapper';
-import { validProps } from '../../../utils/ether';
+import { validProps, generateKeysForChildren } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
 import Browser from '../../../utils/helpers/browser';
 import { withValidations } from '../../../components/validations';
 import ElementResize from '../../../utils/helpers/element-resize';
 import StyledForm, { StyledFormFooter, StyledAdditionalFormAction } from '../../../components/form/form.style';
+
+const FormContext = React.createContext();
 
 class FormWithoutValidations extends React.Component {
   state = {
@@ -19,18 +20,6 @@ class FormWithoutValidations extends React.Component {
     isDirty: false,
     /** Tracks if the saveButton should be disabled */
     submitted: false
-  }
-
-  /* Returns form object to child components. */
-  getChildContext = () => {
-    return {
-      form: {
-        getActiveInput: this.getActiveInput,
-        setIsDirty: this.setIsDirty,
-        resetIsDirty: this.resetIsDirty,
-        setActiveInput: this.setActiveInput
-      }
-    };
   }
 
   /* Runs once the component has mounted. */
@@ -50,20 +39,20 @@ class FormWithoutValidations extends React.Component {
     if (this.props.redirectPath) this.redirectPath = this.props.redirectPath;
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.stickyFooter && !this.props.stickyFooter) {
+  componentDidUpdate(prevProps) {
+    if (this.props.stickyFooter && !prevProps.stickyFooter) {
       this.addStickyFooterListeners();
     }
 
-    if (!nextProps.stickyFooter && this.props.stickyFooter) {
+    if (!this.props.stickyFooter && prevProps.stickyFooter) {
       this.removeStickyFooterListeners();
     }
 
-    if (nextProps.unsavedWarning && !this.props.unsavedWarning) {
+    if (this.props.unsavedWarning && !prevProps.unsavedWarning) {
       this.addUnsavedWarningListener();
     }
 
-    if (!nextProps.unsavedWarning && this.props.unsavedWarning) {
+    if (!this.props.unsavedWarning && prevProps.unsavedWarning) {
       this.removeUnsavedWarningListener();
     }
   }
@@ -245,13 +234,6 @@ class FormWithoutValidations extends React.Component {
     this.setState({ submitted: false });
   }
 
-  /**
-   * Serializes the inputs in the form ready for submission via AJAX
-   * https://www.npmjs.com/package/form-serialize
-   */
-  serialize = (opts) => {
-    return Serialize(this._form, opts);
-  }
 
   /** Separates and returns HTML specific props */
   htmlProps = () => {
@@ -344,7 +326,7 @@ class FormWithoutValidations extends React.Component {
     let padding = this.props.stickyFooterPadding;
 
     if (padding && !padding.match(/px$/)) {
-      padding = `${padding}px`;
+      padding += 'px';
     }
 
     return (
@@ -376,6 +358,18 @@ class FormWithoutValidations extends React.Component {
     }));
   }
 
+  /**  Returns form object to child components. */
+  getContext() {
+    return {
+      form: {
+        getActiveInput: this.getActiveInput,
+        setIsDirty: this.setIsDirty,
+        resetIsDirty: this.resetIsDirty,
+        setActiveInput: this.setActiveInput
+      }
+    };
+  }
+
   /** Clone the children, pass in callback to allow form to store controlled data */
   renderChildren() {
     const { children, isLabelRightAligned } = this.props;
@@ -384,12 +378,16 @@ class FormWithoutValidations extends React.Component {
 
     const childrenArray = Array.isArray(children) ? children : [children];
 
+    if (!this.childKeys || this.childKeys.length !== childrenArray.length) {
+      this.childKeys = generateKeysForChildren(childrenArray);
+    }
+
     return childrenArray.map((child, index) => {
       if (typeof child.type !== 'function') return child;
 
-      return React.cloneElement(child, {
+      return React.cloneElement((child), {
         ...child.props,
-        key: String(index),
+        key: this.childKeys[index],
         childOfForm: true,
         addInputToFormState: this.addInputDataToState,
         labelAlign: isLabelRightAligned ? 'right' : 'left'
@@ -401,20 +399,22 @@ class FormWithoutValidations extends React.Component {
   render() {
     const stickyFooter = this.props.stickyFooter && this.state.stickyFooter;
     return (
-      <StyledForm
-        stickyFooter={ stickyFooter }
-        onSubmit={ this.handleOnSubmit }
-        fixedBottom={ this.props.fixedBottom }
-        { ...this.htmlProps() }
-        ref={ (form) => { this._form = form; } }
-        { ...tagComponent('form', this.props) }
-      >
-        { generateCSRFTokenInput(this.csrfValues) }
+      <FormContext.Provider value={ this.getContext() }>
+        <StyledForm
+          stickyFooter={ stickyFooter }
+          onSubmit={ this.handleOnSubmit }
+          fixedBottom={ this.props.fixedBottom }
+          { ...this.htmlProps() }
+          ref={ (form) => { this._form = form; } }
+          { ...tagComponent('form', this.props) }
+        >
+          { generateCSRFTokenInput(this.csrfValues) }
 
-        { this.renderChildren() }
+          { this.renderChildren() }
 
-        { this.formFooter() }
-      </StyledForm>
+          { this.formFooter() }
+        </StyledForm>
+      </FormContext.Provider>
     );
   }
 }
@@ -564,18 +564,6 @@ FormWithoutValidations.defaultProps = {
   validateOnMount: false,
   customSaveButton: null,
   showSummary: true
-};
-
-FormWithoutValidations.childContextTypes = {
-  /**
-   * Defines a context object for child components of the form component.
-   * https://facebook.github.io/react/docs/context.html
-   */
-  form: PropTypes.object
-};
-
-FormWithoutValidations.contextTypes = {
-  modal: PropTypes.object
 };
 
 const Form = withValidations(FormWithoutValidations);

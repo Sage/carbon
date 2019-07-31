@@ -1,46 +1,59 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Form When child is an html element it renders the child 1`] = `
-<styled.form
-  data-component="form"
-  onSubmit={[Function]}
+<ContextProvider
+  value={
+    Object {
+      "form": Object {
+        "getActiveInput": [Function],
+        "resetIsDirty": [Function],
+        "setActiveInput": [Function],
+        "setIsDirty": [Function],
+      },
+    }
+  }
 >
-  <input
-    name="csrf-token"
-    readOnly={true}
-    type="hidden"
-    value="csrf-token"
-  />
-  <div>
-    Foo
-  </div>
-  <styled.div
-    buttonAlign="right"
+  <styled.form
+    data-component="form"
+    onSubmit={[Function]}
   >
-    <AppWrapper
-      style={
-        Object {
-          "borderWidth": undefined,
-        }
-      }
+    <input
+      name="csrf-token"
+      readOnly={true}
+      type="hidden"
+      value="csrf-token"
+    />
+    <div>
+      Foo
+    </div>
+    <styled.div
+      buttonAlign="right"
     >
-      <FormButton
-        cancelClick={[Function]}
-        data-element="cancel"
-        formButtonName="cancel"
-        key="cancel"
-      />
-      <FormSummary
-        key="save"
+      <AppWrapper
+        style={
+          Object {
+            "borderWidth": undefined,
+          }
+        }
       >
         <FormButton
-          data-element="save"
-          formButtonName="save"
-          key="save"
-          saving={false}
+          cancelClick={[Function]}
+          data-element="cancel"
+          formButtonName="cancel"
+          key="cancel"
         />
-      </FormSummary>
-    </AppWrapper>
-  </styled.div>
-</styled.form>
+        <FormSummary
+          key="save"
+        >
+          <FormButton
+            data-element="save"
+            formButtonName="save"
+            key="save"
+            saving={false}
+          />
+        </FormSummary>
+      </AppWrapper>
+    </styled.div>
+  </styled.form>
+</ContextProvider>
 `;

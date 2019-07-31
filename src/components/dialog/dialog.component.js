@@ -6,6 +6,7 @@ import Icon from '../icon';
 import Modal from '../modal';
 import Heading from '../heading';
 import ElementResize from '../../utils/helpers/element-resize';
+import { generateKeysForChildren } from '../../utils/ether';
 import {
   DialogStyle,
   DialogTitleStyle,
@@ -189,10 +190,12 @@ class Dialog extends Modal {
     if (typeof children !== 'object') return children;
 
     const childrenArray = Array.isArray(children) ? children : [children];
+    this.childKeys = generateKeysForChildren(childrenArray);
+
     return childrenArray.map((child, index) => {
       return React.cloneElement(child, {
-        key: String(index),
         ...child.props,
+        key: this.childKeys[index],
         fixedBottom: this.appliedFixedBottom
       });
     });

@@ -32,7 +32,7 @@ export const StyledInternalSummary = styled.span`
 
 export const StyledSummaryText = styled.span`
   padding: 0 3px;
-  ${({ type }) => type === 'warning' && css`color: #c33e00;`}
+  ${({ type, theme }) => type === 'warning' && css`color: ${theme.colors.warning};`}
 `;
 
 StyledFormSummary.defaultProps = {
