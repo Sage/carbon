@@ -6,7 +6,9 @@ import CheckableInput from '../checkable-input';
 import SwitchSlider from './switch-slider.component';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
-const Switch = (props) => {
+const Switch = ({
+  id, label, onChange, value, ...props
+}) => {
   const classicDisabled = props.theme && isClassic(props.theme) && props.loading;
 
   const switchProps = {
@@ -14,14 +16,23 @@ const Switch = (props) => {
     ...props
   };
 
+  const inputProps = {
+    ...switchProps,
+    disabled: props.disabled || classicDisabled,
+    inputId: id,
+    inputLabel: label,
+    inputValue: value,
+    inputType: 'checkbox'
+  };
+
   return (
     <SwitchStyle
-      { ...tagComponent('Switch', switchProps) }
+      { ...tagComponent('Switch', props) }
       { ...switchProps }
     >
       <CheckableInput
-        type='checkbox'
-        { ...switchProps }
+        { ...inputProps }
+        onChange={ onChange }
       >
         <SwitchSlider { ...switchProps } />
       </CheckableInput>
@@ -38,8 +49,12 @@ Switch.propTypes = {
   fieldHelp: PropTypes.string,
   /** Displays fieldHelp inline with the checkbox */
   fieldHelpInline: PropTypes.bool,
+  /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
+  id: PropTypes.string,
   /** Sets percentage-based input width */
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /** The content of the label for the input */
+  label: PropTypes.string,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.string,
   /** Displays label inline with the Switch */
@@ -57,7 +72,9 @@ Switch.propTypes = {
    * No effect when using Classic theme.
    */
   size: PropTypes.string,
-  theme: PropTypes.object
+  theme: PropTypes.object,
+  /** the value of the checkbox, passed on form submit */
+  value: PropTypes.string.isRequired
 };
 
 Switch.defaultProps = {

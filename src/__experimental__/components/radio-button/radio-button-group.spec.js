@@ -57,7 +57,10 @@ describe('RadioButtonGroup', () => {
 
       describe('name', () => {
         it('is set using the RadioButtonGroup groupName prop', () => {
-          expect(button.props.name).toEqual(groupName);
+          const buttonWrapper = buttons.at(buttonArray.indexOf(button));
+          const input = getInputWrapper(buttonWrapper).instance();
+
+          expect(input.name).toEqual(groupName);
         });
       });
     });

@@ -5,13 +5,17 @@ import CheckboxStyle from './checkbox.style';
 import CheckableInput from '../checkable-input/checkable-input.component';
 import CheckboxSvg from './checkbox-svg.component';
 
-const Checkbox = (props) => {
+const Checkbox = ({
+  id, label, onChange, value, ...props
+}) => {
   const inputProps = {
     ...props,
+    inputId: id,
+    inputLabel: label,
+    inputValue: value,
+    inputType: 'checkbox',
     reverse: !props.reverse
   };
-
-  const { onChange, ...rest } = inputProps;
 
   return (
     <CheckboxStyle
@@ -19,9 +23,8 @@ const Checkbox = (props) => {
       { ...props }
     >
       <CheckableInput
-        type='checkbox'
-        { ...rest }
-        onChange={ props.onChange }
+        { ...inputProps }
+        onChange={ onChange }
       >
         <CheckboxSvg />
       </CheckableInput>
@@ -38,8 +41,12 @@ Checkbox.propTypes = {
   error: PropTypes.bool,
   /** Displays fieldHelp inline with the checkbox */
   fieldHelpInline: PropTypes.bool,
+  /** Unique Identifier for the input. Will use a randomly generated GUID if none is provided */
+  id: PropTypes.string,
   /** Sets percentage-based input width */
   inputWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  /** The content of the label for the input */
+  label: PropTypes.string,
   /** Sets label alignment - accepted values: 'left' (default), 'right' */
   labelAlign: PropTypes.string,
   /** Sets percentage-based label width */
@@ -52,7 +59,9 @@ Checkbox.propTypes = {
    * Set the size of the checkbox to 'small' (16x16 - default) or 'large' (24x24).
    * No effect when using Classic theme.
    */
-  size: PropTypes.string
+  size: PropTypes.string,
+  /** the value of the checkbox, passed on form submit */
+  value: PropTypes.string.isRequired
 };
 
 Checkbox.defaultProps = {
