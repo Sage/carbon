@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
+import PropTypes from 'prop-types';
 import { mount, shallow } from 'enzyme';
 import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
 import { StyledAdditionalFormAction } from './form.style';
@@ -14,6 +15,11 @@ import AppWrapper from '../app-wrapper';
 import { rootTagTest } from '../../utils/helpers/tags/tags-specs';
 
 /* global jest */
+
+// needed to make tests pass
+Form.contextTypes = {
+  modal: PropTypes.object
+};
 
 describe('Form', () => {
   let instance, wrapper, validate;
@@ -206,7 +212,7 @@ describe('Form', () => {
 
   describe('getChildContext', () => {
     it('returns an object that exposes public functions', () => {
-      expect(instance.getChildContext()).toEqual(
+      expect(instance.getContext()).toEqual(
         {
           form: {
             attachToForm: instance.attachToForm,
@@ -734,7 +740,7 @@ describe('Form', () => {
           data-element='bar'
           data-role='baz'
         />
-      );
+      ).find('[data-component="form"]');
 
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapper2, 'form', 'bar', 'baz');

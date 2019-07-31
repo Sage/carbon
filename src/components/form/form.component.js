@@ -5,12 +5,14 @@ import Serialize from 'form-serialize';
 import FormSummary from './form-summary';
 import FormButton from './form-button';
 import AppWrapper from '../app-wrapper/app-wrapper';
-import { validProps } from '../../utils/ether/ether';
+import { validProps, generateKeysForChildren } from '../../utils/ether/ether';
 import tagComponent from '../../utils/helpers/tags/tags';
 import Browser from '../../utils/helpers/browser/browser';
 import { withValidations } from '../validations';
 import ElementResize from '../../utils/helpers/element-resize/element-resize';
 import StyledForm, { StyledFormFooter, StyledAdditionalFormAction } from './form.style';
+
+const FormContext = React.createContext();
 
 class FormWithoutValidations extends React.Component {
   state = {
@@ -20,18 +22,6 @@ class FormWithoutValidations extends React.Component {
     /** Tracks if the saveButton should be disabled */
     submitted: false
 
-  }
-
-  /**  Returns form object to child components. */
-  getChildContext = () => {
-    return {
-      form: {
-        getActiveInput: this.getActiveInput,
-        setIsDirty: this.setIsDirty,
-        resetIsDirty: this.resetIsDirty,
-        setActiveInput: this.setActiveInput
-      }
-    };
   }
 
   /** Runs once the component has mounted. */
@@ -49,20 +39,20 @@ class FormWithoutValidations extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.stickyFooter && !this.props.stickyFooter) {
+  componentDidUpdate(prevProps) {
+    if (this.props.stickyFooter && !prevProps.stickyFooter) {
       this.addStickyFooterListeners();
     }
 
-    if (!nextProps.stickyFooter && this.props.stickyFooter) {
+    if (!this.props.stickyFooter && prevProps.stickyFooter) {
       this.removeStickyFooterListeners();
     }
 
-    if (nextProps.unsavedWarning && !this.props.unsavedWarning) {
+    if (this.props.unsavedWarning && !prevProps.unsavedWarning) {
       this.addUnsavedWarningListener();
     }
 
-    if (!nextProps.unsavedWarning && this.props.unsavedWarning) {
+    if (!this.props.unsavedWarning && prevProps.unsavedWarning) {
       this.removeUnsavedWarningListener();
     }
   }
@@ -217,11 +207,11 @@ class FormWithoutValidations extends React.Component {
     return Serialize(this._form, opts);
   }
 
- /** Separates and returns HTML specific props */
- htmlProps = () => {
-   const { onSubmit, fixedBottom, ...props } = validProps(this);
-   return props;
- }
+  /** Separates and returns HTML specific props */
+  htmlProps = () => {
+    const { onSubmit, fixedBottom, ...props } = validProps(this);
+    return props;
+  }
 
   /** Redirects to the previous page; uses React Router history, or uses modalcancel handler. */
   cancelForm = () => {
@@ -238,25 +228,25 @@ class FormWithoutValidations extends React.Component {
     }
   }
 
- /** Gets the cancel button for the form */
- cancelButton = () => {
-   if (!this.props.cancel) { return null; }
+  /** Gets the cancel button for the form */
+  cancelButton = () => {
+    if (!this.props.cancel) { return null; }
 
-   const cancelProps = {
-     cancelText: this.props.cancelText,
-     cancelClick: this.cancelForm,
-     ...this.props.cancelButtonProps
-   };
+    const cancelProps = {
+      cancelText: this.props.cancelText,
+      cancelClick: this.cancelForm,
+      ...this.props.cancelButtonProps
+    };
 
-   return (
-     <FormButton
-       key='cancel'
-       formButtonName='cancel'
-       data-element='cancel'
-       { ...cancelProps }
-     />
-   );
- }
+    return (
+      <FormButton
+        key='cancel'
+        formButtonName='cancel'
+        data-element='cancel'
+        { ...cancelProps }
+      />
+    );
+  }
 
   /** Gets any additional actions passed into the form */
   additionalActions = (type) => {
@@ -290,87 +280,105 @@ class FormWithoutValidations extends React.Component {
     return this.props.customSaveButton ? this.props.customSaveButton : this.defaultSaveButton();
   }
 
- /** Returns a form summary */
- saveButtonWithSummary = () => {
-   return (
-     <FormSummary
-       key='save'
-       errors={ this.props.errorCount }
-       warnings={ this.props.warningCount }
-     >
-       { this.saveButton() }
-     </FormSummary>
-   );
- }
+  /** Returns a form summary */
+  saveButtonWithSummary = () => {
+    return (
+      <FormSummary
+        key='save'
+        errors={ this.props.errorCount }
+        warnings={ this.props.warningCount }
+      >
+        { this.saveButton() }
+      </FormSummary>
+    );
+  }
 
- /** Returns the footer for the form  */
- formFooter = () => {
-   let padding = this.props.stickyFooterPadding;
+  /** Returns the footer for the form  */
+  formFooter = () => {
+    let padding = this.props.stickyFooterPadding;
 
-   if (padding && !padding.match(/px$/)) {
-     padding = `${padding}px`;
-   }
+    if (padding && !padding.match(/px$/)) {
+      padding += 'px';
+    }
 
-   return (
-     <StyledFormFooter buttonAlign={ this.props.buttonAlign }>
-       <AppWrapper style={ { borderWidth: padding } }>
-         { this.additionalActions('leftAlignedActions') }
-         { this.additionalActions('rightAlignedActions') }
-         { this.orderFormButtons() }
-         { this.additionalActions('additionalActions') }
-       </AppWrapper>
-     </StyledFormFooter>
-   );
- }
+    return (
+      <StyledFormFooter buttonAlign={ this.props.buttonAlign }>
+        <AppWrapper style={ { borderWidth: padding } }>
+          { this.additionalActions('leftAlignedActions') }
+          { this.additionalActions('rightAlignedActions') }
+          { this.orderFormButtons() }
+          { this.additionalActions('additionalActions') }
+        </AppWrapper>
+      </StyledFormFooter>
+    );
+  }
 
- /** Orders the Save and Cancel Buttons based on alignment prop  */
- orderFormButtons() {
-   const save = this.props.showSummary ? this.saveButtonWithSummary() : this.saveButton();
+  /** Orders the Save and Cancel Buttons based on alignment prop  */
+  orderFormButtons() {
+    const save = this.props.showSummary ? this.saveButtonWithSummary() : this.saveButton();
 
-   return this.props.buttonAlign === 'right' ? [this.cancelButton(), save] : [save, this.cancelButton()];
- }
+    return this.props.buttonAlign === 'right' ? [this.cancelButton(), save] : [save, this.cancelButton()];
+  }
 
- /** Clone the children, pass in callback to allow form to store controlled data */
- renderChildren() {
-   const { children, isLabelRightAligned } = this.props;
+  /**  Returns form object to child components. */
+  getContext() {
+    return {
+      form: {
+        getActiveInput: this.getActiveInput,
+        setIsDirty: this.setIsDirty,
+        resetIsDirty: this.resetIsDirty,
+        setActiveInput: this.setActiveInput
+      }
+    };
+  }
 
-   if (!children) return null;
+  /** Clone the children, pass in callback to allow form to store controlled data */
+  renderChildren() {
+    const { children, isLabelRightAligned } = this.props;
 
-   const childrenArray = Array.isArray(children) ? children : [children];
+    if (!children) return null;
 
-   return childrenArray.map((child, index) => {
-     if (typeof child.type !== 'function') return child;
+    const childrenArray = Array.isArray(children) ? children : [children];
 
-     return React.cloneElement(child, {
-       ...child.props,
-       key: String(index),
-       childOfForm: true,
-       labelAlign: isLabelRightAligned ? 'right' : 'left'
-     });
-   });
- }
+    if (!this.childKeys || this.childKeys.length !== childrenArray.length) {
+      this.childKeys = generateKeysForChildren(childrenArray);
+    }
 
- /** Renders the component. */
- render() {
-   const stickyFooter = this.props.stickyFooter && this.state.stickyFooter;
+    return childrenArray.map((child, index) => {
+      if (typeof child.type !== 'function') return child;
 
-   return (
-     <StyledForm
-       stickyFooter={ stickyFooter }
-       onSubmit={ this.handleOnSubmit }
-       fixedBottom={ this.props.fixedBottom }
-       { ...this.htmlProps() }
-       ref={ (form) => { this._form = form; } }
-       { ...tagComponent('form', this.props) }
-     >
-       { generateCSRFToken(this._document) }
+      return React.cloneElement((child), {
+        ...child.props,
+        key: this.childKeys[index],
+        childOfForm: true,
+        labelAlign: isLabelRightAligned ? 'right' : 'left'
+      });
+    });
+  }
 
-       { this.renderChildren() }
+  /** Renders the component. */
+  render() {
+    const stickyFooter = this.props.stickyFooter && this.state.stickyFooter;
 
-       { this.formFooter() }
-     </StyledForm>
-   );
- }
+    return (
+      <FormContext.Provider value={ this.getContext() }>
+        <StyledForm
+          stickyFooter={ stickyFooter }
+          onSubmit={ this.handleOnSubmit }
+          fixedBottom={ this.props.fixedBottom }
+          { ...this.htmlProps() }
+          ref={ (form) => { this._form = form; } }
+          { ...tagComponent('form', this.props) }
+        >
+          { generateCSRFToken(this._document) }
+
+          { this.renderChildren() }
+
+          { this.formFooter() }
+        </StyledForm>
+      </FormContext.Provider>
+    );
+  }
 }
 
 /** Creates and returns CSRF token for input field */
@@ -493,18 +501,6 @@ FormWithoutValidations.defaultProps = {
   validateOnMount: false,
   customSaveButton: null,
   showSummary: true
-};
-
-FormWithoutValidations.childContextTypes = {
-  /**
-   * Defines a context object for child components of the form component.
-   * https://facebook.github.io/react/docs/context.html
-   */
-  form: PropTypes.object
-};
-
-FormWithoutValidations.contextTypes = {
-  modal: PropTypes.object
 };
 
 export { FormWithoutValidations }; // export version without hoc if required

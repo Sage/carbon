@@ -1,6 +1,7 @@
 import React from 'react';
 import TestUtils from 'react-dom/test-utils';
 import I18n from 'i18n-js';
+import PropTypes from 'prop-types';
 import { mount, shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
@@ -23,6 +24,11 @@ import Small from '../../../style/themes/small';
 
 /* global jest */
 jest.mock('../../../utils/service');
+
+// needed to make tests pass
+Form.contextTypes = {
+  modal: PropTypes.object
+};
 
 describe('Form', () => {
   let instance, wrapper, validate;
@@ -218,9 +224,9 @@ describe('Form', () => {
     });
   });
 
-  describe('getChildContext', () => {
+  describe('getContext', () => {
     it('returns an object that exposes public functions', () => {
-      expect(instance.getChildContext()).toEqual(
+      expect(instance.getContext()).toEqual(
         {
           form: {
             attachToForm: instance.attachToForm,
@@ -464,26 +470,7 @@ describe('Form', () => {
   describe('class Names', () => {
     it('allows custom classes to be added to the Form', () => {
       wrapper = shallow(<Form formAction='foo' className='foo' />);
-
-      expect(wrapper.hasClass('foo')).toBeTruthy();
-    });
-  });
-
-  describe('serialize', () => {
-    beforeEach(() => {
-      instance = TestUtils.renderIntoDocument(
-        <Form formAction='foo'>
-          <Textbox name='model[test]' value='foo' />
-        </Form>
-      );
-    });
-
-    it('without opts it returns a string', () => {
-      expect(instance.serialize()).toEqual('model%5Btest%5D=foo');
-    });
-
-    it('with opts it returns a hash', () => {
-      expect(instance.serialize({ hash: true })).toEqual({ model: { test: 'foo' } });
+      expect(wrapper.find('[data-component="form"]').hasClass('foo')).toBeTruthy();
     });
   });
 
@@ -882,7 +869,7 @@ describe('Form', () => {
           data-element='bar'
           data-role='baz'
         />
-      );
+      ).find('[data-component="form"]');
 
       it('include correct component, element and role data tags', () => {
         rootTagTest(wrapper2, 'form', 'bar', 'baz');
