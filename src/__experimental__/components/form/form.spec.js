@@ -864,6 +864,17 @@ describe('Form', () => {
     });
   });
 
+  describe('When child is an html element', () => {
+    it('it renders the child', () => {
+      wrapper = shallow(
+        <Form validate={ () => true } formAction='foo'>
+          <div>Foo</div>
+        </Form>
+      );
+      expect(wrapper).toMatchSnapshot();
+    });
+  });
+
   describe('tags', () => {
     describe('on component', () => {
       const wrapper2 = shallow(

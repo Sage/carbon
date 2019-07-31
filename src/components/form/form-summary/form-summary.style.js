@@ -21,13 +21,13 @@ const StyledFormSummary = styled.div`
 export const StyledInternalSummary = styled.span`
   padding: 0 3px;
 
-  carbon-form-summary__icon {
+  .carbon-form-summary__icon {
     padding: 0 3px;
     position: relative;
     top: -2px;
   }
-  ${({ type, theme }) => type === 'warning' && css`color: ${theme.form.summaryWarning};`}
-  ${({ type, theme }) => type === 'error' && css`color: ${theme.form.summaryError};`}
+  ${({ type, theme }) => type === 'warning' && css`color: ${theme.colors.warning};`}
+  ${({ type, theme }) => type === 'error' && css`color: ${theme.colors.error};`}
 `;
 
 export const StyledSummaryText = styled.span`

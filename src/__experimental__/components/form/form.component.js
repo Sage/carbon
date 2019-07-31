@@ -384,9 +384,12 @@ class FormWithoutValidations extends React.Component {
 
     const childrenArray = Array.isArray(children) ? children : [children];
 
-    return childrenArray.map((child) => {
+    return childrenArray.map((child, index) => {
+      if (typeof child.type !== 'function') return child;
+
       return React.cloneElement(child, {
         ...child.props,
+        key: String(index),
         childOfForm: true,
         addInputToFormState: this.addInputDataToState,
         labelAlign: isLabelRightAligned ? 'right' : 'left'
@@ -396,7 +399,7 @@ class FormWithoutValidations extends React.Component {
 
   /** Renders the component. */
   render() {
-    const stickyFooter = !this.props.stickyFooter ? false : this.state.stickyFooter;
+    const stickyFooter = this.props.stickyFooter && this.state.stickyFooter;
     return (
       <StyledForm
         stickyFooter={ stickyFooter }

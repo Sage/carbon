@@ -316,6 +316,11 @@ const OptionsHelper = {
     'date',
     'decimal',
     'select'
+  ],
+
+  formButtonOptions: [
+    'save',
+    'cancel'
   ]
 };
 

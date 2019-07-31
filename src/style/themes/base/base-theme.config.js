@@ -44,9 +44,7 @@ export default (palette) => {
     },
 
     form: {
-      invalid: palette.slateTint(95),
-      summaryError: '#D63F40',
-      summaryWarning: '#FF7D00'
+      invalid: palette.slateTint(95)
     },
 
     help: {

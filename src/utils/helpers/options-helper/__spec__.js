@@ -235,4 +235,16 @@ describe('OptionsHelper', () => {
       'transparent'
     ]);
   });
+  it('formButtonOptions', () => {
+    expect(OptionsHelper.formButtonOptions).toEqual([
+      'save',
+      'cancel'
+    ]);
+  });
+  it('actionOptions', () => {
+    expect(OptionsHelper.actionOptions).toEqual([
+      'Button',
+      'Link'
+    ]);
+  });
 });

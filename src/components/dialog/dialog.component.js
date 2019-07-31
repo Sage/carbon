@@ -189,8 +189,9 @@ class Dialog extends Modal {
     if (typeof children !== 'object') return children;
 
     const childrenArray = Array.isArray(children) ? children : [children];
-    return childrenArray.map((child) => {
+    return childrenArray.map((child, index) => {
       return React.cloneElement(child, {
+        key: String(index),
         ...child.props,
         fixedBottom: this.appliedFixedBottom
       });

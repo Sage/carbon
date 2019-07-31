@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form When child is an html element it renders the child 1`] = `
+<styled.form
+  data-component="form"
+  onSubmit={[Function]}
+>
+  <input
+    name="csrf-token"
+    readOnly={true}
+    type="hidden"
+    value="csrf-token"
+  />
+  <div>
+    Foo
+  </div>
+  <styled.div
+    buttonAlign="right"
+  >
+    <AppWrapper
+      style={
+        Object {
+          "borderWidth": undefined,
+        }
+      }
+    >
+      <FormButton
+        cancelClick={[Function]}
+        data-element="cancel"
+        formButtonName="cancel"
+        key="cancel"
+      />
+      <FormSummary
+        key="save"
+      >
+        <FormButton
+          data-element="save"
+          formButtonName="save"
+          key="save"
+          saving={false}
+        />
+      </FormSummary>
+    </AppWrapper>
+  </styled.div>
+</styled.form>
+`;
