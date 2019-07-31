@@ -60,7 +60,7 @@ class Carousel extends React.Component {
 
   /** A lifecycle method that is called before re-render. */
   componentWillReceiveProps(nextProps) {
-    if (typeof nextProps.slideIndex === 'undefined') { return; }
+    if (typeof nextProps.slideIndex === 'undefined') return;
 
     const newIndex = this.verifyNewIndex(nextProps.slideIndex);
     const currentIndex = this.state.selectedSlideIndex;
@@ -229,7 +229,6 @@ class Carousel extends React.Component {
     );
   }
 
-
   /** Renders the previous button */
   previousButton() {
     if (!this.props.enablePreviousButton) return null;
@@ -288,7 +287,6 @@ class Carousel extends React.Component {
           {/** carbon-carousel__content is related to pages.scss */}
           <div className='carbon-carousel__content'>
             { this.previousButton() }
-
             <CSSTransitionGroup
               component='div'
               className='carbon-carousel__transition'
@@ -297,12 +295,9 @@ class Carousel extends React.Component {
               transitionLeaveTimeout={ TRANSITION_TIME }
             >
               { this.visibleSlide() }
-
             </CSSTransitionGroup>
-
             { this.nextButton() }
           </div>
-
           { this.slideSelector() }
         </CarouselWrapperStyle>
       );
