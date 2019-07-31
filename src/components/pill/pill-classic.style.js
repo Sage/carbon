@@ -46,7 +46,7 @@ export const classicStyleConfig = {
   }
 };
 
-export default (colorVariant, inFill, isDeletable) => {
+export default (colorVariant, inFill, isDeletable, size) => {
   const colorSet = classicStyleConfig[colorVariant];
 
   return css`
@@ -87,6 +87,30 @@ export default (colorVariant, inFill, isDeletable) => {
 
     ${!isDeletable && css`
       padding: 2px 7px;
+
+      ${size === 'small' && css`
+        font-size: 10px;
+
+        button {
+          .carbon-icon {
+            &:before {
+              font-size: 8px;
+            }
+          }
+        }
+      `}
+
+      ${size === 'medium' && css`
+        font-size: 12px;
+        min-width: 38px;
+        padding: 4px 8px 4px 8px;
+      `}
+
+      ${size === 'large' && css`
+        font-size: 14px;
+        min-width: 46px;
+        padding: 4px 8px 4px 8px;
+      `}
     `}
 
     ${isDeletable && css`
@@ -137,6 +161,51 @@ export default (colorVariant, inFill, isDeletable) => {
           }
         }
       }
+
+      ${size === 'small' && css`
+        font-size: 10px;
+        padding: 2px 16px 2px 8px;
+
+        button {
+          .carbon-icon {
+            font-size: 13px;
+
+            &:before {
+              font-size: 8px;
+            }
+          }
+        }
+      `}
+
+      ${size === 'medium' && css`
+        font-size: 12px;
+        min-width: 38px;
+        padding: 4px 10px 4px 4px;
+
+        button {
+          .carbon-icon {
+            font-size: 13px;
+            
+            &:before {
+              font-size: 10px;
+            }
+          }
+        }
+      `}
+
+      ${size === 'large' && css`
+        font-size: 14px;
+        min-width: 46px;
+        padding: 4px 8px 4px 2px;
+
+        button {
+          .carbon-icon {
+            &:before {
+              font-size: 11px;
+            }
+          }
+        }
+      `}
     `};
   `;
 };

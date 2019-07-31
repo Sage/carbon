@@ -108,10 +108,9 @@ const PillStyle = styled.span`
           }
         }
 
-        ${size === 'small' && css`
-        
-        min-width: 38px;
-        padding: 4px 7px 2px 2px;
+        ${size === 'small' && css`        
+          min-width: 38px;
+          padding: 4px 7px 2px 2px;
 
           button {
             padding: 0px 7px 2px 2px;
@@ -131,17 +130,17 @@ const PillStyle = styled.span`
           padding: 4px 10px 4px 2px;
           font-size: 12px;
 
-            button {
-              padding: 2px 2px 2px 0px;
+          button {
+            padding: 2px 2px 2px 0px;
 
-              .carbon-icon {
-                padding: 0px 3px;
+            .carbon-icon {
+              padding: 0px 3px;
 
-                &:before {
-                  font-size: 10px;
-                }
+              &:before {
+                font-size: 10px;
               }
             }
+          }
         `}
 
         ${size === 'large' && css`
@@ -149,25 +148,25 @@ const PillStyle = styled.span`
           padding: 4px 10px 4px 2px;
           font-size: 14px;
 
-            button {
-              width: 19px;
-              padding: 2px 2px 2px 0px;
+          button {
+            width: 19px;
+            padding: 2px 2px 2px 0px;
 
-              .carbon-icon {
+            .carbon-icon {
 
-                &:before {
-                  font-size: 11px;
-                }
+              &:before {
+                font-size: 11px;
               }
             }
+          }
         `}
       `}
 
       ${!isClassic(theme, colorVariant) && !isDeletable && css`
         ${size === 'small' && css`
-        font-size: 10px;
-        min-width: 38px;
-        padding: 4px 7px 3px 7px;
+          font-size: 10px;
+          min-width: 38px;
+          padding: 4px 7px 3px 7px;
 
           button {
             padding: 0px 7px 2px 2px;
@@ -187,91 +186,12 @@ const PillStyle = styled.span`
           padding: 4px 8px;
           font-size: 12px;
 
-            button {
-              padding: 2px 2px 2px 0px;
-
-              .carbon-icon {
-                padding: 0px 3px;
-
-                &:before {
-                  font-size: 10px;
-                }
-              }
-            }
-        `}
-
-        ${size === 'large' && css`
-          min-width: 48px;
-          padding: 4px 10px;
-          font-size: 14px;
-
-            button {
-              width: 19px;
-              padding: 2px 2px 2px 0px;
-
-              .carbon-icon {
-
-                &:before {
-                  font-size: 11px;
-                }
-              }
-            }
-        `}
-      `}
-
-      ${isClassic(theme, colorVariant) && classicThemeForPill(colorVariant, inFill, isDeletable)}
-      
-      ${isClassic(theme, colorVariant) && !isDeletable && css`
-        ${size === 'small' && css`
-          font-size: 10px;
-
           button {
+            padding: 2px 2px 2px 0px;
+
             .carbon-icon {
-              &:before {
-                font-size: 8px;
-              }
-            }
-          }
-        `}
+              padding: 0px 3px;
 
-        ${size === 'medium' && css`
-          font-size: 12px;
-          min-width: 38px;
-          padding: 4px 8px 4px 8px;
-        `}
-
-        ${size === 'large' && css`
-          font-size: 14px;
-          min-width: 46px;
-          padding: 4px 8px 4px 8px;
-        `}
-      `};
-
-      ${isClassic(theme, colorVariant) && isDeletable && css`
-        ${size === 'small' && css`
-          font-size: 10px;
-          padding: 2px 16px 2px 8px;
-
-          button {
-            .carbon-icon {
-              font-size: 13px;
-
-              &:before {
-                font-size: 8px;
-              }
-            }
-          }
-        `}
-
-        ${size === 'medium' && css`
-          font-size: 12px;
-          min-width: 38px;
-          padding: 4px 10px 4px 4px;
-
-          button {
-            .carbon-icon {
-              font-size: 13px;
-              
               &:before {
                 font-size: 10px;
               }
@@ -280,19 +200,25 @@ const PillStyle = styled.span`
         `}
 
         ${size === 'large' && css`
+          min-width: 48px;
+          padding: 4px 10px;
           font-size: 14px;
-          min-width: 46px;
-          padding: 4px 8px 4px 2px;
 
           button {
+            width: 19px;
+            padding: 2px 2px 2px 0px;
+
             .carbon-icon {
+
               &:before {
                 font-size: 11px;
               }
             }
           }
         `}
-      `};
+      `}
+
+      ${isClassic(theme, colorVariant) && classicThemeForPill(colorVariant, inFill, isDeletable, size)}
     `;
   }
 }
