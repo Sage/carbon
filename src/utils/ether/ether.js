@@ -45,7 +45,10 @@ function append(value, content) {
  * @return {Object} Styled Element
  */
 function styleElement(element, attribute, value) {
-  element.style[attribute] = value.toString();
+  if (element.style[attribute] !== value.toString()) {
+    element.style[attribute] = value.toString();
+  }
+
   return element.style[attribute];
 }
 
