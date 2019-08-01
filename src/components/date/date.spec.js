@@ -673,29 +673,27 @@ describe('Date', () => {
 });
 
 describe('StyledDayPicker', () => {
-  const render = (props) => {
-    return TestRenderer.create(
-      <StyledDayPicker { ...props }>
-        sample children
-      </StyledDayPicker>
-    );
-  };
-
-  beforeEach(() => {
+  beforeAll(() => {
     MockDate.set('4/3/2019');
   });
 
-  afterEach(() => {
+  afterAll(() => {
     MockDate.reset();
   });
 
   it('renders presentational div and context provider for its children', () => {
-    expect(render({ value: '2019-04-01' })).toMatchSnapshot();
+    expect(renderStyledDayPicker({ value: '2019-04-01' })).toMatchSnapshot();
   });
 
   describe('classic theme', () => {
     it('applies custom styling', () => {
-      expect(render({ theme: classicTheme, value: '2019-04-01' })).toMatchSnapshot();
+      expect(
+        renderStyledDayPicker({ theme: classicTheme, value: '2019-04-01' })
+      ).toMatchSnapshot();
     });
   });
 });
+
+function renderStyledDayPicker(props) {
+  return TestRenderer.create(<StyledDayPicker { ...props } />);
+}

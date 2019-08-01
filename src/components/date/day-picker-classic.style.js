@@ -2,10 +2,12 @@ import { css } from 'styled-components';
 import { THEMES } from '../../style/themes';
 
 export default ({ theme }) => theme.name === THEMES.classic && css`
-  font-weight: 700;
-  padding: 10px;
-  font-weight: 600;
-  color: ${theme.colors.baseBlue};
+  .DayPicker {
+    margin-top: 0;
+    padding: 10px;
+    font-weight: 600;
+    color: ${theme.text.color};
+  }
 
   .DayPicker-Caption {
     background-color: ${theme.colors.white};
@@ -49,11 +51,11 @@ export default ({ theme }) => theme.name === THEMES.classic && css`
 
   .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
     color: ${theme.colors.white};
-    background-color: ${theme.colors.primary};
+    background-color: ${theme.colors.baseBlue};
     font-weight: 700;
   }
 
   .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
-    background-color: ${theme.colors.primary};
+    background-color: ${theme.colors.baseBlue};
   }
 `;
