@@ -18,7 +18,7 @@ class CheckableInput extends React.Component {
     const id = this.inputId;
 
     const formFieldProps = {
-      ...validProps(this, ['fieldHelpInline', 'labelHelp', 'reverse']),
+      ...validProps(this, ['fieldHelp', 'fieldHelpInline', 'labelHelp', 'reverse']),
       helpId,
       label: rest.inputLabel,
       labelHelpIcon: 'info',

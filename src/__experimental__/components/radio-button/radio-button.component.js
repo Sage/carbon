@@ -37,6 +37,12 @@ const RadioButton = ({
     reverse: !props.reverse
   };
 
+  function handleChange(ev) {
+    onChange(ev);
+    // specifically trigger focus, as Safari doesn't focus radioButtons on click by default
+    ev.target.focus();
+  }
+
   return (
     <RadioButtonStyle
       { ...tagComponent('radio-button', props) }
@@ -44,7 +50,7 @@ const RadioButton = ({
     >
       <CheckableInput
         { ...inputProps }
-        onChange={ onChange }
+        onChange={ handleChange }
         tabindex={ setTabIndex(inputProps) }
       >
         <RadioButtonSvg />
