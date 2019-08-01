@@ -204,7 +204,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
         role="heading"
       >
         <div>
-          July 2019
+          August 2019
         </div>
       </div>
       <div
@@ -300,8 +300,20 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
             className="DayPicker-Day DayPicker-Day--outside"
           />
           <div
+            aria-disabled={true}
+            className="DayPicker-Day DayPicker-Day--outside"
+          />
+          <div
+            aria-disabled={true}
+            className="DayPicker-Day DayPicker-Day--outside"
+          />
+          <div
+            aria-disabled={true}
+            className="DayPicker-Day DayPicker-Day--outside"
+          />
+          <div
             aria-disabled={false}
-            aria-label="Mon Jul 01 2019"
+            aria-label="Thu Aug 01 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -313,7 +325,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Tue Jul 02 2019"
+            aria-label="Fri Aug 02 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -325,7 +337,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Wed Jul 03 2019"
+            aria-label="Sat Aug 03 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -335,9 +347,14 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           >
             3
           </div>
+        </div>
+        <div
+          className="DayPicker-Week"
+          role="row"
+        >
           <div
             aria-disabled={false}
-            aria-label="Thu Jul 04 2019"
+            aria-label="Sun Aug 04 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -349,7 +366,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Fri Jul 05 2019"
+            aria-label="Mon Aug 05 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -361,7 +378,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Sat Jul 06 2019"
+            aria-label="Tue Aug 06 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -371,14 +388,9 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           >
             6
           </div>
-        </div>
-        <div
-          className="DayPicker-Week"
-          role="row"
-        >
           <div
             aria-disabled={false}
-            aria-label="Sun Jul 07 2019"
+            aria-label="Wed Aug 07 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -390,7 +402,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Mon Jul 08 2019"
+            aria-label="Thu Aug 08 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -402,7 +414,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Tue Jul 09 2019"
+            aria-label="Fri Aug 09 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -414,7 +426,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Wed Jul 10 2019"
+            aria-label="Sat Aug 10 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -424,9 +436,14 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           >
             10
           </div>
+        </div>
+        <div
+          className="DayPicker-Week"
+          role="row"
+        >
           <div
             aria-disabled={false}
-            aria-label="Thu Jul 11 2019"
+            aria-label="Sun Aug 11 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -438,7 +455,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Fri Jul 12 2019"
+            aria-label="Mon Aug 12 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -450,7 +467,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Sat Jul 13 2019"
+            aria-label="Tue Aug 13 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -460,14 +477,9 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           >
             13
           </div>
-        </div>
-        <div
-          className="DayPicker-Week"
-          role="row"
-        >
           <div
             aria-disabled={false}
-            aria-label="Sun Jul 14 2019"
+            aria-label="Wed Aug 14 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -479,7 +491,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Mon Jul 15 2019"
+            aria-label="Thu Aug 15 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -491,7 +503,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Tue Jul 16 2019"
+            aria-label="Fri Aug 16 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -503,7 +515,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Wed Jul 17 2019"
+            aria-label="Sat Aug 17 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -513,9 +525,14 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           >
             17
           </div>
+        </div>
+        <div
+          className="DayPicker-Week"
+          role="row"
+        >
           <div
             aria-disabled={false}
-            aria-label="Thu Jul 18 2019"
+            aria-label="Sun Aug 18 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -527,7 +544,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Fri Jul 19 2019"
+            aria-label="Mon Aug 19 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -539,7 +556,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Sat Jul 20 2019"
+            aria-label="Tue Aug 20 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -549,14 +566,9 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           >
             20
           </div>
-        </div>
-        <div
-          className="DayPicker-Week"
-          role="row"
-        >
           <div
             aria-disabled={false}
-            aria-label="Sun Jul 21 2019"
+            aria-label="Wed Aug 21 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -568,7 +580,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Mon Jul 22 2019"
+            aria-label="Thu Aug 22 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -580,7 +592,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Tue Jul 23 2019"
+            aria-label="Fri Aug 23 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -592,7 +604,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Wed Jul 24 2019"
+            aria-label="Sat Aug 24 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -602,9 +614,14 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           >
             24
           </div>
+        </div>
+        <div
+          className="DayPicker-Week"
+          role="row"
+        >
           <div
             aria-disabled={false}
-            aria-label="Thu Jul 25 2019"
+            aria-label="Sun Aug 25 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -616,7 +633,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Fri Jul 26 2019"
+            aria-label="Mon Aug 26 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -628,7 +645,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Sat Jul 27 2019"
+            aria-label="Tue Aug 27 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -638,14 +655,9 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           >
             27
           </div>
-        </div>
-        <div
-          className="DayPicker-Week"
-          role="row"
-        >
           <div
             aria-disabled={false}
-            aria-label="Sun Jul 28 2019"
+            aria-label="Wed Aug 28 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -657,7 +669,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Mon Jul 29 2019"
+            aria-label="Thu Aug 29 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -669,7 +681,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Tue Jul 30 2019"
+            aria-label="Fri Aug 30 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -681,7 +693,7 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           </div>
           <div
             aria-disabled={false}
-            aria-label="Wed Jul 31 2019"
+            aria-label="Sat Aug 31 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -691,18 +703,6 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
           >
             31
           </div>
-          <div
-            aria-disabled={true}
-            className="DayPicker-Day DayPicker-Day--outside"
-          />
-          <div
-            aria-disabled={true}
-            className="DayPicker-Day DayPicker-Day--outside"
-          />
-          <div
-            aria-disabled={true}
-            className="DayPicker-Day DayPicker-Day--outside"
-          />
         </div>
       </div>
     </div>
@@ -858,7 +858,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
         role="heading"
       >
         <div>
-          July 2019
+          August 2019
         </div>
       </div>
       <div
@@ -954,8 +954,20 @@ exports[`StyledDayPicker renders presentational div and context provider for its
             className="DayPicker-Day DayPicker-Day--outside"
           />
           <div
+            aria-disabled={true}
+            className="DayPicker-Day DayPicker-Day--outside"
+          />
+          <div
+            aria-disabled={true}
+            className="DayPicker-Day DayPicker-Day--outside"
+          />
+          <div
+            aria-disabled={true}
+            className="DayPicker-Day DayPicker-Day--outside"
+          />
+          <div
             aria-disabled={false}
-            aria-label="Mon Jul 01 2019"
+            aria-label="Thu Aug 01 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -967,7 +979,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Tue Jul 02 2019"
+            aria-label="Fri Aug 02 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -979,7 +991,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Wed Jul 03 2019"
+            aria-label="Sat Aug 03 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -989,9 +1001,14 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           >
             3
           </div>
+        </div>
+        <div
+          className="DayPicker-Week"
+          role="row"
+        >
           <div
             aria-disabled={false}
-            aria-label="Thu Jul 04 2019"
+            aria-label="Sun Aug 04 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1003,7 +1020,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Fri Jul 05 2019"
+            aria-label="Mon Aug 05 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1015,7 +1032,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Sat Jul 06 2019"
+            aria-label="Tue Aug 06 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1025,14 +1042,9 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           >
             6
           </div>
-        </div>
-        <div
-          className="DayPicker-Week"
-          role="row"
-        >
           <div
             aria-disabled={false}
-            aria-label="Sun Jul 07 2019"
+            aria-label="Wed Aug 07 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1044,7 +1056,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Mon Jul 08 2019"
+            aria-label="Thu Aug 08 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1056,7 +1068,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Tue Jul 09 2019"
+            aria-label="Fri Aug 09 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1068,7 +1080,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Wed Jul 10 2019"
+            aria-label="Sat Aug 10 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1078,9 +1090,14 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           >
             10
           </div>
+        </div>
+        <div
+          className="DayPicker-Week"
+          role="row"
+        >
           <div
             aria-disabled={false}
-            aria-label="Thu Jul 11 2019"
+            aria-label="Sun Aug 11 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1092,7 +1109,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Fri Jul 12 2019"
+            aria-label="Mon Aug 12 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1104,7 +1121,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Sat Jul 13 2019"
+            aria-label="Tue Aug 13 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1114,14 +1131,9 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           >
             13
           </div>
-        </div>
-        <div
-          className="DayPicker-Week"
-          role="row"
-        >
           <div
             aria-disabled={false}
-            aria-label="Sun Jul 14 2019"
+            aria-label="Wed Aug 14 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1133,7 +1145,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Mon Jul 15 2019"
+            aria-label="Thu Aug 15 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1145,7 +1157,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Tue Jul 16 2019"
+            aria-label="Fri Aug 16 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1157,7 +1169,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Wed Jul 17 2019"
+            aria-label="Sat Aug 17 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1167,9 +1179,14 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           >
             17
           </div>
+        </div>
+        <div
+          className="DayPicker-Week"
+          role="row"
+        >
           <div
             aria-disabled={false}
-            aria-label="Thu Jul 18 2019"
+            aria-label="Sun Aug 18 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1181,7 +1198,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Fri Jul 19 2019"
+            aria-label="Mon Aug 19 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1193,7 +1210,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Sat Jul 20 2019"
+            aria-label="Tue Aug 20 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1203,14 +1220,9 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           >
             20
           </div>
-        </div>
-        <div
-          className="DayPicker-Week"
-          role="row"
-        >
           <div
             aria-disabled={false}
-            aria-label="Sun Jul 21 2019"
+            aria-label="Wed Aug 21 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1222,7 +1234,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Mon Jul 22 2019"
+            aria-label="Thu Aug 22 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1234,7 +1246,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Tue Jul 23 2019"
+            aria-label="Fri Aug 23 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1246,7 +1258,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Wed Jul 24 2019"
+            aria-label="Sat Aug 24 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1256,9 +1268,14 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           >
             24
           </div>
+        </div>
+        <div
+          className="DayPicker-Week"
+          role="row"
+        >
           <div
             aria-disabled={false}
-            aria-label="Thu Jul 25 2019"
+            aria-label="Sun Aug 25 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1270,7 +1287,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Fri Jul 26 2019"
+            aria-label="Mon Aug 26 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1282,7 +1299,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Sat Jul 27 2019"
+            aria-label="Tue Aug 27 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1292,14 +1309,9 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           >
             27
           </div>
-        </div>
-        <div
-          className="DayPicker-Week"
-          role="row"
-        >
           <div
             aria-disabled={false}
-            aria-label="Sun Jul 28 2019"
+            aria-label="Wed Aug 28 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1311,7 +1323,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Mon Jul 29 2019"
+            aria-label="Thu Aug 29 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1323,7 +1335,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Tue Jul 30 2019"
+            aria-label="Fri Aug 30 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1335,7 +1347,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           </div>
           <div
             aria-disabled={false}
-            aria-label="Wed Jul 31 2019"
+            aria-label="Sat Aug 31 2019"
             aria-selected={false}
             className="DayPicker-Day"
             onClick={[Function]}
@@ -1345,18 +1357,6 @@ exports[`StyledDayPicker renders presentational div and context provider for its
           >
             31
           </div>
-          <div
-            aria-disabled={true}
-            className="DayPicker-Day DayPicker-Day--outside"
-          />
-          <div
-            aria-disabled={true}
-            className="DayPicker-Day DayPicker-Day--outside"
-          />
-          <div
-            aria-disabled={true}
-            className="DayPicker-Day DayPicker-Day--outside"
-          />
         </div>
       </div>
     </div>
