@@ -8,6 +8,12 @@ import { State, Store } from '@sambego/storybook-state';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 import Decimal from './decimal.js';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Decimal.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /decimal/
+);
 
 const store = new Store({
   value: '0'

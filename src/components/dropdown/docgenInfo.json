@@ -1,8 +1,8 @@
 {
-  "src/components/date/date.component.dgi.js": [
+  "src/components/dropdown/dropdown.dgi.js": [
     {
       "description": "",
-      "displayName": "Date",
+      "displayName": "Dropdown",
       "methods": [],
       "props": {
         "autoFocus": {
@@ -10,7 +10,14 @@
             "name": "bool"
           },
           "required": false,
-          "description": "Automatically focus on component mount"
+          "description": "Automatically focus the input."
+        },
+        "cacheVisibleValue": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "Determines if the visibleValue will be cached or not."
         },
         "disabled": {
           "type": {
@@ -19,47 +26,55 @@
           "required": false,
           "description": "Disable all user interaction."
         },
-        "internalValidations": {
-          "type": {
-            "name": "array"
-          },
-          "required": false,
-          "description": "Used to provide additional validations on composed components."
-        },
-        "minDate": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "Minimum possible date"
-        },
-        "maxDate": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "Maximum possible date"
-        },
         "onBlur": {
           "type": {
             "name": "func"
           },
           "required": false,
-          "description": "Specify a callback triggered on blur"
+          "description": "A custom onBlur handler."
+        },
+        "options": {
+          "type": {
+            "name": "object"
+          },
+          "required": true,
+          "description": "The options to be displayed in the dropdown. Should be set in the store and passed from the parent component.\n\nThis should be an Immutable object."
+        },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "Set the name of the corresponding hidden input."
         },
         "readOnly": {
           "type": {
             "name": "bool"
           },
           "required": false,
-          "description": "Display the currently selected value without displaying the input"
+          "description": "Display the currently selected value without displaying the dropdown."
         },
         "value": {
           "type": {
-            "name": "string"
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "number"
+              }
+            ]
           },
           "required": false,
-          "description": "The current date"
+          "description": "The ID value for the component"
+        },
+        "renderItem": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "An optional function to be passed that will render each of the dropdown's items."
         },
         "deferTimeout": {
           "type": {
@@ -174,59 +189,6 @@
           },
           "required": false,
           "description": "Number which sets timing of when the message will disappear\nExpected time is set in miliseconds"
-        }
-      }
-    }
-  ],
-  "src/components/date/navbar/navbar.component.js": [
-    {
-      "description": "",
-      "displayName": "Navbar",
-      "methods": [],
-      "props": {
-        "onPreviousClick": {
-          "type": {
-            "name": "func"
-          },
-          "required": false,
-          "description": ""
-        },
-        "onNextClick": {
-          "type": {
-            "name": "func"
-          },
-          "required": false,
-          "description": ""
-        }
-      }
-    }
-  ],
-  "src/components/date/weekday/weekday.component.js": [
-    {
-      "description": "",
-      "displayName": "Weekday",
-      "methods": [],
-      "props": {
-        "className": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": ""
-        },
-        "title": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": ""
-        },
-        "children": {
-          "type": {
-            "name": "node"
-          },
-          "required": false,
-          "description": ""
         }
       }
     }

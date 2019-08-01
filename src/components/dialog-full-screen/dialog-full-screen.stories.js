@@ -7,6 +7,12 @@ import { notes, info } from './documentation';
 import DialogFullScreen from '.';
 import Button from '../button';
 import Form from '../form';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+DialogFullScreen.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /dialog-full-screen/
+);
 
 const store = new Store({
   open: false

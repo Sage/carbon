@@ -4,9 +4,10 @@ import { select, boolean } from '@storybook/addon-knobs';
 import notes from './documentation';
 import { Carousel, Slide } from './carousel.js';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
+import docgenInfo from './docgenInfo.json';
 
 Carousel.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json'),
+  docgenInfo,
   /carousel/
 );
 

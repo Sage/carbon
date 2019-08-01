@@ -1,8 +1,8 @@
 {
-  "src/components/dialog-full-screen/dialog-full-screen.dgi.js": [
+  "src/components/alert/alert.component.js": [
     {
       "description": "",
-      "displayName": "DialogFullScreen",
+      "displayName": "Alert",
       "methods": [],
       "props": {
         "onCancel": {
@@ -96,21 +96,6 @@
           },
           "required": false,
           "description": "Determines if the sticky footer is shown"
-        }
-      }
-    }
-  ],
-  "src/components/dialog-full-screen/full-screen-heading/full-screen-heading.component.js": [
-    {
-      "description": "",
-      "methods": [],
-      "props": {
-        "children": {
-          "type": {
-            "name": "node"
-          },
-          "required": false,
-          "description": ""
         }
       }
     }

@@ -5,17 +5,18 @@ import { State, Store } from '@sambego/storybook-state';
 import { Tab, Tabs } from './tabs.component';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
-import getDocGenInfo from '../../utils/helpers/docgen-info';
+// import getDocGenInfo from '../../utils/helpers/docgen-info';
+// import docgenInfo from './docgenInfo.json';
 
-Tab.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json'),
-  /tab\.component/
-);
+// Tabs.__docgenInfo = getDocGenInfo(
+//   docgenInfo,
+//   /tabs\.component/
+// );
 
-Tabs.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json'),
-  /tabs\.component/
-);
+// Tab.__docgenInfo = getDocGenInfo(
+//   docgenInfo,
+//   /tab\.component/
+// );
 
 const store = new Store({
   selectedTabId: 'tab-1'

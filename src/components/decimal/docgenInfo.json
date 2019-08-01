@@ -1,65 +1,51 @@
 {
-  "src/components/date/date.component.dgi.js": [
+  "src/components/decimal/decimal.dgi.js": [
     {
       "description": "",
-      "displayName": "Date",
+      "displayName": "Decimal",
       "methods": [],
       "props": {
-        "autoFocus": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "Automatically focus on component mount"
-        },
-        "disabled": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "Disable all user interaction."
-        },
-        "internalValidations": {
-          "type": {
-            "name": "array"
-          },
-          "required": false,
-          "description": "Used to provide additional validations on composed components."
-        },
-        "minDate": {
+        "align": {
           "type": {
             "name": "string"
           },
           "required": false,
-          "description": "Minimum possible date"
-        },
-        "maxDate": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "Maximum possible date"
+          "description": "Sets the default value alignment"
         },
         "onBlur": {
           "type": {
             "name": "func"
           },
           "required": false,
-          "description": "Specify a callback triggered on blur"
+          "description": "Callback function for when the decimal input\nfield blur event fires."
         },
-        "readOnly": {
+        "onKeyDown": {
           "type": {
-            "name": "bool"
+            "name": "func"
           },
           "required": false,
-          "description": "Display the currently selected value without displaying the input"
+          "description": "Callback to handle keyDown events."
+        },
+        "precision": {
+          "type": {
+            "name": "number"
+          },
+          "required": false,
+          "description": "Sets the precision of the field"
         },
         "value": {
           "type": {
             "name": "string"
           },
           "required": false,
-          "description": "The current date"
+          "description": "The value of the Number input element"
+        },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "The name of the hidden input element"
         },
         "deferTimeout": {
           "type": {
@@ -174,59 +160,6 @@
           },
           "required": false,
           "description": "Number which sets timing of when the message will disappear\nExpected time is set in miliseconds"
-        }
-      }
-    }
-  ],
-  "src/components/date/navbar/navbar.component.js": [
-    {
-      "description": "",
-      "displayName": "Navbar",
-      "methods": [],
-      "props": {
-        "onPreviousClick": {
-          "type": {
-            "name": "func"
-          },
-          "required": false,
-          "description": ""
-        },
-        "onNextClick": {
-          "type": {
-            "name": "func"
-          },
-          "required": false,
-          "description": ""
-        }
-      }
-    }
-  ],
-  "src/components/date/weekday/weekday.component.js": [
-    {
-      "description": "",
-      "displayName": "Weekday",
-      "methods": [],
-      "props": {
-        "className": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": ""
-        },
-        "title": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": ""
-        },
-        "children": {
-          "type": {
-            "name": "node"
-          },
-          "required": false,
-          "description": ""
         }
       }
     }

@@ -645,7 +645,7 @@
       "methods": []
     }
   ],
-  "src/components/table/table.component.js": [
+  "src/components/table/table.component.dgi.js": [
     {
       "description": "",
       "displayName": "Table",

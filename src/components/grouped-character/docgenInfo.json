@@ -1,65 +1,45 @@
 {
-  "src/components/date/date.component.dgi.js": [
+  "src/components/grouped-character/grouped-character.dgi.js": [
     {
       "description": "",
-      "displayName": "Date",
+      "displayName": "GroupedCharacter",
       "methods": [],
       "props": {
-        "autoFocus": {
+        "className": {
           "type": {
-            "name": "bool"
+            "name": "string"
           },
           "required": false,
-          "description": "Automatically focus on component mount"
+          "description": "A custom class name for the component."
         },
-        "disabled": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "Disable all user interaction."
-        },
-        "internalValidations": {
+        "groups": {
           "type": {
             "name": "array"
           },
-          "required": false,
-          "description": "Used to provide additional validations on composed components."
+          "required": true,
+          "description": "an array of  group sizes"
         },
-        "minDate": {
+        "inputWidth": {
           "type": {
             "name": "string"
           },
           "required": false,
-          "description": "Minimum possible date"
+          "description": "pixel value that sets inputWidth"
         },
-        "maxDate": {
+        "separator": {
           "type": {
-            "name": "string"
+            "name": "custom",
+            "raw": "(props, propName, componentName) => {\n  if ((props[propName]).length > 1 || typeof props[propName] !== 'string') {\n    return new Error(\n      `Invalid prop ${propName} supplied to ${componentName}. Must be string of length 1.`\n    );\n  }\n  return null;\n}"
           },
           "required": false,
-          "description": "Maximum possible date"
-        },
-        "onBlur": {
-          "type": {
-            "name": "func"
-          },
-          "required": false,
-          "description": "Specify a callback triggered on blur"
-        },
-        "readOnly": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "Display the currently selected value without displaying the input"
+          "description": "a separator character to insert between number groups"
         },
         "value": {
           "type": {
             "name": "string"
           },
           "required": false,
-          "description": "The current date"
+          "description": "The value of the Input\n\n@property value\n@type {String}"
         },
         "deferTimeout": {
           "type": {
@@ -118,21 +98,6 @@
           "required": false,
           "description": "Text applied to tooptip of help icon"
         },
-        "inputWidth": {
-          "type": {
-            "name": "union",
-            "value": [
-              {
-                "name": "string"
-              },
-              {
-                "name": "number"
-              }
-            ]
-          },
-          "required": false,
-          "description": "Pass a percentage to define the width of the label when it\n is displayed inline"
-        },
         "fieldHelp": {
           "type": {
             "name": "node"
@@ -174,59 +139,6 @@
           },
           "required": false,
           "description": "Number which sets timing of when the message will disappear\nExpected time is set in miliseconds"
-        }
-      }
-    }
-  ],
-  "src/components/date/navbar/navbar.component.js": [
-    {
-      "description": "",
-      "displayName": "Navbar",
-      "methods": [],
-      "props": {
-        "onPreviousClick": {
-          "type": {
-            "name": "func"
-          },
-          "required": false,
-          "description": ""
-        },
-        "onNextClick": {
-          "type": {
-            "name": "func"
-          },
-          "required": false,
-          "description": ""
-        }
-      }
-    }
-  ],
-  "src/components/date/weekday/weekday.component.js": [
-    {
-      "description": "",
-      "displayName": "Weekday",
-      "methods": [],
-      "props": {
-        "className": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": ""
-        },
-        "title": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": ""
-        },
-        "children": {
-          "type": {
-            "name": "node"
-          },
-          "required": false,
-          "description": ""
         }
       }
     }

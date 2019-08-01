@@ -13,9 +13,9 @@ import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import { Table } from '.';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
-Table.__docgenInfo = getDocGenInfo(
+TableWrapper.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /table-story-wrapper\.component/
+  /table\.dgi/
 );
 
 const commonKnobs = () => {

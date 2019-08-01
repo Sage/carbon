@@ -7,6 +7,12 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation';
 import ButtonToggle from '../button-toggle/button-toggle.component';
 import ButtonToggleGroup from './button-toggle-group.component';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+ButtonToggleGroup.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /button-toggle-group\.dgi/
+);
 
 storiesOf('Button Toggle Group', module)
   .addParameters({

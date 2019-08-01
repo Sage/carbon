@@ -7,6 +7,12 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 import Button from '../button';
 import Confirm from './confirm.component.js';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Confirm.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /confirm\.component/
+);
 
 const store = new Store({
   open: false

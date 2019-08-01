@@ -1,65 +1,44 @@
 {
-  "src/components/date/date.component.dgi.js": [
+  "src/components/checkbox/checkbox.dgi.js": [
     {
       "description": "",
-      "displayName": "Date",
+      "displayName": "Checkbox",
       "methods": [],
       "props": {
-        "autoFocus": {
+        "checked": {
           "type": {
             "name": "bool"
           },
           "required": false,
-          "description": "Automatically focus on component mount"
+          "description": "Set the value of the checkbox"
         },
-        "disabled": {
+        "children": {
+          "type": {
+            "name": "node"
+          },
+          "required": false,
+          "description": "When provided will replace the checkbox sprite."
+        },
+        "fieldHelpInline": {
           "type": {
             "name": "bool"
           },
           "required": false,
-          "description": "Disable all user interaction."
+          "description": "Displays fieldHelp inline with the checkbox"
         },
-        "internalValidations": {
-          "type": {
-            "name": "array"
-          },
-          "required": false,
-          "description": "Used to provide additional validations on composed components."
-        },
-        "minDate": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "Minimum possible date"
-        },
-        "maxDate": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": "Maximum possible date"
-        },
-        "onBlur": {
-          "type": {
-            "name": "func"
-          },
-          "required": false,
-          "description": "Specify a callback triggered on blur"
-        },
-        "readOnly": {
+        "reverse": {
           "type": {
             "name": "bool"
           },
           "required": false,
-          "description": "Display the currently selected value without displaying the input"
+          "description": "Reverses label and checkbox display"
         },
         "value": {
           "type": {
-            "name": "string"
+            "name": "bool"
           },
           "required": false,
-          "description": "The current date"
+          "description": "Set the value of the checkbox"
         },
         "deferTimeout": {
           "type": {
@@ -140,13 +119,6 @@
           "required": false,
           "description": "A string representing a help message"
         },
-        "fieldHelpInline": {
-          "type": {
-            "name": "bool"
-          },
-          "required": false,
-          "description": "Boolean to determine whether the help message should be inline"
-        },
         "validations": {
           "type": {
             "name": "array"
@@ -174,59 +146,6 @@
           },
           "required": false,
           "description": "Number which sets timing of when the message will disappear\nExpected time is set in miliseconds"
-        }
-      }
-    }
-  ],
-  "src/components/date/navbar/navbar.component.js": [
-    {
-      "description": "",
-      "displayName": "Navbar",
-      "methods": [],
-      "props": {
-        "onPreviousClick": {
-          "type": {
-            "name": "func"
-          },
-          "required": false,
-          "description": ""
-        },
-        "onNextClick": {
-          "type": {
-            "name": "func"
-          },
-          "required": false,
-          "description": ""
-        }
-      }
-    }
-  ],
-  "src/components/date/weekday/weekday.component.js": [
-    {
-      "description": "",
-      "displayName": "Weekday",
-      "methods": [],
-      "props": {
-        "className": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": ""
-        },
-        "title": {
-          "type": {
-            "name": "string"
-          },
-          "required": false,
-          "description": ""
-        },
-        "children": {
-          "type": {
-            "name": "node"
-          },
-          "required": false,
-          "description": ""
         }
       }
     }

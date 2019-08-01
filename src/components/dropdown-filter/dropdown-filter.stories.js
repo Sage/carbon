@@ -13,6 +13,12 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
 import DropdownFilter from './dropdown-filter';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+DropdownFilter.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /dropdown-filter/
+);
 
 const store = new Store({
   value: ''

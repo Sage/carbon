@@ -6,6 +6,12 @@ import {
 import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 import DateInput from '.';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+DateInput.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /date\.component/
+);
 
 storiesOf('Date Input', module)
   .add('default', () => {

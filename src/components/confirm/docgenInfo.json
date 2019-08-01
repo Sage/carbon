@@ -1,8 +1,8 @@
 {
-  "src/components/dialog-full-screen/dialog-full-screen.dgi.js": [
+  "src/components/confirm/confirm.component.dgi.js": [
     {
       "description": "",
-      "displayName": "DialogFullScreen",
+      "displayName": "Confirm",
       "methods": [],
       "props": {
         "onCancel": {
@@ -96,18 +96,24 @@
           },
           "required": false,
           "description": "Determines if the sticky footer is shown"
-        }
-      }
-    }
-  ],
-  "src/components/dialog-full-screen/full-screen-heading/full-screen-heading.component.js": [
-    {
-      "description": "",
-      "methods": [],
-      "props": {
-        "children": {
+        },
+        "onConfirm": {
           "type": {
-            "name": "node"
+            "name": "func"
+          },
+          "required": true,
+          "description": ""
+        },
+        "confirmLabel": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": ""
+        },
+        "cancelLabel": {
+          "type": {
+            "name": "string"
           },
           "required": false,
           "description": ""

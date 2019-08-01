@@ -4,6 +4,12 @@ import { boolean, text, select } from '@storybook/addon-knobs';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import RadioButton from './radio-button';
 import { notes, info } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+RadioButton.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /radio-button/
+);
 
 storiesOf('Radio Button', module).add(
   'default',

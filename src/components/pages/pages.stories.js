@@ -7,6 +7,18 @@ import { Pages, Page } from './pages';
 import DialogFullScreen from '../dialog-full-screen';
 import Heading from '../heading/heading';
 import Button from '../button';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+import docgenInfo from './docgenInfo.json';
+
+Page.__docgenInfo = getDocGenInfo(
+  docgenInfo,
+  /page\.js/
+);
+
+Pages.__docgenInfo = getDocGenInfo(
+  docgenInfo,
+  /pages\.dgi/
+);
 
 const store = new Store({
   open: false,

@@ -7,6 +7,12 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import Button from '../button';
 import Alert from '.';
 import { notes, info } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Alert.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /alert\.component/
+);
 
 const store = new Store({
   open: false

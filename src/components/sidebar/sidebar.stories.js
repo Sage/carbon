@@ -8,9 +8,15 @@ import { Sidebar, SidebarHeader } from '.';
 import Button from '../button';
 import { notes, info } from './documentation';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
+import docgenInfo from './docgenInfo.json';
+
+Sidebar.__docgenInfo = getDocGenInfo(
+  docgenInfo,
+  /sidebar\.component/
+);
 
 SidebarHeader.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json'),
+  docgenInfo,
   /sidebar-header\.component/
 );
 
