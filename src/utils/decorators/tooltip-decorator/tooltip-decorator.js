@@ -160,21 +160,6 @@ const TooltipDecorator = (ComposedComponent) => {
       return ReactDOM.findDOMNode(this._tooltip); // eslint-disable-line react/no-find-dom-node
     }
 
-    realignOffscreenTooltip = (shifts, tooltipWidth) => {
-      const { tooltipPosition, tooltipAlign } = this.props;
-      const position = this.state.tooltipPosition || tooltipPosition || 'top';
-      const alignment = this.state.tooltipAlign || tooltipAlign || 'center';
-      const isTooltipOffScreen = window.innerWidth < shifts.vertical[alignment] + tooltipWidth;
-
-      if (alignment === 'right' || position === 'left' || !isTooltipOffScreen) return;
-
-      if (position === 'right') {
-        this.setState({ tooltipPosition: 'top', tooltipAlign: 'right' });
-      } else {
-        this.setState({ tooltipAlign: 'right' });
-      }
-    }
-
     positionTooltip = () => {
       if (!this.isVisible()) {
         return;
@@ -191,8 +176,11 @@ const TooltipDecorator = (ComposedComponent) => {
       const alignment = this.state.tooltipAlign || this.props.tooltipAlign || 'center';
       const position = this.state.tooltipPosition || this.props.tooltipPosition || 'top';
       const shifts = calculatePosition(tooltip, target);
+      const isTooltipOffScreenRight = this.isTooltipOffScreenRight(position, alignment, tooltip.offsetWidth, shifts);
 
-      this.realignOffscreenTooltip(shifts, tooltip.offsetWidth);
+      if (isTooltipOffScreenRight) {
+        this.realignOffscreenTooltip(position, alignment);
+      }
 
       if (position === 'top' || position === 'bottom') {
         topPosition = shifts.tooltipDistances[position];
@@ -205,6 +193,28 @@ const TooltipDecorator = (ComposedComponent) => {
       styleElement(tooltip, 'top', `${topPosition}px`);
       styleElement(tooltip, 'left', `${leftPosition}px`);
     };
+
+    isTooltipOffScreenRight = (position, alignment, tooltipWidth, shifts) => {
+      let pointerX;
+
+      if (position === 'right') {
+        pointerX = shifts.tooltipDistances.right;
+      } else {
+        pointerX = shifts.vertical[alignment];
+      }
+
+      return window.innerWidth < pointerX + tooltipWidth;
+    }
+
+    realignOffscreenTooltip = (position, alignment) => {
+      if (alignment === 'right' || position === 'left') return;
+
+      if (position === 'right') {
+        this.setState({ tooltipPosition: 'top', tooltipAlign: 'right' });
+      } else {
+        this.setState({ tooltipAlign: 'right' });
+      }
+    }
 
     get componentProps() {
       const props = super.componentProps || {};
