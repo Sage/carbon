@@ -1,10 +1,47 @@
 {
-  "src/components/button-toggle-group/button-toggle-group.dgi.js": [
+  "src/components/button-toggle-group/button-toggle-group.component.dgi.js": [
     {
       "description": "",
       "displayName": "ButtonToggleGroup",
       "methods": [],
       "props": {
+        "disabled": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "flag to indicate if the component is disabled"
+        },
+        "hasError": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "flag to indicate if the component is in an error state"
+        },
+        "name": {
+          "type": {
+            "name": "string"
+          },
+          "required": false,
+          "description": "label for the component"
+        },
+        "reverse": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "flag to indicate the reverse state of the component"
+        },
+        "size": {
+          "type": {
+            "name": "enum",
+            "computed": true,
+            "value": "OptionsHelper.sizesRestricted"
+          },
+          "required": false,
+          "description": "size property of the component"
+        },
         "children": {
           "type": {
             "name": "node"
@@ -67,6 +104,73 @@
           },
           "required": false,
           "description": "The alignment for the text in the label."
+        },
+        "value": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "string"
+              },
+              {
+                "name": "array"
+              }
+            ]
+          },
+          "required": false,
+          "description": "The current value of the component"
+        },
+        "onBlur": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Custom function to be called when the component blurs"
+        },
+        "onChange": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Custom function called when component value changes"
+        },
+        "validations": {
+          "type": {
+            "name": "custom",
+            "raw": "validationsPropTypes"
+          },
+          "required": false,
+          "description": "An array of validations to apply to the input."
+        },
+        "warnings": {
+          "type": {
+            "name": "custom",
+            "raw": "validationsPropTypes"
+          },
+          "required": false,
+          "description": "An array of warnings to apply to the input."
+        },
+        "info": {
+          "type": {
+            "name": "custom",
+            "raw": "validationsPropTypes"
+          },
+          "required": false,
+          "description": "An array of info messages to apply to the input."
+        },
+        "forceUpdateTriggerToggle": {
+          "type": {
+            "name": "bool"
+          },
+          "required": false,
+          "description": "triggers validation when it's boolean value changes"
+        },
+        "addInputToFormState": {
+          "type": {
+            "name": "func"
+          },
+          "required": false,
+          "description": "Custom function to add input form to state"
         }
       }
     }

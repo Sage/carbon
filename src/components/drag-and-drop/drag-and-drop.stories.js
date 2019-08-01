@@ -5,7 +5,8 @@ import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
-import { DraggableContext } from './drag-and-drop';
+import { DraggableContext, WithDrag, WithDrop, CustomDragLayer } from './drag-and-drop';
+
 import {
   Table,
   TableHeader,
@@ -15,8 +16,23 @@ import {
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 DraggableContext.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json'),
-  /drag-and-drop/
+  require('./draggable-context/docgenInfo.json'),
+  /draggable-context/
+);
+
+WithDrag.__docgenInfo = getDocGenInfo(
+  require('./with-drag/docgenInfo.json'),
+  /with-drag/
+);
+
+WithDrop.__docgenInfo = getDocGenInfo(
+  require('./with-drop/docgenInfo.json'),
+  /with-drop/
+);
+
+CustomDragLayer.__docgenInfo = getDocGenInfo(
+  require('./custom-drag-layer/docgenInfo.json'),
+  /custom-drag-layer/
 );
 
 const store = new Store({
@@ -68,7 +84,8 @@ storiesOf('DraggableContext', module)
         TableRow,
         TableCell,
         State
-      ]
+      ],
+      propTables: [DraggableContext, WithDrag, WithDrop, CustomDragLayer]
     }
   })
   .add('default', () => {

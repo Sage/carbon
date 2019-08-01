@@ -31,11 +31,6 @@ const handleConfirm = () => {
 };
 
 storiesOf('Confirm', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [State, Button]
-    }
-  })
   .add(
     'default',
     () => {
@@ -79,7 +74,10 @@ storiesOf('Confirm', module)
       );
     },
     {
-      info: { text: info },
+      info: {
+        propTablesExclude: [State, Button],
+        text: info
+      },
       notes: { markdown: notes }
     }
   );

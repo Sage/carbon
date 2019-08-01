@@ -57,11 +57,6 @@ const PageState = props => new CustomState(props);
 
 
 storiesOf('Pages', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [Button, DialogFullScreen, DialogState, PageState, State]
-    }
-  })
   .add('default', () => {
     return (
       <div>
@@ -93,5 +88,8 @@ storiesOf('Pages', module)
       </div>
     );
   }, {
-    info: { text: <p>Allows to slide to different pages in a full screen dialog.</p> }
+    info: {
+      text: <p>Allows to slide to different pages in a full screen dialog.</p>,
+      propTablesExclude: [Button, DialogFullScreen, DialogState, PageState, State]
+    }
   });

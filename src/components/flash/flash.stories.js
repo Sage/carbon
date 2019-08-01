@@ -42,8 +42,8 @@ storiesOf('Flash', module)
     knobs: { escapeHTML: false },
     info: {
       text: Info,
-      propTables: [FlashWithoutHOC],
-      propTablesExclude: [OriginalButton, State]
+      propTables: [FlashWithoutHOC, OriginalButton],
+      propTablesExclude: [Button, State, ThemeProvider, Flash]
     }
   }).add('classic', () => {
     const message = text('message', 'This is a flash message');

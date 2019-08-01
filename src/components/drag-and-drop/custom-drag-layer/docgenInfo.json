@@ -1,0 +1,89 @@
+{
+  "src/components/drag-and-drop/custom-drag-layer/custom-drag-layer.js": [
+    {
+      "description": "",
+      "displayName": "CustomDragLayer",
+      "methods": [
+        {
+          "name": "getItemStyles",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "props",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "getClassName",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "props",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "setClonedChildWidth",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "props",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "createClonedChild",
+          "docblock": null,
+          "modifiers": [],
+          "params": [
+            {
+              "name": "props",
+              "type": null
+            }
+          ],
+          "returns": null
+        },
+        {
+          "name": "removeClonedChild",
+          "docblock": null,
+          "modifiers": [],
+          "params": [],
+          "returns": null
+        }
+      ],
+      "props": {
+        "draggableNode": {
+          "type": {
+            "name": "union",
+            "value": [
+              {
+                "name": "object"
+              },
+              {
+                "name": "node"
+              }
+            ]
+          },
+          "required": false,
+          "description": "The dom node being dragged."
+        },
+        "isDragging": {
+          "type": {
+            "name": "bool"
+          },
+          "required": true,
+          "description": "Determine if the component is being dragged or not."
+        }
+      }
+    }
+  ]
+}

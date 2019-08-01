@@ -15,7 +15,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 TableWrapper.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /table\.dgi/
+  /table\.component/
 );
 
 const commonKnobs = () => {

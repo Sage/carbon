@@ -7,6 +7,12 @@ import {
 import OptionsHelper from '../../utils/helpers/options-helper';
 import Textbox from './textbox';
 import { info, notes } from './documentation';
+import getDocGenInfo from '../../utils/helpers/docgen-info';
+
+Textbox.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /textbox/
+);
 
 const store = new Store({
   value: ''

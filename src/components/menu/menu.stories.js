@@ -8,7 +8,17 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Menu.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /menu\.js/
+  /menu/
+);
+
+MenuItem.__docgenInfo = getDocGenInfo(
+  require('./menu-item/docgenInfo.json'),
+  /menu-item/
+);
+
+SubmenuBlock.__docgenInfo = getDocGenInfo(
+  require('./submenu-block/docgenInfo.json'),
+  /submenu-block/
 );
 
 storiesOf('Menu', module)

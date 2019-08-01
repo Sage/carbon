@@ -11,7 +11,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 ButtonToggleGroup.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /button-toggle-group\.dgi/
+  /button-toggle-group\.component/
 );
 
 storiesOf('Button Toggle Group', module)

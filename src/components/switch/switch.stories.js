@@ -12,7 +12,7 @@ import getDocGenInfo from '../../utils/helpers/docgen-info';
 
 Switch.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /switch\.js/
+  /switch/
 );
 
 const store = new Store({
