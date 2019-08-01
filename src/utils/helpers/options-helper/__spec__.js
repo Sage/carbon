@@ -241,10 +241,17 @@ describe('OptionsHelper', () => {
       'cancel'
     ]);
   });
-  it('actionOptions', () => {
+  it('additionalActionAlignments', () => {
     expect(OptionsHelper.actionOptions).toEqual([
       'Button',
       'Link'
+    ]);
+  });
+  it('additionalActionAlignments', () => {
+    expect(OptionsHelper.additionalActionAlignments).toEqual([
+      'additionalActions',
+      'leftAlignedActions',
+      'rightAlignedActions'
     ]);
   });
 });

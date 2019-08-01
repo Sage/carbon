@@ -1,7 +1,10 @@
 import styled, { css, keyframes } from 'styled-components';
+import PropTypes from 'prop-types';
 import StyledFormField from '../../__experimental__/components/form-field/form-field.style';
 import StyledButton from '../button/button.style';
 import { isClassic } from '../../utils/helpers/style-helper';
+import baseTheme from '../../style/themes/base';
+import OptionsHelper from '../../utils/helpers/options-helper';
 
 export const StyledAdditionalFormAction = styled.div`
   ${({ type }) => type && css`
@@ -99,5 +102,34 @@ const StyledForm = styled.form`
     }
   `}  
 `;
+
+StyledForm.defaultProps = {
+  theme: baseTheme
+};
+
+StyledForm.propTypes = {
+  theme: PropTypes.object,
+  stickyFooter: PropTypes.bool,
+  fixedBottom: PropTypes.bool
+};
+
+StyledFormFooter.defaultProps = {
+  theme: baseTheme
+};
+
+StyledFormFooter.propTypes = {
+  theme: PropTypes.object,
+  buttonAlign: PropTypes.oneOf(OptionsHelper.alignBinary),
+  stickyFooter: PropTypes.bool
+};
+
+StyledAdditionalFormAction.defaultProps = {
+  theme: baseTheme
+};
+
+StyledAdditionalFormAction.propTypes = {
+  theme: PropTypes.object,
+  type: PropTypes.oneOf(OptionsHelper.additionalActionAlignments)
+};
 
 export default StyledForm;
