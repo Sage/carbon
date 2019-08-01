@@ -57,28 +57,21 @@ describe('RadioButton', () => {
       });
     });
 
-    describe('when checked === true', () => {
-      it('applies the correct circle styles', () => {
-        const wrapper = render({ checked: true }).toJSON();
-
-        assertStyleMatch({ fill: baseTheme.colors.primary }, wrapper, { modifier: 'circle' });
-      });
-    });
-
     describe('when disabled === true', () => {
       describe('default', () => {
-        it('applies the correct circle styles', () => {
-          const wrapper = render({ disabled: true }).toJSON();
+        const wrapper = render({ disabled: true }).toJSON();
 
+        it('applies the correct circle styles', () => {
           assertStyleMatch({ fill: baseTheme.disabled.input }, wrapper, { modifier: 'circle' });
         });
-      });
 
-      describe('and checked === true', () => {
-        it('applies the correct circle styles', () => {
-          const wrapper = render({ checked: true, disabled: true }).toJSON();
-
-          assertStyleMatch({ fill: baseTheme.disabled.border }, wrapper, { modifier: 'circle' });
+        it('renders the correct checked colour', () => {
+          assertStyleMatch(
+            { fill: baseTheme.disabled.border }, wrapper,
+            {
+              modifier: css`${`${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle`}`
+            }
+          );
         });
       });
     });
@@ -141,6 +134,15 @@ describe('RadioButton', () => {
         const wrapper = renderClassic().toJSON();
         const dimensions = { height: '15px', width: '15px' };
 
+        it('applies the correct checked styles', () => {
+          assertStyleMatch(
+            { fill: 'rgba(0,0,0,0.85)' }, wrapper,
+            {
+              modifier: css`${`${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle`}`
+            }
+          );
+        });
+
         it('applies the correct input styles', () => {
           assertStyleMatch({ marginRight: '6px', ...dimensions }, wrapper, { modifier: css`${StyledCheckableInput}` });
         });
@@ -181,24 +183,6 @@ describe('RadioButton', () => {
         });
       });
 
-      describe('when checked === true', () => {
-        it('applies the correct circle styles', () => {
-          const wrapper = renderClassic({ checked: true }).toJSON();
-
-          assertStyleMatch({ fill: 'rgba(0,0,0,0.85)' }, wrapper, { modifier: 'circle' });
-        });
-
-        describe('and disabled=true', () => {
-          const wrapper = renderClassic({ checked: true, disabled: true }).toJSON();
-
-          it('renders the correct circle colour', () => {
-            assertStyleMatch({
-              fill: '#8099a4'
-            }, wrapper, { modifier: 'circle' });
-          });
-        });
-      });
-
       describe('when disabled=true', () => {
         const wrapper = renderClassic({ disabled: true }).toJSON();
 
@@ -206,6 +190,15 @@ describe('RadioButton', () => {
           assertStyleMatch({
             fill: '#e6ebed'
           }, wrapper, { modifier: 'circle' });
+        });
+
+        it('renders the correct checked colour', () => {
+          assertStyleMatch(
+            { fill: '#8099a4' }, wrapper,
+            {
+              modifier: css`${`${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle`}`
+            }
+          );
         });
       });
 

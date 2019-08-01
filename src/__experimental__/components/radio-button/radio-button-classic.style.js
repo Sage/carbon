@@ -7,7 +7,7 @@ import LabelStyle from '../label/label.style';
 import { isClassic } from '../../../utils/helpers/style-helper';
 
 export default ({
-  disabled, checked, fieldHelpInline, reverse, theme
+  disabled, fieldHelpInline, reverse, theme
 }) => isClassic(theme) && css`
   ${StyledCheckableInput},
   ${HiddenCheckableInputStyle},
@@ -40,12 +40,16 @@ export default ({
     border-color: rgb(175, 175, 175);
   }
 
-  ${checked && `
-    circle { fill: rgba(0, 0, 0, 0.85); }
-  `}
+  ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
+    fill: rgba(0, 0, 0, 0.85);
+  }
 
   ${disabled && css`
-    circle { fill: #${checked ? '8099a4' : 'e6ebed'}; }
+    circle { fill: #e6ebed; }
+
+    ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
+      fill: #8099a4;
+    }
   `}
 
   ${(fieldHelpInline || reverse) && `
