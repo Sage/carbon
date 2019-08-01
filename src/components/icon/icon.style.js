@@ -6,26 +6,23 @@ import baseTheme from '../../style/themes/base';
 import generatePalette from '../../style/palette';
 import dlsConfig from './icon-config';
 
-const getHoverBackgroundColor = (theme, bgTheme, disabled) => {
+const getBackgroundColor = (theme, bgTheme, disabled, isHover) => {
   if (disabled) return theme.icon.disabled;
 
   const palette = generatePalette({ statusColor: theme.colors[bgTheme], businessColor: theme.colors.primary });
   const statuses = ['info', 'error', 'success', 'warning'];
-  if (statuses.includes(bgTheme)) return palette.statusColorShade(20);
-  if (bgTheme === 'business') return palette.businessColorShade(20);
-  return 'transparent';
-};
+  if (statuses.includes(bgTheme)) {
+    return isHover ? palette.statusColorShade(20) : theme.colors[bgTheme];
+  }
 
-const getBackgroundColor = (theme, bgTheme, disabled) => {
-  if (disabled) return theme.icon.disabled;
-  const statuses = ['info', 'error', 'success', 'warning'];
-  if (statuses.includes(bgTheme)) return theme.colors[bgTheme];
-  if (bgTheme === 'business') return theme.colors.primary;
+  if (bgTheme === 'business') {
+    return isHover ? palette.businessColorShade(20) : theme.colors.primary;
+  }
+
   return 'transparent';
 };
 
 const getIconColor = (bgTheme, theme, iconColor, disabled, isHover) => {
-  const palette = generatePalette({ businessColor: theme.colors.primary });
   if (disabled) return theme.icon.disabled;
 
   if (bgTheme !== 'none') {
@@ -33,10 +30,13 @@ const getIconColor = (bgTheme, theme, iconColor, disabled, isHover) => {
     const darkIconBackgrounds = ['success', 'warning'];
 
     if (whiteIconBackgrounds.includes(bgTheme)) return theme.colors.white;
-    if (darkIconBackgrounds.includes(bgTheme) && isHover) return theme.icon.defaultHover;
-    if (darkIconBackgrounds.includes(bgTheme) && !isHover) return theme.icon.default;
+
+    if (darkIconBackgrounds.includes(bgTheme)) {
+      return isHover ? theme.icon.defaultHover : theme.icon.hover;
+    }
   }
 
+  const palette = generatePalette({ businessColor: theme.colors.primary });
   switch (iconColor) {
     case 'on-dark-background':
       return theme.colors.white;
@@ -68,11 +68,11 @@ const StyledIcon = styled.span`
         justify-content: center;
         height: ${dlsConfig.backgroundSize[bgSize]};
         width: ${dlsConfig.backgroundSize[bgSize]};
-        background-color: ${getBackgroundColor(theme, bgTheme, disabled)};
+        background-color: ${getBackgroundColor(theme, bgTheme, disabled, false)};
         border-radius: ${dlsConfig.backgroundShape[bgShape]};
 
         &:hover {
-          background-color: ${getHoverBackgroundColor(theme, bgTheme, disabled)};
+          background-color: ${getBackgroundColor(theme, bgTheme, disabled, true)};
         }
       `}
 
