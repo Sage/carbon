@@ -219,6 +219,7 @@ Object {
   display: inline-block;
   position: relative;
   color: rgba(0,0,0,0.65);
+  background-color: transparent;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -233,14 +234,10 @@ Object {
   justify-content: center;
   height: 24px;
   width: 24px;
-  background-color: transparent;
 }
 
 .c4:hover {
   color: rgba(0,0,0,0.90);
-}
-
-.c4:hover {
   background-color: transparent;
 }
 

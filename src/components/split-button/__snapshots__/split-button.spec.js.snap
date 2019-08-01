@@ -5,6 +5,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   display: inline-block;
   position: relative;
   color: rgba(0,0,0,0.65);
+  background-color: transparent;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -19,14 +20,10 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   justify-content: center;
   height: 24px;
   width: 24px;
-  background-color: transparent;
 }
 
 .c6:hover {
   color: rgba(0,0,0,0.90);
-}
-
-.c6:hover {
   background-color: transparent;
 }
 
@@ -712,6 +709,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   display: inline-block;
   position: relative;
   color: rgba(0,0,0,0.65);
+  background-color: transparent;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -726,15 +724,11 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   justify-content: center;
   height: 24px;
   width: 24px;
-  background-color: transparent;
   color: rgba(0,0,0,0.85);
 }
 
 .c6:hover {
   color: rgba(0,0,0,0.90);
-}
-
-.c6:hover {
   background-color: transparent;
 }
 

@@ -14,7 +14,7 @@ exports[`Portal when using default node to match snapshot  1`] = `
           data-portal-exit="guid-12345"
         >
           <span
-            class="sc-bxivhb jZWfiC"
+            class="sc-bxivhb qZKCx"
             data-component="icon"
             data-element="tick"
             font-size="small"
@@ -262,7 +262,7 @@ exports[`Portal when using default node to match snapshot  1`] = `
                 "componentStyle": ComponentStyle {
                   "componentId": "sc-bxivhb",
                   "isStatic": false,
-                  "lastClassName": "jZWfiC",
+                  "lastClassName": "qZKCx",
                   "rules": Array [
                     "
   ",
@@ -391,7 +391,7 @@ exports[`Portal when using default node to match snapshot  1`] = `
             type="tick"
           >
             <span
-              className="sc-bxivhb jZWfiC"
+              className="sc-bxivhb qZKCx"
               data-component="icon"
               data-element="tick"
               disabled={false}
@@ -411,4 +411,4 @@ exports[`Portal when using default node to match snapshot  1`] = `
 </Portal>
 `;
 
-exports[`Portal when using default node will mount correctly on document 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><span font-size=\\"small\\" type=\\"tick\\" class=\\"sc-bxivhb jZWfiC\\" data-component=\\"icon\\" data-element=\\"tick\\"></span></div>"`;
+exports[`Portal when using default node will mount correctly on document 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><span font-size=\\"small\\" type=\\"tick\\" class=\\"sc-bxivhb qZKCx\\" data-component=\\"icon\\" data-element=\\"tick\\"></span></div>"`;

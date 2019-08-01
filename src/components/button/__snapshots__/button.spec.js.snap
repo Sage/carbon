@@ -19,6 +19,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   display: inline-block;
   position: relative;
   color: rgba(0,0,0,0.65);
+  background-color: transparent;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -33,14 +34,10 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   justify-content: center;
   height: 24px;
   width: 24px;
-  background-color: transparent;
 }
 
 .c3:hover {
   color: rgba(0,0,0,0.90);
-}
-
-.c3:hover {
   background-color: transparent;
 }
 
@@ -160,6 +157,7 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   display: inline-block;
   position: relative;
   color: rgba(0,0,0,0.65);
+  background-color: transparent;
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -174,14 +172,10 @@ exports[`Button when only the "iconPosition" and "iconType" props are passed int
   justify-content: center;
   height: 24px;
   width: 24px;
-  background-color: transparent;
 }
 
 .c3:hover {
   color: rgba(0,0,0,0.90);
-}
-
-.c3:hover {
   background-color: transparent;
 }
 

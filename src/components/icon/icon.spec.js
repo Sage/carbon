@@ -1,59 +1,66 @@
 import React from 'react';
-// import TestRenderer from 'react-test-renderer';
+import TestRenderer from 'react-test-renderer';
 import TestUtils from 'react-dom/test-utils';
 import { mount, shallow } from 'enzyme';
 import Tooltip from '../tooltip';
-// import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
-// import { assertStyleMatch } from '../../__spec_helper__/test-utils';
+import { rootTagTest } from '../../utils/helpers/tags/tags-specs/tags-specs';
+import { assertStyleMatch } from '../../__spec_helper__/test-utils';
 import 'jest-styled-components';
 import Icon from './icon.component';
 import { StyledIcon } from './icon.style';
+import classicTheme from '../../style/themes/classic';
+import OptionsHelper from '../../utils/helpers/options-helper';
+import classicConfig from './icon-classic-config';
+import dlsConfig from './icon-config';
+import baseTheme from '../../style/themes/base';
 
 function render(props) {
-  return shallow(<Icon { ...props } />);
+  return shallow(<Icon type='add' { ...props } />);
 }
 
-// function renderStyles(props) {
-//   return TestRenderer.create(<StyledIcon { ...props } />);
-// }
+function renderStyles(props) {
+  return TestRenderer.create(<StyledIcon type='add' { ...props } />);
+}
 
-describe('Icon', () => {
-  let instance, span, svg, wrapper;
+describe('Icon component', () => {
+  describe('svg icon', () => {
+    let instance, span, svg;
 
-  const icons = [
-    'basket',
-    'bin',
-    'chevron',
-    'completed',
-    'dribbble',
-    'email',
-    'external-link',
-    'github',
-    'individual',
-    'location',
-    'minus',
-    'paperclip',
-    'payment',
-    'plus',
-    'processing',
-    'progress',
-    'remove',
-    'sort-down',
-    'sort-up',
-    'submitted',
-    'twitter',
-    'white-tick'
-  ];
+    const icons = [
+      'basket',
+      'bin',
+      'chevron',
+      'completed',
+      'dribbble',
+      'email',
+      'external-link',
+      'github',
+      'individual',
+      'location',
+      'minus',
+      'paperclip',
+      'payment',
+      'plus',
+      'processing',
+      'progress',
+      'remove',
+      'sort-down',
+      'sort-up',
+      'submitted',
+      'twitter',
+      'white-tick'
+    ];
 
-  describe('renderIcon', () => {
-    icons.forEach((icon) => {
-      it(`calls the render ${icon} icon method`, () => {
-        instance = TestUtils.renderIntoDocument(<Icon type={ icon } />);
-        // eslint-disable-next-line no-unused-expressions
-        instance.renderIcon;
-        span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
-        svg = span.children[0];
-        expect(svg.getAttribute('class')).toEqual(`carbon-icon__svg--${icon}`);
+    describe('renderIcon', () => {
+      icons.forEach((icon) => {
+        it(`calls the render ${icon} icon method`, () => {
+          instance = TestUtils.renderIntoDocument(<Icon type={ icon } />);
+          // eslint-disable-next-line no-unused-expressions
+          instance.renderIcon;
+          span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[1];
+          svg = span.children[0];
+          expect(svg.getAttribute('class')).toEqual(`carbon-icon__svg--${icon}`);
+        });
       });
     });
   });
@@ -68,70 +75,242 @@ describe('Icon', () => {
 
     mismatchedPairs.forEach((mismatchedPair) => {
       it(`renders ${mismatchedPair.prop} as ${mismatchedPair.rendersAs}`, () => {
-        wrapper = render({ type: mismatchedPair.prop });
+        const wrapper = render({ type: mismatchedPair.prop });
         expect(wrapper.find(`[data-element="${mismatchedPair.rendersAs}"]`)).toBeTruthy();
       });
     });
   });
 
-  describe('mainClasses', () => {
-    describe('with custom class name', () => {
-      it('renders with a custom classname', () => {
-        wrapper = render({ className: 'testClass' });
-        expect(wrapper.find('.testClass').length).toEqual(1);
+  describe('when in classic theme', () => {
+    OptionsHelper.colors.forEach((bgTheme) => {
+      it(`applies proper background color for ${bgTheme}`, () => {
+        const wrapper = renderStyles({ theme: classicTheme, bgTheme });
+        assertStyleMatch(
+          {
+            backgroundColor: classicConfig.backgroundColor[bgTheme]
+          },
+          wrapper.toJSON()
+        );
+      });
+    });
+  });
+
+  describe('with custom class name', () => {
+    it('renders with a custom classname', () => {
+      const wrapper = render({ className: 'testClass' });
+      expect(wrapper.find('.testClass').length).toEqual(1);
+    });
+  });
+
+  describe('icon color', () => {
+    it('renders proper icon color for disabled state', () => {
+      const wrapper = renderStyles({ disabled: true, bgTheme: 'business' });
+      assertStyleMatch(
+        {
+          color: baseTheme.icon.disabled
+        },
+        wrapper.toJSON()
+      );
+    });
+
+    ['error', 'info', 'business'].forEach((whiteIconBackground) => {
+      it(`renders white icon on ${whiteIconBackground}`, () => {
+        const wrapper = renderStyles({ bgTheme: whiteIconBackground });
+        assertStyleMatch(
+          {
+            color: baseTheme.colors.white
+          },
+          wrapper.toJSON()
+        );
       });
     });
 
-    describe('bgSize', () => {
-      describe('without shape or color', () => {
-        it('renders with default size', () => {
-          wrapper = render({ type: 'basket' });
-          const icon = wrapper.find(StyledIcon);
-          expect(icon.props().bgSize).toEqual('small');
+    ['success', 'warning'].forEach((darkIconBackground) => {
+      it(`renders dark icon on ${darkIconBackground}`, () => {
+        const wrapper = renderStyles({ bgTheme: darkIconBackground });
+        assertStyleMatch(
+          {
+            color: baseTheme.icon.default
+          },
+          wrapper.toJSON()
+        );
+
+        assertStyleMatch(
+          {
+            color: baseTheme.icon.defaultHover
+          },
+          wrapper.toJSON(),
+          { modifier: ':hover' }
+        );
+      });
+    });
+
+    describe('when bgTheme is set to none', () => {
+      it('renders white icon when iconColor is set to onDarkBackground', () => {
+        const wrapper = renderStyles({ iconColor: 'on-dark-background', bgTheme: 'none' });
+        assertStyleMatch(
+          {
+            color: baseTheme.colors.white
+          },
+          wrapper.toJSON()
+        );
+      });
+
+      it('renders dark icon when iconColor is set to onLightBackground', () => {
+        const wrapper = renderStyles({ iconColor: 'on-light-background', bgTheme: 'none' });
+        assertStyleMatch(
+          {
+            color: baseTheme.icon.onLightBackground
+          },
+          wrapper.toJSON()
+        );
+
+        assertStyleMatch(
+          {
+            color: baseTheme.icon.onLightBackgroundHover
+          },
+          wrapper.toJSON(),
+          { modifier: ':hover' }
+        );
+      });
+
+      it('renders dark icon when iconColor is set to business-color', () => {
+        const wrapper = renderStyles({ iconColor: 'business-color', bgTheme: 'none' });
+        assertStyleMatch(
+          {
+            color: baseTheme.colors.primary
+          },
+          wrapper.toJSON()
+        );
+
+        assertStyleMatch(
+          {
+            color: '#1E861E'
+          },
+          wrapper.toJSON(),
+          { modifier: ':hover' }
+        );
+      });
+    });
+  });
+
+  describe('background color', () => {
+    describe('when disabled', () => {
+      it('renders backgroundColor in a proper color', () => {
+        const wrapper = renderStyles({ disabled: true });
+        assertStyleMatch(
+          {
+            backgroundColor: baseTheme.icon.disabled
+          },
+          wrapper.toJSON()
+        );
+      });
+    });
+
+    describe('when bgTheme is set to none', () => {
+      it('renders transparent background', () => {
+        const wrapper = renderStyles({ bgTheme: 'none' });
+        assertStyleMatch(
+          {
+            backgroundColor: 'transparent'
+          },
+          wrapper.toJSON()
+        );
+      });
+    });
+
+    describe('when bgTheme is set to one of the statuses', () => {
+      ['info', 'error', 'success', 'warning'].forEach((status) => {
+        const wrapper = renderStyles({ bgTheme: status });
+        const hoverColors = {
+          info: '#005C9B',
+          error: '#9F2C3F',
+          success: '#008C00',
+          warning: '#BA5000'
+        };
+        it(`renders proper background color for ${status}`, () => {
+          assertStyleMatch(
+            {
+              backgroundColor: baseTheme.colors[status]
+            },
+            wrapper.toJSON()
+          );
+
+          assertStyleMatch(
+            {
+              backgroundColor: hoverColors[status]
+            },
+            wrapper.toJSON(),
+            { modifier: ':hover' }
+          );
         });
       });
-
-      // describe('with bgSize prop provided', () => {
-      //   it('renders with the proper bgSize', () => {
-      //     wrapper = render({ type: 'basket', bgSize: 'large' });
-      //     const icon = wrapper.find(StyledIcon);
-      //     expect(icon.props().bgSize).toEqual('large');
-      //   });
-      // });
     });
 
-    // describe('has Shape', () => {
-    //   describe('when only bgTheme is provided', () => {
-    //     it('applies common styles and default size values', () => {
-    //       wrapper = renderStyles({ type: 'tick', bgTheme: 'error' });
-    //       assertStyleMatch({ height: '24px' }, wrapper.toJSON());
-    //     });
-    //   });
-    // });
+    describe('when bgTheme is set to business', () => {
+      const wrapper = renderStyles({ bgTheme: 'business' });
 
-    // describe('bgShape', () => {
-    //   it('renders in a proper shape', () => {
-    //     wrapper = render({ type: 'basket', bgShape: 'circle' });
-    //     const icon = wrapper.find(StyledIcon);
-    //     expect(icon.props().bgSize).toEqual('large');
-    //   });
-    // });
+      it('renders proper background color', () => {
+        assertStyleMatch(
+          {
+            backgroundColor: baseTheme.colors.primary
+          },
+          wrapper.toJSON()
+        );
 
-    // describe('bgTheme', () => {
-    //   it('renders background span with color classes', () => {
-    //     const color = 'success';
+        assertStyleMatch(
+          {
+            backgroundColor: '#1E861E'
+          },
+          wrapper.toJSON(),
+          { modifier: ':hover' }
+        );
+      });
+    });
+  });
 
-    //     instance = TestUtils.renderIntoDocument(<Icon type='foo' bgTheme={ color } />);
-    //     span = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'span')[0];
-    //     expect(span.className).toContain('carbon-icon--shape');
-    //     expect(span.className).toContain(`carbon-icon--${color}`);
-    //   });
-    // });
+  describe('background size', () => {
+    describe('without shape or color', () => {
+      it('renders with default size', () => {
+        const wrapper = render({ type: 'basket' });
+        const icon = wrapper.find(StyledIcon);
+        expect(icon.props().bgSize).toEqual('small');
+      });
+    });
+
+    describe('with bgSize prop provided', () => {
+      OptionsHelper.sizesRestricted.forEach((size) => {
+        it(`renders in the proper size for ${size}`, () => {
+          const wrapper = renderStyles({ theme: classicTheme, bgSize: size });
+          assertStyleMatch(
+            {
+              width: dlsConfig.backgroundSize[size],
+              height: dlsConfig.backgroundSize[size]
+            },
+            wrapper.toJSON()
+          );
+        });
+      });
+    });
+  });
+
+  describe('background shape', () => {
+    OptionsHelper.shapes.forEach((shape) => {
+      it(`renders in the proper size for ${shape}`, () => {
+        const wrapper = renderStyles({ theme: classicTheme, bgShape: shape });
+        assertStyleMatch(
+          {
+            borderRadius: dlsConfig.backgroundShape[shape]
+          },
+          wrapper.toJSON()
+        );
+      });
+    });
   });
 
   describe('when passed a tooltipMessage', () => {
     it('renders a tooltip', () => {
-      wrapper = mount(<Icon type='info' tooltipMessage='Helpful content' />);
+      const wrapper = mount(<Icon type='info' tooltipMessage='Helpful content' />);
       wrapper.setState({ isVisible: true });
       const tooltip = wrapper.find(Tooltip);
       expect(tooltip.length).toEqual(1);
@@ -139,14 +318,14 @@ describe('Icon', () => {
   });
 
   describe('tags', () => {
-    // describe('on component', () => {
-    //   wrapper = shallow(<Icon type='tick' data-role='baz' />);
-    //   it('include correct component, element and role data tags', () => {
-    //     rootTagTest(wrapper.find(StyledIcon), 'icon', 'tick', 'baz');
-    //   });
-    // });
+    describe('on component', () => {
+      const wrapper = shallow(<Icon type='tick' data-role='baz' />);
+      it('include correct component, element and role data tags', () => {
+        rootTagTest(wrapper.find(StyledIcon), 'icon', 'tick', 'baz');
+      });
+    });
     describe('on internal elements', () => {
-      wrapper = mount(<Icon
+      const wrapper = mount(<Icon
         tooltipMessage='Test' tooltipAlign='left'
         tooltipPosition='top' type='tick'
       />);

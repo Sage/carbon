@@ -32,7 +32,7 @@ const getIconColor = (bgTheme, theme, iconColor, disabled, isHover) => {
     if (whiteIconBackgrounds.includes(bgTheme)) return theme.colors.white;
 
     if (darkIconBackgrounds.includes(bgTheme)) {
-      return isHover ? theme.icon.defaultHover : theme.icon.hover;
+      return isHover ? theme.icon.defaultHover : theme.icon.default;
     }
   }
 
@@ -56,9 +56,11 @@ const StyledIcon = styled.span`
     display: inline-block;
     position: relative;
     color: ${getIconColor(bgTheme, theme, iconColor, disabled, false)};
+    background-color: ${getBackgroundColor(theme, bgTheme, disabled, false)};
 
     &:hover {
       color: ${getIconColor(bgTheme, theme, iconColor, disabled, true)};
+      background-color: ${getBackgroundColor(theme, bgTheme, disabled, true)};
     }
 
     ${bgTheme !== 'none'
@@ -68,12 +70,7 @@ const StyledIcon = styled.span`
         justify-content: center;
         height: ${dlsConfig.backgroundSize[bgSize]};
         width: ${dlsConfig.backgroundSize[bgSize]};
-        background-color: ${getBackgroundColor(theme, bgTheme, disabled, false)};
         border-radius: ${dlsConfig.backgroundShape[bgShape]};
-
-        &:hover {
-          background-color: ${getBackgroundColor(theme, bgTheme, disabled, true)};
-        }
       `}
 
     ${isFont
