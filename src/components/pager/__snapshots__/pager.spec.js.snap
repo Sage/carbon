@@ -157,7 +157,7 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
 .c3 {
   display: inline-block;
   position: relative;
-  color: #00805D;
+  color: rgba(0,0,0,0.65);
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -172,7 +172,16 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
   justify-content: center;
   height: 24px;
   width: 24px;
-  color: rgba(0,0,0,.85);
+  background-color: transparent;
+  color: rgba(0,0,0,0.85);
+}
+
+.c3:hover {
+  color: rgba(0,0,0,0.90);
+}
+
+.c3:hover {
+  background-color: transparent;
 }
 
 .c3::before {
@@ -180,6 +189,14 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
   content: "\\e910";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+}
+
+.c3::before {
   font-size: 16px;
   font-style: normal;
   font-weight: normal;
@@ -228,6 +245,8 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
               className="carbon-input-icon c3"
               data-component="icon"
               data-element="dropdown"
+              disabled={false}
+              fontSize="small"
               type="dropdown"
             />
           </label>
@@ -254,6 +273,8 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
         className="c3"
         data-component="icon"
         data-element="dropdown"
+        disabled={false}
+        fontSize="small"
         onClick={[Function]}
         type="dropdown"
       />
@@ -303,6 +324,8 @@ exports[`Pager renders the Pager correctly with the classic theme 1`] = `
         className="c3"
         data-component="icon"
         data-element="dropdown"
+        disabled={false}
+        fontSize="small"
         onClick={[Function]}
         type="dropdown"
       />
@@ -558,7 +581,7 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
 .c3 {
   display: inline-block;
   position: relative;
-  color: #00805D;
+  color: rgba(0,0,0,0.65);
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -573,6 +596,15 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
   justify-content: center;
   height: 24px;
   width: 24px;
+  background-color: transparent;
+}
+
+.c3:hover {
+  color: rgba(0,0,0,0.90);
+}
+
+.c3:hover {
+  background-color: transparent;
 }
 
 .c3::before {
@@ -636,6 +668,8 @@ exports[`Pager renders the Pager correctly with the small theme 1`] = `
               className="carbon-input-icon c3"
               data-component="icon"
               data-element="dropdown"
+              disabled={false}
+              fontSize="small"
               type="dropdown"
             />
           </label>

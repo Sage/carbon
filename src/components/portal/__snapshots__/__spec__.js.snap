@@ -14,9 +14,10 @@ exports[`Portal when using default node to match snapshot  1`] = `
           data-portal-exit="guid-12345"
         >
           <span
-            class="sc-bxivhb giNwGU"
+            class="sc-bxivhb jZWfiC"
             data-component="icon"
             data-element="tick"
+            font-size="small"
             type="tick"
           />
         </div>
@@ -24,6 +25,8 @@ exports[`Portal when using default node to match snapshot  1`] = `
     >
       <Icon
         bgSize="small"
+        disabled={false}
+        fontSize="small"
         tooltipAlign="left"
         tooltipMessage="Test"
         tooltipPosition="top"
@@ -34,6 +37,8 @@ exports[`Portal when using default node to match snapshot  1`] = `
           className={null}
           data-component="icon"
           data-element="tick"
+          disabled={false}
+          fontSize="small"
           isFont={true}
           key="icon"
           onBlur={[Function]}
@@ -84,7 +89,11 @@ exports[`Portal when using default node to match snapshot  1`] = `
                 "hover": "rgba(0,0,0,0.9)",
               },
               "icon": Object {
-                "focus": "#335B6D",
+                "default": "rgba(0,0,0,0.65)",
+                "defaultHover": "rgba(0,0,0,0.90)",
+                "disabled": "rgba(0,0,0,0.30)",
+                "onLightBackground": "#668491",
+                "onLightBackgroundHover": "#335B6D",
               },
               "name": "base",
               "pager": Object {
@@ -106,6 +115,10 @@ exports[`Portal when using default node to match snapshot  1`] = `
               },
               "rainbow": Object {
                 "textColor": "#003349",
+              },
+              "select": Object {
+                "border": "#bfccd2",
+                "selected": "#F2F4F5",
               },
               "shadows": Object {
                 "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
@@ -140,6 +153,8 @@ exports[`Portal when using default node to match snapshot  1`] = `
             className={null}
             data-component="icon"
             data-element="tick"
+            disabled={false}
+            fontSize="small"
             forwardedComponent={
               Object {
                 "$$typeof": Symbol(react.forward_ref),
@@ -186,7 +201,11 @@ exports[`Portal when using default node to match snapshot  1`] = `
                       "hover": "rgba(0,0,0,0.9)",
                     },
                     "icon": Object {
-                      "focus": "#335B6D",
+                      "default": "rgba(0,0,0,0.65)",
+                      "defaultHover": "rgba(0,0,0,0.90)",
+                      "disabled": "rgba(0,0,0,0.30)",
+                      "onLightBackground": "#668491",
+                      "onLightBackgroundHover": "#335B6D",
                     },
                     "name": "base",
                     "pager": Object {
@@ -208,6 +227,10 @@ exports[`Portal when using default node to match snapshot  1`] = `
                     },
                     "rainbow": Object {
                       "textColor": "#003349",
+                    },
+                    "select": Object {
+                      "border": "#bfccd2",
+                      "selected": "#F2F4F5",
                     },
                     "shadows": Object {
                       "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
@@ -239,32 +262,10 @@ exports[`Portal when using default node to match snapshot  1`] = `
                 "componentStyle": ComponentStyle {
                   "componentId": "sc-bxivhb",
                   "isStatic": false,
-                  "lastClassName": "giNwGU",
+                  "lastClassName": "jZWfiC",
                   "rules": Array [
                     "
-  display: inline-block;
-  position: relative;
-  color: ",
-                    [Function],
-                    ";
-
-    ",
-                    [Function],
-                    "
-
-    ",
-                    [Function],
-                    "
-
-    ",
-                    [Function],
-                    "
-
-    ",
-                    [Function],
-                    "
-
-    ",
+  ",
                     [Function],
                     "
 ",
@@ -330,7 +331,11 @@ exports[`Portal when using default node to match snapshot  1`] = `
                   "hover": "rgba(0,0,0,0.9)",
                 },
                 "icon": Object {
-                  "focus": "#335B6D",
+                  "default": "rgba(0,0,0,0.65)",
+                  "defaultHover": "rgba(0,0,0,0.90)",
+                  "disabled": "rgba(0,0,0,0.30)",
+                  "onLightBackground": "#668491",
+                  "onLightBackgroundHover": "#335B6D",
                 },
                 "name": "base",
                 "pager": Object {
@@ -352,6 +357,10 @@ exports[`Portal when using default node to match snapshot  1`] = `
                 },
                 "rainbow": Object {
                   "textColor": "#003349",
+                },
+                "select": Object {
+                  "border": "#bfccd2",
+                  "selected": "#F2F4F5",
                 },
                 "shadows": Object {
                   "cards": "0 3px 3px 0 rgba(0,20,29,0.2), 0 2px 4px 0 rgba(0,20,29,0.15)",
@@ -382,9 +391,11 @@ exports[`Portal when using default node to match snapshot  1`] = `
             type="tick"
           >
             <span
-              className="sc-bxivhb giNwGU"
+              className="sc-bxivhb jZWfiC"
               data-component="icon"
               data-element="tick"
+              disabled={false}
+              fontSize="small"
               onBlur={[Function]}
               onFocus={[Function]}
               onMouseEnter={[Function]}
@@ -400,4 +411,4 @@ exports[`Portal when using default node to match snapshot  1`] = `
 </Portal>
 `;
 
-exports[`Portal when using default node will mount correctly on document 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><span type=\\"tick\\" class=\\"sc-bxivhb giNwGU\\" data-component=\\"icon\\" data-element=\\"tick\\"></span></div>"`;
+exports[`Portal when using default node will mount correctly on document 1`] = `"<div class=\\"carbon-portal\\" data-portal-exit=\\"guid-12345\\"><span font-size=\\"small\\" type=\\"tick\\" class=\\"sc-bxivhb jZWfiC\\" data-component=\\"icon\\" data-element=\\"tick\\"></span></div>"`;

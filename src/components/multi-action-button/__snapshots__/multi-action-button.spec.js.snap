@@ -4,7 +4,7 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
 .c5 {
   display: inline-block;
   position: relative;
-  color: #26A826;
+  color: rgba(0,0,0,0.65);
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -19,6 +19,15 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
   justify-content: center;
   height: 24px;
   width: 24px;
+  background-color: transparent;
+}
+
+.c5:hover {
+  color: rgba(0,0,0,0.90);
+}
+
+.c5:hover {
+  background-color: transparent;
 }
 
 .c5::before {
@@ -152,6 +161,8 @@ exports[`MultiActionButton when rendered should match the snapshot 1`] = `
             className="c4 c5"
             data-component="icon"
             data-element="dropdown"
+            disabled={false}
+            fontSize="small"
             type="dropdown"
           />
         </span>
@@ -165,7 +176,7 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
 .c6 {
   display: inline-block;
   position: relative;
-  color: #00805D;
+  color: rgba(0,0,0,0.65);
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -180,7 +191,16 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   justify-content: center;
   height: 24px;
   width: 24px;
-  color: rgba(0,0,0,.85);
+  background-color: transparent;
+  color: rgba(0,0,0,0.85);
+}
+
+.c6:hover {
+  color: rgba(0,0,0,0.90);
+}
+
+.c6:hover {
+  background-color: transparent;
 }
 
 .c6::before {
@@ -188,6 +208,14 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
   content: "\\e910";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+}
+
+.c6::before {
   font-size: 16px;
   font-style: normal;
   font-weight: normal;
@@ -442,6 +470,8 @@ exports[`MultiActionButton when rendered with "classic" theme should match the s
             className="c5 c6"
             data-component="icon"
             data-element="dropdown"
+            disabled={false}
+            fontSize="small"
             type="dropdown"
           />
         </span>

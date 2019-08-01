@@ -4,7 +4,7 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
 .c6 {
   display: inline-block;
   position: relative;
-  color: #26A826;
+  color: rgba(0,0,0,0.65);
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -19,6 +19,15 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
   justify-content: center;
   height: 24px;
   width: 24px;
+  background-color: transparent;
+}
+
+.c6:hover {
+  color: rgba(0,0,0,0.90);
+}
+
+.c6:hover {
+  background-color: transparent;
 }
 
 .c6::before {
@@ -690,6 +699,8 @@ exports[`SplitButton for business themes renders styles correctly 1`] = `
       className="c5 c6"
       data-component="icon"
       data-element="dropdown"
+      disabled={false}
+      fontSize="small"
       type="dropdown"
     />
   </button>
@@ -700,7 +711,7 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
 .c6 {
   display: inline-block;
   position: relative;
-  color: #00805D;
+  color: rgba(0,0,0,0.65);
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -715,7 +726,16 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   justify-content: center;
   height: 24px;
   width: 24px;
-  color: rgba(0,0,0,.85);
+  background-color: transparent;
+  color: rgba(0,0,0,0.85);
+}
+
+.c6:hover {
+  color: rgba(0,0,0,0.90);
+}
+
+.c6:hover {
+  background-color: transparent;
 }
 
 .c6::before {
@@ -723,6 +743,14 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
   -moz-osx-font-smoothing: grayscale;
   font-family: CarbonIcons;
   content: "\\e910";
+  font-size: 16px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 16px;
+  vertical-align: middle;
+}
+
+.c6::before {
   font-size: 16px;
   font-style: normal;
   font-weight: normal;
@@ -1486,6 +1514,8 @@ exports[`SplitButton for the classic theme renders styles correctly 1`] = `
       className="c5 c6"
       data-component="icon"
       data-element="dropdown"
+      disabled={false}
+      fontSize="small"
       type="dropdown"
     />
   </button>
