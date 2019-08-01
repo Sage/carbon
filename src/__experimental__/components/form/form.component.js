@@ -10,7 +10,12 @@ import tagComponent from '../../../utils/helpers/tags';
 import Browser from '../../../utils/helpers/browser';
 import { withValidations } from '../../../components/validations';
 import ElementResize from '../../../utils/helpers/element-resize';
-import StyledForm, { StyledFormFooter, StyledAdditionalFormAction } from '../../../components/form/form.style';
+import StyledForm,
+{
+  StyledFormFooter,
+  StyledAdditionalFormAction,
+  StyledResponsiveFooterWrapper
+} from '../../../components/form/form.style';
 
 const FormContext = React.createContext();
 

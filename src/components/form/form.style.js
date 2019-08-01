@@ -41,6 +41,10 @@ export const StyledFormFooter = styled.div`
   `}
 `;
 
+export const StyledResponsiveFooterWrapper = styled.div`
+
+`;
+
 const StyledForm = styled.form`
   && ${StyledButton} {
     align-items: center;
@@ -84,6 +88,7 @@ const StyledForm = styled.form`
         border-right-color: ${theme.colors.white};
         border-width: 0;
         box-sizing: border-box;
+        min-width: 500px;
       }
     }
   `}
