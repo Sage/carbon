@@ -103,13 +103,13 @@ export default (colorVariant, inFill, isDeletable, size) => {
       ${size === 'medium' && css`
         font-size: 12px;
         min-width: 38px;
-        padding: 4px 8px 4px 8px;
+        padding: 4px 8px;
       `}
 
       ${size === 'large' && css`
         font-size: 14px;
         min-width: 46px;
-        padding: 4px 8px 4px 8px;
+        padding: 4px 8px;
       `}
     `}
 

@@ -537,7 +537,7 @@ describe('Pill', () => {
         fontWeight: '700',
         letterSpacing: '0.7px',
         lineHeight: '15px',
-        padding: '4px 8px 4px 8px',
+        padding: '4px 8px',
         position: 'relative',
         textAlign: 'center'
       }, wrapper);
@@ -691,7 +691,7 @@ describe('Pill', () => {
         assertStyleMatch({
           fontSize: '12px',
           minWidth: '38px',
-          padding: '4px 8px 4px 8px'
+          padding: '4px 8px'
         }, wrapper);
       });
     });
@@ -706,7 +706,7 @@ describe('Pill', () => {
         assertStyleMatch({
           fontSize: '14px',
           minWidth: '46px',
-          padding: '4px 8px 4px 8px'
+          padding: '4px 8px'
         }, wrapper);
       });
     });
