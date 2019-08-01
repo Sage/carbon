@@ -20,6 +20,7 @@ const additionalFormActions = (innerText) => {
 storiesOf('Experimental/Form', module)
   .addParameters({
     info: {
+      text: Info,
       propTablesExclude: [Textbox],
       includePropTables: [FormWithoutValidations]
     }
@@ -85,7 +86,6 @@ storiesOf('Experimental/Form', module)
       </Form>
     );
   }, {
-    info: { text: Info },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   });
