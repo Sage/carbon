@@ -62,7 +62,7 @@ Feature: Button component
       And Button width is "<width>"
     Examples:
       | size   | height | width |
-      | small  | 25px   | 108px |
+      | small  | 25px   | 106px |
       | medium | 31px   | 138px |
       | large  | 43px   | 142px |
 

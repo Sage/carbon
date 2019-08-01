@@ -22,7 +22,7 @@ Feature: Loader component
       | warning     | rgb(255, 125, 0)  |
 
   @positive
-  Scenario Outline: I set Spinner component size to <size>
+  Scenario Outline: I set Loader component size to <size>
     When I select size to "<size>"
     Then Loader width and height is set to "<px>"
     Examples:

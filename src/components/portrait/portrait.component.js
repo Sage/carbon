@@ -4,58 +4,49 @@ import tagComponent from '../../utils/helpers/tags';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import PortraitGravatar from './portrait-gravatar.component';
 import PortraitInitials from './portrait-initials.component';
-import StyledPortrait, { StyledCustomImg, StyledIcon } from './portrait.style';
+import { StyledCustomImg, StyledIcon } from './portrait.style';
 
-function Portrait(props) {
-  const {
-    alt, darkBackground, gravatar, initials, shape, size, src
-  } = props;
-
-  function renderIcon() {
-    if (!src && !initials) {
-      return (
-        <StyledIcon
-          type='individual'
-          size={ size }
-          shape={ shape }
-          darkBackground={ darkBackground }
-        />
-      );
-    }
-    return null;
+class Portrait extends React.Component {
+  state = {
+    externalError: false
   }
 
-  function renderInitials() {
-    if (!src && initials) {
-      return (
-        <PortraitInitials
-          size={ size }
-          shape={ shape }
-          initials={ initials }
-          darkBackground={ darkBackground }
-          alt={ alt }
-        />
-      );
+  componentDidUpdate(prevProps) {
+    const relevantPropsChanged = (
+      this.props.gravatar !== prevProps.gravatar
+      || this.props.src !== prevProps.src
+    );
+
+    if (relevantPropsChanged) {
+      this.setState({ externalError: false }); // eslint-disable-line react/no-did-update-set-state
     }
-    return null;
   }
 
-  function renderGravatar() {
-    if (gravatar) {
+  externalImageLoadFailed() {
+    this.setState({ externalError: true });
+  }
+
+  render() {
+    const {
+      alt, darkBackground, gravatar, initials, shape, size, src
+    } = this.props;
+
+    const tagProps = tagComponent('portrait', this.props);
+
+    if (gravatar && !this.state.externalError) {
       return (
         <PortraitGravatar
           gravatarEmail={ gravatar }
           shape={ shape }
           size={ size }
           alt={ alt }
+          errorCallback={ () => this.externalImageLoadFailed() }
+          { ...tagProps }
         />
       );
     }
-    return null;
-  }
 
-  function renderCustomImg() {
-    if (!gravatar && src) {
+    if (src && !this.state.externalError) {
       return (
         <StyledCustomImg
           src={ src }
@@ -63,20 +54,35 @@ function Portrait(props) {
           size={ size }
           shape={ shape }
           data-element='user-image'
+          onError={ () => this.externalImageLoadFailed() }
+          { ...tagProps }
         />
       );
     }
-    return null;
-  }
 
-  return (
-    <StyledPortrait { ...props } { ...tagComponent('portrait', props) }>
-      {renderIcon()}
-      {renderInitials()}
-      {renderGravatar()}
-      {renderCustomImg()}
-    </StyledPortrait>
-  );
+    if (initials) {
+      return (
+        <PortraitInitials
+          size={ size }
+          shape={ shape }
+          initials={ initials }
+          darkBackground={ darkBackground }
+          alt={ alt }
+          { ...tagProps }
+        />
+      );
+    }
+
+    return (
+      <StyledIcon
+        type='individual'
+        size={ size }
+        shape={ shape }
+        darkBackground={ darkBackground }
+        { ...tagProps }
+      />
+    );
+  }
 }
 
 Portrait.propTypes = {
