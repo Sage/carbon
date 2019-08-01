@@ -1,5 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { StateDecorator, Store, State } from '@sambego/storybook-state';
 import {
   boolean, number, text, select
 } from '@storybook/addon-knobs';
@@ -7,7 +8,18 @@ import OptionsHelper from '../../utils/helpers/options-helper';
 import { notes, info } from './documentation';
 import DateInput from '.';
 
+const store = new Store(
+  {
+    value: DateInput.defaultProps.value
+  }
+);
+
+const setValue = (ev) => {
+  store.set({ value: ev.target.value });
+};
+
 storiesOf('Date Input', module)
+  .addDecorator(StateDecorator(store))
   .add('default', () => {
     const autoFocus = boolean('autoFocus', true);
     const disabled = boolean('disabled', false);
@@ -19,7 +31,6 @@ storiesOf('Date Input', module)
     const labelHelp = text('labelHelp', 'This text provides more information for the label.');
     const fieldHelp = text('fieldHelp', 'This text provides help for the input.');
     const fieldHelpInline = boolean('fieldHelpInline', false);
-    const value = text('value', DateInput.defaultProps.value);
     const labelInline = boolean('labelInline', false);
     const inputWidth = labelInline ? number('inputWidth', 0, {
       range: true,
@@ -48,10 +59,11 @@ storiesOf('Date Input', module)
         inputWidth={ inputWidth }
         fieldHelp={ fieldHelp }
         fieldHelpInline={ fieldHelpInline }
-        value={ value }
+        value={ store.get('value') }
+        onChange={ setValue }
       />
     );
   }, {
-    info: { text: info },
+    info: { text: info, propTablesExclude: [State] },
     notes: { markdown: notes }
   });
