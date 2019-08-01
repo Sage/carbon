@@ -1,5 +1,6 @@
 import { css } from 'styled-components';
 
+const animationStyle = 'all 500ms cubic-bezier(.23,1.10,.69,1.01)';
 const slideAnimation = css`
 
 // NEXT
@@ -12,7 +13,7 @@ const slideAnimation = css`
 .slide-next-enter.slide-next-enter-active {
   opacity: 1;
   left: 0;
-  transition: all 500ms cubic-bezier(.23,1.10,.69,1.01);
+  transition: ${animationStyle};
 }
 
 .slide-next-leave {
@@ -24,7 +25,7 @@ const slideAnimation = css`
 .slide-next-leave.slide-next-leave-active {
   opacity: 0;
   left: -100%;
-  transition: all 500ms cubic-bezier(.23,1.10,.69,1.01);
+  transition: ${animationStyle};
 }
 
 // PREVIOUS
@@ -37,7 +38,7 @@ const slideAnimation = css`
 .slide-previous-enter.slide-previous-enter-active {
   opacity: 1;
   left: 0;
-  transition: all 500ms cubic-bezier(.23,1.10,.69,1.01);
+  transition: ${animationStyle};
 }
 
 .slide-previous-leave {
@@ -49,7 +50,7 @@ const slideAnimation = css`
 .slide-previous-leave.slide-previous-leave-active {
   opacity: 0;
   left: 100%;
-  transition: all 500ms cubic-bezier(.23,1.10,.69,1.01);
+  transition: ${animationStyle};
 }`;
 
 const fadeAnimation = css`
@@ -62,7 +63,7 @@ const fadeAnimation = css`
 
 .carousel-transition-fade-enter.carousel-transition-fade-enter-active {
   opacity: 1;
-  transition: all 500ms cubic-bezier(.23,1.10,.69,1.01);
+  transition: ${animationStyle};
 }
 
 .carousel-transition-fade-leave {
@@ -72,7 +73,7 @@ const fadeAnimation = css`
 
 .carousel-transition-fade-leave.carousel-transition-fade-leave-active {
   opacity: 0;
-  transition: all 500ms cubic-bezier(.23,1.10,.69,1.01);
+  transition: ${animationStyle};
 }
 
 .carbon-carousel__transition{
