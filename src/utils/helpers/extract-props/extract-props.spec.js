@@ -13,12 +13,12 @@ const MockComponent = (props) => {
   return <div { ...props } />;
 };
 
-MockComponent.propTypes = {
-  anotherBoolProp: PropTypes.bool,
-  stringProp: PropTypes.string,
-  objectProp: PropTypes.object,
-  optionalProp: PropTypes.bool
-};
+MockComponent.safeProps = [
+  'anotherBoolProp',
+  'stringProp',
+  'objectProp',
+  'optionalProp'
+];
 
 describe('extractProps', () => {
   const expectedProps = {

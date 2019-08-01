@@ -82,6 +82,17 @@ function stylingForValidations({
   `;
 }
 
+InputPresentationStyle.safeProps = [
+  'disabled',
+  'hasFocus',
+  'inputWidth',
+  'readOnly',
+  'size',
+  'hasError',
+  'hasWarning',
+  'hasInfo'
+];
+
 InputPresentationStyle.defaultProps = {
   inputWidth: 100,
   size: 'medium',
