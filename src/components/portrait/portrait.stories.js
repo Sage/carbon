@@ -50,7 +50,7 @@ storiesOf('Portrait', module)
     </ThemeProvider>
   ),
   {
-    info: { text: info },
+    info: { text: info, propTablesExclude: [ThemeProvider] },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   })
@@ -63,7 +63,7 @@ storiesOf('Portrait', module)
     </ThemeProvider>
   ),
   {
-    info: { text: info },
+    info: { text: info, propTablesExclude: [ThemeProvider] },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   });

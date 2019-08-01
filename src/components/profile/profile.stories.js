@@ -8,17 +8,13 @@ import classicTheme from '../../style/themes/classic';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
-Profile.__docgenInfo = getDocGenInfo(
+const ProfileWrapper = () => (<Profile />);
+ProfileWrapper.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /profile\.component/
 );
 
 storiesOf('Profile', module)
-  .addParameters({
-    info: { text: info },
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false }
-  })
   .add('default', () => {
     const email = text('email', 'johnsmith@sage.com');
     const initials = text('initials', 'JS');
@@ -26,13 +22,18 @@ storiesOf('Profile', module)
     const name = text('name', 'John Smith');
 
     return (
-      <Profile
+      <ProfileWrapper
         email={ email }
         initials={ initials }
         size={ size }
         name={ name }
       />
     );
+  },
+  {
+    info: { text: info, propTablesExclude: [ThemeProvider] },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   })
   .add('classic', () => {
     const email = text('email', 'johnsmith@sage.com');
@@ -42,7 +43,7 @@ storiesOf('Profile', module)
 
     return (
       <ThemeProvider theme={ classicTheme }>
-        <Profile
+        <ProfileWrapper
           email={ email }
           initials={ initials }
           large={ large }
@@ -50,4 +51,9 @@ storiesOf('Profile', module)
         />
       </ThemeProvider>
     );
+  },
+  {
+    info: { text: info, propTablesExclude: [ThemeProvider] },
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false }
   });

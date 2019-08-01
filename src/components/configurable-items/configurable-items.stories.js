@@ -7,7 +7,8 @@ import notes from './documentation';
 import { ConfigurableItems, ConfigurableItemRow } from '.';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
-ConfigurableItems.__docgenInfo = getDocGenInfo(
+const ConfigurableItemsWrapper = () => (<ConfigurableItems />);
+ConfigurableItemsWrapper.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
   /configurable-items\.component/
 );
@@ -81,14 +82,9 @@ const rows = data => data.map((column, rowIndex) => {
 });
 
 storiesOf('Configurable Items', module)
-  .addParameters({
-    info: {
-      propTablesExclude: [State]
-    }
-  })
   .add('default', () => {
     return (
-      <ConfigurableItems
+      <ConfigurableItemsWrapper
         onDrag={ handleDrag }
         onCancel={ action('canceled') }
         onReset={ handleReset }
@@ -99,9 +95,12 @@ storiesOf('Configurable Items', module)
             rows(state.configurableItemsData)
           ]}
         </State>
-      </ConfigurableItems>
+      </ConfigurableItemsWrapper>
     );
   },
   {
-    notes: { markdown: notes }
+    notes: { markdown: notes },
+    info: {
+      propTablesExclude: [State]
+    }
   });

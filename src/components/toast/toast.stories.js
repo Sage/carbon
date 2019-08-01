@@ -9,15 +9,16 @@ import { notes, info } from './documentation';
 import classic from '../../style/themes/classic';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
-Toast.__docgenInfo = getDocGenInfo(
-  require('./docgenInfo.json'),
-  /toast\.component/
-);
-
 // This is for storybook example only
 const StyledToastStory = styled(Toast)`
   margin-top: 50px;
 `;
+
+const ToastStory = () => (<StyledToastStory />);
+ToastStory.__docgenInfo = getDocGenInfo(
+  require('./docgenInfo.json'),
+  /toast\.component/
+);
 
 storiesOf('Toast', module)
   .addParameters({
@@ -40,12 +41,12 @@ storiesOf('Toast', module)
 
     return (
       <ThemeProvider theme={ classic }>
-        <StyledToastStory
+        <ToastStory
           variant={ variant }
           open={ open } onDismiss={ onDismiss ? handleChange : undefined }
         >
           {children}
-        </StyledToastStory>
+        </ToastStory>
       </ThemeProvider>
     );
   }).add('Default', () => {
@@ -56,11 +57,11 @@ storiesOf('Toast', module)
     const onDismissClick = onDismiss ? (evt) => { action('click')(evt); } : undefined;
 
     return (
-      <StyledToastStory
+      <ToastStory
         variant={ variant }
         open={ open } onDismiss={ onDismissClick }
       >
         {children}
-      </StyledToastStory>
+      </ToastStory>
     );
   });

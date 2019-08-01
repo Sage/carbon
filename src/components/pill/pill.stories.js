@@ -62,7 +62,11 @@ storiesOf('Pill', module)
       </ThemeProvider>
     );
   }, {
-    info: { Pill, text: Info },
+    info: {
+      Pill,
+      text: Info,
+      propTablesExclude: [ThemeProvider]
+    },
     notes: { markdown: notes },
     knobs: { escapeHTML: false }
   }).add('default', () => {

@@ -71,6 +71,9 @@ storiesOf('Multi Action Button', module)
         <Button { ...menuButtonProps }>Short</Button>
       </MultiActionButton>
     );
+  }, {
+    info: { text: info, propTablesExclude: [OriginalButton, ThemeProvider, Button] },
+    notes: { markdown: notes }
   })
   .add('classic', () => {
     const props = getKnobs(true);
@@ -94,6 +97,6 @@ storiesOf('Multi Action Button', module)
       </ThemeProvider>
     );
   }, {
-    info: { text: info, propTablesExclude: [OriginalButton, ThemeProvider] },
+    info: { text: info, propTablesExclude: [OriginalButton, ThemeProvider, Button] },
     notes: { markdown: notes }
   });

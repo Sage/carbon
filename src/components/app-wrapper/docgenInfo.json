@@ -6,7 +6,7 @@
       "methods": [
         {
           "name": "classes",
-          "docblock": "Returns the classes for the component.\n\n@method classes\n@return {String}",
+          "docblock": "Returns the classes for the component.",
           "modifiers": [],
           "params": [],
           "returns": {
@@ -24,14 +24,14 @@
             "name": "node"
           },
           "required": false,
-          "description": "Children elements\n\n@property children\n@type {Node}"
+          "description": "Children elements"
         },
         "className": {
           "type": {
             "name": "string"
           },
           "required": false,
-          "description": "Custom className\n\n@property className\n@type {String}"
+          "description": "Custom className"
         }
       }
     }

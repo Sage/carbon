@@ -11,14 +11,15 @@ import { ThemeProvider } from 'styled-components';
 import OptionsHelper from '../../utils/helpers/options-helper';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
-import Flash, { FlashWithoutHOC } from './flash.component';
+import Flash from './flash.component';
 import Button, { OriginalButton } from '../button/button.component';
 import classicTheme from '../../style/themes/classic';
 import getDocGenInfo from '../../utils/helpers/docgen-info';
 
-FlashWithoutHOC.__docgenInfo = getDocGenInfo(
+const FlashWrapper = () => (<Flash />);
+FlashWrapper.__docgenInfo = getDocGenInfo(
   require('./docgenInfo.json'),
-  /flash-legacy\.component/
+  /flash\.component/
 );
 
 
@@ -37,25 +38,17 @@ const openHandler = () => {
 };
 
 storiesOf('Flash', module)
-  .addParameters({
-    notes: { markdown: notes },
-    knobs: { escapeHTML: false },
-    info: {
-      text: Info,
-      propTables: [FlashWithoutHOC, OriginalButton],
-      propTablesExclude: [Button, State, ThemeProvider, Flash]
-    }
-  }).add('classic', () => {
+  .add('classic', () => {
     const message = text('message', 'This is a flash message');
     const timeout = number('timeout', 0);
     const as = select('as', OptionsHelper.colors, OptionsHelper.colors[0]);
 
     return (
       <ThemeProvider theme={ classicTheme }>
-        <>
+        <div>
           <Button onClick={ openHandler }>Open Flash</Button>
           <State store={ store }>
-            <Flash
+            <FlashWrapper
               open={ store.get('open') }
               as={ as }
               message={ message }
@@ -63,9 +56,17 @@ storiesOf('Flash', module)
               onDismiss={ handleClick }
             />
           </State>
-        </>
+        </div>
       </ThemeProvider>
     );
+  }, {
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false },
+    info: {
+      text: Info,
+      propTables: [FlashWrapper, OriginalButton],
+      propTablesExclude: [State, ThemeProvider, Button, Flash]
+    }
   })
   .add('default', () => {
     const message = text('message', 'This is a flash message');
@@ -76,7 +77,7 @@ storiesOf('Flash', module)
       <div>
         <Button onClick={ openHandler }>Open Flash</Button>
         <State store={ store }>
-          <Flash
+          <FlashWrapper
             open={ store.get('open') }
             as={ as }
             message={ message }
@@ -86,4 +87,12 @@ storiesOf('Flash', module)
         </State>
       </div>
     );
+  }, {
+    notes: { markdown: notes },
+    knobs: { escapeHTML: false },
+    info: {
+      text: Info,
+      propTables: [FlashWrapper, OriginalButton],
+      propTablesExclude: [State, ThemeProvider, Button, Flash]
+    }
   });

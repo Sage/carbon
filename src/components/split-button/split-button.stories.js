@@ -81,7 +81,7 @@ storiesOf('Split Button', module)
       );
     },
     {
-      info: { text: info, propTablesExclude: [Button] },
+      info: { text: info, propTablesExclude: [Button, OriginalButton] },
       notes: { markdown: notes }
     },
   )
@@ -119,6 +119,6 @@ storiesOf('Split Button', module)
       </ThemeProvider>
     );
   }, {
-    info: { text: info, propTablesExclude: [OriginalButton, ThemeProvider] },
+    info: { text: info, propTablesExclude: [Button, OriginalButton, ThemeProvider] },
     notes: { markdown: notes }
   });
