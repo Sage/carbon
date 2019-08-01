@@ -12,9 +12,15 @@ import { withValidations } from '../validations';
 import ElementResize from '../../utils/helpers/element-resize/element-resize';
 import StyledForm, { StyledFormFooter, StyledAdditionalFormAction } from './form.style';
 
-const FormContext = React.createContext();
-
 class FormWithoutValidations extends React.Component {
+  static childContextTypes = {
+    form: PropTypes.object
+  }
+
+  static contextTypes = {
+    modal: PropTypes.object
+  }
+
   state = {
     /** Tracks if the form is clean or dirty, used by unsavedWarning */
     isDirty: false,
@@ -321,7 +327,7 @@ class FormWithoutValidations extends React.Component {
   }
 
   /**  Returns form object to child components. */
-  getContext() {
+  getChildContext = () => {
     return {
       form: {
         getActiveInput: this.getActiveInput,
@@ -361,22 +367,20 @@ class FormWithoutValidations extends React.Component {
     const stickyFooter = this.props.stickyFooter && this.state.stickyFooter;
 
     return (
-      <FormContext.Provider value={ this.getContext() }>
-        <StyledForm
-          stickyFooter={ stickyFooter }
-          onSubmit={ this.handleOnSubmit }
-          fixedBottom={ this.props.fixedBottom }
-          { ...this.htmlProps() }
-          ref={ (form) => { this._form = form; } }
-          { ...tagComponent('form', this.props) }
-        >
-          { generateCSRFToken(this._document) }
+      <StyledForm
+        stickyFooter={ stickyFooter }
+        onSubmit={ this.handleOnSubmit }
+        fixedBottom={ this.props.fixedBottom }
+        { ...this.htmlProps() }
+        ref={ (form) => { this._form = form; } }
+        { ...tagComponent('form', this.props) }
+      >
+        { generateCSRFToken(this._document) }
 
-          { this.renderChildren() }
+        { this.renderChildren() }
 
-          { this.formFooter() }
-        </StyledForm>
-      </FormContext.Provider>
+        { this.formFooter() }
+      </StyledForm>
     );
   }
 }
