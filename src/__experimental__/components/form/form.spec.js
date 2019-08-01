@@ -853,7 +853,7 @@ describe('Form', () => {
 
   describe('When child is an html element', () => {
     it('it renders the child', () => {
-      wrapper = shallow(
+      wrapper = TestRenderer.create(
         <Form validate={ () => true } formAction='foo'>
           <div>Foo</div>
         </Form>

@@ -28,6 +28,12 @@ const OptionsHelper = {
     'Link'
   ],
 
+  additionalActionAlignments: [
+    'additionalActions',
+    'leftAlignedActions',
+    'rightAlignedActions'
+  ],
+
   buttonColors: [
     'blue',
     'grey',
