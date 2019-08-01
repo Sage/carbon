@@ -60,7 +60,7 @@ storiesOf('Carousel', module)
   .add('default', () => {
     const indexConfig = [0, 1, 2, 3, 4];
     const initialSlideIndex = select('initialSlideIndex', indexConfig, BaseCarousel.defaultProps.initialSlideIndex);
-    const slideIndex = select('slideIndex', indexConfig, indexConfig[0]);
+    const slideIndex = select('slideIndex', indexConfig, indexConfig[2]);
 
     const handleClick = () => {
       action('click')();
@@ -103,12 +103,12 @@ storiesOf('Carousel', module)
           </ExampleCustomElement>
         </Slide>
         <Slide>
-          <ExampleCustomElement style={ { backgroundColor: '#fcba03' } }>
+          <ExampleCustomElement style={ { backgroundColor: 'red' } }>
             <h1 style={ { color: '#fff' } }>Slide 4</h1>
           </ExampleCustomElement>
         </Slide>
         <Slide>
-          <ExampleCustomElement style={ { backgroundColor: '#02d1c0' } }>
+          <ExampleCustomElement style={ { backgroundColor: 'blue' } }>
             <h1 style={ { color: '#fff' } }>Slide 5</h1>
           </ExampleCustomElement>
         </Slide>

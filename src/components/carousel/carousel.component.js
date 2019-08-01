@@ -59,10 +59,12 @@ class Carousel extends React.Component {
   }
 
   /** A lifecycle method that is called before re-render. */
-  componentWillReceiveProps(nextProps) {
-    if (typeof nextProps.slideIndex === 'undefined') return;
+  componentDidUpdate(prevProps) {
+    if (this.props.slideIndex === prevProps.slideIndex) return;
 
-    const newIndex = this.verifyNewIndex(nextProps.slideIndex);
+    if (typeof this.props.slideIndex === 'undefined') return;
+
+    const newIndex = this.verifyNewIndex(this.props.slideIndex);
     const currentIndex = this.state.selectedSlideIndex;
 
     if (newIndex === currentIndex) return;
