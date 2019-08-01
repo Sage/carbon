@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 import baseTheme from '../../style/themes/base';
 import OptionsHelper from '../../utils/helpers/options-helper/options-helper';
 import {
-  hasTheSameLine,
+  hasTheSameOrientation,
   isVertical,
   isHorizontal,
   getOppositeDirection
@@ -39,7 +39,7 @@ const StyledTooltipPointer = styled.span`
       height: 0;
     }
 
-    ${!hasTheSameLine(position, pointerAlign) && css`
+    ${!hasTheSameOrientation(position, pointerAlign) && css`
       ${getPointerPosition(position, pointerAlign)}
 
       &:before {

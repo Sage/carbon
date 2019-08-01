@@ -1,5 +1,5 @@
 import {
-  hasTheSameLine,
+  hasTheSameOrientation,
   isVertical,
   isHorizontal,
   getOppositeDirection
@@ -32,7 +32,7 @@ describe('Tooltip Utils', () => {
     });
   });
 
-  describe('hasTheSameLine', () => {
+  describe('hasTheSameOrientation', () => {
     describe.each([
       [['top', 'bottom'], true],
       [['left', 'right'], true],
@@ -40,7 +40,7 @@ describe('Tooltip Utils', () => {
       [['right', 'top'], false]
     ])('when the arguments are: %s', (directions, expectedResult) => {
       it(`should return ${expectedResult}`, () => {
-        expect(hasTheSameLine(directions[0], directions[1])).toBe(expectedResult);
+        expect(hasTheSameOrientation(directions[0], directions[1])).toBe(expectedResult);
       });
     });
   });
