@@ -27,7 +27,7 @@ storiesOf('Experimental/Form', module)
   })
   .add('default', () => {
     const formActionOptions = ['', ...OptionsHelper.actionOptions];
-    const unsavedWarning = boolean('unsavedWarning', false);
+    const unsavedWarning = boolean('unsavedWarning', true);
     const save = boolean('save', true);
     const cancel = boolean('cancel', true);
     const buttonAlign = select(

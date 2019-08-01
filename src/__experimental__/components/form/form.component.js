@@ -22,6 +22,10 @@ class FormWithoutValidations extends React.Component {
     submitted: false
   }
 
+  stickyListener = false; // prevents multiple listeners being added/ removed
+
+  unsavedListener = false; // prevents multiple listeners being added/ removed
+
   /* Runs once the component has mounted. */
   componentDidMount() {
     if (this.props.stickyFooter) {
@@ -40,19 +44,19 @@ class FormWithoutValidations extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.stickyFooter && !prevProps.stickyFooter) {
+    if (!this.stickyListener && this.props.stickyFooter && !prevProps.stickyFooter) {
       this.addStickyFooterListeners();
     }
 
-    if (!this.props.stickyFooter && prevProps.stickyFooter) {
+    if (this.stickyListener && !this.props.stickyFooter && prevProps.stickyFooter) {
       this.removeStickyFooterListeners();
     }
 
-    if (this.props.unsavedWarning && !prevProps.unsavedWarning) {
+    if (!this.unsavedListener && this.props.unsavedWarning && !prevProps.unsavedWarning) {
       this.addUnsavedWarningListener();
     }
 
-    if (!this.props.unsavedWarning && prevProps.unsavedWarning) {
+    if (this.unsavedListener && !this.props.unsavedWarning && prevProps.unsavedWarning) {
       this.removeUnsavedWarningListener();
     }
   }
@@ -95,6 +99,7 @@ class FormWithoutValidations extends React.Component {
   }
 
   addStickyFooterListeners = () => {
+    this.stickyListener = true;
     this.checkStickyFooter();
     ElementResize.addListener(this._form, this.checkStickyFooter);
     this._window.addEventListener('resize', this.checkStickyFooter);
@@ -102,6 +107,7 @@ class FormWithoutValidations extends React.Component {
   }
 
   removeStickyFooterListeners = () => {
+    this.stickyListener = false;
     ElementResize.removeListener(this._form, this.checkStickyFooter);
     this._window.removeEventListener('resize', this.checkStickyFooter);
     this._window.removeEventListener('scroll', this.checkStickyFooter);
@@ -128,16 +134,28 @@ class FormWithoutValidations extends React.Component {
   }
 
   addUnsavedWarningListener = () => {
+    this.unsavedListener = true;
     this._window.addEventListener('beforeunload', this.checkIsFormDirty);
   }
 
   removeUnsavedWarningListener = () => {
+    this.unsavedListener = false;
     this._window.removeEventListener('beforeunload', this.checkIsFormDirty);
+  }
+
+  /** Returns true if any input has value */
+  checkFormDataExists() {
+    const { formInputs } = this.state;
+    return Object.keys(formInputs).map(id => (!!formInputs[id].length)).includes(true);
   }
 
   // This must return undefined for IE and Safari if we don't want a warning
   /* eslint-disable consistent-return */
   checkIsFormDirty = (ev) => {
+    if (this.state.formInputs) {
+      this.setState({ isDirty: this.checkFormDataExists() });
+    }
+
     if (this.state.isDirty) {
       // Confirmation message is usually overridden by browsers with a similar message
       const confirmationMessage = I18n.t('form.save_prompt',

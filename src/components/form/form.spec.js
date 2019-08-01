@@ -212,7 +212,7 @@ describe('Form', () => {
 
   describe('getChildContext', () => {
     it('returns an object that exposes public functions', () => {
-      expect(instance.getContext()).toEqual(
+      expect(instance.getChildContext()).toEqual(
         {
           form: {
             attachToForm: instance.attachToForm,
