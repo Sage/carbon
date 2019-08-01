@@ -29,14 +29,8 @@ const CarouselStyledIcon = styled(Icon)`
   display: inline-block;
 
   &&::before {
-    font-size: 16px;
+    font-size: ${({ theme }) => (isClassic(theme) ? '25px' : '16px')}
   }
-
-  ${({ theme }) => isClassic(theme) && css`
-    &&::before {
-      font-size: 25px;
-    } 
-  `}
 `;
 
 const CarouselStyledIconLeft = styled(CarouselStyledIcon)`

@@ -8,9 +8,9 @@ const CarouselButtonStyleClassic = (({ theme }) => isClassic(theme) && css`
   color: rgba(0,0,0, 0.85);
 
   :hover{
-  background-color: #99ADB6;
-  color: #255BC7;
-  cursor: default;
+    background-color: #99ADB6;
+    color: #255BC7;
+    cursor: default;
   }
 
   &:focus {
