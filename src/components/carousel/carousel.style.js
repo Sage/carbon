@@ -16,9 +16,12 @@ const CarouselNavigationStyle = styled.div`
   `}
 `;
 
-const CarouselPreviousButtonWrapperStyle = CarouselNavigationStyle;
+const CarouselPreviousButtonWrapperStyle = styled(CarouselNavigationStyle)`
+  margin-left:  ${({ theme }) => (isClassic(theme) ? '0' : '2px')};
+`;
 const CarouselNextButtonWrapperStyle = styled(CarouselNavigationStyle)`
   right: 0;
+  margin-right:  ${({ theme }) => (isClassic(theme) ? '0' : '2px')};
 `;
 
 const CarouselStyledIcon = styled(Icon)`
@@ -72,8 +75,8 @@ const CarouselButtonStyle = styled.button`
     }
 
     &:focus {
-    outline: none;
-    border: 2px solid ${theme.colors.focus};
+    outline: 2px solid ${theme.colors.focus};
+    /* border: 2px solid ${theme.colors.focus}; */
       
     ::-moz-focus-inner{
       border: 0;

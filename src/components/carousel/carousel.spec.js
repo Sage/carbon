@@ -14,7 +14,8 @@ import {
   CarouselSliderWrapper,
   CarouselSelectorWrapperStyle,
   CarouselSelectorLabelStyle,
-  CarouselSelectorInputWrapperStyle
+  CarouselSelectorInputWrapperStyle,
+  CarouselNextButtonWrapperStyle
 } from './carousel.style';
 import classicTheme from '../../style/themes/classic';
 import { assertStyleMatch } from '../../__spec_helper__/test-utils';
@@ -597,6 +598,14 @@ describe('CarouselButtonStyle', () => {
       height: '45px',
       backgroundColor: '#CCD6DA',
       color: 'rgba(0,0,0,0.85)'
+    }, wrapper);
+  });
+
+  it('should render matched style to next button', () => {
+    wrapper = mount(<CarouselNextButtonWrapperStyle theme={ classicTheme } />);
+
+    assertStyleMatch({
+      marginRight: '0'
     }, wrapper);
   });
 });
