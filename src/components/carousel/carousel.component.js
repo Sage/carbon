@@ -141,24 +141,12 @@ class Carousel extends React.Component {
 
   /** Gets the props for the previous button */
   previousButtonProps() {
-    const props = {};
-
-    if (!this.state.disabled) {
-      props.onClick = this.onPreviousClick;
-    }
-
-    return props;
+    return !this.state.disabled ? { onClick: this.onPreviousClick } : {};
   }
 
   /** Gets the props for the next button */
   nextButtonProps() {
-    const props = {};
-
-    if (!this.state.disabled) {
-      props.onClick = this.onNextClick;
-    }
-
-    return props;
+    return !this.state.disabled ? { onClick: this.onNextClick } : {};
   }
 
   /** Gets the number of slides */
