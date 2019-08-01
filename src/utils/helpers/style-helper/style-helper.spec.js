@@ -11,11 +11,3 @@ describe.each([[THEMES.classic, Classic], [THEMES.small, Small]])(
     });
   }
 );
-
-describe(
-  'when isClassic is called and the theme is undefined', () => {
-    it('returns false', () => {
-      expect(isClassic(undefined)).toEqual(false);
-    });
-  }
-);

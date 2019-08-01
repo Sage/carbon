@@ -72,7 +72,7 @@ storiesOf('Pill', module)
       onDelete,
       pillRole,
       size
-    } = getKnobs();
+    } = getKnobs(THEMES.classic);
     return (
       <Pill
         colorVariant={ colorVariant }
