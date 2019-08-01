@@ -55,3 +55,5 @@ Cypress.Commands.add('iFrame', (selector) => { getItem(selector, 40); });
 before(() => {
   cy.wait(1000, { log: DEBUG_FLAG });
 });
+
+Cypress.Screenshot.defaults({ screenshotOnRunFailure: DEBUG_FLAG });
