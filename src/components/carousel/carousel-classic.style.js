@@ -14,8 +14,8 @@ const CarouselButtonStyleClassic = (({ theme }) => isClassic(theme) && css`
   }
 
   &:focus {
-      outline: none;
-      border: none;
+    outline: none;
+    border: none;
   }
 `);
 
