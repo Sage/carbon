@@ -178,6 +178,44 @@ describe('Dialog', () => {
     });
   });
 
+  describe('renders children when they are not a JSX component', () => {
+    it('should render matched snpashot', () => {
+      const wrapper = shallow(
+        <Dialog
+          onCancel={ () => { } }
+          onConfirm={ () => { } }
+          showCloseIcon
+          open
+          subtitle='Test'
+          title='Test'
+          ariaRole='dialog'
+        >
+          foo
+        </Dialog>
+      );
+      expect(wrapper.instance().props.children).toMatchSnapshot();
+    });
+  });
+
+  describe('renders children when they are a JSX component', () => {
+    it('should render matched snpashot', () => {
+      const wrapper = shallow(
+        <Dialog
+          onCancel={ () => { } }
+          onConfirm={ () => { } }
+          showCloseIcon
+          open
+          subtitle='Test'
+          title='Test'
+          ariaRole='dialog'
+        >
+          <Heading />
+        </Dialog>
+      );
+      expect(wrapper.instance().props.children).toMatchSnapshot();
+    });
+  });
+
   describe('centerDialog', () => {
     beforeEach(() => {
       mockWindow = {
