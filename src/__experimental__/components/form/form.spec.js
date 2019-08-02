@@ -282,6 +282,7 @@ describe('Form', () => {
         <Form formAction='foo' />
       );
     });
+
     it('if form is dirty, return a message and trigger a popup', () => {
       wrapper.setState({ formInputs: { foo: 'foo' } });
       expect(wrapper.instance().checkIsFormDirty(Event))
@@ -289,9 +290,14 @@ describe('Form', () => {
           { defaultValue: 'Do you want to leave this page? Changes that you made may not be saved.' }));
     });
 
+    it('if form is dirty, return a message and trigger a popup', () => {
+      wrapper.instance().checkIsFormDirty(Event);
+      expect(instance.checkFormDataExists(Event)).toEqual(false);
+    });
+
     it('if form is clean, return an empty string', () => {
       wrapper.instance().resetIsDirty();
-      expect(instance.checkIsFormDirty(Event)).toBeUndefined();
+      expect(wrapper.instance().checkIsFormDirty(Event)).toBeUndefined();
     });
   });
 
