@@ -8,7 +8,7 @@
   [data-component='icon'].carbon-input-icon,
   .common-input__icon {
     z-index: 2;
-    &.icon-error {
+    [daat-element='error'] {
       top: 5px;
     }
   }

@@ -54,7 +54,7 @@
     left: auto;
     margin: 7px -40px;
     right: 70%;
-    &.icon-error {
+    [data-element='error'] {
       top: 0;
     }
   }
@@ -182,7 +182,7 @@
 }
 
 .common-input--label-inline {
-  .icon-error {
+  [data-element='error'] {
     right: 5px;
     top: 6px;
   }

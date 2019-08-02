@@ -48,6 +48,9 @@ class Link extends React.Component {
         tooltipMessage={ this.props.tooltipMessage }
         tooltipAlign={ this.props.tooltipAlign }
         tooltipPosition={ this.props.tooltipPosition }
+        bgTheme='none'
+        iconColor='business-color'
+        disabled={ this.props.disabled }
       />
     );
   }
