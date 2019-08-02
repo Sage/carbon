@@ -143,6 +143,10 @@ describe('RadioButton', () => {
           );
         });
 
+        it('applies the correct circle styles', () => {
+          assertStyleMatch({ r: '5' }, wrapper, { modifier: 'circle' });
+        });
+
         it('applies the correct input styles', () => {
           assertStyleMatch({ marginRight: '6px', ...dimensions }, wrapper, { modifier: css`${StyledCheckableInput}` });
         });

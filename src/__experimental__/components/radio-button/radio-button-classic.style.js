@@ -36,6 +36,10 @@ export default ({
     }
   }
 
+  circle {
+    r: 5;
+  }
+
   svg {
     border-color: rgb(175, 175, 175);
   }
