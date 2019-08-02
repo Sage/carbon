@@ -13,7 +13,6 @@ export const StyledAdditionalFormAction = styled.div`
     `}
 
     ${type !== 'leftAlignedActions' && css`
-      padding-left: 15px;
       display: inline-block;
     `}
 
