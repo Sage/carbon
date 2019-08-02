@@ -88,7 +88,7 @@ const StyledForm = styled.form`
         border-right-color: ${theme.colors.white};
         border-width: 0;
         box-sizing: border-box;
-        min-width: 500px;
+        min-width: 450px;
       }
     }
   `}
