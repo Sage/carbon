@@ -146,7 +146,9 @@ class FormWithoutValidations extends React.Component {
   /** Returns true if any input has value */
   checkFormDataExists() {
     const { formInputs } = this.state;
-    return Object.keys(formInputs).map(id => (!!formInputs[id].length)).includes(true);
+    if (!formInputs) return false;
+
+    return Object.keys(formInputs).some(id => Boolean(formInputs[id].length));
   }
 
   // This must return undefined for IE and Safari if we don't want a warning
@@ -323,7 +325,7 @@ class FormWithoutValidations extends React.Component {
   saveButton = () => {
     if (!this.props.save) { return null; }
 
-    return this.props.customSaveButton ? this.props.customSaveButton : this.defaultSaveButton();
+    return this.props.customSaveButton || this.defaultSaveButton();
   }
 
   /** Returns a form summary */
