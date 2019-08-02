@@ -24,6 +24,10 @@
     background-color: $white;
     color: $grey-dark-blue;
 
+    [data-component='icon'] {
+      color: $grey-dark-blue;
+    }
+
     &.carbon-link__anchor:hover {
       &:not(.carbon-menu-item--has-link) {
         cursor: initial;
@@ -38,6 +42,10 @@
       background: $blue;
       cursor: pointer;
       color: white;
+
+      [data-component='icon'] {
+        color: white;
+      }
     }
 
     &:after {
@@ -70,6 +78,10 @@
   .carbon-menu--secondary &:hover {
     background-color: $grey-dark-blue;
     color: $white;
+
+    [data-component='icon'] {
+      color: $white;
+    }
 
     &.carbon-link__anchor:hover {
       &:not(.carbon-menu-item--has-link) {
@@ -213,6 +225,10 @@
 
       &.carbon-menu-item--has-link:hover {
         background-color: $grey-dark-blue-90;
+
+        [data-component='icon'] {
+          color: $white;
+        }
       }
     }
   }
