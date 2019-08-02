@@ -19,13 +19,12 @@ const StyledHelp = styled.button`
 
   ${({ href }) => href && css`
     cursor: pointer;
-    text-decoration: none;
   `}
 
   &:focus,
   &:hover {
     color: ${({ theme }) => theme.help.hover};
-    text-decoration: underline;
+    text-decoration: none;
   }
 
   ${({ theme }) => isClassic(theme) && css`
