@@ -14,7 +14,7 @@ export const StyledAdditionalFormAction = styled.div`
 
     ${type !== 'leftAlignedActions' && css`
       display: inline-block;
-    `}
+    `} 
 
     ${StyledButton} {
       &:first-child {
@@ -22,6 +22,18 @@ export const StyledAdditionalFormAction = styled.div`
       }
     }
   `}
+`;
+
+export const StyledResponsiveFooterWrapper = styled.div`
+  max-width: 1600px;
+  min-width: 958px;
+  margin: 0 auto;
+  max-width: inherit;
+  min-width: inherit;
+  padding: 0;
+  align-items: center;
+  display: flex;
+  margin-top: 20px;
 `;
 
 const FormButtonAnimation = keyframes`
@@ -35,14 +47,10 @@ export const StyledFormFooter = styled.div`
   `}
 
   ${({ buttonAlign }) => buttonAlign === 'right' && css`
-    .carbon-app-wrapper{
+    ${StyledResponsiveFooterWrapper} {
       justify-content: flex-end;
     }
   `}
-`;
-
-export const StyledResponsiveFooterWrapper = styled.div`
-
 `;
 
 const StyledForm = styled.form`
@@ -78,7 +86,7 @@ const StyledForm = styled.form`
       width: 100%;
       z-index: 1000;
       
-      .carbon-app-wrapper {
+      ${StyledResponsiveFooterWrapper} {
         align-items: center;
         display: flex;
         margin-top: 0;
@@ -89,19 +97,7 @@ const StyledForm = styled.form`
         border-width: 0;
         box-sizing: border-box;
         min-width: 450px;
-      }
-    }
-  `}
-  
-  ${({ stickyFooter }) => !stickyFooter && css`
-    ${StyledFormFooter} {
-      .carbon-app-wrapper {
-        max-width: inherit;
-        min-width: inherit;
-        padding: 0;
-        align-items: center;
-        display: flex;
-        margin-top: 20px;
+        padding: 0 40px;
       }
     }
   `}  
