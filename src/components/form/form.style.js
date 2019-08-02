@@ -34,6 +34,19 @@ export const StyledResponsiveFooterWrapper = styled.div`
   align-items: center;
   display: flex;
   margin-top: 20px;
+
+  && ${StyledButton} {
+    align-items: center;
+    display: flex;
+    margin-left: 16px;
+    ${({ theme }) => isClassic(theme) && css`margin-left: 15px;`}
+  }
+
+  div:first-of-type {
+    ${StyledButton} {
+      margin-left: 0;
+    }
+  }
 `;
 
 const FormButtonAnimation = keyframes`
@@ -54,13 +67,6 @@ export const StyledFormFooter = styled.div`
 `;
 
 const StyledForm = styled.form`
-  && ${StyledButton} {
-    align-items: center;
-    display: flex;
-    margin-left: 16px;
-    ${({ theme }) => isClassic(theme) && css`margin-left: 15px;`}
-  }
-
   ${({ theme }) => !isClassic(theme) && css`
     && ${StyledFormField} {
       margin-bottom: 32px;
