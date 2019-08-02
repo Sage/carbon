@@ -64,17 +64,50 @@ function renderChildren(props) {
     iconPosition,
     size,
     subtext,
-    children
+    children,
+    disabled,
+    buttonType
   } = props;
+
+  const getIconColor = (backgroundType) => {
+    switch (backgroundType) {
+      case 'primary':
+        return 'on-dark-background';
+      case 'secondary':
+        return 'business-color';
+      case 'tertiary':
+        return 'business-color';
+      case 'destructive':
+        return 'on-dark-background';
+      case 'darkBackground':
+        return 'business-color';
+      default:
+        return null;
+    }
+  };
 
   return (
     <>
-      { iconType && iconPosition === 'before' && <Icon type={ iconType } /> }
+      { iconType && iconPosition === 'before' && (
+        <Icon
+          type={ iconType }
+          disabled={ disabled }
+          bgTheme='none'
+          iconColor={ getIconColor(buttonType) }
+        />
+      )}
       <span>
         <span data-element='main-text'>{ children }</span>
         { size === 'large' && <StyledButtonSubtext data-element='subtext'>{ subtext }</StyledButtonSubtext> }
       </span>
-      { iconType && iconPosition === 'after' && <Icon type={ iconType } /> }
+      { iconType && iconPosition === 'after' && (
+        <Icon
+          type={ iconType }
+          disabled={ disabled }
+          bgTheme='none'
+          iconColor={ getIconColor(buttonType) }
+        />
+      ) }
     </>
   );
 }

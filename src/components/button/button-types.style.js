@@ -1,3 +1,5 @@
+import { StyledIcon } from '../icon/icon.style';
+
 export default ({ colors, disabled }, isDisabled) => ({
   primary: `
     background: ${colors.primary};
@@ -25,6 +27,9 @@ export default ({ colors, disabled }, isDisabled) => ({
         background: ${colors.secondary};
         border-color: ${colors.secondary};
         color: ${colors.white};
+        ${StyledIcon} {
+          color: ${colors.white};
+        }
       }
 
       ${isDisabled ? `
@@ -34,6 +39,9 @@ export default ({ colors, disabled }, isDisabled) => ({
           background: transparent
           border-color: ${disabled.button};
           color: ${disabled.text};
+          ${StyledIcon} {
+            color: ${disabled.text};
+          }
         }
     ` : ''}
   `,
@@ -42,13 +50,19 @@ export default ({ colors, disabled }, isDisabled) => ({
     border-color: transparent;
     color: ${colors.primary};
     &:hover {
-      color: ${colors.secondary}
+      color: ${colors.secondary};
+      ${StyledIcon} {
+        color: ${colors.secondary};
+      }
     }
 
     ${isDisabled ? `
       color: ${disabled.text};
       &:hover {
         color: ${disabled.text};
+        ${StyledIcon} {
+          color: ${disabled.text};
+        }
       }
     ` : ''}
   `,
@@ -76,6 +90,9 @@ export default ({ colors, disabled }, isDisabled) => ({
     &:hover {
       background: ${colors.secondary};
       color: ${colors.white};
+      ${StyledIcon} {
+        color: ${colors.white};
+      }
     }
 
     ${isDisabled ? `
@@ -84,6 +101,9 @@ export default ({ colors, disabled }, isDisabled) => ({
       &:hover {
         background: ${disabled.button};
         color: ${disabled.text};
+        ${StyledIcon} {
+          color: ${disabled.text};
+        }
       }
     ` : ''}
   `

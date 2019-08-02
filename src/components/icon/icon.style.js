@@ -7,7 +7,9 @@ import generatePalette from '../../style/palette';
 import dlsConfig from './icon-config';
 
 const getBackgroundColor = (theme, bgTheme, disabled, isHover) => {
-  if (disabled) return theme.icon.disabled;
+  if (bgTheme !== 'none') {
+    if (disabled) return theme.icon.disabled;
+  }
 
   const palette = generatePalette({ statusColor: theme.colors[bgTheme], businessColor: theme.colors.primary });
   const statuses = ['info', 'error', 'success', 'warning'];
