@@ -26,7 +26,7 @@ const PillStyle = styled.span`
  ${({
     colorVariant, theme, inFill, isDeletable, pillRole
   }) => {
-    const { colors } = baseTheme;
+    const { colors, text } = baseTheme;
     const correctedThemeConfig = styleConfig(setTheme(theme));
     const styleSet = correctedThemeConfig[pillRole];
     const { boxShadow, hoverColor } = correctedThemeConfig;
@@ -50,7 +50,7 @@ const PillStyle = styled.span`
 
       ${inFill && css`
         background-color: ${styleSet[variety].color};
-        color: ${(variety === 'warning') ? colors.black : colors.white};
+        color: ${(variety === 'warning') ? text.color : colors.white};
       `}
 
       ${!isClassic(theme, colorVariant) && !isDeletable && css`
@@ -75,19 +75,22 @@ const PillStyle = styled.span`
 
           ${inFill && css`
             background-color: ${styleSet[variety].color};
-            color: ${(variety === 'warning') ? colors.black : styleSet.hoverColor};
+            color: ${(variety === 'warning') ? text.color : styleSet.hoverColor};
+            ${StyledIcon} {
+              color: ${(variety === 'warning') ? text.color : colors.white};
+            }
           `}
 
           ${!inFill && css`
             background-color: transparent;
-            color: ${colors.black};
+            color: ${text.color};
           `}
 
           &:focus {
             outline: none;
             box-shadow: 0 0 0 3px ${styleSet.boxShadow};
             background-color: ${styleSet[variety].buttonFocus};
-            color: ${(variety === 'warning') ? colors.black : styleSet.hoverColor} !important;
+            color: ${(variety === 'warning') ? text.color : styleSet.hoverColor} !important;
             ::-moz-focus-inner {
               border: 0;
             }
@@ -95,17 +98,18 @@ const PillStyle = styled.span`
 
           &:hover {
             background-color: ${styleSet[variety].buttonFocus};
-            color: ${(variety === 'warning') ? colors.black : styleSet.hoverColor};
+            color: ${(variety === 'warning') ? text.color : styleSet.hoverColor};
             cursor: pointer;
           }
  
           ${StyledIcon} {
             font-size: 12px;
             padding: 0 4px;
+            /* color: ${(variety === 'warning') ? text.color : colors.white}; */
 
             &:hover, 
             &:focus {
-              color: ${(variety === 'warning') ? colors.black : styleSet.hoverColor};
+              color: ${(variety === 'warning') ? text.color : styleSet.hoverColor};
             }
             &:before {
               font-size: 12px;

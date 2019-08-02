@@ -18,7 +18,11 @@ class Pill extends React.Component {
         data-element='close'
         aria-label='close'
       >
-        <Icon type='cross' bgSize='small' />
+        <Icon
+          type='cross'
+          bgSize='small'
+          bgTheme='none'
+        />
       </button>
     );
   }
