@@ -5,7 +5,9 @@ import { action } from '@storybook/addon-actions';
 import { State, Store } from '@sambego/storybook-state';
 import notes from './documentation/notes.md';
 import Info from './documentation/Info';
-import { DraggableContext, WithDrag, WithDrop, CustomDragLayer } from './drag-and-drop';
+import {
+  DraggableContext, WithDrag, WithDrop, CustomDragLayer
+} from './drag-and-drop';
 
 import {
   Table,
