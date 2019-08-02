@@ -45,7 +45,9 @@ export default ({
   }
 
   ${disabled && css`
-    circle { fill: #e6ebed; }
+    circle {
+      fill: #e6ebed;
+    }
 
     ${HiddenCheckableInputStyle}:checked + ${StyledCheckableInputSvgWrapper} circle {
       fill: #8099a4;

@@ -75,7 +75,11 @@ class ComponentAPI extends React.Component {
     }
 
     if (typeof value === 'function') {
-      value = value.toString();
+      /**
+       * print the word function, as function.toString() could result in long values in the default
+       * field, squashing the other table columns
+       */
+      value = 'function';
     }
 
     return value;
