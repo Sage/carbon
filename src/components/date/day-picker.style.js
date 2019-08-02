@@ -1,30 +1,32 @@
 import styled from 'styled-components';
-import DayPicker from 'react-day-picker';
 import baseTheme from '../../style/themes/base';
 import dayPickerClassicStyle from './day-picker-classic.style';
 
-const StyledDayPicker = styled(DayPicker)`
-  background-color: ${({ theme }) => theme.colors.white};
-  box-shadow: ${({ theme }) => theme.shadows.depth1};
-  color: ${({ theme }) => theme.text.color};
-  display: block;
-  font-size: 14px;
-  font-weight: 800;
-  overflow: hidden;
-  padding: 24px;
-  position: absolute;
-  text-align: center;
-  user-select: none;
-
-  * {
+const StyledDayPicker = styled.div`
+  .DayPicker {
+    background-color: ${({ theme }) => theme.colors.white};
+    box-shadow: ${({ theme }) => theme.shadows.depth1};
+    color: ${({ theme }) => theme.text.color};
+    display: block;
+    font-size: 14px;
+    font-weight: 800;
+    margin-top: 3px;
+    overflow: hidden;
+    padding: 24px;
+    position: absolute;
+    text-align: center;
+    user-select: none;
+  }
+  
+  .DayPicker * {
     box-sizing: border-box;
   }
 
-  &:focus {
+  .DayPicker:focus {
     outline: none;
   }
 
-  abbr[title] {
+  .DayPicker abbr[title] {
     border: none;
     cursor: initial;
   }
