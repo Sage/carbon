@@ -70,14 +70,13 @@ const CarouselButtonStyle = styled.button`
 
     &:focus {
     outline: 2px solid ${theme.colors.focus};
-    /* border: 2px solid ${theme.colors.focus}; */
       
     ::-moz-focus-inner{
       border: 0;
     }
 
     ${disabled && css`
-      border: none;
+      outline: none;
     `}
     }
 
