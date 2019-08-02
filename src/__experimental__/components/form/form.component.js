@@ -4,7 +4,6 @@ import I18n from 'i18n-js';
 import Service from '../../../utils/service';
 import FormButton from '../../../components/form/form-button';
 import FormSummary from '../../../components/form/form-summary';
-import AppWrapper from '../../../components/app-wrapper';
 import { validProps, generateKeysForChildren } from '../../../utils/ether';
 import tagComponent from '../../../utils/helpers/tags';
 import Browser from '../../../utils/helpers/browser';

@@ -5,7 +5,9 @@ import PropTypes from 'prop-types';
 import { mount, shallow } from 'enzyme';
 import TestRenderer from 'react-test-renderer';
 import 'jest-styled-components';
-import { StyledAdditionalFormAction, StyledFormFooter } from '../../../components/form/form.style';
+import {
+  StyledAdditionalFormAction, StyledFormFooter, StyledResponsiveFooterWrapper
+} from '../../../components/form/form.style';
 import FormWithValidations, { FormWithoutValidations as Form } from './form.component';
 import Textbox from '../textbox';
 import Validation from '../../../utils/validations/presence';
@@ -15,7 +17,6 @@ import Button from '../../../components/button';
 import ElementResize from '../../../utils/helpers/element-resize';
 import { rootTagTest } from '../../../utils/helpers/tags/tags-specs';
 import Service from '../../../utils/service';
-import AppWrapper from '../../../components/app-wrapper';
 import { assertStyleMatch } from '../../../__spec_helper__/test-utils';
 import { isClassic } from '../../../utils/helpers/style-helper';
 import StyledButton from '../../../components/button/button.style';
@@ -546,7 +547,7 @@ describe('Form', () => {
   describe('stickyFooterPadding', () => {
     it('adds padding if defined', () => {
       wrapper = shallow(<Form formAction='foo' stickyFooterPadding='500' />);
-      const footer = wrapper.find(AppWrapper);
+      const footer = wrapper.find(StyledResponsiveFooterWrapper);
       expect(footer.props().style.borderWidth).toEqual('500px');
     });
   });
