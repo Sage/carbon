@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import Icon from '../icon';
 import baseTheme from '../../style/themes/base';
 
-const StyledIcon = styled(Icon)`
+const StyledHeadingIcon = styled(Icon)`
   color: ${({ theme }) => theme.colors.border};
   cursor: pointer;
   top: 50%;
@@ -28,8 +28,8 @@ const StyledIcon = styled(Icon)`
   }
 `;
 
-StyledIcon.defaultProps = {
+StyledHeadingIcon.defaultProps = {
   theme: baseTheme
 };
 
-export default StyledIcon;
+export default StyledHeadingIcon;

@@ -5,7 +5,7 @@ import Help from '../help';
 import Link from '../link';
 import tagComponent from '../../utils/helpers/tags';
 import './heading.scss';
-import StyledIcon from './heading.style';
+import StyledHeadingIcon from './heading.style';
 
 class Heading extends React.Component {
   static propTypes = {
@@ -124,7 +124,7 @@ class Heading extends React.Component {
         data-element='back'
         { ...props }
       >
-        <StyledIcon type='chevron_left' />
+        <StyledHeadingIcon type='chevron_left' />
       </Link>
     );
   }
