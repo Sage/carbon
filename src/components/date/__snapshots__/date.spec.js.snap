@@ -1,13 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StyledDayPicker classic theme applies custom styling 1`] = `
-.c0 {
+.c0 .DayPicker {
   background-color: #FFFFFF;
   box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
   color: rgba(0,0,0,0.9);
   display: block;
   font-size: 14px;
   font-weight: 800;
+  margin-top: 3px;
   overflow: hidden;
   padding: 24px;
   position: absolute;
@@ -16,21 +17,17 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  font-weight: 700;
-  padding: 10px;
-  font-weight: 600;
-  color: #255BC7;
 }
 
-.c0 * {
+.c0 .DayPicker * {
   box-sizing: border-box;
 }
 
-.c0:focus {
+.c0 .DayPicker:focus {
   outline: none;
 }
 
-.c0 abbr[title] {
+.c0 .DayPicker abbr[title] {
   border: none;
   cursor: initial;
 }
@@ -113,6 +110,13 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
   color: #FFFFFF;
 }
 
+.c0 .DayPicker {
+  margin-top: 0;
+  padding: 10px;
+  font-weight: 600;
+  color: rgba(0,0,0,0.9);
+}
+
 .c0 .DayPicker-Caption {
   background-color: #FFFFFF;
   color: rgba(0,0,0,.85);
@@ -157,15 +161,16 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
 
 .c0 .DayPicker-Day--selected:not(.DayPicker-Day--disabled):not(.DayPicker-Day--outside) {
   color: #FFFFFF;
-  background-color: #00805D;
+  background-color: #255BC7;
   font-weight: 700;
 }
 
 .c0 .DayPicker-Day--selected.DayPicker-Day--disabled:not(.DayPicker-Day--outside) {
-  background-color: #00805D;
+  background-color: #255BC7;
 }
 
 <div
+<<<<<<< HEAD
   className="DayPicker DayPicker--interactionDisabled c0"
   lang="en"
   role="application"
@@ -708,16 +713,22 @@ exports[`StyledDayPicker classic theme applies custom styling 1`] = `
     </div>
   </div>
 </div>
+=======
+  className="c0"
+  value="2019-04-01"
+/>
+>>>>>>> 97eb0e18a26bbdf7fb55f64d702de2f3ea312087
 `;
 
 exports[`StyledDayPicker renders presentational div and context provider for its children 1`] = `
-.c0 {
+.c0 .DayPicker {
   background-color: #FFFFFF;
   box-shadow: 0 5px 5px 0 rgba(0,20,29,0.2),0 10px 10px 0 rgba(0,20,29,0.1);
   color: rgba(0,0,0,0.9);
   display: block;
   font-size: 14px;
   font-weight: 800;
+  margin-top: 3px;
   overflow: hidden;
   padding: 24px;
   position: absolute;
@@ -728,15 +739,15 @@ exports[`StyledDayPicker renders presentational div and context provider for its
   user-select: none;
 }
 
-.c0 * {
+.c0 .DayPicker * {
   box-sizing: border-box;
 }
 
-.c0:focus {
+.c0 .DayPicker:focus {
   outline: none;
 }
 
-.c0 abbr[title] {
+.c0 .DayPicker abbr[title] {
   border: none;
   cursor: initial;
 }
@@ -820,6 +831,7 @@ exports[`StyledDayPicker renders presentational div and context provider for its
 }
 
 <div
+<<<<<<< HEAD
   className="DayPicker DayPicker--interactionDisabled c0"
   lang="en"
   role="application"
@@ -1362,4 +1374,9 @@ exports[`StyledDayPicker renders presentational div and context provider for its
     </div>
   </div>
 </div>
+=======
+  className="c0"
+  value="2019-04-01"
+/>
+>>>>>>> 97eb0e18a26bbdf7fb55f64d702de2f3ea312087
 `;

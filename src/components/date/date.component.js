@@ -1,6 +1,7 @@
 import React from 'react';
 import I18n from 'i18n-js';
 import PropTypes from 'prop-types';
+import DayPicker from 'react-day-picker';
 import LocaleUtils from 'react-day-picker/moment';
 import 'react-day-picker/lib/style.css';
 import './date.scss';
@@ -544,7 +545,12 @@ const Date = Input(InputIcon(InputLabel(InputValidation(class Date extends React
     return (
       this.state.open && (
         <Portal onReposition={ this.updateDatePickerPosition }>
-          <StyledDayPicker { ...this.datePickerProps } containerProps={ this.containerProps } />
+          <StyledDayPicker>
+            <DayPicker
+              { ...this.datePickerProps }
+              containerProps={ this.containerProps }
+            />
+          </StyledDayPicker>
         </Portal>
       )
     );
