@@ -30,7 +30,7 @@ const getKnobs = (theme) => {
     size: select('size', OptionsHelper.sizesRestricted, Pill.defaultProps.size)
   };
 
-  if (isClassic(theme)) {
+  if (theme === THEMES.classic) {
     knobs.as = select('as', [...OptionsHelper.colors, 'disabled'], Pill.defaultProps.as);
   } else {
     Object.assign(knobs, getStatusKnobs());
@@ -72,7 +72,7 @@ storiesOf('Pill', module)
       onDelete,
       pillRole,
       size
-    } = getKnobs(THEMES.classic);
+    } = getKnobs(THEMES.small);
     return (
       <Pill
         colorVariant={ colorVariant }
