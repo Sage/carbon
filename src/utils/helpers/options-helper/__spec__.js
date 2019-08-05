@@ -235,4 +235,23 @@ describe('OptionsHelper', () => {
       'transparent'
     ]);
   });
+  it('formButtonOptions', () => {
+    expect(OptionsHelper.formButtonOptions).toEqual([
+      'save',
+      'cancel'
+    ]);
+  });
+  it('additionalActionAlignments', () => {
+    expect(OptionsHelper.actionOptions).toEqual([
+      'Button',
+      'Link'
+    ]);
+  });
+  it('additionalActionAlignments', () => {
+    expect(OptionsHelper.additionalActionAlignments).toEqual([
+      'additionalActions',
+      'leftAlignedActions',
+      'rightAlignedActions'
+    ]);
+  });
 });
